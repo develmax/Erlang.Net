@@ -1,0 +1,6 @@
+{"Partial":true,"SelectedCount":1,"TotalCount":9703}
+FAIL compiler/beam/whole-module-matches-otp: System.InvalidOperationException: Expected the list head to remain a heap root only in the ordinary character branch.
+   at Erlang.Tests.BeamModuleEmissionChecks.CompareHeapRootsAfterListHeadTest() in tests\Erlang.Tests\Compiler\Beam\BeamModuleEmissionChecks.cs:line 579
+   at Erlang.Tests.BeamModuleEmissionChecks.Run() in tests\Erlang.Tests\Compiler\Beam\BeamModuleEmissionChecks.cs:line 346
+   at Program.<Main>$(String[] args) in tests\Erlang.Tests\Harness\Program.cs:line 16230
+0/1 passed

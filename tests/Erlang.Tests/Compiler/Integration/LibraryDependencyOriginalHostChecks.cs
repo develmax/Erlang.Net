@@ -100,7 +100,7 @@ internal static class LibraryDependencyOriginalHostChecks
         await using ProcessRuntime runtime = await Start(suite, managedMath);
         await using var actor = new RuntimeNodeFoundationHostActor(runtime);
         Func<Func<ProcessContext, Task<bool>>, Task<bool>> invoke500 = actor.InvokeAsync;
-        if (ReferenceEquals(suite, Fixed))
+        if (ReferenceEquals(suite, Fixed) || ReferenceEquals(suite, Os399))
             invoke500 = command => actor.InvokeWithDeadline500Async(command, Deadline);
         await invoke500(async context =>
         {

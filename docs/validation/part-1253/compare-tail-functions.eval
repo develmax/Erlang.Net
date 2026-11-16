@@ -1,0 +1,28 @@
+[Reference, Baseline, Generated] = init:get_plain_arguments(),
+Read = fun(Path, Name, Arity) ->
+    {beam_file,_,_,_,_,Functions} = beam_disasm:file(Path),
+    [Instructions] = [Is || {function,N,A,_,Is} <- Functions, N =:= Name, A =:= Arity],
+    Labels = [L || {label,L} <- Instructions],
+    LabelsByOrder = maps:from_list(lists:zip(Labels,lists:seq(1,length(Labels)))),
+    Replace = fun Walk({label,L}) -> {label,maps:get(L,LabelsByOrder)};
+                  Walk({f,L}) -> {f,maps:get(L,LabelsByOrder,L)};
+                  Walk(T) when is_tuple(T) -> list_to_tuple([Walk(E) || E <- tuple_to_list(T)]);
+                  Walk(L) when is_list(L) -> [Walk(E) || E <- L];
+                  Walk(E) -> E
+              end,
+    Replace(Instructions)
+end,
+lists:foreach(fun({Module,Function,Arity}) ->
+    Path = "lib/kernel-11.0.4/ebin/" ++ Module ++ ".beam",
+    Otp = Read(filename:join(Reference,Path),Function,Arity),
+    Before = Read(filename:join(Baseline,Path),Function,Arity),
+    After = Read(filename:join(Generated,"part1253-" ++ Module ++ ".beam"),Function,Arity),
+    io:format("~s:~w/~B equal before: ~p, equal after: ~p, instructions OTP/before/after: ~p~n",
+              [Module,Function,Arity,Before =:= Otp,After =:= Otp,
+               {length(Otp),length(Before),length(After)}]),
+    case After =:= Otp of
+        true -> ok;
+        false -> io:format("OTP: ~p~nGenerated: ~p~n",[Otp,After])
+    end
+end,[{"inet",getservbyport,2},{"net_adm",longshort,1}]),
+halt().

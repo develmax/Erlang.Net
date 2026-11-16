@@ -1,0 +1,16 @@
+[P,Q]=init:get_plain_arguments(),
+Read=fun(Path)->
+    {beam_file,_,_,_,_,Fs}=beam_disasm:file(Path),
+    [Is]=[Instructions || {function,discarded,3,_,Instructions}<-Fs],
+    io:format("~s~n~p~n",[Path,Is]),
+    {ok,B}=file:read_file(Path),
+    {module,M}=code:load_binary(beam_nested_entry_calls_probe,Path,B),
+    {three,tail}=M:discarded(one,two,three),
+    {error,probe_failure}=try M:discarded(one,fail,three) of V->{value,V} catch error:R->{error,R} end,
+    code:delete(M),
+    code:purge(M),
+    [I || I <- Is, element(1,I) =/= label]
+end,
+Expected=Read(P),
+Expected=Read(Q),
+halt().

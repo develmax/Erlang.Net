@@ -1,0 +1,7 @@
+The two experimental variants each rebuilt all 1,366 Windows OTP 29.1.1 images with 398 Equal and 968 Different.
+
+Tracking alternate X registers for complete spill removal alone changed 10 images and reduced the absolute Code size gap by 3,675 bytes.
+
+Allowing redundant reload removal during the earlier optimizer stage changed 709 images and reduced the absolute Code size gap by 49,622 bytes. The guarded-frame regression caught a layout difference. Removing the fallback reload before short returns had been expanded prevented the frame from moving past both entry checks.
+
+The selected variant runs the redundant-reload rule after short returns are expanded. The guarded-frame regression and the OTP VM fixture passed on this variant.

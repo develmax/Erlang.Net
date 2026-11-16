@@ -1,0 +1,49 @@
+[Reference, Generated] = [filename:absname(P) || P <- init:get_plain_arguments()],
+Files = filelib:fold_files(Generated, "[.]beam$", true, fun(P,A) -> [P|A] end, []),
+Read = fun(P) ->
+    {beam_file,_,_,_,_,Fs} = beam_disasm:file(P),
+    maps:from_list([{{N,A},Is} || {function,N,A,_,Is} <- Fs])
+end,
+Frame = fun(Is) ->
+    case [Size || {allocate,Size,_} <- Is] of
+        [Size|_] -> Size;
+        [] -> 0
+    end
+end,
+Candidate = fun(Is) ->
+    Rest = [I || I <- Is, not (is_tuple(I) andalso
+                              lists:member(element(1,I),[label,line,func_info]))],
+    case Rest of
+        [{test,Test,_,_}|_] when Test=:=is_tuple; Test=:=is_tagged_tuple; Test=:=is_nonempty_list ->
+            case [Arity || I <- Rest, is_tuple(I), tuple_size(I)=:=3,
+                           lists:member(element(1,I),[call,call_ext]), Arity <- [element(2,I)]] of
+                [Arity|_] -> {Test,Arity};
+                [] -> none
+            end;
+        _ -> none
+    end
+end,
+Groups = lists:foldl(fun(Path,Acc) ->
+    Rel = lists:nthtail(length(filename:split(Generated)), filename:split(Path)),
+    Name = filename:join(Rel),
+    OTP = Read(filename:join([Reference|Rel])),
+    Ours = Read(Path),
+    maps:fold(fun({N,A}=Key, Is, State) ->
+        case {Candidate(Is), maps:find(Key,Ours)} of
+            {{Test,CallArity},{ok,Actual}} ->
+                case Frame(Is)<Frame(Actual) of
+                    false -> State;
+                    true ->
+                        Class = case string:find(atom_to_list(N),"-fun-") of nomatch -> function; _ -> closure end,
+                        Group = {Class,Test,CallArity},
+                        {Modules,Count,Example} = maps:get(Group,State,{sets:new(),0,{Name,N,A}}),
+                        State#{Group => {sets:add_element(Name,Modules),Count+1,Example}}
+                end;
+            _ -> State
+        end
+    end, Acc, OTP)
+end, #{}, Files),
+Rows = lists:reverse(lists:sort([{sets:size(M),F,G,E} || {G,{M,F,E}} <- maps:to_list(Groups)])),
+io:format("~p differing modules. Ranked by modules, then functions. First instruction is a tuple or cons test and OTP has a smaller first allocate.~n",[length(Files)]),
+lists:foreach(fun(Row) -> io:format("~p~n",[Row]) end, lists:sublist(Rows,25)),
+halt().

@@ -1,0 +1,162 @@
+OTP
+{label,9}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 148}]}
+{func_info,{atom,'ELDAPv3'},{atom,encode},2}
+{label,10}
+{allocate,1,2}
+{'try',{y,0},{f,11}}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 149}]}
+{call,2,{'ELDAPv3',encode_disp,2}}
+{get_tuple_element,{x,0},0,{x,0}}
+{call_ext,1,{extfunc,erlang,iolist_to_binary,1}}
+{try_end,{y,0}}
+{test_heap,3,1}
+{put_tuple2,{x,0},{list,[{atom,ok},{x,0}]}}
+{deallocate,1}
+return
+{label,11}
+{try_case,{y,0}}
+{move,{x,1},{y,0}}
+{select_val,{tr,{x,0},{t_atom,any}},
+            {f,14},
+            {list,[{atom,error},{f,12},{atom,exit},{f,12}]}}
+{label,12}
+{test,is_tagged_tuple,{f,13},[{x,1},2,{atom,error}]}
+{get_tuple_element,{x,1},1,{x,0}}
+{test,is_tagged_tuple,{f,13},[{x,0},2,{atom,asn1}]}
+{get_tuple_element,{x,0},1,{y,0}}
+{move,{x,2},{x,0}}
+build_stacktrace
+{test_heap,9,1}
+{put_tuple2,{x,0},{list,[{y,0},{x,0}]}}
+{put_tuple2,{x,0},{list,[{atom,asn1},{x,0}]}}
+{put_tuple2,{x,0},{list,[{atom,error},{x,0}]}}
+{deallocate,1}
+return
+{label,13}
+{move,{x,2},{x,0}}
+build_stacktrace
+{test_heap,9,1}
+{put_tuple2,{x,0},{list,[{y,0},{x,0}]}}
+{put_tuple2,{x,0},{list,[{atom,asn1},{x,0}]}}
+{put_tuple2,{x,0},{list,[{atom,error},{x,0}]}}
+{deallocate,1}
+return
+{label,14}
+{bif,raise,{f,0},[{x,2},{x,1}],{x,0}}
+CSharp
+{label,9}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 148}]}
+{func_info,{atom,'ELDAPv3'},{atom,encode},2}
+{label,10}
+{allocate,18,2}
+{init_yregs,{list,[{y,0},
+                   {y,1},
+                   {y,2},
+                   {y,3},
+                   {y,4},
+                   {y,5},
+                   {y,6},
+                   {y,7},
+                   {y,8},
+                   {y,9},
+                   {y,10},
+                   {y,11},
+                   {y,12},
+                   {y,13},
+                   {y,14},
+                   {y,15},
+                   {y,16},
+                   {y,17}]}}
+{move,{x,0},{y,0}}
+{move,{x,1},{y,1}}
+{'try',{y,2},{f,12}}
+{move,{y,0},{x,0}}
+{move,{y,1},{x,1}}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 149}]}
+{call,2,{'ELDAPv3',encode_disp,2}}
+{get_tuple_element,{x,0},0,{x,0}}
+{move,{x,0},{y,3}}
+{move,{y,3},{x,0}}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 149}]}
+{call_ext,1,{extfunc,erlang,iolist_to_binary,1}}
+{try_end,{y,2}}
+{move,{x,0},{y,3}}
+{test_heap,3,0}
+{put_tuple2,{x,0},{list,[{atom,ok},{y,3}]}}
+{jump,{f,13}}
+{label,14}
+{move,{y,3},{x,0}}
+{try_case_end,{x,0}}
+{label,12}
+{try_case,{y,2}}
+{move,{x,0},{y,4}}
+{move,{x,1},{x,0}}
+{move,{x,0},{y,5}}
+{move,{x,2},{x,0}}
+{move,{x,0},{y,6}}
+build_stacktrace
+{move,{x,0},{y,7}}
+{test_heap,4,0}
+{put_tuple2,{x,0},{list,[{y,4},{y,5},{y,7}]}}
+{move,{x,0},{y,8}}
+{test,is_tuple,{f,15},[{y,8}]}
+{test,test_arity,{f,15},[{y,8},3]}
+{get_tuple_element,{y,8},0,{y,9}}
+{get_tuple_element,{y,8},1,{y,10}}
+{get_tuple_element,{y,8},2,{y,11}}
+{test,is_eq_exact,{f,17},[{y,9},{atom,error}]}
+{jump,{f,16}}
+{label,17}
+{test,is_eq_exact,{f,18},[{y,9},{atom,exit}]}
+{jump,{f,16}}
+{label,18}
+{jump,{f,15}}
+{label,16}
+{test,is_tuple,{f,20},[{y,10}]}
+{test,test_arity,{f,20},[{y,10},2]}
+{get_tuple_element,{y,10},0,{y,12}}
+{test,is_eq_exact,{f,20},[{y,12},{atom,error}]}
+{get_tuple_element,{y,10},1,{y,13}}
+{test,is_tuple,{f,20},[{y,13}]}
+{test,test_arity,{f,20},[{y,13},2]}
+{get_tuple_element,{y,13},0,{y,14}}
+{test,is_eq_exact,{f,20},[{y,14},{atom,asn1}]}
+{get_tuple_element,{y,13},1,{y,15}}
+{test_heap,3,0}
+{put_tuple2,{x,0},{list,[{y,15},{y,11}]}}
+{move,{x,0},{y,16}}
+{test_heap,3,0}
+{put_tuple2,{x,0},{list,[{atom,asn1},{y,16}]}}
+{move,{x,0},{y,17}}
+{test_heap,3,0}
+{put_tuple2,{x,0},{list,[{atom,error},{y,17}]}}
+{jump,{f,19}}
+{label,20}
+{test_heap,3,0}
+{put_tuple2,{x,0},{list,[{y,10},{y,11}]}}
+{move,{x,0},{y,12}}
+{test_heap,3,0}
+{put_tuple2,{x,0},{list,[{atom,asn1},{y,12}]}}
+{move,{x,0},{y,13}}
+{test_heap,3,0}
+{put_tuple2,{x,0},{list,[{atom,error},{y,13}]}}
+{label,19}
+{jump,{f,13}}
+{label,15}
+{move,{y,6},{x,0}}
+{move,{y,5},{x,1}}
+{bif,raise,{f,0},[{x,0},{x,1}],{x,0}}
+{label,13}
+{deallocate,18}
+return
+{label,11}
+{move,{y,0},{x,0}}
+{move,{y,1},{x,1}}
+{deallocate,18}
+{jump,{f,9}}

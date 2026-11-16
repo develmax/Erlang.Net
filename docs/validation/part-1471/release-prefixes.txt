@@ -1,0 +1,12 @@
+lib/asn1-5.5.2/ebin/asn1ct_gen_check.beam do_sof/3
+OTP [{allocate,2,3},{move,{x,1},{y,0}},{move,{x,0},{y,1}},{move,{x,2},{x,0}},{call_ext,1,{extfunc,lists,sort,1}},{gc_bif,length,{f,0},1,[{tr,{x,0},{t_list,any,any}}],{x,1}},{move,{y,0},{x,2}},{move,{x,0},{y,0}},{move,{x,1},{x,0}},{move,{x,2},{x,1}}]
+C#  [{allocate,11,3},{init_yregs,{list,[{y,2},{y,3},{y,4},{y,5},{y,6},{y,7},{y,8},{y,9},{y,10}]}},{move,{x,0},{y,0}},{move,{x,1},{y,1}},{move,{x,2},{x,0}},{call_ext,1,{extfunc,lists,sort,1}},{move,{x,0},{y,2}},{gc_bif,length,{f,0},0,[{y,2}],{x,0}},{move,{y,1},{x,1}},{call_ext,2,{extfunc,lists,duplicate,2}}]
+lib/common_test-1.31.2/ebin/ct_config.beam release_allocated/0
+OTP [{allocate,0,0},{move,{literal,[{{ct_conf,'_','_','_','_','$1','_'},[{'=/=','$1','_UNDEF'}],['$_']}]},{x,1}},{move,{atom,ct_attributes},{x,0}},{call_ext,2,{extfunc,ets,select,2}},{call_last,1,{ct_config,release_allocated,1},0}]
+C#  [{allocate,1,0},{init_yregs,{list,[{y,0}]}},{move,{literal,{ct_conf,'_','_','_','_','$1','_'}},{x,0}},{test_heap,4,1},{put_tuple2,{x,0},{list,[{x,0},{literal,[{'=/=','$1','_UNDEF'}]},{literal,['$_']}]}},{test_heap,2,1},{put_list,{x,0},nil,{x,1}},{move,{atom,ct_attributes},{x,0}},{call_ext,2,{extfunc,ets,select,2}},{move,{x,0},{y,0}}]
+lib/compiler-10.0.6/ebin/beam_core_to_ssa.beam record_group_pairs/6
+OTP [{allocate,5,6},{move,{x,5},{y,0}},{move,{x,4},{y,1}},{move,{x,2},{y,2}},{move,{x,1},{y,3}},{move,{x,0},{y,4}},{move,{x,3},{x,0}},{call_ext,1,{extfunc,ordsets,from_list,1}},{call,1,{beam_core_to_ssa,'-record_group_pairs/6-lc$^0/1-0-',1}},{call_ext,1,{extfunc,lists,append,1}}]
+C#  [{allocate,11,6},{init_yregs,{list,[{y,5},{y,6},{y,7},{y,8},{y,9},{y,10}]}},{move,{x,0},{y,0}},{move,{x,1},{y,1}},{move,{x,2},{y,2}},{move,{x,4},{y,3}},{move,{x,5},{y,4}},{move,{x,3},{x,0}},{call_ext,1,{extfunc,ordsets,from_list,1}},{move,{x,0},{y,5}}]
+lib/crypto-5.10/ebin/crypto.beam macN/5
+OTP [{allocate,1,5},{move,{x,4},{y,0}},{call,4,{crypto,mac,4}},{gc_bif,byte_size,{f,0},1,[{x,0}],{x,1}},{bif,min,{f,0},[{y,0},{tr,{x,1},{t_integer,{0,288230376151711743}}}],{x,1}},{gc_bif,binary_part,{f,0},2,[{tr,{x,0},{t_bs_matchable,1}},{integer,0},{tr,{x,1},{t_number,{'-inf',288230376151711743}}}],{x,0}},{deallocate,1},return]
+C#  [{allocate,1,5},{move,{x,4},{y,0}},{call,4,{crypto,mac,4}},{gc_bif,byte_size,{f,0},1,[{x,0}],{x,1}},{bif,min,{f,0},[{y,0},{tr,{x,1},{t_integer,{0,288230376151711743}}}],{x,1}},{gc_bif,binary_part,{f,0},2,[{tr,{x,0},{t_bs_matchable,1}},{integer,0},{tr,{x,1},{t_number,{'-inf',288230376151711743}}}],{x,0}},{deallocate,1},return]

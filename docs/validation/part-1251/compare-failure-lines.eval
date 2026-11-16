@@ -1,0 +1,27 @@
+[Reference, Before, After] = init:get_plain_arguments(),
+Read = fun(Beam) ->
+    {beam_file, _, _, _, _, Functions} = beam_disasm:file(Beam),
+    lists:sort([{Name,Arity,filename:basename(File),Line}
+                || {function,Name,Arity,_,[_|_] = Instructions} <- Functions,
+                   {{line,[{location,File,Line}]},{case_end,{x,0}}}
+                       <- lists:zip(lists:droplast(Instructions),tl(Instructions))])
+end,
+Paths = filelib:fold_files(After, "[.]beam$", true, fun(Path, Acc) -> [Path|Acc] end, []),
+Rows = lists:flatmap(fun(Path) ->
+    Relative = lists:nthtail(length(filename:split(After)), filename:split(Path)),
+    case {file:read_file(filename:join([Before|Relative])),file:read_file(Path)} of
+        {{ok,Same},{ok,Same}} ->
+            [];
+        {{ok,Old},{ok,New}} ->
+            Prior = Read(Old),
+            Added = Read(New) -- Prior,
+            Otp = Read(filename:join([Reference|Relative])) -- Prior,
+            [{filename:join(Relative),length(Added),length(Added) - length(Added -- Otp)}];
+        _ ->
+            []
+    end
+end, Paths),
+io:format("Modules: ~B, added failure lines: ~B, matching OTP function and location: ~B~n",
+          [length(Rows),lists:sum([N || {_,N,_} <- Rows]),lists:sum([N || {_,_,N} <- Rows])]),
+lists:foreach(fun(Row) -> io:format("~p~n", [Row]) end, lists:sort(Rows)),
+halt().

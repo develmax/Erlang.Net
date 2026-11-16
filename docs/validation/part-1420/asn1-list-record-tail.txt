@@ -1,0 +1,52 @@
+Exact image false
+Exact instructions false
+OTP
+{label,258}
+{line,[{location,"asn1ct_check.erl",854}]}
+{func_info,{atom,asn1ct_check},{atom,check_object_set_objset_list_1},3}
+{label,259}
+{test,is_nonempty_list,{f,261},[{x,0}]}
+{get_list,{x,0},{x,3},{x,0}}
+{test,is_eq_exact,{f,260},[{x,3},{atom,'EXTENSIONMARK'}]}
+{test_heap,6,3}
+{update_record,{atom,reuse},
+               5,
+               {tr,{x,1},{t_tuple,0,false,#{}}},
+               {x,1},
+               {list,[5,{atom,true}]}}
+{call_only,3,{asn1ct_check,check_object_set_objset_list_1,3}}
+{label,260}
+{test_heap,2,4}
+{put_list,{x,3},{x,2},{x,2}}
+{call_only,3,{asn1ct_check,check_object_set_objset_list_1,3}}
+{label,261}
+{test,is_nil,{f,258},[{x,0}]}
+{test_heap,3,3}
+{put_tuple2,{x,0},{list,[{x,2},{x,1}]}}
+return
+C#
+{label,511}
+{line,[{location,"asn1ct_check.erl",854}]}
+{func_info,{atom,asn1ct_check},{atom,check_object_set_objset_list_1},3}
+{label,512}
+{test,is_nonempty_list,{f,514},[{x,0}]}
+{get_list,{x,0},{x,3},{x,0}}
+{test,is_eq_exact,{f,513},[{x,3},{atom,'EXTENSIONMARK'}]}
+{test_heap,6,3}
+{update_record,{atom,reuse},
+               5,
+               {tr,{x,1},{t_tuple,0,false,#{}}},
+               {x,1},
+               {list,[5,{atom,true}]}}
+{call_only,3,{asn1ct_check,check_object_set_objset_list_1,3}}
+{label,513}
+{test_heap,2,4}
+{put_list,{x,3},{x,2},{x,2}}
+{call_only,3,{asn1ct_check,check_object_set_objset_list_1,3}}
+{label,514}
+{test,is_nil,{f,511},[{x,0}]}
+{test_heap,3,3}
+{put_tuple2,{x,0},{list,[{x,2},{x,1}]}}
+return
+Differing chunks ["AtU8","Code","ImpT","ExpT","FunT","LitT","LocT","Attr",
+                  "Line","Type"]

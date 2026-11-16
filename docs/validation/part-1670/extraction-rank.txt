@@ -1,0 +1,21 @@
+xmerl_validate.beam valid_attributes/3 {get_hd,get_list}
+slave.beam slave_start/1 {get_tl,get_list}
+file_sorter.beam ruklast_file/4 {get_hd,get_list}
+erl_features.beam format_error/2 {get_hd,get_list}
+ssh_acceptor_sup.beam init/1 {get_tl,get_list}
+snmp_generic.beam validate_get/2 {get_tl,get_list}
+snmpc_lib.beam augments_first_non_index_column/1 {get_hd,get_list}
+pubkey_cert.beam sliding_year_window/1 {get_tl,get_list}
+PKIXCMP-2023.beam encode_named_bit_string/3 {get_hd,get_list}
+PKIXAttributeCertificate-2009.beam encode_named_bit_string/3 {get_hd,get_list}
+PKIX1Implicit-2009.beam encode_named_bit_string/3 {get_hd,get_list}
+EnrollmentMessageSyntax-2009.beam encode_named_bit_string/3 {get_hd,get_list}
+observer_app_wx.beam init/1 {get_tl,get_list}
+diameter_codec.beam pack_avp/2 {get_hd,get_list}
+test_server_ctrl.beam get_copied_cases/1 {get_hd,get_list}
+test_server_ctrl.beam get_tc_results/1 {get_hd,get_list}
+asn1ct_parser2.beam parse_ComponentConstraint/1 {get_hd,get_list}
+asn1ct.beam partial_inc_dec_toptype/1 {get_hd,get_list}
+Modules with first instruction mismatch per common function (968 modules examined):
+12 get_hd -> get_list
+5 get_tl -> get_list

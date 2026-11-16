@@ -1,0 +1,4 @@
+Source = "tests/Erlang.Tests/Resources/Beam/beam_delayed_page_info_probe.erl",
+{ok,beam_delayed_page_info_probe,Bytes} = compile:file(Source,[binary,deterministic]),
+ok = file:write_file("tests/Erlang.Tests/Resources/Beam/beam_delayed_page_info_probe.beam",Bytes),
+halt().

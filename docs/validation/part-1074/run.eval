@@ -1,0 +1,19 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, tuple_head_probe} = code:load_binary(tuple_head_probe, Path, Binary),
+{undefined,tail,acc} = tuple_head_probe:read([{tag,unused,marker,hello}|tail], acc),
+{value,hello} = tuple_head_probe:untagged([{world,42}]),
+acc = tuple_head_probe:read([], acc),
+empty = tuple_head_probe:untagged([]),
+Check = fun(Arg) ->
+    try tuple_head_probe:read(Arg, original) of
+        _ -> error(expected_function_clause)
+    catch error:function_clause:Stack ->
+        [{tuple_head_probe,read,[Arg,original],_}|_] = Stack
+    end
+end,
+[Check(Arg) || Arg <- [[{other,unused,marker,hello}], [{tag,unused,wrong,hello}], [{tag,marker}], [non_tuple], non_list]],
+world = get(tuple_key),
+{beam_file, _, _, _, _, Functions} = beam_disasm:file(Path),
+[io:format("~p~n", [F]) || F = {function, _, _, _, _} <- Functions],
+halt().

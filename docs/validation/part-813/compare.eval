@@ -1,0 +1,21 @@
+Read = fun(Path) ->
+    {ok,{_,[{debug_info,Debug}]}}=beam_lib:chunks(Path,[debug_info]), Debug
+end,
+Otp=Read(code:which(cdv_html_wx)),
+Cs=Read("artifacts/beam-backend/part813-images/cdv_html_wx.beam"),
+Diff=fun
+    F(X,Y,_) when X=:=Y -> [];
+    F(X,Y,P) when is_tuple(X),is_tuple(Y),tuple_size(X)=:=tuple_size(Y) ->
+        lists:append([F(element(I,X),element(I,Y),[I|P]) || I<-lists:seq(1,tuple_size(X))]);
+    F([X|Xs],[Y|Ys],P) ->
+        F(X,Y,[head|P]) ++ F(Xs,Ys,[tail|P]);
+    F(X,Y,P) -> [{lists:reverse(P),X,Y}]
+end,
+{debug_info_v1,_,{OF,OO}}=Otp,{debug_info_v1,_,{CF,CO}}=Cs,
+io:format("forms ~p ~p options_equal ~p~n",[length(OF),length(CF),OO=:=CO]),
+Labels=fun(F)-> case F of {attribute,_,N,_}->N;{function,_,N,A,_}->{N,A};_->eof end end,
+D=[{I,Labels(X),Diff(X,Y,[])} || {I,{X,Y}} <- lists:zip(lists:seq(1,min(length(OF),length(CF))),lists:zip(lists:sublist(OF,min(length(OF),length(CF))),lists:sublist(CF,min(length(OF),length(CF))))) , X=/=Y],
+io:format("differing_forms=~p~n",[length(D)]),
+lists:foreach(fun({I,N,Ds})->io:format("~p ~p differences=~p first=~P~n",[I,N,length(Ds),lists:sublist(Ds,6),12]) end,lists:sublist(D,50)),
+ok=file:write_file("artifacts/beam-backend/part813-images/decoded-diff.txt",io_lib:format("~p.~n",[{D,Diff(OO,CO,[])}])),
+halt().

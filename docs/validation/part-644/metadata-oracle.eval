@@ -1,0 +1,6 @@
+P=["D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/library376-official-compiler/installed/lib/eldap-1.3.1/ebin/ELDAPv3.beam","artifacts/beam-backend/part644-eldap/ELDAPv3.release-profile.beam"],
+lists:foreach(fun(F)->{ok,_,C}=beam_lib:all_chunks(F),
+<<V:32,Flags:32,I:32,Items:32,Files:32,_/binary>>=proplists:get_value("Line",C),
+{docs_v1,Anno,_,_,_,M,D}=binary_to_term(proplists:get_value("Docs",C)),
+{debug_info_v1,Backend,Debug}=binary_to_term(proplists:get_value("Dbgi",C)),
+io:format("~s~nLine ~p~nDocs ~p~nDbgi ~p~nType bytes ~p~n",[F,{V,Flags,I,Items,Files},{Anno,M,length(D),hd(D)},{Backend,case Debug of {Forms,Options} when is_list(Forms)->{length(Forms),length(Options)};_->Debug end},byte_size(proplists:get_value("Type",C))]) end,P),halt().

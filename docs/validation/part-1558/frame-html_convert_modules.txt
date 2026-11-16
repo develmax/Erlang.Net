@@ -1,0 +1,32 @@
+OTP 29.1.1
+{label,493}
+{line,[{location,"test_server_ctrl.erl",1882}]}
+{func_info,{atom,test_server_ctrl},{atom,html_convert_modules},3}
+{label,494}
+{allocate,0,3}
+{move,{x,2},{x,1}}
+{line,[{location,"test_server_ctrl.erl",1883}]}
+{call,2,{test_server_ctrl,html_isolate_modules,2}}
+{line,[{location,"test_server_ctrl.erl",1884}]}
+{call,1,{test_server_ctrl,html_convert_modules,1}}
+{bif,get,{f,0},[{atom,test_server_dir}],{x,0}}
+{bif,get,{f,0},[{atom,test_server_log_dir_base}],{x,1}}
+{call_last,2,{test_server_ctrl,copy_html_files,2},0}
+Part 1557 C#
+{label,671}
+{line,[{location,"test_server_ctrl.erl",1882}]}
+{func_info,{atom,test_server_ctrl},{atom,html_convert_modules},3}
+{label,672}
+{allocate,1,3}
+{init_yregs,{list,[{y,0}]}}
+{move,{x,2},{x,1}}
+{line,[{location,"test_server_ctrl.erl",1883}]}
+{call,2,{test_server_ctrl,html_isolate_modules,2}}
+{line,[{location,"test_server_ctrl.erl",1884}]}
+{call,1,{test_server_ctrl,html_convert_modules,1}}
+{bif,get,{f,0},[{atom,test_server_dir}],{x,0}}
+{move,{x,0},{y,0}}
+{bif,get,{f,0},[{atom,test_server_log_dir_base}],{x,0}}
+{move,{x,0},{x,1}}
+{move,{y,0},{x,0}}
+{call_last,2,{test_server_ctrl,copy_html_files,2},1}

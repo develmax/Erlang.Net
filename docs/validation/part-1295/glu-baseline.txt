@@ -1,0 +1,18 @@
+Functions OTP/before/after: {30,30,30}
+Matching normalized functions before/after: {2,2}
+Missing functions: []
+Most common first differences: [{22,
+                                 {allocate,allocate},
+                                 [{build1DMipmapLevels,9},
+                                  {build1DMipmaps,6},
+                                  {build2DMipmapLevels,10}]},
+                                {3,
+                                 {bif,allocate},
+                                 [{project,6},{unProject,6},{unProject4,9}]},
+                                {2,
+                                 {{test,is_tuple},allocate},
+                                 [{pickMatrix,5},{scaleImage,9}]},
+                                {1,
+                                 {select_val,allocate},
+                                 [{quadricTexture,2}]}]
+Mismatches: [{build1DMipmapLevels,9},{build1DMipmaps,6},{build2DMipmapLevels,10},{build2DMipmaps,7},{build3DMipmapLevels,11},{build3DMipmaps,8},{checkExtension,2},{cylinder,6},{deleteQuadric,1},{disk,5},{errorString,1},{getString,1},{lookAt,9},{newQuadric,0},{ortho2D,4},{partialDisk,7},{perspective,4},{pickMatrix,5},{project,6},{quadricDrawStyle,2},{quadricNormals,2},{quadricOrientation,2},{quadricTexture,2},{scaleImage,9},{sphere,4},{tesselate,2},{unProject,6},{unProject4,9}]

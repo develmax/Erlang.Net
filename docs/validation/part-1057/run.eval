@@ -1,0 +1,18 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, register_sup_probe} = code:load_binary(register_sup_probe, Path, Binary),
+{transport,[{accept,id}]} = register_sup_probe:start_child({accept,id}),
+{transport,[{connect,id}]} = register_sup_probe:start_child({connect,id}),
+{listener,[{listen,id}]} = register_sup_probe:start_child({listen,id}),
+{monitor,[{monitor,id}]} = register_sup_probe:start_child({monitor,id}),
+{{local,example},register_sup_probe,[]} = register_sup_probe:start_link(example),
+try register_sup_probe:start_child({unknown,id}) of
+    _ -> error(expected_case_clause)
+catch error:{case_clause,unknown} -> ok end,
+try register_sup_probe:start_child(not_a_tuple) of
+    _ -> error(expected_badarg)
+catch error:badarg -> ok end,
+{beam_file, _, _, _, _, Fs} = beam_disasm:file(Path),
+[io:format("~p~n", [F]) || F = {function, Name, _, _, _} <- Fs,
+    lists:member(Name,[start_child,start_link])],
+halt().

@@ -1,0 +1,14 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, dictionary_send_probe} = code:load_binary(dictionary_send_probe, Path, Binary),
+undefined = erlang:put(dictionary_send_probe, self()),
+ok = dictionary_send_probe:run(message),
+receive message -> ok after 1000 -> error(missing_message) end,
+_ = erlang:erase(dictionary_send_probe),
+try dictionary_send_probe:run(message) of
+    _ -> error(expected_badarg)
+catch error:badarg -> ok
+end,
+{beam_file, _, _, _, _, Fs} = beam_disasm:file(Path),
+[io:format("~p~n", [F]) || F = {function, run, 1, _, _} <- Fs],
+halt().

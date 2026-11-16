@@ -1,0 +1,29 @@
+[Ref, Gen] = [filename:absname(P) || P <- init:get_plain_arguments()],
+Files = filelib:fold_files(Gen, "[.]beam$", true, fun(P, Acc) -> [P | Acc] end, []),
+Op = fun({test,N,_,_}) -> {test,N}; ({bif,N,_,_,_}) -> {bif,N}; ({gc_bif,N,_,_,_,_}) -> {gc_bif,N};
+        (I) when is_atom(I) -> I; (I) -> element(1,I) end,
+Read = fun(P) ->
+    {beam_file,_,_,_,_,Fs} = beam_disasm:file(P),
+    maps:from_list([{{Name,Arity}, [{Op(I),I} || I <- Is, not lists:member(Op(I),[line,label,func_info])]}
+        || {function,Name,Arity,_,Is} <- Fs])
+end,
+Frame = fun F({allocate,Size,_},_) -> Size; F({allocate_heap,Size,_,_},_) -> Size;
+            F({trim,N,_},Size) when is_integer(Size) -> Size-N; F(_,Size) -> Size end,
+Diff = fun D([{O,L}|Ls],[{O,R}|Rs],LF,RF) -> D(Ls,Rs,Frame(L,LF),Frame(R,RF));
+           D([{move,_}|_],[{init_yregs,_}|_],LF,RF) when is_integer(LF), is_integer(RF) ->
+               if LF < RF -> oversized; LF =:= RF -> same_size; true -> undersized end;
+           D([{move,_}|_],[{init_yregs,_}|_],_,_) -> unknown;
+           D(_,_,_,_) -> none end,
+Results = lists:foldl(fun(P, Acc) ->
+    Rel = lists:nthtail(length(filename:split(Gen)),filename:split(P)),
+    R = Read(filename:join([Ref|Rel])), G = Read(P),
+    maps:fold(fun(Key,Is,A) -> case Diff(Is,maps:get(Key,G,[]),unknown,unknown) of
+        none -> A;
+        Kind -> maps:update_with(Kind,fun({N,Paths})->{N+1,sets:add_element(Rel,Paths)} end,
+                     {1,sets:from_list([Rel])},A)
+    end end,Acc,R)
+end,#{},Files),
+io:format("move/init_yregs first opcode differences by last allocated frame size (functions, files):~n"),
+[maps:is_key(K,Results) andalso begin {N,Paths}=maps:get(K,Results), io:format("~p ~p ~p~n",[K,N,sets:size(Paths)]) end
+    || K <- [oversized,same_size,undersized,unknown]],
+halt().

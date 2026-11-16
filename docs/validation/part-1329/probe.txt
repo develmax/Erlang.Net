@@ -1,0 +1,11 @@
+[{test,is_nonempty_list,{f,fallback},[{x,0}]},
+ {get_list,{x,0},{x,2},{x,0}},
+ {test,is_eq_exact,{f,branch},[{x,2},{atom,x}]},
+ {test,is_nonempty_list,{f,branch},[{x,0}]},
+ {get_hd,{x,0},{x,3}},
+ {test,is_eq_exact,{f,branch},[{x,3},{atom,y}]},
+ {call_only,2,{shared_cons_lookahead_probe,run,2}},
+ {label,branch},
+ {test_heap,2,3},
+ {put_list,{x,2},{x,1},{x,1}},
+ {call_only,2,{shared_cons_lookahead_probe,run,2}}]

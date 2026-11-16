@@ -1,0 +1,8 @@
+put(counter, 0),
+{[{left, 10}], [{right, 20}]} = beam_independent_source_effects:selected([10], [20]),
+0 = get(left), 1 = get(right), 2 = get(counter),
+erase(left), erase(right), put(counter, 0),
+{'EXIT', {{bad_generator, bad}, _}} = (catch beam_independent_source_effects:selected(bad, [20])),
+0 = get(left), undefined = get(right), 1 = get(counter),
+io:format("8 assertions passed~n"),
+halt().

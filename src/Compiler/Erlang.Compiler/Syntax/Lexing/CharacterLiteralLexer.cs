@@ -9,10 +9,16 @@ internal static class CharacterLiteralLexer
         int value = ReadRune(text, ref position, start);
         if (value != CharacterLiteralParameters.Escape)
             return value;
+
+        return ReadEscape(text, ref position, start);
+    }
+
+    internal static int ReadEscape(string text, ref int position, int start)
+    {
         int escape = ReadRune(text, ref position, start);
         if (escape is >= CharacterLiteralParameters.FirstOctalDigit and <= CharacterLiteralParameters.LastOctalDigit)
         {
-            value = escape - CharacterLiteralParameters.FirstOctalDigit;
+            int value = escape - CharacterLiteralParameters.FirstOctalDigit;
             int digits = 1;
             while (digits < CharacterLiteralParameters.MaximumOctalDigits && position < text.Length && text[position] is >= CharacterLiteralParameters.FirstOctalDigit and <= CharacterLiteralParameters.LastOctalDigit)
             {
@@ -26,7 +32,7 @@ internal static class CharacterLiteralLexer
             return ReadHex(text, ref position, start);
         if (escape == CharacterLiteralParameters.ControlMarker)
         {
-            value = ReadRune(text, ref position, start);
+            int value = ReadRune(text, ref position, start);
             if (value == CharacterEscapeSyntax.ControlDelete)
                 return CharacterLiteralParameters.DeleteCodepoint;
             if (value is >= CharacterEscapeSyntax.FirstControlUppercase and <= CharacterEscapeSyntax.LastControlUppercase or >= CharacterEscapeSyntax.FirstControlLowercase and <= CharacterEscapeSyntax.LastControlLowercase)

@@ -1,0 +1,37 @@
+Case continuations in top-level function clauses of 1001 differing images.
+Counts are {modules, functions, examples}. Groups can overlap.
+#{direct_call_binding_case =>
+      {88,136,
+       [{xmerl_eventp,{close,1}},
+        {qlc_pt,{deref,4}},
+        {erl_lint,{func_location_error,4}}]},
+  second_call_case =>
+      {377,1016,
+       [{xmerl_xsd_type,{add_duration2dateTime,2}},
+        {xmerl_xsd,{c_t_properties,4}},
+        {xmerl_xpath_pred,{ceiling,2}}]},
+  two_calls_forwarded_result =>
+      {240,490,
+       [{xmerl_xsd,{c_t_properties,4}},
+        {xmerl_xpath_pred,{ceiling,2}},
+        {xmerl_xpath,{match,2}}]},
+  two_calls_result_used_in_branch =>
+      {239,418,
+       [{xmerl_xsd_type,{add_duration2dateTime,2}},
+        {xmerl_xsd,{c_t_properties,4}},
+        {xmerl_xpath_pred,{ceiling,2}}]},
+  other_bound_call_case =>
+      {270,604,
+       [{xmerl_xsd,{element_content,3}},
+        {xmerl_xpath_pred,{lang,2}},
+        {xmerl_xpath,{eval_pred,2}}]},
+  discarded_call_case =>
+      {172,386,
+       [{wxe_server,{handle_connect,4}},
+        {wxe_master,{handle_info,2}},
+        {sudoku_game,{new_game,1}}]},
+  inline_call_case =>
+      {796,6927,
+       [{xmerl_xsd_type,{add_duration2dateTime,2}},
+        {xmerl_xsd_re_parse,{format_error,1}},
+        {xmerl_xsd_re,{map,1}}]}}

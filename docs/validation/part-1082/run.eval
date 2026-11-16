@@ -1,0 +1,12 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, init_prefix_probe} = code:load_binary(init_prefix_probe, Path, Binary),
+undefined = put(input, next),
+undefined = put(next, value),
+Self = self(),
+{tag,fixed,Self,value,undefined} = init_prefix_probe:prefix(input,tag),
+{again,fixed,Self,undefined,value} = init_prefix_probe:prefix(missing,again),
+{beam_file, _, _, _, _, Functions} = beam_disasm:file(Path),
+[io:format("~p~n", [F]) || F = {function, prefix, 2, _, _} <- Functions],
+halt().
+

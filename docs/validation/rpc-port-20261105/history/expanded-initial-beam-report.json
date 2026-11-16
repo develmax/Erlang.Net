@@ -1,0 +1,26 @@
+{
+  "Backend": "Beam",
+  "Exports": 35,
+  "Cases": 228,
+  "Passed": 226,
+  "Scenarios": 17,
+  "ScenariosPassed": 17,
+  "Failures": [
+    {
+      "Function": "async_call",
+      "Arguments": "[bad,erlang,abs,[]]",
+      "Expected": "{ok,[#Ref\u003Cnonode@nohost.23509745725412895693648027627.0\u003E|#Ref\u003Cnonode@nohost.23509745725412895693648027628.0\u003E]}",
+      "Actual": "{ok,[#Ref\u003Cnonode@nohost.71.0\u003E|#Ref\u003Cnonode@nohost.72.0\u003E]}"
+    },
+    {
+      "Function": "async_call",
+      "Arguments": "[nonode@nohost,erlang,abs,[x|bad]]",
+      "Expected": "{ok,[#Ref\u003Cnonode@nohost.23509745725412895693648027632.0\u003E|#Ref\u003Cnonode@nohost.23509745725412895693648027633.0\u003E]}",
+      "Actual": "{ok,[#Ref\u003Cnonode@nohost.76.0\u003E|#Ref\u003Cnonode@nohost.77.0\u003E]}"
+    }
+  ],
+  "RpcBeamSha256": "C0177EB89FB41F1E5C93A2CAA24231C79678AC1154D61DCA8EADC15B55141BB8",
+  "AssemblySha256": "E160EA187EF74E3CB93B7B6CE87E207AA2E759873A30688F0709D5340F3C3C3F",
+  "RuntimeSha256": "91CB11097E8301DEEFA4F119740A32277D0FD4BF531EB874CE75A396DC875E5D",
+  "CorpusSha256": "A7782546028EDA3526E1D8FC5A4E50414BAB9CA3DB5C735EF526C9FB5A542102"
+}

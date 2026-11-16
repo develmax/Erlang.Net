@@ -1,0 +1,17 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, asn1_db} = code:load_binary(asn1_db, Path, Binary),
+try asn1_db:dbstart(invalid) of _ -> error(expected_case_clause)
+catch error:{case_clause,invalid} -> ok end,
+undefined = get(asn1_db),
+Check = fun(Input) ->
+    ok = asn1_db:dbstart(Input),
+    Pid = erase(asn1_db),
+    true = is_pid(Pid),
+    true = unlink(Pid),
+    true = exit(Pid, kill)
+end,
+Check([]),
+Check(["."]),
+io:format("Empty, nonempty and invalid entry paths passed.~n"),
+halt().

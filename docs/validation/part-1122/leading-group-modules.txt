@@ -1,0 +1,206 @@
+lib/xmerl-2.2/ebin/xmerl_xsd_re_parse.beam 47 yecc=47
+lib/xmerl-2.2/ebin/xmerl_xpath_parse.beam 24 yecc=24
+lib/xmerl-2.2/ebin/xmerl_b64Bin.beam 4 yecc=4
+lib/tools-4.2.3/ebin/xref_parser.beam 27 yecc=27
+lib/tools-4.2.3/ebin/xref_compiler.beam 1 yecc=0
+lib/stdlib-8.1/ebin/uri_string.beam 1 yecc=0
+lib/stdlib-8.1/ebin/filelib.beam 1 yecc=0
+lib/stdlib-8.1/ebin/erl_parse.beam 118 yecc=118
+lib/stdlib-8.1/ebin/dets_v9.beam 2 yecc=0
+lib/ssl-11.7.7/ebin/tls_v1.beam 1 yecc=0
+lib/snmp-5.20.5/ebin/snmp_community_mib.beam 1 yecc=0
+lib/snmp-5.20.5/ebin/snmpc_mib_gram.beam 115 yecc=115
+lib/snmp-5.20.5/ebin/snmpa_mib_data_tttn.beam 1 yecc=0
+lib/runtime_tools-2.5/ebin/dbg.beam 1 yecc=0
+lib/public_key-1.21.7/ebin/pubkey_cert.beam 1 yecc=0
+lib/public_key-1.21.7/ebin/PKIX1Implicit-2009.beam 4 yecc=0
+lib/public_key-1.21.7/ebin/PKIX1Explicit-2009.beam 4 yecc=0
+lib/public_key-1.21.7/ebin/OTP-PKIX.beam 4 yecc=0
+lib/public_key-1.21.7/ebin/OTP-PKIX-Relaxed.beam 4 yecc=0
+lib/parsetools-2.8/ebin/yeccparser.beam 16 yecc=16
+lib/mnesia-4.27/ebin/mnesia_schema.beam 1 yecc=0
+lib/mnesia-4.27/ebin/mnesia_lib.beam 2 yecc=0
+lib/megaco-4.9.2/ebin/megaco_text_parser_v3.beam 286 yecc=286
+lib/megaco-4.9.2/ebin/megaco_text_parser_v2.beam 284 yecc=284
+lib/megaco-4.9.2/ebin/megaco_text_parser_v1.beam 276 yecc=276
+lib/megaco-4.9.2/ebin/megaco_text_mini_parser.beam 82 yecc=82
+lib/kernel-11.0.4/ebin/gen_tcp_socket.beam 1 yecc=0
+lib/edoc-1.5/ebin/edoc_parser.beam 16 yecc=16
+lib/diameter-2.7.2/ebin/diameter_dict_parser.beam 20 yecc=20
+lib/crypto-5.10/ebin/crypto.beam 1 yecc=0
+lib/compiler-10.0.6/ebin/core_parse.beam 71 yecc=71
+lib/compiler-10.0.6/ebin/beam_ssa_share.beam 1 yecc=0
+lib/compiler-10.0.6/ebin/beam_ssa_alias.beam 1 yecc=0
+lib/common_test-1.31.2/ebin/ct_master_logs.beam 1 yecc=0
+lib/asn1-5.5.2/ebin/asn1ct_gen_check.beam 1 yecc=0
+Analyzed 1015 of 1015 differing images. Missing abstract code: 0.
+Category, files, functions, example (path, MFA, OTP and generated slots)
+{1,{bind,call},local,1} 35 1421 {["lib","xmerl-2.2","ebin",
+                                  "xmerl_xsd_re_parse.beam"],
+                                 {{yeccpars2_3,7},0,6}}
+{2,{bind,call},local,1} 18 19 {["lib","syntax_tools-4.1.1","ebin",
+                                "erl_syntax.beam"],
+                               {{flatten_form_list,1},1,3}}
+{2,{bind,operator},local,1} 17 17 {["lib","stdlib-8.1","ebin","sets.beam"],
+                                   {{get_bucket_s,2},0,4}}
+{2,{list_match,operand},local,1} 14 1075 {["lib","xmerl-2.2","ebin",
+                                           "xmerl_xsd_re_parse.beam"],
+                                          {{yeccpars2_34,7},0,13}}
+{1,{bind,call},remote,1} 10 141 {["lib","stdlib-8.1","ebin","io_ansi.beam"],
+                                 {{black,0},0,1}}
+{1,{bind,other},remote,1} 6 8 {["lib","stdlib-8.1","ebin","gen_event.beam"],
+                               {{get_modules,1},0,5}}
+{2,{bind,call},remote,1} 6 7 {["lib","syntax_tools-4.1.1","ebin",
+                               "erl_prettypr.beam"],
+                              {{format,2},3,4}}
+{1,{bind,other},local,1} 5 5 {["lib","ssl-11.7.7","ebin","ssl_handshake.beam"],
+                              {{encode_cert_auths,1},0,2}}
+{3,{bind,call},local,1} 5 5 {["lib","tools-4.2.3","ebin","lcnt.beam"],
+                             {{filter_print,2},2,5}}
+{1,{bind,list},local,1} 4 4 {["lib","snmp-5.20.5","ebin","snmp_usm.beam"],
+                             {{localize_key,3},0,3}}
+{1,call,local,1} 3 4 {["lib","tools-4.2.3","ebin","fprof.beam"],
+                      {{ets_select_foreach,4},3,4}}
+{1,{bind,operator},local,1} 3 3 {["lib","syntax_tools-4.1.1","ebin",
+                                  "erl_prettypr.beam"],
+                                 {{lay_string,2},0,3}}
+{2,{tuple_match,call},remote,1} 3 3 {["lib","wx-2.7","ebin","wxe_util.beam"],
+                                     {{init_nif,1},1,4}}
+{2,{bind,call},local,2} 2 3 {["lib","dialyzer-6.0.3","ebin","erl_types.beam"],
+                             {{t_bitstr_concat,2},2,6}}
+{6,{bind,operand},remote,1} 2 2 {["lib","stdlib-8.1","ebin","qlc.beam"],
+                                 {{tmp_filename,1},3,10}}
+{3,{bind,other},local,1} 2 2 {["lib","tools-4.2.3","ebin","cover.beam"],
+                              {{do_parallel_analysis_to_file,5},7,10}}
+{1,other,local,1} 2 2 {["lib","mnesia-4.27","ebin","mnesia_controller.beam"],
+                       {{i_have_tab,2},2,5}}
+{2,operand,local,1} 2 2 {["lib","snmp-5.20.5","ebin","snmpa_get.beam"],
+                         {{validate_tab_next_res,4},5,8}}
+{5,{bind,call},local,1} 2 2 {["lib","stdlib-8.1","ebin","ets.beam"],
+                             {{prinfo2,1},5,6}}
+{4,{tuple_match,call},local,1} 2 2 {["lib","snmp-5.20.5","ebin","snmpc.beam"],
+                                    {{c_impl,1},2,5}}
+{1,{tuple_match,call},local,1} 2 2 {["lib","ssh-6.0.6","ebin",
+                                     "ssh_options.beam"],
+                                    {{initial_default_algorithms,2},1,5}}
+{1,call,remote,1} 2 2 {["lib","tools-4.2.3","ebin","tags.beam"],
+                       {{genout,3},3,4}}
+{1,{tuple_match,call},dynamic,1} 2 2 {["lib","ssh-6.0.6","ebin","ssh.beam"],
+                                      {{transport_connect,4},5,7}}
+{2,call,remote,1} 1 7 {["lib","observer-2.19","ebin","ttb.beam"],{{tp,2},2,3}}
+{1,{bind,record},local,1} 1 2 {["lib","stdlib-8.1","ebin","erl_scan.beam"],
+                               {{scan_vstring,8},0,12}}
+{3,call,local,2} 1 1 {["lib","kernel-11.0.4","ebin","net_kernel.beam"],
+                      {{print_info,0},1,8}}
+{4,{bind,call},local,1} 1 1 {["lib","syntax_tools-4.1.1","ebin",
+                              "erl_syntax.beam"],
+                             {{revert_list,1},3,9}}
+{2,{bind,tuple},local,1} 1 1 {["lib","stdlib-8.1","ebin","qlc_pt.beam"],
+                              {{intro_anno,4},1,5}}
+{1,{tuple_match,operand},remote,2} 1 1 {["lib","syntax_tools-4.1.1","ebin",
+                                         "erl_recomment.beam"],
+                                        {{expand_comment,1},1,7}}
+{14,{bind,call},remote,1} 1 1 {["lib","mnesia-4.27","ebin","mnesia.beam"],
+                               {{display_tab_info,0},2,16}}
+{3,{bind,other},local,2} 1 1 {["lib","syntax_tools-4.1.1","ebin","merl.beam"],
+                              {{quote_1,3},3,15}}
+{1,{match,operand},local,1} 1 1 {["lib","ssh-6.0.6","ebin","ssh_sftpd.beam"],
+                                 {{stat,5},3,8}}
+{13,{bind,call},remote,1} 1 1 {["lib","edoc-1.5","ebin",
+                                "edoc_doclet_markdown.beam"],
+                               {{overview,4},6,16}}
+{1,{bind,call},dynamic,1} 1 1 {["lib","mnesia-4.27","ebin",
+                                "mnesia_loader.beam"],
+                               {{ext_load_table,4},4,6}}
+{3,{bind,call},local,2} 1 1 {["lib","dialyzer-6.0.3","ebin",
+                              "dialyzer_utils.beam"],
+                             {{get_spec_info,3},3,6}}
+{1,{bind,other},local,2} 1 1 {["lib","snmp-5.20.5","ebin","snmpa_mib.beam"],
+                              {{get_cacheopt_age,2},4,5}}
+{2,{bind,other},local,1} 1 1 {["lib","ssl-11.7.7","ebin","ssl_handshake.beam"],
+                              {{decode_hello_extensions,4},3,5}}
+{8,{bind,call},local,1} 1 1 {["lib","stdlib-8.1","ebin","c.beam"],{{m,1},4,6}}
+{2,call,local,1} 1 1 {["lib","compiler-10.0.6","ebin","beam_validator.beam"],
+                      {{assign_1,3},3,4}}
+{7,{match,operand},remote,1} 1 1 {["lib","common_test-1.31.2","ebin",
+                                   "ct_slave.beam"],
+                                  {{spawn_remote_node,3},5,20}}
+{1,{bind,map},local,1} 1 1 {["lib","compiler-10.0.6","ebin",
+                             "beam_ssa_alias.beam"],
+                            {{forced_aliasing,1},1,2}}
+{2,{bind,list},local,1} 1 1 {["lib","stdlib-8.1","ebin","rand.beam"],
+                             {{format_jumpconst58,1},0,5}}
+{4,{bind,other},remote,1} 1 1 {["lib","compiler-10.0.6","ebin",
+                                "beam_clean.beam"],
+                               {{rootset,3},2,15}}
+{1,{bind,operator},remote,2} 1 1 {["lib","snmp-5.20.5","ebin",
+                                   "snmp_user_based_sm_mib.beam"],
+                                  {{get_user,2},2,6}}
+{5,call,local,1} 1 1 {["lib","observer-2.19","ebin","ttb.beam"],
+                      {{init,2},2,5}}
+{6,{bind,call},local,1} 1 1 {["lib","diameter-2.7.2","ebin",
+                              "diameter_codegen.beam"],
+                             {{avp,1},4,7}}
+{1,{match,call},local,1} 1 1 {["lib","common_test-1.31.2","ebin",
+                               "test_server_ctrl.beam"],
+                              {{run_test_case,7},5,8}}
+{5,{bind,call},remote,1} 1 1 {["lib","eunit-2.11","ebin",
+                               "eunit_striptests.beam"],
+                              {{parse_transform,2},5,8}}
+{5,{tuple_match,call},remote,1} 1 1 {["lib","debugger-7.0","ebin",
+                                      "dbg_wx_mon_win.beam"],
+                                     {{update_process,4},4,8}}
+{3,call,remote,1} 1 1 {["lib","snmp-5.20.5","ebin","snmpa_agent.beam"],
+                       {{do_send_trap,8},7,8}}
+{2,{bind,operand},local,1} 1 1 {["lib","kernel-11.0.4","ebin","inet_db.beam"],
+                                {{match_rr,1},1,2}}
+{3,{tuple_match,other},local,1} 1 1 {["lib","diameter-2.7.2","ebin",
+                                      "diameter_dist.beam"],
+                                     {{route_session,2},4,7}}
+{1,operator,local,1} 1 1 {["lib","stdlib-8.1","ebin","epp.beam"],
+                          {{epp_request,2},2,3}}
+{9,{bind,call},local,1} 1 1 {["lib","sasl-4.4","ebin","release_handler.beam"],
+                             {{new_emulator_make_hybrid_config,5},5,30}}
+{4,{match,record_field},local,1} 1 1 {["lib","compiler-10.0.6","ebin",
+                                       "beam_ssa_lint.beam"],
+                                      {{vvars_block,2},5,12}}
+{1,{tuple_match,call},remote,1} 1 1 {["lib","common_test-1.31.2","ebin",
+                                      "ct_netconfc.beam"],
+                                     {{remove_xmlnsattr_for_tag,2},1,4}}
+{1,{bind,record_field},local,1} 1 1 {["lib","stdlib-8.1","ebin","sets.beam"],
+                                     {{fold_set,3},0,3}}
+{6,{bind,call},remote,1} 1 1 {["lib","dialyzer-6.0.3","ebin",
+                               "dialyzer_utils.beam"],
+                              {{pp_segment,3},9,19}}
+{10,{bind,call},remote,1} 1 1 {["lib","stdlib-8.1","ebin","qlc_pt.beam"],
+                               {{qualifier_dependencies,2},2,16}}
+{2,{tuple_match,other},local,1} 1 1 {["lib","stdlib-8.1","ebin",
+                                      "io_lib_fread.beam"],
+                                     {{fread_based,7},5,13}}
+{15,other,local,1} 1 1 {["lib","stdlib-8.1","ebin","shell.beam"],
+                        {{server,1},7,28}}
+{21,call,local,1} 1 1 {["lib","debugger-7.0","ebin","dbg_ieval.beam"],
+                       {{meta,5},6,13}}
+{4,call,local,1} 1 1 {["lib","runtime_tools-2.5","ebin",
+                       "observer_backend.beam"],
+                      {{ttb_meta_tracer,4},5,11}}
+{2,{tuple_match,call},local,1} 1 1 {["lib","mnesia-4.27","ebin",
+                                     "mnesia_schema.beam"],
+                                    {{do_create_table_1,1},2,5}}
+{1,{bind,record},local,2} 1 1 {["lib","eunit-2.11","ebin",
+                                "eunit_listener.beam"],
+                               {{start,2},1,5}}
+{1,{bind,tuple},local,1} 1 1 {["lib","kernel-11.0.4","ebin",
+                               "gen_tcp_socket.beam"],
+                              {{try_connect,4},1,5}}
+{9,{bind,call},remote,1} 1 1 {["lib","dialyzer-6.0.3","ebin",
+                               "dialyzer_typesig.beam"],
+                              {{analyze_scc,7},6,9}}
+{3,call,local,1} 1 1 {["lib","common_test-1.31.2","ebin",
+                       "test_server_ctrl.beam"],
+                      {{i,0},0,1}}
+{2,{bind,operator},remote,1} 1 1 {["lib","asn1-5.5.2","ebin",
+                                   "asn1ct_imm.beam"],
+                                  {{extensions_bitmap,2},0,3}}
+{1,{list_match,call},remote,1} 1 1 {["lib","tools-4.2.3","ebin","lcnt.beam"],
+                                    {{lock2list,1},0,3}}

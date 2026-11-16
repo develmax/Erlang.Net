@@ -1,0 +1,8 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, frame_entry_probe} = code:load_binary(frame_entry_probe, Path, Binary),
+{key,first,undefined} = frame_entry_probe:put_value(key,first),
+{key,second,first} = frame_entry_probe:put_value(key,second),
+{beam_file, _, _, _, _, Functions} = beam_disasm:file(Path),
+[io:format("~p~n", [F]) || F = {function, put_value, 2, _, _} <- Functions],
+halt().

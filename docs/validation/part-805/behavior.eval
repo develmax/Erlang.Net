@@ -1,0 +1,22 @@
+Module = beam_page_comprehension_probe,
+{ok,wxNotebook,Stub} = compile:forms([
+    {attribute,1,module,wxNotebook},
+    {attribute,1,export,[{new,3}]},
+    {function,1,new,3,[{clause,1,[{var,1,'Parent'},{var,1,'Id'},{var,1,'Options'}],[],
+        [{tuple,1,[{atom,1,notebook},{var,1,'Parent'},{var,1,'Id'},{var,1,'Options'}]}]}]}
+],[binary]),
+{module,wxNotebook} = code:load_binary(wxNotebook,"wxNotebook_fixture",Stub),
+Cases = [[{one,f}], [], [junk,{one,f},{two,g}], [{one,f}|bad_tail], bad_list],
+Run = fun(Path) ->
+    code:purge(Module),
+    code:delete(Module),
+    {ok,Bytes} = file:read_file(Path),
+    {module,Module} = code:load_binary(Module,Path,Bytes),
+    [try Module:create_pages(parent,Specs,args) of Value -> {ok,Value}
+     catch Class:Reason -> {Class,Reason}
+     end || Specs <- Cases]
+end,
+Otp = Run("tests/Erlang.Tests/Resources/Beam/beam_page_comprehension_probe.beam"),
+Otp = Run("artifacts/beam-backend/part805-images/beam_page_comprehension_probe.beam"),
+io:format("~p~n",[lists:zip(Cases,Otp)]),
+halt().

@@ -1,0 +1,7 @@
+# Part 1603 — Emit direct list access instructions in function bodies
+
+The previous corpus had 1,769 functions in 95 modules with an OTP direct hd instruction and a C# external call to hd/1. The corresponding counts for tl/1 were 87 functions in 35 modules. This ranks instruction kinds seen in the same function. [Ranking](bif-rank.txt).
+
+The general emitter now uses the existing unary BIF instruction for resolved hd/1 and tl/1 body calls with variable or literal operands. The zero failure label preserves body exception behavior. The OTP VM returned identical values, including an improper-list tail, and identical badarg reasons for an empty list and a non-list. Stack and register allocation still differ in the fixture. Three focused tests passed after building with a larger .NET stack and with shared compilation and analyzers disabled. [Fixture](beam_list_body.erl) · [Previous disassembly](baseline-disassembly.txt) · [Current disassembly](fixture-disassembly.txt) · [Outcomes](outcomes.txt) · [Tests](focused.txt).
+
+All 1,366 pinned sources were accepted and generated. There were 392 Equal and 974 Different, including ELDAPv3 as Equal. 115 images changed. The Code size gap shrank in 101 and grew in 14, for a net reduction of 2,545 bytes. The count of matching functions after label normalization stayed the same. OTP accepted all 974 differing images for loading. [Corpus](otp-corpus.json) · [Loader and Code sizes](loader-and-code.txt) · [Function comparison](normalized-functions.txt).

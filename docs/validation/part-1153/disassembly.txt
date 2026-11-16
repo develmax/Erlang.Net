@@ -1,0 +1,22 @@
+otp/beam_general_catch_probe.beam
+[[{label,41},
+  {line,[{location,[],57}]},
+  {func_info,{atom,beam_general_catch_probe},{atom,tuple_tail},3},
+  {label,42},
+  {test_heap,7,3},
+  {put_tuple2,{x,1},{list,[{x,1},{x,2}]}},
+  {put_tuple2,{x,1},{list,[{atom,tag},{x,1},{x,0}]}},
+  {move,{x,0},{x,2}},
+  {swap,{x,0},{x,1}},
+  {call_only,3,{beam_general_catch_probe,triple,3}}]]
+generated.beam
+[[{label,42},
+  {line,[{location,[],57}]},
+  {func_info,{atom,beam_general_catch_probe},{atom,tuple_tail},3},
+  {label,43},
+  {test_heap,7,3},
+  {put_tuple2,{x,1},{list,[{x,1},{x,2}]}},
+  {put_tuple2,{x,1},{list,[{atom,tag},{x,1},{x,0}]}},
+  {move,{x,0},{x,2}},
+  {swap,{x,0},{x,1}},
+  {call_only,3,{beam_general_catch_probe,triple,3}}]]

@@ -2,11 +2,20 @@ namespace Erlang;
 
 internal static class BeamInstructionReader
 {
-    public static IReadOnlyList<BeamInstruction> Read(BeamStructure structure)
+    public static IReadOnlyList<BeamInstruction> Read(BeamStructure structure) =>
+        Read(structure.Code, structure.Atoms.Count, structure.Literals.Count);
+
+    internal static IReadOnlyList<BeamInstruction> Read(
+        BeamCodeHeader code,
+        int atomCount,
+        int literalCount,
+        Action<int, int, int>? recordLabelOperand = null,
+        Action<int, int, int>? recordStackOperand = null
+    )
     {
-        Require(structure.Code.MaximumOpcode >= BeamOperandParameters.MinimumCompatibleOpcode);
-        Require(structure.Code.MaximumOpcode <= BeamOpcodeCatalog.All.Count);
-        var cursor = new BeamCursor(structure.Code.Instructions);
+        Require(code.MaximumOpcode >= BeamOperandParameters.MinimumCompatibleOpcode);
+        Require(code.MaximumOpcode <= BeamOpcodeCatalog.All.Count);
+        var cursor = new BeamCursor(code.Instructions);
         var result = new List<BeamInstruction>();
         bool terminated = false;
         while (cursor.Remaining != 0)
@@ -22,6 +31,7 @@ internal static class BeamInstructionReader
             var operands = new List<BeamOperand>();
             for (int index = 0; index < count; index++)
             {
+                int operandOffset = cursor.Position;
                 BeamCompactValue raw = BeamCompactReader.Read(cursor);
                 if (raw.WireTag == BeamOperandParameters.ExtendedTag)
                 {
@@ -44,7 +54,7 @@ internal static class BeamInstructionReader
                     if (extension == BeamOperandParameters.Literal)
                     {
                         int literal = Unsigned(cursor);
-                        Require(literal < structure.Literals.Count);
+                        Require(literal < literalCount);
                         operands.Add(new(BeamOperandParameters.LiteralValue, literal));
                         continue;
                     }
@@ -57,9 +67,15 @@ internal static class BeamInstructionReader
                     }
                     if (extension == BeamOperandParameters.TypedRegister)
                     {
+                        int registerOffset = cursor.Position;
                         BeamCompactValue register = BeamCompactReader.Read(cursor);
                         Require(register.WireTag is BeamOperandParameters.XTag or BeamOperandParameters.YTag);
-                        BeamOperand operand = Scalar(register, structure);
+                        BeamOperand operand = Scalar(register, atomCount, code.LabelCount);
+                        if (operand.Kind == BeamOperandParameters.Y)
+                        {
+                            recordStackOperand?.Invoke(registerOffset, cursor.Position, (int)operand.Value);
+                        }
+
                         int type = Unsigned(cursor);
                         operands.Add(operand with { TypeIndex = type });
                         continue;
@@ -71,7 +87,17 @@ internal static class BeamInstructionReader
                     }
                     throw new NotSupportedException(BeamOperandParameters.Unsupported);
                 }
-                operands.Add(Scalar(raw, structure));
+                BeamOperand scalar = Scalar(raw, atomCount, code.LabelCount);
+                operands.Add(scalar);
+                if (scalar.Kind == BeamOperandParameters.Y)
+                {
+                    recordStackOperand?.Invoke(operandOffset, cursor.Position, (int)scalar.Value);
+                }
+
+                if (raw.WireTag == BeamOperandParameters.LabelTag && !scalar.Value.IsZero)
+                {
+                    recordLabelOperand?.Invoke(operandOffset, cursor.Position, (int)scalar.Value);
+                }
             }
             result.Add(new(offset, definition, operands.AsReadOnly()));
             if (opcode == BeamOperandParameters.EndOfCodeOpcode)
@@ -87,7 +113,7 @@ internal static class BeamInstructionReader
         return result.AsReadOnly();
     }
 
-    private static BeamOperand Scalar(BeamCompactValue raw, BeamStructure structure)
+    private static BeamOperand Scalar(BeamCompactValue raw, int atomCount, int labelCount)
     {
         string kind;
         switch (raw.WireTag)
@@ -102,12 +128,12 @@ internal static class BeamInstructionReader
                 break;
             case BeamOperandParameters.AtomTag:
                 int atom = Index(raw);
-                Require(atom < structure.Atoms.Count);
+                Require(atom < atomCount);
                 kind = atom == 0 ? BeamOperandParameters.Nil : BeamOperandParameters.Atom;
                 break;
             case BeamOperandParameters.LabelTag:
                 int label = Index(raw);
-                Require(label == 0 || label < structure.Code.LabelCount);
+                Require(label == 0 || label < labelCount);
                 kind = label == 0 ? BeamOperandParameters.Failure : BeamOperandParameters.Label;
                 break;
             case BeamOperandParameters.XTag:

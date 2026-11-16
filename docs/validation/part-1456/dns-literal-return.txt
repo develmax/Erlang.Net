@@ -1,0 +1,8 @@
+OTP 29.1.1 encode_type/1
+113 instructions
+Entry [{label,433},{line,[{location,"inet_dns.erl",535}]},{func_info,{atom,inet_dns},{atom,encode_type},1},{label,434},{select_val,{x,0},{f,469},34,[{atom,a},{f,468},{atom,aaaa},{f,467},{atom,any},{f,466}]},{label,435},{move,{integer,11},{x,0}},return,{label,436}]
+Fallback [return,{label,469},{test,is_integer,{f,470},[{x,0}]},return,{label,470},{line,[{location,"inet_dns.erl",536}]},{case_end,{x,0}}]
+C# encode_type/1
+152 instructions
+Entry [{label,560},{line,[{location,"inet_dns.erl",535}]},{func_info,{atom,inet_dns},{atom,encode_type},1},{label,561},{allocate,1,1},{move,{x,0},{y,0}},{test,is_eq_exact,{f,563},[{y,0},{atom,a}]},{move,{integer,1},{x,0}},{jump,{f,562}}]
+Fallback [{jump,{f,562}},{label,597},{move,{y,0},{x,0}},{case_end,{x,0}},{label,562},{deallocate,1},return]

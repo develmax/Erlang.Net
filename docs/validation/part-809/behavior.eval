@@ -1,0 +1,27 @@
+Dir = "artifacts/beam-backend/part809-images",
+Stubs = [
+    {observer_lib,"-module(observer_lib).\n-export([destroy_progress_dialog/0,html_window/1]).\ndestroy_progress_dialog() -> self() ! closed, ok.\nhtml_window(Parent) -> self() ! {create,Parent}, {panel,Parent}.\n"},
+    {wx_misc,"-module(wx_misc).\n-export([beginBusyCursor/0,endBusyCursor/0]).\nbeginBusyCursor() -> self() ! busy, ok.\nendBusyCursor() -> self() ! idle, ok.\n"},
+    {'wxHtmlWindow',"-module(wxHtmlWindow).\n-export([setPage/2]).\nsetPage(Panel,Text) -> self() ! {page,Panel,Text}, ok.\n"}],
+lists:foreach(fun({M,Source}) ->
+    Path = filename:join(Dir,atom_to_list(M)++".erl"),
+    ok = file:write_file(Path,Source),
+    {ok,M,Bytes} = compile:file(Path,[binary,deterministic]),
+    {module,M} = code:load_binary(M,Path,Bytes)
+end,Stubs),
+Module = beam_returned_record_update_probe,
+Run = fun(Path) ->
+    code:purge(Module),
+    code:delete(Module),
+    {ok,Bytes} = file:read_file(Path),
+    {module,Module} = code:load_binary(Module,Path,Bytes),
+    [begin
+         Result=Module:init(Input),
+         Events=[receive Event->Event after 1000->timeout end || _<-lists:seq(1,5)],
+         {Result,Events}
+     end || Input <- [[parent, callback],[parent,{tool,{expand,"page",table}}]]]
+end,
+Otp = Run("tests/Erlang.Tests/Resources/Beam/beam_returned_record_update_probe.beam"),
+Otp = Run(filename:join(Dir,"beam_returned_record_update_probe.beam")),
+io:format("~p~n",[Otp]),
+halt().

@@ -1,0 +1,27 @@
+[Root, Generated] = init:get_plain_arguments(),
+Paths = filelib:wildcard(filename:join(Generated,"**/*.beam")),
+PrefixCalls = fun
+    Count({cons,_,Head,Tail}, Total) ->
+        Calls = case Head of
+            {call,_,_,_} -> 1;
+            {tuple,_,Fields} -> length([F || F={call,_,_,_} <- Fields]);
+            _ -> 0
+        end,
+        Count(Tail,Total+Calls);
+    Count({call,_,_,_},Total) -> Total;
+    Count(_,_) -> 0
+end,
+Base = length(filename:split(Generated)),
+Rows = [{Rel,[{{N,A},Count} || {function,_,N,A,Clauses} <- Forms,
+    Count <- [lists:max([0|[PrefixCalls(lists:last(Body),0) || {clause,_,_,_,Body} <- Clauses]])],
+    Count > 0]}
+    || Path <- Paths, Rel <- [lists:nthtail(Base,filename:split(Path))],
+       {ok,{_,[{abstract_code,{raw_abstract_v1,Forms}}]}} <-
+           [beam_lib:chunks(filename:join([Root|Rel]),[abstract_code])]],
+Candidates = lists:reverse(lists:keysort(1,
+    [{length(Fs),filename:join(Rel),Fs} || {Rel,Fs} <- Rows, Fs =/= []])),
+io:format("Read abstract forms from ~B of ~B differing modules.~n",[length(Rows),length(Paths)]),
+io:format("List results with a head call and a tail call: ~B modules, ~B functions.~n",
+    [length(Candidates),lists:sum([Count || {Count,_,_} <- Candidates])]),
+lists:foreach(fun({Count,Name,Fs}) -> io:format("~B ~s ~p~n",[Count,Name,Fs]) end,Candidates),
+halt().

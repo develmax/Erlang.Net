@@ -3,8 +3,14 @@ using System.Numerics;
 
 namespace Erlang.Compiler;
 
-internal sealed class NativeRecordTypeParser(IReadOnlyList<Token> tokens, string source, int start)
+internal sealed class NativeRecordTypeParser(
+    IReadOnlyList<Token> tokens,
+    string source,
+    int start,
+    bool allowLocalTypes = false
+)
 {
+    private readonly int firstToken = start;
     public int Position { get; private set; } = start;
     private Token Current => tokens[Position];
 
@@ -27,6 +33,18 @@ internal sealed class NativeRecordTypeParser(IReadOnlyList<Token> tokens, string
 
     private Term Annotation(int offset)
     {
+        if (tokens[firstToken].HasExplicitFileLocation || tokens[firstToken].PreprocessorFile is not null)
+        {
+            for (int index = Position - 1; index >= firstToken; index--)
+            {
+                Token token = tokens[index];
+                if (token.Start == offset)
+                {
+                    return BeamReleaseFunctionDebug.AbstractAnnotation(token, source);
+                }
+            }
+        }
+
         int line = 1;
         int column = 1;
         for (int index = 0; index < offset; index++)
@@ -83,14 +101,16 @@ internal sealed class NativeRecordTypeParser(IReadOnlyList<Token> tokens, string
         }
         while (Take(ErlangSyntaxTokens.ListTail));
 
-        return Type(NativeRecordTypeNames.Union, offset, members.ToArray());
+        return Term.Tuple(Term.A(NativeRecordTypeNames.Type), ((TupleTerm)first).Items[1],
+            Term.A(NativeRecordTypeNames.Union), Cons.From(members));
     }
 
     private Term Arithmetic(int minimum = 0)
     {
         int offset = Current.Start;
         Term value;
-        if (Current.Text is ErlangOperators.Plus or ErlangOperators.Minus or ErlangOperators.BitwiseNot)
+        if (Current.Kind is LexerTokenKinds.Symbol or LexerTokenKinds.Keyword
+            && Current.Text is ErlangOperators.Plus or ErlangOperators.Minus or ErlangOperators.BitwiseNot)
         {
             string operation = tokens[Position++].Text;
             value = Node(
@@ -102,7 +122,8 @@ internal sealed class NativeRecordTypeParser(IReadOnlyList<Token> tokens, string
         }
         else
             value = Primary();
-        while (Priority(Current.Text) is var priority && priority >= minimum && priority > 0)
+        while (Current.Kind is LexerTokenKinds.Symbol or LexerTokenKinds.Keyword
+            && Priority(Current.Text) is var priority && priority >= minimum && priority > 0)
         {
             string operation = tokens[Position++].Text;
             value = Node(
@@ -234,8 +255,8 @@ internal sealed class NativeRecordTypeParser(IReadOnlyList<Token> tokens, string
             {
                 do
                 {
-                    int fieldOffset = Current.Start;
                     Term key = Union();
+                    int fieldOffset = Current.Start;
                     bool exact = Take(ErlangSyntaxTokens.MapExactField);
                     if (!exact)
                         Expect(ErlangSyntaxTokens.MapAssociation);
@@ -256,6 +277,7 @@ internal sealed class NativeRecordTypeParser(IReadOnlyList<Token> tokens, string
             Expect(ErlangSyntaxTokens.OpenParenthesis);
             if (Take(ErlangSyntaxTokens.CloseParenthesis))
                 return Type(NativeRecordTypeNames.Function, offset);
+            offset = Current.Start;
             Expect(ErlangSyntaxTokens.OpenParenthesis);
             Term parameters;
             if (Take(NativeRecordTypeTokens.Ellipsis))
@@ -280,7 +302,11 @@ internal sealed class NativeRecordTypeParser(IReadOnlyList<Token> tokens, string
         if (token.Kind == LexerTokenKinds.Variable)
             return Node(NativeRecordTypeNames.Variable, offset, Term.A(token.Text));
         if (token.Kind == LexerTokenKinds.Integer)
-            return Node(NativeRecordTypeNames.Integer, offset, new Integer(BigInteger.Parse(token.Text, CultureInfo.InvariantCulture)));
+            return Node(
+                token.IsCharacterLiteral ? NativeRecordTypeNames.Character : NativeRecordTypeNames.Integer,
+                offset,
+                new Integer(BigInteger.Parse(token.Text, CultureInfo.InvariantCulture))
+            );
         if (token.Kind is not (LexerTokenKinds.Atom or LexerTokenKinds.QuotedAtom))
             throw new CompileException(CompilerDiagnosticCodes.Syntax, ParserDiagnostics.ExpectedAtom, offset);
         if (Take(ErlangSyntaxTokens.ModuleQualifier))
@@ -299,6 +325,15 @@ internal sealed class NativeRecordTypeParser(IReadOnlyList<Token> tokens, string
         if (!Take(ErlangSyntaxTokens.OpenParenthesis))
             return Node(NativeRecordTypeNames.Atom, offset, Term.A(token.Text));
         Term[] arguments = Arguments(ErlangSyntaxTokens.CloseParenthesis);
+        if (allowLocalTypes && !NativeRecordTypeLint.IsBuiltin(token.Text, arguments.Length))
+        {
+            return Node(
+                NativeRecordTypeNames.Local,
+                offset,
+                Term.A(token.Text),
+                Cons.From(arguments)
+            );
+        }
         NativeRecordTypeLint.Validate(token.Text, arguments.Length, offset);
 
         return arguments.Length == 0 && token.Text is NativeRecordTypeNames.Map or NativeRecordTypeNames.Tuple

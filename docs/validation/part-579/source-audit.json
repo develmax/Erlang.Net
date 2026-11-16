@@ -1,0 +1,279 @@
+{
+  "Baseline": "OTP-29.1.1",
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "OriginalSourceSha256": "BF440EDBF927C936137FC767378F23C476C2BC242F2D4767BE4F1E55F8AD0025",
+  "PinnedSourceSha256": "BF440EDBF927C936137FC767378F23C476C2BC242F2D4767BE4F1E55F8AD0025",
+  "ExactSourceBytesUnchanged": true,
+  "OriginalBeamSha256": "22B62B11B4ED0DFC5B9BB0344FD43C3B44171DE88C8970513298094DD1174608",
+  "ExportsMatch": true,
+  "ExportCount": 40,
+  "Exports": [
+    [
+      "behaviour_info",
+      1
+    ],
+    [
+      "call",
+      2
+    ],
+    [
+      "call",
+      3
+    ],
+    [
+      "cast",
+      2
+    ],
+    [
+      "check_response",
+      2
+    ],
+    [
+      "check_response",
+      3
+    ],
+    [
+      "enter_loop",
+      4
+    ],
+    [
+      "enter_loop",
+      5
+    ],
+    [
+      "enter_loop",
+      6
+    ],
+    [
+      "format_log",
+      1
+    ],
+    [
+      "format_log",
+      2
+    ],
+    [
+      "format_status",
+      2
+    ],
+    [
+      "init_it",
+      6
+    ],
+    [
+      "receive_response",
+      1
+    ],
+    [
+      "receive_response",
+      2
+    ],
+    [
+      "receive_response",
+      3
+    ],
+    [
+      "reply",
+      1
+    ],
+    [
+      "reply",
+      2
+    ],
+    [
+      "reqids_add",
+      3
+    ],
+    [
+      "reqids_new",
+      0
+    ],
+    [
+      "reqids_size",
+      1
+    ],
+    [
+      "reqids_to_list",
+      1
+    ],
+    [
+      "send_request",
+      2
+    ],
+    [
+      "send_request",
+      4
+    ],
+    [
+      "start",
+      3
+    ],
+    [
+      "start",
+      4
+    ],
+    [
+      "start_link",
+      3
+    ],
+    [
+      "start_link",
+      4
+    ],
+    [
+      "start_monitor",
+      3
+    ],
+    [
+      "start_monitor",
+      4
+    ],
+    [
+      "stop",
+      1
+    ],
+    [
+      "stop",
+      3
+    ],
+    [
+      "system_code_change",
+      4
+    ],
+    [
+      "system_continue",
+      3
+    ],
+    [
+      "system_get_state",
+      1
+    ],
+    [
+      "system_replace_state",
+      2
+    ],
+    [
+      "system_terminate",
+      4
+    ],
+    [
+      "wait_response",
+      1
+    ],
+    [
+      "wait_response",
+      2
+    ],
+    [
+      "wait_response",
+      3
+    ]
+  ],
+  "OriginalEngineFunctions": [
+    "call",
+    "callback_mode",
+    "callback_mode_result",
+    "cancel_timer",
+    "cast",
+    "check_response",
+    "client_stacktrace",
+    "do_reply_then_terminate",
+    "enter",
+    "enter_loop",
+    "error_info",
+    "event_string",
+    "event_type",
+    "fix_reason",
+    "format_client_log",
+    "format_client_log_single",
+    "format_log",
+    "format_log_multi",
+    "format_log_single",
+    "format_status",
+    "from",
+    "get_callback_mode",
+    "init_it",
+    "init_result",
+    "limit_client_info",
+    "limit_report",
+    "list_timeouts",
+    "listify",
+    "loop",
+    "loop_actions",
+    "loop_actions_list",
+    "loop_actions_next_event",
+    "loop_actions_next_event_bad",
+    "loop_actions_reply",
+    "loop_done",
+    "loop_enter",
+    "loop_event",
+    "loop_hibernate",
+    "loop_keep_state",
+    "loop_msg",
+    "loop_msg_event",
+    "loop_next_events",
+    "loop_state_callback",
+    "loop_state_callback_result",
+    "loop_state_change",
+    "loop_state_enter",
+    "loop_state_transition",
+    "loop_t0q",
+    "loop_timeouts",
+    "loop_timeouts_cancel",
+    "loop_timeouts_register",
+    "loop_timeouts_update",
+    "loop_wakeup",
+    "mod",
+    "p",
+    "params_callback_mode",
+    "parse_timeout_opts_abs",
+    "print_event",
+    "receive_response",
+    "replace_timer",
+    "replies",
+    "reply",
+    "reply_then_terminate",
+    "reqids_add",
+    "reqids_new",
+    "reqids_size",
+    "reqids_to_list",
+    "send",
+    "send_request",
+    "single",
+    "start",
+    "start_link",
+    "start_monitor",
+    "state_enter",
+    "stop",
+    "sys_debug",
+    "system_code_change",
+    "system_continue",
+    "system_get_state",
+    "system_replace_state",
+    "system_terminate",
+    "terminate",
+    "terminate_sys_debug",
+    "timeout_event_type",
+    "update_parent",
+    "wait_response",
+    "wrap_cast"
+  ],
+  "ManagedSources": {
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/GenStatem/GenStatemDependencyNames.cs": "AC3F461BC63C8E219F33B7ACF6598C5D18BE8788FA3954CB0B9DAF6450F6E51B",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/GenStatem/GenStatemFunctionNames.cs": "2C7821B9050DFA9C48200E7A1F682FF10A9EC530FC3CEDDC3B5E3FCC78EFB743",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/GenStatem/GenStatemLog.cs": "146D66B1120A7AD297DA968BA15A77FB32F484B158C4272267954DE7F8756B61",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/GenStatem/GenStatemLogFormats.cs": "D2C758B853DAFDCE2B07C7BFDB78141B37575F990D9B7E6A6FD060C0DB2683E4",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/GenStatem/GenStatemMachine.Actions.cs": "58C8AC2EF37860F92BFE2B97317E6AEA8584D1FB91FF7E9796D1D12146AB2B85",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/GenStatem/GenStatemMachine.cs": "BE8A9C116863317553F31B3904C7DCB33A7CAE362628B6343362919FD4376F26",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/GenStatem/GenStatemMachine.System.cs": "7884D3CF63FF33D6F34925206BFE94BBF0D48D3880ECD337B4CD45FD65A2AAD6",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/GenStatem/GenStatemMachine.Timers.cs": "552FBE2F8D9659CA3F391B0BE45D2A89A1074E884C8A924873234BBB43F2AD45",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/GenStatem/GenStatemModule.cs": "C538EF2083F4EA2AA2FE060FB5440B1870DFD42BC663D0654995F4D8B27F8593",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/GenStatem/GenStatemProtocolAtoms.cs": "5C41121D5F27FB86D52EF07634545CC97870D39AC5817A13259B5AA5CB65F4C5",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/GenStatem/GenStatemSource.cs": "241E6CE5787643CE41370EC9C3EBD38B2F1F40903487011D1E1100A978AB718E",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/GenStatem/GenStatemSourceNames.cs": "BDD7A605DD6D7D805E6B9EE7BFA986B8114DE78792BB6090EB568DC83235910E",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/GenStatem/GenStatemStatusLabels.cs": "94CAF420993B807E65E7F54B5F2D420A2BF4D14D9978239E30F60FA7FB6EBF52",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/GenStatem/GenStatemStatusNames.cs": "6E01E92E613FE027C7E3BCC73911EA4A3794FD347B645B2B5B979572CA3EB53A",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/GenStatem/GenStatemTransition.cs": "7C8AA77806E2C2E3A9AD07DDDE45F25166996299EE41C700EA74E6F9E746C489"
+  },
+  "Scope": "Source/export inventory only. Finite differential acceptance is recorded separately."
+}

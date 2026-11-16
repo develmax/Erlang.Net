@@ -1,0 +1,55 @@
+[Reference, Generated] = [filename:absname(Path) || Path <- init:get_plain_arguments()],
+Opcode = fun
+    ({test, Name, _, _}) -> {test, Name};
+    ({bif, Name, _, _, _}) -> {bif, Name};
+    ({gc_bif, Name, _, _, _, _}) -> {gc_bif, Name};
+    (Instruction) when is_atom(Instruction) -> Instruction;
+    (Instruction) -> element(1, Instruction)
+end,
+Functions = fun(Disassembly) ->
+    maps:from_list([{{Name, Arity}, [Op || I <- Instructions,
+        Op <- [I], not lists:member(Opcode(Op), [label,line,func_info])]}
+        || {function, Name, Arity, _, Instructions} <- Disassembly])
+end,
+FirstDifference = fun
+    Find([{allocate,L,_},{move,_,_}|_], [{allocate,R,_},{init_yregs,_}|_]) -> {frame_move_init, if L =:= 0 -> otp_zero; L =:= R -> same_size; L < R -> generated_larger; true -> other end};
+    Find(_, _) -> same
+end,
+Add = fun(Difference, Path, Function, Groups) ->
+    maps:update_with(Difference,
+        fun(Modules) -> maps:update_with(Path, fun(Example) -> min(Example, Function) end, Function, Modules) end,
+        #{Path => Function}, Groups)
+end,
+Files = filelib:fold_files(Generated, "[.]beam$", true, fun(Path, Acc) -> [Path | Acc] end, []),
+{Groups, Unreadable, SameOpcodes} = lists:foldl(fun(Path, {Acc, Errors, Same}) ->
+    Relative = lists:nthtail(length(filename:split(Generated)), filename:split(Path)),
+    Original = filename:join([Reference | Relative]),
+    Name = filename:join(Relative),
+    case {catch beam_disasm:file(Original), catch beam_disasm:file(Path)} of
+        {{beam_file, Module, _, _, _, Left}, {beam_file, Module, _, _, _, Right}} ->
+            Expected = Functions(Left),
+            Actual = Functions(Right),
+            Differences = [{Function, case maps:find(Function, Actual) of
+                {ok, Ops} -> FirstDifference(ReferenceOps, Ops);
+                error -> same
+            end} || {Function, ReferenceOps} <- maps:to_list(Expected)],
+            Changes = [{Function, Difference} || {Function, Difference} <- Differences, Difference =/= same],
+            Updated = lists:foldl(fun({Function, Difference}, Current) ->
+                Add(Difference, Name, Function, Current)
+            end, Acc, Changes),
+            {Updated, Errors, Same + case Changes of [] -> 1; _ -> 0 end};
+        _ ->
+            {Acc, [Name | Errors], Same}
+    end
+end, {#{}, [], 0}, Files),
+Ranked = lists:reverse(lists:sort([{map_size(Modules), Difference,
+    lists:sublist(lists:sort(maps:to_list(Modules)), 3)} || {Difference, Modules} <- maps:to_list(Groups)])),
+io:format("Different images: ~p~nImages without this frame pattern: ~p~nUnreadable images: ~p~n",
+    [length(Files), SameOpcodes, lists:sort(Unreadable)]),
+lists:foreach(fun({Count, Difference, Examples}) ->
+    io:format("~w ~w ~p~n", [Count, Difference, Examples])
+end, lists:sublist(Ranked, 30)),
+halt().
+
+
+

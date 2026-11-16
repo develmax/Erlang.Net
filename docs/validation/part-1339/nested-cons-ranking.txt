@@ -1,0 +1,74 @@
+Read abstract forms from 1002 of 1002 differing release files.
+Unary nested cons with a call as result tail: 17 modules, 22 functions
+2 lib/wx-2.7/doc/examples/demo/demo_html_tagger.beam [{fix_exports,1},
+                                                      {fix_remote,1}]
+2 lib/tools-4.2.3/ebin/xref_scanner.beam [{a1,1},{lex,1}]
+2 lib/stdlib-8.1/ebin/epp.beam [{restore_typed_record_fields,1},{macro_ref,1}]
+2 lib/compiler-10.0.6/ebin/beam_ssa_opt.beam [{merge_updates_bs,1},
+                                              {get_map_keys,1}]
+2 lib/compiler-10.0.6/ebin/beam_ssa_codegen.beam [{delay_alloc,1},
+                                                  {bs_seq_match_fixup,1}]
+1 lib/tftp-1.3/ebin/tftp_lib.beam [{decode_options,1}]
+1 lib/parsetools-2.8/ebin/leex.beam [{disjoint_crs,1}]
+1 lib/kernel-11.0.4/ebin/application_controller.beam [{conv,1}]
+1 lib/eunit-2.11/ebin/eunit_lib.beam [{normalize,1}]
+1 lib/erts-17.1/ebin/prim_inet.beam [{dec_stats,1}]
+1 lib/compiler-10.0.6/ebin/cerl.beam [{fold_tuples,1}]
+1 lib/compiler-10.0.6/ebin/beam_z.beam [{undo_renames,1}]
+1 lib/compiler-10.0.6/ebin/beam_ssa_pre_codegen.beam [{init_xregs,1}]
+1 lib/compiler-10.0.6/ebin/beam_ssa_alias.beam [{aa_update_record_get_vars,1}]
+1 lib/compiler-10.0.6/ebin/beam_disasm.beam [{resolve_bs_match_commands,1}]
+1 lib/common_test-1.31.2/ebin/ct_run.beam [{event_handler_init_args2opts,1}]
+1 lib/asn1-5.5.2/ebin/asn1ct_check.beam [{format_elements,1}]
+Leading clauses with a shared tagged first element: 4 modules, 4 functions
+1 lib/wx-2.7/doc/examples/demo/demo_html_tagger.beam [{fix_remote,1}]
+1 lib/compiler-10.0.6/ebin/beam_ssa_pre_codegen.beam [{init_xregs,1}]
+1 lib/compiler-10.0.6/ebin/beam_ssa_codegen.beam [{bs_seq_match_fixup,1}]
+1 lib/compiler-10.0.6/ebin/beam_disasm.beam [{resolve_bs_match_commands,1}]
+Cons call result with a repeated pattern variable: 35 modules, 41 functions
+4 lib/asn1-5.5.2/ebin/asn1ct_imm.beam [{opt_length_nzlb,3},
+                                       {enc_char_tab_1,3},
+                                       {enc_cse_1,3},
+                                       {get_constraints,2}]
+3 lib/snmp-5.20.5/ebin/snmp_generic.beam [{table_create_rest,6},
+                                          {table_defaults,3},
+                                          {collect_keys,2}]
+2 lib/compiler-10.0.6/ebin/beam_asm.beam [{encode_line_items,2},
+                                          {filter_essentials,1}]
+1 lib/tools-4.2.3/ebin/xref_scanner.beam [{a1,1}]
+1 lib/stdlib-8.1/ebin/shell.beam [{reconstruct1,3}]
+1 lib/stdlib-8.1/ebin/epp.beam [{restore_typed_record_fields,1}]
+1 lib/snmp-5.20.5/ebin/snmpa_mib_data_tttn.beam [{integrate_indexes,2}]
+1 lib/snmp-5.20.5/ebin/snmpa_get.beam [{restore_duplicates,2}]
+1 lib/runtime_tools-2.5/ebin/system_information.beam [{find_modules,2}]
+1 lib/public_key-1.21.7/ebin/PKIXCMP-2023.beam [{make_and_set_list,3}]
+1 lib/public_key-1.21.7/ebin/PKIXAttributeCertificate-2009.beam [{make_and_set_list,
+                                                                  3}]
+1 lib/public_key-1.21.7/ebin/PKIX1Implicit-2009.beam [{make_and_set_list,3}]
+1 lib/public_key-1.21.7/ebin/EnrollmentMessageSyntax-2009.beam [{make_and_set_list,
+                                                                 3}]
+1 lib/os_mon-2.12/ebin/cpu_sup.beam [{state_list_add,2}]
+1 lib/observer-2.19/ebin/observer_tv_table.beam [{merge2,3}]
+1 lib/observer-2.19/ebin/observer_trace_wx.beam [{get_indecies,3}]
+1 lib/observer-2.19/ebin/observer_sock_wx.beam [{get_indecies,3}]
+1 lib/observer-2.19/ebin/observer_port_wx.beam [{get_indecies,3}]
+1 lib/observer-2.19/ebin/observer_perf_wx.beam [{calc_delta,2}]
+1 lib/mnesia-4.27/ebin/mnesia_schema.beam [{rec2list,4}]
+1 lib/megaco-4.9.2/ebin/megaco_ber_media_gateway_control_v3.beam [{make_and_set_list,
+                                                                   3}]
+1 lib/megaco-4.9.2/ebin/megaco_ber_media_gateway_control_v2.beam [{make_and_set_list,
+                                                                   3}]
+1 lib/megaco-4.9.2/ebin/megaco_ber_media_gateway_control_v1.beam [{make_and_set_list,
+                                                                   3}]
+1 lib/kernel-11.0.4/ebin/inet_tcp_dist.beam [{split_node,3}]
+1 lib/kernel-11.0.4/ebin/global.beam [{split_node,3}]
+1 lib/kernel-11.0.4/ebin/dist_ac.beam [{get_dist_loaded,2}]
+1 lib/erts-17.1/ebin/prim_inet.beam [{merge_options,2}]
+1 lib/erts-17.1/ebin/init.beam [{get_argument1,2}]
+1 lib/edoc-1.5/ebin/edoc_layout.beam [{get_attr,2}]
+1 lib/edoc-1.5/ebin/edoc_doclet.beam [{get_attr,2}]
+1 lib/edoc-1.5/ebin/edoc_data.beam [{get_tags,2}]
+1 lib/compiler-10.0.6/ebin/beam_ssa_opt.beam [{merge_updates_bs,1}]
+1 lib/compiler-10.0.6/ebin/beam_ssa_codegen.beam [{bs_seq_match_fixup,1}]
+1 lib/compiler-10.0.6/ebin/beam_core_to_ssa.beam [{select_bin_int_1,4}]
+1 lib/common_test-1.31.2/ebin/ct_run.beam [{skiplist,2}]

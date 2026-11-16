@@ -12209,6 +12209,29 @@ Test(
 
 );
 
+Test(Erlang.Tests.BeamCompactWriterChecks.TestName, Erlang.Tests.BeamCompactWriterChecks.Run);
+
+Test(Erlang.Tests.BeamModuleEmissionChecks.TestName, Erlang.Tests.BeamModuleEmissionChecks.Run);
+Test(Erlang.Tests.BeamModuleEmissionChecks.CallResultBifTestName, Erlang.Tests.BeamModuleEmissionChecks.CompareCallResultBif);
+Test(Erlang.Tests.BeamModuleEmissionChecks.EntryResultCaseTestName, Erlang.Tests.BeamModuleEmissionChecks.CompareEntryResultCase);
+Test(
+    Erlang.Tests.BeamModuleEmissionChecks.AtomTailDispatchTestName,
+    Erlang.Tests.BeamModuleEmissionChecks.CompareAtomTailDispatch
+);
+Test(Erlang.Tests.NamedFunSourceChecks.TestName, Erlang.Tests.NamedFunSourceChecks.Run);
+
+Test(Erlang.Tests.BeamDocumentationSourceChecks.TestName, Erlang.Tests.BeamDocumentationSourceChecks.Run);
+
+Test(Erlang.Tests.BeamDocumentationEmissionChecks.TestName, Erlang.Tests.BeamDocumentationEmissionChecks.Run);
+
+Test(Erlang.Tests.BeamReleaseImageChecks.TestName, Erlang.Tests.BeamReleaseImageChecks.Run);
+
+Test("compiler/source/dynamic-remote-call", async () => Equal(await Eval("begin M=erlang,F=length,M:F([a,b]) end"), Term.I(2)));
+
+Test(Erlang.Tests.BeamTypeSourceChecks.TestName, Erlang.Tests.BeamTypeSourceChecks.Run);
+
+Test(Erlang.Tests.BeamConditionalSourceChecks.TestName, Erlang.Tests.BeamConditionalSourceChecks.Run);
+
 foreach (var fixture in Erlang.Differential.CompiledModuleCases.All.Where(fixture => !Erlang.Differential.SchedulerAffinityCases.Modules.Contains(fixture) && !Erlang.Differential.SizeErrorCases.Modules.Contains(fixture) && !Erlang.Tests.RuntimeIncrementCompiledCases.Names.Contains(fixture.Name)))
 
 {

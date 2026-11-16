@@ -1,5 +1,7 @@
 # Compatibility overview
 
+The C# BEAM compiler has separately verified whole-image parity for 400 of 1,366 Windows OTP 29.1.1 release modules at the checkpoint. [Scope and evidence](validation/part-1820/README.md).
+
 Part611 adds the selectable error_logger backend with all 29 exports. Both backends pass 143 targeted observations and 10 upstream tests. [Publication evidence](validation/error-logger-port-20261105/publication/README.md).
 
 The selectable supervisor backends match the focused OTP 29.1.1 corpus on Windows. Full-suite, distributed, platform and resource coverage remain open. [Validation scope](supervisor-backends.md).

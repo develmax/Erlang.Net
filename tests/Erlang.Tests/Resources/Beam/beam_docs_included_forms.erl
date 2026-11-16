@@ -1,0 +1,3 @@
+-module(beam_docs_included_forms).
+-export([marked/1, plain/1]).
+-include("beam_docs_included_forms.hrl").

@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+The BEAM corpus uses the pinned Windows OTP 29.1.1 release as the byte comparison reference. The C# ASN.1 generator supplies the input for ELDAPv3. [Checkpoint evidence](validation/part-1820/README.md).
+
 ## Native resource/magic32 and atomic64 storage — 2026-11-05
 
 Reuse the existing NativeMemory allocator, serialized ownership/refcount graph,

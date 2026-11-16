@@ -109,7 +109,7 @@ internal static class LocalFunctionEntries
         }
     }
 
-    private static IEnumerable<Expr> Walk(Expr expression)
+    internal static IEnumerable<Expr> Walk(Expr expression)
     {
         yield return expression;
         foreach (var child in Children(expression))
@@ -132,13 +132,13 @@ internal static class LocalFunctionEntries
         _ => []
     };
 
-    private static IEnumerable<Expr> Qualifiers(IEnumerable<ComprehensionQualifier> qualifiers) => qualifiers.SelectMany(qualifier => qualifier switch
+    internal static IEnumerable<Expr> QualifierExpressions(IEnumerable<ComprehensionQualifier> qualifiers) => qualifiers.SelectMany(qualifier => qualifier switch
     {
         ComprehensionQualifier.Filter filter => new[] { filter.Expression },
         ComprehensionQualifier.Generator generator => PatternExpressions(generator.Pattern).Append(generator.Source),
         ComprehensionQualifier.BinaryGenerator generator => PatternExpressions(generator.Pattern).Append(generator.Source),
         ComprehensionQualifier.MapGenerator generator => PatternExpressions(generator.Pattern).Append(generator.Source),
-        ComprehensionQualifier.Zip zip => Qualifiers(zip.Generators),
+        ComprehensionQualifier.Zip zip => QualifierExpressions(zip.Generators),
         _ => throw new NotSupportedException()
     });
 
@@ -152,9 +152,9 @@ internal static class LocalFunctionEntries
         Expr.RecordUpdate record => new[] { record.Value }.Concat(record.Fields.Select(field => field.Value)),
         Expr.Tuple tuple => tuple.Items,
         Expr.List list => list.Tail is null ? list.Items : list.Items.Append(list.Tail),
-        Expr.ListComprehension list => list.Items.Concat(Qualifiers(list.Qualifiers)),
-        Expr.BinaryComprehension binary => new[] { binary.Body }.Concat(Qualifiers(binary.Qualifiers)),
-        Expr.MapComprehension map => map.Fields.SelectMany(field => new[] { field.Key, field.Value }).Concat(Qualifiers(map.Qualifiers)),
+        Expr.ListComprehension list => list.Items.Concat(QualifierExpressions(list.Qualifiers)),
+        Expr.BinaryComprehension binary => new[] { binary.Body }.Concat(QualifierExpressions(binary.Qualifiers)),
+        Expr.MapComprehension map => map.Fields.SelectMany(field => new[] { field.Key, field.Value }).Concat(QualifierExpressions(map.Qualifiers)),
         Expr.Map map => MapExpressionBindings.Expressions(map),
         Expr.Bits bits => bits.Segments.SelectMany(segment => segment.Size is null ? new[] { segment.Value } : new[] { segment.Value, segment.Size }),
         Expr.Call call => call.Arguments,

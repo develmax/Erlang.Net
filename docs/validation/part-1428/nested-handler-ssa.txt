@@ -1,0 +1,43 @@
+  _175 = landingpad `'try'`, _166
+
+  %% Aliased:
+  %%    _175
+  _23 = extract _175, `0`
+
+  %% Aliased:
+  %%    _175
+  _22 = extract _175, `1`
+
+  %% Aliased:
+  %%    _175
+  _21 = extract _175, `2`
+
+  %% Unique:
+  %%    _166
+  _176 = kill_try_tag _166
+
+  %% Argument types:
+  %%    _23 => 'error' | 'exit' | 'throw'
+  %% Unique:
+  %%    _23
+  _173 = bif:'=:=' _23, `error`
+  br _173, ^172, ^170
+
+172:
+  %% c:/Users/Maksim/AppData/Local/Temp/erl-cohort-7mzi5e1n/view/artifacts/library376-official-compiler/installed/lib/compiler-10.0.6/src/sys_core_fold.erl:688
+  %% Anno: #{thrown_type => {t_atom,[impossible]}}
+  _94 = call (`erlang`:`throw`/1), `impossible`
+
+  %% Aliased:
+  %%    _94
+  _171 = succeeded:body _94
+  br ^1
+
+170:
+  %% Aliased:
+  %%    _21, 
+  %%    _22
+  _95 = resume _21, _22
+
+  %% Unique:
+  %%    _95

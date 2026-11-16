@@ -426,8 +426,14 @@ public static class Semantics
             case Expr.Fun f:
                 if (guard)
                     throw new CompileException(CompilerDiagnosticCodes.IllegalGuard, SemanticDiagnostics.GuardFun, 0);
+                var funScope = bound;
+                if (f.SelfName is { } selfName)
+                {
+                    funScope = new HashSet<string>(bound, StringComparer.Ordinal) { selfName };
+                    funScope.Remove(VariableScopeNames.UnsafePrefix + selfName);
+                }
                 foreach (var c in f.Clauses)
-                    ValidateClause(c, bound, true);
+                    ValidateClause(c, funScope, true);
                 ClosureCaptures.Remember(f, bound);
                 if (f.Clauses.Select(c => c.Patterns.Count).Distinct().Count() != 1)
                     throw new CompileException(CompilerDiagnosticCodes.FunctionDefinition, SemanticDiagnostics.FunClauseArityMismatch, 0);

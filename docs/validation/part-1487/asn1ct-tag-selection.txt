@@ -1,0 +1,64 @@
+OTP 29.1.1
+{label,1171}
+{line,[{location,"asn1ct_check.erl",3159}]}
+{func_info,{atom,asn1ct_check},{atom,parameter_name_style},1}
+{label,1172}
+{test,is_tuple,{f,1171},[{x,0}]}
+{test,test_arity,{f,1171},[{x,0},4]}
+{get_tuple_element,{x,0},0,{x,1}}
+{select_val,{x,1},
+            {f,1171},
+            {list,[{atom,'Externaltypereference'},
+                   {f,1174},
+                   {atom,'Externalvaluereference'},
+                   {f,1173}]}}
+{label,1173}
+{move,{atom,beginning_lowercase},{x,0}}
+return
+{label,1174}
+{move,{atom,beginning_uppercase},{x,0}}
+return
+Part 1486 C#
+{label,1900}
+{line,[{location,"asn1ct_check.erl",3159}]}
+{func_info,{atom,asn1ct_check},{atom,parameter_name_style},1}
+{label,1901}
+{test,is_tuple,{f,1900},[{x,0}]}
+{test,test_arity,{f,1900},[{x,0},4]}
+{allocate,1,1}
+{move,{x,0},{y,0}}
+{get_tuple_element,{y,0},0,{x,0}}
+{test,is_eq_exact,{f,1902},[{x,0},{atom,'Externaltypereference'}]}
+{move,{atom,beginning_uppercase},{x,0}}
+{deallocate,1}
+return
+{label,1902}
+{get_tuple_element,{y,0},0,{x,0}}
+{test,is_eq_exact,{f,1903},[{x,0},{atom,'Externalvaluereference'}]}
+{move,{atom,beginning_lowercase},{x,0}}
+{deallocate,1}
+return
+{label,1903}
+{move,{y,0},{x,0}}
+{deallocate,1}
+{jump,{f,1900}}
+Part 1487 C#
+{label,1900}
+{line,[{location,"asn1ct_check.erl",3159}]}
+{func_info,{atom,asn1ct_check},{atom,parameter_name_style},1}
+{label,1901}
+{test,is_tuple,{f,1900},[{x,0}]}
+{test,test_arity,{f,1900},[{x,0},4]}
+{get_tuple_element,{x,0},0,{x,1}}
+{select_val,{x,1},
+            {f,1900},
+            {list,[{atom,'Externaltypereference'},
+                   {f,1903},
+                   {atom,'Externalvaluereference'},
+                   {f,1902}]}}
+{label,1902}
+{move,{atom,beginning_lowercase},{x,0}}
+return
+{label,1903}
+{move,{atom,beginning_uppercase},{x,0}}
+return

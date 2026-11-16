@@ -1,0 +1,7 @@
+R="D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/library376-official-compiler/installed/lib/eldap-1.3.1/ebin/ELDAPv3.beam",A="artifacts/beam-backend/part666-eldap/ELDAPv3.release-profile.beam",
+Read=fun(P)->{ok,_,Chunks}=beam_lib:all_chunks(P), binary_to_term(proplists:get_value("Attr",Chunks)) end,
+O=Read(R),N=Read(A),Drop=fun(L)->lists:keysort(1,proplists:delete(vsn,L)) end,
+Same=Drop(O)=:=Drop(N),io:format("non_vsn_equal=~p~nrelease_order=~p~nmanaged_order=~p~n",[Same,[K||{K,_}<-O],[K||{K,_}<-N]]),
+M='ELDAPv3',Expected=M:info(),code:purge(M),code:delete(M),{ok,B}=file:read_file(A),{module,M}=code:load_binary(M,A,B),
+Info=Expected=:=M:info(),io:format("info_equal=~p~n",[Info]),
+case Same andalso Info of true->halt();_->io:format("~p~n~p~n",[Drop(O),Drop(N)]),halt(1) end.

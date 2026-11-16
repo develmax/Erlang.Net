@@ -1,0 +1,72 @@
+Tagged call match continuations in 997 differing images.
+Counts are {modules, functions, examples}. Groups can overlap.
+#{tagged_call_match =>
+      {247,541,
+       [{asn1ct,{pretty2,2}},
+        {asn1ct_check,{check_defaultfields_1,4}},
+        {asn1ct_constructed_per,{enc_map_match,2}},
+        {asn1ct_func,{start_link,0}},
+        {ct,{capture_get,1}}]},
+  case_after_match =>
+      {47,53,
+       [{ct_cover,{analyse_files,5}},
+        {ct_make,{recompilep1,5}},
+        {ct_property_test,{compile_tests,2}},
+        {ct_release_test,{copy_file,3}},
+        {ct_repeat,{loop_test,2}}]},
+  case_with_call_selector_after_match =>
+      {32,34,
+       [{ct_property_test,{compile_tests,2}},
+        {ct_release_test,{copy_file,3}},
+        {ct_repeat,{loop_test,2}},
+        {ct_run,{refresh_logs,2}},
+        {ct_telnet,{teln_receive_until_prompt,4}}]},
+  terminal_case_after_match =>
+      {43,47,
+       [{ct_cover,{analyse_files,5}},
+        {ct_make,{recompilep1,5}},
+        {ct_property_test,{compile_tests,2}},
+        {ct_release_test,{copy_file,3}},
+        {ct_repeat,{loop_test,2}}]},
+  call_binding_after_match =>
+      {110,187,
+       [{asn1ct,{pretty2,2}},
+        {asn1ct_check,{traverse_seq_set_1,2}},
+        {asn1ct_constructed_per,{gen_dec_components_call,6}},
+        {ct_logs,{all_runs_header,1}},
+        {ct_make,{recompilep1,5}}]},
+  call_binding_using_payload =>
+      {60,91,
+       [{asn1ct_check,{traverse_seq_set_1,2}},
+        {asn1ct_constructed_per,{gen_dec_components_call,6}},
+        {ct_logs,{all_runs_header,1}},
+        {ct_release_test,{init_upgrade_test,3}},
+        {ct_slave,{spawn_remote_node,3}}]},
+  ordinary_call_after_match =>
+      {113,174,
+       [{asn1ct_check,{check_defaultfields_1,4}},
+        {asn1ct_func,{start_link,0}},
+        {ct,{capture_get,1}},
+        {cth_surefire,{terminate,1}},
+        {ct_logs,{all_suites_index_header,1}}]},
+  terminal_call_after_match =>
+      {76,105,
+       [{asn1ct_check,{check_defaultfields_1,4}},
+        {ct,{capture_get,1}},
+        {ct_logs,{all_suites_index_header,1}},
+        {ct_release_test,{node_name,1}},
+        {ct_snmp,{override_community,2}}]},
+  terminal_call_using_payload =>
+      {51,74,
+       [{ct_logs,{all_suites_index_header,1}},
+        {ct_snmp,{override_community,2}},
+        {test_server,{peer_compile,3}},
+        {dbg_ieval,{guard_expr,2}},
+        {int,{check_beam,1}}]},
+  terminal_tuple_after_match =>
+      {26,34,
+       [{cth_surefire,{init,1}},
+        {test_server_io,{handle_call,3}},
+        {compile,{beam_debug_info,2}},
+        {dbg_ieval,{guard_expr,2}},
+        {eldap,{paged_result_control,2}}]}}

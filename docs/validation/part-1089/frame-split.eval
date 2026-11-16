@@ -1,0 +1,24 @@
+[Ref, Gen] = [filename:absname(P) || P <- init:get_plain_arguments()],
+Files = filelib:fold_files(Gen, "[.]beam$", true, fun(P, Acc) -> [P | Acc] end, []),
+Opcode = fun({test,N,_,_}) -> {test,N}; ({bif,N,_,_,_}) -> {bif,N}; ({gc_bif,N,_,_,_,_}) -> {gc_bif,N}; (I) when is_atom(I) -> I; (I) -> element(1,I) end,
+Read = fun(P) ->
+    {beam_file,_,_,_,_,Fs} = beam_disasm:file(P),
+    maps:from_list([{{Name,Arity}, [Op || I <- Is, Op <- [Opcode(I)], not lists:member(Op,[line,label,func_info])]}
+        || {function,Name,Arity,_,Is} <- Fs])
+end,
+First = fun Diff([I|Ls],[I|Rs]) -> Diff(Ls,Rs); Diff([L|_],[R|_]) -> {L,R}; Diff(_,_) -> none end,
+Count = fun(Keys, Rel, Acc) -> lists:foldl(fun(Key, A) ->
+    maps:update_with(Key,fun({N,Paths})->{N+1,sets:add_element(Rel,Paths)} end,
+        {1,sets:from_list([Rel])},A) end, Acc, Keys) end,
+Results = lists:foldl(fun(P, Acc) ->
+    Rel = lists:nthtail(length(filename:split(Gen)),filename:split(P)),
+    R = Read(filename:join([Ref|Rel])), G = Read(P),
+    Kinds = [case atom_to_list(Name) of [$-|_] -> lifted; _ -> named end
+        || {{Name,A},RIs} <- maps:to_list(R), First(RIs,maps:get({Name,A},G,[])) =:= {move,init_yregs}],
+    Count(Kinds,Rel,Acc)
+end,#{},Files),
+io:format("move/init_yregs first differences by function name shape (functions, files):~n"),
+[maps:is_key(K,Results) andalso begin {N,Paths}=maps:get(K,Results), io:format("~p ~p ~p~n",[K,N,sets:size(Paths)]) end
+    || K <- [named,lifted]],
+halt().
+

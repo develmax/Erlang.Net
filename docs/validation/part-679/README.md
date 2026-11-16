@@ -1,0 +1,15 @@
+# Part679 LDAP decoded enums and range checks
+
+The C# emitter selects decoded enum values directly from X0 and writes each selected atom to the destination slot. Unknown values are wrapped in a tagged tuple without an intermediate selector spill. For inclusive ranges, the emitter compares the call result in X0 and shares one slot between the checked variable and the result binding. The type annotation is emitted only when the return type is proven. The fixture covers known and unknown enum values, an in-range float, an out-of-range exit and the variable bound inside the block.
+
+In dec_SearchRequest/2 both enum selectors and all four range comparisons carry the OTP integer annotations. The managed function drops from 182 to 176 instructions and from 32 to 28 stack slots. OTP uses 134 instructions and eight slots. The change removes 16 instructions across eight functions. The exact encode/2 and decode/2 comparisons and the normalized protocol operation comparison still pass. [Search decoder disassembly](dec-search-oracle.txt), [instruction deltas](decoder-instruction-delta.txt).
+
+The managed image drops from 104,256 bytes and 8,546 instructions to 104,212 bytes and 8,530 instructions. OTP has 99,008 bytes and 7,028 instructions. AtU8, ImpT, StrT, CInf, Meta, LitT, Docs and Dbgi remain byte-exact. Code, ExpT, LocT, Attr, Line and Type differ. [Chunk comparison](chunks-oracle.txt).
+
+The reference is OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5. The C# path reuses the call fact analysis, typed register writer, tagged tuple emission and existing inclusive range comparison emitter. Dependencies and licenses are unchanged.
+
+Build with `dotnet build tools/Validation/Erlang.BeamCorpus -m:1 --no-restore -v:q -o artifacts/beam-backend/part679-tool`. Run `dotnet artifacts/beam-backend/part679-tool/Erlang.BeamCorpus.dll $InstalledOtpRoot artifacts/beam-backend/otp-corpus-part679.json` with InstalledOtpRoot from artifacts/library376-official-compiler/official-admission.json. The focused selection is compiler/beam/whole-module-matches-otp, compiler/beam/rebuild-installed-otp-release-images and compiler/beam/documentation-payload-matches-otp.
+
+The behavior oracle matched 320 direct calls, 83 round trips and 88 boundary calls. The full runtime harness and canonical readiness regeneration remain pending. Next, forward list heads into the decoder call register and reuse the tail slot after each field. [Instruction gaps](instruction-gaps-oracle.txt).
+
+The initial fixture reached the restricted simple emitter. Wrapping the fixture body in begin routed it through the general emitter, which is the path used by the LDAP decoders. All three focused checks passed on the final run. The full corpus checked 1,366 files and reported 18 Equal, 19 Different, 488 SourceRejected and 841 Unsupported. ELDAPv3 is Different. The corpus exited with code 1 because images still differ. [Initial focused report](focused-initial.json), [final focused report](focused.json), [corpus report](otp-corpus.json).

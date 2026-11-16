@@ -1,0 +1,42 @@
+scan true
+prefixed true
+value true
+scan_late false
+OTP [{line,[{location,[],28}]},
+     {func_info,{atom,part1424_late},{atom,scan_late},2},
+     {test,is_nonempty_list,{f,18},[{x,1}]},
+     {get_list,{x,1},{x,2},{x,1}},
+     {test,is_tuple,{f,16},[{x,2}]},
+     {test,is_tagged_tuple,
+           {f,17},
+           [{tr,{x,2},{t_tuple,0,false,#{}}},2,{atom,skip}]},
+     {call_only,2,{part1424_late,scan_late,2}},
+     {test,is_eq_exact,{f,17},[{x,2},{atom,skip}]},
+     {call_only,2,{part1424_late,scan_late,2}},
+     {test_heap,2,3},
+     {put_list,{x,2},{x,0},{x,0}},
+     {call_only,2,{part1424_late,scan_late,2}},
+     {test,is_nil,{f,19},[{x,0}]},
+     {test,is_nil,{f,14},[{x,1}]},
+     {move,nil,{x,0}},
+     {test,is_nil,{f,14},[{x,1}]}]
+C#  [{line,[{location,[],28}]},
+     {func_info,{atom,part1424_late},{atom,scan_late},2},
+     {test,is_nonempty_list,{f,18},[{x,1}]},
+     {get_list,{x,1},{x,2},{x,1}},
+     {test,is_tuple,{f,16},[{x,2}]},
+     {test,is_tagged_tuple,
+           {f,17},
+           [{tr,{x,2},{t_tuple,0,false,#{}}},2,{atom,skip}]},
+     {call_only,2,{part1424_late,scan_late,2}},
+     {test,is_eq_exact,{f,17},[{x,2},{atom,skip}]},
+     {call_only,2,{part1424_late,scan_late,2}},
+     {test_heap,2,3},
+     {put_list,{x,2},{x,0},{x,0}},
+     {call_only,2,{part1424_late,scan_late,2}},
+     {test,is_nil,{f,14},[{x,1}]},
+     {test,is_nil,{f,19},[{x,0}]},
+     {move,nil,{x,0}}]
+Differing chunks ["Code","Attr"]
+Complete image match false
+Execution checks passed

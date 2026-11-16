@@ -1,0 +1,27 @@
+[Reference, Generated] = init:get_plain_arguments(),
+Op = fun({test,K,_,_}) -> {test,K}; ({bif,K,_,_,_}) -> {bif,K};
+        ({gc_bif,K,_,_,_,_}) -> {gc_bif,K}; (I) when is_atom(I) -> I; (I) -> element(1,I) end,
+Build = fun(Fs) -> maps:from_list([{{N,A}, [O || I <- Is, O <- [Op(I)], O =/= label, O =/= line, O =/= func_info]} || {function,N,A,_,Is} <- Fs]) end,
+Diff = fun F([O|As],[O|Bs]) -> F(As,Bs);
+           F([A|_],[B|_]) -> {A,B}; F([],[]) -> same;
+           F([], [B|_]) -> {instruction_end,B}; F([A|_],[]) -> {A,instruction_end} end,
+Add = fun(Key, Mod, Acc) -> maps:update_with(Key, fun(S) -> sets:add_element(Mod,S) end, sets:from_list([Mod]), Acc) end,
+Groups = lists:foldl(fun(Q, Acc) ->
+    P = filename:join(Reference,filename:basename(Q)),
+    case {file:read_file(P),file:read_file(Q)} of
+      {{ok,Bin},{ok,Bin}} -> Acc;
+      _ -> case {beam_disasm:file(P),beam_disasm:file(Q)} of
+        {{beam_file,M,_,_,_,A},{beam_file,M,_,_,_,B}} ->
+           X = Build(A), Y = Build(B),
+           maps:fold(fun(K,Is,G) ->
+               case maps:find(K,Y) of
+                 error -> Add(missing_function,M,G);
+                 {ok,Js} -> case Diff(Is,Js) of same -> G; D -> Add(D,M,G) end
+               end
+           end,Acc,X);
+        _ -> Add(disassembly_failed,filename:basename(Q),Acc)
+      end
+    end
+end,#{},filelib:wildcard(filename:join(Generated,"*.beam"))),
+Ranked=lists:reverse(lists:sort([{sets:size(S),K} || {K,S} <- maps:to_list(Groups)])),
+io:format("~p~n",[lists:sublist(Ranked,20)]), halt().

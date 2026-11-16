@@ -1,0 +1,12 @@
+[{label,1},
+ {line,[{location,[],3}]},
+ {func_info,{atom,tuple_entry_tail_probe},{atom,route},2},
+ {label,2},
+ {test,is_tagged_tuple,{f,3},[{x,0},2,{atom,tag}]},
+ {test_heap,3,2},
+ {get_tuple_element,{x,0},1,{x,0}},
+ {put_tuple2,{x,0},{list,[{atom,wrapped},{x,0}]}},
+ {call_only,2,{tuple_entry_tail_probe,target,2}},
+ {label,3},
+ {move,{atom,no},{x,0}},
+ return]

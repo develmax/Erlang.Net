@@ -1,0 +1,33 @@
+OTP 29.1.1
+{label,612}
+{line,[{location,"ct_netconfc.erl",2700}]}
+{func_info,{atom,ct_netconfc},{atom,trim},1}
+{label,613}
+{bs_start_match4,{atom,no_fail},1,{x,0},{x,0}}
+{bs_get_position,{x,0},{x,1},1}
+{bs_match,{f,615},{x,0},{commands,[{ensure_at_least,8,1},{integer,2,{literal,[]},8,1,{x,2}}]}}
+{select_val,{tr,{x,2},{t_integer,{0,255}}},{f,615},{list,[{integer,9},{f,614},{integer,10},{f,614},{integer,13},{f,614},{integer,32},{f,614}]}}
+{label,614}
+{call_only,1,{ct_netconfc,trim,1}}
+{label,615}
+{bs_set_position,{x,0},{x,1}}
+{bs_get_tail,{x,0},{x,0},1}
+return
+Part 1580 C#
+{label,931}
+{line,[{location,"ct_netconfc.erl",2700}]}
+{func_info,{atom,ct_netconfc},{atom,trim},1}
+{label,932}
+{test,bs_start_match3,{f,935},1,[{x,0}],{x,1}}
+{bs_get_position,{x,1},{x,0},2}
+{bs_match,{f,934},{x,1},{commands,[{ensure_at_least,8,8},{integer,2,{literal,[]},8,1,{x,2}}]}}
+{select_val,{tr,{x,2},{t_integer,{0,255}}},{f,934},{list,[{integer,9},{f,933},{integer,10},{f,933},{integer,13},{f,933},{integer,32},{f,933}]}}
+{label,933}
+{move,{x,1},{x,0}}
+{call_only,1,{ct_netconfc,trim,1}}
+{label,934}
+{bs_set_position,{x,1},{x,0}}
+{bs_get_tail,{x,1},{x,0},2}
+return
+{label,935}
+return

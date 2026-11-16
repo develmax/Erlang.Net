@@ -1,0 +1,30 @@
+[Before, After] = init:get_plain_arguments(),
+Allocations = fun(Path) ->
+    {beam_file, _, _, _, _, Functions} = beam_disasm:file(Path),
+    maps:from_list([{{Name, Arity}, Slots}
+                    || {function, Name, Arity, _, Instructions} <- Functions,
+                       Slots <- lists:sublist([element(2, I) || I <- Instructions, is_tuple(I),
+                                             element(1, I) =:= allocate orelse element(1, I) =:= allocate_heap], 1)])
+end,
+Paths = filelib:fold_files(After, "[.]beam$", true, fun(Path, Acc) -> [Path|Acc] end, []),
+Results = lists:flatmap(fun(Path) ->
+    Relative = lists:nthtail(length(filename:split(After)), filename:split(Path)),
+    Prior = filename:join([Before|Relative]),
+    case {file:read_file(Prior), file:read_file(Path)} of
+        {{ok, Same}, {ok, Same}} ->
+            [];
+        {{ok, _}, {ok, _}} ->
+            Old = Allocations(Prior),
+            New = Allocations(Path),
+            Changes = [{Function, Previous, Current}
+                       || {Function, Current} <- maps:to_list(New),
+                          {ok, Previous} <- [maps:find(Function, Old)],
+                          Current =/= Previous],
+            [{filename:join(Relative), Changes}];
+        _ ->
+            []
+    end
+end, Paths),
+io:format("Changed images with both artifacts present: ~B~n", [length(Results)]),
+lists:foreach(fun(Result) -> io:format("~p~n", [Result]) end, lists:sort(Results)),
+halt().

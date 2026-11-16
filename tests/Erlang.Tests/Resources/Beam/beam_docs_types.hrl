@@ -1,0 +1,6 @@
+-doc "A documented type from the header.".
+-doc(#{group => <<"Header Types">>}).
+-type shared() :: hidden_value() | undocumented().
+-doc false.
+-type hidden_value() :: integer().
+-type undocumented() :: atom().

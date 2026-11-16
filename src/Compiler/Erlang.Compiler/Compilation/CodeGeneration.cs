@@ -155,6 +155,86 @@ public static class CodeGeneration
         return ModuleCode(module with { SourceFilePath = sourcePath }, sourcePath);
     }
 
+    public static byte[] CompileBeamModule(string source, string sourcePath) =>
+        CompileBeamModule(sourcePath, new BeamMacroPreprocessor(source, sourcePath));
+
+    public static byte[] CompileBeamFile(
+        string sourcePath,
+        string? otpLibraryDirectory = null,
+        IReadOnlyList<string>? includeDirectories = null,
+        BeamReleaseBuildProfile? buildProfile = null
+    )
+    {
+        sourcePath = Path.GetFullPath(sourcePath);
+        string source = File.ReadAllText(sourcePath);
+        var resolver = new BeamIncludeResolver(
+            otpLibraryDirectory is null ? null : Path.GetFullPath(otpLibraryDirectory),
+            includeDirectories?.Select(Path.GetFullPath).ToArray() ?? []
+        );
+
+        bool deterministic = buildProfile is null || buildProfile.RecordedCompileOptions?.Contains(Term.A("deterministic")) == true;
+
+        return CompileBeamModule(sourcePath, new BeamMacroPreprocessor(
+            source,
+            sourcePath,
+            resolver,
+            deterministic,
+            buildProfile?.PreprocessorDefinitions
+        ), buildProfile);
+    }
+
+    private static byte[] CompileBeamModule(string sourcePath, BeamMacroPreprocessor preprocessor, BeamReleaseBuildProfile? buildProfile = null)
+    {
+        var tokens = preprocessor.Run();
+        string source = preprocessor.CombinedSource;
+        var parser = new Parser(source, tokens, allowBeamOnLoad: true);
+        var module = parser.ParseModule();
+        if (!string.Equals(Path.GetFileNameWithoutExtension(sourcePath), module.Name, StringComparison.Ordinal))
+        {
+            throw new NotSupportedException(BeamEmissionFormat.ModuleFileMismatch);
+        }
+
+        var functions = module.DeclaredFunctions;
+        var exports = module.DeclaredExports.ToHashSet();
+        if (functions.Any(function => function.Name == "module_info"))
+        {
+            throw new NotSupportedException(BeamEmissionFormat.Unsupported);
+        }
+
+        var lines = BeamSourceForms.FunctionLines(tokens, module);
+        if (module.InlineTargets.Count != 0 || module.AutomaticInlining)
+        {
+            (functions, lines) = BeamTargetedInlining.Apply(module, lines, exports);
+        }
+        var specs = buildProfile is null && module.Documentation.Count == 0 && !module.HasGeneratedEunitTest
+            ? new Dictionary<int, Parser.ReleaseSpec>()
+            : BeamSourceForms.Starts(tokens)
+                .Where(index => tokens[index].Text == ErlangSyntaxTokens.AttributeIntroducer && tokens[index + 1].Text == "spec")
+                .ToDictionary(index => index, index => Parser.ReadReleaseSpec(source, tokens, index + 2));
+        string? documentationSource = buildProfile?.SourcePath;
+        if (buildProfile is { RecordedSourceFile: { } recordedFile })
+        {
+            int directoryEnd = Math.Max(buildProfile.SourcePath.LastIndexOf('/'), buildProfile.SourcePath.LastIndexOf('\\')) + 1;
+            documentationSource = buildProfile.SourcePath[..directoryEnd] + recordedFile;
+        }
+        byte[]? docs = buildProfile is { EmitDocumentation: false } ? null : BeamDocumentationWriter.Build(
+            module,
+            tokens,
+            source,
+            exports,
+            specs.Values,
+            documentationSource,
+            buildProfile?.RecordedIncludeFiles
+        );
+        var metadata = buildProfile is null
+            ? new BeamModuleMetadata(module.Attributes, docs)
+            : BeamReleaseMetadataWriter.Build(module, tokens, source, buildProfile, docs, specs, preprocessor.FileTransitions, parser);
+
+        string? lineFile = buildProfile?.RecordedSourceFile
+            ?? (buildProfile is { RecordSourceFileInLineTable: true } ? buildProfile.SourcePath : null);
+        return new BeamModuleCompiler(module.Name, lineFile, module, preprocessor.MaybeEnabled).Emit(functions, lines, exports, metadata);
+    }
+
     internal static string ModuleCode(ModuleDefinition module, string sourcePath, bool includeAttributes = true)
     {
         module = module with { SourceFilePath = sourcePath };

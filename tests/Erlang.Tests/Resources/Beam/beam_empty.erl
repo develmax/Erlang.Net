@@ -1,0 +1,1 @@
+-module(beam_empty).

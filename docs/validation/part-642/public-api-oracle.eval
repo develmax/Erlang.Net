@@ -1,0 +1,6 @@
+Read=fun(P)->{ok,_,Cs}=beam_lib:all_chunks(P),{debug_info_v1,_,{Fs,_}}=binary_to_term(proplists:get_value("Dbgi",Cs)),
+ maps:from_list([{{N,A},erl_parse:map_anno(fun(_)->0 end,F)}||F={function,_,N,A,_}<-Fs]) end,
+R=Read("D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/library376-official-compiler/installed/lib/eldap-1.3.1/ebin/ELDAPv3.beam"),Old=Read("artifacts/beam-backend/part641-eldap/ELDAPv3.release-profile.beam"),New=Read("artifacts/beam-backend/part642-eldap/ELDAPv3.release-profile.beam"),
+Matches=fun(M)->lists:sort([K||{K,F}<-maps:to_list(R),maps:get(K,M,missing)=:=F]) end,
+O=Matches(Old),A=Matches(New),
+io:format("release_function_forms_ignoring_annotations old=~p new=~p release=~p~n",[length(O),length(A),maps:size(R)]),case R=:=New of true->halt();false->io:format("remaining=~p~n",[maps:keys(R)--A]),halt(1) end.

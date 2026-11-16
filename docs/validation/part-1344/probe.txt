@@ -1,0 +1,10 @@
+[{label,1},
+ {line,[{location,[],6}]},
+ {func_info,{atom,conversion_call_probe},{atom,radix},2},
+ {label,2},
+ {allocate,1,2},
+ {move,{x,1},{y,0}},
+ {line,[{location,[],7}]},
+ {call_ext,2,{extfunc,erlang,integer_to_list,2}},
+ {move,{y,0},{x,1}},
+ {call_ext_last,2,{extfunc,erlang,list_to_integer,2},1}]

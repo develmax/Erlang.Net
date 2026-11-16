@@ -1,0 +1,20 @@
+Dir = "artifacts/beam-backend/part822-images",
+Module = ssl_dist_admin_sup,
+Run = fun(File) ->
+    code:purge(Module),
+    code:delete(Module),
+    {ok,Bytes}=file:read_file(File),
+    {module,Module}=code:load_binary(Module,File,Bytes),
+    application:unset_env(ssl,session_cb),
+    application:unset_env(ssl,session_lifetime),
+    Default=Module:init([]),
+    ok=application:set_env(ssl,session_cb,fixture_cache),
+    ok=application:set_env(ssl,session_lifetime,123),
+    Configured=Module:init([]),
+    Invalid=try Module:init([invalid]) catch Class:Reason -> {Class,Reason} end,
+    {Default,Configured,Invalid}
+end,
+Otp=Run(code:which(Module)),
+Otp=Run(filename:join(Dir,atom_to_list(Module)++".beam")),
+io:format("~p~n",[Otp]),
+halt().

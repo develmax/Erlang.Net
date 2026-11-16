@@ -1,0 +1,6 @@
+{"Partial":true,"SelectedCount":1,"TotalCount":9703}
+FAIL compiler/beam/whole-module-matches-otp: System.InvalidOperationException: Expected the direct tail branch to call done/0 without a frame.
+   at Erlang.Tests.BeamModuleEmissionChecks.CompareFramelessLocalTailWithReceive() in artifacts\beam-backend\part1807-delay-entry-frames-past-local-tail-exits-receive-source\BeamModuleEmissionChecks.cs:line 1862
+   at Erlang.Tests.BeamModuleEmissionChecks.Run() in artifacts\beam-backend\part1807-delay-entry-frames-past-local-tail-exits-receive-source\BeamModuleEmissionChecks.cs:line 463
+   at Program.<Main>$(String[] args) in tests\Erlang.Tests\Harness\Program.cs:line 16230
+0/1 passed

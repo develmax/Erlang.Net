@@ -1,0 +1,9 @@
+# Part 1615 — Keep binary BIF results in X registers
+
+The shared planner handles element/2, map_get/2, is_map_key/2, min/2 and max/2 when both operands are registers or literals. It tracks each register read separately, preserves the evaluation order, and emits failure locations for the three potentially failing BIFs. The OTP 29.1.1 reference is ad05823719d77c8faee87348ea39513d4e2f99c5. The change reuses the existing C# BIF emitters and adds no dependency.
+
+The permanent beam_binary_register_bifs fixture matches OTP byte for byte. A second fixture verifies the same register in both operands. The OTP VM produced the same return values and badarg, badkey and badmap errors for both versions of the permanent fixture. The corpus tool and test harness builds succeeded and three focused tests passed. [SHA-256](fixture-sha256.txt) · [Disassembly](disassembly.txt) · [Extrema](extrema.txt) · [Repeated register](repeated-operand.txt) · [Outcomes](outcomes.txt) · [Tests](focused.txt).
+
+All 1,366 release sources were accepted and generated. There were 393 Equal and 973 Different, including a byte-identical ELDAPv3 generated from ASN.1 by the C# tool. The Code size gap narrowed by 120 bytes across seven modules. Three more functions matched after label normalization. OTP accepted all 973 differing images for loading. The full runtime suite and readiness regeneration were outside this run. [Corpus](otp-corpus.json) · [Loader and Code sizes](loader-and-code.txt) · [Function comparison](normalized-functions.txt).
+
+The preceding corpus ranking found 10,944 functions across 877 modules whose first normalized instruction difference was a larger frame with the same live X count. Next, compare values live across calls and transient Y-slot use against OTP pre-codegen allocation. [Ranking](baseline-first-differences.txt).

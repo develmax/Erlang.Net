@@ -1,0 +1,8 @@
+{key_value_tuple,2} instructions OTP 240, previous C# 446, current C# 240
+OTP entry [{label,89},{line,[{location,"http_response.erl",152}]},{func_info,{atom,http_response},{atom,key_value_tuple},2},{label,90},{select_val,{x,0},{f,119},28,[{atom,'accept-ranges'},{f,118},{atom,age},{f,117},{atom,allow},{f,116}]},{label,91},{test,is_tagged_tuple,{f,122},[{x,1},30,{atom,http_response_h}]},{get_tuple_element,{x,1},18,{x,1}}]
+OTP fallback [{label,148},{line,[{location,"http_response.erl",176}]},{badrecord,{x,1}},{label,149},{line,[{location,"http_response.erl",174}]},{badrecord,{x,1}}]
+Previous entry [{label,123},{line,[{location,"http_response.erl",152}]},{func_info,{atom,http_response},{atom,key_value_tuple},2},{label,124},{allocate,3,2},{init_yregs,{list,[{y,2}]}},{move,{x,0},{y,0}},{move,{x,1},{y,1}}]
+Previous fallback [return,{label,211},{test_heap,3,0},{put_tuple2,{x,0},{list,[{y,0},{y,1}]}},{deallocate,3},return]
+Current entry [{label,123},{line,[{location,"http_response.erl",152}]},{func_info,{atom,http_response},{atom,key_value_tuple},2},{label,124},{select_val,{x,0},{f,153},28,[{atom,'accept-ranges'},{f,152},{atom,age},{f,151},{atom,allow},{f,150}]},{label,125},{test,is_tagged_tuple,{f,156},[{x,1},30,{atom,http_response_h}]},{get_tuple_element,{x,1},18,{x,1}}]
+Current fallback [{label,182},{line,[{location,"http_response.erl",176}]},{badrecord,{x,1}},{label,183},{line,[{location,"http_response.erl",174}]},{badrecord,{x,1}}]
+Current instructions match after label rebasing.

@@ -1,0 +1,16 @@
+lib\dialyzer-6.0.3\ebin\dialyzer_cplt.beam: @{Beam=lib\dialyzer-6.0.3\ebin\dialyzer_cplt.beam; Status=SourceRejected; Source=lib\dialyzer-6.0.3\src\dialyzer_cplt.erl; Detail=ERL003 at 19637: Unsupported -compile option: {parse_transform,ms_transform}; FirstDifferentByte=} -> Unsupported
+Cannot write debug forms for to_file1/4.
+lib\dialyzer-6.0.3\ebin\dialyzer_iplt.beam: @{Beam=lib\dialyzer-6.0.3\ebin\dialyzer_iplt.beam; Status=SourceRejected; Source=lib\dialyzer-6.0.3\src\dialyzer_iplt.erl; Detail=ERL003 at 24710: Unsupported -compile option: {parse_transform,ms_transform}; FirstDifferentByte=} -> Unsupported
+Cannot write debug forms for to_file_custom_vsn/6.
+lib\dialyzer-6.0.3\ebin\dialyzer_plt.beam: @{Beam=lib\dialyzer-6.0.3\ebin\dialyzer_plt.beam; Status=SourceRejected; Source=lib\dialyzer-6.0.3\src\dialyzer_plt.erl; Detail=ERL003 at 11988: Unsupported -compile option: {parse_transform,ms_transform}; FirstDifferentByte=} -> Different
+lib\kernel-11.0.4\ebin\code_server.beam: @{Beam=lib\kernel-11.0.4\ebin\code_server.beam; Status=SourceRejected; Source=lib\kernel-11.0.4\src\code_server.erl; Detail=ERL003 at 48048: Unsupported -compile option: {parse_transform,ms_transform}; FirstDifferentByte=} -> Unsupported
+code_server:insert_dir/2: The function or module uses a form outside the current BEAM emission profile.
+lib\kernel-11.0.4\ebin\global.beam: @{Beam=lib\kernel-11.0.4\ebin\global.beam; Status=SourceRejected; Source=lib\kernel-11.0.4\src\global.erl; Detail=ERL003 at 134116: Unsupported -compile option: {parse_transform,ms_transform}; FirstDifferentByte=} -> Unsupported
+The function or module uses a form outside the current BEAM emission profile.
+lib\observer-2.19\ebin\crashdump_viewer.beam: @{Beam=lib\observer-2.19\ebin\crashdump_viewer.beam; Status=SourceRejected; Source=lib\observer-2.19\src\crashdump_viewer.erl; Detail=ERL003 at 116353: Unsupported -compile option: {parse_transform,ms_transform}; FirstDifferentByte=} -> Unsupported
+crashdump_viewer:init/1: The function or module uses a form outside the current BEAM emission profile.
+lib\parsetools-2.8\ebin\yecc.beam: @{Beam=lib\parsetools-2.8\ebin\yecc.beam; Status=SourceRejected; Source=lib\parsetools-2.8\src\yecc.erl; Detail=ERL003 at 124785: Unsupported -compile option: {parse_transform,ms_transform}; FirstDifferentByte=} -> Unsupported
+yecc:output_goto1/5: The function or module uses a form outside the current BEAM emission profile.
+lib\stdlib-8.1\ebin\qlc_pt.beam: @{Beam=lib\stdlib-8.1\ebin\qlc_pt.beam; Status=SourceRejected; Source=lib\stdlib-8.1\src\qlc_pt.erl; Detail=ERL003 at 119144: Unsupported -compile option: {parse_transform,ms_transform}; FirstDifferentByte=} -> Unsupported
+qlc_pt:has_int/1: Unsupported BEAM guard call: erlang:float/1.
+lib\tools-4.2.3\ebin\cover.beam: @{Beam=lib\tools-4.2.3\ebin\cover.beam; Status=SourceRejected; Source=lib\tools-4.2.3\src\cover.erl; Detail=ERL003 at 104355: Unsupported -compile option: {parse_transform,ms_transform}; FirstDifferentByte=} -> Different

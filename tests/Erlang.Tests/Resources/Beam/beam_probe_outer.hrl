@@ -1,0 +1,2 @@
+-include("beam_probe_inner.hrl").
+-define(TEXT(X), ??X).

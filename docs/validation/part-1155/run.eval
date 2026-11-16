@@ -1,0 +1,14 @@
+[P,Q]=init:get_plain_arguments(),
+lists:foreach(fun(Path)->
+    {beam_file,_,_,_,_,Fs}=beam_disasm:file(Path),
+    io:format("~s~n~p~n",[Path,[{N,Is} || {function,N,2,_,Is}<-Fs,N=:=pattern_tail orelse N=:=grouped_tail]]),
+    {ok,B}=file:read_file(Path),
+    {module,M}=code:load_binary(beam_general_catch_probe,Path,B),
+    {{1,2},saved}=M:pattern_tail([1|2],saved),
+    saved=M:pattern_tail([],saved),
+    {{1,saved},saved}=M:grouped_tail({1},saved),
+    {[1|2],saved}=M:grouped_tail({1,2},saved),
+    code:purge(M),
+    code:delete(M)
+end,[P,Q]),
+halt().

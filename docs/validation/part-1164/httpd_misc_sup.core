@@ -1,0 +1,273 @@
+module 'httpd_misc_sup' ['init'/1,
+			 'module_info'/0,
+			 'module_info'/1,
+			 'start_auth_server'/3,
+			 'start_link'/3,
+			 'start_sec_server'/3,
+			 'stop_auth_server'/3,
+			 'stop_sec_server'/3]
+    attributes [%% Line 1
+		'file' =
+		    %% Line 1
+		    [{[104|[116|[116|[112|[100|[95|[109|[105|[115|[99|[95|[115|[117|[112|[46|[101|[114|[108]]]]]]]]]]]]]]]]]],1}],
+		%% Line 31
+		'behaviour' =
+		    %% Line 31
+		    ['supervisor']]
+'start_link'/3 =
+    %% Line 44
+    ( fun (_0,_1,_2) ->
+	  ( case ( <_0,_1,_2>
+		   -| [{'function',{'start_link',3}}] ) of
+	      <Addr,Port,Profile> when 'true' ->
+		  let <SupName> =
+		      apply %% Line 45
+			    'make_name'/3
+			  (%% Line 45
+			   Addr, %% Line 45
+				 Port, %% Line 45
+				       Profile)
+		  in  %% Line 46
+		      call 'supervisor':'start_link'
+			  ({'local',SupName}, 'httpd_misc_sup', [])
+	      ( <_6,_5,_4> when 'true' ->
+		    ( primop 'match_fail'
+			  (( {'function_clause',_6,_5,_4}
+			     -| [{'function',{'start_link',3}}] ))
+		      -| [{'function',{'start_link',3}}] )
+		-| ['compiler_generated'] )
+	    end
+	    -| [{'function',{'start_link',3}}] )
+      -| [{'function',{'start_link',3}}] )
+'start_auth_server'/3 =
+    %% Line 52
+    ( fun (_0,_1,_2) ->
+	  ( case ( <_0,_1,_2>
+		   -| [{'function',{'start_auth_server',3}}] ) of
+	      <Addr,Port,Profile> when 'true' ->
+		  %% Line 53
+		  apply 'start_permanent_worker'/5
+		      ('mod_auth_server', Addr, Port, Profile, ['gen_server'])
+	      ( <_5,_4,_3> when 'true' ->
+		    ( primop 'match_fail'
+			  (( {'function_clause',_5,_4,_3}
+			     -| [{'function',{'start_auth_server',3}}] ))
+		      -| [{'function',{'start_auth_server',3}}] )
+		-| ['compiler_generated'] )
+	    end
+	    -| [{'function',{'start_auth_server',3}}] )
+      -| [{'function',{'start_auth_server',3}}] )
+'stop_auth_server'/3 =
+    %% Line 55
+    ( fun (_0,_1,_2) ->
+	  ( case ( <_0,_1,_2>
+		   -| [{'function',{'stop_auth_server',3}}] ) of
+	      <Addr,Port,Profile> when 'true' ->
+		  %% Line 56
+		  apply 'stop_permanent_worker'/4
+		      ('mod_auth_server', Addr, Port, Profile)
+	      ( <_5,_4,_3> when 'true' ->
+		    ( primop 'match_fail'
+			  (( {'function_clause',_5,_4,_3}
+			     -| [{'function',{'stop_auth_server',3}}] ))
+		      -| [{'function',{'stop_auth_server',3}}] )
+		-| ['compiler_generated'] )
+	    end
+	    -| [{'function',{'stop_auth_server',3}}] )
+      -| [{'function',{'stop_auth_server',3}}] )
+'start_sec_server'/3 =
+    %% Line 59
+    ( fun (_0,_1,_2) ->
+	  ( case ( <_0,_1,_2>
+		   -| [{'function',{'start_sec_server',3}}] ) of
+	      <Addr,Port,Profile> when 'true' ->
+		  %% Line 60
+		  apply 'start_permanent_worker'/5
+		      ('mod_security_server', Addr, Port, Profile, ['gen_server'])
+	      ( <_5,_4,_3> when 'true' ->
+		    ( primop 'match_fail'
+			  (( {'function_clause',_5,_4,_3}
+			     -| [{'function',{'start_sec_server',3}}] ))
+		      -| [{'function',{'start_sec_server',3}}] )
+		-| ['compiler_generated'] )
+	    end
+	    -| [{'function',{'start_sec_server',3}}] )
+      -| [{'function',{'start_sec_server',3}}] )
+'stop_sec_server'/3 =
+    %% Line 62
+    ( fun (_0,_1,_2) ->
+	  ( case ( <_0,_1,_2>
+		   -| [{'function',{'stop_sec_server',3}}] ) of
+	      <Addr,Port,Profile> when 'true' ->
+		  %% Line 63
+		  apply 'stop_permanent_worker'/4
+		      ('mod_security_server', Addr, Port, Profile)
+	      ( <_5,_4,_3> when 'true' ->
+		    ( primop 'match_fail'
+			  (( {'function_clause',_5,_4,_3}
+			     -| [{'function',{'stop_sec_server',3}}] ))
+		      -| [{'function',{'stop_sec_server',3}}] )
+		-| ['compiler_generated'] )
+	    end
+	    -| [{'function',{'stop_sec_server',3}}] )
+      -| [{'function',{'stop_sec_server',3}}] )
+'init'/1 =
+    %% Line 69
+    ( fun (_0) ->
+	  ( case ( _0
+		   -| [{'function',{'init',1}}] ) of
+	      <_4> when 'true' ->
+		  let <Flags> =
+		      {'one_for_one',0,1}
+		  in  let <Workers> = []
+		      in  %% Line 72
+			  {'ok',{Flags,Workers}}
+	      ( <_3> when 'true' ->
+		    ( primop 'match_fail'
+			  (( {'function_clause',_3}
+			     -| [{'function',{'init',1}}] ))
+		      -| [{'function',{'init',1}}] )
+		-| ['compiler_generated'] )
+	    end
+	    -| [{'function',{'init',1}}] )
+      -| [{'function',{'init',1}}] )
+'start_permanent_worker'/5 =
+    %% Line 77
+    ( fun (_0,_1,_2,_3,_4) ->
+	  ( case ( <_0,_1,_2,_3,_4>
+		   -| [{'function',{'start_permanent_worker',5}}] ) of
+	      <Mod,Addr,Port,Profile,Modules> when 'true' ->
+		  let <SupName> =
+		      apply %% Line 78
+			    'make_name'/3
+			  (%% Line 78
+			   Addr, %% Line 78
+				 Port, %% Line 78
+				       Profile)
+		  in  let <_7> =
+			  call %% Line 81
+			       'timer':%% Line 81
+				       'seconds'
+			      (%% Line 81
+			       1)
+		      in  let <_6> =
+			      call %% Line 81
+				   'erlang':%% Line 81
+					    '++'
+				  (%% Line 81
+				   [Mod|[]], %% Line 81
+					     Modules)
+			  in  let <Spec> =
+				  {%% Line 79
+				   {Mod,Addr,Port},%% Line 80
+						   {Mod,'start_link',[Addr|[Port|[Profile|[]]]]},%% Line 81
+												 'permanent',%% Line 81
+													     _7,%% Line 81
+														'worker',%% Line 81
+															 _6}
+			      in  %% Line 82
+				  call 'supervisor':'start_child'
+				      (SupName, Spec)
+	      ( <_13,_12,_11,_10,_9> when 'true' ->
+		    ( primop 'match_fail'
+			  (( {'function_clause',_13,_12,_11,_10,_9}
+			     -| [{'function',{'start_permanent_worker',5}}] ))
+		      -| [{'function',{'start_permanent_worker',5}}] )
+		-| ['compiler_generated'] )
+	    end
+	    -| [{'function',{'start_permanent_worker',5}}] )
+      -| [{'function',{'start_permanent_worker',5}}] )
+'stop_permanent_worker'/4 =
+    %% Line 84
+    ( fun (_0,_1,_2,_3) ->
+	  ( case ( <_0,_1,_2,_3>
+		   -| [{'function',{'stop_permanent_worker',4}}] ) of
+	      <Mod,Addr,Port,Profile> when 'true' ->
+		  let <SupName> =
+		      apply %% Line 85
+			    'make_name'/3
+			  (%% Line 85
+			   Addr, %% Line 85
+				 Port, %% Line 85
+				       Profile)
+		  in  let <Name> = {%% Line 86
+			   Mod,%% Line 86
+			       Addr,%% Line 86
+				    Port}
+		      in  %% Line 87
+			  case call 'supervisor':'terminate_child'
+				   (SupName, Name) of
+			    %% Line 88
+			    <'ok'> when 'true' ->
+				%% Line 89
+				call 'supervisor':'delete_child'
+				    (SupName, Name)
+			    %% Line 90
+			    <Error> when 'true' ->
+				%% Line 91
+				Error
+			    ( <_6> when 'true' ->
+				  primop 'match_fail'
+				      ({'case_clause',_6})
+			      -| ['compiler_generated'] )
+			  end
+	      ( <_10,_9,_8,_7> when 'true' ->
+		    ( primop 'match_fail'
+			  (( {'function_clause',_10,_9,_8,_7}
+			     -| [{'function',{'stop_permanent_worker',4}}] ))
+		      -| [{'function',{'stop_permanent_worker',4}}] )
+		-| ['compiler_generated'] )
+	    end
+	    -| [{'function',{'stop_permanent_worker',4}}] )
+      -| [{'function',{'stop_permanent_worker',4}}] )
+'make_name'/3 =
+    %% Line 94
+    ( fun (_0,_1,_2) ->
+	  ( case ( <_0,_1,_2>
+		   -| [{'function',{'make_name',3}}] ) of
+	      <Addr,Port,Profile> when 'true' ->
+		  %% Line 95
+		  call 'httpd_util':'make_name'
+		      ([104|[116|[116|[112|[100|[95|[109|[105|[115|[99|[95|[115|[117|[112]]]]]]]]]]]]]], Addr, Port, Profile)
+	      ( <_5,_4,_3> when 'true' ->
+		    ( primop 'match_fail'
+			  (( {'function_clause',_5,_4,_3}
+			     -| [{'function',{'make_name',3}}] ))
+		      -| [{'function',{'make_name',3}}] )
+		-| ['compiler_generated'] )
+	    end
+	    -| [{'function',{'make_name',3}}] )
+      -| [{'function',{'make_name',3}}] )
+'module_info'/0 =
+    ( fun () ->
+	  ( case ( <>
+		   -| [{'function',{'module_info',0}}] ) of
+	      <> when 'true' ->
+		  call 'erlang':'get_module_info'
+		      ('httpd_misc_sup')
+	      ( <> when 'true' ->
+		    ( primop 'match_fail'
+			  (( {'function_clause'}
+			     -| [{'function',{'module_info',0}}] ))
+		      -| [{'function',{'module_info',0}}] )
+		-| ['compiler_generated'] )
+	    end
+	    -| [{'function',{'module_info',0}}] )
+      -| [{'function',{'module_info',0}}] )
+'module_info'/1 =
+    ( fun (_0) ->
+	  ( case ( _0
+		   -| [{'function',{'module_info',1}}] ) of
+	      <X> when 'true' ->
+		  call 'erlang':'get_module_info'
+		      ('httpd_misc_sup', X)
+	      ( <_1> when 'true' ->
+		    ( primop 'match_fail'
+			  (( {'function_clause',_1}
+			     -| [{'function',{'module_info',1}}] ))
+		      -| [{'function',{'module_info',1}}] )
+		-| ['compiler_generated'] )
+	    end
+	    -| [{'function',{'module_info',1}}] )
+      -| [{'function',{'module_info',1}}] )
+end

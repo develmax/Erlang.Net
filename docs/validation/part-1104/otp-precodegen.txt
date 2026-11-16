@@ -1,0 +1,45 @@
+Standalone function:
+%% beam_tuple_tail_argument_probe.erl:3
+%% Counter = 14
+%% bs_ensure_opt: true
+function `beam_tuple_tail_argument_probe`:`run`(x0/_0, x1/_1, x2/_2) {
+  %% _0: 0..1
+  %% _1: 0..1 0..3
+  %% _2: 0..1 0..5
+%% #{frame_size => 3,
+     yregs => #{{b_var,0} => [],{b_var,1} => [],{b_var,2} => []}}
+0:
+  %% _10: 1..15
+  [1] y2/_10 = copy x0/_0
+
+  %% _11: 3..15
+  [3] y1/_11 = copy x1/_1
+
+  %% _12: 5..13
+  [5] y0/_12 = copy x2/_2
+
+  %% beam_tuple_tail_argument_probe.erl:4
+  %% Result type:
+
+Release closure:
+%% asn1ct_check.erl:273
+%% Counter = 77
+%% bs_ensure_opt: true
+%% Parameters
+%%    _0 =>
+%%     {'state', any(), any(), any(), any(), any(), any(), any(), any(), any(), any(), any()}
+function `asn1ct_check`:`'-check_imports_1/3-fun-1-'`(x0/_18, x1/_0, x2/Module) {
+  %% _18: 0..1 0..3
+  %% _0: 0..1
+  %% Module: 0..1 0..5
+%% #{frame_size => 3,
+     yregs => #{{b_var,0} => [],{b_var,18} => [],{b_var,'Module'} => []}}
+0:
+  %% _73: 1..15
+  [1] y2/_73 = copy x1/_0
+
+  %% _74: 3..15
+  [3] y1/_74 = copy x0/_18
+
+  %% _75: 5..13
+  [5] y0/_75 = copy x2/Module

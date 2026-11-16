@@ -1,0 +1,5 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, loader_probe_1} = code:load_binary(loader_probe_1, Path, Binary),
+{"~s", ["probe"]} = loader_probe_1:run("~s", ["probe"]),
+halt().

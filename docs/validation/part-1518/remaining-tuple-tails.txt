@@ -1,0 +1,136 @@
+15 modules, 124 functions with a larger frame and a tuple match before a tail call
+{variables,guarded,simple}: 1 functions in 1 modules
+{variables,unguarded,computed}: 1 functions in 1 modules
+{variables,unguarded,simple}: 5 functions in 3 modules
+{[binary],guarded,simple}: 80 functions in 4 modules
+{[binary],unguarded,simple}: 12 functions in 4 modules
+{[list],guarded,simple}: 20 functions in 1 modules
+{[list],unguarded,computed}: 2 functions in 1 modules
+{[list],unguarded,simple}: 1 functions in 1 modules
+{[literal],unguarded,computed}: 1 functions in 1 modules
+{[literal],unguarded,simple}: 5 functions in 3 modules
+{[tuple],unguarded,computed}: 2 functions in 1 modules
+{"lib/common_test-1.31.2/ebin/ct_testspec.beam",{testspec_rec2list,1},0,3,[{variables,unguarded,computed}]}
+{"lib/compiler-10.0.6/ebin/beam_core_to_ssa.beam",{line_anno,1},0,8,[{[list],unguarded,simple}]}
+{"lib/kernel-11.0.4/ebin/logger_olp.beam",{handle_call,3},2,8,[{[tuple],unguarded,computed}]}
+{"lib/kernel-11.0.4/ebin/logger_olp.beam",{handle_cast,2},1,6,[{[tuple],unguarded,computed}]}
+{"lib/megaco-4.9.2/doc/examples/meas/megaco_codec_mstone_lib.beam",{alloc_info,0},0,5,[{variables,unguarded,simple}]}
+{"lib/stdlib-8.1/ebin/erl_eval.beam",{validate_tag,2},0,5,[{[literal],unguarded,simple}]}
+{"lib/stdlib-8.1/ebin/io_lib_format.beam",{field_width,2},0,6,[{variables,unguarded,simple}]}
+{"lib/stdlib-8.1/ebin/io_lib_fread.beam",{fread_float_cs_1,3},0,8,[{[list],unguarded,computed}]}
+{"lib/stdlib-8.1/ebin/io_lib_fread.beam",{fread_float_cs_2,3},0,7,[{[list],unguarded,computed}]}
+{"lib/wx-2.7/doc/examples/sudoku/sudoku_game.beam",{mindx,2},0,4,[{[literal],unguarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_latin1.beam",{parse_text_decl_1,2},0,13,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_latin1.beam",{parse_text_decl_2,2},0,13,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_latin1.beam",{parse_text_decl_3,2},0,5,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_latin1.beam",{parse_prolog,2},0,7,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_latin1.beam",{parse_prolog_1,2},2,14,[{[binary],unguarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_latin1.beam",{parse_pi_1,2},0,5,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_latin1.beam",{parse_eq,2},0,4,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_latin1.beam",{parse_att_value,2},0,4,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_latin1.beam",{parse_doctype,2},3,8,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_latin1.beam",{parse_doctype_decl,2},4,26,[{[binary],guarded,simple},{[binary],unguarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_latin1.beam",{parse_doctype_decl_1,2},0,12,[{[binary],unguarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_latin1.beam",{parse_doctype_decl_2,2},3,12,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_latin1.beam",{parse_element_decl,2},0,4,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_latin1.beam",{parse_element_content,2},0,4,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_latin1.beam",{parse_att_list_decl,2},3,12,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_latin1.beam",{parse_default_decl,2},0,4,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_latin1.beam",{parse_entity_decl,2},0,4,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_latin1.beam",{parse_ndata,2},0,4,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_latin1.beam",{parse_ndata_decl_1,2},0,4,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_latin1.beam",{parse_ignore_sect,2},0,4,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_latin1.beam",{parse_notation_decl,2},0,4,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_latin1.beam",{parse_notation_id,2},0,4,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_list.beam",{parse_text_decl_1,2},0,13,[{[list],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_list.beam",{parse_text_decl_2,2},0,13,[{[list],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_list.beam",{parse_text_decl_3,2},0,6,[{[list],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_list.beam",{parse_prolog,2},0,5,[{[list],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_list.beam",{parse_prolog_1,2},2,7,[{[literal],unguarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_list.beam",{parse_pi_1,2},0,3,[{[list],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_list.beam",{parse_eq,2},0,3,[{[list],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_list.beam",{parse_att_value,2},0,4,[{[list],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_list.beam",{parse_doctype,2},3,8,[{[list],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_list.beam",{parse_doctype_decl,2},4,25,[{[list],guarded,simple},{[literal],unguarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_list.beam",{parse_doctype_decl_1,2},0,6,[{[literal],unguarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_list.beam",{parse_doctype_decl_2,2},3,11,[{[list],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_list.beam",{parse_element_decl,2},0,3,[{[list],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_list.beam",{parse_element_content,2},0,3,[{[list],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_list.beam",{parse_att_list_decl,2},3,11,[{[list],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_list.beam",{parse_default_decl,2},0,3,[{[list],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_list.beam",{parse_entity_decl,2},0,3,[{[list],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_list.beam",{parse_ndata,2},0,3,[{[list],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_list.beam",{parse_ndata_decl_1,2},0,3,[{[list],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_list.beam",{parse_ignore_sect,2},0,3,[{[list],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_list.beam",{parse_notation_decl,2},0,3,[{[list],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_list.beam",{parse_notation_id,2},0,3,[{[list],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16be.beam",{parse_text_decl_1,2},0,14,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16be.beam",{parse_text_decl_2,2},0,14,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16be.beam",{parse_text_decl_3,2},0,6,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16be.beam",{parse_prolog,2},0,8,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16be.beam",{parse_prolog_1,2},2,15,[{[binary],unguarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16be.beam",{parse_pi_1,2},0,6,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16be.beam",{parse_eq,2},0,5,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16be.beam",{parse_att_value,2},0,5,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16be.beam",{parse_doctype,2},3,9,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16be.beam",{parse_doctype_decl,2},4,27,[{[binary],guarded,simple},{[binary],unguarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16be.beam",{parse_doctype_decl_1,2},0,13,[{[binary],unguarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16be.beam",{parse_doctype_decl_2,2},3,13,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16be.beam",{parse_element_decl,2},0,4,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16be.beam",{parse_element_content,2},0,4,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16be.beam",{parse_att_list_decl,2},3,13,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16be.beam",{parse_default_decl,2},0,4,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16be.beam",{parse_entity_decl,2},0,4,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16be.beam",{parse_ndata,2},0,5,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16be.beam",{parse_ndata_decl_1,2},0,4,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16be.beam",{parse_ignore_sect,2},0,5,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16be.beam",{parse_notation_decl,2},0,4,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16be.beam",{parse_notation_id,2},0,4,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16le.beam",{parse_text_decl_1,2},0,14,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16le.beam",{parse_text_decl_2,2},0,14,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16le.beam",{parse_text_decl_3,2},0,6,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16le.beam",{parse_prolog,2},0,8,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16le.beam",{parse_prolog_1,2},2,15,[{[binary],unguarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16le.beam",{parse_pi_1,2},0,6,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16le.beam",{parse_eq,2},0,5,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16le.beam",{parse_att_value,2},0,5,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16le.beam",{parse_doctype,2},3,9,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16le.beam",{parse_doctype_decl,2},4,27,[{[binary],guarded,simple},{[binary],unguarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16le.beam",{parse_doctype_decl_1,2},0,13,[{[binary],unguarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16le.beam",{parse_doctype_decl_2,2},3,13,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16le.beam",{parse_element_decl,2},0,4,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16le.beam",{parse_element_content,2},0,4,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16le.beam",{parse_att_list_decl,2},3,13,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16le.beam",{parse_default_decl,2},0,4,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16le.beam",{parse_entity_decl,2},0,4,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16le.beam",{parse_ndata,2},0,5,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16le.beam",{parse_ndata_decl_1,2},0,4,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16le.beam",{parse_ignore_sect,2},0,5,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16le.beam",{parse_notation_decl,2},0,4,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16le.beam",{parse_notation_id,2},0,4,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf8.beam",{parse_text_decl_1,2},0,14,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf8.beam",{parse_text_decl_2,2},0,14,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf8.beam",{parse_text_decl_3,2},0,6,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf8.beam",{parse_prolog,2},0,8,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf8.beam",{parse_prolog_1,2},2,15,[{[binary],unguarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf8.beam",{parse_pi_1,2},0,6,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf8.beam",{parse_eq,2},0,5,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf8.beam",{parse_att_value,2},0,5,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf8.beam",{parse_doctype,2},3,9,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf8.beam",{parse_doctype_decl,2},4,27,[{[binary],guarded,simple},{[binary],unguarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf8.beam",{parse_doctype_decl_1,2},0,13,[{[binary],unguarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf8.beam",{parse_doctype_decl_2,2},3,13,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf8.beam",{parse_element_decl,2},0,4,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf8.beam",{parse_element_content,2},0,4,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf8.beam",{parse_att_list_decl,2},3,13,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf8.beam",{parse_default_decl,2},0,4,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf8.beam",{parse_entity_decl,2},0,4,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf8.beam",{parse_ndata,2},0,5,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf8.beam",{parse_ndata_decl_1,2},0,4,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf8.beam",{parse_ignore_sect,2},0,5,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf8.beam",{parse_notation_decl,2},0,4,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_sax_parser_utf8.beam",{parse_notation_id,2},0,4,[{[binary],guarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_scan.beam",{scan_ext_subset,2},0,10,[{variables,guarded,simple},{variables,unguarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_scan.beam",{scan_include,2},2,13,[{variables,unguarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_scan.beam",{scan_ndata_decl,2},0,4,[{variables,unguarded,simple}]}
+{"lib/xmerl-2.2/ebin/xmerl_uri.beam",{scan_segment,2},0,9,[{[literal],unguarded,computed}]}

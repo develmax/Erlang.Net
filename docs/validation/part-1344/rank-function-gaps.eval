@@ -1,0 +1,35 @@
+[Root,Generated] = init:get_plain_arguments(),
+Paths = filelib:wildcard(filename:join(Generated,"**/*.beam")),
+Normalize = fun(Instructions) ->
+    Labels = [L || {label,L} <- Instructions],
+    Map = maps:from_list(lists:zip(Labels,lists:seq(1,length(Labels)))),
+    Rewrite = fun Fix({label,L}) -> {label,maps:get(L,Map,L)};
+        Fix({f,L}) -> {f,maps:get(L,Map,L)};
+        Fix({literal,_}=Literal) -> Literal;
+        Fix({make_fun3,Target,Index,_,Destination,Env}) ->
+            {make_fun3,Target,Index,uniq,Fix(Destination),Fix(Env)};
+        Fix(Tuple) when is_tuple(Tuple) -> list_to_tuple([Fix(X) || X <- tuple_to_list(Tuple)]);
+        Fix([H|T]) -> [Fix(H)|Fix(T)];
+        Fix(Value) -> Value
+    end,
+    [Rewrite(I) || I <- Instructions]
+end,
+Read = fun(Path) ->
+    {beam_file,_,_,_,_,Functions} = beam_disasm:file(Path),
+    maps:from_list([{{Name,Arity},Normalize(Is)} || {function,Name,Arity,_,Is} <- Functions])
+end,
+Base = length(filename:split(Generated)),
+Rows = [begin
+    Rel = lists:nthtail(Base,filename:split(Path)),
+    Expected = Read(filename:join([Root|Rel])),
+    Actual = Read(Path),
+    Functions = lists:usort(maps:keys(Expected) ++ maps:keys(Actual)),
+    Gaps = [F || F <- Functions, maps:find(F,Expected) =/= maps:find(F,Actual)],
+    {length(Gaps),filename:join(Rel),length(Functions),Gaps}
+end || Path <- Paths],
+io:format("Compared decoded instructions in ~B differing modules. Labels and make_fun3 unique IDs were normalized.~n",[length(Rows)]),
+[io:format("~B modules with ~B differing function(s)~n",
+    [length([Row || Row={N,_,_,_} <- Rows, N=:=Count]),Count]) || Count <- lists:seq(0,5)],
+[io:format("~B/~B ~s ~p~n",[N,Total,Path,Gaps])
+    || {N,Path,Total,Gaps} <- lists:sublist(lists:sort(Rows),30)],
+halt().

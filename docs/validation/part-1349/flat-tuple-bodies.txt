@@ -1,0 +1,49 @@
+Bodies of clauses with a flat tuple head in the arity and field extraction group. Counts are {modules, functions, examples}.
+A function contributes once to each body shape present in its flat tuple clauses.
+#{case_result =>
+      {49,67,
+       [{xmerl_sax_parser,{parse_options,2}},
+        {cover,{add_imported,5}},
+        {merl,{switch_2,4}}]},
+  call_with_record =>
+      {9,11,
+       [{xmerl_xsd,{initiate_state2,2}},
+        {xmerl_sax_parser,{parse_options,2}},
+        {zip,{get_openzip_opt,2}}]},
+  nested_call =>
+      {5,5,
+       [{snmp_view_based_acm_mib,{ch_row,2}},
+        {mnesia,{add_written_to_bag,3}},
+        {http_request,{headers,2}}]},
+  call_with_constructor =>
+      {37,51,
+       [{xref_compiler,{save_vars,5}},
+        {epp_dodger,{skip_macro_args,3}},
+        {sofs,{fam2,4}}]},
+  ordinary_tail_call =>
+      {47,65,
+       [{xmerl_xsd,{facets,2}},
+        {tprof,{inspect_processes,2}},
+        {graph,{subgraph_opts,5}}]},
+  cons_result =>
+      {17,22,
+       [{cover,{add_compiled,3}},
+        {shell_docs,{normalize_paragraph,1}},
+        {orddict,{append,3}}]},
+  tuple_result =>
+      {15,24,
+       [{epp_dodger,{skip_macro_args,3}},
+        {erl_eval,{bind_all_generators1,7}},
+        {epp,{macro_arg,3}}]},
+  other_single_expression =>
+      {15,18,
+       [{erl_comment_scan,{join_lines,5}},
+        {sofs,{fam_int,2}},
+        {filelib,{match_part,2}}]},
+  expression_sequence =>
+      {65,103,
+       [{xmerl_xsd,{extend_attributes,6}},
+        {xref_base,{check_file,5}},
+        {tprof,{inspect_processes,2}}]},
+  missing_forms =>
+      {1,1,[{pubkey_cert,{'-do_normalize_general_name/1-fun-0-',1}}]}}

@@ -1,0 +1,28 @@
+[Ref,Generated]=[filename:absname(P)||P<-init:get_plain_arguments()],
+Shape = fun
+    ({function,_,N,A,[{clause,_,Params,[],[
+        {match,_,{var,_,Name},{call,_,_,_}},
+        {match,_,{var,_,Key},{tuple,_,Fields}},
+        {'case',_,{call,_,_,[{var,_,Name},{var,_,Key}]},[
+            {clause,_,[{Kind,_,_}],[],[{call,_,_,[{var,_,Name},{var,_,Key}]}]},
+            {clause,_,[{var,_,Error}],[],[{var,_,Error}]}
+        ]}
+    ]}]}) when Kind=:=atom; Kind=:=integer ->
+        case lists:all(fun(P)->element(1,P)=:=var end,Params++Fields) of
+            true -> [{N,A,length(Fields)}]; false -> []
+        end;
+    (_) -> []
+end,
+Files=filelib:fold_files(Generated,"[.]beam$",true,fun(P,A)->[P|A] end,[]),
+Rows=lists:flatmap(fun(P)->
+    Rel=filename:join(lists:nthtail(length(filename:split(Generated)),filename:split(P))),
+    case beam_lib:chunks(filename:join(Ref,Rel),[abstract_code]) of
+        {ok,{_,[{abstract_code,{raw_abstract_v1,Forms}}]}} ->
+            case lists:flatmap(Shape,Forms) of []->[]; Found->[{Rel,Found}] end;
+        _->[]
+    end
+end,Files),
+io:format("Candidate syntax in ~p of ~p images~n",[length(Rows),length(Files)]),
+lists:foreach(fun(Row)->io:format("~p~n",[Row]) end,lists:sort(Rows)),
+halt().
+

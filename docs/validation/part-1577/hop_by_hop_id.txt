@@ -1,0 +1,30 @@
+OTP 29.1.1
+{label,97}
+{line,[{location,"base/diameter_codec.erl",680}]}
+{func_info,{atom,diameter_codec},{atom,hop_by_hop_id},2}
+{label,98}
+{test,bs_start_match3,{f,97},2,[{x,1}],{x,2}}
+{bs_get_position,{x,2},{x,1},3}
+{bs_match,{f,99},{x,2},{commands,[{ensure_at_least,128,8},{binary,3,{literal,[]},12,8,{x,1}},{skip,32},{get_tail,3,8,{x,2}}]}}
+{line,[{location,"base/diameter_codec.erl",681}]}
+{bs_create_bin,{f,0},0,3,8,{x,0},{list,[{atom,append},1,8,nil,{tr,{x,1},{t_bs_matchable,1}},{atom,all},{atom,integer},2,1,nil,{x,0},{integer,32},{atom,binary},3,8,nil,{tr,{x,2},{t_bs_matchable,1}},{atom,all}]}}
+return
+{label,99}
+{bs_set_position,{x,2},{x,1}}
+{bs_get_tail,{x,2},{x,1},3}
+{jump,{f,97}}
+Part 1577 C#
+{label,127}
+{line,[{location,"base/diameter_codec.erl",680}]}
+{func_info,{atom,diameter_codec},{atom,hop_by_hop_id},2}
+{label,128}
+{test,bs_start_match3,{f,127},2,[{x,1}],{x,2}}
+{bs_get_position,{x,2},{x,1},3}
+{bs_match,{f,129},{x,2},{commands,[{ensure_at_least,128,8},{binary,3,{literal,[]},12,8,{x,1}},{skip,32},{get_tail,3,8,{x,2}}]}}
+{line,[{location,"base/diameter_codec.erl",681}]}
+{bs_create_bin,{f,0},0,3,8,{x,0},{list,[{atom,append},1,8,nil,{tr,{x,1},{t_bs_matchable,1}},{atom,all},{atom,integer},2,1,nil,{x,0},{integer,32},{atom,binary},3,8,nil,{tr,{x,2},{t_bs_matchable,1}},{atom,all}]}}
+return
+{label,129}
+{bs_set_position,{x,2},{x,1}}
+{bs_get_tail,{x,2},{x,1},3}
+{jump,{f,127}}

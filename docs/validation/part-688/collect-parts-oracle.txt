@@ -1,0 +1,98 @@
+OTP
+{label,1137}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3415}]}
+{func_info,{atom,'ELDAPv3'},{atom,collect_parts},2}
+{label,1138}
+{test,is_nonempty_list,{f,1141},[{x,0}]}
+{get_list,{x,0},{x,2},{x,3}}
+{test,is_tuple,{f,1137},[{x,2}]}
+{test,test_arity,{f,1137},[{x,2},2]}
+{get_tuple_element,{x,2},1,{x,0}}
+{test,is_list,{f,1139},[{x,0}]}
+{allocate,2,4}
+{move,{x,3},{y,0}}
+{move,{x,1},{y,1}}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3416}]}
+{call,1,{'ELDAPv3',collect_parts,1}}
+{test_heap,2,1}
+{put_list,{x,0},{y,1},{x,1}}
+{move,{y,0},{x,0}}
+{call_last,2,{'ELDAPv3',collect_parts,2},2}
+{label,1139}
+{get_tuple_element,{x,2},0,{x,2}}
+{test,is_eq_exact,{f,1140},[{x,2},{integer,3}]}
+{test,bs_start_match3,{f,1140},4,[{x,0}],{x,2}}
+{bs_match,{f,1140},
+          {x,2},
+          {commands,[{ensure_at_least,8,8},
+                     {integer,4,{literal,[]},8,1,{x,0}},
+                     {get_tail,4,8,{x,1}}]}}
+{test_heap,2,4}
+{put_list,{x,1},nil,{x,1}}
+{move,{x,0},{x,2}}
+{move,{x,3},{x,0}}
+{call_only,3,{'ELDAPv3',collect_parts_bit,3}}
+{label,1140}
+{test_heap,2,4}
+{put_list,{x,0},{x,1},{x,1}}
+{move,{x,3},{x,0}}
+{call_only,2,{'ELDAPv3',collect_parts,2}}
+{label,1141}
+{test,is_nil,{f,1137},[{x,0}]}
+{allocate,0,2}
+{move,{x,1},{x,0}}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3422}]}
+{call_ext,1,{extfunc,lists,reverse,1}}
+{call_ext_last,1,{extfunc,erlang,list_to_binary,1},0}
+CSharp
+{label,1197}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3415}]}
+{func_info,{atom,'ELDAPv3'},{atom,collect_parts},2}
+{label,1198}
+{test,is_nonempty_list,{f,1201},[{x,0}]}
+{get_list,{x,0},{x,2},{x,3}}
+{test,is_tuple,{f,1197},[{x,2}]}
+{test,test_arity,{f,1197},[{x,2},2]}
+{get_tuple_element,{x,2},1,{x,0}}
+{test,is_list,{f,1199},[{x,0}]}
+{allocate,2,4}
+{move,{x,3},{y,0}}
+{move,{x,1},{y,1}}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3416}]}
+{call,1,{'ELDAPv3',collect_parts,1}}
+{test_heap,2,1}
+{put_list,{x,0},{y,1},{x,1}}
+{move,{y,0},{x,0}}
+{call_last,2,{'ELDAPv3',collect_parts,2},2}
+{label,1199}
+{get_tuple_element,{x,2},0,{x,2}}
+{test,is_eq_exact,{f,1200},[{x,2},{integer,3}]}
+{test,bs_start_match3,{f,1200},4,[{x,0}],{x,2}}
+{bs_match,{f,1200},
+          {x,2},
+          {commands,[{ensure_at_least,8,8},
+                     {integer,4,{literal,[]},8,1,{x,0}},
+                     {get_tail,4,8,{x,1}}]}}
+{test_heap,2,4}
+{put_list,{x,1},nil,{x,1}}
+{move,{x,0},{x,2}}
+{move,{x,3},{x,0}}
+{call_only,3,{'ELDAPv3',collect_parts_bit,3}}
+{label,1200}
+{test_heap,2,4}
+{put_list,{x,0},{x,1},{x,1}}
+{move,{x,3},{x,0}}
+{call_only,2,{'ELDAPv3',collect_parts,2}}
+{label,1201}
+{test,is_nil,{f,1197},[{x,0}]}
+{allocate,0,2}
+{move,{x,1},{x,0}}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3422}]}
+{call_ext,1,{extfunc,lists,reverse,1}}
+{call_ext_last,1,{extfunc,erlang,list_to_binary,1},0}

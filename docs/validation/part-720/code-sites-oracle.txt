@@ -1,0 +1,48 @@
+{dec_BindRequest,2} 47 46 {9,
+                           {test,is_nonempty_list,{f,466},[{x,0}]},
+                           {test,is_nonempty_list,{f,463},[{x,0}]}}
+{dec_SearchRequest,2} 134 134 {9,
+                               {test,is_nonempty_list,{f,647},[{x,0}]},
+                               {test,is_nonempty_list,{f,627},[{x,0}]}}
+{enc_ModifyRequest_changes_SEQOF,2} 63 62 {8,
+                                           {init_yregs,{list,[{y,0}]}},
+                                           {init_yregs,
+                                            {list,[{y,0},{y,1},{y,2}]}}}
+{dec_ModifyRequest_changes_SEQOF,2} 45 44 {9,
+                                           {test,is_nonempty_list,
+                                            {f,835},
+                                            [{x,0}]},
+                                           {test,is_nonempty_list,
+                                            {f,829},
+                                            [{x,0}]}}
+{enc_IntermediateResponse,2} 45 45 {9,{move,{x,1},{y,2}},{move,{x,1},{y,1}}}
+{dec_RealSearchControlValue,2} 38 37 {9,
+                                      {test,is_nonempty_list,{f,1124},[{x,0}]},
+                                      {test,is_nonempty_list,
+                                       {f,1122},
+                                       [{x,0}]}}
+{encode_length,1} 30 30 {5,
+                         {test,is_ge,
+                               {f,1177},
+                               [{integer,127},
+                                {tr,{x,0},{t_integer,{0,'+inf'}}}]},
+                         {test,is_ge,{f,1177},[{integer,127},{x,0}]}}
+{encode_tags,3} 30 30 {15,
+                       {gc_bif,'+',
+                               {f,0},
+                               2,
+                               [{tr,{y,2},{t_integer,{0,'+inf'}}},
+                                {tr,{x,1},{t_integer,{0,288230376151711743}}}],
+                               {x,1}},
+                       {gc_bif,'+',
+                               {f,0},
+                               2,
+                               [{y,2},
+                                {tr,{x,1},{t_integer,{0,288230376151711743}}}],
+                               {x,1}}}
+{minimum_octets,2} 15 15 {5,
+                          {test,is_eq_exact,
+                                {f,1202},
+                                [{tr,{x,0},{t_integer,{0,'+inf'}}},
+                                 {integer,0}]},
+                          {test,is_eq_exact,{f,1202},[{x,0},{integer,0}]}}

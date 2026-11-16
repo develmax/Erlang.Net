@@ -1,0 +1,8 @@
+[Ref,Gen]=init:get_plain_arguments(),
+Read=fun(P)-> {beam_file,_,_,_,_,Fs}=beam_disasm:file(P),
+maps:from_list([{Name,[case I of {line,[{location,_,N}]} -> {line,N}; _ -> I end || I <- Is]}
+|| {function,Name,2,_,Is} <- Fs]) end,
+R=Read(Ref), G=Read(Gen), Names=[put_value,repeated,swapped,fanout],
+[io:format("~p ~p~n",[Name,maps:get(Name,R)=:=maps:get(Name,G)]) || Name <- Names],
+true=lists:all(fun(Name)->maps:get(Name,R)=:=maps:get(Name,G) end, Names),
+halt().

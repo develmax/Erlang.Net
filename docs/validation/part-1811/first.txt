@@ -1,0 +1,44 @@
+0 images have all disassembled functions matching after label and fun identity normalization. 2 differ in one function.
+lib/erts-17.1/ebin/erts_trace_cleaner.beam [{{loop,4},{select_val,is_eq_exact}}]
+lib/ssh-6.0.6/ebin/ssh_bits.beam [{{mpint,1},{is_lt,is_lt}}]
+First differing instructions ranked by number of modules:
+848 modules 8143 functions {allocate,slots,higher}
+539 modules 1534 functions {move,move}
+498 modules 2248 functions {is_nonempty_list,is_nonempty_list}
+481 modules 2042 functions {get_tuple_element,allocate}
+467 modules 1227 functions {is_tuple,allocate}
+464 modules 4187 functions missing
+434 modules 2549 functions {is_nonempty_list,allocate}
+405 modules 1564 functions {test_heap,allocate_heap}
+400 modules 1024 functions {allocate_heap,allocate_heap}
+372 modules 1118 functions {is_tuple,is_tuple}
+362 modules 1254 functions {is_eq_exact,allocate}
+361 modules 1589 functions {is_tagged_tuple,allocate}
+334 modules 767 functions {get_list,get_list}
+325 modules 1036 functions {is_eq_exact,is_eq_exact}
+285 modules 612 functions {is_tagged_tuple,is_tagged_tuple}
+276 modules 672 functions {allocate,get_list}
+273 modules 1339 functions {select_val,is_eq_exact}
+271 modules 555 functions {is_nonempty_list,is_nil}
+267 modules 448 functions {init_yregs,init_yregs}
+258 modules 621 functions {allocate_heap,allocate}
+256 modules 576 functions {select_val,allocate}
+251 modules 1816 functions added
+251 modules 626 functions {get_tuple_element,is_tagged_tuple}
+248 modules 448 functions {get_tuple_element,get_tuple_element}
+235 modules 502 functions {get_list,allocate}
+221 modules 544 functions {select_val,select_val}
+206 modules 465 functions {is_tuple,is_eq_exact}
+194 modules 630 functions {test_heap,allocate}
+192 modules 365 functions {is_tuple,is_tagged_tuple}
+189 modules 479 functions {gc_bif,gc_bif}
+185 modules 440 functions {allocate,is_tagged_tuple}
+185 modules 295 functions {get_tuple_element,is_tuple}
+134 modules 386 functions {is_map,allocate}
+134 modules 226 functions {is_ge,is_ge}
+121 modules 245 functions {move,init_yregs}
+118 modules 301 functions {line,allocate}
+115 modules 904 functions {test,allocate}
+110 modules 175 functions {select_tuple_arity,select_tuple_arity}
+108 modules 148 functions {allocate,get_tuple_element}
+103 modules 146 functions {is_nil,is_nil}

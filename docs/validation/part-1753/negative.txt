@@ -1,0 +1,6 @@
+{"Partial":true,"SelectedCount":1,"TotalCount":9703}
+FAIL compiler/beam/whole-module-matches-otp: System.InvalidOperationException: Expected entry spills to be removed only when all uses can read the input register.
+   at Erlang.Tests.BeamModuleEmissionChecks.CompareEntryArgumentCopiesAcrossBranches() in tests\Erlang.Tests\Compiler\Beam\BeamModuleEmissionChecks.cs:line 656
+   at Erlang.Tests.BeamModuleEmissionChecks.Run() in tests\Erlang.Tests\Compiler\Beam\BeamModuleEmissionChecks.cs:line 350
+   at Program.<Main>$(String[] args) in tests\Erlang.Tests\Harness\Program.cs:line 16230
+0/1 passed

@@ -1,0 +1,13 @@
+[Path] = init:get_plain_arguments(),
+{ok,Binary} = file:read_file(Path),
+{module,guard_first_call_probe} = code:load_binary(guard_first_call_probe,Path,Binary),
+{undefined,extra} = guard_first_call_probe:read(first_call_key,value,extra),
+value = get(first_call_key),
+try guard_first_call_probe:read(42,wrong,extra) of
+    _ -> error(expected_function_clause)
+catch error:function_clause:Stack ->
+    [{guard_first_call_probe,read,[42,wrong,extra],_}|_] = Stack
+end,
+{beam_file,_,_,_,_,Functions} = beam_disasm:file(Path),
+[io:format("~p~n",[F]) || F = {function,read,3,_,_} <- Functions],
+halt().

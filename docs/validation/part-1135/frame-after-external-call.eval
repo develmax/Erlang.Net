@@ -1,0 +1,49 @@
+[Ref,Gen]=[filename:absname(P)||P<-init:get_plain_arguments()],
+Functions=fun(Path)->
+  {beam_file,_,_,_,_,Fs}=beam_disasm:file(Path),
+  maps:from_list([{{N,A},[I||I<-Is,not (is_tuple(I) andalso lists:member(element(1,I),[label,line,func_info]))]}||{function,N,A,_,Is}<-Fs])
+end,
+Op=fun(I) when is_tuple(I)->element(1,I); (I)->I end,
+Classify=fun
+  Find([{allocate,A,_}|Ls],[{allocate,B,_}|Rs],_)->Find(Ls,Rs,{A,B});
+  Find([L|Ls],[R|Rs],Frame)->
+    case {Op(L),Op(R)} of
+      {move,init_yregs}->
+        Size=case Frame of {A,B} when A<B->larger;{A,B} when A>B->smaller;{A,A}->same;_->no_pair end,
+        case {Size,L} of
+            {larger,{move,{x,_},{y,_}}}->
+                case lists:dropwhile(fun(I)->lists:member(Op(I),[move,swap,init_yregs]) end,Ls) of
+                                        [{call_ext,_,_}|After]->
+                        case lists:dropwhile(fun(I)->lists:member(Op(I),[move,swap,init_yregs,trim]) end,After) of
+                            [Next|_]->Op(Next);
+                            []->none
+                        end;
+                    [_|_]->none;
+                    []->none
+                end;
+            _->none
+        end;
+      {Same,Same}->Find(Ls,Rs,Frame);
+      _->none
+    end;
+  Find(_,_,_)->none
+end,
+Paths=filelib:fold_files(Gen,"[.]beam$",true,fun(P,Ps)->[P|Ps] end,[]),
+Groups=lists:foldl(fun(Path,Acc)->
+  Relative=lists:nthtail(length(filename:split(Gen)),filename:split(Path)),
+  R=Functions(filename:join([Ref|Relative])),
+  G=Functions(Path),
+  lists:foldl(fun(K,A)->
+    case maps:find(K,G) of
+      {ok,Right}->case Classify(maps:get(K,R),Right,none) of
+        none->A;
+        Kind->maps:update_with(Kind,fun(Set)->sets:add_element(Relative,Set) end,sets:from_list([Relative]),A)
+      end;
+      error->A
+    end
+  end,Acc,maps:keys(R))
+end,#{},Paths),
+lists:foreach(fun({N,K})->io:format("~p ~p~n",[N,K]) end,lists:reverse(lists:sort([{sets:size(V),K}||{K,V}<-maps:to_list(Groups)]))),
+halt().
+
+

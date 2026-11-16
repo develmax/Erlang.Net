@@ -1,0 +1,3 @@
+Get=fun(P)->{beam_file,_,_,_,_,F}=beam_disasm:file(P),{[{N,A}||{function,N,A,_,_}<-F],lists:sum([length(I)||{function,_,_,_,I}<-F])} end,
+{O,OI}=Get("D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/library376-official-compiler/installed/lib/eldap-1.3.1/ebin/ELDAPv3.beam"),{A,AI}=Get("artifacts/beam-backend/part685-eldap/ELDAPv3.release-profile.beam"),Common=O--(O--A),OA=[X||X<-O,lists:member(X,Common)],AA=[X||X<-A,lists:member(X,Common)],
+io:format("release_functions=~p release_instructions=~p managed_functions=~p managed_instructions=~p shared_functions=~p shared_order_equal=~p~nrelease_only=~p~nmanaged_only=~p~n",[length(O),OI,length(A),AI,length(Common),OA=:=AA,O--A,A--O]),halt().

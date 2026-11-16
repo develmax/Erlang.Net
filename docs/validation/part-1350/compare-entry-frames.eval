@@ -1,0 +1,35 @@
+[Reference, Previous, Current | Paths] = init:get_plain_arguments(),
+Read = fun(Path) ->
+    {beam_file, _, _, _, _, Functions} = beam_disasm:file(Path),
+    maps:from_list([{{Name,Arity},Instructions}
+                    || {function,Name,Arity,_,Instructions} <- Functions])
+end,
+IsFrame = fun(I) -> is_tuple(I) andalso
+    lists:member(element(1,I),[allocate,allocate_heap,allocate_zero,allocate_heap_zero])
+end,
+AtEntry = fun(Instructions) ->
+    case lists:dropwhile(fun(I) -> is_tuple(I) andalso
+        lists:member(element(1,I),[label,line,func_info,executable_line,debug_line]) end,Instructions) of
+        [First|_] -> IsFrame(First);
+        [] -> false
+    end
+end,
+Peak = fun(Instructions) ->
+    lists:max([0 | [element(2,I) || I <- Instructions, IsFrame(I)]])
+end,
+Moved = lists:filtermap(fun(Path) ->
+    Otp = Read(filename:join(Reference,Path)),
+    Old = Read(filename:join(Previous,Path)),
+    New = Read(filename:join(Current,Path)),
+    Matches = [{Mfa,Peak(Before),Peak(After),Peak(Release)}
+        || {Mfa,After} <- lists:sort(maps:to_list(New)),
+           {ok,Before} <- [maps:find(Mfa,Old)],
+           {ok,Release} <- [maps:find(Mfa,Otp)],
+           AtEntry(Before), not AtEntry(After), not AtEntry(Release)],
+    case Matches of [] -> false; _ -> {true,{Path,Matches}} end
+end,Paths),
+io:format("Stack allocation moved away from entry in ~p functions across ~p modules.~n",
+    [lists:sum([length(Matches) || {_,Matches} <- Moved]),length(Moved)]),
+io:format("Columns are function, previous peak slots, current peak slots, OTP peak slots.~n"),
+lists:foreach(fun({Path,Matches}) -> io:format("~s ~p~n",[Path,Matches]) end,Moved),
+halt().

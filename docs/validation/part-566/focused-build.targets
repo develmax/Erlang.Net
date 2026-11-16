@@ -1,0 +1,9 @@
+<Project>
+  <Target Name="ExcludeUnfinishedDetsForGenEvent" BeforeTargets="CoreCompile" Condition="'$(MSBuildProjectName)' == 'Erlang.Otp.Stdlib'">
+    <ItemGroup>
+      <Compile Remove="Storage\Dets\**\*.cs" />
+      <Compile Remove="Registration\ManagedStdlibRegistration456.cs" />
+      <Compile Include="D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\gen-event564\ManagedStdlibRegistration456.cs" />
+    </ItemGroup>
+  </Target>
+</Project>

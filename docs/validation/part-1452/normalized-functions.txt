@@ -1,0 +1,176 @@
+lib/asn1-5.5.2/ebin/asn1ct.beam
+lib/asn1-5.5.2/ebin/asn1ct_check.beam
+lib/common_test-1.31.2/ebin/ct_make.beam
+lib/common_test-1.31.2/ebin/ct_master_logs.beam
+lib/common_test-1.31.2/ebin/test_server.beam
+lib/compiler-10.0.6/ebin/beam_a.beam
+lib/compiler-10.0.6/ebin/beam_block.beam
+lib/compiler-10.0.6/ebin/beam_call_types.beam
+lib/compiler-10.0.6/ebin/beam_core_to_ssa.beam
+lib/compiler-10.0.6/ebin/beam_disasm.beam
+lib/compiler-10.0.6/ebin/beam_ssa_bool.beam
+lib/compiler-10.0.6/ebin/beam_ssa_share.beam
+lib/compiler-10.0.6/ebin/beam_trim.beam
+lib/compiler-10.0.6/ebin/beam_z.beam
+lib/compiler-10.0.6/ebin/cerl_inline.beam
+lib/compiler-10.0.6/ebin/sys_core_alias.beam
+lib/compiler-10.0.6/ebin/sys_core_fold.beam
+lib/compiler-10.0.6/ebin/v3_core.beam
+lib/debugger-7.0/ebin/int.beam
+lib/dialyzer-6.0.3/ebin/dialyzer_clean_core.beam
+lib/dialyzer-6.0.3/ebin/dialyzer_cplt.beam
+lib/dialyzer-6.0.3/ebin/dialyzer_dataflow.beam
+lib/dialyzer-6.0.3/ebin/dialyzer_typesig.beam
+lib/dialyzer-6.0.3/ebin/erl_types.beam
+lib/diameter-2.7.2/ebin/diameter_config.beam
+lib/edoc-1.5/ebin/edoc_layout_chunks.beam
+lib/inets-9.8/ebin/httpc_cookie.beam
+lib/inets-9.8/ebin/inets.beam
+lib/kernel-11.0.4/ebin/inet.beam
+lib/kernel-11.0.4/ebin/rpc.beam
+lib/kernel-11.0.4/ebin/socket.beam
+lib/megaco-4.9.2/ebin/megaco.beam
+lib/public_key-1.21.7/ebin/OCSP-2024-08.beam
+lib/public_key-1.21.7/ebin/PKIXCMP-2023.beam
+lib/public_key-1.21.7/ebin/pubkey_pem.beam
+lib/public_key-1.21.7/ebin/pubkey_translation.beam
+lib/sasl-4.4/ebin/erlsrv.beam
+lib/snmp-5.20.5/ebin/snmp.beam
+lib/snmp-5.20.5/ebin/snmp_view_based_acm_mib.beam
+lib/snmp-5.20.5/ebin/snmpc_lib.beam
+lib/snmp-5.20.5/ebin/snmpm_config.beam
+lib/snmp-5.20.5/ebin/snmpm_server.beam
+lib/ssl-11.7.7/ebin/ssl_config.beam
+lib/ssl-11.7.7/ebin/ssl_logger.beam
+lib/stdlib-8.1/ebin/beam_lib.beam
+lib/stdlib-8.1/ebin/erl_eval.beam
+lib/stdlib-8.1/ebin/erl_parse.beam
+lib/stdlib-8.1/ebin/gen_event.beam
+lib/stdlib-8.1/ebin/man_docs.beam
+lib/stdlib-8.1/ebin/proplists.beam
+lib/syntax_tools-4.1.1/ebin/erl_syntax.beam
+lib/tools-4.2.3/ebin/make.beam
+lib/tools-4.2.3/ebin/xref_utils.beam
+lib/wx-2.7/doc/examples/demo/demo_html_tagger.beam
+lib/xmerl-2.2/ebin/xmerl_lib.beam
+lib/asn1-5.5.2/ebin/asn1ct_check.beam +[{simplify_comps,1}] -[]
+lib/common_test-1.31.2/ebin/ct_make.beam +[{'-files/2-lc$^0/1-0-',1}] -[]
+lib/common_test-1.31.2/ebin/ct_master_logs.beam +[{'-make_all_runs_index/1-lc$^0/1-0-',
+                                                   1}] -[]
+lib/common_test-1.31.2/ebin/test_server.beam +[{module_names,1},
+                                               {'-module_names/1-lc$^0/1-0-',
+                                                1}] -[]
+lib/compiler-10.0.6/ebin/beam_a.beam +[{'-module/2-lc$^0/1-0-',1}] -[]
+lib/compiler-10.0.6/ebin/beam_block.beam +[{'-module/2-lc$^0/1-0-',1}] -[]
+lib/compiler-10.0.6/ebin/beam_core_to_ssa.beam +[{'-record/2-lc$^0/1-0-',1}] -[]
+lib/compiler-10.0.6/ebin/beam_disasm.beam +[{resolve_args,1},
+                                            {'-resolve_args/1-lc$^0/1-0-',1}] -[]
+lib/compiler-10.0.6/ebin/beam_ssa_bool.beam +[{'-module/2-lc$^0/1-0-',1}] -[]
+lib/compiler-10.0.6/ebin/beam_ssa_share.beam +[{'-module/2-lc$^0/1-0-',1}] -[]
+lib/compiler-10.0.6/ebin/beam_trim.beam +[{'-module/2-lc$^0/1-0-',1}] -[]
+lib/compiler-10.0.6/ebin/beam_z.beam +[{'-module/2-lc$^0/1-0-',1}] -[]
+lib/compiler-10.0.6/ebin/sys_core_alias.beam +[{'-module/2-lc$^0/1-0-',1}] -[]
+lib/compiler-10.0.6/ebin/sys_core_fold.beam +[{'-pat_to_expr_list/1-lc$^0/1-0-',
+                                               1},
+                                              {pat_to_expr_list,1},
+                                              {'-module/2-lc$^0/1-0-',1}] -[]
+lib/compiler-10.0.6/ebin/v3_core.beam +[{force_booleans,4}] -[]
+lib/debugger-7.0/ebin/int.beam +[{'-first_lines/1-lc$^0/1-0-',1},
+                                 {first_lines,1}] -[]
+lib/dialyzer-6.0.3/ebin/dialyzer_clean_core.beam +[{'-clean_list/1-lc$^0/1-0-',
+                                                    1},
+                                                   {clean_list,1}] -[]
+lib/dialyzer-6.0.3/ebin/dialyzer_cplt.beam +[{'-find_duplicates/1-lc$^0/1-0-',
+                                              1}] -[]
+lib/dialyzer-6.0.3/ebin/dialyzer_dataflow.beam +[{'-fold_literals/1-lc$^0/1-0-',
+                                                  1},
+                                                 {fold_literals,1}] -[]
+lib/dialyzer-6.0.3/ebin/dialyzer_typesig.beam +[{'-mk_var_list/1-lc$^0/1-0-',
+                                                 1},
+                                                {'-mk_var_no_lit_list/1-lc$^0/1-0-',
+                                                 1},
+                                                {mk_var_list,1},
+                                                {mk_var_no_lit_list,1}] -[]
+lib/dialyzer-6.0.3/ebin/erl_types.beam +[{'-list_widen_to_number/1-lc$^0/1-0-',
+                                          1},
+                                         {list_widen_to_number,1}] -[]
+lib/diameter-2.7.2/ebin/diameter_config.beam +[{transport_opts,1}] -[]
+lib/edoc-1.5/ebin/edoc_layout_chunks.beam +[{format_attributes,1},
+                                            {'-format_attributes/1-lc$^0/1-0-',
+                                             1}] -[]
+lib/inets-9.8/ebin/httpc_cookie.beam +[{'-parse_set_cookie_attributes/1-lc$^0/1-0-',
+                                        1},
+                                       {parse_set_cookie_attributes,1}] -[]
+lib/inets-9.8/ebin/inets.beam +[{'-version_info/1-lc$^0/1-0-',1}] -[]
+lib/kernel-11.0.4/ebin/inet.beam +[{'-h_line/1-lc$^0/1-0-',1},{h_line,1}] -[]
+lib/kernel-11.0.4/ebin/socket.beam +[{'-header_line/1-lc$^0/1-0-',1},
+                                     {header_line,1}] -[]
+lib/megaco-4.9.2/ebin/megaco.beam +[{'-version_info/1-lc$^0/1-0-',1}] -[]
+lib/public_key-1.21.7/ebin/OCSP-2024-08.beam +[{'-dec_BasicOCSPResponse_certs/2-lc$^0/1-0-',
+                                                1},
+                                               {'-dec_Signature_certs/2-lc$^0/1-0-',
+                                                1}] -[]
+lib/public_key-1.21.7/ebin/PKIXCMP-2023.beam +[{'-dec_CRLAnnContent/2-lc$^0/1-0-',
+                                                1},
+                                               {'-dec_RevRepContent_crls/2-lc$^0/1-0-',
+                                                1},
+                                               {'-dec_RevRepContent_revCerts/2-lc$^0/1-0-',
+                                                1}] -[]
+lib/public_key-1.21.7/ebin/pubkey_pem.beam +[{'-encode_pem_entries/1-lc$^0/1-0-',
+                                              1},
+                                             {encode_pem_entries,1}] -[]
+lib/public_key-1.21.7/ebin/pubkey_translation.beam +[{'-decode_list/1-lc$^0/1-0-',
+                                                      1},
+                                                     {'-encode_list/1-lc$^0/1-0-',
+                                                      1},
+                                                     {decode_list,1},
+                                                     {encode_list,1}] -[]
+lib/snmp-5.20.5/ebin/snmp.beam +[{'-version_info/1-lc$^0/1-0-',1}] -[]
+lib/snmp-5.20.5/ebin/snmp_view_based_acm_mib.beam +[{init_access_table,1},
+                                                    {'-init_access_table/1-lc$^0/1-0-',
+                                                     1}] -[]
+lib/snmp-5.20.5/ebin/snmpc_lib.beam +[{'-check_all_consistency/1-lc$^0/1-0-',
+                                       1}] -[]
+lib/snmp-5.20.5/ebin/snmpm_config.beam +[{'-which_mibs/0-lc$^0/1-0-',1}] -[]
+lib/snmp-5.20.5/ebin/snmpm_server.beam +[{fix_vbs_BITS,1},
+                                         {'-fix_vbs_BITS/1-lc$^0/1-0-',1}] -[]
+lib/ssl-11.7.7/ebin/ssl_config.beam +[{'-opt_signature_algs/3-lc$^0/1-0-',1}] -[]
+lib/ssl-11.7.7/ebin/ssl_logger.beam +[{'-parse_cipher_suites/1-lc$^0/1-0-',1}] -[]
+lib/stdlib-8.1/ebin/beam_lib.beam +[{'-anno_from_forms/1-lc$^0/1-0-',1}] -[]
+lib/stdlib-8.1/ebin/erl_eval.beam +[{'-to_terms/1-lc$^0/1-0-',1},{to_terms,1}] -[]
+lib/stdlib-8.1/ebin/erl_parse.beam +[{attribute_farity_list,1},
+                                     {'-attribute_farity_list/1-lc$^0/1-0-',
+                                      1}] -[]
+lib/stdlib-8.1/ebin/gen_event.beam +[{'-the_handlers/1-lc$^0/1-0-',1},
+                                     {the_handlers,1}] -[]
+lib/stdlib-8.1/ebin/man_docs.beam +[{'-format_ul/1-lc$^0/1-0-',1},
+                                    {'-format_pre/1-lc$^0/1-0-',1},
+                                    {format_ul,1},
+                                    {parse_row,1},
+                                    {'-parse_row/1-lc$^0/1-0-',1}] -[]
+lib/stdlib-8.1/ebin/proplists.beam +[{compact,1},{'-compact/1-lc$^0/1-0-',1}] -[]
+lib/syntax_tools-4.1.1/ebin/erl_syntax.beam +[{'-fold_record_fields/1-lc$^0/1-0-',
+                                               1},
+                                              {fold_function_names,1},
+                                              {fold_binary_field_types,1},
+                                              {fold_variable_names,1},
+                                              {unfold_record_fields,1},
+                                              {'-unfold_try_clauses/1-lc$^0/1-0-',
+                                               1},
+                                              {'-fold_binary_field_types/1-lc$^0/1-0-',
+                                               1},
+                                              {'-unfold_record_fields/1-lc$^0/1-0-',
+                                               1},
+                                              {unfold_try_clauses,1},
+                                              {fold_record_fields,1}] -[]
+lib/tools-4.2.3/ebin/make.beam +[{'-files/2-lc$^0/1-0-',1},{files,2}] -[]
+lib/tools-4.2.3/ebin/xref_utils.beam +[{'-filename2appl/1-lc$^0/1-0-',1}] -[]
+lib/wx-2.7/doc/examples/demo/demo_html_tagger.beam +[{compute_anchors,1},
+                                                     {'-compute_anchors/1-lc$^0/1-0-',
+                                                      1},
+                                                     {'-normalize_toks/1-lc$^0/1-0-',
+                                                      1},
+                                                     {normalize_toks,1}] -[]
+lib/xmerl-2.2/ebin/xmerl_lib.beam +[{'-attributes/1-lc$^0/1-0-',1},
+                                    {attributes,1}] -[]
+Compared 55 changed images.

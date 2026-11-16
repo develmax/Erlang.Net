@@ -1,0 +1,9 @@
+[Path] = init:get_plain_arguments(),
+{ok,Binary} = file:read_file(Path),
+{module,entry_case_fallback_probe} = code:load_binary(entry_case_fallback_probe,Path,Binary),
+undefined = put(entry_fallback_key, []),
+ok = entry_case_fallback_probe:read(ok, ignored),
+[] = get(entry_fallback_key),
+{done,[value]} = entry_case_fallback_probe:read(value, changed),
+changed = get(entry_fallback_key),
+halt().

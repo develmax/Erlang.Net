@@ -1,0 +1,7 @@
+# Part 1579 — Keep fixed binary tuple results in X registers
+
+For an unguarded fixed binary pattern with a constant fallback, the compiler can build the returned tuple directly from X registers. The matcher writes captures to those registers, keeps the match context in X0 and replaces it with a captured tail when required. The same fixed matcher emits equality and width checks. The reference is OTP 29.1.1 beam_ssa_codegen.erl.
+
+A permanent regression compares the 644-byte deterministic OTP image. The new emitter removes the three-slot frame from the literal-prefix fixture and matches the whole image. OTP VM execution agreed on six inputs, including an empty tail and failures for wrong literals and alignment. Three focused tests passed. [Instructions](instructions.txt) · [Outcomes](outcomes.txt) · [Tests](focused.txt).
+
+All 1,366 sources were accepted and generated. The comparison found 390 Equal and 976 Different, including an exact ELDAPv3 image from C# ASN.1 generation. This rule changed zero release images. OTP accepted all 976 differing images for loading. Among the differing releases, 1,286 reference functions in 146 modules contain both bs_match and put_tuple2, and 665 of those functions also use bs_start_match4. These are opcode counts, not counts of sources eligible for the current rule. [Corpus](otp-corpus.json) · [Loader](loader-and-code.txt) · [Inventory](binary-tuple-inventory.txt).

@@ -1,0 +1,18 @@
+[Reference, Before, After] = init:get_plain_arguments(),
+Path = "lib/dialyzer-6.0.3/ebin/dialyzer_dep.beam",
+Read = fun(Root) ->
+    {beam_file, _, _, _, _, Functions} = beam_disasm:file(filename:join(Root,Path)),
+    [Instructions] = [Is || {function,traverse,4,_,Is} <- Functions],
+    Selectors = [lists:sort([Key || {atom,Key} <- Operands])
+                 || {select_val,_,_,{list,Operands}} <- Instructions],
+    {length(Instructions),Selectors}
+end,
+{ReferenceCount,ReferenceSelectors} = Read(Reference),
+{BeforeCount,BeforeSelectors} = Read(Before),
+{AfterCount,AfterSelectors} = Read(After),
+New = AfterSelectors -- BeforeSelectors,
+io:format("Instructions (OTP, part 1249, part 1250): ~p~n", [{ReferenceCount,BeforeCount,AfterCount}]),
+io:format("New atom selector keys: ~p~n", [New]),
+io:format("New selectors with matching OTP keys: ~B of ~B~n",
+          [length([Keys || Keys <- New, lists:member(Keys,ReferenceSelectors)]),length(New)]),
+halt().

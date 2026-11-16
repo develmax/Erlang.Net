@@ -1,0 +1,38 @@
+Dir = "artifacts/beam-backend/part831-images",
+Module = beam_timed_monitor_probe,
+Stub = beam_monitor_transport,
+Path = filename:join(Dir, atom_to_list(Stub) ++ ".erl"),
+Source = "-module(beam_monitor_transport).\n-export([register_listener/3, close/1, default_address/1]).\ndefault_address(_) -> loopback.\nregister_listener({undefined,Pid}, Address, Port) -> self() ! {registered,Pid,Address,Port}, ok.\nclose(fixture_socket) -> closed; close(Pid) -> case get(fixture_mode) of down -> Pid ! stop, stop; timeout -> stop; waiting -> waiting; error -> {error,fixture} end.\n",
+ok = file:write_file(Path, Source),
+{ok, Stub, StubBytes} = compile:file(Path, [binary]),
+{module, Stub} = code:load_binary(Stub, Path, StubBytes),
+Run = fun(File) ->
+    code:purge(Module),
+    code:delete(Module),
+    {ok, Bytes} = file:read_file(File),
+    {module, Module} = code:load_binary(Module, File, Bytes),
+    ok = Module:close(gen_udp, {fixture_client, fixture_socket}),
+    closed = Module:close(Stub, {fixture_client, fixture_socket}),
+    lists:foreach(fun({Mode, Expected, Options, Address}) ->
+        Pid = spawn(fun() -> receive stop -> ok end end),
+        put(fixture_mode, Mode),
+        self() ! {'DOWN', unrelated, process, self(), ignored},
+        Expected = Module:close_listen({socket,{Pid,4433},{config,Options}}, 100),
+        receive {registered,Pid,Address,4433} -> ok after 0 -> error(register_failed) end,
+        receive {'DOWN',unrelated,process,_,ignored} -> ok after 0 -> error(message_lost) end,
+        Pid ! stop,
+        case Mode of
+            timeout -> receive {'DOWN',_,process,Pid,_} -> ok after 1000 -> error(monitor_lost) end;
+            _ -> ok
+        end
+    end, [{down,ok,[],loopback}, {timeout,{error,timeout},[{ip,explicit}],explicit},
+          {waiting,ok,[],loopback}, {error,{error,fixture},[],loopback}]),
+    try Module:close_listen({socket,invalid,{config,[]}}, 0)
+    catch error:function_clause:Stack -> Stack end
+end,
+Name = atom_to_list(Module) ++ ".beam",
+Otp = Run(filename:join([Dir, "fixture", "lib", "probe", "ebin", Name])),
+[{Module,close_listen,_,_}|_] = Otp,
+Otp = Run(filename:join(Dir, Name)),
+erlang:display({Module, equal}),
+halt().

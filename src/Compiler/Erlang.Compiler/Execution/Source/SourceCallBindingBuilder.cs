@@ -6,6 +6,18 @@ internal sealed class SourceCallBindingBuilder
     private readonly HashSet<(string Name, int Arity)> suppressed = [];
     private readonly List<(string Module, string Name, int Arity)> imports = [];
 
+    internal int EunitAutoExportCount { get; private set; }
+    internal bool HasMatchSpecTransform { get; private set; }
+    internal bool HasDiameterRecordTransform { get; private set; }
+    internal bool HasOtherCompileOptions { get; private set; }
+    internal bool DisableModuleOptimization { get; private set; }
+    internal bool LegacyBeamTables { get; private set; }
+    private bool enableAutomaticInlining;
+    private bool disableAutomaticInlining;
+    internal bool AutomaticInlining => enableAutomaticInlining && !disableAutomaticInlining;
+    internal int? AutomaticInlineSize { get; private set; }
+    internal HashSet<(string Name, int Arity)> InlineTargets { get; } = [];
+
     public void Import(string module, Term signatures, int offset)
     {
         ModuleNameValidation.Validate(module);
@@ -30,8 +42,57 @@ internal sealed class SourceCallBindingBuilder
 
             return;
         }
-        if (options is Atom { Name: CompilerOptionNames.DisableSsaOptimization })
+        if (DiameterRecordSourceTransform.IsOption(options))
+        {
+            HasDiameterRecordTransform = true;
             return;
+        }
+        if (MatchSpecSourceTransform.IsOption(options))
+        {
+            HasMatchSpecTransform = true;
+            return;
+        }
+        if (EunitAutoExport.IsTransform(options))
+        {
+            EunitAutoExportCount++;
+            return;
+        }
+        if (options is Atom { Name: "no_module_opt" })
+        {
+            DisableModuleOptimization = true;
+            return;
+        }
+        if (CompilerWarningOptions.IsSupported(options)
+            || options is Atom { Name: "no_native" or "verbose" or CompilerOptionNames.NoAutoImportTypes })
+            return;
+        if (options is Atom { Name: CompilerOptionNames.Inline or CompilerOptionNames.NoInline } inline)
+        {
+            enableAutomaticInlining |= inline.Name == CompilerOptionNames.Inline;
+            disableAutomaticInlining |= inline.Name == CompilerOptionNames.NoInline;
+            return;
+        }
+        if (options is TupleTerm { Items: [Atom { Name: CompilerOptionNames.InlineSize }, Integer size] }
+            && size.Value >= int.MinValue && size.Value <= int.MaxValue)
+        {
+            AutomaticInlineSize ??= Math.Max(1, (int)size.Value);
+            return;
+        }
+        if (options is TupleTerm { Items: [Atom { Name: CompilerOptionNames.Inline }, var targets] })
+        {
+            InlineTargets.UnionWith(ReadSignatures(targets is TupleTerm ? Term.List(targets) : targets, offset));
+
+            return;
+        }
+        if (options is Atom { Name: "r26" or "r27" })
+        {
+            LegacyBeamTables = true;
+            return;
+        }
+        if (options is Atom { Name: CompilerOptionNames.DisableSsaOptimization })
+        {
+            HasOtherCompileOptions = true;
+            return;
+        }
         if (options is Atom { Name: SourceCallBindingNames.NoAutoImport })
         {
             suppressAll = true;
@@ -60,10 +121,10 @@ internal sealed class SourceCallBindingBuilder
             return;
         }
 
-        throw new CompileException(CompilerDiagnosticCodes.UnsupportedSyntax, SourceCallBindingDiagnostics.InvalidDirective, offset);
+        throw new CompileException(CompilerDiagnosticCodes.UnsupportedSyntax, $"Unsupported -compile option: {options}", offset);
     }
 
-    private static IEnumerable<(string Name, int Arity)> ReadSignatures(Term list, int offset)
+    internal static IEnumerable<(string Name, int Arity)> ReadSignatures(Term list, int offset)
     {
         while (list is Cons cell)
         {

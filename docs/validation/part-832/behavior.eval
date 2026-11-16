@@ -1,0 +1,37 @@
+Dir = "artifacts/beam-backend/part832-images",
+Module = beam_guarded_socket_probe,
+Stub = beam_option_transport,
+Path = filename:join(Dir, atom_to_list(Stub) ++ ".erl"),
+Source = "-module(beam_option_transport).\n-export([split_options/2, check_active/2, set_sock_opts/2, setopts/2]).\nsplit_options(gen_udp, malformed) -> bad_split; split_options(gen_udp, Opts) -> {native, Opts}.\ncheck_active(EmOpts, Socket) -> self() ! {checked, EmOpts, Socket}, ok.\nset_sock_opts(Pid, Split) -> {listener, Pid, Split}.\nsetopts(Socket, Opts) -> {transport, Socket, Opts}.\n",
+ok = file:write_file(Path, Source),
+{ok, Stub, StubBytes} = compile:file(Path, [binary]),
+{module, Stub} = code:load_binary(Stub, Path, StubBytes),
+Run = fun(File) ->
+    code:purge(Module),
+    code:delete(Module),
+    {ok, Bytes} = file:read_file(File),
+    {module, Module} = code:load_binary(Module, File, Bytes),
+    Pid = self(),
+    Address = {{host,4433},raw_socket},
+    {sslsocket,Address,Pid,Pid,gen_udp,callback,table,undefined} =
+        Module:socket([Pid], gen_udp, Address, callback, table),
+    {sslsocket,raw_socket,Pid,Pid,gen_udp,callback,table,undefined} =
+        Module:socket([Pid], gen_udp, raw_socket, callback, table),
+    {sslsocket,raw_socket,Pid,Pid,Stub,callback,table,undefined} =
+        Module:socket([Pid], Stub, raw_socket, callback, table),
+    Record = {sslsocket,{Pid,raw_socket},Pid,Pid,gen_udp,callback,table,{config,[]}},
+    {listener,Pid,{native,[active]}} = Module:setopts(Stub, Record, [active]),
+    receive {checked,[active],Record} -> ok after 0 -> error(check_missing) end,
+    {transport,raw_socket,[binary]} = Module:setopts(gen_udp, raw_socket, [binary]),
+    {transport,raw_socket,[binary]} = Module:setopts(Stub, raw_socket, [binary]),
+    BadSplit = try Module:setopts(Stub, Record, malformed) catch error:Reason1:Stack1 -> {Reason1,Stack1} end,
+    BadTable = try Module:socket([Pid],gen_udp,Address,callback,undefined) catch error:Reason2:Stack2 -> {Reason2,Stack2} end,
+    BadList = try Module:socket([Pid,Pid],gen_udp,Address,callback,table) catch error:Reason3:Stack3 -> {Reason3,Stack3} end,
+    {BadSplit,BadTable,BadList}
+end,
+Name = atom_to_list(Module) ++ ".beam",
+Otp = Run(filename:join([Dir, "fixture", "lib", "probe", "ebin", Name])),
+{{{badmatch,bad_split},_},{function_clause,_},{function_clause,_}} = Otp,
+Otp = Run(filename:join(Dir, Name)),
+erlang:display({Module, equal}),
+halt().

@@ -1,0 +1,32 @@
+[Reference, Generated] = [filename:absname(P) || P <- init:get_plain_arguments()],
+Files = filelib:fold_files(Generated, "[.]beam$", true, fun(P, Acc) -> [P|Acc] end, []),
+Shape = fun(Clauses) ->
+    [case_tail_calls || lists:all(fun({clause,_,_,_,Body}) ->
+         case Body of [{call,_,_,_}] -> true; _ -> false end
+     end,Clauses)] ++
+    [case_has_sequence || lists:any(fun({clause,_,_,_,Body}) -> length(Body) > 1 end,Clauses)]
+end,
+Rows = [{Module,Name,Arity,lists:usort(Keys)} || Path <- Files,
+    Relative <- [lists:nthtail(length(filename:split(Generated)),filename:split(Path))],
+    {ok,{Module,[{abstract_code,{raw_abstract_v1,Forms}}]}} <-
+        [beam_lib:chunks(filename:join([Reference|Relative]),[abstract_code])],
+    {function,_,Name,Arity,Clauses} <- Forms,
+    Keys <- [lists:append([begin
+        [terminal_case] ++ Shape(Arms) ++
+        [call_selector || element(1,Selector) =:= call] ++
+        [variable_selector || element(1,Selector) =:= var] ++
+        [entry_match_and_call_selector || Prefix =:= [], element(1,Selector) =:= call] ++
+        [entry_match_and_variable_selector || Prefix =:= [], element(1,Selector) =:= var] ++
+        [named_payload || Payload =/= '_']
+    end || {clause,_,_,_,Body} <- Clauses, length(Body) >= 2,
+           {Prefix,[{match,_,{tuple,_,[{atom,_,_},{var,_,Payload}]},{call,_,_,_}},
+                    {'case',_,Selector,Arms}]} <- [lists:split(length(Body)-2,Body)]])],
+    Keys =/= []],
+io:format("Terminal cases after a tagged call match in ~p differing images.~n",[length(Files)]),
+lists:foreach(fun(Key) ->
+    Matches=[{M,N,A}||{M,N,A,Keys}<-Rows,lists:member(Key,Keys)],
+    io:format("~p: ~p modules, ~p functions. Examples ~p~n",[Key,
+        length(lists:usort([M||{M,_,_}<-Matches])),length(Matches),lists:sublist(lists:sort(Matches),8)])
+end,[terminal_case,call_selector,variable_selector,entry_match_and_call_selector,entry_match_and_variable_selector,
+     named_payload,case_tail_calls,case_has_sequence]),
+halt().

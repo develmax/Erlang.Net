@@ -1,0 +1,8 @@
+{get_option,2} instructions OTP 65, previous C# 103, current C# 65
+OTP entry [{label,235},{line,[{location,"httpc_manager.erl",1041}]},{func_info,{atom,httpc_manager},{atom,get_option},2},{label,236},{select_val,{x,0},{f,235},15,[{atom,cookies},{f,251},{atom,https_proxy},{f,250},{atom,ip},{f,249}]},{label,237},{test,is_tagged_tuple,{f,235},[{x,1},16,{atom,options}]},{get_tuple_element,{x,1},9,{x,0}}]
+OTP fallback [{get_tuple_element,{x,1},2,{x,0}},return,{label,251},{test,is_tagged_tuple,{f,235},[{x,1},16,{atom,options}]},{get_tuple_element,{x,1},8,{x,0}},return]
+Previous entry [{label,358},{line,[{location,"httpc_manager.erl",1041}]},{func_info,{atom,httpc_manager},{atom,get_option},2},{label,359},{test,is_tagged_tuple,{f,358},[{x,1},16,{atom,options}]},{allocate,3,2},{init_yregs,{list,[{y,2}]}},{move,{x,0},{y,0}}]
+Previous fallback [return,{label,374},{move,{y,0},{x,0}},{move,{y,1},{x,1}},{deallocate,3},{jump,{f,358}}]
+Current entry [{label,358},{line,[{location,"httpc_manager.erl",1041}]},{func_info,{atom,httpc_manager},{atom,get_option},2},{label,359},{select_val,{x,0},{f,358},15,[{atom,cookies},{f,374},{atom,https_proxy},{f,373},{atom,ip},{f,372}]},{label,360},{test,is_tagged_tuple,{f,358},[{x,1},16,{atom,options}]},{get_tuple_element,{x,1},9,{x,0}}]
+Current fallback [{get_tuple_element,{x,1},2,{x,0}},return,{label,374},{test,is_tagged_tuple,{f,358},[{x,1},16,{atom,options}]},{get_tuple_element,{x,1},8,{x,0}},return]
+Current instructions match after label rebasing.

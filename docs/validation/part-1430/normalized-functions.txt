@@ -1,0 +1,94 @@
+lib/asn1-5.5.2/ebin/asn1ct.beam
+lib/asn1-5.5.2/ebin/asn1ct_check.beam
+lib/asn1-5.5.2/ebin/asn1ct_imm.beam
+lib/asn1-5.5.2/ebin/asn1ct_tok.beam
+lib/common_test-1.31.2/ebin/ct_groups.beam
+lib/common_test-1.31.2/ebin/ct_logs.beam
+lib/compiler-10.0.6/ebin/beam_block.beam
+lib/compiler-10.0.6/ebin/beam_core_to_ssa.beam
+lib/compiler-10.0.6/ebin/beam_jump.beam
+lib/compiler-10.0.6/ebin/beam_ssa_bsm.beam
+lib/compiler-10.0.6/ebin/sys_core_fold.beam
+lib/debugger-7.0/ebin/dbg_istk.beam
+lib/dialyzer-6.0.3/ebin/dialyzer_dataflow.beam
+lib/dialyzer-6.0.3/ebin/dialyzer_options.beam
+lib/dialyzer-6.0.3/ebin/erl_types.beam
+lib/dialyzer-6.0.3/ebin/typer_core.beam
+lib/erts-17.1/ebin/erts_code_purger.beam
+lib/erts-17.1/ebin/init.beam
+lib/erts-17.1/ebin/prim_file.beam
+lib/erts-17.1/ebin/zlib.beam
+lib/ftp-1.2.6/ebin/ftp_internal.beam
+lib/inets-9.8/ebin/httpc.beam
+lib/inets-9.8/ebin/httpd.beam
+lib/inets-9.8/ebin/httpd_conf.beam
+lib/inets-9.8/ebin/httpd_request.beam
+lib/inets-9.8/ebin/mod_disk_log.beam
+lib/inets-9.8/ebin/mod_esi.beam
+lib/inets-9.8/ebin/mod_log.beam
+lib/kernel-11.0.4/ebin/application_controller.beam
+lib/kernel-11.0.4/ebin/code.beam
+lib/kernel-11.0.4/ebin/dist_ac.beam
+lib/kernel-11.0.4/ebin/dist_util.beam
+lib/kernel-11.0.4/ebin/erpc.beam
+lib/kernel-11.0.4/ebin/erts_debug.beam
+lib/kernel-11.0.4/ebin/file_io_server.beam
+lib/kernel-11.0.4/ebin/global.beam
+lib/kernel-11.0.4/ebin/group.beam
+lib/kernel-11.0.4/ebin/inet_config.beam
+lib/kernel-11.0.4/ebin/inet_db.beam
+lib/kernel-11.0.4/ebin/inet_dns.beam
+lib/kernel-11.0.4/ebin/inet_parse.beam
+lib/kernel-11.0.4/ebin/standard_error.beam
+lib/megaco-4.9.2/ebin/megaco.beam
+lib/megaco-4.9.2/ebin/megaco_digit_map.beam
+lib/megaco-4.9.2/ebin/megaco_text_mini_decoder.beam
+lib/megaco-4.9.2/ebin/megaco_text_parser_v1.beam
+lib/megaco-4.9.2/ebin/megaco_text_parser_v2.beam
+lib/megaco-4.9.2/ebin/megaco_text_parser_v3.beam
+lib/mnesia-4.27/ebin/mnesia_schema.beam
+lib/os_mon-2.12/ebin/disksup.beam
+lib/parsetools-2.8/ebin/leex.beam
+lib/public_key-1.21.7/ebin/OTP-PKIX-Relaxed.beam
+lib/public_key-1.21.7/ebin/OTP-PKIX.beam
+lib/public_key-1.21.7/ebin/PKIX1Explicit-2009.beam
+lib/public_key-1.21.7/ebin/PKIX1Implicit-2009.beam
+lib/runtime_tools-2.5/ebin/system_information.beam
+lib/sasl-4.4/ebin/format_lib_supp.beam
+lib/snmp-5.20.5/ebin/snmp.beam
+lib/snmp-5.20.5/ebin/snmp_app.beam
+lib/snmp-5.20.5/ebin/snmpa_acm.beam
+lib/snmp-5.20.5/ebin/snmpa_agent_sup.beam
+lib/snmp-5.20.5/ebin/snmpa_app.beam
+lib/snmp-5.20.5/ebin/snmpa_mib_data_tttn.beam
+lib/snmp-5.20.5/ebin/snmpc_lib.beam
+lib/snmp-5.20.5/ebin/snmpc_tok.beam
+lib/ssh-6.0.6/ebin/ssh_connection.beam
+lib/ssh-6.0.6/ebin/ssh_sftp.beam
+lib/ssl-11.7.7/ebin/ssl_certificate.beam
+lib/ssl-11.7.7/ebin/ssl_handshake.beam
+lib/ssl-11.7.7/ebin/tls_socket.beam
+lib/stdlib-8.1/ebin/c.beam
+lib/stdlib-8.1/ebin/epp.beam
+lib/stdlib-8.1/ebin/erl_tar.beam
+lib/stdlib-8.1/ebin/graph.beam
+lib/stdlib-8.1/ebin/slave.beam
+lib/wx-2.7/doc/examples/demo/demo_html_tagger.beam
+lib/xmerl-2.2/ebin/xmerl_otpsgml.beam
+lib/xmerl-2.2/ebin/xmerl_sax_parser_latin1.beam
+lib/xmerl-2.2/ebin/xmerl_sax_parser_list.beam
+lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16be.beam
+lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16le.beam
+lib/xmerl-2.2/ebin/xmerl_sax_parser_utf8.beam
+lib/xmerl-2.2/ebin/xmerl_scan.beam
+lib/xmerl-2.2/ebin/xmerl_xsd.beam
+lib/kernel-11.0.4/ebin/inet_config.beam +[{parse_inetrc_skip_line,3}] -[]
+lib/kernel-11.0.4/ebin/inet_db.beam +[{lists_delete,2}] -[]
+lib/kernel-11.0.4/ebin/inet_parse.beam +[{split_comma,2}] -[]
+lib/megaco-4.9.2/ebin/megaco_text_parser_v2.beam +[{merge_AmmRequest_descriptors,
+                                                    2}] -[]
+lib/megaco-4.9.2/ebin/megaco_text_parser_v3.beam +[{merge_AmmRequest_descriptors,
+                                                    2}] -[]
+lib/ssl-11.7.7/ebin/ssl_certificate.beam +[{select_extension,2}] -[]
+lib/xmerl-2.2/ebin/xmerl_xsd.beam +[{check_anyAttribute_namespace2,2}] -[]
+Compared 84 changed images.

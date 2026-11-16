@@ -1,0 +1,10 @@
+{error,undef,[{epp,default_encoding,[],[]},{io_lib_pretty,print,2,[{file,[105,111,95,108,105,98,95,112,114,101,116,116,121,46,101,114,108]},{line,102}]},{io_lib_format,build_limited,5,[{file,[105,111,95,108,105,98,95,102,111,114,109,97,116,46,101,114,108]},{line,364}]}]}
+Unhandled exception. Erlang.ErlangException: undef
+   at Erlang.ModuleRegistry.InvokeFirstOrdinaryEntry(ProcessContext context, String module, String function, Term[] arguments, ErlangFunction body, ModuleCodeImage image, IDisposable code, OwnedBindingKind507 kind) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\sys\clean-snapshot\src\Runtime\Erlang.Runtime.Core\Modules\ModuleRegistry.OrdinaryEntry.cs:line 41
+   at Program.<>c__DisplayClass0_3.<<<Main>$>b__16>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\sys\clean-snapshot\tools\Validation\Erlang.SysCompatibility\Program.cs:line 120
+--- End of stack trace from previous location ---
+   at Program.<>c__DisplayClass0_0.<<<Main>$>g__Execute|13>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\sys\clean-snapshot\tools\Validation\Erlang.SysCompatibility\Program.cs:line 133
+--- End of stack trace from previous location ---
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\sys\clean-snapshot\tools\Validation\Erlang.SysCompatibility\Program.cs:line 45
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\sys\clean-snapshot\tools\Validation\Erlang.SysCompatibility\Program.cs:line 111
+   at Program.<Main>(String[] args)

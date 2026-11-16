@@ -1,0 +1,11 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, frame_entry_probe} = code:load_binary(frame_entry_probe, Path, Binary),
+{key,first,undefined} = frame_entry_probe:put_value(key,first),
+{key,second,first} = frame_entry_probe:put_value(key,second),
+{second,key,second} = frame_entry_probe:repeated(key,third),
+{guard_key,value} = begin put(guard_key,value), frame_entry_probe:guarded_match(guard_key) end,
+{'EXIT',{{badmatch,undefined},_}} = (catch frame_entry_probe:guarded_match(missing)),
+{beam_file, _, _, _, _, Functions} = beam_disasm:file(Path),
+[io:format("~p~n", [F]) || F = {function, Name, _, _, _} <- Functions, Name =:= put_value orelse Name =:= repeated],
+halt().

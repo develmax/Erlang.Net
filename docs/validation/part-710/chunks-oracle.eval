@@ -1,0 +1,2 @@
+A="artifacts/beam-backend/part710-eldap/ELDAPv3.release-profile.beam",O="D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/library376-official-compiler/installed/lib/eldap-1.3.1/ebin/ELDAPv3.beam",{ok,_,AC}=beam_lib:all_chunks(A),{ok,_,OC}=beam_lib:all_chunks(O),
+io:format("~p~n",[[{N,byte_size(B),byte_size(Y),B=:=Y}||{N,B}<-OC,{K,Y}<-AC,N=:=K]]),halt().

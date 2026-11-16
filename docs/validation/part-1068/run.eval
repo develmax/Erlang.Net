@@ -1,0 +1,34 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, shared_shape_probe} = code:load_binary(shared_shape_probe, Path, Binary),
+{{tag,one,1},undefined} = shared_shape_probe:tagged({tag,one,1}),
+{{tag,two,2},1} = shared_shape_probe:tagged({tag,two,2}),
+{3,2} = shared_shape_probe:varying({left,3}),
+{4,left} = shared_shape_probe:varying({right,marker,4}),
+{fallback, other} = shared_shape_probe:fallback(other),
+{5,right} = shared_shape_probe:fallback({tag,5}),
+{other,tag} = shared_shape_probe:varying({left,other}),
+later = get(key),
+{input,later} = shared_shape_probe:singles({a,one},input),
+{other,one} = shared_shape_probe:singles({b,marker,two},other),
+try shared_shape_probe:singles({b,bad,two}, original) of
+    _ -> error(unexpected_singles)
+catch error:function_clause:SinglesStack ->
+    [{shared_shape_probe,singles,[{b,bad,two},original],_}|_] = SinglesStack
+end,
+Check = fun(Name, Argument) ->
+    try apply(shared_shape_probe, Name, [Argument]) of
+        Unexpected -> error({unexpected, Unexpected})
+    catch error:function_clause:Stack ->
+        [{shared_shape_probe,Name,[Argument],_}|_] = Stack
+    end
+end,
+[Check(Name, Argument) || {Name,Argument} <-
+    [{tagged,{other,one,1}},{tagged,{tag,three,1}},{varying,{other,1}},{varying,{left,1,2}},{varying,{right,4}},{varying,other}]],
+{beam_file, _, _, _, _, Functions} = beam_disasm:file(Path),
+[io:format("~p~n", [F]) || F = {function, Name, _, _, _} <- Functions,
+    lists:member(Name, [tagged, varying, fallback, singles])],
+halt().
+
+
+

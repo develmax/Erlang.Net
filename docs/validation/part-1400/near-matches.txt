@@ -1,0 +1,29 @@
+Normalized function instruction comparison across 994 differing modules.
+Counts {different functions, modules} for at most 8 functions: [{1,9},
+                                                                {2,16},
+                                                                {3,25},
+                                                                {4,21},
+                                                                {5,34},
+                                                                {6,21},
+                                                                {7,26},
+                                                                {8,23}]
+1 lib/erts-17.1/ebin/erl_tracer.beam [{on_load,0}]
+1 lib/ssh-6.0.6/ebin/ssh_bits.beam [{mpint,1}]
+1 lib/stdlib-8.1/ebin/erl_posix_msg.beam [{message_1,1}]
+1 lib/stdlib-8.1/ebin/shell_default.beam [{'$handle_undefined_function',2}]
+1 lib/wx-2.7/ebin/wxCursor.beam [{new,1}]
+1 lib/wx-2.7/ebin/wxListItemAttr.beam [{new,3}]
+1 lib/wx-2.7/ebin/wxStaticBoxSizer.beam [{new,2}]
+1 lib/wx-2.7/ebin/wxStyledTextCtrl.beam [{styleSetFontAttr,8}]
+1 lib/xmerl-2.2/ebin/xmerl_xpath_lib.beam [{primary_expr,2}]
+2 lib/diameter-2.7.2/ebin/diameter_misc_sup.beam [{init,1},{spec,1}]
+2 lib/erts-17.1/ebin/erts_trace_cleaner.beam [{call_check,0},{loop,4}]
+2 lib/inets-9.8/ebin/httpc_sup.beam [{child_specs,1},{init,1}]
+2 lib/inets-9.8/ebin/httpd_file.beam [{handle_error,4},{handle_error,5}]
+2 lib/inets-9.8/ebin/mod_head.beam [{do,1},{do_head,1}]
+2 lib/public_key-1.21.7/ebin/AlgorithmInformation-2009.beam [{dec_ParamOptions,
+                                                              2},
+                                                             {enc_ParamOptions,
+                                                              2}]
+2 lib/public_key-1.21.7/ebin/DSS.beam [{dec_DSAPrivateKey,2},
+                                       {enc_DSAPrivateKey,2}]

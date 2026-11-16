@@ -1,0 +1,32 @@
+OTP 29.1.1
+{label,1}
+{line,[{location,[],3}]}
+{func_info,{atom,beam_list_body},{atom,run},3}
+{label,2}
+{line,[{location,[],4}]}
+{bif,hd,{f,0},[{x,0}],{x,0}}
+{bif,tl,{f,0},[{x,1}],{x,1}}
+{bif,hd,{f,0},[{x,2}],{x,2}}
+{test_heap,4,3}
+{put_tuple2,{x,0},{list,[{x,0},{x,1},{x,2}]}}
+return
+Part 1603 C#
+{label,1}
+{line,[{location,[],3}]}
+{func_info,{atom,beam_list_body},{atom,run},3}
+{label,2}
+{allocate,5,3}
+{init_yregs,{list,[{y,3},{y,4}]}}
+{move,{x,0},{y,0}}
+{move,{x,1},{y,1}}
+{move,{x,2},{y,2}}
+{line,[{location,[],4}]}
+{bif,hd,{f,0},[{y,0}],{x,0}}
+{move,{x,0},{y,3}}
+{bif,tl,{f,0},[{y,1}],{x,0}}
+{move,{x,0},{y,4}}
+{bif,hd,{f,0},[{y,2}],{x,0}}
+{test_heap,4,1}
+{put_tuple2,{x,0},{list,[{y,3},{y,4},{x,0}]}}
+{deallocate,5}
+return

@@ -1,0 +1,6 @@
+ssl_connection_sup #{intensity => 10,period => 3600,strategy => one_for_one} [tls_sup,
+                                                                              dtls_sup] {error,
+                                                                                         function_clause}
+ssl_dist_connection_sup #{intensity => 10,period => 3600,
+                          strategy => one_for_one} [tls_dist_sup] {error,
+                                                                   function_clause}

@@ -1,0 +1,252 @@
+Matched OTP list-entry test after previously allocating first in 265 functions across 135 modules.
+Lost the OTP list-entry test in 0 functions across 0 modules.
+lib\asn1-5.5.2\ebin\asn1ct_check.beam +[{check_object_set_list,2},
+                                        {check_fold,3}] -[]
+lib\asn1-5.5.2\ebin\asn1ct_constructed_per.beam +[{opt_imm_1,3}] -[]
+lib\asn1-5.5.2\ebin\asn1ct_imm.beam +[{enc_opt_al_1,2},{flatten_cs,3}] -[]
+lib\asn1-5.5.2\ebin\asn1ct_pretty_format.beam +[{write_complex_list_tail,2},
+                                                {write_simple_list_tail,2}] -[]
+lib\asn1-5.5.2\ebin\asn1ct.beam +[{discover_dupl_in_mods,5},
+                                  {remove_name_collisions2,4}] -[]
+lib\common_test-1.31.2\ebin\ct_cover.beam +[{analyse_files,5}] -[]
+lib\common_test-1.31.2\ebin\ct_framework.beam +[{configure,6}] -[]
+lib\common_test-1.31.2\ebin\ct_logs.beam +[{make_last_run_index1,10}] -[]
+lib\common_test-1.31.2\ebin\ct_make.beam +[{members,4}] -[]
+lib\common_test-1.31.2\ebin\ct_master.beam +[{release_locks,4}] -[]
+lib\common_test-1.31.2\ebin\ct_release_test.beam +[{get_runtime_deps,4}] -[]
+lib\common_test-1.31.2\ebin\ct_run.beam +[{check_and_add,3}] -[]
+lib\common_test-1.31.2\ebin\ct_testspec.beam +[{get_included_specs,4}] -[]
+lib\common_test-1.31.2\ebin\test_server_ctrl.beam +[{collect_case,4}] -[]
+lib\compiler-10.0.6\ebin\beam_asm.beam +[{build_record_def,2},
+                                         {assemble_function,3},
+                                         {encode_op_1,3}] -[]
+lib\compiler-10.0.6\ebin\beam_clean.beam +[{function_renumber,3}] -[]
+lib\compiler-10.0.6\ebin\beam_core_to_ssa.beam +[{map_split_pairs_1,5},
+                                                 {select_extract_map,4},
+                                                 {match_guard_1,3},
+                                                 {pattern_bin,3},
+                                                 {atomic_bin,3},
+                                                 {select_labels,4},
+                                                 {select_extract_record,4}] -[]
+lib\compiler-10.0.6\ebin\beam_ssa_alias.beam +[{killsets_blks,4},{aa_is,4}] -[]
+lib\compiler-10.0.6\ebin\beam_ssa_bool.beam +[{build_digraph_1,4},
+                                              {digraph_to_ssa,4},
+                                              {pre_opt,5},
+                                              {add_external_vertices,3},
+                                              {bool_opt,3},
+                                              {covered_list,5},
+                                              {build_mapping,4}] -[]
+lib\compiler-10.0.6\ebin\beam_ssa_codegen.beam +[{collect_chain,3},
+                                                 {flatmapfoldl,3}] -[]
+lib\compiler-10.0.6\ebin\beam_ssa_destructive_update.beam +[{fai_is,4},
+                                                            {fai,4}] -[]
+lib\compiler-10.0.6\ebin\beam_ssa_opt.beam +[{opt_tail_phis,3},
+                                             {gco_rpo,4},
+                                             {ssa_opt_bs_ensure,4},
+                                             {opt_tail_literals,3},
+                                             {float_opt,3}] -[]
+lib\compiler-10.0.6\ebin\beam_ssa_pre_codegen.beam +[{recv_fix_common,5},
+                                                     {reserve_try_tags_1,4},
+                                                     {sanitize,5},
+                                                     {copy_retval_1,3},
+                                                     {bs_restore_args,5},
+                                                     {copy_func_args_1,5},
+                                                     {stack_vars,5},
+                                                     {find_defs_1,6},
+                                                     {expire_active,4},
+                                                     {place_frames_1,5},
+                                                     {check_inactive,4},
+                                                     {find_yregs_is,3},
+                                                     {fix_receive,4},
+                                                     {rce_insert_edges,4},
+                                                     {fix_receives_1,3}] -[]
+lib\compiler-10.0.6\ebin\beam_ssa_recv.beam +[{insert_markers,3},
+                                              {insert_clears_1,3}] -[]
+lib\compiler-10.0.6\ebin\beam_ssa_share.beam +[{blocks,3}] -[]
+lib\compiler-10.0.6\ebin\beam_ssa_type.beam +[{opt_start_1,5}] -[]
+lib\compiler-10.0.6\ebin\beam_ssa.beam +[{between_rpo,4},
+                                         {split_blocks_1,5},
+                                         {flatmapfold_instrs_1,4},
+                                         {mapfold_instrs_1,4},
+                                         {rpo_1,4},
+                                         {linearize_1,4},
+                                         {flatmapfoldl,3}] -[]
+lib\compiler-10.0.6\ebin\beam_trim.beam +[{do_usage_blk,3}] -[]
+lib\compiler-10.0.6\ebin\beam_types.beam +[{update_tuple_1,3}] -[]
+lib\compiler-10.0.6\ebin\beam_validator.beam +[{merge_regs_1,6}] -[]
+lib\compiler-10.0.6\ebin\cerl_inline.beam +[{make_let_bindings,3}] -[]
+lib\compiler-10.0.6\ebin\cerl_trees.beam +[{mapfold_list,4},
+                                           {label_vars,3},
+                                           {label_list,3},
+                                           {mapfold_pairs,4},
+                                           {label_defs,3}] -[]
+lib\compiler-10.0.6\ebin\compile.beam +[{foldl_core_transforms,3},
+                                        {diffable_label_map,4}] -[]
+lib\compiler-10.0.6\ebin\core_scan.beam +[{scan_name,2}] -[]
+lib\compiler-10.0.6\ebin\sys_core_alias.beam +[{sub_take_keys,3}] -[]
+lib\compiler-10.0.6\ebin\sys_coverage.beam +[{expand_qualifiers,3}] -[]
+lib\compiler-10.0.6\ebin\v3_core.beam +[{c_add_dummy_export,3},
+                                        {bitstrs,2},
+                                        {maybe_match_exprs,3},
+                                        {exprs,2},
+                                        {pat_segments,2},
+                                        {upat_bin,4},
+                                        {pattern_list,2},
+                                        {force_booleans_1,4},
+                                        {record_build_pairs_1,3},
+                                        {ren_pat_record,4},
+                                        {map_build_pairs_1,3},
+                                        {rename_shadowing_clauses,3},
+                                        {clauses,2},
+                                        {ren_pat_map,4},
+                                        {ren_pat_bin,5},
+                                        {upattern_list,3}] -[]
+lib\debugger-7.0\ebin\dbg_ieval.beam +[{match_tuple,5},{match_record_field,4}] -[]
+lib\debugger-7.0\ebin\dbg_wx_filedialog_win.beam +[{get_file_info,5}] -[]
+lib\dialyzer-6.0.3\ebin\dialyzer_contracts.beam +[{remove_uses,3},
+                                                  {initialize_constraints,9}] -[]
+lib\dialyzer-6.0.3\ebin\dialyzer_dataflow.beam +[{find_terminals_list,3},
+                                                 {bind_record_pairs,5}] -[]
+lib\dialyzer-6.0.3\ebin\erl_bif_types.beam +[{type_ranks,5}] -[]
+lib\dialyzer-6.0.3\ebin\erl_types.beam +[{list_get_modules_mentioned,4},
+                                         {list_from_form,5}] -[]
+lib\dialyzer-6.0.3\ebin\typer_core.beam +[{analyze_args,3}] -[]
+lib\diameter-2.7.2\ebin\diameter_peer.beam +[{start,4}] -[]
+lib\diameter-2.7.2\ebin\diameter_service.beam +[{fltr_first,3}] -[]
+lib\edoc-1.5\ebin\edoc_scanner.beam +[{scan_name,2}] -[]
+lib\edoc-1.5\ebin\edoc_specs.beam +[{collect_comments,2}] -[]
+lib\erts-17.1\ebin\erl_prim_loader.beam +[{inet_get_file_from_port2,3},
+                                          {efile_get_file_from_port3,3}] -[]
+lib\erts-17.1\ebin\prim_file.beam +[{list_dir_convert,3}] -[]
+lib\erts-17.1\ebin\prim_inet.beam +[{encode_ifopt_val,2},
+                                    {get_addrs,1},
+                                    {encode_ifopts,2}] -[]
+lib\erts-17.1\ebin\socket_registry.beam +[{handle_user_down_cleanup,3},
+                                          {user_sock_delete_update,3}] -[]
+lib\et-1.8\ebin\et_collector.beam +[{parse_file_options,2},{start_clients,2}] -[]
+lib\inets-9.8\ebin\httpd_cgi.beam +[{handle_headers,3}] -[]
+lib\inets-9.8\ebin\httpd_conf.beam +[{store,4},{store_mime_types1,2}] -[]
+lib\inets-9.8\ebin\httpd_esi.beam +[{handle_headers,4}] -[]
+lib\inets-9.8\ebin\httpd_response.beam +[{handle_headers,2}] -[]
+lib\inets-9.8\ebin\mod_auth_plain.beam +[{store_group,2},{store_passwd,2}] -[]
+lib\kernel-11.0.4\ebin\application.beam +[{enqueue_dag_leaves,5}] -[]
+lib\kernel-11.0.4\ebin\code_server.beam +[{try_archive_subdirs,3}] -[]
+lib\kernel-11.0.4\ebin\code.beam +[{partition_load,3},{build,1}] -[]
+lib\kernel-11.0.4\ebin\disk_log_1.beam +[{ext_split_bins,6},
+                                         {int_split_bins,6},
+                                         {logl,3}] -[]
+lib\kernel-11.0.4\ebin\disk_log_server.beam +[{open,2}] -[]
+lib\kernel-11.0.4\ebin\dist_ac.beam +[{wait_dacs,4},{check_waiting,6}] -[]
+lib\kernel-11.0.4\ebin\erl_boot_server.beam +[{check_arg,2}] -[]
+lib\kernel-11.0.4\ebin\erts_debug.beam +[{fold_size,3}] -[]
+lib\kernel-11.0.4\ebin\file.beam +[{path_open_first,4}] -[]
+lib\kernel-11.0.4\ebin\gen_udp_socket.beam +[{getstat_what,3}] -[]
+lib\kernel-11.0.4\ebin\inet_res.beam +[{res_getby_search,6}] -[]
+lib\kernel-11.0.4\ebin\inet_tcp_dist.beam +[{check_ip,3}] -[]
+lib\kernel-11.0.4\ebin\net_kernel.beam +[{protocol_childspecs,1}] -[]
+lib\megaco-4.9.2\ebin\megaco_digit_map.beam +[{compute_cont,5}] -[]
+lib\megaco-4.9.2\ebin\megaco_messenger.beam +[{prepare_autoconnecting_trans,5},
+                                              {encode_requests,5},
+                                              {override_req_send_options,3},
+                                              {prepare_normal_trans,5},
+                                              {override_rep_send_options,2}] -[]
+lib\mnesia-4.27\ebin\mnesia_bup.beam +[{filter_foldl,3}] -[]
+lib\mnesia-4.27\ebin\mnesia_controller.beam +[{opt_start_sender2,4},
+                                              {orphan_tables,5}] -[]
+lib\mnesia-4.27\ebin\mnesia_frag.beam +[{pick_count,3}] -[]
+lib\mnesia-4.27\ebin\mnesia_lib.beam +[{search_delete,4}] -[]
+lib\mnesia-4.27\ebin\mnesia_recover.beam +[{do_handle_early_msgs,2}] -[]
+lib\mnesia-4.27\ebin\mnesia_schema.beam +[{merge_storage_type,5},
+                                          {rec2list,4},
+                                          {prepare_ops,6}] -[]
+lib\mnesia-4.27\ebin\mnesia_tm.beam +[{ask_commit,7},
+                                      {async_send_dirty,6},
+                                      {commit_nodes,3}] -[]
+lib\observer-2.19\ebin\crashdump_viewer.beam +[{sum_type_data,3},
+                                               {sort_allocator_types,3},
+                                               {get_hex_1,2}] -[]
+lib\os_mon-2.12\ebin\disksup.beam +[{newline,2}] -[]
+lib\os_mon-2.12\ebin\memsup.beam +[{get_worst_memory_user,3}] -[]
+lib\parsetools-2.8\ebin\leex.beam +[{build_dfa,7},
+                                    {min_delete,6},
+                                    {pp_tokens,4},
+                                    {min_dfa,3}] -[]
+lib\parsetools-2.8\ebin\yecc.beam +[{make_lookahead,4}] -[]
+lib\public_key-1.21.7\ebin\pubkey_cert.beam +[{handle_policy_mappings,5}] -[]
+lib\reltool-1.1\ebin\reltool_server.beam +[{escripts_to_apps,3},
+                                           {parse_app_info,4}] -[]
+lib\reltool-1.1\ebin\reltool_target.beam +[{find_all,6}] -[]
+lib\runtime_tools-2.5\ebin\system_information.beam +[{rtdepstrs2rtdeps,1}] -[]
+lib\sasl-4.4\ebin\release_handler.beam +[{check_install_options,3}] -[]
+lib\sasl-4.4\ebin\systools_make.beam +[{find_all,6}] -[]
+lib\sasl-4.4\ebin\systools_relup.beam +[{collect_appup_scripts,5},
+                                        {foreach_baserel_up,7},
+                                        {foreach_baserel_dn,7}] -[]
+lib\snmp-5.20.5\doc\examples\ex2\snmp_ex2_simple_standard_test.beam +[{verify_vbs,
+                                                                       3}] -[]
+lib\snmp-5.20.5\ebin\snmp_conf.beam +[{check_mandatory,2}] -[]
+lib\snmp-5.20.5\ebin\snmp_log.beam +[{info_filter,3}] -[]
+lib\snmp-5.20.5\ebin\snmpa_agent.beam +[{mapfoldl,4}] -[]
+lib\snmp-5.20.5\ebin\snmpa_get_lib.beam +[{split_vbs,3},{split_vbs_view,4}] -[]
+lib\snmp-5.20.5\ebin\snmpa_get.beam +[{do_get_local,3},
+                                      {check_all_table_vbs,4},
+                                      {do_get_subagents,3}] -[]
+lib\snmp-5.20.5\ebin\snmpa_mib.beam +[{mib_operations,7}] -[]
+lib\snmp-5.20.5\ebin\snmpa_svbl.beam +[{partition,5},{sa_split,3}] -[]
+lib\snmp-5.20.5\ebin\snmpc_lib.beam +[{include_lib,1}] -[]
+lib\ssh-6.0.6\ebin\ssh_xfer.beam +[{decode_As,5}] -[]
+lib\ssl-11.7.7\ebin\ssl_handshake.beam +[{distpoints_lookup,5}] -[]
+lib\ssl-11.7.7\ebin\ssl_pkix_db.beam +[{insert_delete_lists,5}] -[]
+lib\stdlib-8.1\ebin\dets_server.beam +[{request,2}] -[]
+lib\stdlib-8.1\ebin\dets_v9.beam +[{bulk_objects,5},{make_objects,5}] -[]
+lib\stdlib-8.1\ebin\dict.beam +[{map_seg_list,2},
+                                {map_bkt_list,2},
+                                {filter_bkt_list,4},
+                                {filter_seg_list,4}] -[]
+lib\stdlib-8.1\ebin\digraph_utils.beam +[{posttraverse,4}] -[]
+lib\stdlib-8.1\ebin\edlin.beam +[{over_word2,3},{over_non_word,3}] -[]
+lib\stdlib-8.1\ebin\erl_eval.beam +[{match_map,5},
+                                    {expr_list,7},
+                                    {match_tuple,6},
+                                    {match_record_field,5}] -[]
+lib\stdlib-8.1\ebin\erl_expand_records.beam +[{exprs,2},
+                                              {pattern_list,2},
+                                              {guard_tests1,2},
+                                              {guard,2},
+                                              {clauses,2},
+                                              {expr_list,2}] -[]
+lib\stdlib-8.1\ebin\erl_lint.beam +[{exprs,3},
+                                    {lc_quals,4},
+                                    {guard_tests,3},
+                                    {head,4},
+                                    {check_export_record_2,5},
+                                    {extract_modifiers,4}] -[]
+lib\stdlib-8.1\ebin\ets.beam +[{md5terms,2}] -[]
+lib\stdlib-8.1\ebin\eval_bits.beam +[{match_field_string,5},
+                                     {bin_gen_field_string,5}] -[]
+lib\stdlib-8.1\ebin\graph.beam +[{posttraverse,4}] -[]
+lib\stdlib-8.1\ebin\lists.beam +[{mapfoldl_1,3},{mapfoldr_1,3}] -[]
+lib\stdlib-8.1\ebin\ms_transform.beam +[{ms_clause_list,4},{copy_list,2}] -[]
+lib\stdlib-8.1\ebin\orddict.beam +[{filter,2}] -[]
+lib\stdlib-8.1\ebin\proplists.beam +[{split,3}] -[]
+lib\stdlib-8.1\ebin\qlc.beam +[{nub,1}] -[]
+lib\stdlib-8.1\ebin\queue.beam +[{filtermap_r,2},{filter_r,2}] -[]
+lib\stdlib-8.1\ebin\re.beam +[{process_uparams,2}] -[]
+lib\stdlib-8.1\ebin\sets.beam +[{filter_bucket,4}] -[]
+lib\stdlib-8.1\ebin\shell_docs_markdown.beam +[{get_next_block,4}] -[]
+lib\stdlib-8.1\ebin\sofs.beam +[{subst,5}] -[]
+lib\syntax_tools-4.1.1\ebin\erl_syntax_lib.beam +[{mapfoldl_listlist,3},
+                                                  {mapfoldl,3},
+                                                  {mapfold_1,3},
+                                                  {mapfold_2,3}] -[]
+lib\tools-4.2.3\ebin\lcnt.beam +[{stats2stats,1}] -[]
+lib\tools-4.2.3\ebin\make.beam +[{members,4}] -[]
+lib\tools-4.2.3\ebin\tags.beam +[{unquoted,2}] -[]
+lib\tools-4.2.3\ebin\xref_base.beam +[{collect_lib,5},{documented_v1,5}] -[]
+lib\tools-4.2.3\ebin\xref_compiler.beam +[{make_more_instrs,3}] -[]
+lib\tools-4.2.3\ebin\xref_reader.beam +[{list2term,2}] -[]
+lib\tools-4.2.3\ebin\xref_utils.beam +[{list_dirs,5}] -[]
+lib\wx-2.7\doc\examples\sudoku\sudoku_game.beam +[{check_must2,6}] -[]
+lib\xmerl-2.2\ebin\xmerl_xsd.beam +[{element_properties,4},
+                                    {c_t_properties,4},
+                                    {constrained2,3}] -[]

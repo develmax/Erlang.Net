@@ -1,0 +1,57 @@
+[Ref, Generated] = [filename:absname(P) || P <- init:get_plain_arguments()],
+Entry = fun
+    Entry([{label,_}, {line,_}, {func_info,_,_,_}, {label,_} | Is]) -> Is;
+    Entry([{func_info,_,_,_}, {label,_} | Is]) -> Is;
+    Entry([_ | Is]) -> Entry(Is);
+    Entry([]) -> []
+end,
+Read = fun(P) ->
+    {beam_file,_,_,_,_,Fs} = beam_disasm:file(P),
+    maps:from_list([{{N,A},Entry(Is)} || {function,N,A,_,Is} <- Fs])
+end,
+Alloc = fun(I) when is_tuple(I) ->
+    lists:member(element(1,I),[allocate,allocate_heap,allocate_zero,allocate_heap_zero]);
+    (_) -> false
+end,
+Frame = fun(Is) ->
+    {Before, Rest} = lists:splitwith(fun(I)->not Alloc(I) end, Is),
+    case Rest of
+        [I | After] -> {length(Before),element(2,I),case After of [{init_yregs,{list,Ys}}|_] -> length(Ys); _ -> 0 end};
+        [] -> absent
+    end
+end,
+Classify = fun(Expected, Actual) ->
+    E = Frame(Expected), A = Frame(Actual),
+    Size = case {E,A} of
+        {{_,ES,_},{_,AS,_}} when AS>ES -> [larger_frame];
+        {absent,{_,_,_}} -> [extra_frame];
+        _ -> []
+    end,
+    Init = case {E,A} of
+        {{_,_,EI},{_,_,AI}} when AI>EI -> [more_initial_slots];
+        _ -> []
+    end,
+    Prefix = case {Expected,Actual} of
+        {[{test,Test,_,_}|_],[I|_]} ->
+            case Alloc(I) of true -> [{allocate_before_entry_test,Test}]; false -> [] end;
+        _ -> []
+    end,
+    Size ++ Init ++ Prefix
+end,
+Files=filelib:fold_files(Generated,"[.]beam$",true,fun(P,Acc)->[P|Acc] end,[]),
+Groups=lists:foldl(fun(P,Acc0) ->
+    Path=filename:join(lists:nthtail(length(filename:split(Generated)),filename:split(P))),
+    Expected=Read(filename:join(Ref,Path)), Actual=Read(P),
+    maps:fold(fun(F,Is,Acc) ->
+        case maps:find(F,Actual) of
+            {ok,Other} -> lists:foldl(fun(K,M) ->
+                maps:update_with(K,fun({Mods,N})->{maps:update_with(Path,fun(Old)->min(F,Old) end,F,Mods),N+1} end,{#{Path=>F},1},M)
+            end,Acc,Classify(Is,Other));
+            error -> Acc
+        end
+    end,Acc0,Expected)
+end,#{},Files),
+io:format("Compared ~p nonidentical images~n",[length(Files)]),
+lists:foreach(fun({Modules,Count,K,Examples})->io:format("~w modules, ~w functions, ~w ~p~n",[Modules,Count,K,Examples]) end,
+    lists:reverse(lists:sort([{map_size(M),N,K,lists:sublist(lists:sort(maps:to_list(M)),3)} || {K,{M,N}}<-maps:to_list(Groups)]))),
+halt().

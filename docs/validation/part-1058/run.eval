@@ -1,0 +1,13 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, frame_bif_probe} = code:load_binary(frame_bif_probe, Path, Binary),
+undefined = put(dynamic_key, dynamic_value),
+undefined = put(fixed, fixed_value),
+Self = self(),
+{tag, dynamic_value, fixed_value, Self} = frame_bif_probe:explicit(dynamic_key, tag),
+{tag, undefined, fixed_value, Self} = frame_bif_probe:explicit(absent, tag),
+{tag, {local, dynamic_key}, local_self} = frame_bif_probe:shadowed(dynamic_key, tag),
+{beam_file, _, _, _, _, Functions} = beam_disasm:file(Path),
+[io:format("~p~n", [F]) || F = {function, Name, 2, _, _} <- Functions,
+    lists:member(Name, [explicit, shadowed])],
+halt().

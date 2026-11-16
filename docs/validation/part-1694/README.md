@@ -1,0 +1,7 @@
+# Part 1694
+
+The BEAM writer now recognizes straight-line sequences from stack-slot initialization through a call and deallocate/return. It removes unused prefix slots, relocates surviving values into slots unused by the suffix, adjusts Y operands and writes the reduced deallocation size. The pass stops at control-flow and frame boundaries and skips functions with exception handlers. External calls use the stricter trim cost model pending import purity analysis. It reuses the existing BEAM reader and compact writer. The reference is beam_trim in OTP 29.1.1. No dependency was added.
+
+The complete Windows OTP 29.1.1 run admitted and generated all 1,366 sources. 398 images were equal and 968 differed. ELDAPv3 remained equal. The OTP loader accepted all 968 differing images. The change affected 73 images. Fourteen functions now match normalized OTP disassembly and none lost a previous match. [Corpus](otp-corpus.json) · [Function comparison](normalized-functions.txt) · [Loader and Code comparison](loader-and-code.txt).
+
+Both inspected functions in the permanent fixture match OTP disassembly and produced the expected values on OTP VM. The entire fixture still differs, including a missing line instruction in step/1. Both builds passed without warnings and the three focused tests passed. Full runtime tests and readiness regeneration were outside this run. [Fixture](../../../tests/Erlang.Tests/Resources/Beam/beam_linear_frame_trim.erl) · [OTP probe](fixture-check.txt) · [Tests](focused.txt).

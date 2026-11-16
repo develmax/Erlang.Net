@@ -1,0 +1,11 @@
+[Reference, Before, After] = init:get_plain_arguments(),
+Path = "lib/asn1-5.5.2/ebin/asn1ct.beam",
+Read = fun(Root) ->
+    {beam_file, _, _, _, _, Functions} = beam_disasm:file(filename:join(Root,Path)),
+    [Instructions] = [Is || {function,check,2,_,Is} <- Functions],
+    [Failure] = [Label || {select_val,{x,0},{f,Label},{list,[{atom,error},_,{atom,ok},_]}} <- Instructions],
+    Edge = lists:dropwhile(fun(I) -> I =/= {label,Failure} end, Instructions),
+    lists:takewhile(fun(I) -> I =/= {case_end,{x,0}} end, Edge) ++ [{case_end,{x,0}}]
+end,
+io:format("OTP: ~p~nBefore: ~p~nAfter: ~p~n", [Read(Reference),Read(Before),Read(After)]),
+halt().

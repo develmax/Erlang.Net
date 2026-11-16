@@ -1,0 +1,40 @@
+Dir = "artifacts/beam-backend/part824-images",
+Stubs = [
+    {tls_sender, "-module(tls_sender).\n-export([start_link/1]).\nstart_link(Caller) -> Caller ! sender_started, {ok, spawn_link(fun() -> receive stop -> ok end end)}.\n"},
+    {ssl_gen_statem, "-module(ssl_gen_statem).\n-export([tls_start_link/2]).\ntls_start_link(Caller, Opts) -> Caller ! {receiver_started, Opts}, {ok, spawn_link(fun() -> receive {Caller, options, Args} -> Caller ! {receiver_options, Args} end, receive stop -> ok end end)}.\n"}],
+lists:foreach(fun({Module, Source}) ->
+    Path = filename:join(Dir, atom_to_list(Module) ++ ".erl"),
+    ok = file:write_file(Path, Source),
+    {ok, Module, Bytes} = compile:file(Path, [binary]),
+    {module, Module} = code:load_binary(Module, Path, Bytes)
+end, Stubs),
+Module = tls_dyn_connection_sup,
+Run = fun(File) ->
+    code:purge(Module),
+    code:delete(Module),
+    {ok, Bytes} = file:read_file(File),
+    {module, Module} = code:load_binary(Module, File, Bytes),
+    lists:foreach(fun({Map, Opts}) ->
+        Tail = [host, port, socket, {Map, extra, trackers}, user, callback],
+        {ok, Sup} = Module:start_link([self()], [server | Tail]),
+        receive sender_started -> ok after 1000 -> error(sender_timeout) end,
+        receive {receiver_started, Opts} -> ok after 1000 -> error(receiver_timeout) end,
+        receive {receiver_options, [server, Sup | Tail]} -> ok after 1000 -> error(options_timeout) end,
+        ok = gen_server:stop(Sup)
+    end, [{#{}, []}, {#{receiver_spawn_opts => [fixture]}, [fixture]}]),
+    Catch = fun(Args) ->
+        try Module:start_link([self()], Args) of
+            Value -> {returned, Value}
+        catch error:Reason:Stack -> {Reason, Stack}
+        end
+    end,
+    Invalid = Catch([]),
+    {{badmatch, []}, _} = Invalid,
+    BadMap = Catch([server, host, port, socket, {invalid_map, extra, trackers}, user, callback]),
+    {{badmap, invalid_map}, _} = BadMap,
+    {Module:init([self(), [self()], []]), Invalid, BadMap}
+end,
+Otp = Run(code:which(Module)),
+Otp = Run(filename:join(Dir, atom_to_list(Module) ++ ".beam")),
+erlang:display({Module, equal}),
+halt().

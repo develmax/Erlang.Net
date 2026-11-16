@@ -1,0 +1,22 @@
+M=beam_closure_failures,
+K=capture_marker,
+Guard=M:guard(K), Tuple=M:tuple(K), Multi=M:multi(K),
+Fallback=M:fallback(K), Swap=M:swap(K), Plain=M:plain(),
+Body=M:body(K), [Left]=M:left(K),
+{K,ok}=Guard(ok), {K,one,two}=Tuple({one,two}),
+{K,no}=Multi(no), {K,other}=Fallback(other),
+{item,K}=Swap(item,no), item=Plain({yes,item}), K=Body(K),
+{K,42}=Body(42), {K,ok}=Left(ok),
+Check=fun(Result,Name,Args,Line) ->
+    {'EXIT',{function_clause,[{M,Name,Args,Info}|_]}}=Result,
+    Line=proplists:get_value(line,Info)
+end,
+3=Check((catch Guard(42)),'-guard/1-inlined-0-',[42],3),
+4=Check((catch Tuple(wrong)),'-tuple/1-inlined-0-',[wrong],4),
+5=Check((catch Multi(other)),'-multi/1-inlined-0-',[other],5),
+7=Check((catch Swap(item,other)),'-swap/1-inlined-0-',[item,other],7),
+8=Check((catch Plain(wrong)),'-plain/0-fun-0-',[wrong],8),
+9=Check((catch Body(wrong)),'-body/1-inlined-0-',[wrong],9),
+10=Check((catch Left(42)),'-left/1-inlined-0-',[42],10),
+io:format("16 assertions passed~n"),
+halt().

@@ -1,0 +1,30 @@
+Dir = "artifacts/beam-backend/part846-images",
+Module = beam_guarded_call_probe,
+Stub = beam_callback_transport,
+StubPath = filename:join(Dir, atom_to_list(Stub) ++ ".erl"),
+ok = file:write_file(StubPath, "-module(beam_callback_transport).\n-export([send/2,complete/3]).\nsend(S,P) -> self() ! {send,S,P}, sent.\ncomplete(C,N,H) -> self() ! {complete,C,N,H}, done.\n"),
+{ok,Stub,StubBytes} = compile:file(StubPath,[binary]),
+{module,Stub} = code:load_binary(Stub,StubPath,StubBytes),
+Name = atom_to_list(Module) ++ ".beam",
+Run = fun(File) ->
+    code:purge(Module), code:delete(Module),
+    {ok,Bytes} = file:read_file(File),
+    {module,Module} = code:load_binary(Module,File,Bytes),
+    Pid = self(),
+    {Send,Complete,Tick} = Module:callbacks(socket,Pid),
+    Expect = fun(Event) -> receive Got -> Event = Got after 1000 -> error({missing,Event}) end end,
+    sent = Send(Pid,packet), Expect({send,socket,packet}),
+    done = Complete(Pid,node_name,handle), Expect({complete,Pid,node_name,handle}),
+    tick = Tick(Pid), Expect(tick),
+    Bad = [try apply(Fun,Args) of
+               Value -> error({unexpected_result,Value})
+           catch
+               error:function_clause:Stack -> [{Module,_,Args,_}|_] = Stack, Stack
+           end || {Fun,Args} <- [{Send,[other,packet]},{Complete,[other,node_name,handle]},{Tick,[other]}]],
+    receive Event -> error({unexpected_effect,Event}) after 0 -> ok end,
+    Bad
+end,
+Otp = Run(filename:join([Dir,"fixture","lib","probe","ebin",Name])),
+Otp = Run(filename:join(Dir,Name)),
+erlang:display({Module,equal}),
+halt().

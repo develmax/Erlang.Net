@@ -1,0 +1,14 @@
+[P,Q]=init:get_plain_arguments(),
+lists:foreach(fun(Path)->
+    {beam_file,_,_,_,_,Fs}=beam_disasm:file(Path),
+    [Is]=[Instructions || {function,mixed_result,2,_,Instructions}<-Fs],
+    io:format("~s~n~p~n",[Path,Is]),
+    {ok,B}=file:read_file(Path),
+    {module,M}=code:load_binary(beam_general_catch_probe,Path,B),
+    11=M:mixed_result({item,11},saved),
+    <<"ok">>=M:mixed_result(<<"ok">>,saved),
+    saved=M:mixed_result({other,11},saved),
+    code:delete(M),
+    code:purge(M)
+end,[P,Q]),
+halt().

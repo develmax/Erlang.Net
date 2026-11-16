@@ -1,0 +1,15 @@
+# Part677 LDAP protected decoder arguments
+
+For a protected call with a projected second argument, the compiler keeps the first argument across the local reader call and emits element/2 directly into X1. The opcode preserves badarg when the producer returns a non-tuple. Once X0 holds the first argument again, the compiler clears its stack slot before dispatch. Success and wrapped exceptions use the same return and handler emission as encode/2. The regression fixture exercises the success path and invalid projection with a stacktrace.
+
+All 47 disassembled instructions in decode/2 match OTP 29.1.1, including label numbers, registers, types and line locations. The previous managed function used 85 instructions and 14 stack slots. The new function uses two slots, like OTP. The 43 instructions in encode/2 still match exactly. The 219-instruction protocol operation decoder still matches after renumbering labels. [Exact decoder comparison](decode-exact-oracle.txt), [exact encoder comparison](encode-exact-oracle.txt), [protocol operation comparison](decoder-normalized-oracle.txt).
+
+The managed image drops from 105,580 bytes and 8,900 instructions to 105,452 bytes and 8,862 instructions. OTP has 99,008 bytes and 7,028 instructions. AtU8, ImpT, StrT, CInf, Meta, LitT, Docs and Dbgi match byte for byte. Code, ExpT, LocT, Attr, Line and Type differ. [Chunk comparison](chunks-oracle.txt).
+
+The reference is OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5. The OTP SSA generator clears dead Y registers at calls. The C# emitter reuses the element BIF emission, stack slot initialization and wrapped catch path. Dependencies and licenses are unchanged.
+
+Build with `dotnet build tools/Validation/Erlang.BeamCorpus -m:1 --no-restore -v:q -o artifacts/beam-backend/part677-tool`. Run `dotnet artifacts/beam-backend/part677-tool/Erlang.BeamCorpus.dll $InstalledOtpRoot artifacts/beam-backend/otp-corpus-part677.json` with InstalledOtpRoot from artifacts/library376-official-compiler/official-admission.json. The focused selection is compiler/beam/whole-module-matches-otp, compiler/beam/rebuild-installed-otp-release-images and compiler/beam/documentation-payload-matches-otp.
+
+The behavior oracle matched 320 direct calls, 83 round trips and 88 boundary calls. The full runtime harness and canonical readiness regeneration remain pending. The largest remaining instruction surplus is enc_MatchingRuleAssertion/2 at 117 instructions and 19 stack slots against 68 instructions and five slots in OTP. The next largest surplus is dec_SearchRequest/2. [Matching rule disassembly](matching-rule-oracle.txt), [instruction gaps](instruction-gaps-oracle.txt).
+
+The first focused run found an unsupported standalone case in the regression helper. The corrected helper uses a supported try-of and all three focused checks passed. The full corpus checked 1,366 files and reported 18 Equal, 19 Different, 488 SourceRejected and 841 Unsupported. ELDAPv3 is Different. The corpus exited with code 1 because images still differ. [Initial focused report](focused-initial.json), [final focused report](focused.json), [corpus report](otp-corpus.json).
