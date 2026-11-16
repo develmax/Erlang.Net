@@ -462,6 +462,7 @@ internal static class BeamModuleEmissionChecks
         await CompareLinearStackSlotsAfterRecordCheck();
         CompareFramelessLocalTailWithReceive();
         CompareUnreachableAnnotatedRecordError();
+        CompareLeadingTupleProjection();
         CompareReceiveLoopStackSlots();
         CompareHeapCallResult();
         CompareMatchFailureLines();
@@ -1904,6 +1905,45 @@ internal static class BeamModuleEmissionChecks
         if (code.AsSpan().IndexOf(unreachableBadRecord) >= 0)
         {
             throw new InvalidOperationException("Expected the unreachable badrecord and its line to be removed.");
+        }
+    }
+
+    private static void CompareLeadingTupleProjection()
+    {
+        const string source = """
+            -module(beam_leading_projection).
+            -export([run/1]).
+
+            -record(wrapped, {unused, def}).
+            -record(seq, {context, ignored, extension, fields}).
+            -record(set, {context, a, b, fields}).
+
+            run(Definition) -> dispatch(#wrapped{def=Definition}).
+
+            dispatch(#wrapped{def=Def}) ->
+                case Def of
+                    #seq{context=Context,extension=Extension,fields=Fields} ->
+                        case Extension of
+                            none -> {Fields,Context};
+                            N when is_integer(N) -> {note(Fields),Context}
+                        end;
+                    #set{context=Context,fields=Fields} ->
+                        {Fields,Context}
+                end.
+
+            note(Value) ->
+                put(last_note, Value),
+                {note, Value}.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_leading_projection.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> projection =
+        [
+            BeamEmissionFormat.GetTupleElement, 0x03, 0x20, 0x13, BeamEmissionFormat.IsTuple
+        ];
+        if (code.AsSpan().IndexOf(projection) < 0)
+        {
+            throw new InvalidOperationException("Expected the leading tuple field to feed the entry test in X1.");
         }
     }
 

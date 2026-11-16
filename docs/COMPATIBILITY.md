@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1814. Allow the entry planner to project a tuple field before allocating a frame when the next test uses that field. Preserve the original frame placement for projections needed only during call argument preparation. [Evidence](validation/part-1814/README.md).
+
 Part 1813. Move test_heap before remove_message while retaining the existing GC root prefix. Preserve the heap request and the order of the other instructions. [Evidence](validation/part-1813/README.md).
 
 Part 1812. Keep the message in X0 when all receive clauses have atom tests or fresh variables and no guard. Let the existing branch emitter preserve the selected term when necessary. [Evidence](validation/part-1812/README.md).

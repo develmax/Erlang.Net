@@ -43,6 +43,14 @@ internal sealed partial class BeamModuleCompiler
                 extendEntry: true,
                 valueDead: IsTemporaryDead,
                 allowFramelessLocalTail: true
+            ) ?? PlanEntryFramePlacement(
+                body,
+                start,
+                allocationIndex,
+                end,
+                extendEntry: true,
+                valueDead: IsTemporaryDead,
+                allowLeadingProjection: true
             );
             if (plan is { } placement)
             {
@@ -208,7 +216,8 @@ internal sealed partial class BeamModuleCompiler
         int end,
         bool extendEntry = false,
         Func<int, BeamOperand, bool>? valueDead = null,
-        bool allowFramelessLocalTail = false
+        bool allowFramelessLocalTail = false,
+        bool allowLeadingProjection = false
     )
     {
         BeamInstruction allocation = body[allocationIndex];
@@ -246,10 +255,24 @@ internal sealed partial class BeamModuleCompiler
             predicate++;
         }
 
-        if (predicate == end || !IsDelayedFramePredicate(body[predicate].Definition.Opcode)
+        if (predicate == end)
+        {
+            return null;
+        }
+
+        byte firstOpcode = body[predicate].Definition.Opcode;
+        bool leadingProjection = allowLeadingProjection && firstOpcode == GetTupleElement;
+        if ((allowLeadingProjection && !leadingProjection) || (!leadingProjection && !IsDelayedFramePredicate(firstOpcode))
             || extendEntry && (allocationIndex != start + 1 || allocation.Definition.Opcode != Allocate
-                || !allowFramelessLocalTail
-                    && body[predicate].Definition.Opcode is not (IsTaggedTuple or IsTuple or IsNonemptyList)))
+                || !allowFramelessLocalTail && !leadingProjection
+                    && firstOpcode is not (IsTaggedTuple or IsTuple or IsNonemptyList)))
+        {
+            return null;
+        }
+
+        if (leadingProjection && (predicate + 1 >= end
+            || !IsEntryFramePredicate(body[predicate + 1].Definition.Opcode)
+            || !body[predicate + 1].Operands.Contains(body[predicate].Operands[^1])))
         {
             return null;
         }
@@ -435,7 +458,9 @@ internal sealed partial class BeamModuleCompiler
         }
 
         byte framelessExit = allowFramelessLocalTail ? TailLocalCallWithFrame : Return;
-        if (!delayed.Contains(first) || extendEntry && !delayed.Any(index => body[index].Definition.Opcode == framelessExit))
+        if (!delayed.Contains(first)
+            || extendEntry && !(leadingProjection ? delayed.Contains(predicate)
+                : delayed.Any(index => body[index].Definition.Opcode == framelessExit)))
         {
             return null;
         }
