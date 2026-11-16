@@ -1,6 +1,6 @@
 ## Part601 resource/magic32 scope — 2026-11-05
 
-The Windows OTP 29.1.1 BEAM compiler comparison recorded 966 differing images at the checkpoint. Behavior, instruction equality and whole-image equality have separate validation results. [Checkpoint evidence](validation/part-1820/README.md).
+The Windows OTP 29.1.1 BEAM comparison in part 1821 retained the same 966 differing images. Whole-image equality and behavior remain separately measured. [Validation](validation/part-1821/results.json).
 
 Part602 integrates the native node/dist reference query behind erts_debug and both erts_internal backends. Actual owner/header/storage census, all-scheduler admission, signal/heap classification and retirement are covered by262/262 observations plus59/59 scenarios per backend,13 physical and43 connected groups. Original Erlang/BEAM and98 exports remain. Full regression/readiness were deliberately not run; broader upstream/distributed/resource/platform acceptance and universal compatibility remain unverified. [Receipt](validation/erts-internal-part-593/README.md).
 

@@ -1,6 +1,6 @@
 # Project progress
 
-The Windows OTP 29.1.1 checkpoint generated all 1,366 release images from source. Of those, 400 matched byte for byte, including ELDAPv3 from the C# ASN.1 generator. [Checkpoint evidence](validation/part-1820/README.md).
+Part 1821 recovered working-copy BEAM compiler changes. The full Windows OTP 29.1.1 run generated all 1,366 images. The same 400 matched byte for byte, including ELDAPv3. [Validation](validation/part-1821/results.json).
 
 Part611 adds the selectable error_logger backend with all 29 exports. Both backends pass 143 targeted observations and 10 upstream tests. [Publication evidence](validation/error-logger-port-20261105/publication/README.md).
 

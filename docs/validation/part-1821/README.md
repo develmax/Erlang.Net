@@ -16,3 +16,9 @@ The audit used the 25 registered worktrees and GitHub main `2caf839f06f60f3d0c3a
 Other registered worktrees were clean. The audit also counted 94 commits reachable from local branches and worktree heads outside main. These are committed histories. They are not part of the recovered file changes and were not rewritten.
 
 The OTP compiler reference was `OTP-29.1.1` at `ad05823719d77c8faee87348ea39513d4e2f99c5`, including `beam_trim.erl`, `beam_ssa_codegen.erl`, and the liveness pass in `beam_ssa_opt.erl`. The implementation uses the existing C# BEAM emission and projection-flow analysis. No dependency or third-party source was added.
+
+The release corpus regenerated all 1,366 images. There were 400 byte matches and 966 differences. ELDAPv3 matched byte for byte, and no module changed its equality status. The report also records changed difference descriptions, which are not an instruction or performance comparison. [Validation results](results.json).
+
+The [per-module corpus report](otp-corpus.json) uses a stable relative source name for the temporary C#-generated ELDAPv3 input.
+
+The hosted candidate run passed all 9,746 tests. The readiness CLI used its test report and the existing immutable comparison snapshot in module-readiness-scope.json. The unsharded local run observed an interpreter-profile teardown assertion failure. Its isolated retake passed, and the hosted suite passed the same test. [Hosted validation](https://github.com/develmax/Erlang.Net/actions/runs/43810185722).
