@@ -1,5 +1,7 @@
 Part 1783. Sort consecutive independent X-to-Y moves by destination slot after branch slot reuse. Preserve original store order when a run writes the same destination twice. [Evidence](validation/part-1783/README.md).
 
+Part 1809. Remove an unreferenced terminal error block at a function boundary and subtract its discarded line instructions from the Line header. [Evidence](validation/part-1809/README.md).
+
 Part 1808. Track which allocation owns each reachable instruction. Drop unused slots from each independently allocated frame and remap the remaining operands and frame releases. [Evidence](validation/part-1808/README.md).
 
 Part 1807. Delay the shared frame until required by a branch and emit a direct local tail call without a frame when its arguments are already available. Keep receive loop retry edges at the label after allocation. [Evidence](validation/part-1807/README.md).

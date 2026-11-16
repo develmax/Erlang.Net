@@ -4,7 +4,7 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
-    private static void CollectUnreachableBlocks(
+    private void CollectUnreachableBlocks(
         IReadOnlyList<BeamInstruction> body,
         List<(int Start, int End, int Label)> labelOperands,
         Dictionary<int, int> redirects,
@@ -29,6 +29,24 @@ internal sealed partial class BeamModuleCompiler
                 end++;
             }
 
+            if (body[end].Definition.Opcode == Line)
+            {
+                int failure = end;
+                while (body[failure].Definition.Opcode == Line)
+                {
+                    failure++;
+                }
+
+                if (body[failure].Definition.Opcode is not (BadRecord or BadMatch or CaseEnd or IfEnd)
+                    || !IsNextFunctionBoundary(body, failure + 1))
+                {
+                    continue;
+                }
+
+                lineInstructions -= failure - end;
+                end = failure + 1;
+            }
+
             if (body[end].Definition.Opcode is not (Label or EndCode))
             {
                 continue;
@@ -38,6 +56,26 @@ internal sealed partial class BeamModuleCompiler
             edits.Add(new(body[index].Offset, body[end].Offset, LabelTag, 0));
             index = end - 1;
         }
+    }
+
+    private static bool IsNextFunctionBoundary(IReadOnlyList<BeamInstruction> body, int index)
+    {
+        if (body[index].Definition.Opcode == EndCode)
+        {
+            return true;
+        }
+
+        if (body[index].Definition.Opcode != Label)
+        {
+            return false;
+        }
+
+        do
+        {
+            index++;
+        } while (body[index].Definition.Opcode == Line);
+
+        return body[index].Definition.Opcode == FunctionInfo;
     }
 
     private static void CollectUnusedFallthroughLabels(

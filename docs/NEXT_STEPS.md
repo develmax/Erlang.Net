@@ -1,5 +1,7 @@
 # Next steps
 
+Avoid preserving dead incoming X registers before receive. [Evidence](validation/part-1809/README.md).
+
 Remove detached error exits retained by source annotations. [Evidence](validation/part-1808/README.md).
 
 Compact the unused slots in each independently allocated frame. [Evidence](validation/part-1807/README.md).

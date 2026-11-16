@@ -461,6 +461,7 @@ internal static class BeamModuleEmissionChecks
         CompareGuardedBranchStackSlots();
         await CompareLinearStackSlotsAfterRecordCheck();
         CompareFramelessLocalTailWithReceive();
+        CompareUnreachableAnnotatedRecordError();
         CompareReceiveLoopStackSlots();
         CompareHeapCallResult();
         CompareMatchFailureLines();
@@ -1866,6 +1867,31 @@ internal static class BeamModuleEmissionChecks
         }
 
         throw new InvalidOperationException("Expected the direct tail branch to call done/0 without a frame.");
+    }
+
+    private static void CompareUnreachableAnnotatedRecordError()
+    {
+        const string source = """
+            -module(beam_dead_record_error).
+            -export([run/1]).
+
+            -record(entry, {value}).
+
+            run(Value) ->
+                Entry = #entry{value=Value},
+                put(last_entry, Entry),
+                read_private(Entry).
+
+            read_private(Entry) ->
+                {value, Entry#entry.value}.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_dead_record_error.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> unreachableBadRecord = [BeamEmissionFormat.BadRecord, 0x03];
+        if (code.AsSpan().IndexOf(unreachableBadRecord) >= 0)
+        {
+            throw new InvalidOperationException("Expected the unreachable badrecord and its line to be removed.");
+        }
     }
 
     private static void CompareHeapCallResult()

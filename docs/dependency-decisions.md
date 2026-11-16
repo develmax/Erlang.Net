@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1809. Reuse the compiler label reachability checks. Keep the next function metadata and validate the reachable record error paths against OTP. No dependency was added. [Evidence](validation/part-1809/README.md).
+
 Part 1808. Reuse compiler stack operand decoding and the existing frame-opcode conventions. Compare branch frame sizes against pinned OTP 29.1.1. No dependency was added. [Evidence](validation/part-1808/README.md).
 
 Part 1807. Reuse the entry-frame control-flow proof and compare branch frame placement with the pinned OTP beam_ssa_pre_codegen pass. No dependency was added. [Evidence](validation/part-1807/README.md).
