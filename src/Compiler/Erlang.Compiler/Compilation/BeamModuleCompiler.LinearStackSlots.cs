@@ -7,7 +7,8 @@ internal sealed partial class BeamModuleCompiler
     private static byte[]? ReuseStackSlots(
         ReadOnlyMemory<byte> code,
         IReadOnlyList<BeamInstruction> body,
-        List<(int Start, int End, int Slot)> stackOperands
+        List<(int Start, int End, int Slot)> stackOperands,
+        bool useValueLiveness = false
     )
     {
         using var output = new MemoryStream();
@@ -23,10 +24,18 @@ internal sealed partial class BeamModuleCompiler
 
             int entry = start;
             start = end + 1;
-            var linear = PlanLinearStackSlots(body, FindEntryFrameAllocation(body, entry, end), end);
-            var allocation = linear is { } layout
-                ? (layout.Count, layout.Slots, Trim: ((int Index, int OriginalRemoved, int Kept)?)null)
-                : PlanBranchStackSlots(body, entry, end);
+            int frame = useValueLiveness
+                ? FindLinearFrameSuffix(body, entry, end)
+                : FindEntryFrameAllocation(body, entry, end);
+            var linear = PlanLinearStackSlots(body, frame, end, includeUnchanged: useValueLiveness);
+            if (useValueLiveness && linear is null)
+            {
+                continue;
+            }
+
+            var allocation = useValueLiveness || linear is null
+                ? PlanBranchStackSlots(body, entry, end, linearAllocation: useValueLiveness ? frame : -1)
+                : (linear.Value.Count, linear.Value.Slots, Trim: ((int Index, int OriginalRemoved, int Kept)?)null);
             if (allocation is not { } plan)
             {
                 continue;
@@ -62,7 +71,7 @@ internal sealed partial class BeamModuleCompiler
                     // Clearing an old slot must leave its live alias intact.
                     int[] cleared = instruction.Operands.Skip(1)
                         .Select(slot => plan.Slots[(int)slot.Value + originalShift])
-                        .Where(register => register >= 0 && (linear is null || !Enumerable.Range(0, plan.Slots.Length)
+                        .Where(register => register >= 0 && (useValueLiveness || linear is null || !Enumerable.Range(0, plan.Slots.Length)
                             .Any(slot => plan.Slots[slot] == register
                                 && linear.Value.Uses[slot].First < index && linear.Value.Uses[slot].Last > index)))
                         .Select(register => register - allocatedShift)
@@ -125,10 +134,36 @@ internal sealed partial class BeamModuleCompiler
         return output.ToArray();
     }
 
+    private static int FindLinearFrameSuffix(IReadOnlyList<BeamInstruction> body, int entry, int end)
+    {
+        if (entry >= end || body[entry].Definition.Opcode != Label)
+        {
+            return -1;
+        }
+
+        for (int index = entry + 1; index < end; index++)
+        {
+            var instruction = body[index];
+            if (instruction.Definition.Opcode is Allocate or AllocateHeap)
+            {
+                return index;
+            }
+
+            if (LinearFrameSizeOperand(instruction.Definition.Opcode) >= 0
+                || instruction.Operands.Any(operand => operand.Kind == BeamOperandParameters.Y))
+            {
+                return -1;
+            }
+        }
+
+        return -1;
+    }
+
     private static (int Count, int[] Slots, (int First, int Last)[] Uses)? PlanLinearStackSlots(
         IReadOnlyList<BeamInstruction> body,
         int allocation,
-        int end
+        int end,
+        bool includeUnchanged = false
     )
     {
         if (allocation < 0)
@@ -153,6 +188,13 @@ internal sealed partial class BeamModuleCompiler
             byte opcode = instruction.Definition.Opcode;
             if (opcode is Label or Line)
             {
+                // The next function's info label follows the terminal instruction.
+                // Earlier labels could allow a branch to bypass the allocation.
+                if (includeUnchanged && opcode == Label && !terminal)
+                {
+                    return null;
+                }
+
                 continue;
             }
 
@@ -262,7 +304,7 @@ internal sealed partial class BeamModuleCompiler
             slots[slot] = register;
         }
 
-        if (last.Count == 0 || last.Count >= frame)
+        if (last.Count == 0 || !includeUnchanged && last.Count >= frame)
         {
             return null;
         }

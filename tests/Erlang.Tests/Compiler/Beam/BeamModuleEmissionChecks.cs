@@ -459,6 +459,7 @@ internal static class BeamModuleEmissionChecks
         await CompareLinearStackFrameTrim();
         await CompareBranchStackSlots();
         CompareGuardedBranchStackSlots();
+        CompareLinearStackSlotsAfterRecordCheck();
         CompareReceiveLoopStackSlots();
         CompareHeapCallResult();
         CompareMatchFailureLines();
@@ -1741,6 +1742,31 @@ internal static class BeamModuleEmissionChecks
         if (code.AsSpan().IndexOf(guardedFrame) < 0)
         {
             throw new InvalidOperationException("Expected a one-slot branching frame after the entry guard.");
+        }
+    }
+
+    private static void CompareLinearStackSlotsAfterRecordCheck()
+    {
+        const string source = """
+            -module(beam_linear_slots).
+            -export([run/2, heading/2, log/3, finish/1]).
+            -record(state, {unused, target_name}).
+
+            run(Pid, State) ->
+                log(heading(run, State#state.target_name), "closing", [Pid]),
+                finish(Pid).
+
+            heading(Tag, Name) -> {Tag, Name}.
+            log(Heading, Format, Args) -> put(log, {Heading, Format, Args}).
+            finish(Pid) -> {done, Pid}.
+            """;
+        byte[] bytes = CodeGeneration.CompileBeamModule(source, "beam_linear_slots.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(bytes).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> compactFrame = [BeamEmissionFormat.Allocate, 0x20, 0x20];
+        ReadOnlySpan<byte> oldFrame = [BeamEmissionFormat.Allocate, 0x30, 0x20];
+        if (code.AsSpan().IndexOf(compactFrame) < 0 || code.AsSpan().IndexOf(oldFrame) >= 0)
+        {
+            throw new InvalidOperationException("Expected two stack slots after the record check.");
         }
     }
 

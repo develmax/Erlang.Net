@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1802. Reuse the per-value interference graph for a linear framed suffix once every path through the suffix has passed its allocation. Keep allocation, frame release and all Y operands consistent with the new layout. [Evidence](validation/part-1802/README.md).
+
 Part 1801. Use exact equality on a tuple literal as a shape proof. For a value selection, require every key entering the same block to have the proven tag and arity. [Evidence](validation/part-1801/README.md).
 
 Part 1800. Follow the result of update_record to its input when the size matches and the field list leaves the tag intact. [Evidence](validation/part-1800/README.md).

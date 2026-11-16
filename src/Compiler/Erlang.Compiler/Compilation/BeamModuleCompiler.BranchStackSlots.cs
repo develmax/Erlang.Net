@@ -8,7 +8,8 @@ internal sealed partial class BeamModuleCompiler
     private static (int Count, int[] Slots, (int Index, int OriginalRemoved, int Kept)? Trim)? PlanBranchStackSlots(
         IReadOnlyList<BeamInstruction> body,
         int entry,
-        int end
+        int end,
+        int linearAllocation = -1
     )
     {
         if (entry + 1 >= end || body[entry].Definition.Opcode != Label)
@@ -25,7 +26,7 @@ internal sealed partial class BeamModuleCompiler
         int clauseFailure = infoLabel >= 0 && body[infoLabel].Definition.Opcode == Label
             ? (int)body[infoLabel].Operands[0].Value : -1;
         var failureLabels = new HashSet<int>();
-        int allocation = entry + 1;
+        int allocation = linearAllocation >= 0 ? linearAllocation : entry + 1;
         while (allocation < end && body[allocation].Definition.Opcode is not (Allocate or AllocateHeap))
         {
             var instruction = body[allocation];
@@ -243,7 +244,7 @@ internal sealed partial class BeamModuleCompiler
         }
 
         var exceptional = handlerEntry >= 0 ? new HashSet<int>() : null;
-        if (exceptional is not null && !AddHandlerEdges(exceptional) || !branched && trim == end || !released)
+        if (exceptional is not null && !AddHandlerEdges(exceptional) || linearAllocation < 0 && !branched && trim == end || !released)
         {
             return null;
         }

@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1802. Reuse the branch allocator liveness and compare against the pinned OTP beam_ssa_pre_codegen live intervals and frame sizes. No dependency was added. [Evidence](validation/part-1802/README.md).
+
 Part 1801. Reuse the BEAM control-flow edges and compiler literal shape metadata. No dependency was added. [Evidence](validation/part-1801/README.md).
 
 Part 1800. Reuse the record proof and the one-based update_record field indexes in pinned OTP 29.1.1. No dependency was added. [Evidence](validation/part-1800/README.md).
