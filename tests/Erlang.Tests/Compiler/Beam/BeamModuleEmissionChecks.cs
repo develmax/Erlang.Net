@@ -469,6 +469,7 @@ internal static class BeamModuleEmissionChecks
         CompareSavedEntryStackSlots();
         CompareStackArgumentsAfterCallResult();
         CompareDiscardedListComprehensionHelper();
+        CompareFunctionValueComprehensionHelpers();
         CompareReconstructedCons();
         CompareReceiveLoopStackSlots();
         CompareHeapCallResult();
@@ -1982,7 +1983,9 @@ internal static class BeamModuleEmissionChecks
     {
         const string source = """
             -module(beam_entry_slot_order).
-            -export([run/3]).
+            -export([run/3, reference/0]).
+
+            reference() -> fun run/3.
 
             run(Key, Values, Default) ->
                 case lists:member(Key, Values) of
@@ -2091,6 +2094,29 @@ internal static class BeamModuleEmissionChecks
         }
     }
 
+    private static void CompareFunctionValueComprehensionHelpers()
+    {
+        const string source = """
+            -module(beam_fun_comprehension).
+            -export([run/2, discard/2]).
+
+            run(Fun, Values) ->
+                [Fun(Value) || Value <- Values].
+
+            discard(Fun, Values) ->
+                _ = [Fun(Value) || Value <- Values],
+                ok.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_fun_comprehension.erl");
+        string atoms = Encoding.UTF8.GetString(BeamDocumentationEmissionChecks.Chunks(beam)
+            .Single(chunk => chunk.Id == "AtU8").Data);
+        if (!atoms.Contains("-run/2-lc$^0/1-0-", StringComparison.Ordinal)
+            || !atoms.Contains("-discard/2-lc$^0/1-0-", StringComparison.Ordinal))
+        {
+            throw new InvalidOperationException("Expected a recursive helper for each function-value comprehension.");
+        }
+    }
+
     private static void CompareReconstructedCons()
     {
         const string source = """
@@ -2106,15 +2132,10 @@ internal static class BeamModuleEmissionChecks
             """;
         byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_reuse_cons.erl");
         byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
-        ReadOnlySpan<byte> reconstructed =
-        [
-            BeamEmissionFormat.GetList, 0x03, 0x24, 0x34,
-            BeamEmissionFormat.TestHeap, 0x20, 0x00,
-            BeamEmissionFormat.PutList, 0x24, 0x34, 0x03
-        ];
-        if (code.AsSpan().IndexOf(reconstructed) >= 0)
+        ReadOnlySpan<byte> unusedProjection = [BeamEmissionFormat.GetList, 0x03, 0x24, 0x34];
+        if (code.AsSpan().IndexOf(unusedProjection) >= 0)
         {
-            throw new InvalidOperationException("Expected the recursive call to use the original cons.");
+            throw new InvalidOperationException("Expected the recursive call to use the original cons without extracting it again.");
         }
     }
 

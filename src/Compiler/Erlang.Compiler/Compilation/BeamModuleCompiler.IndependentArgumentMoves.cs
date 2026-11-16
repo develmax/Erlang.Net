@@ -104,7 +104,8 @@ internal sealed partial class BeamModuleCompiler
             }
 
             bool retainedResult = extraArguments == 0 && count == arity - 1 && start > 0
-                && body[start - 1].Definition.Opcode is LocalCall or ExternalCall;
+                && body[start - 1].Definition.Opcode is (LocalCall or ExternalCall)
+                && !CallFollowsFrameTrim(body, start - 1);
             BeamOperand? constructed = null;
             if (count != arity && !retainedResult)
             {
@@ -158,7 +159,7 @@ internal sealed partial class BeamModuleCompiler
             int[] order;
             if (retainedResult)
             {
-                order = present.Reverse().OrderBy(index => body[index].Operands[0].Value).ToArray();
+                order = present.OrderBy(index => body[index].Operands[0].Value).ToArray();
             }
             else
             {
@@ -212,5 +213,17 @@ internal sealed partial class BeamModuleCompiler
         output.Write(code.Span[copied..]);
 
         return output.ToArray();
+    }
+
+    private static bool CallFollowsFrameTrim(IReadOnlyList<BeamInstruction> body, int call)
+    {
+        int previous = call - 1;
+        while (previous >= 0 && body[previous].Definition.Opcode is (Line or Move or Swap))
+        {
+            previous--;
+        }
+
+        // OTP preserves argument preparation through a frame trim.
+        return previous >= 0 && body[previous].Definition.Opcode == TrimFrame;
     }
 }

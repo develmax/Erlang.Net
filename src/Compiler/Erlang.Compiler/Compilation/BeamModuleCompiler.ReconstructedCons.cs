@@ -8,6 +8,7 @@ internal sealed partial class BeamModuleCompiler
     {
         using var output = new MemoryStream();
         int copied = 0;
+        BeamProjectionFlow? flow = null;
         for (int index = 0; index + 3 < body.Count; index++)
         {
             if (body[index] is not { Definition.Opcode: GetList, Operands: [var list, var head, var tail] }
@@ -38,7 +39,11 @@ internal sealed partial class BeamModuleCompiler
 
             // The call or return ends the allocation region, and the original
             // cons still contains exactly the pair that would be allocated here.
-            output.Write(code.Span[copied..heap.Offset]);
+            bool removeProjection = head.Kind == BeamOperandParameters.Y && tail.Kind == BeamOperandParameters.Y
+                && (flow ??= new BeamProjectionFlow(body)).CanEliminate(index, index + 3, head)
+                && flow.CanEliminate(index, index + 3, tail);
+            int replacementOffset = removeProjection ? body[index].Offset : heap.Offset;
+            output.Write(code.Span[copied..replacementOffset]);
             if (list != result)
             {
                 output.WriteByte(Move);
