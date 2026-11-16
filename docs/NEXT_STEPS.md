@@ -1,5 +1,7 @@
 # Next steps
 
+Carry the record access site to the generic badrecord instruction. [Evidence](validation/part-1805/README.md).
+
 Preserve the call result through an independent heap check. [Evidence](validation/part-1804/README.md).
 
 Move terminal error blocks after the success path. [Evidence](validation/part-1803/README.md).

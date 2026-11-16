@@ -48,9 +48,9 @@ internal sealed partial class BeamModuleCompiler
 
                 BeamInstruction first = body[next];
                 byte opcode = first.Definition.Opcode;
+                // Retain X0 through a heap check even when construction uses only other values.
                 bool heap = opcode == TestHeap && first.Operands[^1].Value.IsZero
-                    && next + 1 < end && body[next + 1].Definition.Opcode is PutTuple or PutList or UpdateRecord
-                    && body[next + 1].Operands.Any(value => SameProjectionRegister(value, slot));
+                    && next + 1 < end && body[next + 1].Definition.Opcode is PutTuple or PutList or UpdateRecord;
                 bool independentBranch = (IsEntryFramePredicate(opcode) || opcode is SelectValue or SelectTupleArity)
                     && !first.Operands.Any(value => SameProjectionRegister(value, result));
                 if (!(heap || independentBranch) || (hasHandler ??= body.Skip(entry).Take(end - entry)

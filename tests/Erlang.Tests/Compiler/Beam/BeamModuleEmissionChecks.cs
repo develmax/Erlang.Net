@@ -1762,11 +1762,17 @@ internal static class BeamModuleEmissionChecks
             """;
         byte[] bytes = CodeGeneration.CompileBeamModule(source, "beam_linear_slots.erl");
         byte[] code = BeamDocumentationEmissionChecks.Chunks(bytes).Single(chunk => chunk.Id == "Code").Data;
-        ReadOnlySpan<byte> compactFrame = [BeamEmissionFormat.Allocate, 0x20, 0x20];
-        ReadOnlySpan<byte> oldFrame = [BeamEmissionFormat.Allocate, 0x30, 0x20];
+        ReadOnlySpan<byte> heapCheck = [BeamEmissionFormat.TestHeap, 0x20, 0x10, BeamEmissionFormat.PutList];
+        if (code.AsSpan().IndexOf(heapCheck) < 0)
+        {
+            throw new InvalidOperationException("Expected the heap check to keep the call result in X0.");
+        }
+
+        ReadOnlySpan<byte> compactFrame = [BeamEmissionFormat.Allocate, 0x10, 0x20];
+        ReadOnlySpan<byte> oldFrame = [BeamEmissionFormat.Allocate, 0x20, 0x20];
         if (code.AsSpan().IndexOf(compactFrame) < 0 || code.AsSpan().IndexOf(oldFrame) >= 0)
         {
-            throw new InvalidOperationException("Expected two stack slots after the record check.");
+            throw new InvalidOperationException("Expected one stack slot for the argument across calls.");
         }
 
         ReadOnlySpan<byte> registerProjection = [BeamEmissionFormat.GetTupleElement, 0x13, 0x20, 0x13];

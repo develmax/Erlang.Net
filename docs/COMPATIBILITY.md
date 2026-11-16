@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1805. Extend the live X prefix through a heap check when the existing dataflow proof can replace every read of the saved call result. The construction may use only other values. [Evidence](validation/part-1805/README.md).
+
 Part 1804. Move directly labelled terminal failures after the function body and remove the jump over each one. Preserve the failure source line and keep the original layout when exception handlers are present. [Evidence](validation/part-1804/README.md).
 
 Part 1803. Use the existing argument liveness proof for a linear framed suffix reached through a prefix with frameless exits. Drop an entry spill only when all uses of its original value are covered. [Evidence](validation/part-1803/README.md).
