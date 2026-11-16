@@ -207,6 +207,14 @@ internal sealed partial class BeamModuleCompiler
                         owner.MoveRegister(XRegisterTag, 0, XRegisterTag, 1);
                     }
                 }
+                else if (receive.Clauses.All(clause => clause.Guard is null
+                    && (clause.Patterns[0] is Pattern.Literal { Value: Atom }
+                        || clause.Patterns[0] is Pattern.Variable variable && !original.ContainsKey(variable.Name))))
+                {
+                    // Atom tests and fresh variable bindings leave the received value in X0.
+                    message = Slot();
+                    scratch.Add(message, 0);
+                }
                 else
                 {
                     owner.receiveScratchRegisters = scratch;

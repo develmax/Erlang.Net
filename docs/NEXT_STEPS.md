@@ -1,5 +1,7 @@
 # Next steps
 
+Rank remaining instruction and metadata differences against the full release corpus. [Evidence](validation/part-1812/README.md).
+
 Avoid the X0-to-X1 copy for receives whose patterns leave X0 intact. [Evidence](validation/part-1811/README.md).
 
 Keep received messages in X registers through heap checks. [Evidence](validation/part-1810/README.md).
