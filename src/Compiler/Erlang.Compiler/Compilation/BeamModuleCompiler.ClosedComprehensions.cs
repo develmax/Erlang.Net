@@ -316,7 +316,8 @@ internal sealed partial class BeamModuleCompiler
         IReadOnlyList<Pattern.Variable> captures,
         bool useReservedBindings = true,
         bool properInput = false,
-        (Expr Expression, bool IsGuard)? filter = null
+        (Expr Expression, bool IsGuard)? filter = null,
+        bool discardResult = false
     )
     {
         string tail = useReservedBindings ? "@BeamComprehensionTail" : "BeamComprehensionTail";
@@ -326,7 +327,7 @@ internal sealed partial class BeamModuleCompiler
         int arity = captures.Count + 1;
         var recur = new Expr.Call(null, name, [new Expr.Variable(tail), .. capturedArguments]);
         Expr? guard = filter is { IsGuard: true } ? filter.Value.Expression : null;
-        Expr emit = new Expr.List([mapped], recur);
+        Expr emit = discardResult ? new Expr.Sequence([mapped, recur]) : new Expr.List([mapped], recur);
         if (filter is { IsGuard: false } condition)
         {
             const string invalidFilter = "\0comprehension-filter-result";

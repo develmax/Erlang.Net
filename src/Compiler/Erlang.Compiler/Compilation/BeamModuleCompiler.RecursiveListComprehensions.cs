@@ -69,9 +69,19 @@ internal sealed partial class BeamModuleCompiler
         for (int index = 0; index < ssa.Length; index++)
         {
             var comprehension = ssa[index];
-            if (expressions.OfType<Expr.Sequence>().Any(sequence => sequence.Items.SkipLast(1)
-                    .Any(expression => ReferenceEquals(expression, comprehension)))
-                || expressions.OfType<Expr.Match>().Any(match => match.Pattern is Pattern.Variable { Name: VariableScopeNames.Wildcard }
+            bool discarded = expressions.OfType<Expr.Sequence>().Any(sequence => sequence.Items.SkipLast(1)
+                .Any(expression => ReferenceEquals(expression, comprehension)
+                    || expression is Expr.Match
+                    {
+                        Pattern: Pattern.Variable { Name: VariableScopeNames.Wildcard }, Value: var assigned
+                    } && ReferenceEquals(assigned, comprehension)));
+            if (discarded && comprehension is not
+                {
+                    Items: [Expr.Call { DynamicRemote: false }],
+                    Qualifiers: [ComprehensionQualifier.Generator { Pattern: Pattern.Variable, Source: Expr.Variable }]
+                }
+                || !discarded && expressions.OfType<Expr.Match>().Any(match =>
+                    match.Pattern is Pattern.Variable { Name: VariableScopeNames.Wildcard }
                     && ReferenceEquals(match.Value, comprehension)))
             {
                 return null;
@@ -86,7 +96,8 @@ internal sealed partial class BeamModuleCompiler
                 location,
                 name,
                 localFunctions,
-                comprehensions.Length > 1 || anonymous.Length != 0
+                comprehensions.Length > 1 || anonymous.Length != 0,
+                discarded
             );
             if (plan is not { } mapping || declared.Contains((name, mapping.Helper.Arity)))
             {
@@ -177,7 +188,8 @@ internal sealed partial class BeamModuleCompiler
         BeamSourceLocation location,
         string helperName,
         IReadOnlyDictionary<(string Name, int Arity), FunctionDefinition> localFunctions,
-        bool independent
+        bool independent,
+        bool discarded
     )
     {
         if (comprehension is not
@@ -235,7 +247,8 @@ internal sealed partial class BeamModuleCompiler
             mapped,
             captures.Select(name => new Pattern.Variable(name)).ToArray(),
             properInput: IsProperListGeneratorCall(source),
-            filter: filter is null ? null : (filter, ComprehensionGuard.IsTest(filter, sourceModule))
+            filter: filter is null ? null : (filter, ComprehensionGuard.IsTest(filter, sourceModule)),
+            discardResult: discarded
         ) with { IsRecursiveListMapper = true };
 
         return (recursiveCall, helper, helperLocation);

@@ -465,6 +465,7 @@ internal static class BeamModuleEmissionChecks
         CompareLeadingTupleProjection();
         CompareSavedEntryStackSlots();
         CompareStackArgumentsAfterCallResult();
+        CompareDiscardedListComprehensionHelper();
         CompareReceiveLoopStackSlots();
         CompareHeapCallResult();
         CompareMatchFailureLines();
@@ -1997,6 +1998,35 @@ internal static class BeamModuleEmissionChecks
         if (code.AsSpan().IndexOf(arguments) < 0)
         {
             throw new InvalidOperationException("Expected saved call arguments to be loaded in Y slot order.");
+        }
+    }
+
+    private static void CompareDiscardedListComprehensionHelper()
+    {
+        const string source = """
+            -module(beam_discard_effects).
+            -export([run/2, implicit/1]).
+
+            run(Tag, Values) ->
+                _ = [note(Tag, Value) || Value <- Values],
+                ok.
+
+            implicit(Values) ->
+                [note(implicit, Value) || Value <- Values],
+                ok.
+
+            note(Tag, Value) ->
+                Old = case get(effects) of undefined -> []; List -> List end,
+                put(effects, [{Tag,Value}|Old]),
+                Value.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_discard_effects.erl");
+        string atoms = Encoding.UTF8.GetString(BeamDocumentationEmissionChecks.Chunks(beam)
+            .Single(chunk => chunk.Id == "AtU8").Data);
+        if (!atoms.Contains("-run/2-lc$^0/1-0-", StringComparison.Ordinal)
+            || !atoms.Contains("-implicit/1-lc$^0/1-0-", StringComparison.Ordinal))
+        {
+            throw new InvalidOperationException("Expected recursive helpers for discarded comprehension results.");
         }
     }
 

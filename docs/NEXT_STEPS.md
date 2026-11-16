@@ -1,5 +1,7 @@
 # Next steps
 
+Place the list head in its call register at extraction. [Evidence](validation/part-1817/README.md).
+
 Extract recursive helpers for discarded list comprehensions. [Evidence](validation/part-1816/README.md).
 
 Apply OTP call preparation ordering to independent stack argument loads. [Evidence](validation/part-1815/README.md).
