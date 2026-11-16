@@ -1,5 +1,7 @@
 # Next steps
 
+Keep received messages in X registers through heap checks. [Evidence](validation/part-1810/README.md).
+
 Avoid preserving dead incoming X registers before receive. [Evidence](validation/part-1809/README.md).
 
 Remove detached error exits retained by source annotations. [Evidence](validation/part-1808/README.md).

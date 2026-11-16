@@ -22,7 +22,7 @@ internal sealed partial class BeamModuleCompiler
 
             int original = (int)instruction.Operands[^1].Value;
             int live = original;
-            while (live > 0 && (flow ??= new BeamProjectionFlow(body)).IsBranchTemporaryDead(
+            while (live > 0 && (flow ??= new BeamProjectionFlow(body)).IsAllocationRootDead(
                 index,
                 new BeamOperand(BeamOperandParameters.X, live - 1)
             ))

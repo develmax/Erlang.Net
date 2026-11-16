@@ -1849,10 +1849,11 @@ internal static class BeamModuleEmissionChecks
             """;
         byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_frameless_dispatch.erl");
         byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
-        ReadOnlySpan<byte> passiveFrame = [BeamEmissionFormat.Allocate, 0x00, 0x40];
-        if (code.AsSpan().IndexOf(passiveFrame) < 0)
+        ReadOnlySpan<byte> passiveFrame = [BeamEmissionFormat.Allocate, 0x00, 0x00];
+        ReadOnlySpan<byte> savedInputs = [BeamEmissionFormat.Allocate, 0x00, 0x40];
+        if (code.AsSpan().IndexOf(passiveFrame) < 0 || code.AsSpan().IndexOf(savedInputs) >= 0)
         {
-            throw new InvalidOperationException("Expected the passive receive branch to allocate no Y slots.");
+            throw new InvalidOperationException("Expected the passive receive frame to preserve no incoming X registers.");
         }
 
         ReadOnlySpan<byte> tail = [0x33, BeamEmissionFormat.TailLocalCall, 0x00];

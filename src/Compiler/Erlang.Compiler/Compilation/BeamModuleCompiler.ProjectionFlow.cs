@@ -243,7 +243,15 @@ internal sealed partial class BeamModuleCompiler
             successors[guard] is [int failure, int success] && success == guard + 1
                 && failure != success && IsTemporaryDead([failure], temporary, preserveHeapRoots);
 
-        private bool IsTemporaryDead(IEnumerable<int> entries, BeamOperand temporary, bool preserveHeapRoots)
+        internal bool IsAllocationRootDead(int allocation, BeamOperand register) =>
+            IsTemporaryDead(successors[allocation], register, preserveHeapRoots: true, trackReceive: true);
+
+        private bool IsTemporaryDead(
+            IEnumerable<int> entries,
+            BeamOperand temporary,
+            bool preserveHeapRoots,
+            bool trackReceive = false
+        )
         {
             var visited = new HashSet<int>();
             var pending = new Stack<int>(entries);
@@ -256,6 +264,29 @@ internal sealed partial class BeamModuleCompiler
 
                 BeamInstruction instruction = body[index];
                 byte opcode = instruction.Definition.Opcode;
+                if (trackReceive && opcode == LoopReceive)
+                {
+                    // loop_rec writes the message register only when a message was found.
+                    if (SameProjectionRegister(instruction.Operands[1], temporary))
+                    {
+                        if (successors[index] is not [int failure, int success] || success != index + 1 || failure == success)
+                        {
+                            return false;
+                        }
+
+                        pending.Push(failure);
+                    }
+                    else
+                    {
+                        foreach (int target in successors[index])
+                        {
+                            pending.Push(target);
+                        }
+                    }
+
+                    continue;
+                }
+
                 int implicitInputs = opcode switch
                 {
                     LocalCall or ExternalCall or TailLocalCall or TailLocalCallWithFrame
@@ -308,7 +339,8 @@ internal sealed partial class BeamModuleCompiler
 
                 if (destination < 0 && !(IsEntryFramePredicate(opcode) || opcode is Label or Line or Jump
                     or SelectValue or SelectTupleArity or Allocate or AllocateHeap or Deallocate
-                    or InitYRegisters or TrimFrame or TestHeap))
+                    or InitYRegisters or TrimFrame or TestHeap)
+                    && !(trackReceive && opcode is (RemoveMessage or ReceiveTimeout or LoopReceiveEnd or Wait or WaitTimeout)))
                 {
                     return false;
                 }
