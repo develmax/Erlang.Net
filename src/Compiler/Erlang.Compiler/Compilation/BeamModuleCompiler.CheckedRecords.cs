@@ -137,7 +137,7 @@ internal sealed partial class BeamModuleCompiler
             }
             else
             {
-                EmitCheckedRecord(access.Name, access.Arity, savedRecord);
+                EmitCheckedRecord(access.Name, access.Arity, savedRecord, new(access.PreprocessorFile, access.SourceLine));
             }
 
             if (savedRecord is int savedSlot)
@@ -191,7 +191,7 @@ internal sealed partial class BeamModuleCompiler
 
                 if (CheckedRecordSlot(field.Value, field.Name, field.Arity) is null)
                 {
-                    EmitCheckedRecord(field.Name, field.Arity, slot);
+                    EmitCheckedRecord(field.Name, field.Arity, slot, new(field.PreprocessorFile, field.SourceLine));
                     RememberRecordAccesses(field);
                 }
 
@@ -222,7 +222,12 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(XRegisterTag, destination);
         }
 
-        private void EmitCheckedRecord(string name, int arity, int? slot = null)
+        private void EmitCheckedRecord(
+            string name,
+            int arity,
+            int? slot,
+            BeamSourceLocation? failureLocation = null
+        )
         {
             int failure = Label();
             int valid = Label();
@@ -237,6 +242,13 @@ internal sealed partial class BeamModuleCompiler
             );
             JumpTo(valid);
             Mark(failure);
+            if (failureLocation is { Line: > 0 } at)
+            {
+                BeamSourceLocation previous = owner.lastEmittedLine;
+                owner.EmitLine(at);
+                owner.lastEmittedLine = previous;
+            }
+
             owner.Op(BadRecord, tag, source);
             Mark(valid);
         }

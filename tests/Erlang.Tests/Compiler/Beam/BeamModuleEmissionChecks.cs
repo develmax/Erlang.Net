@@ -459,7 +459,7 @@ internal static class BeamModuleEmissionChecks
         await CompareLinearStackFrameTrim();
         await CompareBranchStackSlots();
         CompareGuardedBranchStackSlots();
-        CompareLinearStackSlotsAfterRecordCheck();
+        await CompareLinearStackSlotsAfterRecordCheck();
         CompareReceiveLoopStackSlots();
         CompareHeapCallResult();
         CompareMatchFailureLines();
@@ -1745,7 +1745,7 @@ internal static class BeamModuleEmissionChecks
         }
     }
 
-    private static void CompareLinearStackSlotsAfterRecordCheck()
+    private static async Task CompareLinearStackSlotsAfterRecordCheck()
     {
         const string source = """
             -module(beam_linear_slots).
@@ -1787,6 +1787,34 @@ internal static class BeamModuleEmissionChecks
         if (check < 0 || code[check + taggedTupleTest.Length + 1] != BeamEmissionFormat.Allocate)
         {
             throw new InvalidOperationException("Expected the successful record check to fall through to allocation.");
+        }
+
+        BeamModule image = BeamModule.Prepare(bytes);
+        await using var runtime = new ProcessRuntime();
+        Term invalid = Term.A("invalid");
+        Term? result = null;
+        var process = runtime.Spawn(async context =>
+        {
+            try
+            {
+                await image.Invoke(context, "run", Term.A("pid"), invalid);
+            }
+            catch (ErlangException error)
+            {
+                if (error.StackTraceTerm is Cons { Head: TupleTerm { Items: [_, _, _, var location] } })
+                {
+                    result = Term.Tuple(error.Reason, location);
+                }
+            }
+
+            return Term.A("ok");
+        });
+        Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
+        if (result is not TupleTerm { Items: [var reason, var info] }
+            || !reason.Equals(Term.Tuple(Term.A("badrecord"), invalid))
+            || !Cons.Items(info).Contains(Term.Tuple(Term.A("line"), Term.I(6))))
+        {
+            throw new InvalidOperationException($"Expected badrecord at the field access on line 6, got {result}, exit {exit}.");
         }
     }
 

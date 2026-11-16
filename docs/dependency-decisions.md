@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1806. Reuse record access source metadata and the prior terminal exit placement. Compare both disassembly and reported locations on pinned OTP 29.1.1. No dependency was added. [Evidence](validation/part-1806/README.md).
+
 Part 1805. Reuse the saved-call-result control-flow proof and compare the live prefix with OTP 29.1.1. No dependency was added. [Evidence](validation/part-1805/README.md).
 
 Part 1804. Follow the labelled exit block placement in the pinned OTP beam_jump pass while reusing the existing BEAM writer. No dependency was added. [Evidence](validation/part-1804/README.md).

@@ -1,5 +1,7 @@
 # Next steps
 
+Rank remaining differences in code, register assignments and release metadata. [Evidence](validation/part-1806/README.md).
+
 Carry the record access site to the generic badrecord instruction. [Evidence](validation/part-1805/README.md).
 
 Preserve the call result through an independent heap check. [Evidence](validation/part-1804/README.md).
