@@ -1,5 +1,7 @@
 # Next steps
 
+Keep named local function references out of the lifted-closure slot rule. Reuse a matched cons when a call immediately reconstructs it. [Evidence](validation/part-1819/README.md).
+
 Investigate stack slot numbering in lifted closures. [Evidence](validation/part-1818/README.md).
 
 Place the list head in its call register at extraction. [Evidence](validation/part-1817/README.md).

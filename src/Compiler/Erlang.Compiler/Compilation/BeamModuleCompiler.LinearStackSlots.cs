@@ -8,7 +8,8 @@ internal sealed partial class BeamModuleCompiler
         ReadOnlyMemory<byte> code,
         IReadOnlyList<BeamInstruction> body,
         List<(int Start, int End, int Slot)> stackOperands,
-        bool useValueLiveness = false
+        bool useValueLiveness = false,
+        IReadOnlySet<int>? closureEntries = null
     )
     {
         using var output = new MemoryStream();
@@ -33,9 +34,11 @@ internal sealed partial class BeamModuleCompiler
                 : !useValueLiveness || linear is not null
                     ? PlanBranchStackSlots(body, entry, end, linearAllocation: useValueLiveness ? frame : -1)
                     : null;
-            if (useValueLiveness)
+            if (useValueLiveness && allocation is null)
             {
-                allocation ??= PlanSavedEntrySlotOrder(body, FindEntryFrameAllocation(body, entry, end), end);
+                int entryFrame = FindEntryFrameAllocation(body, entry, end);
+                bool closure = entryFrame >= 0 && closureEntries?.Contains((int)body[entry].Operands[0].Value) == true;
+                allocation = PlanSavedEntrySlotOrder(body, entryFrame, end, closure);
             }
 
             if (allocation is not { } plan)
@@ -139,7 +142,8 @@ internal sealed partial class BeamModuleCompiler
     private static (int Count, int[] Slots, (int Index, int OriginalRemoved, int Kept)? Trim)? PlanSavedEntrySlotOrder(
         IReadOnlyList<BeamInstruction> body,
         int allocation,
-        int end
+        int end,
+        bool closure
     )
     {
         if (allocation < 0)
@@ -149,7 +153,8 @@ internal sealed partial class BeamModuleCompiler
 
         int count = (int)body[allocation].Operands[0].Value;
         int live = (int)body[allocation].Operands[^1].Value;
-        if (count < 2 || count > live || count >= end - allocation)
+        // A full closure frame can follow the evaluation order of lifted arguments.
+        if (count < 2 || count > live || count >= end - allocation || (closure && count == live))
         {
             return null;
         }

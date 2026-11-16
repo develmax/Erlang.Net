@@ -152,6 +152,9 @@ internal sealed partial class BeamModuleCompiler
 
         if (redirects.Count == 0 && edits.Count == 0)
         {
+            var closureEntries = shareReturns || closures.Count == 0 ? null : closures
+                .Select(closure => MapEmittedLabel(closure.Entry < 0 ? deferredEntries[closure.Entry] : closure.Entry))
+                .ToHashSet();
             byte[]? simplified = SimplifyValueSelections(code, body, labelOperands)
                 ?? InvertBranchTests(code, body, labelOperands)
                 ?? NormalizeIntegerComparisons(code, body)
@@ -195,7 +198,9 @@ internal sealed partial class BeamModuleCompiler
                     removeSpills: true,
                     allowFramelessBranches: true
                 ))
-                ?? (shareReturns ? null : ReuseStackSlots(code, body, stackOperands, useValueLiveness: true))
+                ?? (shareReturns ? null : ReuseStackSlots(
+                    code, body, stackOperands, useValueLiveness: true, closureEntries: closureEntries
+                ))
                 // Reloads also identify the unframed returns when short return jumps are expanded.
                 ?? (shareReturns ? null : EliminateEntryArgumentCopies(code, body, stackOperands, removeSpills: false))
                 ?? (shareReturns ? null : MoveTerminalErrorBlocks(code, body))

@@ -1974,6 +1974,31 @@ internal static class BeamModuleEmissionChecks
         {
             throw new InvalidOperationException("Expected the higher saved input to occupy the first Y slot.");
         }
+
+        const string closure = """
+            -module(beam_full_closure_frame).
+            -export([run/1]).
+
+            run(Values) ->
+                lists:foldl(fun(Value, Acc) ->
+                    case cerl:is_c_var(Value) of
+                        true -> [Value | Acc];
+                        false -> Acc
+                    end
+                end, [], Values).
+            """;
+        byte[] closureBeam = CodeGeneration.CompileBeamModule(closure, "beam_full_closure_frame.erl");
+        byte[] closureCode = BeamDocumentationEmissionChecks.Chunks(closureBeam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> closureFrame =
+        [
+            BeamEmissionFormat.Allocate, 0x20, 0x20,
+            BeamEmissionFormat.Move, 0x03, 0x04,
+            BeamEmissionFormat.Move, 0x13, 0x14
+        ];
+        if (closureCode.AsSpan().IndexOf(closureFrame) < 0)
+        {
+            throw new InvalidOperationException("Expected the closure to preserve the full entry frame's slot order.");
+        }
     }
 
     private static void CompareStackArgumentsAfterCallResult()
