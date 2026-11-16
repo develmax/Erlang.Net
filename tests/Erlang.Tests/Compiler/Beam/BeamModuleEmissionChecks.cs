@@ -1774,6 +1774,14 @@ internal static class BeamModuleEmissionChecks
         {
             throw new InvalidOperationException("Expected the record projection to use the incoming X1 directly.");
         }
+
+        ReadOnlySpan<byte> taggedTupleTest = [BeamEmissionFormat.IsTaggedTuple, 0x35, 0x13, 0x30];
+        int check = code.AsSpan().IndexOf(taggedTupleTest);
+        // Skip the one-byte atom operand after the test prefix.
+        if (check < 0 || code[check + taggedTupleTest.Length + 1] != BeamEmissionFormat.Allocate)
+        {
+            throw new InvalidOperationException("Expected the successful record check to fall through to allocation.");
+        }
     }
 
     private static void CompareHeapCallResult()

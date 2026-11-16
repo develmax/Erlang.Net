@@ -1,5 +1,7 @@
 Part 1783. Sort consecutive independent X-to-Y moves by destination slot after branch slot reuse. Preserve original store order when a run writes the same destination twice. [Evidence](validation/part-1783/README.md).
 
+Part 1804. Move directly labelled terminal failures after the function body and remove the jump over each one. Preserve the failure source line and keep the original layout when exception handlers are present. [Evidence](validation/part-1804/README.md).
+
 Part 1803. Use the existing argument liveness proof for a linear framed suffix reached through a prefix with frameless exits. Drop an entry spill only when all uses of its original value are covered. [Evidence](validation/part-1803/README.md).
 
 Part 1802. Reuse the per-value interference graph for a linear framed suffix once every path through the suffix has passed its allocation. Keep allocation, frame release and all Y operands consistent with the new layout. [Evidence](validation/part-1802/README.md).

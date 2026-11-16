@@ -1,5 +1,7 @@
 # Next steps
 
+Preserve the call result through an independent heap check. [Evidence](validation/part-1804/README.md).
+
 Move terminal error blocks after the success path. [Evidence](validation/part-1803/README.md).
 
 Forward arguments directly to projections after the same frameless exits and measure the resulting changes. [Evidence](validation/part-1802/README.md).

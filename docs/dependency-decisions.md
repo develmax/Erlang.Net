@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1804. Follow the labelled exit block placement in the pinned OTP beam_jump pass while reusing the existing BEAM writer. No dependency was added. [Evidence](validation/part-1804/README.md).
+
 Part 1803. Reuse the normal BEAM edge and value availability analysis. Compare the resulting argument projection against OTP 29.1.1. No dependency was added. [Evidence](validation/part-1803/README.md).
 
 Part 1802. Reuse the branch allocator liveness and compare against the pinned OTP beam_ssa_pre_codegen live intervals and frame sizes. No dependency was added. [Evidence](validation/part-1802/README.md).
