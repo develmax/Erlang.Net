@@ -8,13 +8,17 @@ internal sealed partial class BeamModuleCompiler
     {
         private bool TryEmitSocketAddressDispatch(FunctionDefinition function)
         {
-            if (function.Clauses is not [.., {
-                Guard: null, Patterns: [Pattern.Variable module, Pattern.Variable socket],
-                Body: Expr.Call { DynamicRemote: true, Arguments: [
+            if (function.Clauses is not [..,
+                {
+                    Guard: null, Patterns: [Pattern.Variable module, Pattern.Variable socket],
+                    Body: Expr.Call
+                    {
+                        DynamicRemote: true, Arguments: [
                     Expr.Variable target, Expr.Literal { Value: Atom member },
                     Expr.List { Tail: null, Items: [Expr.Variable argument] }
-                ] } dynamicCall
-            }] || !DistinctBindings(module, socket) || target.Name != module.Name || argument.Name != socket.Name)
+                ]
+                    } dynamicCall
+                }] || !DistinctBindings(module, socket) || target.Name != module.Name || argument.Name != socket.Name)
             {
                 return false;
             }
@@ -63,7 +67,12 @@ internal sealed partial class BeamModuleCompiler
             Mark(pairTail);
             EmitSocketUnaryExternalTail(pair.Call);
             Mark(plainTail);
-            owner.MoveRegister(XRegisterTag, 1, XRegisterTag, 0);
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                XRegisterTag,
+                0
+            );
             EmitSocketUnaryExternalTail(plain.Call);
             Mark(dynamicTail);
             EmitSocketUnaryDynamicTail(dynamicCall, member);
@@ -74,20 +83,29 @@ internal sealed partial class BeamModuleCompiler
         private bool TryEmitPeerAddress(IReadOnlyList<Clause> clauses, Expr.Call dynamicCall, Atom member)
         {
             if (clauses is not [
-                { Guard: null, Patterns: [
+                {
+                    Guard: null, Patterns: [
                     Pattern.Variable { }, Pattern.Literal { Value: Atom missing }
-                ], Body: { } absent },
-                { Guard: null, Patterns: [
+                ], Body: { } absent
+                },
+                {
+                    Guard: null, Patterns: [
                     Pattern.Literal { Value: Atom udp },
-                    Pattern.Tuple { Items: [
+                    Pattern.Tuple
+                    {
+                        Items: [
                         Pattern.Variable { Name: VariableScopeNames.Wildcard },
                         Pattern.Tuple { Items: [Pattern.Variable nested, Pattern.Variable ignoredNested] }
-                    ] }
-                ], Body: Expr.Tuple { Items: [Expr.Literal { Value: Atom nestedTag }, Expr.Variable nestedValue] } },
-                { Guard: null, Patterns: [
+                    ]
+                    }
+                ], Body: Expr.Tuple { Items: [Expr.Literal { Value: Atom nestedTag }, Expr.Variable nestedValue] }
+                },
+                {
+                    Guard: null, Patterns: [
                     Pattern.Literal { Value: Atom otherUdp },
                     Pattern.Tuple { Items: [Pattern.Variable plain, Pattern.Variable ignoredPlain] }
-                ], Body: Expr.Tuple { Items: [Expr.Literal { Value: Atom plainTag }, Expr.Variable plainValue] } },
+                ], Body: Expr.Tuple { Items: [Expr.Literal { Value: Atom plainTag }, Expr.Variable plainValue] }
+                },
                 _
             ] || !AttributeLiteral.TryNormalizeConstant(absent, out Term missingValue)
                 || !udp.Equals(otherUdp) || nested.Name == VariableScopeNames.Wildcard || plain.Name == VariableScopeNames.Wildcard
@@ -130,10 +148,11 @@ internal sealed partial class BeamModuleCompiler
 
         private (Atom Transport, Expr.Call Call)? ReadSocketAddressCall(Clause clause, int depth)
         {
-            if (clause is not {
-                Patterns: [Pattern.Literal { Value: Atom transport }, var input],
-                Body: Expr.Call { Module: not null, DynamicRemote: false, Arguments: [Expr.Variable forwarded] } call
-            } || owner.ResolvesErlangBif(call))
+            if (clause is not
+                {
+                    Patterns: [Pattern.Literal { Value: Atom transport }, var input],
+                    Body: Expr.Call { Module: not null, DynamicRemote: false, Arguments: [Expr.Variable forwarded] } call
+                } || owner.ResolvesErlangBif(call))
             {
                 return null;
             }
@@ -141,8 +160,11 @@ internal sealed partial class BeamModuleCompiler
             if (depth == 2)
             {
                 if (input is not Pattern.Tuple { Items: [Pattern.Variable listener, var nested] }
-                    || clause.Guard is not Expr.Call { Module: null or ErlangModuleNames.Module, DynamicRemote: false,
-                        Function: AutoImportNames.IsPid, Arguments: [Expr.Variable checkedPid] } test
+                    || clause.Guard is not Expr.Call
+                    {
+                        Module: null or ErlangModuleNames.Module, DynamicRemote: false,
+                        Function: AutoImportNames.IsPid, Arguments: [Expr.Variable checkedPid]
+                    } test
                     || !owner.ResolvesErlangBif(test) || listener.Name != checkedPid.Name || listener.Name == forwarded.Name
                     || listener.Name == VariableScopeNames.Wildcard)
                 {

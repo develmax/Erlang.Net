@@ -17,13 +17,25 @@ internal sealed partial class BeamModuleCompiler
         if (clause is
             {
                 Patterns: [Pattern.Variable input],
-                Guard: Expr.Call { Module: null or ErlangModuleNames.Module, Function: "is_integer",
-                    DynamicRemote: false, Arguments: [Expr.Variable guarded] },
-                Body: Expr.Sequence { Items: [
-                    Expr.Match { Pattern: Pattern.Variable width, Value: Expr.Call { Module: null,
-                        Arguments: [Expr.Variable value, Expr.Literal { Value: Integer initial }] } call },
+                Guard: Expr.Call
+                {
+                    Module: null or ErlangModuleNames.Module, Function: "is_integer",
+                    DynamicRemote: false, Arguments: [Expr.Variable guarded]
+                },
+                Body: Expr.Sequence
+                {
+                    Items: [
+                    Expr.Match
+                    {
+                        Pattern: Pattern.Variable width, Value: Expr.Call
+                        {
+                            Module: null,
+                            Arguments: [Expr.Variable value, Expr.Literal { Value: Integer initial }]
+                        } call
+                    },
                     Expr.Bits { Segments: [var segment] } bits
-                ] }
+                ]
+                }
             } && segment is
             {
                 Value: Expr.Variable written, Size: Expr.Variable size, Type: BitSegmentTypes.Integer,
@@ -53,7 +65,12 @@ internal sealed partial class BeamModuleCompiler
         Operand(XRegisterTag, 0);
         Op(Allocate, BeamWire.UnsignedTag, 1);
         Operand(BeamWire.UnsignedTag, 1);
-        MoveRegister(XRegisterTag, 0, YRegisterTag, 0);
+        MoveRegister(
+            XRegisterTag,
+            0,
+            YRegisterTag,
+            0
+        );
         EmitConstant(Term.I(8), 1);
         EmitCallLine(flow.Width, location);
         Op(LocalCall, BeamWire.UnsignedTag, 2);
@@ -91,12 +108,21 @@ internal sealed partial class BeamModuleCompiler
         if (clause is
             {
                 Guard: null, Patterns: [Pattern.Variable input],
-                Body: Expr.Sequence { Items: [
-                    Expr.Match { Pattern: Pattern.Variable width, Value: Expr.Call { Module: null or ErlangModuleNames.Module,
-                        DynamicRemote: false, Function: "bit_size", Arguments: [Expr.Variable bytes] } size },
+                Body: Expr.Sequence
+                {
+                    Items: [
+                    Expr.Match
+                    {
+                        Pattern: Pattern.Variable width, Value: Expr.Call
+                        {
+                            Module: null or ErlangModuleNames.Module,
+                            DynamicRemote: false, Function: "bit_size", Arguments: [Expr.Variable bytes]
+                        } size
+                    },
                     Expr.Match { Pattern: BitPattern { Segments: [var segment] }, Value: Expr.Variable matched } match,
                     Expr.Variable returned
-                ] }
+                ]
+                }
             } && segment is
             {
                 Value: Pattern.Variable value,
@@ -138,7 +164,12 @@ internal sealed partial class BeamModuleCompiler
         Op(GetBinaryInteger, LabelTag, failure);
         EmitTypedRegister(2, MatchableTypeBits);
         Operand(BeamWire.UnsignedTag, 3);
-        EmitTypedRegister(1, IntegerTypeBits, 0, MaximumBitSize);
+        EmitTypedRegister(
+            1,
+            IntegerTypeBits,
+            0,
+            MaximumBitSize
+        );
         Operand(BeamWire.UnsignedTag, 1);
         Operand(BeamWire.UnsignedTag, 4); // signed, big-endian
         Operand(XRegisterTag, 1);
@@ -157,35 +188,76 @@ internal sealed partial class BeamModuleCompiler
         Op(BadMatch, XRegisterTag, 0);
     }
 
-    private sealed record SignedWidth(Expr.Binary Shift, Expr.Binary Difference, Expr.Unary Negate, Expr.Binary Next, Expr.Call Recur);
+    private sealed record SignedWidth(
+        Expr.Binary Shift,
+        Expr.Binary Difference,
+        Expr.Unary Negate,
+        Expr.Binary Next,
+        Expr.Call Recur
+    );
 
     private static SignedWidth? ReadSignedWidth(Clause clause)
     {
         if (clause is
             {
                 Guard: null, Patterns: [Pattern.Variable value, Pattern.Variable width],
-                Body: Expr.Sequence { Items: [
-                    Expr.Match { Pattern: Pattern.Variable upper, Value: Expr.Binary { Operator: ErlangOperators.ShiftLeft,
-                        Left: Expr.Literal { Value: Integer one }, Right: Expr.Binary { Operator: ErlangOperators.Minus,
-                            Left: Expr.Variable shiftWidth, Right: Expr.Literal { Value: Integer subtract } } difference } shift },
-                    Expr.Case { Value: Expr.Binary { Operator: ErlangOperators.AndAlso,
-                        Left: Expr.Binary { Operator: ">=", Left: Expr.Variable checked1, Right: Expr.Unary
-                            { Operator: ErlangOperators.Minus, Operand: Expr.Variable negative } negate },
-                        Right: Expr.Binary { Operator: "<", Left: Expr.Variable checked2, Right: Expr.Variable positive } },
+                Body: Expr.Sequence
+                {
+                    Items: [
+                    Expr.Match
+                    {
+                        Pattern: Pattern.Variable upper, Value: Expr.Binary
+                        {
+                            Operator: ErlangOperators.ShiftLeft,
+                            Left: Expr.Literal { Value: Integer one }, Right: Expr.Binary
+                            {
+                                Operator: ErlangOperators.Minus,
+                                Left: Expr.Variable shiftWidth, Right: Expr.Literal { Value: Integer subtract }
+                            } difference
+                        } shift
+                    },
+                    Expr.Case
+                    {
+                        Value: Expr.Binary
+                        {
+                            Operator: ErlangOperators.AndAlso,
+                            Left: Expr.Binary
+                            {
+                                Operator: ">=", Left: Expr.Variable checked1, Right: Expr.Unary
+                                { Operator: ErlangOperators.Minus, Operand: Expr.Variable negative } negate
+                            },
+                            Right: Expr.Binary { Operator: "<", Left: Expr.Variable checked2, Right: Expr.Variable positive }
+                        },
                         Clauses: [
-                            { Guard: null, Patterns: [Pattern.Literal { Value: Atom { Name: "true" } }], Body: Expr.Variable result },
-                            { Guard: null, Patterns: [Pattern.Literal { Value: Atom { Name: "false" } }],
-                                Body: Expr.Call { Module: null, Arguments: [Expr.Variable passed, Expr.Binary { Operator: ErlangOperators.Plus,
-                                    Left: Expr.Variable oldWidth, Right: Expr.Literal { Value: Integer step } } next] } recur }
-                        ] }
-                ] }
+                        { Guard: null, Patterns: [Pattern.Literal { Value: Atom { Name: "true" } }], Body: Expr.Variable result },
+                        {
+                            Guard: null, Patterns: [Pattern.Literal { Value: Atom { Name: "false" } }],
+                            Body: Expr.Call
+                            {
+                                Module: null, Arguments: [Expr.Variable passed, Expr.Binary
+                                {
+                                    Operator: ErlangOperators.Plus,
+                                    Left: Expr.Variable oldWidth, Right: Expr.Literal { Value: Integer step }
+                                } next]
+                            } recur
+                        }
+                        ]
+                    }
+                ]
+                }
             } && HasUnconditionalParameters(clause) && IsFresh(clause, upper)
             && one.Value == 1 && subtract.Value == 1 && step.Value == 8
             && width.Name == shiftWidth.Name && width.Name == result.Name && width.Name == oldWidth.Name
             && value.Name == checked1.Name && value.Name == checked2.Name && value.Name == passed.Name
             && upper.Name == negative.Name && upper.Name == positive.Name)
         {
-            return new(shift, difference, negate, next, recur);
+            return new(
+                shift,
+                difference,
+                negate,
+                next,
+                recur
+            );
         }
 
         return null;
@@ -205,11 +277,31 @@ internal sealed partial class BeamModuleCompiler
         int advance = nextLabel++;
         var arithmetic = location;
         EmitArithmeticLine(flow.Difference.SourceLine, ref arithmetic);
-        GcArithmetic(GcBifTwo, "-", 2, 2, (XRegisterTag, 1, 0), (BeamWire.IntegerTag, 1, 0));
+        GcArithmetic(
+            GcBifTwo,
+            "-",
+            2,
+            2,
+            (XRegisterTag, 1, 0),
+            (BeamWire.IntegerTag, 1, 0)
+        );
         EmitArithmeticLine(flow.Shift.SourceLine, ref arithmetic);
-        GcArithmetic(GcBifTwo, "bsl", 3, 2, (BeamWire.IntegerTag, 1, 0), (XRegisterTag, 2, NumberTypeBits));
+        GcArithmetic(
+            GcBifTwo,
+            "bsl",
+            3,
+            2,
+            (BeamWire.IntegerTag, 1, 0),
+            (XRegisterTag, 2, NumberTypeBits)
+        );
         EmitArithmeticLine(flow.Negate.SourceLine, ref arithmetic);
-        GcArithmetic(GcBifOne, "-", 3, 3, (XRegisterTag, 2, IntegerTypeBits));
+        GcArithmetic(
+            GcBifOne,
+            "-",
+            3,
+            3,
+            (XRegisterTag, 2, IntegerTypeBits)
+        );
         Op(IsGreaterOrEqual, LabelTag, advance);
         Operand(XRegisterTag, 0);
         EmitTypedRegister(3, IntegerTypeBits);
@@ -220,7 +312,14 @@ internal sealed partial class BeamModuleCompiler
         instructions.WriteByte(Return);
         Op(Label, BeamWire.UnsignedTag, advance);
         EmitArithmeticLine(flow.Next.SourceLine, ref arithmetic);
-        GcArithmetic(GcBifTwo, "+", 2, 1, (XRegisterTag, 1, NumberTypeBits), (BeamWire.IntegerTag, 8, 0));
+        GcArithmetic(
+            GcBifTwo,
+            "+",
+            2,
+            1,
+            (XRegisterTag, 1, NumberTypeBits),
+            (BeamWire.IntegerTag, 8, 0)
+        );
         Op(TailLocalCall, BeamWire.UnsignedTag, 2);
         Operand(LabelTag, recur);
     }
@@ -234,7 +333,13 @@ internal sealed partial class BeamModuleCompiler
         }
     }
 
-    private void GcArithmetic(byte opcode, string function, int live, int destination, params (int Tag, int Value, int Type)[] operands)
+    private void GcArithmetic(
+        byte opcode,
+        string function,
+        int live,
+        int destination,
+        params (int Tag, int Value, int Type)[] operands
+    )
     {
         Op(opcode, LabelTag, 0);
         Operand(BeamWire.UnsignedTag, live);

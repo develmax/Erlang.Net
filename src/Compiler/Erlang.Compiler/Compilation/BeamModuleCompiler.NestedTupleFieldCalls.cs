@@ -14,17 +14,17 @@ internal sealed partial class BeamModuleCompiler
                     Items: [
                         Expr.Match { Pattern: Pattern.Variable forwarded, Value: Expr.Call producer },
                         Expr.Match
-                        {
-                            Pattern: Pattern.Tuple { Items: [Pattern.Tuple unused, Pattern.Tuple retained] },
-                            Value: Expr.Call { Arguments: [Expr.Variable input] } selector
-                        } match,
+                    {
+                        Pattern: Pattern.Tuple { Items: [Pattern.Tuple unused, Pattern.Tuple retained] },
+                        Value: Expr.Call { Arguments: [Expr.Variable input] } selector
+                    } match,
                         Expr.Tuple
-                        {
-                            Items: [
+                    {
+                        Items: [
                                 Expr.Binary { Operator: ErlangOperators.Append, Left: var prefix, Right: Expr.Variable suffix } append,
                                 Expr.List { Tail: Expr.Variable listTail } list
                             ]
-                        }
+                    }
                     ]
                 }
                 || first.Name != suffix.Name || tail.Name != listTail.Name || forwarded.Name != input.Name
@@ -50,7 +50,12 @@ internal sealed partial class BeamModuleCompiler
             if (start is null && producer is
                 { Module: ErlangModuleNames.Module, Function: ErlangClockNames.Timestamp, DynamicRemote: false, Arguments: [] })
             {
-                start = new EntryCall(producer, ErlangModuleNames.Module, [], []);
+                start = new EntryCall(
+                    producer,
+                    ErlangModuleNames.Module,
+                    [],
+                    []
+                );
             }
 
             if (start is null)
@@ -77,23 +82,53 @@ internal sealed partial class BeamModuleCompiler
             int tupleSlot = frame - 3;
             EmitFrameAllocation(parameters.Length, frame);
             EmitFrameInitialization(0, listSlot);
-            owner.MoveRegister(XRegisterTag, 1, YRegisterTag, listSlot);
-            owner.MoveRegister(XRegisterTag, 0, YRegisterTag, resultSlot);
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                YRegisterTag,
+                listSlot
+            );
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                resultSlot
+            );
             EmitEntryCall(start);
             var previous = CallLocation(start.Call, location);
             EmitEntryCall(select, previous);
             previous = CallLocation(select.Call, previous);
 
             int failure = Label();
-            EmitTupleShapeTest(XRegisterTag, 0, 2, failure);
+            EmitTupleShapeTest(
+                XRegisterTag,
+                0,
+                2,
+                failure
+            );
             owner.EmitTuplePart(0, 0, 1);
-            EmitTupleShapeTest(XRegisterTag, 1, unused.Items.Count, failure);
+            EmitTupleShapeTest(
+                XRegisterTag,
+                1,
+                unused.Items.Count,
+                failure
+            );
             owner.Op(GetTupleElement, XRegisterTag, 0);
             owner.Operand(BeamWire.UnsignedTag, 1);
             owner.Operand(YRegisterTag, tupleSlot);
-            EmitTupleShapeTest(YRegisterTag, tupleSlot, retained.Items.Count, failure);
+            EmitTupleShapeTest(
+                YRegisterTag,
+                tupleSlot,
+                retained.Items.Count,
+                failure
+            );
 
-            owner.MoveRegister(YRegisterTag, resultSlot, XRegisterTag, 1);
+            owner.MoveRegister(
+                YRegisterTag,
+                resultSlot,
+                XRegisterTag,
+                1
+            );
             EmitFrameInitialization(resultSlot, frame);
             owner.EmitConstant(prefixValue, 0);
             var appendLocation = new BeamSourceLocation(location.File, append.SourceLine);
@@ -106,9 +141,24 @@ internal sealed partial class BeamModuleCompiler
             Call(ErlangModuleNames.Module, ErlangOperators.Append, 2);
             for (int index = 0; index < calls.Length; index++)
             {
-                owner.EmitTuplePart(tupleSlot, index, 1, YRegisterTag);
-                owner.MoveRegister(XRegisterTag, 0, YRegisterTag, index == 0 ? resultSlot : index - 1);
-                owner.MoveRegister(XRegisterTag, 1, XRegisterTag, 0);
+                owner.EmitTuplePart(
+                    tupleSlot,
+                    index,
+                    1,
+                    YRegisterTag
+                );
+                owner.MoveRegister(
+                    XRegisterTag,
+                    0,
+                    YRegisterTag,
+                    index == 0 ? resultSlot : index - 1
+                );
+                owner.MoveRegister(
+                    XRegisterTag,
+                    1,
+                    XRegisterTag,
+                    0
+                );
                 EmitEntryCall(calls[index], previous);
                 previous = CallLocation(calls[index].Call, previous);
             }

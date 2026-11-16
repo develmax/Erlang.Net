@@ -24,26 +24,61 @@ internal sealed partial class BeamModuleCompiler
             ] || !TryReadPatternAlias(transportPattern, out var transport, out var literal)
                 || literal is not Pattern.Literal { Value: Atom selected }
                 || !TryReadPatternAlias(socketPattern, out var socket, out var nested)
-                || nested is not Pattern.Tuple { Items: [
+                || nested is not Pattern.Tuple
+                {
+                    Items: [
                     Pattern.Tuple { Items: [Pattern.Variable host, Pattern.Variable port] }, Pattern.Variable handle
-                ] }
-                || !DistinctBindings(pid, transport, socket, callback, table)
-                || !DistinctBindings(otherPid, otherTransport, otherSocket, otherCallback, otherTable)
+                ]
+                }
+                || !DistinctBindings(
+                    pid,
+                    transport,
+                    socket,
+                    callback,
+                    table
+                )
+                || !DistinctBindings(
+                    otherPid,
+                    otherTransport,
+                    otherSocket,
+                    otherCallback,
+                    otherTable
+                )
                 || !DistinctBindings(
                     [pid, transport, socket, callback, table, .. new[] { host, port, handle }
                         .Where(variable => variable.Name != VariableScopeNames.Wildcard)]
                 )
-                || first.Guard is not Expr.Binary { Operator: ErlangOperators.ExactNotEqual,
-                    Left: Expr.Variable firstInput, Right: Expr.Literal { Value: Atom forbidden } }
-                || second.Guard is not Expr.Binary { Operator: ErlangOperators.ExactNotEqual,
-                    Left: Expr.Variable secondInput, Right: Expr.Literal { Value: Atom otherForbidden } }
+                || first.Guard is not Expr.Binary
+                {
+                    Operator: ErlangOperators.ExactNotEqual,
+                    Left: Expr.Variable firstInput, Right: Expr.Literal { Value: Atom forbidden }
+                }
+                || second.Guard is not Expr.Binary
+                {
+                    Operator: ErlangOperators.ExactNotEqual,
+                    Left: Expr.Variable secondInput, Right: Expr.Literal { Value: Atom otherForbidden }
+                }
                 || firstInput.Name != table.Name || secondInput.Name != otherTable.Name || !forbidden.Equals(otherForbidden))
             {
                 return false;
             }
 
-            var firstFields = ReadSocketRecordFields(firstRecord, pid, transport, socket, callback, table);
-            var secondFields = ReadSocketRecordFields(secondRecord, otherPid, otherTransport, otherSocket, otherCallback, otherTable);
+            var firstFields = ReadSocketRecordFields(
+                firstRecord,
+                pid,
+                transport,
+                socket,
+                callback,
+                table
+            );
+            var secondFields = ReadSocketRecordFields(
+                secondRecord,
+                otherPid,
+                otherTransport,
+                otherSocket,
+                otherCallback,
+                otherTable
+            );
             if (firstFields is null || secondFields is null || !firstFields.SequenceEqual(secondFields))
             {
                 return false;
@@ -52,7 +87,13 @@ internal sealed partial class BeamModuleCompiler
             int failure = owner.nextLabel - 2;
             int general = Label();
             owner.EmitNonemptyList(0, failure);
-            owner.EmitListParts(0, XRegisterTag, 5, XRegisterTag, 6);
+            owner.EmitListParts(
+                0,
+                XRegisterTag,
+                5,
+                XRegisterTag,
+                6
+            );
             owner.EmitNilTest(XRegisterTag, 6, failure);
             owner.Op(ExactEqualTest, LabelTag, general);
             owner.Operand(XRegisterTag, 1);

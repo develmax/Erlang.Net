@@ -126,7 +126,12 @@ internal sealed partial class BeamModuleCompiler
 
         foreach (int failure in failureLabels)
         {
-            if (!labels.TryGetValue(failure, out int target) || !IsFramelessStackAllocationExit(body, target, end, allowReturn: true))
+            if (!labels.TryGetValue(failure, out int target) || !IsFramelessStackAllocationExit(
+                body,
+                target,
+                end,
+                allowReturn: true
+            ))
             {
                 return null;
             }

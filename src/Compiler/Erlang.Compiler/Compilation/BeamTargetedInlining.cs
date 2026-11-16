@@ -4,6 +4,7 @@ internal static class BeamTargetedInlining
 {
     private const int DefaultAutomaticInlineSize = 24;
     private const int AutomaticInlineEffort = 150;
+
     internal static (IReadOnlyList<FunctionDefinition>, IReadOnlyList<BeamSourceLocation>) Apply(
         ModuleDefinition module,
         IReadOnlyList<BeamSourceLocation> locations,
@@ -214,17 +215,22 @@ internal static class BeamTargetedInlining
                     }
 
                     Expr RewriteTemplate(Expr template, Dictionary<string, Expr> arguments) =>
-                        Rewrite(template, node => node switch
+                        Rewrite(
+                            template,
+                            node => node switch
                         {
                             Expr.Variable variable => arguments[variable.Name],
                             Expr.Match match => match with { Pattern = RewritePattern(match.Pattern, arguments) },
                             _ => Inline(node)
-                        }, pattern => RewritePattern(pattern, arguments), rewriteScope: expression => expression switch
+                        },
+                            pattern => RewritePattern(pattern, arguments),
+                            rewriteScope: expression => expression switch
                         {
                             Expr.Fun fun => RewriteClosure(fun, arguments),
                             Expr.ListComprehension comprehension => RewriteListComprehension(comprehension, arguments),
                             _ => null
-                        });
+                        }
+                        );
 
                     Expr.ListComprehension RewriteListComprehension(
                         Expr.ListComprehension comprehension,
@@ -308,6 +314,7 @@ internal static class BeamTargetedInlining
                                     binding = new Expr.Variable(FreshBinding());
                                     arguments.Add(variable.Name, binding);
                                 }
+
                                 return binding is Expr.Variable renamed
                                     ? new Pattern.Variable(renamed.Name)
                                     : AttributeLiteral.TryNormalizeConstant(binding, out Term literal)
@@ -320,6 +327,7 @@ internal static class BeamTargetedInlining
                                 };
                             case MapPattern map:
                                 Expr[] keys = map.Fields.Select(field => RewriteTemplate(field.Key, arguments)).ToArray();
+
                                 return map with
                                 {
                                     Fields = map.Fields.Select((field, index) => field with
@@ -335,6 +343,7 @@ internal static class BeamTargetedInlining
                                     {
                                         Expr? size = segment.Specification.Size is { } expression
                                             ? RewriteTemplate(expression, arguments) : null;
+
                                         return segment with
                                         {
                                             Value = RewritePattern(segment.Value, arguments),
@@ -465,9 +474,18 @@ internal static class BeamTargetedInlining
             return scoped;
         }
 
-        Expr Visit(Expr child) => Rewrite(child, transform, patternTransform, rewriteComprehensions, rewriteScope);
+        Expr Visit(Expr child) => Rewrite(
+            child,
+            transform,
+            patternTransform,
+            rewriteComprehensions,
+            rewriteScope
+        );
+
         Expr? Optional(Expr? child) => child is null ? null : Visit(child);
+
         Expr[] Items(IEnumerable<Expr> children) => children.Select(Visit).ToArray();
+
         ComprehensionQualifier Qualifier(ComprehensionQualifier qualifier) => qualifier switch
         {
             ComprehensionQualifier.Generator item => item with { Source = Visit(item.Source) },
@@ -477,6 +495,7 @@ internal static class BeamTargetedInlining
             ComprehensionQualifier.Zip item => item with { Generators = item.Generators.Select(Qualifier).ToArray() },
             _ => qualifier
         };
+
         Clause[] Clauses(IEnumerable<Clause> clauses) => clauses.Select(clause =>
             clause with
             {
@@ -491,11 +510,13 @@ internal static class BeamTargetedInlining
             Expr.List list => list with { Items = Items(list.Items), Tail = Optional(list.Tail) },
             Expr.ListComprehension list when rewriteComprehensions => list with
             {
-                Items = Items(list.Items), Qualifiers = list.Qualifiers.Select(Qualifier).ToArray()
+                Items = Items(list.Items),
+                Qualifiers = list.Qualifiers.Select(Qualifier).ToArray()
             },
             Expr.BinaryComprehension bits when rewriteComprehensions => bits with
             {
-                Body = Visit(bits.Body), Qualifiers = bits.Qualifiers.Select(Qualifier).ToArray()
+                Body = Visit(bits.Body),
+                Qualifiers = bits.Qualifiers.Select(Qualifier).ToArray()
             },
             Expr.MapComprehension map when rewriteComprehensions => map with
             {
@@ -537,12 +558,16 @@ internal static class BeamTargetedInlining
             Expr.If decision => decision with { Clauses = Clauses(decision.Clauses) },
             Expr.Receive receive => receive with
             {
-                Clauses = Clauses(receive.Clauses), Timeout = Optional(receive.Timeout), After = Optional(receive.After)
+                Clauses = Clauses(receive.Clauses),
+                Timeout = Optional(receive.Timeout),
+                After = Optional(receive.After)
             },
             Expr.Try attempt => attempt with
             {
-                Body = Visit(attempt.Body), Clauses = Clauses(attempt.Clauses),
-                Catches = Clauses(attempt.Catches), After = Optional(attempt.After)
+                Body = Visit(attempt.Body),
+                Clauses = Clauses(attempt.Clauses),
+                Catches = Clauses(attempt.Catches),
+                After = Optional(attempt.After)
             },
             Expr.Catch attempt => attempt with { Operand = Visit(attempt.Operand) },
             Expr.Fun fun => fun with { Clauses = Clauses(fun.Clauses) },

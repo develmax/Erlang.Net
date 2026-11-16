@@ -6,7 +6,12 @@ internal sealed partial class BeamModuleCompiler
 {
     private sealed partial class GeneralEmitter
     {
-        private sealed record TaggedCallMatch(Expr.Match Match, Expr.Call Call, Atom Tag, int Arity);
+        private sealed record TaggedCallMatch(
+            Expr.Match Match,
+            Expr.Call Call,
+            Atom Tag,
+            int Arity
+        );
 
         private static TaggedCallMatch? ReadDiscardedTaggedCallMatch(Expr? expression)
         {
@@ -17,7 +22,12 @@ internal sealed partial class BeamModuleCompiler
                 return null;
             }
 
-            return new(match, call, tag, tuple.Items.Count);
+            return new(
+                match,
+                call,
+                tag,
+                tuple.Items.Count
+            );
         }
 
         private bool TryEmitTerminalCallMatch(FunctionDefinition function)
@@ -89,7 +99,12 @@ internal sealed partial class BeamModuleCompiler
             }
 
             owner.EmitFrameReturn(frame);
-            EmitTaggedCallMatchFailure(match, failure, previous, previous);
+            EmitTaggedCallMatchFailure(
+                match,
+                failure,
+                previous,
+                previous
+            );
         }
 
         private bool TryEmitEntryDiscardedTaggedMatch(Clause clause)
@@ -122,7 +137,12 @@ internal sealed partial class BeamModuleCompiler
             var used = tail.Arguments.OfType<Expr.Variable>().Select(argument => argument.Name).ToHashSet(StringComparer.Ordinal);
             int[] survivors = Enumerable.Range(0, parameters.Length)
                 .Where(index => used.Contains(parameters[index])).Reverse().ToArray();
-            if (ReadEntrySelector(check.Call, parameters, survivors, preceding: preceding) is not { } selector)
+            if (ReadEntrySelector(
+                check.Call,
+                parameters,
+                survivors,
+                preceding: preceding
+            ) is not { } selector)
             {
                 return false;
             }
@@ -148,12 +168,23 @@ internal sealed partial class BeamModuleCompiler
             var beforeCheck = selector.Prefix is { } prefix ? CallLocation(prefix.Call, location) : location;
             var checkedAt = CallLocation(check.Call, beforeCheck);
             int failure = Label();
-            EmitDetailRecordTest(0, check.Arity, check.Tag, failure);
+            EmitDetailRecordTest(
+                0,
+                check.Arity,
+                check.Tag,
+                failure
+            );
             owner.EmitOrderedTailMoves(finish.Moves, finish.Constants, finish.SavedInputs);
             EmitPreparedFrameTail(finish, checkedAt, frame);
 
             var beforeFailure = finish.Module is null ? checkedAt : CallLocation(tail, checkedAt);
-            EmitTaggedCallMatchFailure(check.Match, failure, checkedAt, beforeFailure);
+            EmitTaggedCallMatchFailure(
+                check.Match,
+                failure,
+                checkedAt,
+                beforeFailure
+            );
+
             return true;
         }
 
@@ -167,7 +198,12 @@ internal sealed partial class BeamModuleCompiler
             if (expression is Expr.Match { Pattern: Pattern.Tuple tuple, Value: Expr.Call call } match
                 && ReadSingleTupleField(tuple) is { Field: Pattern.Variable { Name: not VariableScopeNames.Wildcard } payload } field)
             {
-                return (new(match, call, field.Tag, tuple.Items.Count), (field.Index, payload.Name));
+                return (new(
+                    match,
+                    call,
+                    field.Tag,
+                    tuple.Items.Count
+                ), (field.Index, payload.Name));
             }
 
             return null;
@@ -236,11 +272,13 @@ internal sealed partial class BeamModuleCompiler
                 relocateBeforeTrim: true,
                 taggedMatch: (tagged.Check, keepPayload ? tagged.Payload!.Value.Field : projected, keepPayload)
             );
+
             return true;
 
             static bool UsesPayload(Expr item, string name)
             {
                 Expr expression = item is Expr.Match match ? match.Value : item;
+
                 return expression is Expr.Call call && call.Arguments.OfType<Expr.Variable>()
                     .Any(argument => argument.Name == name);
             }
@@ -258,7 +296,12 @@ internal sealed partial class BeamModuleCompiler
             Expression(tagged.Check.Call);
             int failure = Label();
             int done = Label();
-            EmitDetailRecordTest(0, tagged.Check.Arity, tagged.Check.Tag, failure);
+            EmitDetailRecordTest(
+                0,
+                tagged.Check.Arity,
+                tagged.Check.Tag,
+                failure
+            );
             if (tagged.Payload is { } payload)
             {
                 int slot = Slot();
@@ -273,6 +316,7 @@ internal sealed partial class BeamModuleCompiler
             owner.EmitArithmeticLine(match.SourceLine, ref location);
             owner.Op(BadMatch, XRegisterTag, 0);
             Mark(done);
+
             return true;
         }
 

@@ -5,20 +5,46 @@ namespace Erlang.Compiler;
 internal sealed partial class BeamModuleCompiler
 {
     private sealed record TagDecoding(TaggedPayload Plain, TaggedPayload Wrapped, Expr.Call Recur);
-    private sealed record TaggedPayload(Expr.Call Test, Expr.Call Tag, Expr.Call Decode, int UnpackLine);
+    private sealed record TaggedPayload(
+        Expr.Call Test,
+        Expr.Call Tag,
+        Expr.Call Decode,
+        int UnpackLine
+    );
 
     private static Expr.Call? ReadTagMatch(FunctionDefinition function)
     {
         if (function.Clauses is not [var one, var many, var wrapped, var list, var empty, var wrong]
             || function.Clauses.Any(clause => clause.Guard is not null)
-            || !MatchesTagStep(one, function.Name, wrapped: false, terminal: true)
-            || !MatchesTagStep(many, function.Name, wrapped: false, terminal: false)
-            || !MatchesTagStep(wrapped, function.Name, wrapped: true, terminal: false)
+            || !MatchesTagStep(
+                one,
+                function.Name,
+                wrapped: false,
+                terminal: true
+            )
+            || !MatchesTagStep(
+                many,
+                function.Name,
+                wrapped: false,
+                terminal: false
+            )
+            || !MatchesTagStep(
+                wrapped,
+                function.Name,
+                wrapped: true,
+                terminal: false
+            )
             || list is not
             {
-                Patterns: [AliasPattern { Left: Pattern.List { Items: [Pattern.Tuple
-                    { Items: [Pattern.Variable tag, Pattern.Variable ignored] }],
-                    Tail: Pattern.Variable { Name: VariableScopeNames.Wildcard } }, Right: Pattern.Variable original },
+                Patterns: [AliasPattern
+                {
+                    Left: Pattern.List
+                    {
+                        Items: [Pattern.Tuple
+                        { Items: [Pattern.Variable tag, Pattern.Variable ignored] }],
+                        Tail: Pattern.Variable { Name: VariableScopeNames.Wildcard }
+                    }, Right: Pattern.Variable original
+                },
                     Pattern.List { Items: [Pattern.Variable repeated], Tail: null }],
                 Body: Expr.Variable returned
             }
@@ -27,13 +53,30 @@ internal sealed partial class BeamModuleCompiler
             || input.Name == VariableScopeNames.Wildcard || input.Name != unchanged.Name || !IsEmptyListPattern(nil)
             || wrong is not
             {
-                Patterns: [AliasPattern { Left: Pattern.Tuple { Items: [Pattern.Variable got, Pattern.Variable payload] },
-                    Right: Pattern.Variable tlv }, Pattern.List { Items: [Pattern.Variable expected], Tail: Pattern.Variable rest }],
-                Body: Expr.Call { Function: "exit", Module: null or ErlangModuleNames.Module, DynamicRemote: false,
-                    Arguments: [var reason] } exit
+                Patterns: [AliasPattern
+                {
+                    Left: Pattern.Tuple { Items: [Pattern.Variable got, Pattern.Variable payload] },
+                    Right: Pattern.Variable tlv
+                }, Pattern.List { Items: [Pattern.Variable expected], Tail: Pattern.Variable rest }],
+                Body: Expr.Call
+                {
+                    Function: "exit", Module: null or ErlangModuleNames.Module, DynamicRemote: false,
+                    Arguments: [var reason]
+                } exit
             }
-            || !DistinctBindings(got, payload, tlv, expected, rest)
-            || !MatchesWrongTagReason(reason, expected.Name, got.Name, tlv.Name))
+            || !DistinctBindings(
+                got,
+                payload,
+                tlv,
+                expected,
+                rest
+            )
+            || !MatchesWrongTagReason(
+                reason,
+                expected.Name,
+                got.Name,
+                tlv.Name
+            ))
         {
             return null;
         }
@@ -41,7 +84,12 @@ internal sealed partial class BeamModuleCompiler
         return exit;
     }
 
-    private static bool MatchesTagStep(Clause clause, string function, bool wrapped, bool terminal)
+    private static bool MatchesTagStep(
+        Clause clause,
+        string function,
+        bool wrapped,
+        bool terminal
+    )
     {
         if (clause.Patterns is not [var input, Pattern.List { Items: [Pattern.Variable repeated] } tags])
         {
@@ -67,20 +115,43 @@ internal sealed partial class BeamModuleCompiler
         }
 
         return tags.Tail is Pattern.Variable tail && DistinctBindings(tag, value, tail)
-            && clause.Body is Expr.Call { Module: null, DynamicRemote: false,
-                Arguments: [Expr.Variable payload, Expr.Variable remaining] } call
+            && clause.Body is Expr.Call
+            {
+                Module: null, DynamicRemote: false,
+                Arguments: [Expr.Variable payload, Expr.Variable remaining]
+            } call
             && call.Function == function && payload.Name == value.Name && remaining.Name == tail.Name;
     }
 
-    private static bool MatchesWrongTagReason(Expr reason, string expected, string got, string tlv) =>
-        reason is Expr.Tuple { Items: [Expr.Literal { Value: Atom { Name: "error" } },
-            Expr.Tuple { Items: [Expr.Literal { Value: Atom { Name: "asn1" } },
-                Expr.Tuple { Items: [Expr.Literal { Value: Atom { Name: "wrong_tag" } },
-                    Expr.Tuple { Items: [
+    private static bool MatchesWrongTagReason(
+        Expr reason,
+        string expected,
+        string got,
+        string tlv
+    ) =>
+        reason is Expr.Tuple
+        {
+            Items: [Expr.Literal { Value: Atom { Name: "error" } },
+            Expr.Tuple
+            {
+                Items: [Expr.Literal { Value: Atom { Name: "asn1" } },
+                Expr.Tuple
+                {
+                    Items: [Expr.Literal { Value: Atom { Name: "wrong_tag" } },
+                    Expr.Tuple
+                    {
+                        Items: [
                         Expr.Tuple { Items: [Expr.Literal { Value: Atom { Name: "expected" } }, Expr.Variable expectedValue] },
-                        Expr.Tuple { Items: [Expr.Literal { Value: Atom { Name: "got" } },
-                            Expr.Variable actualTag, Expr.Variable actualTlv] }
-                    ] }] }] }] }
+                        Expr.Tuple
+                        {
+                            Items: [Expr.Literal { Value: Atom { Name: "got" } },
+                            Expr.Variable actualTag, Expr.Variable actualTlv]
+                        }
+                    ]
+                    }]
+                }]
+            }]
+        }
         && expectedValue.Name == expected && actualTag.Name == got && actualTlv.Name == tlv;
 
     private void EmitTagMatch(Expr.Call exit, int entry, BeamSourceLocation location)
@@ -93,21 +164,44 @@ internal sealed partial class BeamModuleCompiler
         int wrongTag = nextLabel++;
 
         EmitNonemptyList(0, tuple);
-        EmitListParts(0, XRegisterTag, 2, XRegisterTag, 3);
+        EmitListParts(
+            0,
+            XRegisterTag,
+            2,
+            XRegisterTag,
+            3
+        );
         EmitTupleCheck(2, 2, empty);
         EmitTuplePart(2, 0, 4);
         EmitNilTest(XRegisterTag, 3, listFallback);
         EmitNonemptyList(1, empty);
-        EmitListParts(1, XRegisterTag, 3, XRegisterTag, 5);
+        EmitListParts(
+            1,
+            XRegisterTag,
+            3,
+            XRegisterTag,
+            5
+        );
         EmitRegisterEquality(3, 4, listFallback);
         EmitTuplePart(2, 1, 0);
-        MoveRegister(XRegisterTag, 5, XRegisterTag, 1);
+        MoveRegister(
+            XRegisterTag,
+            5,
+            XRegisterTag,
+            1
+        );
         Op(TailLocalCall, BeamWire.UnsignedTag, 2);
         Operand(LabelTag, entry);
 
         Op(Label, BeamWire.UnsignedTag, listFallback);
         EmitNonemptyList(1, empty);
-        EmitListParts(1, XRegisterTag, 2, XRegisterTag, 3);
+        EmitListParts(
+            1,
+            XRegisterTag,
+            2,
+            XRegisterTag,
+            3
+        );
         EmitNilTest(XRegisterTag, 3, empty);
         EmitRegisterEquality(2, 4, empty);
         instructions.WriteByte(Return);
@@ -117,16 +211,37 @@ internal sealed partial class BeamModuleCompiler
         EmitNonemptyList(1, empty);
         EmitTuplePart(0, 0, 2);
         EmitTuplePart(0, 1, 3);
-        EmitListParts(1, XRegisterTag, 4, XRegisterTag, 5);
+        EmitListParts(
+            1,
+            XRegisterTag,
+            4,
+            XRegisterTag,
+            5
+        );
         EmitNilTest(XRegisterTag, 5, recurse);
         EmitRegisterEquality(4, 2, empty);
-        MoveRegister(XRegisterTag, 3, XRegisterTag, 0);
+        MoveRegister(
+            XRegisterTag,
+            3,
+            XRegisterTag,
+            0
+        );
         instructions.WriteByte(Return);
 
         Op(Label, BeamWire.UnsignedTag, recurse);
         EmitRegisterEquality(4, 2, empty);
-        MoveRegister(XRegisterTag, 5, XRegisterTag, 1);
-        MoveRegister(XRegisterTag, 3, XRegisterTag, 0);
+        MoveRegister(
+            XRegisterTag,
+            5,
+            XRegisterTag,
+            1
+        );
+        MoveRegister(
+            XRegisterTag,
+            3,
+            XRegisterTag,
+            0
+        );
         Op(TailLocalCall, BeamWire.UnsignedTag, 2);
         Operand(LabelTag, entry);
 
@@ -143,7 +258,12 @@ internal sealed partial class BeamModuleCompiler
         Op(GetHead, XRegisterTag, 1);
         Operand(XRegisterTag, 1);
         EmitTagMatchTuple(1, (AtomTag, Intern("expected")), (XRegisterTag, 1));
-        EmitTagMatchTuple(0, (AtomTag, Intern("got")), (XRegisterTag, 2), (XRegisterTag, 0));
+        EmitTagMatchTuple(
+            0,
+            (AtomTag, Intern("got")),
+            (XRegisterTag, 2),
+            (XRegisterTag, 0)
+        );
         EmitProtectedPair(XRegisterTag, 1);
         EmitProtectedPair(AtomTag, Intern("wrong_tag"));
         EmitProtectedPair(AtomTag, Intern("asn1"));
@@ -168,18 +288,37 @@ internal sealed partial class BeamModuleCompiler
     {
         if (clauses is not [
             { Guard: null, Patterns: [Pattern.Variable shape1, Pattern.Variable content1, var nil], Body: var plain },
-            { Guard: null, Patterns: [Pattern.Variable shape2,
+            {
+                Guard: null, Patterns: [Pattern.Variable shape2,
                 Pattern.Tuple { Items: [Pattern.Variable tag2, Pattern.Variable content2] },
-                Pattern.List { Items: [Pattern.Variable repeated2], Tail: null }], Body: var wrapped },
-            { Guard: null, Patterns: [Pattern.Variable shape3,
+                Pattern.List { Items: [Pattern.Variable repeated2], Tail: null }], Body: var wrapped
+            },
+            {
+                Guard: null, Patterns: [Pattern.Variable shape3,
                 Pattern.Tuple { Items: [Pattern.Variable tag3, Pattern.List { Items: [Pattern.Variable child], Tail: null }] },
                 Pattern.List { Items: [Pattern.Variable repeated3], Tail: Pattern.Variable rest }],
-                Body: Expr.Call { Module: null, Arguments: [Expr.Variable input, Expr.Variable value, Expr.Variable tail] } recur }
+                Body: Expr.Call { Module: null, Arguments: [Expr.Variable input, Expr.Variable value, Expr.Variable tail] } recur
+            }
         ] || !IsEmptyListPattern(nil) || !DistinctBindings(shape1, content1) || !DistinctBindings(shape2, tag2, content2)
-            || !DistinctBindings(shape3, tag3, child, rest) || tag2.Name != repeated2.Name || tag3.Name != repeated3.Name
+            || !DistinctBindings(
+                shape3,
+                tag3,
+                child,
+                rest
+            ) || tag2.Name != repeated2.Name || tag3.Name != repeated3.Name
             || input.Name != shape3.Name || value.Name != child.Name || tail.Name != rest.Name
-            || ReadTaggedPayload(plain, shape1, content1, null) is not { } direct
-            || ReadTaggedPayload(wrapped, shape2, content2, tag2) is not { } unpacked)
+            || ReadTaggedPayload(
+                plain,
+                shape1,
+                content1,
+                null
+            ) is not { } direct
+            || ReadTaggedPayload(
+                wrapped,
+                shape2,
+                content2,
+                tag2
+            ) is not { } unpacked)
         {
             return null;
         }
@@ -187,16 +326,29 @@ internal sealed partial class BeamModuleCompiler
         return new(direct, unpacked, recur);
     }
 
-    private static TaggedPayload? ReadTaggedPayload(Expr body, Pattern.Variable shape, Pattern.Variable content, Pattern.Variable? boundTag)
+    private static TaggedPayload? ReadTaggedPayload(
+        Expr body,
+        Pattern.Variable shape,
+        Pattern.Variable content,
+        Pattern.Variable? boundTag
+    )
     {
         if (body is not Expr.Case
             {
                 Value: Expr.Call { Module: null, Arguments: [Expr.Variable tested] } test,
                 Clauses: [
-                    { Guard: null, Patterns: [Pattern.Literal { Value: Atom { Name: "true" } }], Body: var success },
-                    { Guard: null, Patterns: [Pattern.Literal { Value: Atom { Name: "false" } }],
-                        Body: Expr.Call { Module: null, Arguments: [Expr.Variable input, Expr.Tuple { Items: [
-                            Expr.Call { Module: null, Arguments: [Expr.Variable tagged] } tag, Expr.Variable packed] }] } decode }
+                { Guard: null, Patterns: [Pattern.Literal { Value: Atom { Name: "true" } }], Body: var success },
+                {
+                    Guard: null, Patterns: [Pattern.Literal { Value: Atom { Name: "false" } }],
+                    Body: Expr.Call
+                    {
+                        Module: null, Arguments: [Expr.Variable input, Expr.Tuple
+                        {
+                            Items: [
+                            Expr.Call { Module: null, Arguments: [Expr.Variable tagged] } tag, Expr.Variable packed]
+                        }]
+                    } decode
+                }
                 ]
             } || tested.Name != shape.Name || input.Name != shape.Name || tagged.Name != shape.Name || packed.Name != content.Name)
         {
@@ -207,9 +359,17 @@ internal sealed partial class BeamModuleCompiler
         int line = 0;
         if (boundTag is not null)
         {
-            if (success is not Expr.Sequence { Items: [
+            if (success is not Expr.Sequence
+                {
+                    Items: [
                 Expr.Match { Pattern: Pattern.List { Items: [Pattern.Variable child], Tail: null }, Value: Expr.Variable source } match,
-                var next] } || source.Name != content.Name || !DistinctBindings(child, shape, content, boundTag))
+                var next]
+                } || source.Name != content.Name || !DistinctBindings(
+                    child,
+                    shape,
+                    content,
+                    boundTag
+                ))
             {
                 return null;
             }
@@ -224,7 +384,12 @@ internal sealed partial class BeamModuleCompiler
             return null;
         }
 
-        return new(test, tag, decode, line);
+        return new(
+            test,
+            tag,
+            decode,
+            line
+        );
     }
 
     private void EmitTagDecoding(TagDecoding flow, BeamSourceLocation location,
@@ -247,31 +412,87 @@ internal sealed partial class BeamModuleCompiler
         EmitNilTest(XRegisterTag, 2, tagged);
         Op(Allocate, BeamWire.UnsignedTag, 2);
         Operand(BeamWire.UnsignedTag, 2);
-        MoveRegister(XRegisterTag, 1, YRegisterTag, 0);
-        MoveRegister(XRegisterTag, 0, YRegisterTag, 1);
-        EmitTaggedPayload(flow.Plain, location, entries, plainValue, badPlain, null);
+        MoveRegister(
+            XRegisterTag,
+            1,
+            YRegisterTag,
+            0
+        );
+        MoveRegister(
+            XRegisterTag,
+            0,
+            YRegisterTag,
+            1
+        );
+        EmitTaggedPayload(
+            flow.Plain,
+            location,
+            entries,
+            plainValue,
+            badPlain,
+            null
+        );
 
         Op(Label, BeamWire.UnsignedTag, tagged);
         EmitTupleCheck(1, 2, functionInfo);
         EmitNonemptyList(2, functionInfo);
         EmitTuplePart(1, 0, 3);
         EmitTuplePart(1, 1, 4);
-        EmitListParts(2, XRegisterTag, 5, XRegisterTag, 6);
+        EmitListParts(
+            2,
+            XRegisterTag,
+            5,
+            XRegisterTag,
+            6
+        );
         EmitNilTest(XRegisterTag, 6, nested);
         EmitRegisterEquality(5, 3, functionInfo);
         Op(Allocate, BeamWire.UnsignedTag, 2);
         Operand(BeamWire.UnsignedTag, 5);
-        MoveRegister(XRegisterTag, 4, YRegisterTag, 0);
-        MoveRegister(XRegisterTag, 0, YRegisterTag, 1);
-        EmitTaggedPayload(flow.Wrapped, CallLocation(flow.Plain.Tag, location), entries, wrappedValue, badWrapped, badMatch);
+        MoveRegister(
+            XRegisterTag,
+            4,
+            YRegisterTag,
+            0
+        );
+        MoveRegister(
+            XRegisterTag,
+            0,
+            YRegisterTag,
+            1
+        );
+        EmitTaggedPayload(
+            flow.Wrapped,
+            CallLocation(flow.Plain.Tag, location),
+            entries,
+            wrappedValue,
+            badWrapped,
+            badMatch
+        );
 
         Op(Label, BeamWire.UnsignedTag, nested);
         EmitNonemptyList(4, functionInfo);
-        EmitListParts(4, XRegisterTag, 7, XRegisterTag, 4);
+        EmitListParts(
+            4,
+            XRegisterTag,
+            7,
+            XRegisterTag,
+            4
+        );
         EmitNilTest(XRegisterTag, 4, functionInfo);
         EmitRegisterEquality(5, 3, functionInfo);
-        MoveRegister(XRegisterTag, 6, XRegisterTag, 2);
-        MoveRegister(XRegisterTag, 7, XRegisterTag, 1);
+        MoveRegister(
+            XRegisterTag,
+            6,
+            XRegisterTag,
+            2
+        );
+        MoveRegister(
+            XRegisterTag,
+            7,
+            XRegisterTag,
+            1
+        );
         Op(TailLocalCall, BeamWire.UnsignedTag, 3);
         Operand(LabelTag, recur);
 
@@ -283,8 +504,14 @@ internal sealed partial class BeamModuleCompiler
         EmitInvalidPayloadCase(badWrapped);
     }
 
-    private void EmitTaggedPayload(TaggedPayload payload, BeamSourceLocation location,
-        IReadOnlyDictionary<(string Name, int Arity), int> entries, int primitive, int invalid, int? badMatch)
+    private void EmitTaggedPayload(
+        TaggedPayload payload,
+        BeamSourceLocation location,
+        IReadOnlyDictionary<(string Name, int Arity), int> entries,
+        int primitive,
+        int invalid,
+        int? badMatch
+    )
     {
         if (!entries.TryGetValue((payload.Test.Function, 1), out int test)
             || !entries.TryGetValue((payload.Tag.Function, 1), out int tag)
@@ -304,13 +531,28 @@ internal sealed partial class BeamModuleCompiler
             Operand(XRegisterTag, 0);
             Operand(XRegisterTag, 1);
             EmitNilTest(XRegisterTag, 1, failure);
-            MoveRegister(XRegisterTag, 0, XRegisterTag, 1);
+            MoveRegister(
+                XRegisterTag,
+                0,
+                XRegisterTag,
+                1
+            );
         }
         else
         {
-            MoveRegister(YRegisterTag, 0, XRegisterTag, 1);
+            MoveRegister(
+                YRegisterTag,
+                0,
+                XRegisterTag,
+                1
+            );
         }
-        MoveRegister(YRegisterTag, 1, XRegisterTag, 0);
+        MoveRegister(
+            YRegisterTag,
+            1,
+            XRegisterTag,
+            0
+        );
         EmitTagTail(decode);
 
         Op(Label, BeamWire.UnsignedTag, primitive);
@@ -318,7 +560,12 @@ internal sealed partial class BeamModuleCompiler
         {
             EmitAtomTest(0, "false", invalid);
         }
-        MoveRegister(YRegisterTag, 1, XRegisterTag, 0);
+        MoveRegister(
+            YRegisterTag,
+            1,
+            XRegisterTag,
+            0
+        );
         EmitCallLine(payload.Tag, CallLocation(payload.Test, location));
         EmitFieldCall(1, tag);
         Op(TestHeap, BeamWire.UnsignedTag, 3);
@@ -328,7 +575,12 @@ internal sealed partial class BeamModuleCompiler
         Operand(BeamWire.UnsignedTag, 2);
         Operand(XRegisterTag, 0);
         Operand(YRegisterTag, 0);
-        MoveRegister(YRegisterTag, 1, XRegisterTag, 0);
+        MoveRegister(
+            YRegisterTag,
+            1,
+            XRegisterTag,
+            0
+        );
         EmitTagTail(decode);
     }
 

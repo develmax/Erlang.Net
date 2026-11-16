@@ -28,6 +28,7 @@ internal sealed partial class BeamModuleCompiler
                 EmitDirectOperand(clause, comparison.Right);
                 owner.Operand(XRegisterTag, 0);
                 owner.instructions.WriteByte(Return);
+
                 return true;
             }
 
@@ -50,6 +51,7 @@ internal sealed partial class BeamModuleCompiler
             Mark(alternate);
             owner.EmitConstant(invert ? success.Value : fallback.Value, 0);
             owner.instructions.WriteByte(Return);
+
             return true;
         }
 

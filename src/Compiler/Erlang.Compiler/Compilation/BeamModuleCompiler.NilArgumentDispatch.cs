@@ -10,8 +10,8 @@ internal sealed partial class BeamModuleCompiler
         {
             if (function.Clauses is not
                 [
-                    { Guard: null, Body: Expr.Call firstSource } empty,
-                    { Guard: null, Body: Expr.Call secondSource } fallback
+                { Guard: null, Body: Expr.Call firstSource } empty,
+                { Guard: null, Body: Expr.Call secondSource } fallback
                 ]
                 || !HasUnconditionalParameters(fallback))
             {
@@ -67,8 +67,11 @@ internal sealed partial class BeamModuleCompiler
                         return null;
                     }
 
-                    int source = Array.FindIndex(patterns, pattern => pattern is Pattern.Variable parameter
-                        && parameter.Name == variable.Name && parameter.Name != VariableScopeNames.Wildcard);
+                    int source = Array.FindIndex(
+                        patterns,
+                        pattern => pattern is Pattern.Variable parameter
+                        && parameter.Name == variable.Name && parameter.Name != VariableScopeNames.Wildcard
+                    );
                     if (source < 0)
                     {
                         return null;
@@ -96,24 +99,24 @@ internal sealed partial class BeamModuleCompiler
         {
             if (function.Clauses is not
                 [
-                    {
-                        Guard: null, Patterns:
+                {
+                    Guard: null, Patterns:
                         [
                             Pattern.Variable data, Pattern.List { Items: [Pattern.Tuple record], Tail: null },
                             Pattern.List { Items: [], Tail: null } or Pattern.Literal { Value: Nil },
                             Pattern.Variable ignoredFirst
                         ],
-                        Body: Expr.List { Items: [Expr.Variable field, Expr.Variable firstData], Tail: null }
-                    },
-                    {
-                        Guard: null, Patterns:
+                    Body: Expr.List { Items: [Expr.Variable field, Expr.Variable firstData], Tail: null }
+                },
+                {
+                    Guard: null, Patterns:
                         [
                             Pattern.Variable fallbackData, Pattern.Variable ignored,
                             Pattern.List { Items: [], Tail: null } or Pattern.Literal { Value: Nil },
                             Pattern.Variable ignoredSecond
                         ],
-                        Body: Expr.List { Items: [var literal, Expr.Variable secondData], Tail: null }
-                    }
+                    Body: Expr.List { Items: [var literal, Expr.Variable secondData], Tail: null }
+                }
                 ] || data.Name != firstData.Name || fallbackData.Name != secondData.Name
                 || data.Name == field.Name || data.Name == VariableScopeNames.Wildcard
                 || ignoredFirst.Name == data.Name || ignoredFirst.Name == field.Name
@@ -158,8 +161,20 @@ internal sealed partial class BeamModuleCompiler
             int head = function.Arity;
             int tail = head + 1;
             owner.EmitNonemptyList(1, fallback);
-            owner.EmitListParts(1, XRegisterTag, head, XRegisterTag, tail);
-            owner.EmitRecordTest(fallback, XRegisterTag, head, tag, record.Items.Count);
+            owner.EmitListParts(
+                1,
+                XRegisterTag,
+                head,
+                XRegisterTag,
+                tail
+            );
+            owner.EmitRecordTest(
+                fallback,
+                XRegisterTag,
+                head,
+                tag,
+                record.Items.Count
+            );
             owner.EmitTuplePart(head, testField, tail + 1);
             owner.Op(ExactEqualTest, LabelTag, fallback);
             owner.Operand(XRegisterTag, tail + 1);

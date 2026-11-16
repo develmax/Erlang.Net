@@ -8,17 +8,18 @@ internal sealed partial class BeamModuleCompiler
         FunctionDefinition function
     )
     {
-        if (function.Clauses is not [{
-            Guard: null, Patterns: [Pattern.Variable input],
-            Body: Expr.ListComprehension
+        if (function.Clauses is not [
             {
-                Items: [Expr.Variable returned],
-                Qualifiers: [
+                Guard: null, Patterns: [Pattern.Variable input],
+                Body: Expr.ListComprehension
+                {
+                    Items: [Expr.Variable returned],
+                    Qualifiers: [
                     ComprehensionQualifier.Generator { Strict: false, Pattern: AliasPattern alias, Source: Expr.Variable source },
                     ComprehensionQualifier.Filter predicate
                 ]
-            } comprehension
-        }] || source.Name != input.Name)
+                } comprehension
+            }] || source.Name != input.Name)
         {
             return null;
         }
@@ -30,9 +31,12 @@ internal sealed partial class BeamModuleCompiler
             (shape, binding) = (binding, shape);
         }
         if (binding is not Pattern.Variable tuple || returned.Name != tuple.Name
-            || shape is not Pattern.Tuple { Items: [
+            || shape is not Pattern.Tuple
+            {
+                Items: [
                 Pattern.Variable key, Pattern.Variable { Name: VariableScopeNames.Wildcard }
-            ] } || !DistinctBindings(input, tuple, key))
+            ]
+            } || !DistinctBindings(input, tuple, key))
         {
             return null;
         }
@@ -49,8 +53,11 @@ internal sealed partial class BeamModuleCompiler
         bool ReadKeys(Expr expression) => expression switch
         {
             Expr.Binary { Operator: ErlangOperators.OrElse } union => ReadKeys(union.Left) && ReadKeys(union.Right),
-            Expr.Binary { Operator: ErlangOperators.ExactEqual,
-                Left: Expr.Variable tested, Right: Expr.Literal { Value: Atom value } }
+            Expr.Binary
+            {
+                Operator: ErlangOperators.ExactEqual,
+                Left: Expr.Variable tested, Right: Expr.Literal { Value: Atom value }
+            }
                 when tested.Name == key.Name => keys.Add(value),
             _ => false
         };
@@ -89,7 +96,12 @@ internal sealed partial class BeamModuleCompiler
             Mark(keep);
             owner.Op(Allocate, BeamWire.UnsignedTag, 1);
             owner.Operand(BeamWire.UnsignedTag, 2);
-            owner.MoveRegister(XRegisterTag, 1, YRegisterTag, 0);
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                YRegisterTag,
+                0
+            );
             owner.EmitFieldCall(1, entry);
             owner.Op(TestHeap, BeamWire.UnsignedTag, ConsHeapWords);
             owner.Operand(BeamWire.UnsignedTag, 1);

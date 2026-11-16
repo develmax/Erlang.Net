@@ -16,14 +16,14 @@ internal sealed partial class BeamModuleCompiler
                         Items:
                         [
                             Expr.Match
+                        {
+                            Pattern: Pattern.List
                             {
-                                Pattern: Pattern.List
-                                {
-                                    Items: [Pattern.Variable { Name: VariableScopeNames.Wildcard }],
-                                    Tail: Pattern.Variable { Name: VariableScopeNames.Wildcard }
-                                },
-                                Value: Expr.Variable input
-                            } check,
+                                Items: [Pattern.Variable { Name: VariableScopeNames.Wildcard }],
+                                Tail: Pattern.Variable { Name: VariableScopeNames.Wildcard }
+                            },
+                            Value: Expr.Variable input
+                        } check,
                             Expr.Variable returned
                         ]
                     }
@@ -80,14 +80,18 @@ internal sealed partial class BeamModuleCompiler
 
                 owner.instructions.WriteByte(Return);
                 EmitFailure(failure);
+
                 return true;
             }
 
             if (last is not Expr.Call { Module: null, DynamicRemote: false } tail
                 || !entries.TryGetValue((tail.Function, tail.Arguments.Count), out int entry)
                 || tail.Arguments.OfType<Expr.Call>().ToArray() is not
-                    [Expr.Call { Module: null or ErlangModuleNames.Module, DynamicRemote: false,
-                        Function: AutoImportNames.Hd, Arguments: [Expr.Variable list] } head]
+                    [Expr.Call
+                    {
+                        Module: null or ErlangModuleNames.Module, DynamicRemote: false,
+                        Function: AutoImportNames.Hd, Arguments: [Expr.Variable list]
+                    } head]
                 || !owner.ResolvesErlangBif(head) || parameters.Length >= FirstReservedXRegister
                 || Resolve(list) is not Expr.Variable headInput || headInput.Name == VariableScopeNames.Wildcard)
             {
@@ -130,6 +134,7 @@ internal sealed partial class BeamModuleCompiler
             owner.Op(TailLocalCall, BeamWire.UnsignedTag, tail.Arguments.Count);
             owner.Operand(LabelTag, entry);
             EmitFailure(failed);
+
             return true;
 
             void EmitFailure(int failure)
@@ -196,12 +201,23 @@ internal sealed partial class BeamModuleCompiler
             int matchFailure = Label();
             owner.EmitNonemptyList(0, nonCons);
             EmitFrameAllocation(1, 1);
-            owner.EmitListParts(0, XRegisterTag, 0, YRegisterTag, 0);
+            owner.EmitListParts(
+                0,
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                0
+            );
             EmitEntryCall(plan);
             owner.Op(ExactEqualTest, LabelTag, matchFailure);
             owner.Operand(XRegisterTag, 0);
             owner.LiteralOperand(literal.Value);
-            owner.MoveRegister(YRegisterTag, 0, XRegisterTag, 0);
+            owner.MoveRegister(
+                YRegisterTag,
+                0,
+                XRegisterTag,
+                0
+            );
             owner.Op(TailLocalCallWithFrame, BeamWire.UnsignedTag, 1);
             owner.Operand(LabelTag, entry);
             owner.Operand(BeamWire.UnsignedTag, 1);
@@ -260,6 +276,7 @@ internal sealed partial class BeamModuleCompiler
         private bool HasProperListEntry(FunctionDefinition function, int parameter, bool followForwarding = false)
         {
             var visiting = new HashSet<(string Name, int Arity, int Parameter)>();
+
             return Prove(function, parameter);
 
             bool Prove(FunctionDefinition target, int index)
@@ -271,12 +288,16 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 bool hasCaller = false;
-                bool allProper = HasOnlyLocalCalls(target, target.Arity, (caller, call) =>
+                bool allProper = HasOnlyLocalCalls(
+                    target,
+                    target.Arity,
+                    (caller, call) =>
                 {
                     Expr argument = call.Arguments[index];
                     if (!ReferenceEquals(caller, target))
                     {
                         hasCaller = true;
+
                         return IsListComprehensionResult(argument)
                             || (InferPairFacts(argument) & PairFacts.ProperList) != 0
                             || followForwarding && argument is Expr.Variable variable && ProveForwarded(caller, call, variable);
@@ -288,7 +309,8 @@ internal sealed partial class BeamModuleCompiler
                         || followForwarding && clause.Body is Expr.Sequence sequence
                             && sequence.Items.Any(item => IsDirectUse(item, call)))
                         && PreservesProperTail(argument, clause.Patterns[index]));
-                });
+                }
+                );
                 visiting.Remove(key);
 
                 return allProper && hasCaller;
@@ -306,6 +328,7 @@ internal sealed partial class BeamModuleCompiler
                         {
                             int source = Array.FindIndex(clause.Patterns.ToArray(),
                                 pattern => pattern is Pattern.Variable parameter && parameter.Name == variable.Name);
+
                             return properBinding || source >= 0 && Prove(caller, source);
                         }
 
@@ -347,6 +370,7 @@ internal sealed partial class BeamModuleCompiler
                 {
                     return PreservesProperTail(argument, tail);
                 }
+
                 return argument is Expr.Variable forwarded && source is Pattern.Variable original
                     && original.Name != VariableScopeNames.Wildcard && original.Name == forwarded.Name;
             }
@@ -356,26 +380,36 @@ internal sealed partial class BeamModuleCompiler
         {
             if (function.Clauses is not
                 [
-                    { Guard: null, Patterns:
+                {
+                    Guard: null, Patterns:
                         [
                             Pattern.List { Items: [Pattern.Literal first, Pattern.Literal second], Tail: Pattern.Variable suffix },
                             Pattern.Variable accumulator
                         ],
-                        Body: Expr.Call { Module: null, DynamicRemote: false, Arguments:
+                    Body: Expr.Call
+                    {
+                        Module: null, DynamicRemote: false, Arguments:
                             [
                                 Expr.List { Items: [var restored], Tail: Expr.Variable restoredSuffix },
                                 Expr.Variable kept
-                            ] } skip },
-                    { Guard: null, Patterns:
+                            ]
+                    } skip
+                },
+                {
+                    Guard: null, Patterns:
                         [
                             Pattern.List { Items: [Pattern.Variable head], Tail: Pattern.Variable tail },
                             Pattern.Variable collected
                         ],
-                        Body: Expr.Call { Module: null, DynamicRemote: false, Arguments:
+                    Body: Expr.Call
+                    {
+                        Module: null, DynamicRemote: false, Arguments:
                             [
                                 Expr.Variable remaining,
                                 Expr.List { Items: [Expr.Variable item], Tail: Expr.Variable previous }
-                            ] } collect },
+                            ]
+                    } collect
+                },
                     _
                 ]
                 || skip.Function != function.Name || collect.Function != function.Name
@@ -392,7 +426,13 @@ internal sealed partial class BeamModuleCompiler
             int prepend = Label();
             owner.Op(IsNonemptyList, LabelTag, fallback);
             owner.Operand(XRegisterTag, 0);
-            owner.EmitListParts(0, XRegisterTag, 2, XRegisterTag, 0);
+            owner.EmitListParts(
+                0,
+                XRegisterTag,
+                2,
+                XRegisterTag,
+                0
+            );
             TestHead(2, first.Value);
             owner.Op(IsNonemptyList, LabelTag, prepend);
             owner.Operand(XRegisterTag, 0);
@@ -409,6 +449,7 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(XRegisterTag, 1);
             Recur();
             Mark(fallback);
+
             return true;
 
             void TestHead(int register, Term literal)
@@ -477,7 +518,13 @@ internal sealed partial class BeamModuleCompiler
             }
 
             int nil = 0;
-            if (!TryEmitConsEntryInRegisters(cons, input, functionInfo, EmitConsTest, reuseListInput: true))
+            if (!TryEmitConsEntryInRegisters(
+                cons,
+                input,
+                functionInfo,
+                EmitConsTest,
+                reuseListInput: true
+            ))
             {
                 return false;
             }
@@ -527,7 +574,13 @@ internal sealed partial class BeamModuleCompiler
             int otherHead = Label();
             int nonCons = Label();
             owner.EmitNonemptyList(input, nonCons);
-            owner.EmitListParts(input, XRegisterTag, headRegister, XRegisterTag, input);
+            owner.EmitListParts(
+                input,
+                XRegisterTag,
+                headRegister,
+                XRegisterTag,
+                input
+            );
             owner.Op(ExactEqualTest, LabelTag, otherHead);
             owner.Operand(XRegisterTag, headRegister);
             owner.LiteralOperand(key.Value);
@@ -567,7 +620,7 @@ internal sealed partial class BeamModuleCompiler
                 { Guard: null, Body: Expr.Call { Module: null, DynamicRemote: false } call } fallback, _]
                 || first.Patterns[input] is not Pattern.List { Items: [var head], Tail: Pattern.Variable firstTail }
                 || fallback.Patterns[input] is not Pattern.List
-                    { Items: [Pattern.Variable ignoredHead], Tail: Pattern.Variable tail }
+                { Items: [Pattern.Variable ignoredHead], Tail: Pattern.Variable tail }
                 || !entries.TryGetValue((call.Function, call.Arguments.Count), out int entry))
             {
                 return false;
@@ -629,8 +682,11 @@ internal sealed partial class BeamModuleCompiler
 
             if (first.Guard is not null)
             {
-                if (first.Guard is not Expr.Binary { Operator: ErlangOperators.ExactEqual or ErlangOperators.ExactNotEqual,
-                        Left: Expr.Variable tested } comparison
+                if (first.Guard is not Expr.Binary
+                    {
+                        Operator: ErlangOperators.ExactEqual or ErlangOperators.ExactNotEqual,
+                        Left: Expr.Variable tested
+                    } comparison
                     || !bindings.TryGetValue(tested.Name, out int register)
                     || !AttributeLiteral.TryNormalizeConstant(comparison.Right, out Term operand))
                 {
@@ -649,7 +705,13 @@ internal sealed partial class BeamModuleCompiler
             int tailCall = Label();
             int nonCons = Label();
             owner.EmitNonemptyList(input, nonCons);
-            owner.EmitListParts(input, XRegisterTag, headRegister, XRegisterTag, input);
+            owner.EmitListParts(
+                input,
+                XRegisterTag,
+                headRegister,
+                XRegisterTag,
+                input
+            );
             foreach (var test in tests)
             {
                 test(tailCall);
@@ -661,7 +723,12 @@ internal sealed partial class BeamModuleCompiler
             }
             else if (resultRegister != 0)
             {
-                owner.MoveRegister(XRegisterTag, resultRegister, XRegisterTag, 0);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    resultRegister,
+                    XRegisterTag,
+                    0
+                );
             }
 
             owner.instructions.WriteByte(Return);
@@ -693,7 +760,12 @@ internal sealed partial class BeamModuleCompiler
                                 owner.Operand(XRegisterTag, source);
                                 if (range is { } bounds)
                                 {
-                                    owner.EmitTypedRegister(bound, IntegerTypeBits, bounds.Lower, bounds.Upper);
+                                    owner.EmitTypedRegister(
+                                        bound,
+                                        IntegerTypeBits,
+                                        bounds.Lower,
+                                        bounds.Upper
+                                    );
                                 }
                                 else
                                 {
@@ -705,6 +777,7 @@ internal sealed partial class BeamModuleCompiler
                         return true;
                     case Pattern.Literal literal:
                         AddEquality(source, literal.Value, exactEqual: true);
+
                         return true;
                     case AliasPattern { Left: Pattern.Variable alias, Right: Pattern.Tuple rightTuple }:
                         return ReadPattern(alias, source) && ReadPattern(rightTuple, source);
@@ -714,11 +787,21 @@ internal sealed partial class BeamModuleCompiler
                         bool tagged = HasTupleTag(tuple, out Atom tag);
                         if (tagged)
                         {
-                            tests.Add(failure => EmitDetailRecordTest(source, tuple.Items.Count, tag, failure));
+                            tests.Add(failure => EmitDetailRecordTest(
+                                source,
+                                tuple.Items.Count,
+                                tag,
+                                failure
+                            ));
                         }
                         else
                         {
-                            tests.Add(failure => EmitTupleShapeTest(XRegisterTag, source, tuple.Items.Count, failure));
+                            tests.Add(failure => EmitTupleShapeTest(
+                                XRegisterTag,
+                                source,
+                                tuple.Items.Count,
+                                failure
+                            ));
                         }
 
                         var fields = Enumerable.Range(tagged ? 1 : 0, tuple.Items.Count - (tagged ? 1 : 0))
@@ -842,13 +925,45 @@ internal sealed partial class BeamModuleCompiler
             switch (head)
             {
                 case Pattern.Tuple tuple:
-                    return TryEmitTupleHeadInRegisters(clause, input, failure, tuple, tail, bindings, emitEntryTest, reuseListInput, allowFramedBody);
+                    return TryEmitTupleHeadInRegisters(
+                        clause,
+                        input,
+                        failure,
+                        tuple,
+                        tail,
+                        bindings,
+                        emitEntryTest,
+                        reuseListInput,
+                        allowFramedBody
+                    );
                 case AliasPattern { Left: Pattern.Tuple left, Right: Pattern.Variable right }:
                     bindings.Add((right, clause.Patterns.Count));
-                    return TryEmitTupleHeadInRegisters(clause, input, failure, left, tail, bindings, emitEntryTest, reuseListInput, allowFramedBody);
+
+                    return TryEmitTupleHeadInRegisters(
+                        clause,
+                        input,
+                        failure,
+                        left,
+                        tail,
+                        bindings,
+                        emitEntryTest,
+                        reuseListInput,
+                        allowFramedBody
+                    );
                 case AliasPattern { Left: Pattern.Variable leftVariable, Right: Pattern.Tuple rightTuple }:
                     bindings.Add((leftVariable, clause.Patterns.Count));
-                    return TryEmitTupleHeadInRegisters(clause, input, failure, rightTuple, tail, bindings, emitEntryTest, reuseListInput, allowFramedBody);
+
+                    return TryEmitTupleHeadInRegisters(
+                        clause,
+                        input,
+                        failure,
+                        rightTuple,
+                        tail,
+                        bindings,
+                        emitEntryTest,
+                        reuseListInput,
+                        allowFramedBody
+                    );
             }
 
             if (head is not Pattern.Variable headVariable)
@@ -896,7 +1011,12 @@ internal sealed partial class BeamModuleCompiler
                     registers[headVariable.Name] = input;
                 }
 
-                if (TryEmitRegisterConstructedArgument(call, registers, (clause.Patterns.Count, EmitListExtraction), emitEntryTest))
+                if (TryEmitRegisterConstructedArgument(
+                    call,
+                    registers,
+                    (clause.Patterns.Count, EmitListExtraction),
+                    emitEntryTest
+                ))
                 {
                     return true;
                 }
@@ -915,6 +1035,7 @@ internal sealed partial class BeamModuleCompiler
                         EmitListExtraction();
                         EmitEntryCallArguments(ordinary);
                         EmitRegisterTailTarget(call with { Module = ordinary.Module }, call.Arguments.Count);
+
                         return true;
                     }
                 }
@@ -930,8 +1051,13 @@ internal sealed partial class BeamModuleCompiler
                 var direct = used.Select(binding => binding.Register == tailRegister
                     || (!usesTail && binding.Register == headRegister)
                         ? (binding.Variable, input) : binding).ToArray();
-                if (TryEmitConsCallResult(clause.Body, direct, EmitListExtraction,
-                    (input, headRegister, clause.Patterns.Count, usesHead && usesTail), emitEntryTest))
+                if (TryEmitConsCallResult(
+                    clause.Body,
+                    direct,
+                    EmitListExtraction,
+                    (input, headRegister, clause.Patterns.Count, usesHead && usesTail),
+                    emitEntryTest
+                ))
                 {
                     return true;
                 }
@@ -940,7 +1066,13 @@ internal sealed partial class BeamModuleCompiler
             emitEntryTest?.Invoke();
             if (usesHead && usesTail)
             {
-                owner.EmitListParts(input, XRegisterTag, headRegister, XRegisterTag, tailRegister);
+                owner.EmitListParts(
+                    input,
+                    XRegisterTag,
+                    headRegister,
+                    XRegisterTag,
+                    tailRegister
+                );
             }
             else if (usesHead || usesTail)
             {
@@ -950,13 +1082,20 @@ internal sealed partial class BeamModuleCompiler
             }
 
             EmitConsEntryBody(clause, used);
+
             return true;
 
             void EmitListExtraction()
             {
                 if (usesHead && usesTail)
                 {
-                    owner.EmitListParts(input, XRegisterTag, headRegister, XRegisterTag, input);
+                    owner.EmitListParts(
+                        input,
+                        XRegisterTag,
+                        headRegister,
+                        XRegisterTag,
+                        input
+                    );
                 }
                 else if (usesHead || usesTail)
                 {
@@ -967,8 +1106,16 @@ internal sealed partial class BeamModuleCompiler
         }
 
         private bool TryEmitTupleHeadInRegisters(
-            Clause clause, int input, int failure, Pattern.Tuple tuple, Pattern.Variable tail,
-            List<(Pattern.Variable Variable, int Register)> bindings, Action? emitEntryTest, bool reuseListInput, bool allowFramedBody)
+            Clause clause,
+            int input,
+            int failure,
+            Pattern.Tuple tuple,
+            Pattern.Variable tail,
+            List<(Pattern.Variable Variable, int Register)> bindings,
+            Action? emitEntryTest,
+            bool reuseListInput,
+            bool allowFramedBody
+        )
         {
             int headRegister = clause.Patterns.Count;
             int tailRegister = headRegister + 1;
@@ -1020,7 +1167,12 @@ internal sealed partial class BeamModuleCompiler
                     registers[name] = lastDestination;
                 }
 
-                if (TryEmitRegisterConstructedArgument(call, registers, (tailRegister + 1, EmitFields), () => EmitTests(extractTail: true)))
+                if (TryEmitRegisterConstructedArgument(
+                    call,
+                    registers,
+                    (tailRegister + 1, EmitFields),
+                    () => EmitTests(extractTail: true)
+                ))
                 {
                     return true;
                 }
@@ -1051,10 +1203,16 @@ internal sealed partial class BeamModuleCompiler
                 }
                 else if (result.Register != 0)
                 {
-                    owner.MoveRegister(XRegisterTag, result.Register, XRegisterTag, 0);
+                    owner.MoveRegister(
+                        XRegisterTag,
+                        result.Register,
+                        XRegisterTag,
+                        0
+                    );
                 }
 
                 owner.instructions.WriteByte(Return);
+
                 return true;
             }
 
@@ -1071,6 +1229,7 @@ internal sealed partial class BeamModuleCompiler
             }
 
             EmitConsEntryBody(clause, used);
+
             return true;
 
             void EmitTests(bool extractTail)
@@ -1078,7 +1237,13 @@ internal sealed partial class BeamModuleCompiler
                 emitEntryTest?.Invoke();
                 if (extractTail)
                 {
-                    owner.EmitListParts(input, XRegisterTag, headRegister, XRegisterTag, tailRegister);
+                    owner.EmitListParts(
+                        input,
+                        XRegisterTag,
+                        headRegister,
+                        XRegisterTag,
+                        tailRegister
+                    );
                 }
                 else
                 {
@@ -1087,11 +1252,21 @@ internal sealed partial class BeamModuleCompiler
                 }
                 if (firstMember == 1)
                 {
-                    EmitDetailRecordTest(headRegister, tuple.Items.Count, tag, failure);
+                    EmitDetailRecordTest(
+                        headRegister,
+                        tuple.Items.Count,
+                        tag,
+                        failure
+                    );
                 }
                 else
                 {
-                    EmitTupleShapeTest(XRegisterTag, headRegister, tuple.Items.Count, failure);
+                    EmitTupleShapeTest(
+                        XRegisterTag,
+                        headRegister,
+                        tuple.Items.Count,
+                        failure
+                    );
                 }
 
                 foreach (var (index, literal) in tests)
@@ -1123,7 +1298,12 @@ internal sealed partial class BeamModuleCompiler
             foreach (var (variable, register) in used)
             {
                 int slot = Slot();
-                owner.MoveRegister(XRegisterTag, register, YRegisterTag, slot);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    register,
+                    YRegisterTag,
+                    slot
+                );
                 variables.Add(variable.Name, slot);
             }
 
@@ -1135,10 +1315,13 @@ internal sealed partial class BeamModuleCompiler
 
         }
 
-        private bool TryEmitConsCallResult(Expr body, (Pattern.Variable Variable, int Register)[] used,
+        private bool TryEmitConsCallResult(
+            Expr body,
+            (Pattern.Variable Variable, int Register)[] used,
             Action? emitBindings = null,
             (int Input, int Head, int Arity, bool Both)? cons = null,
-            Action? emitEntryTest = null)
+            Action? emitEntryTest = null
+        )
         {
             int live = used.Length == 0 ? 0 : used.Max(binding => binding.Register) + 1;
             var inputs = Enumerable.Repeat(VariableScopeNames.Wildcard, live).ToArray();
@@ -1147,14 +1330,24 @@ internal sealed partial class BeamModuleCompiler
                 inputs[register] = variable.Name;
             }
 
-            if (ReadConsCallResult(body, inputs, cons is { Both: true } pair ? pair.Head : -1,
-                cons is { Both: true } list ? list.Input : -1) is not { } result)
+            if (ReadConsCallResult(
+                body,
+                inputs,
+                cons is { Both: true } pair ? pair.Head : -1,
+                cons is { Both: true } list ? list.Input : -1
+            ) is not { } result)
             {
                 return false;
             }
 
             emitEntryTest?.Invoke();
-            EmitConsCallResult(result, cons?.Arity ?? live, emitBindings, cons?.Input ?? 0);
+            EmitConsCallResult(
+                result,
+                cons?.Arity ?? live,
+                emitBindings,
+                cons?.Input ?? 0
+            );
+
             return true;
         }
 
@@ -1171,8 +1364,8 @@ internal sealed partial class BeamModuleCompiler
                 {
                     Clauses:
                     [
-                        { Guard: { } guard, Body: var matched },
-                        { Guard: Expr.Literal { Value: Atom { Name: ErlangBooleanAtoms.True } }, Body: var fallback }
+                    { Guard: { } guard, Body: var matched },
+                    { Guard: Expr.Literal { Value: Atom { Name: ErlangBooleanAtoms.True } }, Body: var fallback }
                     ]
                 })
             {
@@ -1198,7 +1391,13 @@ internal sealed partial class BeamModuleCompiler
 
             int alternative = Label();
             emitEntryTest?.Invoke();
-            owner.EmitListParts(input, XRegisterTag, headRegister, XRegisterTag, input);
+            owner.EmitListParts(
+                input,
+                XRegisterTag,
+                headRegister,
+                XRegisterTag,
+                input
+            );
             owner.Op(test.Opcode, LabelTag, alternative);
             owner.Operand(XRegisterTag, test.Register);
             EmitConsCallResult(first, inputs.Length);
@@ -1218,7 +1417,12 @@ internal sealed partial class BeamModuleCompiler
             ConsHeadCall? HeadCall = null
         );
 
-        private ConsCallResult? ReadConsCallResult(Expr body, string[] inputs, int directHead = -1, int listInput = -1)
+        private ConsCallResult? ReadConsCallResult(
+            Expr body,
+            string[] inputs,
+            int directHead = -1,
+            int listInput = -1
+        )
         {
             if (body is not Expr.List { Items: [var head], Tail: Expr.Call call })
             {
@@ -1246,7 +1450,13 @@ internal sealed partial class BeamModuleCompiler
             }
             else
             {
-                return ReadComputedConsHead(head, call, inputs, directHead, listInput);
+                return ReadComputedConsHead(
+                    head,
+                    call,
+                    inputs,
+                    directHead,
+                    listInput
+                );
             }
 
             bool extractHead = headRegister >= 0 && headRegister == directHead;
@@ -1259,7 +1469,13 @@ internal sealed partial class BeamModuleCompiler
             }
 
             return ReadEntryCall(call, inputs, savedInputs) is { } plan
-                ? new(plan, saved, literal, tuple, extractHead) : null;
+                ? new(
+                    plan,
+                    saved,
+                    literal,
+                    tuple,
+                    extractHead
+                ) : null;
         }
 
         private void EmitConsCallResult(
@@ -1272,7 +1488,15 @@ internal sealed partial class BeamModuleCompiler
         {
             if (result.HeadCall is { } headCall)
             {
-                EmitComputedConsHead(result, headCall, live, emitBindings, listInput, previous);
+                EmitComputedConsHead(
+                    result,
+                    headCall,
+                    live,
+                    emitBindings,
+                    listInput,
+                    previous
+                );
+
                 return;
             }
 
@@ -1280,14 +1504,25 @@ internal sealed partial class BeamModuleCompiler
             EmitFrameAllocation(live, frame);
             if (result.ExtractHead)
             {
-                owner.EmitListParts(listInput, YRegisterTag, 0, XRegisterTag, listInput);
+                owner.EmitListParts(
+                    listInput,
+                    YRegisterTag,
+                    0,
+                    XRegisterTag,
+                    listInput
+                );
             }
             else
             {
                 emitBindings?.Invoke();
                 for (int slot = 0; slot < frame; slot++)
                 {
-                    owner.MoveRegister(XRegisterTag, result.Saved[slot], YRegisterTag, slot);
+                    owner.MoveRegister(
+                        XRegisterTag,
+                        result.Saved[slot],
+                        YRegisterTag,
+                        slot
+                    );
                 }
             }
 
@@ -1351,7 +1586,8 @@ internal sealed partial class BeamModuleCompiler
             (int Input, int Result, Term? Literal) empty,
             int label,
             int failure,
-            bool? properList = null)
+            bool? properList = null
+        )
         {
             Mark(label);
             if (!(properList ?? (parentFunction is not null && HasProperListEntry(parentFunction, empty.Input))))
@@ -1368,7 +1604,12 @@ internal sealed partial class BeamModuleCompiler
             }
             else if (empty.Result != 0)
             {
-                owner.MoveRegister(XRegisterTag, empty.Result, XRegisterTag, 0);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    empty.Result,
+                    XRegisterTag,
+                    0
+                );
             }
 
             owner.instructions.WriteByte(Return);
@@ -1380,22 +1621,28 @@ internal sealed partial class BeamModuleCompiler
                 {
                     Guard: null,
                     Patterns: [Pattern.Variable input],
-                    Body: Expr.Sequence { Items: [
+                    Body: Expr.Sequence
+                    {
+                        Items: [
                         Expr.Match
                         {
                             Pattern: Pattern.Variable binding,
                             Value: Expr.Case { Value: Expr.Variable tested, Clauses: [var empty, var nonempty] } decision
                         },
                         _, ..
-                    ] } sequence
+                    ]
+                    } sequence
                 }
                 || !DistinctBindings(input, binding) || tested.Name != input.Name
                 || empty is not { Guard: null, Patterns: [Pattern.List { Items.Count: 0, Tail: null } or Pattern.Literal { Value: Nil }] }
-                || nonempty is not { Guard: null, Patterns: [Pattern.List
+                || nonempty is not
+                {
+                    Guard: null, Patterns: [Pattern.List
                     {
                         Items: [Pattern.Variable { Name: VariableScopeNames.Wildcard }],
                         Tail: Pattern.Variable { Name: VariableScopeNames.Wildcard }
-                    }], Body: Expr.Variable passed }
+                    }], Body: Expr.Variable passed
+                }
                 || passed.Name != input.Name
                 || !AttributeLiteral.TryNormalizeConstant(empty.Body, out Term defaultValue))
             {
@@ -1433,6 +1680,7 @@ internal sealed partial class BeamModuleCompiler
             owner.EmitLine(decision.SourceLine == 0 ? location
                 : new BeamSourceLocation(decision.PreprocessorFile, decision.SourceLine));
             owner.Op(CaseEnd, XRegisterTag, 0);
+
             return true;
         }
     }

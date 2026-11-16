@@ -52,7 +52,14 @@ internal sealed partial class BeamModuleCompiler
 
             int frame = (int)body[start + 1].Operands[0].Value;
             if (frame < 2 || frame > BeamOperandParameters.MaximumRegister
-                || !ReadCallFrame(body, start + 2, end, frame, out var lastUse, out int release))
+                || !ReadCallFrame(
+                    body,
+                    start + 2,
+                    end,
+                    frame,
+                    out var lastUse,
+                    out int release
+                ))
             {
                 continue;
             }
@@ -202,6 +209,7 @@ internal sealed partial class BeamModuleCompiler
         }
 
         output.Write(code.Span[copied..]);
+
         return output.ToArray();
     }
 
@@ -234,6 +242,7 @@ internal sealed partial class BeamModuleCompiler
             if (size >= 0)
             {
                 release = index;
+
                 return instruction.Operands[size].Value == frame
                     && (opcode != Deallocate || index + 1 < end && body[index + 1].Definition.Opcode == Return);
             }

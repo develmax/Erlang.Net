@@ -8,16 +8,26 @@ internal sealed partial class BeamModuleCompiler
     {
         private bool TryEmitListenerSocketRecord(FunctionDefinition function)
         {
-            if (function.Clauses is not [{
-                Guard: null, Patterns: [AliasPattern alias, Pattern.Variable listener, Pattern.Variable port],
-                Body: Expr.Sequence { Items: [
+            if (function.Clauses is not [
+                {
+                    Guard: null, Patterns: [AliasPattern alias, Pattern.Variable listener, Pattern.Variable port],
+                    Body: Expr.Sequence
+                    {
+                        Items: [
                     Expr.Match { Pattern: Pattern.Variable socket, Value: Expr.RecordConstruction result },
                     Expr.Call { Module: null, DynamicRemote: false, Arguments: [Expr.Variable options, Expr.Variable argument] } check,
                     Expr.Variable returned
-                ] }
-            }] || !TryReadPatternAlias(alias, out var config, out var shape)
+                ]
+                    }
+                }] || !TryReadPatternAlias(alias, out var config, out var shape)
                 || shape is not Pattern.Tuple { Items: [Pattern.Literal { Value: Atom tag }, ..] } record
-                || !DistinctBindings(config, listener, port, socket, new(options.Name))
+                || !DistinctBindings(
+                    config,
+                    listener,
+                    port,
+                    socket,
+                    new(options.Name)
+                )
                 || socket.Name != argument.Name || socket.Name != returned.Name
                 || !entries.TryGetValue((check.Function, 2), out int target))
             {
@@ -68,9 +78,19 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
-            if (!AlwaysReceivesTaggedArgument(function, 0, tag, record.Items.Count))
+            if (!AlwaysReceivesTaggedArgument(
+                function,
+                0,
+                tag,
+                record.Items.Count
+            ))
             {
-                EmitDetailRecordTest(0, record.Items.Count, tag, owner.nextLabel - 2);
+                EmitDetailRecordTest(
+                    0,
+                    record.Items.Count,
+                    tag,
+                    owner.nextLabel - 2
+                );
             }
 
             owner.Op(AllocateHeap, BeamWire.UnsignedTag, 1);

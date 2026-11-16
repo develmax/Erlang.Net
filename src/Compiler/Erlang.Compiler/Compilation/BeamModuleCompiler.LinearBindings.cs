@@ -79,6 +79,7 @@ internal sealed partial class BeamModuleCompiler
             }
 
             owner.instructions.WriteByte(Return);
+
             return true;
         }
 
@@ -192,7 +193,12 @@ internal sealed partial class BeamModuleCompiler
                         && CanForwardLinearResult(bindings[index + 1].Value, binding);
                     if (!forwardResult)
                     {
-                        owner.MoveRegister(XRegisterTag, 0, YRegisterTag, DecoderSlot(slot));
+                        owner.MoveRegister(
+                            XRegisterTag,
+                            0,
+                            YRegisterTag,
+                            DecoderSlot(slot)
+                        );
                     }
                 }
             }
@@ -216,12 +222,18 @@ internal sealed partial class BeamModuleCompiler
         {
             int slot = variables[lastRead];
             Load(slot, 1);
-            owner.MoveRegister(XRegisterTag, 0, YRegisterTag, slot);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                slot
+            );
             owner.EmitConstant(call.Arguments[2], 2);
             owner.EmitConstant(call.Arguments[0], 0);
             owner.EmitCallLine(call, location);
             Call(call.Module, call.Function, 3);
         }
+
         private bool CanForwardLinearResult(Expr expression, string result) =>
             expression is Expr.Call
             {
@@ -244,7 +256,12 @@ internal sealed partial class BeamModuleCompiler
             {
                 // Stage the first argument in the last register while X0 still holds the previous result.
                 Load(variables[((Expr.Variable)call.Arguments[0]).Name], 2);
-                owner.MoveRegister(XRegisterTag, 0, YRegisterTag, variables[result]);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    0,
+                    YRegisterTag,
+                    variables[result]
+                );
                 Load(variables[((Expr.Variable)call.Arguments[1]).Name], 1);
                 owner.Op(Swap, XRegisterTag, 0);
                 owner.Operand(XRegisterTag, 2);
@@ -254,7 +271,12 @@ internal sealed partial class BeamModuleCompiler
                 // The first two independent moves leave X0 available for the spill.
                 Load(variables[((Expr.Variable)call.Arguments[2]).Name], 2);
                 Load(variables[((Expr.Variable)call.Arguments[1]).Name], 1);
-                owner.MoveRegister(XRegisterTag, 0, YRegisterTag, variables[result]);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    0,
+                    YRegisterTag,
+                    variables[result]
+                );
                 Load(variables[((Expr.Variable)call.Arguments[3]).Name], 3);
                 owner.EmitConstant(call.Arguments[0], 0);
             }
@@ -281,7 +303,12 @@ internal sealed partial class BeamModuleCompiler
                     if (incoming[variable.Name] >= arity)
                     {
                         // Argument writes cannot overwrite registers outside the destination range.
-                        owner.MoveRegister(XRegisterTag, incoming[variable.Name], XRegisterTag, index);
+                        owner.MoveRegister(
+                            XRegisterTag,
+                            incoming[variable.Name],
+                            XRegisterTag,
+                            index
+                        );
                     }
                     else
                     {
@@ -299,6 +326,7 @@ internal sealed partial class BeamModuleCompiler
 
             return true;
         }
+
         private bool TryEmitLinearCallListTuple(Expr.Tuple tuple)
         {
             if (!linearBindings || tuple.Items is not [Expr.Literal { Value: Atom tag },
@@ -356,10 +384,16 @@ internal sealed partial class BeamModuleCompiler
                 owner.Operand(XRegisterTag, destination);
             }
 
-            owner.EmitTagMatchTuple(0, (AtomTag, owner.Intern(tag.Name)), (AtomTag, owner.Intern(member.Name)), (XRegisterTag, 0));
+            owner.EmitTagMatchTuple(
+                0,
+                (AtomTag, owner.Intern(tag.Name)),
+                (AtomTag, owner.Intern(member.Name)),
+                (XRegisterTag, 0)
+            );
 
             return true;
         }
+
         private bool TryEmitLinearCaseListCall(Expr.Call call, Expr.List list)
         {
             if (linearCaseLive is null || call.Module is null or ErlangModuleNames.Module
@@ -426,6 +460,7 @@ internal sealed partial class BeamModuleCompiler
 
             return true;
         }
+
         private static Expr SubstituteConstants(Expr expression, IReadOnlyDictionary<string, Term> constants) => expression switch
         {
             Expr.Variable variable when constants.TryGetValue(variable.Name, out var value) => new Expr.Literal(value),
@@ -555,6 +590,7 @@ internal sealed partial class BeamModuleCompiler
             var prepared = decision with { Value = call };
             remainder[0] = assignment is null ? prepared : assignment with { Value = prepared };
             Expr body = remainder.Length == 1 ? remainder[0] : sequence with { Items = remainder };
+
             return function with { Clauses = [clause with { Body = body }] };
         }
 
@@ -613,6 +649,7 @@ internal sealed partial class BeamModuleCompiler
             }
 
             var constants = new Dictionary<string, Term>(StringComparer.Ordinal) { [binding.Name] = constant };
+
             return function with
             {
                 Clauses = [clause with

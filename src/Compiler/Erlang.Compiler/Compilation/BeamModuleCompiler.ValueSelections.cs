@@ -115,6 +115,7 @@ internal sealed partial class BeamModuleCompiler
         }
 
         output.Write(code.Span[copied..]);
+
         return output.ToArray();
     }
 }

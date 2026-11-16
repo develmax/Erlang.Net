@@ -11,10 +11,13 @@ internal sealed partial class BeamModuleCompiler
 
         private bool TryEmitClosureArgumentTail(FunctionDefinition function)
         {
-            if (function.Clauses is not [{ Guard: null, Body: Expr.Call
+            if (function.Clauses is not [
                 {
-                    Arguments: [Expr.Fun { SelfName: null } closure]
-                } call } clause]
+                    Guard: null, Body: Expr.Call
+                    {
+                        Arguments: [Expr.Fun { SelfName: null } closure]
+                    } call
+                } clause]
                 || !HasUnconditionalParameters(clause)
                 || !TryResolveOrdinaryCall(call, out string? module, preparedArgument: 0))
             {
@@ -52,6 +55,7 @@ internal sealed partial class BeamModuleCompiler
                 .ToDictionary(parameter => parameter.Name, parameter => parameter.Register, StringComparer.Ordinal);
             EmitGeneralClosure(closure, captureRegisters: registers);
             owner.instructions.WriteByte(Return);
+
             return true;
         }
 

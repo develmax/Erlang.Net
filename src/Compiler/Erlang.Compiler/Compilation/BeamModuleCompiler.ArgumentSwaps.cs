@@ -10,7 +10,13 @@ internal sealed partial class BeamModuleCompiler
         try
         {
             body = BeamInstructionReader.Read(
-                new BeamCodeHeader(BeamWire.FormatVersion, highestOpcode, nextLabel, exports.Count + locals.Count, code),
+                new BeamCodeHeader(
+                    BeamWire.FormatVersion,
+                    highestOpcode,
+                    nextLabel,
+                    exports.Count + locals.Count,
+                    code
+                ),
                 atoms.Count + 1,
                 literalBytes.Count
             );
@@ -65,7 +71,12 @@ internal sealed partial class BeamModuleCompiler
                 continue;
             }
 
-            int closingMove = FindSwapClosingMove(body, index + 2, temporary, second);
+            int closingMove = FindSwapClosingMove(
+                body,
+                index + 2,
+                temporary,
+                second
+            );
             if (closingMove < 0)
             {
                 continue;
@@ -86,6 +97,7 @@ internal sealed partial class BeamModuleCompiler
         }
 
         output.Write(code.Span[copied..]);
+
         return output.ToArray();
     }
 
@@ -100,8 +112,10 @@ internal sealed partial class BeamModuleCompiler
         }
 
         if (index == start || index >= body.Count || body[index] is not
-            { Definition.Opcode: Swap, Operands: [
-                { Kind: BeamOperandParameters.Y } slot, { Kind: BeamOperandParameters.X } argument] }
+            {
+                Definition.Opcode: Swap, Operands: [
+                { Kind: BeamOperandParameters.Y } slot, { Kind: BeamOperandParameters.X } argument]
+            }
             || !argument.Value.IsZero)
         {
             return -1;

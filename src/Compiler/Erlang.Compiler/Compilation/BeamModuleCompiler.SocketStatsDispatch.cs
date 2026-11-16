@@ -8,16 +8,26 @@ internal sealed partial class BeamModuleCompiler
     {
         private bool TryEmitSocketStatsDispatch(FunctionDefinition function)
         {
-            if (function.Clauses is not [var pidClause, var nestedClause, var pairClause, var plainClause, {
-                Guard: null, Patterns: [Pattern.Variable module, Pattern.Variable socket, Pattern.Variable options],
-                Body: Expr.Call { DynamicRemote: true, Arguments: [
+            if (function.Clauses is not [var pidClause, var nestedClause, var pairClause, var plainClause,
+                {
+                    Guard: null, Patterns: [Pattern.Variable module, Pattern.Variable socket, Pattern.Variable options],
+                    Body: Expr.Call
+                    {
+                        DynamicRemote: true, Arguments: [
                     Expr.Variable target, Expr.Literal { Value: Atom member },
                     Expr.List { Tail: null, Items: [Expr.Variable socketArg, Expr.Variable optionArg] }
-                ] } dynamicCall
-            }] || !DistinctBindings(module, socket, options)
+                ]
+                    } dynamicCall
+                }] || !DistinctBindings(module, socket, options)
                 || target.Name != module.Name || socketArg.Name != socket.Name || optionArg.Name != options.Name
-                || pidClause is not { Guard: Expr.Call { Module: null or ErlangModuleNames.Module, DynamicRemote: false,
-                    Function: AutoImportNames.IsPid, Arguments: [Expr.Variable checkedPid] } pidTest }
+                || pidClause is not
+                {
+                    Guard: Expr.Call
+                    {
+                        Module: null or ErlangModuleNames.Module, DynamicRemote: false,
+                        Function: AutoImportNames.IsPid, Arguments: [Expr.Variable checkedPid]
+                    } pidTest
+                }
                 || !owner.ResolvesErlangBif(pidTest)
                 || nestedClause.Guard is not null || pairClause.Guard is not null || plainClause.Guard is not null
                 || ReadStatsTail(pidClause, 0) is not { } pid
@@ -37,7 +47,12 @@ internal sealed partial class BeamModuleCompiler
             EmitConfigurationAtomTest(pid.Transport, dynamic);
             owner.Op(IsPid, LabelTag, tuple);
             owner.Operand(XRegisterTag, 1);
-            owner.MoveRegister(XRegisterTag, 1, XRegisterTag, 0);
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                XRegisterTag,
+                0
+            );
             EmitSocketExternalTail(pid.Call);
             Mark(tuple);
             owner.EmitTupleCheck(1, 2, noTuple);
@@ -48,7 +63,12 @@ internal sealed partial class BeamModuleCompiler
             Mark(direct);
             EmitSocketExternalTail(pair.Call);
             Mark(noTuple);
-            owner.MoveRegister(XRegisterTag, 1, XRegisterTag, 0);
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                XRegisterTag,
+                0
+            );
             EmitSocketExternalTail(plain.Call);
             Mark(dynamic);
             EmitDynamicSocketTail(dynamicCall, member);
@@ -58,9 +78,15 @@ internal sealed partial class BeamModuleCompiler
 
         private (Atom Transport, Pattern.Variable Socket, Expr.Call Call)? ReadStatsTail(Clause clause, int depth)
         {
-            if (clause is not { Patterns: [Pattern.Literal { Value: Atom transport }, var pattern, Pattern.Variable options],
-                Body: Expr.Call { Module: not null, DynamicRemote: false,
-                    Arguments: [Expr.Variable socketArg, Expr.Variable optionArg] } call }
+            if (clause is not
+                {
+                    Patterns: [Pattern.Literal { Value: Atom transport }, var pattern, Pattern.Variable options],
+                    Body: Expr.Call
+                    {
+                        Module: not null, DynamicRemote: false,
+                        Arguments: [Expr.Variable socketArg, Expr.Variable optionArg]
+                    } call
+                }
                 || optionArg.Name != options.Name || owner.ResolvesErlangBif(call))
             {
                 return null;

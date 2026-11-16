@@ -36,7 +36,12 @@ internal static class BeamOtpEtfCompression
         byte[] body = plain.AsSpan(VersionSize).ToArray();
         uint compressedSize = checked((uint)(plain.Length - CompressedHeaderSize));
         byte[] compressed = new byte[compressedSize];
-        int status = Compress(body, (uint)body.Length, compressed, ref compressedSize);
+        int status = Compress(
+            body,
+            (uint)body.Length,
+            compressed,
+            ref compressedSize
+        );
         if (status == BufferError)
         {
             return plain;

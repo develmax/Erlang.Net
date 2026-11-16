@@ -53,7 +53,12 @@ internal sealed partial class BeamModuleCompiler
 
         Op(Allocate, BeamWire.UnsignedTag, 1);
         Operand(BeamWire.UnsignedTag, 2);
-        MoveRegister(XRegisterTag, carried.Name == first.Name ? 0 : 1, YRegisterTag, 0);
+        MoveRegister(
+            XRegisterTag,
+            carried.Name == first.Name ? 0 : 1,
+            YRegisterTag,
+            0
+        );
         EmitArithmeticLine(append.SourceLine, ref location);
         Op(ExternalCall, BeamWire.UnsignedTag, 2);
         Operand(BeamWire.UnsignedTag, Import(ErlangModuleNames.Module, ErlangOperators.Append, 2));
@@ -108,6 +113,7 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
             instructions.WriteByte(Return);
+
             return true;
         }
         if (!IsDirectAppend(append))
@@ -120,7 +126,13 @@ internal sealed partial class BeamModuleCompiler
             SourceLine = append.SourceLine,
             PreprocessorFile = location.File
         };
-        EmitCall(clause, location, call, entries);
+        EmitCall(
+            clause,
+            location,
+            call,
+            entries
+        );
+
         return true;
     }
 }

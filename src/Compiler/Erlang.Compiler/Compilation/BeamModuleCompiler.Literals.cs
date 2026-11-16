@@ -78,12 +78,15 @@ internal sealed partial class BeamModuleCompiler
         {
             case Atom atom:
                 Operand(AtomTag, Intern(atom.Name));
+
                 return;
             case Nil:
                 Operand(AtomTag, NilAtomIndex);
+
                 return;
             case Integer integer:
                 Operand(BeamWire.IntegerTag, integer.Value);
+
                 return;
         }
 
@@ -112,6 +115,7 @@ internal sealed partial class BeamModuleCompiler
             using var compressed = new System.IO.Compression.ZLibStream(
                 output, System.IO.Compression.CompressionLevel.Optimal, leaveOpen: true);
             compressed.Write(table);
+
             return;
         }
 

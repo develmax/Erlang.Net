@@ -16,18 +16,42 @@ internal sealed partial class BeamModuleCompiler
             || encode is not
             {
                 Guard: null,
-                Patterns: [Pattern.List { Items: [Pattern.Tuple { Items: [
+                Patterns: [Pattern.List
+                {
+                    Items: [Pattern.Tuple
+                    {
+                        Items: [
                     Pattern.Variable { Name: VariableScopeNames.Wildcard },
-                    Pattern.Variable { Name: VariableScopeNames.Wildcard }, Pattern.Variable shape] }], Tail: Pattern.Variable fields },
+                    Pattern.Variable { Name: VariableScopeNames.Wildcard }, Pattern.Variable shape]
+                    }], Tail: Pattern.Variable fields
+                },
                     Pattern.List { Items: [Pattern.Variable value], Tail: Pattern.Variable values }],
-                Body: Expr.List { Items: [Expr.Call { Module: null, Arguments: [Expr.Variable selected, Expr.Variable input] } convert],
-                    Tail: Expr.Call { Module: null, Arguments: [Expr.Variable remainingFields, Expr.Variable remainingValues] } recur }
+                Body: Expr.List
+                {
+                    Items: [Expr.Call { Module: null, Arguments: [Expr.Variable selected, Expr.Variable input] } convert],
+                    Tail: Expr.Call { Module: null, Arguments: [Expr.Variable remainingFields, Expr.Variable remainingValues] } recur
+                }
             }
-            || !DistinctBindings(shape, fields, value, values)
+            || !DistinctBindings(
+                shape,
+                fields,
+                value,
+                values
+            )
             || selected.Name != shape.Name || input.Name != value.Name
             || remainingFields.Name != fields.Name || remainingValues.Name != values.Name
-            || !IsSkippedField(optional, "optional", recur.Function, false)
-            || !IsSkippedField(defaulted, "default_false", recur.Function, true))
+            || !IsSkippedField(
+                optional,
+                "optional",
+                recur.Function,
+                false
+            )
+            || !IsSkippedField(
+                defaulted,
+                "default_false",
+                recur.Function,
+                true
+            ))
         {
             return null;
         }
@@ -38,13 +62,24 @@ internal sealed partial class BeamModuleCompiler
     private static bool IsEmptyListPattern(Pattern pattern) =>
         pattern is Pattern.List { Items.Count: 0, Tail: null } or Pattern.Literal { Value: Nil };
 
-    private static bool IsSkippedField(Clause clause, string presence, string recur, bool hasDefault)
+    private static bool IsSkippedField(
+        Clause clause,
+        string presence,
+        string recur,
+        bool hasDefault
+    )
     {
         if (clause is not
             {
-                Patterns: [Pattern.List { Items: [Pattern.Tuple { Items: [
+                Patterns: [Pattern.List
+                {
+                    Items: [Pattern.Tuple
+                    {
+                        Items: [
                     Pattern.Variable { Name: VariableScopeNames.Wildcard }, Pattern.Literal { Value: Atom mode },
-                    Pattern.Variable { Name: VariableScopeNames.Wildcard }] }], Tail: Pattern.Variable fields },
+                    Pattern.Variable { Name: VariableScopeNames.Wildcard }]
+                    }], Tail: Pattern.Variable fields
+                },
                     Pattern.List { Items: [var head], Tail: Pattern.Variable values }],
                 Body: Expr.Call { Module: null, Arguments: [Expr.Variable restFields, Expr.Variable restValues] } call
             } || mode.Name != presence || call.Function != recur || !DistinctBindings(fields, values)
@@ -79,24 +114,66 @@ internal sealed partial class BeamModuleCompiler
         int encode = nextLabel++;
         int empty = nextLabel++;
         EmitNonemptyList(0, empty);
-        EmitListParts(0, XRegisterTag, 2, XRegisterTag, 3);
+        EmitListParts(
+            0,
+            XRegisterTag,
+            2,
+            XRegisterTag,
+            3
+        );
         EmitTupleCheck(2, 3, functionInfo);
         EmitTuplePart(2, 1, 4);
-        EmitAtomSelection(4, encode, "default_false", defaulted, "optional", optional);
+        EmitAtomSelection(
+            4,
+            encode,
+            "default_false",
+            defaulted,
+            "optional",
+            optional
+        );
 
         Op(Label, BeamWire.UnsignedTag, optional);
         EmitNonemptyList(1, functionInfo);
-        EmitListParts(1, XRegisterTag, 4, XRegisterTag, 5);
+        EmitListParts(
+            1,
+            XRegisterTag,
+            4,
+            XRegisterTag,
+            5
+        );
         EmitAtomTest(4, "asn1_NOVALUE", encode);
         Op(Jump, LabelTag, skip);
 
         Op(Label, BeamWire.UnsignedTag, defaulted);
         EmitNonemptyList(1, functionInfo);
-        EmitListParts(1, XRegisterTag, 4, XRegisterTag, 5);
-        EmitAtomSelection(4, encode, "asn1_DEFAULT", skip, "false", skip);
+        EmitListParts(
+            1,
+            XRegisterTag,
+            4,
+            XRegisterTag,
+            5
+        );
+        EmitAtomSelection(
+            4,
+            encode,
+            "asn1_DEFAULT",
+            skip,
+            "false",
+            skip
+        );
         Op(Label, BeamWire.UnsignedTag, skip);
-        MoveRegister(XRegisterTag, 5, XRegisterTag, 1);
-        MoveRegister(XRegisterTag, 3, XRegisterTag, 0);
+        MoveRegister(
+            XRegisterTag,
+            5,
+            XRegisterTag,
+            1
+        );
+        MoveRegister(
+            XRegisterTag,
+            3,
+            XRegisterTag,
+            0
+        );
         Op(TailLocalCall, BeamWire.UnsignedTag, 2);
         Operand(LabelTag, recur);
 
@@ -104,15 +181,31 @@ internal sealed partial class BeamModuleCompiler
         EmitNonemptyList(1, functionInfo);
         Op(Allocate, BeamWire.UnsignedTag, 2);
         Operand(BeamWire.UnsignedTag, 4);
-        MoveRegister(XRegisterTag, 3, YRegisterTag, 1);
-        EmitListParts(1, XRegisterTag, 1, YRegisterTag, 0);
+        MoveRegister(
+            XRegisterTag,
+            3,
+            YRegisterTag,
+            1
+        );
+        EmitListParts(
+            1,
+            XRegisterTag,
+            1,
+            YRegisterTag,
+            0
+        );
         EmitTuplePart(2, 2, 0);
         EmitCallLine(flow.Convert, location);
         Op(LocalCall, BeamWire.UnsignedTag, 2);
         Operand(LabelTag, convert);
         Op(Swap, YRegisterTag, 1);
         Operand(XRegisterTag, 0);
-        MoveRegister(YRegisterTag, 0, XRegisterTag, 1);
+        MoveRegister(
+            YRegisterTag,
+            0,
+            XRegisterTag,
+            1
+        );
         Op(TrimFrame, BeamWire.UnsignedTag, 1);
         Operand(BeamWire.UnsignedTag, 1);
         EmitCallLine(flow.Recur, CallLocation(flow.Convert, location));
@@ -140,7 +233,13 @@ internal sealed partial class BeamModuleCompiler
         Operand(XRegisterTag, register);
     }
 
-    private void EmitListParts(int input, int headTag, int head, int tailTag, int tail)
+    private void EmitListParts(
+        int input,
+        int headTag,
+        int head,
+        int tailTag,
+        int tail
+    )
     {
         Op(GetList, XRegisterTag, input);
         Operand(headTag, head);
@@ -168,7 +267,14 @@ internal sealed partial class BeamModuleCompiler
         Operand(XRegisterTag, output);
     }
 
-    private void EmitAtomSelection(int register, int failure, string first, int firstLabel, string second, int secondLabel)
+    private void EmitAtomSelection(
+        int register,
+        int failure,
+        string first,
+        int firstLabel,
+        string second,
+        int secondLabel
+    )
     {
         Op(SelectValue, XRegisterTag, register);
         Operand(LabelTag, failure);

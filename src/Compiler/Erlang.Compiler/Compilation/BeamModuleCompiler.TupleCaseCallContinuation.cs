@@ -71,7 +71,12 @@ internal sealed partial class BeamModuleCompiler
                 && !effects.Items.OfType<Expr.Match>().Any(match =>
                     match.Pattern is Pattern.Variable binding && binding.Name != VariableScopeNames.Wildcard
                     && parameters.Contains(binding.Name))
-                ? ReadRegisterCaseCallSequence(fallback, null, saved, allowConstant: true) : null;
+                ? ReadRegisterCaseCallSequence(
+                    fallback,
+                    null,
+                    saved,
+                    allowConstant: true
+                ) : null;
             if (otherwise is null && alternativeCalls is null)
             {
                 return false;
@@ -125,14 +130,31 @@ internal sealed partial class BeamModuleCompiler
                 if (statements.OfType<Expr.Match>().Any(match => match.Pattern is Pattern.Variable binding
                         && binding.Name != VariableScopeNames.Wildcard && (parameters.Contains(binding.Name)
                             || fields.Contains(binding.Name)))
-                    || (callSequence = ReadRegisterCaseCallSequence(continuation, forwardPayload ? payload : null, branchSlots, selectorRegister: forwardPayload ? payloadArgument : 0)) is null)
+                    || (callSequence = ReadRegisterCaseCallSequence(
+                        continuation,
+                        forwardPayload ? payload : null,
+                        branchSlots,
+                        selectorRegister: forwardPayload ? payloadArgument : 0
+                    )) is null)
                 {
                     return false;
                 }
             }
 
-            var selector = new EntrySelector(select, null, liveInputs, [], 0, []);
-            EmitEntrySelector(selector, producer, parameters, trailingSlots: frame - liveInputs.Length);
+            var selector = new EntrySelector(
+                select,
+                null,
+                liveInputs,
+                [],
+                0,
+                []
+            );
+            EmitEntrySelector(
+                selector,
+                producer,
+                parameters,
+                trailingSlots: frame - liveInputs.Length
+            );
             int alternate = Label();
             int failure = Label();
             owner.Op(IsTuple, LabelTag, alternate);
@@ -144,7 +166,13 @@ internal sealed partial class BeamModuleCompiler
                 var step = path[index];
                 if (step.Tag is { } tag)
                 {
-                    EmitDetailRecordTest(register, step.Arity, tag, failure, index == 0 ? TupleTypeBits : 0);
+                    EmitDetailRecordTest(
+                        register,
+                        step.Arity,
+                        tag,
+                        failure,
+                        index == 0 ? TupleTypeBits : 0
+                    );
                 }
                 else if (index == 0)
                 {
@@ -154,12 +182,22 @@ internal sealed partial class BeamModuleCompiler
                 }
                 else
                 {
-                    EmitTupleShapeTest(XRegisterTag, register, step.Arity, failure);
+                    EmitTupleShapeTest(
+                        XRegisterTag,
+                        register,
+                        step.Arity,
+                        failure
+                    );
                 }
 
                 if (index < path.Length - 1)
                 {
-                    EmitProjectionChecks(step, register, failure, liveInputs);
+                    EmitProjectionChecks(
+                        step,
+                        register,
+                        failure,
+                        liveInputs
+                    );
                     owner.EmitTuplePart(register, step.Field, 1);
                     register = 1;
                     continue;
@@ -167,7 +205,12 @@ internal sealed partial class BeamModuleCompiler
 
                 if (forwardPayload)
                 {
-                    EmitProjectionChecks(step, register, failure, liveInputs);
+                    EmitProjectionChecks(
+                        step,
+                        register,
+                        failure,
+                        liveInputs
+                    );
                     owner.EmitTuplePart(register, step.Field, payloadArgument);
                     break;
                 }
@@ -204,7 +247,12 @@ internal sealed partial class BeamModuleCompiler
                 }
                 else
                 {
-                    EmitProjectionChecks(step, register, failure, liveInputs);
+                    EmitProjectionChecks(
+                        step,
+                        register,
+                        failure,
+                        liveInputs
+                    );
                 }
             }
 
@@ -218,7 +266,12 @@ internal sealed partial class BeamModuleCompiler
                 owner.EmitOrderedTailMoves(call!.Moves, call.Constants, call.SavedInputs);
                 if (temporary != frame - 1)
                 {
-                    owner.MoveRegister(YRegisterTag, temporary, YRegisterTag, frame - 1);
+                    owner.MoveRegister(
+                        YRegisterTag,
+                        temporary,
+                        YRegisterTag,
+                        frame - 1
+                    );
                 }
 
                 if (frame > 1)
@@ -239,7 +292,12 @@ internal sealed partial class BeamModuleCompiler
             owner.LiteralOperand(alternative);
             if (alternativeCalls is not null)
             {
-                EmitRegisterCaseCallSequence(alternativeCalls, previous, frame, compact: alternativeCalls.ReturnConstant is not null);
+                EmitRegisterCaseCallSequence(
+                    alternativeCalls,
+                    previous,
+                    frame,
+                    compact: alternativeCalls.ReturnConstant is not null
+                );
             }
             else
             {

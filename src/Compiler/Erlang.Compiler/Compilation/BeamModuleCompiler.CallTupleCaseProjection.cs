@@ -6,7 +6,12 @@ internal sealed partial class BeamModuleCompiler
 {
     private sealed partial class GeneralEmitter
     {
-        private sealed record TupleProjectionStep(int Arity, Atom? Tag, int Field, (int Field, int Input)[] Checks);
+        private sealed record TupleProjectionStep(
+            int Arity,
+            Atom? Tag,
+            int Field,
+            (int Field, int Input)[] Checks
+        );
 
         private bool TryEmitCallTupleCaseProjection(Clause clause)
         {
@@ -76,7 +81,12 @@ internal sealed partial class BeamModuleCompiler
                     && TryReadPatternAlias(alias, out var tupleAlias, out var shape)
                     && tupleAlias.Name == whole.Name && !Semantics.Variables(shape).Contains(tupleAlias.Name)
                     && shape is Pattern.Tuple rootPattern
-                    && ReadTupleProjection(rootPattern, whole.Name, parameters, wholeTuple: true) is { } wholePath)
+                    && ReadTupleProjection(
+                        rootPattern,
+                        whole.Name,
+                        parameters,
+                        wholeTuple: true
+                    ) is { } wholePath)
                 {
                     paths.Add(wholePath);
                 }
@@ -99,7 +109,7 @@ internal sealed partial class BeamModuleCompiler
                     }
                 }
                 else if (decision.Clauses.Count == 2 && arm is
-                    { Guard: null, Patterns: [Pattern.Literal { Value: Atom atom }] })
+                { Guard: null, Patterns: [Pattern.Literal { Value: Atom atom }] })
                 {
                     fallbackAtom = atom;
                     if (arm.Body is Expr.Call tail && ReadEntryCall(tail, []) is { } target)
@@ -153,7 +163,12 @@ internal sealed partial class BeamModuleCompiler
                 .Concat(savedTail is null ? [] : LocalFunctionEntries.Walk(savedTail).OfType<Expr.Variable>()
                     .Select(variable => Array.IndexOf(parameters, variable.Name)).Where(index => index >= 0))
                 .Distinct().OrderDescending().ToArray();
-            if (ReadEntrySelector(producer, parameters, inputs, trimFrame: false) is not { } selector)
+            if (ReadEntrySelector(
+                producer,
+                parameters,
+                inputs,
+                trimFrame: false
+            ) is not { } selector)
             {
                 return false;
             }
@@ -171,7 +186,12 @@ internal sealed partial class BeamModuleCompiler
 
             if (savedTail is not null)
             {
-                fallbackCall = ReadEntryCall(savedTail, [], selector.StackInputs, allowControlTransfer: true)
+                fallbackCall = ReadEntryCall(
+                    savedTail,
+                    [],
+                    selector.StackInputs,
+                    allowControlTransfer: true
+                )
                     ?? ReadStraightConstructedCall(
                         savedTail,
                         null,
@@ -239,8 +259,21 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 int register = fallback is not null && fallbackAtom is null ? 0 : 1;
-                EmitTupleProjection(paths[0], 0, register, failure, selectorType, inputs, frame,
-                    shapeChecked: fallbackAtom is not null, result: tupleResult, typeSavedChecks: fallbackInput >= 0 || savedTail is not null, tail: projectedCall, previous: previous, projectedFields: projectedFields);
+                EmitTupleProjection(
+                    paths[0],
+                    0,
+                    register,
+                    failure,
+                    selectorType,
+                    inputs,
+                    frame,
+                    shapeChecked: fallbackAtom is not null,
+                    result: tupleResult,
+                    typeSavedChecks: fallbackInput >= 0 || savedTail is not null,
+                    tail: projectedCall,
+                    previous: previous,
+                    projectedFields: projectedFields
+                );
                 if (fallbackAtom is not null)
                 {
                     Mark(alternative);
@@ -254,7 +287,12 @@ internal sealed partial class BeamModuleCompiler
                     {
                         if (savedTail is not null)
                         {
-                            EmitSavedCallArguments(new SavedCallStep(fallbackCall, null, false, []), Enumerable.Range(0, frame).ToArray());
+                            EmitSavedCallArguments(new SavedCallStep(
+                                fallbackCall,
+                                null,
+                                false,
+                                []
+                            ), Enumerable.Range(0, frame).ToArray());
                         }
                         else
                         {
@@ -264,7 +302,12 @@ internal sealed partial class BeamModuleCompiler
                     }
                     else if (fallbackInput >= 0)
                     {
-                        owner.MoveRegister(YRegisterTag, Array.IndexOf(inputs, fallbackInput), XRegisterTag, 0);
+                        owner.MoveRegister(
+                            YRegisterTag,
+                            Array.IndexOf(inputs, fallbackInput),
+                            XRegisterTag,
+                            0
+                        );
                         owner.EmitFrameReturn(frame);
                     }
                     else
@@ -295,7 +338,13 @@ internal sealed partial class BeamModuleCompiler
                 var ordered = paths.OrderByDescending(path => path[0].Tag!, atomOrder).ToArray();
                 int[] labels = ordered.Select(_ => Label()).ToArray();
                 int failure = Label();
-                EmitTupleShapeTest(XRegisterTag, 0, root.Arity, failure, selectorType);
+                EmitTupleShapeTest(
+                    XRegisterTag,
+                    0,
+                    root.Arity,
+                    failure,
+                    selectorType
+                );
                 owner.EmitTuplePart(0, 0, 1);
                 bool sharedField = ordered.All(path => path[0].Field == root.Field);
                 if (sharedField)
@@ -311,12 +360,22 @@ internal sealed partial class BeamModuleCompiler
                 {
                     Mark(labels[index]);
                     var path = ordered[index];
-                    EmitProjectionChecks(path[0], 0, failure, inputs);
+                    EmitProjectionChecks(
+                        path[0],
+                        0,
+                        failure,
+                        inputs
+                    );
                     if (path.Length == 1)
                     {
                         if (sharedField)
                         {
-                            owner.MoveRegister(XRegisterTag, payloadRegister, XRegisterTag, 0);
+                            owner.MoveRegister(
+                                XRegisterTag,
+                                payloadRegister,
+                                XRegisterTag,
+                                0
+                            );
                         }
                         else
                         {
@@ -333,7 +392,15 @@ internal sealed partial class BeamModuleCompiler
                             owner.EmitTuplePart(0, path[0].Field, register);
                         }
 
-                        EmitTupleProjection(path.Skip(1), register, register, failure, 0, inputs, frame);
+                        EmitTupleProjection(
+                            path.Skip(1),
+                            register,
+                            register,
+                            failure,
+                            0,
+                            inputs,
+                            frame
+                        );
                     }
                 }
 
@@ -418,7 +485,12 @@ internal sealed partial class BeamModuleCompiler
 
                 if (wholeTuple)
                 {
-                    return field < 0 ? [new TupleProjectionStep(tuple.Items.Count, tag, -1, checks.ToArray())] : null;
+                    return field < 0 ? [new TupleProjectionStep(
+                        tuple.Items.Count,
+                        tag,
+                        -1,
+                        checks.ToArray()
+                    )] : null;
                 }
 
                 if (field < 0)
@@ -426,7 +498,12 @@ internal sealed partial class BeamModuleCompiler
                     return null;
                 }
 
-                steps.Add(new TupleProjectionStep(tuple.Items.Count, tag, field, checks.ToArray()));
+                steps.Add(new TupleProjectionStep(
+                    tuple.Items.Count,
+                    tag,
+                    field,
+                    checks.ToArray()
+                ));
                 if (member is Erlang.Pattern.Variable)
                 {
                     return steps.ToArray();
@@ -464,7 +541,13 @@ internal sealed partial class BeamModuleCompiler
                         owner.EmitTypedRegister(input, selectorType);
                     }
 
-                    EmitDetailRecordTest(input, step.Arity, tag, failure, selectorType != 0 || shapeChecked ? TupleTypeBits : 0);
+                    EmitDetailRecordTest(
+                        input,
+                        step.Arity,
+                        tag,
+                        failure,
+                        selectorType != 0 || shapeChecked ? TupleTypeBits : 0
+                    );
                 }
                 else if (shapeChecked)
                 {
@@ -474,10 +557,22 @@ internal sealed partial class BeamModuleCompiler
                 }
                 else
                 {
-                    EmitTupleShapeTest(XRegisterTag, input, step.Arity, failure, selectorType);
+                    EmitTupleShapeTest(
+                        XRegisterTag,
+                        input,
+                        step.Arity,
+                        failure,
+                        selectorType
+                    );
                 }
 
-                EmitProjectionChecks(step, input, failure, inputs, typed: result is not null || typeSavedChecks);
+                EmitProjectionChecks(
+                    step,
+                    input,
+                    failure,
+                    inputs,
+                    typed: result is not null || typeSavedChecks
+                );
                 if (result is not null && index == steps.Length - 1)
                 {
                     EmitCaseTuple(result with { EntryLive = input + 1 }, (step.Field, 0), extractionSource: input);

@@ -2,7 +2,13 @@ internal static class OtpAsn1Source
 {
     internal static string Generate(string root, string report)
     {
-        string input = Path.Combine(root, "lib", "eldap-1.3.1", "asn1", "ELDAPv3.asn1");
+        string input = Path.Combine(
+            root,
+            "lib",
+            "eldap-1.3.1",
+            "asn1",
+            "ELDAPv3.asn1"
+        );
         var schema = new Asn1BerSchema(File.ReadAllText(input));
         if (schema.Name != "ELDAPv3")
         {

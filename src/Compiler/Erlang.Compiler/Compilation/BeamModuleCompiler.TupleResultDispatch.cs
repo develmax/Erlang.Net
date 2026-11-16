@@ -16,8 +16,8 @@ internal sealed partial class BeamModuleCompiler
     {
         if (function.Clauses is not
             [
-                { Guard: null, Patterns: [Pattern.Literal { Value: Atom tag }, ..], Body: Expr.Tuple } first,
-                { Guard: null } fallback
+            { Guard: null, Patterns: [Pattern.Literal { Value: Atom tag }, ..], Body: Expr.Tuple } first,
+            { Guard: null } fallback
             ]
             || !HasUnconditionalParameters(fallback)
             || Read(first, 1) is not { } accepted || Read(fallback, 0) is not { } rejected)
@@ -123,10 +123,13 @@ internal sealed partial class BeamModuleCompiler
             if (clause is not
                 {
                     Guard: null,
-                    Patterns: [Pattern.Tuple { Items: [
+                    Patterns: [Pattern.Tuple
+                    {
+                        Items: [
                         Pattern.Literal { Value: Atom first }, Pattern.Literal { Value: Atom second },
                         Pattern.Literal { Value: Integer third }
-                    ] }]
+                    ]
+                    }]
                 }
                 || !AttributeLiteral.TryNormalizeConstant(clause.Body, out Term result)
                 || !rows.TryAdd((first, second, third), result))
@@ -186,11 +189,17 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        var root = Decide(1, rows.GroupBy(row => row.Key.First).OrderBy(group => group.Key, order)
-            .Select(group => ((Term)group.Key, Decide(2, group.GroupBy(row => row.Key.Second).OrderBy(member => member.Key, order)
+        var root = Decide(
+            1,
+            rows.GroupBy(row => row.Key.First).OrderBy(group => group.Key, order)
+            .Select(group => ((Term)group.Key, Decide(
+                2,
+                group.GroupBy(row => row.Key.Second).OrderBy(member => member.Key, order)
                 .Select(member => ((Term)member.Key, Decide(0, member.OrderBy(row => row.Key.Third.Value)
                     .Select(row => ((Term)row.Key.Third, ReturnBlock(row.Value))).ToArray())))
-                .ToArray()))).ToArray());
+                .ToArray()
+            ))).ToArray()
+        );
         foreach (var (_, target) in root.Choices.Reverse())
         {
             Visit(target);

@@ -11,16 +11,25 @@ internal sealed partial class BeamModuleCompiler
             if (function.Clauses is not [
                 {
                     Guard: null, Patterns: [Pattern.Variable input],
-                    Body: Expr.Case { Value: Expr.Call { Module: not null, DynamicRemote: false, Arguments: [Expr.Variable argument] } read,
-                        Clauses: [var errorClause, var successClause, ..] } decision
+                    Body: Expr.Case
+                    {
+                        Value: Expr.Call { Module: not null, DynamicRemote: false, Arguments: [Expr.Variable argument] } read,
+                        Clauses: [var errorClause, var successClause, ..]
+                    } decision
                 }
             ] || argument.Name != input.Name || errorClause is not
+            {
+                Guard: null, Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom errorTag }, Pattern.Variable errorInfo, ..] } errorPattern],
+                Body: Expr.Call
                 {
-                    Guard: null, Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom errorTag }, Pattern.Variable errorInfo, ..] } errorPattern],
-                    Body: Expr.Call { Arguments: [Expr.Tuple { Items: [Expr.Literal { Value: Atom context },
+                    Arguments: [Expr.Tuple
+                    {
+                        Items: [Expr.Literal { Value: Atom context },
                         Expr.Tuple { Items: [Expr.Literal { Value: Atom reason }, Expr.Variable info, ..] } details
-                    ] }] } error
-                } || info.Name != errorInfo.Name || !IsConfigurationError(error)
+                    ]
+                    }]
+                } error
+            } || info.Name != errorInfo.Name || !IsConfigurationError(error)
                 || successClause is not
                 {
                     Guard: null, Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom successTag }, var payload, ..] } successPattern],
@@ -41,15 +50,25 @@ internal sealed partial class BeamModuleCompiler
                 && (ignored.Name == VariableScopeNames.Wildcard || DistinctBindings(input, successPayload, ignored));
             if (!carriesLocation)
             {
-                if (decision.Clauses is not [_, _, {
-                    Guard: null, Patterns: [Pattern.Tuple { Items: [
+                if (decision.Clauses is not [_, _,
+                    {
+                        Guard: null, Patterns: [Pattern.Tuple
+                        {
+                            Items: [
                         Pattern.Literal { Value: Atom fallbackTag }, Pattern.Variable other
-                    ] }],
-                    Body: Expr.Call { Arguments: [Expr.Tuple { Items: [
+                    ]
+                        }],
+                        Body: Expr.Call
+                        {
+                            Arguments: [Expr.Tuple
+                            {
+                                Items: [
                         Expr.Literal { Value: Atom otherContext },
                         Expr.Tuple { Items: [Expr.Literal { Value: Atom otherReason }, Expr.Variable otherValue] }
-                    ] }] } fallback
-                }] || errorPattern.Items.Count != 2 || details.Items.Count != 2
+                    ]
+                            }]
+                        } fallback
+                    }] || errorPattern.Items.Count != 2 || details.Items.Count != 2
                     || successPattern.Items.Count != 2 || payload is not Pattern.List { Tail: null, Items: [Pattern.Variable item] }
                     || item.Name != output.Name || !DistinctBindings(input, item) || !DistinctBindings(input, errorInfo)
                     || !DistinctBindings(input, other) || other.Name != otherValue.Name || !fallbackTag.Equals(successTag)
@@ -74,22 +93,47 @@ internal sealed partial class BeamModuleCompiler
             owner.EmitTuplePart(0, 1, 2);
             if (TermOrder.Compare(errorTag, successTag, exact: true) < 0)
             {
-                owner.EmitAtomSelection(1, unmatched, errorTag.Name, failure, successTag.Name, success);
+                owner.EmitAtomSelection(
+                    1,
+                    unmatched,
+                    errorTag.Name,
+                    failure,
+                    successTag.Name,
+                    success
+                );
             }
             else
             {
-                owner.EmitAtomSelection(1, unmatched, successTag.Name, success, errorTag.Name, failure);
+                owner.EmitAtomSelection(
+                    1,
+                    unmatched,
+                    successTag.Name,
+                    success,
+                    errorTag.Name,
+                    failure
+                );
             }
 
             Mark(success);
             if (carriesLocation)
             {
-                owner.MoveRegister(XRegisterTag, 2, XRegisterTag, 0);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    2,
+                    XRegisterTag,
+                    0
+                );
             }
             else
             {
                 owner.EmitNonemptyList(2, malformed);
-                owner.EmitListParts(2, XRegisterTag, 0, XRegisterTag, 1);
+                owner.EmitListParts(
+                    2,
+                    XRegisterTag,
+                    0,
+                    XRegisterTag,
+                    1
+                );
                 owner.EmitNilTest(XRegisterTag, 1, malformed);
             }
 
@@ -99,11 +143,28 @@ internal sealed partial class BeamModuleCompiler
             if (badPayload is not null)
             {
                 Mark(malformed);
-                EmitNestedConfigurationError(badPayload, context, reason, 2, 3, 0, previous);
+                EmitNestedConfigurationError(
+                    badPayload,
+                    context,
+                    reason,
+                    2,
+                    3,
+                    0,
+                    previous
+                );
             }
 
             Mark(failure);
-            EmitNestedConfigurationError(error, context, reason, 2, 3, 0, previous, carriesLocation);
+            EmitNestedConfigurationError(
+                error,
+                context,
+                reason,
+                2,
+                3,
+                0,
+                previous,
+                carriesLocation
+            );
             Mark(unmatched);
             EmitConfigurationCaseFailure(decision, previous);
 
@@ -130,7 +191,12 @@ internal sealed partial class BeamModuleCompiler
             if (carriesLocation)
             {
                 owner.EmitTuplePart(0, 2, 0);
-                owner.EmitTagMatchTuple(0, (AtomTag, owner.Intern(reason.Name)), (XRegisterTag, payload), (XRegisterTag, 0));
+                owner.EmitTagMatchTuple(
+                    0,
+                    (AtomTag, owner.Intern(reason.Name)),
+                    (XRegisterTag, payload),
+                    (XRegisterTag, 0)
+                );
             }
             else
             {

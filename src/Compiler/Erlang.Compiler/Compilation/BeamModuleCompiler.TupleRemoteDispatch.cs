@@ -35,15 +35,30 @@ internal sealed partial class BeamModuleCompiler
                     Value: Expr.Variable source,
                     Clauses:
                     [
-                        { Guard: null, Patterns: [Pattern.Tuple { Items: [Pattern.Variable node, Pattern.Variable table] }],
-                            Body: Expr.Call { Module: not null, DynamicRemote: false, Arguments:
+                    {
+                        Guard: null, Patterns: [Pattern.Tuple { Items: [Pattern.Variable node, Pattern.Variable table] }],
+                        Body: Expr.Call
+                        {
+                            Module: not null, DynamicRemote: false, Arguments:
                             [Expr.Variable destination, Expr.Literal { Value: Atom module },
-                                Expr.Literal { Value: Atom operation }, Expr.List { Items: [Expr.Variable target, var remoteValue], Tail: null }] } remote },
-                        { Guard: null, Patterns: [Pattern.Variable plain],
-                            Body: Expr.Call { Module: not null, DynamicRemote: false,
-                                Arguments: [Expr.Variable localTarget, var localValue] } local }
+                                Expr.Literal { Value: Atom operation }, Expr.List { Items: [Expr.Variable target, var remoteValue], Tail: null }]
+                        } remote
+                    },
+                    {
+                        Guard: null, Patterns: [Pattern.Variable plain],
+                        Body: Expr.Call
+                        {
+                            Module: not null, DynamicRemote: false,
+                            Arguments: [Expr.Variable localTarget, var localValue]
+                        } local
+                    }
                     ]
-                } || source.Name != input.Name || !DistinctBindings(input, key, node, table)
+                } || source.Name != input.Name || !DistinctBindings(
+                    input,
+                    key,
+                    node,
+                    table
+                )
                 || !DistinctBindings(input, key, plain)
                 || destination.Name != node.Name || target.Name != table.Name || localTarget.Name != plain.Name
                 || module.Name != local.Module || operation.Name != local.Function)
@@ -53,8 +68,19 @@ internal sealed partial class BeamModuleCompiler
 
             bool pair = function.Arity == 3;
             if (pair
-                ? clause.Patterns[2] is not Pattern.Variable value || !DistinctBindings(input, key, node, table, value)
-                    || !DistinctBindings(input, key, plain, value)
+                ? clause.Patterns[2] is not Pattern.Variable value || !DistinctBindings(
+                    input,
+                    key,
+                    node,
+                    table,
+                    value
+                )
+                    || !DistinctBindings(
+                        input,
+                        key,
+                        plain,
+                        value
+                    )
                     || !IsKeyValuePair(localValue, value) || !IsKeyValuePair(remoteValue, value)
                 : localValue is not Expr.Variable localKey || localKey.Name != key.Name
                     || remoteValue is not Expr.Variable remoteKey || remoteKey.Name != key.Name)
@@ -68,11 +94,18 @@ internal sealed partial class BeamModuleCompiler
             {
                 if (projection.Clauses is not
                     [
-                        { Guard: null, Patterns: [Pattern.List { Items:
-                            [Pattern.Tuple { Items: [Pattern.Variable matchKey, Pattern.Variable matchValue] }], Tail: null }],
-                            Body: Expr.Tuple { Items: [Expr.Literal { Value: Atom tag }, Expr.Variable returned] } },
-                        { Guard: null, Patterns: [Pattern.Variable { Name: VariableScopeNames.Wildcard }],
-                            Body: Expr.Literal miss }
+                    {
+                        Guard: null, Patterns: [Pattern.List
+                        {
+                            Items:
+                            [Pattern.Tuple { Items: [Pattern.Variable matchKey, Pattern.Variable matchValue] }], Tail: null
+                        }],
+                        Body: Expr.Tuple { Items: [Expr.Literal { Value: Atom tag }, Expr.Variable returned] }
+                    },
+                    {
+                        Guard: null, Patterns: [Pattern.Variable { Name: VariableScopeNames.Wildcard }],
+                        Body: Expr.Literal miss
+                    }
                     ] || matchKey.Name != key.Name || matchValue.Name != returned.Name
                     || !DistinctBindings(input, key, matchValue)
                     || matchValue.Name == node.Name || matchValue.Name == table.Name || matchValue.Name == plain.Name
@@ -90,11 +123,21 @@ internal sealed partial class BeamModuleCompiler
             if (projection is not null)
             {
                 EmitFrameAllocation(2, 1);
-                owner.MoveRegister(XRegisterTag, 1, YRegisterTag, 0);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    1,
+                    YRegisterTag,
+                    0
+                );
             }
 
             int fallback = Label();
-            EmitTupleShapeTest(XRegisterTag, 0, 2, fallback);
+            EmitTupleShapeTest(
+                XRegisterTag,
+                0,
+                2,
+                fallback
+            );
             Heap(2 * ConsHeapWords + (pair ? 3 : 0), projection is null ? function.Arity : 1);
             int tableRegister = projection is null ? function.Arity : 1;
             int listRegister = projection is null ? 1 : 2;
@@ -134,8 +177,19 @@ internal sealed partial class BeamModuleCompiler
                 Mark(join);
                 int failedProjection = Label();
                 owner.EmitNonemptyList(0, failedProjection);
-                owner.EmitListParts(0, XRegisterTag, 1, XRegisterTag, 0);
-                EmitTupleShapeTest(XRegisterTag, 1, 2, failedProjection);
+                owner.EmitListParts(
+                    0,
+                    XRegisterTag,
+                    1,
+                    XRegisterTag,
+                    0
+                );
+                EmitTupleShapeTest(
+                    XRegisterTag,
+                    1,
+                    2,
+                    failedProjection
+                );
                 owner.EmitNilTest(XRegisterTag, 0, failedProjection);
                 owner.EmitTuplePart(1, 0, 0);
                 owner.Op(ExactEqualTest, LabelTag, failedProjection);

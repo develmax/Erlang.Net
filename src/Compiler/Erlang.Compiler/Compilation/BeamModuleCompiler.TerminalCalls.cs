@@ -158,6 +158,7 @@ internal sealed partial class BeamModuleCompiler
         }
 
         output.Write(code.Span[copied..]);
+
         return output.ToArray();
 
         static bool IsTailArgumentSetup(BeamInstruction instruction) =>

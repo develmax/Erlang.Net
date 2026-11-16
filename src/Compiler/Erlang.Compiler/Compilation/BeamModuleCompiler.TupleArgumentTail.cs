@@ -8,21 +8,26 @@ internal sealed partial class BeamModuleCompiler
     {
         private bool TryEmitReusedTupleCaseTail(FunctionDefinition function)
         {
-            if (function.Clauses is not [{ Guard: null, Body: Expr.Sequence { Items:
+            if (function.Clauses is not [
+                {
+                    Guard: null, Body: Expr.Sequence
+                    {
+                        Items:
                 [
                     Expr.Match { Pattern: Pattern.Variable name, Value: Expr.Call read },
                     Expr.Match { Pattern: Pattern.Variable key, Value: Expr.Tuple tuple },
                     Expr.Case
-                    {
-                        Value: Expr.Call test,
-                        Clauses:
+                {
+                    Value: Expr.Call test,
+                    Clauses:
                         [
-                            { Guard: null, Patterns: [Pattern.Literal { Value: Atom or Integer or Nil } matched], Body: Expr.Call tail },
-                            { Guard: null, Patterns: [Pattern.Variable fallback], Body: Expr.Variable returned }
+                        { Guard: null, Patterns: [Pattern.Literal { Value: Atom or Integer or Nil } matched], Body: Expr.Call tail },
+                        { Guard: null, Patterns: [Pattern.Variable fallback], Body: Expr.Variable returned }
                         ]
-                    }
+                }
                 ]
-            } } clause] || !HasUnconditionalParameters(clause)
+                    }
+                } clause] || !HasUnconditionalParameters(clause)
                 || !DistinctBindings(name, key, fallback) || fallback.Name != returned.Name
                 || test.Arguments is not [Expr.Variable first, Expr.Variable second]
                 || tail.Arguments is not [Expr.Variable nextFirst, Expr.Variable nextSecond]
@@ -57,7 +62,12 @@ internal sealed partial class BeamModuleCompiler
             EmitFrameAllocation(function.Arity, frame);
             foreach (var (register, slot) in slots)
             {
-                owner.MoveRegister(XRegisterTag, register, YRegisterTag, slot);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    register,
+                    YRegisterTag,
+                    slot
+                );
             }
 
             EmitEntryCall(initial);
@@ -69,8 +79,18 @@ internal sealed partial class BeamModuleCompiler
                 owner.Operand(YRegisterTag, slots[source]);
             }
 
-            owner.MoveRegister(XRegisterTag, 0, YRegisterTag, nameSlot);
-            owner.MoveRegister(YRegisterTag, keySlot, XRegisterTag, 1);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                nameSlot
+            );
+            owner.MoveRegister(
+                YRegisterTag,
+                keySlot,
+                XRegisterTag,
+                1
+            );
             if (nameSlot > 0)
             {
                 owner.EmitSlotKills(Enumerable.Range(0, nameSlot).ToArray());
@@ -83,8 +103,18 @@ internal sealed partial class BeamModuleCompiler
             owner.Op(ExactEqualTest, LabelTag, failure);
             owner.Operand(XRegisterTag, 0);
             owner.LiteralOperand(matched.Value);
-            owner.MoveRegister(YRegisterTag, keySlot, XRegisterTag, 1);
-            owner.MoveRegister(YRegisterTag, nameSlot, XRegisterTag, 0);
+            owner.MoveRegister(
+                YRegisterTag,
+                keySlot,
+                XRegisterTag,
+                1
+            );
+            owner.MoveRegister(
+                YRegisterTag,
+                nameSlot,
+                XRegisterTag,
+                0
+            );
             if (tailModule is null)
             {
                 owner.Op(TailLocalCallWithFrame, BeamWire.UnsignedTag, 2);
@@ -212,8 +242,13 @@ internal sealed partial class BeamModuleCompiler
 
             var inputs = new Dictionary<string, int>(StringComparer.Ordinal) { [result] = 0 };
             var previous = CallLocation(embedded.Call, prefix is null ? location : CallLocation(prefix.Call, location));
-            return TryEmitRegisterConstructedArgument(finish, inputs, emitTests: EmitCalls,
-                frame: (slots, slots.Count, previous, appendResults));
+
+            return TryEmitRegisterConstructedArgument(
+                finish,
+                inputs,
+                emitTests: EmitCalls,
+                frame: (slots, slots.Count, previous, appendResults)
+            );
 
             void EmitCalls()
             {
@@ -221,17 +256,28 @@ internal sealed partial class BeamModuleCompiler
                 EmitFrameInitialization(0, prefix is null ? 0 : 1);
                 foreach (var (register, slot) in copies)
                 {
-                    owner.MoveRegister(XRegisterTag, register, YRegisterTag, slot);
+                    owner.MoveRegister(
+                        XRegisterTag,
+                        register,
+                        YRegisterTag,
+                        slot
+                    );
                 }
 
                 if (prefix is null)
                 {
                     EmitEntryCall(embedded);
+
                     return;
                 }
 
                 EmitEntryCall(prefix);
-                owner.MoveRegister(XRegisterTag, 0, YRegisterTag, 0);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    0,
+                    YRegisterTag,
+                    0
+                );
                 var stack = new List<(int Destination, int Source)>();
                 for (int index = 0; index < embedded.Call.Arguments.Count; index++)
                 {
@@ -252,11 +298,13 @@ internal sealed partial class BeamModuleCompiler
                 {
                     case Expr.Call call when embedded is null && ReadEntryCall(call, parameters) is { } entry:
                         embedded = entry;
+
                         return new Expr.Variable(result);
                     case Expr.Tuple nested when RewriteItems(nested.Items) is { } fields:
                         return nested with { Items = fields };
                     case Expr.List list when RewriteItems(list.Items) is { } items:
                         Expr? tail = list.Tail is null ? null : Rewrite(list.Tail);
+
                         return list.Tail is null || tail is not null ? list with { Items = items, Tail = tail } : null;
                     case Expr.Binary { Operator: "++", Left: Expr.List { Tail: null, Items.Count: > 0 } left } append:
                         if (Rewrite(left with { Tail = append.Right }) is not { } appendResult)
@@ -265,6 +313,7 @@ internal sealed partial class BeamModuleCompiler
                         }
 
                         appendResults.Add(appendResult);
+
                         return appendResult;
                     case Expr.Variable:
                         return expression;
@@ -347,7 +396,12 @@ internal sealed partial class BeamModuleCompiler
 
             int argument = Array.FindIndex(call.Arguments.ToArray(),
                 value => value is Expr.Tuple or Expr.List && !AttributeLiteral.TryNormalizeConstant(value, out _));
-            if (argument < 0 || !TryResolveOrdinaryCall(call, out string? module, argument, allowControlTransfer))
+            if (argument < 0 || !TryResolveOrdinaryCall(
+                call,
+                out string? module,
+                argument,
+                allowControlTransfer
+            ))
             {
                 return false;
             }
@@ -508,6 +562,7 @@ internal sealed partial class BeamModuleCompiler
                     remaining[register]++;
                     funCount++;
                     constructions.Add((register, false, [], reference, entry));
+
                     return (register, null);
                 }
 
@@ -605,15 +660,15 @@ internal sealed partial class BeamModuleCompiler
         {
             if (function.Clauses is not
                 [
-                    {
-                        Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom tag }, Pattern.Variable field] }],
-                        Guard: Expr.Call { Function: "is_list", DynamicRemote: false, Arguments: [Expr.Variable tested] } guard,
-                        Body: Expr.Call { DynamicRemote: false, Arguments: [Expr.Variable projected] } first
-                    },
-                    {
-                        Patterns: [Pattern.Variable argument], Guard: null,
-                        Body: Expr.Call { DynamicRemote: false, Arguments: [Expr.Variable forwarded] } second
-                    }
+                {
+                    Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom tag }, Pattern.Variable field] }],
+                    Guard: Expr.Call { Function: "is_list", DynamicRemote: false, Arguments: [Expr.Variable tested] } guard,
+                    Body: Expr.Call { DynamicRemote: false, Arguments: [Expr.Variable projected] } first
+                },
+                {
+                    Patterns: [Pattern.Variable argument], Guard: null,
+                    Body: Expr.Call { DynamicRemote: false, Arguments: [Expr.Variable forwarded] } second
+                }
                 ] || field.Name == VariableScopeNames.Wildcard || field.Name != tested.Name
                 || field.Name != projected.Name || argument.Name == VariableScopeNames.Wildcard
                 || argument.Name != forwarded.Name || !owner.ResolvesErlangBif(guard))
@@ -630,11 +685,22 @@ internal sealed partial class BeamModuleCompiler
             }
 
             int fallback = Label();
-            owner.EmitRecordTest(fallback, XRegisterTag, 0, tag, 2);
+            owner.EmitRecordTest(
+                fallback,
+                XRegisterTag,
+                0,
+                tag,
+                2
+            );
             owner.EmitTuplePart(0, 1, 1);
             owner.Op(IsList, LabelTag, fallback);
             owner.Operand(XRegisterTag, 1);
-            owner.MoveRegister(XRegisterTag, 1, XRegisterTag, 0);
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                XRegisterTag,
+                0
+            );
             EmitTail(first);
             Mark(fallback);
             EmitTail(second);
@@ -652,12 +718,16 @@ internal sealed partial class BeamModuleCompiler
 
     private bool TryEmitTupleArgumentTail(Clause clause, BeamSourceLocation location)
     {
-        if (clause is not {
-            Guard: null, Patterns: [Pattern.Variable first, Pattern.Variable second, Pattern.Variable third],
-            Body: Expr.Call { Module: not null, DynamicRemote: false, Arguments: [
+        if (clause is not
+            {
+                Guard: null, Patterns: [Pattern.Variable first, Pattern.Variable second, Pattern.Variable third],
+                Body: Expr.Call
+                {
+                    Module: not null, DynamicRemote: false, Arguments: [
                 Expr.Variable forwarded, Expr.Tuple { Items: [Expr.Variable left, Expr.Variable right] }
-            ] } call
-        } || !DistinctBindings(first, second, third) || forwarded.Name != first.Name
+            ]
+                } call
+            } || !DistinctBindings(first, second, third) || forwarded.Name != first.Name
             || left.Name != second.Name || right.Name != third.Name || ResolvesErlangBif(call))
         {
             return false;

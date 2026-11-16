@@ -15,19 +15,43 @@ internal sealed partial class BeamModuleCompiler
                 var numericCommand = function with { Clauses = [numeric] };
                 var referenceCommand = function with { Clauses = [reference] };
                 if (TryEmitWxObjectCommand(
-                        numericCommand, receiverRegister, 0, validateOnly: true, numericThenObject: true)
+                    numericCommand,
+                    receiverRegister,
+                    0,
+                    validateOnly: true,
+                    numericThenObject: true
+                )
                     && TryEmitWxObjectCommand(
-                        referenceCommand, receiverRegister, validateOnly: true, numericThenObject: true))
+                        referenceCommand,
+                        receiverRegister,
+                        validateOnly: true,
+                        numericThenObject: true
+                    ))
                 {
                     int rejected = owner.nextLabel - 2;
-                    EmitDetailRecordTest(0, 4, Term.A("wx_ref"), rejected);
+                    EmitDetailRecordTest(
+                        0,
+                        4,
+                        Term.A("wx_ref"),
+                        rejected
+                    );
                     owner.EmitTuplePart(0, 2, receiverRegister);
                     int referenceEntry = owner.nextLabel + 4;
                     TryEmitWxObjectCommand(
-                        numericCommand, receiverRegister, referenceEntry, functionFailure: rejected, numericThenObject: true);
+                        numericCommand,
+                        receiverRegister,
+                        referenceEntry,
+                        functionFailure: rejected,
+                        numericThenObject: true
+                    );
                     Mark(Label());
+
                     return TryEmitWxObjectCommand(
-                        referenceCommand, receiverRegister, functionFailure: rejected, numericThenObject: true);
+                        referenceCommand,
+                        receiverRegister,
+                        functionFailure: rejected,
+                        numericThenObject: true
+                    );
                 }
             }
 
@@ -40,22 +64,55 @@ internal sealed partial class BeamModuleCompiler
                 var optionsCommand = function with { Clauses = [options] };
                 var objectCommand = function with { Clauses = [objectClause] };
                 int receiverType = function.Arity == 2 ? 2 : 4;
-                if (TryEmitWxObjectCommand(optionsCommand, receiverType, 0, validateOnly: true, listThenObject: true)
-                    && TryEmitWxObjectCommand(objectCommand, receiverType, validateOnly: true, listThenObject: true))
+                if (TryEmitWxObjectCommand(
+                    optionsCommand,
+                    receiverType,
+                    0,
+                    validateOnly: true,
+                    listThenObject: true
+                )
+                    && TryEmitWxObjectCommand(
+                        objectCommand,
+                        receiverType,
+                        validateOnly: true,
+                        listThenObject: true
+                    ))
                 {
                     int rejected = owner.nextLabel - 2;
-                    EmitDetailRecordTest(0, 4, Term.A("wx_ref"), rejected);
+                    EmitDetailRecordTest(
+                        0,
+                        4,
+                        Term.A("wx_ref"),
+                        rejected
+                    );
                     if (function.Arity == 3)
                     {
-                        EmitDetailRecordTest(1, 4, Term.A("wx_ref"), rejected);
+                        EmitDetailRecordTest(
+                            1,
+                            4,
+                            Term.A("wx_ref"),
+                            rejected
+                        );
                         owner.EmitTuplePart(1, 2, 3);
                     }
 
                     owner.EmitTuplePart(0, 2, receiverType);
                     int objectEntry = owner.nextLabel + function.Arity;
-                    TryEmitWxObjectCommand(optionsCommand, receiverType, objectEntry, functionFailure: rejected, listThenObject: true);
+                    TryEmitWxObjectCommand(
+                        optionsCommand,
+                        receiverType,
+                        objectEntry,
+                        functionFailure: rejected,
+                        listThenObject: true
+                    );
                     Mark(Label());
-                    return TryEmitWxObjectCommand(objectCommand, receiverType, functionFailure: rejected, listThenObject: true);
+
+                    return TryEmitWxObjectCommand(
+                        objectCommand,
+                        receiverType,
+                        functionFailure: rejected,
+                        listThenObject: true
+                    );
                 }
             }
 
@@ -80,20 +137,48 @@ internal sealed partial class BeamModuleCompiler
             var firstCommand = function with { Clauses = [first] };
             var secondCommand = function with { Clauses = [second] };
             const int typeRegister = 2;
-            if (!TryEmitWxObjectCommand(firstCommand, typeRegister, 0, validateOnly: true, textThenObject: textThenObject)
-                || !TryEmitWxObjectCommand(secondCommand, typeRegister, validateOnly: true, textThenObject: textThenObject))
+            if (!TryEmitWxObjectCommand(
+                firstCommand,
+                typeRegister,
+                0,
+                validateOnly: true,
+                textThenObject: textThenObject
+            )
+                || !TryEmitWxObjectCommand(
+                    secondCommand,
+                    typeRegister,
+                    validateOnly: true,
+                    textThenObject: textThenObject
+                ))
             {
                 return false;
             }
 
             int failure = owner.nextLabel - 2;
-            EmitDetailRecordTest(0, 4, Term.A("wx_ref"), failure);
+            EmitDetailRecordTest(
+                0,
+                4,
+                Term.A("wx_ref"),
+                failure
+            );
             owner.EmitTuplePart(0, 2, typeRegister);
             // Each branch has two body labels. Chardata adds two guard labels.
             int fallback = owner.nextLabel + (textFirst ? 4 : 2);
-            TryEmitWxObjectCommand(firstCommand, typeRegister, fallback, functionFailure: failure, textThenObject: textThenObject);
+            TryEmitWxObjectCommand(
+                firstCommand,
+                typeRegister,
+                fallback,
+                functionFailure: failure,
+                textThenObject: textThenObject
+            );
             Mark(Label());
-            TryEmitWxObjectCommand(secondCommand, typeRegister, functionFailure: failure, textThenObject: textThenObject);
+            TryEmitWxObjectCommand(
+                secondCommand,
+                typeRegister,
+                functionFailure: failure,
+                textThenObject: textThenObject
+            );
+
             return true;
         }
 
@@ -177,8 +262,11 @@ internal sealed partial class BeamModuleCompiler
             {
                 if (first.Patterns is not [Pattern.Variable parameter] || parameter.Name == VariableScopeNames.Wildcard
                     || first.Guard is not { } guard
-                    || first.Body is not Expr.Call { Module: null, DynamicRemote: false, Arguments:
-                        [Expr.Variable input, Expr.List { Items: [], Tail: null } or Expr.Literal { Value: Nil }] } forward
+                    || first.Body is not Expr.Call
+                    {
+                        Module: null, DynamicRemote: false, Arguments:
+                        [Expr.Variable input, Expr.List { Items: [], Tail: null } or Expr.Literal { Value: Nil }]
+                    } forward
                     || input.Name != parameter.Name || !entries.TryGetValue((forward.Function, 2), out entry))
                 {
                     return false;
@@ -233,6 +321,7 @@ internal sealed partial class BeamModuleCompiler
             {
                 TryEmitWxObjectCommand(fallbackCommand, functionFailure: failure);
             }
+
             return true;
         }
 
@@ -265,7 +354,7 @@ internal sealed partial class BeamModuleCompiler
             int sharedRecords = 0;
             while (sharedRecords < Math.Min(ordered.Length, arity - 1)
                 && ordered[sharedRecords] is ForwardGuard.Test
-                    { Opcode: IsTaggedTuple, Tag.Name: "wx_ref", Arity: 4, Register: var checkedRegister }
+                { Opcode: IsTaggedTuple, Tag.Name: "wx_ref", Arity: 4, Register: var checkedRegister }
                 && checkedRegister == sharedRecords)
             {
                 sharedRecords++;
@@ -277,7 +366,7 @@ internal sealed partial class BeamModuleCompiler
                     or ForwardGuard.Disjunction { Left: ForwardGuard.Test, Right: ForwardGuard.Test })
                 : shapes is [{ Register: var tupleRegister }] && tupleRegister == arity - 1
                     && branchTests.All(test => test is ForwardGuard.FieldTest
-                        { Register: var fieldRegister } && fieldRegister == tupleRegister);
+                    { Register: var fieldRegister } && fieldRegister == tupleRegister);
             if (sharedRecords == 0 || !validBranch)
             {
                 return false;
@@ -298,7 +387,12 @@ internal sealed partial class BeamModuleCompiler
             int fallback = owner.nextLabel + branchTests.Count(test => test is ForwardGuard.Disjunction) * 2;
             foreach (var (register, tupleArity) in shapes)
             {
-                EmitTupleShapeTest(XRegisterTag, register, tupleArity, fallback);
+                EmitTupleShapeTest(
+                    XRegisterTag,
+                    register,
+                    tupleArity,
+                    fallback
+                );
             }
 
             foreach (var test in branchTests)
@@ -310,6 +404,7 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(LabelTag, entry);
             Mark(Label());
             TryEmitWxObjectCommand(command, functionFailure: failure, checkedRecordPrefix: sharedRecords);
+
             return true;
         }
 
@@ -580,8 +675,11 @@ internal sealed partial class BeamModuleCompiler
             Expr? result = sequence.Items.Count == queueIndex + 2 ? sequence.Items[^1] : null;
             Expr.Call? receive = result as Expr.Call;
             if (result is not null && result is not Expr.Literal { Value: Atom { Name: "ok" } }
-                && (receive is not { Module: "wxe_util", Function: "rec",
-                    Arguments: [Expr.Literal { Value: Integer received }] } || !received.Equals(command)))
+                && (receive is not
+                {
+                    Module: "wxe_util", Function: "rec",
+                    Arguments: [Expr.Literal { Value: Integer received }]
+                } || !received.Equals(command)))
             {
                 return false;
             }
@@ -589,8 +687,17 @@ internal sealed partial class BeamModuleCompiler
             if (staticMappedOptions)
             {
                 return receive is not null && (convert is null || convertedRegister == 0)
-                    && TryEmitWxStaticMappedOptions(clause.Guard, arguments, optionMapper!, optionMap!, queue,
-                        receive, command, convert, validateOnly);
+                    && TryEmitWxStaticMappedOptions(
+                        clause.Guard,
+                        arguments,
+                        optionMapper!,
+                        optionMap!,
+                        queue,
+                        receive,
+                        command,
+                        convert,
+                        validateOnly
+                    );
             }
 
             var classChecks = new List<(int Register, Atom Class, Expr.Call Call)>();
@@ -599,20 +706,20 @@ internal sealed partial class BeamModuleCompiler
             {
                 Expr item = sequence.Items[interleavesTextConversion && index > 0 ? index + 1 : index];
                 if (item is not Expr.Binary
-                {
-                    Operator: ErlangOperators.OrElse,
-                    Left: Expr.Binary
                     {
-                        Operator: ErlangOperators.ExactEqual,
-                        Left: Expr.Variable testedType, Right: Expr.Literal { Value: Atom expectedClass }
-                    },
-                    Right: Expr.Call
-                    {
-                        DynamicRemote: true,
-                        Arguments: [Expr.Variable dispatchedType, Expr.Literal { Value: Atom { Name: "parent_class" } },
+                        Operator: ErlangOperators.OrElse,
+                        Left: Expr.Binary
+                        {
+                            Operator: ErlangOperators.ExactEqual,
+                            Left: Expr.Variable testedType, Right: Expr.Literal { Value: Atom expectedClass }
+                        },
+                        Right: Expr.Call
+                        {
+                            DynamicRemote: true,
+                            Arguments: [Expr.Variable dispatchedType, Expr.Literal { Value: Atom { Name: "parent_class" } },
                             Expr.List { Items: [Expr.Literal { Value: Atom passedClass }], Tail: null }]
-                    } classCall
-                } || testedType.Name != dispatchedType.Name || !expectedClass.Equals(passedClass)
+                        } classCall
+                    } || testedType.Name != dispatchedType.Name || !expectedClass.Equals(passedClass)
                     || !objectTypes.TryGetValue(testedType.Name, out int register) || !checkedObjects.Add(register))
                 {
                     return false;
@@ -646,7 +753,12 @@ internal sealed partial class BeamModuleCompiler
             if (firstColourRegister >= 0 || colourAfterOptions)
             {
                 int[] colourInputs = firstColourRegister >= 0 ? [firstColourRegister, convertedRegister] : [convertedRegister];
-                if (guard is null || ReadForwardGuard(guard, arguments, guardFields, allowColour: true) is not { } colourGuard)
+                if (guard is null || ReadForwardGuard(
+                    guard,
+                    arguments,
+                    guardFields,
+                    allowColour: true
+                ) is not { } colourGuard)
                 {
                     return false;
                 }
@@ -704,6 +816,7 @@ internal sealed partial class BeamModuleCompiler
             {
                 Expr candidate = guard is Expr.Binary { Operator: ErlangOperators.AndAlso } conjunction
                     ? conjunction.Right : guard!;
+
                 bool Matches(Expr? value) => inlineColour
                     ? IsWxColourGuard(value, arguments[^1])
                     : IsWxCharDataGuard(value, arguments[^1]);
@@ -741,10 +854,10 @@ internal sealed partial class BeamModuleCompiler
                     || FlattenForwardConjunction(combinedGuard).ToArray() is not
                     [
                         ForwardGuard.Disjunction
-                        {
-                            Left: ForwardGuard.Test { Opcode: IsList, Register: 1 },
-                            Right: ForwardGuard.Test { Opcode: IsBinary, Register: 1 }
-                        },
+                    {
+                        Left: ForwardGuard.Test { Opcode: IsList, Register: 1 },
+                        Right: ForwardGuard.Test { Opcode: IsBinary, Register: 1 }
+                    },
                         .. var scalarTests
                     ] || scalarTests.Length == 0
                     || scalarTests.Any(test => test is not ForwardGuard.Test { Opcode: IsNumber }))))
@@ -814,14 +927,24 @@ internal sealed partial class BeamModuleCompiler
             int failureLabel = functionFailure ?? owner.nextLabel - 2;
             if (objectFallback)
             {
-                EmitDetailRecordTest(arity - 1, 4, Term.A("wx_ref"), failureLabel);
+                EmitDetailRecordTest(
+                    arity - 1,
+                    4,
+                    Term.A("wx_ref"),
+                    failureLabel
+                );
             }
 
             for (int register = 0; sharedType is null && register < arity; register++)
             {
                 if (checkedObjects.Contains(register) && register >= checkedRecordPrefix)
                 {
-                    EmitDetailRecordTest(register, 4, Term.A("wx_ref"), failureLabel);
+                    EmitDetailRecordTest(
+                        register,
+                        4,
+                        Term.A("wx_ref"),
+                        failureLabel
+                    );
                 }
                 else if (tupleArities[register] is int tupleArity)
                 {
@@ -872,11 +995,21 @@ internal sealed partial class BeamModuleCompiler
             EmitFrameAllocation(live, initialFrame);
             if (preservesSecondClass)
             {
-                owner.MoveRegister(XRegisterTag, preparedSecondClass ?? arity, YRegisterTag, 0);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    preparedSecondClass ?? arity,
+                    YRegisterTag,
+                    0
+                );
             }
             for (int register = arity - 1; register >= (staticTextOptions ? 1 : 0); register--)
             {
-                owner.MoveRegister(XRegisterTag, register, YRegisterTag, arity - register - 1 + extraSlot);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    register,
+                    YRegisterTag,
+                    arity - register - 1 + extraSlot
+                );
             }
 
             BeamSourceLocation previous = location;
@@ -888,7 +1021,12 @@ internal sealed partial class BeamModuleCompiler
                 if (followsConversion)
                 {
                     int textSlot = arity - convertedRegister - 1;
-                    owner.MoveRegister(YRegisterTag, textSlot, XRegisterTag, 0);
+                    owner.MoveRegister(
+                        YRegisterTag,
+                        textSlot,
+                        XRegisterTag,
+                        0
+                    );
                     EmitFrameInitialization(textSlot, textSlot + 1);
                     owner.EmitCallLine(convert!, previous);
                     previous = CallLocation(convert!, previous);
@@ -908,7 +1046,12 @@ internal sealed partial class BeamModuleCompiler
 
                 if (followsConversion)
                 {
-                    owner.MoveRegister(XRegisterTag, 0, YRegisterTag, arity - convertedRegister - 1);
+                    owner.MoveRegister(
+                        XRegisterTag,
+                        0,
+                        YRegisterTag,
+                        arity - convertedRegister - 1
+                    );
                 }
                 owner.Op(ExactNotEqualTest, LabelTag, validated);
                 int typeTag = savedClass ? YRegisterTag : XRegisterTag;
@@ -916,7 +1059,12 @@ internal sealed partial class BeamModuleCompiler
                 owner.LiteralOperand(expectedClass);
                 if (!followsConversion)
                 {
-                    owner.MoveRegister(typeTag, type, XRegisterTag, 1);
+                    owner.MoveRegister(
+                        typeTag,
+                        type,
+                        XRegisterTag,
+                        1
+                    );
                 }
                 owner.EmitConstant(Term.A("parent_class"), 2);
                 if (savedClass)
@@ -933,13 +1081,23 @@ internal sealed partial class BeamModuleCompiler
             foreach (var (call, _, register) in colourAfterOptions ? [] : preliminaryConversions)
             {
                 int slot = arity - register - 1;
-                owner.MoveRegister(YRegisterTag, slot, XRegisterTag, 0);
+                owner.MoveRegister(
+                    YRegisterTag,
+                    slot,
+                    XRegisterTag,
+                    0
+                );
                 EmitFrameInitialization(slot, slot + 1);
                 owner.EmitCallLine(call, previous);
                 previous = CallLocation(call, previous);
                 owner.Op(ExternalCall, BeamWire.UnsignedTag, 1);
                 owner.Operand(BeamWire.UnsignedTag, owner.Import(call.Module!, call.Function, 1));
-                owner.MoveRegister(XRegisterTag, 0, YRegisterTag, slot);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    0,
+                    YRegisterTag,
+                    slot
+                );
             }
 
             int missingEnvironment = Label();
@@ -951,7 +1109,12 @@ internal sealed partial class BeamModuleCompiler
                     int convertedSlot = arity - convertedRegister - 1;
                     if (!staticTextOptions)
                     {
-                        owner.MoveRegister(YRegisterTag, convertedSlot, XRegisterTag, 0);
+                        owner.MoveRegister(
+                            YRegisterTag,
+                            convertedSlot,
+                            XRegisterTag,
+                            0
+                        );
                         EmitFrameInitialization(convertedSlot, convertedSlot + 1);
                     }
 
@@ -972,24 +1135,59 @@ internal sealed partial class BeamModuleCompiler
                     EmitWxOptionMapper(optionMapper, 1);
                     if (staticTextOptions)
                     {
-                        owner.MoveRegister(YRegisterTag, 0, XRegisterTag, 2);
-                        owner.MoveRegister(XRegisterTag, 0, YRegisterTag, 0);
+                        owner.MoveRegister(
+                            YRegisterTag,
+                            0,
+                            XRegisterTag,
+                            2
+                        );
+                        owner.MoveRegister(
+                            XRegisterTag,
+                            0,
+                            YRegisterTag,
+                            0
+                        );
                     }
                     else
                     {
-                        owner.MoveRegister(XRegisterTag, 0, YRegisterTag, convertedSlot);
-                        owner.MoveRegister(YRegisterTag, 0, XRegisterTag, 2);
+                        owner.MoveRegister(
+                            XRegisterTag,
+                            0,
+                            YRegisterTag,
+                            convertedSlot
+                        );
+                        owner.MoveRegister(
+                            YRegisterTag,
+                            0,
+                            XRegisterTag,
+                            2
+                        );
                     }
 
 
-                    owner.MoveRegister(XRegisterTag, 1, XRegisterTag, 0);
-                    owner.MoveRegister(XRegisterTag, 2, XRegisterTag, 1);
+                    owner.MoveRegister(
+                        XRegisterTag,
+                        1,
+                        XRegisterTag,
+                        0
+                    );
+                    owner.MoveRegister(
+                        XRegisterTag,
+                        2,
+                        XRegisterTag,
+                        1
+                    );
                 }
                 else
                 {
                     owner.EmitClosureAllocation(0, 0, 1);
                     EmitWxOptionMapper(optionMapper, 0);
-                    owner.MoveRegister(YRegisterTag, extraSlot, XRegisterTag, 1);
+                    owner.MoveRegister(
+                        YRegisterTag,
+                        extraSlot,
+                        XRegisterTag,
+                        1
+                    );
                 }
                 if (mappedOptionsCheck is not null)
                 {
@@ -1007,13 +1205,28 @@ internal sealed partial class BeamModuleCompiler
                 owner.Operand(BeamWire.UnsignedTag, owner.Import("lists", "map", 2));
                 if (mappedOptionsCheck is { } checkedOptions)
                 {
-                    owner.MoveRegister(XRegisterTag, 0, YRegisterTag, 0);
+                    owner.MoveRegister(
+                        XRegisterTag,
+                        0,
+                        YRegisterTag,
+                        0
+                    );
                     EmitEntryCall(checkedOptions.Call, previous);
                     previous = CallLocation(checkedOptions.Check.Call, previous);
-                    EmitDetailRecordTest(0, checkedOptions.Check.Arity, checkedOptions.Check.Tag, matchFailure);
+                    EmitDetailRecordTest(
+                        0,
+                        checkedOptions.Check.Arity,
+                        checkedOptions.Check.Tag,
+                        matchFailure
+                    );
                     EmitWxEnvironmentCheck(0, missingEnvironment);
                     owner.EmitTuplePart(0, 1, arity);
-                    owner.MoveRegister(YRegisterTag, 0, XRegisterTag, 1);
+                    owner.MoveRegister(
+                        YRegisterTag,
+                        0,
+                        XRegisterTag,
+                        1
+                    );
                 }
                 else
                 {
@@ -1031,30 +1244,60 @@ internal sealed partial class BeamModuleCompiler
                     owner.EmitTuplePart(1, 1, arity);
                     if (colourAfterOptions)
                     {
-                        owner.MoveRegister(XRegisterTag, 0, XRegisterTag, convertedRegister);
+                        owner.MoveRegister(
+                            XRegisterTag,
+                            0,
+                            XRegisterTag,
+                            convertedRegister
+                        );
                         if (firstColourRegister >= 0)
                         {
-                            owner.MoveRegister(YRegisterTag, 0, XRegisterTag, firstColourRegister);
+                            owner.MoveRegister(
+                                YRegisterTag,
+                                0,
+                                XRegisterTag,
+                                firstColourRegister
+                            );
                         }
 
-                        owner.MoveRegister(YRegisterTag, firstColourRegister >= 0 ? 1 : 0, XRegisterTag, arity - 1);
+                        owner.MoveRegister(
+                            YRegisterTag,
+                            firstColourRegister >= 0 ? 1 : 0,
+                            XRegisterTag,
+                            arity - 1
+                        );
                     }
 
                     int highestStackArgument = colourAfterOptions
                         ? (firstColourRegister >= 0 ? firstColourRegister : convertedRegister) - 1 : arity - 2;
                     for (int register = highestStackArgument; register >= 2; register--)
                     {
-                        owner.MoveRegister(YRegisterTag, arity - register - 2, XRegisterTag, register);
+                        owner.MoveRegister(
+                            YRegisterTag,
+                            arity - register - 2,
+                            XRegisterTag,
+                            register
+                        );
                     }
 
                     if (!colourAfterOptions)
                     {
-                        owner.MoveRegister(XRegisterTag, 0, XRegisterTag, arity - 1);
+                        owner.MoveRegister(
+                            XRegisterTag,
+                            0,
+                            XRegisterTag,
+                            arity - 1
+                        );
                     }
 
                     if (highestStackArgument >= 1)
                     {
-                        owner.MoveRegister(YRegisterTag, arity - 3, XRegisterTag, 1);
+                        owner.MoveRegister(
+                            YRegisterTag,
+                            arity - 3,
+                            XRegisterTag,
+                            1
+                        );
                     }
                 }
             }
@@ -1064,16 +1307,31 @@ internal sealed partial class BeamModuleCompiler
                 owner.EmitTuplePart(0, 1, arity);
                 for (int register = arity - 1; register > 0; register--)
                 {
-                    owner.MoveRegister(YRegisterTag, arity - register - 1 + extraSlot, XRegisterTag, register);
+                    owner.MoveRegister(
+                        YRegisterTag,
+                        arity - register - 1 + extraSlot,
+                        XRegisterTag,
+                        register
+                    );
                 }
             }
             else
             {
                 int convertedSlot = arity - convertedRegister - 1;
-                owner.MoveRegister(YRegisterTag, convertedSlot, XRegisterTag, 0);
+                owner.MoveRegister(
+                    YRegisterTag,
+                    convertedSlot,
+                    XRegisterTag,
+                    0
+                );
                 if (convertsMiddleArgument)
                 {
-                    owner.MoveRegister(YRegisterTag, 0, YRegisterTag, convertedSlot);
+                    owner.MoveRegister(
+                        YRegisterTag,
+                        0,
+                        YRegisterTag,
+                        convertedSlot
+                    );
                 }
                 owner.Op(TrimFrame, BeamWire.UnsignedTag, 1);
                 owner.Operand(BeamWire.UnsignedTag, arity - 1);
@@ -1126,7 +1384,12 @@ internal sealed partial class BeamModuleCompiler
                         else
                         {
                             int slot = register == arity - 1 ? convertedSlot - 1 : arity - register - 2;
-                            owner.MoveRegister(YRegisterTag, slot, XRegisterTag, register);
+                            owner.MoveRegister(
+                                YRegisterTag,
+                                slot,
+                                XRegisterTag,
+                                register
+                            );
                         }
                     }
                 }
@@ -1134,11 +1397,26 @@ internal sealed partial class BeamModuleCompiler
                 {
                     for (int register = arity - 2; register > 1; register--)
                     {
-                        owner.MoveRegister(YRegisterTag, arity - register - 2, XRegisterTag, register);
+                        owner.MoveRegister(
+                            YRegisterTag,
+                            arity - register - 2,
+                            XRegisterTag,
+                            register
+                        );
                     }
 
-                    owner.MoveRegister(XRegisterTag, 0, XRegisterTag, arity - 1);
-                    owner.MoveRegister(YRegisterTag, arity - 3, XRegisterTag, 1);
+                    owner.MoveRegister(
+                        XRegisterTag,
+                        0,
+                        XRegisterTag,
+                        arity - 1
+                    );
+                    owner.MoveRegister(
+                        YRegisterTag,
+                        arity - 3,
+                        XRegisterTag,
+                        1
+                    );
                 }
                 else
                 {
@@ -1149,22 +1427,42 @@ internal sealed partial class BeamModuleCompiler
                                     || guards is [(IsInteger, var indexGuard)] && guardSources[indexGuard] == (1, null)));
                     if (moveConvertedFirst)
                     {
-                        owner.MoveRegister(XRegisterTag, 0, XRegisterTag, 2);
+                        owner.MoveRegister(
+                            XRegisterTag,
+                            0,
+                            XRegisterTag,
+                            2
+                        );
                     }
 
                     if (arity > 2)
                     {
-                        owner.MoveRegister(YRegisterTag, 0, XRegisterTag, arity - 2);
+                        owner.MoveRegister(
+                            YRegisterTag,
+                            0,
+                            XRegisterTag,
+                            arity - 2
+                        );
                     }
 
                     if (!moveConvertedFirst)
                     {
-                        owner.MoveRegister(XRegisterTag, 0, XRegisterTag, arity - 1);
+                        owner.MoveRegister(
+                            XRegisterTag,
+                            0,
+                            XRegisterTag,
+                            arity - 1
+                        );
                     }
 
                     for (int register = arity - 3; register > 0; register--)
                     {
-                        owner.MoveRegister(YRegisterTag, arity - register - 2, XRegisterTag, register);
+                        owner.MoveRegister(
+                            YRegisterTag,
+                            arity - register - 2,
+                            XRegisterTag,
+                            register
+                        );
                     }
                 }
             }
@@ -1172,7 +1470,12 @@ internal sealed partial class BeamModuleCompiler
             int frame = mappedOptionsCheck is not null || (convert is null || interleavesTextConversion) && optionMapper is null
                 ? initialFrame
                 : arity - 1;
-            owner.MoveRegister(YRegisterTag, frame - 1, XRegisterTag, 0);
+            owner.MoveRegister(
+                YRegisterTag,
+                frame - 1,
+                XRegisterTag,
+                0
+            );
             if (result is not null)
             {
                 owner.Op(TrimFrame, BeamWire.UnsignedTag, frame);
@@ -1217,7 +1520,12 @@ internal sealed partial class BeamModuleCompiler
 
             if (mappedOptionsCheck is { } failedCheck)
             {
-                EmitTaggedCallMatchFailure(failedCheck.Check.Match, matchFailure, previous, beforeMatchFailure);
+                EmitTaggedCallMatchFailure(
+                    failedCheck.Check.Match,
+                    matchFailure,
+                    previous,
+                    beforeMatchFailure
+                );
             }
 
             return true;
@@ -1289,10 +1597,16 @@ internal sealed partial class BeamModuleCompiler
             guard is Expr.Binary
             {
                 Operator: ErlangOperators.OrElse,
-                Left: Expr.Call { Module: null or ErlangModuleNames.Module, Function: "is_list",
-                    Arguments: [Expr.Variable list] },
-                Right: Expr.Call { Module: null or ErlangModuleNames.Module, Function: "is_binary",
-                    Arguments: [Expr.Variable binary] }
+                Left: Expr.Call
+                {
+                    Module: null or ErlangModuleNames.Module, Function: "is_list",
+                    Arguments: [Expr.Variable list]
+                },
+                Right: Expr.Call
+                {
+                    Module: null or ErlangModuleNames.Module, Function: "is_binary",
+                    Arguments: [Expr.Variable binary]
+                }
             } && list.Name == argument && binary.Name == argument;
 
         private bool TryEmitWxScalarTupleOverload(FunctionDefinition function)
@@ -1422,8 +1736,11 @@ internal sealed partial class BeamModuleCompiler
                 if (arity is not (1 or 2) || arity == 2 && scalarGuard is null || conversion is not
                     {
                         Pattern: Pattern.Variable output,
-                        Value: Expr.Call { Module: "unicode", Function: "characters_to_binary",
-                            Arguments: [Expr.Variable input] } call
+                        Value: Expr.Call
+                        {
+                            Module: "unicode", Function: "characters_to_binary",
+                            Arguments: [Expr.Variable input]
+                        } call
                     } || input.Name != parameters[0] || parameters.Contains(output.Name)
                     || output.Name == VariableScopeNames.Wildcard || !IsWxCharDataGuard(textGuard, input.Name))
                 {
@@ -1443,8 +1760,11 @@ internal sealed partial class BeamModuleCompiler
 
             Expr.Call? receive = result as Expr.Call;
             if (result is not null && result is not Expr.Literal { Value: Atom { Name: "ok" } }
-                && (receive is not { Module: "wxe_util", Function: "rec",
-                    Arguments: [Expr.Literal { Value: Integer received }] } || !received.Equals(command)))
+                && (receive is not
+                {
+                    Module: "wxe_util", Function: "rec",
+                    Arguments: [Expr.Literal { Value: Integer received }]
+                } || !received.Equals(command)))
             {
                 return false;
             }
@@ -1510,7 +1830,12 @@ internal sealed partial class BeamModuleCompiler
                 EmitFrameAllocation(arity, arity - 1);
                 if (preservesScalar)
                 {
-                    owner.MoveRegister(XRegisterTag, 1, YRegisterTag, 0);
+                    owner.MoveRegister(
+                        XRegisterTag,
+                        1,
+                        YRegisterTag,
+                        0
+                    );
                 }
                 owner.EmitCallLine(convertCall, previous);
                 previous = CallLocation(convertCall, previous);
@@ -1530,7 +1855,12 @@ internal sealed partial class BeamModuleCompiler
             owner.EmitConstant(command, arity + 1);
             if (preservesScalar)
             {
-                owner.MoveRegister(YRegisterTag, 0, XRegisterTag, 1);
+                owner.MoveRegister(
+                    YRegisterTag,
+                    0,
+                    XRegisterTag,
+                    1
+                );
                 if (receive is not null)
                 {
                     owner.Op(TrimFrame, BeamWire.UnsignedTag, 1);
@@ -1588,8 +1918,11 @@ internal sealed partial class BeamModuleCompiler
                 return ReadWxStaticGuards(conjunction.Left, parameters, guards)
                     && ReadWxStaticGuards(conjunction.Right, parameters, guards);
             }
-            if (guard is not Expr.Call { Module: null or ErlangModuleNames.Module, DynamicRemote: false,
-                Arguments: [Expr.Variable variable] } call
+            if (guard is not Expr.Call
+                {
+                    Module: null or ErlangModuleNames.Module, DynamicRemote: false,
+                    Arguments: [Expr.Variable variable]
+                } call
                 || call.Module is null && entries.ContainsKey((call.Function, 1)))
             {
                 return false;
@@ -1622,7 +1955,12 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module, AutoImportNames.Get, 1));
             owner.LiteralOperand(Term.A("wx_env"));
             owner.Operand(XRegisterTag, register);
-            EmitDetailRecordTest(register, 4, Term.A("wx_env"), failure);
+            EmitDetailRecordTest(
+                register,
+                4,
+                Term.A("wx_env"),
+                failure
+            );
         }
 
         private static bool IsWxEnvironment(Expr.Case environment) =>
@@ -1634,25 +1972,28 @@ internal sealed partial class BeamModuleCompiler
                     Arguments: [Expr.Literal { Value: Atom { Name: "wx_env" } }]
                 },
                 Clauses: [
+                {
+                    Guard: null, Patterns: [Pattern.Tuple
                     {
-                        Guard: null, Patterns: [Pattern.Tuple
-                        {
-                            Items: [Pattern.Literal { Value: Atom { Name: "wx_env" } },
+                        Items: [Pattern.Literal { Value: Atom { Name: "wx_env" } },
                                 Pattern.Variable reference, Pattern.Variable { Name: VariableScopeNames.Wildcard },
                                 Pattern.Variable { Name: VariableScopeNames.Wildcard }]
-                        }], Body: Expr.Variable result
-                    },
+                    }], Body: Expr.Variable result
+                },
+                {
+                    Guard: null, Patterns: [Pattern.Variable { Name: VariableScopeNames.Wildcard }],
+                    Body: Expr.Call
                     {
-                        Guard: null, Patterns: [Pattern.Variable { Name: VariableScopeNames.Wildcard }],
-                        Body: Expr.Call
+                        Module: ErlangModuleNames.Module, Function: "error",
+                        Arguments: [Expr.Tuple
                         {
-                            Module: ErlangModuleNames.Module, Function: "error",
-                            Arguments: [Expr.Tuple { Items: [
+                            Items: [
                                 Expr.Literal { Value: Atom { Name: "wx" } },
                                 Expr.Literal { Value: Atom { Name: "unknown_env" } }
-                            ] }]
-                        }
+                            ]
+                        }]
                     }
+                }
                 ]
             } && reference.Name == result.Name;
     }

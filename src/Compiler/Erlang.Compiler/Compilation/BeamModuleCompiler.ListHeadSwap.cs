@@ -11,13 +11,17 @@ internal sealed partial class BeamModuleCompiler
         for (int index = 1; index + 2 < body.Count; index++)
         {
             if (body[index - 1] is not
-                { Definition.Opcode: Move, Operands: [{ Kind: BeamOperandParameters.X, TypeIndex: null } argument,
-                    { Kind: BeamOperandParameters.Y, TypeIndex: null } saved] }
+                {
+                    Definition.Opcode: Move, Operands: [{ Kind: BeamOperandParameters.X, TypeIndex: null } argument,
+                    { Kind: BeamOperandParameters.Y, TypeIndex: null } saved]
+                }
                 || body[index] is not
-                { Definition.Opcode: GetList, Operands: [
+                {
+                    Definition.Opcode: GetList, Operands: [
                     { Kind: BeamOperandParameters.X or BeamOperandParameters.Y, TypeIndex: null } list,
                     { Kind: BeamOperandParameters.X, TypeIndex: null } head,
-                    { Kind: BeamOperandParameters.Y, TypeIndex: null } tail] }
+                    { Kind: BeamOperandParameters.Y, TypeIndex: null } tail]
+                }
                 || body[index + 1] is not
                 { Definition.Opcode: Swap, Operands: [var left, var right] }
                 || argument == head || saved == tail

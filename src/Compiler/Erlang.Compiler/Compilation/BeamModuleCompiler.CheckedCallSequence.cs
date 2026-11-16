@@ -455,7 +455,12 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        private void EmitCallResultCheck(CallResultCheck check, int failure, int frame, Action? beforeProjections = null)
+        private void EmitCallResultCheck(
+            CallResultCheck check,
+            int failure,
+            int frame,
+            Action? beforeProjections = null
+        )
         {
             if (check.SavedTupleSlot is int slot)
             {

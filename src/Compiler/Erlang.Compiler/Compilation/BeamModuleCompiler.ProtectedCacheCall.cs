@@ -8,16 +8,24 @@ internal sealed partial class BeamModuleCompiler
     {
         private bool TryEmitProtectedCacheCall(FunctionDefinition function)
         {
-            if (function.Clauses is not [{
-                Guard: null, Body: Expr.Try {
-                    After: null, Body: Expr.Call { Module: not null, DynamicRemote: false } call,
-                    Catches: [{ Guard: null, Patterns: [Pattern.Tuple { Items: [
+            if (function.Clauses is not [
+                {
+                    Guard: null, Body: Expr.Try
+                    {
+                        After: null, Body: Expr.Call { Module: not null, DynamicRemote: false } call,
+                        Catches: [
+                            {
+                                Guard: null, Patterns: [Pattern.Tuple
+                                {
+                                    Items: [
                         Pattern.Variable { Name: VariableScopeNames.Wildcard },
                         Pattern.Variable { Name: VariableScopeNames.Wildcard },
                         Pattern.Variable { Name: VariableScopeNames.Wildcard }
-                    ] }], Body: var fallback }]
-                } attempt
-            } clause] || !HasUnconditionalParameters(clause) || call.Arguments.Count != function.Arity)
+                    ]
+                                }], Body: var fallback
+                            }]
+                    } attempt
+                } clause] || !HasUnconditionalParameters(clause) || call.Arguments.Count != function.Arity)
             {
                 return false;
             }
@@ -32,12 +40,14 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 if (index != 1 || function.Arity != 2 || parameters[index].Name == VariableScopeNames.Wildcard
-                    || !TryReadConstructor(call.Arguments[index],
+                    || !TryReadConstructor(
+                        call.Arguments[index],
                         new Dictionary<string, (Term? Constant, ConstructorStep? Step)>(StringComparer.Ordinal)
                         {
                             [parameters[index].Name] = (null, null)
                         },
-                        out var argument) || argument.Step is null)
+                        out var argument
+                    ) || argument.Step is null)
                 {
                     return false;
                 }
@@ -49,9 +59,17 @@ internal sealed partial class BeamModuleCompiler
             int saved = fallback is Expr.Variable savedArgument
                 ? Array.FindIndex(parameters, parameter => parameter.Name == savedArgument.Name) : -1;
             if (attempt.Clauses is [
-                { Guard: null, Patterns: [Pattern.List { Tail: null, Items: [Pattern.Tuple { Items: [
+                {
+                    Guard: null, Patterns: [Pattern.List
+                    {
+                        Tail: null, Items: [Pattern.Tuple
+                        {
+                            Items: [
                     Pattern.Variable key, Pattern.Variable value
-                ] }] }], Body: Expr.Variable found },
+                ]
+                        }]
+                    }], Body: Expr.Variable found
+                },
                 { Guard: null, Patterns: [var empty], Body: var absent }
             ] && function.Arity == 2 && construction is null && key.Name == parameters[1].Name
                 && found.Name == value.Name && DistinctBindings(parameters[0], parameters[1], value)
@@ -59,6 +77,7 @@ internal sealed partial class BeamModuleCompiler
                 && AttributeLiteral.TryNormalizeConstant(absent, out Term absentValue))
             {
                 EmitProtectedKeyLookup(call, absentValue, fallbackValue);
+
                 return true;
             }
 
@@ -85,7 +104,12 @@ internal sealed partial class BeamModuleCompiler
 
             if (saved >= 0)
             {
-                owner.MoveRegister(XRegisterTag, saved, YRegisterTag, 0);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    saved,
+                    YRegisterTag,
+                    0
+                );
             }
 
             EmitProtectedCacheInvocation(call, caught, token);
@@ -122,10 +146,21 @@ internal sealed partial class BeamModuleCompiler
             int unmatched = Label();
             owner.Op(Allocate, BeamWire.UnsignedTag, 2);
             owner.Operand(BeamWire.UnsignedTag, 2);
-            owner.MoveRegister(XRegisterTag, 1, YRegisterTag, 0);
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                YRegisterTag,
+                0
+            );
             EmitProtectedCacheInvocation(call, caught, 1);
             owner.EmitNonemptyList(0, empty);
-            owner.EmitListParts(0, XRegisterTag, 1, XRegisterTag, 2);
+            owner.EmitListParts(
+                0,
+                XRegisterTag,
+                1,
+                XRegisterTag,
+                2
+            );
             owner.EmitTupleCheck(1, 2, unmatched);
             owner.EmitNilTest(XRegisterTag, 2, unmatched);
             owner.EmitTuplePart(1, 0, 2);

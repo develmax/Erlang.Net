@@ -8,15 +8,25 @@ internal sealed partial class BeamModuleCompiler
     {
         private bool TryEmitRecordOptionValues(FunctionDefinition function)
         {
-            if (function.Clauses is not [{
-                Guard: null, Patterns: [
-                    Pattern.Variable options, Pattern.Tuple { Items: [
+            if (function.Clauses is not [
+                {
+                    Guard: null, Patterns: [
+                    Pattern.Variable options, Pattern.Tuple
+                    {
+                        Items: [
                         Pattern.Literal { Value: Atom tag }, Pattern.Variable first, Pattern.Variable second,
                         Pattern.Variable third, Pattern.Variable { Name: VariableScopeNames.Wildcard },
                         Pattern.Variable last
-                    ] }
+                    ]
+                    }
                 ], Body: Expr.RecordConstruction record
-            }] || !DistinctBindings(options, first, second, third, last)
+                }] || !DistinctBindings(
+                    options,
+                    first,
+                    second,
+                    third,
+                    last
+                )
                 || record.Wildcard is not null
                 || !record.Fields.Select(field => field.Name).SequenceEqual(record.Definition.Fields
                     .Select(field => field.Name).Where(name => record.Fields.Any(field => field.Name == name)))
@@ -35,7 +45,12 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
-            EmitDetailRecordTest(1, 6, tag, owner.nextLabel - 2);
+            EmitDetailRecordTest(
+                1,
+                6,
+                tag,
+                owner.nextLabel - 2
+            );
             owner.Op(Allocate, BeamWire.UnsignedTag, 4);
             owner.Operand(BeamWire.UnsignedTag, 2);
             owner.instructions.WriteByte(InitYRegisters);
@@ -43,10 +58,20 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(BeamWire.UnsignedTag, 2);
             owner.Operand(YRegisterTag, 0);
             owner.Operand(YRegisterTag, 1);
-            owner.MoveRegister(XRegisterTag, 1, YRegisterTag, 2);
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                YRegisterTag,
+                2
+            );
             SaveWindowResult(3);
             owner.EmitTuplePart(1, 1, 2);
-            owner.MoveRegister(XRegisterTag, 0, XRegisterTag, 1);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                XRegisterTag,
+                1
+            );
             owner.EmitConstant(firstKey, 0);
             var previous = location;
             EmitWindowCall(firstCall, ref previous);
@@ -63,7 +88,12 @@ internal sealed partial class BeamModuleCompiler
             LoadDefault(5, 1);
             owner.Op(Swap, YRegisterTag, 3);
             owner.Operand(XRegisterTag, 0);
-            owner.MoveRegister(YRegisterTag, 0, YRegisterTag, 2);
+            owner.MoveRegister(
+                YRegisterTag,
+                0,
+                YRegisterTag,
+                2
+            );
             TrimDetailFrame(1, 3);
             EmitWindowLocal(activeCall, activeEntry, ref previous);
             owner.Op(TestHeap, BeamWire.UnsignedTag, 7);
@@ -81,9 +111,12 @@ internal sealed partial class BeamModuleCompiler
 
             bool ReadOptionValue(Expr.Call call, Pattern.Variable boundDefault, out Atom key)
             {
-                if (call is { Module: not null, DynamicRemote: false, Arguments: [
+                if (call is
+                    {
+                        Module: not null, DynamicRemote: false, Arguments: [
                     Expr.Literal { Value: Atom atom }, Expr.Variable source, Expr.Variable value
-                ] } && source.Name == options.Name && value.Name == boundDefault.Name && !owner.ResolvesErlangBif(call))
+                ]
+                    } && source.Name == options.Name && value.Name == boundDefault.Name && !owner.ResolvesErlangBif(call))
                 {
                     key = atom;
 
@@ -91,6 +124,7 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 key = null!;
+
                 return false;
             }
 

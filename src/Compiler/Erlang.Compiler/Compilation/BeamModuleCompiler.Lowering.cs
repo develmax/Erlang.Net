@@ -59,6 +59,7 @@ internal sealed partial class BeamModuleCompiler
         {
             return true;
         }
+
         return HasLiteralDispatchKeys(function.Clauses.SkipLast(1), constantFallback ? fallbackValue : null);
     }
 
@@ -285,6 +286,7 @@ internal sealed partial class BeamModuleCompiler
             {
                 EmitLiteralPattern(clause, clauses[1], location);
             }
+
             return;
         }
         if (clauses.Count > 2)
@@ -295,12 +297,19 @@ internal sealed partial class BeamModuleCompiler
         }
         if (ReadWrappedCallCase(clause) is { } wrapped)
         {
-            EmitWrappedCallCase(wrapped, clause, location, entries);
+            EmitWrappedCallCase(
+                wrapped,
+                clause,
+                location,
+                entries
+            );
+
             return;
         }
         if (ReadCallCase(clause) is { } callCase)
         {
             EmitCallCase(callCase, location);
+
             return;
         }
         if (ReadSignedInteger(clause) is { } signed)
@@ -336,6 +345,7 @@ internal sealed partial class BeamModuleCompiler
         if (ReadCallChain(clause) is { } chain)
         {
             EmitCallChain(chain, location, entries);
+
             return;
         }
         if ((ReadExternalFunctionLiteral(clause.Body) ?? ReadAutoImportedFunctionLiteral(clause.Body, entries)) is { } functionLiteral)
@@ -364,8 +374,14 @@ internal sealed partial class BeamModuleCompiler
         {
             if (!TryEmitBif(clause, call, entries))
             {
-                EmitCall(clause, location, call, entries);
+                EmitCall(
+                    clause,
+                    location,
+                    call,
+                    entries
+                );
             }
+
             return;
         }
 
@@ -604,6 +620,7 @@ internal sealed partial class BeamModuleCompiler
         if (ReadArgumentListError(clause) is { } error)
         {
             EmitArgumentListError(error, location);
+
             return;
         }
 
@@ -615,7 +632,12 @@ internal sealed partial class BeamModuleCompiler
             return;
         }
 
-        EmitTaggedArgumentError(call!, tag!, [0], location);
+        EmitTaggedArgumentError(
+            call!,
+            tag!,
+            [0],
+            location
+        );
     }
 
     private bool TryEmitTaggedArgumentError(Clause clause, BeamSourceLocation location)
@@ -650,11 +672,22 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        EmitTaggedArgumentError(call, tag, fields, location);
+        EmitTaggedArgumentError(
+            call,
+            tag,
+            fields,
+            location
+        );
+
         return true;
     }
 
-    private void EmitTaggedArgumentError(Expr.Call call, Atom tag, int[] fields, BeamSourceLocation location)
+    private void EmitTaggedArgumentError(
+        Expr.Call call,
+        Atom tag,
+        int[] fields,
+        BeamSourceLocation location
+    )
     {
         int arity = fields.Length + 1;
         Op(TestHeap, BeamWire.UnsignedTag, arity + 1);

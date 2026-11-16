@@ -27,6 +27,7 @@ internal sealed partial class BeamModuleCompiler
         FunctionDefinition? helper = null;
         BeamSourceLocation helperLocation = location;
         Expr rewritten = Rewrite(body, root: true);
+
         return helper is null ? null : (rewritten, helper, helperLocation);
 
         Expr Rewrite(Expr expression, bool root = false)
@@ -42,6 +43,7 @@ internal sealed partial class BeamModuleCompiler
                     ? comprehension.Source?.Line ?? location.Line : comprehension.PreprocessorLine;
                 helperLocation = new(comprehension.PreprocessorFile ?? location.File, line);
                 helper = new(name, 1, [new([new Pattern.Variable(projection.Source.Name)], null, comprehension)]);
+
                 return new Expr.Call(null, name, [projection.Source])
                 {
                     SourceLine = line,

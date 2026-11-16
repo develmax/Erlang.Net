@@ -11,53 +11,128 @@ internal sealed partial class BeamModuleCompiler
             if (function.Clauses is not [
                 {
                     Guard: null, Patterns: [Pattern.Variable parameter],
-                    Body: Expr.Sequence { Items: [
-                        Expr.Match { Pattern: Pattern.Variable supervisor, Value: Expr.Call
-                            { Module: null, DynamicRemote: false, Arguments: [Expr.Variable selector] } nameCall },
-                        Expr.Match { Pattern: Pattern.Variable children, Value: Expr.Call
-                            { Module: not null, DynamicRemote: false, Arguments: [Expr.Variable countArg] } countCall },
-                        Expr.Match { Pattern: Pattern.Variable workers, Value: Expr.Call
-                            { Module: not null, DynamicRemote: false, Arguments: [Expr.Literal { Value: Atom key }, Expr.Variable countResult] } keyCall },
+                    Body: Expr.Sequence
+                    {
+                        Items: [
+                        Expr.Match
+                        {
+                            Pattern: Pattern.Variable supervisor, Value: Expr.Call
+                            { Module: null, DynamicRemote: false, Arguments: [Expr.Variable selector] } nameCall
+                        },
+                        Expr.Match
+                        {
+                            Pattern: Pattern.Variable children, Value: Expr.Call
+                            { Module: not null, DynamicRemote: false, Arguments: [Expr.Variable countArg] } countCall
+                        },
+                        Expr.Match
+                        {
+                            Pattern: Pattern.Variable workers, Value: Expr.Call
+                            { Module: not null, DynamicRemote: false, Arguments: [Expr.Literal { Value: Atom key }, Expr.Variable countResult] } keyCall
+                        },
                         Expr.Case { Value: Expr.Variable count, Clauses: [var zero, var one] } dispatch
-                    ] }
+                    ]
+                    }
                 }
-            ] || !DistinctBindings(parameter, supervisor, children, workers)
+            ] || !DistinctBindings(
+                parameter,
+                supervisor,
+                children,
+                workers
+            )
                 || selector.Name != parameter.Name || countArg.Name != supervisor.Name
                 || countResult.Name != children.Name || count.Name != workers.Name
                 || !entries.TryGetValue((nameCall.Function, 1), out int nameEntry)
-                || zero is not { Guard: null, Patterns: [Pattern.Literal { Value: Integer zeroKey }], Body: Expr.Case
+                || zero is not
+                {
+                    Guard: null, Patterns: [Pattern.Literal { Value: Integer zeroKey }], Body: Expr.Case
                     {
-                        Value: Expr.Call { Module: not null, DynamicRemote: false, Arguments: [
-                            Expr.Variable startArg, Expr.List { Tail: null, Items: [
+                        Value: Expr.Call
+                        {
+                            Module: not null, DynamicRemote: false, Arguments: [
+                            Expr.Variable startArg, Expr.List
+                            {
+                                Tail: null, Items: [
                                 Expr.Literal { Value: Atom childId },
                                 Expr.Call { Module: not null, DynamicRemote: false, Arguments: [Expr.Literal { Value: Atom option }] } options
-                            ] }
-                        ] } start,
-                        Clauses: [
-                            { Guard: null, Patterns: [Pattern.Tuple { Items: [
-                                Pattern.Literal { Value: Atom error }, Pattern.Tuple { Items: [
-                                    Pattern.Literal { Value: Atom conflict }, Pattern.Variable existing
-                                ] }
-                            ] }], Body: Expr.Tuple { Items: [Expr.Literal { Value: Atom recovered }, Expr.Variable recoveredChild] } },
-                            { Guard: null, Patterns: [AliasPattern { Left: Pattern.Tuple { Items: [
-                                Pattern.Literal { Value: Atom ok }, Pattern.Variable { Name: VariableScopeNames.Wildcard }
-                            ] }, Right: Pattern.Variable reply }], Body: Expr.Variable returned }
+                            ]
+                            }
                         ]
-                    } startCase }
-                || one is not { Guard: null, Patterns: [Pattern.Literal { Value: Integer oneKey }], Body: Expr.Sequence { Items: [
-                    Expr.Match { Pattern: Pattern.List { Tail: null, Items: [Pattern.Tuple { Items: [
+                        } start,
+                        Clauses: [
+                        {
+                            Guard: null, Patterns: [Pattern.Tuple
+                            {
+                                Items: [
+                                Pattern.Literal { Value: Atom error }, Pattern.Tuple
+                                {
+                                    Items: [
+                                    Pattern.Literal { Value: Atom conflict }, Pattern.Variable existing
+                                ]
+                                }
+                            ]
+                            }], Body: Expr.Tuple { Items: [Expr.Literal { Value: Atom recovered }, Expr.Variable recoveredChild] }
+                        },
+                        {
+                            Guard: null, Patterns: [AliasPattern
+                            {
+                                Left: Pattern.Tuple
+                                {
+                                    Items: [
+                                Pattern.Literal { Value: Atom ok }, Pattern.Variable { Name: VariableScopeNames.Wildcard }
+                            ]
+                                }, Right: Pattern.Variable reply
+                            }], Body: Expr.Variable returned
+                        }
+                        ]
+                    } startCase
+                }
+                || one is not
+                {
+                    Guard: null, Patterns: [Pattern.Literal { Value: Integer oneKey }], Body: Expr.Sequence
+                    {
+                        Items: [
+                    Expr.Match
+                        {
+                            Pattern: Pattern.List
+                            {
+                                Tail: null, Items: [Pattern.Tuple
+                                {
+                                    Items: [
                         Pattern.Variable { Name: VariableScopeNames.Wildcard }, Pattern.Variable current,
                         Pattern.Variable { Name: VariableScopeNames.Wildcard }, Pattern.Variable { Name: VariableScopeNames.Wildcard }
-                    ] }] }, Value: Expr.Call { Module: not null, DynamicRemote: false, Arguments: [Expr.Variable listArg] } lookup } match,
+                    ]
+                                }]
+                            }, Value: Expr.Call { Module: not null, DynamicRemote: false, Arguments: [Expr.Variable listArg] } lookup
+                        } match,
                     Expr.Tuple { Items: [Expr.Literal { Value: Atom found }, Expr.Variable foundChild] }
-                ] } }
+                ]
+                    }
+                }
                 || zeroKey.Value != 0 || oneKey.Value != 1
                 || startArg.Name != supervisor.Name || listArg.Name != supervisor.Name
                 || existing.Name != recoveredChild.Name || current.Name != foundChild.Name || returned.Name != reply.Name
                 || !ok.Equals(recovered) || !ok.Equals(found) || error.Equals(ok)
-                || !DistinctBindings(parameter, supervisor, children, workers, existing)
-                || !DistinctBindings(parameter, supervisor, children, workers, current)
-                || !DistinctBindings(parameter, supervisor, children, workers, reply))
+                || !DistinctBindings(
+                    parameter,
+                    supervisor,
+                    children,
+                    workers,
+                    existing
+                )
+                || !DistinctBindings(
+                    parameter,
+                    supervisor,
+                    children,
+                    workers,
+                    current
+                )
+                || !DistinctBindings(
+                    parameter,
+                    supervisor,
+                    children,
+                    workers,
+                    reply
+                ))
             {
                 return false;
             }
@@ -84,7 +159,12 @@ internal sealed partial class BeamModuleCompiler
             );
             owner.EmitConstant(key, 0);
             EmitWindowCall(keyCall, ref previous);
-            EmitChildDispatch(0, badCount, (zeroKey, create), (oneKey, reuse));
+            EmitChildDispatch(
+                0,
+                badCount,
+                (zeroKey, create),
+                (oneKey, reuse)
+            );
 
             Mark(reuse);
             Load(0);
@@ -119,13 +199,23 @@ internal sealed partial class BeamModuleCompiler
             EmitWindowCall(start, ref previous);
             owner.EmitTupleCheck(0, 2, badStart);
             owner.EmitTuplePart(0, 0, 1);
-            EmitChildDispatch(1, badStart, (error, alreadyStarted), (ok, success));
+            EmitChildDispatch(
+                1,
+                badStart,
+                (error, alreadyStarted),
+                (ok, success)
+            );
 
             Mark(success);
             owner.EmitFrameReturn(1);
             Mark(alreadyStarted);
             owner.EmitTuplePart(0, 1, 1);
-            EmitDetailRecordTest(1, 2, conflict, badStart);
+            EmitDetailRecordTest(
+                1,
+                2,
+                conflict,
+                badStart
+            );
             EmitChildReply(ok, 1);
 
             Mark(badChild);

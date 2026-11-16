@@ -121,7 +121,12 @@ internal static class BeamDocumentationWriter
                                 pending?.Annotation ?? entryLocation,
                                 Cons.From([Binary(signature ?? BeamDocumentationTypes.Signature(definition, key))]),
                                 doc,
-                                EntryMetadata("type", key, location, typeExports.Contains(key))
+                                EntryMetadata(
+                                    "type",
+                                    key,
+                                    location,
+                                    typeExports.Contains(key)
+                                )
                             )));
                         }
                         pending = null;
@@ -170,7 +175,9 @@ internal static class BeamDocumentationWriter
             Term zero = Term.I(0);
             entries.Add(Term.Tuple(
                 Term.Tuple(Term.A("function"), Term.A(EunitAutoExport.Test), zero),
-                zero, Term.List(Binary("test()")), Term.A("hidden"),
+                zero,
+                Term.List(Binary("test()")),
+                Term.A("hidden"),
                 EntryMetadata("function", (EunitAutoExport.Test, 0), zero)
             ));
         }
@@ -196,10 +203,26 @@ internal static class BeamDocumentationWriter
 
         return BeamOtpEtfCompression.Encode(document);
 
-        Term EntryMetadata(string kind, (string Name, int Arity) key, Term location, bool? exported = null)
+        Term EntryMetadata(
+            string kind,
+            (string Name, int Arity) key,
+            Term location,
+            bool? exported = null
+        )
         {
-            deprecations.Apply(pendingMetadata, module.Name, kind, key);
-            return BeamDocumentationMetadata.Entry(pendingMetadata, moduleMetadata, location, exported);
+            deprecations.Apply(
+                pendingMetadata,
+                module.Name,
+                kind,
+                key
+            );
+
+            return BeamDocumentationMetadata.Entry(
+                pendingMetadata,
+                moduleMetadata,
+                location,
+                exported
+            );
         }
     }
 
@@ -232,6 +255,7 @@ internal static class BeamDocumentationWriter
 
         string recordedFile = releaseIncludeFiles?.GetValueOrDefault(file)
             ?? (attribute.HasExplicitFileLocation ? file : file[(separator + 1)..]);
+
         return Term.List(
             Term.Tuple(Term.A("file"), Term.String(recordedFile)),
             Term.Tuple(Term.A("location"), location)

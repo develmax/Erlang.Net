@@ -170,8 +170,8 @@ internal sealed partial class BeamModuleCompiler
                     Value: Expr.Binary selector,
                     Clauses:
                     [
-                        { Patterns: [Pattern.Literal { Value: Atom or Integer } match], Guard: null, Body: var success },
-                        { Patterns: [Pattern.Variable { Name: VariableScopeNames.Wildcard }], Guard: null, Body: var fallback }
+                    { Patterns: [Pattern.Literal { Value: Atom or Integer } match], Guard: null, Body: var success },
+                    { Patterns: [Pattern.Variable { Name: VariableScopeNames.Wildcard }], Guard: null, Body: var fallback }
                     ]
                 }
                 || !IsDirect(selector.Left) || !IsDirect(selector.Right) || !CanEmit(selector)
@@ -184,7 +184,12 @@ internal sealed partial class BeamModuleCompiler
             var integerInputs = new HashSet<int>();
             int unequal = Label();
             var previous = location;
-            Emit(selector, scratch, scratch, ref previous);
+            Emit(
+                selector,
+                scratch,
+                scratch,
+                ref previous
+            );
             if (IsIntegerOperation(selector))
             {
                 foreach (Expr.Variable variable in new[] { selector.Left, selector.Right }.OfType<Expr.Variable>())
@@ -248,7 +253,12 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
-            void Emit(Expr.Binary binary, int destination, int minimumLive, ref BeamSourceLocation line)
+            void Emit(
+                Expr.Binary binary,
+                int destination,
+                int minimumLive,
+                ref BeamSourceLocation line
+            )
             {
                 int left = Register(binary.Left);
                 int right = Register(binary.Right);
@@ -257,13 +267,23 @@ internal sealed partial class BeamModuleCompiler
                 if (!IsDirect(binary.Left) && binary.Left is Expr.Binary leftExpression)
                 {
                     left = right == destination ? scratch : destination;
-                    Emit(leftExpression, left, Math.Max(minimumLive, right + 1), ref line);
+                    Emit(
+                        leftExpression,
+                        left,
+                        Math.Max(minimumLive, right + 1),
+                        ref line
+                    );
                     leftInteger = IsIntegerOperation(leftExpression);
                 }
                 else if (!IsDirect(binary.Right) && binary.Right is Expr.Binary rightExpression)
                 {
                     right = left == destination ? scratch : destination;
-                    Emit(rightExpression, right, Math.Max(minimumLive, left + 1), ref line);
+                    Emit(
+                        rightExpression,
+                        right,
+                        Math.Max(minimumLive, left + 1),
+                        ref line
+                    );
                     rightInteger = IsIntegerOperation(rightExpression);
                 }
 
@@ -284,11 +304,21 @@ internal sealed partial class BeamModuleCompiler
                 }
                 else if (expression is Expr.Variable)
                 {
-                    owner.MoveRegister(XRegisterTag, Register(expression), XRegisterTag, 0);
+                    owner.MoveRegister(
+                        XRegisterTag,
+                        Register(expression),
+                        XRegisterTag,
+                        0
+                    );
                 }
                 else
                 {
-                    Emit((Expr.Binary)expression, 0, 0, ref line);
+                    Emit(
+                        (Expr.Binary)expression,
+                        0,
+                        0,
+                        ref line
+                    );
                 }
 
                 owner.instructions.WriteByte(Return);
@@ -298,11 +328,21 @@ internal sealed partial class BeamModuleCompiler
                 binary.Operator is ErlangOperators.IntegerDivide or ErlangOperators.Remainder;
         }
 
-        private bool TryEmitComplementaryArithmeticClauses(Clause first, Clause second, bool last, int functionInfo)
+        private bool TryEmitComplementaryArithmeticClauses(
+            Clause first,
+            Clause second,
+            bool last,
+            int functionInfo
+        )
         {
             if (ReadEntryArithmetic(first) is not { Tests: [var firstTest, var firstRemaining] } left
                 || ReadEntryArithmetic(second) is not { Tests: [var secondTest, var secondRemaining] } right
-                || !Complementary(first, firstTest, second, secondTest))
+                || !Complementary(
+                    first,
+                    firstTest,
+                    second,
+                    secondTest
+                ))
             {
                 return false;
             }
@@ -323,7 +363,12 @@ internal sealed partial class BeamModuleCompiler
             return true;
         }
 
-        private static bool Complementary(Clause first, Expr.Binary left, Clause second, Expr.Binary right)
+        private static bool Complementary(
+            Clause first,
+            Expr.Binary left,
+            Clause second,
+            Expr.Binary right
+        )
         {
             byte leftOpcode = GuardComparisonOpcode(left);
             byte rightOpcode = GuardComparisonOpcode(right);
@@ -334,6 +379,7 @@ internal sealed partial class BeamModuleCompiler
 
             var (leftFirst, leftSecond) = EntryComparisonOperands(left);
             var (rightFirst, rightSecond) = EntryComparisonOperands(right);
+
             return SameOperand(leftFirst, rightFirst) && SameOperand(leftSecond, rightSecond);
 
             bool SameOperand(Expr a, Expr b) => a is Expr.Variable firstVariable && b is Expr.Variable secondVariable
@@ -379,6 +425,7 @@ internal sealed partial class BeamModuleCompiler
             }
 
             var comparisons = new List<Expr.Binary>();
+
             return ReadComparisons(clause.Guard) ? (arithmetic, comparisons.ToArray()) : null;
 
             bool IsEntryOperand(Expr expression) => expression is Expr.Variable variable
@@ -400,6 +447,7 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 comparisons.Add(comparison);
+
                 return true;
             }
         }
@@ -421,7 +469,13 @@ internal sealed partial class BeamModuleCompiler
         {
             var previous = location;
             owner.EmitArithmeticLine(arithmetic.SourceLine, ref previous);
-            EmitDirectArithmetic(clause, [arithmetic.Left, arithmetic.Right], arithmetic.Operator, 0, facts);
+            EmitDirectArithmetic(
+                clause,
+                [arithmetic.Left, arithmetic.Right],
+                arithmetic.Operator,
+                0,
+                facts
+            );
             owner.instructions.WriteByte(Return);
         }
 
@@ -431,9 +485,12 @@ internal sealed partial class BeamModuleCompiler
             {
                 Expr[]? operands = clause.Body switch
                 {
-                    Expr.Binary { Operator: ErlangOperators.Minus or ErlangOperators.Multiply or ErlangOperators.IntegerDivide
+                    Expr.Binary
+                    {
+                        Operator: ErlangOperators.Minus or ErlangOperators.Multiply or ErlangOperators.IntegerDivide
                         or ErlangOperators.Divide or ErlangOperators.Remainder or ErlangOperators.ShiftLeft
-                        or ErlangOperators.BitwiseXor or ErlangOperators.Xor } binary => [binary.Left, binary.Right],
+                        or ErlangOperators.BitwiseXor or ErlangOperators.Xor
+                    } binary => [binary.Left, binary.Right],
                     Expr.Unary { Operator: ErlangOperators.Minus or ErlangOperators.BitwiseNot, Operand: Expr.Variable variable } => [variable],
                     _ => null
                 };
@@ -448,18 +505,29 @@ internal sealed partial class BeamModuleCompiler
                     }
                     else
                     {
-                        EmitDirectArithmetic(clause, operands, clause.Body is Expr.Binary operation ? operation.Operator : ((Expr.Unary)clause.Body).Operator, 0);
+                        EmitDirectArithmetic(
+                            clause,
+                            operands,
+                            clause.Body is Expr.Binary operation ? operation.Operator : ((Expr.Unary)clause.Body).Operator,
+                            0
+                        );
                     }
                     owner.instructions.WriteByte(Return);
+
                     return true;
                 }
             }
 
             if (function.Clauses is not [
-                { Guard: Expr.Binary { Operator: ErlangOperators.Greater,
-                    Left: Expr.Binary { Operator: ErlangOperators.Minus or ErlangOperators.IntegerDivide or ErlangOperators.Divide } subtraction,
-                    Right: Expr.Literal { Value: Integer or FloatTerm } bound },
-                    Body: Expr.Literal success } accepted,
+                {
+                    Guard: Expr.Binary
+                    {
+                        Operator: ErlangOperators.Greater,
+                        Left: Expr.Binary { Operator: ErlangOperators.Minus or ErlangOperators.IntegerDivide or ErlangOperators.Divide } subtraction,
+                        Right: Expr.Literal { Value: Integer or FloatTerm } bound
+                    },
+                    Body: Expr.Literal success
+                } accepted,
                 { Guard: null, Body: Expr.Literal fallback } rejected
             ] || !HasUnconditionalParameters(accepted) || !HasUnconditionalParameters(rejected)
                 || !IsCallOperand(subtraction.Left) || !IsCallOperand(subtraction.Right)
@@ -469,7 +537,12 @@ internal sealed partial class BeamModuleCompiler
             }
 
             int failure = Label();
-            EmitDirectArithmetic(accepted, [subtraction.Left, subtraction.Right], subtraction.Operator, failure);
+            EmitDirectArithmetic(
+                accepted,
+                [subtraction.Left, subtraction.Right],
+                subtraction.Operator,
+                failure
+            );
             if (subtraction.Operator == ErlangOperators.IntegerDivide && bound.Value is Integer integer)
             {
                 owner.Op(IsGreaterOrEqual, LabelTag, failure);
@@ -493,6 +566,7 @@ internal sealed partial class BeamModuleCompiler
             Mark(failure);
             owner.EmitConstant(fallback.Value, 0);
             owner.instructions.WriteByte(Return);
+
             return true;
         }
 
@@ -525,6 +599,7 @@ internal sealed partial class BeamModuleCompiler
                     bool belowZero = facts.Any(test =>
                     {
                         var (left, right) = EntryComparisonOperands(test);
+
                         return GuardComparisonOpcode(test) == IsLess
                             && left is Expr.Variable tested && tested.Name == variable.Name
                             && AttributeLiteral.TryNormalizeConstant(right, out Term bound)

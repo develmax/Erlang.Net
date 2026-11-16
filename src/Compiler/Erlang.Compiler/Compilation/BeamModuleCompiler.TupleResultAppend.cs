@@ -8,26 +8,47 @@ internal sealed partial class BeamModuleCompiler
     {
         private bool TryEmitTupleResultAppend(FunctionDefinition function)
         {
-            if (function.Clauses is not [{
-                Guard: null, Patterns: [Pattern.Variable input],
-                Body: Expr.Sequence { Items: [
-                    Expr.Match { Pattern: Pattern.Tuple { Items: [Pattern.Variable head, Pattern.Variable rest] },
-                        Value: Expr.Call { Module: null, DynamicRemote: false, Arguments: [
+            if (function.Clauses is not [
+                {
+                    Guard: null, Patterns: [Pattern.Variable input],
+                    Body: Expr.Sequence
+                    {
+                        Items: [
+                    Expr.Match
+                        {
+                            Pattern: Pattern.Tuple { Items: [Pattern.Variable head, Pattern.Variable rest] },
+                            Value: Expr.Call
+                            {
+                                Module: null, DynamicRemote: false, Arguments: [
                             Expr.Variable argument, Expr.List { Items: [], Tail: null },
                             Expr.Call { Module: null, DynamicRemote: false, Arguments: [] } defaults
-                        ] } collect },
-                    Expr.Tuple { Items: [
-                        Expr.Binary { Operator: ErlangOperators.Append, Left: Expr.Variable prefix,
-                            Right: Expr.Call { Module: null, DynamicRemote: false, Arguments: [] } suffix },
+                        ]
+                            } collect
+                        },
+                    Expr.Tuple
+                        {
+                            Items: [
+                        Expr.Binary
+                            {
+                                Operator: ErlangOperators.Append, Left: Expr.Variable prefix,
+                                Right: Expr.Call { Module: null, DynamicRemote: false, Arguments: [] } suffix
+                            },
                         Expr.Variable tail
-                    ] }
-                ] }
-            }] || !DistinctBindings(input, head, rest) || input.Name != argument.Name
+                    ]
+                        }
+                ]
+                    }
+                }] || !DistinctBindings(input, head, rest) || input.Name != argument.Name
                 || head.Name != prefix.Name || rest.Name != tail.Name
                 || !entries.TryGetValue((defaults.Function, 0), out int defaultEntry)
                 || !entries.TryGetValue((collect.Function, 3), out int collectEntry)
                 || !entries.TryGetValue((suffix.Function, 0), out int suffixEntry)
-                || !ReturnsTuple(collect, 2, [], exact: true))
+                || !ReturnsTuple(
+                    collect,
+                    2,
+                    [],
+                    exact: true
+                ))
             {
                 return false;
             }
@@ -39,7 +60,12 @@ internal sealed partial class BeamModuleCompiler
             var previous = location;
             EmitWindowLocal(defaults, defaultEntry, ref previous);
             owner.EmitConstant(Nil.Value, 1);
-            owner.MoveRegister(XRegisterTag, 0, XRegisterTag, 2);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                XRegisterTag,
+                2
+            );
             Load(1);
             owner.InitStackSlot(1);
             EmitWindowLocal(collect, collectEntry, ref previous);

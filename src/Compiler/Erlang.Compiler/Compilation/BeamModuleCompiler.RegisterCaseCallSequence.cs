@@ -11,7 +11,10 @@ internal sealed partial class BeamModuleCompiler
         private sealed record RegisterCaseCallSequence(
             SavedCallStep[] Calls,
             Dictionary<int, int> LastReads,
-            CaseTuplePlan? ReturnTuple, Term? ReturnConstant, bool KeepFrame);
+            CaseTuplePlan? ReturnTuple,
+            Term? ReturnConstant,
+            bool KeepFrame
+        );
 
         private RegisterCaseCallSequence? ReadRegisterCaseCallSequence(
             Expr expression,
@@ -155,7 +158,13 @@ internal sealed partial class BeamModuleCompiler
 
             var returned = tuple is null ? null : ReadCaseTuple(tuple, previous, active);
 
-            return tuple is null || returned is not null ? new RegisterCaseCallSequence(plans, lastReads, returned, constant, KeepFrame: extraSlots != 0) : null;
+            return tuple is null || returned is not null ? new RegisterCaseCallSequence(
+                plans,
+                lastReads,
+                returned,
+                constant,
+                KeepFrame: extraSlots != 0
+            ) : null;
 
             void RecordReads(Expr value, int index)
             {
@@ -200,7 +209,12 @@ internal sealed partial class BeamModuleCompiler
                     && retained < frame - trimmed - 1)
                 {
                     int destination = frame - trimmed - 1;
-                    owner.MoveRegister(YRegisterTag, retained, YRegisterTag, destination);
+                    owner.MoveRegister(
+                        YRegisterTag,
+                        retained,
+                        YRegisterTag,
+                        destination
+                    );
                     int logical = remaining.Keys.Single();
                     slots[logical] = destination;
                     live.Remove(retained);

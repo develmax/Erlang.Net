@@ -18,9 +18,11 @@ internal sealed partial class BeamModuleCompiler
                     {
                         Value: Expr.Call { DynamicRemote: false, Arguments: [Expr.Literal key, Expr.Variable used] } sourceCall,
                         Clauses: [
-                            { Guard: null, Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom tag }, Pattern.Variable result] }],
-                                Body: Expr.List { Tail: null, Items: [Expr.Variable head, Expr.Variable saved] } },
-                            { Guard: null, Patterns: [Pattern.Literal { Value: Atom { Name: "false" } }], Body: Expr.Variable fallback }
+                        {
+                            Guard: null, Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom tag }, Pattern.Variable result] }],
+                            Body: Expr.List { Tail: null, Items: [Expr.Variable head, Expr.Variable saved] }
+                        },
+                        { Guard: null, Patterns: [Pattern.Literal { Value: Atom { Name: "false" } }], Body: Expr.Variable fallback }
                         ]
                     }
                 }
@@ -40,7 +42,12 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(XRegisterTag, 2);
             owner.Op(Allocate, BeamWire.UnsignedTag, 1);
             owner.Operand(BeamWire.UnsignedTag, 2);
-            owner.MoveRegister(XRegisterTag, 0, YRegisterTag, 0);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                0
+            );
             owner.EmitConstant(key.Value, 0);
             owner.EmitCallLine(call, location);
             Call(call.Module, call.Function, 2);
@@ -66,6 +73,7 @@ internal sealed partial class BeamModuleCompiler
             owner.EmitFrameReturn(1);
             Mark(invalid);
             owner.Op(CaseEnd, XRegisterTag, 0);
+
             return true;
         }
     }

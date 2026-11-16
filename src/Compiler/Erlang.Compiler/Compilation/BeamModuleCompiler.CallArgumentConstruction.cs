@@ -281,7 +281,8 @@ internal sealed partial class BeamModuleCompiler
             int result,
             int[]? stackSlots = null,
             bool heapChecked = false,
-            int? spillSlot = null, Action? afterConstruction = null
+            int? spillSlot = null,
+            Action? afterConstruction = null
         )
         {
             int heapWords = plan.Constructions.Sum(item => item.HeapWords);

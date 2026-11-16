@@ -45,7 +45,12 @@ internal sealed class BeamDocumentationDeprecations
         }
     }
 
-    internal void Apply(Dictionary<Term, Term> metadata, string module, string kind, (string Name, int Arity) key)
+    internal void Apply(
+        Dictionary<Term, Term> metadata,
+        string module,
+        string kind,
+        (string Name, int Arity) key
+    )
     {
         if (metadata.ContainsKey(Deprecated))
         {

@@ -69,6 +69,7 @@ internal sealed partial class BeamModuleCompiler
         }
 
         output.Write(code.Span[copied..]);
+
         return output.ToArray();
     }
 
@@ -83,6 +84,7 @@ internal sealed partial class BeamModuleCompiler
 
         int start = operandStart + cursor.Position;
         BeamCompactValue operand = BeamCompactReader.Read(cursor);
+
         return operand.WireTag == BeamWire.UnsignedTag && operand.Value > 0 && operand.Value <= int.MaxValue
             ? (start, operandStart + cursor.Position, (int)operand.Value) : null;
     }

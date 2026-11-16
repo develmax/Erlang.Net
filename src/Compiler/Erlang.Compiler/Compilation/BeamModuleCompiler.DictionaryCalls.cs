@@ -21,13 +21,16 @@ internal sealed partial class BeamModuleCompiler
                 Patterns: [_],
                 Body: Expr.Sequence
                 {
-                    Items: [Expr.Binary { Operator: ErlangOperators.Send, Left: Expr.Call
+                    Items: [Expr.Binary
+                    {
+                        Operator: ErlangOperators.Send, Left: Expr.Call
                         {
                             Module: null or ErlangModuleNames.Module,
                             DynamicRemote: false,
                             Function: AutoImportNames.Get,
                             Arguments: [var lookupKey]
-                        } recipient, Right: Expr.Variable message } send, var returnExpression]
+                        } recipient, Right: Expr.Variable message
+                    } send, var returnExpression]
                 }
             }
             && key.Name != VariableScopeNames.Wildcard && message.Name == key.Name
@@ -37,7 +40,12 @@ internal sealed partial class BeamModuleCompiler
         {
             Op(Allocate, BeamWire.UnsignedTag, 0);
             Operand(BeamWire.UnsignedTag, 1);
-            MoveRegister(XRegisterTag, 0, XRegisterTag, 1);
+            MoveRegister(
+                XRegisterTag,
+                0,
+                XRegisterTag,
+                1
+            );
             EmitDictionaryLookup(0, lookupConstant);
             EmitArithmeticLine(send.SourceLine, ref location);
             instructions.WriteByte(Send);

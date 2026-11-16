@@ -17,9 +17,9 @@ internal sealed partial class BeamModuleCompiler
     private static GuardedOptionFilter? ReadGuardedOptionFilter(Expr expression)
     {
         if (expression is not Expr.Case
-        {
-            Value: Expr.Call { Module: null, DynamicRemote: false, Arguments: [Expr.Variable input] } filter,
-            Clauses: [
+            {
+                Value: Expr.Call { Module: null, DynamicRemote: false, Arguments: [Expr.Variable input] } filter,
+                Clauses: [
                 {
                     Patterns: [Pattern.List { Items: [], Tail: null } or Pattern.Literal { Value: Nil }],
                     Guard: null,
@@ -31,19 +31,30 @@ internal sealed partial class BeamModuleCompiler
                 },
                 {
                     Patterns: [Pattern.Variable rejected], Guard: null,
-                    Body: Expr.Tuple { Items: [
+                    Body: Expr.Tuple
+                    {
+                        Items: [
                         Expr.Literal { Value: Atom error },
                         Expr.Tuple { Items: [Expr.Literal { Value: Atom detail }, Expr.Variable returned] }
-                    ] }
+                    ]
+                    }
                 }
             ]
-        } || input.Name != options.Name || rejected.Name != returned.Name
+            } || input.Name != options.Name || rejected.Name != returned.Name
             || rejected.Name == VariableScopeNames.Wildcard)
         {
             return null;
         }
 
-        return new(filter, apply, socket.Name, options.Name, rejected.Name, error, detail);
+        return new(
+            filter,
+            apply,
+            socket.Name,
+            options.Name,
+            rejected.Name,
+            error,
+            detail
+        );
     }
 
     private void EmitGuardedOptionFilter(
@@ -63,8 +74,18 @@ internal sealed partial class BeamModuleCompiler
         int socket = ArgumentRegister(body, flow.Socket);
         Op(Allocate, BeamWire.UnsignedTag, 2);
         Operand(BeamWire.UnsignedTag, Math.Max(options, socket) + 1);
-        MoveRegister(XRegisterTag, options, YRegisterTag, 0);
-        MoveRegister(XRegisterTag, socket, YRegisterTag, 1);
+        MoveRegister(
+            XRegisterTag,
+            options,
+            YRegisterTag,
+            0
+        );
+        MoveRegister(
+            XRegisterTag,
+            socket,
+            YRegisterTag,
+            1
+        );
         if (options != 0)
         {
             MoveToX0(XRegisterTag, options);
@@ -82,7 +103,12 @@ internal sealed partial class BeamModuleCompiler
         {
             Operand(XRegisterTag, 0);
         }
-        MoveRegister(YRegisterTag, 0, XRegisterTag, 1);
+        MoveRegister(
+            YRegisterTag,
+            0,
+            XRegisterTag,
+            1
+        );
         MoveToX0(YRegisterTag, 1);
         EmitCallLine(flow.Apply, CallLocation(flow.Filter, location));
         Op(TailExternalCallWithFrame, BeamWire.UnsignedTag, 2);
@@ -100,6 +126,7 @@ internal sealed partial class BeamModuleCompiler
     private bool ReturnsOptionList(string name)
     {
         var filter = sourceModule?.Functions.FirstOrDefault(function => function.Name == name && function.Arity == 1);
+
         return filter is not null && filter.Clauses.All(clause => clause.Body is
             Expr.List { Tail: null } or Expr.ListComprehension or Expr.Literal { Value: Nil });
     }

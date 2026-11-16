@@ -14,10 +14,10 @@ internal sealed partial class BeamModuleCompiler
                     Items:
                     [
                         Expr.Match
-                        {
-                            Pattern: Erlang.Pattern.Variable binding,
-                            Value: Expr.Tuple or Expr.List
-                        } assignment,
+                    {
+                        Pattern: Erlang.Pattern.Variable binding,
+                        Value: Expr.Tuple or Expr.List
+                    } assignment,
                         Expr.Call tail
                     ]
                 }
@@ -63,12 +63,22 @@ internal sealed partial class BeamModuleCompiler
             EmitFrameAllocation(live, saved.Length);
             for (int slot = 0; slot < saved.Length; slot++)
             {
-                owner.MoveRegister(XRegisterTag, saved[slot], YRegisterTag, slot);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    saved[slot],
+                    YRegisterTag,
+                    slot
+                );
             }
 
             EmitEntryCall(first);
             EmitCallArgumentConstructions(plan, -1);
-            EmitPreparedFrameTail(new EntryCall(tail, module, [], []), CallLocation(producer, location), saved.Length);
+            EmitPreparedFrameTail(new EntryCall(
+                tail,
+                module,
+                [],
+                []
+            ), CallLocation(producer, location), saved.Length);
 
             return true;
         }

@@ -6,9 +6,12 @@ internal sealed partial class BeamModuleCompiler
 {
     private static bool ContainsAdditionalOperation(Expr expression, bool includeElement) =>
         expression is Expr.Unary { Operator: ErlangOperators.Not or ErlangOperators.BitwiseNot }
-            or Expr.Binary { Operator: ErlangOperators.Multiply or ErlangOperators.IntegerDivide or ErlangOperators.Divide
+            or Expr.Binary
+        {
+            Operator: ErlangOperators.Multiply or ErlangOperators.IntegerDivide or ErlangOperators.Divide
                 or ErlangOperators.SubtractList or ErlangOperators.ShiftLeft or ErlangOperators.Remainder
-                or ErlangOperators.BitwiseXor or ErlangOperators.Xor }
+                or ErlangOperators.BitwiseXor or ErlangOperators.Xor
+        }
         || includeElement && expression is Expr.Call
         {
             Function: AutoImportNames.Element, Module: null or ErlangModuleNames.Module, Arguments.Count: 2, DynamicRemote: false
@@ -187,13 +190,17 @@ internal sealed partial class BeamModuleCompiler
 
                 EmitDirectOperand(first, expectedValue);
                 EmitConstantGuardBranches(accepted, rejected, failure);
+
                 return true;
             }
 
             var (call, expected) = guard switch
             {
-                Expr.Binary { Operator: ErlangOperators.ExactEqual, Left: Expr.Call compared,
-                    Right: Expr.Literal { Value: Atom atom } } => (compared, atom.Name),
+                Expr.Binary
+                {
+                    Operator: ErlangOperators.ExactEqual, Left: Expr.Call compared,
+                    Right: Expr.Literal { Value: Atom atom }
+                } => (compared, atom.Name),
                 Expr.Call head when IsGuardBif(head, AutoImportNames.Hd) => (head, "true"),
                 _ => (null, null)
             };

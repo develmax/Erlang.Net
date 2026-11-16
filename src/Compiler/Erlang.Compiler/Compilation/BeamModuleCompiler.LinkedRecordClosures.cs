@@ -8,14 +8,21 @@ internal sealed partial class BeamModuleCompiler
     {
         private bool TryEmitLinkedRecordClosures(FunctionDefinition function)
         {
-            if (function.Clauses is not [{
-                Guard: null, Patterns: [Pattern.Variable address, AliasPattern alias],
-                Body: Expr.Sequence { Items: [
-                    Expr.Call { Module: null or ErlangModuleNames.Module, DynamicRemote: false,
-                        Function: AutoImportNames.Link, Arguments: [Expr.Variable linked] } link,
+            if (function.Clauses is not [
+                {
+                    Guard: null, Patterns: [Pattern.Variable address, AliasPattern alias],
+                    Body: Expr.Sequence
+                    {
+                        Items: [
+                    Expr.Call
+                        {
+                            Module: null or ErlangModuleNames.Module, DynamicRemote: false,
+                            Function: AutoImportNames.Link, Arguments: [Expr.Variable linked]
+                        } link,
                     Expr.RecordConstruction { Wildcard: null } construction
-                ] }
-            } clause] || !owner.ResolvesErlangBif(link)
+                ]
+                    }
+                } clause] || !owner.ResolvesErlangBif(link)
                 || !TryReadPatternAlias(alias, out var socket, out var shape)
                 || shape is not Pattern.Tuple { Items: [Pattern.Literal { Value: Atom tag }, ..] } record)
             {
@@ -64,8 +71,15 @@ internal sealed partial class BeamModuleCompiler
             for (int index = 0; index < callbacks.Length; index++)
             {
                 if (callbacks[index].Clauses is not [{ Guard: not null }]
-                    || owner.ReadReturnedClosure(function, bindings, callbacks[index], location,
-                        callbacks.Length - index - 1, index, null) is not { } plan)
+                    || owner.ReadReturnedClosure(
+                        function,
+                        bindings,
+                        callbacks[index],
+                        location,
+                        callbacks.Length - index - 1,
+                        index,
+                        null
+                    ) is not { } plan)
                 {
                     return false;
                 }
@@ -81,11 +95,26 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
-            EmitDetailRecordTest(1, record.Items.Count, tag, owner.nextLabel - 2);
+            EmitDetailRecordTest(
+                1,
+                record.Items.Count,
+                tag,
+                owner.nextLabel - 2
+            );
             owner.Op(Allocate, BeamWire.UnsignedTag, 3);
             owner.Operand(BeamWire.UnsignedTag, 2);
-            owner.MoveRegister(XRegisterTag, 1, YRegisterTag, 1);
-            owner.MoveRegister(XRegisterTag, 0, YRegisterTag, 2);
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                YRegisterTag,
+                1
+            );
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                2
+            );
             owner.Op(GetTupleElement, XRegisterTag, 1);
             owner.Operand(BeamWire.UnsignedTag, field);
             owner.Operand(YRegisterTag, 0);

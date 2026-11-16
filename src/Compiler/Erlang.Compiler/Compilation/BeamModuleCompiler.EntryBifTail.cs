@@ -175,6 +175,7 @@ internal sealed partial class BeamModuleCompiler
             if (continuation is null)
             {
                 owner.EmitFrameReturn(saved.Length);
+
                 return true;
             }
 
@@ -202,6 +203,7 @@ internal sealed partial class BeamModuleCompiler
                     }
 
                     int parameter = Array.IndexOf(parameters, variable.Name);
+
                     return parameter < 0 ? null : new TailBifOperand(parameter, Saved: true);
                 }
 
@@ -275,7 +277,12 @@ internal sealed partial class BeamModuleCompiler
                     operands
                 ));
 
-                return ResultType(register, name, operands, returnsBif);
+                return ResultType(
+                    register,
+                    name,
+                    operands,
+                    returnsBif
+                );
             }
         }
 
@@ -294,13 +301,24 @@ internal sealed partial class BeamModuleCompiler
                 }
                 : null;
 
-        private static TailBifOperand ResultType(int register, string name, TailBifOperand[] operands, bool returnsBif)
+        private static TailBifOperand ResultType(
+            int register,
+            string name,
+            TailBifOperand[] operands,
+            bool returnsBif
+        )
         {
             if (operands is [_])
             {
                 long? upperBound = returnsBif && name is AutoImportNames.ByteSize or AutoImportNames.BitSize
                     ? MaximumBitSize : null;
-                return new(register, Type: IntegerTypeBits, Lower: 0, Upper: upperBound);
+
+                return new(
+                    register,
+                    Type: IntegerTypeBits,
+                    Lower: 0,
+                    Upper: upperBound
+                );
             }
 
             if (name == AutoImportNames.BinaryPart)

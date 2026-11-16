@@ -15,7 +15,12 @@ internal sealed partial class BeamModuleCompiler
         {
             var function = functions[index];
             if (function.Clauses is [var filteredClause]
-                && ExtractCapturedListFilter(function, filteredClause, locations[index], declared) is { } capturedFilter)
+                && ExtractCapturedListFilter(
+                    function,
+                    filteredClause,
+                    locations[index],
+                    declared
+                ) is { } capturedFilter)
             {
                 rewritten[index] = function with { Clauses = [filteredClause with { Body = capturedFilter.Body }] };
                 helpers.Add((capturedFilter.Helper, capturedFilter.Location));
@@ -64,8 +69,18 @@ internal sealed partial class BeamModuleCompiler
             }
             if (function.Clauses is [var commandClause]
                 && commandClause.Body is Expr.Sequence sequence
-                && (ExtractWxUnicodeMapping(function, sequence, locations[index], declared)
-                    ?? ExtractWxOptionMapping(function, sequence, locations[index], declared)) is { } unicode)
+                && (ExtractWxUnicodeMapping(
+                    function,
+                    sequence,
+                    locations[index],
+                    declared
+                )
+                    ?? ExtractWxOptionMapping(
+                        function,
+                        sequence,
+                        locations[index],
+                        declared
+                    )) is { } unicode)
             {
                 rewritten[index] = function with { Clauses = [commandClause with { Body = unicode.Body }] };
                 helpers.Add((unicode.Helper, unicode.Location));
@@ -75,7 +90,12 @@ internal sealed partial class BeamModuleCompiler
             }
 
             if (function.Clauses is [var fieldClause]
-                && ExtractListComprehensionHelper(function, fieldClause, locations[index], declared) is { } field)
+                && ExtractListComprehensionHelper(
+                    function,
+                    fieldClause,
+                    locations[index],
+                    declared
+                ) is { } field)
             {
                 rewritten[index] = function with { Clauses = [fieldClause with { Body = field.Body }] };
                 helpers.Add((field.Helper, field.Location));
@@ -83,7 +103,12 @@ internal sealed partial class BeamModuleCompiler
             }
 
             if (function.Clauses is [var capturedClause]
-                && ExtractCapturedComprehension(function, capturedClause, locations[index], declared) is { } captured)
+                && ExtractCapturedComprehension(
+                    function,
+                    capturedClause,
+                    locations[index],
+                    declared
+                ) is { } captured)
             {
                 rewritten[index] = function with { Clauses = [capturedClause with { Body = captured.Body }] };
                 helpers.Add((captured.Helper, captured.Location));
@@ -103,7 +128,12 @@ internal sealed partial class BeamModuleCompiler
                 || binding.Pattern is not Pattern.Variable bound || bound.Name != source.Name
                 || item.Name == VariableScopeNames.Wildcard || !ClosedMappingExpression(body, item.Name))
             {
-                if (ExtractRecursiveListComprehensions(function, locations[index], declared, localFunctions) is { } recursive)
+                if (ExtractRecursiveListComprehensions(
+                    function,
+                    locations[index],
+                    declared,
+                    localFunctions
+                ) is { } recursive)
                 {
                     rewritten[index] = recursive.Parent;
                     helpers.AddRange(recursive.Helpers);
@@ -160,6 +190,7 @@ internal sealed partial class BeamModuleCompiler
         }
 
         helpers.Reverse();
+
         return helpers.Count == 0
             ? (functions, locations)
             : ([.. rewritten, .. helpers.Select(helper => helper.Function)], [.. locations, .. helpers.Select(helper => helper.Location)]);
@@ -196,7 +227,7 @@ internal sealed partial class BeamModuleCompiler
                 && item.Name != VariableScopeNames.Wildcard
                 && (option
                     ? sequence.Items.Count == 2 && sequence.Items[^1] is Expr.Tuple
-                        { Items: [Expr.Literal { Value: Atom }, Expr.Variable result] } && result.Name == bound.Name
+                    { Items: [Expr.Literal { Value: Atom }, Expr.Variable result] } && result.Name == bound.Name
                     : sequence.Items.Skip(index + 1).OfType<Expr.Call>().Any(call => IsMappingConsumer(call, bound.Name))))
             {
                 string helperName = MappingName(function.Name, function.Arity);
@@ -215,6 +246,7 @@ internal sealed partial class BeamModuleCompiler
                 };
                 Expr[] items = sequence.Items.ToArray();
                 items[index] = binding with { Value = call };
+
                 return (sequence with { Items = items }, BuildClosedMapping(helperName, item, mapped), helperLocation);
             }
 
@@ -230,10 +262,13 @@ internal sealed partial class BeamModuleCompiler
                 return UsesBinding(call.Arguments, name);
             }
 
-            return call is { DynamicRemote: true, Arguments: [
+            return call is
+            {
+                DynamicRemote: true, Arguments: [
                 Expr.Variable module, Expr.Literal { Value: Atom { Name: "queue_cmd" } },
                 Expr.List { Tail: null } operands
-            ] } && UsesBinding(operands.Items, name) && sequence.Items.Take(index).Any(item => item is Expr.Match
+            ]
+            } && UsesBinding(operands.Items, name) && sequence.Items.Take(index).Any(item => item is Expr.Match
             {
                 Pattern: Pattern.Variable binding,
                 Value: Expr.Literal { Value: Atom { Name: "wxe_util" } }
@@ -280,7 +315,13 @@ internal sealed partial class BeamModuleCompiler
             {
                 Clause clause = lambda.Clauses[branch];
                 if (clause.Body is not Expr.Sequence body
-                    || ExtractWxUnicodeMapping(function, body, location, declared, option: true) is not { } mapping)
+                    || ExtractWxUnicodeMapping(
+                        function,
+                        body,
+                        location,
+                        declared,
+                        option: true
+                    ) is not { } mapping)
                 {
                     continue;
                 }
@@ -289,6 +330,7 @@ internal sealed partial class BeamModuleCompiler
                 clauses[branch] = clause with { Body = mapping.Body };
                 Expr[] items = sequence.Items.ToArray();
                 items[index] = binding with { Value = lambda with { Clauses = clauses } };
+
                 return (sequence with { Items = items }, mapping.Helper, mapping.Location);
             }
         }
@@ -331,28 +373,49 @@ internal sealed partial class BeamModuleCompiler
         if (filter is { IsGuard: false } condition)
         {
             const string invalidFilter = "\0comprehension-filter-result";
-            emit = new Expr.Case(condition.Expression,
-            [
+            emit = new Expr.Case(
+                condition.Expression,
+                [
                 new([new Pattern.Literal(Term.A("true"))], null, emit),
                 new([new Pattern.Literal(Term.A("false"))], null, recur with { }),
-                new([new Pattern.Variable(invalidFilter)], null, new Expr.Call(ErlangModuleNames.Module, "error",
-                    [new Expr.Tuple([
+                new(
+                    [new Pattern.Variable(invalidFilter)],
+                    null,
+                    new Expr.Call(
+                        ErlangModuleNames.Module,
+                        "error",
+                        [new Expr.Tuple([
                         new Expr.Literal(Term.A(ComprehensionErrorReasons.BadFilter)), new Expr.Variable(invalidFilter)
-                    ])]))
-            ]);
+                    ])]
+                    )
+                )
+            ]
+            );
         }
 
         Clause[] skip = item is Pattern.Variable && guard is null ? [] :
         [
-            new([new Pattern.List([new Pattern.Variable(VariableScopeNames.Wildcard)], new Pattern.Variable(tail)), .. captures], null, recur with { })
+            new(
+                [new Pattern.List([new Pattern.Variable(VariableScopeNames.Wildcard)], new Pattern.Variable(tail)), .. captures],
+                null,
+                recur with { }
+            )
         ];
         Clause[] finish = properInput
             ? [new([new Pattern.Variable(bad), .. ignoredCaptures], null, new Expr.Variable(bad))]
             : [
                 new([new Pattern.List([], null), .. ignoredCaptures], null, new Expr.Literal(Nil.Value)),
-                new([new Pattern.Variable(bad), .. ignoredCaptures], null, new Expr.Call(ErlangModuleNames.Module, "error",
-                    [new Expr.Tuple([new Expr.Literal(Term.A(ErlangErrorReasons.BadGenerator)), new Expr.Variable(bad)])]))
+                new(
+                    [new Pattern.Variable(bad), .. ignoredCaptures],
+                    null,
+                    new Expr.Call(
+                        ErlangModuleNames.Module,
+                        "error",
+                        [new Expr.Tuple([new Expr.Literal(Term.A(ErlangErrorReasons.BadGenerator)), new Expr.Variable(bad)])]
+                    )
+                )
             ];
+
         return new FunctionDefinition(name, arity,
         [
             new([new Pattern.List([item], new Pattern.Variable(tail)), .. captures], guard, emit),

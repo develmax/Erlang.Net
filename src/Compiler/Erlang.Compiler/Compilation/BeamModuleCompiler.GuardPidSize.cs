@@ -88,15 +88,23 @@ internal sealed partial class BeamModuleCompiler
                     int destination = result + index;
                     var (register, arity) = tests[index];
                     owner.Op(BifOne, LabelTag, arity.HasValue ? rejected : 0);
-                    owner.Operand(BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module,
-                        arity.HasValue ? AutoImportNames.TupleSize : AutoImportNames.IsFloat, 1));
+                    owner.Operand(
+                        BeamWire.UnsignedTag,
+                        owner.Import(ErlangModuleNames.Module,
+                        arity.HasValue ? AutoImportNames.TupleSize : AutoImportNames.IsFloat, 1)
+                    );
                     owner.Operand(XRegisterTag, register);
                     owner.Operand(XRegisterTag, destination);
                     if (arity is int size)
                     {
                         owner.Op(BifTwo, LabelTag, 0);
                         owner.Operand(BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module, ErlangOperators.ExactEqual, 2));
-                        owner.EmitTypedRegister(destination, IntegerTypeBits, lower: 0, upper: MaxTupleArity);
+                        owner.EmitTypedRegister(
+                            destination,
+                            IntegerTypeBits,
+                            lower: 0,
+                            upper: MaxTupleArity
+                        );
                         owner.Operand(BeamWire.IntegerTag, size);
                         owner.Operand(XRegisterTag, destination);
                     }
@@ -116,6 +124,7 @@ internal sealed partial class BeamModuleCompiler
             EmitBooleanTest(baseRegister, "false", accepted);
             EmitBooleanTest(baseRegister + 1, "true", failure);
             Mark(accepted);
+
             return true;
 
             void EmitBooleanBif(string operation, int left, int right)

@@ -24,7 +24,12 @@ internal sealed partial class BeamModuleCompiler
             {
                 Clause clause = clauses[emitted];
                 if (emitted + 1 < clauses.Count
-                    && TryEmitComplementaryArithmeticClauses(clause, clauses[emitted + 1], emitted + 2 == clauses.Count, functionInfo))
+                    && TryEmitComplementaryArithmeticClauses(
+                        clause,
+                        clauses[emitted + 1],
+                        emitted + 2 == clauses.Count,
+                        functionInfo
+                    ))
                 {
                     emitted += 2;
                     continue;
@@ -198,11 +203,11 @@ internal sealed partial class BeamModuleCompiler
                 EmitDirectFunctionGuard(first, call, failure);
             }
             else if (guard is Expr.Binary
-                {
-                    Operator: ErlangOperators.ExactEqual,
-                    Left: Expr.Call { Arguments: [Expr.Variable list] } length,
-                    Right: Expr.Literal { Value: Integer expected }
-                } && IsSizeGuardCall(length))
+            {
+                Operator: ErlangOperators.ExactEqual,
+                Left: Expr.Call { Arguments: [Expr.Variable list] } length,
+                Right: Expr.Literal { Value: Integer expected }
+            } && IsSizeGuardCall(length))
             {
                 failure = Label();
                 int register = ArgumentRegister(first, list.Name);
@@ -210,7 +215,12 @@ internal sealed partial class BeamModuleCompiler
                 owner.Operand(XRegisterTag, register);
                 owner.Operand(XRegisterTag, 0);
                 owner.Op(ExactEqualTest, LabelTag, failure);
-                owner.EmitTypedRegister(0, IntegerTypeBits, 0, OtpSizeUpperBound);
+                owner.EmitTypedRegister(
+                    0,
+                    IntegerTypeBits,
+                    0,
+                    OtpSizeUpperBound
+                );
                 owner.LiteralOperand(expected);
             }
             else
@@ -229,6 +239,7 @@ internal sealed partial class BeamModuleCompiler
             {
                 owner.Op(IsFunction, LabelTag, failure);
                 EmitDirectOperand(clause, call.Arguments[0]);
+
                 return;
             }
             if (call.Arguments[1] is Expr.Literal { Value: Integer arity } && arity.Value >= 0 && arity.Value <= byte.MaxValue)
@@ -236,6 +247,7 @@ internal sealed partial class BeamModuleCompiler
                 owner.Op(IsFunctionWithArity, LabelTag, failure);
                 EmitDirectOperand(clause, call.Arguments[0]);
                 owner.LiteralOperand(arity);
+
                 return;
             }
 

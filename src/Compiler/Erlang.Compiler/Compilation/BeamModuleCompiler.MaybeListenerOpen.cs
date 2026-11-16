@@ -8,34 +8,76 @@ internal sealed partial class BeamModuleCompiler
     {
         private bool TryEmitMaybeListenerOpen(FunctionDefinition function)
         {
-            if (function.Clauses is not [{
-                Guard: null, Patterns: [
+            if (function.Clauses is not [
+                {
+                    Guard: null, Patterns: [
                     Pattern.Tuple { Items: [Pattern.Literal { Value: Atom addressTag }, ..] } address, Pattern.Variable options
                 ],
-                Body: Expr.Maybe { Items: [
+                    Body: Expr.Maybe
+                    {
+                        Items: [
                     Expr.Match { Pattern: Pattern.Variable key, Value: Expr.Literal { Value: Atom option } },
                     Expr.Match { Pattern: Pattern.Variable defaultBinding, Value: Expr.Literal { Value: Integer defaultValue } },
-                    Expr.Match { Pattern: Pattern.Variable backlog, Value: Expr.Call { Module: not null, DynamicRemote: false,
-                        Arguments: [Expr.Variable keyArg, Expr.Variable optionArg, Expr.Variable defaultArg] } lookup },
-                    Expr.MaybeMatch { Pattern: Pattern.Tuple { Items: [
+                    Expr.Match
+                        {
+                            Pattern: Pattern.Variable backlog, Value: Expr.Call
+                            {
+                                Module: not null, DynamicRemote: false,
+                                Arguments: [Expr.Variable keyArg, Expr.Variable optionArg, Expr.Variable defaultArg]
+                            } lookup
+                        },
+                    Expr.MaybeMatch
+                        {
+                            Pattern: Pattern.Tuple
+                            {
+                                Items: [
                         Pattern.Literal { Value: Atom opened }, Pattern.Variable socket
-                    ] }, Value: Expr.Call { Module: not null, DynamicRemote: false,
-                        Arguments: [Expr.Variable family, Expr.Literal { Value: Atom kind }] } open },
-                    Expr.MaybeMatch { Pattern: Pattern.Literal { Value: Atom configured },
-                        Value: Expr.Call { Module: null, DynamicRemote: false, Arguments: [
+                    ]
+                            }, Value: Expr.Call
+                            {
+                                Module: not null, DynamicRemote: false,
+                                Arguments: [Expr.Variable family, Expr.Literal { Value: Atom kind }]
+                            } open
+                        },
+                    Expr.MaybeMatch
+                        {
+                            Pattern: Pattern.Literal { Value: Atom configured },
+                            Value: Expr.Call
+                            {
+                                Module: null, DynamicRemote: false, Arguments: [
                             Expr.Variable socketArg, var optionExpression
-                        ] } set },
-                    Expr.Tuple { Items: [Expr.Literal { Value: Atom result }, Expr.Tuple { Items: [
+                        ]
+                            } set
+                        },
+                    Expr.Tuple
+                        {
+                            Items: [Expr.Literal { Value: Atom result }, Expr.Tuple
+                            {
+                                Items: [
                         Expr.Variable resultSocket, Expr.Variable resultBacklog
-                    ] }] }
-                ], Clauses: [{
+                    ]
+                            }]
+                        }
+                ], Clauses: [
+                {
                     Guard: null, Patterns: [AliasPattern errorAlias], Body: Expr.Variable returned
-                }] } conditional
-            }] || !TryReadPatternAlias(errorAlias, out var error, out var errorShape)
-                || errorShape is not Pattern.Tuple { Items: [
+                }]
+                    } conditional
+                }] || !TryReadPatternAlias(errorAlias, out var error, out var errorShape)
+                || errorShape is not Pattern.Tuple
+                {
+                    Items: [
                     Pattern.Literal { Value: Atom errorTag }, Pattern.Variable { Name: VariableScopeNames.Wildcard }
-                ] }
-                || !DistinctBindings(options, key, defaultBinding, backlog, socket, new(family.Name))
+                ]
+                }
+                || !DistinctBindings(
+                    options,
+                    key,
+                    defaultBinding,
+                    backlog,
+                    socket,
+                    new(family.Name)
+                )
                 || error.Name != returned.Name || error.Name == VariableScopeNames.Wildcard
                 || error.Name == family.Name || error.Name == options.Name
                 || keyArg.Name != key.Name || optionArg.Name != options.Name || defaultArg.Name != defaultBinding.Name
@@ -51,8 +93,11 @@ internal sealed partial class BeamModuleCompiler
             Term mergeValue = Nil.Value;
             if (deleted is null)
             {
-                if (optionExpression is not Expr.Call { Module: not null, DynamicRemote: false,
-                    Arguments: [Expr.Variable mergeOptions, var additions, Expr.List { Items: [], Tail: null }] } mergeCall
+                if (optionExpression is not Expr.Call
+                    {
+                        Module: not null, DynamicRemote: false,
+                        Arguments: [Expr.Variable mergeOptions, var additions, Expr.List { Items: [], Tail: null }]
+                    } mergeCall
                     || mergeOptions.Name != options.Name || owner.ResolvesErlangBif(mergeCall)
                     || !AttributeLiteral.TryNormalizeConstant(additions, out mergeValue))
                 {
@@ -83,23 +128,48 @@ internal sealed partial class BeamModuleCompiler
             int openFailed = Label();
             int matchFailed = Label();
             int elseFailed = Label();
-            EmitDetailRecordTest(0, address.Items.Count, addressTag, functionInfo);
+            EmitDetailRecordTest(
+                0,
+                address.Items.Count,
+                addressTag,
+                functionInfo
+            );
             owner.Op(Allocate, BeamWire.UnsignedTag, 3);
             owner.Operand(BeamWire.UnsignedTag, 2);
             owner.InitStackSlot(0);
-            owner.MoveRegister(XRegisterTag, 1, YRegisterTag, 1);
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                YRegisterTag,
+                1
+            );
             SaveWindowResult(2);
             owner.EmitConstant(defaultValue, 2);
             owner.EmitConstant(option, 0);
             var previous = location;
             EmitWindowCall(lookup, ref previous);
-            LoadTupleField(2, field, XRegisterTag, 1);
+            LoadTupleField(
+                2,
+                field,
+                XRegisterTag,
+                1
+            );
             SaveWindowResult(2);
-            owner.MoveRegister(XRegisterTag, 1, XRegisterTag, 0);
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                XRegisterTag,
+                0
+            );
             owner.EmitConstant(kind, 1);
             EmitWindowCall(open, ref previous);
             SaveWindowResult(0);
-            EmitDetailRecordTest(0, 2, opened, openFailed);
+            EmitDetailRecordTest(
+                0,
+                2,
+                opened,
+                openFailed
+            );
             if (deleted is { } flow)
             {
                 EmitWindowCall(flow.Default, ref previous);
@@ -107,7 +177,12 @@ internal sealed partial class BeamModuleCompiler
                 SaveWindowResult(1);
                 owner.EmitConstant(flow.Key, 0);
                 EmitWindowCall(flow.Inner, ref previous);
-                owner.MoveRegister(XRegisterTag, 0, XRegisterTag, 1);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    0,
+                    XRegisterTag,
+                    1
+                );
                 owner.EmitConstant(option, 0);
                 EmitWindowCall(flow.Outer, ref previous);
                 owner.Op(TestHeap, BeamWire.UnsignedTag, ConsHeapWords);
@@ -115,7 +190,12 @@ internal sealed partial class BeamModuleCompiler
                 owner.Op(PutList, YRegisterTag, 1);
                 owner.Operand(XRegisterTag, 0);
                 owner.Operand(XRegisterTag, 1);
-                LoadTupleField(0, 1, YRegisterTag, 1);
+                LoadTupleField(
+                    0,
+                    1,
+                    YRegisterTag,
+                    1
+                );
             }
             else
             {
@@ -124,8 +204,18 @@ internal sealed partial class BeamModuleCompiler
                 Load(1);
                 owner.InitStackSlot(1);
                 EmitWindowCall(merge!, ref previous);
-                LoadTupleField(0, 1, YRegisterTag, 1);
-                owner.MoveRegister(XRegisterTag, 0, XRegisterTag, 1);
+                LoadTupleField(
+                    0,
+                    1,
+                    YRegisterTag,
+                    1
+                );
+                owner.MoveRegister(
+                    XRegisterTag,
+                    0,
+                    XRegisterTag,
+                    1
+                );
             }
             owner.InitStackSlot(0);
             Load(1);
@@ -149,18 +239,34 @@ internal sealed partial class BeamModuleCompiler
         ) => expression is Expr.List
         {
             Items: [Expr.Call { Module: not null, DynamicRemote: false, Arguments: [] } defaultOption],
-            Tail: Expr.Call { Module: not null, DynamicRemote: false, Arguments: [
-                Expr.Variable backlog, Expr.Call { Module: not null, DynamicRemote: false, Arguments: [
+            Tail: Expr.Call
+            {
+                Module: not null, DynamicRemote: false, Arguments: [
+                Expr.Variable backlog, Expr.Call
+                {
+                    Module: not null, DynamicRemote: false, Arguments: [
                     Expr.Literal { Value: Atom key }, Expr.Variable input
-                ] } inner
-            ] } outer
+                ]
+                } inner
+            ]
+            } outer
         } && backlog.Name == backlogKey && input.Name == options
             && !owner.ResolvesErlangBif(defaultOption) && !owner.ResolvesErlangBif(inner) && !owner.ResolvesErlangBif(outer)
             ? (defaultOption, inner, outer, key) : null;
 
-        private void EmitMaybeListenerElse(Expr.Maybe conditional, Atom errorTag, int elseFailed, int slots = 3)
+        private void EmitMaybeListenerElse(
+            Expr.Maybe conditional,
+            Atom errorTag,
+            int elseFailed,
+            int slots = 3
+        )
         {
-            EmitDetailRecordTest(0, 2, errorTag, elseFailed);
+            EmitDetailRecordTest(
+                0,
+                2,
+                errorTag,
+                elseFailed
+            );
             owner.EmitFrameReturn(slots);
             Mark(elseFailed);
             owner.Op(TestHeap, BeamWire.UnsignedTag, 3);

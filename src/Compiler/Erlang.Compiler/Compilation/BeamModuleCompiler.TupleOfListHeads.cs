@@ -31,16 +31,16 @@ internal sealed partial class BeamModuleCompiler
                 {
                     Items: [
                         Expr.Match
+                    {
+                        Pattern: Pattern.List
                         {
-                            Pattern: Pattern.List
-                            {
-                                Items: [Pattern.Variable head],
-                                Tail: Pattern.Variable { Name: VariableScopeNames.Wildcard }
-                            },
-                            Value: Expr.Variable list,
-                            PreprocessorFile: null,
-                            SourceLine: > 0
-                        } match,
+                            Items: [Pattern.Variable head],
+                            Tail: Pattern.Variable { Name: VariableScopeNames.Wildcard }
+                        },
+                        Value: Expr.Variable list,
+                        PreprocessorFile: null,
+                        SourceLine: > 0
+                    } match,
                         Expr.Variable result
                     ]
                 } && head.Name == result.Name && !parameters.Contains(head.Name) && bindings.Add(head.Name))

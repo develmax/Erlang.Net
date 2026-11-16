@@ -72,7 +72,12 @@ internal sealed partial class BeamModuleCompiler
     private void EmitBehaviourInfoFailure()
     {
         int failure = nextLabel;
-        StartFunction(BehaviourInfoFailureFunction, 1, default, exported: false);
+        StartFunction(
+            BehaviourInfoFailureFunction,
+            1,
+            default,
+            exported: false
+        );
         deferredEntries.Add(BehaviourInfoFailureTarget, failure + 1);
         Op(Jump, LabelTag, failure);
     }

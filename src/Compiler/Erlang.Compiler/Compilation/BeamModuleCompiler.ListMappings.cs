@@ -5,10 +5,21 @@ namespace Erlang.Compiler;
 internal sealed partial class BeamModuleCompiler
 {
     private abstract record MappingPlan;
-    private sealed record ListMapping(Expr.Call Convert, Expr.Call Collect, long? Filter, Expr.Match? Discard = null) : MappingPlan;
+    private sealed record ListMapping(
+        Expr.Call Convert,
+        Expr.Call Collect,
+        long? Filter,
+        Expr.Match? Discard = null
+    ) : MappingPlan;
     private sealed record TaggedEncoding(ListMapping Map, Expr.Call Wrap, Expr.Call Encode);
     private sealed record TaggedListJoin(Atom Tag, Term Separator, ListMapping Map);
-    private sealed record SplitListJoin(Expr.Call Split, Term Delimiter, Term Mode, Term Separator, ListMapping Map);
+    private sealed record SplitListJoin(
+        Expr.Call Split,
+        Term Delimiter,
+        Term Mode,
+        Term Separator,
+        ListMapping Map
+    );
 
     private string activeFunction = string.Empty;
 
@@ -32,13 +43,26 @@ internal sealed partial class BeamModuleCompiler
     private static SplitListJoin? ReadSplitListJoin(IReadOnlyList<Clause> clauses)
     {
         if (clauses is not [
-            { Guard: null, Patterns: [Pattern.Variable input], Body: Expr.Call
-                { Module: "lists", Function: "join", DynamicRemote: false, Arguments: [
-                    var separator, Expr.ListComprehension { Items: [
+            {
+                Guard: null, Patterns: [Pattern.Variable input], Body: Expr.Call
+                {
+                    Module: "lists", Function: "join", DynamicRemote: false, Arguments: [
+                    var separator, Expr.ListComprehension
+                    {
+                        Items: [
                         Expr.Call { Module: not null, DynamicRemote: false, Arguments: [Expr.Variable selected] } convert],
-                        Qualifiers: [ComprehensionQualifier.Generator { Strict: false, Pattern: Pattern.Variable element,
-                            Source: Expr.Call { Module: "string", Function: "split", DynamicRemote: false,
-                                Arguments: [Expr.Variable source, var delimiter, var mode] } split } generator] }] } join }
+                        Qualifiers: [ComprehensionQualifier.Generator
+                        {
+                            Strict: false, Pattern: Pattern.Variable element,
+                            Source: Expr.Call
+                            {
+                                Module: "string", Function: "split", DynamicRemote: false,
+                                Arguments: [Expr.Variable source, var delimiter, var mode]
+                            } split
+                        } generator]
+                    }]
+                } join
+            }
         ] || !DistinctBindings(input, element) || input.Name != source.Name || element.Name != selected.Name
             || !AttributeLiteral.TryNormalizeConstant(delimiter, out Term delimiterValue)
             || !AttributeLiteral.TryNormalizeConstant(mode, out Term modeValue)
@@ -53,7 +77,13 @@ internal sealed partial class BeamModuleCompiler
             PreprocessorFile = generator.GeneratorFile ?? join.PreprocessorFile
         };
 
-        return new(split, delimiterValue, modeValue, separatorValue, new(convert, collect, null));
+        return new(
+            split,
+            delimiterValue,
+            modeValue,
+            separatorValue,
+            new(convert, collect, null)
+        );
     }
 
     private void EmitSplitListJoin(SplitListJoin flow, BeamSourceLocation location,
@@ -67,7 +97,12 @@ internal sealed partial class BeamModuleCompiler
         EmitStaticRemoteCall(flow.Split);
         EmitCallLine(flow.Map.Collect, CallLocation(flow.Split, location));
         EmitFieldCall(1, entries[(MappingName(activeFunction, 1), 1)]);
-        MoveRegister(XRegisterTag, 0, XRegisterTag, 1);
+        MoveRegister(
+            XRegisterTag,
+            0,
+            XRegisterTag,
+            1
+        );
         EmitConstant(flow.Separator, 0);
         Op(TailExternalCallWithFrame, BeamWire.UnsignedTag, 2);
         Operand(BeamWire.UnsignedTag, Import("lists", "join", 2));
@@ -292,7 +327,12 @@ internal sealed partial class BeamModuleCompiler
         int entry = entries[(name, 1)];
         if (map.Discard is not null)
         {
-            EmitTupleProjectionHelper(name, map, location, entry);
+            EmitTupleProjectionHelper(
+                name,
+                map,
+                location,
+                entry
+            );
 
             return;
         }

@@ -12,7 +12,12 @@ internal sealed partial class BeamModuleCompiler
                 && source.Kind is (BeamOperandParameters.X or BeamOperandParameters.Y)
                 && source == destination)
             {
-                edits.Add(new(body[index].Offset, body[index + 1].Offset, 0, 0));
+                edits.Add(new(
+                    body[index].Offset,
+                    body[index + 1].Offset,
+                    0,
+                    0
+                ));
             }
         }
     }
@@ -59,7 +64,13 @@ internal sealed partial class BeamModuleCompiler
         try
         {
             body = BeamInstructionReader.Read(
-                new BeamCodeHeader(BeamWire.FormatVersion, highestOpcode, nextLabel, exports.Count + locals.Count, code),
+                new BeamCodeHeader(
+                    BeamWire.FormatVersion,
+                    highestOpcode,
+                    nextLabel,
+                    exports.Count + locals.Count,
+                    code
+                ),
                 atoms.Count + 1,
                 literalBytes.Count
             );
@@ -209,6 +220,7 @@ internal sealed partial class BeamModuleCompiler
 
         output.Write(code.Span[copied..]);
         byte[] rewritten = output.ToArray();
+
         return removedLine ? RebuildProvenMoveLineTable(rewritten) : rewritten;
 
         static BeamOperand Untyped(BeamOperand operand) =>
@@ -277,6 +289,7 @@ internal sealed partial class BeamModuleCompiler
         }
 
         output.Write(code.AsSpan(copied));
+
         return output.ToArray();
     }
 }

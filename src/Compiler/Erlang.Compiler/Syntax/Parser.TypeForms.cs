@@ -96,11 +96,21 @@ public sealed partial class Parser
             : Term.Tuple(Term.A(module), Term.A(name), Term.I(arity!.Value));
         Term form = Term.Tuple(key, Cons.From(clauses));
 
-        return new((name, arity.Value), form, signature, start);
+        return new(
+            (name, arity.Value),
+            form,
+            signature,
+            start
+        );
     }
 
     private static Term SpecType(Term annotation, string name, Term arguments) =>
-        Term.Tuple(Term.A("type"), annotation, Term.A(name), arguments);
+        Term.Tuple(
+            Term.A("type"),
+            annotation,
+            Term.A(name),
+            arguments
+        );
 
     private static string? SpecArgumentName(Term argument)
     {
@@ -166,6 +176,7 @@ public sealed partial class Parser
             {
                 Expect(ErlangSyntaxTokens.CloseParenthesis);
             }
+
             return Term.Tuple(Term.A(name), Cons.From(signatures));
         }
 
@@ -174,6 +185,7 @@ public sealed partial class Parser
         {
             Expect(ErlangSyntaxTokens.CloseParenthesis);
         }
+
         return definition;
     }
 

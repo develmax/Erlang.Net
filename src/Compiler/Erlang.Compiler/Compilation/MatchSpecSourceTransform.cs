@@ -28,8 +28,12 @@ internal static class MatchSpecSourceTransform
     };
 
     private static Expr Rewrite(Expr expression) =>
-        BeamTargetedInlining.Rewrite(expression, RewriteCall, rewriteComprehensions: true,
-            rewriteScope: subtree => LocalFunctionEntries.Walk(subtree).Any(IsMatchSpecCall) ? null : subtree);
+        BeamTargetedInlining.Rewrite(
+            expression,
+            RewriteCall,
+            rewriteComprehensions: true,
+            rewriteScope: subtree => LocalFunctionEntries.Walk(subtree).Any(IsMatchSpecCall) ? null : subtree
+        );
 
     private static bool IsMatchSpecCall(Expr expression) =>
         expression is Expr.Call { DynamicRemote: false, Module: "ets" or "dbg", Function: "fun2ms" };
@@ -47,6 +51,7 @@ internal static class MatchSpecSourceTransform
 
         var replacement = new Expr.List(function.Clauses.SelectMany(clause => ConvertClause(clause, call.SourceLine)).ToArray());
         originalCalls.Add(replacement, call);
+
         return replacement;
     }
 
@@ -74,6 +79,7 @@ internal static class MatchSpecSourceTransform
         }
 
         int next = 0;
+
         Expr Head(Pattern item) => item switch
         {
             Pattern.Variable { Name: Wildcard } => AtomValue(Wildcard),

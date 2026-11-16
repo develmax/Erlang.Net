@@ -10,36 +10,36 @@ internal sealed partial class BeamModuleCompiler
         {
             if (function.Clauses is not
                 [
-                    {
-                        Patterns:
+                {
+                    Patterns:
                         [
                             Erlang.Pattern.Variable key,
                             Erlang.Pattern.List { Items: [Erlang.Pattern.Variable head], Tail: Erlang.Pattern.Variable tail }
                         ],
-                        Guard: Expr.Binary { Operator: ErlangOperators.Greater, Left: Expr.Variable greaterKey, Right: Expr.Variable greaterHead },
-                        Body: Expr.Call { Module: null, DynamicRemote: false, Arguments: [Expr.Variable nextKey, Expr.Variable nextTail] } recur
-                    },
-                    {
-                        Patterns:
+                    Guard: Expr.Binary { Operator: ErlangOperators.Greater, Left: Expr.Variable greaterKey, Right: Expr.Variable greaterHead },
+                    Body: Expr.Call { Module: null, DynamicRemote: false, Arguments: [Expr.Variable nextKey, Expr.Variable nextTail] } recur
+                },
+                {
+                    Patterns:
                         [
                             Erlang.Pattern.Variable secondKey,
                             Erlang.Pattern.List { Items: [Erlang.Pattern.Variable secondHead], Tail: Erlang.Pattern.Variable secondTail }
                         ],
-                        Guard: Expr.Binary { Operator: ErlangOperators.Less, Left: Expr.Variable lessKey, Right: Expr.Variable lessHead },
-                        Body: var miss
-                    },
-                    {
-                        Patterns:
+                    Guard: Expr.Binary { Operator: ErlangOperators.Less, Left: Expr.Variable lessKey, Right: Expr.Variable lessHead },
+                    Body: var miss
+                },
+                {
+                    Patterns:
                         [
                             Erlang.Pattern.Variable hitKey,
                             Erlang.Pattern.List { Items: [Erlang.Pattern.Variable hitHead], Tail: Erlang.Pattern.Variable hitTail }
                         ],
-                        Guard: null, Body: var hit
-                    },
-                    {
-                        Patterns: [Erlang.Pattern.Variable, var empty],
-                        Guard: null, Body: var exhausted
-                    }
+                    Guard: null, Body: var hit
+                },
+                {
+                    Patterns: [Erlang.Pattern.Variable, var empty],
+                    Guard: null, Body: var exhausted
+                }
                 ]
                 || !DistinctBindings(key, head, tail)
                 || secondKey.Name == VariableScopeNames.Wildcard || secondHead.Name == VariableScopeNames.Wildcard
@@ -68,7 +68,13 @@ internal sealed partial class BeamModuleCompiler
             int notFound = checkNil ? Label() : nonCons;
 
             owner.EmitNonemptyList(listRegister, nonCons);
-            owner.EmitListParts(listRegister, XRegisterTag, headRegister, XRegisterTag, listRegister);
+            owner.EmitListParts(
+                listRegister,
+                XRegisterTag,
+                headRegister,
+                XRegisterTag,
+                listRegister
+            );
             owner.Op(IsLess, LabelTag, compare);
             owner.Operand(XRegisterTag, headRegister);
             owner.Operand(XRegisterTag, keyRegister);

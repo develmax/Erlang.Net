@@ -8,47 +8,93 @@ internal sealed partial class BeamModuleCompiler
     {
         private bool TryEmitRecordTransportOpen(FunctionDefinition function)
         {
-            if (function.Clauses is not [{
-                Guard: null, Patterns: [
+            if (function.Clauses is not [
+                {
+                    Guard: null, Patterns: [
                     Pattern.Variable host, Pattern.Variable port,
                     Pattern.Tuple { Items: [Pattern.Literal { Value: Atom recordTag }, ..] } record,
                     Pattern.Variable timeout
                 ],
-                Body: Expr.Sequence { Items: [
-                    Expr.Match { Pattern: Pattern.Variable transport, Value: Expr.Call {
-                        Module: null or ErlangModuleNames.Module, Function: AutoImportNames.Element, DynamicRemote: false,
-                        Arguments: [Expr.Literal { Value: Integer index }, Expr.Variable callback]
-                    } element },
-                    Expr.Case { Value: Expr.Call { DynamicRemote: true, Arguments: [
-                        Expr.Variable target, Expr.Literal { Value: Atom member }, Expr.List { Tail: null, Items: [
-                            Expr.Literal { Value: Integer initialPort }, Expr.Binary { Operator: ErlangOperators.Append,
-                                Left: Expr.Variable options,
-                                Right: Expr.Call { Module: null, DynamicRemote: false, Arguments: [] } defaults
-                            }
-                        ] }
-                    ] } open, Clauses: [
-                        { Guard: null, Patterns: [Pattern.Tuple { Items: [
+                    Body: Expr.Sequence
+                    {
+                        Items: [
+                    Expr.Match
+                        {
+                            Pattern: Pattern.Variable transport, Value: Expr.Call
+                            {
+                                Module: null or ErlangModuleNames.Module, Function: AutoImportNames.Element, DynamicRemote: false,
+                                Arguments: [Expr.Literal { Value: Integer index }, Expr.Variable callback]
+                            } element
+                        },
+                    Expr.Case
+                        {
+                            Value: Expr.Call
+                            {
+                                DynamicRemote: true, Arguments: [
+                        Expr.Variable target, Expr.Literal { Value: Atom member }, Expr.List
+                                {
+                                    Tail: null, Items: [
+                            Expr.Literal { Value: Integer initialPort }, Expr.Binary
+                                    {
+                                        Operator: ErlangOperators.Append,
+                                        Left: Expr.Variable options,
+                                        Right: Expr.Call { Module: null, DynamicRemote: false, Arguments: [] } defaults
+                                    }
+                        ]
+                                }
+                    ]
+                            } open, Clauses: [
+                            {
+                                Guard: null, Patterns: [Pattern.Tuple
+                                {
+                                    Items: [
                             Pattern.Literal { Value: Atom ok }, Pattern.Variable socket
-                        ] }], Body: Expr.Call { Module: not null, DynamicRemote: false, Arguments: [
+                        ]
+                                }], Body: Expr.Call
+                                {
+                                    Module: not null, DynamicRemote: false, Arguments: [
                             Expr.Literal { Value: Atom role }, Expr.Variable hostArg, Expr.Variable portArg,
-                            Expr.Tuple { Items: [
+                            Expr.Tuple
+                                    {
+                                        Items: [
                                 Expr.Tuple { Items: [Expr.Variable addrHost, Expr.Variable addrPort] }, Expr.Variable socketArg
-                            ] },
+                            ]
+                                    },
                             Expr.Tuple { Items: [Expr.Variable firstOption, Expr.Variable secondOption, Expr.Literal { Value: Atom extra }] },
-                            Expr.Call { Module: null or ErlangModuleNames.Module, Function: AutoImportNames.Self,
-                                DynamicRemote: false, Arguments: [] } self,
+                            Expr.Call
+                                    {
+                                        Module: null or ErlangModuleNames.Module, Function: AutoImportNames.Self,
+                                        DynamicRemote: false, Arguments: []
+                                    } self,
                             Expr.Variable callbackArg, Expr.Variable timeoutArg
-                        ] } start },
-                        { Guard: null, Patterns: [AliasPattern {
-                            Left: Pattern.Tuple { Items: [
+                        ]
+                                } start
+                            },
+                            {
+                                Guard: null, Patterns: [AliasPattern
+                                {
+                                    Left: Pattern.Tuple
+                                    {
+                                        Items: [
                                 Pattern.Literal { Value: Atom error }, Pattern.Variable { Name: VariableScopeNames.Wildcard }
-                            ] }, Right: Pattern.Variable failed
-                        }], Body: Expr.Variable returned }
-                    ] } dispatch
-                ] }
-            }] || index.Value != 1 || !owner.ResolvesErlangBif(element) || !owner.ResolvesErlangBif(self)
+                            ]
+                                    }, Right: Pattern.Variable failed
+                                }], Body: Expr.Variable returned
+                            }
+                    ]
+                        } dispatch
+                ]
+                    }
+                }] || index.Value != 1 || !owner.ResolvesErlangBif(element) || !owner.ResolvesErlangBif(self)
                 || owner.ResolvesErlangBif(start) || !entries.TryGetValue((defaults.Function, 0), out int defaultsEntry)
-                || !DistinctBindings(host, port, timeout, transport, socket, failed)
+                || !DistinctBindings(
+                    host,
+                    port,
+                    timeout,
+                    transport,
+                    socket,
+                    failed
+                )
                 || target.Name != transport.Name || hostArg.Name != host.Name || addrHost.Name != host.Name
                 || portArg.Name != port.Name || addrPort.Name != port.Name || socketArg.Name != socket.Name
                 || callbackArg.Name != callback.Name || timeoutArg.Name != timeout.Name || returned.Name != failed.Name
@@ -81,7 +127,12 @@ internal sealed partial class BeamModuleCompiler
             int success = Label();
             int failure = Label();
             int unmatched = Label();
-            EmitDetailRecordTest(2, record.Items.Count, recordTag, functionInfo);
+            EmitDetailRecordTest(
+                2,
+                record.Items.Count,
+                recordTag,
+                functionInfo
+            );
             owner.EmitTuplePart(2, callbackField, 4);
             var previous = location;
             owner.EmitCallLine(element, previous);
@@ -95,7 +146,12 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(BeamWire.UnsignedTag, 6);
             for (int slot = 0; slot < 6; slot++)
             {
-                owner.MoveRegister(XRegisterTag, 5 - slot, YRegisterTag, slot);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    5 - slot,
+                    YRegisterTag,
+                    slot
+                );
             }
 
             EmitWindowLocal(defaults, defaultsEntry, ref previous);
@@ -105,7 +161,12 @@ internal sealed partial class BeamModuleCompiler
             owner.Op(ExternalCall, BeamWire.UnsignedTag, 2);
             owner.Operand(BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module, ErlangOperators.Append, 2));
             Load(0, 2);
-            owner.MoveRegister(XRegisterTag, 0, XRegisterTag, 1);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                XRegisterTag,
+                1
+            );
             owner.EmitConstant(member, 3);
             owner.InitStackSlot(0);
             owner.EmitConstant(initialPort, 0);
@@ -116,11 +177,25 @@ internal sealed partial class BeamModuleCompiler
             owner.EmitTuplePart(0, 0, 1);
             if (TermOrder.Compare(error, ok, exact: true) < 0)
             {
-                owner.EmitAtomSelection(1, unmatched, error.Name, failure, ok.Name, success);
+                owner.EmitAtomSelection(
+                    1,
+                    unmatched,
+                    error.Name,
+                    failure,
+                    ok.Name,
+                    success
+                );
             }
             else
             {
-                owner.EmitAtomSelection(1, unmatched, ok.Name, success, error.Name, failure);
+                owner.EmitAtomSelection(
+                    1,
+                    unmatched,
+                    ok.Name,
+                    success,
+                    error.Name,
+                    failure
+                );
             }
 
             Mark(success);
@@ -133,9 +208,24 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(XRegisterTag, 3);
             owner.EmitTagMatchTuple(4, (YRegisterTag, 5), (YRegisterTag, 4));
             owner.EmitTagMatchTuple(0, (XRegisterTag, 4), (XRegisterTag, 0));
-            owner.EmitTagMatchTuple(4, (XRegisterTag, 1), (XRegisterTag, 2), (AtomTag, owner.Intern(extra.Name)));
-            owner.MoveRegister(XRegisterTag, 3, XRegisterTag, 5);
-            owner.MoveRegister(XRegisterTag, 0, XRegisterTag, 3);
+            owner.EmitTagMatchTuple(
+                4,
+                (XRegisterTag, 1),
+                (XRegisterTag, 2),
+                (AtomTag, owner.Intern(extra.Name))
+            );
+            owner.MoveRegister(
+                XRegisterTag,
+                3,
+                XRegisterTag,
+                5
+            );
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                XRegisterTag,
+                3
+            );
             Load(1, 6);
             Load(2, 7);
             Load(4, 2);

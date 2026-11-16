@@ -8,44 +8,102 @@ internal sealed partial class BeamModuleCompiler
     {
         private bool TryEmitNewTransportListener(FunctionDefinition function)
         {
-            if (function.Clauses is not [{
-                Guard: null, Patterns: [Pattern.Variable ip, Pattern.Variable requested, Pattern.Variable process, AliasPattern alias],
-                Body: Expr.Sequence { Items: [
-                    Expr.Match { Pattern: Pattern.Variable options, Value: Expr.Binary {
-                        Operator: ErlangOperators.Append, Left: Expr.Variable userOptions,
-                        Right: Expr.Call { Module: null, DynamicRemote: false, Arguments: [] } defaults
-                    } },
-                    Expr.Case { Value: Expr.Call { DynamicRemote: true, Arguments: [
+            if (function.Clauses is not [
+                {
+                    Guard: null, Patterns: [Pattern.Variable ip, Pattern.Variable requested, Pattern.Variable process, AliasPattern alias],
+                    Body: Expr.Sequence
+                    {
+                        Items: [
+                    Expr.Match
+                        {
+                            Pattern: Pattern.Variable options, Value: Expr.Binary
+                            {
+                                Operator: ErlangOperators.Append, Left: Expr.Variable userOptions,
+                                Right: Expr.Call { Module: null, DynamicRemote: false, Arguments: [] } defaults
+                            }
+                        },
+                    Expr.Case
+                        {
+                            Value: Expr.Call
+                            {
+                                DynamicRemote: true, Arguments: [
                         Expr.Variable transport, Expr.Literal { Value: Atom member },
                         Expr.List { Tail: null, Items: [Expr.Variable openPort, Expr.Variable openOptions] }
-                    ] } open, Clauses: [
-                        { Guard: null, Patterns: [Pattern.Tuple { Items: [
+                    ]
+                            } open, Clauses: [
+                            {
+                                Guard: null, Patterns: [Pattern.Tuple
+                                {
+                                    Items: [
                             Pattern.Literal { Value: Atom ok }, Pattern.Variable socket
-                        ] }], Body: Expr.Sequence { Items: [
-                            Expr.Match { Pattern: Pattern.Variable resolved, Value: Expr.Case { Value: Expr.Variable portValue, Clauses: [
-                                { Guard: null, Patterns: [Pattern.Literal { Value: Integer ephemeral }], Body: Expr.Sequence { Items: [
-                                    Expr.Match { Pattern: Pattern.Tuple { Items: [
+                        ]
+                                }], Body: Expr.Sequence
+                                {
+                                    Items: [
+                            Expr.Match
+                                    {
+                                        Pattern: Pattern.Variable resolved, Value: Expr.Case
+                                        {
+                                            Value: Expr.Variable portValue, Clauses: [
+                                            {
+                                                Guard: null, Patterns: [Pattern.Literal { Value: Integer ephemeral }], Body: Expr.Sequence
+                                                {
+                                                    Items: [
+                                    Expr.Match
+                                                    {
+                                                        Pattern: Pattern.Tuple
+                                                        {
+                                                            Items: [
                                         Pattern.Literal { Value: Atom portTag }, Pattern.Variable actual
-                                    ] }, Value: Expr.Call { Module: not null, DynamicRemote: false, Arguments: [Expr.Variable socketArg] } lookup },
+                                    ]
+                                                        }, Value: Expr.Call { Module: not null, DynamicRemote: false, Arguments: [Expr.Variable socketArg] } lookup
+                                                    },
                                     Expr.Variable actualArg
-                                ] } },
-                                { Guard: null, Patterns: [Pattern.Variable { Name: VariableScopeNames.Wildcard }], Body: Expr.Variable fixedPort }
-                            ] } },
-                            Expr.Call { Module: null, DynamicRemote: false, Arguments: [
+                                ]
+                                                }
+                                            },
+                                            { Guard: null, Patterns: [Pattern.Variable { Name: VariableScopeNames.Wildcard }], Body: Expr.Variable fixedPort }
+                            ]
+                                        }
+                                    },
+                            Expr.Call
+                                    {
+                                        Module: null, DynamicRemote: false, Arguments: [
                                 Expr.Variable configArg, Expr.Variable ipArg, Expr.Variable resolvedArg,
                                 Expr.Variable socketInput, Expr.Variable ownerArg
-                            ] } start
-                        ] } },
-                        { Guard: null, Patterns: [Pattern.Tuple { Items: [
+                            ]
+                                    } start
+                        ]
+                                }
+                            },
+                            {
+                                Guard: null, Patterns: [Pattern.Tuple
+                                {
+                                    Items: [
                             Pattern.Literal { Value: Atom errorTag }, Pattern.Literal { Value: Atom occupied }
-                        ] }], Body: var occupiedResult },
-                        { Guard: null, Patterns: [Pattern.Variable error], Body: Expr.Variable returned }
-                    ] }
-                ] }
-            }] || !TryReadPatternAlias(alias, out var config, out var shape)
+                        ]
+                                }], Body: var occupiedResult
+                            },
+                            { Guard: null, Patterns: [Pattern.Variable error], Body: Expr.Variable returned }
+                    ]
+                        }
+                ]
+                    }
+                }] || !TryReadPatternAlias(alias, out var config, out var shape)
                 || shape is not Pattern.Tuple { Items: [Pattern.Literal { Value: Atom configTag }, ..] } record
-                || !DistinctBindings(ip, requested, process, config, options, socket, resolved, actual, error,
-                    new(userOptions.Name), new(transport.Name))
+                || !DistinctBindings(
+                    ip,
+                    requested,
+                    process,
+                    config,
+                    options,
+                    socket,
+                    resolved,
+                    actual,
+                    error,
+                    new(userOptions.Name),
+                    new(transport.Name)
+                )
                 || openPort.Name != requested.Name || openOptions.Name != options.Name || portValue.Name != requested.Name
                 || fixedPort.Name != requested.Name || socketArg.Name != socket.Name || actualArg.Name != actual.Name
                 || configArg.Name != config.Name || ipArg.Name != ip.Name || resolvedArg.Name != resolved.Name
@@ -65,9 +123,19 @@ internal sealed partial class BeamModuleCompiler
             int openError = Label();
             int fallback = Label();
             int badMatch = Label();
-            if (!AlwaysReceivesTaggedArgument(function, 3, configTag, record.Items.Count))
+            if (!AlwaysReceivesTaggedArgument(
+                function,
+                3,
+                configTag,
+                record.Items.Count
+            ))
             {
-                EmitDetailRecordTest(3, record.Items.Count, configTag, functionInfo);
+                EmitDetailRecordTest(
+                    3,
+                    record.Items.Count,
+                    configTag,
+                    functionInfo
+                );
             }
 
             owner.EmitTuplePart(3, fields.Transport, 4);
@@ -76,19 +144,44 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(BeamWire.UnsignedTag, 5);
             for (int slot = 0; slot < 5; slot++)
             {
-                owner.MoveRegister(XRegisterTag, 4 - slot, YRegisterTag, slot);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    4 - slot,
+                    YRegisterTag,
+                    slot
+                );
             }
 
             var previous = location;
             EmitWindowLocal(defaults, defaultsEntry, ref previous);
-            LoadTupleField(1, fields.Options, XRegisterTag, 1);
+            LoadTupleField(
+                1,
+                fields.Options,
+                XRegisterTag,
+                1
+            );
             owner.Op(Swap, XRegisterTag, 0);
             owner.Operand(XRegisterTag, 1);
             owner.Op(ExternalCall, BeamWire.UnsignedTag, 2);
             owner.Operand(BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module, ErlangOperators.Append, 2));
-            LoadTupleField(0, 0, XRegisterTag, 1);
-            owner.MoveRegister(XRegisterTag, 1, XRegisterTag, 2);
-            owner.MoveRegister(XRegisterTag, 0, XRegisterTag, 1);
+            LoadTupleField(
+                0,
+                0,
+                XRegisterTag,
+                1
+            );
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                XRegisterTag,
+                2
+            );
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                XRegisterTag,
+                1
+            );
             owner.EmitConstant(member, 3);
             owner.InitStackSlot(0);
             Load(3);
@@ -102,11 +195,25 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(YRegisterTag, 0);
             if (TermOrder.Compare(errorTag, ok, exact: true) < 0)
             {
-                owner.EmitAtomSelection(1, fallback, errorTag.Name, openError, ok.Name, opened);
+                owner.EmitAtomSelection(
+                    1,
+                    fallback,
+                    errorTag.Name,
+                    openError,
+                    ok.Name,
+                    opened
+                );
             }
             else
             {
-                owner.EmitAtomSelection(1, fallback, ok.Name, opened, errorTag.Name, openError);
+                owner.EmitAtomSelection(
+                    1,
+                    fallback,
+                    ok.Name,
+                    opened,
+                    errorTag.Name,
+                    openError
+                );
             }
 
             Mark(opened);
@@ -116,7 +223,12 @@ internal sealed partial class BeamModuleCompiler
             owner.InitStackSlot(3);
             Load(0);
             EmitWindowCall(lookup, ref previous);
-            EmitDetailRecordTest(0, 2, portTag, badMatch);
+            EmitDetailRecordTest(
+                0,
+                2,
+                portTag,
+                badMatch
+            );
             owner.EmitTuplePart(0, 1, 2);
             JumpTo(startListener);
             Mark(knownPort);
@@ -143,7 +255,12 @@ internal sealed partial class BeamModuleCompiler
             return true;
         }
 
-        private void LoadTupleField(int slot, int field, int destinationTag, int destination)
+        private void LoadTupleField(
+            int slot,
+            int field,
+            int destinationTag,
+            int destination
+        )
         {
             owner.Op(GetTupleElement, YRegisterTag, slot);
             owner.Operand(BeamWire.UnsignedTag, field);
@@ -176,7 +293,12 @@ internal sealed partial class BeamModuleCompiler
             return transportField >= 0 && optionsField >= 0 ? (transportField, optionsField) : null;
         }
 
-        private bool AlwaysReceivesTaggedArgument(FunctionDefinition target, int argument, Atom tag, int arity)
+        private bool AlwaysReceivesTaggedArgument(
+            FunctionDefinition target,
+            int argument,
+            Atom tag,
+            int arity
+        )
         {
             if (owner.exportedFunctions.Contains((target.Name, target.Arity)))
             {
@@ -201,7 +323,13 @@ internal sealed partial class BeamModuleCompiler
                                 .Any(pattern => TryReadPatternAlias(pattern, out var bound, out var shape)
                                     && bound.Name == variable.Name && shape is Pattern.Tuple { Items: [Pattern.Literal literal, ..] } tuple
                                     && tuple.Items.Count == arity && tag.Equals(literal.Value))
-                                && !IsConstructedRecordArgument(clause.Body, call, variable.Name, tag, arity)))
+                                && !IsConstructedRecordArgument(
+                                    clause.Body,
+                                    call,
+                                    variable.Name,
+                                    tag,
+                                    arity
+                                )))
                         {
                             return false;
                         }
@@ -214,7 +342,13 @@ internal sealed partial class BeamModuleCompiler
             return found;
         }
 
-        private static bool IsConstructedRecordArgument(Expr body, Expr.Call call, string name, Atom tag, int arity)
+        private static bool IsConstructedRecordArgument(
+            Expr body,
+            Expr.Call call,
+            string name,
+            Atom tag,
+            int arity
+        )
         {
             if (body is not Expr.Sequence sequence || !sequence.Items.Any(item => ReferenceEquals(item, call)))
             {

@@ -16,8 +16,8 @@ internal sealed partial class BeamModuleCompiler
                         Value: Expr.Call { Arguments: [Expr.Variable selectorKey, Expr.Call length] } selector,
                         Clauses:
                         [
-                            { Patterns: [Pattern.Literal { Value: Atom missing }], Guard: null, Body: Expr.Call fallback },
-                            { Patterns: [Pattern.Variable selected], Guard: Expr.Call guard, Body: Expr.Call apply }
+                        { Patterns: [Pattern.Literal { Value: Atom missing }], Guard: null, Body: Expr.Call fallback },
+                        { Patterns: [Pattern.Variable selected], Guard: Expr.Call guard, Body: Expr.Call apply }
                         ]
                     } decision
                 }
@@ -26,11 +26,19 @@ internal sealed partial class BeamModuleCompiler
                 || !IsFunctionArityCall(guard) || !owner.ResolvesErlangBif(guard)
                 || guard.Arguments is not [Expr.Variable tested, Expr.Call guardLength]
                 || tested.Name != selected.Name || !ReadsLength(guardLength, arguments.Name)
-                || apply is not { DynamicRemote: false, Function: AutoImportNames.Apply,
-                    Arguments: [Expr.Variable function, Expr.Variable values] }
+                || apply is not
+                {
+                    DynamicRemote: false, Function: AutoImportNames.Apply,
+                    Arguments: [Expr.Variable function, Expr.Variable values]
+                }
                 || !owner.ResolvesErlangBif(apply) || function.Name != selected.Name || values.Name != arguments.Name
                 || ReadEntryCall(selector, [key.Name, arguments.Name], preparedOperand: 1) is not { } read
-                || ReadEntryCall(fallback, [], [arguments.Name, key.Name], allowControlTransfer: true) is not { } absent)
+                || ReadEntryCall(
+                    fallback,
+                    [],
+                    [arguments.Name, key.Name],
+                    allowControlTransfer: true
+                ) is not { } absent)
             {
                 return false;
             }
@@ -42,9 +50,24 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(XRegisterTag, 1);
             owner.Operand(XRegisterTag, 2);
             EmitFrameAllocation(3, 2);
-            owner.MoveRegister(XRegisterTag, 1, YRegisterTag, 0);
-            owner.MoveRegister(XRegisterTag, 0, YRegisterTag, 1);
-            owner.MoveRegister(XRegisterTag, 2, XRegisterTag, 1);
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                YRegisterTag,
+                0
+            );
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                1
+            );
+            owner.MoveRegister(
+                XRegisterTag,
+                2,
+                XRegisterTag,
+                1
+            );
             var firstLine = CallLocation(length, location);
             EmitEntryCall(read, firstLine);
             var selectorLine = CallLocation(selector, firstLine);
@@ -62,13 +85,29 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(XRegisterTag, 1);
             owner.Op(IsFunctionWithArity, LabelTag, failure);
             owner.Operand(XRegisterTag, 0);
-            owner.EmitTypedRegister(1, IntegerTypeBits, 0, MaximumBitSize);
-            owner.MoveRegister(YRegisterTag, 0, XRegisterTag, 1);
-            EmitPreparedFrameTail(new EntryCall(apply, ErlangModuleNames.Module, [], []), CallLocation(guardLength, selectorLine), 2);
+            owner.EmitTypedRegister(
+                1,
+                IntegerTypeBits,
+                0,
+                MaximumBitSize
+            );
+            owner.MoveRegister(
+                YRegisterTag,
+                0,
+                XRegisterTag,
+                1
+            );
+            EmitPreparedFrameTail(new EntryCall(
+                apply,
+                ErlangModuleNames.Module,
+                [],
+                []
+            ), CallLocation(guardLength, selectorLine), 2);
 
             Mark(failure);
             owner.EmitLine(decision.SourceLine == 0 ? selectorLine : new(decision.PreprocessorFile, decision.SourceLine));
             owner.Op(CaseEnd, XRegisterTag, 0);
+
             return true;
         }
 

@@ -43,7 +43,12 @@ internal sealed partial class BeamModuleCompiler
                 registers = result is null ? [] : [result];
             }
 
-            return TryEmitNonAllocatingBifOperands(tail, registers, prefix, EntryCallLiveCount(prefix[0], parameters));
+            return TryEmitNonAllocatingBifOperands(
+                tail,
+                registers,
+                prefix,
+                EntryCallLiveCount(prefix[0], parameters)
+            );
         }
 
         private bool TryEmitNonAllocatingBifOperands(
@@ -106,9 +111,12 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 bool supported = bif is
-                    { Function: AutoImportNames.Self or AutoImportNames.Node, Arguments: [] }
-                    or { Function: AutoImportNames.Get or AutoImportNames.Hd or AutoImportNames.Tl
-                        or AutoImportNames.Node or AutoImportNames.TupleSize, Arguments.Count: 1 }
+                { Function: AutoImportNames.Self or AutoImportNames.Node, Arguments: [] }
+                    or
+                {
+                    Function: AutoImportNames.Get or AutoImportNames.Hd or AutoImportNames.Tl
+                        or AutoImportNames.Node or AutoImportNames.TupleSize, Arguments.Count: 1
+                }
                     || IsElementGuardCall(bif)
                     || IsNonAllocatingBinaryGuardCall(bif);
                 if (!supported)
@@ -225,7 +233,12 @@ internal sealed partial class BeamModuleCompiler
                 }
                 else
                 {
-                    EmitPreparedFrameTail(new EntryCall(target, target.Module, [], []), previous, 0);
+                    EmitPreparedFrameTail(new EntryCall(
+                        target,
+                        target.Module,
+                        [],
+                        []
+                    ), previous, 0);
                 }
 
                 return true;
@@ -246,6 +259,7 @@ internal sealed partial class BeamModuleCompiler
             }
 
             owner.instructions.WriteByte(Return);
+
             return true;
 
             static bool CanFail(Expr.Call call) => call.Arguments.Count > 0
@@ -264,6 +278,7 @@ internal sealed partial class BeamModuleCompiler
                     if (register >= 0)
                     {
                         live = Math.Max(live, register + 1);
+
                         return true;
                     }
                 }
@@ -271,6 +286,7 @@ internal sealed partial class BeamModuleCompiler
                 if (AttributeLiteral.TryNormalizeConstant(expression, out Term constant))
                 {
                     literal = constant;
+
                     return true;
                 }
 

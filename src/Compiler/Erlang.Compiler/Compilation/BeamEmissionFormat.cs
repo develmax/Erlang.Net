@@ -143,6 +143,7 @@ internal static class BeamEmissionFormat
     internal const string CompilerVersion = "10.0.6";
     internal const string DisplayFunction = "display";
     internal const string Unsupported = "The function or module uses a form outside the current BEAM emission profile.";
+
     internal static string UnsupportedExpression(Expr expression) => expression switch
     {
         Expr.Binary binary => $"Unsupported BEAM binary operator: {binary.Operator}.",
@@ -166,7 +167,9 @@ internal static class BeamEmissionFormat
 
     internal static string UnsupportedSourceAttribute(string name) =>
         $"BEAM source mapping does not support the -{name} attribute.";
+
     internal static string UnsupportedInlineTarget(string name, int arity) =>
         $"Targeted inline lowering is not supported for {name}/{arity}.";
+
     internal const string ModuleFileMismatch = "BEAM emission requires a source basename that matches the module name.";
 }

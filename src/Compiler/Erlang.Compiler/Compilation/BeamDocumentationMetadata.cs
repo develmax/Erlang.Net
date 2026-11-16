@@ -95,6 +95,7 @@ internal static class BeamDocumentationMetadata
         string Operand(Expr expression, int minimum)
         {
             string text = Format(expression, indent);
+
             return expression is Expr.Binary child && Parser.Precedence(child.Operator) < minimum
                 ? "(" + text + ")"
                 : text;
@@ -144,10 +145,14 @@ internal static class BeamDocumentationMetadata
 
     private static string FormatFun(Clause clause, int indent)
     {
-        string arguments = string.Join(", ", clause.Patterns.Select(pattern => pattern is Pattern.Variable variable
+        string arguments = string.Join(
+            ", ",
+            clause.Patterns.Select(pattern => pattern is Pattern.Variable variable
             ? variable.Name
-            : throw new NotSupportedException(BeamEmissionFormat.Unsupported)));
+            : throw new NotSupportedException(BeamEmissionFormat.Unsupported))
+        );
         const int bodyIndent = 7;
+
         return "fun(" + arguments + ") ->\n" + new string(' ', indent + bodyIndent)
             + Format(clause.Body, indent + bodyIndent) + "\n" + new string(' ', indent) + "end";
     }

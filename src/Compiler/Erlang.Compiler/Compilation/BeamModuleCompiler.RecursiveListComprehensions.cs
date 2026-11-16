@@ -89,7 +89,12 @@ internal sealed partial class BeamModuleCompiler
 
             var clause = function.Clauses.First(candidate => LocalFunctionEntries.Walk(candidate.Body)
                 .Any(expression => ReferenceEquals(expression, comprehension)));
-            string name = MappingName(function.Name, function.Arity, names[comprehension], index);
+            string name = MappingName(
+                function.Name,
+                function.Arity,
+                names[comprehension],
+                index
+            );
             var plan = PlanRecursiveListComprehension(
                 comprehension,
                 clause,
@@ -249,7 +254,8 @@ internal sealed partial class BeamModuleCompiler
             properInput: IsProperListGeneratorCall(source),
             filter: filter is null ? null : (filter, ComprehensionGuard.IsTest(filter, sourceModule)),
             discardResult: discarded
-        ) with { IsRecursiveListMapper = true };
+        ) with
+        { IsRecursiveListMapper = true };
 
         return (recursiveCall, helper, helperLocation);
 

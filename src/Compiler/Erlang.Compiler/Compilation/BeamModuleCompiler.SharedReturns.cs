@@ -54,6 +54,7 @@ internal sealed partial class BeamModuleCompiler
         }
 
         sharedReturnLabelCount = nextLabel - labelCount;
+
         return rewritten;
     }
 
@@ -123,7 +124,13 @@ internal sealed partial class BeamModuleCompiler
                 );
             }
 
-            CollectForwardingLabels(body, index + 1, functionEnd, redirects, edits);
+            CollectForwardingLabels(
+                body,
+                index + 1,
+                functionEnd,
+                redirects,
+                edits
+            );
             functionEnd = index;
         }
 
@@ -141,12 +148,22 @@ internal sealed partial class BeamModuleCompiler
         CollectRedundantJumps(body, redirects, edits);
         if (redirects.Count == 0 && edits.Count == 0)
         {
-            CollectUnreachableBlocks(body, labelOperands, redirects, edits);
+            CollectUnreachableBlocks(
+                body,
+                labelOperands,
+                redirects,
+                edits
+            );
         }
 
         if (redirects.Count == 0 && edits.Count == 0)
         {
-            CollectUnusedFallthroughLabels(body, labelOperands, redirects, edits);
+            CollectUnusedFallthroughLabels(
+                body,
+                labelOperands,
+                redirects,
+                edits
+            );
             CollectIdentityMoves(body, edits);
         }
 
@@ -164,7 +181,12 @@ internal sealed partial class BeamModuleCompiler
                 ?? CombineStackAndHeapAllocation(code, body)
                 ?? KeepTerminalCallResultsInX0(code, body, stackOperands)
                 ?? ForwardCallResult(code, body)
-                ?? EliminateEntryArgumentCopies(code, body, stackOperands, removeSpills: true)
+                ?? EliminateEntryArgumentCopies(
+                    code,
+                    body,
+                    stackOperands,
+                    removeSpills: true
+                )
                 ?? UseSavedBranchOperands(code, body)
                 ?? ForwardSavedCallResults(code, body, stackOperands)
                 ?? PlaceEntryBifBeforeAllocation(code, body, stackOperands)
@@ -190,7 +212,12 @@ internal sealed partial class BeamModuleCompiler
                     atomNames,
                     importsByIndex
                 )
-                ?? MoveHeapTestsBeforeNeutralInstructions(code, body, atomNames, importsByIndex)
+                ?? MoveHeapTestsBeforeNeutralInstructions(
+                    code,
+                    body,
+                    atomNames,
+                    importsByIndex
+                )
                 ?? RemoveProvenLocalRecordChecks(code, body, atomNames)
                 ?? (shareReturns ? null : EliminateEntryArgumentCopies(
                     code,
@@ -200,12 +227,22 @@ internal sealed partial class BeamModuleCompiler
                     allowFramelessBranches: true
                 ))
                 ?? (shareReturns ? null : ReuseStackSlots(
-                    code, body, stackOperands, useValueLiveness: true, closureEntries: closureEntries
+                    code,
+                    body,
+                    stackOperands,
+                    useValueLiveness: true,
+                    closureEntries: closureEntries
                 ))
                 // Reloads also identify the unframed returns when short return jumps are expanded.
-                ?? (shareReturns ? null : EliminateEntryArgumentCopies(code, body, stackOperands, removeSpills: false))
+                ?? (shareReturns ? null : EliminateEntryArgumentCopies(
+                    code,
+                    body,
+                    stackOperands,
+                    removeSpills: false
+                ))
                 ?? (shareReturns ? null : MoveTerminalErrorBlocks(code, body))
                 ?? (shareReturns ? null : CompactDisjointFrames(code, body, stackOperands));
+
             return simplified is null ? null : (simplified, Enumerable.Range(0, labelCount).ToArray(), 0);
         }
 
@@ -240,7 +277,12 @@ internal sealed partial class BeamModuleCompiler
             int target = remappedLabels[label];
             if (target != label)
             {
-                edits.Add(new(start, end, LabelTag, target));
+                edits.Add(new(
+                    start,
+                    end,
+                    LabelTag,
+                    target
+                ));
             }
         }
         for (int index = 0; index < body.Count; index++)
@@ -254,7 +296,12 @@ internal sealed partial class BeamModuleCompiler
             int mapped = remappedLabels[label];
             if (mapped != label && !redirects.ContainsKey(label))
             {
-                edits.Add(new(body[index].Offset + 1, body[index + 1].Offset, BeamWire.UnsignedTag, mapped));
+                edits.Add(new(
+                    body[index].Offset + 1,
+                    body[index + 1].Offset,
+                    BeamWire.UnsignedTag,
+                    mapped
+                ));
             }
         }
 
@@ -352,6 +399,7 @@ internal sealed partial class BeamModuleCompiler
         }
 
         output.Write(code.Span[copied..]);
+
         return output.ToArray();
     }
 
@@ -428,7 +476,13 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 bool fallsThrough = !EndsBeamBlock(body[index - 1].Definition.Opcode);
-                edits.Add(new(body[index].Offset, body[jump + 1].Offset, LabelTag, fallsThrough ? target : 0, fallsThrough));
+                edits.Add(new(
+                    body[index].Offset,
+                    body[jump + 1].Offset,
+                    LabelTag,
+                    fallsThrough ? target : 0,
+                    fallsThrough
+                ));
             }
 
             index = jump;
@@ -489,7 +543,12 @@ internal sealed partial class BeamModuleCompiler
                         edits.Remove(previous);
                     }
 
-                    edits.Add(new(body[index].Offset, end, LabelTag, 0));
+                    edits.Add(new(
+                        body[index].Offset,
+                        end,
+                        LabelTag,
+                        0
+                    ));
                     break;
                 }
 
@@ -574,7 +633,13 @@ internal sealed partial class BeamModuleCompiler
             redirects.Add(label, target);
             // Retain an edge for a predecessor that entered the block by fallthrough.
             bool fallsThrough = !EndsBeamBlock(body[index - 1].Definition.Opcode);
-            edits.Add(new(body[index].Offset, endOffset, LabelTag, fallsThrough ? target : 0, fallsThrough));
+            edits.Add(new(
+                body[index].Offset,
+                endOffset,
+                LabelTag,
+                fallsThrough ? target : 0,
+                fallsThrough
+            ));
             lineInstructions -= removedLines;
         }
     }

@@ -8,20 +8,30 @@ internal sealed partial class BeamModuleCompiler
     {
         private bool TryEmitClosedOptionValidation(FunctionDefinition function)
         {
-            if (function.Clauses is not [var first, {
-                Patterns: [Pattern.Literal { Value: Atom boundedKey }, Pattern.Variable number],
-                Guard: Expr.Binary { Operator: ErlangOperators.AndAlso,
-                    Left: Expr.Binary { Operator: ErlangOperators.GreaterOrEqual, Left: Expr.Variable lowerInput,
-                        Right: var lowerBound },
-                    Right: Expr.Binary { Operator: ErlangOperators.LessOrEqual, Left: Expr.Variable upperInput,
-                        Right: var upperBound }
-                }, Body: Expr.Literal valid
-            }, var boundedFailure, {
-                Guard: null, Patterns: [
+            if (function.Clauses is not [var first,
+                {
+                    Patterns: [Pattern.Literal { Value: Atom boundedKey }, Pattern.Variable number],
+                    Guard: Expr.Binary
+                    {
+                        Operator: ErlangOperators.AndAlso,
+                        Left: Expr.Binary
+                        {
+                            Operator: ErlangOperators.GreaterOrEqual, Left: Expr.Variable lowerInput,
+                            Right: var lowerBound
+                        },
+                        Right: Expr.Binary
+                        {
+                            Operator: ErlangOperators.LessOrEqual, Left: Expr.Variable upperInput,
+                            Right: var upperBound
+                        }
+                    }, Body: Expr.Literal valid
+                }, var boundedFailure,
+                {
+                    Guard: null, Patterns: [
                     Pattern.Variable { Name: VariableScopeNames.Wildcard },
                     Pattern.Variable { Name: VariableScopeNames.Wildcard }
                 ], Body: Expr.Literal fallback
-            }] || number.Name == VariableScopeNames.Wildcard || lowerInput.Name != number.Name || upperInput.Name != number.Name
+                }] || number.Name == VariableScopeNames.Wildcard || lowerInput.Name != number.Name || upperInput.Name != number.Name
                 || !AttributeLiteral.TryNormalizeConstant(lowerBound, out Term minimum) || minimum is not Integer lower
                 || !AttributeLiteral.TryNormalizeConstant(upperBound, out Term maximum) || maximum is not Integer upper
                 || lower.Value < long.MinValue || upper.Value > long.MaxValue || lower.Value > upper.Value
@@ -38,9 +48,21 @@ internal sealed partial class BeamModuleCompiler
             int success = Label();
             int intervalError = Label();
             EmitConfigurationAtomTest(initial.Key, interval);
-            owner.EmitAtomSelection(1, firstError, initial.Allowed[0].Name, success, initial.Allowed[1].Name, success);
+            owner.EmitAtomSelection(
+                1,
+                firstError,
+                initial.Allowed[0].Name,
+                success,
+                initial.Allowed[1].Name,
+                success
+            );
             Mark(firstError);
-            EmitRejection(initial.Key, initial.Context, initial.Error, initial.Call);
+            EmitRejection(
+                initial.Key,
+                initial.Context,
+                initial.Error,
+                initial.Call
+            );
             Mark(interval);
             owner.Op(IsGreaterOrEqual, LabelTag, intervalError);
             owner.Operand(XRegisterTag, 1);
@@ -63,11 +85,21 @@ internal sealed partial class BeamModuleCompiler
             owner.EmitConstant(valid.Value, 0);
             owner.instructions.WriteByte(Return);
             Mark(intervalError);
-            EmitRejection(bounded.Key, bounded.Context, bounded.Error, bounded.Call);
+            EmitRejection(
+                bounded.Key,
+                bounded.Context,
+                bounded.Error,
+                bounded.Call
+            );
 
             return true;
 
-            void EmitRejection(Atom key, Atom context, Atom error, Expr.Call call)
+            void EmitRejection(
+                Atom key,
+                Atom context,
+                Atom error,
+                Expr.Call call
+            )
             {
                 owner.Op(TestHeap, BeamWire.UnsignedTag, 9);
                 owner.Operand(BeamWire.UnsignedTag, 2);
@@ -82,16 +114,28 @@ internal sealed partial class BeamModuleCompiler
 
         private (Atom Key, Atom Context, Atom Error, Atom[] Allowed, Expr.Call Call)? ReadOptionRejection(Clause clause, int count)
         {
-            if (clause is not {
-                Patterns: [Pattern.Literal { Value: Atom key }, Pattern.Variable input], Guard: { } guard,
-                Body: Expr.Call { Module: null or ErlangModuleNames.Module, DynamicRemote: false, Function: AutoImportNames.Throw,
-                    Arguments: [Expr.Tuple { Items: [Expr.Literal { Value: Atom error }, Expr.Tuple { Items: [
-                        Expr.Literal { Value: Atom context }, Expr.Tuple { Items: [
+            if (clause is not
+                {
+                    Patterns: [Pattern.Literal { Value: Atom key }, Pattern.Variable input], Guard: { } guard,
+                    Body: Expr.Call
+                    {
+                        Module: null or ErlangModuleNames.Module, DynamicRemote: false, Function: AutoImportNames.Throw,
+                        Arguments: [Expr.Tuple
+                        {
+                            Items: [Expr.Literal { Value: Atom error }, Expr.Tuple
+                            {
+                                Items: [
+                        Expr.Literal { Value: Atom context }, Expr.Tuple
+                                {
+                                    Items: [
                             Expr.Literal { Value: Atom rejectedKey }, Expr.Variable rejected
-                        ] }
-                    ] }] }]
-                } call
-            } || input.Name == VariableScopeNames.Wildcard || input.Name != rejected.Name || !key.Equals(rejectedKey)
+                        ]
+                                }
+                    ]
+                            }]
+                        }]
+                    } call
+                } || input.Name == VariableScopeNames.Wildcard || input.Name != rejected.Name || !key.Equals(rejectedKey)
                 || !owner.ResolvesErlangBif(call))
             {
                 return null;
@@ -108,8 +152,11 @@ internal sealed partial class BeamModuleCompiler
             bool ReadGuard(Expr condition) => condition switch
             {
                 Expr.Binary { Operator: ErlangOperators.AndAlso } pair => ReadGuard(pair.Left) && ReadGuard(pair.Right),
-                Expr.Binary { Operator: ErlangOperators.ExactNotEqual, Left: Expr.Variable value,
-                    Right: Expr.Literal { Value: Atom atom } } when value.Name == input.Name => allowed.Add(atom),
+                Expr.Binary
+                {
+                    Operator: ErlangOperators.ExactNotEqual, Left: Expr.Variable value,
+                    Right: Expr.Literal { Value: Atom atom }
+                } when value.Name == input.Name => allowed.Add(atom),
                 _ => false
             };
         }

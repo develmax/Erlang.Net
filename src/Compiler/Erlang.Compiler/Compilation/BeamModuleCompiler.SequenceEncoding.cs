@@ -9,14 +9,33 @@ internal sealed partial class BeamModuleCompiler
         private bool TryEmitSequenceEncodingWrapper(FunctionDefinition function)
         {
             if (function.Clauses is not [
-                { Guard: null, Patterns: [Pattern.Variable source, Pattern.Variable tags],
-                  Body: Expr.Sequence { Items: [
-                      Expr.Match { Pattern: Pattern.Tuple { Items: [Pattern.Variable payload, Pattern.Variable length] },
-                          Value: Expr.Call { Module: null, DynamicRemote: false,
-                              Arguments: [Expr.Variable input, var empty, Expr.Literal { Value: Integer seed }] } encode },
-                      Expr.Call { Module: null, DynamicRemote: false,
-                          Arguments: [Expr.Variable tag, Expr.Variable bytes, Expr.Variable count] } finish] } }]
-                || !DistinctBindings(source, tags, payload, length)
+                {
+                    Guard: null, Patterns: [Pattern.Variable source, Pattern.Variable tags],
+                    Body: Expr.Sequence
+                    {
+                        Items: [
+                      Expr.Match
+                        {
+                            Pattern: Pattern.Tuple { Items: [Pattern.Variable payload, Pattern.Variable length] },
+                            Value: Expr.Call
+                            {
+                                Module: null, DynamicRemote: false,
+                                Arguments: [Expr.Variable input, var empty, Expr.Literal { Value: Integer seed }]
+                            } encode
+                        },
+                      Expr.Call
+                        {
+                            Module: null, DynamicRemote: false,
+                            Arguments: [Expr.Variable tag, Expr.Variable bytes, Expr.Variable count]
+                        } finish]
+                    }
+                }]
+                || !DistinctBindings(
+                    source,
+                    tags,
+                    payload,
+                    length
+                )
                 || input.Name != source.Name || tag.Name != tags.Name || bytes.Name != payload.Name || count.Name != length.Name
                 || !AttributeLiteral.TryNormalizeConstant(empty, out Term accumulator) || accumulator is not Nil
                 || !seed.Value.IsZero || !entries.TryGetValue((encode.Function, 3), out int encoder)
@@ -28,7 +47,12 @@ internal sealed partial class BeamModuleCompiler
 
             owner.Op(Allocate, BeamWire.UnsignedTag, 1);
             owner.Operand(BeamWire.UnsignedTag, 2);
-            owner.MoveRegister(XRegisterTag, 1, YRegisterTag, 0);
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                YRegisterTag,
+                0
+            );
             owner.EmitConstant(seed, 2);
             owner.EmitConstant(accumulator, 1);
             owner.EmitCallLine(encode, location);
@@ -46,16 +70,25 @@ internal sealed partial class BeamModuleCompiler
         private bool TryEmitPairForwarding(FunctionDefinition function)
         {
             if (function.Clauses is not [
-                { Guard: null, Patterns: [Pattern.Variable tag,
+                {
+                    Guard: null, Patterns: [Pattern.Variable tag,
                       Pattern.Tuple { Items: [Pattern.Variable payload, Pattern.Variable length] }],
-                  Body: Expr.Call { Module: null, DynamicRemote: false,
-                      Arguments: [Expr.Variable first, Expr.Variable second, Expr.Variable third] } finish }]
+                    Body: Expr.Call
+                    {
+                        Module: null, DynamicRemote: false,
+                        Arguments: [Expr.Variable first, Expr.Variable second, Expr.Variable third]
+                    } finish
+                }]
                 || !DistinctBindings(tag, payload, length)
                 || first.Name != tag.Name || second.Name != payload.Name || third.Name != length.Name
                 || !entries.TryGetValue((finish.Function, 3), out int finisher)
-                || !HasOnlyLocalCalls(function, 2, (_, call) =>
+                || !HasOnlyLocalCalls(
+                    function,
+                    2,
+                    (_, call) =>
                     call.Arguments[1] is Expr.Tuple { Items.Count: 2 }
-                    || (InferPairFacts(call.Arguments[1]) & PairFacts.Length) != 0))
+                    || (InferPairFacts(call.Arguments[1]) & PairFacts.Length) != 0
+                ))
             {
                 return false;
             }
@@ -87,9 +120,12 @@ internal sealed partial class BeamModuleCompiler
 
             Expr.Call read;
             Expr.Call finish;
-            if (body is Expr.Sequence { Items: [
+            if (body is Expr.Sequence
+                {
+                    Items: [
                 Expr.Match { Pattern: Pattern.Variable result, Value: Expr.Call reader },
-                Expr.Call { DynamicRemote: false, Arguments: [Expr.Variable argument] } consumer] }
+                Expr.Call { DynamicRemote: false, Arguments: [Expr.Variable argument] } consumer]
+                }
                 && DistinctBindings(first, second, result) && argument.Name == result.Name)
             {
                 read = reader;
@@ -150,24 +186,56 @@ internal sealed partial class BeamModuleCompiler
         private bool TryEmitSequenceEncoding(FunctionDefinition function)
         {
             if (function.Clauses is not [
-                { Guard: null, Patterns: [var nil, Pattern.Variable bytes, Pattern.Variable count],
-                  Body: Expr.Tuple { Items: [Expr.Call { Module: "lists", Function: "reverse", DynamicRemote: false,
-                      Arguments: [Expr.Variable reversed] } reverse, Expr.Variable length] } },
-                { Guard: null, Patterns: [
+                {
+                    Guard: null, Patterns: [var nil, Pattern.Variable bytes, Pattern.Variable count],
+                    Body: Expr.Tuple
+                    {
+                        Items: [Expr.Call
+                        {
+                            Module: "lists", Function: "reverse", DynamicRemote: false,
+                            Arguments: [Expr.Variable reversed]
+                        } reverse, Expr.Variable length]
+                    }
+                },
+                {
+                    Guard: null, Patterns: [
                       Pattern.List { Items: [Pattern.Variable head], Tail: Pattern.Variable tail },
                       Pattern.Variable acc, Pattern.Variable total],
-                  Body: Expr.Sequence { Items: [
-                      Expr.Match { Pattern: Pattern.Tuple { Items: [Pattern.Variable part, Pattern.Variable size] },
-                          Value: Expr.Call { Module: null, DynamicRemote: false,
-                              Arguments: [Expr.Variable item, var tag] } encode },
-                      Expr.Call { Module: null, DynamicRemote: false, Arguments: [
+                    Body: Expr.Sequence
+                    {
+                        Items: [
+                      Expr.Match
+                        {
+                            Pattern: Pattern.Tuple { Items: [Pattern.Variable part, Pattern.Variable size] },
+                            Value: Expr.Call
+                            {
+                                Module: null, DynamicRemote: false,
+                                Arguments: [Expr.Variable item, var tag]
+                            } encode
+                        },
+                      Expr.Call
+                        {
+                            Module: null, DynamicRemote: false, Arguments: [
                           Expr.Variable next, Expr.List { Items: [Expr.Variable payload], Tail: Expr.Variable previous },
-                          Expr.Binary { Operator: ErlangOperators.Plus, Left: Expr.Variable left,
-                              Right: Expr.Variable right } sum] } recur] } }
+                          Expr.Binary
+                            {
+                                Operator: ErlangOperators.Plus, Left: Expr.Variable left,
+                                Right: Expr.Variable right
+                            } sum]
+                        } recur]
+                    }
+                }
                 ]
                 || !IsEmptyListPattern(nil) || !DistinctBindings(bytes, count)
                 || reversed.Name != bytes.Name || length.Name != count.Name
-                || !DistinctBindings(head, tail, acc, total, part, size)
+                || !DistinctBindings(
+                    head,
+                    tail,
+                    acc,
+                    total,
+                    part,
+                    size
+                )
                 || item.Name != head.Name || next.Name != tail.Name || payload.Name != part.Name
                 || previous.Name != acc.Name || left.Name != total.Name || right.Name != size.Name
                 || recur.Function != function.Name || !entries.TryGetValue((function.Name, 3), out int entry)
@@ -185,9 +253,25 @@ internal sealed partial class BeamModuleCompiler
             owner.EmitNonemptyList(0, empty);
             owner.Op(Allocate, BeamWire.UnsignedTag, 3);
             owner.Operand(BeamWire.UnsignedTag, 3);
-            owner.MoveRegister(XRegisterTag, 2, YRegisterTag, 1);
-            owner.MoveRegister(XRegisterTag, 1, YRegisterTag, 2);
-            owner.EmitListParts(0, XRegisterTag, 0, YRegisterTag, 0);
+            owner.MoveRegister(
+                XRegisterTag,
+                2,
+                YRegisterTag,
+                1
+            );
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                YRegisterTag,
+                2
+            );
+            owner.EmitListParts(
+                0,
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                0
+            );
             owner.EmitConstant(constant, 1);
             owner.EmitCallLine(encode, location);
             owner.EmitFieldCall(2, encoder);
@@ -200,7 +284,12 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module, ErlangOperators.Plus, 2));
             if (naturalTotal)
             {
-                owner.EmitTypedRegister(1, IntegerTypeBits, lower: 0, registerTag: YRegisterTag);
+                owner.EmitTypedRegister(
+                    1,
+                    IntegerTypeBits,
+                    lower: 0,
+                    registerTag: YRegisterTag
+                );
             }
             else
             {
@@ -215,8 +304,18 @@ internal sealed partial class BeamModuleCompiler
             owner.Op(PutList, XRegisterTag, 0);
             owner.Operand(YRegisterTag, 2);
             owner.Operand(XRegisterTag, 0);
-            owner.MoveRegister(XRegisterTag, 1, XRegisterTag, 2);
-            owner.MoveRegister(XRegisterTag, 0, XRegisterTag, 1);
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                XRegisterTag,
+                2
+            );
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                XRegisterTag,
+                1
+            );
             Load(0, 0);
             owner.Op(TailLocalCallWithFrame, BeamWire.UnsignedTag, 3);
             owner.Operand(LabelTag, entry);
@@ -226,8 +325,18 @@ internal sealed partial class BeamModuleCompiler
             owner.EmitNilTest(XRegisterTag, 0, functionInfo);
             owner.Op(Allocate, BeamWire.UnsignedTag, 1);
             owner.Operand(BeamWire.UnsignedTag, 3);
-            owner.MoveRegister(XRegisterTag, 2, YRegisterTag, 0);
-            owner.MoveRegister(XRegisterTag, 1, XRegisterTag, 0);
+            owner.MoveRegister(
+                XRegisterTag,
+                2,
+                YRegisterTag,
+                0
+            );
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                XRegisterTag,
+                0
+            );
             owner.EmitCallLine(reverse, location);
             Call(reverse.Module, reverse.Function, 1);
             owner.Op(TestHeap, BeamWire.UnsignedTag, 3);

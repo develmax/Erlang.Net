@@ -8,15 +8,16 @@ internal sealed partial class BeamModuleCompiler
     {
         private bool TryEmitNestedListRegistration(FunctionDefinition function)
         {
-            if (function.Clauses is not [{
-                Guard: null,
-                Patterns: [Pattern.List
+            if (function.Clauses is not [
                 {
-                    Items: [Pattern.List { Items: [Pattern.Variable first, Pattern.Variable second], Tail: null }],
-                    Tail: null
-                }],
-                Body: Expr.Sequence { Items.Count: >= 3 } sequence
-            }]
+                    Guard: null,
+                    Patterns: [Pattern.List
+                    {
+                        Items: [Pattern.List { Items: [Pattern.Variable first, Pattern.Variable second], Tail: null }],
+                        Tail: null
+                    }],
+                    Body: Expr.Sequence { Items.Count: >= 3 } sequence
+                }]
                 || !DistinctBindings(first, second)
                 || sequence.Items[0] is not Expr.Match
                 {
@@ -62,17 +63,45 @@ internal sealed partial class BeamModuleCompiler
 
             int failure = owner.nextLabel - 2;
             owner.EmitNonemptyList(0, failure);
-            owner.EmitListParts(0, XRegisterTag, 1, XRegisterTag, 2);
+            owner.EmitListParts(
+                0,
+                XRegisterTag,
+                1,
+                XRegisterTag,
+                2
+            );
             owner.EmitNonemptyList(1, failure);
-            owner.EmitListParts(1, XRegisterTag, 3, XRegisterTag, 1);
+            owner.EmitListParts(
+                1,
+                XRegisterTag,
+                3,
+                XRegisterTag,
+                1
+            );
             owner.EmitNonemptyList(1, failure);
-            owner.EmitListParts(1, XRegisterTag, 4, XRegisterTag, 1);
+            owner.EmitListParts(
+                1,
+                XRegisterTag,
+                4,
+                XRegisterTag,
+                1
+            );
             owner.EmitNilTest(XRegisterTag, 1, failure);
             owner.EmitNilTest(XRegisterTag, 2, failure);
             owner.Op(Allocate, BeamWire.UnsignedTag, 0);
             owner.Operand(BeamWire.UnsignedTag, 5);
-            owner.MoveRegister(XRegisterTag, 4, XRegisterTag, 1);
-            owner.MoveRegister(XRegisterTag, 3, XRegisterTag, 0);
+            owner.MoveRegister(
+                XRegisterTag,
+                4,
+                XRegisterTag,
+                1
+            );
+            owner.MoveRegister(
+                XRegisterTag,
+                3,
+                XRegisterTag,
+                0
+            );
             owner.EmitCallLine(lookup, location);
             owner.EmitFieldCall(2, entry);
             owner.Op(BifZero, BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module, self.Function, 0));

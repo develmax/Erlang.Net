@@ -8,35 +8,67 @@ internal sealed partial class BeamModuleCompiler
     {
         private bool TryEmitBoundReplyReceive(FunctionDefinition function)
         {
-            if (function.Clauses is not [{
-                Guard: null, Patterns: [
+            if (function.Clauses is not [
+                {
+                    Guard: null, Patterns: [
                     Pattern.Tuple { Items: [Pattern.Variable input, Pattern.Variable ignored] },
                     Pattern.Tuple { Items: [Pattern.Literal { Value: Atom recordTag }, ..] } record,
                     Pattern.Variable timeout
                 ],
-                Body: Expr.Case {
-                    Value: Expr.Call { Module: not null, DynamicRemote: false, Arguments: [
-                        Expr.Variable listener, Expr.Call { Module: null or ErlangModuleNames.Module, DynamicRemote: false,
-                            Function: AutoImportNames.Self, Arguments: [] } self
-                    ] } accept,
-                    Clauses: [
-                        { Guard: null, Patterns: [Pattern.Tuple { Items: [
-                            Pattern.Literal { Value: Atom successTag }, Pattern.Variable sender
-                        ] }], Body: Expr.Receive { Timeout: null, After: null, Clauses: [
-                            { Guard: null, Patterns: [Pattern.Tuple { Items: [
-                                Pattern.Variable expectedSender, Pattern.Literal { Value: Atom messageTag }, Pattern.Variable payload
-                            ] }], Body: Expr.Tuple { Items: [
-                                Expr.Literal { Value: Atom resultTag }, Expr.Variable received
-                            ] } }
-                        ] } },
-                        { Guard: null, Patterns: [Pattern.Tuple { Items: [
-                            Pattern.Literal { Value: Atom errorTag }, Pattern.Variable reason
-                        ] }], Body: Expr.Tuple { Items: [
-                            Expr.Literal { Value: Atom returnError }, Expr.Variable returnedReason
-                        ] } }
+                    Body: Expr.Case
+                    {
+                        Value: Expr.Call
+                        {
+                            Module: not null, DynamicRemote: false, Arguments: [
+                        Expr.Variable listener, Expr.Call
+                            {
+                                Module: null or ErlangModuleNames.Module, DynamicRemote: false,
+                                Function: AutoImportNames.Self, Arguments: []
+                            } self
                     ]
-                }
-            }] || listener.Name != input.Name || expectedSender.Name != sender.Name || received.Name != payload.Name
+                        } accept,
+                        Clauses: [
+                        {
+                            Guard: null, Patterns: [Pattern.Tuple
+                            {
+                                Items: [
+                            Pattern.Literal { Value: Atom successTag }, Pattern.Variable sender
+                        ]
+                            }], Body: Expr.Receive
+                            {
+                                Timeout: null, After: null, Clauses: [
+                                    {
+                                        Guard: null, Patterns: [Pattern.Tuple
+                                        {
+                                            Items: [
+                                Pattern.Variable expectedSender, Pattern.Literal { Value: Atom messageTag }, Pattern.Variable payload
+                            ]
+                                        }], Body: Expr.Tuple
+                                        {
+                                            Items: [
+                                Expr.Literal { Value: Atom resultTag }, Expr.Variable received
+                            ]
+                                        }
+                                    }
+                        ]
+                            }
+                        },
+                        {
+                            Guard: null, Patterns: [Pattern.Tuple
+                            {
+                                Items: [
+                            Pattern.Literal { Value: Atom errorTag }, Pattern.Variable reason
+                        ]
+                            }], Body: Expr.Tuple
+                            {
+                                Items: [
+                            Expr.Literal { Value: Atom returnError }, Expr.Variable returnedReason
+                        ]
+                            }
+                        }
+                    ]
+                    }
+                }] || listener.Name != input.Name || expectedSender.Name != sender.Name || received.Name != payload.Name
                 || returnedReason.Name != reason.Name || !errorTag.Equals(returnError) || successTag.Equals(errorTag)
                 || !owner.ResolvesErlangBif(self) || owner.ResolvesErlangBif(accept)
                 || !DistinctBindings(input, sender, payload) || !DistinctBindings(input, reason)
@@ -57,7 +89,12 @@ internal sealed partial class BeamModuleCompiler
             int error = Label();
             int unmatched = Label();
             owner.EmitTupleCheck(0, 2, functionInfo);
-            EmitDetailRecordTest(1, record.Items.Count, recordTag, functionInfo);
+            EmitDetailRecordTest(
+                1,
+                record.Items.Count,
+                recordTag,
+                functionInfo
+            );
             owner.Op(Allocate, BeamWire.UnsignedTag, 1);
             owner.Operand(BeamWire.UnsignedTag, 1);
             owner.InitStackSlot(0);
@@ -70,11 +107,25 @@ internal sealed partial class BeamModuleCompiler
             owner.EmitTuplePart(0, 0, 1);
             if (TermOrder.Compare(errorTag, successTag, exact: true) < 0)
             {
-                owner.EmitAtomSelection(1, unmatched, errorTag.Name, error, successTag.Name, success);
+                owner.EmitAtomSelection(
+                    1,
+                    unmatched,
+                    errorTag.Name,
+                    error,
+                    successTag.Name,
+                    success
+                );
             }
             else
             {
-                owner.EmitAtomSelection(1, unmatched, successTag.Name, success, errorTag.Name, error);
+                owner.EmitAtomSelection(
+                    1,
+                    unmatched,
+                    successTag.Name,
+                    success,
+                    errorTag.Name,
+                    error
+                );
             }
 
             Mark(success);

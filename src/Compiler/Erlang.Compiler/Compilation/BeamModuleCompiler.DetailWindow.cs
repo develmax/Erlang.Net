@@ -9,8 +9,11 @@ internal sealed partial class BeamModuleCompiler
         if (clause is not
             {
                 Guard: null, Patterns: [Pattern.Variable input],
-                Body: Expr.Call { Module: not (null or ErlangModuleNames.Module), DynamicRemote: false,
-                    Arguments: [Expr.Literal { Value: Atom target }, Expr.List list] } call
+                Body: Expr.Call
+                {
+                    Module: not (null or ErlangModuleNames.Module), DynamicRemote: false,
+                    Arguments: [Expr.Literal { Value: Atom target }, Expr.List list]
+                } call
             }
             || input.Name == VariableScopeNames.Wildcard)
         {
@@ -32,7 +35,12 @@ internal sealed partial class BeamModuleCompiler
 
         Op(Allocate, BeamWire.UnsignedTag, 1);
         Operand(BeamWire.UnsignedTag, 1);
-        MoveRegister(XRegisterTag, 0, YRegisterTag, 0);
+        MoveRegister(
+            XRegisterTag,
+            0,
+            YRegisterTag,
+            0
+        );
         EmitConstant(argument, 0);
         EmitCallLine(producer, location);
         EmitStaticRemoteCall(producer);
@@ -49,6 +57,7 @@ internal sealed partial class BeamModuleCompiler
         Op(TailExternalCallWithFrame, BeamWire.UnsignedTag, 2);
         Operand(BeamWire.UnsignedTag, Import(call.Module!, call.Function, 2));
         Operand(BeamWire.UnsignedTag, 1);
+
         return true;
     }
 
@@ -57,9 +66,12 @@ internal sealed partial class BeamModuleCompiler
         if (clause is not
             {
                 Guard: null, Patterns: [Pattern.Variable first, Pattern.Variable second],
-                Body: Expr.Call { Module: not (null or ErlangModuleNames.Module), DynamicRemote: false, Arguments: [
+                Body: Expr.Call
+                {
+                    Module: not (null or ErlangModuleNames.Module), DynamicRemote: false, Arguments: [
                     var prefix, Expr.List { Items: [Expr.Variable head, Expr.Variable tail], Tail: null }, var suffix
-                ] } call
+                ]
+                } call
             }
             || !DistinctBindings(first, second) || head.Name != first.Name || tail.Name != second.Name
             || !AttributeLiteral.TryNormalizeConstant(prefix, out Term leading)
@@ -81,6 +93,7 @@ internal sealed partial class BeamModuleCompiler
         EmitCallLine(call, location);
         Op(TailExternalCall, BeamWire.UnsignedTag, 3);
         Operand(BeamWire.UnsignedTag, Import(call.Module!, call.Function, 3));
+
         return true;
     }
 

@@ -13,22 +13,43 @@ internal sealed partial class BeamModuleCompiler
     private const int AnyTypeBits = 0x1fff;
     private readonly List<(int Bits, long? Lower, long? Upper, int? Unit)> typeBits = [(AnyTypeBits, null, null, null)];
 
-    private sealed record CallCase(Expr.Call Input, Atom TupleTag, Atom OtherTag, Term OtherResult);
-    private sealed record PreservedCallCase(Atom ArgumentTag, Expr.Call Input, Atom ResultTag, Term Fallback);
+    private sealed record CallCase(
+        Expr.Call Input,
+        Atom TupleTag,
+        Atom OtherTag,
+        Term OtherResult
+    );
+    private sealed record PreservedCallCase(
+        Atom ArgumentTag,
+        Expr.Call Input,
+        Atom ResultTag,
+        Term Fallback
+    );
 
     private static PreservedCallCase? ReadPreservedCallCase(IReadOnlyList<Clause> clauses)
     {
         if (clauses is not [
-            { Guard: null, Patterns: [Pattern.Literal { Value: Atom argumentTag }, Pattern.Variable argument],
-                Body: Expr.Case { Value: Expr.Call { Module: not null, DynamicRemote: false, Arguments: [Expr.Variable used] } call,
-                    Clauses: [var success, var failure] } } first,
+            {
+                Guard: null, Patterns: [Pattern.Literal { Value: Atom argumentTag }, Pattern.Variable argument],
+                Body: Expr.Case
+                {
+                    Value: Expr.Call { Module: not null, DynamicRemote: false, Arguments: [Expr.Variable used] } call,
+                    Clauses: [var success, var failure]
+                }
+            } first,
             { Guard: null, Patterns: [Pattern.Variable firstFallback, Pattern.Variable secondFallback] } fallback
         ] || call.Module == ErlangModuleNames.Module
             || argument.Name == VariableScopeNames.Wildcard || argument.Name != used.Name
             || firstFallback.Name == secondFallback.Name && firstFallback.Name != VariableScopeNames.Wildcard
-            || success is not { Guard: null, Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom resultTag }, Pattern.Variable value] }],
-                Body: Expr.Tuple { Items: [Expr.Literal { Value: Atom returnedTag }, Expr.Variable returned,
-                    Expr.Tuple { Items: [Expr.Literal { Value: Atom savedTag }, Expr.Variable saved] }] } }
+            || success is not
+            {
+                Guard: null, Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom resultTag }, Pattern.Variable value] }],
+                Body: Expr.Tuple
+                {
+                    Items: [Expr.Literal { Value: Atom returnedTag }, Expr.Variable returned,
+                    Expr.Tuple { Items: [Expr.Literal { Value: Atom savedTag }, Expr.Variable saved] }]
+                }
+            }
             || !IsFresh(first, value) || resultTag != returnedTag || value.Name != returned.Name
             || argumentTag != savedTag || argument.Name != saved.Name
             || failure is not { Guard: null, Patterns: [Pattern.Variable error], Body: Expr.Variable returnedError }
@@ -38,7 +59,12 @@ internal sealed partial class BeamModuleCompiler
             return null;
         }
 
-        return new(argumentTag, call, resultTag, constant);
+        return new(
+            argumentTag,
+            call,
+            resultTag,
+            constant
+        );
     }
 
     private void EmitPreservedCallCase(PreservedCallCase flow, BeamSourceLocation location)
@@ -119,7 +145,13 @@ internal sealed partial class BeamModuleCompiler
         IReadOnlyDictionary<(string Name, int Arity), int> entries
     )
     {
-        EmitCall(clause, location, flow.Input, entries, keepFrame: true);
+        EmitCall(
+            clause,
+            location,
+            flow.Input,
+            entries,
+            keepFrame: true
+        );
         int error = nextLabel++;
         Op(IsTaggedTuple, LabelTag, error);
         Operand(XRegisterTag, 0);
@@ -172,7 +204,12 @@ internal sealed partial class BeamModuleCompiler
             return null;
         }
 
-        return new(call, tag, otherTag, otherResult);
+        return new(
+            call,
+            tag,
+            otherTag,
+            otherResult
+        );
     }
 
     private static bool IsFresh(Clause clause, Pattern.Variable variable) =>

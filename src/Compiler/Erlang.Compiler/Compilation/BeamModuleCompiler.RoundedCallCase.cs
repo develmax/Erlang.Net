@@ -17,20 +17,21 @@ internal sealed partial class BeamModuleCompiler
         private bool TryEmitRoundedCallCase(FunctionDefinition function)
         {
             if (function.Clauses is not
-                [{
+                [
+                {
                     Guard: null,
                     Body: Expr.Sequence
                     {
                         Items: [
                             Expr.Match { Pattern: Pattern.Variable source, Value: Expr.Call read },
                             Expr.Case
-                            {
-                                Value: Expr.Call { Arguments: [Expr.Variable input] } convert,
-                                Clauses: [
-                                    { Patterns: [Pattern.Variable tested], Guard: Expr.Binary comparison, Body: var accepted },
-                                    { Patterns: [Pattern.Variable alternate], Guard: null, Body: var rejected }
+                        {
+                            Value: Expr.Call { Arguments: [Expr.Variable input] } convert,
+                            Clauses: [
+                            { Patterns: [Pattern.Variable tested], Guard: Expr.Binary comparison, Body: var accepted },
+                            { Patterns: [Pattern.Variable alternate], Guard: null, Body: var rejected }
                                 ]
-                            }
+                        }
                         ]
                     }
                 } clause]
@@ -85,7 +86,13 @@ internal sealed partial class BeamModuleCompiler
             if (listInput >= 0)
             {
                 owner.EmitNonemptyList(listInput, functionInfo);
-                owner.EmitListParts(listInput, XRegisterTag, function.Arity, XRegisterTag, function.Arity + 1);
+                owner.EmitListParts(
+                    listInput,
+                    XRegisterTag,
+                    function.Arity,
+                    XRegisterTag,
+                    function.Arity + 1
+                );
                 owner.EmitNilTest(XRegisterTag, function.Arity + 1, functionInfo);
             }
 
@@ -149,7 +156,12 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 var saved = new Dictionary<string, int>(StringComparer.Ordinal);
-                if (ReadCaseTuple(tuple, selector, saved, selectorRegister: 1) is { } selected)
+                if (ReadCaseTuple(
+                    tuple,
+                    selector,
+                    saved,
+                    selectorRegister: 1
+                ) is { } selected)
                 {
                     return new RoundedCaseResult(Tuple: selected);
                 }
@@ -170,6 +182,7 @@ internal sealed partial class BeamModuleCompiler
                 {
                     Items = tuple.Items.Select(item => ReferenceEquals(item, computed) ? new Expr.Variable(result) : item).ToArray()
                 };
+
                 return ReadCaseTuple(rewritten, result, saved) is { } constructed
                     ? arithmetic with { Tuple = constructed }
                     : null;
@@ -222,7 +235,12 @@ internal sealed partial class BeamModuleCompiler
                     }
                     else if (value.Register != 0)
                     {
-                        owner.MoveRegister(XRegisterTag, value.Register, XRegisterTag, 0);
+                        owner.MoveRegister(
+                            XRegisterTag,
+                            value.Register,
+                            XRegisterTag,
+                            0
+                        );
                     }
                 }
 

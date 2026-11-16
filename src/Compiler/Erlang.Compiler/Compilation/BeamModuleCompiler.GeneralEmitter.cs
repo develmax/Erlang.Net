@@ -50,10 +50,10 @@ internal sealed partial class BeamModuleCompiler
                     or Expr.Tuple { Items: [Expr.Literal { Value: Atom }, Expr.Call] }
                     or Expr.Binary { Operator: ErlangOperators.Append, Left: Expr.Call });
             bool computedScalar = function.Clauses is [
-            {
-                Body: Expr.Unary { Operator: ErlangOperators.Not, Operand: Expr.Call }
+                {
+                    Body: Expr.Unary { Operator: ErlangOperators.Not, Operand: Expr.Call }
                 or Expr.Binary { Operator: ErlangOperators.Plus, Left: Expr.Literal, Right: Expr.Call }
-            }];
+                }];
             bool optionDispatch = function.Clauses is [
                 {
                     Body: Expr.Case
@@ -83,13 +83,13 @@ internal sealed partial class BeamModuleCompiler
                         }
                     }];
             bool pageRecord = function.Clauses is [
-            {
-                Body: Expr.Sequence
                 {
-                    Items: [
+                    Body: Expr.Sequence
+                    {
+                        Items: [
                 Expr.Call, Expr.Call, Expr.Match, Expr.Call, Expr.Call, Expr.Tuple { Items: [Expr.Variable, Expr.RecordConstruction] }]
-                }
-            }];
+                    }
+                }];
             bool mapDefaultCase = function.Clauses is [
                 {
                     Body: Expr.Sequence
@@ -99,14 +99,14 @@ internal sealed partial class BeamModuleCompiler
                     }
                 }];
             bool detailPage = function.Clauses is [
+            {
+                Body: Expr.Sequence
                 {
-                    Body: Expr.Sequence
-                    {
-                        Items: [
+                    Items: [
                 Expr.Match, Expr.Call { Module: not null, Arguments: [Expr.Variable, Expr.Literal, Expr.Variable] }
             ]
-                    }
-                }] || function.Clauses is [
+                }
+            }] || function.Clauses is [
                 {
                     Body: Expr.Sequence
                     {
@@ -116,37 +116,37 @@ internal sealed partial class BeamModuleCompiler
                     }
                 }];
             bool interleavedCalls = function.Clauses is [
-                {
-                    Patterns: [], Body: Expr.Sequence
-                    { Items: [Expr.Call, Expr.Match, .., Expr.Call, Expr.List or Expr.Binary { Operator: ErlangOperators.Append }] }
-                }];
+            {
+                Patterns: [], Body: Expr.Sequence
+                { Items: [Expr.Call, Expr.Match, .., Expr.Call, Expr.List or Expr.Binary { Operator: ErlangOperators.Append }] }
+            }];
             bool matchCase = function.Clauses is [{ Body: Expr.Sequence { Items: [Expr.Match, Expr.Case] } } clause]
                 && ReadSignedWidth(clause) is null
                 || function.Clauses is [
+                {
+                    Body: Expr.Sequence
                     {
-                        Body: Expr.Sequence
-                        {
-                            Items: [
+                        Items: [
                     Expr.Match { Value: Expr.Call { Module: null } },
                     Expr.Match { Value: Expr.Call { Module: not null } },
                     Expr.Match { Value: Expr.Call { Module: not null } },
                     Expr.Case
                 ]
-                        }
-                    }];
+                    }
+                }];
             bool nestedCase = function.Clauses is [{ Body: Expr.Case decision }]
                 && decision.Clauses.Any(branch => branch.Body is Expr.Case or Expr.Maybe
                     or Expr.Sequence { Items: [Expr.Match { Value: Expr.Case }, Expr.Case] });
             bool configuredTable = function.Clauses is [
-            {
-                Body: Expr.Case
                 {
-                    Clauses: [
-                    { Body: Expr.Sequence { Items: [Expr.Match, Expr.Match, Expr.Match, Expr.Match, Expr.Call] } },
-                    { Body: Expr.Call }, { Body: Expr.Call }
+                    Body: Expr.Case
+                    {
+                        Clauses: [
+                        { Body: Expr.Sequence { Items: [Expr.Match, Expr.Match, Expr.Match, Expr.Match, Expr.Call] } },
+                        { Body: Expr.Call }, { Body: Expr.Call }
             ]
-                }
-            }];
+                    }
+                }];
             bool taggedParser = function.Clauses is [
                 {
                     Body: Expr.Case
@@ -805,8 +805,11 @@ internal sealed partial class BeamModuleCompiler
                     target = target with { Module = module };
                 }
                 else if (function.Clauses.Count == 1 && clause.Guard is null && HasUnconditionalParameters(clause)
-                    && ReadEntryCall(target, clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray(),
-                        allowControlTransfer: IsControlTransfer(target.Function, target.Arguments.Count))
+                    && ReadEntryCall(
+                        target,
+                        clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray(),
+                        allowControlTransfer: IsControlTransfer(target.Function, target.Arguments.Count)
+                    )
                         is { Module: ErlangModuleNames.Module } ordinary)
                 {
                     target = ordinary.Call with { Module = ordinary.Module };
@@ -1232,7 +1235,13 @@ internal sealed partial class BeamModuleCompiler
                     guardedResultOnly: true
                 ))
                 {
-                    EmitEmptyListReturn(guardedList, guardedEmptyLabel, functionInfo, properList: false);
+                    EmitEmptyListReturn(
+                        guardedList,
+                        guardedEmptyLabel,
+                        functionInfo,
+                        properList: false
+                    );
+
                     return;
                 }
             }
@@ -1289,7 +1298,12 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 if (clauses.Count == 2 && TryEmitConsEntryInRegisters(
-                    clauses[0], list.Input, functionInfo, EmitListFallbackTest, allowFramedBody: true))
+                    clauses[0],
+                    list.Input,
+                    functionInfo,
+                    EmitListFallbackTest,
+                    allowFramedBody: true
+                ))
                 {
                     EmitEmptyListReturn(list, listFallbackLabel, functionInfo);
 
@@ -1922,16 +1936,16 @@ internal sealed partial class BeamModuleCompiler
                             || !(entryCaseArithmetic is null && TryEmitTerminalIdentityCase(entryCallCase, firstCall!.Call))
                                 && !TryEmitTerminalTaggedCase(entryCallCase))
                         && (terminalAtomCase is null || !TryCaseSelection(
-                        terminalAtomCase,
-                        input: null,
-                        returnResult: true,
-                        reuseBranchSlots: true,
-                        branchContinuation: null,
-                        deferredBooleanFailures: null,
-                        reservedBooleanLabels: null,
-                        allowUnmatchedAtoms: true,
-                        terminalAtomTails: true
-                    )))
+                            terminalAtomCase,
+                            input: null,
+                            returnResult: true,
+                            reuseBranchSlots: true,
+                            branchContinuation: null,
+                            deferredBooleanFailures: null,
+                            reservedBooleanLabels: null,
+                            allowUnmatchedAtoms: true,
+                            terminalAtomTails: true
+                        )))
                     {
                         EmitCase(
                             foldedEntryCase ?? entryCallCase,
@@ -2233,7 +2247,13 @@ internal sealed partial class BeamModuleCompiler
                 int tail = source == 0 ? nextRegister++ : source;
                 if (needsHead)
                 {
-                    owner.EmitListParts(source, XRegisterTag, destination, XRegisterTag, tail);
+                    owner.EmitListParts(
+                        source,
+                        XRegisterTag,
+                        destination,
+                        XRegisterTag,
+                        tail
+                    );
                     extracted.Add((parameter, destination));
                 }
                 else
@@ -2276,7 +2296,12 @@ internal sealed partial class BeamModuleCompiler
             for (int index = extracted.Count - 1; index >= 0; index--)
             {
                 var (parameter, register) = extracted[index];
-                owner.MoveRegister(XRegisterTag, register, YRegisterTag, variables[parameter.Name]);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    register,
+                    YRegisterTag,
+                    variables[parameter.Name]
+                );
             }
 
             if (!TryEmitLinearBindings(body, incoming))
@@ -4847,8 +4872,18 @@ internal sealed partial class BeamModuleCompiler
                     return PairFacts.Unknown;
                 case Expr.Try tried when collectNumericPairCalls:
                     var protectedFacts = ReadPairFacts(tried.Body, new(bindings, StringComparer.Ordinal), contexts);
-                    ReadPairBranches(tried.Clauses, [protectedFacts], bindings, contexts);
-                    ReadPairBranches(tried.Catches, [], bindings, contexts);
+                    ReadPairBranches(
+                        tried.Clauses,
+                        [protectedFacts],
+                        bindings,
+                        contexts
+                    );
+                    ReadPairBranches(
+                        tried.Catches,
+                        [],
+                        bindings,
+                        contexts
+                    );
                     if (tried.After is { } cleanup)
                     {
                         ReadPairFacts(cleanup, new(bindings, StringComparer.Ordinal), contexts);
@@ -4921,10 +4956,10 @@ internal sealed partial class BeamModuleCompiler
                         _ => PairFacts.Unknown
                     };
                 case Expr.Call
-                    {
-                        Function: AutoImportNames.BinaryToAtom or AutoImportNames.BinaryToExistingAtom,
-                        DynamicRemote: false, Arguments.Count: 2
-                    } conversion when inferNumericPairs && owner.ResolvesErlangBif(conversion):
+                {
+                    Function: AutoImportNames.BinaryToAtom or AutoImportNames.BinaryToExistingAtom,
+                    DynamicRemote: false, Arguments.Count: 2
+                } conversion when inferNumericPairs && owner.ResolvesErlangBif(conversion):
                     foreach (Expr argument in conversion.Arguments)
                     {
                         ReadPairFacts(argument, bindings, contexts);
@@ -6027,14 +6062,14 @@ internal sealed partial class BeamModuleCompiler
                             {
                                 Segments:
                                 [
+                                {
+                                    Value: Pattern.Variable number, Specification:
                                     {
-                                        Value: Pattern.Variable number, Specification:
-                                        {
-                                            Type: BitSegmentTypes.Integer,
-                                            Unit: BitSyntaxDefaults.BinaryUnit, Signed: true, Endian: BitByteOrders.Big,
-                                            Size: Expr.Variable width
-                                        }
-                                    }]
+                                        Type: BitSegmentTypes.Integer,
+                                        Unit: BitSyntaxDefaults.BinaryUnit, Signed: true, Endian: BitByteOrders.Big,
+                                        Size: Expr.Variable width
+                                    }
+                                }]
                             }, Value: Expr.Variable matched
                         } match,
                             Expr.Variable result
@@ -6811,7 +6846,7 @@ internal sealed partial class BeamModuleCompiler
                 if (owner.lineInstructions != previousLineCount && owner.lastEmittedLine == callSite
                     && (IsStraightAppendOperand(expressions[computed])
                         || expressions[computed] is Expr.Call
-                            { Module: not null and not ErlangModuleNames.Module, DynamicRemote: false, SourceLine: > 0 } call
+                        { Module: not null and not ErlangModuleNames.Module, DynamicRemote: false, SourceLine: > 0 } call
                             && owner.lastEmittedLine == CallLocation(call, location)))
                 {
                     argumentLocation = owner.lastEmittedLine;
@@ -9240,8 +9275,12 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        private void Expression(Expr expression, int? guardFailure = null, int listDestination = 0,
-            BeamSourceLocation? previousDiscardedCall = null)
+        private void Expression(
+            Expr expression,
+            int? guardFailure = null,
+            int listDestination = 0,
+            BeamSourceLocation? previousDiscardedCall = null
+        )
         {
             if (ReferenceEquals(expression, preparedReceiveCall))
             {
@@ -10129,8 +10168,12 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        private void EmitArithmetic(Expr.Binary expression, int? guardFailure, int destination = 0,
-            BeamSourceLocation? previousLine = null)
+        private void EmitArithmetic(
+            Expr.Binary expression,
+            int? guardFailure,
+            int destination = 0,
+            BeamSourceLocation? previousLine = null
+        )
         {
             int operandBase = nextSlot;
             bool needsGc = expression.Operator != ErlangOperators.Xor;
@@ -10520,8 +10563,12 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
-            DiscardSequencePrefix(sequence.Items.Take(sequence.Items.Count - 1).ToArray(), null,
-                reuseCallSlots: true, rememberRecords: true);
+            DiscardSequencePrefix(
+                sequence.Items.Take(sequence.Items.Count - 1).ToArray(),
+                null,
+                reuseCallSlots: true,
+                rememberRecords: true
+            );
             Expression(binding.Call);
             owner.Op(TestHeap, BeamWire.UnsignedTag, ConsHeapWords);
             owner.Operand(BeamWire.UnsignedTag, 1);
@@ -10529,6 +10576,7 @@ internal sealed partial class BeamModuleCompiler
             owner.Op(PutList, XRegisterTag, 0);
             owner.LiteralOperand(Nil.Value);
             owner.Operand(XRegisterTag, 0);
+
             return true;
         }
 
@@ -10543,9 +10591,11 @@ internal sealed partial class BeamModuleCompiler
                 case Expr.Tuple or Expr.List:
                     BeamSourceLocation? previous = null;
                     DiscardConstructor(expression, ref previous);
+
                     return;
                 case Expr.Match match:
                     Match(match, guardFailure, returnValue: false);
+
                     return;
             }
 
@@ -10706,6 +10756,7 @@ internal sealed partial class BeamModuleCompiler
                 ))
             {
                 checkedRecordBindings = incomingRecords;
+
                 return;
             }
             bool testInX0 = savedInput is null && guardFailure is null
@@ -10769,7 +10820,12 @@ internal sealed partial class BeamModuleCompiler
             var incomingRecords = checkedRecordBindings;
             if (reuseCallSlots && body is Expr.Sequence sequence)
             {
-                DiscardSequencePrefix(sequence.Items, null, reuseCallSlots: true, rememberRecords: true);
+                DiscardSequencePrefix(
+                    sequence.Items,
+                    null,
+                    reuseCallSlots: true,
+                    rememberRecords: true
+                );
                 body = sequence.Items[^1];
             }
 
@@ -10791,6 +10847,7 @@ internal sealed partial class BeamModuleCompiler
                 if (TryEmitPreparedTupleCase(decision, reuseSelectorSlots: true))
                 {
                     checkedRecordBindings = incomingRecords;
+
                     return;
                 }
             }
@@ -10954,12 +11011,22 @@ internal sealed partial class BeamModuleCompiler
                     int selectorTag = input.HasValue ? YRegisterTag : XRegisterTag;
                     if (dispatch.Count == 1)
                     {
-                        EmitTupleShapeTest(selectorTag, input ?? 0, dispatch[0].Arity, arityFallback);
+                        EmitTupleShapeTest(
+                            selectorTag,
+                            input ?? 0,
+                            dispatch[0].Arity,
+                            arityFallback
+                        );
                     }
                     else
                     {
                         dispatch.Reverse();
-                        owner.EmitTupleArityDispatch(arityFallback, dispatch, input ?? 0, selectorTag);
+                        owner.EmitTupleArityDispatch(
+                            arityFallback,
+                            dispatch,
+                            input ?? 0,
+                            selectorTag
+                        );
                     }
 
                     clauses = [.. orderedClauses, .. clauses.Skip(groupedClauses)];
@@ -11134,7 +11201,12 @@ internal sealed partial class BeamModuleCompiler
                 else if (guardSelector is not null)
                 {
                     Guard(clause.Guard, next, guardSelector);
-                    Pattern(clause.Patterns[0], 0, next, valueTag: XRegisterTag);
+                    Pattern(
+                        clause.Patterns[0],
+                        0,
+                        next,
+                        valueTag: XRegisterTag
+                    );
                 }
                 else if (registerPatterns)
                 {
@@ -11408,11 +11480,11 @@ internal sealed partial class BeamModuleCompiler
         {
             if (decision.Clauses is not
                 [
-                    {
-                        Guard: null,
-                        Patterns: [Pattern.Literal { Value: Atom key }],
-                        Body: Expr.Literal { Value: Atom result }
-                    }
+                {
+                    Guard: null,
+                    Patterns: [Pattern.Literal { Value: Atom key }],
+                    Body: Expr.Literal { Value: Atom result }
+                }
                 ] || !key.Equals(result))
             {
                 return false;
@@ -11501,6 +11573,7 @@ internal sealed partial class BeamModuleCompiler
                 failure,
                 decision.SourceLine == 0 ? null : new BeamSourceLocation(decision.PreprocessorFile ?? location.File, decision.SourceLine)
             );
+
             return true;
         }
 
@@ -11641,7 +11714,12 @@ internal sealed partial class BeamModuleCompiler
                     ) is { } arguments)
                 {
                     construction = arguments;
-                    call = new EntryCall(invocation, module, [], []);
+                    call = new EntryCall(
+                        invocation,
+                        module,
+                        [],
+                        []
+                    );
                 }
 
                 if (call is not null && construction is null && fields.Count != 0 && !registers.ContainsValue(0)
@@ -11737,11 +11815,16 @@ internal sealed partial class BeamModuleCompiler
         private static Atom TupleTag(Clause clause)
         {
             var tuple = (Pattern.Tuple)EntryShape(clause.Patterns[0]);
+
             return (Atom)((Pattern.Literal)tuple.Items[0]).Value;
         }
 
-        private void EmitRegisterCaseTagSelection((Atom Tag, int Label)[] tags, int failure,
-            int? payloadRegister = null, int? savedSelector = null)
+        private void EmitRegisterCaseTagSelection(
+            (Atom Tag, int Label)[] tags,
+            int failure,
+            int? payloadRegister = null,
+            int? savedSelector = null
+        )
         {
             int selector = EmitCaseTupleTag(savedSelector);
             if (savedSelector is null && payloadRegister is int register)
@@ -12198,7 +12281,12 @@ internal sealed partial class BeamModuleCompiler
             int done = Label();
             if (match.Pattern is BitPattern bits && guardedBinaryMatches.Contains(match))
             {
-                EmitFixedBitPattern(bits, matched, failure, knownBinary: true);
+                EmitFixedBitPattern(
+                    bits,
+                    matched,
+                    failure,
+                    knownBinary: true
+                );
             }
             else
             {
@@ -13423,12 +13511,16 @@ internal sealed partial class BeamModuleCompiler
                 {
                     After: null, Body: Expr.Call call,
                     Clauses: [{ Guard: null, Patterns: [Pattern.Variable success], Body: Expr.Tuple successful }],
-                    Catches: [{
-                        Guard: null,
-                        Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom exceptionClass },
-                            Pattern.Variable reason, Pattern.Variable { Name: VariableScopeNames.Wildcard }] }],
-                        Body: Expr.Tuple caught
-                    }]
+                    Catches: [
+                        {
+                            Guard: null,
+                            Patterns: [Pattern.Tuple
+                            {
+                                Items: [Pattern.Literal { Value: Atom exceptionClass },
+                            Pattern.Variable reason, Pattern.Variable { Name: VariableScopeNames.Wildcard }]
+                            }],
+                            Body: Expr.Tuple caught
+                        }]
                 })
             {
                 return false;
@@ -13456,7 +13548,13 @@ internal sealed partial class BeamModuleCompiler
             }
 
             if (ReadCaseTuple(successful, success.Name, []) is not { UsesSelector: true } successPlan
-                || ReadCaseTuple(caught, reason.Name, [], selectorRegister: 1, reuseX0ForSelector: true) is not { } catchPlan)
+                || ReadCaseTuple(
+                    caught,
+                    reason.Name,
+                    [],
+                    selectorRegister: 1,
+                    reuseX0ForSelector: true
+                ) is not { } catchPlan)
             {
                 return false;
             }
@@ -13522,15 +13620,19 @@ internal sealed partial class BeamModuleCompiler
                     After: null,
                     Body: Expr.Call call,
                     Clauses: [
-                        { Guard: null, Patterns: [Pattern.Tuple pattern], Body: var matched },
-                        { Guard: null, Patterns: [Pattern.Variable fallbackBinding], Body: var fallback }
+                    { Guard: null, Patterns: [Pattern.Tuple pattern], Body: var matched },
+                    { Guard: null, Patterns: [Pattern.Variable fallbackBinding], Body: var fallback }
                     ],
-                    Catches: [{
-                        Guard: null,
-                        Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom exceptionClass },
-                            Pattern.Variable reason, Pattern.Variable { Name: VariableScopeNames.Wildcard }] }],
-                        Body: var caught
-                    }]
+                    Catches: [
+                        {
+                            Guard: null,
+                            Patterns: [Pattern.Tuple
+                            {
+                                Items: [Pattern.Literal { Value: Atom exceptionClass },
+                            Pattern.Variable reason, Pattern.Variable { Name: VariableScopeNames.Wildcard }]
+                            }],
+                            Body: var caught
+                        }]
                 }
                 || ReadSingleTupleField(pattern) is not { Field: Pattern.Variable field } access
                 || !AttributeLiteral.TryNormalizeConstant(fallback, out Term defaultValue)
@@ -13612,8 +13714,11 @@ internal sealed partial class BeamModuleCompiler
 
                 savedField = firstField.Index;
                 firstArgumentField = secondField.Index;
-                live = Math.Max(input.Input + 1, first.Call.Arguments.Skip(1).OfType<Expr.Variable>()
-                    .Select(variable => Array.IndexOf(parameters, variable.Name) + 1).DefaultIfEmpty(0).Max());
+                live = Math.Max(
+                    input.Input + 1,
+                    first.Call.Arguments.Skip(1).OfType<Expr.Variable>()
+                    .Select(variable => Array.IndexOf(parameters, variable.Name) + 1).DefaultIfEmpty(0).Max()
+                );
                 steps[0] = first with { Moves = first.Moves.Where(move => move.Destination != 0).ToList() };
             }
 
@@ -13643,7 +13748,12 @@ internal sealed partial class BeamModuleCompiler
                 {
                     for (int slot = 0; slot < saved.Length; slot++)
                     {
-                        owner.MoveRegister(XRegisterTag, Array.IndexOf(parameters, saved[slot]), YRegisterTag, slot);
+                        owner.MoveRegister(
+                            XRegisterTag,
+                            Array.IndexOf(parameters, saved[slot]),
+                            YRegisterTag,
+                            slot
+                        );
                     }
                 }
 
@@ -13664,7 +13774,13 @@ internal sealed partial class BeamModuleCompiler
             owner.EmitCallLine(call, previous);
             Call(producer.Module, call.Function, call.Arguments.Count);
             owner.Op(TryEnd, YRegisterTag, token);
-            EmitDetailRecordTest(0, pattern.Items.Count, access.Tag, fallbackLabel, RegisterCaseSelectorType(producer, IsTuple));
+            EmitDetailRecordTest(
+                0,
+                pattern.Items.Count,
+                access.Tag,
+                fallbackLabel,
+                RegisterCaseSelectorType(producer, IsTuple)
+            );
             if (tuple is null)
             {
                 owner.EmitTuplePart(0, access.Index, 0);
@@ -13756,7 +13872,12 @@ internal sealed partial class BeamModuleCompiler
                 owner.LiteralOperand(caughtClass);
                 variables = new(original, StringComparer.Ordinal);
                 if (simpleCatch.Body is Expr.Tuple tupleResult
-                    && ReadCaseTuple(tupleResult, caughtReason.Name, original, selectorRegister: 1) is { UsesSelector: true } tuplePlan)
+                    && ReadCaseTuple(
+                        tupleResult,
+                        caughtReason.Name,
+                        original,
+                        selectorRegister: 1
+                    ) is { UsesSelector: true } tuplePlan)
                 {
                     EmitCaseTuple(tuplePlan with { EntryLive = Math.Max(2, ReceiveGuardLiveRegisters) });
                 }
@@ -13765,7 +13886,12 @@ internal sealed partial class BeamModuleCompiler
                     if (reads.Contains(caughtReason.Name))
                     {
                         int reasonSlot = Slot();
-                        owner.MoveRegister(XRegisterTag, 1, YRegisterTag, reasonSlot);
+                        owner.MoveRegister(
+                            XRegisterTag,
+                            1,
+                            YRegisterTag,
+                            reasonSlot
+                        );
                         variables.Add(caughtReason.Name, reasonSlot);
                     }
 

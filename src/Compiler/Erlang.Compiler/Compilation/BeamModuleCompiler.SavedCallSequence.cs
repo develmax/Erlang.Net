@@ -219,7 +219,7 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 Expr[] arguments = call.Arguments.Select(argument => argument is Expr.Binary
-                    { Operator: ErlangOperators.Append, Left: Expr.Literal, Right: Expr.Variable tail } append
+                { Operator: ErlangOperators.Append, Left: Expr.Literal, Right: Expr.Variable tail } append
                     && AppendPrefix(append.Left) is { } prefix
                     ? new Expr.List(prefix, tail)
                     : argument).ToArray();
@@ -500,8 +500,12 @@ internal sealed partial class BeamModuleCompiler
                     preparedOperand: closureOperand
                 )
                     ?? (closureOperand < 0 && tupleArguments.Count == 0
-                        ? ReadStraightConstructedCall(target, multiple?.Bindings is null ? previous : null, saved,
-                            projectedRegisters: multiple?.Bindings is null ? null : prior) : null)) is not { } step)
+                        ? ReadStraightConstructedCall(
+                            target,
+                            multiple?.Bindings is null ? previous : null,
+                            saved,
+                            projectedRegisters: multiple?.Bindings is null ? null : prior
+                        ) : null)) is not { } step)
                 {
                     return null;
                 }
@@ -847,7 +851,12 @@ internal sealed partial class BeamModuleCompiler
                     && tuple is { Closure: null, Live: 0 }
                     && step is { Spill: null, SlotRelocation: null, Closure: null, TupleArguments: null }
                     && step.Call.RegisterConstructions is null
-                    ? PlanFinalTupleCallTrim(tuple, size - trimmed, trimTo - trimmed, step.Released.Select(slot => remap[slot]))
+                    ? PlanFinalTupleCallTrim(
+                        tuple,
+                        size - trimmed,
+                        trimTo - trimmed,
+                        step.Released.Select(slot => remap[slot])
+                    )
                     : null;
                 int? deferredSlot = null;
                 if (finalTrim is null && hasTuple && checks is null && step is
@@ -916,10 +925,13 @@ internal sealed partial class BeamModuleCompiler
                     expired = compacted.Kills;
                     trimTo = trimmed + compacted.Count;
                     var construction = tuple!.Construction!;
-                    tuple = tuple with { Construction = construction with
+                    tuple = tuple with
                     {
-                        Constructions = [construction.Constructions[0] with { Operands = compacted.Operands }]
-                    } };
+                        Construction = construction with
+                        {
+                            Constructions = [construction.Constructions[0] with { Operands = compacted.Operands }]
+                        }
+                    };
                 }
 
                 if (expired.Length != 0)
@@ -931,7 +943,12 @@ internal sealed partial class BeamModuleCompiler
                 {
                     foreach (var (source, destination) in relocationPlan.Moves)
                     {
-                        owner.MoveRegister(YRegisterTag, source, YRegisterTag, destination);
+                        owner.MoveRegister(
+                            YRegisterTag,
+                            source,
+                            YRegisterTag,
+                            destination
+                        );
                     }
                 }
 
@@ -1018,11 +1035,17 @@ internal sealed partial class BeamModuleCompiler
                 int start = owner.deferredLabelOperands.Count;
                 deferredProjection = null;
                 Action? beforeProjections = null;
-                if (index < steps.Count && check is { Arity: not null, SavedTupleSlot: null, Field: null,
-                        Projections: [.., { Register: 0, Saved: false } lastProjection] }
+                if (index < steps.Count && check is
+                    {
+                        Arity: not null, SavedTupleSlot: null, Field: null,
+                        Projections: [.., { Register: 0, Saved: false } lastProjection]
+                    }
                     && check.Projections.All(field => !field.Saved)
-                    && steps[index] is { Spill: null, Closure: null, TupleArguments: null,
-                        Call.RegisterConstructions: { } construction }
+                    && steps[index] is
+                    {
+                        Spill: null, Closure: null, TupleArguments: null,
+                        Call.RegisterConstructions: { } construction
+                    }
                     && construction.Constructions.All(item => item.MapLive is null && item.Register != 0
                         && item.Operands.All(operand => operand.Tag != XRegisterTag || operand.Register != 0)))
                 {
@@ -1069,11 +1092,21 @@ internal sealed partial class BeamModuleCompiler
                     if (deferredFailures is not null)
                     {
                         int failureLabel = label;
-                        deferredFailures.Add(() => EmitTaggedCallMatchFailure(match, failureLabel, failure.Location, owner.lastEmittedLine));
+                        deferredFailures.Add(() => EmitTaggedCallMatchFailure(
+                            match,
+                            failureLabel,
+                            failure.Location,
+                            owner.lastEmittedLine
+                        ));
                         continue;
                     }
 
-                    EmitTaggedCallMatchFailure(match, label, failure.Location, previousCall);
+                    EmitTaggedCallMatchFailure(
+                        match,
+                        label,
+                        failure.Location,
+                        previousCall
+                    );
                     previousCall = match.SourceLine == 0
                         ? failure.Location : new BeamSourceLocation(match.PreprocessorFile, match.SourceLine);
                 }
@@ -1081,7 +1114,12 @@ internal sealed partial class BeamModuleCompiler
         }
 
         private static (int Count, int[] Kills, List<(int Source, int Destination)> Moves, ConstructionOperand[] Operands)?
-            PlanFinalTupleCallTrim(CallSequenceTuple tuple, int frame, int prefix, IEnumerable<int> releases)
+            PlanFinalTupleCallTrim(
+                CallSequenceTuple tuple,
+                int frame,
+                int prefix,
+                IEnumerable<int> releases
+            )
         {
             var killed = releases.ToHashSet();
             if (killed.Count < 2 || tuple.Construction is not
@@ -1215,9 +1253,19 @@ internal sealed partial class BeamModuleCompiler
                 && first.Source != spill && second.Source != spill)
             {
                 Load(first.Source, 2);
-                owner.MoveRegister(XRegisterTag, 0, YRegisterTag, spill);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    0,
+                    YRegisterTag,
+                    spill
+                );
                 Load(second.Source, 1);
-                owner.MoveRegister(XRegisterTag, 2, XRegisterTag, 0);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    2,
+                    XRegisterTag,
+                    0
+                );
                 owner.EmitConstant(Nil.Value, 2);
 
                 return;
@@ -1234,7 +1282,7 @@ internal sealed partial class BeamModuleCompiler
                     && cell.Operands is [{ Literal: Integer }, _])
                 && firstCons.Operands[1].Tag == YRegisterTag
                 && prefix.Constructions.Skip(1).All(cell => cell.Operands[1] is
-                    { Tag: XRegisterTag, Register: 0, Literal: null }))
+                { Tag: XRegisterTag, Register: 0, Literal: null }))
             {
                 var cells = prefix.Constructions.Select((cell, index) => cell with
                 {
@@ -1250,7 +1298,12 @@ internal sealed partial class BeamModuleCompiler
                 );
                 Load(remap[parent.Source], 1);
                 owner.EmitConstant(options.Value, 3);
-                owner.MoveRegister(XRegisterTag, 1, XRegisterTag, 0);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    1,
+                    XRegisterTag,
+                    0
+                );
                 owner.EmitConstant(id.Value, 1);
 
                 return;
@@ -1298,8 +1351,18 @@ internal sealed partial class BeamModuleCompiler
                     {
                         Load(spill, 1);
                         Load(loads[firstLoad].Source, 2);
-                        owner.MoveRegister(XRegisterTag, 0, YRegisterTag, spill);
-                        owner.MoveRegister(XRegisterTag, 2, XRegisterTag, 0);
+                        owner.MoveRegister(
+                            XRegisterTag,
+                            0,
+                            YRegisterTag,
+                            spill
+                        );
+                        owner.MoveRegister(
+                            XRegisterTag,
+                            2,
+                            XRegisterTag,
+                            0
+                        );
                         owner.EmitConstant(listArgument, 2);
 
                         return;
@@ -1310,7 +1373,12 @@ internal sealed partial class BeamModuleCompiler
                         loads[firstLoad] = (destination, loads[firstLoad].Source);
                         var beforeSave = loads.Where(load => load.Source == spill || load.Destination == destination).ToList();
                         owner.EmitOrderedTailMoves([], [], beforeSave);
-                        owner.MoveRegister(XRegisterTag, 0, YRegisterTag, spill);
+                        owner.MoveRegister(
+                            XRegisterTag,
+                            0,
+                            YRegisterTag,
+                            spill
+                        );
                         loads.RemoveAll(load => load.Source == spill || load.Destination == destination);
                         owner.EmitOrderedTailMoves([], [], loads);
                         owner.Op(Swap, XRegisterTag, 0);
@@ -1382,13 +1450,22 @@ internal sealed partial class BeamModuleCompiler
             {
                 Load(receiver.Source, 1);
                 owner.EmitConstant(list, 2);
-                owner.MoveRegister(XRegisterTag, 1, XRegisterTag, 0);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    1,
+                    XRegisterTag,
+                    0
+                );
                 owner.EmitConstant(integer, 1);
             }
             else
             {
-                owner.EmitOrderedTailMoves(call.Moves, deferConstant ? [] : call.Constants, loads,
-                    deferX0StackLoad: deferStackLoad);
+                owner.EmitOrderedTailMoves(
+                    call.Moves,
+                    deferConstant ? [] : call.Constants,
+                    loads,
+                    deferX0StackLoad: deferStackLoad
+                );
             }
         }
     }

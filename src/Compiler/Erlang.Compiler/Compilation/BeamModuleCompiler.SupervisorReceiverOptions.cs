@@ -8,50 +8,117 @@ internal sealed partial class BeamModuleCompiler
     {
         private bool TryEmitSupervisorReceiverOptions(FunctionDefinition function)
         {
-            if (function.Clauses is not [{
-                Guard: null, Patterns: [Pattern.Variable senderArgs, Pattern.Variable receiverArgs],
-                Body: Expr.Sequence { Items: [
-                    Expr.Match { Pattern: Pattern.List { Tail: null, Items: [
+            if (function.Clauses is not [
+                {
+                    Guard: null, Patterns: [Pattern.Variable senderArgs, Pattern.Variable receiverArgs],
+                    Body: Expr.Sequence
+                    {
+                        Items: [
+                    Expr.Match
+                        {
+                            Pattern: Pattern.List
+                            {
+                                Tail: null, Items: [
                         Pattern.Variable role, Pattern.Variable host, Pattern.Variable port, Pattern.Variable socket,
                         Pattern.Tuple { Items: [Pattern.Variable map, Pattern.Variable extra, Pattern.Variable trackers] },
                         Pattern.Variable user, Pattern.Variable callback
-                    ] }, Value: Expr.Variable matchedArgs } unpack,
-                    Expr.Match { Pattern: Pattern.Variable options, Value: Expr.Call {
-                        Module: "maps", Function: "get", DynamicRemote: false,
-                        Arguments: [Expr.Literal { Value: Atom option }, Expr.Variable optionMap, Expr.List { Tail: null, Items: [] }]
-                    } },
-                    Expr.Case {
-                        Value: Expr.Call { Module: not null, DynamicRemote: false, Arguments: [
-                            Expr.Literal { Value: Atom supervisor }, Expr.List { Tail: null, Items: [
+                    ]
+                            }, Value: Expr.Variable matchedArgs
+                        } unpack,
+                    Expr.Match
+                        {
+                            Pattern: Pattern.Variable options, Value: Expr.Call
+                            {
+                                Module: "maps", Function: "get", DynamicRemote: false,
+                                Arguments: [Expr.Literal { Value: Atom option }, Expr.Variable optionMap, Expr.List { Tail: null, Items: [] }]
+                            }
+                        },
+                    Expr.Case
+                        {
+                            Value: Expr.Call
+                            {
+                                Module: not null, DynamicRemote: false, Arguments: [
+                            Expr.Literal { Value: Atom supervisor }, Expr.List
+                                {
+                                    Tail: null, Items: [
                                 Expr.Call parent, Expr.Variable startArgs, Expr.Variable startOptions
-                            ] }
-                        ] } start,
-                        Clauses: [
-                            { Guard: null, Patterns: [Pattern.Tuple { Items: [
+                            ]
+                                }
+                        ]
+                            } start,
+                            Clauses: [
+                            {
+                                Guard: null, Patterns: [Pattern.Tuple
+                                {
+                                    Items: [
                                 Pattern.Literal { Value: Atom ok }, Pattern.Variable pid
-                            ] }], Body: Expr.Sequence { Items: [
-                                Expr.Match { Pattern: Pattern.Tuple { Items: [
+                            ]
+                                }], Body: Expr.Sequence
+                                {
+                                    Items: [
+                                Expr.Match
+                                    {
+                                        Pattern: Pattern.Tuple
+                                        {
+                                            Items: [
                                     Pattern.Literal { Value: Atom childOk },
                                     Pattern.Tuple { Items: [Pattern.Variable id, Pattern.Variable receiver, Pattern.Variable type, Pattern.Variable modules] }
-                                ] }, Value: Expr.Call { Module: not null, DynamicRemote: false, Arguments: [
+                                ]
+                                        }, Value: Expr.Call
+                                        {
+                                            Module: not null, DynamicRemote: false, Arguments: [
                                     Expr.Variable lookupPid, Expr.Literal { Value: Atom child }
-                                ] } lookup },
-                                Expr.Binary { Operator: ErlangOperators.Send, Left: Expr.Variable recipient,
-                                    Right: Expr.Tuple { Items: [Expr.Call notifying, Expr.Literal { Value: Atom tag },
-                                        Expr.List { Items: [Expr.Variable sentRole, Expr.Variable sentPid],
-                                            Tail: Expr.Call { Module: null or ErlangModuleNames.Module, DynamicRemote: false,
-                                                Function: AutoImportNames.Tl, Arguments: [Expr.Variable tailArgs] } tail
+                                ]
+                                        } lookup
+                                    },
+                                Expr.Binary
+                                    {
+                                        Operator: ErlangOperators.Send, Left: Expr.Variable recipient,
+                                        Right: Expr.Tuple
+                                        {
+                                            Items: [Expr.Call notifying, Expr.Literal { Value: Atom tag },
+                                        Expr.List
+                                            {
+                                                Items: [Expr.Variable sentRole, Expr.Variable sentPid],
+                                                Tail: Expr.Call
+                                                {
+                                                    Module: null or ErlangModuleNames.Module, DynamicRemote: false,
+                                                    Function: AutoImportNames.Tl, Arguments: [Expr.Variable tailArgs]
+                                                } tail
+                                            }
+                                    ]
                                         }
-                                    ] }
-                                } send,
+                                    } send,
                                 Expr.Tuple { Items: [Expr.Literal { Value: Atom returnTag }, Expr.Variable returnPid] }
-                            ] } },
+                            ]
+                                }
+                            },
                             { Guard: null, Patterns: [Pattern.Variable error], Body: Expr.Variable fallback }
                         ]
+                        }
+                ]
                     }
-                ] }
-            }] || !DistinctBindings(senderArgs, receiverArgs, role, map, options, pid, receiver)
-                || !OnlyUnusedBindings(host, port, socket, extra, trackers, user, callback, id, type, modules)
+                }] || !DistinctBindings(
+                    senderArgs,
+                    receiverArgs,
+                    role,
+                    map,
+                    options,
+                    pid,
+                    receiver
+                )
+                || !OnlyUnusedBindings(
+                    host,
+                    port,
+                    socket,
+                    extra,
+                    trackers,
+                    user,
+                    callback,
+                    id,
+                    type,
+                    modules
+                )
                 || matchedArgs.Name != receiverArgs.Name || optionMap.Name != map.Name
                 || startArgs.Name != senderArgs.Name || startOptions.Name != options.Name || lookupPid.Name != pid.Name
                 || recipient.Name != receiver.Name || sentRole.Name != role.Name || sentPid.Name != pid.Name
@@ -80,8 +147,18 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(BeamWire.UnsignedTag, 2);
             owner.Operand(YRegisterTag, 0);
             owner.Operand(YRegisterTag, 1);
-            owner.MoveRegister(XRegisterTag, 2, YRegisterTag, 2);
-            owner.MoveRegister(XRegisterTag, 1, YRegisterTag, 3);
+            owner.MoveRegister(
+                XRegisterTag,
+                2,
+                YRegisterTag,
+                2
+            );
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                YRegisterTag,
+                3
+            );
             owner.Op(GetMapElements, LabelTag, absent);
             owner.EmitTypedRegister(3, MapTypeBits);
             owner.instructions.WriteByte(ExtendedListOperand);
@@ -108,14 +185,24 @@ internal sealed partial class BeamModuleCompiler
             var previous = location;
             EmitWindowCall(start, ref previous);
             SaveWindowResult(1);
-            EmitDetailRecordTest(0, 2, ok, rejected);
+            EmitDetailRecordTest(
+                0,
+                2,
+                ok,
+                rejected
+            );
             owner.Op(GetTupleElement, XRegisterTag, 0);
             owner.Operand(BeamWire.UnsignedTag, 1);
             owner.Operand(YRegisterTag, 0);
             owner.EmitConstant(child, 1);
             Load(0);
             EmitWindowCall(lookup, ref previous);
-            EmitDetailRecordTest(0, 2, childOk, badChild);
+            EmitDetailRecordTest(
+                0,
+                2,
+                childOk,
+                badChild
+            );
             owner.EmitTuplePart(0, 1, 1);
             owner.EmitTupleCheck(1, 4, badChild);
             owner.Op(TestHeap, BeamWire.UnsignedTag, 2 * ConsHeapWords + 4);
@@ -130,11 +217,21 @@ internal sealed partial class BeamModuleCompiler
                 owner.Operand(XRegisterTag, 2);
             }
 
-            owner.EmitTagMatchTuple(0, (XRegisterTag, 0), (AtomTag, owner.Intern(tag.Name)), (XRegisterTag, 2));
+            owner.EmitTagMatchTuple(
+                0,
+                (XRegisterTag, 0),
+                (AtomTag, owner.Intern(tag.Name)),
+                (XRegisterTag, 2)
+            );
             owner.EmitTuplePart(1, 1, 1);
             owner.Op(Swap, XRegisterTag, 0);
             owner.Operand(XRegisterTag, 1);
-            owner.MoveRegister(YRegisterTag, 1, YRegisterTag, 3);
+            owner.MoveRegister(
+                YRegisterTag,
+                1,
+                YRegisterTag,
+                3
+            );
             TrimDetailFrame(3, 1);
             owner.EmitArithmeticLine(send.SourceLine, ref previous);
             owner.instructions.WriteByte(Send);
@@ -164,6 +261,7 @@ internal sealed partial class BeamModuleCompiler
             {
                 var names = new HashSet<string>(new[] { senderArgs, receiverArgs, role, map, options, pid, receiver }
                     .Select(binding => binding.Name), StringComparer.Ordinal);
+
                 return ignored.All(binding => binding.Name == VariableScopeNames.Wildcard || names.Add(binding.Name));
             }
         }
@@ -183,13 +281,25 @@ internal sealed partial class BeamModuleCompiler
         private void EmitReceiverArgumentMatch(int failure)
         {
             owner.EmitNonemptyList(1, failure);
-            owner.EmitListParts(1, XRegisterTag, 2, XRegisterTag, 3);
+            owner.EmitListParts(
+                1,
+                XRegisterTag,
+                2,
+                XRegisterTag,
+                3
+            );
             for (int index = 1; index < 7; index++)
             {
                 owner.EmitNonemptyList(3, failure);
                 if (index == 4)
                 {
-                    owner.EmitListParts(3, XRegisterTag, 4, XRegisterTag, 3);
+                    owner.EmitListParts(
+                        3,
+                        XRegisterTag,
+                        4,
+                        XRegisterTag,
+                        3
+                    );
                     owner.EmitTupleCheck(4, 3, failure);
                 }
                 else

@@ -31,10 +31,17 @@ internal sealed partial class BeamModuleCompiler
                         AddCaptures(pattern, binaries);
                     }
 
-                    return VisitClause(clause, [], binaries, caller, clause);
+                    return VisitClause(
+                        clause,
+                        [],
+                        binaries,
+                        caller,
+                        clause
+                    );
                 }));
 
                 active.Remove(key);
+
                 return proved && calls != 0;
 
                 bool VisitClause(
@@ -46,13 +53,34 @@ internal sealed partial class BeamModuleCompiler
                 )
                 {
                     int patternExpressions = clause.Guard is null ? 1 : 2;
+
                     return LocalFunctionEntries.ClauseExpressions([clause]).SkipLast(patternExpressions)
-                        .All(expression => Visit(expression, beforeMatch, caller, entry))
-                        && (clause.Guard is null || Visit(clause.Guard, afterMatch, caller, entry))
-                        && Visit(clause.Body, afterMatch, caller, entry);
+                        .All(expression => Visit(
+                            expression,
+                            beforeMatch,
+                            caller,
+                            entry
+                        ))
+                        && (clause.Guard is null || Visit(
+                            clause.Guard,
+                            afterMatch,
+                            caller,
+                            entry
+                        ))
+                        && Visit(
+                            clause.Body,
+                            afterMatch,
+                            caller,
+                            entry
+                        );
                 }
 
-                bool Visit(Expr expression, HashSet<string> binaries, FunctionDefinition caller, Clause? entry)
+                bool Visit(
+                    Expr expression,
+                    HashSet<string> binaries,
+                    FunctionDefinition caller,
+                    Clause? entry
+                )
                 {
                     if (expression is Expr.FunctionReference reference && (reference.Name, reference.Arity) == signature)
                     {
@@ -82,7 +110,12 @@ internal sealed partial class BeamModuleCompiler
                             var scope = new HashSet<string>(binaries, StringComparer.Ordinal);
                             foreach (Expr item in sequence.Items)
                             {
-                                if (!Visit(item, scope, caller, entry))
+                                if (!Visit(
+                                    item,
+                                    scope,
+                                    caller,
+                                    entry
+                                ))
                                 {
                                     return false;
                                 }
@@ -95,7 +128,12 @@ internal sealed partial class BeamModuleCompiler
 
                             return true;
                         case Expr.Case decision:
-                            return Visit(decision.Value, binaries, caller, entry)
+                            return Visit(
+                                decision.Value,
+                                binaries,
+                                caller,
+                                entry
+                            )
                                 && decision.Clauses.All(branch =>
                                 {
                                     var branchScope = new HashSet<string>(binaries, StringComparer.Ordinal);
@@ -104,18 +142,44 @@ internal sealed partial class BeamModuleCompiler
                                         AddCaptures(pattern, branchScope);
                                     }
 
-                                    return VisitClause(branch, binaries, branchScope, caller, entry);
+                                    return VisitClause(
+                                        branch,
+                                        binaries,
+                                        branchScope,
+                                        caller,
+                                        entry
+                                    );
                                 });
                         case Expr.ListComprehension list when list.Qualifiers.FirstOrDefault() is ComprehensionQualifier.Generator generator:
-                            return Visit(generator.Source, binaries, caller, entry)
+                            return Visit(
+                                generator.Source,
+                                binaries,
+                                caller,
+                                entry
+                            )
                                 && LocalFunctionEntries.QualifierExpressions([generator with { Source = new Expr.Literal(Nil.Value) }])
                                     .Concat(LocalFunctionEntries.QualifierExpressions(list.Qualifiers.Skip(1)))
-                                    .Concat(list.Items).All(item => Visit(item, [], caller, null));
+                                    .Concat(list.Items).All(item => Visit(
+                                        item,
+                                        [],
+                                        caller,
+                                        null
+                                    ));
                         case Expr.Fun or Expr.ListComprehension or Expr.BinaryComprehension or Expr.MapComprehension
                             or Expr.Try or Expr.Receive or Expr.Maybe:
-                            return LocalFunctionEntries.Children(expression).All(item => Visit(item, [], caller, null));
+                            return LocalFunctionEntries.Children(expression).All(item => Visit(
+                                item,
+                                [],
+                                caller,
+                                null
+                            ));
                         default:
-                            return LocalFunctionEntries.Children(expression).All(item => Visit(item, binaries, caller, entry));
+                            return LocalFunctionEntries.Children(expression).All(item => Visit(
+                                item,
+                                binaries,
+                                caller,
+                                entry
+                            ));
                     }
                 }
             }

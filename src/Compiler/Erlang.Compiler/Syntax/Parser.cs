@@ -32,6 +32,7 @@ public sealed partial class Parser
     internal RecordDefinition? FindDebugRecord(string name) => records.GetValueOrDefault(name);
 
     internal Token? FindDebugOperator(Expr expression) => debugOperators.GetValueOrDefault(expression);
+
     internal static Expr? DebugPrefixPattern(Pattern.List pattern) =>
         prefixPatterns.TryGetValue(pattern, out var expression) ? expression : null;
 
@@ -566,6 +567,7 @@ public sealed partial class Parser
             Expect(ErlangKeywords.End);
 
             int maybeLine = Array.BinarySearch(sourceLineStarts, sourceStart);
+
             return new Expr.Maybe(items, clauses)
             {
                 SourceLine = sourceToken.PreprocessorLine != 0 ? sourceToken.PreprocessorLine
@@ -647,6 +649,7 @@ public sealed partial class Parser
             Expect(ErlangKeywords.End);
 
             int ifLine = Array.BinarySearch(sourceLineStarts, sourceStart);
+
             return new Expr.If(clauses)
             {
                 SourceLine = sourceToken.PreprocessorLine != 0 ? sourceToken.PreprocessorLine
@@ -678,6 +681,7 @@ public sealed partial class Parser
             Expect(ErlangKeywords.End);
 
             int caseLine = Array.BinarySearch(sourceLineStarts, sourceStart);
+
             return new Expr.Case(value, clauses)
             {
                 SourceLine = sourceToken.PreprocessorLine != 0 ? sourceToken.PreprocessorLine
@@ -743,6 +747,7 @@ public sealed partial class Parser
             Expect(ErlangKeywords.End);
 
             int headLine = Array.BinarySearch(sourceLineStarts, firstHead.Start);
+
             return new Expr.Fun(clauses)
             {
                 SelfName = selfName == VariableScopeNames.Wildcard ? null : selfName,
@@ -837,6 +842,7 @@ public sealed partial class Parser
                 _ => throw new CompileException(CompilerDiagnosticCodes.UnsupportedSyntax, ParserDiagnostics.UnsupportedExpression(token.Text), token.Start)
             };
         }
+
         return result;
     }
 
@@ -1258,6 +1264,7 @@ public sealed partial class Parser
 
         var list = new Pattern.List(items, suffix);
         prefixPatterns.Add(list, prefix);
+
         return list;
     }
 

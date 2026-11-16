@@ -8,46 +8,90 @@ internal sealed partial class BeamModuleCompiler
     {
         private bool TryEmitProtectedOutputSetup(FunctionDefinition function)
         {
-            if (function.Clauses is not [{
-                Guard: null, Patterns: [Pattern.Variable socket, Pattern.Variable handle],
-                Body: Expr.Try
+            if (function.Clauses is not [
                 {
-                    Clauses: [], After: null,
-                    Body: Expr.Sequence { Items: [
+                    Guard: null, Patterns: [Pattern.Variable socket, Pattern.Variable handle],
+                    Body: Expr.Try
+                    {
+                        Clauses: [], After: null,
+                        Body: Expr.Sequence
+                        {
+                            Items: [
                         Expr.Call { Module: not null, DynamicRemote: false, Arguments: [Expr.Variable notifyHandle] } notify,
-                        Expr.Match { Pattern: Pattern.Tuple { Items: [Pattern.Literal { Value: Atom ok }, Pattern.Variable size] },
-                            Value: Expr.Call { Module: not null, DynamicRemote: false,
-                                Arguments: [Expr.Variable optionSocket, var optionKey] } getopt },
+                        Expr.Match
+                            {
+                                Pattern: Pattern.Tuple { Items: [Pattern.Literal { Value: Atom ok }, Pattern.Variable size] },
+                                Value: Expr.Call
+                                {
+                                    Module: not null, DynamicRemote: false,
+                                    Arguments: [Expr.Variable optionSocket, var optionKey]
+                                } getopt
+                            },
                         Expr.Match { Pattern: Pattern.Variable state, Value: Expr.RecordConstruction { Wildcard: null } record },
                         Expr.Match { Pattern: Pattern.Variable buffer, Value: var empty },
                         Expr.Match { Pattern: Pattern.Variable count, Value: var zero },
                         Expr.Match { Pattern: Pattern.Variable pending, Value: var noData },
                         Expr.Match { Pattern: Pattern.Variable selection, Value: var undefined },
-                        Expr.Call { Module: null, DynamicRemote: false, Arguments: [
+                        Expr.Call
+                            {
+                                Module: null, DynamicRemote: false, Arguments: [
                             Expr.Variable stateArg, Expr.Variable bufferArg, Expr.Variable countArg,
                             Expr.Variable pendingArg, Expr.Variable selectionArg
-                        ] } next
-                    ] },
-                    Catches: [{
-                        Patterns: [Pattern.Tuple { Items: [Pattern.Variable kind, Pattern.Variable reason, Pattern.Variable stack] }],
-                        Guard: Expr.Binary { Operator: ErlangOperators.ExactEqual, Left: Expr.Variable checkedKind,
-                            Right: Expr.Literal { Value: Atom { Name: "error" } error } },
-                        Body: Expr.Sequence { Items: [
-                            Expr.Call { Module: not null, DynamicRemote: false, Arguments: [
-                                Expr.List { Tail: null, Items: [
+                        ]
+                            } next
+                    ]
+                        },
+                        Catches: [
+                            {
+                                Patterns: [Pattern.Tuple { Items: [Pattern.Variable kind, Pattern.Variable reason, Pattern.Variable stack] }],
+                                Guard: Expr.Binary
+                                {
+                                    Operator: ErlangOperators.ExactEqual, Left: Expr.Variable checkedKind,
+                                    Right: Expr.Literal { Value: Atom { Name: "error" } error }
+                                },
+                                Body: Expr.Sequence
+                                {
+                                    Items: [
+                            Expr.Call
+                                    {
+                                        Module: not null, DynamicRemote: false, Arguments: [
+                                Expr.List
+                                        {
+                                            Tail: null, Items: [
                                     Expr.Literal marker,
                                     Expr.Tuple { Items: [Expr.Literal { Value: Atom classTag }, Expr.Variable reportClass] },
                                     Expr.Tuple { Items: [Expr.Literal { Value: Atom reasonTag }, Expr.Variable reportReason] },
                                     Expr.Tuple { Items: [Expr.Literal { Value: Atom stackTag }, Expr.Variable reportStack] }
-                                ] }
-                            ] } report,
-                            Expr.Call { Module: ErlangModuleNames.Module, Function: "raise", DynamicRemote: false,
-                                Arguments: [Expr.Variable raiseClass, Expr.Variable raiseReason, Expr.Variable raiseStack] } raise
-                        ] }
-                    }]
-                }
-            }] || !DistinctBindings(socket, handle, size, state, buffer, count, pending, selection)
-                || !DistinctBindings(socket, handle, kind, reason, stack)
+                                ]
+                                        }
+                            ]
+                                    } report,
+                            Expr.Call
+                                    {
+                                        Module: ErlangModuleNames.Module, Function: "raise", DynamicRemote: false,
+                                        Arguments: [Expr.Variable raiseClass, Expr.Variable raiseReason, Expr.Variable raiseStack]
+                                    } raise
+                        ]
+                                }
+                            }]
+                    }
+                }] || !DistinctBindings(
+                    socket,
+                    handle,
+                    size,
+                    state,
+                    buffer,
+                    count,
+                    pending,
+                    selection
+                )
+                || !DistinctBindings(
+                    socket,
+                    handle,
+                    kind,
+                    reason,
+                    stack
+                )
                 || notifyHandle.Name != handle.Name || optionSocket.Name != socket.Name
                 || stateArg.Name != state.Name || bufferArg.Name != buffer.Name || countArg.Name != count.Name
                 || pendingArg.Name != pending.Name || selectionArg.Name != selection.Name
@@ -61,8 +105,11 @@ internal sealed partial class BeamModuleCompiler
                 || !AttributeLiteral.TryNormalizeConstant(undefined, out Term selectionValue)
                 || RecordExpressions.Create(record).Items is not [
                     Expr.Literal { Value: Atom tag }, Expr.Variable stateSocket, Expr.Variable stateHandle,
-                    Expr.Binary { Operator: ErlangOperators.ShiftRight, Left: Expr.Variable input,
-                        Right: Expr.Literal { Value: Integer shift } } watermark
+                    Expr.Binary
+                {
+                    Operator: ErlangOperators.ShiftRight, Left: Expr.Variable input,
+                    Right: Expr.Literal { Value: Integer shift }
+                } watermark
                 ] || stateSocket.Name != socket.Name || stateHandle.Name != handle.Name || input.Name != size.Name
                 || shift.Value != 1 || !entries.TryGetValue((next.Function, 5), out int target)
                 || !NeverReturns(next, []))
@@ -75,8 +122,18 @@ internal sealed partial class BeamModuleCompiler
             int badMatch = Label();
             owner.Op(Allocate, BeamWire.UnsignedTag, 3);
             owner.Operand(BeamWire.UnsignedTag, 2);
-            owner.MoveRegister(XRegisterTag, 1, YRegisterTag, 0);
-            owner.MoveRegister(XRegisterTag, 0, YRegisterTag, 1);
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                YRegisterTag,
+                0
+            );
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                1
+            );
             owner.Op(TryEnter, YRegisterTag, 2);
             owner.Operand(LabelTag, handler);
             owner.MoveToX0(XRegisterTag, 1);
@@ -85,13 +142,30 @@ internal sealed partial class BeamModuleCompiler
             owner.EmitConstant(key, 1);
             Load(1);
             EmitWindowCall(getopt, ref previous);
-            EmitDetailRecordTest(0, 2, ok, badMatch);
+            EmitDetailRecordTest(
+                0,
+                2,
+                ok,
+                badMatch
+            );
             owner.EmitTuplePart(0, 1, 0);
             owner.EmitArithmeticLine(watermark.SourceLine, ref previous);
-            owner.GcArithmetic(GcBifTwo, ErlangOperators.ShiftRight, 1, 0,
-                (XRegisterTag, 0, 0), (BeamWire.IntegerTag, 1, 0));
+            owner.GcArithmetic(
+                GcBifTwo,
+                ErlangOperators.ShiftRight,
+                1,
+                0,
+                (XRegisterTag, 0, 0),
+                (BeamWire.IntegerTag, 1, 0)
+            );
             Heap(5, 1);
-            owner.EmitTagMatchTuple(0, (AtomTag, owner.Intern(tag.Name)), (YRegisterTag, 1), (YRegisterTag, 0), (XRegisterTag, 0));
+            owner.EmitTagMatchTuple(
+                0,
+                (AtomTag, owner.Intern(tag.Name)),
+                (YRegisterTag, 1),
+                (YRegisterTag, 0),
+                (XRegisterTag, 0)
+            );
             owner.EmitConstant(pendingValue, 3);
             owner.EmitConstant(countValue, 2);
             owner.EmitConstant(selectionValue, 4);
@@ -104,7 +178,12 @@ internal sealed partial class BeamModuleCompiler
             EmitWindowLocal(next, target, ref previous);
             Mark(handler);
             owner.Op(TryCase, YRegisterTag, 2);
-            owner.MoveRegister(XRegisterTag, 1, YRegisterTag, 2);
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                YRegisterTag,
+                2
+            );
             owner.Op(ExactEqualTest, LabelTag, propagate);
             owner.EmitTypedRegister(0, AtomTypeBits);
             owner.LiteralOperand(error);
@@ -168,8 +247,11 @@ internal sealed partial class BeamModuleCompiler
         {
             switch (expression)
             {
-                case Expr.Call { Module: null or ErlangModuleNames.Module, DynamicRemote: false, Arguments.Count: 1,
-                    Function: AutoImportNames.Error or AutoImportNames.Exit or AutoImportNames.Throw } call
+                case Expr.Call
+                {
+                    Module: null or ErlangModuleNames.Module, DynamicRemote: false, Arguments.Count: 1,
+                    Function: AutoImportNames.Error or AutoImportNames.Exit or AutoImportNames.Throw
+                } call
                     when owner.ResolvesErlangBif(call):
                     return true;
                 case Expr.Call { Module: null, DynamicRemote: false } local:
@@ -184,6 +266,7 @@ internal sealed partial class BeamModuleCompiler
                     }
                     bool result = function.Clauses.All(clause => NeverReturns(clause.Body, active));
                     active.Remove(key);
+
                     return result;
                 case Expr.Sequence { Items.Count: > 0 } sequence:
                     return NeverReturns(sequence.Items[^1], active);

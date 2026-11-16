@@ -37,9 +37,20 @@ internal sealed partial class BeamModuleCompiler
             {
                 Load(cursors[index]);
                 owner.EmitNonemptyList(0, end);
-                owner.EmitListParts(0, XRegisterTag, 1, XRegisterTag, 0);
+                owner.EmitListParts(
+                    0,
+                    XRegisterTag,
+                    1,
+                    XRegisterTag,
+                    0
+                );
                 tails[index] = Save();
-                owner.MoveRegister(XRegisterTag, 1, XRegisterTag, 0);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    1,
+                    XRegisterTag,
+                    0
+                );
                 row[index] = (generators[index].Pattern, Save());
             }
 
@@ -62,7 +73,12 @@ internal sealed partial class BeamModuleCompiler
             Mark(advance);
             for (int index = 0; index < cursors.Length; index++)
             {
-                owner.MoveRegister(YRegisterTag, tails[index], YRegisterTag, cursors[index]);
+                owner.MoveRegister(
+                    YRegisterTag,
+                    tails[index],
+                    YRegisterTag,
+                    cursors[index]
+                );
             }
 
             JumpTo(loop);

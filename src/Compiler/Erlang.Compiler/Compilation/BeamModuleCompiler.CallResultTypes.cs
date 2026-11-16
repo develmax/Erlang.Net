@@ -41,10 +41,10 @@ internal sealed partial class BeamModuleCompiler
                 || owner.ModuleOptimizationDisabled || owner.IsDeclaredNative((function.Name, function.Arity))
                 || function.Clauses is not
                 [
-                    {
-                        Guard: null,
-                        Body: Expr.Sequence { Items: [Expr.Call { Module: null, DynamicRemote: false } call, var result] }
-                    } clause
+                {
+                    Guard: null,
+                    Body: Expr.Sequence { Items: [Expr.Call { Module: null, DynamicRemote: false } call, var result] }
+                } clause
                 ]
                 || !HasUnconditionalParameters(clause)
                 || !AttributeLiteral.TryNormalizeConstant(result, out Term constant)
@@ -67,6 +67,7 @@ internal sealed partial class BeamModuleCompiler
         private bool ReturnsLocalCallConstant(EntryCall call, Term expected)
         {
             var signature = (call.Call.Function, call.Call.Arguments.Count);
+
             return !owner.ModuleOptimizationDisabled && call.Module is null
                 && !owner.IsDeclaredNative(signature)
                 && localFunctions.TryGetValue(signature, out var definition)
@@ -107,6 +108,7 @@ internal sealed partial class BeamModuleCompiler
 
                         bool known = definition.Clauses.All(clause => Read(clause.Body));
                         active.Remove(signature);
+
                         return known;
                     case Expr.Sequence { Items.Count: > 0 } sequence:
                         return Read(sequence.Items[^1]);
@@ -154,6 +156,7 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 constant = projected;
+
                 return true;
             }
         }
@@ -180,8 +183,13 @@ internal sealed partial class BeamModuleCompiler
             };
         }
 
-        private int ReadResultType(Expr expression, HashSet<(string Name, int Arity, ResultProjection? Projection)> visited,
-            IReadOnlyDictionary<string, int>? bindings = null, bool selectorContext = false, ResultProjection? projection = null)
+        private int ReadResultType(
+            Expr expression,
+            HashSet<(string Name, int Arity, ResultProjection? Projection)> visited,
+            IReadOnlyDictionary<string, int>? bindings = null,
+            bool selectorContext = false,
+            ResultProjection? projection = null
+        )
         {
             if (projection is not null && expression is Expr.Tuple tuple)
             {
@@ -198,7 +206,13 @@ internal sealed partial class BeamModuleCompiler
                         return 0;
                     }
                 }
-                return ReadResultType(tuple.Items[projection.Field], visited, bindings, selectorContext: true);
+
+                return ReadResultType(
+                    tuple.Items[projection.Field],
+                    visited,
+                    bindings,
+                    selectorContext: true
+                );
             }
 
             switch (expression)
@@ -216,13 +230,37 @@ internal sealed partial class BeamModuleCompiler
                 case Expr.Variable variable:
                     return projection is null ? bindings?.GetValueOrDefault(variable.Name, AnyTypeBits) ?? AnyTypeBits : AnyTypeBits;
                 case Expr.Sequence { Items.Count: > 0 } sequence:
-                    return ReadResultType(sequence.Items[^1], visited, bindings, selectorContext, projection);
+                    return ReadResultType(
+                        sequence.Items[^1],
+                        visited,
+                        bindings,
+                        selectorContext,
+                        projection
+                    );
                 case Expr.Block block:
-                    return ReadResultType(block.Body, visited, bindings, selectorContext, projection);
+                    return ReadResultType(
+                        block.Body,
+                        visited,
+                        bindings,
+                        selectorContext,
+                        projection
+                    );
                 case Expr.Case decision:
-                    return ReadCaseResultTypes(decision, visited, bindings, selectorContext, projection);
+                    return ReadCaseResultTypes(
+                        decision,
+                        visited,
+                        bindings,
+                        selectorContext,
+                        projection
+                    );
                 case Expr.If decision:
-                    return ReadBranchResultTypes(decision.Clauses, visited, bindings, selectorContext, projection);
+                    return ReadBranchResultTypes(
+                        decision.Clauses,
+                        visited,
+                        bindings,
+                        selectorContext,
+                        projection
+                    );
                 case Expr.Call { Module: null, DynamicRemote: false } call:
                     var signature = (call.Function, call.Arguments.Count);
                     if (!localFunctions.TryGetValue(signature, out var local) || owner.IsDeclaredNative(signature))
@@ -237,8 +275,14 @@ internal sealed partial class BeamModuleCompiler
                         return selectorContext && projection is null ? AnyTypeBits : 0;
                     }
 
-                    int result = ReadBranchResultTypes(local.Clauses, visited, selectorContext: selectorContext, projection: projection);
+                    int result = ReadBranchResultTypes(
+                        local.Clauses,
+                        visited,
+                        selectorContext: selectorContext,
+                        projection: projection
+                    );
                     visited.Remove(visit);
+
                     return result;
                 case Expr.Call { DynamicRemote: false } call:
                     return ReadExternalResultType(call, call.Module, projection);
@@ -267,8 +311,13 @@ internal sealed partial class BeamModuleCompiler
                 _ => ProperListTypeBits
             };
 
-        private int ReadCaseResultTypes(Expr.Case decision, HashSet<(string Name, int Arity, ResultProjection? Projection)> visited,
-            IReadOnlyDictionary<string, int>? bindings, bool selectorContext, ResultProjection? projection)
+        private int ReadCaseResultTypes(
+            Expr.Case decision,
+            HashSet<(string Name, int Arity, ResultProjection? Projection)> visited,
+            IReadOnlyDictionary<string, int>? bindings,
+            bool selectorContext,
+            ResultProjection? projection
+        )
         {
             int? selector = null;
             int result = 0;
@@ -279,25 +328,44 @@ internal sealed partial class BeamModuleCompiler
                 {
                     var matched = bindings is null ? new Dictionary<string, int>(StringComparer.Ordinal)
                         : new Dictionary<string, int>(bindings, StringComparer.Ordinal);
-                    matched[variable.Name] = selector ??= ReadResultType(decision.Value, visited, bindings, selectorContext: true);
+                    matched[variable.Name] = selector ??= ReadResultType(
+                        decision.Value,
+                        visited,
+                        bindings,
+                        selectorContext: true
+                    );
                     branch = matched;
                 }
                 else if (projection is null && clause.Patterns is [Pattern.Tuple tuple]
                     && ReadReturnedVariable(clause.Body) is { } returned)
                 {
-                    int field = Array.FindIndex(tuple.Items.ToArray(), item => item is Pattern.Variable binding
-                        && binding.Name == returned.Name && binding.Name != VariableScopeNames.Wildcard);
+                    int field = Array.FindIndex(
+                        tuple.Items.ToArray(),
+                        item => item is Pattern.Variable binding
+                        && binding.Name == returned.Name && binding.Name != VariableScopeNames.Wildcard
+                    );
                     if (field >= 0)
                     {
                         var matched = bindings is null ? new Dictionary<string, int>(StringComparer.Ordinal)
                             : new Dictionary<string, int>(bindings, StringComparer.Ordinal);
-                        matched[returned.Name] = ReadResultType(decision.Value, visited, bindings,
-                            selectorContext: true, projection: new ResultProjection(tuple, field));
+                        matched[returned.Name] = ReadResultType(
+                            decision.Value,
+                            visited,
+                            bindings,
+                            selectorContext: true,
+                            projection: new ResultProjection(tuple, field)
+                        );
                         branch = matched;
                     }
                 }
 
-                result |= ReadResultType(clause.Body, visited, branch, selectorContext, projection);
+                result |= ReadResultType(
+                    clause.Body,
+                    visited,
+                    branch,
+                    selectorContext,
+                    projection
+                );
             }
 
             return result;
@@ -322,7 +390,13 @@ internal sealed partial class BeamModuleCompiler
             int result = 0;
             foreach (Clause clause in clauses)
             {
-                result |= ReadResultType(clause.Body, visited, bindings, selectorContext, projection);
+                result |= ReadResultType(
+                    clause.Body,
+                    visited,
+                    bindings,
+                    selectorContext,
+                    projection
+                );
                 if (result == AnyTypeBits)
                 {
                     break;

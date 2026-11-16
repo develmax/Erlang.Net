@@ -92,7 +92,12 @@ internal sealed partial class BeamModuleCompiler
             int success = owner.nextLabel + branches.Sum(branch => 1 + (branch.Node?.LabelCount ?? 0));
             int failure = success + 1;
             EmitBinaryStart(0, failure);
-            EmitBinaryInteger(1, 2, 2, failure);
+            EmitBinaryInteger(
+                1,
+                2,
+                2,
+                failure
+            );
             EmitBinarySelect(
                 branches.Select(branch => (branch.Key, 1 + (branch.Node?.LabelCount ?? 0))),
                 1,
@@ -209,11 +214,22 @@ internal sealed partial class BeamModuleCompiler
                 EmitBinaryEnd(failure);
                 owner.EmitConstant(result, 0);
                 owner.instructions.WriteByte(Return);
+
                 return;
             }
 
-            EmitBinaryInteger(2, 1, 1, failure);
-            EmitBinarySelect(node.Children.Select(branch => (branch.Key, 1 + branch.Node.LabelCount)), 2, 1, failure);
+            EmitBinaryInteger(
+                2,
+                1,
+                1,
+                failure
+            );
+            EmitBinarySelect(
+                node.Children.Select(branch => (branch.Key, 1 + branch.Node.LabelCount)),
+                2,
+                1,
+                failure
+            );
             foreach (var branch in node.Children)
             {
                 Mark(Label());
@@ -221,7 +237,12 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        private void EmitBinarySelect(IEnumerable<(int Key, int Labels)> branches, int bytes, int register, int failure)
+        private void EmitBinarySelect(
+            IEnumerable<(int Key, int Labels)> branches,
+            int bytes,
+            int register,
+            int failure
+        )
         {
             var table = new List<(int Key, int Label)>();
             int label = owner.nextLabel;
@@ -232,7 +253,12 @@ internal sealed partial class BeamModuleCompiler
             }
 
             owner.instructions.WriteByte(SelectValue);
-            owner.EmitTypedRegister(register, IntegerTypeBits, 0, bytes == 1 ? byte.MaxValue : ushort.MaxValue);
+            owner.EmitTypedRegister(
+                register,
+                IntegerTypeBits,
+                0,
+                bytes == 1 ? byte.MaxValue : ushort.MaxValue
+            );
             owner.Operand(LabelTag, failure);
             owner.instructions.WriteByte(ExtendedListOperand);
             owner.Operand(BeamWire.UnsignedTag, table.Count * 2);
@@ -251,7 +277,12 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(XRegisterTag, 0);
         }
 
-        private void EmitBinaryInteger(int bytes, int live, int destination, int failure)
+        private void EmitBinaryInteger(
+            int bytes,
+            int live,
+            int destination,
+            int failure
+        )
         {
             int bits = bytes * BitSyntaxDefaults.BinaryUnit;
             EmitBinaryCommands(9, failure);

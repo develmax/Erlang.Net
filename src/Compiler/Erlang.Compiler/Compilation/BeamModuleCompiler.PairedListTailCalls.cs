@@ -6,7 +6,13 @@ internal sealed partial class BeamModuleCompiler
 {
     private sealed partial class GeneralEmitter
     {
-        private sealed record ListTailCall(Expr.Call Call, Term[] Constants, Term? Selector, Pattern.Tuple? Prefix, bool ListGuard);
+        private sealed record ListTailCall(
+            Expr.Call Call,
+            Term[] Constants,
+            Term? Selector,
+            Pattern.Tuple? Prefix,
+            bool ListGuard
+        );
 
         private bool TryEmitPairedListTailCalls(FunctionDefinition function)
         {
@@ -21,8 +27,11 @@ internal sealed partial class BeamModuleCompiler
                 {
                     Guard: null,
                     Patterns: [Pattern.Variable first, Pattern.Literal { }, Pattern.Variable third],
-                    Body: Expr.Call { Module: null, DynamicRemote: false,
-                        Arguments: [Expr.Variable left, Expr.Literal, Expr.Variable right] } call
+                    Body: Expr.Call
+                    {
+                        Module: null, DynamicRemote: false,
+                        Arguments: [Expr.Variable left, Expr.Literal, Expr.Variable right]
+                    } call
                 } || !DistinctBindings(first, third) || left.Name != first.Name || right.Name != third.Name
                 || !entries.TryGetValue((call.Function, 3), out redirectEntry)))
             {
@@ -62,7 +71,13 @@ internal sealed partial class BeamModuleCompiler
                 int head = function.Arity;
                 int tail = head + 1;
                 owner.EmitNonemptyList(0, ordinary);
-                owner.EmitListParts(0, XRegisterTag, head, XRegisterTag, tail);
+                owner.EmitListParts(
+                    0,
+                    XRegisterTag,
+                    head,
+                    XRegisterTag,
+                    tail
+                );
                 var pattern = prefixed.Prefix!;
                 if (pattern.Items[1] is Pattern.Literal value)
                 {
@@ -80,13 +95,23 @@ internal sealed partial class BeamModuleCompiler
                 {
                     EmitKeyTest(1, key, next);
                     EmitListGuard(prefixed);
-                    owner.MoveRegister(XRegisterTag, 2, XRegisterTag, 1);
+                    owner.MoveRegister(
+                        XRegisterTag,
+                        2,
+                        XRegisterTag,
+                        1
+                    );
                 }
                 for (int arg = 2; arg < Math.Min(tail, prefixed.Call.Arguments.Count); arg++)
                 {
                     owner.EmitConstant(prefixed.Constants[arg - 2], arg);
                 }
-                owner.MoveRegister(XRegisterTag, tail, XRegisterTag, 0);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    tail,
+                    XRegisterTag,
+                    0
+                );
                 if (tail < prefixed.Call.Arguments.Count)
                 {
                     owner.EmitConstant(prefixed.Constants[tail - 2], tail);
@@ -102,7 +127,12 @@ internal sealed partial class BeamModuleCompiler
                     {
                         owner.EmitConstant(plain.Constants[arg - 2], arg);
                     }
-                    owner.MoveRegister(XRegisterTag, 2, XRegisterTag, 1);
+                    owner.MoveRegister(
+                        XRegisterTag,
+                        2,
+                        XRegisterTag,
+                        1
+                    );
                     owner.EmitConstant(plain.Constants[0], 2);
                 }
                 else
@@ -168,8 +198,11 @@ internal sealed partial class BeamModuleCompiler
             Pattern.Variable? config = null;
             if (prefixed && clause.Patterns[0] is Pattern.List
                 {
-                    Items: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom },
-                        Pattern.Literal { } or Pattern.Variable { Name: VariableScopeNames.Wildcard }] } tuple],
+                    Items: [Pattern.Tuple
+                    {
+                        Items: [Pattern.Literal { Value: Atom },
+                        Pattern.Literal { } or Pattern.Variable { Name: VariableScopeNames.Wildcard }]
+                    } tuple],
                     Tail: Pattern.Variable tail
                 })
             {
@@ -206,8 +239,11 @@ internal sealed partial class BeamModuleCompiler
                 body = sequence.Items[^1];
             }
 
-            if (body is not Expr.Call { Module: not (null or ErlangModuleNames.Module), DynamicRemote: false,
-                    Arguments: [Expr.Variable argument, Expr.Variable input, ..] } call
+            if (body is not Expr.Call
+                {
+                    Module: not (null or ErlangModuleNames.Module), DynamicRemote: false,
+                    Arguments: [Expr.Variable argument, Expr.Variable input, ..]
+                } call
                 || argument.Name != config.Name || input.Name != payload.Name
                 || call.Arguments.Count is not (4 or 5) || arity == 2 && call.Arguments.Count != 4)
             {
@@ -223,7 +259,13 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
-            return new(call, values, selector, prefix, listGuard);
+            return new(
+                call,
+                values,
+                selector,
+                prefix,
+                listGuard
+            );
         }
     }
 }

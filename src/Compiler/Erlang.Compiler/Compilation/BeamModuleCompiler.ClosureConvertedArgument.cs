@@ -5,26 +5,37 @@ namespace Erlang.Compiler;
 internal sealed partial class BeamModuleCompiler
 {
     private static (Expr.Call Remote, Expr.Call Local)? ReadRemoteToLocalClosure(Clause clause) =>
-        clause is {
+        clause is
+        {
             Guard: null, Patterns: [Pattern.Variable input],
-            Body: Expr.Call { Module: null, DynamicRemote: false, Arguments: [
+            Body: Expr.Call
+            {
+                Module: null, DynamicRemote: false, Arguments: [
                 Expr.Call { Module: not null, DynamicRemote: false, Arguments: [Expr.Variable supplied] } remote
-            ] } local
+            ]
+            } local
         } && input.Name != VariableScopeNames.Wildcard && input.Name == supplied.Name ? (remote, local) : null;
 
     private sealed partial class GeneralEmitter
     {
         private bool TryEmitClosureWithConvertedArgument(FunctionDefinition function)
         {
-            if (function.Clauses is not [{
-                Guard: null, Patterns: [Pattern.Variable input],
-                Body: Expr.Call { Module: not null, DynamicRemote: false, Arguments: [
+            if (function.Clauses is not [
+                {
+                    Guard: null, Patterns: [Pattern.Variable input],
+                    Body: Expr.Call
+                    {
+                        Module: not null, DynamicRemote: false, Arguments: [
                     Expr.Fun { SelfName: null, Clauses: [var closureBody] } closure,
-                    Expr.Call { Module: not null, DynamicRemote: false, Arguments: [
+                    Expr.Call
+                        {
+                            Module: not null, DynamicRemote: false, Arguments: [
                         Expr.Call { Module: null, DynamicRemote: false, Arguments: [Expr.Variable supplied] } convert
-                    ] } collection
-                ] } apply
-            }] || input.Name == VariableScopeNames.Wildcard || supplied.Name != input.Name
+                    ]
+                        } collection
+                ]
+                    } apply
+                }] || input.Name == VariableScopeNames.Wildcard || supplied.Name != input.Name
                 || ReadRemoteToLocalClosure(closureBody) is not { } chain
                 || !entries.ContainsKey((chain.Local.Function, 1))
                 || !entries.TryGetValue((convert.Function, 1), out int target)
@@ -49,7 +60,12 @@ internal sealed partial class BeamModuleCompiler
             var previous = location;
             EmitWindowLocal(convert, target, ref previous);
             EmitWindowCall(collection, ref previous);
-            owner.MoveRegister(XRegisterTag, 0, XRegisterTag, 1);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                XRegisterTag,
+                1
+            );
             Load(0);
             EmitConfigurationTail(apply, 1, previous);
 
@@ -59,12 +75,22 @@ internal sealed partial class BeamModuleCompiler
         private bool TryEmitSharedTuplePrefix(FunctionDefinition function)
         {
             if (function.Clauses is not [
-                { Guard: null, Patterns: [Pattern.Tuple { Items: [
+                {
+                    Guard: null, Patterns: [Pattern.Tuple
+                    {
+                        Items: [
                     Pattern.Literal { Value: Integer prefix }, Pattern.Literal { Value: Integer first }
-                ] }], Body: var firstResult },
-                { Guard: null, Patterns: [Pattern.Tuple { Items: [
+                ]
+                    }], Body: var firstResult
+                },
+                {
+                    Guard: null, Patterns: [Pattern.Tuple
+                    {
+                        Items: [
                     Pattern.Literal { Value: Integer otherPrefix }, Pattern.Literal { Value: Integer second }
-                ] }], Body: var secondResult }
+                ]
+                    }], Body: var secondResult
+                }
             ] || !prefix.Equals(otherPrefix) || first.Equals(second)
                 || !AttributeLiteral.TryNormalizeConstant(firstResult, out Term firstValue)
                 || !AttributeLiteral.TryNormalizeConstant(secondResult, out Term secondValue))
@@ -87,7 +113,12 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(XRegisterTag, 1);
             owner.LiteralOperand(prefix);
             owner.EmitTuplePart(0, 1, 1);
-            EmitChildDispatch(1, failure, (first, low), (second, high));
+            EmitChildDispatch(
+                1,
+                failure,
+                (first, low),
+                (second, high)
+            );
             Mark(high);
             owner.EmitConstant(secondValue, 0);
             owner.instructions.WriteByte(Return);
@@ -100,10 +131,17 @@ internal sealed partial class BeamModuleCompiler
 
         private bool TryEmitComputedScalar(FunctionDefinition function)
         {
-            if (function.Clauses is [{ Guard: null, Patterns: [Pattern.Variable input], Body: Expr.Unary {
-                Operator: ErlangOperators.Not, Operand: Expr.Call { Module: not null, DynamicRemote: false,
-                    Arguments: [Expr.Variable argument] } predicate
-            } }] && input.Name != VariableScopeNames.Wildcard && argument.Name == input.Name
+            if (function.Clauses is [
+                {
+                    Guard: null, Patterns: [Pattern.Variable input], Body: Expr.Unary
+                    {
+                        Operator: ErlangOperators.Not, Operand: Expr.Call
+                        {
+                            Module: not null, DynamicRemote: false,
+                            Arguments: [Expr.Variable argument]
+                        } predicate
+                    }
+                }] && input.Name != VariableScopeNames.Wildcard && argument.Name == input.Name
                 && !owner.ResolvesErlangBif(predicate))
             {
                 owner.Op(Allocate, BeamWire.UnsignedTag, 0);
@@ -119,10 +157,14 @@ internal sealed partial class BeamModuleCompiler
                 return true;
             }
 
-            if (function.Clauses is not [{ Guard: null, Patterns: [], Body: Expr.Binary {
-                Operator: ErlangOperators.Plus, Left: Expr.Literal { Value: Integer offset },
-                Right: Expr.Call { Module: not null, DynamicRemote: false, Arguments: [Expr.Literal bound] } call
-            } }] || owner.ResolvesErlangBif(call))
+            if (function.Clauses is not [
+                {
+                    Guard: null, Patterns: [], Body: Expr.Binary
+                    {
+                        Operator: ErlangOperators.Plus, Left: Expr.Literal { Value: Integer offset },
+                        Right: Expr.Call { Module: not null, DynamicRemote: false, Arguments: [Expr.Literal bound] } call
+                    }
+                }] || owner.ResolvesErlangBif(call))
             {
                 return false;
             }

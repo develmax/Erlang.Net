@@ -8,39 +8,88 @@ internal sealed partial class BeamModuleCompiler
     {
         private bool TryEmitMaybePlainSocketConnect(FunctionDefinition function)
         {
-            if (function.Clauses is not [{
-                Guard: null, Patterns: [AliasPattern alias, Pattern.Variable timer, Pattern.Variable options],
-                Body: Expr.Maybe
+            if (function.Clauses is not [
                 {
-                    Items: [
-                        Expr.MaybeMatch { Pattern: Pattern.Tuple { Items: [
+                    Guard: null, Patterns: [AliasPattern alias, Pattern.Variable timer, Pattern.Variable options],
+                    Body: Expr.Maybe
+                    {
+                        Items: [
+                        Expr.MaybeMatch
+                        {
+                            Pattern: Pattern.Tuple
+                            {
+                                Items: [
                             Pattern.Literal { Value: Atom opened }, Pattern.Variable socket
-                        ] }, Value: Expr.Call { Module: not null, DynamicRemote: false,
-                            Arguments: [Expr.Variable family, Expr.Literal { Value: Atom stream }] } open },
-                        Expr.MaybeMatch { Pattern: Pattern.Literal { Value: Atom configured },
-                            Value: Expr.Call { Module: null, DynamicRemote: false,
-                                Arguments: [Expr.Variable setSocket, Expr.Variable setOptions] } set },
-                        Expr.Match { Pattern: Pattern.Variable address, Value: Expr.Map { Base: null, Fields: [
-                            { Exact: false, Key: Expr.Literal { Value: Atom familyKey }, Value: Expr.Variable addressFamily },
-                            { Exact: false, Key: Expr.Literal { Value: Atom addrKey }, Value: Expr.Variable ip },
-                            { Exact: false, Key: Expr.Literal { Value: Atom portKey }, Value: Expr.Variable port }
-                        ] } },
-                        Expr.MaybeMatch { Pattern: Pattern.Literal { Value: Atom connected },
-                            Value: Expr.Call { Module: not null, DynamicRemote: false,
-                                Arguments: [Expr.Variable connectSocket, Expr.Variable connectAddress] } connect },
-                        Expr.Call { Module: null, DynamicRemote: false,
-                            Arguments: [Expr.Variable startConfig, Expr.Variable startSocket] } start
+                        ]
+                            }, Value: Expr.Call
+                            {
+                                Module: not null, DynamicRemote: false,
+                                Arguments: [Expr.Variable family, Expr.Literal { Value: Atom stream }]
+                            } open
+                        },
+                        Expr.MaybeMatch
+                        {
+                            Pattern: Pattern.Literal { Value: Atom configured },
+                            Value: Expr.Call
+                            {
+                                Module: null, DynamicRemote: false,
+                                Arguments: [Expr.Variable setSocket, Expr.Variable setOptions]
+                            } set
+                        },
+                        Expr.Match
+                        {
+                            Pattern: Pattern.Variable address, Value: Expr.Map
+                            {
+                                Base: null, Fields: [
+                                { Exact: false, Key: Expr.Literal { Value: Atom familyKey }, Value: Expr.Variable addressFamily },
+                                { Exact: false, Key: Expr.Literal { Value: Atom addrKey }, Value: Expr.Variable ip },
+                                { Exact: false, Key: Expr.Literal { Value: Atom portKey }, Value: Expr.Variable port }
+                        ]
+                            }
+                        },
+                        Expr.MaybeMatch
+                        {
+                            Pattern: Pattern.Literal { Value: Atom connected },
+                            Value: Expr.Call
+                            {
+                                Module: not null, DynamicRemote: false,
+                                Arguments: [Expr.Variable connectSocket, Expr.Variable connectAddress]
+                            } connect
+                        },
+                        Expr.Call
+                        {
+                            Module: null, DynamicRemote: false,
+                            Arguments: [Expr.Variable startConfig, Expr.Variable startSocket]
+                        } start
                     ],
-                    Clauses: [{ Guard: null, Patterns: [AliasPattern errorAlias], Body: Expr.Variable returned }]
-                } conditional
-            }] || !TryReadPatternAlias(alias, out var config, out var shape)
+                        Clauses: [{ Guard: null, Patterns: [AliasPattern errorAlias], Body: Expr.Variable returned }]
+                    } conditional
+                }] || !TryReadPatternAlias(alias, out var config, out var shape)
                 || shape is not Pattern.Tuple { Items: [Pattern.Literal { Value: Atom tag }, ..] } record
                 || !TryReadPatternAlias(errorAlias, out var error, out var errorShape)
-                || errorShape is not Pattern.Tuple { Items: [
+                || errorShape is not Pattern.Tuple
+                {
+                    Items: [
                     Pattern.Literal { Value: Atom errorTag }, Pattern.Variable { Name: VariableScopeNames.Wildcard }
-                ] }
-                || !DistinctBindings(config, options, socket, address, new(family.Name), new(ip.Name), new(port.Name))
-                || !DistinctBindings(config, options, error, new(family.Name), new(ip.Name), new(port.Name))
+                ]
+                }
+                || !DistinctBindings(
+                    config,
+                    options,
+                    socket,
+                    address,
+                    new(family.Name),
+                    new(ip.Name),
+                    new(port.Name)
+                )
+                || !DistinctBindings(
+                    config,
+                    options,
+                    error,
+                    new(family.Name),
+                    new(ip.Name),
+                    new(port.Name)
+                )
                 || timer.Name != VariableScopeNames.Wildcard && new[] { config.Name, options.Name, socket.Name, address.Name,
                     family.Name, ip.Name, port.Name, error.Name }.Contains(timer.Name)
                 || error.Name != returned.Name || addressFamily.Name != family.Name
@@ -51,7 +100,13 @@ internal sealed partial class BeamModuleCompiler
                 || owner.ResolvesErlangBif(open) || owner.ResolvesErlangBif(connect)
                 || !entries.TryGetValue((set.Function, 2), out int setEntry)
                 || !entries.TryGetValue((start.Function, 2), out int startEntry)
-                || ReadConnectRecord(record, family.Name, null, ip.Name, port.Name) is not { } fields)
+                || ReadConnectRecord(
+                    record,
+                    family.Name,
+                    null,
+                    ip.Name,
+                    port.Name
+                ) is not { } fields)
             {
                 return false;
             }
@@ -61,14 +116,29 @@ internal sealed partial class BeamModuleCompiler
             int openFailed = Label();
             int connectFailed = Label();
             int elseFailed = Label();
-            EmitDetailRecordTest(0, record.Items.Count, tag, functionInfo);
+            EmitDetailRecordTest(
+                0,
+                record.Items.Count,
+                tag,
+                functionInfo
+            );
             owner.EmitTuplePart(0, fields.Address, 3);
             owner.EmitTupleCheck(3, 2, functionInfo);
             owner.Op(Allocate, BeamWire.UnsignedTag, 5);
             owner.Operand(BeamWire.UnsignedTag, 4);
             owner.InitStackSlot(0);
-            owner.MoveRegister(XRegisterTag, 3, YRegisterTag, 2);
-            owner.MoveRegister(XRegisterTag, 2, YRegisterTag, 3);
+            owner.MoveRegister(
+                XRegisterTag,
+                3,
+                YRegisterTag,
+                2
+            );
+            owner.MoveRegister(
+                XRegisterTag,
+                2,
+                YRegisterTag,
+                3
+            );
             SaveWindowResult(4);
             owner.Op(GetTupleElement, XRegisterTag, 0);
             owner.Operand(BeamWire.UnsignedTag, fields.Family);
@@ -78,7 +148,12 @@ internal sealed partial class BeamModuleCompiler
             var previous = location;
             EmitWindowCall(open, ref previous);
             SaveWindowResult(0);
-            EmitDetailRecordTest(0, 2, opened, openFailed);
+            EmitDetailRecordTest(
+                0,
+                2,
+                opened,
+                openFailed
+            );
             owner.Op(GetTupleElement, XRegisterTag, 0);
             owner.Operand(BeamWire.UnsignedTag, 1);
             owner.Operand(YRegisterTag, 0);
@@ -88,8 +163,18 @@ internal sealed partial class BeamModuleCompiler
             EmitWindowLocal(set, setEntry, ref previous);
             SaveWindowResult(3);
             EmitConfigurationAtomTest(configured, setFailed);
-            LoadTupleField(2, 0, XRegisterTag, 0);
-            LoadTupleField(2, 1, XRegisterTag, 1);
+            LoadTupleField(
+                2,
+                0,
+                XRegisterTag,
+                0
+            );
+            LoadTupleField(
+                2,
+                1,
+                XRegisterTag,
+                1
+            );
             owner.Op(PutMapAssoc, LabelTag, 0);
             owner.LiteralOperand(new MapTerm([]));
             owner.Operand(XRegisterTag, 1);
@@ -129,7 +214,12 @@ internal sealed partial class BeamModuleCompiler
             Mark(openFailed);
             Load(0);
             Mark(connectFailed);
-            EmitMaybeListenerElse(conditional, errorTag, elseFailed, 5);
+            EmitMaybeListenerElse(
+                conditional,
+                errorTag,
+                elseFailed,
+                5
+            );
 
             return true;
         }

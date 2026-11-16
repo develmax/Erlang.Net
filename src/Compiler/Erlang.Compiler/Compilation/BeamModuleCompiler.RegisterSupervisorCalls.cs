@@ -62,22 +62,34 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
-            EmitDetailRecordTest(source, tuple.Items.Count, tag, owner.nextLabel - 2);
+            EmitDetailRecordTest(
+                source,
+                tuple.Items.Count,
+                tag,
+                owner.nextLabel - 2
+            );
             for (int index = 0; index < fields.Length; index++)
             {
                 owner.EmitTuplePart(source, fields[index], index);
             }
 
             EmitRegisterTailTarget(call with { Module = module }, fields.Length);
+
             return true;
         }
 
         private bool TryEmitTaggedTupleAndConstantsTail(FunctionDefinition function)
         {
-            if (function.Clauses is not [{ Guard: null,
-                Patterns: [Pattern.Variable { Name: not VariableScopeNames.Wildcard } parameter],
-                Body: Expr.Call { DynamicRemote: false, Arguments: [
-                    Expr.Tuple { Items: [Expr.Literal { Value: Atom tag }, Expr.Variable value] }, _, ..] } call }]
+            if (function.Clauses is not [
+                {
+                    Guard: null,
+                    Patterns: [Pattern.Variable { Name: not VariableScopeNames.Wildcard } parameter],
+                    Body: Expr.Call
+                    {
+                        DynamicRemote: false, Arguments: [
+                    Expr.Tuple { Items: [Expr.Literal { Value: Atom tag }, Expr.Variable value] }, _, ..]
+                    } call
+                }]
                 || value.Name != parameter.Name)
             {
                 return false;
@@ -105,24 +117,40 @@ internal sealed partial class BeamModuleCompiler
             owner.EmitTagMatchTuple(0, (AtomTag, owner.Intern(tag.Name)), (XRegisterTag, 0));
             owner.EmitIndependentCallMoves(constants);
             EmitRegisterTailTarget(target, target.Arguments.Count);
+
             return true;
         }
 
         private bool TryEmitTupleElementAtomDispatchTail(FunctionDefinition function)
         {
-            if (function.Clauses is not [{ Guard: null,
-                Patterns: [Pattern.Variable parameter],
-                Body: Expr.Sequence { Items: [
-                    Expr.Match { Pattern: Pattern.Variable binding,
-                        Value: Expr.Case { Value: Expr.Call
+            if (function.Clauses is not [
+                {
+                    Guard: null,
+                    Patterns: [Pattern.Variable parameter],
+                    Body: Expr.Sequence
+                    {
+                        Items: [
+                    Expr.Match
                         {
-                            Module: null or ErlangModuleNames.Module,
-                            DynamicRemote: false,
-                            Function: AutoImportNames.Element,
-                            Arguments: [Expr.Literal { Value: Integer position }, Expr.Variable input]
-                        } element } decision },
-                    Expr.Call { Module: not (null or ErlangModuleNames.Module), DynamicRemote: false, Arguments: [
-                        Expr.Variable selected, Expr.List { Items: [Expr.Variable forwarded], Tail: null }] } tail] } }]
+                            Pattern: Pattern.Variable binding,
+                            Value: Expr.Case
+                            {
+                                Value: Expr.Call
+                                {
+                                    Module: null or ErlangModuleNames.Module,
+                                    DynamicRemote: false,
+                                    Function: AutoImportNames.Element,
+                                    Arguments: [Expr.Literal { Value: Integer position }, Expr.Variable input]
+                                } element
+                            } decision
+                        },
+                    Expr.Call
+                        {
+                            Module: not (null or ErlangModuleNames.Module), DynamicRemote: false, Arguments: [
+                        Expr.Variable selected, Expr.List { Items: [Expr.Variable forwarded], Tail: null }]
+                        } tail]
+                    }
+                }]
                 || !DistinctBindings(parameter, binding) || parameter.Name != input.Name
                 || binding.Name != selected.Name || parameter.Name != forwarded.Name
                 || !owner.ResolvesErlangBif(element) || position.Value <= 0)
@@ -133,8 +161,11 @@ internal sealed partial class BeamModuleCompiler
             var cases = new Dictionary<Atom, Atom>();
             foreach (Clause clause in decision.Clauses)
             {
-                if (clause is not { Guard: null, Patterns: [Pattern.Literal { Value: Atom key }],
-                        Body: Expr.Literal { Value: Atom result } } || !cases.TryAdd(key, result))
+                if (clause is not
+                    {
+                        Guard: null, Patterns: [Pattern.Literal { Value: Atom key }],
+                        Body: Expr.Literal { Value: Atom result }
+                    } || !cases.TryAdd(key, result))
                 {
                     return false;
                 }

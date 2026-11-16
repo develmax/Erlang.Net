@@ -20,7 +20,12 @@ internal sealed partial class BeamModuleCompiler
                     ]
                 } forward
                 || !DistinctBindings(head, tail, accumulator)
-                || !IsConsReplacement(forward, tail, accumulator, out Expr item)
+                || !IsConsReplacement(
+                    forward,
+                    tail,
+                    accumulator,
+                    out Expr item
+                )
                 || item is not Expr.Variable variable || variable.Name != head.Name
                 || clauses[^1] is not
                 {
@@ -41,13 +46,21 @@ internal sealed partial class BeamModuleCompiler
                         Guard: null,
                         Patterns:
                         [
-                            Erlang.Pattern.List { Items: [Erlang.Pattern.Literal { Value: Atom or Integer } key],
-                                Tail: Erlang.Pattern.Variable rest },
+                            Erlang.Pattern.List
+                        {
+                            Items: [Erlang.Pattern.Literal { Value: Atom or Integer } key],
+                            Tail: Erlang.Pattern.Variable rest
+                        },
                             Erlang.Pattern.Variable acc
                         ]
                     }
                     || !DistinctBindings(rest, acc) || !keys.Add(key.Value)
-                    || !IsConsReplacement(clause, rest, acc, out Expr candidate)
+                    || !IsConsReplacement(
+                        clause,
+                        rest,
+                        acc,
+                        out Expr candidate
+                    )
                     || !AttributeLiteral.TryNormalizeConstant(candidate, out Term value)
                     || replacement is not null && !replacement.Equals(value))
                 {
@@ -62,7 +75,13 @@ internal sealed partial class BeamModuleCompiler
             int emptyList = Label();
             const int headRegister = 2;
             owner.EmitNonemptyList(0, emptyList);
-            owner.EmitListParts(0, XRegisterTag, headRegister, XRegisterTag, 0);
+            owner.EmitListParts(
+                0,
+                XRegisterTag,
+                headRegister,
+                XRegisterTag,
+                0
+            );
             owner.Op(SelectValue, XRegisterTag, headRegister);
             owner.Operand(LabelTag, unchanged);
             owner.instructions.WriteByte(ExtendedListOperand);
@@ -88,7 +107,12 @@ internal sealed partial class BeamModuleCompiler
 
             return true;
 
-            bool IsConsReplacement(Clause clause, Erlang.Pattern.Variable rest, Erlang.Pattern.Variable acc, out Expr value)
+            bool IsConsReplacement(
+                Clause clause,
+                Erlang.Pattern.Variable rest,
+                Erlang.Pattern.Variable acc,
+                out Expr value
+            )
             {
                 if (clause.Body is Expr.Call
                     {

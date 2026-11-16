@@ -51,7 +51,12 @@ internal sealed partial class BeamModuleCompiler
             int live = segments.Where(segment => segment.Bytes is null)
                 .SelectMany(segment => new[] { segment.Value, segment.Size }).OfType<Expr.Variable>()
                 .Select(variable => ArgumentRegister(clause, variable.Name) + 1).DefaultIfEmpty(0).Max();
-            EmitBinaryConstructionHeader(bits, segments, live, null);
+            EmitBinaryConstructionHeader(
+                bits,
+                segments,
+                live,
+                null
+            );
             foreach (var segment in segments)
             {
                 if (!EmitBinaryConstructionSegment(segment))
@@ -111,19 +116,27 @@ internal sealed partial class BeamModuleCompiler
                     };
                 }
 
-                segments.Insert(0, new(
-                    BinaryPrivateAppendSegment,
-                    1,
-                    BitSyntaxDefaults.BitStringUnit,
-                    BitByteOrders.Big,
-                    new Expr.Literal(Nil.Value),
-                    new Expr.Literal(Term.A(BitSizeAtoms.All)),
-                    null
-                ));
+                segments.Insert(
+                    0,
+                    new(
+                        BinaryPrivateAppendSegment,
+                        1,
+                        BitSyntaxDefaults.BitStringUnit,
+                        BitByteOrders.Big,
+                        new Expr.Literal(Nil.Value),
+                        new Expr.Literal(Term.A(BitSizeAtoms.All)),
+                        null
+                    )
+                );
                 slots.Insert(0, (prefix, null));
             }
 
-            EmitBinaryConstructionHeader(bits, segments, lastValueInX0 ? 1 : 0, failure);
+            EmitBinaryConstructionHeader(
+                bits,
+                segments,
+                lastValueInX0 ? 1 : 0,
+                failure
+            );
             for (int index = 0; index < segments.Count; index++)
             {
                 var segment = segments[index];
@@ -163,6 +176,7 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(YRegisterTag, value);
             owner.Operand(YRegisterTag, size);
             slots = (size, value);
+
             return true;
         }
 
@@ -190,6 +204,7 @@ internal sealed partial class BeamModuleCompiler
             }
 
             Expr.Call call = owner.ResolveImportedCall(source, entries);
+
             return owner.ResolvesErlangBif(call) ? (call, read, input) : null;
         }
 
@@ -209,15 +224,31 @@ internal sealed partial class BeamModuleCompiler
             }
 
             int failure = Label();
-            EmitDetailRecordTest(0, measured.Field.Arity, Term.A(measured.Field.Name), failure);
+            EmitDetailRecordTest(
+                0,
+                measured.Field.Arity,
+                Term.A(measured.Field.Name),
+                failure
+            );
             owner.EmitTuplePart(0, measured.Field.Index, 0);
             owner.EmitCallLine(measured.Call, location);
             EmitSizeInstruction(measured.Call.Function, 0, 1);
             owner.Operand(XRegisterTag, 0);
             owner.Operand(XRegisterTag, 1);
-            EmitBinaryConstructionHeader(bits, segments, 2, null, CallLocation(measured.Call, location));
+            EmitBinaryConstructionHeader(
+                bits,
+                segments,
+                2,
+                null,
+                CallLocation(measured.Call, location)
+            );
             EmitBinaryConstructionSegment(size);
-            owner.EmitTypedRegister(1, IntegerTypeBits, 0, MaximumBitSize);
+            owner.EmitTypedRegister(
+                1,
+                IntegerTypeBits,
+                0,
+                MaximumBitSize
+            );
             EmitDirectOperand(clause, size.Size);
             EmitBinaryConstructionSegment(value);
             owner.EmitTypedRegister(0, MatchableTypeBits);
@@ -225,6 +256,7 @@ internal sealed partial class BeamModuleCompiler
             owner.instructions.WriteByte(Return);
             Mark(failure);
             owner.Op(BadRecord, XRegisterTag, 0);
+
             return true;
         }
 
@@ -271,7 +303,15 @@ internal sealed partial class BeamModuleCompiler
                     && size is Expr.Literal { Value: Atom { Name: BitSizeAtoms.All } } && !constant
                     ? BinaryAppendSegment
                     : segment.Type;
-                segments.Add(new(kind, constant ? 0 : index + 1, unicode ? 0 : segment.Unit, segment.Endian, segment.Value, size, null));
+                segments.Add(new(
+                    kind,
+                    constant ? 0 : index + 1,
+                    unicode ? 0 : segment.Unit,
+                    segment.Endian,
+                    segment.Value,
+                    size,
+                    null
+                ));
             }
 
             return segments;

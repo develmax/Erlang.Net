@@ -10,19 +10,40 @@ internal sealed partial class BeamModuleCompiler
         {
             if (function.Clauses is not [
                 { Guard: null, Patterns: [var empty, Pattern.Variable defaultValue], Body: Expr.Variable missing },
-                { Patterns: [Pattern.List { Items: [Pattern.Tuple { Items: [
+                {
+                    Patterns: [Pattern.List
+                    {
+                        Items: [Pattern.Tuple
+                        {
+                            Items: [
                     Pattern.Literal { Value: Atom key }, Pattern.Variable value
-                ] }], Tail: Pattern.Variable { Name: VariableScopeNames.Wildcard } },
+                ]
+                        }], Tail: Pattern.Variable { Name: VariableScopeNames.Wildcard }
+                    },
                     Pattern.Variable { Name: VariableScopeNames.Wildcard }],
-                    Guard: Expr.Binary { Operator: ErlangOperators.LessOrEqual, Left: Expr.Variable compared,
-                        Right: Expr.Literal { Value: Integer limit } }, Body: Expr.Literal replacement },
-                { Guard: null, Patterns: [Pattern.List { Items: [Pattern.Tuple { Items: [
+                    Guard: Expr.Binary
+                    {
+                        Operator: ErlangOperators.LessOrEqual, Left: Expr.Variable compared,
+                        Right: Expr.Literal { Value: Integer limit }
+                    }, Body: Expr.Literal replacement
+                },
+                {
+                    Guard: null, Patterns: [Pattern.List
+                    {
+                        Items: [Pattern.Tuple
+                        {
+                            Items: [
                     Pattern.Literal { Value: Atom sameKey }, Pattern.Variable valueAgain
-                ] }], Tail: Pattern.Variable { Name: VariableScopeNames.Wildcard } },
-                    Pattern.Variable { Name: VariableScopeNames.Wildcard }], Body: Expr.Variable unchanged },
-                { Guard: null, Patterns: [Pattern.List { Items: [Pattern.Variable ignored], Tail: Pattern.Variable remaining },
+                ]
+                        }], Tail: Pattern.Variable { Name: VariableScopeNames.Wildcard }
+                    },
+                    Pattern.Variable { Name: VariableScopeNames.Wildcard }], Body: Expr.Variable unchanged
+                },
+                {
+                    Guard: null, Patterns: [Pattern.List { Items: [Pattern.Variable ignored], Tail: Pattern.Variable remaining },
                     Pattern.Variable forwarded],
-                    Body: Expr.Call { Module: null, DynamicRemote: false, Arguments: [Expr.Variable tail, Expr.Variable fallback] } recurse }
+                    Body: Expr.Call { Module: null, DynamicRemote: false, Arguments: [Expr.Variable tail, Expr.Variable fallback] } recurse
+                }
             ] || !IsEmptyListPattern(empty) || !key.Equals(sameKey)
                 || defaultValue.Name == VariableScopeNames.Wildcard || defaultValue.Name != missing.Name
                 || value.Name == VariableScopeNames.Wildcard || value.Name != compared.Name
@@ -40,8 +61,19 @@ internal sealed partial class BeamModuleCompiler
             int skip = Label();
             int nil = Label();
             owner.EmitNonemptyList(0, nil);
-            owner.EmitListParts(0, XRegisterTag, 2, XRegisterTag, 0);
-            EmitDetailRecordTest(2, 2, key, skip);
+            owner.EmitListParts(
+                0,
+                XRegisterTag,
+                2,
+                XRegisterTag,
+                0
+            );
+            EmitDetailRecordTest(
+                2,
+                2,
+                key,
+                skip
+            );
             owner.EmitTuplePart(2, 1, 0);
             owner.Op(IsGreaterOrEqual, LabelTag, original);
             owner.LiteralOperand(limit);
@@ -55,7 +87,12 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(LabelTag, entry);
             Mark(nil);
             owner.EmitNilTest(XRegisterTag, 0, failure);
-            owner.MoveRegister(XRegisterTag, 1, XRegisterTag, 0);
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                XRegisterTag,
+                0
+            );
             owner.instructions.WriteByte(Return);
 
             return true;

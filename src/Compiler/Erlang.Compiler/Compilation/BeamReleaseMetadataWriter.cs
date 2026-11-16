@@ -15,13 +15,23 @@ internal static class BeamReleaseMetadataWriter
     {
         try
         {
-            return BuildMetadata(module, tokens, source, profile, documentation, specs, fileTransitions, parser);
+            return BuildMetadata(
+                module,
+                tokens,
+                source,
+                profile,
+                documentation,
+                specs,
+                fileTransitions,
+                parser
+            );
         }
         catch (NotSupportedException) when (profile.AllowIncompleteAbstractCode)
         {
             IReadOnlyList<ModuleAttribute> attributes = profile.InsertedVersion is { } version
                 ? [new(profile.InsertedAttributeName, Term.String(version)), .. module.Attributes]
                 : module.Attributes;
+
             return new(attributes, documentation, WriteCompileInfo(profile));
         }
     }
@@ -52,6 +62,7 @@ internal static class BeamReleaseMetadataWriter
         int directoryEnd = Math.Max(mainFile.LastIndexOf('/'), mainFile.LastIndexOf('\\')) + 1;
         var annotations = new List<Term> { FileForm(mainFile, 1) };
         int transitionIndex = 0;
+
         void WriteFileTransitions(int index)
         {
             while (transitionIndex < fileTransitions.Count && fileTransitions[transitionIndex].TokenIndex == index)
@@ -95,7 +106,13 @@ internal static class BeamReleaseMetadataWriter
                 var function = module.DeclaredFunctions[functionIndex++];
                 try
                 {
-                    annotations.Add(BeamReleaseFunctionDebug.Write(function, tokens, index, source, parser));
+                    annotations.Add(BeamReleaseFunctionDebug.Write(
+                        function,
+                        tokens,
+                        index,
+                        source,
+                        parser
+                    ));
                 }
                 catch (NotSupportedException error)
                 {
@@ -168,7 +185,12 @@ internal static class BeamReleaseMetadataWriter
                     }
                     break;
                 case ModuleAttributeNames.Record:
-                    annotations.Add(Attribute(location, name.Text, BeamReleaseFunctionDebug.WriteRecord(tokens, index + 2, source, parser)));
+                    annotations.Add(Attribute(location, name.Text, BeamReleaseFunctionDebug.WriteRecord(
+                        tokens,
+                        index + 2,
+                        source,
+                        parser
+                    )));
                     break;
                 default:
                     if (attributeIndex == module.Attributes.Count || module.Attributes[attributeIndex].Name != name.Text)
@@ -209,20 +231,33 @@ internal static class BeamReleaseMetadataWriter
         debugOptions.AddRange(warnings.Skip(beforeInsertion));
 
         byte[] compileInfo = WriteCompileInfo(profile);
-        byte[] debugInfo = BeamOtpEtfCompression.Encode(Term.Tuple(
-            Term.A("debug_info_v1"),
-            Term.A("erl_abstract_code"),
-            Term.Tuple(Cons.From(annotations), Cons.From(profile.RecordedDebugOptions ?? debugOptions))
-        ), debugInfo: true);
+        byte[] debugInfo = BeamOtpEtfCompression.Encode(
+            Term.Tuple(
+                Term.A("debug_info_v1"),
+                Term.A("erl_abstract_code"),
+                Term.Tuple(Cons.From(annotations), Cons.From(profile.RecordedDebugOptions ?? debugOptions))
+            ),
+            debugInfo: true
+        );
 
-        return new(attributes, documentation, compileInfo, debugInfo);
+        return new(
+            attributes,
+            documentation,
+            compileInfo,
+            debugInfo
+        );
     }
 
     private static bool IsExpandedTransform(Term option) =>
         EunitAutoExport.IsTransform(option) || DiameterRecordSourceTransform.IsOption(option) || MatchSpecSourceTransform.IsOption(option);
 
     private static Term InsertedAttribute(BeamReleaseBuildProfile profile) =>
-        Term.Tuple(Term.A("attribute"), Term.A("insert"), Term.A(profile.InsertedAttributeName), Term.String(profile.InsertedVersion!));
+        Term.Tuple(
+            Term.A("attribute"),
+            Term.A("insert"),
+            Term.A(profile.InsertedAttributeName),
+            Term.String(profile.InsertedVersion!)
+        );
 
     private static byte[] WriteCompileInfo(BeamReleaseBuildProfile profile)
     {
@@ -247,6 +282,7 @@ internal static class BeamReleaseMetadataWriter
         }
 
         options.AddRange(profile.WarningOptions.Skip(beforeInsertion).Select(option => Term.A(option)));
+
         return CompileInfo(profile, options);
     }
 
@@ -258,7 +294,12 @@ internal static class BeamReleaseMetadataWriter
         ]));
 
     private static Term Attribute(Term annotation, string name, Term value) =>
-        Term.Tuple(Term.A("attribute"), annotation, Term.A(name), value);
+        Term.Tuple(
+            Term.A("attribute"),
+            annotation,
+            Term.A(name),
+            value
+        );
 
     private static Term FileForm(string file, int line, int column = 1) =>
         Attribute(Term.Tuple(Term.I(line), Term.I(column)), "file", Term.Tuple(Term.String(file), Term.I(line)));

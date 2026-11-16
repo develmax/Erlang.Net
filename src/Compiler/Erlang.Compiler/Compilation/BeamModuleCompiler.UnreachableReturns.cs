@@ -53,7 +53,12 @@ internal sealed partial class BeamModuleCompiler
             }
 
             redirects.Add((int)entry.Value, 0);
-            edits.Add(new(body[index].Offset, body[end].Offset, LabelTag, 0));
+            edits.Add(new(
+                body[index].Offset,
+                body[end].Offset,
+                LabelTag,
+                0
+            ));
             index = end - 1;
         }
     }
@@ -102,7 +107,12 @@ internal sealed partial class BeamModuleCompiler
                 && !referenced.Contains((int)entry.Value))
             {
                 redirects.Add((int)entry.Value, 0);
-                edits.Add(new(instruction.Offset, body[index + 1].Offset, LabelTag, 0));
+                edits.Add(new(
+                    instruction.Offset,
+                    body[index + 1].Offset,
+                    LabelTag,
+                    0
+                ));
             }
 
             following = index;

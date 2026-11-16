@@ -9,24 +9,25 @@ internal sealed partial class BeamModuleCompiler
         private bool TryEmitRegisterLookupCase(FunctionDefinition function)
         {
             if (function.Clauses is not
-                [{
+                [
+                {
                     Guard: null, Body: Expr.Case
                     {
                         Value: Expr.Call { Module: not (null or ErlangModuleNames.Module), DynamicRemote: false } lookup,
                         Clauses:
                         [
+                        {
+                            Guard: null, Patterns: [Pattern.List
                             {
-                                Guard: null, Patterns: [Pattern.List
-                                {
-                                    Items: [Pattern.Tuple { Items: [Pattern.Variable key, Pattern.Variable value] }],
-                                    Tail: null
-                                }],
-                                Body: Expr.Tuple { Items: [Expr.Literal { Value: Atom tag }, Expr.Variable selected] }
-                            },
-                            {
-                                Guard: null, Patterns: [Pattern.List { Items.Count: 0, Tail: null } or Pattern.Literal { Value: Nil }],
-                                Body: Expr.Call { Module: null, DynamicRemote: false } miss
-                            }
+                                Items: [Pattern.Tuple { Items: [Pattern.Variable key, Pattern.Variable value] }],
+                                Tail: null
+                            }],
+                            Body: Expr.Tuple { Items: [Expr.Literal { Value: Atom tag }, Expr.Variable selected] }
+                        },
+                        {
+                            Guard: null, Patterns: [Pattern.List { Items.Count: 0, Tail: null } or Pattern.Literal { Value: Nil }],
+                            Body: Expr.Call { Module: null, DynamicRemote: false } miss
+                        }
                         ]
                     }
                 } clause]
@@ -83,14 +84,30 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(BeamWire.UnsignedTag, function.Arity);
             for (int slot = 0; slot < saved.Length; slot++)
             {
-                owner.MoveRegister(XRegisterTag, saved[slot], YRegisterTag, slot);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    saved[slot],
+                    YRegisterTag,
+                    slot
+                );
             }
 
             owner.EmitCallLine(lookup, location);
             owner.EmitStaticRemoteCall(lookup);
             owner.EmitNonemptyList(0, empty);
-            owner.EmitListParts(0, XRegisterTag, 1, XRegisterTag, 2);
-            EmitTupleShapeTest(XRegisterTag, 1, 2, failed);
+            owner.EmitListParts(
+                0,
+                XRegisterTag,
+                1,
+                XRegisterTag,
+                2
+            );
+            EmitTupleShapeTest(
+                XRegisterTag,
+                1,
+                2,
+                failed
+            );
             owner.EmitNilTest(XRegisterTag, 2, failed);
             owner.EmitTuplePart(1, 0, 2);
             owner.Op(ExactEqualTest, LabelTag, failed);

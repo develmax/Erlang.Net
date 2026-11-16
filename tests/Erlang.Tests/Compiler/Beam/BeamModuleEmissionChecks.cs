@@ -407,7 +407,10 @@ internal static class BeamModuleEmissionChecks
         CompareHeaderFixture("beam_header_docs_probe", "beam_docs_types.hrl", "include");
         RejectUnsupported("-module(custom). -compile(no_ssa_opt).");
         _ = CodeGeneration.CompileBeamModule("-module(custom). -export([f/1]). f(X) -> X = g(), io:write(X). g() -> ok.", "custom.erl");
-        _ = CodeGeneration.CompileBeamModule("-module(custom). -export([f/1]). f(X) -> case application:get_env(a,b) of {ok,X} -> X; undefined -> [] end.", "custom.erl");
+        _ = CodeGeneration.CompileBeamModule(
+            "-module(custom). -export([f/1]). f(X) -> case application:get_env(a,b) of {ok,X} -> X; undefined -> [] end.",
+            "custom.erl"
+        );
 
         RejectMissingStringSeparator();
         RejectInvalidOnLoadDeclarations();
@@ -1535,15 +1538,17 @@ internal static class BeamModuleEmissionChecks
         byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_lc_and_fun.erl");
         var chunks = BeamDocumentationEmissionChecks.Chunks(beam);
         string atoms = Encoding.UTF8.GetString(chunks.Single(chunk => chunk.Id == "AtU8").Data);
-        RequireHelperOrder(atoms,
-        [
+        RequireHelperOrder(
+            atoms,
+            [
             "-branch/3-lc$^1/1-0-",
             "-branch/3-fun-0-",
             "-following/2-fun-0-",
             "-following/2-lc$^1/1-0-",
             "-before/2-lc$^0/1-0-",
             "-before/2-fun-1-"
-        ]);
+        ]
+        );
     }
 
     private static void CompareCapturedClosureFailures()
@@ -1560,15 +1565,17 @@ internal static class BeamModuleEmissionChecks
         byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_captured_closure_failures.erl");
         var chunks = BeamDocumentationEmissionChecks.Chunks(beam);
         string atoms = Encoding.UTF8.GetString(chunks.Single(chunk => chunk.Id == "AtU8").Data);
-        RequireHelperOrder(atoms,
-        [
+        RequireHelperOrder(
+            atoms,
+            [
             "-plain/0-fun-0-",
             "-exhaustive/1-fun-0-",
             "-choose/1-fun-0-",
             "-guard/1-fun-0-",
             "-choose/1-inlined-0-",
             "-guard/1-inlined-0-"
-        ]);
+        ]
+        );
         if (atoms.Contains("-exhaustive/1-inlined-", StringComparison.Ordinal)
             || atoms.Contains("-plain/0-inlined-", StringComparison.Ordinal))
         {
@@ -1676,9 +1683,24 @@ internal static class BeamModuleEmissionChecks
         Term? actual = null;
         ProcessHandle process = runtime.Spawn(async context =>
         {
-            Term onLeft = await image.Invoke(context, "run", value, Term.A("left"));
-            Term onRight = await image.Invoke(context, "run", value, Term.A("right"));
-            Term fallback = await image.Invoke(context, "run", value, Term.A("fallback"));
+            Term onLeft = await image.Invoke(
+                context,
+                "run",
+                value,
+                Term.A("left")
+            );
+            Term onRight = await image.Invoke(
+                context,
+                "run",
+                value,
+                Term.A("right")
+            );
+            Term fallback = await image.Invoke(
+                context,
+                "run",
+                value,
+                Term.A("fallback")
+            );
             actual = Term.Tuple(onLeft, onRight, fallback);
 
             return actual;
@@ -1804,7 +1826,12 @@ internal static class BeamModuleEmissionChecks
         {
             try
             {
-                await image.Invoke(context, "run", Term.A("pid"), invalid);
+                await image.Invoke(
+                    context,
+                    "run",
+                    Term.A("pid"),
+                    invalid
+                );
             }
             catch (ErlangException error)
             {
@@ -2517,7 +2544,12 @@ internal static class BeamModuleEmissionChecks
         Term? actual = null;
         ProcessHandle process = runtime.Spawn(async context =>
         {
-            Term success = await image.Invoke(context, "second", Term.A("ignored"), improper);
+            Term success = await image.Invoke(
+                context,
+                "second",
+                Term.A("ignored"),
+                improper
+            );
             Term failure = Nil.Value;
             Term location = Nil.Value;
             try
@@ -2558,9 +2590,24 @@ internal static class BeamModuleEmissionChecks
         Term? actual = null;
         ProcessHandle process = runtime.Spawn(async context =>
         {
-            var pair = (TupleTerm)await runtime.Modules.Call(context, module, "make", [Term.A("left"), Term.A("right")]);
-            var shared = (TupleTerm)await runtime.Modules.Call(context, module, "shared", [Term.A("value")]);
-            var mixed = (TupleTerm)await runtime.Modules.Call(context, module, "mixed", [Term.A("mixed")]);
+            var pair = (TupleTerm)await runtime.Modules.Call(
+                context,
+                module,
+                "make",
+                [Term.A("left"), Term.A("right")]
+            );
+            var shared = (TupleTerm)await runtime.Modules.Call(
+                context,
+                module,
+                "shared",
+                [Term.A("value")]
+            );
+            var mixed = (TupleTerm)await runtime.Modules.Call(
+                context,
+                module,
+                "mixed",
+                [Term.A("mixed")]
+            );
             actual = Term.Tuple(
                 await ((FunctionTerm)pair.Items[0]).Invoke(context, []),
                 await ((FunctionTerm)pair.Items[1]).Invoke(context, []),
@@ -2600,9 +2647,19 @@ internal static class BeamModuleEmissionChecks
         Term? actual = null;
         ProcessHandle process = runtime.Spawn(async context =>
         {
-            var tagged = (TupleTerm)await runtime.Modules.Call(context, module, "make", [Term.I(7)]);
+            var tagged = (TupleTerm)await runtime.Modules.Call(
+                context,
+                module,
+                "make",
+                [Term.I(7)]
+            );
             var recursive = (FunctionTerm)tagged.Items[1];
-            var retained = (TupleTerm)await runtime.Modules.Call(context, module, "keep", [Term.A("first"), Term.A("captured")]);
+            var retained = (TupleTerm)await runtime.Modules.Call(
+                context,
+                module,
+                "keep",
+                [Term.A("first"), Term.A("captured")]
+            );
             var closure = (FunctionTerm)retained.Items[1];
             actual = Term.Tuple(
                 tagged.Items[0],
@@ -2615,7 +2672,13 @@ internal static class BeamModuleEmissionChecks
             return actual;
         });
         Term exitReason = await process.Completion;
-        Term expected = Term.Tuple(Term.A("ok"), Term.I(2001007), Term.A("first"), Term.A("captured"), Term.A("captured"));
+        Term expected = Term.Tuple(
+            Term.A("ok"),
+            Term.I(2001007),
+            Term.A("first"),
+            Term.A("captured"),
+            Term.A("captured")
+        );
         if (!expected.Equals(actual))
         {
             throw new InvalidOperationException($"Tuple BEAM closure returned {actual}, exit {exitReason}.");
@@ -2633,7 +2696,12 @@ internal static class BeamModuleEmissionChecks
         Term? actual = null;
         ProcessHandle process = runtime.Spawn(async context =>
         {
-            var accumulator = (FunctionTerm)await runtime.Modules.Call(context, module, "make", [Term.I(7)]);
+            var accumulator = (FunctionTerm)await runtime.Modules.Call(
+                context,
+                module,
+                "make",
+                [Term.I(7)]
+            );
             Term value = await accumulator.Invoke(context, [Term.I(2000), Term.I(0)]);
             Term zero = await accumulator.Invoke(context, [Term.I(0), Term.I(10)]);
             Term failure = Nil.Value;
@@ -2668,8 +2736,18 @@ internal static class BeamModuleEmissionChecks
         Term? actual = null;
         ProcessHandle process = runtime.Spawn(async context =>
         {
-            var countdown = (FunctionTerm)await runtime.Modules.Call(context, module, "countdown", []);
-            var captured = (FunctionTerm)await runtime.Modules.Call(context, module, "captured", [Term.A("value")]);
+            var countdown = (FunctionTerm)await runtime.Modules.Call(
+                context,
+                module,
+                "countdown",
+                []
+            );
+            var captured = (FunctionTerm)await runtime.Modules.Call(
+                context,
+                module,
+                "captured",
+                [Term.A("value")]
+            );
             Term done = await countdown.Invoke(context, [Term.I(2000)]);
             Term value = await captured.Invoke(context, [Term.I(2000)]);
             Term failure = Nil.Value;
@@ -2708,8 +2786,18 @@ internal static class BeamModuleEmissionChecks
         Term? actual = null;
         ProcessHandle process = runtime.Spawn(async context =>
         {
-            var constant = (FunctionTerm)await runtime.Modules.Call(context, module, "constant", []);
-            var captured = (FunctionTerm)await runtime.Modules.Call(context, module, "captured", [Term.A("value")]);
+            var constant = (FunctionTerm)await runtime.Modules.Call(
+                context,
+                module,
+                "constant",
+                []
+            );
+            var captured = (FunctionTerm)await runtime.Modules.Call(
+                context,
+                module,
+                "captured",
+                [Term.A("value")]
+            );
             var pair = (FunctionTerm)await runtime.Modules.Call(
                 context,
                 multiModule,
@@ -2733,7 +2821,12 @@ internal static class BeamModuleEmissionChecks
             Term.A("value"),
             Term.I(0),
             Term.I(1),
-            Term.Tuple(Term.A("alpha"), Term.A("argument"), Term.A("zebra"), Term.A("alpha")),
+            Term.Tuple(
+                Term.A("alpha"),
+                Term.A("argument"),
+                Term.A("zebra"),
+                Term.A("alpha")
+            ),
             Term.List(Term.A("zebra"), Term.A("alpha"))
         );
         if (!expected.Equals(actual))
@@ -2803,13 +2896,43 @@ internal static class BeamModuleEmissionChecks
         {
             Term one = Term.I(1);
             Term floatOne = new FloatTerm(1);
-            Term same = await image.Invoke(context, "same", one, one);
-            Term distinctTypes = await image.Invoke(context, "same", one, floatOne);
-            Term different = await image.Invoke(context, "different", floatOne, one);
+            Term same = await image.Invoke(
+                context,
+                "same",
+                one,
+                one
+            );
+            Term distinctTypes = await image.Invoke(
+                context,
+                "same",
+                one,
+                floatOne
+            );
+            Term different = await image.Invoke(
+                context,
+                "different",
+                floatOne,
+                one
+            );
             Term literal = await image.Invoke(context, "literal", Term.A("ok"));
-            Term caseSame = await image.Invoke(context, "case_same", one, one);
-            Term caseDistinctTypes = await image.Invoke(context, "case_same", one, floatOne);
-            Term caseDifferent = await image.Invoke(context, "case_different", one, floatOne);
+            Term caseSame = await image.Invoke(
+                context,
+                "case_same",
+                one,
+                one
+            );
+            Term caseDistinctTypes = await image.Invoke(
+                context,
+                "case_same",
+                one,
+                floatOne
+            );
+            Term caseDifferent = await image.Invoke(
+                context,
+                "case_different",
+                one,
+                floatOne
+            );
             Term caseFresh = await image.Invoke(context, "case_fresh", one);
             actual = Term.Tuple(
                 same,
@@ -2876,9 +2999,27 @@ internal static class BeamModuleEmissionChecks
         Term? actual = null;
         ProcessHandle process = runtime.Spawn(async context =>
         {
-            Term original = await image.Invoke(context, "run", reference, state, module);
-            Term found = await image.Invoke(context, "member", values, reference, state);
-            Term forwarded = await image.Invoke(context, "forward", values, reference, state);
+            Term original = await image.Invoke(
+                context,
+                "run",
+                reference,
+                state,
+                module
+            );
+            Term found = await image.Invoke(
+                context,
+                "member",
+                values,
+                reference,
+                state
+            );
+            Term forwarded = await image.Invoke(
+                context,
+                "forward",
+                values,
+                reference,
+                state
+            );
             actual = Term.Tuple(original, found, forwarded);
 
             return actual;
@@ -2910,7 +3051,12 @@ internal static class BeamModuleEmissionChecks
             Term empty = await image.Invoke(context, "loop", Nil.Value);
             Term mismatch = await ReadFailure("run", Term.List(Term.A("wrong")));
             Term badInput = await ReadFailure("loop", new Cons(ok, ok));
-            actual = Term.Tuple(success, empty, mismatch, badInput);
+            actual = Term.Tuple(
+                success,
+                empty,
+                mismatch,
+                badInput
+            );
 
             return actual;
 
@@ -3001,16 +3147,73 @@ internal static class BeamModuleEmissionChecks
         {
             try
             {
-                Term success = await image.Invoke(context, "run", Term.I(1), payload);
-                Term failure = await image.Invoke(context, "run", Term.I(2), payload);
-                Term retained = await image.Invoke(context, "retain", Term.I(1), payload);
-                Term selected = await selector.Invoke(context, "run", Term.Tuple(entry, key, payload), key, payload);
-                Term alternative = await selector.Invoke(context, "run", Term.Tuple(entry, fallback, payload), key, payload);
-                Term aliased = await selector.Invoke(context, "run", errorTuple, key, payload);
-                Term tail = await selector.Invoke(context, "tail", Term.Tuple(entry, key, payload), key, payload);
-                Term tailMiss = await selector.Invoke(context, "tail", invalid, key, payload);
-                Term continued = await selector.Invoke(context, "continue_after", Term.Tuple(entry, key, payload), key, payload);
-                Term grouped = await selector.Invoke(context, "arity_fallback", Term.Tuple(entry, fallback), fallback, payload);
+                Term success = await image.Invoke(
+                    context,
+                    "run",
+                    Term.I(1),
+                    payload
+                );
+                Term failure = await image.Invoke(
+                    context,
+                    "run",
+                    Term.I(2),
+                    payload
+                );
+                Term retained = await image.Invoke(
+                    context,
+                    "retain",
+                    Term.I(1),
+                    payload
+                );
+                Term selected = await selector.Invoke(
+                    context,
+                    "run",
+                    Term.Tuple(entry, key, payload),
+                    key,
+                    payload
+                );
+                Term alternative = await selector.Invoke(
+                    context,
+                    "run",
+                    Term.Tuple(entry, fallback, payload),
+                    key,
+                    payload
+                );
+                Term aliased = await selector.Invoke(
+                    context,
+                    "run",
+                    errorTuple,
+                    key,
+                    payload
+                );
+                Term tail = await selector.Invoke(
+                    context,
+                    "tail",
+                    Term.Tuple(entry, key, payload),
+                    key,
+                    payload
+                );
+                Term tailMiss = await selector.Invoke(
+                    context,
+                    "tail",
+                    invalid,
+                    key,
+                    payload
+                );
+                Term continued = await selector.Invoke(
+                    context,
+                    "continue_after",
+                    Term.Tuple(entry, key, payload),
+                    key,
+                    payload
+                );
+                Term grouped = await selector.Invoke(
+                    context,
+                    "arity_fallback",
+                    Term.Tuple(entry, fallback),
+                    fallback,
+                    payload
+                );
                 Term tagged = await selector.Invoke(
                     context,
                     "arity_fallback",
@@ -3018,7 +3221,13 @@ internal static class BeamModuleEmissionChecks
                     key,
                     payload
                 );
-                Term missed = await selector.Invoke(context, "arity_fallback", Term.Tuple(entry, payload), key, payload);
+                Term missed = await selector.Invoke(
+                    context,
+                    "arity_fallback",
+                    Term.Tuple(entry, payload),
+                    key,
+                    payload
+                );
                 Term ignored = Term.Tuple(Term.A("ignored"), key, payload);
                 Term copy = Term.Tuple(
                     Term.A("copy"),
@@ -3049,18 +3258,48 @@ internal static class BeamModuleEmissionChecks
                     payload
                 );
                 Term binary = new BitString("guard"u8);
-                Term directGuard = await selector.Invoke(context, "guard_route", binary, payload);
-                Term rejectedGuard = await selector.Invoke(context, "guard_route", Nil.Value, payload);
-                Term failedLeft = await selector.Invoke(context, "guard_failure", payload, binary);
+                Term directGuard = await selector.Invoke(
+                    context,
+                    "guard_route",
+                    binary,
+                    payload
+                );
+                Term rejectedGuard = await selector.Invoke(
+                    context,
+                    "guard_route",
+                    Nil.Value,
+                    payload
+                );
+                Term failedLeft = await selector.Invoke(
+                    context,
+                    "guard_failure",
+                    payload,
+                    binary
+                );
                 Term nested = Term.Tuple(Term.A("outer"), Term.Tuple(Term.A("inner"), key, payload));
-                Term nestedMatch = await selector.Invoke(context, "nested_tagged", nested, key);
-                Term nestedFallback = await selector.Invoke(context, "nested_tagged", nested, payload);
+                Term nestedMatch = await selector.Invoke(
+                    context,
+                    "nested_tagged",
+                    nested,
+                    key
+                );
+                Term nestedFallback = await selector.Invoke(
+                    context,
+                    "nested_tagged",
+                    nested,
+                    payload
+                );
                 Term fresh = Term.Tuple(
                     Term.A("outer"),
                     Term.Tuple(Term.A("inner"), Term.Tuple(Term.A("leaf"), key), payload),
                     payload
                 );
-                Term freshMatch = await selector.Invoke(context, "fresh_nested", fresh, key);
+                Term freshMatch = await selector.Invoke(
+                    context,
+                    "fresh_nested",
+                    fresh,
+                    key
+                );
                 Term argument = Term.Tuple(Term.A("tagged"), rule, payload);
                 Term packedArgument = await selector.Invoke(
                     context,
@@ -3070,12 +3309,32 @@ internal static class BeamModuleEmissionChecks
                     fallback
                 );
                 Term guarded = Term.Tuple(Term.A("guarded"), key);
-                Term named = await selector.Invoke(context, "guarded_case", guarded, Term.I(5));
+                Term named = await selector.Invoke(
+                    context,
+                    "guarded_case",
+                    guarded,
+                    Term.I(5)
+                );
                 Term tooSmall = Term.Tuple(Term.A("guarded"), Term.I(4));
-                Term original = await selector.Invoke(context, "guarded_case", tooSmall, Term.I(5));
+                Term original = await selector.Invoke(
+                    context,
+                    "guarded_case",
+                    tooSmall,
+                    Term.I(5)
+                );
                 Term record = Term.Tuple(Term.A("parity_record"), key, payload);
-                Term recordUpdate = await selector.Invoke(context, "update_one", record, fallback);
-                Term unchangedRecord = await selector.Invoke(context, "update_one", record, key);
+                Term recordUpdate = await selector.Invoke(
+                    context,
+                    "update_one",
+                    record,
+                    fallback
+                );
+                Term unchangedRecord = await selector.Invoke(
+                    context,
+                    "update_one",
+                    record,
+                    key
+                );
                 Term checkedRecord = await selector.Invoke(context, "read_checked", record);
                 Term rejectedRecord = Nil.Value;
                 try
@@ -3089,11 +3348,21 @@ internal static class BeamModuleEmissionChecks
 
                 Term recordArgs = await selector.Invoke(context, "record_args", record);
                 Term recordSelect = await selector.Invoke(context, "record_select", record);
-                Term finalField = await selector.Invoke(context, "final_field", fallback, record);
+                Term finalField = await selector.Invoke(
+                    context,
+                    "final_field",
+                    fallback,
+                    record
+                );
                 Term invalidFinalField = Nil.Value;
                 try
                 {
-                    await selector.Invoke(context, "final_field", fallback, payload);
+                    await selector.Invoke(
+                        context,
+                        "final_field",
+                        fallback,
+                        payload
+                    );
                 }
                 catch (ErlangException error)
                 {
@@ -3231,7 +3500,12 @@ internal static class BeamModuleEmissionChecks
                 Term recordDispatchFailure = Nil.Value;
                 try
                 {
-                    await selector.Invoke(context, "record_dispatch_tail", Term.A("alpha"), payload);
+                    await selector.Invoke(
+                        context,
+                        "record_dispatch_tail",
+                        Term.A("alpha"),
+                        payload
+                    );
                 }
                 catch (ErlangException error)
                 {
@@ -3331,20 +3605,41 @@ internal static class BeamModuleEmissionChecks
                 }
 
                 Term plainInput = Term.Tuple(Term.A("tagged"), Term.Tuple(key, payload));
-                Term plainMatch = await selector.Invoke(context, "plain_case", plainInput, Term.A("tagged"));
-                Term plainAlternate = await selector.Invoke(context, "plain_case", plainInput, key);
+                Term plainMatch = await selector.Invoke(
+                    context,
+                    "plain_case",
+                    plainInput,
+                    Term.A("tagged")
+                );
+                Term plainAlternate = await selector.Invoke(
+                    context,
+                    "plain_case",
+                    plainInput,
+                    key
+                );
                 Term repeatedMismatchFields = Term.Tuple(
                     Term.A("same"),
                     key,
                     payload,
                     fallback
                 );
-                Term retainedMatchCheck = await selector.Invoke(context, "retain_fields", repeatedMismatchFields, key);
+                Term retainedMatchCheck = await selector.Invoke(
+                    context,
+                    "retain_fields",
+                    repeatedMismatchFields,
+                    key
+                );
                 Term keptExport = await selector.Invoke(context, "retain_export", Term.Tuple(Term.A("picked"), key, payload));
                 Term rejected = Nil.Value;
                 try
                 {
-                    await selector.Invoke(context, "run", invalid, key, payload);
+                    await selector.Invoke(
+                        context,
+                        "run",
+                        invalid,
+                        key,
+                        payload
+                    );
                 }
                 catch (ErlangException error)
                 {
@@ -3536,7 +3831,12 @@ internal static class BeamModuleEmissionChecks
             Term.Tuple(Term.A("error"), Term.Tuple(Term.A("bad"), payload)),
             Term.Tuple(Term.A("nested"), key, payload),
             Term.Tuple(Term.A("tagged"), Term.Tuple(key, payload)),
-            Term.Tuple(Term.A("other"), Term.Tuple(Term.A("same"), key, payload, fallback)),
+            Term.Tuple(Term.A("other"), Term.Tuple(
+                Term.A("same"),
+                key,
+                payload,
+                fallback
+            )),
             Term.Tuple(Term.A("exported"), key),
             Term.Tuple(Term.A("case_clause"), invalid)
         );
@@ -3619,8 +3919,18 @@ internal static class BeamModuleEmissionChecks
         Term? actual = null;
         ProcessHandle process = runtime.Spawn(async context =>
         {
-            Term split = await image.Invoke(context, "run", Term.String("key=value"), Nil.Value);
-            Term noSeparator = await image.Invoke(context, "run", Term.String("key"), Nil.Value);
+            Term split = await image.Invoke(
+                context,
+                "run",
+                Term.String("key=value"),
+                Nil.Value
+            );
+            Term noSeparator = await image.Invoke(
+                context,
+                "run",
+                Term.String("key"),
+                Nil.Value
+            );
             actual = Term.Tuple(split, noSeparator);
 
             return actual;
@@ -3657,12 +3967,48 @@ internal static class BeamModuleEmissionChecks
             Term options = Term.A("options");
             Term value = Term.A("value");
             Term pair = Term.Tuple(value, options);
-            Term priority = await image.Invoke(context, "run", raw, Term.Tuple(missing, options), extra);
-            Term selected = await image.Invoke(context, "run", raw, pair, extra);
-            Term converted = await image.Invoke(context, "run", Term.A("convert"), pair, extra);
-            Term invalidTuple = await image.Invoke(context, "run", raw, value, extra);
-            Term unknownKey = await image.Invoke(context, "run", Term.I(42), pair, extra);
-            actual = Term.Tuple(priority, selected, converted, invalidTuple, unknownKey);
+            Term priority = await image.Invoke(
+                context,
+                "run",
+                raw,
+                Term.Tuple(missing, options),
+                extra
+            );
+            Term selected = await image.Invoke(
+                context,
+                "run",
+                raw,
+                pair,
+                extra
+            );
+            Term converted = await image.Invoke(
+                context,
+                "run",
+                Term.A("convert"),
+                pair,
+                extra
+            );
+            Term invalidTuple = await image.Invoke(
+                context,
+                "run",
+                raw,
+                value,
+                extra
+            );
+            Term unknownKey = await image.Invoke(
+                context,
+                "run",
+                Term.I(42),
+                pair,
+                extra
+            );
+            actual = Term.Tuple(
+                priority,
+                selected,
+                converted,
+                invalidTuple,
+                unknownKey
+            );
 
             return actual;
         });
@@ -3703,12 +4049,43 @@ internal static class BeamModuleEmissionChecks
             var ignored = Term.A("ignored");
             var item = Term.A("item");
             var same = Term.A("same");
-            Term missing = await image.Invoke(context, "run", Term.Tuple(Term.A("missing"), ignored), input);
-            Term selected = await image.Invoke(context, "run", Term.Tuple(item, input, Term.A("ready"), ignored), ignored);
-            Term guardFailure = await image.Invoke(context, "run", Term.Tuple(item, input, ignored, ignored), input);
+            Term missing = await image.Invoke(
+                context,
+                "run",
+                Term.Tuple(Term.A("missing"), ignored),
+                input
+            );
+            Term selected = await image.Invoke(
+                context,
+                "run",
+                Term.Tuple(
+                    item,
+                    input,
+                    Term.A("ready"),
+                    ignored
+                ),
+                ignored
+            );
+            Term guardFailure = await image.Invoke(
+                context,
+                "run",
+                Term.Tuple(
+                    item,
+                    input,
+                    ignored,
+                    ignored
+                ),
+                input
+            );
             Term repeated = await image.Invoke(context, "same", Term.Tuple(same, input, input));
             Term mismatch = await image.Invoke(context, "same", Term.Tuple(same, input, ignored));
-            actual = Term.Tuple(missing, selected, guardFailure, repeated, mismatch);
+            actual = Term.Tuple(
+                missing,
+                selected,
+                guardFailure,
+                repeated,
+                mismatch
+            );
 
             return actual;
         });
@@ -3789,9 +4166,24 @@ internal static class BeamModuleEmissionChecks
         {
             Term entry = Term.A("entry");
             Term value = Term.I(42);
-            Term converted = await image.Invoke(context, "read", entry, Term.String("projected"));
-            Term projected = await image.Invoke(context, "read", entry, value);
-            Term fallback = await image.Invoke(context, "read", Term.A("wrong"), value);
+            Term converted = await image.Invoke(
+                context,
+                "read",
+                entry,
+                Term.String("projected")
+            );
+            Term projected = await image.Invoke(
+                context,
+                "read",
+                entry,
+                value
+            );
+            Term fallback = await image.Invoke(
+                context,
+                "read",
+                Term.A("wrong"),
+                value
+            );
             Term direct = await image.Invoke(context, "project", Term.Tuple(entry, Nil.Value, value));
             Term tagged = Term.Tuple(entry, entry, value);
             Term forward = await image.Invoke(context, "forward", tagged);
@@ -3800,14 +4192,54 @@ internal static class BeamModuleEmissionChecks
             Term right = await image.Invoke(context, "dispatch", Term.Tuple(Term.A("right"), entry, value));
             Term unknown = await image.Invoke(context, "dispatch", tagged);
             Term wrongArity = await image.Invoke(context, "dispatch", Term.Tuple(Term.A("left"), value));
-            Term retained = await image.Invoke(context, "retained", tagged, entry);
-            Term unmatched = await image.Invoke(context, "retained", value, entry);
-            Term staged = await image.Invoke(context, "staged", tagged, entry);
-            Term tagOnly = await image.Invoke(context, "tag_only", tagged, entry);
-            Term tagMismatch = await image.Invoke(context, "tag_only", value, entry);
+            Term retained = await image.Invoke(
+                context,
+                "retained",
+                tagged,
+                entry
+            );
+            Term unmatched = await image.Invoke(
+                context,
+                "retained",
+                value,
+                entry
+            );
+            Term staged = await image.Invoke(
+                context,
+                "staged",
+                tagged,
+                entry
+            );
+            Term tagOnly = await image.Invoke(
+                context,
+                "tag_only",
+                tagged,
+                entry
+            );
+            Term tagMismatch = await image.Invoke(
+                context,
+                "tag_only",
+                value,
+                entry
+            );
             actual = Term.Tuple(
-                converted, projected, fallback, direct, forward, reverse,
-                retained, unmatched, staged, tagOnly, tagMismatch, Term.Tuple(left, right, unknown, wrongArity)
+                converted,
+                projected,
+                fallback,
+                direct,
+                forward,
+                reverse,
+                retained,
+                unmatched,
+                staged,
+                tagOnly,
+                tagMismatch,
+                Term.Tuple(
+                    left,
+                    right,
+                    unknown,
+                    wrongArity
+                )
             );
 
             return actual;
@@ -3886,28 +4318,95 @@ internal static class BeamModuleEmissionChecks
         Term? actual = null;
         ProcessHandle process = runtime.Spawn(async context =>
         {
-            Term simple = await image.Invoke(context, "run", first, second, tail);
-            Term chain = await image.Invoke(context, "chain", first, second);
-            Term survivors = await image.Invoke(context, "survivors", first, second, tail);
-            Term boxed = await image.Invoke(context, "boxed", first, second, tail);
-            Term discarded = await image.Invoke(context, "discarded", first, second, tail);
+            Term simple = await image.Invoke(
+                context,
+                "run",
+                first,
+                second,
+                tail
+            );
+            Term chain = await image.Invoke(
+                context,
+                "chain",
+                first,
+                second
+            );
+            Term survivors = await image.Invoke(
+                context,
+                "survivors",
+                first,
+                second,
+                tail
+            );
+            Term boxed = await image.Invoke(
+                context,
+                "boxed",
+                first,
+                second,
+                tail
+            );
+            Term discarded = await image.Invoke(
+                context,
+                "discarded",
+                first,
+                second,
+                tail
+            );
             var named = (FunctionTerm)await image.Invoke(context, "named");
             Term namedResult = await named.Invoke(context, [first, second]);
-            Term siblings = await image.Invoke(context, "siblings", first, second);
-            Term retained = await image.Invoke(context, "siblings_keep", first, second);
-            Term nonzero = await image.Invoke(context, "siblings_nonzero", first, second);
-            Term three = await image.Invoke(context, "siblings_three", first, second, tail);
+            Term siblings = await image.Invoke(
+                context,
+                "siblings",
+                first,
+                second
+            );
+            Term retained = await image.Invoke(
+                context,
+                "siblings_keep",
+                first,
+                second
+            );
+            Term nonzero = await image.Invoke(
+                context,
+                "siblings_nonzero",
+                first,
+                second
+            );
+            Term three = await image.Invoke(
+                context,
+                "siblings_three",
+                first,
+                second,
+                tail
+            );
             Term failure = Nil.Value;
             try
             {
-                await image.Invoke(context, "chain", Term.A("fail"), second);
+                await image.Invoke(
+                    context,
+                    "chain",
+                    Term.A("fail"),
+                    second
+                );
             }
             catch (ErlangException error)
             {
                 failure = error.Reason;
             }
 
-            actual = Term.Tuple(simple, chain, survivors, boxed, discarded, namedResult, failure, siblings, retained, nonzero, three);
+            actual = Term.Tuple(
+                simple,
+                chain,
+                survivors,
+                boxed,
+                discarded,
+                namedResult,
+                failure,
+                siblings,
+                retained,
+                nonzero,
+                three
+            );
 
             return actual;
         });
@@ -3965,10 +4464,26 @@ internal static class BeamModuleEmissionChecks
         ProcessHandle process = runtime.Spawn(async context =>
         {
             Term accepted = await image.Invoke(context, "run", improper);
-            Term forwarded = await image.Invoke(context, "forward", improper, Term.List(Term.I(7)));
+            Term forwarded = await image.Invoke(
+                context,
+                "forward",
+                improper,
+                Term.List(Term.I(7))
+            );
             Term same = await image.Invoke(context, "same", improper);
-            Term dead = await image.Invoke(context, "dead", Nil.Value, improper, Term.List(Term.I(7)));
-            Term deadSame = await image.Invoke(context, "dead_same", Nil.Value, improper);
+            Term dead = await image.Invoke(
+                context,
+                "dead",
+                Nil.Value,
+                improper,
+                Term.List(Term.I(7))
+            );
+            Term deadSame = await image.Invoke(
+                context,
+                "dead_same",
+                Nil.Value,
+                improper
+            );
             Term rejected = Nil.Value;
             Term headFailure = Nil.Value;
             try
@@ -3981,14 +4496,27 @@ internal static class BeamModuleEmissionChecks
             }
             try
             {
-                await image.Invoke(context, "forward", improper, Nil.Value);
+                await image.Invoke(
+                    context,
+                    "forward",
+                    improper,
+                    Nil.Value
+                );
             }
             catch (ErlangException error)
             {
                 headFailure = error.Reason;
             }
 
-            actual = Term.Tuple(accepted, rejected, forwarded, same, dead, deadSame, headFailure);
+            actual = Term.Tuple(
+                accepted,
+                rejected,
+                forwarded,
+                same,
+                dead,
+                deadSame,
+                headFailure
+            );
 
             return actual;
         });
@@ -4035,15 +4563,65 @@ internal static class BeamModuleEmissionChecks
         Term? actual = null;
         ProcessHandle process = runtime.Spawn(async context =>
         {
-            Term conversion = await image.Invoke(context, "run", new FloatTerm(-1.5), new FloatTerm(3.75));
-            Term quotient = await image.Invoke(context, "arithmetic", Term.I(8), Term.I(3));
-            Term remainder = await image.Invoke(context, "arithmetic", Term.I(-8), Term.I(-3));
-            Term fallback = await image.Invoke(context, "arithmetic", Term.I(8), Term.I(0));
-            Term oppositeSigns = await image.Invoke(context, "arithmetic", Term.I(-8), Term.I(3));
-            Term exact = await image.Invoke(context, "choose", Term.I(8), Term.I(2));
-            Term adjusted = await image.Invoke(context, "choose", Term.I(8), Term.I(3));
-            Term preserved = await image.Invoke(context, "preserve", Term.I(10), Term.I(8), Term.I(2));
-            actual = Term.Tuple(conversion, quotient, remainder, fallback, oppositeSigns, exact, adjusted, preserved);
+            Term conversion = await image.Invoke(
+                context,
+                "run",
+                new FloatTerm(-1.5),
+                new FloatTerm(3.75)
+            );
+            Term quotient = await image.Invoke(
+                context,
+                "arithmetic",
+                Term.I(8),
+                Term.I(3)
+            );
+            Term remainder = await image.Invoke(
+                context,
+                "arithmetic",
+                Term.I(-8),
+                Term.I(-3)
+            );
+            Term fallback = await image.Invoke(
+                context,
+                "arithmetic",
+                Term.I(8),
+                Term.I(0)
+            );
+            Term oppositeSigns = await image.Invoke(
+                context,
+                "arithmetic",
+                Term.I(-8),
+                Term.I(3)
+            );
+            Term exact = await image.Invoke(
+                context,
+                "choose",
+                Term.I(8),
+                Term.I(2)
+            );
+            Term adjusted = await image.Invoke(
+                context,
+                "choose",
+                Term.I(8),
+                Term.I(3)
+            );
+            Term preserved = await image.Invoke(
+                context,
+                "preserve",
+                Term.I(10),
+                Term.I(8),
+                Term.I(2)
+            );
+            actual = Term.Tuple(
+                conversion,
+                quotient,
+                remainder,
+                fallback,
+                oppositeSigns,
+                exact,
+                adjusted,
+                preserved
+            );
 
             return actual;
         });
@@ -4082,9 +4660,27 @@ internal static class BeamModuleEmissionChecks
             Term module = Term.A("erlang");
             Term function = Term.A("atom_to_list");
             Term argument = Term.Tuple(Term.A("probe"));
-            Term ordinary = await image.Invoke(context, "ordinary", module, function, argument);
-            Term tail = await image.Invoke(context, "tail", module, function, argument);
-            Term record = await image.Invoke(context, "record", module, function, argument);
+            Term ordinary = await image.Invoke(
+                context,
+                "ordinary",
+                module,
+                function,
+                argument
+            );
+            Term tail = await image.Invoke(
+                context,
+                "tail",
+                module,
+                function,
+                argument
+            );
+            Term record = await image.Invoke(
+                context,
+                "record",
+                module,
+                function,
+                argument
+            );
             actual = Term.Tuple(ordinary, tail, record);
 
             return actual;
@@ -4093,7 +4689,13 @@ internal static class BeamModuleEmissionChecks
         Term expected = Term.Tuple(
             Term.Tuple(Term.String("probe"), Term.A("probe")),
             Term.String("probe"),
-            Term.Tuple(Term.A("sample"), Term.A("probe"), Term.String("probe"), Term.A("missing"), Term.A("missing"))
+            Term.Tuple(
+                Term.A("sample"),
+                Term.A("probe"),
+                Term.String("probe"),
+                Term.A("missing"),
+                Term.A("missing")
+            )
         );
         if (!expected.Equals(actual))
         {
@@ -4181,12 +4783,27 @@ internal static class BeamModuleEmissionChecks
         {
             Term left = Term.Tuple(Term.List(Term.I(1)));
             Term right = Term.A("tail");
-            Term nested = await image.Invoke(context, "nested", left, right);
-            Term tail = await image.Invoke(context, "tail", left, right);
+            Term nested = await image.Invoke(
+                context,
+                "nested",
+                left,
+                right
+            );
+            Term tail = await image.Invoke(
+                context,
+                "tail",
+                left,
+                right
+            );
             Term invalid = Nil.Value;
             try
             {
-                await image.Invoke(context, "tail", Term.Tuple(right), Nil.Value);
+                await image.Invoke(
+                    context,
+                    "tail",
+                    Term.Tuple(right),
+                    Nil.Value
+                );
             }
             catch (ErlangException error)
             {
@@ -4225,11 +4842,21 @@ internal static class BeamModuleEmissionChecks
         Term? actual = null;
         ProcessHandle process = runtime.Spawn(async context =>
         {
-            Term result = await image.Invoke(context, "run", Term.A("first"), Term.A("second"));
+            Term result = await image.Invoke(
+                context,
+                "run",
+                Term.A("first"),
+                Term.A("second")
+            );
             Term failure;
             try
             {
-                failure = await image.Invoke(context, "run", Term.A("second"), Term.A("first"));
+                failure = await image.Invoke(
+                    context,
+                    "run",
+                    Term.A("second"),
+                    Term.A("first")
+                );
             }
             catch (ErlangException error)
             {
@@ -4267,11 +4894,21 @@ internal static class BeamModuleEmissionChecks
         Term? actual = null;
         ProcessHandle process = runtime.Spawn(async context =>
         {
-            Term result = await image.Invoke(context, "run", Term.A("value"), Term.I(7));
+            Term result = await image.Invoke(
+                context,
+                "run",
+                Term.A("value"),
+                Term.I(7)
+            );
             Term failure;
             try
             {
-                failure = await image.Invoke(context, "run", Term.A("fail"), Term.I(7));
+                failure = await image.Invoke(
+                    context,
+                    "run",
+                    Term.A("fail"),
+                    Term.I(7)
+                );
             }
             catch (ErlangException error)
             {
@@ -4363,11 +5000,23 @@ internal static class BeamModuleEmissionChecks
         Term? actual = null;
         ProcessHandle process = runtime.Spawn(async context =>
         {
-            Term value = await image.Invoke(context, "run", Term.A("input"), Term.I(7), Term.A("run"));
+            Term value = await image.Invoke(
+                context,
+                "run",
+                Term.A("input"),
+                Term.I(7),
+                Term.A("run")
+            );
             Term failure;
             try
             {
-                failure = await image.Invoke(context, "run", Term.A("input"), Term.I(7), Term.A("skip"));
+                failure = await image.Invoke(
+                    context,
+                    "run",
+                    Term.A("input"),
+                    Term.I(7),
+                    Term.A("skip")
+                );
             }
             catch (ErlangException error)
             {
@@ -4574,30 +5223,127 @@ internal static class BeamModuleEmissionChecks
             Term thrown = await image.Invoke(context, "run", Term.Tuple(erlang, Term.A("throw"), reason));
             Term exited = await image.Invoke(context, "run", Term.Tuple(erlang, Term.A("exit"), reason));
             Term error = await image.Invoke(context, "run", Term.Tuple(erlang, Term.A("error"), reason));
-            Term selected = await image.Invoke(context, "select", erlang, Term.A("abs"), Term.I(-4), reason);
-            Term caught = await image.Invoke(context, "select", erlang, Term.A("error"), reason, reason);
-            Term member = await image.Invoke(context, "status", reason, Term.List(reason), Term.A("saved"));
-            Term missing = await image.Invoke(context, "status", reason, Nil.Value, Term.A("saved"));
+            Term selected = await image.Invoke(
+                context,
+                "select",
+                erlang,
+                Term.A("abs"),
+                Term.I(-4),
+                reason
+            );
+            Term caught = await image.Invoke(
+                context,
+                "select",
+                erlang,
+                Term.A("error"),
+                reason,
+                reason
+            );
+            Term member = await image.Invoke(
+                context,
+                "status",
+                reason,
+                Term.List(reason),
+                Term.A("saved")
+            );
+            Term missing = await image.Invoke(
+                context,
+                "status",
+                reason,
+                Nil.Value,
+                Term.A("saved")
+            );
             Term tuple = Term.Tuple(reason, Term.I(7));
-            Term found = await image.Invoke(context, "lookup", reason, Term.List(tuple), Term.A("saved"));
-            Term absent = await image.Invoke(context, "lookup", reason, Nil.Value, Term.A("saved"));
-            Term picked = await image.Invoke(context, "pick", Term.List(Term.Tuple(Term.A("key"), Term.A("c"))), reason);
-            Term defaulted = await image.Invoke(context, "pick", Nil.Value, reason);
-            Term nested = await image.Invoke(context, "status_nested", Term.A("saved"), Term.List(reason), reason);
-            Term nestedMissing = await image.Invoke(context, "status_nested", Term.A("saved"), Nil.Value, reason);
-            Term tagged = await image.Invoke(context, "tagged_result", Term.Tuple(Term.A("item"), Term.I(11)), reason);
-            Term tagFallback = await image.Invoke(context, "tagged_result", Term.Tuple(Term.A("item")), reason);
-            Term mixedTag = await image.Invoke(context, "mixed_result", Term.Tuple(Term.A("item"), Term.I(11)), reason);
-            Term mixedBinary = await image.Invoke(context, "mixed_result", new BitString("ok"u8), reason);
-            Term mixedFallback = await image.Invoke(context, "mixed_result", Nil.Value, reason);
-            Term tupleTail = await image.Invoke(context, "tuple_tail", reason, Term.I(1), Term.I(2));
+            Term found = await image.Invoke(
+                context,
+                "lookup",
+                reason,
+                Term.List(tuple),
+                Term.A("saved")
+            );
+            Term absent = await image.Invoke(
+                context,
+                "lookup",
+                reason,
+                Nil.Value,
+                Term.A("saved")
+            );
+            Term picked = await image.Invoke(
+                context,
+                "pick",
+                Term.List(Term.Tuple(Term.A("key"), Term.A("c"))),
+                reason
+            );
+            Term defaulted = await image.Invoke(
+                context,
+                "pick",
+                Nil.Value,
+                reason
+            );
+            Term nested = await image.Invoke(
+                context,
+                "status_nested",
+                Term.A("saved"),
+                Term.List(reason),
+                reason
+            );
+            Term nestedMissing = await image.Invoke(
+                context,
+                "status_nested",
+                Term.A("saved"),
+                Nil.Value,
+                reason
+            );
+            Term tagged = await image.Invoke(
+                context,
+                "tagged_result",
+                Term.Tuple(Term.A("item"), Term.I(11)),
+                reason
+            );
+            Term tagFallback = await image.Invoke(
+                context,
+                "tagged_result",
+                Term.Tuple(Term.A("item")),
+                reason
+            );
+            Term mixedTag = await image.Invoke(
+                context,
+                "mixed_result",
+                Term.Tuple(Term.A("item"), Term.I(11)),
+                reason
+            );
+            Term mixedBinary = await image.Invoke(
+                context,
+                "mixed_result",
+                new BitString("ok"u8),
+                reason
+            );
+            Term mixedFallback = await image.Invoke(
+                context,
+                "mixed_result",
+                Nil.Value,
+                reason
+            );
+            Term tupleTail = await image.Invoke(
+                context,
+                "tuple_tail",
+                reason,
+                Term.I(1),
+                Term.I(2)
+            );
             Term constructed = Term.Tuple(Term.A("tag"), Term.Tuple(Term.I(1), Term.I(2)), reason);
             if (!Term.Tuple(constructed, reason, reason).Equals(tupleTail))
             {
                 throw new InvalidOperationException($"Building a tail-call tuple overwrote a forwarded argument: {tupleTail}.");
             }
 
-            Term listTail = await image.Invoke(context, "list_tail", reason, Term.I(1), Term.I(2));
+            Term listTail = await image.Invoke(
+                context,
+                "list_tail",
+                reason,
+                Term.I(1),
+                Term.I(2)
+            );
             Term constructedList = new Cons(reason, new Cons(Term.Tuple(Term.I(1), Term.I(2)), reason));
             if (!Term.Tuple(constructedList, reason).Equals(listTail))
             {
@@ -4606,10 +5352,30 @@ internal static class BeamModuleEmissionChecks
 
             Term head = Term.I(1);
             Term tailValue = Term.I(2);
-            Term patternTail = await image.Invoke(context, "pattern_tail", new Cons(head, tailValue), reason);
-            Term emptyTail = await image.Invoke(context, "pattern_tail", Nil.Value, reason);
-            Term groupedTuple = await image.Invoke(context, "grouped_tail", Term.Tuple(head), reason);
-            Term groupedList = await image.Invoke(context, "grouped_tail", Term.Tuple(head, tailValue), reason);
+            Term patternTail = await image.Invoke(
+                context,
+                "pattern_tail",
+                new Cons(head, tailValue),
+                reason
+            );
+            Term emptyTail = await image.Invoke(
+                context,
+                "pattern_tail",
+                Nil.Value,
+                reason
+            );
+            Term groupedTuple = await image.Invoke(
+                context,
+                "grouped_tail",
+                Term.Tuple(head),
+                reason
+            );
+            Term groupedList = await image.Invoke(
+                context,
+                "grouped_tail",
+                Term.Tuple(head, tailValue),
+                reason
+            );
             if (!Term.Tuple(Term.Tuple(head, tailValue), reason).Equals(patternTail) || !reason.Equals(emptyTail)
                 || !Term.Tuple(Term.Tuple(head, reason), reason).Equals(groupedTuple)
                 || !Term.Tuple(new Cons(head, tailValue), reason).Equals(groupedList))
@@ -4617,8 +5383,18 @@ internal static class BeamModuleEmissionChecks
                 throw new InvalidOperationException("A constructed tail argument did not preserve the pattern bindings.");
             }
 
-            Term singleList = await image.Invoke(context, "single_tail", Term.Tuple(head, tailValue), reason);
-            Term singleTagged = await image.Invoke(context, "tagged_single_tail", Term.Tuple(Term.A("item"), head, Term.I(7)), reason);
+            Term singleList = await image.Invoke(
+                context,
+                "single_tail",
+                Term.Tuple(head, tailValue),
+                reason
+            );
+            Term singleTagged = await image.Invoke(
+                context,
+                "tagged_single_tail",
+                Term.Tuple(Term.A("item"), head, Term.I(7)),
+                reason
+            );
             if (!Term.Tuple(new Cons(head, tailValue), reason).Equals(singleList)
                 || !Term.Tuple(Term.Tuple(head, reason), reason).Equals(singleTagged))
             {
@@ -4626,9 +5402,24 @@ internal static class BeamModuleEmissionChecks
             }
 
             Term badLiteral = Term.Tuple(Term.A("item"), head, Term.I(8));
-            Term tupleFallback = await image.Invoke(context, "tuple_fallback", badLiteral, reason);
-            Term consMatch = await image.Invoke(context, "cons_fallback", new Cons(head, tailValue), reason);
-            Term consFallback = await image.Invoke(context, "cons_fallback", Nil.Value, reason);
+            Term tupleFallback = await image.Invoke(
+                context,
+                "tuple_fallback",
+                badLiteral,
+                reason
+            );
+            Term consMatch = await image.Invoke(
+                context,
+                "cons_fallback",
+                new Cons(head, tailValue),
+                reason
+            );
+            Term consFallback = await image.Invoke(
+                context,
+                "cons_fallback",
+                Nil.Value,
+                reason
+            );
             if (!badLiteral.Equals(tupleFallback)
                 || !Term.Tuple(Term.Tuple(head, tailValue), reason).Equals(consMatch)
                 || !Term.Tuple(reason, Nil.Value).Equals(consFallback))
@@ -4637,22 +5428,43 @@ internal static class BeamModuleEmissionChecks
             }
 
             Term whole = Term.Tuple(Term.A("item"), head, Term.I(7));
-            Term consTuple = await image.Invoke(context, "cons_tuple_fallback", new Cons(whole, tailValue), reason);
+            Term consTuple = await image.Invoke(
+                context,
+                "cons_tuple_fallback",
+                new Cons(whole, tailValue),
+                reason
+            );
             Term badHead = new Cons(badLiteral, tailValue);
-            Term failedHead = await image.Invoke(context, "cons_tuple_fallback", badHead, reason);
+            Term failedHead = await image.Invoke(
+                context,
+                "cons_tuple_fallback",
+                badHead,
+                reason
+            );
             if (!Term.Tuple(new Cons(Term.Tuple(head, whole), tailValue), reason).Equals(consTuple)
                 || !badHead.Equals(failedHead))
             {
                 throw new InvalidOperationException("A tuple-head alias or the fallback list was overwritten.");
             }
 
-            Term forwarded = await image.Invoke(context, "forwarded_tuple", head, reason);
+            Term forwarded = await image.Invoke(
+                context,
+                "forwarded_tuple",
+                head,
+                reason
+            );
             if (!Term.Tuple(Term.Tuple(Term.A("tag"), head, reason), Term.A("marker"), Nil.Value).Equals(forwarded))
             {
                 throw new InvalidOperationException("A tuple argument did not retain the call result and saved input.");
             }
 
-            Term embedded = await image.Invoke(context, "embedded_tuple", head, tailValue, reason);
+            Term embedded = await image.Invoke(
+                context,
+                "embedded_tuple",
+                head,
+                tailValue,
+                reason
+            );
             Term specification = Term.Tuple(
                 head,
                 Term.Tuple(head, tailValue),
@@ -4666,8 +5478,22 @@ internal static class BeamModuleEmissionChecks
             }
 
             Term allowed = Term.A("allow");
-            Term accepted = await image.Invoke(context, "reused_case", head, tailValue, reason, allowed);
-            Term rejected = await image.Invoke(context, "reused_case", head, tailValue, reason, reason);
+            Term accepted = await image.Invoke(
+                context,
+                "reused_case",
+                head,
+                tailValue,
+                reason,
+                allowed
+            );
+            Term rejected = await image.Invoke(
+                context,
+                "reused_case",
+                head,
+                tailValue,
+                reason,
+                reason
+            );
             if (!Term.Tuple(allowed, Term.Tuple(head, tailValue, reason)).Equals(accepted) || !reason.Equals(rejected))
             {
                 throw new InvalidOperationException("Reusing a tuple case frame changed the accepted or rejected result.");
@@ -4675,9 +5501,24 @@ internal static class BeamModuleEmissionChecks
 
             Term nilResult = await image.Invoke(context, "nil_case", Nil.Value);
             Term nilError = await image.Invoke(context, "nil_case", reason);
-            Term started = await image.Invoke(context, "literal_call_case", Term.A("normal"), allowed);
-            Term denied = await image.Invoke(context, "literal_call_case", Term.A("normal"), reason);
-            Term badMode = await image.Invoke(context, "literal_call_case", reason, allowed);
+            Term started = await image.Invoke(
+                context,
+                "literal_call_case",
+                Term.A("normal"),
+                allowed
+            );
+            Term denied = await image.Invoke(
+                context,
+                "literal_call_case",
+                Term.A("normal"),
+                reason
+            );
+            Term badMode = await image.Invoke(
+                context,
+                "literal_call_case",
+                reason,
+                allowed
+            );
             if (!Term.A("empty").Equals(nilResult)
                 || !Term.Tuple(Term.A("error"), Term.Tuple(Term.A("badarg"), reason)).Equals(nilError)
                 || !Term.Tuple(Term.A("ok"), Term.A("child"), Term.Tuple(Term.A("normal"), allowed)).Equals(started)
@@ -4702,7 +5543,12 @@ internal static class BeamModuleEmissionChecks
             }
 
             Term serialized = await image.Invoke(context, "nested_binary", reason);
-            Term literalReturn = await image.Invoke(context, "literal_result", Term.A("timeout"), reason);
+            Term literalReturn = await image.Invoke(
+                context,
+                "literal_result",
+                Term.A("timeout"),
+                reason
+            );
             Term joined = await image.Invoke(context, "joined_case", Term.A("active"));
             if (serialized is not TupleTerm { Items: [Atom { Name: "tag" }, BitString] }
                 || !Term.Tuple(Term.A("stop"), Term.A("normal"), Term.A("done")).Equals(literalReturn)
@@ -4711,7 +5557,13 @@ internal static class BeamModuleEmissionChecks
                 throw new InvalidOperationException("A nested conversion, literal entry or joined case returned an unexpected value.");
             }
 
-            Term caughtTuple = await image.Invoke(context, "nested_catch", head, tailValue, reason);
+            Term caughtTuple = await image.Invoke(
+                context,
+                "nested_catch",
+                head,
+                tailValue,
+                reason
+            );
             Term nestedInput = Term.Tuple(Term.A("marker"), Term.List(head, tailValue, Term.A("tail")), reason);
             if (!Term.Tuple(Term.A("tag"), Term.List(nestedInput)).Equals(caughtTuple))
             {
@@ -4725,10 +5577,45 @@ internal static class BeamModuleEmissionChecks
                 throw new InvalidOperationException($"Forwarding the call result into an improper list returned {list}.");
             }
 
-            actual = Term.Tuple(normal, thrown, exited, error, selected, caught, member, missing, found, absent, picked, defaulted, nested, nestedMissing, tagged, tagFallback, mixedTag, mixedBinary, mixedFallback,
-                await image.Invoke(context, "nested_result", Term.A("other"), reason),
-                await image.Invoke(context, "tagged_tail", Term.Tuple(Term.A("item"), Term.A("value")), reason),
-                await image.Invoke(context, "tagged_tail", Nil.Value, reason));
+            actual = Term.Tuple(
+                normal,
+                thrown,
+                exited,
+                error,
+                selected,
+                caught,
+                member,
+                missing,
+                found,
+                absent,
+                picked,
+                defaulted,
+                nested,
+                nestedMissing,
+                tagged,
+                tagFallback,
+                mixedTag,
+                mixedBinary,
+                mixedFallback,
+                await image.Invoke(
+                    context,
+                    "nested_result",
+                    Term.A("other"),
+                    reason
+                ),
+                await image.Invoke(
+                    context,
+                    "tagged_tail",
+                    Term.Tuple(Term.A("item"), Term.A("value")),
+                    reason
+                ),
+                await image.Invoke(
+                    context,
+                    "tagged_tail",
+                    Nil.Value,
+                    reason
+                )
+            );
 
             return actual;
         });
@@ -4813,18 +5700,59 @@ internal static class BeamModuleEmissionChecks
                 await image.Invoke(context, "bitstr", key),
                 await image.Invoke(context, "ref", new ReferenceTerm("guard@fixture", 1)),
                 await image.Invoke(context, "ref", key),
-                await image.Invoke(context, "has", key, map),
-                await image.Invoke(context, "has", missing, map),
-                await image.Invoke(context, "has", key, key),
-                await image.Invoke(context, "lacks", key, map),
-                await image.Invoke(context, "lacks", missing, map),
-                await image.Invoke(context, "lacks", key, key)
+                await image.Invoke(
+                    context,
+                    "has",
+                    key,
+                    map
+                ),
+                await image.Invoke(
+                    context,
+                    "has",
+                    missing,
+                    map
+                ),
+                await image.Invoke(
+                    context,
+                    "has",
+                    key,
+                    key
+                ),
+                await image.Invoke(
+                    context,
+                    "lacks",
+                    key,
+                    map
+                ),
+                await image.Invoke(
+                    context,
+                    "lacks",
+                    missing,
+                    map
+                ),
+                await image.Invoke(
+                    context,
+                    "lacks",
+                    key,
+                    key
+                )
             );
 
             return actual;
         });
         Term exit = await process.Completion;
-        if (!Term.List(yes, no, yes, no, yes, no, no, no, yes, no).Equals(actual))
+        if (!Term.List(
+            yes,
+            no,
+            yes,
+            no,
+            yes,
+            no,
+            no,
+            no,
+            yes,
+            no
+        ).Equals(actual))
         {
             throw new InvalidOperationException($"Extended BEAM guards returned {actual}, exit {exit}.");
         }
@@ -4861,7 +5789,12 @@ internal static class BeamModuleEmissionChecks
             Term invalid = await ErrorReason("run", ignored);
             Term mismatch = await ErrorReason("strict", map);
             Term large = await image.Invoke(context, "run", largeMap);
-            actual = Term.Tuple(ordinary, invalid, mismatch, large);
+            actual = Term.Tuple(
+                ordinary,
+                invalid,
+                mismatch,
+                large
+            );
 
             return actual;
 
@@ -4931,7 +5864,13 @@ internal static class BeamModuleEmissionChecks
             Term unmatched;
             try
             {
-                unmatched = await image.Invoke(context, "run", unhandled, tag, tag);
+                unmatched = await image.Invoke(
+                    context,
+                    "run",
+                    unhandled,
+                    tag,
+                    tag
+                );
             }
             catch (ErlangException exception)
             {
@@ -4939,12 +5878,40 @@ internal static class BeamModuleEmissionChecks
             }
 
             actual = Term.List(
-                await image.Invoke(context, "run", first, second, tag),
-                await image.Invoke(context, "run", Term.Tuple(error, tag), tag, tag),
-                await image.Invoke(context, "run", first, number, tag),
+                await image.Invoke(
+                    context,
+                    "run",
+                    first,
+                    second,
+                    tag
+                ),
+                await image.Invoke(
+                    context,
+                    "run",
+                    Term.Tuple(error, tag),
+                    tag,
+                    tag
+                ),
+                await image.Invoke(
+                    context,
+                    "run",
+                    first,
+                    number,
+                    tag
+                ),
                 unmatched,
-                await image.Invoke(context, "raw", one, first),
-                await image.Invoke(context, "raw", one, second),
+                await image.Invoke(
+                    context,
+                    "raw",
+                    one,
+                    first
+                ),
+                await image.Invoke(
+                    context,
+                    "raw",
+                    one,
+                    second
+                ),
                 await image.Invoke(context, "size_test", new MapTerm([new(tag, one)])),
                 await image.Invoke(context, "size_test", new MapTerm([])),
                 await image.Invoke(context, "size_test", tag)
@@ -5010,7 +5977,20 @@ internal static class BeamModuleEmissionChecks
             return actual;
         });
         Term exit = await process.Completion;
-        Term expected = Term.List(yes, no, no, yes, no, no, yes, no, no, yes, no, no);
+        Term expected = Term.List(
+            yes,
+            no,
+            no,
+            yes,
+            no,
+            no,
+            yes,
+            no,
+            no,
+            yes,
+            no,
+            no
+        );
         if (!expected.Equals(actual))
         {
             throw new InvalidOperationException($"General BEAM numeric and map lookup guards returned {actual}, exit {exit}.");
@@ -5030,7 +6010,12 @@ internal static class BeamModuleEmissionChecks
         await using var runtime = new ProcessRuntime();
         Term bit = Term.A("bit");
         Term no = Term.A("no");
-        Term items = Term.List(Term.Tuple(bit, Term.I(1)), Term.A("skip"), Term.Tuple(bit, no), Term.Tuple(bit, Term.I(2)));
+        Term items = Term.List(
+            Term.Tuple(bit, Term.I(1)),
+            Term.A("skip"),
+            Term.Tuple(bit, no),
+            Term.Tuple(bit, Term.I(2))
+        );
         Term parts = Term.List(new BitString([0xA0], 3), new BitString([0xC0], 2));
         Term? actual = null;
         ProcessHandle process = runtime.Spawn(async context =>
@@ -5099,7 +6084,12 @@ internal static class BeamModuleEmissionChecks
                 await ErrorReason("strict", new BitString([0xAB, 0x80], 9)),
                 await ErrorReason("bits", no),
                 await image.Invoke(context, "prefix", new BitString([1, 97, 0, 2, 98])),
-                await image.Invoke(context, "width", Term.I(2), new BitString([1, 2, 3, 4, 5])),
+                await image.Invoke(
+                    context,
+                    "width",
+                    Term.I(2),
+                    new BitString([1, 2, 3, 4, 5])
+                ),
                 await ErrorReason("strict_prefix", new BitString([1, 97, 2, 98]))
             );
 
@@ -5155,9 +6145,20 @@ internal static class BeamModuleEmissionChecks
         Term? actual = null;
         ProcessHandle process = runtime.Spawn(async context =>
         {
-            Term accepted = await image.Invoke(context, "run", tag, rows);
-            Term rejected = await image.Invoke(context, "run", tag, Term.A("bad"));
+            Term accepted = await image.Invoke(
+                context,
+                "run",
+                tag,
+                rows
+            );
+            Term rejected = await image.Invoke(
+                context,
+                "run",
+                tag,
+                Term.A("bad")
+            );
             actual = Term.Tuple(accepted, rejected);
+
             return actual;
         });
         Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
@@ -5189,7 +6190,13 @@ internal static class BeamModuleEmissionChecks
         Term? actual = null;
         ProcessHandle process = runtime.Spawn(async context =>
         {
-            actual = await image.Invoke(context, "run", Term.A("capture"), Term.A("outer"));
+            actual = await image.Invoke(
+                context,
+                "run",
+                Term.A("capture"),
+                Term.A("outer")
+            );
+
             return actual;
         });
         Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
@@ -5264,12 +6271,22 @@ internal static class BeamModuleEmissionChecks
         Term? actual = null;
         ProcessHandle process = runtime.Spawn(async context =>
         {
-            actual = await image.Invoke(context, "run", Term.List(Term.A("first"), other, tail), updated);
+            actual = await image.Invoke(
+                context,
+                "run",
+                Term.List(Term.A("first"), other, tail),
+                updated
+            );
 
             return actual;
         });
         Term exit = await process.Completion;
-        Term expected = Term.Tuple(Term.Tuple(Term.A("node"), updated, other, other), Term.List(tail));
+        Term expected = Term.Tuple(Term.Tuple(
+            Term.A("node"),
+            updated,
+            other,
+            other
+        ), Term.List(tail));
         if (!expected.Equals(actual))
         {
             throw new InvalidOperationException($"Targeted BEAM inline record actions returned {actual}, exit {exit}.");
@@ -5305,9 +6322,14 @@ internal static class BeamModuleEmissionChecks
                     await image.Invoke(context, "run", other);
                 }
                 catch (ErlangException error) when (error.StackTraceTerm is Cons
-                    { Head: TupleTerm { Items: [var module, var function, var arguments, _] } })
+                { Head: TupleTerm { Items: [var module, var function, var arguments, _] } })
                 {
-                    actual = Term.Tuple(number, absent, Term.Tuple(error.Reason, module, function, arguments));
+                    actual = Term.Tuple(number, absent, Term.Tuple(
+                        error.Reason,
+                        module,
+                        function,
+                        arguments
+                    ));
                 }
             }
             catch (Exception error)
@@ -5321,8 +6343,12 @@ internal static class BeamModuleEmissionChecks
         Term expected = Term.Tuple(
             Term.Tuple(Term.Tuple(Term.A("number"), seven), Term.Tuple(seven)),
             Term.Tuple(Term.A("absent"), no),
-            Term.Tuple(Term.A("function_clause"), Term.A("beam_inline_clauses_probe"),
-                Term.A("-inlined-classify/1-"), Term.List(other))
+            Term.Tuple(
+                Term.A("function_clause"),
+                Term.A("beam_inline_clauses_probe"),
+                Term.A("-inlined-classify/1-"),
+                Term.List(other)
+            )
         );
         if (!expected.Equals(actual))
         {
@@ -5415,15 +6441,35 @@ internal static class BeamModuleEmissionChecks
         Term? actual = null;
         ProcessHandle process = runtime.Spawn(async context =>
         {
-            Term list = await image.Invoke(context, "run", Term.List(Term.I(2), Term.A("skip"), Term.I(4)), offset);
-            Term empty = await image.Invoke(context, "run", Nil.Value, offset);
-            Term single = await image.Invoke(context, "single", Term.List(Term.I(2), Term.I(4)), offset);
+            Term list = await image.Invoke(
+                context,
+                "run",
+                Term.List(Term.I(2), Term.A("skip"), Term.I(4)),
+                offset
+            );
+            Term empty = await image.Invoke(
+                context,
+                "run",
+                Nil.Value,
+                offset
+            );
+            Term single = await image.Invoke(
+                context,
+                "single",
+                Term.List(Term.I(2), Term.I(4)),
+                offset
+            );
             Term record = Term.Tuple(Term.A("fold_record"), offset, Term.List(bad));
             Term foldedRecord = await image.Invoke(context, "record_fold", record);
             Term singleFailure = Nil.Value;
             try
             {
-                await image.Invoke(context, "single", Term.List(bad), offset);
+                await image.Invoke(
+                    context,
+                    "single",
+                    Term.List(bad),
+                    offset
+                );
             }
             catch (ErlangException error)
             {
@@ -5434,13 +6480,29 @@ internal static class BeamModuleEmissionChecks
 
             try
             {
-                await image.Invoke(context, "run", Term.List(bad), offset);
+                await image.Invoke(
+                    context,
+                    "run",
+                    Term.List(bad),
+                    offset
+                );
             }
             catch (ErlangException error) when (error.StackTraceTerm is Cons
-                { Head: TupleTerm { Items: [var module, var function, var arguments, _] } })
+            { Head: TupleTerm { Items: [var module, var function, var arguments, _] } })
             {
-                actual = Term.Tuple(list, empty, single, foldedRecord, singleFailure,
-                    Term.Tuple(error.Reason, module, function, arguments));
+                actual = Term.Tuple(
+                    list,
+                    empty,
+                    single,
+                    foldedRecord,
+                    singleFailure,
+                    Term.Tuple(
+                        error.Reason,
+                        module,
+                        function,
+                        arguments
+                    )
+                );
             }
 
             return actual ?? Nil.Value;
@@ -5452,8 +6514,12 @@ internal static class BeamModuleEmissionChecks
             Term.List(Term.I(14), Term.I(12)),
             Term.List(Term.Tuple(Term.A("first"), offset), Term.Tuple(Term.A("second"), offset), bad),
             Term.Tuple(Term.A("badarith"), Term.A("-single/2-fun-0-")),
-            Term.Tuple(Term.A("function_clause"), Term.A("beam_fold_callback_probe"),
-                Term.A("-run/2-inlined-0-"), Term.List(bad, Nil.Value))
+            Term.Tuple(
+                Term.A("function_clause"),
+                Term.A("beam_fold_callback_probe"),
+                Term.A("-run/2-inlined-0-"),
+                Term.List(bad, Nil.Value)
+            )
         );
         if (!expected.Equals(actual))
         {
@@ -5509,8 +6575,20 @@ internal static class BeamModuleEmissionChecks
         Term? actual = null;
         ProcessHandle process = runtime.Spawn(async context =>
         {
-            Term matched = await image.Invoke(context, "run", key, map, new BitString([9, 8]));
-            Term fallback = await image.Invoke(context, "run", key, Term.Tuple(ok), new BitString([]));
+            Term matched = await image.Invoke(
+                context,
+                "run",
+                key,
+                map,
+                new BitString([9, 8])
+            );
+            Term fallback = await image.Invoke(
+                context,
+                "run",
+                key,
+                Term.Tuple(ok),
+                new BitString([])
+            );
             actual = Term.Tuple(matched, fallback);
 
             return actual;
@@ -5539,8 +6617,18 @@ internal static class BeamModuleEmissionChecks
         Term? actual = null;
         ProcessHandle process = runtime.Spawn(async context =>
         {
-            Term equivalent = await image.Invoke(context, "run", Term.Tuple(Term.I(1)), new FloatTerm(1));
-            Term different = await image.Invoke(context, "run", Term.Tuple(Term.I(1)), new FloatTerm(2));
+            Term equivalent = await image.Invoke(
+                context,
+                "run",
+                Term.Tuple(Term.I(1)),
+                new FloatTerm(1)
+            );
+            Term different = await image.Invoke(
+                context,
+                "run",
+                Term.Tuple(Term.I(1)),
+                new FloatTerm(2)
+            );
             actual = Term.Tuple(equivalent, different);
 
             return actual;
@@ -5565,8 +6653,18 @@ internal static class BeamModuleEmissionChecks
         Term? actual = null;
         ProcessHandle process = runtime.Spawn(async context =>
         {
-            Term number = await image.Invoke(context, "run", Term.Tuple(Term.I(5)), new FloatTerm(2.5));
-            Term invalid = await image.Invoke(context, "run", Term.Tuple(Term.A("not_a_number")), Term.I(1));
+            Term number = await image.Invoke(
+                context,
+                "run",
+                Term.Tuple(Term.I(5)),
+                new FloatTerm(2.5)
+            );
+            Term invalid = await image.Invoke(
+                context,
+                "run",
+                Term.Tuple(Term.A("not_a_number")),
+                Term.I(1)
+            );
             actual = Term.Tuple(number, invalid);
 
             return actual;
@@ -5598,16 +6696,51 @@ internal static class BeamModuleEmissionChecks
         {
             Term yes = Term.A("true");
             Term no = Term.A("false");
-            Term bits = await image.Invoke(context, "bits", Term.I(5), Term.I(3));
+            Term bits = await image.Invoke(
+                context,
+                "bits",
+                Term.I(5),
+                Term.I(3)
+            );
             Term negated = await image.Invoke(context, "neg", Term.I(1));
-            Term boolean = await image.Invoke(context, "bool", yes, no);
-            Term nested = await image.Invoke(context, "nested", Term.Tuple(yes), yes);
-            Term bitGuard = await image.Invoke(context, "g", Term.I(-1), Term.I(0));
-            Term booleanGuard = await image.Invoke(context, "g", yes, no);
-            Term guardFallback = await image.Invoke(context, "g", yes, Term.I(0));
+            Term boolean = await image.Invoke(
+                context,
+                "bool",
+                yes,
+                no
+            );
+            Term nested = await image.Invoke(
+                context,
+                "nested",
+                Term.Tuple(yes),
+                yes
+            );
+            Term bitGuard = await image.Invoke(
+                context,
+                "g",
+                Term.I(-1),
+                Term.I(0)
+            );
+            Term booleanGuard = await image.Invoke(
+                context,
+                "g",
+                yes,
+                no
+            );
+            Term guardFallback = await image.Invoke(
+                context,
+                "g",
+                yes,
+                Term.I(0)
+            );
             try
             {
-                await image.Invoke(context, "bool", yes, Term.I(0));
+                await image.Invoke(
+                    context,
+                    "bool",
+                    yes,
+                    Term.I(0)
+                );
             }
             catch (ErlangException error) when (error.Reason.Equals(Term.A("badarg")))
             {
@@ -5655,27 +6788,64 @@ internal static class BeamModuleEmissionChecks
             """;
         BeamModule image = BeamModule.Prepare(CodeGeneration.CompileBeamModule(source, "beam_predicates_probe.erl"));
         await using var runtime = new ProcessRuntime();
-        var record = new NativeRecordTerm(Term.A("beam_predicates_probe"), Term.A("tag"), false, []);
+        var record = new NativeRecordTerm(
+            Term.A("beam_predicates_probe"),
+            Term.A("tag"),
+            false,
+            []
+        );
         Term yes = Term.A("yes");
         Term no = Term.A("no");
         Term invalid = Term.A("invalid");
         Term? actual = null;
         ProcessHandle process = runtime.Spawn(async context =>
         {
-            Term range = await image.Invoke(context, "range", Term.I(9), Term.I(2), Term.I(9));
-            Term rejected = await image.Invoke(context, "range", Term.I(9), invalid, Term.I(9));
+            Term range = await image.Invoke(
+                context,
+                "range",
+                Term.I(9),
+                Term.I(2),
+                Term.I(9)
+            );
+            Term rejected = await image.Invoke(
+                context,
+                "range",
+                Term.I(9),
+                invalid,
+                Term.I(9)
+            );
             Term constant = await image.Invoke(context, "constant", Term.I(2));
             Term floatRejected = await image.Invoke(context, "constant", new FloatTerm(2));
             Term native = await image.Invoke(context, "record", record);
             Term tuple = await image.Invoke(context, "record", Term.Tuple(Term.A("tag")));
-            Term value = await image.Invoke(context, "value", record, Term.I(2), Term.I(9));
+            Term value = await image.Invoke(
+                context,
+                "value",
+                record,
+                Term.I(2),
+                Term.I(9)
+            );
             try
             {
-                await image.Invoke(context, "value", Term.I(9), invalid, Term.I(9));
+                await image.Invoke(
+                    context,
+                    "value",
+                    Term.I(9),
+                    invalid,
+                    Term.I(9)
+                );
             }
             catch (ErlangException error) when (error.Reason.Equals(Term.A("badarg")))
             {
-                actual = Term.Tuple(range, rejected, constant, floatRejected, native, tuple, value);
+                actual = Term.Tuple(
+                    range,
+                    rejected,
+                    constant,
+                    floatRejected,
+                    native,
+                    tuple,
+                    value
+                );
             }
 
             return actual ?? Nil.Value;
@@ -5721,7 +6891,12 @@ internal static class BeamModuleEmissionChecks
             {
                 try
                 {
-                    return await image.Invoke(context, name, left, right);
+                    return await image.Invoke(
+                        context,
+                        name,
+                        left,
+                        right
+                    );
                 }
                 catch (ErlangException error)
                 {
@@ -5741,6 +6916,7 @@ internal static class BeamModuleEmissionChecks
             return actual;
         });
         Term exit = await process.Completion;
+
         static Term BadZip(Term left, Term right) => Term.Tuple(Term.A("bad_generators"), Term.Tuple(left, right));
         Term expected = Term.Tuple(
             Term.List(Term.Tuple(one, nine)),
@@ -5775,16 +6951,45 @@ internal static class BeamModuleEmissionChecks
         ProcessHandle process = runtime.Spawn(async context =>
         {
             actual = Term.Tuple(
-                await image.Invoke(context, "tail", Term.Tuple(new Cons(Term.I(1), tail)), tail),
-                await image.Invoke(context, "tail", Term.Tuple(Nil.Value), Nil.Value),
-                await image.Invoke(context, "part", Term.Tuple(new BitString([1, 2, 3])), Term.I(2), Term.I(-1), new BitString([2])),
-                await image.Invoke(context, "part", Term.Tuple(new BitString([1, 2])), Term.I(2), Term.I(1), new BitString([]))
+                await image.Invoke(
+                    context,
+                    "tail",
+                    Term.Tuple(new Cons(Term.I(1), tail)),
+                    tail
+                ),
+                await image.Invoke(
+                    context,
+                    "tail",
+                    Term.Tuple(Nil.Value),
+                    Nil.Value
+                ),
+                await image.Invoke(
+                    context,
+                    "part",
+                    Term.Tuple(new BitString([1, 2, 3])),
+                    Term.I(2),
+                    Term.I(-1),
+                    new BitString([2])
+                ),
+                await image.Invoke(
+                    context,
+                    "part",
+                    Term.Tuple(new BitString([1, 2])),
+                    Term.I(2),
+                    Term.I(1),
+                    new BitString([])
+                )
             );
 
             return actual;
         });
         Term exit = await process.Completion;
-        if (!Term.Tuple(yes, no, yes, no).Equals(actual))
+        if (!Term.Tuple(
+            yes,
+            no,
+            yes,
+            no
+        ).Equals(actual))
         {
             throw new InvalidOperationException($"BEAM guard extraction returned {actual}, exit {exit}.");
         }
@@ -5798,7 +7003,14 @@ internal static class BeamModuleEmissionChecks
         Term? result = null;
         ProcessHandle process = runtime.Spawn(async context =>
         {
-            result = await image.Invoke(context, "run", Term.A("outer"), Term.List(Term.I(1)), Term.List(Term.I(2)));
+            result = await image.Invoke(
+                context,
+                "run",
+                Term.A("outer"),
+                Term.List(Term.I(1)),
+                Term.List(Term.I(2))
+            );
+
             return result;
         });
         Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
@@ -5857,12 +7069,22 @@ internal static class BeamModuleEmissionChecks
             Term empty = await image.Invoke(context, "trim", new BitString([32, 9]));
             Term bitstring = await image.Invoke(context, "trim", unaligned);
             Term passthrough = await image.Invoke(context, "trim", atom);
-            actual = Term.Tuple(trimmed, empty, bitstring, passthrough);
+            actual = Term.Tuple(
+                trimmed,
+                empty,
+                bitstring,
+                passthrough
+            );
 
             return actual;
         });
         Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
-        Term expected = Term.Tuple(new BitString([65, 66]), new BitString([]), unaligned, atom);
+        Term expected = Term.Tuple(
+            new BitString([65, 66]),
+            new BitString([]),
+            unaligned,
+            atom
+        );
         if (!expected.Equals(actual))
         {
             throw new InvalidOperationException($"Binary tail recursion returned {actual}, exit {exit}.");
@@ -5895,24 +7117,68 @@ internal static class BeamModuleEmissionChecks
         var atom = Term.A("atom");
         ProcessHandle process = runtime.Spawn(async context =>
         {
-            Term split = await image.Invoke(context, "split", input, Term.I(1));
+            Term split = await image.Invoke(
+                context,
+                "split",
+                input,
+                Term.I(1)
+            );
             Term shortFailure = await Failure("split", shortInput, 2);
             Term atomFailure = await Failure("optional", atom, 1);
             var fields = new BitString([1, 2, 3, 4, 5]);
-            Term multiple = await image.Invoke(context, "multiple", fields, Term.I(1), Term.I(1));
-            Term invalidSkip = await Failure("multiple", fields, 1, atom);
-            Term shortSuffix = await Failure("multiple", input, 1, Term.I(1));
-            actual = Term.Tuple(split, shortFailure, atomFailure, multiple, invalidSkip, shortSuffix);
+            Term multiple = await image.Invoke(
+                context,
+                "multiple",
+                fields,
+                Term.I(1),
+                Term.I(1)
+            );
+            Term invalidSkip = await Failure(
+                "multiple",
+                fields,
+                1,
+                atom
+            );
+            Term shortSuffix = await Failure(
+                "multiple",
+                input,
+                1,
+                Term.I(1)
+            );
+            actual = Term.Tuple(
+                split,
+                shortFailure,
+                atomFailure,
+                multiple,
+                invalidSkip,
+                shortSuffix
+            );
 
             return actual;
 
-            async Task<Term> Failure(string function, Term value, int count, Term? skip = null)
+            async Task<Term> Failure(
+                string function,
+                Term value,
+                int count,
+                Term? skip = null
+            )
             {
                 try
                 {
                     return skip is null
-                        ? await image.Invoke(context, function, value, Term.I(count))
-                        : await image.Invoke(context, function, value, Term.I(count), skip);
+                        ? await image.Invoke(
+                            context,
+                            function,
+                            value,
+                            Term.I(count)
+                        )
+                        : await image.Invoke(
+                            context,
+                            function,
+                            value,
+                            Term.I(count),
+                            skip
+                        );
                 }
                 catch (ErlangException error)
                 {
@@ -5934,6 +7200,7 @@ internal static class BeamModuleEmissionChecks
             throw new InvalidOperationException($"Guarded binary body match returned {actual}, exit {exit}.");
         }
     }
+
     private static async Task CompareGeneralFixedBitPatterns()
     {
         const string source = """
@@ -5963,17 +7230,34 @@ internal static class BeamModuleEmissionChecks
             Term literal = await image.Invoke(context, "literal", new BitString([0x12, 0x34, 0x56, 0x78, 0xFE, 7, 8, 9]));
             Term wrongPrefix = await image.Invoke(context, "literal", new BitString([0x12, 0x34, 0x56, 0x79, 0xFE, 7]));
             Term wrongSign = await image.Invoke(context, "literal", new BitString([0x12, 0x34, 0x56, 0x78, 0xFD, 7]));
-            actual = Term.Tuple(decoded, shortInput, unaligned, dynamic, invalidWidth, scalar, trailing, literal, wrongPrefix, wrongSign);
+            actual = Term.Tuple(
+                decoded,
+                shortInput,
+                unaligned,
+                dynamic,
+                invalidWidth,
+                scalar,
+                trailing,
+                literal,
+                wrongPrefix,
+                wrongSign
+            );
 
             return actual;
         });
         Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
         Term no = Term.A("no");
         Term expected = Term.Tuple(
-            Term.Tuple(Term.I(10), Term.I(288), new BitString([0xFF])), no, no,
-            Term.Tuple(Term.I(-3), new BitString([0], 2)), no,
-            Term.Tuple(Term.I(233), new FloatTerm(1.5)), no,
-            Term.Tuple(Term.I(7), new BitString([8, 9])), no, no
+            Term.Tuple(Term.I(10), Term.I(288), new BitString([0xFF])),
+            no,
+            no,
+            Term.Tuple(Term.I(-3), new BitString([0], 2)),
+            no,
+            Term.Tuple(Term.I(233), new FloatTerm(1.5)),
+            no,
+            Term.Tuple(Term.I(7), new BitString([8, 9])),
+            no,
+            no
         );
         if (!expected.Equals(actual))
         {
@@ -6007,7 +7291,12 @@ internal static class BeamModuleEmissionChecks
             {
                 mismatch = error.Reason;
             }
-            Term shadowed = await image.Invoke(context, "key", Term.A("x"), Term.List(first, second));
+            Term shadowed = await image.Invoke(
+                context,
+                "key",
+                Term.A("x"),
+                Term.List(first, second)
+            );
             actual = Term.Tuple(values, mismatch, shadowed);
 
             return actual;
@@ -6115,7 +7404,13 @@ internal static class BeamModuleEmissionChecks
             Term plain = Term.Tuple(Term.A("other"));
             Term options = Term.List(Term.A("option"));
             Term expected = Term.Tuple(tagged, new BitString("42"u8), Term.A("other"));
-            if (!expected.Equals(await image.Invoke(context, "run", tagged, plain, options)))
+            if (!expected.Equals(await image.Invoke(
+                context,
+                "run",
+                tagged,
+                plain,
+                options
+            )))
             {
                 throw new InvalidOperationException("Tuple entry did not preserve bindings.");
             }
@@ -6132,7 +7427,13 @@ internal static class BeamModuleEmissionChecks
             {
                 try
                 {
-                    await image.Invoke(context, "run", first, second, third);
+                    await image.Invoke(
+                        context,
+                        "run",
+                        first,
+                        second,
+                        third
+                    );
                     throw new InvalidOperationException("Tuple entry accepted an invalid argument.");
                 }
                 catch (ErlangException error) when (error.Reason.Equals(Term.A("function_clause")))
@@ -6142,7 +7443,12 @@ internal static class BeamModuleEmissionChecks
 
             Term key = Term.A("key");
             Term value = Term.I(7);
-            if (!value.Equals(await image.Invoke(context, "keyfetch", key, Term.List(Term.Tuple(key, value)))))
+            if (!value.Equals(await image.Invoke(
+                context,
+                "keyfetch",
+                key,
+                Term.List(Term.Tuple(key, value))
+            )))
             {
                 throw new InvalidOperationException("Tuple call match did not return the projected field.");
             }
@@ -6156,7 +7462,12 @@ internal static class BeamModuleEmissionChecks
             {
                 try
                 {
-                    await image.Invoke(context, "keyfetch", key, entries);
+                    await image.Invoke(
+                        context,
+                        "keyfetch",
+                        key,
+                        entries
+                    );
                     throw new InvalidOperationException("Tuple call match accepted an invalid result.");
                 }
                 catch (ErlangException error) when (error.Reason.Equals(Term.Tuple(Term.A("badmatch"), unmatched)))
@@ -6167,20 +7478,47 @@ internal static class BeamModuleEmissionChecks
             Term last = Term.A("last");
             Term retained = Term.A("saved");
             Term matchingEntries = Term.List(Term.Tuple(key, value, last));
-            if (!Term.Tuple(value, retained, last).Equals(await image.Invoke(context, "forward", key, matchingEntries, retained))
-                || !Term.Tuple(value, last).Equals(await image.Invoke(context, "forward_pair", key, matchingEntries)))
+            if (!Term.Tuple(value, retained, last).Equals(await image.Invoke(
+                context,
+                "forward",
+                key,
+                matchingEntries,
+                retained
+            ))
+                || !Term.Tuple(value, last).Equals(await image.Invoke(
+                    context,
+                    "forward_pair",
+                    key,
+                    matchingEntries
+                )))
             {
                 throw new InvalidOperationException("Tuple call match did not forward the projected fields.");
             }
 
-            if (!Term.Tuple(last, retained, value).Equals(await image.Invoke(context, "rebuild", key, matchingEntries, retained)))
+            if (!Term.Tuple(last, retained, value).Equals(await image.Invoke(
+                context,
+                "rebuild",
+                key,
+                matchingEntries,
+                retained
+            )))
             {
                 throw new InvalidOperationException("Tuple call match did not rebuild the projected tuple.");
             }
 
             Term pairEntries = Term.List(Term.Tuple(key, value));
-            if (!value.Equals(await image.Invoke(context, "nested", key, pairEntries))
-                || !value.Equals(await image.Invoke(context, "nested_dead", key, pairEntries)))
+            if (!value.Equals(await image.Invoke(
+                context,
+                "nested",
+                key,
+                pairEntries
+            ))
+                || !value.Equals(await image.Invoke(
+                    context,
+                    "nested_dead",
+                    key,
+                    pairEntries
+                )))
             {
                 throw new InvalidOperationException("Tuple call match did not preserve its nested lookup result.");
             }
@@ -6202,8 +7540,18 @@ internal static class BeamModuleEmissionChecks
 
             (Term Input, Term Result)[] projections =
             [
-                (Term.Tuple(Term.A("gamma"), key, value, key), value),
-                (Term.Tuple(Term.A("beta"), value, key, key), value),
+                (Term.Tuple(
+                    Term.A("gamma"),
+                    key,
+                    value,
+                    key
+                ), value),
+                (Term.Tuple(
+                    Term.A("beta"),
+                    value,
+                    key,
+                    key
+                ), value),
                 (Term.Tuple(Term.A("theta"), key, value), value),
                 (Term.Tuple(Term.A("delta"), value, key), value),
                 (Term.Tuple(Term.A("omega"), value), value),
@@ -6298,6 +7646,7 @@ internal static class BeamModuleEmissionChecks
             }
 
             actual = Term.A("ok");
+
             return actual;
         });
         Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
@@ -6377,12 +7726,36 @@ internal static class BeamModuleEmissionChecks
             Term tail = Term.List(Term.I(9));
             Term tag = Term.A("tag");
             Term input = new Cons(Term.Tuple(tag, Term.Tuple(Term.A("same"), value), value), tail);
-            Term matched = await image.Invoke(context, "run", input, value);
-            Term repeated = await image.Invoke(context, "run", input, Term.I(4));
-            Term guarded = await image.Invoke(context, "run",
-                Term.List(Term.Tuple(tag, Term.Tuple(Term.A("same"), bad), bad)), bad);
-            Term empty = await image.Invoke(context, "run", Nil.Value, bad);
-            Term fallback = await image.Invoke(context, "run", bad, value);
+            Term matched = await image.Invoke(
+                context,
+                "run",
+                input,
+                value
+            );
+            Term repeated = await image.Invoke(
+                context,
+                "run",
+                input,
+                Term.I(4)
+            );
+            Term guarded = await image.Invoke(
+                context,
+                "run",
+                Term.List(Term.Tuple(tag, Term.Tuple(Term.A("same"), bad), bad)),
+                bad
+            );
+            Term empty = await image.Invoke(
+                context,
+                "run",
+                Nil.Value,
+                bad
+            );
+            Term fallback = await image.Invoke(
+                context,
+                "run",
+                bad,
+                value
+            );
             Term strict = await image.Invoke(context, "strict", new Cons(Term.Tuple(tag, Term.List(value, value)), tail));
             Term wrong = new Cons(Term.Tuple(tag, Term.List(value, bad)), tail);
             try
@@ -6423,21 +7796,33 @@ internal static class BeamModuleEmissionChecks
             Term smallMatch = await image.Invoke(context, "by_arity", Term.List(small));
             Term firstMatch = await image.Invoke(context, "by_arity", Term.List(Term.Tuple(wide, first, value)));
             Term secondMatch = await image.Invoke(context, "by_arity", Term.List(Term.Tuple(wide, second, bad)));
-            Term arityFallback = await image.Invoke(context, "by_arity", Term.List(
-                Term.Tuple(wide, first, bad),
-                Term.Tuple(wide, bad, value),
-                Term.Tuple(bad, first, value),
-                Term.Tuple(wide),
-                bad,
-                small
-            ));
+            Term arityFallback = await image.Invoke(
+                context,
+                "by_arity",
+                Term.List(
+                    Term.Tuple(wide, first, bad),
+                    Term.Tuple(wide, bad, value),
+                    Term.Tuple(bad, first, value),
+                    Term.Tuple(wide),
+                    bad,
+                    small
+                )
+            );
             if (!smallMatch.Equals(value) || !firstMatch.Equals(Term.Tuple(first, value))
                 || !secondMatch.Equals(Term.Tuple(second, bad)) || !arityFallback.Equals(value))
             {
                 throw new InvalidOperationException("Structural list arity dispatch returned the wrong result.");
             }
 
-            actual = Term.Tuple(matched, repeated, guarded, empty, fallback, strict);
+            actual = Term.Tuple(
+                matched,
+                repeated,
+                guarded,
+                empty,
+                fallback,
+                strict
+            );
+
             return actual;
         });
         Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
@@ -6464,7 +7849,14 @@ internal static class BeamModuleEmissionChecks
         Term? actual = null;
         ProcessHandle process = runtime.Spawn(async context =>
         {
-            actual = await image.Invoke(context, "run", Term.I(-3), Term.A("last"), Term.A("keep"));
+            actual = await image.Invoke(
+                context,
+                "run",
+                Term.I(-3),
+                Term.A("last"),
+                Term.A("keep")
+            );
+
             return actual;
         });
 
@@ -6487,11 +7879,29 @@ internal static class BeamModuleEmissionChecks
         {
             Term keep = Term.A("keep");
             Term last = Term.A("last");
-            Term external = await image.Invoke(context, "external", Term.List(Term.I(1), Term.I(2)), Term.List(Term.I(3)), keep);
-            Term matched = await image.Invoke(context, "matched", Term.A("start"), last, keep);
+            Term external = await image.Invoke(
+                context,
+                "external",
+                Term.List(Term.I(1), Term.I(2)),
+                Term.List(Term.I(3)),
+                keep
+            );
+            Term matched = await image.Invoke(
+                context,
+                "matched",
+                Term.A("start"),
+                last,
+                keep
+            );
             try
             {
-                await image.Invoke(context, "matched", Term.A("fail"), last, keep);
+                await image.Invoke(
+                    context,
+                    "matched",
+                    Term.A("fail"),
+                    last,
+                    keep
+                );
                 throw new InvalidOperationException("The trimmed match clause accepted the invalid result.");
             }
             catch (ErlangException error) when (error.Reason.Equals(Term.Tuple(Term.A("badmatch"), last)))
@@ -6499,6 +7909,7 @@ internal static class BeamModuleEmissionChecks
             }
 
             actual = Term.Tuple(external, matched);
+
             return actual;
         });
 
@@ -6529,6 +7940,7 @@ internal static class BeamModuleEmissionChecks
                 await image.Invoke(context, "neq", ready),
                 await image.Invoke(context, "neq", example)
             );
+
             return actual;
         });
 
@@ -6565,7 +7977,13 @@ internal static class BeamModuleEmissionChecks
             Term mapped = await image.Invoke(context, "mapped", list);
             Term wrapped = await image.Invoke(context, "wrapped", list);
             Term empty = await image.Invoke(context, "copy", Nil.Value);
-            actual = Term.Tuple(copied, mapped, wrapped, empty);
+            actual = Term.Tuple(
+                copied,
+                mapped,
+                wrapped,
+                empty
+            );
+
             return actual;
         });
         Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
@@ -6630,22 +8048,53 @@ internal static class BeamModuleEmissionChecks
         var list = Term.List(Term.I(1), Term.I(2), Term.I(3));
         ProcessHandle process = runtime.Spawn(async context =>
         {
-            Term truncated = await image.Invoke(context, "prefix", input, Term.I(2));
-            Term unbounded = await image.Invoke(context, "prefix", input, marker);
-            Term described = await image.Invoke(context, "details", list, marker);
-            Term checkedPrefix = await image.Invoke(context, "unchecked", input, Term.I(2));
+            Term truncated = await image.Invoke(
+                context,
+                "prefix",
+                input,
+                Term.I(2)
+            );
+            Term unbounded = await image.Invoke(
+                context,
+                "prefix",
+                input,
+                marker
+            );
+            Term described = await image.Invoke(
+                context,
+                "details",
+                list,
+                marker
+            );
+            Term checkedPrefix = await image.Invoke(
+                context,
+                "unchecked",
+                input,
+                Term.I(2)
+            );
 
             await ExpectBadarg("prefix", input, Term.I(-9));
             await ExpectBadarg("prefix", input, new FloatTerm(1.5));
             await ExpectBadarg("unchecked", marker, Term.I(1));
-            actual = Term.Tuple(truncated, unbounded, described, checkedPrefix);
+            actual = Term.Tuple(
+                truncated,
+                unbounded,
+                described,
+                checkedPrefix
+            );
+
             return actual;
 
             async Task ExpectBadarg(string function, Term value, Term limit)
             {
                 try
                 {
-                    await image.Invoke(context, function, value, limit);
+                    await image.Invoke(
+                        context,
+                        function,
+                        value,
+                        limit
+                    );
                     throw new InvalidOperationException($"Call result BIF accepted invalid input in {function}.");
                 }
                 catch (ErlangException error) when (error.Reason.Equals(Term.A("badarg")))
@@ -6654,8 +8103,12 @@ internal static class BeamModuleEmissionChecks
             }
         });
         Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
-        Term expected = Term.Tuple(prefix, input,
-            Term.Tuple(Term.I(3), Term.List(Term.I(3), Term.I(2), Term.I(1)), marker), prefix);
+        Term expected = Term.Tuple(
+            prefix,
+            input,
+            Term.Tuple(Term.I(3), Term.List(Term.I(3), Term.I(2), Term.I(1)), marker),
+            prefix
+        );
         if (!expected.Equals(actual))
         {
             throw new InvalidOperationException($"Call result BIF returned {actual}, exit {exit}.");
@@ -6710,7 +8163,12 @@ internal static class BeamModuleEmissionChecks
 
                 try
                 {
-                    await image.Invoke(context, "binary_tuple_tail", tab, Term.List(other));
+                    await image.Invoke(
+                        context,
+                        "binary_tuple_tail",
+                        tab,
+                        Term.List(other)
+                    );
                     throw new InvalidOperationException("Binary tuple tail accepted a non-tuple result.");
                 }
                 catch (ErlangException error) when (error.Reason.Equals(Term.Tuple(Term.A("badmatch"), other)))
@@ -6748,27 +8206,77 @@ internal static class BeamModuleEmissionChecks
                 throw;
             }
 
-            Term chosen = await image.Invoke(context, "choose", Term.A("one"), accepted);
-            Term denied = await image.Invoke(context, "choose", Term.A("two"), accepted);
-            Term bound = await image.Invoke(context, "bound", other, accepted);
-            Term matches = await image.Invoke(context, "preserve", tuple, tuple);
-            Term fallback = await image.Invoke(context, "preserve", tuple, Term.Tuple(tag, Term.I(43)));
-            Term survived = await image.Invoke(context, "survive", tuple, tuple);
-            Term seen = await context.Runtime.Modules.Call(context, "erlang", "get", Term.A("seen"));
+            Term chosen = await image.Invoke(
+                context,
+                "choose",
+                Term.A("one"),
+                accepted
+            );
+            Term denied = await image.Invoke(
+                context,
+                "choose",
+                Term.A("two"),
+                accepted
+            );
+            Term bound = await image.Invoke(
+                context,
+                "bound",
+                other,
+                accepted
+            );
+            Term matches = await image.Invoke(
+                context,
+                "preserve",
+                tuple,
+                tuple
+            );
+            Term fallback = await image.Invoke(
+                context,
+                "preserve",
+                tuple,
+                Term.Tuple(tag, Term.I(43))
+            );
+            Term survived = await image.Invoke(
+                context,
+                "survive",
+                tuple,
+                tuple
+            );
+            Term seen = await context.Runtime.Modules.Call(
+                context,
+                "erlang",
+                "get",
+                Term.A("seen")
+            );
             try
             {
-                await image.Invoke(context, "choose", other, accepted);
+                await image.Invoke(
+                    context,
+                    "choose",
+                    other,
+                    accepted
+                );
                 throw new InvalidOperationException("A missing case arm accepted the selector.");
             }
             catch (ErlangException error) when (error.Reason.Equals(Term.Tuple(Term.A("case_clause"), other)))
             {
             }
 
-            Term nested = await image.Invoke(context, "nested", tuple, accepted);
+            Term nested = await image.Invoke(
+                context,
+                "nested",
+                tuple,
+                accepted
+            );
             Term failed = Term.Tuple(Term.A("failed"), other);
             try
             {
-                await image.Invoke(context, "nested", Term.Tuple(Term.A("fail"), other), accepted);
+                await image.Invoke(
+                    context,
+                    "nested",
+                    Term.Tuple(Term.A("fail"), other),
+                    accepted
+                );
                 throw new InvalidOperationException("The nested selector did not raise the branch error.");
             }
             catch (ErlangException error) when (error.Reason.Equals(failed))
@@ -6779,7 +8287,12 @@ internal static class BeamModuleEmissionChecks
             {
                 try
                 {
-                    await image.Invoke(context, "nested", unmatched, accepted);
+                    await image.Invoke(
+                        context,
+                        "nested",
+                        unmatched,
+                        accepted
+                    );
                     throw new InvalidOperationException("The tagged selector accepted an unmatched tuple.");
                 }
                 catch (ErlangException error) when (error.Reason.Equals(Term.Tuple(Term.A("case_clause"), unmatched)))
@@ -6800,9 +8313,24 @@ internal static class BeamModuleEmissionChecks
 
             Term boundary = new FloatTerm(64.0);
             Term above = new FloatTerm(64.5);
-            Term smaller = await image.Invoke(context, "size_branch", tag, boundary);
-            Term larger = await image.Invoke(context, "size_branch", tag, above);
-            Term atomSize = await image.Invoke(context, "size_branch", tag, other);
+            Term smaller = await image.Invoke(
+                context,
+                "size_branch",
+                tag,
+                boundary
+            );
+            Term larger = await image.Invoke(
+                context,
+                "size_branch",
+                tag,
+                above
+            );
+            Term atomSize = await image.Invoke(
+                context,
+                "size_branch",
+                tag,
+                other
+            );
             if (!smaller.Equals(Term.Tuple(tag, boundary))
                 || !larger.Equals(Term.List(Term.Tuple(tag, above)))
                 || !atomSize.Equals(Term.List(Term.Tuple(tag, other))))
@@ -6812,7 +8340,12 @@ internal static class BeamModuleEmissionChecks
 
             try
             {
-                await image.Invoke(context, "size_gap", tag, boundary);
+                await image.Invoke(
+                    context,
+                    "size_gap",
+                    tag,
+                    boundary
+                );
                 throw new InvalidOperationException("The comparison guards accepted a value in the gap.");
             }
             catch (ErlangException error) when (error.Reason.Equals(Term.A("function_clause")))
@@ -6820,7 +8353,12 @@ internal static class BeamModuleEmissionChecks
             }
 
             Term payload = new BitString("measure"u8);
-            Term measured = await image.Invoke(context, "measure", payload, above);
+            Term measured = await image.Invoke(
+                context,
+                "measure",
+                payload,
+                above
+            );
             if (!measured.Equals(Term.Tuple(Term.I(7), payload)))
             {
                 throw new InvalidOperationException("The measured call result was not preserved.");
@@ -6828,22 +8366,47 @@ internal static class BeamModuleEmissionChecks
 
             try
             {
-                await image.Invoke(context, "measure", other, above);
+                await image.Invoke(
+                    context,
+                    "measure",
+                    other,
+                    above
+                );
                 throw new InvalidOperationException("byte_size accepted an atom result.");
             }
             catch (ErlangException error) when (error.Reason.Equals(Term.A("badarg")))
             {
             }
 
-            Term large = await image.Invoke(context, "arithmetic_guard", Term.I(5), Term.I(1));
-            Term negative = await image.Invoke(context, "arithmetic_guard", Term.I(1), Term.I(5));
-            Term badArithmetic = await image.Invoke(context, "arithmetic_guard", other, Term.I(1));
+            Term large = await image.Invoke(
+                context,
+                "arithmetic_guard",
+                Term.I(5),
+                Term.I(1)
+            );
+            Term negative = await image.Invoke(
+                context,
+                "arithmetic_guard",
+                Term.I(1),
+                Term.I(5)
+            );
+            Term badArithmetic = await image.Invoke(
+                context,
+                "arithmetic_guard",
+                other,
+                Term.I(1)
+            );
             if (!large.Equals(Term.A("large")) || !negative.Equals(Term.A("negative")) || !badArithmetic.Equals(other))
             {
                 throw new InvalidOperationException("Arithmetic guard comparison returned the wrong branch.");
             }
 
-            Term prefix = await image.Invoke(context, "split_prefix", payload, Term.I(3));
+            Term prefix = await image.Invoke(
+                context,
+                "split_prefix",
+                payload,
+                Term.I(3)
+            );
             if (!prefix.Equals(Term.Tuple(Term.List(new BitString("mea"u8)), Term.I(3))))
             {
                 throw new InvalidOperationException("The split result returned the wrong prefix.");
@@ -6851,25 +8414,60 @@ internal static class BeamModuleEmissionChecks
 
             try
             {
-                await image.Invoke(context, "split_prefix", payload, Term.I(8));
+                await image.Invoke(
+                    context,
+                    "split_prefix",
+                    payload,
+                    Term.I(8)
+                );
                 throw new InvalidOperationException("split_binary accepted an out-of-range size.");
             }
             catch (ErlangException error) when (error.Reason.Equals(Term.A("badarg")))
             {
             }
 
-            Term tagged = await image.Invoke(context, "guarded_shape", tuple, tag);
-            Term identical = await image.Invoke(context, "guarded_shape", payload, payload);
-            Term distinct = await image.Invoke(context, "guarded_shape", tuple, Term.I(42));
+            Term tagged = await image.Invoke(
+                context,
+                "guarded_shape",
+                tuple,
+                tag
+            );
+            Term identical = await image.Invoke(
+                context,
+                "guarded_shape",
+                payload,
+                payload
+            );
+            Term distinct = await image.Invoke(
+                context,
+                "guarded_shape",
+                tuple,
+                Term.I(42)
+            );
             if (!tagged.Equals(Term.Tuple(tag, tuple)) || !identical.Equals(Term.List(payload)) || !distinct.Equals(other))
             {
                 throw new InvalidOperationException("Type and equality guards selected the wrong branch.");
             }
 
-            Term selected = await image.Invoke(context, "tuple_entry", Term.Tuple(Term.A("choose"), Term.A("one")), accepted);
-            Term declined = await image.Invoke(context, "tuple_entry", Term.Tuple(Term.A("choose"), Term.A("two")), accepted);
+            Term selected = await image.Invoke(
+                context,
+                "tuple_entry",
+                Term.Tuple(Term.A("choose"), Term.A("one")),
+                accepted
+            );
+            Term declined = await image.Invoke(
+                context,
+                "tuple_entry",
+                Term.Tuple(Term.A("choose"), Term.A("two")),
+                accepted
+            );
             Term invalidShape = Term.Tuple(Term.A("choose"), Term.A("one"), other);
-            Term original = await image.Invoke(context, "tuple_entry", invalidShape, accepted);
+            Term original = await image.Invoke(
+                context,
+                "tuple_entry",
+                invalidShape,
+                accepted
+            );
             if (!selected.Equals(Term.Tuple(Term.A("yes"), accepted))
                 || !declined.Equals(Term.Tuple(other, Term.A("two"))) || !original.Equals(Term.Tuple(invalidShape, accepted)))
             {
@@ -6880,10 +8478,30 @@ internal static class BeamModuleEmissionChecks
             Term eight = Term.Tuple(Term.A("item"), Term.I(8), other);
             Term failedGuard = Term.Tuple(Term.A("item"), Term.I(7), Term.I(42));
             Term inexact = Term.Tuple(Term.A("item"), new FloatTerm(7.0), Term.A("one"));
-            if (!(await image.Invoke(context, "tuple_alias", seven, accepted)).Equals(Term.Tuple(Term.A("yes"), seven, accepted))
-                || !(await image.Invoke(context, "tuple_alias", eight, accepted)).Equals(Term.Tuple(other, eight, accepted))
-                || !(await image.Invoke(context, "tuple_alias", failedGuard, accepted)).Equals(Term.Tuple(Term.I(42), failedGuard, accepted))
-                || !(await image.Invoke(context, "tuple_alias", inexact, accepted)).Equals(Term.Tuple(Term.A("fallback"), inexact, accepted)))
+            if (!(await image.Invoke(
+                context,
+                "tuple_alias",
+                seven,
+                accepted
+            )).Equals(Term.Tuple(Term.A("yes"), seven, accepted))
+                || !(await image.Invoke(
+                    context,
+                    "tuple_alias",
+                    eight,
+                    accepted
+                )).Equals(Term.Tuple(other, eight, accepted))
+                || !(await image.Invoke(
+                    context,
+                    "tuple_alias",
+                    failedGuard,
+                    accepted
+                )).Equals(Term.Tuple(Term.I(42), failedGuard, accepted))
+                || !(await image.Invoke(
+                    context,
+                    "tuple_alias",
+                    inexact,
+                    accepted
+                )).Equals(Term.Tuple(Term.A("fallback"), inexact, accepted)))
             {
                 throw new InvalidOperationException("Tuple alias dispatch lost the original value, skipped a repeated key, or accepted an inexact match.");
             }
@@ -6911,10 +8529,30 @@ internal static class BeamModuleEmissionChecks
             Term rejectedTagGuard = Term.Tuple(Term.A("first"), Term.I(1), Term.I(7));
             Term secondTagged = Term.Tuple(Term.A("second"), Term.I(1), Term.I(8));
             Term wrongTagArity = Term.Tuple(Term.A("second"), Term.I(1));
-            if (!(await image.Invoke(context, "tuple_tag", firstTagged, accepted)).Equals(Term.Tuple(Term.A("yes"), firstTagged, accepted))
-                || !(await image.Invoke(context, "tuple_tag", rejectedTagGuard, accepted)).Equals(Term.Tuple(Term.I(7), accepted))
-                || !(await image.Invoke(context, "tuple_tag", secondTagged, accepted)).Equals(Term.Tuple(Term.I(8), accepted))
-                || !(await image.Invoke(context, "tuple_tag", wrongTagArity, accepted)).Equals(Term.Tuple(wrongTagArity, accepted)))
+            if (!(await image.Invoke(
+                context,
+                "tuple_tag",
+                firstTagged,
+                accepted
+            )).Equals(Term.Tuple(Term.A("yes"), firstTagged, accepted))
+                || !(await image.Invoke(
+                    context,
+                    "tuple_tag",
+                    rejectedTagGuard,
+                    accepted
+                )).Equals(Term.Tuple(Term.I(7), accepted))
+                || !(await image.Invoke(
+                    context,
+                    "tuple_tag",
+                    secondTagged,
+                    accepted
+                )).Equals(Term.Tuple(Term.I(8), accepted))
+                || !(await image.Invoke(
+                    context,
+                    "tuple_tag",
+                    wrongTagArity,
+                    accepted
+                )).Equals(Term.Tuple(wrongTagArity, accepted)))
             {
                 throw new InvalidOperationException("Tuple tag dispatch skipped a later clause or projected the wrong field.");
             }
@@ -6935,7 +8573,12 @@ internal static class BeamModuleEmissionChecks
             ];
             foreach (var (firstInput, secondInput, expectedArity) in arityCases)
             {
-                Term result = await image.Invoke(context, "tuple_arities", firstInput, secondInput);
+                Term result = await image.Invoke(
+                    context,
+                    "tuple_arities",
+                    firstInput,
+                    secondInput
+                );
                 if (!result.Equals(expectedArity))
                 {
                     throw new InvalidOperationException("Tuple arity dispatch lost a secondary test or skipped a later clause.");
@@ -6953,7 +8596,12 @@ internal static class BeamModuleEmissionChecks
             ];
             foreach (var (selector, choice) in savedCases)
             {
-                Term result = await image.Invoke(context, "saved_tuple_case", selector, accepted);
+                Term result = await image.Invoke(
+                    context,
+                    "saved_tuple_case",
+                    selector,
+                    accepted
+                );
                 if (!result.Equals(Term.Tuple(choice, selector)))
                 {
                     throw new InvalidOperationException("Saved tuple dispatch selected the wrong arm or lost the selector.");
@@ -6962,7 +8610,12 @@ internal static class BeamModuleEmissionChecks
 
             try
             {
-                await image.Invoke(context, "saved_tuple_case", wrongTagArity, accepted);
+                await image.Invoke(
+                    context,
+                    "saved_tuple_case",
+                    wrongTagArity,
+                    accepted
+                );
                 throw new InvalidOperationException("Saved tuple dispatch accepted an unmatched arity.");
             }
             catch (ErlangException error) when (error.Reason.Equals(Term.Tuple(Term.A("case_clause"), wrongTagArity)))
@@ -6981,7 +8634,12 @@ internal static class BeamModuleEmissionChecks
             ];
             foreach (var (selector, choice) in savedCalls)
             {
-                Term result = await image.Invoke(context, "saved_tuple_call", selector, Term.I(7));
+                Term result = await image.Invoke(
+                    context,
+                    "saved_tuple_call",
+                    selector,
+                    Term.I(7)
+                );
                 if (!result.Equals(Term.Tuple(choice, selector)))
                 {
                     throw new InvalidOperationException("Saved tuple payload projection lost an exact test or call input.");
@@ -6990,8 +8648,18 @@ internal static class BeamModuleEmissionChecks
 
             Term taggedBinary = Term.Tuple(Term.A("item"), new BitString("AB"u8));
             Term wrongTupleArity = Term.Tuple(Term.A("item"), accepted, other);
-            Term nestedTail = await image.Invoke(context, "tagged_nested_tail", Term.List(taggedBinary), accepted);
-            Term unmatchedTail = await image.Invoke(context, "tagged_nested_tail", Term.List(wrongTupleArity), accepted);
+            Term nestedTail = await image.Invoke(
+                context,
+                "tagged_nested_tail",
+                Term.List(taggedBinary),
+                accepted
+            );
+            Term unmatchedTail = await image.Invoke(
+                context,
+                "tagged_nested_tail",
+                Term.List(wrongTupleArity),
+                accepted
+            );
             if (!nestedTail.Equals(Term.Tuple(Term.String("AB"), accepted)) || !unmatchedTail.Equals(wrongTupleArity))
             {
                 throw new InvalidOperationException("A tagged case lost the field or a saved argument during the nested call.");
@@ -7000,7 +8668,12 @@ internal static class BeamModuleEmissionChecks
             Term invalidBinary = Term.Tuple(Term.A("item"), rejected);
             try
             {
-                await image.Invoke(context, "tagged_nested_tail", Term.List(invalidBinary), accepted);
+                await image.Invoke(
+                    context,
+                    "tagged_nested_tail",
+                    Term.List(invalidBinary),
+                    accepted
+                );
                 throw new InvalidOperationException("The nested conversion accepted a non-binary field.");
             }
             catch (ErlangException error) when (error.Reason.Equals(Term.A("badarg")))
@@ -7008,17 +8681,47 @@ internal static class BeamModuleEmissionChecks
             }
 
             Term taggedList = Term.List(Term.Tuple(Term.A("item"), Term.List(accepted)));
-            Term found = await image.Invoke(context, "tagged_nested_case", taggedList, other, accepted);
-            Term missing = await image.Invoke(context, "tagged_nested_case", taggedList, other, rejected);
-            Term bypassed = await image.Invoke(context, "tagged_nested_case", Term.List(wrongTupleArity), other, accepted);
+            Term found = await image.Invoke(
+                context,
+                "tagged_nested_case",
+                taggedList,
+                other,
+                accepted
+            );
+            Term missing = await image.Invoke(
+                context,
+                "tagged_nested_case",
+                taggedList,
+                other,
+                rejected
+            );
+            Term bypassed = await image.Invoke(
+                context,
+                "tagged_nested_case",
+                Term.List(wrongTupleArity),
+                other,
+                accepted
+            );
             if (!found.Equals(Term.Tuple(Term.A("found"), other))
                 || !missing.Equals(Term.Tuple(Term.A("missing"), other)) || !bypassed.Equals(wrongTupleArity))
             {
                 throw new InvalidOperationException("A nested case lost its saved argument or selected the wrong branch.");
             }
 
-            Term foundWithList = await image.Invoke(context, "tagged_nested_retained", taggedList, other, accepted);
-            Term missingWithList = await image.Invoke(context, "tagged_nested_retained", taggedList, other, rejected);
+            Term foundWithList = await image.Invoke(
+                context,
+                "tagged_nested_retained",
+                taggedList,
+                other,
+                accepted
+            );
+            Term missingWithList = await image.Invoke(
+                context,
+                "tagged_nested_retained",
+                taggedList,
+                other,
+                rejected
+            );
             if (!foundWithList.Equals(Term.Tuple(Term.A("found"), Term.List(accepted), other))
                 || !missingWithList.Equals(Term.Tuple(Term.A("missing"), Term.List(accepted), other)))
             {
@@ -7027,18 +8730,48 @@ internal static class BeamModuleEmissionChecks
 
             Term unchanged = Term.Tuple(Term.A("error"), rejected);
             Term identityInput = Term.List(Term.Tuple(Term.A("item"), unchanged));
-            Term identity = await image.Invoke(context, "tagged_nested_identity", identityInput, Term.A("item"), other);
-            Term identityFallback = await image.Invoke(context, "tagged_nested_identity", identityInput, rejected, other);
+            Term identity = await image.Invoke(
+                context,
+                "tagged_nested_identity",
+                identityInput,
+                Term.A("item"),
+                other
+            );
+            Term identityFallback = await image.Invoke(
+                context,
+                "tagged_nested_identity",
+                identityInput,
+                rejected,
+                other
+            );
             Term wrongTag = Term.List(Term.Tuple(rejected, unchanged));
-            Term wrongTagFallback = await image.Invoke(context, "tagged_nested_identity", wrongTag, rejected, other);
+            Term wrongTagFallback = await image.Invoke(
+                context,
+                "tagged_nested_identity",
+                wrongTag,
+                rejected,
+                other
+            );
             if (!identity.Equals(unchanged) || !identityFallback.Equals(other) || !wrongTagFallback.Equals(other))
             {
                 throw new InvalidOperationException("Folding a nested identity case changed the selector result.");
             }
 
             Term needle = Term.Tuple(accepted, Term.List(accepted));
-            Term computedFound = await image.Invoke(context, "tagged_nested_computed", taggedList, Term.List(needle), accepted);
-            Term computedMissing = await image.Invoke(context, "tagged_nested_computed", taggedList, Term.List(needle), rejected);
+            Term computedFound = await image.Invoke(
+                context,
+                "tagged_nested_computed",
+                taggedList,
+                Term.List(needle),
+                accepted
+            );
+            Term computedMissing = await image.Invoke(
+                context,
+                "tagged_nested_computed",
+                taggedList,
+                Term.List(needle),
+                rejected
+            );
             if (!computedFound.Equals(Term.Tuple(Term.A("found"), Term.List(accepted)))
                 || !computedMissing.Equals(Term.A("missing")))
             {
@@ -7049,11 +8782,31 @@ internal static class BeamModuleEmissionChecks
             Term entryInput = Term.List(Term.Tuple(Term.A("item"), Term.Tuple(Term.A("values"), values), other), rejected);
             try
             {
-                Term entryHit = await image.Invoke(context, "deferred_entry_case", entryInput, accepted);
-                Term entryMiss = await image.Invoke(context, "deferred_entry_case", entryInput, other);
-                Term emptyEntry = await image.Invoke(context, "deferred_entry_case", Nil.Value, accepted);
+                Term entryHit = await image.Invoke(
+                    context,
+                    "deferred_entry_case",
+                    entryInput,
+                    accepted
+                );
+                Term entryMiss = await image.Invoke(
+                    context,
+                    "deferred_entry_case",
+                    entryInput,
+                    other
+                );
+                Term emptyEntry = await image.Invoke(
+                    context,
+                    "deferred_entry_case",
+                    Nil.Value,
+                    accepted
+                );
                 Term unmatchedInput = Term.List(Term.Tuple(Term.A("item"), rejected, other), accepted);
-                Term unmatchedEntry = await image.Invoke(context, "deferred_entry_case", unmatchedInput, accepted);
+                Term unmatchedEntry = await image.Invoke(
+                    context,
+                    "deferred_entry_case",
+                    unmatchedInput,
+                    accepted
+                );
                 if (!entryHit.Equals(Term.Tuple(other, values)) || !entryMiss.Equals(Term.List(rejected))
                     || !emptyEntry.Equals(Term.A("empty")) || !unmatchedEntry.Equals(Term.List(accepted)))
                 {
@@ -7066,13 +8819,34 @@ internal static class BeamModuleEmissionChecks
                 throw;
             }
 
-            actual = Term.Tuple(chosen, denied, bound, matches, fallback, survived, seen, nested, atomChars, atomResult);
+            actual = Term.Tuple(
+                chosen,
+                denied,
+                bound,
+                matches,
+                fallback,
+                survived,
+                seen,
+                nested,
+                atomChars,
+                atomResult
+            );
+
             return actual;
         });
         Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
-        Term expected = Term.Tuple(accepted, rejected, Term.Tuple(rejected, accepted), Term.I(42), tuple,
-            Term.Tuple(Term.I(42), tuple), Term.I(42), Term.Tuple(Term.I(42), accepted),
-            Term.String("\U0001f642"), Term.A("yes"));
+        Term expected = Term.Tuple(
+            accepted,
+            rejected,
+            Term.Tuple(rejected, accepted),
+            Term.I(42),
+            tuple,
+            Term.Tuple(Term.I(42), tuple),
+            Term.I(42),
+            Term.Tuple(Term.I(42), accepted),
+            Term.String("\U0001f642"),
+            Term.A("yes")
+        );
         if (!expected.Equals(actual))
         {
             throw new InvalidOperationException($"Call result case returned {actual}, exit {exit}.", invocationError);
@@ -7121,16 +8895,50 @@ internal static class BeamModuleEmissionChecks
         {
             var bytes = new BitString([1, 2]);
             var floating = new FloatTerm(1.5);
-            Term accepted = await image.Invoke(context, "run", context.Self, bytes, floating);
-            Term badNode = await image.Invoke(context, "run", Term.A("other"), bytes, floating);
-            Term badBinary = await image.Invoke(context, "run", context.Self, Term.A("other"), floating);
-            Term badFloat = await image.Invoke(context, "run", context.Self, bytes, Term.I(1));
-            actual = Term.Tuple(accepted, badNode, badBinary, badFloat);
+            Term accepted = await image.Invoke(
+                context,
+                "run",
+                context.Self,
+                bytes,
+                floating
+            );
+            Term badNode = await image.Invoke(
+                context,
+                "run",
+                Term.A("other"),
+                bytes,
+                floating
+            );
+            Term badBinary = await image.Invoke(
+                context,
+                "run",
+                context.Self,
+                Term.A("other"),
+                floating
+            );
+            Term badFloat = await image.Invoke(
+                context,
+                "run",
+                context.Self,
+                bytes,
+                Term.I(1)
+            );
+            actual = Term.Tuple(
+                accepted,
+                badNode,
+                badBinary,
+                badFloat
+            );
 
             return actual;
         });
         Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
-        Term expected = Term.Tuple(Term.A("accepted"), Term.A("rejected"), Term.A("rejected"), Term.A("rejected"));
+        Term expected = Term.Tuple(
+            Term.A("accepted"),
+            Term.A("rejected"),
+            Term.A("rejected"),
+            Term.A("rejected")
+        );
         if (!expected.Equals(actual))
         {
             throw new InvalidOperationException($"General BEAM node and size guards returned {actual}, exit {exit}.");
@@ -7165,6 +8973,7 @@ internal static class BeamModuleEmissionChecks
             }
 
             actual = Term.Tuple(sizes, shadow);
+
             return actual;
         });
         Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
@@ -7205,12 +9014,18 @@ internal static class BeamModuleEmissionChecks
         ProcessHandle process = runtime.Spawn(async context =>
         {
             Term cleanup = Term.A("cleanup");
+
             async ValueTask<Term> Run(string mode, string finalizer)
             {
                 Term result;
                 try
                 {
-                    result = await image.Invoke(context, "run", Term.A(mode), Term.A(finalizer));
+                    result = await image.Invoke(
+                        context,
+                        "run",
+                        Term.A(mode),
+                        Term.A(finalizer)
+                    );
                 }
                 catch (ErlangException error)
                 {
@@ -7226,7 +9041,12 @@ internal static class BeamModuleEmissionChecks
                 Term original = await Run("fail", "ok");
                 Term replaced = await Run("fail", "fail");
                 Term handled = await image.Invoke(context, "handled");
-                actual = Term.Tuple(normal, original, replaced, Term.Tuple(handled, context.Dictionary[cleanup]));
+                actual = Term.Tuple(
+                    normal,
+                    original,
+                    replaced,
+                    Term.Tuple(handled, context.Dictionary[cleanup])
+                );
 
                 return actual;
             }
@@ -7265,14 +9085,34 @@ internal static class BeamModuleEmissionChecks
         {
             Term left = Term.List(Term.I(1), Term.I(2), Term.I(1));
             Term right = Term.List(Term.I(1));
-            Term result = await image.Invoke(context, "run", Term.I(7), Term.I(2), left, right);
-            Term zero = await image.Invoke(context, "run", Term.I(7), Term.I(0), left, right);
+            Term result = await image.Invoke(
+                context,
+                "run",
+                Term.I(7),
+                Term.I(2),
+                left,
+                right
+            );
+            Term zero = await image.Invoke(
+                context,
+                "run",
+                Term.I(7),
+                Term.I(0),
+                left,
+                right
+            );
             actual = Term.Tuple(result, zero);
 
             return actual;
         });
         Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
-        Term values = Term.Tuple(Term.I(3), new FloatTerm(3.5), Term.List(Term.I(2), Term.I(1)), Term.I(28), Term.I(1));
+        Term values = Term.Tuple(
+            Term.I(3),
+            new FloatTerm(3.5),
+            Term.List(Term.I(2), Term.I(1)),
+            Term.I(28),
+            Term.I(1)
+        );
         Term expected = Term.Tuple(values, Term.A("rejected"));
         if (!expected.Equals(actual))
         {
@@ -7295,16 +9135,46 @@ internal static class BeamModuleEmissionChecks
         {
             var map = new MapTerm([]);
             Term improper = new Cons(new FloatTerm(1.5), Term.A("tail"));
-            Term accepted = await image.Invoke(context, "run", map, improper);
-            Term wrongMap = await image.Invoke(context, "run", Term.A("other"), improper);
-            Term empty = await image.Invoke(context, "run", map, Term.List());
-            Term notNumber = await image.Invoke(context, "run", map, Term.List(Term.A("other")));
-            actual = Term.Tuple(accepted, wrongMap, empty, notNumber);
+            Term accepted = await image.Invoke(
+                context,
+                "run",
+                map,
+                improper
+            );
+            Term wrongMap = await image.Invoke(
+                context,
+                "run",
+                Term.A("other"),
+                improper
+            );
+            Term empty = await image.Invoke(
+                context,
+                "run",
+                map,
+                Term.List()
+            );
+            Term notNumber = await image.Invoke(
+                context,
+                "run",
+                map,
+                Term.List(Term.A("other"))
+            );
+            actual = Term.Tuple(
+                accepted,
+                wrongMap,
+                empty,
+                notNumber
+            );
 
             return actual;
         });
         Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
-        Term expected = Term.Tuple(Term.A("accepted"), Term.A("rejected"), Term.A("rejected"), Term.A("rejected"));
+        Term expected = Term.Tuple(
+            Term.A("accepted"),
+            Term.A("rejected"),
+            Term.A("rejected"),
+            Term.A("rejected")
+        );
         if (!expected.Equals(actual))
         {
             throw new InvalidOperationException($"General BEAM number, map and head guards returned {actual}, exit {exit}.");
@@ -7323,7 +9193,13 @@ internal static class BeamModuleEmissionChecks
         Term? actual = null;
         ProcessHandle process = runtime.Spawn(async context =>
         {
-            actual = await image.Invoke(context, "run", new BitString([0xA0], 4), Term.I(3), Term.I(4));
+            actual = await image.Invoke(
+                context,
+                "run",
+                new BitString([0xA0], 4),
+                Term.I(3),
+                Term.I(4)
+            );
 
             return actual;
         });
@@ -7393,6 +9269,7 @@ internal static class BeamModuleEmissionChecks
             catch (ErlangException error) when (error.Reason.Equals(Term.A("badarg")))
             {
             }
+
             return actual;
         });
         Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
@@ -7436,13 +9313,38 @@ internal static class BeamModuleEmissionChecks
         ProcessHandle process = runtime.Spawn(async context =>
         {
             var input = new BitString([1, 2, 3]);
-            var first = await image.Invoke(context, "run", input, Term.I(2));
-            var fallback = await image.Invoke(context, "run", input, Term.I(-1));
-            var exact = await image.Invoke(context, "run", input, Term.I(3));
-            var recursive = await image.Invoke(context, "run", input, Term.I(5));
+            var first = await image.Invoke(
+                context,
+                "run",
+                input,
+                Term.I(2)
+            );
+            var fallback = await image.Invoke(
+                context,
+                "run",
+                input,
+                Term.I(-1)
+            );
+            var exact = await image.Invoke(
+                context,
+                "run",
+                input,
+                Term.I(3)
+            );
+            var recursive = await image.Invoke(
+                context,
+                "run",
+                input,
+                Term.I(5)
+            );
             try
             {
-                await image.Invoke(context, "run", input, Term.I(7));
+                await image.Invoke(
+                    context,
+                    "run",
+                    input,
+                    Term.I(7)
+                );
                 throw new InvalidOperationException("split_binary accepted a size larger than its input.");
             }
             catch (ErlangException error) when (error.Reason.Equals(Term.A("badarg")))
@@ -7451,19 +9353,34 @@ internal static class BeamModuleEmissionChecks
 
             try
             {
-                await image.Invoke(context, "run", new BitString([]), Term.I(1));
+                await image.Invoke(
+                    context,
+                    "run",
+                    new BitString([]),
+                    Term.I(1)
+                );
                 throw new InvalidOperationException("A terminal if accepted unmatched guards.");
             }
             catch (ErlangException error) when (error.Reason.Equals(Term.A("if_clause")))
             {
             }
 
-            actual = Term.Tuple(first, fallback, exact, recursive);
+            actual = Term.Tuple(
+                first,
+                fallback,
+                exact,
+                recursive
+            );
+
             return actual;
         });
         Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
-        Term expected = Term.Tuple(Term.List(new BitString([1, 2])), Nil.Value,
-            Term.List(new BitString([1, 2, 3])), Term.List(new BitString([1, 2, 3]), new BitString([1, 2])));
+        Term expected = Term.Tuple(
+            Term.List(new BitString([1, 2])),
+            Nil.Value,
+            Term.List(new BitString([1, 2, 3])),
+            Term.List(new BitString([1, 2, 3]), new BitString([1, 2]))
+        );
         if (!expected.Equals(actual) || !Term.A("normal").Equals(exit))
         {
             throw new InvalidOperationException($"Split binary list construction returned {actual}, exit {exit}.");
@@ -7488,16 +9405,50 @@ internal static class BeamModuleEmissionChecks
             Term function = await image.Invoke(context, "target");
             Term list = Term.List(Term.I(17));
             Term improper = new Cons(Term.I(17), Term.A("tail"));
-            Term accepted = await image.Invoke(context, "run", list, function, Term.I(1));
-            Term wrongArity = await image.Invoke(context, "run", list, function, Term.I(2));
-            Term badArity = await image.Invoke(context, "run", list, function, Term.I(-1));
-            Term badList = await image.Invoke(context, "run", improper, function, Term.I(1));
-            actual = Term.Tuple(accepted, wrongArity, badArity, badList);
+            Term accepted = await image.Invoke(
+                context,
+                "run",
+                list,
+                function,
+                Term.I(1)
+            );
+            Term wrongArity = await image.Invoke(
+                context,
+                "run",
+                list,
+                function,
+                Term.I(2)
+            );
+            Term badArity = await image.Invoke(
+                context,
+                "run",
+                list,
+                function,
+                Term.I(-1)
+            );
+            Term badList = await image.Invoke(
+                context,
+                "run",
+                improper,
+                function,
+                Term.I(1)
+            );
+            actual = Term.Tuple(
+                accepted,
+                wrongArity,
+                badArity,
+                badList
+            );
 
             return actual;
         });
         Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
-        Term expected = Term.Tuple(Term.Tuple(Term.A("ok"), Term.I(1)), Term.A("rejected"), Term.A("rejected"), Term.A("rejected"));
+        Term expected = Term.Tuple(
+            Term.Tuple(Term.A("ok"), Term.I(1)),
+            Term.A("rejected"),
+            Term.A("rejected"),
+            Term.A("rejected")
+        );
         if (!expected.Equals(actual))
         {
             throw new InvalidOperationException($"General BEAM length and function guards returned {actual}, exit {exit}.");
@@ -7522,17 +9473,48 @@ internal static class BeamModuleEmissionChecks
             Term key = Term.A("key");
             Term value = Term.I(42);
             var original = new MapTerm([new(flag, Term.A("old"))]);
-            Term updated = await image.Invoke(context, "run", original, key, value);
-            Term accepted = await image.Invoke(context, "check", original, value);
-            Term missing = await image.Invoke(context, "check", new MapTerm([]), value);
-            Term notMap = await image.Invoke(context, "check", Term.A("other"), value);
-            actual = Term.Tuple(updated, accepted, missing, notMap);
+            Term updated = await image.Invoke(
+                context,
+                "run",
+                original,
+                key,
+                value
+            );
+            Term accepted = await image.Invoke(
+                context,
+                "check",
+                original,
+                value
+            );
+            Term missing = await image.Invoke(
+                context,
+                "check",
+                new MapTerm([]),
+                value
+            );
+            Term notMap = await image.Invoke(
+                context,
+                "check",
+                Term.A("other"),
+                value
+            );
+            actual = Term.Tuple(
+                updated,
+                accepted,
+                missing,
+                notMap
+            );
 
             return actual;
         });
         Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
         var updatedMap = new MapTerm([new(Term.A("flag"), Term.I(42)), new(Term.A("key"), Term.I(42))]);
-        Term expected = Term.Tuple(Term.Tuple(Term.A("ok"), updatedMap), Term.A("accepted"), Term.A("rejected"), Term.A("rejected"));
+        Term expected = Term.Tuple(
+            Term.Tuple(Term.A("ok"), updatedMap),
+            Term.A("accepted"),
+            Term.A("rejected"),
+            Term.A("rejected")
+        );
         if (!expected.Equals(actual))
         {
             throw new InvalidOperationException($"General BEAM map expressions returned {actual}, exit {exit}.");
@@ -7553,16 +9535,54 @@ internal static class BeamModuleEmissionChecks
         ProcessHandle process = runtime.Spawn(async context =>
         {
             Term flags = Term.Tuple(Term.A("false"), Term.A("true"), Term.A("other"));
-            Term accepted = await image.Invoke(context, "run", Term.I(1), flags, Term.I(6), Term.I(7));
-            Term trueFlag = await image.Invoke(context, "run", Term.I(2), flags, Term.I(6), Term.I(7));
-            Term nonBoolean = await image.Invoke(context, "run", Term.I(3), flags, Term.I(6), Term.I(7));
-            Term badIndex = await image.Invoke(context, "run", Term.I(4), flags, Term.I(6), Term.I(7));
-            actual = Term.Tuple(accepted, trueFlag, nonBoolean, badIndex);
+            Term accepted = await image.Invoke(
+                context,
+                "run",
+                Term.I(1),
+                flags,
+                Term.I(6),
+                Term.I(7)
+            );
+            Term trueFlag = await image.Invoke(
+                context,
+                "run",
+                Term.I(2),
+                flags,
+                Term.I(6),
+                Term.I(7)
+            );
+            Term nonBoolean = await image.Invoke(
+                context,
+                "run",
+                Term.I(3),
+                flags,
+                Term.I(6),
+                Term.I(7)
+            );
+            Term badIndex = await image.Invoke(
+                context,
+                "run",
+                Term.I(4),
+                flags,
+                Term.I(6),
+                Term.I(7)
+            );
+            actual = Term.Tuple(
+                accepted,
+                trueFlag,
+                nonBoolean,
+                badIndex
+            );
 
             return actual;
         });
         Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
-        Term expected = Term.Tuple(Term.Tuple(Term.A("ok"), Term.I(42)), Term.A("rejected"), Term.A("rejected"), Term.A("rejected"));
+        Term expected = Term.Tuple(
+            Term.Tuple(Term.A("ok"), Term.I(42)),
+            Term.A("rejected"),
+            Term.A("rejected"),
+            Term.A("rejected")
+        );
         if (!expected.Equals(actual))
         {
             throw new InvalidOperationException($"General BEAM element, not and multiplication returned {actual}, exit {exit}.");
@@ -7583,16 +9603,46 @@ internal static class BeamModuleEmissionChecks
         ProcessHandle process = runtime.Spawn(async context =>
         {
             Term pair = Term.Tuple(Term.A("left"), Term.A("right"));
-            Term accepted = await image.Invoke(context, "run", context.Self, pair);
-            Term notPid = await image.Invoke(context, "run", Term.A("other"), pair);
-            Term notTuple = await image.Invoke(context, "run", context.Self, Term.A("other"));
-            Term tooSmall = await image.Invoke(context, "run", context.Self, Term.Tuple(Term.A("single")));
-            actual = Term.Tuple(accepted, notPid, notTuple, tooSmall);
+            Term accepted = await image.Invoke(
+                context,
+                "run",
+                context.Self,
+                pair
+            );
+            Term notPid = await image.Invoke(
+                context,
+                "run",
+                Term.A("other"),
+                pair
+            );
+            Term notTuple = await image.Invoke(
+                context,
+                "run",
+                context.Self,
+                Term.A("other")
+            );
+            Term tooSmall = await image.Invoke(
+                context,
+                "run",
+                context.Self,
+                Term.Tuple(Term.A("single"))
+            );
+            actual = Term.Tuple(
+                accepted,
+                notPid,
+                notTuple,
+                tooSmall
+            );
 
             return actual;
         });
         Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
-        Term expected = Term.Tuple(Term.A("accepted"), Term.A("rejected"), Term.A("rejected"), Term.A("rejected"));
+        Term expected = Term.Tuple(
+            Term.A("accepted"),
+            Term.A("rejected"),
+            Term.A("rejected"),
+            Term.A("rejected")
+        );
         if (!expected.Equals(actual))
         {
             throw new InvalidOperationException($"General BEAM PID and tuple size guard returned {actual}, exit {exit}.");
@@ -7617,12 +9667,22 @@ internal static class BeamModuleEmissionChecks
             Term wrongTag = await image.Invoke(context, "run", Term.Tuple(Term.A("other"), Term.A("ok")));
             Term wrongArity = await image.Invoke(context, "run", Term.Tuple(Term.A("row"), Term.A("ok"), Term.A("extra")));
             Term alternative = await image.Invoke(context, "run", Term.A("fallback"));
-            actual = Term.Tuple(correct, wrongTag, wrongArity, alternative);
+            actual = Term.Tuple(
+                correct,
+                wrongTag,
+                wrongArity,
+                alternative
+            );
 
             return actual;
         });
         Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
-        Term expected = Term.Tuple(Term.A("accepted"), Term.A("rejected"), Term.A("rejected"), Term.A("accepted"));
+        Term expected = Term.Tuple(
+            Term.A("accepted"),
+            Term.A("rejected"),
+            Term.A("rejected"),
+            Term.A("accepted")
+        );
         if (!expected.Equals(actual))
         {
             throw new InvalidOperationException($"General BEAM record access guard returned {actual}, exit {exit}.");
@@ -7681,7 +9741,14 @@ internal static class BeamModuleEmissionChecks
         Term? actual = null;
         ProcessHandle process = runtime.Spawn(async context =>
         {
-            actual = await image.Invoke(context, "run", Term.I(1), Term.I(2), Term.I(3));
+            actual = await image.Invoke(
+                context,
+                "run",
+                Term.I(1),
+                Term.I(2),
+                Term.I(3)
+            );
+
             return actual;
         });
         Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
@@ -7723,16 +9790,41 @@ internal static class BeamModuleEmissionChecks
             runtime.Send(context.Self, Term.Tuple(key, Term.A("rejected")));
             runtime.Send(context.Self, Term.Tuple(key, Term.I(17)));
             runtime.Send(context.Self, Term.A("stop"));
-            Term found = await image.Invoke(context, "run", key, Term.I(0));
-            Term stopped = await image.Invoke(context, "run", key, Term.I(0));
-            Term expired = await image.Invoke(context, "run", key, Term.I(0));
+            Term found = await image.Invoke(
+                context,
+                "run",
+                key,
+                Term.I(0)
+            );
+            Term stopped = await image.Invoke(
+                context,
+                "run",
+                key,
+                Term.I(0)
+            );
+            Term expired = await image.Invoke(
+                context,
+                "run",
+                key,
+                Term.I(0)
+            );
             Term retained = await image.Invoke(context, "remaining");
-            actual = Term.Tuple(found, stopped, expired, retained);
+            actual = Term.Tuple(
+                found,
+                stopped,
+                expired,
+                retained
+            );
 
             return actual;
         });
         Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
-        Term expected = Term.Tuple(Term.Tuple(Term.A("found"), Term.I(17)), Term.A("stopped"), Term.A("expired"), Term.A("retained"));
+        Term expected = Term.Tuple(
+            Term.Tuple(Term.A("found"), Term.I(17)),
+            Term.A("stopped"),
+            Term.A("expired"),
+            Term.A("retained")
+        );
         if (!expected.Equals(actual))
         {
             throw new InvalidOperationException($"General BEAM selective receive returned {actual}, exit {exit}.");
@@ -7791,7 +9883,11 @@ internal static class BeamModuleEmissionChecks
         });
         Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
         Term expected = Term.List(
-            Term.Tuple(Term.A("found"), yes), Term.A("expired"), missingKey, wrongType, Term.A("empty")
+            Term.Tuple(Term.A("found"), yes),
+            Term.A("expired"),
+            missingKey,
+            wrongType,
+            Term.A("empty")
         );
         if (failure is not null)
         {
@@ -7853,7 +9949,11 @@ internal static class BeamModuleEmissionChecks
         });
         Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
         Term expected = Term.List(
-            Term.Tuple(Term.A("found"), tuple), Term.A("expired"), invalid, unequal, Term.A("empty")
+            Term.Tuple(Term.A("found"), tuple),
+            Term.A("expired"),
+            invalid,
+            unequal,
+            Term.A("empty")
         );
         if (!expected.Equals(actual))
         {
@@ -7887,15 +9987,45 @@ internal static class BeamModuleEmissionChecks
             foreach (string operation in new[] { "round", "ceil", "floor" })
             {
                 Term kind = Term.A(operation);
-                rounding.Add(await image.Invoke(context, "integer_rounding", kind, new FloatTerm(-1.5)));
-                rounding.Add(await image.Invoke(context, "integer_rounding", kind, Term.A("invalid")));
+                rounding.Add(await image.Invoke(
+                    context,
+                    "integer_rounding",
+                    kind,
+                    new FloatTerm(-1.5)
+                ));
+                rounding.Add(await image.Invoke(
+                    context,
+                    "integer_rounding",
+                    kind,
+                    Term.A("invalid")
+                ));
             }
 
             Term extrema = Term.List(
-                await image.Invoke(context, "minimum", Term.I(1), Term.A("a")),
-                await image.Invoke(context, "minimum", Term.A("a"), Term.I(1)),
-                await image.Invoke(context, "maximum", Term.I(1), Term.A("a")),
-                await image.Invoke(context, "maximum", Term.A("a"), Term.I(1)),
+                await image.Invoke(
+                    context,
+                    "minimum",
+                    Term.I(1),
+                    Term.A("a")
+                ),
+                await image.Invoke(
+                    context,
+                    "minimum",
+                    Term.A("a"),
+                    Term.I(1)
+                ),
+                await image.Invoke(
+                    context,
+                    "maximum",
+                    Term.I(1),
+                    Term.A("a")
+                ),
+                await image.Invoke(
+                    context,
+                    "maximum",
+                    Term.A("a"),
+                    Term.I(1)
+                ),
                 await image.Invoke(context, "rounded", Term.I(1)),
                 await image.Invoke(context, "rounded", Term.A("invalid"))
             );
@@ -7906,7 +10036,14 @@ internal static class BeamModuleEmissionChecks
         Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
         Term yes = Term.A("yes");
         Term no = Term.A("no");
-        Term outcomes = Term.List(yes, no, yes, no, yes, no);
+        Term outcomes = Term.List(
+            yes,
+            no,
+            yes,
+            no,
+            yes,
+            no
+        );
         if (!Term.Tuple(outcomes, outcomes).Equals(actual))
         {
             throw new InvalidOperationException($"BEAM guard BIFs returned {actual}, exit {exit}.");
@@ -7941,11 +10078,13 @@ internal static class BeamModuleEmissionChecks
                 Term result = await image.Invoke(context, "pick", Term.I(1));
                 Term remaining = await image.Invoke(context, "next");
                 actual = Term.Tuple(result, remaining);
+
                 return actual;
             }
             catch (Exception error)
             {
                 failure = error;
+
                 return Nil.Value;
             }
         });
@@ -8000,7 +10139,14 @@ internal static class BeamModuleEmissionChecks
             return actual;
         });
         Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
-        Term expected = Term.List(key, exact, Term.A("running"), Term.A("timeout"), shortReply, stopped);
+        Term expected = Term.List(
+            key,
+            exact,
+            Term.A("running"),
+            Term.A("timeout"),
+            shortReply,
+            stopped
+        );
         if (!expected.Equals(actual))
         {
             throw new InvalidOperationException($"BEAM receive tuple guards returned {actual}, exit {exit}.");
@@ -8117,7 +10263,12 @@ internal static class BeamModuleEmissionChecks
         Term? actual = null;
         ProcessHandle process = runtime.Spawn(async context =>
         {
-            Term value = await runtime.Modules.Call(context, "beam_external_fun_probe", "converter", []);
+            Term value = await runtime.Modules.Call(
+                context,
+                "beam_external_fun_probe",
+                "converter",
+                []
+            );
             if (value is not FunctionTerm
                 {
                     ExternalIdentity: { Module.Name: "erlang", Function.Name: "atom_to_list", Arity: 1 }
@@ -8221,10 +10372,12 @@ internal static class BeamModuleEmissionChecks
             Term.List(Term.Tuple(Term.Tuple(first, wildcard),
                 Term.List(Term.Tuple(Term.A("is_atom"), first)), Term.List(Term.A("$_")))),
             Term.List(
-                Term.Tuple(Term.Tuple(first, second),
+                Term.Tuple(
+                    Term.Tuple(first, second),
                     Term.List(Term.Tuple(Term.A("=:="), first, Term.Tuple(Term.A("const"), capture)),
                         Term.Tuple(Term.A("is_integer"), second)),
-                    Term.List(Term.Tuple(Term.Tuple(first, second)))),
+                    Term.List(Term.Tuple(Term.Tuple(first, second)))
+                ),
                 Term.Tuple(Term.Tuple(wildcard, wildcard), Nil.Value, Term.List(Term.A("false")))
             )
         );
@@ -8266,10 +10419,30 @@ internal static class BeamModuleEmissionChecks
         ProcessHandle process = runtime.Spawn(async context =>
         {
             Term record = await image.Invoke(context, "run");
-            Term updated = await image.Invoke(context, "#set-", Term.Tuple(first, replaced), record);
-            Term values = await image.Invoke(context, "#get-", Term.List(second, first), updated);
-            Term index = await image.Invoke(context, "#info-", sample, Term.Tuple(Term.A("index"), second));
-            actual = Term.Tuple(record, updated, values, index);
+            Term updated = await image.Invoke(
+                context,
+                "#set-",
+                Term.Tuple(first, replaced),
+                record
+            );
+            Term values = await image.Invoke(
+                context,
+                "#get-",
+                Term.List(second, first),
+                updated
+            );
+            Term index = await image.Invoke(
+                context,
+                "#info-",
+                sample,
+                Term.Tuple(Term.A("index"), second)
+            );
+            actual = Term.Tuple(
+                record,
+                updated,
+                values,
+                index
+            );
 
             return actual;
         });
@@ -8311,6 +10484,7 @@ internal static class BeamModuleEmissionChecks
             catch (ErlangException error)
             {
                 failure = error.Reason;
+
                 return actual;
             }
         });
@@ -8347,6 +10521,7 @@ internal static class BeamModuleEmissionChecks
         ProcessHandle process = runtime.Spawn(async context =>
         {
             actual = await image.Invoke(context, "run", Term.List(skip, keep));
+
             return actual;
         });
         Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
@@ -8425,6 +10600,7 @@ internal static class BeamModuleEmissionChecks
                 nestedFallback,
                 direct
             );
+
             return actual;
         });
         Term exit = await process.Completion;
@@ -8531,11 +10707,14 @@ internal static class BeamModuleEmissionChecks
             string include = Directory.CreateDirectory(Path.Combine(library, "fixture-1.0", "include")).FullName;
             File.WriteAllBytes(Path.Combine(include, OuterHeader), Read(OuterHeader));
             File.WriteAllBytes(Path.Combine(include, InnerHeader), Read(InnerHeader));
-            File.WriteAllText(sourcePath, Encoding.UTF8.GetString(source).Replace(
+            File.WriteAllText(
+                sourcePath,
+                Encoding.UTF8.GetString(source).Replace(
                 "-include(\"" + OuterHeader + "\").",
                 "-include_lib(\"fixture/include/" + OuterHeader + "\").",
                 StringComparison.Ordinal
-            ));
+            )
+            );
             RequireEqual(CodeGeneration.CompileBeamFile(sourcePath, library), expected);
         }
         finally

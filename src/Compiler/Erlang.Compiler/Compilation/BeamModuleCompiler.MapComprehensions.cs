@@ -34,7 +34,12 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(XRegisterTag, 0);
             owner.Operand(BeamWire.UnsignedTag, 3);
             owner.EmitTuplePart(0, 2, 1);
-            owner.MoveRegister(XRegisterTag, 1, YRegisterTag, current);
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                YRegisterTag,
+                current
+            );
             owner.EmitTuplePart(0, 0, 1);
             owner.EmitTuplePart(0, 1, 2);
             owner.Op(TestHeap, BeamWire.UnsignedTag, 3);
@@ -59,7 +64,12 @@ internal sealed partial class BeamModuleCompiler
             Mark(refill);
             owner.EmitNonemptyList(0, end);
             Call("erts_internal", "mc_refill", 1);
-            owner.MoveRegister(XRegisterTag, 0, YRegisterTag, current);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                current
+            );
             JumpTo(loop);
 
             Mark(end);

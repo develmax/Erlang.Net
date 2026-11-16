@@ -40,9 +40,9 @@ internal sealed partial class BeamModuleCompiler
                     {
                         Definition.Opcode: GetTupleElement,
                         Operands: [
-                            { Kind: BeamOperandParameters.X, TypeIndex: null } tuple,
+                        { Kind: BeamOperandParameters.X, TypeIndex: null } tuple,
                             _,
-                            { Kind: BeamOperandParameters.X, TypeIndex: null } field
+                        { Kind: BeamOperandParameters.X, TypeIndex: null } field
                         ]
                     } when tuple.Value < live:
                         source = (int)tuple.Value;
@@ -99,6 +99,7 @@ internal sealed partial class BeamModuleCompiler
         }
 
         output.Write(code.Span[copied..]);
+
         return output.ToArray();
     }
 

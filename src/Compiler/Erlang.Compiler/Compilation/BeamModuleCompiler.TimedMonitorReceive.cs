@@ -8,43 +8,86 @@ internal sealed partial class BeamModuleCompiler
     {
         private bool TryEmitTimedMonitorReceive(FunctionDefinition function)
         {
-            if (function.Clauses is not [{
-                Guard: null, Patterns: [
+            if (function.Clauses is not [
+                {
+                    Guard: null, Patterns: [
                     Pattern.Tuple { Items: [Pattern.Literal { Value: Atom socketTag }, ..] } socket, Pattern.Variable timeout
                 ],
-                Body: Expr.Sequence { Items: [
-                    Expr.Match { Pattern: Pattern.Variable address, Value: Expr.Call { Module: not null, DynamicRemote: false,
-                        Arguments: [Expr.Literal { Value: Atom key }, Expr.Variable opts, Expr.Call {
-                            Module: null, DynamicRemote: false, Arguments: [Expr.Variable defaultOpts]
-                        } defaults]
-                    } lookup },
-                    Expr.Match { Pattern: Pattern.Variable port, Value: Expr.Call {
-                        Module: null, DynamicRemote: false, Arguments: [Expr.Variable pid, Expr.Variable oldPort]
-                    } resolve },
-                    Expr.Call { Module: not null, DynamicRemote: false, Arguments: [
+                    Body: Expr.Sequence
+                    {
+                        Items: [
+                    Expr.Match
+                        {
+                            Pattern: Pattern.Variable address, Value: Expr.Call
+                            {
+                                Module: not null, DynamicRemote: false,
+                                Arguments: [Expr.Literal { Value: Atom key }, Expr.Variable opts, Expr.Call
+                                {
+                                    Module: null, DynamicRemote: false, Arguments: [Expr.Variable defaultOpts]
+                                } defaults]
+                            } lookup
+                        },
+                    Expr.Match
+                        {
+                            Pattern: Pattern.Variable port, Value: Expr.Call
+                            {
+                                Module: null, DynamicRemote: false, Arguments: [Expr.Variable pid, Expr.Variable oldPort]
+                            } resolve
+                        },
+                    Expr.Call
+                        {
+                            Module: not null, DynamicRemote: false, Arguments: [
                         Expr.Tuple { Items: [Expr.Literal { Value: Atom ownerTag }, Expr.Variable ownerPid] },
                         Expr.Variable ipArg, Expr.Variable portArg
-                    ] } register,
-                    Expr.Case { Value: Expr.Call { Module: not null, DynamicRemote: false, Arguments: [Expr.Variable closePid] } close,
-                        Clauses: [
-                            { Guard: null, Patterns: [Pattern.Literal { Value: Atom stop }], Body: Expr.Sequence { Items: [
-                                Expr.Call { Module: ErlangModuleNames.Module, DynamicRemote: false, Arguments: [
+                    ]
+                        } register,
+                    Expr.Case
+                        {
+                            Value: Expr.Call { Module: not null, DynamicRemote: false, Arguments: [Expr.Variable closePid] } close,
+                            Clauses: [
+                            {
+                                Guard: null, Patterns: [Pattern.Literal { Value: Atom stop }], Body: Expr.Sequence
+                                {
+                                    Items: [
+                                Expr.Call
+                                    {
+                                        Module: ErlangModuleNames.Module, DynamicRemote: false, Arguments: [
                                     Expr.Literal { Value: Atom monitorKind }, Expr.Variable monitorPid
-                                ] } monitor,
-                                Expr.Receive { Timeout: Expr.Variable delay, After: { } expired, Clauses: [
-                                    { Guard: null, Patterns: [Pattern.Tuple { Items: [
+                                ]
+                                    } monitor,
+                                Expr.Receive
+                                    {
+                                        Timeout: Expr.Variable delay, After: { } expired, Clauses: [
+                                            {
+                                                Guard: null, Patterns: [Pattern.Tuple
+                                                {
+                                                    Items: [
                                         Pattern.Literal { Value: Atom notification }, Pattern.Variable { Name: VariableScopeNames.Wildcard },
                                         Pattern.Literal { Value: Atom messageKind }, Pattern.Variable sender,
                                         Pattern.Variable { Name: VariableScopeNames.Wildcard }
-                                    ] }], Body: Expr.Literal { Value: Atom received } }
-                                ] }
-                            ] } },
+                                    ]
+                                                }], Body: Expr.Literal { Value: Atom received }
+                                            }
+                                ]
+                                    }
+                            ]
+                                }
+                            },
                             { Guard: null, Patterns: [Pattern.Literal { Value: Atom waiting }], Body: Expr.Literal { Value: Atom immediate } },
                             { Guard: null, Patterns: [Pattern.Variable error], Body: Expr.Variable returned }
                         ]
+                        }
+                ]
                     }
-                ] }
-            }] || !DistinctBindings(timeout, address, port, error, new(pid.Name), new(oldPort.Name), new(opts.Name))
+                }] || !DistinctBindings(
+                    timeout,
+                    address,
+                    port,
+                    error,
+                    new(pid.Name),
+                    new(oldPort.Name),
+                    new(opts.Name)
+                )
                 || !AttributeLiteral.TryNormalizeConstant(expired, out Term timeoutResult)
                 || stop.Equals(waiting) || opts.Name != defaultOpts.Name || ownerPid.Name != pid.Name || closePid.Name != pid.Name
                 || monitorPid.Name != pid.Name || sender.Name != pid.Name || delay.Name != timeout.Name
@@ -52,7 +95,14 @@ internal sealed partial class BeamModuleCompiler
                 || !entries.TryGetValue((defaults.Function, 1), out int defaultsEntry)
                 || !entries.TryGetValue((resolve.Function, 2), out int resolveEntry)
                 || owner.ResolvesErlangBif(lookup) || owner.ResolvesErlangBif(register) || owner.ResolvesErlangBif(close)
-                || !ReadMonitorRecord(socket, out int handle, out int configuration, out var config, out var configTag, out int optionsField))
+                || !ReadMonitorRecord(
+                    socket,
+                    out int handle,
+                    out int configuration,
+                    out var config,
+                    out var configTag,
+                    out int optionsField
+                ))
             {
                 return false;
             }
@@ -64,15 +114,35 @@ internal sealed partial class BeamModuleCompiler
             int skip = Label();
             int wait = Label();
             int fallback = Label();
-            EmitDetailRecordTest(0, socket.Items.Count, socketTag, functionInfo);
+            EmitDetailRecordTest(
+                0,
+                socket.Items.Count,
+                socketTag,
+                functionInfo
+            );
             owner.EmitTuplePart(0, handle, 2);
             owner.EmitTupleCheck(2, 2, functionInfo);
             owner.EmitTuplePart(0, configuration, 3);
-            EmitDetailRecordTest(3, config.Items.Count, configTag, functionInfo);
+            EmitDetailRecordTest(
+                3,
+                config.Items.Count,
+                configTag,
+                functionInfo
+            );
             owner.Op(Allocate, BeamWire.UnsignedTag, 3);
             owner.Operand(BeamWire.UnsignedTag, 4);
-            owner.MoveRegister(XRegisterTag, 2, YRegisterTag, 1);
-            owner.MoveRegister(XRegisterTag, 1, YRegisterTag, 2);
+            owner.MoveRegister(
+                XRegisterTag,
+                2,
+                YRegisterTag,
+                1
+            );
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                YRegisterTag,
+                2
+            );
             owner.Op(GetTupleElement, XRegisterTag, 3);
             owner.Operand(BeamWire.UnsignedTag, optionsField);
             owner.Operand(YRegisterTag, 0);
@@ -80,7 +150,12 @@ internal sealed partial class BeamModuleCompiler
             var previous = location;
             EmitWindowLocal(defaults, defaultsEntry, ref previous);
             Load(0, 1);
-            owner.MoveRegister(XRegisterTag, 0, XRegisterTag, 2);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                XRegisterTag,
+                2
+            );
             owner.InitStackSlot(0);
             owner.EmitConstant(key, 0);
             EmitWindowCall(lookup, ref previous);
@@ -96,8 +171,18 @@ internal sealed partial class BeamModuleCompiler
             owner.Op(TestHeap, BeamWire.UnsignedTag, 3);
             owner.Operand(BeamWire.UnsignedTag, 1);
             owner.EmitTagMatchTuple(1, (AtomTag, owner.Intern(ownerTag.Name)), (YRegisterTag, 0));
-            owner.MoveRegister(XRegisterTag, 0, XRegisterTag, 2);
-            owner.MoveRegister(XRegisterTag, 1, XRegisterTag, 0);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                XRegisterTag,
+                2
+            );
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                XRegisterTag,
+                0
+            );
             Load(1, 1);
             owner.InitStackSlot(1);
             EmitWindowCall(register, ref previous);
@@ -105,11 +190,25 @@ internal sealed partial class BeamModuleCompiler
             EmitWindowCall(close, ref previous);
             if (TermOrder.Compare(stop, waiting, exact: true) < 0)
             {
-                owner.EmitAtomSelection(0, fallback, stop.Name, stopping, waiting.Name, ready);
+                owner.EmitAtomSelection(
+                    0,
+                    fallback,
+                    stop.Name,
+                    stopping,
+                    waiting.Name,
+                    ready
+                );
             }
             else
             {
-                owner.EmitAtomSelection(0, fallback, waiting.Name, ready, stop.Name, stopping);
+                owner.EmitAtomSelection(
+                    0,
+                    fallback,
+                    waiting.Name,
+                    ready,
+                    stop.Name,
+                    stopping
+                );
             }
 
             Mark(ready);
@@ -122,7 +221,12 @@ internal sealed partial class BeamModuleCompiler
             Mark(scan);
             owner.Op(LoopReceive, LabelTag, wait);
             owner.Operand(XRegisterTag, 0);
-            EmitDetailRecordTest(0, 5, notification, skip);
+            EmitDetailRecordTest(
+                0,
+                5,
+                notification,
+                skip
+            );
             owner.EmitTuplePart(0, 2, 1);
             owner.EmitTuplePart(0, 3, 0);
             owner.Op(ExactEqualTest, LabelTag, skip);
@@ -147,8 +251,14 @@ internal sealed partial class BeamModuleCompiler
 
             return true;
 
-            bool ReadMonitorRecord(Pattern.Tuple pattern, out int handleField, out int configField,
-                out Pattern.Tuple configPattern, out Atom tag, out int optionField)
+            bool ReadMonitorRecord(
+                Pattern.Tuple pattern,
+                out int handleField,
+                out int configField,
+                out Pattern.Tuple configPattern,
+                out Atom tag,
+                out int optionField
+            )
             {
                 handleField = -1;
                 configField = -1;

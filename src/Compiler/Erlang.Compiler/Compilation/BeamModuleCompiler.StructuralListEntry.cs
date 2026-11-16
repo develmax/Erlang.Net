@@ -26,7 +26,13 @@ internal sealed partial class BeamModuleCompiler
                 // Empty and nonempty inputs are disjoint. All other clauses keep their relative order.
                 Clause[] ordered = [.. prefix, .. function.Clauses.Take(leadingNil),
                     .. function.Clauses.Skip(leadingNil + prefix.Length)];
-                if (TryEmitStructuralListBranches(function, input, ordered, prefix.Length, functionInfo))
+                if (TryEmitStructuralListBranches(
+                    function,
+                    input,
+                    ordered,
+                    prefix.Length,
+                    functionInfo
+                ))
                 {
                     return true;
                 }
@@ -35,7 +41,13 @@ internal sealed partial class BeamModuleCompiler
             return false;
         }
 
-        private bool TryEmitStructuralListBranches(FunctionDefinition function, int listInput, Clause[] clauses, int consCount, int functionInfo)
+        private bool TryEmitStructuralListBranches(
+            FunctionDefinition function,
+            int listInput,
+            Clause[] clauses,
+            int consCount,
+            int functionInfo
+        )
         {
             int arity = function.Arity;
             var emptyReturn = ReadEntryListReturn(clauses);
@@ -260,7 +272,12 @@ internal sealed partial class BeamModuleCompiler
                     .ToDictionary(binding => binding.Name, binding => binding.order, StringComparer.Ordinal);
                 branches.Add((guardClause, tests.ToArray(), bodyInputs, tailCall, resultRegister, constant, captureOrder));
 
-                bool ReadPattern(Pattern pattern, int register, bool preserveSource = false, bool checkedHead = false)
+                bool ReadPattern(
+                    Pattern pattern,
+                    int register,
+                    bool preserveSource = false,
+                    bool checkedHead = false
+                )
                 {
                     switch (pattern)
                     {
@@ -277,9 +294,11 @@ internal sealed partial class BeamModuleCompiler
                                     owner.Operand(XRegisterTag, bound);
                                 });
                             }
+
                             return true;
                         case Pattern.Literal { Value: Nil }:
                             tests.Add(failure => owner.EmitNilTest(XRegisterTag, register, failure));
+
                             return true;
                         case Pattern.Literal literal:
                             tests.Add(failure =>
@@ -288,6 +307,7 @@ internal sealed partial class BeamModuleCompiler
                                 owner.Operand(XRegisterTag, register);
                                 owner.LiteralOperand(literal.Value);
                             });
+
                             return true;
                         case AliasPattern alias:
                             return ReadPattern(alias.Left, register, preserveSource: true)
@@ -300,11 +320,21 @@ internal sealed partial class BeamModuleCompiler
                                 {
                                     if (tagged)
                                     {
-                                        EmitDetailRecordTest(register, tuple.Items.Count, tag, failure);
+                                        EmitDetailRecordTest(
+                                            register,
+                                            tuple.Items.Count,
+                                            tag,
+                                            failure
+                                        );
                                     }
                                     else
                                     {
-                                        EmitTupleShapeTest(XRegisterTag, register, tuple.Items.Count, failure);
+                                        EmitTupleShapeTest(
+                                            XRegisterTag,
+                                            register,
+                                            tuple.Items.Count,
+                                            failure
+                                        );
                                     }
                                 });
                             }
@@ -371,6 +401,7 @@ internal sealed partial class BeamModuleCompiler
                                     nextRegister--;
                                 }
                             }
+
                             return true;
                         case Pattern.List list:
                             return ReadList(list, 0, register);
@@ -401,7 +432,13 @@ internal sealed partial class BeamModuleCompiler
                     int rest = readTail ? nextRegister++ : -1;
                     if (readHead && readTail)
                     {
-                        tests.Add(_ => owner.EmitListParts(register, XRegisterTag, item, XRegisterTag, rest));
+                        tests.Add(_ => owner.EmitListParts(
+                            register,
+                            XRegisterTag,
+                            item,
+                            XRegisterTag,
+                            rest
+                        ));
                     }
                     else if (readHead || readTail)
                     {
@@ -420,7 +457,13 @@ internal sealed partial class BeamModuleCompiler
             owner.EmitNonemptyList(listInput, nonCons);
             if (needsTail)
             {
-                owner.EmitListParts(listInput, XRegisterTag, head, XRegisterTag, tail);
+                owner.EmitListParts(
+                    listInput,
+                    XRegisterTag,
+                    head,
+                    XRegisterTag,
+                    tail
+                );
             }
             else
             {
@@ -451,7 +494,12 @@ internal sealed partial class BeamModuleCompiler
             {
                 if (branch == consCount && emptyReturn is { } emptyList)
                 {
-                    EmitEmptyListReturn(emptyList, nonCons, functionInfo, properList: true);
+                    EmitEmptyListReturn(
+                        emptyList,
+                        nonCons,
+                        functionInfo,
+                        properList: true
+                    );
                     break;
                 }
 
@@ -486,7 +534,12 @@ internal sealed partial class BeamModuleCompiler
                     {
                         sharedShapeFailure = shape.End < consCount ? Label()
                             : emptyReturn is not null ? functionInfo : nonCons;
-                        EmitDetailRecordTest(head, shape.Arity, shape.Tag, sharedShapeFailure);
+                        EmitDetailRecordTest(
+                            head,
+                            shape.Arity,
+                            shape.Tag,
+                            sharedShapeFailure
+                        );
                     }
                     if (shape.SharesDiscriminator)
                     {
@@ -560,7 +613,12 @@ internal sealed partial class BeamModuleCompiler
                     }
                     else if (resultRegister != 0)
                     {
-                        owner.MoveRegister(XRegisterTag, resultRegister, XRegisterTag, 0);
+                        owner.MoveRegister(
+                            XRegisterTag,
+                            resultRegister,
+                            XRegisterTag,
+                            0
+                        );
                     }
 
                     owner.instructions.WriteByte(Return);
@@ -569,7 +627,15 @@ internal sealed partial class BeamModuleCompiler
                 {
                     var previousOrder = entryCaptureOrder;
                     entryCaptureOrder = captureOrder;
-                    EmitEntryClauseBody(clause, used, branch, frames, null, null, literalDispatch: false);
+                    EmitEntryClauseBody(
+                        clause,
+                        used,
+                        branch,
+                        frames,
+                        null,
+                        null,
+                        literalDispatch: false
+                    );
                     entryCaptureOrder = previousOrder;
                 }
 

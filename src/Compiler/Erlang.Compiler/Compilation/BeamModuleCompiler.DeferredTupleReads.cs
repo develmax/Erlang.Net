@@ -29,7 +29,12 @@ internal sealed partial class BeamModuleCompiler
                 continue;
             }
 
-            if (PlanDeferredTupleReads(body, entry, end, ref flow) is { } plan)
+            if (PlanDeferredTupleReads(
+                body,
+                entry,
+                end,
+                ref flow
+            ) is { } plan)
             {
                 var (tuple, capture, reads) = plan;
                 foreach (DeferredTupleRead read in reads)
@@ -99,6 +104,7 @@ internal sealed partial class BeamModuleCompiler
         }
 
         output.Write(code.Span[copied..]);
+
         return output.ToArray();
     }
 
@@ -172,9 +178,9 @@ internal sealed partial class BeamModuleCompiler
                     {
                         Definition.Opcode: GetTupleElement,
                         Operands: [
-                            { Kind: BeamOperandParameters.X or BeamOperandParameters.Y, TypeIndex: null } tuple,
+                        { Kind: BeamOperandParameters.X or BeamOperandParameters.Y, TypeIndex: null } tuple,
                             var field,
-                            { Kind: BeamOperandParameters.Y, TypeIndex: null } slot
+                        { Kind: BeamOperandParameters.Y, TypeIndex: null } slot
                         ]
                     }
                     || SameProjectionRegister(tuple, slot)
@@ -201,7 +207,12 @@ internal sealed partial class BeamModuleCompiler
                     candidates.Add(tuple, fields);
                 }
 
-                fields.Add(new(definition, use, field, slot));
+                fields.Add(new(
+                    definition,
+                    use,
+                    field,
+                    slot
+                ));
             }
 
             foreach (var (source, reads) in candidates)
@@ -226,7 +237,12 @@ internal sealed partial class BeamModuleCompiler
                 bool extendsPreviousProof = lastCall != call || renumbersSlots
                     || references[(int)reads[0].Slot.Value].Count != 2;
                 if (!capture && reads.Count == 1 && extendsPreviousProof
-                    && (flow ??= new BeamProjectionFlow(body)).IsDeferredSlotDeadAfterUse(lastCall, entry, end, source))
+                    && (flow ??= new BeamProjectionFlow(body)).IsDeferredSlotDeadAfterUse(
+                        lastCall,
+                        entry,
+                        end,
+                        source
+                    ))
                 {
                     // Keep one extracted field across a call when the tuple itself would otherwise die.
                     continue;
@@ -325,7 +341,12 @@ internal sealed partial class BeamModuleCompiler
         bool laterReference = next + 1 < sites.Count;
         if (laterReference && sites[next + 1] == use
             || (renumbersSlots || laterReference)
-                && !(flow ??= new BeamProjectionFlow(body)).IsDeferredSlotDeadAfterUse(use, entry, end, slot))
+                && !(flow ??= new BeamProjectionFlow(body)).IsDeferredSlotDeadAfterUse(
+                    use,
+                    entry,
+                    end,
+                    slot
+                ))
         {
             return null;
         }
@@ -348,6 +369,7 @@ internal sealed partial class BeamModuleCompiler
     private static bool WritesDeferredTupleSlot(BeamInstruction instruction, BeamOperand slot)
     {
         int destination = StackWriteOperand(instruction);
+
         return destination >= 0 && SameProjectionRegister(instruction.Operands[destination], slot)
             || instruction.Definition.Opcode == InitYRegisters
                 && instruction.Operands.Any(operand => SameProjectionRegister(operand, slot));
@@ -403,7 +425,12 @@ internal sealed partial class BeamModuleCompiler
 
     private sealed partial class BeamProjectionFlow
     {
-        internal bool IsDeferredSlotDeadAfterUse(int use, int entry, int end, BeamOperand slot)
+        internal bool IsDeferredSlotDeadAfterUse(
+            int use,
+            int entry,
+            int end,
+            BeamOperand slot
+        )
         {
             var visited = new HashSet<(int Index, BeamOperand Slot)>();
             var pending = new Stack<(int Index, BeamOperand Slot)>(

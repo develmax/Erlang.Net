@@ -8,20 +8,24 @@ internal sealed partial class BeamModuleCompiler
     {
         private bool TryEmitForwardedChildList(FunctionDefinition function)
         {
-            if (function.Clauses is not [{
-                Patterns: [Pattern.List { Tail: null, Items: [Pattern.Variable first, Pattern.Variable second, Pattern.Variable third] }],
-                Body: Expr.Sequence { Items: [
+            if (function.Clauses is not [
+                {
+                    Patterns: [Pattern.List { Tail: null, Items: [Pattern.Variable first, Pattern.Variable second, Pattern.Variable third] }],
+                    Body: Expr.Sequence
+                    {
+                        Items: [
                     Expr.Match { Pattern: Pattern.Variable flags },
                     Expr.Match { Pattern: Pattern.Variable children },
                     Expr.Tuple
-                ] }
-            } clause] || !DistinctBindings(
-                first,
-                second,
-                third,
-                flags,
-                children
-            )
+                ]
+                    }
+                } clause] || !DistinctBindings(
+                    first,
+                    second,
+                    third,
+                    flags,
+                    children
+                )
                 || ReadCallListResult(clause) is not { } result
                 || result.Calls.Items is not [
                     Expr.Call { Module: null, DynamicRemote: false, Arguments: [Expr.Variable single] } left,

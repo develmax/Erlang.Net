@@ -9,21 +9,37 @@ internal sealed partial class BeamModuleCompiler
         private bool TryEmitSingletonListCheckedCalls(FunctionDefinition function, int functionInfo)
         {
             if (function.Clauses is not [
-                { Patterns: [Pattern.Variable input], Body: Expr.Call
-                    { Module: null, DynamicRemote: false, Arguments: [Expr.List { Items: [Expr.Variable wrapped], Tail: null }] } forward } first,
-                { Guard: null, Patterns: [Pattern.List { Items: [Pattern.Variable head], Tail: null }],
-                    Body: Expr.Sequence { Items: [
+                {
+                    Patterns: [Pattern.Variable input], Body: Expr.Call
+                    { Module: null, DynamicRemote: false, Arguments: [Expr.List { Items: [Expr.Variable wrapped], Tail: null }] } forward
+                } first,
+                {
+                    Guard: null, Patterns: [Pattern.List { Items: [Pattern.Variable head], Tail: null }],
+                    Body: Expr.Sequence
+                    {
+                        Items: [
                         Expr.Match { Pattern: Pattern.Variable binding, Value: Expr.Call read },
-                        Expr.Case { Value: Expr.Call check, Clauses: [
-                            { Guard: null, Patterns: [Pattern.Literal accepted], Body: Expr.Case
-                                { Value: Expr.Call open, Clauses: [
-                                    { Guard: null, Patterns: [Pattern.Literal ready],
-                                        Body: Expr.Sequence { Items: [Expr.Call finish, Expr.Literal success] } },
+                        Expr.Case
+                        {
+                            Value: Expr.Call check, Clauses: [
+                            {
+                                Guard: null, Patterns: [Pattern.Literal accepted], Body: Expr.Case
+                                {
+                                    Value: Expr.Call open, Clauses: [
+                                    {
+                                        Guard: null, Patterns: [Pattern.Literal ready],
+                                        Body: Expr.Sequence { Items: [Expr.Call finish, Expr.Literal success] }
+                                    },
                                     { Guard: null, Patterns: [Pattern.Variable rejected], Body: Expr.Variable returned }
-                                ] } },
+                                ]
+                                }
+                            },
                             { Guard: null, Patterns: [Pattern.Variable other], Body: var failure }
-                        ] }
-                    ] } }
+                        ]
+                        }
+                    ]
+                    }
+                }
             ] || !DistinctBindings(head, binding, rejected) || returned.Name != rejected.Name
                 || other.Name == head.Name || other.Name == binding.Name
                 || first.Guard is not Expr.Call { Function: AutoImportNames.IsAtom }
@@ -52,12 +68,23 @@ internal sealed partial class BeamModuleCompiler
 
             Mark(listEntry);
             owner.EmitNonemptyList(0, functionInfo);
-            owner.EmitListParts(0, XRegisterTag, 1, XRegisterTag, 2);
+            owner.EmitListParts(
+                0,
+                XRegisterTag,
+                1,
+                XRegisterTag,
+                2
+            );
             owner.Op(IsNil, LabelTag, functionInfo);
             owner.Operand(XRegisterTag, 2);
             EmitGeneralFrame(2, slots: 1);
             EmitEntryCall(producer);
-            owner.MoveRegister(XRegisterTag, 0, YRegisterTag, 0);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                0
+            );
 
             var previous = CallLocation(read, location);
             EmitEntryCall(checkCall, previous);
@@ -77,6 +104,7 @@ internal sealed partial class BeamModuleCompiler
             Mark(checkFailure);
             owner.EmitConstant(failureValue, 0);
             owner.EmitFrameReturn(1);
+
             return true;
 
             void EmitResultTest(Term value, int target)

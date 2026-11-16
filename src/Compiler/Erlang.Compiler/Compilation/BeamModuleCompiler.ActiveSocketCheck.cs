@@ -8,37 +8,81 @@ internal sealed partial class BeamModuleCompiler
     {
         private bool TryEmitActiveSocketCheck(FunctionDefinition function)
         {
-            if (function.Clauses is not [{
-                Guard: null, Patterns: [Pattern.Variable options, AliasPattern alias],
-                Body: Expr.Case { Value: Expr.Call { Module: not null, DynamicRemote: false,
-                    Arguments: [Expr.Literal { Value: Atom key }, Expr.Variable input] } lookup,
-                    Clauses: [var low, var high, {
-                        Patterns: [Pattern.Tuple { Items: [
+            if (function.Clauses is not [
+                {
+                    Guard: null, Patterns: [Pattern.Variable options, AliasPattern alias],
+                    Body: Expr.Case
+                    {
+                        Value: Expr.Call
+                        {
+                            Module: not null, DynamicRemote: false,
+                            Arguments: [Expr.Literal { Value: Atom key }, Expr.Variable input]
+                        } lookup,
+                        Clauses: [var low, var high,
+                        {
+                            Patterns: [Pattern.Tuple
+                            {
+                                Items: [
                             Pattern.Variable { Name: VariableScopeNames.Wildcard }, Pattern.Variable increment
-                        ] }], Guard: Expr.Call integer,
-                        Body: Expr.Sequence { Items: [
-                            Expr.Match { Pattern: Pattern.Tuple { Items: [
-                                Pattern.Literal { Value: Atom ok }, Pattern.Tuple { Items: [
+                        ]
+                            }], Guard: Expr.Call integer,
+                            Body: Expr.Sequence
+                            {
+                                Items: [
+                            Expr.Match
+                                {
+                                    Pattern: Pattern.Tuple
+                                    {
+                                        Items: [
+                                Pattern.Literal { Value: Atom ok }, Pattern.Tuple
+                                        {
+                                            Items: [
                                     Pattern.Literal { Value: Atom optionTag }, ..
-                                ] } optionRecord, Pattern.Variable { Name: VariableScopeNames.Wildcard }
-                            ] }, Value: Expr.Call { Module: not null, DynamicRemote: false, Arguments: [Expr.Variable listener] } read } readMatch,
+                                ]
+                                        } optionRecord, Pattern.Variable { Name: VariableScopeNames.Wildcard }
+                            ]
+                                    }, Value: Expr.Call { Module: not null, DynamicRemote: false, Arguments: [Expr.Variable listener] } read
+                                } readMatch,
                             Expr.Case { Value: Expr.Variable active, Clauses: [var atomCase, var aboveCase, var belowCase, var unchanged] }
-                        ] }
-                    }, var fallback]
-                }
-            }] || !TryReadPatternAlias(alias, out var socket, out var shape)
+                        ]
+                            }
+                        }, var fallback]
+                    }
+                }] || !TryReadPatternAlias(alias, out var socket, out var shape)
                 || shape is not Pattern.Tuple { Items: [Pattern.Literal { Value: Atom socketTag }, ..] } record
                 || ReadSocketListenerFields(record, listener.Name) is not { } fields
-                || !DistinctBindings(options, socket, increment, new(listener.Name), new(active.Name))
+                || !DistinctBindings(
+                    options,
+                    socket,
+                    increment,
+                    new(listener.Name),
+                    new(active.Name)
+                )
                 || input.Name != options.Name || !IsTypeCheck(integer, AutoImportNames.IsInteger, increment.Name)
                 || owner.ResolvesErlangBif(lookup) || owner.ResolvesErlangBif(read)
                 || ReadLimit(low, ErlangOperators.Less) is not { } minimum || ReadLimit(high, ErlangOperators.Greater) is not { } maximum
                 || minimum.Bound == long.MinValue || maximum.Bound == long.MaxValue || minimum.Bound > maximum.Bound
                 || !IsFallback(fallback, out var result) || !IsFallback(unchanged, out var otherResult) || !result.Equals(otherResult)
-                || atomCase is not { Patterns: [Pattern.Variable atom], Guard: Expr.Binary { Operator: ErlangOperators.AndAlso,
-                    Left: Expr.Call atomCheck, Right: Expr.Binary { Operator: ErlangOperators.LessOrEqual,
-                        Left: Expr.Variable count, Right: var atomBound } }, Body: Expr.Binary atomSend }
-                || !DistinctBindings(options, socket, increment, new(listener.Name), new(active.Name), atom)
+                || atomCase is not
+                {
+                    Patterns: [Pattern.Variable atom], Guard: Expr.Binary
+                    {
+                        Operator: ErlangOperators.AndAlso,
+                        Left: Expr.Call atomCheck, Right: Expr.Binary
+                        {
+                            Operator: ErlangOperators.LessOrEqual,
+                            Left: Expr.Variable count, Right: var atomBound
+                        }
+                    }, Body: Expr.Binary atomSend
+                }
+                || !DistinctBindings(
+                    options,
+                    socket,
+                    increment,
+                    new(listener.Name),
+                    new(active.Name),
+                    atom
+                )
                 || !IsTypeCheck(atomCheck, AutoImportNames.IsAtom, atom.Name) || count.Name != increment.Name
                 || !ReadBound(atomBound, out long threshold)
                 || ReadSumGuard(aboveCase, ErlangOperators.Greater) is not long upper || upper != maximum.Bound
@@ -57,21 +101,51 @@ internal sealed partial class BeamModuleCompiler
             int sumCheck = Label();
             int finish = Label();
             int badMatch = Label();
-            if (!AlwaysReceivesTaggedArgument(function, 1, socketTag, record.Items.Count))
+            if (!AlwaysReceivesTaggedArgument(
+                function,
+                1,
+                socketTag,
+                record.Items.Count
+            ))
             {
-                EmitDetailRecordTest(1, record.Items.Count, socketTag, functionInfo);
+                EmitDetailRecordTest(
+                    1,
+                    record.Items.Count,
+                    socketTag,
+                    functionInfo
+                );
             }
 
             owner.EmitTuplePart(1, fields.Handle, 2);
             owner.EmitTupleCheck(2, 2, functionInfo);
             owner.EmitTuplePart(1, fields.Config, 3);
-            EmitDetailRecordTest(3, fields.Arity, fields.Tag, functionInfo);
+            EmitDetailRecordTest(
+                3,
+                fields.Arity,
+                fields.Tag,
+                functionInfo
+            );
             owner.Op(Allocate, BeamWire.UnsignedTag, 3);
             owner.Operand(BeamWire.UnsignedTag, 3);
             owner.InitStackSlot(0);
-            owner.MoveRegister(XRegisterTag, 2, YRegisterTag, 1);
-            owner.MoveRegister(XRegisterTag, 1, YRegisterTag, 2);
-            owner.MoveRegister(XRegisterTag, 0, XRegisterTag, 1);
+            owner.MoveRegister(
+                XRegisterTag,
+                2,
+                YRegisterTag,
+                1
+            );
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                YRegisterTag,
+                2
+            );
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                XRegisterTag,
+                1
+            );
             owner.EmitConstant(key, 0);
             var previous = location;
             EmitWindowCall(lookup, ref previous);
@@ -87,23 +161,49 @@ internal sealed partial class BeamModuleCompiler
             EmitThrow(minimum.Throw, previous);
             Mark(upperCheck);
             owner.Op(IsGreaterOrEqual, LabelTag, lookupActive);
-            owner.EmitTypedRegister(0, IntegerTypeBits, lower: minimum.Bound, registerTag: YRegisterTag);
+            owner.EmitTypedRegister(
+                0,
+                IntegerTypeBits,
+                lower: minimum.Bound,
+                registerTag: YRegisterTag
+            );
             owner.LiteralOperand(Term.I(maximum.Bound + 1));
             EmitThrow(maximum.Throw, previous);
             Mark(lookupActive);
-            LoadTupleField(1, 0, XRegisterTag, 0);
+            LoadTupleField(
+                1,
+                0,
+                XRegisterTag,
+                0
+            );
             owner.InitStackSlot(1);
             EmitWindowCall(read, ref previous);
             var readLocation = previous;
-            EmitDetailRecordTest(0, 3, ok, badMatch);
+            EmitDetailRecordTest(
+                0,
+                3,
+                ok,
+                badMatch
+            );
             owner.EmitTuplePart(0, 1, 1);
-            EmitDetailRecordTest(1, optionRecord.Items.Count, optionTag, badMatch);
+            EmitDetailRecordTest(
+                1,
+                optionRecord.Items.Count,
+                optionTag,
+                badMatch
+            );
             owner.EmitTuplePart(1, activeField, 0);
             owner.Op(IsAtom, LabelTag, integerActive);
             owner.Operand(XRegisterTag, 0);
             owner.Op(IsGreaterOrEqual, LabelTag, integerActive);
             owner.LiteralOperand(Term.I(threshold));
-            owner.EmitTypedRegister(0, IntegerTypeBits, minimum.Bound, maximum.Bound, YRegisterTag);
+            owner.EmitTypedRegister(
+                0,
+                IntegerTypeBits,
+                minimum.Bound,
+                maximum.Bound,
+                YRegisterTag
+            );
             EmitPassive(firstTag, atomSend.SourceLine, readLocation);
             Mark(integerActive);
             owner.Op(IsInteger, LabelTag, finish);
@@ -112,7 +212,13 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(BeamWire.UnsignedTag, 1);
             owner.Operand(BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module, ErlangOperators.Plus, 2));
             owner.EmitTypedRegister(0, IntegerTypeBits);
-            owner.EmitTypedRegister(0, IntegerTypeBits, minimum.Bound, maximum.Bound, YRegisterTag);
+            owner.EmitTypedRegister(
+                0,
+                IntegerTypeBits,
+                minimum.Bound,
+                maximum.Bound,
+                YRegisterTag
+            );
             owner.Operand(XRegisterTag, 0);
             owner.Op(IsGreaterOrEqual, LabelTag, sumCheck);
             owner.EmitTypedRegister(0, IntegerTypeBits);
@@ -134,11 +240,25 @@ internal sealed partial class BeamModuleCompiler
 
             (long Bound, (Expr.Call Call, Atom Value) Throw)? ReadLimit(Clause clause, string operation)
             {
-                if (clause is not { Patterns: [Pattern.Tuple { Items: [
+                if (clause is not
+                    {
+                        Patterns: [Pattern.Tuple
+                        {
+                            Items: [
                     Pattern.Variable { Name: VariableScopeNames.Wildcard }, Pattern.Variable value
-                ] }], Guard: Expr.Binary { Operator: ErlangOperators.AndAlso, Left: Expr.Call test,
-                    Right: Expr.Binary { Left: Expr.Variable operand, Right: var boundary } compare } }
-                    || !DistinctBindings(options, socket, value, new(listener.Name))
+                ]
+                        }], Guard: Expr.Binary
+                        {
+                            Operator: ErlangOperators.AndAlso, Left: Expr.Call test,
+                            Right: Expr.Binary { Left: Expr.Variable operand, Right: var boundary } compare
+                        }
+                    }
+                    || !DistinctBindings(
+                        options,
+                        socket,
+                        value,
+                        new(listener.Name)
+                    )
                     || compare.Operator != operation || operand.Name != value.Name || !IsTypeCheck(test, AutoImportNames.IsInteger, value.Name)
                     || !ReadBound(boundary, out long bound) || ReadThrow(clause.Body) is not { } thrown)
                 {
@@ -148,15 +268,34 @@ internal sealed partial class BeamModuleCompiler
                 return (bound, thrown);
             }
 
-            long? ReadSumGuard(Clause clause, string operation) => clause is {
-                Patterns: [Pattern.Variable value], Guard: Expr.Binary { Operator: ErlangOperators.AndAlso, Left: Expr.Call test,
-                    Right: Expr.Binary { Left: Expr.Binary { Operator: ErlangOperators.Plus,
-                        Left: Expr.Variable left, Right: Expr.Variable right }, Right: var boundary } compare }
-            } && DistinctBindings(options, socket, increment, new(listener.Name), new(active.Name), value)
+            long? ReadSumGuard(Clause clause, string operation) => clause is
+            {
+                Patterns: [Pattern.Variable value], Guard: Expr.Binary
+                {
+                    Operator: ErlangOperators.AndAlso, Left: Expr.Call test,
+                    Right: Expr.Binary
+                    {
+                        Left: Expr.Binary
+                        {
+                            Operator: ErlangOperators.Plus,
+                            Left: Expr.Variable left, Right: Expr.Variable right
+                        }, Right: var boundary
+                    } compare
+                }
+            } && DistinctBindings(
+                options,
+                socket,
+                increment,
+                new(listener.Name),
+                new(active.Name),
+                value
+            )
                 && compare.Operator == operation && left.Name == value.Name && right.Name == increment.Name
                 && IsTypeCheck(test, AutoImportNames.IsInteger, value.Name) && ReadBound(boundary, out long bound) ? bound : null;
 
-            Atom? ReadSend(Expr.Binary send) => send is { Operator: ErlangOperators.Send,
+            Atom? ReadSend(Expr.Binary send) => send is
+            {
+                Operator: ErlangOperators.Send,
                 Left: Expr.Call { Module: null or ErlangModuleNames.Module, Function: AutoImportNames.Self, DynamicRemote: false, Arguments: [] } self,
                 Right: Expr.Tuple { Items: [Expr.Literal { Value: Atom tag }, Expr.Variable source] }
             } && source.Name == socket.Name && owner.ResolvesErlangBif(self) ? tag : null;
@@ -177,13 +316,17 @@ internal sealed partial class BeamModuleCompiler
             }
 
             bound = 0;
+
             return false;
         }
 
         private static bool IsFallback(Clause clause, out Atom atom)
         {
-            if (clause is { Guard: null, Patterns: [Pattern.Variable { Name: VariableScopeNames.Wildcard }],
-                Body: Expr.Literal { Value: Atom result } })
+            if (clause is
+                {
+                    Guard: null, Patterns: [Pattern.Variable { Name: VariableScopeNames.Wildcard }],
+                    Body: Expr.Literal { Value: Atom result }
+                })
             {
                 atom = result;
 
@@ -191,12 +334,16 @@ internal sealed partial class BeamModuleCompiler
             }
 
             atom = null!;
+
             return false;
         }
 
         private (Expr.Call Call, Atom Value)? ReadThrow(Expr expression) =>
-            expression is Expr.Call { Module: null or ErlangModuleNames.Module, DynamicRemote: false,
-                Function: AutoImportNames.Throw, Arguments: [Expr.Literal { Value: Atom value }] } call
+            expression is Expr.Call
+            {
+                Module: null or ErlangModuleNames.Module, DynamicRemote: false,
+                Function: AutoImportNames.Throw, Arguments: [Expr.Literal { Value: Atom value }]
+            } call
             && owner.ResolvesErlangBif(call) ? (call, value) : null;
 
         private static int? ReadActiveField(Pattern.Tuple record, string active)

@@ -45,21 +45,25 @@ internal sealed class SourceCallBindingBuilder
         if (DiameterRecordSourceTransform.IsOption(options))
         {
             HasDiameterRecordTransform = true;
+
             return;
         }
         if (MatchSpecSourceTransform.IsOption(options))
         {
             HasMatchSpecTransform = true;
+
             return;
         }
         if (EunitAutoExport.IsTransform(options))
         {
             EunitAutoExportCount++;
+
             return;
         }
         if (options is Atom { Name: "no_module_opt" })
         {
             DisableModuleOptimization = true;
+
             return;
         }
         if (CompilerWarningOptions.IsSupported(options)
@@ -69,12 +73,14 @@ internal sealed class SourceCallBindingBuilder
         {
             enableAutomaticInlining |= inline.Name == CompilerOptionNames.Inline;
             disableAutomaticInlining |= inline.Name == CompilerOptionNames.NoInline;
+
             return;
         }
         if (options is TupleTerm { Items: [Atom { Name: CompilerOptionNames.InlineSize }, Integer size] }
             && size.Value >= int.MinValue && size.Value <= int.MaxValue)
         {
             AutomaticInlineSize ??= Math.Max(1, (int)size.Value);
+
             return;
         }
         if (options is TupleTerm { Items: [Atom { Name: CompilerOptionNames.Inline }, var targets] })
@@ -86,11 +92,13 @@ internal sealed class SourceCallBindingBuilder
         if (options is Atom { Name: "r26" or "r27" })
         {
             LegacyBeamTables = true;
+
             return;
         }
         if (options is Atom { Name: CompilerOptionNames.DisableSsaOptimization })
         {
             HasOtherCompileOptions = true;
+
             return;
         }
         if (options is Atom { Name: SourceCallBindingNames.NoAutoImport })

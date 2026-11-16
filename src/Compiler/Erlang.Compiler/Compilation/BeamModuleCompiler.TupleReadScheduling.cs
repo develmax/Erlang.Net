@@ -45,6 +45,7 @@ internal sealed partial class BeamModuleCompiler
         }
 
         output.Write(code.Span[copied..]);
+
         return output.ToArray();
 
         static bool IsTypeTest(BeamInstruction instruction, BeamOperand tested) =>

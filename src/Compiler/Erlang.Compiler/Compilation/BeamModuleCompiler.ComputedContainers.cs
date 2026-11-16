@@ -8,12 +8,18 @@ internal sealed partial class BeamModuleCompiler
     {
         if (clause is not
             {
-                Guard: null, Body: Expr.Sequence { Items: [
+                Guard: null, Body: Expr.Sequence
+                {
+                    Items: [
                     Expr.Match,
                     ..,
-                    Expr.Tuple { Items: [Expr.Literal { Value: Atom tag },
-                        Expr.Tuple { Items: [Expr.Variable first, var second] }] }
-                ] } sequence
+                    Expr.Tuple
+                    {
+                        Items: [Expr.Literal { Value: Atom tag },
+                        Expr.Tuple { Items: [Expr.Variable first, var second] }]
+                    }
+                ]
+                } sequence
             })
         {
             return null;
@@ -36,10 +42,11 @@ internal sealed partial class BeamModuleCompiler
             ([_, _], Expr.List { Tail: null } inline) => inline,
             ([Expr.Match a, Expr.Match b, _], Expr.Variable reference)
                 when (ReferenceEquals(a, flags) ? b : a) is
-                    { Pattern: Pattern.Variable list, Value: Expr.List { Tail: null } bound }
+                { Pattern: Pattern.Variable list, Value: Expr.List { Tail: null } bound }
                     && DistinctBindings(flag, list) && reference.Name == list.Name => bound,
             _ => null
         };
+
         return calls is { Items.Count: > 0 } ? (tag, flagValue, calls) : null;
     }
 

@@ -275,6 +275,7 @@ internal sealed partial class BeamModuleCompiler
         using (output)
         {
             output.Write(code.Span[copied..]);
+
             return output.ToArray();
         }
 
@@ -307,6 +308,7 @@ internal sealed partial class BeamModuleCompiler
         if (instruction.Definition.Opcode == InitYRegisters)
         {
             live.ExceptWith(operands.Skip(1).Select(operand => (int)operand.Value));
+
             return;
         }
 

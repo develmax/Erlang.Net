@@ -10,18 +10,27 @@ internal sealed partial class BeamModuleCompiler
         {
             if (function.Clauses is not [
                 {
-                    Guard: null, Patterns: [Pattern.Literal { Value: Atom selected }, Pattern.Tuple { Items: [
+                    Guard: null, Patterns: [Pattern.Literal { Value: Atom selected }, Pattern.Tuple
+                    {
+                        Items: [
                         Pattern.Variable ignoredFirst, Pattern.Variable ignoredSecond
-                    ] }], Body: Expr.Literal result
+                    ]
+                    }], Body: Expr.Literal result
                 },
                 {
-                    Guard: null, Patterns: [Pattern.Variable transport, Pattern.Tuple { Items: [
+                    Guard: null, Patterns: [Pattern.Variable transport, Pattern.Tuple
+                    {
+                        Items: [
                         Pattern.Variable ignored, Pattern.Variable socket
-                    ] }],
-                    Body: Expr.Call { DynamicRemote: true, Arguments: [
+                    ]
+                    }],
+                    Body: Expr.Call
+                    {
+                        DynamicRemote: true, Arguments: [
                         Expr.Variable target, Expr.Literal { Value: Atom member },
                         Expr.List { Tail: null, Items: [Expr.Variable argument] }
-                    ] } call
+                    ]
+                    } call
                 }
             ] || !DistinctBindings(transport, socket) || target.Name != transport.Name || argument.Name != socket.Name
                 || (ignored.Name != VariableScopeNames.Wildcard && (ignored.Name == transport.Name || ignored.Name == socket.Name))

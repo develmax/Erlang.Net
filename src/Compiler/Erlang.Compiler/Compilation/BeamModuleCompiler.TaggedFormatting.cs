@@ -9,8 +9,10 @@ internal sealed partial class BeamModuleCompiler
         private bool TryEmitLiteralRedirectAndIntegerTable(FunctionDefinition function)
         {
             if (function.Clauses is not [
-                { Guard: null, Patterns: [Pattern.Literal { Value: Atom key }],
-                    Body: Expr.Call { Module: null, DynamicRemote: false, Arguments: [Expr.Literal { Value: Integer redirect }] } call },
+                {
+                    Guard: null, Patterns: [Pattern.Literal { Value: Atom key }],
+                    Body: Expr.Call { Module: null, DynamicRemote: false, Arguments: [Expr.Literal { Value: Integer redirect }] } call
+                },
                 _, _, ..
             ] || call.Function != function.Name || !entries.TryGetValue((call.Function, 1), out int target))
             {
@@ -185,7 +187,12 @@ internal sealed partial class BeamModuleCompiler
                 {
                     owner.Op(Allocate, BeamWire.UnsignedTag, 0);
                     owner.Operand(BeamWire.UnsignedTag, 2);
-                    owner.MoveRegister(XRegisterTag, 1, XRegisterTag, 0);
+                    owner.MoveRegister(
+                        XRegisterTag,
+                        1,
+                        XRegisterTag,
+                        0
+                    );
                     owner.EmitCallLine(branch.Render, location);
                     owner.EmitStaticRemoteCall(branch.Render with { Module = ErlangModuleNames.Module });
                     EmitBinaryListPrefix(branch.Prefix!);
@@ -259,7 +266,13 @@ internal sealed partial class BeamModuleCompiler
                     Arguments: [Expr.Variable converted]
                 } conversion && converted.Name == payload.Name && owner.ResolvesErlangBif(conversion))
             {
-                return new(key, null, conversion, null, prefix);
+                return new(
+                    key,
+                    null,
+                    conversion,
+                    null,
+                    prefix
+                );
             }
 
             return body is Expr.Call

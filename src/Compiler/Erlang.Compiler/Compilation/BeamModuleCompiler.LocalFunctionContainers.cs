@@ -15,6 +15,7 @@ internal sealed partial class BeamModuleCompiler
             EmitClosureAllocation(0, 0, 1);
             EmitDeclaredFunctionReference(direct, directEntry, 0);
             instructions.WriteByte(Return);
+
             return true;
         }
         if (clause.Patterns.Count != 0)
@@ -115,6 +116,7 @@ internal sealed partial class BeamModuleCompiler
             }
         }
         instructions.WriteByte(Return);
+
         return true;
     }
 

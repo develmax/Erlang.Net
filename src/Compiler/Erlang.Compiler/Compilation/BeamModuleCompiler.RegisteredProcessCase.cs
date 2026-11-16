@@ -9,41 +9,42 @@ internal sealed partial class BeamModuleCompiler
         private bool TryEmitRegisteredProcessCase(FunctionDefinition function)
         {
             if (function.Clauses is not
-                [{
+                [
+                {
                     Guard: null, Patterns: [Pattern.Variable input],
                     Body: Expr.Sequence
                     {
                         Items:
                         [
                             Expr.Match
-                            {
-                                Pattern: Pattern.Variable self,
-                                Value: Expr.Call { Function: AutoImportNames.Self, Arguments: [] } current
-                            },
+                        {
+                            Pattern: Pattern.Variable self,
+                            Value: Expr.Call { Function: AutoImportNames.Self, Arguments: [] } current
+                        },
                             Expr.Case
+                        {
+                            Value: Expr.Call
                             {
-                                Value: Expr.Call
-                                {
-                                    Function: AutoImportNames.Whereis,
-                                    Arguments: [Expr.Literal { Value: Atom name }]
-                                } selector,
-                                Clauses:
+                                Function: AutoImportNames.Whereis,
+                                Arguments: [Expr.Literal { Value: Atom name }]
+                            } selector,
+                            Clauses:
                                 [
-                                    { Guard: null, Patterns: [Pattern.Variable same], Body: var sameBody },
+                                { Guard: null, Patterns: [Pattern.Variable same], Body: var sameBody },
+                                {
+                                    Guard: Expr.Call
                                     {
-                                        Guard: Expr.Call
-                                        {
-                                            Function: AutoImportNames.IsPid, Arguments: [Expr.Variable checkedPid]
-                                        } guard,
-                                        Patterns: [Pattern.Variable pid],
-                                        Body: Expr.Call { Arguments: [Expr.Variable pidInput] } onPid
-                                    },
-                                    {
-                                        Guard: null, Patterns: [Pattern.Variable { Name: VariableScopeNames.Wildcard }],
-                                        Body: Expr.Call { Arguments: [Expr.Variable fallbackInput] } onMissing
-                                    }
+                                        Function: AutoImportNames.IsPid, Arguments: [Expr.Variable checkedPid]
+                                    } guard,
+                                    Patterns: [Pattern.Variable pid],
+                                    Body: Expr.Call { Arguments: [Expr.Variable pidInput] } onPid
+                                },
+                                {
+                                    Guard: null, Patterns: [Pattern.Variable { Name: VariableScopeNames.Wildcard }],
+                                    Body: Expr.Call { Arguments: [Expr.Variable fallbackInput] } onMissing
+                                }
                                 ]
-                            }
+                        }
                         ]
                     }
                 }]
@@ -63,19 +64,19 @@ internal sealed partial class BeamModuleCompiler
                     Items:
                     [
                         Expr.Match
+                    {
+                        Pattern: Pattern.Variable result,
+                        Value: Expr.Binary
                         {
-                            Pattern: Pattern.Variable result,
-                            Value: Expr.Binary
+                            Operator: ErlangOperators.Append, Left: var prefix,
+                            Right: Expr.Binary
                             {
-                                Operator: ErlangOperators.Append, Left: var prefix,
-                                Right: Expr.Binary
-                                {
-                                    Operator: ErlangOperators.Append,
-                                    Left: Expr.Call { Arguments: [Expr.Variable converted] } convert,
-                                    Right: var suffix
-                                } inner
-                            } outer
-                        },
+                                Operator: ErlangOperators.Append,
+                                Left: Expr.Call { Arguments: [Expr.Variable converted] } convert,
+                                Right: var suffix
+                            } inner
+                        } outer
+                    },
                         Expr.Call { Arguments: [Expr.Variable returned] } onSelf
                     ]
                 }
@@ -94,7 +95,12 @@ internal sealed partial class BeamModuleCompiler
             int missingBranch = Label();
             owner.Op(Allocate, BeamWire.UnsignedTag, frame);
             owner.Operand(BeamWire.UnsignedTag, 1);
-            owner.MoveRegister(XRegisterTag, 0, YRegisterTag, 1);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                1
+            );
             owner.Op(BifZero, BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module, AutoImportNames.Self, 0));
             owner.Operand(YRegisterTag, 0);
             owner.EmitConstant(name, 0);
@@ -104,7 +110,12 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(XRegisterTag, 0);
             owner.EmitTypedRegister(0, PidTypeBits, registerTag: YRegisterTag);
 
-            owner.MoveRegister(YRegisterTag, 1, XRegisterTag, 0);
+            owner.MoveRegister(
+                YRegisterTag,
+                1,
+                XRegisterTag,
+                0
+            );
             owner.Op(TrimFrame, BeamWire.UnsignedTag, frame);
             owner.Operand(BeamWire.UnsignedTag, 0);
             var selectorLocation = CallLocation(selector, location);
@@ -113,7 +124,12 @@ internal sealed partial class BeamModuleCompiler
             owner.EmitConstant(tail, 1);
             owner.EmitArithmeticLine(inner.SourceLine, ref previous);
             Call(ErlangModuleNames.Module, ErlangOperators.Append, 2);
-            owner.MoveRegister(XRegisterTag, 0, XRegisterTag, 1);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                XRegisterTag,
+                1
+            );
             owner.EmitConstant(head, 0);
             owner.EmitArithmeticLine(outer.SourceLine, ref previous);
             Call(ErlangModuleNames.Module, ErlangOperators.Append, 2);
@@ -122,11 +138,21 @@ internal sealed partial class BeamModuleCompiler
             Mark(pidBranch);
             owner.Op(IsPid, LabelTag, missingBranch);
             owner.Operand(XRegisterTag, 0);
-            owner.MoveRegister(YRegisterTag, 1, XRegisterTag, 0);
+            owner.MoveRegister(
+                YRegisterTag,
+                1,
+                XRegisterTag,
+                0
+            );
             EmitPreparedFrameTail(pidTail, selectorLocation, frame);
 
             Mark(missingBranch);
-            owner.MoveRegister(YRegisterTag, 1, XRegisterTag, 0);
+            owner.MoveRegister(
+                YRegisterTag,
+                1,
+                XRegisterTag,
+                0
+            );
             EmitPreparedFrameTail(missingTail, selectorLocation, frame);
 
             return true;
@@ -136,7 +162,12 @@ internal sealed partial class BeamModuleCompiler
         {
             if (call.Function == externalBif && IsRegisteredProcessBif(call))
             {
-                return new EntryCall(call, ErlangModuleNames.Module, [], []);
+                return new EntryCall(
+                    call,
+                    ErlangModuleNames.Module,
+                    [],
+                    []
+                );
             }
 
             return ReadEntryCall(call, [input]);

@@ -101,8 +101,12 @@ internal sealed class NativeRecordTypeParser(
         }
         while (Take(ErlangSyntaxTokens.ListTail));
 
-        return Term.Tuple(Term.A(NativeRecordTypeNames.Type), ((TupleTerm)first).Items[1],
-            Term.A(NativeRecordTypeNames.Union), Cons.From(members));
+        return Term.Tuple(
+            Term.A(NativeRecordTypeNames.Type),
+            ((TupleTerm)first).Items[1],
+            Term.A(NativeRecordTypeNames.Union),
+            Cons.From(members)
+        );
     }
 
     private Term Arithmetic(int minimum = 0)

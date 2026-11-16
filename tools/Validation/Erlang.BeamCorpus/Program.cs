@@ -20,7 +20,12 @@ if (args.Length is < 2 or > 4)
 
 const string otpVersion = "29.1.1";
 string root = Path.GetFullPath(args[0]);
-string versionPath = Path.Combine(root, "releases", "29", "OTP_VERSION");
+string versionPath = Path.Combine(
+    root,
+    "releases",
+    "29",
+    "OTP_VERSION"
+);
 if (!File.Exists(versionPath) || File.ReadAllText(versionPath).Trim() != otpVersion)
 {
     Console.Error.WriteLine("The reference installation must be OTP 29.1.1.");
@@ -40,6 +45,7 @@ string? publicKeyHeaders = args.Length >= 3 ? Path.GetFullPath(args[2]) : null;
 if (publicKeyHeaders is not null && !Directory.Exists(publicKeyHeaders))
 {
     Console.Error.WriteLine("The public_key ASN.1 header directory does not exist.");
+
     return 2;
 }
 
@@ -47,6 +53,7 @@ string? sourceHeaders = args.Length == 4 ? Path.GetFullPath(args[3]) : null;
 if (sourceHeaders is not null && !Directory.Exists(sourceHeaders))
 {
     Console.Error.WriteLine("The OTP source header directory does not exist.");
+
     return 2;
 }
 
@@ -58,6 +65,7 @@ if (generatedDirectory is not null)
     if (Directory.Exists(generatedDirectory))
     {
         Console.Error.WriteLine("Use a new corpus report path when saving generated differences.");
+
         return 2;
     }
 
@@ -74,7 +82,12 @@ foreach (string beam in Directory.EnumerateFiles(root, "*.beam", SearchOption.Al
     var candidates = File.Exists(sameDirectory)
         ? [sameDirectory]
         : sources[(Application(beam), Path.GetFileNameWithoutExtension(beam))].ToArray();
-    if (candidates.Length == 0 && relative == Path.Combine("lib", "eldap-1.3.1", "ebin", "ELDAPv3.beam"))
+    if (candidates.Length == 0 && relative == Path.Combine(
+        "lib",
+        "eldap-1.3.1",
+        "ebin",
+        "ELDAPv3.beam"
+    ))
     {
         try
         {
@@ -88,8 +101,12 @@ foreach (string beam in Directory.EnumerateFiles(root, "*.beam", SearchOption.Al
     }
     if (candidates.Length != 1)
     {
-        results.Add(new(relative, candidates.Length == 0 ? "MissingSource" : "AmbiguousSource", Detail:
-            string.Join(", ", candidates.Order(StringComparer.Ordinal).Select(path => Path.GetRelativePath(root, path)))));
+        results.Add(new(
+            relative,
+            candidates.Length == 0 ? "MissingSource" : "AmbiguousSource",
+            Detail:
+            string.Join(", ", candidates.Order(StringComparer.Ordinal).Select(path => Path.GetRelativePath(root, path)))
+        ));
         continue;
     }
 
@@ -103,7 +120,12 @@ foreach (string beam in Directory.EnumerateFiles(root, "*.beam", SearchOption.Al
         generated = CodeGeneration.CompileBeamFile(
             source,
             library,
-            IncludeDirectories(library, application, publicKeyHeaders, sourceHeaders),
+            IncludeDirectories(
+                library,
+                application,
+                publicKeyHeaders,
+                sourceHeaders
+            ),
             OtpWindowsReleaseProfiles.FindForSource(application, relativeSource)
         );
     }
@@ -172,13 +194,19 @@ foreach (string beam in Directory.EnumerateFiles(root, "*.beam", SearchOption.Al
 var counts = results.GroupBy(result => result.Status).OrderBy(group => group.Key, StringComparer.Ordinal)
     .ToDictionary(group => group.Key, group => group.Count(), StringComparer.Ordinal);
 Directory.CreateDirectory(Path.GetDirectoryName(report)!);
-File.WriteAllText(report, JsonSerializer.Serialize(new
-{
-    OtpVersion = otpVersion,
-    Total = results.Count,
-    Counts = counts,
-    Modules = results
-}, new JsonSerializerOptions { WriteIndented = true }));
+File.WriteAllText(
+    report,
+    JsonSerializer.Serialize(
+        new
+        {
+            OtpVersion = otpVersion,
+            Total = results.Count,
+            Counts = counts,
+            Modules = results
+        },
+        new JsonSerializerOptions { WriteIndented = true }
+    )
+);
 Console.WriteLine(JsonSerializer.Serialize(counts));
 
 return results.Count != 0 && results.All(result => result.Status == "Equal") ? 0 : 1;
@@ -201,12 +229,18 @@ static string? EmissionSite(NotSupportedException error)
     }
 
     string? file = frame!.GetFileName();
+
     return file is null
         ? $"{method.DeclaringType?.Name}.{method.Name}"
         : $"{Path.GetFileName(file)}:{frame.GetFileLineNumber()} ({method.Name})";
 }
 
-static string[] IncludeDirectories(string library, string application, string? publicKeyHeaders, string? sourceHeaders)
+static string[] IncludeDirectories(
+    string library,
+    string application,
+    string? publicKeyHeaders,
+    string? sourceHeaders
+)
 {
     string directory = Path.Combine(library, application);
     string include = Path.Combine(directory, "include");
@@ -224,9 +258,15 @@ static string[] IncludeDirectories(string library, string application, string? p
     if (application.StartsWith("stdlib-", StringComparison.Ordinal))
     {
         string kernel = Path.Combine(library, "kernel-11.0.4", "include");
+
         return sourceHeaders is null
             ? [include, kernel]
-            : [include, kernel, Path.Combine(sourceHeaders, "lib", "stdlib", "src")];
+            : [include, kernel, Path.Combine(
+                sourceHeaders,
+                "lib",
+                "stdlib",
+                "src"
+            )];
     }
 
     string appName = application.Split('-', 2)[0];
@@ -248,8 +288,18 @@ static string[] IncludeDirectories(string library, string application, string? p
 
     // Use the upstream source layout for both local and sibling application headers.
     string sourceDirectory = appName == "erts"
-        ? Path.Combine(sourceHeaders, "erts", "preloaded", "src")
-        : Path.Combine(sourceHeaders, "lib", appName, "src");
+        ? Path.Combine(
+            sourceHeaders,
+            "erts",
+            "preloaded",
+            "src"
+        )
+        : Path.Combine(
+            sourceHeaders,
+            "lib",
+            appName,
+            "src"
+        );
 
     return [include, .. extra, sourceDirectory];
 }

@@ -20,10 +20,13 @@ internal sealed partial class BeamModuleCompiler
             if (clause is not
                 {
                     Guard: null,
-                    Patterns: [Pattern.Tuple { Items: [
+                    Patterns: [Pattern.Tuple
+                    {
+                        Items: [
                         Pattern.Literal { Value: Atom first }, Pattern.Literal { Value: Atom second },
                         Pattern.Literal { Value: Integer value }
-                    ] }],
+                    ]
+                    }],
                     Body: Expr.Literal literal
                 }
                 || result is not null && !result.Equals(literal.Value)
@@ -37,10 +40,13 @@ internal sealed partial class BeamModuleCompiler
 
         var order = Comparer<Atom>.Create((left, right) => TermOrder.Compare(left, right, exact: true));
         var groups = keys.GroupBy(key => key.First).OrderByDescending(group => group.Key, order)
-            .Select(group => new TupleMembershipGroup(group.Key, group.GroupBy(key => key.Second)
+            .Select(group => new TupleMembershipGroup(
+                group.Key,
+                group.GroupBy(key => key.Second)
                 .OrderBy(member => member.Key, order)
                 .Select(member => (member.Key, member.Select(key => key.Value).OrderBy(value => value.Value).ToArray()))
-                .ToArray())).ToArray();
+                .ToArray()
+            )).ToArray();
         if (groups.Length < 2 || groups.Any(group => group.Members.Length < 2))
         {
             return false;
@@ -136,7 +142,12 @@ internal sealed partial class BeamModuleCompiler
         }
         else
         {
-            EmitTypedRegister(register, selectorType, bounds?.Lower, bounds?.Upper);
+            EmitTypedRegister(
+                register,
+                selectorType,
+                bounds?.Lower,
+                bounds?.Upper
+            );
         }
         Operand(LabelTag, failure);
         instructions.WriteByte(ExtendedListOperand);

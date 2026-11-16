@@ -11,10 +11,13 @@ internal sealed partial class BeamModuleCompiler
             var sequence = clause.Body as Expr.Sequence;
             Expr body = sequence?.Items.LastOrDefault() ?? clause.Body;
             if (clause.Guard is not null || !HasUnconditionalParameters(clause)
-                || body is not Expr.Case { Value: Expr.Call read, Clauses: [
+                || body is not Expr.Case
+                {
+                    Value: Expr.Call read, Clauses: [
                     { Patterns: [Pattern.Tuple tuple], Guard: null, Body: Expr.Call tail },
                     { Patterns: [Pattern.Variable fallback], Guard: null, Body: Expr.Variable returned }
-                ] }
+                ]
+                }
                 || fallback.Name == VariableScopeNames.Wildcard || fallback.Name != returned.Name
                 || !HasTupleTag(tuple, out Atom tag))
             {
@@ -125,7 +128,12 @@ internal sealed partial class BeamModuleCompiler
             EmitFrameAllocation(live, inputs.Length);
             for (int slot = 0; slot < inputs.Length; slot++)
             {
-                owner.MoveRegister(XRegisterTag, Array.IndexOf(parameters, inputs[slot]), YRegisterTag, slot);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    Array.IndexOf(parameters, inputs[slot]),
+                    YRegisterTag,
+                    slot
+                );
             }
 
             EmitEntryCall(plans[0]);
@@ -134,12 +142,23 @@ internal sealed partial class BeamModuleCompiler
             {
                 EntryCall plan = plans[index];
                 var expired = lastUse.Where(pair => pair.Value == index).Select(pair => pair.Key).Order().ToArray();
-                owner.EmitOrderedTailMoves(plan.Moves, plan.Constants, plan.SavedInputs, expired);
+                owner.EmitOrderedTailMoves(
+                    plan.Moves,
+                    plan.Constants,
+                    plan.SavedInputs,
+                    expired
+                );
                 owner.EmitCallLine(plan.Call, previous);
                 Call(plan.Module, plan.Call.Function, plan.Call.Arguments.Count);
                 previous = CallLocation(plan.Call, previous);
             }
-            EmitDetailRecordTest(0, tuple.Items.Count, tag, unmatched, ReturnsTuple(read, 0, []) ? TupleTypeBits : 0);
+            EmitDetailRecordTest(
+                0,
+                tuple.Items.Count,
+                tag,
+                unmatched,
+                ReturnsTuple(read, 0, []) ? TupleTypeBits : 0
+            );
             if (fieldIndex >= 0)
             {
                 owner.EmitTuplePart(0, fieldIndex, fieldRegister);
@@ -149,6 +168,7 @@ internal sealed partial class BeamModuleCompiler
             EmitPreparedFrameTail(finish, previous, inputs.Length);
             Mark(unmatched);
             owner.EmitFrameReturn(inputs.Length);
+
             return true;
 
             void ReadPrefix(Expr.Call call)
@@ -234,7 +254,12 @@ internal sealed partial class BeamModuleCompiler
             EmitEntryCallWithEmptyFrame(plan, parameters);
             if (shared)
             {
-                EmitTupleShapeTest(XRegisterTag, 0, arity, unmatched);
+                EmitTupleShapeTest(
+                    XRegisterTag,
+                    0,
+                    arity,
+                    unmatched
+                );
                 owner.EmitTuplePart(0, 0, 1);
             }
             else
@@ -336,10 +361,12 @@ internal sealed partial class BeamModuleCompiler
         private bool TryEmitEntryTaggedCallTuple(Clause clause)
         {
             if (clause.Guard is not null || !HasUnconditionalParameters(clause)
-                || clause.Body is not Expr.Case { Value: Expr.Call read, Clauses:
+                || clause.Body is not Expr.Case
+                {
+                    Value: Expr.Call read, Clauses:
                     [
-                        { Guard: null, Patterns: [Pattern.Tuple pattern], Body: Expr.Tuple tuple },
-                        { Guard: null, Patterns: [Pattern.Variable fallback], Body: Expr.Variable returned }
+                    { Guard: null, Patterns: [Pattern.Tuple pattern], Body: Expr.Tuple tuple },
+                    { Guard: null, Patterns: [Pattern.Variable fallback], Body: Expr.Variable returned }
                     ]
                 }
                 || ReadSingleTupleField(pattern) is not { Field: Pattern.Variable projected } access
@@ -354,7 +381,7 @@ internal sealed partial class BeamModuleCompiler
                 || parameters.Contains(fallback.Name, StringComparer.Ordinal)
                 || ReadEntryCall(read, parameters) is not { } selector
                 || tuple.Items.OfType<Expr.Call>().ToArray() is not [Expr.Call
-                    { DynamicRemote: false, Arguments: [Expr.Variable argument] } convert]
+                { DynamicRemote: false, Arguments: [Expr.Variable argument] } convert]
                 || argument.Name != projected.Name)
             {
                 return false;
@@ -375,7 +402,12 @@ internal sealed partial class BeamModuleCompiler
                 Items = tuple.Items.Select(item => ReferenceEquals(item, convert) ? new Expr.Variable(projected.Name) : item).ToArray()
             };
             if (tuple.Items.OfType<Expr.Variable>().Any()
-                || !TryReadBoundTupleOperands(prepared, projected.Name, new Dictionary<string, int>(StringComparer.Ordinal), out var operands))
+                || !TryReadBoundTupleOperands(
+                    prepared,
+                    projected.Name,
+                    new Dictionary<string, int>(StringComparer.Ordinal),
+                    out var operands
+                ))
             {
                 return false;
             }
@@ -499,30 +531,48 @@ internal sealed partial class BeamModuleCompiler
 
         private bool TryEmitTaggedCallProjection(FunctionDefinition function)
         {
-            if (function.Clauses is not [{
-                Guard: null, Patterns: [],
-                Body: Expr.Sequence { Items: [
-                    Expr.Match
+            if (function.Clauses is not [
+                {
+                    Guard: null, Patterns: [],
+                    Body: Expr.Sequence
                     {
-                        Pattern: Pattern.Tuple { Items: [Pattern.Literal { Value: Atom tag },
-                            Pattern.Variable projected, Pattern.Variable carried] },
-                        Value: Expr.Call { Module: not (null or ErlangModuleNames.Module),
-                            DynamicRemote: false, Arguments: [] } read
-                    } match,
+                        Items: [
                     Expr.Match
-                    {
-                        Pattern: Pattern.Variable saved,
-                        Value: Expr.Call { Module: null, DynamicRemote: false, Arguments: [] } local
-                    },
+                        {
+                            Pattern: Pattern.Tuple
+                            {
+                                Items: [Pattern.Literal { Value: Atom tag },
+                            Pattern.Variable projected, Pattern.Variable carried]
+                            },
+                            Value: Expr.Call
+                            {
+                                Module: not (null or ErlangModuleNames.Module),
+                                DynamicRemote: false, Arguments: []
+                            } read
+                        } match,
                     Expr.Match
-                    {
-                        Pattern: Pattern.Variable converted,
-                        Value: Expr.Call { Module: not (null or ErlangModuleNames.Module),
-                            DynamicRemote: false, Arguments: [var literal, Expr.Variable input] } convert
-                    },
+                        {
+                            Pattern: Pattern.Variable saved,
+                            Value: Expr.Call { Module: null, DynamicRemote: false, Arguments: [] } local
+                        },
+                    Expr.Match
+                        {
+                            Pattern: Pattern.Variable converted,
+                            Value: Expr.Call
+                            {
+                                Module: not (null or ErlangModuleNames.Module),
+                                DynamicRemote: false, Arguments: [var literal, Expr.Variable input]
+                            } convert
+                        },
                     Expr.Tuple { Items: [Expr.Variable first, Expr.Variable second, Expr.Variable third] }
-                ] }
-            }] || !DistinctBindings(projected, carried, saved, converted)
+                ]
+                    }
+                }] || !DistinctBindings(
+                    projected,
+                    carried,
+                    saved,
+                    converted
+                )
                 || input.Name != projected.Name || first.Name != saved.Name
                 || second.Name != converted.Name || third.Name != carried.Name
                 || !AttributeLiteral.TryNormalizeConstant(literal, out Term argument)
@@ -542,7 +592,12 @@ internal sealed partial class BeamModuleCompiler
             owner.EmitCallLine(read, location);
             owner.Op(ExternalCall, BeamWire.UnsignedTag, 0);
             owner.Operand(BeamWire.UnsignedTag, owner.Import(read.Module!, read.Function, 0));
-            owner.MoveRegister(XRegisterTag, 0, YRegisterTag, 1);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                1
+            );
             owner.Op(IsTaggedTuple, LabelTag, failure);
             owner.Operand(XRegisterTag, 0);
             owner.Operand(BeamWire.UnsignedTag, 3);
@@ -555,14 +610,24 @@ internal sealed partial class BeamModuleCompiler
             owner.Op(GetTupleElement, YRegisterTag, 1);
             owner.Operand(BeamWire.UnsignedTag, 1);
             owner.Operand(XRegisterTag, 1);
-            owner.MoveRegister(XRegisterTag, 0, YRegisterTag, 1);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                1
+            );
             owner.EmitConstant(argument, 0);
             owner.EmitCallLine(convert, CallLocation(local, location));
             owner.Op(ExternalCall, BeamWire.UnsignedTag, 2);
             owner.Operand(BeamWire.UnsignedTag, owner.Import(convert.Module!, convert.Function, 2));
             owner.Op(TestHeap, BeamWire.UnsignedTag, 4);
             owner.Operand(BeamWire.UnsignedTag, 1);
-            owner.EmitTagMatchTuple(0, (YRegisterTag, 1), (XRegisterTag, 0), (YRegisterTag, 0));
+            owner.EmitTagMatchTuple(
+                0,
+                (YRegisterTag, 1),
+                (XRegisterTag, 0),
+                (YRegisterTag, 0)
+            );
             owner.EmitFrameReturn(2);
             Mark(failure);
             owner.EmitLine(new(location.File, match.SourceLine == 0 ? location.Line : match.SourceLine));

@@ -12,10 +12,10 @@ internal sealed partial class BeamModuleCompiler
                 [
                     var prepend,
                     var update,
-                    {
-                        Patterns: [Pattern.Variable ignored, Pattern.Variable state], Guard: null,
-                        Body: Expr.Tuple { Items: [Expr.Literal { Value: Atom tag }, Expr.Variable unchanged] }
-                    }
+                {
+                    Patterns: [Pattern.Variable ignored, Pattern.Variable state], Guard: null,
+                    Body: Expr.Tuple { Items: [Expr.Literal { Value: Atom tag }, Expr.Variable unchanged] }
+                }
                 ] || ignored.Name == state.Name || state.Name == VariableScopeNames.Wildcard
                 || unchanged.Name != state.Name
                 || ReadBranch(prepend) is not { } add || ReadBranch(update) is not { } modify
@@ -35,7 +35,12 @@ internal sealed partial class BeamModuleCompiler
             int appendLabel = Label();
             int updateLabel = Label();
             int fallback = Label();
-            EmitTupleShapeTest(XRegisterTag, 0, 2, fallback);
+            EmitTupleShapeTest(
+                XRegisterTag,
+                0,
+                2,
+                fallback
+            );
             owner.EmitTuplePart(0, 0, 2);
             owner.EmitTuplePart(0, 1, 0);
             owner.Op(SelectValue, XRegisterTag, 2);
@@ -61,8 +66,18 @@ internal sealed partial class BeamModuleCompiler
             Mark(updateLabel);
             EmitReport(modify.Report, modify.Category, modify.Action);
             owner.EmitConstant(position, 1);
-            owner.MoveRegister(YRegisterTag, 1, XRegisterTag, 2);
-            owner.MoveRegister(YRegisterTag, 0, XRegisterTag, 0);
+            owner.MoveRegister(
+                YRegisterTag,
+                1,
+                XRegisterTag,
+                2
+            );
+            owner.MoveRegister(
+                YRegisterTag,
+                0,
+                XRegisterTag,
+                0
+            );
             TrimDetailFrame(2, 0);
             owner.EmitCallLine(change, CallLocation(modify.Report, location));
             owner.EmitStaticRemoteCall(change);
@@ -84,13 +99,25 @@ internal sealed partial class BeamModuleCompiler
                         Guard: null,
                         Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom selector }, Pattern.Variable item] },
                             Pattern.Variable saved],
-                        Body: Expr.Sequence { Items:
-                            [Expr.Call { Module: not null, DynamicRemote: false, Arguments:
-                                [Expr.List { Items:
-                                    [Expr.Tuple { Items: [Expr.Literal { Value: Atom category },
-                                        Expr.Tuple { Items: [Expr.Literal { Value: Atom action }, Expr.Variable reported] }] }],
-                                    Tail: null }] } report,
-                                Expr.Tuple { Items: [Expr.Literal { Value: Atom resultTag }, var result] }] }
+                        Body: Expr.Sequence
+                        {
+                            Items:
+                            [Expr.Call
+                            {
+                                Module: not null, DynamicRemote: false, Arguments:
+                                [Expr.List
+                                {
+                                    Items:
+                                    [Expr.Tuple
+                                    {
+                                        Items: [Expr.Literal { Value: Atom category },
+                                        Expr.Tuple { Items: [Expr.Literal { Value: Atom action }, Expr.Variable reported] }]
+                                    }],
+                                    Tail: null
+                                }]
+                            } report,
+                                Expr.Tuple { Items: [Expr.Literal { Value: Atom resultTag }, var result] }]
+                        }
                     } || !DistinctBindings(item, saved) || reported.Name != item.Name || !resultTag.Equals(tag))
                 {
                     return null;
@@ -104,8 +131,18 @@ internal sealed partial class BeamModuleCompiler
                 owner.Op(AllocateHeap, BeamWire.UnsignedTag, 2);
                 owner.Operand(BeamWire.UnsignedTag, 6 + ConsHeapWords);
                 owner.Operand(BeamWire.UnsignedTag, 2);
-                owner.MoveRegister(XRegisterTag, 0, YRegisterTag, 0);
-                owner.MoveRegister(XRegisterTag, 1, YRegisterTag, 1);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    0,
+                    YRegisterTag,
+                    0
+                );
+                owner.MoveRegister(
+                    XRegisterTag,
+                    1,
+                    YRegisterTag,
+                    1
+                );
                 owner.EmitTagMatchTuple(0, (AtomTag, owner.Intern(action.Name)), (XRegisterTag, 0));
                 owner.EmitTagMatchTuple(0, (AtomTag, owner.Intern(category.Name)), (XRegisterTag, 0));
                 owner.Op(PutList, XRegisterTag, 0);

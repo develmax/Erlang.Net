@@ -44,7 +44,13 @@ internal static class BasedIntegerLexer
             {
                 int next = Digit(text[index + 1]);
                 if (index > firstDigit && next >= 0 && next < radix)
-                    return ReadFloat(text, start, firstDigit, radix, ref index);
+                    return ReadFloat(
+                        text,
+                        start,
+                        firstDigit,
+                        radix,
+                        ref index
+                    );
                 if (NameCharacter(text[index + 1]))
                     throw new CompileException(CompilerDiagnosticCodes.InvalidLiteral, BasedIntegerDiagnostics.IllegalFloat, index);
             }
@@ -55,7 +61,12 @@ internal static class BasedIntegerLexer
         if (index == firstDigit)
             throw new CompileException(CompilerDiagnosticCodes.InvalidLiteral, BasedIntegerDiagnostics.IllegalInteger, index);
 
-        return new Token(LexerTokenKinds.Integer, value.ToString(CultureInfo.InvariantCulture), start, index);
+        return new Token(
+            LexerTokenKinds.Integer,
+            value.ToString(CultureInfo.InvariantCulture),
+            start,
+            index
+        );
     }
 
     private static Token ReadFloat(
@@ -121,7 +132,12 @@ internal static class BasedIntegerLexer
             throw InvalidFloat(start);
         }
 
-        return new Token(LexerTokenKinds.Float, value.ToString("R", CultureInfo.InvariantCulture), start, index);
+        return new Token(
+            LexerTokenKinds.Float,
+            value.ToString("R", CultureInfo.InvariantCulture),
+            start,
+            index
+        );
     }
 
     private static void ReadDigits(string text, int radix, ref int index)

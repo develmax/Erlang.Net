@@ -105,7 +105,13 @@ internal sealed partial class BeamModuleCompiler
             owner.EmitNonemptyList(input, fallback);
             if (usesTail)
             {
-                owner.EmitListParts(input, XRegisterTag, headRegister, XRegisterTag, tailRegister);
+                owner.EmitListParts(
+                    input,
+                    XRegisterTag,
+                    headRegister,
+                    XRegisterTag,
+                    tailRegister
+                );
             }
             else
             {
@@ -147,7 +153,12 @@ internal sealed partial class BeamModuleCompiler
                     }
                     else if (result != 0)
                     {
-                        owner.MoveRegister(XRegisterTag, result, XRegisterTag, 0);
+                        owner.MoveRegister(
+                            XRegisterTag,
+                            result,
+                            XRegisterTag,
+                            0
+                        );
                     }
 
                     owner.instructions.WriteByte(Return);
@@ -155,6 +166,7 @@ internal sealed partial class BeamModuleCompiler
             }
 
             Mark(fallback);
+
             return cases.Count;
         }
 
@@ -170,7 +182,7 @@ internal sealed partial class BeamModuleCompiler
                 while (index < prefix.Count && function.Clauses[index] is { Guard: null } clause
                     && clause.Body is Expr.List { Items: [_], Tail: Expr.Call }
                     && clause.Patterns[prefix.Input] is Pattern.List
-                        { Items: [Pattern.Literal { Value: Atom or Integer } literal], Tail: Erlang.Pattern.Variable }
+                    { Items: [Pattern.Literal { Value: Atom or Integer } literal], Tail: Erlang.Pattern.Variable }
                     && !HasRepeatedConsBindings(clause, prefix.Input) && keys.Add(literal.Value))
                 {
                     values.Add(index++, literal.Value);

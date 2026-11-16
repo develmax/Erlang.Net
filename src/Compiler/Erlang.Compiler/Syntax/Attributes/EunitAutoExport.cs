@@ -20,13 +20,32 @@ internal static class EunitAutoExport
     {
         Term zero = Term.I(0);
         Term test = Term.A(Test);
-        Term remote = Term.Tuple(Term.A("remote"), zero,
+        Term remote = Term.Tuple(
+            Term.A("remote"),
+            zero,
             Term.Tuple(Term.A("atom"), zero, Term.A("eunit")),
-            Term.Tuple(Term.A("atom"), zero, test));
-        Term call = Term.Tuple(Term.A("call"), zero, remote,
-            Term.List(Term.Tuple(Term.A("atom"), zero, Term.A(module))));
-        Term clause = Term.Tuple(Term.A("clause"), zero, Nil.Value, Nil.Value, Term.List(call));
+            Term.Tuple(Term.A("atom"), zero, test)
+        );
+        Term call = Term.Tuple(
+            Term.A("call"),
+            zero,
+            remote,
+            Term.List(Term.Tuple(Term.A("atom"), zero, Term.A(module)))
+        );
+        Term clause = Term.Tuple(
+            Term.A("clause"),
+            zero,
+            Nil.Value,
+            Nil.Value,
+            Term.List(call)
+        );
 
-        return Term.Tuple(Term.A("function"), zero, test, zero, Term.List(clause));
+        return Term.Tuple(
+            Term.A("function"),
+            zero,
+            test,
+            zero,
+            Term.List(clause)
+        );
     }
 }

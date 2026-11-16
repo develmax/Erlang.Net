@@ -10,22 +10,38 @@ internal sealed partial class BeamModuleCompiler
 
         private bool TryEmitMonitoredReceive(Clause clause, int? guardFailure = null)
         {
-            if (!HasUnconditionalParameters(clause) || clause.Body is not Expr.Sequence { Items: [
+            if (!HasUnconditionalParameters(clause) || clause.Body is not Expr.Sequence
+                {
+                    Items: [
                 Expr.Match { Pattern: Pattern.Literal { Value: Atom expected }, Value: Expr.Call setup } setupMatch,
-                Expr.Match { Pattern: Pattern.Variable { Name: not VariableScopeNames.Wildcard } reference,
-                    Value: Expr.Call { Function: AutoImportNames.Monitor, Arguments: [
+                Expr.Match
+                    {
+                        Pattern: Pattern.Variable { Name: not VariableScopeNames.Wildcard } reference,
+                        Value: Expr.Call
+                        {
+                            Function: AutoImportNames.Monitor, Arguments: [
                         Expr.Literal { Value: Atom { Name: "process" } kind }, Expr.Literal { Value: Atom target }
-                    ] } monitor },
-                Expr.Receive { Timeout: null, Clauses: [{
-                    Guard: null, Patterns: [Pattern.Tuple { Items: [
+                    ]
+                        } monitor
+                    },
+                Expr.Receive
+                    {
+                        Timeout: null, Clauses: [
+                        {
+                            Guard: null, Patterns: [Pattern.Tuple
+                            {
+                                Items: [
                         Pattern.Literal { Value: Atom { Name: "DOWN" } notification },
                         Pattern.Variable matched,
                         Pattern.Literal { Value: Atom messageKind },
                         Pattern.Variable { Name: VariableScopeNames.Wildcard },
                         Pattern.Variable { Name: VariableScopeNames.Wildcard }
-                    ] }], Body: Expr.Literal result
-                }] }
-            ] }
+                    ]
+                            }], Body: Expr.Literal result
+                        }]
+                    }
+            ]
+                }
                 || matched.Name != reference.Name || !messageKind.Equals(kind)
                 || clause.Patterns.OfType<Pattern.Variable>().Any(pattern => pattern.Name == reference.Name)
                 || !owner.ResolvesErlangBif(monitor))
@@ -69,7 +85,12 @@ internal sealed partial class BeamModuleCompiler
             var setupLocation = CallLocation(setup, location);
             owner.EmitCallLine(monitor, setupLocation);
             Call(ErlangModuleNames.Module, AutoImportNames.Monitor, 2);
-            owner.MoveRegister(XRegisterTag, 0, YRegisterTag, referenceSlot);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                referenceSlot
+            );
             owner.Op(ReceiveMarkerBind, YRegisterTag, markerSlot);
             owner.Operand(XRegisterTag, 0);
             owner.Op(ReceiveMarkerUse, XRegisterTag, 0);
@@ -77,7 +98,13 @@ internal sealed partial class BeamModuleCompiler
             Mark(scan);
             owner.Op(LoopReceive, LabelTag, wait);
             owner.Operand(XRegisterTag, 0);
-            owner.EmitRecordTest(retry, XRegisterTag, 0, notification, 5);
+            owner.EmitRecordTest(
+                retry,
+                XRegisterTag,
+                0,
+                notification,
+                5
+            );
             owner.EmitTuplePart(0, 1, 1);
             owner.EmitTuplePart(0, 2, 0);
             owner.Op(ExactEqualTest, LabelTag, retry);
@@ -98,6 +125,7 @@ internal sealed partial class BeamModuleCompiler
             owner.EmitLine(setupMatch.SourceLine == 0 ? setupLocation
                 : new BeamSourceLocation(setupMatch.PreprocessorFile, setupMatch.SourceLine));
             owner.Op(BadMatch, XRegisterTag, 0);
+
             return true;
         }
     }

@@ -257,7 +257,12 @@ internal static class BeamReleaseImageChecks
             CompareRecordGuardMetadata(temporary.FullName);
             CompareDebugFunctions(temporary.FullName, "beam_map_catch_debug_probe", 2);
             CompareDebugFunctions(temporary.FullName, "beam_comprehension_debug_probe", 5);
-            CompareDebugFunctions(temporary.FullName, "beam_string_sigils", 7, "beam_string_sigils_debug.beam");
+            CompareDebugFunctions(
+                temporary.FullName,
+                "beam_string_sigils",
+                7,
+                "beam_string_sigils_debug.beam"
+            );
             CompareDebugFunctions(temporary.FullName, "beam_macro_sigil_probe", 1);
             CompareDebugFunctions(temporary.FullName, "beam_grouped_debug_probe", 4);
             CompareDebugFunctions(temporary.FullName, "beam_guard_grouping_probe", 1);
@@ -284,7 +289,12 @@ internal static class BeamReleaseImageChecks
                 File.WriteAllBytes(Path.Combine(include, header), BeamModuleEmissionChecks.Read(header));
             }
             const string megacoHeader = "megaco_message_internal.hrl";
-            string engine = Directory.CreateDirectory(Path.Combine(temporary.FullName, "megaco", "src", "engine")).FullName;
+            string engine = Directory.CreateDirectory(Path.Combine(
+                temporary.FullName,
+                "megaco",
+                "src",
+                "engine"
+            )).FullName;
             File.WriteAllBytes(Path.Combine(engine, megacoHeader), BeamModuleEmissionChecks.Read(megacoHeader));
             File.WriteAllBytes(Path.Combine(temporary.FullName, megacoHeader), BeamModuleEmissionChecks.Read(megacoHeader));
             foreach (var (application, module) in modules)
@@ -297,7 +307,13 @@ internal static class BeamReleaseImageChecks
                 {
                     "httpc_handler_sup" => OtpWindowsReleaseProfiles.FindForSource(
                         application,
-                        Path.Combine("lib", application, "src", "http_client", input)
+                        Path.Combine(
+                            "lib",
+                            application,
+                            "src",
+                            "http_client",
+                            input
+                        )
                     ),
                     "ex_slider" => OtpWindowsReleaseProfiles.FindForSource(
                         application,
@@ -312,7 +328,12 @@ internal static class BeamReleaseImageChecks
                     ),
                     "prim_buffer" or "ssh_lsocket_sup" or "ssh_tcpip_forward_acceptor_sup" => OtpWindowsReleaseProfiles.FindForSource(
                         application,
-                        Path.Combine("lib", application, "src", input)
+                        Path.Combine(
+                            "lib",
+                            application,
+                            "src",
+                            input
+                        )
                     ),
                     _ => OtpWindowsReleaseProfiles.Find(application, module, isGeneratedWxSource: application == "wx-2.7")
                 };
@@ -340,7 +361,13 @@ internal static class BeamReleaseImageChecks
         const string source = "beam_record_guard_probe.erl";
         string path = Path.Combine(directory, source);
         File.WriteAllBytes(path, BeamModuleEmissionChecks.Read(source));
-        var profile = new BeamReleaseBuildProfile("10.0.6", "/otp/" + source, "/otp", [], []);
+        var profile = new BeamReleaseBuildProfile(
+            "10.0.6",
+            "/otp/" + source,
+            "/otp",
+            [],
+            []
+        );
         byte[] expected = Chunks(BeamModuleEmissionChecks.Read("beam_record_guard_probe_debug.beam")).Single(chunk => chunk.Id == "Dbgi").Data;
         byte[] actual = Chunks(CodeGeneration.CompileBeamFile(path, buildProfile: profile)).Single(chunk => chunk.Id == "Dbgi").Data;
         Term[] functions = Functions(expected);
@@ -361,7 +388,13 @@ internal static class BeamReleaseImageChecks
         string source = module + ".erl";
         string path = Path.Combine(directory, source);
         File.WriteAllBytes(path, BeamModuleEmissionChecks.Read(source));
-        var profile = new BeamReleaseBuildProfile("10.0.6", "/otp/" + source, "/otp", [], []);
+        var profile = new BeamReleaseBuildProfile(
+            "10.0.6",
+            "/otp/" + source,
+            "/otp",
+            [],
+            []
+        );
         byte[] expected = Chunks(BeamModuleEmissionChecks.Read(reference ?? module + ".beam")).Single(chunk => chunk.Id == "Dbgi").Data;
         byte[] actual = Chunks(CodeGeneration.CompileBeamFile(path, buildProfile: profile)).Single(chunk => chunk.Id == "Dbgi").Data;
         Term[] functions = Functions(expected);
@@ -382,7 +415,13 @@ internal static class BeamReleaseImageChecks
         const string source = "beam_import_probe.erl";
         string path = Path.Combine(directory, source);
         File.WriteAllBytes(path, BeamModuleEmissionChecks.Read(source));
-        var profile = new BeamReleaseBuildProfile("10.0.6", "/otp/" + source, "/otp", [], []);
+        var profile = new BeamReleaseBuildProfile(
+            "10.0.6",
+            "/otp/" + source,
+            "/otp",
+            [],
+            []
+        );
         byte[] expected = Chunks(BeamModuleEmissionChecks.Read("beam_import_probe_debug.beam")).Single(chunk => chunk.Id == "Dbgi").Data;
         byte[] actual = Chunks(CodeGeneration.CompileBeamFile(path, buildProfile: profile)).Single(chunk => chunk.Id == "Dbgi").Data;
         Term[] imports = ImportForms(expected);
@@ -403,7 +442,13 @@ internal static class BeamReleaseImageChecks
         const string source = "beam_adjacent_strings_probe.erl";
         string path = Path.Combine(directory, source);
         File.WriteAllBytes(path, BeamModuleEmissionChecks.Read(source));
-        var profile = new BeamReleaseBuildProfile("10.0.6", "/otp/" + source, "/otp", [], []);
+        var profile = new BeamReleaseBuildProfile(
+            "10.0.6",
+            "/otp/" + source,
+            "/otp",
+            [],
+            []
+        );
         byte[] debug = Chunks(CodeGeneration.CompileBeamFile(path, buildProfile: profile)).Single(chunk => chunk.Id == "Dbgi").Data;
         Term decoded = ExternalTermFormat.Decode(RawEtf(debug));
         if (decoded is not TupleTerm { Items: [_, _, TupleTerm { Items: [var forms, _] }] }
@@ -431,7 +476,13 @@ internal static class BeamReleaseImageChecks
         const string releaseDirectory = "/daily_build/otp_src/spec612";
         string path = Path.Combine(directory, source);
         File.WriteAllBytes(path, BeamModuleEmissionChecks.Read(source));
-        var profile = new BeamReleaseBuildProfile("10.0.6", releaseDirectory + "/" + source, releaseDirectory, [], []);
+        var profile = new BeamReleaseBuildProfile(
+            "10.0.6",
+            releaseDirectory + "/" + source,
+            releaseDirectory,
+            [],
+            []
+        );
         var expected = Chunks(BeamModuleEmissionChecks.Read(module + ".beam")).ToDictionary(chunk => chunk.Id, chunk => chunk.Data);
         var actual = Chunks(CodeGeneration.CompileBeamFile(path, buildProfile: profile)).ToDictionary(chunk => chunk.Id, chunk => chunk.Data);
         if (!Specs(expected["Dbgi"]).SequenceEqual(Specs(actual["Dbgi"]))

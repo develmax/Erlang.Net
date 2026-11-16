@@ -92,6 +92,7 @@ internal sealed partial class BeamModuleCompiler
         }
 
         output.Write(code.Span[copied..]);
+
         return output.ToArray();
     }
 
@@ -107,6 +108,7 @@ internal sealed partial class BeamModuleCompiler
             {
                 int removed = (int)instruction.Operands[0].Value;
                 int kept = (int)instruction.Operands[1].Value;
+
                 return removed > 0 && removed <= firstUsed && removed + kept == size ? index : null;
             }
 

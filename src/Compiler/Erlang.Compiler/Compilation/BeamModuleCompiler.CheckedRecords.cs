@@ -19,8 +19,11 @@ internal sealed partial class BeamModuleCompiler
             var (access, expected) = guard switch
             {
                 Expr.RecordAccess field => (field, "true"),
-                Expr.Binary { Operator: ErlangOperators.ExactEqual, Left: Expr.RecordAccess field,
-                    Right: Expr.Literal { Value: Atom atom } } => (field, atom.Name),
+                Expr.Binary
+                {
+                    Operator: ErlangOperators.ExactEqual, Left: Expr.RecordAccess field,
+                    Right: Expr.Literal { Value: Atom atom }
+                } => (field, atom.Name),
                 _ => (null, null)
             };
             if (access?.Value is not Expr.Variable source || source.Name != input.Name)
@@ -29,7 +32,12 @@ internal sealed partial class BeamModuleCompiler
             }
 
             int failure = Label();
-            EmitDetailRecordTest(0, access.Arity, Term.A(access.Name), failure);
+            EmitDetailRecordTest(
+                0,
+                access.Arity,
+                Term.A(access.Name),
+                failure
+            );
             owner.EmitTuplePart(0, access.Index, 0);
             owner.EmitAtomTest(0, expected!, failure);
             owner.EmitConstant(accepted.Value, 0);
@@ -137,7 +145,12 @@ internal sealed partial class BeamModuleCompiler
             }
             else
             {
-                EmitCheckedRecord(access.Name, access.Arity, savedRecord, new(access.PreprocessorFile, access.SourceLine));
+                EmitCheckedRecord(
+                    access.Name,
+                    access.Arity,
+                    savedRecord,
+                    new(access.PreprocessorFile, access.SourceLine)
+                );
             }
 
             if (savedRecord is int savedSlot)
@@ -191,7 +204,12 @@ internal sealed partial class BeamModuleCompiler
 
                 if (CheckedRecordSlot(field.Value, field.Name, field.Arity) is null)
                 {
-                    EmitCheckedRecord(field.Name, field.Arity, slot, new(field.PreprocessorFile, field.SourceLine));
+                    EmitCheckedRecord(
+                        field.Name,
+                        field.Arity,
+                        slot,
+                        new(field.PreprocessorFile, field.SourceLine)
+                    );
                     RememberRecordAccesses(field);
                 }
 
@@ -319,7 +337,10 @@ internal sealed partial class BeamModuleCompiler
                     ? "reuse"
                     : "copy";
                 owner.Op(TestHeap, BeamWire.UnsignedTag, update.Arity + 1 + (tuplePrefix is null ? 0 : tuplePrefix.Length + 2));
-                owner.Operand(BeamWire.UnsignedTag, Math.Max(sourceSlot.HasValue && !registerReplacement ? 0 : 1, tuplePrefix is null ? 0 : ReceiveGuardLiveRegisters));
+                owner.Operand(
+                    BeamWire.UnsignedTag,
+                    Math.Max(sourceSlot.HasValue && !registerReplacement ? 0 : 1, tuplePrefix is null ? 0 : ReceiveGuardLiveRegisters)
+                );
                 owner.Op(UpdateRecord, AtomTag, owner.Intern(hint));
                 owner.Operand(BeamWire.UnsignedTag, update.Arity);
                 owner.EmitTypedRegister(sourceSlot ?? 0, TupleTypeBits, registerTag: sourceSlot.HasValue ? YRegisterTag : XRegisterTag);

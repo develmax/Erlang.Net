@@ -30,11 +30,17 @@ internal sealed partial class BeamModuleCompiler
             for (int index = allocation + 1; index + 2 < end; index++)
             {
                 if (body[index].Definition.Opcode is (LocalCall or ExternalCall or DynamicApply or CallFun or CallFunTyped)
-                    && body[index + 1] is { Definition.Opcode: Move, Operands: [
-                        { Kind: BeamOperandParameters.X, Value.IsZero: true }, { Kind: BeamOperandParameters.Y } saved] }
-                    && body[index + 2] is { Definition.Opcode: Move, Operands: [
+                    && body[index + 1] is
+                    {
+                        Definition.Opcode: Move, Operands: [
+                        { Kind: BeamOperandParameters.X, Value.IsZero: true }, { Kind: BeamOperandParameters.Y } saved]
+                    }
+                    && body[index + 2] is
+                    {
+                        Definition.Opcode: Move, Operands: [
                         { Kind: BeamOperandParameters.Y, TypeIndex: null } read,
-                        { Kind: BeamOperandParameters.X, TypeIndex: null } argument] }
+                        { Kind: BeamOperandParameters.X, TypeIndex: null } argument]
+                    }
                     && saved.Value != read.Value
                     && (!argument.Value.IsZero || (flow ??= new BeamProjectionFlow(body)).IsBranchTemporaryDead(index + 2, scratch)))
                 {

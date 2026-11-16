@@ -52,7 +52,12 @@ internal sealed class BeamMacroPreprocessor(
     private int? currentFormStart;
     private (string Name, int Arity)? currentFunction;
 
-    private sealed record Conditional(Token Start, bool ParentActive, bool Taken, bool HasElse = false);
+    private sealed record Conditional(
+        Token Start,
+        bool ParentActive,
+        bool Taken,
+        bool HasElse = false
+    );
     private sealed record MacroDefinition(string[] Parameters, Token[] Replacement);
     private const int ObjectMacroArity = -1;
 
@@ -146,9 +151,20 @@ internal sealed class BeamMacroPreprocessor(
             }
             if (directive is "include" or "include_lib")
             {
-                Include(form, terminator, currentPath, tokens[^1].Start, mapped ? null : includeRequest);
+                Include(
+                    form,
+                    terminator,
+                    currentPath,
+                    tokens[^1].Start,
+                    mapped ? null : includeRequest
+                );
             }
-            else if (TryReadExternalDocumentation(form, terminator, currentPath, mapped ? null : includeRequest))
+            else if (TryReadExternalDocumentation(
+                form,
+                terminator,
+                currentPath,
+                mapped ? null : includeRequest
+            ))
             {
                 // The directive expands to a documentation string and two file transitions.
             }
@@ -323,7 +339,12 @@ internal sealed class BeamMacroPreprocessor(
         MaybeEnabled = form[5].Text == "enable";
     }
 
-    private bool TryReadExternalDocumentation(List<Token> form, Token terminator, string? currentPath, string? includeRequest)
+    private bool TryReadExternalDocumentation(
+        List<Token> form,
+        Token terminator,
+        string? currentPath,
+        string? includeRequest
+    )
     {
         if (AttributeName(form) is not (ModuleAttributeNames.Doc or ModuleAttributeNames.ModuleDoc)
             || terminator.Kind != LexerTokenKinds.FormTerminator || form.Count < 7)
@@ -375,11 +396,24 @@ internal sealed class BeamMacroPreprocessor(
         output.Add(terminator);
         var annotation = (TupleTerm)BeamDocumentationWriter.Annotation(terminator, CombinedSource);
         int column = (int)((Integer)annotation.Items[1]).Value;
-        fileTransitions.Add(new(output.Count, terminator.PreprocessorFile, terminator.PreprocessorLine, Column: column, IncludeRequest: includeRequest));
+        fileTransitions.Add(new(
+            output.Count,
+            terminator.PreprocessorFile,
+            terminator.PreprocessorLine,
+            Column: column,
+            IncludeRequest: includeRequest
+        ));
+
         return true;
     }
 
-    private void Include(List<Token> form, Token terminator, string? currentPath, int documentEnd, string? parentIncludeRequest)
+    private void Include(
+        List<Token> form,
+        Token terminator,
+        string? currentPath,
+        int documentEnd,
+        string? parentIncludeRequest
+    )
     {
         string directive = form[1].Text;
         if (form.Count < 5 || !IsSymbol(form[2], ErlangSyntaxTokens.OpenParenthesis)
@@ -422,9 +456,19 @@ internal sealed class BeamMacroPreprocessor(
         {
             string file = Path.GetFileName(resolved);
             string? includeRequest = library ? requested : null;
-            fileTransitions.Add(new(output.Count, file, 1, IncludeRequest: includeRequest));
+            fileTransitions.Add(new(
+                output.Count,
+                file,
+                1,
+                IncludeRequest: includeRequest
+            ));
             ProcessDocument(ScanDocument(content, offset, file), resolved, includeRequest);
-            fileTransitions.Add(IncludeReturnTransition(form[0].PreprocessorFile, terminator, documentEnd, parentIncludeRequest));
+            fileTransitions.Add(IncludeReturnTransition(
+                form[0].PreprocessorFile,
+                terminator,
+                documentEnd,
+                parentIncludeRequest
+            ));
         }
         catch (CompileException error)
         {
@@ -436,14 +480,24 @@ internal sealed class BeamMacroPreprocessor(
         }
     }
 
-    private BeamFileTransition IncludeReturnTransition(string? file, Token terminator, int documentEnd, string? includeRequest)
+    private BeamFileTransition IncludeReturnTransition(
+        string? file,
+        Token terminator,
+        int documentEnd,
+        string? includeRequest
+    )
     {
         int next = terminator.End;
         char following = next < documentEnd ? combinedSource[next] : '\0';
         // OTP consumes only the first whitespace character after the directive's full stop.
         if (following == '\n')
         {
-            return new(output.Count, file, terminator.PreprocessorLine + 1, IncludeRequest: includeRequest);
+            return new(
+                output.Count,
+                file,
+                terminator.PreprocessorLine + 1,
+                IncludeRequest: includeRequest
+            );
         }
 
         int start = terminator.PreprocessorColumnStart ?? terminator.Start;
@@ -467,7 +521,13 @@ internal sealed class BeamMacroPreprocessor(
             column++;
         }
 
-        return new(output.Count, file, terminator.PreprocessorLine, Column: column, IncludeRequest: includeRequest);
+        return new(
+            output.Count,
+            file,
+            terminator.PreprocessorLine,
+            Column: column,
+            IncludeRequest: includeRequest
+        );
     }
 
     private static List<Token> ScanDocument(string content, int offset, string? file = null)
@@ -653,6 +713,7 @@ internal sealed class BeamMacroPreprocessor(
         try
         {
             var parameters = BeamMacroArguments.Read(output, ref closing);
+
             return (output[start].Text, parameters.Count);
         }
         catch (CompileException)

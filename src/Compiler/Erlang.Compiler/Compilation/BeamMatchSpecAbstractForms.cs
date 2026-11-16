@@ -11,7 +11,7 @@ internal static class BeamMatchSpecAbstractForms
     {
         if (call is not TupleTerm { Items: [Atom { Name: "call" }, _, _, var arguments] }
             || Cons.Items(arguments).SingleOrDefault() is not TupleTerm
-                { Items: [Atom { Name: "fun" }, var location, TupleTerm { Items: [Atom { Name: "clauses" }, var clauses] }] })
+            { Items: [Atom { Name: "fun" }, var location, TupleTerm { Items: [Atom { Name: "clauses" }, var clauses] }] })
         {
             throw Unsupported();
         }
@@ -73,7 +73,12 @@ internal static class BeamMatchSpecAbstractForms
                 TupleTerm { Items: [Atom { Name: "tuple" }, var tupleAt, var items] } =>
                     Form("tuple", tupleAt, Cons.From(Cons.Items(items).Select(Head))),
                 TupleTerm { Items: [Atom { Name: "cons" }, var consAt, var first, var rest] } =>
-                    Form("cons", consAt, Head(first), Head(rest)),
+                    Form(
+                        "cons",
+                        consAt,
+                        Head(first),
+                        Head(rest)
+                    ),
                 _ => item
             };
         }
@@ -86,15 +91,23 @@ internal static class BeamMatchSpecAbstractForms
             TupleTerm { Items: [Atom { Name: "tuple" }, var at, var items] } =>
                 Form("tuple", at, Term.List(Form("tuple", at, Cons.From(Cons.Items(items).Select(Value))))),
             TupleTerm { Items: [Atom { Name: "cons" }, var at, var first, var rest] } =>
-                Form("cons", at, Value(first), Value(rest)),
+                Form(
+                    "cons",
+                    at,
+                    Value(first),
+                    Value(rest)
+                ),
             TupleTerm { Items: [Atom { Name: "op" }, var at, Atom operation, var operand] } =>
                 Operation(at, AtomForm(at, operation.Name), [operand]),
             TupleTerm { Items: [Atom { Name: "op" }, var at, Atom operation, var first, var second] } =>
                 Operation(at, AtomForm(at, operation.Name), [first, second]),
             TupleTerm { Items: [Atom { Name: "call" }, var at, TupleTerm { Items: [Atom { Name: "atom" }, _, _] } function, var args] } =>
                 Operation(at, function, Cons.Items(args)),
-            TupleTerm { Items: [Atom { Name: "call" }, var at,
-                TupleTerm { Items: [Atom { Name: "remote" }, _, _, var function] }, var args] } =>
+            TupleTerm
+            {
+                Items: [Atom { Name: "call" }, var at,
+                TupleTerm { Items: [Atom { Name: "remote" }, _, _, var function] }, var args]
+            } =>
                 Operation(at, function, Cons.Items(args)),
             _ => item
         };
@@ -108,7 +121,12 @@ internal static class BeamMatchSpecAbstractForms
         Term list = Form("nil", location);
         foreach (var value in values.Reverse())
         {
-            list = Form("cons", location, value, list);
+            list = Form(
+                "cons",
+                location,
+                value,
+                list
+            );
         }
 
         return list;

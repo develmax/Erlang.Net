@@ -40,32 +40,46 @@ internal static class OtpWindowsReleaseProfiles
                 ("wx-2.7", "demo" or "sudoku") => WxExample(directory, module),
                 ("wx-2.7", "src" or "gen") => WxDriver(module, directory == "gen"),
                 ("snmp-5.20.5", "ex1" or "ex2") => SnmpExample(directory, module),
-                ("megaco-4.9.2", "meas") => CreateAt(BuildRoot + "megaco/examples/meas", module, ["../include"],
-                    [.. DocumentationWarnings, "nowarn_missing_spec_documented", "nowarn_deprecated_catch"])
-                    with { AllowIncompleteAbstractCode = true },
-                ("common_test-1.31.2", "proper_ext") => CreateAt(BuildRoot + "common_test/proper_ext", module,
-                    ["../include"], DocumentationWarnings) with { AllowIncompleteAbstractCode = true },
+                ("megaco-4.9.2", "meas") => CreateAt(
+                    BuildRoot + "megaco/examples/meas",
+                    module,
+                    ["../include"],
+                    [.. DocumentationWarnings, "nowarn_missing_spec_documented", "nowarn_deprecated_catch"]
+                )
+                    with
+                { AllowIncompleteAbstractCode = true },
+                ("common_test-1.31.2", "proper_ext") => CreateAt(
+                    BuildRoot + "common_test/proper_ext",
+                    module,
+                    ["../include"],
+                    DocumentationWarnings
+                ) with
+                { AllowIncompleteAbstractCode = true },
                 ("ssl-11.7.7", "src") => WithBuildDefinitions(SecureTransportLibrary("ssl", module),
                     new Dictionary<string, Term> { ["VSN"] = Term.String("11.7.7") }),
                 ("ssh-6.0.6", "src") => SecureTransportLibrary("ssh", module),
-                ("common_test-1.31.2", "src") => Create("common_test", module,
+                ("common_test-1.31.2", "src") => Create(
+                    "common_test",
+                    module,
                     ["../include", BuildRoot + "snmp/include", "../../xmerl/inc", BuildRoot + "kernel/include"],
-                    [.. DocumentationWarnings, "warn_obsolete_bool_op", "nowarn_deprecated_catch"]) with
+                    [.. DocumentationWarnings, "warn_obsolete_bool_op", "nowarn_deprecated_catch"]
+                ) with
+                {
+                    AllowIncompleteAbstractCode = true,
+                    RecordedIncludeFiles = new Dictionary<string, string>
                     {
-                        AllowIncompleteAbstractCode = true,
-                        RecordedIncludeFiles = new Dictionary<string, string>
-                        {
-                            ["ct.hrl"] = BuildRoot + "common_test/src/../include/ct.hrl",
-                            ["eep48.hrl"] = BootstrapKernelIncludes + "eep48.hrl",
-                            ["file.hrl"] = BootstrapKernelIncludes + "file.hrl",
-                            ["logger.hrl"] = BootstrapKernelIncludes + "logger.hrl",
-                            ["ct_event.hrl"] = module == "cte_track"
+                        ["ct.hrl"] = BuildRoot + "common_test/src/../include/ct.hrl",
+                        ["eep48.hrl"] = BootstrapKernelIncludes + "eep48.hrl",
+                        ["file.hrl"] = BootstrapKernelIncludes + "file.hrl",
+                        ["logger.hrl"] = BootstrapKernelIncludes + "logger.hrl",
+                        ["ct_event.hrl"] = module == "cte_track"
                                 ? "/daily_build/otp_src/bootstrap/lib/common_test/include/ct_event.hrl"
                                 : BuildRoot + "common_test/src/../include/ct_event.hrl"
-                        }
-                    },
+                    }
+                },
                 _ => null
             };
+
         return profile is not null && SupplementalIncludeFiles(application, module) is { } includes
             ? profile with { RecordedIncludeFiles = includes }
             : profile;
@@ -114,11 +128,16 @@ internal static class OtpWindowsReleaseProfiles
             [BuildRoot + "stdlib"],
             [.. DocumentationWarnings, "nowarn_deprecated_catch"]
         ),
-        ("compiler-10.0.6", "beam_asm") => WithBuildDefinitions(new(
-            BootstrapCompiler, BuildRoot + "compiler/src/beam_asm.erl", BuildRoot + "compiler/src",
-            [BuildRoot + "compiler/src/../../stdlib/include", BuildRoot + "compiler/src/."],
-            [.. DocumentationWarnings, "warn_deprecated_catch", "warn_obsolete_bool_op", "inline", "warn_unused_import", "warn_missing_spec"]
-        ), new Dictionary<string, Term> { ["COMPILER_VSN"] = Term.String("10.0.6") }),
+        ("compiler-10.0.6", "beam_asm") => WithBuildDefinitions(
+            new(
+                BootstrapCompiler,
+                BuildRoot + "compiler/src/beam_asm.erl",
+                BuildRoot + "compiler/src",
+                [BuildRoot + "compiler/src/../../stdlib/include", BuildRoot + "compiler/src/."],
+                [.. DocumentationWarnings, "warn_deprecated_catch", "warn_obsolete_bool_op", "inline", "warn_unused_import", "warn_missing_spec"]
+            ),
+            new Dictionary<string, Term> { ["COMPILER_VSN"] = Term.String("10.0.6") }
+        ),
         ("dialyzer-6.0.3", _) => Dialyzer(module),
         ("compiler-10.0.6", "erl_bifs" or "beam_opcodes") => new(
             BootstrapCompiler,
@@ -136,19 +155,21 @@ internal static class OtpWindowsReleaseProfiles
         ),
         ("ssh-6.0.6", "ssh_no_io" or "ssh_daemon_channel" or "ssh_server_channel" or "ssh_sftpd_file_api"
             or "ssh_channel" or "ssh_server_key_api" or "ssh_client_key_api") => new(
-            BootstrapCompiler,
-            BuildRoot + "ssh/src/" + module + ".erl",
-            BuildRoot + "ssh/src",
-            [BuildRoot + "kernel/src"],
-            [.. DocumentationWarnings, "warn_unused_vars", "nowarn_deprecated_callback", "warn_obsolete_bool_op", "nowarn_deprecated_catch"],
-            RecordedIncludeFiles: new Dictionary<string, string>
-            {
-                ["public_key.hrl"] = "/daily_build/otp_src/bootstrap/lib/public_key/include/public_key.hrl"
-            }
-        ),
+                BootstrapCompiler,
+                BuildRoot + "ssh/src/" + module + ".erl",
+                BuildRoot + "ssh/src",
+                [BuildRoot + "kernel/src"],
+                [.. DocumentationWarnings, "warn_unused_vars", "nowarn_deprecated_callback", "warn_obsolete_bool_op", "nowarn_deprecated_catch"],
+                RecordedIncludeFiles: new Dictionary<string, string>
+                {
+                    ["public_key.hrl"] = "/daily_build/otp_src/bootstrap/lib/public_key/include/public_key.hrl"
+                }
+            ),
         ("observer-2.19", "cdv_detail_wx" or "cdv_html_wx") => ObserverDetail(module),
         ("observer-2.19", "cdv_persistent_cb" or "cdv_atom_cb" or "cdv_timer_cb" or "cdv_fun_cb" or "cdv_dist_cb" or "cdv_port_cb" or "cdv_ets_cb" or "cdv_mod_cb" or "cdv_sched_cb" or "cdv_proc_cb" or "cdv_int_tab_cb" or "cdv_mem_cb") => Create(
-            "observer", module, ["../include", "../../et/include", "../../../libraries/et/include", BuildRoot.TrimEnd('/')],
+            "observer",
+            module,
+            ["../include", "../../et/include", "../../../libraries/et/include", BuildRoot.TrimEnd('/')],
             [.. DocumentationWarnings, "nowarn_deprecated_catch"]
         ) with
         {
@@ -158,15 +179,23 @@ internal static class OtpWindowsReleaseProfiles
             }
         },
         ("observer-2.19", "cdv_gen_cb" or "cdv_bin_cb" or "cdv_term_cb") => Create(
-            "observer", module, ["../include", "../../et/include", "../../../libraries/et/include", BuildRoot.TrimEnd('/')],
+            "observer",
+            module,
+            ["../include", "../../et/include", "../../../libraries/et/include", BuildRoot.TrimEnd('/')],
             [.. DocumentationWarnings, "nowarn_deprecated_catch"]
         ),
         ("observer-2.19", _) => Create(
-            "observer", module, ["../include", "../../et/include", "../../../libraries/et/include", BuildRoot.TrimEnd('/')],
+            "observer",
+            module,
+            ["../include", "../../et/include", "../../../libraries/et/include", BuildRoot.TrimEnd('/')],
             [.. DocumentationWarnings, "nowarn_deprecated_catch"]
-        ) with { AllowIncompleteAbstractCode = true },
+        ) with
+        { AllowIncompleteAbstractCode = true },
         ("debugger-7.0", _) => Create(
-            "debugger", module, [BuildRoot.TrimEnd('/')], [.. DocumentationWarnings, "nowarn_deprecated_catch"]
+            "debugger",
+            module,
+            [BuildRoot.TrimEnd('/')],
+            [.. DocumentationWarnings, "nowarn_deprecated_catch"]
         ) with
         {
             AllowIncompleteAbstractCode = true,
@@ -189,10 +218,21 @@ internal static class OtpWindowsReleaseProfiles
         ("erts-17.1", _) => Preloaded(module),
         ("sasl-4.4", "target_system") => SaslExample(module),
         ("eldap-1.3.1", "ELDAPv3") => Ldap(),
-        ("eldap-1.3.1", "eldap") => Create("eldap", module, ["../include", "../ebin"],
-            [.. DocumentationWarnings, "nowarn_deprecated_catch"]) with { AllowIncompleteAbstractCode = true },
+        ("eldap-1.3.1", "eldap") => Create(
+            "eldap",
+            module,
+            ["../include", "../ebin"],
+            [.. DocumentationWarnings, "nowarn_deprecated_catch"]
+        ) with
+        { AllowIncompleteAbstractCode = true },
         ("crypto-5.10", _) => WithBuildDefinitions(
-            Create("crypto", module, ["../include"], DocumentationWarnings) with { AllowIncompleteAbstractCode = true },
+            Create(
+                "crypto",
+                module,
+                ["../include"],
+                DocumentationWarnings
+            ) with
+            { AllowIncompleteAbstractCode = true },
             new Dictionary<string, Term> { ["CRYPTO_VSN"] = Term.String("5.10") }
         ),
         ("wx-2.7", not "gl") when isGeneratedWxSource => WxGenerated(module),
@@ -208,27 +248,37 @@ internal static class OtpWindowsReleaseProfiles
             [],
             [.. DocumentationWarnings, "warn_obsolete_bool_op", "nowarn_deprecated_catch"],
             "mnesia_4.27"
-        ) with { AllowIncompleteAbstractCode = true },
+        ) with
+        { AllowIncompleteAbstractCode = true },
         ("sasl-4.4", _) => Create(
             "sasl",
             module,
             ["../../stdlib/include"],
             [.. DocumentationWarnings, "nowarn_deprecated_catch"]
-        ) with { AllowIncompleteAbstractCode = true },
-        ("tools-4.2.3", _) => Create("tools", module, [], [.. DocumentationWarnings, "nowarn_deprecated_catch"])
-            with { AllowIncompleteAbstractCode = true },
+        ) with
+        { AllowIncompleteAbstractCode = true },
+        ("tools-4.2.3", _) => Create(
+            "tools",
+            module,
+            [],
+            [.. DocumentationWarnings, "nowarn_deprecated_catch"]
+        )
+            with
+        { AllowIncompleteAbstractCode = true },
         ("os_mon-2.12", _) => Create(
             "os_mon",
             module,
             ["../include"],
             DocumentationWarnings
-        ) with { AllowIncompleteAbstractCode = true },
+        ) with
+        { AllowIncompleteAbstractCode = true },
         ("runtime_tools-2.5", _) => Create(
             "runtime_tools",
             module,
             ["../include", "../../et/include", "../../../libraries/et/include"],
             [.. DocumentationWarnings, "nowarn_deprecated_catch"]
-        ) with { AllowIncompleteAbstractCode = true },
+        ) with
+        { AllowIncompleteAbstractCode = true },
         ("ftp-1.2.6", "ftp_app") => new(
             BootstrapCompiler,
             BuildRoot + "ftp/src/ftp_app.erl",
@@ -238,13 +288,23 @@ internal static class OtpWindowsReleaseProfiles
             RecordedDefinitions: new Dictionary<string, Term> { ["VSN"] = Term.String("1.2.6") }
         ),
         ("ftp-1.2.6", _) => WithBuildDefinitions(
-            Create("ftp", module, [BuildRoot + "kernel/src"],
-                [.. DocumentationWarnings, "warn_unused_vars", "nowarn_deprecated_catch"])
-                with { AllowIncompleteAbstractCode = true },
+            Create(
+                "ftp",
+                module,
+                [BuildRoot + "kernel/src"],
+                [.. DocumentationWarnings, "warn_unused_vars", "nowarn_deprecated_catch"]
+            )
+                with
+            { AllowIncompleteAbstractCode = true },
             new Dictionary<string, Term> { ["VSN"] = Term.String("1.2.6") }
         ),
-        ("reltool-1.1", _) => Create("reltool", module, [BuildRoot.TrimEnd('/')],
-            [.. DocumentationWarnings, "nowarn_deprecated_catch"], "reltool-1.1") with
+        ("reltool-1.1", _) => Create(
+            "reltool",
+            module,
+            [BuildRoot.TrimEnd('/')],
+            [.. DocumentationWarnings, "nowarn_deprecated_catch"],
+            "reltool-1.1"
+        ) with
         {
             InsertedAttributeName = "app_vsn",
             WarningsBeforeInsertion = DocumentationWarnings.Length,
@@ -254,23 +314,34 @@ internal static class OtpWindowsReleaseProfiles
         ("snmp-5.20.5", "snmpa_error_io") => SnmpLibrary(module, "agent"),
         ("snmp-5.20.5", "snmpm_user_default") => SnmpLibrary(module, "manager"),
         ("et-1.8", _) => Et(module),
-        ("edoc-1.5", _) => Create("edoc", module, ["../include", "../../xmerl/include", BuildRoot.TrimEnd('/')],
+        ("edoc-1.5", _) => Create(
+            "edoc",
+            module,
+            ["../include", "../../xmerl/include", BuildRoot.TrimEnd('/')],
             [.. DocumentationWarnings, "warn_unused_vars", "warn_unused_import", "warn_deprecated_guard",
-                "no_docs", "nowarn_missing_spec_documented", "warn_deprecated_catch"]) with
+                "no_docs", "nowarn_missing_spec_documented", "warn_deprecated_catch"]
+        ) with
         {
             EmitDocumentation = false,
             AllowIncompleteAbstractCode = true
         },
-        ("parsetools-2.8", _) => Create("parsetools", module, [BuildRoot + "stdlib/include"],
-            [.. DocumentationWarnings, "warn_obsolete_bool_op", "nowarn_deprecated_catch"])
-                with { AllowIncompleteAbstractCode = true },
+        ("parsetools-2.8", _) => Create(
+            "parsetools",
+            module,
+            [BuildRoot + "stdlib/include"],
+            [.. DocumentationWarnings, "warn_obsolete_bool_op", "nowarn_deprecated_catch"]
+        )
+                with
+        { AllowIncompleteAbstractCode = true },
         ("inets-9.8", "http_uri") => new(
             BootstrapCompiler,
             BuildRoot + "inets/src/http_lib/http_uri.erl",
             BuildRoot + "inets/src/http_lib",
             [BuildRoot + "inets/src/http_lib/../../include", BuildRoot + "inets/src/http_lib/../inets_app"],
             [.. DocumentationWarnings, "warn_obsolete_bool_op", "nowarn_deprecated_catch"],
-            "inets-9.8", "app_vsn", DocumentationWarnings.Length
+            "inets-9.8",
+            "app_vsn",
+            DocumentationWarnings.Length
         ),
         ("inets-9.8", "httpd_connection_sup" or "httpd_acceptor_sup") => new(
             BootstrapCompiler,
@@ -329,13 +400,13 @@ internal static class OtpWindowsReleaseProfiles
             or "ssl_listen_tracker_sup" or "tls_server_session_ticket_sup" or "tls_dyn_connection_sup"
             or "ssl_upgrade_server_session_cache_sup" or "ssl_dist_sup" or "ssl_client_session_cache_db" or "dtls_v1" or "dtls_socket"
             or "inet_epmd_tls_socket" or "ssl_crl_cache_api" or "ssl_session_cache_api") => new(
-            BootstrapCompiler,
-            BuildRoot + "ssl/src/" + module + ".erl",
-            BuildRoot + "ssl/src",
-            [BuildRoot + "kernel/src"],
-            [.. DocumentationWarnings, "warn_unused_vars", "nowarn_deprecated_callback", "warn_obsolete_bool_op", "nowarn_deprecated_catch"],
-            RecordedDefinitions: new Dictionary<string, Term> { ["VSN"] = Term.String("11.7.7") },
-            RecordedIncludeFiles: module == "inet_epmd_tls_socket"
+                BootstrapCompiler,
+                BuildRoot + "ssl/src/" + module + ".erl",
+                BuildRoot + "ssl/src",
+                [BuildRoot + "kernel/src"],
+                [.. DocumentationWarnings, "warn_unused_vars", "nowarn_deprecated_callback", "warn_obsolete_bool_op", "nowarn_deprecated_catch"],
+                RecordedDefinitions: new Dictionary<string, Term> { ["VSN"] = Term.String("11.7.7") },
+                RecordedIncludeFiles: module == "inet_epmd_tls_socket"
                 ? new Dictionary<string, string>
                 {
                     ["dist.hrl"] = "/daily_build/otp_src/bootstrap/lib/kernel/include/dist.hrl",
@@ -353,7 +424,7 @@ internal static class OtpWindowsReleaseProfiles
                     ["public_key.hrl"] = "/daily_build/otp_src/bootstrap/lib/public_key/include/public_key.hrl"
                 }
                 : null
-        ),
+            ),
         ("odbc-2.17.1", _) => UseBuildDefinitions(new(
             BootstrapCompiler,
             BuildRoot + "odbc/src/" + module + ".erl",
@@ -371,7 +442,8 @@ internal static class OtpWindowsReleaseProfiles
             module,
             [],
             [.. DocumentationWarnings, "warn_unused_vars", "nowarn_missing_spec_documented", "warn_obsolete_bool_op", "nowarn_deprecated_catch"]
-        ) with { AllowIncompleteAbstractCode = true },
+        ) with
+        { AllowIncompleteAbstractCode = true },
         ("stdlib-8.1", "dets_sup") => Create(
             "stdlib",
             module,
@@ -384,11 +456,15 @@ internal static class OtpWindowsReleaseProfiles
             BuildRoot + "ssl/examples/src",
             [],
             [.. DocumentationWarnings, "warn_unused_vars", "nowarn_missing_doc", "nowarn_missing_spec_documented"]
-        ),        ("ssl-11.7.7", "ssl_srp_primes") => new(
-            BootstrapCompiler, BuildRoot + "ssl/src/ssl_srp_primes.erl", BuildRoot + "ssl/src",
+        ),
+        ("ssl-11.7.7", "ssl_srp_primes") => new(
+            BootstrapCompiler,
+            BuildRoot + "ssl/src/ssl_srp_primes.erl",
+            BuildRoot + "ssl/src",
             [BuildRoot + "kernel/src"],
             [.. DocumentationWarnings, "warn_unused_vars", "nowarn_deprecated_callback", "warn_obsolete_bool_op", "nowarn_deprecated_catch"],
-            RecordedDefinitions: new Dictionary<string, Term> { ["VSN"] = Term.String("11.7.7") }),
+            RecordedDefinitions: new Dictionary<string, Term> { ["VSN"] = Term.String("11.7.7") }
+        ),
         ("public_key-1.21.7", "AlgorithmInformation-2009" or "AttributeCertificateVersion1-2009"
             or "CMSAesRsaesOaep-2009" or "CryptographicMessageSyntax-2009"
             or "CryptographicMessageSyntaxAlgorithms-2009" or "DSS" or "ECPrivateKey"
@@ -400,7 +476,9 @@ internal static class OtpWindowsReleaseProfiles
             or "RFC5639" or "Safecurves-pkix-18" or "SecureMimeMessageV3dot1-2009"
             or "SLH-DSA-Module-2024" or "X509-ML-DSA-2025" or "X509-ML-KEM-2025") => PublicKeyAsn1(module),
         ("xmerl-2.2", _) => Create(
-            "xmerl", module, ["../include"],
+            "xmerl",
+            module,
+            ["../include"],
             [.. DocumentationWarnings, "warn_unused_vars", "warn_obsolete_bool_op"]
         ) with
         {
@@ -431,7 +509,8 @@ internal static class OtpWindowsReleaseProfiles
             }
         },
         ("common_test-1.31.2", "ct_suite") => Create(
-            "common_test", module,
+            "common_test",
+            module,
             ["../include", BuildRoot + "snmp/include", "../../xmerl/inc", BuildRoot + "kernel/include"],
             [.. DocumentationWarnings, "warn_obsolete_bool_op", "nowarn_deprecated_catch"]
         ),
@@ -447,14 +526,20 @@ internal static class OtpWindowsReleaseProfiles
             or "snmpa_get_mechanism" or "snmpa_mib_data" or "snmpa_mib_storage" or "snmpa_network_interface"
             or "snmpa_network_interface_filter" or "snmpa_notification_delivery_info_receiver" or "snmpa_notification_filter"
             or "snmpa_set_mechanism") => SnmpAgentBehaviour(module),
-        ("public_key-1.21.7", _) => Create("public_key", module, ["../include", "../asn1"],
-            [.. DocumentationWarnings, "warn_obsolete_bool_op"], "public_key-1.21.7") with
+        ("public_key-1.21.7", _) => Create(
+            "public_key",
+            module,
+            ["../include", "../asn1"],
+            [.. DocumentationWarnings, "warn_obsolete_bool_op"],
+            "public_key-1.21.7"
+        ) with
         {
             InsertedAttributeName = "app_vsn",
             AllowIncompleteAbstractCode = true
         },
         ("stdlib-8.1", _) => CoreLibrary("stdlib", module, ["../include", "../../kernel/include"]),
-        ("kernel-11.0.4", "erl_epmd") => WithBuildDefinitions(CoreLibrary("kernel", module, ["../include"]),
+        ("kernel-11.0.4", "erl_epmd") => WithBuildDefinitions(
+            CoreLibrary("kernel", module, ["../include"]),
             new Dictionary<string, Term>
             {
                 ["erlang_daemon_port"] = Term.I(4369),
@@ -462,7 +547,8 @@ internal static class OtpWindowsReleaseProfiles
                 ["epmd_dist_low"] = Term.I(5),
                 ["epmd_node_type"] = Term.I(110),
                 ["epmd_port_no"] = Term.I(4369)
-            }),
+            }
+        ),
         ("kernel-11.0.4", _) => CoreLibrary("kernel", module, ["../include"]),
         ("compiler-10.0.6", _) => CompilerLibrary(module),
         _ => null
@@ -475,7 +561,8 @@ internal static class OtpWindowsReleaseProfiles
             module,
             [],
             [.. DocumentationWarnings, "warn_export_vars", "warn_unused_import", "warn_missing_spec", "warn_obsolete_bool_op"]
-        ) with { AllowIncompleteAbstractCode = true };
+        ) with
+        { AllowIncompleteAbstractCode = true };
 
         return module is "dialyzer_cl_parse" or "dialyzer_cplt" or "dialyzer_iplt" or "dialyzer_plt" or "typer"
             ? WithBuildDefinitions(profile, new Dictionary<string, Term> { ["VSN"] = Term.String("v6.0.3") })
@@ -485,9 +572,12 @@ internal static class OtpWindowsReleaseProfiles
     private static BeamReleaseBuildProfile ObserverDetail(string module)
     {
         var profile = Create(
-            "observer", module, ["../include", "../../et/include", "../../../libraries/et/include", BuildRoot.TrimEnd('/')],
+            "observer",
+            module,
+            ["../include", "../../et/include", "../../../libraries/et/include", BuildRoot.TrimEnd('/')],
             [.. DocumentationWarnings, "nowarn_deprecated_catch"]
         );
+
         return profile with
         {
             RecordedCompileOptions =
@@ -507,8 +597,12 @@ internal static class OtpWindowsReleaseProfiles
     {
         const string directory = BuildRoot + "eunit/src";
         const string include = directory + "/../include";
+
         return new(
-            BootstrapCompiler, directory + "/" + module + ".erl", directory, [include],
+            BootstrapCompiler,
+            directory + "/" + module + ".erl",
+            directory,
+            [include],
             [.. DocumentationWarnings, "warn_deprecated_catch", "warn_obsolete_bool_op", "warn_unused_import"],
             RecordedIncludeFiles: new Dictionary<string, string>
             {
@@ -522,7 +616,13 @@ internal static class OtpWindowsReleaseProfiles
     {
         string[] leadingWarnings = ["warn_unused_vars", "warn_obsolete_bool_op"];
         string[] trailingWarnings = [.. DocumentationWarnings, "nowarn_deprecated_catch"];
-        var profile = Create("et", module, ["../include", BuildRoot.TrimEnd('/')], [.. leadingWarnings, .. trailingWarnings]);
+        var profile = Create(
+            "et",
+            module,
+            ["../include", BuildRoot.TrimEnd('/')],
+            [.. leadingWarnings, .. trailingWarnings]
+        );
+
         return profile with
         {
             AllowIncompleteAbstractCode = true,
@@ -564,7 +664,12 @@ internal static class OtpWindowsReleaseProfiles
         Term includeOption = Term.Tuple(Term.A("i"), Term.String(include));
         Term debug = Term.A("debug_info");
         Term transform = Term.Tuple(Term.A("parse_transform"), Term.A("sys_pre_attributes"));
-        Term insert = Term.Tuple(Term.A("attribute"), Term.A("insert"), Term.A("app_vsn"), Term.String(version));
+        Term insert = Term.Tuple(
+            Term.A("attribute"),
+            Term.A("insert"),
+            Term.A("app_vsn"),
+            Term.String(version)
+        );
         Term[] docs = DocumentationWarnings.Select(warning => (Term)Term.A(warning)).ToArray();
         string[] trailingWarnings = subdirectory is "tcp" or "udp"
             ? ["warn_obsolete_bool_op", "nowarn_deprecated_catch", "nowarn_missing_spec_documented"]
@@ -602,9 +707,15 @@ internal static class OtpWindowsReleaseProfiles
 
     private static BeamReleaseBuildProfile SyntaxTools(string module)
     {
-        var profile = Create("syntax_tools", module, ["../include"],
-            [.. DocumentationWarnings, "warn_deprecated_catch", "warn_obsolete_bool_op", "warn_unused_import"])
-            with { AllowIncompleteAbstractCode = true };
+        var profile = Create(
+            "syntax_tools",
+            module,
+            ["../include"],
+            [.. DocumentationWarnings, "warn_deprecated_catch", "warn_obsolete_bool_op", "warn_unused_import"]
+        )
+            with
+        { AllowIncompleteAbstractCode = true };
+
         return module == "merl_transform"
             ? profile with { PreprocessorDefinitions = new Dictionary<string, Term> { ["MERL_NO_TRANSFORM"] = Term.A("true") } }
             : profile;
@@ -630,10 +741,19 @@ internal static class OtpWindowsReleaseProfiles
         if (subdirectory == "http_server")
             recordedIncludes["inets/include/httpd.hrl"] = BuildRoot + "inets/include/httpd.hrl";
 
-        var profile = new BeamReleaseBuildProfile(BootstrapCompiler, directory + "/" + module + ".erl", directory,
-            ResolveIncludes(directory, includes), [.. DocumentationWarnings, "warn_obsolete_bool_op", "nowarn_deprecated_catch"],
-            "inets-9.8", "app_vsn", DocumentationWarnings.Length, AllowIncompleteAbstractCode: true,
-            RecordedIncludeFiles: recordedIncludes);
+        var profile = new BeamReleaseBuildProfile(
+            BootstrapCompiler,
+            directory + "/" + module + ".erl",
+            directory,
+            ResolveIncludes(directory, includes),
+            [.. DocumentationWarnings, "warn_obsolete_bool_op", "nowarn_deprecated_catch"],
+            "inets-9.8",
+            "app_vsn",
+            DocumentationWarnings.Length,
+            AllowIncompleteAbstractCode: true,
+            RecordedIncludeFiles: recordedIncludes
+        );
+
         return subdirectory == "http_server"
             ? WithBuildDefinitions(profile, new Dictionary<string, Term> { ["SERVER_SOFTWARE"] = Term.String("inets/9.8") })
             : profile;
@@ -655,12 +775,14 @@ internal static class OtpWindowsReleaseProfiles
                 WarningOptions = [.. DocumentationWarnings, "warn_obsolete_bool_op", "nowarn_deprecated_catch", "warn_unused_vars"]
             }
         };
+
         return UseBuildDefinitions(profile with { AllowIncompleteAbstractCode = true });
     }
 
     private static BeamReleaseBuildProfile SnmpAgentBehaviour(string module)
     {
         const string directory = BuildRoot + "snmp/src/agent";
+
         return new(
             BootstrapCompiler,
             directory + "/" + module + ".erl",
@@ -686,23 +808,36 @@ internal static class OtpWindowsReleaseProfiles
     private static BeamReleaseBuildProfile Snmp(string module, string subdirectory, string[] includes)
     {
         string directory = BuildRoot + "snmp/src/" + subdirectory;
+
         return new(
-            BootstrapCompiler, directory + "/" + module + ".erl", directory, ResolveIncludes(directory, includes),
+            BootstrapCompiler,
+            directory + "/" + module + ".erl",
+            directory,
+            ResolveIncludes(directory, includes),
             [.. DocumentationWarnings, "nowarn_deprecated_catch", "warn_unused_vars"],
-            "snmp-5.20.5", "app_vsn",
+            "snmp-5.20.5",
+            "app_vsn",
             RecordedDefinitions: new Dictionary<string, Term>
             {
                 ["default_verbosity"] = Term.A("silence"),
                 ["version"] = Term.String("5.20.5")
-            });
+            }
+        );
     }
 
     private static BeamReleaseBuildProfile Ldap()
     {
         const string source = LdapBuildDirectory;
         string[] includes = [source + "/../include", source + "/../ebin", ".", source + "/../asn1"];
+
         Term Include(int index) => Term.Tuple(Term.A("i"), Term.String(includes[index]));
-        return new(BootstrapCompiler, source + "/../ebin/ELDAPv3.erl", source, includes, DocumentationWarnings,
+
+        return new(
+            BootstrapCompiler,
+            source + "/../ebin/ELDAPv3.erl",
+            source,
+            includes,
+            DocumentationWarnings,
             RecordedCompileOptions:
             [
                 Term.A("debug_info"), Term.A("warnings"), Term.A("errors"), Include(0), Include(1),
@@ -715,7 +850,8 @@ internal static class OtpWindowsReleaseProfiles
                 Term.A("warnings"), Term.A("errors"), Term.Tuple(Term.A("cwd"), Term.String(source)),
                 Include(0), Include(1), Term.A("legacy_erlang_types"), Term.A("debug_info"),
                 .. DocumentationWarnings.Select(Term.A), Term.A("nowarn_deprecated_catch"), Include(2), Include(3)
-            ]);
+            ]
+        );
     }
 
     internal static string LdapAsn1Options =>
@@ -732,8 +868,14 @@ internal static class OtpWindowsReleaseProfiles
         string[] includes = module == "asn1ct_func"
             ? [BuildRoot + "stdlib", "../rt_templates"]
             : [BuildRoot + "stdlib"];
-        var profile = Create("asn1", module, includes, [.. DocumentationWarnings, "nowarn_deprecated_catch"])
-            with { AllowIncompleteAbstractCode = true };
+        var profile = Create(
+            "asn1",
+            module,
+            includes,
+            [.. DocumentationWarnings, "nowarn_deprecated_catch"]
+        )
+            with
+        { AllowIncompleteAbstractCode = true };
 
         return module == "asn1ct"
             ? WithBuildDefinitions(profile, new Dictionary<string, Term> { ["vsn"] = Term.String("5.5.2") })
@@ -853,15 +995,21 @@ internal static class OtpWindowsReleaseProfiles
     }
 
     private static BeamReleaseBuildProfile SnmpExample(string subdirectory, string module) =>
-        WithBuildDefinitions(CreateAt(BuildRoot + "snmp/examples/" + subdirectory, module,
-            ["../include", BuildRoot + "stdlib"],
-            [.. DocumentationWarnings, "nowarn_missing_doc", "nowarn_missing_spec_documented", "nowarn_deprecated_catch"],
-            "snmp-5.20.5") with
-        {
-            InsertedAttributeName = "app_vsn",
-            WarningsBeforeInsertion = DocumentationWarnings.Length,
-            AllowIncompleteAbstractCode = true
-        }, new Dictionary<string, Term> { ["version"] = Term.String("5.20.5") });
+        WithBuildDefinitions(
+            CreateAt(
+                BuildRoot + "snmp/examples/" + subdirectory,
+                module,
+                ["../include", BuildRoot + "stdlib"],
+                [.. DocumentationWarnings, "nowarn_missing_doc", "nowarn_missing_spec_documented", "nowarn_deprecated_catch"],
+                "snmp-5.20.5"
+            ) with
+            {
+                InsertedAttributeName = "app_vsn",
+                WarningsBeforeInsertion = DocumentationWarnings.Length,
+                AllowIncompleteAbstractCode = true
+            },
+            new Dictionary<string, Term> { ["version"] = Term.String("5.20.5") }
+        );
 
     private static BeamReleaseBuildProfile WithBuildDefinitions(
         BeamReleaseBuildProfile profile,
@@ -887,30 +1035,45 @@ internal static class OtpWindowsReleaseProfiles
     }
 
     private static BeamReleaseBuildProfile CoreLibrary(string application, string module, string[] includes) =>
-        Create(application, module, includes, [.. DocumentationWarnings, "warn_deprecated_catch", "warn_obsolete_bool_op"])
-            with { AllowIncompleteAbstractCode = true };
+        Create(
+            application,
+            module,
+            includes,
+            [.. DocumentationWarnings, "warn_deprecated_catch", "warn_obsolete_bool_op"]
+        )
+            with
+        { AllowIncompleteAbstractCode = true };
 
     private static BeamReleaseBuildProfile SecureTransportLibrary(string application, string module) =>
-        Create(application, module, [BuildRoot + "kernel/src"],
+        Create(
+            application,
+            module,
+            [BuildRoot + "kernel/src"],
             [.. DocumentationWarnings, "warn_unused_vars", "nowarn_deprecated_callback",
-                "warn_obsolete_bool_op", "nowarn_deprecated_catch"])
+                "warn_obsolete_bool_op", "nowarn_deprecated_catch"]
+        )
             with
+        {
+            AllowIncompleteAbstractCode = true,
+            RecordedIncludeFiles = new Dictionary<string, string>
             {
-                AllowIncompleteAbstractCode = true,
-                RecordedIncludeFiles = new Dictionary<string, string>
-                {
-                    ["file.hrl"] = BootstrapKernelIncludes + "file.hrl",
-                    ["logger.hrl"] = BootstrapKernelIncludes + "logger.hrl",
-                    ["public_key.hrl"] = "/daily_build/otp_src/bootstrap/lib/public_key/include/public_key.hrl"
-                }
-            };
+                ["file.hrl"] = BootstrapKernelIncludes + "file.hrl",
+                ["logger.hrl"] = BootstrapKernelIncludes + "logger.hrl",
+                ["public_key.hrl"] = "/daily_build/otp_src/bootstrap/lib/public_key/include/public_key.hrl"
+            }
+        };
 
     private static BeamReleaseBuildProfile CompilerLibrary(string module) =>
-        Create("compiler", module, ["../../stdlib/include", "."],
+        Create(
+            "compiler",
+            module,
+            ["../../stdlib/include", "."],
             [.. DocumentationWarnings, "warn_deprecated_catch", "warn_obsolete_bool_op",
                 .. module == "core_parse" ? Array.Empty<string>() : new[] { "inline" },
-                "warn_unused_import", "warn_missing_spec"])
-            with { AllowIncompleteAbstractCode = true };
+                "warn_unused_import", "warn_missing_spec"]
+        )
+            with
+        { AllowIncompleteAbstractCode = true };
 
     private static BeamReleaseBuildProfile Create(
         string application,
@@ -918,7 +1081,13 @@ internal static class OtpWindowsReleaseProfiles
         string[] includes,
         string[] warnings,
         string? version = null
-    ) => CreateAt(BuildRoot + application + "/src", module, includes, warnings, version);
+    ) => CreateAt(
+        BuildRoot + application + "/src",
+        module,
+        includes,
+        warnings,
+        version
+    );
 
     private static BeamReleaseBuildProfile CreateAt(
         string workingDirectory,
@@ -927,13 +1096,13 @@ internal static class OtpWindowsReleaseProfiles
         string[] warnings,
         string? version = null
     ) => new(
-            BootstrapCompiler,
-            workingDirectory + "/" + module + ".erl",
-            workingDirectory,
-            ResolveIncludes(workingDirectory, includes),
-            warnings,
-            version
-        );
+        BootstrapCompiler,
+        workingDirectory + "/" + module + ".erl",
+        workingDirectory,
+        ResolveIncludes(workingDirectory, includes),
+        warnings,
+        version
+    );
 
     private static string[] ResolveIncludes(string directory, IEnumerable<string> includes) =>
         includes.Select(path => path.StartsWith('/') ? path : directory + "/" + path).ToArray();

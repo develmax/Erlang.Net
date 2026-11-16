@@ -20,11 +20,15 @@ internal sealed partial class BeamModuleCompiler
 
         private bool TryEmitSocketConnectSequence(FunctionDefinition function)
         {
-            if (function.Clauses is not [{
-                Guard: null, Patterns: [Pattern.Variable port],
-                Body: Expr.Sequence { Items: [var getHost, var connect, var connected, var getCertificate,
-                    var printCertificate, var receive, var printData, var closing, var close] }
-            }] || ReadTaggedRemote(getHost) is not { Call.Arguments.Count: 0 } host
+            if (function.Clauses is not [
+                {
+                    Guard: null, Patterns: [Pattern.Variable port],
+                    Body: Expr.Sequence
+                    {
+                        Items: [var getHost, var connect, var connected, var getCertificate,
+                    var printCertificate, var receive, var printData, var closing, var close]
+                    }
+                }] || ReadTaggedRemote(getHost) is not { Call.Arguments.Count: 0 } host
                 || ReadTaggedRemote(connect) is not { } socket
                 || socket.Call.Arguments is not [Expr.Variable hostArg, Expr.Variable portArg, Expr.Call
                 {
@@ -36,18 +40,30 @@ internal sealed partial class BeamModuleCompiler
                 || ReadTaggedRemote(receive) is not { } data
                 || data.Call.Arguments is not [Expr.Variable receiveSocket, Expr.Literal timeout]
                 || ReadRemote(connected) is not { Arguments: [Expr.Literal connectedText] } printConnected
-                || ReadRemote(printCertificate) is not { Arguments: [Expr.Literal certText, Expr.List
+                || ReadRemote(printCertificate) is not
                 {
-                    Items: [Expr.Call decode], Tail: null
-                }] } printCert
+                    Arguments: [Expr.Literal certText, Expr.List
+                    {
+                        Items: [Expr.Call decode], Tail: null
+                    }]
+                } printCert
                 || ReadRemote(decode) is null || decode.Arguments is not [Expr.Variable certArg, Expr.Literal decodeMode]
-                || ReadRemote(printData) is not { Arguments: [Expr.Literal dataText, Expr.List
+                || ReadRemote(printData) is not
                 {
-                    Items: [Expr.Variable dataArg], Tail: null
-                }] } printReceived
+                    Arguments: [Expr.Literal dataText, Expr.List
+                    {
+                        Items: [Expr.Variable dataArg], Tail: null
+                    }]
+                } printReceived
                 || ReadRemote(closing) is not { Arguments: [Expr.Literal closingText] } printClosing
                 || ReadRemote(close) is not { Arguments: [Expr.Variable closeSocket] } closeCall
-                || !DistinctBindings(port, host.Binding, socket.Binding, certificate.Binding, data.Binding)
+                || !DistinctBindings(
+                    port,
+                    host.Binding,
+                    socket.Binding,
+                    certificate.Binding,
+                    data.Binding
+                )
                 || hostArg.Name != host.Binding.Name || portArg.Name != port.Name
                 || certSocket.Name != socket.Binding.Name || receiveSocket.Name != socket.Binding.Name
                 || closeSocket.Name != socket.Binding.Name || certArg.Name != certificate.Binding.Name || dataArg.Name != data.Binding.Name)
@@ -64,31 +80,71 @@ internal sealed partial class BeamModuleCompiler
             owner.Op(Allocate, BeamWire.UnsignedTag, 2);
             owner.Operand(BeamWire.UnsignedTag, 1);
             Clear(0);
-            owner.MoveRegister(XRegisterTag, 0, YRegisterTag, 1);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                1
+            );
             Remote(host.Call);
-            owner.MoveRegister(XRegisterTag, 0, YRegisterTag, 0);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                0
+            );
             Check(badHost);
             owner.EmitConstant(mode.Value, 0);
             owner.EmitCallLine(options, previous);
             owner.EmitFieldCall(1, optionsEntry);
             previous = CallLocation(options, previous);
-            Project(YRegisterTag, 0, XRegisterTag, 1);
-            owner.MoveRegister(XRegisterTag, 0, XRegisterTag, 2);
-            owner.MoveRegister(XRegisterTag, 1, XRegisterTag, 0);
+            Project(
+                YRegisterTag,
+                0,
+                XRegisterTag,
+                1
+            );
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                XRegisterTag,
+                2
+            );
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                XRegisterTag,
+                0
+            );
             Load(1, 1);
             Clear(1);
             owner.Op(TrimFrame, BeamWire.UnsignedTag, 1);
             owner.Operand(BeamWire.UnsignedTag, 1);
             Remote(socket.Call);
-            owner.MoveRegister(XRegisterTag, 0, YRegisterTag, 0);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                0
+            );
             Check(badSocket);
             owner.EmitConstant(connectedText.Value, 0);
             Remote(printConnected);
-            Project(YRegisterTag, 0, YRegisterTag, 0);
+            Project(
+                YRegisterTag,
+                0,
+                YRegisterTag,
+                0
+            );
             Load(0);
             Remote(certificate.Call);
             Check(badCertificate);
-            Project(XRegisterTag, 0, XRegisterTag, 0);
+            Project(
+                XRegisterTag,
+                0,
+                XRegisterTag,
+                0
+            );
             owner.EmitConstant(decodeMode.Value, 1);
             Remote(decode);
             EmitSingleton();
@@ -99,7 +155,12 @@ internal sealed partial class BeamModuleCompiler
             Remote(data.Call);
             Check(badData);
             HeapForSingleton();
-            Project(XRegisterTag, 0, XRegisterTag, 0);
+            Project(
+                XRegisterTag,
+                0,
+                XRegisterTag,
+                0
+            );
             PutSingleton();
             owner.EmitConstant(dataText.Value, 0);
             Remote(printReceived);
@@ -132,7 +193,12 @@ internal sealed partial class BeamModuleCompiler
                 owner.Operand(AtomTag, owner.Intern("ok"));
             }
 
-            void Project(int sourceTag, int source, int destinationTag, int destination)
+            void Project(
+                int sourceTag,
+                int source,
+                int destinationTag,
+                int destination
+            )
             {
                 owner.Op(GetTupleElement, sourceTag, source);
                 owner.Operand(BeamWire.UnsignedTag, 1);

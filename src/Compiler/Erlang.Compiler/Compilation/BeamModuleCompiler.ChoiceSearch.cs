@@ -5,8 +5,14 @@ namespace Erlang.Compiler;
 internal sealed partial class BeamModuleCompiler
 {
     private sealed record ChoiceSearch(Expr.Call Test, Expr.Call Recur);
-    private sealed record ChoiceAcceptance(Atom Reference, Atom Choice, Expr.Call Lookup, Expr.Call Recur,
-        Expr.Call Search, Expr.Call Tag);
+    private sealed record ChoiceAcceptance(
+        Atom Reference,
+        Atom Choice,
+        Expr.Call Lookup,
+        Expr.Call Recur,
+        Expr.Call Search,
+        Expr.Call Tag
+    );
 
     private readonly HashSet<string> booleanChoiceFunctions = new(StringComparer.Ordinal);
     private readonly HashSet<string> choiceResultFunctions = new(StringComparer.Ordinal);
@@ -14,19 +20,41 @@ internal sealed partial class BeamModuleCompiler
     private static ChoiceSearch? ReadChoiceSearch(IReadOnlyList<Clause> clauses)
     {
         if (clauses is [
-            { Guard: null, Patterns: [Pattern.List { Items.Count: 0, Tail: null }, Pattern.Variable],
-                Body: Expr.Literal { Value: Atom { Name: "false" } } },
-            { Guard: null, Patterns: [Pattern.List { Items: [Pattern.Tuple { Items: [
-                Pattern.Variable name, Pattern.Variable { Name: VariableScopeNames.Wildcard }, Pattern.Variable shape] }],
-                Tail: Pattern.Variable fields }, Pattern.Variable tag],
-                Body: Expr.Case { Value: Expr.Call { Module: null, Arguments: [Expr.Variable tested, Expr.Variable key] } test,
+            {
+                Guard: null, Patterns: [Pattern.List { Items.Count: 0, Tail: null }, Pattern.Variable],
+                Body: Expr.Literal { Value: Atom { Name: "false" } }
+            },
+            {
+                Guard: null, Patterns: [Pattern.List
+                {
+                    Items: [Pattern.Tuple
+                    {
+                        Items: [
+                Pattern.Variable name, Pattern.Variable { Name: VariableScopeNames.Wildcard }, Pattern.Variable shape]
+                    }],
+                    Tail: Pattern.Variable fields
+                }, Pattern.Variable tag],
+                Body: Expr.Case
+                {
+                    Value: Expr.Call { Module: null, Arguments: [Expr.Variable tested, Expr.Variable key] } test,
                     Clauses: [
-                        { Guard: null, Patterns: [Pattern.Literal { Value: Atom { Name: "true" } }],
-                            Body: Expr.Tuple { Items: [Expr.Variable selected, Expr.Variable returned] } },
-                        { Guard: null, Patterns: [Pattern.Literal { Value: Atom { Name: "false" } }],
-                            Body: Expr.Call { Module: null, Arguments: [Expr.Variable rest, Expr.Variable nextKey] } recur }
-                    ] } }
-        ] && DistinctBindings(name, shape, fields, tag) && tested.Name == shape.Name && key.Name == tag.Name
+                    {
+                        Guard: null, Patterns: [Pattern.Literal { Value: Atom { Name: "true" } }],
+                        Body: Expr.Tuple { Items: [Expr.Variable selected, Expr.Variable returned] }
+                    },
+                    {
+                        Guard: null, Patterns: [Pattern.Literal { Value: Atom { Name: "false" } }],
+                        Body: Expr.Call { Module: null, Arguments: [Expr.Variable rest, Expr.Variable nextKey] } recur
+                    }
+                    ]
+                }
+            }
+        ] && DistinctBindings(
+            name,
+            shape,
+            fields,
+            tag
+        ) && tested.Name == shape.Name && key.Name == tag.Name
             && selected.Name == name.Name && returned.Name == shape.Name && rest.Name == fields.Name && nextKey.Name == tag.Name)
         {
             return new(test, recur);
@@ -38,23 +66,48 @@ internal sealed partial class BeamModuleCompiler
     private static ChoiceAcceptance? ReadChoiceAcceptance(IReadOnlyList<Clause> clauses)
     {
         if (clauses is [
-            { Guard: null, Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom reference }, Pattern.Variable name] },
+            {
+                Guard: null, Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom reference }, Pattern.Variable name] },
                 Pattern.Variable key1],
-                Body: Expr.Call { Module: null, Arguments: [
-                    Expr.Call { Module: null, Arguments: [Expr.Variable used] } lookup, Expr.Variable passed] } recur },
-            { Guard: null, Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom choice },
-                Pattern.Variable { Name: VariableScopeNames.Wildcard }, Pattern.Variable fields] }, Pattern.Variable key2],
-                Body: Expr.Binary { Operator: ErlangOperators.ExactNotEqual,
+                Body: Expr.Call
+                {
+                    Module: null, Arguments: [
+                    Expr.Call { Module: null, Arguments: [Expr.Variable used] } lookup, Expr.Variable passed]
+                } recur
+            },
+            {
+                Guard: null, Patterns: [Pattern.Tuple
+                {
+                    Items: [Pattern.Literal { Value: Atom choice },
+                Pattern.Variable { Name: VariableScopeNames.Wildcard }, Pattern.Variable fields]
+                }, Pattern.Variable key2],
+                Body: Expr.Binary
+                {
+                    Operator: ErlangOperators.ExactNotEqual,
                     Left: Expr.Call { Module: null, Arguments: [Expr.Variable searched, Expr.Variable searchKey] } search,
-                    Right: Expr.Literal { Value: Atom { Name: "false" } } } },
-            { Guard: null, Patterns: [Pattern.Variable shape, Pattern.Variable key3],
-                Body: Expr.Binary { Operator: ErlangOperators.ExactEqual,
-                    Left: Expr.Call { Module: null, Arguments: [Expr.Variable inspected] } tag, Right: Expr.Variable compared } }
+                    Right: Expr.Literal { Value: Atom { Name: "false" } }
+                }
+            },
+            {
+                Guard: null, Patterns: [Pattern.Variable shape, Pattern.Variable key3],
+                Body: Expr.Binary
+                {
+                    Operator: ErlangOperators.ExactEqual,
+                    Left: Expr.Call { Module: null, Arguments: [Expr.Variable inspected] } tag, Right: Expr.Variable compared
+                }
+            }
         ] && DistinctBindings(name, key1) && DistinctBindings(fields, key2) && DistinctBindings(shape, key3)
             && name.Name == used.Name && key1.Name == passed.Name && fields.Name == searched.Name
             && key2.Name == searchKey.Name && shape.Name == inspected.Name && key3.Name == compared.Name)
         {
-            return new(reference, choice, lookup, recur, search, tag);
+            return new(
+                reference,
+                choice,
+                lookup,
+                recur,
+                search,
+                tag
+            );
         }
 
         return null;
@@ -88,15 +141,30 @@ internal sealed partial class BeamModuleCompiler
         Operand(BeamWire.UnsignedTag, 3);
         Op(Allocate, BeamWire.UnsignedTag, 4);
         Operand(BeamWire.UnsignedTag, 4);
-        MoveRegister(XRegisterTag, 3, YRegisterTag, 2);
-        MoveRegister(XRegisterTag, 1, YRegisterTag, 3);
+        MoveRegister(
+            XRegisterTag,
+            3,
+            YRegisterTag,
+            2
+        );
+        MoveRegister(
+            XRegisterTag,
+            1,
+            YRegisterTag,
+            3
+        );
         Op(GetTupleElement, XRegisterTag, 2);
         Operand(BeamWire.UnsignedTag, 0);
         Operand(YRegisterTag, 1);
         Op(GetTupleElement, XRegisterTag, 2);
         Operand(BeamWire.UnsignedTag, 2);
         Operand(YRegisterTag, 0);
-        MoveRegister(YRegisterTag, 0, XRegisterTag, 0);
+        MoveRegister(
+            YRegisterTag,
+            0,
+            XRegisterTag,
+            0
+        );
         EmitCallLine(flow.Test, location);
         Op(LocalCall, BeamWire.UnsignedTag, 2);
         Operand(LabelTag, test);
@@ -115,8 +183,18 @@ internal sealed partial class BeamModuleCompiler
         {
             EmitAtomTest(0, "false", invalid);
         }
-        MoveRegister(YRegisterTag, 3, XRegisterTag, 1);
-        MoveRegister(YRegisterTag, 2, XRegisterTag, 0);
+        MoveRegister(
+            YRegisterTag,
+            3,
+            XRegisterTag,
+            1
+        );
+        MoveRegister(
+            YRegisterTag,
+            2,
+            XRegisterTag,
+            0
+        );
         Op(TailLocalCallWithFrame, BeamWire.UnsignedTag, 2);
         Operand(LabelTag, recur);
         Operand(BeamWire.UnsignedTag, 4);
@@ -175,12 +253,22 @@ internal sealed partial class BeamModuleCompiler
         EmitAtomTest(2, flow.Reference.Name, fallback);
         Op(Allocate, BeamWire.UnsignedTag, 1);
         Operand(BeamWire.UnsignedTag, 2);
-        MoveRegister(XRegisterTag, 1, YRegisterTag, 0);
+        MoveRegister(
+            XRegisterTag,
+            1,
+            YRegisterTag,
+            0
+        );
         EmitTupleElement(1, 0);
         EmitCallLine(flow.Lookup, CallLocation(flow.Search, location));
         Op(LocalCall, BeamWire.UnsignedTag, 1);
         Operand(LabelTag, lookup);
-        MoveRegister(YRegisterTag, 0, XRegisterTag, 1);
+        MoveRegister(
+            YRegisterTag,
+            0,
+            XRegisterTag,
+            1
+        );
         Op(TailLocalCallWithFrame, BeamWire.UnsignedTag, 2);
         Operand(LabelTag, recur);
         Operand(BeamWire.UnsignedTag, 1);
@@ -188,7 +276,12 @@ internal sealed partial class BeamModuleCompiler
         Op(Label, BeamWire.UnsignedTag, fallback);
         Op(Allocate, BeamWire.UnsignedTag, 1);
         Operand(BeamWire.UnsignedTag, 2);
-        MoveRegister(XRegisterTag, 1, YRegisterTag, 0);
+        MoveRegister(
+            XRegisterTag,
+            1,
+            YRegisterTag,
+            0
+        );
         EmitCallLine(flow.Tag, CallLocation(flow.Lookup, location));
         Op(LocalCall, BeamWire.UnsignedTag, 1);
         Operand(LabelTag, tag);

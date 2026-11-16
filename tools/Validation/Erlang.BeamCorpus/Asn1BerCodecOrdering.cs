@@ -8,8 +8,11 @@ internal static class Asn1BerCodecOrdering
         RegexOptions.Multiline | RegexOptions.CultureInvariant
     );
 
-    internal static string Order(string source, IReadOnlyDictionary<string, Asn1BerSchema.Type> roots,
-        IReadOnlyList<KeyValuePair<string, Asn1BerSchema.Type>> codecs)
+    internal static string Order(
+        string source,
+        IReadOnlyDictionary<string, Asn1BerSchema.Type> roots,
+        IReadOnlyList<KeyValuePair<string, Asn1BerSchema.Type>> codecs
+    )
     {
         var signatures = Signature.Matches(source).ToArray();
         var bodies = new Dictionary<(string Name, int Arity), StringBuilder>();
@@ -30,6 +33,7 @@ internal static class Asn1BerCodecOrdering
 
         var types = codecs.ToDictionary(entry => entry.Key, entry => entry.Value, StringComparer.Ordinal);
         var ordered = new StringBuilder();
+
         void Emit(string name, int arity)
         {
             if (bodies.Remove((name, arity), out var body))
@@ -37,6 +41,7 @@ internal static class Asn1BerCodecOrdering
                 ordered.Append(body);
             }
         }
+
         void EmitHeading(string name, bool nested)
         {
             if (nested)
@@ -49,6 +54,7 @@ internal static class Asn1BerCodecOrdering
                 .AppendLine($"%%  {name}")
                 .AppendLine("%%================================");
         }
+
         void Visit(string prefix, string name, bool nested = false)
         {
             if (nested && prefix == "enc_")
@@ -90,6 +96,7 @@ internal static class Asn1BerCodecOrdering
         {
             throw new InvalidOperationException("Generated ASN.1 helper functions have no type owner.");
         }
+
         return ordered.ToString();
     }
 }

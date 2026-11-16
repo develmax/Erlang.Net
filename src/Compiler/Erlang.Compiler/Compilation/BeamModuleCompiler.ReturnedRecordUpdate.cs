@@ -118,32 +118,34 @@ internal sealed partial class BeamModuleCompiler
                 body = new Expr.Sequence([selection, tailCall with { Arguments = [tailKey, updateValue] }]);
             }
 
-            if (body is not Expr.Sequence { Items:
+            if (body is not Expr.Sequence
+                {
+                    Items:
                 [
                     Expr.Match
+                {
+                    Pattern: Pattern.Variable saved,
+                    Value: Expr.Case
                     {
-                        Pattern: Pattern.Variable saved,
-                        Value: Expr.Case
-                        {
-                            Value: Expr.Call read,
-                            Clauses:
+                        Value: Expr.Call read,
+                        Clauses:
                             [
-                                { Patterns: [Pattern.Variable record], Guard: { } guard, Body: Expr.Variable returned },
-                                { Patterns: [Pattern.Variable { Name: VariableScopeNames.Wildcard }], Guard: null, Body: var fallback }
+                            { Patterns: [Pattern.Variable record], Guard: { } guard, Body: Expr.Variable returned },
+                            { Patterns: [Pattern.Variable { Name: VariableScopeNames.Wildcard }], Guard: null, Body: var fallback }
                             ]
-                        }
-                    },
+                    }
+                },
                     Expr.Call
+                {
+                    Module: null, DynamicRemote: false,
+                    Arguments: [var key, Expr.RecordUpdate
                     {
-                        Module: null, DynamicRemote: false,
-                        Arguments: [var key, Expr.RecordUpdate
-                        {
-                            Value: Expr.Variable original,
-                            Fields: [var field]
-                        } update]
-                    } tail
+                        Value: Expr.Variable original,
+                        Fields: [var field]
+                    } update]
+                } tail
                 ]
-            }
+                }
                 || !DistinctBindings(saved, record)
                 || record.Name != returned.Name || saved.Name != original.Name
                 || clause.Patterns.SelectMany(Semantics.Variables).Contains(saved.Name, StringComparer.Ordinal)
@@ -169,11 +171,21 @@ internal sealed partial class BeamModuleCompiler
             }
 
             EmitFrameAllocation(clause.Patterns.Count, 1);
-            owner.MoveRegister(XRegisterTag, argument, YRegisterTag, 0);
+            owner.MoveRegister(
+                XRegisterTag,
+                argument,
+                YRegisterTag,
+                0
+            );
             EmitEntryCall(initial);
             int useDefault = Label();
             int updateRecord = Label();
-            EmitDetailRecordTest(0, test.Arity, test.Name, useDefault);
+            EmitDetailRecordTest(
+                0,
+                test.Arity,
+                test.Name,
+                useDefault
+            );
             JumpTo(updateRecord);
             Mark(useDefault);
             owner.EmitConstant(defaultTuple, 0);
@@ -195,6 +207,7 @@ internal sealed partial class BeamModuleCompiler
             owner.Op(TailLocalCallWithFrame, BeamWire.UnsignedTag, 2);
             owner.Operand(LabelTag, target);
             owner.Operand(BeamWire.UnsignedTag, 1);
+
             return true;
         }
 

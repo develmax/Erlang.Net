@@ -46,10 +46,16 @@ public static class Lexer
                     value.ToString(CultureInfo.InvariantCulture),
                     start,
                     i
-                ) { IsCharacterLiteral = true });
+                )
+                { IsCharacterLiteral = true });
                 continue;
             }
-            if (c == '~' && StringSigilLexer.TryRead(text, start, ref i, out Token? sigil))
+            if (c == '~' && StringSigilLexer.TryRead(
+                text,
+                start,
+                ref i,
+                out Token? sigil
+            ))
             {
                 tokens.Add(sigil!);
                 continue;

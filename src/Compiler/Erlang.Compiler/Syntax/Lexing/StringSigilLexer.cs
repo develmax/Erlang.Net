@@ -7,7 +7,12 @@ namespace Erlang.Compiler;
 
 internal static class StringSigilLexer
 {
-    internal static bool TryRead(string text, int start, ref int offset, out Token? token)
+    internal static bool TryRead(
+        string text,
+        int start,
+        ref int offset,
+        out Token? token
+    )
     {
         token = null;
         int delimiter = offset;
@@ -91,10 +96,17 @@ internal static class StringSigilLexer
         }
 
         string kind = prefix is 's' or 'S' ? LexerTokenKinds.String : LexerTokenKinds.BinaryString;
-        token = new Token(kind, value, start, offset) {
+        token = new Token(
+            kind,
+            value,
+            start,
+            offset
+        )
+        {
             IsStringSigil = true,
             SigilDelimiterOffset = delimiter - start
         };
+
         return true;
     }
 

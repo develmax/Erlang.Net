@@ -18,7 +18,12 @@ internal sealed partial class BeamModuleCompiler
                 {
                     Expression(match.Value);
                     int value = Save();
-                    owner.MoveRegister(XRegisterTag, 0, YRegisterTag, failedValue);
+                    owner.MoveRegister(
+                        XRegisterTag,
+                        0,
+                        YRegisterTag,
+                        failedValue
+                    );
                     Pattern(match.Pattern, value, failure);
                     if (index == conditional.Items.Count - 1)
                     {

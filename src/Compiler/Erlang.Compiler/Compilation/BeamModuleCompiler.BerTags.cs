@@ -12,13 +12,30 @@ internal sealed partial class BeamModuleCompiler
     private static BerTag? ReadBerTag(IReadOnlyList<Clause> clauses)
     {
         if (clauses is [
-            { Guard: null, Patterns: [BitPattern { Segments: [var c1, var skip1, var marker, var tail] }],
-                Body: Expr.Binary { Operator: ErlangOperators.BitwiseOr, Left: var prefix1,
-                    Right: Expr.Call { Module: null, Arguments: [Expr.Variable remainder, Expr.Literal { Value: Integer zero }] } call } },
-            { Guard: null, Patterns: [BitPattern { Segments: [var c2, var skip2, var tag] }],
-                Body: Expr.Binary { Operator: ErlangOperators.BitwiseOr, Left: var prefix2, Right: Expr.Variable result } shortForm }
+            {
+                Guard: null, Patterns: [BitPattern { Segments: [var c1, var skip1, var marker, var tail] }],
+                Body: Expr.Binary
+                {
+                    Operator: ErlangOperators.BitwiseOr, Left: var prefix1,
+                    Right: Expr.Call { Module: null, Arguments: [Expr.Variable remainder, Expr.Literal { Value: Integer zero }] } call
+                }
+            },
+            {
+                Guard: null, Patterns: [BitPattern { Segments: [var c2, var skip2, var tag] }],
+                Body: Expr.Binary { Operator: ErlangOperators.BitwiseOr, Left: var prefix2, Right: Expr.Variable result } shortForm
+            }
         ] && zero.Value == 0
-            && IsShiftedField(c1, prefix1, 2, 16) && IsShiftedField(c2, prefix2, 2, 16)
+            && IsShiftedField(
+                c1,
+                prefix1,
+                2,
+                16
+            ) && IsShiftedField(
+                c2,
+                prefix2,
+                2,
+                16
+            )
             && IsFixedBits(skip1, 1) && skip1.Value is Pattern.Variable { Name: VariableScopeNames.Wildcard }
             && IsFixedBits(skip2, 1) && skip2.Value is Pattern.Variable { Name: VariableScopeNames.Wildcard }
             && IsFixedBits(marker, 5) && marker.Value is Pattern.Literal { Value: Integer { Value: var markerValue } } && markerValue == 31
@@ -35,10 +52,14 @@ internal sealed partial class BeamModuleCompiler
     private static BerContinuation? ReadBerContinuation(IReadOnlyList<Clause> clauses)
     {
         if (clauses is [
-            { Guard: null, Patterns: [BitPattern { Segments: [var more, var part1, var tail] }, Pattern.Variable acc1],
-                Body: Expr.Call { Module: null, Arguments: [Expr.Variable remainder, Expr.Binary continued] } recur },
-            { Guard: null, Patterns: [BitPattern { Segments: [var last, var part2] }, Pattern.Variable acc2],
-                Body: Expr.Binary complete }
+            {
+                Guard: null, Patterns: [BitPattern { Segments: [var more, var part1, var tail] }, Pattern.Variable acc1],
+                Body: Expr.Call { Module: null, Arguments: [Expr.Variable remainder, Expr.Binary continued] } recur
+            },
+            {
+                Guard: null, Patterns: [BitPattern { Segments: [var last, var part2] }, Pattern.Variable acc2],
+                Body: Expr.Binary complete
+            }
         ] && IsFixedBits(more, 1) && more.Value is Pattern.Literal { Value: Integer { Value: var moreValue } } && moreValue == 1
             && IsFixedBits(last, 1) && last.Value is Pattern.Literal { Value: Integer { Value: var lastValue } } && lastValue == 0
             && IsBinaryTail(tail, remainder.Name)
@@ -55,23 +76,37 @@ internal sealed partial class BeamModuleCompiler
         expression is
         {
             Operator: ErlangOperators.BitwiseOr,
-            Left: Expr.Binary { Operator: ErlangOperators.ShiftLeft, Left: Expr.Variable previous,
-                Right: Expr.Literal { Value: Integer shift } },
+            Left: Expr.Binary
+            {
+                Operator: ErlangOperators.ShiftLeft, Left: Expr.Variable previous,
+                Right: Expr.Literal { Value: Integer shift }
+            },
             Right: Expr.Variable part
         } && shift.Value == 7 && previous.Name == accumulator.Name && accumulator.Name != VariableScopeNames.Wildcard
         && IsFixedBits(segment, 7) && IsBoundField(segment, part.Name) && accumulator.Name != part.Name;
 
-    private static bool IsShiftedField(BitPatternSegment segment, Expr expression, int width, int shift) =>
-        expression is Expr.Binary { Operator: ErlangOperators.ShiftLeft, Left: Expr.Variable field,
-            Right: Expr.Literal { Value: Integer count } }
+    private static bool IsShiftedField(
+        BitPatternSegment segment,
+        Expr expression,
+        int width,
+        int shift
+    ) =>
+        expression is Expr.Binary
+        {
+            Operator: ErlangOperators.ShiftLeft, Left: Expr.Variable field,
+            Right: Expr.Literal { Value: Integer count }
+        }
         && count.Value == shift && IsFixedBits(segment, width) && IsBoundField(segment, field.Name);
 
     private static bool IsBoundField(BitPatternSegment segment, string name) =>
         segment.Value is Pattern.Variable variable && variable.Name == name && name != VariableScopeNames.Wildcard;
 
     private static bool IsFixedBits(BitPatternSegment segment, int width) =>
-        segment.Specification is { Type: BitSegmentTypes.Integer, Unit: 1, Endian: BitByteOrders.Big,
-            Signed: false, Size: Expr.Literal { Value: Integer size } } && size.Value == width;
+        segment.Specification is
+        {
+            Type: BitSegmentTypes.Integer, Unit: 1, Endian: BitByteOrders.Big,
+            Signed: false, Size: Expr.Literal { Value: Integer size }
+        } && size.Value == width;
 
     private static bool IsBinaryTail(BitPatternSegment segment, string name) =>
         segment.Specification is { Type: BitSegmentTypes.Binary, Unit: 8, Size: null }
@@ -96,7 +131,12 @@ internal sealed partial class BeamModuleCompiler
         BerRead(3, 5, 3);
 
         Op(ExactEqualTest, LabelTag, shortTag);
-        EmitTypedRegister(3, IntegerTypeBits, 0, 31);
+        EmitTypedRegister(
+            3,
+            IntegerTypeBits,
+            0,
+            31
+        );
         Operand(BeamWire.IntegerTag, 31);
         BerMatch(shortTag, 1, 3);
         BerEnsure(0, 8);
@@ -104,7 +144,12 @@ internal sealed partial class BeamModuleCompiler
         Operand(BeamWire.UnsignedTag, 3);
         InitStackSlot(0);
         BeginBerArithmetic("bsl", 3);
-        EmitTypedRegister(2, IntegerTypeBits, 0, 3);
+        EmitTypedRegister(
+            2,
+            IntegerTypeBits,
+            0,
+            3
+        );
         Operand(BeamWire.IntegerTag, 16);
         Operand(YRegisterTag, 0);
         bool passContext = resumableBerFunctions.Contains(tag.Long.Function);
@@ -113,7 +158,13 @@ internal sealed partial class BeamModuleCompiler
         Op(LocalCall, BeamWire.UnsignedTag, 2);
         Operand(LabelTag, longTag);
         BeginBerArithmetic("bor", 1);
-        EmitTypedRegister(0, IntegerTypeBits, 0, 196608, YRegisterTag);
+        EmitTypedRegister(
+            0,
+            IntegerTypeBits,
+            0,
+            196608,
+            YRegisterTag
+        );
         if (passContext)
         {
             EmitTypedRegister(0, IntegerTypeBits);
@@ -130,15 +181,35 @@ internal sealed partial class BeamModuleCompiler
         BerEnsure(0);
         EmitArithmeticLine(tag.ShortLine, ref location);
         BeginBerArithmetic("bsl", 4);
-        EmitTypedRegister(2, IntegerTypeBits, 0, 3);
+        EmitTypedRegister(
+            2,
+            IntegerTypeBits,
+            0,
+            3
+        );
         Operand(BeamWire.IntegerTag, 16);
         Operand(XRegisterTag, 0);
         BeginBerArithmetic("bor", 4);
-        EmitTypedRegister(0, IntegerTypeBits, 0, 196608);
-        EmitTypedRegister(3, IntegerTypeBits, 0, 31);
+        EmitTypedRegister(
+            0,
+            IntegerTypeBits,
+            0,
+            196608
+        );
+        EmitTypedRegister(
+            3,
+            IntegerTypeBits,
+            0,
+            31
+        );
         Operand(XRegisterTag, 0);
         instructions.WriteByte(Return);
-        RestoreBerInput(restore, functionInfo, 1, 2);
+        RestoreBerInput(
+            restore,
+            functionInfo,
+            1,
+            2
+        );
     }
 
     private void EmitBerContinuation(BerContinuation flow, BeamSourceLocation location, IReadOnlyDictionary<(string Name, int Arity), int> entries)
@@ -174,14 +245,24 @@ internal sealed partial class BeamModuleCompiler
         MoveBerTailToArgument(2, 3, resumableBerFunctions.Contains(flow.Recur.Function));
         Op(TailLocalCall, BeamWire.UnsignedTag, 2);
         Operand(LabelTag, recur);
-        RestoreBerInput(restore, functionInfo, 2, 3);
+        RestoreBerInput(
+            restore,
+            functionInfo,
+            2,
+            3
+        );
     }
 
     private void MoveBerTailToArgument(int context, int live, bool passContext)
     {
         if (passContext)
         {
-            MoveRegister(XRegisterTag, context, XRegisterTag, 0);
+            MoveRegister(
+                XRegisterTag,
+                context,
+                XRegisterTag,
+                0
+            );
         }
         else
         {
@@ -199,7 +280,12 @@ internal sealed partial class BeamModuleCompiler
         Operand(XRegisterTag, destination);
         BeginBerArithmetic("bor", live);
         EmitTypedRegister(destination, IntegerTypeBits);
-        EmitTypedRegister(part, IntegerTypeBits, 0, 127);
+        EmitTypedRegister(
+            part,
+            IntegerTypeBits,
+            0,
+            127
+        );
         Operand(XRegisterTag, destination);
     }
 
@@ -221,7 +307,12 @@ internal sealed partial class BeamModuleCompiler
         Operand(BeamWire.UnsignedTag, live + 1);
     }
 
-    private void RestoreBerInput(int restore, int failure, int context, int live)
+    private void RestoreBerInput(
+        int restore,
+        int failure,
+        int context,
+        int live
+    )
     {
         Op(Label, BeamWire.UnsignedTag, restore);
         Op(SetBinaryPosition, XRegisterTag, context);

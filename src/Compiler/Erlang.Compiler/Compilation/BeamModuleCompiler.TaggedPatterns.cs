@@ -4,20 +4,37 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
-    private sealed record TaggedChoice(Atom ReferenceTag, Atom ChoiceTag, Expr.Call Input, Expr.Call Recur);
+    private sealed record TaggedChoice(
+        Atom ReferenceTag,
+        Atom ChoiceTag,
+        Expr.Call Input,
+        Expr.Call Recur
+    );
 
     private static TaggedChoice? ReadTaggedChoice(IReadOnlyList<Clause> clauses)
     {
         if (clauses is [
-            { Guard: null, Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom reference }, Pattern.Variable name] }],
-                Body: Expr.Call { Module: null, Arguments: [Expr.Call { Module: null, Arguments: [Expr.Variable used] } input] } recur },
-            { Guard: null, Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom choice },
-                Pattern.Variable { Name: VariableScopeNames.Wildcard }, Pattern.Variable { Name: VariableScopeNames.Wildcard }] }],
-                Body: Expr.Literal { Value: Atom { Name: "true" } } },
+            {
+                Guard: null, Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom reference }, Pattern.Variable name] }],
+                Body: Expr.Call { Module: null, Arguments: [Expr.Call { Module: null, Arguments: [Expr.Variable used] } input] } recur
+            },
+            {
+                Guard: null, Patterns: [Pattern.Tuple
+                {
+                    Items: [Pattern.Literal { Value: Atom choice },
+                Pattern.Variable { Name: VariableScopeNames.Wildcard }, Pattern.Variable { Name: VariableScopeNames.Wildcard }]
+                }],
+                Body: Expr.Literal { Value: Atom { Name: "true" } }
+            },
             { Guard: null, Patterns: [Pattern.Variable], Body: Expr.Literal { Value: Atom { Name: "false" } } }
         ] && name.Name == used.Name && name.Name != VariableScopeNames.Wildcard)
         {
-            return new(reference, choice, input, recur);
+            return new(
+                reference,
+                choice,
+                input,
+                recur
+            );
         }
 
         return null;
@@ -50,37 +67,76 @@ internal sealed partial class BeamModuleCompiler
         instructions.WriteByte(Return);
 
         Op(Label, BeamWire.UnsignedTag, reference);
-        EmitReferenceCall(choice.ReferenceTag, choice.Input, input, recur, fallback, location);
+        EmitReferenceCall(
+            choice.ReferenceTag,
+            choice.Input,
+            input,
+            recur,
+            fallback,
+            location
+        );
 
         Op(Label, BeamWire.UnsignedTag, fallback);
         EmitConstant(Term.A("false"), 0);
         instructions.WriteByte(Return);
     }
 
-    private sealed record TaggedField(Atom Reference, Atom Field, Atom Constant, Term Value,
-        Expr.Call Input, Expr.Call Tail, Expr.Call Element);
+    private sealed record TaggedField(
+        Atom Reference,
+        Atom Field,
+        Atom Constant,
+        Term Value,
+        Expr.Call Input,
+        Expr.Call Tail,
+        Expr.Call Element
+    );
 
     private static TaggedField? ReadTaggedField(IReadOnlyList<Clause> clauses)
     {
         if (clauses is [
-            { Guard: null, Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom reference }, Pattern.Variable name] }],
-                Body: Expr.Call { Module: null, Arguments: [Expr.Call { Module: null, Arguments: [Expr.Variable used] } input] } tail },
-            { Guard: null, Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom field },
+            {
+                Guard: null, Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom reference }, Pattern.Variable name] }],
+                Body: Expr.Call { Module: null, Arguments: [Expr.Call { Module: null, Arguments: [Expr.Variable used] } input] } tail
+            },
+            {
+                Guard: null, Patterns: [Pattern.Tuple
+                {
+                    Items: [Pattern.Literal { Value: Atom field },
                 Pattern.Variable { Name: VariableScopeNames.Wildcard }, Pattern.Variable selected,
-                Pattern.Variable { Name: VariableScopeNames.Wildcard }, Pattern.Variable { Name: VariableScopeNames.Wildcard }] }],
-                Body: Expr.Variable returned },
-            { Guard: null, Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom constant },
-                Pattern.Variable { Name: VariableScopeNames.Wildcard }, Pattern.Variable { Name: VariableScopeNames.Wildcard }] }],
-                Body: var body },
-            { Guard: null, Patterns: [Pattern.Variable fallback],
-                Body: Expr.Call { Module: null or ErlangModuleNames.Module, Function: "element", DynamicRemote: false,
-                    Arguments: [Expr.Literal { Value: Integer index }, Expr.Variable tuple] } element }
+                Pattern.Variable { Name: VariableScopeNames.Wildcard }, Pattern.Variable { Name: VariableScopeNames.Wildcard }]
+                }],
+                Body: Expr.Variable returned
+            },
+            {
+                Guard: null, Patterns: [Pattern.Tuple
+                {
+                    Items: [Pattern.Literal { Value: Atom constant },
+                Pattern.Variable { Name: VariableScopeNames.Wildcard }, Pattern.Variable { Name: VariableScopeNames.Wildcard }]
+                }],
+                Body: var body
+            },
+            {
+                Guard: null, Patterns: [Pattern.Variable fallback],
+                Body: Expr.Call
+                {
+                    Module: null or ErlangModuleNames.Module, Function: "element", DynamicRemote: false,
+                    Arguments: [Expr.Literal { Value: Integer index }, Expr.Variable tuple]
+                } element
+            }
         ] && name.Name == used.Name && name.Name != VariableScopeNames.Wildcard
             && selected.Name == returned.Name && selected.Name != VariableScopeNames.Wildcard
             && index.Value == 2 && fallback.Name == tuple.Name && fallback.Name != VariableScopeNames.Wildcard
             && AttributeLiteral.TryNormalizeConstant(body, out Term value))
         {
-            return new(reference, field, constant, value, input, tail, element);
+            return new(
+                reference,
+                field,
+                constant,
+                value,
+                input,
+                tail,
+                element
+            );
         }
 
         return null;
@@ -116,7 +172,14 @@ internal sealed partial class BeamModuleCompiler
         instructions.WriteByte(Return);
 
         Op(Label, BeamWire.UnsignedTag, reference);
-        EmitReferenceCall(field.Reference, field.Input, input, tail, fallback, location);
+        EmitReferenceCall(
+            field.Reference,
+            field.Input,
+            input,
+            tail,
+            fallback,
+            location
+        );
 
         Op(Label, BeamWire.UnsignedTag, fallback);
         EmitCallLine(field.Element, location);
@@ -128,8 +191,12 @@ internal sealed partial class BeamModuleCompiler
         instructions.WriteByte(Return);
     }
 
-    private void EmitTupleArityDispatch(int fallback, IReadOnlyList<(int Arity, int Label)> cases,
-        int register = 0, int registerTag = XRegisterTag)
+    private void EmitTupleArityDispatch(
+        int fallback,
+        IReadOnlyList<(int Arity, int Label)> cases,
+        int register = 0,
+        int registerTag = XRegisterTag
+    )
     {
         Op(IsTuple, LabelTag, fallback);
         Operand(registerTag, register);
@@ -145,7 +212,14 @@ internal sealed partial class BeamModuleCompiler
         }
     }
 
-    private void EmitReferenceCall(Atom tag, Expr.Call call, int input, int tail, int fallback, BeamSourceLocation location)
+    private void EmitReferenceCall(
+        Atom tag,
+        Expr.Call call,
+        int input,
+        int tail,
+        int fallback,
+        BeamSourceLocation location
+    )
     {
         EmitTupleTagTest(tag, fallback);
         Op(Allocate, BeamWire.UnsignedTag, 0);

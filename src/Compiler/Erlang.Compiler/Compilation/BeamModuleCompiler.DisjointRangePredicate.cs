@@ -44,10 +44,16 @@ internal sealed partial class BeamModuleCompiler
                     || input.Name == VariableScopeNames.Wildcard
                     || PredicateConjuncts(guard).ToArray() is not
                     [
-                        Expr.Binary { Operator: ErlangOperators.GreaterOrEqual,
-                            Left: Expr.Variable start, Right: Expr.Literal { Value: Integer lower } },
-                        Expr.Binary { Operator: ErlangOperators.LessOrEqual,
-                            Left: Expr.Variable end, Right: Expr.Literal { Value: Integer upper } }
+                        Expr.Binary
+                    {
+                        Operator: ErlangOperators.GreaterOrEqual,
+                        Left: Expr.Variable start, Right: Expr.Literal { Value: Integer lower }
+                    },
+                        Expr.Binary
+                    {
+                        Operator: ErlangOperators.LessOrEqual,
+                        Left: Expr.Variable end, Right: Expr.Literal { Value: Integer upper }
+                    }
                     ]
                     || start.Name != input.Name || end.Name != input.Name
                     || lower.Value < long.MinValue || upper.Value > long.MaxValue

@@ -16,8 +16,16 @@ internal sealed class Asn1BerSchema
     internal Dictionary<string, Type> Types { get; } = new(StringComparer.Ordinal);
     internal Dictionary<string, int> Values { get; } = new(StringComparer.Ordinal);
 
-    internal sealed record Type(string Kind, int? Tag = null, string? Name = null, Type? Element = null,
-        IReadOnlyList<Field>? Fields = null, IReadOnlyDictionary<string, int>? Numbers = null, bool Extensible = false, (string Lower, string Upper)? Range = null);
+    internal sealed record Type(
+        string Kind,
+        int? Tag = null,
+        string? Name = null,
+        Type? Element = null,
+        IReadOnlyList<Field>? Fields = null,
+        IReadOnlyDictionary<string, int>? Numbers = null,
+        bool Extensible = false,
+        (string Lower, string Upper)? Range = null
+    );
 
     internal sealed record Field(string Name, Type Type, string Presence = "required");
 
@@ -171,7 +179,13 @@ internal sealed class Asn1BerSchema
         while (Take(","));
         Expect("}");
 
-        return new(kind, tag, name, Fields: fields, Extensible: extension);
+        return new(
+            kind,
+            tag,
+            name,
+            Fields: fields,
+            Extensible: extension
+        );
     }
 
     private Type ReadEnumeration()
@@ -194,7 +208,12 @@ internal sealed class Asn1BerSchema
         while (Take(","));
         Expect("}");
 
-        return new("enumerated", 10, Numbers: numbers, Extensible: extension);
+        return new(
+            "enumerated",
+            10,
+            Numbers: numbers,
+            Extensible: extension
+        );
     }
 
     private void TakeSize()
@@ -207,7 +226,12 @@ internal sealed class Asn1BerSchema
 
     private string RangeBound()
     {
-        if (int.TryParse(Peek, NumberStyles.AllowLeadingSign, CultureInfo.InvariantCulture, out int value))
+        if (int.TryParse(
+            Peek,
+            NumberStyles.AllowLeadingSign,
+            CultureInfo.InvariantCulture,
+            out int value
+        ))
         {
             position++;
 
@@ -279,7 +303,12 @@ internal sealed class Asn1BerSchema
 
     private int Number()
     {
-        if (!int.TryParse(Peek, NumberStyles.AllowLeadingSign, CultureInfo.InvariantCulture, out int number))
+        if (!int.TryParse(
+            Peek,
+            NumberStyles.AllowLeadingSign,
+            CultureInfo.InvariantCulture,
+            out int number
+        ))
         {
             throw Unexpected("an integer");
         }

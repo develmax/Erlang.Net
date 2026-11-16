@@ -174,13 +174,17 @@ public static class CodeGeneration
 
         bool deterministic = buildProfile is null || buildProfile.RecordedCompileOptions?.Contains(Term.A("deterministic")) == true;
 
-        return CompileBeamModule(sourcePath, new BeamMacroPreprocessor(
-            source,
+        return CompileBeamModule(
             sourcePath,
-            resolver,
-            deterministic,
-            buildProfile?.PreprocessorDefinitions
-        ), buildProfile);
+            new BeamMacroPreprocessor(
+                source,
+                sourcePath,
+                resolver,
+                deterministic,
+                buildProfile?.PreprocessorDefinitions
+            ),
+            buildProfile
+        );
     }
 
     private static byte[] CompileBeamModule(string sourcePath, BeamMacroPreprocessor preprocessor, BeamReleaseBuildProfile? buildProfile = null)
@@ -228,11 +232,31 @@ public static class CodeGeneration
         );
         var metadata = buildProfile is null
             ? new BeamModuleMetadata(module.Attributes, docs)
-            : BeamReleaseMetadataWriter.Build(module, tokens, source, buildProfile, docs, specs, preprocessor.FileTransitions, parser);
+            : BeamReleaseMetadataWriter.Build(
+                module,
+                tokens,
+                source,
+                buildProfile,
+                docs,
+                specs,
+                preprocessor.FileTransitions,
+                parser
+            );
 
         string? lineFile = buildProfile?.RecordedSourceFile
             ?? (buildProfile is { RecordSourceFileInLineTable: true } ? buildProfile.SourcePath : null);
-        return new BeamModuleCompiler(module.Name, lineFile, module, preprocessor.MaybeEnabled).Emit(functions, lines, exports, metadata);
+
+        return new BeamModuleCompiler(
+            module.Name,
+            lineFile,
+            module,
+            preprocessor.MaybeEnabled
+        ).Emit(
+            functions,
+            lines,
+            exports,
+            metadata
+        );
     }
 
     internal static string ModuleCode(ModuleDefinition module, string sourcePath, bool includeAttributes = true)

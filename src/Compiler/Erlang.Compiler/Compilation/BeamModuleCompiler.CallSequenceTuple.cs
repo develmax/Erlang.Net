@@ -143,6 +143,7 @@ internal sealed partial class BeamModuleCompiler
                 captures,
                 reads
             );
+
             return ReadSavedCallSequence(
                 calls,
                 parameters,

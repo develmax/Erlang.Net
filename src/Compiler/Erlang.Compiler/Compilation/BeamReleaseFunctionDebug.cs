@@ -37,16 +37,32 @@ internal static class BeamReleaseFunctionDebug
         Token eof = tokens[cursor] with { Kind = LexerTokenKinds.EndOfInput, Text = string.Empty };
         if (fields.Any(token => token.Kind == LexerTokenKinds.Symbol && token.Text == NativeRecordTypeTokens.Annotation))
         {
-            return Term.Tuple(Term.A(name.Text), WriteTypedRecordFields(fields, source, parser, name.Text));
+            return Term.Tuple(Term.A(name.Text), WriteTypedRecordFields(
+                fields,
+                source,
+                parser,
+                name.Text
+            ));
         }
         if (parser.ParseDebugExpression([.. fields, eof]) is not Expr.Tuple tuple)
         {
             throw Unsupported();
         }
-        return Term.Tuple(Term.A(name.Text), new ExpressionWriter(fields, 0, source, parser).WriteRecordFields(tuple));
+
+        return Term.Tuple(Term.A(name.Text), new ExpressionWriter(
+            fields,
+            0,
+            source,
+            parser
+        ).WriteRecordFields(tuple));
     }
 
-    private static Term WriteTypedRecordFields(IReadOnlyList<Token> tokens, string source, Parser parser, string name)
+    private static Term WriteTypedRecordFields(
+        IReadOnlyList<Token> tokens,
+        string source,
+        Parser parser,
+        string name
+    )
     {
         if (tokens[0].Text != ErlangSyntaxTokens.OpenTuple)
         {
@@ -69,13 +85,28 @@ internal static class BeamReleaseFunctionDebug
             {
                 Expr value = parser.FindDebugRecord(name)?.Fields.FirstOrDefault(item => item.Name == field.Text)?.Value
                     ?? throw Unsupported();
-                var writer = new ExpressionWriter(tokens, index + 1, source, parser);
-                definition = Term.Tuple(Term.A("record_field"), location, fieldName, writer.Write(value));
+                var writer = new ExpressionWriter(
+                    tokens,
+                    index + 1,
+                    source,
+                    parser
+                );
+                definition = Term.Tuple(
+                    Term.A("record_field"),
+                    location,
+                    fieldName,
+                    writer.Write(value)
+                );
                 index = writer.Position;
             }
             if (tokens[index].Text == NativeRecordTypeTokens.Annotation)
             {
-                var reader = new NativeRecordTypeParser(tokens, source, index + 1, allowLocalTypes: true);
+                var reader = new NativeRecordTypeParser(
+                    tokens,
+                    source,
+                    index + 1,
+                    allowLocalTypes: true
+                );
                 definition = Term.Tuple(Term.A("typed_record_field"), definition, reader.Parse());
                 index = reader.Position;
             }
@@ -115,11 +146,21 @@ internal static class BeamReleaseFunctionDebug
             var patterns = new List<Term>();
             for (int index = 0; index < arguments.Count; index++)
             {
-                var reader = new ExpressionWriter(arguments[index], 0, source, parser);
+                var reader = new ExpressionWriter(
+                    arguments[index],
+                    0,
+                    source,
+                    parser
+                );
                 patterns.Add(reader.Write(PatternExpression(clause.Patterns[index])));
             }
 
-            var body = new ExpressionWriter(tokens, cursor + 1, source, parser);
+            var body = new ExpressionWriter(
+                tokens,
+                cursor + 1,
+                source,
+                parser
+            );
             Term guards = body.WriteOptionalGuard(clause.Guard);
             Term expressions = body.WriteClauseBody(clause.Body);
             clauses.Add(Term.Tuple(
@@ -156,7 +197,12 @@ internal static class BeamReleaseFunctionDebug
         _ => throw Unsupported()
     };
 
-    private sealed class ExpressionWriter(IReadOnlyList<Token> tokens, int start, string source, Parser parser)
+    private sealed class ExpressionWriter(
+        IReadOnlyList<Token> tokens,
+        int start,
+        string source,
+        Parser parser
+    )
     {
         private int cursor = start;
 
@@ -177,7 +223,12 @@ internal static class BeamReleaseFunctionDebug
                 {
                     Term atom = Write(new Expr.Literal(name));
                     Take(ErlangOperators.Match);
-                    fields.Add(Term.Tuple(Term.A("record_field"), location, atom, Write(value)));
+                    fields.Add(Term.Tuple(
+                        Term.A("record_field"),
+                        location,
+                        atom,
+                        Write(value)
+                    ));
                 }
                 else if (field is Expr.Literal { Value: Atom })
                 {
@@ -189,12 +240,14 @@ internal static class BeamReleaseFunctionDebug
                 }
             }
             Take(ErlangSyntaxTokens.CloseTuple);
+
             return Cons.From(fields);
         }
 
         internal Term WriteClauseBody(Expr body)
         {
             Take(ErlangSyntaxTokens.FunctionArrow);
+
             return WriteBody(body);
         }
 
@@ -209,6 +262,7 @@ internal static class BeamReleaseFunctionDebug
                 return Nil.Value;
             }
             TakeKeyword(ErlangKeywords.When);
+
             return WriteGuards(guard);
         }
 
@@ -226,6 +280,7 @@ internal static class BeamReleaseFunctionDebug
                 WriteGuardTerms(alternative, terms);
                 forms.Add(Cons.From(terms));
             }
+
             return Cons.From(forms);
         }
 
@@ -236,6 +291,7 @@ internal static class BeamReleaseFunctionDebug
                 WriteGuardTerms(conjunction.Left, terms);
                 Take(ErlangSyntaxTokens.Comma);
                 terms.Add(Write(conjunction.Right));
+
                 return;
             }
             terms.Add(Write(guard));
@@ -266,6 +322,7 @@ internal static class BeamReleaseFunctionDebug
                 Take(ErlangSyntaxTokens.OpenParenthesis);
                 Term inner = Write(expression);
                 Take(ErlangSyntaxTokens.CloseParenthesis);
+
                 return inner;
             }
             switch (expression)
@@ -278,19 +335,28 @@ internal static class BeamReleaseFunctionDebug
                     Take(ErlangSyntaxTokens.Comma);
                     Term recordName = Write(new Expr.Literal(Term.A(tokens[cursor].Text)));
                     Take(ErlangSyntaxTokens.CloseParenthesis);
-                    return Term.Tuple(Term.A("call"), location,
-                        Term.Tuple(Term.A("atom"), location, Term.A(RecordAtoms.RecordInfo)), Cons.From([kind, recordName]));
+
+                    return Term.Tuple(
+                        Term.A("call"),
+                        location,
+                        Term.Tuple(Term.A("atom"), location, Term.A(RecordAtoms.RecordInfo)),
+                        Cons.From([kind, recordName])
+                    );
                 case Expr.Variable variable when token.Kind == LexerTokenKinds.Variable:
                     cursor++;
+
                     return Term.Tuple(Term.A("var"), location, Term.A(variable.Name));
                 case Expr.Literal { Value: Atom atom } when token.Kind is LexerTokenKinds.Atom or LexerTokenKinds.QuotedAtom:
                     cursor++;
+
                     return Term.Tuple(Term.A("atom"), location, atom);
                 case Expr.Literal { Value: Integer integer } when token.Kind == LexerTokenKinds.Integer:
                     cursor++;
+
                     return Term.Tuple(Term.A(token.IsCharacterLiteral ? "char" : "integer"), location, integer);
                 case Expr.Literal { Value: FloatTerm floating } when token.Kind == LexerTokenKinds.Float:
                     cursor++;
+
                     return Term.Tuple(Term.A("float"), location, floating);
                 case Expr.Literal { Value: Integer } when token.Text == ErlangSyntaxTokens.MapPrefix:
                     Take(ErlangSyntaxTokens.MapPrefix);
@@ -298,26 +364,54 @@ internal static class BeamReleaseFunctionDebug
                     TakeToken(indexedRecord);
                     Take(ErlangSyntaxTokens.RecordSelectionSeparator);
                     Term indexedField = Write(new Expr.Literal(Term.A(tokens[cursor].Text)));
-                    return Term.Tuple(Term.A("record_index"), location, Term.A(indexedRecord), indexedField);
+
+                    return Term.Tuple(
+                        Term.A("record_index"),
+                        location,
+                        Term.A(indexedRecord),
+                        indexedField
+                    );
                 case Expr.Literal { Value: Integer integer } when token.Text == ErlangOperators.Minus && integer.Value < 0:
                     Take(ErlangOperators.Minus);
-                    return Term.Tuple(Term.A("op"), location, Term.A(ErlangOperators.Minus), Write(new Expr.Literal(new Integer(-integer.Value))));
+
+                    return Term.Tuple(
+                        Term.A("op"),
+                        location,
+                        Term.A(ErlangOperators.Minus),
+                        Write(new Expr.Literal(new Integer(-integer.Value)))
+                    );
                 case Expr.Binary binary:
                     Term leftOperand = Write(binary.Left);
                     Term operatorLocation = Annotation(tokens[cursor]);
                     TakeToken(binary.Operator);
-                    return Term.Tuple(Term.A("op"), operatorLocation, Term.A(binary.Operator), leftOperand, Write(binary.Right));
+
+                    return Term.Tuple(
+                        Term.A("op"),
+                        operatorLocation,
+                        Term.A(binary.Operator),
+                        leftOperand,
+                        Write(binary.Right)
+                    );
                 case Expr.Unary unary:
                     TakeToken(unary.Operator);
-                    return Term.Tuple(Term.A("op"), location, Term.A(unary.Operator), Write(unary.Operand));
+
+                    return Term.Tuple(
+                        Term.A("op"),
+                        location,
+                        Term.A(unary.Operator),
+                        Write(unary.Operand)
+                    );
                 case Expr.Catch caught:
                     TakeKeyword(ErlangKeywords.Catch);
+
                     return Term.Tuple(Term.A(ErlangKeywords.Catch), location, Write(caught.Operand));
                 case Expr.Literal when token.IsStringSigil:
                     cursor++;
+
                     return WriteSigil(token, location);
                 case Expr.Literal literal when token.Kind == LexerTokenKinds.String:
                     StringLiteralTokens.Read(tokens, ref cursor);
+
                     return Term.Tuple(Term.A("string"), location, literal.Value);
                 case Expr.RecordConstruction record:
                     return WriteRecordFields(RecordExpressions.Create(record), location, record.Wildcard);
@@ -328,7 +422,14 @@ internal static class BeamReleaseFunctionDebug
                     TakeToken(update.Name);
                     Term updatedFields = ReadRecordFields(update.Name, update.Arity,
                         index => update.Fields.SingleOrDefault(field => field.Index == index)?.Value);
-                    return Term.Tuple(Term.A("record"), updateLocation, original, Term.A(update.Name), updatedFields);
+
+                    return Term.Tuple(
+                        Term.A("record"),
+                        updateLocation,
+                        original,
+                        Term.A(update.Name),
+                        updatedFields
+                    );
                 case Expr.RecordAccess access:
                     Term target = Write(access.Value);
                     Term accessLocation = Annotation(tokens[cursor]);
@@ -336,13 +437,21 @@ internal static class BeamReleaseFunctionDebug
                     TakeToken(access.Name);
                     Take(ErlangSyntaxTokens.RecordSelectionSeparator);
                     Term accessField = Write(new Expr.Literal(Term.A(tokens[cursor].Text)));
-                    return Term.Tuple(Term.A("record_field"), accessLocation, target, Term.A(access.Name), accessField);
+
+                    return Term.Tuple(
+                        Term.A("record_field"),
+                        accessLocation,
+                        target,
+                        Term.A(access.Name),
+                        accessField
+                    );
                 case Expr.Tuple tuple when token.Text == ErlangSyntaxTokens.MapPrefix:
                     return WriteRecordFields(tuple, location);
                 case Expr.Tuple tuple:
                     Take(ErlangSyntaxTokens.OpenTuple);
                     var members = WriteItems(tuple.Items);
                     Take(ErlangSyntaxTokens.CloseTuple);
+
                     return Term.Tuple(Term.A("tuple"), location, Cons.From(members));
                 case Expr.List list when MatchSpecSourceTransform.OriginalCall(list) is { } matchSpecCall:
                     return BeamMatchSpecAbstractForms.Write(Write(matchSpecCall));
@@ -353,7 +462,13 @@ internal static class BeamReleaseFunctionDebug
                 case Expr.Match match:
                     Term left = Write(PatternExpression(match.Pattern));
                     Take(ErlangOperators.Match);
-                    return Term.Tuple(Term.A("match"), location, left, Write(match.Value));
+
+                    return Term.Tuple(
+                        Term.A("match"),
+                        location,
+                        left,
+                        Write(match.Value)
+                    );
                 case Expr.Fun fun:
                     return WriteFun(fun, location);
                 case Expr.FunctionReference reference:
@@ -361,6 +476,7 @@ internal static class BeamReleaseFunctionDebug
                     Write(new Expr.Literal(Term.A(reference.Name)));
                     Take(ErlangSyntaxTokens.AritySeparator);
                     Write(new Expr.Literal(Term.I(reference.Arity)));
+
                     return Term.Tuple(Term.A("fun"), location,
                         Term.Tuple(Term.A("function"), Term.A(reference.Name), Term.I(reference.Arity)));
                 case Expr.Call
@@ -373,18 +489,35 @@ internal static class BeamReleaseFunctionDebug
                     Take(ErlangSyntaxTokens.ModuleQualifier);
                     Term functionForm = Write(functionName);
                     Take(ErlangSyntaxTokens.AritySeparator);
+
                     return Term.Tuple(Term.A("fun"), location,
-                        Term.Tuple(Term.A("function"), moduleForm, functionForm, Write(arity)));
+                        Term.Tuple(
+                            Term.A("function"),
+                            moduleForm,
+                            functionForm,
+                            Write(arity)
+                        ));
                 case Expr.Call { DynamicRemote: true, Arguments: [var remoteModule, var remoteFunction, Expr.List { Tail: null } remoteArguments] }:
-                    return WriteRemote(remoteModule, remoteFunction, remoteArguments.Items, location);
+                    return WriteRemote(
+                        remoteModule,
+                        remoteFunction,
+                        remoteArguments.Items,
+                        location
+                    );
                 case Expr.Call { Module: ErlangModuleNames.Module, Function: RecordPredicateNames.IsRecord, Arguments.Count: 3 } record:
                     return WriteRecordPredicateCall(record, location);
                 case Expr.Call { Module: { } module, DynamicRemote: false } call:
-                    return WriteRemote(new Expr.Literal(Term.A(module)), new Expr.Literal(Term.A(call.Function)), call.Arguments, location);
+                    return WriteRemote(
+                        new Expr.Literal(Term.A(module)),
+                        new Expr.Literal(Term.A(call.Function)),
+                        call.Arguments,
+                        location
+                    );
                 case Expr.Call { Module: null } call:
                     return WriteCall(Write(new Expr.Literal(Term.A(call.Function))), call.Arguments, location);
                 case Expr.Apply apply:
                     Term callee = Write(apply.Function);
+
                     return WriteCall(callee, apply.Arguments, AnnotationEdge(callee, first: true));
                 case Expr.Case @case:
                     return WriteCase(@case, location);
@@ -396,11 +529,18 @@ internal static class BeamReleaseFunctionDebug
                     Term tested = Write(PatternExpression(match.Pattern));
                     Term matchLocation = Annotation(tokens[cursor]);
                     Take(ErlangSyntaxTokens.ConditionalMatch);
-                    return Term.Tuple(Term.A("maybe_match"), matchLocation, tested, Write(match.Value));
+
+                    return Term.Tuple(
+                        Term.A("maybe_match"),
+                        matchLocation,
+                        tested,
+                        Write(match.Value)
+                    );
                 case Expr.Block block:
                     TakeKeyword(ErlangKeywords.Begin);
                     Term expressions = WriteBody(block.Body);
                     TakeKeyword(ErlangKeywords.End);
+
                     return Term.Tuple(Term.A("block"), location, expressions);
                 case Expr.If conditional:
                     return WriteIf(conditional, location);
@@ -430,7 +570,13 @@ internal static class BeamReleaseFunctionDebug
                 return text;
             }
 
-            Term segment = Term.Tuple(Term.A("bin_element"), delimiter, text, Term.A("default"), Term.List(Term.A("utf8")));
+            Term segment = Term.Tuple(
+                Term.A("bin_element"),
+                delimiter,
+                text,
+                Term.A("default"),
+                Term.List(Term.A("utf8"))
+            );
 
             return Term.Tuple(Term.A("bin"), location, Term.List(segment));
         }
@@ -443,7 +589,12 @@ internal static class BeamReleaseFunctionDebug
             Term clauses = WritePatternClauses(expression.Clauses);
             TakeKeyword(ErlangKeywords.End);
 
-            return Term.Tuple(Term.A("case"), location, value, clauses);
+            return Term.Tuple(
+                Term.A("case"),
+                location,
+                value,
+                clauses
+            );
         }
 
         private Term WriteReceive(Expr.Receive expression, Term location)
@@ -455,7 +606,13 @@ internal static class BeamReleaseFunctionDebug
             {
                 TakeKeyword(ErlangKeywords.After);
                 Term delay = Write(timeout);
-                result = Term.Tuple(Term.A(ErlangKeywords.Receive), location, clauses, delay, WriteClauseBody(after));
+                result = Term.Tuple(
+                    Term.A(ErlangKeywords.Receive),
+                    location,
+                    clauses,
+                    delay,
+                    WriteClauseBody(after)
+                );
             }
             else
             {
@@ -481,8 +638,12 @@ internal static class BeamReleaseFunctionDebug
                 Term elseLocation = Annotation(tokens[cursor]);
                 TakeKeyword(ErlangKeywords.Else);
                 Term clauses = WritePatternClauses(expression.Clauses);
-                result = Term.Tuple(Term.A(ErlangKeywords.Maybe), location, body,
-                    Term.Tuple(Term.A(ErlangKeywords.Else), elseLocation, clauses));
+                result = Term.Tuple(
+                    Term.A(ErlangKeywords.Maybe),
+                    location,
+                    body,
+                    Term.Tuple(Term.A(ErlangKeywords.Else), elseLocation, clauses)
+                );
             }
 
             TakeKeyword(ErlangKeywords.End);
@@ -515,6 +676,7 @@ internal static class BeamReleaseFunctionDebug
                     WriteClauseBody(clause.Body)
                 ));
             }
+
             return Cons.From(clauses);
         }
 
@@ -535,9 +697,16 @@ internal static class BeamReleaseFunctionDebug
                 }
                 Term start = Annotation(tokens[guardStart]);
                 Term guards = WriteGuards(clause.Guard ?? throw Unsupported());
-                clauses.Add(Term.Tuple(Term.A("clause"), start, Nil.Value, guards, WriteClauseBody(clause.Body)));
+                clauses.Add(Term.Tuple(
+                    Term.A("clause"),
+                    start,
+                    Nil.Value,
+                    guards,
+                    WriteClauseBody(clause.Body)
+                ));
             }
             TakeKeyword(ErlangKeywords.End);
+
             return Term.Tuple(Term.A("if"), location, Cons.From(clauses));
         }
 
@@ -558,7 +727,13 @@ internal static class BeamReleaseFunctionDebug
                     Term start = Annotation(tokens[cursor]);
                     Term input = Write(PatternExpression(clause.Patterns.Single()));
                     Term guards = WriteOptionalGuard(clause.Guard);
-                    success.Add(Term.Tuple(Term.A("clause"), start, Cons.From([input]), guards, WriteClauseBody(clause.Body)));
+                    success.Add(Term.Tuple(
+                        Term.A("clause"),
+                        start,
+                        Cons.From([input]),
+                        guards,
+                        WriteClauseBody(clause.Body)
+                    ));
                 }
             }
             var handlers = new List<Term>();
@@ -604,7 +779,13 @@ internal static class BeamReleaseFunctionDebug
                 }
                 Term input = Term.Tuple(Term.A("tuple"), start, Cons.From([classForm, reasonForm, stackForm]));
                 Term guards = WriteOptionalGuard(clause.Guard);
-                handlers.Add(Term.Tuple(Term.A("clause"), start, Cons.From([input]), guards, WriteClauseBody(clause.Body)));
+                handlers.Add(Term.Tuple(
+                    Term.A("clause"),
+                    start,
+                    Cons.From([input]),
+                    guards,
+                    WriteClauseBody(clause.Body)
+                ));
             }
             Term after = Nil.Value;
             if (expression.After is { } cleanup)
@@ -613,7 +794,15 @@ internal static class BeamReleaseFunctionDebug
                 after = WriteBody(cleanup);
             }
             TakeKeyword(ErlangKeywords.End);
-            return Term.Tuple(Term.A("try"), location, body, Cons.From(success), Cons.From(handlers), after);
+
+            return Term.Tuple(
+                Term.A("try"),
+                location,
+                body,
+                Cons.From(success),
+                Cons.From(handlers),
+                after
+            );
         }
 
         private static Term AnnotationEdge(Term form, bool first)
@@ -683,7 +872,12 @@ internal static class BeamReleaseFunctionDebug
 
             return name is null
                 ? Term.Tuple(Term.A("fun"), location, Term.Tuple(Term.A("clauses"), Cons.From(clauses)))
-                : Term.Tuple(Term.A("named_fun"), location, Term.A(name), Cons.From(clauses));
+                : Term.Tuple(
+                    Term.A("named_fun"),
+                    location,
+                    Term.A(name),
+                    Cons.From(clauses)
+                );
         }
 
         private Term WriteBits(Expr.Bits bits, Term location)
@@ -768,9 +962,16 @@ internal static class BeamReleaseFunctionDebug
                     }
                     types = Cons.From(options);
                 }
-                elements.Add(Term.Tuple(Term.A("bin_element"), start, value, size, types));
+                elements.Add(Term.Tuple(
+                    Term.A("bin_element"),
+                    start,
+                    value,
+                    size,
+                    types
+                ));
             }
             Take(ErlangSyntaxTokens.BinaryClose);
+
             return Term.Tuple(Term.A("bin"), location, Cons.From(elements));
 
             BitSegment ReadSegment() => segmentIndex < bits.Segments.Count
@@ -790,7 +991,13 @@ internal static class BeamReleaseFunctionDebug
             var items = WriteItems(expression.Items);
             Term body = items.Count == 1 ? items[0] : Cons.From(items);
 
-            return WriteComprehension("lc", location, body, expression.Qualifiers, ErlangSyntaxTokens.CloseList);
+            return WriteComprehension(
+                "lc",
+                location,
+                body,
+                expression.Qualifiers,
+                ErlangSyntaxTokens.CloseList
+            );
         }
 
         private Term WriteBinaryComprehension(Expr.BinaryComprehension expression, Term location)
@@ -798,7 +1005,13 @@ internal static class BeamReleaseFunctionDebug
             Take(ErlangSyntaxTokens.BinaryOpen);
             Term body = Write(expression.Body);
 
-            return WriteComprehension("bc", location, body, expression.Qualifiers, ErlangSyntaxTokens.BinaryClose);
+            return WriteComprehension(
+                "bc",
+                location,
+                body,
+                expression.Qualifiers,
+                ErlangSyntaxTokens.BinaryClose
+            );
         }
 
         private Term WriteMapComprehension(Expr.MapComprehension expression, Term location)
@@ -808,7 +1021,13 @@ internal static class BeamReleaseFunctionDebug
             Term[] fields = WriteMapFields(expression.Fields);
             Term body = fields.Length == 1 ? fields[0] : Cons.From(fields);
 
-            return WriteComprehension("mc", location, body, expression.Qualifiers, ErlangSyntaxTokens.CloseTuple);
+            return WriteComprehension(
+                "mc",
+                location,
+                body,
+                expression.Qualifiers,
+                ErlangSyntaxTokens.CloseTuple
+            );
         }
 
         private Term WriteComprehension(
@@ -832,7 +1051,12 @@ internal static class BeamReleaseFunctionDebug
             }
             Take(close);
 
-            return Term.Tuple(Term.A(kind), location, body, Cons.From(forms));
+            return Term.Tuple(
+                Term.A(kind),
+                location,
+                body,
+                Cons.From(forms)
+            );
         }
 
         private Term WriteQualifier(ComprehensionQualifier qualifier)
@@ -883,12 +1107,22 @@ internal static class BeamReleaseFunctionDebug
             }
         }
 
-        private Term WriteGenerator(string kind, string operation, Term pattern, Expr sourceExpression)
+        private Term WriteGenerator(
+            string kind,
+            string operation,
+            Term pattern,
+            Expr sourceExpression
+        )
         {
             Term location = Annotation(tokens[cursor]);
             Take(operation);
 
-            return Term.Tuple(Term.A(kind), location, pattern, Write(sourceExpression));
+            return Term.Tuple(
+                Term.A(kind),
+                location,
+                pattern,
+                Write(sourceExpression)
+            );
         }
 
         private Term WriteMap(Expr.Map map, Term location)
@@ -907,7 +1141,12 @@ internal static class BeamReleaseFunctionDebug
 
             return baseMap is null
                 ? Term.Tuple(Term.A("map"), location, entries)
-                : Term.Tuple(Term.A("map"), location, baseMap, entries);
+                : Term.Tuple(
+                    Term.A("map"),
+                    location,
+                    baseMap,
+                    entries
+                );
         }
 
         private Term[] WriteMapFields(IReadOnlyList<MapField> fields)
@@ -944,8 +1183,18 @@ internal static class BeamReleaseFunctionDebug
         {
             Take(ErlangSyntaxTokens.MapPrefix);
             Token name = tokens[cursor++];
-            return Term.Tuple(Term.A("record"), location, Term.A(name.Text),
-                ReadRecordFields(name.Text, tuple.Items.Count, index => tuple.Items[index], wildcard));
+
+            return Term.Tuple(
+                Term.A("record"),
+                location,
+                Term.A(name.Text),
+                ReadRecordFields(
+                    name.Text,
+                    tuple.Items.Count,
+                    index => tuple.Items[index],
+                    wildcard
+                )
+            );
         }
 
         private Term ReadRecordFields(
@@ -975,7 +1224,12 @@ internal static class BeamReleaseFunctionDebug
                     Term fieldLocation = Annotation(field);
                     Term fieldName = Term.Tuple(Term.A("var"), fieldLocation, Term.A(VariableScopeNames.Wildcard));
                     Take(ErlangOperators.Match);
-                    fields.Add(Term.Tuple(Term.A("record_field"), fieldLocation, fieldName, Write(wildcard)));
+                    fields.Add(Term.Tuple(
+                        Term.A("record_field"),
+                        fieldLocation,
+                        fieldName,
+                        Write(wildcard)
+                    ));
                     continue;
                 }
 
@@ -996,8 +1250,12 @@ internal static class BeamReleaseFunctionDebug
 
                 Term annotation = Annotation(field);
                 Take(ErlangOperators.Match);
-                fields.Add(Term.Tuple(Term.A("record_field"), annotation,
-                    Term.Tuple(Term.A("atom"), annotation, Term.A(field.Text)), Write(value)));
+                fields.Add(Term.Tuple(
+                    Term.A("record_field"),
+                    annotation,
+                    Term.Tuple(Term.A("atom"), annotation, Term.A(field.Text)),
+                    Write(value)
+                ));
             }
 
             Take(ErlangSyntaxTokens.CloseTuple);
@@ -1012,8 +1270,14 @@ internal static class BeamReleaseFunctionDebug
                 string text = StringLiteralTokens.Read(tokens, ref cursor);
                 Term appendLocation = Annotation(tokens[cursor]);
                 Take(ErlangOperators.Append);
-                return Term.Tuple(Term.A("op"), appendLocation, Term.A(ErlangOperators.Append),
-                    Term.Tuple(Term.A("string"), location, Term.String(text)), Write(suffix));
+
+                return Term.Tuple(
+                    Term.A("op"),
+                    appendLocation,
+                    Term.A(ErlangOperators.Append),
+                    Term.Tuple(Term.A("string"), location, Term.String(text)),
+                    Write(suffix)
+                );
             }
 
             Take(ErlangSyntaxTokens.OpenList);
@@ -1047,7 +1311,12 @@ internal static class BeamReleaseFunctionDebug
             Take(ErlangSyntaxTokens.CloseList);
             for (int index = items.Count - 1; index >= 0; index--)
             {
-                tail = Term.Tuple(Term.A("cons"), items[index].Location, items[index].Value, tail);
+                tail = Term.Tuple(
+                    Term.A("cons"),
+                    items[index].Location,
+                    items[index].Value,
+                    tail
+                );
             }
 
             return tail;
@@ -1061,8 +1330,12 @@ internal static class BeamReleaseFunctionDebug
                 Term module = Write(new Expr.Literal(Term.A(ErlangModuleNames.Module)));
                 Term remote = Annotation(tokens[cursor]);
                 Take(ErlangSyntaxTokens.ModuleQualifier);
-                function = Term.Tuple(Term.A("remote"), remote, module,
-                    Write(new Expr.Literal(Term.A(RecordPredicateNames.IsRecord))));
+                function = Term.Tuple(
+                    Term.A("remote"),
+                    remote,
+                    module,
+                    Write(new Expr.Literal(Term.A(RecordPredicateNames.IsRecord)))
+                );
             }
             else
             {
@@ -1079,10 +1352,21 @@ internal static class BeamReleaseFunctionDebug
                 arguments = Term.List(value, record, Write(call.Arguments[2]));
             }
             Take(ErlangSyntaxTokens.CloseParenthesis);
-            return Term.Tuple(Term.A("call"), location, function, arguments);
+
+            return Term.Tuple(
+                Term.A("call"),
+                location,
+                function,
+                arguments
+            );
         }
 
-        private Term WriteRemote(Expr module, Expr function, IReadOnlyList<Expr> arguments, Term location)
+        private Term WriteRemote(
+            Expr module,
+            Expr function,
+            IReadOnlyList<Expr> arguments,
+            Term location
+        )
         {
             if (tokens[cursor].Text == ErlangSyntaxTokens.OpenParenthesis)
             {
@@ -1096,7 +1380,13 @@ internal static class BeamReleaseFunctionDebug
             Term moduleForm = Write(module);
             Term remoteLocation = Annotation(tokens[cursor]);
             Take(ErlangSyntaxTokens.ModuleQualifier);
-            Term remote = Term.Tuple(Term.A("remote"), remoteLocation, moduleForm, Write(function));
+            Term remote = Term.Tuple(
+                Term.A("remote"),
+                remoteLocation,
+                moduleForm,
+                Write(function)
+            );
+
             return WriteCall(remote, arguments, location);
         }
 
@@ -1105,7 +1395,13 @@ internal static class BeamReleaseFunctionDebug
             Take(ErlangSyntaxTokens.OpenParenthesis);
             var forms = WriteItems(arguments);
             Take(ErlangSyntaxTokens.CloseParenthesis);
-            return Term.Tuple(Term.A("call"), location, function, Cons.From(forms));
+
+            return Term.Tuple(
+                Term.A("call"),
+                location,
+                function,
+                Cons.From(forms)
+            );
         }
 
         private bool ContinuesAfterGroup(Expr expression, Token? next) => expression switch
@@ -1146,6 +1442,7 @@ internal static class BeamReleaseFunctionDebug
 
             return null;
         }
+
         private Token FirstUngroupedToken()
         {
             int index = cursor;

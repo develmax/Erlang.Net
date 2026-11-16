@@ -46,7 +46,12 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 allocation = FindLinearFrameSuffix(body, entry, end);
-                if (PlanLinearStackSlots(body, allocation, end, includeUnchanged: true) is null)
+                if (PlanLinearStackSlots(
+                    body,
+                    allocation,
+                    end,
+                    includeUnchanged: true
+                ) is null)
                 {
                     continue;
                 }
@@ -88,7 +93,13 @@ internal sealed partial class BeamModuleCompiler
                         remove.Add(save, slot);
                     }
 
-                    RecordEntryArgumentUses(body, stackOperands, plan.Uses, slot, replace);
+                    RecordEntryArgumentUses(
+                        body,
+                        stackOperands,
+                        plan.Uses,
+                        slot,
+                        replace
+                    );
                     foreach (var (use, register) in plan.EarlyLoads)
                     {
                         earlyLoads.Add(use, register);

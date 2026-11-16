@@ -13,8 +13,8 @@ internal sealed partial class BeamModuleCompiler
                     Value: Expr.Binary { Operator: ErlangOperators.Append, Left: var prefix, Right: Expr.Call read },
                     Clauses:
                     [
-                        { Guard: null, Patterns: [Pattern.Literal { Value: Cons key }], Body: var matched },
-                        { Guard: null, Patterns: [Pattern.Variable binding], Body: Expr.Variable result }
+                    { Guard: null, Patterns: [Pattern.Literal { Value: Cons key }], Body: var matched },
+                    { Guard: null, Patterns: [Pattern.Variable binding], Body: Expr.Variable result }
                     ]
                 }
                 || binding.Name == VariableScopeNames.Wildcard || binding.Name != result.Name || parameters.Contains(binding.Name)

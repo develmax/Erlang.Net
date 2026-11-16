@@ -4,7 +4,13 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
-    private sealed record SizedCall(Expr.Call Lookup, Expr.Call Convert, Expr.Call Classify, Expr.Call Serialize, Expr.Call Size);
+    private sealed record SizedCall(
+        Expr.Call Lookup,
+        Expr.Call Convert,
+        Expr.Call Classify,
+        Expr.Call Serialize,
+        Expr.Call Size
+    );
 
     private static SizedCall? ReadSizedCall(Clause clause)
     {
@@ -12,15 +18,30 @@ internal sealed partial class BeamModuleCompiler
             {
                 Guard: null,
                 Patterns: [Pattern.Variable first, Pattern.Variable second, Pattern.Variable third],
-                Body: Expr.Sequence { Items: [
+                Body: Expr.Sequence
+                {
+                    Items: [
                     Expr.Match { Pattern: Pattern.Variable shape, Value: Expr.Call { Module: null, Arguments: [Expr.Variable key] } lookup },
                     Expr.Match { Pattern: Pattern.Variable converted, Value: Expr.Call { Module: null, Arguments: [Expr.Variable shape1, Expr.Variable input] } convert },
-                    Expr.Match { Pattern: Pattern.Variable bytes, Value: Expr.Call { Module: null, Arguments: [
+                    Expr.Match
+                    {
+                        Pattern: Pattern.Variable bytes, Value: Expr.Call
+                        {
+                            Module: null, Arguments: [
                         Expr.Call { Module: null, Arguments: [Expr.Variable shape2] } classify,
-                        Expr.Variable data, Expr.Variable tags] } serialize },
-                    Expr.Tuple { Items: [Expr.Variable result, Expr.Call { Module: null or ErlangModuleNames.Module,
-                        Function: "byte_size", DynamicRemote: false, Arguments: [Expr.Variable sized] } size] }
-                ] }
+                        Expr.Variable data, Expr.Variable tags]
+                        } serialize
+                    },
+                    Expr.Tuple
+                    {
+                        Items: [Expr.Variable result, Expr.Call
+                        {
+                            Module: null or ErlangModuleNames.Module,
+                            Function: "byte_size", DynamicRemote: false, Arguments: [Expr.Variable sized]
+                        } size]
+                    }
+                ]
+                }
             } || !HasUnconditionalParameters(clause)
             || !IsFresh(clause, shape) || !IsFresh(clause, converted) || !IsFresh(clause, bytes)
             || shape.Name == converted.Name || shape.Name == bytes.Name || converted.Name == bytes.Name
@@ -31,7 +52,13 @@ internal sealed partial class BeamModuleCompiler
             return null;
         }
 
-        return new(lookup, convert, classify, serialize, size);
+        return new(
+            lookup,
+            convert,
+            classify,
+            serialize,
+            size
+        );
     }
 
     private void EmitSizedCall(
@@ -51,14 +78,34 @@ internal sealed partial class BeamModuleCompiler
 
         Op(Allocate, BeamWire.UnsignedTag, 2);
         Operand(BeamWire.UnsignedTag, 3);
-        MoveRegister(XRegisterTag, 2, YRegisterTag, 0);
-        MoveRegister(XRegisterTag, 1, YRegisterTag, 1);
+        MoveRegister(
+            XRegisterTag,
+            2,
+            YRegisterTag,
+            0
+        );
+        MoveRegister(
+            XRegisterTag,
+            1,
+            YRegisterTag,
+            1
+        );
         EmitCallLine(flow.Lookup, location);
         Op(LocalCall, BeamWire.UnsignedTag, 1);
         Operand(LabelTag, lookup);
 
-        MoveRegister(YRegisterTag, 1, XRegisterTag, 1);
-        MoveRegister(XRegisterTag, 0, YRegisterTag, 1);
+        MoveRegister(
+            YRegisterTag,
+            1,
+            XRegisterTag,
+            1
+        );
+        MoveRegister(
+            XRegisterTag,
+            0,
+            YRegisterTag,
+            1
+        );
         EmitCallLine(flow.Convert, CallLocation(flow.Lookup, location));
         Op(LocalCall, BeamWire.UnsignedTag, 2);
         Operand(LabelTag, convert);
@@ -69,8 +116,18 @@ internal sealed partial class BeamModuleCompiler
         Op(LocalCall, BeamWire.UnsignedTag, 1);
         Operand(LabelTag, classify);
 
-        MoveRegister(YRegisterTag, 0, XRegisterTag, 2);
-        MoveRegister(YRegisterTag, 1, XRegisterTag, 1);
+        MoveRegister(
+            YRegisterTag,
+            0,
+            XRegisterTag,
+            2
+        );
+        MoveRegister(
+            YRegisterTag,
+            1,
+            XRegisterTag,
+            1
+        );
         Op(TrimFrame, BeamWire.UnsignedTag, 2);
         Operand(BeamWire.UnsignedTag, 0);
         EmitCallLine(flow.Serialize, CallLocation(flow.Classify, location));

@@ -61,7 +61,13 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 bool emptySource = map.Base is null && index == 0;
-                EmitMapInstruction(first.Field.Exact, guardFailure ?? 0, emptySource ? null : 0, emptySource ? 0 : 1, batch.Count);
+                EmitMapInstruction(
+                    first.Field.Exact,
+                    guardFailure ?? 0,
+                    emptySource ? null : 0,
+                    emptySource ? 0 : 1,
+                    batch.Count
+                );
                 foreach (var field in batch)
                 {
                     GuardOperand(field.Field.Key, field.KeySlot);
@@ -131,10 +137,22 @@ internal sealed partial class BeamModuleCompiler
             owner.instructions.WriteByte(ExtendedListOperand);
             owner.Operand(BeamWire.UnsignedTag, 1);
             owner.Operand(YRegisterTag, 0);
-            owner.MoveRegister(XRegisterTag, 0, YRegisterTag, 1);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                1
+            );
             EmitEntryCall(produce);
 
-            EmitMapInstruction(false, 0, null, 1, fields.Count, destinationTag: YRegisterTag);
+            EmitMapInstruction(
+                false,
+                0,
+                null,
+                1,
+                fields.Count,
+                destinationTag: YRegisterTag
+            );
             foreach (var (key, field) in fields)
             {
                 owner.LiteralOperand(key);
@@ -149,16 +167,37 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
-            owner.MoveRegister(XRegisterTag, 0, XRegisterTag, 1);
-            owner.MoveRegister(YRegisterTag, 1, XRegisterTag, 0);
-            owner.MoveRegister(YRegisterTag, 0, YRegisterTag, 1);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                XRegisterTag,
+                1
+            );
+            owner.MoveRegister(
+                YRegisterTag,
+                1,
+                XRegisterTag,
+                0
+            );
+            owner.MoveRegister(
+                YRegisterTag,
+                0,
+                YRegisterTag,
+                1
+            );
             owner.Op(TrimFrame, BeamWire.UnsignedTag, 1);
             owner.Operand(BeamWire.UnsignedTag, 1);
             EmitEntryCall(invoke, CallLocation(produce.Call, location));
-            owner.MoveRegister(YRegisterTag, 0, XRegisterTag, 1);
+            owner.MoveRegister(
+                YRegisterTag,
+                0,
+                XRegisterTag,
+                1
+            );
             owner.Op(TailLocalCallWithFrame, BeamWire.UnsignedTag, 2);
             owner.Operand(LabelTag, entry);
             owner.Operand(BeamWire.UnsignedTag, 1);
+
             return true;
         }
 
@@ -192,9 +231,18 @@ internal sealed partial class BeamModuleCompiler
 
             if (fields.Count != 0)
             {
-                int live = Math.Max(source ?? -1, fields.Values.OfType<Expr.Variable>()
-                    .Select(value => ArgumentRegister(clause, value.Name)).DefaultIfEmpty(-1).Max()) + 1;
-                EmitMapInstruction(map.Fields[0].Exact, 0, source, live, fields.Count);
+                int live = Math.Max(
+                    source ?? -1,
+                    fields.Values.OfType<Expr.Variable>()
+                    .Select(value => ArgumentRegister(clause, value.Name)).DefaultIfEmpty(-1).Max()
+                ) + 1;
+                EmitMapInstruction(
+                    map.Fields[0].Exact,
+                    0,
+                    source,
+                    live,
+                    fields.Count
+                );
                 foreach (var (key, value) in fields)
                 {
                     owner.LiteralOperand(key);
@@ -203,7 +251,12 @@ internal sealed partial class BeamModuleCompiler
             }
             else if (source is int forwarded && forwarded != 0)
             {
-                owner.MoveRegister(XRegisterTag, forwarded, XRegisterTag, 0);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    forwarded,
+                    XRegisterTag,
+                    0
+                );
             }
 
             owner.instructions.WriteByte(Return);

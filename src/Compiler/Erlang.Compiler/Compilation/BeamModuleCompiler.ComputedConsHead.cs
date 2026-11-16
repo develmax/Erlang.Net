@@ -62,7 +62,19 @@ internal sealed partial class BeamModuleCompiler
             }
 
             return ReadEntryCall(first, inputs) is { } start
-                ? new(finish, saved, null, tuple, false, HeadCall: new(start, resultSource, kept, extractTail))
+                ? new(
+                    finish,
+                    saved,
+                    null,
+                    tuple,
+                    false,
+                    HeadCall: new(
+                        start,
+                        resultSource,
+                        kept,
+                        extractTail
+                    )
+                )
                 : null;
         }
 
@@ -101,13 +113,24 @@ internal sealed partial class BeamModuleCompiler
                 int source = saved[slot];
                 if (!head.ExtractTail || source != listInput)
                 {
-                    owner.MoveRegister(XRegisterTag, source, YRegisterTag, slot);
+                    owner.MoveRegister(
+                        XRegisterTag,
+                        source,
+                        YRegisterTag,
+                        slot
+                    );
                 }
             }
 
             if (head.ExtractTail)
             {
-                owner.EmitListParts(listInput, XRegisterTag, listInput, YRegisterTag, Array.IndexOf(saved, listInput));
+                owner.EmitListParts(
+                    listInput,
+                    XRegisterTag,
+                    listInput,
+                    YRegisterTag,
+                    Array.IndexOf(saved, listInput)
+                );
             }
 
             if (head.DeferredArgument is { } deferred)
@@ -128,12 +151,22 @@ internal sealed partial class BeamModuleCompiler
                     hasFirstArgument = true;
                     if (!swap)
                     {
-                        owner.MoveRegister(YRegisterTag, slot, XRegisterTag, tail.Call.Arguments.Count);
+                        owner.MoveRegister(
+                            YRegisterTag,
+                            slot,
+                            XRegisterTag,
+                            tail.Call.Arguments.Count
+                        );
                     }
                 }
                 else
                 {
-                    owner.MoveRegister(YRegisterTag, slot, XRegisterTag, destination);
+                    owner.MoveRegister(
+                        YRegisterTag,
+                        slot,
+                        XRegisterTag,
+                        destination
+                    );
                 }
             }
 
@@ -144,7 +177,12 @@ internal sealed partial class BeamModuleCompiler
             }
             else
             {
-                owner.MoveRegister(XRegisterTag, 0, YRegisterTag, resultSlot);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    0,
+                    YRegisterTag,
+                    resultSlot
+                );
             }
 
             if (trimmed != 0)
@@ -155,7 +193,12 @@ internal sealed partial class BeamModuleCompiler
 
             if (!swap && hasFirstArgument)
             {
-                owner.MoveRegister(XRegisterTag, tail.Call.Arguments.Count, XRegisterTag, 0);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    tail.Call.Arguments.Count,
+                    XRegisterTag,
+                    0
+                );
             }
 
             owner.EmitOrderedTailMoves(tail.Moves, tail.Constants);

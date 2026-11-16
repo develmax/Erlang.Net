@@ -6,9 +6,9 @@ internal sealed partial class BeamModuleCompiler
 {
     private static bool IsBooleanPatternPredicate(IReadOnlyList<Clause> clauses) =>
         clauses is [
-            { Guard: null, Patterns: [Pattern.Literal { Value: Atom { Name: "true" } }], Body: Expr.Literal { Value: Atom { Name: "true" } } },
-            { Guard: null, Patterns: [Pattern.Literal { Value: Atom { Name: "false" } }], Body: Expr.Literal { Value: Atom { Name: "true" } } },
-            { Guard: null, Patterns: [Pattern.Variable], Body: Expr.Literal { Value: Atom { Name: "false" } } }
+        { Guard: null, Patterns: [Pattern.Literal { Value: Atom { Name: "true" } }], Body: Expr.Literal { Value: Atom { Name: "true" } } },
+        { Guard: null, Patterns: [Pattern.Literal { Value: Atom { Name: "false" } }], Body: Expr.Literal { Value: Atom { Name: "true" } } },
+        { Guard: null, Patterns: [Pattern.Variable], Body: Expr.Literal { Value: Atom { Name: "false" } } }
         ];
 
     private sealed partial class GeneralEmitter
@@ -75,6 +75,7 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 proofs.Add(key, false);
+
                 return proofs[key] = target.Clauses.All(clause => ReturnsBoolean(clause.Body));
             }
 
@@ -84,7 +85,12 @@ internal sealed partial class BeamModuleCompiler
                 EmitFrameAllocation(slots == 0 ? EntryCallLiveCount(first, [input.Name]) : 1, slots);
                 if (slots != 0)
                 {
-                    owner.MoveRegister(XRegisterTag, 0, YRegisterTag, 0);
+                    owner.MoveRegister(
+                        XRegisterTag,
+                        0,
+                        YRegisterTag,
+                        0
+                    );
                 }
                 EmitEntryCall(first);
                 int evaluate = Label();
@@ -101,6 +107,7 @@ internal sealed partial class BeamModuleCompiler
             if (IsBooleanPatternPredicate(function.Clauses))
             {
                 EmitUnaryPredicate(AutoImportNames.IsBoolean);
+
                 return true;
             }
 
@@ -147,6 +154,7 @@ internal sealed partial class BeamModuleCompiler
             if (tests is [0] && function.Arity == 1 && comparisons.Count == 0)
             {
                 EmitUnaryPredicate(AutoImportNames.IsInteger);
+
                 return true;
             }
 
@@ -183,6 +191,7 @@ internal sealed partial class BeamModuleCompiler
             Mark(failure);
             owner.EmitConstant(Term.A("false"), 0);
             owner.instructions.WriteByte(Return);
+
             return true;
 
             void EmitOperand(Expr expression)
@@ -249,7 +258,12 @@ internal sealed partial class BeamModuleCompiler
 
             int failed = Label();
             owner.EmitAtomTest(register, key.Name, failed);
-            owner.EmitCall(success, location, call, entries);
+            owner.EmitCall(
+                success,
+                location,
+                call,
+                entries
+            );
             Mark(failed);
             owner.EmitConstant(result, 0);
             owner.instructions.WriteByte(Return);
@@ -325,7 +339,12 @@ internal sealed partial class BeamModuleCompiler
                 owner.EmitConstant(result.Value, 0);
                 owner.instructions.WriteByte(Return);
                 Mark(failure);
-                owner.EmitCall(function.Clauses[^1], location, error, entries);
+                owner.EmitCall(
+                    function.Clauses[^1],
+                    location,
+                    error,
+                    entries
+                );
 
                 return true;
             }
@@ -376,7 +395,12 @@ internal sealed partial class BeamModuleCompiler
                 }
                 else if (clause.Body is Expr.Call call)
                 {
-                    owner.EmitCall(clause, location, call, entries);
+                    owner.EmitCall(
+                        clause,
+                        location,
+                        call,
+                        entries
+                    );
                 }
                 else
                 {
@@ -384,6 +408,7 @@ internal sealed partial class BeamModuleCompiler
                     owner.instructions.WriteByte(Return);
                 }
             }
+
             return true;
         }
 
@@ -398,8 +423,11 @@ internal sealed partial class BeamModuleCompiler
             var branches = new List<(Atom Key, EntryCall Call)>();
             foreach (Clause clause in function.Clauses)
             {
-                if (clause is not { Guard: null, Patterns: [Pattern.Literal { Value: Atom key }],
-                    Body: Expr.Call { Module: null, DynamicRemote: false } call }
+                if (clause is not
+                    {
+                        Guard: null, Patterns: [Pattern.Literal { Value: Atom key }],
+                        Body: Expr.Call { Module: null, DynamicRemote: false } call
+                    }
                     || !keys.Add(key) || ReadEntryCall(call, []) is not { Module: null } tail)
                 {
                     return false;
@@ -416,10 +444,14 @@ internal sealed partial class BeamModuleCompiler
             for (int index = 0; index < branches.Count; index++)
             {
                 EntryCall current = branches[index].Call;
-                int previous = branches.FindIndex(0, index, branch =>
+                int previous = branches.FindIndex(
+                    0,
+                    index,
+                    branch =>
                     branch.Call.Call.Function == current.Call.Function
                     && branch.Call.Call.Arguments.Count == current.Call.Arguments.Count
-                    && branch.Call.Constants.SequenceEqual(current.Constants));
+                    && branch.Call.Constants.SequenceEqual(current.Constants)
+                );
                 representatives[index] = previous < 0 ? index : previous;
             }
 
@@ -458,7 +490,11 @@ internal sealed partial class BeamModuleCompiler
         }
 
         private sealed record PredicateCalls(
-            Expr.Call First, Expr.Call Second, int FirstRegister, int SecondRegister, bool Reverse
+            Expr.Call First,
+            Expr.Call Second,
+            int FirstRegister,
+            int SecondRegister,
+            bool Reverse
         );
 
         private PredicateCalls? ReadPredicateCalls(Clause clause)
@@ -467,8 +503,11 @@ internal sealed partial class BeamModuleCompiler
                 || PredicateConjuncts(clause.Body).ToArray() is not [
                     Expr.Call { Module: null, DynamicRemote: false, Arguments: [Expr.Variable first] } a,
                     Expr.Call { Module: null, DynamicRemote: false, Arguments: [Expr.Variable second] } b,
-                    Expr.Binary { Operator: ErlangOperators.GreaterOrEqual or ErlangOperators.LessOrEqual,
-                        Left: Expr.Variable left, Right: Expr.Variable right } comparison
+                    Expr.Binary
+                {
+                    Operator: ErlangOperators.GreaterOrEqual or ErlangOperators.LessOrEqual,
+                    Left: Expr.Variable left, Right: Expr.Variable right
+                } comparison
                 ] || first.Name == second.Name || left.Name != first.Name || right.Name != second.Name
                 || !ReturnsBoolean(a) || !ReturnsBoolean(b))
             {
@@ -487,7 +526,13 @@ internal sealed partial class BeamModuleCompiler
             }
 
             return firstRegister >= 0 && secondRegister >= 0
-                ? new(a, b, firstRegister, secondRegister, comparison.Operator == ErlangOperators.LessOrEqual)
+                ? new(
+                    a,
+                    b,
+                    firstRegister,
+                    secondRegister,
+                    comparison.Operator == ErlangOperators.LessOrEqual
+                )
                 : null;
 
             bool ReturnsBoolean(Expr.Call call) =>
@@ -501,8 +546,18 @@ internal sealed partial class BeamModuleCompiler
         {
             owner.Op(Allocate, BeamWire.UnsignedTag, 2);
             owner.Operand(BeamWire.UnsignedTag, Math.Max(compound.FirstRegister, compound.SecondRegister) + 1);
-            owner.MoveRegister(XRegisterTag, compound.SecondRegister, YRegisterTag, 0);
-            owner.MoveRegister(XRegisterTag, compound.FirstRegister, YRegisterTag, 1);
+            owner.MoveRegister(
+                XRegisterTag,
+                compound.SecondRegister,
+                YRegisterTag,
+                0
+            );
+            owner.MoveRegister(
+                XRegisterTag,
+                compound.FirstRegister,
+                YRegisterTag,
+                1
+            );
             if (compound.FirstRegister != 0)
             {
                 owner.MoveToX0(XRegisterTag, compound.FirstRegister);

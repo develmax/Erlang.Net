@@ -302,6 +302,7 @@ internal sealed partial class BeamModuleCompiler
             }
 
             int write = StackWriteOperand(instruction);
+
             return opcode is Move or GetTupleElement or GetHead or GetTail or GetList or PutTuple or PutList or MakeFun
                 && !SameProjectionRegister(register, instruction.Operands[write])
                 && (opcode != GetList || !SameProjectionRegister(register, instruction.Operands[2]));

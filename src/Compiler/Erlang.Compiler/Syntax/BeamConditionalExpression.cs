@@ -18,10 +18,12 @@ internal sealed class BeamConditionalExpression(Func<string, bool> defined, int 
                 return;
             case Expr.Unary { Operator: ErlangOperators.Not, Operand: var operand }:
                 Validate(operand);
+
                 return;
             case Expr.Binary binary when IsBinaryOperator(binary.Operator):
                 Validate(binary.Left);
                 Validate(binary.Right);
+
                 return;
             default:
                 throw Unsupported();

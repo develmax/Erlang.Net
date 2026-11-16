@@ -43,6 +43,7 @@ internal sealed partial class BeamModuleCompiler
 
         Op(Label, BeamWire.UnsignedTag, fallback);
         instructions.WriteByte(Return);
+
         return true;
     }
 

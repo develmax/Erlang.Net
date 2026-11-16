@@ -11,9 +11,9 @@ internal sealed partial class BeamModuleCompiler
             if (function.Arity >= FirstReservedXRegister
                 || function.Clauses is not
                 [
-                    { Guard: { } guard, Body: Expr.Call call } cons,
-                    { Guard: null } rejected,
-                    { Guard: null } empty
+                { Guard: { } guard, Body: Expr.Call call } cons,
+                { Guard: null } rejected,
+                { Guard: null } empty
                 ]
                 || !AttributeLiteral.TryNormalizeConstant(rejected.Body, out Term failureValue)
                 || !AttributeLiteral.TryNormalizeConstant(empty.Body, out Term emptyValue))
@@ -27,8 +27,18 @@ internal sealed partial class BeamModuleCompiler
                 || rejected.Patterns[input] is not Erlang.Pattern.List
                 { Items: [Erlang.Pattern.Variable unusedHead], Tail: Erlang.Pattern.Variable unusedTail }
                 || ListEntryTest(empty.Patterns[input]) != IsNil
-                || !HasDistinctVariables(cons, input, head, tail)
-                || !HasDistinctVariables(rejected, input, unusedHead, unusedTail)
+                || !HasDistinctVariables(
+                    cons,
+                    input,
+                    head,
+                    tail
+                )
+                || !HasDistinctVariables(
+                    rejected,
+                    input,
+                    unusedHead,
+                    unusedTail
+                )
                 || !HasDistinctVariables(empty, input))
             {
                 return false;
@@ -51,7 +61,13 @@ internal sealed partial class BeamModuleCompiler
             bool usesTail = call.Arguments.OfType<Expr.Variable>().Any(argument => argument.Name == tail.Name);
             if (usesTail)
             {
-                owner.EmitListParts(input, XRegisterTag, headRegister, XRegisterTag, input);
+                owner.EmitListParts(
+                    input,
+                    XRegisterTag,
+                    headRegister,
+                    XRegisterTag,
+                    input
+                );
             }
             else
             {
@@ -122,6 +138,7 @@ internal sealed partial class BeamModuleCompiler
         private static bool HasDistinctVariables(Clause clause, int excluded, params Erlang.Pattern.Variable[] fields)
         {
             var variables = clause.Patterns.Where((_, index) => index != excluded).ToArray();
+
             return variables.All(pattern => pattern is Erlang.Pattern.Variable)
                 && HasUnconditionalParameters(clause with { Patterns = [.. variables, .. fields] });
         }

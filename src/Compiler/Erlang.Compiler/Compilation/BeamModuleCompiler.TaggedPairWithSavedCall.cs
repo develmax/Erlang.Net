@@ -9,19 +9,25 @@ internal sealed partial class BeamModuleCompiler
         private bool TryEmitPreservedTaggedResult(FunctionDefinition function)
         {
             if (function.Clauses is not
-                [{
+                [
+                {
                     Guard: null, Patterns: [],
                     Body: Expr.Case
                     {
                         Value: Expr.Call { Module: not null, DynamicRemote: false } create,
                         Clauses:
                         [
-                            { Guard: null,
-                                Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom tag }, Pattern.Variable payload] }],
-                                Body: Expr.Sequence { Items:
+                        {
+                            Guard: null,
+                            Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom tag }, Pattern.Variable payload] }],
+                            Body: Expr.Sequence
+                            {
+                                Items:
                                     [Expr.Call { Module: not null, DynamicRemote: false } effect,
-                                        Expr.Tuple { Items: [Expr.Literal { Value: Atom returnedTag }, Expr.Variable returned] }] } },
-                            { Guard: null, Patterns: [Pattern.Variable failure], Body: Expr.Variable unchanged }
+                                        Expr.Tuple { Items: [Expr.Literal { Value: Atom returnedTag }, Expr.Variable returned] }]
+                            }
+                        },
+                        { Guard: null, Patterns: [Pattern.Variable failure], Body: Expr.Variable unchanged }
                         ]
                     }
                 }] || payload.Name == VariableScopeNames.Wildcard || payload.Name != returned.Name
@@ -36,12 +42,28 @@ internal sealed partial class BeamModuleCompiler
             owner.EmitIndependentCallMoves(initial);
             owner.EmitCallLine(create, location);
             owner.EmitStaticRemoteCall(create);
-            owner.MoveRegister(XRegisterTag, 0, YRegisterTag, 0);
-            owner.EmitRecordTest(fallback, XRegisterTag, 0, tag, 2);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                0
+            );
+            owner.EmitRecordTest(
+                fallback,
+                XRegisterTag,
+                0,
+                tag,
+                2
+            );
             owner.EmitIndependentCallMoves(followup);
             owner.EmitCallLine(effect, CallLocation(create, location));
             owner.EmitStaticRemoteCall(effect);
-            owner.MoveRegister(YRegisterTag, 0, XRegisterTag, 0);
+            owner.MoveRegister(
+                YRegisterTag,
+                0,
+                XRegisterTag,
+                0
+            );
             owner.EmitFrameReturn(1);
             Mark(fallback);
             owner.EmitFrameReturn(1);

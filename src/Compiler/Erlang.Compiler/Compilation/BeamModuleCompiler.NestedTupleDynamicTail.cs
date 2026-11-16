@@ -11,18 +11,27 @@ internal sealed partial class BeamModuleCompiler
                 Guard: null,
                 Patterns: [
                     Pattern.Variable module,
-                    Pattern.Tuple { Items: [
+                    Pattern.Tuple
+                {
+                    Items: [
                         Pattern.Tuple { Items: [Pattern.Variable first, Pattern.Variable second] },
                         Pattern.Variable third
-                    ] },
+                    ]
+                },
                     Pattern.Variable last
                 ],
-                Body: Expr.Call { DynamicRemote: true, Arguments: [
+                Body: Expr.Call
+                {
+                    DynamicRemote: true, Arguments: [
                     Expr.Variable target, Expr.Literal { Value: Atom member },
-                    Expr.List { Tail: null, Items: [
+                    Expr.List
+                    {
+                        Tail: null, Items: [
                         Expr.Variable arg0, Expr.Variable arg1, Expr.Variable arg2, Expr.Variable arg3
-                    ] }
-                ] } call
+                    ]
+                    }
+                ]
+                } call
             }
         ] || !DistinctBindings(
             module,

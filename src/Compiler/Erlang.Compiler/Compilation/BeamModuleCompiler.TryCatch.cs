@@ -4,8 +4,16 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
-    private sealed record ProtectedCall(Expr.Call Lookup, Expr.Call Transform, Expr.Call Remote, Atom Success,
-        Atom OuterError, Atom InnerError, bool Unpack, bool UnwrapReason);
+    private sealed record ProtectedCall(
+        Expr.Call Lookup,
+        Expr.Call Transform,
+        Expr.Call Remote,
+        Atom Success,
+        Atom OuterError,
+        Atom InnerError,
+        bool Unpack,
+        bool UnwrapReason
+    );
 
     private static ProtectedCall? ReadProtectedCall(Clause clause)
     {
@@ -36,7 +44,14 @@ internal sealed partial class BeamModuleCompiler
             }
             || !IsFresh(clause, @class) || !IsFresh(clause, reason) || !IsFresh(clause, stack)
             || @class.Name == reason.Name || @class.Name == stack.Name || reason.Name == stack.Name
-            || !MatchesProtectedReason(returnedReason, clause, @class, reason, stack, out bool unwrapReason) || stack.Name != returnedStack.Name
+            || !MatchesProtectedReason(
+                returnedReason,
+                clause,
+                @class,
+                reason,
+                stack,
+                out bool unwrapReason
+            ) || stack.Name != returnedStack.Name
             || !(IsClassTest(error, @class.Name, "error") && IsClassTest(exit, @class.Name, "exit")
                 || IsClassTest(error, @class.Name, "exit") && IsClassTest(exit, @class.Name, "error")))
         {
@@ -45,13 +60,28 @@ internal sealed partial class BeamModuleCompiler
 
         if (body is Expr.Tuple
             {
-                Items: [Expr.Literal { Value: Atom success }, Expr.Call { Module: not null, DynamicRemote: false,
-                    Arguments: [Expr.Call { Module: null, Arguments: [
+                Items: [Expr.Literal { Value: Atom success }, Expr.Call
+                {
+                    Module: not null, DynamicRemote: false,
+                    Arguments: [Expr.Call
+                    {
+                        Module: null, Arguments: [
                         Expr.Call { Module: null, Arguments: [Expr.Variable type] } lookup,
-                        Expr.Variable value] } transform] } remote]
+                        Expr.Variable value]
+                    } transform]
+                } remote]
             } && remote.Module != ErlangModuleNames.Module && type.Name == first.Name && value.Name == second.Name)
         {
-            return new(lookup, transform, remote, success, outer, inner, false, unwrapReason);
+            return new(
+                lookup,
+                transform,
+                remote,
+                success,
+                outer,
+                inner,
+                false,
+                unwrapReason
+            );
         }
 
         if (body is Expr.Sequence
@@ -59,39 +89,68 @@ internal sealed partial class BeamModuleCompiler
                 Items:
                 [
                     Expr.Match
-                    {
-                        Pattern: Pattern.Tuple { Items: [Pattern.Variable payload, Pattern.Variable rest] },
-                        Value: Expr.Call { Module: not null, DynamicRemote: false, Arguments: [Expr.Variable data] } read
-                    },
+                {
+                    Pattern: Pattern.Tuple { Items: [Pattern.Variable payload, Pattern.Variable rest] },
+                    Value: Expr.Call { Module: not null, DynamicRemote: false, Arguments: [Expr.Variable data] } read
+                },
                     Expr.Tuple
+                {
+                    Items: [Expr.Literal { Value: Atom ok }, Expr.Call
                     {
-                        Items: [Expr.Literal { Value: Atom ok }, Expr.Call { Module: null, Arguments: [
+                        Module: null, Arguments: [
                             Expr.Call { Module: null, Arguments: [Expr.Variable input] } shape,
-                            Expr.Variable used] } convert]
-                    }
+                            Expr.Variable used]
+                    } convert]
+                }
                 ]
             } && read.Module != ErlangModuleNames.Module && data.Name == second.Name && input.Name == first.Name
             && payload.Name == used.Name && IsFresh(clause, payload)
             && (rest.Name == VariableScopeNames.Wildcard || IsFresh(clause, rest) && rest.Name != payload.Name))
         {
-            return new(shape, convert, read, ok, outer, inner, true, unwrapReason);
+            return new(
+                shape,
+                convert,
+                read,
+                ok,
+                outer,
+                inner,
+                true,
+                unwrapReason
+            );
         }
 
         return null;
     }
 
-    private static bool MatchesProtectedReason(Expr expression, Clause clause, Pattern.Variable exceptionClass, Pattern.Variable reason, Pattern.Variable stack, out bool unwrap)
+    private static bool MatchesProtectedReason(
+        Expr expression,
+        Clause clause,
+        Pattern.Variable exceptionClass,
+        Pattern.Variable reason,
+        Pattern.Variable stack,
+        out bool unwrap
+    )
     {
         unwrap = expression is Expr.Case
         {
             Value: Expr.Variable input,
             Clauses: [
-                { Guard: null, Patterns: [Pattern.Tuple { Items: [
-                    Pattern.Literal { Value: Atom { Name: "error" } }, Pattern.Tuple { Items: [
-                        Pattern.Literal { Value: Atom { Name: "asn1" } }, Pattern.Variable inner] }] }],
-                    Body: Expr.Variable payload },
-                { Guard: null, Patterns: [Pattern.Variable { Name: VariableScopeNames.Wildcard }],
-                    Body: Expr.Variable original }
+            {
+                Guard: null, Patterns: [Pattern.Tuple
+                {
+                    Items: [
+                    Pattern.Literal { Value: Atom { Name: "error" } }, Pattern.Tuple
+                    {
+                        Items: [
+                        Pattern.Literal { Value: Atom { Name: "asn1" } }, Pattern.Variable inner]
+                    }]
+                }],
+                Body: Expr.Variable payload
+            },
+            {
+                Guard: null, Patterns: [Pattern.Variable { Name: VariableScopeNames.Wildcard }],
+                Body: Expr.Variable original
+            }
             ]
         } && input.Name == reason.Name && original.Name == reason.Name && inner.Name == payload.Name
             && IsFresh(clause, inner) && inner.Name != reason.Name && inner.Name != exceptionClass.Name && inner.Name != stack.Name;
@@ -116,17 +175,30 @@ internal sealed partial class BeamModuleCompiler
                     Value: Expr.Variable input,
                     Clauses:
                     [
-                        { Guard: null, Patterns: [Pattern.Tuple { Items:
-                            [Pattern.Literal { Value: Atom { Name: "error" } }, Pattern.Tuple { Items:
-                                [Pattern.Literal { Value: Atom { Name: "asn1" } }, Pattern.Variable inner] }] }],
-                          Body: var unwrapped },
-                        { Guard: null, Patterns: [Pattern.Variable fallback], Body: var wrapped }
+                    {
+                        Guard: null, Patterns: [Pattern.Tuple
+                        {
+                            Items:
+                            [Pattern.Literal { Value: Atom { Name: "error" } }, Pattern.Tuple
+                            {
+                                Items:
+                                [Pattern.Literal { Value: Atom { Name: "asn1" } }, Pattern.Variable inner]
+                            }]
+                        }],
+                        Body: var unwrapped
+                    },
+                    { Guard: null, Patterns: [Pattern.Variable fallback], Body: var wrapped }
                     ]
                 }
             }
             || !IsFresh(function, kind) || !IsFresh(function, reason) || !IsFresh(function, stack)
             || !IsFresh(function, inner) || !IsFresh(function, fallback)
-            || !DistinctBindings(kind, reason, stack, inner)
+            || !DistinctBindings(
+                kind,
+                reason,
+                stack,
+                inner
+            )
             || fallback.Name == kind.Name || fallback.Name == reason.Name || fallback.Name == stack.Name
             || input.Name != reason.Name
             || !(IsClassTest(first, kind.Name, "error") && IsClassTest(second, kind.Name, "exit")
@@ -140,9 +212,15 @@ internal sealed partial class BeamModuleCompiler
     }
 
     private static bool IsWrappedCatchResult(Expr result, string reason, string stack) =>
-        result is Expr.Tuple { Items: [Expr.Literal { Value: Atom { Name: "error" } },
-            Expr.Tuple { Items: [Expr.Literal { Value: Atom { Name: "asn1" } },
-                Expr.Tuple { Items: [Expr.Variable payload, Expr.Variable trace] }] }] }
+        result is Expr.Tuple
+        {
+            Items: [Expr.Literal { Value: Atom { Name: "error" } },
+            Expr.Tuple
+            {
+                Items: [Expr.Literal { Value: Atom { Name: "asn1" } },
+                Expr.Tuple { Items: [Expr.Variable payload, Expr.Variable trace] }]
+            }]
+        }
         && payload.Name == reason && trace.Name == stack;
 
     private void EmitWrappedCatch(int handler, int slot)
@@ -152,7 +230,12 @@ internal sealed partial class BeamModuleCompiler
         int propagate = nextLabel++;
         Op(Label, BeamWire.UnsignedTag, handler);
         Op(TryCase, YRegisterTag, slot);
-        MoveRegister(XRegisterTag, 1, YRegisterTag, slot);
+        MoveRegister(
+            XRegisterTag,
+            1,
+            YRegisterTag,
+            slot
+        );
         instructions.WriteByte(SelectValue);
         EmitTypedRegister(0, AtomTypeBits);
         Operand(LabelTag, propagate);
@@ -189,7 +272,12 @@ internal sealed partial class BeamModuleCompiler
 
     private void EmitWrappedCatchReturn(int slot)
     {
-        MoveRegister(XRegisterTag, 2, XRegisterTag, 0);
+        MoveRegister(
+            XRegisterTag,
+            2,
+            XRegisterTag,
+            0
+        );
         instructions.WriteByte(BuildStacktrace);
         Op(TestHeap, BeamWire.UnsignedTag, 9);
         Operand(BeamWire.UnsignedTag, 1);
@@ -223,27 +311,52 @@ internal sealed partial class BeamModuleCompiler
         if (flow.Unpack)
         {
             InitStackSlot(0);
-            MoveRegister(XRegisterTag, 0, YRegisterTag, 1);
+            MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                1
+            );
         }
         else
         {
-            MoveRegister(XRegisterTag, 1, YRegisterTag, 0);
+            MoveRegister(
+                XRegisterTag,
+                1,
+                YRegisterTag,
+                0
+            );
         }
         Op(TryEnter, YRegisterTag, token);
         Operand(LabelTag, handler);
 
         if (flow.Unpack)
         {
-            MoveRegister(XRegisterTag, 1, XRegisterTag, 0);
+            MoveRegister(
+                XRegisterTag,
+                1,
+                XRegisterTag,
+                0
+            );
             EmitCallLine(flow.Remote, location);
             EmitProtectedRemote(flow.Remote);
-            MoveRegister(XRegisterTag, 0, YRegisterTag, 0);
+            MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                0
+            );
             Op(IsTuple, LabelTag, badMatch);
             Operand(XRegisterTag, 0);
             Op(TestArity, LabelTag, badMatch);
             Operand(XRegisterTag, 0);
             Operand(BeamWire.UnsignedTag, 2);
-            MoveRegister(YRegisterTag, 1, XRegisterTag, 0);
+            MoveRegister(
+                YRegisterTag,
+                1,
+                XRegisterTag,
+                0
+            );
             InitStackSlot(1);
             EmitCallLine(flow.Lookup, CallLocation(flow.Remote, location));
             Op(LocalCall, BeamWire.UnsignedTag, 1);
@@ -259,7 +372,12 @@ internal sealed partial class BeamModuleCompiler
             EmitCallLine(flow.Lookup, location);
             Op(LocalCall, BeamWire.UnsignedTag, 1);
             Operand(LabelTag, lookup);
-            MoveRegister(YRegisterTag, 0, XRegisterTag, 1);
+            MoveRegister(
+                YRegisterTag,
+                0,
+                XRegisterTag,
+                1
+            );
             InitStackSlot(0);
             EmitCallLine(flow.Transform, CallLocation(flow.Lookup, location));
         }
@@ -280,7 +398,12 @@ internal sealed partial class BeamModuleCompiler
 
         Op(Label, BeamWire.UnsignedTag, handler);
         Op(TryCase, YRegisterTag, token);
-        MoveRegister(XRegisterTag, 1, YRegisterTag, token);
+        MoveRegister(
+            XRegisterTag,
+            1,
+            YRegisterTag,
+            token
+        );
         instructions.WriteByte(SelectValue);
         EmitTypedRegister(0, AtomTypeBits);
         Operand(LabelTag, propagate);
@@ -294,7 +417,12 @@ internal sealed partial class BeamModuleCompiler
         Op(Label, BeamWire.UnsignedTag, caught);
         if (flow.UnwrapReason)
         {
-            MoveRegister(YRegisterTag, token, XRegisterTag, 3);
+            MoveRegister(
+                YRegisterTag,
+                token,
+                XRegisterTag,
+                3
+            );
             EmitTupleCheck(3, 2, wrap);
             EmitTuplePart(3, 0, 4);
             EmitAtomTest(4, "error", wrap);
@@ -307,7 +435,12 @@ internal sealed partial class BeamModuleCompiler
             Operand(YRegisterTag, token);
             Op(Label, BeamWire.UnsignedTag, wrap);
         }
-        MoveRegister(XRegisterTag, 2, XRegisterTag, 0);
+        MoveRegister(
+            XRegisterTag,
+            2,
+            XRegisterTag,
+            0
+        );
         instructions.WriteByte(BuildStacktrace);
         Op(TestHeap, BeamWire.UnsignedTag, 9);
         Operand(BeamWire.UnsignedTag, 1);

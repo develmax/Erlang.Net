@@ -28,93 +28,215 @@ internal sealed partial class BeamModuleCompiler
 
         private CertificateNameCheck? ReadCertificateNameCheck(FunctionDefinition function)
         {
-            if (function.Clauses is not [{
-                Guard: null, Patterns: [Pattern.Variable socket, Pattern.Variable ip],
-                Body: Expr.Sequence { Items: [
-                    Expr.Match { Pattern: Pattern.Tuple { Items: [
+            if (function.Clauses is not [
+                {
+                    Guard: null, Patterns: [Pattern.Variable socket, Pattern.Variable ip],
+                    Body: Expr.Sequence
+                    {
+                        Items: [
+                    Expr.Match
+                        {
+                            Pattern: Pattern.Tuple
+                            {
+                                Items: [
                         Pattern.Literal { Value: Atom ok }, Pattern.Variable allowed
-                    ] }, Value: Expr.Call { Arguments: [] } allowedCall },
-                    Expr.Case { Value: Expr.Variable configured, Clauses: [
-                        { Guard: null, Patterns: [Pattern.List { Items: [], Tail: null } or Pattern.Literal { Value: Nil }],
-                            Body: Expr.Literal { Value: Atom unrestricted } },
-                        { Guard: null, Patterns: [Pattern.Variable { Name: VariableScopeNames.Wildcard }],
-                            Body: Expr.Case { Value: Expr.Call { Arguments: [Expr.Variable peerSocket] } peerCall, Clauses: [
-                                { Guard: null, Patterns: [Pattern.Tuple { Items: [
+                    ]
+                            }, Value: Expr.Call { Arguments: [] } allowedCall
+                        },
+                    Expr.Case
+                        {
+                            Value: Expr.Variable configured, Clauses: [
+                            {
+                                Guard: null, Patterns: [Pattern.List { Items: [], Tail: null } or Pattern.Literal { Value: Nil }],
+                                Body: Expr.Literal { Value: Atom unrestricted }
+                            },
+                            {
+                                Guard: null, Patterns: [Pattern.Variable { Name: VariableScopeNames.Wildcard }],
+                                Body: Expr.Case
+                                {
+                                    Value: Expr.Call { Arguments: [Expr.Variable peerSocket] } peerCall, Clauses: [
+                                    {
+                                        Guard: null, Patterns: [Pattern.Tuple
+                                        {
+                                            Items: [
                                     Pattern.Literal { Value: Atom peerOk }, Pattern.Variable der
-                                ] }], Body: Expr.Sequence { Items: [
-                                    Expr.Match { Pattern: Pattern.Variable certificate, Value: Expr.Call
-                                        { Arguments: [Expr.Variable decodeArg, Expr.Literal { Value: Atom mode }] } decode },
-                                    Expr.Match { Pattern: Pattern.Variable hosts, Value: Expr.Call
-                                        { Arguments: [Expr.Variable hostsArg] } hostCall },
-                                    Expr.Case { Value: Expr.Call { Arguments: [
-                                        Expr.Variable certArg, Expr.List { Items: [
+                                ]
+                                        }], Body: Expr.Sequence
+                                        {
+                                            Items: [
+                                    Expr.Match
+                                            {
+                                                Pattern: Pattern.Variable certificate, Value: Expr.Call
+                                                { Arguments: [Expr.Variable decodeArg, Expr.Literal { Value: Atom mode }] } decode
+                                            },
+                                    Expr.Match
+                                            {
+                                                Pattern: Pattern.Variable hosts, Value: Expr.Call
+                                                { Arguments: [Expr.Variable hostsArg] } hostCall
+                                            },
+                                    Expr.Case
+                                            {
+                                                Value: Expr.Call
+                                                {
+                                                    Arguments: [
+                                        Expr.Variable certArg, Expr.List
+                                                    {
+                                                        Items: [
                                             Expr.Tuple { Items: [Expr.Literal { Value: Atom ipTag }, Expr.Variable ipArg] }
-                                        ], Tail: Expr.Call { Module: null, DynamicRemote: false,
-                                            Arguments: [Expr.Variable projectionArg] } projection }
-                                    ] } verify, Clauses: [
-                                        { Guard: null, Patterns: [Pattern.Literal { Value: Atom verified }],
-                                            Body: Expr.Literal { Value: Atom verifiedResult } },
-                                        { Guard: null, Patterns: [Pattern.Literal { Value: Atom rejected }],
-                                            Body: Expr.Sequence { Items: [Expr.Case log, var rejectedResult] } }
-                                    ] } verification
-                                ] } },
-                                { Guard: null, Patterns: [Pattern.Tuple { Items: [
+                                        ], Tail: Expr.Call
+                                        {
+                                            Module: null, DynamicRemote: false,
+                                            Arguments: [Expr.Variable projectionArg]
+                                        } projection
+                                                    }
+                                    ]
+                                                } verify, Clauses: [
+                                                {
+                                                    Guard: null, Patterns: [Pattern.Literal { Value: Atom verified }],
+                                                    Body: Expr.Literal { Value: Atom verifiedResult }
+                                                },
+                                                {
+                                                    Guard: null, Patterns: [Pattern.Literal { Value: Atom rejected }],
+                                                    Body: Expr.Sequence { Items: [Expr.Case log, var rejectedResult] }
+                                                }
+                                    ]
+                                            } verification
+                                ]
+                                        }
+                                    },
+                                    {
+                                        Guard: null, Patterns: [Pattern.Tuple
+                                        {
+                                            Items: [
                                     Pattern.Literal { Value: Atom error }, Pattern.Literal { Value: Atom missing }
-                                ] }], Body: Expr.Literal { Value: Atom missingResult } },
-                                { Guard: null, Patterns: [AliasPattern errorAlias], Body: Expr.Variable returned }
-                            ] } }
-                    ] }
-                ] }
-            }] || !TryReadPatternAlias(errorAlias, out var errorBinding, out var shape)
-                || shape is not Pattern.Tuple { Items: [
+                                ]
+                                        }], Body: Expr.Literal { Value: Atom missingResult }
+                                    },
+                                    { Guard: null, Patterns: [AliasPattern errorAlias], Body: Expr.Variable returned }
+                            ]
+                                }
+                            }
+                    ]
+                        }
+                ]
+                    }
+                }] || !TryReadPatternAlias(errorAlias, out var errorBinding, out var shape)
+                || shape is not Pattern.Tuple
+                {
+                    Items: [
                     Pattern.Literal { Value: Atom returnedError }, Pattern.Variable { Name: VariableScopeNames.Wildcard }
-                ] } || errorBinding.Name != returned.Name || !error.Equals(returnedError) || error.Equals(ok)
+                ]
+                } || errorBinding.Name != returned.Name || !error.Equals(returnedError) || error.Equals(ok)
                 || !ok.Equals(unrestricted) || !ok.Equals(peerOk) || !ok.Equals(verifiedResult) || !ok.Equals(missingResult)
                 || verified.Name != "true" || rejected.Name != "false"
-                || !DistinctBindings(socket, ip, allowed, der, certificate, hosts)
-                || !DistinctBindings(socket, ip, allowed, errorBinding)
+                || !DistinctBindings(
+                    socket,
+                    ip,
+                    allowed,
+                    der,
+                    certificate,
+                    hosts
+                )
+                || !DistinctBindings(
+                    socket,
+                    ip,
+                    allowed,
+                    errorBinding
+                )
                 || configured.Name != allowed.Name || peerSocket.Name != socket.Name || decodeArg.Name != der.Name
                 || hostsArg.Name != allowed.Name || certArg.Name != certificate.Name || ipArg.Name != ip.Name
                 || projectionArg.Name != hosts.Name || projection.Function != MappingName(function.Name, function.Arity)
                 || new[] { allowedCall, peerCall, decode, hostCall, verify }.Any(call =>
                     call.Module is null || call.DynamicRemote || owner.ResolvesErlangBif(call))
                 || !AttributeLiteral.TryNormalizeConstant(rejectedResult, out Term rejection)
-                || !ReadCertificateLog(log, ip.Name, out var allowLog, out Term logLocation, out Term level, out Term format))
+                || !ReadCertificateLog(
+                    log,
+                    ip.Name,
+                    out var allowLog,
+                    out Term logLocation,
+                    out Term level,
+                    out Term format
+                ))
             {
                 return null;
             }
 
-            return new(allowedCall, peerCall, decode, hostCall, projection, verify, allowLog, verification,
-                logLocation, level, format, rejection, mode, ipTag, missing, ok, error);
+            return new(
+                allowedCall,
+                peerCall,
+                decode,
+                hostCall,
+                projection,
+                verify,
+                allowLog,
+                verification,
+                logLocation,
+                level,
+                format,
+                rejection,
+                mode,
+                ipTag,
+                missing,
+                ok,
+                error
+            );
         }
 
         private static bool ReadCertificateLog(
-            Expr.Case expression, string ip, out Expr.Call allow, out Term location, out Term level, out Term format
-        ) => ReadFixedLog(expression, out allow, out location, out level, out format, out Expr argument)
+            Expr.Case expression,
+            string ip,
+            out Expr.Call allow,
+            out Term location,
+            out Term level,
+            out Term format
+        ) => ReadFixedLog(
+            expression,
+            out allow,
+            out location,
+            out level,
+            out format,
+            out Expr argument
+        )
             && argument is Expr.Variable variable && variable.Name == ip;
 
         private static bool ReadFixedLog(
-            Expr.Case expression, out Expr.Call allow, out Term location, out Term level, out Term format, out Expr argument
+            Expr.Case expression,
+            out Expr.Call allow,
+            out Term location,
+            out Term level,
+            out Term format,
+            out Expr argument
         )
         {
             allow = null!;
             argument = null!;
             location = level = format = Nil.Value;
-            if (expression is not {
-                Value: Expr.Call { Module: "logger", Function: "allow", DynamicRemote: false,
-                    Arguments: [Expr.Literal { Value: Atom allowLevel }, Expr.Literal { Value: Atom }] } test,
-                Clauses: [
-                    { Guard: null, Patterns: [Pattern.Literal { Value: Atom { Name: "true" } }],
-                        Body: Expr.Call { Module: ErlangModuleNames.Module, Function: AutoImportNames.Apply,
+            if (expression is not
+                {
+                    Value: Expr.Call
+                    {
+                        Module: "logger", Function: "allow", DynamicRemote: false,
+                        Arguments: [Expr.Literal { Value: Atom allowLevel }, Expr.Literal { Value: Atom }]
+                    } test,
+                    Clauses: [
+                    {
+                        Guard: null, Patterns: [Pattern.Literal { Value: Atom { Name: "true" } }],
+                        Body: Expr.Call
+                        {
+                            Module: ErlangModuleNames.Module, Function: AutoImportNames.Apply,
                             DynamicRemote: false, Arguments: [
                                 Expr.Literal { Value: Atom { Name: "logger" } },
                                 Expr.Literal { Value: Atom { Name: "macro_log" } },
                                 Expr.List logArguments
-                            ] } },
-                    { Guard: null, Patterns: [Pattern.Literal { Value: Atom { Name: "false" } }],
-                        Body: Expr.Literal { Value: Atom { Name: "ok" } } }
+                            ]
+                        }
+                    },
+                    {
+                        Guard: null, Patterns: [Pattern.Literal { Value: Atom { Name: "false" } }],
+                        Body: Expr.Literal { Value: Atom { Name: "ok" } }
+                    }
                 ]
-            })
+                })
             {
                 return false;
             }
@@ -139,6 +261,7 @@ internal sealed partial class BeamModuleCompiler
             allow = test;
             level = logLevel;
             argument = value;
+
             return true;
         }
 
@@ -164,11 +287,26 @@ internal sealed partial class BeamModuleCompiler
             owner.Op(Allocate, BeamWire.UnsignedTag, 3);
             owner.Operand(BeamWire.UnsignedTag, 2);
             owner.InitStackSlot(0);
-            owner.MoveRegister(XRegisterTag, 1, YRegisterTag, 1);
-            owner.MoveRegister(XRegisterTag, 0, YRegisterTag, 2);
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                YRegisterTag,
+                1
+            );
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                2
+            );
             var previous = location;
             EmitWindowCall(flow.Allowed, ref previous);
-            EmitDetailRecordTest(0, 2, flow.Ok, allowedFailed);
+            EmitDetailRecordTest(
+                0,
+                2,
+                flow.Ok,
+                allowedFailed
+            );
             owner.Op(GetTupleElement, XRegisterTag, 0);
             owner.Operand(BeamWire.UnsignedTag, 1);
             owner.Operand(YRegisterTag, 0);
@@ -183,11 +321,25 @@ internal sealed partial class BeamModuleCompiler
             owner.EmitTuplePart(0, 1, 2);
             if (TermOrder.Compare(flow.Error, flow.Ok, exact: true) < 0)
             {
-                owner.EmitAtomSelection(1, peerFailed, flow.Error.Name, peerError, flow.Ok.Name, decode);
+                owner.EmitAtomSelection(
+                    1,
+                    peerFailed,
+                    flow.Error.Name,
+                    peerError,
+                    flow.Ok.Name,
+                    decode
+                );
             }
             else
             {
-                owner.EmitAtomSelection(1, peerFailed, flow.Ok.Name, decode, flow.Error.Name, peerError);
+                owner.EmitAtomSelection(
+                    1,
+                    peerFailed,
+                    flow.Ok.Name,
+                    decode,
+                    flow.Error.Name,
+                    peerError
+                );
             }
             Mark(decode);
             owner.EmitConstant(flow.DecodeMode, 1);
@@ -207,12 +359,26 @@ internal sealed partial class BeamModuleCompiler
             Load(2);
             owner.InitStackSlot(2);
             EmitWindowCall(flow.Verify, ref previous);
-            owner.EmitAtomSelection(0, verificationFailed, "false", reject, "true", allow);
+            owner.EmitAtomSelection(
+                0,
+                verificationFailed,
+                "false",
+                reject,
+                "true",
+                allow
+            );
             Mark(reject);
             owner.EmitConstant(flow.AllowLog.Arguments[1], 1);
             owner.EmitConstant(flow.LogLevel, 0);
             EmitWindowCall(flow.AllowLog, ref previous);
-            owner.EmitAtomSelection(0, loggerFailed, "false", rejectReturn, "true", writeLog);
+            owner.EmitAtomSelection(
+                0,
+                loggerFailed,
+                "false",
+                rejectReturn,
+                "true",
+                writeLog
+            );
             Mark(writeLog);
             owner.Op(TestHeap, BeamWire.UnsignedTag, ConsHeapWords);
             owner.Operand(BeamWire.UnsignedTag, 0);

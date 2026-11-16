@@ -86,7 +86,12 @@ internal sealed partial class BeamModuleCompiler
             EmitGeneralFrame(live, initializedByMoves: savedInputs.Length, slots: frame);
             for (int index = savedInputs.Length - 1; index >= 0; index--)
             {
-                owner.MoveRegister(XRegisterTag, savedInputs[index].Register, YRegisterTag, frame - 1 - index);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    savedInputs[index].Register,
+                    YRegisterTag,
+                    frame - 1 - index
+                );
             }
             EmitEntryCall(firstCall);
             var previous = CallLocation(first, location);
@@ -99,7 +104,12 @@ internal sealed partial class BeamModuleCompiler
                 }
                 else
                 {
-                    owner.MoveRegister(XRegisterTag, 0, YRegisterTag, slot);
+                    owner.MoveRegister(
+                        XRegisterTag,
+                        0,
+                        YRegisterTag,
+                        slot
+                    );
                 }
                 var loads = swap ? plan.SavedInputs!.Skip(1).ToList() : plan.SavedInputs;
                 owner.EmitOrderedTailMoves(plan.Moves, plan.Constants, loads);
@@ -127,6 +137,7 @@ internal sealed partial class BeamModuleCompiler
                 owner.Operand(XRegisterTag, 0);
             }
             owner.EmitFrameReturn(frame);
+
             return true;
         }
     }

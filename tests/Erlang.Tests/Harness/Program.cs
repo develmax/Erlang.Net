@@ -12213,7 +12213,10 @@ Test(Erlang.Tests.BeamCompactWriterChecks.TestName, Erlang.Tests.BeamCompactWrit
 
 Test(Erlang.Tests.BeamModuleEmissionChecks.TestName, Erlang.Tests.BeamModuleEmissionChecks.Run);
 Test(Erlang.Tests.BeamModuleEmissionChecks.CallResultBifTestName, Erlang.Tests.BeamModuleEmissionChecks.CompareCallResultBif);
-Test(Erlang.Tests.BeamModuleEmissionChecks.EntryResultCaseTestName, Erlang.Tests.BeamModuleEmissionChecks.CompareEntryResultCase);
+Test(
+    Erlang.Tests.BeamModuleEmissionChecks.EntryResultCaseTestName,
+    Erlang.Tests.BeamModuleEmissionChecks.CompareEntryResultCase
+);
 Test(
     Erlang.Tests.BeamModuleEmissionChecks.AtomTailDispatchTestName,
     Erlang.Tests.BeamModuleEmissionChecks.CompareAtomTailDispatch

@@ -119,7 +119,12 @@ internal sealed partial class BeamModuleCompiler
             return () =>
             {
                 EmitFrameAllocation(Math.Max(source, arguments.Select(argument => argument.Input).DefaultIfEmpty(-1).Max()) + 1, 1);
-                owner.MoveRegister(XRegisterTag, source, YRegisterTag, 0);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    source,
+                    YRegisterTag,
+                    0
+                );
                 foreach (var (destination, input, index, constant) in arguments)
                 {
                     if (constant is not null)
@@ -132,7 +137,12 @@ internal sealed partial class BeamModuleCompiler
                     }
                     else
                     {
-                        owner.MoveRegister(XRegisterTag, input, XRegisterTag, destination);
+                        owner.MoveRegister(
+                            XRegisterTag,
+                            input,
+                            XRegisterTag,
+                            destination
+                        );
                     }
                 }
 
@@ -169,7 +179,7 @@ internal sealed partial class BeamModuleCompiler
                 || returned.Items.Count < 2
                 || !returned.Items.Take(returned.Items.Count - 1).All(item => AttributeLiteral.TryNormalizeConstant(item, out _))
                 || returned.Items[^1] is not Expr.RecordUpdate
-                    { Value: Expr.Variable state, Fields: [{ Value: Expr.Variable replacement } field] } update
+                { Value: Expr.Variable state, Fields: [{ Value: Expr.Variable replacement } field] } update
                 || key.Name != tupleKey.Name || firstResult.Name != tupleValue.Name || secondResult.Name != replacement.Name
                 || !TryResolveOrdinaryCallTarget(first, out string? firstModule)
                 || !TryResolveOrdinaryCallTarget(second, out string? secondModule))
@@ -244,8 +254,18 @@ internal sealed partial class BeamModuleCompiler
             }
 
             EmitFrameAllocation(Math.Max(stateInput, firstField.Input) + 1, 2);
-            owner.MoveRegister(XRegisterTag, stateInput, YRegisterTag, 0);
-            owner.MoveRegister(XRegisterTag, firstField.Input, YRegisterTag, 1);
+            owner.MoveRegister(
+                XRegisterTag,
+                stateInput,
+                YRegisterTag,
+                0
+            );
+            owner.MoveRegister(
+                XRegisterTag,
+                firstField.Input,
+                YRegisterTag,
+                1
+            );
             owner.EmitTuplePart(firstField.Input, firstField.Field, 1);
             owner.EmitConstant(firstConstant.Value, 0);
             owner.EmitCallLine(first, location);
@@ -258,9 +278,19 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(XRegisterTag, 1);
             owner.Operand(XRegisterTag, 0);
             EmitSavedField(0, valueField.Field, 2);
-            owner.MoveRegister(XRegisterTag, 1, XRegisterTag, 0);
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                XRegisterTag,
+                0
+            );
             owner.EmitConstant(secondConstant.Value, 1);
-            owner.MoveRegister(YRegisterTag, 0, YRegisterTag, 1);
+            owner.MoveRegister(
+                YRegisterTag,
+                0,
+                YRegisterTag,
+                1
+            );
             owner.Op(TrimFrame, BeamWire.UnsignedTag, 1);
             owner.Operand(BeamWire.UnsignedTag, 1);
             owner.EmitCallLine(second, CallLocation(first, location));
@@ -305,8 +335,11 @@ internal sealed partial class BeamModuleCompiler
 
         private bool TryEmitDeferredRecordFieldCall(FunctionDefinition function)
         {
-            if (function.Clauses is not [{ Guard: null, Patterns: [AliasPattern alias],
-                Body: Expr.Sequence { Items: [Expr.Call first, Expr.Call second, var result] } }]
+            if (function.Clauses is not [
+                {
+                    Guard: null, Patterns: [AliasPattern alias],
+                    Body: Expr.Sequence { Items: [Expr.Call first, Expr.Call second, var result] }
+                }]
                 || !TryReadPatternAlias(alias, out var whole, out var shape)
                 || whole.Name == VariableScopeNames.Wildcard || shape is not Pattern.Tuple tuple
                 || !HasTupleTag(tuple, out Atom tag)
@@ -344,9 +377,19 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
-            EmitDetailRecordTest(0, tuple.Items.Count, tag, owner.nextLabel - 2);
+            EmitDetailRecordTest(
+                0,
+                tuple.Items.Count,
+                tag,
+                owner.nextLabel - 2
+            );
             EmitFrameAllocation(1, 1);
-            owner.MoveRegister(XRegisterTag, 0, YRegisterTag, 0);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                0
+            );
             EmitEntryCall(prefix);
             owner.Op(GetTupleElement, YRegisterTag, 0);
             owner.Operand(BeamWire.UnsignedTag, projection);
@@ -359,20 +402,30 @@ internal sealed partial class BeamModuleCompiler
                 owner.EmitConstant(constant, 0);
             }
             owner.EmitFrameReturn(0);
+
             return true;
         }
 
         private bool TryEmitRecordFieldCallAndReturn(FunctionDefinition function)
         {
             if (function.Clauses.Count is < 1 or > 2
-                || function.Clauses[^1] is not { Guard: null, Body: Expr.Sequence { Items: [
-                Expr.Call { Module: not null, DynamicRemote: false, Arguments: [
+                || function.Clauses[^1] is not
+                {
+                    Guard: null, Body: Expr.Sequence
+                    {
+                        Items: [
+                Expr.Call
+                        {
+                            Module: not null, DynamicRemote: false, Arguments: [
                     Expr.RecordAccess { Value: Expr.Variable source } field,
                     Expr.Literal { Value: var format },
                     var listArgument
-                ] } call,
+                ]
+                        } call,
                 Expr.Tuple { Items: [.., Expr.Variable retained] } reply
-            ] } } clause
+            ]
+                    }
+                } clause
                 || !TryResolveOrdinaryCallTarget(call, out _)
                 || source.Name != retained.Name || source.Name == VariableScopeNames.Wildcard)
             {
@@ -423,7 +476,13 @@ internal sealed partial class BeamModuleCompiler
                 }
                 else if (function.Clauses.Count == 1 && nestedInput < 0 && nestedRegister < FirstReservedXRegister
                     && pattern is Pattern.Tuple outer
-                    && ReadRetainedRecordCallProjection(outer, item, nestedChecks, out nestedField, out nestedLiteral))
+                    && ReadRetainedRecordCallProjection(
+                        outer,
+                        item,
+                        nestedChecks,
+                        out nestedField,
+                        out nestedLiteral
+                    ))
                 {
                     nestedInput = parameters.Count;
                     binding = new Pattern.Variable(VariableScopeNames.Wildcard);
@@ -453,7 +512,13 @@ internal sealed partial class BeamModuleCompiler
                 && check.Arity == field.Arity && check.Tag.Name == field.Name);
             if (function.Clauses.Count == 2)
             {
-                if (!TryEmitRetainedRecordCallAlternative(function.Clauses[0], record, element, field, out failure))
+                if (!TryEmitRetainedRecordCallAlternative(
+                    function.Clauses[0],
+                    record,
+                    element,
+                    field,
+                    out failure
+                ))
                 {
                     return false;
                 }
@@ -484,25 +549,45 @@ internal sealed partial class BeamModuleCompiler
                         }
                         else
                         {
-                            EmitDetailRecordTest(input, arity, tag, functionInfo);
+                            EmitDetailRecordTest(
+                                input,
+                                arity,
+                                tag,
+                                functionInfo
+                            );
                         }
                     }
                 }
 
                 foreach (var check in checks.Where(check => check.Register == register))
                 {
-                    EmitDetailRecordTest(check.Register, check.Arity, check.Tag, functionInfo);
+                    EmitDetailRecordTest(
+                        check.Register,
+                        check.Arity,
+                        check.Tag,
+                        functionInfo
+                    );
                 }
             }
 
             if (!checkedRecord)
             {
-                EmitDetailRecordTest(record, field.Arity, Term.A(field.Name), failure);
+                EmitDetailRecordTest(
+                    record,
+                    field.Arity,
+                    Term.A(field.Name),
+                    failure
+                );
             }
 
             int live = item is null ? record + 1 : Math.Max(record, nestedInput < 0 ? element : nestedRegister) + 1;
             EmitFrameAllocation(live, 1, heapWords: item is null ? 0 : 2);
-            owner.MoveRegister(XRegisterTag, record, YRegisterTag, 0);
+            owner.MoveRegister(
+                XRegisterTag,
+                record,
+                YRegisterTag,
+                0
+            );
             if (item is not null && nestedInput >= 0)
             {
                 element = record == 0 ? nestedRegister : 0;
@@ -616,10 +701,13 @@ internal sealed partial class BeamModuleCompiler
                 || !TryReadPatternAlias(alias, out var retained, out var shape)
                 || shape is not Pattern.Tuple tuple || tuple.Items.Count != field.Arity
                 || tuple.Items[0] is not Pattern.Literal { Value: Atom tag } || tag.Name != field.Name
-                || clause.Body is not Expr.Sequence { Items: [
+                || clause.Body is not Expr.Sequence
+                {
+                    Items: [
                     Expr.Call { Module: not null, DynamicRemote: false, Arguments: [Expr.Variable input] } call,
                     Expr.Tuple { Items: [.., Expr.Variable output] } reply
-                ] } || output.Name != retained.Name || !TryResolveOrdinaryCallTarget(call, out _)
+                ]
+                } || output.Name != retained.Name || !TryResolveOrdinaryCallTarget(call, out _)
                 || retained.Name == VariableScopeNames.Wildcard)
             {
                 return false;
@@ -675,9 +763,19 @@ internal sealed partial class BeamModuleCompiler
             owner.Op(ExactEqualTest, LabelTag, fallback);
             owner.Operand(XRegisterTag, selector);
             owner.LiteralOperand(key);
-            EmitDetailRecordTest(record, field.Arity, tag, failure);
+            EmitDetailRecordTest(
+                record,
+                field.Arity,
+                tag,
+                failure
+            );
             EmitFrameAllocation(record + 1, 1);
-            owner.MoveRegister(XRegisterTag, record, YRegisterTag, 0);
+            owner.MoveRegister(
+                XRegisterTag,
+                record,
+                YRegisterTag,
+                0
+            );
             owner.EmitTuplePart(record, index, 0);
             owner.EmitCallLine(call, location);
             owner.EmitStaticRemoteCall(call);
@@ -802,7 +900,15 @@ internal sealed partial class BeamModuleCompiler
             owner.EmitFrameReturn(1);
 
             Mark(other);
-            owner.EmitLoggedReply(log, format, module, line, reply, previous, stateRegister: 1);
+            owner.EmitLoggedReply(
+                log,
+                format,
+                module,
+                line,
+                reply,
+                previous,
+                stateRegister: 1
+            );
 
             return true;
         }

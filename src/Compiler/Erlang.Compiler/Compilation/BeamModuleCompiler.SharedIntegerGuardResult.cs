@@ -14,10 +14,16 @@ internal sealed partial class BeamModuleCompiler
                 || input.Name == VariableScopeNames.Wildcard
                 || PredicateConjuncts(guard).ToArray() is not
                 [
-                    Expr.Call { Module: null or ErlangModuleNames.Module, DynamicRemote: false,
-                        Function: AutoImportNames.IsInteger, Arguments: [Expr.Variable tested] } type,
-                    Expr.Binary { Operator: ErlangOperators.Greater or ErlangOperators.GreaterOrEqual,
-                        Left: Expr.Variable compared, Right: Expr.Literal { Value: Integer bound } } comparison
+                    Expr.Call
+                {
+                    Module: null or ErlangModuleNames.Module, DynamicRemote: false,
+                    Function: AutoImportNames.IsInteger, Arguments: [Expr.Variable tested]
+                } type,
+                    Expr.Binary
+                {
+                    Operator: ErlangOperators.Greater or ErlangOperators.GreaterOrEqual,
+                    Left: Expr.Variable compared, Right: Expr.Literal { Value: Integer bound }
+                } comparison
                 ]
                 || tested.Name != input.Name || compared.Name != input.Name || !owner.ResolvesErlangBif(type)
                 || !AttributeLiteral.TryNormalizeConstant(guarded.Body, out Term result)

@@ -10,7 +10,7 @@ internal sealed partial class BeamModuleCompiler
         {
             if (function.Arity < 2 || function.Clauses is not
                 [
-                    { Guard: null, Body: Expr.Tuple { Items: [Expr.Call sourceCall, Expr.Variable retained] } } clause
+                { Guard: null, Body: Expr.Tuple { Items: [Expr.Call sourceCall, Expr.Variable retained] } } clause
                 ]
                 || !HasUnconditionalParameters(clause)
                 || clause.Patterns[^1] is not Pattern.Variable parameter
@@ -37,7 +37,12 @@ internal sealed partial class BeamModuleCompiler
             }
 
             EmitFrameAllocation(function.Arity, 1);
-            owner.MoveRegister(XRegisterTag, arity, YRegisterTag, 0);
+            owner.MoveRegister(
+                XRegisterTag,
+                arity,
+                YRegisterTag,
+                0
+            );
             owner.EmitCallLine(call, location);
             if (call.Module is null)
             {
@@ -71,8 +76,11 @@ internal sealed partial class BeamModuleCompiler
             string? resultBinding = null;
             Expr.Call? call = null;
             var result = expressions[^1];
-            if (expressions is [.., Expr.Match { Pattern: Pattern.Variable binding,
-                Value: Expr.Call { DynamicRemote: false } invoke }, _] && AcceptsCall(invoke))
+            if (expressions is [.., Expr.Match
+                {
+                    Pattern: Pattern.Variable binding,
+                    Value: Expr.Call { DynamicRemote: false } invoke
+                }, _] && AcceptsCall(invoke))
             {
                 if (binding.Name == VariableScopeNames.Wildcard
                     || bindingsClause.Patterns.OfType<Pattern.Variable>().Any(parameter => parameter.Name == binding.Name))
@@ -113,10 +121,21 @@ internal sealed partial class BeamModuleCompiler
             {
                 int failure = owner.nextLabel - 2;
                 owner.EmitNonemptyList(0, failure);
-                owner.EmitListParts(0, XRegisterTag, 1, XRegisterTag, 2);
+                owner.EmitListParts(
+                    0,
+                    XRegisterTag,
+                    1,
+                    XRegisterTag,
+                    2
+                );
                 owner.EmitNilTest(XRegisterTag, 2, failure);
                 EmitFrameAllocation(2, 0);
-                owner.MoveRegister(XRegisterTag, 1, XRegisterTag, 0);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    1,
+                    XRegisterTag,
+                    0
+                );
             }
             else
             {
@@ -167,6 +186,7 @@ internal sealed partial class BeamModuleCompiler
             }
 
             owner.EmitFrameReturn(0);
+
             return true;
 
             bool AcceptsCall(Expr.Call candidate) => head is null
@@ -196,6 +216,7 @@ internal sealed partial class BeamModuleCompiler
                 if (call is null && expression is Expr.Call { DynamicRemote: false } nestedCall && AcceptsCall(nestedCall))
                 {
                     call = nestedCall;
+
                     return true;
                 }
 
@@ -236,6 +257,7 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 containers.Add((isList, items));
+
                 return true;
             }
         }

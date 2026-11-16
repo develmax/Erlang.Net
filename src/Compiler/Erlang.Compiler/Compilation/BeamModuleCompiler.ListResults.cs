@@ -15,12 +15,12 @@ internal sealed partial class BeamModuleCompiler
                 {
                     Value: Expr.Call read,
                     Clauses: [
-                        {
-                            Guard: null,
-                            Patterns: [Pattern.List { Items: [Pattern.Variable head], Tail: null }],
-                            Body: Expr.List { Items: [var prefix, Expr.Variable last], Tail: null }
-                        },
-                        { Guard: null, Patterns: [Pattern.Variable fallback], Body: Expr.Variable returned }
+                    {
+                        Guard: null,
+                        Patterns: [Pattern.List { Items: [Pattern.Variable head], Tail: null }],
+                        Body: Expr.List { Items: [var prefix, Expr.Variable last], Tail: null }
+                    },
+                    { Guard: null, Patterns: [Pattern.Variable fallback], Body: Expr.Variable returned }
                     ]
                 }
                 || head.Name != last.Name || fallback.Name != returned.Name
@@ -108,7 +108,13 @@ internal sealed partial class BeamModuleCompiler
             int wrongShape = Label();
             owner.Op(IsTuple, LabelTag, absent);
             owner.EmitTypedRegister(0, AtomTypeBits | TupleTypeBits);
-            EmitDetailRecordTest(0, tuple.Items.Count, access.Tag, wrongShape, TupleTypeBits);
+            EmitDetailRecordTest(
+                0,
+                tuple.Items.Count,
+                access.Tag,
+                wrongShape,
+                TupleTypeBits
+            );
             owner.EmitTuplePart(0, access.Index, 0);
             owner.EmitFrameReturn(frame);
             Mark(absent);
@@ -116,24 +122,42 @@ internal sealed partial class BeamModuleCompiler
             owner.EmitFrameReturn(frame);
             Mark(wrongShape);
             owner.Op(CaseEnd, XRegisterTag, 0);
+
             return true;
         }
 
         private bool TryEmitListLookup(FunctionDefinition function)
         {
             if (function.Clauses is not [
-                { Guard: null, Patterns: [], Body: Expr.Case
-                    { Value: Expr.Call { Module: not null, DynamicRemote: false, Arguments: [var argument] } input,
-                      Clauses: [
-                        { Patterns: [Pattern.Variable list], Guard: Expr.Call listGuard,
-                          Body: Expr.Case { Value: Expr.Call { Module: "lists", Function: "keyfind", DynamicRemote: false,
-                              Arguments: [var key, Expr.Literal { Value: Integer position }, Expr.Variable source] } find,
-                            Clauses: [
-                                { Patterns: [Pattern.Tuple { Items: [
-                                    Pattern.Variable { Name: VariableScopeNames.Wildcard }, Pattern.Variable value] }],
-                                  Guard: Expr.Call valueGuard, Body: Expr.Variable result },
-                                var missingValue] } },
-                        var missingList] } }]
+                {
+                    Guard: null, Patterns: [], Body: Expr.Case
+                    {
+                        Value: Expr.Call { Module: not null, DynamicRemote: false, Arguments: [var argument] } input,
+                        Clauses: [
+                        {
+                            Patterns: [Pattern.Variable list], Guard: Expr.Call listGuard,
+                            Body: Expr.Case
+                            {
+                                Value: Expr.Call
+                                {
+                                    Module: "lists", Function: "keyfind", DynamicRemote: false,
+                                    Arguments: [var key, Expr.Literal { Value: Integer position }, Expr.Variable source]
+                                } find,
+                                Clauses: [
+                                {
+                                    Patterns: [Pattern.Tuple
+                                    {
+                                        Items: [
+                                    Pattern.Variable { Name: VariableScopeNames.Wildcard }, Pattern.Variable value]
+                                    }],
+                                    Guard: Expr.Call valueGuard, Body: Expr.Variable result
+                                },
+                                var missingValue]
+                            }
+                        },
+                        var missingList]
+                    }
+                }]
                 || !DistinctBindings(list, value) || source.Name != list.Name || result.Name != value.Name
                 || !IsListGuard(listGuard, list.Name) || !IsListGuard(valueGuard, value.Name)
                 || !IsNilFallback(missingList) || !IsNilFallback(missingValue)
@@ -151,7 +175,12 @@ internal sealed partial class BeamModuleCompiler
             owner.Op(IsList, LabelTag, missing);
             owner.Operand(XRegisterTag, 0);
             owner.EmitConstant(position, 1);
-            owner.MoveRegister(XRegisterTag, 0, XRegisterTag, 2);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                XRegisterTag,
+                2
+            );
             owner.EmitConstant(literalKey, 0);
             owner.EmitCallLine(find, CallLocation(input, location));
             Call(find.Module, find.Function, 3);
@@ -173,8 +202,11 @@ internal sealed partial class BeamModuleCompiler
         }
 
         private bool IsListGuard(Expr.Call guard, string variable) =>
-            guard is { Module: null or ErlangModuleNames.Module, DynamicRemote: false, Function: "is_list",
-                Arguments: [Expr.Variable tested] } && tested.Name == variable
+            guard is
+            {
+                Module: null or ErlangModuleNames.Module, DynamicRemote: false, Function: "is_list",
+                Arguments: [Expr.Variable tested]
+            } && tested.Name == variable
             && (guard.Module is not null || !entries.ContainsKey(("is_list", 1)));
 
         private static bool IsNilFallback(Clause clause) =>
@@ -184,18 +216,41 @@ internal sealed partial class BeamModuleCompiler
         private bool TryEmitSignedListLength(FunctionDefinition function)
         {
             if (function.Clauses is not [
-                { Guard: null, Patterns: [Pattern.Variable input],
-                  Body: Expr.Sequence { Items: [
-                    Expr.Match { Pattern: Pattern.Variable bytes, Value: Expr.If { Clauses: [
-                        { Guard: Expr.Binary { Operator: ErlangOperators.GreaterOrEqual, Left: Expr.Variable tested,
-                            Right: Expr.Literal { Value: Integer zero } },
-                          Body: Expr.Call { Module: null, DynamicRemote: false, Arguments: [Expr.Variable pos, var posSeed] } positive },
-                        { Guard: Expr.Literal { Value: Atom { Name: "true" } },
-                          Body: Expr.Call { Module: null, DynamicRemote: false, Arguments: [Expr.Variable neg, var negSeed] } negative }
-                    ] } },
-                    Expr.Tuple { Items: [Expr.Variable result, Expr.Call
-                        { Module: null or ErlangModuleNames.Module, DynamicRemote: false, Function: "length",
-                          Arguments: [Expr.Variable measured] } length] }] } }]
+                {
+                    Guard: null, Patterns: [Pattern.Variable input],
+                    Body: Expr.Sequence
+                    {
+                        Items: [
+                    Expr.Match
+                        {
+                            Pattern: Pattern.Variable bytes, Value: Expr.If
+                            {
+                                Clauses: [
+                                {
+                                    Guard: Expr.Binary
+                                    {
+                                        Operator: ErlangOperators.GreaterOrEqual, Left: Expr.Variable tested,
+                                        Right: Expr.Literal { Value: Integer zero }
+                                    },
+                                    Body: Expr.Call { Module: null, DynamicRemote: false, Arguments: [Expr.Variable pos, var posSeed] } positive
+                                },
+                                {
+                                    Guard: Expr.Literal { Value: Atom { Name: "true" } },
+                                    Body: Expr.Call { Module: null, DynamicRemote: false, Arguments: [Expr.Variable neg, var negSeed] } negative
+                                }
+                    ]
+                            }
+                        },
+                    Expr.Tuple
+                        {
+                            Items: [Expr.Variable result, Expr.Call
+                            {
+                                Module: null or ErlangModuleNames.Module, DynamicRemote: false, Function: "length",
+                                Arguments: [Expr.Variable measured]
+                            } length]
+                        }]
+                    }
+                }]
                 || !DistinctBindings(input, bytes) || !zero.Value.IsZero
                 || tested.Name != input.Name || pos.Name != input.Name || neg.Name != input.Name
                 || result.Name != bytes.Name || measured.Name != bytes.Name

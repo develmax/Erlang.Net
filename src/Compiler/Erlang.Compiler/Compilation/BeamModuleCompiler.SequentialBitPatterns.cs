@@ -33,7 +33,12 @@ internal sealed partial class BeamModuleCompiler
                     Value: Pattern.Variable tail,
                     Specification: { Type: BitSegmentTypes.Binary, Size: null, Unit: BitSyntaxDefaults.BinaryUnit }
                 }
-                || !DistinctBindings(part, tail, new Pattern.Variable(source.Name), new Pattern.Variable(size.Name)))
+                || !DistinctBindings(
+                    part,
+                    tail,
+                    new Pattern.Variable(source.Name),
+                    new Pattern.Variable(size.Name)
+                ))
             {
                 return false;
             }
@@ -215,8 +220,13 @@ internal sealed partial class BeamModuleCompiler
             {
                 int operands = fixedSuffix.Sum(field => field.Count is null ? field.Name is null ? 0 : 4
                     : field.Name is null ? 2 : 6);
-                EmitBitMatchHeader(0, failure, operands + (hasTail ? 3 : 2), (int)suffixWidth,
-                    hasTail ? BitSyntaxDefaults.BitStringUnit : null);
+                EmitBitMatchHeader(
+                    0,
+                    failure,
+                    operands + (hasTail ? 3 : 2),
+                    (int)suffixWidth,
+                    hasTail ? BitSyntaxDefaults.BitStringUnit : null
+                );
                 foreach (var (name, _, count) in fixedSuffix)
                 {
                     if (count is Integer length)
@@ -229,9 +239,18 @@ internal sealed partial class BeamModuleCompiler
                         else
                         {
                             int destination = Slot();
-                            EmitBitSegment(new BitSegment(new Expr.Literal(Nil.Value), null,
-                                Type: BitSegmentTypes.Binary, Unit: BitSyntaxDefaults.BinaryUnit),
-                                (int)length.Value, 1, YRegisterTag, destination);
+                            EmitBitSegment(
+                                new BitSegment(
+                                    new Expr.Literal(Nil.Value),
+                                    null,
+                                    Type: BitSegmentTypes.Binary,
+                                    Unit: BitSyntaxDefaults.BinaryUnit
+                                ),
+                                (int)length.Value,
+                                1,
+                                YRegisterTag,
+                                destination
+                            );
                             variables.Add(name, destination);
                         }
                     }
@@ -248,12 +267,24 @@ internal sealed partial class BeamModuleCompiler
             }
             else if (!hasTail)
             {
-                EmitBitMatchHeader(0, failure, 2, 0, null);
+                EmitBitMatchHeader(
+                    0,
+                    failure,
+                    2,
+                    0,
+                    null
+                );
             }
 
             return true;
         }
-        private void EmitSequentialBitPattern(BitPattern pattern, int value, int failure, bool knownBinary)
+
+        private void EmitSequentialBitPattern(
+            BitPattern pattern,
+            int value,
+            int failure,
+            bool knownBinary
+        )
         {
             if (knownBinary && TryEmitProvenBinarySplit(pattern, value, failure))
             {
@@ -263,7 +294,12 @@ internal sealed partial class BeamModuleCompiler
             int context = Slot();
             Load(value);
             EmitBitMatchStart(0, failure, knownBinary);
-            owner.MoveRegister(XRegisterTag, 0, YRegisterTag, context);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                context
+            );
 
             for (int index = 0; index < pattern.Segments.Count; index++)
             {
@@ -277,7 +313,13 @@ internal sealed partial class BeamModuleCompiler
                     }
 
                     Load(context);
-                    EmitBitMatchHeader(0, failure, 3, 0, specification.Unit);
+                    EmitBitMatchHeader(
+                        0,
+                        failure,
+                        3,
+                        0,
+                        specification.Unit
+                    );
                     if (!IsWildcard(segment.Value))
                     {
                         int tail = Slot();
@@ -286,6 +328,7 @@ internal sealed partial class BeamModuleCompiler
                         owner.Operand(BeamWire.UnsignedTag, 1);
                         Pattern(segment.Value, tail, failure);
                     }
+
                     return;
                 }
                 int destination = ReadSequentialBitSegment(specification, context, failure);
@@ -293,7 +336,13 @@ internal sealed partial class BeamModuleCompiler
             }
 
             Load(context);
-            EmitBitMatchHeader(0, failure, 2, 0, null);
+            EmitBitMatchHeader(
+                0,
+                failure,
+                2,
+                0,
+                null
+            );
         }
 
         private int ReadSequentialBitSegment(BitSegment specification, int context, int failure)

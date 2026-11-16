@@ -9,11 +9,17 @@ internal sealed partial class BeamModuleCompiler
         if (clause is not
             {
                 Guard: null, Patterns: [Pattern.Variable value, Pattern.Variable first, Pattern.Variable second],
-                Body: Expr.Call { Module: not (null or ErlangModuleNames.Module), DynamicRemote: false, Arguments: [
-                    Expr.Literal { Value: Atom target }, Expr.Tuple { Items: [
+                Body: Expr.Call
+                {
+                    Module: not (null or ErlangModuleNames.Module), DynamicRemote: false, Arguments: [
+                    Expr.Literal { Value: Atom target }, Expr.Tuple
+                    {
+                        Items: [
                         Expr.Tuple { Items: [Expr.Variable left, Expr.Variable right] }, Expr.Variable payload
-                    ] }
-                ] } call
+                    ]
+                    }
+                ]
+                } call
             }
             || !DistinctBindings(value, first, second)
             || value.Name != payload.Name || first.Name != left.Name || second.Name != right.Name)
@@ -29,6 +35,7 @@ internal sealed partial class BeamModuleCompiler
         EmitCallLine(call, location);
         Op(TailExternalCall, BeamWire.UnsignedTag, 2);
         Operand(BeamWire.UnsignedTag, Import(call.Module!, call.Function, 2));
+
         return true;
     }
 }

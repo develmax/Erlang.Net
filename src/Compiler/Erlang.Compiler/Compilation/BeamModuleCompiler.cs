@@ -559,7 +559,12 @@ internal sealed partial class BeamModuleCompiler(
             }
             else if (capturedListFilters.TryGetValue((function.Name, function.Arity), out var filter))
             {
-                EmitCapturedListFilter(filter, localEntries[(function.Name, function.Arity)], localEntries, line);
+                EmitCapturedListFilter(
+                    filter,
+                    localEntries[(function.Name, function.Arity)],
+                    localEntries,
+                    line
+                );
             }
             else if (TryEmitReturnedClosure(function, line))
             {
@@ -571,14 +576,29 @@ internal sealed partial class BeamModuleCompiler(
             }
             else if (general.TryGetValue((function.Name, function.Arity), out var plan))
             {
-                new GeneralEmitter(this, localEntries, byName, line, plan.Slots, plan.Labels, plan.ListFailures, plannedTupleFrames: plan.TupleFrames)
+                new GeneralEmitter(
+                    this,
+                    localEntries,
+                    byName,
+                    line,
+                    plan.Slots,
+                    plan.Labels,
+                    plan.ListFailures,
+                    plannedTupleFrames: plan.TupleFrames
+                )
                     .Function(function);
             }
             else
             {
                 try
                 {
-                    if (new GeneralEmitter(this, localEntries, byName, line, frameSize: 0)
+                    if (new GeneralEmitter(
+                        this,
+                        localEntries,
+                        byName,
+                        line,
+                        frameSize: 0
+                    )
                         .TryEmitSingletonResultTailWrapper(function))
                     {
                         continue;
@@ -620,50 +640,105 @@ internal sealed partial class BeamModuleCompiler(
         {
             if (map is ColumnMapping columns)
             {
-                EmitColumnMappingHelper(helper, columns, location, localEntries[(helper, 1)]);
+                EmitColumnMappingHelper(
+                    helper,
+                    columns,
+                    location,
+                    localEntries[(helper, 1)]
+                );
             }
             else if (map is PairConsMapping pairs)
             {
-                EmitPairConsHelper(helper, pairs, location, localEntries[(helper, 1)]);
+                EmitPairConsHelper(
+                    helper,
+                    pairs,
+                    location,
+                    localEntries[(helper, 1)]
+                );
             }
             else
             {
-                EmitMappingHelper(helper, (ListMapping)map, location, localEntries);
+                EmitMappingHelper(
+                    helper,
+                    (ListMapping)map,
+                    location,
+                    localEntries
+                );
             }
         }
         foreach (var (helper, mapping, location) in tupleMappingHelpers)
         {
-            EmitTupleMappingHelper(helper, mapping, location, localEntries[(helper, 2)]);
+            EmitTupleMappingHelper(
+                helper,
+                mapping,
+                location,
+                localEntries[(helper, 2)]
+            );
         }
         foreach (var (helper, flow, location) in discardedHelpers)
         {
-            EmitDiscardedListHelper(helper, flow, location, localEntries);
+            EmitDiscardedListHelper(
+                helper,
+                flow,
+                location,
+                localEntries
+            );
         }
         foreach (var (helper, flow, location) in capturedTableHelpers)
         {
-            EmitCapturedTableHelper(helper, flow, location, localEntries[(helper, 2)]);
+            EmitCapturedTableHelper(
+                helper,
+                flow,
+                location,
+                localEntries[(helper, 2)]
+            );
         }
 
         foreach (var (helper, flow, location) in pageHelpers)
         {
-            EmitPageComprehensionHelper(helper, flow, location, localEntries);
+            EmitPageComprehensionHelper(
+                helper,
+                flow,
+                location,
+                localEntries
+            );
         }
 
         if (firstClosure is not null)
         {
             firstClosure[^1] = closures.Count;
-            RecordRecursiveClosureBoundaries(functions, firstClosure, localEntries, closureBoundaries);
+            RecordRecursiveClosureBoundaries(
+                functions,
+                firstClosure,
+                localEntries,
+                closureBoundaries
+            );
         }
 
         var guardFailures = new Dictionary<string, int>(StringComparer.Ordinal);
+
         void EmitDeferredProjection(int index)
         {
             var function = functions[index];
             var line = sourceLines[index];
-            StartFunction(function.Name, function.Arity, line, exported: false);
+            StartFunction(
+                function.Name,
+                function.Arity,
+                line,
+                exported: false
+            );
             deferredEntries.Add(-index, nextLabel - 1);
             var plan = general[(function.Name, function.Arity)];
-            new GeneralEmitter(this, localEntries, byName, line, plan.Slots, plan.Labels, plan.ListFailures, plannedTupleFrames: plan.TupleFrames).Function(function);
+            new GeneralEmitter(
+                this,
+                localEntries,
+                byName,
+                line,
+                plan.Slots,
+                plan.Labels,
+                plan.ListFailures,
+                plannedTupleFrames: plan.TupleFrames
+            ).Function(function);
         }
 
         void EmitHelpersAtBoundary(int boundary)
@@ -682,7 +757,12 @@ internal sealed partial class BeamModuleCompiler(
             }
         }
 
-        EmitLiftedClosures(localEntries, byName, guardFailures, emitAtBoundary: EmitHelpersAtBoundary);
+        EmitLiftedClosures(
+            localEntries,
+            byName,
+            guardFailures,
+            emitAtBoundary: EmitHelpersAtBoundary
+        );
         int emittedClosures = closures.Count;
         for (int index = declaredCount; index < functions.Count; index++)
         {
@@ -691,7 +771,12 @@ internal sealed partial class BeamModuleCompiler(
                 EmitDeferredProjection(index);
             }
         }
-        EmitLiftedClosures(localEntries, byName, guardFailures, emittedClosures);
+        EmitLiftedClosures(
+            localEntries,
+            byName,
+            guardFailures,
+            emittedClosures
+        );
         EmitLiftedGuardFailures(guardFailures);
         if (callbackInfo is not null)
         {

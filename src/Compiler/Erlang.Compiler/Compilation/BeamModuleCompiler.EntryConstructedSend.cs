@@ -56,7 +56,12 @@ internal sealed partial class BeamModuleCompiler
             }
 
             // The tuple lives in X0 until the message is ready. Only then replace it with the receiver.
-            EmitTupleShapeTest(XRegisterTag, tupleRegister, 2, functionInfo);
+            EmitTupleShapeTest(
+                XRegisterTag,
+                tupleRegister,
+                2,
+                functionInfo
+            );
             EmitFrameAllocation(2, 0, plan.Constructions.Sum(item => item.HeapWords));
             owner.Op(GetTupleElement, XRegisterTag, tupleRegister);
             owner.Operand(BeamWire.UnsignedTag, 0);

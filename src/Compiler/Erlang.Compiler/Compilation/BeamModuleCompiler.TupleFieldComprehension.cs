@@ -93,7 +93,12 @@ internal sealed partial class BeamModuleCompiler
                 var projection = ReadTupleFieldComprehension(expression);
                 var mapper = projection is null ? ReadClosedListMapper(expression) : null;
                 if (projection is null
-                    && (mapper is null || !CanExtractClosedListMapper(expression, mapper, clause, declared)))
+                    && (mapper is null || !CanExtractClosedListMapper(
+                        expression,
+                        mapper,
+                        clause,
+                        declared
+                    )))
                 {
                     return expression;
                 }

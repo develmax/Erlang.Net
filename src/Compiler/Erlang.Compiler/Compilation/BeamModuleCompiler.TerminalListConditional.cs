@@ -10,7 +10,8 @@ internal sealed partial class BeamModuleCompiler
             Expr.Call[] Calls,
             string? SavedHead,
             int? TupleField,
-            Expr.Binary? TailOperand);
+            Expr.Binary? TailOperand
+        );
 
         private sealed record MeasuredListTypes(string Measurement, string Limit, long Lower);
 
@@ -39,36 +40,77 @@ internal sealed partial class BeamModuleCompiler
                     }
                 }
                 || bounded.Name != limit.Name || threshold.Value != upper.Value
-                || !Matches(difference, ErlangOperators.Minus, measurement, limit.Name)
-                || !Matches(greater.Guard, ErlangOperators.Greater, measurement, limit.Name)
-                || !Matches(less.Guard, ErlangOperators.Less, measurement, limit.Name)
-                || !Matches(equal.Guard, ErlangOperators.ExactEqual, measurement, limit.Name))
+                || !Matches(
+                    difference,
+                    ErlangOperators.Minus,
+                    measurement,
+                    limit.Name
+                )
+                || !Matches(
+                    greater.Guard,
+                    ErlangOperators.Greater,
+                    measurement,
+                    limit.Name
+                )
+                || !Matches(
+                    less.Guard,
+                    ErlangOperators.Less,
+                    measurement,
+                    limit.Name
+                )
+                || !Matches(
+                    equal.Guard,
+                    ErlangOperators.ExactEqual,
+                    measurement,
+                    limit.Name
+                ))
             {
                 return null;
             }
 
             return new(measurement, limit.Name, (long)lower.Value);
 
-            static bool Matches(Expr? expr, string op, string left, string right) =>
+            static bool Matches(
+                Expr? expr,
+                string op,
+                string left,
+                string right
+            ) =>
                 expr is Expr.Binary { Left: Expr.Variable lhs, Right: Expr.Variable rhs } comparison
                 && comparison.Operator == op && lhs.Name == left && rhs.Name == right;
         }
 
-        private void EmitMeasuredListGuard(MeasuredListTypes types, Expr guard, int branch, int failure)
+        private void EmitMeasuredListGuard(
+            MeasuredListTypes types,
+            Expr guard,
+            int branch,
+            int failure
+        )
         {
             var test = (Expr.Binary)guard;
             if (branch == 0)
             {
                 var differenceTest = (Expr.Binary)test.Left;
                 var limitTest = (Expr.Binary)test.Right;
-                EmitMeasuredSubtraction(types.Measurement, types.Limit, types, failure, 0);
+                EmitMeasuredSubtraction(
+                    types.Measurement,
+                    types.Limit,
+                    types,
+                    failure,
+                    0
+                );
                 owner.Op(IsLess, LabelTag, failure);
                 owner.LiteralOperand(((Expr.Literal)differenceTest.Right).Value);
                 owner.EmitTypedRegister(0, NumberTypeBits, upper: MaximumBitSize - types.Lower);
                 owner.Op(IsGreaterOrEqual, LabelTag, failure);
                 owner.LiteralOperand(((Expr.Literal)limitTest.Right).Value);
-                owner.EmitTypedRegister(variables[types.Limit], NumberTypeBits, lower: types.Lower,
-                    registerTag: YRegisterTag);
+                owner.EmitTypedRegister(
+                    variables[types.Limit],
+                    NumberTypeBits,
+                    lower: types.Lower,
+                    registerTag: YRegisterTag
+                );
+
                 return;
             }
 
@@ -78,7 +120,13 @@ internal sealed partial class BeamModuleCompiler
             EmitMeasuredOperand(((Expr.Variable)right).Name, types, branch == 3);
         }
 
-        private void EmitMeasuredSubtraction(string left, string right, MeasuredListTypes types, int failure, int destination)
+        private void EmitMeasuredSubtraction(
+            string left,
+            string right,
+            MeasuredListTypes types,
+            int failure,
+            int destination
+        )
         {
             owner.Op(GcBifTwo, LabelTag, failure);
             owner.Operand(BeamWire.UnsignedTag, 0);
@@ -93,15 +141,32 @@ internal sealed partial class BeamModuleCompiler
             int slot = variables[name];
             if (name == types.Measurement)
             {
-                owner.EmitTypedRegister(slot, IntegerTypeBits, 0, MaximumBitSize, registerTag: YRegisterTag);
+                owner.EmitTypedRegister(
+                    slot,
+                    IntegerTypeBits,
+                    0,
+                    MaximumBitSize,
+                    registerTag: YRegisterTag
+                );
             }
             else if (boundedLimit)
             {
-                owner.EmitTypedRegister(slot, NumberTypeBits, types.Lower, MaximumBitSize, registerTag: YRegisterTag);
+                owner.EmitTypedRegister(
+                    slot,
+                    NumberTypeBits,
+                    types.Lower,
+                    MaximumBitSize,
+                    registerTag: YRegisterTag
+                );
             }
             else
             {
-                owner.EmitTypedRegister(slot, AnyTypeBits, lower: types.Lower, registerTag: YRegisterTag);
+                owner.EmitTypedRegister(
+                    slot,
+                    AnyTypeBits,
+                    lower: types.Lower,
+                    registerTag: YRegisterTag
+                );
             }
         }
 
@@ -136,13 +201,19 @@ internal sealed partial class BeamModuleCompiler
                     EmitBranch(clause.Body, plans[index]);
                     variables = original;
                     nextSlot = branchBase;
+
                     return true;
                 }
 
                 int next = Label();
                 if (types is { } measured)
                 {
-                    EmitMeasuredListGuard(measured, clause.Guard!, index, next);
+                    EmitMeasuredListGuard(
+                        measured,
+                        clause.Guard!,
+                        index,
+                        next
+                    );
                 }
                 else
                 {
@@ -156,6 +227,7 @@ internal sealed partial class BeamModuleCompiler
             owner.instructions.WriteByte(IfEnd);
             variables = original;
             nextSlot = branchBase;
+
             return true;
 
             void EmitBranch(Expr body, TerminalListBranch? plan)
@@ -232,7 +304,12 @@ internal sealed partial class BeamModuleCompiler
                         } difference]
                     } tail
                     || !variables.ContainsKey(left.Name) || !variables.ContainsKey(right.Name)
-                    || ReadEntryCall(tail, [], savedParameters, preparedOperand: 1) is null)
+                    || ReadEntryCall(
+                        tail,
+                        [],
+                        savedParameters,
+                        preparedOperand: 1
+                    ) is null)
                 {
                     return null;
                 }
@@ -244,7 +321,13 @@ internal sealed partial class BeamModuleCompiler
             {
                 return null;
             }
-            return new(calls.ToArray(), saved, field, tailOperand);
+
+            return new(
+                calls.ToArray(),
+                saved,
+                field,
+                tailOperand
+            );
         }
 
         private string[] SavedParameters()
@@ -254,6 +337,7 @@ internal sealed partial class BeamModuleCompiler
             {
                 parameters[slot] = name;
             }
+
             return parameters;
         }
 
@@ -270,11 +354,22 @@ internal sealed partial class BeamModuleCompiler
                         && left.Name == measured.Limit && right.Name == measured.Measurement)
                     {
                         owner.EmitArithmeticLine(operand.SourceLine, ref previous);
-                        EmitMeasuredSubtraction(left.Name, right.Name, measured, 0, 1);
+                        EmitMeasuredSubtraction(
+                            left.Name,
+                            right.Name,
+                            measured,
+                            0,
+                            1
+                        );
                     }
                     else
                     {
-                        EmitArithmetic(operand, null, destination: 1, previousLine: previous);
+                        EmitArithmetic(
+                            operand,
+                            null,
+                            destination: 1,
+                            previousLine: previous
+                        );
                     }
                     if (operand.SourceLine != 0)
                     {
@@ -344,7 +439,12 @@ internal sealed partial class BeamModuleCompiler
                 {
                     holes.MoveNext();
                     destination = holes.Current;
-                    owner.MoveRegister(YRegisterTag, source, YRegisterTag, destination);
+                    owner.MoveRegister(
+                        YRegisterTag,
+                        source,
+                        YRegisterTag,
+                        destination
+                    );
                 }
                 variables[name] = destination - trim;
             }
@@ -354,6 +454,7 @@ internal sealed partial class BeamModuleCompiler
                 owner.Operand(BeamWire.UnsignedTag, live.Count);
                 nextSlot = live.Count;
             }
+
             return live.Count;
         }
     }

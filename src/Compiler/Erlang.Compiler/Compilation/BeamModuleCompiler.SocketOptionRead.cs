@@ -14,40 +14,68 @@ internal sealed partial class BeamModuleCompiler
                         Pattern.Variable { Name: VariableScopeNames.Wildcard },
                         Pattern.Tuple { Items: [Pattern.Literal { Value: Atom socketTag }, ..] } record,
                         Pattern.Variable options
-                    ], Body: Expr.Sequence { Items: [
-                        Expr.Match { Pattern: Pattern.Variable split, Value: Expr.Call {
+                    ], Body: Expr.Sequence
+                    {
+                        Items: [
+                        Expr.Match
+                        {
+                            Pattern: Pattern.Variable split, Value: Expr.Call
+                            {
+                                Module: not null, DynamicRemote: false,
+                                Arguments: [Expr.Literal { Value: Atom transport }, Expr.Variable toSplit]
+                            } splitCall
+                        },
+                        Expr.Call
+                        {
                             Module: not null, DynamicRemote: false,
-                            Arguments: [Expr.Literal { Value: Atom transport }, Expr.Variable toSplit]
-                        } splitCall },
-                        Expr.Call { Module: not null, DynamicRemote: false,
-                            Arguments: [Expr.Variable listener, Expr.Variable splitArg] } read
-                    ] }
+                            Arguments: [Expr.Variable listener, Expr.Variable splitArg]
+                        } read
+                    ]
+                    }
                 },
                 {
                     Guard: null, Patterns: [
                         Pattern.Literal { Value: Atom nestedTransport },
-                        Pattern.Tuple { Items: [Pattern.Variable { Name: VariableScopeNames.Wildcard }, Pattern.Tuple { Items: [
-                            Pattern.Tuple { Items: [Pattern.Variable { Name: VariableScopeNames.Wildcard },
-                                Pattern.Variable { Name: VariableScopeNames.Wildcard }] },
+                        Pattern.Tuple
+                    {
+                        Items: [Pattern.Variable { Name: VariableScopeNames.Wildcard }, Pattern.Tuple
+                        {
+                            Items: [
+                            Pattern.Tuple
+                            {
+                                Items: [Pattern.Variable { Name: VariableScopeNames.Wildcard },
+                                Pattern.Variable { Name: VariableScopeNames.Wildcard }]
+                            },
                             Pattern.Variable nestedSocket
-                        ] }] }, Pattern.Variable nestedOptions
-                    ], Body: Expr.Call { Module: not null, DynamicRemote: false,
-                        Arguments: [Expr.Variable nestedArg, Expr.Variable nestedValues] } nestedCall
+                        ]
+                        }]
+                    }, Pattern.Variable nestedOptions
+                    ], Body: Expr.Call
+                    {
+                        Module: not null, DynamicRemote: false,
+                        Arguments: [Expr.Variable nestedArg, Expr.Variable nestedValues]
+                    } nestedCall
                 },
                 {
                     Guard: null, Patterns: [
                         Pattern.Literal { Value: Atom plainTransport },
                         Pattern.Tuple { Items: [Pattern.Variable { Name: VariableScopeNames.Wildcard }, Pattern.Variable plainSocket] },
                         Pattern.Variable plainOptions
-                    ], Body: Expr.Call { Module: not null, DynamicRemote: false,
-                        Arguments: [Expr.Variable plainArg, Expr.Variable plainValues] } plainCall
+                    ], Body: Expr.Call
+                    {
+                        Module: not null, DynamicRemote: false,
+                        Arguments: [Expr.Variable plainArg, Expr.Variable plainValues]
+                    } plainCall
                 },
                 {
                     Guard: null, Patterns: [Pattern.Variable module, Pattern.Variable socket, Pattern.Variable dynamicOptions],
-                    Body: Expr.Call { DynamicRemote: true, Arguments: [
+                    Body: Expr.Call
+                    {
+                        DynamicRemote: true, Arguments: [
                         Expr.Variable target, Expr.Literal { Value: Atom member },
                         Expr.List { Tail: null, Items: [Expr.Variable socketArg, Expr.Variable optionArg] }
-                    ] } dynamicCall
+                    ]
+                    } dynamicCall
                 }
             ] || !transport.Equals(nestedTransport) || !transport.Equals(plainTransport)
                 || !DistinctBindings(options, split, new(listener.Name)) || !DistinctBindings(nestedSocket, nestedOptions)
@@ -66,11 +94,26 @@ internal sealed partial class BeamModuleCompiler
             int udp = Label();
             int plain = Label();
             int dynamic = Label();
-            EmitSocketListenerTests(socketTag, record.Items.Count, fields, udp);
+            EmitSocketListenerTests(
+                socketTag,
+                record.Items.Count,
+                fields,
+                udp
+            );
             owner.Op(Allocate, BeamWire.UnsignedTag, 1);
             owner.Operand(BeamWire.UnsignedTag, 4);
-            owner.MoveRegister(XRegisterTag, 3, YRegisterTag, 0);
-            owner.MoveRegister(XRegisterTag, 2, XRegisterTag, 1);
+            owner.MoveRegister(
+                XRegisterTag,
+                3,
+                YRegisterTag,
+                0
+            );
+            owner.MoveRegister(
+                XRegisterTag,
+                2,
+                XRegisterTag,
+                1
+            );
             owner.EmitConstant(transport, 0);
             var previous = location;
             EmitWindowCall(splitCall, ref previous);
@@ -101,7 +144,12 @@ internal sealed partial class BeamModuleCompiler
 
         private void EmitSocketExternalTail(Expr.Call call)
         {
-            owner.MoveRegister(XRegisterTag, 2, XRegisterTag, 1);
+            owner.MoveRegister(
+                XRegisterTag,
+                2,
+                XRegisterTag,
+                1
+            );
             owner.EmitCallLine(call, location);
             owner.Op(TailExternalCall, BeamWire.UnsignedTag, 2);
             owner.Operand(BeamWire.UnsignedTag, owner.Import(call.Module!, call.Function, 2));
@@ -128,11 +176,21 @@ internal sealed partial class BeamModuleCompiler
             int failure
         )
         {
-            EmitDetailRecordTest(1, arity, socketTag, failure);
+            EmitDetailRecordTest(
+                1,
+                arity,
+                socketTag,
+                failure
+            );
             owner.EmitTuplePart(1, fields.Handle, 3);
             owner.EmitTupleCheck(3, 2, failure);
             owner.EmitTuplePart(1, fields.Config, 4);
-            EmitDetailRecordTest(4, fields.Arity, fields.Tag, failure);
+            EmitDetailRecordTest(
+                4,
+                fields.Arity,
+                fields.Tag,
+                failure
+            );
         }
 
         private static (int Handle, int Config, Atom Tag, int Arity)? ReadSocketListenerFields(Pattern.Tuple record, string listenerName)

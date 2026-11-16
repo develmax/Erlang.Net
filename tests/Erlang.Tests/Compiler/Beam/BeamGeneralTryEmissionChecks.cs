@@ -885,11 +885,21 @@ internal static class BeamGeneralTryEmissionChecks
             ("bad", Term.Tuple(Term.A("caught"), Term.A("bad"), Term.A("true"))),
             ("exit", Term.Tuple(Term.A("exit"), Term.A("stop"), Term.A("true"))),
             ("throw", Term.Tuple(Term.A("throw"), Term.A("ball"), Term.A("true"))),
-            ("guard", Term.Tuple(Term.A("in_range"), Term.A("outside"), Term.A("in_range"), Term.A("outside"))),
+            ("guard", Term.Tuple(
+                Term.A("in_range"),
+                Term.A("outside"),
+                Term.A("in_range"),
+                Term.A("outside")
+            )),
             ("dispatch", Term.Tuple(Term.Tuple(Term.A("wrapped"), Term.A("value")), Term.A("value"),
                 Term.Tuple(Term.A("missing"), Term.A("unknown")))),
-            ("choice", Term.Tuple(Term.Tuple(Term.A("first"), Term.A("a")), Term.Tuple(Term.A("second"), Term.A("b")),
-                Term.A("unknown"), Term.A("unknown"), Term.A("unknown"))),
+            ("choice", Term.Tuple(
+                Term.Tuple(Term.A("first"), Term.A("a")),
+                Term.Tuple(Term.A("second"), Term.A("b")),
+                Term.A("unknown"),
+                Term.A("unknown"),
+                Term.A("unknown")
+            )),
             ("arguments", Term.Tuple(Term.Tuple(Term.A("first"), Term.A("second"), Term.A("third")), Term.A("second"))),
             ("protected_iolist", Term.Tuple(
                 Term.Tuple(Term.A("ok"), new BitString([65, 66])),
@@ -898,24 +908,32 @@ internal static class BeamGeneralTryEmissionChecks
                 Term.Tuple(Term.A("ok"), new BitString([65])),
                 Term.Tuple(Term.A("badarg"), Term.A("true")),
                 Term.Tuple(Term.A("tagged"), Term.A("true")),
-                Term.Tuple(Term.A("throw"), Term.A("ball"), Term.A("true")))),
+                Term.Tuple(Term.A("throw"), Term.A("ball"), Term.A("true"))
+            )),
             ("wrapped_decode", Term.Tuple(
                 Term.Tuple(Term.A("ok"), Term.Tuple(Term.A("key"), Term.A("payload"))),
                 Term.Tuple(Term.A("badarg"), Term.A("true")))),
             ("decoded_fields", Term.Tuple(
                 Term.Tuple(Term.A("zero"), Term.I(3), Term.I(3)),
                 Term.Tuple(Term.Tuple(Term.A("unknown"), Term.I(7)), new FloatTerm(1.5), new FloatTerm(1.5)),
-                Term.A("out_of_range"))),
+                Term.A("out_of_range")
+            )),
             ("terminal_decoded_range", Term.Tuple(
-                Term.I(0), new FloatTerm(1.5), Term.A("out_of_range"), Term.A("out_of_range"))),
+                Term.I(0),
+                new FloatTerm(1.5),
+                Term.A("out_of_range"),
+                Term.A("out_of_range")
+            )),
             ("length_encoding", Term.Tuple(
                 Term.Tuple(Term.List(Term.I(127)), Term.I(1)),
                 Term.Tuple(Term.List(Term.I(129), Term.I(128)), Term.I(2)),
                 Term.Tuple(Term.List(new FloatTerm(1.5)), Term.I(1)),
-                Term.A("badarg"))),
+                Term.A("badarg")
+            )),
             ("tagged_length", Term.Tuple(
                 Term.Tuple(Term.List(new BitString([4]), Term.List(Term.I(1)), Term.I(65)), Term.I(3)),
-                Term.Tuple(Term.List(Term.I(65)), Term.I(1)))),
+                Term.Tuple(Term.List(Term.I(65)), Term.I(1))
+            )),
             ("octet_accumulator", Term.Tuple(
                 Term.List(Term.I(1), Term.I(0), Term.I(1)), Term.List(), new Cons(Term.I(1), Term.A("tail")))),
             ("signed_octet_accumulator", Term.Tuple(
@@ -928,68 +946,158 @@ internal static class BeamGeneralTryEmissionChecks
                 new BitString([3, 252, 128]),
                 new BitString([65]))),
             ("tag_match", Term.Tuple(
-                Term.A("value"), Term.A("value"),
+                Term.A("value"),
+                Term.A("value"),
                 Term.List(Term.Tuple(Term.A("tag"), Term.A("value")), Term.A("extra")),
                 Term.A("value"),
                 Term.Tuple(Term.A("exit"), Term.Tuple(Term.A("error"), Term.Tuple(Term.A("asn1"), wrongTag))),
-                Term.Tuple(Term.A("error"), Term.A("function_clause")))),
+                Term.Tuple(Term.A("error"), Term.A("function_clause"))
+            )),
             ("decoded_list", Term.Tuple(
                 Term.Tuple(Term.A("first"), Term.A("second"), Term.List()),
                 Term.Tuple(Term.A("badmatch"), Term.List()),
                 Term.Tuple(Term.A("badmatch"), Term.A("bad")),
-                Term.Tuple(Term.A("first"), Term.List(Term.A("first"), Term.A("second")), Term.List(Term.A("second"))))),
+                Term.Tuple(Term.A("first"), Term.List(Term.A("first"), Term.A("second")), Term.List(Term.A("second")))
+            )),
             ("decoded_list_checks", Term.Tuple(
-                Term.Tuple(Term.A("zero"), Term.I(3), Term.I(3), Term.List()),
-                Term.Tuple(Term.Tuple(Term.A("unknown"), Term.I(7)), new FloatTerm(1.5), new FloatTerm(1.5), Term.List()),
+                Term.Tuple(
+                    Term.A("zero"),
+                    Term.I(3),
+                    Term.I(3),
+                    Term.List()
+                ),
+                Term.Tuple(
+                    Term.Tuple(Term.A("unknown"), Term.I(7)),
+                    new FloatTerm(1.5),
+                    new FloatTerm(1.5),
+                    Term.List()
+                ),
                 Term.A("out_of_range"),
-                Term.Tuple(Term.A("badmatch"), Term.A("bad")))),
+                Term.Tuple(Term.A("badmatch"), Term.A("bad"))
+            )),
             ("decoded_list_entry", Term.Tuple(
                 Term.Tuple(Term.A("first"), Term.List(Term.A("second"))),
                 Term.Tuple(Term.A("badmatch"), Term.List()),
                 Term.Tuple(Term.A("badmatch"), Term.A("bad")),
-                Term.Tuple(Term.A("returned"), Term.A("first"), Term.A("second"), Term.A("second")),
+                Term.Tuple(
+                    Term.A("returned"),
+                    Term.A("first"),
+                    Term.A("second"),
+                    Term.A("second")
+                ),
                 Term.Tuple(Term.A("badmatch"), Term.List()),
-                Term.Tuple(Term.A("badmatch"), Term.A("bad")))),
+                Term.Tuple(Term.A("badmatch"), Term.A("bad"))
+            )),
             ("two_required_fields", Term.Tuple(
                 Term.Tuple(Term.A("returned"), Term.List(Term.I(65)), Term.A("second")),
                 Term.Tuple(Term.A("badmatch"), Term.List()),
-                Term.Tuple(Term.A("badmatch"), Term.A("bad")))),
+                Term.Tuple(Term.A("badmatch"), Term.A("bad"))
+            )),
             ("three_required_and_optional", Term.Tuple(
-                Term.Tuple(Term.A("record"), Term.A("first"), Term.A("second"), Term.A("third"), Term.A("last")),
-                Term.Tuple(Term.A("record"), Term.A("first"), Term.A("second"), Term.A("third"), Term.A("missing")),
+                Term.Tuple(
+                    Term.A("record"),
+                    Term.A("first"),
+                    Term.A("second"),
+                    Term.A("third"),
+                    Term.A("last")
+                ),
+                Term.Tuple(
+                    Term.A("record"),
+                    Term.A("first"),
+                    Term.A("second"),
+                    Term.A("third"),
+                    Term.A("missing")
+                ),
                 Term.Tuple(Term.A("badmatch"), Term.List()),
                 Term.Tuple(Term.A("badmatch"), Term.A("bad")),
-                Term.Tuple(Term.A("badmatch"), Term.List()))),
+                Term.Tuple(Term.A("badmatch"), Term.List())
+            )),
             ("enum_required_and_optional", Term.Tuple(
-                Term.Tuple(Term.A("record"), Term.A("success"), Term.A("second"), Term.A("third"),
-                    Term.A("fourth"), Term.A("fifth"), Term.A("last")),
-                Term.Tuple(Term.A("record"), Term.A("failure"), Term.A("second"), Term.A("third"),
-                    Term.A("missing"), Term.A("fifth"), Term.A("last")),
-                Term.Tuple(Term.A("record"), Term.Tuple(Term.A("unknown"), Term.I(7)),
-                    Term.A("second"), Term.A("third"), Term.A("missing"), Term.A("missing"), Term.A("missing")))),
+                Term.Tuple(
+                    Term.A("record"),
+                    Term.A("success"),
+                    Term.A("second"),
+                    Term.A("third"),
+                    Term.A("fourth"),
+                    Term.A("fifth"),
+                    Term.A("last")
+                ),
+                Term.Tuple(
+                    Term.A("record"),
+                    Term.A("failure"),
+                    Term.A("second"),
+                    Term.A("third"),
+                    Term.A("missing"),
+                    Term.A("fifth"),
+                    Term.A("last")
+                ),
+                Term.Tuple(
+                    Term.A("record"),
+                    Term.Tuple(Term.A("unknown"), Term.I(7)),
+                    Term.A("second"),
+                    Term.A("third"),
+                    Term.A("missing"),
+                    Term.A("missing"),
+                    Term.A("missing")
+                )
+            )),
             ("ranged_required_and_optional", Term.Tuple(
-                Term.Tuple(Term.A("record"), Term.I(2), Term.A("second"), Term.A("last")),
-                Term.Tuple(Term.A("record"), Term.I(0), Term.A("second"), Term.A("missing")),
-                Term.A("out_of_range"), Term.A("out_of_range"),
+                Term.Tuple(
+                    Term.A("record"),
+                    Term.I(2),
+                    Term.A("second"),
+                    Term.A("last")
+                ),
+                Term.Tuple(
+                    Term.A("record"),
+                    Term.I(0),
+                    Term.A("second"),
+                    Term.A("missing")
+                ),
+                Term.A("out_of_range"),
+                Term.A("out_of_range"),
                 Term.Tuple(Term.A("badmatch"), Term.List()),
-                Term.Tuple(Term.A("badmatch"), Term.A("bad")))),
+                Term.Tuple(Term.A("badmatch"), Term.A("bad"))
+            )),
             ("terminal_ranged_required", Term.Tuple(
-                Term.Tuple(Term.A("record"), Term.I(2), Term.A("second"), Term.A("third")),
-                Term.A("out_of_range"), Term.Tuple(Term.A("badmatch"), Term.A("bad")))),
-            ("of_case", Term.Tuple(Term.A("done"),
+                Term.Tuple(
+                    Term.A("record"),
+                    Term.I(2),
+                    Term.A("second"),
+                    Term.A("third")
+                ),
+                Term.A("out_of_range"),
+                Term.Tuple(Term.A("badmatch"), Term.A("bad"))
+            )),
+            ("of_case", Term.Tuple(
+                Term.A("done"),
                 Term.Tuple(Term.A("error"), Term.Tuple(Term.A("try_clause"), Term.A("other")), Term.A("true")),
-                Term.Tuple(Term.A("exit"), Term.A("after_try"), Term.A("true")))),
-            ("arithmetic", Term.Tuple(Term.I(4),
-                Term.Tuple(Term.A("error"), Term.A("badarith"), Term.A("true")), Term.A("yes"), Term.A("no"))),
+                Term.Tuple(Term.A("exit"), Term.A("after_try"), Term.A("true"))
+            )),
+            ("arithmetic", Term.Tuple(
+                Term.I(4),
+                Term.Tuple(Term.A("error"), Term.A("badarith"), Term.A("true")),
+                Term.A("yes"),
+                Term.A("no")
+            )),
             ("fallback", Term.Tuple(Term.A("other"),
                 Term.Tuple(Term.Tuple(Term.A("case_clause"), Term.A("other")), Term.A("true")), Term.A("bound"))),
-            ("bytes", Term.Tuple(Term.Tuple(Term.A("yes"), Term.I(9)), Term.A("no"), Term.A("no"), Term.A("no"))),
+            ("bytes", Term.Tuple(
+                Term.Tuple(Term.A("yes"), Term.I(9)),
+                Term.A("no"),
+                Term.A("no"),
+                Term.A("no")
+            )),
             ("projection", Term.Tuple(Term.A("result"), Term.Tuple(Term.A("badarg"), Term.A("true")))),
             ("signed_bytes", Term.Tuple(Term.I(-1), Term.Tuple(Term.A("badmatch"), Term.A("true")),
                 Term.Tuple(Term.A("badarg"), Term.A("true")))),
-            ("fixed_decode", Term.Tuple(Term.A("false"), Term.A("true"),
+            ("fixed_decode", Term.Tuple(
+                Term.A("false"),
+                Term.A("true"),
                 Term.Tuple(new BitString([0, 0]), Term.A("true")),
-                Term.Tuple(new BitString([255, 0]), Term.A("true")), Term.A("null"))),
+                Term.Tuple(new BitString([255, 0]), Term.A("true")),
+                Term.A("null")
+            )),
             ("scalar_encoder", Term.Tuple(
                 Term.Tuple(Term.A("tag"), Term.List(Term.I(255)), Term.I(1)),
                 Term.Tuple(Term.A("tag"), Term.List(Term.I(0)), Term.I(1)),
@@ -999,79 +1107,159 @@ internal static class BeamGeneralTryEmissionChecks
                 Term.Tuple(Term.A("function_clause"), Term.A("true")),
                 Term.Tuple(Term.A("tag"), Term.List(), Term.I(0)),
                 Term.Tuple(Term.A("tag"), Term.Tuple(Term.A("wrapped"), Term.I(-7))),
-                Term.Tuple(new FloatTerm(1.0), Term.A("true")))),
+                Term.Tuple(new FloatTerm(1.0), Term.A("true"))
+            )),
             ("projected_choice", Term.Tuple(
                 Term.Tuple(Term.List(), Term.A("value"), Term.I(2)),
                 Term.Tuple(Term.A("tag"), Term.A("value"), Term.I(1)),
                 Term.Tuple(Term.A("invalid"), Term.A("other")),
                 Term.Tuple(Term.A("error"), Term.A("badarg")),
-                Term.Tuple(Term.I(3), Term.A("value")))),
+                Term.Tuple(Term.I(3), Term.A("value"))
+            )),
             ("deferred_fields", Term.Tuple(
                 Term.Tuple(Term.A("tag"), Term.List(Term.A("left"), Term.A("right"), Term.A("last")), Term.I(7)),
                 Term.Tuple(Term.A("record"), Term.A("left")),
                 Term.Tuple(Term.A("invalid"), Term.A("invalid")),
-                Term.A("other"))),
+                Term.A("other")
+            )),
             ("two_deferred_fields", Term.Tuple(
                 Term.Tuple(Term.A("tag"), Term.List(Term.A("left"), Term.A("right")), Term.I(3)),
-                Term.Tuple(Term.A("record"), Term.A("left")))),
+                Term.Tuple(Term.A("record"), Term.A("left"))
+            )),
             ("two_deferred_with_optional", Term.Tuple(
                 Term.Tuple(Term.A("tag"), Term.List(Term.A("left"), Term.A("right")), Term.I(3)),
-                Term.Tuple(Term.A("tag"), Term.List(Term.A("left"), new BitString([])), Term.I(1)))),
+                Term.Tuple(Term.A("tag"), Term.List(Term.A("left"), new BitString([])), Term.I(1))
+            )),
             ("two_optional_or_enum", Term.Tuple(
                 Term.Tuple(Term.A("tag"), Term.List(new BitString([]), Term.A("right")), Term.I(2)),
                 Term.Tuple(Term.A("tag"), Term.List(Term.A("left"), new BitString([])), Term.I(1)),
                 Term.Tuple(Term.A("tag"), Term.List(Term.A("first"), Term.A("right")), Term.I(4)),
-                Term.Tuple(Term.A("invalid"), Term.A("invalid")))),
+                Term.Tuple(Term.A("invalid"), Term.A("invalid"))
+            )),
             ("three_deferred_with_optional", Term.Tuple(
                 Term.Tuple(Term.A("tag"), Term.List(Term.A("left"), Term.A("middle"), Term.A("right")), Term.I(6)),
-                Term.Tuple(Term.A("tag"), Term.List(Term.A("left"), Term.A("middle"), new BitString([])), Term.I(3)))),
+                Term.Tuple(Term.A("tag"), Term.List(Term.A("left"), Term.A("middle"), new BitString([])), Term.I(3))
+            )),
             ("deferred_optional_suffix", Term.Tuple(
-                Term.Tuple(Term.A("tag"), Term.List(Term.A("left"), Term.A("middle"), Term.A("third"), Term.A("last")), Term.I(10)),
-                Term.Tuple(Term.A("tag"), Term.List(Term.A("left"), Term.A("middle"), new BitString([]), Term.A("last")), Term.I(7)))),
+                Term.Tuple(Term.A("tag"), Term.List(
+                    Term.A("left"),
+                    Term.A("middle"),
+                    Term.A("third"),
+                    Term.A("last")
+                ), Term.I(10)),
+                Term.Tuple(Term.A("tag"), Term.List(
+                    Term.A("left"),
+                    Term.A("middle"),
+                    new BitString([]),
+                    Term.A("last")
+                ), Term.I(7))
+            )),
             ("optional_fields", Term.Tuple(
                 Term.Tuple(Term.A("tag"), Term.List(new BitString([]), Term.A("required"), new BitString([])), Term.I(2)),
                 Term.Tuple(Term.A("tag"), Term.List(Term.A("left"), Term.A("required"), Term.A("right")), Term.I(6)),
-                Term.Tuple(Term.A("tag"), Term.List(new BitString([]), Term.A("required"), new BitString([])), Term.I(2)))),
+                Term.Tuple(Term.A("tag"), Term.List(new BitString([]), Term.A("required"), new BitString([])), Term.I(2))
+            )),
             ("single_optional", Term.Tuple(
                 Term.Tuple(Term.A("tag"), Term.List(new BitString([])), Term.I(0)),
                 Term.Tuple(Term.A("tag"), Term.List(Term.A("value")), Term.I(2)),
-                Term.Tuple(Term.A("badmatch"), Term.A("bad")))),
+                Term.Tuple(Term.A("badmatch"), Term.A("bad"))
+            )),
             ("single_optional_decode", Term.Tuple(
                 Term.Tuple(Term.A("record"), Term.List(Term.I(65))),
                 Term.Tuple(Term.A("record"), Term.A("missing")),
-                Term.Tuple(Term.A("record"), Term.A("missing")))),
+                Term.Tuple(Term.A("record"), Term.A("missing"))
+            )),
             ("multiple_optional_decode", Term.Tuple(
-                Term.Tuple(Term.A("record"), Term.List(Term.I(65)), Term.List(Term.I(66)), Term.List(Term.I(67))),
-                Term.Tuple(Term.A("record"), Term.A("missing"), Term.List(Term.I(66)), Term.List(Term.I(67))),
-                Term.Tuple(Term.A("record"), Term.List(Term.I(65)), Term.A("missing"), Term.List(Term.I(67))),
-                Term.Tuple(Term.A("record"), Term.List(Term.I(65)), Term.List(Term.I(66)), Term.A("missing")),
-                Term.Tuple(Term.A("record"), Term.A("missing"), Term.A("missing"), Term.A("missing")))),
+                Term.Tuple(
+                    Term.A("record"),
+                    Term.List(Term.I(65)),
+                    Term.List(Term.I(66)),
+                    Term.List(Term.I(67))
+                ),
+                Term.Tuple(
+                    Term.A("record"),
+                    Term.A("missing"),
+                    Term.List(Term.I(66)),
+                    Term.List(Term.I(67))
+                ),
+                Term.Tuple(
+                    Term.A("record"),
+                    Term.List(Term.I(65)),
+                    Term.A("missing"),
+                    Term.List(Term.I(67))
+                ),
+                Term.Tuple(
+                    Term.A("record"),
+                    Term.List(Term.I(65)),
+                    Term.List(Term.I(66)),
+                    Term.A("missing")
+                ),
+                Term.Tuple(
+                    Term.A("record"),
+                    Term.A("missing"),
+                    Term.A("missing"),
+                    Term.A("missing")
+                )
+            )),
             ("mixed_decode", Term.Tuple(
-                Term.Tuple(Term.A("record"), Term.List(Term.I(65)), Term.List(Term.I(66)), Term.A("last")),
-                Term.Tuple(Term.A("record"), Term.A("missing"), Term.List(Term.I(66)), Term.A("missing")),
-                Term.Tuple(Term.A("badmatch"), Term.List()))),
+                Term.Tuple(
+                    Term.A("record"),
+                    Term.List(Term.I(65)),
+                    Term.List(Term.I(66)),
+                    Term.A("last")
+                ),
+                Term.Tuple(
+                    Term.A("record"),
+                    Term.A("missing"),
+                    Term.List(Term.I(66)),
+                    Term.A("missing")
+                ),
+                Term.Tuple(Term.A("badmatch"), Term.List())
+            )),
             ("required_then_optional", Term.Tuple(
                 Term.Tuple(Term.A("record"), Term.List(Term.I(65)), Term.A("last")),
                 Term.Tuple(Term.A("record"), Term.List(Term.I(65)), Term.A("missing")),
-                Term.Tuple(Term.A("badmatch"), Term.List()))),
+                Term.Tuple(Term.A("badmatch"), Term.List())
+            )),
             ("required_then_two_optional", Term.Tuple(
-                Term.Tuple(Term.A("record"), Term.List(Term.I(65)), Term.A("middle"), Term.A("last")),
-                Term.Tuple(Term.A("record"), Term.List(Term.I(65)), Term.A("missing"), Term.A("last")),
-                Term.Tuple(Term.A("record"), Term.List(Term.I(65)), Term.A("middle"), Term.A("missing")),
-                Term.Tuple(Term.A("badmatch"), Term.List()))),
+                Term.Tuple(
+                    Term.A("record"),
+                    Term.List(Term.I(65)),
+                    Term.A("middle"),
+                    Term.A("last")
+                ),
+                Term.Tuple(
+                    Term.A("record"),
+                    Term.List(Term.I(65)),
+                    Term.A("missing"),
+                    Term.A("last")
+                ),
+                Term.Tuple(
+                    Term.A("record"),
+                    Term.List(Term.I(65)),
+                    Term.A("middle"),
+                    Term.A("missing")
+                ),
+                Term.Tuple(Term.A("badmatch"), Term.List())
+            )),
             ("closed_mapping", Term.Tuple(
                 Term.List(Term.Tuple(Term.A("first"), Term.I(2)), Term.Tuple(Term.A("second"), Term.I(2))),
-                Term.List(), Term.Tuple(Term.A("bad_generator"), Term.A("bad")))),
+                Term.List(),
+                Term.Tuple(Term.A("bad_generator"), Term.A("bad"))
+            )),
             ("closed_binary_mapping", Term.Tuple(
                 Term.List(Term.List(Term.I(65)), Term.List(Term.I(66))),
                 Term.List(), Term.Tuple(Term.A("bad_generator"), Term.A("bad")))),
             ("sequence_encoding", Term.Tuple(
                 Term.Tuple(Term.List(Term.A("first"), Term.A("second")), Term.I(4)),
-                Term.Tuple(Term.List(), Term.I(0)), Term.A("function_clause"))),
+                Term.Tuple(Term.List(), Term.I(0)),
+                Term.A("function_clause")
+            )),
             ("sequence_forwarding", Term.Tuple(
                 Term.Tuple(Term.A("tag"), Term.List(Term.A("first"), Term.A("second")), Term.I(4)),
                 Term.Tuple(Term.A("tag"), Term.List(Term.A("first")), Term.I(2)),
-                Term.A("function_clause"))),
+                Term.A("function_clause")
+            )),
             ("decoder_forwarding", Term.Tuple(
                 Term.Tuple(Term.A("decoded"), Term.A("value")), Term.List(Term.I(65), Term.I(66)))),
             ("singleton_forwarding", Term.Tuple(
@@ -1079,38 +1267,50 @@ internal static class BeamGeneralTryEmissionChecks
             ("list_results", Term.Tuple(
                 Term.List(Term.A("first"), Term.A("second")),
                 Term.Tuple(Term.List(Term.I(5)), Term.I(1)),
-                Term.Tuple(Term.List(Term.I(-5)), Term.I(1)))),
+                Term.Tuple(Term.List(Term.I(-5)), Term.I(1))
+            )),
             ("constant_return", Term.Tuple(
                 Term.Tuple(Term.A("tag"), Term.A("accepted")),
                 Term.Tuple(Term.A("invalid"), Term.A("other")))),
             ("case_pair", Term.Tuple(
                 Term.Tuple(Term.A("done"), Term.A("value")),
                 Term.Tuple(Term.A("other"), Term.A("missing")),
-                Term.Tuple(Term.A("tag"), Term.List(Term.A("one"), Term.A("two"))))),
+                Term.Tuple(Term.A("tag"), Term.List(Term.A("one"), Term.A("two")))
+            )),
             ("tagged_dispatch", Term.Tuple(
                 Term.Tuple(Term.A("second"), Term.Tuple(Term.A("value"), Term.I(2))),
                 Term.Tuple(Term.A("seventh"), Term.Tuple(Term.A("value"), Term.I(7))),
-                Term.Tuple(Term.I(2)), Term.A("other"))),
+                Term.Tuple(Term.I(2)),
+                Term.A("other")
+            )),
             ("singleton_unwrap", Term.Tuple(
-                Term.A("one"), Term.List(Term.A("one"), Term.A("two")),
-                new Cons(Term.A("one"), Term.A("two")), Term.List(), Term.A("other"),
-                Term.A("value"), new Cons(Term.A("one"), Term.A("two")),
+                Term.A("one"),
+                Term.List(Term.A("one"), Term.A("two")),
+                new Cons(Term.A("one"), Term.A("two")),
+                Term.List(),
+                Term.A("other"),
+                Term.A("value"),
+                new Cons(Term.A("one"), Term.A("two")),
                 Term.List(Term.Tuple(Term.A("other"), Term.A("value"))),
                 Term.Tuple(Term.A("decoded"), Term.List(Term.I(65))),
-                Term.Tuple(Term.A("other"), Term.A("value")), Term.A("other"),
-                Term.Tuple(Term.A("bounded"), Term.I(0)), Term.Tuple(Term.A("bounded"), Term.I(7)),
+                Term.Tuple(Term.A("other"), Term.A("value")),
+                Term.A("other"),
+                Term.Tuple(Term.A("bounded"), Term.I(0)),
+                Term.Tuple(Term.A("bounded"), Term.I(7)),
                 Term.Tuple(Term.A("bounded"), new FloatTerm(1.5)),
                 Term.Tuple(Term.A("integer"), Term.I(7)),
                 Term.Tuple(Term.A("exit"), Term.A("out_of_range")),
                 Term.Tuple(Term.A("exit"), Term.A("out_of_range")),
                 Term.Tuple(Term.A("exit"), Term.A("out_of_range")),
-                Term.Tuple(Term.A("exit"), Term.A("out_of_range"))))
+                Term.Tuple(Term.A("exit"), Term.A("out_of_range"))
+            ))
         })
         {
             Term? actual = null;
             ProcessHandle process = runtime.Spawn(async context =>
             {
                 actual = await image.Invoke(context, "outer", Term.A(input));
+
                 return actual;
             });
             Term exitReason = await process.Completion;

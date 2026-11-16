@@ -14,39 +14,73 @@ internal sealed partial class BeamModuleCompiler
                     {
                         Value: Expr.Call { Module: not null, DynamicRemote: false, Arguments: [Expr.Literal { Value: Atom setting }] } read,
                         Clauses: [
+                        {
+                            Guard: null, Patterns: [Pattern.Tuple
                             {
-                                Guard: null, Patterns: [Pattern.Tuple { Items: [
-                                    Pattern.Literal { Value: Atom ok }, Pattern.List { Tail: null, Items: [
+                                Items: [
+                                    Pattern.Literal { Value: Atom ok }, Pattern.List
+                                {
+                                    Tail: null, Items: [
                                         Pattern.List { Tail: null, Items: [Pattern.Variable file] }
-                                    ] }
-                                ] }],
-                                Body: Expr.Sequence { Items: [
-                                    Expr.Match { Pattern: Pattern.Variable data, Value: Expr.Call
-                                        { Module: null, DynamicRemote: false, Arguments: [Expr.Variable input] } consult },
+                                    ]
+                                }
+                                ]
+                            }],
+                            Body: Expr.Sequence
+                            {
+                                Items: [
+                                    Expr.Match
+                                {
+                                    Pattern: Pattern.Variable data, Value: Expr.Call
+                                    { Module: null, DynamicRemote: false, Arguments: [Expr.Variable input] } consult
+                                },
                                     Expr.Match { Pattern: Pattern.Variable options, Value: var optionValue },
-                                    Expr.Match { Pattern: Pattern.Variable table, Value: Expr.Call { Module: not null,
-                                        DynamicRemote: false, Arguments: [Expr.Literal { Value: Atom tableName }, Expr.Variable newOptions] } create },
-                                    Expr.Match { Pattern: Pattern.Literal { Value: Atom required }, Value: Expr.Call { Module: not null,
-                                        DynamicRemote: false, Arguments: [Expr.Variable insertTable, Expr.Variable insertData] } insert } checkedInsert,
+                                    Expr.Match
+                                {
+                                    Pattern: Pattern.Variable table, Value: Expr.Call
+                                    {
+                                        Module: not null,
+                                        DynamicRemote: false, Arguments: [Expr.Literal { Value: Atom tableName }, Expr.Variable newOptions]
+                                    } create
+                                },
+                                    Expr.Match
+                                {
+                                    Pattern: Pattern.Literal { Value: Atom required }, Value: Expr.Call
+                                    {
+                                        Module: not null,
+                                        DynamicRemote: false, Arguments: [Expr.Variable insertTable, Expr.Variable insertData]
+                                    } insert
+                                } checkedInsert,
                                     Expr.Call { Module: not null, DynamicRemote: false, Arguments.Count: 3 } start
-                                ] }
-                            },
-                            {
-                                Guard: null, Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom badTag }, Pattern.Variable badValue] }],
-                                Body: Expr.Call { Module: null or ErlangModuleNames.Module, Function: AutoImportNames.Error,
-                                    DynamicRemote: false, Arguments: [Expr.Tuple { Items: [
-                                        Expr.Literal { Value: Atom badArgument }, Expr.Variable rejected
-                                    ] }]
-                                } fail
-                            },
-                            {
-                                Guard: null, Patterns: [Pattern.Literal { Value: Atom missing }],
-                                Body: Expr.Call { Module: not null, DynamicRemote: false, Arguments.Count: 3 } fallback
+                                ]
                             }
+                        },
+                        {
+                            Guard: null, Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom badTag }, Pattern.Variable badValue] }],
+                            Body: Expr.Call
+                            {
+                                Module: null or ErlangModuleNames.Module, Function: AutoImportNames.Error,
+                                DynamicRemote: false, Arguments: [Expr.Tuple
+                                {
+                                    Items: [
+                                        Expr.Literal { Value: Atom badArgument }, Expr.Variable rejected
+                                    ]
+                                }]
+                            } fail
+                        },
+                        {
+                            Guard: null, Patterns: [Pattern.Literal { Value: Atom missing }],
+                            Body: Expr.Call { Module: not null, DynamicRemote: false, Arguments.Count: 3 } fallback
+                        }
                         ]
                     } dispatch
                 }
-            ] || !DistinctBindings(file, data, options, table)
+            ] || !DistinctBindings(
+                file,
+                data,
+                options,
+                table
+            )
                 || input.Name != file.Name || newOptions.Name != options.Name
                 || insertTable.Name != table.Name || insertData.Name != data.Name
                 || !ok.Equals(badTag) || badValue.Name == VariableScopeNames.Wildcard || badValue.Name != rejected.Name
@@ -75,12 +109,29 @@ internal sealed partial class BeamModuleCompiler
             owner.LiteralOperand(ok);
             owner.EmitTuplePart(0, 1, 0);
             owner.EmitNonemptyList(0, invalidArgument);
-            owner.EmitListParts(0, XRegisterTag, 1, XRegisterTag, 2);
+            owner.EmitListParts(
+                0,
+                XRegisterTag,
+                1,
+                XRegisterTag,
+                2
+            );
             owner.EmitNonemptyList(1, invalidArgument);
-            owner.EmitListParts(1, XRegisterTag, 3, XRegisterTag, 1);
+            owner.EmitListParts(
+                1,
+                XRegisterTag,
+                3,
+                XRegisterTag,
+                1
+            );
             owner.EmitNilTest(XRegisterTag, 1, invalidArgument);
             owner.EmitNilTest(XRegisterTag, 2, invalidArgument);
-            owner.MoveRegister(XRegisterTag, 3, XRegisterTag, 0);
+            owner.MoveRegister(
+                XRegisterTag,
+                3,
+                XRegisterTag,
+                0
+            );
             EmitWindowLocal(consult, consultEntry, ref previous);
             SaveWindowResult(0);
             owner.EmitConstant(tableOptions, 1);

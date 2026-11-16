@@ -255,7 +255,15 @@ internal sealed partial class BeamModuleCompiler
             Reply(XRegisterTag, 3);
 
             Mark(other);
-            owner.EmitLoggedReply(log, format, module, line, reply, previous, stateRegister: 1);
+            owner.EmitLoggedReply(
+                log,
+                format,
+                module,
+                line,
+                reply,
+                previous,
+                stateRegister: 1
+            );
             previous = CallLocation(log, previous);
 
             Mark(badMatch);
@@ -315,14 +323,23 @@ internal sealed partial class BeamModuleCompiler
         if (clause is not
             {
                 Guard: null, Patterns: [Pattern.Variable message, Pattern.Variable ignored, Pattern.Variable state],
-                Body: Expr.Sequence { Items: [
-                    Expr.Call { Module: not null, DynamicRemote: false, Arguments: [
-                        Expr.Literal { Value: var format }, Expr.List { Tail: null, Items: [
+                Body: Expr.Sequence
+                {
+                    Items: [
+                    Expr.Call
+                    {
+                        Module: not null, DynamicRemote: false, Arguments: [
+                        Expr.Literal { Value: var format }, Expr.List
+                        {
+                            Tail: null, Items: [
                             Expr.Literal { Value: Atom module }, Expr.Literal { Value: Integer line }, Expr.Variable logged
-                        ] }
-                    ] } log,
+                        ]
+                        }
+                    ]
+                    } log,
                     Expr.Tuple { Items: [Expr.Literal { Value: Atom reply }, Expr.Literal { Value: Atom detail }, Expr.Variable returned] }
-                ] }
+                ]
+                }
             }
             || !HasUnconditionalParameters(clause) || !DistinctBindings(message, state)
             || logged.Name != message.Name || returned.Name != state.Name)
@@ -330,16 +347,40 @@ internal sealed partial class BeamModuleCompiler
             return false;
         }
 
-        EmitLoggedReply(log, format, module, line, reply, location, stateRegister: 2, detail);
+        EmitLoggedReply(
+            log,
+            format,
+            module,
+            line,
+            reply,
+            location,
+            stateRegister: 2,
+            detail
+        );
+
         return true;
     }
 
-    private void EmitLoggedReply(Expr.Call log, Term format, Atom module, Integer line, Atom reply, BeamSourceLocation previous, int stateRegister, Atom? detail = null)
+    private void EmitLoggedReply(
+        Expr.Call log,
+        Term format,
+        Atom module,
+        Integer line,
+        Atom reply,
+        BeamSourceLocation previous,
+        int stateRegister,
+        Atom? detail = null
+    )
     {
         Op(AllocateHeap, BeamWire.UnsignedTag, 1);
         Operand(BeamWire.UnsignedTag, 3 * ConsHeapWords);
         Operand(BeamWire.UnsignedTag, stateRegister + 1);
-        MoveRegister(XRegisterTag, stateRegister, YRegisterTag, 0);
+        MoveRegister(
+            XRegisterTag,
+            stateRegister,
+            YRegisterTag,
+            0
+        );
         Op(PutList, XRegisterTag, 0);
         Operand(AtomTag, NilAtomIndex);
         Operand(XRegisterTag, 0);

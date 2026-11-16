@@ -145,8 +145,8 @@ internal sealed partial class BeamModuleCompiler
 
             if (decision.Clauses is not
                 [
-                    { Guard: null, Patterns: [Pattern.Literal key], Body: Expr.Call matched },
-                    { Guard: null, Patterns: [Pattern.Variable other], Body: Expr.Call fallback }
+                { Guard: null, Patterns: [Pattern.Literal key], Body: Expr.Call matched },
+                { Guard: null, Patterns: [Pattern.Variable other], Body: Expr.Call fallback }
                 ]
                 || other.Name != VariableScopeNames.Wildcard
                     && (other.Name == result || parameters.Contains(other.Name, StringComparer.Ordinal))
@@ -685,7 +685,14 @@ internal sealed partial class BeamModuleCompiler
                     return false;
                 }
 
-                selector = new EntrySelector(framedCall, null, [], [], 0, []);
+                selector = new EntrySelector(
+                    framedCall,
+                    null,
+                    [],
+                    [],
+                    0,
+                    []
+                );
             }
             else
             {
@@ -995,7 +1002,13 @@ internal sealed partial class BeamModuleCompiler
                 inputs[slot] = name;
             }
 
-            return TryEmitEntryTupleMatchResult(body, [], out _, failures, framedInputs: inputs);
+            return TryEmitEntryTupleMatchResult(
+                body,
+                [],
+                out _,
+                failures,
+                framedInputs: inputs
+            );
         }
 
         private void EmitRegisterTupleMatchFailures(List<(int Label, BeamSourceLocation Location)> failures)

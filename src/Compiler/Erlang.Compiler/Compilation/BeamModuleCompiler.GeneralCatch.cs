@@ -971,7 +971,7 @@ internal sealed partial class BeamModuleCompiler
                 {
                     Value: Expr.Call call,
                     Clauses: [var first, var second,
-                        { Guard: null, Patterns: [Pattern.Variable unmatched], Body: Expr.Variable returned }]
+                    { Guard: null, Patterns: [Pattern.Variable unmatched], Body: Expr.Variable returned }]
                 }
                 || unmatched.Name == VariableScopeNames.Wildcard || unmatched.Name != returned.Name)
             {
@@ -983,8 +983,11 @@ internal sealed partial class BeamModuleCompiler
                 (first, second) = (second, first);
             }
 
-            if (first is not { Guard: null, Body: Expr.Variable fallback, Patterns:
-                [Pattern.List { Items: [], Tail: null } or Pattern.Literal { Value: Nil }] }
+            if (first is not
+                {
+                    Guard: null, Body: Expr.Variable fallback, Patterns:
+                [Pattern.List { Items: [], Tail: null } or Pattern.Literal { Value: Nil }]
+                }
                 || second is not { Guard: null, Body: Expr.Variable same, Patterns: [Pattern.Literal { Value: Atom key }] }
                 || fallback.Name != same.Name)
             {
@@ -1000,7 +1003,12 @@ internal sealed partial class BeamModuleCompiler
             }
 
             EmitFrameAllocation(parameters.Length, 1);
-            owner.MoveRegister(XRegisterTag, saved, YRegisterTag, 0);
+            owner.MoveRegister(
+                XRegisterTag,
+                saved,
+                YRegisterTag,
+                0
+            );
             EmitEntryCall(plan);
 
             int nilTest = Label();
@@ -1015,10 +1023,16 @@ internal sealed partial class BeamModuleCompiler
             Mark(nilTest);
             owner.EmitNilTest(XRegisterTag, 0, unchanged);
             Mark(sharedReturn);
-            owner.MoveRegister(YRegisterTag, 0, XRegisterTag, 0);
+            owner.MoveRegister(
+                YRegisterTag,
+                0,
+                XRegisterTag,
+                0
+            );
             owner.EmitFrameReturn(1);
             Mark(unchanged);
             owner.EmitFrameReturn(1);
+
             return true;
         }
 
@@ -1029,8 +1043,8 @@ internal sealed partial class BeamModuleCompiler
                 {
                     Value: Expr.Call call,
                     Clauses: [
-                        { Patterns: [Pattern.Variable selected], Guard: { } guard, Body: Expr.Variable returned } success,
-                        { Patterns: [Pattern.Variable { Name: VariableScopeNames.Wildcard }], Guard: null, Body: Expr.Variable fallback }
+                    { Patterns: [Pattern.Variable selected], Guard: { } guard, Body: Expr.Variable returned } success,
+                    { Patterns: [Pattern.Variable { Name: VariableScopeNames.Wildcard }], Guard: null, Body: Expr.Variable fallback }
                     ]
                 }
                 || selected.Name == VariableScopeNames.Wildcard || selected.Name != returned.Name
@@ -1060,7 +1074,12 @@ internal sealed partial class BeamModuleCompiler
             }
 
             EmitFrameAllocation(parameters.Length, 1);
-            owner.MoveRegister(XRegisterTag, saved, YRegisterTag, 0);
+            owner.MoveRegister(
+                XRegisterTag,
+                saved,
+                YRegisterTag,
+                0
+            );
             EmitEntryCall(plan);
 
             int failure = Label();
@@ -1082,8 +1101,14 @@ internal sealed partial class BeamModuleCompiler
 
             owner.EmitFrameReturn(1);
             Mark(failure);
-            owner.MoveRegister(YRegisterTag, 0, XRegisterTag, 0);
+            owner.MoveRegister(
+                YRegisterTag,
+                0,
+                XRegisterTag,
+                0
+            );
             owner.EmitFrameReturn(1);
+
             return true;
 
             void WriteIntegerOperand(Expr operand)
@@ -2047,7 +2072,12 @@ internal sealed partial class BeamModuleCompiler
                     return computed;
                 }
 
-                if (allowUnmatchedLiterals && ReadRegisterCaseCallSequence(expression, bound, saved, extraSlots: callSequenceSlots) is { } sequence)
+                if (allowUnmatchedLiterals && ReadRegisterCaseCallSequence(
+                    expression,
+                    bound,
+                    saved,
+                    extraSlots: callSequenceSlots
+                ) is { } sequence)
                 {
                     return new RegisterCaseResult(null, null, Sequence: sequence);
                 }
@@ -2342,6 +2372,7 @@ internal sealed partial class BeamModuleCompiler
             {
                 var constants = new List<(int Destination, Term Value)>(tail.Constants);
                 constants.RemoveAt(move);
+
                 return result with { Tail = tail with { Constants = constants } };
             }
 
@@ -2585,7 +2616,12 @@ internal sealed partial class BeamModuleCompiler
                     if (nested.Spill is { } spill)
                     {
                         EmitSavedCallArguments(
-                            new SavedCallStep(selector, spill.Slot, spill.Reuse, []),
+                            new SavedCallStep(
+                                selector,
+                                spill.Slot,
+                                spill.Reuse,
+                                []
+                            ),
                             Enumerable.Range(0, frame).ToArray()
                         );
                     }

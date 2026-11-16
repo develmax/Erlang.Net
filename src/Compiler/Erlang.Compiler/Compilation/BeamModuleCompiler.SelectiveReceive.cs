@@ -12,8 +12,14 @@ internal sealed partial class BeamModuleCompiler
 
         private bool TryEmitLiteralTimeoutReceive(FunctionDefinition function)
         {
-            if (function.Clauses is not [{ Guard: null, Body: Expr.Receive { Clauses.Count: 0,
-                Timeout: { } timeout, After: Expr.Literal result } } clause] || !HasUnconditionalParameters(clause))
+            if (function.Clauses is not [
+                {
+                    Guard: null, Body: Expr.Receive
+                    {
+                        Clauses.Count: 0,
+                        Timeout: { } timeout, After: Expr.Literal result
+                    }
+                } clause] || !HasUnconditionalParameters(clause))
             {
                 return false;
             }
@@ -68,6 +74,7 @@ internal sealed partial class BeamModuleCompiler
                         if (expression is Expr.FunctionReference reference && (reference.Name, reference.Arity) == target)
                         {
                             path.Remove(key);
+
                             return null;
                         }
 
@@ -105,6 +112,7 @@ internal sealed partial class BeamModuleCompiler
                         if (actual is null || agreed is not null && !agreed.Equals(actual))
                         {
                             path.Remove(key);
+
                             return null;
                         }
 
@@ -204,7 +212,12 @@ internal sealed partial class BeamModuleCompiler
                     scratch.Add(message, keepMessageInX0 ? 0 : 1);
                     if (!keepMessageInX0)
                     {
-                        owner.MoveRegister(XRegisterTag, 0, XRegisterTag, 1);
+                        owner.MoveRegister(
+                            XRegisterTag,
+                            0,
+                            XRegisterTag,
+                            1
+                        );
                     }
                 }
                 else if (receive.Clauses.All(clause => clause.Guard is null
@@ -294,9 +307,14 @@ internal sealed partial class BeamModuleCompiler
                             }
                             else
                             {
-                                Pattern(clause.Patterns[0], message, next,
-                                    checkedShape: group.Label != 0 ? clause.Patterns[0] : null, checkedTupleTag: false,
-                                    receiveResultField: resultField);
+                                Pattern(
+                                    clause.Patterns[0],
+                                    message,
+                                    next,
+                                    checkedShape: group.Label != 0 ? clause.Patterns[0] : null,
+                                    checkedTupleTag: false,
+                                    receiveResultField: resultField
+                                );
                             }
                             Guard(clause.Guard, next);
                         }
@@ -306,8 +324,18 @@ internal sealed partial class BeamModuleCompiler
                         }
 
                         bool emittedBranch = terminal && IsFlatUnguardedReceiveTuple(clause)
-                            && (TryEmitReceiveRegisterException(clause.Body, clauseScratch, branchBase, previousPeak)
-                                || TryEmitReceiveRegisterListCall(clause.Body, clauseScratch, branchBase, previousPeak));
+                            && (TryEmitReceiveRegisterException(
+                                clause.Body,
+                                clauseScratch,
+                                branchBase,
+                                previousPeak
+                            )
+                                || TryEmitReceiveRegisterListCall(
+                                    clause.Body,
+                                    clauseScratch,
+                                    branchBase,
+                                    previousPeak
+                                ));
                         if (!emittedBranch)
                         {
                             owner.instructions.WriteByte(RemoveMessage);
@@ -320,7 +348,12 @@ internal sealed partial class BeamModuleCompiler
                             && variables.TryGetValue(result.Name, out int resultSlot)
                             && clauseScratch.TryGetValue(resultSlot, out int resultRegister))
                         {
-                            owner.MoveRegister(XRegisterTag, resultRegister, XRegisterTag, 0);
+                            owner.MoveRegister(
+                                XRegisterTag,
+                                resultRegister,
+                                XRegisterTag,
+                                0
+                            );
                             owner.EmitFrameReturn(frameSize);
                         }
                         else if (!emittedBranch)
@@ -331,7 +364,12 @@ internal sealed partial class BeamModuleCompiler
                                 {
                                     if (clauseScratch.TryGetValue(slot, out int register))
                                     {
-                                        owner.MoveRegister(XRegisterTag, register, YRegisterTag, slot);
+                                        owner.MoveRegister(
+                                            XRegisterTag,
+                                            register,
+                                            YRegisterTag,
+                                            slot
+                                        );
                                     }
                                 }
                             }
@@ -419,6 +457,7 @@ internal sealed partial class BeamModuleCompiler
             owner.Op(ExactEqualTest, LabelTag, retry);
             owner.Operand(XRegisterTag, 1);
             owner.LiteralOperand(tag);
+
             return true;
 
             bool IsFresh(Pattern.Variable variable) => variable.Name != VariableScopeNames.Wildcard
@@ -448,7 +487,12 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        private bool TryEmitReceiveRegisterException(Expr body, IReadOnlyDictionary<int, int> scratch, int branchBase, int previousPeak)
+        private bool TryEmitReceiveRegisterException(
+            Expr body,
+            IReadOnlyDictionary<int, int> scratch,
+            int branchBase,
+            int previousPeak
+        )
         {
             if (body is not Expr.Call
                 {
@@ -490,7 +534,12 @@ internal sealed partial class BeamModuleCompiler
             nextSlot = branchBase;
             if (scratchRegister != 0)
             {
-                owner.MoveRegister(XRegisterTag, scratchRegister, XRegisterTag, 0);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    scratchRegister,
+                    XRegisterTag,
+                    0
+                );
             }
             owner.Op(TestHeap, BeamWire.UnsignedTag, tuple.Items.Count + 1);
             owner.Operand(BeamWire.UnsignedTag, 1);
@@ -522,19 +571,28 @@ internal sealed partial class BeamModuleCompiler
             owner.Op(TailExternalCallWithFrame, BeamWire.UnsignedTag, 1);
             owner.Operand(BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module, call.Function, 1));
             owner.Operand(BeamWire.UnsignedTag, frameSize);
+
             return true;
         }
 
-        private bool TryEmitReceiveRegisterListCall(Expr body, IReadOnlyDictionary<int, int> scratch, int branchBase, int previousPeak)
+        private bool TryEmitReceiveRegisterListCall(
+            Expr body,
+            IReadOnlyDictionary<int, int> scratch,
+            int branchBase,
+            int previousPeak
+        )
         {
-            if (body is not Expr.Sequence { Items: [Expr.Match
+            if (body is not Expr.Sequence
                 {
-                    Value: Expr.Call
+                    Items: [Expr.Match
                     {
-                        Module: not null and not ErlangModuleNames.Module, DynamicRemote: false,
-                        Arguments: [var constant, Expr.List { Items: [Expr.Variable first, Expr.Variable second], Tail: null }]
-                    } call
-                }, ..] } sequence
+                        Value: Expr.Call
+                        {
+                            Module: not null and not ErlangModuleNames.Module, DynamicRemote: false,
+                            Arguments: [var constant, Expr.List { Items: [Expr.Variable first, Expr.Variable second], Tail: null }]
+                        } call
+                    }, ..]
+                } sequence
                 || !AttributeLiteral.TryNormalizeConstant(constant, out _)
                 || !variables.TryGetValue(first.Name, out int firstSlot) || !scratch.TryGetValue(firstSlot, out int firstRegister)
                 || !variables.TryGetValue(second.Name, out int secondSlot) || !scratch.TryGetValue(secondSlot, out int secondRegister)
@@ -563,7 +621,12 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(BeamWire.UnsignedTag, Math.Max(firstRegister, secondRegister) + 1);
             if (firstRegister != 1 && secondRegister != 1)
             {
-                owner.MoveRegister(XRegisterTag, secondRegister, XRegisterTag, 1);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    secondRegister,
+                    XRegisterTag,
+                    1
+                );
                 secondRegister = 1;
             }
             owner.instructions.WriteByte(RemoveMessage);
@@ -587,11 +650,12 @@ internal sealed partial class BeamModuleCompiler
             {
                 preparedReceiveCall = previousCall;
             }
+
             return true;
         }
 
         private static Expr.Call? ReadHibernateCall(Expr? body) => body is Expr.Call
-            { Module: ErlangModuleNames.Module, DynamicRemote: false, Function: HibernateFunction, Arguments.Count: 3 } call
+        { Module: ErlangModuleNames.Module, DynamicRemote: false, Function: HibernateFunction, Arguments.Count: 3 } call
             ? call
             : null;
 
@@ -601,6 +665,7 @@ internal sealed partial class BeamModuleCompiler
             {
                 EmitExportingBranch(body, joined);
                 StoreBranchExports(joined);
+
                 return;
             }
 
@@ -616,8 +681,12 @@ internal sealed partial class BeamModuleCompiler
 
             if (ReadHibernateCall(body) is { } hibernate)
             {
-                if (TryEmitRegisterConstructedArgument(hibernate, new Dictionary<string, int>(),
-                    frame: (variables, frameSize, owner.lastEmittedLine, new HashSet<Expr>()), allowControlTransfer: true))
+                if (TryEmitRegisterConstructedArgument(
+                    hibernate,
+                    new Dictionary<string, int>(),
+                    frame: (variables, frameSize, owner.lastEmittedLine, new HashSet<Expr>()),
+                    allowControlTransfer: true
+                ))
                 {
                     return;
                 }
@@ -625,6 +694,7 @@ internal sealed partial class BeamModuleCompiler
                 if (hibernate.Arguments.All(IsPreparedOperand))
                 {
                     EmitCaseExternalTail(hibernate, ErlangModuleNames.Module);
+
                     return;
                 }
             }
@@ -632,6 +702,7 @@ internal sealed partial class BeamModuleCompiler
             if (ReadEntryCaseExternalTail(body) is { } external)
             {
                 EmitCaseExternalTail(external.Call, external.Module);
+
                 return;
             }
 
@@ -642,6 +713,7 @@ internal sealed partial class BeamModuleCompiler
                 } failure && owner.ResolvesErlangBif(failure))
             {
                 EmitCaseExternalTail(failure, ErlangModuleNames.Module);
+
                 return;
             }
 
@@ -652,8 +724,14 @@ internal sealed partial class BeamModuleCompiler
         private static bool IsReceivePattern(Pattern pattern) => pattern switch
         {
             Pattern.Literal { } or Pattern.Variable { } => true,
-            BitPattern { Segments: [.., { Value: Pattern.Variable { Name: not VariableScopeNames.Wildcard },
-                Specification: { Type: BitSegmentTypes.Binary, Size: null } }] } bits =>
+            BitPattern
+            {
+                Segments: [..,
+                {
+                    Value: Pattern.Variable { Name: not VariableScopeNames.Wildcard },
+                    Specification: { Type: BitSegmentTypes.Binary, Size: null }
+                }]
+            } bits =>
                 bits.Segments.SkipLast(1).All(segment =>
                     FixedSize(segment.Specification) is not null && IsReceivePattern(segment.Value)),
             Pattern.Tuple tuple => tuple.Items.All(IsReceivePattern),
@@ -682,6 +760,7 @@ internal sealed partial class BeamModuleCompiler
             }
 
             var continuation = new Expr.Sequence(remaining);
+
             return ReadUsedEntryParameters(new Clause([binding], null, continuation)) is { Count: 0 }
                 ? sequence with { Items = [rewritten, .. remaining] }
                 : null;
@@ -774,10 +853,14 @@ internal sealed partial class BeamModuleCompiler
             Expr.Call { DynamicRemote: false } call when owner.ResolvesErlangBif(call) => call switch
             {
                 { Function: AutoImportNames.Self, Arguments: [] } => true,
-                { Function: AutoImportNames.Node or AutoImportNames.ByteSize or AutoImportNames.TupleSize or AutoImportNames.Length,
-                    Arguments: [var operand] } => IsReceiveGuardValue(operand),
-                { Function: AutoImportNames.IsTuple or AutoImportNames.IsList or AutoImportNames.IsPort,
-                    Arguments: [var operand] } => IsReceiveGuardValue(operand),
+                {
+                    Function: AutoImportNames.Node or AutoImportNames.ByteSize or AutoImportNames.TupleSize or AutoImportNames.Length,
+                    Arguments: [var operand]
+                } => IsReceiveGuardValue(operand),
+                {
+                    Function: AutoImportNames.IsTuple or AutoImportNames.IsList or AutoImportNames.IsPort,
+                    Arguments: [var operand]
+                } => IsReceiveGuardValue(operand),
                 { Function: AutoImportNames.Element or AutoImportNames.IsMapKey, Arguments: [var index, var value] } =>
                     IsReceiveGuardValue(index) && IsReceiveGuardValue(value),
                 _ => false

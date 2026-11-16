@@ -10,8 +10,13 @@ internal sealed partial class BeamModuleCompiler
         {
             if (function.Clauses is not [
                 { Guard: null, Body: Expr.Tuple { Items: [Expr.Variable first, var literal, Expr.Call left] } } simple,
-                { Guard: null, Body: Expr.Tuple { Items: [Expr.Variable second,
-                    Expr.RecordAccess { Value: Expr.Variable record } field, Expr.Call right] } } checkedClause
+                {
+                    Guard: null, Body: Expr.Tuple
+                    {
+                        Items: [Expr.Variable second,
+                    Expr.RecordAccess { Value: Expr.Variable record } field, Expr.Call right]
+                    }
+                } checkedClause
             ] || !HasUnconditionalParameters(checkedClause)
                 || !AttributeLiteral.TryNormalizeConstant(literal, out Term middle)
                 || simple.Patterns.Any(pattern => pattern is not (Erlang.Pattern.Literal or Erlang.Pattern.Variable))
@@ -26,8 +31,10 @@ internal sealed partial class BeamModuleCompiler
                 || checkedClause.Patterns[selector] is not Pattern.Variable named || named.Name != record.Name
                 || record.Name == VariableScopeNames.Wildcard
                 || !HasUnconditionalParameters(simple with
-                    { Patterns = simple.Patterns.Select((pattern, index) => index == selector
-                        ? new Pattern.Variable(VariableScopeNames.Wildcard) : pattern).ToArray() })
+                {
+                    Patterns = simple.Patterns.Select((pattern, index) => index == selector
+                    ? new Pattern.Variable(VariableScopeNames.Wildcard) : pattern).ToArray()
+                })
                 || ReadAppendTupleBranch(simple, first, left) is not { } firstPlan
                 || ReadAppendTupleBranch(checkedClause, second, right) is not { } secondPlan)
             {
@@ -41,11 +48,18 @@ internal sealed partial class BeamModuleCompiler
             owner.LiteralOperand(test.Value);
             EmitBranch(firstPlan, null);
             Mark(recordBranch);
-            owner.EmitRecordTest(badRecord, XRegisterTag, selector, Term.A(field.Name), field.Arity);
+            owner.EmitRecordTest(
+                badRecord,
+                XRegisterTag,
+                selector,
+                Term.A(field.Name),
+                field.Arity
+            );
             EmitBranch(secondPlan, field);
             Mark(badRecord);
             owner.EmitLine(field.SourceLine == 0 ? location : new(field.PreprocessorFile, field.SourceLine));
             owner.Op(BadRecord, XRegisterTag, selector);
+
             return true;
 
             void EmitBranch(AppendTupleBranch plan, Expr.RecordAccess? projection)
@@ -56,11 +70,26 @@ internal sealed partial class BeamModuleCompiler
                 EmitFrameAllocation(plan.Live, frame);
                 if (keepsRecord)
                 {
-                    owner.MoveRegister(XRegisterTag, selector, YRegisterTag, 0);
+                    owner.MoveRegister(
+                        XRegisterTag,
+                        selector,
+                        YRegisterTag,
+                        0
+                    );
                 }
 
-                owner.MoveRegister(XRegisterTag, plan.Retained, YRegisterTag, appendSlot);
-                owner.MoveRegister(XRegisterTag, plan.Returned, YRegisterTag, appendSlot + 1);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    plan.Retained,
+                    YRegisterTag,
+                    appendSlot
+                );
+                owner.MoveRegister(
+                    XRegisterTag,
+                    plan.Returned,
+                    YRegisterTag,
+                    appendSlot + 1
+                );
                 EmitEntryCallArguments(plan.Inner);
                 var previous = location;
                 owner.EmitArithmeticLine(plan.InnerLine, ref previous);
@@ -74,7 +103,12 @@ internal sealed partial class BeamModuleCompiler
                     }
                     else
                     {
-                        owner.MoveRegister(XRegisterTag, 0, XRegisterTag, 1);
+                        owner.MoveRegister(
+                            XRegisterTag,
+                            0,
+                            XRegisterTag,
+                            1
+                        );
                     }
 
                     if (step.Left is { } constant)
@@ -125,8 +159,15 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        private sealed record AppendTupleBranch(EntryCall Inner, int InnerLine, int Live, int Retained, int Returned,
-            List<(Term? Left, Term[]? Prefix, int Line)> Steps, Expr.Call Consumer);
+        private sealed record AppendTupleBranch(
+            EntryCall Inner,
+            int InnerLine,
+            int Live,
+            int Retained,
+            int Returned,
+            List<(Term? Left, Term[]? Prefix, int Line)> Steps,
+            Expr.Call Consumer
+        );
 
         private AppendTupleBranch? ReadAppendTupleBranch(Clause clause, Expr.Variable returned, Expr.Call consumer)
         {
@@ -164,14 +205,18 @@ internal sealed partial class BeamModuleCompiler
 
                 Term[]? prefix = null;
                 body = append.Right;
-                if (body is Expr.Binary { Operator: ErlangOperators.Append,
-                    Right: Expr.Binary { Operator: ErlangOperators.Append } remainder } folded
+                if (body is Expr.Binary
+                    {
+                        Operator: ErlangOperators.Append,
+                        Right: Expr.Binary { Operator: ErlangOperators.Append } remainder
+                    } folded
                     && AppendPrefix(folded.Left) is { Count: > 0 } items
                     && items.All(item => AttributeLiteral.TryNormalizeConstant(item, out _)))
                 {
                     prefix = items.Select(item =>
                     {
                         AttributeLiteral.TryNormalizeConstant(item, out Term term);
+
                         return term;
                     }).ToArray();
                     body = remainder;
@@ -190,7 +235,16 @@ internal sealed partial class BeamModuleCompiler
             }
 
             steps.Reverse();
-            return new(first, inner.SourceLine, parameters.Length, retained, returnedRegister, steps, consumer);
+
+            return new(
+                first,
+                inner.SourceLine,
+                parameters.Length,
+                retained,
+                returnedRegister,
+                steps,
+                consumer
+            );
         }
 
         private void EmitAppendPrefixInX1(IReadOnlyList<Term> prefix)

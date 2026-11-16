@@ -11,27 +11,70 @@ internal sealed partial class BeamModuleCompiler
     {
         private bool TryEmitOutputDispatch(FunctionDefinition function)
         {
-            if (function.Clauses is not [{
-                Guard: null, Patterns: [Pattern.Variable state, Pattern.Variable buffer, Pattern.Variable size,
+            if (function.Clauses is not [
+                {
+                    Guard: null, Patterns: [Pattern.Variable state, Pattern.Variable buffer, Pattern.Variable size,
                     Pattern.Variable pending, Pattern.Variable selection],
-                Body: Expr.If { Clauses: [
-                    { Guard: Expr.Binary { Operator: ErlangOperators.AndAlso, Left: Expr.Variable hasData,
-                        Right: Expr.Binary { Operator: ErlangOperators.Greater,
-                            Left: Expr.RecordAccess { Value: Expr.Variable record } watermark, Right: Expr.Variable buffered } },
-                        Body: Expr.Call { Module: null, DynamicRemote: false } data },
-                    { Guard: Expr.Binary { Operator: ErlangOperators.AndAlso,
-                        Left: Expr.Binary { Operator: ErlangOperators.ExactEqual, Left: Expr.Variable selected,
-                            Right: Expr.Literal { Value: Atom ready } },
-                        Right: Expr.Binary { Operator: ErlangOperators.Greater, Left: Expr.Variable used,
-                            Right: Expr.Literal { Value: Integer threshold } } },
-                        Body: Expr.Call { Module: null, DynamicRemote: false } send },
-                    { Guard: Expr.Literal { Value: Atom { Name: "true" } },
-                        Body: Expr.Call { Module: null, DynamicRemote: false } wait }
-                ] }
-            }] || !DistinctBindings(state, buffer, size, pending, selection)
+                    Body: Expr.If
+                    {
+                        Clauses: [
+                        {
+                            Guard: Expr.Binary
+                            {
+                                Operator: ErlangOperators.AndAlso, Left: Expr.Variable hasData,
+                                Right: Expr.Binary
+                                {
+                                    Operator: ErlangOperators.Greater,
+                                    Left: Expr.RecordAccess { Value: Expr.Variable record } watermark, Right: Expr.Variable buffered
+                                }
+                            },
+                            Body: Expr.Call { Module: null, DynamicRemote: false } data
+                        },
+                        {
+                            Guard: Expr.Binary
+                            {
+                                Operator: ErlangOperators.AndAlso,
+                                Left: Expr.Binary
+                                {
+                                    Operator: ErlangOperators.ExactEqual, Left: Expr.Variable selected,
+                                    Right: Expr.Literal { Value: Atom ready }
+                                },
+                                Right: Expr.Binary
+                                {
+                                    Operator: ErlangOperators.Greater, Left: Expr.Variable used,
+                                    Right: Expr.Literal { Value: Integer threshold }
+                                }
+                            },
+                            Body: Expr.Call { Module: null, DynamicRemote: false } send
+                        },
+                        {
+                            Guard: Expr.Literal { Value: Atom { Name: "true" } },
+                            Body: Expr.Call { Module: null, DynamicRemote: false } wait
+                        }
+                ]
+                    }
+                }] || !DistinctBindings(
+                    state,
+                    buffer,
+                    size,
+                    pending,
+                    selection
+                )
                 || hasData.Name != pending.Name || record.Name != state.Name || buffered.Name != size.Name
                 || selected.Name != selection.Name || used.Name != size.Name
-                || !Forwards(data, state, buffer, size, selection) || !Forwards(send, state, buffer, size, pending)
+                || !Forwards(
+                    data,
+                    state,
+                    buffer,
+                    size,
+                    selection
+                ) || !Forwards(
+                    send,
+                    state,
+                    buffer,
+                    size,
+                    pending
+                )
                 || wait.Arguments.Count != 6 || wait.Arguments[5] is not Expr.Literal { Value: Atom delay }
                 || !wait.Arguments.Take(5).SequenceEqual(
                     new[] { state, buffer, size, pending, selection }.Select(value => new Expr.Variable(value.Name)))
@@ -43,8 +86,18 @@ internal sealed partial class BeamModuleCompiler
             }
 
             var key = (function.Name, function.Arity);
-            bool knownRecord = ProvesOutputArgument(key, 0, watermark, []);
-            bool knownNumber = ProvesOutputArgument(key, 2, null, []);
+            bool knownRecord = ProvesOutputArgument(
+                key,
+                0,
+                watermark,
+                []
+            );
+            bool knownNumber = ProvesOutputArgument(
+                key,
+                2,
+                null,
+                []
+            );
             int trySend = Label();
             int waitForData = Label();
             owner.Op(ExactEqualTest, LabelTag, trySend);
@@ -52,7 +105,12 @@ internal sealed partial class BeamModuleCompiler
             owner.LiteralOperand(Term.A("true"));
             if (!knownRecord)
             {
-                EmitDetailRecordTest(0, watermark.Arity, Term.A(watermark.Name), trySend);
+                EmitDetailRecordTest(
+                    0,
+                    watermark.Arity,
+                    Term.A(watermark.Name),
+                    trySend
+                );
             }
             owner.EmitTuplePart(0, watermark.Index, 5);
             owner.Op(IsLess, LabelTag, trySend);
@@ -65,7 +123,12 @@ internal sealed partial class BeamModuleCompiler
             {
                 owner.Operand(XRegisterTag, 5);
             }
-            owner.MoveRegister(XRegisterTag, 4, XRegisterTag, 3);
+            owner.MoveRegister(
+                XRegisterTag,
+                4,
+                XRegisterTag,
+                3
+            );
             TailCall(4, dataEntry);
             Mark(trySend);
             owner.Op(ExactEqualTest, LabelTag, waitForData);
@@ -104,7 +167,9 @@ internal sealed partial class BeamModuleCompiler
             call.Arguments.SequenceEqual(arguments.Select(argument => new Expr.Variable(argument.Name)));
 
         private bool ProvesOutputArgument(
-            (string Name, int Arity) target, int index, Expr.RecordAccess? record,
+            (string Name, int Arity) target,
+            int index,
+            Expr.RecordAccess? record,
             HashSet<((string Name, int Arity) Function, int Index)> active
         )
         {
@@ -120,27 +185,52 @@ internal sealed partial class BeamModuleCompiler
             try
             {
                 return localFunctions.Values.All(function => function.Clauses.All(clause =>
-                    CheckCalls(clause.Body, function, clause, new(StringComparer.Ordinal))));
+                    CheckCalls(
+                        clause.Body,
+                        function,
+                        clause,
+                        new(StringComparer.Ordinal)
+                    )));
             }
             finally
             {
                 active.Remove((target, index));
             }
 
-            bool CheckCalls(Expr expression, FunctionDefinition function, Clause clause, Dictionary<string, Expr> bindings)
+            bool CheckCalls(
+                Expr expression,
+                FunctionDefinition function,
+                Clause clause,
+                Dictionary<string, Expr> bindings
+            )
             {
                 switch (expression)
                 {
                     case Expr.FunctionReference reference:
                         return (reference.Name, reference.Arity) != target;
                     case Expr.Call { Module: null, DynamicRemote: false } call when (call.Function, call.Arguments.Count) == target:
-                        return CheckValue(call.Arguments[index], function, clause, bindings)
-                            && call.Arguments.All(item => CheckCalls(item, function, clause, bindings));
+                        return CheckValue(
+                            call.Arguments[index],
+                            function,
+                            clause,
+                            bindings
+                        )
+                            && call.Arguments.All(item => CheckCalls(
+                                item,
+                                function,
+                                clause,
+                                bindings
+                            ));
                     case Expr.Sequence sequence:
                         var local = new Dictionary<string, Expr>(bindings, StringComparer.Ordinal);
                         foreach (Expr item in sequence.Items)
                         {
-                            if (!CheckCalls(item, function, clause, local))
+                            if (!CheckCalls(
+                                item,
+                                function,
+                                clause,
+                                local
+                            ))
                             {
                                 return false;
                             }
@@ -149,6 +239,7 @@ internal sealed partial class BeamModuleCompiler
                                 local.TryAdd(variable.Name, match.Value);
                             }
                         }
+
                         return true;
                     case Expr.Fun or Expr.ListComprehension or Expr.BinaryComprehension or Expr.MapComprehension:
                         return !LocalFunctionEntries.Walk(expression).Any(item =>
@@ -156,11 +247,21 @@ internal sealed partial class BeamModuleCompiler
                             || item is Expr.Call { Module: null, DynamicRemote: false } call
                                 && (call.Function, call.Arguments.Count) == target);
                     default:
-                        return LocalFunctionEntries.Children(expression).All(child => CheckCalls(child, function, clause, bindings));
+                        return LocalFunctionEntries.Children(expression).All(child => CheckCalls(
+                            child,
+                            function,
+                            clause,
+                            bindings
+                        ));
                 }
             }
 
-            bool CheckValue(Expr value, FunctionDefinition function, Clause clause, Dictionary<string, Expr> bindings)
+            bool CheckValue(
+                Expr value,
+                FunctionDefinition function,
+                Clause clause,
+                Dictionary<string, Expr> bindings
+            )
             {
                 if (value is Expr.Variable variable)
                 {
@@ -173,7 +274,12 @@ internal sealed partial class BeamModuleCompiler
                         }
                         if (pattern is Pattern.Variable input && input.Name == variable.Name)
                         {
-                            return ProvesOutputArgument((function.Name, function.Arity), parameter, record, active);
+                            return ProvesOutputArgument(
+                                (function.Name, function.Arity),
+                                parameter,
+                                record,
+                                active
+                            );
                         }
                     }
                     if (!bindings.TryGetValue(variable.Name, out value!))
@@ -185,8 +291,11 @@ internal sealed partial class BeamModuleCompiler
                 return record is null
                     ? value is Expr.Literal { Value: Integer or FloatTerm }
                         or Expr.Binary { Operator: ErlangOperators.Plus or ErlangOperators.Minus or ErlangOperators.Multiply }
-                        || value is Expr.Call { Module: null or ErlangModuleNames.Module, DynamicRemote: false,
-                            Function: AutoImportNames.IolistSize, Arguments.Count: 1 } length && owner.ResolvesErlangBif(length)
+                        || value is Expr.Call
+                        {
+                            Module: null or ErlangModuleNames.Module, DynamicRemote: false,
+                            Function: AutoImportNames.IolistSize, Arguments.Count: 1
+                        } length && owner.ResolvesErlangBif(length)
                     : value is Expr.RecordConstruction construction && construction.Definition.Name == record.Name
                         && RecordExpressions.Create(construction).Items is { } items && items.Count == record.Arity
                         && items[record.Index] is Expr.Literal { Value: Integer }

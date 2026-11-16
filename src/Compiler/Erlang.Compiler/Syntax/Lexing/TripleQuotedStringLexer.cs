@@ -43,7 +43,12 @@ internal static class TripleQuotedStringLexer
             }
             if (text.AsSpan(quote).StartsWith(delimiter, StringComparison.Ordinal))
             {
-                string value = StripIndentation(text, contentStart, line, text.AsSpan(line, quote - line));
+                string value = StripIndentation(
+                    text,
+                    contentStart,
+                    line,
+                    text.AsSpan(line, quote - line)
+                );
                 offset = quote + delimiter.Length;
 
                 return new(

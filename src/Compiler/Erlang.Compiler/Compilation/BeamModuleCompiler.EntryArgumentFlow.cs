@@ -46,7 +46,12 @@ internal sealed partial class BeamModuleCompiler
 
             if (needsLifetimeAnalysis)
             {
-                if (!hasOverwrite || FindEntryCopyLifetimeUses(entry, save, end, slot) is not { } lifetimeUses)
+                if (!hasOverwrite || FindEntryCopyLifetimeUses(
+                    entry,
+                    save,
+                    end,
+                    slot
+                ) is not { } lifetimeUses)
                 {
                     return null;
                 }
@@ -102,9 +107,14 @@ internal sealed partial class BeamModuleCompiler
                     if (use > save + 1 && predecessors[use] is [int previous] && previous == use - 1
                         && instruction is { Definition.Opcode: Move, Operands: [_, { Kind: BeamOperandParameters.X, TypeIndex: null } target] }
                         && !SameProjectionRegister(target, source)
-                        && body[previous] is { Definition.Opcode: Move, Operands: [
-                            { Kind: BeamOperandParameters.LiteralValue or BeamOperandParameters.Integer
-                                or BeamOperandParameters.Atom or BeamOperandParameters.Nil }, var overwritten] }
+                        && body[previous] is
+                        {
+                            Definition.Opcode: Move, Operands: [
+                            {
+                                Kind: BeamOperandParameters.LiteralValue or BeamOperandParameters.Integer
+                                or BeamOperandParameters.Atom or BeamOperandParameters.Nil
+                            }, var overwritten]
+                        }
                         && SameProjectionRegister(overwritten, source)
                         && !(incoming[previous - entry].GetValueOrDefault() & original).IsZero)
                     {
@@ -267,6 +277,7 @@ internal sealed partial class BeamModuleCompiler
             if (opcode == Move)
             {
                 BigInteger destination = EntryRegisterBit(operands[1]);
+
                 return SameProjectionRegister(operands[0], slot) || !(available & EntryRegisterBit(operands[0])).IsZero
                     ? available | destination
                     : available & ~destination;
@@ -283,6 +294,7 @@ internal sealed partial class BeamModuleCompiler
 
                 BigInteger movedLeft = (available & right).IsZero ? BigInteger.Zero : left;
                 BigInteger movedRight = (available & left).IsZero ? BigInteger.Zero : right;
+
                 return (available & ~(left | right)) | movedLeft | movedRight;
             }
 
@@ -295,6 +307,7 @@ internal sealed partial class BeamModuleCompiler
                 or BifZero or BifOne or BifTwo or BifThree or GcBifOne or GcBifTwo or GcBifThree)
             {
                 available &= ~EntryRegisterBit(operands[StackWriteOperand(instruction)]);
+
                 return opcode == GetList ? available & ~EntryRegisterBit(operands[2]) : available;
             }
 

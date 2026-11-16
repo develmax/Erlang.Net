@@ -13,8 +13,10 @@ internal sealed partial class BeamModuleCompiler
         private bool TryEmitDirectMapPattern(FunctionDefinition function)
         {
             if (function.Clauses is not [
-                { Guard: null, Patterns: [MapPattern { Fields: [{ Key: Expr.Literal key, Value: Pattern.Variable binding }] }],
-                  Body: Expr.Variable result },
+                {
+                    Guard: null, Patterns: [MapPattern { Fields: [{ Key: Expr.Literal key, Value: Pattern.Variable binding }] }],
+                    Body: Expr.Variable result
+                },
                 { Guard: null, Patterns: [Pattern.Variable { }], Body: Expr.Literal fallback }
             ] || binding.Name != result.Name)
             {
@@ -79,7 +81,10 @@ internal sealed partial class BeamModuleCompiler
         {
             owner.EmitConstant(Nil.Value, 0);
             int accumulator = Save();
-            EmitComprehensionQualifiers(qualifiers, items, () =>
+            EmitComprehensionQualifiers(
+                qualifiers,
+                items,
+                () =>
             {
                 foreach (Expr output in items)
                 {
@@ -89,9 +94,15 @@ internal sealed partial class BeamModuleCompiler
                     owner.Op(PutList, XRegisterTag, 0);
                     owner.Operand(YRegisterTag, accumulator);
                     owner.Operand(XRegisterTag, 0);
-                    owner.MoveRegister(XRegisterTag, 0, YRegisterTag, accumulator);
+                    owner.MoveRegister(
+                        XRegisterTag,
+                        0,
+                        YRegisterTag,
+                        accumulator
+                    );
                 }
-            });
+            }
+            );
             Load(accumulator);
             owner.EmitConstant(Nil.Value, 1);
             Call("lists", "reverse", 2);
@@ -140,18 +151,21 @@ internal sealed partial class BeamModuleCompiler
                 if (qualifiers[index] is ComprehensionQualifier.MapGenerator mapGenerator)
                 {
                     EmitMapGenerator(mapGenerator, reject, next => EmitQualifier(index + 1, next));
+
                     return;
                 }
 
                 if (qualifiers[index] is ComprehensionQualifier.BinaryGenerator binaryGenerator)
                 {
                     EmitBinaryGenerator(binaryGenerator, reject, next => EmitQualifier(index + 1, next));
+
                     return;
                 }
 
                 if (qualifiers[index] is ComprehensionQualifier.Zip zip)
                 {
                     EmitListZip(zip, reject, next => EmitQualifier(index + 1, next));
+
                     return;
                 }
 
@@ -165,9 +179,25 @@ internal sealed partial class BeamModuleCompiler
                 Mark(loop);
                 Load(current);
                 owner.EmitNonemptyList(0, end);
-                owner.EmitListParts(0, XRegisterTag, 1, XRegisterTag, 0);
-                owner.MoveRegister(XRegisterTag, 0, YRegisterTag, current);
-                owner.MoveRegister(XRegisterTag, 1, XRegisterTag, 0);
+                owner.EmitListParts(
+                    0,
+                    XRegisterTag,
+                    1,
+                    XRegisterTag,
+                    0
+                );
+                owner.MoveRegister(
+                    XRegisterTag,
+                    0,
+                    YRegisterTag,
+                    current
+                );
+                owner.MoveRegister(
+                    XRegisterTag,
+                    1,
+                    XRegisterTag,
+                    0
+                );
                 int item = Save();
                 MatchGeneratorPattern(generator.Pattern, item, mismatch);
                 EmitQualifier(index + 1, loop);
@@ -223,7 +253,12 @@ internal sealed partial class BeamModuleCompiler
                 return;
             }
 
-            EmitWithContinuation(expression, continuation, guardFailure: null, returnValue: true);
+            EmitWithContinuation(
+                expression,
+                continuation,
+                guardFailure: null,
+                returnValue: true
+            );
             int testFalse = Label();
             int passed = Label();
             owner.EmitAtomTest(0, "true", testFalse);

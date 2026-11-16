@@ -28,17 +28,32 @@ internal sealed partial class BeamModuleCompiler
             int frame = useValueLiveness
                 ? FindLinearFrameSuffix(body, entry, end)
                 : FindEntryFrameAllocation(body, entry, end);
-            var linear = PlanLinearStackSlots(body, frame, end, includeUnchanged: useValueLiveness);
+            var linear = PlanLinearStackSlots(
+                body,
+                frame,
+                end,
+                includeUnchanged: useValueLiveness
+            );
             var allocation = linear is { } layout && !useValueLiveness
                 ? (layout.Count, layout.Slots, Trim: ((int Index, int OriginalRemoved, int Kept)?)null)
                 : !useValueLiveness || linear is not null
-                    ? PlanBranchStackSlots(body, entry, end, linearAllocation: useValueLiveness ? frame : -1)
+                    ? PlanBranchStackSlots(
+                        body,
+                        entry,
+                        end,
+                        linearAllocation: useValueLiveness ? frame : -1
+                    )
                     : null;
             if (useValueLiveness && allocation is null)
             {
                 int entryFrame = FindEntryFrameAllocation(body, entry, end);
                 bool closure = entryFrame >= 0 && closureEntries?.Contains((int)body[entry].Operands[0].Value) == true;
-                allocation = PlanSavedEntrySlotOrder(body, entryFrame, end, closure);
+                allocation = PlanSavedEntrySlotOrder(
+                    body,
+                    entryFrame,
+                    end,
+                    closure
+                );
             }
 
             if (allocation is not { } plan)
@@ -163,9 +178,12 @@ internal sealed partial class BeamModuleCompiler
         var inputs = new HashSet<int>();
         for (int index = allocation + 1; index <= allocation + count; index++)
         {
-            if (body[index] is not { Definition.Opcode: Move, Operands: [
+            if (body[index] is not
+                {
+                    Definition.Opcode: Move, Operands: [
                     { Kind: BeamOperandParameters.X, TypeIndex: null } input,
-                    { Kind: BeamOperandParameters.Y } slot] }
+                    { Kind: BeamOperandParameters.Y } slot]
+                }
                 || input.Value >= live || slot.Value >= count
                 || !inputs.Add((int)input.Value) || !entriesBySlot.TryAdd((int)slot.Value, (int)input.Value))
             {

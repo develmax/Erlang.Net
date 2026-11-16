@@ -244,7 +244,12 @@ internal sealed partial class BeamModuleCompiler
                 && failure != success && IsTemporaryDead([failure], temporary, preserveHeapRoots);
 
         internal bool IsAllocationRootDead(int allocation, BeamOperand register) =>
-            IsTemporaryDead(successors[allocation], register, preserveHeapRoots: true, trackReceive: true);
+            IsTemporaryDead(
+                successors[allocation],
+                register,
+                preserveHeapRoots: true,
+                trackReceive: true
+            );
 
         private bool IsTemporaryDead(
             IEnumerable<int> entries,

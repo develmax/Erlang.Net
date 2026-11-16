@@ -8,38 +8,88 @@ internal sealed partial class BeamModuleCompiler
     {
         private bool TryEmitMaybeListenerBind(FunctionDefinition function)
         {
-            if (function.Clauses is not [{
-                Guard: null, Patterns: [
+            if (function.Clauses is not [
+                {
+                    Guard: null, Patterns: [
                     Pattern.Tuple { Items: [Pattern.Literal { Value: Atom addressTag }, ..] } address,
                     Pattern.Variable port, Pattern.Tuple { Items: [Pattern.Variable socket, Pattern.Variable backlog] }
-                ], Body: Expr.Maybe { Items: [
-                    Expr.Match { Pattern: Pattern.Variable sockaddr, Value: Expr.Map { Base: null, Fields: [
-                        { Exact: false, Key: Expr.Literal { Value: Atom familyKey }, Value: Expr.Variable family },
-                        { Exact: false, Key: Expr.Literal { Value: Atom addrKey }, Value: Expr.Literal addr },
-                        { Exact: false, Key: Expr.Literal { Value: Atom portKey }, Value: Expr.Variable portInput }
-                    ] } },
-                    Expr.MaybeMatch { Pattern: Pattern.Literal { Value: Atom bound }, Value: Expr.Call {
-                        Module: not null, DynamicRemote: false, Arguments: [Expr.Variable bindSocket, Expr.Variable bindAddress]
-                    } bind },
-                    Expr.MaybeMatch { Pattern: Pattern.Literal { Value: Atom listening }, Value: Expr.Call {
-                        Module: not null, DynamicRemote: false, Arguments: [Expr.Variable listenSocket, Expr.Variable listenBacklog]
-                    } listen },
-                    Expr.MaybeMatch { Pattern: Pattern.Tuple { Items: [
-                        Pattern.Literal { Value: Atom named }, MapPattern { Fields: [
-                            { Key: Expr.Literal { Value: Atom matchedAddr }, Value: Pattern.Variable ip },
-                            { Key: Expr.Literal { Value: Atom matchedPort }, Value: Pattern.Variable assigned }
-                        ] }
-                    ] }, Value: Expr.Call { Module: not null, DynamicRemote: false, Arguments: [Expr.Variable nameSocket] } name },
-                    Expr.Tuple { Items: [Expr.Literal { Value: Atom result }, Expr.Tuple { Items: [
+                ], Body: Expr.Maybe
+                {
+                    Items: [
+                    Expr.Match
+                    {
+                        Pattern: Pattern.Variable sockaddr, Value: Expr.Map
+                        {
+                            Base: null, Fields: [
+                            { Exact: false, Key: Expr.Literal { Value: Atom familyKey }, Value: Expr.Variable family },
+                            { Exact: false, Key: Expr.Literal { Value: Atom addrKey }, Value: Expr.Literal addr },
+                            { Exact: false, Key: Expr.Literal { Value: Atom portKey }, Value: Expr.Variable portInput }
+                    ]
+                        }
+                    },
+                    Expr.MaybeMatch
+                    {
+                        Pattern: Pattern.Literal { Value: Atom bound }, Value: Expr.Call
+                        {
+                            Module: not null, DynamicRemote: false, Arguments: [Expr.Variable bindSocket, Expr.Variable bindAddress]
+                        } bind
+                    },
+                    Expr.MaybeMatch
+                    {
+                        Pattern: Pattern.Literal { Value: Atom listening }, Value: Expr.Call
+                        {
+                            Module: not null, DynamicRemote: false, Arguments: [Expr.Variable listenSocket, Expr.Variable listenBacklog]
+                        } listen
+                    },
+                    Expr.MaybeMatch
+                    {
+                        Pattern: Pattern.Tuple
+                        {
+                            Items: [
+                        Pattern.Literal { Value: Atom named }, MapPattern
+                            {
+                                Fields: [
+                                { Key: Expr.Literal { Value: Atom matchedAddr }, Value: Pattern.Variable ip },
+                                { Key: Expr.Literal { Value: Atom matchedPort }, Value: Pattern.Variable assigned }
+                        ]
+                            }
+                    ]
+                        }, Value: Expr.Call { Module: not null, DynamicRemote: false, Arguments: [Expr.Variable nameSocket] } name
+                    },
+                    Expr.Tuple
+                    {
+                        Items: [Expr.Literal { Value: Atom result }, Expr.Tuple
+                        {
+                            Items: [
                         Expr.Variable returnedSocket, Expr.Tuple { Items: [Expr.Variable returnedIp, Expr.Variable returnedPort] }
-                    ] }] }
-                ], Clauses: [{ Guard: null, Patterns: [AliasPattern errorAlias], Body: Expr.Variable returned }] } conditional
-            }] || !TryReadPatternAlias(errorAlias, out var error, out var errorShape)
-                || errorShape is not Pattern.Tuple { Items: [
+                    ]
+                        }]
+                    }
+                ], Clauses: [{ Guard: null, Patterns: [AliasPattern errorAlias], Body: Expr.Variable returned }]
+                } conditional
+                }] || !TryReadPatternAlias(errorAlias, out var error, out var errorShape)
+                || errorShape is not Pattern.Tuple
+                {
+                    Items: [
                     Pattern.Literal { Value: Atom errorTag }, Pattern.Variable { Name: VariableScopeNames.Wildcard }
-                ] }
-                || !DistinctBindings(port, socket, backlog, sockaddr, ip, assigned, new(family.Name))
-                || !DistinctBindings(port, socket, backlog, error, new(family.Name))
+                ]
+                }
+                || !DistinctBindings(
+                    port,
+                    socket,
+                    backlog,
+                    sockaddr,
+                    ip,
+                    assigned,
+                    new(family.Name)
+                )
+                || !DistinctBindings(
+                    port,
+                    socket,
+                    backlog,
+                    error,
+                    new(family.Name)
+                )
                 || error.Name != returned.Name || portInput.Name != port.Name || bindSocket.Name != socket.Name
                 || bindAddress.Name != sockaddr.Name || listenSocket.Name != socket.Name || listenBacklog.Name != backlog.Name
                 || nameSocket.Name != socket.Name || returnedSocket.Name != socket.Name
@@ -74,7 +124,12 @@ internal sealed partial class BeamModuleCompiler
             int bindFailed = Label();
             int nameFailed = Label();
             int elseFailed = Label();
-            EmitDetailRecordTest(0, address.Items.Count, addressTag, functionInfo);
+            EmitDetailRecordTest(
+                0,
+                address.Items.Count,
+                addressTag,
+                functionInfo
+            );
             owner.EmitTupleCheck(2, 2, functionInfo);
             owner.Op(Allocate, BeamWire.UnsignedTag, 3);
             owner.Operand(BeamWire.UnsignedTag, 3);
@@ -116,7 +171,12 @@ internal sealed partial class BeamModuleCompiler
             owner.InitStackSlot(2);
             Load(1);
             EmitWindowCall(name, ref previous);
-            EmitDetailRecordTest(0, 2, named, nameFailed);
+            EmitDetailRecordTest(
+                0,
+                2,
+                named,
+                nameFailed
+            );
             owner.EmitTuplePart(0, 1, 1);
             EmitMapTest(1, nameFailed);
             owner.Op(GetMapElements, LabelTag, nameFailed);

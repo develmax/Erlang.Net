@@ -389,8 +389,11 @@ internal sealed partial class BeamModuleCompiler
                     supported = true;
                     projected = maybeProjected = true;
                 }
-                else if (instruction is { Definition.Opcode: GetList, Operands: [var list,
-                    { Kind: BeamOperandParameters.X } head, { Kind: BeamOperandParameters.X } tail] }
+                else if (instruction is
+                {
+                    Definition.Opcode: GetList, Operands: [var list,
+                    { Kind: BeamOperandParameters.X } head, { Kind: BeamOperandParameters.X } tail]
+                }
                     && (list.Kind != BeamOperandParameters.X || list.Value < registers)
                     && head.Value != tail.Value
                     && CanOverwriteX(head, maybeProjected) && CanOverwriteX(tail, maybeProjected))
@@ -469,7 +472,15 @@ internal sealed partial class BeamModuleCompiler
         if (required.Count == 0)
         {
             RecordProjections();
-            return new(first, saved, delayed, new Dictionary<int, int>(), heapLives, stores);
+
+            return new(
+                first,
+                saved,
+                delayed,
+                new Dictionary<int, int>(),
+                heapLives,
+                stores
+            );
         }
 
         if (extendEntry)
@@ -511,7 +522,15 @@ internal sealed partial class BeamModuleCompiler
             }
 
             RecordProjections();
-            return new(first, saved, delayed, frames, heapLives, stores);
+
+            return new(
+                first,
+                saved,
+                delayed,
+                frames,
+                heapLives,
+                stores
+            );
         }
 
         // Every common dominator lies on the recorded path to any required instruction.
@@ -542,7 +561,14 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
-            return new(first, saved, prefix, new Dictionary<int, int> { [site] = live }, heapLives, stores);
+            return new(
+                first,
+                saved,
+                prefix,
+                new Dictionary<int, int> { [site] = live },
+                heapLives,
+                stores
+            );
         }
 
         return null;

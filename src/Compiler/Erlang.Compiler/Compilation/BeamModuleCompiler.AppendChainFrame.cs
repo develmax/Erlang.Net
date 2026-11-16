@@ -57,7 +57,12 @@ internal sealed partial class BeamModuleCompiler
 
             const int frame = 1;
             EmitFrameAllocation(Math.Max(saved + 1, EntryCallLiveCount(first, parameters)), frame);
-            owner.MoveRegister(XRegisterTag, saved, YRegisterTag, 0);
+            owner.MoveRegister(
+                XRegisterTag,
+                saved,
+                YRegisterTag,
+                0
+            );
             EmitEntryCallArguments(first);
             var previous = location;
             owner.EmitArithmeticLine(inner.SourceLine, ref previous);
@@ -81,6 +86,7 @@ internal sealed partial class BeamModuleCompiler
                 owner.Op(TailExternalCallWithFrame, BeamWire.UnsignedTag, 2);
                 owner.Operand(BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module, ErlangOperators.Append, 2));
                 owner.Operand(BeamWire.UnsignedTag, frame);
+
                 return true;
             }
 

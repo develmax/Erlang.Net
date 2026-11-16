@@ -47,6 +47,7 @@ internal sealed partial class BeamModuleCompiler
         }
 
         instructions.WriteByte(Return);
+
         return true;
     }
 
@@ -135,11 +136,12 @@ internal sealed partial class BeamModuleCompiler
         IReadOnlyDictionary<(string Name, int Arity), int> entries
     )
     {
-        if (function.Clauses is not [{
-            Guard: null,
-            Patterns: [Pattern.List { Items: [Pattern.Variable head], Tail: null }],
-            Body: Expr.Sequence sequence
-        }] || head.Name == VariableScopeNames.Wildcard)
+        if (function.Clauses is not [
+            {
+                Guard: null,
+                Patterns: [Pattern.List { Items: [Pattern.Variable head], Tail: null }],
+                Body: Expr.Sequence sequence
+            }] || head.Name == VariableScopeNames.Wildcard)
         {
             return false;
         }
@@ -269,6 +271,7 @@ internal sealed partial class BeamModuleCompiler
         if (AttributeLiteral.TryNormalizeConstant(expression, out Term literal))
         {
             result = (literal, null);
+
             return true;
         }
 

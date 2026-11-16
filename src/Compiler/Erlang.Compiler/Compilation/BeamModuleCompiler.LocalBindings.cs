@@ -69,13 +69,33 @@ internal sealed partial class BeamModuleCompiler
 
             Op(Allocate, BeamWire.UnsignedTag, 2);
             Operand(BeamWire.UnsignedTag, 3);
-            MoveRegister(XRegisterTag, 2, YRegisterTag, 0);
-            MoveRegister(XRegisterTag, 1, YRegisterTag, 1);
+            MoveRegister(
+                XRegisterTag,
+                2,
+                YRegisterTag,
+                0
+            );
+            MoveRegister(
+                XRegisterTag,
+                1,
+                YRegisterTag,
+                1
+            );
             EmitCallLine(binding.Input, location);
             Op(LocalCall, BeamWire.UnsignedTag, 1);
             Operand(LabelTag, input);
-            MoveRegister(YRegisterTag, 0, XRegisterTag, 2);
-            MoveRegister(YRegisterTag, 1, XRegisterTag, 1);
+            MoveRegister(
+                YRegisterTag,
+                0,
+                XRegisterTag,
+                2
+            );
+            MoveRegister(
+                YRegisterTag,
+                1,
+                XRegisterTag,
+                1
+            );
             Op(TailLocalCallWithFrame, BeamWire.UnsignedTag, 3);
             Operand(LabelTag, output);
             Operand(BeamWire.UnsignedTag, 2);
@@ -85,8 +105,18 @@ internal sealed partial class BeamModuleCompiler
 
         Op(Allocate, BeamWire.UnsignedTag, 1);
         Operand(BeamWire.UnsignedTag, 3);
-        MoveRegister(XRegisterTag, binding.Preserved, YRegisterTag, 0);
-        MoveRegister(XRegisterTag, 2, XRegisterTag, 1);
+        MoveRegister(
+            XRegisterTag,
+            binding.Preserved,
+            YRegisterTag,
+            0
+        );
+        MoveRegister(
+            XRegisterTag,
+            2,
+            XRegisterTag,
+            1
+        );
         EmitCallLine(binding.Input, location);
         Op(LocalCall, BeamWire.UnsignedTag, 2);
         Operand(LabelTag, input);
@@ -118,7 +148,12 @@ internal sealed partial class BeamModuleCompiler
 
     private (long End, int X, int Y)? lastStackStore;
 
-    private void MoveRegister(int sourceTag, int source, int destinationTag, int destination)
+    private void MoveRegister(
+        int sourceTag,
+        int source,
+        int destinationTag,
+        int destination
+    )
     {
         if (sourceTag == YRegisterTag && destinationTag == XRegisterTag
             && lastStackStore is { } store && store.End == instructions.Position

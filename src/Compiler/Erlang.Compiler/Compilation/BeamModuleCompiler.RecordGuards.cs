@@ -15,7 +15,13 @@ internal sealed partial class BeamModuleCompiler
         _ => null
     };
 
-    private void EmitRecordTest(int failure, int tag, int register, Atom name, int arity)
+    private void EmitRecordTest(
+        int failure,
+        int tag,
+        int register,
+        Atom name,
+        int arity
+    )
     {
         Op(IsTaggedTuple, LabelTag, failure);
         Operand(tag, register);
@@ -65,7 +71,12 @@ internal sealed partial class BeamModuleCompiler
             if (!call.Arguments.Take(arity).SequenceEqual(parameters.Select(name => new Expr.Variable(name)))
                 || addsEmptyList && call.Arguments[^1] is not (Expr.List { Items: [], Tail: null }
                     or Expr.Literal { Value: Nil })
-                || ReadForwardGuard(guard, parameters, fields, allowColour: true) is not { } tests)
+                || ReadForwardGuard(
+                    guard,
+                    parameters,
+                    fields,
+                    allowColour: true
+                ) is not { } tests)
             {
                 return null;
             }
@@ -204,13 +215,24 @@ internal sealed partial class BeamModuleCompiler
 
                 parameters[index] = parameter.Name;
             }
+
             return (parameters, shapes, fields);
         }
 
         private abstract record ForwardGuard
         {
-            internal sealed record Test(byte Opcode, int Register, Atom? Tag = null, int Arity = 0) : ForwardGuard;
-            internal sealed record FieldTest(byte Opcode, int Register, int Index, int Scratch) : ForwardGuard;
+            internal sealed record Test(
+                byte Opcode,
+                int Register,
+                Atom? Tag = null,
+                int Arity = 0
+            ) : ForwardGuard;
+            internal sealed record FieldTest(
+                byte Opcode,
+                int Register,
+                int Index,
+                int Scratch
+            ) : ForwardGuard;
             internal sealed record ColourTest(int Register, int Scratch) : ForwardGuard;
             internal sealed record Conjunction(ForwardGuard Left, ForwardGuard Right) : ForwardGuard;
             internal sealed record Disjunction(ForwardGuard Left, ForwardGuard Right) : ForwardGuard;
@@ -228,8 +250,11 @@ internal sealed partial class BeamModuleCompiler
             bool allowColour = false
         )
         {
-            if (allowColour && guard is Expr.Binary { Operator: ErlangOperators.AndAlso,
-                Left: Expr.Binary { Operator: ErlangOperators.OrElse } })
+            if (allowColour && guard is Expr.Binary
+                {
+                    Operator: ErlangOperators.AndAlso,
+                    Left: Expr.Binary { Operator: ErlangOperators.OrElse }
+                })
             {
                 int colour = Array.FindIndex(parameters, argument => IsWxColourGuard(guard, argument));
                 if (colour >= 0)
@@ -240,8 +265,18 @@ internal sealed partial class BeamModuleCompiler
 
             if (guard is Expr.Binary { Operator: ErlangOperators.AndAlso or ErlangOperators.OrElse } binary)
             {
-                if (ReadForwardGuard(binary.Left, parameters, fields, allowColour) is not { } left
-                    || ReadForwardGuard(binary.Right, parameters, fields, allowColour) is not { } right)
+                if (ReadForwardGuard(
+                    binary.Left,
+                    parameters,
+                    fields,
+                    allowColour
+                ) is not { } left
+                    || ReadForwardGuard(
+                        binary.Right,
+                        parameters,
+                        fields,
+                        allowColour
+                    ) is not { } right)
                 {
                     return null;
                 }
@@ -254,7 +289,13 @@ internal sealed partial class BeamModuleCompiler
             if (owner.ReadRecordTest(guard) is { Value: Expr.Variable tested } record)
             {
                 int register = Array.IndexOf(parameters, tested.Name);
-                return register >= 0 ? new ForwardGuard.Test(IsTaggedTuple, register, record.Name, record.Arity) : null;
+
+                return register >= 0 ? new ForwardGuard.Test(
+                    IsTaggedTuple,
+                    register,
+                    record.Name,
+                    record.Arity
+                ) : null;
             }
 
             if (guard is Expr.Call
@@ -273,7 +314,12 @@ internal sealed partial class BeamModuleCompiler
 
                 if (opcode != 0 && fields?.TryGetValue(argument.Name, out var field) == true)
                 {
-                    return new ForwardGuard.FieldTest(opcode, field.Register, field.Index, parameters.Length);
+                    return new ForwardGuard.FieldTest(
+                        opcode,
+                        field.Register,
+                        field.Index,
+                        parameters.Length
+                    );
                 }
             }
 
@@ -298,7 +344,13 @@ internal sealed partial class BeamModuleCompiler
                     Mark(accepted);
                     break;
                 case ForwardGuard.Test { Tag: { } tag } test:
-                    owner.EmitRecordTest(failure, XRegisterTag, test.Register, tag, test.Arity);
+                    owner.EmitRecordTest(
+                        failure,
+                        XRegisterTag,
+                        test.Register,
+                        tag,
+                        test.Arity
+                    );
                     break;
                 case ForwardGuard.FieldTest field:
                     owner.EmitTuplePart(field.Register, field.Index, field.Scratch);
@@ -322,12 +374,19 @@ internal sealed partial class BeamModuleCompiler
                 && parameter.Name == argument.Name)
             {
                 int failure = Label();
-                owner.EmitRecordTest(failure, XRegisterTag, 0, value.Name, value.Arity);
+                owner.EmitRecordTest(
+                    failure,
+                    XRegisterTag,
+                    0,
+                    value.Name,
+                    value.Arity
+                );
                 owner.EmitConstant(Term.A("true"), 0);
                 owner.instructions.WriteByte(Return);
                 Mark(failure);
                 owner.EmitConstant(Term.A("false"), 0);
                 owner.instructions.WriteByte(Return);
+
                 return true;
             }
 
@@ -359,7 +418,13 @@ internal sealed partial class BeamModuleCompiler
             {
                 int accepted = Label();
                 int rejected = Label();
-                owner.EmitRecordTest(failed, XRegisterTag, 0, record.Name, record.Arity);
+                owner.EmitRecordTest(
+                    failed,
+                    XRegisterTag,
+                    0,
+                    record.Name,
+                    record.Arity
+                );
                 JumpTo(accepted);
                 Mark(failed);
                 owner.Op(IsInteger, LabelTag, rejected);
@@ -369,13 +434,20 @@ internal sealed partial class BeamModuleCompiler
             }
             else
             {
-                owner.EmitRecordTest(failed, XRegisterTag, 0, record.Name, record.Arity);
+                owner.EmitRecordTest(
+                    failed,
+                    XRegisterTag,
+                    0,
+                    record.Name,
+                    record.Arity
+                );
             }
             owner.EmitConstant(success.Value, 0);
             owner.instructions.WriteByte(Return);
             Mark(failed);
             owner.EmitConstant(fallback.Value, 0);
             owner.instructions.WriteByte(Return);
+
             return true;
         }
     }

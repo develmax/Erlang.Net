@@ -4,7 +4,12 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
-    private readonly record struct Deconstruction(byte Extract, Atom? Tag = null, int Arity = 0, int Element = 0);
+    private readonly record struct Deconstruction(
+        byte Extract,
+        Atom? Tag = null,
+        int Arity = 0,
+        int Element = 0
+    );
 
     private static bool TryDeconstruction(Clause clause, out Deconstruction result)
     {
@@ -32,7 +37,12 @@ internal sealed partial class BeamModuleCompiler
             }
             if (selected >= 0)
             {
-                result = new(GetTupleElement, tag, tuple.Items.Count, selected);
+                result = new(
+                    GetTupleElement,
+                    tag,
+                    tuple.Items.Count,
+                    selected
+                );
 
                 return true;
             }

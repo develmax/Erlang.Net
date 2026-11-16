@@ -70,7 +70,12 @@ internal static class Asn1BerErlangWriter
             WriteRecords(type, header, records);
             if (codecIndex < schema.Types.Count)
             {
-                bool tagged = TryCollectionTag(type, schema.Types, out int defaultTag, out int defaultTagByte);
+                bool tagged = TryCollectionTag(
+                    type,
+                    schema.Types,
+                    out int defaultTag,
+                    out int defaultTagByte
+                );
                 string encodeTags = tagged ? $"[<<{Number(defaultTagByte)}>>]" : "[]";
                 string decodeTags = tagged ? $"[{Number(defaultTag)}]" : "[]";
                 source.AppendLine($"{TermAtom("enc_" + name)}(Val) ->")
@@ -91,11 +96,21 @@ internal static class Asn1BerErlangWriter
                     .AppendLine();
                 continue;
             }
-            if (resolved.Kind == "sequence" && WriteSequence(source, name, resolved, schema))
+            if (resolved.Kind == "sequence" && WriteSequence(
+                source,
+                name,
+                resolved,
+                schema
+            ))
             {
                 continue;
             }
-            if (resolved.Kind == "choice" && WriteChoice(source, name, resolved, schema))
+            if (resolved.Kind == "choice" && WriteChoice(
+                source,
+                name,
+                resolved,
+                schema
+            ))
             {
                 continue;
             }
@@ -118,7 +133,12 @@ internal static class Asn1BerErlangWriter
                 string decode = $"decode_{resolved.Kind}(Tlv, TagIn)";
                 if (resolved.Range is { } range)
                 {
-                    decode = ConstrainInteger(decode, "Val1", range, schema.Values);
+                    decode = ConstrainInteger(
+                        decode,
+                        "Val1",
+                        range,
+                        schema.Values
+                    );
                 }
                 source.AppendLine(decode + ".");
                 if (resolved.Range is not null || resolved.Kind == "null")
@@ -129,9 +149,23 @@ internal static class Asn1BerErlangWriter
             else if (resolved is { Kind: "collection", Element: { } item })
             {
                 string element = item is { Kind: "ref", Name: { } target } ? target : name + "_SEQOF";
-                bool tagged = TryCollectionTag(item, schema.Types, out int tag, out int tagByte);
+                bool tagged = TryCollectionTag(
+                    item,
+                    schema.Types,
+                    out int tag,
+                    out int tagByte
+                );
                 bool octets = ResolveTaggedType(item, schema.Types).Kind == "octets";
-                WriteCollection(source, name, element, tag, tagByte, octets, tagged, schema.Types.ContainsKey(name));
+                WriteCollection(
+                    source,
+                    name,
+                    element,
+                    tag,
+                    tagByte,
+                    octets,
+                    tagged,
+                    schema.Types.ContainsKey(name)
+                );
             }
             else
             {
@@ -183,6 +217,7 @@ internal static class Asn1BerErlangWriter
         {
             type = type.Element!;
         }
+
         void Add(string childName, Asn1BerSchema.Type child)
         {
             while (child.Kind == "tagged")
@@ -207,12 +242,22 @@ internal static class Asn1BerErlangWriter
         }
     }
 
-    private static bool WriteChoice(StringBuilder source, string name, Asn1BerSchema.Type type, Asn1BerSchema schema)
+    private static bool WriteChoice(
+        StringBuilder source,
+        string name,
+        Asn1BerSchema.Type type,
+        Asn1BerSchema schema
+    )
     {
         var alternatives = new List<(string Name, int Tag, string Encode, string Decode)>();
         foreach (var field in type.Fields!)
         {
-            if (!TryCollectionTag(field.Type, schema.Types, out int tag, out int tagByte))
+            if (!TryCollectionTag(
+                field.Type,
+                schema.Types,
+                out int tag,
+                out int tagByte
+            ))
             {
                 return false;
             }
@@ -237,7 +282,12 @@ internal static class Asn1BerErlangWriter
             };
             if (resolved.Range is { } range)
             {
-                decode = ConstrainInteger(decode, "Val1", range, schema.Values);
+                decode = ConstrainInteger(
+                    decode,
+                    "Val1",
+                    range,
+                    schema.Values
+                );
             }
             alternatives.Add((field.Name, tag, $"{encode}(element(2,Val), [<<{Number(tagByte)}>>])", decode));
         }
@@ -280,10 +330,16 @@ internal static class Asn1BerErlangWriter
                 : "         exit({error,{asn1,{invalid_choice_tag,Else}}})")
             .AppendLine("   end")
             .AppendLine(".");
+
         return true;
     }
 
-    private static bool WriteSequence(StringBuilder source, string name, Asn1BerSchema.Type type, Asn1BerSchema schema)
+    private static bool WriteSequence(
+        StringBuilder source,
+        string name,
+        Asn1BerSchema.Type type,
+        Asn1BerSchema schema
+    )
     {
         if (type.Fields is not { Count: > 0 })
         {
@@ -294,7 +350,12 @@ internal static class Asn1BerErlangWriter
         int constrainedIntegerIndex = 0;
         foreach (var field in type.Fields!)
         {
-            bool tagged = TryCollectionTag(field.Type, schema.Types, out int tag, out int tagByte);
+            bool tagged = TryCollectionTag(
+                field.Type,
+                schema.Types,
+                out int tag,
+                out int tagByte
+            );
             if (!tagged && ResolveTaggedType(field.Type, schema.Types).Kind != "choice")
             {
                 return false;
@@ -310,7 +371,9 @@ internal static class Asn1BerErlangWriter
                     break;
                 case "enumerated":
                     string defaultName = "Default" + Number(++enumerationIndex);
-                    encode = "case Cindex{0} of\n" + string.Join(";\n", resolved.Numbers!.Select(entry =>
+                    encode = "case Cindex{0} of\n" + string.Join(
+                        ";\n",
+                        resolved.Numbers!.Select(entry =>
                     {
                         var bytes = new List<int> { entry.Value & 255 };
                         int remaining = entry.Value >> 8;
@@ -319,8 +382,10 @@ internal static class Asn1BerErlangWriter
                             bytes.Insert(0, remaining & 255);
                             remaining >>= 8;
                         }
+
                         return $"{TermAtom(entry.Key)} -> encode_tags([<<{Number(tagByte)}>>], [{string.Join(",", bytes.Select(Number))}], {Number(bytes.Count)})";
-                    })) + ";\nEnumval{0} -> exit({error,{asn1, {enumerated_not_in_range,Enumval{0}}}})\nend";
+                    })
+                    ) + ";\nEnumval{0} -> exit({error,{asn1, {enumerated_not_in_range,Enumval{0}}}})\nend";
                     decode = $"case decode_integer(V{{0}}, [{Number(tag)}]) of\n"
                         + string.Join(";\n", resolved.Numbers!.Select(entry => $"{Number(entry.Value)} -> {TermAtom(entry.Key)}"))
                         + $";\n{defaultName} -> {{asn1_enum,{defaultName}}}\nend";
@@ -332,7 +397,12 @@ internal static class Asn1BerErlangWriter
                     decode = $"decode_{resolved.Kind}(V{{0}}, [{Number(tag)}])";
                     if (resolved.Range is { } range)
                     {
-                        decode = ConstrainInteger(decode, "Val" + Number(++constrainedIntegerIndex), range, schema.Values);
+                        decode = ConstrainInteger(
+                            decode,
+                            "Val" + Number(++constrainedIntegerIndex),
+                            range,
+                            schema.Values
+                        );
                     }
                     break;
                 default:
@@ -431,7 +501,14 @@ internal static class Asn1BerErlangWriter
     }
 
     private static void WriteCollection(
-        StringBuilder source, string name, string element, int tag, int tagByte, bool octets, bool tagged, bool root
+        StringBuilder source,
+        string name,
+        string element,
+        int tag,
+        int tagByte,
+        bool octets,
+        bool tagged,
+        bool root
     )
     {
         string encodeTags = tagged ? $"[<<{Number(tagByte)}>>]" : "[]";
@@ -521,12 +598,15 @@ internal static class Asn1BerErlangWriter
     {
         if (type.Kind == "sequence" && records.Add(type.Name!))
         {
-            string fields = string.Join(",\n", type.Fields!.Select(field => "  " + TermAtom(field.Name) + (field.Presence switch
-            {
-                "optional" => " = asn1_NOVALUE",
-                "default_false" => " = asn1_DEFAULT",
-                _ => ""
-            })));
+            string fields = string.Join(
+                ",\n",
+                type.Fields!.Select(field => "  " + TermAtom(field.Name) + (field.Presence switch
+                {
+                    "optional" => " = asn1_NOVALUE",
+                    "default_false" => " = asn1_DEFAULT",
+                    _ => ""
+                }))
+            );
             header.AppendLine($"-record({Atom(type.Name!)}, {{")
                 .AppendLine(fields);
             if (type.Extensible)
@@ -548,13 +628,22 @@ internal static class Asn1BerErlangWriter
         }
     }
 
-    private static string ConstrainInteger(string decode, string variable, (string Lower, string Upper) range,
-        IReadOnlyDictionary<string, int> values) =>
+    private static string ConstrainInteger(
+        string decode,
+        string variable,
+        (string Lower, string Upper) range,
+        IReadOnlyDictionary<string, int> values
+    ) =>
         $"begin\n{variable} = {decode},\nif {Bound(range.Lower, values)} =< {variable}, {variable} =< {Bound(range.Upper, values)} ->\n{variable};\ntrue ->\nexit({{error,{{asn1,bad_range}}}})\nend\nend";
 
     private static string Bound(string bound, IReadOnlyDictionary<string, int> values)
     {
-        if (int.TryParse(bound, NumberStyles.AllowLeadingSign, CultureInfo.InvariantCulture, out int value)
+        if (int.TryParse(
+            bound,
+            NumberStyles.AllowLeadingSign,
+            CultureInfo.InvariantCulture,
+            out int value
+        )
             || values.TryGetValue(bound, out value))
         {
             return Number(value);
@@ -567,5 +656,6 @@ internal static class Asn1BerErlangWriter
         Erlang.Compiler.Lexer.Scan(value) is [{ Kind: "atom" }, _] ? value : Atom(value);
 
     private static string Atom(string value) => "'" + value + "'";
+
     private static string Number(int value) => value.ToString(CultureInfo.InvariantCulture);
 }

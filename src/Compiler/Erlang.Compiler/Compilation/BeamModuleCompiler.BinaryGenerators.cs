@@ -12,6 +12,7 @@ internal sealed partial class BeamModuleCompiler
             if (segments.Any(segment => FixedSize(segment.Specification) is null))
             {
                 EmitSizedBinaryGenerator(generator, reject, emitBody);
+
                 return;
             }
 
@@ -53,7 +54,13 @@ internal sealed partial class BeamModuleCompiler
             }
 
             int operandCount = segments.Sum(segment => IsWildcard(segment.Value) ? 2 : 6);
-            EmitBitMatchHeader(0, exhausted, operandCount + 3, width, BitSyntaxDefaults.BitStringUnit);
+            EmitBitMatchHeader(
+                0,
+                exhausted,
+                operandCount + 3,
+                width,
+                BitSyntaxDefaults.BitStringUnit
+            );
             var captures = new List<(Pattern Pattern, int Slot)>();
             for (int index = 0; index < segments.Count; index++)
             {
@@ -66,7 +73,13 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 int slot = Slot();
-                EmitBitSegment(segment.Specification, sizes[index], 1, YRegisterTag, slot);
+                EmitBitSegment(
+                    segment.Specification,
+                    sizes[index],
+                    1,
+                    YRegisterTag,
+                    slot
+                );
                 captures.Add((segment.Value, slot));
             }
 
@@ -78,7 +91,13 @@ internal sealed partial class BeamModuleCompiler
             {
                 Mark(exhausted);
                 Load(context);
-                EmitBitMatchHeader(0, mismatch, 2, 0, null);
+                EmitBitMatchHeader(
+                    0,
+                    mismatch,
+                    2,
+                    0,
+                    null
+                );
                 JumpTo(reject);
                 Mark(mismatch);
                 Load(context);
@@ -146,7 +165,13 @@ internal sealed partial class BeamModuleCompiler
                 Load(context);
                 owner.Op(SetBinaryPosition, XRegisterTag, 0);
                 owner.Operand(YRegisterTag, position);
-                EmitBitMatchHeader(0, mismatch, 2, 0, null);
+                EmitBitMatchHeader(
+                    0,
+                    mismatch,
+                    2,
+                    0,
+                    null
+                );
                 JumpTo(reject);
                 Mark(mismatch);
                 Load(context);

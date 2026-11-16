@@ -25,9 +25,12 @@ internal sealed partial class BeamModuleCompiler
                 firstArgument--;
             }
 
-            if (body[firstArgument] is not { Definition.Opcode: Move, Operands: [
-                { Kind: BeamOperandParameters.Y, TypeIndex: null } argument,
-                { Kind: BeamOperandParameters.X, Value.IsZero: true }] })
+            if (body[firstArgument] is not
+                {
+                    Definition.Opcode: Move, Operands: [
+                    { Kind: BeamOperandParameters.Y, TypeIndex: null } argument,
+                    { Kind: BeamOperandParameters.X, Value.IsZero: true }]
+                })
             {
                 continue;
             }
@@ -35,21 +38,32 @@ internal sealed partial class BeamModuleCompiler
             int arity = (int)body[call].Operands[0].Value;
             var written = new HashSet<int> { 0 };
             int store = firstArgument - 1;
-            while (store > 0 && body[store] is { Definition.Opcode: Move, Operands: [
-                { Kind: BeamOperandParameters.LiteralValue or BeamOperandParameters.Integer
-                    or BeamOperandParameters.Atom or BeamOperandParameters.Nil },
-                { Kind: BeamOperandParameters.X } destination] }
+            while (store > 0 && body[store] is
+                {
+                    Definition.Opcode: Move, Operands: [
+                    {
+                        Kind: BeamOperandParameters.LiteralValue or BeamOperandParameters.Integer
+                    or BeamOperandParameters.Atom or BeamOperandParameters.Nil
+                    },
+                    { Kind: BeamOperandParameters.X } destination]
+                }
                 && destination.Value < arity && written.Add((int)destination.Value))
             {
                 store--;
             }
 
             if (store < 2 || written.Count != arity - 1 || body[store].Offset < copied
-                || body[store] is not { Definition.Opcode: Move, Operands: [
-                    { Kind: BeamOperandParameters.X, Value.IsZero: true }, { Kind: BeamOperandParameters.Y } saved] }
+                || body[store] is not
+                {
+                    Definition.Opcode: Move, Operands: [
+                    { Kind: BeamOperandParameters.X, Value.IsZero: true }, { Kind: BeamOperandParameters.Y } saved]
+                }
                 || argument.Value == saved.Value
-                || body[store - 1] is not { Definition.Opcode: Move, Operands: [
-                    { Kind: BeamOperandParameters.Y } previous, { Kind: BeamOperandParameters.X } next] }
+                || body[store - 1] is not
+                {
+                    Definition.Opcode: Move, Operands: [
+                    { Kind: BeamOperandParameters.Y } previous, { Kind: BeamOperandParameters.X } next]
+                }
                 || previous.Value != saved.Value || next.Value >= arity || written.Contains((int)next.Value)
                 || body[store - 2].Definition.Opcode is not (LocalCall or ExternalCall or DynamicApply or CallFun or CallFunTyped))
             {
@@ -77,6 +91,7 @@ internal sealed partial class BeamModuleCompiler
         }
 
         output.Write(code.Span[copied..]);
+
         return output.ToArray();
     }
 }

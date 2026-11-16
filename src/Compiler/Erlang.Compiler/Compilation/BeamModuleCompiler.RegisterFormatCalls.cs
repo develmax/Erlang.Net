@@ -8,11 +8,17 @@ internal sealed partial class BeamModuleCompiler
     {
         private bool TryEmitListCallAndConstant(FunctionDefinition function)
         {
-            if (function.Clauses is not [{ Guard: null, Body: Expr.Sequence
+            if (function.Clauses is not [
                 {
-                    Items: [Expr.Call { Module: null, DynamicRemote: false, Arguments:
-                        [var format, Expr.List { Items.Count: > 0, Tail: null } values] } call, var result]
-                } } clause]
+                    Guard: null, Body: Expr.Sequence
+                    {
+                        Items: [Expr.Call
+                        {
+                            Module: null, DynamicRemote: false, Arguments:
+                        [var format, Expr.List { Items.Count: > 0, Tail: null } values]
+                        } call, var result]
+                    }
+                } clause]
                 || !HasUnconditionalParameters(clause) || values.Items.Count != function.Arity
                 || !entries.TryGetValue((call.Function, 2), out int target)
                 || !AttributeLiteral.TryNormalizeConstant(format, out Term prefix)
@@ -60,17 +66,26 @@ internal sealed partial class BeamModuleCompiler
 
         private bool TryEmitAppendFormatTail(FunctionDefinition function)
         {
-            if (function.Clauses is not [{ Guard: null, Body: Expr.Call
+            if (function.Clauses is not [
                 {
-                    Module: not (null or ErlangModuleNames.Module), DynamicRemote: false,
-                    Arguments:
+                    Guard: null, Body: Expr.Call
+                    {
+                        Module: not (null or ErlangModuleNames.Module), DynamicRemote: false,
+                        Arguments:
                     [
-                        Expr.Binary { Operator: ErlangOperators.Append, Left: var prefix,
-                            Right: Expr.Binary { Operator: ErlangOperators.Append, Left: Expr.Variable format,
-                                Right: var suffix } inner } outer,
+                        Expr.Binary
+                    {
+                        Operator: ErlangOperators.Append, Left: var prefix,
+                        Right: Expr.Binary
+                        {
+                            Operator: ErlangOperators.Append, Left: Expr.Variable format,
+                            Right: var suffix
+                        } inner
+                    } outer,
                         var arguments
                     ]
-                } call } clause]
+                    } call
+                } clause]
                 || !HasUnconditionalParameters(clause)
                 || !AttributeLiteral.TryNormalizeConstant(prefix, out Term head)
                 || !AttributeLiteral.TryNormalizeConstant(suffix, out Term tail))
@@ -97,11 +112,26 @@ internal sealed partial class BeamModuleCompiler
             int frame = cons ? 2 : 1;
             owner.Op(Allocate, BeamWire.UnsignedTag, frame);
             owner.Operand(BeamWire.UnsignedTag, function.Arity);
-            owner.MoveRegister(XRegisterTag, function.Arity - 1, YRegisterTag, 0);
+            owner.MoveRegister(
+                XRegisterTag,
+                function.Arity - 1,
+                YRegisterTag,
+                0
+            );
             if (cons)
             {
-                owner.MoveRegister(XRegisterTag, 0, YRegisterTag, 1);
-                owner.MoveRegister(XRegisterTag, 1, XRegisterTag, 0);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    0,
+                    YRegisterTag,
+                    1
+                );
+                owner.MoveRegister(
+                    XRegisterTag,
+                    1,
+                    XRegisterTag,
+                    0
+                );
             }
 
             owner.EmitConstant(tail, 1);
@@ -110,7 +140,12 @@ internal sealed partial class BeamModuleCompiler
             int append = owner.Import(ErlangModuleNames.Module, ErlangOperators.Append, 2);
             owner.Op(ExternalCall, BeamWire.UnsignedTag, 2);
             owner.Operand(BeamWire.UnsignedTag, append);
-            owner.MoveRegister(XRegisterTag, 0, XRegisterTag, 1);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                XRegisterTag,
+                1
+            );
             owner.EmitConstant(head, 0);
             owner.EmitArithmeticLine(outer.SourceLine, ref previous);
             owner.Op(ExternalCall, BeamWire.UnsignedTag, 2);
@@ -126,7 +161,12 @@ internal sealed partial class BeamModuleCompiler
             }
             else
             {
-                owner.MoveRegister(YRegisterTag, 0, XRegisterTag, 1);
+                owner.MoveRegister(
+                    YRegisterTag,
+                    0,
+                    XRegisterTag,
+                    1
+                );
             }
 
             owner.EmitCallLine(call, previous);

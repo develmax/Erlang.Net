@@ -13,7 +13,8 @@ internal sealed partial class BeamModuleCompiler
             Expr.Call Queue,
             Expr.Call? Receive,
             Expr.Call EnvironmentError,
-            Integer Command);
+            Integer Command
+        );
 
         private bool TryEmitWxTextCommand(FunctionDefinition function)
         {
@@ -21,6 +22,7 @@ internal sealed partial class BeamModuleCompiler
             if (function.Clauses is [var single] && ReadWxTextCommand(single) is { } command)
             {
                 EmitWxTextCommand(command, failure);
+
                 return true;
             }
 
@@ -45,6 +47,7 @@ internal sealed partial class BeamModuleCompiler
             TryEmitWxStaticCommand(first, guardFailure: next);
             Mark(Label());
             EmitWxTextCommand(fallback, failure);
+
             return true;
         }
 
@@ -80,8 +83,11 @@ internal sealed partial class BeamModuleCompiler
                 if (item is not Expr.Match
                     {
                         Pattern: Pattern.Variable { Name: not VariableScopeNames.Wildcard } output,
-                        Value: Expr.Call { Module: "unicode", Function: "characters_to_binary", DynamicRemote: false,
-                            Arguments: [Expr.Variable argument] } conversion
+                        Value: Expr.Call
+                        {
+                            Module: "unicode", Function: "characters_to_binary", DynamicRemote: false,
+                            Arguments: [Expr.Variable argument]
+                        } conversion
                     } || argument.Name != parameters[input] || !IsWxTextGuard(tests[input], input)
                     || !bound.Add(output.Name))
                 {
@@ -96,11 +102,20 @@ internal sealed partial class BeamModuleCompiler
             (Expr.Fun Mapper, Expr.Call Map)? options = null;
             if (cursor == parameters.Length - 1 && cursor > 0 && tests[cursor] is ForwardGuard.Test { Opcode: IsList } list
                 && list.Register == cursor && sequence.Items.Skip(cursor).Take(2).ToArray() is [
-                    Expr.Match { Pattern: Pattern.Variable { Name: not VariableScopeNames.Wildcard } mapper,
-                        Value: Expr.Fun { SelfName: null } lambda },
-                    Expr.Match { Pattern: Pattern.Variable { Name: not VariableScopeNames.Wildcard } mapped,
-                        Value: Expr.Call { Module: "lists", Function: "map", DynamicRemote: false,
-                            Arguments: [Expr.Variable mapperInput, Expr.Variable optionsInput] } map }]
+                    Expr.Match
+                {
+                    Pattern: Pattern.Variable { Name: not VariableScopeNames.Wildcard } mapper,
+                    Value: Expr.Fun { SelfName: null } lambda
+                },
+                    Expr.Match
+                {
+                    Pattern: Pattern.Variable { Name: not VariableScopeNames.Wildcard } mapped,
+                    Value: Expr.Call
+                    {
+                        Module: "lists", Function: "map", DynamicRemote: false,
+                        Arguments: [Expr.Variable mapperInput, Expr.Variable optionsInput]
+                    } map
+                }]
                 && optionsInput.Name == parameters[cursor] && mapperInput.Name == mapper.Name
                 && ReadWxOptions(lambda.Clauses, out _, out _)
                 && ClosureCaptures.Capture(lambda, bound.ToDictionary(binding => binding, _ => (Term)Nil.Value)).Count == 0
@@ -143,7 +158,15 @@ internal sealed partial class BeamModuleCompiler
                 receive = reply;
             }
 
-            return new(guard, conversions.ToArray(), options, queue, receive, (Expr.Call)environment.Clauses[1].Body, command);
+            return new(
+                guard,
+                conversions.ToArray(),
+                options,
+                queue,
+                receive,
+                (Expr.Call)environment.Clauses[1].Body,
+                command
+            );
         }
 
         private static bool IsWxTextGuard(ForwardGuard guard, int register) =>
@@ -161,7 +184,12 @@ internal sealed partial class BeamModuleCompiler
             EmitFrameAllocation(arity, frame);
             for (int input = arity - 1; input > 0; input--)
             {
-                owner.MoveRegister(XRegisterTag, input, YRegisterTag, arity - 1 - input);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    input,
+                    YRegisterTag,
+                    arity - 1 - input
+                );
             }
 
             BeamSourceLocation previous = location;
@@ -180,24 +208,59 @@ internal sealed partial class BeamModuleCompiler
             {
                 owner.EmitClosureAllocation(0, 1, 1);
                 EmitWxOptionMapper(options.Mapper, 1);
-                owner.MoveRegister(YRegisterTag, 0, XRegisterTag, 2);
-                owner.MoveRegister(XRegisterTag, 0, YRegisterTag, 0);
-                owner.MoveRegister(XRegisterTag, 1, XRegisterTag, 0);
-                owner.MoveRegister(XRegisterTag, 2, XRegisterTag, 1);
+                owner.MoveRegister(
+                    YRegisterTag,
+                    0,
+                    XRegisterTag,
+                    2
+                );
+                owner.MoveRegister(
+                    XRegisterTag,
+                    0,
+                    YRegisterTag,
+                    0
+                );
+                owner.MoveRegister(
+                    XRegisterTag,
+                    1,
+                    XRegisterTag,
+                    0
+                );
+                owner.MoveRegister(
+                    XRegisterTag,
+                    2,
+                    XRegisterTag,
+                    1
+                );
                 EmitCall(options.Map);
             }
 
             int missingEnvironment = Label();
             EmitWxEnvironmentCheck(1, missingEnvironment);
             owner.EmitTuplePart(1, 1, arity);
-            owner.MoveRegister(XRegisterTag, 0, XRegisterTag, arity - 1);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                XRegisterTag,
+                arity - 1
+            );
             if (arity == 3)
             {
-                owner.MoveRegister(YRegisterTag, 0, XRegisterTag, 1);
+                owner.MoveRegister(
+                    YRegisterTag,
+                    0,
+                    XRegisterTag,
+                    1
+                );
             }
 
             owner.EmitConstant(plan.Command, arity + 1);
-            owner.MoveRegister(YRegisterTag, frame - 1, XRegisterTag, 0);
+            owner.MoveRegister(
+                YRegisterTag,
+                frame - 1,
+                XRegisterTag,
+                0
+            );
             if (plan.Receive is { } reply)
             {
                 owner.Op(TrimFrame, BeamWire.UnsignedTag, frame);

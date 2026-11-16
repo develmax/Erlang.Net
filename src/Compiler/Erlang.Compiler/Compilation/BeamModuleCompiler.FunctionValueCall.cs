@@ -76,6 +76,7 @@ internal sealed partial class BeamModuleCompiler
             if (IsClosureSelfCall(apply))
             {
                 EmitClosureSelfCall(apply, tail: false);
+
                 return;
             }
 

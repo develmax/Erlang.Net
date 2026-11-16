@@ -13,7 +13,7 @@ internal sealed partial class BeamModuleCompiler
             if (body[index] is not { Definition.Opcode: GetList, Operands: [var list, var head, var tail] }
                 || body[index + 1] is not { Definition.Opcode: TestHeap } heap
                 || body[index + 2] is not
-                    { Definition.Opcode: PutList, Operands: [var first, var rest, var result] }
+                { Definition.Opcode: PutList, Operands: [var first, var rest, var result] }
                 || head != first || tail != rest || head == tail
                 || list.TypeIndex is not null || head.TypeIndex is not null || tail.TypeIndex is not null
                 || result is not { Kind: BeamOperandParameters.X, TypeIndex: null }
@@ -56,6 +56,7 @@ internal sealed partial class BeamModuleCompiler
         }
 
         output.Write(code.Span[copied..]);
+
         return output.ToArray();
     }
 }

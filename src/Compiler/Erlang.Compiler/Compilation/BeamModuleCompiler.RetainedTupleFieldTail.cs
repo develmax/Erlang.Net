@@ -32,13 +32,13 @@ internal sealed partial class BeamModuleCompiler
                 };
             }
             else if (clause.Body is Expr.Sequence
-                {
-                    Items:
+            {
+                Items:
                     [
                         Expr.Match { Pattern: Erlang.Pattern.Variable result, Value: Expr.Call innerCall },
                         Expr.Call outerCall
                     ]
-                } && DistinctBindings(retained, field, result))
+            } && DistinctBindings(retained, field, result))
             {
                 producer = innerCall;
                 tail = outerCall;
@@ -51,14 +51,29 @@ internal sealed partial class BeamModuleCompiler
 
             if (producer.Arguments is not [Expr.Variable projected] || projected.Name != field.Name
                 || ReadEntryCall(producer, [field.Name]) is not { } first
-                || ReadEntryCall(tail, [resultName], [retained.Name], allowControlTransfer: true) is not { SavedInputs.Count: > 0 } last)
+                || ReadEntryCall(
+                    tail,
+                    [resultName],
+                    [retained.Name],
+                    allowControlTransfer: true
+                ) is not { SavedInputs.Count: > 0 } last)
             {
                 return false;
             }
 
-            EmitDetailRecordTest(0, tuple.Items.Count, projection.Tag, owner.nextLabel - 2);
+            EmitDetailRecordTest(
+                0,
+                tuple.Items.Count,
+                projection.Tag,
+                owner.nextLabel - 2
+            );
             EmitFrameAllocation(1, 1);
-            owner.MoveRegister(XRegisterTag, 0, YRegisterTag, 0);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                0
+            );
             owner.EmitTuplePart(0, projection.Index, 0);
             EmitEntryCall(first);
             owner.EmitOrderedTailMoves(last.Moves, last.Constants, last.SavedInputs);
