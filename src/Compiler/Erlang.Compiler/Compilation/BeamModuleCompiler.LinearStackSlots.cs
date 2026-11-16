@@ -28,14 +28,16 @@ internal sealed partial class BeamModuleCompiler
                 ? FindLinearFrameSuffix(body, entry, end)
                 : FindEntryFrameAllocation(body, entry, end);
             var linear = PlanLinearStackSlots(body, frame, end, includeUnchanged: useValueLiveness);
-            if (useValueLiveness && linear is null)
+            var allocation = linear is { } layout && !useValueLiveness
+                ? (layout.Count, layout.Slots, Trim: ((int Index, int OriginalRemoved, int Kept)?)null)
+                : !useValueLiveness || linear is not null
+                    ? PlanBranchStackSlots(body, entry, end, linearAllocation: useValueLiveness ? frame : -1)
+                    : null;
+            if (useValueLiveness)
             {
-                continue;
+                allocation ??= PlanSavedEntrySlotOrder(body, FindEntryFrameAllocation(body, entry, end), end);
             }
 
-            var allocation = useValueLiveness || linear is null
-                ? PlanBranchStackSlots(body, entry, end, linearAllocation: useValueLiveness ? frame : -1)
-                : (linear.Value.Count, linear.Value.Slots, Trim: ((int Index, int OriginalRemoved, int Kept)?)null);
             if (allocation is not { } plan)
             {
                 continue;
@@ -132,6 +134,64 @@ internal sealed partial class BeamModuleCompiler
         output.Write(code.Span[copied..]);
 
         return output.ToArray();
+    }
+
+    private static (int Count, int[] Slots, (int Index, int OriginalRemoved, int Kept)? Trim)? PlanSavedEntrySlotOrder(
+        IReadOnlyList<BeamInstruction> body,
+        int allocation,
+        int end
+    )
+    {
+        if (allocation < 0)
+        {
+            return null;
+        }
+
+        int count = (int)body[allocation].Operands[0].Value;
+        int live = (int)body[allocation].Operands[^1].Value;
+        if (count < 2 || count > live || count >= end - allocation)
+        {
+            return null;
+        }
+
+        var entriesBySlot = new Dictionary<int, int>(count);
+        var inputs = new HashSet<int>();
+        for (int index = allocation + 1; index <= allocation + count; index++)
+        {
+            if (body[index] is not { Definition.Opcode: Move, Operands: [
+                    { Kind: BeamOperandParameters.X, TypeIndex: null } input,
+                    { Kind: BeamOperandParameters.Y } slot] }
+                || input.Value >= live || slot.Value >= count
+                || !inputs.Add((int)input.Value) || !entriesBySlot.TryAdd((int)slot.Value, (int)input.Value))
+            {
+                return null;
+            }
+        }
+
+        for (int index = allocation + count + 1; index < end; index++)
+        {
+            var instruction = body[index];
+            if (instruction.Definition.Opcode is Allocate or AllocateHeap or TrimFrame or TryEnter or CatchEnter
+                || instruction.Definition.Name is "debug_line" or "executable_line")
+            {
+                return null;
+            }
+        }
+
+        // OTP reverses the reserved argument slots when numbering the frame.
+        var slots = new int[count];
+        int destination = 0;
+        foreach (int slot in entriesBySlot.Keys.OrderByDescending(slot => entriesBySlot[slot]))
+        {
+            slots[slot] = destination++;
+        }
+
+        if (slots.Select((slot, index) => slot == index).All(same => same))
+        {
+            return null;
+        }
+
+        return (count, slots, null);
     }
 
     private static int FindLinearFrameSuffix(IReadOnlyList<BeamInstruction> body, int entry, int end)

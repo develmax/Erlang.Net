@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1815. When the entry spills initialize every slot with a distinct input, number their Y slots in reverse X order and remap all accesses. Reuse the existing stack operand writer. [Evidence](validation/part-1815/README.md).
+
 Part 1814. Allow the entry planner to project a tuple field before allocating a frame when the next test uses that field. Preserve the original frame placement for projections needed only during call argument preparation. [Evidence](validation/part-1814/README.md).
 
 Part 1813. Move test_heap before remove_message while retaining the existing GC root prefix. Preserve the heap request and the order of the other instructions. [Evidence](validation/part-1813/README.md).

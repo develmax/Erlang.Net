@@ -1,5 +1,7 @@
 # Next steps
 
+Apply OTP call preparation ordering to independent stack argument loads. [Evidence](validation/part-1815/README.md).
+
 Match the numbering of fully saved entry frames. [Evidence](validation/part-1814/README.md).
 
 Compare atom dispatch, argument preparation and the remaining frame boundaries with pinned OTP. [Evidence](validation/part-1813/README.md).

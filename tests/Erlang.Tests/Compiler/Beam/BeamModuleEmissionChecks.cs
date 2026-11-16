@@ -463,6 +463,7 @@ internal static class BeamModuleEmissionChecks
         CompareFramelessLocalTailWithReceive();
         CompareUnreachableAnnotatedRecordError();
         CompareLeadingTupleProjection();
+        CompareSavedEntryStackSlots();
         CompareReceiveLoopStackSlots();
         CompareHeapCallResult();
         CompareMatchFailureLines();
@@ -1944,6 +1945,32 @@ internal static class BeamModuleEmissionChecks
         if (code.AsSpan().IndexOf(projection) < 0)
         {
             throw new InvalidOperationException("Expected the leading tuple field to feed the entry test in X1.");
+        }
+    }
+
+    private static void CompareSavedEntryStackSlots()
+    {
+        const string source = """
+            -module(beam_entry_slot_order).
+            -export([run/3]).
+
+            run(Key, Values, Default) ->
+                case lists:member(Key, Values) of
+                    true -> Values;
+                    false -> [Default|Values]
+                end.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_entry_slot_order.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> ordered =
+        [
+            BeamEmissionFormat.Allocate, 0x20, 0x30,
+            BeamEmissionFormat.Move, 0x23, 0x04,
+            BeamEmissionFormat.Move, 0x13, 0x14
+        ];
+        if (code.AsSpan().IndexOf(ordered) < 0)
+        {
+            throw new InvalidOperationException("Expected the higher saved input to occupy the first Y slot.");
         }
     }
 
