@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1811. Reuse BEAM result forwarding and heap-root analysis. Compare both receive behavior and frame size against pinned OTP. No dependency was added. [Evidence](validation/part-1811/README.md).
+
 Part 1810. Reuse the existing allocation liveness and compare the GC root prefix with pinned OTP. No dependency was added. [Evidence](validation/part-1810/README.md).
 
 Part 1809. Reuse the compiler label reachability checks. Keep the next function metadata and validate the reachable record error paths against OTP. No dependency was added. [Evidence](validation/part-1809/README.md).

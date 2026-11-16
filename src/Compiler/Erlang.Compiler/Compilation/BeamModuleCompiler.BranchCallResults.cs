@@ -11,7 +11,6 @@ internal sealed partial class BeamModuleCompiler
     )
     {
         using var output = new MemoryStream();
-        var result = new BeamOperand(BeamOperandParameters.X, 0);
         BeamProjectionFlow? flow = null;
         int copied = 0;
         int operand = 0;
@@ -28,12 +27,23 @@ internal sealed partial class BeamModuleCompiler
             bool? hasHandler = null;
             for (int save = entry + 1; save + 1 < end; save++)
             {
-                if (body[save - 1].Definition.Opcode is not (LocalCall or ExternalCall or DynamicApply or CallFun or CallFunTyped)
-                    || body[save] is not { Definition.Opcode: Move, Operands: [var source, var slot] }
-                    || source != result || slot is not { Kind: BeamOperandParameters.Y, TypeIndex: null })
+                if (body[save] is not { Definition.Opcode: Move, Operands: [var source, var slot] }
+                    || source is not { Kind: BeamOperandParameters.X, TypeIndex: null }
+                    || slot is not { Kind: BeamOperandParameters.Y, TypeIndex: null })
                 {
                     continue;
                 }
+
+                byte producer = body[save - 1].Definition.Opcode;
+                bool call = source.Value.IsZero
+                    && producer is LocalCall or ExternalCall or DynamicApply or CallFun or CallFunTyped;
+                bool received = producer == RemoveMessage && source.Value <= 1;
+                if (!call && !received)
+                {
+                    continue;
+                }
+
+                BeamOperand result = source;
 
                 int next = save + 1;
                 while (next < end && body[next].Definition.Opcode == Line)
@@ -53,13 +63,18 @@ internal sealed partial class BeamModuleCompiler
                     && next + 1 < end && body[next + 1].Definition.Opcode is PutTuple or PutList or UpdateRecord;
                 bool independentBranch = (IsEntryFramePredicate(opcode) || opcode is SelectValue or SelectTupleArity)
                     && !first.Operands.Any(value => SameProjectionRegister(value, result));
-                if (!(heap || independentBranch) || (hasHandler ??= body.Skip(entry).Take(end - entry)
+                if (!(heap || call && independentBranch) || (hasHandler ??= body.Skip(entry).Take(end - entry)
                         .Any(instruction => instruction.Definition.Opcode is TryEnter or CatchEnter)))
                 {
                     continue;
                 }
 
                 flow ??= new BeamProjectionFlow(body);
+                if (received && !flow.HasReceivedMessagePrefix(save, result))
+                {
+                    continue;
+                }
+
                 if (flow.PlanSavedCallResult(
                     save,
                     end,
@@ -85,7 +100,7 @@ internal sealed partial class BeamModuleCompiler
                 {
                     int live = body[next + 1].Offset - 1;
                     output.Write(code.Span[copied..live]);
-                    BeamCompactWriter.Write(output, BeamWire.UnsignedTag, 1);
+                    BeamCompactWriter.Write(output, BeamWire.UnsignedTag, result.Value + 1);
                     copied = live + 1;
                 }
 
@@ -134,6 +149,36 @@ internal sealed partial class BeamModuleCompiler
 
     private sealed partial class BeamProjectionFlow
     {
+        internal bool HasReceivedMessagePrefix(int save, BeamOperand message)
+        {
+            int index = save;
+            var original = new BeamOperand(BeamOperandParameters.X, 0);
+            while (predecessors[index] is [int previous] && previous < index)
+            {
+                BeamInstruction instruction = body[previous];
+                byte opcode = instruction.Definition.Opcode;
+                if (opcode == LoopReceive)
+                {
+                    return message == original && index == previous + 1
+                        && SameProjectionRegister(instruction.Operands[1], original);
+                }
+
+                if (opcode == Move && instruction.Operands[0] == original && instruction.Operands[1] == message)
+                {
+                    // The copy proves that X0 is initialized as well as X1.
+                    message = original;
+                }
+                else if (opcode is not (Label or Line or RemoveMessage) && !IsEntryFramePredicate(opcode))
+                {
+                    return false;
+                }
+
+                index = previous;
+            }
+
+            return false;
+        }
+
         internal HashSet<int>? PlanSavedCallResult(
             int save,
             int end,
@@ -221,7 +266,7 @@ internal sealed partial class BeamModuleCompiler
 
                 bool reload = opcode == Move && readsSlot;
                 inResult &= !(call || writesResult && !reload
-                    || opcode == TestHeap && instruction.Operands[^1].Value.IsZero && index != retainedHeap);
+                    || opcode == TestHeap && instruction.Operands[^1].Value <= result.Value && index != retainedHeap);
                 if (inResult)
                 {
                     preserves.Add(index);

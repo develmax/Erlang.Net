@@ -1828,7 +1828,10 @@ internal static class BeamModuleEmissionChecks
 
             run(passive, _, 0, []) ->
                 receive
-                    notify -> done()
+                    notify -> done();
+                    Message ->
+                        note({unexpected, Message}),
+                        run(passive, undefined, 0, [])
                 after 0 -> passive
                 end;
             run(processes, Limit, 0, []) ->
@@ -1854,6 +1857,12 @@ internal static class BeamModuleEmissionChecks
         if (code.AsSpan().IndexOf(passiveFrame) < 0 || code.AsSpan().IndexOf(savedInputs) >= 0)
         {
             throw new InvalidOperationException("Expected the passive receive frame to preserve no incoming X registers.");
+        }
+
+        ReadOnlySpan<byte> messageHeap = [BeamEmissionFormat.TestHeap, 0x30, 0x20, BeamEmissionFormat.PutTuple];
+        if (code.AsSpan().IndexOf(messageHeap) < 0)
+        {
+            throw new InvalidOperationException("Expected the received message to stay in X1 during heap allocation.");
         }
 
         ReadOnlySpan<byte> tail = [0x33, BeamEmissionFormat.TailLocalCall, 0x00];
