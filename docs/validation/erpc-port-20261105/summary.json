@@ -1,0 +1,174 @@
+{
+  "Baseline": "OTP-29.1.1",
+  "BaselineCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "CheckoutHead": "20e02eb941ef3b99cb675827ef0f20663da7c04b",
+  "SharedDirtyCheckout": true,
+  "Matrix": [
+    {
+      "Backend": "Managed",
+      "Depth": 0,
+      "Cases": 330,
+      "Passed": 330,
+      "Exports": 33
+    },
+    {
+      "Backend": "Beam",
+      "Depth": 0,
+      "Cases": 330,
+      "Passed": 330,
+      "Exports": 33
+    },
+    {
+      "Backend": "Managed",
+      "Depth": 3,
+      "Cases": 330,
+      "Passed": 330,
+      "Exports": 33
+    },
+    {
+      "Backend": "Beam",
+      "Depth": 3,
+      "Cases": 330,
+      "Passed": 330,
+      "Exports": 33
+    },
+    {
+      "Backend": "Managed",
+      "Depth": 8,
+      "Cases": 330,
+      "Passed": 330,
+      "Exports": 33
+    },
+    {
+      "Backend": "Beam",
+      "Depth": 8,
+      "Cases": 330,
+      "Passed": 330,
+      "Exports": 33
+    },
+    {
+      "Backend": "Managed",
+      "Depth": 32,
+      "Cases": 330,
+      "Passed": 330,
+      "Exports": 33
+    },
+    {
+      "Backend": "Beam",
+      "Depth": 32,
+      "Cases": 330,
+      "Passed": 330,
+      "Exports": 33
+    }
+  ],
+  "Connected": {
+    "Cases": 8,
+    "Passed": 8
+  },
+  "Sources": [
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Kernel/Rpc/Erpc.cs",
+      "Sha256": "E0164D40C15470DAE702494511D62ADFE286FE6F2268BB5FFBDF7441014D56DB"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Kernel/Rpc/Erpc.Failures.cs",
+      "Sha256": "A9947870E2D06C50F8715242E8B751E17BA52B5AB9CAFE9021A350AABEC9312C"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Kernel/Rpc/Erpc.Multicall.cs",
+      "Sha256": "3CBA108A46801071B53F90511099CFB0D0834DAF0117048DAADF52D1BC8F1D45"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Kernel/Rpc/Erpc.Requests.cs",
+      "Sha256": "5031D76A2241F9173B75E0CCE4FAC777B1F932276C60A6EC547798965531A5E6"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Kernel/Rpc/ErpcAtoms.cs",
+      "Sha256": "CCB990028F5CE063885E9F08B7B7CA31F27EB55374378256865591023F959F80"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Kernel/Rpc/ErpcLibrary.cs",
+      "Sha256": "128C80ADA9E218DB79642E199F05FFC103C454A037A0B5B4A46A7504FAD7A633"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Kernel/Rpc/ErpcNames.cs",
+      "Sha256": "6CCAE1F3EDB3BABAEC886EB8690A757BA6B3D1B636729286D55519377F2A4C00"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Kernel/Rpc/ErpcSource.cs",
+      "Sha256": "7413AB7CBA6C36BEE4B4072E6E611475E8638EAB6B2865932AA5D96C8328C1DC"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Kernel/Rpc/ErpcSourceLines.cs",
+      "Sha256": "D3D702629124FF48AEFE67F899CCA22D58DBA0424451DF8BE0EE17AB735B534A"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Kernel/Rpc/ErpcStack.cs",
+      "Sha256": "4E94316740AE7B54DF29F5CD32A0EDE53AF0F47029A209A73871DED4908587B7"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Kernel/Rpc/ErpcTimeout.cs",
+      "Sha256": "0CD2DBF12484D571BB6BC370F11495D3CE46BC3399D5E85DB0A136D31D179F89"
+    },
+    {
+      "Path": "tools/Validation/Erlang.ErpcCompatibility/ErpcConnectedChecks.cs",
+      "Sha256": "5761BA161BB11F84F7079C9094B1951F4177FF83B6A79DB81D0FA5679D0DFAB5"
+    },
+    {
+      "Path": "tools/Validation/Erlang.ErpcCompatibility/ErpcValidationDiagnostics.cs",
+      "Sha256": "A15524602D9E32F0A13FD412A0EF1EE6F9CFDA12E036EA3C3B70A919642926F3"
+    },
+    {
+      "Path": "tools/Validation/Erlang.ErpcCompatibility/ErpcValidationProvenance.cs",
+      "Sha256": "226BCBD4B54380004C481803A8CD6514A1A5A5EFF52D7CA2F915C58006814747"
+    },
+    {
+      "Path": "tools/Validation/Erlang.ErpcCompatibility/Program.cs",
+      "Sha256": "0ED26B14912DA87EEB738826CF3737EAF2E7987BF159E38372521004255DA25E"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Kernel/Registration/KernelModules.cs",
+      "Sha256": "4B1491E7153B35DA06C63AE82CA6F75CC966DC73920939CF51E549962813DED3"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Kernel/Registration/ManagedKernelRegistration.cs",
+      "Sha256": "FEA2540A46E3CE161E1AF25A6DDBF20E588F5223D8D2EE5047E02129ECAB1EE2"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Modules/LibrarySelectionNames.cs",
+      "Sha256": "19A78E9AF958139A0D23095EC8858D28E03616AD56BCB88A100D1F5772BA5990"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ErpcLibraryModuleNames.cs",
+      "Sha256": "37E6205AF41A35C8D061BB1B77C934815B1BB0225BD83B2C1E521E4E3852EACE"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Modules/RuntimeManagedLibraries456.cs",
+      "Sha256": "5A643E1EEFD87AD849B6F4880310C0C5F7EFDC73F65FDDCAF104004A600ED9F9"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Modules/RuntimeManagedLibraryStage456.cs",
+      "Sha256": "4FA22FBF15B620497EB0DCF7B8134A65F8518F6874CB06064894B98F801C9792"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.LibrarySelection.cs",
+      "Sha256": "A100D408FA5D9EE31821BDD6CE020C779EF497B77D78CA40365F650C16920DCB"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Support/FriendAssemblies.cs",
+      "Sha256": "6FAFA67E1488FCD41F57CE1F8F0E3D307DE6744064E2618094ABB3170CA8C7F4"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Support/TermsLibraryAssemblyNames456.cs",
+      "Sha256": "6B507242B46E526D9F990737B25F12D05DA65A9051261CCEE005EAE17CDB55C2"
+    },
+    {
+      "Path": "tools/validate-erpc-original.ps1",
+      "Sha256": "E4D0CA768F533EE5EB7486F407015A9463ABD39340419CB310BA623BC9C66ED2"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Kernel/Rpc/Rpc.cs",
+      "Sha256": "9733D9342A43BAFC4877DCE7087E071B001D76AFD090A8E680A2B476EDF77440"
+    }
+  ]
+}

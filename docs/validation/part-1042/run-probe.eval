@@ -1,0 +1,8 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, tail_frame_probe} = code:load_binary(tail_frame_probe, Path, Binary),
+[{a, sample, c, b}] = tail_frame_probe:run(a, b, c),
+{beam_file, _, _, _, _, Functions} = beam_disasm:file(Path),
+[io:format("~p~n", [F]) || F = {function, Name, _, _, _} <- Functions,
+    lists:prefix("-run/3-fun-", atom_to_list(Name))],
+halt().

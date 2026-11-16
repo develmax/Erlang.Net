@@ -1,0 +1,3 @@
+-module(debug_header_attribute_probe).
+-export([value/1]).
+-include("debug_header_attribute_probe.hrl").

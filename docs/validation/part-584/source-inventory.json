@@ -1,0 +1,183 @@
+{
+  "Baseline": "OTP-29.1.1",
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "UnchangedApplicationSource": true,
+  "SourceSha256": "357533BE5EFB8641486E7F087501A04599DB862D4FC47C17153CEB6A8045C6EA",
+  "Exports": [
+    {
+      "Function": "ensure_all_started",
+      "Arity": 1
+    },
+    {
+      "Function": "ensure_all_started",
+      "Arity": 2
+    },
+    {
+      "Function": "ensure_all_started",
+      "Arity": 3
+    },
+    {
+      "Function": "start",
+      "Arity": 1
+    },
+    {
+      "Function": "start",
+      "Arity": 2
+    },
+    {
+      "Function": "start_boot",
+      "Arity": 1
+    },
+    {
+      "Function": "start_boot",
+      "Arity": 2
+    },
+    {
+      "Function": "stop",
+      "Arity": 1
+    },
+    {
+      "Function": "load",
+      "Arity": 1
+    },
+    {
+      "Function": "load",
+      "Arity": 2
+    },
+    {
+      "Function": "unload",
+      "Arity": 1
+    },
+    {
+      "Function": "takeover",
+      "Arity": 2
+    },
+    {
+      "Function": "which_applications",
+      "Arity": 0
+    },
+    {
+      "Function": "which_applications",
+      "Arity": 1
+    },
+    {
+      "Function": "loaded_applications",
+      "Arity": 0
+    },
+    {
+      "Function": "permit",
+      "Arity": 2
+    },
+    {
+      "Function": "ensure_started",
+      "Arity": 1
+    },
+    {
+      "Function": "ensure_started",
+      "Arity": 2
+    },
+    {
+      "Function": "set_env",
+      "Arity": 1
+    },
+    {
+      "Function": "set_env",
+      "Arity": 2
+    },
+    {
+      "Function": "set_env",
+      "Arity": 3
+    },
+    {
+      "Function": "set_env",
+      "Arity": 4
+    },
+    {
+      "Function": "unset_env",
+      "Arity": 2
+    },
+    {
+      "Function": "unset_env",
+      "Arity": 3
+    },
+    {
+      "Function": "get_env",
+      "Arity": 1
+    },
+    {
+      "Function": "get_env",
+      "Arity": 2
+    },
+    {
+      "Function": "get_env",
+      "Arity": 3
+    },
+    {
+      "Function": "get_all_env",
+      "Arity": 0
+    },
+    {
+      "Function": "get_all_env",
+      "Arity": 1
+    },
+    {
+      "Function": "get_key",
+      "Arity": 1
+    },
+    {
+      "Function": "get_key",
+      "Arity": 2
+    },
+    {
+      "Function": "get_all_key",
+      "Arity": 0
+    },
+    {
+      "Function": "get_all_key",
+      "Arity": 1
+    },
+    {
+      "Function": "get_application",
+      "Arity": 0
+    },
+    {
+      "Function": "get_application",
+      "Arity": 1
+    },
+    {
+      "Function": "get_supervisor",
+      "Arity": 1
+    },
+    {
+      "Function": "info",
+      "Arity": 0
+    },
+    {
+      "Function": "start_type",
+      "Arity": 0
+    },
+    {
+      "Function": "behaviour_info",
+      "Arity": 1
+    }
+  ],
+  "Count": 39,
+  "GeneratedExportsExcluded": [
+    "module_info/0",
+    "module_info/1"
+  ],
+  "ImplementationSources": {
+    "src/Otp/Managed/Erlang.Otp.Kernel/Application/ApplicationApi.cs": "B290B17342D64D6698BC42680AB5817E61BA767CEC9212DAE73D881C35184A70",
+    "src/Otp/Managed/Erlang.Otp.Kernel/Application/ApplicationModule.cs": "26B89E2F77E4C7B3F134C8CE5AFC7DE6498018EDE1F0FC6FCCBE1C50817482D8",
+    "src/Otp/Managed/Erlang.Otp.Kernel/Application/ApplicationModule.StartGraph.cs": "70C3117B7EDF19E2084329D19B834BB1761589FF42E13F058E78CDCF764E4CF2",
+    "src/Otp/Managed/Erlang.Otp.Kernel/Application/ApplicationProtocol.cs": "4853B2DCA188EE013F3330CEB8251F071CE95A20BBFDF82F00AA09B0FF45F72F",
+    "src/Otp/Managed/Erlang.Otp.Kernel/Application/ApplicationSource.cs": "851559564B5B28D2A91AC32C8BD257BE9868F5D9668A3F22735FDBE209836932",
+    "src/Runtime/Erlang.Runtime.Core/Modules/ApplicationLibraryNames.cs": "A5BC4C53F7318CB9266A6D8950DAF5B566C54A4A59774592DCA0F35E8CD5F22B",
+    "src/Otp/Managed/Erlang.Otp.Kernel/Registration/ManagedKernelRegistration.cs": "800F0653DEA9A3159F1544821F26C06063C9A1913728227C3D10AE4DEDC37D7E",
+    "src/Runtime/Erlang.Runtime.Core/Modules/LibrarySelectionNames.cs": "19A78E9AF958139A0D23095EC8858D28E03616AD56BCB88A100D1F5772BA5990",
+    "src/Runtime/Erlang.Runtime.Core/Modules/RuntimeManagedLibraryStage456.cs": "4FA22FBF15B620497EB0DCF7B8134A65F8518F6874CB06064894B98F801C9792",
+    "src/Runtime/Erlang.Runtime.Core/Modules/RuntimeManagedLibraries456.cs": "7F0FD1EE13B5FAC60DB1749B98878FF9053A39F23590AE209FD81B6849D9C610",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.LibrarySelection.cs": "A100D408FA5D9EE31821BDD6CE020C779EF497B77D78CA40365F650C16920DCB"
+  },
+  "SemanticsClaim": "Inventory and byte identity; semantic acceptance is recorded separately."
+}

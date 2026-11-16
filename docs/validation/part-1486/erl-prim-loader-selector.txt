@@ -1,0 +1,620 @@
+OTP 29.1.1
+{label,82}
+{line,[{location,"erl_prim_loader.erl",424}]}
+{func_info,{atom,erl_prim_loader},{atom,check_file_result},3}
+{label,83}
+{test,is_tagged_tuple,{f,94},[{x,2},2,{atom,error}]}
+{get_tuple_element,{x,2},1,{x,2}}
+{select_val,{x,2},
+            {f,84},
+            {list,[{atom,einval},
+                   {f,93},
+                   {atom,enoent},
+                   {f,93},
+                   {atom,enotdir},
+                   {f,93}]}}
+{label,84}
+{test,is_atom,{f,93},[{x,2}]}
+{allocate,5,3}
+{init_yregs,{list,[{y,0},{y,1},{y,2}]}}
+{move,{x,1},{y,3}}
+{move,{x,0},{y,4}}
+{move,{x,2},{x,0}}
+{line,[{location,"erl_prim_loader.erl",431}]}
+{call_ext,1,{extfunc,erlang,atom_to_list,1}}
+{bif,self,nofail,[],{x,1}}
+{move,{x,0},{y,2}}
+{move,{x,1},{x,0}}
+{move,{atom,registered_name},{x,1}}
+{line,[{location,"erl_prim_loader.erl",433}]}
+{call_ext,2,{extfunc,erlang,process_info,2}}
+{test,is_tagged_tuple,{f,85},[{x,0},2,{atom,registered_name}]}
+{get_tuple_element,{x,0},1,{x,0}}
+{line,[{location,"erl_prim_loader.erl",435}]}
+{call_ext,1,{extfunc,erlang,atom_to_list,1}}
+{move,{literal,"."},{x,1}}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{literal,"Process: "},{x,0}}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{y,1}}
+{jump,{f,86}}
+{label,85}
+{move,nil,{y,1}}
+{label,86}
+{test,is_atom,{f,87},[{y,3}]}
+{move,{y,3},{x,0}}
+{init_yregs,{list,[{y,3}]}}
+{line,[{location,"erl_prim_loader.erl",440}]}
+{call_ext,1,{extfunc,erlang,atom_to_list,1}}
+{move,{x,0},{y,3}}
+{jump,{f,88}}
+{label,87}
+{test,is_list,{f,89},[{y,3}]}
+{label,88}
+{test,is_ne_exact,{f,89},[{tr,{y,3},{t_list,any,any}},nil]}
+{move,{y,4},{x,0}}
+{init_yregs,{list,[{y,4}]}}
+{line,[{location,"erl_prim_loader.erl",452}]}
+{call_ext,1,{extfunc,erlang,atom_to_list,1}}
+{test_heap,4,1}
+{put_list,{integer,32},{y,1},{x,1}}
+{put_list,{integer,46},{x,1},{x,1}}
+{init_yregs,{list,[{y,1}]}}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{literal,"Function: "},{x,0}}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{test_heap,4,1}
+{put_list,{integer,32},{x,0},{x,0}}
+{put_list,{integer,46},{x,0},{x,1}}
+{move,{y,3},{x,0}}
+{init_yregs,{list,[{y,3}]}}
+{line,[{location,"erl_prim_loader.erl",451}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{literal,"Target: "},{x,0}}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{test_heap,4,1}
+{put_list,{integer,32},{x,0},{x,0}}
+{put_list,{integer,46},{x,0},{x,1}}
+{move,{y,2},{x,0}}
+{init_yregs,{list,[{y,2}]}}
+{line,[{location,"erl_prim_loader.erl",450}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{literal,"File operation error: "},{x,0}}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{y,3}}
+{jump,{f,90}}
+{label,89}
+{move,{y,4},{x,0}}
+{init_yregs,{list,[{y,4}]}}
+{line,[{location,"erl_prim_loader.erl",448}]}
+{call_ext,1,{extfunc,erlang,atom_to_list,1}}
+{test_heap,4,1}
+{put_list,{integer,32},{y,1},{x,1}}
+{put_list,{integer,46},{x,1},{x,1}}
+{init_yregs,{list,[{y,1}]}}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{literal,"Function: "},{x,0}}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{test_heap,4,1}
+{put_list,{integer,32},{x,0},{x,0}}
+{put_list,{integer,46},{x,0},{x,1}}
+{move,{y,2},{x,0}}
+{init_yregs,{list,[{y,2}]}}
+{line,[{location,"erl_prim_loader.erl",447}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{literal,"File operation error: "},{x,0}}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{y,3}}
+{label,90}
+{'try',{y,4},{f,91}}
+{put_map_assoc,{f,0},
+               {literal,#{}},
+               {y,2},
+               0,
+               {list,[{atom,label},
+                      {literal,{erl_prim_loader,file_error}},
+                      {atom,report},
+                      {y,3}]}}
+{bif,self,nofail,[],{y,1}}
+{call_ext,0,{extfunc,erlang,group_leader,0}}
+{move,{x,0},{y,0}}
+{move,{atom,microsecond},{x,0}}
+{line,[{location,"erl_prim_loader.erl",461}]}
+{call_ext,1,{extfunc,os,system_time,1}}
+{put_map_assoc,{f,0},
+               {literal,#{}},
+               {x,0},
+               1,
+               {list,[{atom,error_logger},
+                      {literal,#{tag => error_report,type => std_error}},
+                      {atom,gl},
+                      {y,0},
+                      {atom,pid},
+                      {y,1},
+                      {atom,time},
+                      {x,0}]}}
+{test_heap,5,1}
+{put_tuple2,{x,1},{list,[{atom,log},{atom,error},{y,2},{x,0}]}}
+{init_yregs,{list,[{y,0},{y,1},{y,2}]}}
+{move,{atom,logger},{x,0}}
+{line,[{location,"erl_prim_loader.erl",458}]}
+send
+{try_end,{y,4}}
+{jump,{f,92}}
+{label,91}
+{try_case,{y,4}}
+{move,{literal,{erl_prim_loader,file_error}},{x,0}}
+{line,[{location,"erl_prim_loader.erl",466}]}
+{call_ext,1,{extfunc,erlang,display,1}}
+{move,{y,3},{x,0}}
+{init_yregs,{list,[{y,3}]}}
+{line,[{location,"erl_prim_loader.erl",467}]}
+{call_ext,1,{extfunc,erlang,display,1}}
+{label,92}
+{move,{atom,error},{x,0}}
+{deallocate,5}
+return
+{label,93}
+{move,{atom,error},{x,0}}
+return
+{label,94}
+{move,{x,2},{x,0}}
+return
+Part 1485 C#
+{label,93}
+{line,[{location,"erl_prim_loader.erl",424}]}
+{func_info,{atom,erl_prim_loader},{atom,check_file_result},3}
+{label,94}
+{test,is_tagged_tuple,{f,95},[{x,2},2,{atom,error}]}
+{get_tuple_element,{x,2},1,{x,3}}
+{test,is_eq_exact,{f,95},[{x,3},{atom,enoent}]}
+{move,{atom,error},{x,0}}
+return
+{label,95}
+{test,is_tagged_tuple,{f,96},[{x,2},2,{atom,error}]}
+{get_tuple_element,{x,2},1,{x,3}}
+{test,is_eq_exact,{f,96},[{x,3},{atom,enotdir}]}
+{move,{atom,error},{x,0}}
+return
+{label,96}
+{test,is_tagged_tuple,{f,97},[{x,2},2,{atom,error}]}
+{get_tuple_element,{x,2},1,{x,3}}
+{test,is_eq_exact,{f,97},[{x,3},{atom,einval}]}
+{move,{atom,error},{x,0}}
+return
+{label,97}
+{test,is_tagged_tuple,{f,98},[{x,2},2,{atom,error}]}
+{get_tuple_element,{x,2},1,{x,3}}
+{test,is_atom,{f,98},[{x,3}]}
+{allocate,13,4}
+{init_yregs,{list,[{y,2},
+                   {y,3},
+                   {y,4},
+                   {y,5},
+                   {y,6},
+                   {y,7},
+                   {y,8},
+                   {y,9},
+                   {y,10},
+                   {y,11},
+                   {y,12}]}}
+{move,{x,0},{y,0}}
+{move,{x,1},{y,1}}
+{move,{x,3},{x,0}}
+{line,[{location,"erl_prim_loader.erl",431}]}
+{call_ext,1,{extfunc,erlang,atom_to_list,1}}
+{move,{x,0},{y,2}}
+{bif,self,nofail,[],{x,0}}
+{move,{atom,registered_name},{x,1}}
+{line,[{location,"erl_prim_loader.erl",433}]}
+{call_ext,2,{extfunc,erlang,process_info,2}}
+{test,is_tagged_tuple,{f,100},[{x,0},2,{atom,registered_name}]}
+{get_tuple_element,{x,0},1,{x,0}}
+{move,{x,0},{y,3}}
+{line,[{location,"erl_prim_loader.erl",435}]}
+{call_ext,1,{extfunc,erlang,atom_to_list,1}}
+{move,{literal,"."},{x,1}}
+{line,[{location,"erl_prim_loader.erl",435}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{literal,"Process: "},{x,0}}
+{line,[{location,"erl_prim_loader.erl",435}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{jump,{f,99}}
+{label,100}
+{move,nil,{x,0}}
+{label,99}
+{move,{x,0},{y,4}}
+{test,is_atom,{f,102},[{y,1}]}
+{move,{y,1},{x,0}}
+{line,[{location,"erl_prim_loader.erl",440}]}
+{call_ext,1,{extfunc,erlang,atom_to_list,1}}
+{jump,{f,101}}
+{label,102}
+{test,is_list,{f,103},[{y,1}]}
+{move,{y,1},{x,0}}
+{jump,{f,101}}
+{label,103}
+{move,nil,{x,0}}
+{label,101}
+{move,{x,0},{y,5}}
+{test,is_nil,{f,105},[{y,5}]}
+{move,{y,0},{x,0}}
+{line,[{location,"erl_prim_loader.erl",448}]}
+{call_ext,1,{extfunc,erlang,atom_to_list,1}}
+{move,{x,0},{y,6}}
+{move,{literal,". "},{x,0}}
+{move,{y,4},{x,1}}
+{line,[{location,"erl_prim_loader.erl",448}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{y,6},{x,0}}
+{line,[{location,"erl_prim_loader.erl",448}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{literal,"Function: "},{x,0}}
+{line,[{location,"erl_prim_loader.erl",448}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{literal,". "},{x,0}}
+{line,[{location,"erl_prim_loader.erl",447}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{y,2},{x,0}}
+{line,[{location,"erl_prim_loader.erl",447}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{literal,"File operation error: "},{x,0}}
+{line,[{location,"erl_prim_loader.erl",447}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{jump,{f,104}}
+{label,105}
+{move,{y,0},{x,0}}
+{line,[{location,"erl_prim_loader.erl",452}]}
+{call_ext,1,{extfunc,erlang,atom_to_list,1}}
+{move,{x,0},{y,6}}
+{move,{literal,". "},{x,0}}
+{move,{y,4},{x,1}}
+{line,[{location,"erl_prim_loader.erl",452}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{y,6},{x,0}}
+{line,[{location,"erl_prim_loader.erl",452}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{literal,"Function: "},{x,0}}
+{line,[{location,"erl_prim_loader.erl",452}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{literal,". "},{x,0}}
+{line,[{location,"erl_prim_loader.erl",451}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{y,5},{x,0}}
+{line,[{location,"erl_prim_loader.erl",451}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{literal,"Target: "},{x,0}}
+{line,[{location,"erl_prim_loader.erl",451}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{literal,". "},{x,0}}
+{line,[{location,"erl_prim_loader.erl",450}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{y,2},{x,0}}
+{line,[{location,"erl_prim_loader.erl",450}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{literal,"File operation error: "},{x,0}}
+{line,[{location,"erl_prim_loader.erl",450}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{label,104}
+{move,{x,0},{y,6}}
+{'try',{y,7},{f,106}}
+{move,{atom,logger},{x,0}}
+{move,{x,0},{y,8}}
+{put_map_assoc,{f,0},
+               {literal,#{}},
+               {x,0},
+               0,
+               {list,[{atom,label},
+                      {literal,{erl_prim_loader,file_error}},
+                      {atom,report},
+                      {y,6}]}}
+{move,{x,0},{y,9}}
+{bif,self,nofail,[],{x,0}}
+{move,{x,0},{y,10}}
+{line,[{location,"erl_prim_loader.erl",460}]}
+{call_ext,0,{extfunc,erlang,group_leader,0}}
+{move,{x,0},{y,11}}
+{move,{atom,microsecond},{x,0}}
+{line,[{location,"erl_prim_loader.erl",461}]}
+{call_ext,1,{extfunc,os,system_time,1}}
+{move,{x,0},{y,12}}
+{put_map_assoc,{f,0},
+               {literal,#{}},
+               {x,0},
+               0,
+               {list,[{atom,error_logger},
+                      {literal,#{tag => error_report,type => std_error}},
+                      {atom,gl},
+                      {y,11},
+                      {atom,pid},
+                      {y,10},
+                      {atom,time},
+                      {y,12}]}}
+{move,{x,0},{y,10}}
+{test_heap,5,0}
+{put_tuple2,{x,0},{list,[{atom,log},{atom,error},{y,9},{y,10}]}}
+{move,{x,0},{y,9}}
+{move,{y,8},{x,0}}
+{move,{y,9},{x,1}}
+{line,[{location,"erl_prim_loader.erl",458}]}
+send
+{try_end,{y,7}}
+{jump,{f,107}}
+{label,106}
+{try_case,{y,7}}
+{move,{x,0},{y,8}}
+{move,{x,1},{y,9}}
+{move,{x,2},{x,0}}
+{move,{x,0},{y,10}}
+build_stacktrace
+{move,{x,0},{y,11}}
+{move,{literal,{erl_prim_loader,file_error}},{x,0}}
+{line,[{location,"erl_prim_loader.erl",466}]}
+{call_ext,1,{extfunc,erlang,display,1}}
+{move,{y,6},{x,0}}
+{line,[{location,"erl_prim_loader.erl",467}]}
+{call_ext,1,{extfunc,erlang,display,1}}
+{jump,{f,107}}
+{label,108}
+{move,{y,10},{x,0}}
+{move,{y,9},{x,1}}
+{bif,raise,{f,0},[{x,0},{x,1}],{x,0}}
+{label,107}
+{move,{x,0},{y,12}}
+{move,{atom,error},{x,0}}
+{deallocate,13}
+return
+{label,98}
+{test,is_tagged_tuple,{f,109},[{x,2},2,{atom,error}]}
+{move,{atom,error},{x,0}}
+return
+{label,109}
+{move,{x,2},{x,0}}
+return
+Part 1486 C#
+{label,93}
+{line,[{location,"erl_prim_loader.erl",424}]}
+{func_info,{atom,erl_prim_loader},{atom,check_file_result},3}
+{label,94}
+{test,is_tagged_tuple,{f,98},[{x,2},2,{atom,error}]}
+{get_tuple_element,{x,2},1,{x,3}}
+{select_val,{x,3},
+            {f,98},
+            {list,[{atom,einval},
+                   {f,97},
+                   {atom,enoent},
+                   {f,96},
+                   {atom,enotdir},
+                   {f,95}]}}
+{label,95}
+{move,{atom,error},{x,0}}
+return
+{label,96}
+{move,{atom,error},{x,0}}
+return
+{label,97}
+{move,{atom,error},{x,0}}
+return
+{label,98}
+{test,is_tagged_tuple,{f,99},[{x,2},2,{atom,error}]}
+{get_tuple_element,{x,2},1,{x,3}}
+{test,is_atom,{f,99},[{x,3}]}
+{allocate,13,4}
+{init_yregs,{list,[{y,2},
+                   {y,3},
+                   {y,4},
+                   {y,5},
+                   {y,6},
+                   {y,7},
+                   {y,8},
+                   {y,9},
+                   {y,10},
+                   {y,11},
+                   {y,12}]}}
+{move,{x,0},{y,0}}
+{move,{x,1},{y,1}}
+{move,{x,3},{x,0}}
+{line,[{location,"erl_prim_loader.erl",431}]}
+{call_ext,1,{extfunc,erlang,atom_to_list,1}}
+{move,{x,0},{y,2}}
+{bif,self,nofail,[],{x,0}}
+{move,{atom,registered_name},{x,1}}
+{line,[{location,"erl_prim_loader.erl",433}]}
+{call_ext,2,{extfunc,erlang,process_info,2}}
+{test,is_tagged_tuple,{f,101},[{x,0},2,{atom,registered_name}]}
+{get_tuple_element,{x,0},1,{x,0}}
+{move,{x,0},{y,3}}
+{line,[{location,"erl_prim_loader.erl",435}]}
+{call_ext,1,{extfunc,erlang,atom_to_list,1}}
+{move,{literal,"."},{x,1}}
+{line,[{location,"erl_prim_loader.erl",435}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{literal,"Process: "},{x,0}}
+{line,[{location,"erl_prim_loader.erl",435}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{jump,{f,100}}
+{label,101}
+{move,nil,{x,0}}
+{label,100}
+{move,{x,0},{y,4}}
+{test,is_atom,{f,103},[{y,1}]}
+{move,{y,1},{x,0}}
+{line,[{location,"erl_prim_loader.erl",440}]}
+{call_ext,1,{extfunc,erlang,atom_to_list,1}}
+{jump,{f,102}}
+{label,103}
+{test,is_list,{f,104},[{y,1}]}
+{move,{y,1},{x,0}}
+{jump,{f,102}}
+{label,104}
+{move,nil,{x,0}}
+{label,102}
+{move,{x,0},{y,5}}
+{test,is_nil,{f,106},[{y,5}]}
+{move,{y,0},{x,0}}
+{line,[{location,"erl_prim_loader.erl",448}]}
+{call_ext,1,{extfunc,erlang,atom_to_list,1}}
+{move,{x,0},{y,6}}
+{move,{literal,". "},{x,0}}
+{move,{y,4},{x,1}}
+{line,[{location,"erl_prim_loader.erl",448}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{y,6},{x,0}}
+{line,[{location,"erl_prim_loader.erl",448}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{literal,"Function: "},{x,0}}
+{line,[{location,"erl_prim_loader.erl",448}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{literal,". "},{x,0}}
+{line,[{location,"erl_prim_loader.erl",447}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{y,2},{x,0}}
+{line,[{location,"erl_prim_loader.erl",447}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{literal,"File operation error: "},{x,0}}
+{line,[{location,"erl_prim_loader.erl",447}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{jump,{f,105}}
+{label,106}
+{move,{y,0},{x,0}}
+{line,[{location,"erl_prim_loader.erl",452}]}
+{call_ext,1,{extfunc,erlang,atom_to_list,1}}
+{move,{x,0},{y,6}}
+{move,{literal,". "},{x,0}}
+{move,{y,4},{x,1}}
+{line,[{location,"erl_prim_loader.erl",452}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{y,6},{x,0}}
+{line,[{location,"erl_prim_loader.erl",452}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{literal,"Function: "},{x,0}}
+{line,[{location,"erl_prim_loader.erl",452}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{literal,". "},{x,0}}
+{line,[{location,"erl_prim_loader.erl",451}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{y,5},{x,0}}
+{line,[{location,"erl_prim_loader.erl",451}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{literal,"Target: "},{x,0}}
+{line,[{location,"erl_prim_loader.erl",451}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{literal,". "},{x,0}}
+{line,[{location,"erl_prim_loader.erl",450}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{y,2},{x,0}}
+{line,[{location,"erl_prim_loader.erl",450}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{move,{x,0},{x,1}}
+{move,{literal,"File operation error: "},{x,0}}
+{line,[{location,"erl_prim_loader.erl",450}]}
+{call_ext,2,{extfunc,erlang,'++',2}}
+{label,105}
+{move,{x,0},{y,6}}
+{'try',{y,7},{f,107}}
+{move,{atom,logger},{x,0}}
+{move,{x,0},{y,8}}
+{put_map_assoc,{f,0},
+               {literal,#{}},
+               {x,0},
+               0,
+               {list,[{atom,label},
+                      {literal,{erl_prim_loader,file_error}},
+                      {atom,report},
+                      {y,6}]}}
+{move,{x,0},{y,9}}
+{bif,self,nofail,[],{x,0}}
+{move,{x,0},{y,10}}
+{line,[{location,"erl_prim_loader.erl",460}]}
+{call_ext,0,{extfunc,erlang,group_leader,0}}
+{move,{x,0},{y,11}}
+{move,{atom,microsecond},{x,0}}
+{line,[{location,"erl_prim_loader.erl",461}]}
+{call_ext,1,{extfunc,os,system_time,1}}
+{move,{x,0},{y,12}}
+{put_map_assoc,{f,0},
+               {literal,#{}},
+               {x,0},
+               0,
+               {list,[{atom,error_logger},
+                      {literal,#{tag => error_report,type => std_error}},
+                      {atom,gl},
+                      {y,11},
+                      {atom,pid},
+                      {y,10},
+                      {atom,time},
+                      {y,12}]}}
+{move,{x,0},{y,10}}
+{test_heap,5,0}
+{put_tuple2,{x,0},{list,[{atom,log},{atom,error},{y,9},{y,10}]}}
+{move,{x,0},{y,9}}
+{move,{y,8},{x,0}}
+{move,{y,9},{x,1}}
+{line,[{location,"erl_prim_loader.erl",458}]}
+send
+{try_end,{y,7}}
+{jump,{f,108}}
+{label,107}
+{try_case,{y,7}}
+{move,{x,0},{y,8}}
+{move,{x,1},{y,9}}
+{move,{x,2},{x,0}}
+{move,{x,0},{y,10}}
+build_stacktrace
+{move,{x,0},{y,11}}
+{move,{literal,{erl_prim_loader,file_error}},{x,0}}
+{line,[{location,"erl_prim_loader.erl",466}]}
+{call_ext,1,{extfunc,erlang,display,1}}
+{move,{y,6},{x,0}}
+{line,[{location,"erl_prim_loader.erl",467}]}
+{call_ext,1,{extfunc,erlang,display,1}}
+{jump,{f,108}}
+{label,109}
+{move,{y,10},{x,0}}
+{move,{y,9},{x,1}}
+{bif,raise,{f,0},[{x,0},{x,1}],{x,0}}
+{label,108}
+{move,{x,0},{y,12}}
+{move,{atom,error},{x,0}}
+{deallocate,13}
+return
+{label,99}
+{test,is_tagged_tuple,{f,110},[{x,2},2,{atom,error}]}
+{move,{atom,error},{x,0}}
+return
+{label,110}
+{move,{x,2},{x,0}}
+return

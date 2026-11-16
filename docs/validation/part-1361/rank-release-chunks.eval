@@ -1,0 +1,46 @@
+[Reference, Generated] = [filename:absname(Path) || Path <- init:get_plain_arguments()],
+Files = filelib:fold_files(Generated, "[.]beam$", true, fun(Path, Acc) -> [Path|Acc] end, []),
+ReadSymbols = fun(Path) ->
+    {ok, {_, Symbols}} = beam_lib:chunks(Path, [exports, locals], [allow_missing_chunks]),
+    [case Entries of missing_chunk -> missing_chunk; _ -> lists:sort(Entries) end || {_, Entries} <- Symbols]
+end,
+ReadAttributes = fun(Chunks) ->
+    case maps:find("Attr", Chunks) of
+        {ok, Payload} -> proplists:delete(vsn, binary_to_term(Payload));
+        error -> missing_chunk
+    end
+end,
+Inventory = lists:map(fun(Path) ->
+    Relative = lists:nthtail(length(filename:split(Generated)), filename:split(Path)),
+    ReferencePath = filename:join([Reference|Relative]),
+    {ok, Module, ReferenceChunks} = beam_lib:all_chunks(ReferencePath),
+    {ok, Module, GeneratedChunks} = beam_lib:all_chunks(Path),
+    RefMap = maps:from_list(ReferenceChunks),
+    GenMap = maps:from_list(GeneratedChunks),
+    Names = ordsets:union(lists:sort(maps:keys(RefMap)), lists:sort(maps:keys(GenMap))),
+    Differences = [Name || Name <- Names, maps:get(Name, RefMap, absent) =/= maps:get(Name, GenMap, absent)],
+    SizeGap = lists:sum([abs(byte_size(maps:get(Name, RefMap, <<>>)) -
+                            byte_size(maps:get(Name, GenMap, <<>>))) || Name <- Differences]),
+    [RefExports, RefLocals] = ReadSymbols(ReferencePath),
+    [GenExports, GenLocals] = ReadSymbols(Path),
+    Stable = [Name || {Name, Equal} <- [
+        {"ExpT", RefExports =:= GenExports},
+        {"LocT", RefLocals =:= GenLocals},
+        {"Attr", ReadAttributes(RefMap) =:= ReadAttributes(GenMap)}
+    ], Equal, lists:member(Name, Differences)],
+    {length(Differences), SizeGap, Module, Differences, Stable}
+end, Files),
+Count = fun(Key, Map) -> maps:update_with(Key, fun(N) -> N+1 end, 1, Map) end,
+{Sections, Counts, Signatures, StableMetadata} = lists:foldl(fun({Length, _, _, Differences, Stable}, {S, C, G, M}) ->
+    {lists:foldl(Count, S, Differences), Count(Length, C), Count(Differences, G), lists:foldl(Count, M, Stable)}
+end, {#{}, #{}, #{}, #{}}, Inventory),
+Most = fun(Map) -> lists:reverse(lists:sort([{N, Key} || {Key, N} <- maps:to_list(Map)])) end,
+io:format("Compared decoded chunk payloads in ~p differing images.~n", [length(Files)]),
+io:format("Modules per chunk: ~p~n", [Most(Sections)]),
+io:format("Changed export/local tables with identical symbol sets, and changed attributes with identical terms after removing vsn: ~p~n",
+          [Most(StableMetadata)]),
+io:format("Histogram by number of differing chunks: ~p~n", [lists:sort(maps:to_list(Counts))]),
+io:format("Most common exact sets of differing chunks: ~p~n", [lists:sublist(Most(Signatures), 12)]),
+io:format("Nearest 20 by differing chunk count and sum of absolute size gaps:~n"),
+lists:foreach(fun(Item) -> io:format("~p~n", [Item]) end, lists:sublist(lists:sort(Inventory), 20)),
+halt().

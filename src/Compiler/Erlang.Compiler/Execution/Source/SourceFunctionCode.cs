@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Text.Json;
 
 namespace Erlang.Compiler;
 
@@ -27,5 +28,6 @@ internal static class SourceFunctionCode
 
     internal static string Anonymous(Expr.Fun expression, string clauses)
         => AnonymousType + clauses
-            + (expression.CoreOrdinal is { } ordinal ? "," + ordinal.ToString(CultureInfo.InvariantCulture) : string.Empty) + ")";
+            + (expression.CoreOrdinal is { } ordinal ? "," + ordinal.ToString(CultureInfo.InvariantCulture) : string.Empty) + ")"
+            + (expression.SelfName is { } name ? "{SelfName=" + JsonSerializer.Serialize(name) + "}" : string.Empty);
 }

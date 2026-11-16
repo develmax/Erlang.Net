@@ -1,0 +1,11 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, register_format_probe} = code:load_binary(register_format_probe, Path, Binary),
+"prefix 42\n" = lists:flatten(register_format_probe:format("~p", [42])),
+"prefix head 42\n" = lists:flatten(register_format_probe:with_head(head, "~p", [42])),
+done = register_format_probe:callback(a,b,c),
+[a,b,c] = erlang:get(format_args),
+{beam_file, _, _, _, _, Fs} = beam_disasm:file(Path),
+[io:format("~p~n", [F]) || F = {function, Name, _, _, _} <- Fs,
+    lists:member(Name,[format,with_head,callback])],
+halt().

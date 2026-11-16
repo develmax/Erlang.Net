@@ -1,0 +1,26 @@
+Cons head and tail pattern forms in multi-clause functions with a list test before allocation
+ 419 {variable,variable,unguarded}
+ 261 {tuple,variable,unguarded}
+ 226 {literal_or_other,variable,unguarded}
+ 187 {variable,variable,guarded}
+ 129 {alias,variable,unguarded}
+ 118 {tuple,variable,guarded}
+  84 {variable,nil,unguarded}
+  68 {variable,cons,unguarded}
+  58 {literal_or_other,cons,unguarded}
+  42 {alias,variable,guarded}
+  41 {literal_or_other,nil,unguarded}
+  33 {tuple,nil,unguarded}
+  29 {literal_or_other,variable,guarded}
+  22 {variable,cons,guarded}
+  22 {variable,nil,guarded}
+  20 {tuple,cons,unguarded}
+  18 {cons,variable,unguarded}
+  17 {alias,nil,unguarded}
+  15 {alias,cons,unguarded}
+  13 {nil,variable,unguarded}
+  13 {literal_or_other,cons,guarded}
+   8 {tuple,cons,guarded}
+   6 {tuple,nil,guarded}
+   5 {alias,cons,guarded}
+   4 {alias,nil,guarded}

@@ -1,0 +1,181 @@
+{
+  "Partial": true,
+  "SelectedCount": 28,
+  "TotalCount": 9647,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/library394/selection/MissingCaptureAndExport",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/0",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/1",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/2",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/3",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/4",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/5",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/0",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/1",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/2",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/3",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/4",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/5",
+    "runtime/port-fd-io/cancel-idle-borrowed-reader",
+    "runtime/port-fd-io/stream",
+    "runtime/port-protocol-close-drains-pending-bytes",
+    "runtime/ports-real-executable-ownership-and-resource-cleanup",
+    "runtime/review498-imported-flat-map-copy",
+    "runtime/saved-calls-chronological-ring-and-queued-death-cleanup",
+    "runtime/statistics-cpu-active-sample-no-double-count",
+    "runtime/statistics-cpu-generic-auxiliary-and-no-vm-backlink",
+    "runtime/statistics-cpu-nested-vm-and-exception-restoration",
+    "runtime/statistics-cpu-real-dirty-burn-and-blocked-user-time",
+    "runtime/statistics-cpu-two-vms-and-host-user-time-isolation",
+    "runtime/statistics-two-owners-real-clock-user-cpu-cursors",
+    "runtime/string/explicit-dependencies-and-no-fallback",
+    "runtime/string/managed-selection-and-original-contracts",
+    "runtime/string/original-selection-and-original-contracts"
+  ],
+  "Passed": 27,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/string/managed-selection-and-original-contracts",
+      "Status": "Passed",
+      "Milliseconds": 6437
+    },
+    {
+      "Name": "runtime/string/original-selection-and-original-contracts",
+      "Status": "Failed",
+      "Error": "System.TimeoutException: The operation has timed out.\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func\u00602 command) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 51\r\n   at Erlang.Tests.StringBackendChecks.Run(Boolean managed) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringBackendChecks.cs:line 30\r\n   at Erlang.Tests.StringBackendChecks.Run(Boolean managed) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringBackendChecks.cs:line 30\r\n   at Erlang.Tests.StringBackendChecks.Run(Boolean managed) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringBackendChecks.cs:line 30\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16193",
+      "Milliseconds": 12125
+    },
+    {
+      "Name": "runtime/string/explicit-dependencies-and-no-fallback",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/0",
+      "Status": "Passed",
+      "Milliseconds": 2629
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/0",
+      "Status": "Passed",
+      "Milliseconds": 2422
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/1",
+      "Status": "Passed",
+      "Milliseconds": 2059
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/1",
+      "Status": "Passed",
+      "Milliseconds": 2533
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/2",
+      "Status": "Passed",
+      "Milliseconds": 1941
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/2",
+      "Status": "Passed",
+      "Milliseconds": 2256
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/3",
+      "Status": "Passed",
+      "Milliseconds": 2037
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/3",
+      "Status": "Passed",
+      "Milliseconds": 2274
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/4",
+      "Status": "Passed",
+      "Milliseconds": 2117
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/4",
+      "Status": "Passed",
+      "Milliseconds": 2038
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/5",
+      "Status": "Passed",
+      "Milliseconds": 1697
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/5",
+      "Status": "Passed",
+      "Milliseconds": 1738
+    },
+    {
+      "Name": "runtime/library394/selection/MissingCaptureAndExport",
+      "Status": "Passed",
+      "Milliseconds": 41
+    },
+    {
+      "Name": "runtime/statistics-two-owners-real-clock-user-cpu-cursors",
+      "Status": "Passed",
+      "Milliseconds": 262
+    },
+    {
+      "Name": "runtime/saved-calls-chronological-ring-and-queued-death-cleanup",
+      "Status": "Passed",
+      "Milliseconds": 63
+    },
+    {
+      "Name": "runtime/ports-real-executable-ownership-and-resource-cleanup",
+      "Status": "Passed",
+      "Milliseconds": 179
+    },
+    {
+      "Name": "runtime/port-protocol-close-drains-pending-bytes",
+      "Status": "Passed",
+      "Milliseconds": 2138
+    },
+    {
+      "Name": "runtime/port-fd-io/cancel-idle-borrowed-reader",
+      "Status": "Passed",
+      "Milliseconds": 3359
+    },
+    {
+      "Name": "runtime/port-fd-io/stream",
+      "Status": "Passed",
+      "Milliseconds": 144
+    },
+    {
+      "Name": "runtime/review498-imported-flat-map-copy",
+      "Status": "Passed",
+      "Milliseconds": 70
+    },
+    {
+      "Name": "runtime/statistics-cpu-two-vms-and-host-user-time-isolation",
+      "Status": "Passed",
+      "Milliseconds": 661
+    },
+    {
+      "Name": "runtime/statistics-cpu-active-sample-no-double-count",
+      "Status": "Passed",
+      "Milliseconds": 232
+    },
+    {
+      "Name": "runtime/statistics-cpu-nested-vm-and-exception-restoration",
+      "Status": "Passed",
+      "Milliseconds": 641
+    },
+    {
+      "Name": "runtime/statistics-cpu-generic-auxiliary-and-no-vm-backlink",
+      "Status": "Passed",
+      "Milliseconds": 449
+    },
+    {
+      "Name": "runtime/statistics-cpu-real-dirty-burn-and-blocked-user-time",
+      "Status": "Passed",
+      "Milliseconds": 455
+    }
+  ]
+}

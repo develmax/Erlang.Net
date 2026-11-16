@@ -1,0 +1,38 @@
+Exact image false
+Exact instructions false
+OTP
+{label,1782}
+{line,[{location,"asn1ct_check.erl",4768}]}
+{func_info,{atom,asn1ct_check},{atom,tag_nums_ext},3}
+{label,1783}
+{test,is_nonempty_list,{f,1785},[{x,0}]}
+{get_list,{x,0},{x,3},{x,0}}
+{test,is_tagged_tuple,{f,1784},[{x,3},3,{atom,'EXTENSIONMARK'}]}
+{call_only,3,{asn1ct_check,tag_nums_root2,3}}
+{label,1784}
+{call_only,3,{asn1ct_check,tag_nums_ext,3}}
+{label,1785}
+{test,is_nil,{f,1782},[{x,0}]}
+{test_heap,4,2}
+{put_list,{x,1},{literal,[0]},{x,0}}
+{put_list,{integer,0},{x,0},{x,0}}
+return
+C#
+{label,3009}
+{line,[{location,"asn1ct_check.erl",4768}]}
+{func_info,{atom,asn1ct_check},{atom,tag_nums_ext},3}
+{label,3010}
+{test,is_nonempty_list,{f,3012},[{x,0}]}
+{get_list,{x,0},{x,3},{x,0}}
+{test,is_tagged_tuple,{f,3011},[{x,3},3,{atom,'EXTENSIONMARK'}]}
+{call_only,3,{asn1ct_check,tag_nums_root2,3}}
+{label,3011}
+{call_only,3,{asn1ct_check,tag_nums_ext,3}}
+{label,3012}
+{test,is_nil,{f,3009},[{x,0}]}
+{test_heap,4,2}
+{put_list,{x,1},{literal,[0]},{x,0}}
+{put_list,{integer,0},{x,0},{x,0}}
+return
+Differing chunks ["AtU8","Code","ImpT","ExpT","FunT","LitT","LocT","Attr",
+                  "Line","Type"]

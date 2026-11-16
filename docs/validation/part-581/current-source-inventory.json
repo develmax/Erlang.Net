@@ -1,0 +1,2831 @@
+{
+  "baseline": {
+    "tag": "OTP-29.1.1",
+    "commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "repository": "https://github.com/erlang/otp",
+    "sdk": "10.0.400"
+  },
+  "kind": "Static source and BEAM inventory; not execution evidence",
+  "modules": [
+    {
+      "module": "dets",
+      "sourcePath": "lib/stdlib/src/dets.erl",
+      "sourceLines": 3972,
+      "sourceSha256": "96a6de720afbbc0e79bc3c4dd96663a6f54ea150a04a2d100c042fa26fb3ca8c",
+      "packagedSourceSha256": "96a6de720afbbc0e79bc3c4dd96663a6f54ea150a04a2d100c042fa26fb3ca8c",
+      "beamSha256": "45c49909e4f76c7aff89d51a1e0afc3478690ed133f1c5c8ae9edf066b15c96a",
+      "exports": [
+        {
+          "function": "all",
+          "arity": 0
+        },
+        {
+          "function": "bchunk",
+          "arity": 2
+        },
+        {
+          "function": "close",
+          "arity": 1
+        },
+        {
+          "function": "delete",
+          "arity": 2
+        },
+        {
+          "function": "delete_all_objects",
+          "arity": 1
+        },
+        {
+          "function": "delete_object",
+          "arity": 2
+        },
+        {
+          "function": "first",
+          "arity": 1
+        },
+        {
+          "function": "foldl",
+          "arity": 3
+        },
+        {
+          "function": "foldr",
+          "arity": 3
+        },
+        {
+          "function": "from_ets",
+          "arity": 2
+        },
+        {
+          "function": "info",
+          "arity": 1
+        },
+        {
+          "function": "info",
+          "arity": 2
+        },
+        {
+          "function": "init_table",
+          "arity": 2
+        },
+        {
+          "function": "init_table",
+          "arity": 3
+        },
+        {
+          "function": "insert",
+          "arity": 2
+        },
+        {
+          "function": "insert_new",
+          "arity": 2
+        },
+        {
+          "function": "is_compatible_bchunk_format",
+          "arity": 2
+        },
+        {
+          "function": "is_dets_file",
+          "arity": 1
+        },
+        {
+          "function": "lookup",
+          "arity": 2
+        },
+        {
+          "function": "match",
+          "arity": 1
+        },
+        {
+          "function": "match",
+          "arity": 2
+        },
+        {
+          "function": "match",
+          "arity": 3
+        },
+        {
+          "function": "match_delete",
+          "arity": 2
+        },
+        {
+          "function": "match_object",
+          "arity": 1
+        },
+        {
+          "function": "match_object",
+          "arity": 2
+        },
+        {
+          "function": "match_object",
+          "arity": 3
+        },
+        {
+          "function": "member",
+          "arity": 2
+        },
+        {
+          "function": "next",
+          "arity": 2
+        },
+        {
+          "function": "open_file",
+          "arity": 1
+        },
+        {
+          "function": "open_file",
+          "arity": 2
+        },
+        {
+          "function": "pid2name",
+          "arity": 1
+        },
+        {
+          "function": "repair_continuation",
+          "arity": 2
+        },
+        {
+          "function": "safe_fixtable",
+          "arity": 2
+        },
+        {
+          "function": "select",
+          "arity": 1
+        },
+        {
+          "function": "select",
+          "arity": 2
+        },
+        {
+          "function": "select",
+          "arity": 3
+        },
+        {
+          "function": "select_delete",
+          "arity": 2
+        },
+        {
+          "function": "slot",
+          "arity": 2
+        },
+        {
+          "function": "sync",
+          "arity": 1
+        },
+        {
+          "function": "table",
+          "arity": 1
+        },
+        {
+          "function": "table",
+          "arity": 2
+        },
+        {
+          "function": "to_ets",
+          "arity": 2
+        },
+        {
+          "function": "traverse",
+          "arity": 2
+        },
+        {
+          "function": "update_counter",
+          "arity": 3
+        },
+        {
+          "function": "start",
+          "arity": 0
+        },
+        {
+          "function": "stop",
+          "arity": 0
+        },
+        {
+          "function": "istart_link",
+          "arity": 1
+        },
+        {
+          "function": "init",
+          "arity": 2
+        },
+        {
+          "function": "internal_open",
+          "arity": 3
+        },
+        {
+          "function": "add_user",
+          "arity": 3
+        },
+        {
+          "function": "internal_close",
+          "arity": 1
+        },
+        {
+          "function": "remove_user",
+          "arity": 2
+        },
+        {
+          "function": "system_continue",
+          "arity": 3
+        },
+        {
+          "function": "system_terminate",
+          "arity": 4
+        },
+        {
+          "function": "system_code_change",
+          "arity": 4
+        },
+        {
+          "function": "file_info",
+          "arity": 1
+        },
+        {
+          "function": "fsck",
+          "arity": 1
+        },
+        {
+          "function": "fsck",
+          "arity": 2
+        },
+        {
+          "function": "get_head_field",
+          "arity": 2
+        },
+        {
+          "function": "view",
+          "arity": 1
+        },
+        {
+          "function": "where",
+          "arity": 2
+        },
+        {
+          "function": "verbose",
+          "arity": 0
+        },
+        {
+          "function": "verbose",
+          "arity": 1
+        },
+        {
+          "function": "lookup_keys",
+          "arity": 2
+        }
+      ],
+      "imports": [
+        {
+          "module": "dets_server",
+          "function": "all",
+          "arity": 0
+        },
+        {
+          "module": "erlang",
+          "function": "error",
+          "arity": 2
+        },
+        {
+          "module": "dets_server",
+          "function": "close",
+          "arity": 1
+        },
+        {
+          "module": "dets_v9",
+          "function": "check_file_header",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "make_ref",
+          "arity": 0
+        },
+        {
+          "module": "erlang",
+          "function": "exit",
+          "arity": 1
+        },
+        {
+          "module": "ets",
+          "function": "safe_fixtable",
+          "arity": 2
+        },
+        {
+          "module": "ets",
+          "function": "select",
+          "arity": 3
+        },
+        {
+          "module": "erlang",
+          "function": "throw",
+          "arity": 1
+        },
+        {
+          "module": "dets_server",
+          "function": "get_pid",
+          "arity": 1
+        },
+        {
+          "module": "dets_server",
+          "function": "users",
+          "arity": 1
+        },
+        {
+          "module": "file",
+          "function": "close",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "=:=",
+          "arity": 2
+        },
+        {
+          "module": "lists",
+          "function": "usort",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "+",
+          "arity": 2
+        },
+        {
+          "module": "dets_server",
+          "function": "open_file",
+          "arity": 1
+        },
+        {
+          "module": "dets_server",
+          "function": "open_file",
+          "arity": 2
+        },
+        {
+          "module": "dets_server",
+          "function": "pid2name",
+          "arity": 1
+        },
+        {
+          "module": "ets",
+          "function": "is_compiled_ms",
+          "arity": 1
+        },
+        {
+          "module": "ets",
+          "function": "match_spec_compile",
+          "arity": 1
+        },
+        {
+          "module": "dets_server",
+          "function": "start",
+          "arity": 0
+        },
+        {
+          "module": "dets_server",
+          "function": "stop",
+          "arity": 0
+        },
+        {
+          "module": "erlang",
+          "function": "self",
+          "arity": 0
+        },
+        {
+          "module": "proc_lib",
+          "function": "spawn_link",
+          "arity": 3
+        },
+        {
+          "module": "qlc",
+          "function": "table",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "++",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "=/=",
+          "arity": 2
+        },
+        {
+          "module": "ets",
+          "function": "whereis",
+          "arity": 1
+        },
+        {
+          "module": "dets_server",
+          "function": "verbose",
+          "arity": 1
+        },
+        {
+          "module": "lists",
+          "function": "foreach",
+          "arity": 2
+        },
+        {
+          "module": "lists",
+          "function": "reverse",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "binary_to_term",
+          "arity": 1
+        },
+        {
+          "module": "dets_utils",
+          "function": "bad_object",
+          "arity": 2
+        },
+        {
+          "module": "ets",
+          "function": "match_spec_run",
+          "arity": 2
+        },
+        {
+          "module": "timer",
+          "function": "minutes",
+          "arity": 1
+        },
+        {
+          "module": "lists",
+          "function": "foldl",
+          "arity": 3
+        },
+        {
+          "module": "erlang",
+          "function": "atom_to_list",
+          "arity": 1
+        },
+        {
+          "module": "lists",
+          "function": "member",
+          "arity": 2
+        },
+        {
+          "module": "lists",
+          "function": "keysearch",
+          "arity": 3
+        },
+        {
+          "module": "lists",
+          "function": "keydelete",
+          "arity": 3
+        },
+        {
+          "module": "erlang",
+          "function": "monitor",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "demonitor",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "process_flag",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "element",
+          "arity": 2
+        },
+        {
+          "module": "sys",
+          "function": "handle_system_msg",
+          "arity": 6
+        },
+        {
+          "module": "logger",
+          "function": "allow",
+          "arity": 2
+        },
+        {
+          "module": "logger",
+          "function": "macro_log",
+          "arity": 4
+        },
+        {
+          "module": "dets_utils",
+          "function": "corrupt_reason",
+          "arity": 2
+        },
+        {
+          "module": "dets_v9",
+          "function": "may_grow",
+          "arity": 3
+        },
+        {
+          "module": "dets_utils",
+          "function": "vformat",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "garbage_collect",
+          "arity": 0
+        },
+        {
+          "module": "dets_v9",
+          "function": "mark_dirty",
+          "arity": 1
+        },
+        {
+          "module": "dets_utils",
+          "function": "debug_mode",
+          "arity": 0
+        },
+        {
+          "module": "erlang",
+          "function": "send_after",
+          "arity": 3
+        },
+        {
+          "module": "lists",
+          "function": "flatten",
+          "arity": 1
+        },
+        {
+          "module": "dets_utils",
+          "function": "pwrite",
+          "arity": 2
+        },
+        {
+          "module": "timer",
+          "function": "sleep",
+          "arity": 1
+        },
+        {
+          "module": "dets_utils",
+          "function": "family",
+          "arity": 1
+        },
+        {
+          "module": "lists",
+          "function": "append",
+          "arity": 1
+        },
+        {
+          "module": "file",
+          "function": "read_file",
+          "arity": 1
+        },
+        {
+          "module": "dets_utils",
+          "function": "file_error",
+          "arity": 2
+        },
+        {
+          "module": "dets_utils",
+          "function": "open",
+          "arity": 2
+        },
+        {
+          "module": "dets_utils",
+          "function": "pread_close",
+          "arity": 4
+        },
+        {
+          "module": "erlang",
+          "function": "raise",
+          "arity": 3
+        },
+        {
+          "module": "dets_v9",
+          "function": "read_file_header",
+          "arity": 2
+        },
+        {
+          "module": "dets_utils",
+          "function": "stop_disk_map",
+          "arity": 0
+        },
+        {
+          "module": "dets_v9",
+          "function": "do_perform_save",
+          "arity": 1
+        },
+        {
+          "module": "dets_utils",
+          "function": "position",
+          "arity": 2
+        },
+        {
+          "module": "dets_utils",
+          "function": "pread",
+          "arity": 4
+        },
+        {
+          "module": "dets_utils",
+          "function": "write_file",
+          "arity": 2
+        },
+        {
+          "module": "file",
+          "function": "write_file",
+          "arity": 2
+        },
+        {
+          "module": "dets_utils",
+          "function": "corrupt_file",
+          "arity": 2
+        },
+        {
+          "module": "dets_utils",
+          "function": "sync",
+          "arity": 1
+        },
+        {
+          "module": "dets_v9",
+          "function": "table_parameters",
+          "arity": 1
+        },
+        {
+          "module": "dets_utils",
+          "function": "all_allocated",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "term_to_binary",
+          "arity": 1
+        },
+        {
+          "module": "dets_v9",
+          "function": "read_bchunks",
+          "arity": 2
+        },
+        {
+          "module": "dets_utils",
+          "function": "cache_size",
+          "arity": 1
+        },
+        {
+          "module": "dets_utils",
+          "function": "truncate",
+          "arity": 3
+        },
+        {
+          "module": "dets_v9",
+          "function": "initiate_file",
+          "arity": 11
+        },
+        {
+          "module": "dets_v9",
+          "function": "slot_objs",
+          "arity": 2
+        },
+        {
+          "module": "lists",
+          "function": "map",
+          "arity": 2
+        },
+        {
+          "module": "lists",
+          "function": "all",
+          "arity": 2
+        },
+        {
+          "module": "lists",
+          "function": "keyreplace",
+          "arity": 4
+        },
+        {
+          "module": "erlang",
+          "function": "link",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "monotonic_time",
+          "arity": 0
+        },
+        {
+          "module": "erlang",
+          "function": "time_offset",
+          "arity": 0
+        },
+        {
+          "module": "dets_utils",
+          "function": "get_freelists",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "unlink",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "-",
+          "arity": 2
+        },
+        {
+          "module": "dets_v9",
+          "function": "no_slots",
+          "arity": 1
+        },
+        {
+          "module": "dets_utils",
+          "function": "position",
+          "arity": 3
+        },
+        {
+          "module": "dets_v9",
+          "function": "try_bchunk_header",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "put",
+          "arity": 2
+        },
+        {
+          "module": "dets_utils",
+          "function": "corrupt",
+          "arity": 2
+        },
+        {
+          "module": "ets",
+          "function": "new",
+          "arity": 2
+        },
+        {
+          "module": "dets_v9",
+          "function": "bulk_input",
+          "arity": 3
+        },
+        {
+          "module": "dets_v9",
+          "function": "bchunk_init",
+          "arity": 2
+        },
+        {
+          "module": "lists",
+          "function": "flatmap",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "tuple_size",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "list_to_integer",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "tuple_to_list",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "length",
+          "arity": 1
+        },
+        {
+          "module": "dets_v9",
+          "function": "db_hash",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "hd",
+          "arity": 1
+        },
+        {
+          "module": "dets_utils",
+          "function": "cmp",
+          "arity": 2
+        },
+        {
+          "module": "file",
+          "function": "read_file_info",
+          "arity": 1
+        },
+        {
+          "module": "dets_v9",
+          "function": "init_freelist",
+          "arity": 1
+        },
+        {
+          "module": "dets_utils",
+          "function": "new_cache",
+          "arity": 1
+        },
+        {
+          "module": "dets_v9",
+          "function": "cache_segps",
+          "arity": 3
+        },
+        {
+          "module": "file",
+          "function": "delete",
+          "arity": 1
+        },
+        {
+          "module": "dets_utils",
+          "function": "init_disk_map",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "error",
+          "arity": 1
+        },
+        {
+          "module": "dets_v9",
+          "function": "prep_table_copy",
+          "arity": 9
+        },
+        {
+          "module": "dets_v9",
+          "function": "compact_init",
+          "arity": 3
+        },
+        {
+          "module": "dets_utils",
+          "function": "rename",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "max",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "min",
+          "arity": 2
+        },
+        {
+          "module": "lists",
+          "function": "concat",
+          "arity": 1
+        },
+        {
+          "module": "dets_v9",
+          "function": "fsck_input",
+          "arity": 4
+        },
+        {
+          "module": "dets_v9",
+          "function": "output_objs",
+          "arity": 3
+        },
+        {
+          "module": "filename",
+          "function": "dirname",
+          "arity": 1
+        },
+        {
+          "module": "file_sorter",
+          "function": "sort",
+          "arity": 3
+        },
+        {
+          "module": "ets",
+          "function": "tab2list",
+          "arity": 1
+        },
+        {
+          "module": "ets",
+          "function": "delete",
+          "arity": 1
+        },
+        {
+          "module": "lists",
+          "function": "keysort",
+          "arity": 2
+        },
+        {
+          "module": "dets_utils",
+          "function": "pwrite",
+          "arity": 3
+        },
+        {
+          "module": "erlang",
+          "function": "bsl",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "*",
+          "arity": 2
+        },
+        {
+          "module": "file",
+          "function": "position",
+          "arity": 2
+        },
+        {
+          "module": "file",
+          "function": "copy",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "setelement",
+          "arity": 3
+        },
+        {
+          "module": "erlang",
+          "function": "erase",
+          "arity": 1
+        },
+        {
+          "module": "dets_v9",
+          "function": "find_object",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "external_size",
+          "arity": 1
+        },
+        {
+          "module": "dets_v9",
+          "function": "write_cache",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "monotonic_time",
+          "arity": 1
+        },
+        {
+          "module": "dets_utils",
+          "function": "cache_lookup",
+          "arity": 4
+        },
+        {
+          "module": "erlang",
+          "function": "round",
+          "arity": 1
+        },
+        {
+          "module": "dets_utils",
+          "function": "find_next_allocated",
+          "arity": 3
+        },
+        {
+          "module": "erlang",
+          "function": "get",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "-",
+          "arity": 1
+        },
+        {
+          "module": "dets_v9",
+          "function": "scan_objs",
+          "arity": 8
+        },
+        {
+          "module": "dets_utils",
+          "function": "find_allocated",
+          "arity": 4
+        },
+        {
+          "module": "dets_utils",
+          "function": "pread_n",
+          "arity": 3
+        },
+        {
+          "module": "erlang",
+          "function": "convert_time_unit",
+          "arity": 3
+        },
+        {
+          "module": "erlang",
+          "function": "div",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "rem",
+          "arity": 2
+        },
+        {
+          "module": "dets_v9",
+          "function": "file_info",
+          "arity": 1
+        },
+        {
+          "module": "dets_utils",
+          "function": "read_4",
+          "arity": 2
+        },
+        {
+          "module": "dets_v9",
+          "function": "v_segments",
+          "arity": 1
+        },
+        {
+          "module": "io",
+          "function": "format",
+          "arity": 2
+        },
+        {
+          "module": "dets_utils",
+          "function": "all_free",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "get_module_info",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "get_module_info",
+          "arity": 2
+        },
+        {
+          "module": "ets",
+          "function": "insert",
+          "arity": 2
+        },
+        {
+          "module": "io_lib",
+          "function": "format",
+          "arity": 2
+        },
+        {
+          "module": "ets",
+          "function": "select",
+          "arity": 1
+        }
+      ]
+    },
+    {
+      "module": "dets_server",
+      "sourcePath": "lib/stdlib/src/dets_server.erl",
+      "sourceLines": 418,
+      "sourceSha256": "2baa63af65a652e034bf4b5324c374eefb159fa5a9e0256ae8341fda224a062d",
+      "packagedSourceSha256": "2baa63af65a652e034bf4b5324c374eefb159fa5a9e0256ae8341fda224a062d",
+      "beamSha256": "c0dce09c3f0ea58ec433365f4c481d4fe666ca7f5fd74b9c9d795a36306bc0bb",
+      "exports": [
+        {
+          "function": "all",
+          "arity": 0
+        },
+        {
+          "function": "close",
+          "arity": 1
+        },
+        {
+          "function": "get_pid",
+          "arity": 1
+        },
+        {
+          "function": "open_file",
+          "arity": 1
+        },
+        {
+          "function": "open_file",
+          "arity": 2
+        },
+        {
+          "function": "pid2name",
+          "arity": 1
+        },
+        {
+          "function": "users",
+          "arity": 1
+        },
+        {
+          "function": "verbose",
+          "arity": 1
+        },
+        {
+          "function": "start_link",
+          "arity": 0
+        },
+        {
+          "function": "start",
+          "arity": 0
+        },
+        {
+          "function": "stop",
+          "arity": 0
+        },
+        {
+          "function": "init",
+          "arity": 1
+        },
+        {
+          "function": "handle_call",
+          "arity": 3
+        },
+        {
+          "function": "handle_cast",
+          "arity": 2
+        },
+        {
+          "function": "handle_info",
+          "arity": 2
+        },
+        {
+          "function": "terminate",
+          "arity": 2
+        },
+        {
+          "function": "code_change",
+          "arity": 3
+        }
+      ],
+      "imports": [
+        {
+          "module": "erlang",
+          "function": "self",
+          "arity": 0
+        },
+        {
+          "module": "gen_server",
+          "function": "start_link",
+          "arity": 4
+        },
+        {
+          "module": "erlang",
+          "function": "whereis",
+          "arity": 1
+        },
+        {
+          "module": "gen_server",
+          "function": "call",
+          "arity": 3
+        },
+        {
+          "module": "ets",
+          "function": "lookup_element",
+          "arity": 3
+        },
+        {
+          "module": "ets",
+          "function": "lookup",
+          "arity": 2
+        },
+        {
+          "module": "ets",
+          "function": "select",
+          "arity": 2
+        },
+        {
+          "module": "ets",
+          "function": "foldl",
+          "arity": 3
+        },
+        {
+          "module": "ets",
+          "function": "delete",
+          "arity": 2
+        },
+        {
+          "module": "ets",
+          "function": "match_delete",
+          "arity": 2
+        },
+        {
+          "module": "lists",
+          "function": "foreach",
+          "arity": 2
+        },
+        {
+          "module": "lists",
+          "function": "foldl",
+          "arity": 3
+        },
+        {
+          "module": "lists",
+          "function": "keysearch",
+          "arity": 3
+        },
+        {
+          "module": "erlang",
+          "function": "link",
+          "arity": 1
+        },
+        {
+          "module": "ets",
+          "function": "insert",
+          "arity": 2
+        },
+        {
+          "module": "ets",
+          "function": "update_counter",
+          "arity": 3
+        },
+        {
+          "module": "gen_server",
+          "function": "reply",
+          "arity": 2
+        },
+        {
+          "module": "lists",
+          "function": "keydelete",
+          "arity": 3
+        },
+        {
+          "module": "supervisor",
+          "function": "start_child",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "process_flag",
+          "arity": 2
+        },
+        {
+          "module": "ets",
+          "function": "new",
+          "arity": 2
+        },
+        {
+          "module": "init",
+          "function": "get_argument",
+          "arity": 1
+        },
+        {
+          "module": "lists",
+          "function": "member",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "put",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "erase",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "get",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "make_ref",
+          "arity": 0
+        },
+        {
+          "module": "ets",
+          "function": "match_object",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "unlink",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "+",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "-",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "spawn",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "++",
+          "arity": 2
+        },
+        {
+          "module": "lists",
+          "function": "keyreplace",
+          "arity": 4
+        },
+        {
+          "module": "erlang",
+          "function": "get_module_info",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "get_module_info",
+          "arity": 2
+        },
+        {
+          "module": "dets",
+          "function": "remove_user",
+          "arity": 2
+        },
+        {
+          "module": "dets",
+          "function": "internal_open",
+          "arity": 3
+        },
+        {
+          "module": "dets",
+          "function": "internal_close",
+          "arity": 1
+        },
+        {
+          "module": "dets",
+          "function": "add_user",
+          "arity": 3
+        },
+        {
+          "module": "erlang",
+          "function": "element",
+          "arity": 2
+        }
+      ]
+    },
+    {
+      "module": "dets_sup",
+      "sourcePath": "lib/stdlib/src/dets_sup.erl",
+      "sourceLines": 42,
+      "sourceSha256": "c58f486da4f8a62e0d59b0c9e2a7b560e9f44a61f126cbb3d8f7a4173559b50a",
+      "packagedSourceSha256": "c58f486da4f8a62e0d59b0c9e2a7b560e9f44a61f126cbb3d8f7a4173559b50a",
+      "beamSha256": "3c7038374f1d535ad21aab990b7b6083e0619f5678fb898639ab41c38440d9d1",
+      "exports": [
+        {
+          "function": "start_link",
+          "arity": 0
+        },
+        {
+          "function": "init",
+          "arity": 1
+        }
+      ],
+      "imports": [
+        {
+          "module": "supervisor",
+          "function": "start_link",
+          "arity": 3
+        },
+        {
+          "module": "erlang",
+          "function": "get_module_info",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "get_module_info",
+          "arity": 2
+        }
+      ]
+    },
+    {
+      "module": "dets_utils",
+      "sourcePath": "lib/stdlib/src/dets_utils.erl",
+      "sourceLines": 1791,
+      "sourceSha256": "852c73ba7c2eff67421588cc64cc45c27092912f7160233f58e7cb342031a67e",
+      "packagedSourceSha256": "852c73ba7c2eff67421588cc64cc45c27092912f7160233f58e7cb342031a67e",
+      "beamSha256": "674e37e3acdec1c8bcb31fbf2270a0c5358c77ebf8243571c4491234f1f2ddb6",
+      "exports": [
+        {
+          "function": "cmp",
+          "arity": 2
+        },
+        {
+          "function": "msort",
+          "arity": 1
+        },
+        {
+          "function": "mkeysort",
+          "arity": 2
+        },
+        {
+          "function": "mkeysearch",
+          "arity": 3
+        },
+        {
+          "function": "family",
+          "arity": 1
+        },
+        {
+          "function": "rename",
+          "arity": 2
+        },
+        {
+          "function": "pread",
+          "arity": 2
+        },
+        {
+          "function": "pread",
+          "arity": 4
+        },
+        {
+          "function": "ipread",
+          "arity": 3
+        },
+        {
+          "function": "pwrite",
+          "arity": 2
+        },
+        {
+          "function": "write",
+          "arity": 2
+        },
+        {
+          "function": "truncate",
+          "arity": 2
+        },
+        {
+          "function": "position",
+          "arity": 2
+        },
+        {
+          "function": "sync",
+          "arity": 1
+        },
+        {
+          "function": "open",
+          "arity": 2
+        },
+        {
+          "function": "truncate",
+          "arity": 3
+        },
+        {
+          "function": "fwrite",
+          "arity": 3
+        },
+        {
+          "function": "write_file",
+          "arity": 2
+        },
+        {
+          "function": "position",
+          "arity": 3
+        },
+        {
+          "function": "position_close",
+          "arity": 3
+        },
+        {
+          "function": "pwrite",
+          "arity": 3
+        },
+        {
+          "function": "pread_close",
+          "arity": 4
+        },
+        {
+          "function": "read_n",
+          "arity": 2
+        },
+        {
+          "function": "pread_n",
+          "arity": 3
+        },
+        {
+          "function": "read_4",
+          "arity": 2
+        },
+        {
+          "function": "code_to_type",
+          "arity": 1
+        },
+        {
+          "function": "type_to_code",
+          "arity": 1
+        },
+        {
+          "function": "corrupt_reason",
+          "arity": 2
+        },
+        {
+          "function": "corrupt",
+          "arity": 2
+        },
+        {
+          "function": "corrupt_file",
+          "arity": 2
+        },
+        {
+          "function": "vformat",
+          "arity": 2
+        },
+        {
+          "function": "file_error",
+          "arity": 2
+        },
+        {
+          "function": "debug_mode",
+          "arity": 0
+        },
+        {
+          "function": "bad_object",
+          "arity": 2
+        },
+        {
+          "function": "cache_lookup",
+          "arity": 4
+        },
+        {
+          "function": "cache_size",
+          "arity": 1
+        },
+        {
+          "function": "new_cache",
+          "arity": 1
+        },
+        {
+          "function": "reset_cache",
+          "arity": 1
+        },
+        {
+          "function": "is_empty_cache",
+          "arity": 1
+        },
+        {
+          "function": "empty_free_lists",
+          "arity": 0
+        },
+        {
+          "function": "init_alloc",
+          "arity": 1
+        },
+        {
+          "function": "alloc_many",
+          "arity": 4
+        },
+        {
+          "function": "alloc",
+          "arity": 2
+        },
+        {
+          "function": "free",
+          "arity": 3
+        },
+        {
+          "function": "get_freelists",
+          "arity": 1
+        },
+        {
+          "function": "all_free",
+          "arity": 1
+        },
+        {
+          "function": "all_allocated",
+          "arity": 1
+        },
+        {
+          "function": "all_allocated_as_list",
+          "arity": 1
+        },
+        {
+          "function": "find_allocated",
+          "arity": 4
+        },
+        {
+          "function": "find_next_allocated",
+          "arity": 3
+        },
+        {
+          "function": "log2",
+          "arity": 1
+        },
+        {
+          "function": "make_zeros",
+          "arity": 1
+        },
+        {
+          "function": "list_to_tree",
+          "arity": 1
+        },
+        {
+          "function": "tree_to_bin",
+          "arity": 5
+        },
+        {
+          "function": "init_disk_map",
+          "arity": 1
+        },
+        {
+          "function": "stop_disk_map",
+          "arity": 0
+        },
+        {
+          "function": "disk_map_segment_p",
+          "arity": 2
+        },
+        {
+          "function": "disk_map_segment",
+          "arity": 2
+        }
+      ],
+      "imports": [
+        {
+          "module": "erlang",
+          "function": "tuple_size",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "element",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "+",
+          "arity": 2
+        },
+        {
+          "module": "lists",
+          "function": "sort",
+          "arity": 1
+        },
+        {
+          "module": "lists",
+          "function": "sort",
+          "arity": 2
+        },
+        {
+          "module": "lists",
+          "function": "keysort",
+          "arity": 2
+        },
+        {
+          "module": "lists",
+          "function": "keysearch",
+          "arity": 3
+        },
+        {
+          "module": "lists",
+          "function": "reverse",
+          "arity": 2
+        },
+        {
+          "module": "file",
+          "function": "rename",
+          "arity": 2
+        },
+        {
+          "module": "file",
+          "function": "pread",
+          "arity": 2
+        },
+        {
+          "module": "lists",
+          "function": "member",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "throw",
+          "arity": 1
+        },
+        {
+          "module": "file",
+          "function": "pread",
+          "arity": 3
+        },
+        {
+          "module": "erlang",
+          "function": "byte_size",
+          "arity": 1
+        },
+        {
+          "module": "file",
+          "function": "ipread_s32bu_p32bu",
+          "arity": 3
+        },
+        {
+          "module": "file",
+          "function": "pwrite",
+          "arity": 2
+        },
+        {
+          "module": "file",
+          "function": "write",
+          "arity": 2
+        },
+        {
+          "module": "file",
+          "function": "open",
+          "arity": 2
+        },
+        {
+          "module": "file",
+          "function": "sync",
+          "arity": 1
+        },
+        {
+          "module": "file",
+          "function": "close",
+          "arity": 1
+        },
+        {
+          "module": "file",
+          "function": "position",
+          "arity": 2
+        },
+        {
+          "module": "file",
+          "function": "truncate",
+          "arity": 1
+        },
+        {
+          "module": "os",
+          "function": "getenv",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "=:=",
+          "arity": 2
+        },
+        {
+          "module": "file",
+          "function": "read",
+          "arity": 2
+        },
+        {
+          "module": "dets_utils",
+          "function": "read_n",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "self",
+          "arity": 0
+        },
+        {
+          "module": "erlang",
+          "function": "process_info",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "get",
+          "arity": 0
+        },
+        {
+          "module": "erlang",
+          "function": "get",
+          "arity": 1
+        },
+        {
+          "module": "logger",
+          "function": "allow",
+          "arity": 2
+        },
+        {
+          "module": "logger",
+          "function": "macro_log",
+          "arity": 4
+        },
+        {
+          "module": "erlang",
+          "function": "monotonic_time",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "setelement",
+          "arity": 3
+        },
+        {
+          "module": "erlang",
+          "function": "make_tuple",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "*",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "-",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "bsl",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "band",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "bsr",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "rem",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "div",
+          "arity": 2
+        },
+        {
+          "module": "lists",
+          "function": "reverse",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "list_to_binary",
+          "arity": 1
+        },
+        {
+          "module": "ets",
+          "function": "tab2list",
+          "arity": 1
+        },
+        {
+          "module": "ets",
+          "function": "new",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "put",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "erase",
+          "arity": 1
+        },
+        {
+          "module": "ets",
+          "function": "delete",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "iolist_to_binary",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "++",
+          "arity": 2
+        },
+        {
+          "module": "ets",
+          "function": "lookup",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "raise",
+          "arity": 3
+        },
+        {
+          "module": "ets",
+          "function": "delete",
+          "arity": 2
+        },
+        {
+          "module": "ets",
+          "function": "insert",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "binary_to_term",
+          "arity": 1
+        },
+        {
+          "module": "ets",
+          "function": "prev",
+          "arity": 2
+        },
+        {
+          "module": "ets",
+          "function": "next",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "length",
+          "arity": 1
+        },
+        {
+          "module": "lists",
+          "function": "foldr",
+          "arity": 3
+        },
+        {
+          "module": "erlang",
+          "function": "list_to_tuple",
+          "arity": 1
+        },
+        {
+          "module": "lists",
+          "function": "append",
+          "arity": 1
+        },
+        {
+          "module": "lists",
+          "function": "append",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "tuple_to_list",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "get_module_info",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "get_module_info",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "error",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": ">=",
+          "arity": 2
+        }
+      ]
+    },
+    {
+      "module": "dets_v9",
+      "sourcePath": "lib/stdlib/src/dets_v9.erl",
+      "sourceLines": 2753,
+      "sourceSha256": "9e69152a0a52a399e5390110571b8ad86031182af8a8aae7b631b8c2ac189e1b",
+      "packagedSourceSha256": "9e69152a0a52a399e5390110571b8ad86031182af8a8aae7b631b8c2ac189e1b",
+      "beamSha256": "f131a1c4e60dd0b52f8b7e0f10b2b0f02b6006fdcf1955e01b7c4b6fac852840",
+      "exports": [
+        {
+          "function": "mark_dirty",
+          "arity": 1
+        },
+        {
+          "function": "read_file_header",
+          "arity": 2
+        },
+        {
+          "function": "check_file_header",
+          "arity": 2
+        },
+        {
+          "function": "do_perform_save",
+          "arity": 1
+        },
+        {
+          "function": "initiate_file",
+          "arity": 11
+        },
+        {
+          "function": "prep_table_copy",
+          "arity": 9
+        },
+        {
+          "function": "init_freelist",
+          "arity": 1
+        },
+        {
+          "function": "fsck_input",
+          "arity": 4
+        },
+        {
+          "function": "bulk_input",
+          "arity": 3
+        },
+        {
+          "function": "output_objs",
+          "arity": 3
+        },
+        {
+          "function": "bchunk_init",
+          "arity": 2
+        },
+        {
+          "function": "try_bchunk_header",
+          "arity": 2
+        },
+        {
+          "function": "compact_init",
+          "arity": 3
+        },
+        {
+          "function": "read_bchunks",
+          "arity": 2
+        },
+        {
+          "function": "write_cache",
+          "arity": 1
+        },
+        {
+          "function": "may_grow",
+          "arity": 3
+        },
+        {
+          "function": "find_object",
+          "arity": 2
+        },
+        {
+          "function": "slot_objs",
+          "arity": 2
+        },
+        {
+          "function": "scan_objs",
+          "arity": 8
+        },
+        {
+          "function": "db_hash",
+          "arity": 2
+        },
+        {
+          "function": "no_slots",
+          "arity": 1
+        },
+        {
+          "function": "table_parameters",
+          "arity": 1
+        },
+        {
+          "function": "file_info",
+          "arity": 1
+        },
+        {
+          "function": "v_segments",
+          "arity": 1
+        },
+        {
+          "function": "cache_segps",
+          "arity": 3
+        }
+      ],
+      "imports": [
+        {
+          "module": "dets_utils",
+          "function": "pwrite",
+          "arity": 2
+        },
+        {
+          "module": "dets_utils",
+          "function": "sync",
+          "arity": 1
+        },
+        {
+          "module": "dets_utils",
+          "function": "position",
+          "arity": 2
+        },
+        {
+          "module": "dets_utils",
+          "function": "truncate",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "throw",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "min",
+          "arity": 2
+        },
+        {
+          "module": "dets_utils",
+          "function": "init_alloc",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "*",
+          "arity": 2
+        },
+        {
+          "module": "orddict",
+          "function": "new",
+          "arity": 0
+        },
+        {
+          "module": "dets_utils",
+          "function": "new_cache",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "erase",
+          "arity": 0
+        },
+        {
+          "module": "lists",
+          "function": "foreach",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "++",
+          "arity": 2
+        },
+        {
+          "module": "lists",
+          "function": "append",
+          "arity": 1
+        },
+        {
+          "module": "dets_utils",
+          "function": "pwrite",
+          "arity": 3
+        },
+        {
+          "module": "dets_utils",
+          "function": "alloc",
+          "arity": 2
+        },
+        {
+          "module": "dets_utils",
+          "function": "log2",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "bsl",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "+",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "div",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "get",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "band",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "put",
+          "arity": 2
+        },
+        {
+          "module": "dets_utils",
+          "function": "disk_map_segment",
+          "arity": 2
+        },
+        {
+          "module": "dets_utils",
+          "function": "pread_close",
+          "arity": 4
+        },
+        {
+          "module": "dets_utils",
+          "function": "position_close",
+          "arity": 3
+        },
+        {
+          "module": "erlang",
+          "function": "-",
+          "arity": 2
+        },
+        {
+          "module": "lists",
+          "function": "seq",
+          "arity": 2
+        },
+        {
+          "module": "lists",
+          "function": "foldl",
+          "arity": 3
+        },
+        {
+          "module": "lists",
+          "function": "reverse",
+          "arity": 1
+        },
+        {
+          "module": "dets_utils",
+          "function": "code_to_type",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "=/=",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "md5",
+          "arity": 1
+        },
+        {
+          "module": "dets_utils",
+          "function": "disk_map_segment_p",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "make_ref",
+          "arity": 0
+        },
+        {
+          "module": "erlang",
+          "function": "term_to_binary",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "element",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "tuple_size",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "max",
+          "arity": 2
+        },
+        {
+          "module": "ets",
+          "function": "new",
+          "arity": 2
+        },
+        {
+          "module": "filename",
+          "function": "dirname",
+          "arity": 1
+        },
+        {
+          "module": "file_sorter",
+          "function": "sort",
+          "arity": 3
+        },
+        {
+          "module": "ets",
+          "function": "delete",
+          "arity": 1
+        },
+        {
+          "module": "dets_utils",
+          "function": "all_allocated_as_list",
+          "arity": 1
+        },
+        {
+          "module": "lists",
+          "function": "duplicate",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "list_to_tuple",
+          "arity": 1
+        },
+        {
+          "module": "dets_utils",
+          "function": "pread_n",
+          "arity": 3
+        },
+        {
+          "module": "erlang",
+          "function": "byte_size",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "binary_to_term",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "setelement",
+          "arity": 3
+        },
+        {
+          "module": "dets_utils",
+          "function": "bad_object",
+          "arity": 2
+        },
+        {
+          "module": "dets_utils",
+          "function": "cache_size",
+          "arity": 1
+        },
+        {
+          "module": "ets",
+          "function": "foldl",
+          "arity": 3
+        },
+        {
+          "module": "dets_utils",
+          "function": "write",
+          "arity": 2
+        },
+        {
+          "module": "dets_utils",
+          "function": "make_zeros",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "tuple_to_list",
+          "arity": 1
+        },
+        {
+          "module": "ets",
+          "function": "lookup",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "length",
+          "arity": 1
+        },
+        {
+          "module": "ets",
+          "function": "update_counter",
+          "arity": 3
+        },
+        {
+          "module": "ets",
+          "function": "insert",
+          "arity": 2
+        },
+        {
+          "module": "ets",
+          "function": "delete_all_objects",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "make_tuple",
+          "arity": 2
+        },
+        {
+          "module": "file",
+          "function": "position",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "list_to_binary",
+          "arity": 1
+        },
+        {
+          "module": "file",
+          "function": "write",
+          "arity": 2
+        },
+        {
+          "module": "dets_utils",
+          "function": "file_error",
+          "arity": 2
+        },
+        {
+          "module": "ets",
+          "function": "tab2list",
+          "arity": 1
+        },
+        {
+          "module": "lists",
+          "function": "keysort",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "hd",
+          "arity": 1
+        },
+        {
+          "module": "dets_utils",
+          "function": "alloc_many",
+          "arity": 4
+        },
+        {
+          "module": "orddict",
+          "function": "update_counter",
+          "arity": 3
+        },
+        {
+          "module": "ets",
+          "function": "info",
+          "arity": 2
+        },
+        {
+          "module": "lists",
+          "function": "sort",
+          "arity": 1
+        },
+        {
+          "module": "dets_utils",
+          "function": "family",
+          "arity": 1
+        },
+        {
+          "module": "file",
+          "function": "close",
+          "arity": 1
+        },
+        {
+          "module": "dets_utils",
+          "function": "open",
+          "arity": 2
+        },
+        {
+          "module": "dets_utils",
+          "function": "position",
+          "arity": 3
+        },
+        {
+          "module": "file",
+          "function": "delete",
+          "arity": 1
+        },
+        {
+          "module": "dets_utils",
+          "function": "read_n",
+          "arity": 2
+        },
+        {
+          "module": "dets_utils",
+          "function": "fwrite",
+          "arity": 3
+        },
+        {
+          "module": "lists",
+          "function": "concat",
+          "arity": 1
+        },
+        {
+          "module": "dets_utils",
+          "function": "debug_mode",
+          "arity": 0
+        },
+        {
+          "module": "erlang",
+          "function": "=:=",
+          "arity": 2
+        },
+        {
+          "module": "dets_utils",
+          "function": "corrupt_reason",
+          "arity": 2
+        },
+        {
+          "module": "lists",
+          "function": "map",
+          "arity": 2
+        },
+        {
+          "module": "orddict",
+          "function": "merge",
+          "arity": 3
+        },
+        {
+          "module": "dets_utils",
+          "function": "type_to_code",
+          "arity": 1
+        },
+        {
+          "module": "dets_utils",
+          "function": "get_freelists",
+          "arity": 1
+        },
+        {
+          "module": "dets_utils",
+          "function": "tree_to_bin",
+          "arity": 5
+        },
+        {
+          "module": "dets_utils",
+          "function": "empty_free_lists",
+          "arity": 0
+        },
+        {
+          "module": "dets_utils",
+          "function": "list_to_tree",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "phash2",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "phash",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "rem",
+          "arity": 2
+        },
+        {
+          "module": "filename",
+          "function": "basename",
+          "arity": 1
+        },
+        {
+          "module": "dets_utils",
+          "function": "pread",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "raise",
+          "arity": 3
+        },
+        {
+          "module": "dets_utils",
+          "function": "is_empty_cache",
+          "arity": 1
+        },
+        {
+          "module": "dets_utils",
+          "function": "reset_cache",
+          "arity": 1
+        },
+        {
+          "module": "dets_utils",
+          "function": "corrupt",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "self",
+          "arity": 0
+        },
+        {
+          "module": "erlang",
+          "function": ">=",
+          "arity": 2
+        },
+        {
+          "module": "lists",
+          "function": "member",
+          "arity": 2
+        },
+        {
+          "module": "dets_utils",
+          "function": "ipread",
+          "arity": 3
+        },
+        {
+          "module": "dets_utils",
+          "function": "mkeysearch",
+          "arity": 3
+        },
+        {
+          "module": "dets_utils",
+          "function": "free",
+          "arity": 3
+        },
+        {
+          "module": "dets_utils",
+          "function": "cmp",
+          "arity": 2
+        },
+        {
+          "module": "dets_utils",
+          "function": "msort",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "bsr",
+          "arity": 2
+        },
+        {
+          "module": "dets_utils",
+          "function": "read_4",
+          "arity": 2
+        },
+        {
+          "module": "io",
+          "function": "format",
+          "arity": 2
+        },
+        {
+          "module": "lists",
+          "function": "reverse",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "get_module_info",
+          "arity": 1
+        },
+        {
+          "module": "erlang",
+          "function": "get_module_info",
+          "arity": 2
+        },
+        {
+          "module": "lists",
+          "function": "sublist",
+          "arity": 2
+        },
+        {
+          "module": "lists",
+          "function": "nthtail",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "error",
+          "arity": 1
+        },
+        {
+          "module": "ets",
+          "function": "delete",
+          "arity": 2
+        },
+        {
+          "module": "erlang",
+          "function": "abs",
+          "arity": 1
+        }
+      ]
+    }
+  ],
+  "managedSources": [
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsBuddyAllocator.cs",
+      "sha256": "e2d279669fe66eba198ff4b0af14985cb3f8f7fe88d167205cd043eb5a3df623"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsContinuationFields.cs",
+      "sha256": "bacfb605edbd10e0986e4fb7e9698d0b641a77881faf17a28f978b7c7987031c"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsCopyParameterFields.cs",
+      "sha256": "daa0a35a11e0df2333bc18c08e31c965d47df63d50fa9722d97b56916950928b"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsDependencyNames.cs",
+      "sha256": "c73bad3f59ed31465ec37be30d1a2e4662f5e8532a6ce3cc9841b0e9c8a50101"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsExternalFunctions.cs",
+      "sha256": "e9226c3c4abf50abee4b83d424c09a0890470c2203438f650ceb392109ccc0ac"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsFailureNames.cs",
+      "sha256": "45a7dcd6a26ecd36f99bcbe61796270a2dedab2a60570df6c8f1def4e0a34ad1"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsFileException.cs",
+      "sha256": "4ee7aa153c351717333499b73589bd5e4ad5d083e3e6dac729b6290b34a14995"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsFileNames.cs",
+      "sha256": "295770887c6067e397d7bd603ef4e9416545bf8b789dab4248ea7060a722c5ef"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsFileReasons.cs",
+      "sha256": "5c7e9806209ee00ec62f7af49d188ccc0b8c62af1e04a323940104649aac3ef3"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsFileType.cs",
+      "sha256": "2287f696b96e8fbddb56743ed5218693cb618fc1fbdbe6df1d45ce4bf677d770"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsFixTimeLayout.cs",
+      "sha256": "8a73b15e1206973e49d58e51d4ebab9a39c3f0513adcd81b834247a114b113db"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsFunctions.cs",
+      "sha256": "0d54240bf457b53143698c3d2799076ce3a65333f454f71f053d162a29498daf"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsHeaderNames.cs",
+      "sha256": "36d164b7b3b2827a4a1c61f374b47425e6bc1cdae3c41e38c9fff69085750cbf"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsInfoNames.cs",
+      "sha256": "e9d0133816a839e290853c2382fe98b341f5fa02b830a9ddcaa8b3c094303fd3"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsMatchNames.cs",
+      "sha256": "20c804c998ecd79e9d3448d413b4c8ac9f5a2ae71a5f4dd5812b36de9d9b2b7f"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsModule.cs",
+      "sha256": "b91c787c825d027128dc6cd6e1b35f4ce0fdf0bfb897475c88c6e4f0ae76459f"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsModule.Files.cs",
+      "sha256": "7ab4e12a0120d76a27a524e98adf11659d22829c95ca9ae19354d7b4221551e0"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsModule.Queries.cs",
+      "sha256": "8396295157ee158bf27d0f53148a40604316348afa5f061d587bb05e41dd60fd"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsNames.cs",
+      "sha256": "c20265104f9011fad9e7715d6d0f6a958479b619bcb5801d87348108b2b013d7"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsObjectStore.cs",
+      "sha256": "c032609cc6ba88ae43e9b1cc67514443e0544974dfb190e44cbd3605f79c5983"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsOpenArgumentFields.cs",
+      "sha256": "b35810a4862e053c8fb5ea8f463456100dd5bbb3b3cb63f3587c44a350122aa3"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsOpenOptions.cs",
+      "sha256": "84e201506faf8fbda4139daf40b348aab74ddccdf0fe95f01a44f1bef3e952a2"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsProtocolNames.cs",
+      "sha256": "708bd20982e4d855bf38144f1c0604978da858db93790d16a1573685bef476e4"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsQueryNames.cs",
+      "sha256": "c153ef6e7ae9dab44c69e9ef44da10e4cb418506895abe3440c7f66d9ee4d6a0"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsRequestNames.cs",
+      "sha256": "ec46f043c6bac88846ac85fa4131d9e5caca77806323802aacf9f1f786f83b50"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsSource.cs",
+      "sha256": "f41fe98dce72de84a1fd7d7fb1a6201b6fa96c11564565337c0b5bcc1bb178b1"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsSourceLines.cs",
+      "sha256": "179e8cc1e565beec4f878a5068b187bdb87a49a151f05ca8ba63d01924031146"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsTableWorker.cs",
+      "sha256": "33986888692ae4441b752947c3639be17d1fccce2fff08a3884a80fa7e73638b"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsTableWorker.Queries.cs",
+      "sha256": "b37f96e0871d5ac989619ba7c3021b7d156f1f5206dd3ab6bee4c7e96bf79edf"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsTableWorker.Storage.cs",
+      "sha256": "64c503564236261aed7b3cc939a7e9da31f8fb5474040580feb1648c9751e0d6"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsText.cs",
+      "sha256": "259c68656c6a6088250ea083fa6ac77848d40bdceb3f1e373ca215f902e97ca1"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsV9File.cs",
+      "sha256": "32e9f4c7179bdc30da632b01cb75ac137276ea23f55bab030164c07b95604d36"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsV9Header.cs",
+      "sha256": "8a742622e414415fdd8aa09fd7a01ab0c1df54771a07e52f898c012e5d33c9eb"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsV9Layout.cs",
+      "sha256": "365fb7e11d92de24d62500df1093784caef4d1c35d2206ff033d3a3cb21a105e"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsV9Reader.cs",
+      "sha256": "9c548e4edf3a7f482078fbf35c3674c2298b798bbcc34f3b6273f906fc423b98"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsV9Recovery.cs",
+      "sha256": "1850b88ce5ea34365763ec786f6a0bfb6f3a8fd2c4384898327bd2a6a36ac265"
+    },
+    {
+      "path": "src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/DetsV9Writer.cs",
+      "sha256": "998f9b97a78533ef3ed1700e8a481b614554b1c9b16040a1b3e3404a7d3b0fe5"
+    }
+  ],
+  "acceptance": "Static inventory only; see separate execution receipts"
+}

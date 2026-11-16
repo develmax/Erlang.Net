@@ -1,0 +1,8 @@
+{encode_opcode,1} instructions OTP 26, previous C# 35, current C# 26
+OTP entry [{label,504},{line,[{location,"inet_dns.erl",627}]},{func_info,{atom,inet_dns},{atom,encode_opcode},1},{label,505},{select_val,{x,0},{f,511},5,[{atom,iquery},{f,510},{atom,notify},{f,509},{atom,query},{f,508}]},{label,506},{move,{integer,5},{x,0}},return]
+OTP fallback [{label,511},{test,is_integer,{f,512},[{x,0}]},return,{label,512},{line,[{location,"inet_dns.erl",628}]},{case_end,{x,0}}]
+Previous entry [{label,634},{line,[{location,"inet_dns.erl",627}]},{func_info,{atom,inet_dns},{atom,encode_opcode},1},{label,635},{allocate,1,1},{move,{x,0},{y,0}},{test,is_eq_exact,{f,637},[{y,0},{atom,query}]},{move,{integer,0},{x,0}}]
+Previous fallback [{label,642},{move,{y,0},{x,0}},{case_end,{x,0}},{label,636},{deallocate,1},return]
+Current entry [{label,632},{line,[{location,"inet_dns.erl",627}]},{func_info,{atom,inet_dns},{atom,encode_opcode},1},{label,633},{select_val,{x,0},{f,639},5,[{atom,iquery},{f,638},{atom,notify},{f,637},{atom,query},{f,636}]},{label,634},{move,{integer,5},{x,0}},return]
+Current fallback [{label,639},{test,is_integer,{f,640},[{x,0}]},return,{label,640},{line,[{location,"inet_dns.erl",628}]},{case_end,{x,0}}]
+Current instructions match after label rebasing.

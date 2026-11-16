@@ -1,0 +1,13 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, adjacent_move_probe} = code:load_binary(adjacent_move_probe, Path, Binary),
+undefined = put(key,initial),
+{initial,first} = adjacent_move_probe:adjacent(first),
+{stamped,initial} = get(observed),
+{{stamped,first},second} = adjacent_move_probe:clobbered(second),
+other = get(observed),
+{stamped,second} = adjacent_move_probe:branch(third,yes),
+third = adjacent_move_probe:branch(fourth,no),
+{beam_file, _, _, _, _, Functions} = beam_disasm:file(Path),
+[io:format("~p~n", [Item]) || Item = {function, Name, _, _, _} <- Functions, Name =/= module_info],
+halt().

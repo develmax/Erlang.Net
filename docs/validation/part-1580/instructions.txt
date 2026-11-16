@@ -1,0 +1,36 @@
+OTP 29.1.1
+{label,1}
+{line,[{location,[],3}]}
+{func_info,{atom,beam_binary_tail_recursion},{atom,trim},1}
+{label,2}
+{test,bs_start_match3,{f,5},1,[{x,0}],{x,1}}
+{bs_get_position,{x,1},{x,0},2}
+{bs_match,{f,4},{x,1},{commands,[{ensure_at_least,8,8},{integer,2,{literal,[]},8,1,{x,2}}]}}
+{select_val,{tr,{x,2},{t_integer,{0,255}}},{f,4},{list,[{integer,9},{f,3},{integer,10},{f,3},{integer,13},{f,3},{integer,32},{f,3}]}}
+{label,3}
+{move,{x,1},{x,0}}
+{call_only,1,{beam_binary_tail_recursion,trim,1}}
+{label,4}
+{bs_set_position,{x,1},{x,0}}
+{bs_get_tail,{x,1},{x,0},2}
+return
+{label,5}
+return
+Part 1580 C#
+{label,1}
+{line,[{location,[],3}]}
+{func_info,{atom,beam_binary_tail_recursion},{atom,trim},1}
+{label,2}
+{test,bs_start_match3,{f,5},1,[{x,0}],{x,1}}
+{bs_get_position,{x,1},{x,0},2}
+{bs_match,{f,4},{x,1},{commands,[{ensure_at_least,8,8},{integer,2,{literal,[]},8,1,{x,2}}]}}
+{select_val,{tr,{x,2},{t_integer,{0,255}}},{f,4},{list,[{integer,9},{f,3},{integer,10},{f,3},{integer,13},{f,3},{integer,32},{f,3}]}}
+{label,3}
+{move,{x,1},{x,0}}
+{call_only,1,{beam_binary_tail_recursion,trim,1}}
+{label,4}
+{bs_set_position,{x,1},{x,0}}
+{bs_get_tail,{x,1},{x,0},2}
+return
+{label,5}
+return

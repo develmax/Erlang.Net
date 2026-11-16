@@ -51,6 +51,15 @@ try
         throw new ArgumentException(ToolDiagnostics.InputOutputPaths);
     sourcePath = Path.GetFullPath(args[1]);
     sourceText = await File.ReadAllTextAsync(sourcePath);
+    if (args[0] == "compile-beam")
+    {
+        byte[] beam = CodeGeneration.CompileBeamFile(sourcePath, args.Length == 4 ? args[3] : null);
+        string beamPath = Path.GetFullPath(args[2]);
+        Directory.CreateDirectory(Path.GetDirectoryName(beamPath)!);
+        await File.WriteAllBytesAsync(beamPath, beam);
+
+        return 0;
+    }
     string generated = args[0] switch
     {
         "compile" => CodeGeneration.CompileModule(sourceText, sourcePath),

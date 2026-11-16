@@ -1,1 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk"><ItemGroup><ProjectReference Include="../../Otp/Managed/Erlang.Otp.Behaviours/Erlang.Otp.Behaviours.csproj" /><ProjectReference Include="../../Runtime/Erlang.Runtime/Erlang.Runtime.csproj" /><Reference Include="Microsoft.CodeAnalysis"><HintPath>$(MSBuildToolsPath)/Roslyn/bincore/Microsoft.CodeAnalysis.dll</HintPath><Private>true</Private></Reference><Reference Include="Microsoft.CodeAnalysis.CSharp"><HintPath>$(MSBuildToolsPath)/Roslyn/bincore/Microsoft.CodeAnalysis.CSharp.dll</HintPath><Private>true</Private></Reference></ItemGroup></Project>
+<Project Sdk="Microsoft.NET.Sdk"><ItemGroup><ProjectReference Include="../../Otp/Managed/Erlang.Otp.Behaviours/Erlang.Otp.Behaviours.csproj" /><ProjectReference Include="../../Runtime/Erlang.Runtime/Erlang.Runtime.csproj" /><Reference Include="Microsoft.CodeAnalysis"><HintPath>$(MSBuildToolsPath)/Roslyn/bincore/Microsoft.CodeAnalysis.dll</HintPath><Private>true</Private></Reference><Reference Include="Microsoft.CodeAnalysis.CSharp"><HintPath>$(MSBuildToolsPath)/Roslyn/bincore/Microsoft.CodeAnalysis.CSharp.dll</HintPath><Private>true</Private></Reference></ItemGroup>
+  <PropertyGroup>
+    <BeamZlibRid Condition="'$(RuntimeIdentifier)' != ''">$(RuntimeIdentifier)</BeamZlibRid>
+    <BeamZlibRid Condition="'$(BeamZlibRid)' == ''">$(NETCoreSdkRuntimeIdentifier)</BeamZlibRid>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Update="runtimes/win-x64/native/Erlang.Beam.Zlib.dll" Pack="true" PackagePath="%(Identity)" />
+    <None Update="runtimes/$(BeamZlibRid)/native/Erlang.Beam.Zlib.dll" CopyToOutputDirectory="PreserveNewest"
+          CopyToPublishDirectory="PreserveNewest" TargetPath="Erlang.Beam.Zlib.dll" />
+    <None Include="../../../licenses/ZLIB-LICENSE.txt" Pack="true" PackagePath="licenses/" />
+  </ItemGroup>
+</Project>

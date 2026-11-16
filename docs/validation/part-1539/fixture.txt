@@ -1,0 +1,33 @@
+{{run,[{other,<<>>}]},
+ {error,{badrecord,{other,<<>>}},
+        [{beam_measured_record,run,1,
+                               [{file,"beam_measured_record.erl"},{line,5}]}]},
+ {error,{badrecord,{other,<<>>}},
+        [{beam_measured_record,run,1,
+                               [{file,"beam_measured_record.erl"},
+                                {line,4}]}]}}
+{{run,[invalid]},
+ {error,{badrecord,invalid},
+        [{beam_measured_record,run,1,
+                               [{file,"beam_measured_record.erl"},{line,5}]}]},
+ {error,{badrecord,invalid},
+        [{beam_measured_record,run,1,
+                               [{file,"beam_measured_record.erl"},
+                                {line,4}]}]}}
+{{bits,[{other,<<>>}]},
+ {error,{badrecord,{other,<<>>}},
+        [{beam_measured_record,bits,1,
+                               [{file,"beam_measured_record.erl"},{line,7}]}]},
+ {error,{badrecord,{other,<<>>}},
+        [{beam_measured_record,bits,1,
+                               [{file,"beam_measured_record.erl"},
+                                {line,6}]}]}}
+{{bits,[invalid]},
+ {error,{badrecord,invalid},
+        [{beam_measured_record,bits,1,
+                               [{file,"beam_measured_record.erl"},{line,7}]}]},
+ {error,{badrecord,invalid},
+        [{beam_measured_record,bits,1,
+                               [{file,"beam_measured_record.erl"},
+                                {line,6}]}]}}
+12 observations match the baseline, including the existing badrecord line differences shown above.

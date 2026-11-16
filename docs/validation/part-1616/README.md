@@ -1,0 +1,9 @@
+# Part 1616 — Keep terminal call matches in X0
+
+A single-clause function with a terminal literal or tagged tuple match can use a zero-slot call frame when no value needs saving across calls. The shared call planner validates the operand flow and preserves call order. The result stays in X0 for both the successful return and badmatch. The same rule handles ordinary calls and eligible nested argument calls. It also recognizes erase/1 as an ordinary external call. OTP 29.1.1 beam_ssa_pre_codegen.erl and release disassembly provide the reference. No dependency was added.
+
+The permanent beam_terminal_call_match fixture matches OTP byte for byte. OTP VM execution agreed on return values, dictionary removal, badmatch reasons and error locations. Both builds succeeded and three focused tests passed. [Fixture SHA-256](fixture-sha256.txt) · [Nested disassembly](fixture-disassembly.txt) · [Tagged disassembly](tagged-disassembly.txt) · [Outcomes](outcomes.txt) · [Tests](focused.txt).
+
+The corpus accepted and generated all 1,366 sources. 393 were Equal and 973 Different. ELDAPv3 was Equal. The change affected 35 images with a signed reduction of 1125 bytes in the aggregate Code size gap. The instruction comparison after label normalization recorded 29 new matches and 0 losses. The OTP loader accepted all 973 differing images. The full runtime suite and readiness regeneration were outside this run. [Corpus](otp-corpus.json) · [Code sizes and loader](loader-and-code.txt) · [Normalized comparison](normalized-functions.txt) · [Release example](asn1ct_gen-close_output_file.txt).
+
+The preceding corpus ranks the common entry frame shapes by initial stack size and the subsequent operations. The largest groups still need analysis of Y-register lifetimes across calls and branch joins. [Ranking](baseline-frame-rank.txt) · [Ranking script](rank-frames.escript).

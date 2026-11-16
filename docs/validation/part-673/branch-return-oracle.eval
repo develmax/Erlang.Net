@@ -1,0 +1,6 @@
+Release="D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/library376-official-compiler/installed/lib/eldap-1.3.1/ebin/ELDAPv3.beam",
+Actual="artifacts/beam-backend/part673-eldap/ELDAPv3.release-profile.beam",
+Read=fun(P)->{beam_file,_,_,_,_,Fs}=beam_disasm:file(P),
+  [I]=[Ops||{function,dec_LDAPMessage_protocolOp,2,_,Ops}<-Fs],
+  lists:sublist(lists:dropwhile(fun(O)->O=/={call,2,{'ELDAPv3',dec_BindResponse,2}} end,I),5) end,
+io:format("OTP ~p~nCSharp ~p~n",[Read(Release),Read(Actual)]),halt().

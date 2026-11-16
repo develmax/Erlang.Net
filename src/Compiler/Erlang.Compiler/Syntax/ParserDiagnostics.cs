@@ -2,6 +2,8 @@ namespace Erlang.Compiler;
 
 internal static class ParserDiagnostics
 {
+    internal const string NamedFunHeadMismatch = "Named fun clauses must repeat the same variable name.";
+    public const string InvalidTypeFormQualifier = "A qualified specification must refer to the current module";
     public const string InvalidAttributeLiteral = "Bad attribute literal";
     public const string BinaryGeneratorPattern = "Binary generators require a binary pattern";
     public const string IllegalZipGenerator = "Zip groups require list, binary or map generators";

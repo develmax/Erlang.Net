@@ -1,0 +1,3 @@
+Read=fun(P)->{ok,{_,[{imports,I}]}}=beam_lib:chunks(P,[imports]),I end,
+R=Read("D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/library376-official-compiler/installed/lib/eldap-1.3.1/ebin/ELDAPv3.beam"),A=Read("artifacts/beam-backend/part645-eldap/ELDAPv3.release-profile.beam"),
+io:format("release_only=~p~nmanaged_only=~p~n",[R--A,A--R]),halt().

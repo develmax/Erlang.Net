@@ -1,0 +1,11 @@
+Unhandled exception. System.ArgumentOutOfRangeException: Specified argument was out of the range of valid values. (Parameter 'stage')
+   at Erlang.ManagedStdlibRegistration456.Register(ModuleRegistry r, RuntimeManagedLibraryStage456 stage)
+   at Erlang.RuntimeManagedLibraries456.Register(ModuleRegistry registry, RuntimeManagedLibraryStage456 stage)
+   at Erlang.BinaryModule.Register(ModuleRegistry registry)
+   at Erlang.CoreModules.RegisterCode(ModuleRegistry r)
+   at Erlang.ModuleRegistry.<>c__DisplayClass92_0.<InstallPreloaded>b__0(ModuleRegistry target)
+   at Erlang.ModuleRegistry.Apply(Action`1 configure)
+   at Erlang.ModuleRegistry.InstallPreloaded(Action`1 configure)
+   at Erlang.CoreModules.Register(ModuleRegistry r)
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 7350
+   at Program.<Main>(String[] args)

@@ -1,0 +1,55 @@
+[Reference, Generated] = [filename:absname(Path) || Path <- init:get_plain_arguments()],
+Read = fun(Path) ->
+    {beam_file, Module, _, _, _, Functions} = beam_disasm:file(Path),
+    {Module, maps:from_list([{{Name, Arity}, Instructions}
+                           || {function, Name, Arity, _, Instructions} <- Functions])}
+end,
+Body = fun(Instructions) ->
+    [I || I <- Instructions, not (is_tuple(I) andalso
+         lists:member(element(1, I), [label, line, func_info, executable_line, debug_line]))]
+end,
+Allocation = fun(I) -> is_tuple(I) andalso
+    lists:member(element(1, I), [allocate, allocate_heap, allocate_zero, allocate_heap_zero])
+end,
+Opcode = fun
+    ({test, Test, _, _}) -> {test, Test};
+    ({test, Test, _, _, _, _}) -> {test, Test};
+    (I) when is_tuple(I) -> element(1, I);
+    (I) -> I
+end,
+Files = lists:sort(filelib:fold_files(Generated, "[.]beam$", true, fun(Path, Acc) -> [Path | Acc] end, [])),
+Totals = lists:foldl(fun(Path, Acc) ->
+    Relative = lists:nthtail(length(filename:split(Generated)), filename:split(Path)),
+    {Module, Old} = Read(filename:join([Reference | Relative])),
+    {Module, New} = Read(Path),
+    Groups = lists:foldl(fun({Mfa, Instructions}, G) ->
+        case {Body(Instructions), Body(maps:get(Mfa, New, []))} of
+            {[First | _] = Ref, [FirstNew | _]} ->
+                case not Allocation(First) andalso Allocation(FirstNew) of
+                    true ->
+                        Class = case lists:any(Allocation, Ref) of
+                            true -> delayed;
+                            false -> absent
+                        end,
+                        Key = {Class, Opcode(First)},
+                        maps:update_with(Key, fun(Entries) -> [Mfa | Entries] end, [Mfa], G);
+                    false -> G
+                end;
+            _ -> G
+        end
+    end, #{}, lists:sort(maps:to_list(Old))),
+    maps:fold(fun(Key, Mfas, All) ->
+        Example = {Module, lists:last(Mfas)},
+        maps:update_with(Key, fun({Modules, Count, Examples}) ->
+            {Modules + 1, Count + length(Mfas), lists:sublist([Example | Examples], 3)}
+        end, {1, length(Mfas), [Example]}, All)
+    end, Acc, Groups)
+end, #{}, Files),
+Ranked = lists:reverse(lists:sort([{Modules, Functions, Key, Examples}
+    || {Key, {Modules, Functions, Examples}} <- maps:to_list(Totals)])),
+io:format("~p different images. Groups where generated code allocates at entry.~n", [length(Files)]),
+io:format("Columns are modules, functions, OTP frame placement, first OTP operation, examples.~n"),
+lists:foreach(fun({Modules, Count, {Class, First}, Examples}) ->
+    io:format("~p ~p ~p ~p ~w~n", [Modules, Count, Class, First, Examples])
+end, lists:sublist(Ranked, 20)),
+halt().

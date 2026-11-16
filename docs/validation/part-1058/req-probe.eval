@@ -1,0 +1,17 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, asn1_db} = code:load_binary(asn1_db, Path, Binary),
+Responder = spawn(fun() ->
+    receive {{Ref, Caller}, {get, module, key}} ->
+        Caller ! {{Ref, asn1_db}, value}
+    end
+end),
+undefined = put(asn1_db, Responder),
+value = asn1_db:dbget(module, key),
+Failed = spawn(fun() -> receive _ -> exit(test_reason) end end),
+Responder = put(asn1_db, Failed),
+try asn1_db:dbget(module, key) of
+    Unexpected -> error({unexpected_reply, Unexpected})
+catch exit:{db_error, test_reason} -> ok end,
+io:format("Reply and monitor DOWN paths passed.~n"),
+halt().

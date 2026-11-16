@@ -187,3 +187,60 @@ Append numbered English entries only to the last volume. Start the next sequenti
 - [0106.md](docs/changelog/0106.md) - Timer publication, PR113 reconciliation and Parts588-589 ASN.1 build repair/main update and Part590 analysis consumer CI reconciliation (closed; continues in0107; includes Part591 managed Unicode utility, Part592 ETS reconciliation and Part593 DETS review/POSIX filesystem and Part594 function-call CI repair and Part595 original-OTP tail-frame correction and Part596 scheduling/timer test synchronization and Part597 NIF target CI/macOS native host)
 
 - [0107.md](docs/changelog/0107.md) - Parts598–605 NIF platform work, resource/GC, erts_internal, DETS, sys and io (active)
+
+## BEAM compiler checkpoint
+
+Parts already covered by the main volumes retain their integrated records. The frozen checkpoint also records earlier work and corpus experiments in its [original changelog](https://github.com/develmax/Erlang.Net/blob/a34a242ea446a56070372c51a82733a652154e50/CHANGELOG.md).
+
+- [0108.md](docs/changelog/0108.md) — parts 608–645
+- [0109.md](docs/changelog/0109.md) — parts 646–679
+- [0110.md](docs/changelog/0110.md) — parts 680–723
+- [0111.md](docs/changelog/0111.md) — parts 724–748
+- [0112.md](docs/changelog/0112.md) — parts 749–766
+- [0113.md](docs/changelog/0113.md) — parts 767–782
+- [0114.md](docs/changelog/0114.md) — parts 783–798
+- [0115.md](docs/changelog/0115.md) — parts 799–822
+- [0116.md](docs/changelog/0116.md) — parts 823–838
+- [0117.md](docs/changelog/0117.md) — parts 839–859
+- [0118.md](docs/changelog/0118.md) — parts 860–876
+- [0119.md](docs/changelog/0119.md) — parts 877–894, 913
+- [0120.md](docs/changelog/0120.md) — parts 914–926
+- [0121.md](docs/changelog/0121.md) — parts 927–941
+- [0122.md](docs/changelog/0122.md) — parts 942–969
+- [0123.md](docs/changelog/0123.md) — parts 970–999
+- [0124.md](docs/changelog/0124.md) — parts 1000–1036
+- [0125.md](docs/changelog/0125.md) — parts 1037–1062
+- [0126.md](docs/changelog/0126.md) — parts 1063–1091
+- [0127.md](docs/changelog/0127.md) — parts 1092–1123
+- [0128.md](docs/changelog/0128.md) — parts 1124–1137
+- [0129.md](docs/changelog/0129.md) — parts 1138–1154
+- [0130.md](docs/changelog/0130.md) — parts 1155–1169
+- [0131.md](docs/changelog/0131.md) — parts 1170–1194
+- [0132.md](docs/changelog/0132.md) — parts 1195–1211
+- [0133.md](docs/changelog/0133.md) — parts 1212–1228
+- [0134.md](docs/changelog/0134.md) — parts 1229–1252
+- [0135.md](docs/changelog/0135.md) — parts 1253–1327
+- [0136.md](docs/changelog/0136.md) — parts 1328–1359
+- [0137.md](docs/changelog/0137.md) — parts 1360–1376
+- [0138.md](docs/changelog/0138.md) — parts 1377–1389
+- [0139.md](docs/changelog/0139.md) — parts 1390–1401
+- [0140.md](docs/changelog/0140.md) — parts 1402–1413
+- [0141.md](docs/changelog/0141.md) — parts 1414–1425
+- [0142.md](docs/changelog/0142.md) — parts 1426–1439
+- [0143.md](docs/changelog/0143.md) — parts 1440–1453
+- [0144.md](docs/changelog/0144.md) — parts 1454–1466
+- [0145.md](docs/changelog/0145.md) — parts 1467–1483
+- [0146.md](docs/changelog/0146.md) — parts 1484–1501
+- [0147.md](docs/changelog/0147.md) — parts 1502–1514
+- [0148.md](docs/changelog/0148.md) — parts 1515–1530
+- [0149.md](docs/changelog/0149.md) — parts 1531–1558
+- [0150.md](docs/changelog/0150.md) — parts 1559–1594
+- [0151.md](docs/changelog/0151.md) — parts 1595–1646
+- [0152.md](docs/changelog/0152.md) — parts 1647–1690
+- [0153.md](docs/changelog/0153.md) — parts 1691–1725
+- [0154.md](docs/changelog/0154.md) — parts 1726–1746
+- [0155.md](docs/changelog/0155.md) — parts 1747–1758
+- [0156.md](docs/changelog/0156.md) — parts 1759–1773
+- [0157.md](docs/changelog/0157.md) — parts 1774–1789
+- [0158.md](docs/changelog/0158.md) — parts 1790–1806
+- [0159.md](docs/changelog/0159.md) — parts 1807 onward

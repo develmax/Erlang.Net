@@ -1,0 +1,15 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, entry_list_probe} = code:load_binary(entry_list_probe, Path, Binary),
+{ok,[default]} = entry_list_probe:read([]),
+{ok,[a|b]} = entry_list_probe:read([a|b]),
+Self = self(),
+{[],[default],Self} = entry_list_probe:original([]),
+try entry_list_probe:read(not_list) of
+    _ -> error(expected_case_clause)
+catch error:{case_clause,not_list} -> ok end,
+[a|b] = get(entry_key),
+{beam_file, _, _, _, _, Functions} = beam_disasm:file(Path),
+[io:format("~p~n", [F]) || F = {function, Name, 1, _, _} <- Functions,
+    lists:member(Name, [read, original])],
+halt().

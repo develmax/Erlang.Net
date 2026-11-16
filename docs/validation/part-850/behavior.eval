@@ -1,0 +1,33 @@
+Dir = "artifacts/beam-backend/part850-images",
+Module = beam_linked_record_closures_probe,
+Name = atom_to_list(Module) ++ ".beam",
+Controller = spawn(fun() -> receive stop -> ok end end),
+Socket = {socket,unused,Controller,channel},
+Run = fun(File) ->
+    code:purge(Module), code:delete(Module),
+    {ok,Bytes} = file:read_file(File),
+    {module,Module} = code:load_binary(Module,File,Bytes),
+    {handshake,Controller,Send,Address,Ready,normal} = Module:start(peer,Socket),
+    {links,Links} = process_info(self(),links),
+    true = lists:member(Controller,Links),
+    true = unlink(Controller),
+    {socket,Socket} = Send(Controller),
+    {address,peer} = Address(Controller),
+    ok = Ready(Controller),
+    Fail = fun(Invoke,Args) ->
+        try Invoke() of
+            Value -> error({unexpected_result,Value})
+        catch
+            error:function_clause:Frames -> [{Module,_,Args,_}|_] = Frames, Frames
+        end
+    end,
+    [Fail(fun() -> Module:start(peer,invalid) end,[peer,invalid]),
+     Fail(fun() -> Send(wrong) end,[wrong]),
+     Fail(fun() -> Address(wrong) end,[wrong]),
+     Fail(fun() -> Ready(wrong) end,[wrong])]
+end,
+Otp = Run(filename:join([Dir,"fixture","lib","probe","ebin",Name])),
+Otp = Run(filename:join(Dir,Name)),
+Controller ! stop,
+erlang:display({Module,equal}),
+halt().

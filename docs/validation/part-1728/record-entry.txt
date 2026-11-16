@@ -1,0 +1,12 @@
+The record tag is checked in X1 before frame allocation.
+OTP and candidate matched 5 body and 5 guard outcomes.
+Body [{value,{marker,active}},
+      {value,{marker,other}},
+      {error,{badrecord,atom}},
+      {error,{badrecord,{different,active}}},
+      {error,{badrecord,{item,active,extra}}}]
+Guard [{value,{accepted,marker}},
+       {value,{rejected,marker}},
+       {value,{rejected,marker}},
+       {value,{rejected,marker}},
+       {value,{rejected,marker}}]

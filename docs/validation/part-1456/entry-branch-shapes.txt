@@ -1,0 +1,352 @@
+All entry atom tables: 1162 functions in 365 images.
+x0: 975 functions in 314 images.
+x1: 116 functions in 85 images.
+x2: 46 functions in 41 images.
+x3: 13 functions in 12 images.
+x4: 8 functions in 6 images.
+x5: 3 functions in 3 images.
+x6: 1 functions in 1 images.
+{"lib/kernel-11.0.4/ebin/erl_erts_errors.beam",{format_erlang_error,3},0,153,mixed}
+{"lib/erts-17.1/ebin/prim_inet.beam",{type_opt_1,1},0,69,mixed}
+{"lib/syntax_tools-4.1.1/ebin/erl_syntax.beam",{make_tree,2},0,65,is_nonempty_list}
+{"lib/diameter-2.7.2/ebin/diameter_gen_base_accounting.beam",{avp,4},2,50,move}
+{"lib/diameter-2.7.2/ebin/diameter_gen_base_rfc3588.beam",{avp_header,1},0,50,literal_return}
+{"lib/diameter-2.7.2/ebin/diameter_gen_acct_rfc6733.beam",{avp,4},2,49,move}
+{"lib/diameter-2.7.2/ebin/diameter_gen_base_rfc6733.beam",{avp_header,1},0,49,literal_return}
+{"lib/stdlib-8.1/ebin/otp_internal.beam",{obsolete,3},0,44,mixed}
+{"lib/megaco-4.9.2/ebin/megaco_config.beam",{verify_val,2},0,43,mixed}
+{"lib/megaco-4.9.2/ebin/megaco_config.beam",{replace_conn_data,3},1,40,mixed}
+{"lib/asn1-5.5.2/ebin/asn1ct_check.beam",{reserved_objectid,2},0,38,mixed}
+{"lib/inets-9.8/ebin/http_request.beam",{key_value,2},0,38,get_tuple_element}
+{"lib/snmp-5.20.5/ebin/snmp_verbosity.beam",{image_of_sname,1},0,38,mixed}
+{"lib/xmerl-2.2/ebin/xmerl_ucs.beam",{to_unicode,2},1,36,mixed}
+{"lib/kernel-11.0.4/ebin/inet_dns.beam",{encode_type,1},0,34,literal_return}
+allocate: 86 functions in 60 images.
+x0: 66 functions in 47 images.
+x1: 12 functions in 10 images.
+x2: 5 functions in 5 images.
+x3: 1 functions in 1 images.
+x4: 1 functions in 1 images.
+x5: 1 functions in 1 images.
+{"lib/common_test-1.31.2/ebin/ct_netconfc.beam",{do_decode_rpc_reply,3},0,9,allocate}
+{"lib/observer-2.19/ebin/ttb_et.beam",{label,4},0,6,allocate}
+{"lib/ssl-11.7.7/ebin/ssl.beam",{cipher_suites,2},1,6,allocate}
+{"lib/ssl-11.7.7/ebin/ssl.beam",{cipher_suites,3},1,6,allocate}
+{"lib/common_test-1.31.2/ebin/ct_doctest.beam",{'-options/1-fun-0-',3},0,5,allocate}
+{"lib/compiler-10.0.6/ebin/beam_core_to_ssa.beam",{primop,3},0,5,allocate}
+{"lib/ssl-11.7.7/ebin/ssl_dh_groups.beam",{dh_params,1},0,5,allocate}
+{"lib/stdlib-8.1/ebin/uri_string.beam",{'-percent_decode/1-fun-0-',2},0,5,allocate}
+{"lib/xmerl-2.2/ebin/xmerl_xpath_pred.beam",{arith_expr,4},0,5,allocate}
+{"lib/compiler-10.0.6/ebin/beam_bounds.beam",{infer_relop_types_1,3},0,4,allocate}
+{"lib/kernel-11.0.4/ebin/logger.beam",{i,1},0,4,allocate}
+{"lib/ssl-11.7.7/ebin/tls_record.beam",{sufficient_crypto_support,1},0,4,allocate}
+{"lib/crypto-5.10/ebin/crypto.beam",{privkey_to_pubkey,2},0,3,allocate}
+{"lib/dialyzer-6.0.3/ebin/dialyzer_dataflow.beam",{failed_msg,6},1,3,allocate}
+{"lib/ssl-11.7.7/ebin/tls_v1.beam",{'-groups/1-fun-0-',2},0,3,allocate}
+allocate_heap: 5 functions in 4 images.
+x0: 3 functions in 3 images.
+x1: 2 functions in 1 images.
+{"lib/compiler-10.0.6/ebin/compile.beam",{pass,1},0,3,allocate_heap}
+{"lib/ssh-6.0.6/ebin/ssh_sftp.beam",{make_reply,4},1,2,allocate_heap}
+{"lib/ssh-6.0.6/ebin/ssh_sftp.beam",{make_reply_post,5},1,2,allocate_heap}
+{"lib/ssh-6.0.6/ebin/ssh_transport.beam",{versions,2},0,2,allocate_heap}
+{"lib/ssl-11.7.7/ebin/ssl_config.beam",{validate_versions,2},0,2,allocate_heap}
+bif: 5 functions in 5 images.
+x0: 2 functions in 2 images.
+x1: 2 functions in 2 images.
+x4: 1 functions in 1 images.
+{"lib/kernel-11.0.4/ebin/logger_config.beam",{less_or_equal_level,2},0,8,bif}
+{"lib/common_test-1.31.2/ebin/test_server.beam",{run_test_case_eval1,6},4,2,bif}
+{"lib/mnesia-4.27/ebin/mnesia_tm.beam",{manage_fixtable,4},1,2,bif}
+{"lib/ssl-11.7.7/ebin/dtls_gen_connection.beam",{mtu,2},1,2,bif}
+{"lib/ssl-11.7.7/ebin/ssl_gen_statem.beam",{init_label,4},0,2,bif}
+gc_bif: 4 functions in 4 images.
+x0: 2 functions in 2 images.
+x2: 2 functions in 2 images.
+{"lib/diameter-2.7.2/ebin/diameter_codegen.beam",{emf,2},0,3,gc_bif}
+{"lib/runtime_tools-2.5/ebin/instrument.beam",{'-allocations_flags/1-fun-0-',2},0,3,gc_bif}
+{"lib/asn1-5.5.2/ebin/asn1ct_imm.beam",{per_dec_constrained,3},2,2,gc_bif}
+{"lib/debugger-7.0/ebin/dbg_wx_code.beam",{add_break_to_code,3},2,2,gc_bif}
+get_map_elements: 1 functions in 1 images.
+x0: 1 functions in 1 images.
+{"lib/stdlib-8.1/ebin/argparse.beam",{format_required,3},0,2,get_map_elements}
+get_tuple_element: 9 functions in 8 images.
+x0: 6 functions in 6 images.
+x1: 3 functions in 2 images.
+{"lib/inets-9.8/ebin/http_request.beam",{key_value,2},0,38,get_tuple_element}
+{"lib/asn1-5.5.2/ebin/asn1ct.beam",{get_gen_state_field,2},1,13,get_tuple_element}
+{"lib/erts-17.1/ebin/erlang.beam",{get_memval,2},0,9,get_tuple_element}
+{"lib/compiler-10.0.6/ebin/beam_ssa_type.beam",{infer_relop_any,2},0,2,get_tuple_element}
+{"lib/diameter-2.7.2/ebin/diameter_peer_fsm.beam",{handle,3},0,2,get_tuple_element}
+{"lib/et-1.8/ebin/et_collector.beam",{next_iterate,5},1,2,get_tuple_element}
+{"lib/et-1.8/ebin/et_collector.beam",{prev_iterate,5},1,2,get_tuple_element}
+{"lib/observer-2.19/ebin/observer_html_lib.beam",{color,2},0,2,get_tuple_element}
+{"lib/ssh-6.0.6/ebin/ssh_transport.beam",{adjust_algs_for_peer_version,3},0,2,get_tuple_element}
+is_atom: 2 functions in 2 images.
+x0: 2 functions in 2 images.
+{"lib/snmp-5.20.5/ebin/snmpa.beam",{verbosity,2},0,6,is_atom}
+{"lib/kernel-11.0.4/ebin/global_group.beam",{publish,2},0,2,is_atom}
+is_binary: 3 functions in 3 images.
+x1: 3 functions in 3 images.
+{"lib/kernel-11.0.4/ebin/gen_udp_socket.beam",{deliver_data_mode,2},1,2,is_binary}
+{"lib/ssh-6.0.6/ebin/ssh_file.beam",{decode,2},1,2,is_binary}
+{"lib/stdlib-8.1/ebin/binary.beam",{encode_hex,2},1,2,is_binary}
+is_boolean: 2 functions in 1 images.
+x3: 1 functions in 1 images.
+x4: 1 functions in 1 images.
+{"lib/snmp-5.20.5/ebin/snmp_log.beam",{create,5},3,2,is_boolean}
+{"lib/snmp-5.20.5/ebin/snmp_log.beam",{create,6},4,2,is_boolean}
+is_eq_exact: 16 functions in 16 images.
+x0: 12 functions in 12 images.
+x1: 2 functions in 2 images.
+x2: 2 functions in 2 images.
+{"lib/debugger-7.0/ebin/dbg_iload.beam",{normalise_test,2},0,12,is_eq_exact}
+{"lib/stdlib-8.1/ebin/erl_expand_records.beam",{normalise_test,2},0,12,is_eq_exact}
+{"lib/stdlib-8.1/ebin/ms_transform.beam",{old_bool_test,2},0,12,is_eq_exact}
+{"lib/mnesia-4.27/ebin/mnesia_schema.beam",{new_cs,4},2,3,is_eq_exact}
+{"lib/snmp-5.20.5/ebin/snmp_conf.beam",{check_sec_model,3},0,3,is_eq_exact}
+{"lib/dialyzer-6.0.3/ebin/dialyzer_dep.beam",{is_escape_op,2},0,2,is_eq_exact}
+{"lib/edoc-1.5/ebin/edoc_types.beam",{is_predefined,2},0,2,is_eq_exact}
+{"lib/inets-9.8/ebin/http_request.beam",{normalize_host,3},0,2,is_eq_exact}
+{"lib/inets-9.8/ebin/httpd_manager.beam",{handle_block,3},0,2,is_eq_exact}
+{"lib/inets-9.8/ebin/httpd_response.beam",{get_connection,2},0,2,is_eq_exact}
+{"lib/kernel-11.0.4/ebin/error_logger.beam",{fix_warning_type,2},0,2,is_eq_exact}
+{"lib/mnesia-4.27/ebin/mnesia_tm.beam",{recover_coordinator,6},1,2,is_eq_exact}
+{"lib/odbc-2.17.1/ebin/odbc.beam",{commit,3},1,2,is_eq_exact}
+{"lib/ssl-11.7.7/ebin/tls_handshake_1_3.beam",{compare_sign_algos,4},0,2,is_eq_exact}
+{"lib/stdlib-8.1/ebin/qlc.beam",{sort_list,6},2,2,is_eq_exact}
+is_ge: 1 functions in 1 images.
+x3: 1 functions in 1 images.
+{"lib/stdlib-8.1/ebin/io_lib_format.beam",{iolist_to_bin,4},3,2,is_ge}
+is_integer: 4 functions in 4 images.
+x1: 2 functions in 2 images.
+x2: 1 functions in 1 images.
+x3: 1 functions in 1 images.
+{"lib/xmerl-2.2/ebin/xmerl_ucs.beam",{is_incharset,2},1,25,is_integer}
+{"lib/stdlib-8.1/ebin/string.beam",{pad,4},2,3,is_integer}
+{"lib/erts-17.1/ebin/prim_file.beam",{from_posix_seconds,2},1,2,is_integer}
+{"lib/inets-9.8/ebin/httpd.beam",{block,4},3,2,is_integer}
+is_list: 5 functions in 4 images.
+x1: 3 functions in 3 images.
+x5: 1 functions in 1 images.
+x6: 1 functions in 1 images.
+{"lib/tools-4.2.3/ebin/eprof.beam",{sort_mfa,2},1,3,is_list}
+{"lib/common_test-1.31.2/ebin/ct_testspec.beam",{insert_cases,6},5,2,is_list}
+{"lib/common_test-1.31.2/ebin/ct_testspec.beam",{skip_cases,7},6,2,is_list}
+{"lib/common_test-1.31.2/ebin/erl2html2.beam",{to_raw_list,2},1,2,is_list}
+{"lib/kernel-11.0.4/ebin/inet_gethost_native.beam",{gethostbyname,2},1,2,is_list}
+is_lt: 1 functions in 1 images.
+x1: 1 functions in 1 images.
+{"lib/compiler-10.0.6/ebin/beam_ssa_pp.beam",{format_tuple_elems,4},1,2,is_lt}
+is_map: 7 functions in 5 images.
+x0: 5 functions in 3 images.
+x1: 1 functions in 1 images.
+x4: 1 functions in 1 images.
+{"lib/kernel-11.0.4/ebin/gen_udp_socket.beam",{state_setopts_active,5},4,3,is_map}
+{"lib/ssh-6.0.6/ebin/ssh_options.beam",{put_value,5},0,3,is_map}
+{"lib/ssl-11.7.7/ebin/ssl_record.beam",{set_client_verify_data,3},0,3,is_map}
+{"lib/ssl-11.7.7/ebin/ssl_record.beam",{set_server_verify_data,3},0,3,is_map}
+{"lib/stdlib-8.1/ebin/maps.beam",{iterator,2},1,3,is_map}
+{"lib/ssh-6.0.6/ebin/ssh_options.beam",{no_sensitive,2},0,2,is_map}
+{"lib/stdlib-8.1/ebin/zstd.beam",{dict,3},0,2,is_map}
+is_nil: 1 functions in 1 images.
+x0: 1 functions in 1 images.
+{"lib/mnesia-4.27/ebin/mnesia_tm.beam",{multi_commit,5},0,3,is_nil}
+is_nonempty_list: 21 functions in 15 images.
+x0: 18 functions in 13 images.
+x1: 3 functions in 3 images.
+{"lib/syntax_tools-4.1.1/ebin/erl_syntax.beam",{make_tree,2},0,65,is_nonempty_list}
+{"lib/compiler-10.0.6/ebin/beam_ssa_codegen.beam",{bif_to_test_1,3},0,23,is_nonempty_list}
+{"lib/compiler-10.0.6/ebin/cerl.beam",{ann_make_tree,3},1,21,is_nonempty_list}
+{"lib/public_key-1.21.7/ebin/pubkey_cert.beam",{match_name,3},0,7,is_nonempty_list}
+{"lib/syntax_tools-4.1.1/ebin/erl_syntax.beam",{revert_attribute_1,4},0,7,is_nonempty_list}
+{"lib/syntax_tools-4.1.1/ebin/merl.beam",{make_tree,2},0,7,is_nonempty_list}
+{"lib/stdlib-8.1/ebin/erl_stdlib_errors.beam",{format_re_error,3},0,6,is_nonempty_list}
+{"lib/compiler-10.0.6/ebin/beam_validator.beam",{is_float_arith_bif,2},0,5,is_nonempty_list}
+{"lib/kernel-11.0.4/ebin/erl_kernel_errors.beam",{format_code_error,2},0,5,is_nonempty_list}
+{"lib/xmerl-2.2/ebin/xmerl_lib.beam",{autodetect,2},0,5,is_nonempty_list}
+{"lib/common_test-1.31.2/ebin/test_server_ctrl.beam",{update_status,4},0,3,is_nonempty_list}
+{"lib/kernel-11.0.4/ebin/erl_kernel_errors.beam",{format_trace_error,3},0,3,is_nonempty_list}
+{"lib/snmp-5.20.5/ebin/snmp_conf.beam",{check_address_ip,2},0,3,is_nonempty_list}
+{"lib/snmp-5.20.5/ebin/snmp_conf.beam",{check_address_ip_port,2},0,3,is_nonempty_list}
+{"lib/compiler-10.0.6/ebin/beam_ssa_codegen.beam",{bif_to_test,3},0,2,is_nonempty_list}
+is_pid: 2 functions in 2 images.
+x0: 1 functions in 1 images.
+x1: 1 functions in 1 images.
+{"lib/runtime_tools-2.5/ebin/appmon_info.beam",{find_children,2},1,2,is_pid}
+{"lib/ssh-6.0.6/ebin/ssh_channel_sup.beam",{start_child,7},0,2,is_pid}
+is_port: 2 functions in 1 images.
+x1: 2 functions in 1 images.
+{"lib/erts-17.1/ebin/prim_inet.beam",{shutdown,2},1,3,is_port}
+{"lib/erts-17.1/ebin/prim_inet.beam",{bind,3},1,2,is_port}
+is_tagged_tuple: 29 functions in 25 images.
+x0: 25 functions in 22 images.
+x1: 3 functions in 3 images.
+x2: 1 functions in 1 images.
+{"lib/inets-9.8/ebin/http_response.beam",{key_value_tuple,2},0,28,is_tagged_tuple}
+{"lib/inets-9.8/ebin/httpc_manager.beam",{get_option,2},0,15,is_tagged_tuple}
+{"lib/common_test-1.31.2/ebin/ct_testspec.beam",{should_be_added,4},0,12,is_tagged_tuple}
+{"lib/megaco-4.9.2/ebin/megaco_config.beam",{do_conn_info,2},0,5,is_tagged_tuple}
+{"lib/tools-4.2.3/ebin/xref_base.beam",{current_default,2},1,4,is_tagged_tuple}
+{"lib/tools-4.2.3/ebin/xref_base.beam",{set_def,3},0,4,is_tagged_tuple}
+{"lib/snmp-5.20.5/ebin/snmpa_local_db.beam",{delete,3},0,3,is_tagged_tuple}
+{"lib/snmp-5.20.5/ebin/snmpa_local_db.beam",{insert,4},0,3,is_tagged_tuple}
+{"lib/snmp-5.20.5/ebin/snmpa_local_db.beam",{lookup,3},0,3,is_tagged_tuple}
+{"lib/snmp-5.20.5/ebin/snmpa_local_db.beam",{match,4},0,3,is_tagged_tuple}
+{"lib/ssh-6.0.6/ebin/ssh_connection_handler.beam",{chann_info,2},0,3,is_tagged_tuple}
+{"lib/ssl-11.7.7/ebin/tls_client_connection.beam",{handle_trace,3},0,3,is_tagged_tuple}
+{"lib/debugger-7.0/ebin/dbg_istk.beam",{delayed_stacktrace,2},0,2,is_tagged_tuple}
+{"lib/eunit-2.11/ebin/eunit_tty.beam",{handle_cancel,3},0,2,is_tagged_tuple}
+{"lib/inets-9.8/ebin/mod_range.beam",{valid_range,3},0,2,is_tagged_tuple}
+is_tuple: 22 functions in 20 images.
+x0: 18 functions in 17 images.
+x1: 4 functions in 3 images.
+{"lib/snmp-5.20.5/doc/examples/ex2/snmp_ex2_manager.beam",{handle_snmp_callback,2},0,6,is_tuple}
+{"lib/compiler-10.0.6/ebin/beam_bounds.beam",{relop,3},0,4,is_tuple}
+{"lib/debugger-7.0/ebin/dbg_ieval.beam",{'-match_fun/1-fun-0-',3},0,3,is_tuple}
+{"lib/kernel-11.0.4/ebin/global_group.beam",{'-handle_call/3-fun-4-',3},1,3,is_tuple}
+{"lib/runtime_tools-2.5/ebin/dbg.beam",{trace_client,3},0,3,is_tuple}
+{"lib/ssh-6.0.6/ebin/ssh_cli.beam",{ssh_dbg_format,2},0,3,is_tuple}
+{"lib/ssh-6.0.6/ebin/ssh_client_channel.beam",{ssh_dbg_format,2},0,3,is_tuple}
+{"lib/stdlib-8.1/ebin/erl_eval.beam",{'-match_fun/2-fun-0-',4},0,3,is_tuple}
+{"lib/tools-4.2.3/ebin/xref_compiler.beam",{set_op,3},0,3,is_tuple}
+{"lib/compiler-10.0.6/ebin/beam_bounds.beam",{bounds,2},0,2,is_tuple}
+{"lib/diameter-2.7.2/ebin/diameter_gen.beam",{decode_error,4},0,2,is_tuple}
+{"lib/kernel-11.0.4/ebin/gen_tcp_socket.beam",{next_packet,3},1,2,is_tuple}
+{"lib/kernel-11.0.4/ebin/gen_tcp_socket.beam",{next_packet,4},1,2,is_tuple}
+{"lib/mnesia-4.27/ebin/mnesia_locker.beam",{can_lock,4},1,2,is_tuple}
+{"lib/os_mon-2.12/ebin/cpu_sup.beam",{'-util/1-fun-0-',2},0,2,is_tuple}
+literal_return: 170 functions in 75 images.
+x0: 164 functions in 71 images.
+x1: 4 functions in 3 images.
+x2: 2 functions in 2 images.
+{"lib/diameter-2.7.2/ebin/diameter_gen_base_rfc3588.beam",{avp_header,1},0,50,literal_return}
+{"lib/diameter-2.7.2/ebin/diameter_gen_base_rfc6733.beam",{avp_header,1},0,49,literal_return}
+{"lib/kernel-11.0.4/ebin/inet_dns.beam",{encode_type,1},0,34,literal_return}
+{"lib/dialyzer-6.0.3/ebin/dialyzer_dot.beam",{legal_nodeoption,1},0,24,literal_return}
+{"lib/kernel-11.0.4/ebin/erl_kernel_errors.beam",{expand_error,1},0,21,literal_return}
+{"lib/diameter-2.7.2/ebin/diameter_gen_base_rfc3588.beam",{avp_arity,1},0,20,literal_return}
+{"lib/diameter-2.7.2/ebin/diameter_gen_base_rfc6733.beam",{avp_arity,1},0,19,literal_return}
+{"lib/ssh-6.0.6/ebin/ssh_xfer.beam",{'-encode_ace_mask/1-fun-0-',1},0,17,literal_return}
+{"lib/ssh-6.0.6/ebin/ssh_xfer.beam",{'-encode_open_flags/1-fun-0-',1},0,17,literal_return}
+{"lib/ssl-11.7.7/ebin/ssl_handshake.beam",{key_exchange_alg,1},0,17,literal_return}
+{"lib/observer-2.19/ebin/observer_sock_wx.beam",{stat_name_and_unit,1},0,16,literal_return}
+{"lib/diameter-2.7.2/ebin/diameter_gen_base_rfc3588.beam",{msg2rec,1},0,15,literal_return}
+{"lib/diameter-2.7.2/ebin/diameter_gen_base_rfc3588.beam",{msg_header,1},0,15,literal_return}
+{"lib/diameter-2.7.2/ebin/diameter_gen_base_rfc3588.beam",{rec2msg,1},0,15,literal_return}
+{"lib/diameter-2.7.2/ebin/diameter_gen_base_rfc6733.beam",{msg2rec,1},0,15,literal_return}
+literal_tail: 11 functions in 9 images.
+x0: 4 functions in 4 images.
+x1: 6 functions in 4 images.
+x2: 1 functions in 1 images.
+{"lib/kernel-11.0.4/ebin/inet.beam",{do_esock_ifset,4},2,7,literal_tail}
+{"lib/stdlib-8.1/ebin/supervisor.beam",{check_childspecs1,2},1,4,literal_tail}
+{"lib/debugger-7.0/ebin/debugger.beam",{start,1},0,3,literal_tail}
+{"lib/erts-17.1/ebin/prim_inet.beam",{listen,2},1,2,literal_tail}
+{"lib/kernel-11.0.4/ebin/inet_res.beam",{gethostbyname_tm,4},1,2,literal_tail}
+{"lib/megaco-4.9.2/ebin/megaco.beam",{conn_info,2},1,2,literal_tail}
+{"lib/megaco-4.9.2/ebin/megaco.beam",{token_tag2string,2},1,2,literal_tail}
+{"lib/megaco-4.9.2/ebin/megaco.beam",{token_tag2string,3},1,2,literal_tail}
+{"lib/snmp-5.20.5/ebin/snmpm_config.beam",{which_agents,2},0,2,literal_tail}
+{"lib/snmp-5.20.5/ebin/snmpm_server.beam",{verbosity,2},0,2,literal_tail}
+{"lib/stdlib-8.1/ebin/zstd.beam",{context,1},0,2,literal_tail}
+mixed: 522 functions in 209 images.
+x0: 440 functions in 167 images.
+x1: 50 functions in 43 images.
+x2: 26 functions in 24 images.
+x3: 5 functions in 5 images.
+x5: 1 functions in 1 images.
+{"lib/kernel-11.0.4/ebin/erl_erts_errors.beam",{format_erlang_error,3},0,153,mixed}
+{"lib/erts-17.1/ebin/prim_inet.beam",{type_opt_1,1},0,69,mixed}
+{"lib/stdlib-8.1/ebin/otp_internal.beam",{obsolete,3},0,44,mixed}
+{"lib/megaco-4.9.2/ebin/megaco_config.beam",{verify_val,2},0,43,mixed}
+{"lib/megaco-4.9.2/ebin/megaco_config.beam",{replace_conn_data,3},1,40,mixed}
+{"lib/asn1-5.5.2/ebin/asn1ct_check.beam",{reserved_objectid,2},0,38,mixed}
+{"lib/snmp-5.20.5/ebin/snmp_verbosity.beam",{image_of_sname,1},0,38,mixed}
+{"lib/xmerl-2.2/ebin/xmerl_ucs.beam",{to_unicode,2},1,36,mixed}
+{"lib/stdlib-8.1/ebin/erl_stdlib_errors.beam",{format_maps_error,2},0,28,mixed}
+{"lib/stdlib-8.1/ebin/erl_stdlib_errors.beam",{format_ets_error,3},0,26,mixed}
+{"lib/mnesia-4.27/ebin/mnesia_monitor.beam",{default_env,1},0,25,mixed}
+{"lib/mnesia-4.27/ebin/mnesia_monitor.beam",{do_check_type,2},0,25,mixed}
+{"lib/kernel-11.0.4/ebin/inet_dns.beam",{encode_data,4},2,24,mixed}
+{"lib/stdlib-8.1/ebin/shell.beam",{local_func,8},0,23,mixed}
+{"lib/kernel-11.0.4/ebin/inet_db.beam",{res_check_option,2},0,21,mixed}
+move: 131 functions in 61 images.
+x0: 121 functions in 55 images.
+x1: 3 functions in 3 images.
+x2: 4 functions in 4 images.
+x4: 3 functions in 1 images.
+{"lib/diameter-2.7.2/ebin/diameter_gen_base_accounting.beam",{avp,4},2,50,move}
+{"lib/diameter-2.7.2/ebin/diameter_gen_acct_rfc6733.beam",{avp,4},2,49,move}
+{"lib/diameter-2.7.2/ebin/diameter_gen_base_rfc3588.beam",{'#info-',2},0,20,move}
+{"lib/diameter-2.7.2/ebin/diameter_gen_base_rfc3588.beam",{'#new-',2},0,20,move}
+{"lib/diameter-2.7.2/ebin/diameter_gen_base_rfc6733.beam",{'#info-',2},0,19,move}
+{"lib/diameter-2.7.2/ebin/diameter_gen_base_rfc6733.beam",{'#new-',2},0,19,move}
+{"lib/diameter-2.7.2/ebin/diameter_gen_base_accounting.beam",{'#info-',2},0,7,move}
+{"lib/diameter-2.7.2/ebin/diameter_gen_base_accounting.beam",{'#new-',2},0,7,move}
+{"lib/stdlib-8.1/ebin/uri_string.beam",{'-all_fields_valid/1-fun-0-',3},0,7,move}
+{"lib/diameter-2.7.2/ebin/diameter_gen_acct_rfc6733.beam",{'#info-',2},0,6,move}
+{"lib/diameter-2.7.2/ebin/diameter_gen_acct_rfc6733.beam",{'#new-',2},0,6,move}
+{"lib/ssl-11.7.7/ebin/ssl.beam",{eccs,1},0,6,move}
+{"lib/common_test-1.31.2/ebin/ct_testspec.beam",{update_recorded,3},0,5,move}
+{"lib/stdlib-8.1/ebin/uri_string.beam",{'-normalize_percent_encoding/1-fun-0-',2},0,5,move}
+{"lib/diameter-2.7.2/ebin/diameter_dict_util.beam",{io,3},0,4,move}
+return: 46 functions in 16 images.
+x0: 44 functions in 14 images.
+x1: 1 functions in 1 images.
+x3: 1 functions in 1 images.
+{"lib/megaco-4.9.2/ebin/megaco_binary_transformer_v1.beam",{tr_auditItem,2},0,10,return}
+{"lib/megaco-4.9.2/ebin/megaco_binary_transformer_v2.beam",{tr_auditItem,2},0,10,return}
+{"lib/megaco-4.9.2/ebin/megaco_binary_transformer_v3.beam",{tr_auditItem,2},0,10,return}
+{"lib/megaco-4.9.2/ebin/megaco_binary_transformer_v1.beam",{tr_ModemType,2},0,9,return}
+{"lib/megaco-4.9.2/ebin/megaco_binary_transformer_v1.beam",{tr_ServiceChangeMethod,2},0,6,return}
+{"lib/megaco-4.9.2/ebin/megaco_binary_transformer_v1.beam",{tr_opt_StreamMode,2},0,6,return}
+{"lib/megaco-4.9.2/ebin/megaco_binary_transformer_v2.beam",{tr_ServiceChangeMethod,2},0,6,return}
+{"lib/megaco-4.9.2/ebin/megaco_binary_transformer_v2.beam",{tr_opt_StreamMode,2},0,6,return}
+{"lib/megaco-4.9.2/ebin/megaco_binary_transformer_v3.beam",{tr_ServiceChangeMethod,2},0,6,return}
+{"lib/megaco-4.9.2/ebin/megaco_binary_transformer_v3.beam",{tr_opt_StreamMode,2},0,6,return}
+{"lib/stdlib-8.1/ebin/argparse.beam",{validate_type,3},0,6,return}
+{"lib/megaco-4.9.2/ebin/megaco_binary_transformer_v3.beam",{tr_notifyCompletionItem,2},0,5,return}
+{"lib/eldap-1.3.1/ebin/eldap.beam",{v_deref,1},0,4,return}
+{"lib/kernel-11.0.4/ebin/gen_tcp_socket.beam",{deliver_data,4},3,4,return}
+{"lib/megaco-4.9.2/ebin/megaco_binary_transformer_v1.beam",{tr_MuxType,2},0,4,return}
+select_val: 16 functions in 14 images.
+x0: 14 functions in 12 images.
+x1: 1 functions in 1 images.
+x2: 1 functions in 1 images.
+{"lib/crypto-5.10/ebin/crypto.beam",{alias1,2},0,7,select_val}
+{"lib/compiler-10.0.6/ebin/beam_asm.beam",{bif_type,2},0,6,select_val}
+{"lib/compiler-10.0.6/ebin/beam_call_types.beam",{types,3},0,4,select_val}
+{"lib/dialyzer-6.0.3/ebin/erl_bif_types.beam",{arg_types,3},0,3,select_val}
+{"lib/dialyzer-6.0.3/ebin/erl_bif_types.beam",{type,4},0,3,select_val}
+{"lib/ssl-11.7.7/ebin/ssl.beam",{signature_algs,2},0,3,select_val}
+{"lib/dialyzer-6.0.3/ebin/erl_bif_types.beam",{infinity_div,2},0,2,select_val}
+{"lib/diameter-2.7.2/ebin/diameter_gen_doic_rfc7683.beam",{avp_arity,2},0,2,select_val}
+{"lib/inets-9.8/ebin/httpd_script_env.beam",{create_script_elements,4},0,2,select_val}
+{"lib/kernel-11.0.4/ebin/disk_log.beam",{do_open2,9},0,2,select_val}
+{"lib/kernel-11.0.4/ebin/error_logger.beam",{fix_warning_tag,2},0,2,select_val}
+{"lib/kernel-11.0.4/ebin/inet.beam",{translate_ip,2},0,2,select_val}
+{"lib/os_mon-2.12/ebin/cpu_sup.beam",{cpu_util_rel,3},1,2,select_val}
+{"lib/ssl-11.7.7/ebin/tls_handshake_1_3.beam",{mlkem_calculate_shared_secret,4},0,2,select_val}
+{"lib/stdlib-8.1/ebin/erl_lint.beam",{is_format_function,2},0,2,select_val}
+test_heap: 38 functions in 26 images.
+x0: 26 functions in 18 images.
+x1: 7 functions in 5 images.
+x2: 1 functions in 1 images.
+x3: 3 functions in 3 images.
+x4: 1 functions in 1 images.
+{"lib/xmerl-2.2/ebin/xmerl_xsd_type.beam",{length_fun,2},0,18,test_heap}
+{"lib/xmerl-2.2/ebin/xmerl_xsd_type.beam",{maxExclusive_fun,2},0,18,test_heap}
+{"lib/xmerl-2.2/ebin/xmerl_xsd_type.beam",{maxInclusive_fun,2},0,18,test_heap}
+{"lib/xmerl-2.2/ebin/xmerl_xsd_type.beam",{maxLength_fun,2},0,18,test_heap}
+{"lib/xmerl-2.2/ebin/xmerl_xsd_type.beam",{minExclusive_fun,2},0,18,test_heap}
+{"lib/xmerl-2.2/ebin/xmerl_xsd_type.beam",{minInclusive_fun,2},0,18,test_heap}
+{"lib/xmerl-2.2/ebin/xmerl_xsd_type.beam",{minLength_fun,2},0,18,test_heap}
+{"lib/xmerl-2.2/ebin/xmerl_xsd_type.beam",{fractionDigits_fun,2},0,14,test_heap}
+{"lib/xmerl-2.2/ebin/xmerl_xsd_type.beam",{totalDigits_fun,2},0,14,test_heap}
+{"lib/kernel-11.0.4/ebin/socket.beam",{which_sockets,1},0,9,test_heap}
+{"lib/observer-2.19/ebin/ttb.beam",{proc_port,1},0,9,test_heap}
+{"lib/stdlib-8.1/ebin/rand.beam",{mk_alg,1},0,9,test_heap}
+{"lib/kernel-11.0.4/ebin/inet_dns.beam",{make_dns_rr_opt,3},1,8,test_heap}
+{"lib/snmp-5.20.5/ebin/snmpa_conf.beam",{do_write_standard_conf,3},1,7,test_heap}
+{"lib/kernel-11.0.4/ebin/global_search.beam",{start,2},0,6,test_heap}

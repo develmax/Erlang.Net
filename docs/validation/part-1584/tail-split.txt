@@ -1,0 +1,30 @@
+OTP 29.1.1
+{label,1}
+{line,[{location,[],3}]}
+{func_info,{atom,beam_split_continuation},{atom,split},2}
+{label,2}
+{test,is_binary,{f,1},[{x,0}]}
+{test,is_integer,{f,1},[{x,1}]}
+{bs_start_match4,{atom,no_fail},2,{x,0},{x,2}}
+{test,bs_get_binary2,{f,3},3,[{tr,{x,2},{t_bs_matchable,1}},{tr,{x,1},{t_integer,any}},8,{field_flags,[]}],{x,1}}
+{bs_get_tail,{x,2},{x,0},3}
+{swap,{x,0},{x,1}}
+{call_only,2,{beam_split_continuation,pack,2}}
+{label,3}
+{line,[{location,[],4}]}
+{badmatch,{x,0}}
+Part 1584 C#
+{label,1}
+{line,[{location,[],3}]}
+{func_info,{atom,beam_split_continuation},{atom,split},2}
+{label,2}
+{test,is_binary,{f,1},[{x,0}]}
+{test,is_integer,{f,1},[{x,1}]}
+{bs_start_match4,{atom,no_fail},2,{x,0},{x,2}}
+{test,bs_get_binary2,{f,3},3,[{tr,{x,2},{t_bs_matchable,1}},{tr,{x,1},{t_integer,any}},8,{field_flags,[]}],{x,1}}
+{bs_get_tail,{x,2},{x,0},3}
+{swap,{x,0},{x,1}}
+{call_only,2,{beam_split_continuation,pack,2}}
+{label,3}
+{line,[{location,[],4}]}
+{badmatch,{x,0}}

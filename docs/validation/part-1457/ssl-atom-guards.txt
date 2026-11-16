@@ -1,0 +1,8 @@
+OTP 29.1.1 key_exchange_alg/1
+29 instructions
+Entry [{label,1003},{line,[{location,"ssl_handshake.erl",3598}]},{func_info,{atom,ssl_handshake},{atom,key_exchange_alg},1},{label,1004},{select_val,{x,0},{f,1012},{list,[{atom,dh_anon},{f,1011},{atom,dh_dss},{f,1011},{atom,dh_rsa},{f,1011},{atom,dhe_dss},{f,1011},{atom,dhe_psk},{f,1010},{atom,dhe_rsa},{f,1011},{atom,ecdh_anon},{f,1009},{atom,ecdh_ecdsa},{f,1009},{atom,ecdh_rsa},{f,1009},{atom,ecdhe_ecdsa},{f,1009},{atom,ecdhe_psk},{f,1008},{atom,ecdhe_rsa},{f,1009},{atom,psk},{f,1007},{atom,rsa_psk},{f,1006},{atom,srp_anon},{f,1005},{atom,srp_dss},{f,1005},{atom,srp_rsa},{f,1005}]}},{label,1005},{move,{integer,5},{x,0}},return,{label,1006}]
+Fallback [{move,{integer,1},{x,0}},return,{label,1012},{move,{integer,0},{x,0}},return]
+C# key_exchange_alg/1
+91 instructions
+Entry [{label,1354},{line,[{location,"ssl_handshake.erl",3598}]},{func_info,{atom,ssl_handshake},{atom,key_exchange_alg},1},{label,1355},{allocate,1,1},{move,{x,0},{y,0}},{test,is_eq_exact,{f,1356},[{y,0},{atom,rsa}]},{move,{integer,0},{x,0}},{deallocate,1}]
+Fallback [return,{label,1375},{move,{integer,0},{x,0}},{deallocate,1},return]

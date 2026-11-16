@@ -1,0 +1,26 @@
+[P,Q]=init:get_plain_arguments(),
+Read=fun(Path)->
+    {beam_file,_,_,_,_,Fs}=beam_disasm:file(Path),
+    Selected=[{N,Is} || {function,N,3,_,Is}<-Fs,N=:=status orelse N=:=lookup],
+    io:format("~s~n~p~n",[Path,Selected]),
+    {ok,B}=file:read_file(Path),
+    {module,M}=code:load_binary(beam_general_catch_probe,Path,B),
+    saved=M:status(key,[key],saved),
+    false=M:status(key,[],saved),
+    {saved,{key,7}}=M:lookup(key,[{key,7}],saved),
+    false=M:lookup(key,[],saved),
+    code:delete(M),
+    code:purge(M),
+    lists:map(fun({Name,Is})->
+        Ls=[L||{label,L}<-Is],
+        Map=maps:from_list(lists:zip(Ls,lists:seq(1,length(Ls)))),
+        Rebase=fun R({f,L})->{f,maps:get(L,Map,L)};
+                     R(T) when is_tuple(T)->list_to_tuple([R(E)||E<-tuple_to_list(T)]);
+                     R(L) when is_list(L)->[R(E)||E<-L];
+                     R(E)->E end,
+        {Name,[Rebase(I)||I<-Is,element(1,I)=/=label]}
+    end,Selected)
+end,
+Reference=Read(P),
+Reference=Read(Q),
+halt().

@@ -1,0 +1,11 @@
+Module = prim_tty_sighandler,
+Original = code:which(Module),
+Generated = "artifacts/beam-backend/part773-images/prim_tty_sighandler.beam",
+{ok,Bytes} = file:read_file(Original),
+{ok,Bytes} = file:read_file(Generated),
+{beam_file,Module,_,_,_,Functions} = beam_disasm:file(Generated),
+Counts = [{Name,Arity,length(Instructions)} ||
+    {function,Name,Arity,_,Instructions} <- Functions],
+io:format("~p whole_image_equal=true bytes=~p functions=~w sha256=~s~n",
+    [Module,byte_size(Bytes),Counts,binary:encode_hex(crypto:hash(sha256,Bytes))]),
+halt().

@@ -1,0 +1,4 @@
+shared_literal {test,is_tagged_tuple,{f,5},[{x,0},3,{atom,message}]} frames [{1,4},{1,4}]
+shared_guard {test,is_tagged_tuple,{f,8},[{x,0},3,{atom,message}]} frames [{1,4},{2,3}]
+single_tag {test,is_tagged_tuple,{f,12},[{x,0},2,{atom,message}]} frames [{1,3}]
+nested_common {allocate,2,2} frames [{2,2}]

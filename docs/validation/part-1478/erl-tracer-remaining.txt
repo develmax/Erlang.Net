@@ -1,0 +1,29 @@
+Docs 4137 -> 4268
+Docs header equality true; entries 32 -> 33
+Changed Docs keys [{callback,trace,5},
+                   {function,enabled,3},
+                   {type,tracer_state,0}]
+{callback,trace,5}
+OTP {{callback,trace,5},
+     {391,2},
+     [<<"trace(Tag, TracerState, Tracee, Msg, Opts)">>],
+     #{<<"en">> =>
+           <<"This callback is called when a tracepoint is triggered and the\n[`Module:enabled/3`](`c:enabled/3`) callback returned `trace`.\n\nIn it any side effects needed by the tracer are to be done. The tracepoint\npayload is located in the `TraceTerm`. The content of the `TraceTerm` depends on\nwhich `TraceTag` is triggered. `TraceTerm` corresponds to the fourth element in\nthe trace tuples described in [`trace:process/4`](`m:trace#process_trace_messages`).\n\nIf the trace tuple has five elements, the fifth element will be sent as the\n`extra` value in the `Opts` maps.\n\nThe `TraceTag` `seq_trace` is handled slightly differently. There is no `Tracee`\nfor `seq_trace`, instead the `Label` associated with the `seq_trace` event is\nspecified.\n\nFor more information on what `Label` and `SeqTraceInfo` can be, see\n`m:seq_trace`.">>},
+     #{source_anno => {411,2},since => <<"OTP 19.0">>}}
+C# {{callback,trace,5},
+    {391,2},
+    [<<"trace/5">>],
+    #{<<"en">> =>
+          <<"This callback is called when a tracepoint is triggered and the\n[`Module:enabled/3`](`c:enabled/3`) callback returned `trace`.\n\nIn it any side effects needed by the tracer are to be done. The tracepoint\npayload is located in the `TraceTerm`. The content of the `TraceTerm` depends on\nwhich `TraceTag` is triggered. `TraceTerm` corresponds to the fourth element in\nthe trace tuples described in [`trace:process/4`](`m:trace#process_trace_messages`).\n\nIf the trace tuple has five elements, the fifth element will be sent as the\n`extra` value in the `Opts` maps.\n\nThe `TraceTag` `seq_trace` is handled slightly differently. There is no `Tracee`\nfor `seq_trace`, instead the `Label` associated with the `seq_trace` event is\nspecified.\n\nFor more information on what `Label` and `SeqTraceInfo` can be, see\n`m:seq_trace`.">>},
+    #{source_anno => {411,2},since => <<"OTP 19.0">>}}
+{function,enabled,3}
+OTP {{function,enabled,3},
+     {578,2},
+     [<<"enabled(TraceTag, TracerState, Tracee)">>],
+     hidden,
+     #{source_anno => {587,1},since => <<"OTP 19.0">>}}
+C# {{function,enabled,3},
+    {578,2},
+    [<<"enabled/3">>],
+    hidden,
+    #{source_anno => {587,1},since => <<"OTP 19.0">>}}

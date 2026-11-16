@@ -1,0 +1,25 @@
+{
+  "Backend": "Beam",
+  "Exports": 35,
+  "Cases": 116,
+  "Passed": 115,
+  "Scenarios": 12,
+  "ScenariosPassed": 11,
+  "Failures": [
+    {
+      "Function": "block_call",
+      "Arguments": "[nonode@nohost,erlang,abs,[-1],10]",
+      "Expected": "{ok,1}",
+      "Actual": "{ok,{badrpc,timeout}}"
+    },
+    {
+      "Scenario": "lifecycle",
+      "Expected": "{ok,{9,true}}",
+      "Actual": "{error,{badmatch,{error,{already_started,\u003Cnonode@nohost.2.0\u003E}}},[{rpc_port_cases,scenario,1,[{file,[116,111,111,108,115,47,86,97,108,105,100,97,116,105,111,110,47,69,114,108,97,110,103,46,82,112,99,67,111,109,112,97,116,105,98,105,108,105,116,121,47,114,112,99,95,112,111,114,116,95,99,97,115,101,115,46,101,114,108]},{line,97}]},{rpc_port_cases,scenario_worker,2,[{file,[116,111,111,108,115,47,86,97,108,105,100,97,116,105,111,110,47,69,114,108,97,110,103,46,82,112,99,67,111,109,112,97,116,105,98,105,108,105,116,121,47,114,112,99,95,112,111,114,116,95,99,97,115,101,115,46,101,114,108]},{line,22}]}]}"
+    }
+  ],
+  "RpcBeamSha256": "C0177EB89FB41F1E5C93A2CAA24231C79678AC1154D61DCA8EADC15B55141BB8",
+  "AssemblySha256": "2277A6A0734201623D88F1A5B9A9D7A2C5322FAD0C5A9838507A057D6196E184",
+  "RuntimeSha256": "91CB11097E8301DEEFA4F119740A32277D0FD4BF531EB874CE75A396DC875E5D",
+  "CorpusSha256": "489CBFDE37D83ED05C61A7092D1E4E30EE6F91D14310ED58E5DBC31C53B77DDA"
+}

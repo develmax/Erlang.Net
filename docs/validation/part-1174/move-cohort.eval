@@ -1,0 +1,37 @@
+[R,G] = init:get_plain_arguments(),
+Op = fun(I) when is_tuple(I) -> element(1,I); (I) -> I end,
+Load = fun(P) ->
+    {beam_file,_,_,_,_,Fs}=beam_disasm:file(P),
+    maps:from_list([{{N,A}, [I || I <- Is, not lists:member(Op(I),[label,line,func_info])]} ||
+                    {function,N,A,_,Is} <- Fs])
+end,
+First = fun Find([A|AT],[B|BT],Prev) ->
+    case {Op(A),Op(B)} of
+        {Same,Same} -> Find(AT,BT,{A,B});
+        {move,init_yregs} ->
+            {move,S,D}=A,
+            Reg=fun(T) when is_tuple(T) -> element(1,T); (_) -> literal end,
+            Frame=case Prev of {{allocate,O,_},{allocate,N,_}} when O<N -> larger_generated;
+                               {{allocate,O,_},{allocate,O,_}} -> same_size;
+                               {{allocate,_,_},{allocate,_,_}} -> smaller_generated;
+                               _ -> other end,
+            {Reg(S),Reg(D),Frame};
+        _ -> none
+    end;
+    Find(_,_,_) -> none
+end,
+Depth=length(filename:split(G)),
+Groups=filelib:fold_files(G,"[.]beam$",true,fun(P,Acc) ->
+    Rel=filename:join(lists:nthtail(Depth,filename:split(P))),
+    Ref=Load(filename:join(R,Rel)),
+    Gen=Load(P),
+    Keys=[K || {F,Is} <- maps:to_list(Ref), {ok,Js} <- [maps:find(F,Gen)],
+               K <- [First(Is,Js,none)], K =/= none],
+    lists:foldl(fun(K,M) -> maps:update_with(K,fun({N,Ps})->{N+1,Ps#{Rel=>true}} end,{1,#{Rel=>true}},M)
+                end,Acc,Keys)
+end,#{ }),
+Rows=[{map_size(Ps),N,K} || {K,{N,Ps}} <- maps:to_list(Groups)],
+io:format("First move versus init_yregs by OTP operand tags and stack size. Counts overlap across rows.~n"),
+lists:foreach(fun({Ms,Fs,K}) -> io:format("~p images, ~p functions ~p~n",[Ms,Fs,K]) end,
+              lists:reverse(lists:sort(Rows))),
+halt().

@@ -1,0 +1,31 @@
+{
+  "Partial": true,
+  "SelectedCount": 3,
+  "TotalCount": 9700,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/beam/documentation-payload-matches-otp",
+    "compiler/beam/rebuild-installed-otp-release-images",
+    "compiler/beam/whole-module-matches-otp"
+  ],
+  "Passed": 2,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "compiler/beam/whole-module-matches-otp",
+      "Status": "Passed",
+      "Milliseconds": 12574
+    },
+    {
+      "Name": "compiler/beam/documentation-payload-matches-otp",
+      "Status": "Passed",
+      "Milliseconds": 12
+    },
+    {
+      "Name": "compiler/beam/rebuild-installed-otp-release-images",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Regenerated OTP release image differs: beam_qualified_spec_probe.erl\r\n   at Erlang.Tests.BeamReleaseImageChecks.CompareSpecMetadata(String directory, String module) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamReleaseImageChecks.cs:line 393\r\n   at Erlang.Tests.BeamReleaseImageChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamReleaseImageChecks.cs:line 234\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16224",
+      "Milliseconds": 21
+    }
+  ]
+}

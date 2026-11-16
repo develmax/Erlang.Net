@@ -1,0 +1,17 @@
+[P,Q]=init:get_plain_arguments(),
+Read=fun(Path)->
+    {beam_file,_,_,_,_,Fs}=beam_disasm:file(Path),
+    lists:sublist(Fs,2)
+end,
+Expected=Read(P),
+io:format("OTP: ~p~nC#: ~p~n",[Expected,Read(Q)]),
+Expected=Read(Q),
+lists:foreach(fun(Path)->
+    {ok,B}=file:read_file(Path),
+    {module,M}=code:load_binary(beam_sibling_three_probe,Path,B),
+    {{left,first},{right,second},{last,third}}=M:run(first,second,third),
+    {{left,first},{literal,second,tail}}=M:nonzero(first,second),
+    code:purge(M),
+    code:delete(M)
+end,[P,Q]),
+halt().

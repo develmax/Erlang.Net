@@ -1,0 +1,5 @@
+# Part 1613 — Emit direct unary BIFs for computed operands
+
+The body emitter shares operand preparation for ordinary and garbage-collecting unary BIFs. Computed operands for hd/1, tl/1, node/1 and tuple_size/1 stay in X0. OTP VM results agree for a successful call and all three badarg paths, including the last argument evaluation observed before each error. Three focused checks passed. [Fixture](beam_unary_bifs.erl) · [Disassembly](disassembly.txt) · [Outcomes](outcomes.txt) · [Tests](focused.txt).
+
+All 1,366 pinned sources were accepted and generated. There were 393 Equal and 973 Different, with ELDAPv3 and xmerl_xlate still Equal. The change affected 70 images. The Code size gap shrank in 23, grew in 45 and held steady in two. The aggregate gap increased by 177 bytes and the normalized function match count stayed the same. OTP accepted all 973 differing images for loading. [Corpus](otp-corpus.json) · [Loader and Code sizes](loader-and-code.txt) · [Function comparison](normalized-functions.txt).

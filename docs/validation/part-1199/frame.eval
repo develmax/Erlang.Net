@@ -1,0 +1,17 @@
+[Ref, Before, After, Manifest] = init:get_plain_arguments(),
+Frames = fun(P) ->
+    {beam_file,_,_,_,_,Fs}=beam_disasm:file(P),
+    maps:from_list([{{Name,Arity},case [Slots || I <- Is, Slots <- case I of
+        {allocate,N,_} -> [N]; {allocate_heap,N,_,_} -> [N]; _ -> [] end] of
+        [First|_] -> First; [] -> 0 end} || {function,Name,Arity,_,Is} <- Fs])
+end,
+{ok,Names}=file:read_file(Manifest),
+Rows=lists:append([begin
+    A=Frames(filename:join(Ref,Name)), B=Frames(filename:join(Before,Name)), C=Frames(filename:join(After,Name)),
+    [{Name,F,R,Old,New} || {F,Old} <- maps:to_list(B), {ok,R} <- [maps:find(F,A)],
+        {ok,New} <- [maps:find(F,C)], Old =/= New]
+end || Name <- string:split(string:trim(binary_to_list(Names)), "\n", all), Name =/= []]),
+Closer=[Row || {_,_,R,O,N}=Row <- Rows,abs(R-N)<abs(R-O)],
+Farther=[Row || {_,_,R,O,N}=Row <- Rows,abs(R-N)>abs(R-O)],
+io:format("Changed first frame sizes: ~p~nCloser: ~p~nFarther: ~p~nExamples (OTP, old, new): ~p~nFarther examples: ~p~n",
+    [length(Rows),length(Closer),length(Farther),lists:sublist(Closer,12),lists:sublist(Farther,12)]),halt().

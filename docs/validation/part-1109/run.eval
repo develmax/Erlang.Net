@@ -1,0 +1,21 @@
+[P,Q]=init:get_plain_arguments(),
+Read=fun(Path)->
+    {beam_file,_,_,_,_,Fs}=beam_disasm:file(Path),
+    lists:sublist(Fs,3)
+end,
+[First,Second,RefRemote]=Read(P),
+[First,Second,GenRemote]=Read(Q),
+io:format("Common: ~p~nOTP remote: ~p~nC# remote: ~p~n",[[First,Second],RefRemote,GenRemote]),
+lists:foreach(fun(Path)->
+    {ok,B}=file:read_file(Path),
+    {module,M}=code:load_binary(beam_entry_fields_probe,Path,B),
+    {one,two}=M:read({tag,one,two}),
+    {two,one}=M:reversed({tag,one,two}),
+    missing=M:read({wrong,one,two}),
+    missing=M:reversed({tag,one}),
+    value=M:remote({tag,key,#{key=>value}}),
+    {error,{badkey,key}}=try M:remote({tag,key,#{}}) of V->{value,V} catch error:R->{error,R} end,
+    code:purge(M),
+    code:delete(M)
+end,[P,Q]),
+halt().

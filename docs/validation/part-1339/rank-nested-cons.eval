@@ -1,0 +1,56 @@
+[Root, Generated] = init:get_plain_arguments(),
+Paths = filelib:wildcard(filename:join(Generated,"**/*.beam")),
+Nested = fun
+    ({clause,_,[{cons,_,_,{cons,_,_,_}}],_,Body}) ->
+        case lists:last(Body) of {cons,_,_,{call,_,_,_}} -> true; _ -> false end;
+    (_) -> false
+end,
+FirstTag = fun
+    ({clause,_,[{cons,_,{tuple,_,[{atom,_,Tag}|Fields]},_}],_,_}) ->
+        {Tag,length(Fields)+1};
+    (_) -> none
+end,
+TaggedPrefix = fun(Cs) ->
+    case Cs of
+        [First, Second | _] ->
+            Tag = FirstTag(First),
+            Tag =/= none andalso Tag =:= FirstTag(Second) andalso Nested(First);
+        _ -> false
+    end
+end,
+Vars = fun
+    Read({var,_,'_'}) -> [];
+    Read({var,_,Name}) -> [Name];
+    Read(Value) when is_tuple(Value) -> Read(tuple_to_list(Value));
+    Read([H|T]) -> Read(H) ++ Read(T);
+    Read(_) -> []
+end,
+Repeated = fun({clause,_,Pats,_,Body}) ->
+    case lists:last(Body) of
+        {cons,_,_,{call,_,_,_}} ->
+            Names = Vars(Pats),
+            lists:any(fun({cons,_,_,_}) -> true; (_) -> false end,Pats)
+                andalso length(Names) =/= length(lists:usort(Names));
+        _ -> false
+    end
+end,
+Base = length(filename:split(Generated)),
+Data = [{lists:nthtail(Base,filename:split(Path)), Res} || Path <- Paths,
+    {ok,{_,[{abstract_code,{raw_abstract_v1,Res}}]}} <-
+        [beam_lib:chunks(filename:join([Root|lists:nthtail(Base,filename:split(Path))]),[abstract_code])]],
+Rows = [{filename:join(Rel),
+         [{Name,Arity} || {function,_,Name,Arity,Cs} <- Fs, lists:any(Nested,Cs)],
+         [{Name,Arity} || {function,_,Name,Arity,Cs} <- Fs, TaggedPrefix(Cs)],
+         [{Name,Arity} || {function,_,Name,Arity,Cs} <- Fs, lists:any(Repeated,Cs)]}
+         || {Rel,Fs} <- Data],
+Print = fun(Label,Pos) ->
+    Selected = [{length(element(Pos,Row)),element(1,Row),element(Pos,Row)} || Row <- Rows, element(Pos,Row) =/= []],
+    io:format("~s: ~B modules, ~B functions~n",[Label,length(Selected),lists:sum([N || {N,_,_} <- Selected])]),
+    lists:foreach(fun({N,P,Fs}) -> io:format("~B ~s ~p~n",[N,P,Fs]) end,
+        lists:reverse(lists:keysort(1,Selected)))
+end,
+io:format("Read abstract forms from ~B of ~B differing release files.~n",[length(Data),length(Paths)]),
+Print("Unary nested cons with a call as result tail",2),
+Print("Leading clauses with a shared tagged first element",3),
+Print("Cons call result with a repeated pattern variable",4),
+halt().

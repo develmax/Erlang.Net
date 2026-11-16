@@ -1,0 +1,68 @@
+[Reference, Generated] = init:get_plain_arguments(),
+Opcode = fun
+    ({test, Name, _, _}) -> {test, Name};
+    (Instruction) when is_tuple(Instruction) -> element(1, Instruction);
+    (Instruction) -> Instruction
+end,
+Load = fun(Path) ->
+    {beam_file, _, _, _, _, Functions} = beam_disasm:file(Path),
+    maps:from_list([{{Name, Arity}, [Instruction || Instruction <- Instructions,
+        not lists:member(Opcode(Instruction), [label, line, func_info])]}
+        || {function, Name, Arity, _, Instructions} <- Functions])
+end,
+Allocation = fun
+    ({allocate, Slots, _}) -> {frame, Slots};
+    ({allocate_heap, Slots, _, _}) -> {frame, Slots};
+    (_) -> none
+end,
+FindAllocation = fun Find([I | Is], Count) ->
+    case Allocation(I) of
+        {frame, Slots} -> {Count, Slots};
+        none -> Find(Is, Count + 1)
+    end;
+    Find([], _) -> none
+end,
+FirstDifference = fun Diff([A | As], [B | Bs], Previous) ->
+    case {Opcode(A), Opcode(B)} of
+        {Same, Same} -> Diff(As, Bs, {A, B});
+        {move, init_yregs} ->
+            case {Previous, A} of
+                {{Before, After}, {move, {x, _}, {y, _}}} ->
+                    case {Allocation(Before), Allocation(After)} of
+                        {{frame, RefSlots}, {frame, GenSlots}} when GenSlots > RefSlots ->
+                            Gap = case GenSlots - RefSlots of 1 -> one; 2 -> two; _ -> three_or_more end,
+                            {initial_copy, Gap};
+                        {{frame, Slots}, {frame, Slots}} -> {initial_copy, same_size};
+                        _ -> none
+                    end;
+                _ -> none
+            end;
+        {{test, Test}, Allocate} when Allocate =:= allocate; Allocate =:= allocate_heap ->
+            case {FindAllocation([A | As], 0), Allocation(B)} of
+                {none, _} -> {test_before_frame, Test, reference_frameless};
+                {{_, RefSlots}, {frame, GenSlots}} when GenSlots > RefSlots -> {test_before_frame, Test, larger_generated};
+                {{_, RefSlots}, {frame, GenSlots}} when GenSlots =:= RefSlots -> {test_before_frame, Test, same_size};
+                _ -> {test_before_frame, Test, smaller_generated}
+            end;
+        _ -> none
+    end;
+    Diff(_, _, _) -> none
+end,
+Depth = length(filename:split(Generated)),
+Groups = filelib:fold_files(Generated, "[.]beam$", true, fun(Path, Acc) ->
+    Relative = filename:join(lists:nthtail(Depth, filename:split(Path))),
+    Expected = Load(filename:join(Reference, Relative)),
+    Actual = Load(Path),
+    Cases = [{Key, Function} || {Function, A} <- maps:to_list(Expected), {ok, B} <- [maps:find(Function, Actual)],
+        Key <- [FirstDifference(A, B, none)], Key =/= none],
+    lists:foldl(fun({Key, Function}, Map) ->
+        maps:update_with(Key, fun({Count, Images, Example}) -> {Count + 1, Images#{Relative => true}, Example} end,
+            {1, #{Relative => true}, {Relative, Function}}, Map)
+    end, Acc, Cases)
+end, #{}),
+Rows = [{map_size(Images), Count, Key, Example} || {Key, {Count, Images, Example}} <- maps:to_list(Groups)],
+io:format("First differing opcode by entry-frame shape. Image counts overlap across rows.~n"),
+lists:foreach(fun({Images, Count, Key, {Path, Function}}) ->
+    io:format("~w images ~w functions ~w ~s ~w~n", [Images, Count, Key, Path, Function])
+end, lists:reverse(lists:sort(Rows))),
+halt().

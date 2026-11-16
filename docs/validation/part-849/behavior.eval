@@ -1,0 +1,28 @@
+Dir = "artifacts/beam-backend/part849-images",
+Module = beam_guarded_filter_probe,
+Stub = beam_filter_transport,
+StubPath = filename:join(Dir, atom_to_list(Stub) ++ ".erl"),
+ok = file:write_file(StubPath, "-module(beam_filter_transport).\n-export([setopts/2]).\nsetopts(S,O) -> self() ! {setopts,S,O}, configured.\n"),
+{ok,Stub,StubBytes} = compile:file(StubPath,[binary]),
+{module,Stub} = code:load_binary(Stub,StubPath,StubBytes),
+Name = atom_to_list(Module) ++ ".beam",
+Run = fun(File) ->
+    code:purge(Module), code:delete(Module),
+    {ok,Bytes} = file:read_file(File),
+    {module,Module} = code:load_binary(Module,File,Bytes),
+    Callback = Module:callback(socket,controller),
+    configured = Callback(controller,[]),
+    receive {setopts,socket,[]} -> ok after 1000 -> error(missing_setopts) end,
+    {error,{badopts,[[active]]}} = Callback(controller,[active]),
+    Stack = try Callback(wrong,[]) of
+        Value -> error({unexpected_result,Value})
+    catch
+        error:function_clause:Frames -> [{Module,_,[wrong,[]],_}|_] = Frames, Frames
+    end,
+    receive Event -> error({unexpected_effect,Event}) after 0 -> ok end,
+    Stack
+end,
+Otp = Run(filename:join([Dir,"fixture","lib","probe","ebin",Name])),
+Otp = Run(filename:join(Dir,Name)),
+erlang:display({Module,equal}),
+halt().

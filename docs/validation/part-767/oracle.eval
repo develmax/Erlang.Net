@@ -1,0 +1,11 @@
+Original = code:which(beam_opcodes),
+Generated = "artifacts/beam-backend/part767-images/beam_opcodes.beam",
+{ok,Bytes} = file:read_file(Original),
+{ok,Bytes} = file:read_file(Generated),
+{beam_file,beam_opcodes,_,_,_,Functions} = beam_disasm:file(Generated),
+Counts = [{Name,Arity,length(Instructions)} ||
+    {function,Name,Arity,_,Instructions} <- Functions, Name =:= opcode orelse Name =:= opname],
+[{opcode,2,540},{opname,1,584}] = Counts,
+io:format("whole_image_equal=true bytes=~p dispatch_instructions=~w sha256=~s~n",
+    [byte_size(Bytes),Counts,binary:encode_hex(crypto:hash(sha256,Bytes))]),
+halt().

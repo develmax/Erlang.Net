@@ -1,0 +1,31 @@
+{
+  "Partial": true,
+  "SelectedCount": 3,
+  "TotalCount": 9700,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/beam/documentation-payload-matches-otp",
+    "compiler/beam/rebuild-installed-otp-release-images",
+    "compiler/beam/whole-module-matches-otp"
+  ],
+  "Passed": 2,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "compiler/beam/whole-module-matches-otp",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: General BEAM append returned , exit {clr_error,[73,110,118,97,108,105,100,68,97,116,97,69,120,99,101,112,116,105,111,110]}.\r\n   at Erlang.Tests.BeamModuleEmissionChecks.CompareGeneralAppend() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamModuleEmissionChecks.cs:line 1932\r\n   at Erlang.Tests.BeamModuleEmissionChecks.CompareGeneralAppend() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamModuleEmissionChecks.cs:line 1932\r\n   at Erlang.Tests.BeamModuleEmissionChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamModuleEmissionChecks.cs:line 267\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16224",
+      "Milliseconds": 5503
+    },
+    {
+      "Name": "compiler/beam/documentation-payload-matches-otp",
+      "Status": "Passed",
+      "Milliseconds": 14
+    },
+    {
+      "Name": "compiler/beam/rebuild-installed-otp-release-images",
+      "Status": "Passed",
+      "Milliseconds": 16644
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+dtls_server_session_cache_sup [{ok,[{config,server},
+                                    {child,ok,#{role => server}}]},
+                               {{error,fixture_failure},
+                                [{config,server},
+                                 {child,fail,#{role => server}}]}]
+ssl_server_session_cache_sup [{ok,[{config,server},
+                                   {child,ok,#{role => server}}]},
+                              {{error,fixture_failure},
+                               [{config,server},
+                                {child,fail,#{role => server}}]}]

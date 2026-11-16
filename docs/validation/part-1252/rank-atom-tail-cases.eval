@@ -1,0 +1,44 @@
+[Reference, Generated] = init:get_plain_arguments(),
+Read = fun(Path) ->
+    {beam_file,_,_,_,_,Functions} = beam_disasm:file(Path),
+    maps:from_list([{{Name,Arity},Instructions} || {function,Name,Arity,_,Instructions} <- Functions])
+end,
+Block = fun(Label, Instructions) ->
+    case lists:dropwhile(fun(I) -> I =/= {label,Label} end, Instructions) of
+        [] -> [];
+        [_|Rest] -> lists:takewhile(fun({label,_}) -> false; (_) -> true end, Rest)
+    end
+end,
+Pairs = fun Parse([{atom,Atom},{f,Label}|Rest]) -> [{Atom,Label}|Parse(Rest)];
+            Parse([]) -> []
+        end,
+Selectors = fun(Instructions) ->
+    [{lists:sort([Atom || {atom,Atom} <- Operands]),
+      [{Atom,Callee} || {Atom,Label} <- Pairs(Operands),
+                        {call_last,_,Callee,_} <- Block(Label,Instructions)]}
+     || {select_val,_,_,{list,Operands}} <- Instructions,
+        length(Operands) >= 4, length(Operands) =:= 2 * length([K || {atom,K} <- Operands])]
+end,
+Paths = filelib:fold_files(Generated, "[.]beam$", true, fun(Path, Acc) -> [Path|Acc] end, []),
+Rows = lists:flatmap(fun(Path) ->
+    Relative = lists:nthtail(length(filename:split(Generated)), filename:split(Path)),
+    Expected = Read(filename:join([Reference|Relative])),
+    Actual = Read(Path),
+    Cases = [{Function,Key,Tail}
+             || {Function,Instructions} <- maps:to_list(Expected),
+                {ok,GeneratedInstructions} <- [maps:find(Function,Actual)],
+                RefCases <- [Selectors(Instructions)],
+                ActualCases <- [Selectors(GeneratedInstructions)],
+                {Keys,Tails} <- RefCases,
+                [CurrentTails] <- [[Items || {K,Items} <- ActualCases, K =:= Keys]],
+                1 =:= length([K || {K,_} <- RefCases, K =:= Keys]),
+                {Key,Tail} <- Tails -- CurrentTails],
+    case Cases of
+        [] -> [];
+        _ -> [{filename:join(Relative),Cases}]
+    end
+end, Paths),
+io:format("Candidate images: ~B, candidate local tail branches: ~B~n",
+          [length(Rows),lists:sum([length(Cases) || {_,Cases} <- Rows])]),
+lists:foreach(fun({Name,Cases}) -> io:format("~s ~p~n", [Name,Cases]) end, lists:sort(Rows)),
+halt().

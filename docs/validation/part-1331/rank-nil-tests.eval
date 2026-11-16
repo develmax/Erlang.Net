@@ -1,0 +1,24 @@
+[Reference,Generated] = [filename:absname(P) || P<-init:get_plain_arguments()],
+Files = filelib:fold_files(Generated,"[.]beam$",true,fun(P,A)->[P|A] end,[]),
+Read = fun(P) ->
+    {beam_file,_,_,_,_,Fs} = beam_disasm:file(P),
+    maps:from_list([{{N,A},Is}||{function,N,A,_,Is}<-Fs])
+end,
+NilTests = fun(Is) -> length([I || I={test,is_nil,_,_}<-Is]) end,
+Rows = lists:filtermap(fun(P) ->
+    Rel=lists:nthtail(length(filename:split(Generated)),filename:split(P)),
+    OTP=Read(filename:join([Reference|Rel])),
+    Actual=Read(P),
+    Candidates=[{N,A,NilTests(Is)}
+                || {{N,A},Ref}<-maps:to_list(OTP),
+                   [{test,is_nonempty_list,_,_}|_] <- [lists:nthtail(4,Ref)],
+                   NilTests(Ref)=:=0,
+                   {ok,Is} <- [maps:find({N,A},Actual)],
+                   NilTests(Is)>0],
+    case Candidates of []->false; _->{true,{length(Candidates),filename:join(Rel),lists:sort(Candidates)}} end
+end,Files),
+io:format("~p modules, ~p functions with a cons test at OTP entry and a nil test only in generated code.~n",
+    [length(Rows),lists:sum([N||{N,_,_}<-Rows])]),
+lists:foreach(fun({N,P,C})->io:format("~p ~s ~p~n",[N,P,lists:sublist(C,5)]) end,
+    lists:sublist(lists:reverse(lists:sort(Rows)),20)),
+halt().

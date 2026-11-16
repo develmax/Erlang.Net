@@ -1,0 +1,10 @@
+Original = code:which(cdv_port_cb),
+Generated = "artifacts/beam-backend/part783-images/cdv_port_cb.beam",
+{ok,Bytes} = file:read_file(Original),
+{ok,Bytes} = file:read_file(Generated),
+{beam_file,cdv_port_cb,_,_,_,Functions} = beam_disasm:file(Generated),
+Counts = [{Name,Arity,length(Instructions)} ||
+    {function,Name,Arity,_,Instructions} <- Functions],
+io:format("whole_image_equal=true bytes=~p functions=~w sha256=~s~n",
+    [byte_size(Bytes),Counts,binary:encode_hex(crypto:hash(sha256,Bytes))]),
+halt().

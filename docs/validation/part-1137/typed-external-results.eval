@@ -1,0 +1,14 @@
+[Ref|Paths]=init:get_plain_arguments(),
+Find=fun Scan([{call_ext,A,{extfunc,M,F,A}},{test,Test,_,[{tr,{x,0},Type}]}|Is])->
+         [{{M,F,A},Test,Type}|Scan(Is)];
+         Scan([_|Is])->Scan(Is);
+         Scan([])->[]
+     end,
+Groups=lists:foldl(fun(P,Acc)->
+    {beam_file,_,_,_,_,Fs}=beam_disasm:file(filename:join(Ref,P)),
+    Keys=lists:usort(lists:flatmap(fun({function,_,_,_,Is})->Find([I||I<-Is,not(is_tuple(I) andalso element(1,I)=:=line)]) end,Fs)),
+    lists:foldl(fun(K,A)->maps:update_with(K,fun(N)->N+1 end,1,A) end,Acc,Keys)
+end,#{},Paths),
+lists:foreach(fun({Count,Key})->io:format("~p ~w~n",[Count,Key]) end,
+              lists:sublist(lists:reverse(lists:sort([{N,K}||{K,N}<-maps:to_list(Groups)])),30)),
+halt().

@@ -1,0 +1,44 @@
+OTP 29.1.1
+{label,421}
+{line,[{location,"xmerl_xsd_type.erl",815}]}
+{func_info,{atom,xmerl_xsd_type},{atom,conv_list_to_binary},1}
+{label,422}
+{test,is_binary,{f,423},[{x,0}]}
+return
+{label,423}
+{test,is_list,{f,421},[{x,0}]}
+{line,[{location,"xmerl_xsd_type.erl",818}]}
+{call_ext_only,1,{extfunc,unicode,characters_to_binary,1}}
+Part 1481 C#
+{label,721}
+{line,[{location,"xmerl_xsd_type.erl",815}]}
+{func_info,{atom,xmerl_xsd_type},{atom,conv_list_to_binary},1}
+{label,722}
+{allocate,1,1}
+{move,{x,0},{y,0}}
+{test,is_binary,{f,723},[{y,0}]}
+{move,{y,0},{x,0}}
+{deallocate,1}
+return
+{label,723}
+{test,is_list,{f,724},[{y,0}]}
+{move,{y,0},{x,0}}
+{line,[{location,"xmerl_xsd_type.erl",818}]}
+{call_ext,1,{extfunc,unicode,characters_to_binary,1}}
+{deallocate,1}
+return
+{label,724}
+{move,{y,0},{x,0}}
+{deallocate,1}
+{jump,{f,721}}
+Part 1482 C#
+{label,721}
+{line,[{location,"xmerl_xsd_type.erl",815}]}
+{func_info,{atom,xmerl_xsd_type},{atom,conv_list_to_binary},1}
+{label,722}
+{test,is_binary,{f,723},[{x,0}]}
+return
+{label,723}
+{test,is_list,{f,721},[{x,0}]}
+{line,[{location,"xmerl_xsd_type.erl",818}]}
+{call_ext_only,1,{extfunc,unicode,characters_to_binary,1}}

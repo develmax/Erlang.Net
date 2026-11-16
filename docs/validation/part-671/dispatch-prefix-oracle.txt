@@ -1,0 +1,10 @@
+dispatch_prefix_equal=true
+[{call,2,{'ELDAPv3',match_tags,2}},
+ {test,is_nonempty_list,[{x,0}]},
+ {get_list,{x,0},{x,1},{x,2}},
+ {test,is_nil,[{x,2}]},
+ {move,{x,1},{x,0}},
+ {test,is_tuple,[{x,0}]},
+ {test,test_arity,[{x,0},2]},
+ {get_tuple_element,{x,0},0,{x,1}},
+ {get_tuple_element,{x,0},1,{x,2}}]

@@ -2,6 +2,7 @@ namespace Erlang;
 
 public sealed record EtfEncodingOptions
 {
+    internal int MaximumNestingDepth { get; init; } = EtfResourceLimits.MaximumNestingDepth;
     internal LocalNodeIdentity? NodeIdentity { get; init; }
     internal LocalNodeSnapshot? NodeSnapshot { get; init; }
     internal Func<MapTerm, IReadOnlyList<KeyValuePair<Term, Term>>>? MapEntries { get; init; }

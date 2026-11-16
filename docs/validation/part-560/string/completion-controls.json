@@ -1,0 +1,109 @@
+{
+  "Partial": true,
+  "SelectedCount": 16,
+  "TotalCount": 9647,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/0",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/1",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/2",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/3",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/4",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/5",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/0",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/1",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/2",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/3",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/4",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/5",
+    "runtime/review498-imported-flat-map-copy",
+    "runtime/string/explicit-dependencies-and-no-fallback",
+    "runtime/string/managed-selection-and-original-contracts",
+    "runtime/string/original-selection-and-original-contracts"
+  ],
+  "Passed": 15,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/string/managed-selection-and-original-contracts",
+      "Status": "Passed",
+      "Milliseconds": 3007
+    },
+    {
+      "Name": "runtime/string/original-selection-and-original-contracts",
+      "Status": "Passed",
+      "Milliseconds": 1939
+    },
+    {
+      "Name": "runtime/string/explicit-dependencies-and-no-fallback",
+      "Status": "Passed",
+      "Milliseconds": 107
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/0",
+      "Status": "Passed",
+      "Milliseconds": 1934
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/0",
+      "Status": "Passed",
+      "Milliseconds": 1535
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/1",
+      "Status": "Passed",
+      "Milliseconds": 1241
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/1",
+      "Status": "Passed",
+      "Milliseconds": 1257
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/2",
+      "Status": "Passed",
+      "Milliseconds": 1189
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/2",
+      "Status": "Passed",
+      "Milliseconds": 1219
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/3",
+      "Status": "Passed",
+      "Milliseconds": 1206
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/3",
+      "Status": "Passed",
+      "Milliseconds": 1304
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/4",
+      "Status": "Passed",
+      "Milliseconds": 1163
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/4",
+      "Status": "Passed",
+      "Milliseconds": 1248
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/5",
+      "Status": "Passed",
+      "Milliseconds": 1228
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/5",
+      "Status": "Passed",
+      "Milliseconds": 1256
+    },
+    {
+      "Name": "runtime/review498-imported-flat-map-copy",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Merged review regression failed\r\n   at Erlang.Tests.ReviewFollowup498Checks.Require(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Primitives\\ReviewFollowup498Checks.cs:line 168\r\n   at Erlang.Tests.ReviewFollowup498Checks.\u003C\u003Ec__DisplayClass1_0.\u003C\u003CImportedFlatMaps\u003Eb__1\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Primitives\\ReviewFollowup498Checks.cs:line 135\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.\u003C\u003Ec__DisplayClass9_0\u00601.\u003C\u003CInvokeAsync\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 43\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func\u00602 command) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 51\r\n   at Erlang.Tests.ReviewFollowup498Checks.ImportedFlatMaps() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Primitives\\ReviewFollowup498Checks.cs:line 121\r\n   at Erlang.Tests.ReviewFollowup498Checks.ImportedFlatMaps() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Primitives\\ReviewFollowup498Checks.cs:line 121\r\n   at Erlang.Tests.ReviewFollowup498Checks.ImportedFlatMaps() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Primitives\\ReviewFollowup498Checks.cs:line 121\r\n   at Erlang.Tests.ReviewFollowup498Checks.ImportedFlatMaps() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Primitives\\ReviewFollowup498Checks.cs:line 121\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16193",
+      "Milliseconds": 213
+    }
+  ]
+}

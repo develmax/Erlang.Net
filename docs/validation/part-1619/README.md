@@ -1,0 +1,9 @@
+# Part 1619 — Defer tuple projections across record update calls
+
+The entry emitter recognizes two checked tagged tuple inputs followed by calls that consume their fields and return an updated record in a tuple. It keeps the checked input terms live across the calls, projects fields when needed, and trims the discarded request slot before the second call. The existing record update encoding takes the second result from X0. Pinned OTP 29.1.1 tuple sinking and frame trimming provide the reference. No dependency was added. An experimental ordinary-call fixture showed that OTP can choose an earlier projection when it lacks the monitor result type.
+
+The permanent beam_deferred_record_call fixture matches OTP byte for byte. VM comparisons covered the successful update, the observed call side effect, and function_clause for both invalid input shapes. Three focused checks passed. [SHA-256](fixture-sha256.txt) · [Disassembly](disassembly.txt) · [Outcomes](outcomes.txt) · [Tests](focused.txt).
+
+The corpus accepted and generated all 1,366 sources. 393 were Equal and 973 Different. ELDAPv3 was Equal. The change affected 1 images with a signed reduction of 42 bytes in the aggregate Code size gap. The instruction comparison after label normalization recorded 1 new matches and 0 losses. The OTP loader accepted all 973 differing images. The full runtime suite and readiness regeneration were outside this run. [Corpus](otp-corpus.json) · [Code sizes and loader](loader-and-code.txt) · [Normalized comparison](normalized-functions.txt) · [Release instruction comparison](logger-handler-watcher-handle-call.txt).
+
+The next comparison is the message dispatch and record-update branches of logger_handler_watcher:handle_info/2. The same analysis can also identify earlier projections that save one field instead of the whole tuple.

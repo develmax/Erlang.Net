@@ -1,0 +1,214 @@
+lib/compiler-10.0.6/ebin/beam_asm.beam
+lib/compiler-10.0.6/ebin/beam_block.beam
+lib/compiler-10.0.6/ebin/beam_bounds.beam
+lib/compiler-10.0.6/ebin/beam_call_types.beam
+lib/compiler-10.0.6/ebin/beam_clean.beam
+lib/compiler-10.0.6/ebin/beam_core_to_ssa.beam
+lib/compiler-10.0.6/ebin/beam_dict.beam
+lib/compiler-10.0.6/ebin/beam_disasm.beam
+lib/compiler-10.0.6/ebin/beam_doc.beam
+lib/compiler-10.0.6/ebin/beam_flatten.beam
+lib/compiler-10.0.6/ebin/beam_jump.beam
+lib/compiler-10.0.6/ebin/beam_ssa_alias.beam
+lib/compiler-10.0.6/ebin/beam_ssa_bc_size.beam
+lib/compiler-10.0.6/ebin/beam_ssa_bool.beam
+lib/compiler-10.0.6/ebin/beam_ssa_bsm.beam
+lib/compiler-10.0.6/ebin/beam_ssa_check.beam
+lib/compiler-10.0.6/ebin/beam_ssa_codegen.beam
+lib/compiler-10.0.6/ebin/beam_ssa_dead.beam
+lib/compiler-10.0.6/ebin/beam_ssa_destructive_update.beam
+lib/compiler-10.0.6/ebin/beam_ssa_lint.beam
+lib/compiler-10.0.6/ebin/beam_ssa_opt.beam
+lib/compiler-10.0.6/ebin/beam_ssa_pp.beam
+lib/compiler-10.0.6/ebin/beam_ssa_pre_codegen.beam
+lib/compiler-10.0.6/ebin/beam_ssa_recv.beam
+lib/compiler-10.0.6/ebin/beam_ssa_share.beam
+lib/compiler-10.0.6/ebin/beam_ssa_ss.beam
+lib/compiler-10.0.6/ebin/beam_ssa_throw.beam
+lib/compiler-10.0.6/ebin/beam_ssa_type.beam
+lib/compiler-10.0.6/ebin/beam_trim.beam
+lib/compiler-10.0.6/ebin/beam_types.beam
+lib/compiler-10.0.6/ebin/beam_utils.beam
+lib/compiler-10.0.6/ebin/beam_validator.beam
+lib/compiler-10.0.6/ebin/beam_z.beam
+lib/compiler-10.0.6/ebin/cerl.beam
+lib/compiler-10.0.6/ebin/cerl_clauses.beam
+lib/compiler-10.0.6/ebin/cerl_inline.beam
+lib/compiler-10.0.6/ebin/cerl_trees.beam
+lib/compiler-10.0.6/ebin/compile.beam
+lib/compiler-10.0.6/ebin/core_lib.beam
+lib/compiler-10.0.6/ebin/core_lint.beam
+lib/compiler-10.0.6/ebin/core_pp.beam
+lib/compiler-10.0.6/ebin/core_scan.beam
+lib/compiler-10.0.6/ebin/rec_env.beam
+lib/compiler-10.0.6/ebin/sys_core_alias.beam
+lib/compiler-10.0.6/ebin/sys_core_bsm.beam
+lib/compiler-10.0.6/ebin/sys_core_fold.beam
+lib/compiler-10.0.6/ebin/sys_core_fold_lists.beam
+lib/compiler-10.0.6/ebin/sys_core_inline.beam
+lib/compiler-10.0.6/ebin/sys_core_prepare.beam
+lib/compiler-10.0.6/ebin/sys_coverage.beam
+lib/compiler-10.0.6/ebin/sys_messages.beam
+lib/compiler-10.0.6/ebin/sys_pre_attributes.beam
+lib/compiler-10.0.6/ebin/v3_core.beam
+lib/reltool-1.1/ebin/reltool_fgraph.beam
+lib/ssl-11.7.7/ebin/ssl_cipher.beam
+lib/ssl-11.7.7/ebin/tls_record.beam
+lib/compiler-10.0.6/ebin/beam_asm.beam +[] -[{build_beam_debug_info,2}]
+lib/compiler-10.0.6/ebin/beam_block.beam +[] -[{blockify,1},{opt_maps,1}]
+lib/compiler-10.0.6/ebin/beam_bounds.beam +[] -[{clamp,3}]
+lib/compiler-10.0.6/ebin/beam_core_to_ssa.beam +[] -[{fix_phis,1},
+                                                     {'-umatch_list/3-inlined-0-',
+                                                      2},
+                                                     {subst_vsub,3},
+                                                     {set_fsub,4},
+                                                     {'-do_match_value/5-inlined-0-',
+                                                      2},
+                                                     {'-atomic_list/3-inlined-0-',
+                                                      2}]
+lib/compiler-10.0.6/ebin/beam_disasm.beam +[] -[{resolve_args,1},
+                                                {'-resolve_args/1-lc$^0/1-0-',
+                                                 1}]
+lib/compiler-10.0.6/ebin/beam_jump.beam +[] -[{eliminate_moves,1},
+                                              {share_1,1},
+                                              {classify_labels,1}]
+lib/compiler-10.0.6/ebin/beam_ssa_alias.beam +[] -[{killsets_phi_live_ins,1},
+                                                   {aa_all_dies,3},
+                                                   {eru_args,6},
+                                                   {aa_map_extraction,4},
+                                                   {aa_alias_surviving_phi_args,
+                                                    4},
+                                                   {aa_record_extraction,4},
+                                                   {aa_alias_surviving_args,4},
+                                                   {killsets_fun,1},
+                                                   {eru_blocks,2}]
+lib/compiler-10.0.6/ebin/beam_ssa_check.beam +[] -[{function,2}]
+lib/compiler-10.0.6/ebin/beam_ssa_codegen.beam +[] -[{prefer_xregs,2},
+                                                     {anno_defined_regs,3},
+                                                     {linearize,1}]
+lib/compiler-10.0.6/ebin/beam_ssa_dead.beam +[] -[{'-update_successors_sw_fail/5-inlined-0-',
+                                                   2},
+                                                  {used_vars,1},
+                                                  {shortcut_test_br,5}]
+lib/compiler-10.0.6/ebin/beam_ssa_destructive_update.beam +[] -[{patch_f,3}]
+lib/compiler-10.0.6/ebin/beam_ssa_pp.beam +[] -[{format_var,1}]
+lib/compiler-10.0.6/ebin/beam_ssa_pre_codegen.beam +[] -[{expand_update_tuple_list,
+                                                          4},
+                                                         {live_in_successors,
+                                                          4},
+                                                         {bs_insert_bsm3,3},
+                                                         {reserve_xregs,3}]
+lib/compiler-10.0.6/ebin/beam_ssa_share.beam +[] -[{canonical_is,1},
+                                                   {do_share_switch,3}]
+lib/compiler-10.0.6/ebin/beam_ssa_ss.beam +[] -[{'-init_elements/4-inlined-0-',
+                                                 3}]
+lib/compiler-10.0.6/ebin/beam_ssa_type.beam +[] -[{put_map_type,3},
+                                                  {return_type,2},
+                                                  {number_type,2}]
+lib/compiler-10.0.6/ebin/beam_trim.beam +[] -[{usage,2}]
+lib/compiler-10.0.6/ebin/beam_types.beam +[] -[{jts_records,2},
+                                               {mts_records,2}]
+lib/compiler-10.0.6/ebin/beam_validator.beam +[] -[{create_term,5},
+                                                   {validate_bs_skip,4},
+                                                   {put_map_type,3},
+                                                   {extract_vals,4},
+                                                   {assert_term,2},
+                                                   {extract_term,5},
+                                                   {assert_durable_term,2},
+                                                   {get_call_args,2},
+                                                   {create_term,6},
+                                                   {verify_has_map_fields,4},
+                                                   {update_ne_types,3}]
+lib/compiler-10.0.6/ebin/cerl.beam +[{make_list,1}] -[{fold_literal_list,1},
+                                                      {c_map,1},
+                                                      {meta_list,1}]
+lib/compiler-10.0.6/ebin/cerl_clauses.beam +[] -[{reduce,1}]
+lib/compiler-10.0.6/ebin/cerl_inline.beam +[] -[{new_refs,3},
+                                                {core_transform,2},
+                                                {transform,1},
+                                                {i_clauses,5},
+                                                {i_let_3,4},
+                                                {make_opnd,4},
+                                                {make_template,2}]
+lib/compiler-10.0.6/ebin/cerl_trees.beam +[] -[{label,1}]
+lib/compiler-10.0.6/ebin/compile.beam +[{'-core_transforms/2-lc$^0/1-0-',1},
+                                        {'-debug_info_chunk/1-anonymous-0-',
+                                         2}] -[{select_list_passes,2},
+                                               {filter_warnings,2}]
+lib/compiler-10.0.6/ebin/core_lib.beam +[{'-vu_expr/2-anonymous-6-',2},
+                                         {'-vu_expr/2-anonymous-3-',2},
+                                         {'-vu_expr/2-anonymous-10-',2},
+                                         {'-vu_expr/2-anonymous-2-',2},
+                                         {'-vu_expr/2-anonymous-4-',2},
+                                         {'-vu_clause/2-anonymous-0-',2},
+                                         {'-vu_expr/2-anonymous-11-',2}] -[{'-vu_expr/2-inlined-0-',
+                                                                            1},
+                                                                           {'-vu_pat_seg_list/2-inlined-0-',
+                                                                            1},
+                                                                           {'-vu_seg_list/2-inlined-0-',
+                                                                            1},
+                                                                           {'-vu_var_list/2-inlined-0-',
+                                                                            1}]
+lib/compiler-10.0.6/ebin/core_lint.beam +[{'-gexpr/4-anonymous-8-',3},
+                                          {'-gexpr/4-anonymous-6-',3},
+                                          {'-expr/4-anonymous-6-',3},
+                                          {'-expr/4-anonymous-9-',3},
+                                          {'-gexpr/4-anonymous-0-',3},
+                                          {'-gexpr/4-anonymous-5-',3},
+                                          {'-gexpr/4-anonymous-4-',3},
+                                          {'-expr/4-anonymous-2-',3},
+                                          {'-expr/4-anonymous-8-',3},
+                                          {'-expr/4-anonymous-3-',3},
+                                          {'-expr/4-anonymous-7-',3},
+                                          {'-gexpr/4-anonymous-3-',3},
+                                          {'-gexpr/4-anonymous-1-',3},
+                                          {'-body/4-anonymous-0-',3},
+                                          {'-gbody/4-anonymous-0-',3}] -[{pattern_list,
+                                                                          3},
+                                                                         {guard,
+                                                                          3},
+                                                                         {'-pat_bin/4-inlined-0-',
+                                                                          2},
+                                                                         {'-pattern_list/4-inlined-0-',
+                                                                          2}]
+lib/compiler-10.0.6/ebin/core_pp.beam +[] -[{format_all,1},
+                                            {format,1},
+                                            {width,2}]
+lib/compiler-10.0.6/ebin/core_scan.beam +[] -[{string,1},{scan,2}]
+lib/compiler-10.0.6/ebin/sys_core_fold.beam +[{'-is_safe_simple/1-anonymous-0-',
+                                               1},
+                                              {'-is_safe_bool_expr_1/2-anonymous-0-',
+                                               1}] -[{post_opt_let,2},
+                                                     {pattern_list,2},
+                                                     {delay_build,2}]
+lib/compiler-10.0.6/ebin/sys_coverage.beam +[] -[{munge_exprs,2},
+                                                 {beam_debug_info,1},
+                                                 {munge_qualifiers,2},
+                                                 {munge_body,2},
+                                                 {module,2}]
+lib/compiler-10.0.6/ebin/v3_core.beam +[{'-lit_vars/2-anonymous-1-',2},
+                                        {'-lit_vars/2-anonymous-0-',2},
+                                        {'-lit_vars/2-anonymous-3-',2},
+                                        {'-lit_vars/2-anonymous-2-',2}] -[{new_vars,
+                                                                           3},
+                                                                          {new_vars,
+                                                                           2},
+                                                                          {pat_bin,
+                                                                           2},
+                                                                          {preprocess_quals,
+                                                                           3},
+                                                                          {head,
+                                                                           2},
+                                                                          {force_booleans,
+                                                                           4}]
+lib/ssl-11.7.7/ebin/tls_record.beam +[{'-sufficient_crypto_support/1-anonymous-3-',
+                                       2},
+                                      {'-sufficient_crypto_support/1-anonymous-2-',
+                                       2},
+                                      {'-sufficient_crypto_support/1-anonymous-1-',
+                                       2},
+                                      {'-sufficient_crypto_support/1-anonymous-4-',
+                                       2},
+                                      {'-sufficient_crypto_support/1-anonymous-0-',
+                                       2}] -[]
+Compared 56 changed images.

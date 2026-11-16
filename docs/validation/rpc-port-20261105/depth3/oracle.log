@@ -1,0 +1,21 @@
+=ERROR REPORT==== 5-Nov-2026::03:23:31.947000 ===
+Error in process <0.276.0> with exit value:
+{{exception,{badarg,[{erlang,apply,
+                             [erlang,abs,[x|bad]],
+                             [{error_info,#{module => erl_erts_errors}}]}]}},
+ [{erpc,execute_cast,3,[{file,"erpc.erl"},{line,1296}]}]}
+
+=ERROR REPORT==== 5-Nov-2026::03:23:31.999000 ===
+Error in process <0.400.0> with exit value:
+{{badrecord,state},
+ [{rpc,cnode_call_group_leader_put_chars,3,[{file,"rpc.erl"},{line,1262}]},
+  {rpc,cnode_call_group_leader_loop,1,[{file,"rpc.erl"},{line,1192}]}]}
+
+=ERROR REPORT==== 5-Nov-2026::03:23:31.999000 ===
+Error in process <0.402.0> with exit value:
+{function_clause,[{rpc,cnode_call_group_leader_multi_request,
+                       [bad,{ok,ok,{cnode_call_group_leader_state,<0.394.0>}}],
+                       [{file,"rpc.erl"},{line,1247}]},
+                  {rpc,cnode_call_group_leader_loop,1,
+                       [{file,"rpc.erl"},{line,1192}]}]}
+

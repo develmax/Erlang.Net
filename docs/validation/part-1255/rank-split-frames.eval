@@ -1,0 +1,27 @@
+[Reference, Generated] = init:get_plain_arguments(),
+Read = fun(Path) ->
+    {beam_file,_,_,_,_,Functions} = beam_disasm:file(Path),
+    maps:from_list([{{Name,Arity},
+                    [element(2,I) || I <- Instructions, is_tuple(I),
+                                     element(1,I) =:= allocate orelse element(1,I) =:= allocate_heap]}
+                   || {function,Name,Arity,_,Instructions} <- Functions])
+end,
+Paths = filelib:fold_files(Generated, "[.]beam$", true, fun(Path, Acc) -> [Path|Acc] end, []),
+Rows = lists:flatmap(fun(Path) ->
+    Relative = lists:nthtail(length(filename:split(Generated)),filename:split(Path)),
+    Expected = Read(filename:join([Reference|Relative])),
+    Actual = Read(Path),
+    Differences = [{Function,Frames,GeneratedFrames}
+                   || {Function,Frames} <- maps:to_list(Expected),
+                      length(lists:usort(Frames)) > 1,
+                      {ok,GeneratedFrames = [_]} <- [maps:find(Function,Actual)]],
+    case Differences of
+        [] -> [];
+        _ -> [{length(Differences),filename:join(Relative),lists:sublist(Differences,3)}]
+    end
+end,Paths),
+io:format("Candidate images: ~B, functions with varying OTP frame sizes and one generated allocation: ~B~n",
+          [length(Rows),lists:sum([N || {N,_,_} <- Rows])]),
+lists:foreach(fun({N,Name,Examples}) -> io:format("~B ~s ~p~n",[N,Name,Examples]) end,
+              lists:sublist(lists:reverse(lists:sort(Rows)),15)),
+halt().

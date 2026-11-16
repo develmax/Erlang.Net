@@ -1,0 +1,7 @@
+83 returns, exceptions and fixture stack frames match OTP in the current image.
+The previous image matched values and reasons and differed in 5 fixture stacks.
+{{alternate,[[{a,ignored}]]},{error,{case_clause,{a,ignored}},[{beam_tuple_case_fallbacks,alternate,1,[{file,"beam_tuple_case_fallbacks.erl"},{line,18}]}]},{error,{case_clause,{a,ignored}},[{beam_tuple_case_fallbacks,alternate,1,[{file,"beam_tuple_case_fallbacks.erl"},{line,17}]}]}}
+{{alternate,[[{a,0,1,2}]]},{error,{case_clause,{a,0,1,2}},[{beam_tuple_case_fallbacks,alternate,1,[{file,"beam_tuple_case_fallbacks.erl"},{line,18}]}]},{error,{case_clause,{a,0,1,2}},[{beam_tuple_case_fallbacks,alternate,1,[{file,"beam_tuple_case_fallbacks.erl"},{line,17}]}]}}
+{{alternate,[[bad]]},{error,{case_clause,bad},[{beam_tuple_case_fallbacks,alternate,1,[{file,"beam_tuple_case_fallbacks.erl"},{line,18}]}]},{error,{case_clause,bad},[{beam_tuple_case_fallbacks,alternate,1,[{file,"beam_tuple_case_fallbacks.erl"},{line,17}]}]}}
+{{alternate,[[{ok,value}]]},{error,{case_clause,{ok,value}},[{beam_tuple_case_fallbacks,alternate,1,[{file,"beam_tuple_case_fallbacks.erl"},{line,18}]}]},{error,{case_clause,{ok,value}},[{beam_tuple_case_fallbacks,alternate,1,[{file,"beam_tuple_case_fallbacks.erl"},{line,17}]}]}}
+{{alternate,[[{}]]},{error,{case_clause,{}},[{beam_tuple_case_fallbacks,alternate,1,[{file,"beam_tuple_case_fallbacks.erl"},{line,18}]}]},{error,{case_clause,{}},[{beam_tuple_case_fallbacks,alternate,1,[{file,"beam_tuple_case_fallbacks.erl"},{line,17}]}]}}

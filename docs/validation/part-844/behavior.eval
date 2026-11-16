@@ -1,0 +1,44 @@
+Dir = "artifacts/beam-backend/part844-images",
+Module = beam_maybe_socket_connect_probe,
+Stub = beam_connect_transport,
+Path = filename:join(Dir, atom_to_list(Stub) ++ ".erl"),
+Source = "-module(beam_connect_transport).\n-export([open/2,merge/3,setopts/2,bind/2,connect/2,defaults/0,timeout/0,secure/3]).\nstep(Name,Args,Default) -> self() ! {Name,Args}, case get(failure) of {Name,Value} -> Value; _ -> Default end.\nopen(F,T) -> step(open,[F,T],{ok,socket}).\nmerge(A,B,C) -> step(merge,[A,B,C],{merged,A,B}).\nsetopts(S,O) -> step(setopts,[S,O],ok).\nbind(S,A) -> step(bind,[S,A],ok).\nconnect(S,A) -> step(connect,[S,A],ok).\ndefaults() -> step(defaults,[],ssl_options).\ntimeout() -> step(timeout,[],4000).\nsecure(S,O,T) -> step(secure,[S,O,T],{ok,ssl_socket}).\n",
+ok = file:write_file(Path, Source),
+{ok, Stub, StubBytes} = compile:file(Path, [binary]),
+{module, Stub} = code:load_binary(Stub, Path, StubBytes),
+Ip = {127,0,0,1}, Port = 4433, Host = "localhost", Family = inet,
+Address = {address,{Ip,Port},Host,Family},
+Options = [{port,5510}], SocketOptions = [{nodelay,true}],
+SslOptions = [Family,binary,{active,false},{packet,4},{server_name_indication,Host}],
+Expected = [{open,[Family,stream]}, {merge,[Options,SocketOptions,[]]},
+            {setopts,[socket,{merged,Options,SocketOptions}]},
+            {bind,[socket,#{family=>Family,addr=>any,port=>5510}]},
+            {connect,[socket,#{family=>Family,addr=>Ip,port=>Port}]},
+            {defaults,[]}, {merge,[ssl_options,SslOptions,[]]}, {timeout,[]},
+            {secure,[socket,{merged,ssl_options,SslOptions},4000]}],
+Run = fun(File) ->
+    code:purge(Module), code:delete(Module),
+    {ok, Bytes} = file:read_file(File),
+    {module, Module} = code:load_binary(Module, File, Bytes),
+    Invoke = fun(Failure, Events) ->
+        put(failure, Failure),
+        Result = try Module:connect(Address,timer,Options)
+                 catch error:Reason:Stack -> {Reason,Stack} end,
+        lists:foreach(fun(Event) -> receive Next -> Event = Next after 1000 -> error({missing,Event}) end end, Events),
+        receive Unexpected -> error({unexpected,Unexpected}) after 0 -> ok end,
+        Result
+    end,
+    {Address,ssl_socket} = Invoke(none, Expected),
+    [begin
+         Events = lists:sublist(Expected, Count),
+         {error,Step} = Invoke({Step,{error,Step}}, Events),
+         Bad = Invoke({Step,unexpected}, Events),
+         {{else_clause,unexpected},_} = Bad,
+         Bad
+     end || {Step,Count} <- [{open,1},{setopts,3},{bind,4},{connect,5},{secure,9}]]
+end,
+Name = atom_to_list(Module) ++ ".beam",
+Otp = Run(filename:join([Dir,"fixture","lib","probe","ebin",Name])),
+Otp = Run(filename:join(Dir,Name)),
+erlang:display({Module,equal}),
+halt().

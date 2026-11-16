@@ -1,5 +1,7 @@
 # Project progress
 
+The Windows OTP 29.1.1 checkpoint generated all 1,366 release images from source. Of those, 400 matched byte for byte, including ELDAPv3 from the C# ASN.1 generator. [Checkpoint evidence](validation/part-1820/README.md).
+
 Part611 adds the selectable error_logger backend with all 29 exports. Both backends pass 143 targeted observations and 10 upstream tests. [Publication evidence](validation/error-logger-port-20261105/publication/README.md).
 
 Part609 adds the selectable C# supervisor backend with 24 exports. Both backends matched 287 API observations and 105 focused scenarios on the main-based branch. [Validation evidence](validation/supervisor-port-20261106/README.md).

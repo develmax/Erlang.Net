@@ -1,0 +1,8 @@
+OTP 29.1.1 get_option/2
+65 instructions
+Entry [{label,235},{line,[{location,"httpc_manager.erl",1041}]},{func_info,{atom,httpc_manager},{atom,get_option},2},{label,236},{select_val,{x,0},{f,235},{list,[{atom,cookies},{f,251},{atom,https_proxy},{f,250},{atom,ip},{f,249},{atom,ipfamily},{f,248},{atom,keep_alive_timeout},{f,247},{atom,max_connections_open},{f,246},{atom,max_keep_alive_length},{f,245},{atom,max_pipeline_length},{f,244},{atom,max_sessions},{f,243},{atom,pipeline_timeout},{f,242},{atom,port},{f,241},{atom,proxy},{f,240},{atom,socket_opts},{f,239},{atom,unix_socket},{f,238},{atom,verbose},{f,237}]}},{label,237},{test,is_tagged_tuple,{f,235},[{x,1},16,{atom,options}]},{get_tuple_element,{x,1},9,{x,0}},return,{label,238},{test,is_tagged_tuple,{f,235},[{x,1},16,{atom,options}]},{get_tuple_element,{x,1},14,{x,0}},return]
+Tail [{label,250},{test,is_tagged_tuple,{f,235},[{x,1},16,{atom,options}]},{get_tuple_element,{x,1},2,{x,0}},return,{label,251},{test,is_tagged_tuple,{f,235},[{x,1},16,{atom,options}]},{get_tuple_element,{x,1},8,{x,0}},return]
+C# get_option/2
+103 instructions
+Entry [{label,358},{line,[{location,"httpc_manager.erl",1041}]},{func_info,{atom,httpc_manager},{atom,get_option},2},{label,359},{test,is_tagged_tuple,{f,358},[{x,1},16,{atom,options}]},{allocate,3,2},{init_yregs,{list,[{y,2}]}},{move,{x,0},{y,0}},{move,{x,1},{y,1}},{test,is_eq_exact,{f,360},[{y,0},{atom,proxy}]},{get_tuple_element,{y,1},1,{y,2}},{move,{y,2},{x,0}},{deallocate,3}]
+Tail [{move,{y,2},{x,0}},{deallocate,3},return,{label,374},{move,{y,0},{x,0}},{move,{y,1},{x,1}},{deallocate,3},{jump,{f,358}}]

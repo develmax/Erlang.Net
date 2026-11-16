@@ -1,0 +1,30 @@
+OTP 29.1.1
+{label,1}
+{line,[{location,"artifacts/beam-backend/part1561-fixture/beam_reuse_dying_call_slot.erl",4}]}
+{func_info,{atom,beam_reuse_dying_call_slot},{atom,run},2}
+{label,2}
+{allocate,1,2}
+{move,{x,1},{y,0}}
+{line,[{location,"artifacts/beam-backend/part1561-fixture/beam_reuse_dying_call_slot.erl",5}]}
+{call,1,{beam_reuse_dying_call_slot,prepare,1}}
+{move,{y,0},{x,1}}
+{move,{x,0},{y,0}}
+{line,[{location,"artifacts/beam-backend/part1561-fixture/beam_reuse_dying_call_slot.erl",6}]}
+{call,2,{beam_reuse_dying_call_slot,observe,2}}
+{move,{y,0},{x,0}}
+{call_last,1,{beam_reuse_dying_call_slot,finish,1},1}
+Part 1561 C#
+{label,1}
+{line,[{location,[],4}]}
+{func_info,{atom,beam_reuse_dying_call_slot},{atom,run},2}
+{label,2}
+{allocate,1,2}
+{move,{x,1},{y,0}}
+{line,[{location,[],5}]}
+{call,1,{beam_reuse_dying_call_slot,prepare,1}}
+{move,{y,0},{x,1}}
+{move,{x,0},{y,0}}
+{line,[{location,[],6}]}
+{call,2,{beam_reuse_dying_call_slot,observe,2}}
+{move,{y,0},{x,0}}
+{call_last,1,{beam_reuse_dying_call_slot,finish,1},1}

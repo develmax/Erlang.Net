@@ -1,0 +1,29 @@
+D="artifacts/beam-backend/part859-images", M=beam_output_setup_probe,
+P=filename:join(D,"beam_output_transport.erl"),
+ok=file:write_file(P,"-module(beam_output_transport).\n-export([notify/1,getopt/2,report/1]).\nnotify(H)->self()!{notify,H},case get(notify) of throw -> throw(stopped); exit -> exit(stopped); _ -> ok end.\ngetopt(S,K)->self()!{getopt,S,K},get(option).\nreport(R)->self()!{report,R},ok.\n"),
+{ok,Stub,B}=compile:file(P,[binary]), {module,Stub}=code:load_binary(Stub,P,B),
+Run=fun(F)->
+ code:purge(M), code:delete(M), {ok,Image}=file:read_file(F), {module,M}=code:load_binary(M,F,Image),
+ [begin
+    put(notify,Mode),put(option,Option),
+    R=try M:start(socket,handle) of V -> error({unexpected,V})
+      catch Class:Reason:Frames -> {Class,Reason,Frames} end,
+    {Class1,Expected,Frames1}=R,
+    receive {notify,handle}->ok after 1000->error(missing_notify) end,
+    case Mode of
+      ok ->
+        receive {getopt,socket,{socket,sndbuf}}->ok after 1000->error(missing_getopt) end,
+        receive {report,[output_exception,{class,error},{reason,Expected},{stacktrace,Frames1}]}->ok
+        after 1000->error(missing_report) end;
+      _ -> ok
+    end,
+    receive Unexpected->error({unexpected,Unexpected}) after 0->ok end,
+    R
+  end || {Mode,Option,Class1,Expected}<-[
+    {ok,{ok,17},error,{stopped,{state,socket,handle,8}}},
+    {ok,{error,closed},error,{badmatch,{error,closed}}},
+    {throw,unused,throw,stopped},
+    {exit,unused,exit,stopped}]]
+end,
+Name=atom_to_list(M)++".beam", R=Run(filename:join([D,"fixture","lib","probe","ebin",Name])),
+R=Run(filename:join(D,Name)), erlang:display({M,equal}), halt().

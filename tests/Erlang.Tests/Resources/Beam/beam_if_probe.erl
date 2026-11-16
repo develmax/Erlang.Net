@@ -1,0 +1,13 @@
+-module(beam_if_probe).
+-define(ANSWER, 42).
+-if(false).
+-define(RESULT, skipped).
+-elif(defined(ANSWER) andalso ?OTP_RELEASE >= 29).
+-define(RESULT, ?ANSWER).
+-elif(?NOT_DEFINED).
+-define(RESULT, skipped).
+-else.
+-define(RESULT, skipped).
+-endif.
+-export([answer/0]).
+answer() -> ?RESULT.

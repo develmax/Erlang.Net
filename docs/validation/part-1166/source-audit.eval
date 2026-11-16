@@ -1,0 +1,26 @@
+[Ref,Generated]=[filename:absname(P)||P<-init:get_plain_arguments()],
+Shape = fun
+    ({function,_,N,1,[{clause,_,[{nil,_}],[],[{call,_,_,[]}]},{clause,_,[{var,_,_}],[],[{tuple,_,_}]}]}) ->
+        [{N,1,nil_tail_tuple}];
+    ({function,_,N,2,[{clause,_,[{atom,_,_},{var,_,Input}],[],Body},{clause,_,[{var,_,_},{var,_,_}],[],_}]}) ->
+        case lists:last(Body) of
+            {'case',_,{call,_,_,[_,_,{cons,_,{var,_,Input},{nil,_}}]},[{clause,_,[{tuple,_,_}],[],[{tuple,_,_}]},{clause,_,[{var,_,Error}],[],[{var,_,Error}]}]} ->
+                [{N,2,literal_entry_call_case}];
+            _ -> []
+        end;
+    (_) -> []
+end,
+Files=filelib:fold_files(Generated,"[.]beam$",true,fun(P,A)->[P|A] end,[]),
+Rows=lists:flatmap(fun(P)->
+    Rel=filename:join(lists:nthtail(length(filename:split(Generated)),filename:split(P))),
+    case beam_lib:chunks(filename:join(Ref,Rel),[abstract_code]) of
+        {ok,{_,[{abstract_code,{raw_abstract_v1,Forms}}]}} ->
+            case lists:flatmap(Shape,Forms) of []->[]; Found->[{Rel,Found}] end;
+        _->[]
+    end
+end,Files),
+io:format("Candidate syntax in ~p of ~p images~n",[length(Rows),length(Files)]),
+lists:foreach(fun(Row)->io:format("~p~n",[Row]) end,lists:sort(Rows)),
+halt().
+
+

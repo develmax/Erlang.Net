@@ -1,0 +1,31 @@
+{
+  "Partial": true,
+  "SelectedCount": 3,
+  "TotalCount": 9699,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/beam/documentation-payload-matches-otp",
+    "compiler/beam/rebuild-installed-otp-release-images",
+    "compiler/beam/whole-module-matches-otp"
+  ],
+  "Passed": 2,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "compiler/beam/whole-module-matches-otp",
+      "Status": "Failed",
+      "Error": "System.NotSupportedException: beam_general_try_probe:validate_constant/1: The function or module uses a form outside the current BEAM emission profile.\r\n ---\u003E System.NotSupportedException: The function or module uses a form outside the current BEAM emission profile.\r\n   at Erlang.Compiler.BeamModuleCompiler.EmitBody(Clause clause) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Compiler\\Erlang.Compiler\\Compilation\\BeamModuleCompiler.cs:line 429\r\n   at Erlang.Compiler.BeamModuleCompiler.EmitFunctionBody(IReadOnlyList\u00601 clauses, BeamSourceLocation location, IReadOnlyDictionary\u00602 entries) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Compiler\\Erlang.Compiler\\Compilation\\BeamModuleCompiler.Lowering.cs:line 279\r\n   at Erlang.Compiler.BeamModuleCompiler.Emit(IReadOnlyList\u00601 functions, IReadOnlyList\u00601 sourceLines, IReadOnlySet\u00601 publicFunctions, BeamModuleMetadata metadata) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Compiler\\Erlang.Compiler\\Compilation\\BeamModuleCompiler.cs:line 301\r\n   --- End of inner exception stack trace ---\r\n   at Erlang.Compiler.BeamModuleCompiler.Emit(IReadOnlyList\u00601 functions, IReadOnlyList\u00601 sourceLines, IReadOnlySet\u00601 publicFunctions, BeamModuleMetadata metadata) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Compiler\\Erlang.Compiler\\Compilation\\BeamModuleCompiler.cs:line 305\r\n   at Erlang.Compiler.CodeGeneration.CompileBeamModule(String sourcePath, BeamMacroPreprocessor preprocessor, BeamReleaseBuildProfile buildProfile) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Compiler\\Erlang.Compiler\\Compilation\\CodeGeneration.cs:line 214\r\n   at Erlang.Compiler.CodeGeneration.CompileBeamModule(String source, String sourcePath) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Compiler\\Erlang.Compiler\\Compilation\\CodeGeneration.cs:line 159\r\n   at Erlang.Tests.BeamGeneralTryEmissionChecks.Check() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamGeneralTryEmissionChecks.cs:line 189\r\n   at Erlang.Tests.BeamModuleEmissionChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamModuleEmissionChecks.cs:line 74\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16223",
+      "Milliseconds": 1247
+    },
+    {
+      "Name": "compiler/beam/documentation-payload-matches-otp",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/beam/rebuild-installed-otp-release-images",
+      "Status": "Passed",
+      "Milliseconds": 76
+    }
+  ]
+}

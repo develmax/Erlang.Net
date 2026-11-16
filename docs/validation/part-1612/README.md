@@ -1,0 +1,5 @@
+# Part 1612 — Emit direct binary BIFs for computed operands
+
+The function body emitter shares operand preparation for element/2, min/2, max/2, map_get/2 and is_map_key/2. A computed right operand stays in X0. The left operand is evaluated first and preserved across right-operand evaluation. The fixture matches OTP VM results, evaluation order and badkey and badmap reasons. Three focused checks passed. [Baseline ranking](bif-rank.txt) · [Fixture](beam_binary_bifs.erl) · [Disassembly](disassembly.txt) · [Outcomes](outcomes.txt) · [Tests](focused.txt).
+
+All 1,366 pinned sources were accepted and generated. There were 393 Equal and 973 Different, with ELDAPv3 and xmerl_xlate still Equal. Of 66 changed images, the Code size gap shrank in 34, grew in 10 and held steady in 22. The net reduction was 360 bytes. The normalized function match count stayed the same. OTP accepted all 973 differing images for loading. [Corpus](otp-corpus.json) · [Loader and Code sizes](loader-and-code.txt) · [Function comparison](normalized-functions.txt).

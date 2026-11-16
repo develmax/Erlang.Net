@@ -1,0 +1,32 @@
+Dir = "artifacts/beam-backend/part817-images",
+Stubs = [
+    {ssl_config,"-module(ssl_config).\n-export([pre_1_3_session_opts/1]).\npre_1_3_session_opts(Role) -> self() ! {config,Role}, #{role => Role}.\n"},
+    {ssl_server_session_cache,"-module(ssl_server_session_cache).\n-export([start_link/2]).\nstart_link({Caller,Mode},Opts) -> Caller ! {child,Mode,Opts}, case Mode of fail -> {error,fixture_failure}; ok -> {ok,spawn_link(fun() -> receive stop -> ok end end)} end.\n"}],
+lists:foreach(fun({M,Source}) ->
+    Path = filename:join(Dir,atom_to_list(M)++".erl"),
+    ok = file:write_file(Path,Source),
+    {ok,M,Bytes} = compile:file(Path,[binary,deterministic]),
+    {module,M} = code:load_binary(M,Path,Bytes)
+end,Stubs),
+Run = fun(Module,File) ->
+    code:purge(Module),
+    code:delete(Module),
+    {ok,Bytes} = file:read_file(File),
+    {module,Module} = code:load_binary(Module,File,Bytes),
+    {ok,Sup}=Module:start_link(),
+    Outcomes=[begin
+        Return=case Module:start_child({self(),Mode}) of {ok,Pid} when is_pid(Pid)->ok; Error->Error end,
+        Config=receive {config,server}=ConfigEvent->ConfigEvent after 1000->timeout end,
+        Child=receive {child,Mode,_}=ChildEvent->ChildEvent after 1000->timeout end,
+        Events=[Config,Child],
+        {Return,Events}
+    end || Mode<-[ok,fail]],
+    ok=gen_server:stop(Sup),
+    Outcomes
+end,
+lists:foreach(fun(Module) ->
+    Otp=Run(Module,code:which(Module)),
+    Otp=Run(Module,filename:join(Dir,atom_to_list(Module)++".beam")),
+    io:format("~p ~p~n",[Module,Otp])
+end,[dtls_server_session_cache_sup,ssl_server_session_cache_sup]),
+halt().

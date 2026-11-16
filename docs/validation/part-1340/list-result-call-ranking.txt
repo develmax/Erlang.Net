@@ -1,0 +1,285 @@
+Read abstract forms from 1002 of 1002 differing modules.
+List results with a head call and a tail call: 157 modules, 287 functions.
+9 lib/stdlib-8.1/ebin/shell.beam [{{reconstruct1,3},1},
+                                  {{expand_exprs,2},1},
+                                  {{expand_cs,2},1},
+                                  {{expand_fields,2},2},
+                                  {{expand_quals,2},1},
+                                  {{expand_bin_elements,2},1},
+                                  {{prep_check,1},1},
+                                  {{prep_rec,1},1},
+                                  {{substitute_v1,2},1}]
+9 lib/stdlib-8.1/ebin/qlc_pt.beam [{{restore_locations,2},1},
+                                   {{pre_expand,1},1},
+                                   {{pe,1},1},
+                                   {{tuple2cons,1},1},
+                                   {{cons2tuple,1},1},
+                                   {{cons2list,1},1},
+                                   {{qcode,3},1},
+                                   {{abst_vars,2},1},
+                                   {{var_map,2},1}]
+9 lib/asn1-5.5.2/ebin/asn1ct_gen_check.beam [{{gen_components,3},2},
+                                             {{gen_cs_1,3},1},
+                                             {{gen_cs_2,2},1},
+                                             {{gen_map_components,2},1},
+                                             {{gen_map_cs_1,4},1},
+                                             {{gen_map_cs_2,2},1},
+                                             {{gen_sof,2},2},
+                                             {{gen_sof_1,2},1},
+                                             {{components,3},1}]
+6 lib/common_test-1.31.2/ebin/ct_logs.beam [{{escape_chars,1},1},
+                                            {{last_run_index_footer,0},3},
+                                            {{all_suites_index_footer,0},1},
+                                            {{all_runs_index_footer,0},2},
+                                            {{config_table,1},1},
+                                            {{config_table1,1},1}]
+5 lib/stdlib-8.1/ebin/io_lib.beam [{{write_tail,4},1},
+                                   {{write_record_1,5},2},
+                                   {{write_tuple,5},1},
+                                   {{limit_tail,2},1},
+                                   {{limit_tuple,3},1}]
+5 lib/erts-17.1/ebin/init.beam [{{map,2},1},
+                                {{fix_path,2},1},
+                                {{get_arguments,1},1},
+                                {{to_strings,1},1},
+                                {{get_argument1,2},1}]
+5 lib/compiler-10.0.6/ebin/core_pp.beam [{{format_anno_list,2},1},
+                                         {{format_1,2},9},
+                                         {{format_def,2},2},
+                                         {{format_clause_1,2},1},
+                                         {{format_vseq,5},2}]
+5 lib/asn1-5.5.2/ebin/asn1ct_imm.beam [{{per_enc_open_type,2},1},
+                                       {{prepend_to_cond,2},1},
+                                       {{enc_cse_1,3},1},
+                                       {{enc_call_args,2},1},
+                                       {{per_fixup,1},1}]
+4 lib/syntax_tools-4.1.1/ebin/erl_syntax.beam [{{conjunction_list,1},1},
+                                               {{abstract_list,1},1},
+                                               {{concrete_list,1},1},
+                                               {{meta_list,1},1}]
+4 lib/stdlib-8.1/ebin/qlc.beam [{{abstract_code,1},1},
+                                {{special,1},1},
+                                {{depth_list,2},1},
+                                {{qual_info,3},2}]
+4 lib/stdlib-8.1/ebin/lists.beam [{{zipwith,4},1},
+                                  {{zipwith3,5},1},
+                                  {{keymap,3},1},
+                                  {{map_1,2},1}]
+4 lib/stdlib-8.1/ebin/io_lib_pretty.beam [{{write_fields,1},1},
+                                          {{write_fields_tail,1},1},
+                                          {{write_list,2},1},
+                                          {{write_tail,2},1}]
+4 lib/stdlib-8.1/ebin/erl_pp.beam [{{pname,1},1},
+                                   {{bit_elem_types,1},1},
+                                   {{fl1,5},1},
+                                   {{spaces,2},1}]
+4 lib/stdlib-8.1/ebin/erl_eval.beam [{{unhide_calls,3},1},
+                                     {{normalise,1},1},
+                                     {{normalise_list,1},1},
+                                     {{ev_expr,1},1}]
+4 lib/stdlib-8.1/ebin/epp.beam [{{evaluate_builtins,2},1},
+                                {{expand_macro,4},1},
+                                {{stringify1,1},1},
+                                {{coalesce_strings,3},1}]
+4 lib/compiler-10.0.6/ebin/cerl.beam [{{fold_literal_list,1},1},
+                                      {{unfold_concrete_list,1},1},
+                                      {{abstract_list,1},1},
+                                      {{meta_list,1},1}]
+4 lib/compiler-10.0.6/ebin/beam_validator.beam [{{extract_keys,2},1},
+                                                {{update_tuple_type_1,2},1},
+                                                {{resolve_args,2},1},
+                                                {{merge_ct_1,2},1}]
+3 lib/xmerl-2.2/ebin/xmerl_lib.beam [{{expand_content,4},1},
+                                     {{simplify_content,1},1},
+                                     {{simplify_attributes,1},1}]
+3 lib/tools-4.2.3/ebin/lcnt.beam [{{list2state,2},1},
+                                  {{list2lock,2},1},
+                                  {{stats2stats,1},1}]
+3 lib/stdlib-8.1/ebin/shell_docs.beam [{{normalize_trim,2},1},
+                                       {{normalize_space,1},1},
+                                       {{normalize_list,1},1}]
+3 lib/stdlib-8.1/ebin/man_docs.beam [{{format_dd_item,1},1},
+                                     {{format_p_item,1},1},
+                                     {{format_meta,1},1}]
+3 lib/stdlib-8.1/ebin/erl_parse.beam [{{normalise,1},1},
+                                      {{normalise_list,1},1},
+                                      {{abstract_tuple_list,3},1}]
+3 lib/runtime_tools-2.5/ebin/system_information.beam [{{erlang_system_info,1},
+                                                       1},
+                                                      {{os_getenv_erts_specific,
+                                                        1},
+                                                       1},
+                                                      {{rtdepstrs2rtdeps,1},
+                                                       2}]
+3 lib/mnesia-4.27/ebin/mnesia_schema.beam [{{rec2list,4},1},
+                                           {{make_write_table_properties,3},1},
+                                           {{make_delete_table_properties,3},
+                                            1}]
+3 lib/dialyzer-6.0.3/ebin/dialyzer_utils.beam [{{massage_type_list,2},1},
+                                               {{format_errors,1},1},
+                                               {{batch,4},1}]
+3 lib/compiler-10.0.6/ebin/beam_ssa_pp.beam [{{format_param_info,2},1},
+                                             {{format_instr_anno,3},1},
+                                             {{format_tuple_elems,4},1}]
+3 lib/asn1-5.5.2/ebin/asn1ct_check.beam [{{preprocess_syntax_1,4},1},
+                                         {{normalize_restrictedstring,3},1},
+                                         {{format_elements,1},1}]
+2 lib/wx-2.7/doc/examples/demo/demo_html_tagger.beam [{{fix_imports,2},1},
+                                                      {{fix_exports,1},1}]
+2 lib/syntax_tools-4.1.1/ebin/erl_recomment.beam [{{revert_list,1},1},
+                                                  {{expand_comments,1},1}]
+2 lib/stdlib-8.1/ebin/sofs.beam [{{partition3_n,6},1},{{partition3_n,7},1}]
+2 lib/stdlib-8.1/ebin/orddict.beam [{{map,2},1},{{merge,3},1}]
+2 lib/stdlib-8.1/ebin/ms_transform.beam [{{normalise,1},1},
+                                         {{normalise_list,1},1}]
+2 lib/stdlib-8.1/ebin/json.beam [{{do_encode_list,2},1},{{list_loop,2},1}]
+2 lib/stdlib-8.1/ebin/io_lib_format.beam [{{iolist_to_chars,1},1},
+                                          {{cdata_to_chars,1},1}]
+2 lib/stdlib-8.1/ebin/file_sorter.beam [{{make_key,2},2},{{make_key2,2},1}]
+2 lib/stdlib-8.1/ebin/dict.beam [{{map_seg_list,2},1},{{map_bkt_list,2},1}]
+2 lib/stdlib-8.1/ebin/binary.beam [{{do_replace,4},2},{{splitat,3},1}]
+2 lib/snmp-5.20.5/doc/examples/ex1/ex1.beam [{{get_cols,2},1},
+                                             {{get_next_cols,2},1}]
+2 lib/sasl-4.4/ebin/systools_make.beam [{{find_pos,2},1},
+                                        {{valid_variables,1},2}]
+2 lib/runtime_tools-2.5/ebin/dbg.beam [{{fargs,2},1},{{ftup,4},1}]
+2 lib/parsetools-2.8/ebin/yecc.beam [{{sort_parse_actions,1},1},
+                                     {{format_symbols1,1},1}]
+2 lib/observer-2.19/ebin/observer_tv_table.beam [{{format_tuple,3},1},
+                                                 {{make_list,1},1}]
+2 lib/observer-2.19/ebin/observer_trace_wx.beam [{{fargs,1},1},{{ftup,3},1}]
+2 lib/observer-2.19/ebin/crashdump_viewer.beam [{{get_all_vals,2},1},
+                                                {{format_allocator_summary,1},
+                                                 1}]
+2 lib/mnesia-4.27/ebin/mnesia_lib.beam [{{elems,2},1},{{ets_info,1},1}]
+2 lib/megaco-4.9.2/ebin/megaco.beam [{{user_info,1},2},{{conn_info,1},2}]
+2 lib/kernel-11.0.4/ebin/socket.beam [{{header_field,1},1},
+                                      {{header_field_rest,1},1}]
+2 lib/kernel-11.0.4/ebin/logger_formatter.beam [{{do_format,4},1},
+                                                {{reformat,3},1}]
+2 lib/kernel-11.0.4/ebin/inet_res.beam [{{make_options,2},1},{{dns_msg,1},1}]
+2 lib/kernel-11.0.4/ebin/inet.beam [{{h_field,1},1},{{hh_field,1},1}]
+2 lib/kernel-11.0.4/ebin/disk_log.beam [{{terms2bins,1},1},
+                                        {{make_binary_list,1},1}]
+2 lib/eunit-2.11/ebin/eunit_lib.beam [{{format_stacktrace,3},1},
+                                      {{format_arglist,1},1}]
+2 lib/erts-17.1/ebin/prim_inet.beam [{{comp_ifaddrs_2,2},1},
+                                     {{enc_value_tuple,4},1}]
+2 lib/erts-17.1/ebin/erlang.beam [{{cput_i2e,6},2},{{memory_1,2},1}]
+2 lib/edoc-1.5/ebin/edoc_specs.beam [{{parms,2},1},{{xrecs,2},1}]
+2 lib/debugger-7.0/ebin/dbg_iload.beam [{{fun_clauses,2},4},
+                                        {{map_fields,3},3}]
+2 lib/compiler-10.0.6/ebin/v3_core.beam [{{pat_alias_list,2},1},
+                                         {{cpattern_list,1},1}]
+2 lib/compiler-10.0.6/ebin/rec_env.beam [{{bind,3},1},{{bind_list,3},1}]
+2 lib/compiler-10.0.6/ebin/cerl_trees.beam [{{map_list,2},1},
+                                            {{map_pairs,2},2}]
+2 lib/compiler-10.0.6/ebin/beam_listing.beam [{{format_asm,2},1},
+                                              {{format_asm_call,4},1}]
+2 lib/common_test-1.31.2/ebin/test_server_sup.beam [{{format_loc,1},1},
+                                                    {{format_loc1,1},1}]
+2 lib/common_test-1.31.2/ebin/test_server_ctrl.beam [{{esc_chars_in_list,1},1},
+                                                     {{get_latest_run_dirs,1},
+                                                      1}]
+2 lib/common_test-1.31.2/ebin/ct_netconfc.beam [{{chunk,1},1},
+                                                {{parse_attrs,1},1}]
+2 lib/asn1-5.5.2/ebin/asn1ct_value.beam [{{get_components2,3},1},
+                                         {{gen_list,4},1}]
+2 lib/asn1-5.5.2/ebin/asn1ct_partial_decode.beam [{{exclusive_decode_1,2},1},
+                                                  {{selective_decode1,2},1}]
+1 lib/xmerl-2.2/ebin/xmerl_xsd_re_parse.beam [{{alt,3},1}]
+1 lib/xmerl-2.2/ebin/xmerl_xsd_re.beam [{{scan,2},1}]
+1 lib/xmerl-2.2/ebin/xmerl_xpath.beam [{{ns_nodes,1},2}]
+1 lib/xmerl-2.2/ebin/xmerl.beam [{{export_content,2},1}]
+1 lib/tools-4.2.3/ebin/xref_parser.beam [{{type_constants,3},1}]
+1 lib/tools-4.2.3/ebin/xref_base.beam [{{pack1,1},1}]
+1 lib/tools-4.2.3/ebin/fprof.beam [{{parsify,1},1}]
+1 lib/tftp-1.3/ebin/tftp_lib.beam [{{decode_options,1},1}]
+1 lib/syntax_tools-4.1.1/ebin/merl.beam [{{pp_1,2},2}]
+1 lib/syntax_tools-4.1.1/ebin/epp_dodger.beam [{{rewrite_list,1},1}]
+1 lib/stdlib-8.1/ebin/sys.beam [{{handle_debug,4},1}]
+1 lib/stdlib-8.1/ebin/shell_docs_markdown.beam [{{process_heading,4},1}]
+1 lib/stdlib-8.1/ebin/re.beam [{{precomp_repl,1},1}]
+1 lib/stdlib-8.1/ebin/proc_lib.beam [{{format_rep,4},1}]
+1 lib/stdlib-8.1/ebin/pool.beam [{{get_elements,2},1}]
+1 lib/stdlib-8.1/ebin/maps.beam [{{map_1,3},1}]
+1 lib/stdlib-8.1/ebin/io_ansi.beam [{{group,2},1}]
+1 lib/stdlib-8.1/ebin/erl_stdlib_errors.beam [{{format_object,2},1}]
+1 lib/stdlib-8.1/ebin/erl_error.beam [{{explain_reason,7},1}]
+1 lib/stdlib-8.1/ebin/base64.beam [{{encode_list_to_string,3},4}]
+1 lib/ssh-6.0.6/ebin/ssh_xfer.beam [{{decode_ext,1},2}]
+1 lib/ssh-6.0.6/ebin/ssh_info.beam [{{walk_tree,3},1}]
+1 lib/snmp-5.20.5/ebin/snmpc_lib.beam [{{insert_mfa,4},1}]
+1 lib/snmp-5.20.5/ebin/snmpa_trap.beam [{{try_map_symbolic,1},1}]
+1 lib/snmp-5.20.5/ebin/snmpa_svbl.beam [{{delete_org_index,1},1}]
+1 lib/snmp-5.20.5/ebin/snmpa_set_lib.beam [{{deletePrefixes,2},1}]
+1 lib/snmp-5.20.5/ebin/snmpa_local_db.beam [{{get_elements,2},1}]
+1 lib/snmp-5.20.5/ebin/snmp_pdus.beam [{{bits_to_str,1},1}]
+1 lib/snmp-5.20.5/ebin/snmp_misc.beam [{{multi_map,2},1}]
+1 lib/snmp-5.20.5/ebin/snmp_generic_mnesia.beam [{{get_elements,2},1}]
+1 lib/sasl-4.4/ebin/systools_rc.beam [{{expand_scripts,1},1}]
+1 lib/sasl-4.4/ebin/release_handler.beam [{{mk_lib_name,1},1}]
+1 lib/sasl-4.4/ebin/misc_supp.beam [{{multi_map,2},1}]
+1 lib/runtime_tools-2.5/ebin/versions.beam [{{vl2vs_tail,2},1}]
+1 lib/runtime_tools-2.5/ebin/appmon_info.beam [{{format,1},2}]
+1 lib/reltool-1.1/ebin/reltool_target.beam [{{find_pos,2},1}]
+1 lib/public_key-1.21.7/ebin/pubkey_crl.beam [{{gen_names,1},1}]
+1 lib/parsetools-2.8/ebin/leex.beam [{{pp_tokens,4},2}]
+1 lib/observer-2.19/ebin/observer_lib.beam [{{fill_info,3},1}]
+1 lib/observer-2.19/ebin/observer_html_lib.beam [{{replace_lgt,1},1}]
+1 lib/observer-2.19/ebin/etop.beam [{{meminfo,2},1}]
+1 lib/mnesia-4.27/ebin/mnesia_subscr.beam [{{subscribers,0},1}]
+1 lib/megaco-4.9.2/ebin/megaco_text_parser_v3.beam [{{split_ip4addr_text,2},
+                                                     1}]
+1 lib/megaco-4.9.2/ebin/megaco_text_parser_v2.beam [{{split_ip4addr_text,2},
+                                                     1}]
+1 lib/megaco-4.9.2/ebin/megaco_text_parser_v1.beam [{{split_ip4addr_text,2},
+                                                     1}]
+1 lib/megaco-4.9.2/ebin/megaco_messenger.beam [{{missing_to_str2,1},1}]
+1 lib/kernel-11.0.4/ebin/rpc.beam [{{map_nodes,3},1}]
+1 lib/kernel-11.0.4/ebin/inet_tcp_dist.beam [{{split_node,3},1}]
+1 lib/kernel-11.0.4/ebin/inet_gethost_native.beam [{{pick_names,2},1}]
+1 lib/kernel-11.0.4/ebin/global.beam [{{split_node,3},1}]
+1 lib/kernel-11.0.4/ebin/erl_erts_errors.beam [{{must_be_node_mf_args,4},1}]
+1 lib/kernel-11.0.4/ebin/code.beam [{{build,1},1}]
+1 lib/kernel-11.0.4/ebin/application_controller.beam [{{conv,1},2}]
+1 lib/inets-9.8/ebin/mod_dir.beam [{{body,4},1}]
+1 lib/eunit-2.11/ebin/eunit_autoexport.beam [{{module_decl,4},1}]
+1 lib/eunit-2.11/ebin/eunit.beam [{{start_listeners,1},1}]
+1 lib/erts-17.1/ebin/erl_prim_loader.beam [{{to_strs,1},1}]
+1 lib/edoc-1.5/ebin/edoc_run.beam [{{parse_args,1},1}]
+1 lib/edoc-1.5/ebin/edoc_html_to_markdown.beam [{{preprocess_docs,2},2}]
+1 lib/edoc-1.5/ebin/edoc_extract.beam [{{selected_specs,2},1}]
+1 lib/edoc-1.5/ebin/edoc_doclet_markdown.beam [{{meta,1},1}]
+1 lib/edoc-1.5/ebin/edoc.beam [{{expand_files,1},2}]
+1 lib/diameter-2.7.2/ebin/diameter_watchdog.beam [{{restrict_nodes,1},1}]
+1 lib/diameter-2.7.2/ebin/diameter_gen.beam [{{enc,9},1}]
+1 lib/diameter-2.7.2/ebin/diameter_exprecs.beam [{{f_accessors,2},7}]
+1 lib/dialyzer-6.0.3/ebin/dialyzer_typesig.beam [{{mk_constraints,3},1}]
+1 lib/dialyzer-6.0.3/ebin/dialyzer_contracts.beam [{{remove_use,2},1}]
+1 lib/debugger-7.0/ebin/dbg_wx_trace.beam [{{format_args1,2},1}]
+1 lib/debugger-7.0/ebin/dbg_ieval.beam [{{format_args1,2},1}]
+1 lib/compiler-10.0.6/ebin/sys_messages.beam [{{take_lines,4},1}]
+1 lib/compiler-10.0.6/ebin/sys_coverage.beam [{{fix_expr,3},1}]
+1 lib/compiler-10.0.6/ebin/sys_core_fold.beam [{{make_vars,3},1}]
+1 lib/compiler-10.0.6/ebin/cerl_inline.beam [{{set_clause_bodies,2},1}]
+1 lib/compiler-10.0.6/ebin/beam_z.beam [{{undo_renames,1},1}]
+1 lib/compiler-10.0.6/ebin/beam_types.beam [{{limit_depth_tuple,2},1}]
+1 lib/compiler-10.0.6/ebin/beam_ssa_type.beam [{{update_tuple_type_1,2},1}]
+1 lib/compiler-10.0.6/ebin/beam_ssa_pre_codegen.beam [{{functions,2},1}]
+1 lib/compiler-10.0.6/ebin/beam_ssa_lint.beam [{{format_vars_1,1},1}]
+1 lib/compiler-10.0.6/ebin/beam_ssa_check.beam [{{build_map_key_list,2},1}]
+1 lib/compiler-10.0.6/ebin/beam_ssa_bsm.beam [{{aca_cs_args,2},1}]
+1 lib/compiler-10.0.6/ebin/beam_asm.beam [{{encode_line_items,2},2}]
+1 lib/compiler-10.0.6/ebin/beam_a.beam [{{rename_instrs,1},1}]
+1 lib/common_test-1.31.2/proper_ext/ct_proper_ext.beam [{{distribute_1,2},1}]
+1 lib/common_test-1.31.2/ebin/cth_conn_log.beam [{{merge_log_info,2},1}]
+1 lib/common_test-1.31.2/ebin/ct_testspec.beam [{{per_node,4},1}]
+1 lib/common_test-1.31.2/ebin/ct_run.beam [{{event_handler_init_args2opts,1},
+                                            2}]
+1 lib/common_test-1.31.2/ebin/ct_master_logs.beam [{{config_table,1},1}]
+1 lib/common_test-1.31.2/ebin/ct_doctest.beam [{{parse_tests,3},2}]
+1 lib/common_test-1.31.2/ebin/ct_cover.beam [{{files2mods1,1},1}]
+1 lib/asn1-5.5.2/ebin/asn1ct_parser2.beam [{{prioritize_error_1,1},1}]
+1 lib/asn1-5.5.2/ebin/asn1ct_gen.beam [{{call_args,2},1}]
+1 lib/asn1-5.5.2/ebin/asn1ct_constructed_per.beam [{{get_input_vars_1,3},1}]

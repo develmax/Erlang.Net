@@ -1,0 +1,31 @@
+Dir = "artifacts/beam-backend/part810-images",
+Stubs = [
+    {observer_lib,"-module(observer_lib).\n-export([display_progress_dialog/3,colors/1,sync_destroy_progress_dialog/0]).\ndisplay_progress_dialog(_,_,_) -> ok.\ncolors(Parent) -> {colors,Parent}.\nsync_destroy_progress_dialog() -> ok.\n"},
+    {wx_misc,"-module(wx_misc).\n-export([beginBusyCursor/0,endBusyCursor/0]).\nbeginBusyCursor() -> ok.\nendBusyCursor() -> ok.\n"},
+    {'wxHtmlWindow',"-module(wxHtmlWindow).\n-export([setPage/2]).\nsetPage(_,_) -> ok.\n"},
+    {observer_html_lib,"-module(observer_html_lib).\n-export([expandable_term/4]).\nexpandable_term(T,I,Tab,C) -> {T,I,Tab,C}.\n"},
+    {valid_page,"-module(valid_page).\n-export([get_info/0]).\nget_info() -> {{expand,title,info,table},warning}.\n"},
+    {invalid_page,"-module(invalid_page).\n-export([get_info/0]).\nget_info() -> {unexpected,warning}.\n"}],
+lists:foreach(fun({M,Source}) ->
+    Path = filename:join(Dir,atom_to_list(M)++".erl"),
+    ok = file:write_file(Path,Source),
+    {ok,M,Bytes} = compile:file(Path,[binary,deterministic]),
+    {module,M} = code:load_binary(M,Path,Bytes)
+end,Stubs),
+Module = beam_delayed_page_info_probe,
+State = fun(Callback) -> {state,parent,panel,app,old_table,[],Callback,old_warning} end,
+Cases = [{active,State(undefined)}, {active,State(valid_page)}, {unexpected,State(undefined)},
+         {active,State(invalid_page)}, {active,invalid_record}],
+Run = fun(Path) ->
+    code:purge(Module),
+    code:delete(Module),
+    {ok,Bytes} = file:read_file(Path),
+    {module,Module} = code:load_binary(Module,Path,Bytes),
+    [try Module:handle_info(Message,Input) of Value -> {ok,Value}
+     catch Class:Reason -> {Class,Reason}
+     end || {Message,Input} <- Cases]
+end,
+Otp = Run("tests/Erlang.Tests/Resources/Beam/beam_delayed_page_info_probe.beam"),
+Otp = Run(filename:join(Dir,"beam_delayed_page_info_probe.beam")),
+io:format("~p~n",[Otp]),
+halt().

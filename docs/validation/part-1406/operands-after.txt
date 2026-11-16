@@ -1,0 +1,20 @@
+resolve_module/1 OTP
+[{label,225},
+ {line,[{location,"asn1ct_parser2.erl",685}]},
+ {func_info,{atom,asn1ct_parser2},{atom,resolve_module},1},
+ {label,226},
+ {test_heap,3,1},
+ {bif,get,{f,0},[{atom,asn1_module}],{x,1}},
+ {put_tuple2,{x,2},{list,[{x,1},{atom,imports}]}},
+ {bif,get,{f,0},[{tr,{x,2},{t_tuple,0,false,#{}}}],{x,2}},
+ {call_only,3,{asn1ct_parser2,resolve_module,3}}]
+resolve_module/1 C#
+[{label,313},
+ {line,[{location,"asn1ct_parser2.erl",685}]},
+ {func_info,{atom,asn1ct_parser2},{atom,resolve_module},1},
+ {label,314},
+ {test_heap,3,1},
+ {bif,get,{f,0},[{atom,asn1_module}],{x,1}},
+ {put_tuple2,{x,2},{list,[{x,1},{atom,imports}]}},
+ {bif,get,{f,0},[{tr,{x,2},{t_tuple,0,false,#{}}}],{x,2}},
+ {call_only,3,{asn1ct_parser2,resolve_module,3}}]

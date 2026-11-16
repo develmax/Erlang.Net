@@ -1,0 +1,24 @@
+Dir = "artifacts/beam-backend/part813-images",
+Source = "-module(cdv_wx).\n-export([set_status/1]).\nset_status(Value) -> self() ! {status,Value}, ok.\n",
+Path = filename:join(Dir,"cdv_wx.erl"),
+ok = file:write_file(Path,Source),
+{ok,cdv_wx,Stub} = compile:file(Path,[binary,deterministic]),
+{module,cdv_wx} = code:load_binary(cdv_wx,Path,Stub),
+Module = cdv_html_wx,
+Cases = [{state,parent,panel,cdv,table,[],undefined,warning},
+         {state,parent,panel,obs,table,[],undefined,warning}, invalid],
+Run = fun(File) ->
+    code:purge(Module),
+    code:delete(Module),
+    {ok,Bytes} = file:read_file(File),
+    {module,Module} = code:load_binary(Module,File,Bytes),
+    [begin
+         Result = try Module:handle_info(active,State) of Value -> {ok,Value}
+                  catch Class:Reason -> {Class,Reason} end,
+         {Result,receive Event -> Event after 0 -> none end}
+     end || State <- Cases]
+end,
+Otp = Run(ReleasePath),
+Otp = Run(filename:join(Dir,"cdv_html_wx.beam")),
+io:format("~p~n",[Otp]),
+halt().

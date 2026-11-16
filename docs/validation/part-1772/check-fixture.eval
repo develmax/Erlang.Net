@@ -1,0 +1,12 @@
+M=beam_entry_frame_probe,
+{undefined,keep}=M:nested_common({message,{one,10}},keep),
+{undefined,20}=M:nested_common({message,{two,20}},keep),
+10=get(first), keep=get(second),
+{default,keep}=M:nested_common({message,wrong},keep),
+{default,keep}=M:nested_common({message,{bad,20}},keep),
+{default,keep}=M:nested_common(wrong,keep),
+10=erase(first), keep=erase(second),
+{undefined,retained}=M:single_tag({message,one},retained),
+{default,retained}=M:single_tag(other,retained),
+io:format("11 assertions passed~n"),
+halt().

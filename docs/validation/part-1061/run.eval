@@ -1,0 +1,13 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, tuple_register_probe} = code:load_binary(tuple_register_probe, Path, Binary),
+undefined = put(probe, value),
+{value, first} = tuple_register_probe:first(probe),
+{tag, value, middle} = tuple_register_probe:middle(probe, tag),
+{last, 7, 8} = tuple_register_probe:last(7),
+undefined = put(ordered, before),
+{before, updated, multiple} = tuple_register_probe:multiple(),
+{beam_file, _, _, _, _, Functions} = beam_disasm:file(Path),
+[io:format("~p~n", [F]) || F = {function, Name, _, _, _} <- Functions,
+    lists:member(Name, [first, middle, last, multiple])],
+halt().

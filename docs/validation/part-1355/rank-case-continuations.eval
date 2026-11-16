@@ -1,0 +1,58 @@
+[Reference, Generated] = [filename:absname(Path) || Path <- init:get_plain_arguments()],
+Uses = fun Walk(Name,{var,_,Name}) -> true;
+           Walk(Name,Items) when is_list(Items) -> lists:any(fun(Item) -> Walk(Name,Item) end,Items);
+           Walk(Name,Item) when is_tuple(Item) -> Walk(Name,tuple_to_list(Item));
+           Walk(_,_) -> false
+       end,
+Kinds = fun(Body) ->
+    Last = lists:last(Body),
+    Prefix = lists:sublist(Body,length(Body)-1),
+    case {Prefix,Last} of
+        {[First|_],{'case',_,_,_}} ->
+            case First of
+                {match,_,{var,_,Name},{call,_,_,_}} when Name =/= '_' ->
+                    case Last of
+                        {'case',_,{var,_,Name},_} when length(Prefix) =:= 1 -> [direct_call_binding_case];
+                        {'case',_,{call,_,_,Args},Branches} ->
+                            case length(Prefix) of
+                                1 ->
+                                    [second_call_case] ++ [K || {K,true} <-
+                                        [{two_calls_forwarded_result,Uses(Name,Args)},
+                                         {two_calls_result_used_in_branch,Uses(Name,Branches)}]];
+                                _ -> [second_call_case]
+                            end;
+                        _ -> [other_bound_call_case]
+                    end;
+                {call,_,_,_} -> [discarded_call_case];
+                _ -> []
+            end;
+        {_,{'case',_,{call,_,_,_},_}} -> [inline_call_case];
+        _ -> []
+    end
+end,
+Files = lists:sort(filelib:fold_files(Generated,"[.]beam$",true,fun(Path,Acc) -> [Path|Acc] end,[])),
+Totals = lists:foldl(fun(Path,Acc) ->
+    Relative = lists:nthtail(length(filename:split(Generated)),filename:split(Path)),
+    case beam_lib:chunks(filename:join([Reference|Relative]),[abstract_code]) of
+        {ok,{Module,[{abstract_code,{raw_abstract_v1,Forms}}]}} ->
+            Groups = lists:foldl(fun({Name,Arity,Clauses},G0) ->
+                Shapes = lists:usort(lists:append([Kinds(Body) || {clause,_,_,_,Body} <- Clauses])),
+                lists:foldl(fun(Shape,G) -> maps:update_with(Shape,fun(Mfas) ->
+                    [{Name,Arity}|Mfas] end,[{Name,Arity}],G) end,G0,Shapes)
+            end,#{},[{Name,Arity,Clauses} || {function,_,Name,Arity,Clauses} <- Forms]),
+            maps:fold(fun(Shape,Mfas,All) ->
+                Count = length(Mfas),
+                Example = {Module,lists:min(Mfas)},
+                maps:update_with(Shape,fun({Modules,Functions,Examples}) ->
+                    {Modules+1,Functions+Count,lists:sublist([Example|Examples],3)}
+                end,{1,Count,[Example]},All)
+            end,Acc,Groups);
+        _ -> Acc
+    end
+end,#{},Files),
+io:format("Case continuations in top-level function clauses of ~p differing images.~n",[length(Files)]),
+io:format("Counts are {modules, functions, examples}. Groups can overlap.~n~p~n",[Totals]),
+halt().
+
+
+

@@ -1,0 +1,10 @@
+Original = code:which(asn1ct_table),
+Generated = "artifacts/beam-backend/part768-images/asn1ct_table.beam",
+{ok,Bytes} = file:read_file(Original),
+{ok,Bytes} = file:read_file(Generated),
+{beam_file,asn1ct_table,_,_,_,Functions} = beam_disasm:file(Generated),
+Counts = [{Name,Arity,length(Instructions)} ||
+    {function,Name,Arity,_,Instructions} <- Functions],
+io:format("whole_image_equal=true bytes=~p functions=~w sha256=~s~n",
+    [byte_size(Bytes),Counts,binary:encode_hex(crypto:hash(sha256,Bytes))]),
+halt().

@@ -1,0 +1,12 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, tuple_literal_entry_probe} = code:load_binary(tuple_literal_entry_probe, Path, Binary),
+{undefined,value,extra} = tuple_literal_entry_probe:read({tag,42,{inner,yes,value},ignored},extra),
+{fallback,extra} = tuple_literal_entry_probe:read({tag,41,{inner,yes,value},ignored},extra),
+{fallback,extra} = tuple_literal_entry_probe:read({tag,42,{inner,no,value},ignored},extra),
+{fallback,extra} = tuple_literal_entry_probe:read({tag,42,{inner,yes,value},bad},extra),
+{fallback,extra} = tuple_literal_entry_probe:read(other,extra),
+value = get(tuple_literal_key),
+{beam_file,_,_,_,_,Functions} = beam_disasm:file(Path),
+[io:format("~p~n",[F]) || F = {function,read,2,_,_} <- Functions],
+halt().

@@ -1,0 +1,232 @@
+module httpd_misc_sup.
+exports [{init,1},
+         {module_info,0},
+         {module_info,1},
+         {start_auth_server,3},
+         {start_link,3},
+         {start_sec_server,3},
+         {stop_auth_server,3},
+         {stop_sec_server,3}].
+attributes [{behaviour,[supervisor]}].
+
+%% httpd_misc_sup.erl:44
+%% Counter = 9
+function `httpd_misc_sup`:`start_link`(_0, _1, _2) {
+0:
+  %% httpd_misc_sup.erl:45
+  SupName = call (`make_name`/3), _0, _1, _2
+  _7 = succeeded:body SupName
+  br _7, ^7, ^1
+
+7:
+  _3 = put_tuple `local`, SupName
+
+  %% httpd_misc_sup.erl:46
+  _4 = call (`supervisor`:`start_link`/3), _3, `httpd_misc_sup`, `[]`
+  _8 = succeeded:body _4
+  br _8, ^8, ^1
+
+8:
+  ret _4
+
+1:
+  _5 = call (`erlang`:`error`/1), `badarg`
+  ret _5
+}
+
+%% httpd_misc_sup.erl:52
+%% Counter = 7
+function `httpd_misc_sup`:`start_auth_server`(_0, _1, _2) {
+0:
+  %% httpd_misc_sup.erl:53
+  _3 = call (`start_permanent_worker`/5), `mod_auth_server`, _0, _1, _2, `[gen_server]`
+  _6 = succeeded:body _3
+  br _6, ^6, ^1
+
+6:
+  ret _3
+
+1:
+  _4 = call (`erlang`:`error`/1), `badarg`
+  ret _4
+}
+
+%% httpd_misc_sup.erl:55
+%% Counter = 7
+function `httpd_misc_sup`:`stop_auth_server`(_0, _1, _2) {
+0:
+  %% httpd_misc_sup.erl:56
+  _3 = call (`stop_permanent_worker`/4), `mod_auth_server`, _0, _1, _2
+  _6 = succeeded:body _3
+  br _6, ^6, ^1
+
+6:
+  ret _3
+
+1:
+  _4 = call (`erlang`:`error`/1), `badarg`
+  ret _4
+}
+
+%% httpd_misc_sup.erl:59
+%% Counter = 7
+function `httpd_misc_sup`:`start_sec_server`(_0, _1, _2) {
+0:
+  %% httpd_misc_sup.erl:60
+  _3 = call (`start_permanent_worker`/5), `mod_security_server`, _0, _1, _2, `[gen_server]`
+  _6 = succeeded:body _3
+  br _6, ^6, ^1
+
+6:
+  ret _3
+
+1:
+  _4 = call (`erlang`:`error`/1), `badarg`
+  ret _4
+}
+
+%% httpd_misc_sup.erl:62
+%% Counter = 7
+function `httpd_misc_sup`:`stop_sec_server`(_0, _1, _2) {
+0:
+  %% httpd_misc_sup.erl:63
+  _3 = call (`stop_permanent_worker`/4), `mod_security_server`, _0, _1, _2
+  _6 = succeeded:body _3
+  br _6, ^6, ^1
+
+6:
+  ret _3
+
+1:
+  _4 = call (`erlang`:`error`/1), `badarg`
+  ret _4
+}
+
+%% httpd_misc_sup.erl:69
+%% Counter = 4
+function `httpd_misc_sup`:`init`(_0) {
+0:
+  ret `{ok,{{one_for_one,0,1},[]}}`
+}
+
+%% httpd_misc_sup.erl:77
+%% Counter = 19
+function `httpd_misc_sup`:`start_permanent_worker`(_0, _1, _2, _3, _4) {
+0:
+  %% httpd_misc_sup.erl:78
+  SupName = call (`make_name`/3), _1, _2, _3
+  _16 = succeeded:body SupName
+  br _16, ^16, ^1
+
+16:
+  %% httpd_misc_sup.erl:81
+  _7 = call (`timer`:`seconds`/1), `1`
+  _17 = succeeded:body _7
+  br _17, ^17, ^1
+
+17:
+  _6 = put_list _0, _4
+  _12 = put_tuple _0, _1, _2
+  _8 = put_list _3, `[]`
+  _9 = put_list _2, _8
+  _10 = put_list _1, _9
+  _11 = put_tuple _0, `start_link`, _10
+  Spec = put_tuple _12, _11, `permanent`, _7, `worker`, _6
+
+  %% httpd_misc_sup.erl:82
+  _13 = call (`supervisor`:`start_child`/2), SupName, Spec
+  _18 = succeeded:body _13
+  br _18, ^18, ^1
+
+18:
+  ret _13
+
+1:
+  _14 = call (`erlang`:`error`/1), `badarg`
+  ret _14
+}
+
+%% httpd_misc_sup.erl:84
+%% Counter = 15
+function `httpd_misc_sup`:`stop_permanent_worker`(_0, _1, _2, _3) {
+0:
+  %% httpd_misc_sup.erl:85
+  SupName = call (`make_name`/3), _1, _2, _3
+  _8 = succeeded:body SupName
+  br _8, ^8, ^1
+
+8:
+  Name = put_tuple _0, _1, _2
+
+  %% httpd_misc_sup.erl:87
+  _4 = call (`supervisor`:`terminate_child`/2), SupName, Name
+  _9 = succeeded:body _4
+  br _9, ^9, ^1
+
+9:
+  _14 = bif:'=:=' _4, `ok`
+  br _14, ^13, ^11
+
+13:
+  %% httpd_misc_sup.erl:89
+  _5 = call (`supervisor`:`delete_child`/2), SupName, Name
+  _12 = succeeded:body _5
+  br _12, ^12, ^1
+
+12:
+  ret _5
+
+11:
+  ret _4
+
+1:
+  _6 = call (`erlang`:`error`/1), `badarg`
+  ret _6
+}
+
+%% httpd_misc_sup.erl:94
+%% Counter = 7
+function `httpd_misc_sup`:`make_name`(_0, _1, _2) {
+0:
+  %% httpd_misc_sup.erl:95
+  _3 = call (`httpd_util`:`make_name`/4), `"httpd_misc_sup"`, _0, _1, _2
+  _6 = succeeded:body _3
+  br _6, ^6, ^1
+
+6:
+  ret _3
+
+1:
+  _4 = call (`erlang`:`error`/1), `badarg`
+  ret _4
+}
+
+%% Counter = 6
+function `httpd_misc_sup`:`module_info`() {
+0:
+  _2 = call (`erlang`:`get_module_info`/1), `httpd_misc_sup`
+  _5 = succeeded:body _2
+  br _5, ^5, ^1
+
+5:
+  ret _2
+
+1:
+  _3 = call (`erlang`:`error`/1), `badarg`
+  ret _3
+}
+
+%% Counter = 6
+function `httpd_misc_sup`:`module_info`(_0) {
+0:
+  _2 = call (`erlang`:`get_module_info`/2), `httpd_misc_sup`, _0
+  _5 = succeeded:body _2
+  br _5, ^5, ^1
+
+5:
+  ret _2
+
+1:
+  _3 = call (`erlang`:`error`/1), `badarg`
+  ret _3
+}

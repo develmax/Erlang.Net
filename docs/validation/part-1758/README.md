@@ -1,0 +1,18 @@
+# Part 1758
+
+The entry copy can die when a definite write reuses the Y slot. The existing X-availability analysis still has to prove the same value on every incoming path before a use can read X. The pass retains the save when a path clobbers that value or a read can observe different lifetimes. The frame allocator can reuse slots after leading predicates that fail directly to an error using only X registers.
+
+The C# compiler admitted and compiled all 1,366 Windows OTP 29.1.1 sources. 398 Equal including ELDAPv3 from the C# ASN.1 generator and 968 Different. The pinned OTP VM loader accepts both files in each differing pair. No status changes.
+
+123 entry spill-count comparisons at matching allocation kinds and live X counts across 540 changed images, with 78 new matches and 17 lost matches. Sum of absolute spill-count gaps decreases by 90 across comparable allocations. 266 stack slot-count comparisons at corresponding frame allocations across 540 changed images, with 5 new matches and 0 lost matches. Sum of absolute slot-count gaps decreases by 1155 across comparable allocations. The sum of absolute Code size differences decreases by 14676 bytes. Normalized disassembly gains 0 matching functions and loses 0.
+
+Built the compiler and test harness in Release with .NET SDK 10.0.404. Ran the focused compiler and mailbox selection and the BEAM group through the Erlang.Tests harness. Ran Erlang.BeamCorpus against the pinned Windows OTP 29.1.1 installation, the ordered generated public_key headers and the existing OTP-29.1.1 source overlay. An initial invocation omitted those inputs and rejected 44 files. A direct retry with the restored inputs compiled all 44, including three exact matches. The complete run superseded the initial invocation. The loader and size diagnostics use the installed OTP and the generated differences.
+
+~~~powershell
+$env:ERLANG_BEAM_CORPUS_SAVE_DIFFERENCES = '1'
+dotnet artifacts/beam-backend/part1758-frameless-exits-tool/Erlang.BeamCorpus.dll $otp artifacts/beam-backend/otp-corpus-part1758-frameless-exits-pinned.json artifacts/beam-backend/part929-ordered-headers artifacts/beam-backend/part1058-source-overlay
+~~~
+
+The focused selection passed 11 of 11 tests, and all seven BEAM harness cases passed. The compiler block passed 3722 of 3830 cases. Each of the 108 failed cases also failed against the part 1757 compiler on .NET 10.0.11. The allocation fixture uses three slots, compared with four after the entry-copy proof alone and two in OTP. The OTP VM agreed on values, dictionary effects and both error paths. On .NET 10.0.11, the DETS test passes. Port and dynamic apply reproduce their preceding failures. The full runtime suite was outside this run, so readiness evidence was not regenerated.
+
+[Corpus](otp-corpus.json) · [Status changes](status-changes.txt) · [Loader and Code sizes](loader-and-code.txt) · [Normalized disassembly](normalized-functions.txt) · [Entry spill matches](spills.txt) · [Frame matches](frame.txt) · [Variant comparison](variants.txt) · [First differences](first.txt) · [Oversized frame structure](frame-structure.txt) · [Remaining spills](spill-inventory.txt) · [Argument fixture](beam_entry_lifetimes.erl) · [Frame fixture](beam_frameless_stack_failure.erl) · [Frame instructions](fixture-assembly.txt) · [ASN.1 encoder frame](enc-content-info.txt) · [Fixture execution](behavior.txt) · [Focused tests](focused.txt) · [Compiler block](compiler-block-summary.txt) · [Entry-copy test on previous compiler](negative-entry-copy.txt) · [Frame test on intermediate compiler](negative.txt) · [Runtime checks](runtime-gates-pinned.txt)

@@ -112,6 +112,7 @@ internal static class BeamReceiveMatcher
                         break;
                     case BeamGeneralOpcodeNames.NilTest:
                     case BeamGeneralOpcodeNames.ListTest:
+                    case BeamGeneralOpcodeNames.PortTest:
                     case BeamGeneralOpcodeNames.MapTest:
                     case BeamGeneralOpcodeNames.TupleArity:
                     case BeamGeneralOpcodeNames.AtomTest:
@@ -176,7 +177,7 @@ internal static class BeamReceiveMatcher
                                     first,
                                     second,
                                     context
-                                ) : BeamReceivePureBifs.Element(first, second)
+                                ) : BeamReceivePureBifs.Binary(binary.Function, first, second)
                             );
                         }
                         catch (ErlangException error) when (error.ExceptionClass == ErlangExceptionClasses.Error && operands[0].Kind != BeamOperandParameters.Failure)

@@ -1,0 +1,6 @@
+The call result moves directly from X0 to X1, and apply_last deallocates one slot.
+OTP and candidate agree on 4 results and effects.
+[{{value,{result,{beam_tail_result_apply,42}}},{beam_tail_result_apply,42}},
+ {{error,undef},{erlang,missing}},
+ {{error,badarg},{7,invalid_module}},
+ {{error,function_clause},invalid_argument}]

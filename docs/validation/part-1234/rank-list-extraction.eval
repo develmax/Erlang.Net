@@ -1,0 +1,36 @@
+[Reference, Generated] = [filename:absname(D) || D <- init:get_plain_arguments()],
+Opcode = fun
+    ({test, Name, _, _}) -> {test, Name};
+    (I) when is_atom(I) -> I;
+    (I) -> element(1, I)
+end,
+Frame = fun(Ops) ->
+    lists:any(fun(Op) -> lists:member(Op, [allocate, allocate_heap, allocate_zero, allocate_heap_zero]) end, Ops)
+end,
+Read = fun(Path) ->
+    {beam_file, _, _, _, _, Fs} = beam_disasm:file(Path),
+    maps:from_list([{{N,A},[Op || I <- Is, Op <- [Opcode(I)],
+        not lists:member(Op, [line,label,func_info])]} || {function,N,A,_,Is} <- Fs])
+end,
+Files = filelib:wildcard("**/*.beam", Generated),
+Pairs = [{File, Key, Ops} || File <- Files,
+    R <- [Read(filename:join(Reference,File))], G <- [Read(filename:join(Generated,File))],
+    {Key,Ops} <- maps:to_list(R), {ok,Actual} <- [maps:find(Key,G)],
+    not Frame(Ops), Frame(Actual), lists:prefix([{test,is_nonempty_list},get_list],Ops)],
+Group = fun(KeyFn) ->
+    Buckets = lists:foldl(fun({File, Key, Ops}, Acc) ->
+        maps:update_with(KeyFn(Ops),
+            fun({N,Paths,Example}) -> {N+1,sets:add_element(File,Paths),min(Example,{File,Key})} end,
+            {1,sets:from_list([File]),{File,Key}},Acc)
+    end, #{}, Pairs),
+    lists:sublist(lists:reverse(lists:sort([{sets:size(Paths),N,Key,Example}
+        || {Key,{N,Paths,Example}} <- maps:to_list(Buckets)])),20)
+end,
+io:format("Images scanned: ~p~nFunctions with a generated-only stack allocation: ~p across ~p images~n",
+    [length(Files),length(Pairs),length(lists:usort([P || {P,_,_} <- Pairs]))]),
+lists:foreach(fun({Title,KeyFn}) ->
+    io:format("~n~s (modules, functions, opcodes, example):~n",[Title]),
+    lists:foreach(fun(Row)->io:format("~p~n",[Row]) end,Group(KeyFn))
+end,[{"OTP operations following extraction",fun(Ops)->lists:sublist(lists:nthtail(2,Ops),3) end},
+      {"OTP operations ending in a tail call or return",fun(Ops)->[Op || Op <- Ops, lists:member(Op,[call_only,call_ext_only,return])] end}, {"Exact OTP opcode sequence",fun(Ops)->Ops end}]),
+halt().

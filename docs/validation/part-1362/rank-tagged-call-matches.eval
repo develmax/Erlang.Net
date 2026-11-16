@@ -1,0 +1,44 @@
+[Reference, Generated] = [filename:absname(Path) || Path <- init:get_plain_arguments()],
+Files = filelib:fold_files(Generated, "[.]beam$", true, fun(Path, Acc) -> [Path|Acc] end, []),
+Uses = fun Visit({var,_,Name}, Name) -> true;
+           Visit(Term, Name) when is_tuple(Term) -> Visit(tuple_to_list(Term), Name);
+           Visit([Head|Tail], Name) -> Visit(Head, Name) orelse Visit(Tail, Name);
+           Visit(_, _) -> false
+       end,
+Scan = fun Visit([Expr|Rest], Live, Acc) ->
+    case Expr of
+        {match,_,{var,_,Name},{call,_,_,_}} when Name =/= '_' ->
+            Visit(Rest, [Name|Live], Acc);
+        {match,_,{tuple,_,[{atom,_,Tag},{var,_,Payload}]},{call,_,_,_}} when Rest =/= [] ->
+            Keys = [tagged_call_match] ++
+                   [tagged_call_match_ignored_payload || Payload =:= '_'] ++
+                   [ok_call_match_ignored_payload || Tag =:= ok, Payload =:= '_'] ++
+                   [bound_call_value_used_after_tagged_call_match ||
+                       lists:any(fun(Name) -> Uses(Rest, Name) end, Live)],
+            Visit(Rest, Live, Keys ++ Acc);
+        _ ->
+            Visit(Rest, Live, Acc)
+    end;
+    Visit([], _, Acc) -> Acc
+end,
+Totals = lists:foldl(fun(Path, Acc) ->
+    Relative = lists:nthtail(length(filename:split(Generated)), filename:split(Path)),
+    case beam_lib:chunks(filename:join([Reference|Relative]), [abstract_code]) of
+        {ok,{Module,[{abstract_code,{raw_abstract_v1,Forms}}]}} ->
+            Groups = lists:foldl(fun
+                ({function,_,Name,Arity,Clauses}, Map) ->
+                    Keys = lists:usort(lists:append([Scan(Body, [], []) || {clause,_,_,_,Body} <- Clauses])),
+                    lists:foldl(fun(Key, M) -> maps:update_with(Key, fun(Fs) -> [{Name,Arity}|Fs] end, [{Name,Arity}], M) end, Map, Keys);
+                (_, Map) -> Map
+            end, #{}, Forms),
+            maps:fold(fun(Key, Functions, Map) ->
+                Example = {Module, lists:min(Functions)},
+                maps:update_with(Key, fun({M,F,Es}) -> {M+1,F+length(Functions),lists:sublist([Example|Es],5)} end,
+                    {1,length(Functions),[Example]}, Map)
+            end, Acc, Groups);
+        _ -> Acc
+    end
+end, #{}, Files),
+io:format("Tagged matches on call results in ~p differing images.~n", [length(Files)]),
+io:format("Counts are {modules, functions, examples}. Groups can overlap.~n~p~n", [Totals]),
+halt().

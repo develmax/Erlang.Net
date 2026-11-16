@@ -1,0 +1,32 @@
+Dir = "artifacts/beam-backend/part847-images",
+Module = beam_guarded_reply_probe,
+Stub = beam_reply_transport,
+StubPath = filename:join(Dir, atom_to_list(Stub) ++ ".erl"),
+ok = file:write_file(StubPath, "-module(beam_reply_transport).\n-export([recv/3,setopts/2,option/0]).\nrecv(S,L,T) -> self() ! {recv,S,L,T}, get(reply).\noption() -> self() ! option, nodelay.\nsetopts(S,O) -> self() ! {setopts,S,O}, configured.\n"),
+{ok,Stub,StubBytes} = compile:file(StubPath,[binary]),
+{module,Stub} = code:load_binary(Stub,StubPath,StubBytes),
+Name = atom_to_list(Module) ++ ".beam",
+Run = fun(File) ->
+    code:purge(Module), code:delete(Module),
+    {ok,Bytes} = file:read_file(File),
+    {module,Module} = code:load_binary(Module,File,Bytes),
+    {Recv,Set} = Module:callbacks(socket,controller),
+    Expect = fun(Event) -> receive Got -> Event = Got after 1000 -> error({missing,Event}) end end,
+    [begin
+         put(reply,Input),
+         Output = Recv(controller,128,300),
+         Expect({recv,socket,128,300})
+     end || {Input,Output} <- [{{ok,<<0,255>>},{ok,[0,255]}},{{ok,[]},{ok,[]}},{{error,closed},{error,closed}},{{ok,1,2},{ok,1,2}}]],
+    configured = Set(controller), Expect(option), Expect({setopts,socket,[nodelay]}),
+    Bad = [try apply(Fun,Args) of
+               Value -> error({unexpected_result,Value})
+           catch
+               error:function_clause:Stack -> [{Module,_,Args,_}|_] = Stack, Stack
+           end || {Fun,Args} <- [{Recv,[other,128,300]},{Set,[other]}]],
+    receive Event -> error({unexpected_effect,Event}) after 0 -> ok end,
+    Bad
+end,
+Otp = Run(filename:join([Dir,"fixture","lib","probe","ebin",Name])),
+Otp = Run(filename:join(Dir,Name)),
+erlang:display({Module,equal}),
+halt().

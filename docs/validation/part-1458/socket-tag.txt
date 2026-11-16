@@ -1,0 +1,8 @@
+{tag,1} instructions OTP 11, previous C# 27, current C# 11
+OTP entry [{label,891},{line,[{location,"gen_tcp_socket.erl",2966}]},{func_info,{atom,gen_tcp_socket},{atom,tag},1},{label,892},{select_val,{x,0},{f,894},4,[{atom,http},{f,893},{atom,http_bin},{f,893},{atom,httph},{f,893}]},{label,893},{move,{atom,http},{x,0}},return]
+OTP fallback [{label,893},{move,{atom,http},{x,0}},return,{label,894},{move,{atom,tcp},{x,0}},return]
+Previous entry [{label,1403},{line,[{location,"gen_tcp_socket.erl",2966}]},{func_info,{atom,gen_tcp_socket},{atom,tag},1},{label,1404},{allocate,1,1},{move,{x,0},{y,0}},{test,is_eq_exact,{f,1408},[{y,0},{atom,http}]},{jump,{f,1407}}]
+Previous fallback [{jump,{f,1405}},{label,1406},{move,{atom,tcp},{x,0}},{label,1405},{deallocate,1},return]
+Current entry [{label,1403},{line,[{location,"gen_tcp_socket.erl",2966}]},{func_info,{atom,gen_tcp_socket},{atom,tag},1},{label,1404},{select_val,{x,0},{f,1406},4,[{atom,http},{f,1405},{atom,http_bin},{f,1405},{atom,httph},{f,1405}]},{label,1405},{move,{atom,http},{x,0}},return]
+Current fallback [{label,1405},{move,{atom,http},{x,0}},return,{label,1406},{move,{atom,tcp},{x,0}},return]
+Current instructions match after label rebasing.

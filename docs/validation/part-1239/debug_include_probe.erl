@@ -1,0 +1,3 @@
+-module(debug_include_probe).
+-export([value/1]).
+-include("debug_include_probe.hrl").

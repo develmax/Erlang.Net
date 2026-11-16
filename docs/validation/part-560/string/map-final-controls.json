@@ -1,0 +1,118 @@
+{
+  "Partial": true,
+  "SelectedCount": 16,
+  "TotalCount": 9647,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/0",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/1",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/2",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/3",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/4",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/5",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/0",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/1",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/2",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/3",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/4",
+    "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/5",
+    "runtime/review498-imported-flat-map-copy",
+    "runtime/string/explicit-dependencies-and-no-fallback",
+    "runtime/string/managed-selection-and-original-contracts",
+    "runtime/string/original-selection-and-original-contracts"
+  ],
+  "Passed": 6,
+  "Failed": 10,
+  "Tests": [
+    {
+      "Name": "runtime/string/managed-selection-and-original-contracts",
+      "Status": "Passed",
+      "Milliseconds": 3297
+    },
+    {
+      "Name": "runtime/string/original-selection-and-original-contracts",
+      "Status": "Passed",
+      "Milliseconds": 2524
+    },
+    {
+      "Name": "runtime/string/explicit-dependencies-and-no-fallback",
+      "Status": "Passed",
+      "Milliseconds": 118
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/0",
+      "Status": "Passed",
+      "Milliseconds": 2753
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/0",
+      "Status": "Passed",
+      "Milliseconds": 1594
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/1",
+      "Status": "Failed",
+      "Error": "System.IO.InvalidDataException: Pinned OTP term comparison contract differs{\u0022first\u0022:56,\u0022second\u0022:57,\u0022order\u0022:-1,\u0022expectedOrder\u0022:-1,\u0022numeric\u0022:false,\u0022expectedNumeric\u0022:false,\u0022exact\u0022:true,\u0022expectedExact\u0022:false,\u0022Left\u0022:\u0022#{#Fun\\u003C2928/0\\u003E=\\u003E1,#Fun\\u003C2927/0\\u003E=\\u003E0}\u0022,\u0022Right\u0022:\u0022#{#Fun\\u003C2929/0\\u003E=\\u003E1,#Fun\\u003C2930/0\\u003E=\\u003E0}\u0022,\u0022Stdlib\u0022:\u0022f686f2e9-48be-468d-83d3-c56be8b4a4f7\u0022}\r\n   at Erlang.Tests.OrdsetsTermContractChecks.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CRun\u003Eb__1\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\OrdsetsTermContractChecks.cs:line 80\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.OrdsetsTermContractChecks.Run(Int32 shard, Boolean original) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\OrdsetsTermContractChecks.cs:line 105\r\n   at Erlang.Tests.OrdsetsTermContractChecks.Run(Int32 shard, Boolean original) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\OrdsetsTermContractChecks.cs:line 112\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16193",
+      "Milliseconds": 1320
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/1",
+      "Status": "Failed",
+      "Error": "System.IO.InvalidDataException: Pinned OTP term comparison contract differs{\u0022first\u0022:56,\u0022second\u0022:57,\u0022order\u0022:-1,\u0022expectedOrder\u0022:-1,\u0022numeric\u0022:false,\u0022expectedNumeric\u0022:false,\u0022exact\u0022:true,\u0022expectedExact\u0022:false,\u0022Left\u0022:\u0022#{#Fun\\u003C3992/0\\u003E=\\u003E1,#Fun\\u003C3991/0\\u003E=\\u003E0}\u0022,\u0022Right\u0022:\u0022#{#Fun\\u003C3993/0\\u003E=\\u003E1,#Fun\\u003C3994/0\\u003E=\\u003E0}\u0022,\u0022Stdlib\u0022:\u0022f686f2e9-48be-468d-83d3-c56be8b4a4f7\u0022}\r\n   at Erlang.Tests.OrdsetsTermContractChecks.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CRun\u003Eb__1\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\OrdsetsTermContractChecks.cs:line 80\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.OrdsetsTermContractChecks.Run(Int32 shard, Boolean original) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\OrdsetsTermContractChecks.cs:line 105\r\n   at Erlang.Tests.OrdsetsTermContractChecks.Run(Int32 shard, Boolean original) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\OrdsetsTermContractChecks.cs:line 112\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16193",
+      "Milliseconds": 1454
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/2",
+      "Status": "Failed",
+      "Error": "System.IO.InvalidDataException: Pinned OTP term comparison contract differs{\u0022first\u0022:69,\u0022second\u0022:70,\u0022order\u0022:-1,\u0022expectedOrder\u0022:-1,\u0022numeric\u0022:false,\u0022expectedNumeric\u0022:false,\u0022exact\u0022:true,\u0022expectedExact\u0022:false,\u0022Left\u0022:\u0022#{1=\\u003E1,2=\\u003E2,3=\\u003E3,4=\\u003E4,5=\\u003E5,6=\\u003E6,7=\\u003E7,8=\\u003E8,9=\\u003E9,10=\\u003E10,11=\\u003E11,12=\\u003E12,13=\\u003E13,14=\\u003E14,15=\\u003E15,16=\\u003E16,17=\\u003E17,18=\\u003E18,19=\\u003E19,20=\\u003E20,21=\\u003E21,22=\\u003E22,23=\\u003E23,24=\\u003E24,25=\\u003E25,26=\\u003E26,27=\\u003E27,28=\\u003E28,29=\\u003E29,30=\\u003E30,31=\\u003E31,32=\\u003E32,33=\\u003E33,#Fun\\u003C5008/0\\u003E=\\u003E1,#Fun\\u003C5007/0\\u003E=\\u003E0}\u0022,\u0022Right\u0022:\u0022#{1=\\u003E1,2=\\u003E2,3=\\u003E3,4=\\u003E4,5=\\u003E5,6=\\u003E6,7=\\u003E7,8=\\u003E8,9=\\u003E9,10=\\u003E10,11=\\u003E11,12=\\u003E12,13=\\u003E13,14=\\u003E14,15=\\u003E15,16=\\u003E16,17=\\u003E17,18=\\u003E18,19=\\u003E19,20=\\u003E20,21=\\u003E21,22=\\u003E22,23=\\u003E23,24=\\u003E24,25=\\u003E25,26=\\u003E26,27=\\u003E27,28=\\u003E28,29=\\u003E29,30=\\u003E30,31=\\u003E31,32=\\u003E32,33=\\u003E33,#Fun\\u003C5009/0\\u003E=\\u003E1,#Fun\\u003C5010/0\\u003E=\\u003E0}\u0022,\u0022Stdlib\u0022:\u0022f686f2e9-48be-468d-83d3-c56be8b4a4f7\u0022}\r\n   at Erlang.Tests.OrdsetsTermContractChecks.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CRun\u003Eb__1\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\OrdsetsTermContractChecks.cs:line 80\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.OrdsetsTermContractChecks.Run(Int32 shard, Boolean original) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\OrdsetsTermContractChecks.cs:line 105\r\n   at Erlang.Tests.OrdsetsTermContractChecks.Run(Int32 shard, Boolean original) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\OrdsetsTermContractChecks.cs:line 112\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16193",
+      "Milliseconds": 1383
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/2",
+      "Status": "Failed",
+      "Error": "System.IO.InvalidDataException: Pinned OTP term comparison contract differs{\u0022first\u0022:69,\u0022second\u0022:70,\u0022order\u0022:-1,\u0022expectedOrder\u0022:-1,\u0022numeric\u0022:false,\u0022expectedNumeric\u0022:false,\u0022exact\u0022:true,\u0022expectedExact\u0022:false,\u0022Left\u0022:\u0022#{1=\\u003E1,2=\\u003E2,3=\\u003E3,4=\\u003E4,5=\\u003E5,6=\\u003E6,7=\\u003E7,8=\\u003E8,9=\\u003E9,10=\\u003E10,11=\\u003E11,12=\\u003E12,13=\\u003E13,14=\\u003E14,15=\\u003E15,16=\\u003E16,17=\\u003E17,18=\\u003E18,19=\\u003E19,20=\\u003E20,21=\\u003E21,22=\\u003E22,23=\\u003E23,24=\\u003E24,25=\\u003E25,26=\\u003E26,27=\\u003E27,28=\\u003E28,29=\\u003E29,30=\\u003E30,31=\\u003E31,32=\\u003E32,33=\\u003E33,#Fun\\u003C6072/0\\u003E=\\u003E1,#Fun\\u003C6071/0\\u003E=\\u003E0}\u0022,\u0022Right\u0022:\u0022#{1=\\u003E1,2=\\u003E2,3=\\u003E3,4=\\u003E4,5=\\u003E5,6=\\u003E6,7=\\u003E7,8=\\u003E8,9=\\u003E9,10=\\u003E10,11=\\u003E11,12=\\u003E12,13=\\u003E13,14=\\u003E14,15=\\u003E15,16=\\u003E16,17=\\u003E17,18=\\u003E18,19=\\u003E19,20=\\u003E20,21=\\u003E21,22=\\u003E22,23=\\u003E23,24=\\u003E24,25=\\u003E25,26=\\u003E26,27=\\u003E27,28=\\u003E28,29=\\u003E29,30=\\u003E30,31=\\u003E31,32=\\u003E32,33=\\u003E33,#Fun\\u003C6073/0\\u003E=\\u003E1,#Fun\\u003C6074/0\\u003E=\\u003E0}\u0022,\u0022Stdlib\u0022:\u0022f686f2e9-48be-468d-83d3-c56be8b4a4f7\u0022}\r\n   at Erlang.Tests.OrdsetsTermContractChecks.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CRun\u003Eb__1\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\OrdsetsTermContractChecks.cs:line 80\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.OrdsetsTermContractChecks.Run(Int32 shard, Boolean original) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\OrdsetsTermContractChecks.cs:line 105\r\n   at Erlang.Tests.OrdsetsTermContractChecks.Run(Int32 shard, Boolean original) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\OrdsetsTermContractChecks.cs:line 112\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16193",
+      "Milliseconds": 1465
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/3",
+      "Status": "Failed",
+      "Error": "System.IO.InvalidDataException: Pinned OTP term comparison contract differs{\u0022first\u0022:96,\u0022second\u0022:69,\u0022order\u0022:1,\u0022expectedOrder\u0022:1,\u0022numeric\u0022:false,\u0022expectedNumeric\u0022:false,\u0022exact\u0022:true,\u0022expectedExact\u0022:false,\u0022Left\u0022:\u0022#{1=\\u003E1,2=\\u003E2,3=\\u003E3,4=\\u003E4,5=\\u003E5,6=\\u003E6,7=\\u003E7,8=\\u003E8,9=\\u003E9,10=\\u003E10,11=\\u003E11,12=\\u003E12,13=\\u003E13,14=\\u003E14,15=\\u003E15,16=\\u003E16,17=\\u003E17,18=\\u003E18,19=\\u003E19,20=\\u003E20,21=\\u003E21,22=\\u003E22,23=\\u003E23,24=\\u003E24,25=\\u003E25,26=\\u003E26,27=\\u003E27,28=\\u003E28,29=\\u003E29,30=\\u003E30,31=\\u003E31,32=\\u003E32,33=\\u003E33,#Fun\\u003C7101/0\\u003E=\\u003E1,#Fun\\u003C7102/0\\u003E=\\u003E0}\u0022,\u0022Right\u0022:\u0022#{1=\\u003E1,2=\\u003E2,3=\\u003E3,4=\\u003E4,5=\\u003E5,6=\\u003E6,7=\\u003E7,8=\\u003E8,9=\\u003E9,10=\\u003E10,11=\\u003E11,12=\\u003E12,13=\\u003E13,14=\\u003E14,15=\\u003E15,16=\\u003E16,17=\\u003E17,18=\\u003E18,19=\\u003E19,20=\\u003E20,21=\\u003E21,22=\\u003E22,23=\\u003E23,24=\\u003E24,25=\\u003E25,26=\\u003E26,27=\\u003E27,28=\\u003E28,29=\\u003E29,30=\\u003E30,31=\\u003E31,32=\\u003E32,33=\\u003E33,#Fun\\u003C7076/0\\u003E=\\u003E1,#Fun\\u003C7075/0\\u003E=\\u003E0}\u0022,\u0022Stdlib\u0022:\u0022f686f2e9-48be-468d-83d3-c56be8b4a4f7\u0022}\r\n   at Erlang.Tests.OrdsetsTermContractChecks.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CRun\u003Eb__1\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\OrdsetsTermContractChecks.cs:line 80\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.OrdsetsTermContractChecks.Run(Int32 shard, Boolean original) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\OrdsetsTermContractChecks.cs:line 105\r\n   at Erlang.Tests.OrdsetsTermContractChecks.Run(Int32 shard, Boolean original) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\OrdsetsTermContractChecks.cs:line 112\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16193",
+      "Milliseconds": 1224
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/3",
+      "Status": "Failed",
+      "Error": "System.IO.InvalidDataException: Pinned OTP term comparison contract differs{\u0022first\u0022:96,\u0022second\u0022:69,\u0022order\u0022:1,\u0022expectedOrder\u0022:1,\u0022numeric\u0022:false,\u0022expectedNumeric\u0022:false,\u0022exact\u0022:true,\u0022expectedExact\u0022:false,\u0022Left\u0022:\u0022#{1=\\u003E1,2=\\u003E2,3=\\u003E3,4=\\u003E4,5=\\u003E5,6=\\u003E6,7=\\u003E7,8=\\u003E8,9=\\u003E9,10=\\u003E10,11=\\u003E11,12=\\u003E12,13=\\u003E13,14=\\u003E14,15=\\u003E15,16=\\u003E16,17=\\u003E17,18=\\u003E18,19=\\u003E19,20=\\u003E20,21=\\u003E21,22=\\u003E22,23=\\u003E23,24=\\u003E24,25=\\u003E25,26=\\u003E26,27=\\u003E27,28=\\u003E28,29=\\u003E29,30=\\u003E30,31=\\u003E31,32=\\u003E32,33=\\u003E33,#Fun\\u003C8165/0\\u003E=\\u003E1,#Fun\\u003C8166/0\\u003E=\\u003E0}\u0022,\u0022Right\u0022:\u0022#{1=\\u003E1,2=\\u003E2,3=\\u003E3,4=\\u003E4,5=\\u003E5,6=\\u003E6,7=\\u003E7,8=\\u003E8,9=\\u003E9,10=\\u003E10,11=\\u003E11,12=\\u003E12,13=\\u003E13,14=\\u003E14,15=\\u003E15,16=\\u003E16,17=\\u003E17,18=\\u003E18,19=\\u003E19,20=\\u003E20,21=\\u003E21,22=\\u003E22,23=\\u003E23,24=\\u003E24,25=\\u003E25,26=\\u003E26,27=\\u003E27,28=\\u003E28,29=\\u003E29,30=\\u003E30,31=\\u003E31,32=\\u003E32,33=\\u003E33,#Fun\\u003C8140/0\\u003E=\\u003E1,#Fun\\u003C8139/0\\u003E=\\u003E0}\u0022,\u0022Stdlib\u0022:\u0022f686f2e9-48be-468d-83d3-c56be8b4a4f7\u0022}\r\n   at Erlang.Tests.OrdsetsTermContractChecks.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CRun\u003Eb__1\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\OrdsetsTermContractChecks.cs:line 80\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.OrdsetsTermContractChecks.Run(Int32 shard, Boolean original) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\OrdsetsTermContractChecks.cs:line 105\r\n   at Erlang.Tests.OrdsetsTermContractChecks.Run(Int32 shard, Boolean original) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\OrdsetsTermContractChecks.cs:line 112\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16193",
+      "Milliseconds": 1675
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/4",
+      "Status": "Failed",
+      "Error": "System.IO.InvalidDataException: Pinned OTP term comparison contract differs{\u0022first\u0022:156,\u0022second\u0022:159,\u0022order\u0022:-1,\u0022expectedOrder\u0022:-1,\u0022numeric\u0022:false,\u0022expectedNumeric\u0022:false,\u0022exact\u0022:true,\u0022expectedExact\u0022:false,\u0022Left\u0022:\u0022#{#{#Fun\\u003C9220/0\\u003E=\\u003E1,#Fun\\u003C9219/0\\u003E=\\u003E0}=\\u003E0}\u0022,\u0022Right\u0022:\u0022#{#{#Fun\\u003C9225/0\\u003E=\\u003E1,#Fun\\u003C9226/0\\u003E=\\u003E0}=\\u003E0}\u0022,\u0022Stdlib\u0022:\u0022f686f2e9-48be-468d-83d3-c56be8b4a4f7\u0022}\r\n   at Erlang.Tests.OrdsetsTermContractChecks.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CRun\u003Eb__1\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\OrdsetsTermContractChecks.cs:line 80\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.OrdsetsTermContractChecks.Run(Int32 shard, Boolean original) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\OrdsetsTermContractChecks.cs:line 105\r\n   at Erlang.Tests.OrdsetsTermContractChecks.Run(Int32 shard, Boolean original) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\OrdsetsTermContractChecks.cs:line 112\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16193",
+      "Milliseconds": 1732
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/4",
+      "Status": "Failed",
+      "Error": "System.IO.InvalidDataException: Pinned OTP term comparison contract differs{\u0022first\u0022:156,\u0022second\u0022:159,\u0022order\u0022:-1,\u0022expectedOrder\u0022:-1,\u0022numeric\u0022:false,\u0022expectedNumeric\u0022:false,\u0022exact\u0022:true,\u0022expectedExact\u0022:false,\u0022Left\u0022:\u0022#{#{#Fun\\u003C10284/0\\u003E=\\u003E1,#Fun\\u003C10283/0\\u003E=\\u003E0}=\\u003E0}\u0022,\u0022Right\u0022:\u0022#{#{#Fun\\u003C10289/0\\u003E=\\u003E1,#Fun\\u003C10290/0\\u003E=\\u003E0}=\\u003E0}\u0022,\u0022Stdlib\u0022:\u0022f686f2e9-48be-468d-83d3-c56be8b4a4f7\u0022}\r\n   at Erlang.Tests.OrdsetsTermContractChecks.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CRun\u003Eb__1\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\OrdsetsTermContractChecks.cs:line 80\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.OrdsetsTermContractChecks.Run(Int32 shard, Boolean original) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\OrdsetsTermContractChecks.cs:line 105\r\n   at Erlang.Tests.OrdsetsTermContractChecks.Run(Int32 shard, Boolean original) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\OrdsetsTermContractChecks.cs:line 112\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16193",
+      "Milliseconds": 1825
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/5",
+      "Status": "Failed",
+      "Error": "System.IO.InvalidDataException: Pinned OTP term comparison contract differs{\u0022first\u0022:160,\u0022second\u0022:157,\u0022order\u0022:1,\u0022expectedOrder\u0022:1,\u0022numeric\u0022:false,\u0022expectedNumeric\u0022:false,\u0022exact\u0022:true,\u0022expectedExact\u0022:false,\u0022Left\u0022:\u0022#{#{#Fun\\u003C11295/0\\u003E=\\u003E1,#Fun\\u003C11296/0\\u003E=\\u003E0}=\\u003E1}\u0022,\u0022Right\u0022:\u0022#{#{#Fun\\u003C11290/0\\u003E=\\u003E1,#Fun\\u003C11289/0\\u003E=\\u003E0}=\\u003E1}\u0022,\u0022Stdlib\u0022:\u0022f686f2e9-48be-468d-83d3-c56be8b4a4f7\u0022}\r\n   at Erlang.Tests.OrdsetsTermContractChecks.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CRun\u003Eb__1\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\OrdsetsTermContractChecks.cs:line 80\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.OrdsetsTermContractChecks.Run(Int32 shard, Boolean original) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\OrdsetsTermContractChecks.cs:line 105\r\n   at Erlang.Tests.OrdsetsTermContractChecks.Run(Int32 shard, Boolean original) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\OrdsetsTermContractChecks.cs:line 112\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16193",
+      "Milliseconds": 1228
+    },
+    {
+      "Name": "runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/5",
+      "Status": "Failed",
+      "Error": "System.IO.InvalidDataException: Pinned OTP term comparison contract differs{\u0022first\u0022:160,\u0022second\u0022:157,\u0022order\u0022:1,\u0022expectedOrder\u0022:1,\u0022numeric\u0022:false,\u0022expectedNumeric\u0022:false,\u0022exact\u0022:true,\u0022expectedExact\u0022:false,\u0022Left\u0022:\u0022#{#{#Fun\\u003C12359/0\\u003E=\\u003E1,#Fun\\u003C12360/0\\u003E=\\u003E0}=\\u003E1}\u0022,\u0022Right\u0022:\u0022#{#{#Fun\\u003C12354/0\\u003E=\\u003E1,#Fun\\u003C12353/0\\u003E=\\u003E0}=\\u003E1}\u0022,\u0022Stdlib\u0022:\u0022f686f2e9-48be-468d-83d3-c56be8b4a4f7\u0022}\r\n   at Erlang.Tests.OrdsetsTermContractChecks.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CRun\u003Eb__1\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\OrdsetsTermContractChecks.cs:line 80\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.OrdsetsTermContractChecks.Run(Int32 shard, Boolean original) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\OrdsetsTermContractChecks.cs:line 105\r\n   at Erlang.Tests.OrdsetsTermContractChecks.Run(Int32 shard, Boolean original) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\OrdsetsTermContractChecks.cs:line 112\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16193",
+      "Milliseconds": 1294
+    },
+    {
+      "Name": "runtime/review498-imported-flat-map-copy",
+      "Status": "Passed",
+      "Milliseconds": 199
+    }
+  ]
+}

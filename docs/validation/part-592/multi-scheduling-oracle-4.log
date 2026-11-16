@@ -1,0 +1,15 @@
+=WARNING REPORT==== 5-Nov-2026::04:11:13.588000 ===
+Process <0.399.0> enabled access to the emulator internal state.
+NOTE: This is an erts internal test feature and should *only* be used by OTP test-suites.
+
+
+Error! Failed to eval: {ok,erts_internal_port_cases}=compile:file("tools/Validation/Erlang.ErtsInternalCompatibility/erts_internal_port_cases.erl",[{outdir,"artifacts/multi-scheduling-oracle-4"}]),true=code:add_patha("artifacts/multi-scheduling-oracle-4"),ok=erts_internal_port_cases:write("artifacts/multi-scheduling-oracle-4"),halt().
+
+Runtime terminating during boot ({{scenario_timeout,multi_bound_requester},[{erts_internal_port_cases,observe_scenario,1,[{file,"tools/Validation/Erlang.ErtsInternalCompatibility/erts_internal_port_cases.erl"},{line,21}]},{erts_internal_port_cases,'-write/1-lc$^1/1-1-',1,[{file,"tools/Validation/Erlang.ErtsInternalCompatibility/erts_internal_port_cases.erl"},{line,9}]},{erts_internal_port_cases,'-write/1-lc$^1/1-1-',1,[{file,"tools/Validation/Erlang.ErtsInternalCompatibility/erts_internal_port_cases.erl"},{line,9}]},{erts_internal_port_cases,write,1,[{file,"tools/Validation/Erlang.ErtsInternalCompatibility/erts_internal_port_cases.erl"},{line,9}]},{erl_eval,do_apply,7,[{file,"erl_eval.erl"},{line,1044}]},{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,792}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{init,start_it,1,[{file,"init.erl"},{line,1561}]}]})
+
+Crash dump is being written to: erl_crash.dump...done
+Exception: D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tools\validate-erts-internal-original.ps1:39
+Line |
+  39 |      if ($LASTEXITCODE -ne 0) { throw 'OTP capture failed' }
+     |                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | OTP capture failed

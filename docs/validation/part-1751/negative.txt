@@ -1,0 +1,6 @@
+{"Partial":true,"SelectedCount":1,"TotalCount":9703}
+FAIL compiler/beam/whole-module-matches-otp: System.InvalidOperationException: Expected a zero-root heap test before both nullary BIFs.
+   at Erlang.Tests.BeamModuleEmissionChecks.CompareHeapTestsBeforeNullaryBifs() in tests\Erlang.Tests\Compiler\Beam\BeamModuleEmissionChecks.cs:line 628
+   at Erlang.Tests.BeamModuleEmissionChecks.Run() in tests\Erlang.Tests\Compiler\Beam\BeamModuleEmissionChecks.cs:line 348
+   at Program.<Main>$(String[] args) in tests\Erlang.Tests\Harness\Program.cs:line 16230
+0/1 passed

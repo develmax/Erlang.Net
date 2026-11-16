@@ -164,7 +164,13 @@ public static class TermOrder
                     int count = x.Entries.Count.CompareTo(y.Entries.Count);
                     if (count != 0)
                         return count;
-                    if (purpose == TermComparisonPurpose.ExactEquality)
+                    // Logical maps from different runtimes may order atoms by different indices.
+                    bool compareAtomKeysByName = purpose == TermComparisonPurpose.ExactEquality
+                        && x.IsOrdinaryLogicalMap517 && y.IsOrdinaryLogicalMap517
+                        && x.FlatKeys426 is not null && y.FlatKeys426 is not null
+                        && x.Entries.All(entry => entry.Key is Atom)
+                        && y.Entries.All(entry => entry.Key is Atom);
+                    if (purpose == TermComparisonPurpose.ExactEquality && !compareAtomKeysByName)
                     {
                         var native = x.NativeEquality505?.Invoke(y) ?? y.NativeEquality505?.Invoke(x);
                         if (native is null && layoutFactory is not null)

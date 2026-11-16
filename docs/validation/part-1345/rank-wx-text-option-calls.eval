@@ -1,0 +1,25 @@
+[Root] = init:get_plain_arguments(),
+Paths = filelib:wildcard(filename:join([Root,"lib","wx-2.7","ebin","*.beam"])),
+Count = fun
+    Calls({call,_,{remote,_,{atom,_,Module},{atom,_,Function}},Args}, Key) ->
+        case {Module,Function,length(Args)} of
+            Key -> 1;
+            _ -> 0
+        end;
+    Calls({match,_,_,Value}, Key) -> Calls(Value,Key);
+    Calls(_, _) -> 0
+end,
+Rows = [{M,N,A,Text} || P <- Paths,
+    {ok,{M,[{abstract_code,{raw_abstract_v1,Forms}}]}} <- [beam_lib:chunks(P,[abstract_code])],
+    {function,_,N,A,Clauses} <- Forms,
+    {clause,_,_,_,Body} <- Clauses,
+    1 =:= lists:sum([Count(I,{lists,map,2}) || I <- Body]),
+    Text <- [lists:sum([Count(I,{unicode,characters_to_binary,1}) || I <- Body])],
+    Text > 0],
+Modules = lists:usort([M || {M,_,_,_} <- Rows]),
+Multi = [{M,N,A,T} || {M,N,A,T} <- Rows, T > 1],
+io:format("~B wx images. Text conversion and option mapping in ~B clauses across ~B modules.~n",
+    [length(Paths),length(Rows),length(Modules)]),
+io:format("~B clauses have multiple text conversions.~n",[length(Multi)]),
+[io:format("~p:~p/~B (~B text conversions)~n",[M,N,A,T]) || {M,N,A,T} <- Multi],
+halt().

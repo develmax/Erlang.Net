@@ -1,0 +1,5 @@
+# Part 1707
+
+Prune select_val entries that lead to the same label as the default after label redirection. Lower an empty table to a jump and a single atom or integer key to an exact equality test and jump. Preserve typed register operands and leave other key types in a table. The rewrite reuses the compact reader and writer and follows the pinned OTP 29.1.1 beam_jump rules. No dependency was added.
+
+All 1,366 Windows OTP sources were accepted and compiled. 398 images matched byte for byte, including ELDAPv3 generated from ASN.1. The OTP loader accepted all 968 differing images. Six images changed and their combined Code gap shrank by 43 bytes. The instructions for ssh_sftpd:sftp_to_erlang_access_flag/2 now match after label normalization. The build and three focused tests passed. Full runtime tests and readiness regeneration were outside this run. [Corpus](otp-corpus.json) · [Loader and Code](loader-and-code.txt) · [Function comparison](normalized-functions.txt) · [Tests](focused.txt).

@@ -1,0 +1,4 @@
+Source = "tests/Erlang.Tests/Resources/Beam/beam_constant_record_argument_probe.erl",
+{ok,beam_constant_record_argument_probe,Bytes} = compile:file(Source,[binary,deterministic]),
+ok = file:write_file("tests/Erlang.Tests/Resources/Beam/beam_constant_record_argument_probe.beam",Bytes),
+halt().

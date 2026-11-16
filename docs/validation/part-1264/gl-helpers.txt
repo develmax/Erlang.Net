@@ -1,0 +1,47 @@
+Functions OTP/before/after: {1068,1062,1068}
+Matching normalized functions before/after: {745,876}
+Missing functions: []
+Most common first differences: [{53,
+                                 {{test,is_integer},allocate},
+                                 [{bitmap,7},
+                                  {bufferData,4},
+                                  {bufferStorage,4}]},
+                                {41,
+                                 {get_tuple_element,allocate},
+                                 [{multiTexCoord1dv,2},
+                                  {multiTexCoord1fv,2},
+                                  {multiTexCoord1iv,2}]},
+                                {29,
+                                 {{test,is_tuple},allocate},
+                                 [{feedbackBuffer,3},
+                                  {getActiveUniformBlockiv,4},
+                                  {getBufferSubData,4}]},
+                                {21,
+                                 {allocate_heap,allocate},
+                                 [{bindAttribLocation,3},
+                                  {bindAttribLocationARB,3},
+                                  {bindFragDataLocation,3}]},
+                                {20,
+                                 {swap,swap},
+                                 [{color4bv,1},{color4dv,1},{color4fv,1}]},
+                                {14,
+                                 {get_tuple_element,get_tuple_element},
+                                 [{edgeFlagv,1},
+                                  {evalCoord1dv,1},
+                                  {evalCoord1fv,1}]},
+                                {8,
+                                 {allocate,allocate},
+                                 [{compileShaderIncludeARB,2},
+                                  {createShaderProgramv,2},
+                                  {getUniformIndices,2}]},
+                                {3,
+                                 {select_val,allocate},
+                                 [{getHistogram,5},
+                                  {getMinmax,5},
+                                  {vertexAttribPointer,6}]}]
+{'-shaderSource/2-lc$^0/1-0-',1} equal: true
+{'-compileShaderIncludeARB/2-lc$^0/1-0-',1} equal: true
+{'-getUniformIndices/2-lc$^0/1-0-',1} equal: true
+{'-shaderSourceARB/2-lc$^0/1-0-',1} equal: true
+{'-transformFeedbackVaryings/3-lc$^0/1-0-',1} equal: true
+{'-createShaderProgramv/2-lc$^0/1-0-',1} equal: true

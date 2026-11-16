@@ -1,0 +1,38 @@
+Dir = "artifacts/beam-backend/part829-images",
+Module = beam_nested_dynamic_tail_probe,
+Transport = beam_fixture_transport,
+Path = filename:join(Dir, "beam_fixture_transport.erl"),
+ok = file:write_file(Path, "-module(beam_fixture_transport).\n-export([send/4, accept/2]).\nsend(Socket, IP, Port, Data) -> {Socket, IP, Port, Data}.\naccept(success, Caller) -> Caller ! {other, user_socket, wrong_sender}, Caller ! {self(), wrong_tag, wrong_message}, Caller ! {self(), user_socket, fixture_socket}, {ok,self()}; accept(fail, _) -> {error,fixture_failure}; accept(unexpected, _) -> unexpected.\n"),
+{ok, Transport, Stub} = compile:file(Path, [binary]),
+{module, Transport} = code:load_binary(Transport, Path, Stub),
+Run = fun(File) ->
+    code:purge(Module),
+    code:delete(Module),
+    {ok, Bytes} = file:read_file(File),
+    {module, Module} = code:load_binary(Module, File, Bytes),
+    Packet = {{127,0,0,1}, 4433},
+    Data = <<"fixture datagram">>,
+    {socket, {127,0,0,1}, 4433, Data} = Module:send(Transport, {Packet, socket}, Data),
+    Config = {config, [], transport},
+    {ok, fixture_socket} = Module:accept({success, ignored}, Config, ignored),
+    receive {other, user_socket, wrong_sender} -> ok after 0 -> error(dropped_sender) end,
+    receive {_, wrong_tag, wrong_message} -> ok after 0 -> error(dropped_tag) end,
+    {error, fixture_failure} = Module:accept({fail, ignored}, Config, ignored),
+    Unexpected = try Module:accept({unexpected, ignored}, Config, ignored)
+        catch error:{case_clause, unexpected}:S -> S end,
+    [{Module,accept,3,_}|_] = Unexpected,
+    Errors = [try Module:send(Target, Address, Data) catch error:Reason:Stack -> {Reason, Stack} end ||
+        {Target, Address} <- [
+            {Transport, malformed},
+            {Transport, {malformed, socket}},
+            {Transport, {{{127,0,0,1}}, socket}},
+            {nonexistent_beam_fixture_transport, {Packet, socket}}
+        ]],
+    {Unexpected, Errors}
+end,
+Name = atom_to_list(Module) ++ ".beam",
+Otp = Run(filename:join([Dir, "fixture", "lib", "probe", "ebin", Name])),
+{_, [{function_clause, _}, {function_clause, _}, {function_clause, _}, {undef, _}]} = Otp,
+Otp = Run(filename:join(Dir, Name)),
+erlang:display({Module, equal}),
+halt().

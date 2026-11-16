@@ -1,0 +1,12 @@
+[Path] = init:get_plain_arguments(),
+{ok,Binary} = file:read_file(Path),
+{module,deferred_record_list_probe} = code:load_binary(deferred_record_list_probe,Path,Binary),
+{ok,state} = deferred_record_list_probe:event({event,name,node,data},state),
+[] = get(header),
+[name,node,data] = get(event),
+try deferred_record_list_probe:event({other,name,node,data},state) of
+    _ -> error(expected_function_clause)
+catch error:function_clause:Stack ->
+    [{deferred_record_list_probe,event,[{other,name,node,data},state],_}|_] = Stack
+end,
+halt().

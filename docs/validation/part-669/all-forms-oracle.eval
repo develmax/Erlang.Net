@@ -1,0 +1,4 @@
+Read=fun(P)->{ok,_,Cs}=beam_lib:all_chunks(P),{debug_info_v1,_,{Fs,Opts}}=binary_to_term(proplists:get_value("Dbgi",Cs)),{[case F of {eof,_}->{eof,0};_->erl_parse:map_anno(fun(_)->0 end,F) end||F<-Fs],Opts} end,
+R=Read("D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/library376-official-compiler/installed/lib/eldap-1.3.1/ebin/ELDAPv3.beam"),A=Read("artifacts/beam-backend/part669-eldap/ELDAPv3.release-profile.beam"),
+io:format("all_release_forms_and_debug_options_equal_ignoring_annotations=~p~n",[R=:=A]),
+case R=:=A of true->halt();false->{X,_}=R,{Y,_}=A,io:format("~p~n",[lists:sublist([{F,G}||{F,G}<-lists:zip(X,Y),F=/=G],2)]),halt(1) end.

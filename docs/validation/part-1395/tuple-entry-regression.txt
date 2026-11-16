@@ -1,0 +1,11 @@
+pick entry OTP {{test,is_tuple,{f,5},[{x,1}]},{select_tuple_arity,{tr,{x,1},{t_tuple,0,false,#{}}},{f,5},{list,[2,{f,4},3,{f,3}]}}}, previous {{allocate,3,2},{init_yregs,{list,[{y,2}]}}}, current {{test,is_tuple,{f,5},[{x,1}]},{select_tuple_arity,{tr,{x,1},{t_tuple,0,false,#{}}},{f,5},{list,[2,{f,4},3,{f,3}]}}}
+pick normalized instructions match: true
+read entry OTP {{test,is_tuple,{f,5},[{x,1}]},{select_tuple_arity,{tr,{x,1},{t_tuple,0,false,#{}}},{f,5},{list,[2,{f,4},3,{f,3}]}}}, previous {{allocate,4,2},{init_yregs,{list,[{y,2},{y,3}]}}}, current {{test,is_tuple,{f,6},[{x,1}]},{select_tuple_arity,{tr,{x,1},{t_tuple,0,false,#{}}},{f,6},{list,[2,{f,4},3,{f,3}]}}}
+read normalized instructions match: false
+forward entry OTP {{test,is_tuple,{f,5},[{x,1}]},{select_tuple_arity,{tr,{x,1},{t_tuple,0,false,#{}}},{f,5},{list,[2,{f,4},3,{f,3}]}}}, previous {{allocate,3,2},{init_yregs,{list,[{y,2}]}}}, current {{test,is_tuple,{f,5},[{x,1}]},{select_tuple_arity,{tr,{x,1},{t_tuple,0,false,#{}}},{f,5},{list,[2,{f,4},3,{f,3}]}}}
+forward normalized instructions match: true
+keep entry OTP {{test,is_tuple,{f,6},[{x,1}]},{select_tuple_arity,{tr,{x,1},{t_tuple,0,false,#{}}},{f,6},{list,[2,{f,4},3,{f,3}]}}}, previous {{allocate,3,2},{init_yregs,{list,[{y,2}]}}}, current {{test,is_tuple,{f,5},[{x,1}]},{select_tuple_arity,{tr,{x,1},{t_tuple,0,false,#{}}},{f,5},{list,[2,{f,4},3,{f,3}]}}}
+keep normalized instructions match: false
+relay entry OTP {{test,is_tuple,{f,5},[{x,1}]},{select_tuple_arity,{tr,{x,1},{t_tuple,0,false,#{}}},{f,5},{list,[2,{f,4},3,{f,3}]}}}, previous {{allocate,3,2},{init_yregs,{list,[{y,2}]}}}, current {{test,is_tuple,{f,5},[{x,1}]},{select_tuple_arity,{tr,{x,1},{t_tuple,0,false,#{}}},{f,5},{list,[2,{f,4},3,{f,3}]}}}
+relay normalized instructions match: true
+Values and fallback arguments agree with OTP.

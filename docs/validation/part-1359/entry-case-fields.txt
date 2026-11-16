@@ -1,0 +1,22 @@
+Entry fields used by case selector calls of 1001 differing images.
+Counts are {modules, functions, examples}. Groups can overlap.
+#{entry_record_field_in_case_call =>
+      {105,195,
+       [{xmerl_xsd,{check_cm2,4}},
+        {xmerl_xpath,{expanded_name,3}},
+        {xmerl_scan,{expanded_name,4}}]},
+  entry_tuple_field_in_case_call =>
+      {206,322,
+       [{xmerl_xsd,{check_cm2,4}},
+        {xmerl_xpath_pred,{expr,2}},
+        {xmerl_xpath_lib,{primary_expr,2}}]},
+  single_entry_record_field_in_case_call =>
+      {74,104,
+       [{xmerl_xsd,{get_attribute_value,3}},
+        {xmerl_xpath,{expanded_name,3}},
+        {xmerl_scan,{expanded_name,4}}]},
+  single_entry_tuple_field_in_case_call =>
+      {112,146,
+       [{xmerl_xsd,{cmp_any_namespace,3}},
+        {xmerl_sax_parser_utf8,{external_continuation_cb,1}},
+        {xmerl_sax_parser_utf16le,{external_continuation_cb,1}}]}}

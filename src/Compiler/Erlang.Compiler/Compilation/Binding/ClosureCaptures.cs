@@ -24,16 +24,78 @@ internal static class ClosureCaptures
     public static Dictionary<string, Term> Capture(Expr.Fun function, IReadOnlyDictionary<string, Term> bindings)
     {
         var collector = new Collector(bindings.Keys);
-        foreach (var clause in function.Clauses)
-            collector.Clause(clause, [], true);
+        collector.Fun(function, []);
 
         return collector.Names.Order(StringComparer.Ordinal).ToDictionary(name => name, name => bindings[name], StringComparer.Ordinal);
+    }
+
+    internal static string[] ReadBranchExports(
+        IReadOnlyList<Clause> clauses,
+        IEnumerable<string> bound,
+        IEnumerable<Expr> continuation,
+        Expr? after = null
+    )
+    {
+        var incoming = new HashSet<string>(bound, StringComparer.Ordinal);
+        var common = new HashSet<string>(incoming, StringComparer.Ordinal);
+        new Collector([]).Branches(clauses, common, after);
+        common.ExceptWith(incoming);
+        if (common.Count == 0)
+        {
+            return [];
+        }
+
+        var collector = new Collector(common);
+        var local = new HashSet<string>(StringComparer.Ordinal);
+        foreach (Expr expression in continuation)
+        {
+            collector.Walk(expression, local);
+        }
+
+        return collector.Names.Order(StringComparer.Ordinal).ToArray();
+    }
+
+    internal static HashSet<string> ReadEntryReferences(Clause clause, IEnumerable<string> names)
+    {
+        var collector = new Collector(names);
+        collector.EntryReferences(clause);
+
+        return collector.Names;
     }
 
     private sealed class Collector(IEnumerable<string> outer)
     {
         private readonly HashSet<string> outerNames = new(outer, StringComparer.Ordinal);
         public HashSet<string> Names { get; } = new(StringComparer.Ordinal);
+
+        internal void EntryReferences(Clause clause)
+        {
+            var local = new HashSet<string>(StringComparer.Ordinal);
+            foreach (Pattern pattern in clause.Patterns)
+            {
+                Keys(pattern, local, false);
+            }
+
+            if (clause.Guard is { } guard)
+            {
+                Walk(guard, local);
+            }
+
+            Walk(clause.Body, local);
+        }
+
+        internal void Fun(Expr.Fun function, HashSet<string> local)
+        {
+            var scope = local;
+            if (function.SelfName is { } selfName)
+            {
+                scope = new HashSet<string>(local, StringComparer.Ordinal) { selfName };
+            }
+            foreach (var clause in function.Clauses)
+            {
+                Clause(clause, scope, true);
+            }
+        }
 
         private void Read(string name, HashSet<string> local)
         {
@@ -120,7 +182,7 @@ internal static class ClosureCaptures
             local.UnionWith(joined);
         }
 
-        private void Branches(IReadOnlyList<Clause> clauses, HashSet<string> local, Expr? after = null)
+        internal void Branches(IReadOnlyList<Clause> clauses, HashSet<string> local, Expr? after = null)
         {
             HashSet<string>? common = null;
             foreach (var clause in clauses)
@@ -168,7 +230,7 @@ internal static class ClosureCaptures
 
         private static bool BooleanLiteral(Expr expression, string atom) => expression is Expr.Literal { Value: Atom value } && value.Name == atom;
 
-        private void Walk(Expr expression, HashSet<string> local)
+        internal void Walk(Expr expression, HashSet<string> local)
         {
             switch (expression)
             {
@@ -282,8 +344,7 @@ internal static class ClosureCaptures
                 case Expr.FunctionReference:
                     break;
                 case Expr.Fun nested:
-                    foreach (var clause in nested.Clauses)
-                        Clause(clause, local, true);
+                    Fun(nested, local);
                     break;
                 default:
                     throw new NotSupportedException();

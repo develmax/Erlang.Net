@@ -1,0 +1,190 @@
+4095:function `'PKIX1Implicit-2009'`:`enc_PolicyInformation`(_0) {
+4096-0:
+4097-  %% c:/Users/Maksim/AppData/Local/Temp/erl-cohort-7mzi5e1n/view/artifacts/library376-official-compiler/installed/lib/public_key-1.21.7/src/PKIX1Implicit-2009.erl:586
+4098-  %% Result type:
+4099-  %%    {any(), any()}
+4100-  %% Aliased:
+4101-  %%    _0
+4102-  _2 = call (`enc_PolicyInformation`/2), _0, `[<<"0">>]`
+4103-
+4104-  %% Aliased:
+4105-  %%    _2
+4106-  _5 = succeeded:body _2
+4107-  br _5, ^5, ^1
+4108-
+4109-5:
+4110-  %% Result type:
+4111-  %%    {any(), any()}
+4112-  %% Aliased:
+4113-  %%    _2
+4114-  ret _2
+4115-
+4116-1:
+4117-  _3 = call (`erlang`:`error`/1), `badarg`
+4118-  %% Result type:
+4119-  %%    none()
+4120-  ret _3
+4121-}
+4122-
+4123-%% c:/Users/Maksim/AppData/Local/Temp/erl-cohort-7mzi5e1n/view/artifacts/library376-official-compiler/installed/lib/public_key-1.21.7/src/PKIX1Implicit-2009.erl:588
+4124-%% Counter = 58
+4125-%% bs_ensure_opt: true
+4126:function `'PKIX1Implicit-2009'`:`enc_PolicyInformation`(_0, _1) {
+4127-0:
+4128-  %% Argument types:
+4129-  %%    
+4130-  %% Aliased:
+4131-  %%    _0
+4132-  _53 = bif:is_tuple _0
+4133-  br _53, ^53, ^29
+4134-
+4135-53:
+4136-  %% Argument types:
+4137-  %%    _0 => {...}
+4138-  %% Aliased:
+4139-  %%    _0
+4140-  _54 = bif:tuple_size _0
+4141-
+4142-  %% Argument types:
+4143-  %%    _54 => 0..16777215
+4144-  %% Unique:
+4145-  %%    _54
+4146-  _55 = bif:'=:=' _54, `3`
+4147-  br _55, ^52, ^29
+4148-
+4149-52:
+4150-  %% Argument types:
+4151-  %%    _0 => {any(), any(), any()}
+4152-  %% Aliased:
+4153-  %%    _0
+4154-  _14 = get_tuple_element _0, `1`
+4155-
+4156-  %% Argument types:
+4157-  %%    _0 => {any(), any(), any()}
+4158-  %% Aliased:
+4159-  %%    _0
+4160-  _13 = get_tuple_element _0, `2`
+4161-
+4162-  %% c:/Users/Maksim/AppData/Local/Temp/erl-cohort-7mzi5e1n/view/artifacts/library376-official-compiler/installed/lib/public_key-1.21.7/src/PKIX1Implicit-2009.erl:594
+4163-  %% Result type:
+4164-  %%    {any(), any()}
+4165-  %% Aliased:
+4166-  %%    _14
+4167-  _16 = call (`encode_object_identifier`/2), _14, `[<<6>>]`
+4168-
+4169-  %% Aliased:
+4170-  %%    _16
+4171-  _30 = succeeded:body _16
+4172-  br _30, ^47, ^1
+4173-
+4174-47:
+4175-  %% Argument types:
+4176-  %%    
+4177-  %% Aliased:
+4178-  %%    _13
+4179-  _36 = bif:'=:=' _13, `asn1_NOVALUE`
+4180-  br _36, ^35, ^34
+4181-
+4182-35:
+4183-  br ^33
+4184-
+4185-34:
+4186-  %% c:/Users/Maksim/AppData/Local/Temp/erl-cohort-7mzi5e1n/view/artifacts/library376-official-compiler/installed/lib/public_key-1.21.7/src/PKIX1Implicit-2009.erl:602
+4187-  %% Result type:
+4188-  %%    {any(), any()}
+4189-  %% Aliased:
+4190-  %%    _13
+4191-  _22 = call (`enc_PolicyInformation_policyQualifiers`/2), _13, `[<<"0">>]`
+4192-
+4193-  %% Aliased:
+4194-  %%    _22
+4195-  _37 = succeeded:body _22
+4196-  br _37, ^37, ^1
+4197-
+4198-37:
+4199-  br ^33
+4200-
+4201-33:
+4202-  _5 = phi { `{<<>>,0}`, ^35 }, { _22, ^37 }
+4203-
+4204-  %% Argument types:
+4205-  %%    _16 => {any(), any()}
+4206-  %% Aliased:
+4207-  %%    _16
+4208-  _18 = get_tuple_element _16, `0`
+4209-
+4210-  %% Argument types:
+4211-  %%    _16 => {any(), any()}
+4212-  %% Aliased:
+4213-  %%    _16
+4214-  _17 = get_tuple_element _16, `1`
+4215-
+4216-  %% Argument types:
+4217-  %%    _5 => {any(), any()}
+4218-  %% Aliased:
+4219-  %%    _5
+4220-  _20 = get_tuple_element _5, `0`
+4221-
+4222-  %% Argument types:
+4223-  %%    _5 => {any(), any()}
+4224-  %% Aliased:
+4225-  %%    _5
+4226-  _19 = get_tuple_element _5, `1`
+4227-
+4228-  %% Argument types:
+4229-  %%    
+4230-  %% Aliased:
+4231-  %%    _20
+4232-  _21 = put_list _20, `[]`
+4233-
+4234-  %% Argument types:
+4235-  %%    _21 => nonempty_list(any())
+4236-  %% Aliased:
+4237-  %%    _18
+4238-  %% Unique:
+4239-  %%    _21
+4240-  BytesSoFar = put_list _18, _21
+4241-
+4242-  %% c:/Users/Maksim/AppData/Local/Temp/erl-cohort-7mzi5e1n/view/artifacts/library376-official-compiler/installed/lib/public_key-1.21.7/src/PKIX1Implicit-2009.erl:606
+4243-  %% Argument types:
+4244-  %%    
+4245-  %% Aliased:
+4246-  %%    _17, 
+4247-  %%    _19
+4248-  LenSoFar = bif:'+' _17, _19
+4249-
+4250-  %% Unique:
+4251-  %%    LenSoFar
+4252-  _40 = succeeded:body LenSoFar
+4253-  br _40, ^40, ^1
+4254-
+4255-40:
+4256-  %% c:/Users/Maksim/AppData/Local/Temp/erl-cohort-7mzi5e1n/view/artifacts/library376-official-compiler/installed/lib/public_key-1.21.7/src/PKIX1Implicit-2009.erl:607
+--
+4302:function `'PKIX1Implicit-2009'`:`enc_PolicyInformation_policyQualifiers`(_0, _1) {
+4303-0:
+4304-  %% c:/Users/Maksim/AppData/Local/Temp/erl-cohort-7mzi5e1n/view/artifacts/library376-official-compiler/installed/lib/public_key-1.21.7/src/PKIX1Implicit-2009.erl:615
+4305-  %% Result type:
+4306-  %%    {list(any()), number()}
+4307-  %% Aliased:
+4308-  %%    _0
+4309-  _3 = call (`enc_PolicyInformation_policyQualifiers_components`/3), _0, `[]`, `0`
+4310-
+4311-  %% Aliased:
+4312-  %%    _3
+4313-  _10 = succeeded:body _3
+4314-  br _10, ^19, ^1
+4315-
+4316-19:
+4317-  %% Argument types:
+4318-  %%    _3 => {list(any()), number()}
+4319-  %% Aliased:
+4320-  %%    _3
+4321-  _5 = get_tuple_element _3, `0`
+4322-
+4323-  %% Argument types:
+4324-  %%    _3 => {list(any()), number()}
+4325-  %% Aliased:
+4326-  %%    _3
+4327-  _4 = get_tuple_element _3, `1`
+4328-

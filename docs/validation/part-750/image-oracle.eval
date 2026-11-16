@@ -1,0 +1,10 @@
+Original = filename:join([code:lib_dir(ssl),"doc","examples","ebin","client_server.beam"]),
+Generated = "artifacts/beam-backend/part750-images/client_server.beam",
+{ok,Bytes} = file:read_file(Original),
+{ok,Bytes} = file:read_file(Generated),
+{beam_file,client_server,_,_,_,Code} = beam_disasm:file(Generated),
+{function,start,0,_,Start} = lists:keyfind(start,2,Code),
+118 = length(Start),
+io:format("byte_equal=true bytes=~p start_instructions=~p sha256=~s~n",
+    [byte_size(Bytes),length(Start),binary:encode_hex(crypto:hash(sha256,Bytes))]),
+halt().

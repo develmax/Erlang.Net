@@ -1,0 +1,39 @@
+Dir = "artifacts/beam-backend/part843-images",
+Module = beam_maybe_listener_bind_probe,
+Stub = beam_bind_transport,
+Path = filename:join(Dir, atom_to_list(Stub) ++ ".erl"),
+Source = "-module(beam_bind_transport).\n-export([bind/2,listen/2,sockname/1]).\nbind(S,A) -> self() ! {bind,S,A}, get(bind_result).\nlisten(S,B) -> self() ! {listen,S,B}, get(listen_result).\nsockname(S) -> self() ! {sockname,S}, get(name_result).\n",
+ok = file:write_file(Path, Source),
+{ok, Stub, StubBytes} = compile:file(Path, [binary]),
+{module, Stub} = code:load_binary(Stub, Path, StubBytes),
+Run = fun(File) ->
+    code:purge(Module),
+    code:delete(Module),
+    {ok, Bytes} = file:read_file(File),
+    {module, Module} = code:load_binary(Module, File, Bytes),
+    Expect = fun(Event) -> receive Next -> Event = Next after 1000 -> error({missing,Event}) end end,
+    Invoke = fun(Bind, Listen, Name) ->
+        put(bind_result, Bind), put(listen_result, Listen), put(name_result, Name),
+        try Module:listen_port({address,inet},0,{listener,128})
+        catch error:Reason:Stack -> {Reason,Stack} end
+    end,
+    ExpectBind = fun() -> Expect({bind,listener,#{family=>inet,addr=>any,port=>0}}) end,
+    ExpectListen = fun() -> ExpectBind(), Expect({listen,listener,128}) end,
+    ExpectName = fun() -> ExpectListen(), Expect({sockname,listener}) end,
+    {ok,{listener,{{127,0,0,1},4433}}} = Invoke(ok,ok,{ok,#{addr=>{127,0,0,1},port=>4433}}), ExpectName(),
+    {error,bind_failed} = Invoke({error,bind_failed},ok,unused), ExpectBind(),
+    {error,listen_failed} = Invoke(ok,{error,listen_failed},unused), ExpectListen(),
+    {error,name_failed} = Invoke(ok,ok,{error,name_failed}), ExpectName(),
+    Bad = [begin
+        Result = Invoke(ok,ok,Value), ExpectName(),
+        {{else_clause,Value},_} = Result,
+        Result
+    end || Value <- [{ok,#{addr=>loopback}}, {ok,#{port=>4433}}, {ok,invalid}]],
+    receive Unexpected -> error({unexpected,Unexpected}) after 0 -> ok end,
+    Bad
+end,
+Name = atom_to_list(Module) ++ ".beam",
+Otp = Run(filename:join([Dir, "fixture", "lib", "probe", "ebin", Name])),
+Otp = Run(filename:join(Dir, Name)),
+erlang:display({Module, equal}),
+halt().

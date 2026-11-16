@@ -1,0 +1,33 @@
+[Reference, Generated] = [filename:absname(Path) || Path <- init:get_plain_arguments()],
+Frame = fun(Instructions) ->
+    case [Slots || {allocate, Slots, _} <- Instructions] of
+        [Slots | _] -> Slots;
+        [] -> none
+    end
+end,
+Functions = fun(Fs) ->
+    maps:from_list([{{Name, Arity}, Frame(Is)} || {function, Name, Arity, _, Is} <- Fs])
+end,
+Files = filelib:fold_files(Generated, "[.]beam$", true, fun(Path, Acc) -> [Path | Acc] end, []),
+Totals = lists:foldl(fun(Path, Acc) ->
+    Relative = lists:nthtail(length(filename:split(Generated)), filename:split(Path)),
+    {beam_file, Module, _, _, _, Left} = beam_disasm:file(filename:join([Reference | Relative])),
+    {beam_file, Module, _, _, _, Right} = beam_disasm:file(Path),
+    Actual = Functions(Right),
+    Pairs = [{Expected, maps:get(F, Actual)} || {F, Expected} <- maps:to_list(Functions(Left)), maps:is_key(F, Actual)],
+    Categories = [if
+        L =:= none, R =:= none -> no_frame;
+        L =:= none -> added_frame;
+        R =:= none -> missing_frame;
+        L =:= R -> same_slots;
+        L < R -> larger_frame;
+        true -> smaller_frame
+    end || {L, R} <- Pairs],
+    lists:foldl(fun(Category, Stats) ->
+        FunctionsInImage = length([C || C <- Categories, C =:= Category]),
+        maps:update_with(Category, fun({Images, Count}) -> {Images + 1, Count + FunctionsInImage} end,
+            {1, FunctionsInImage}, Stats)
+    end, Acc, lists:usort(Categories))
+end, #{}, Files),
+io:format("~p images. Counts per category {modules, functions}:~n~p~n", [length(Files), Totals]),
+halt().

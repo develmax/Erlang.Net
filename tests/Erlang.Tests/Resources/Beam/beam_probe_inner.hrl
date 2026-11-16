@@ -1,0 +1,2 @@
+-define(ANSWER, 42).
+-define(HEADER_LINE, ?LINE).

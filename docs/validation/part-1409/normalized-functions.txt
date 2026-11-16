@@ -1,0 +1,203 @@
+lib/asn1-5.5.2/ebin/asn1ct_check.beam
+lib/asn1-5.5.2/ebin/asn1ct_constructed_per.beam
+lib/asn1-5.5.2/ebin/asn1ct_gen_ber_bin_v2.beam
+lib/asn1-5.5.2/ebin/asn1ct_gen_per.beam
+lib/asn1-5.5.2/ebin/asn1ct_imm.beam
+lib/common_test-1.31.2/ebin/ct_property_test.beam
+lib/common_test-1.31.2/ebin/cth_conn_log.beam
+lib/common_test-1.31.2/ebin/test_server.beam
+lib/common_test-1.31.2/ebin/test_server_ctrl.beam
+lib/compiler-10.0.6/ebin/beam_doc.beam
+lib/compiler-10.0.6/ebin/beam_ssa_type.beam
+lib/compiler-10.0.6/ebin/core_parse.beam
+lib/debugger-7.0/ebin/dbg_wx_break_win.beam
+lib/dialyzer-6.0.3/ebin/dialyzer_dataflow.beam
+lib/dialyzer-6.0.3/ebin/erl_types.beam
+lib/diameter-2.7.2/ebin/diameter_codegen.beam
+lib/diameter-2.7.2/ebin/diameter_dict_parser.beam
+lib/diameter-2.7.2/ebin/diameter_exprecs.beam
+lib/diameter-2.7.2/ebin/diameter_info.beam
+lib/diameter-2.7.2/ebin/diameter_service.beam
+lib/diameter-2.7.2/ebin/diameter_sync.beam
+lib/edoc-1.5/ebin/edoc_layout.beam
+lib/edoc-1.5/ebin/edoc_macros.beam
+lib/edoc-1.5/ebin/edoc_parser.beam
+lib/edoc-1.5/ebin/edoc_types.beam
+lib/eldap-1.3.1/ebin/eldap.beam
+lib/erts-17.1/ebin/init.beam
+lib/et-1.8/ebin/et_wx_viewer.beam
+lib/eunit-2.11/ebin/eunit_lib.beam
+lib/inets-9.8/ebin/httpd_conf.beam
+lib/inets-9.8/ebin/httpd_custom.beam
+lib/kernel-11.0.4/ebin/inet_epmd_dist.beam
+lib/megaco-4.9.2/ebin/megaco_messenger.beam
+lib/megaco-4.9.2/ebin/megaco_sdp.beam
+lib/megaco-4.9.2/ebin/megaco_text_mini_parser.beam
+lib/megaco-4.9.2/ebin/megaco_text_parser_v1.beam
+lib/megaco-4.9.2/ebin/megaco_text_parser_v2.beam
+lib/megaco-4.9.2/ebin/megaco_text_parser_v3.beam
+lib/megaco-4.9.2/ebin/megaco_text_scanner.beam
+lib/mnesia-4.27/ebin/mnesia_schema.beam
+lib/mnesia-4.27/ebin/mnesia_text.beam
+lib/observer-2.19/ebin/crashdump_viewer.beam
+lib/os_mon-2.12/ebin/nteventlog.beam
+lib/parsetools-2.8/ebin/leex.beam
+lib/parsetools-2.8/ebin/yeccparser.beam
+lib/public_key-1.21.7/ebin/pubkey_policy_tree.beam
+lib/reltool-1.1/ebin/reltool_target.beam
+lib/runtime_tools-2.5/ebin/dbg.beam
+lib/sasl-4.4/ebin/systools_make.beam
+lib/snmp-5.20.5/ebin/snmp_log.beam
+lib/snmp-5.20.5/ebin/snmpa_conf.beam
+lib/snmp-5.20.5/ebin/snmpc_mib_gram.beam
+lib/snmp-5.20.5/ebin/snmpm_conf.beam
+lib/ssh-6.0.6/ebin/ssh_connection_handler.beam
+lib/ssh-6.0.6/ebin/ssh_sftp.beam
+lib/ssl-11.7.7/ebin/ssl_alert.beam
+lib/ssl-11.7.7/ebin/ssl_config.beam
+lib/ssl-11.7.7/ebin/ssl_server_session_cache.beam
+lib/ssl-11.7.7/ebin/tls_handshake_1_3.beam
+lib/stdlib-8.1/ebin/erl_eval.beam
+lib/stdlib-8.1/ebin/erl_parse.beam
+lib/stdlib-8.1/ebin/erl_pp.beam
+lib/stdlib-8.1/ebin/ms_transform.beam
+lib/stdlib-8.1/ebin/qlc.beam
+lib/stdlib-8.1/ebin/qlc_pt.beam
+lib/stdlib-8.1/ebin/shell_docs_markdown.beam
+lib/syntax_tools-4.1.1/ebin/erl_syntax.beam
+lib/tools-4.2.3/ebin/xref_parser.beam
+lib/xmerl-2.2/ebin/xmerl_b64Bin.beam
+lib/xmerl-2.2/ebin/xmerl_scan.beam
+lib/xmerl-2.2/ebin/xmerl_xpath_parse.beam
+lib/xmerl-2.2/ebin/xmerl_xsd.beam
+lib/xmerl-2.2/ebin/xmerl_xsd_re_parse.beam
+lib/xmerl-2.2/ebin/xmerl_xsd_type.beam
+lib/asn1-5.5.2/ebin/asn1ct_check.beam +[{single_value_collapse,1},
+                                        {make_constr_set_vs,1}] -[]
+lib/asn1-5.5.2/ebin/asn1ct_constructed_per.beam +[{make_var,1}] -[]
+lib/asn1-5.5.2/ebin/asn1ct_gen_ber_bin_v2.beam +[{asis_atom,1}] -[]
+lib/asn1-5.5.2/ebin/asn1ct_imm.beam +[{t_align,1},
+                                      {per_dec_unconstrained,1},
+                                      {t_binary,1},
+                                      {t_integer,1},
+                                      {t_list,1}] -[]
+lib/common_test-1.31.2/ebin/ct_property_test.beam +[{set_def_opt,3}] -[]
+lib/common_test-1.31.2/ebin/test_server_ctrl.beam +[{'-add_dir_with_skip/3-fun-0-',
+                                                     1},
+                                                    {'-add_dir/2-fun-0-',1},
+                                                    {conf,2}] -[]
+lib/compiler-10.0.6/ebin/core_parse.beam +[{yeccerror,1}] -[]
+lib/dialyzer-6.0.3/ebin/dialyzer_dataflow.beam +[{clause_error_warning,3}] -[]
+lib/dialyzer-6.0.3/ebin/erl_types.beam +[{ext_types_message,3}] -[]
+lib/diameter-2.7.2/ebin/diameter_codegen.beam +[{f_vendor_id,1},
+                                                {c_imported_avp,2},
+                                                {f_vendor_name,1},
+                                                {f_name,1},
+                                                {f_id,1}] -[]
+lib/diameter-2.7.2/ebin/diameter_dict_parser.beam +[{yeccerror,1}] -[]
+lib/diameter-2.7.2/ebin/diameter_exprecs.beam +[{'get-',1},
+                                                {'#info-/1',0},
+                                                {'info-',1},
+                                                {'get-X',2},
+                                                {'new--',1},
+                                                {'get--',1},
+                                                {'set-',1},
+                                                {'info-X',2},
+                                                {'#new-X/0',1},
+                                                {'#new-X/1',1}] -[]
+lib/diameter-2.7.2/ebin/diameter_info.beam +[{os_info,0}] -[]
+lib/diameter-2.7.2/ebin/diameter_service.beam +[{init_peers,0}] -[]
+lib/diameter-2.7.2/ebin/diameter_sync.beam +[{handle_info,2}] -[]
+lib/edoc-1.5/ebin/edoc_layout.beam +[{ot_atom,1},
+                                     {ot_list,1},
+                                     {ot_var,1},
+                                     {ot_nonempty_list,1},
+                                     {ot_integer,1},
+                                     {ot_paren,1}] -[]
+lib/edoc-1.5/ebin/edoc_macros.beam +[{macro_name_3,3}] -[]
+lib/edoc-1.5/ebin/edoc_parser.beam +[{yeccerror,1}] -[]
+lib/edoc-1.5/ebin/edoc_types.beam +[{wrap_type,3}] -[]
+lib/eldap-1.3.1/ebin/eldap.beam +[{equalityMatch,2},
+                                  {approxMatch,2},
+                                  {greaterOrEqual,2},
+                                  {lessOrEqual,2}] -[]
+lib/erts-17.1/ebin/init.beam +[{path_flags,1}] -[]
+lib/et-1.8/ebin/et_wx_viewer.beam +[{menuitem,4}] -[]
+lib/eunit-2.11/ebin/eunit_lib.beam +[{split_node_2,2}] -[]
+lib/inets-9.8/ebin/httpd_conf.beam +[{'-get_config/4-fun-0-',2}] -[]
+lib/inets-9.8/ebin/httpd_custom.beam +[{response_header,1}] -[]
+lib/kernel-11.0.4/ebin/inet_epmd_dist.beam +[{listen_open,2}] -[]
+lib/megaco-4.9.2/ebin/megaco_messenger.beam +[{is_all_segments,1}] -[]
+lib/megaco-4.9.2/ebin/megaco_sdp.beam +[{decode_PropertyGroup,1}] -[]
+lib/megaco-4.9.2/ebin/megaco_text_mini_parser.beam +[{yeccerror,1}] -[]
+lib/megaco-4.9.2/ebin/megaco_text_parser_v1.beam +[{yeccerror,1}] -[]
+lib/megaco-4.9.2/ebin/megaco_text_parser_v2.beam +[{yeccerror,1}] -[]
+lib/megaco-4.9.2/ebin/megaco_text_parser_v3.beam +[{yeccerror,1}] -[]
+lib/megaco-4.9.2/ebin/megaco_text_scanner.beam +[{make_property_parm,2}] -[]
+lib/observer-2.19/ebin/crashdump_viewer.beam +[{count,0},
+                                               {format_allocator_summary,2}] -[]
+lib/parsetools-2.8/ebin/leex.beam +[{parse_head,2}] -[]
+lib/parsetools-2.8/ebin/yeccparser.beam +[{yeccerror,1}] -[]
+lib/public_key-1.21.7/ebin/pubkey_policy_tree.beam +[{prune_nodes,2}] -[]
+lib/reltool-1.1/ebin/reltool_target.beam +[{gen_config,2}] -[]
+lib/runtime_tools-2.5/ebin/dbg.beam +[{wrap_encode,2}] -[]
+lib/sasl-4.4/ebin/systools_make.beam +[{sort_appls,1}] -[]
+lib/snmp-5.20.5/ebin/snmp_log.beam +[{timestamp,0}] -[]
+lib/snmp-5.20.5/ebin/snmpc_mib_gram.beam +[{make_range,1},{yeccerror,1}] -[]
+lib/ssh-6.0.6/ebin/ssh_connection_handler.beam +[{'-init_connection_record/3-fun-0-',
+                                                  1}] -[]
+lib/ssh-6.0.6/ebin/ssh_sftp.beam +[{'-do_handle_call/3-fun-2-',3},
+                                   {'-do_handle_call/3-fun-3-',3}] -[]
+lib/ssl-11.7.7/ebin/ssl_alert.beam +[{alert_format,1}] -[]
+lib/stdlib-8.1/ebin/erl_eval.beam +[{'-normalise/1-fun-0-',2}] -[]
+lib/stdlib-8.1/ebin/erl_parse.beam +[{'-normalise/1-fun-0-',2},{yeccerror,1}] -[]
+lib/stdlib-8.1/ebin/erl_pp.beam +[{attr,2},
+                                  {record_type,2},
+                                  {args,2},
+                                  {map_type,1},
+                                  {nl_clauses,4},
+                                  {expr_list,4},
+                                  {clauses,3},
+                                  {proper_list,2},
+                                  {improper_list,2},
+                                  {targs,1},
+                                  {typed,2}] -[]
+lib/stdlib-8.1/ebin/ms_transform.beam +[{'-normalise/1-fun-0-',2}] -[]
+lib/stdlib-8.1/ebin/qlc.beam +[{pref_lookup_join2,7}] -[]
+lib/stdlib-8.1/ebin/qlc_pt.beam +[{template_as_pattern,1},
+                                  {'-compile_messages/4-fun-1-',4},
+                                  {simple,4}] -[]
+lib/stdlib-8.1/ebin/shell_docs_markdown.beam +[{create_header,2},
+                                               {close_format,3}] -[]
+lib/syntax_tools-4.1.1/ebin/erl_syntax.beam +[{revert_annotated_type,1},
+                                              {revert_string,1},
+                                              {revert_integer_range_type,1},
+                                              {revert_integer,1},
+                                              {revert_record_type_field,1},
+                                              {revert_type_union,1},
+                                              {revert_bitstring_type,1},
+                                              {revert_map_type_exact,1},
+                                              {revert_record_type,1},
+                                              {revert_error_marker,1},
+                                              {revert_constraint,1},
+                                              {revert_atom,1},
+                                              {revert_warning_marker,1},
+                                              {revert_user_type_application,1},
+                                              {revert_tuple,1},
+                                              {revert_float,1},
+                                              {revert_binary,1},
+                                              {revert_map_type_assoc,1},
+                                              {revert_char,1},
+                                              {'-concrete/1-fun-2-',2},
+                                              {revert_constrained_function_type,
+                                               1}] -[]
+lib/tools-4.2.3/ebin/xref_parser.beam +[{yeccerror,1}] -[]
+lib/xmerl-2.2/ebin/xmerl_b64Bin.beam +[{yeccerror,1}] -[]
+lib/xmerl-2.2/ebin/xmerl_scan.beam +[{common_data,0}] -[]
+lib/xmerl-2.2/ebin/xmerl_xpath_parse.beam +[{yeccerror,1}] -[]
+lib/xmerl-2.2/ebin/xmerl_xsd.beam +[{return_schema_error,1},{return_error,1}] -[]
+lib/xmerl-2.2/ebin/xmerl_xsd_re_parse.beam +[{yeccerror,1}] -[]
+lib/xmerl-2.2/ebin/xmerl_xsd_type.beam +[{'-whiteSpace_fun/2-fun-2-',1},
+                                         {check_integer,1},
+                                         {'-whiteSpace_fun/2-fun-1-',1}] -[]
+Compared 74 changed images.

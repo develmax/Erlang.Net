@@ -1,0 +1,10 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, register_list_probe} = code:load_binary(register_list_probe, Path, Binary),
+[svc,t,f] = register_list_probe:run(t,svc,f),
+[fixed,a,b,a] = register_list_probe:repeat(a,b),
+[first,a] = register_list_probe:choose(tag,a),
+[second,a] = register_list_probe:choose(other,a),
+{beam_file, _, _, _, _, Fs} = beam_disasm:file(Path),
+[io:format("~p~n", [F]) || F = {function, Name, _, _, _} <- Fs, Name =/= module_info],
+halt().

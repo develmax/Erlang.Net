@@ -1,0 +1,88 @@
+One filter after a relaxed variable or tuple generator over a variable, with a missing OTP list helper.
+5 modules 5 source functions {boolean_expression,var,call}
+4 modules 5 source functions {guard,var,{op,'=/='}}
+4 modules 4 source functions {guard,tuple,{op,'=='}}
+4 modules 4 source functions {boolean_expression,var,'case'}
+3 modules 6 source functions {guard,tuple,{op,'=:='}}
+3 modules 3 source functions {guard,var,{op,'not'}}
+3 modules 3 source functions {guard,tuple,{op,'=/='}}
+3 modules 3 source functions {boolean_expression,var,{sets,is_element,2}}
+3 modules 3 source functions {boolean_expression,var,{lists,member,2}}
+3 modules 3 source functions {boolean_expression,var,{op,'not'}}
+3 modules 3 source functions {boolean_expression,tuple,{op,'not'}}
+2 modules 2 source functions {guard,tuple,{op,'<'}}
+2 modules 2 source functions {boolean_expression,var,{maps,is_key,2}}
+2 modules 2 source functions {boolean_expression,var,{lists,prefix,2}}
+2 modules 2 source functions {boolean_expression,var,{op,'=='}}
+2 modules 2 source functions {boolean_expression,var,{op,'=:='}}
+2 modules 2 source functions {boolean_expression,tuple,{sets,is_element,2}}
+1 modules 1 source functions {guard,var,{local,is_atom,1}}
+1 modules 1 source functions {guard,var,{op,'orelse'}}
+1 modules 1 source functions {guard,tuple,{local,is_list,1}}
+1 modules 1 source functions {guard,tuple,{op,'>'}}
+1 modules 1 source functions {boolean_expression,var,{local,sufficient_crypto_support,1}}
+1 modules 1 source functions {boolean_expression,tuple,{lists,member,2}}
+1 modules 1 source functions {boolean_expression,tuple,{lists,all,2}}
+1 modules 1 source functions {boolean_expression,tuple,call}
+lib/asn1-5.5.2/ebin/asn1ct_check.beam check_bitstring/2 {guard,tuple,{op,'<'}}
+lib/common_test-1.31.2/ebin/ct_config.beam get_config/3 {guard,tuple,{op,'=='}}
+lib/common_test-1.31.2/ebin/ct_cover.beam remove_excludes_and_dups/1 {boolean_expression,var,{op,'=='}}
+lib/common_test-1.31.2/ebin/ct_framework.beam add_defaults1/4 {guard,var,{op,'orelse'}}
+lib/common_test-1.31.2/ebin/ct_master.beam run_all/9 {guard,tuple,{op,'=='}}
+lib/common_test-1.31.2/ebin/ct_release_test.beam get_start_deps/2 {boolean_expression,var,{op,'=='}}
+lib/common_test-1.31.2/ebin/ct_run.beam run_make/5 {guard,tuple,{op,'=='}}
+lib/common_test-1.31.2/ebin/ct_run.beam maybe_interpret2/3 {guard,var,{local,is_atom,1}}
+lib/common_test-1.31.2/ebin/test_server.beam timetrap_scale_factor/1 {boolean_expression,tuple,call}
+lib/common_test-1.31.2/ebin/test_server.beam timetrap_cancel_all/2 {guard,tuple,{op,'=='}}
+lib/compiler-10.0.6/ebin/beam_core_to_ssa.beam strip_bs_construct_flags/1 {boolean_expression,var,'case'}
+lib/compiler-10.0.6/ebin/beam_ssa.beam def_unused_is/4 {boolean_expression,tuple,{sets,is_element,2}}
+lib/compiler-10.0.6/ebin/beam_ssa_codegen.beam kill_regs/3 {guard,var,{op,'not'}}
+lib/compiler-10.0.6/ebin/beam_ssa_codegen.beam bs_translate_instr/1 {boolean_expression,var,'case'}
+lib/compiler-10.0.6/ebin/beam_ssa_lint.beam vvars_terminator_1/3 {boolean_expression,var,{op,'not'}}
+lib/compiler-10.0.6/ebin/beam_ssa_opt.beam used_blocks/3 {boolean_expression,var,{maps,is_key,2}}
+lib/compiler-10.0.6/ebin/beam_ssa_pre_codegen.beam intersect_used/2 {boolean_expression,tuple,{sets,is_element,2}}
+lib/compiler-10.0.6/ebin/beam_ssa_pre_codegen.beam live_in_phis/3 {guard,tuple,{op,'=:='}}
+lib/compiler-10.0.6/ebin/beam_ssa_pre_codegen.beam reserve_zregs/4 {guard,tuple,{op,'=:='}}
+lib/compiler-10.0.6/ebin/beam_ssa_pre_codegen.beam res_xregs_from_phi/4 {guard,tuple,{op,'=:='}}
+lib/compiler-10.0.6/ebin/v3_core.beam zip_tq/6 {guard,var,{op,'=/='}}
+lib/compiler-10.0.6/ebin/v3_core.beam bc_tq1/5 {guard,var,{op,'=/='}}
+lib/dialyzer-6.0.3/ebin/dialyzer_callgraph.beam get_edges_from_deps/1 {guard,var,{op,'=/='}}
+lib/dialyzer-6.0.3/ebin/dialyzer_cl.beam unknown_functions/1 {boolean_expression,tuple,{op,'not'}}
+lib/dialyzer-6.0.3/ebin/dialyzer_dataflow.beam bind_comp_literal_var/5 {boolean_expression,var,call}
+lib/dialyzer-6.0.3/ebin/dialyzer_typesig.beam constrained_keys/1 {boolean_expression,var,{maps,is_key,2}}
+lib/dialyzer-6.0.3/ebin/erl_types.beam set_filter/2 {boolean_expression,var,call}
+lib/edoc-1.5/ebin/edoc_data.beam hidden_filter/2 {boolean_expression,var,'case'}
+lib/edoc-1.5/ebin/edoc_doclet.beam sources/5 {boolean_expression,var,{sets,is_element,2}}
+lib/edoc-1.5/ebin/edoc_doclet_chunks.beam sources/5 {boolean_expression,var,{sets,is_element,2}}
+lib/edoc-1.5/ebin/edoc_doclet_markdown.beam sources/5 {boolean_expression,var,{sets,is_element,2}}
+lib/eunit-2.11/ebin/eunit_data.beam parse/2 {guard,var,{op,'not'}}
+lib/inets-9.8/ebin/httpd_conf.beam get_config/4 {guard,tuple,{op,'=/='}}
+lib/kernel-11.0.4/ebin/code_server.beam get_user_lib_dirs_1/1 {boolean_expression,var,{op,'=:='}}
+lib/kernel-11.0.4/ebin/logger_std_h.beam fix_modes/1 {boolean_expression,var,{lists,member,2}}
+lib/mnesia-4.27/ebin/mnesia_bup.beam do_fallback_start/2 {guard,var,{op,'=/='}}
+lib/mnesia-4.27/ebin/mnesia_controller.beam handle_cast/2 {boolean_expression,tuple,{lists,member,2}}
+lib/mnesia-4.27/ebin/mnesia_frag.beam expand_cstruct/2 {boolean_expression,var,call}
+lib/mnesia-4.27/ebin/mnesia_index.beam read/5 {boolean_expression,var,{lists,member,2}}
+lib/mnesia-4.27/ebin/mnesia_recover.beam handle_call/3 {boolean_expression,var,call}
+lib/mnesia-4.27/ebin/mnesia_schema.beam verify_external_copies/1 {guard,tuple,{local,is_list,1}}
+lib/parsetools-2.8/ebin/leex.beam eclosure/3 {boolean_expression,tuple,{op,'not'}}
+lib/reltool-1.1/ebin/reltool_server.beam app_init_is_included/4 {guard,tuple,{op,'=:='}}
+lib/reltool-1.1/ebin/reltool_server.beam read_ebin_mods/2 {boolean_expression,var,{op,'=:='}}
+lib/reltool-1.1/ebin/reltool_server.beam libs_to_dirs/2 {boolean_expression,var,{lists,prefix,2}}
+lib/snmp-5.20.5/ebin/snmp_log.beam move_log/1 {boolean_expression,var,{lists,prefix,2}}
+lib/ssh-6.0.6/ebin/ssh_connection_handler.beam update_inet_buffers/1 {guard,tuple,{op,'<'}}
+lib/ssh-6.0.6/ebin/ssh_options.beam handle_options/3 {boolean_expression,tuple,{op,'not'}}
+lib/ssh-6.0.6/ebin/ssh_options.beam default/1 {boolean_expression,var,{op,'not'}}
+lib/ssh-6.0.6/ebin/ssh_options.beam nml/2 {guard,var,{op,'not'}}
+lib/ssl-11.7.7/ebin/ssl_handshake.beam select_curve/3 {boolean_expression,var,{lists,member,2}}
+lib/ssl-11.7.7/ebin/tls_record.beam sufficient_support/1 {boolean_expression,var,{local,sufficient_crypto_support,1}}
+lib/stdlib-8.1/ebin/dets_utils.beam disk_map_segment/2 {guard,tuple,{op,'>'}}
+lib/stdlib-8.1/ebin/edlin_expand.beam expand_filepath/2 {boolean_expression,var,'case'}
+lib/stdlib-8.1/ebin/erl_lint.beam check_untyped_records/2 {boolean_expression,tuple,{lists,all,2}}
+lib/stdlib-8.1/ebin/erl_lint.beam initially_reached_types/1 {guard,tuple,{op,'=/='}}
+lib/stdlib-8.1/ebin/filename.beam unix_splitb/1 {guard,var,{op,'=/='}}
+lib/stdlib-8.1/ebin/lists.beam filter/2 {boolean_expression,var,call}
+lib/stdlib-8.1/ebin/qlc_pt.beam compile_forms/2 {boolean_expression,var,{op,'not'}}
+lib/stdlib-8.1/ebin/qlc_pt.beam column_fun/3 {guard,tuple,{op,'=:='}}
+lib/stdlib-8.1/ebin/qlc_pt.beam qual_data/1 {guard,tuple,{op,'=:='}}
+lib/tools-4.2.3/ebin/tprof.beam disable_pattern/6 {guard,tuple,{op,'=/='}}

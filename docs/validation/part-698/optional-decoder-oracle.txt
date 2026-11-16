@@ -1,0 +1,60 @@
+OTP
+{label,1109}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3309}]}
+{func_info,{atom,'ELDAPv3'},{atom,dec_PasswdModifyResponseValue},2}
+{label,1110}
+{allocate,0,2}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3313}]}
+{call,2,{'ELDAPv3',match_tags,2}}
+{test,is_nonempty_list,{f,1111},[{x,0}]}
+{get_hd,{x,0},{x,0}}
+{test,is_tuple,{f,1111},[{x,0}]}
+{test,test_arity,{f,1111},[{x,0},2]}
+{get_tuple_element,{x,0},0,{x,1}}
+{test,is_eq_exact,{f,1111},[{x,1},{integer,131072}]}
+{get_tuple_element,{x,0},1,{x,0}}
+{move,nil,{x,1}}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3321}]}
+{call,2,{'ELDAPv3',decode_restricted_string,2}}
+{call_ext,1,{extfunc,erlang,binary_to_list,1}}
+{jump,{f,1112}}
+{label,1111}
+{move,{atom,asn1_NOVALUE},{x,0}}
+{label,1112}
+{test_heap,3,1}
+{put_tuple2,{x,0},{list,[{atom,'PasswdModifyResponseValue'},{x,0}]}}
+{deallocate,0}
+return
+CSharp
+{label,1163}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3309}]}
+{func_info,{atom,'ELDAPv3'},{atom,dec_PasswdModifyResponseValue},2}
+{label,1164}
+{allocate,0,2}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3313}]}
+{call,2,{'ELDAPv3',match_tags,2}}
+{test,is_nonempty_list,{f,1165},[{x,0}]}
+{get_hd,{x,0},{x,0}}
+{test,is_tuple,{f,1165},[{x,0}]}
+{test,test_arity,{f,1165},[{x,0},2]}
+{get_tuple_element,{x,0},0,{x,1}}
+{test,is_eq_exact,{f,1165},[{x,1},{integer,131072}]}
+{get_tuple_element,{x,0},1,{x,0}}
+{move,nil,{x,1}}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3321}]}
+{call,2,{'ELDAPv3',decode_restricted_string,2}}
+{call_ext,1,{extfunc,erlang,binary_to_list,1}}
+{jump,{f,1166}}
+{label,1165}
+{move,{atom,asn1_NOVALUE},{x,0}}
+{label,1166}
+{test_heap,3,1}
+{put_tuple2,{x,0},{list,[{atom,'PasswdModifyResponseValue'},{x,0}]}}
+{deallocate,0}
+return

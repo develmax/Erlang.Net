@@ -1,0 +1,63 @@
+[Reference, Generated] = [filename:absname(Path) || Path <- init:get_plain_arguments()],
+Files = filelib:fold_files(Generated, "[.]beam$", true, fun(Path, Acc) -> [Path | Acc] end, []),
+Variables = fun Walk({var,_,Name}) when Name =/= '_' -> [Name];
+    Walk(Tuple) when is_tuple(Tuple) -> lists:flatmap(Walk, tuple_to_list(Tuple));
+    Walk(List) when is_list(List) -> lists:flatmap(Walk, List);
+    Walk(_) -> []
+end,
+Prepared = fun(Expr) -> lists:member(element(1,Expr), [var,atom,integer,float,char,string,nil]) end,
+Construction = fun Check({tuple,_,Fields}) -> lists:all(Check,Fields);
+    Check({cons,_,Head,Tail}) -> Check(Head) andalso Check(Tail);
+    Check(Expr) -> Prepared(Expr)
+end,
+SimpleCall = fun({call,_,{atom,_,_},Args}) -> lists:all(Prepared,Args);
+    ({call,_,{remote,_,{atom,_,_},{atom,_,_}},Args}) -> lists:all(Prepared,Args);
+    (_) -> false
+end,
+LastCall = fun(Call = {call,_,_,_}) -> [{bare,Call}];
+    ({tuple,_,Fields}) ->
+        case lists:partition(Prepared,Fields) of
+            {_,[Call = {call,_,_,_}]} -> [{tuple,Call}];
+            _ -> []
+        end;
+    ({cons,_,Call = {call,_,_,_},{nil,_}}) -> [{singleton_list,Call}];
+    (_) -> []
+end,
+Inspect = fun({clause,_,Patterns,[],[{call,_,_,Arguments}]}) ->
+    Names = [Name || {var,_,Name} <- Patterns, Name =/= '_'],
+    case {lists:all(fun(P) -> element(1,P) =:= var end,Patterns),lists:splitwith(Prepared,Arguments)} of
+        {true,{Before,[First|After]}} ->
+            case SimpleCall(First) andalso not lists:all(Prepared,After) of
+                true ->
+                    LaterNames = Variables(Before ++ After),
+                    FirstOnly = lists:any(fun(Name) -> lists:member(Name,Names)
+                        andalso not lists:member(Name,LaterNames) end,Variables(First)),
+                    {Computed,Trailing} = lists:splitwith(Prepared,lists:reverse(After)),
+                    [Last|Earlier] = Trailing,
+                    Other = Variables(Before ++ Computed ++ Earlier),
+                    [simple_first_operand] ++ [first_only_input || FirstOnly] ++
+                        [constructors_only_after_call || lists:all(Construction,After)] ++
+                        [{last_use_in_call,Kind} || {Kind,Call} <- LastCall(Last), SimpleCall(Call),
+                            lists:any(fun(Name) -> lists:member(Name,Names)
+                                andalso not lists:member(Name,Other) end,Variables(Call))];
+                false -> []
+            end;
+        _ -> []
+    end;
+    (_) -> []
+end,
+Rows = [{Module,Name,Arity,Keys} || Path <- Files,
+    Relative <- [lists:nthtail(length(filename:split(Generated)),filename:split(Path))],
+    {ok,{Module,[{abstract_code,{raw_abstract_v1,Forms}}]}} <-
+        [beam_lib:chunks(filename:join([Reference|Relative]),[abstract_code])],
+    {function,_,Name,Arity,Clauses} <- Forms,
+    Keys <- [lists:usort(lists:flatmap(Inspect,Clauses))],
+    Keys =/= []],
+io:format("Entry call operand shapes in ~p differing images. Counts overlap and describe source shapes.~n",[length(Files)]),
+lists:foreach(fun(Key) ->
+    Matches = [{M,N,A} || {M,N,A,Keys} <- Rows, lists:member(Key,Keys)],
+    io:format("~w: ~p modules, ~p functions. Examples ~p~n",[Key,
+        length(lists:usort([M || {M,_,_} <- Matches])),length(Matches),lists:sublist(lists:sort(Matches),6)])
+end,[simple_first_operand,first_only_input,constructors_only_after_call,{last_use_in_call,bare},{last_use_in_call,tuple},
+    {last_use_in_call,singleton_list}]),
+halt().

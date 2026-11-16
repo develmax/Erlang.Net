@@ -10,5 +10,5 @@ internal static class ToolDiagnostics
     public const string ApiCompatibilityArguments = "api-compatibility requires documentation and output directories";
     public const string ReadinessRegistryMismatch = "Readiness registry differs from the actual runtime or lacks passed direct MFA tests";
     public const string ReadinessInvalidInput = "Readiness requires a passing report and matching pinned inventory baseline";
-    public const string Usage = "Usage: erlang compile <input.erl> <output.cs> | preprocess <input.cs> <output.cs> | inventory <otp-repo> <output-directory> | readiness <docs-directory> <test-report> <output-directory> | api-compatibility <docs-directory> <output-directory>";
+    public const string Usage = "Usage: erlang compile <input.erl> <output.cs> | compile-beam <input.erl> <output.beam> [otp-lib-directory] | preprocess <input.cs> <output.cs> | inventory <otp-repo> <output-directory> | readiness <docs-directory> <test-report> <output-directory> | api-compatibility <docs-directory> <output-directory>";
 }

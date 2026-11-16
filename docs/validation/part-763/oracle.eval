@@ -1,0 +1,12 @@
+Path = "tests/Erlang.Tests/Resources/Beam/beam_type_forms_probe.erl",
+{ok,beam_type_forms_probe,Expected} = compile:file(Path,[binary,deterministic]),
+{ok,Expected} = file:read_file("artifacts/beam-backend/part763-probe.beam"),
+{ok,beam_type_forms_probe,DebugExpected} = compile:file(Path,[binary,deterministic,debug_info]),
+ReadForms = fun(Image) ->
+    {ok,{_,[{abstract_code,{raw_abstract_v1,Forms}}]}} = beam_lib:chunks(Image,[abstract_code]),
+    Forms
+end,
+Forms = ReadForms(DebugExpected),
+Forms = ReadForms("artifacts/beam-backend/part763-debug.beam"),
+io:format("whole_image_equal=true bytes=~p abstract_forms_equal=~p~n",[byte_size(Expected),length(Forms)]),
+halt().

@@ -4,6 +4,22 @@ internal static class LexerFunBoundary
 {
     public static bool HasClauses(string source, int position)
     {
+        position = SkipTrivia(source, position);
+        if (position < source.Length && (char.IsUpper(source[position]) || source[position] == '_'))
+        {
+            do
+            {
+                position++;
+            } while (position < source.Length
+                && (char.IsLetterOrDigit(source[position]) || source[position] is '_' or '@'));
+            position = SkipTrivia(source, position);
+        }
+
+        return position < source.Length && source[position] == ErlangSyntaxTokens.OpenParenthesis[0];
+    }
+
+    private static int SkipTrivia(string source, int position)
+    {
         while (position < source.Length)
         {
             if (LexerWhitespace.Is(source[position]))
@@ -18,9 +34,9 @@ internal static class LexerFunBoundary
                 continue;
             }
 
-            return source[position] == ErlangSyntaxTokens.OpenParenthesis[0];
+            break;
         }
 
-        return false;
+        return position;
     }
 }

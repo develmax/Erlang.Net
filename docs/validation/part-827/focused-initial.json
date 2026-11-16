@@ -1,0 +1,37 @@
+{
+  "Partial": true,
+  "SelectedCount": 4,
+  "TotalCount": 9700,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/beam/documentation-payload-matches-otp",
+    "compiler/beam/rebuild-installed-otp-release-images",
+    "compiler/beam/whole-module-matches-otp",
+    "compiler/source/named-recursive-fun"
+  ],
+  "Passed": 3,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "compiler/beam/whole-module-matches-otp",
+      "Status": "Passed",
+      "Milliseconds": 8865
+    },
+    {
+      "Name": "compiler/source/named-recursive-fun",
+      "Status": "Passed",
+      "Milliseconds": 301
+    },
+    {
+      "Name": "compiler/beam/documentation-payload-matches-otp",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "compiler/beam/rebuild-installed-otp-release-images",
+      "Status": "Failed",
+      "Error": "Erlang.Compiler.CompileException: Could not resolve include \u0027ssl_handshake.hrl\u0027.\r\n   at Erlang.Compiler.BeamMacroPreprocessor.Include(List\u00601 form, Token terminator, String currentPath) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Compiler\\Erlang.Compiler\\Syntax\\BeamMacroPreprocessor.cs:line 280\r\n   at Erlang.Compiler.BeamMacroPreprocessor.ProcessDocument(List\u00601 tokens, String currentPath) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Compiler\\Erlang.Compiler\\Syntax\\BeamMacroPreprocessor.cs:line 106\r\n   at Erlang.Compiler.BeamMacroPreprocessor.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Compiler\\Erlang.Compiler\\Syntax\\BeamMacroPreprocessor.cs:line 61\r\n   at Erlang.Compiler.CodeGeneration.CompileBeamModule(String sourcePath, BeamMacroPreprocessor preprocessor, BeamReleaseBuildProfile buildProfile) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Compiler\\Erlang.Compiler\\Compilation\\CodeGeneration.cs:line 187\r\n   at Erlang.Compiler.CodeGeneration.CompileBeamFile(String sourcePath, String otpLibraryDirectory, IReadOnlyList\u00601 includeDirectories, BeamReleaseBuildProfile buildProfile) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Compiler\\Erlang.Compiler\\Compilation\\CodeGeneration.cs:line 177\r\n   at Erlang.Tests.BeamReleaseImageChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamReleaseImageChecks.cs:line 132\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16224",
+      "Milliseconds": 2891
+    }
+  ]
+}

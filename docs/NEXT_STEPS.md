@@ -1,5 +1,7 @@
 # Next steps
 
+For BEAM parity, compare the merged compiler with all 1,366 Windows OTP 29.1.1 release images. The latest checkpoint has 400 Equal and 966 Different. [Checkpoint evidence](validation/part-1820/README.md).
+
 Part611 adds the selectable error_logger backend with all 29 exports. Both backends pass 143 targeted observations and 10 upstream tests. [Publication evidence](validation/error-logger-port-20261105/publication/README.md).
 
 Supervisor follow-up covers the remaining upstream suite, distributed naming, logger metadata and platform and resource profiles. [Focused acceptance](validation/supervisor-port-20261106/README.md).

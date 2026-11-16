@@ -1,0 +1,25 @@
+read/2 instructions equal: True
+OTP
+{label,8}
+{line,[{location,"prim_buffer.erl",70}]}
+{func_info,{atom,prim_buffer},{atom,read},2}
+{label,9}
+{test,is_ge,{f,10},[{integer,64},{x,1}]}
+{call_only,2,{prim_buffer,copying_read,2}}
+{label,10}
+{allocate,0,2}
+{line,[{location,"prim_buffer.erl",73}]}
+{call,2,{prim_buffer,read_iovec,2}}
+{call_ext_last,1,{extfunc,erlang,iolist_to_binary,1},0}
+C#
+{label,8}
+{line,[{location,"prim_buffer.erl",70}]}
+{func_info,{atom,prim_buffer},{atom,read},2}
+{label,9}
+{test,is_ge,{f,10},[{integer,64},{x,1}]}
+{call_only,2,{prim_buffer,copying_read,2}}
+{label,10}
+{allocate,0,2}
+{line,[{location,"prim_buffer.erl",73}]}
+{call,2,{prim_buffer,read_iovec,2}}
+{call_ext_last,1,{extfunc,erlang,iolist_to_binary,1},0}

@@ -1,0 +1,51 @@
+[Reference, Before, After] = init:get_plain_arguments(),
+Path = "lib/wx-2.7/ebin/gl.beam",
+Normalize = fun(Instructions) ->
+    Labels = [L || {label,L} <- Instructions],
+    Index = maps:from_list(lists:zip(Labels,lists:seq(1,length(Labels)))),
+    Walk = fun W({label,L}) -> {label,maps:get(L,Index)};
+               W({f,L}) -> {f,maps:get(L,Index,L)};
+               W(T) when is_tuple(T) -> list_to_tuple([W(X) || X <- tuple_to_list(T)]);
+               W(L) when is_list(L) -> [W(X) || X <- L];
+               W(X) -> X
+           end,
+    Walk(Instructions)
+end,
+Read = fun(Root) ->
+    {beam_file,gl,_,_,_,Functions} = beam_disasm:file(filename:join(Root,Path)),
+    maps:from_list([{{Name,Arity},Normalize(Is)} || {function,Name,Arity,_,Is} <- Functions])
+end,
+Otp = Read(Reference),
+Old = Read(Before),
+New = Read(After),
+Equal = fun(Map) -> length([ok || {Function,Is} <- maps:to_list(Otp),
+                                   maps:find(Function,Map) =:= {ok,Is}]) end,
+io:format("Functions OTP/before/after: ~p~n", [{map_size(Otp),map_size(Old),map_size(New)}]),
+io:format("Matching normalized functions before/after: ~p~n", [{Equal(Old),Equal(New)}]),
+io:format("Missing functions: ~p~n", [lists:sort(maps:keys(Otp) -- maps:keys(New))]),
+FirstDifference = fun Find([I|Left],[I|Right]) -> Find(Left,Right);
+                      Find([L|_],[R|_]) -> {L,R};
+                      Find(Left,Right) -> {Left,Right}
+                  end,
+Opcode = fun({test,Name,_,_}) -> {test,Name};
+            (I) when is_tuple(I), tuple_size(I) > 0 -> element(1,I);
+            (I) -> I
+         end,
+Groups = maps:fold(fun(Key,Expected,Acc) ->
+    case maps:find(Key,New) of
+        {ok,Actual} when Actual =/= Expected ->
+            {Left,Right} = FirstDifference(Expected,Actual),
+            maps:update_with({Opcode(Left),Opcode(Right)},fun(Keys) -> [Key|Keys] end,[Key],Acc);
+        _ ->
+            Acc
+    end
+end,#{},Otp),
+io:format("Most common first differences: ~p~n",
+          [lists:sublist(lists:reverse(lists:sort([{length(Keys),Pair,lists:sublist(lists:sort(Keys),3)}
+                    || {Pair,Keys} <- maps:to_list(Groups)])),8)]),
+lists:foreach(fun(Key) ->
+    Expected = maps:get(Key,Otp),
+    Actual = maps:get(Key,New),
+    io:format("~p equal: ~p~nOTP: ~p~nGenerated: ~p~n",[Key,Expected =:= Actual,Expected,Actual])
+end,[{shaderSource,2},{transformFeedbackVaryings,3},{getUniformIndices,2},{lookup_func,1},{nif_stub_error,1}]),
+halt().

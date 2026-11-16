@@ -1,0 +1,24 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, wildcard_list_probe} = code:load_binary(wildcard_list_probe, Path, Binary),
+{extra,undefined} = wildcard_list_probe:read([discarded,value|tail], extra),
+value = get(list_key),
+{fallback,extra} = wildcard_list_probe:read([fallback], extra),
+Self = self(),
+{two,Self} = wildcard_list_probe:exact([a,b]),
+other = wildcard_list_probe:exact([a,b,c]),
+other = wildcard_list_probe:exact([a,b|tail]),
+other = wildcard_list_probe:exact([a]),
+{undefined,tail,extra} = wildcard_list_probe:tagged([tag,42,value|tail],extra),
+{fallback,extra} = wildcard_list_probe:tagged([tag,wrong,value],extra),
+{fallback,extra} = wildcard_list_probe:tagged([wrong,42,value],extra),
+value = get(tag_key),
+try wildcard_list_probe:read([bad], original) of
+    _ -> error(expected_function_clause)
+catch error:function_clause:Stack ->
+    [{wildcard_list_probe,read,[[bad],original],_}|_] = Stack
+end,
+{beam_file, _, _, _, _, Functions} = beam_disasm:file(Path),
+[io:format("~p~n", [F]) || F = {function, Name, _, _, _} <- Functions, lists:member(Name,[read,exact,tagged])],
+halt().
+

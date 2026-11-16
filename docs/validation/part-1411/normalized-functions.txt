@@ -1,0 +1,347 @@
+lib/asn1-5.5.2/ebin/asn1ct_constructed_per.beam
+lib/asn1-5.5.2/ebin/asn1ct_imm.beam
+lib/asn1-5.5.2/ebin/asn1ct_parser2.beam
+lib/common_test-1.31.2/ebin/ct_logs.beam
+lib/common_test-1.31.2/ebin/ct_master_logs.beam
+lib/common_test-1.31.2/ebin/ct_netconfc.beam
+lib/compiler-10.0.6/ebin/beam_ssa_codegen.beam
+lib/compiler-10.0.6/ebin/beam_ssa_recv.beam
+lib/compiler-10.0.6/ebin/beam_ssa_share.beam
+lib/compiler-10.0.6/ebin/beam_validator.beam
+lib/compiler-10.0.6/ebin/cerl_inline.beam
+lib/debugger-7.0/ebin/dbg_wx_trace_win.beam
+lib/dialyzer-6.0.3/ebin/dialyzer.beam
+lib/dialyzer-6.0.3/ebin/dialyzer_typesig.beam
+lib/diameter-2.7.2/ebin/diameter_codegen.beam
+lib/diameter-2.7.2/ebin/diameter_tcp.beam
+lib/kernel-11.0.4/ebin/disk_log_1.beam
+lib/kernel-11.0.4/ebin/group_history.beam
+lib/megaco-4.9.2/ebin/megaco_ber_media_gateway_control_v1.beam
+lib/megaco-4.9.2/ebin/megaco_ber_media_gateway_control_v2.beam
+lib/megaco-4.9.2/ebin/megaco_ber_media_gateway_control_v3.beam
+lib/os_mon-2.12/ebin/nteventlog.beam
+lib/parsetools-2.8/ebin/leex.beam
+lib/parsetools-2.8/ebin/yecc.beam
+lib/public_key-1.21.7/ebin/AttributeCertificateVersion1-2009.beam
+lib/public_key-1.21.7/ebin/CryptographicMessageSyntax-2009.beam
+lib/public_key-1.21.7/ebin/EnrollmentMessageSyntax-2009.beam
+lib/public_key-1.21.7/ebin/OCSP-2024-08.beam
+lib/public_key-1.21.7/ebin/OTP-PKIX-Relaxed.beam
+lib/public_key-1.21.7/ebin/OTP-PKIX.beam
+lib/public_key-1.21.7/ebin/PKCS-10.beam
+lib/public_key-1.21.7/ebin/PKCS-FRAME.beam
+lib/public_key-1.21.7/ebin/PKIX1Explicit-2009.beam
+lib/public_key-1.21.7/ebin/PKIX1Implicit-2009.beam
+lib/public_key-1.21.7/ebin/PKIXAttributeCertificate-2009.beam
+lib/public_key-1.21.7/ebin/PKIXCMP-2023.beam
+lib/public_key-1.21.7/ebin/PKIXCRMF-2009.beam
+lib/public_key-1.21.7/ebin/SecureMimeMessageV3dot1-2009.beam
+lib/public_key-1.21.7/ebin/pubkey_ocsp.beam
+lib/sasl-4.4/ebin/rb.beam
+lib/sasl-4.4/ebin/sasl_report.beam
+lib/snmp-5.20.5/ebin/snmp_pdus.beam
+lib/ssh-6.0.6/ebin/ssh_message.beam
+lib/ssh-6.0.6/ebin/ssh_options.beam
+lib/ssl-11.7.7/ebin/ssl_trace.beam
+lib/stdlib-8.1/ebin/argparse.beam
+lib/stdlib-8.1/ebin/erl_lint.beam
+lib/stdlib-8.1/ebin/gb_sets.beam
+lib/stdlib-8.1/ebin/io_lib.beam
+lib/stdlib-8.1/ebin/qlc.beam
+lib/stdlib-8.1/ebin/qlc_pt.beam
+lib/stdlib-8.1/ebin/shell_docs.beam
+lib/syntax_tools-4.1.1/ebin/erl_syntax_lib.beam
+lib/tftp-1.3/ebin/tftp_logger.beam
+lib/tools-4.2.3/ebin/xref_compiler.beam
+lib/asn1-5.5.2/ebin/asn1ct_constructed_per.beam +[{opt_imm,1}] -[]
+lib/asn1-5.5.2/ebin/asn1ct_imm.beam +[{enc_opt_al,1}] -[]
+lib/asn1-5.5.2/ebin/asn1ct_parser2.beam +[{parse_Enumeration,1},
+                                          {parse_FieldName,1}] -[]
+lib/common_test-1.31.2/ebin/ct_logs.beam +[{year,0}] -[]
+lib/common_test-1.31.2/ebin/ct_master_logs.beam +[{year,0}] -[]
+lib/common_test-1.31.2/ebin/ct_netconfc.beam +[{remove_xmlnsattr_for_tag,2},
+                                               {get_local_name_atom,1}] -[]
+lib/compiler-10.0.6/ebin/beam_ssa_share.beam +[{canonical_is,1}] -[]
+lib/compiler-10.0.6/ebin/cerl_inline.beam +[{i_let_3,4}] -[]
+lib/dialyzer-6.0.3/ebin/dialyzer.beam +[{run,1}] -[]
+lib/dialyzer-6.0.3/ebin/dialyzer_typesig.beam +[{state__store_conj_lists,4}] -[]
+lib/kernel-11.0.4/ebin/disk_log_1.beam +[{read_size_file,1}] -[]
+lib/megaco-4.9.2/ebin/megaco_ber_media_gateway_control_v1.beam +[{enc_SeqSigList_signalList,
+                                                                  2},
+                                                                 {enc_Message_messageBody_transactions,
+                                                                  2},
+                                                                 {enc_TransactionRequest_actions,
+                                                                  2},
+                                                                 {enc_EventsDescriptor_eventList,
+                                                                  2},
+                                                                 {enc_SignalsDescriptor,
+                                                                  2},
+                                                                 {enc_AmmRequest_descriptors,
+                                                                  2},
+                                                                 {enc_ActionRequest_commandRequests,
+                                                                  2},
+                                                                 {enc_TransactionReply_transactionResult_actionReplies,
+                                                                  2},
+                                                                 {enc_TerminationAudit,
+                                                                  2},
+                                                                 {enc_SecondEventsDescriptor_eventList,
+                                                                  2},
+                                                                 {enc_ActionReply_commandReply,
+                                                                  2}] -[]
+lib/megaco-4.9.2/ebin/megaco_ber_media_gateway_control_v2.beam +[{enc_SeqSigList_signalList,
+                                                                  2},
+                                                                 {enc_Message_messageBody_transactions,
+                                                                  2},
+                                                                 {enc_TransactionRequest_actions,
+                                                                  2},
+                                                                 {enc_EventsDescriptor_eventList,
+                                                                  2},
+                                                                 {enc_SignalsDescriptor,
+                                                                  2},
+                                                                 {enc_AmmRequest_descriptors,
+                                                                  2},
+                                                                 {enc_ActionRequest_commandRequests,
+                                                                  2},
+                                                                 {enc_TransactionReply_transactionResult_actionReplies,
+                                                                  2},
+                                                                 {enc_TerminationAudit,
+                                                                  2},
+                                                                 {enc_SecondEventsDescriptor_eventList,
+                                                                  2},
+                                                                 {enc_ActionReply_commandReply,
+                                                                  2}] -[]
+lib/megaco-4.9.2/ebin/megaco_ber_media_gateway_control_v3.beam +[{enc_SeqSigList_signalList,
+                                                                  2},
+                                                                 {enc_Message_messageBody_transactions,
+                                                                  2},
+                                                                 {enc_TransactionRequest_actions,
+                                                                  2},
+                                                                 {enc_EventsDescriptor_eventList,
+                                                                  2},
+                                                                 {enc_SignalsDescriptor,
+                                                                  2},
+                                                                 {enc_AmmRequest_descriptors,
+                                                                  2},
+                                                                 {enc_ActionRequest_commandRequests,
+                                                                  2},
+                                                                 {enc_TransactionReply_transactionResult_actionReplies,
+                                                                  2},
+                                                                 {enc_TerminationAudit,
+                                                                  2},
+                                                                 {enc_SecondEventsDescriptor_eventList,
+                                                                  2},
+                                                                 {enc_ActionReply_commandReply,
+                                                                  2}] -[]
+lib/os_mon-2.12/ebin/nteventlog.beam +[{hollerith,1}] -[]
+lib/parsetools-2.8/ebin/leex.beam +[{re_repeat,3}] -[]
+lib/parsetools-2.8/ebin/yecc.beam +[{parse_grammar,3}] -[]
+lib/public_key-1.21.7/ebin/AttributeCertificateVersion1-2009.beam +[{enc_AttributeCertificateInfoV1_attributes,
+                                                                     2},
+                                                                    {enc_AttributeCertificateInfoV1_attributes_AttributeSet_values,
+                                                                     3},
+                                                                    {enc_AttributeCertificateInfoV1_extensions,
+                                                                     2}] -[]
+lib/public_key-1.21.7/ebin/CryptographicMessageSyntax-2009.beam +[{enc_EnvelopedData_unprotectedAttrs,
+                                                                   2},
+                                                                  {enc_SignedAttributes_Attribute_attrValues,
+                                                                   3},
+                                                                  {enc_SignerInfo_unsignedAttrs,
+                                                                   2},
+                                                                  {enc_SignerInfo_unsignedAttrs_Attribute_attrValues,
+                                                                   3},
+                                                                  {enc_SignerInfos,
+                                                                   2},
+                                                                  {enc_RecipientInfos,
+                                                                   2},
+                                                                  {enc_EnvelopedData_unprotectedAttrs_Attribute_attrValues,
+                                                                   3},
+                                                                  {enc_UnauthAttributes,
+                                                                   2},
+                                                                  {enc_SignedAttributes,
+                                                                   2},
+                                                                  {enc_RecipientEncryptedKeys,
+                                                                   2},
+                                                                  {enc_UnauthAttributes_Attribute_attrValues,
+                                                                   3},
+                                                                  {enc_EncryptedData_unprotectedAttrs,
+                                                                   2},
+                                                                  {enc_CertificateSet,
+                                                                   2},
+                                                                  {enc_EncryptedData_unprotectedAttrs_Attribute_attrValues,
+                                                                   3},
+                                                                  {enc_RevocationInfoChoices,
+                                                                   2},
+                                                                  {enc_AuthAttributes_Attribute_attrValues,
+                                                                   3},
+                                                                  {enc_SignedData_digestAlgorithms,
+                                                                   2},
+                                                                  {enc_AuthAttributes,
+                                                                   2}] -[]
+lib/public_key-1.21.7/ebin/EnrollmentMessageSyntax-2009.beam +[{enc_TaggedAttribute_attrValues,
+                                                                3},
+                                                               {enc_PKIResponse_controlSequence,
+                                                                2},
+                                                               {enc_CertificationRequest_certificationRequestInfo_attributes,
+                                                                2},
+                                                               {enc_PKIData_cmsSequence,
+                                                                2},
+                                                               {enc_PKIData_otherMsgSequence,
+                                                                2},
+                                                               {enc_PKIResponse_otherMsgSequence,
+                                                                2},
+                                                               {enc_PKIData_controlSequence,
+                                                                2},
+                                                               {enc_AddExtensions_extensions,
+                                                                2},
+                                                               {enc_PKIResponse_cmsSequence,
+                                                                2},
+                                                               {enc_PKIData_reqSequence,
+                                                                2},
+                                                               {enc_ExtensionReq,
+                                                                2},
+                                                               {enc_CertificationRequest_certificationRequestInfo_attributes_AttributeSet_values,
+                                                                3}] -[]
+lib/public_key-1.21.7/ebin/OCSP-2024-08.beam +[{enc_AcceptableResponses,2},
+                                               {enc_TBSRequest_requestList,2},
+                                               {enc_Signature_certs,2},
+                                               {enc_SingleResponse_singleExtensions,
+                                                2},
+                                               {enc_PreferredSignatureAlgorithms,
+                                                2},
+                                               {enc_BasicOCSPResponse_certs,2},
+                                               {enc_Request_singleRequestExtensions,
+                                                2},
+                                               {enc_ResponseData_responses,2},
+                                               {enc_ResponseData_responseExtensions,
+                                                2},
+                                               {enc_TBSRequest_requestExtensions,
+                                                2}] -[]
+lib/public_key-1.21.7/ebin/OTP-PKIX-Relaxed.beam +[{enc_OTPRelativeDistinguishedName,
+                                                    2},
+                                                   {enc_RDNSequence,2},
+                                                   {enc_OTPTBSCertificate_extensions,
+                                                    2}] -[]
+lib/public_key-1.21.7/ebin/OTP-PKIX.beam +[{enc_OTPRelativeDistinguishedName,
+                                            2},
+                                           {enc_RDNSequence,2},
+                                           {enc_OTPPolicyInformation_policyQualifiers,
+                                            2},
+                                           {enc_OTPCertificatePolicies,2},
+                                           {enc_HashRDNSequence,2},
+                                           {enc_HashRelativeDistinguishedName,
+                                            2},
+                                           {enc_OTPTBSCertificate_extensions,
+                                            2},
+                                           {enc_Extensions,2}] -[]
+lib/public_key-1.21.7/ebin/PKCS-10.beam +[{enc_CertificationRequestInfo_attributes_Attribute_values,
+                                           3},
+                                          {enc_CertificationRequestInfo_attributes,
+                                           2}] -[]
+lib/public_key-1.21.7/ebin/PKCS-FRAME.beam +[{enc_Attributes_Attribute_attrValues,
+                                              3},
+                                             {enc_AsymmetricKeyPackage,2},
+                                             {enc_Attributes,2}] -[]
+lib/public_key-1.21.7/ebin/PKIX1Explicit-2009.beam +[{enc_RelativeDistinguishedName,
+                                                      2},
+                                                     {enc_RDNSequence,2},
+                                                     {enc_TBSCertificate_extensions,
+                                                      2},
+                                                     {enc_TBSCertList_revokedCertificates_SEQOF_crlEntryExtensions,
+                                                      2},
+                                                     {enc_TBSCertList_revokedCertificates,
+                                                      2},
+                                                     {enc_TBSCertList_crlExtensions,
+                                                      2}] -[]
+lib/public_key-1.21.7/ebin/PKIX1Implicit-2009.beam +[{enc_PolicyInformation_policyQualifiers,
+                                                      2},
+                                                     {enc_GeneralNames,2},
+                                                     {enc_AuthorityInfoAccessSyntax,
+                                                      2},
+                                                     {enc_PolicyMappings,2},
+                                                     {enc_GeneralSubtrees,2},
+                                                     {enc_CRLDistributionPoints,
+                                                      2},
+                                                     {enc_SubjectDirectoryAttributes,
+                                                      2},
+                                                     {enc_SubjectDirectoryAttributes_AttributeSet_values,
+                                                      3},
+                                                     {enc_CertificatePolicies,
+                                                      2},
+                                                     {enc_ExtKeyUsageSyntax,2},
+                                                     {enc_SubjectInfoAccessSyntax,
+                                                      2}] -[]
+lib/public_key-1.21.7/ebin/PKIXAttributeCertificate-2009.beam +[{enc_ProxyInfo,
+                                                                 2},
+                                                                {enc_IetfAttrSyntax_values,
+                                                                 2},
+                                                                {enc_ACClearAttrs_attrs_AttributeSet_values,
+                                                                 3},
+                                                                {'enc_Clearance-rfc3281_securityCategories',
+                                                                 2},
+                                                                {enc_AttrSpec,
+                                                                 2},
+                                                                {enc_AttributeCertificateInfo_extensions,
+                                                                 2},
+                                                                {enc_AttributeCertificateInfo_attributes_AttributeSet_values,
+                                                                 3},
+                                                                {enc_Clearance_securityCategories,
+                                                                 2},
+                                                                {enc_ACClearAttrs_attrs,
+                                                                 2},
+                                                                {enc_Targets,
+                                                                 2},
+                                                                {enc_AttributeCertificateInfo_attributes,
+                                                                 2}] -[]
+lib/public_key-1.21.7/ebin/PKIXCMP-2023.beam +[{enc_CRLAnnContent,2},
+                                               {enc_POPODecKeyChallContent,2},
+                                               {enc_PKIMessage_extraCerts,2},
+                                               {enc_PKIMessages,2},
+                                               {enc_GenRepContent,2},
+                                               {enc_KeyRecRepContent_keyPairHist,
+                                                2},
+                                               {enc_RevRepContent_status,2},
+                                               {enc_CertConfirmContent,2},
+                                               {enc_RevRepContent_revCerts,2},
+                                               {enc_RevRepContent_crls,2},
+                                               {enc_CertRepMessage_caPubs,2},
+                                               {enc_RevReqContent,2},
+                                               {enc_RevDetails_crlEntryDetails,
+                                                2},
+                                               {enc_PKIHeader_generalInfo,2},
+                                               {enc_CertRepMessage_response,2},
+                                               {enc_RevAnnContent_crlDetails,
+                                                2},
+                                               {enc_KeyRecRepContent_caCerts,
+                                                2},
+                                               {enc_GenMsgContent,2}] -[]
+lib/public_key-1.21.7/ebin/PKIXCRMF-2009.beam +[{enc_Attributes_AttributeSet_values,
+                                                 3},
+                                                {enc_PKIPublicationInfo_pubInfos,
+                                                 2},
+                                                {enc_CertReqMessages,2},
+                                                {enc_CertReqMsg_regInfo,2},
+                                                {enc_Controls,2},
+                                                {enc_CertTemplate_extensions,
+                                                 2},
+                                                {enc_Attributes,2}] -[]
+lib/public_key-1.21.7/ebin/SecureMimeMessageV3dot1-2009.beam +[{'enc_aa-smimeCapabilities_SMIMECapabilities',
+                                                                2}] -[]
+lib/public_key-1.21.7/ebin/pubkey_ocsp.beam +[{verify_past_timestamp,1},
+                                              {verify_future_timestamp,1}] -[]
+lib/sasl-4.4/ebin/rb.beam +[{print_report_by_num,6}] -[]
+lib/sasl-4.4/ebin/sasl_report.beam +[{format_key_val,3}] -[]
+lib/snmp-5.20.5/ebin/snmp_pdus.beam +[{dec_oct_str_notag,1}] -[]
+lib/ssh-6.0.6/ebin/ssh_message.beam +[{ssh2_pubkey_decode,1}] -[]
+lib/stdlib-8.1/ebin/erl_lint.beam +[{'-clauses/2-fun-0-',2}] -[]
+lib/stdlib-8.1/ebin/gb_sets.beam +[{balance_list_unchecked,2}] -[]
+lib/stdlib-8.1/ebin/io_lib.beam +[{bwrite_string,3}] -[]
+lib/stdlib-8.1/ebin/qlc.beam +[{aux_name,3}] -[]
+lib/stdlib-8.1/ebin/qlc_pt.beam +[{nos_pattern,2}] -[]
+lib/stdlib-8.1/ebin/shell_docs.beam +[{trim_inline,1}] -[]
+lib/syntax_tools-4.1.1/ebin/erl_syntax_lib.beam +[{annotate_bindings,2},
+                                                  {analyze_attribute,2}] -[]
+lib/tftp-1.3/ebin/tftp_logger.beam +[{error_msg,2},
+                                     {info_msg,2},
+                                     {warning_msg,2}] -[]
+lib/tools-4.2.3/ebin/xref_compiler.beam +[{make_instructions,3}] -[]
+Compared 55 changed images.

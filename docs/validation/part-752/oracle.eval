@@ -1,0 +1,12 @@
+Path = "tests/Erlang.Tests/Resources/Beam/beam_dynamic_fun_probe.erl",
+{ok,beam_dynamic_fun_probe,Beam} = compile:file(Path,[binary,deterministic,debug_info]),
+{module,beam_dynamic_fun_probe} = code:load_binary(beam_dynamic_fun_probe,Path,Beam),
+{ok,{_,[{abstract_code,{raw_abstract_v1,Forms}}]}} = beam_lib:chunks(Beam,[abstract_code]),
+[{function,_,make,3,[{clause,_,_,[],[
+    {'fun',_,{function,{var,_,'Module'},{var,_,'Function'},{var,_,'Arity'}}}
+]}]}] = [F || F={function,_,make,3,_} <- Forms],
+Converter = beam_dynamic_fun_probe:make(erlang,atom_to_list,1),
+"probe" = Converter(probe),
+badarg = try beam_dynamic_fun_probe:arity_only(invalid) catch error:Reason -> Reason end,
+io:format("dynamic_fun_abstract_form=true invocation=probe invalid_arity=badarg~n"),
+halt().
