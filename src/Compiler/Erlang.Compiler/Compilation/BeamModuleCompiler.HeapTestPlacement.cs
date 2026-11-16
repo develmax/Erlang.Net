@@ -24,12 +24,18 @@ internal sealed partial class BeamModuleCompiler
             int original = (int)heap.Operands[^1].Value;
             int live = original;
             int first = index;
+            bool passedReceiveRemoval = false;
             while (first > 0)
             {
                 int? source = null;
                 int destination;
                 switch (body[first - 1])
                 {
+                    case { Definition.Opcode: RemoveMessage }:
+                        // Removing the message keeps the existing X register roots.
+                        passedReceiveRemoval = true;
+                        first--;
+                        continue;
                     case
                     {
                         Definition.Opcode: GetTupleElement,
@@ -72,7 +78,7 @@ internal sealed partial class BeamModuleCompiler
                 first--;
             }
 
-            if (live == original)
+            if (live == original && !passedReceiveRemoval)
             {
                 continue;
             }

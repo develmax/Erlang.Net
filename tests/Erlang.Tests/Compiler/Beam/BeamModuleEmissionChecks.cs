@@ -1859,11 +1859,13 @@ internal static class BeamModuleEmissionChecks
             throw new InvalidOperationException("Expected the passive receive frame to preserve no incoming X registers.");
         }
 
-        ReadOnlySpan<byte> messageHeap = [BeamEmissionFormat.TestHeap, 0x30, 0x10, BeamEmissionFormat.PutTuple];
-        ReadOnlySpan<byte> copiedMessageHeap = [BeamEmissionFormat.TestHeap, 0x30, 0x20, BeamEmissionFormat.PutTuple];
-        if (code.AsSpan().IndexOf(messageHeap) < 0 || code.AsSpan().IndexOf(copiedMessageHeap) >= 0)
+        ReadOnlySpan<byte> messageHeap =
+        [
+            BeamEmissionFormat.TestHeap, 0x30, 0x10, BeamEmissionFormat.RemoveMessage, BeamEmissionFormat.PutTuple
+        ];
+        if (code.AsSpan().IndexOf(messageHeap) < 0)
         {
-            throw new InvalidOperationException("Expected the received message to stay in X0 during heap allocation.");
+            throw new InvalidOperationException("Expected the receive heap check to reserve space before removing the message.");
         }
 
         ReadOnlySpan<byte> tail = [0x33, BeamEmissionFormat.TailLocalCall, 0x00];

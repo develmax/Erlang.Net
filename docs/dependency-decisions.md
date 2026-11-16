@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1813. Follow the pinned OTP beam_ssa_codegen neutral classification for remove_message. No dependency was added. [Evidence](validation/part-1813/README.md).
+
 Part 1812. Reuse receive scratch binding and the pinned OTP message register convention. No dependency was added. [Evidence](validation/part-1812/README.md).
 
 Part 1811. Reuse BEAM result forwarding and heap-root analysis. Compare both receive behavior and frame size against pinned OTP. No dependency was added. [Evidence](validation/part-1811/README.md).

@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1813. Move test_heap before remove_message while retaining the existing GC root prefix. Preserve the heap request and the order of the other instructions. [Evidence](validation/part-1813/README.md).
+
 Part 1812. Keep the message in X0 when all receive clauses have atom tests or fresh variables and no guard. Let the existing branch emitter preserve the selected term when necessary. [Evidence](validation/part-1812/README.md).
 
 Part 1811. Replace a receive-result stack spill with its incoming X register when the original message and all lower roots are proved initialized. Extend the heap live prefix as needed and use the value-availability proof before replacing reads. [Evidence](validation/part-1811/README.md).

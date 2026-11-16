@@ -1,5 +1,7 @@
 # Next steps
 
+Compare atom dispatch, argument preparation and the remaining frame boundaries with pinned OTP. [Evidence](validation/part-1813/README.md).
+
 Rank remaining instruction and metadata differences against the full release corpus. [Evidence](validation/part-1812/README.md).
 
 Avoid the X0-to-X1 copy for receives whose patterns leave X0 intact. [Evidence](validation/part-1811/README.md).
