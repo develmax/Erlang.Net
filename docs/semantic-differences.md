@@ -1,5 +1,7 @@
 Part 1783. Sort consecutive independent X-to-Y moves by destination slot after branch slot reuse. Preserve original store order when a run writes the same destination twice. [Evidence](validation/part-1783/README.md).
 
+Part 1816. Order all remaining saved arguments by Y slot when the preceding direct call already supplies X0. [Evidence](validation/part-1816/README.md).
+
 Part 1815. When the entry spills initialize every slot with a distinct input, number their Y slots in reverse X order and remap all accesses. Reuse the existing stack operand writer. [Evidence](validation/part-1815/README.md).
 
 Part 1814. Allow the entry planner to project a tuple field before allocating a frame when the next test uses that field. Preserve the original frame placement for projections needed only during call argument preparation. [Evidence](validation/part-1814/README.md).

@@ -102,8 +102,10 @@ internal sealed partial class BeamModuleCompiler
                 continue;
             }
 
+            bool retainedResult = extraArguments == 0 && count == arity - 1 && start > 0
+                && body[start - 1].Definition.Opcode is LocalCall or ExternalCall;
             BeamOperand? constructed = null;
-            if (count != arity)
+            if (count != arity && !retainedResult)
             {
                 if (start == 0)
                 {
@@ -125,7 +127,7 @@ internal sealed partial class BeamModuleCompiler
 
             // A tuple or list can already occupy an outgoing register. Order only
             // the remaining moves, provided they do not depend on their destinations.
-            // Stack-only runs may already include loads scheduled in an earlier block.
+            // An immediately preceding call can already have supplied X0.
             var byDestination = new int[arity];
             Array.Fill(byDestination, -1);
             bool hasNonStackSource = false;
@@ -145,38 +147,46 @@ internal sealed partial class BeamModuleCompiler
                 hasNonStackSource |= source.Kind != BeamOperandParameters.Y;
             }
 
-            if (!independent || !hasNonStackSource
+            if (!independent || (retainedResult ? hasNonStackSource || byDestination[0] >= 0 : !hasNonStackSource)
                 || constructed is not null && (byDestination[(int)constructed.Value] >= 0 || byDestination[0] < 0))
             {
                 continue;
             }
 
             int[] present = count == arity ? byDestination : byDestination.Where(index => index >= 0).ToArray();
-            int[] order = IndependentCallMoveOrder(count);
-            for (int index = 0; index < order.Length; index++)
+            int[] order;
+            if (retainedResult)
             {
-                order[index] = present[order[index]];
+                order = present.Reverse().OrderBy(index => body[index].Operands[0].Value).ToArray();
             }
-
-            // beam_block sorts contiguous Y-to-X loads by source, excluding the final X0 move.
-            for (int first = 0; first < order.Length - 1;)
+            else
             {
-                int last = first;
-                while (last < order.Length - 1 && body[order[last]].Operands[0] is
-                    { Kind: BeamOperandParameters.Y, TypeIndex: null })
+                order = IndependentCallMoveOrder(count);
+                for (int index = 0; index < order.Length; index++)
                 {
-                    last++;
+                    order[index] = present[order[index]];
                 }
 
-                if (last - first > 1)
+                // beam_block sorts contiguous Y-to-X loads by source, excluding the final X0 move.
+                for (int first = 0; first < order.Length - 1;)
                 {
-                    int[] sorted = order[first..last].Reverse()
-                        .OrderBy(index => body[index].Operands[0].Value)
-                        .ToArray();
-                    sorted.CopyTo(order, first);
-                }
+                    int last = first;
+                    while (last < order.Length - 1 && body[order[last]].Operands[0] is
+                        { Kind: BeamOperandParameters.Y, TypeIndex: null })
+                    {
+                        last++;
+                    }
 
-                first = Math.Max(last, first + 1);
+                    if (last - first > 1)
+                    {
+                        int[] sorted = order[first..last].Reverse()
+                            .OrderBy(index => body[index].Operands[0].Value)
+                            .ToArray();
+                        sorted.CopyTo(order, first);
+                    }
+
+                    first = Math.Max(last, first + 1);
+                }
             }
 
             if (order.SequenceEqual(Enumerable.Range(start, count)))

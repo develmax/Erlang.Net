@@ -1,5 +1,7 @@
 # Next steps
 
+Extract recursive helpers for discarded list comprehensions. [Evidence](validation/part-1816/README.md).
+
 Apply OTP call preparation ordering to independent stack argument loads. [Evidence](validation/part-1815/README.md).
 
 Match the numbering of fully saved entry frames. [Evidence](validation/part-1814/README.md).

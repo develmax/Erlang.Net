@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1816. Reuse the call preparation order derived from pinned OTP beam_ssa_codegen and beam_block. No dependency was added. [Evidence](validation/part-1816/README.md).
+
 Part 1815. Compare reserved entry register handling and move ordering against pinned OTP beam_ssa_pre_codegen and beam_block. No dependency was added. [Evidence](validation/part-1815/README.md).
 
 Part 1814. Reuse the entry projection planner and compare frame placement with the pinned OTP beam_ssa_pre_codegen pass. No dependency was added. [Evidence](validation/part-1814/README.md).
