@@ -146,6 +146,16 @@ internal sealed partial class BeamModuleCompiler
                         continue;
                     }
 
+                    if (ProvesLiteralRecordOnEdge(
+                        previous,
+                        state.Next,
+                        register,
+                        isTaggedLiteral
+                    ))
+                    {
+                        continue;
+                    }
+
                     BeamOperand? origin = instruction switch
                     {
                         { Definition.Opcode: Move, Operands: [var input, var destination] }
@@ -202,6 +212,54 @@ internal sealed partial class BeamModuleCompiler
             }
 
             return true;
+        }
+
+        private bool ProvesLiteralRecordOnEdge(
+            int previous,
+            int next,
+            BeamOperand register,
+            Func<BeamOperand, bool> isTaggedLiteral
+        )
+        {
+            BeamInstruction instruction = body[previous];
+            byte opcode = instruction.Definition.Opcode;
+            if (opcode is ExactEqualTest or ExactNotEqualTest
+                && instruction.Operands is [_, var left, var right]
+                && successors[previous] is [int failure, int success] && failure != success
+                && next == (opcode == ExactEqualTest ? success : failure))
+            {
+                return SameProjectionRegister(left, register) && MatchesLiteral(right)
+                    || SameProjectionRegister(right, register) && MatchesLiteral(left);
+            }
+
+            if (instruction is not { Definition.Opcode: SelectValue, Operands: [var input, var fallback, _, ..] }
+                || !SameProjectionRegister(input, register)
+                || body[next] is not { Definition.Opcode: Label, Operands: [var target] }
+                || fallback.Value == target.Value)
+            {
+                return false;
+            }
+
+            bool matched = false;
+            for (int key = 3; key + 1 < instruction.Operands.Count; key += 2)
+            {
+                if (instruction.Operands[key + 1].Value != target.Value)
+                {
+                    continue;
+                }
+
+                if (!MatchesLiteral(instruction.Operands[key]))
+                {
+                    return false;
+                }
+
+                matched = true;
+            }
+
+            return matched;
+
+            bool MatchesLiteral(BeamOperand value) =>
+                value.Kind == BeamOperandParameters.LiteralValue && isTaggedLiteral(value);
         }
 
         private static bool UpdatesRecordTag(IReadOnlyList<BeamOperand> operands)

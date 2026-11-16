@@ -1,5 +1,7 @@
 Part 1783. Sort consecutive independent X-to-Y moves by destination slot after branch slot reuse. Preserve original store order when a run writes the same destination twice. [Evidence](validation/part-1783/README.md).
 
+Part 1801. Use exact equality on a tuple literal as a shape proof. For a value selection, require every key entering the same block to have the proven tag and arity. [Evidence](validation/part-1801/README.md).
+
 Part 1800. Follow the result of update_record to its input when the size matches and the field list leaves the tag intact. [Evidence](validation/part-1800/README.md).
 
 Part 1799. Remember the tag and arity of interned tuple literals. Trace the argument through swaps and frame trimming to prove its shape. [Evidence](validation/part-1799/README.md).

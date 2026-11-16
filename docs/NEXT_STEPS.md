@@ -1,5 +1,7 @@
 # Next steps
 
+Measure how often whole-slot intervals prevent further stack-frame reuse. [Evidence](validation/part-1801/README.md).
+
 Use exact literal tests to prove the argument on the equality edge. [Evidence](validation/part-1800/README.md).
 
 Preserve the proven tag through updates that leave the tag field intact. [Evidence](validation/part-1799/README.md).
