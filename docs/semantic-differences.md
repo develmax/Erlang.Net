@@ -1,5 +1,7 @@
 Part 1783. Sort consecutive independent X-to-Y moves by destination slot after branch slot reuse. Preserve original store order when a run writes the same destination twice. [Evidence](validation/part-1783/README.md).
 
+Part 1807. Delay the shared frame until required by a branch and emit a direct local tail call without a frame when its arguments are already available. Keep receive loop retry edges at the label after allocation. [Evidence](validation/part-1807/README.md).
+
 Part 1806. Attach the source position of a record field to its badrecord exit. Relocate explicit single-line exits with their location and omit a redundant line when the same source is already active. [Evidence](validation/part-1806/README.md).
 
 Part 1805. Extend the live X prefix through a heap check when the existing dataflow proof can replace every read of the saved call result. The construction may use only other values. [Evidence](validation/part-1805/README.md).

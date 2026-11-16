@@ -35,6 +35,14 @@ internal sealed partial class BeamModuleCompiler
                 end,
                 extendEntry: true,
                 valueDead: IsTemporaryDead
+            ) ?? PlanEntryFramePlacement(
+                body,
+                start,
+                allocationIndex,
+                end,
+                extendEntry: true,
+                valueDead: IsTemporaryDead,
+                allowFramelessLocalTail: true
             );
             if (plan is { } placement)
             {
@@ -87,6 +95,16 @@ internal sealed partial class BeamModuleCompiler
                         int original = (int)instruction.Operands[^1].Value;
                         output.Write(code.Span[copied..(next - CompactLiveWidth(original))]);
                         BeamCompactWriter.Write(output, BeamWire.UnsignedTag, heapLive);
+                        copied = next;
+                        continue;
+                    }
+
+                    if (instruction.Definition.Opcode == TailLocalCallWithFrame)
+                    {
+                        output.Write(code.Span[copied..instruction.Offset]);
+                        output.WriteByte(TailLocalCall);
+                        BeamCompactWriter.Write(output, BeamWire.UnsignedTag, instruction.Operands[0].Value);
+                        BeamCompactWriter.Write(output, LabelTag, instruction.Operands[1].Value);
                         copied = next;
                         continue;
                     }
@@ -189,7 +207,8 @@ internal sealed partial class BeamModuleCompiler
         int allocationIndex,
         int end,
         bool extendEntry = false,
-        Func<int, BeamOperand, bool>? valueDead = null
+        Func<int, BeamOperand, bool>? valueDead = null,
+        bool allowFramelessLocalTail = false
     )
     {
         BeamInstruction allocation = body[allocationIndex];
@@ -229,7 +248,8 @@ internal sealed partial class BeamModuleCompiler
 
         if (predicate == end || !IsDelayedFramePredicate(body[predicate].Definition.Opcode)
             || extendEntry && (allocationIndex != start + 1 || allocation.Definition.Opcode != Allocate
-                || body[predicate].Definition.Opcode is not (IsTaggedTuple or IsTuple or IsNonemptyList)))
+                || !allowFramelessLocalTail
+                    && body[predicate].Definition.Opcode is not (IsTaggedTuple or IsTuple or IsNonemptyList)))
         {
             return null;
         }
@@ -245,6 +265,7 @@ internal sealed partial class BeamModuleCompiler
 
         var delayed = new HashSet<int>();
         var required = new HashSet<int>();
+        var receiveHeaders = new HashSet<int>();
         var parents = new Dictionary<int, int> { [first] = -1 };
         var registerLimits = new Dictionary<int, (int Live, bool Projected, bool MaybeProjected)>
         {
@@ -275,7 +296,21 @@ internal sealed partial class BeamModuleCompiler
                 || IsEntryFrameReturn(index);
             var (registers, projected, maybeProjected) = extendEntry
                 ? registerLimits[index] : (live, false, false);
-            if (extendEntry)
+            if (allowFramelessLocalTail)
+            {
+                // Keep a later list or tuple dispatch together when its paths may join again.
+                supported = supported && opcode is not (IsNonemptyList or IsTuple or IsTaggedTuple)
+                    || opcode == TailLocalCallWithFrame && instruction.Operands[^1].Value == frameSize
+                        && instruction.Operands[0].Value <= registers;
+                if (opcode == Label && index + 1 < end && body[index + 1].Definition.Opcode == LoopReceive
+                    && HasOnlyReceiveRetryEdges(index))
+                {
+                    // The unframed edge falls through the allocation. Retry edges enter at the label.
+                    receiveHeaders.Add(index);
+                    supported = false;
+                }
+            }
+            else if (extendEntry)
             {
                 if (index == tupleProjectionEnd)
                 {
@@ -399,7 +434,8 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        if (!delayed.Contains(first) || extendEntry && !delayed.Any(index => body[index].Definition.Opcode == Return))
+        byte framelessExit = allowFramelessLocalTail ? TailLocalCallWithFrame : Return;
+        if (!delayed.Contains(first) || extendEntry && !delayed.Any(index => body[index].Definition.Opcode == framelessExit))
         {
             return null;
         }
@@ -419,7 +455,7 @@ internal sealed partial class BeamModuleCompiler
             var pending = new Queue<int>(required.SelectMany(Successors));
             while (pending.TryDequeue(out int reached))
             {
-                if (reached < first || delayed.Contains(reached) || required.Contains(reached))
+                if (reached < first || delayed.Contains(reached) || required.Contains(reached) && !receiveHeaders.Contains(reached))
                 {
                     return null;
                 }
@@ -632,6 +668,29 @@ internal sealed partial class BeamModuleCompiler
             {
                 saved.Add(pairedSlot, pairedRegister);
             }
+        }
+
+        bool HasOnlyReceiveRetryEdges(int header)
+        {
+            var label = body[header].Operands[0].Value;
+            bool retries = false;
+            for (int index = first; index < end; index++)
+            {
+                if (!body[index].Operands.Any(operand => operand.Kind == BeamOperandParameters.Label
+                    && operand.Value == label))
+                {
+                    continue;
+                }
+
+                if (index <= header || body[index].Definition.Opcode is not (Wait or WaitTimeout or LoopReceiveEnd))
+                {
+                    return false;
+                }
+
+                retries = true;
+            }
+
+            return retries;
         }
 
         IEnumerable<int> Successors(int index)

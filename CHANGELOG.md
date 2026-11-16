@@ -243,4 +243,5 @@ Append numbered English entries only to the last volume. Start the next sequenti
 - [0155.md](docs/changelog/0155.md) — parts 1747–1758
 - [0156.md](docs/changelog/0156.md) — parts 1759–1773
 - [0157.md](docs/changelog/0157.md) — parts 1774–1789
-- [0158.md](docs/changelog/0158.md) — parts 1790 onward
+- [0158.md](docs/changelog/0158.md) — parts 1790–1806
+- [0159.md](docs/changelog/0159.md) — parts 1807 onward

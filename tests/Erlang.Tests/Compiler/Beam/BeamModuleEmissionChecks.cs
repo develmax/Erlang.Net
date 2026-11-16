@@ -460,6 +460,7 @@ internal static class BeamModuleEmissionChecks
         await CompareBranchStackSlots();
         CompareGuardedBranchStackSlots();
         await CompareLinearStackSlotsAfterRecordCheck();
+        CompareFramelessLocalTailWithReceive();
         CompareReceiveLoopStackSlots();
         CompareHeapCallResult();
         CompareMatchFailureLines();
@@ -1816,6 +1817,49 @@ internal static class BeamModuleEmissionChecks
         {
             throw new InvalidOperationException($"Expected badrecord at the field access on line 6, got {result}, exit {exit}.");
         }
+    }
+
+    private static void CompareFramelessLocalTailWithReceive()
+    {
+        const string source = """
+            -module(beam_frameless_dispatch).
+            -export([run/4]).
+
+            run(passive, _, 0, []) ->
+                receive
+                    notify -> done()
+                after 0 -> passive
+                end;
+            run(processes, Limit, 0, []) ->
+                run(ports, Limit, 0, collect());
+            run(ports, _, 0, []) -> done();
+            run(State, Limit, Outstanding, [First|Rest]) when Outstanding < Limit ->
+                note(First),
+                run(State, Limit, Outstanding+1, Rest);
+            run(State, Limit, Outstanding, Remaining) ->
+                receive
+                    notify -> {State, Limit, Outstanding, Remaining}
+                after 0 -> {waiting, Outstanding}
+                end.
+
+            note(Value) -> put(last, Value).
+            collect() -> [request].
+            done() -> {done, get(last)}.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_frameless_dispatch.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> tail = [0x33, BeamEmissionFormat.TailLocalCall, 0x00];
+        for (int index = 0; index + 2 + tail.Length <= code.Length; index++)
+        {
+            // is_nil with a one-byte failure label and X3 should fall through to call_only.
+            if (code[index] == BeamEmissionFormat.IsNil && (code[index + 1] & 0x0f) == 0x05
+                && code.AsSpan(index + 2, tail.Length).SequenceEqual(tail))
+            {
+                return;
+            }
+        }
+
+        throw new InvalidOperationException("Expected the direct tail branch to call done/0 without a frame.");
     }
 
     private static void CompareHeapCallResult()

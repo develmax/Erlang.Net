@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1807. Reuse the entry-frame control-flow proof and compare branch frame placement with the pinned OTP beam_ssa_pre_codegen pass. No dependency was added. [Evidence](validation/part-1807/README.md).
+
 Part 1806. Reuse record access source metadata and the prior terminal exit placement. Compare both disassembly and reported locations on pinned OTP 29.1.1. No dependency was added. [Evidence](validation/part-1806/README.md).
 
 Part 1805. Reuse the saved-call-result control-flow proof and compare the live prefix with OTP 29.1.1. No dependency was added. [Evidence](validation/part-1805/README.md).
