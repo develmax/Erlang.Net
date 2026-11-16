@@ -1,5 +1,7 @@
 Part 1783. Sort consecutive independent X-to-Y moves by destination slot after branch slot reuse. Preserve original store order when a run writes the same destination twice. [Evidence](validation/part-1783/README.md).
 
+Part 1820. Replace an immediate reconstruction of a matched cons with the original list cell when the call or return ends its heap region. [Evidence](validation/part-1820/README.md).
+
 Part 1819. Keep the established slot numbering when a lifted closure saves every live input at entry. [Evidence](validation/part-1819/README.md).
 
 Part 1818. Use the saved Y copy of the other register to fold a list extraction followed by a swap. [Evidence](validation/part-1818/README.md).

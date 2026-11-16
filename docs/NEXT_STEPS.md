@@ -1,5 +1,7 @@
 # Next steps
 
+Remove projections whose values are dead after the call. [Evidence](validation/part-1820/README.md).
+
 Keep named local function references out of the lifted-closure slot rule. Reuse a matched cons when a call immediately reconstructs it. [Evidence](validation/part-1819/README.md).
 
 Investigate stack slot numbering in lifted closures. [Evidence](validation/part-1818/README.md).

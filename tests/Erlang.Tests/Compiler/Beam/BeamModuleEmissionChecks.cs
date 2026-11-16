@@ -466,6 +466,7 @@ internal static class BeamModuleEmissionChecks
         CompareSavedEntryStackSlots();
         CompareStackArgumentsAfterCallResult();
         CompareDiscardedListComprehensionHelper();
+        CompareReconstructedCons();
         CompareReceiveLoopStackSlots();
         CompareHeapCallResult();
         CompareMatchFailureLines();
@@ -2060,6 +2061,33 @@ internal static class BeamModuleEmissionChecks
         if (code.AsSpan().IndexOf(preparedHead) < 0)
         {
             throw new InvalidOperationException("Expected the list head and saved argument in their call registers.");
+        }
+    }
+
+    private static void CompareReconstructedCons()
+    {
+        const string source = """
+            -module(beam_reuse_cons).
+            -export([run/1]).
+
+            run([H, Next | Rest]) ->
+                {cell, H, run([Next | Rest])};
+            run([Value]) ->
+                Value;
+            run([]) ->
+                none.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_reuse_cons.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> reconstructed =
+        [
+            BeamEmissionFormat.GetList, 0x03, 0x24, 0x34,
+            BeamEmissionFormat.TestHeap, 0x20, 0x00,
+            BeamEmissionFormat.PutList, 0x24, 0x34, 0x03
+        ];
+        if (code.AsSpan().IndexOf(reconstructed) >= 0)
+        {
+            throw new InvalidOperationException("Expected the recursive call to use the original cons.");
         }
     }
 

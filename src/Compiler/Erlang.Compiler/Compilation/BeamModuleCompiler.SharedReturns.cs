@@ -159,6 +159,7 @@ internal sealed partial class BeamModuleCompiler
                 ?? InvertBranchTests(code, body, labelOperands)
                 ?? NormalizeIntegerComparisons(code, body)
                 ?? FoldListHeadSwap(code, body)
+                ?? ReuseReconstructedCons(code, body)
                 ?? CombineConstructionHeapChecks(code, body)
                 ?? CombineStackAndHeapAllocation(code, body)
                 ?? KeepTerminalCallResultsInX0(code, body, stackOperands)

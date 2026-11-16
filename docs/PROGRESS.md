@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1820 compiled all 1,366 modules with 400 Equal and 966 Different. Compared 6 changed images. Gained 0 and lost 0 normalized instruction matches. The sum of absolute Code size differences changed by -47 bytes. [Evidence](validation/part-1820/README.md).
+
 Part 1819 compiled all 1,366 modules with 400 Equal and 966 Different. Compared 72 changed images. Gained 5 and lost 1 normalized instruction matches. The sum of absolute Code size differences changed by -6 bytes. [Evidence](validation/part-1819/README.md).
 
 Part 1818 compiled all 1,366 modules with 400 Equal and 966 Different. Compared 21 changed images. Gained 13 and lost 0 normalized instruction matches. The sum of absolute Code size differences changed by 0 bytes. [Evidence](validation/part-1818/README.md).

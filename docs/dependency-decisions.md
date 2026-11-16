@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1820. Compare the recursive cons argument with the lowering in pinned OTP of nested list patterns. No dependency was added. [Evidence](validation/part-1820/README.md).
+
 Part 1819. Compare the lifted function frames with pinned OTP code and FunT capture counts. No dependency was added. [Evidence](validation/part-1819/README.md).
 
 Part 1818. Reproduce the register operands emitted by pinned OTP for a recursive helper with a retained call argument. No dependency was added. [Evidence](validation/part-1818/README.md).
