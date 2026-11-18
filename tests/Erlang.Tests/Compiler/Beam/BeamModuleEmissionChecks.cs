@@ -350,6 +350,8 @@ internal static class BeamModuleEmissionChecks
         CompareEntryArgumentCopiesAcrossBranches();
         CompareEntryArgumentCopiesWithSlotReuse();
         CompareStackSlotsWithFramelessFailure();
+        CompareStackSlotsAtLastProjectionRead();
+        CompareStackSlotsAcrossBranchJoin();
         CompareStackSlotsAcrossMapAndBinaryOperations();
         CompareStackSlotsAcrossBitMatches();
         CompareStackSlotsAcrossTry();
@@ -763,6 +765,66 @@ internal static class BeamModuleEmissionChecks
             throw new InvalidOperationException(
                 "Expected slot reuse after the tuple test and a badmatch exit without a frame."
             );
+        }
+    }
+
+    private static void CompareStackSlotsAtLastProjectionRead()
+    {
+        const string source = """
+            -module(beam_projection_slot).
+            -export([run/2]).
+            run(Current, Rest) ->
+                [First | Tail] = lists:keysort(1, [Current | Rest]),
+                [Head | _] = Merged = merge(First, Tail),
+                case complete(Head) of
+                    true -> {done, finish(Head)};
+                    false -> {more, Merged}
+                end.
+            merge(First, Tail) -> erlang:garbage_collect(), [First | Tail].
+            complete(Head) -> erlang:garbage_collect(), element(2, Head).
+            finish(Head) -> erlang:garbage_collect(), Head.
+            """;
+        byte[] bytes = CodeGeneration.CompileBeamModule(source, "beam_projection_slot.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(bytes).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> reusedFrame = [BeamEmissionFormat.AllocateHeap, 0x20, 0x20, 0x20];
+        ReadOnlySpan<byte> largerFrame = [BeamEmissionFormat.AllocateHeap, 0x30, 0x20, 0x20];
+        ReadOnlySpan<byte> reusedProjectionSlot = [BeamEmissionFormat.GetHead, 0x04, 0x04];
+        if (code.AsSpan().IndexOf(reusedFrame) < 0 || code.AsSpan().IndexOf(largerFrame) >= 0
+            || code.AsSpan().IndexOf(reusedProjectionSlot) < 0)
+        {
+            throw new InvalidOperationException("Expected the list projection to reuse the slot after its last read.");
+        }
+
+        _ = BeamModule.Prepare(bytes);
+    }
+
+    private static void CompareStackSlotsAcrossBranchJoin()
+    {
+        const string source = """
+            -module(beam_branch_join).
+            -export([run/2]).
+            run(Dir, Db) ->
+                Split = filename:split(Dir),
+                case name(Split) of
+                    Name when Name /= "ebin", Name /= "." -> Name;
+                    _ ->
+                        AbsoluteSplit = filename:split(absolute(Dir)),
+                        Name = name(AbsoluteSplit)
+                end,
+                AppDir = filename:join(drop(Split)),
+                sink(Name, AppDir, Db).
+            name([First | _]) -> First.
+            absolute(Dir) -> filename:absname(Dir).
+            drop([_ | Rest]) -> Rest.
+            sink(Name, Dir, Db) -> {Name, Dir, Db}.
+            """;
+        byte[] bytes = CodeGeneration.CompileBeamModule(source, "beam_branch_join.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(bytes).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> branchFrame = [BeamEmissionFormat.Allocate, 0x40, 0x20];
+        ReadOnlySpan<byte> mergedFrame = [BeamEmissionFormat.Allocate, 0x30, 0x20];
+        if (code.AsSpan().IndexOf(branchFrame) < 0 || code.AsSpan().IndexOf(mergedFrame) >= 0)
+        {
+            throw new InvalidOperationException("Expected the branch join to preserve the reference stack frame.");
         }
     }
 

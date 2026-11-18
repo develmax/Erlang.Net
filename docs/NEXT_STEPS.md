@@ -1,5 +1,7 @@
 # Next steps
 
+Complete the full regression and hosted gates for Part 1823. Next, compare frame ownership at joins using the dominance constraints in pinned OTP `place_frames`. [Evidence](validation/part-1823/README.md).
+
 The recovered C# compiler retained the equality status of all 1,366 Windows OTP 29.1.1 images. Rank the 966 differences by shared compiler operation before choosing the next lowering change. [Validation](validation/part-1821/results.json).
 
 Part611 adds the selectable error_logger backend with all 29 exports. Both backends pass 143 targeted observations and 10 upstream tests. [Publication evidence](validation/error-logger-port-20261105/publication/README.md).

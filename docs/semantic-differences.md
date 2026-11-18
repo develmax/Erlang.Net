@@ -1,5 +1,7 @@
 ## Part601 resource/magic32 scope — 2026-11-05
 
+Part 1823 reduces stack frames where a single-result BEAM instruction consumes a last-use Y value. The scope is the C# branch allocator. Several remaining allocation differences depend on frame placement and earlier SSA lowering. [Evidence](validation/part-1823/README.md).
+
 The Windows OTP 29.1.1 BEAM comparison in part 1821 retained the same 966 differing images. Whole-image equality and behavior remain separately measured. [Validation](validation/part-1821/results.json).
 
 Part602 integrates the native node/dist reference query behind erts_debug and both erts_internal backends. Actual owner/header/storage census, all-scheduler admission, signal/heap classification and retirement are covered by262/262 observations plus59/59 scenarios per backend,13 physical and43 connected groups. Original Erlang/BEAM and98 exports remain. Full regression/readiness were deliberately not run; broader upstream/distributed/resource/platform acceptance and universal compatibility remain unverified. [Receipt](validation/erts-internal-part-593/README.md).

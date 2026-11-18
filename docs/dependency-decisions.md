@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1823 reuses the existing C# branch liveness and BCL BigInteger interference masks. `System.Reflection.Emit` and Roslyn allocate CLR locals with a different frame model. Pinned OTP `live_intervals` and `overlap_status` supply the interval-boundary rule. No dependency was added. [Evidence](validation/part-1823/README.md).
+
 The BEAM corpus uses the pinned Windows OTP 29.1.1 release as the byte comparison reference. The C# ASN.1 generator supplies the input for ELDAPv3. [Checkpoint evidence](validation/part-1820/README.md).
 
 ## Native resource/magic32 and atomic64 storage — 2026-11-05

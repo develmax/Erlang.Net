@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1823 implements branch stack-slot reuse when an instruction reads a value for the last time. The focused regression and ERTS controls pass. The full Windows OTP corpus retains 400 byte matches. ERTS accepted all 155 changed images. The full regression gate remains open. [Evidence](validation/part-1823/README.md).
+
 Part 1822 stabilizes the phash2 allocation guard with five measurements, the existing 4,096-byte limit and a copy check on every sample. [Validation](validation/part-1822/README.md).
 
 Part 1821 recovered working-copy BEAM compiler changes. The full Windows OTP 29.1.1 run generated all 1,366 images. The same 400 matched byte for byte, including ELDAPv3. [Validation](validation/part-1821/results.json).

@@ -1,0 +1,10 @@
+beam_asm.beam []
+beam_call_types.beam [{{arith_type,2},
+                       [{allocate,0,3}],
+                       [{allocate,4,2}],
+                       [{allocate,3,2}]}]
+diameter_codegen.beam []
+dtls_handshake.beam [{{reassemble_fragments,2},
+                      [{allocate_heap,2,2,2}],
+                      [{allocate_heap,3,2,2}],
+                      [{allocate_heap,2,2,2}]}]
