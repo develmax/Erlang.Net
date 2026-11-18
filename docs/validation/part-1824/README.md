@@ -31,7 +31,7 @@ The compiler selection passed 3,775 of 3,836 tests on its first run.
 The isolated worktree lacked the Debug port probe and official runtime
 admission receipt. Building the probe and copying the verified receipt
 made all 61 failing cases pass on the same test binaries. Both reports
-are retained. Hosted validation is pending.
+are retained. The joined hosted suite passed all 9,746 cases on the compiler revision. Readiness was regenerated with the joined report and the immutable comparison snapshot. [Hosted receipt](hosted-receipt.json).
 
 The corpus CLI accepts `--modules-file <path>` and `--jobs <count>`.
 The selection file lists one release-relative BEAM path per line. Paths
