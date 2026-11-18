@@ -8,12 +8,13 @@ internal sealed partial class BeamModuleCompiler
     {
         private readonly IReadOnlyList<BeamInstruction> body;
         private readonly List<int>[] predecessors;
+        private readonly Dictionary<int, int> labels;
         private readonly int[][] successors;
 
         internal BeamProjectionFlow(IReadOnlyList<BeamInstruction> body)
         {
             this.body = body;
-            var labels = body.Select((instruction, index) => (instruction, index))
+            labels = body.Select((instruction, index) => (instruction, index))
                 .Where(entry => entry.instruction.Definition.Opcode == Label)
                 .ToDictionary(entry => (int)entry.instruction.Operands[0].Value, entry => entry.index);
             predecessors = new List<int>[body.Count];
@@ -52,6 +53,10 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
         }
+
+        internal bool TryGetSingleForwardTarget(int from, int label, out int target) =>
+            labels.TryGetValue(label, out target) && target > from
+            && predecessors[target].Count == 1 && predecessors[target][0] == from;
 
         internal bool CanEliminate(int projection, int continuation, BeamOperand slot) =>
             IsDead(continuation, slot) && IsInitialized(projection, slot);

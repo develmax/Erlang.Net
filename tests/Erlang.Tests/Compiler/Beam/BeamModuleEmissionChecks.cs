@@ -354,6 +354,7 @@ internal static class BeamModuleEmissionChecks
         CompareStackSlotsAcrossBranchJoin();
         CompareLeafFrameAfterEntryTests();
         CompareLeafListHeapRoots();
+        await CompareDistinctTupleFallback();
         CompareClosedAtomDispatchWithMixedResults();
         CompareStackSlotsAcrossMapAndBinaryOperations();
         CompareStackSlotsAcrossBitMatches();
@@ -866,7 +867,10 @@ internal static class BeamModuleEmissionChecks
             """;
         byte[] bytes = CodeGeneration.CompileBeamModule(source, "beam_leaf_heap.erl");
         byte[] code = BeamDocumentationEmissionChecks.Chunks(bytes).Single(chunk => chunk.Id == "Code").Data;
-        ReadOnlySpan<byte> heapCheck = [BeamEmissionFormat.TestHeap, 0x20, 0x10];
+        ReadOnlySpan<byte> heapCheck = [
+            BeamEmissionFormat.TestHeap, 0x20, 0x20,
+            BeamEmissionFormat.PutList, 0x13, 0x03, 0x03
+        ];
         ReadOnlySpan<byte> obsoleteFrame = [BeamEmissionFormat.Allocate, 0x20, 0x10];
         if (code.AsSpan().IndexOf(heapCheck) < 0 || code.AsSpan().IndexOf(obsoleteFrame) >= 0)
         {
@@ -874,6 +878,42 @@ internal static class BeamModuleEmissionChecks
         }
 
         _ = BeamModule.Prepare(bytes);
+    }
+
+    private static async Task CompareDistinctTupleFallback()
+    {
+        const string source = """
+            -module(beam_distinct_tuple_fallback).
+            -export([value/1]).
+            -record(packet, {answer, alternate, errors}).
+            value(#packet{answer = A, errors = []}) -> A;
+            value(#packet{alternate = A, errors = E}) -> [A|E].
+            """;
+        BeamModule image = BeamModule.Prepare(CodeGeneration.CompileBeamModule(source, "beam_distinct_tuple_fallback.erl"));
+        await using var runtime = new ProcessRuntime();
+        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
+        Term packet = Term.A("packet");
+        Term first = Term.A("first");
+        Term second = Term.A("second");
+        Term error = Term.A("error");
+        Term normal = await actor.InvokeAsync(async context =>
+            await image.Invoke(context, "value", Term.Tuple(
+                packet,
+                first,
+                second,
+                Nil.Value
+            )));
+        Term fallback = await actor.InvokeAsync(async context =>
+            await image.Invoke(context, "value", Term.Tuple(
+                packet,
+                first,
+                second,
+                Cons.From([error])
+            )));
+        if (!normal.Equals(first) || !fallback.Equals(Cons.From([second, error])))
+        {
+            throw new InvalidOperationException(BeamLeafFrameDiagnostics.DistinctTupleFallback);
+        }
     }
 
     private static void CompareClosedAtomDispatchWithMixedResults()

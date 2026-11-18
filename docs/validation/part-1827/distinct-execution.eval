@@ -1,0 +1,6 @@
+[Dir] = init:get_plain_arguments(),
+P = filename:join(["artifacts/projection-probe", Dir, "beam_distinct_tuple_fallback"]),
+{module, beam_distinct_tuple_fallback} = code:load_abs(P),
+first = beam_distinct_tuple_fallback:value({packet, first, second, []}),
+[second, bad] = beam_distinct_tuple_fallback:value({packet, first, second, [bad]}),
+io:format("~s distinct-field 2/2~n",[Dir]), halt().

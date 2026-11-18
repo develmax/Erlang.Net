@@ -1,0 +1,15 @@
+[Name,Path] = init:get_plain_arguments(),
+M = list_to_atom(Name),
+true = code:unstick_mod(M),
+{module,M} = code:load_abs(filename:rootname(Path)),
+case M of
+  zstd ->
+    Input = <<"otp beam parity on-load control">>,
+    Input = iolist_to_binary(M:decompress(M:compress(Input))),
+    io:format("zstd roundtrip 1/1~n");
+  pubkey_os_cacerts ->
+    Certs = M:get(),
+    true = is_list(Certs),
+    io:format("pubkey_os_cacerts get 1/1 count=~B~n",[length(Certs)])
+end,
+halt().

@@ -1,0 +1,17 @@
+[Dir] = init:get_plain_arguments(),
+P = filename:join(["artifacts/projection-probe", Dir, "beam_leaf_heap"]),
+{module, beam_leaf_heap} = code:load_abs(P),
+value = beam_leaf_heap:packet({packet, value, []}),
+[value, err] = beam_leaf_heap:packet({packet, value, [err]}),
+[value|tail] = beam_leaf_heap:packet({packet, value, tail}),
+{'EXIT',{function_clause,_}} = (catch beam_leaf_heap:packet({invalid, value, []})),
+Parent = self(),
+Pid = spawn(fun() ->
+    Before = process_info(self(), garbage_collection_info),
+    L = [beam_leaf_heap:packet({packet, [N], {N, retained}}) || N <- lists:seq(1, 10000)],
+    true = lists:all(fun([[N] | {N, retained}]) -> true; (_) -> false end, L),
+    Parent ! {gc_ok, self(), Before =/= process_info(self(), garbage_collection_info)}
+end),
+receive {gc_ok, Pid, true} -> ok after 5000 -> error(gc_control_timeout) end,
+io:format("~s 5/5~n", [Dir]), halt().
+
