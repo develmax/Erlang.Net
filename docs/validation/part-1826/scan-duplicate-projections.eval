@@ -1,0 +1,32 @@
+[Input] = init:get_plain_arguments(),
+{ok, Encoded} = file:read_file(Input),
+Paths = binary:split(Encoded, <<10>>, [global,trim_all]),
+Scan = fun(Is) ->
+    Indexed = lists:zip(lists:seq(1,length(Is)), Is),
+    Targets = lists:foldl(fun
+        ({Index,{test,_,{f,L},_}}, Map) -> maps:update_with(L,fun(V)->[Index|V] end,[Index],Map);
+        (_, Map) -> Map
+    end,#{},Indexed),
+    [{L, length(Common)} ||
+        {At,{label,L}} <- Indexed,
+        [Test] <- [maps:get(L,Targets,[])],
+        Test < At,
+        First <- [lists:reverse(lists:takewhile(fun
+                    ({get_tuple_element,_,_,_})->true;(_)->false end,
+                    lists:reverse(lists:sublist(Is,Test-1))))],
+        Suffix <- [lists:nthtail(At,Is)],
+        Next <- [lists:dropwhile(fun
+                    ({test_heap,_,_})->true;({line,_})->true;(_)->false end,Suffix)],
+        Common <- [lists:takewhile(fun({A,B})-> A =:= B end,lists:zip(First,Next,trim))],
+        Common =/= []]
+end,
+lists:foreach(fun(Bin) ->
+    P = binary_to_list(string:trim(Bin)),
+    case beam_disasm:file(P) of
+        {beam_file, M, _, _, _, Fs} ->
+            Matches = [{F,A,Ls} || {function,F,A,_,Is} <- Fs, Ls <- [Scan(Is)], Ls =/= []],
+            case Matches of [] -> ok; _ -> io:format("~0p.~n",[{M,Matches}]) end;
+        Error -> io:format("~0p.~n",[{unreadable,P,Error}])
+    end
+end, Paths),
+halt().

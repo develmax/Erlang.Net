@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1826 removes 89 frames in functions whose pinned counterparts are frameless and adds six normalized instruction matches. The full-file count remains 400 of 1,366. [Evidence](validation/part-1826/README.md).
+
 Part 1825 adds seven normalized instruction matches across six changed BEAM images. ERTS admitted all six. Full-file parity remains 400 of 1,366. [Evidence](validation/part-1825/README.md).
 
 Part 1824 emits frameless code for 106 more functions where OTP has no frame and adds 15 normalized instruction matches. The whole-file count stays at 400 of 1,366. [Evidence](validation/part-1824/README.md).

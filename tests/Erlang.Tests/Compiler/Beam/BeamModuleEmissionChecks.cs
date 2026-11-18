@@ -353,6 +353,7 @@ internal static class BeamModuleEmissionChecks
         CompareStackSlotsAtLastProjectionRead();
         CompareStackSlotsAcrossBranchJoin();
         CompareLeafFrameAfterEntryTests();
+        CompareLeafListHeapRoots();
         CompareClosedAtomDispatchWithMixedResults();
         CompareStackSlotsAcrossMapAndBinaryOperations();
         CompareStackSlotsAcrossBitMatches();
@@ -849,6 +850,27 @@ internal static class BeamModuleEmissionChecks
         if (code.AsSpan().IndexOf(neededFrame) < 0 || code.AsSpan().IndexOf(unnecessaryFrame) >= 0)
         {
             throw new InvalidOperationException(BeamLeafFrameDiagnostics.EntryTestFrame);
+        }
+
+        _ = BeamModule.Prepare(bytes);
+    }
+
+    private static void CompareLeafListHeapRoots()
+    {
+        const string source = """
+            -module(beam_leaf_heap).
+            -export([packet/1]).
+            -record(packet, {answer, errors}).
+            packet(#packet{answer = A, errors = []}) -> A;
+            packet(#packet{answer = A, errors = E}) -> [A|E].
+            """;
+        byte[] bytes = CodeGeneration.CompileBeamModule(source, "beam_leaf_heap.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(bytes).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> heapCheck = [BeamEmissionFormat.TestHeap, 0x20, 0x10];
+        ReadOnlySpan<byte> obsoleteFrame = [BeamEmissionFormat.Allocate, 0x20, 0x10];
+        if (code.AsSpan().IndexOf(heapCheck) < 0 || code.AsSpan().IndexOf(obsoleteFrame) >= 0)
+        {
+            throw new InvalidOperationException(BeamLeafFrameDiagnostics.ListHeapRoots);
         }
 
         _ = BeamModule.Prepare(bytes);
