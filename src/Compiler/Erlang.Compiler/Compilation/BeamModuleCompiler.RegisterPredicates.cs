@@ -420,21 +420,29 @@ internal sealed partial class BeamModuleCompiler
             }
 
             var keys = new HashSet<Atom>();
-            var branches = new List<(Atom Key, EntryCall Call)>();
+            var branches = new List<ClosedAtomBranch>();
             foreach (Clause clause in function.Clauses)
             {
-                if (clause is not
-                    {
-                        Guard: null, Patterns: [Pattern.Literal { Value: Atom key }],
-                        Body: Expr.Call { Module: null, DynamicRemote: false } call
-                    }
-                    || !keys.Add(key) || ReadEntryCall(call, []) is not { Module: null } tail)
+                if (clause is not { Guard: null, Patterns: [Pattern.Literal { Value: Atom key }] }
+                    || !keys.Add(key))
                 {
                     return false;
                 }
 
-                tail.Constants.RemoveAll(operand => operand.Destination == 0 && operand.Value.Equals(key));
-                branches.Add((key, tail));
+                if (clause.Body is Expr.Literal { Value: var literal })
+                {
+                    branches.Add(new(key, literal, null));
+                }
+                else if (clause.Body is Expr.Call { DynamicRemote: false } call
+                    && ReadEntryCall(call, []) is { } tail)
+                {
+                    tail.Constants.RemoveAll(operand => operand.Destination == 0 && operand.Value.Equals(key));
+                    branches.Add(new(key, null, tail));
+                }
+                else
+                {
+                    return false;
+                }
             }
 
             branches.Sort((left, right) => TermOrder.Compare(left.Key, right.Key, exact: true));
@@ -443,15 +451,8 @@ internal sealed partial class BeamModuleCompiler
             var representatives = new int[branches.Count];
             for (int index = 0; index < branches.Count; index++)
             {
-                EntryCall current = branches[index].Call;
-                int previous = branches.FindIndex(
-                    0,
-                    index,
-                    branch =>
-                    branch.Call.Call.Function == current.Call.Function
-                    && branch.Call.Call.Arguments.Count == current.Call.Arguments.Count
-                    && branch.Call.Constants.SequenceEqual(current.Constants)
-                );
+                ClosedAtomBranch current = branches[index];
+                int previous = branches.FindIndex(0, index, current.SharesCode);
                 representatives[index] = previous < 0 ? index : previous;
             }
 
@@ -481,12 +482,42 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 Mark(labels[index]);
-                EntryCall call = branches[index].Call;
-                owner.EmitOrderedTailMoves(call.Moves, call.Constants);
-                EmitRegisterTailTarget(call.Call, call.Call.Arguments.Count);
+                ClosedAtomBranch branch = branches[index];
+                if (branch.Literal is { } literal)
+                {
+                    if (!branch.Key.Equals(literal) || Array.IndexOf(representatives, index, index + 1) >= 0)
+                    {
+                        owner.EmitConstant(literal, 0);
+                    }
+
+                    owner.instructions.WriteByte(Return);
+                }
+                else
+                {
+                    EntryCall call = branch.Tail!;
+                    owner.EmitOrderedTailMoves(call.Moves, call.Constants);
+                    EmitRegisterTailTarget(call.Call with { Module = call.Module }, call.Call.Arguments.Count);
+                }
             }
 
             return true;
+        }
+
+        private sealed record ClosedAtomBranch(Atom Key, Term? Literal, EntryCall? Tail)
+        {
+            internal bool SharesCode(ClosedAtomBranch other)
+            {
+                if (Literal is { } literal)
+                {
+                    return literal.Equals(other.Literal);
+                }
+
+                return Tail is { Module: null } call
+                    && other.Tail is { Module: null } previous
+                    && call.Call.Function == previous.Call.Function
+                    && call.Call.Arguments.Count == previous.Call.Arguments.Count
+                    && call.Constants.SequenceEqual(previous.Constants);
+            }
         }
 
         private sealed record PredicateCalls(

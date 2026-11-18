@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1825 combines closed atom clauses into a dispatch table for mixed literal and call results. The release corpus retains 400 byte matches. [Evidence](validation/part-1825/README.md).
+
 Part 1824 removes leaf frames after entry tests. The full Windows release retains 400 byte matches. ERTS accepted all 80 changed images. [Evidence](validation/part-1824/README.md).
 
 Part 1823 implements branch stack-slot reuse when an instruction reads a value for the last time. The focused regression and ERTS controls pass. The full Windows OTP corpus retains 400 byte matches. ERTS accepted all 155 changed images. The full regression gate remains open. [Evidence](validation/part-1823/README.md).

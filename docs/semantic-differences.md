@@ -1,5 +1,7 @@
 ## Part601 resource/magic32 scope — 2026-11-05
 
+Part 1825 groups closed atom branches with literal returns or ordinary calls. Grouped clauses with guards, other selectors and deeper match lowering still require additional compiler work. [Evidence](validation/part-1825/README.md).
+
 Part 1824 removes unnecessary frames after guarded entry checks. Value dispatch, register assignment, type inference and release tables still differ in parts of the corpus. [Evidence](validation/part-1824/README.md).
 
 Part 1823 reduces stack frames where a single-result BEAM instruction consumes a last-use Y value. The scope is the C# branch allocator. Several remaining allocation differences depend on frame placement and earlier SSA lowering. [Evidence](validation/part-1823/README.md).
