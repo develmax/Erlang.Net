@@ -194,6 +194,7 @@ internal sealed partial class BeamModuleCompiler
                 ?? StoreBifResultsDirectly(code, body)
                 ?? StoreClosureResultsDirectly(code, body)
                 ?? SinkTupleReadsAcrossCalls(code, body, stackOperands)
+                ?? RemoveRepeatedFailureProjections(code, body)
                 ?? ForwardStackProjections(code, body)
                 ?? RemoveUnusedTrailingFrameSlots(code, body)
                 ?? ReallocateLeafFrameRegisters(code, body, stackOperands)

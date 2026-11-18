@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1827 extends the C# projection graph with a single-predecessor proof and exact operand comparisons. Pinned OTP SSA common-subexpression elimination supplies the reference. No dependency was added. [Evidence](validation/part-1827/README.md).
+
 Part 1826 extends the existing C# leaf register allocator with BCL BigInteger and Queue. The pinned BEAM code generator and validator establish the initialized root prefix. CLR locals from Roslyn or System.Reflection.Emit use a different collector and stack model. No dependency was added. [Evidence](validation/part-1826/README.md).
 
 Part 1825 extends the existing closed-atom C# emitter and ordinary call binding. The pinned compiler supplies the switch layout reference. No dependency was added. [Evidence](validation/part-1825/README.md).

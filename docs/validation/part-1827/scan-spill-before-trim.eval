@@ -1,0 +1,20 @@
+[List] = init:get_plain_arguments(),
+{ok,Files} = file:read_file(List),
+Pattern = fun
+  Scan([{Call,_,_},{move,{x,0},{y,S}},{move,{y,R},{x,A}}|Rest], Acc)
+    when (Call =:= call orelse Call =:= call_ext), S =/= R ->
+     Scan(Rest,[{S,R,A}|Acc]);
+  Scan([_|Rest],Acc) -> Scan(Rest,Acc);
+  Scan([],Acc) -> lists:reverse(Acc)
+end,
+lists:foreach(fun(File)->
+   Path=binary_to_list(string:trim(File)),
+   {beam_file,M,_,_,_,Functions} = beam_disasm:file(Path),
+   Groups = [{F,A,Trims,Hits} ||
+       {function,F,A,_,Is} <- Functions,
+       Trims <- [length([ok || {trim,_,_} <- Is])],
+       Trims > 0,
+       Hits <- [Pattern(Is,[])], Hits =/= []],
+   case Groups of [] -> ok; _ -> io:format("~0p.~n",[{M,Groups}]) end
+end,binary:split(Files,<<10>>,[global,trim_all])),
+halt().

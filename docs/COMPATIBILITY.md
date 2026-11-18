@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1827 adds two normalized instruction matches. The full-file count stays at 400 of 1,366. Both on-load controls and the ordinary batch preparation checks completed. [Evidence](validation/part-1827/README.md).
+
 Part 1826 removes 89 frames in functions whose pinned counterparts are frameless and adds six normalized instruction matches. The full-file count remains 400 of 1,366. [Evidence](validation/part-1826/README.md).
 
 Part 1825 adds seven normalized instruction matches across six changed BEAM images. ERTS admitted all six. Full-file parity remains 400 of 1,366. [Evidence](validation/part-1825/README.md).
