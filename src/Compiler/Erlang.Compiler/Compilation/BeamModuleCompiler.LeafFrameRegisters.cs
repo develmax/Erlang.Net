@@ -49,10 +49,28 @@ internal sealed partial class BeamModuleCompiler
                         continue;
                     }
 
+                    if (instruction.Definition.Opcode == TailLocalCallWithFrame)
+                    {
+                        int frame = (int)instruction.Operands[^1].Value;
+                        output.Write(code.Span[copied..instruction.Offset]);
+                        output.WriteByte(TailLocalCall);
+                        output.Write(code.Span[(instruction.Offset + 1)..(next - CompactRegisterCountWidth(frame))]);
+                        copied = next;
+                        continue;
+                    }
+
                     if (heapRoots is not null && heapRoots.TryGetValue(index, out int live))
                     {
                         int original = (int)instruction.Operands[^1].Value;
-                        int width = CompactLiveWidth(original);
+                        int width = CompactRegisterCountWidth(original);
+                        if (instruction.Definition.Opcode == AllocateHeap)
+                        {
+                            int frame = (int)instruction.Operands[0].Value;
+                            output.Write(code.Span[copied..instruction.Offset]);
+                            output.WriteByte(TestHeap);
+                            copied = instruction.Offset + 1 + CompactRegisterCountWidth(frame);
+                        }
+
                         output.Write(code.Span[copied..(next - width)]);
                         BeamCompactWriter.Write(output, BeamWire.UnsignedTag, live);
                         copied = next;
@@ -96,7 +114,7 @@ internal sealed partial class BeamModuleCompiler
         heapRoots = null;
         const int xCount = BeamOperandParameters.MaximumRegister;
         int allocation = FindEntryFrameAllocation(body, start, end);
-        if (allocation < 0 || body[allocation].Definition.Opcode != Allocate)
+        if (allocation < 0)
         {
             return null;
         }
@@ -117,10 +135,12 @@ internal sealed partial class BeamModuleCompiler
         {
             BeamInstruction instruction = body[start + index];
             byte opcode = instruction.Definition.Opcode;
-            if (!IsFramelessInstruction(instruction) || (opcode is Allocate && start + index != allocation)
-                || opcode is AllocateHeap or PutTuple or GetMapElements
+            bool localTail = opcode == TailLocalCallWithFrame;
+            if ((!localTail && !IsFramelessInstruction(instruction))
+                || (opcode is Allocate or AllocateHeap && start + index != allocation)
+                || opcode is PutTuple or GetMapElements
                     or BifOne or BifTwo or BifThree or GcBifOne or GcBifTwo or GcBifThree
-                || (opcode == Deallocate && instruction.Operands[0].Value != slots))
+                || (opcode is Deallocate or TailLocalCallWithFrame && instruction.Operands[^1].Value != slots))
             {
                 return null;
             }
@@ -131,7 +151,12 @@ internal sealed partial class BeamModuleCompiler
             }
 
             var destinations = new List<int>(2);
-            uses[index] = opcode == Return ? BigInteger.One : BigInteger.Zero;
+            uses[index] = opcode switch
+            {
+                Return => BigInteger.One,
+                TailLocalCallWithFrame => (BigInteger.One << (int)instruction.Operands[0].Value) - 1,
+                _ => BigInteger.Zero
+            };
             movedFrom[index] = -1;
             for (int position = 0; position < instruction.Operands.Count && opcode != InitYRegisters; position++)
             {
@@ -185,7 +210,7 @@ internal sealed partial class BeamModuleCompiler
 
             foreach (var operand in instruction.Operands)
             {
-                if (operand.Kind == BeamOperandParameters.Label)
+                if (instruction.Definition.Opcode != TailLocalCallWithFrame && operand.Kind == BeamOperandParameters.Label)
                 {
                     targets.Add(labels.GetValueOrDefault((int)operand.Value, -1));
                 }
@@ -283,7 +308,7 @@ internal sealed partial class BeamModuleCompiler
         var xMask = (BigInteger.One << xCount) - 1;
         for (int index = 0; index < count; index++)
         {
-            if (body[start + index].Definition.Opcode != TestHeap)
+            if (body[start + index].Definition.Opcode is not (TestHeap or AllocateHeap))
             {
                 continue;
             }

@@ -1,0 +1,10 @@
+[Dir] = init:get_plain_arguments(),
+P = filename:join(["artifacts/combined-leaf-probe",Dir,"beam_combined_leaf_tail"]),
+{module,M} = code:load_abs(P),
+D = {callback,mode},
+A = {arg,1}, B = [second], C = <<"third">>,
+{tag,[A,B,C],mode,D} = M:forward(A,B,C,D),
+{'EXIT',{{badrecord,invalid},_}} = (catch M:forward(A,B,C,invalid)),
+[forwarded] = M:send(self(),forwarded),
+receive [forwarded] -> ok after 2500 -> error(missing_send) end,
+io:format("~s 3/3~n",[Dir]), halt().

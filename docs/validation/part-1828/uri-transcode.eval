@@ -1,0 +1,6 @@
+[P] = init:get_plain_arguments(),
+{module,uri_string} = code:load_abs(filename:rootname(P)),
+Options = [{in_encoding,latin1},{out_encoding,utf8}],
+Cases = ["http://example/%E9","https://example/plain","%ZZ"],
+io:format("~0p~n",[[catch uri_string:transcode(Input,Options) || Input <- Cases]]),
+halt().
