@@ -1,0 +1,14 @@
+[Input] = init:get_plain_arguments(),
+{ok,Data} = file:read_file(Input),
+Paths = [binary:split(L, <<9>>, [global]) || L <- binary:split(Data, <<10>>, [global,trim_all])],
+HasFrame = fun(Is) -> lists:any(fun(I) -> is_tuple(I) andalso lists:member(element(1,I), [allocate,allocate_heap]) end, Is) end,
+Frames = fun(File) ->
+    {beam_file,_,_,_,_,Fs} = beam_disasm:file(binary_to_list(string:trim(File))),
+    maps:from_list([{{F,A},HasFrame(Is)} || {function,F,A,_,Is} <- Fs])
+end,
+lists:foreach(fun([Ref,Before,After]) ->
+    R=Frames(Ref), B=Frames(Before), A=Frames(After),
+    Changes=lists:sort([{Key,maps:get(Key,R,missing)} || {Key,true} <- maps:to_list(B), maps:get(Key,A,missing) =:= false]),
+    case Changes of [] -> ok; _ -> io:format("~0p.~n", [{filename:basename(binary_to_list(Ref)),Changes}]) end
+end, Paths),
+halt().

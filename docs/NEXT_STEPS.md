@@ -1,10 +1,6 @@
 # Next steps
 
-Complete hosted validation for Part 1825, then examine tuple projections and their frame placement in the 538-module group. [Evidence](validation/part-1825/README.md).
-
-Complete the hosted gates for Parts 1823 and 1824, then compare tuple projection and value dispatch in functions that still allocate before entry checks. [Evidence](validation/part-1824/README.md).
-
-Complete the full regression and hosted gates for Part 1823. Next, compare frame ownership at joins using the dominance constraints in pinned OTP `place_frames`. [Evidence](validation/part-1823/README.md).
+Measure duplicate tuple projections that survive across clause failure. Start with the two record clauses in diameter_callback:handle_answer/4 and compare the pinned CSE and frame placement passes. Then examine the combined allocate_heap group with the same root proof. [Evidence](validation/part-1826/README.md).
 
 The recovered C# compiler retained the equality status of all 1,366 Windows OTP 29.1.1 images. Rank the 966 differences by shared compiler operation before choosing the next lowering change. [Validation](validation/part-1821/results.json).
 

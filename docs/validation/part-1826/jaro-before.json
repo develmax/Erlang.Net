@@ -1,0 +1,19 @@
+{
+  "Partial": true,
+  "SelectedCount": 1,
+  "TotalCount": 9746,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/string/original-jaro-indexed-resource-contract"
+  ],
+  "Passed": 0,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/string/original-jaro-indexed-resource-contract",
+      "Status": "Failed",
+      "Error": "System.TimeoutException: The operation has timed out.\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func\u00602 command) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-atom-dispatch\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 51\r\n   at Erlang.Tests.StringBackendChecks.Run(Boolean managed, Boolean jaro, Boolean managedUnicode) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-atom-dispatch\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringBackendChecks.cs:line 45\r\n   at Erlang.Tests.StringBackendChecks.Run(Boolean managed, Boolean jaro, Boolean managedUnicode) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-atom-dispatch\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringBackendChecks.cs:line 69\r\n   at Erlang.Tests.StringBackendChecks.Run(Boolean managed, Boolean jaro, Boolean managedUnicode) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-atom-dispatch\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringBackendChecks.cs:line 69\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-atom-dispatch\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16303",
+      "Milliseconds": 13627
+    }
+  ]
+}

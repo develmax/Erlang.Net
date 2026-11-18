@@ -28,7 +28,8 @@ internal sealed partial class BeamModuleCompiler
                 body,
                 start,
                 end,
-                arity
+                arity,
+                out Dictionary<int, int>? heapRoots
             );
             if (registers is not null)
             {
@@ -46,6 +47,15 @@ internal sealed partial class BeamModuleCompiler
                         output.Write(code.Span[copied..instruction.Offset]);
                         copied = next;
                         continue;
+                    }
+
+                    if (heapRoots is not null && heapRoots.TryGetValue(index, out int live))
+                    {
+                        int original = (int)instruction.Operands[^1].Value;
+                        int width = CompactLiveWidth(original);
+                        output.Write(code.Span[copied..(next - width)]);
+                        BeamCompactWriter.Write(output, BeamWire.UnsignedTag, live);
+                        copied = next;
                     }
 
                     while (operand < stackOperands.Count && stackOperands[operand].Start < next)
@@ -79,9 +89,11 @@ internal sealed partial class BeamModuleCompiler
         IReadOnlyList<BeamInstruction> body,
         int start,
         int end,
-        int arity
+        int arity,
+        out Dictionary<int, int>? heapRoots
     )
     {
+        heapRoots = null;
         const int xCount = BeamOperandParameters.MaximumRegister;
         int allocation = FindEntryFrameAllocation(body, start, end);
         if (allocation < 0 || body[allocation].Definition.Opcode != Allocate)
@@ -106,7 +118,7 @@ internal sealed partial class BeamModuleCompiler
             BeamInstruction instruction = body[start + index];
             byte opcode = instruction.Definition.Opcode;
             if (!IsFramelessInstruction(instruction) || (opcode is Allocate && start + index != allocation)
-                || opcode is AllocateHeap or TestHeap or PutTuple or PutList or GetMapElements
+                || opcode is AllocateHeap or PutTuple or GetMapElements
                     or BifOne or BifTwo or BifThree or GcBifOne or GcBifTwo or GcBifThree
                 || (opcode == Deallocate && instruction.Operands[0].Value != slots))
             {
@@ -142,7 +154,7 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 if (opcode == Swap || opcode == GetList && position > 0
-                    || opcode is (Move or GetHead or GetTail or GetTupleElement) && position == instruction.Operands.Count - 1)
+                    || opcode is (Move or GetHead or GetTail or GetTupleElement or PutList) && position == instruction.Operands.Count - 1)
                 {
                     destinations.Add(register);
                     if (opcode != Swap)
@@ -268,7 +280,91 @@ internal sealed partial class BeamModuleCompiler
                 || LeafRegisterIsLive(conflicts[other], reg);
         }
 
-        return registers;
+        var xMask = (BigInteger.One << xCount) - 1;
+        for (int index = 0; index < count; index++)
+        {
+            if (body[start + index].Definition.Opcode != TestHeap)
+            {
+                continue;
+            }
+
+            BigInteger roots = liveIn[index] & xMask;
+            foreach (int slot in slotsUsed)
+            {
+                if (LeafRegisterIsLive(liveIn[index], xCount + slot))
+                {
+                    roots |= BigInteger.One << registers[slot]!.Value;
+                }
+            }
+
+            int live = (int)roots.GetBitLength();
+            if (live >= xCount)
+            {
+                return null;
+            }
+
+            (heapRoots ??= []).Add(start + index, live);
+        }
+
+        return heapRoots is null || HasInitializedLeafHeapRoots(
+            start,
+            arguments,
+            registers,
+            heapRoots,
+            writes,
+            successors
+        ) ? registers : null;
+    }
+
+    private static bool HasInitializedLeafHeapRoots(
+        int start,
+        BigInteger arguments,
+        int?[] registers,
+        Dictionary<int, int> heapRoots,
+        int[][] writes,
+        int[][] successors
+    )
+    {
+        const int xCount = BeamOperandParameters.MaximumRegister;
+        var initialized = new BigInteger?[writes.Length];
+        initialized[0] = arguments;
+        var work = new Queue<int>();
+        work.Enqueue(0);
+        while (work.TryDequeue(out int index))
+        {
+            BigInteger after = initialized[index]!.Value;
+            if (heapRoots.TryGetValue(start + index, out int live))
+            {
+                // Every register in the root prefix must be initialized on every path.
+                BigInteger prefix = (BigInteger.One << live) - 1;
+                after &= prefix;
+                if (after != prefix)
+                {
+                    return false;
+                }
+            }
+
+            foreach (int register in writes[index])
+            {
+                int translated = register < xCount ? register : registers[register - xCount]!.Value;
+                after |= BigInteger.One << translated;
+            }
+
+            foreach (int next in successors[index])
+            {
+                if (next >= 0)
+                {
+                    BigInteger intersection = (initialized[next] ?? after) & after;
+                    if (initialized[next] != intersection)
+                    {
+                        initialized[next] = intersection;
+                        work.Enqueue(next);
+                    }
+                }
+            }
+        }
+
+        return true;
     }
 
     private static int LeafRegisterIndex(BeamOperand operand) => operand.Kind switch

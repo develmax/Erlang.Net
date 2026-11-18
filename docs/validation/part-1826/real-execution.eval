@@ -1,0 +1,13 @@
+[Name, Path] = init:get_plain_arguments(),
+M = list_to_atom(Name),
+{module,M} = code:load_abs(filename:rootname(Path)),
+case M of
+  diameter_callback ->
+     value = M:handle_answer({diameter_packet, hdr, avps, value, bin, [], transport}, req, svc, peer),
+     [value, bad] = M:handle_answer({diameter_packet, hdr, avps, value, bin, [bad], transport}, req, svc, peer);
+  argparse ->
+     Spec = #{arguments => [#{name => num, type => integer}, #{name => verbose, short => $v, type => boolean, default => false}]},
+     {ok, #{num := 42, verbose := true}, _, _} = M:parse(["42", "-v"], Spec),
+     {error,_} = M:parse(["oops"], Spec)
+end,
+io:format("~s 2/2~n",[Name]), halt().
