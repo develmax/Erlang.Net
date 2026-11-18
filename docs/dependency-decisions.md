@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1825 extends the existing closed-atom C# emitter and ordinary call binding. The pinned compiler supplies the switch layout reference. No dependency was added. [Evidence](validation/part-1825/README.md).
+
 Part 1824 reuses existing entry frame discovery and leaf register analysis. The corpus tool uses BCL Parallel.For with deterministic indexed results. No dependency was added. [Evidence](validation/part-1824/README.md).
 
 Part 1823 reuses the existing C# branch liveness and BCL BigInteger interference masks. `System.Reflection.Emit` and Roslyn allocate CLR locals with a different frame model. Pinned OTP `live_intervals` and `overlap_status` supply the interval-boundary rule. No dependency was added. [Evidence](validation/part-1823/README.md).

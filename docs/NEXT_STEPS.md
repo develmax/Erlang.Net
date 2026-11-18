@@ -1,5 +1,7 @@
 # Next steps
 
+Complete hosted validation for Part 1825, then examine tuple projections and their frame placement in the 538-module group. [Evidence](validation/part-1825/README.md).
+
 Complete the hosted gates for Parts 1823 and 1824, then compare tuple projection and value dispatch in functions that still allocate before entry checks. [Evidence](validation/part-1824/README.md).
 
 Complete the full regression and hosted gates for Part 1823. Next, compare frame ownership at joins using the dominance constraints in pinned OTP `place_frames`. [Evidence](validation/part-1823/README.md).

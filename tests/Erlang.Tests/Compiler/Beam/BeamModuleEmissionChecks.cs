@@ -353,6 +353,7 @@ internal static class BeamModuleEmissionChecks
         CompareStackSlotsAtLastProjectionRead();
         CompareStackSlotsAcrossBranchJoin();
         CompareLeafFrameAfterEntryTests();
+        CompareClosedAtomDispatchWithMixedResults();
         CompareStackSlotsAcrossMapAndBinaryOperations();
         CompareStackSlotsAcrossBitMatches();
         CompareStackSlotsAcrossTry();
@@ -848,6 +849,36 @@ internal static class BeamModuleEmissionChecks
         if (code.AsSpan().IndexOf(neededFrame) < 0 || code.AsSpan().IndexOf(unnecessaryFrame) >= 0)
         {
             throw new InvalidOperationException(BeamLeafFrameDiagnostics.EntryTestFrame);
+        }
+
+        _ = BeamModule.Prepare(bytes);
+    }
+
+    private static void CompareClosedAtomDispatchWithMixedResults()
+    {
+        const string source = """
+            -module(beam_closed_atom_dispatch).
+            -export([run/1, shared/1, preserved/1]).
+            run(nocache) -> nocache;
+            run(cache) -> lists:reverse([first, second]).
+            shared(red) -> red;
+            shared(blue) -> red;
+            shared(sort) -> lists:reverse([third, fourth]).
+            preserved(V) when is_integer(V) -> {number, V};
+            preserved(V) -> {other, V}.
+            """;
+        byte[] bytes = CodeGeneration.CompileBeamModule(source, "beam_closed_atom_dispatch.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(bytes).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> twoKeys = [
+            BeamEmissionFormat.SelectValue,
+            BeamEmissionFormat.XRegisterTag,
+            0x15,
+            BeamEmissionFormat.ExtendedListOperand,
+            0x40
+        ];
+        if (code.AsSpan().IndexOf(twoKeys) < 0)
+        {
+            throw new InvalidOperationException(BeamClosedAtomDispatchDiagnostics.MixedResults);
         }
 
         _ = BeamModule.Prepare(bytes);
