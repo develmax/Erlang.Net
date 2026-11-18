@@ -45,8 +45,7 @@ combined stack and heap allocation and call-result scheduling before
 trimming. The pre-change scan found 1,474 adjacent spills and loads
 in 409 functions across 220 modules that use trim. A candidate must
 prove that reordering reduces a frame and preserves the retained
-argument values. Full regression is tracked through the required
-hosted workflows.
+argument values. Both hosted compiler workflows passed. The joined evidence passed 9,746 tests and was used to regenerate readiness. Documentation validation runs on the new PR head. [Hosted receipt](hosted-receipt.json).
 
 [Summary](results.json) · [Corpus](otp-corpus.json) ·
 [Changed images](changed-images.json) · [Normalized delta](normalized-delta.terms) ·
