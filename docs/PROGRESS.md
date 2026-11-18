@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1824 removes leaf frames after entry tests. The full Windows release retains 400 byte matches. ERTS accepted all 80 changed images. [Evidence](validation/part-1824/README.md).
+
 Part 1823 implements branch stack-slot reuse when an instruction reads a value for the last time. The focused regression and ERTS controls pass. The full Windows OTP corpus retains 400 byte matches. ERTS accepted all 155 changed images. The full regression gate remains open. [Evidence](validation/part-1823/README.md).
 
 Part 1822 stabilizes the phash2 allocation guard with five measurements, the existing 4,096-byte limit and a copy check on every sample. [Validation](validation/part-1822/README.md).

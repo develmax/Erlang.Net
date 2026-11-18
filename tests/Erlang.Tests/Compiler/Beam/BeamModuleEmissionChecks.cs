@@ -352,6 +352,7 @@ internal static class BeamModuleEmissionChecks
         CompareStackSlotsWithFramelessFailure();
         CompareStackSlotsAtLastProjectionRead();
         CompareStackSlotsAcrossBranchJoin();
+        CompareLeafFrameAfterEntryTests();
         CompareStackSlotsAcrossMapAndBinaryOperations();
         CompareStackSlotsAcrossBitMatches();
         CompareStackSlotsAcrossTry();
@@ -826,6 +827,30 @@ internal static class BeamModuleEmissionChecks
         {
             throw new InvalidOperationException(BeamBranchStackSlotDiagnostics.BranchJoinFrame);
         }
+    }
+
+    private static void CompareLeafFrameAfterEntryTests()
+    {
+        const string source = """
+            -module(beam_late_leaf_frame).
+            -export([check/1, keep/1]).
+            check({port, Number}) when is_integer(Number) -> true;
+            check({_, _}) -> false.
+            keep({port, Value}) ->
+                Observed = observe(Value),
+                {Observed, Value}.
+            observe(Value) -> erlang:garbage_collect(), Value.
+            """;
+        byte[] bytes = CodeGeneration.CompileBeamModule(source, "beam_late_leaf_frame.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(bytes).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> neededFrame = [BeamEmissionFormat.Allocate, 0x10, 0x10];
+        ReadOnlySpan<byte> unnecessaryFrame = [BeamEmissionFormat.Allocate, 0x20, 0x10];
+        if (code.AsSpan().IndexOf(neededFrame) < 0 || code.AsSpan().IndexOf(unnecessaryFrame) >= 0)
+        {
+            throw new InvalidOperationException(BeamLeafFrameDiagnostics.EntryTestFrame);
+        }
+
+        _ = BeamModule.Prepare(bytes);
     }
 
     private static void CompareStackSlotsAcrossMapAndBinaryOperations()

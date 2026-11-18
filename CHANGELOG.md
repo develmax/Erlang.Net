@@ -243,4 +243,5 @@ Parts already covered by the main volumes retain their integrated records. The f
 - [0156.md](docs/changelog/0156.md) — parts 1759–1773
 - [0157.md](docs/changelog/0157.md) — parts 1774–1789
 - [0158.md](docs/changelog/0158.md) — parts 1790–1806
-- [0159.md](docs/changelog/0159.md) — parts 1807 onward
+- [0159.md](docs/changelog/0159.md) — parts 1807–1823
+- [0160.md](docs/changelog/0160.md) — parts 1824 onward

@@ -1,5 +1,7 @@
 ## Part601 resource/magic32 scope — 2026-11-05
 
+Part 1824 removes unnecessary frames after guarded entry checks. Value dispatch, register assignment, type inference and release tables still differ in parts of the corpus. [Evidence](validation/part-1824/README.md).
+
 Part 1823 reduces stack frames where a single-result BEAM instruction consumes a last-use Y value. The scope is the C# branch allocator. Several remaining allocation differences depend on frame placement and earlier SSA lowering. [Evidence](validation/part-1823/README.md).
 
 The Windows OTP 29.1.1 BEAM comparison in part 1821 retained the same 966 differing images. Whole-image equality and behavior remain separately measured. [Validation](validation/part-1821/results.json).
