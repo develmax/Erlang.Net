@@ -32,4 +32,4 @@ SSH flag conversions. The others are in `erl_features` and
 [Changed images](changed-images.json) · [Loader](loader.log) ·
 [Normalized comparisons](normalized-delta.terms).
 
-The compiler block passed 3,835 of 3,836 cases. The original Jaro resource case timed out during the parallel corpus run. The same test also timed out on the prior compiler under concurrent load. The isolated retake passed on the candidate binaries. Both reports are retained. Hosted gates are pending.
+The compiler block passed 3,835 of 3,836 cases. The original Jaro resource case timed out during the parallel corpus run. The same test also timed out on the prior compiler under concurrent load. The isolated retake passed on the candidate binaries. Both reports are retained. Both workflows passed on the hosted compiler revision. The joined report passed all 9,746 cases and was used to regenerate readiness. Validation of the documentation revision is tracked on the pull request. [Hosted receipt](hosted-receipt.json).
