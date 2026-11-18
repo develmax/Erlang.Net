@@ -54,6 +54,8 @@ near-match `mnesia_frag_hash:convert_old_state/1` uses `put_tuple2`
 and must account for every list-encoded input operand. The candidate
 for that group needs a separate register and root proof.
 
+Both hosted compiler workflows passed. The joined report records 9,746 passing tests. Readiness was regenerated from that report. [Hosted receipt](hosted-receipt.json).
+
 [Summary](results.json) · [Corpus](otp-corpus.json) ·
 [Changed images](changed-images.json) · [Load](loader.log) ·
 [Normalized delta](normalized-delta.terms) · [Frame removals](frame-removals.terms) ·
