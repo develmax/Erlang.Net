@@ -1,6 +1,6 @@
 # Next steps
 
-Model put_tuple2 destinations and flattened sources in the leaf allocator. Start with mnesia_frag_hash:convert_old_state/1, then measure the affected corpus group. [Evidence](validation/part-1828/README.md).
+Model initialized X roots for arithmetic GC BIF operations with an exit-only failure and preserve the existing guard-fallback path. Start with tuple field arithmetic and stress boxed integers. [Evidence](validation/part-1829/README.md).
 
 The recovered C# compiler retained the equality status of all 1,366 Windows OTP 29.1.1 images. Rank the 966 differences by shared compiler operation before choosing the next lowering change. [Validation](validation/part-1821/results.json).
 

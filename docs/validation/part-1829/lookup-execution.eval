@@ -1,0 +1,8 @@
+[Dir] = init:get_plain_arguments(),
+P = filename:join(["artifacts/leaf-tuple-probe",Dir,"beam_leaf_lookup"]),
+{module,M} = code:load_abs(P),
+F = M:lookup(),
+{lookup, [my_resolver]} = F(["hosts:",my_resolver]),
+skip = F(["services:",my_resolver]),
+skip = F([]),
+io:format("~s lookup 3/3~n",[Dir]),halt().

@@ -1,0 +1,7 @@
+[P] = init:get_plain_arguments(),
+true = code:unstick_mod(crypto),
+{module,crypto} = code:load_abs(filename:rootname(P)),
+H = crypto:hash(sha256, <<"beam parity tuple control">>),
+32 = byte_size(H),
+io:format("~s~n",[binary:encode_hex(H)]),
+halt().

@@ -6,4 +6,6 @@ internal static class BeamLeafFrameDiagnostics
     internal const string ListHeapRoots = "A leaf list failed to retain its initialized X roots without a stack frame.";
     internal const string DistinctTupleFallback = "Tuple fallback lost a different record field projection.";
     internal const string CombinedLeafTail = "A leaf local tail call kept a stack frame for its list arguments.";
+    internal const string TupleHeapRoots = "A leaf tuple failed to reserve the heap before allocating its field registers.";
+    internal const string ListTupleOrder = "Previously canonical list field registers changed before tuple construction.";
 }
