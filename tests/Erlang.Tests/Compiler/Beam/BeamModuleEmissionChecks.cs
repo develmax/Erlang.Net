@@ -792,7 +792,7 @@ internal static class BeamModuleEmissionChecks
         if (code.AsSpan().IndexOf(reusedFrame) < 0 || code.AsSpan().IndexOf(largerFrame) >= 0
             || code.AsSpan().IndexOf(reusedProjectionSlot) < 0)
         {
-            throw new InvalidOperationException("Expected the list projection to reuse the slot after its last read.");
+            throw new InvalidOperationException(BeamBranchStackSlotDiagnostics.LastProjectionRead);
         }
 
         _ = BeamModule.Prepare(bytes);
@@ -824,7 +824,7 @@ internal static class BeamModuleEmissionChecks
         ReadOnlySpan<byte> mergedFrame = [BeamEmissionFormat.Allocate, 0x30, 0x20];
         if (code.AsSpan().IndexOf(branchFrame) < 0 || code.AsSpan().IndexOf(mergedFrame) >= 0)
         {
-            throw new InvalidOperationException("Expected the branch join to preserve the reference stack frame.");
+            throw new InvalidOperationException(BeamBranchStackSlotDiagnostics.BranchJoinFrame);
         }
     }
 
