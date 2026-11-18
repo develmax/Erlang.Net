@@ -60,6 +60,5 @@ previous compiler. The local test executes a retained OTP string BEAM.
 The other four cases passed their focused retakes. Three halt checks
 needed the conventional Debug halt probe. The identifier test's first
 PID depth-two comparison returned an undefined reference count where the
-retained outcome contains 1. Its isolated retake matched. Full hosted
-validation is pending. The original reports and their retakes are
+retained outcome contains 1. Its isolated retake matched. The hosted compiler report passed all 9,746 cases. Readiness was regenerated from the verified handoff. [Hosted receipt](hosted-receipt.json). The original reports and their retakes are
 kept in this directory.
