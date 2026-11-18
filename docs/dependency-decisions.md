@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1829 reuses the compiler instruction reader, leaf register allocator, and heap placement for tuple fields. Pinned OTP tuple element and interval behavior supplies the reference. No dependency was added. [Evidence](validation/part-1829/README.md).
+
 Part 1828 uses the established C# leaf frame and root analysis for local tail arguments. Pinned OTP build_call and cg_alloc define the equivalent forms. No dependency was added. [Evidence](validation/part-1828/README.md).
 
 Part 1827 extends the C# projection graph with a single-predecessor proof and exact operand comparisons. Pinned OTP SSA common-subexpression elimination supplies the reference. No dependency was added. [Evidence](validation/part-1827/README.md).

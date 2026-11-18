@@ -356,6 +356,8 @@ internal static class BeamModuleEmissionChecks
         CompareLeafListHeapRoots();
         await CompareDistinctTupleFallback();
         CompareCombinedLeafTail();
+        CompareLeafTupleHeapRoots();
+        CompareLeafListTupleOrder();
         CompareClosedAtomDispatchWithMixedResults();
         CompareStackSlotsAcrossMapAndBinaryOperations();
         CompareStackSlotsAcrossBitMatches();
@@ -937,6 +939,50 @@ internal static class BeamModuleEmissionChecks
             || code.AsSpan().IndexOf(tail) < 0)
         {
             throw new InvalidOperationException(BeamLeafFrameDiagnostics.CombinedLeafTail);
+        }
+
+        _ = BeamModule.Prepare(bytes);
+    }
+
+    private static void CompareLeafTupleHeapRoots()
+    {
+        const string source = """
+            -module(beam_leaf_tuple).
+            -export([convert/1, rotate/2]).
+            convert({older, A, B, C}) -> {newer, A, B, C, tag}.
+            rotate({tag, A, B}, Other) -> {Other, B, A}.
+            """;
+        byte[] bytes = CodeGeneration.CompileBeamModule(source, "beam_leaf_tuple.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(bytes).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> heapAndFields = [
+            BeamEmissionFormat.TestHeap, 0x60, 0x10,
+            BeamEmissionFormat.GetTupleElement, 0x03, 0x10, 0x13,
+            BeamEmissionFormat.GetTupleElement, 0x03, 0x20, 0x23
+        ];
+        if (code.AsSpan().IndexOf(heapAndFields) < 0)
+        {
+            throw new InvalidOperationException(BeamLeafFrameDiagnostics.TupleHeapRoots);
+        }
+
+        _ = BeamModule.Prepare(bytes);
+    }
+
+    private static void CompareLeafListTupleOrder()
+    {
+        const string source = """
+            -module(beam_leaf_lookup).
+            -export([lookup/0]).
+            lookup() -> fun(["hosts:" | Types]) -> {lookup, Types};
+                           (_) -> skip
+                        end.
+            """;
+        byte[] bytes = CodeGeneration.CompileBeamModule(source, "beam_leaf_lookup.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(bytes).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> listProjection = [BeamEmissionFormat.GetList, 0x03, 0x13, 0x03];
+        ReadOnlySpan<byte> heap = [BeamEmissionFormat.TestHeap, 0x30, 0x10, BeamEmissionFormat.PutTuple];
+        if (code.AsSpan().IndexOf(listProjection) < 0 || code.AsSpan().IndexOf(heap) < 0)
+        {
+            throw new InvalidOperationException(BeamLeafFrameDiagnostics.ListTupleOrder);
         }
 
         _ = BeamModule.Prepare(bytes);

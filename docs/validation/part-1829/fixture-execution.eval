@@ -1,0 +1,10 @@
+[Dir] = init:get_plain_arguments(),
+P = filename:join(["artifacts/leaf-tuple-probe",Dir,"beam_leaf_tuple"]),
+{module,M} = code:load_abs(P),
+A = {nested,42}, B = [first,second], C = #{tag=>value},
+{newer,A,B,C,tag} = M:convert({older,A,B,C}),
+{C,B,A} = M:rotate({tag,A,B},C),
+{'EXIT',{function_clause,_}} = (catch M:convert({missing,A,B,C})),
+L = [M:convert({older,{I},[I],#{v=>I}}) || I <- lists:seq(1,10000)],
+true = lists:all(fun({newer,{N},[N],#{v:=N},tag})->true; (_)->false end,L),
+io:format("~s 4/4~n",[Dir]),halt().

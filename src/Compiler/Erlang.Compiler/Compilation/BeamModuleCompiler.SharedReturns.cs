@@ -243,7 +243,13 @@ internal sealed partial class BeamModuleCompiler
                     removeSpills: false
                 ))
                 ?? (shareReturns ? null : MoveTerminalErrorBlocks(code, body))
-                ?? (shareReturns ? null : CompactDisjointFrames(code, body, stackOperands));
+                ?? (shareReturns ? null : CompactDisjointFrames(code, body, stackOperands))
+                ?? (shareReturns ? null : ReallocateLeafFrameRegisters(
+                    code,
+                    body,
+                    stackOperands,
+                    tupleConstruction: true
+                ));
 
             return simplified is null ? null : (simplified, Enumerable.Range(0, labelCount).ToArray(), 0);
         }

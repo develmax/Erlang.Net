@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1829 adds 45 normalized function matches with zero losses and retains all 400 byte matches. The existing list-closure layout was preserved after correcting pass order. [Evidence](validation/part-1829/README.md).
+
 Part 1828 gains 71 normalized function matches and retains all 400 whole-file matches. ERTS confirms the list forwarding, record error, and transcode controls. [Evidence](validation/part-1828/README.md).
 
 Part 1827 adds two normalized instruction matches. The full-file count stays at 400 of 1,366. Both on-load controls and the ordinary batch preparation checks completed. [Evidence](validation/part-1827/README.md).

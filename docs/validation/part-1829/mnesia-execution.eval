@@ -1,0 +1,8 @@
+[P] = init:get_plain_arguments(),
+{module,M} = code:load_abs(filename:rootname(P)),
+Old = {hash_state,3,2,1},
+New = M:init_state(sample,undefined),
+Srcs = [M:add_frag(Old), M:del_frag(Old), M:key_to_frag_number(Old,tuple_fixture),
+        M:match_spec_to_frag_numbers(Old,[]), M:key_to_frag_number(New,tuple_fixture)],
+io:format("~0p~n",[Srcs]),
+halt().

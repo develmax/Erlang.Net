@@ -8,7 +8,8 @@ internal sealed partial class BeamModuleCompiler
     private static byte[]? ReallocateLeafFrameRegisters(
         ReadOnlyMemory<byte> code,
         IReadOnlyList<BeamInstruction> body,
-        List<(int Start, int End, int Slot)> stackOperands
+        List<(int Start, int End, int Slot)> stackOperands,
+        bool tupleConstruction = false
     )
     {
         using var output = new MemoryStream();
@@ -29,6 +30,7 @@ internal sealed partial class BeamModuleCompiler
                 start,
                 end,
                 arity,
+                tupleConstruction,
                 out Dictionary<int, int>? heapRoots
             );
             if (registers is not null)
@@ -108,6 +110,7 @@ internal sealed partial class BeamModuleCompiler
         int start,
         int end,
         int arity,
+        bool tupleConstruction,
         out Dictionary<int, int>? heapRoots
     )
     {
@@ -131,14 +134,17 @@ internal sealed partial class BeamModuleCompiler
         var writes = new int[count][];
         var movedFrom = new int[count];
         var slotsUsed = new HashSet<int>();
+        bool hasTuple = false;
         for (int index = 0; index < count; index++)
         {
             BeamInstruction instruction = body[start + index];
             byte opcode = instruction.Definition.Opcode;
             bool localTail = opcode == TailLocalCallWithFrame;
+            hasTuple |= opcode == PutTuple;
             if ((!localTail && !IsFramelessInstruction(instruction))
                 || (opcode is Allocate or AllocateHeap && start + index != allocation)
-                || opcode is PutTuple or GetMapElements
+                || (!tupleConstruction && opcode == PutTuple)
+                || opcode is GetMapElements
                     or BifOne or BifTwo or BifThree or GcBifOne or GcBifTwo or GcBifThree
                 || (opcode is Deallocate or TailLocalCallWithFrame && instruction.Operands[^1].Value != slots))
             {
@@ -178,7 +184,7 @@ internal sealed partial class BeamModuleCompiler
                     slotsUsed.Add(slot);
                 }
 
-                if (opcode == Swap || opcode == GetList && position > 0
+                if (opcode == Swap || opcode == GetList && position > 0 || opcode == PutTuple && position == 0
                     || opcode is (Move or GetHead or GetTail or GetTupleElement or PutList) && position == instruction.Operands.Count - 1)
                 {
                     destinations.Add(register);
@@ -196,6 +202,11 @@ internal sealed partial class BeamModuleCompiler
             }
 
             writes[index] = destinations.ToArray();
+        }
+
+        if (tupleConstruction && !hasTuple)
+        {
+            return null;
         }
 
         var successors = new int[count][];
@@ -286,7 +297,14 @@ internal sealed partial class BeamModuleCompiler
         }
 
         var registers = new int?[slots];
-        foreach (int slot in slotsUsed.Order())
+        // Tuple fields take registers in definition order, as in the pinned interval scan.
+        var slotsInOrder = tupleConstruction
+            ? writes.SelectMany(destinations => destinations)
+                .Where(register => register >= xCount)
+                .Select(register => register - xCount)
+                .Concat(slotsUsed.Order()).Distinct()
+            : slotsUsed.Order();
+        foreach (int slot in slotsInOrder)
         {
             int reg = xCount + slot;
             int candidate = (preferred[slot] ?? []).Concat(Enumerable.Range(0, xCount))
