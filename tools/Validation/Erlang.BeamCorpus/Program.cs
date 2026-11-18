@@ -10,13 +10,15 @@ if (args is ["--generate-asn1", var schemaPath, var outputDirectory])
     return 0;
 }
 
-if (args.Length is < 2 or > 4)
+if (BeamCorpusOptions.Parse(args) is not { } options)
 {
-    Console.Error.WriteLine("Usage: Erlang.BeamCorpus <OTP-29.1.1 installation> <report.json> [public-key-asn1-headers [otp-source-headers]]");
-    Console.Error.WriteLine("       Erlang.BeamCorpus --generate-asn1 <schema.asn1> <output-directory>");
+    Console.Error.WriteLine(BeamCorpusDiagnostics.Usage);
+    Console.Error.WriteLine(BeamCorpusDiagnostics.GenerateAsn1Usage);
 
     return 2;
 }
+
+args = options.Paths;
 
 const string otpVersion = "29.1.1";
 string root = Path.GetFullPath(args[0]);
@@ -60,6 +62,25 @@ if (sourceHeaders is not null && !Directory.Exists(sourceHeaders))
 string? generatedDirectory = Environment.GetEnvironmentVariable("ERLANG_BEAM_CORPUS_SAVE_DIFFERENCES") == "1"
     ? report + ".generated"
     : null;
+string[] beams = Directory.EnumerateFiles(root, "*.beam", SearchOption.AllDirectories)
+    .Order(StringComparer.Ordinal).ToArray();
+if (options.ModulesFile is { } moduleFile)
+{
+    HashSet<string>? selection = ReadModuleSelection(moduleFile);
+    if (selection is null)
+    {
+        return 2;
+    }
+
+    beams = beams.Where(beam => selection.Remove(Path.GetRelativePath(root, beam))).ToArray();
+    if (selection.Count != 0)
+    {
+        Console.Error.WriteLine(BeamCorpusDiagnostics.UnknownModules(selection));
+
+        return 2;
+    }
+}
+
 if (generatedDirectory is not null)
 {
     if (Directory.Exists(generatedDirectory))
@@ -74,8 +95,59 @@ if (generatedDirectory is not null)
 
 var sources = Directory.EnumerateFiles(root, "*.erl", SearchOption.AllDirectories)
     .ToLookup(path => (Application(path), Path.GetFileNameWithoutExtension(path)));
-var results = new List<BeamCorpusResult>();
-foreach (string beam in Directory.EnumerateFiles(root, "*.beam", SearchOption.AllDirectories).Order(StringComparer.Ordinal))
+var results = new BeamCorpusResult[beams.Length];
+Parallel.For(
+    0,
+    beams.Length,
+    new ParallelOptions { MaxDegreeOfParallelism = options.Jobs },
+    index => results[index] = Compare(beam: beams[index])
+);
+
+var counts = results.GroupBy(result => result.Status).OrderBy(group => group.Key, StringComparer.Ordinal)
+    .ToDictionary(group => group.Key, group => group.Count(), StringComparer.Ordinal);
+Directory.CreateDirectory(Path.GetDirectoryName(report)!);
+File.WriteAllText(
+    report,
+    JsonSerializer.Serialize(
+        new
+        {
+            OtpVersion = otpVersion,
+            Total = results.Length,
+            Counts = counts,
+            Modules = results
+        },
+        new JsonSerializerOptions { WriteIndented = true }
+    )
+);
+Console.WriteLine(JsonSerializer.Serialize(counts));
+
+return results.Length != 0 && results.All(result => result.Status == "Equal") ? 0 : 1;
+
+static HashSet<string>? ReadModuleSelection(string path)
+{
+    try
+    {
+        string[] modules = File.ReadLines(path)
+            .Select(line => line.Trim().Replace('/', Path.DirectorySeparatorChar).Replace('\\', Path.DirectorySeparatorChar))
+            .Where(line => line.Length != 0)
+            .ToArray();
+        var selection = modules.ToHashSet(StringComparer.Ordinal);
+        if (selection.Count != 0 && selection.Count == modules.Length)
+        {
+            return selection;
+        }
+
+        Console.Error.WriteLine(BeamCorpusDiagnostics.InvalidModuleSelection);
+    }
+    catch (Exception error) when (error is IOException or UnauthorizedAccessException or ArgumentException)
+    {
+        Console.Error.WriteLine(BeamCorpusDiagnostics.ModuleSelectionReadFailed(error.Message));
+    }
+
+    return null;
+}
+
+BeamCorpusResult Compare(string beam)
 {
     string relative = Path.GetRelativePath(root, beam);
     string sameDirectory = Path.ChangeExtension(beam, ".erl");
@@ -95,19 +167,17 @@ foreach (string beam in Directory.EnumerateFiles(root, "*.beam", SearchOption.Al
         }
         catch (Exception error) when (error is InvalidOperationException or System.ComponentModel.Win32Exception or IOException or UnauthorizedAccessException)
         {
-            results.Add(new(relative, "SourceGenerationFailed", Detail: error.Message));
-            continue;
+            return new(relative, "SourceGenerationFailed", Detail: error.Message);
         }
     }
     if (candidates.Length != 1)
     {
-        results.Add(new(
+        return new(
             relative,
             candidates.Length == 0 ? "MissingSource" : "AmbiguousSource",
             Detail:
             string.Join(", ", candidates.Order(StringComparer.Ordinal).Select(path => Path.GetRelativePath(root, path)))
-        ));
-        continue;
+        );
     }
 
     string source = candidates[0];
@@ -131,41 +201,37 @@ foreach (string beam in Directory.EnumerateFiles(root, "*.beam", SearchOption.Al
     }
     catch (CompileException error)
     {
-        results.Add(new(
+        return new(
             relative,
             "SourceRejected",
             relativeSource,
             $"{error.Code} at {error.Offset}: {error.Message}"
-        ));
-        continue;
+        );
     }
     catch (NotSupportedException error)
     {
-        results.Add(new(
+        return new(
             relative,
             "Unsupported",
             relativeSource,
             error.Message,
             EmissionSite: EmissionSite(error)
-        ));
-        continue;
+        );
     }
     catch (Exception error)
     {
-        results.Add(new(
+        return new(
             relative,
             "CompilerError",
             relativeSource,
             $"{error.GetType().Name}: {error.Message}"
-        ));
-        continue;
+        );
     }
 
     byte[] original = File.ReadAllBytes(beam);
     if (original.AsSpan().SequenceEqual(generated))
     {
-        results.Add(new(relative, "Equal", relativeSource));
-        continue;
+        return new(relative, "Equal", relativeSource);
     }
 
     if (generatedDirectory is not null)
@@ -181,35 +247,16 @@ foreach (string beam in Directory.EnumerateFiles(root, "*.beam", SearchOption.Al
     {
         offset++;
     }
-    results.Add(new(
+
+    return new(
         relative,
         "Different",
         relativeSource,
         $"Original length {original.Length}, generated length {generated.Length}. "
             + BeamCorpusChunkComparison.Describe(original, generated),
         offset
-    ));
+    );
 }
-
-var counts = results.GroupBy(result => result.Status).OrderBy(group => group.Key, StringComparer.Ordinal)
-    .ToDictionary(group => group.Key, group => group.Count(), StringComparer.Ordinal);
-Directory.CreateDirectory(Path.GetDirectoryName(report)!);
-File.WriteAllText(
-    report,
-    JsonSerializer.Serialize(
-        new
-        {
-            OtpVersion = otpVersion,
-            Total = results.Count,
-            Counts = counts,
-            Modules = results
-        },
-        new JsonSerializerOptions { WriteIndented = true }
-    )
-);
-Console.WriteLine(JsonSerializer.Serialize(counts));
-
-return results.Count != 0 && results.All(result => result.Status == "Equal") ? 0 : 1;
 
 string Application(string path)
 {

@@ -83,13 +83,13 @@ internal sealed partial class BeamModuleCompiler
     )
     {
         const int xCount = BeamOperandParameters.MaximumRegister;
-        if (end - start < 2 || body[start].Definition.Opcode != Label
-            || body[start + 1].Definition.Opcode != Allocate)
+        int allocation = FindEntryFrameAllocation(body, start, end);
+        if (allocation < 0 || body[allocation].Definition.Opcode != Allocate)
         {
             return null;
         }
 
-        int slots = (int)body[start + 1].Operands[0].Value;
+        int slots = (int)body[allocation].Operands[0].Value;
         if (slots <= 0 || slots >= xCount)
         {
             return null;
@@ -105,7 +105,7 @@ internal sealed partial class BeamModuleCompiler
         {
             BeamInstruction instruction = body[start + index];
             byte opcode = instruction.Definition.Opcode;
-            if (!IsFramelessInstruction(instruction) || (opcode is Allocate && index != 1)
+            if (!IsFramelessInstruction(instruction) || (opcode is Allocate && start + index != allocation)
                 || opcode is AllocateHeap or TestHeap or PutTuple or PutList or GetMapElements
                     or BifOne or BifTwo or BifThree or GcBifOne or GcBifTwo or GcBifThree
                 || (opcode == Deallocate && instruction.Operands[0].Value != slots))
