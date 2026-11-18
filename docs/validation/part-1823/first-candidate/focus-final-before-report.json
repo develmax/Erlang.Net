@@ -1,0 +1,19 @@
+{
+  "Partial": true,
+  "SelectedCount": 1,
+  "TotalCount": 9746,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/beam/whole-module-matches-otp"
+  ],
+  "Passed": 0,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "compiler/beam/whole-module-matches-otp",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected the list projection to reuse the slot after its last read.\r\n   at Erlang.Tests.BeamModuleEmissionChecks.CompareStackSlotsAtLastProjectionRead() in repo\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamModuleEmissionChecks.cs:line 794\r\n   at Erlang.Tests.BeamModuleEmissionChecks.Run() in repo\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamModuleEmissionChecks.cs:line 353\r\n   at Program.\u003CMain\u003E$(String[] args) in repo\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16303",
+      "Milliseconds": 6376
+    }
+  ]
+}

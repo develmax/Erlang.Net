@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1823 matches the pinned OTP frame size for a list projection in `dtls_handshake:reassemble_fragments/2`. The changed images passed focused ERTS controls. Full-file parity is measured separately. [Evidence](validation/part-1823/README.md).
+
 Part 1821 retained 400 whole-image byte matches out of 1,366 Windows OTP 29.1.1 release modules. Every module kept its previous equality status. [Validation](validation/part-1821/results.json).
 
 Part611 adds the selectable error_logger backend with all 29 exports. Both backends pass 143 targeted observations and 10 upstream tests. [Publication evidence](validation/error-logger-port-20261105/publication/README.md).

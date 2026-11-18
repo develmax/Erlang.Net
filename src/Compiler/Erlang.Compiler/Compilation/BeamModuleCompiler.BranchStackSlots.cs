@@ -285,8 +285,15 @@ internal sealed partial class BeamModuleCompiler
             if (!writes.IsZero)
             {
                 BigInteger next = fallsThrough ? live[index + 1] : BigInteger.Zero;
-                bool initializes = body[start + index].Definition.Opcode == InitYRegisters;
-                BigInteger occupied = next | reads | (initializes ? BigInteger.Zero : writes);
+                byte opcode = body[start + index].Definition.Opcode;
+                bool initializes = opcode == InitYRegisters;
+                // These instructions read their inputs before assigning a single result.
+                // A source whose last use is here can share the result's slot.
+                // Leave move interference intact because moves also carry branch joins.
+                bool readsBeforeWrite = opcode is GetHead or GetTail
+                    or BifOne or BifTwo or BifThree or GcBifOne or GcBifTwo or GcBifThree;
+                BigInteger occupied = next | (readsBeforeWrite ? BigInteger.Zero : reads)
+                    | (initializes ? BigInteger.Zero : writes);
                 if (targets is not null && (exceptional?.Contains(index) == true
                     || body[start + index].Definition.Opcode is GetMapElements or BinaryMatch))
                 {
