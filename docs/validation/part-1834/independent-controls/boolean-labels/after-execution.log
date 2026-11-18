@@ -1,0 +1,6 @@
+tail_case [probe,id,7] {hit,7}
+tail_case [probe,absent,9] {missing,probe,absent,9}
+tail_case [9,id,11] {error,badarg}
+pure [true] here
+pure [false] absent
+pure [unknown] {error,{case_clause,unknown}}

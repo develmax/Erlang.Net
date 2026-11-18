@@ -4,6 +4,9 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
+    private const int UnseenFrameOwner = -2;
+    private const int UnframedOwner = -1;
+
     private static byte[]? CompactDisjointFrames(
         ReadOnlyMemory<byte> code,
         IReadOnlyList<BeamInstruction> body,
@@ -51,7 +54,7 @@ internal sealed partial class BeamModuleCompiler
                 if (opcode == InitYRegisters)
                 {
                     int[] kept = instruction.Operands.Skip(1).Select(slot => slots[(int)slot.Value])
-                        .Where(slot => slot >= 0).ToArray();
+                        .Where(slot => slot >= 0).Distinct().Order().ToArray();
                     output.Write(code.Span[copied..instruction.Offset]);
                     if (kept.Length != 0)
                     {
@@ -114,8 +117,97 @@ internal sealed partial class BeamModuleCompiler
 
     private static (int Size, int[] Slots)?[]? PlanDisjointFrames(IReadOnlyList<BeamInstruction> body, int start, int end)
     {
-        const int Unseen = -2;
-        const int Unframed = -1;
+        if (ReadDisjointFrameOwnership(body, start, end) is not { } ownership)
+        {
+            return null;
+        }
+
+        var (owners, uses) = ownership;
+
+        var regions = new Dictionary<int, (int End, int Count)>();
+        if (uses.Keys.Count(allocation => owners[allocation - start] != UnseenFrameOwner) > 1)
+        {
+            for (int index = 0; index < owners.Length; index++)
+            {
+                int owner = owners[index];
+                int instruction = index + start;
+                if (owner == UnframedOwner && index > 0 && body[instruction].Definition.Opcode == Return
+                    && body[instruction - 1].Definition.Opcode == Deallocate)
+                {
+                    owner = owners[index - 1];
+                }
+
+                if (owner >= 0)
+                {
+                    regions[owner] = (instruction + 1, regions.GetValueOrDefault(owner).Count + 1);
+                }
+            }
+        }
+
+        var layouts = new Dictionary<int, (int Size, int[] Slots)>();
+        foreach (var (allocation, used) in uses)
+        {
+            // Keep unreachable allocations intact.
+            if (owners[allocation - start] == UnseenFrameOwner)
+            {
+                continue;
+            }
+
+            // The ownership walk rejects any edge joining two different frames.
+            // Include the immediate Return after each Deallocate in this frame's liveness region.
+            if (regions.TryGetValue(allocation, out var region) && region.Count == region.End - allocation - 1
+                && PlanBranchStackSlots(
+                    body,
+                    start,
+                    region.End,
+                    linearAllocation: allocation,
+                    allowGcBifExceptionExit: true
+                ) is { Trim: null } plan)
+            {
+                layouts.Add(allocation, (plan.Count, plan.Slots));
+                continue;
+            }
+
+            if (used.All(slot => slot))
+            {
+                continue;
+            }
+
+            int size = 0;
+            var slots = new int[used.Length];
+            for (int slot = 0; slot < used.Length; slot++)
+            {
+                slots[slot] = used[slot] ? size++ : -1;
+            }
+
+            layouts.Add(allocation, (size, slots));
+        }
+
+        if (layouts.Count == 0)
+        {
+            return null;
+        }
+
+        var result = new (int Size, int[] Slots)?[owners.Length];
+        for (int index = 0; index < owners.Length; index++)
+        {
+            int owner = owners[index];
+            int allocation = owner == UnframedOwner && uses.ContainsKey(index + start) ? index + start : owner;
+            if (layouts.TryGetValue(allocation, out var layout))
+            {
+                result[index] = layout;
+            }
+        }
+
+        return result;
+    }
+
+    private static (int[] Owners, Dictionary<int, bool[]> Uses)? ReadDisjointFrameOwnership(
+        IReadOnlyList<BeamInstruction> body,
+        int start,
+        int end
+    )
+    {
         if (start >= end || body[start].Definition.Opcode != Label)
         {
             return null;
@@ -162,9 +254,9 @@ internal sealed partial class BeamModuleCompiler
         int functionFailure = info >= 0 && body[info].Definition.Opcode == Label
             ? (int)body[info].Operands[0].Value : -1;
         var owners = new int[end - start];
-        Array.Fill(owners, Unseen);
+        Array.Fill(owners, UnseenFrameOwner);
         var work = new Queue<int>();
-        Assign(start, Unframed);
+        Assign(start, UnframedOwner);
         while (work.TryDequeue(out int index))
         {
             BeamInstruction instruction = body[index];
@@ -174,7 +266,7 @@ internal sealed partial class BeamModuleCompiler
             int sizeOperand = LinearFrameSizeOperand(opcode);
             if (opcode is Allocate or AllocateHeap)
             {
-                if (frame != Unframed)
+                if (frame != UnframedOwner)
                 {
                     return null;
                 }
@@ -183,14 +275,14 @@ internal sealed partial class BeamModuleCompiler
             }
             else if (sizeOperand >= 0)
             {
-                if (frame == Unframed || instruction.Operands[sizeOperand].Value != uses[frame].Length)
+                if (frame == UnframedOwner || instruction.Operands[sizeOperand].Value != uses[frame].Length)
                 {
                     return null;
                 }
 
-                outgoing = Unframed;
+                outgoing = UnframedOwner;
             }
-            else if (opcode is (Return or TailLocalCall or TailExternalCall) && frame != Unframed)
+            else if (opcode is (Return or TailLocalCall or TailExternalCall) && frame != UnframedOwner)
             {
                 return null;
             }
@@ -204,7 +296,7 @@ internal sealed partial class BeamModuleCompiler
                     continue;
                 }
 
-                if (frame == Unframed || operand.Value < 0 || operand.Value >= uses[frame].Length)
+                if (frame == UnframedOwner || operand.Value < 0 || operand.Value >= uses[frame].Length)
                 {
                     return null;
                 }
@@ -235,47 +327,12 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        var layouts = new Dictionary<int, (int Size, int[] Slots)>();
-        foreach (var (allocation, used) in uses)
-        {
-            // Keep unreachable allocations intact.
-            if (owners[allocation - start] == Unseen || used.All(slot => slot))
-            {
-                continue;
-            }
-
-            int size = 0;
-            var slots = new int[used.Length];
-            for (int slot = 0; slot < used.Length; slot++)
-            {
-                slots[slot] = used[slot] ? size++ : -1;
-            }
-
-            layouts.Add(allocation, (size, slots));
-        }
-
-        if (layouts.Count == 0)
-        {
-            return null;
-        }
-
-        var result = new (int Size, int[] Slots)?[owners.Length];
-        for (int index = 0; index < owners.Length; index++)
-        {
-            int owner = owners[index];
-            int allocation = owner == Unframed && uses.ContainsKey(index + start) ? index + start : owner;
-            if (layouts.TryGetValue(allocation, out var layout))
-            {
-                result[index] = layout;
-            }
-        }
-
-        return result;
+        return (owners, uses);
 
         bool Assign(int index, int frame)
         {
             int owner = owners[index - start];
-            if (owner != Unseen)
+            if (owner != UnseenFrameOwner)
             {
                 return owner == frame;
             }

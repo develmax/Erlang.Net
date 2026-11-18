@@ -1,0 +1,54 @@
+{
+  "Partial": true,
+  "SelectedCount": 7,
+  "TotalCount": 9764,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/beam/adjacent-call-keeps-result-live",
+    "compiler/beam/entry-values-after-frameless-branch-keep-owned-frame",
+    "compiler/beam/integer-conversion-result-keeps-unbounded-type",
+    "compiler/beam/outgoing-call-removes-dead-roundtrip",
+    "compiler/beam/prepared-boolean-case-orders-clause-and-failure-labels",
+    "compiler/beam/selector-builds-in-outgoing-argument",
+    "compiler/beam/tagged-case-reuses-the-matched-tuple"
+  ],
+  "Passed": 7,
+  "Failed": 0,
+  "Tests": [
+    {
+      "Name": "compiler/beam/prepared-boolean-case-orders-clause-and-failure-labels",
+      "Status": "Passed",
+      "Milliseconds": 1506
+    },
+    {
+      "Name": "compiler/beam/outgoing-call-removes-dead-roundtrip",
+      "Status": "Passed",
+      "Milliseconds": 62
+    },
+    {
+      "Name": "compiler/beam/entry-values-after-frameless-branch-keep-owned-frame",
+      "Status": "Passed",
+      "Milliseconds": 149
+    },
+    {
+      "Name": "compiler/beam/integer-conversion-result-keeps-unbounded-type",
+      "Status": "Passed",
+      "Milliseconds": 19
+    },
+    {
+      "Name": "compiler/beam/tagged-case-reuses-the-matched-tuple",
+      "Status": "Passed",
+      "Milliseconds": 45
+    },
+    {
+      "Name": "compiler/beam/selector-builds-in-outgoing-argument",
+      "Status": "Passed",
+      "Milliseconds": 1450
+    },
+    {
+      "Name": "compiler/beam/adjacent-call-keeps-result-live",
+      "Status": "Passed",
+      "Milliseconds": 295
+    }
+  ]
+}

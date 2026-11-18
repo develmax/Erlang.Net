@@ -44,20 +44,21 @@ internal sealed partial class BeamModuleCompiler
 
         using var output = new MemoryStream();
         BeamProjectionFlow? flow = null;
+        var removedChecks = new HashSet<int>();
         int copied = 0;
-        for (int index = 1; index + 2 < body.Count; index++)
+        bool privateFunctionWithCallers = false;
+        for (int check = 1; check + 1 < body.Count; check++)
         {
-            if (body[index - 1].Definition.Opcode != FunctionInfo
-                || body[index] is not { Definition.Opcode: Label, Operands: [var label] }
-                || indirect.Contains((int)label.Value) || !calls.TryGetValue((int)label.Value, out var sites))
+            if (body[check].Definition.Opcode == FunctionInfo)
             {
-                continue;
+                privateFunctionWithCallers = body[check + 1] is { Definition.Opcode: Label, Operands: [var entryLabel] }
+                    && !indirect.Contains((int)entryLabel.Value)
+                    && calls.ContainsKey((int)entryLabel.Value);
             }
 
-            int check = index + 1;
-            while (body[check].Definition.Opcode == Line)
+            if (!privateFunctionWithCallers)
             {
-                check++;
+                continue;
             }
 
             if (body[check] is not
@@ -71,20 +72,76 @@ internal sealed partial class BeamModuleCompiler
             }
 
             flow ??= new BeamProjectionFlow(body);
-            if (sites.Any(site => !flow.IsTaggedTupleAtCall(
-                site,
-                argument,
-                size,
-                tag,
-                value => taggedTupleLiterals.TryGetValue((int)value.Value, out var literal)
-                    && literal.Arity == size.Value && literal.Tag == atomNames[(int)tag.Value - 1]
-            )))
+            if (!ProvesCheckedArgument())
             {
                 continue;
             }
 
+            removedChecks.Add(check);
             output.Write(code.Span[copied..body[check].Offset]);
             copied = body[check + 1].Offset;
+
+            bool ProvesCheckedArgument()
+            {
+                // Follow the argument through private entry points and require an independent proof on every call path.
+                var pending = new Stack<(int Entry, BeamOperand Register, bool Complete)>();
+                var active = new HashSet<(int Entry, BeamOperand Register)>();
+                var proven = new HashSet<(int Entry, BeamOperand Register)>();
+                if (!ProveAt(check, argument))
+                {
+                    return false;
+                }
+
+                while (pending.TryPop(out var fact))
+                {
+                    var (entry, register, complete) = fact;
+                    var key = (entry, register);
+                    if (complete)
+                    {
+                        active.Remove(key);
+                        proven.Add(key);
+                        continue;
+                    }
+
+                    if (proven.Contains(key))
+                    {
+                        continue;
+                    }
+
+                    if (!active.Add(key)
+                        || body[entry - 1] is not { Definition.Opcode: FunctionInfo, Operands: [_, _, var arity] }
+                        || body[entry] is not { Definition.Opcode: Label, Operands: [var entryLabel] }
+                        || register is not { Kind: BeamOperandParameters.X, TypeIndex: null }
+                        || register.Value.Sign < 0 || register.Value >= arity.Value
+                        || indirect.Contains((int)entryLabel.Value)
+                        || !calls.TryGetValue((int)entryLabel.Value, out var sites))
+                    {
+                        return false;
+                    }
+
+                    pending.Push((entry, register, true));
+                    foreach (int site in sites)
+                    {
+                        if (!ProveAt(site, register))
+                        {
+                            return false;
+                        }
+                    }
+                }
+
+                return true;
+
+                bool ProveAt(int instruction, BeamOperand register) => flow.IsTaggedTupleBefore(
+                    instruction,
+                    register,
+                    size,
+                    tag,
+                    value => taggedTupleLiterals.TryGetValue((int)value.Value, out var literal)
+                        && literal.Arity == size.Value && literal.Tag == atomNames[(int)tag.Value - 1],
+                    (caller, input) => pending.Push((caller, input, false)),
+                    tested => tested != check && !removedChecks.Contains(tested)
+                );
+            }
         }
 
         if (copied == 0)
@@ -99,17 +156,19 @@ internal sealed partial class BeamModuleCompiler
 
     private sealed partial class BeamProjectionFlow
     {
-        internal bool IsTaggedTupleAtCall(
-            int site,
+        internal bool IsTaggedTupleBefore(
+            int instructionIndex,
             BeamOperand argument,
             BeamOperand size,
             BeamOperand tag,
-            Func<BeamOperand, bool> isTaggedLiteral
+            Func<BeamOperand, bool> isTaggedLiteral,
+            Action<int, BeamOperand> requireEntryArgument,
+            Func<int, bool> isAvailableCheck
         )
         {
             var pending = new Stack<(int Next, BeamOperand Register)>();
             var visited = new HashSet<(int Next, BeamOperand Register)>();
-            pending.Push((site, argument));
+            pending.Push((instructionIndex, argument));
             while (pending.TryPop(out var state))
             {
                 if (!visited.Add(state))
@@ -131,7 +190,14 @@ internal sealed partial class BeamModuleCompiler
 
                     BeamInstruction instruction = body[previous];
                     var register = state.Register;
+                    if (instruction.Definition.Opcode == FunctionInfo && state.Next == previous + 1)
+                    {
+                        requireEntryArgument(state.Next, register);
+                        continue;
+                    }
+
                     if (instruction is { Definition.Opcode: IsTaggedTuple, Operands: [_, var tested, var arity, var atom] }
+                        && isAvailableCheck(previous)
                         && successors[previous] is [int failure, int success]
                         && success == state.Next && state.Next == previous + 1 && failure != success
                         && SameProjectionRegister(register, tested)

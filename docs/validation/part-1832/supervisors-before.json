@@ -1,0 +1,87 @@
+{
+  "OtpVersion": "29.1.1",
+  "Total": 11,
+  "Counts": {
+    "Different": 2,
+    "Equal": 9
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\diameter-2.7.2\\ebin\\diameter_config_sup.beam",
+      "Status": "Equal",
+      "Source": "lib\\diameter-2.7.2\\src\\base\\diameter_config_sup.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\diameter-2.7.2\\ebin\\diameter_etcp_sup.beam",
+      "Status": "Equal",
+      "Source": "lib\\diameter-2.7.2\\src\\transport\\diameter_etcp_sup.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\diameter-2.7.2\\ebin\\diameter_misc_sup.beam",
+      "Status": "Different",
+      "Source": "lib\\diameter-2.7.2\\src\\base\\diameter_misc_sup.erl",
+      "Detail": "Original length 2492, generated length 2504. Code 174-\u003E186, FunT 28-\u003E28, LitT 168-\u003E168, Attr 98-\u003E98",
+      "FirstDifferentByte": 7
+    },
+    {
+      "Beam": "lib\\diameter-2.7.2\\ebin\\diameter_peer_fsm_sup.beam",
+      "Status": "Equal",
+      "Source": "lib\\diameter-2.7.2\\src\\base\\diameter_peer_fsm_sup.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\diameter-2.7.2\\ebin\\diameter_sctp_sup.beam",
+      "Status": "Equal",
+      "Source": "lib\\diameter-2.7.2\\src\\transport\\diameter_sctp_sup.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\diameter-2.7.2\\ebin\\diameter_service_sup.beam",
+      "Status": "Equal",
+      "Source": "lib\\diameter-2.7.2\\src\\base\\diameter_service_sup.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\diameter-2.7.2\\ebin\\diameter_sup.beam",
+      "Status": "Different",
+      "Source": "lib\\diameter-2.7.2\\src\\base\\diameter_sup.erl",
+      "Detail": "Original length 4116, generated length 4160. Code 536-\u003E577, ExpT 64-\u003E64, FunT 76-\u003E76, LitT 362-\u003E362, LocT 76-\u003E76, Attr 98-\u003E98",
+      "FirstDifferentByte": 7
+    },
+    {
+      "Beam": "lib\\diameter-2.7.2\\ebin\\diameter_tcp_sup.beam",
+      "Status": "Equal",
+      "Source": "lib\\diameter-2.7.2\\src\\transport\\diameter_tcp_sup.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\diameter-2.7.2\\ebin\\diameter_watchdog_sup.beam",
+      "Status": "Equal",
+      "Source": "lib\\diameter-2.7.2\\src\\base\\diameter_watchdog_sup.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpc_sup.beam",
+      "Status": "Equal",
+      "Source": "lib\\inets-9.8\\src\\http_client\\httpc_sup.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\logger_handler_watcher.beam",
+      "Status": "Equal",
+      "Source": "lib\\kernel-11.0.4\\src\\logger_handler_watcher.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    }
+  ]
+}

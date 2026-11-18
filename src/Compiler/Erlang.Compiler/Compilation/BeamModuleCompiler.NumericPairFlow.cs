@@ -26,6 +26,7 @@ internal sealed partial class BeamModuleCompiler
     }
 
     private NumericPairFlow? numericPairFlow;
+    private NumericPairFlow? nonemptyPairLengthFlow;
 
     private sealed class NumericPairFlow(PairFacts top)
     {
@@ -64,7 +65,7 @@ internal sealed partial class BeamModuleCompiler
 
         private NumericPairFlow GetNumericPairFlow()
         {
-            if (owner.numericPairFlow is { } cached)
+            if ((inferNonemptyPairLengths ? owner.nonemptyPairLengthFlow : owner.numericPairFlow) is { } cached)
             {
                 return cached;
             }
@@ -116,7 +117,16 @@ internal sealed partial class BeamModuleCompiler
                 inferNumericPairs = false;
             }
 
-            return owner.numericPairFlow = flow;
+            if (inferNonemptyPairLengths)
+            {
+                owner.nonemptyPairLengthFlow = flow;
+            }
+            else
+            {
+                owner.numericPairFlow = flow;
+            }
+
+            return flow;
         }
 
         private PairFacts ReadJoinedNumericPairFacts(Expr expression)

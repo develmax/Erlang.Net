@@ -1,0 +1,90 @@
+{
+  "Partial": true,
+  "SelectedCount": 13,
+  "TotalCount": 9762,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/beam/adjacent-call-keeps-result-live",
+    "compiler/beam/atom-case-emits-local-tails",
+    "compiler/beam/closed-literal-bindings-cross-calls-as-literals",
+    "compiler/beam/independent-atom-tails-use-otp-body-order",
+    "compiler/beam/list-result-keeps-proper-list-type",
+    "compiler/beam/nonnegative-call-result-keeps-otp-range",
+    "compiler/beam/outgoing-call-removes-dead-roundtrip",
+    "compiler/beam/prepared-boolean-case-orders-clause-and-failure-labels",
+    "compiler/beam/private-branch-trims-dead-stack-slots",
+    "compiler/beam/proper-list-proof-follows-only-tail",
+    "compiler/beam/selector-builds-in-outgoing-argument",
+    "compiler/beam/size-bif-result-keeps-otp-range",
+    "compiler/beam/tagged-case-reuses-the-matched-tuple"
+  ],
+  "Passed": 13,
+  "Failed": 0,
+  "Tests": [
+    {
+      "Name": "compiler/beam/closed-literal-bindings-cross-calls-as-literals",
+      "Status": "Passed",
+      "Milliseconds": 2077
+    },
+    {
+      "Name": "compiler/beam/private-branch-trims-dead-stack-slots",
+      "Status": "Passed",
+      "Milliseconds": 152
+    },
+    {
+      "Name": "compiler/beam/prepared-boolean-case-orders-clause-and-failure-labels",
+      "Status": "Passed",
+      "Milliseconds": 10
+    },
+    {
+      "Name": "compiler/beam/outgoing-call-removes-dead-roundtrip",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "compiler/beam/independent-atom-tails-use-otp-body-order",
+      "Status": "Passed",
+      "Milliseconds": 57
+    },
+    {
+      "Name": "compiler/beam/tagged-case-reuses-the-matched-tuple",
+      "Status": "Passed",
+      "Milliseconds": 19
+    },
+    {
+      "Name": "compiler/beam/size-bif-result-keeps-otp-range",
+      "Status": "Passed",
+      "Milliseconds": 34
+    },
+    {
+      "Name": "compiler/beam/nonnegative-call-result-keeps-otp-range",
+      "Status": "Passed",
+      "Milliseconds": 15
+    },
+    {
+      "Name": "compiler/beam/proper-list-proof-follows-only-tail",
+      "Status": "Passed",
+      "Milliseconds": 135
+    },
+    {
+      "Name": "compiler/beam/list-result-keeps-proper-list-type",
+      "Status": "Passed",
+      "Milliseconds": 7
+    },
+    {
+      "Name": "compiler/beam/selector-builds-in-outgoing-argument",
+      "Status": "Passed",
+      "Milliseconds": 118
+    },
+    {
+      "Name": "compiler/beam/adjacent-call-keeps-result-live",
+      "Status": "Passed",
+      "Milliseconds": 112
+    },
+    {
+      "Name": "compiler/beam/atom-case-emits-local-tails",
+      "Status": "Passed",
+      "Milliseconds": 30
+    }
+  ]
+}

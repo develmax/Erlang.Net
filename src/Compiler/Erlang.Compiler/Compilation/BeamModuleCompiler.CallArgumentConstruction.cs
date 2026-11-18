@@ -26,6 +26,40 @@ internal sealed partial class BeamModuleCompiler
             int Live
         );
 
+        private (EntryCall Call, CallArgumentConstructions Arguments)? ReadConstructedSelectorCall(
+            Expr.Call selector,
+            string[] parameters
+        )
+        {
+            if (owner.ResolvesErlangBif(selector) || !TryResolveOrdinaryCallTarget(selector, out string? module)
+                || !selector.Arguments.Where((argument, index) => index < parameters.Length
+                    && argument is Expr.Variable { Name: not VariableScopeNames.Wildcard } input
+                    && input.Name == parameters[index]).Any())
+            {
+                return null;
+            }
+
+            var inputs = parameters.Select((name, register) => (name, register))
+                .Where(input => input.name != VariableScopeNames.Wildcard)
+                .ToDictionary(input => input.name, input => input.register, StringComparer.Ordinal);
+            if (ReadCallArgumentConstructions(
+                selector.Arguments,
+                -1,
+                new Dictionary<string, int>(),
+                inputs: inputs
+            ) is not { Moves.Count: 0, Loads.Count: 0, Constructions.Count: >= 2 } plan)
+            {
+                return null;
+            }
+
+            return (new EntryCall(
+                selector,
+                module,
+                [],
+                []
+            ), plan);
+        }
+
         private static CallArgumentConstructions? ReadCallArgumentConstructions(
             IReadOnlyList<Expr> arguments,
             int result,

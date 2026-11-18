@@ -1,0 +1,80 @@
+{
+  "OtpVersion": "29.1.1",
+  "Total": 10,
+  "Counts": {
+    "Different": 7,
+    "Equal": 3
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\compiler-10.0.6\\ebin\\erl_bifs.beam",
+      "Status": "Equal",
+      "Source": "lib\\compiler-10.0.6\\src\\erl_bifs.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\diameter-2.7.2\\ebin\\diameter_callback.beam",
+      "Status": "Equal",
+      "Source": "lib\\diameter-2.7.2\\src\\base\\diameter_callback.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\eldap-1.3.1\\ebin\\ELDAPv3.beam",
+      "Status": "Different",
+      "Source": "C:\\Users\\Maksim\\.codex\\worktrees\\beam-leaf-frames\\Erlang.Net\\artifacts\\asn-lengths\\sample-after.json.sources\\8404cb379d7b45c1809856a054682554\\ELDAPv3.erl",
+      "Detail": "Original length 99008, generated length 99052. Code 27815-\u003E27820, Attr 639-\u003E639, Type 111-\u003E151",
+      "FirstDifferentByte": 7
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\DSS.beam",
+      "Status": "Different",
+      "Source": "lib\\public_key-1.21.7\\src\\DSS.erl",
+      "Detail": "Original length 10048, generated length 10048. AtU8 608-\u003E613, Code 2275-\u003E2267, ImpT 172-\u003E172, ExpT 148-\u003E148, LocT 196-\u003E196, Attr 438-\u003E438",
+      "FirstDifferentByte": 19
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\OTP-PKIX.beam",
+      "Status": "Different",
+      "Source": "lib\\public_key-1.21.7\\src\\OTP-PKIX.erl",
+      "Detail": "Original length 139332, generated length 144156. AtU8 19039-\u003E19072, Code 34183-\u003E39240, ImpT 1588-\u003E1600, ExpT 1132-\u003E1132, FunT 5860-\u003E5860, LitT 1713-\u003E1732, LocT 4624-\u003E4612, Attr 443-\u003E443, Line 2466-\u003E2569, Type 520-\u003E133",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKCS-1.beam",
+      "Status": "Different",
+      "Source": "lib\\public_key-1.21.7\\src\\PKCS-1.erl",
+      "Detail": "Original length 84616, generated length 88648. AtU8 9652-\u003E9645, Code 22887-\u003E27039, ImpT 484-\u003E484, ExpT 1168-\u003E1168, FunT 3148-\u003E3148, LitT 1932-\u003E1932, LocT 2548-\u003E2548, Attr 441-\u003E441, Line 1664-\u003E1671, Type 265-\u003E143",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKCS-10.beam",
+      "Status": "Different",
+      "Source": "lib\\public_key-1.21.7\\src\\PKCS-10.erl",
+      "Detail": "Original length 31736, generated length 32276. AtU8 3625-\u003E3627, Code 8098-\u003E8828, ImpT 424-\u003E424, ExpT 364-\u003E364, FunT 436-\u003E436, LitT 214-\u003E214, LocT 844-\u003E844, Attr 442-\u003E442, Line 607-\u003E597, Type 320-\u003E138",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKCS-3.beam",
+      "Status": "Different",
+      "Source": "lib\\public_key-1.21.7\\src\\PKCS-3.erl",
+      "Detail": "Original length 9924, generated length 9936. AtU8 638-\u003E643, Code 2119-\u003E2125, ImpT 172-\u003E172, ExpT 172-\u003E172, LocT 196-\u003E196, Attr 441-\u003E441",
+      "FirstDifferentByte": 7
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKIXAlgs-2009.beam",
+      "Status": "Different",
+      "Source": "lib\\public_key-1.21.7\\src\\PKIXAlgs-2009.erl",
+      "Detail": "Original length 59640, generated length 61200. AtU8 4825-\u003E4827, Code 15914-\u003E17729, ImpT 304-\u003E304, ExpT 1732-\u003E1732, FunT 1804-\u003E1804, LocT 1084-\u003E1084, Attr 448-\u003E448, Line 1034-\u003E960, Type 302-\u003E123",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\wx-2.7\\doc\\examples\\demo\\ex_notebook.beam",
+      "Status": "Equal",
+      "Source": "lib\\wx-2.7\\doc\\examples\\demo\\ex_notebook.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    }
+  ]
+}

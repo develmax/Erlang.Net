@@ -1,6 +1,18 @@
 # Next steps
 
-Model initialized X roots for arithmetic GC BIF operations with an exit-only failure and preserve the existing guard-fallback path. Start with tuple field arithmetic and stress boxed integers. [Evidence](validation/part-1829/README.md).
+Continue compiler work on GC BIF result roots, typed match lowering and canonical literal operands. Confirm the next candidate with an uncached full release and permanent regression controls. [Part 1839](validation/part-1839/README.md) · [Ranked groups](validation/part-1832/README.md).
+
+Complete the linked exact-compiler uncached corpus and standard repository regression. Continue the frame-ownership and type work using measured groups. [Candidate](validation/part-1837/README.md).
+
+Validate the linked local compiler over the full Windows release with an uncached comparison. Rank earlier frame placement and copy interference with the verified diagnostic cache. [Evidence](validation/part-1835/README.md).
+
+Apply the proven entry-register optimization to one reachable frame after frameless branches. Check shared labels, exceptional edges and stored values before the first clobber. Revalidate the affected group. [Ranking](validation/part-1832/README.md).
+
+Run the uncached full corpus on the frozen Part 1833 compiler, then compare changed sections and functions independently from ERTS loading. Continue label order, pattern tuple aliases and producer proof propagation in the subsequent local package. [Candidate](validation/part-1833/README.md).
+
+Measure typed integer guard operands and interprocedural call-argument lifetimes on the compiler candidate with 402 whole-file Windows matches. Revalidate the related supervisor functions that share constructor scheduling. [Baseline](validation/part-1831/README.md).
+
+Compare the success and fallback liveness for guarded arithmetic GC BIFs and verify the preserved guard arguments. [Evidence](validation/part-1830/README.md).
 
 The recovered C# compiler retained the equality status of all 1,366 Windows OTP 29.1.1 images. Rank the 966 differences by shared compiler operation before choosing the next lowering change. [Validation](validation/part-1821/results.json).
 

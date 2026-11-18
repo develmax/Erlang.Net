@@ -1,0 +1,61 @@
+{
+  "Partial": true,
+  "SelectedCount": 8,
+  "TotalCount": 9753,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/beam/guard-comparison-keeps-proven-integer-type",
+    "compiler/beam/list-result-keeps-proper-list-type",
+    "compiler/beam/module-filename-uses-implicit-line-index",
+    "compiler/beam/proper-list-proof-follows-only-tail",
+    "compiler/beam/select-arithmetic-precedes-branch-frame",
+    "compiler/beam/select-fallback-uses-frameless-external-tail",
+    "compiler/beam/size-bif-result-keeps-otp-range",
+    "compiler/beam/whole-module-matches-otp"
+  ],
+  "Passed": 7,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "compiler/beam/whole-module-matches-otp",
+      "Status": "Failed",
+      "Error": "System.TimeoutException: The operation has timed out.\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-leaf-heap-roots\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16328",
+      "Milliseconds": 40383
+    },
+    {
+      "Name": "compiler/beam/size-bif-result-keeps-otp-range",
+      "Status": "Passed",
+      "Milliseconds": 18
+    },
+    {
+      "Name": "compiler/beam/proper-list-proof-follows-only-tail",
+      "Status": "Passed",
+      "Milliseconds": 19
+    },
+    {
+      "Name": "compiler/beam/list-result-keeps-proper-list-type",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "compiler/beam/select-arithmetic-precedes-branch-frame",
+      "Status": "Passed",
+      "Milliseconds": 13
+    },
+    {
+      "Name": "compiler/beam/guard-comparison-keeps-proven-integer-type",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "compiler/beam/select-fallback-uses-frameless-external-tail",
+      "Status": "Passed",
+      "Milliseconds": 35
+    },
+    {
+      "Name": "compiler/beam/module-filename-uses-implicit-line-index",
+      "Status": "Passed",
+      "Milliseconds": 42
+    }
+  ]
+}

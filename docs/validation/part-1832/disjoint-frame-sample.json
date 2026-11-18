@@ -1,0 +1,59 @@
+{
+  "OtpVersion": "29.1.1",
+  "Total": 7,
+  "Counts": {
+    "Different": 4,
+    "Equal": 3
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\compiler-10.0.6\\ebin\\beam_asm.beam",
+      "Status": "Different",
+      "Source": "lib\\compiler-10.0.6\\src\\beam_asm.erl",
+      "Detail": "Original length 42296, generated length 42924. AtU8 2693-\u003E2299, Code 11856-\u003E13486, StrT 24-\u003E23, ImpT 880-\u003E904, ExpT 52-\u003E52, FunT 172-\u003E148, LitT 571-\u003E504, LocT 736-\u003E640, Attr 39-\u003E39, Line 540-\u003E574, Type 494-\u003E14",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\compiler-10.0.6\\ebin\\erl_bifs.beam",
+      "Status": "Equal",
+      "Source": "lib\\compiler-10.0.6\\src\\erl_bifs.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\diameter-2.7.2\\ebin\\diameter_callback.beam",
+      "Status": "Equal",
+      "Source": "lib\\diameter-2.7.2\\src\\base\\diameter_callback.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\mnesia-4.27\\ebin\\mnesia.beam",
+      "Status": "Different",
+      "Source": "lib\\mnesia-4.27\\src\\mnesia.erl",
+      "Detail": "Original length 180548, generated length 186104. AtU8 7506-\u003E7383, Code 36228-\u003E41726, ImpT 2404-\u003E2440, ExpT 2212-\u003E2212, FunT 892-\u003E916, LitT 3502-\u003E3478, LocT 1708-\u003E1648, Docs 33923-\u003E33919, Line 2884-\u003E3228, Type 152-\u003E14",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\mnesia-4.27\\ebin\\mnesia_frag_hash.beam",
+      "Status": "Different",
+      "Source": "lib\\mnesia-4.27\\src\\mnesia_frag_hash.erl",
+      "Detail": "Original length 6776, generated length 6724. Code 969-\u003E985, Line 84-\u003E84, Type 80-\u003E12",
+      "FirstDifferentByte": 7
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\array.beam",
+      "Status": "Different",
+      "Source": "lib\\stdlib-8.1\\src\\array.erl",
+      "Detail": "Original length 75544, generated length 77980. AtU8 1586-\u003E1582, Code 19705-\u003E22337, ImpT 292-\u003E304, ExpT 628-\u003E628, FunT 316-\u003E316, LocT 976-\u003E976, Attr 39-\u003E39, Line 1164-\u003E1197, Type 254-\u003E14",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\wx-2.7\\doc\\examples\\demo\\ex_notebook.beam",
+      "Status": "Equal",
+      "Source": "lib\\wx-2.7\\doc\\examples\\demo\\ex_notebook.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    }
+  ]
+}

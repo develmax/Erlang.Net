@@ -8,4 +8,8 @@ internal static class BeamLeafFrameDiagnostics
     internal const string CombinedLeafTail = "A leaf local tail call kept a stack frame for its list arguments.";
     internal const string TupleHeapRoots = "A leaf tuple failed to reserve the heap before allocating its field registers.";
     internal const string ListTupleOrder = "Previously canonical list field registers changed before tuple construction.";
+    internal const string ArithmeticRoots = "A leaf arithmetic BIF did not retain its roots and preserve the guarded fallback arguments.";
+    internal const string HeapBeforeListProjection = "A checked list projection preceded the heap reservation.";
+    internal const string SelectFallbackTailTest = "compiler/beam/select-fallback-uses-frameless-external-tail";
+    internal const string SelectFallbackTail = "A terminal select fallback kept a frame for its list argument.";
 }

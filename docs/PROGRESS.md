@@ -1,5 +1,21 @@
 # Project progress
 
+Part 1839 passes all 9,767 local regression cases. The uncached Windows corpus retains 404 byte-identical images and 962 differences. Twelve normalized functions and two Type sections gain equality. All seven changed files prepare in ERTS. [Evidence](validation/part-1839/README.md).
+
+Part 1837 recovers normalized SSL tail argument ordering with an exact fixture. The 28-module sample retains 7 Equal and 21 Different. Nine normalized functions gain equality against Part 1833. The linked full Windows comparison is running. [Evidence](validation/part-1837/README.md).
+
+Part 1835 preserves all 24 release sample statuses and gains three normalized function matches. A saved-output audit supplies frame-removal evidence for 92 functions in 66 modules. [Evidence](validation/part-1835/README.md).
+
+Part 1834 retains 7 byte-identical images in its 40-module cohort and gains ten normalized function matches. ERTS admitted all 32 changed images. The full Windows release remains measured on Part 1832 at 404 of 1,366 matches pending the newer full gates. [Evidence](validation/part-1834/README.md).
+
+Part 1833 preserves the ten exact images in a 44-module Windows sample and adds six normalized function matches. ERTS admits all 27 changed images. The full corpus and regression for this candidate are pending. [Evidence](validation/part-1833/README.md).
+
+Part 1832 increases the full Windows OTP 29.1.1 corpus from 402 to 404 byte matches. The new files are `diameter_misc_sup` and `diameter_sup`. The full release has 962 differences. Full local regression passed 9,748 of 9,751 with three original-backend timeouts. [Evidence](validation/part-1832/README.md).
+
+Part 1831 increases byte-identical Windows OTP 29.1.1 images from 400 to 402. The full uncached comparison covers all 1,366 binaries. The new matches are `diameter_callback` and `ex_notebook`. [Evidence](validation/part-1831/README.md).
+
+Part 1830 extends frameless leaf allocation to binary arithmetic GC BIFs with exit-only failure. The Windows corpus retains 400 byte matches. ERTS admitted all 114 changed images. [Evidence](validation/part-1830/README.md).
+
 Part 1829 extends leaf register allocation to tuple construction. The Windows corpus retains 400 byte matches. ERTS admitted all 274 changed images through the two load paths. [Evidence](validation/part-1829/README.md).
 
 Part 1828 removes list argument frames around local tail calls. The Windows corpus retains 400 byte matches. ERTS admitted all 276 changed images. [Evidence](validation/part-1828/README.md).

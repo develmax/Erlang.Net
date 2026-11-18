@@ -1,5 +1,17 @@
 ## Part601 resource/magic32 scope — 2026-11-05
 
+Part 1839 restores ten normalized instruction matches affected by argument placement. Two additional ASN.1 functions and their Type sections gain equality. The full corpus still has 962 whole-file differences. [Evidence](validation/part-1839/README.md).
+
+The focused Part 1837 retake restores the SSL wrapper instruction sequence changed by early closed-binding substitution. The same analysis keeps the earlier stack convergence changes. Whole-file parity remains separately measured. [Evidence](validation/part-1837/README.md).
+
+Part 1835 removes proven temporary entry copies in owned branch frames. Shared joins and exceptional flow still need broader evidence. No new whole-file match is inferred from the sampled functions. [Evidence](validation/part-1835/README.md).
+
+Part 1834 recovers ten normalized functions in its focused comparison. Remaining common groups include excess Y slots, earlier match and frame placement, and generated function and section differences. They still require the full Windows release comparison. [Evidence](validation/part-1834/README.md).
+
+Part 1833 recovers six normalized function matches on a 44-module sample. Earlier SSA lowering, frame placement, register lifetimes and section tables still differ. Whole-file comparison of this candidate across the full Windows release is pending. [Evidence](validation/part-1833/README.md).
+
+Leaf arithmetic now preserves GC BIF roots without a frame for exit-only failure. Guard fallback edges retain their previous layout. Full-image differences remain in 966 release modules. [Evidence](validation/part-1830/README.md).
+
 Part 1825 groups closed atom branches with literal returns or ordinary calls. Grouped clauses with guards, other selectors and deeper match lowering still require additional compiler work. [Evidence](validation/part-1825/README.md).
 
 Part 1824 removes unnecessary frames after guarded entry checks. Value dispatch, register assignment, type inference and release tables still differ in parts of the corpus. [Evidence](validation/part-1824/README.md).

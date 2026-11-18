@@ -1,14 +1,21 @@
-[Reference, Generated] = [filename:absname(Path) || Path <- init:get_plain_arguments()],
+%% Pass an optional output file for the full per-function term report.
+%% An optional cache directory and this eval's SHA256 can follow either mode.
+%% Use a trusted local directory. Cache terms contain BEAM atoms and literal terms.
+{ReferencePath, GeneratedPath, Mode, Cache} =
+    case init:get_plain_arguments() of
+        [R, G] -> {R, G, opcode, none};
+        [R, G, Output] -> {R, G, {functions, Output}, none};
+        [R, G, Dir, Identity] -> {R, G, opcode, {Dir, Identity}};
+        [R, G, Output, Dir, Identity] -> {R, G, {functions, Output}, {Dir, Identity}}
+    end,
+Reference = filename:absname(ReferencePath),
+Generated = filename:absname(GeneratedPath),
 Opcode = fun
     ({test, Name, _, _}) -> {test, Name};
     ({bif, Name, _, _, _}) -> {bif, Name};
     ({gc_bif, Name, _, _, _, _}) -> {gc_bif, Name};
     (Instruction) when is_atom(Instruction) -> Instruction;
     (Instruction) -> element(1, Instruction)
-end,
-Functions = fun(Disassembly) ->
-    maps:from_list([{{Name, Arity}, Instructions}
-        || {function, Name, Arity, _, Instructions} <- Disassembly])
 end,
 WithoutMetadata = fun(Instructions) ->
     [I || I <- Instructions, Op <- [Opcode(I)], Op =/= label, Op =/= line, Op =/= func_info]
@@ -58,6 +65,55 @@ NormalizeLabels = fun(Instructions) ->
     end,
     Normalize(Instructions)
 end,
+ReadDisassembly = fun(Input) ->
+    case catch beam_disasm:file(Input) of
+        {beam_file, Module, _, _, _, Body} ->
+            Functions = maps:from_list([{{Name, Arity}, {WithoutMetadata(Is), NormalizeLabels(Is)}}
+                || {function, Name, Arity, _, Is} <- Body]),
+            {ok, Module, Functions};
+        _ -> unreadable
+    end
+end,
+Read = case Cache of
+    none -> ReadDisassembly;
+    {Directory, EvalIdentity} ->
+        ok = filelib:ensure_dir(filename:join(Directory, "entry")),
+        DisasmIdentity = {erlang:system_info(system_version),
+            [{M, M:module_info(md5)} || M <- [beam_disasm, beam_lib, beam_opcodes, beam_types]]},
+        fun(Path) ->
+            case file:read_file(Path) of
+                {ok, Image} ->
+                    Key = crypto:hash(sha256, term_to_binary(
+                        {rank_diagnostic_v1, EvalIdentity, DisasmIdentity, crypto:hash(sha256, Image)})),
+                    Entry = filename:join(Directory, binary_to_list(binary:encode_hex(Key)) ++ ".etf"),
+                    Cached = case file:read_file(Entry) of
+                        {ok, Encoded} -> catch binary_to_term(Encoded);
+                        _ -> miss
+                    end,
+                    case Cached of
+                        {Key, {ok, Module, Functions} = Value} when is_atom(Module), is_map(Functions) ->
+                            Value;
+                        _ ->
+                            case ReadDisassembly(Image) of
+                                {ok, _, _} = Value ->
+                                    Temporary = Entry ++ "." ++ os:getpid() ++ "." ++
+                                        integer_to_list(erlang:unique_integer([positive])) ++ ".tmp",
+                                    case file:write_file(Temporary, term_to_binary({Key, Value}), [exclusive]) of
+                                        ok ->
+                                            case file:rename(Temporary, Entry) of
+                                                ok -> ok;
+                                                {error, _} -> file:delete(Temporary)
+                                            end;
+                                        {error, _} -> ok
+                                    end,
+                                    Value;
+                                unreadable -> unreadable
+                            end
+                    end;
+                {error, _} -> unreadable
+            end
+        end
+end,
 AllocationDifference = fun(ReferenceOps, GeneratedOps) ->
     Find = fun
         Loop([Instruction | Left], [Instruction | Right]) ->
@@ -73,40 +129,44 @@ AllocationDifference = fun(ReferenceOps, GeneratedOps) ->
                 {heap, Heap}, {live, Direction(ExpectedLive, ActualLive)}};
         Loop(_, _) -> same
     end,
-    Find(NormalizeLabels(ReferenceOps), NormalizeLabels(GeneratedOps))
+    Find(ReferenceOps, GeneratedOps)
 end,
-AddExample = fun(Path, Function, Modules) ->
-    maps:update_with(Path, fun(Example) -> min(Example, Function) end, Function, Modules)
+AddFunction = case Mode of
+    opcode -> fun(Path, Function, Modules) ->
+        maps:update_with(Path, fun([Example]) -> [min(Example, Function)] end, [Function], Modules)
+    end;
+    {functions, _} -> fun(Path, Function, Modules) ->
+        maps:update_with(Path, fun(Funs) -> [Function | Funs] end, [Function], Modules)
+    end
 end,
 Add = fun(Difference, Path, Function, Groups) ->
     maps:update_with(Difference,
-        fun(Modules) -> AddExample(Path, Function, Modules) end,
-        #{Path => Function}, Groups)
+        fun(Modules) -> AddFunction(Path, Function, Modules) end,
+        #{Path => [Function]}, Groups)
 end,
 Files = filelib:fold_files(Generated, "[.]beam$", true, fun(Path, Acc) -> [Path | Acc] end, []),
 {Groups, AllocationGroups, Unreadable, SameOpcodes} = lists:foldl(fun(Path, {Acc, Allocations, Errors, Same}) ->
     Relative = lists:nthtail(length(filename:split(Generated)), filename:split(Path)),
     Original = filename:join([Reference | Relative]),
     Name = filename:join(Relative),
-    case {catch beam_disasm:file(Original), catch beam_disasm:file(Path)} of
-        {{beam_file, Module, _, _, _, Left}, {beam_file, Module, _, _, _, Right}} ->
-            Expected = Functions(Left),
-            Actual = Functions(Right),
+    case {Read(Original), Read(Path)} of
+        {{ok, Module, Expected}, {ok, Module, Actual}} ->
             Differences = [{Function, case maps:find(Function, Actual) of
-                {ok, Ops} -> FirstDifference(WithoutMetadata(ReferenceOps), WithoutMetadata(Ops));
+                {ok, {Ops, _}} -> FirstDifference(ReferenceOps, Ops);
                 error -> missing_function
-            end} || {Function, ReferenceOps} <- maps:to_list(Expected)]
+            end} || {Function, {ReferenceOps, _}} <- maps:to_list(Expected)]
                 ++ [{Function, extra_function} || Function <- maps:keys(Actual), not maps:is_key(Function, Expected)],
             Changes = [{Function, Difference} || {Function, Difference} <- Differences, Difference =/= same],
             Updated = lists:foldl(fun({Function, Difference}, Current) ->
                 Add(Difference, Name, Function, Current)
             end, Acc, Changes),
-            AllocationChanges = maps:fold(fun(Function, ReferenceOps, Current) ->
-                case AllocationDifference(ReferenceOps, maps:get(Function, Actual, [])) of
+            AllocationChanges = maps:fold(fun(Function, {_, ReferenceOps}, Current) ->
+                {_, Ops} = maps:get(Function, Actual, {[], []}),
+                case AllocationDifference(ReferenceOps, Ops) of
                     same -> Current;
                     Difference -> maps:update_with(Difference,
-                        fun({Count, Modules}) -> {Count + 1, AddExample(Name, Function, Modules)} end,
-                        {1, #{Name => Function}}, Current)
+                        fun({Count, Modules}) -> {Count + 1, AddFunction(Name, Function, Modules)} end,
+                        {1, #{Name => [Function]}}, Current)
                 end
             end, Allocations, Expected),
             {Updated, AllocationChanges, Errors, Same + case Changes of [] -> 1; _ -> 0 end};
@@ -114,21 +174,42 @@ Files = filelib:fold_files(Generated, "[.]beam$", true, fun(Path, Acc) -> [Path 
             {Acc, Allocations, [Name | Errors], Same}
     end
 end, {#{}, #{}, [], 0}, Files),
-Ranked = lists:reverse(lists:sort([{map_size(Modules), Difference,
-    lists:sublist(lists:sort(maps:to_list(Modules)), 3)} || {Difference, Modules} <- maps:to_list(Groups)])),
-io:format("Different images: ~p~nSame opcode sequences: ~p~nUnreadable images: ~p~n",
-    [length(Files), SameOpcodes, lists:sort(Unreadable)]),
-Top = lists:sublist(Ranked, 30),
-FrameDetails = [Row || {_, {move, init_yregs, _}, _}=Row <- Ranked,
-    not lists:member(Row, Top)],
-lists:foreach(fun({Count, Difference, Examples}) ->
-    io:format("~w ~w ~p~n", [Count, Difference, Examples])
-end, Top ++ FrameDetails),
-io:format("First differing instruction operands at allocation after label normalization:~n"),
-AllocationRows = lists:reverse(lists:sort([
-    {map_size(Modules), FunctionCount, Difference, lists:sublist(lists:sort(maps:to_list(Modules)), 3)}
-    || {Difference, {FunctionCount, Modules}} <- maps:to_list(AllocationGroups)])),
-lists:foreach(fun({ModuleCount, FunctionCount, Difference, Examples}) ->
-    io:format("~B modules, ~B functions ~w ~p~n", [ModuleCount, FunctionCount, Difference, Examples])
-end, AllocationRows),
+case Mode of
+    opcode ->
+        Examples = fun(Modules) ->
+            lists:sublist(lists:sort([{Path, lists:min(Funs)}
+                || {Path, Funs} <- maps:to_list(Modules)]), 3)
+        end,
+        Ranked = lists:reverse(lists:sort([{map_size(Modules), Difference, Examples(Modules)}
+            || {Difference, Modules} <- maps:to_list(Groups)])),
+        io:format("Different images: ~p~nSame opcode sequences: ~p~nUnreadable images: ~p~n",
+            [length(Files), SameOpcodes, lists:sort(Unreadable)]),
+        Top = lists:sublist(Ranked, 30),
+        FrameDetails = [Row || {_, {move, init_yregs, _}, _} = Row <- Ranked,
+            not lists:member(Row, Top)],
+        lists:foreach(fun({Count, Difference, Items}) ->
+            io:format("~w ~w ~p~n", [Count, Difference, Items])
+        end, Top ++ FrameDetails),
+        io:format("First differing instruction operands at allocation after label normalization:~n"),
+        AllocationRows = lists:reverse(lists:sort([{map_size(Modules), FunctionCount, Difference, Examples(Modules)}
+            || {Difference, {FunctionCount, Modules}} <- maps:to_list(AllocationGroups)])),
+        lists:foreach(fun({ModuleCount, FunctionCount, Difference, Items}) ->
+            io:format("~B modules, ~B functions ~w ~p~n", [ModuleCount, FunctionCount, Difference, Items])
+        end, AllocationRows);
+    {functions, OutputPath} ->
+        Ranked = lists:reverse(lists:sort([{map_size(Modules),
+            lists:sum([length(Funs) || Funs <- maps:values(Modules)]), Difference}
+            || {Difference, Modules} <- maps:to_list(Groups)])),
+        AllocationRows = lists:reverse(lists:sort([{map_size(Modules), Count, Difference}
+            || {Difference, {Count, Modules}} <- maps:to_list(AllocationGroups)])),
+        SortFunctions = fun(Modules) -> maps:map(fun(_, Funs) -> lists:sort(Funs) end, Modules) end,
+        OpcodeReport = maps:map(fun(_, Modules) -> SortFunctions(Modules) end, Groups),
+        AllocationReport = maps:map(fun(_, {Count, Modules}) -> {Count, SortFunctions(Modules)} end, AllocationGroups),
+        {ok, File} = file:open(OutputPath, [write, {encoding, utf8}]),
+        io:format(File, "~Kp.~n", [ordered, #{opcode_groups => OpcodeReport,
+            allocation_operand_groups => AllocationReport, different_images => length(Files),
+            same_opcode_sequences => SameOpcodes, unreadable => lists:sort(Unreadable)}]),
+        ok = file:close(File),
+        io:format("Opcode groups ~p~nAllocation operands ~p~n", [lists:sublist(Ranked, 30), AllocationRows])
+end,
 halt().

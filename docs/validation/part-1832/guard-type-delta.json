@@ -1,0 +1,139 @@
+[
+  {
+    "beam": "cerl",
+    "chunks": [
+      "Attr",
+      "Code",
+      "Type"
+    ],
+    "types": [
+      15,
+      3,
+      4
+    ],
+    "newTypes": [
+      [
+        32,
+        null,
+        null,
+        null
+      ]
+    ],
+    "code": [
+      [
+        "c_char",
+        1
+      ],
+      [
+        "is_c_char",
+        1
+      ],
+      [
+        "is_print_char",
+        1
+      ]
+    ],
+    "exact_before": [],
+    "exact_after": [],
+    "checked_sites": 1,
+    "matching_sites": 1,
+    "lost_sites": 0
+  },
+  {
+    "beam": "httpc",
+    "chunks": [
+      "Attr",
+      "Code",
+      "FunT",
+      "Type"
+    ],
+    "types": [
+      13,
+      3,
+      4
+    ],
+    "newTypes": [
+      [
+        32,
+        null,
+        null,
+        null
+      ]
+    ],
+    "code": [
+      [
+        "validate_max_sessions",
+        1
+      ],
+      [
+        "validate_max_keep_alive_length",
+        1
+      ]
+    ],
+    "exact_before": [],
+    "exact_after": [],
+    "checked_sites": 2,
+    "matching_sites": 2,
+    "lost_sites": 0
+  },
+  {
+    "beam": "inet_db",
+    "chunks": [
+      "Attr",
+      "Code",
+      "FunT",
+      "Type"
+    ],
+    "types": [
+      31,
+      6,
+      6
+    ],
+    "newTypes": [],
+    "code": [
+      [
+        "set_servfail_retry_timeout",
+        1
+      ],
+      [
+        "rfc_4343_lc",
+        1
+      ]
+    ],
+    "exact_before": [],
+    "exact_after": [
+      [
+        "set_servfail_retry_timeout",
+        1
+      ]
+    ],
+    "checked_sites": 2,
+    "matching_sites": 2,
+    "lost_sites": 0
+  },
+  {
+    "beam": "inet_parse",
+    "chunks": [
+      "Attr",
+      "Code",
+      "FunT"
+    ],
+    "types": [
+      36,
+      4,
+      4
+    ],
+    "newTypes": [],
+    "code": [
+      [
+        "dup",
+        3
+      ]
+    ],
+    "exact_before": [],
+    "exact_after": [],
+    "checked_sites": 1,
+    "matching_sites": 1,
+    "lost_sites": 0
+  }
+]

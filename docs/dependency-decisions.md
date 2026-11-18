@@ -1,5 +1,19 @@
 # Dependency and compatibility decisions
 
+Parts 1838 and 1839 reuse C# pair-result analysis and direct call argument planning. The pinned Apache-2.0 OTP compiler supplies the joined success types and register-placement rules. No external dependency or public runtime MFA was added. [Evidence](validation/part-1839/README.md).
+
+Parts 1836 and 1837 reuse C# constructor operand liveness and the existing terminal-local-call setup. The pinned OTP compiler supplies output-order evidence. No external dependency or public runtime MFA was added. [Evidence](validation/part-1837/README.md).
+
+Part 1835 reuses existing C# entry liveness and frame ownership. The pinned Apache-2.0 OTP compiler defines the SSA call-type and alias contract. The optional diagnostic reuses the release disassembler and SHA-256. No external implementation or dependency was added. [Evidence](validation/part-1835/README.md).
+
+Part 1834 extends existing C# call selection, shape proofs and liveness. The Apache-2.0 OTP compiler supplies the pinned alias, SSA, call-result and block-layout algorithm contracts. External CLR or LLVM allocators target different GC and register layouts. No implementation code or dependency was imported. [Evidence](validation/part-1834/README.md).
+
+Part 1833 keeps the existing C# source scope, call planner, branch liveness and instruction writer. Pinned OTP 29.1.1 `beam_core_to_ssa`, `beam_ssa_type`, `beam_call_types`, `beam_ssa_pre_codegen`, `beam_ssa_codegen`, `beam_trim` and `beam_validator` define the lowering and validity checks. The .NET BCL stopwatch records corpus timings. CLR code generation uses a different register and GC model. No external code or dependency was added. [Evidence](validation/part-1833/README.md).
+
+Part 1831 reuses the compiler's existing BEAM emitter and initialized-register and stack liveness analysis. The pinned reference is OTP 29.1.1 `beam_core_to_ssa`, `beam_ssa_pre_codegen`, `beam_ssa_codegen`, `beam_validator` and `beam_asm`. The existing .NET BCL data structures cover these compiler paths. Roslyn and LLVM target different instruction and garbage-collection contracts, so they do not supply reusable layout algorithms for this package. No external code or dependency is included. The upstream OTP reference is Apache-2.0. [Evidence](validation/part-1831/README.md).
+
+Part 1830 reuses the compiler leaf register analysis and its arithmetic operator catalog. Pinned OTP GC BIF validator and register pruning define the behavior. Roslyn and System.Reflection.Emit target CLR register and GC semantics. No dependency was added. [Evidence](validation/part-1830/README.md).
+
 Part 1829 reuses the compiler instruction reader, leaf register allocator, and heap placement for tuple fields. Pinned OTP tuple element and interval behavior supplies the reference. No dependency was added. [Evidence](validation/part-1829/README.md).
 
 Part 1828 uses the established C# leaf frame and root analysis for local tail arguments. Pinned OTP build_call and cg_alloc define the equivalent forms. No dependency was added. [Evidence](validation/part-1828/README.md).

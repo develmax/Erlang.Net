@@ -1,0 +1,13 @@
+{
+  "Status": "StoppedAfterRepeatedOriginalBootFailure",
+  "Started": "2026-11-18T14:17:42.5053493+03:00",
+  "Stopped": "2026-11-18T14:26:28.2794748+03:00",
+  "ConsoleLines": 119,
+  "Failures": [
+    "FAIL runtime/dets/managed-public-otp-contracts: System.InvalidOperationException: The original OTP initializer ended before reporting startup: shutdown",
+    "FAIL runtime/dets/original-public-otp-contracts: System.InvalidOperationException: The original OTP initializer ended before reporting startup: shutdown",
+    "FAIL runtime/dets/managed-upstream-cases: System.InvalidOperationException: The original OTP initializer ended before reporting startup: shutdown",
+    "FAIL runtime/dets/original-upstream-cases: System.InvalidOperationException: The original OTP initializer ended before reporting startup: shutdown"
+  ],
+  "AttachedPreflight": "1832-dets-attached.json"
+}

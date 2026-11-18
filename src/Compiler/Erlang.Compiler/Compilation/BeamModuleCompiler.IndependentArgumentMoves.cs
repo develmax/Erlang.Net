@@ -97,9 +97,29 @@ internal sealed partial class BeamModuleCompiler
 
             int count = end - start;
             int arity = (int)body[call].Operands[0].Value + extraArguments;
+            if (extraArguments == 0 && count >= 2
+                && FindOutgoingResultSave(
+                    body,
+                    start,
+                    end - 1,
+                    arity
+                ) is int save)
+            {
+                int[] retained = Enumerable.Range(start, count - 1).Where(index => index != save).ToArray();
+                WriteMoves(start, end, retained);
+                continue;
+            }
+
             if (count < 2 || count > arity
                 || start > 0 && body[start - 1].Definition.Opcode == Move)
             {
+                continue;
+            }
+
+            if (count == 3 && arity == count
+                && ReadNestedTailCallMoveOrder(body, start, call) is { } nestedOrder)
+            {
+                WriteMoves(start, end, nestedOrder);
                 continue;
             }
 
@@ -191,18 +211,7 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
-            if (order.SequenceEqual(Enumerable.Range(start, count)))
-            {
-                continue;
-            }
-
-            output.Write(code.Span[copied..body[start].Offset]);
-            foreach (int index in order)
-            {
-                output.Write(code.Span[body[index].Offset..body[index + 1].Offset]);
-            }
-
-            copied = body[end].Offset;
+            WriteMoves(start, end, order);
         }
 
         if (copied == 0)
@@ -213,6 +222,74 @@ internal sealed partial class BeamModuleCompiler
         output.Write(code.Span[copied..]);
 
         return output.ToArray();
+
+        void WriteMoves(int start, int end, int[] order)
+        {
+            if (order.SequenceEqual(Enumerable.Range(start, end - start)))
+            {
+                return;
+            }
+
+            output.Write(code.Span[copied..body[start].Offset]);
+            foreach (int index in order)
+            {
+                output.Write(code.Span[body[index].Offset..body[index + 1].Offset]);
+            }
+
+            copied = body[end].Offset;
+        }
+    }
+
+    private static int? FindOutgoingResultSave(
+        IReadOnlyList<BeamInstruction> body,
+        int start,
+        int restore,
+        int arity
+    )
+    {
+        if (body[restore].Operands is not
+            [
+            { Kind: BeamOperandParameters.X, TypeIndex: null, Value: var scratch },
+            { Kind: BeamOperandParameters.X, TypeIndex: null, Value.IsZero: true }
+            ] || scratch.IsZero || scratch < arity)
+        {
+            return null;
+        }
+
+        // Ordinary calls only consume X0 through X(arity-1). No move between
+        // the save and the final restore can read or overwrite either register.
+        for (int index = restore - 1; index >= start; index--)
+        {
+            BeamOperand source = body[index].Operands[0];
+            BeamOperand destination = body[index].Operands[1];
+            if (source.Kind == BeamOperandParameters.X && (source.Value.IsZero || source.Value == scratch)
+                || destination.Value.IsZero || destination.Value == scratch)
+            {
+                return source is { Kind: BeamOperandParameters.X, TypeIndex: null, Value.IsZero: true }
+                    && destination.TypeIndex is null && destination.Value == scratch ? index : null;
+            }
+        }
+
+        return null;
+    }
+
+    private static int[]? ReadNestedTailCallMoveOrder(IReadOnlyList<BeamInstruction> body, int start, int call)
+    {
+        if (start == 0 || body[start - 1].Definition.Opcode is not (LocalCall or ExternalCall)
+            || body[call].Definition.Opcode is not (TailLocalCallWithFrame or TailExternalCallWithFrame)
+            || body[start].Operands is not
+                [{ Kind: BeamOperandParameters.X, Value.IsZero: true }, { Kind: BeamOperandParameters.X, Value: var result }] || result != 2
+            || body[start + 1].Operands is not
+                [{ Kind: BeamOperandParameters.Atom or BeamOperandParameters.Integer or BeamOperandParameters.LiteralValue or BeamOperandParameters.Nil },
+                { Kind: BeamOperandParameters.X, Value.IsZero: true }]
+            || body[start + 2].Operands is not
+                [{ Kind: BeamOperandParameters.Y }, { Kind: BeamOperandParameters.X, Value: var saved }] || saved != 1)
+        {
+            return null;
+        }
+
+        // OTP order_moves emits the separate Y load before the chain that reads and replaces X0.
+        return [start + 2, start, start + 1];
     }
 
     private static bool CallFollowsFrameTrim(IReadOnlyList<BeamInstruction> body, int call)

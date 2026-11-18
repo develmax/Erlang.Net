@@ -532,7 +532,7 @@ internal sealed partial class BeamModuleCompiler
                         saved,
                         released,
                         allowSwapWithPreviousArgument: decision is null || index == calls.Length - 1,
-                        allowRegisterReload: checks is null && closures is null
+                        allowRegisterReload: checks is null && closures is not { Count: > 0 }
                     )
                     : null;
                 foreach (int slot in released)
@@ -861,15 +861,19 @@ internal sealed partial class BeamModuleCompiler
                 int? deferredSlot = null;
                 if (finalTrim is null && hasTuple && checks is null && step is
                     { Spill: null, ReloadRelocatedArgument: false, Closure: null, TupleArguments: null }
-                    && step.Call.RegisterConstructions is null && trimTo > trimmed
+                    && step.Call.RegisterConstructions is null
                     && step.Call.SavedInputs is { } savedInputs)
                 {
                     int firstLoad = savedInputs.FindIndex(move => move.Destination == 0);
                     if (firstLoad >= 0)
                     {
-                        int slot = remap[savedInputs[firstLoad].Source];
-                        if (slot >= trimTo - trimmed
-                            && savedInputs[firstLoad].Source != step.SlotRelocation?.Destination)
+                        int source = savedInputs[firstLoad].Source;
+                        int slot = remap[source];
+                        bool survivesCleanup = !step.Released.Contains(source)
+                            && step.Released.Any(released => released != step.SlotRelocation?.Destination);
+                        // As in OTP setup_args, keep the X0 move next to its call if it survives the kill.
+                        if (slot >= trimTo - trimmed && source != step.SlotRelocation?.Destination
+                            && (trimTo > trimmed || survivesCleanup))
                         {
                             deferredSlot = slot - (trimTo - trimmed);
                         }

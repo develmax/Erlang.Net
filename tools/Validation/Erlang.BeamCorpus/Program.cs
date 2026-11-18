@@ -18,6 +18,8 @@ if (BeamCorpusOptions.Parse(args) is not { } options)
     return 2;
 }
 
+bool measure = Environment.GetEnvironmentVariable("ERLANG_BEAM_CORPUS_TIMINGS") == "1";
+long setupStart = measure ? Stopwatch.GetTimestamp() : 0;
 args = options.Paths;
 
 const string otpVersion = "29.1.1";
@@ -96,12 +98,23 @@ if (generatedDirectory is not null)
 var sources = Directory.EnumerateFiles(root, "*.erl", SearchOption.AllDirectories)
     .ToLookup(path => (Application(path), Path.GetFileNameWithoutExtension(path)));
 var results = new BeamCorpusResult[beams.Length];
+double[]? elapsedByModule = measure ? new double[beams.Length] : null;
+long comparisonStart = measure ? Stopwatch.GetTimestamp() : 0;
 Parallel.For(
     0,
     beams.Length,
     new ParallelOptions { MaxDegreeOfParallelism = options.Jobs },
-    index => results[index] = Compare(beam: beams[index])
+    index =>
+    {
+        long started = measure ? Stopwatch.GetTimestamp() : 0;
+        results[index] = Compare(beam: beams[index]);
+        if (elapsedByModule is not null)
+        {
+            elapsedByModule[index] = Stopwatch.GetElapsedTime(started).TotalMilliseconds;
+        }
+    }
 );
+long comparisonEnd = measure ? Stopwatch.GetTimestamp() : 0;
 
 var counts = results.GroupBy(result => result.Status).OrderBy(group => group.Key, StringComparer.Ordinal)
     .ToDictionary(group => group.Key, group => group.Count(), StringComparer.Ordinal);
@@ -119,6 +132,22 @@ File.WriteAllText(
         new JsonSerializerOptions { WriteIndented = true }
     )
 );
+if (elapsedByModule is not null)
+{
+    File.WriteAllText(
+        report + ".timings.json",
+        JsonSerializer.Serialize(
+            new
+            {
+                Jobs = options.Jobs,
+                SetupMilliseconds = Stopwatch.GetElapsedTime(setupStart, comparisonStart).TotalMilliseconds,
+                ComparisonMilliseconds = Stopwatch.GetElapsedTime(comparisonStart, comparisonEnd).TotalMilliseconds,
+                Modules = results.Select((result, index) => new { result.Beam, Milliseconds = elapsedByModule[index] })
+            },
+            new JsonSerializerOptions { WriteIndented = true }
+        )
+    );
+}
 Console.WriteLine(JsonSerializer.Serialize(counts));
 
 return results.Length != 0 && results.All(result => result.Status == "Equal") ? 0 : 1;

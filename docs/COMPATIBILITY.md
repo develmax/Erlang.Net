@@ -1,5 +1,21 @@
 # Compatibility overview
 
+Part 1839 independently verifies 404 of 1,366 Windows OTP 29.1.1 files byte-for-byte. There are 962 Different, 0 Unsupported and 0 SourceRejected. The local repository regression passed 9,767 cases. [Evidence](validation/part-1839/README.md).
+
+The full uncached Part 1833 corpus retains 404 of 1,366 exact Windows OTP images. Its single normalized SSL loss is recovered on the targeted Part 1837 candidate. The full linked comparison is running. [Full result](validation/part-1833/README.md) · [SSL retake](validation/part-1837/README.md).
+
+Part 1835 has 7 Equal and 17 Different on its sample with no unsupported or rejected sources. Megaco start_accept_child/2 matches pinned instructions and the three execution observations. [Evidence](validation/part-1835/README.md).
+
+On the Part 1834 sample, 7 images are Equal and 33 are Different. There are zero Unsupported or SourceRejected results. Whole-corpus compatibility remains at the Part 1832 measurement. [Scope](validation/part-1834/README.md).
+
+Part 1833 has 10 Equal and 34 Different in its Windows sample, with zero Unsupported and zero SourceRejected. The full release still uses Part 1832 evidence. [Candidate](validation/part-1833/README.md).
+
+Part 1832 reports 404 Equal and 962 Different on the full Windows corpus, with zero Unsupported and zero SourceRejected. ERTS admitted all 578 changed images across batch preparation and ordinary on-load execution. [Evidence](validation/part-1832/README.md).
+
+The Part 1831 Windows release comparison has 402 Equal, 964 Different, zero Unsupported and zero SourceRejected. All 467 changed images were admitted by ERTS through the relevant load path. [Evidence](validation/part-1831/README.md).
+
+Part 1830 adds seven normalized instruction matches and retains the 400 whole-file matches. The guard fallback and errors passed ERTS controls. [Evidence](validation/part-1830/README.md).
+
 Part 1829 adds 45 normalized function matches with zero losses and retains all 400 byte matches. The existing list-closure layout was preserved after correcting pass order. [Evidence](validation/part-1829/README.md).
 
 Part 1828 gains 71 normalized function matches and retains all 400 whole-file matches. ERTS confirms the list forwarding, record error, and transcode controls. [Evidence](validation/part-1828/README.md).

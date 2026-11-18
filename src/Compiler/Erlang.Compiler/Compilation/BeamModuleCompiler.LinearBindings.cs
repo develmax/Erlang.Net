@@ -494,7 +494,7 @@ internal sealed partial class BeamModuleCompiler
         {
             if (function.Clauses is not [{ Guard: null, Body: Expr.Sequence sequence } clause]
                 || !HasUnconditionalParameters(clause)
-                || !sequence.Items.SkipLast(1).Any(item => item is Expr.Match { Value: Expr.Literal }))
+                || !sequence.Items.SkipLast(1).Any(item => item is Expr.Match { Value: Expr.Literal or Expr.Tuple or Expr.List }))
             {
                 return function;
             }
@@ -505,11 +505,20 @@ internal sealed partial class BeamModuleCompiler
             for (int index = 0; index < sequence.Items.Count; index++)
             {
                 Expr item = sequence.Items[index];
+                if (index + 1 == sequence.Items.Count && item is Expr.Case decision)
+                {
+                    if (!CanRewriteCaseSelector(decision))
+                    {
+                        return function;
+                    }
+
+                    items.Add(decision with { Value = SubstituteConstants(decision.Value, constants) });
+                    continue;
+                }
+
                 var match = item as Expr.Match;
                 Expr value = match?.Value ?? item;
-                if (LocalFunctionEntries.Walk(value).Any(expression => expression is not (
-                    Expr.Literal or Expr.Variable or Expr.Tuple or Expr.List or Expr.Unary or Expr.Binary
-                    or Expr.RecordConstruction { Wildcard: null } or Expr.Call { DynamicRemote: false })))
+                if (!LocalFunctionEntries.Walk(value).All(IsStraightValue))
                 {
                     return function;
                 }
@@ -538,7 +547,52 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
-            return constants.Count == 0 ? function : function with { Clauses = [clause with { Body = sequence with { Items = items } }] };
+            // Forwarded entry registers need no setup. Keep the source order of the appended literals.
+            if (constants.Count == 0 || items is [Expr.Call { Module: null, DynamicRemote: false } tail]
+                && tail.Arguments.Count >= clause.Patterns.Count + 2
+                && clause.Patterns.Select(
+                    (pattern, index) => pattern is Pattern.Variable parameter
+                        && tail.Arguments[index] is Expr.Variable read
+                        && parameter.Name == read.Name
+                ).All(forwarded => forwarded)
+                && tail.Arguments.Skip(clause.Patterns.Count)
+                    .All(argument => AttributeLiteral.TryNormalizeConstant(argument, out _)))
+            {
+                return function;
+            }
+
+            // Use the terminal prepared-case path when no preceding expression remains.
+            Expr body = items is [Expr.Case terminal] ? terminal : sequence with { Items = items };
+
+            return function with { Clauses = [clause with { Body = body }] };
+
+            bool CanRewriteCaseSelector(Expr.Case decision)
+            {
+                if (!LocalFunctionEntries.Walk(decision.Value).All(IsStraightValue)
+                    || PatternReadsBinding(decision))
+                {
+                    return false;
+                }
+
+                // Rewrite only the selector. References in guards or case patterns depend on the outer binding.
+                foreach (Expr node in LocalFunctionEntries.ClauseExpressions(decision.Clauses).SelectMany(LocalFunctionEntries.Walk))
+                {
+                    if ((!IsStraightValue(node) && node is not (Expr.Case or Expr.Sequence or Expr.GuardAlternatives))
+                        || node is Expr.Variable read && constants.ContainsKey(read.Name)
+                        || node is Expr.Case nested && PatternReadsBinding(nested))
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            bool PatternReadsBinding(Expr.Case decision) => decision.Clauses.SelectMany(arm => arm.Patterns)
+                .SelectMany(Semantics.Variables).Any(constants.ContainsKey);
+
+            static bool IsStraightValue(Expr value) => value is Expr.Literal or Expr.Variable or Expr.Tuple or Expr.List
+                or Expr.Unary or Expr.Binary or Expr.RecordConstruction { Wildcard: null } or Expr.Call { DynamicRemote: false };
         }
 
         private FunctionDefinition FoldEntryResultCase(FunctionDefinition function)

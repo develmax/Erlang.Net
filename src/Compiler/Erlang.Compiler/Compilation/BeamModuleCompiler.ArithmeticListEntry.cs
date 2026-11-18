@@ -340,7 +340,7 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        private static bool IsRegisterArithmeticOperator(string name) =>
+        internal static bool IsRegisterArithmeticOperator(string name) =>
             name is ErlangOperators.Plus or ErlangOperators.Minus or ErlangOperators.Multiply or ErlangOperators.Divide
                 or ErlangOperators.IntegerDivide or ErlangOperators.Remainder or ErlangOperators.BitwiseAnd
                 or ErlangOperators.BitwiseOr or ErlangOperators.BitwiseXor or ErlangOperators.ShiftLeft

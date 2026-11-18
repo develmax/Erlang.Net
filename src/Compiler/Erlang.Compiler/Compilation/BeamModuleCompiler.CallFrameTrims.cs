@@ -47,6 +47,7 @@ internal sealed partial class BeamModuleCompiler
             if (start + 1 >= end || body[start].Definition.Opcode != Label
                 || body[start + 1].Definition.Opcode is not (Allocate or AllocateHeap))
             {
+                TrimDeadBranchFrames(start, end);
                 continue;
             }
 
@@ -61,6 +62,7 @@ internal sealed partial class BeamModuleCompiler
                     out int release
                 ))
             {
+                TrimDeadBranchFrames(start, end);
                 continue;
             }
 
@@ -211,6 +213,80 @@ internal sealed partial class BeamModuleCompiler
         output.Write(code.Span[copied..]);
 
         return output.ToArray();
+
+        void TrimDeadBranchFrames(int start, int end)
+        {
+            for (int index = start; index < end; index++)
+            {
+                if (body[index].Definition.Opcode is CatchEnter or TryEnter || body[index].Definition.Name == "debug_line")
+                {
+                    return;
+                }
+            }
+
+            for (int exit = start; exit + 1 < end; exit++)
+            {
+                int size = body[exit].Definition.Opcode switch
+                {
+                    Deallocate when body[exit + 1].Definition.Opcode == Return => 0,
+                    TailExternalCallWithFrame or TailLocalCallWithFrame => 2,
+                    _ => -1
+                };
+                if (size < 0 || body[exit].Operands[size].Value <= 0
+                    || FindDeadBranchTrimSite(body, start, exit) is not (>= 0 and var site)
+                    || body[site].Offset < copied)
+                {
+                    continue;
+                }
+
+                int offset = body[site].Offset;
+                output.Write(code.Span[copied..offset]);
+                output.WriteByte(TrimFrame);
+                BeamCompactWriter.Write(output, BeamWire.UnsignedTag, body[exit].Operands[size].Value);
+                BeamCompactWriter.Write(output, BeamWire.UnsignedTag, 0);
+
+                int operandStart = body[exit].Offset + 1;
+                var cursor = new BeamCursor(code[operandStart..]);
+                for (int operand = 0; operand < size; operand++)
+                {
+                    _ = BeamCompactReader.Read(cursor);
+                }
+
+                output.Write(code.Span[offset..(operandStart + cursor.Position)]);
+                BeamCompactWriter.Write(output, BeamWire.UnsignedTag, 0);
+                _ = BeamCompactReader.Read(cursor);
+                copied = operandStart + cursor.Position;
+            }
+        }
+    }
+
+    private static int FindDeadBranchTrimSite(IReadOnlyList<BeamInstruction> body, int start, int exit)
+    {
+        bool returningCall = false;
+        for (int index = exit - 1; index > start; index--)
+        {
+            BeamInstruction instruction = body[index];
+            byte opcode = instruction.Definition.Opcode;
+            if (opcode is not (Line or Move or TestHeap or PutTuple or PutList or LocalCall or ExternalCall))
+            {
+                // A label may admit another frame state. Other control-flow instructions can leave the suffix.
+                return -1;
+            }
+
+            if (instruction.Operands.Any(operand => operand.Kind == BeamOperandParameters.Y))
+            {
+                // The last stack read must feed a construction into X before an ordinary call.
+                bool constructs = opcode == PutTuple && instruction.Operands[0].Kind == BeamOperandParameters.X
+                    || opcode == PutList && instruction.Operands[^1].Kind == BeamOperandParameters.X;
+
+                return returningCall && constructs && Enumerable.Range(start + 1, index - start - 1)
+                    .Any(branch => body[branch].Definition.Opcode == Label) ? index + 1 : -1;
+            }
+
+            returningCall |= opcode is LocalCall or ExternalCall;
+        }
+
+        return -1;
     }
 
     private static bool ReadCallFrame(

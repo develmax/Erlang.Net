@@ -1,0 +1,18 @@
+{"Partial":true,"SelectedCount":16,"TotalCount":9766}
+PASS compiler/beam/closed-literal-bindings-cross-calls-as-literals
+PASS compiler/beam/private-branch-trims-dead-stack-slots
+PASS compiler/beam/prepared-boolean-case-orders-clause-and-failure-labels
+PASS compiler/beam/outgoing-call-removes-dead-roundtrip
+PASS compiler/beam/entry-values-after-frameless-branch-keep-owned-frame
+PASS compiler/beam/integer-conversion-result-keeps-unbounded-type
+PASS compiler/beam/accumulated-pair-lengths-preserve-minimum
+PASS compiler/beam/independent-atom-tails-use-otp-body-order
+PASS compiler/beam/tagged-case-reuses-the-matched-tuple
+PASS compiler/beam/nonnegative-call-result-keeps-otp-range
+PASS compiler/beam/proper-list-proof-follows-only-tail
+PASS compiler/beam/list-result-keeps-proper-list-type
+PASS compiler/beam/selector-builds-in-outgoing-argument
+PASS compiler/beam/adjacent-call-keeps-result-live
+PASS compiler/beam/atom-case-emits-local-tails
+PASS compiler/beam/sibling-leaf-reuses-dead-register
+16/16 passed

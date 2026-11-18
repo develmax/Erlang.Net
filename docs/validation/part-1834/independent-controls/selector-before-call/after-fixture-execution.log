@@ -1,0 +1,5 @@
+Error! Failed to eval: [Image,Deps]=init:get_plain_arguments(),true=code:add_patha(Deps),{module,selector_dep}=code:ensure_loaded(selector_dep),{module,M}=code:load_abs(filename:rootname(Image)),Cases=[{run,[selector_dep,1]},{run,[unknown_target,2]},{open,[selector_dep,other,3]},{open,[selector_dep,absent,4]},{run,[111,5]}],lists:foreach(fun({F,Args})->R=try apply(M,F,Args) catch C:E->{C,E} end,io:format("~p ~p ~p~n",[F,Args,R]) end,Cases),halt().
+
+Runtime terminating during boot ({{badmatch,{error,badfile}},[{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,796}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{init,start_it,1,[{file,"init.erl"},{line,1561}]},{init,start_em,1,[{file,"init.erl"},{line,1546}]},{init,do_boot,3,[{file,"init.erl"},{line,1217}]}]})
+
+Crash dump is being written to: erl_crash.dump...done
