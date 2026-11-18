@@ -73,7 +73,7 @@ internal sealed partial class BeamModuleCompiler
                         else
                         {
                             int operandEnd = body[allocationIndex + 1].Offset;
-                            int width = CompactLiveWidth(original);
+                            int width = CompactRegisterCountWidth(original);
                             output.Write(code.Span[allocation..(operandEnd - width)]);
                             BeamCompactWriter.Write(output, BeamWire.UnsignedTag, frameLive);
                             output.Write(code.Span[operandEnd..first]);
@@ -101,7 +101,7 @@ internal sealed partial class BeamModuleCompiler
                     if (placement.HeapLives.TryGetValue(index, out int heapLive))
                     {
                         int original = (int)instruction.Operands[^1].Value;
-                        output.Write(code.Span[copied..(next - CompactLiveWidth(original))]);
+                        output.Write(code.Span[copied..(next - CompactRegisterCountWidth(original))]);
                         BeamCompactWriter.Write(output, BeamWire.UnsignedTag, heapLive);
                         copied = next;
                         continue;
@@ -207,7 +207,7 @@ internal sealed partial class BeamModuleCompiler
         IReadOnlyDictionary<int, (int Slot, int Register)[]> ProjectedStores
     );
 
-    private static int CompactLiveWidth(int live) => live < 1 << BeamWire.CompactSmallPayloadShift ? 1 : 2;
+    private static int CompactRegisterCountWidth(int live) => live < 1 << BeamWire.CompactSmallPayloadShift ? 1 : 2;
 
     private static EntryFramePlacement? PlanEntryFramePlacement(
         IReadOnlyList<BeamInstruction> body,

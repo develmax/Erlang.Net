@@ -1,0 +1,10 @@
+[Path] = init:get_plain_arguments(),
+{module,M} = code:load_abs(filename:rootname(Path)),
+D0 = erlang:make_tuple(11,undefined,[{1,diameter_callback},{11,[]}]),
+D1 = setelement(8,D0,false),
+Answer = {answer,[first,second]},
+Packet = {diameter_packet,header,avps,Answer,bin,[err],transport},
+[Answer,err] = M:handle_answer(Packet,req,svc,peer,D0),
+[Answer,err] = M:handle_answer(Packet,req,svc,peer,D1),
+{'EXIT',{{badrecord,invalid},_}} = (catch M:handle_answer(Packet,req,svc,peer,invalid)),
+io:format("diameter_callback:handle_answer/5 3/3~n"), halt().

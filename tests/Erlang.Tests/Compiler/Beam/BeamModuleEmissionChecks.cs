@@ -355,6 +355,7 @@ internal static class BeamModuleEmissionChecks
         CompareLeafFrameAfterEntryTests();
         CompareLeafListHeapRoots();
         await CompareDistinctTupleFallback();
+        CompareCombinedLeafTail();
         CompareClosedAtomDispatchWithMixedResults();
         CompareStackSlotsAcrossMapAndBinaryOperations();
         CompareStackSlotsAcrossBitMatches();
@@ -914,6 +915,31 @@ internal static class BeamModuleEmissionChecks
         {
             throw new InvalidOperationException(BeamLeafFrameDiagnostics.DistinctTupleFallback);
         }
+    }
+
+    private static void CompareCombinedLeafTail()
+    {
+        const string source = """
+            -module(beam_combined_leaf_tail).
+            -export([forward/4, send/2]).
+            -record(callback, {mode}).
+            forward(A, B, C, D) -> dispatch(tag, [A,B,C], D#callback.mode, D).
+            dispatch(Tag, Args, Mode, D) -> {Tag, Args, Mode, D}.
+            send(Pid, Value) -> erlang:send(Pid, [Value]).
+            """;
+        byte[] bytes = CodeGeneration.CompileBeamModule(source, "beam_combined_leaf_tail.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(bytes).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> combined = [BeamEmissionFormat.AllocateHeap, 0x10, 0x60, 0x40];
+        ReadOnlySpan<byte> heap = [BeamEmissionFormat.TestHeap, 0x60, 0x40];
+        ReadOnlySpan<byte> tail = [BeamEmissionFormat.TailLocalCall, 0x40];
+        if (code.AsSpan().IndexOf(combined) >= 0
+            || code.AsSpan().IndexOf(heap) < 0
+            || code.AsSpan().IndexOf(tail) < 0)
+        {
+            throw new InvalidOperationException(BeamLeafFrameDiagnostics.CombinedLeafTail);
+        }
+
+        _ = BeamModule.Prepare(bytes);
     }
 
     private static void CompareClosedAtomDispatchWithMixedResults()

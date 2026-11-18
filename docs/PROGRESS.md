@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1828 removes list argument frames around local tail calls. The Windows corpus retains 400 byte matches. ERTS admitted all 276 changed images. [Evidence](validation/part-1828/README.md).
+
 Part 1827 reuses checked tuple projections across a forward failure edge. The corpus retains 400 of 1,366 byte matches and ERTS admitted all 413 changed images across both load paths. [Evidence](validation/part-1827/README.md).
 
 Part 1826 removes frames in leaf functions that construct lists and proves the initialized X root prefix at heap checks. Full-file parity remains 400 of 1,366. All 57 changed images passed ERTS loader preparation. [Evidence](validation/part-1826/README.md).

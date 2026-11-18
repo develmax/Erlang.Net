@@ -1,6 +1,6 @@
 # Next steps
 
-Measure whether scheduling call-result spills before trimming reduces the frame in ex_notebook:do_init/1 and other forms in the 220-module group. Compare with pinned compiler pass order, then revisit combined stack and heap allocation. [Evidence](validation/part-1827/README.md).
+Model put_tuple2 destinations and flattened sources in the leaf allocator. Start with mnesia_frag_hash:convert_old_state/1, then measure the affected corpus group. [Evidence](validation/part-1828/README.md).
 
 The recovered C# compiler retained the equality status of all 1,366 Windows OTP 29.1.1 images. Rank the 966 differences by shared compiler operation before choosing the next lowering change. [Validation](validation/part-1821/results.json).
 
