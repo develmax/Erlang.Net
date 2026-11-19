@@ -13,11 +13,14 @@ internal static class BeamModuleEmissionChecks
     internal const string ProperListSelectorTypeTest = "compiler/beam/list-result-keeps-proper-list-type";
     internal const string ProperListTailTypeTest = "compiler/beam/proper-list-proof-follows-only-tail";
     internal const string SizeResultTypeTest = "compiler/beam/size-bif-result-keeps-otp-range";
+    internal const string SplitTaggedCaseTest = "compiler/beam/tagged-tuple-test-preserves-atom-fallback";
+    internal const string IntegerLiteralBoundsTest = "compiler/beam/signed-integer-literal-boundaries-match-otp";
     internal const string PairLengthBoundsTest = "compiler/beam/accumulated-pair-lengths-preserve-minimum";
     internal const string IntegerConversionResultTypeTest = "compiler/beam/integer-conversion-result-keeps-unbounded-type";
     internal const string NonnegativeCallResultTypeTest = "compiler/beam/nonnegative-call-result-keeps-otp-range";
     internal const string IndependentAtomTailTestName = "compiler/beam/independent-atom-tails-use-otp-body-order";
     internal const string AtomTailDispatchTestName = "compiler/beam/atom-case-emits-local-tails";
+    internal const string ClosedAtomIdentityTestName = "compiler/beam/closed-atom-dispatch-preserves-alias";
     internal const string SiblingLeafRegistersTestName = "compiler/beam/sibling-leaf-reuses-dead-register";
     private const string ResourcePrefix = "Erlang.Tests.Resources.Beam.";
     private const string Mismatch = "Generated module differs from OTP: ";
@@ -25,6 +28,9 @@ internal static class BeamModuleEmissionChecks
     private const string IncludeFixture = "beam_include_probe";
     private const string OuterHeader = "beam_probe_outer.hrl";
     private const string InnerHeader = "beam_probe_inner.hrl";
+    private const string CombinedAllocationMismatch = "Expected the one live-across-call frame slot and four heap words to be allocated together.";
+    private const string TerminalFrameMismatch = "Expected both terminal constructions to release their single live-across-call frame slot.";
+    private const string TerminalCallMismatch = "Expected the final external call to release the zero-slot frame and return.";
 
     internal static async Task Run()
     {
@@ -76,6 +82,7 @@ internal static class BeamModuleEmissionChecks
             "beam_split_continuation",
             "beam_case_tuple_sequence_probe",
             "beam_case_constructor_spill_probe",
+            "beam_shared_tag_payload",
             "beam_tuple_arity_fallback_probe",
             "beam_call_sequence_case_probe",
             "beam_computed_tail_probe",
@@ -370,6 +377,9 @@ internal static class BeamModuleEmissionChecks
         CompareLeafListTupleOrder();
         CompareLeafArithmeticRoots();
         CompareHeapBeforeListProjection();
+        BeamTaggedPayloadFrameChecks.Check();
+        BeamNestedCallResultCleanupChecks.Check();
+        BeamTupleEntryListCallChecks.Check();
         CompareLeadingAtomTailDispatch();
         CompareConstructedAtomFallback();
         BeamNestedRecordBranchChecks.Check();
@@ -410,6 +420,7 @@ internal static class BeamModuleEmissionChecks
         await CompareForwardedRecordList();
         CompareBifResultStores();
         CompareEntryBifPlacement();
+        await BeamAdjacentBifResultChecks.Run();
         CompareBifPredicateFrame();
         CompareGuardedFramePrefix();
         CompareTaggedEntryBeforeBranchFrames();
@@ -417,6 +428,11 @@ internal static class BeamModuleEmissionChecks
         CompareTupleEntryBeforeBranchFrames();
         BeamEntryExternalTailChecks.Run();
         CompareTerminalCallFolding();
+        await BeamCallResultConstructionChecks.Run();
+        await BeamMatchedCallProjectionChecks.Run();
+        await BeamSafeCallLocationChecks.Run();
+        await BeamMapCallContinuationChecks.Run();
+        await BeamTerminalTaggedProjectionChecks.Run();
         CompareSharedReturnCallFolding();
         CompareUnreachableReturnRemoval();
         CompareUnusedFallthroughLabelRemoval();
@@ -459,6 +475,7 @@ internal static class BeamModuleEmissionChecks
         await CompareForwardedCatch();
         await CompareGuardedEntryCallChain();
         await CompareConstantReturningCallChain();
+        BeamUnusedTupleBindingChecks.Run();
         await CompareSavedCheckedPayload();
         await CompareTrimmedCheckedPayload();
         await CompareGeneralRecordGuard();
@@ -593,10 +610,10 @@ internal static class BeamModuleEmissionChecks
             """;
         byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_stack_heap_allocation.erl");
         byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
-        ReadOnlySpan<byte> allocation = [BeamEmissionFormat.AllocateHeap, 0x20, 0x40, 0x20, BeamEmissionFormat.Move];
+        ReadOnlySpan<byte> allocation = [BeamEmissionFormat.AllocateHeap, 0x10, 0x40, 0x20, BeamEmissionFormat.Move];
         if (code.AsSpan().IndexOf(allocation) < 0)
         {
-            throw new InvalidOperationException("Expected the two used frame slots and four heap words to be allocated together.");
+            throw new InvalidOperationException(CombinedAllocationMismatch);
         }
     }
 
@@ -625,10 +642,11 @@ internal static class BeamModuleEmissionChecks
             0x03
         ];
         ReadOnlySpan<byte> list = [BeamEmissionFormat.TestHeap, 0x20, 0x10, BeamEmissionFormat.PutList, 0x03];
-        ReadOnlySpan<byte> returnFrame = [BeamEmissionFormat.Deallocate, 0x20, BeamEmissionFormat.Return];
-        if (code.AsSpan().IndexOf(returnFrame) < 0)
+        ReadOnlySpan<byte> returnFrame = [BeamEmissionFormat.Deallocate, 0x10, BeamEmissionFormat.Return];
+        int firstReturn = code.AsSpan().IndexOf(returnFrame);
+        if (firstReturn < 0 || code.AsSpan(firstReturn + returnFrame.Length).IndexOf(returnFrame) < 0)
         {
-            throw new InvalidOperationException("Expected the terminal construction to release only the two used frame slots.");
+            throw new InvalidOperationException(TerminalFrameMismatch);
         }
         if (code.AsSpan().IndexOf(tuple) < 0 || code.AsSpan().IndexOf(list) < 0)
         {
@@ -789,11 +807,16 @@ internal static class BeamModuleEmissionChecks
             """;
         byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_frameless_stack_failure.erl");
         byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
-        ReadOnlySpan<byte> reducedFrame = [BeamEmissionFormat.Allocate, 0x30, 0x20];
-        ReadOnlySpan<byte> largerFrame = [BeamEmissionFormat.Allocate, 0x40, 0x20];
+        ReadOnlySpan<byte> reducedFrame = [BeamEmissionFormat.Allocate, 0x20, 0x20];
+        ReadOnlySpan<byte> largerFrame = [BeamEmissionFormat.Allocate, 0x30, 0x20];
+        ReadOnlySpan<byte> releasedFrame = [BeamEmissionFormat.Deallocate, 0x20, BeamEmissionFormat.Return];
         ReadOnlySpan<byte> unframedFailure = [BeamEmissionFormat.BadMatch, 0x03];
-        if (code.AsSpan().IndexOf(reducedFrame) < 0 || code.AsSpan().IndexOf(largerFrame) >= 0
-            || code.AsSpan().IndexOf(unframedFailure) < 0)
+        int check = code.AsSpan().IndexOf((byte)BeamEmissionFormat.IsTuple);
+        int frame = code.AsSpan().IndexOf(reducedFrame);
+        int released = code.AsSpan().IndexOf(releasedFrame);
+        int failure = code.AsSpan().IndexOf(unframedFailure);
+        if (check < 0 || check >= frame || frame >= released || released >= failure
+            || code.AsSpan().IndexOf(largerFrame) >= 0)
         {
             throw new InvalidOperationException(
                 "Expected slot reuse after the tuple test and a badmatch exit without a frame."
@@ -1733,6 +1756,59 @@ internal static class BeamModuleEmissionChecks
         _ = BeamModule.Prepare(beam);
 
         return Task.CompletedTask;
+    }
+
+    internal static Task CompareIntegerLiteralBounds()
+    {
+        const string source = "beam_integer_literal_bounds.erl";
+        const string oracle = "beam_integer_literal_bounds.beam";
+        byte[] candidate = CodeGeneration.CompileBeamModule(Encoding.UTF8.GetString(Read(source)), source);
+        if (!candidate.AsSpan().SequenceEqual(Read(oracle)))
+        {
+            throw new InvalidOperationException(BeamIntegerLiteralBoundsDiagnostics.ExpectedOtpEncoding);
+        }
+
+        _ = BeamModule.Prepare(candidate);
+
+        return Task.CompletedTask;
+    }
+
+    internal static Task CompareSplitTaggedCase()
+    {
+        const string fixture = "beam_split_tagged_case.erl";
+        byte[] beam = CodeGeneration.CompileBeamModule(Encoding.UTF8.GetString(Read(fixture)), fixture);
+        var chunks = BeamDocumentationEmissionChecks.Chunks(beam);
+        byte[] code = chunks.Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> wildcardBranch =
+        [
+            BeamEmissionFormat.IsTaggedTuple, 0xf5, 0x03, 0x20, 0x62,
+            BeamEmissionFormat.GetTupleElement, 0x03, 0x10, 0x13,
+            BeamEmissionFormat.IsTuple, 0xf5, 0x13,
+            BeamEmissionFormat.TestArity, 0xf5, 0x13, 0x40
+        ];
+        if (!HasSplit(0x35, 0x45) || !HasSplit(0x75, 0x85) || !HasSplit(0xb5, 0xc5)
+            || code.AsSpan().IndexOf(wildcardBranch) < 0)
+        {
+            throw new InvalidOperationException(BeamSplitTaggedCaseDiagnostics.ExpectedTupleProof);
+        }
+
+        _ = BeamModule.Prepare(beam);
+
+        return Task.CompletedTask;
+
+        bool HasSplit(byte atomBranch, byte caseFailure)
+        {
+            ReadOnlySpan<byte> typedBranch =
+            [
+                BeamEmissionFormat.IsTuple, atomBranch, 0x03,
+                BeamEmissionFormat.IsTaggedTuple, caseFailure, BeamEmissionFormat.ExtendedTypedRegisterOperand, 0x03, 0x10, 0x20, 0x62,
+                BeamEmissionFormat.GetTupleElement, 0x03, 0x10, 0x13,
+                BeamEmissionFormat.IsTuple, caseFailure, 0x13,
+                BeamEmissionFormat.TestArity, caseFailure, 0x13, 0x40
+            ];
+
+            return code.AsSpan().IndexOf(typedBranch) >= 0;
+        }
     }
 
     internal static Task CompareSelectArithmeticFrame()
@@ -3127,11 +3203,11 @@ internal static class BeamModuleEmissionChecks
             BeamEmissionFormat.TailExternalCallWithFrame,
             0x10,
             0x10,
-            0x10
+            0x00
         ];
         if (code.AsSpan().IndexOf(calls) < 0)
         {
-            throw new InvalidOperationException("Expected the final external call to release the frame and return.");
+            throw new InvalidOperationException(TerminalCallMismatch);
         }
     }
 
@@ -8803,6 +8879,13 @@ internal static class BeamModuleEmissionChecks
     {
         CompareFixture("beam_atom_tail_dispatch_probe");
         CompareFixture("beam_guarded_atom_tail");
+
+        return Task.CompletedTask;
+    }
+
+    internal static Task CompareClosedAtomIdentity()
+    {
+        CompareFixture("beam_closed_atom_identity");
 
         return Task.CompletedTask;
     }

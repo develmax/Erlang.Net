@@ -338,9 +338,11 @@ public sealed partial class Parser
             TypeForms = typeForms.AsReadOnly(),
             HasOtherCompileOptions = callBindings.HasOtherCompileOptions,
             DisableModuleOptimization = callBindings.DisableModuleOptimization,
+            DisableReceiveOptimization = callBindings.DisableReceiveOptimization,
             LegacyBeamTables = callBindings.LegacyBeamTables,
             InlineTargets = callBindings.InlineTargets,
             AutomaticInlining = callBindings.AutomaticInlining,
+            AutomaticInliningDisabled = callBindings.AutomaticInliningDisabled,
             AutomaticInlineSize = callBindings.AutomaticInlineSize,
             ScannedAtomNames = Array.AsReadOnly(tokens
                 .Where(token => token.Kind is LexerTokenKinds.Atom or LexerTokenKinds.QuotedAtom or LexerTokenKinds.Variable or LexerTokenKinds.Keyword)

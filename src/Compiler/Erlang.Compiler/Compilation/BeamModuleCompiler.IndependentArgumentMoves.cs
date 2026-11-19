@@ -97,6 +97,12 @@ internal sealed partial class BeamModuleCompiler
 
             int count = end - start;
             int arity = (int)body[call].Operands[0].Value + extraArguments;
+            if (count == 2 && body[call].Definition.Opcode is (LocalCall or ExternalCall)
+                && WriteProjectedCopies(start, end, arity))
+            {
+                continue;
+            }
+
             if (extraArguments == 0 && count >= 2
                 && FindOutgoingResultSave(
                     body,
@@ -113,6 +119,18 @@ internal sealed partial class BeamModuleCompiler
             if (count < 2 || count > arity
                 || start > 0 && body[start - 1].Definition.Opcode == Move)
             {
+                continue;
+            }
+
+            if (count >= 3 && count == arity && extraArguments == 0
+                && ReadCallResultLiteralMoveOrder(
+                    body,
+                    start,
+                    call,
+                    count
+                ) is { } resultOrder)
+            {
+                WriteMoves(start, end, resultOrder);
                 continue;
             }
 
@@ -223,6 +241,47 @@ internal sealed partial class BeamModuleCompiler
 
         return output.ToArray();
 
+        bool WriteProjectedCopies(int start, int end, int arity)
+        {
+            if (start < 2 || body[start - 2] is not
+                {
+                    Definition.Opcode: Move,
+                    Operands: [
+                    { Kind: BeamOperandParameters.X, TypeIndex: null } source,
+                    { Kind: BeamOperandParameters.X, TypeIndex: null } scratch
+                    ]
+                }
+                || body[start - 1] is not
+                {
+                    Definition.Opcode: GetTupleElement,
+                    Operands: [
+                    { Kind: BeamOperandParameters.X, TypeIndex: null } tuple,
+                        _,
+                    { Kind: BeamOperandParameters.Y, TypeIndex: null } field
+                    ]
+                }
+                || source == tuple || source.Value >= arity || tuple.Value >= arity || scratch.Value < arity
+                || body[start].Operands is not [var fieldInput, var fieldOutput]
+                || fieldInput != field || fieldOutput != source
+                || body[start + 1].Operands is not [var savedInput, var savedOutput]
+                || savedInput != scratch || savedOutput != tuple)
+            {
+                return false;
+            }
+
+            // The projection must read the original tuple before X is reused.
+            // Its write to Y leaves the original argument in X until both copies.
+            output.Write(code.Span[copied..body[start - 2].Offset]);
+            output.Write(code.Span[body[start - 1].Offset..body[start].Offset]);
+            output.WriteByte(Move);
+            BeamCompactWriter.Write(output, XRegisterTag, source.Value);
+            BeamCompactWriter.Write(output, XRegisterTag, tuple.Value);
+            output.Write(code.Span[body[start].Offset..body[start + 1].Offset]);
+            copied = body[end].Offset;
+
+            return true;
+        }
+
         void WriteMoves(int start, int end, int[] order)
         {
             if (order.SequenceEqual(Enumerable.Range(start, end - start)))
@@ -271,6 +330,64 @@ internal sealed partial class BeamModuleCompiler
         }
 
         return null;
+    }
+
+    private static int[]? ReadCallResultLiteralMoveOrder(
+        IReadOnlyList<BeamInstruction> body,
+        int start,
+        int call,
+        int arity
+    )
+    {
+        if (start == 0 || body[start - 1].Definition.Opcode is not (LocalCall or ExternalCall)
+            || body[call].Definition.Opcode is not (LocalCall or ExternalCall))
+        {
+            return null;
+        }
+
+        var byDestination = new int[arity];
+        Array.Fill(byDestination, -1);
+        bool copiedResult = false;
+        for (int index = start; index < start + arity; index++)
+        {
+            BeamOperand source = body[index].Operands[0];
+            BeamOperand destination = body[index].Operands[1];
+            if (destination.Value >= arity || byDestination[(int)destination.Value] >= 0)
+            {
+                return null;
+            }
+
+            if (source is { Kind: BeamOperandParameters.X, Value.IsZero: true, TypeIndex: null })
+            {
+                if (copiedResult || destination.Value.IsZero || byDestination[0] >= 0)
+                {
+                    return null;
+                }
+
+                copiedResult = true;
+            }
+            else if (!IsNonRegisterValue(source))
+            {
+                return null;
+            }
+
+            byDestination[(int)destination.Value] = index;
+        }
+
+        if (!copiedResult)
+        {
+            return null;
+        }
+
+        // The ordered move chain leaves the replacement of X0 last, after its
+        // only read. Literal arguments have no dependencies on the chain.
+        int[] order = IndependentCallMoveOrder(arity);
+        for (int index = 0; index < order.Length; index++)
+        {
+            order[index] = byDestination[order[index]];
+        }
+
+        return order;
     }
 
     private static int[]? ReadNestedTailCallMoveOrder(IReadOnlyList<BeamInstruction> body, int start, int call)

@@ -1,6 +1,34 @@
 # Dependency and compatibility decisions
 
-Parts 1838 and 1839 reuse C# pair-result analysis and direct call argument planning. The pinned Apache-2.0 OTP compiler supplies the joined success types and register-placement rules. No external dependency or public runtime MFA was added. [Evidence](validation/part-1839/README.md).
+Part 1875 reuses operand liveness, symbolic argument scheduling and the existing core EPP path abstraction. Pinned Apache-2.0 OTP beam_validator, SSA call setup and Stdlib release makefiles establish the call inputs and bootstrap order. No additional packages or registered exports. [Evidence](validation/part-1875/README.md).
+
+Part 1874 reuses BEAM operand decoding, compact writing and source-owned terminal lifetimes. Pinned Apache-2.0 OTP SSA pre-codegen and native execution confirm initialized X roots, selector/projection order and direct tail construction. CLR and LLVM registers lack these BEAM live-root operands. The independent byte model serves only as a diagnostic. [Evidence](validation/part-1874/README.md).
+
+Part 1873 preserves existing argument-copy origins, branch guards and EPP resolution. Pinned Apache-2.0 OTP SSA and release Makefiles establish live call prefixes and include precedence. No external implementation or dependency is added. [Primary evidence](validation/part-1873/README.md).
+
+Part 1872 derives strict generator mismatch and bad_generator paths from pinned Apache-2.0 OTP v3_core and its SSA helper schedule. The C# recursive comprehension and operand flow are reused. The CLR collection lowering cannot preserve Erlang generator reasons, evaluation order and local helper frames. No external dependency was added. [Evidence](validation/part-1872/README.md).
+
+Parts 1870 and 1871 reuse decoded copy origins, operand flow, initialized root analysis, existing pattern planning and the EPP provenance model. Pinned Apache-2.0 OTP SSA codegen, beam_validator, beam_trim, v3_core and the Windows release makefiles supply the checked order and data contracts. CLR and LLVM register allocation target different frame and operand conventions. No external implementation or dependency is added. [Part 1870](validation/part-1870/full-uncached/README.md) · [Part 1871](validation/part-1871/README.md).
+
+Part 1861 reuses the C# projection liveness flow, decoded operands, recursive list emitter and existing type entry registry. Pinned Apache-2.0 OTP SSA codegen, Core-to-SSA and call result facts supply the measured behavior. A CLR or LLVM allocator cannot supply initialized BEAM frame and register operand semantics. No implementation or dependency is added from those platforms. [Evidence](validation/part-1861/README.md).
+
+Parts 1859 and 1860 reuse the C# argument planner, marker emission, checked branch lifetime evaluation, initialized root analysis and recursive list helper generation. Pinned Apache-2.0 OTP beam_ssa_codegen, beam_ssa_opt_sink, beam_core_to_ssa and beam_ssa_recv supply the measured order and state dependencies. Roslyn lowering and CLR or LLVM register allocation use different operand, checked-frame and collector models. No external implementation or package was imported. [Marker and list evidence](validation/part-1859/README.md) · [Projection and frame evidence](validation/part-1860/README.md).
+
+Part 1858 reuses initialized X-root and interference analysis plus recursive comprehension emission and guard prefix planning. Pinned Apache-2.0 OTP Core and SSA codegen supply the frame and bad_generator contracts. CLR and LLVM allocate native or IL registers with different runtime conventions. No external implementation or dependency was imported. [Scope evidence](validation/part-1858/README.md).
+
+Part 1857 reuses the C# closure-result destination rewrite, construction planner, entry frame proof and existing receive marker opcodes. Pinned Apache-2.0 OTP v3_core, beam_ssa_opt, beam_ssa_codegen and beam_ssa_recv supply the instruction and option contracts. Other .NET code generators target different register and collector models. No external implementation or package was imported. [Scoped evidence](validation/part-1857/README.md).
+
+Part 1856 uses the existing C# entry frame planner, initialized X roots, closure capture collector, outgoing move order and cons construction helpers. Pinned Apache-2.0 OTP v3_core, beam_core_to_ssa, beam_ssa_codegen, beam_trim and beam_block define the verified decisions. .NET and LLVM register and construction helpers use different bytecode and GC operand contracts. No external code or package was imported. [Scoped evidence](validation/part-1856/README.md).
+
+Parts 1854 and 1855 reuse binary pattern emission, construction scheduling, tuple case dispatch and existing frame lifetime analysis. Pinned Apache-2.0 OTP Core, SSA and codegen establish binary range, live-root and frame rules. CLR/LLVM register allocation offers a different GC and instruction contract. No external implementation or dependency was imported. [Binary decisions](validation/part-1854/README.md) · [Call and frame decisions](validation/part-1855/README.md).
+
+Parts 1849–1853 reuse the compiler's flat-clause binding counts, private caller join, argument-construction scheduling, guard emitters and register lifetime analysis. Pinned Apache-2.0 OTP Core and SSA determine the construction, masking, frame and projection behavior. The recorded include roots derive from the approved build profiles. CLR and LLVM register allocation do not provide the BEAM initialized-prefix and compact encoding contract. No external implementation or dependency was imported. [Linked evidence](validation/part-1853/README.md).
+
+Parts 1846–1848 reuse the C# call-result root proof, compact operand writer, and leaf interference and initialized-register analysis. Apache-2.0 OTP 29.1.1 supplies the frame, trap, and conditional write rules. Roslyn and CLR IL allocation use a different call and GC root model. No external implementation or dependency was imported. [Map update](validation/part-1846/README.md) · [External tail](validation/part-1847/README.md) · [Guard BIF](validation/part-1848/README.md).
+
+Part 1840 follows Apache-2.0 OTP beam_asm and beam_ssa_type for literal operand limits and singleton success results. Reuse the existing ETF writer and C# local function analysis. A CLR IL allocator supplies different operand and GC contracts. No external code or dependency was imported. [Evidence](validation/part-1840/README.md).
+
+Parts 1838 and 1839 reuse the C# pair-result analysis and direct call planner. Apache-2.0 OTP 29.1.1 supplies the source contract for joined SSA parameter types and call scheduling. CLR allocation targets a different GC root contract. No external implementation or dependency was imported. [Evidence](validation/part-1839/README.md).
 
 Parts 1836 and 1837 reuse C# constructor operand liveness and the existing terminal-local-call setup. The pinned OTP compiler supplies output-order evidence. No external dependency or public runtime MFA was added. [Evidence](validation/part-1837/README.md).
 
@@ -1084,3 +1112,17 @@ Inspect OTP29.1.1 bif.c, erl_bif_info.c and erl_process.c scheduler suspension, 
 ## Part593 — native node/dist reference census — 2026-11-05
 
 Inspect pinned erl_bif_info.c tuple admission and helper trap, erl_node_tables.c root walk/result builder, erl_process.c signed all-versus-normal block state, and node_container_SUITE/erts_test_utils reference invariants. Reuse the actual normal actor barrier, physical MSO external-node leases, ETS stored identity/read leases, persistent arena identifier roots, mailbox recipient operation custody, timer payloads, distribution controller/link/monitor owners and existing match-spec ASTs. BCL GC reflection/heap enumeration and a third-party actor framework cannot supply guest ownership; no package is adopted. The diagnostic builds its counts from real retained roots and leaves host DTO lifetime distinct from guest process custody. Compressed wire bodies are separate from external key headers. Preserve native/reference Apache-2.0 notices and the original Erlang alternative. [Focused source/evidence](validation/erts-internal-part-593/README.md); no whole-module100% certification or full regression.
+
+## OTP 29.1.1 source-proven return and register placement — 2026-11-19
+
+Inspect the pinned Apache-2.0 compiler's beam_ssa_pre_codegen frame ownership
+and delayed copies, beam_trim slot lifetimes, beam_ssa:get_successors and switch
+normalization, beam_ssa_codegen typed arguments and beam_ssa_type return joins.
+Pinned release disassembly and intermediate listings identify the same-source
+tagged keyfind constraint, the non-clobbering argument interval and the separate
+tagged projection stack home. Reuse the existing C# clause dispatch, resolved
+call binding, source location tables, frame planning and compact instruction
+rewriters. The existing .NET collections and SDK cover the data structures.
+No external compiler or intermediate-code library is added to the product.
+Reference assembly images are comparison inputs. Their installed build and
+generator identities remain explicitly validated.

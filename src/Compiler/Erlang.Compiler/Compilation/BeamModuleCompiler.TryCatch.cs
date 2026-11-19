@@ -474,12 +474,12 @@ internal sealed partial class BeamModuleCompiler
         Operand(YRegisterTag, index);
     }
 
-    private void EmitProtectedPair(int tag, int value)
+    private void EmitProtectedPair(int tag, int value, int input = 0)
     {
         Op(PutTuple, XRegisterTag, 0);
         instructions.WriteByte(ExtendedListOperand);
         Operand(BeamWire.UnsignedTag, 2);
         Operand(tag, value);
-        Operand(XRegisterTag, 0);
+        Operand(XRegisterTag, input);
     }
 }

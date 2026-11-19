@@ -12,6 +12,7 @@ internal sealed partial class BeamModuleCompiler
     )
     {
         using var output = new MemoryStream();
+        BeamProjectionFlow? flow = null;
         int copied = 0;
         for (int index = 1; index + 1 < body.Count; index++)
         {
@@ -22,10 +23,36 @@ internal sealed partial class BeamModuleCompiler
             }
 
             int original = (int)heap.Operands[^1].Value;
+            if (ReadCheckedTupleHeap(
+                body,
+                index,
+                original,
+                ref flow
+            ) is { } projection)
+            {
+                int projections = body[projection.First].Offset;
+                int guard = body[projection.End].Offset;
+                int endOfHeap = body[index + 1].Offset;
+                output.Write(code.Span[copied..projections]);
+                output.Write(code.Span[guard..heap.Offset]);
+                WriteHeapRoots(
+                    output,
+                    code,
+                    heap.Offset,
+                    endOfHeap,
+                    original,
+                    projection.Live
+                );
+                output.Write(code.Span[projections..guard]);
+                copied = endOfHeap;
+                continue;
+            }
+
             int live = original;
             int first = index;
             bool passedReceiveRemoval = false;
             bool passedListProjection = false;
+            bool passedInPlaceProjection = false;
             while (first > 0)
             {
                 int? source = null;
@@ -48,6 +75,8 @@ internal sealed partial class BeamModuleCompiler
                     } when tuple.Value < live:
                         source = (int)tuple.Value;
                         destination = (int)field.Value;
+                        // The live register can root the tuple in place of its field.
+                        passedInPlaceProjection |= first == index && source == destination;
                         break;
                     case
                     {
@@ -92,17 +121,22 @@ internal sealed partial class BeamModuleCompiler
                 first--;
             }
 
-            if (live == original && !passedReceiveRemoval && !passedListProjection)
+            if (live == original && !passedReceiveRemoval && !passedListProjection && !passedInPlaceProjection)
             {
                 continue;
             }
 
             int start = body[first].Offset;
             int end = body[index + 1].Offset;
-            int width = original < 1 << BeamWire.CompactSmallPayloadShift ? 1 : 2;
             output.Write(code.Span[copied..start]);
-            output.Write(code.Span[heap.Offset..(end - width)]);
-            BeamCompactWriter.Write(output, BeamWire.UnsignedTag, live);
+            WriteHeapRoots(
+                output,
+                code,
+                heap.Offset,
+                end,
+                original,
+                live
+            );
             output.Write(code.Span[start..heap.Offset]);
             copied = end;
         }
@@ -115,6 +149,20 @@ internal sealed partial class BeamModuleCompiler
         output.Write(code.Span[copied..]);
 
         return output.ToArray();
+    }
+
+    private static void WriteHeapRoots(
+        Stream output,
+        ReadOnlyMemory<byte> code,
+        int start,
+        int end,
+        int previous,
+        int live
+    )
+    {
+        int width = CompactRegisterCountWidth(previous);
+        output.Write(code.Span[start..(end - width)]);
+        BeamCompactWriter.Write(output, BeamWire.UnsignedTag, live);
     }
 
     private static bool IsHeapNeutralNullaryBif(

@@ -169,7 +169,10 @@ public static class CodeGeneration
         string source = File.ReadAllText(sourcePath);
         var resolver = new BeamIncludeResolver(
             otpLibraryDirectory is null ? null : Path.GetFullPath(otpLibraryDirectory),
-            includeDirectories?.Select(Path.GetFullPath).ToArray() ?? []
+            includeDirectories?.Select(Path.GetFullPath).ToArray() ?? [],
+            buildProfile?.RecordedIncludeSearchDirectories,
+            buildProfile?.IncludePathMap,
+            sourcePath
         );
 
         bool deterministic = buildProfile is null || buildProfile.RecordedCompileOptions?.Contains(Term.A("deterministic")) == true;
@@ -206,9 +209,16 @@ public static class CodeGeneration
         }
 
         var lines = BeamSourceForms.FunctionLines(tokens, module);
-        if (module.InlineTargets.Count != 0 || module.AutomaticInlining)
+        var profileInlining = BeamReleaseLeafInliningPlan.Read(module, buildProfile);
+        if (module.InlineTargets.Count != 0 || module.AutomaticInlining && !profileInlining.SuppressAutomatic
+            || profileInlining.Size is not null)
         {
-            (functions, lines) = BeamTargetedInlining.Apply(module, lines, exports);
+            (functions, lines) = BeamTargetedInlining.Apply(
+                module,
+                lines,
+                exports,
+                profileInlining
+            );
         }
         var specs = buildProfile is null && module.Documentation.Count == 0 && !module.HasGeneratedEunitTest
             ? new Dictionary<int, Parser.ReleaseSpec>()

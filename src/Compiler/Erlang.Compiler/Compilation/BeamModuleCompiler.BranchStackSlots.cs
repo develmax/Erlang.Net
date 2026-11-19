@@ -468,7 +468,7 @@ internal sealed partial class BeamModuleCompiler
 
         if (allowReturn)
         {
-            while (index < end && body[index].Definition.Opcode is (Move or Swap or TestHeap or PutTuple or PutList)
+            while (index < end && body[index].Definition.Opcode is (Line or Move or Swap or TestHeap or PutTuple or PutList)
                 && body[index].Operands.All(operand => operand.Kind != BeamOperandParameters.Y))
             {
                 index++;

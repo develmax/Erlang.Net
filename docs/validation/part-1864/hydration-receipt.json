@@ -1,0 +1,32 @@
+{
+  "Parent": {
+    "Source": "b9efc391b8fd4970f78607aa09138a5fc7e35ff953a34c59c3dd2537c6d2e717",
+    "Paths": 169,
+    "Compiler": "4b4b4a8f867d7f5813254331600a671126a147a1b186006ef98a5d7070fb13b5",
+    "Tests": "a1ae79c4c66c9b978e4f4a0326b5e7a5aadd43beb5a715b2bd3f8551e30206d3",
+    "ParentSource": "8afbf36f67f86c46a8050f621e1d469944456dc28e96cf48f778f9b98ecf9a14",
+    "CorpusTool": "e82b07cfafa2ed370e4571bd0e1d1ba472acb77a5387a0ab85e0541bc4ab77a0"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AdjacentNumericResults.cs": "407ffc70d59efb84e36734fbf75dff771752ed7d162c8fa5629a1c6ec23f6aad",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralCatch.cs": "e7d4dff0d52ff149d50e0e7e3bbdf1e7818cc28fd8e47cfd24aa589a8b9c1480",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.KeyFindTupleTests.cs": "5996407994e3f697a96711f4c1e159aa43f4ac9815e07ca9c7e772916d88e879",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LocalAtomTupleResults.cs": "0bd9be4e1ec3ba32c91eeae768ef8f4e1d3770ef38ca917633cb63321d21846f",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LocalIntegerResults.cs": "be7c4eb1f3281747095f0b2261d8c79457da90e94ef0213d379637df38824583",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": "935e471db03a8d9079f0e6e5c20ca0b226d0df7e493378a368769c499e561494",
+    "tests/Erlang.Tests/Compiler/Beam/BeamAdjacentNumericResultChecks.cs": "e30ff30a3a7d3acd087dd35fc6a04eac397c73ac503c9b2a0b36e101195a0314",
+    "tests/Erlang.Tests/Compiler/Beam/BeamKeyFindTupleTypeChecks.cs": "45810bf1b797712718b5c89514fbae91cfb9a82a2c47f97e04387b4e4eabe3ea",
+    "tests/Erlang.Tests/Compiler/Beam/BeamLocalAtomTupleResultChecks.cs": "f89ad7a960727c5fbe9d51438a24a882bc3effb28f1237f0fcd06ff25a52c4fc",
+    "tests/Erlang.Tests/Harness/Program.cs": "72bdb721a57190b33ca2b75f3aa71fe08fc085627362b9da6330751b6afaa0e8"
+  },
+  "Patches": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\frameless-tagged-fallback-1863\\atom-tuple-harness-rebase.patch",
+      "Hash": "cde04c74871c655e1109bd294ba60204df4d295a8a9cc7970781f12adcd79929"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\local-1862-keyfind-annotate-regression\\preserve-constrained-keyfind-tests.patch",
+      "Hash": "c6396b7640ed2065424c74f1952ef95857eb1c5d2855012ffe8a5437770a361d"
+    }
+  ]
+}

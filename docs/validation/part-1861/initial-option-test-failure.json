@@ -1,0 +1,67 @@
+{
+  "Partial": true,
+  "SelectedCount": 9,
+  "TotalCount": 9806,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/beam/checks-an-arity-arm-tag-before-its-frame",
+    "compiler/beam/flat-tuple-list-generator-constructs-after-recursion",
+    "compiler/beam/fresh-reference-receive-marker",
+    "compiler/beam/hoists-heap-before-checked-tuple-reads-with-proven-roots",
+    "compiler/beam/keyfind-result-typed-tuple-test",
+    "compiler/beam/promotes-interior-projection-before-first-call",
+    "compiler/beam/retains-entry-tuple-across-producer",
+    "compiler/beam/tagged-list-generator-keeps-matched-tuple",
+    "compiler/beam/tuple-list-generator-checks-before-recursing"
+  ],
+  "Passed": 8,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "compiler/beam/fresh-reference-receive-marker",
+      "Status": "Passed",
+      "Milliseconds": 3080
+    },
+    {
+      "Name": "compiler/beam/hoists-heap-before-checked-tuple-reads-with-proven-roots",
+      "Status": "Passed",
+      "Milliseconds": 7
+    },
+    {
+      "Name": "compiler/beam/flat-tuple-list-generator-constructs-after-recursion",
+      "Status": "Passed",
+      "Milliseconds": 301
+    },
+    {
+      "Name": "compiler/beam/retains-entry-tuple-across-producer",
+      "Status": "Passed",
+      "Milliseconds": 489
+    },
+    {
+      "Name": "compiler/beam/checks-an-arity-arm-tag-before-its-frame",
+      "Status": "Passed",
+      "Milliseconds": 13
+    },
+    {
+      "Name": "compiler/beam/promotes-interior-projection-before-first-call",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "compiler/beam/tagged-list-generator-keeps-matched-tuple",
+      "Status": "Passed",
+      "Milliseconds": 187
+    },
+    {
+      "Name": "compiler/beam/keyfind-result-typed-tuple-test",
+      "Status": "Failed",
+      "Error": "System.NotSupportedException: BEAM source mapping does not support the -compile attribute.\r\n   at Erlang.Compiler.BeamSourceForms.FunctionLines(IReadOnlyList\u00601 tokens, ModuleDefinition module) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\src\\Compiler\\Erlang.Compiler\\Compilation\\BeamSourceForms.cs:line 36\r\n   at Erlang.Compiler.CodeGeneration.CompileBeamModule(String sourcePath, BeamMacroPreprocessor preprocessor, BeamReleaseBuildProfile buildProfile) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\src\\Compiler\\Erlang.Compiler\\Compilation\\CodeGeneration.cs:line 209\r\n   at Erlang.Compiler.CodeGeneration.CompileBeamModule(String source, String sourcePath) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\src\\Compiler\\Erlang.Compiler\\Compilation\\CodeGeneration.cs:line 159\r\n   at Erlang.Tests.BeamKeyFindTupleTypeChecks.Compile(String source) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamKeyFindTupleTypeChecks.cs:line 52\r\n   at Erlang.Tests.BeamKeyFindTupleTypeChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamKeyFindTupleTypeChecks.cs:line 33\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16411",
+      "Milliseconds": 82
+    },
+    {
+      "Name": "compiler/beam/tuple-list-generator-checks-before-recursing",
+      "Status": "Passed",
+      "Milliseconds": 197
+    }
+  ]
+}

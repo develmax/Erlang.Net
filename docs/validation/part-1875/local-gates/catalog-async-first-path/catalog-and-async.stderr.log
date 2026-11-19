@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tools\Validation\Erlang.AsyncMicrostateValidation\collect.py", line 183, in <module>
+    if __name__=="__main__":main()
+                            ^^^^^^
+  File "C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tools\Validation\Erlang.AsyncMicrostateValidation\collect.py", line 40, in main
+    need(not out.exists()and out.is_relative_to(repo/"artifacts"),"Fresh repository artifact output required");out.mkdir(parents=True)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tools\Validation\Erlang.AsyncMicrostateValidation\collect.py", line 11, in need
+    if not value:raise ValueError(why)
+                 ^^^^^^^^^^^^^^^^^^^^^
+ValueError: Fresh repository artifact output required
+Exception: C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tools\validate-async-microstates.ps1:15
+Line |
+  15 |  … DE -ne 0) { throw "Strict actual async microstate comparison failed:  …
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Strict actual async microstate comparison failed:
+     | C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\artifacts\async-microstates\bbdfd995a25a4302ba8a516075e8e7d7

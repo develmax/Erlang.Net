@@ -1,0 +1,664 @@
+{
+  "OtpVersion": "29.1.1",
+  "OtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Sdk": "10.0.400",
+  "Runtime": "10.0.11",
+  "Erts": "17.1",
+  "Jobs": 1,
+  "Artifacts": {
+    "SourceSnapshot": {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\snmp-logical-include-provenance-1869\\source.zip",
+      "Sha256": "962350ca46e645ac29f7f0db3c7a8b977a7272fd70c82944d13aa6f89a77ef7c"
+    },
+    "ReferenceCompiler": {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\snmp-logical-include-provenance-1869\\corpus-bin\\Erlang.Compiler.dll",
+      "Sha256": "42293f6f2d957019fa564a4f3f78bc8c4b9cbeeb211868007befc0a7f8507dff"
+    },
+    "CandidateCompiler": {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\metadata-bootstrap-kernel-audit-1869\\isolated\\tool\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Sha256": "42293f6f2d957019fa564a4f3f78bc8c4b9cbeeb211868007befc0a7f8507dff"
+    },
+    "BaseCorpusTool": {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\snmp-logical-include-provenance-1869\\corpus-bin\\Erlang.BeamCorpus.dll",
+      "Sha256": "4ba6aa84bb89167a648bc71c3428a46f90be3dbf92c099c3b46d5b6c9df8b2c2"
+    },
+    "CandidateCorpusTool": {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\metadata-bootstrap-kernel-audit-1869\\isolated\\tool\\bin\\Debug\\net10.0\\Erlang.BeamCorpus.dll",
+      "Sha256": "097858c4fad1d02b1587e13002b6d7e4bc3333fcd938196889077bfe4797953f"
+    },
+    "ModuleSelection": {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\metadata-bootstrap-kernel-audit-1869\\kernel-modules.txt",
+      "Sha256": "26d049d55fea791eeb61286817b13dcfe85d8d420cc361aa602fa3aa72e66d18"
+    },
+    "Patch": {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\metadata-bootstrap-kernel-audit-1869\\kernel-bootstrap-include-profile.patch",
+      "Sha256": "59ee3ee9d4c5377ed12854c69efb8bcd6d54f9ec0462d30049115f70e01452e3"
+    }
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\application.beam",
+      "BeamSha256": "470e5eb8713718f9484b0afcbb9da080bb49e375df3779e1180a7e7001299aa8",
+      "Source": "lib\\kernel-11.0.4\\src\\application.erl",
+      "SourceSha256": "357533be5efb8641486e7f087501a04599db862d4fc47c17153ceb6a8045c6ea"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\application_controller.beam",
+      "BeamSha256": "44b2e26a48a32257fabdd50d1b5799ad1749ee6ef35715975c3ce6fca2ab6456",
+      "Source": "lib\\kernel-11.0.4\\src\\application_controller.erl",
+      "SourceSha256": "1e35868c4c2898305eaf9de240f14ceed0b225ac55feb937573b27adbf3b18d6"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\application_master.beam",
+      "BeamSha256": "b15bd3f3d0f863afe11f30e231f4ecc9c14a14f34b58054cd22f563f9a147eb5",
+      "Source": "lib\\kernel-11.0.4\\src\\application_master.erl",
+      "SourceSha256": "f4c4ac4170520d42f2bd2d26cf4009409a79d4a431a6fcc836f3dd6b5498ef9e"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\application_starter.beam",
+      "BeamSha256": "8fd12935d9ee984398184d3c702884b1bff035501f5877a8f3c7445992279d3a",
+      "Source": "lib\\kernel-11.0.4\\src\\application_starter.erl",
+      "SourceSha256": "02162c129badd146d5e5ee7b990fc71d03e1d833e55bbda7860c44944cb0e4c0"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\auth.beam",
+      "BeamSha256": "0b1dad10b598baa3b79d68b3802918667d0c83b3cd009ef55cbd232699dad6e1",
+      "Source": "lib\\kernel-11.0.4\\src\\auth.erl",
+      "SourceSha256": "335bc5bb8f6107e62c472b55ab1c8838a34d37179ecc949d50892350317e3e7e"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\code.beam",
+      "BeamSha256": "0493e0ba475921396dc6098a0572ce22203af6285ddffa9013819c8a3e88ecd4",
+      "Source": "lib\\kernel-11.0.4\\src\\code.erl",
+      "SourceSha256": "774b2307e0f49fe2974f3e9d10c870f8f8f59a6ae5073f133908a99756332f17"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\code_server.beam",
+      "BeamSha256": "5c82ea136bddbc5cdc57454ab6ed3ed6125442ed6444faf519c2d9cfa566ade7",
+      "Source": "lib\\kernel-11.0.4\\src\\code_server.erl",
+      "SourceSha256": "160bf6a3aa23a9cc60043d4bfb0f1ff1475c11607e8e4e97e6c4c0806d825f9b"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\data_publisher.beam",
+      "BeamSha256": "9f0d05763aaab39412968ab92b625745f6354067af029051d7a4f1359cb52342",
+      "Source": "lib\\kernel-11.0.4\\src\\data_publisher.erl",
+      "SourceSha256": "30cd51dffacea6a886f1bbc91b81860c6daad206c35259d3ec1346076ee1e540"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\disk_log.beam",
+      "BeamSha256": "6df458999c9b73bf6d087e909003f3694b444adb3886989c5dc4fed225b84c5e",
+      "Source": "lib\\kernel-11.0.4\\src\\disk_log.erl",
+      "SourceSha256": "779c24159da21f02c016fb70fffc71bc3de20b9504c6ed48bcb155580031711a"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\disk_log_1.beam",
+      "BeamSha256": "c754bd0d226b40a290090f32f3d5958904140f3724f82d5554ffc02c909b0833",
+      "Source": "lib\\kernel-11.0.4\\src\\disk_log_1.erl",
+      "SourceSha256": "68a5aa8db507ca2d6ccff9d36ba9e45e7e6cbb47719b2648de18000ddc37f7be"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\disk_log_server.beam",
+      "BeamSha256": "f1faf1bb3b5b2820783d0d3ba06a9b0b1bd7281b9534774133a12efd3ca502e4",
+      "Source": "lib\\kernel-11.0.4\\src\\disk_log_server.erl",
+      "SourceSha256": "9163268d1550b93039e27293ba251d4bbd4c2a058997a91998a87ef3f05fb73c"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\disk_log_sup.beam",
+      "BeamSha256": "69cd4738bba16b2588090409a8cbbba51df131a177822e47c3320c2aa16e50cc",
+      "Source": "lib\\kernel-11.0.4\\src\\disk_log_sup.erl",
+      "SourceSha256": "5c335b506741e77cc4ff4d26f6a3d98fccfdda2813b7c6e8d7bf10a87a160cc6"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\dist_ac.beam",
+      "BeamSha256": "a870e9b2fa8943d57a256ed23f354ce44b60fc3a1c6619f1a91ca459a1d943b1",
+      "Source": "lib\\kernel-11.0.4\\src\\dist_ac.erl",
+      "SourceSha256": "627037ae44b819fba469cb2c0a9782eece197c2cdfce719c3be9b22447380db3"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\dist_util.beam",
+      "BeamSha256": "520ce67a1bcc6afd056d5a65488594f1ffb7a66072f0e2801f39b6a23b713005",
+      "Source": "lib\\kernel-11.0.4\\src\\dist_util.erl",
+      "SourceSha256": "6ce872a6a5f19d10acc4bba7360974892b5c4f5a258e35e69d99e71ee3f6a137"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\erl_boot_server.beam",
+      "BeamSha256": "a28d314ca1f803d77058cc24b0dcea64ddff18da1287f2d2a38c0368cabbf5fd",
+      "Source": "lib\\kernel-11.0.4\\src\\erl_boot_server.erl",
+      "SourceSha256": "adf561436c9e2fe8f49f918a3add11d86985bf91c5e788990a81bd8e59ddd102"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\erl_compile_server.beam",
+      "BeamSha256": "ebbb966ab819bcdb668afdb3e980710dbc0259e6a11ecf6599d5850a01d41021",
+      "Source": "lib\\kernel-11.0.4\\src\\erl_compile_server.erl",
+      "SourceSha256": "c89320ee459cf1dcf7095e68cc036a6225630f1825539cdeba163161c6f27f70"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\erl_ddll.beam",
+      "BeamSha256": "3fa1034243c56854ed9be22a948df39e1fe8f524f51fe48b969a4f4ea0d973ad",
+      "Source": "lib\\kernel-11.0.4\\src\\erl_ddll.erl",
+      "SourceSha256": "2646b4e19ff980bf53bca6206c87cd2dcbd783fe48756fa44f62f17089ac67c0"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\erl_debugger.beam",
+      "BeamSha256": "8541b367ee1b62de61afaf7775f0dff093a2c6f19efa346eb26105b3e8f71c2e",
+      "Source": "lib\\kernel-11.0.4\\src\\erl_debugger.erl",
+      "SourceSha256": "e5704b7dc373768183496cc767bdcb0029991ee1de265654c285a1845bc09a15"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\erl_distribution.beam",
+      "BeamSha256": "d7ac7056abcf59f40640f22e2994e31bbc117ac0c6ecdc579e60d21a7da9997e",
+      "Source": "lib\\kernel-11.0.4\\src\\erl_distribution.erl",
+      "SourceSha256": "8504ff2766abf829ff2a1d6043aae8bf19710485940ca82f2cfe831302a8c8ec"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\erl_epmd.beam",
+      "BeamSha256": "a8dbb9fb248f17b85d30055d99393a5e2d7479a7d246b5aca7d20edd0ac8067e",
+      "Source": "lib\\kernel-11.0.4\\src\\erl_epmd.erl",
+      "SourceSha256": "6c5acb40b4917d18438a6272e6bb0193a743e0bcd17f327057c8fa6dd280e597"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\erl_erts_errors.beam",
+      "BeamSha256": "37324777782671916072fd6f00ce2fd3148608e9d9e7b3aa9a1954af1c3ca639",
+      "Source": "lib\\kernel-11.0.4\\src\\erl_erts_errors.erl",
+      "SourceSha256": "9e12eab41ae294c4535fe4bb22c084d3c33ea03b0d8b25924b60ed9040737540"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\erl_kernel_errors.beam",
+      "BeamSha256": "dec84a01bdcde27669a783a4f35ab86bd21f74e5bc05b22206bf90948110ffcf",
+      "Source": "lib\\kernel-11.0.4\\src\\erl_kernel_errors.erl",
+      "SourceSha256": "d016e2ddeb9a2c48fe1f37519b6589805c13df6bf67c289dcdff8a588dc5996e"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\erl_reply.beam",
+      "BeamSha256": "c47d6fa92f6333c248bee2b39ba71e5e9d454f24b4ed1b9e2c7c947d305ff075",
+      "Source": "lib\\kernel-11.0.4\\src\\erl_reply.erl",
+      "SourceSha256": "817c12421754f8f5457d95854716b61d4626e581cc50754003aed2ec57c83532"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\erl_signal_handler.beam",
+      "BeamSha256": "1597e0f4ead05d515e5b97c1d74ca721eaaab85f1f9e7d97e77f38a61de6abb4",
+      "Source": "lib\\kernel-11.0.4\\src\\erl_signal_handler.erl",
+      "SourceSha256": "f6cc636fdc1b479532042063a67b3eed9584688614e2c84a69e004dbc60853a7"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\erpc.beam",
+      "BeamSha256": "7f8d9b4bcbed01e401d75f9db854137b029f7e9e64a9e844d38175f1eb6c097e",
+      "Source": "lib\\kernel-11.0.4\\src\\erpc.erl",
+      "SourceSha256": "7e5615627bb94221eb9371046cda801922711672c09ceca21b4b2bf19f3572db"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\error_handler.beam",
+      "BeamSha256": "ba176440039080acbf0231e5b6db8fdd67551ff1ec532d53d57b491e9f3aae7b",
+      "Source": "lib\\kernel-11.0.4\\src\\error_handler.erl",
+      "SourceSha256": "f15cf5f795d7dd8c7d11a7087756dcef5bc6cac60daf3be206545ae531e12630"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\error_logger.beam",
+      "BeamSha256": "4dc2bb4b327d535bb630eadcf2edddc26b5287b702863b41a60b77f635ad6967",
+      "Source": "lib\\kernel-11.0.4\\src\\error_logger.erl",
+      "SourceSha256": "dfa7e80bfbffb695fea85757d32358a067ff5cab64ad0bae01b97f5229efb520"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\erts_debug.beam",
+      "BeamSha256": "5719e86be4f4d86264bed95d57975c17a003842df471cd92cd7d56aadba51d28",
+      "Source": "lib\\kernel-11.0.4\\src\\erts_debug.erl",
+      "SourceSha256": "79775431d627fc04612726bf0d486a18a639b064ea3698d884eb7cca0959ed5f"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\file.beam",
+      "BeamSha256": "ffa402956b4511dcdc9163e83721ef1f6581105f329c1af50b2a9dde4fde4dcd",
+      "Source": "lib\\kernel-11.0.4\\src\\file.erl",
+      "SourceSha256": "a8fdd9f93bede84b1d1d00ffa92163826dc452703f50da12a85c2a8d82058e04"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\file_io_server.beam",
+      "BeamSha256": "8257dc64bd10a9490a23322dfcab122bc1fe16dc63b7015ce4d7faf7075af293",
+      "Source": "lib\\kernel-11.0.4\\src\\file_io_server.erl",
+      "SourceSha256": "23124d6157b5a572939c542a4cb48b7c6a670c6bcafc8e899c52a0eea5d8404d"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\file_server.beam",
+      "BeamSha256": "93bd8819e23248907151ff4666c5c92ea5f84e743dde5a6f3410802a09428b1c",
+      "Source": "lib\\kernel-11.0.4\\src\\file_server.erl",
+      "SourceSha256": "327cbfa300fc09dcc2da48746a84aa7a7b1fcd705124efd8dbec200feab00e37"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\gen_sctp.beam",
+      "BeamSha256": "21640810976a4c79aec9bfcd4c6e42001efbed340bf45be280b6df00c22588ee",
+      "Source": "lib\\kernel-11.0.4\\src\\gen_sctp.erl",
+      "SourceSha256": "e6472d941dab7274e3a94c700b8d97e4c3f895c04054f420ac9d1479341ec995"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\gen_tcp.beam",
+      "BeamSha256": "fe3330af9fb791fcf356de9ccd3a3ef69bd999926481a4f141805db6b358b4ac",
+      "Source": "lib\\kernel-11.0.4\\src\\gen_tcp.erl",
+      "SourceSha256": "ac46bcc600f7f50d2c79efb7b75276c8e719b0e47c664ac4ddd73941fb3640d2"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\gen_tcp_socket.beam",
+      "BeamSha256": "26aa6598b47f9331cf7a7f2f561ba3b23d6fd3c97d21cb5e2b77185ecae96541",
+      "Source": "lib\\kernel-11.0.4\\src\\gen_tcp_socket.erl",
+      "SourceSha256": "183b959b85dfa9e5e82ed96ffb30a9ed02e0b9950e5a1ecdd1a5e45ae1c8b1cc"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\gen_udp.beam",
+      "BeamSha256": "61f8a7235c0deae42fb9b2dc0e9063bec20708bcdb83ccf2fc9a352d141c90a1",
+      "Source": "lib\\kernel-11.0.4\\src\\gen_udp.erl",
+      "SourceSha256": "54ed000c38f8a86cb71cabf0deb31505c2676f1b5dc993658d266202ca7c8090"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\gen_udp_socket.beam",
+      "BeamSha256": "b47a9fefc7e224fd980646f45ca4f4e24dada6d331524688fff2d257a49fb847",
+      "Source": "lib\\kernel-11.0.4\\src\\gen_udp_socket.erl",
+      "SourceSha256": "e8c8c4afca9d8e9ba18d1515c52d6a08653719def003e1c5d46bddbdf84cd299"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\global.beam",
+      "BeamSha256": "77e89c9f883c7bcc7ddecf8b6860a5bfc9799928be0f03acf2ae04f8830cb6e8",
+      "Source": "lib\\kernel-11.0.4\\src\\global.erl",
+      "SourceSha256": "e4a062d11fe1e1ba6bc3ae75ab318774121079aca85f0237249391a17f3860b5"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\global_group.beam",
+      "BeamSha256": "40e53aef21ca5f24668c6b8576cd1f08491e8b9e166f384a8c8484cdff8c4eab",
+      "Source": "lib\\kernel-11.0.4\\src\\global_group.erl",
+      "SourceSha256": "11edc9d3846be1c136262aa2c1fc5bda3acd2f191807cb3333c15112e943b656"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\global_search.beam",
+      "BeamSha256": "8b5c3420a40b94a4b54fbca017aeabfbaaf2ee607c2f9e6ee4a1e758ddecf3b6",
+      "Source": "lib\\kernel-11.0.4\\src\\global_search.erl",
+      "SourceSha256": "5bfc7a1c44c4262e04ea3a3af8df62506a84026c61f301c206c9c4041d0ff361"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\group.beam",
+      "BeamSha256": "b2395573d6355b1e68d5fcf3f270e3f87bf65808bdbeefa5379d69b1eb78aaf0",
+      "Source": "lib\\kernel-11.0.4\\src\\group.erl",
+      "SourceSha256": "47b2aaae5f5e1856524da58868e7f5ec7d50dd41fd5c602d056740a5006553c4"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\group_history.beam",
+      "BeamSha256": "790dee2ea185b874a2a9122e60bfc84eb7e89ab8cd811419011bb3d98f63fed1",
+      "Source": "lib\\kernel-11.0.4\\src\\group_history.erl",
+      "SourceSha256": "a835470680104f2adf3bbfde05fd6afd9b9bcf520643a4fed8bfc138dfa34c2a"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\heart.beam",
+      "BeamSha256": "41afbea1c5a2d637752dd7f19c90fe548009b302a9303ce1e27761d214ae6b2d",
+      "Source": "lib\\kernel-11.0.4\\src\\heart.erl",
+      "SourceSha256": "62c2475188402cfc7464ff150026754ea8cc0074fb30342814e2654716c15f68"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\inet.beam",
+      "BeamSha256": "7b5a7b2f505f7bc1cedc667d7dba0f7ccb0990eeb89b73b9b0ac7dfc81444ab5",
+      "Source": "lib\\kernel-11.0.4\\src\\inet.erl",
+      "SourceSha256": "a8b5c3ab91129e8dbb17fea669beae90a518c574a4f3aed19f7f53c0396c0bdd"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\inet6_sctp.beam",
+      "BeamSha256": "8ca803f2b45a0f72a4d01eb8bc0c5822e45fcc54180fb148a948c1dc0d83d34b",
+      "Source": "lib\\kernel-11.0.4\\src\\inet6_sctp.erl",
+      "SourceSha256": "4cc5595c3776a1dbd9d5eeb0ee0dced9179148183a247bbaa06007d158da6ac4"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\inet6_tcp.beam",
+      "BeamSha256": "bb2e64a9c31073d397d074ecbc4c8cd23178bfacaa41479f9181c45f72ae19ab",
+      "Source": "lib\\kernel-11.0.4\\src\\inet6_tcp.erl",
+      "SourceSha256": "ab5954dd79e3d6c4fc8d7d2d96f1ed8aa61aa39d22dbcf61e965295c27994ad8"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\inet6_tcp_dist.beam",
+      "BeamSha256": "43358359430f7442f9fba0234fd302d74929d8cedff82ea53b8e18856fd9049e",
+      "Source": "lib\\kernel-11.0.4\\src\\inet6_tcp_dist.erl",
+      "SourceSha256": "408d6f120f9916c1060812993affbf36452bbcbb61d9d16e5698cd1b6fdb1b12"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\inet6_udp.beam",
+      "BeamSha256": "416f3cc89d615db118acd990d8a03c30e4efcffcb4dcd2ac9789011fe2251c10",
+      "Source": "lib\\kernel-11.0.4\\src\\inet6_udp.erl",
+      "SourceSha256": "352ab61fe1535e49d62343dd88f42d0413affdc447eae13a9c5f0051e662eeb2"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\inet_config.beam",
+      "BeamSha256": "15ce2a9a9880a3248cdbb591785dd1e249551f71daa77375eccc9b73100dc337",
+      "Source": "lib\\kernel-11.0.4\\src\\inet_config.erl",
+      "SourceSha256": "311af8e9e0bf9aa4ade861507cd0a2403d7b80e2f710d66b75b94f81dcbac515"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\inet_db.beam",
+      "BeamSha256": "c378eaaaf2fa4730872109de8ff1f476df2bafeed5c6fefe11a5069598259051",
+      "Source": "lib\\kernel-11.0.4\\src\\inet_db.erl",
+      "SourceSha256": "34e8490241ad9458ab0d15f99dc8325d19677f851c6c08c244a4eeb407e22596"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\inet_dns.beam",
+      "BeamSha256": "46682a46468fe9f8984731ab0f0445bb08cc1c2ff888cbb63191cd4e0c8bba00",
+      "Source": "lib\\kernel-11.0.4\\src\\inet_dns.erl",
+      "SourceSha256": "64c16b1a7c3a2459635b236f5a59d823a504f1ff1117878acd444c609f3376f2"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\inet_dns_tsig.beam",
+      "BeamSha256": "aa55de7cc469fce076bcc5120be1998c25b1728b481923affb298f0dabbf3562",
+      "Source": "lib\\kernel-11.0.4\\src\\inet_dns_tsig.erl",
+      "SourceSha256": "fa594883a31234278a90f2974975afeee5e4a86c52139cab17c2d329463db398"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\inet_epmd_dist.beam",
+      "BeamSha256": "5baeffb253bff1a00c293a94011f8defa123e900e04b5c23a9b4440d1516234d",
+      "Source": "lib\\kernel-11.0.4\\src\\inet_epmd_dist.erl",
+      "SourceSha256": "6a10529739530f68efe705962f32589119e642227e8940bd477496a6104bf6b3"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\inet_epmd_socket.beam",
+      "BeamSha256": "8c0315b7fc34e118f3c2dbbea293d1dc88fd714c6ddc45c017384d44ea47c36e",
+      "Source": "lib\\kernel-11.0.4\\src\\inet_epmd_socket.erl",
+      "SourceSha256": "eb9c6ca77a951915fa7c58997d45e387052fcaed2751af0b81b5b213ffba20ab"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\inet_gethost_native.beam",
+      "BeamSha256": "9cae9029d421c168eefa5130ea080207f07a3fafe1988d1de110b1708acc155e",
+      "Source": "lib\\kernel-11.0.4\\src\\inet_gethost_native.erl",
+      "SourceSha256": "bd606be87a22f5b13a12084f09997050394acf2192f967fbdaf1fc8cefa967b4"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\inet_hosts.beam",
+      "BeamSha256": "b7d360cce413ce5b61368c48a6867ef5647094b94434a0beb4595e5ef3c5aa67",
+      "Source": "lib\\kernel-11.0.4\\src\\inet_hosts.erl",
+      "SourceSha256": "de865670ac320b88902daf052e5b7aba5267175710f00fb327db5895f1f71bca"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\inet_parse.beam",
+      "BeamSha256": "c3410ee0fdf780ce306abbd2eb3a0996a580c4b111fdc92216b793534cbb2eb7",
+      "Source": "lib\\kernel-11.0.4\\src\\inet_parse.erl",
+      "SourceSha256": "69b8dde9b519be0d793832312c8249ad0d46683f1831e667842b41183fa7e695"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\inet_res.beam",
+      "BeamSha256": "de8feccb5b337f37275febcbd0d19bd700eb324ac7e66f12a586547a5eccc794",
+      "Source": "lib\\kernel-11.0.4\\src\\inet_res.erl",
+      "SourceSha256": "dadb5140fd8cdf3d301fd56eb501a04bcaa119f66ebe3d6620a42ce723668f44"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\inet_sctp.beam",
+      "BeamSha256": "98063fdaa6b87093fc93c2c2ef502c344ccfa4ec723d6357219e94b5b8419f00",
+      "Source": "lib\\kernel-11.0.4\\src\\inet_sctp.erl",
+      "SourceSha256": "73146a262f248103a3ee50d79c2d1e291e2d1a6de2577ddca44771e887737346"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\inet_tcp.beam",
+      "BeamSha256": "36dada69b49c12688c5207a157a149ad6a2a45512c5d4746203cbbd15470abf2",
+      "Source": "lib\\kernel-11.0.4\\src\\inet_tcp.erl",
+      "SourceSha256": "1cf026efca48b985690090a460aa6b8386513e56ea6c32488488eb8e7822255a"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\inet_tcp_dist.beam",
+      "BeamSha256": "a5ae2b16dd061e81b74e316a7d37cfbdd860988baf47d2bb9c9bc7428a20721a",
+      "Source": "lib\\kernel-11.0.4\\src\\inet_tcp_dist.erl",
+      "SourceSha256": "91b96a316a6362c83aac5ce51d715a3e52576583ff2ea3b72c0509512a450f00"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\inet_udp.beam",
+      "BeamSha256": "6cac4bc477c72a1511cbdb652b3ba2982d4d286d24aa297574f8c77a4c8c30f1",
+      "Source": "lib\\kernel-11.0.4\\src\\inet_udp.erl",
+      "SourceSha256": "9963fc7cddea713e439945825ca5f1ba47ab055056f466ab8ebd77dd6578eaf2"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\kernel.beam",
+      "BeamSha256": "d6c0412dc498b2ff78139e7acce00385b02a1a11884195054d0e8d5637e4590c",
+      "Source": "lib\\kernel-11.0.4\\src\\kernel.erl",
+      "SourceSha256": "3b4e0499f6ad9a05bb035ed39086e199e5d5c66b7a7ee919999a0d96addbba67"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\kernel_config.beam",
+      "BeamSha256": "1fe9fb261e553bc69592464f21169fd3eba9265bf95b18f41f091ea52b497f64",
+      "Source": "lib\\kernel-11.0.4\\src\\kernel_config.erl",
+      "SourceSha256": "bb5d796a74efc74b127b32fab9c0414286787e40d258ada6ed7a2562a0b9ebfc"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\kernel_refc.beam",
+      "BeamSha256": "9233a3a5b9d6de3dadc175beb0b60d732addb3a31fd717472e4cbe8e22daea3b",
+      "Source": "lib\\kernel-11.0.4\\src\\kernel_refc.erl",
+      "SourceSha256": "5653aeae53e3940f053feb65c015fc9f3c804ad3d7f62b8e0ea9850d55d9b3d6"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\local_tcp.beam",
+      "BeamSha256": "d7c56c0f496d04272bdb7b7cab4f11d1cd75e551de9017a12746cf78f6c02dcb",
+      "Source": "lib\\kernel-11.0.4\\src\\local_tcp.erl",
+      "SourceSha256": "34c90c453aab2b5b63bb7006bc98dcee6d65872e3f5c46a08b18c4f2d1a6996c"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\local_udp.beam",
+      "BeamSha256": "001c0c891b6da95f5333489973c272c4b403ab0747f22b644041fb7359410a74",
+      "Source": "lib\\kernel-11.0.4\\src\\local_udp.erl",
+      "SourceSha256": "d3a4b36c4167def1d127666cf1b8a2049ba64ac7b2a5130d5491afefa4894933"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\logger.beam",
+      "BeamSha256": "0bb485cf25897cb092143f8d783ef0df06dd104bbce63364abbd712942fd2e0f",
+      "Source": "lib\\kernel-11.0.4\\src\\logger.erl",
+      "SourceSha256": "54726ffc96bed8862cf1c11a10f570c7d52467eb53b06c54d69196ecb7b6abdc"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\logger_backend.beam",
+      "BeamSha256": "5640af0afa2f27d470f272ff8ef63ded5c70b128834891cc85de458950be59df",
+      "Source": "lib\\kernel-11.0.4\\src\\logger_backend.erl",
+      "SourceSha256": "6f696af28e311a9b10375a9d8bd1e3b421994e780c6525a2f6746ddbb048e41d"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\logger_config.beam",
+      "BeamSha256": "799755218f6c8ea60c3f8ab448aeae2f81971684411a489b8422a11598933c0b",
+      "Source": "lib\\kernel-11.0.4\\src\\logger_config.erl",
+      "SourceSha256": "d8de15e2a3cd7adcbee8029a973e042f10ab1dfbd724c6fb8ea8a2fdf3810754"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\logger_disk_log_h.beam",
+      "BeamSha256": "334d60f227a919f623004ba55b01423c8d6f3fbcda4d476cd7c7f16ad46fbb9e",
+      "Source": "lib\\kernel-11.0.4\\src\\logger_disk_log_h.erl",
+      "SourceSha256": "a52492058ca4ac84ea9bc86f7d3601bee3e4b9daa9facc054f0fcb49cc0b307c"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\logger_filters.beam",
+      "BeamSha256": "04f0dd356a31546c22bd037515bf7cca8814b140d1e6583215f3fc4a6e3db971",
+      "Source": "lib\\kernel-11.0.4\\src\\logger_filters.erl",
+      "SourceSha256": "73a396c13e3e2a3bfd93fe09889e1558b3ae02636ab5a7882477ad02e588660e"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\logger_formatter.beam",
+      "BeamSha256": "3ed91bd9b779f081ec3acd0273271e6a61f52aaf15cd570551d16db47d27b8a6",
+      "Source": "lib\\kernel-11.0.4\\src\\logger_formatter.erl",
+      "SourceSha256": "234b7ef244272617ee60058b4a330b0ea0f415d000bb263df9550f24174365e9"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\logger_h_common.beam",
+      "BeamSha256": "244c2d06796cfa7c3105ec283489858d66e7ad97f8ef017ef5a5c80a5ca9970e",
+      "Source": "lib\\kernel-11.0.4\\src\\logger_h_common.erl",
+      "SourceSha256": "32368c1aa33258796bc5762fb4723534ab6be5b3a97debb846c196017dc9c11a"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\logger_handler.beam",
+      "BeamSha256": "87a7d38991ac31868dcc1649ab7c4b60dd7820e69365dc53d3067d7812d1c85e",
+      "Source": "lib\\kernel-11.0.4\\src\\logger_handler.erl",
+      "SourceSha256": "6becdaa6fc728215874e39954037de4f5179f8da74c4acc37cb8f4739457360e"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\logger_handler_watcher.beam",
+      "BeamSha256": "60053fb8a24914364cee9cc7893d4f0c9091ff865fabf29cacd924fcbda09551",
+      "Source": "lib\\kernel-11.0.4\\src\\logger_handler_watcher.erl",
+      "SourceSha256": "67e902b3c472c3819c697798dd2f2e11a2bb9882704164151320bcff8f026b66"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\logger_olp.beam",
+      "BeamSha256": "59fd866547d1c842cbb7528711039f61e0855c0be6dedfd4c61f4f214efab267",
+      "Source": "lib\\kernel-11.0.4\\src\\logger_olp.erl",
+      "SourceSha256": "f1bd1d11dcbb26a54dba3cbcc678919698b6a1c61c0247c98bc221cb311c1bdb"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\logger_proxy.beam",
+      "BeamSha256": "68407e748c8bfaaa28b3288d2479be87d42d1c5248f4dde0e1f25582386ca4c2",
+      "Source": "lib\\kernel-11.0.4\\src\\logger_proxy.erl",
+      "SourceSha256": "632d0c0982487c823f1b0c308d9b4fa13cd28227cdf819a7488a3e1f087df54e"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\logger_server.beam",
+      "BeamSha256": "314b10ee216b2ffec5beee8249d0ca8e29ec35da182eaebdafe8e42e3367d06b",
+      "Source": "lib\\kernel-11.0.4\\src\\logger_server.erl",
+      "SourceSha256": "fd54beff1477bd830bc2324b626f8e636f28f23295a646c02a7f99843804f99b"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\logger_simple_h.beam",
+      "BeamSha256": "b0c3e4df168520aad50beeeacf0316e207e891e59638c7db3beace95d6b01657",
+      "Source": "lib\\kernel-11.0.4\\src\\logger_simple_h.erl",
+      "SourceSha256": "5c8766206e1f92a625e1802f83b57784294a4a67a0d6cc9d1d77a09c3366abe5"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\logger_std_h.beam",
+      "BeamSha256": "ba418dffafd4d59d576fe8f5fa042f84ac4e13cb2e642d254409d738d5b8df97",
+      "Source": "lib\\kernel-11.0.4\\src\\logger_std_h.erl",
+      "SourceSha256": "6ac113fc811a1ab1bac7c2227c4a6f76cb12e86702104b2b41bb0c9762f39a18"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\logger_sup.beam",
+      "BeamSha256": "0362ada26d4cbb95e69602f421c3d54533c301eb88c22d595bb504880f002f07",
+      "Source": "lib\\kernel-11.0.4\\src\\logger_sup.erl",
+      "SourceSha256": "8c17a5be0541b5fc1c0d8ba76505853c9524f6eca8b95bbe26b89bcce52bc3f6"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\net.beam",
+      "BeamSha256": "e41de259ea029d67da4318b4025c30971aee9479e1ff772880c1460682d1fcfb",
+      "Source": "lib\\kernel-11.0.4\\src\\net.erl",
+      "SourceSha256": "61951914c22617026e65062e842b658b8ffb96ad3de9bad6efe15c3e2de0d8ec"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\net_adm.beam",
+      "BeamSha256": "9016893e45cc2ac4151b6727fb836250530ca9f9e2c82d260982b8662b12ca50",
+      "Source": "lib\\kernel-11.0.4\\src\\net_adm.erl",
+      "SourceSha256": "9787f544977d74973118e5abfbe9d3a29ca192f9cad5fb3a05fc899a2e9bb838"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\net_kernel.beam",
+      "BeamSha256": "17dacc9ad0eaec67f9c1fb1d82c9b9b10c950ebd3f0bb4e5d6cc23b8af0136cd",
+      "Source": "lib\\kernel-11.0.4\\src\\net_kernel.erl",
+      "SourceSha256": "d207f1cb01933a288d90c20cf5545c754213814bae95a3ba9638316aa25fdaa6"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\os.beam",
+      "BeamSha256": "ba66abdda4648be491b992f42d39dc486b401473b760bf6c0f0816657950f442",
+      "Source": "lib\\kernel-11.0.4\\src\\os.erl",
+      "SourceSha256": "7966490fba0c800a67e429d76507426c112f4b762ead4f35f327eaf57cd97a9a"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\pg.beam",
+      "BeamSha256": "40644fc82e95a80ee84a75de43f4735e59b204f01d1d9ec4f8767c35f6d84060",
+      "Source": "lib\\kernel-11.0.4\\src\\pg.erl",
+      "SourceSha256": "e29968a1f2df01f88b5fadb574a137a98124b32a0594c6427dbd1fc9e5d476dd"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\pg2.beam",
+      "BeamSha256": "4cfbcf4a95c96f1dc23af5d93a0327a84ee5f34a15b96d33b0ebe3214bfbc171",
+      "Source": "lib\\kernel-11.0.4\\src\\pg2.erl",
+      "SourceSha256": "13a422f62baab573539315240f6c553975b186b72560c185a72be2e96a9baed9"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\prim_tty.beam",
+      "BeamSha256": "209c035aa65be744ab1326862d918ea158b85e626045cf9dd95977c5b7842e63",
+      "Source": "lib\\kernel-11.0.4\\src\\prim_tty.erl",
+      "SourceSha256": "92019451b1fbd4183e6a968bdfe25b3245ff24bd532302c0accc877f31211b52"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\prim_tty_sighandler.beam",
+      "BeamSha256": "59462fb1e4c1fd8586acabb97da9309a50accd64960d1b25b6c1c75652712593",
+      "Source": "lib\\kernel-11.0.4\\src\\prim_tty_sighandler.erl",
+      "SourceSha256": "671eccb31745153297080f4a35ab13ddbfba375fb2c6868c48df20796095a84a"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\ram_file.beam",
+      "BeamSha256": "3edfd3fbbffc0c41bce1115ba584234525158266dcc70f8c9ca97b75613bc351",
+      "Source": "lib\\kernel-11.0.4\\src\\ram_file.erl",
+      "SourceSha256": "2b0a2f32cc58662647cd1f5c8d680bf7c318182677fe3bb88455b5cd9f6a13b2"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\raw_file_io.beam",
+      "BeamSha256": "4ad9e66184e4dc747e08cce880de2b0e8a503023cd34b63bad90f30fda4700b8",
+      "Source": "lib\\kernel-11.0.4\\src\\raw_file_io.erl",
+      "SourceSha256": "8e216753ccc193ed4ddafe03c20cd013e0745c14733f7aa405e0b1bfe07a8dc7"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\raw_file_io_compressed.beam",
+      "BeamSha256": "f5271c2c3be69a791da2cdd9f6595cbd67ee38b39c50be1f993fcab14009ca88",
+      "Source": "lib\\kernel-11.0.4\\src\\raw_file_io_compressed.erl",
+      "SourceSha256": "8efa1ecafd302dcebbcab5e2dc22a6bb814cc24c4215384f3e3629407f1c9fac"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\raw_file_io_deflate.beam",
+      "BeamSha256": "4e37255c5b4f4176cb5400ea1182ddd29b149d5d76bc254e976d73c09fc1e753",
+      "Source": "lib\\kernel-11.0.4\\src\\raw_file_io_deflate.erl",
+      "SourceSha256": "a80fbc19f82b824a354db973722ef4c55a32d74f5c9392a916b9f58b274abf0b"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\raw_file_io_delayed.beam",
+      "BeamSha256": "cc0f7f1b05f90f7464aeffecba0180f0268275efb46a573f3178a084862fb944",
+      "Source": "lib\\kernel-11.0.4\\src\\raw_file_io_delayed.erl",
+      "SourceSha256": "f9886fb8329d5870d08feb887fff80435815d47476441f144131eefddd4b5917"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\raw_file_io_inflate.beam",
+      "BeamSha256": "84f43bfeaa0999c0b2fdb15b9cd1a2df9608f877d40f8164c51618bf3f5dc455",
+      "Source": "lib\\kernel-11.0.4\\src\\raw_file_io_inflate.erl",
+      "SourceSha256": "eb3c68e3cc133b08a1c7c3a39f2b54b09e416e249f12903873900df186f11c23"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\raw_file_io_list.beam",
+      "BeamSha256": "f28187aaf1b10cbcf7cba1ba479713f50ace4139e3aae83d7cf4241da3b9c23a",
+      "Source": "lib\\kernel-11.0.4\\src\\raw_file_io_list.erl",
+      "SourceSha256": "dfd64d59b6e2b13a4d21ddc8f57d1c1517a48f09f32596ffbb3552b3613f448b"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\rpc.beam",
+      "BeamSha256": "c0177eb89fb41f1e5c93a2caa24231c79678ac1154d61dca8eadc15b55141bb8",
+      "Source": "lib\\kernel-11.0.4\\src\\rpc.erl",
+      "SourceSha256": "e62d0420294e320fa9185c43a9dff1f8b14438704a78386341a149d2a4896fe8"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\seq_trace.beam",
+      "BeamSha256": "cbd3fd886bbcc37602f2e83857ea8668ba2e5b05ede1aaeed39b8afaa6df17e2",
+      "Source": "lib\\kernel-11.0.4\\src\\seq_trace.erl",
+      "SourceSha256": "d0b10c929ad331e4d907202eea4da12eb243a91e41de0fa0f286acbd66fa32d9"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\socket.beam",
+      "BeamSha256": "78175bef92d092eb6ea4a734c85b84eb94140436daa722e63f0d0270f953f904",
+      "Source": "lib\\kernel-11.0.4\\src\\socket.erl",
+      "SourceSha256": "54ba24b8572dd8264d28902a6e59592e90d007e30758c45d869cc10ff5821bef"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\standard_error.beam",
+      "BeamSha256": "e0108a072628a4705881200706a44975d167f6cf7428200997a5d2a96ae4ecda",
+      "Source": "lib\\kernel-11.0.4\\src\\standard_error.erl",
+      "SourceSha256": "9bddc258feb93670348c48187eec07adf990ca7ecd94cad1d3274f77f2f95dcd"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\trace.beam",
+      "BeamSha256": "19dcebfcbc688afb0c89cb9945549e2980b8bc7100d7fa9993e7c0fa5b1df5ac",
+      "Source": "lib\\kernel-11.0.4\\src\\trace.erl",
+      "SourceSha256": "bce5fb3521bcd2efb48ca116968a58f61e732b2a7be1bf730db7e7ee314bc3c0"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\user_drv.beam",
+      "BeamSha256": "cf6a4a32e2aa659f0ab57fa5594d843e7e46a7a55a35679cfe6f36d18cc7d8ab",
+      "Source": "lib\\kernel-11.0.4\\src\\user_drv.erl",
+      "SourceSha256": "5e91acb3ea0b51a763a63574d3635c496803e2a6a5528c91a64c977dc7b9a664"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\user_sup.beam",
+      "BeamSha256": "69c66d77ab392c2e4cf0a3e20e1d36cc19d1093372c126a26d58dca8bcdaad59",
+      "Source": "lib\\kernel-11.0.4\\src\\user_sup.erl",
+      "SourceSha256": "0ee53efa6d8b3df7b739f621329b96534e00dd326a747c036a72feb4c62284a7"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\wrap_log_reader.beam",
+      "BeamSha256": "7a20f01a463912ee968df974fce7b21838cc9669995cb5922c830856f97a646f",
+      "Source": "lib\\kernel-11.0.4\\src\\wrap_log_reader.erl",
+      "SourceSha256": "e43081361eae436d132b119e17c838c595c7bb1d76cf070bad1c780e03e30d2e"
+    }
+  ]
+}

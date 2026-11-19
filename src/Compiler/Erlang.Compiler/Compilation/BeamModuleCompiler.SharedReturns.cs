@@ -98,6 +98,10 @@ internal sealed partial class BeamModuleCompiler
         var edits = new List<CodeEdit>();
         var atomNames = atoms.OrderBy(entry => entry.Value).Select(entry => entry.Key).ToArray();
         var importsByIndex = imports.OrderBy(entry => entry.Value).Select(entry => entry.Key).ToArray();
+
+        bool CanDiscardExternalTailFrame(BeamInstruction instruction) =>
+            !IsTrappingTailBif(importsByIndex[(int)instruction.Operands[1].Value], atomNames);
+
         var exits = importsByIndex.Select((entry, index) => (entry, index))
             .Where(item => atomNames[item.entry.Module - 1] == ErlangModuleNames.Module
                 && atomNames[item.entry.Function - 1] is ErlangModuleNames.Error or ErlangModuleNames.Exit
@@ -176,11 +180,26 @@ internal sealed partial class BeamModuleCompiler
             byte[]? simplified = SimplifyValueSelections(code, body, labelOperands)
                 ?? InvertBranchTests(code, body, labelOperands)
                 ?? NormalizeIntegerComparisons(code, body)
+                ?? AnnotateBinaryExtractRanges(code, body, atomNames)
+                ?? NormalizeTaggedTupleBranches(code, body)
+                ?? AnnotateKeyFindTupleTests(
+                    code,
+                    body,
+                    atomNames,
+                    importsByIndex
+                )
                 ?? FoldListHeadSwap(code, body)
                 ?? ReuseReconstructedCons(code, body)
                 ?? CombineConstructionHeapChecks(code, body)
                 ?? CombineStackAndHeapAllocation(code, body)
                 ?? KeepTerminalCallResultsInX0(code, body, stackOperands)
+                ?? KeepAdjacentResultsInX0(code, body, stackOperands)
+                ?? DelayCallResultStoreThroughConstruction(
+                    code,
+                    body,
+                    atomNames,
+                    importsByIndex
+                )
                 ?? ForwardCallResult(code, body)
                 ?? EliminateEntryArgumentCopies(
                     code,
@@ -197,17 +216,23 @@ internal sealed partial class BeamModuleCompiler
                     instruction => IsLeafArithmeticGcBif(instruction, atomNames, importsByIndex)
                 )
                 ?? StoreBifResultsDirectly(code, body)
-                ?? StoreClosureResultsDirectly(code, body)
+                ?? StoreConstructionResultsDirectly(code, body)
                 ?? SinkTupleReadsAcrossCalls(code, body, stackOperands)
                 ?? RemoveRepeatedFailureProjections(code, body)
                 ?? ForwardStackProjections(code, body)
                 ?? RemoveUnusedTrailingFrameSlots(code, body)
-                ?? ReallocateLeafFrameRegisters(code, body, stackOperands)
+                ?? ReallocateLeafFrameRegisters(
+                    code,
+                    body,
+                    stackOperands,
+                    canDiscardExternalTailFrame: CanDiscardExternalTailFrame
+                )
+                ?? DelayArityTagFrames(code, body)
                 ?? DelayEntryStackFrame(
                     code,
                     body,
                     stackOperands,
-                    instruction => !IsTrappingTailBif(importsByIndex[(int)instruction.Operands[1].Value], atomNames)
+                    CanDiscardExternalTailFrame
                 )
                 ?? SinkTupleReadsPastGuards(code, body)
                 ?? SimplifyFrameInitialization(code, body)
@@ -216,7 +241,9 @@ internal sealed partial class BeamModuleCompiler
                 ?? ReuseStackSlots(code, body, stackOperands)
                 ?? OrderIndependentStackStores(code, body)
                 ?? LoadCallArgumentsBeforeReusedResultStore(code, body)
+                ?? ComposeTailArgumentCopies(code, body)
                 ?? OrderIndependentCallArguments(code, body)
+                ?? ReallocateSingletonRecordTail(code, body)
                 ?? TrimAllocationLiveRegisters(code, body)
                 ?? NormalizeTailCallFrames(
                     code,
@@ -224,6 +251,7 @@ internal sealed partial class BeamModuleCompiler
                     atomNames,
                     importsByIndex
                 )
+                ?? KeepMatchedCallProjectionInX(code, body)
                 ?? MoveHeapTestsBeforeNeutralInstructions(
                     code,
                     body,
@@ -259,7 +287,13 @@ internal sealed partial class BeamModuleCompiler
                     body,
                     stackOperands,
                     afterCanonicalization: true,
-                    isArithmetic: instruction => IsLeafArithmeticGcBif(instruction, atomNames, importsByIndex)
+                    isArithmetic: instruction => IsLeafArithmeticGcBif(instruction, atomNames, importsByIndex),
+                    canDiscardExternalTailFrame: CanDiscardExternalTailFrame
+                ))
+                ?? (shareReturns ? null : PromotePostCallProjectionSlots(
+                    code,
+                    body,
+                    stackOperands
                 ))
                 ?? (shareReturns ? null : PromoteTransientFrameSlots(code, body, stackOperands))
                 ?? (shareReturns ? null : RemoveSelectFallbackFrame(
@@ -267,7 +301,14 @@ internal sealed partial class BeamModuleCompiler
                     body,
                     labelOperands,
                     stackOperands
-                ));
+                ))
+                // Keep saved map inputs visible to the frame and alias passes first.
+                ?? KeepAdjacentResultsInX0(
+                    code,
+                    body,
+                    stackOperands,
+                    mapOnly: true
+                );
 
             return simplified is null ? null : (simplified, Enumerable.Range(0, labelCount).ToArray(), 0);
         }

@@ -1,0 +1,14 @@
+-module(beam_integer_literal_bounds).
+-export([positive_inside/0, positive_limit/0, positive_outside/0, negative_inside/0,
+         negative_limit/0, negative_outside/0, reuse_positive/0, reuse_negative/0, matches/1]).
+
+positive_inside() -> 340282366920938463463374607431768211455.
+positive_limit() -> 340282366920938463463374607431768211456.
+positive_outside() -> 340282366920938463463374607431768211457.
+negative_inside() -> -340282366920938463463374607431768211455.
+negative_limit() -> -340282366920938463463374607431768211456.
+negative_outside() -> -340282366920938463463374607431768211457.
+reuse_positive() -> 340282366920938463463374607431768211456.
+reuse_negative() -> -340282366920938463463374607431768211456.
+matches(-340282366920938463463374607431768211456) -> hit;
+matches(_) -> miss.

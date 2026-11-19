@@ -1,0 +1,48 @@
+{
+  "Parent": {
+    "Source": "e227e00ed3662e1e731229f2d436dc462c810fc7f0427cee98aa728892a1c67d",
+    "Paths": 203,
+    "Compiler": "959eb6b159c88781942d74775081ca57fb9bd664c103c698d754f2367f6ce1b4",
+    "Tests": "806cb209388bc1b2378b0e8b146ec5819d4cdb44e457c0b9dd245d84142fc955",
+    "ParentSource": "962350ca46e645ac29f7f0db3c7a8b977a7272fd70c82944d13aa6f89a77ef7c",
+    "CorpusTool": "9b052156f7f3996ef7d9a9abe8e5f2f9c21dbaea70e01bd143614f3ed12180e7"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryArgumentFlow.cs": "A9AF9BEC9C045F22D20E740E8BADADEFD13B54ABEC52CF95E7496B64D3BC0835",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": "EAF43CD84B2F3A7B1B6AA744D0837FC94650925B076FC00C1E5E8024A0D08759",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.NestedCallResultCleanup.cs": "791C71A7199F42F14C4076270D96F6406EC5447AC2D8EADFEDF3FC60E8C313AD",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TailArgumentCopies.cs": "26C04D458B3709C6C1C4028A52B107F4FF3AF2D32AEEE5954F4990E9A9EEA7FC",
+    "tests/Erlang.Tests/Compiler/Beam/BeamModuleEmissionChecks.cs": "B988D3CB943B5415C48842278A803BD161778830EC05DA2B2DA34E251D8C9CBB",
+    "tests/Erlang.Tests/Compiler/Beam/BeamNestedCallResultCleanupChecks.cs": "B8610740029881AB52317F8753715781FB355E69222425E4F0C28E1D861B3C2A",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamRetainedConstructorAliasChecks.cs": "E15C7399A8308FF4442EDDBFEDB7B01E0D4FE4DB89480E0F84FF5EB13B6F7B5C",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamTailArgumentCopyChecks.cs": "D356A25C736337B665A5B47DE93ABC31894A6D023E5C78EB4D97B18A04CEA34F"
+  },
+  "Patches": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\argument-copy-lifetimes-and-sctp-cleanup-1871\\straight-ordinary-call-copy-1870.patch",
+      "Hash": "5d895d0cb4226b3924c9e361d01743e9815059b7b0270febdffbd6a3e89a2c5b"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\argument-copy-lifetimes-and-sctp-cleanup-1871\\move-only-local-tail-frame.patch",
+      "Hash": "17429035acf10cde8bc1004973edb1f1fe6c63cb150f45a6290eed8c9e1db737"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\argument-copy-lifetimes-and-sctp-cleanup-1871\\nested-call-result-cleanup.patch",
+      "Hash": "8b18d5c7295b086e4da87db9e32f9e2d0750ca65cfa8ba8341790c4d0680dba4"
+    }
+  ],
+  "Proposals": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\near-exact-audit-1845\\ordinary-call-copy-1870\\straight-ordinary-call-copy-1870.patch",
+      "Hash": "5d895d0cb4226b3924c9e361d01743e9815059b7b0270febdffbd6a3e89a2c5b"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\move-only-local-tail-frame-audit\\move-only-local-tail-frame.patch",
+      "Hash": "17429035acf10cde8bc1004973edb1f1fe6c63cb150f45a6290eed8c9e1db737"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\inet6-sctp-residual-1869\\nested-call-result-cleanup.patch",
+      "Hash": "8b18d5c7295b086e4da87db9e32f9e2d0750ca65cfa8ba8341790c4d0680dba4"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+Name = list_to_atom(os:getenv("PARITY_NATIVE_MODULE")),
+Path = os:getenv("PARITY_NATIVE_IMAGE"),
+{ok,Image}=file:read_file(Path),
+{module,Name}=code:load_binary(Name,Path,Image),
+Result = case Name of
+    crypto -> crypto:hash(sha256,<<"beam parity">>);
+    pubkey_os_cacerts -> {lists:sort(Name:module_info(exports)),Name:clear(),Name:clear()}
+end,
+io:format("~0p.~n",[Result]),
+halt().

@@ -1417,6 +1417,79 @@ internal sealed partial class BeamModuleCompiler
             ConsHeadCall? HeadCall = null
         );
 
+        private bool TryEmitDeferredConsHead(Clause clause)
+        {
+            if (clause.Guard is not null || !HasUnconditionalParameters(clause)
+                || clause.Body is not Expr.List { Items: [Expr.Tuple head], Tail: { } tail })
+            {
+                return false;
+            }
+
+            // Core extracts effectful head prerequisites before the tail. These
+            // fields can only read entry bindings or already folded constants.
+            var parameters = clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray();
+            if (ReadEntryConstructedArgument(head, 1, parameters) is not { } tuple)
+            {
+                return false;
+            }
+
+            Expr.Call call;
+            string? module;
+            bool listOperator = tail is Expr.Binary { Operator: ErlangOperators.SubtractList or ErlangOperators.Append };
+            if (tail is Expr.Binary binary && (binary.Operator == ErlangOperators.SubtractList
+                || binary.Operator == ErlangOperators.Append && AppendPrefix(binary.Left) is null))
+            {
+                module = ErlangModuleNames.Module;
+                call = new Expr.Call(module, binary.Operator, [binary.Left, binary.Right])
+                {
+                    SourceLine = binary.SourceLine,
+                    PreprocessorFile = location.File
+                };
+            }
+            else if (tail is Expr.Call target && TryResolveOrdinaryCallTarget(target, out module))
+            {
+                call = target;
+            }
+            else
+            {
+                return false;
+            }
+
+            var inputs = parameters.Select((name, register) => (name, register))
+                .Where(input => input.name != VariableScopeNames.Wildcard)
+                .ToDictionary(input => input.name, input => input.register, StringComparer.Ordinal);
+            var arguments = ReadCallArgumentConstructions(
+                call.Arguments,
+                -1,
+                new Dictionary<string, int>(),
+                inputs: inputs
+            );
+            EntryCall? invocation = arguments is not null ? new EntryCall(
+                call,
+                module,
+                [],
+                []
+            ) : listOperator ? null : ReadEntryCall(call, parameters);
+            if (invocation is null)
+            {
+                return false;
+            }
+
+            int[] saved = tuple.Operands.Where(operand => operand.Source.HasValue)
+                .Select(operand => operand.Source!.Value).Distinct().OrderDescending().ToArray();
+            int live = Math.Max(saved[0] + 1, arguments?.Live ?? EntryCallLiveCount(invocation, parameters));
+            var plan = new ConsCallResult(
+                invocation,
+                saved,
+                null,
+                tuple,
+                false
+            );
+            EmitConsCallResult(plan, live, arguments: arguments);
+
+            return true;
+        }
+
         private ConsCallResult? ReadConsCallResult(
             Expr body,
             string[] inputs,
@@ -1483,7 +1556,8 @@ internal sealed partial class BeamModuleCompiler
             int live,
             Action? emitBindings = null,
             int listInput = 0,
-            BeamSourceLocation? previous = null
+            BeamSourceLocation? previous = null,
+            CallArgumentConstructions? arguments = null
         )
         {
             if (result.HeadCall is { } headCall)
@@ -1501,7 +1575,8 @@ internal sealed partial class BeamModuleCompiler
             }
 
             int frame = result.Saved.Length;
-            EmitFrameAllocation(live, frame);
+            int argumentHeap = arguments?.Constructions.Sum(construction => construction.HeapWords) ?? 0;
+            EmitFrameAllocation(live, frame, argumentHeap);
             if (result.ExtractHead)
             {
                 owner.EmitListParts(
@@ -1527,7 +1602,15 @@ internal sealed partial class BeamModuleCompiler
             }
 
             var call = result.Call;
-            owner.EmitOrderedTailMoves(call.Moves, call.Constants, call.SavedInputs);
+            if (arguments is null)
+            {
+                owner.EmitOrderedTailMoves(call.Moves, call.Constants, call.SavedInputs);
+            }
+            else
+            {
+                EmitCallArgumentConstructions(arguments, -1, heapChecked: true);
+            }
+
             owner.EmitCallLine(call.Call, previous ?? location);
             Call(call.Module, call.Call.Function, call.Call.Arguments.Count);
             owner.Op(TestHeap, BeamWire.UnsignedTag, ConsHeapWords + (result.Tuple?.HeapWords ?? 0));

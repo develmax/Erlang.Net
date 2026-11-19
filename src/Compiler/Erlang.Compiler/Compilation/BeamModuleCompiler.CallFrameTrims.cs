@@ -113,20 +113,13 @@ internal sealed partial class BeamModuleCompiler
                     site--;
                 }
 
-                bool pure = false;
-                if (instruction.Definition.Opcode == ExternalCall)
-                {
-                    var import = imported[(int)instruction.Operands[1].Value];
-                    pure = BeamTrimBifs.IsPure(atomNames[import.Module - 1], atomNames[import.Function - 1], import.Arity);
-                }
-
                 if (PlanCallFrameTrim(
                     slots,
                     lastUse,
                     initialized,
                     previousCall,
                     site,
-                    pure
+                    CallsPureBif(instruction)
                 ) is { } trim)
                 {
                     trims.Add(site, trim);
@@ -224,6 +217,7 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
+            (int[] Owners, Dictionary<int, bool[]> Uses)? ownership = null;
             for (int exit = start; exit + 1 < end; exit++)
             {
                 int size = body[exit].Definition.Opcode switch
@@ -232,18 +226,46 @@ internal sealed partial class BeamModuleCompiler
                     TailExternalCallWithFrame or TailLocalCallWithFrame => 2,
                     _ => -1
                 };
-                if (size < 0 || body[exit].Operands[size].Value <= 0
-                    || FindDeadBranchTrimSite(body, start, exit) is not (>= 0 and var site)
-                    || body[site].Offset < copied)
+                if (size < 0 || body[exit].Operands[size].Value <= 0)
+                {
+                    continue;
+                }
+
+                var width = body[exit].Operands[size].Value;
+                int site = size == 0 && width == 2 ? FindSingleLiveBranchTrimSite(body, start, exit) : -1;
+                bool relocate = false;
+                if (site >= 0 && !CallsPureBif(body[exit - 2])
+                    && (ownership ??= ReadDisjointFrameOwnership(body, start, end)) is { } frame
+                    && frame.Uses.Count == 1
+                    && frame.Uses.TryGetValue(frame.Owners[site - start], out bool[]? slots)
+                    && slots.Length == width)
+                {
+                    relocate = true;
+                }
+                else
+                {
+                    site = FindDeadBranchTrimSite(body, start, exit);
+                }
+
+                if (site < 0 || body[site].Offset < copied)
                 {
                     continue;
                 }
 
                 int offset = body[site].Offset;
                 output.Write(code.Span[copied..offset]);
+                int remaining = relocate ? 1 : 0;
+                if (relocate)
+                {
+                    // Y1 has supplied the call argument. Move the saved result before removing Y0.
+                    output.WriteByte(Move);
+                    BeamCompactWriter.Write(output, YRegisterTag, 0);
+                    BeamCompactWriter.Write(output, YRegisterTag, 1);
+                }
+
                 output.WriteByte(TrimFrame);
-                BeamCompactWriter.Write(output, BeamWire.UnsignedTag, body[exit].Operands[size].Value);
-                BeamCompactWriter.Write(output, BeamWire.UnsignedTag, 0);
+                BeamCompactWriter.Write(output, BeamWire.UnsignedTag, width - remaining);
+                BeamCompactWriter.Write(output, BeamWire.UnsignedTag, remaining);
 
                 int operandStart = body[exit].Offset + 1;
                 var cursor = new BeamCursor(code[operandStart..]);
@@ -253,12 +275,79 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 output.Write(code.Span[offset..(operandStart + cursor.Position)]);
-                BeamCompactWriter.Write(output, BeamWire.UnsignedTag, 0);
+                BeamCompactWriter.Write(output, BeamWire.UnsignedTag, remaining);
                 _ = BeamCompactReader.Read(cursor);
                 copied = operandStart + cursor.Position;
             }
         }
+
+        bool CallsPureBif(BeamInstruction instruction)
+        {
+            if (instruction.Definition.Opcode != ExternalCall)
+            {
+                return false;
+            }
+
+            var target = imported[(int)instruction.Operands[1].Value];
+
+            return BeamTrimBifs.IsPure(atomNames[target.Module - 1], atomNames[target.Function - 1], target.Arity);
+        }
     }
+
+    private static int FindSingleLiveBranchTrimSite(IReadOnlyList<BeamInstruction> body, int start, int exit)
+    {
+        int call = exit - 2;
+        if (call <= start
+            || body[call] is not { Definition.Opcode: LocalCall or ExternalCall, Operands: [{ Value.IsOne: true }, _] }
+            || !IsTrimRegisterMove(
+                body[exit - 1],
+                BeamOperandParameters.Y,
+                0,
+                BeamOperandParameters.X,
+                0
+            ))
+        {
+            return -1;
+        }
+
+        int load = call - 1;
+        while (load > start && body[load].Definition.Opcode == Line)
+        {
+            load--;
+        }
+
+        if (load - 2 <= start || body[load - 2].Definition.Opcode != Label
+            || !IsTrimRegisterMove(
+                body[load - 1],
+                BeamOperandParameters.X,
+                0,
+                BeamOperandParameters.Y,
+                0
+            )
+            || !IsTrimRegisterMove(
+                body[load],
+                BeamOperandParameters.Y,
+                1,
+                BeamOperandParameters.X,
+                0
+            ))
+        {
+            return -1;
+        }
+
+        return load + 1;
+    }
+
+    private static bool IsTrimRegisterMove(
+        BeamInstruction instruction,
+        string source,
+        int input,
+        string destination,
+        int result
+    ) =>
+        instruction is { Definition.Opcode: Move, Operands: [var from, var to] }
+        && from.Kind == source && from.Value == input && from.TypeIndex is null
+        && to.Kind == destination && to.Value == result && to.TypeIndex is null;
 
     private static int FindDeadBranchTrimSite(IReadOnlyList<BeamInstruction> body, int start, int exit)
     {

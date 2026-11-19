@@ -9,4 +9,5 @@ public sealed record FunctionDefinition(string Name, int Arity, IReadOnlyList<Cl
     internal bool IsInlineFailure { get; init; }
     internal bool IsClosedListMapper { get; init; }
     internal bool IsRecursiveListMapper { get; init; }
+    internal bool IsStrictRecursiveListMapper { get; init; }
 }

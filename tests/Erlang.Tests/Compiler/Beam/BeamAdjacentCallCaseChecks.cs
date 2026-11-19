@@ -79,13 +79,15 @@ internal static class BeamAdjacentCallCaseChecks
         ReadOnlySpan<byte> guardAlias =
         [
             BeamEmissionFormat.GetTupleElement,
+            BeamEmissionFormat.SelectValue,
+            BeamEmissionFormat.Label,
             BeamEmissionFormat.IsInteger,
             BeamEmissionFormat.Deallocate,
             BeamEmissionFormat.Return
         ];
         int alias = operations.AsSpan().IndexOf(guardAlias);
         if (alias < 0 || Operand(instructions[alias], 0) != 0 || Operand(instructions[alias], 1) != 1
-            || Operand(instructions[alias], 2) != 2 || Operand(instructions[alias + 1], 1) != 2)
+            || Operand(instructions[alias], 2) != 2 || Operand(instructions[alias + 3], 1) != 2)
         {
             throw new InvalidOperationException(GuardAliasMismatch);
         }

@@ -10,7 +10,8 @@ internal sealed partial class BeamModuleCompiler
         IReadOnlyList<BeamInstruction> body,
         List<(int Start, int End, int Slot)> stackOperands,
         bool afterCanonicalization = false,
-        Func<BeamInstruction, bool>? isArithmetic = null
+        Func<BeamInstruction, bool>? isArithmetic = null,
+        Func<BeamInstruction, bool>? canDiscardExternalTailFrame = null
     )
     {
         using var output = new MemoryStream();
@@ -33,7 +34,8 @@ internal sealed partial class BeamModuleCompiler
                 arity,
                 afterCanonicalization,
                 isArithmetic,
-                out Dictionary<int, int>? heapRoots
+                out Dictionary<int, int>? heapRoots,
+                canDiscardExternalTailFrame: canDiscardExternalTailFrame
             );
             if (registers is not null)
             {
@@ -53,11 +55,11 @@ internal sealed partial class BeamModuleCompiler
                         continue;
                     }
 
-                    if (instruction.Definition.Opcode == TailLocalCallWithFrame)
+                    if (instruction.Definition.Opcode is TailLocalCallWithFrame or TailExternalCallWithFrame)
                     {
                         int frame = (int)instruction.Operands[^1].Value;
                         output.Write(code.Span[copied..instruction.Offset]);
-                        output.WriteByte(TailLocalCall);
+                        output.WriteByte(instruction.Definition.Opcode == TailLocalCallWithFrame ? TailLocalCall : TailExternalCall);
                         output.Write(code.Span[(instruction.Offset + 1)..(next - CompactRegisterCountWidth(frame))]);
                         copied = next;
                         continue;
@@ -128,18 +130,21 @@ internal sealed partial class BeamModuleCompiler
         bool afterCanonicalization,
         Func<BeamInstruction, bool>? isArithmetic,
         out Dictionary<int, int>? heapRoots,
-        bool isolatedTailBranch = false
+        bool isolatedTailBranch = false,
+        Func<BeamInstruction, bool>? canDiscardExternalTailFrame = null,
+        IReadOnlySet<int>? postCallSlots = null,
+        int postCallFrameSize = 0
     )
     {
         heapRoots = null;
         const int xCount = BeamOperandParameters.MaximumRegister;
-        int allocation = FindEntryFrameAllocation(body, start, end);
-        if (allocation < 0)
+        int allocation = postCallSlots is null ? FindEntryFrameAllocation(body, start, end) : -1;
+        if (allocation < 0 && postCallSlots is null)
         {
             return null;
         }
 
-        int slots = (int)body[allocation].Operands[0].Value;
+        int slots = postCallSlots is null ? (int)body[allocation].Operands[0].Value : postCallFrameSize;
         if (slots <= 0 || slots >= xCount)
         {
             return null;
@@ -157,14 +162,16 @@ internal sealed partial class BeamModuleCompiler
             BeamInstruction instruction = body[start + index];
             byte opcode = instruction.Definition.Opcode;
             bool localTail = opcode == TailLocalCallWithFrame;
-            bool externalTail = isolatedTailBranch && opcode == TailExternalCallWithFrame;
+            bool externalTail = opcode == TailExternalCallWithFrame
+                && (isolatedTailBranch || canDiscardExternalTailFrame?.Invoke(instruction) == true);
             bool arithmetic = opcode == GcBifTwo && isArithmetic?.Invoke(instruction) == true;
+            bool guardedBif = IsLeafGuardBif(instruction);
             needsCanonicalization |= opcode == PutTuple || arithmetic;
             if ((!localTail && !externalTail && !IsFramelessInstruction(instruction))
                 || (opcode is Allocate or AllocateHeap && start + index != allocation)
                 || (!afterCanonicalization && opcode == PutTuple)
-                || opcode is GetMapElements
-                    or BifOne or BifTwo or BifThree or GcBifOne or GcBifThree
+                || opcode is GetMapElements or GcBifOne or GcBifThree
+                || (opcode is BifOne or BifTwo or BifThree && !guardedBif)
                 || (opcode == GcBifTwo && !arithmetic)
                 || ((externalTail || opcode is Deallocate or TailLocalCallWithFrame) && instruction.Operands[^1].Value != slots))
             {
@@ -201,11 +208,15 @@ internal sealed partial class BeamModuleCompiler
                         return null;
                     }
 
-                    slotsUsed.Add(slot);
+                    if (postCallSlots is null || postCallSlots.Contains(slot))
+                    {
+                        slotsUsed.Add(slot);
+                    }
                 }
 
                 if (opcode == Swap || opcode == GetList && position > 0 || opcode == PutTuple && position == 0
-                    || opcode is (Move or GetHead or GetTail or GetTupleElement or PutList or GcBifTwo) && position == instruction.Operands.Count - 1)
+                    || (guardedBif || opcode is Move or GetHead or GetTail or GetTupleElement or PutList or GcBifTwo)
+                        && position == instruction.Operands.Count - 1)
                 {
                     destinations.Add(register);
                     if (opcode != Swap)
@@ -224,13 +235,13 @@ internal sealed partial class BeamModuleCompiler
             writes[index] = destinations.ToArray();
         }
 
-        if (afterCanonicalization && !needsCanonicalization)
+        if (afterCanonicalization && !needsCanonicalization && postCallSlots is null)
         {
             return null;
         }
 
         var successors = new int[count][];
-        var arithmeticFailures = new int?[count];
+        var conditionalWriteFailures = new int?[count];
         for (int index = 0; index < count; index++)
         {
             BeamInstruction instruction = body[start + index];
@@ -245,14 +256,14 @@ internal sealed partial class BeamModuleCompiler
                 if (instruction.Definition.Opcode != TailLocalCallWithFrame && operand.Kind == BeamOperandParameters.Label)
                 {
                     int target = labels.GetValueOrDefault((int)operand.Value, -1);
-                    if (instruction.Definition.Opcode == GcBifTwo)
+                    if (instruction.Definition.Opcode == GcBifTwo || IsLeafGuardBif(instruction))
                     {
                         if (target < 0)
                         {
                             return null;
                         }
 
-                        arithmeticFailures[index] = target;
+                        conditionalWriteFailures[index] = target;
                     }
                     else
                     {
@@ -267,6 +278,7 @@ internal sealed partial class BeamModuleCompiler
         var liveIn = new BigInteger[count];
         var liveOut = new BigInteger[count];
         BigInteger arguments = (BigInteger.One << arity) - 1;
+        BigInteger externalInputs = postCallSlots is null ? arguments : BigInteger.Zero;
         bool changed;
         do
         {
@@ -277,7 +289,7 @@ internal sealed partial class BeamModuleCompiler
                 foreach (int next in successors[index])
                 {
                     // A branch back to func_info uses the original arguments for function_clause.
-                    after |= next < 0 ? arguments : liveIn[next];
+                    after |= next < 0 ? externalInputs : liveIn[next];
                 }
 
                 liveOut[index] = after;
@@ -286,8 +298,8 @@ internal sealed partial class BeamModuleCompiler
                     after &= ~(BigInteger.One << destination);
                 }
 
-                // A collecting arithmetic BIF only writes its destination on success.
-                if (arithmeticFailures[index] is int failure)
+                // A BIF writes its destination only along its success edge.
+                if (conditionalWriteFailures[index] is int failure)
                 {
                     after |= liveIn[failure];
                 }
@@ -299,9 +311,24 @@ internal sealed partial class BeamModuleCompiler
         }
         while (changed);
 
-        if (isolatedTailBranch && (liveIn[0] & ~arguments) != BigInteger.Zero)
+        var xMask = (BigInteger.One << xCount) - 1;
+        if (isolatedTailBranch)
         {
-            return null;
+            BigInteger required = liveIn[0];
+            if (postCallSlots is not null)
+            {
+                // Non-promoted Y operands are already supplied by the retained frame.
+                required &= xMask;
+                foreach (int slot in postCallSlots)
+                {
+                    required |= liveIn[0] & (BigInteger.One << (xCount + slot));
+                }
+            }
+
+            if ((required & ~arguments) != BigInteger.Zero)
+            {
+                return null;
+            }
         }
 
         var conflicts = new BigInteger[xCount + slots];
@@ -368,7 +395,6 @@ internal sealed partial class BeamModuleCompiler
                 || LeafRegisterIsLive(conflicts[other], reg);
         }
 
-        var xMask = (BigInteger.One << xCount) - 1;
         for (int index = 0; index < count; index++)
         {
             if (body[start + index].Definition.Opcode is not (TestHeap or AllocateHeap or GcBifTwo))
@@ -401,9 +427,13 @@ internal sealed partial class BeamModuleCompiler
             heapRoots,
             writes,
             successors,
-            arithmeticFailures
+            conditionalWriteFailures
         ) ? registers : null;
     }
+
+    private static bool IsLeafGuardBif(BeamInstruction instruction) =>
+        instruction.Definition.Opcode is BifOne or BifTwo or BifThree
+        && instruction.Operands[0].Kind == BeamOperandParameters.Label;
 
     private static bool HasInitializedLeafHeapRoots(
         int start,
@@ -412,7 +442,7 @@ internal sealed partial class BeamModuleCompiler
         Dictionary<int, int> heapRoots,
         int[][] writes,
         int[][] successors,
-        int?[] arithmeticFailures
+        int?[] conditionalWriteFailures
     )
     {
         const int xCount = BeamOperandParameters.MaximumRegister;
@@ -434,7 +464,7 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
-            if (arithmeticFailures[index] is int failure)
+            if (conditionalWriteFailures[index] is int failure)
             {
                 MergeInitialized(failure, after);
             }

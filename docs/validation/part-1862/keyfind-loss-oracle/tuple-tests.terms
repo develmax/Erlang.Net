@@ -1,0 +1,25 @@
+{literal_result,2,
+                [{test,is_tuple,{f,3},[{x,0}]},
+                 {test,test_arity,{f,3},[{x,0},2]}]}.
+{literal_error,2,
+               [{test,is_tuple,{f,6},[{x,0}]},
+                {test,test_arity,{f,6},[{x,0},2]}]}.
+{dynamic_error,3,
+               [{test,is_tuple,
+                      {f,9},
+                      [{tr,{x,0},
+                           {t_union,{t_atom,any},
+                                    none,none,
+                                    {t_tuple,0,false,#{}},
+                                    none,none}}]},
+                {test,test_arity,{f,9},[{x,0},2]},
+                {test,is_eq_exact,{f,9},[{x,1},{y,0}]}]}.
+{literal_call,1,
+              [{test,is_tuple,{f,12},[{x,0}]},
+               {test,test_arity,{f,12},[{x,0},2]}]}.
+{literal_call_error,1,
+                    [{test,is_tuple,{f,15},[{x,0}]},
+                     {test,test_arity,{f,15},[{x,0},2]}]}.
+{bind,2,[]}.
+{module_info,0,[]}.
+{module_info,1,[]}.

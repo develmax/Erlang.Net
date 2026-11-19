@@ -1,0 +1,47 @@
+Error! Failed to eval: [Input] = init:get_plain_arguments(),
+{ok, Paths}=file:read_file(Input),
+Get=fun(Path)->{beam_file,_,_,_,_,Fs}=beam_disasm:file(unicode:characters_to_list(Path)),
+    maps:from_list([{{F,N},Is}||{function,F,N,_,Is}<-Fs]) end,
+Literal=fun({atom,_})->true;({integer,_})->true;({literal,_})->true;(nil)->true;(_)->false end,
+Calls=fun({call,N,_})->N;({call_ext,N,_})->N;(_)->-1 end,
+Scan=fun Collect([Producer|Tail], Acc) when element(1,Producer)=:=call; element(1,Producer)=:=call_ext ->
+    {Ms,Rest}=lists:splitwith(fun({move,_,{x,_}})->true;(_)->false end,Tail),
+    case lists:dropwhile(fun({line,_})->true;(_)->false end,Rest) of
+      [Consumer|_] ->
+        Arity=Calls(Consumer),
+        case Arity>=3 andalso Arity=:=length(Ms)
+                 andalso length([X||{move,{x,0},{x,X}}<-Ms,X>0])=:=1
+                 andalso length([S||{move,S,_}<-Ms,Literal(S)])=:=Arity-1 of
+          true->Collect(Tail,[{Producer,Consumer,Ms}|Acc]);
+          false->Collect(Tail,Acc)
+        end;
+      _ -> Collect(Tail,Acc)
+    end;
+    Collect([_|Tail],Acc)->Collect(Tail,Acc);
+    Collect([],Acc)->lists:reverse(Acc)
+end,
+After=fun(Rel, E, A, B) ->
+    maps:fold(fun(Key, Expected, Acc) ->
+       Exact=Scan(Expected,[]),
+       Old=Scan(maps:get(Key,A,[]),[]),
+       New=Scan(maps:get(Key,B,[]),[]),
+       Before=length(Old)-length(Old--Exact),
+       AfterCount=length(New)-length(New--Exact),
+       case Before=:=AfterCount of
+           true->Acc;
+           false->[{Rel,Key,Before,AfterCount}|Acc]
+       end
+    end,[],E)
+end,
+Rows=lists:append([begin [Refs, Old, New]=binary:split(L,<<9>>,[global]),
+    After(filename:basename(Refs),Get(Refs),Get(Old),Get(New))
+end || L <- binary:split(Paths,<<10>>,[global]),L=/= <<>>]),
+lists:foreach(fun(Row)->io:format("~0p.~n",[Row]) end,Rows),
+Gains=lists:sum([Y-X||{_,_,X,Y}<-Rows,Y>X]),
+Losses=lists:sum([X-Y||{_,_,X,Y}<-Rows,X>Y]),
+io:format("~p.~n",[#{net=>Gains-Losses,gains=>Gains,losses=>Losses}]), halt().
+
+Runtime terminating during boot ({{badmatch,{error,beam_lib,{file_error,"D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\outgoing-call-chain-audit-1855\pilot.json.generated\lib\common_test-1.31.2\ebin\ct_conn_log_h.beam
+.beam",enoent}}},[{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,796}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{erl_eval,expr_list,7,[{file,"erl_eval.erl"},{line,1664}]},{erl_eval,expr_list,5,[{file,"erl_eval.erl"},{line,1660}]},{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,772}]},{erl_eval,expr_list,7,[{file,"erl_eval.erl"},{line,1664}]},{erl_eval,eval_lc1,7,[{file,"erl_eval.erl"},{line,1078}]},{erl_eval,eval_generate,9,[{file,"erl_eval.erl"},{line,1462}]}]})
+
+Crash dump is being written to: D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/outgoing-call-chain-audit-1855/count-window-crash.dump...done

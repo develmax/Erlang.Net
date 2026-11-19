@@ -2,6 +2,8 @@ namespace Erlang.Compiler;
 
 internal static class BeamEmissionFormat
 {
+    internal const int CompactIntegerMagnitudeBits = 128;
+
     internal const byte Label = 1;
     internal const byte FunctionInfo = 2;
     internal const byte EndCode = 3;

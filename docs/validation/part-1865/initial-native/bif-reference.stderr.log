@@ -1,0 +1,5 @@
+Error! Failed to eval: [P]=init:get_plain_arguments(),{beam_file,bif_result_chain,_,_,_,Fs}=beam_disasm:file(P),[io:format("~0p.~n",[F])||F={function,Name,1,_,_}, lists:member(Name,[time,observed])<-Fs],halt().
+
+Runtime terminating during boot ({compr_assign,[{erl_eval,exprs,2,[{file,"erl_eval.erl"},{line,222}]},{init,start_it,1,[{file,"init.erl"},{line,1561}]},{init,start_em,1,[{file,"init.erl"},{line,1546}]},{init,do_boot,3,[{file,"init.erl"},{line,1217}]}]})
+
+Crash dump is being written to: D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\early-entry-argument-ownership-1865\bif-chain/reference-crash.dump...done

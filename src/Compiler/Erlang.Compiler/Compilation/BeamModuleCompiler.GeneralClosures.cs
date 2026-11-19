@@ -158,7 +158,8 @@ internal sealed partial class BeamModuleCompiler
                 General: lifted,
                 LexicalOwner: lexicalOwner,
                 SelfName: function.SelfName,
-                EntryPatternFailure: entryPatternFailure
+                EntryPatternFailure: entryPatternFailure,
+                RequiresSelfValue: ClosureCaptures.RequiresSelfValue(function)
             ));
         }
 
@@ -462,6 +463,11 @@ internal sealed partial class BeamModuleCompiler
 
             selfEntry = entry;
             selfCaptures = arguments[^recursiveClosure.CaptureCount..];
+            if (!recursiveClosure.RequiresSelfValue)
+            {
+                return;
+            }
+
             owner.EmitClosureAllocation(selfCaptures.Length, 0, 1);
             owner.Op(MakeFun, BeamWire.UnsignedTag, recursiveClosureIndex);
             owner.Operand(XRegisterTag, 0);
@@ -479,7 +485,9 @@ internal sealed partial class BeamModuleCompiler
             recursiveClosure?.SelfName is { } self
             && apply.Function is Expr.Variable variable && variable.Name == self
             && apply.Arguments.Count == recursiveClosure.Arity - recursiveClosure.CaptureCount
-            && variables.TryGetValue(self, out int slot) && slot == selfSlot;
+            && (selfSlot >= 0
+                ? variables.TryGetValue(self, out int slot) && slot == selfSlot
+                : !variables.ContainsKey(self) && !deferredPairMembers.ContainsKey(self));
 
         private void EmitClosureSelfCall(Expr.Apply apply, bool tail)
         {

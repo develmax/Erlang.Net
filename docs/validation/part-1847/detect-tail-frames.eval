@@ -1,0 +1,29 @@
+[Input] = init:get_plain_arguments(),
+{ok,Data} = file:read_file(Input),
+IsTrap = fun
+    ({extfunc,erlang,Fun,1}) -> lists:member(Fun,[link,unlink]);
+    ({extfunc,erlang,Fun,2}) -> lists:member(Fun,['!',monitor_node,group_leader,exit]);
+    (_) -> false
+end,
+Forbidden = fun
+    (Instruction) when is_tuple(Instruction) ->
+        lists:member(element(1,Instruction),[call,call_ext,call_fun,call_fun2,apply,apply_last,'try','catch',trim,'receive',make_fun3]);
+    (_) -> false
+end,
+[begin
+    [Module,Path] = binary:split(Row,<<9>>),
+    case beam_disasm:file(binary_to_list(Path)) of
+        {beam_file,_,_,_,_,Functions} ->
+            Cases = [{Name,Arity,Slots,External} ||
+                {function,Name,Arity,_,Ops} <- Functions,
+                [{Slots,_}] <- [[{S,X} || {allocate,S,X}<-Ops]++[{S,X}||{allocate_heap,S,_,X}<-Ops]],
+                Slots>0,
+                External <- [[Call || {call_ext_last,_,Call,Frame}<-Ops, Frame=:=Slots]],
+                External=/=[],
+                not lists:any(IsTrap, External),
+                not lists:any(Forbidden,Ops)],
+            case Cases of [] -> ok; _ -> io:format("~0p.~n",[{Module,Cases}]) end;
+        Error -> erlang:error({disassembly,Module,Error})
+    end
+end || Row <- binary:split(Data,<<10>>,[global,trim_all])],
+halt().

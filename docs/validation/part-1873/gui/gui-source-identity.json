@@ -1,0 +1,394 @@
+{
+  "OtpVersion": "29.1.1",
+  "OtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Sdk": "10.0.400",
+  "Runtime": "10.0.11",
+  "Erts": "17.1",
+  "Jobs": 1,
+  "Artifacts": {
+    "SourceSnapshot": {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\late-list-and-tail-copy-provenance-1870\\source.zip",
+      "Sha256": "e227e00ed3662e1e731229f2d436dc462c810fc7f0427cee98aa728892a1c67d"
+    },
+    "BaseCompiler": {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\late-list-and-tail-copy-provenance-1870\\corpus-bin\\Erlang.Compiler.dll",
+      "Sha256": "959eb6b159c88781942d74775081ca57fb9bd664c103c698d754f2367f6ce1b4"
+    },
+    "CandidateCompiler": {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\metadata-next-include-audit-1870\\isolated\\tools\\Validation\\Erlang.BeamCorpus\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Sha256": "d2ea8c79f972670ade6cb83a2529002161e5c2c3e964031fafd9e51d530cf78e"
+    },
+    "BaseCorpusTool": {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\late-list-and-tail-copy-provenance-1870\\corpus-bin\\Erlang.BeamCorpus.dll",
+      "Sha256": "9b052156f7f3996ef7d9a9abe8e5f2f9c21dbaea70e01bd143614f3ed12180e7"
+    },
+    "CandidateCorpusTool": {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\metadata-next-include-audit-1870\\isolated\\tools\\Validation\\Erlang.BeamCorpus\\bin\\Debug\\net10.0\\Erlang.BeamCorpus.dll",
+      "Sha256": "e59264bb41b514d7f78703548b965e261b649ec9921bb88742c0f999295ddbd6"
+    },
+    "ModuleSelection": {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\metadata-next-include-audit-1870\\gui-library-modules.txt",
+      "Sha256": "535bdd58471a4cfb1423ca2aa20be68c90d89d368af93e233854f19ce189770a"
+    },
+    "Patch": {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\metadata-next-include-audit-1870\\otp-in-tree-include-directory-aliases.patch",
+      "Sha256": "58d73ba535e8bdce40d1886d2ec77250ce34be187358cfa861b8ea0660548285"
+    }
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\et-1.8\\ebin\\et.beam",
+      "BeamSha256": "85378a2bec824f3db72e83579f6c3f18e88819861268894fca79a2d04f3ea367",
+      "Source": "lib\\et-1.8\\src\\et.erl",
+      "SourceSha256": "3059c8522b0f52e3ac140e01c6963a36d2ba5c95f3c62d7cdf8261aa8c3903c5"
+    },
+    {
+      "Beam": "lib\\et-1.8\\ebin\\et_collector.beam",
+      "BeamSha256": "51761c305651680a749fad118d895173a3c61d697a8f6b70bc084d6e61ea308f",
+      "Source": "lib\\et-1.8\\src\\et_collector.erl",
+      "SourceSha256": "cf93b868b87f4011b85cb2313fdfa35c27cb726c0e3a5a99d01eb2393d9ba43e"
+    },
+    {
+      "Beam": "lib\\et-1.8\\ebin\\et_selector.beam",
+      "BeamSha256": "07189a5dc5a44eaa75dbb3ae3e694f963a3e5a7bff54d3861823514d46f8be0e",
+      "Source": "lib\\et-1.8\\src\\et_selector.erl",
+      "SourceSha256": "596a25fd12f82452baec72a465cf6e6dd8a56fcf77fe0fd6526572494f3d3f93"
+    },
+    {
+      "Beam": "lib\\et-1.8\\ebin\\et_viewer.beam",
+      "BeamSha256": "7dc3065baa3771126380e0fcd0c7e73034af9e489591abf9ebaf59b3c241115d",
+      "Source": "lib\\et-1.8\\src\\et_viewer.erl",
+      "SourceSha256": "ea2d2527daf655ce109f050c9a485f6cda15624b852799be6db0153219826903"
+    },
+    {
+      "Beam": "lib\\et-1.8\\ebin\\et_wx_contents_viewer.beam",
+      "BeamSha256": "493f0eba4d5b253c2608c88fc737cea935475fc812e63ad17d6fbf778ea8e4cf",
+      "Source": "lib\\et-1.8\\src\\et_wx_contents_viewer.erl",
+      "SourceSha256": "54acc34ee195f3473f172eb0e7a35b2a687eb347ee0a0198a251b1f8f208e42c"
+    },
+    {
+      "Beam": "lib\\et-1.8\\ebin\\et_wx_viewer.beam",
+      "BeamSha256": "036cf69a76629e067e859c761ad4c236fdcdfe9fc885ef20558b9bfee7f629b9",
+      "Source": "lib\\et-1.8\\src\\et_wx_viewer.erl",
+      "SourceSha256": "7a5b110003d8778a096ab99e159371465e809b70f7461b47b3cdcb64980aae32"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\cdv_atom_cb.beam",
+      "BeamSha256": "c84a0b7d5e3fb77c9df99649fcc194120d057c1e00654b70554bd608de5073de",
+      "Source": "lib\\observer-2.19\\src\\cdv_atom_cb.erl",
+      "SourceSha256": "e438740bddc01518889dbb527e377cec12e477a97539ea6f4698800bf2226a2e"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\cdv_bin_cb.beam",
+      "BeamSha256": "361fc8d3af7a55d57106d2a3be7e9fadc77d8a4580462897fa6ed5474e778c3d",
+      "Source": "lib\\observer-2.19\\src\\cdv_bin_cb.erl",
+      "SourceSha256": "df7363e4bbbf1c0b0cf81aff0ea1c9a18e7c0cf5f862fb5c077fd663880d0f95"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\cdv_detail_wx.beam",
+      "BeamSha256": "0286b864de73a7c7cea394a38d5faf5ab464d54706a6699db277e9825e4110ad",
+      "Source": "lib\\observer-2.19\\src\\cdv_detail_wx.erl",
+      "SourceSha256": "9981bd543bf6851aac464ea8b224fa7bf840ecf8a39dfd7d2e52a2b28738210a"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\cdv_dist_cb.beam",
+      "BeamSha256": "9fa448739e82bde8304add83d3136e492a41bbf81d620501dd3494cdf1285db6",
+      "Source": "lib\\observer-2.19\\src\\cdv_dist_cb.erl",
+      "SourceSha256": "c37e27f289101a75996f1f66352d239febc61d2a2a70da5c4db743b5ebde53eb"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\cdv_ets_cb.beam",
+      "BeamSha256": "bd922a34253b1ce2f7fef3750ed6422ec8d063d29e5862018d1a9224017ffdb5",
+      "Source": "lib\\observer-2.19\\src\\cdv_ets_cb.erl",
+      "SourceSha256": "8ff433e0804c2ebf45307e5a73f48eeffa1dbfd3decd95475622b4b66b32ba82"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\cdv_fun_cb.beam",
+      "BeamSha256": "0e31f3e56b6c3ce77f1dc46161921b2f2958214bcd0fef593934defcf8c3c66d",
+      "Source": "lib\\observer-2.19\\src\\cdv_fun_cb.erl",
+      "SourceSha256": "f30f3c1412289132215b74a72bcd1c25f8536c0a9ec6b510b55511dd75dc0cb3"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\cdv_gen_cb.beam",
+      "BeamSha256": "2a581a764cdac87d91d3f337585a57df5321cf34904baa9c86a212c773c05447",
+      "Source": "lib\\observer-2.19\\src\\cdv_gen_cb.erl",
+      "SourceSha256": "e817042949d8875ae1f7409af0d0407964149c6fd1f4f5eb1673ba1f8b6fcf67"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\cdv_html_wx.beam",
+      "BeamSha256": "19c6f8e23a3a5c55cb445a29a87be9e6172dd13e4e80504d6be16f6889c290a3",
+      "Source": "lib\\observer-2.19\\src\\cdv_html_wx.erl",
+      "SourceSha256": "b1c3740e2bc65902e7b595078651aaca42a5dc30954fc450d7d3c964175931ea"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\cdv_info_wx.beam",
+      "BeamSha256": "9d3d1fbb05f7603a7182462d60f6c7c0e2e86f21fd3c676a8c90f6335e5920c5",
+      "Source": "lib\\observer-2.19\\src\\cdv_info_wx.erl",
+      "SourceSha256": "964a68835d94c70b1659aa85a474ba046c6861cf6ba5fa8097a49ba9e49eb7a4"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\cdv_int_tab_cb.beam",
+      "BeamSha256": "2cc9e7c1300a13c9ac3c9cec9f2f823e577858b1791c88e05699cd8de328af44",
+      "Source": "lib\\observer-2.19\\src\\cdv_int_tab_cb.erl",
+      "SourceSha256": "59b848b329b1f5a6569f222632d75fff9f5189e6bd7adcea632a1c94cd83a783"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\cdv_mem_cb.beam",
+      "BeamSha256": "aa709cc8cc266c567f7efbe2805de82dae03e27c783c1c6f8f98d461c23f159e",
+      "Source": "lib\\observer-2.19\\src\\cdv_mem_cb.erl",
+      "SourceSha256": "1012a7750a58a64f9d68e0d070f79198f806476106d31725a205a8fd100bb4cc"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\cdv_mod_cb.beam",
+      "BeamSha256": "079a9eb34dcf8f0e49c973e7f6c5607a8709571595ef25c79e181b6d036a2458",
+      "Source": "lib\\observer-2.19\\src\\cdv_mod_cb.erl",
+      "SourceSha256": "96138852891eeccba9fe85f211d98064c27d095f4f6623076d9100344de0708a"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\cdv_multi_wx.beam",
+      "BeamSha256": "ddba426add086da89e3f666ae4aa1f2d0dff8a9a4258b5a377c530a913f93216",
+      "Source": "lib\\observer-2.19\\src\\cdv_multi_wx.erl",
+      "SourceSha256": "11b00d83a09fc5ccda3a0533db06f936ec5c86b7e69532672dff1f85e6497b57"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\cdv_persistent_cb.beam",
+      "BeamSha256": "0e37bca9691966c626f61fed4c5f703bdc1289c1ae37e7fb62abdacb5a465dfa",
+      "Source": "lib\\observer-2.19\\src\\cdv_persistent_cb.erl",
+      "SourceSha256": "1c72c5da76e375abb2d33922e06ba764cfa87bbb0444cb66e9e427eccefb2ce8"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\cdv_port_cb.beam",
+      "BeamSha256": "059f55da62388578dee6041f0033dbad46ab5856914f83496fd32aa1608924f9",
+      "Source": "lib\\observer-2.19\\src\\cdv_port_cb.erl",
+      "SourceSha256": "fd6be1f4e83c9ae8e21ba276e496c46234b58002b838d4a30a2885f0cad49b3a"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\cdv_proc_cb.beam",
+      "BeamSha256": "5c8d28ca28c46e0b70dceccf05247e41c571ce8d6ba55a37d3d02adc8b8d713a",
+      "Source": "lib\\observer-2.19\\src\\cdv_proc_cb.erl",
+      "SourceSha256": "57af0daf5f3f6344d9345fbb4595001c340abbfc7f5cdb2686fd5286ca5dd7f6"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\cdv_sched_cb.beam",
+      "BeamSha256": "d75f80fe3fbd604db8c32cbf9f9b29eb75aac0e426a345a119e73d311f0c308c",
+      "Source": "lib\\observer-2.19\\src\\cdv_sched_cb.erl",
+      "SourceSha256": "ecba280bbf53456ef5a7b0d96677a9b23c6c4ef385f320abcbfc254180879f5a"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\cdv_table_wx.beam",
+      "BeamSha256": "3f7ab95e34621db65d1c88e47ea0d62d6f012556de85af9a8656bff7a69aa1bd",
+      "Source": "lib\\observer-2.19\\src\\cdv_table_wx.erl",
+      "SourceSha256": "94639a12724b6ca789c29d9da85b74419bb2ac3fee1552703a1bc80197221f79"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\cdv_term_cb.beam",
+      "BeamSha256": "02c52b80bc483c35c1790fbf6d5ad48c407b213aa1dc05d965920889576c133e",
+      "Source": "lib\\observer-2.19\\src\\cdv_term_cb.erl",
+      "SourceSha256": "e577e85985dec8f451f52c5977bc988988ac7d501bb4983cd414f4a151d3e473"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\cdv_timer_cb.beam",
+      "BeamSha256": "14328e3e62465a0bda4ec0e9cdbfa6cf5ffd860012748ab561374ffb6a2c6d4c",
+      "Source": "lib\\observer-2.19\\src\\cdv_timer_cb.erl",
+      "SourceSha256": "1c759cbddec5ed8afbedb5e04ca7eb60aa8ad91d904031252313ddd7bd3da01f"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\cdv_virtual_list_wx.beam",
+      "BeamSha256": "aabe4b878009fe18d5a300755caad907ed91561924e5316a152c64f1e1b9d0bb",
+      "Source": "lib\\observer-2.19\\src\\cdv_virtual_list_wx.erl",
+      "SourceSha256": "a786b804ab7951dc09ed2f658437548d77fee6d647108320b21fd411a579a634"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\cdv_wx.beam",
+      "BeamSha256": "5ed8f98aa4603ab54486a55df9a278319ed0ff294ac872bda031c3c8d64ff611",
+      "Source": "lib\\observer-2.19\\src\\cdv_wx.erl",
+      "SourceSha256": "96ddfac1600f3bde1ffb34ec279bec257c811a93d571483570b427a26197b868"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\crashdump_viewer.beam",
+      "BeamSha256": "e04ffe776d5366a9a27311ed357cae5341f1fe6745f9a53905e76d1ef27383c5",
+      "Source": "lib\\observer-2.19\\src\\crashdump_viewer.erl",
+      "SourceSha256": "fa1a0e1c225d6c8337ddc2cdaa2fdc5d9172332efba447bf41fed9f389f4ec38"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\etop.beam",
+      "BeamSha256": "4982643cc3bbcc395f4b0577b39606ce31f03c0faf92addf5f120915b716ae6b",
+      "Source": "lib\\observer-2.19\\src\\etop.erl",
+      "SourceSha256": "1d5341e4cc73a989b800d2dcd5eaf464c37a79b4b5ff0d7a09c958b2ee11256a"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\etop_tr.beam",
+      "BeamSha256": "454dc6de72aa990245a19bf0dcfd1c961820deeed9121c5e02777bfd1d12b02b",
+      "Source": "lib\\observer-2.19\\src\\etop_tr.erl",
+      "SourceSha256": "de042ec0f94167e6e48a736ab9cf3c5dd9a0d4359ba7c633608bce030b89706b"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\etop_txt.beam",
+      "BeamSha256": "e72ef7696a29d016a7ed35f23d766b3131f13da5c8de8f7b0fff4d00ffa9913f",
+      "Source": "lib\\observer-2.19\\src\\etop_txt.erl",
+      "SourceSha256": "cdae0a2ebd6b4d6f259ea780cd51d0a495fc55f5ddf380acb65a9a9db3e02f3c"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\observer.beam",
+      "BeamSha256": "9369ef88e9f9051bf602720b5f854ebfdd2b8431943bd7c7f9139cbda7ec2a08",
+      "Source": "lib\\observer-2.19\\src\\observer.erl",
+      "SourceSha256": "7cd3c7f91af478fd4a7e773fc0a565e86ff055d3941974c15737ed3d950153ae"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\observer_alloc_wx.beam",
+      "BeamSha256": "638f0f292c88ba867cf5663316df39c5d16148c8277d499c2303a518a2a43a46",
+      "Source": "lib\\observer-2.19\\src\\observer_alloc_wx.erl",
+      "SourceSha256": "09d57acca25ea1b49cf2f3b53d14333c8324047bc9d9f4ccf38001d0986ea0ce"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\observer_app_wx.beam",
+      "BeamSha256": "6a01d2bf9fd4b0f8be2331eeb81ba1b952e99d8d4dced380f46d6187fd1d9301",
+      "Source": "lib\\observer-2.19\\src\\observer_app_wx.erl",
+      "SourceSha256": "a674bf44a2b84e0aff4499627fbe263c131da39d3ae1adcd6af252ef45898b7c"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\observer_html_lib.beam",
+      "BeamSha256": "02d1a1f415906d3f9e03cd5b95656768f814898396a6502ce32cc2ebe2be3a9f",
+      "Source": "lib\\observer-2.19\\src\\observer_html_lib.erl",
+      "SourceSha256": "2ff4a6ac99fb0a220450ba33d13cc85f13bd1738664d662cd405fd33549f3172"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\observer_lib.beam",
+      "BeamSha256": "35cfce54ddc1469a7ec3cbc64595110f637bcafe498235edcbade9a2ab68c92c",
+      "Source": "lib\\observer-2.19\\src\\observer_lib.erl",
+      "SourceSha256": "5efc413d3d28f7ec566f5cfc6774471ab3b90df40086f9f7a90e7d13ccd78bc7"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\observer_perf_wx.beam",
+      "BeamSha256": "8b74e0e18e003c06dadfcdfe50d8395f2b3721feb903eff0a3d2c446faf9d9dd",
+      "Source": "lib\\observer-2.19\\src\\observer_perf_wx.erl",
+      "SourceSha256": "5ca346350fc7a48eb46be30454045505eb7a8f4bd7752a149dac89efb9fa8d70"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\observer_port_wx.beam",
+      "BeamSha256": "3716419f3cc85f1cfa4b02abc340e2b72624682ce63660168046123b69341321",
+      "Source": "lib\\observer-2.19\\src\\observer_port_wx.erl",
+      "SourceSha256": "78cbba6edb795868db8d69154f13fe9e67a00e1d23d2b42f51a86564c941ab27"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\observer_pro_wx.beam",
+      "BeamSha256": "567ec8e634bfd40e9ab01b5d179878e5102869783e1c49e82806237a716bed96",
+      "Source": "lib\\observer-2.19\\src\\observer_pro_wx.erl",
+      "SourceSha256": "3fbad60d6f9825783506bbeca410f2fa8ed20755cef017b11858f908354e4ccc"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\observer_procinfo.beam",
+      "BeamSha256": "5c452b00450135b472c9a4e3877a979c8f4772f671392b8064d16924128a271d",
+      "Source": "lib\\observer-2.19\\src\\observer_procinfo.erl",
+      "SourceSha256": "f8ce4cb572cc015c266f95a0b55fbf2a7937140e7046334c44725f7563ab2e39"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\observer_sock_wx.beam",
+      "BeamSha256": "b5759b693b7941dd4cbb3ceef8c45b24350a9f38605e8cb53156ec12bd5c98a6",
+      "Source": "lib\\observer-2.19\\src\\observer_sock_wx.erl",
+      "SourceSha256": "0fb3eaad0a49cd86e25de9ae61a7121b5babeec0bb06fe1c6ae4e486888a9cb5"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\observer_sys_wx.beam",
+      "BeamSha256": "16b8b16d7ea557dbf4018f5d196c026371ca5ad8c344690a9222547cb9cb00ad",
+      "Source": "lib\\observer-2.19\\src\\observer_sys_wx.erl",
+      "SourceSha256": "d620784b22de30b8bd795c8692653e56f72f7fea0afb46de10ac215049b45081"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\observer_trace_wx.beam",
+      "BeamSha256": "bbaced250a1688003be7d6f96c659e2615a32f90d8418f8043cb4f2a0d5f5f7e",
+      "Source": "lib\\observer-2.19\\src\\observer_trace_wx.erl",
+      "SourceSha256": "af639a6867b80fbfefd4a0a5f700e1ca7ed7a279009f0cc485a97d7a7909c3b5"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\observer_traceoptions_wx.beam",
+      "BeamSha256": "9ff80830fbdfbb138babb405668e1a909ee143ef3e9c056727d1eecd65e53be3",
+      "Source": "lib\\observer-2.19\\src\\observer_traceoptions_wx.erl",
+      "SourceSha256": "1f71cb4378ae5a81c5b24b234230ef2b9092fe1b0d03890085d6db4cb12e2bd4"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\observer_tv_table.beam",
+      "BeamSha256": "7f96c209ed889224a6347932dcdf4753887fb63bf7921b9bc45fbe4da7deb80a",
+      "Source": "lib\\observer-2.19\\src\\observer_tv_table.erl",
+      "SourceSha256": "67f9a775ecceaddcbd23e5b8551d198fd225cabf3c62c35b1858be5bacd53ca2"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\observer_tv_wx.beam",
+      "BeamSha256": "34de7ab7426846d68c9eab0e2f5f01418ed93f03762206cd74847dcf752c0328",
+      "Source": "lib\\observer-2.19\\src\\observer_tv_wx.erl",
+      "SourceSha256": "daaebb7bbca7b38a8436816f87f56da826735b83fdb7742605d827ee038533cd"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\observer_wx.beam",
+      "BeamSha256": "ee5da51702b973aef817c2b84b0da93970c4128d84542a63f7962f41cacfe0eb",
+      "Source": "lib\\observer-2.19\\src\\observer_wx.erl",
+      "SourceSha256": "70f9288461564f8eff7be0fd69b003a3bd2a685a8cb0d1258018ac285366257e"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\ttb.beam",
+      "BeamSha256": "0ce539d32dac8bd1c301d7cfaeb6621bf6687262fb252a77a6eec9d2ae652ffa",
+      "Source": "lib\\observer-2.19\\src\\ttb.erl",
+      "SourceSha256": "280de5b34e1e6412702d4f1a057b5e5d6d6ef706ca7bcfd96dfa4e9ed8489601"
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\ttb_et.beam",
+      "BeamSha256": "1ef6bcf229c98d6b4e3649c6873232792e764e34a2f3cd2d8f9718b1cdace236",
+      "Source": "lib\\observer-2.19\\src\\ttb_et.erl",
+      "SourceSha256": "39d6c41a4cc7cb0eb4a66a90eb5f07e1ef6842f143e6a944061ae129834e1118"
+    },
+    {
+      "Beam": "lib\\reltool-1.1\\ebin\\reltool.beam",
+      "BeamSha256": "d02d42c6a4379ce9ac4c20c40b778640fc0af13ba9f5ae565fd115df64227ff4",
+      "Source": "lib\\reltool-1.1\\src\\reltool.erl",
+      "SourceSha256": "122551b4c1d4b58312d157f953e221f47545a6e311a5b1028613d7d2cc5a026c"
+    },
+    {
+      "Beam": "lib\\reltool-1.1\\ebin\\reltool_app_win.beam",
+      "BeamSha256": "2d6307fbb2260d657dda8f8fe182c438029bebd77350187663179eb9087f5f8d",
+      "Source": "lib\\reltool-1.1\\src\\reltool_app_win.erl",
+      "SourceSha256": "c4de3b2d2524215e73f5d592d92d23acc5173285e605f47d8d0588654aa51dfb"
+    },
+    {
+      "Beam": "lib\\reltool-1.1\\ebin\\reltool_fgraph.beam",
+      "BeamSha256": "19fa2cc7fa7f9b7aaeca2f3d48a9cd9569b154759281d31bd0c8dd2047eb7b2f",
+      "Source": "lib\\reltool-1.1\\src\\reltool_fgraph.erl",
+      "SourceSha256": "225777ceada7a069565f23320bb164981750dec91a198ee72a8958a9481685b8"
+    },
+    {
+      "Beam": "lib\\reltool-1.1\\ebin\\reltool_fgraph_win.beam",
+      "BeamSha256": "9b9043ee2c036484496d8de676cb5a853f8ef99121d3180b291ba98d55cf0aea",
+      "Source": "lib\\reltool-1.1\\src\\reltool_fgraph_win.erl",
+      "SourceSha256": "4ee7ea90edf8a607e3799c95005668144085f8cbd0ed07c7a734e2edb73b8f35"
+    },
+    {
+      "Beam": "lib\\reltool-1.1\\ebin\\reltool_mod_win.beam",
+      "BeamSha256": "13ebbf35d050ba54450d9ec6b39cd258bd110a1c7dd8d51bc5835c7b5edd1319",
+      "Source": "lib\\reltool-1.1\\src\\reltool_mod_win.erl",
+      "SourceSha256": "1987d834849a30ac9dee107c01d35c1f8b2026363a24b5715eb291e5e43ee714"
+    },
+    {
+      "Beam": "lib\\reltool-1.1\\ebin\\reltool_server.beam",
+      "BeamSha256": "9b7095e7ba09bb82c6d1d3239d60139592bf3f93cf7bad95c19a11ed8adddb1f",
+      "Source": "lib\\reltool-1.1\\src\\reltool_server.erl",
+      "SourceSha256": "74fa37d74603127634211ced02688d2e818ffddd74a33224e470b4fe61fa16a6"
+    },
+    {
+      "Beam": "lib\\reltool-1.1\\ebin\\reltool_sys_win.beam",
+      "BeamSha256": "02fd3b47dd9e13338d7feb9dfc8e4bfab781f28d497ca27d503be4bcde9e1422",
+      "Source": "lib\\reltool-1.1\\src\\reltool_sys_win.erl",
+      "SourceSha256": "4ab6d3e1f78f1fc71b2a3e080c3ed5febc6538d251ca35c17f31daf01f5cd600"
+    },
+    {
+      "Beam": "lib\\reltool-1.1\\ebin\\reltool_target.beam",
+      "BeamSha256": "5f05da9bf1c31e99c677f4c2635b038c8b757345b760686d379bd3622ee09961",
+      "Source": "lib\\reltool-1.1\\src\\reltool_target.erl",
+      "SourceSha256": "8adcb0703c306d778fdbe718609ec6ce079aaa547eb2cfe780a50d6492a2b3c2"
+    },
+    {
+      "Beam": "lib\\reltool-1.1\\ebin\\reltool_utils.beam",
+      "BeamSha256": "25d2bd540de08fcf9e7eedf2259e8a0c99f68d2a5dd3a27e199c954835ce12ce",
+      "Source": "lib\\reltool-1.1\\src\\reltool_utils.erl",
+      "SourceSha256": "40975c33bec99947b8dae706eb441d9e4625c659b338ead8d0cb5738003f2dcf"
+    }
+  ]
+}

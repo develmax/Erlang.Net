@@ -1,0 +1,34 @@
+Error! Failed to eval: [Pairs]=init:get_plain_arguments(),
+{ok,Content}=file:read_file(Pairs),
+Rows=[string:split(binary_to_list(L),"\t",all) ||
+      L<-binary:split(Content,<<10>>,[global,trim_all])],
+Run=fun(Path,Mod,Version)->
+  _=code:delete(Mod),
+  _=code:purge(Mod),
+  {module,Mod}=code:load_abs(filename:rootname(filename:absname(Path))),
+  Message=fun(Mid)->{'MegacoMessage',asn1_NOVALUE,{'Message',Version,Mid,{transactions,[]}}} end,
+  Good=[Message({deviceName,"node"}),Message({ip4Address,{'IP4Address',[127,0,0,1],asn1_NOVALUE}})],
+  Values=[Mod:tr_message(Input,verify,[verify]) || Input<-Good],
+  Observe=fun(Mid)->
+    try Mod:tr_message(Message(Mid),verify,[verify]) of
+      V -> erlang:error({unexpected_success,V})
+    catch error:Reason:Trace ->
+      {Reason,[{M,F,N}||{M,F,N,_}<-Trace,M=:=Mod]}
+    end
+  end,
+  {Values,Observe({ip6Address,unsupported}),Observe({unknown,invalid})}
+end,
+[begin
+    {match,[V]}=re:run(Rel,"transformer_v([123])\\.beam",[{capture,[1],list}]),
+    Version=list_to_integer(V),
+    Mod=list_to_atom("megaco_binary_transformer_v"++V),
+    R=Run(Ref,Mod,Version), B=Run(Before,Mod,Version), C=Run(After,Mod,Version),
+    erlang:display({Mod,R,B,C}),
+    Fingerprint=fun({Values,{Reject,IPv6},{Unknown,Case}})-> {Values,Reject,lists:keymember(tr_MId,2,IPv6),Unknown,lists:keymember(tr_MId,2,Case)} end, Expected=Fingerprint(R), Expected=Fingerprint(C)
+ end || [Rel,Ref,Before,After] <- Rows],
+halt(0).
+
+
+Runtime terminating during boot ({{badmatch,[]},[{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,796}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{init,start_it,1,[{file,"init.erl"},{line,1561}]},{init,start_em,1,[{file,"init.erl"},{line,1546}]},{init,do_boot,3,[{file,"init.erl"},{line,1217}]}]})
+
+Crash dump is being written to: D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\local-1855-tail-case-construction\runs\worker-first/release-native.dump...done

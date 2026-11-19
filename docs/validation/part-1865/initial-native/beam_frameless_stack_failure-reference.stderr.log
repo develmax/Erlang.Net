@@ -1,0 +1,5 @@
+Error! Failed to eval: [P]=init:get_plain_arguments(),M=beam_frameless_stack_failure,{module,M}=code:load_abs(filename:rootname(P)),put(key,old),{old,keep,undefined}=M:run({ignored,key,new},keep),new=get(key),old=get(next),Wrong={wrong,arity},try M:run(Wrong,keep) of V->error({unexpected,V}) catch error:{badmatch,Wrong}:[{M,run,2,_}|_]->ok end,io:format("frameless failure value and stack passed~n"),halt().
+
+Runtime terminating during boot ({{badmatch,{error,{1,erl_parse,["syntax error before: ","'['"]}}},[{init,start_it,1,[{file,"init.erl"},{line,1560}]},{init,start_em,1,[{file,"init.erl"},{line,1546}]},{init,do_boot,3,[{file,"init.erl"},{line,1217}]}]})
+
+Crash dump is being written to: D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\early-entry-argument-ownership-1865\native-fixtures/beam_frameless_stack_failure-reference.dump...done

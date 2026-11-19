@@ -1,0 +1,17 @@
+{"Partial":true,"SelectedCount":9,"TotalCount":9806}
+PASS compiler/beam/fresh-reference-receive-marker
+PASS compiler/beam/hoists-heap-before-checked-tuple-reads-with-proven-roots
+PASS compiler/beam/flat-tuple-list-generator-constructs-after-recursion
+PASS compiler/beam/retains-entry-tuple-across-producer
+PASS compiler/beam/checks-an-arity-arm-tag-before-its-frame
+PASS compiler/beam/promotes-interior-projection-before-first-call
+PASS compiler/beam/tagged-list-generator-keeps-matched-tuple
+FAIL compiler/beam/keyfind-result-typed-tuple-test: System.NotSupportedException: BEAM source mapping does not support the -compile attribute.
+   at Erlang.Compiler.BeamSourceForms.FunctionLines(IReadOnlyList`1 tokens, ModuleDefinition module) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\src\Compiler\Erlang.Compiler\Compilation\BeamSourceForms.cs:line 36
+   at Erlang.Compiler.CodeGeneration.CompileBeamModule(String sourcePath, BeamMacroPreprocessor preprocessor, BeamReleaseBuildProfile buildProfile) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\src\Compiler\Erlang.Compiler\Compilation\CodeGeneration.cs:line 209
+   at Erlang.Compiler.CodeGeneration.CompileBeamModule(String source, String sourcePath) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\src\Compiler\Erlang.Compiler\Compilation\CodeGeneration.cs:line 159
+   at Erlang.Tests.BeamKeyFindTupleTypeChecks.Compile(String source) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Compiler\Beam\BeamKeyFindTupleTypeChecks.cs:line 52
+   at Erlang.Tests.BeamKeyFindTupleTypeChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Compiler\Beam\BeamKeyFindTupleTypeChecks.cs:line 33
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Harness\Program.cs:line 16411
+PASS compiler/beam/tuple-list-generator-checks-before-recursing
+8/9 passed

@@ -53,13 +53,14 @@ internal sealed partial class BeamModuleCompiler(
             ? BehaviourInfoLabels - (callbacks.Callbacks.Equals(callbacks.Optional) ? 1 : 0)
             : 0;
         exportedFunctions = publicFunctions;
-        functions = functions.Select(FoldLiteralAtomConversions).ToArray();
+        functions = functions.Select(FoldLiteralAtomConversions).Select(FoldUnusedTupleBindings).Select(FoldBinaryMatchTupleBindings).ToArray();
         functions = PropagateLocalConstantArguments(functions);
         (functions, sourceLines) = ExtractClosedComprehensions(functions, sourceLines);
         using var code = instructions;
         var localEntries = new Dictionary<(string Name, int Arity), int>();
         var reachable = new HashSet<(string Name, int Arity)>();
         var byName = functions.ToDictionary(function => (function.Name, function.Arity));
+        properListSourceFunctions = byName;
         foreach (var function in functions)
         {
             if (ReadChoiceSearch(function.Clauses) is { } search && search.Recur.Function == function.Name)
@@ -1056,6 +1057,12 @@ internal sealed partial class BeamModuleCompiler(
         code = FoldInitialFrameTrims(code, labelCount) ?? code;
         code = TrimStackBetweenCalls(code, labelCount) ?? code;
         code = RemoveRepeatedLines(code);
+        code = SpecializeProvenListMatchFailures(code, labelCount) ?? code;
+        code = AnnotateAdjacentNumericResults(
+            code,
+            labelCount,
+            ReadLocalResultEntries(functions, localEntries)
+        ) ?? code;
         Word(output, CodeHeaderSize);
         Word(output, BeamWire.FormatVersion);
         Word(output, highestOpcode);
@@ -1141,6 +1148,13 @@ internal sealed partial class BeamModuleCompiler(
 
     private void Operand(int tag, BigInteger value)
     {
+        if (tag == BeamWire.IntegerTag)
+        {
+            WriteIntegerOperand(instructions, value);
+
+            return;
+        }
+
         if (tag == LabelTag && value < 0)
         {
             deferredLabelOperands.Add((checked((int)instructions.Position), (int)value));

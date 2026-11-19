@@ -1,0 +1,6 @@
+{"Partial":true,"SelectedCount":1,"TotalCount":9814}
+FAIL compiler/beam/whole-module-matches-otp: System.InvalidOperationException: Expected slot reuse after the tuple test and a badmatch exit without a frame.
+   at Erlang.Tests.BeamModuleEmissionChecks.CompareStackSlotsWithFramelessFailure() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Compiler\Beam\BeamModuleEmissionChecks.cs:line 813
+   at Erlang.Tests.BeamModuleEmissionChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Compiler\Beam\BeamModuleEmissionChecks.cs:line 369
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Harness\Program.cs:line 16422
+0/1 passed

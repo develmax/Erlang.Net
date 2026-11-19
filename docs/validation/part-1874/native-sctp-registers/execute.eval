@@ -1,0 +1,26 @@
+{ok,fixture_record_dep,Dependency} = compile:file("fixture_record_dep.erl",[binary]),
+{module,fixture_record_dep} = code:load_binary(fixture_record_dep,"fixture_record_dep.erl",Dependency),
+Inputs = [
+ {four,[{selected,[{item,{data,a,b,c,d}}]},b0,c0,d0]},
+ {four,[{selected,[{item,{data,a,b,c,d}},extra]},b0,c0,d0]},
+ {four,[{selected,[{item,{data,a,b,c,d}}|improper]},b0,c0,d0]},
+ {four,[{selected,[{unexpected,{data,a,b,c,d}}]},b0,c0,d0]},
+ {four,[{selected,[{item,{wrong,a,b,c,d}}]},b0,c0,d0]},
+ {four,[{unrecognized,[{item,{data,a,b,c,d}}]},b0,c0,d0]},
+ {three,[{selected,[{item,{data,a,b,c}}]},b0,c0]},
+ {two,[{selected,[{item,{data,a,b}}]},b0,c0]},
+ {permuted,[{selected,[{item,{data,a,b}}]},b0,c0]},
+ {one,[{selected,[{item,{data,a}}]},b0,c0]},
+ {alias_fallback,[unrecognized,b0,c0]}
+],
+Check = fun(Path) ->
+  {ok,Image} = file:read_file(Path),
+  {module,singleton_record_tail} = code:load_binary(singleton_record_tail,Path,Image),
+  Results = [apply(singleton_record_tail,Name,Args) || {Name,Args} <- Inputs],
+  true = code:delete(singleton_record_tail),
+  _ = code:purge(singleton_record_tail),
+  Results
+end,
+Results = Check("singleton_record_tail.beam"),
+Results = Check("managed.beam"),
+io:format("~0p~n",[{passed,length(Results),Results}]),halt().

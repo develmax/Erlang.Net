@@ -19,4 +19,12 @@ public sealed record BeamReleaseBuildProfile(
     IReadOnlyDictionary<string, Term>? PreprocessorDefinitions = null,
     bool AllowIncompleteAbstractCode = false,
     bool EmitDocumentation = true
-);
+)
+{
+    public BeamIncludePathMap? IncludePathMap { get; init; }
+
+    public IReadOnlyDictionary<string, string>? RecordedIncludeLibraryRoots { get; init; }
+
+    /// <summary>Logical build paths keyed by the index of the supplied physical include directory.</summary>
+    public IReadOnlyDictionary<int, string>? RecordedIncludeSearchDirectories { get; init; }
+}

@@ -197,17 +197,38 @@ internal sealed partial class BeamModuleCompiler
         bool discarded
     )
     {
+        bool simpleElement = !independent && !discarded && SsaTypeInferenceEnabled
+            && comprehension is
+            {
+                Items: [var body],
+                Qualifiers: [ComprehensionQualifier.Generator
+                {
+                    Strict: false, Pattern: Pattern.Variable variable, Source: Expr.Variable
+                }]
+            }
+            && (ReadConditionalListElement(body, variable.Name) is not null
+                || ReadFlatTupleListElement(body, variable.Name) is not null);
+
         if (comprehension is not
             {
                 Items: [var mapped], Qualifiers: [ComprehensionQualifier.Generator
-                { Strict: false, Pattern: var item, Source: var source } generator, ..]
+                { Pattern: var item, Source: var source } generator, ..]
             }
             || comprehension.Qualifiers is not ([_] or [_, ComprehensionQualifier.Filter])
+            || generator.Strict && (independent || discarded || comprehension.Qualifiers.Count != 1
+                || item is not (Pattern.Variable or Pattern.Tuple)
+                || LocalFunctionEntries.Walk(parentClause.Body).Any(expression =>
+                    expression is Expr.Try or Expr.Receive or Expr.Maybe
+                    or Expr.BinaryComprehension or Expr.MapComprehension))
             || source is not (Expr.Variable or Expr.Call { DynamicRemote: false })
-            || !(item is Pattern.Variable && (independent || comprehension.Qualifiers.Count == 2
+                && !(source is Expr.RecordAccess { Value: Expr.Variable } && SsaTypeInferenceEnabled && !discarded
+                    && comprehension.Qualifiers.Count == 1 && ReadTupleListProjection(item, mapped) is not null)
+            || !(item is Pattern.Variable && (generator.Strict || simpleElement || independent || comprehension.Qualifiers.Count == 2
                     || source is Expr.Call
                     || mapped is Expr.Call { DynamicRemote: false } or Expr.Apply { Function: Expr.Variable })
-                || item is Pattern.Tuple && IsRecursiveListPattern(item)))
+                || item is Pattern.Tuple && IsRecursiveListPattern(item)
+                || item is AliasPattern && SsaTypeInferenceEnabled && !discarded
+                    && comprehension.Qualifiers.Count == 1 && ReadTupleListProjection(item, mapped) is not null))
         {
             return null;
         }
@@ -217,7 +238,7 @@ internal sealed partial class BeamModuleCompiler
         var output = LocalFunctionEntries.Walk(mapped)
             .Concat(filter is null ? [] : LocalFunctionEntries.Walk(filter)).ToArray();
         // The source stays in the parent and runs once, before the helper can bind a generator pattern.
-        if (!output.All(CanUseExpression) || !LocalFunctionEntries.Walk(source).All(CanUseExpression))
+        if (!simpleElement && !output.All(CanUseExpression) || !LocalFunctionEntries.Walk(source).All(CanUseExpression))
         {
             return null;
         }
@@ -247,6 +268,9 @@ internal sealed partial class BeamModuleCompiler
             SourceLine = line,
             PreprocessorFile = helperLocation.File
         };
+        BeamSourceLocation? invalidSource = generator.Strict
+            ? source is Expr.Call producer ? CallLocation(producer, helperLocation) : helperLocation
+            : null;
         var helper = BuildRecursiveMapping(
             helperName,
             item,
@@ -254,9 +278,14 @@ internal sealed partial class BeamModuleCompiler
             captures.Select(name => new Pattern.Variable(name)).ToArray(),
             properInput: IsProperListGeneratorCall(source),
             filter: filter is null ? null : (filter, ComprehensionGuard.IsTest(filter, sourceModule)),
-            discardResult: discarded
+            discardResult: discarded,
+            strictGeneratorLocation: generator.Strict ? helperLocation : null,
+            invalidSourceLocation: invalidSource
         ) with
-        { IsRecursiveListMapper = true };
+        {
+            IsRecursiveListMapper = true,
+            IsStrictRecursiveListMapper = generator.Strict
+        };
 
         return (recursiveCall, helper, helperLocation);
 
@@ -363,8 +392,29 @@ internal sealed partial class BeamModuleCompiler
             }
             else
             {
-                owner.EmitMappingEnd(empty, Label());
+                BeamSourceLocation? invalid = function.IsStrictRecursiveListMapper
+                    && function.Clauses[^1].Body is Expr.Call badGenerator
+                    && CallLocation(badGenerator, location) is var badLocation && badLocation != location
+                    ? badLocation : null;
+                owner.EmitMappingEnd(empty, Label(), invalid);
             }
+        }
+
+        private void EmitRecursiveListMappingRejection(
+            FunctionDefinition function,
+            int entry,
+            int rejectedRegister
+        )
+        {
+            if (function.IsStrictRecursiveListMapper)
+            {
+                owner.EmitListMappingError(rejectedRegister + 1, rejectedRegister, ErlangErrorReasons.BadMatch);
+
+                return;
+            }
+
+            owner.Op(TailLocalCall, BeamWire.UnsignedTag, function.Arity);
+            owner.Operand(LabelTag, entry);
         }
 
         private bool TryEmitCapturedListMapping(FunctionDefinition function)

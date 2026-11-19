@@ -216,6 +216,38 @@ BeamCorpusResult Compare(string beam)
     {
         string library = Path.Combine(root, "lib");
         string application = Application(beam);
+        var profile = OtpWindowsReleaseProfiles.FindForSource(application, relativeSource);
+        if (profile is not null)
+        {
+            var includePaths = OtpWindowsSnmpIncludePaths.Find(
+                library,
+                application,
+                source,
+                profile
+            ) ?? OtpWindowsInetsIncludePaths.Find(
+                library,
+                application,
+                source,
+                profile,
+                sourceHeaders
+            ) ?? OtpWindowsCoreIncludePaths.Find(
+                library,
+                application,
+                source,
+                profile,
+                sourceHeaders
+            ) ?? OtpWindowsInTreeLibraryIncludePaths.Find(
+                library,
+                application,
+                source,
+                profile,
+                sourceHeaders
+            );
+            if (includePaths is not null)
+            {
+                profile = profile with { IncludePathMap = includePaths };
+            }
+        }
         generated = CodeGeneration.CompileBeamFile(
             source,
             library,
@@ -225,7 +257,7 @@ BeamCorpusResult Compare(string beam)
                 publicKeyHeaders,
                 sourceHeaders
             ),
-            OtpWindowsReleaseProfiles.FindForSource(application, relativeSource)
+            profile
         );
     }
     catch (CompileException error)

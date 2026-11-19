@@ -1,0 +1,8 @@
+[Path, Prefix] = init:get_plain_arguments(),
+{ok, Bin} = file:read_file(Path),
+{module, beam_stack_heap_allocation} = code:load_binary(beam_stack_heap_allocation, Path, Bin),
+{module, other} = code:load_abs(Prefix),
+V = lists:duplicate(16000, {sample, <<1,2,3>>, #{data => value}}),
+{[V, #{b => 2}], #{b := 2}} = beam_stack_heap_allocation:run(V, #{b => 2}),
+{[left, right], right} = beam_stack_heap_allocation:run(left, right),
+io:format("~p~n", [matched]), halt().

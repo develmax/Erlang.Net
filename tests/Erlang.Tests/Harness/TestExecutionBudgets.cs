@@ -16,7 +16,7 @@ internal static class TestExecutionBudgets
             || name.StartsWith(UnicodeUtilBackendNames.Beam + "/", StringComparison.Ordinal) => UnicodeUtilBackendNames.CorpusDeadline,
         StringBackendNames.ManagedUnicodeTest => StringBackendNames.ManagedUnicodeDeadline,
         HaltSubprocessHostNames.Test => TimeSpan.FromSeconds(HaltSubprocessHostNames.OuterHostBudgetSeconds),
-        BeamLifecycleHostNames.DeepTest => BeamLifecycleHostNames.Deadline
+        BeamLifecycleHostNames.DeepTest or BeamLifecycleHostNames.AlternatingTest => BeamLifecycleHostNames.Deadline
             + TimeSpan.FromSeconds(TestExecutionBudgetNames.DeepPreparationAndCleanupSeconds),
         DebugDirtyOriginal424Names.Test => TimeSpan.FromSeconds(DebugDirtyOriginal424Names.OuterBudgetSeconds),
         HamtOriginal430Names.Test => TimeSpan.FromSeconds(HamtOriginal430Names.BudgetSeconds),

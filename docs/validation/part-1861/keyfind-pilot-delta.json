@@ -1,0 +1,3664 @@
+{
+  "status": "complete",
+  "selection": 32,
+  "candidate_compiler_sha256": "3ee978c7c6731d23af7830c2ad43357b7a0c43a7ded63866e9553e26f6bb3657",
+  "pilot_report_sha256": "6649854e987e2986eb2003040e14a63f7ffb392e8d713327ec523969a465e998",
+  "baseline_report_sha256": "a51b36e27852dd3ab866be91a5eb24b1b90909da173abc5c0c12daf3e4da0ab8",
+  "pilot_receipt": {
+    "Count": 32,
+    "ExitCode": 1,
+    "Seconds": 122.4943705
+  },
+  "before_statuses": {
+    "Different": 27,
+    "Equal": 5
+  },
+  "after_statuses": {
+    "Different": 27,
+    "Equal": 5
+  },
+  "site_totals": {
+    "unpaired-union-addition": 14,
+    "before-unmatched": 1,
+    "after-unmatched": 1,
+    "reference-unmatched": 23,
+    "excluded-bare-preserved": 1,
+    "reference-proven-gain": 6,
+    "existing-type-preserved": 7
+  },
+  "section_module_totals": {
+    "Code.remaining": 27,
+    "Code.changes": 25,
+    "Type.remaining": 26,
+    "Type.changes": 10
+  },
+  "modules": [
+    {
+      "module": "lib\\asn1-5.5.2\\ebin\\asn1ct_constructed_per.beam",
+      "before_status": "Different",
+      "after_status": "Different",
+      "reference_beam_sha256": "06afb88a41e933d85390cc910e4c5d84bf7bd3d8234079d620b7e69bb61d6943",
+      "before_image_source": "emitted image",
+      "after_image_source": "emitted image",
+      "before_beam_sha256": "8b60ca108c2a811a40960008fff66210f78cf52555461220cfa8c98bab4542d6",
+      "after_beam_sha256": "32b1ef92ab44538926ea6071f2f6e0fa3f958b8c362280841790d9df16d46518",
+      "counts": {
+        "unpaired-union-addition": 2,
+        "before-unmatched": 1,
+        "after-unmatched": 1,
+        "reference-unmatched": 4
+      },
+      "sites": [
+        {
+          "mfa": [
+            "dec_objset_2",
+            4
+          ],
+          "alignment": "wide-window",
+          "oracle_alignment": null,
+          "before": {
+            "mfa": [
+              "dec_objset_2",
+              4
+            ],
+            "call_index": 94,
+            "test_index": 95,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": null,
+            "eligible": true
+          },
+          "after": {
+            "mfa": [
+              "dec_objset_2",
+              4
+            ],
+            "call_index": 94,
+            "test_index": 95,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "reference": null,
+          "outcome": "unpaired-union-addition"
+        },
+        {
+          "mfa": [
+            "dec_objset_2",
+            4
+          ],
+          "outcome": "reference-unmatched",
+          "site": {
+            "mfa": [
+              "dec_objset_2",
+              4
+            ],
+            "call_index": 74,
+            "test_index": 75,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          }
+        },
+        {
+          "mfa": [
+            "def_values",
+            2
+          ],
+          "outcome": "reference-unmatched",
+          "site": {
+            "mfa": [
+              "def_values",
+              2
+            ],
+            "call_index": 28,
+            "test_index": 29,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 2,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          }
+        },
+        {
+          "mfa": [
+            "enc_obj",
+            5
+          ],
+          "alignment": "wide-window",
+          "oracle_alignment": null,
+          "before": {
+            "mfa": [
+              "enc_obj",
+              5
+            ],
+            "call_index": 84,
+            "test_index": 85,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": null,
+            "eligible": true
+          },
+          "after": {
+            "mfa": [
+              "enc_obj",
+              5
+            ],
+            "call_index": 84,
+            "test_index": 85,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "reference": null,
+          "outcome": "unpaired-union-addition"
+        },
+        {
+          "mfa": [
+            "enc_obj",
+            5
+          ],
+          "outcome": "reference-unmatched",
+          "site": {
+            "mfa": [
+              "enc_obj",
+              5
+            ],
+            "call_index": 63,
+            "test_index": 64,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          }
+        },
+        {
+          "mfa": [
+            "index_object_set_2",
+            3
+          ],
+          "outcome": "before-unmatched",
+          "site": {
+            "mfa": [
+              "index_object_set_2",
+              3
+            ],
+            "call_index": 18,
+            "test_index": 20,
+            "barriers": [
+              "alias"
+            ],
+            "position_proof": "eligible",
+            "position": 2,
+            "annotation": null,
+            "eligible": false
+          }
+        },
+        {
+          "mfa": [
+            "index_object_set_2",
+            3
+          ],
+          "outcome": "after-unmatched",
+          "site": {
+            "mfa": [
+              "index_object_set_2",
+              3
+            ],
+            "call_index": 18,
+            "test_index": 20,
+            "barriers": [
+              "alias"
+            ],
+            "position_proof": "eligible",
+            "position": 2,
+            "annotation": null,
+            "eligible": false
+          }
+        },
+        {
+          "mfa": [
+            "index_object_set_2",
+            3
+          ],
+          "outcome": "reference-unmatched",
+          "site": {
+            "mfa": [
+              "index_object_set_2",
+              3
+            ],
+            "call_index": 17,
+            "test_index": 18,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 2,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          }
+        }
+      ],
+      "producer_scan": {
+        "reference": {
+          "native-lookup-calls": 4
+        },
+        "before": {
+          "native-lookup-calls": 4,
+          "lookup-without-near-tuple-test": 1
+        },
+        "after": {
+          "native-lookup-calls": 4,
+          "lookup-without-near-tuple-test": 1
+        }
+      },
+      "sections": {
+        "Code": {
+          "reference_sha256": "9a2d95c553a3db456b771e1a35da8043ae3346d811533d78688dd27aef6d4943",
+          "before_sha256": "cc774a98137213fb7f93983b0bb9a78528888697c522a2eec5af40c1353ae5df",
+          "after_sha256": "5b36b3356aa39ef46c47999024801a9c46b5ec63f577dabe2efb7ce1473f8bc3",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false
+        },
+        "Type": {
+          "reference_sha256": "3148f3eec012c811c7ecd37f34c025f5f08f30bd1bf22824498e273f47a7fe0e",
+          "before_sha256": "cf3d05fc6f3ca40bf486eeda84823e623789f8aa54b651b72ae8dd29b347a31e",
+          "after_sha256": "a818d87f1b471c54cce323c150e2dfc61594d5d7d47dd179108a8cb7ff7227b8",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false,
+          "entries": {
+            "reference": 21,
+            "before": 4,
+            "after": 5,
+            "missing_before": 17,
+            "missing_after": 16,
+            "excess_before": 0,
+            "excess_after": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "lib\\asn1-5.5.2\\ebin\\asn1ct_gen.beam",
+      "before_status": "Different",
+      "after_status": "Different",
+      "reference_beam_sha256": "2e7826962b71ef24adbfa1b93998b2cba2588e12efa4a51288c59fe021682a4d",
+      "before_image_source": "emitted image",
+      "after_image_source": "emitted image",
+      "before_beam_sha256": "cc2060ed3f25c701e94ef4ed33113563971c24c1bb5a64ae813589c3c3927d54",
+      "after_beam_sha256": "25c6158eea6ad7bc809aa0d4978d40ec563469ce44dd8259c5f34fba63e2c941",
+      "counts": {
+        "excluded-bare-preserved": 1,
+        "before-unmatched": 0,
+        "after-unmatched": 0,
+        "reference-unmatched": 2,
+        "unpaired-union-addition": 1
+      },
+      "sites": [
+        {
+          "mfa": [
+            "-named_bitstring_value/2-fun-0-",
+            3
+          ],
+          "alignment": "wide-window",
+          "oracle_alignment": null,
+          "before": {
+            "mfa": [
+              "-named_bitstring_value/2-fun-0-",
+              3
+            ],
+            "call_index": 6,
+            "test_index": 8,
+            "barriers": [
+              "alias"
+            ],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": null,
+            "eligible": false
+          },
+          "after": {
+            "mfa": [
+              "-named_bitstring_value/2-fun-0-",
+              3
+            ],
+            "call_index": 6,
+            "test_index": 8,
+            "barriers": [
+              "alias"
+            ],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": null,
+            "eligible": false
+          },
+          "reference": null,
+          "outcome": "excluded-bare-preserved"
+        },
+        {
+          "mfa": [
+            "-named_bitstring_value/2-fun-0-",
+            3
+          ],
+          "outcome": "reference-unmatched",
+          "site": {
+            "mfa": [
+              "-named_bitstring_value/2-fun-0-",
+              3
+            ],
+            "call_index": 5,
+            "test_index": 6,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          }
+        },
+        {
+          "mfa": [
+            "emit_partial_incomplete_decode",
+            1
+          ],
+          "alignment": "wide-window",
+          "oracle_alignment": null,
+          "before": {
+            "mfa": [
+              "emit_partial_incomplete_decode",
+              1
+            ],
+            "call_index": 15,
+            "test_index": 16,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": null,
+            "eligible": true
+          },
+          "after": {
+            "mfa": [
+              "emit_partial_incomplete_decode",
+              1
+            ],
+            "call_index": 15,
+            "test_index": 16,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "reference": null,
+          "outcome": "unpaired-union-addition"
+        },
+        {
+          "mfa": [
+            "emit_partial_incomplete_decode",
+            1
+          ],
+          "outcome": "reference-unmatched",
+          "site": {
+            "mfa": [
+              "emit_partial_incomplete_decode",
+              1
+            ],
+            "call_index": 15,
+            "test_index": 16,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          }
+        }
+      ],
+      "producer_scan": {
+        "reference": {
+          "native-lookup-calls": 2
+        },
+        "before": {
+          "native-lookup-calls": 2
+        },
+        "after": {
+          "native-lookup-calls": 2
+        }
+      },
+      "sections": {
+        "Code": {
+          "reference_sha256": "19086e957583b234c9540e13d8c240cd39757b7c5d6c631d02fdfcd1b6edcee2",
+          "before_sha256": "7a08195ba4638a2aa0bebef82249e323ae681a6d162a1e60df7a79629db64d08",
+          "after_sha256": "c97cee3558f368215e31a3745d54fd11ed7c1ae040017603a33e5ce116eeb821",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false
+        },
+        "Type": {
+          "reference_sha256": "9697dbf0a97bfc6babc4d7159cd9bc24d37f2d7074e052f856518582fb2084da",
+          "before_sha256": "b61e7544da3fcbd0b8dbb360f3e63d5ca78cfaa7c0bbd6f88069d5f9bb5955bb",
+          "after_sha256": "1d51fff0e316199953e43cf5809df1d97aa8c9fbae9f2592de6074434d9ad23d",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false,
+          "entries": {
+            "reference": 22,
+            "before": 5,
+            "after": 6,
+            "missing_before": 17,
+            "missing_after": 16,
+            "excess_before": 0,
+            "excess_after": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "lib\\common_test-1.31.2\\ebin\\ct_doctest.beam",
+      "before_status": "Different",
+      "after_status": "Different",
+      "reference_beam_sha256": "f5958a6f75af2d118b9dda121e71076190f498909107c879f3b4d4cb2f882f30",
+      "before_image_source": "emitted image",
+      "after_image_source": "emitted image",
+      "before_beam_sha256": "14a3e0e4d9b492b394c129fc675fa8876dd83d7e27d021306b9fc208c0cf4856",
+      "after_beam_sha256": "59555ee5b7052eea85d08de7009d2a3af46ed732e478a9553005dfef9bd66e9d",
+      "counts": {
+        "unpaired-union-addition": 1,
+        "before-unmatched": 0,
+        "after-unmatched": 0,
+        "reference-unmatched": 1
+      },
+      "sites": [
+        {
+          "mfa": [
+            "ensure_skipped_tests",
+            2
+          ],
+          "alignment": "wide-window",
+          "oracle_alignment": null,
+          "before": {
+            "mfa": [
+              "ensure_skipped_tests",
+              2
+            ],
+            "call_index": 37,
+            "test_index": 38,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": null,
+            "eligible": true
+          },
+          "after": {
+            "mfa": [
+              "ensure_skipped_tests",
+              2
+            ],
+            "call_index": 37,
+            "test_index": 38,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "reference": null,
+          "outcome": "unpaired-union-addition"
+        },
+        {
+          "mfa": [
+            "ensure_skipped_tests",
+            2
+          ],
+          "outcome": "reference-unmatched",
+          "site": {
+            "mfa": [
+              "ensure_skipped_tests",
+              2
+            ],
+            "call_index": 23,
+            "test_index": 24,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          }
+        }
+      ],
+      "producer_scan": {
+        "reference": {
+          "native-lookup-calls": 2,
+          "lookup-without-near-tuple-test": 1
+        },
+        "before": {
+          "native-lookup-calls": 2,
+          "lookup-without-near-tuple-test": 1
+        },
+        "after": {
+          "native-lookup-calls": 2,
+          "lookup-without-near-tuple-test": 1
+        }
+      },
+      "sections": {
+        "Code": {
+          "reference_sha256": "8d8561e44e82d3006cec327a0c966edb05bba013329b9668b09f6109892dcf35",
+          "before_sha256": "f936bb478af3c3c2e6adcfdf98c495f1abd2db860da2591fa3213a256aa98d9b",
+          "after_sha256": "cf9795646a97ab634cb554eb1347bfa30f097997691b1cc74253e7f8991a43fe",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false
+        },
+        "Type": {
+          "reference_sha256": "3444e09a317ca6f175c37ae552856aa0c76040ec9287047bf3599aac2a04820e",
+          "before_sha256": "bebd86dbfc6cc9113612c8d0ded26d8ed78002c8821549b060c61bc164b985cd",
+          "after_sha256": "552e0795a24721948dccf8a74b1cf52105db808ea83ab06e9c5c90236f938595",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false,
+          "entries": {
+            "reference": 15,
+            "before": 5,
+            "after": 6,
+            "missing_before": 10,
+            "missing_after": 9,
+            "excess_before": 0,
+            "excess_after": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "lib\\common_test-1.31.2\\ebin\\ct_netconfc.beam",
+      "before_status": "Different",
+      "after_status": "Different",
+      "reference_beam_sha256": "664cdca98ed984b9bd132d263cd6d14b3fe0ca382bcab1ad9183050cde309444",
+      "before_image_source": "emitted image",
+      "after_image_source": "emitted image",
+      "before_beam_sha256": "2e4f963d6afc8f87db6914c5ebe141c0d69e41ce491961665df69f9d979ff2ee",
+      "after_beam_sha256": "a5c45e0d516a6e746b6f4b2c3c1edae7bc0c0abea34adc9eb0f6fb176c27a72b",
+      "counts": {},
+      "sites": [],
+      "producer_scan": {
+        "reference": {},
+        "before": {},
+        "after": {}
+      },
+      "sections": {
+        "Code": {
+          "reference_sha256": "2a37cb3f487caca4b36bcf4d725628f8a6436ac29eddc7779a3f22905b1c19d3",
+          "before_sha256": "b8ad43621859d258fc2908f5b34283dd66b72578de13b3001e7e273215cd9590",
+          "after_sha256": "bb967b9f1912bba35262b9ae051a47e5fe936b69878bbb97a3dcad6193bc2e9a",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false
+        },
+        "Type": {
+          "reference_sha256": "b7ee95976f37970eea281a68ccd6837a59ebe99ed0db6f10b387027682158b49",
+          "before_sha256": "05b5e649632f2996c8fd560e53652c17320530bdc1660100197c1e4bf74748df",
+          "after_sha256": "05b5e649632f2996c8fd560e53652c17320530bdc1660100197c1e4bf74748df",
+          "before_changed": false,
+          "before_reference_equal": false,
+          "after_reference_equal": false,
+          "entries": {
+            "reference": 23,
+            "before": 7,
+            "after": 7,
+            "missing_before": 16,
+            "missing_after": 16,
+            "excess_before": 0,
+            "excess_after": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "lib\\common_test-1.31.2\\ebin\\test_server.beam",
+      "before_status": "Different",
+      "after_status": "Different",
+      "reference_beam_sha256": "729d8df32ecc5b2590e35b7cda7e1a1225d86584d886725cf8c6011b7726036d",
+      "before_image_source": "emitted image",
+      "after_image_source": "emitted image",
+      "before_beam_sha256": "d92f236d6be6f9795ede1e672e5d5ec98975a62dce16fde654bc772a655c0d37",
+      "after_beam_sha256": "d92f236d6be6f9795ede1e672e5d5ec98975a62dce16fde654bc772a655c0d37",
+      "counts": {},
+      "sites": [],
+      "producer_scan": {
+        "reference": {},
+        "before": {},
+        "after": {}
+      },
+      "sections": {
+        "Code": {
+          "reference_sha256": "a18908e21027257e571b4ac8af29cf8e5528db2c1048f5c68eb695ef7d494517",
+          "before_sha256": "fac350b78490d30b240aad0fb39ac5509619d39e397b4a72a1e52e0a17eb8be1",
+          "after_sha256": "fac350b78490d30b240aad0fb39ac5509619d39e397b4a72a1e52e0a17eb8be1",
+          "before_changed": false,
+          "before_reference_equal": false,
+          "after_reference_equal": false
+        },
+        "Type": {
+          "reference_sha256": "361a14d23c9f315e5bbd06afbee626ddbf0d80955c5ed9a3d279a14e9fe9c773",
+          "before_sha256": "1bbc3ab73b29d87e81326976b54526a8663d3daab4ba84f7a7b10fa55dbf99ef",
+          "after_sha256": "1bbc3ab73b29d87e81326976b54526a8663d3daab4ba84f7a7b10fa55dbf99ef",
+          "before_changed": false,
+          "before_reference_equal": false,
+          "after_reference_equal": false,
+          "entries": {
+            "reference": 21,
+            "before": 3,
+            "after": 3,
+            "missing_before": 18,
+            "missing_after": 18,
+            "excess_before": 0,
+            "excess_after": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "lib\\common_test-1.31.2\\ebin\\test_server_ctrl.beam",
+      "before_status": "Different",
+      "after_status": "Different",
+      "reference_beam_sha256": "0fc387cf06550b66f255e5e3aa5375040cf5106d2cb09715fa789d674d477772",
+      "before_image_source": "emitted image",
+      "after_image_source": "emitted image",
+      "before_beam_sha256": "22a9b84f0fec1f3fb66303f315925acf56462021b06bdaeb1f992fdf2aabb542",
+      "after_beam_sha256": "92c7e7bf47c41af0baa87b4bb7ccacc2bb70f95ad66483d038f2c0fa55837189",
+      "counts": {
+        "unpaired-union-addition": 1,
+        "before-unmatched": 0,
+        "after-unmatched": 0,
+        "reference-unmatched": 1
+      },
+      "sites": [
+        {
+          "mfa": [
+            "write_cross_cover_logs",
+            2
+          ],
+          "alignment": "wide-window",
+          "oracle_alignment": null,
+          "before": {
+            "mfa": [
+              "write_cross_cover_logs",
+              2
+            ],
+            "call_index": 16,
+            "test_index": 17,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": null,
+            "eligible": true
+          },
+          "after": {
+            "mfa": [
+              "write_cross_cover_logs",
+              2
+            ],
+            "call_index": 16,
+            "test_index": 17,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "reference": null,
+          "outcome": "unpaired-union-addition"
+        },
+        {
+          "mfa": [
+            "write_cross_cover_logs",
+            2
+          ],
+          "outcome": "reference-unmatched",
+          "site": {
+            "mfa": [
+              "write_cross_cover_logs",
+              2
+            ],
+            "call_index": 11,
+            "test_index": 12,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          }
+        }
+      ],
+      "producer_scan": {
+        "reference": {
+          "native-lookup-calls": 1
+        },
+        "before": {
+          "native-lookup-calls": 1
+        },
+        "after": {
+          "native-lookup-calls": 1
+        }
+      },
+      "sections": {
+        "Code": {
+          "reference_sha256": "6d44b37b4645b5edd7ef2f140d0c3ff291e1a30d01f8c2ba7988a41572699c1c",
+          "before_sha256": "4996753c8480547a5a57e116a3d8d73a5a2aca76603ef58f087f5f137f3659cb",
+          "after_sha256": "8e0982acd19ce6b725abc0873399718f8ba49cf752f392a8554ab62050cbe693",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false
+        },
+        "Type": {
+          "reference_sha256": "7f6126ce1d5becc75dcd7e8c9170df13c565ab8e5df3497e9add5ad89200d8bf",
+          "before_sha256": "e9eebb1b2b7a191fdb582b8f0ee0a90b6af4a70da7d6152b9bfb4c68b120eecf",
+          "after_sha256": "57bc89fc4e7afa8efbb61a03e5585a4404a1e33385f6e32ab80f118eeb9a20c9",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false,
+          "entries": {
+            "reference": 29,
+            "before": 6,
+            "after": 7,
+            "missing_before": 23,
+            "missing_after": 22,
+            "excess_before": 0,
+            "excess_after": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "lib\\compiler-10.0.6\\ebin\\beam_call_types.beam",
+      "before_status": "Different",
+      "after_status": "Different",
+      "reference_beam_sha256": "b66852e44f4a53f6635a51635d435f960d971bb345bb8ed75cd0cdad30fdad20",
+      "before_image_source": "emitted image",
+      "after_image_source": "emitted image",
+      "before_beam_sha256": "4b786db80520f71ba4ebaceb67df9bdd52d47c52b37abd876d4707cce74eccb4",
+      "after_beam_sha256": "1825834d03202ef7da53327087fb2bb3ffcb968c716cb049a501b1db2ed1c070",
+      "counts": {},
+      "sites": [],
+      "producer_scan": {
+        "reference": {},
+        "before": {},
+        "after": {}
+      },
+      "sections": {
+        "Code": {
+          "reference_sha256": "5961356baada1c4949834d39753e3c7a8d7a9910151aaf3447311305e6167294",
+          "before_sha256": "844d916ee6c2ffdc426aa1976ab50e07e20648303dadf69feb883129152b20ea",
+          "after_sha256": "575de32fc1e41ec3795079f230356184cc7618d11ad9faf3f1abb19c4260770c",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false
+        },
+        "Type": {
+          "reference_sha256": "7dec20c86e0184d897e5d45055e6d41bc84e0a178bad9e881b49d561e450fda5",
+          "before_sha256": "e0d6b75c0e0b937ace2bad0646f85f3cdf71428415960fbbfbd3c9d7f1a0b78d",
+          "after_sha256": "e0d6b75c0e0b937ace2bad0646f85f3cdf71428415960fbbfbd3c9d7f1a0b78d",
+          "before_changed": false,
+          "before_reference_equal": false,
+          "after_reference_equal": false,
+          "entries": {
+            "reference": 13,
+            "before": 2,
+            "after": 2,
+            "missing_before": 11,
+            "missing_after": 11,
+            "excess_before": 0,
+            "excess_after": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "lib\\compiler-10.0.6\\ebin\\beam_ssa_bool.beam",
+      "before_status": "Different",
+      "after_status": "Different",
+      "reference_beam_sha256": "09babd624bd7c32ba3c3822ca74eb64870b6c5790eddb093980db4e9c66bb729",
+      "before_image_source": "emitted image",
+      "after_image_source": "emitted image",
+      "before_beam_sha256": "b255d32069350d7a89166ffcb1abd36a9dbda6cb4f55d9de87884d3a351a5ed1",
+      "after_beam_sha256": "40f4777384a140cfb29d56ca243fa3712da969de6b5dcc8f62ae0cd4954ae7a2",
+      "counts": {
+        "reference-proven-gain": 1,
+        "before-unmatched": 0,
+        "after-unmatched": 0,
+        "reference-unmatched": 0
+      },
+      "sites": [
+        {
+          "mfa": [
+            "pre_opt_sw",
+            5
+          ],
+          "alignment": "wide-window",
+          "oracle_alignment": "direct-shape",
+          "before": {
+            "mfa": [
+              "pre_opt_sw",
+              5
+            ],
+            "call_index": 74,
+            "test_index": 75,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 2,
+            "annotation": null,
+            "eligible": true
+          },
+          "after": {
+            "mfa": [
+              "pre_opt_sw",
+              5
+            ],
+            "call_index": 74,
+            "test_index": 75,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 2,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "reference": {
+            "mfa": [
+              "pre_opt_sw",
+              5
+            ],
+            "call_index": 46,
+            "test_index": 47,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 2,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "outcome": "reference-proven-gain"
+        }
+      ],
+      "producer_scan": {
+        "reference": {
+          "native-lookup-calls": 1
+        },
+        "before": {
+          "native-lookup-calls": 1
+        },
+        "after": {
+          "native-lookup-calls": 1
+        }
+      },
+      "sections": {
+        "Code": {
+          "reference_sha256": "d8c3cdd87c8423aecad11cb22f95f4e30ecb13c83dd14212b9bc877720bdab51",
+          "before_sha256": "f2337f16698370e75dfe4d56905dbb0dec14fa1e28f46665893a5b8019f95e9c",
+          "after_sha256": "a3658a0de5892bfd20e6a0d57619b819e613d05b559624862f9901d041800b8b",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false
+        },
+        "Type": {
+          "reference_sha256": "28b19bdbc64cda83ed2628e2ece83e1029862b339caf8c50233b4697d790cb8d",
+          "before_sha256": "68d0e9f27882ebd5536c9afb0724862141ac72c64780a6eb12ac796e1aa8cb94",
+          "after_sha256": "235d39763651da9bd32a741e0b4ac12bf51228963575c0b7b26cd275bdde489e",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false,
+          "entries": {
+            "reference": 11,
+            "before": 4,
+            "after": 5,
+            "missing_before": 7,
+            "missing_after": 6,
+            "excess_before": 0,
+            "excess_after": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "lib\\compiler-10.0.6\\ebin\\compile.beam",
+      "before_status": "Different",
+      "after_status": "Different",
+      "reference_beam_sha256": "142d29bf0a3c0395b432f20f2568aec3c9ed749213d6957fde7ae132f14b3a3b",
+      "before_image_source": "emitted image",
+      "after_image_source": "emitted image",
+      "before_beam_sha256": "06b487e41e2a72288f95b9e9b44030cc386a149fc06c76ca1e8173ddb85208b8",
+      "after_beam_sha256": "23a1c5537c2d62fd3ef043092913265ced87f7486bcafe8e2b12e799505a93ba",
+      "counts": {
+        "before-unmatched": 0,
+        "after-unmatched": 0,
+        "reference-unmatched": 5,
+        "reference-proven-gain": 2,
+        "unpaired-union-addition": 3
+      },
+      "sites": [
+        {
+          "mfa": [
+            "fold_comp_times",
+            4
+          ],
+          "outcome": "reference-unmatched",
+          "site": {
+            "mfa": [
+              "fold_comp_times",
+              4
+            ],
+            "call_index": 26,
+            "test_index": 27,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": null,
+            "eligible": true
+          }
+        },
+        {
+          "mfa": [
+            "internal_comp",
+            5
+          ],
+          "alignment": "wide-window",
+          "oracle_alignment": "direct-shape",
+          "before": {
+            "mfa": [
+              "internal_comp",
+              5
+            ],
+            "call_index": 34,
+            "test_index": 35,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": null,
+            "eligible": true
+          },
+          "after": {
+            "mfa": [
+              "internal_comp",
+              5
+            ],
+            "call_index": 34,
+            "test_index": 35,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "reference": {
+            "mfa": [
+              "internal_comp",
+              5
+            ],
+            "call_index": 43,
+            "test_index": 44,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "outcome": "reference-proven-gain"
+        },
+        {
+          "mfa": [
+            "outfile",
+            3
+          ],
+          "outcome": "reference-unmatched",
+          "site": {
+            "mfa": [
+              "outfile",
+              3
+            ],
+            "call_index": 7,
+            "test_index": 8,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": null,
+            "eligible": true
+          }
+        },
+        {
+          "mfa": [
+            "runner",
+            1
+          ],
+          "alignment": "wide-window",
+          "oracle_alignment": "direct-shape",
+          "before": {
+            "mfa": [
+              "runner",
+              1
+            ],
+            "call_index": 10,
+            "test_index": 11,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": null,
+            "eligible": true
+          },
+          "after": {
+            "mfa": [
+              "runner",
+              1
+            ],
+            "call_index": 10,
+            "test_index": 11,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "reference": {
+            "mfa": [
+              "runner",
+              1
+            ],
+            "call_index": 7,
+            "test_index": 8,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "outcome": "reference-proven-gain"
+        },
+        {
+          "mfa": [
+            "runner",
+            1
+          ],
+          "alignment": "wide-window",
+          "oracle_alignment": null,
+          "before": {
+            "mfa": [
+              "runner",
+              1
+            ],
+            "call_index": 24,
+            "test_index": 25,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": null,
+            "eligible": true
+          },
+          "after": {
+            "mfa": [
+              "runner",
+              1
+            ],
+            "call_index": 24,
+            "test_index": 25,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "reference": null,
+          "outcome": "unpaired-union-addition"
+        },
+        {
+          "mfa": [
+            "runner",
+            1
+          ],
+          "alignment": "wide-window",
+          "oracle_alignment": null,
+          "before": {
+            "mfa": [
+              "runner",
+              1
+            ],
+            "call_index": 37,
+            "test_index": 38,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": null,
+            "eligible": true
+          },
+          "after": {
+            "mfa": [
+              "runner",
+              1
+            ],
+            "call_index": 37,
+            "test_index": 38,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "reference": null,
+          "outcome": "unpaired-union-addition"
+        },
+        {
+          "mfa": [
+            "runner",
+            1
+          ],
+          "alignment": "wide-window",
+          "oracle_alignment": null,
+          "before": {
+            "mfa": [
+              "runner",
+              1
+            ],
+            "call_index": 50,
+            "test_index": 51,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": null,
+            "eligible": true
+          },
+          "after": {
+            "mfa": [
+              "runner",
+              1
+            ],
+            "call_index": 50,
+            "test_index": 51,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "reference": null,
+          "outcome": "unpaired-union-addition"
+        },
+        {
+          "mfa": [
+            "runner",
+            1
+          ],
+          "outcome": "reference-unmatched",
+          "site": {
+            "mfa": [
+              "runner",
+              1
+            ],
+            "call_index": 17,
+            "test_index": 18,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          }
+        },
+        {
+          "mfa": [
+            "runner",
+            1
+          ],
+          "outcome": "reference-unmatched",
+          "site": {
+            "mfa": [
+              "runner",
+              1
+            ],
+            "call_index": 29,
+            "test_index": 30,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          }
+        },
+        {
+          "mfa": [
+            "runner",
+            1
+          ],
+          "outcome": "reference-unmatched",
+          "site": {
+            "mfa": [
+              "runner",
+              1
+            ],
+            "call_index": 42,
+            "test_index": 43,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          }
+        }
+      ],
+      "producer_scan": {
+        "reference": {
+          "native-lookup-calls": 8,
+          "lookup-without-near-tuple-test": 1
+        },
+        "before": {
+          "native-lookup-calls": 8,
+          "lookup-without-near-tuple-test": 3
+        },
+        "after": {
+          "native-lookup-calls": 8,
+          "lookup-without-near-tuple-test": 3
+        }
+      },
+      "sections": {
+        "Code": {
+          "reference_sha256": "a295f8332ca9865b8044ae1be499548b1de190b94ba0b43350921bf0e3c8d957",
+          "before_sha256": "cf20fea6dd5eda8532c30994b964720e930b9cce8decc0e66e65b124efb96974",
+          "after_sha256": "1107588a1ce9af06f5f3b688e4bf4f1c771583031914a2489eadb4b1e9b375f4",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false
+        },
+        "Type": {
+          "reference_sha256": "74d073f101a8995474240d8bdf8b5c234b95cc1c1ee9143b8610ac0a39259ac2",
+          "before_sha256": "e4a4737e2211766ebfffd494f389cef6da6b14478457724a75d4deface7e9e12",
+          "after_sha256": "d54a3e991d5e184938fdcb0b2c016bc29c002338c2e7fb7e787d3ebd2e10b8a9",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false,
+          "entries": {
+            "reference": 17,
+            "before": 4,
+            "after": 5,
+            "missing_before": 13,
+            "missing_after": 12,
+            "excess_before": 0,
+            "excess_after": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "lib\\debugger-7.0\\ebin\\dbg_icmd.beam",
+      "before_status": "Different",
+      "after_status": "Different",
+      "reference_beam_sha256": "22de49fd31a1be81a688f2b27bf37d65f92e1c94da2c82ba39d55e3424fc54da",
+      "before_image_source": "emitted image",
+      "after_image_source": "emitted image",
+      "before_beam_sha256": "9beb70451aa6bb96f9ad27426056f01f692b6bc82b2fb31b6db6c984f237987c",
+      "after_beam_sha256": "db5186e918e5a0033a12bc68a7b80dae68e92190f271be2e989546cc688123d4",
+      "counts": {
+        "unpaired-union-addition": 2,
+        "before-unmatched": 0,
+        "after-unmatched": 0,
+        "reference-unmatched": 1,
+        "existing-type-preserved": 1
+      },
+      "sites": [
+        {
+          "mfa": [
+            "eval_nonrestricted_1",
+            3
+          ],
+          "alignment": "wide-window",
+          "oracle_alignment": null,
+          "before": {
+            "mfa": [
+              "eval_nonrestricted_1",
+              3
+            ],
+            "call_index": 25,
+            "test_index": 26,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": null,
+            "eligible": true
+          },
+          "after": {
+            "mfa": [
+              "eval_nonrestricted_1",
+              3
+            ],
+            "call_index": 25,
+            "test_index": 26,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "reference": null,
+          "outcome": "unpaired-union-addition"
+        },
+        {
+          "mfa": [
+            "eval_nonrestricted_1",
+            3
+          ],
+          "alignment": "wide-window",
+          "oracle_alignment": null,
+          "before": {
+            "mfa": [
+              "eval_nonrestricted_1",
+              3
+            ],
+            "call_index": 60,
+            "test_index": 61,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": null,
+            "eligible": true
+          },
+          "after": {
+            "mfa": [
+              "eval_nonrestricted_1",
+              3
+            ],
+            "call_index": 60,
+            "test_index": 61,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "reference": null,
+          "outcome": "unpaired-union-addition"
+        },
+        {
+          "mfa": [
+            "eval_nonrestricted_1",
+            3
+          ],
+          "outcome": "reference-unmatched",
+          "site": {
+            "mfa": [
+              "eval_nonrestricted_1",
+              3
+            ],
+            "call_index": 55,
+            "test_index": 56,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          }
+        },
+        {
+          "mfa": [
+            "get_binding",
+            2
+          ],
+          "alignment": "wide-window",
+          "oracle_alignment": "wide-window",
+          "before": {
+            "mfa": [
+              "get_binding",
+              2
+            ],
+            "call_index": 5,
+            "test_index": 6,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "after": {
+            "mfa": [
+              "get_binding",
+              2
+            ],
+            "call_index": 5,
+            "test_index": 6,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "reference": {
+            "mfa": [
+              "get_binding",
+              2
+            ],
+            "call_index": 5,
+            "test_index": 6,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "outcome": "existing-type-preserved"
+        }
+      ],
+      "producer_scan": {
+        "reference": {
+          "native-lookup-calls": 3,
+          "lookup-without-near-tuple-test": 1
+        },
+        "before": {
+          "native-lookup-calls": 3
+        },
+        "after": {
+          "native-lookup-calls": 3
+        }
+      },
+      "sections": {
+        "Code": {
+          "reference_sha256": "1d3772885a530679dcead5900a1f1abb1dd795a3bb6bc58a24038193b0f34006",
+          "before_sha256": "451c14891cad0c254df3434272450d54b58e3ba440661b853f2309194074ff66",
+          "after_sha256": "c13e518420133b1b1e293f27794279885a5043e771aca347b55a65f461145eee",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false
+        },
+        "Type": {
+          "reference_sha256": "2b689ab7fb91bbba8325b68423b9efb45034ec03a3e35e5967d021a5446d36f6",
+          "before_sha256": "4c727cfd9a7450d79eb54c2c77810e1cda73efdb2542396eef123d8075995c13",
+          "after_sha256": "4c727cfd9a7450d79eb54c2c77810e1cda73efdb2542396eef123d8075995c13",
+          "before_changed": false,
+          "before_reference_equal": false,
+          "after_reference_equal": false,
+          "entries": {
+            "reference": 5,
+            "before": 3,
+            "after": 3,
+            "missing_before": 2,
+            "missing_after": 2,
+            "excess_before": 0,
+            "excess_after": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "lib\\debugger-7.0\\ebin\\dbg_ieval.beam",
+      "before_status": "Different",
+      "after_status": "Different",
+      "reference_beam_sha256": "db2485fdd05cd3f595ffc118450d9704760873291aa0c67ab81dab0950f4dcd5",
+      "before_image_source": "emitted image",
+      "after_image_source": "emitted image",
+      "before_beam_sha256": "99ff2de69063ee3d876010f64ed5b1857a479ccd3bec9ba347700abb58c5cc43",
+      "after_beam_sha256": "e29a1f8d733176f5920235e7f10ddfeaa9941ade6b8981658e4a1088e0165ca7",
+      "counts": {
+        "unpaired-union-addition": 1,
+        "before-unmatched": 0,
+        "after-unmatched": 0,
+        "reference-unmatched": 1
+      },
+      "sites": [
+        {
+          "mfa": [
+            "cached",
+            1
+          ],
+          "alignment": "wide-window",
+          "oracle_alignment": null,
+          "before": {
+            "mfa": [
+              "cached",
+              1
+            ],
+            "call_index": 7,
+            "test_index": 8,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": null,
+            "eligible": true
+          },
+          "after": {
+            "mfa": [
+              "cached",
+              1
+            ],
+            "call_index": 7,
+            "test_index": 8,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "reference": null,
+          "outcome": "unpaired-union-addition"
+        },
+        {
+          "mfa": [
+            "cached",
+            1
+          ],
+          "outcome": "reference-unmatched",
+          "site": {
+            "mfa": [
+              "cached",
+              1
+            ],
+            "call_index": 5,
+            "test_index": 6,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          }
+        }
+      ],
+      "producer_scan": {
+        "reference": {
+          "native-lookup-calls": 5,
+          "lookup-without-near-tuple-test": 4
+        },
+        "before": {
+          "native-lookup-calls": 5,
+          "lookup-without-near-tuple-test": 4
+        },
+        "after": {
+          "native-lookup-calls": 5,
+          "lookup-without-near-tuple-test": 4
+        }
+      },
+      "sections": {
+        "Code": {
+          "reference_sha256": "9839cc4ebe281ac0c993d668b38dd07f93caee7148b55d3125d5294708b21aa8",
+          "before_sha256": "49a44d055b4877aeeed7f3e3e996e283f12778ff0548ac527b9ae4f30f737447",
+          "after_sha256": "c3cf28edc62af7ec100a49985e1adf43a3ba6350c9a9562f840303e4c637a807",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false
+        },
+        "Type": {
+          "reference_sha256": "4479c995c33e3048237c3720ace7e751d3d1b907b011e2ac3361f91ec41c71c4",
+          "before_sha256": "db9f0715d360fe25524679364a28b5ae1b59d2bf9538506d94cf9bef537363fd",
+          "after_sha256": "3c1237307017d7dfff80ed39894a6da36df62aab32d8610ef8c5eeae378275c7",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false,
+          "entries": {
+            "reference": 22,
+            "before": 5,
+            "after": 6,
+            "missing_before": 17,
+            "missing_after": 16,
+            "excess_before": 0,
+            "excess_after": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "lib\\debugger-7.0\\ebin\\dbg_wx_filedialog_win.beam",
+      "before_status": "Different",
+      "after_status": "Different",
+      "reference_beam_sha256": "5d0ebda8de75fd3ea294cc2943fc819a32602ecb501c380980119c183657cfa6",
+      "before_image_source": "emitted image",
+      "after_image_source": "emitted image",
+      "before_beam_sha256": "15d1090391750d3158378fba7fe35147f17598741cf39e9c3e6f03f661d8165f",
+      "after_beam_sha256": "0bf00a0b6e3a4d74b3face93816fe5482a1279736d9d252916cb7be367c5966e",
+      "counts": {},
+      "sites": [],
+      "producer_scan": {
+        "reference": {},
+        "before": {},
+        "after": {}
+      },
+      "sections": {
+        "Code": {
+          "reference_sha256": "d75d53c00c48e60dfc6977b1fb1f919af4325bc521ad11015f3d97b5742584d8",
+          "before_sha256": "c324e889ccb142c9a51b97f5e6b66d290fb8847deaf69c221f31959a8a45e8d5",
+          "after_sha256": "0f9f4b7632c5631c178619d8ec0ac8f0eead45db1b5f1a24d529469609a7f6ee",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false
+        },
+        "Type": {
+          "reference_sha256": "b407c262f2a443d3ddfb28f005f572af86ae8c33968951f3ae99d72bb89af4cf",
+          "before_sha256": "e0d6b75c0e0b937ace2bad0646f85f3cdf71428415960fbbfbd3c9d7f1a0b78d",
+          "after_sha256": "e0d6b75c0e0b937ace2bad0646f85f3cdf71428415960fbbfbd3c9d7f1a0b78d",
+          "before_changed": false,
+          "before_reference_equal": false,
+          "after_reference_equal": false,
+          "entries": {
+            "reference": 12,
+            "before": 2,
+            "after": 2,
+            "missing_before": 10,
+            "missing_after": 10,
+            "excess_before": 0,
+            "excess_after": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "lib\\dialyzer-6.0.3\\ebin\\dialyzer_cl.beam",
+      "before_status": "Different",
+      "after_status": "Different",
+      "reference_beam_sha256": "aae28fb8fef959c39b56deeec57970847bf60113700bb0784f63043699d3e1a6",
+      "before_image_source": "emitted image",
+      "after_image_source": "emitted image",
+      "before_beam_sha256": "bfdd67ce79b2c13283b475dd498a2b63c81e8617b6249152431b537e5e4ad2a3",
+      "after_beam_sha256": "728c3e517f24ed66f722f460e25ca637ddb1a49e42d1c182c4ad2f40aca90624",
+      "counts": {},
+      "sites": [],
+      "producer_scan": {
+        "reference": {},
+        "before": {},
+        "after": {}
+      },
+      "sections": {
+        "Code": {
+          "reference_sha256": "e3d027ca8a930d493f18d578bc17f260f07179b9c5120ae38dacab7ab8ffcda9",
+          "before_sha256": "aae86cee9bcd56cee161db5670f876a62edc2df0faa855854c31604fd99e63eb",
+          "after_sha256": "1dfbc136d92b2341d74516f17f4ccd568d33a04ea947bb7c0327b3b52520578f",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false
+        },
+        "Type": {
+          "reference_sha256": "ed8857a2ed6e32f35c49645260222491f0cf6d2c7794bca31644cfae8abdb6fd",
+          "before_sha256": "e0d6b75c0e0b937ace2bad0646f85f3cdf71428415960fbbfbd3c9d7f1a0b78d",
+          "after_sha256": "e0d6b75c0e0b937ace2bad0646f85f3cdf71428415960fbbfbd3c9d7f1a0b78d",
+          "before_changed": false,
+          "before_reference_equal": false,
+          "after_reference_equal": false,
+          "entries": {
+            "reference": 12,
+            "before": 2,
+            "after": 2,
+            "missing_before": 10,
+            "missing_after": 10,
+            "excess_before": 0,
+            "excess_after": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "lib\\dialyzer-6.0.3\\ebin\\dialyzer_cplt.beam",
+      "before_status": "Different",
+      "after_status": "Different",
+      "reference_beam_sha256": "f5d516c0207e955909e6657e65856caa9e9c15dc765721539d16b1cedfa175d1",
+      "before_image_source": "emitted image",
+      "after_image_source": "emitted image",
+      "before_beam_sha256": "b0da9c2eb0ea3676b3446c7b8ded5175ef3591b99b6a5b87c13143d66d5aea2f",
+      "after_beam_sha256": "af80c77197ad050a120a8385e57c7d0fec7c04617ac0221fc64c440d96a4a2d2",
+      "counts": {},
+      "sites": [],
+      "producer_scan": {
+        "reference": {},
+        "before": {},
+        "after": {}
+      },
+      "sections": {
+        "Code": {
+          "reference_sha256": "e7fd87bc1a75eaa37b984c6ebd21b74593ac3b746d93e7d77e7f277f1af7ec5b",
+          "before_sha256": "524cb0de1bf6b8e8846fc639f01a9fe3e693cf6936fb6b638637755643c9a9ae",
+          "after_sha256": "e080bcae950c1b415dece0cc6a645ee0c7aaefeec80ddc91547559d81e1a9f00",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false
+        },
+        "Type": {
+          "reference_sha256": "cd226f07b1423a134071ff0d1c48759c09fc7d33f3536d520a45f1e3f2bde6f9",
+          "before_sha256": "7f452390a0e212a28827f1062f530936717e064127e759061fa50c6845b5c820",
+          "after_sha256": "7f452390a0e212a28827f1062f530936717e064127e759061fa50c6845b5c820",
+          "before_changed": false,
+          "before_reference_equal": false,
+          "after_reference_equal": false,
+          "entries": {
+            "reference": 9,
+            "before": 3,
+            "after": 3,
+            "missing_before": 6,
+            "missing_after": 6,
+            "excess_before": 0,
+            "excess_after": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "lib\\diameter-2.7.2\\ebin\\diameter_callback.beam",
+      "before_status": "Equal",
+      "after_status": "Equal",
+      "reference_beam_sha256": "573a046e1dac646801bf734063d75e82550c053a2792025598ce741a5d790bd7",
+      "before_image_source": "reference bytes confirmed by Equal report",
+      "after_image_source": "reference bytes confirmed by Equal report",
+      "before_beam_sha256": "573a046e1dac646801bf734063d75e82550c053a2792025598ce741a5d790bd7",
+      "after_beam_sha256": "573a046e1dac646801bf734063d75e82550c053a2792025598ce741a5d790bd7",
+      "counts": {},
+      "sites": [],
+      "producer_scan": {
+        "reference": {},
+        "before": {},
+        "after": {}
+      },
+      "sections": {
+        "Code": {
+          "reference_sha256": "dbd9990ac43357b06943b67748c1000b6633d82d898583d1c6149d62306beda8",
+          "before_sha256": "dbd9990ac43357b06943b67748c1000b6633d82d898583d1c6149d62306beda8",
+          "after_sha256": "dbd9990ac43357b06943b67748c1000b6633d82d898583d1c6149d62306beda8",
+          "before_changed": false,
+          "before_reference_equal": true,
+          "after_reference_equal": true
+        },
+        "Type": {
+          "reference_sha256": "b11486efe31959068949594e475d32d9230bdb4ada967828ee06e3527a4bc6da",
+          "before_sha256": "b11486efe31959068949594e475d32d9230bdb4ada967828ee06e3527a4bc6da",
+          "after_sha256": "b11486efe31959068949594e475d32d9230bdb4ada967828ee06e3527a4bc6da",
+          "before_changed": false,
+          "before_reference_equal": true,
+          "after_reference_equal": true,
+          "entries": {
+            "reference": 1,
+            "before": 1,
+            "after": 1,
+            "missing_before": 0,
+            "missing_after": 0,
+            "excess_before": 0,
+            "excess_after": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "lib\\edoc-1.5\\ebin\\edoc_extract.beam",
+      "before_status": "Different",
+      "after_status": "Different",
+      "reference_beam_sha256": "fd60168220e44dbf3125014d7f230886c9e567701e331541262bc47f76d92dbc",
+      "before_image_source": "emitted image",
+      "after_image_source": "emitted image",
+      "before_beam_sha256": "6c4ad96026c074c4138b0fb6d5134f59d323cbb67b90e71525b292c7715fd19c",
+      "after_beam_sha256": "83a5c26373f4ca0d3c233c7c134387deaa8060c1d57f4c56ef03e23c9a40cbc3",
+      "counts": {
+        "reference-proven-gain": 1,
+        "before-unmatched": 0,
+        "after-unmatched": 0,
+        "reference-unmatched": 1
+      },
+      "sites": [
+        {
+          "mfa": [
+            "get_list_keyval",
+            2
+          ],
+          "alignment": "wide-window",
+          "oracle_alignment": "wide-window",
+          "before": {
+            "mfa": [
+              "get_list_keyval",
+              2
+            ],
+            "call_index": 5,
+            "test_index": 6,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": null,
+            "eligible": true
+          },
+          "after": {
+            "mfa": [
+              "get_list_keyval",
+              2
+            ],
+            "call_index": 5,
+            "test_index": 6,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "reference": {
+            "mfa": [
+              "get_list_keyval",
+              2
+            ],
+            "call_index": 5,
+            "test_index": 6,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "outcome": "reference-proven-gain"
+        },
+        {
+          "mfa": [
+            "get_module_info",
+            2
+          ],
+          "outcome": "reference-unmatched",
+          "site": {
+            "mfa": [
+              "get_module_info",
+              2
+            ],
+            "call_index": 19,
+            "test_index": 20,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": null,
+            "eligible": true
+          }
+        }
+      ],
+      "producer_scan": {
+        "reference": {
+          "native-lookup-calls": 2
+        },
+        "before": {
+          "native-lookup-calls": 2,
+          "lookup-without-near-tuple-test": 1
+        },
+        "after": {
+          "native-lookup-calls": 2,
+          "lookup-without-near-tuple-test": 1
+        }
+      },
+      "sections": {
+        "Code": {
+          "reference_sha256": "61f626666c264d437f99a58042ba325051c9b405374984c2da682e1d5d88098b",
+          "before_sha256": "f8dbadb17c19b89b92b9f95438102032362cded632946facba0094eeb17dbe33",
+          "after_sha256": "dfdd72d135e51f617b35766eca388aef58d2450b0f98457b0dceb0c1cbf47532",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false
+        },
+        "Type": {
+          "reference_sha256": "a08b4a868cf7018b1cbc772933cf75c9869bae8f1db39e5958bf16b4f13777ce",
+          "before_sha256": "e0d6b75c0e0b937ace2bad0646f85f3cdf71428415960fbbfbd3c9d7f1a0b78d",
+          "after_sha256": "4c727cfd9a7450d79eb54c2c77810e1cda73efdb2542396eef123d8075995c13",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false,
+          "entries": {
+            "reference": 17,
+            "before": 2,
+            "after": 3,
+            "missing_before": 15,
+            "missing_after": 14,
+            "excess_before": 0,
+            "excess_after": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "lib\\inets-9.8\\ebin\\httpc_handler.beam",
+      "before_status": "Different",
+      "after_status": "Different",
+      "reference_beam_sha256": "75fcaeba4daf30619d84a2ba5b5e3612ceb09af75b4d0937017a6411f72dcd0f",
+      "before_image_source": "emitted image",
+      "after_image_source": "emitted image",
+      "before_beam_sha256": "0e2c059ab885040fff1d2bb98dbea0488c7e823625c7e9c31bd9b8857ec3fa9a",
+      "after_beam_sha256": "6343114bb7c0ff2c4eade7e2a22fe53b5eeb512f1d3412ab57ff7398bdd24c11",
+      "counts": {},
+      "sites": [],
+      "producer_scan": {
+        "reference": {},
+        "before": {},
+        "after": {}
+      },
+      "sections": {
+        "Code": {
+          "reference_sha256": "07d11d6b777f6c2b421e960f464d99690528a232789751cd5fe24844cef6cd29",
+          "before_sha256": "dc0a67deb0cba17241ee14b062fbeb5feead9a438e22c18f50607a33af14e428",
+          "after_sha256": "3390fe33eaba976e27a952f4a2911de5392e52e55133359efe7cd672afa9bef3",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false
+        },
+        "Type": {
+          "reference_sha256": "3d8db2891b61840175d1e074c3c1fab93c39bd57d0e9bbcc7098eb71b0277a47",
+          "before_sha256": "08f4717646f7e6fba6ae6b5ef73f7e4ce3b08c18e0d55c241143105de547303e",
+          "after_sha256": "08f4717646f7e6fba6ae6b5ef73f7e4ce3b08c18e0d55c241143105de547303e",
+          "before_changed": false,
+          "before_reference_equal": false,
+          "after_reference_equal": false,
+          "entries": {
+            "reference": 14,
+            "before": 3,
+            "after": 3,
+            "missing_before": 11,
+            "missing_after": 11,
+            "excess_before": 0,
+            "excess_after": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "lib\\kernel-11.0.4\\ebin\\inet6_sctp.beam",
+      "before_status": "Different",
+      "after_status": "Different",
+      "reference_beam_sha256": "8ca803f2b45a0f72a4d01eb8bc0c5822e45fcc54180fb148a948c1dc0d83d34b",
+      "before_image_source": "emitted image",
+      "after_image_source": "emitted image",
+      "before_beam_sha256": "4122c4de4927287b9a66baae6f476e4e0fd3d04759246c6add8d34c0a0f2ddf3",
+      "after_beam_sha256": "4122c4de4927287b9a66baae6f476e4e0fd3d04759246c6add8d34c0a0f2ddf3",
+      "counts": {},
+      "sites": [],
+      "producer_scan": {
+        "reference": {},
+        "before": {},
+        "after": {}
+      },
+      "sections": {
+        "Code": {
+          "reference_sha256": "5ac7e59d17ec5c68efd8439d6bae875ac2416a16c9b78c81352fb8c945173997",
+          "before_sha256": "97685de7327b34340b3ebc31c6bc633b3960c817d61c2e9466134822902279af",
+          "after_sha256": "97685de7327b34340b3ebc31c6bc633b3960c817d61c2e9466134822902279af",
+          "before_changed": false,
+          "before_reference_equal": false,
+          "after_reference_equal": false
+        },
+        "Type": {
+          "reference_sha256": "3b7a9b515f0f912533e4ccf198c747a1250316def4884f213e1a269e024bae83",
+          "before_sha256": "3b7a9b515f0f912533e4ccf198c747a1250316def4884f213e1a269e024bae83",
+          "after_sha256": "3b7a9b515f0f912533e4ccf198c747a1250316def4884f213e1a269e024bae83",
+          "before_changed": false,
+          "before_reference_equal": true,
+          "after_reference_equal": true,
+          "entries": {
+            "reference": 2,
+            "before": 2,
+            "after": 2,
+            "missing_before": 0,
+            "missing_after": 0,
+            "excess_before": 0,
+            "excess_after": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "lib\\kernel-11.0.4\\ebin\\logger.beam",
+      "before_status": "Different",
+      "after_status": "Different",
+      "reference_beam_sha256": "0bb485cf25897cb092143f8d783ef0df06dd104bbce63364abbd712942fd2e0f",
+      "before_image_source": "emitted image",
+      "after_image_source": "emitted image",
+      "before_beam_sha256": "6c31e557c5dc8e2aabd3359afb52735416aaee132236a35ec324d883f8a52923",
+      "after_beam_sha256": "30c70d6818c62f2e265e553773aa98fa0ef483a072a62786b0c650e35a5fbd5e",
+      "counts": {
+        "existing-type-preserved": 2,
+        "before-unmatched": 0,
+        "after-unmatched": 0,
+        "reference-unmatched": 0
+      },
+      "sites": [
+        {
+          "mfa": [
+            "encoding",
+            0
+          ],
+          "alignment": "wide-window",
+          "oracle_alignment": "wide-window",
+          "before": {
+            "mfa": [
+              "encoding",
+              0
+            ],
+            "call_index": 6,
+            "test_index": 7,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "after": {
+            "mfa": [
+              "encoding",
+              0
+            ],
+            "call_index": 6,
+            "test_index": 7,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "reference": {
+            "mfa": [
+              "encoding",
+              0
+            ],
+            "call_index": 6,
+            "test_index": 7,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "outcome": "existing-type-preserved"
+        },
+        {
+          "mfa": [
+            "get_primary_filter_default",
+            1
+          ],
+          "alignment": "wide-window",
+          "oracle_alignment": "wide-window",
+          "before": {
+            "mfa": [
+              "get_primary_filter_default",
+              1
+            ],
+            "call_index": 5,
+            "test_index": 6,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "after": {
+            "mfa": [
+              "get_primary_filter_default",
+              1
+            ],
+            "call_index": 5,
+            "test_index": 6,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "reference": {
+            "mfa": [
+              "get_primary_filter_default",
+              1
+            ],
+            "call_index": 5,
+            "test_index": 6,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "outcome": "existing-type-preserved"
+        }
+      ],
+      "producer_scan": {
+        "reference": {
+          "native-lookup-calls": 3,
+          "lookup-without-near-tuple-test": 1
+        },
+        "before": {
+          "native-lookup-calls": 3,
+          "lookup-without-near-tuple-test": 1
+        },
+        "after": {
+          "native-lookup-calls": 3,
+          "lookup-without-near-tuple-test": 1
+        }
+      },
+      "sections": {
+        "Code": {
+          "reference_sha256": "1879b65eac1c002789b88ef71a5a109893934b33fac4c38067a581a4830b3c62",
+          "before_sha256": "16128753f8b25ef17ca8e8ef8523fc3cc957d07ed11f5e94f33d71dcd8c3b6d3",
+          "after_sha256": "fe6a40f56df0c3ad1f782725a012f610928fc46533db21a1750b7484a8804f8e",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false
+        },
+        "Type": {
+          "reference_sha256": "75fbf0a39b141402a1cf2f73c9666bb91802de28156088204f9b0832f0866d8d",
+          "before_sha256": "26b5a36a66df1c72ca10418b3d6c049d61aefc6a497079c82c05af376483df09",
+          "after_sha256": "26b5a36a66df1c72ca10418b3d6c049d61aefc6a497079c82c05af376483df09",
+          "before_changed": false,
+          "before_reference_equal": false,
+          "after_reference_equal": false,
+          "entries": {
+            "reference": 9,
+            "before": 4,
+            "after": 4,
+            "missing_before": 5,
+            "missing_after": 5,
+            "excess_before": 0,
+            "excess_after": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "lib\\kernel-11.0.4\\ebin\\net_kernel.beam",
+      "before_status": "Different",
+      "after_status": "Different",
+      "reference_beam_sha256": "17dacc9ad0eaec67f9c1fb1d82c9b9b10c950ebd3f0bb4e5d6cc23b8af0136cd",
+      "before_image_source": "emitted image",
+      "after_image_source": "emitted image",
+      "before_beam_sha256": "db21eb1a04eb9d7c21a46e541a43fdb3e290cc066a2247748ce48a0837a2bfad",
+      "after_beam_sha256": "a8385f04f841c5dad15c8d44f0f367b0f7aac4d81f61b9178075948456e8ab7a",
+      "counts": {
+        "unpaired-union-addition": 1,
+        "before-unmatched": 0,
+        "after-unmatched": 0,
+        "reference-unmatched": 2
+      },
+      "sites": [
+        {
+          "mfa": [
+            "get_node_info",
+            2
+          ],
+          "alignment": "wide-window",
+          "oracle_alignment": null,
+          "before": {
+            "mfa": [
+              "get_node_info",
+              2
+            ],
+            "call_index": 12,
+            "test_index": 13,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": null,
+            "eligible": true
+          },
+          "after": {
+            "mfa": [
+              "get_node_info",
+              2
+            ],
+            "call_index": 12,
+            "test_index": 13,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "reference": null,
+          "outcome": "unpaired-union-addition"
+        },
+        {
+          "mfa": [
+            "get_node_info",
+            2
+          ],
+          "outcome": "reference-unmatched",
+          "site": {
+            "mfa": [
+              "get_node_info",
+              2
+            ],
+            "call_index": 9,
+            "test_index": 10,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          }
+        },
+        {
+          "mfa": [
+            "setopts_new_1",
+            3
+          ],
+          "outcome": "reference-unmatched",
+          "site": {
+            "mfa": [
+              "setopts_new_1",
+              3
+            ],
+            "call_index": 39,
+            "test_index": 40,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": null,
+            "eligible": true
+          }
+        }
+      ],
+      "producer_scan": {
+        "reference": {
+          "native-lookup-calls": 3,
+          "lookup-without-near-tuple-test": 1
+        },
+        "before": {
+          "native-lookup-calls": 3,
+          "lookup-without-near-tuple-test": 2
+        },
+        "after": {
+          "native-lookup-calls": 3,
+          "lookup-without-near-tuple-test": 2
+        }
+      },
+      "sections": {
+        "Code": {
+          "reference_sha256": "7c58d3982a8bd3c4fd1eeaedd60d0052a32c24c2bb146449274c1e7cb65b29b0",
+          "before_sha256": "db4d6b493f041bcf22534e9f0e2aa869e5baea8b9a2ef3750871ab7cf2d29201",
+          "after_sha256": "70c81fae9b92608be2321d33435bb9a2076d0bb002f4e3e86ba1d6ff34330581",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false
+        },
+        "Type": {
+          "reference_sha256": "18dd22343acea1e2f339b21842ed7ff2a82975bfc86e5037b8d46bb8e9882f7f",
+          "before_sha256": "07e33c2ac28f326986d9161638acf17f752c24e09ac06e40c1bb927c11053a5d",
+          "after_sha256": "6a08a8b7d61ec0e74d756da4c46b9931092e647578215dd5e00d2cdd38c73f97",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false,
+          "entries": {
+            "reference": 28,
+            "before": 5,
+            "after": 6,
+            "missing_before": 23,
+            "missing_after": 22,
+            "excess_before": 0,
+            "excess_after": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "lib\\megaco-4.9.2\\ebin\\megaco_tcp_sup.beam",
+      "before_status": "Equal",
+      "after_status": "Equal",
+      "reference_beam_sha256": "763ac8a08073103f8c111d36fda9641741f8416f96577c2ced5bded5f3d05866",
+      "before_image_source": "reference bytes confirmed by Equal report",
+      "after_image_source": "reference bytes confirmed by Equal report",
+      "before_beam_sha256": "763ac8a08073103f8c111d36fda9641741f8416f96577c2ced5bded5f3d05866",
+      "after_beam_sha256": "763ac8a08073103f8c111d36fda9641741f8416f96577c2ced5bded5f3d05866",
+      "counts": {},
+      "sites": [],
+      "producer_scan": {
+        "reference": {},
+        "before": {},
+        "after": {}
+      },
+      "sections": {
+        "Code": {
+          "reference_sha256": "eaa89738297ab4d867d0cd49e3c8ff2a3d35ca9a135ccda35924a91b8cfb68ed",
+          "before_sha256": "eaa89738297ab4d867d0cd49e3c8ff2a3d35ca9a135ccda35924a91b8cfb68ed",
+          "after_sha256": "eaa89738297ab4d867d0cd49e3c8ff2a3d35ca9a135ccda35924a91b8cfb68ed",
+          "before_changed": false,
+          "before_reference_equal": true,
+          "after_reference_equal": true
+        },
+        "Type": {
+          "reference_sha256": "e0d6b75c0e0b937ace2bad0646f85f3cdf71428415960fbbfbd3c9d7f1a0b78d",
+          "before_sha256": "e0d6b75c0e0b937ace2bad0646f85f3cdf71428415960fbbfbd3c9d7f1a0b78d",
+          "after_sha256": "e0d6b75c0e0b937ace2bad0646f85f3cdf71428415960fbbfbd3c9d7f1a0b78d",
+          "before_changed": false,
+          "before_reference_equal": true,
+          "after_reference_equal": true,
+          "entries": {
+            "reference": 2,
+            "before": 2,
+            "after": 2,
+            "missing_before": 0,
+            "missing_after": 0,
+            "excess_before": 0,
+            "excess_after": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "lib\\megaco-4.9.2\\ebin\\megaco_timer.beam",
+      "before_status": "Different",
+      "after_status": "Different",
+      "reference_beam_sha256": "9d29c6948c516c5f9dcd505abc953ee0697598ebdb6f61af325ed0d6334e4b94",
+      "before_image_source": "emitted image",
+      "after_image_source": "emitted image",
+      "before_beam_sha256": "df145dd97b81eb363410d3228ef9783dd269df66f69d984ebe229be6acf599ea",
+      "after_beam_sha256": "a0a3db3d4114676614c884749c14c81687b17a8289934ed82eedde6b0ae93daa",
+      "counts": {},
+      "sites": [],
+      "producer_scan": {
+        "reference": {},
+        "before": {},
+        "after": {}
+      },
+      "sections": {
+        "Code": {
+          "reference_sha256": "8b857876ef91ff52923b0dc6751765b0f113acad576ebcffae317f05de133961",
+          "before_sha256": "ae8cf6ef486d6239f45b65efa734165393fe2099e3260e796a9b461898be46c5",
+          "after_sha256": "04913519ab0b3aa0e846490d2585e21d2bfd60598096828cef14bba719dca3b3",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false
+        },
+        "Type": {
+          "reference_sha256": "df0a2782ab10693bd568e48b7bc052990e0445e1573574734e7c0e0112724903",
+          "before_sha256": "e0d6b75c0e0b937ace2bad0646f85f3cdf71428415960fbbfbd3c9d7f1a0b78d",
+          "after_sha256": "e0d6b75c0e0b937ace2bad0646f85f3cdf71428415960fbbfbd3c9d7f1a0b78d",
+          "before_changed": false,
+          "before_reference_equal": false,
+          "after_reference_equal": false,
+          "entries": {
+            "reference": 6,
+            "before": 2,
+            "after": 2,
+            "missing_before": 4,
+            "missing_after": 4,
+            "excess_before": 0,
+            "excess_after": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "lib\\mnesia-4.27\\ebin\\mnesia_dumper.beam",
+      "before_status": "Different",
+      "after_status": "Different",
+      "reference_beam_sha256": "b4dd3a455295de648a2ffc1156fe40d0e77630eee72f283ed6e840800f478bc3",
+      "before_image_source": "emitted image",
+      "after_image_source": "emitted image",
+      "before_beam_sha256": "de963900fe62968021dc964b075206a506928172710e42c37c85502335c4bc67",
+      "after_beam_sha256": "82d689d1dfcb07859d7091f5b17ba0f34c2c8ec545cb2a56311f7f95f8fea365",
+      "counts": {
+        "unpaired-union-addition": 1,
+        "before-unmatched": 0,
+        "after-unmatched": 0,
+        "reference-unmatched": 1
+      },
+      "sites": [
+        {
+          "mfa": [
+            "commit_ext",
+            1
+          ],
+          "alignment": "wide-window",
+          "oracle_alignment": null,
+          "before": {
+            "mfa": [
+              "commit_ext",
+              1
+            ],
+            "call_index": 10,
+            "test_index": 11,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": null,
+            "eligible": true
+          },
+          "after": {
+            "mfa": [
+              "commit_ext",
+              1
+            ],
+            "call_index": 10,
+            "test_index": 11,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "reference": null,
+          "outcome": "unpaired-union-addition"
+        },
+        {
+          "mfa": [
+            "commit_ext",
+            1
+          ],
+          "outcome": "reference-unmatched",
+          "site": {
+            "mfa": [
+              "commit_ext",
+              1
+            ],
+            "call_index": 9,
+            "test_index": 10,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          }
+        }
+      ],
+      "producer_scan": {
+        "reference": {
+          "native-lookup-calls": 1
+        },
+        "before": {
+          "native-lookup-calls": 1
+        },
+        "after": {
+          "native-lookup-calls": 1
+        }
+      },
+      "sections": {
+        "Code": {
+          "reference_sha256": "06be0ffc78016dc86e6cc417e3f75add8039dbd6b563e94ea69dfd2247f00d0c",
+          "before_sha256": "667fdf2ead653bf13c2e66025011eb691fdb67101b462babaf433c86eab07d6d",
+          "after_sha256": "b1393009b08b4941e37b956a67c2f319488966cb1b58bb724eb667772c9c64a3",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false
+        },
+        "Type": {
+          "reference_sha256": "994d4bb4756d415cf3493775d0ba97bddc7860ed9c665d20c5fa83cdb21a68df",
+          "before_sha256": "7f452390a0e212a28827f1062f530936717e064127e759061fa50c6845b5c820",
+          "after_sha256": "dfb074c75305770888b40d2b23114bdccfc63de16803dd3e2786fc1e73f6310c",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false,
+          "entries": {
+            "reference": 8,
+            "before": 3,
+            "after": 4,
+            "missing_before": 5,
+            "missing_after": 4,
+            "excess_before": 0,
+            "excess_after": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "lib\\mnesia-4.27\\ebin\\mnesia_kernel_sup.beam",
+      "before_status": "Equal",
+      "after_status": "Equal",
+      "reference_beam_sha256": "5b28241196989a4f5ac5993e82cb2803d3970e63f053384ab6497087ee462cc6",
+      "before_image_source": "reference bytes confirmed by Equal report",
+      "after_image_source": "reference bytes confirmed by Equal report",
+      "before_beam_sha256": "5b28241196989a4f5ac5993e82cb2803d3970e63f053384ab6497087ee462cc6",
+      "after_beam_sha256": "5b28241196989a4f5ac5993e82cb2803d3970e63f053384ab6497087ee462cc6",
+      "counts": {},
+      "sites": [],
+      "producer_scan": {
+        "reference": {},
+        "before": {},
+        "after": {}
+      },
+      "sections": {
+        "Code": {
+          "reference_sha256": "4fc2ce45bbfbd71e435384f824116141c1d82a9ce89925e68fa0990c5a538ac8",
+          "before_sha256": "4fc2ce45bbfbd71e435384f824116141c1d82a9ce89925e68fa0990c5a538ac8",
+          "after_sha256": "4fc2ce45bbfbd71e435384f824116141c1d82a9ce89925e68fa0990c5a538ac8",
+          "before_changed": false,
+          "before_reference_equal": true,
+          "after_reference_equal": true
+        },
+        "Type": {
+          "reference_sha256": "b11486efe31959068949594e475d32d9230bdb4ada967828ee06e3527a4bc6da",
+          "before_sha256": "b11486efe31959068949594e475d32d9230bdb4ada967828ee06e3527a4bc6da",
+          "after_sha256": "b11486efe31959068949594e475d32d9230bdb4ada967828ee06e3527a4bc6da",
+          "before_changed": false,
+          "before_reference_equal": true,
+          "after_reference_equal": true,
+          "entries": {
+            "reference": 1,
+            "before": 1,
+            "after": 1,
+            "missing_before": 0,
+            "missing_after": 0,
+            "excess_before": 0,
+            "excess_after": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "lib\\parsetools-2.8\\ebin\\leex.beam",
+      "before_status": "Different",
+      "after_status": "Different",
+      "reference_beam_sha256": "4d81b4898393f20c826dd8a4c54525984d117bb246744e7dda77f0c139ce367c",
+      "before_image_source": "emitted image",
+      "after_image_source": "emitted image",
+      "before_beam_sha256": "f736f6ae69edda33bc73103539aed5baf23da394c28965ed93889f4388c5b2c0",
+      "after_beam_sha256": "f886ac4910468532689ac9fa184a5f1db94667a750a10990cdf32ded4882526d",
+      "counts": {
+        "reference-proven-gain": 2,
+        "before-unmatched": 0,
+        "after-unmatched": 0,
+        "reference-unmatched": 2,
+        "existing-type-preserved": 1
+      },
+      "sites": [
+        {
+          "mfa": [
+            "dfa_state_exist",
+            3
+          ],
+          "alignment": "wide-window",
+          "oracle_alignment": "wide-window",
+          "before": {
+            "mfa": [
+              "dfa_state_exist",
+              3
+            ],
+            "call_index": 6,
+            "test_index": 7,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 3,
+            "annotation": null,
+            "eligible": true
+          },
+          "after": {
+            "mfa": [
+              "dfa_state_exist",
+              3
+            ],
+            "call_index": 6,
+            "test_index": 7,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 3,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "reference": {
+            "mfa": [
+              "dfa_state_exist",
+              3
+            ],
+            "call_index": 6,
+            "test_index": 7,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 3,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "outcome": "reference-proven-gain"
+        },
+        {
+          "mfa": [
+            "dfa_state_exist",
+            3
+          ],
+          "alignment": "wide-window",
+          "oracle_alignment": "wide-window",
+          "before": {
+            "mfa": [
+              "dfa_state_exist",
+              3
+            ],
+            "call_index": 20,
+            "test_index": 21,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 3,
+            "annotation": null,
+            "eligible": true
+          },
+          "after": {
+            "mfa": [
+              "dfa_state_exist",
+              3
+            ],
+            "call_index": 20,
+            "test_index": 21,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 3,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "reference": {
+            "mfa": [
+              "dfa_state_exist",
+              3
+            ],
+            "call_index": 19,
+            "test_index": 20,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 3,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "outcome": "reference-proven-gain"
+        },
+        {
+          "mfa": [
+            "enc",
+            1
+          ],
+          "alignment": "wide-window",
+          "oracle_alignment": "wide-window",
+          "before": {
+            "mfa": [
+              "enc",
+              1
+            ],
+            "call_index": 6,
+            "test_index": 7,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "after": {
+            "mfa": [
+              "enc",
+              1
+            ],
+            "call_index": 6,
+            "test_index": 7,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "reference": {
+            "mfa": [
+              "enc",
+              1
+            ],
+            "call_index": 6,
+            "test_index": 7,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "outcome": "existing-type-preserved"
+        },
+        {
+          "mfa": [
+            "filenames",
+            3
+          ],
+          "outcome": "reference-unmatched",
+          "site": {
+            "mfa": [
+              "filenames",
+              3
+            ],
+            "call_index": 30,
+            "test_index": 31,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": null,
+            "eligible": true
+          }
+        },
+        {
+          "mfa": [
+            "filenames",
+            3
+          ],
+          "outcome": "reference-unmatched",
+          "site": {
+            "mfa": [
+              "filenames",
+              3
+            ],
+            "call_index": 39,
+            "test_index": 40,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": null,
+            "eligible": true
+          }
+        }
+      ],
+      "producer_scan": {
+        "reference": {
+          "native-lookup-calls": 7,
+          "lookup-without-near-tuple-test": 2
+        },
+        "before": {
+          "native-lookup-calls": 7,
+          "lookup-without-near-tuple-test": 4
+        },
+        "after": {
+          "native-lookup-calls": 7,
+          "lookup-without-near-tuple-test": 4
+        }
+      },
+      "sections": {
+        "Code": {
+          "reference_sha256": "d67d3eeaa3b6efc1b22addb65e3797d3fda15b94c48f5a867da548fce4a34284",
+          "before_sha256": "edb529e690d982222f5f856f579980f0bcce72bcf09110e196370ab58fbf9de4",
+          "after_sha256": "9c2023df54a92a7f975493f6ccc50dafa0383c49c98622f41ad6bd368e9b2bd3",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false
+        },
+        "Type": {
+          "reference_sha256": "63191c4ef1631034c757b7c2a74ff7c97007a78cd14f2d9df624750634c7b424",
+          "before_sha256": "dfb074c75305770888b40d2b23114bdccfc63de16803dd3e2786fc1e73f6310c",
+          "after_sha256": "dfb074c75305770888b40d2b23114bdccfc63de16803dd3e2786fc1e73f6310c",
+          "before_changed": false,
+          "before_reference_equal": false,
+          "after_reference_equal": false,
+          "entries": {
+            "reference": 26,
+            "before": 4,
+            "after": 4,
+            "missing_before": 22,
+            "missing_after": 22,
+            "excess_before": 0,
+            "excess_after": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "lib\\public_key-1.21.7\\ebin\\pubkey_cert.beam",
+      "before_status": "Different",
+      "after_status": "Different",
+      "reference_beam_sha256": "874d5e93df4aafa55d3aac11c0da0dd457a55f7ad16397e5b601445bd92a92e1",
+      "before_image_source": "emitted image",
+      "after_image_source": "emitted image",
+      "before_beam_sha256": "76b74fc90c6c2cf37195a02743f04b6707b6a5d94623fbca8da79c280dfc2ae2",
+      "after_beam_sha256": "cba14dd65f1b21a01bc7509a57d32d069366cb89822135feec08b8f4fe97851d",
+      "counts": {},
+      "sites": [],
+      "producer_scan": {
+        "reference": {
+          "native-lookup-calls": 1,
+          "lookup-without-near-tuple-test": 1
+        },
+        "before": {
+          "native-lookup-calls": 1,
+          "lookup-without-near-tuple-test": 1
+        },
+        "after": {
+          "native-lookup-calls": 1,
+          "lookup-without-near-tuple-test": 1
+        }
+      },
+      "sections": {
+        "Code": {
+          "reference_sha256": "a6c7d7b02f1e7ae1d2f985bf450da15a7594413f72e235f958749670fcdbc853",
+          "before_sha256": "bf71d5b7068533847c5a59a0a029a9b1c9643cd46efeec881ed7fe9682d78dd5",
+          "after_sha256": "6c55939529271b045ad7408b1dbe979839ec1beb5760540bd548c218d4de5575",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false
+        },
+        "Type": {
+          "reference_sha256": "aeb7342201f25c27ef6397e0dd5e3a2c52be8bc8bbe1e2e9c09cb6f881c08f69",
+          "before_sha256": "4c727cfd9a7450d79eb54c2c77810e1cda73efdb2542396eef123d8075995c13",
+          "after_sha256": "4c727cfd9a7450d79eb54c2c77810e1cda73efdb2542396eef123d8075995c13",
+          "before_changed": false,
+          "before_reference_equal": false,
+          "after_reference_equal": false,
+          "entries": {
+            "reference": 17,
+            "before": 3,
+            "after": 3,
+            "missing_before": 14,
+            "missing_after": 14,
+            "excess_before": 0,
+            "excess_after": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "lib\\ssh-6.0.6\\ebin\\ssh_channel_sup.beam",
+      "before_status": "Equal",
+      "after_status": "Equal",
+      "reference_beam_sha256": "730924fbf4a6d95e9318756115ec575f032b31d6e041fdae8735913e07a851c6",
+      "before_image_source": "reference bytes confirmed by Equal report",
+      "after_image_source": "reference bytes confirmed by Equal report",
+      "before_beam_sha256": "730924fbf4a6d95e9318756115ec575f032b31d6e041fdae8735913e07a851c6",
+      "after_beam_sha256": "730924fbf4a6d95e9318756115ec575f032b31d6e041fdae8735913e07a851c6",
+      "counts": {},
+      "sites": [],
+      "producer_scan": {
+        "reference": {},
+        "before": {},
+        "after": {}
+      },
+      "sections": {
+        "Code": {
+          "reference_sha256": "5deac16f6e11d8bb362b793dd600c811d34daa8bde45f18a29d06d701c372765",
+          "before_sha256": "5deac16f6e11d8bb362b793dd600c811d34daa8bde45f18a29d06d701c372765",
+          "after_sha256": "5deac16f6e11d8bb362b793dd600c811d34daa8bde45f18a29d06d701c372765",
+          "before_changed": false,
+          "before_reference_equal": true,
+          "after_reference_equal": true
+        },
+        "Type": {
+          "reference_sha256": "e0d6b75c0e0b937ace2bad0646f85f3cdf71428415960fbbfbd3c9d7f1a0b78d",
+          "before_sha256": "e0d6b75c0e0b937ace2bad0646f85f3cdf71428415960fbbfbd3c9d7f1a0b78d",
+          "after_sha256": "e0d6b75c0e0b937ace2bad0646f85f3cdf71428415960fbbfbd3c9d7f1a0b78d",
+          "before_changed": false,
+          "before_reference_equal": true,
+          "after_reference_equal": true,
+          "entries": {
+            "reference": 2,
+            "before": 2,
+            "after": 2,
+            "missing_before": 0,
+            "missing_after": 0,
+            "excess_before": 0,
+            "excess_after": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "lib\\ssl-11.7.7\\ebin\\ssl_config.beam",
+      "before_status": "Different",
+      "after_status": "Different",
+      "reference_beam_sha256": "96287c7d15e5e3ef17bdd5dc01ae6e7ff7d39831bd569b6fed89c22095e455e2",
+      "before_image_source": "emitted image",
+      "after_image_source": "emitted image",
+      "before_beam_sha256": "2813eb0c55b5f32a1bc78f8901cb0250e39b6191bb7cf8ade8a8fced8a4e03da",
+      "after_beam_sha256": "7530d1e867ff8981a4fb693e94d00db471af4d6c22fe2e58d8943f9e6ca75cec",
+      "counts": {},
+      "sites": [],
+      "producer_scan": {
+        "reference": {
+          "native-lookup-calls": 1,
+          "lookup-without-near-tuple-test": 1
+        },
+        "before": {
+          "native-lookup-calls": 1,
+          "lookup-without-near-tuple-test": 1
+        },
+        "after": {
+          "native-lookup-calls": 1,
+          "lookup-without-near-tuple-test": 1
+        }
+      },
+      "sections": {
+        "Code": {
+          "reference_sha256": "25d7c8ac533b1fa177d3bdcac5598c06a929202f4753ef395e5be790014b30b9",
+          "before_sha256": "5fbbc62dea199a100717aa0c1eed91b877bcab7c429c61abded9bcfab4b5ebe5",
+          "after_sha256": "6298d8d341e74fa29722e9cb6eb196bd44bb7aa9401e1de4e115a8c1e1ea6884",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false
+        },
+        "Type": {
+          "reference_sha256": "48ecc575dd5c2c46dbf1b1f8064b3206b819e194042a1fbb1883a2ea4dfde454",
+          "before_sha256": "ffe9cf89f7589da8c0029f0fe0bfffd480daa58ce4d34dc26b301f275e84b7f1",
+          "after_sha256": "ffe9cf89f7589da8c0029f0fe0bfffd480daa58ce4d34dc26b301f275e84b7f1",
+          "before_changed": false,
+          "before_reference_equal": false,
+          "after_reference_equal": false,
+          "entries": {
+            "reference": 20,
+            "before": 5,
+            "after": 5,
+            "missing_before": 15,
+            "missing_after": 15,
+            "excess_before": 0,
+            "excess_after": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "lib\\ssl-11.7.7\\ebin\\ssl_dh_groups.beam",
+      "before_status": "Equal",
+      "after_status": "Equal",
+      "reference_beam_sha256": "bc261760ac03337738c1c1f7369f2535c03b0d0224e9167135c2e36d15987167",
+      "before_image_source": "reference bytes confirmed by Equal report",
+      "after_image_source": "reference bytes confirmed by Equal report",
+      "before_beam_sha256": "bc261760ac03337738c1c1f7369f2535c03b0d0224e9167135c2e36d15987167",
+      "after_beam_sha256": "bc261760ac03337738c1c1f7369f2535c03b0d0224e9167135c2e36d15987167",
+      "counts": {},
+      "sites": [],
+      "producer_scan": {
+        "reference": {},
+        "before": {},
+        "after": {}
+      },
+      "sections": {
+        "Code": {
+          "reference_sha256": "b3306a1bc8baae6e7618c90d83a810869c57bd6a85a93182d7323772d2add16f",
+          "before_sha256": "b3306a1bc8baae6e7618c90d83a810869c57bd6a85a93182d7323772d2add16f",
+          "after_sha256": "b3306a1bc8baae6e7618c90d83a810869c57bd6a85a93182d7323772d2add16f",
+          "before_changed": false,
+          "before_reference_equal": true,
+          "after_reference_equal": true
+        },
+        "Type": {
+          "reference_sha256": "b11486efe31959068949594e475d32d9230bdb4ada967828ee06e3527a4bc6da",
+          "before_sha256": "b11486efe31959068949594e475d32d9230bdb4ada967828ee06e3527a4bc6da",
+          "after_sha256": "b11486efe31959068949594e475d32d9230bdb4ada967828ee06e3527a4bc6da",
+          "before_changed": false,
+          "before_reference_equal": true,
+          "after_reference_equal": true,
+          "entries": {
+            "reference": 1,
+            "before": 1,
+            "after": 1,
+            "missing_before": 0,
+            "missing_after": 0,
+            "excess_before": 0,
+            "excess_after": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "lib\\stdlib-8.1\\ebin\\erl_tar.beam",
+      "before_status": "Different",
+      "after_status": "Different",
+      "reference_beam_sha256": "1f0c31030ab047cb25f8817e75c235952be45006d122c262c59ce67c4b47fbc5",
+      "before_image_source": "emitted image",
+      "after_image_source": "emitted image",
+      "before_beam_sha256": "c2d84704f1fc90fa520e156cbe9c4a41e3e91c9fddd0c4ba3cb40e337095cfe4",
+      "after_beam_sha256": "588287671dd28d8f966151aaa4cc4948bc10e6d95a625e152d4255caf9b4ba25",
+      "counts": {},
+      "sites": [],
+      "producer_scan": {
+        "reference": {},
+        "before": {},
+        "after": {}
+      },
+      "sections": {
+        "Code": {
+          "reference_sha256": "fc15a8d45783e95aaeaaec04a6f80adaa9a9e8ead38876b30ba7f7696c484391",
+          "before_sha256": "5d53df3c2235ab9bdb5527135c0b2e2d211a71c8e73f4c940d592e13e72b0086",
+          "after_sha256": "c4c44e7e1adf57adb321d7ca0b541991fb3afff5d728d92d49c7ca6725b205d9",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false
+        },
+        "Type": {
+          "reference_sha256": "a5cf0dddd20f10df23f7eb0269579f1fccf096d2d4713533b83cf9eb3659c375",
+          "before_sha256": "320648e0a762586d8965e73cabcce0a4c7e614dd945e1d0c0e1ff5201f432501",
+          "after_sha256": "320648e0a762586d8965e73cabcce0a4c7e614dd945e1d0c0e1ff5201f432501",
+          "before_changed": false,
+          "before_reference_equal": false,
+          "after_reference_equal": false,
+          "entries": {
+            "reference": 46,
+            "before": 7,
+            "after": 7,
+            "missing_before": 39,
+            "missing_after": 39,
+            "excess_before": 0,
+            "excess_after": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "lib\\stdlib-8.1\\ebin\\gen.beam",
+      "before_status": "Different",
+      "after_status": "Different",
+      "reference_beam_sha256": "da61198004c493a12f7f5cfeec60b696e71407300cb6d83544ff04d9413aacb2",
+      "before_image_source": "emitted image",
+      "after_image_source": "emitted image",
+      "before_beam_sha256": "7a880b770814ce7e75c3186412c249b4056cf12b0f2892d1b0bd827fcc62ee8c",
+      "after_beam_sha256": "f14840f8a0f316f3f176522dda77db89fb43bb23c46a6b6e1f146df2ebfa55ee",
+      "counts": {
+        "unpaired-union-addition": 1,
+        "before-unmatched": 0,
+        "after-unmatched": 0,
+        "reference-unmatched": 1,
+        "existing-type-preserved": 3
+      },
+      "sites": [
+        {
+          "mfa": [
+            "debug_options",
+            2
+          ],
+          "alignment": "wide-window",
+          "oracle_alignment": null,
+          "before": {
+            "mfa": [
+              "debug_options",
+              2
+            ],
+            "call_index": 7,
+            "test_index": 8,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": null,
+            "eligible": true
+          },
+          "after": {
+            "mfa": [
+              "debug_options",
+              2
+            ],
+            "call_index": 7,
+            "test_index": 8,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "reference": null,
+          "outcome": "unpaired-union-addition"
+        },
+        {
+          "mfa": [
+            "debug_options",
+            2
+          ],
+          "outcome": "reference-unmatched",
+          "site": {
+            "mfa": [
+              "debug_options",
+              2
+            ],
+            "call_index": 7,
+            "test_index": 8,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          }
+        },
+        {
+          "mfa": [
+            "hibernate_after",
+            1
+          ],
+          "alignment": "wide-window",
+          "oracle_alignment": "wide-window",
+          "before": {
+            "mfa": [
+              "hibernate_after",
+              1
+            ],
+            "call_index": 5,
+            "test_index": 6,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "after": {
+            "mfa": [
+              "hibernate_after",
+              1
+            ],
+            "call_index": 5,
+            "test_index": 6,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "reference": {
+            "mfa": [
+              "hibernate_after",
+              1
+            ],
+            "call_index": 5,
+            "test_index": 6,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "outcome": "existing-type-preserved"
+        },
+        {
+          "mfa": [
+            "spawn_opts",
+            1
+          ],
+          "alignment": "wide-window",
+          "oracle_alignment": "wide-window",
+          "before": {
+            "mfa": [
+              "spawn_opts",
+              1
+            ],
+            "call_index": 5,
+            "test_index": 6,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "after": {
+            "mfa": [
+              "spawn_opts",
+              1
+            ],
+            "call_index": 5,
+            "test_index": 6,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "reference": {
+            "mfa": [
+              "spawn_opts",
+              1
+            ],
+            "call_index": 5,
+            "test_index": 6,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "outcome": "existing-type-preserved"
+        },
+        {
+          "mfa": [
+            "timeout",
+            1
+          ],
+          "alignment": "wide-window",
+          "oracle_alignment": "wide-window",
+          "before": {
+            "mfa": [
+              "timeout",
+              1
+            ],
+            "call_index": 5,
+            "test_index": 6,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "after": {
+            "mfa": [
+              "timeout",
+              1
+            ],
+            "call_index": 5,
+            "test_index": 6,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "reference": {
+            "mfa": [
+              "timeout",
+              1
+            ],
+            "call_index": 5,
+            "test_index": 6,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          },
+          "outcome": "existing-type-preserved"
+        }
+      ],
+      "producer_scan": {
+        "reference": {
+          "native-lookup-calls": 4
+        },
+        "before": {
+          "native-lookup-calls": 4
+        },
+        "after": {
+          "native-lookup-calls": 4
+        }
+      },
+      "sections": {
+        "Code": {
+          "reference_sha256": "f7203abc13a28ea75c93fa2cb261651af356e0cadfc035b6e209d57cc2bb9751",
+          "before_sha256": "e16ab6da15ff3f73706e8bea2c5588d5bad3de49ae62d52fd6848dda6b99c6c8",
+          "after_sha256": "20643d5f46e8a5ec21f2874d1b9c4bc39f724e087bb94fcdd2ab04380d38193f",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false
+        },
+        "Type": {
+          "reference_sha256": "3aff04615291e650cea2d1a4e815cc7934d0bc2937abd8e3a2e2c07f37e7d21c",
+          "before_sha256": "d3c27c242fd7580681e0787beeedbf77551179ff9eeee5b2b26fc227bbd2b622",
+          "after_sha256": "d3c27c242fd7580681e0787beeedbf77551179ff9eeee5b2b26fc227bbd2b622",
+          "before_changed": false,
+          "before_reference_equal": false,
+          "after_reference_equal": false,
+          "entries": {
+            "reference": 14,
+            "before": 4,
+            "after": 4,
+            "missing_before": 10,
+            "missing_after": 10,
+            "excess_before": 0,
+            "excess_after": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "lib\\stdlib-8.1\\ebin\\man_docs.beam",
+      "before_status": "Different",
+      "after_status": "Different",
+      "reference_beam_sha256": "a71210146d8896c8e2a11556abe6db351cfd96cf9757e0491195e0147789e525",
+      "before_image_source": "emitted image",
+      "after_image_source": "emitted image",
+      "before_beam_sha256": "90b35807ef4d777e41516131de82588d1dce359118fe3b017ea9b2f9e18742a4",
+      "after_beam_sha256": "1cfc096bf1cf9f7a0cc9da1d076e3846eee4e177bc54b3d32e6926b81b05ecce",
+      "counts": {
+        "before-unmatched": 0,
+        "after-unmatched": 0,
+        "reference-unmatched": 1
+      },
+      "sites": [
+        {
+          "mfa": [
+            "-format_function/3-fun-3-",
+            2
+          ],
+          "outcome": "reference-unmatched",
+          "site": {
+            "mfa": [
+              "-format_function/3-fun-3-",
+              2
+            ],
+            "call_index": 29,
+            "test_index": 30,
+            "barriers": [],
+            "position_proof": "eligible",
+            "position": 1,
+            "annotation": [
+              2049,
+              null,
+              null,
+              null
+            ],
+            "eligible": true
+          }
+        }
+      ],
+      "producer_scan": {
+        "reference": {
+          "native-lookup-calls": 1
+        },
+        "before": {
+          "native-lookup-calls": 1,
+          "lookup-without-near-tuple-test": 1
+        },
+        "after": {
+          "native-lookup-calls": 1,
+          "lookup-without-near-tuple-test": 1
+        }
+      },
+      "sections": {
+        "Code": {
+          "reference_sha256": "b338182add624b7fac7939077bc0af595661051c44b6dfb2b3757acf06a923e6",
+          "before_sha256": "14f17b845d5b3003180fcc6855ebf362fdb5051d10f59f16a50cf67c0e24c7f6",
+          "after_sha256": "d15a810e1e207622c34842a5d48fc7f1c667a4789a1430dc42a767d84e998613",
+          "before_changed": true,
+          "before_reference_equal": false,
+          "after_reference_equal": false
+        },
+        "Type": {
+          "reference_sha256": "5d2acd94fd84fb5dbaef5b47e09dc2606d146aaf650c04ac73d0102abbf5dd48",
+          "before_sha256": "4299b4ff9bfb4f67acf31627bf847cdcdd06a0cbd234f93e4ee2d94e24138d98",
+          "after_sha256": "4299b4ff9bfb4f67acf31627bf847cdcdd06a0cbd234f93e4ee2d94e24138d98",
+          "before_changed": false,
+          "before_reference_equal": false,
+          "after_reference_equal": false,
+          "entries": {
+            "reference": 11,
+            "before": 3,
+            "after": 3,
+            "missing_before": 9,
+            "missing_after": 9,
+            "excess_before": 1,
+            "excess_after": 1
+          }
+        }
+      }
+    }
+  ]
+}

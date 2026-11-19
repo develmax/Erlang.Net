@@ -10,6 +10,8 @@
     <EmbeddedResource Include="Resources\BeamOnLoad\**\*" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="../../tools/Validation/Erlang.BeamCorpus/OtpWindowsInetsIncludePaths.cs" Link="Compiler/Beam/OtpWindowsInetsIncludePaths.cs" />
+    <Compile Include="../../tools/Validation/Erlang.BeamCorpus/OtpWindowsCoreIncludePaths.cs" Link="Compiler/Beam/OtpWindowsCoreIncludePaths.cs" />
     <Compile Include="../../tools/Validation/Erlang.BeamCorpus/Asn1BerSchema.cs" Link="Compiler/Beam/Asn1BerSchema.cs" />
     <Compile Include="../../tools/Validation/Erlang.BeamCorpus/Asn1BerErlangWriter.cs" Link="Compiler/Beam/Asn1BerErlangWriter.cs" />
     <Compile Include="../../tools/Validation/Erlang.BeamCorpus/Asn1BerCodecOrdering.cs" Link="Compiler/Beam/Asn1BerCodecOrdering.cs" />

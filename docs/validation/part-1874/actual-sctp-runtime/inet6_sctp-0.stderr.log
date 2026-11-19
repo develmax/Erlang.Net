@@ -1,0 +1,16 @@
+Error! Failed to eval: [Image,Module]=init:get_plain_arguments(),
+M=case Module of "inet6_sctp"->inet6_sctp;"inet_sctp"->inet_sctp end,_=code:unstick_mod(M),
+{ok,Beam}=file:read_file(Image),{module,M}=code:load_binary(M,Image,Beam),
+Run=fun() ->
+  BadSocket=fun(A,B,C,D)->try M:send(A,B,C,D) of R->{return,R} catch Cl:Reason->{Cl,Reason} end end,
+  [BadSocket(not_a_socket,0,0,<<"payload">>),
+   BadSocket(not_a_socket,bad_assoc,1,[]),
+   BadSocket(not_a_socket,1,bad_stream,<<>>)]
+end,
+io:format("~0p~n",[{M,Run()}]),halt().
+
+
+
+Runtime terminating during boot ({{badmatch,{error,enoent}},[{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,796}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{init,start_it,1,[{file,"init.erl"},{line,1561}]},{init,start_em,1,[{file,"init.erl"},{line,1546}]},{init,do_boot,3,[{file,"init.erl"},{line,1217}]}]})
+
+Crash dump is being written to: D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\singleton-record-register-planning-1874\actual-sctp-runtime/inet6_sctp-0-crash.dump...done

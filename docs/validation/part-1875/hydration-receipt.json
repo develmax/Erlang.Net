@@ -1,0 +1,57 @@
+{
+  "Parent": {
+    "Source": "800b3c0e1f32ebacb4890d0c63f8027a053d75eef865f0ed37ad106fd078ab53",
+    "Paths": 219,
+    "Compiler": "2141ced7bde5989efc91c1d6fd7da37765135ae54c93afb1f435f045f96e8f3f",
+    "Tests": "7c0d8ee231f3d52441d7d30fe6c10dd1acef1f3d04b12381a39e40224fc9f85a",
+    "ParentSource": "b0aed3dd3220920721b11617b24e8b6c90e6efb739f8ee32865395c80cfeafaf",
+    "CorpusTool": "9479b8296248576e044fcaed0fa256f5fbd9e3b70a21f4223ae73409c56325ee"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryArgumentFlow.cs": "3336576c98cb4acc7a96b167ee7ea2b79b1a9e01245e16e24875dc326663fdb6",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TailArgumentCopies.cs": "7d18c8ea97430b3d3730922ef578a33ba098b27e746ab9625249ad2e91489014",
+    "tests/Erlang.Tests/Compiler/Beam/BeamKernelIncludeProfileChecks.cs": "e3007c992eb8be2851e71ff62dc104ee20f0a790b9f51f3d77d53f0feb1d99be",
+    "tests/Erlang.Tests/Compiler/Beam/BeamStdlibIncludeProfileChecks.cs": "5323e1f0069fbb9514f130b904b13a23f6f55b778bcea18ff56754f2f88c2157",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamOrdinaryScratchCopyChecks.cs": "d22ebac156d9b3f9253bbedb1265e2fdd9d5ff977d78fca9c3e8e39fa9371919",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamRetainedConstructorAliasChecks.cs": "4e0d0808d0f7391a8e7a2fe8ac455550c421d60962b7584ba5ce4e9e8b1af022",
+    "tests/Erlang.Tests/Erlang.Tests.csproj": "538cbf3e4ba864919f1f942f649860c8090f518d93ec96a6ff7c6d63afed3553",
+    "tests/Erlang.Tests/Harness/Program.cs": "4be126528814ba5580ee7588ceb371adb6bbd52507dde3c71001388b19d429ba",
+    "tools/Validation/Erlang.BeamCorpus/OtpWindowsCoreIncludePaths.cs": "965757c62046f4475a4b83f8ebb5ee7aaa4bc4d8cde51725f0efcdcd3fd03f04",
+    "tools/Validation/Erlang.BeamCorpus/Program.cs": "3b1205cf832c8c28c95f5e8021c968761ea6c1a2ad349334930d64a7dda9d51d"
+  },
+  "RemovedPaths": {
+    "tools/Validation/Erlang.BeamCorpus/OtpWindowsKernelIncludePaths.cs": "66ec101544230755f583bb53053246123a20e72f3b2da3b273caf53fcedc89df"
+  },
+  "Patches": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\send-frame-and-core-include-provenance-1875\\send-entry-argument-consumer-1873.patch",
+      "Hash": "a57e8714d8886f6b948f204414da38a83826b7fe13b26027a9113e2e1a51210f"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\send-frame-and-core-include-provenance-1875\\ordinary-entry-scratch-compose-1873.patch",
+      "Hash": "97d3e83f645cc89bbc68c98a4cd65d606d5d0e36442e42e41c44d69c7486fa5a"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\send-frame-and-core-include-provenance-1875\\stdlib-bootstrap-include-provenance.patch",
+      "Hash": "227c72fe6c805364d20b958983bf3eee9996a97d07648e646d52959aeb5fdcb7"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\send-frame-and-core-include-provenance-1875\\register-fixtures.patch",
+      "Hash": "013901470bd758ab69ca65fa9120bb65a62f993fcc1ff41ba3a04081975a53dd"
+    }
+  ],
+  "Proposals": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\near-exact-audit-1845\\frame-census-1870\\send-entry-argument-consumer-1873.patch",
+      "Hash": "a57e8714d8886f6b948f204414da38a83826b7fe13b26027a9113e2e1a51210f"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\diameter-make-exact-1873\\ordinary-entry-scratch-compose-1873.patch",
+      "Hash": "c8798b9422a15798e5fec56f364a4151a4b0ecee167456efc89ec092a4f028c1"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\metadata-stdlib-include-audit-1870\\stdlib-bootstrap-include-provenance.patch",
+      "Hash": "5d9c59b8ef000faf84e5ee71a897d725f5960fe69aa9171c43695f0abfca857a"
+    }
+  ]
+}

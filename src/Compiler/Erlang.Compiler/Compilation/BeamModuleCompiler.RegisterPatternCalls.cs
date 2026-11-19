@@ -813,8 +813,12 @@ internal sealed partial class BeamModuleCompiler
                 exact: true
             );
             int failure = shapeKnown ? 0 : Label();
-            int selectorType = RegisterCaseSelectorType(call, IsTuple);
-            bool tagged = selectorType == 0 && checks is [(0, -1, Atom)];
+            Atom? knownTag = owner.SsaTypeInferenceEnabled && checks is [(0, -1, Atom expectedTag)]
+                && HasKnownKeyFindTag(call, expectedTag)
+                ? expectedTag
+                : null;
+            int selectorType = knownTag is null ? RegisterCaseSelectorType(call, IsTuple) : 0;
+            bool tagged = knownTag is null && selectorType == 0 && checks is [(0, -1, Atom)];
             if (tagged)
             {
                 EmitDetailRecordTest(
@@ -826,6 +830,11 @@ internal sealed partial class BeamModuleCompiler
             }
             else if (!shapeKnown)
             {
+                if (knownTag is not null)
+                {
+                    owner.RecordConstrainedKeyFindTupleTest(failure, tuple.Items.Count, knownTag);
+                }
+
                 EmitTupleShapeTest(
                     XRegisterTag,
                     0,
@@ -837,7 +846,7 @@ internal sealed partial class BeamModuleCompiler
 
             foreach (var (field, source, literal) in checks)
             {
-                if (tagged && field == 0)
+                if ((tagged || knownTag is not null) && field == 0)
                 {
                     continue;
                 }

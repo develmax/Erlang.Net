@@ -1,0 +1,54 @@
+{
+  "Parent": {
+    "Source": "947377e187838db05c973a58a0014b460f7f7c8e5402879d054f479e1346c77d",
+    "Paths": 187,
+    "Compiler": "dc0f01d555df1feac2ad5c2c5c693e84d816fc816c80b2d0150007a9619072e7",
+    "Tests": "7f326a68b5321c36a534e71338b3a13c86293d839b282df600326a90fcc06274",
+    "ParentSource": "d0589acba2affe2fb22088f7d97ab268d8fff20a11e4b8f05dbfb7a92b54bf42",
+    "CorpusTool": "e82b07cfafa2ed370e4571bd0e1d1ba472acb77a5387a0ab85e0541bc4ab77a0"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BranchStackSlots.cs": "0bb430415bacb508b44f7af68922a0ea7811c207d46b5ed1acd3309d15977da1",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.NumericRecordOperands.cs": "4ffbc67ca3438194619bf88cd36db7c355e7eccc40b954529391a5a89302f60d",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProperListEntryFacts.cs": "bd8a800da3452fb4e0a99c5eb70e0aca65a9ca0db5118d8346a4f90fae5b2079",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProperListMatchFailures.cs": "7a8ce8ea34e7c65b987b5de45edcdcf3aa9d6a7caad509ec58bfe4849444c9fc",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedReturns.cs": "221ba5c5877a955d6658982da5ed2df9d076deacd40182171e1619ee2108ade5",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": "a5ff5c83ba4acfc51b0376d83330c4665a5065364851045293f11f43f4adc8c1",
+    "tests/Erlang.Tests/Compiler/Beam/BeamNumericRecordOperandChecks.cs": "88161c9093bc7fb530c54a252376fd5cb9a2ffbe9fbce72ea56fa04e175b684f",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamProperListEntryChecks.cs": "00396b393db9dbb153fc4493411096efeefe5bce47a55f2d2e023f997e7bb2d7",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamTerminalListMatchSlotChecks.cs": "b7bd03b4f7f0e3fd20a6dc26c752a275fafe9437cff75c061de228ed5096594e",
+    "tests/Erlang.Tests/Harness/Program.cs": "1ab1882058d51b312b9461b29e5ddf5035c9a7f218eda141b8830ec5b5bed0ec"
+  },
+  "Patches": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\list-frame-compaction-and-entry-facts-1868\\numeric-record-live-frame-1867.patch",
+      "Hash": "974787713bea20b951c28f555a9991c2f79f8652ec4c2ef970c29d95304884be"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\list-frame-compaction-and-entry-facts-1868\\line-aware-frameless-relay-compaction.patch",
+      "Hash": "7c47f2eaa92182e4c5d2c3ae7e1e330c09ad412353f96f7fc3bb0a99990261e1"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\list-frame-compaction-and-entry-facts-1868\\proper-list-entry-and-badmatch.patch",
+      "Hash": "6c8296a91f7c432c1052ac0b12c02f1704cddb1675f751afedda67681c2b8b85"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\list-frame-compaction-and-entry-facts-1868\\register-fixtures.patch",
+      "Hash": "279a129cf28f55b3bf94d4c4597cc15abdc1c89f04049c1e62f29badc607c016"
+    }
+  ],
+  "UpstreamProposals": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\near-exact-audit-1845\\record-fixture-1867\\numeric-record-live-frame-1867.patch",
+      "Hash": "974787713bea20b951c28f555a9991c2f79f8652ec4c2ef970c29d95304884be"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\terminal-list-frame-distance-audit\\line-aware-frameless-relay-compaction.patch",
+      "Hash": "894090fb0ffed8791d2878bb194b3ff2e9c9495a064a4b60829b2bb4d26c7b88"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\early-list-tuple-frame-audit\\proper-list-csharp\\styled\\proper-list-entry-and-badmatch.patch",
+      "Hash": "4f4af17e7d26e446ba99b8a477ffb538286be53538b8aace8602c255658b843d"
+    }
+  ]
+}

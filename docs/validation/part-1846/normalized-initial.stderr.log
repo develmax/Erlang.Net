@@ -1,0 +1,60 @@
+Error! Failed to eval: [Input,CacheDirectory,EvalIdentity]=init:get_plain_arguments(),
+{ok,Data}=file:read_file(Input),
+Paths=[binary:split(L,<<9>>,[global]) || L <- binary:split(Data,<<10>>,[global,trim_all])],
+Normalize=fun(Is) ->
+    Labels=[L || {label,L} <- Is], Map=maps:from_list(lists:zip(Labels,lists:seq(1,length(Labels)))),
+    Walk=fun
+        T({f,L}) -> {f,maps:get(L,Map,{outside,L})};
+        T({literal,_}=V) -> V;
+        T({make_fun3,M,I,_,Dst,Args}) -> {make_fun3,M,I,uniq,T(Dst),T(Args)};
+        T(V) when is_tuple(V) -> list_to_tuple(T(tuple_to_list(V)));
+        T([H|R]) -> [T(H)|T(R)];
+        T(V) -> V
+    end,
+    [Walk(I) || I <- Is, not(is_tuple(I) andalso lists:member(element(1,I),[label,line,func_info]))]
+end,
+DisasmIdentity={erlang:system_info(version),beam_disasm:module_info(md5),beam_lib:module_info(md5)},
+Read=fun(P) ->
+    Name=binary_to_list(string:trim(P)),
+    {ok,Image}=file:read_file(Name),
+    Key=crypto:hash(sha256,term_to_binary({DisasmIdentity,EvalIdentity,crypto:hash(sha256,Image)})),
+    Entry=filename:join(CacheDirectory,binary_to_list(binary:encode_hex(Key))++".etf"),
+    case file:read_file(Entry) of
+        {ok,Cached} ->
+            {Key,Functions}=binary_to_term(Cached),
+            Functions;
+        {error,enoent} ->
+            {beam_file,_,_,_,_,Body}=beam_disasm:file(Image),
+            Functions=maps:from_list([{{F,A},Normalize(Is)}||{function,F,A,_,Is}<-Body]),
+            ok=file:write_file(Entry,term_to_binary({Key,Functions})),
+            Functions
+    end
+end,
+Slots=fun(Is) -> [S||I<-Is,is_tuple(I),S<-case I of {allocate,N,_}->[N];{allocate_heap,N,_,_}->[N];_->[] end] end,
+Diff=fun(Expected,Actual) -> lists:sum([abs(R-A)||{R,A}<-lists:zip(Expected,Actual,trim)]) end,
+lists:foreach(fun([Ref,Before,After]) ->
+    Name=filename:basename(binary_to_list(string:trim(Ref))),
+    R=Read(Ref), B=Read(Before), A=Read(After),
+    Keys=lists:usort(maps:keys(B)++maps:keys(A)),
+    Rows=lists:filtermap(fun(Key)->
+        RefIs=maps:get(Key,R,missing), BeforeIs=maps:get(Key,B,missing), AfterIs=maps:get(Key,A,missing),
+        case {RefIs,BeforeIs,AfterIs} of
+            {X,Y,Z} when is_list(X),is_list(Y),is_list(Z),Y=/=Z ->
+                RB=Slots(X), BB=Slots(Y), AB=Slots(Z),
+                SlotDelta=case {length(RB)=:=length(BB),length(BB)=:=length(AB)} of
+                    {true,true}->Diff(RB,AB)-Diff(RB,BB); _->unknown
+                end,
+                {true,{Key,X=:=Y,X=:=Z,SlotDelta}};
+            {_,Y,Z} when Y=/=Z -> {true,{Key,false,false,unknown}};
+            _ -> false
+        end
+    end,Keys),
+    io:format("~0p.~n",[{Name,Rows}])
+end,Paths),
+halt().
+
+
+
+Runtime terminating during boot ({{badmatch,["D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/map-result-root-1846/delta.tsv","D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/singleton-returns-1840/part1839-cumulative-normalization/cache"]},[{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,796}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{init,start_it,1,[{file,"init.erl"},{line,1561}]},{init,start_em,1,[{file,"init.erl"},{line,1546}]},{init,do_boot,3,[{file,"init.erl"},{line,1217}]}]})
+
+Crash dump is being written to: erl_crash.dump...done

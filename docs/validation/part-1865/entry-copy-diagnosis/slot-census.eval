@@ -1,0 +1,53 @@
+[Rank,R,G]=init:get_plain_arguments(),
+{ok,[D]}=file:consult(Rank),
+AG=maps:get(allocation_operand_groups,D),
+Groups=[{Q,Ms}||{Q={_,{frame,excess},_,{live,equal}},{_,Ms}}<-maps:to_list(AG)]++[{Q,Ms}||{Q={_,{frame,excess},{live,equal}},{_,Ms}}<-maps:to_list(AG)],
+Binaries=maps:from_list(lists:append([begin K=filename:join(S,"otp-corpus.json.generated"),[{string:join(lists:nthtail(length(filename:split(K)),filename:split(P)),"/"),P}||P<-filelib:fold_files(K,"[.]beam$",true,fun(P,A)->[P|A] end,[])] end||S<-filelib:wildcard(filename:join(G,"shard-*"))])),
+Read=fun(P)->case beam_disasm:file(P) of {beam_file,M,_,_,_,Fs}->{M,maps:from_list([{{F,A},I}||{function,F,A,_,I}<-Fs])}; _->{undefined,#{}} end end,
+Op=fun(I) when is_tuple(I)->element(1,I);(I)->I end,
+Call=fun(I)->lists:member(Op(I),[call,call_ext,call_fun,call_fun2,apply,call_last,call_ext_last,call_only,call_ext_only,apply_last]) end,
+Reg=fun W({tr,X,_},R0)->W(X,R0); W(R0,R0)->true; W({literal,_},_)->false; W(T,R0) when is_tuple(T)->lists:any(fun(X)->W(X,R0) end,tuple_to_list(T)); W([X|Xs],R0)->W(X,R0) orelse W(Xs,R0); W(_,_) -> false end,
+Own=fun(I,Y)->Op(I)=/=init_yregs andalso Reg(I,Y) end,
+GetAlloc=fun(I)->case lists:dropwhile(fun(X)->not lists:member(Op(X),[allocate,allocate_heap]) end,I) of [Al|Rest]->{element(2,Al),Rest}; []->{0,[]} end end,
+First=fun(I)->case lists:splitwith(fun(X)->not Call(X) end,I) of {L,[X|A]}->{L,[X|A],X};{L,[]}->{L,[],none} end end,
+Analyze=fun(M,F,Ex,C)->
+{N,C0}=GetAlloc(C),{_,E0}=GetAlloc(Ex),{PL,Post,TC}=First(C0),{EL,_,EC}=First(E0),
+Spills=[{X,Y}||{move,{x,_}=X,{y,_}=Y}<-PL],
+Direct=TC=:=EC andalso TC=/=none andalso not lists:any(fun(I)->Op(I)=:=label orelse Op(I)=:=trim end,PL),
+Unneeded=[{X,Y}||{X,Y}<-Spills,not lists:any(fun(I)->Own(I,Y) end,Post), not lists:any(fun(I)->case I of {move,X,{y,_}}->true;_->false end end,EL)],
+IsStraight=fun(I)->lists:member(Op(I),[line,init_yregs,move,swap,get_tuple_element,get_hd,get_tl,get_list,put_tuple2,put_list])end,
+Safe=[{X,Y}||{X,Y}<-Unneeded,lists:all(IsStraight,PL),length([I||I={move,_,D1}<-PL,D1=:=Y])=:=1],
+
+SpillPlan=fun(X,Y)->
+ {Left,[{move,X,Y}|Tail]}=lists:splitwith(fun(I)->I=/={move,X,Y} end,PL),
+ StartAllowed=lists:all(fun(I)->lists:member(Op(I),[init_yregs,move,put_tuple2,put_list,line]) end,Left),
+ case {StartAllowed,[I||I<-Tail,Own(I,Y)]} of
+ {true,[{move,Y,{x,_}=XD}=Load]} when XD=/=X ->
+    {Between,_}=lists:splitwith(fun(I)->I=/=Load end,Tail),
+    Writes=fun({move,_,D})->D=:=X;({put_list,_,_,D})->D=:=X;({put_tuple2,D,_})->D=:=X;(_)->false end,
+    {_,Cross}=lists:splitwith(fun(I)->not Writes(I) end,Between),
+    case Cross of
+      []->false;
+      [FirstOp|_]-> lists:all(fun(I)->lists:member(Op(I),[line,move,put_list,put_tuple2]) andalso not Reg(I,XD) end,Cross)
+          andalso not (length(Cross)=:=1 andalso case FirstOp of {move,Literal,X}-> (Literal=:=nil orelse (is_tuple(Literal) andalso lists:member(element(1,Literal),[integer,atom,literal])));_-> false end)
+    end;
+ _->false end
+end,
+Extended=[{X,Y}||{X,Y}<-Safe,SpillPlan(X,Y)],
+NoFrameHazard=length([I||I<-C,lists:member(Op(I),[allocate,allocate_heap])])=:=1 andalso not lists:any(fun(I)->lists:member(Op(I),[try_end,try_case,trim,debug_line,executable_line,'try','catch']) end,C),
+
+BranchSaved=[{X,Y}||{X,Y}<-Spills,lists:any(fun(I)->Own(I,Y) end,Post),
+not lists:any(fun(I)->case I of {move,X,{y,_}}->true;_->false end end,EL)],
+Cats=(case Direct andalso Extended=/=[] of true->[extended_pure_block];_->[] end)
+ ++ (case Direct andalso NoFrameHazard andalso Extended=/=[] of true->[extended_pure_single_frame];_->[] end)
+ ++ (case Spills of []->[];_->[any_generated_pre_call_spill] end)
+ ++ (case Unneeded of []->[];_->[dead_before_first_generated_call] end)
+ ++ (case Direct andalso Unneeded=/=[] of true->[same_call_no_label_dead_before_call];_->[] end)
+ ++ (case Direct andalso Safe=/=[] of true->[same_call_straight_non_gc_dead_before_call];_->[] end)
+ ++ (case Direct andalso lists:any(fun({_,{y,Y}})->Y=:=N-1 end,Safe) of true->[same_call_straight_non_gc_dead_high_slot];_->[] end)
+ ++ (case Direct andalso BranchSaved=/=[] of true->[same_call_generated_live_after_call_absent_reference_prefix];_->[] end),
+[{Cat,{M,F,N,Unneeded,Safe,BranchSaved}}||Cat<-Cats] end,
+Rows=lists:append([lists:append([begin {M,Ref}=Read(filename:join(R,P)),{M,Cs}=Read(maps:get(P,Binaries)), lists:append([Analyze(M,F,maps:get(F,Ref),maps:get(F,Cs))||F<-Fs]) end||{P,Fs}<-maps:to_list(Ms)])||{_,Ms}<-Groups]),
+Cats=lists:usort([K||{K,_}<-Rows]),
+io:format("Groups ~0p~n",[[{K,map_size(Ms),lists:sum([length(L)||L<-maps:values(Ms)])}||{K,Ms}<-Groups]]),
+lists:foreach(fun(K)->E=[V||{K0,V}<-Rows,K0=:=K],io:format("~0p~n",[{K,length(E),length(lists:usort([M||{M,_,_,_,_,_}<-E])),lists:sublist(E,9)}])end,[K||K<-Cats,lists:member(K,[extended_pure_block,extended_pure_single_frame])]),halt().

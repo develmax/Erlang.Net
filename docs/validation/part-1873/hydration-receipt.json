@@ -1,0 +1,77 @@
+{
+  "Parent": {
+    "Source": "b7d8d9c39a0c280c24d3b9bc67c941c2fd7a61208904b1862150fa428f153ded",
+    "Paths": 210,
+    "Compiler": "696d11f99e6c53df9685de5121c00ed9e8d0f225d055dd2eea363b35c29dcacb",
+    "Tests": "97fcce1701270844ab494c8a139e72d8350869fa31104e52102acb46e1725d67",
+    "ParentSource": "2bc120bbc05c57eedcee99b4046687039177f7bc6db5a5343f7297497e1c204d",
+    "CorpusTool": "c5d7e7d582fa84e7d0c397377ea35a645bfdfe8ceadc829809b2862bfe4dba0a"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamIncludeSearchDirectory.cs": "0b73ff132fdb3d83b118b9687326d6deb59f602e23fac2148a723e7b5ec721bf",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryArgumentClobber.cs": "52aafe4391ded3b3f11b037e584942be60d6dfbc9a78ba1bd287fbbd790abe86",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryArgumentCopies.cs": "eff32906cfd70653130a1e94b3a600ba38ceb8307ea039a80f509b129499f451",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GuardedProjectionTailCopies.cs": "ed75891c11b0a3e5de769c10c1d97ff2dc25af6281dc6958b516806f9a4e0b3b",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.IndependentArgumentMoves.cs": "a362a36aa769e26530485a9721d99bce648798df5180676a98afb8e6891b8a92",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TailArgumentCopies.cs": "06b498aeb362f66bf0ef055b0fb6c00ee270fa0da42497ae312f5c5a9f901d99",
+    "src/Compiler/Erlang.Compiler/Syntax/BeamIncludeResolver.cs": "0ab7541937427114ec7035cc6ad66a9137653c3441f18056708b63189af312e9",
+    "tests/Erlang.Tests/Compiler/Beam/BeamIncludeProvenanceChecks.cs": "9808a82ca983cc5926f5cc4d51b353005afcc8e71a84f6b73d0728424386d672",
+    "tests/Erlang.Tests/Compiler/Beam/BeamInetsIncludeProfileChecks.cs": "8e7a9753bdb26c999c1cb56eac87f3aa3326b27bfc983a5fbdc44de304217dfb",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamEntryArgumentClobberChecks.cs": "0d730d93867407f6107aba245d5bea4f059a2da0aabb3d5b96f269376dc5ece7",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamProjectedCallArgumentCopyChecks.cs": "fbd6fd80b7f61290acec574561ecb750f1fedf54ee250f752ba866a8183b29db",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamTailArgumentCopyChecks.cs": "5793b4ffbc20f8f81253ad691be4ebfda0bff308c21ddd06465ab9cf9ae4afcc",
+    "tests/Erlang.Tests/Erlang.Tests.csproj": "4802b98bc6d4bf402442b4b25e25daf4add6456530ce107ce96b60ed67881d75",
+    "tests/Erlang.Tests/Harness/Program.cs": "49792c569d517664ce1c1936ad1df701db5b8fac7b29d83f2c37634925d4ea3c",
+    "tools/Validation/Erlang.BeamCorpus/OtpWindowsInTreeLibraryIncludePaths.cs": "8eb2f4e2a40bacddedbaa76cacee79535323c260050cf0033398a0ef13672c17",
+    "tools/Validation/Erlang.BeamCorpus/OtpWindowsInetsIncludePaths.cs": "a19fb2e2b92428b5865c72035469614520c2d4429a2809c7d35b03fca7e2ce64",
+    "tools/Validation/Erlang.BeamCorpus/Program.cs": "ab2295dca3bd87c87b5a86bc0de326518326d0bd96e825456fd0bdaf96f02af7"
+  },
+  "Patches": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\release-include-provenance-and-call-regressions-1873\\otp-in-tree-include-directory-aliases.patch",
+      "Hash": "58d73ba535e8bdce40d1886d2ec77250ce34be187358cfa861b8ea0660548285"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\release-include-provenance-and-call-regressions-1873\\inets-epp-include-provenance.patch",
+      "Hash": "5a375fee88547c3cb8a2dbd09b8debf3e8c960d723457e3fa9c2af4372a6933f"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\release-include-provenance-and-call-regressions-1873\\sink-independent-precall-argument-clobber.patch",
+      "Hash": "93c3ef707d6594b0542d0dabe34463ec5c488421ddfd51a7018a66aa470baf5a"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\release-include-provenance-and-call-regressions-1873\\projected-ordinary-argument-copies-1871.patch",
+      "Hash": "efc08813adb1787ce20d2e1963e28f04956ba3d56ea9e4e3b7dc54d4bb5cd4f6"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\release-include-provenance-and-call-regressions-1873\\guarded-projection-tail-copies-1871.patch",
+      "Hash": "5754020d8645ba8c399622e57e0dc0b9597d3d855021a6a5ea8acff2895c49cb"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\release-include-provenance-and-call-regressions-1873\\register-fixtures.patch",
+      "Hash": "771d15339a86ecd012fedc7235bfcf7958515a968b54d737c7fe1c352440f513"
+    }
+  ],
+  "Proposals": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\metadata-next-include-audit-1870\\otp-in-tree-include-directory-aliases.patch",
+      "Hash": "58d73ba535e8bdce40d1886d2ec77250ce34be187358cfa861b8ea0660548285"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\metadata-inets-include-audit-1870\\inets-epp-include-provenance.patch",
+      "Hash": "8a4707d701dec44999a407b60c4892ad9d2983e8565811c1c5dcecbdc25ea60e"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\diameter-normalized-losses-audit-1870\\sink-independent-precall-argument-clobber.patch",
+      "Hash": "a0ea7094962fcb03898e00a9f3e0d748049673bcb073e7796522c782b28fb098"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\near-exact-audit-1845\\projection-losses-1871\\projected-ordinary-argument-copies-1871.patch",
+      "Hash": "9b7fc6cabc6cf29306c16ad5b6cac6668eb6d2b66f5da2afde01250dcb8c0085"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\near-exact-audit-1845\\projection-losses-1871\\guarded-projection-tail-copies-1871.patch",
+      "Hash": "5754020d8645ba8c399622e57e0dc0b9597d3d855021a6a5ea8acff2895c49cb"
+    }
+  ]
+}

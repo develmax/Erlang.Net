@@ -1,0 +1,68 @@
+direct/ref exit=0 log={2000,function_clause,case_clause}.
+
+direct/before exit=0 log={2000,function_clause,case_clause}.
+
+direct/after exit=0 log={2000,function_clause,case_clause}.
+
+differentFailure/ref exit=0 log={2000,fallback}.
+
+differentFailure/before exit=0 log={2000,fallback}.
+
+differentFailure/after exit=0 log={2000,fallback}.
+
+tagged/ref exit=0 log={2000,node,function_clause}.
+
+tagged/before exit=0 log={2000,node,function_clause}.
+
+tagged/after exit=0 log={2000,node,function_clause}.
+
+sharedCall/ref exit=0 log={2000,cached,other,function_clause}.
+
+sharedCall/before exit=0 log={2000,cached,other,function_clause}.
+
+sharedCall/after exit=0 log={2000,cached,other,function_clause}.
+
+lib\common_test-1.31.2\ebin\ct_config_xml.beam Different Different ['Code', 'FunT', 'Attr']
+lib\common_test-1.31.2\ebin\ct_snmp.beam Different Different []
+lib\common_test-1.31.2\ebin\test_server_node.beam Different Different ['Code', 'FunT', 'Attr']
+lib\compiler-10.0.6\ebin\erl_bifs.beam Equal Equal []
+lib\diameter-2.7.2\ebin\diameter_callback.beam Equal Equal []
+lib\eldap-1.3.1\ebin\ELDAPv3.beam Equal Equal []
+lib\inets-9.8\ebin\httpc_handler.beam Different Different ['Code', 'FunT', 'Attr']
+lib\megaco-4.9.2\ebin\megaco_binary_transformer_v3.beam Different Different ['Code', 'FunT', 'Attr']
+lib\public_key-1.21.7\ebin\pubkey_os_cacerts.beam Different Different []
+normalized=0
+loader=0
+lib\common_test-1.31.2\ebin\ct_config_xml.beam
+('transform_entity', 1) expected (3, 5, 5) same raw method False
+lib\common_test-1.31.2\ebin\ct_snmp.beam
+('-setup_usm_users/2-fun-0-', 2) control (3, 3, 3) same raw method True
+('-setup_users/1-fun-0-', 1) control (4, 4, 4) same raw method True
+lib\common_test-1.31.2\ebin\test_server_node.beam
+('handle_start_node_return', 3) expected (2, 4, 4) same raw method False
+lib\compiler-10.0.6\ebin\erl_bifs.beam Exact file Equal
+lib\diameter-2.7.2\ebin\diameter_callback.beam Exact file Equal
+lib\eldap-1.3.1\ebin\ELDAPv3.beam Exact file Equal
+lib\inets-9.8\ebin\httpc_handler.beam
+('connect', 4) control (2, 2, 2) same raw method True
+('handler_info', 1) collateral (2, 4, 4) same raw method False
+lib\megaco-4.9.2\ebin\megaco_binary_transformer_v3.beam
+('tr_Message_messageBody', 2) collateral (3, 5, 5) same raw method False
+('tr_MId', 2) expected (3, 5, 5) same raw method False
+('tr_Transaction', 2) collateral (3, 5, 5) same raw method False
+('tr_TransactionReply_transactionResult', 2) collateral (3, 5, 5) same raw method False
+('tr_Command', 2) expected (3, 5, 5) same raw method False
+('tr_CommandReply', 2) collateral (3, 5, 5) same raw method False
+('tr_ammDescriptor', 2) collateral (3, 5, 5) same raw method False
+('tr_AmmsReply', 2) control (3, 2, 3) same raw method True
+('tr_AuditReply', 2) collateral (3, 5, 5) same raw method False
+('tr_AuditDescriptor', 2) control (3, 2, 3) same raw method True
+('tr_indAuditParameter', 2) collateral (3, 5, 5) same raw method False
+('tr_indAudMediaDescriptor', 2) control (3, 2, 3) same raw method True
+('tr_indAudSignalsDescriptor', 2) collateral (3, 5, 5) same raw method False
+('tr_AuditReturnParameter', 2) collateral (3, 5, 5) same raw method False
+('tr_ServiceChangeResult', 2) collateral (3, 5, 5) same raw method False
+('tr_SignalRequest', 2) collateral (3, 5, 5) same raw method False
+lib\public_key-1.21.7\ebin\pubkey_os_cacerts.beam
+('-load_win32/0-fun-0-', 2) control (3, 3, 3) same raw method True
+{'candidate-prefix-gains': 16, 'candidate-prefix-losses': 0, 'broad-prefix-gains': 16, 'broad-prefix-losses': 3}

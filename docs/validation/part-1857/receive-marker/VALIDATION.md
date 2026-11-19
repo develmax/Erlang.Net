@@ -1,0 +1,12 @@
+# Bounded marker validation
+
+Frozen base is Part 1855 input archive 20D40EC3F43387696B7754118D767A1B569364491E80151896DB77EACD630979. Patched compiler SHA256 BD8FCD35F5B3CF8058E042D4A1D3091DC89C57C7CE2C877FD3EA6F274DE353B8. Cumulative patch SHA256 69EC1C97F7914E991EA2A739338EF9013D29E669695A7670755100EAAAC6764D. The final compiler build took 53.08 seconds with zero warnings and errors under .NET SDK 10.0.400, BelowNormal and 2 managed processors. Earlier raw compiler, test and metadata packaging failures are preserved. The final route reads its own structurally proven framed AST call because the existing ordinary-entry call whitelist excludes make_ref/0.
+
+The permanent test passed on the final compiler and the frozen compiler failed at the positive missing-quartet assertion. The focused harness used 40 seconds overall and 10 seconds per actor command. It covered eight semantic input shapes, option/shadow behavior, mailbox order, both prelude badmatches and release abstract directive plus exact recorded options. A native Erlang.Beam.Zlib copy in the test output is a harness dependency for release Dbgi compression.
+
+All 16 OTP 29.1.1 source-reference and generated fixture runs passed with a 12-second timeout each. Seven uncached release images took 7.42 seconds and remained 3 Equal, 4 Different, 0 Unsupported, 0 SourceRejected. The three exact controls include observer with its two existing marker functions. instrument and tprof remain byte-identical to their frozen generated images.
+
+The code purger’s purge/1, soft_purge/1 and finish_after_on_load/2, plus socket_registry:request/1 now have all four marker instructions with the same counts as pinned OTP. Their normalized complete bodies still differ, with no full normalized or whole-file gains or losses. Both changed files have Code and Attr deltas. socket_registry also has a FunT delta. Isolated ERTS loaded all six reference/frozen/candidate release variants with identical export lists. Code purger soft_purge/1 and socket_registry:number_of/0 ran on each of the three variants with identical results and retained queued unrelated messages.
+
+Raw evidence includes build-entry-fix.log, test-red.log, test-green-final.log, test-green-missing-native.log, native-fixture-receipt.log, fixture-operands-final.log, cohort.json, cohort-delta.json, cohort-markers.json, cohort-normalized.terms, cohort-loader.log and cohort-execution.log. The frozen full Part 1855 acceptance remains separate.
+

@@ -359,7 +359,9 @@ internal sealed partial class BeamModuleCompiler
         bool useReservedBindings = true,
         bool properInput = false,
         (Expr Expression, bool IsGuard)? filter = null,
-        bool discardResult = false
+        bool discardResult = false,
+        BeamSourceLocation? strictGeneratorLocation = null,
+        BeamSourceLocation? invalidSourceLocation = null
     )
     {
         string tail = useReservedBindings ? "@BeamComprehensionTail" : "BeamComprehensionTail";
@@ -401,6 +403,28 @@ internal sealed partial class BeamModuleCompiler
                 recur with { }
             )
         ];
+        if (strictGeneratorLocation is { } mismatch && item is not Pattern.Variable)
+        {
+            const string rejected = "@BeamComprehensionRejected";
+            skip =
+            [
+                new(
+                    [new Pattern.List([new Pattern.Variable(rejected)], new Pattern.Variable(VariableScopeNames.Wildcard)),
+                        .. ignoredCaptures],
+                    null,
+                    new Expr.Call(
+                        ErlangModuleNames.Module,
+                        "error",
+                        [new Expr.Tuple([new Expr.Literal(Term.A(ErlangErrorReasons.BadMatch)), new Expr.Variable(rejected)])]
+                    )
+                    {
+                        SourceLine = mismatch.Line,
+                        PreprocessorFile = mismatch.File
+                    }
+                )
+            ];
+        }
+
         Clause[] finish = properInput
             ? [new([new Pattern.Variable(bad), .. ignoredCaptures], null, new Expr.Variable(bad))]
             : [
@@ -413,6 +437,10 @@ internal sealed partial class BeamModuleCompiler
                         "error",
                         [new Expr.Tuple([new Expr.Literal(Term.A(ErlangErrorReasons.BadGenerator)), new Expr.Variable(bad)])]
                     )
+                    {
+                        SourceLine = invalidSourceLocation?.Line ?? 0,
+                        PreprocessorFile = invalidSourceLocation?.File
+                    }
                 )
             ];
 

@@ -1,6 +1,40 @@
 # Next steps
 
-Continue compiler work on GC BIF result roots, typed match lowering and canonical literal operands. Confirm the next candidate with an uncached full release and permanent regression controls. [Part 1839](validation/part-1839/README.md) · [Ranked groups](validation/part-1832/README.md).
+Extend the accepted Part 1875 compiler through measured liveness, list-comprehension, range and source-location cohorts. Check previously equal controls and dependency-focused tests on the linked candidate, then run all 1,366 release inputs uncached and the complete local repository gate. [Ranked remaining causes](validation/part-1875/full-uncached/ranked-causes.md) · [Accepted local gates](validation/part-1875/local-gates/README.md).
+
+Validate the Part 1875 send frame group, final diameter_make scratch motion and stdlib include paths on their locked scopes. Compare the linked candidate against the full 410/1,366 Part 1874 result. Then execute whole managed and readiness acceptance on the sealed sources. [Accepted release baseline](validation/part-1874/full-uncached/README.md).
+
+Check the direct singleton-record tail argument allocation on the two SCTP modules and negative controls. Establish why the independent clobber move does not yet fire in the real diameter_make closure. Run the complete uncached comparison, then perform the standard local managed and readiness gates on the exact linked source. [Current evidence](validation/part-1873/README.md).
+
+Verify the remaining three normalized losses in Diameter, ASN.1 and fprof with the exact linked compiler. Include the proven Observer, Reltool, Et and Inets source-provenance profiles and run the uncached corpus when the joined scope passes. [Part 1872 evidence](validation/part-1872/README.md).
+
+Validate the straight constant, independent register and plain fun argument suffixes against the remaining Diameter and SASL cases. Check the 23-module strict generator helper group with exact relaxed, malformed and guarded controls. Keep the next complete corpus and managed gate bound to the linked compiler identity. [Current scope](validation/part-1871/README.md).
+
+Restore the 12 normalized Part 1870 losses. The next candidate checks framed tail composition, ordinary consuming calls and nested cleanup selector spills in a bounded release scope. Use the pinned body triples for the nine cases first observed in the full comparison. Then run the linked uncached corpus and complete local managed gate. [Full evidence](validation/part-1870/full-uncached/README.md).
+
+Recheck two SNMP tail wrappers, final proper-list operand timing and the independently validated kernel map. Run the complete uncached corpus on that validated source, then complete the local repository tests. [Current selection](validation/part-1869/README.md).
+
+Check the live X-prefix transfer, terminal relay compaction and proper-list proof together. Retest the twelve parser and compiler modules, the six corrected tail wrappers and exact record controls. Integrate separately proven SNMP include provenance after these checks. [Part 1867 evidence](validation/part-1867/README.md).
+
+Restore the prior parser frame widths after moving terminal list checks. Preserve the pinned line between a proven X-only relay and badmatch. Continue the six tail-wrapper corrections and numeric record proofs in the candidate lane. [Part 1866 evidence](validation/part-1866/README.md) · [Part 1865 full gate](validation/part-1865/README.md).
+
+Retain the Part 1865 full result and repair the six normalized tail-wrapper losses by requiring an actual crossed constructor. Retest the two constructor positives, six tail wrappers, type and alias controls, then run the linked package again. Continue the measured SNMP EPP logical-path cohort and the proper-list provenance work separately. [Full evidence](validation/part-1865/README.md).
+
+Complete the uncached Part 1865 release gate and check current source, byte equality, pinned ERTS and the full managed report before readiness. In parallel prepare the terminal-list badmatch frame, release-profile leaf inlining and tuple-entry list construction cases as a separate scoped candidate. [Part 1865 scope](validation/part-1865/README.md).
+
+Check the 31-module exact pre-call copy ownership group, tagged projection spill, identity-fallback value selection and remaining direct keyfind matches. Then run the same independent uncached full partitions on the exact selected candidate. [Latest selection](validation/part-1864/README.md) · [Full rank](validation/part-1862/remaining-causes.md).
+
+Restore the bare tuple check when the keyfind lookup source proves the matching tag. Protect positive typed wildcard cases, including ELDAPv3. Test the local atom-or-tuple summary on all source-proven release sites and byte-equal controls. Run a fresh complete corpus on the resulting frozen package and continue the highest-coverage same-root frame groups. Keep the preceding managed Jaro timeout and unchanged watchdog evidence. [Current rank](validation/part-1862/remaining-causes.md) · [Focused evidence](validation/part-1863/README.md).
+
+Finish the frozen Part 1860 local repository gate. Preserve the full 409/1,366 comparison and 79 normalized gains. Then test the source-proven lower pre-call projection slots, shared arity-frame cleanup, tagged list traversal and immediate keyfind result type on selected real paths with exact controls. [Current evidence](validation/part-1860/README.md).
+
+Use the 409/1,366 uncached Part 1858 result as the predecessor for the next local package. Complete the function rank. Restore direct outgoing X-register placement for the two newly measured normalized projection regressions. Evaluate the staged checked-projection heap, receive marker and flat-tuple list helper changes on their exact worker fixture cases and current byte-equal controls. [Scoped evidence](validation/part-1858/README.md).
+
+The frozen Part 1853 release result is 407 Equal, 959 Different, 0 Unsupported and 0 SourceRejected. Its 9,784-case local regression retains one previously reproduced original Jaro timeout. Keep the raw failure and use the next changed compiler payload for the next complete corpus gate. [Full result](validation/part-1853/README.md).
+
+Preserve the Part 1855 full managed report with 9,786 of 9,787 passed and a single original lifecycle deadline failure. Standard build and Tooling pass, and its uncached full result is 408 Equal and 958 Different. Continue the conservative leading checked tuple pair, rooted projection and named closure lifetime cases on separately staged sources. Validate deferred pure cons-head construction and the receive-marker producer and consumer lifetime as dependencies of the two frame outliers. [Current ranking](validation/part-1853/remaining-causes.md) · [Linked evidence](validation/part-1855/README.md).
+
+Measure the fixed-point decode and rewrite costs on the exact frozen compiler inputs with the same single-worker selection before attributing a throughput change. [Timing evidence](validation/part-1853/timing-audit.md).
 
 Complete the linked exact-compiler uncached corpus and standard repository regression. Continue the frame-ownership and type work using measured groups. [Candidate](validation/part-1837/README.md).
 

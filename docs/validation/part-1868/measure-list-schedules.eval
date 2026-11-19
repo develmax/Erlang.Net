@@ -1,0 +1,31 @@
+[Generated,Frames,Facts]=init:get_plain_arguments(),
+{ok,[_|FrameRows]}=file:consult(Frames),
+{ok,Data}=file:read_file(Facts),
+[_|Lines]=binary:split(Data,<<10>>,[global]),
+FactRows=[{binary_to_list(Module)++".beam",{binary_to_atom(Name),7}}
+ || Line<-Lines,Line=/=<<>>,[Module,Name|_]<-[binary:split(Line,<<9>>,[global])]],
+Names=lists:usort([M||{M,_,_,_,_,_,_}<-FrameRows]++[M||{M,_}<-FactRows]),
+Read=fun(Name)->[P]=filelib:wildcard(filename:join([Generated,"lib","*","ebin",Name])),
+    {beam_file,_,_,_,_,Fs}=beam_disasm:file(P),maps:from_list([{{N,A},V}||{function,N,A,_,V}<-Fs]) end,
+Mods=maps:from_list([{M,Read(M)}||M<-Names]),
+Ops=fun(M,K)->maps:get(K,maps:get(M,Mods)) end,
+Widths=fun(M,K)->[element(2,I)||I<-Ops(M,K),is_tuple(I),lists:member(element(1,I),[allocate,allocate_heap])]end,
+Report=[{M,K,Ref,A,R,Widths(M,K)}||{M,K,_,_,Ref,A,R}<-FrameRows],
+Distance=fun(Ref,T) when length(Ref)=:=length(T)->
+      lists:sum([abs(A-B)||{A,B}<-lists:zip(Ref,T)]);(_,_) -> unknown end,
+FindFail=fun Search(L,[{label,L}|Rest])->Rest;
+             Search(L,[_|Rest])->Search(L,Rest);Search(_,[])->[]end,
+First=fun Skip([{line,_}|R])->Skip(R);Skip(X)->X end,
+Proved=[begin Body=Ops(M,K),
+    Targets=[L||{test,is_nonempty_list,{f,L},_}<-Body],
+    Has=lists:any(fun(L)->case First(FindFail(L,Body)) of [{badmatch,nil}|_]->true;_->false end end,Targets),
+    {M,K,Has}
+ end||{M,K}<-FactRows],
+lists:foreach(fun(Row)->io:format("~0p.~n",[Row])end,Report++Proved),
+io:format("~0p.~n",[#{frames=>length(Report),
+    restored_widths=>length([ok||{_,_,_,A,_,N}<-Report,N=:=A]),
+    matches_pinned_widths=>length([ok||{_,_,Ref,_,_,N}<-Report,N=:=Ref]),
+    farther_than_predecessor=>length([ok||{_,_,Ref,A,_,N}<-Report,
+             BA<-[Distance(Ref,A)],BA=/=unknown,NA<-[Distance(Ref,N)],NA=/=unknown,NA>BA]),
+    no_paired_widths=>length([ok||{_,_,Ref,A,_,N}<-Report,Distance(Ref,A)=:=unknown orelse Distance(Ref,N)=:=unknown]),
+    proper_list_sites=>length(Proved),native_nil_matches=>length([ok||{_,_,true}<-Proved])}]),halt().

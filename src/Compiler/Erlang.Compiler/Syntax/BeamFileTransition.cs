@@ -6,5 +6,6 @@ internal sealed record BeamFileTransition(
     int Line,
     Token? Directive = null,
     int Column = 1,
-    string? IncludeRequest = null
+    string? IncludeRequest = null,
+    string? RecordedIncludePath = null
 );

@@ -62,4 +62,3 @@ internal sealed partial class BeamModuleCompiler
         }
     }
 }
-

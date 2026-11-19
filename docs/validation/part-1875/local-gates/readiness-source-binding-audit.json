@@ -1,0 +1,33 @@
+{
+  "Entries": 733,
+  "SourceBindings": 2269,
+  "PreviousLedgerSha256": "6397EFCB703AC3CAB3F1826DE0198C437F489432AB19A9EA237B70AD86B30A92",
+  "CandidateLedgerSha256": "F0BDDFE6C819A2FD34CB10FA82504E96D2C981256988529073849EE465D79F51",
+  "FullManagedSha256": "80980A8B3E676A0FE6E4423FC749C45641AF44875E9C565F597613F85AEAA3BE",
+  "Audit": [
+    {
+      "Path": "src/Compiler/Erlang.Compiler/Compilation/CodeGeneration.cs",
+      "PreviousSha256": "827CAB8D64FC391D1F74718922E7DC28F3D93E177055469CAAFA7085B296CE0B",
+      "CurrentSha256": "58F703E6658B0460B91C2A7483A68AC72AC0351BA762F7B2A39F091799FEE6C4",
+      "Review": "Thread the optional release profile into include resolution and automatic leaf-inlining. A null profile retains the previous search/options behavior."
+    },
+    {
+      "Path": "src/Compiler/Erlang.Compiler/Execution/Source/SourceCallBindingBuilder.cs",
+      "PreviousSha256": "1EC5E4E03B6D13382F995DB3E7D787204A437FD94D0C16BD93B7D8D7E59E2627",
+      "CurrentSha256": "9E9E4B0AC0CEA532CC858AEA2B588FD5E20A41176EE1B05DE8469D5C9BD129A1",
+      "Review": "Route no_recv_opt to its BEAM emission option and expose the already parsed no_inline flag. Call targets and source execution binding remain unchanged."
+    },
+    {
+      "Path": "src/Compiler/Erlang.Compiler/Syntax/Ast/ModuleDefinition.cs",
+      "PreviousSha256": "AC605EABACED27F9AC659DECF44129189B2D4F351BFE6B7498D461B955231CC8",
+      "CurrentSha256": "DF423E68317E3120377A0523C95642E295745BA19A98D3BD88B766063C24F79C",
+      "Review": "Store two internal compile flags alongside the existing optimization flags."
+    },
+    {
+      "Path": "src/Compiler/Erlang.Compiler/Syntax/Parser.cs",
+      "PreviousSha256": "8892E0791539D482EC92115E718C4625710140EC22A5D56336534D2580C9D58C",
+      "CurrentSha256": "A2279400888BCB5D83E6724153FC9C9B94DC1D38B2FAD8A68A4FF5DC8B99735B",
+      "Review": "Copy the two internal compiler options to ModuleDefinition. Grammar and execution expressions are unchanged."
+    }
+  ]
+}

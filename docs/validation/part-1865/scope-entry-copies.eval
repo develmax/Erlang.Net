@@ -1,0 +1,12 @@
+[R,Full,G]=init:get_plain_arguments(),
+Rows=[{"lib/sasl-4.3.2/ebin/erlsrv.beam",erlsrv,rename_service,3},
+      {"lib/inets-9.8/ebin/httpd_acceptor.beam",httpd_acceptor,accept_failed,3}],
+Find=fun(Base,M)->[P]=filelib:wildcard(filename:join([Base,"lib","*","ebin",atom_to_list(M)++".beam"])),P end,
+Read=fun(Path,M,F,A)->{beam_file,M,_,_,_,Fs}=beam_disasm:file(Path),[Ops]=[B||{function,FN,FA,_,B}<-Fs,FN=:=F,FA=:=A],Ops end,
+Keep=fun({allocate,_,_})->true;({allocate_heap,_,_,_})->true;({move,_,{y,_}})->true;(_)->false end,
+Summarize=fun(F)->[I||I<-F,Keep(I)] end,
+lists:foreach(fun({_,M,F,A})->
+    Ref=Find(R,M),[Pre]=filelib:wildcard(filename:join([Full,"shard-*","otp-corpus.json.generated","lib","*","ebin",atom_to_list(M)++".beam"])),New=Find(G,M),
+    Data=[Read(X,M,F,A)||X<-[Ref,Pre,New]],
+    io:format("~0p.~n",[{M,F,A,[Summarize(Ops)||Ops<-Data],Data}])
+end,Rows),halt().

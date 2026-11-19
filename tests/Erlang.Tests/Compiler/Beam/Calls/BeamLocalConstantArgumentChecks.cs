@@ -5,11 +5,30 @@ namespace Erlang.Tests;
 
 internal static class BeamLocalConstantArgumentChecks
 {
+    internal const string RelayTestName = "compiler/beam/private-atom-tail-relay-keeps-register-order";
     internal const string TestName = "compiler/beam/private-atom-selector-moves-only-when-needed";
     private const string ConstantArgumentMismatch = "A proven local atom argument occupied a stack slot across a call.";
     private const string OpenArgumentMismatch = "Conflicting or escaped call arguments lost their stack slots.";
     private const string EarlyOnlyArgumentMismatch = "A key read before the only call was materialized again in its original register.";
     private const string SelectorArgumentMismatch = "A private atom argument changed its selector read or its post-call stack lifetime.";
+
+    internal static Task RunRelay()
+    {
+        const string source = "private_atom_relays.erl";
+        const string reference = "private_atom_relays.beam";
+        byte[] candidate = CodeGeneration.CompileBeamModule(
+            Encoding.UTF8.GetString(BeamModuleEmissionChecks.Read(source)),
+            source
+        );
+        if (!candidate.AsSpan().SequenceEqual(BeamModuleEmissionChecks.Read(reference)))
+        {
+            throw new InvalidOperationException(BeamPrivateAtomRelayDiagnostics.ExpectedOtpEncoding);
+        }
+
+        _ = BeamModule.Prepare(candidate);
+
+        return Task.CompletedTask;
+    }
 
     internal static Task Run()
     {

@@ -2,6 +2,25 @@ namespace Erlang.Compiler;
 
 internal static class BeamReleaseMetadataWriter
 {
+    private static string? RecordedIncludeFile(BeamReleaseBuildProfile profile, string file, string? request)
+    {
+        string? recorded = request is null ? null : profile.RecordedIncludeFiles?.GetValueOrDefault(request);
+        recorded ??= profile.RecordedIncludeFiles?.GetValueOrDefault(file);
+        if (recorded is not null || request is null || profile.RecordedIncludeLibraryRoots is null)
+        {
+            return recorded;
+        }
+
+        int separator = request.IndexOf('/');
+        if (separator <= 0 || separator == request.Length - 1
+            || !profile.RecordedIncludeLibraryRoots.TryGetValue(request[..separator], out string? root))
+        {
+            return null;
+        }
+
+        return root.TrimEnd('/') + request[separator..];
+    }
+
     internal static BeamModuleMetadata Build(
         ModuleDefinition module,
         IReadOnlyList<Token> tokens,
@@ -79,8 +98,9 @@ internal static class BeamReleaseMetadataWriter
                 }
                 string file = transition.File is null
                     ? mainFile
-                    : (transition.IncludeRequest is { } request ? profile.RecordedIncludeFiles?.GetValueOrDefault(request) : null)
-                        ?? profile.RecordedIncludeFiles?.GetValueOrDefault(transition.File)
+                    : (profile.IncludePathMap is not null ? transition.RecordedIncludePath : null)
+                        ?? RecordedIncludeFile(profile, transition.File, transition.IncludeRequest)
+                        ?? transition.RecordedIncludePath
                         ?? (mainFile[..directoryEnd] + transition.File);
                 annotations.Add(FileForm(file, transition.Line, transition.Column));
             }

@@ -17,22 +17,15 @@ internal sealed partial class BeamModuleCompiler
                 continue;
             }
 
-            int continuation = index + 1;
-            int consumed = continuation;
-            if (body[continuation] is { Definition.Opcode: Jump, Operands: [var target] })
-            {
-                if (!returnBlocks.TryGetValue((int)target.Value, out continuation))
-                {
-                    continue;
-                }
-            }
-
-            bool framed = body[continuation].Definition.Opcode == Deallocate;
-            int terminal = continuation + (framed ? 1 : 0);
-            if (terminal + 1 >= body.Count || body[terminal].Definition.Opcode != Return)
+            int continuation = FindTerminalCallReturn(body, index, returnBlocks);
+            if (continuation < 0)
             {
                 continue;
             }
+
+            int consumed = index + 1;
+            bool framed = body[continuation].Definition.Opcode == Deallocate;
+            int terminal = continuation + (framed ? 1 : 0);
 
             byte opcode = instruction.Definition.Opcode switch
             {
@@ -66,6 +59,25 @@ internal sealed partial class BeamModuleCompiler
         output.Write(code.Span[copied..]);
 
         return output.ToArray();
+    }
+
+    private static int FindTerminalCallReturn(
+        IReadOnlyList<BeamInstruction> body,
+        int call,
+        Dictionary<int, int> returnBlocks
+    )
+    {
+        int continuation = call + 1;
+        if (continuation >= body.Count
+            || body[continuation] is { Definition.Opcode: Jump, Operands: [var target] }
+                && !returnBlocks.TryGetValue((int)target.Value, out continuation))
+        {
+            return -1;
+        }
+
+        int terminal = continuation + (body[continuation].Definition.Opcode == Deallocate ? 1 : 0);
+
+        return terminal + 1 < body.Count && body[terminal].Definition.Opcode == Return ? continuation : -1;
     }
 
     private static byte[]? NormalizeTailCallFrames(

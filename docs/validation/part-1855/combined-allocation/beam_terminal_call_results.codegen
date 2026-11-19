@@ -1,0 +1,74 @@
+{module, beam_terminal_call_results}.  %% version = 0
+
+{exports, [{list,2},{module_info,0},{module_info,1},{tuple,2}]}.
+
+{attributes, []}.
+
+{labels, 15}.
+
+
+{function, tuple, 2, 2}.
+  {label,1}.
+    {line,[{location,"d:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/call-and-frame-lifetime-1855/combined-allocation-regression/beam_terminal_call_results.erl",
+                     3}]}.
+    {func_info,{atom,beam_terminal_call_results},{atom,tuple},2}.
+  {label,2}.
+    {allocate_heap,1,4,2}.
+    {move,{x,1},{y,0}}.
+    {put_list,{x,1},nil,{x,1}}.
+    {put_list,{x,0},{x,1},{x,0}}.
+    {line,[{location,"d:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/call-and-frame-lifetime-1855/combined-allocation-regression/beam_terminal_call_results.erl",
+                     4}]}.
+    {call_ext,1,{extfunc,other,consume,1}}.
+    {test_heap,3,1}.
+    {put_tuple2,{x,0},{list,[{x,0},{y,0}]}}.
+    {deallocate,1}.
+    return.
+  {label,3}.
+    if_end.
+
+
+{function, list, 2, 6}.
+  {label,5}.
+    {line,[{location,"d:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/call-and-frame-lifetime-1855/combined-allocation-regression/beam_terminal_call_results.erl",
+                     6}]}.
+    {func_info,{atom,beam_terminal_call_results},{atom,list},2}.
+  {label,6}.
+    {allocate_heap,1,4,2}.
+    {move,{x,1},{y,0}}.
+    {put_list,{x,1},nil,{x,1}}.
+    {put_list,{x,0},{x,1},{x,0}}.
+    {line,[{location,"d:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/call-and-frame-lifetime-1855/combined-allocation-regression/beam_terminal_call_results.erl",
+                     7}]}.
+    {call_ext,1,{extfunc,other,consume,1}}.
+    {test_heap,2,1}.
+    {put_list,{x,0},{y,0},{x,0}}.
+    {deallocate,1}.
+    return.
+  {label,7}.
+    if_end.
+
+
+{function, module_info, 0, 10}.
+  {label,9}.
+    {line,[]}.
+    {func_info,{atom,beam_terminal_call_results},{atom,module_info},0}.
+  {label,10}.
+    {move,{atom,beam_terminal_call_results},{x,0}}.
+    {line,[]}.
+    {call_ext_only,1,{extfunc,erlang,get_module_info,1}}.
+  {label,11}.
+    if_end.
+
+
+{function, module_info, 1, 13}.
+  {label,12}.
+    {line,[]}.
+    {func_info,{atom,beam_terminal_call_results},{atom,module_info},1}.
+  {label,13}.
+    {move,{x,0},{x,1}}.
+    {move,{atom,beam_terminal_call_results},{x,0}}.
+    {line,[]}.
+    {call_ext_only,2,{extfunc,erlang,get_module_info,2}}.
+  {label,14}.
+    if_end.

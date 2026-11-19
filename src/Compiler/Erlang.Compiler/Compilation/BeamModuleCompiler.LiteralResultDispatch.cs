@@ -77,7 +77,7 @@ internal sealed partial class BeamModuleCompiler
             Expr.Call? error = fallback.Body is Expr.Call call && IsConstantErrorCall(call) ? call : null;
             if (fallback.Guard is not null && guard is null
                 || hasFallback && !identity && !constant && error is null
-                || decision is null && (!hasFallback || guard is null && error is null))
+                || decision is null && (!hasFallback || !identity && guard is null && error is null))
             {
                 return false;
             }

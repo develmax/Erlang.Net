@@ -493,7 +493,8 @@ internal sealed partial class BeamModuleCompiler
         private static FunctionDefinition FoldStraightSequenceConstants(FunctionDefinition function)
         {
             if (function.Clauses is not [{ Guard: null, Body: Expr.Sequence sequence } clause]
-                || !HasUnconditionalParameters(clause)
+                || (!HasUnconditionalParameters(clause) && !clause.Patterns.All(pattern =>
+                    pattern is Erlang.Pattern.Literal or Erlang.Pattern.List { Items.Count: 0, Tail: null }))
                 || !sequence.Items.SkipLast(1).Any(item => item is Expr.Match { Value: Expr.Literal or Expr.Tuple or Expr.List }))
             {
                 return function;

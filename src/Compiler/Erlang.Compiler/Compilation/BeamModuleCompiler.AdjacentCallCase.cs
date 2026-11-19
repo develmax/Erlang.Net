@@ -76,14 +76,17 @@ internal sealed partial class BeamModuleCompiler
             Call(next.Module, next.Call.Function, next.Call.Arguments.Count);
 
             nextSlot = 0;
-            EmitCase(
-                decision,
-                null,
-                inputPrepared: true,
-                reuseBranchSlots: true,
-                terminalCase: true
-            );
-            owner.EmitFrameReturn(frameSize);
+            if (!TryEmitTerminalTaggedCase(decision, requireNestedPayload: true))
+            {
+                EmitCase(
+                    decision,
+                    null,
+                    inputPrepared: true,
+                    reuseBranchSlots: true,
+                    terminalCase: true
+                );
+                owner.EmitFrameReturn(frameSize);
+            }
 
             return true;
         }

@@ -108,6 +108,9 @@ internal sealed partial class BeamModuleCompiler
     )
     {
         int frame = -1;
+        bool ordinaryAllocation = false;
+        bool executableLine = false;
+        bool dynamicBeforeFirstCall = false;
         int highestSlot = -1;
         int first = -1;
         int last = -1;
@@ -116,6 +119,9 @@ internal sealed partial class BeamModuleCompiler
         {
             BeamInstruction instruction = body[index];
             byte opcode = instruction.Definition.Opcode;
+            executableLine |= instruction.Definition.Name == "executable_line";
+            dynamicBeforeFirstCall |= firstCall == end
+                && opcode is CallFun or CallFunTyped or DynamicApply or TailDynamicApply;
             if (opcode is TrimFrame or CatchEnter or TryEnter || instruction.Definition.Name == "debug_line")
             {
                 return null;
@@ -129,6 +135,7 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 frame = (int)instruction.Operands[0].Value;
+                ordinaryAllocation = opcode == Allocate;
             }
             else if (opcode is LocalCall or ExternalCall)
             {
@@ -155,12 +162,75 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        // Only remove a trailing slot. The next frame-compaction pass will drop its initialization.
-        if (highestSlot < 0 || highestSlot >= frame || first <= firstCall)
+        if (highestSlot < 0 || highestSlot >= frame || firstCall == end)
         {
             return null;
         }
 
+        bool beforeFirstCall = last < firstCall;
+        if (first > firstCall || beforeFirstCall)
+        {
+            return PlanTransientSlotRange(
+                body,
+                highestSlot,
+                first,
+                last,
+                beforeFirstCall
+            );
+        }
+
+        // The highest slot crosses the first call. Consider lower projections
+        // only in an ordinary frame, before any operation that can clobber them.
+        if (!ordinaryAllocation || executableLine || dynamicBeforeFirstCall)
+        {
+            return null;
+        }
+
+        var lifetimes = new Dictionary<int, (int First, int Last)>();
+        for (int index = start; index < end; index++)
+        {
+            if (body[index].Definition.Opcode == InitYRegisters)
+            {
+                continue;
+            }
+
+            foreach (BeamOperand operand in body[index].Operands)
+            {
+                if (operand.Kind == BeamOperandParameters.Y && operand.Value < highestSlot)
+                {
+                    int slot = (int)operand.Value;
+                    int beginning = lifetimes.TryGetValue(slot, out var existing) ? existing.First : index;
+                    lifetimes[slot] = (beginning, index);
+                }
+            }
+        }
+
+        foreach (var (slot, range) in lifetimes.OrderByDescending(entry => entry.Key))
+        {
+            if (range.Last < firstCall && body[range.First].Definition.Opcode == GetTupleElement
+                && PlanTransientSlotRange(
+                    body,
+                    slot,
+                    range.First,
+                    range.Last,
+                    beforeFirstCall: true
+                ) is { } candidate)
+            {
+                return candidate;
+            }
+        }
+
+        return null;
+    }
+
+    private static (int Slot, int First, int Last, HashSet<int> UsedX, List<int> Heaps)? PlanTransientSlotRange(
+        IReadOnlyList<BeamInstruction> body,
+        int slot,
+        int first,
+        int last,
+        bool beforeFirstCall
+    )
+    {
         var usedX = new HashSet<int>();
         var heaps = new List<int>();
         for (int index = first; index <= last; index++)
@@ -175,6 +245,11 @@ internal sealed partial class BeamModuleCompiler
 
             if (opcode == TestHeap)
             {
+                if (beforeFirstCall)
+                {
+                    return null;
+                }
+
                 heaps.Add(index);
             }
 
@@ -185,7 +260,7 @@ internal sealed partial class BeamModuleCompiler
                 {
                     usedX.Add((int)operand.Value);
                 }
-                else if (index == first && operand.Kind == BeamOperandParameters.Y && operand.Value == highestSlot
+                else if (index == first && operand.Kind == BeamOperandParameters.Y && operand.Value == slot
                     && position != StackWriteOperand(instruction) && !(opcode == GetList && position == 2))
                 {
                     // An earlier definition must not be required, including a read before a write.
@@ -194,6 +269,6 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        return (highestSlot, first, last, usedX, heaps);
+        return (slot, first, last, usedX, heaps);
     }
 }

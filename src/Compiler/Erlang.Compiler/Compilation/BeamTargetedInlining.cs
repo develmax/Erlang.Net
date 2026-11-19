@@ -2,26 +2,34 @@ namespace Erlang.Compiler;
 
 internal static class BeamTargetedInlining
 {
-    private const int DefaultAutomaticInlineSize = 24;
-    private const int AutomaticInlineEffort = 150;
+    internal const int DefaultAutomaticInlineSize = 24;
+    internal const int AutomaticInlineEffort = 150;
+    private const int CoreApplyWeight = 3;
+    private const int CoreConstructorWeight = 1;
+    private const int CoreElementWeight = 1;
+    private const int CoreLiteralWeight = 1;
 
     internal static (IReadOnlyList<FunctionDefinition>, IReadOnlyList<BeamSourceLocation>) Apply(
         ModuleDefinition module,
         IReadOnlyList<BeamSourceLocation> locations,
-        IReadOnlySet<(string Name, int Arity)> exports
+        IReadOnlySet<(string Name, int Arity)> exports,
+        BeamReleaseLeafInliningPlan profileInlining = default
     )
     {
         var targets = new Dictionary<(string, int), (Term? Constant, int Argument, Expr.Match? ListCheck, Clause? Template)>();
         var dispatches = new Dictionary<(string, int), (FunctionDefinition Function, BeamSourceLocation Location)>();
         var failureStubs = new Dictionary<(string, int), (FunctionDefinition Function, BeamSourceLocation Location)>();
         var automaticCosts = new Dictionary<(string, int), int>();
+        var releaseTargets = new HashSet<(string, int)>();
+        var substitutedReleaseTargets = new HashSet<(string, int)>();
+        bool sourceAutomatic = module.AutomaticInlining && !profileInlining.SuppressAutomatic;
         for (int index = 0; index < module.DeclaredFunctions.Count; index++)
         {
             var function = module.DeclaredFunctions[index];
             var signature = (function.Name, function.Arity);
             if (!module.InlineTargets.Contains(signature))
             {
-                if (!module.AutomaticInlining || module.DeclaredNifs?.Contains(signature) == true
+                if ((!sourceAutomatic && profileInlining.Size is null) || module.DeclaredNifs?.Contains(signature) == true
                     || function.Name == module.OnLoadFunction && function.Arity == 0
                     || function.Clauses is not [{ Guard: null } candidate]
                     || !BeamModuleCompiler.HasUnconditionalParameters(candidate))
@@ -29,22 +37,34 @@ internal static class BeamTargetedInlining
                     continue;
                 }
 
-                int limit = module.AutomaticInlineSize ?? DefaultAutomaticInlineSize;
-                int cost = 0;
-                foreach (Expr expression in LocalFunctionEntries.Walk(candidate.Body))
+                if (sourceAutomatic)
                 {
-                    if (++cost > limit || !IsTemplateExpression(expression))
+                    int limit = module.AutomaticInlineSize ?? DefaultAutomaticInlineSize;
+                    int cost = 0;
+                    foreach (Expr expression in LocalFunctionEntries.Walk(candidate.Body))
                     {
-                        cost = 0;
-                        break;
+                        if (++cost > limit || !IsTemplateExpression(expression))
+                        {
+                            cost = 0;
+                            break;
+                        }
                     }
+
+                    if (cost == 0 || ReadListReduction(candidate) is not null)
+                    {
+                        continue;
+                    }
+
+                    automaticCosts.Add(signature, cost);
                 }
-                if (cost == 0 || ReadListReduction(candidate) is not null)
+                else if (profileInlining.Size is int size && IsBoundedReleaseLeaf(candidate, size))
+                {
+                    releaseTargets.Add(signature);
+                }
+                else
                 {
                     continue;
                 }
-
-                automaticCosts.Add(signature, cost);
             }
             if (function.Clauses is not [{ Guard: null } clause] || !BeamModuleCompiler.HasUnconditionalParameters(clause))
             {
@@ -86,7 +106,7 @@ internal static class BeamTargetedInlining
 
             throw Unsupported(signature);
         }
-        if (targets.Count + dispatches.Count - automaticCosts.Count != module.InlineTargets.Count)
+        if (targets.Count + dispatches.Count - automaticCosts.Count - releaseTargets.Count != module.InlineTargets.Count)
         {
             throw Unsupported(module.InlineTargets.First(signature =>
                 !targets.ContainsKey(signature) && !dispatches.ContainsKey(signature)));
@@ -139,7 +159,9 @@ internal static class BeamTargetedInlining
 
                     var targetKey = (local.Function, local.Arguments.Count);
                     bool dispatch = dispatches.TryGetValue(targetKey, out var branchTarget);
+                    bool releaseLeaf = releaseTargets.Contains(targetKey);
                     if ((!dispatch && !targets.ContainsKey(targetKey))
+                        || releaseLeaf && !local.Arguments.All(IsImmutableReleaseOperand)
                         || automaticCosts.TryGetValue(targetKey, out int cost) && cost > remainingEffort
                         || !active.Add(targetKey))
                     {
@@ -147,6 +169,11 @@ internal static class BeamTargetedInlining
                     }
 
                     remainingEffort -= cost;
+                    if (releaseLeaf)
+                    {
+                        substitutedReleaseTargets.Add(targetKey);
+                    }
+
                     var evaluation = new List<Expr>();
                     var operands = new Expr[local.Arguments.Count];
                     for (int index = 0; index < operands.Length; index++)
@@ -390,6 +417,7 @@ internal static class BeamTargetedInlining
             var signature = (function.Name, function.Arity);
             indices.Add(signature, index);
             if ((!function.IsInlineFailure && !targets.ContainsKey(signature) && !dispatches.ContainsKey(signature))
+                || releaseTargets.Contains(signature) && !substitutedReleaseTargets.Contains(signature)
                 || exports.Contains(signature) || function.Arity == 0 && function.Name == module.OnLoadFunction)
             {
                 retained[index] = true;
@@ -419,6 +447,37 @@ internal static class BeamTargetedInlining
         return (functions.Where((_, index) => retained[index]).ToArray(),
             lines.Where((_, index) => retained[index]).ToArray());
     }
+
+    private static bool IsBoundedReleaseLeaf(Clause clause, int baseSize)
+    {
+        if (clause.Body is Expr.Variable or Expr.Literal)
+        {
+            return true;
+        }
+
+        if (clause.Body is not Expr.Tuple tuple
+            || tuple.Items.Any(item => item is not (Expr.Literal or Expr.Variable)))
+        {
+            return false;
+        }
+
+        if (AttributeLiteral.TryNormalizeConstant(tuple, out _))
+        {
+            return true;
+        }
+
+        // Charge each slot as a literal to bound all substitutions, even when
+        // an apparently variable actual is constant in the caller's Core form.
+        // A discarded tuple has no construction cost and stays within this bound.
+        long size = CoreConstructorWeight + (CoreElementWeight + CoreLiteralWeight) * (long)tuple.Items.Count;
+        long limit = (long)baseSize + CoreApplyWeight + clause.Patterns.Count;
+
+        // The counters reject when the remaining budget reaches zero.
+        return size < limit && tuple.Items.Count < AutomaticInlineEffort - 1;
+    }
+
+    private static bool IsImmutableReleaseOperand(Expr operand) =>
+        operand is Expr.Variable || AttributeLiteral.TryNormalizeConstant(operand, out _);
 
     private static bool IsTemplateExpression(Expr expression) =>
         expression is Expr.Literal or Expr.Variable or Expr.Tuple or Expr.List or Expr.Map or Expr.Bits

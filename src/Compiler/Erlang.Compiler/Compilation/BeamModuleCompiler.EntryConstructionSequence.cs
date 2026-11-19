@@ -6,6 +6,154 @@ internal sealed partial class BeamModuleCompiler
 {
     private sealed partial class GeneralEmitter
     {
+        private bool TryEmitSiblingTupleAndList(Clause clause)
+        {
+            if (!owner.SsaTypeInferenceEnabled || clause.Guard is not null
+                || clause.Body is not (Expr.Tuple or Expr.Sequence { Items: [Expr.Match { Value: Expr.Call }, Expr.Tuple] })
+                || !HasUnconditionalParameters(clause))
+            {
+                return false;
+            }
+
+            string[] parameters = clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray();
+            Expr.Tuple? tuple = clause.Body as Expr.Tuple;
+            EntryCall? producer = null;
+            string? callResult = null;
+            if (clause.Body is Expr.Sequence
+                {
+                    Items:
+                    [
+                        Expr.Match
+                    {
+                        Pattern: Pattern.Variable { Name: not VariableScopeNames.Wildcard } result,
+                        Value: Expr.Call first
+                    },
+                        Expr.Tuple returned
+                    ]
+                })
+            {
+                if (parameters.Contains(result.Name, StringComparer.Ordinal)
+                    || ReadEntryCall(first, parameters) is not { } call
+                    || LocalFunctionEntries.Walk(returned).OfType<Expr.Variable>()
+                        .Count(variable => variable.Name == result.Name) != 1)
+                {
+                    return false;
+                }
+
+                tuple = returned;
+                producer = call;
+                callResult = result.Name;
+            }
+
+            if (tuple is null)
+            {
+                return false;
+            }
+
+            int tupleCount = 0;
+            int listCount = 0;
+            // A synthetic binding cannot collide with a source variable.
+            const string appendBinding = "";
+            IReadOnlyList<(string Name, Expr Value)>? hoisted = null;
+            Expr[] fields = tuple.Items.ToArray();
+            for (int index = 0; index < fields.Length; index++)
+            {
+                Expr field = fields[index];
+                if (field is Expr.Variable || AttributeLiteral.TryNormalizeConstant(field, out _))
+                {
+                    continue;
+                }
+
+                switch (field)
+                {
+                    case Expr.Tuple nested when nested.Items.All(IsFlatConstructorOperand):
+                        tupleCount++;
+                        break;
+                    case Expr.List list when list.Items.All(IsFlatConstructorOperand)
+                        && (list.Tail is null || IsFlatConstructorOperand(list.Tail)):
+                        listCount++;
+                        break;
+                    case Expr.Binary
+                    {
+                        Operator: ErlangOperators.Append,
+                        Left: Expr.List { Items: [var head], Tail: null } prefix,
+                        Right: Expr.Variable tail
+                    } when IsFlatConstructorOperand(head) && hoisted is null:
+                        // Core evaluates the append before constructing any of the tuple fields.
+                        // sys_core_fold turns its known proper prefix into a cons.
+                        hoisted = [(appendBinding, prefix with { Tail = tail })];
+                        fields[index] = new Expr.Variable(appendBinding);
+                        listCount++;
+                        break;
+                    default:
+                        return false;
+                }
+            }
+
+            if (tupleCount != 1 || listCount != 1)
+            {
+                return false;
+            }
+
+            var inputs = parameters.Select((name, register) => (name, register))
+                .Where(input => input.name != VariableScopeNames.Wildcard)
+                .ToDictionary(input => input.name, input => input.register, StringComparer.Ordinal);
+            int[] saved = [];
+            var slots = new Dictionary<string, int>(StringComparer.Ordinal);
+            if (callResult is not null)
+            {
+                if (ReadUsedEntryParameters(clause with { Body = tuple }) is not { } retained)
+                {
+                    return false;
+                }
+
+                saved = Enumerable.Range(0, parameters.Length).Reverse()
+                    .Where(register => retained.Contains(parameters[register])).ToArray();
+                for (int slot = 0; slot < saved.Length; slot++)
+                {
+                    slots.Add(parameters[saved[slot]], slot);
+                }
+
+                // The call supplies the sole X root. Term construction can use the
+                // surviving arguments directly from the initialized stack slots.
+                inputs.Clear();
+                inputs.Add(callResult, 0);
+            }
+
+            if (ReadCallArgumentConstructions(
+                [tuple with { Items = fields }],
+                -1,
+                slots,
+                inputs: inputs,
+                bindings: hoisted
+            ) is not { } plan)
+            {
+                return false;
+            }
+
+            if (producer is null)
+            {
+                EmitCallArgumentConstructions(plan, -1);
+                owner.instructions.WriteByte(Return);
+            }
+            else
+            {
+                EmitConstructedContinuationPrefix(
+                    producer,
+                    parameters,
+                    saved,
+                    saved.Length,
+                    plan
+                );
+                owner.EmitFrameReturn(saved.Length);
+            }
+
+            return true;
+
+            static bool IsFlatConstructorOperand(Expr expression) =>
+                expression is Expr.Variable || AttributeLiteral.TryNormalizeConstant(expression, out _);
+        }
+
         private bool TryEmitEntryConstructionSequence(Clause clause)
         {
             if (clause.Guard is not null || !HasUnconditionalParameters(clause))

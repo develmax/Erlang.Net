@@ -1,0 +1,27 @@
+[Targets,Manifest]=init:get_plain_arguments(),
+{ok,Raw}=file:read_file(Targets),
+Split=fun(L)->[string:trim(binary_to_list(P))||P<-binary:split(L,<<9>>,[global])] end,
+Wanted=[{M,{list_to_atom(F),list_to_integer(A)}}||L<-tl(binary:split(Raw,<<10>>,[global,trim_all])),[M,F,A,_,_,_,_,_]<-[Split(L)]],
+Read=fun(P)->{beam_file,_,_,_,_,Fs}=beam_disasm:file(P),maps:from_list([{{F,A},Ops}||{function,F,A,_,Ops}<-Fs])end,
+{ok,Files}=file:read_file(Manifest),
+Tables=maps:from_list([{M,{Read(O),Read(R)}}||L<-binary:split(Files,<<10>>,[global,trim_all]),[M,O,R]<-[Split(L)]]),
+ReadWindow=fun W([{allocate_heap,1,_,_},{move,{x,0},{y,0}},C,{move,{x,0},{x,1}},{move,{y,0},{x,0}},send|Rest]) ->
+  End=fun([{move,{atom,_},{x,0}}|T])->T;(T)->T end,
+  case End(Rest) of [{deallocate,1},return|_]->[{0,C}|W(Rest)];_->W(Rest) end;
+W([_|Rest])->W(Rest); W([])->[] end,
+Classify=fun(M,K) ->
+    {Old,Ref}=maps:get(M,Tables),
+    Previous=maps:get(K,Old),Pinned=maps:get(K,Ref),
+    Matches=lists:filtermap(fun
+      ({Y,{put_tuple2,{x,0},Fields}})->{true,{Y,Fields,lists:member({put_tuple2,{x,1},Fields},Pinned)}};
+      (_)->false
+    end,ReadWindow([O||O<-Previous,not(is_tuple(O) andalso element(1,O)=:=line)])),
+    {M,K,Matches}
+end,
+Rows=[Classify(M,K)||{M,K}<-Wanted],
+lists:foreach(fun(X)->io:format("~0p.~n",[X])end,Rows),
+Found=[{M,K}||{M,K,[_|_]}<-Rows],
+Exact=[{M,K}||{M,K,Shapes}<-Rows,lists:any(fun({_,_,S})->S end,Shapes)],
+io:format("~0p.~n",[#{frames=>length(Rows),tuple_windows=>length(Found),exact_pinned_constructor_operands=>length(Exact),modules=>length(lists:usort([M||{M,_}<-Found]))}]),halt().
+
+

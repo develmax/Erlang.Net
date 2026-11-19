@@ -1,14 +1,44 @@
 # Compatibility overview
 
-Part 1839 independently verifies 404 of 1,366 Windows OTP 29.1.1 files byte-for-byte. There are 962 Different, 0 Unsupported and 0 SourceRejected. The local repository regression passed 9,767 cases. [Evidence](validation/part-1839/README.md).
+Part 1875 retains 410 byte-identical release images. All 75 incremental images prepare, and exact native message witnesses agree. All previous Part 1870 normalized losses restore. Frame width, raw chunk, native runtime and whole-file counts are recorded separately. The complete local 9,830-case regression and configured source and packaged catalog pass. Windows whole-file parity is still partial with 956 differing release images. [Full scope](validation/part-1875/full-uncached/README.md) · [Local gates](validation/part-1875/local-gates/README.md).
 
-The full uncached Part 1833 corpus retains 404 of 1,366 exact Windows OTP images. Its single normalized SSL loss is recovered on the targeted Part 1837 candidate. The full linked comparison is running. [Full result](validation/part-1833/README.md) · [SSL retake](validation/part-1837/README.md).
+Part 1874 verifies 410 byte-identical Windows OTP 29.1.1 release images. Both SCTP send bodies gain normalized equality and the generated inet6_sctp image is byte-identical. Pinned ERTS prepares all 161 images changed from Part 1870 and the native fixture outcomes agree. [Full evidence](validation/part-1874/full-uncached/README.md).
+
+Part 1873 verifies the observer, reltool, et and inets Windows source trace and the projected argument schedules on their declared scopes. The exact relative, in-tree and bootstrap source metadata agrees in 58 additional Dbgi sections. All affected images prepare. [Evidence](validation/part-1873/README.md).
+
+Part 1872 verifies the strict one-qualifier list generator's order, malformed-input reasons and stack lines on the reference and generated BEAMs. Constructor, fun operand and GC controls pass. The 49-file selection retains all byte statuses. [Evidence](validation/part-1872/README.md).
+
+Part 1871 restores the pinned framed local tails, ordinary argument copies and nested SCTP cleanup selector schedules in the selected release images. Native file and synthetic cleanup tests agree. The complete byte-equal count is from Part 1870. [Scoped evidence](validation/part-1871/README.md).
+
+Part 1870 retains 409 byte-identical release files. Pinned ERTS prepares or loads all 406 changed images. Native crypto and tail argument witnesses agree and 88 sections gain raw equality. Twelve normalized function losses remain under correction. [Full evidence](validation/part-1870/full-uncached/README.md).
+
+Part 1865 retains 409 byte-identical release files. Pinned ERTS prepares 355 changed images and loads and executes the changed crypto image with matching hash observations. The full normalized comparison has 36 gains and six tail-wrapper losses. [Full evidence](validation/part-1865/README.md).
+
+The Part 1864 selection restores the source-constrained keyfind annotation and verifies direct local atom-or-tuple return typing at 60 release sites. It retains all eight byte-equal controls and both native fixture pairs agree. [Scoped evidence](validation/part-1864/README.md).
+
+Part 1862 retains 409 byte-identical Windows OTP 29.1.1 files and 957 differences. All 364 changed files prepare in pinned ERTS. Sixty-five functions gain normalized equality and one loses it due to a constrained keyfind result test. Part 1863 verifies tagged fallback, suffix trim, local integer facts and shared receive tails in focused release and native checks. [Full comparison](validation/part-1862/README.md) · [Focused comparison](validation/part-1863/README.md).
+
+Part 1860 restores direct producer argument projections and improves ordinary tuple field list helpers without losing any complete Windows release match. The uncached corpus retains 409/1,366. Pinned ERTS prepares all 82 changed images and reproduces the generated fixture values, errors and ordering. [Evidence](validation/part-1860/README.md).
+
+Part 1858 verifies terminal tuple projection lifetimes and ordinary conditional list helper generation in 73 release images. The generated Mnesia image remains byte-identical, three Megaco helpers have matching typed instructions and native malformed-input stacks, and the SCTP closure reaches the reference frame and tail widths. The complete Windows comparison confirms 409/1,366 whole-file matches, with one Mnesia gain and zero losses. [Evidence](validation/part-1858/README.md).
+
+The full uncached Part 1855 Windows OTP 29.1.1 comparison confirms 408 Equal, 958 Different, 0 Unsupported and 0 SourceRejected. It gains ssh_channel_sup.beam and preserves all previous equal files. All 412 changed images prepare or load in pinned ERTS. The current full .NET regression remains pending. [Evidence](validation/part-1855/README.md).
+
+The full uncached Part 1853 comparison confirms 407 Equal, 959 Different, 0 Unsupported and 0 SourceRejected on Windows OTP 29.1.1. megaco_tcp_sup.beam is the only new exact file. All 471 changed images prepare or load in pinned ERTS. The linked full .NET run passes 9,783 of 9,784 cases. The original Jaro timeout matches the isolated Part 1839 baseline. Canonical readiness retains the previous passed report. [Evidence](validation/part-1853/README.md).
+
+The uncached full Part 1845 comparison reports 406 Equal, 960 Different, 0 Unsupported and 0 SourceRejected on Windows OTP 29.1.1. It adds exact SSL and SNMP images. The pinned ERTS load checks pass for all 351 changed images. The full .NET regression completed with six deadline-related failures and leaves readiness pending. [Evidence](validation/part-1845/README.md).
+
+Part 1840 verifies one additional fully equal Windows release image, ssl_dh_groups, within the 30-module selection. The full-corpus count remains the measurement from Part 1839. [Evidence](validation/part-1840/README.md).
+
+The full uncached Part 1839 corpus retains 404 of 1,366 byte-identical Windows OTP 29.1.1 images. There are zero Unsupported and zero SourceRejected results. ERTS prepares all seven changed files and twelve normalized functions gain equality. [Evidence](validation/part-1839/README.md).
+
+The full uncached Part 1833 corpus retained 404 of 1,366 exact Windows OTP images. Part 1837 recovered the SSL instructions, and Part 1839 recovered the subsequently identified argument placement losses. [Full result](validation/part-1833/README.md) · [SSL retake](validation/part-1837/README.md).
 
 Part 1835 has 7 Equal and 17 Different on its sample with no unsupported or rejected sources. Megaco start_accept_child/2 matches pinned instructions and the three execution observations. [Evidence](validation/part-1835/README.md).
 
-On the Part 1834 sample, 7 images are Equal and 33 are Different. There are zero Unsupported or SourceRejected results. Whole-corpus compatibility remains at the Part 1832 measurement. [Scope](validation/part-1834/README.md).
+On the Part 1834 sample, 7 images are Equal and 33 are Different. There are zero Unsupported or SourceRejected results. Later complete corpora confirm the same count. [Scope](validation/part-1834/README.md).
 
-Part 1833 has 10 Equal and 34 Different in its Windows sample, with zero Unsupported and zero SourceRejected. The full release still uses Part 1832 evidence. [Candidate](validation/part-1833/README.md).
+Part 1833 has 10 Equal and 34 Different in its Windows sample, with zero Unsupported and zero SourceRejected. The Part 1833 full corpus independently reports 404 byte matches. [Candidate](validation/part-1833/README.md).
 
 Part 1832 reports 404 Equal and 962 Different on the full Windows corpus, with zero Unsupported and zero SourceRejected. ERTS admitted all 578 changed images across batch preparation and ordinary on-load execution. [Evidence](validation/part-1832/README.md).
 

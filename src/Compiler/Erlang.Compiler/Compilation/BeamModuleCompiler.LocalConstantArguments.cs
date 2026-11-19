@@ -34,7 +34,7 @@ internal sealed partial class BeamModuleCompiler
         }
 
         var escaped = new HashSet<(string Name, int Arity)>();
-        var incoming = new Dictionary<(string Name, int Arity), Atom?[]>();
+        var incoming = new Dictionary<(string Name, int Arity), Term?[]>();
         foreach (Expr expression in functions.SelectMany(function =>
             LocalFunctionEntries.ClauseExpressions(function.Clauses)).SelectMany(LocalFunctionEntries.Walk))
         {
@@ -57,13 +57,13 @@ internal sealed partial class BeamModuleCompiler
 
             if (!incoming.TryGetValue(signature, out var constants))
             {
-                incoming.Add(signature, call.Arguments.Select(argument => (argument as Expr.Literal)?.Value as Atom).ToArray());
+                incoming.Add(signature, call.Arguments.Select(ReadLocalSingletonArgument).ToArray());
                 continue;
             }
 
             for (int index = 0; index < constants.Length; index++)
             {
-                if (call.Arguments[index] is not Expr.Literal { Value: Atom atom } || !atom.Equals(constants[index]))
+                if (ReadLocalSingletonArgument(call.Arguments[index]) is not { } value || !value.Equals(constants[index]))
                 {
                     constants[index] = null;
                 }
@@ -73,20 +73,24 @@ internal sealed partial class BeamModuleCompiler
         return functions.Select(function =>
         {
             var signature = (function.Name, function.Arity);
-            if (escaped.Contains(signature) || !incoming.TryGetValue(signature, out var atoms))
+            if (escaped.Contains(signature) || !incoming.TryGetValue(signature, out var arguments))
             {
                 return function;
             }
 
             Clause clause = function.Clauses[0];
             string[] names = parameters[signature];
-            var constants = new Dictionary<string, Atom>(StringComparer.Ordinal);
-            for (int index = 0; index < atoms.Length; index++)
+            bool reorderedRelay = IsReorderedRemoteRelay(clause.Body, names);
+            // Like beam_ssa_type's singleton substitution, this keeps the local entry and call arity.
+            bool constructor = SsaTypeInferenceEnabled && clause.Body is (Expr.Tuple or Expr.List)
+                && IsLocalSingletonConstructor(clause.Body);
+            var constants = new Dictionary<string, Term>(StringComparer.Ordinal);
+            for (int index = 0; index < arguments.Length; index++)
             {
-                if (atoms[index] is { } atom && names[index] != VariableScopeNames.Wildcard
-                    && IsParameterLiveAcrossEntryCall(clause.Body, names[index]))
+                if (arguments[index] is { } value && names[index] != VariableScopeNames.Wildcard
+                    && (constructor || (value is Atom && (reorderedRelay || IsParameterLiveAcrossEntryCall(clause.Body, names[index])))))
                 {
-                    constants.Add(names[index], atom);
+                    constants.Add(names[index], value);
                 }
             }
 
@@ -95,17 +99,22 @@ internal sealed partial class BeamModuleCompiler
                 return function;
             }
 
+            if (reorderedRelay)
+            {
+                return function with { Clauses = [clause with { Body = RewriteForwardedAtoms(clause.Body) }] };
+            }
+
             Expr body = clause.Body is Expr.Case decision
                 ? decision with
                 {
-                    Value = RewriteSelector(decision.Value),
+                    Value = RewriteForwardedAtoms(decision.Value),
                     Clauses = decision.Clauses.Select(branch => branch with { Body = RewriteBody(branch.Body) }).ToArray()
                 }
                 : RewriteBody(clause.Body);
 
             return function with { Clauses = [clause with { Body = body }] };
 
-            Expr RewriteSelector(Expr value)
+            Expr RewriteForwardedAtoms(Expr value)
             {
                 if (value is not Expr.Call { DynamicRemote: false } selector)
                 {
@@ -117,7 +126,7 @@ internal sealed partial class BeamModuleCompiler
                 {
                     Arguments = selector.Arguments.Select((argument, index) =>
                         argument is Expr.Variable read && (index >= names.Length || names[index] != read.Name)
-                            && constants.TryGetValue(read.Name, out Atom? known)
+                            && constants.TryGetValue(read.Name, out Term? known)
                             ? new Expr.Literal(known)
                             : argument).ToArray()
                 };
@@ -134,6 +143,48 @@ internal sealed partial class BeamModuleCompiler
                     : null
             );
         }).ToArray();
+    }
+
+    private static Term? ReadLocalSingletonArgument(Expr argument) => argument switch
+    {
+        Expr.Literal { Value: Atom or Nil } literal => literal.Value,
+        Expr.List { Items.Count: 0, Tail: null } => Nil.Value,
+        _ => null
+    };
+
+    private static bool IsLocalSingletonConstructor(Expr expression) => expression switch
+    {
+        Expr.Literal or Expr.Variable => true,
+        Expr.Tuple tuple => tuple.Items.All(IsLocalSingletonConstructor),
+        Expr.List list => list.Items.All(IsLocalSingletonConstructor)
+            && (list.Tail is null || IsLocalSingletonConstructor(list.Tail)),
+        Expr.Binary { Operator: ErlangOperators.Append, Left: Expr.List { Tail: null } prefix, Right: var tail }
+            => prefix.Items.All(IsLocalSingletonConstructor) && IsLocalSingletonConstructor(tail),
+        _ => false
+    };
+
+    private static bool IsReorderedRemoteRelay(Expr body, string[] parameters)
+    {
+        if (body is not Expr.Call { Module: { }, DynamicRemote: false } call
+            || call.Arguments.Count != parameters.Length || parameters.Length < 2
+            || parameters.Contains(VariableScopeNames.Wildcard))
+        {
+            return false;
+        }
+
+        var available = new HashSet<string>(parameters, StringComparer.Ordinal);
+        bool reordered = false;
+        for (int index = 0; index < call.Arguments.Count; index++)
+        {
+            if (call.Arguments[index] is not Expr.Variable argument || !available.Remove(argument.Name))
+            {
+                return false;
+            }
+
+            reordered |= argument.Name != parameters[index];
+        }
+
+        return reordered;
     }
 
     private static bool IsParameterLiveAcrossEntryCall(Expr body, string parameter)

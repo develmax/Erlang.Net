@@ -1,0 +1,451 @@
+module beam_ber_tag_probe.
+exports [{long_tag,2},{module_info,0},{module_info,1},{tag_number,1}].
+attributes [].
+
+%% beam_ber_tag_probe.erl:3
+%% Counter = 54
+%% bs_ensure_opt: true
+%% Parameters
+%%    _0 =>
+%%     
+%%     accepts_match_context
+function `beam_ber_tag_probe`:`tag_number`(x0/_0) {
+  %% _0: 0..1 0..6 74..75
+0:
+  %% Argument types:
+  %%    
+  %% Aliased:
+  %%    _0
+  %% Anno: #{accepts_match_contexts => true}
+  %% _8: 1..43 56..60 66..69
+  [1] x1/_8 = bs_start_match `new`, x0/_0
+
+  %% Aliased:
+  %%    _8
+  %% _36: 3..5
+  [3] z0/_36 = succeeded x1/_8
+  [5] br z0/_36, ^36, ^38
+
+36:
+  %% _50: 7..36 56..60 66..67
+  [7] x0/_50 = bs_get_position x1/_8
+
+  %% _45: 9..11
+  [9] z0/_45 = bs_ensure x1/_8, `8`, `1`
+
+  %% _46: 11..13
+  [11] z0/_46 = succeeded z0/_45
+  [13] br z0/_46, ^44, ^22
+
+44:
+  %% beam_ber_tag_probe.erl:3
+  %% Argument types:
+  %%    x1/_8 => bs_context(1)
+  %% Aliased:
+  %%    _8
+  %% Anno: #{ensured => true}
+  %% _10: 15..41 56..61
+  [15] x2/_10 = bs_ensured_get `integer`, x1/_8, `[unsigned,big]`, `2`, `1`
+  [17] br ^23
+
+23:
+  %% beam_ber_tag_probe.erl:3
+  %% Argument types:
+  %%    x1/_8 => bs_context(1)
+  %% Aliased:
+  %%    _9
+  %% Anno: #{ensured => true}
+  %% _11: 19..19
+  [19] z0/_11 = bs_ensured_skip `integer`, x1/_8, `[unsigned,big]`, `1`, `1`
+  [21] br ^24
+
+24:
+  %% beam_ber_tag_probe.erl:3
+  %% Argument types:
+  %%    x1/_8 => bs_context(1)
+  %% Aliased:
+  %%    _11
+  %% Anno: #{ensured => true}
+  %% _14: 23..36 56..63
+  [23] x3/_14 = bs_ensured_get `integer`, x1/_8, `[unsigned,big]`, `5`, `1`
+  [25] br ^25
+
+25:
+  %% Argument types:
+  %%    x3/_14 => 0..31
+  %% Unique:
+  %%    _14
+  %% _32: 27..29
+  [27] z0/_32 = bif:'=:=' x3/_14, `31`
+  [29] br z0/_32, ^31, ^26
+
+31:
+  %% _48: 31..33
+  [31] z0/_48 = bs_ensure x1/_8, `0`, `8`
+
+  %% _49: 33..35
+  [33] z0/_49 = succeeded z0/_48
+  [35] br z0/_49, ^47, ^26
+
+47:
+  %% beam_ber_tag_probe.erl:3
+  %% Argument types:
+  %%    x1/_8 => bs_context(1)
+  %% Aliased:
+  %%    _13
+  %% Anno: #{ensured => true}
+  %% _15: 37..37
+  [37] z0/_15 = bs_ensured_skip `binary`, x1/_8, `[unsigned,big]`, `all`, `8`
+  [39] br ^27
+
+%% #{frame_size => 1,yregs => #{{b_var,2} => []}}
+27:
+  %% beam_ber_tag_probe.erl:3
+  %% Argument types:
+  %%    x2/_10 => 0..3
+  %% Unique:
+  %%    _10
+  %% _2: 41..49
+  [41] y0/_2 = bif:'bsl' x2/_10, `16`
+
+  %% beam_ber_tag_probe.erl:3
+  %% Result type:
+  %%    integer()
+  %% Aliased:
+  %%    _13
+  %% Anno: #{bsm_info => context_reused}
+  %% _1: 43..49
+  [43] x0/_1 = call (`long_tag`/2), x1/_8, `0`
+
+  %% Unique:
+  %%    _1
+  %% _29: 45..47
+  [45] z0/_29 = succeeded x0/_1
+  [47] br z0/_29, ^29, ^1
+
+29:
+  %% beam_ber_tag_probe.erl:3
+  %% Argument types:
+  %%    y0/_2 => 0..196608
+  %%    x0/_1 => integer()
+  %% Unique:
+  %%    _1, 
+  %%    _2
+  %% _17: 49..51
+  [49] x0/_17 = bif:'bor' y0/_2, x0/_1
+  %% Result type:
+  %%    integer()
+  %% Unique:
+  %%    _17
+  %% Anno: #{deallocate => 1}
+  [51] ret x0/_17
+
+1:
+  %% _42: 53..55
+  [53] x0/_42 = call (`erlang`:`error`/1), `badarg`
+  %% Result type:
+  %%    none()
+  %% Anno: #{deallocate => 1}
+  [55] ret x0/_42
+
+26:
+  %% Aliased:
+  %%    _13
+  %% _35: 57..59
+  [57] z0/_35 = bs_test_tail x1/_8, `0`
+  [59] br z0/_35, ^35, ^22
+
+35:
+  %% beam_ber_tag_probe.erl:4
+  %% Argument types:
+  %%    x2/_10 => 0..3
+  %% Unique:
+  %%    _10
+  %% _3: 61..63
+  [61] x0/_3 = bif:'bsl' x2/_10, `16`
+
+  %% beam_ber_tag_probe.erl:4
+  %% Argument types:
+  %%    x0/_3 => 0..196608
+  %%    x3/_14 => 0..31
+  %% Unique:
+  %%    _3, 
+  %%    _14
+  %% _18: 63..65
+  [63] x0/_18 = bif:'bor' x0/_3, x3/_14
+  %% Result type:
+  %%    0..196639
+  %% Unique:
+  %%    _18
+  [65] ret x0/_18
+
+22:
+  %% _52: 67..67
+  [67] z0/_52 = bs_set_position x1/_8, x0/_50
+
+  %% Aliased:
+  %%    _8
+  %% _43: 69..71
+  [69] x0/_43 = bs_get_tail x1/_8
+
+  %% beam_ber_tag_probe.erl:3
+  %% Aliased:
+  %%    _43
+  %% Anno: #{inlined => {'-inlined-tag_number/1-',1}}
+  %% _19: 71..73
+  [71] x0/_19 = match_fail `function_clause`, x0/_43
+  [73] ret x0/_19
+
+38:
+  %% beam_ber_tag_probe.erl:3
+  %% Aliased:
+  %%    _0
+  %% Anno: #{inlined => {'-inlined-tag_number/1-',1}}
+  %% _40: 75..77
+  [75] x0/_40 = match_fail `function_clause`, x0/_0
+  [77] ret x0/_40
+}
+
+%% beam_ber_tag_probe.erl:6
+%% Counter = 57
+%% bs_ensure_opt: true
+%% Parameters
+%%    _0 =>
+%%     
+%%     accepts_match_context
+function `beam_ber_tag_probe`:`long_tag`(x0/_0, x1/_1) {
+  %% _0: 0..1 0..6 84..85
+  %% _1: 0..1 0..37 46..61 76..81 84..85
+0:
+  %% Argument types:
+  %%    
+  %% Aliased:
+  %%    _0
+  %% Anno: #{accepts_match_contexts => true}
+  %% _9: 1..36 46..69 76..79
+  [1] x2/_9 = bs_start_match `new`, x0/_0
+
+  %% Aliased:
+  %%    _9
+  %% _36: 3..5
+  [3] z0/_36 = succeeded x2/_9
+  [5] br z0/_36, ^36, ^38
+
+36:
+  %% _54: 7..36 46..52 76..77
+  [7] x0/_54 = bs_get_position x2/_9
+
+  %% _46: 9..11
+  [9] z0/_46 = bs_ensure x2/_9, `1`, `1`
+
+  %% _47: 11..13
+  [11] z0/_47 = succeeded z0/_46
+  [13] br z0/_47, ^45, ^23
+
+45:
+  %% beam_ber_tag_probe.erl:6
+  %% Argument types:
+  %%    x2/_9 => bs_context(1)
+  %% Aliased:
+  %%    _9
+  %% Anno: #{ensured => true}
+  %% _11: 15..19
+  [15] x3/_11 = bs_ensured_get `integer`, x2/_9, `[unsigned,big]`, `1`, `1`
+  [17] br ^24
+
+24:
+  %% Aliased:
+  %%    _11
+  %% _44: 19..21
+  [19] z0/_44 = bif:'=:=' x3/_11, `0`
+  [21] br z0/_44, ^35, ^34
+
+35:
+  %% _49: 23..25
+  [23] z0/_49 = bs_ensure x2/_9, `7`, `1`
+
+  %% _50: 25..27
+  [25] z0/_50 = succeeded z0/_49
+  [27] br z0/_50, ^48, ^23
+
+48:
+  %% beam_ber_tag_probe.erl:7
+  %% Argument types:
+  %%    x2/_9 => bs_context(1)
+  %% Aliased:
+  %%    _10
+  %% Anno: #{ensured => true}
+  %% _17: 29..43
+  [29] x3/_17 = bs_ensured_get `integer`, x2/_9, `[unsigned,big]`, `7`, `1`
+  [31] br ^30
+
+30:
+  %% Aliased:
+  %%    _16
+  %% _33: 33..35
+  [33] z0/_33 = bs_test_tail x2/_9, `0`
+  [35] br z0/_33, ^33, ^23
+
+33:
+  %% beam_ber_tag_probe.erl:7
+  %% Argument types:
+  %%    
+  %% Aliased:
+  %%    _1
+  %% _4: 37..43
+  [37] x0/_4 = bif:'bsl' x1/_1, `7`
+
+  %% Unique:
+  %%    _4
+  %% _31: 39..41
+  [39] z0/_31 = succeeded x0/_4
+  [41] br z0/_31, ^31, ^1
+
+31:
+  %% beam_ber_tag_probe.erl:7
+  %% Argument types:
+  %%    x0/_4 => integer()
+  %%    x3/_17 => 0..127
+  %% Unique:
+  %%    _4, 
+  %%    _17
+  %% _18: 43..45
+  [43] x0/_18 = bif:'bor' x0/_4, x3/_17
+  %% Result type:
+  %%    integer()
+  %% Unique:
+  %%    _18
+  [45] ret x0/_18
+
+34:
+  %% _52: 47..49
+  [47] z0/_52 = bs_ensure x2/_9, `7`, `8`
+
+  %% _53: 49..51
+  [49] z0/_53 = succeeded z0/_52
+  [51] br z0/_53, ^51, ^23
+
+51:
+  %% beam_ber_tag_probe.erl:6
+  %% Argument types:
+  %%    x2/_9 => bs_context(1)
+  %% Aliased:
+  %%    _10
+  %% Anno: #{ensured => true}
+  %% _13: 53..67
+  [53] x0/_13 = bs_ensured_get `integer`, x2/_9, `[unsigned,big]`, `7`, `1`
+  [55] br ^25
+
+25:
+  %% beam_ber_tag_probe.erl:6
+  %% Argument types:
+  %%    x2/_9 => bs_context(1)
+  %% Aliased:
+  %%    _12
+  %% Anno: #{ensured => true}
+  %% _14: 57..57
+  [57] z0/_14 = bs_ensured_skip `binary`, x2/_9, `[unsigned,big]`, `all`, `8`
+  [59] br ^26
+
+26:
+  %% beam_ber_tag_probe.erl:6
+  %% Argument types:
+  %%    
+  %% Aliased:
+  %%    _1
+  %% _2: 61..67
+  [61] x1/_2 = bif:'bsl' x1/_1, `7`
+
+  %% Unique:
+  %%    _2
+  %% _27: 63..65
+  [63] z0/_27 = succeeded x1/_2
+  [65] br z0/_27, ^27, ^1
+
+27:
+  %% beam_ber_tag_probe.erl:6
+  %% Argument types:
+  %%    x1/_2 => integer()
+  %%    x0/_13 => 0..127
+  %% Unique:
+  %%    _2, 
+  %%    _13
+  %% _3: 67..69
+  [67] x1/_3 = bif:'bor' x1/_2, x0/_13
+
+  %% beam_ber_tag_probe.erl:6
+  %% Result type:
+  %%    integer()
+  %% Aliased:
+  %%    _12
+  %% Unique:
+  %%    _3
+  %% Anno: #{bsm_info => context_reused}
+  %% _19: 69..71
+  [69] x0/_19 = call (`long_tag`/2), x2/_9, x1/_3
+  %% Result type:
+  %%    integer()
+  %% Unique:
+  %%    _19
+  [71] ret x0/_19
+
+1:
+  %% _42: 73..75
+  [73] x0/_42 = call (`erlang`:`error`/1), `badarg`
+  %% Result type:
+  %%    none()
+  [75] ret x0/_42
+
+23:
+  %% _56: 77..77
+  [77] z0/_56 = bs_set_position x2/_9, x0/_54
+
+  %% Aliased:
+  %%    _9
+  %% _43: 79..81
+  [79] x0/_43 = bs_get_tail x2/_9
+
+  %% beam_ber_tag_probe.erl:6
+  %% Aliased:
+  %%    _1, 
+  %%    _43
+  %% Anno: #{inlined => {'-inlined-long_tag/2-',2}}
+  %% _20: 81..83
+  [81] x0/_20 = match_fail `function_clause`, x0/_43, x1/_1
+  [83] ret x0/_20
+
+38:
+  %% beam_ber_tag_probe.erl:6
+  %% Aliased:
+  %%    _0, 
+  %%    _1
+  %% Anno: #{inlined => {'-inlined-long_tag/2-',2}}
+  %% _40: 85..87
+  [85] x0/_40 = match_fail `function_clause`, x0/_0, x1/_1
+  [87] ret x0/_40
+}
+
+%% Counter = 6
+%% bs_ensure_opt: true
+function `beam_ber_tag_probe`:`module_info`() {
+0:
+  %% _2: 1..3
+  [1] x0/_2 = call (`erlang`:`get_module_info`/1), `beam_ber_tag_probe`
+  %% Aliased:
+  %%    _2
+  [3] ret x0/_2
+}
+
+%% Counter = 6
+%% bs_ensure_opt: true
+function `beam_ber_tag_probe`:`module_info`(x0/_0) {
+  %% _0: 0..1
+0:
+  %% Aliased:
+  %%    _0
+  %% _2: 1..3
+  [1] x0/_2 = call (`erlang`:`get_module_info`/2), `beam_ber_tag_probe`, x0/_0
+  %% Aliased:
+  %%    _2
+  [3] ret x0/_2
+}

@@ -1976,11 +1976,7 @@ internal sealed partial class BeamModuleCompiler
                         Field: usesField ? access.Index : -1,
                         FieldRegister: fieldRegister,
                         FieldSlot: projectedResult.NestedCase?.ProjectedSlot,
-                        KnownTupleTag: selectorCall is
-                        {
-                            Module: "lists",
-                            Call: { Function: "keyfind", Arguments: [Expr.Literal { Value: Atom lookupKey }, Expr.Literal { Value: Integer lookupPosition }, _] }
-                        } && lookupPosition.Value.IsOne && lookupKey.Equals(access.Tag)
+                        KnownTupleTag: HasKnownKeyFindTag(selectorCall, access.Tag)
                     );
                 }
 
@@ -2412,6 +2408,19 @@ internal sealed partial class BeamModuleCompiler
             (selector.Module, selector.Call.Function, selector.Call.Arguments.Count)
                 is ("lists", "keymember", 3) or ("lists", "member", 2) or ("maps", "is_key", 2);
 
+        private static bool HasKnownKeyFindTag(EntryCall? selector, Atom tag) =>
+            selector is
+            {
+                Module: LookupListModule,
+                Call:
+                {
+                    DynamicRemote: false,
+                    Function: KeyFindFunction,
+                    Arguments: [Expr.Literal { Value: Atom key }, Expr.Literal { Value: Integer position }, _]
+                }
+            }
+            && position.Value.IsOne && key.Equals(tag);
+
         private int RegisterCaseSelectorType(EntryCall call, byte opcode)
         {
             return (opcode, call.Module, call.Call.Function, call.Call.Arguments.Count) switch
@@ -2578,6 +2587,11 @@ internal sealed partial class BeamModuleCompiler
                 {
                     if (!knownTuple)
                     {
+                        if (test.Key is Atom tag)
+                        {
+                            owner.RecordConstrainedKeyFindTupleTest(next, test.TupleArity, tag);
+                        }
+
                         owner.Op(IsTuple, LabelTag, next);
                         owner.Operand(XRegisterTag, 0);
                     }

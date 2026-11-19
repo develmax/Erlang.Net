@@ -1,0 +1,139 @@
+using System.Buffers.Binary;
+using System.Collections;
+using System.IO.Compression;
+using System.Linq.Expressions;
+using System.Numerics;
+using System.Reflection;
+using System.Runtime.Loader;
+using System.Text.Json;
+
+string folder = Path.GetFullPath(args[1]);
+AssemblyLoadContext.Default.Resolving += (_, assembly) =>
+{
+    string path = Path.Combine(folder, assembly.Name + ".dll");
+    return File.Exists(path) ? AssemblyLoadContext.Default.LoadFromAssemblyPath(path) : null;
+};
+
+Assembly runtime = AssemblyLoadContext.Default.LoadFromAssemblyPath(Path.Combine(folder, "Erlang.Runtime.dll"));
+Assembly compiler = AssemblyLoadContext.Default.LoadFromAssemblyPath(Path.Combine(folder, "Erlang.Compiler.dll"));
+Type structure = runtime.GetType("Erlang.BeamStructureReader", true)!;
+MethodInfo parseCode = structure.GetMethod("ReadCode", BindingFlags.Static | BindingFlags.NonPublic)!;
+MethodInfo parseAtoms = structure.GetMethod("ReadAtoms", BindingFlags.Static | BindingFlags.NonPublic)!;
+MethodInfo parseImports = structure.GetMethod("ReadImports", BindingFlags.Static | BindingFlags.NonPublic)!;
+MethodInfo read = runtime.GetType("Erlang.BeamInstructionReader", true)!
+    .GetMethods(BindingFlags.Static | BindingFlags.NonPublic)
+    .Single(method => method.Name == "Read" && method.GetParameters().Length == 5);
+MethodInfo project = compiler.GetType("Erlang.Compiler.BeamModuleCompiler", true)!
+    .GetMethod("ReallocateLeafFrameRegisters", BindingFlags.Static | BindingFlags.NonPublic)!;
+Type callbackType = project.GetParameters()[^1].ParameterType;
+var instruction = Expression.Parameter(callbackType.GetGenericArguments()[0]);
+var invoke = Expression.Parameter(typeof(Func<object, bool>));
+var bind = Expression.Lambda<Func<Func<object, bool>, Delegate>>(
+    Expression.Convert(Expression.Lambda(callbackType,
+        Expression.Invoke(invoke, Expression.Convert(instruction, typeof(object))), instruction), typeof(Delegate)),
+    invoke
+).Compile();
+
+var rows = new List<object>();
+var errors = new List<object>();
+int tested = 0;
+foreach (string line in File.ReadLines(args[0]))
+{
+    string[] pair = line.Split('\t');
+    string name = pair[0];
+    tested++;
+    string phase = "open-generated";
+    try
+    {
+        byte[] image = File.ReadAllBytes(pair[1]);
+        object header = parseCode.Invoke(null, [ReadChunk(image, "Code"u8)])!;
+        ReadOnlyMemory<byte> code = (ReadOnlyMemory<byte>)Get(header, "Instructions");
+        string?[] atoms = ((IEnumerable)parseAtoms.Invoke(null, [ReadChunk(image, "AtU8"u8)])!).Cast<string?>().ToArray();
+        var imports = ((IEnumerable)parseImports.Invoke(null, [ReadChunk(image, "ImpT"u8), atoms.Length])!).Cast<object>().ToArray();
+        int literalCount = CountLiterals(ReadChunk(image, "LitT"u8));
+        var spans = new List<(int Start, int End, int Slot)>();
+        Action<int, int, int> record = (start, end, slot) => spans.Add((start, end, slot));
+        phase = "decode-generated";
+        object decoded = read.Invoke(null, [header, atoms.Length, literalCount, null, record])!;
+        Delegate allow = bind(op =>
+        {
+            object[] operands = ((IEnumerable)Get(op, "Operands")).Cast<object>().ToArray();
+            var import = imports[(int)(BigInteger)Get(operands[1], "Value")];
+            int arity = (int)Get(import, "Arity");
+            string? module = atoms[(int)Get(import, "ModuleAtomIndex")];
+            string? function = atoms[(int)Get(import, "FunctionAtomIndex")];
+            return module != "erlang" || (function, arity) is not (
+                ("link" or "unlink", 1) or ("!" or "monitor_node" or "group_leader" or "exit", 2));
+        });
+        phase = "project";
+        byte[]? before = (byte[]?)project.Invoke(null, [code, decoded, spans, false, null, null])
+            ?? (byte[]?)project.Invoke(null, [code, decoded, spans, true, null, null]);
+        byte[]? updated = (byte[]?)project.Invoke(null, [code, decoded, spans, false, null, allow])
+            ?? (byte[]?)project.Invoke(null, [code, decoded, spans, true, null, allow]);
+        if (updated is null)
+        {
+            continue;
+        }
+
+        phase = "read-reference-code";
+        ReadOnlyMemory<byte> reference = ReadRawCode(Path.Combine(args[2], name));
+        rows.Add(new { Module = name, Before = code.Length, After = updated.Length,
+            CodeMatch = updated.AsSpan().SequenceEqual(reference.Span),
+            SameWithoutExternal = before is not null && updated.AsSpan().SequenceEqual(before) });
+    }
+    catch (Exception error)
+    {
+        errors.Add(new { Module = name, Phase = phase, Error = error.GetBaseException().ToString() });
+    }
+}
+
+Console.WriteLine(JsonSerializer.Serialize(new { Tested = tested, Rows = rows, Errors = errors },
+    new JsonSerializerOptions { WriteIndented = true }));
+
+static object Get(object value, string property) => value.GetType().GetProperty(property)!.GetValue(value)!;
+
+static ReadOnlyMemory<byte> ReadRawCode(string path)
+{
+    ReadOnlyMemory<byte> payload = ReadChunk(File.ReadAllBytes(path), "Code"u8);
+    int headerLength = 4 + BinaryPrimitives.ReadInt32BigEndian(payload.Span[..4]);
+    return payload[headerLength..];
+}
+
+static ReadOnlyMemory<byte> ReadChunk(byte[] file, ReadOnlySpan<byte> sought)
+{
+    int cursor = 12;
+    while (cursor + 8 <= file.Length)
+    {
+        ReadOnlySpan<byte> name = file.AsSpan(cursor, 4);
+        int length = BinaryPrimitives.ReadInt32BigEndian(file.AsSpan(cursor + 4, 4));
+        int start = cursor + 8;
+        if (name.SequenceEqual(sought))
+        {
+            return file.AsMemory(start, length);
+        }
+
+        cursor = start + ((length + 3) & ~3);
+    }
+
+    return ReadOnlyMemory<byte>.Empty;
+}
+
+static int CountLiterals(ReadOnlyMemory<byte> payload)
+{
+    if (payload.IsEmpty)
+    {
+        return 0;
+    }
+
+    int marker = BinaryPrimitives.ReadInt32BigEndian(payload.Span[..4]);
+    if (marker == 0)
+    {
+        return BinaryPrimitives.ReadInt32BigEndian(payload.Span.Slice(4, 4));
+    }
+
+    using var compressed = new MemoryStream(payload[4..].ToArray(), false);
+    using var inflated = new ZLibStream(compressed, CompressionMode.Decompress);
+    Span<byte> count = stackalloc byte[4];
+    inflated.ReadExactly(count);
+    return BinaryPrimitives.ReadInt32BigEndian(count);
+}

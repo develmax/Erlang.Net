@@ -1,0 +1,43 @@
+{
+  "Parent": {
+    "Source": "8afbf36f67f86c46a8050f621e1d469944456dc28e96cf48f778f9b98ecf9a14",
+    "Paths": 162,
+    "Compiler": "e4bf1978f594d35be68227bfbd3ba3435e63fb4988aaa1cb046e7e6a68858dc0",
+    "Tests": "41af8a42e9fb5180a72ddc14ca0e12d01ba23319a59e48d36300182ffc46ebbf",
+    "ParentSource": "6bca585a315ca45c14c793e2338ee2c8b6dfd8c8ee48e7d7113c5a7a10c2566a",
+    "CorpusTool": "e82b07cfafa2ed370e4571bd0e1d1ba472acb77a5387a0ab85e0541bc4ab77a0"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryFramePlacement.cs": "3afbb6f12e852f207ec412282b7bb088f8bc161ac460b57adf38b97693954538",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamCheckedTagZeroFrameFallbackChecks.cs": "260142439efd8dc031545dd0d0b27512d5048bced03dc668fd62f472b4ef4470",
+    "tests/Erlang.Tests/Harness/Program.cs": "08bd9a33f1e35dad651931c2df2bab001828aac4268090c8ea4c526aa13c530b",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedTagFallbackFrames.cs": "fc0d4cd3622a548773d5f5cdc008b6c921b486eed58be053e9f150010b4cf326",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CallFrameTrims.cs": "bfd14f7baa2a1383be88b396d3c59902251f71f56786addeb8e50ad22cc45bdb",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamSingleLiveBranchTrimChecks.cs": "64c9453ebe0f4cfed97ccd19db10749360e1edd71be61d41df1a907b92b7e6ac",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AdjacentNumericResults.cs": "b7b8374188db82c5f20a4898c2b1ba0d4b9b2bb1f61e5beb3ebc42bbe95badc9",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LocalIntegerResults.cs": "b082f9005f2bffe3e4c168e42bf9fadd55fa1a18b0de47eba3359f740b93eda3",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": "a18ac68edfb5cd308a56ebd75c407ed83669164557c155cfc7c3b9f3881d9d99",
+    "tests/Erlang.Tests/Compiler/Beam/BeamAdjacentNumericResultChecks.cs": "92001ec81de5ea8bda09e1752e522b7b113f958f35113eb86cba1a3438aa4209",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SelectiveReceive.cs": "9c323578ec71e991d80c7bf6d5283e1c22cfaac2c572305e0e24d96652cb76a6",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedReceiveTail.cs": "4d33b82d30333a6f4989f5f17bf8f6f3779abbe3197c002611bb8d693f305df4",
+    "tests/Erlang.Tests/Compiler/Beam/Receive/BeamSharedReceiveTailChecks.cs": "1b4f976509a9f9ee8f7437201a1eca73e694c69dfd7ef5775f0c2864641548e4"
+  },
+  "Patches": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\leading-tag-frame-proof-1861\\checked-tag-zero-frame-fallback.patch",
+      "Hash": "5547992f3bb615fac65597dea8bf2a6c7a788406d4e02d1db783c0f089e14c94"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\local-1862-one-live-branch-frame-trim\\one-live-branch-trim.patch",
+      "Hash": "226ef946e7c15573e7a374cbff838f69664fa2e61d5c0a3016f955dc2c753454"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\near-exact-audit-1845\\local-success-types-1862\\local-success-integer-result-1862.patch",
+      "Hash": "50d51b8ee3f2d38d8a711c50fcd5701b4acb71c01515edf40b31c023f7534cf9"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\receive-arity-body-audit-1862\\shared-receive-tail.patch",
+      "Hash": "c6666f89043bcdf4514c8db65271b6f573af60a93da7c0c465ac5cf7c51f2c82"
+    }
+  ]
+}

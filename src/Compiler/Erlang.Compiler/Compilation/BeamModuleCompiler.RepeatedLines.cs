@@ -23,6 +23,9 @@ internal sealed partial class BeamModuleCompiler
             return code;
         }
 
+        // Debug and executable source markers have separate location references.
+        var safeImports = body.Any(instruction => instruction.Definition.Opcode is DebugLine or ExecutableLine)
+            ? [] : ReadLocationNeutralExternalImports();
         var starts = new List<int>();
         for (int index = 0; index + 1 < body.Count; index++)
         {
@@ -45,6 +48,7 @@ internal sealed partial class BeamModuleCompiler
         using var output = new MemoryStream();
         int copied = 0;
         int removed = 0;
+        bool removedCallLine = false;
         for (int function = 0; function + 1 < starts.Count; function++)
         {
             int start = starts[function];
@@ -64,14 +68,20 @@ internal sealed partial class BeamModuleCompiler
                 else if (opcode == Line)
                 {
                     int line = (int)instruction.Operands[0].Value;
-                    if (line == previousLine)
+                    bool redundantCallLine = !hasHandler && safeImports.Count > 0 && index + 1 < end
+                        && CanDropSafeCallLine(body, index + 1, safeImports);
+                    if (line == previousLine || redundantCallLine)
                     {
                         output.Write(code.Span[copied..instruction.Offset]);
                         copied = body[index + 1].Offset;
                         removed++;
+                        removedCallLine |= redundantCallLine;
                     }
 
-                    previousLine = line;
+                    if (!redundantCallLine)
+                    {
+                        previousLine = line;
+                    }
                 }
             }
         }
@@ -84,6 +94,8 @@ internal sealed partial class BeamModuleCompiler
         output.Write(code.Span[copied..]);
         lineInstructions -= removed;
 
-        return output.ToArray();
+        byte[] rewritten = output.ToArray();
+
+        return removedCallLine ? RebuildLineTable(rewritten, nextLabel - sharedReturnLabelCount) : rewritten;
     }
 }

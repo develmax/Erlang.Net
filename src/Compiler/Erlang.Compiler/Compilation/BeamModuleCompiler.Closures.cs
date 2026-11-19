@@ -18,7 +18,8 @@ internal sealed partial class BeamModuleCompiler
         FunctionDefinition? General = null,
         FunctionDefinition? LexicalOwner = null,
         string? SelfName = null,
-        bool EntryPatternFailure = false
+        bool EntryPatternFailure = false,
+        bool RequiresSelfValue = true
     )
     {
         internal int Entry { get; set; }

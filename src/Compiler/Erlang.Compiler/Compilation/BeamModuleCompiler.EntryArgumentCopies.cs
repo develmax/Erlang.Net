@@ -75,7 +75,8 @@ internal sealed partial class BeamModuleCompiler
 
             var remove = new Dictionary<int, BeamOperand>();
             var replace = new Dictionary<int, (int End, BeamOperand Source)>();
-            var earlyLoads = new Dictionary<int, BeamOperand>();
+            var earlyLoads = new Dictionary<int, (int Use, BeamOperand Source)>();
+            var oldLoads = new HashSet<int>();
             for (int save = first; save < setupEnd; save++)
             {
                 if (body[save] is not { Definition.Opcode: Move, Operands: [var source, var slot] }
@@ -93,6 +94,27 @@ internal sealed partial class BeamModuleCompiler
                     slot
                 ) is { } plan && plan.RemoveSpill == removeSpills)
                 {
+                    foreach (var (use, (before, register, extended)) in plan.EarlyLoads)
+                    {
+                        if (extended)
+                        {
+                            // Revisit other spills after this move changes X availability.
+                            remove.Clear();
+                            replace.Clear();
+                            earlyLoads.Clear();
+                            oldLoads.Clear();
+                            remove.Add(save, slot);
+                            earlyLoads.Add(before, (use, register));
+                            oldLoads.Add(use);
+                            break;
+                        }
+                    }
+
+                    if (remove.ContainsKey(save))
+                    {
+                        break;
+                    }
+
                     if (plan.RemoveSpill)
                     {
                         remove.Add(save, slot);
@@ -105,9 +127,10 @@ internal sealed partial class BeamModuleCompiler
                         slot,
                         replace
                     );
-                    foreach (var (use, register) in plan.EarlyLoads)
+                    foreach (var (use, (before, register, _)) in plan.EarlyLoads)
                     {
-                        earlyLoads.Add(use, register);
+                        earlyLoads.Add(before, (use, register));
+                        oldLoads.Add(use);
                     }
                 }
             }
@@ -122,16 +145,19 @@ internal sealed partial class BeamModuleCompiler
             for (int index = first; index < end; index++)
             {
                 BeamInstruction instruction = body[index];
-                if (earlyLoads.TryGetValue(index + 1, out BeamOperand? earlySource))
+                if (earlyLoads.TryGetValue(index, out var earlyLoad))
                 {
-                    // Load the outgoing argument before the literal overwrites its source.
                     output.Write(code.Span[copied..instruction.Offset]);
                     output.WriteByte(Move);
-                    WriteRegister(output, earlySource);
-                    WriteRegister(output, body[index + 1].Operands[1]);
-                    output.Write(code.Span[instruction.Offset..body[index + 1].Offset]);
-                    copied = body[index + 2].Offset;
-                    index++;
+                    WriteRegister(output, earlyLoad.Source);
+                    WriteRegister(output, body[earlyLoad.Use].Operands[1]);
+                    copied = instruction.Offset;
+                }
+
+                if (oldLoads.Contains(index))
+                {
+                    output.Write(code.Span[copied..instruction.Offset]);
+                    copied = body[index + 1].Offset;
                     continue;
                 }
 
@@ -159,7 +185,7 @@ internal sealed partial class BeamModuleCompiler
 
         if (copied == 0)
         {
-            return null;
+            return removeSpills && !allowFramelessBranches ? SinkEntryArgumentClobbers(code, body) : null;
         }
 
         output.Write(code.Span[copied..]);
