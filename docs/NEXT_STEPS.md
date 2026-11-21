@@ -1,5 +1,19 @@
 # Next steps
 
+Complete the frozen register-ownership and guarded-entry package, then integrate the independently verified frame and helper changes with a shared repository gate. [Repository evidence](validation/part-1983-repository-gate/README.md).
+
+Evaluate the dead tuple and fixed bitstring cohorts and retain the previous release controls. [Evidence](validation/part-1984/README.md).
+
+The linked Part 1983 repository gate is complete. Proceed with the next frozen entry, bitstring and helper group. [Evidence](validation/part-1983/README.md).
+
+The integrated Part 1983 gate closed the two Part 1982 lifecycle fixture failures and regenerated readiness. [Repository attempt](validation/part-1982-repository-failure/README.md).
+
+Complete the integrated repository check and validate the next checked projection, tuple retry and retained list groups. [Evidence](validation/part-1982/README.md).
+
+Validate the checked-list rejection and aliased cons entry paths in the next linked package. Continue with proved call-result frame and dictionary guard groups. [Evidence](validation/part-1981/README.md).
+
+Run the linked checks for the five frame widths, nested binary context use, guarded module calls and writable binary list helpers. Use the current ranked cause table to pick the next implementation batch. [Evidence](validation/part-1980/README.md).
+
 Validate the pending nested tuple checks, cons and nil branch order, positioned binary context reads and shared saved returns. Continue moving source-derived defects into connected local validation packages. [Evidence](validation/part-1978/README.md).
 
 Recover the pre-existing allocation widths for all 212 identified functions after moving list projections before allocation. Validate the connected frame, argument and helper corrections together. [Evidence](validation/part-1977/README.md).

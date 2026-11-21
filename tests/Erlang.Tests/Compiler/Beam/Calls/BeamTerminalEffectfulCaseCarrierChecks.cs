@@ -11,7 +11,15 @@ internal static class BeamTerminalEffectfulCaseCarrierChecks
 
     private const string Source = """
         -module(terminal_effectful_carrier_fixture).
-        -export([keep/2,changed/2,identity/2,reads_field/2]).
+        -export([keep/2,changed/2,identity/2,reads_field/2,rebuild/1]).
+
+        rebuild([]) -> [];
+        rebuild([Value | Tail]) ->
+            case Value of
+                {tag, Field} when is_atom(Field) -> [{tag, Field} | rebuild(Tail)];
+                {A, B, C} -> [{A, B, C} | rebuild(Tail)];
+                {Other, Field} -> [{changed, Field, Other} | rebuild(Tail)]
+            end.
 
         keep(Input, Context) ->
             Accepted = Input,
@@ -71,6 +79,13 @@ internal static class BeamTerminalEffectfulCaseCarrierChecks
         VerifyOriginalConstruction(code, "changed");
         VerifyOriginalConstruction(code, "identity");
         VerifyOriginalConstruction(code, "reads_field");
+
+        byte[] list = Instructions(code, "rebuild");
+        if (list.Count(instruction => instruction == PutTuple) != 1
+            || list.Count(instruction => instruction == PutList) < 2)
+        {
+            throw new InvalidOperationException(BeamTerminalEffectfulCaseCarrierDiagnostics.ListHead);
+        }
     }
 
     private static void VerifyOriginalConstruction(object code, string name)

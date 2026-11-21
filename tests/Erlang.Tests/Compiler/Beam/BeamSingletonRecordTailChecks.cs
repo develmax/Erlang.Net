@@ -68,25 +68,47 @@ internal static class BeamSingletonRecordTailChecks
 
         bool RetainsSelector(int call)
         {
-            object saved = ReadOperand(instructions[call + 1], 1);
-            object projected = ReadOperand(instructions[call + 3], 2);
-            object input = ReadOperand(instructions[call + 5], 0);
-            object? fallback = instructions[(call + 6)..]
-                .TakeWhile(instruction => Opcode(instruction) != FunctionInfo)
-                .LastOrDefault(instruction => Opcode(instruction) == PutTuple);
+            int test = call + 1;
+            int projection = call + 2;
+            int listTest = call + 3;
+            int split = call + 4;
+            if (split >= instructions.Length || Opcode(instructions[test]) != IsTaggedTuple
+                || Opcode(instructions[projection]) != GetTupleElement
+                || Opcode(instructions[listTest]) != IsNonemptyList
+                || Opcode(instructions[split]) != GetList)
+            {
+                return false;
+            }
 
-            // The general fallback needs the original selector even after the successful
-            // branch reuses physical cells. Verify the value flow through both slots.
-            return Opcode(instructions[call + 1]) == Move
-                && (string)Property(ReadOperand(instructions[call + 1], 0), "Kind") == "x"
-                && Operand(instructions[call + 1], 0).IsZero
-                && Opcode(instructions[call + 3]) == GetTupleElement
-                && SameStackRegister(saved, ReadOperand(instructions[call + 3], 0))
-                && !SameStackRegister(saved, projected)
-                && Opcode(instructions[call + 5]) == GetList
-                && SameStackRegister(projected, input)
-                && fallback is not null
-                && SameStackRegister(saved, ReadOperand(fallback, 3));
+            object selector = ReadOperand(instructions[test], 1);
+            object scratch = ReadOperand(instructions[projection], 2);
+            BigInteger failure = Operand(instructions[test], 0);
+            int fallback = Array.FindIndex(
+                instructions,
+                split + 1,
+                instruction => Opcode(instruction) == Label && Operand(instruction, 0) == failure
+            );
+            int end = Array.FindIndex(instructions, split + 1, instruction => Opcode(instruction) == FunctionInfo);
+            if (end < 0)
+            {
+                end = instructions.Length;
+            }
+
+            // The fallback must receive the original selector through every
+            // failed check. The scratch projections must leave it in X0.
+            return (string)Property(selector, "Kind") == "x"
+                && (BigInteger)Property(selector, "Value") == 0
+                && SameRegister(selector, ReadOperand(instructions[projection], 0))
+                && !SameRegister(selector, scratch)
+                && SameRegister(scratch, ReadOperand(instructions[listTest], 1))
+                && SameRegister(scratch, ReadOperand(instructions[split], 0))
+                && fallback > split && fallback + 2 < end
+                && instructions[listTest..fallback].Where(instruction =>
+                    Opcode(instruction) is IsTaggedTuple or IsNonemptyList or IsNil)
+                    .All(instruction => Operand(instruction, 0) == failure)
+                && Opcode(instructions[fallback + 1]) == TestHeap && Operand(instructions[fallback + 1], 1) >= 1
+                && Opcode(instructions[fallback + 2]) == PutTuple && Operand(instructions[fallback + 2], 1) == 3
+                && SameRegister(selector, ReadOperand(instructions[fallback + 2], 3));
         }
 
         void CheckMatch(int call, int[] projectedRegisters, int[] tupleRegisters)
@@ -168,8 +190,7 @@ internal static class BeamSingletonRecordTailChecks
     private static object ReadOperand(object instruction, int index) =>
         ((IEnumerable)Property(instruction, "Operands")).Cast<object>().ElementAt(index);
 
-    private static bool SameStackRegister(object left, object right) =>
-        (string)Property(left, "Kind") == "y"
-        && (string)Property(right, "Kind") == "y"
+    private static bool SameRegister(object left, object right) =>
+        (string)Property(left, "Kind") == (string)Property(right, "Kind")
         && (BigInteger)Property(left, "Value") == (BigInteger)Property(right, "Value");
 }

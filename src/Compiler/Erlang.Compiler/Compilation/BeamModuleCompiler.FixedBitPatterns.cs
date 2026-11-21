@@ -481,10 +481,11 @@ internal sealed partial class BeamModuleCompiler
             int value,
             int failure,
             IReadOnlyDictionary<string, int>? registerCaptures = null,
-            bool knownBinary = false
+            bool knownBinary = false,
+            int? positionedContext = null
         )
         {
-            if (registerCaptures is null && owner.receiveScratchRegisters is null
+            if (positionedContext is null && registerCaptures is null && owner.receiveScratchRegisters is null
                 && TryEmitLongOpenBinaryPrefix(
                     pattern,
                     value,
@@ -501,6 +502,11 @@ internal sealed partial class BeamModuleCompiler
                 if (FixedSize(segment) is null
                     && !(index == pattern.Segments.Count - 1 && segment is { Type: BitSegmentTypes.Binary, Size: null }))
                 {
+                    if (positionedContext is not null)
+                    {
+                        throw new NotSupportedException(Unsupported);
+                    }
+
                     EmitSequentialBitPattern(
                         pattern,
                         value,
@@ -663,6 +669,17 @@ internal sealed partial class BeamModuleCompiler
                     context,
                     YRegisterTag,
                     destination
+                );
+            }
+
+            // A positioned caller passed an open wildcard tail and owns the context only on success.
+            if (positionedContext is int contextSlot)
+            {
+                owner.MoveRegister(
+                    XRegisterTag,
+                    context,
+                    YRegisterTag,
+                    contextSlot
                 );
             }
 

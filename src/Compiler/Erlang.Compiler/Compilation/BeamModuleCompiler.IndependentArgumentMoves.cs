@@ -72,13 +72,30 @@ internal sealed partial class BeamModuleCompiler
         return OrderIndependentCallArguments(code, decoded.Body, completeTrimsOnly: true);
     }
 
+    private byte[]? OrderFinalSplitStackArguments(ReadOnlyMemory<byte> code, int labelCount)
+    {
+        if (ModuleOptimizationDisabled || !SsaTypeInferenceEnabled || !code.Span.Contains(InitYRegisters)
+            || DecodeLateAtomicProjectionSlots(code, labelCount) is not { } decoded)
+        {
+            return null;
+        }
+
+        return OrderIndependentCallArguments(
+            code,
+            decoded.Body,
+            completeTrimsOnly: false,
+            splitStackOnly: true
+        );
+    }
+
     private static byte[]? OrderIndependentCallArguments(ReadOnlyMemory<byte> code, IReadOnlyList<BeamInstruction> body) =>
         OrderIndependentCallArguments(code, body, completeTrimsOnly: false);
 
     private static byte[]? OrderIndependentCallArguments(
         ReadOnlyMemory<byte> code,
         IReadOnlyList<BeamInstruction> body,
-        bool completeTrimsOnly
+        bool completeTrimsOnly,
+        bool splitStackOnly = false
     )
     {
         using var output = new MemoryStream();
@@ -108,6 +125,11 @@ internal sealed partial class BeamModuleCompiler
                 && ReadSplitStackArgumentOrder(body, end, arity) is { } splitOrder)
             {
                 WriteMoves(end - arity - 1, end - 2, splitOrder);
+                continue;
+            }
+
+            if (splitStackOnly)
+            {
                 continue;
             }
 

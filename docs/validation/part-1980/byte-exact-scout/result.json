@@ -1,0 +1,31 @@
+{
+  "OtpVersion": "29.1.1",
+  "Total": 3,
+  "Counts": {
+    "Different": 2,
+    "Equal": 1
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\common_test-1.31.2\\ebin\\ct_config_xml.beam",
+      "Status": "Different",
+      "Source": "lib\\common_test-1.31.2\\src\\ct_config_xml.erl",
+      "Detail": "Original length 4788, generated length 4996. Code 862-\u003E1070, ExpT 52-\u003E52, FunT 52-\u003E52, LocT 76-\u003E76, Attr 39-\u003E39",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\common_test-1.31.2\\ebin\\unix_telnet.beam",
+      "Status": "Equal",
+      "Source": "lib\\common_test-1.31.2\\src\\unix_telnet.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\diameter-2.7.2\\ebin\\diameter.beam",
+      "Status": "Different",
+      "Source": "lib\\diameter-2.7.2\\src\\base\\diameter.erl",
+      "Detail": "Original length 31572, generated length 31652. AtU8 570-\u003E585, Code 876-\u003E925, ImpT 328-\u003E340, ExpT 304-\u003E304, LocT 40-\u003E40, Attr 67-\u003E67",
+      "FirstDifferentByte": 7
+    }
+  ]
+}

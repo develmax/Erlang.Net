@@ -103,21 +103,33 @@ internal sealed partial class BeamModuleCompiler
         bool CanDiscardExternalTailFrame(BeamInstruction instruction) =>
             !IsTrappingTailBif(importsByIndex[(int)instruction.Operands[1].Value], atomNames);
 
-        bool IsBodyHead(BeamInstruction instruction)
+        bool IsNonCollectingBodyProjection(BeamInstruction instruction)
         {
-            if (ModuleOptimizationDisabled || instruction is not
-                {
-                    Definition.Opcode: BifOne,
-                    Operands: [{ Kind: BeamOperandParameters.Failure, Value.IsZero: true }, var index, _, _]
-                })
+            if (ModuleOptimizationDisabled || instruction.Operands.Count == 0
+                || instruction.Operands[0] is not { Kind: BeamOperandParameters.Failure, Value.IsZero: true })
             {
                 return false;
             }
 
-            var import = importsByIndex[(int)index.Value];
+            string? function = instruction switch
+            {
+                { Definition.Opcode: BifOne, Operands.Count: 4 } => ErlangModuleNames.Head,
+                {
+                    Definition.Opcode: BifTwo,
+                    Operands: [_, _, { Kind: BeamOperandParameters.Integer, Value.Sign: > 0 }, _, _]
+                } => ErlangModuleNames.Element,
+                _ => null
+            };
+            if (function is null)
+            {
+                return false;
+            }
 
-            return import.Arity == 1 && atomNames[import.Module - 1] == ErlangModuleNames.Module
-                && atomNames[import.Function - 1] == ErlangModuleNames.Head;
+            var import = importsByIndex[(int)instruction.Operands[1].Value];
+
+            return import.Arity == instruction.Operands.Count - 3
+                && atomNames[import.Module - 1] == ErlangModuleNames.Module
+                && atomNames[import.Function - 1] == function;
         }
 
         bool IsPublicEntry(BeamInstruction instruction) => exportedFunctions.Contains((
@@ -373,7 +385,7 @@ internal sealed partial class BeamModuleCompiler
                     afterCanonicalization: true,
                     isArithmetic: instruction => IsLeafArithmeticGcBif(instruction, atomNames, importsByIndex),
                     canDiscardExternalTailFrame: CanDiscardExternalTailFrame,
-                    isBodyHead: IsBodyHead
+                    isBodyProjection: IsNonCollectingBodyProjection
                 ))
                 // Moving a matched list prefix into X must not hide the original frame from leaf allocation.
                 ?? (shareReturns ? null : DelayEntryStackFrame(
@@ -436,6 +448,12 @@ internal sealed partial class BeamModuleCompiler
             if (ShareFallthroughTupleReturns(code, body) is { } sharedFallthrough)
             {
                 return (sharedFallthrough, Enumerable.Range(0, labelCount).ToArray(), 0);
+            }
+
+            if (!shareReturns && !ModuleOptimizationDisabled && SsaTypeInferenceEnabled
+                && OrderEntryListKinds(code, body, labelOperands) is { } listLayout)
+            {
+                return (listLayout, Enumerable.Range(0, labelCount).ToArray(), 0);
             }
 
             return shareReturns ? null : OrderNestedEntryLabels(

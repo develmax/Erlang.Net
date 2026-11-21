@@ -23,6 +23,35 @@ internal sealed partial class BeamModuleCompiler
             for (int index = 0; index < clause.Patterns.Count; index++)
             {
                 Pattern original = clause.Patterns[index];
+                if (function.Clauses.Count > 1 && original is Pattern.List root
+                    && ReuseTerminalEntryCons(
+                        clause,
+                        root,
+                        clauseIndex,
+                        index
+                    ) is { } retained)
+                {
+                    patterns ??= clause.Patterns.ToArray();
+                    patterns[index] = retained.Pattern;
+                    body = retained.Body;
+                    continue;
+                }
+
+                if (original is Pattern.Tuple container
+                    && ReuseNestedEntryCons(
+                        clause,
+                        container,
+                        body,
+                        clauseIndex,
+                        index
+                    ) is { } nested)
+                {
+                    patterns ??= clause.Patterns.ToArray();
+                    patterns[index] = nested.Pattern;
+                    body = nested.Body;
+                    continue;
+                }
+
                 var list = original as Pattern.List;
                 var tuple = original as Pattern.Tuple;
                 if (list is { Items: [Pattern.Tuple head], Tail: null or Pattern.Variable })
@@ -38,7 +67,7 @@ internal sealed partial class BeamModuleCompiler
 
                 string name = FormattableString.Invariant($"$entry_tuple_carrier_{clauseIndex}_{index}");
                 var alias = new Expr.Variable(name);
-                Expr replacement = ReuseEntryTupleInBody(body, tuple, alias);
+                Expr replacement = ReuseEntryCarrierInBody(body, tuple, alias);
                 if (ReferenceEquals(body, replacement))
                 {
                     continue;
@@ -60,9 +89,130 @@ internal sealed partial class BeamModuleCompiler
         return updated is null ? function : function with { Clauses = updated };
     }
 
-    private static Expr ReuseEntryTupleInBody(
+    private static (Pattern Pattern, Expr Body)? ReuseTerminalEntryCons(
+        Clause clause,
+        Pattern.List cons,
+        int clauseIndex,
+        int input
+    )
+    {
+        if (cons is not
+            {
+                Items: [Pattern.Variable { Name: not VariableScopeNames.Wildcard } head],
+                Tail: Pattern.Variable { Name: not VariableScopeNames.Wildcard } tail
+            }
+            || clause.Patterns.Where((_, index) => index != input).Any(pattern => pattern is not Pattern.Variable)
+            || clause.Body is not Expr.Call { Module: null, DynamicRemote: false } call)
+        {
+            return null;
+        }
+
+        int matches = 0;
+        foreach (Expr argument in call.Arguments)
+        {
+            if (ReconstructsMatchedValue(cons, argument))
+            {
+                matches++;
+            }
+            else if (argument is not (Expr.Variable or Expr.Literal))
+            {
+                return null;
+            }
+        }
+
+        if (matches != 1)
+        {
+            return null;
+        }
+
+        string name = FormattableString.Invariant($"$entry_root_cons_carrier_{clauseIndex}_{input}");
+        Expr replacement = ReuseEntryCarrierInBody(call, cons, new Expr.Variable(name));
+        if (ReferenceEquals(call, replacement))
+        {
+            return null;
+        }
+
+        HashSet<string> used;
+        try
+        {
+            used = ClosureCaptures.ReadEntryReferences(clause with { Body = replacement }, [head.Name, tail.Name]);
+        }
+        catch (NotSupportedException)
+        {
+            return null;
+        }
+
+        if (used.Contains(tail.Name))
+        {
+            return null;
+        }
+
+        // Preserve the cons test even when its components no longer need projection.
+        var wildcard = new Pattern.Variable(VariableScopeNames.Wildcard);
+        var alias = new AliasPattern(
+            new Pattern.Variable(name),
+            cons with { Items = [used.Contains(head.Name) ? head : wildcard], Tail = wildcard }
+        );
+
+        return (alias, replacement);
+    }
+
+    private static (Pattern.Tuple Pattern, Expr Body)? ReuseNestedEntryCons(
+        Clause clause,
+        Pattern.Tuple container,
+        Expr body,
+        int clauseIndex,
+        int input
+    )
+    {
+        Pattern[]? fields = null;
+        for (int field = 0; field < container.Items.Count; field++)
+        {
+            if (container.Items[field] is not Pattern.List
+                {
+                    Items: [Pattern.Variable { Name: not VariableScopeNames.Wildcard }],
+                    Tail: Pattern.Variable { Name: not VariableScopeNames.Wildcard } tail
+                } cons)
+            {
+                continue;
+            }
+
+            string name = FormattableString.Invariant($"$entry_cons_carrier_{clauseIndex}_{input}_{field}");
+            var alias = new Expr.Variable(name);
+            Expr replacement = ReuseEntryCarrierInBody(body, cons, alias);
+            if (ReferenceEquals(body, replacement))
+            {
+                continue;
+            }
+
+            try
+            {
+                if (ClosureCaptures.ReadEntryReferences(clause with { Body = replacement }, [tail.Name]).Contains(tail.Name))
+                {
+                    continue;
+                }
+            }
+            catch (NotSupportedException)
+            {
+                continue;
+            }
+
+            // All former tail reads were reconstructions of this same cons. Keep the
+            // original field and let ordinary pattern lowering project only its needed head.
+            fields ??= container.Items.ToArray();
+            fields[field] = new AliasPattern(
+                new Pattern.Variable(name),
+                cons with { Tail = new Pattern.Variable(VariableScopeNames.Wildcard) }
+            );
+            body = replacement;
+        }
+
+        return fields is null ? null : (container with { Items = fields }, body);
+    }
+
+    private static Expr ReuseEntryCarrierInBody(
         Expr expression,
-        Pattern.Tuple shape,
+        Pattern shape,
         Expr.Variable alias,
         bool directUse = false
     )
@@ -79,12 +229,14 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 return RewriteItems(tuple.Items) is { } fields ? tuple with { Items = fields } : tuple;
+            case Expr.List list when directUse && ReconstructsMatchedValue(shape, list):
+                return alias;
             case Expr.Call { DynamicRemote: false } call:
                 return RewriteItems(call.Arguments, directArguments: true) is { } arguments
                     ? call with { Arguments = arguments }
                     : call;
             case Expr.Match match:
-                Expr matchValue = ReuseEntryTupleInBody(match.Value, shape, alias);
+                Expr matchValue = ReuseEntryCarrierInBody(match.Value, shape, alias);
 
                 return ReferenceEquals(matchValue, match.Value) ? match : match with { Value = matchValue };
             case Expr.Sequence sequence:
@@ -101,7 +253,7 @@ internal sealed partial class BeamModuleCompiler
                         continue;
                     }
 
-                    Expr body = ReuseEntryTupleInBody(
+                    Expr body = ReuseEntryCarrierInBody(
                         arm.Body,
                         shape,
                         alias,
@@ -129,7 +281,7 @@ internal sealed partial class BeamModuleCompiler
             for (int index = 0; index < values.Count; index++)
             {
                 Expr value = values[index];
-                Expr replacement = ReuseEntryTupleInBody(
+                Expr replacement = ReuseEntryCarrierInBody(
                     value,
                     shape,
                     alias,

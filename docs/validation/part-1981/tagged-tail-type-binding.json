@@ -1,0 +1,7 @@
+{
+  "Cause": "CS0119: the short Pattern identifier was resolved as the emitter method in a bare type test.",
+  "After": "702F8119AB8E1AE7C323E80B0AA18CEE71EB86CA6E8AD5908D581EB78135FA34",
+  "Before": "2FB3A80E67A7264E74917858CFF3C6C5E58A4C3B7FEB4215F6EF7B8BA0568D1A",
+  "Path": "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TaggedModuleTailApply.cs",
+  "Correction": "Qualify the Erlang.Pattern.Variable type and express the same non-wildcard guard with one property pattern."
+}

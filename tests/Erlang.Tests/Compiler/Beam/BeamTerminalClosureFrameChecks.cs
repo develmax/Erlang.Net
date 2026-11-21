@@ -16,13 +16,16 @@ internal static class BeamTerminalClosureFrameChecks
 
     internal const string Source = """
         -module(beam_terminal_closure_frame_probe).
-        -export([restored/2, direct/2, remote/2, retained/2, trapped/2]).
+        -export([restored/2, direct/2, remote/2, retained/2, trapped/2, forwarded/1, forwarded_remote/1]).
 
         restored(Left, Right) -> finish(Left, Right, fun pair/1).
         direct(First, Capture) -> invoke(First, fun(Value) -> {Capture, Value} end).
         remote(Capture, Values) -> lists:map(fun(Value) -> {Capture, Value} end, Values).
         retained(Capture, Values) -> {Capture, lists:map(fun(Value) -> {Capture, Value} end, Values)}.
         trapped(Pid, Captured) -> erlang:exit(Pid, fun() -> Captured end).
+        forwarded(Value) -> apply_callback(fun pair/1, Value).
+        forwarded_remote(Values) -> lists:map(fun pair/1, Values).
+        apply_callback(Callback, Value) -> Callback(Value).
         finish(Left, Right, Callback) -> {Callback(Left), Right}.
         invoke(Value, Callback) -> Callback(Value).
         pair(Value) -> {paired, Value}.
@@ -39,6 +42,8 @@ internal static class BeamTerminalClosureFrameChecks
         if (!TerminalClosure("restored", 2, TailLocalCall)
             || !TerminalClosure("direct", 1, TailLocalCall)
             || !TerminalClosure("remote", 0, TailExternalCall)
+            || !SwappedClosure("forwarded", TailLocalCall)
+            || !SwappedClosure("forwarded_remote", TailExternalCall)
             || !Body("retained").Any(instruction => Opcode(instruction) == ExternalCall)
             || !Body("trapped").Any(instruction => Opcode(instruction) == TailExternalCallWithFrame))
         {
@@ -53,7 +58,8 @@ internal static class BeamTerminalClosureFrameChecks
             Term left = Term.A("left");
             Term right = Term.A("right");
             if (!Term.Tuple(Term.Tuple(Term.A("paired"), left), right).Equals(await module.Invoke(context, "restored", [left, right]))
-                || !Term.Tuple(right, left).Equals(await module.Invoke(context, "direct", [left, right])))
+                || !Term.Tuple(right, left).Equals(await module.Invoke(context, "direct", [left, right]))
+                || !Term.Tuple(Term.A("paired"), left).Equals(await module.Invoke(context, "forwarded", [left])))
             {
                 throw new InvalidOperationException(InvalidValue);
             }
@@ -68,6 +74,20 @@ internal static class BeamTerminalClosureFrameChecks
             return body.Length == 3 && Opcode(body[0]) == TestHeap && Opcode(body[1]) == MakeFun
                 && Opcode(body[2]) == tail && Operands(body[1]) is [_, var destination, ..]
                 && (string)Property(destination, "Kind") == "x" && Value(destination) == register;
+        }
+
+        bool SwappedClosure(string name, byte tail)
+        {
+            object[] body = Body(name).Where(op => Opcode(op) is not (Line or Label or EndCode)).ToArray();
+
+            return body.Length == 4
+                && Opcode(body[0]) == TestHeap && Operands(body[0]) is [_, var live] && Value(live) == 1
+                && Opcode(body[1]) == MakeFun && Operands(body[1]) is [_, var destination, ..]
+                && (string)Property(destination, "Kind") == "x" && Value(destination) == 1
+                && Opcode(body[2]) == Swap && Operands(body[2]) is [var first, var second]
+                && (string)Property(first, "Kind") == "x" && Value(first) == 0
+                && (string)Property(second, "Kind") == "x" && Value(second) == 1
+                && Opcode(body[3]) == tail;
         }
 
         IEnumerable<object> Body(string name)

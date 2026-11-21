@@ -24,13 +24,25 @@ internal sealed partial class BeamModuleCompiler
             }
 
             flow ??= new BeamProjectionFlow(body);
-            if (shareCheckedFallbacks && ShareExclusiveCheckedFailureProjection(
+            if (shareCheckedFallbacks && (ShareExclusiveCheckedFailureProjection(
                 code,
                 body,
                 labelOperands,
                 flow,
                 index
-            ) is { } shared)
+            ) ?? ShareExclusiveArityFailureProjection(
+                code,
+                body,
+                labelOperands,
+                flow,
+                index
+            ) ?? ShareRepeatedTupleTagFailure(
+                code,
+                body,
+                labelOperands,
+                flow,
+                index
+            )) is { } shared)
             {
                 return shared;
             }
@@ -162,6 +174,104 @@ internal sealed partial class BeamModuleCompiler
         output.Write(code.Span[body[target + 3].Offset..]);
 
         return output.ToArray();
+    }
+
+    private static byte[]? ShareExclusiveArityFailureProjection(
+        ReadOnlyMemory<byte> code,
+        IReadOnlyList<BeamInstruction> body,
+        IReadOnlyList<(int Start, int End, int Label)> labelOperands,
+        BeamProjectionFlow flow,
+        int predicate
+    )
+    {
+        if (predicate < 3 || body[predicate] is not
+            {
+                Definition.Opcode: IsLess or IsGreaterOrEqual or NumericEqualTest or NumericNotEqualTest
+                    or ExactEqualTest or ExactNotEqualTest,
+                Operands: [{ Kind: BeamOperandParameters.Label, Value.Sign: > 0 } failure, var left, var right]
+            })
+        {
+            return null;
+        }
+
+        int first = predicate - 3;
+        if (body[first] is not
+            {
+                Definition.Opcode: IsTuple,
+                Operands: [var nonTuple, { Kind: BeamOperandParameters.X, TypeIndex: null } tuple]
+            } || nonTuple != failure
+            || body[first + 1] is not
+            {
+                Definition.Opcode: TestArity,
+                Operands: [var wrongArity, var tested, { Kind: BeamOperandParameters.Unsigned, Value.Sign: > 0 } arity]
+            } || wrongArity != failure || tested != tuple
+            || body[first + 2].Operands is not
+            [
+                var source, { Kind: BeamOperandParameters.Unsigned } field,
+            { Kind: BeamOperandParameters.X, TypeIndex: null } destination
+            ]
+            || source != tuple || field.Value >= arity.Value
+            || !SameProjectionRegister(left, destination) && !SameProjectionRegister(right, destination)
+            || !flow.TryGetExclusiveForwardTarget(
+                first,
+                first + 1,
+                predicate,
+                (int)failure.Value,
+                out int target
+            ) || target + 4 >= body.Count
+            || body[target + 1] is not
+            {
+                Definition.Opcode: IsTuple,
+                Operands: [{ Kind: BeamOperandParameters.Label, Value.Sign: > 0 } rejected, var repeated]
+            } || repeated != tuple || rejected == failure
+            || body[target + 2] is not
+            {
+                Definition.Opcode: TestArity,
+                Operands: [var secondRejected, var secondTested, var secondArity]
+            } || secondRejected != rejected || secondTested != tuple || secondArity != arity
+            || !SameStableProjections(
+                body,
+                first + 2,
+                target + 3,
+                1,
+                BeamOperandParameters.MaximumRegister
+            )
+            || body[target + 4].Definition.Opcode is Label or FunctionInfo or EndCode
+            || !flow.TryGetForwardLabel(target + 3, (int)rejected.Value, out int finalTarget)
+            || !HasUnprotectedCheckedFailureRegion(body, first, finalTarget))
+        {
+            return null;
+        }
+
+        var changes = new List<CodeEdit>();
+        for (int index = first; index <= first + 1; index++)
+        {
+            int offset = body[index].Offset + 1;
+            var operand = labelOperands.FirstOrDefault(label => label.Start == offset && label.Label == (int)failure.Value);
+            if (operand.Start != offset)
+            {
+                return null;
+            }
+
+            changes.Add(new(
+                offset,
+                operand.End,
+                LabelTag,
+                (int)rejected.Value
+            ));
+        }
+
+        // Constructor rejection bypasses the repeated pure check. The sole
+        // remaining incoming guard edge still owns the original field in X.
+        changes.Add(new(
+            body[target + 1].Offset,
+            body[target + 4].Offset,
+            0,
+            0,
+            IsRemoval: true
+        ));
+
+        return ApplyDuplicatedFrameReadEdits(code, changes);
     }
 
     private static bool HasUnprotectedCheckedFailureRegion(

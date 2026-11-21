@@ -1,0 +1,68 @@
+{
+  "Build": {
+    "Parent": "2301cdc837109cf8b4dc8d6cfd8404470c7b4ca649721fab7e57c74270ba0853",
+    "Tests": "CC8724D3C183D5B9A992DF245E9AE48B83461D74D817F7C5381619228EE1C56E",
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "CorpusTool": "48A99B1A16ECA6910BC097441806FFFCA126F17F995355A153C61447B6DB406B",
+    "Compiler": "F0650837FCD8345412B8B0921AEA7F565E1A63BAD4F1C93C9824DEB21DC53774",
+    "Finished": "2026-11-21T10:00:36.7755064+03:00"
+  },
+  "BuildInputs": "71c75d34ec6752ac5be95db9aa4abd0f67957522e1adc15a6ee45b15fbfd28ce",
+  "Paths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedComprehensions.cs": {
+      "Before": "a00c95032e6caa5b68b17d4186c31a1a1b02f4ce8b9de03da3c675f05a818055",
+      "After": "a5ed85ce10fb2bfd6d1948269f187c056f9a29b686c3d425bf6a5b83080fa12f"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FailureProjections.cs": {
+      "Before": "0243a9f5cd883ef167d0964b880612f4467cc92b0152213a2a1791e1208027c7",
+      "After": "537b455b750c3093ef0bcf849b797117f1743dd605e698cc6c2dfdae1df50f6d"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": {
+      "Before": "d809de93c27625eedff35723998cc282e19ec0f7c90435acd00f5471a6b212b0",
+      "After": "7ab3512ac178322e36dbf160932f4192e613439682cce9ea24daca19780e2acf"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProjectionFlow.cs": {
+      "Before": "96cf57ecde37284112e1eaf1e53532478fed8d628eaa76b8c133d2ee89afac96",
+      "After": "f03207f7721d6e67bd4c2417920f1f06d280ee6ea4c2c44652c5c45bdaf0bf22"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TaggedModuleTailApply.cs": {
+      "Before": null,
+      "After": "eb2a229a79d4343f984aa67f7101e76d0167e134040b703991e8f432b0fb1562"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.WritableBinaryListHelpers.cs": {
+      "Before": "aa044d39fc26ce1c6e74db506aa51d225f7acb2518e4b1505aa7ffe257115e87",
+      "After": "d0e917627e3030e6c46b9c4d9ad045ce4dbdf4bf8454609d392f6ba78de4f44a"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.WritableBinaryListMapper.cs": {
+      "Before": null,
+      "After": "f047360d3444c814b82581f4fa3e3fb980a3875035cbdc4f4c6f142edbad7513"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": {
+      "Before": "32e04c825e2f6e744022d6e383578a428f0c4e7bc0123b2d2e1f0600b092a3f9",
+      "After": "6f6a5de56dbfc50aa478db4ac568ffdf01d22d9d5a09068009ee5d3406336391"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamExclusiveCheckedFallbackChecks.cs": {
+      "Before": "29bb894918d40d90ad482bd38ed4c820d86ec5e0122594a1aec190a8dd97c3b0",
+      "After": "1e51c08b214c459ae9e6723cdb819baf46cb8c70506828e52df532e2480cde6f"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamWritableMappedBinaryListChecks.cs": {
+      "Before": null,
+      "After": "ed9b29960484b1b7a99d1d6fe7c1bb0d6be895147d5715d7cfc2964474910e6f"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/Calls/BeamTaggedModuleTailApplyChecks.cs": {
+      "Before": null,
+      "After": "f0dd48248fea0ef591cd0ff16e42454aa521e2d96d0530ceb9640692b82e42ae"
+    },
+    "tests/Erlang.Tests/Harness/Program.cs": {
+      "Before": "37189433eaa5ddfa22f4d796f8f631f61afe9a503f1f078c97c048746b27daa3",
+      "After": "dc31caa5dffab68fca1fd9edde83c313b3c7d14c1a035b160c6a197d29bf2347"
+    }
+  },
+  "Patches": {
+    "part1982-writable-style-rebase/writable-fixed-local-mapper.patch": "f616cbbe7336a313e52df5f4443c7bd87ec83fa0122b58effa4b64bbd609aefd",
+    "binary-match-audit-1931/owned-positioned-binary-case-1995/production.patch": "e8ca965c252f00d3b6bbc5a0cfe9f1aff299cb39381b5ff90040d9be0eb4e7a9",
+    "binary-match-audit-1931/owned-positioned-binary-case-1995/fixture.patch": "27006bf7a883919a064de63d6933553c15e65581a48ff7c653b29d795d7d5959",
+    "pubkey-ssh-entry-gc-1981-audit/production.patch": "2680667adc86db8000b42b5343e426ad119e5ca5277d1dfd2facaa1c63519921",
+    "pubkey-ssh-entry-gc-1981-audit/fixture.patch": "c0cef09fc0ad5840759da1923bb21bf7b35f409b0ce49e09b541ba757e8515a7"
+  }
+}

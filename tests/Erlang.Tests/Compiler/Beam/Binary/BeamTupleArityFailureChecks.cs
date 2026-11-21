@@ -4,6 +4,7 @@ using Erlang;
 using Erlang.Compiler;
 using static Erlang.Compiler.BeamEmissionFormat;
 using static Erlang.Tests.BeamBinaryHostAccess;
+using static Erlang.Tests.BeamOpcodeEdgeBytes;
 
 namespace Erlang.Tests;
 
@@ -34,6 +35,8 @@ internal static class BeamTupleArityFailureChecks
 
     internal static async Task Run()
     {
+        CheckSharedConsReturns();
+        CheckConsShapeRejections();
         byte[] image = CompileFixture();
         object code = Code(image);
         object[] instructions = Items(code, "Instructions").ToArray();
@@ -108,6 +111,169 @@ internal static class BeamTupleArityFailureChecks
                 Opcode(instruction) == FunctionInfo && atoms[Value(Operands(instruction)[1])] == name);
 
             return instructions.Skip(info + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo).ToArray();
+        }
+    }
+
+    private static void CheckConsShapeRejections()
+    {
+        Check(
+            overwriteArgument: false,
+            differentInput: false,
+            lineOnFailure: false,
+            expectRedirect: true
+        );
+        Check(
+            overwriteArgument: true,
+            differentInput: false,
+            lineOnFailure: false,
+            expectRedirect: false
+        );
+        Check(
+            overwriteArgument: false,
+            differentInput: true,
+            lineOnFailure: false,
+            expectRedirect: false
+        );
+        Check(
+            overwriteArgument: false,
+            differentInput: false,
+            lineOnFailure: true,
+            expectRedirect: false
+        );
+
+        static void Check(
+            bool overwriteArgument,
+            bool differentInput,
+            bool lineOnFailure,
+            bool expectRedirect
+        )
+        {
+            byte head = X(overwriteArgument ? 0 : 2);
+            byte[] line = lineOnFailure ? [Line, U(2)] : [];
+            byte[] source =
+            [
+                .. Start(
+                    1,
+                    2,
+                    2,
+                    2
+                ),
+                IsNonemptyList, F(3), X(0),
+                GetList, X(0), head, X(3),
+                IsTuple, F(3), head,
+                TestArity, F(3), head, U(2),
+                Move, head, X(0), Return,
+                Label, U(3), .. line,
+                IsNil, F(1), X(differentInput ? 1 : 0),
+                Move, A(2), X(0), Return, EndCode
+            ];
+            object header = New(
+                "BeamCodeHeader",
+                0,
+                (int)DebugLine,
+                4,
+                1,
+                new ReadOnlyMemory<byte>(source)
+            );
+            var references = new List<(int Start, int End, int Label)>();
+            Action<int, int, int> recordLabel = (start, end, label) => references.Add((start, end, label));
+            object instructions = Call(
+                Type("BeamInstructionReader"),
+                "Read",
+                header,
+                4,
+                0,
+                recordLabel,
+                null
+            );
+            var initial = references.ToArray();
+            System.Type edit = typeof(BeamModuleCompiler).GetNestedType(
+                "CodeEdit",
+                System.Reflection.BindingFlags.NonPublic
+            )!;
+            var edits = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(edit))!;
+            _ = Call(
+                typeof(BeamModuleCompiler),
+                "RedirectIsolatedTupleArityFailures",
+                instructions,
+                references,
+                new[] { 0, 1, 2, 3 },
+                edits
+            );
+            if (!expectRedirect && (edits.Count != 0 || !references.SequenceEqual(initial))
+                || expectRedirect && (edits.Count != 2
+                    || !edits.Cast<object>().Select(change => (int)Property(change, "Start"))
+                        .SequenceEqual(initial.Skip(1).Take(2).Select(reference => reference.Start))
+                    || edits.Cast<object>().Any(change => (int)Property(change, "Value") != 1)
+                    || !references.SequenceEqual(new[] { initial[0], initial[3] })))
+            {
+                throw new InvalidOperationException(IncorrectEdge);
+            }
+        }
+    }
+
+    private static void CheckSharedConsReturns()
+    {
+        byte[] start =
+        [
+            .. Start(
+                1,
+                2,
+                2,
+                2
+            ),
+            IsNonemptyList, F(4), X(1), GetList, X(1), X(2), X(3)
+        ];
+        byte[] tuple = [IsTuple, F(1), X(2), TestArity, F(1), X(2), U(2), GetTupleElement, X(2), U(0), X(4)];
+        byte[] hotReturn = [Move, A(2), X(0), Return, Label, U(3)];
+        byte[] remaining = [Move, A(3), X(0), Return, Label, U(4), IsNil, F(1), X(1)];
+        byte[] coldReturn = [Move, A(2), X(0), Return, EndCode];
+        byte[] original = [.. start, .. tuple, IsLess, F(3), X(0), X(4), .. hotReturn, .. remaining, .. coldReturn];
+        byte[] expected =
+        [
+            .. start, .. tuple, IsGreaterOrEqual, F(3), X(0), X(4), .. remaining, Label, U(3), .. coldReturn
+        ];
+        byte[] shared = tuple.ToArray();
+        shared[1] = F(3);
+        shared[4] = F(3);
+        if (Rewrite(original) is not { } rewritten || !rewritten.AsSpan().SequenceEqual(expected)
+            || Rewrite(expected) is not null
+            || Rewrite([.. start, .. shared, IsLess, F(3), X(0), X(4), .. hotReturn, .. remaining, .. coldReturn]) is not null
+            || Rewrite([.. start, .. tuple, IsLess, F(3), X(0), X(4), .. hotReturn, .. remaining,
+                    Move, A(3), X(0), Return, EndCode]) is not null
+            || Rewrite([.. start, .. tuple, IsLess, F(3), X(0), X(4), .. hotReturn, .. remaining,
+                    Line, U(2), .. coldReturn]) is not null)
+        {
+            throw new InvalidOperationException(IncorrectSharedEdge);
+        }
+
+        static byte[]? Rewrite(byte[] source)
+        {
+            ReadOnlyMemory<byte> instructions = source;
+            object header = New(
+                "BeamCodeHeader",
+                0,
+                (int)DebugLine,
+                5,
+                1,
+                instructions
+            );
+            object body = Call(
+                Type("BeamInstructionReader"),
+                "Read",
+                header,
+                4,
+                0,
+                null,
+                null
+            );
+
+            return (byte[]?)Call(
+                typeof(BeamModuleCompiler),
+                "RewriteConsGuardNilReturns",
+                instructions,
+                body
+            );
         }
     }
 

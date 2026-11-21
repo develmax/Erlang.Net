@@ -66,6 +66,25 @@ internal static class BeamExclusiveCheckedFallbackChecks
             }
         }
 
+        byte[] arity = ArityFallback(Variant.Ordinary);
+        byte[] compactArity = ArityFallback(Variant.Ordinary, compact: true);
+        if (Rewrite(arity) is not { } arityRewrite || !arityRewrite.AsSpan().SequenceEqual(compactArity)
+            || Rewrite(compactArity) is not null || Rewrite(arity, allowSharing: false) is not null)
+        {
+            throw new InvalidOperationException(BeamExclusiveCheckedFallbackDiagnostics.Exclusive);
+        }
+
+        foreach (Variant variant in new[]
+        {
+            Variant.ThirdEdge, Variant.Fallthrough, Variant.Aliased, Variant.DifferentField, Variant.DifferentInput
+        })
+        {
+            if (Rewrite(ArityFallback(variant)) is not null)
+            {
+                throw new InvalidOperationException(BeamExclusiveCheckedFallbackDiagnostics.Shared);
+            }
+        }
+
         byte[] sourceImage = CodeGeneration.CompileBeamModule(Source, Name + ".erl");
         var module = BeamModule.Prepare(sourceImage, new BeamDependencySelection([]));
         await using var runtime = new ProcessRuntime();
@@ -111,6 +130,45 @@ internal static class BeamExclusiveCheckedFallbackChecks
             labels,
             allowSharing
         );
+    }
+
+    private static byte[] ArityFallback(Variant variant, bool compact = false)
+    {
+        byte destination = variant == Variant.Aliased ? X(0) : X(2);
+        byte[] extra = variant == Variant.ThirdEdge ? [ExactEqualTest, F(3), X(1), A(2)] : [];
+        byte[] success = variant == Variant.Fallthrough ? [] : [Return];
+        byte[] repeated = compact ? [] :
+        [
+            IsTuple, F(4), X(0),
+            TestArity, F(4), X(0), U(2),
+            GetTupleElement, X(0), U(variant == Variant.DifferentField ? 0 : 1), destination
+        ];
+        byte failure = F(compact ? 4 : 3);
+
+        return
+        [
+            .. Start(
+                1,
+                2,
+                2,
+                1
+            ),
+            .. extra,
+            IsTuple, failure, X(0),
+            TestArity, failure, X(0), U(2),
+            GetTupleElement, X(0), U(1), destination,
+            IsLess, F(3), variant == Variant.DifferentInput ? X(0) : destination, X(1),
+            Move, destination, X(0),
+            .. success,
+            Label, U(3),
+            .. repeated,
+            Move, destination, X(0),
+            Return,
+            Label, U(4),
+            Move, X(1), X(0),
+            Return,
+            EndCode
+        ];
     }
 
     private static byte[] Fixture(Variant variant, bool compact = false)

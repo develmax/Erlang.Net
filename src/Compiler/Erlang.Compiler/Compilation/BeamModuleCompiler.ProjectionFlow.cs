@@ -68,6 +68,19 @@ internal sealed partial class BeamModuleCompiler
             && predecessors[target].Count == 2 && predecessors[target].Contains(first)
             && predecessors[target].Contains(second);
 
+        internal bool TryGetExclusiveForwardTarget(
+            int first,
+            int second,
+            int third,
+            int label,
+            out int target
+        ) =>
+            TryGetForwardLabel(third, label, out target)
+            && predecessors[target].Count == 3
+            && predecessors[target].Contains(first)
+            && predecessors[target].Contains(second)
+            && predecessors[target].Contains(third);
+
         internal bool TryGetForwardLabel(int from, int label, out int target) =>
             labels.TryGetValue(label, out target) && target > from;
 

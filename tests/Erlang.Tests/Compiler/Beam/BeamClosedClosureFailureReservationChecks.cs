@@ -5,11 +5,13 @@ namespace Erlang.Tests;
 internal static class BeamClosedClosureFailureReservationChecks
 {
     internal const string TestName = "compiler/beam/reserves-a-closed-closure-s-failure-ordinal";
+    private const string ListDependency = "lists";
     private const string MissingHelper = "Closed partial and total functions must leave different ordinals for the captured failure helper.";
     private const string WrongStack = "The captured closure must keep the original failing argument and its reserved failure frame.";
     private const string Source = """
         -module(beam_closure_failure_reservation).
-        -export([route/2, total_first/2, invoke/3]).
+        -import(lists, [map/2]).
+        -export([route/2, total_first/2, invoke/3, callback_route/3, callback_total_first/3]).
 
         route(Values, Extra) ->
             Closed = fun({one, Value}) -> {one, Value} end,
@@ -27,6 +29,14 @@ internal static class BeamClosedClosureFailureReservationChecks
             {Result, Captured} = route(Values, Extra),
             {Result, Captured(Input)}.
 
+        callback_route(First, Second, Extra) ->
+            [map(fun({one, Value}) -> {one, Value} end, First),
+             lists:map(fun({two, Value}) -> {Extra, Value} end, Second)].
+
+        callback_total_first(First, Second, Extra) ->
+            [map(fun(Value) -> {one, Value} end, First),
+             lists:map(fun({two, Value}) -> {Extra, Value} end, Second)].
+
         map_one(Callback, [Value]) ->
             [Callback(Value)].
         """;
@@ -35,16 +45,20 @@ internal static class BeamClosedClosureFailureReservationChecks
     {
         const string moduleName = "beam_closure_failure_reservation";
         byte[] image = CodeGeneration.CompileBeamModule(Source, moduleName + ".erl");
-        BeamModule module = BeamModule.Prepare(image);
+        BeamModule module = BeamModule.Prepare(image, new BeamDependencySelection([ListDependency]));
         string[] names = module.Functions.Where(function => function.Name.Contains("-inlined-", StringComparison.Ordinal))
             .Select(function => function.Name).ToArray();
         if (!names.Contains("-route/2-inlined-1-") || names.Contains("-route/2-inlined-0-")
-            || !names.Contains("-total_first/2-inlined-0-") || names.Contains("-total_first/2-inlined-1-"))
+            || !names.Contains("-total_first/2-inlined-0-") || names.Contains("-total_first/2-inlined-1-")
+            || !names.Contains("-callback_route/3-inlined-1-") || names.Contains("-callback_route/3-inlined-0-")
+            || !names.Contains("-callback_total_first/3-inlined-0-") || names.Contains("-callback_total_first/3-inlined-1-"))
         {
             throw new InvalidOperationException(MissingHelper);
         }
 
-        await using var runtime = new ProcessRuntime();
+        await using var runtime = await ProcessRuntime.CreateAsync(
+            new RuntimeLibrarySelection([RuntimeModuleSelection.Managed("erlang"), RuntimeModuleSelection.Managed(ListDependency)])
+        );
         await using var actor = new RuntimeNodeFoundationHostActor(runtime);
         await actor.InvokeAsync(async context =>
         {
@@ -62,30 +76,49 @@ internal static class BeamClosedClosureFailureReservationChecks
                 throw new InvalidOperationException(WrongStack);
             }
 
-            Term bad = Term.A("malformed");
-            try
+            Term second = Term.Tuple(Term.A("two"), Term.I(6));
+            Term callbackResult = await module.Invoke(
+                context,
+                "callback_route",
+                inputs,
+                Term.List(second),
+                extra
+            );
+            if (!Term.List(inputs, Term.List(Term.Tuple(extra, Term.I(6)))).Equals(callbackResult))
             {
-                await module.Invoke(
-                    context,
-                    "invoke",
-                    inputs,
-                    extra,
-                    bad
-                );
-            }
-            catch (ErlangException error) when (error.Reason.Equals(Term.A("function_clause"))
-                && error.StackTraceTerm is Cons
-                {
-                    Head: TupleTerm
-                    {
-                        Items: [Atom moduleAtom, Atom { Name: "-route/2-inlined-1-" }, var arguments, _]
-                    }
-                } && moduleAtom.Name == moduleName && Term.List(bad).Equals(arguments))
-            {
-                return Nil.Value;
+                throw new InvalidOperationException(WrongStack);
             }
 
-            throw new InvalidOperationException(WrongStack);
+            Term bad = Term.A("malformed");
+            await CheckFailure(
+                "callback_route",
+                "-callback_route/3-inlined-1-",
+                [inputs, Term.List(bad), extra]
+            );
+            await CheckFailure("invoke", "-route/2-inlined-1-", [inputs, extra, bad]);
+
+            return Nil.Value;
+
+            async Task CheckFailure(string function, string helper, Term[] arguments)
+            {
+                try
+                {
+                    await module.Invoke(context, function, arguments);
+                }
+                catch (ErlangException error) when (error.Reason.Equals(Term.A("function_clause"))
+                    && error.StackTraceTerm is Cons
+                    {
+                        Head: TupleTerm
+                        {
+                            Items: [Atom moduleAtom, Atom helperAtom, var originalArguments, _]
+                        }
+                    } && moduleAtom.Name == moduleName && helperAtom.Name == helper && Term.List(bad).Equals(originalArguments))
+                {
+                    return;
+                }
+
+                throw new InvalidOperationException(WrongStack);
+            }
         });
     }
 }

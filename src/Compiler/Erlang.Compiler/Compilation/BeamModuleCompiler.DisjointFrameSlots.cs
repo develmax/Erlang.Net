@@ -309,7 +309,8 @@ internal sealed partial class BeamModuleCompiler
         IReadOnlyList<BeamInstruction> body,
         int start,
         int end,
-        bool allowCompleteTrims = false
+        bool allowCompleteTrims = false,
+        int ignoredBranchTarget = -1
     )
     {
         if (start >= end || body[start].Definition.Opcode != Label)
@@ -435,7 +436,7 @@ internal sealed partial class BeamModuleCompiler
                 foreach (BeamOperand label in instruction.Operands.Where(operand => operand.Kind == BeamOperandParameters.Label))
                 {
                     int target = (int)label.Value;
-                    if (target != 0 && target != functionFailure
+                    if (target != 0 && target != functionFailure && target != ignoredBranchTarget
                         && (!labels.TryGetValue(target, out int destination) || !Assign(destination, outgoing)))
                     {
                         return null;

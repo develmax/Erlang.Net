@@ -10,6 +10,7 @@ internal static class BeamFramelessHeadBifChecks
     internal const string TestName = "compiler/beam/keeps-unconditional-leaf-head-bif-frameless";
     private const string Fixture = "beam_frameless_head_bif_probe.erl";
     private const string WrongFrame = "A leaf head BIF must retain its native failure and tail call without a stack frame.";
+    private const string WrongElement = "A fixed tuple projection must retain its native failure and frameless tail.";
     private const string WrongControl = "Other BIFs, returning calls and protected paths must retain their own frames.";
 
     internal static Task Run()
@@ -26,7 +27,15 @@ internal static class BeamFramelessHeadBifChecks
             throw new InvalidOperationException(WrongFrame);
         }
 
-        if (!HasFrame(Read("by_element")) || !HasFrame(Read("preceded")) || !HasFrame(Read("protected")))
+        object[] element = Read("by_element");
+        int projection = Array.FindIndex(element, instruction => Opcode(instruction) == BifTwo);
+        if (HasFrame(element) || projection < 1 || Opcode(element[projection - 1]) != Line
+            || !element.Any(instruction => Opcode(instruction) == TailLocalCall))
+        {
+            throw new InvalidOperationException(WrongElement);
+        }
+
+        if (!HasFrame(Read("dynamic_element")) || !HasFrame(Read("preceded")) || !HasFrame(Read("protected")))
         {
             throw new InvalidOperationException(WrongControl);
         }
@@ -51,7 +60,7 @@ internal static class BeamFramelessHeadBifChecks
 
     internal const string Source = """
         -module(beam_frameless_head_bif_probe).
-        -export([run/3, by_element/3, preceded/3, protected/1, make/3, produce/1]).
+        -export([run/3, by_element/3, dynamic_element/4, preceded/3, protected/1, make/3, produce/1]).
 
         run(Input, Stack, Tag) ->
             [_,_ | Tail] = Input,
@@ -62,6 +71,11 @@ internal static class BeamFramelessHeadBifChecks
             [_,_ | Tail] = Input,
             [_, First | Rest] = Stack,
             make(element(1, Tail), [First | Rest], Tag).
+
+        dynamic_element(Input, Stack, Tag, Index) ->
+            [_,_ | Tail] = Input,
+            [_, First | Rest] = Stack,
+            make(element(Index, Tail), [First | Rest], Tag).
 
         preceded(Input, Stack, Tag) ->
             [_,_ | Tail] = Input,

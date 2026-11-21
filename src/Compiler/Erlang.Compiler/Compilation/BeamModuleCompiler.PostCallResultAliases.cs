@@ -26,14 +26,55 @@ internal sealed partial class BeamModuleCompiler
 
             int start = entry;
             entry = end + 1;
-            if (start >= end || body[start] is not { Definition.Opcode: Label, Operands: [var label] }
-                || ReadPostCallResultAlias(body, start, end) is not { } plan
+            if (start >= end || body[start] is not { Definition.Opcode: Label, Operands: [var label] })
+            {
+                continue;
+            }
+
+            var result = ReadPostCallResultAlias(body, start, end);
+            var list = result is null ? ReadPostCallResultListBranch(body, start, end) : null;
+            if (result is null && list is null)
+            {
+                result = ReadOwnedPostCallResultAlias(
+                    body,
+                    start,
+                    end,
+                    ref flow
+                );
+            }
+
+            if (result is null && list is null
                 || ReadDisjointFrameOwnership(body, start, end) is not { } frame || frame.Uses.Count != 1)
             {
                 continue;
             }
 
             int owner = frame.Uses.Keys.Single();
+            if (list is { } branch)
+            {
+                if (frame.Owners[branch.Spill - start] == owner
+                    && frame.Owners[branch.Compare - start] == owner
+                    && frame.Owners[branch.Tail - start] == owner
+                    && frame.Owners[branch.ReturnMove - start] == owner
+                    && (flow ??= new BeamProjectionFlow(body)).TryGetSingleForwardTarget(
+                        branch.Compare,
+                        (int)body[branch.Compare].Operands[0].Value,
+                        out int fallback
+                    ) && fallback == branch.ReturnMove - 1)
+                {
+                    entries.Add((int)label.Value);
+                    AddPostCallResultListEdits(
+                        body,
+                        operands,
+                        branch,
+                        edits
+                    );
+                }
+
+                continue;
+            }
+
+            var plan = result!.Value;
             if (frame.Owners[plan.Spill - start] != owner
                 || plan.Reads.Any(index => frame.Owners[index - start] != owner)
                 || (flow ??= new BeamProjectionFlow(body)).ReadRetainedResultHeapRoots(
@@ -54,6 +95,7 @@ internal sealed partial class BeamModuleCompiler
                 IsRemoval: true
             ));
 
+            int slot = (int)body[plan.Spill].Operands[1].Value;
             int operand = FirstStackOperandAtOrAfter(operands, body[plan.Spill + 1].Offset);
             foreach (int index in plan.Reads)
             {
@@ -83,13 +125,16 @@ internal sealed partial class BeamModuleCompiler
 
                 while (operand < operands.Count && operands[operand].Start < next)
                 {
-                    var (from, to, _) = operands[operand++];
-                    edits.Add(new(
-                        from,
-                        to,
-                        XRegisterTag,
-                        0
-                    ));
+                    var (from, to, readSlot) = operands[operand++];
+                    if (readSlot == slot)
+                    {
+                        edits.Add(new(
+                            from,
+                            to,
+                            XRegisterTag,
+                            0
+                        ));
+                    }
                 }
             }
 
@@ -215,6 +260,108 @@ internal sealed partial class BeamModuleCompiler
         }
 
         return reads.Count == 0 ? null : (spill, reads);
+    }
+
+    private static (int Spill, List<int> Reads)? ReadOwnedPostCallResultAlias(
+        IReadOnlyList<BeamInstruction> body,
+        int start,
+        int end,
+        ref BeamProjectionFlow? flow
+    )
+    {
+        int allocation = FindEntryFrameAllocation(body, start, end);
+        if (allocation < 0 || Enumerable.Range(allocation + 1, end - allocation - 1).Any(index =>
+            body[index].Definition.Opcode is TryEnter or CatchEnter or TrimFrame or LoopReceive or LoopReceiveEnd
+                or Wait or WaitTimeout or CallFun or CallFunTyped or DynamicApply or DebugLine or ExecutableLine))
+        {
+            return null;
+        }
+
+        int producer = allocation;
+        for (int spill = allocation + 1; spill < end; spill++)
+        {
+            BeamInstruction instruction = body[spill];
+            if (instruction.Definition.Opcode == Line)
+            {
+                continue;
+            }
+
+            bool call = body[producer].Definition.Opcode is LocalCall or ExternalCall;
+            producer = spill;
+            if (!call || instruction is not
+                {
+                    Definition.Opcode: Move,
+                    Operands: [var source, { Kind: BeamOperandParameters.Y, TypeIndex: null } slot]
+                } || !IsBareX0(source)
+                || ReadResultSlotConsumers(
+                    body,
+                    start,
+                    end,
+                    spill,
+                    slot
+                ) is not { } reads)
+            {
+                continue;
+            }
+
+            // All reads must be dominated by this definition and retain the
+            // call's X0 on every incoming path, including a failed guard.
+            if ((flow ??= new BeamProjectionFlow(body)).ReadRetainedResultHeapRoots(spill, end, reads) is not null)
+            {
+                return (spill, reads);
+            }
+        }
+
+        return null;
+    }
+
+    private static List<int>? ReadResultSlotConsumers(
+        IReadOnlyList<BeamInstruction> body,
+        int start,
+        int end,
+        int spill,
+        BeamOperand slot
+    )
+    {
+        var reads = new List<int>();
+        bool consumed = false;
+        for (int index = start; index < end; index++)
+        {
+            var instruction = body[index];
+            if (index == spill || instruction.Definition.Opcode == InitYRegisters)
+            {
+                continue;
+            }
+
+            bool readsSlot = false;
+            for (int position = 0; position < instruction.Operands.Count; position++)
+            {
+                BeamOperand operand = instruction.Operands[position];
+                if (!SameProjectionRegister(operand, slot))
+                {
+                    continue;
+                }
+
+                int writes = ReadPostCallAliasWriteMask(instruction);
+                if (index < spill || operand.TypeIndex is not null || writes < 0
+                    || position < sizeof(int) * 8 && (writes & (1 << position)) != 0)
+                {
+                    return null;
+                }
+
+                readsSlot = true;
+            }
+
+            if (readsSlot)
+            {
+                consumed |= instruction.Definition.Opcode != Move;
+                reads.Add(index);
+            }
+        }
+
+        // Pass-through loads can belong to an out-of-line failure continuation
+        // that keeps its saved result until joining other call paths.
+        return consumed ? reads : null;
     }
 
     private static int ReadPostCallAliasWriteMask(BeamInstruction instruction) =>

@@ -253,6 +253,10 @@ internal sealed partial class BeamModuleCompiler
         }
 
         var exceptional = handlerEntry >= 0 ? new HashSet<int>() : null;
+        bool[]? handlerFreeInstructions = allowAtomicProjectionAliasing && handlerEntry >= 0 && linearAllocation < 0
+            && FindEntryFrameAllocation(body, entry, end) == allocation
+                ? new bool[effects.Length]
+                : null;
         if (exceptional is not null && !AddHandlerEdges(exceptional) || linearAllocation < 0 && !branched && trim == end || !released)
         {
             return null;
@@ -294,10 +298,16 @@ internal sealed partial class BeamModuleCompiler
                 // A source whose last use is here can share a result slot when the opcode
                 // reads all inputs first. The write mask still keeps independent outputs apart.
                 // Leave move interference intact because moves also carry branch joins.
+                BeamInstruction instruction = body[start + index];
+                // A handler tag has a reserved register role. Keep its slot outside
+                // the projection alias proof, even when that role has been closed.
                 bool readsBeforeWrite = opcode is GetHead or GetTail
                     or BifOne or BifTwo or BifThree or GcBifOne or GcBifTwo or GcBifThree
-                    || allowAtomicProjectionAliasing && handlerEntry < 0 && trim == end
-                        && IsAtomicStackProjection(body[start + index]);
+                    || allowAtomicProjectionAliasing && trim == end && (handlerEntry < 0
+                        ? IsAtomicStackProjection(instruction)
+                        : handlerFreeInstructions?[index] == true && IsAtomicStackAliasCandidate(instruction)
+                            && !instruction.Operands.Any(operand => operand.Kind == BeamOperandParameters.Y
+                                && operand.Value == handlerSlot));
                 BigInteger occupied = next | (readsBeforeWrite ? BigInteger.Zero : reads)
                     | (initializes ? BigInteger.Zero : writes);
                 if (targets is not null && (exceptional?.Contains(index) == true
@@ -412,6 +422,11 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 seen[index] = handlerState;
+                if (handlerFreeInstructions is not null)
+                {
+                    handlerFreeInstructions[index] = handlerState == NoHandler;
+                }
+
                 byte opcode = body[start + index].Definition.Opcode;
                 bool enters = index == entry;
                 bool exits = opcode is TryEnd or TryCase or CatchEnd;

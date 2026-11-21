@@ -11,6 +11,8 @@ internal static class BeamSingleReturningCallFrameChecks
 {
     internal const string TestName = "compiler/beam/uses-zero-slot-frame-for-single-returning-call";
     private const string Fixture = "single_returning_call_frame_probe.erl";
+    private const string WrongSharedReturn = "A grouped leaf rewrite must keep the original shared return value.";
+    private const string WrongOwnedLeaf = "An isolated constructing branch must preserve its guard choices and initialize its heap roots.";
     private const string WrongCallFrame = "Pre-call closure preparation must keep its heap roots and only the return frame.";
     private const string LostSavedValue = "The value read after the call must retain a stack slot.";
     private const string WrongConstructedResult = "The call continuation must keep only its initialized result roots and frame.";
@@ -93,6 +95,8 @@ internal static class BeamSingleReturningCallFrameChecks
         }
 
         CheckConstructedReturnFrames();
+        CheckOwnedConstructingBranches();
+        CheckSharedLeafReturn();
 
         return Task.CompletedTask;
     }
@@ -133,6 +137,117 @@ internal static class BeamSingleReturningCallFrameChecks
         }
     }
 
+    private static void CheckOwnedConstructingBranches()
+    {
+        byte[] entry = [.. Start(
+            1,
+            2,
+            1,
+            1
+        ), IsNil, F(3), X(0)];
+        byte[] bypass = [Move, A(1), X(0), Return];
+        byte[] arm = [Label, U(3)];
+        byte[] frame = [Allocate, U(1), U(1), Move, X(0), Y(0)];
+        byte[] guard = [IsAtom, F(4), Y(0)];
+        byte[] tuple = [TestHeap, U(3), U(0), PutTuple, X(0), ExtendedListOperand, U(2), A(1), Y(0)];
+        byte[] list = [TestHeap, U(2), U(0), PutList, Y(0), A(0), X(0)];
+        byte[] release = [Deallocate, U(1), Return];
+        byte[] alternate = [Label, U(4)];
+        byte[] original =
+        [
+            .. entry, .. bypass, .. arm, .. frame, .. guard, .. tuple, .. release,
+            .. alternate, .. list, .. release, EndCode
+        ];
+        byte[] expected =
+        [
+            .. entry, .. bypass, .. arm, Move, X(0), X(0),
+            IsAtom, F(4), X(0),
+            TestHeap, U(3), U(1), PutTuple, X(0), ExtendedListOperand, U(2), A(1), X(0), Return,
+            .. alternate, TestHeap, U(2), U(1), PutList, X(0), A(0), X(0), Return,
+            EndCode
+        ];
+        if (RewriteConstructorFrame(original, ownedBranches: true) is not { } actual
+            || !actual.SequenceEqual(expected))
+        {
+            throw new InvalidOperationException(WrongOwnedLeaf);
+        }
+
+        byte[] shared =
+        [
+            .. entry, .. frame, Jump, F(4), .. arm, .. frame, .. guard, .. tuple, .. release,
+            .. alternate, .. list, .. release, EndCode
+        ];
+        byte[] withCall =
+        [
+            .. entry, .. bypass, .. arm, .. frame, .. guard,
+            ExternalCall, U(0), U(0), .. tuple, .. release, .. alternate, .. list, .. release, EndCode
+        ];
+        if (RewriteConstructorFrame(shared, ownedBranches: true) is not null
+            || RewriteConstructorFrame(withCall, ownedBranches: true) is not null)
+        {
+            throw new InvalidOperationException(WrongOwnedLeaf);
+        }
+    }
+
+    private static void CheckSharedLeafReturn()
+    {
+        byte[] entry =
+        [
+            .. Start(
+                1,
+                2,
+                1,
+                2
+            ),
+            IsTuple, F(5), X(0), TestArity, F(3), X(0), U(2)
+        ];
+        byte[] frame = [Allocate, U(1), U(2), Move, X(1), Y(0)];
+        byte[] branch =
+        [
+            TestHeap, U(3), U(1), IsNil, F(4), Y(0),
+            PutTuple, X(0), ExtendedListOperand, U(2), X(0), Y(0),
+            Deallocate, U(1), Return
+        ];
+        byte[] lowered =
+        [
+            Move, X(1), X(1),
+            TestHeap, U(3), U(2), IsNil, F(4), X(1),
+            PutTuple, X(0), ExtendedListOperand, U(2), X(0), X(1), Return
+        ];
+        byte[] other = [Label, U(3)];
+        byte[] relay = [Label, U(4), Move, Y(0), X(1), Deallocate, U(1), Jump, F(5)];
+        byte[] exit = [Label, U(5), Move, X(1), X(0), Return, EndCode];
+        byte[] original = [.. entry, .. frame, .. branch, .. other, .. frame, .. branch, .. relay, .. exit];
+        byte[] expected = [.. entry, .. lowered, .. other, .. lowered, Label, U(4), Jump, F(5), .. exit];
+        if (RewriteConstructorFrame(original, ownedBranches: true) is not { } actual
+            || !actual.SequenceEqual(expected))
+        {
+            throw new InvalidOperationException(WrongSharedReturn);
+        }
+
+        byte[] overwrittenInput =
+        [
+            .. entry, .. frame, .. branch, .. other, .. frame, Move, A(1), X(1),
+            .. branch, .. relay, .. exit
+        ];
+        byte[] overwrittenSlot =
+        [
+            .. entry, .. frame, .. branch, .. other, .. frame, Move, A(1), Y(0),
+            .. branch, .. relay, .. exit
+        ];
+        byte[] otherReturn =
+        [
+            .. entry, .. frame, .. branch, .. other, .. frame, .. branch,
+            .. relay, Label, U(5), Return, EndCode
+        ];
+        if (RewriteConstructorFrame(overwrittenInput, ownedBranches: true) is not null
+            || RewriteConstructorFrame(overwrittenSlot, ownedBranches: true) is not null
+            || RewriteConstructorFrame(otherReturn, ownedBranches: true) is not null)
+        {
+            throw new InvalidOperationException(WrongSharedReturn);
+        }
+    }
+
     private static byte[] ConstructorFrame(byte[] result, bool compact = false, bool tail = false)
     {
         int width = compact ? 0 : 1;
@@ -161,7 +276,7 @@ internal static class BeamSingleReturningCallFrameChecks
         ];
     }
 
-    private static byte[]? RewriteConstructorFrame(ReadOnlyMemory<byte> code)
+    private static byte[]? RewriteConstructorFrame(ReadOnlyMemory<byte> code, bool ownedBranches = false)
     {
         var stackOperands = new List<(int Start, int End, int Slot)>();
         Action<int, int, int> recordStack = (start, end, slot) => stackOperands.Add((start, end, slot));
@@ -169,7 +284,7 @@ internal static class BeamSingleReturningCallFrameChecks
             "BeamCodeHeader",
             0,
             (int)InitYRegisters,
-            4,
+            6,
             1,
             code
         );
@@ -192,7 +307,7 @@ internal static class BeamSingleReturningCallFrameChecks
             true,
             null,
             null,
-            false,
+            ownedBranches,
             null
         );
     }

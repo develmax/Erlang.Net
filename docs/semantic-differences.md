@@ -1,5 +1,17 @@
 # Semantic differences
 
+The Part 1983 lifecycle fixture corrections await the owned dispatcher and externally observable logger cancellation. All 10,383 tests and the independent native gates passed. [Repository evidence](validation/part-1983-repository-gate/README.md).
+
+Part 1984 removes two guarded binary frames and emits one previously absent helper identity. [Evidence](validation/part-1984/README.md).
+
+Part 1983 recorded 55 normalized body gains, 0 losses and separately measured raw file equality. [Evidence](validation/part-1983/README.md).
+
+Part 1982 measured 13 normalized function gains and 0 losses with raw comparison and native load admission reported separately. [Evidence](validation/part-1982/README.md).
+
+Part 1981 measured 21 normalized function gains and 0 losses. The confirmed wide-frame and native outcomes use the identified candidate bytes. [Evidence](validation/part-1981/README.md).
+
+Part 1980 gained one raw module and 25 normalized functions. The remaining shared differences are led by frame liveness and pure projections before allocation. [Evidence](validation/part-1980/README.md).
+
 Part 1978 reports 6 normalized function gains and 0 losses, with the 212 known frame widths restored. [Evidence](validation/part-1978/README.md).
 
 Part 1977 records 9 normalized function gains and 212 functions with a greater allocation distance from pinned OTP. [Evidence](validation/part-1977/README.md).

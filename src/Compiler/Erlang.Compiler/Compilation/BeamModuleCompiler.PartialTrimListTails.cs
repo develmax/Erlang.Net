@@ -215,6 +215,21 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
+            return OwnsSinglePartialTrim(
+                entry,
+                allocation,
+                trim,
+                end
+            );
+        }
+
+        internal bool OwnsSinglePartialTrim(
+            int entry,
+            int allocation,
+            int trim,
+            int end
+        )
+        {
             for (int from = entry; from < end; from++)
             {
                 foreach (int target in successors[from])

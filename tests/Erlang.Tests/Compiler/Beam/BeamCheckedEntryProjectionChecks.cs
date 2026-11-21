@@ -3,6 +3,7 @@ using System.Numerics;
 using Erlang.Compiler;
 using static Erlang.Compiler.BeamEmissionFormat;
 using static Erlang.Tests.BeamBinaryHostAccess;
+using static Erlang.Tests.BeamOpcodeEdgeBytes;
 
 namespace Erlang.Tests;
 
@@ -12,6 +13,7 @@ internal static class BeamCheckedEntryProjectionChecks
     private const string Fixture = "beam_checked_entry_projection_probe.erl";
     private const string WrongFrame = "The checked projection used the wrong frame or live roots.";
     private const string WrongResult = "Changing a checked projection's frame changed an observable result.";
+    private const string WrongRecordSpill = "Moving the checked record spill changed its payload, source line, or frame owner.";
     private const string Source = """
         -module(beam_checked_entry_projection_probe).
         -export([nested/2, simple/2, fallback/2, retained/2, retained_fallback/2, caught/2]).
@@ -44,6 +46,7 @@ internal static class BeamCheckedEntryProjectionChecks
 
     internal static async Task Run()
     {
+        CheckRecordSpillLayout();
         byte[] beam = CodeGeneration.CompileBeamModule(Source, Fixture);
         CheckLayouts(beam);
         var module = BeamModule.Prepare(beam);
@@ -89,6 +92,136 @@ internal static class BeamCheckedEntryProjectionChecks
 
             throw new InvalidOperationException(WrongResult);
         });
+    }
+
+    private static void CheckRecordSpillLayout()
+    {
+        byte[] check = [.. Start(
+            1,
+            2,
+            2,
+            2
+        ), IsTaggedTuple, F(3), X(0), U(2), A(3)];
+        byte[] frame = [Allocate, U(2), U(2), InitYRegisters, ExtendedListOperand, U(1), Y(0), Move, X(1), Y(1)];
+        byte[] projection = [GetTupleElement, X(0), U(1), X(0)];
+        byte[] spill = [Move, X(0), Y(0)];
+        byte[] nested = [IsTaggedTuple, F(4), Y(0), U(2), A(4)];
+        byte[] lifted = [IsTaggedTuple, F(4), X(0), U(2), A(4)];
+        byte[] continuation = [GetTupleElement, Y(0), U(1), X(0), LocalCall, U(2), F(2)];
+        byte[] release = [Move, Y(1), X(0), Deallocate, U(2), Return];
+        byte[] outerError = [Label, U(3), Line, U(1), BadRecord, X(0)];
+        byte[] innerError = [Label, U(4), Line, U(2), BadRecord, Y(0), EndCode];
+        byte[] liftedError = [Label, U(4), Line, U(2), BadRecord, X(0), EndCode];
+        byte[] original =
+        [
+            .. check, .. frame, .. projection, .. spill, .. nested,
+            .. continuation, .. release, .. outerError, .. innerError
+        ];
+        byte[] expected =
+        [
+            .. check, .. projection, .. lifted, .. frame, .. spill,
+            .. continuation, .. release, .. outerError, .. liftedError
+        ];
+        if (RewriteRecordSpill(original) is not { } result || !result.AsSpan().SequenceEqual(expected))
+        {
+            throw new InvalidOperationException(WrongRecordSpill);
+        }
+
+        byte[] saveOriginal = [.. frame[..^2], X(0), Y(1)];
+        byte[] overwrittenOriginal =
+        [
+            .. check, .. saveOriginal, .. projection, .. spill, .. nested,
+            .. continuation, .. release, .. outerError, .. innerError
+        ];
+        byte[] sharedFailure =
+        [
+            .. check, .. frame, .. projection, .. spill, .. nested,
+            .. continuation, IsAtom, F(4), X(0), .. release, .. outerError, .. innerError
+        ];
+        byte[] differentFailure =
+        [
+            .. check, .. frame, .. projection, .. spill, .. nested,
+            .. continuation, .. release, .. outerError, Label, U(4), Line, U(2), BadMatch, Y(0), EndCode
+        ];
+        if (RewriteRecordSpill(overwrittenOriginal) is not null || RewriteRecordSpill(sharedFailure) is not null
+            || RewriteRecordSpill(differentFailure) is not null)
+        {
+            throw new InvalidOperationException(WrongRecordSpill);
+        }
+
+        // The setup preserves original X0. Both old X values die after the inner check.
+        byte[] differentInput = [.. Start(
+            1,
+            2,
+            2,
+            2
+        ), IsTaggedTuple, F(3), X(1), U(2), A(3)];
+        byte[] secondProjection = [GetTupleElement, X(1), U(1), X(0)];
+        byte[] reusedInput = [GetTupleElement, X(1), U(1), X(1)];
+        byte[] retargeted = [IsTaggedTuple, F(4), X(1), U(2), A(4)];
+        byte[] storeInFrame = [Move, X(1), Y(0)];
+        byte[] lateOverwrite = [GetTupleElement, Y(0), U(1), X(0), ExternalCall, U(1), U(0)];
+        byte[] sourceError = [Label, U(3), Line, U(1), BadRecord, X(1)];
+        byte[] resultError = [Label, U(4), Line, U(2), BadRecord, X(1), EndCode];
+        byte[] before =
+        [
+            .. differentInput, .. saveOriginal, .. secondProjection, .. spill, .. nested,
+            .. lateOverwrite, .. release, .. sourceError, .. innerError
+        ];
+        byte[] after =
+        [
+            .. differentInput, .. reusedInput, .. retargeted, .. saveOriginal, .. storeInFrame,
+            .. lateOverwrite, .. release, .. sourceError, .. resultError
+        ];
+        byte[] liveInput =
+        [
+            .. differentInput, .. saveOriginal, .. secondProjection, .. spill, .. nested,
+            .. lateOverwrite[..^2], U(2), U(0), .. release, .. sourceError, .. innerError
+        ];
+        byte[] liveDestination =
+        [
+            .. differentInput, .. saveOriginal, .. secondProjection, .. spill, .. nested,
+            ExternalCall, U(1), U(0), .. release, .. sourceError, .. innerError
+        ];
+        if (RewriteRecordSpill(before) is not { } alternate || !alternate.AsSpan().SequenceEqual(after)
+            || RewriteRecordSpill(liveInput) is not null || RewriteRecordSpill(liveDestination) is not null)
+        {
+            throw new InvalidOperationException(WrongRecordSpill);
+        }
+    }
+
+    private static byte[]? RewriteRecordSpill(ReadOnlyMemory<byte> code)
+    {
+        object header = New(
+            "BeamCodeHeader",
+            0,
+            (int)InitYRegisters,
+            5,
+            1,
+            code
+        );
+        var stackOperands = new List<(int Start, int End, int Slot)>();
+        Action<int, int, int> trackSlot = (start, end, slot) => stackOperands.Add((start, end, slot));
+        object instructions = Call(
+            Type("BeamInstructionReader"),
+            "Read",
+            header,
+            5,
+            0,
+            null,
+            trackSlot
+        );
+
+        return (byte[]?)Call(
+            typeof(BeamModuleCompiler),
+            "DelayEntryStackFrame",
+            code,
+            instructions,
+            stackOperands,
+            null,
+            new Func<object, bool>(static _ => false),
+            false
+        );
     }
 
     private static void CheckLayouts(byte[] beam)

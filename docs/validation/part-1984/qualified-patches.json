@@ -1,0 +1,57 @@
+{
+  "Build": {
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "Tests": "881EC099A1506A45040DFED009B02EB74F808F77E315037BE0710E9E77D128D3",
+    "Compiler": "C2F7DE0B45319A4D6735B663D0CE869CB9346E0600784B1DA1656E2E12805E23",
+    "Finished": "2026-11-21T12:07:14.5962889+03:00",
+    "CorpusTool": "7A759859945CD59B0413C69A178D1927E52CB3E536A0570B8CEEBA74FA0B6783",
+    "Parent": "4742abc3d04187d673887f36af805256962b7581c881845f028a29a46c16e46a"
+  },
+  "BuildInputs": "027036144a20e87408c7512138f3f5d806b5fb8a542b2034bd9d623ab7d9d857",
+  "Paths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryFramePlacement.cs": {
+      "Before": "f570f0464f5528f1a30574586257a167be3d68002c50e7f4a50cf7274927b0bf",
+      "After": "b647b18c5b0bc64ca4a5f27049934b349af732e27ac1c7a9e35c283b3bdf604c"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": {
+      "Before": "6fd23f89c7949c8b1282aa3d2197e6f2e6636419f06b05ce368015ce15281b19",
+      "After": "99a6b09b7d9c6ec496e916fbcb6db8ffb77c07a262df77e5985d9ca635418534"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GuardedBinaryTailCase.cs": {
+      "Before": null,
+      "After": "cee9ed118e504dec697c2f8cf86c5f40597ce12845f927aedf6cdf4df29bd8e9"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ListComprehensionOrder.cs": {
+      "Before": "4e7b9bab90c009fb15a355de07d06d30150a62ff30a33636372c88837fbdb53d",
+      "After": "e327c8bbf3df5c629bfb20912e574ab487457b1dc8a8102cdca7d7aac64c5d97"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs": {
+      "Before": "73819506463dc92dad0906a8edf93a32c63b373f9f4ef7a603b18f77cb8a7757",
+      "After": "292ef4dfa395e5c95401d5271a43df17f9acf2f4ed06541bb64f91a7d59d0eea"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamMixedMapListComprehensionChecks.cs": {
+      "Before": null,
+      "After": "0d00f33d22544e003c010e5103930cda48362da0d788daa9cd96c596af3b7235"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/Binary/BeamGuardedBinaryTailCaseChecks.cs": {
+      "Before": null,
+      "After": "f4cc989e7a37e4da91288c5bc6707fa07c75af47bd10c86295e7ad60fa202414"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamTerminalListMatchFrameChecks.cs": {
+      "Before": "056a7ac1f08af6e39ea97f916653de90cf913606c48ab8220878a1c7afff3dce",
+      "After": "323e57683cdc3da1c710ccdc6d6667530acbd5cca55a86a303de39bf55e9dad4"
+    },
+    "tests/Erlang.Tests/Harness/Program.cs": {
+      "Before": "4f72101397b23857f145807b1e403bdef3adce0b2009c8b70b271851fb522ef7",
+      "After": "14d27d11b2ef825d2fbc8d355dfae67f8f8804163b1c8244217e57a8cba9be52"
+    }
+  },
+  "Patches": {
+    "entry-allocate-order-1984-audit/public-tuple-match-relay-production.patch": "ec2d302a53f47eb1a6b06474a6d9cbb532f11dd0412af1aeb84e6706526d99dc",
+    "entry-allocate-order-1984-audit/public-tuple-match-relay-fixture.patch": "6ed6e30d996e813b9a30d1cca4d66022744c4a7f3c701cad6b084330fd27c3d2",
+    "binary-match-audit-1931/match-context-owner-2005/production.patch": "a4ee442e84449c57fac832594befc7564d50de4a3c918c8a93d319adbb22c559",
+    "binary-match-audit-1931/match-context-owner-2005/fixture.patch": "6174a7b9747be1e38bd6b430fb5b9f7e5c3cfa5460e390b8fbfb1c4e3d3ff551",
+    "local-call-lc-extractor-p1984-audit/mixed-map-list-ordinal-reservation.patch": "f216f10666924275ba92cea8f214df98de05648603f8dfcdd9c2e7ade4442bc9",
+    "public-tuple-relay-scope-1984-recovery/production.patch": "e7d7119e2b938546071d9ec9a1fdf9c3f34f57f9e9c34c813d9fcb026a6f525e"
+  }
+}

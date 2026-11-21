@@ -1,0 +1,8 @@
+# Preserve fixed-index element reads in a frameless local tail
+
+The accepted Part 1982 Windows release contains 166 source-independent opcode candidates in 27 modules. The earlier diagnostic admitted one positive-size frame, no ordinary call or protected handler, and at least one `element/2` body BIF with a positive literal index. 159 pinned bodies are frameless, five have a zero-size allocation, one has a nonzero frame and one has no same-key body. 140 candidates with a same-key frameless pinned body use a framed local tail on the current side. No raw-equal release module matches the census. The existing register planner retains all opcode, ownership, write, live-root and failure gates. The census is an upper bound.
+
+OTP 29.1.1 `erts/emulator/beam/bif.c` `element_2` reads a checked tuple slot or raises badarg without allocating. Pinned `beam_ssa:clobbers_xregs` and `beam_ssa_pre_codegen:need_frame_1` derive a frame from actual register clobbers. C# now admits this fixed-index body projection to the existing non-collecting head proof when the function has a local tail. It preserves the BIF and error line. The literal restriction reflects the qualified operand shape and keeps variable-index paths outside this iteration.
+
+The permanent probe distinguishes a constant tuple index from a dynamic index, an ordinary returning call and a protected handler. It verifies the body BIF source line and frameless tail. The known generated parser cohort is exercised by the existing paired native parser checks. Strict forward and reverse source replay passed. The candidate has not been compiled yet.
+

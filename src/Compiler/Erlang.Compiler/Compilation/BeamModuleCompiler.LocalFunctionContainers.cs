@@ -43,11 +43,19 @@ internal sealed partial class BeamModuleCompiler
 
         EmitClosureAllocation(container.Words, 0, 1);
         EmitDeclaredFunctionReference(reference, entry, 0);
-        foreach (var (tuple, fields) in container.Steps)
+        EmitFunctionContainer(container.Steps, 0);
+        instructions.WriteByte(Return);
+
+        return true;
+    }
+
+    private void EmitFunctionContainer(IReadOnlyList<(bool Tuple, Term?[] Fields)> steps, int register)
+    {
+        foreach (var (tuple, fields) in steps)
         {
             if (tuple)
             {
-                EmitTupleHeader(XRegisterTag, fields.Length);
+                EmitTupleHeader(XRegisterTag, fields.Length, register);
             }
             else
             {
@@ -57,7 +65,7 @@ internal sealed partial class BeamModuleCompiler
             {
                 if (field is null)
                 {
-                    Operand(XRegisterTag, 0);
+                    Operand(XRegisterTag, register);
                 }
                 else
                 {
@@ -66,12 +74,9 @@ internal sealed partial class BeamModuleCompiler
             }
             if (!tuple)
             {
-                Operand(XRegisterTag, 0);
+                Operand(XRegisterTag, register);
             }
         }
-        instructions.WriteByte(Return);
-
-        return true;
     }
 
     private bool TryEmitLocalFunctionTuple(Clause clause, IReadOnlyDictionary<(string Name, int Arity), int> entries)

@@ -58,7 +58,7 @@ internal static class BeamProjectedCallArgumentCopyChecks
     {
         byte[] prefix =
         [
-            Label, One, FunctionInfo, Module, Function, Three, Label, Two,
+            Label, One, FunctionInfo, Module, Module, Three, Label, Two,
             Allocate, Three, Three, Move, X0, Y(0), Move, X1, Y(1), Move, X2, Y(2)
         ];
         byte[] loadSecond = [Move, Y(2), X1];
@@ -70,7 +70,9 @@ internal static class BeamProjectedCallArgumentCopyChecks
         ];
         byte[] original = [.. prefix, .. loadSecond, .. loadThird, .. kill, .. finish];
         byte[] expected = [.. prefix, .. loadThird, .. loadSecond, .. kill, .. finish];
-        if (Rewrite(original) is not { } actual || !actual.AsSpan().SequenceEqual(expected))
+        var compiler = new BeamModuleCompiler("final_split_stack_arguments");
+        if (Rewrite(original) is not { } actual || !actual.AsSpan().SequenceEqual(expected)
+            || RewriteFinal(original) is not byte[] actualFinal || !actualFinal.AsSpan().SequenceEqual(expected))
         {
             throw new InvalidOperationException(SplitStackFailure);
         }
@@ -80,10 +82,20 @@ internal static class BeamProjectedCallArgumentCopyChecks
         byte[] dependsOnX = [.. prefix, .. loadSecond, Move, X1, X2, .. kill, .. finish];
         byte[] longerRun = [.. prefix, Move, Y(1), X2, .. loadSecond, .. loadThird, .. kill, .. finish];
         if (Rewrite(expected) is not null || Rewrite(lineBetweenLoads) is not null || Rewrite(sameSource) is not null
-            || Rewrite(dependsOnX) is not null || Rewrite(longerRun) is not null)
+            || Rewrite(dependsOnX) is not null || Rewrite(longerRun) is not null
+            || RewriteFinal(expected) is not null || RewriteFinal(lineBetweenLoads) is not null
+            || RewriteFinal(sameSource) is not null || RewriteFinal(dependsOnX) is not null
+            || RewriteFinal(longerRun) is not null)
         {
             throw new InvalidOperationException(SplitStackFailure);
         }
+
+        object? RewriteFinal(byte[] image) => Call(
+            compiler,
+            "OrderFinalSplitStackArguments",
+            (ReadOnlyMemory<byte>)image,
+            4
+        );
     }
 
     private static byte[]? Rewrite(byte[] source)

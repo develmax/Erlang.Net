@@ -91,7 +91,7 @@ internal sealed partial class BeamModuleCompiler
 
         return labels.Where(label => !handlers.Contains(label.Key)
                 && states.TryGetValue(label.Value, out var scope) && scope is null)
-            .Select(label => label.Value).ToHashSet();
+            .Select(label => label.Key).ToHashSet();
 
         void Enqueue(int index, ReturnHandler? scope)
         {

@@ -1,5 +1,19 @@
 # Project progress
 
+The integrated Part 1983 repository gate passed all 10,383 managed cases, the pinned native catalog, package consumers and command-line validation in 65 minutes 26 seconds. [Repository evidence](validation/part-1983-repository-gate/README.md).
+
+Part 1984 measured 512 Equal, 854 Different, 0 Unsupported, 0 SourceRejected. A single uncached compile supplied the focused image selection, with 595 managed and 70 native cases. [Evidence](validation/part-1984/README.md).
+
+Part 1983 uncached corpus result is 512 Equal, 854 Different, 0 Unsupported, 0 SourceRejected. Its 593 compiler cases and 66 native observations passed. [Evidence](validation/part-1983/README.md).
+
+The Part 1982 repository gate recorded 10,374 of 10,376 passing cases. The two lifecycle fixtures were corrected and verified in the integrated Part 1983 gate. [Repository attempt](validation/part-1982-repository-failure/README.md).
+
+Part 1982 measured 512 of 1,366 byte-exact Windows OTP images. The combined compiler and all 62 scoped native observations have exact payload identities. [Evidence](validation/part-1982/README.md).
+
+The frozen Part 1981 compiler produced 512 of 1,366 exact Windows OTP files. Its 584 managed checks, 53 native observations and 217 physical frame controls are recorded. [Evidence](validation/part-1981/README.md).
+
+The frozen Part 1980 compiler produced 511 of 1,366 exact Windows OTP images. The integrated Part 1978 snapshot completed the repository validation. [Evidence](validation/part-1980/README.md).
+
 Part 1978 reports 510 of 1,366 byte-exact release files and restores all 212 previously widened frame functions. The selected validation passed 567 compiler cases. [Evidence](validation/part-1978/README.md).
 
 Part 1977 measured 510 of 1,366 byte-exact images, with 560 selected compiler checks and 25 native observations. The actual release census found 212 frame-width regressions. [Evidence](validation/part-1977/README.md).

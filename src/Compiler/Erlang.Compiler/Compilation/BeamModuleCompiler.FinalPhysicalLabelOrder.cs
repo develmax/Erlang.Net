@@ -111,6 +111,11 @@ internal sealed partial class BeamModuleCompiler
         // Entry literal partitioning may consume a failure relay to build its select.
         // Resolve the remaining own-function relays after the branch layout is final.
         var relays = ModuleOptimizationDisabled ? [] : CollectFinalFunctionFailureRelays(code, body);
+        if (!ModuleOptimizationDisabled && SsaTypeInferenceEnabled)
+        {
+            CollectClosedSelectReturnRelays(body, references, relays);
+        }
+
         var labels = new int[labelCount];
         var edits = new List<CodeEdit>();
         if (!ModuleOptimizationDisabled)

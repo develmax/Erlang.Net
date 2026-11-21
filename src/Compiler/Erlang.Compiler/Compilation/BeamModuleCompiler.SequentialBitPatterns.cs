@@ -302,6 +302,11 @@ internal sealed partial class BeamModuleCompiler
                 context
             );
 
+            EmitSequentialBitPatternFromContext(pattern, context, failure);
+        }
+
+        private void EmitSequentialBitPatternFromContext(BitPattern pattern, int context, int failure)
+        {
             for (int index = 0; index < pattern.Segments.Count; index++)
             {
                 var segment = pattern.Segments[index];

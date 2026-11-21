@@ -9,15 +9,18 @@ internal static class BeamStrictListGeneratorHelperChecks
     internal const string TestName = "compiler/beam/lifts-single-strict-list-generators";
     private const string Fixture = "beam_strict_list_generator_helper.erl";
     private const string StrictHelper = "-strict/1-lc$^0/1-0-";
+    private const string FilteredHelper = "-strict_filtered/1-lc$^0/1-0-";
     private const string SplitHelper = "-split_source/1-lc$^0/1-0-";
     private const string WrongHelpers = "Strict helper identities or nested scope boundaries differed.";
     private const string WrongResult = "Strict list traversal, failure reason, source line, or effect order differed.";
 
     private const string Source = """
         -module(beam_strict_list_generator_helper).
-        -export([strict/1, relaxed/1, variable/1, nested/1, observe/1, split_source/1]).
+        -export([strict/1, strict_filtered/1, relaxed/1, variable/1, nested/1, observe/1, split_source/1]).
         strict(Input) ->
             [V || {tag,V} <:- Input].
+        strict_filtered(Input) ->
+            [V || {Key,V} <:- Input, Key =/= skip].
         relaxed(Input) ->
             [V || {tag,V} <- Input].
         variable(Input) ->
@@ -48,7 +51,7 @@ internal static class BeamStrictListGeneratorHelperChecks
         byte[] beam = CodeGeneration.CompileBeamModule(Source, Fixture);
         var functions = ((IEnumerable)Property(Code(beam), "Functions")).Cast<object>()
             .Select(function => (string)Property(function, "Name")).ToHashSet(StringComparer.Ordinal);
-        if (!functions.Contains(StrictHelper) || !functions.Contains(SplitHelper)
+        if (!functions.Contains(StrictHelper) || !functions.Contains(FilteredHelper) || !functions.Contains(SplitHelper)
             || !functions.Contains("-variable/1-lc$^0/1-0-")
             || functions.Any(function => function.StartsWith("-nested/1-lc$^", StringComparison.Ordinal)))
         {
@@ -67,6 +70,7 @@ internal static class BeamStrictListGeneratorHelperChecks
             Term first = Term.Tuple(Term.A("tag"), one);
             Term second = Term.Tuple(Term.A("tag"), two);
             Term both = Term.List(first, second);
+            Term skipped = Term.Tuple(Term.A("skip"), Term.A("ignored"));
             Term interrupted = Term.List(first, bad, second);
             Term values = Term.List(one, two);
             Term mismatch = Term.Tuple(Term.A(ErlangErrorReasons.BadMatch), bad);
@@ -75,6 +79,15 @@ internal static class BeamStrictListGeneratorHelperChecks
             RequireEqual(values, await module.Invoke(context, "strict", both));
             RequireEqual(Nil.Value, await module.Invoke(context, "strict", Nil.Value));
             RequireEqual(values, await module.Invoke(context, "relaxed", interrupted));
+            RequireEqual(
+                values,
+                await module.Invoke(context, "strict_filtered", Term.List(
+                    skipped,
+                    first,
+                    skipped,
+                    second
+                ))
+            );
             RequireEqual(interrupted, await module.Invoke(context, "variable", interrupted));
             RequireEqual(Term.List(Nil.Value, values), await module.Invoke(context, "nested", Term.List(Nil.Value, both)));
             RequireEqual(Term.Tuple(values, Term.List(two, one)), await module.Invoke(context, "observe", both));
@@ -100,6 +113,20 @@ internal static class BeamStrictListGeneratorHelperChecks
                 invalidGenerator,
                 SplitHelper,
                 SourceLine("select_input(Input)].")
+            );
+            await CheckFailure(
+                "strict_filtered",
+                Term.List(skipped, bad, second),
+                mismatch,
+                FilteredHelper,
+                SourceLine("<:- Input, Key =/= skip].")
+            );
+            await CheckFailure(
+                "strict_filtered",
+                new Cons(skipped, invalidTail),
+                invalidGenerator,
+                FilteredHelper,
+                SourceLine("<:- Input, Key =/= skip].")
             );
             await CheckFailure("nested", Term.List(interrupted), mismatch);
 

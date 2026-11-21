@@ -713,8 +713,12 @@ internal sealed partial class BeamModuleCompiler
             }
 
             string[] parameters = clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray();
-            if (ReadEntryCall(call, parameters) is not { } protectedCall
-                || ReadRegisterCase(decision, new Dictionary<string, int>(StringComparer.Ordinal)) is not { } result)
+            if (ReadEntryCall(call, parameters) is not { } protectedCall)
+            {
+                return TryEmitCaughtFunctionContainer(decision, call, parameters);
+            }
+
+            if (ReadRegisterCase(decision, new Dictionary<string, int>(StringComparer.Ordinal)) is not { } result)
             {
                 return false;
             }

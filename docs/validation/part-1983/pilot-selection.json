@@ -1,0 +1,2168 @@
+{
+  "ParentCorpus": "2e3af574f227c8fab8b1aa8eafae81b605a7323c1c9033b0d2bfc5a7b904ee1a",
+  "Evidence": {
+    "branch-slot-liveness-1982-audit/model-full-heap-compaction.jsonl": "e26ff0673f44cce2f8233ecae96fef8b9f4fe804c04ebeca689624cf5414687f",
+    "repeated-tuple-tag-retry-1982-audit/scoped.terms": "b2c44481d2806d9c85859d9f007a24a539b14645b0fea0745d96542fd1a81065",
+    "binary-match-audit-1931/owned-positioned-binary-case-2000/qualified-terminal-aliases.terms": "8836489e416aac091a5c4077d6915e74cf1090c0240bb8dae1876eb199956974",
+    "protected-frame-liveness-1983-audit/full-qualified-frame-gates.jsonl": "a699c14748a4ccc910807ee37765004803ceae05128d2e54e8c899e777f9f1ba",
+    "rank-argument-ownership-1983-audit/noncollecting-element-leaves.terms": "81a93c183ef3df7e273d6a4c6191b47291ace127229ad8cba7fb59838f95cc38",
+    "missing-helpers-part1982-audit/strict-lc-flat-scope.terms": "2a5a68f01c097edf463fa2728cc8762b877b7c95fb1f5c43f6635e67c4719266",
+    "branch-frame-init-liveness-1984-audit/call-spill-full-census.jsonl": "8155d5d2b93c62726b3d5cb6a92a5b90c12159c58fa114afc8b313682bc12b19",
+    "rank-argument-ownership-1983-audit/pure-argument-cycles.terms": "30068e0151abec7637c7135a07e58915f767fc79523c628023393137e3347380",
+    "binary-match-audit-1931/entry-value-selection-2004/source-qualify-public.terms": "430be83e085d32dfaad7f75dcd284c3c0513c2d5efa70f1441d4c0780f349afe",
+    "inlined-failure-ordinal-p1984-audit/README.md": "e48c9fd4010bb33c9c8f86df0a386ae1cd6d13496a91b22370e7ddd623f41841",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\repeated-entry-frame-growth-1977-audit\\all-212-farther-widths.json": "70b7d8699010bc6ebc0a5b37773165f30ab63c2aa0028f7b2e05c00c183fba60",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\part1983-joint-semantic-signature-local\\recent-five-widths.json": "8be8f7fcebb0992d9d40b0c9447da9c2cc951b85fd5da00921c7806274ac0bc6"
+  },
+  "Selection": {
+    "lib/asn1-5.5.2/ebin/asn1ct.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/asn1-5.5.2/ebin/asn1ct_check.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result",
+        "paired execution or explicit negative control",
+        "repeated checked tuple tag and an exclusive retry projection"
+      ]
+    },
+    "lib/asn1-5.5.2/ebin/asn1ct_constructed_per.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/asn1-5.5.2/ebin/asn1ct_gen.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "closed argument cycle with a dead scratch above the fixed call prefix",
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/asn1-5.5.2/ebin/asn1ct_gen_ber_bin_v2.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "fixed-index noncollecting tuple projection in a local tail",
+        "repeated checked tuple tag and an exclusive retry projection"
+      ]
+    },
+    "lib/asn1-5.5.2/ebin/asn1ct_imm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "dominated material use of a returning call result",
+        "repeated checked tuple tag and an exclusive retry projection",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/asn1-5.5.2/ebin/asn1ct_parser2.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/asn1-5.5.2/ebin/asn1ct_pretty_format.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/asn1-5.5.2/ebin/asn1ct_table.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "strict generator with an exact separate guard-filter skip"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_config.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_config_plain.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_config_xml.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control",
+        "repeated checked tuple tag and an exclusive retry projection"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_event.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "closed callback failure reservation and retained ordinal controls"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_framework.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_logs.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_master_status.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_rpc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_run.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_snmp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_util.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/cth_conn_log.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/test_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result",
+        "repeated checked tuple tag and an exclusive retry projection"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/test_server_ctrl.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/unix_telnet.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired execution or explicit negative control"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_asm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_clean.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_core_to_ssa.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_disasm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "closed argument cycle with a dead scratch above the fixed call prefix"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_doc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_alias.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_bool.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_bsm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_codegen.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "repeated checked tuple tag and an exclusive retry projection",
+        "strict generator with an exact separate guard-filter skip"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_destructive_update.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_opt.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "repeated checked tuple tag and an exclusive retry projection",
+        "single checked tuple projection across a heap reservation",
+        "strict generator with an exact separate guard-filter skip"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_pre_codegen.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "closed argument cycle with a dead scratch above the fixed call prefix",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_recv.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_share.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_ss.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "closed argument cycle with a dead scratch above the fixed call prefix"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_type.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result",
+        "single checked tuple projection across a heap reservation",
+        "strict generator with an exact separate guard-filter skip"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_types.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "repeated checked tuple tag and an exclusive retry projection"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_validator.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "five actual late checked-entry widths"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/cerl_inline.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result",
+        "single checked tuple projection across a heap reservation",
+        "strict generator with an exact separate guard-filter skip"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/compile.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "dominated material use of a returning call result",
+        "repeated checked tuple tag and an exclusive retry projection",
+        "single checked tuple projection across a heap reservation",
+        "strict generator with an exact separate guard-filter skip"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/core_parse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths",
+        "paired execution or explicit negative control"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/core_scan.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "closed argument cycle with a dead scratch above the fixed call prefix"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/erl_bifs.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/sys_core_fold.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/v3_core.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/crypto-5.10/ebin/crypto.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/debugger-7.0/ebin/dbg_ieval.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "dominated material use of a returning call result",
+        "fixed-index noncollecting tuple projection in a local tail"
+      ]
+    },
+    "lib/debugger-7.0/ebin/dbg_iload.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/debugger-7.0/ebin/dbg_wx_view.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/debugger-7.0/ebin/dbg_wx_win.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/debugger-7.0/ebin/dbg_wx_winman.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "closed callback failure reservation and retained ordinal controls"
+      ]
+    },
+    "lib/debugger-7.0/ebin/int.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result",
+        "fixed-index noncollecting tuple projection in a local tail",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_analysis_callgraph.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_cl.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_cl_parse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_codeserver.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_contracts.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_dataflow.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "repeated checked tuple tag and an exclusive retry projection",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_dep.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_incremental.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result",
+        "repeated checked tuple tag and an exclusive retry projection"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_options.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "repeated checked tuple tag and an exclusive retry projection"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_typesig.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "closed argument cycle with a dead scratch above the fixed call prefix",
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/erl_bif_types.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/erl_types.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "dominated material use of a returning call result",
+        "repeated checked tuple tag and an exclusive retry projection"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/typer_core.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired execution or explicit negative control"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_codegen.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "closed argument cycle with a dead scratch above the fixed call prefix",
+        "closed callback failure reservation and retained ordinal controls"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_config.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_dict_scanner.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_dict_util.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_gen_relay.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_misc_sup.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "closed callback failure reservation and retained ordinal controls"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_peer_fsm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_service.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "closed argument cycle with a dead scratch above the fixed call prefix",
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_session.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_stats.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_sup.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "closed callback failure reservation and retained ordinal controls"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_sync.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_traffic.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "closed argument cycle with a dead scratch above the fixed call prefix",
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_data.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_doclet.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_doclet_chunks.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_html_to_markdown.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "closed argument cycle with a dead scratch above the fixed call prefix"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_layout.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_layout_chunks.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_parser.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths",
+        "fixed-index noncollecting tuple projection in a local tail"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_scanner.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "repeated checked tuple tag and an exclusive retry projection",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_specs.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_types.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "fixed-index noncollecting tuple projection in a local tail"
+      ]
+    },
+    "lib/eldap-1.3.1/ebin/ELDAPv3.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "strict generator with an exact separate guard-filter skip"
+      ]
+    },
+    "lib/eldap-1.3.1/ebin/eldap.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/erts-17.1/ebin/erlang.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/erts-17.1/ebin/init.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/erts-17.1/ebin/prim_inet.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/erts-17.1/ebin/prim_socket.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/erts-17.1/ebin/socket_registry.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "closed argument cycle with a dead scratch above the fixed call prefix"
+      ]
+    },
+    "lib/et-1.8/ebin/et_collector.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/et-1.8/ebin/et_wx_viewer.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/eunit-2.11/ebin/eunit.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/eunit-2.11/ebin/eunit_serial.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "repeated checked tuple tag and an exclusive retry projection"
+      ]
+    },
+    "lib/eunit-2.11/ebin/eunit_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/ftp-1.2.6/ebin/ftp_internal.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpc_handler.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "closed argument cycle with a dead scratch above the fixed call prefix",
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpc_request.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpd.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpd_conf.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpd_sup.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/inets-9.8/ebin/inets_sup.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact comprehension control",
+        "strict generator with an exact separate guard-filter skip"
+      ]
+    },
+    "lib/inets-9.8/ebin/mod_auth.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/inets-9.8/ebin/mod_cgi.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "repeated checked tuple tag and an exclusive retry projection"
+      ]
+    },
+    "lib/inets-9.8/ebin/mod_esi.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/inets-9.8/ebin/mod_log.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/application_controller.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "repeated checked tuple tag and an exclusive retry projection",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/auth.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "matched root cons forwarded into a local terminal call"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/code_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/disk_log.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "closed argument cycle with a dead scratch above the fixed call prefix"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/disk_log_1.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/disk_log_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/dist_ac.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "repeated checked tuple tag and an exclusive retry projection"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/erl_boot_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/erl_compile_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "repeated checked tuple tag and an exclusive retry projection"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/gen_sctp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/gen_tcp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/gen_tcp_socket.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/gen_udp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/global.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/global_group.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/group.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet_config.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "repeated checked tuple tag and an exclusive retry projection",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet_db.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet_dns.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result",
+        "paired execution or explicit negative control"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet_gethost_native.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet_parse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "matched root cons forwarded into a local terminal call"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/kernel.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "repeated checked tuple tag and an exclusive retry projection"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/logger_olp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/logger_std_h.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/net.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/net_kernel.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "repeated checked tuple tag and an exclusive retry projection"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/os.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/trace.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/user_drv.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/megaco-4.9.2/doc/examples/meas/megaco_codec_meas.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/megaco-4.9.2/doc/examples/meas/megaco_codec_transform.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_ber_media_gateway_control_v1.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "matched root cons forwarded into a local terminal call",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_ber_media_gateway_control_v2.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "matched root cons forwarded into a local terminal call",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_ber_media_gateway_control_v3.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "matched root cons forwarded into a local terminal call",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_compact_text_encoder.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "repeated checked tuple tag and an exclusive retry projection"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_messenger.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v1.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result",
+        "paired execution or explicit negative control"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v2.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result",
+        "paired execution or explicit negative control"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v3.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result",
+        "paired execution or explicit negative control"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_pretty_text_encoder.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "repeated checked tuple tag and an exclusive retry projection"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_sdp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "closed argument cycle with a dead scratch above the fixed call prefix"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_text_mini_parser.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_text_parser_v1.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_text_parser_v2.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_text_parser_v3.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths",
+        "paired execution or explicit negative control"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_user_default.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result",
+        "fixed-index noncollecting tuple projection in a local tail",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_bup.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_checkpoint.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_controller.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_frag.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_index.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_log.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_monitor.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_recover.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "repeated checked tuple tag and an exclusive retry projection"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_schema.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_snmp_hook.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_tm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/observer-2.19/ebin/cdv_detail_wx.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact comprehension control",
+        "strict generator with an exact separate guard-filter skip"
+      ]
+    },
+    "lib/observer-2.19/ebin/cdv_virtual_list_wx.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/observer-2.19/ebin/crashdump_viewer.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/observer-2.19/ebin/etop.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/observer-2.19/ebin/observer_alloc_wx.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/observer-2.19/ebin/observer_procinfo.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/observer-2.19/ebin/observer_traceoptions_wx.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/observer-2.19/ebin/ttb.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result",
+        "repeated checked tuple tag and an exclusive retry projection",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/os_mon-2.12/ebin/cpu_sup.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/parsetools-2.8/ebin/leex.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result",
+        "repeated checked tuple tag and an exclusive retry projection",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/parsetools-2.8/ebin/yecc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "closed callback failure reservation and retained ordinal controls",
+        "dominated material use of a returning call result",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/parsetools-2.8/ebin/yeccparser.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control"
+      ]
+    },
+    "lib/parsetools-2.8/ebin/yeccscan.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "retained checked tuple in a returned list head"
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/PKIXCMP-2023.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/pubkey_cert.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/public_key.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "closed argument cycle with a dead scratch above the fixed call prefix"
+      ]
+    },
+    "lib/reltool-1.1/ebin/reltool_app_win.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/reltool-1.1/ebin/reltool_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "closed argument cycle with a dead scratch above the fixed call prefix",
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/runtime_tools-2.5/ebin/appmon_info.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "closed argument cycle with a dead scratch above the fixed call prefix",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/runtime_tools-2.5/ebin/dbg.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/runtime_tools-2.5/ebin/observer_backend.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/runtime_tools-2.5/ebin/system_information.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "repeated checked tuple tag and an exclusive retry projection"
+      ]
+    },
+    "lib/sasl-4.4/ebin/alarm_handler.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/sasl-4.4/ebin/rb.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/sasl-4.4/ebin/release_handler.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "repeated checked tuple tag and an exclusive retry projection"
+      ]
+    },
+    "lib/sasl-4.4/ebin/release_handler_1.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/sasl-4.4/ebin/systools_make.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result",
+        "fixed-index noncollecting tuple projection in a local tail",
+        "repeated checked tuple tag and an exclusive retry projection",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/sasl-4.4/ebin/systools_rc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_conf.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_config.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_framework_mib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_generic_mnesia.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_log.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_shadow_table.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_conf.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_get.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_mpd.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_net_if.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "repeated checked tuple tag and an exclusive retry projection"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_trap.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpc_mib_gram.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_conf.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_config.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_net_if.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_net_if_mt.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_auth.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "closed argument cycle with a dead scratch above the fixed call prefix"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_cli.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_client_channel.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_connection_handler.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_connection_sup.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_file.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_fsm_userauth_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_sftp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result",
+        "repeated checked tuple tag and an exclusive retry projection"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_sftpd.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_transport.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/dtls_gen_connection.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/dtls_handshake.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/dtls_record.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/inet_tls_dist.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_cipher.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "closed argument cycle with a dead scratch above the fixed call prefix"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_config.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "dominated material use of a returning call result",
+        "repeated checked tuple tag and an exclusive retry projection"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_crl.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_dist_connection_sup.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_handshake.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_trace.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_dtls_gen_connection.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_gen_connection.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "five actual late checked-entry widths"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_gen_connection_1_3.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_handshake.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_handshake_1_3.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_server_connection_1_3.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_socket.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "five actual late checked-entry widths",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/argparse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/beam_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/c.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/calendar.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/dets.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "closed argument cycle with a dead scratch above the fixed call prefix",
+        "paired execution or explicit negative control",
+        "repeated checked tuple tag and an exclusive retry projection",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/dets_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/dets_utils.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result",
+        "fixed-index noncollecting tuple projection in a local tail"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/dets_v9.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/digraph_utils.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/edlin_context.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/edlin_expand.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "closed argument cycle with a dead scratch above the fixed call prefix"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/edlin_type_suggestion.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/erl_error.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/erl_eval.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/erl_lint.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "closed argument cycle with a dead scratch above the fixed call prefix",
+        "dominated material use of a returning call result",
+        "strict generator with an exact separate guard-filter skip"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/erl_parse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths",
+        "atomic projection after a handler closes in an ordinary frame",
+        "fixed-index noncollecting tuple projection in a local tail",
+        "paired execution or explicit negative control"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/erl_stdlib_errors.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "repeated checked tuple tag and an exclusive retry projection"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/erl_tar.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "dominated material use of a returning call result",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/ets.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/eval_bits.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "repeated checked tuple tag and an exclusive retry projection",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/file_sorter.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "repeated checked tuple tag and an exclusive retry projection",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/gb_trees.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/gen_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/gen_statem.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/graph.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/io_lib_format.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "matched root cons forwarded into a local terminal call"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/lists.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "closed argument cycle with a dead scratch above the fixed call prefix",
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/log_mf_h.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/maps.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "closed argument cycle with a dead scratch above the fixed call prefix"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/orddict.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/peer.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result",
+        "repeated checked tuple tag and an exclusive retry projection"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/proc_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/proplists.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "fixed-index noncollecting tuple projection in a local tail"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/qlc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "closed argument cycle with a dead scratch above the fixed call prefix",
+        "dominated material use of a returning call result",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/qlc_pt.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/re.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/shell.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/shell_docs.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/sofs.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "closed callback failure reservation and retained ordinal controls",
+        "fixed-index noncollecting tuple projection in a local tail",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/supervisor.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/unicode.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "repeated checked tuple tag and an exclusive retry projection"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/unicode_util.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/zip.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "fixed-index noncollecting tuple projection in a local tail",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/syntax_tools-4.1.1/ebin/erl_syntax_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/tftp-1.3/ebin/tftp_engine.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/cover.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/fprof.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "repeated checked tuple tag and an exclusive retry projection"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/lcnt.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/xref_base.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "closed argument cycle with a dead scratch above the fixed call prefix"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/xref_compiler.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/xref_parser.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths",
+        "paired execution or explicit negative control"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/xref_utils.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/wx-2.7/doc/examples/demo/ex_aui.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/wx-2.7/doc/examples/demo/ex_gl.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result",
+        "five actual late checked-entry widths"
+      ]
+    },
+    "lib/wx-2.7/doc/examples/sudoku/sudoku_board.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "five actual late checked-entry widths",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxBufferedDC.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxColourPickerCtrl.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxDisplay.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxFileDataObject.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxFocusEvent.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxGridEvent.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxHtmlLinkEvent.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxMDIChildFrame.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxSashWindow.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxStaticBitmap.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxStatusBar.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxStyledTextEvent.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxToolbook.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxWebView.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxXmlResource.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_sax_parser_latin1.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_sax_parser_list.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16be.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16le.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_sax_parser_utf8.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_sax_simple_dom.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_scan.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_validate.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single checked tuple projection across a heap reservation"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_xpath_parse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_xsd.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "atomic projection after a handler closes in an ordinary frame",
+        "dominated material use of a returning call result"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_xsd_re_parse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_xsd_type.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dominated material use of a returning call result"
+      ]
+    }
+  }
+}

@@ -1,8 +1,14 @@
+using static Erlang.Compiler.BeamEmissionFormat;
+
 namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
-    private ReadOnlyMemory<byte> ReuseLateAtomicProjectionSlots(ReadOnlyMemory<byte> code, int labelCount)
+    private ReadOnlyMemory<byte> ReuseLateAtomicProjectionSlots(
+        ReadOnlyMemory<byte> code,
+        int labelCount,
+        bool nestedCheckedEntriesOnly = false
+    )
     {
         // Keep logical projection identities available to the earlier shape passes.
         if (DecodeLateAtomicProjectionSlots(code, labelCount) is not { } decoded
@@ -18,9 +24,15 @@ internal sealed partial class BeamModuleCompiler
             stackOperands,
             useValueLiveness: false,
             closureEntries: null,
-            atomicOnly: true
+            atomicOnly: true,
+            nestedCheckedEntriesOnly: nestedCheckedEntriesOnly
         ) is { } reused)
         {
+            if (nestedCheckedEntriesOnly)
+            {
+                return reused;
+            }
+
             code = reused;
             if (DecodeLateAtomicProjectionSlots(code, labelCount) is not { } updated)
             {
@@ -30,12 +42,61 @@ internal sealed partial class BeamModuleCompiler
             (body, stackOperands) = updated;
         }
 
+        if (nestedCheckedEntriesOnly)
+        {
+            return code;
+        }
+
         return RewriteDisjointFrames(
             code,
             body,
             stackOperands,
             atomicOnly: true
         ) is { } compacted ? compacted : code;
+    }
+
+    private static bool HasNestedCheckedAtomicEntry(
+        IReadOnlyList<BeamInstruction> body,
+        int entry,
+        int end
+    )
+    {
+        if (entry + 4 >= end
+            || body[entry + 1] is not
+            {
+                Definition.Opcode: IsTaggedTuple,
+                Operands: [_, { Kind: BeamOperandParameters.X } outside, _, _]
+            }
+            || body[entry + 2] is not
+            {
+                Definition.Opcode: GetTupleElement,
+                Operands: [
+                { Kind: BeamOperandParameters.X } source, _,
+                { Kind: BeamOperandParameters.X } projected
+                ]
+            }
+            || outside.Value != source.Value || source.Value == projected.Value)
+        {
+            return false;
+        }
+
+        int allocation = FindEntryFrameAllocation(
+            body,
+            entry,
+            end,
+            allowUnframedProjections: true
+        );
+        if (allocation == entry + 4)
+        {
+            return body[entry + 3] is
+            { Definition.Opcode: IsTaggedTuple, Operands: [_, var tagged, _, _] }
+                && SameProjectionRegister(tagged, projected);
+        }
+
+        return allocation == entry + 5
+            && body[entry + 3] is { Definition.Opcode: IsTuple, Operands: [_, var tuple] }
+            && body[entry + 4] is { Definition.Opcode: TestArity, Operands: [_, var arity, _] }
+            && SameProjectionRegister(tuple, projected) && SameProjectionRegister(arity, projected);
     }
 
     private sealed record LateProjectionDecode(

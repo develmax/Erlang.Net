@@ -1,0 +1,102 @@
+{
+  "Compiler": "2058FEDA811C6E0D104151DB87DC2A77E774F1E37A1A8612DD75EB84F75285CB",
+  "Runtime": "7445A7EA8A055C952841AD41A2F4F0138B7FE39EAB6762EB1030E59308A1C8AA",
+  "Seconds": 8.23399999999674,
+  "Cases": 62,
+  "Evidence": {
+    "checked-entry-dynamic-call": {
+      "Observations": 9,
+      "Reports": {
+        "pinned": "{3,marker,cast_marker,local_cast,{error,{badfun,bad_fun}},{error,function_clause},{returned,nonode@nohost},{exit,{test_case_failed,{application_not_running,kernel}}},{error,function_clause}}.\n",
+        "before": "{3,marker,cast_marker,local_cast,{error,{badfun,bad_fun}},{error,function_clause},{returned,nonode@nohost},{exit,{test_case_failed,{application_not_running,kernel}}},{error,function_clause}}.\n",
+        "candidate": "{3,marker,cast_marker,local_cast,{error,{badfun,bad_fun}},{error,function_clause},{returned,nonode@nohost},{exit,{test_case_failed,{application_not_running,kernel}}},{error,function_clause}}.\n"
+      }
+    },
+    "mixed-tuple-record-dom": {
+      "Observations": 6,
+      "Reports": {
+        "pinned": "{[{ok,[{root,[],[]}]},{ok,[{root,[{a,\"b\"}],[{nested,[],[]},\"text\"]}]},{ok,[{root,[],[{child,[{y,\"z\"}],[]}]}]},{fatal_error,{\".\",[],1},\"EndTag: :bad, does not match StartTag\",[\"root\"],{xmerl_sax_simple_dom_state,[{root,1}],[1],[],[{root,[],[]}]}}],[{returned,{wrong,[],[],[],[]}},{returned,wrong}]}.\n",
+        "before": "{[{ok,[{root,[],[]}]},{ok,[{root,[{a,\"b\"}],[{nested,[],[]},\"text\"]}]},{ok,[{root,[],[{child,[{y,\"z\"}],[]}]}]},{fatal_error,{\".\",[],1},\"EndTag: :bad, does not match StartTag\",[\"root\"],{xmerl_sax_simple_dom_state,[{root,1}],[1],[],[{root,[],[]}]}}],[{returned,{wrong,[],[],[],[]}},{returned,wrong}]}.\n",
+        "candidate": "{[{ok,[{root,[],[]}]},{ok,[{root,[{a,\"b\"}],[{nested,[],[]},\"text\"]}]},{ok,[{root,[],[{child,[{y,\"z\"}],[]}]}]},{fatal_error,{\".\",[],1},\"EndTag: :bad, does not match StartTag\",[\"root\"],{xmerl_sax_simple_dom_state,[{root,1}],[1],[],[{root,[],[]}]}}],[{returned,{wrong,[],[],[],[]}},{returned,wrong}]}.\n"
+      }
+    },
+    "released-parser": {
+      "Observations": 5,
+      "Reports": {
+        "pinned": "{{core_ok,\n     <<26,89,248,174,214,53,134,45,50,234,206,238,128,97,50,113,254,143,224,\n       139,180,92,4,247,89,113,183,210,147,5,39,247>>},\n {core_bad,{32,core_parse,[\"syntax error before: \",[]]}},\n {erl_parse,\n     [{ok,{function,1,ok,1,\n              [{clause,1,\n                   [{tuple,1,[{var,1,'V'},{var,1,'N'}]}],\n                   [[{call,1,{atom,1,is_integer},[{var,1,'N'}]}]],\n                   [{tuple,1,\n                        [{var,1,'V'},\n                         {op,1,'+',{var,1,'N'},{integer,1,1}}]}]}]}},\n      {error,{1,erl_parse,[\"syntax error before: \",\"']'\"]}},\n      {ok,{function,1,run,1,\n              [{clause,1,\n                   [{var,1,'X'}],\n                   [],\n                   [{lc,1,\n                        {var,1,'V'},\n                        [{generate,1,\n                             {cons,1,{var,1,'V'},{nil,1}},\n                             {var,1,'X'}}]}]}]}}]}}.\n{loaded_only,[{megaco_text_parser_v3,<<\"6FC61859E724277E8DD8B59E8C6292C7F8B04CC107C1F62469C143B9ACCCC732\">>},\n              {xref_parser,<<\"331CDC5BFF9FE00E73E752D2E766E36B688B0B29CA5EDEA2D9F11A964CD62F05\">>},\n              {yeccparser,<<\"F4AB0F4F6714AD3129D77ABC1318D5B7DE540433935038DBFE2025B9A48A8152\">>}]}.\n",
+        "before": "{{core_ok,\n     <<26,89,248,174,214,53,134,45,50,234,206,238,128,97,50,113,254,143,224,\n       139,180,92,4,247,89,113,183,210,147,5,39,247>>},\n {core_bad,{32,core_parse,[\"syntax error before: \",[]]}},\n {erl_parse,\n     [{ok,{function,1,ok,1,\n              [{clause,1,\n                   [{tuple,1,[{var,1,'V'},{var,1,'N'}]}],\n                   [[{call,1,{atom,1,is_integer},[{var,1,'N'}]}]],\n                   [{tuple,1,\n                        [{var,1,'V'},\n                         {op,1,'+',{var,1,'N'},{integer,1,1}}]}]}]}},\n      {error,{1,erl_parse,[\"syntax error before: \",\"']'\"]}},\n      {ok,{function,1,run,1,\n              [{clause,1,\n                   [{var,1,'X'}],\n                   [],\n                   [{lc,1,\n                        {var,1,'V'},\n                        [{generate,1,\n                             {cons,1,{var,1,'V'},{nil,1}},\n                             {var,1,'X'}}]}]}]}}]}}.\n{loaded_only,[{megaco_text_parser_v3,<<\"633AC429D0CDC1C484BCD66752B9B0701B4EABE0085051A089CDA19A1989C0B8\">>},\n              {xref_parser,<<\"DB969C5B9B9112E39E61CC4FB0FA32D3584FD5A9B4793B86FCAF00C91F1F8A04\">>},\n              {yeccparser,<<\"F2A1ED1ECE2F283535958CB36D1A287CC332A5CEAD3205F60C6B304BEED53AE1\">>}]}.\n",
+        "candidate": "{{core_ok,\n     <<26,89,248,174,214,53,134,45,50,234,206,238,128,97,50,113,254,143,224,\n       139,180,92,4,247,89,113,183,210,147,5,39,247>>},\n {core_bad,{32,core_parse,[\"syntax error before: \",[]]}},\n {erl_parse,\n     [{ok,{function,1,ok,1,\n              [{clause,1,\n                   [{tuple,1,[{var,1,'V'},{var,1,'N'}]}],\n                   [[{call,1,{atom,1,is_integer},[{var,1,'N'}]}]],\n                   [{tuple,1,\n                        [{var,1,'V'},\n                         {op,1,'+',{var,1,'N'},{integer,1,1}}]}]}]}},\n      {error,{1,erl_parse,[\"syntax error before: \",\"']'\"]}},\n      {ok,{function,1,run,1,\n              [{clause,1,\n                   [{var,1,'X'}],\n                   [],\n                   [{lc,1,\n                        {var,1,'V'},\n                        [{generate,1,\n                             {cons,1,{var,1,'V'},{nil,1}},\n                             {var,1,'X'}}]}]}]}}]}}.\n{loaded_only,[{megaco_text_parser_v3,<<\"760AC2C143CED6BE922214A4ECCBECF6B8D230A6D798AAEF32B824709EC3372E\">>},\n              {xref_parser,<<\"DB969C5B9B9112E39E61CC4FB0FA32D3584FD5A9B4793B86FCAF00C91F1F8A04\">>},\n              {yeccparser,<<\"F2A1ED1ECE2F283535958CB36D1A287CC332A5CEAD3205F60C6B304BEED53AE1\">>}]}.\n"
+      }
+    },
+    "unix-telnet": {
+      "Observations": 8,
+      "Results": "{two_prompts,{ok,owner},[{start,\"unix_telnet connect\"},{open,local_placeholder,23,100,true,false,probe},{expect,probe,owner,[],[prompt],\"login: |Password: |\\\\$ |> \",[]},stop]}.\n{improper_prompts,{error,{ok,[{prompt,first},{prompt,second}|improper],tail}},[{start,\"unix_telnet connect\"},{open,local_placeholder,23,100,true,false,probe},{expect,probe,owner,[],[prompt],\"login: |Password: |\\\\$ |> \",[]},{log,probe,conn_error,\"Did not get expected prompt from ~p:~p\\n~tp\\n\",[local_placeholder,23,{ok,[{prompt,first},{prompt,second}|improper],tail}]},stop]}.\n{unexpected_shape,{error,{ok,[{other,first},{prompt,second}],tail}},[{start,\"unix_telnet connect\"},{open,local_placeholder,23,100,true,false,probe},{expect,probe,owner,[],[prompt],\"login: |Password: |\\\\$ |> \",[]},{log,probe,conn_error,\"Did not get expected prompt from ~p:~p\\n~tp\\n\",[local_placeholder,23,{ok,[{other,first},{prompt,second}],tail}]},stop]}.\n{login_complete,{ok,owner},[{start,\"unix_telnet connect\"},{open,local_placeholder,23,100,true,false,probe},{expect,probe,owner,[],[prompt],\"login: |Password: |\\\\$ |> \",[]},{log,probe,send,\"Logging in to ~p:~p\",[local_placeholder,23]},{send,owner,\"user\"},{log,probe,send,\"Username: ~ts\",[\"user\"]},{expect,probe,owner,[],prompt,\"login: |Password: |\\\\$ |> \",[]},{send,owner,\"dummy\"},{log,probe,send,\"Password: ~s\",[\"*****\"]},{expect,probe,owner,[],prompt,\"login: |Password: |\\\\$ |> \",[]},stop]}.\n{login_failed,{error,{error,bad_login}},[{start,\"unix_telnet connect\"},{open,local_placeholder,23,100,true,false,probe},{expect,probe,owner,[],[prompt],\"login: |Password: |\\\\$ |> \",[]},{log,probe,send,\"Logging in to ~p:~p\",[local_placeholder,23]},{send,owner,\"user\"},{log,probe,send,\"Username: ~ts\",[\"user\"]},{expect,probe,owner,[],prompt,\"login: |Password: |\\\\$ |> \",[]},{log,probe,recv,\"Login to ~p:~p failed\\n~tp\\n\",[local_placeholder,23,{error,bad_login}]},stop]}.\n{password_failed,{error,{error,bad_password}},[{start,\"unix_telnet connect\"},{open,local_placeholder,23,100,true,false,probe},{expect,probe,owner,[],[prompt],\"login: |Password: |\\\\$ |> \",[]},{log,probe,send,\"Logging in to ~p:~p\",[local_placeholder,23]},{send,owner,\"user\"},{log,probe,send,\"Username: ~ts\",[\"user\"]},{expect,probe,owner,[],prompt,\"login: |Password: |\\\\$ |> \",[]},{send,owner,\"dummy\"},{log,probe,send,\"Password: ~s\",[\"*****\"]},{expect,probe,owner,[],prompt,\"login: |Password: |\\\\$ |> \",[]},{log,probe,recv,\"Password failed\\n~tp\\n\",[{error,bad_password}]},stop]}.\n{connection_failed,{error,open_failed},[{start,\"unix_telnet connect\"},{open,local_placeholder,23,100,true,false,probe},{log,probe,conn_error,\"Could not open telnet connection to ~p:~p\\n~tp\\n\",[local_placeholder,23,{error,open_failed}]},stop]}.\n{send_failed,{error,{badmatch,{error,send_error}},[{connect1,8,134}]},[{start,\"unix_telnet connect\"},{open,local_placeholder,23,100,true,false,probe},{expect,probe,owner,[],[prompt],\"login: |Password: |\\\\$ |> \",[]},{log,probe,send,\"Logging in to ~p:~p\",[local_placeholder,23]},{send,owner,\"user\"}]}.\n"
+    },
+    "orddict": {
+      "Observations": 4,
+      "Reports": {
+        "pinned": "{true,false,false,{error,function_clause,atom}}\n",
+        "before": "{true,false,false,{error,function_clause,atom}}\n",
+        "candidate": "{true,false,false,{error,function_clause,atom}}\n"
+      }
+    },
+    "inet_dns": {
+      "Observations": 3,
+      "Reports": {
+        "pinned": "{{ok,{dns_rec,{dns_header,4660,true,query,false,false,true,true,false,0},[{dns_query,\"one.example\",a,in,false}],[{dns_rr,\"one.example\",a,in,0,60,{192,0,2,1},undefined,[],false}],[],[]}},{error,formerr},{error,formerr}}\n",
+        "before": "{{ok,{dns_rec,{dns_header,4660,true,query,false,false,true,true,false,0},[{dns_query,\"one.example\",a,in,false}],[{dns_rr,\"one.example\",a,in,0,60,{192,0,2,1},undefined,[],false}],[],[]}},{error,formerr},{error,formerr}}\n",
+        "candidate": "{{ok,{dns_rec,{dns_header,4660,true,query,false,false,true,true,false,0},[{dns_query,\"one.example\",a,in,false}],[{dns_rr,\"one.example\",a,in,0,60,{192,0,2,1},undefined,[],false}],[],[]}},{error,formerr},{error,formerr}}\n"
+      }
+    },
+    "xml-config": {
+      "Observations": 2,
+      "Reports": {
+        "pinned": "{{ok,[{key,value}]},{error,{parsing_failed,{fatal_error,{\"d:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/part1982-joint-entry-result-retake-local/native-scoped/xml-fixtures\",\"invalid.xml\",1},\"EndTag: :other, does not match StartTag\",[\"key\",\"config\"],[{\"key\",\"value\"},{\"config\",[]}]}}}}\n",
+        "before": "{{ok,[{key,value}]},{error,{parsing_failed,{fatal_error,{\"d:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/part1982-joint-entry-result-retake-local/native-scoped/xml-fixtures\",\"invalid.xml\",1},\"EndTag: :other, does not match StartTag\",[\"key\",\"config\"],[{\"key\",\"value\"},{\"config\",[]}]}}}}\n",
+        "candidate": "{{ok,[{key,value}]},{error,{parsing_failed,{fatal_error,{\"d:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/part1982-joint-entry-result-retake-local/native-scoped/xml-fixtures\",\"invalid.xml\",1},\"EndTag: :other, does not match StartTag\",[\"key\",\"config\"],[{\"key\",\"value\"},{\"config\",[]}]}}}}\n"
+      }
+    },
+    "diameter": {
+      "Observations": 8,
+      "Reports": {
+        "pinned": "{{configured,active,{connect,[]}},{configured,active,{listen,[opt]}},{error,function_clause,{different,[]}},{error,function_clause,{listen,not_list}},false,true,{error,missing},{ok,observed},[subscribe,stop,cleanup,unsubscribe],[{diameter_event,active,ignore},{diameter_event,other,stop}]}\n",
+        "before": "{{configured,active,{connect,[]}},{configured,active,{listen,[opt]}},{error,function_clause,{different,[]}},{error,function_clause,{listen,not_list}},false,true,{error,missing},{ok,observed},[subscribe,stop,cleanup,unsubscribe],[{diameter_event,active,ignore},{diameter_event,other,stop}]}\n",
+        "candidate": "{{configured,active,{connect,[]}},{configured,active,{listen,[opt]}},{error,function_clause,{different,[]}},{error,function_clause,{listen,not_list}},false,true,{error,missing},{ok,observed},[subscribe,stop,cleanup,unsubscribe],[{diameter_event,active,ignore},{diameter_event,other,stop}]}\n"
+      }
+    },
+    "tagged-socket": {
+      "Observations": 11,
+      "Reports": {
+        "pinned": "[{tcp_close,{ok,{close,{'$inet',parity_socket_callback,active_payload}}}},\n {udp_close,{ok,{close,{'$inet',parity_socket_callback,active_payload}}}},\n {controlling_process,\n     {ok,{controlling_process,\n             {'$inet',parity_socket_callback,active_payload},\n             owner_marker}}},\n {peername,{ok,{peername,{'$inet',parity_socket_callback,active_payload}}}},\n {sockname,{ok,{sockname,{'$inet',parity_socket_callback,active_payload}}}},\n {socknames,{ok,{socknames,{'$inet',parity_socket_callback,active_payload}}}},\n {send,{ok,{send,{'$inet',parity_socket_callback,active_payload},<<6,17>>}}},\n {getstat,\n     {ok,{getstat,\n             {'$inet',parity_socket_callback,active_payload},\n             [send_oct,recv_oct]}}},\n {bad_tcp,{error,error,function_clause}},\n {bad_udp,{error,error,function_clause}},\n {bad_inet,{error,error,function_clause}}].\n",
+        "before": "[{tcp_close,{ok,{close,{'$inet',parity_socket_callback,active_payload}}}},\n {udp_close,{ok,{close,{'$inet',parity_socket_callback,active_payload}}}},\n {controlling_process,\n     {ok,{controlling_process,\n             {'$inet',parity_socket_callback,active_payload},\n             owner_marker}}},\n {peername,{ok,{peername,{'$inet',parity_socket_callback,active_payload}}}},\n {sockname,{ok,{sockname,{'$inet',parity_socket_callback,active_payload}}}},\n {socknames,{ok,{socknames,{'$inet',parity_socket_callback,active_payload}}}},\n {send,{ok,{send,{'$inet',parity_socket_callback,active_payload},<<6,17>>}}},\n {getstat,\n     {ok,{getstat,\n             {'$inet',parity_socket_callback,active_payload},\n             [send_oct,recv_oct]}}},\n {bad_tcp,{error,error,function_clause}},\n {bad_udp,{error,error,function_clause}},\n {bad_inet,{error,error,function_clause}}].\n",
+        "candidate": "[{tcp_close,{ok,{close,{'$inet',parity_socket_callback,active_payload}}}},\n {udp_close,{ok,{close,{'$inet',parity_socket_callback,active_payload}}}},\n {controlling_process,\n     {ok,{controlling_process,\n             {'$inet',parity_socket_callback,active_payload},\n             owner_marker}}},\n {peername,{ok,{peername,{'$inet',parity_socket_callback,active_payload}}}},\n {sockname,{ok,{sockname,{'$inet',parity_socket_callback,active_payload}}}},\n {socknames,{ok,{socknames,{'$inet',parity_socket_callback,active_payload}}}},\n {send,{ok,{send,{'$inet',parity_socket_callback,active_payload},<<6,17>>}}},\n {getstat,\n     {ok,{getstat,\n             {'$inet',parity_socket_callback,active_payload},\n             [send_oct,recv_oct]}}},\n {bad_tcp,{error,error,function_clause}},\n {bad_udp,{error,error,function_clause}},\n {bad_inet,{error,error,function_clause}}].\n"
+      }
+    },
+    "dets-result": {
+      "Observations": 6,
+      "Reports": {
+        "pinned": "{ok,[{key,42}],[\"*\"],\"*\",{error,badarg},{error,badarg}}.\n",
+        "before": "{ok,[{key,42}],[\"*\"],\"*\",{error,badarg},{error,badarg}}.\n",
+        "candidate": "{ok,[{key,42}],[\"*\"],\"*\",{error,badarg},{error,badarg}}.\n"
+      }
+    }
+  },
+  "Images": {
+    "core_parse": "ad8c7b21a6e19c6deb301b99f3a7df0a82dfb9e49529f1400dcc35e3dfc5a30e",
+    "erl_parse": "0ef8833b9098bfdb8e6be5c9e0036149559ebb7d44f156365128d5ebc492b824",
+    "megaco_text_parser_v3": "760ac2c143ced6be922214a4eccbecf6b8d230a6d798aaef32b824709ec3372e",
+    "xref_parser": "db969c5b9b9112e39e61cc4fb0fa32d3584fd5a9b4793b86fcaf00c91f1f8a04",
+    "yeccparser": "f2a1ed1ece2f283535958cb36d1a287cc332a5cead3205f60c6b304beed53ae1",
+    "unix_telnet": "695a7276b34dbb73eccefca57cae3f848028f1eab5a11bdf7391c2c929d6a129",
+    "ct_rpc": "43cdd8152e6263a30b80874705f561902bf9e57c57565eee63be3787a55bd337",
+    "xmerl_sax_simple_dom": "52b9bd08b44d8f8810f9177c6ec9d6a69897cc4654288ae8a4e329c1d9c18482",
+    "orddict": "3ea41a3f525ee1fd0358d8ae84ef500becfdd62923cab0a049e467db97fd2668",
+    "inet_dns": "6b62f01bfa2d850637ed207cf21c902922478bfb7887271cd7a5b00ed7208885",
+    "ct_config_xml": "97571e87bb40f50bb45722f990d6b102bfd5c825226c82ef8a15e552d45340b5",
+    "diameter": "d74f72f5c0d43950359858c6d95b78a225ff3b39b5971641352c9f64ce3983c6",
+    "dets": "b92016bfa95c9341180966e44526bf91c7008c5cfbacb11467076238f508c9f5",
+    "gen_tcp": "7a23c774cadb9f6a58cd18c086bd051fadca445ed3a3e7162765a15b2be76cf7",
+    "gen_udp": "676f3c32556e70d659e36a72b77bb388970dd511bed4a8a28a1d7a5d9243fba4",
+    "inet": "4c7d2198d09e3aa10c7de2c18172c3eb8d38b47cd6337c2cbb0e9c313b2712ba"
+  }
+}

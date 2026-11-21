@@ -91,12 +91,27 @@ internal sealed partial class BeamModuleCompiler
                     .Select(operand => (label: (int)operand.Value, position)))
                 .ToLookup(item => item.label, item => item.position);
 
+            HashSet<Atom>? closedAtoms = firstKey.Kind == BeamOperandParameters.Atom
+                && exports.Any(entry => entry.Atom == functionName.Value && entry.Arity == function.Arity)
+                && !IsDeclaredNative((function.Name, function.Arity))
+                ? ReadClosedScalarAtomPair(function, argument) : null;
+            int ownFailure = closedAtoms is null ? -1 : EntryFrameFailureLabel(body, start - 1);
             int cursor = start;
             var arms = new List<DisjointEntryArm>();
-            while (ReadArm(cursor, selector, firstKey.Kind) is { } arm
-                && (arms.Count == 0 || SameTests(arms[0], arm)))
+            while (ReadArm(
+                cursor,
+                selector,
+                firstKey.Kind,
+                allowSingleInstruction: closedAtoms is not null,
+                closedFailure: arms.Count == 1 ? ownFailure : -1
+            ) is { } arm && (arms.Count == 0 || SameTests(arms[0], arm)))
             {
                 arms.Add(arm);
+                if (arm.Failure == ownFailure)
+                {
+                    break;
+                }
+
                 cursor = arm.End + 1;
             }
 
@@ -106,9 +121,17 @@ internal sealed partial class BeamModuleCompiler
             }
 
             bool terminalArms = arms[0].Body == arms[0].Test + 1;
+            bool directClosedPair = closedAtoms is not null && arms.Count == closedAtoms.Count
+                && arms[^1].Failure == ownFailure
+                && closedAtoms.SetEquals(arms.Select(arm => (Atom)arm.Key));
+            if (!directClosedPair && closedAtoms is not null && arms.Any(arm => arm.End == arm.Test + 2))
+            {
+                continue;
+            }
+
             if (terminalArms
-                ? !terminalPartition || HasLineInAnyArm(arms)
-                : !companionPartition)
+                ? !terminalPartition || !directClosedPair && HasLineInAnyArm(arms)
+                : !companionPartition || directClosedPair)
             {
                 continue;
             }
@@ -337,14 +360,29 @@ internal sealed partial class BeamModuleCompiler
             return representatives;
         }
 
-        DisjointEntryArm? ReadArm(int start, BeamOperand selector, string kind)
+        DisjointEntryArm? ReadArm(
+            int start,
+            BeamOperand selector,
+            string kind,
+            bool allowSingleInstruction,
+            int closedFailure
+        )
         {
             if (start + 2 >= body.Count || body[start] is not
                 {
                     Definition.Opcode: ExactEqualTest,
                     Operands: [{ Kind: BeamOperandParameters.Label } failure, var input, var key]
-                } || input != selector || key.Kind != kind || !labels!.TryGetValue((int)failure.Value, out int end)
-                || end <= start + 2 || body[end - 1].Definition.Opcode is not
+                } || input != selector || key.Kind != kind)
+            {
+                return null;
+            }
+
+            // The last source alternative fails back to this function's header.
+            // Its successful body ends at the next function, not at that target.
+            bool closesFunction = failure.Value == closedFailure;
+            int end = closesFunction ? ReadClosedArmEnd(start + 1) : labels!.GetValueOrDefault((int)failure.Value, -1);
+            if (end <= start + (allowSingleInstruction ? 1 : 2)
+                || body[end - 1].Definition.Opcode is not
                 (Return or TailLocalCall or TailLocalCallWithFrame or TailExternalCall or TailExternalCallWithFrame))
             {
                 return null;
@@ -359,7 +397,8 @@ internal sealed partial class BeamModuleCompiler
             if (cursor == end
                 || !transfers![(int)failure.Value].Order().SequenceEqual(Enumerable.Range(start, cursor - start))
                 || body.Skip(cursor).Take(end - cursor).Any(instruction =>
-                    instruction.Definition.Opcode is FunctionInfo or EndCode))
+                    instruction.Definition.Opcode is FunctionInfo or EndCode
+                    || allowSingleInstruction && instruction.Definition.Opcode is (DebugLine or ExecutableLine)))
             {
                 return null;
             }
@@ -375,7 +414,7 @@ internal sealed partial class BeamModuleCompiler
 
                 if (instruction.Definition.Opcode is not (LocalCall or TailLocalCall or TailLocalCallWithFrame)
                     && instruction.Operands.Any(operand => operand.Kind == BeamOperandParameters.Label
-                        && (!labels.TryGetValue((int)operand.Value, out int target) || target < cursor || target >= end)))
+                        && (!labels!.TryGetValue((int)operand.Value, out int target) || target < cursor || target >= end)))
                 {
                     return null;
                 }
@@ -393,6 +432,25 @@ internal sealed partial class BeamModuleCompiler
                 end,
                 (int)failure.Value
             );
+        }
+
+        int ReadClosedArmEnd(int start)
+        {
+            for (int index = start; index < body.Count; index++)
+            {
+                byte opcode = body[index].Definition.Opcode;
+                if (opcode is Label or EndCode)
+                {
+                    return IsNextFunctionBoundary(body, index) ? index : -1;
+                }
+
+                if (opcode == FunctionInfo)
+                {
+                    return -1;
+                }
+            }
+
+            return -1;
         }
 
         bool SameTests(DisjointEntryArm first, DisjointEntryArm second)
@@ -431,6 +489,29 @@ internal sealed partial class BeamModuleCompiler
         }
 
         void Write(int tag, System.Numerics.BigInteger value) => BeamCompactWriter.Write(output, tag, value);
+    }
+
+    private static HashSet<Atom>? ReadClosedScalarAtomPair(FunctionDefinition function, int argument)
+    {
+        if (function.Clauses is not [_, _])
+        {
+            return null;
+        }
+
+        var atoms = new HashSet<Atom>();
+        foreach (Clause clause in function.Clauses)
+        {
+            if (clause.Guard is not null || clause.Patterns[argument] is not Pattern.Literal { Value: Atom atom }
+                || !HasUnconditionalParameters(clause with
+                {
+                    Patterns = clause.Patterns.Where((_, index) => index != argument).ToArray()
+                }) || !atoms.Add(atom))
+            {
+                return null;
+            }
+        }
+
+        return atoms;
     }
 
     private static bool IsScalarEntrySelection(Pattern pattern) => pattern is

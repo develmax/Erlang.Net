@@ -1,0 +1,2259 @@
+{
+  "ParentCorpus": "a0c83fd35072cafa2523fc52341b453da362dd80ba17a51d348ce58af2fb81ee",
+  "Evidence": {
+    "overwritten-handler-slot-copies-1980-audit/scope.json": "02944846e2e0b763bb439fd5b86ece33b92d216f9c81be6114496819e51fecf4",
+    "checked-record-rejection-prefix-1979-audit/liveness.tsv": "e15ff830280069bcea77f8d621ef66ed1b6132975aec7360fcfd739e70f5faab",
+    "owned-branch-leaf-frames-1979-audit/scope.tsv": "e0e3899e721a646473c95627c51051887ad9623c6aa1d11428e9fca6d60f572a",
+    "split-stack-outgoing-arguments-1978-audit/affected-paths.txt": "c22ee56870a16eaa0298c34a840e467cc3aef1616b913905824b3db30c221b5f",
+    "parallel-short-returns-p1977-audit/scope.terms": "0fb1d5f51550e9226e627cf9c0203815a69156de927748869863b5f0df4b2e49",
+    "protected-static-closure-arguments-p1979-audit/broad-scope.terms": "7f32852aee6647f8c98a7739066c26e9f4887e16eda5bb60ebe56cd006c1a27a",
+    "repeated-entry-frame-growth-1977-audit/all-212-farther-widths.json": "70b7d8699010bc6ebc0a5b37773165f30ab63c2aa0028f7b2e05c00c183fba60"
+  },
+  "Selection": {
+    "lib/asn1-5.5.2/ebin/asn1ct.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/asn1-5.5.2/ebin/asn1ct_check.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/asn1-5.5.2/ebin/asn1ct_constructed_ber_bin_v2.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/asn1-5.5.2/ebin/asn1ct_constructed_per.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/asn1-5.5.2/ebin/asn1ct_gen.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "nested checked receiver and original badrecord payload"
+      ]
+    },
+    "lib/asn1-5.5.2/ebin/asn1ct_gen_ber_bin_v2.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "nested checked receiver and original badrecord payload"
+      ]
+    },
+    "lib/asn1-5.5.2/ebin/asn1ct_value.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_config.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_config_plain.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "preexisting byte-exact control"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_config_xml.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "closed short result shared by a select",
+        "owned closure of frameless constructor branch",
+        "pure closure construction at a handler boundary",
+        "release behavior or known ownership witness",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_doctest.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_framework.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "closed short result shared by a select",
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_ftp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_gen_conn.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_logs.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_master_status.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "preexisting byte-exact control"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_netconfc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_property_test.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_release_test.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_rpc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "release behavior or known ownership witness"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_run.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "pure closure construction at a handler boundary",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_slave.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_ssh.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_testspec.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "pure closure construction at a handler boundary"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/test_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/test_server_ctrl.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/test_server_gl.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/test_server_io.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/test_server_sup.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/unix_telnet.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "release behavior or known ownership witness"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_core_to_ssa.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_dict.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_disasm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_doc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_jump.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_alias.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_bool.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_codegen.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_dead.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_destructive_update.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_opt.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_pre_codegen.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_type.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_validator.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_z.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/cerl.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/cerl_inline.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "nested checked receiver and original badrecord payload"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/cerl_trees.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/compile.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/core_lint.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/core_parse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "all 212 original frame width cases",
+        "release behavior or known ownership witness"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/erl_bifs.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "preexisting byte-exact control"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/sys_core_alias.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/sys_core_fold.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/sys_coverage.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/v3_core.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/crypto-5.10/ebin/crypto.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/debugger-7.0/ebin/dbg_debugged.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/debugger-7.0/ebin/dbg_ieval.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/debugger-7.0/ebin/dbg_iload.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/debugger-7.0/ebin/dbg_iserver.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/debugger-7.0/ebin/dbg_wx_break_win.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/debugger-7.0/ebin/i.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/debugger-7.0/ebin/int.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_analysis_callgraph.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_cl.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_codeserver.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_contracts.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_cplt.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_dataflow.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_dep.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_incremental.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_iplt.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_plt.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_typesig.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_utils.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/typer_core.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_capx.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_config.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_dict_util.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_gen_relay.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "preexisting byte-exact control"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_info.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_peer_fsm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_service.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_session.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "preexisting byte-exact control"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_sync.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_traffic.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_data.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_doclet.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_extract.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_layout.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_layout_chunks.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_macros.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_parser.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "all 212 original frame width cases"
+      ]
+    },
+    "lib/eldap-1.3.1/ebin/eldap.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/erts-17.1/ebin/erl_prim_loader.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/erts-17.1/ebin/init.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/erts-17.1/ebin/prim_file.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/erts-17.1/ebin/prim_net.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/et-1.8/ebin/et_collector.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/eunit-2.11/ebin/eunit_data.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/eunit-2.11/ebin/eunit_proc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/eunit-2.11/ebin/eunit_test.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/ftp-1.2.6/ebin/ftp_internal.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/inets-9.8/ebin/http_request.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/inets-9.8/ebin/http_transport.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "closed short result shared by a select"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpc_cookie.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpc_handler.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpc_request.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpd_conf.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpd_request_handler.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpd_response.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpd_script_env.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpd_sup.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpd_util.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/inets-9.8/ebin/mod_auth_plain.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/inets-9.8/ebin/mod_dir.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/inets-9.8/ebin/mod_esi.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/application_controller.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/code_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/disk_log.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/disk_log_1.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/dist_ac.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/erl_erts_errors.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/erpc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/file_io_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/file_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/gen_tcp_socket.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/gen_udp_socket.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/global.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/global_group.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet_config.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet_db.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet_dns.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "release behavior or known ownership witness"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet_dns_tsig.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet_epmd_dist.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet_gethost_native.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet_parse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/logger.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/logger_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/net_kernel.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/os.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/raw_file_io_list.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "nested checked receiver and original badrecord payload",
+        "release behavior or known ownership witness"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/rpc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/standard_error.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/megaco-4.9.2/doc/examples/meas/megaco_codec_mstone_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_compact_text_encoder_v3.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_digit_map.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_filter.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "closed short result shared by a select",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_messenger.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_messenger_misc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v1.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "release behavior or known ownership witness",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v2.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "release behavior or known ownership witness",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v3.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "release behavior or known ownership witness",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_pretty_text_encoder_v1.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_pretty_text_encoder_v2.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_pretty_text_encoder_v3.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_sdp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "closed short result shared by a select",
+        "release behavior or known ownership witness",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_text_mini_parser.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "all 212 original frame width cases"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_text_parser_v1.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "all 212 original frame width cases",
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_text_parser_v2.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "all 212 original frame width cases",
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_text_parser_v3.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "all 212 original frame width cases",
+        "owned closure of frameless constructor branch",
+        "release behavior or known ownership witness"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_user_default.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "preexisting byte-exact control"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_checkpoint.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_dumper.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_frag.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_loader.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_recover.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_rpc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_schema.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_tm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/observer-2.19/ebin/cdv_virtual_list_wx.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/observer-2.19/ebin/crashdump_viewer.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/observer-2.19/ebin/etop_txt.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/observer-2.19/ebin/observer_app_wx.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/observer-2.19/ebin/observer_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/observer-2.19/ebin/observer_perf_wx.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/observer-2.19/ebin/observer_trace_wx.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/observer-2.19/ebin/observer_traceoptions_wx.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/odbc-2.17.1/ebin/odbc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "pure closure construction at a handler boundary"
+      ]
+    },
+    "lib/os_mon-2.12/ebin/cpu_sup.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/os_mon-2.12/ebin/os_mon_sysinfo.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/parsetools-2.8/ebin/leex.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/parsetools-2.8/ebin/yecc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/parsetools-2.8/ebin/yeccparser.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "release behavior or known ownership witness"
+      ]
+    },
+    "lib/parsetools-2.8/ebin/yeccscan.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "closed short result shared by a select"
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/PKIXCMP-2023.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "preexisting byte-exact control"
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/pubkey_cert.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "nested checked receiver and original badrecord payload",
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/pubkey_ocsp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "nested checked receiver and original badrecord payload",
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/pubkey_os_cacerts.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/reltool-1.1/ebin/reltool_app_win.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/reltool-1.1/ebin/reltool_fgraph_win.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/reltool-1.1/ebin/reltool_mod_win.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/reltool-1.1/ebin/reltool_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/reltool-1.1/ebin/reltool_sys_win.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/reltool-1.1/ebin/reltool_target.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/runtime_tools-2.5/ebin/dbg.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "pure closure construction at a handler boundary",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/runtime_tools-2.5/ebin/system_information.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/runtime_tools-2.5/ebin/versions.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/sasl-4.4/ebin/alarm_handler.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "preexisting byte-exact control"
+      ]
+    },
+    "lib/sasl-4.4/ebin/erlsrv.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/sasl-4.4/ebin/release_handler.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/sasl-4.4/ebin/release_handler_1.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "pure closure construction at a handler boundary"
+      ]
+    },
+    "lib/sasl-4.4/ebin/systools_make.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/sasl-4.4/ebin/systools_relup.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/snmp-5.20.5/doc/examples/ex2/snmp_ex2_manager.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_community_mib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_config.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_framework_mib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_generic.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_log.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_note_store.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_standard_mib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_target_mib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_acm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_agent.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_local_db.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_mpd.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_net_if.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_supervisor.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_usm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_vacm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpc_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpc_mib_gram.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "all 212 original frame width cases",
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpc_tok.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_config.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_mpd.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_client_channel.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_connection_handler.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_connection_sup.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "preexisting byte-exact control"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_dbg.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_file.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_info.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_message.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_options.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_sftp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_system_sup.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_transport.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/dtls_gen_connection.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/dtls_packet_demux.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_certificate.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_cipher.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_cipher_format.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_config.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_crl.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_dist_connection_sup.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "preexisting byte-exact control"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_gen_statem.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_handshake.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_manager.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_pkix_db.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_server_session_cache.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_client_ticket_store.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_dtls_client_connection.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_dtls_server_connection.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_gen_connection_1_3.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_handshake_1_3.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_sender.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_server_connection.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_server_connection_1_3.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_server_session_ticket.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_socket_tcp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/argparse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/array.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/beam_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/dets.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "pure closure construction at a handler boundary",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/dets_utils.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/dets_v9.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/digraph_utils.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/edlin_context.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/edlin_type_suggestion.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/epp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/erl_eval.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/erl_expand_records.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/erl_lint.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/erl_parse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "all 212 original frame width cases",
+        "owned closure of frameless constructor branch",
+        "release behavior or known ownership witness"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/erl_stdlib_errors.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/erl_tar.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/error_logger_tty_h.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/eval_bits.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/filename.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/gen_fsm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/gen_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/gen_statem.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/graph.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/io_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/io_lib_format.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/io_lib_fread.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/json.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/maps.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/orddict.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "release behavior or known ownership witness"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/peer.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/proc_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/qlc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/qlc_pt.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/shell.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/sofs.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/string.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/supervisor.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/sys.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/zstd.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/syntax_tools-4.1.1/ebin/erl_prettypr.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "closed short result shared by a select"
+      ]
+    },
+    "lib/syntax_tools-4.1.1/ebin/erl_recomment.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/syntax_tools-4.1.1/ebin/erl_syntax.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/syntax_tools-4.1.1/ebin/erl_syntax_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/syntax_tools-4.1.1/ebin/merl_transform.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/tftp-1.3/ebin/tftp_engine.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/tftp-1.3/ebin/tftp_file.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/cover.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/fprof.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/lcnt.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/xref.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "pure closure construction at a handler boundary"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/xref_base.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/xref_compiler.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/xref_parser.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "all 212 original frame width cases",
+        "release behavior or known ownership witness"
+      ]
+    },
+    "lib/wx-2.7/ebin/wx.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxBufferedDC.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "preexisting byte-exact control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxColourPickerCtrl.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "preexisting byte-exact control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxDisplay.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "preexisting byte-exact control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxFileDataObject.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "preexisting byte-exact control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxFocusEvent.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "preexisting byte-exact control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxGridEvent.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "preexisting byte-exact control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxHtmlLinkEvent.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "preexisting byte-exact control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxMDIChildFrame.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "preexisting byte-exact control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxSashWindow.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "preexisting byte-exact control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxStaticBitmap.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "preexisting byte-exact control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxStatusBar.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "preexisting byte-exact control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxStyledTextEvent.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "preexisting byte-exact control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxToolbook.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "preexisting byte-exact control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxWebView.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "preexisting byte-exact control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxXmlResource.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "preexisting byte-exact control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wx_object.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_sax_parser_latin1.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_sax_parser_list.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16be.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16le.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_sax_parser_utf8.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_sax_simple_dom.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "release behavior or known ownership witness"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_scan.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_xpath.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "owned closure of frameless constructor branch"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_xpath_parse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "all 212 original frame width cases"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_xsd.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "independent late stack argument loading",
+        "owned closure of frameless constructor branch",
+        "slot overwritten by handler installation"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_xsd_re_parse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "all 212 original frame width cases"
+      ]
+    }
+  }
+}

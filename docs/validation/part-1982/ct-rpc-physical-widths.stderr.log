@@ -1,0 +1,25 @@
+Error! Failed to eval: [Input,Output]=init:get_plain_arguments(),
+{ok,Bytes}=file:read_file(Input),
+{ok,Writer}=file:open(Output,[write,binary]),
+Rows=[binary:split(Row,<<9>>,[global])||Row<-binary:split(Bytes,<<10>>,[global,trim_all])],
+Read=fun(Path)->
+    {beam_file,_,_,_,_,Functions}=beam_disasm:file(binary_to_list(Path)),
+    maps:from_list([{{atom_to_binary(Name),Arity},[Width||Instr<-Instructions,
+        is_tuple(Instr),tuple_size(Instr)>=2,
+        lists:member(element(1,Instr),[allocate,allocate_heap,allocate_zero,allocate_heap_zero]),
+        Width<-[element(2,Instr)]]}||{function,Name,Arity,_,Instructions}<-Functions])
+end,
+Paths=lists:usort(lists:append([Images||[_,_,_|Images]<-Rows])),
+Cache=maps:from_list([{Path,Read(Path)}||Path<-Paths]),
+lists:foreach(fun([Key,Name,ArityBin|Images])->
+    Widths=[maps:get({Name,binary_to_integer(ArityBin)},maps:get(Path,Cache))||Path<-Images],
+    Values=[lists:join(",",[integer_to_list(Width)||Width<-Vector])||Vector<-Widths],
+    ok=file:write(Writer,[Key,9,Name,9,ArityBin,9,lists:join(9,Values),10])
+end,Rows),
+ok=file:close(Writer),halt().
+
+
+Runtime terminating during boot ({{badmatch,{error,beam_lib,{file_error,"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/part1982-joint-entry-result-retake-local/full-uncached/shard-3/otp-corpus.json.generated/lib/common_test-1.31.2/ebin/ct_rpc.beam
+.beam",enoent}}},[{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,796}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{erl_eval,expr_list,7,[{file,"erl_eval.erl"},{line,1664}]},{erl_eval,expr_list,5,[{file,"erl_eval.erl"},{line,1660}]},{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,451}]},{erl_eval,expr_list,7,[{file,"erl_eval.erl"},{line,1664}]},{erl_eval,eval_lc1,7,[{file,"erl_eval.erl"},{line,1078}]},{erl_eval,eval_generate,9,[{file,"erl_eval.erl"},{line,1462}]}]})
+
+Crash dump is being written to: erl_crash.dump...done

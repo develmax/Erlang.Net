@@ -472,7 +472,8 @@ internal sealed partial class BeamModuleCompiler
                 { Pattern: var item, Source: var source } generator, ..]
             }
             || !TryReadRecursiveListFilter(comprehension.Qualifiers, out Expr? filter)
-            || generator.Strict && (!allowStrict || discarded || comprehension.Qualifiers.Count != 1
+            || generator.Strict && (!allowStrict || discarded
+                || comprehension.Qualifiers.Count != 1 && !CanLiftStrictListComparison(item, source, filter)
                 || item is not (Pattern.Variable or Pattern.Tuple)
                     && !(item is AliasPattern strictAlias && IsRecursiveTupleGeneratorAlias(strictAlias))
                 || LocalFunctionEntries.Walk(parentClause.Body).Any(expression =>
@@ -751,6 +752,20 @@ internal sealed partial class BeamModuleCompiler
         }
 
         return nonempty && result is Nil;
+    }
+
+    private static bool CanLiftStrictListComparison(Pattern item, Expr source, Expr? filter)
+    {
+        return source is Expr.Variable && item is Pattern.Tuple tuple && tuple.Items.All(field => field is Pattern.Variable)
+            && filter is Expr.Binary
+            {
+                Operator: ErlangOperators.ExactEqual or ErlangOperators.ExactNotEqual
+                    or ErlangOperators.NumericEqual or ErlangOperators.NumericNotEqual
+                    or ErlangOperators.Less or ErlangOperators.LessOrEqual
+                    or ErlangOperators.Greater or ErlangOperators.GreaterOrEqual,
+                Left: Expr.Variable or Expr.Literal,
+                Right: Expr.Variable or Expr.Literal
+            };
     }
 
     private bool TryReadRecursiveListFilter(

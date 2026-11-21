@@ -292,15 +292,18 @@ public static partial class CodeGeneration
         string? lineFile = buildProfile?.RecordedSourceFile
             ?? (buildProfile is { RecordSourceFileInLineTable: true } ? buildProfile.SourcePath : null);
 
+        bool inlineListFunctions = buildProfile?.RecordedCompileOptions?.Contains(Term.A(CompilerOptionNames.InlineListFunctions))
+            ?? buildProfile?.WarningOptions.Contains(CompilerOptionNames.InlineListFunctions) ?? false;
+
         return new BeamModuleCompiler(
             module.Name,
             lineFile,
             module,
             preprocessor.MaybeEnabled,
             automaticCoreInlining: automaticInlining && !module.HasOtherCompileOptions && module.InlineTargets.Count == 0
-                && !(buildProfile?.RecordedCompileOptions?.Contains(Term.A(CompilerOptionNames.InlineListFunctions))
-                    ?? buildProfile?.WarningOptions.Contains(CompilerOptionNames.InlineListFunctions) ?? false),
-            entryTupleAliasesEnabled: !DisableEntryTupleAliases(buildProfile)
+                && !inlineListFunctions,
+            entryTupleAliasesEnabled: !DisableEntryTupleAliases(buildProfile),
+            inlineListFunctions: inlineListFunctions
         ).Emit(
             functions,
             lines,

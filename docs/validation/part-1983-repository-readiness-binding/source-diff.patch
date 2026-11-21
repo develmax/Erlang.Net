@@ -1,0 +1,28 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/CodeGeneration.cs b/src/Compiler/Erlang.Compiler/Compilation/CodeGeneration.cs
+index 99b6e9b7d..01a61b230 100644
+--- a/src/Compiler/Erlang.Compiler/Compilation/CodeGeneration.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/CodeGeneration.cs
+@@ -291,17 +291,20 @@ public static partial class CodeGeneration
+ 
+         string? lineFile = buildProfile?.RecordedSourceFile
+             ?? (buildProfile is { RecordSourceFileInLineTable: true } ? buildProfile.SourcePath : null);
+ 
++        bool inlineListFunctions = buildProfile?.RecordedCompileOptions?.Contains(Term.A(CompilerOptionNames.InlineListFunctions))
++            ?? buildProfile?.WarningOptions.Contains(CompilerOptionNames.InlineListFunctions) ?? false;
++
+         return new BeamModuleCompiler(
+             module.Name,
+             lineFile,
+             module,
+             preprocessor.MaybeEnabled,
+             automaticCoreInlining: automaticInlining && !module.HasOtherCompileOptions && module.InlineTargets.Count == 0
+-                && !(buildProfile?.RecordedCompileOptions?.Contains(Term.A(CompilerOptionNames.InlineListFunctions))
+-                    ?? buildProfile?.WarningOptions.Contains(CompilerOptionNames.InlineListFunctions) ?? false),
+-            entryTupleAliasesEnabled: !DisableEntryTupleAliases(buildProfile)
++                && !inlineListFunctions,
++            entryTupleAliasesEnabled: !DisableEntryTupleAliases(buildProfile),
++            inlineListFunctions: inlineListFunctions
+         ).Emit(
+             functions,
+             lines,
+             exports,

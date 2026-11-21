@@ -2231,8 +2231,7 @@ internal sealed partial class BeamModuleCompiler
             for (int index = 0; index < empty.Patterns.Count; index++)
             {
                 if (list < 0 && ListEntryTest(empty.Patterns[index]) == IsNil
-                    && nonempty.Patterns[index] is Pattern.List { Items: [Pattern.Variable head], Tail: Pattern.Variable tail }
-                    && Add(head) && Add(tail))
+                    && ReadNonemptyList(nonempty.Patterns[index]))
                 {
                     list = index;
                 }
@@ -2251,6 +2250,21 @@ internal sealed partial class BeamModuleCompiler
             return list;
 
             bool Add(Pattern.Variable variable) => variable.Name == VariableScopeNames.Wildcard || bindings.Add(variable.Name);
+
+            bool ReadNonemptyList(Pattern pattern)
+            {
+                if (pattern is AliasPattern alias
+                    && TryReadPatternAlias(alias, out var aliasName, out var shape)
+                    && shape is Pattern.List { Items: [Pattern.Variable aliasHead], Tail: Pattern.Variable aliasTail })
+                {
+                    // The alias is a fresh binding on the cons arm. Nil and cons remain
+                    // disjoint, and the branch still emits its original alias.
+                    return Add(aliasName) && Add(aliasHead) && Add(aliasTail);
+                }
+
+                return pattern is Pattern.List { Items: [Pattern.Variable head], Tail: Pattern.Variable tail }
+                    && Add(head) && Add(tail);
+            }
 
             bool ReadNonemptyParameter(Pattern pattern) => pattern switch
             {
@@ -2553,6 +2567,11 @@ internal sealed partial class BeamModuleCompiler
             IReadOnlyList<Pattern> entryPatterns
         )
         {
+            if (deferred is null && !literalDispatch && TryEmitRetiredEntryCallSlot(sequence, inputs))
+            {
+                return;
+            }
+
             var measurement = ReadEntryResultMeasurement(sequence, inputs);
             if (measurement is { } measured)
             {

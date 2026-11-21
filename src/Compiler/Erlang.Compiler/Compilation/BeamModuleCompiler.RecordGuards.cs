@@ -33,6 +33,11 @@ internal sealed partial class BeamModuleCompiler
     {
         private bool TryEmitGuardedLocalForward(FunctionDefinition function)
         {
+            if (TryEmitGuardedTupleMembershipForward(function))
+            {
+                return true;
+            }
+
             if (!owner.ModuleOptimizationDisabled && owner.SsaTypeInferenceEnabled
                 && function.Clauses is [var candidate, var fallback]
                 && ReadGuardedLocalForward(candidate) is

@@ -1,5 +1,19 @@
 # Compatibility overview
 
+The Part 1983 linked source passed all 10,383 managed cases and required local validation. The release still has 854 bytewise differences. [Repository evidence](validation/part-1983-repository-gate/README.md).
+
+Part 1984 retained 512 Equal, 854 Different, 0 Unsupported, 0 SourceRejected and measured two pinned physical frame improvements. [Evidence](validation/part-1984/README.md).
+
+Part 1983 measured 512 Equal, 854 Different, 0 Unsupported, 0 SourceRejected across the pinned Windows release. [Evidence](validation/part-1983/README.md).
+
+Part 1982 compiler evidence is complete for its scope. The integrated repository attempt stopped with two runtime lifecycle failures. [Repository attempt](validation/part-1982-repository-failure/README.md).
+
+Part 1982 measured 512 Equal, 854 Different, 0 Unsupported and 0 SourceRejected. [Evidence](validation/part-1982/README.md).
+
+Part 1981 measured 512 Equal, 854 Different, 0 Unsupported and 0 SourceRejected across the Windows release. [Evidence](validation/part-1981/README.md).
+
+The uncached Windows release check measured 511 Equal and 855 Different, with no Unsupported or SourceRejected. Source integration and compatibility validation retain their separate scope. [Evidence](validation/part-1980/README.md).
+
 Part 1978 reports 510 Equal and 856 Different. Native observations cover the exact selected outputs and loader behavior remains separate. [Evidence](validation/part-1978/README.md).
 
 Part 1977 measured 510 Equal and 856 Different. Parser frames remain wider in 212 functions and the module readiness scope does not advance. [Evidence](validation/part-1977/README.md).

@@ -13,7 +13,7 @@ internal sealed partial class BeamModuleCompiler
         Func<BeamInstruction, bool>? isArithmetic = null,
         Func<BeamInstruction, bool>? canDiscardExternalTailFrame = null,
         bool ownedBranchesOnly = false,
-        Func<BeamInstruction, bool>? isBodyHead = null
+        Func<BeamInstruction, bool>? isBodyProjection = null
     )
     {
         using var output = new MemoryStream();
@@ -42,7 +42,7 @@ internal sealed partial class BeamModuleCompiler
                 out heapRoots,
                 canDiscardExternalTailFrame: canDiscardExternalTailFrame,
                 returningCall: returningCall,
-                isBodyHead: isBodyHead
+                isBodyProjection: isBodyProjection
             );
             if (registers is not null)
             {
@@ -58,6 +58,7 @@ internal sealed partial class BeamModuleCompiler
             {
                 int entryAllocation = FindEntryFrameAllocation(body, start, end);
                 (int[] Owners, Dictionary<int, bool[]> Uses)? ownership = null;
+                bool checkedOwnership = false;
                 for (int allocation = start + 2; allocation + 2 < end; allocation++)
                 {
                     BeamInstruction frame = body[allocation];
@@ -67,11 +68,62 @@ internal sealed partial class BeamModuleCompiler
                         continue;
                     }
 
-                    int branchEnd = ReadLinearLeafFrameTail(body, allocation, end);
-                    if (branchEnd < 0
-                        || (ownership ??= ReadDisjointFrameOwnership(body, start, end)) is not { } branchOwnership
-                        || branchOwnership.Owners[allocation - start] != UnframedOwner
+                    int branchEnd = ReadLinearLeafFrameTail(
+                        body,
+                        allocation,
+                        end,
+                        out int next
+                    );
+                    if (branchEnd < 0 && (next >= end || !ContinuesLeafFrame(body[next].Definition.Opcode)))
+                    {
+                        continue;
+                    }
+
+                    if (!checkedOwnership)
+                    {
+                        ownership = ReadDisjointFrameOwnership(body, start, end);
+                        checkedOwnership = true;
+                        if (ownership is null && PlanSharedLeafFrameReturn(
+                            body,
+                            start,
+                            end,
+                            afterCanonicalization
+                        ) is { } shared)
+                        {
+                            foreach (var leaf in shared.Owners)
+                            {
+                                WritePlan(
+                                    leaf.Allocation,
+                                    leaf.Limit,
+                                    leaf.Registers,
+                                    leaf.HeapRoots
+                                );
+                            }
+
+                            output.Write(code.Span[copied..body[shared.FirstRestore].Offset]);
+                            copied = body[shared.Jump].Offset;
+                            break;
+                        }
+                    }
+
+                    if (ownership is not { } branchOwnership || branchOwnership.Owners[allocation - start] != UnframedOwner
                         || !branchOwnership.Uses.ContainsKey(allocation))
+                    {
+                        continue;
+                    }
+
+                    if (branchEnd < 0)
+                    {
+                        branchEnd = ReadOwnedLeafFrameTail(
+                            body,
+                            start,
+                            end,
+                            allocation,
+                            branchOwnership.Owners
+                        );
+                    }
+
+                    if (branchEnd < 0)
                     {
                         continue;
                     }
@@ -275,9 +327,17 @@ internal sealed partial class BeamModuleCompiler
         return finished ? call : null;
     }
 
-    private static int ReadLinearLeafFrameTail(IReadOnlyList<BeamInstruction> body, int allocation, int end)
+    private static bool ContinuesLeafFrame(byte opcode) =>
+        opcode is Label or Jump or SelectValue or SelectTupleArity || IsEntryFramePredicate(opcode);
+
+    private static int ReadLinearLeafFrameTail(
+        IReadOnlyList<BeamInstruction> body,
+        int allocation,
+        int end,
+        out int terminal
+    )
     {
-        int terminal = allocation + 1;
+        terminal = allocation + 1;
         while (terminal < end && body[terminal].Definition.Opcode is
             Line or InitYRegisters or Move or Swap or GetTupleElement or GetList or GetHead or GetTail or TestHeap or PutTuple or PutList or UpdateRecord)
         {
@@ -297,6 +357,76 @@ internal sealed partial class BeamModuleCompiler
         };
     }
 
+    private static int ReadOwnedLeafFrameTail(
+        IReadOnlyList<BeamInstruction> body,
+        int start,
+        int end,
+        int allocation,
+        IReadOnlyList<int> owners,
+        int sharedExit = -1
+    )
+    {
+        int limit = allocation + 1;
+        for (int index = limit; index < end; index++)
+        {
+            if (owners[index - start] == allocation)
+            {
+                limit = index + 1;
+                if (body[index].Definition.Opcode == Deallocate && limit < end && body[limit].Definition.Opcode == Return)
+                {
+                    limit++;
+                }
+            }
+        }
+
+        var labels = new HashSet<int>();
+        bool returns = false;
+        bool constructs = false;
+        for (int index = allocation + 1; index < limit; index++)
+        {
+            BeamInstruction instruction = body[index];
+            byte opcode = instruction.Definition.Opcode;
+            if (opcode == Return && body[index - 1].Definition.Opcode == Deallocate
+                && owners[index - start] == UnframedOwner && owners[index - start - 1] == allocation)
+            {
+                returns = true;
+                continue;
+            }
+
+            if (owners[index - start] != allocation || opcode is Allocate or AllocateHeap
+                || opcode != UpdateRecord && (!IsFramelessInstruction(instruction)
+                    || IsTrimTest(opcode) && !IsEntryFramePredicate(opcode))
+                || opcode == Deallocate && (index + 1 >= limit || body[index + 1].Definition.Opcode != Return))
+            {
+                return -1;
+            }
+
+            if (opcode == Label)
+            {
+                labels.Add((int)instruction.Operands[0].Value);
+            }
+
+            constructs |= opcode is PutTuple or PutList or UpdateRecord;
+        }
+
+        // A branch may leave the owner only through an independently proved shared exit.
+        if (!returns || !constructs || body[limit - 1].Definition.Opcode is not (Return or BadMatch or BadRecord or CaseEnd or IfEnd))
+        {
+            return -1;
+        }
+
+        for (int index = allocation + 1; index < limit; index++)
+        {
+            if (body[index].Operands.Any(operand => operand.Kind == BeamOperandParameters.Label
+                && operand.Value != sharedExit && !labels.Contains((int)operand.Value)))
+            {
+                return -1;
+            }
+        }
+
+        return limit;
+    }
+
     private static int?[]? PlanLeafFrameRegisters(
         IReadOnlyList<BeamInstruction> body,
         int start,
@@ -312,7 +442,8 @@ internal sealed partial class BeamModuleCompiler
         bool allocationAtStart = false,
         Func<int, bool>? canUsePostCallRegister = null,
         int? returningCall = null,
-        Func<BeamInstruction, bool>? isBodyHead = null
+        Func<BeamInstruction, bool>? isBodyProjection = null,
+        BigInteger? externalBranchInputs = null
     )
     {
         heapRoots = null;
@@ -348,18 +479,22 @@ internal sealed partial class BeamModuleCompiler
         var movedFrom = new int[count];
         var slotsUsed = new HashSet<int>();
         bool needsCanonicalization = false;
+        bool hasLocalTail = false;
+        bool hasBodyTupleProjection = false;
         for (int index = 0; index < count; index++)
         {
             BeamInstruction instruction = body[start + index];
             byte opcode = instruction.Definition.Opcode;
             bool localTail = opcode == TailLocalCallWithFrame;
+            hasLocalTail |= localTail;
             bool externalTail = opcode == TailExternalCallWithFrame
                 && (returningCall.HasValue || isolatedTailBranch || canDiscardExternalTailFrame?.Invoke(instruction) == true);
             bool returning = start + index == returningCall;
             bool arithmetic = opcode == GcBifTwo && isArithmetic?.Invoke(instruction) == true;
             bool guardedBif = IsLeafGuardBif(instruction);
             // This BIF neither allocates nor clobbers X registers. Its failure leaves the leaf by throwing.
-            bool bodyHead = !returningCall.HasValue && isBodyHead?.Invoke(instruction) == true;
+            bool bodyProjection = !returningCall.HasValue && isBodyProjection?.Invoke(instruction) == true;
+            hasBodyTupleProjection |= bodyProjection && opcode == BifTwo;
             bool recordUpdate = allocationAtStart && opcode == UpdateRecord;
             // The preceding heap check owns allocation, and a closed fun only defines its destination.
             bool emptyFrameClosure = slots == 0 && instruction is
@@ -371,13 +506,13 @@ internal sealed partial class BeamModuleCompiler
             bool callClosure = returningCall.HasValue && opcode == MakeFun && instruction.Operands.Count >= 3
                 && instruction.Operands[1].Kind is BeamOperandParameters.X or BeamOperandParameters.Y
                 && instruction.Operands[2].Kind == BeamOperandParameters.Count;
-            needsCanonicalization |= opcode == PutTuple || arithmetic || bodyHead;
+            needsCanonicalization |= opcode == PutTuple || arithmetic || bodyProjection;
             if ((!returning && !localTail && !externalTail && !recordUpdate && !emptyFrameClosure && !callClosure
                     && !IsFramelessInstruction(instruction))
                 || (opcode is Allocate or AllocateHeap && start + index != allocation)
                 || (!afterCanonicalization && opcode == PutTuple)
                 || opcode is GetMapElements or GcBifOne or GcBifThree
-                || (opcode is BifOne or BifTwo or BifThree && !guardedBif && !bodyHead)
+                || (opcode is BifOne or BifTwo or BifThree && !guardedBif && !bodyProjection)
                 || (opcode == GcBifTwo && !arithmetic)
                 || ((externalTail || opcode is Deallocate or TailLocalCallWithFrame) && instruction.Operands[^1].Value != slots))
             {
@@ -423,7 +558,7 @@ internal sealed partial class BeamModuleCompiler
                 if (opcode == Swap || opcode == GetList && position > 0 || opcode == PutTuple && position == 0
                     || (emptyFrameClosure || callClosure) && position == 1
                     || recordUpdate && position == StackWriteOperand(instruction)
-                    || (guardedBif || bodyHead || opcode is Move or GetHead or GetTail or GetTupleElement or PutList or GcBifTwo)
+                    || (guardedBif || bodyProjection || opcode is Move or GetHead or GetTail or GetTupleElement or PutList or GcBifTwo)
                         && position == instruction.Operands.Count - 1)
                 {
                     destinations.Add(register);
@@ -443,8 +578,9 @@ internal sealed partial class BeamModuleCompiler
             writes[index] = destinations.ToArray();
         }
 
-        if (afterCanonicalization && !needsCanonicalization && postCallSlots is null && !allocationAtStart
-            && !returningCall.HasValue)
+        if (hasBodyTupleProjection && !hasLocalTail
+            || afterCanonicalization && !needsCanonicalization && postCallSlots is null && !allocationAtStart
+                && !returningCall.HasValue)
         {
             return null;
         }
@@ -488,7 +624,7 @@ internal sealed partial class BeamModuleCompiler
         var liveIn = new BigInteger[count];
         var liveOut = new BigInteger[count];
         BigInteger arguments = (BigInteger.One << arity) - 1;
-        BigInteger externalInputs = postCallSlots is null ? arguments : BigInteger.Zero;
+        BigInteger externalInputs = postCallSlots is null ? externalBranchInputs ?? arguments : BigInteger.Zero;
         bool changed;
         do
         {

@@ -14,7 +14,12 @@ internal sealed partial class BeamModuleCompiler
         for (int index = 0; index < functions.Count; index++)
         {
             var function = functions[index];
-            if (ExtractWritableBinaryListBuilder(function, locations[index], declared) is { } writable)
+            if (ExtractWritableBinaryListBuilder(
+                function,
+                locations[index],
+                declared,
+                localFunctions
+            ) is { } writable)
             {
                 helpers.Add(writable);
                 continue;
@@ -456,6 +461,20 @@ internal sealed partial class BeamModuleCompiler
                     }
                 )
             ];
+            if (guard is not null)
+            {
+                // A matched head whose guard fails skips to the next element.
+                // Only a head that fails the strict pattern reaches badmatch.
+                skip =
+                [
+                    new(
+                        [new Pattern.List([item], new Pattern.Variable(tail)), .. captures],
+                        null,
+                        recur with { }
+                    ),
+                    .. skip
+                ];
+            }
         }
 
         var finishCaptures = captures.Select((capture, index) =>

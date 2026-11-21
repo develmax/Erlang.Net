@@ -17,7 +17,8 @@ internal sealed partial class BeamModuleCompiler(
     ModuleDefinition? sourceModule = null,
     bool maybeEnabled = true,
     bool automaticCoreInlining = false,
-    bool entryTupleAliasesEnabled = true
+    bool entryTupleAliasesEnabled = true,
+    bool inlineListFunctions = false
 )
 {
     private string? OnLoadFunction => sourceModule?.OnLoadFunction;
@@ -307,10 +308,14 @@ internal sealed partial class BeamModuleCompiler(
                 entryLabel += 2;
                 continue;
             }
-            if (writableBinaryListOwners.ContainsKey((function.Name, function.Arity))
-                || writableBinaryListHelpers.ContainsKey((function.Name, function.Arity)))
+            if (writableBinaryListOwners.TryGetValue((function.Name, function.Arity), out var writableOwner))
             {
-                entryLabel += WritableBinaryListLabelCount;
+                entryLabel += writableOwner.TuplePair ? WritableBinaryTupleOwnerLabelCount : WritableBinaryListLabelCount;
+                continue;
+            }
+            if (writableBinaryListHelpers.TryGetValue((function.Name, function.Arity), out var writableHelper))
+            {
+                entryLabel += writableHelper.TuplePair ? WritableBinaryTupleHelperLabelCount : WritableBinaryListLabelCount;
                 continue;
             }
             if (general.TryGetValue((function.Name, function.Arity), out var plan))
@@ -597,13 +602,17 @@ internal sealed partial class BeamModuleCompiler(
             }
             else if (writableBinaryListOwners.TryGetValue((function.Name, function.Arity), out var writableOwner))
             {
-                EmitWritableBinaryListOwner(localEntries[(writableOwner.HelperName, WritableBinaryListHelperArity)]);
+                EmitWritableBinaryListOwner(
+                    localEntries[(writableOwner.HelperName, WritableBinaryListHelperArity)],
+                    writableOwner
+                );
             }
             else if (writableBinaryListHelpers.TryGetValue((function.Name, function.Arity), out var writableHelper))
             {
                 EmitWritableBinaryListHelper(
                     localEntries[(function.Name, function.Arity)],
-                    writableHelper
+                    writableHelper,
+                    localEntries
                 );
             }
             else if (TryEmitReturnedClosure(function, line))
@@ -771,7 +780,7 @@ internal sealed partial class BeamModuleCompiler(
             deferredEntries.Add(-index, nextLabel - 1);
             if (writableBinaryListHelpers.TryGetValue((function.Name, function.Arity), out var writable))
             {
-                EmitWritableBinaryListHelper(nextLabel - 1, writable);
+                EmitWritableBinaryListHelper(nextLabel - 1, writable, localEntries);
 
                 return;
             }
@@ -1264,10 +1273,19 @@ internal sealed partial class BeamModuleCompiler(
         code = RedirectPreCallClosureDestinations(code, labelCount) ?? code;
         code = EliminatePostCallResultAliases(code, labelCount) ?? code;
         code = ScheduleCheckedRecordTupleReturns(code, labelCount) ?? code;
+        code = ShareConsGuardNilReturns(code, labelCount) ?? code;
         if (OrderFinalPhysicalLabels(code, labelCount) is { } ordered)
         {
             (code, labelCount) = ordered;
         }
+
+        code = RemoveRepeatedBinaryContextLoads(code, labelCount) ?? code;
+
+        code = RetainNestedCheckedCallResult(code, labelCount) ?? code;
+        code = ReuseRetiredCheckedCallSlot(code, labelCount) ?? code;
+        code = ClearRootsBeforeSharedSavedReturns(code, labelCount) ?? code;
+
+        code = CompactNestedRecordCallOperands(code, labelCount) ?? code;
 
         // Late root initialization can follow the last outgoing argument.
         code = OrderCallArgumentAfterKills(
@@ -1275,7 +1293,6 @@ internal sealed partial class BeamModuleCompiler(
             labelCount,
             finalPass: true
         ) ?? code;
-        code = RetainNestedCheckedCallResult(code, labelCount) ?? code;
 
         if ((ownedReceiveFrames is not null || mixedTupleReturns is not null)
             && OrderRelocatedEntryTables(code, labelCount) is { } orderedTables)
@@ -1287,6 +1304,19 @@ internal sealed partial class BeamModuleCompiler(
             code = CompactFinalAtoms(code, labelCount);
         }
         code = CoalescePartialTrimListTails(code, labelCount) ?? code;
+        code = CoalescePartialTrimCallExchanges(code, labelCount) ?? code;
+        code = RemoveOverwrittenHandlerSlotCopies(code, labelCount) ?? code;
+        code = OrderFinalSplitStackArguments(code, labelCount) ?? code;
+        if (!ModuleOptimizationDisabled)
+        {
+            // The checked fields are already in X. Late branch and root scheduling
+            // can now expose an atomic reuse without changing the lifted prefix.
+            code = ReuseLateAtomicProjectionSlots(code, labelCount, nestedCheckedEntriesOnly: true);
+        }
+
+        code = PromoteCheckedHeapProjectionSlots(code, labelCount) ?? code;
+        code = FoldPureCallArgumentCycles(code, labelCount) ?? code;
+
         lateProjectionDecode = null;
         WriteCode(output, code, labelCount);
     }

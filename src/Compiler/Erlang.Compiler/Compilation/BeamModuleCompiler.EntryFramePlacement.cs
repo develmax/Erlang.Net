@@ -82,6 +82,20 @@ internal sealed partial class BeamModuleCompiler
                 plan = projected.Placement;
             }
 
+            if (!closedListMatchesOnly && plan is null
+                && PlanNestedCheckedEntryProjections(body, start, end) is { } nested)
+            {
+                allocationIndex = nested.Allocation;
+                plan = nested.Placement;
+            }
+
+            if (!closedListMatchesOnly && plan is null
+                && PlanCheckedRecordSpillEntry(body, start, end) is { } recordSpill)
+            {
+                allocationIndex = recordSpill.Allocation;
+                plan = recordSpill.Placement;
+            }
+
             if (plan is { } placement)
             {
                 int allocation = body[allocationIndex].Offset;
@@ -122,12 +136,18 @@ internal sealed partial class BeamModuleCompiler
                         copied = instruction.Offset;
                     }
 
+                    int next = body[index + 1].Offset;
+                    if (placement.Omitted?.Contains(index) == true)
+                    {
+                        output.Write(code.Span[copied..instruction.Offset]);
+                        copied = next;
+                        continue;
+                    }
+
                     if (!placement.Delayed.Contains(index))
                     {
                         continue;
                     }
-
-                    int next = body[index + 1].Offset;
                     if (placement.HeapLives.TryGetValue(index, out int heapLive))
                     {
                         int original = (int)instruction.Operands[^1].Value;
@@ -164,6 +184,27 @@ internal sealed partial class BeamModuleCompiler
                         continue;
                     }
 
+                    EntryFrameOperandRewrite? rewrite = placement.OperandRewrites?.GetValueOrDefault(index);
+                    if (rewrite?.TupleProjectionDestination is int projection)
+                    {
+                        int oldWidth = CompactRegisterCountWidth((int)instruction.Operands[^1].Value);
+                        output.Write(code.Span[copied..(next - oldWidth)]);
+                        BeamCompactWriter.Write(output, XRegisterTag, projection);
+                        copied = next;
+                        continue;
+                    }
+
+                    if (rewrite?.FailureLabel is int retargeted)
+                    {
+                        int labelOffset = instruction.Offset + 1;
+                        var cursor = new BeamCursor(code[labelOffset..]);
+                        _ = BeamCompactReader.Read(cursor);
+                        output.Write(code.Span[copied..labelOffset]);
+                        BeamCompactWriter.Write(output, LabelTag, retargeted);
+                        copied = labelOffset + cursor.Position;
+                    }
+
+                    int occurrence = 0;
                     while (operand < stackOperands.Count && stackOperands[operand].Start < instruction.Offset)
                     {
                         operand++;
@@ -173,7 +214,8 @@ internal sealed partial class BeamModuleCompiler
                     {
                         var (from, to, slot) = stackOperands[operand++];
                         output.Write(code.Span[copied..from]);
-                        BeamCompactWriter.Write(output, XRegisterTag, placement.Saved[slot]);
+                        int register = rewrite is null ? placement.Saved[slot] : rewrite.Registers[occurrence++];
+                        BeamCompactWriter.Write(output, XRegisterTag, register);
                         copied = to;
                     }
                 }
@@ -343,7 +385,15 @@ internal sealed partial class BeamModuleCompiler
         HashSet<int> Delayed,
         IReadOnlyDictionary<int, int> Frames,
         IReadOnlyDictionary<int, int> HeapLives,
-        IReadOnlyDictionary<int, (int Slot, int Register)[]> ProjectedStores
+        IReadOnlyDictionary<int, (int Slot, int Register)[]> ProjectedStores,
+        IReadOnlyDictionary<int, EntryFrameOperandRewrite>? OperandRewrites = null,
+        IReadOnlySet<int>? Omitted = null
+    );
+
+    private sealed record EntryFrameOperandRewrite(
+        int[] Registers,
+        int? FailureLabel = null,
+        int? TupleProjectionDestination = null
     );
 
     private static int CompactRegisterCountWidth(int live) => live < 1 << BeamWire.CompactSmallPayloadShift ? 1 : 2;

@@ -1,0 +1,25 @@
+{
+  "Build": {
+    "Finished": "2026-11-21T10:44:16.8776140+03:00",
+    "Tests": "15B2B4079032D24B0928B4ECDE71F5D732643DCAFB5DF486847701A298391776",
+    "Parent": "98bc9a5fd84667ab57bc92bef0ad2aaf03d9a69d95220f8cc46d748c6356116d",
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "CorpusTool": "379CDBA3183108EBF577F65B3330C55FD854A4D1918445E159B48C2217E1B5D4",
+    "Compiler": "D9C5C9F9505D4E24C3F711F559587ED00BE8610E13B79CD86B6B57FEEF673422"
+  },
+  "BuildInputs": "fbbb901a4a47835b9dc5513e1b1b35887a6f3e62234ad978c861d222b9fa32b5",
+  "Paths": {
+    "tests/Erlang.Tests/Compiler/Beam/Binary/BeamTupleArityFailureChecks.cs": {
+      "Before": "8d5fddee3c9eec325cc946abbeb1f36715e9f49b67e682cdcbdc02d02a9ac980",
+      "After": "2684117924f92967553b08c899fde87c858f67fd16819db95300cb7f69546e3f"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/Calls/BeamRetiredEntryCallSlotChecks.cs": {
+      "Before": "7c681b3860fbd832a5493635ac3205ad3f200e43b96b7d545bf648b83bb5fc00",
+      "After": "eed273711a05eabbcfae2e396f6a394a05a8a24c045b62b66a68084e65c049fc"
+    }
+  },
+  "Patches": {
+    "arity-guard-fixture-1982-recovery/fixture.patch": "5cd0e70de8023f4178e56ff5b83f368dfac81f7cd9e7560e24e348dd94b8330e",
+    "binary-match-audit-1931/owned-positioned-binary-case-1998/fixture.patch": "3c945e22d9cc826b153beebcf30568333a5d5fed4414ab1142be5b661e461a4a"
+  }
+}

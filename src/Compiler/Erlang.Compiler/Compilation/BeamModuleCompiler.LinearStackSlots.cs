@@ -25,7 +25,8 @@ internal sealed partial class BeamModuleCompiler
         IReadOnlyList<(int Start, int End, int Slot)> stackOperands,
         bool useValueLiveness,
         IReadOnlySet<int>? closureEntries,
-        bool atomicOnly
+        bool atomicOnly,
+        bool nestedCheckedEntriesOnly = false
     )
     {
         using var output = new MemoryStream();
@@ -41,7 +42,8 @@ internal sealed partial class BeamModuleCompiler
 
             int entry = start;
             start = end + 1;
-            if (atomicOnly && !Enumerable.Range(entry, end - entry).Any(index => IsAtomicStackAliasCandidate(body[index])))
+            if (nestedCheckedEntriesOnly && !HasNestedCheckedAtomicEntry(body, entry, end)
+                || atomicOnly && !Enumerable.Range(entry, end - entry).Any(index => IsAtomicStackAliasCandidate(body[index])))
             {
                 continue;
             }
@@ -98,6 +100,14 @@ internal sealed partial class BeamModuleCompiler
                     end,
                     allowAtomicProjectionAliasing: true
                 );
+            }
+
+            (int Definition, int Read, int Slot, int Replacement)? split = null;
+            if (nestedCheckedEntriesOnly && allocation is null
+                && PlanTerminalProjectionSlotReuse(body, entry, end) is { } reuse)
+            {
+                allocation = reuse.Layout;
+                split = (reuse.Definition, reuse.Read, reuse.Slot, reuse.Replacement);
             }
 
             if (!atomicOnly && useValueLiveness && allocation is null && linear is { } ordered
@@ -215,8 +225,10 @@ internal sealed partial class BeamModuleCompiler
                 while (operand < stackOperands.Count && stackOperands[operand].Start < next)
                 {
                     var (from, to, slot) = stackOperands[operand++];
+                    int logicalSlot = split is { } renamed && slot == renamed.Slot
+                        && (index == renamed.Definition || index == renamed.Read) ? renamed.Replacement : slot;
                     output.Write(code.Span[copied..from]);
-                    BeamCompactWriter.Write(output, YRegisterTag, plan.Slots[slot + originalShift] - allocatedShift);
+                    BeamCompactWriter.Write(output, YRegisterTag, plan.Slots[logicalSlot + originalShift] - allocatedShift);
                     copied = to;
                 }
             }

@@ -68,15 +68,89 @@ internal static class BeamCheckedRecordCallFrameChecks
         helper(N) -> 1 bsl N.
         """;
 
+    private const string ApplyFixture = "beam_checked_record_apply.erl";
+    private const string WrongApply = "A checked record apply changed the argument order, failure payload, or owned frame.";
+    private const string ApplySource = """
+        -module(beam_checked_record_apply).
+        -compile({no_auto_import,[apply/3]}).
+        -export([run/2,empty/1,improper/2,shadowed/2,aliased/2]).
+        -record(outer,{receiver}).
+        -record(inner,{module}).
+
+        run(Input, Value) ->
+            Receiver = Input#outer.receiver,
+            erlang:apply(Receiver#inner.module, min, [Receiver | [Value]]).
+
+        empty(Input) ->
+            Rest = [],
+            Receiver = Input#outer.receiver,
+            erlang:apply(Receiver#inner.module, is_tuple, [Receiver | Rest]).
+
+        improper(Input, Rest) ->
+            Receiver = Input#outer.receiver,
+            erlang:apply(Receiver#inner.module, min, [Receiver | Rest]).
+
+        shadowed(Input, Value) ->
+            Receiver = Input#outer.receiver,
+            apply(Receiver#inner.module, min, [Receiver | [Value]]).
+
+        aliased(Input, Value) ->
+            Rest = [Value],
+            Receiver = Input#outer.receiver,
+            erlang:apply(Receiver#inner.module, min, [Receiver | Rest]).
+
+        apply(_, _, L) -> L.
+        """;
+
     internal static async Task Run()
     {
         byte[] beam = CodeGeneration.CompileBeamModule(Source, Fixture);
         CheckInstructions(beam);
         var module = BeamModule.Prepare(beam);
+        byte[] applyBeam = CodeGeneration.CompileBeamModule(ApplySource, ApplyFixture);
+        CheckCheckedApplyInstructions(applyBeam);
+        var applyModule = BeamModule.Prepare(applyBeam);
         await using var runtime = new ProcessRuntime();
         await using var actor = new RuntimeNodeFoundationHostActor(runtime);
         await actor.InvokeAsync(async context =>
         {
+            Term receiver = Term.Tuple(Term.A("inner"), Term.A(ErlangModuleNames.Module));
+            Term request = Term.Tuple(Term.A("outer"), receiver);
+            Term marker = Term.I(7);
+            if (!marker.Equals(await applyModule.Invoke(
+                context,
+                "run",
+                request,
+                marker
+            ))
+                || !Term.A("true").Equals(await applyModule.Invoke(context, "empty", request)))
+            {
+                throw new InvalidOperationException(WrongApply);
+            }
+
+            Term malformed = Term.A("malformed");
+            await CheckRecordError(malformed, malformed);
+            await CheckRecordError(Term.Tuple(Term.A("outer"), malformed), malformed);
+
+            async Task CheckRecordError(Term input, Term expected)
+            {
+                try
+                {
+                    _ = await applyModule.Invoke(
+                        context,
+                        "run",
+                        input,
+                        marker
+                    );
+                }
+                catch (ErlangException failure) when (failure.Reason.Equals(Term.Tuple(Term.A("badrecord"), expected)))
+                {
+                    return;
+                }
+
+                throw new InvalidOperationException(WrongApply);
+            }
+
             Term row = Term.A("row");
             Term bad = Term.A("bad");
             Term keep = Term.A("keep");
@@ -132,6 +206,44 @@ internal static class BeamCheckedRecordCallFrameChecks
 
             throw new InvalidOperationException(WrongResult);
         });
+    }
+
+    private static void CheckCheckedApplyInstructions(byte[] beam)
+    {
+        object code = Code(beam);
+        object[] instructions = Children(code, "Instructions").ToArray();
+        string[] atoms = Children(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
+        foreach (var (name, arity) in new[] { ("run", 2), ("empty", 1) })
+        {
+            object[] body = Body(name).Where(instruction => Opcode(instruction) is not (Label or Line)).ToArray();
+            byte[] prefix =
+            [
+                IsTaggedTuple, GetTupleElement, IsTaggedTuple, Allocate, GetTupleElement, Move,
+                TailDynamicApply, BadRecord, BadRecord
+            ];
+            if (!body.Take(prefix.Length).Select(Opcode).SequenceEqual(prefix)
+                || !Operands(body[3]).Select(Value).SequenceEqual([BigInteger.Zero, new BigInteger(arity)])
+                || !Operands(body[6]).Select(Value).SequenceEqual([new BigInteger(arity), BigInteger.Zero]))
+            {
+                throw new InvalidOperationException(WrongApply);
+            }
+        }
+
+        foreach (string control in new[] { "improper", "shadowed", "aliased" })
+        {
+            if (Body(control).Any(instruction => Opcode(instruction) == TailDynamicApply))
+            {
+                throw new InvalidOperationException(WrongApply);
+            }
+        }
+
+        IEnumerable<object> Body(string name)
+        {
+            int info = Array.FindIndex(instructions, instruction => Opcode(instruction) == FunctionInfo
+                && atoms[(int)Value(Operands(instruction)[1])] == name);
+
+            return instructions.Skip(info + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo);
+        }
     }
 
     private static void CheckInstructions(byte[] beam)

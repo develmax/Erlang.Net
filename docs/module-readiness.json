@@ -35,7 +35,7 @@
     },
     {
       "Path": "src/Compiler/Erlang.Compiler/Compilation/CodeGeneration.cs",
-      "Sha256": "8a2e346138f1bc776820abc36cc49f7e4592bef436c1b89543401f7f5631dff2"
+      "Sha256": "e4a0d803b16d57e03d16b54ff9817ce83114e5e0b7878314cfa559d0068ebb67"
     },
     {
       "Path": "src/Compiler/Erlang.Compiler/Compilation/CompileException.cs",
@@ -34605,8 +34605,8 @@
       "Key": "rpc:call/5"
     }
   ],
-  "ComparisonTestReport": "validation/part-1875/readiness-previous-part-1839.json",
-  "LocalPassedTests": 10357,
+  "ComparisonTestReport": "validation/part-1978/general-native-host/tests.json",
+  "LocalPassedTests": 10383,
   "RegisteredMfas": 733,
   "PreviousRegisteredMfas": 733,
   "RegisteredMfaDelta": 0,
@@ -34861,6 +34861,9 @@
       "Project": "src/Compiler/Erlang.Compiler",
       "Status": "Partially compatible",
       "Implemented": [
+        "Part 1983 integrated compiler source passes all 10,383 managed cases and the complete repository gate. The fresh Windows release preserves all 512 byte-exact images and gains 55 normalized bodies.",
+        "Part 1981 reached 512 byte-exact Windows release images. The frozen source passed 584 compiler cases and produced 21 normalized function gains.",
+        "Part 1980 records 511 byte-exact Windows OTP 29.1.1 modules and 25 normalized function gains in its frozen compiler payload. The working source and current whole repository evidence correspond to integrated Part 1978.",
         "Part 1978 measures 510 of 1,366 exact Windows release images and 567 selected compiler checks. All 212 known widened frame functions recover their Part 1976 widths.",
         "Part 1976: 510 of 1,366 complete Windows OTP release BEAM files match. All 510 prior files remain byte-equal, with 856 Different, zero Unsupported and zero SourceRejected. All 552 selected compiler tests pass. Repository-wide managed acceptance remains open.",
         "Part 1975: 510 of 1,366 complete Windows OTP release BEAM files match. All 509 prior files remain byte-equal, with 856 Different, zero Unsupported and zero SourceRejected. All 538 selected compiler tests pass. Repository-wide managed acceptance remains open.",
@@ -35000,7 +35003,7 @@
         "full binary generator literal-string grouping/size/resource contracts; empty patterns unsupported and zero-progress local system_limit policy",
         "Physical BEAM heap/scheduler/resources,complete lint/spec/warnings/source stacks/code staging,connected distribution and full native/upstream/performance parity;native numeric record hashes independently matched in230, while general resource/lifecycle scope remains partial."
       ],
-      "RelatedPassedTests": 1593
+      "RelatedPassedTests": 1619
     },
     {
       "Id": "Core library modules",
@@ -35322,6 +35325,9 @@
       "Project": "tools/Build/Erlang.BeamBuild",
       "Status": "Partially compatible",
       "Implemented": [
+        "Part 1983 records 66 paired native observations and complete linked project validation. The Part 1984 compiler-only checkpoint remains isolated.",
+        "Part 1981 recorded 53 native observations, prepared all 64 changed images and restored five recent frame-control vectors. Its integrated repository report remains the complete Part 1978 test report.",
+        "Part 1979 measured the complete 1,366-file Windows release, and Part 1980 measured 34 native observations with exact image identities. Part 1978 remains the latest managed test report for MFA readiness.",
         "Part 1978 reports 25 linked native observations. The original local validator exposed independent .NET apphost and audited source-binding issues. The resumed final stage exited 0.",
         "Part 1976: all 1,366 release build profiles agree. Pinned ERTS prepares 457 changed images. Linked native witnesses exercise argument zero ordering, atom selection, shared record checks and recursive generator helpers.",
         "Part 1975: all 1,366 release build profiles agree. Pinned ERTS prepares 62 changed images. Linked native witnesses exercise checked entry frames, collector root prefixes and post-call value lifetimes.",

@@ -330,7 +330,13 @@ internal sealed partial class BeamModuleCompiler
                             {
                                 BindSharedReceiveFields((Pattern.Tuple)clause.Patterns[0], clauseScratch, next);
                             }
-                            else
+                            else if (!(terminal && receive.Clauses.Count == 1 && group.Label == 0
+                                && TryEmitLiteralBeforeBoundReceiveCheck(
+                                    clause,
+                                    clauseScratch,
+                                    message,
+                                    next
+                                )))
                             {
                                 Pattern(
                                     clause.Patterns[0],
@@ -471,6 +477,54 @@ internal sealed partial class BeamModuleCompiler
             {
                 variables.Add(name, slot);
             }
+        }
+
+        private bool TryEmitLiteralBeforeBoundReceiveCheck(
+            Clause clause,
+            IReadOnlyDictionary<int, int> scratch,
+            int message,
+            int failure
+        )
+        {
+            if (!CanUseEntryTypeFacts() || !scratch.TryGetValue(message, out int selector) || selector != 0
+                || clause is not
+                {
+                    Guard: null,
+                    Patterns: [Pattern.Tuple
+                    {
+                        Items: [
+                        Pattern.Literal { Value: Atom tag },
+                        Pattern.Variable { Name: not VariableScopeNames.Wildcard } binding,
+                        Pattern.Literal { Value: Atom literal }
+                    ]
+                    }],
+                    Body: Expr.Literal
+                }
+                || !variables.TryGetValue(binding.Name, out int bound)
+                || deferredPairMembers.ContainsKey(binding.Name) || scratch.ContainsKey(bound))
+            {
+                return false;
+            }
+
+            // The existing binding is an implicit guard in Core Erlang.
+            // Inspect both fields, test the literal pattern, then test that guard.
+            owner.EmitRecordTest(
+                failure,
+                XRegisterTag,
+                selector,
+                tag,
+                3
+            );
+            owner.EmitTupleElement(1, 1);
+            owner.EmitTupleElement(2, 0);
+            owner.Op(ExactEqualTest, LabelTag, failure);
+            owner.Operand(XRegisterTag, 0);
+            owner.LiteralOperand(literal);
+            owner.Op(ExactEqualTest, LabelTag, failure);
+            owner.Operand(XRegisterTag, 1);
+            owner.Operand(YRegisterTag, bound);
+
+            return true;
         }
 
         private bool TryEmitSharedReceiveFields(

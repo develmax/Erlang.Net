@@ -77,9 +77,98 @@ internal sealed partial class BeamModuleCompiler
             redirected.Add(start);
         }
 
+        for (int entry = 1; entry + 5 < body.Count; entry++)
+        {
+            if (ReadConsShapeRejection(body, entry, definitions) is not { } rejection)
+            {
+                continue;
+            }
+
+            int type = body[entry + 3].Offset + 1;
+            int arity = body[entry + 4].Offset + 1;
+            if (!referencesAtOffset.TryGetValue(type, out var typeEdge)
+                || !referencesAtOffset.TryGetValue(arity, out var arityEdge)
+                || typeEdge.Label != rejection.NilEntry || arityEdge.Label != rejection.NilEntry)
+            {
+                continue;
+            }
+
+            // This path has already extracted the cons cells without changing
+            // any argument. The empty-list test can only reject that input.
+            int failure = labels[rejection.FunctionFailure];
+            edits.Add(new CodeEdit(
+                type,
+                typeEdge.End,
+                LabelTag,
+                failure
+            ));
+            edits.Add(new CodeEdit(
+                arity,
+                arityEdge.End,
+                LabelTag,
+                failure
+            ));
+            redirected.Add(type);
+            redirected.Add(arity);
+        }
+
         if (redirected.Count != 0)
         {
             references.RemoveAll(reference => redirected.Contains(reference.Start));
         }
+    }
+
+    private static (int NilEntry, int FunctionFailure)? ReadConsShapeRejection(
+        IReadOnlyList<BeamInstruction> body,
+        int entry,
+        IReadOnlyDictionary<int, int> definitions
+    )
+    {
+        if (body[entry - 1] is not { Definition.Opcode: FunctionInfo, Operands: [_, _, var arguments] }
+            || body[entry].Definition.Opcode != Label
+            || body[entry + 1] is not
+            {
+                Definition.Opcode: IsNonemptyList,
+                Operands: [
+                { Kind: BeamOperandParameters.Label, Value.Sign: > 0 } nilEntry,
+                { Kind: BeamOperandParameters.X, TypeIndex: null } list
+                ]
+            } || list.Value >= arguments.Value
+            || body[entry + 2] is not
+            {
+                Definition.Opcode: GetList,
+                Operands: [
+                var subject, { Kind: BeamOperandParameters.X, TypeIndex: null } head,
+                { Kind: BeamOperandParameters.X, TypeIndex: null } tail
+                ]
+            } || subject != list || head == tail
+            || head.Value < arguments.Value || tail.Value < arguments.Value
+            || body[entry + 3] is not
+            {
+                Definition.Opcode: IsTuple,
+                Operands: [var nonTuple, var tuple]
+            } || nonTuple != nilEntry || tuple != head
+            || body[entry + 4] is not
+            {
+                Definition.Opcode: TestArity,
+                Operands: [var arityRejected, var checkedTuple, _]
+            } || arityRejected != nilEntry || checkedTuple != head
+            || !definitions.TryGetValue((int)nilEntry.Value, out int relay) || relay <= entry + 4
+            || relay + 1 >= body.Count || body[relay + 1] is not
+            {
+                Definition.Opcode: IsNil,
+                Operands: [{ Kind: BeamOperandParameters.Label } rejected, var empty]
+            } || empty != list)
+        {
+            return null;
+        }
+
+        int failure = EntryFrameFailureLabel(body, entry);
+        if (failure <= 0 || rejected.Value != failure || !HasUnprotectedCheckedFailureRegion(body, entry, relay))
+        {
+            return null;
+        }
+
+        return ((int)nilEntry.Value, failure);
     }
 }

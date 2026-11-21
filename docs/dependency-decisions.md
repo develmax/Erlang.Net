@@ -1,5 +1,13 @@
 # Dependency and compatibility decisions
 
+Part 1983 preserves existing dependencies and applies pinned Core and SSA semantics within C#. [Evidence](validation/part-1983/README.md).
+
+Part 1982 reuses compiler frame and control-flow proofs for source-owned entry and tail calls with unchanged dependencies. [Evidence](validation/part-1982/README.md).
+
+Part 1981 extends the existing C# register, source and branch components from pinned OTP SSA and v3_core rules. The independent native comparison dependencies remain pinned. [Evidence](validation/part-1981/README.md).
+
+Part 1980 reuses the pinned compiler's SSA placement and argument ordering rules, and the existing C# BEAM invocation boundary. The source-derived merl bootstrap is still open. [Evidence](validation/part-1980/README.md).
+
 Part 1978 reuses the pinned OTP frame liveness, guarded writeable binary construction, and stack-to-argument order in existing C# emitters. No third-party dependency or license changed. [Evidence](validation/part-1978/README.md).
 
 Part 1977 follows OTP Core traversal, SSA helper naming and list matching. It reuses existing managed compiler components and retains the OTP license provenance. [Evidence](validation/part-1977/README.md).

@@ -82,6 +82,11 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
+            if (decision.Value is Expr.Variable && AliasReconstructedListHead(rewritten, ref nextAlias) is { } carrier)
+            {
+                rewritten = carrier;
+            }
+
             if (!ReferenceEquals(rewritten, arm))
             {
                 updated ??= decision.Clauses.ToArray();
@@ -90,6 +95,36 @@ internal sealed partial class BeamModuleCompiler
         }
 
         return updated is null ? decision : decision with { Clauses = updated };
+    }
+
+    private static Clause? AliasReconstructedListHead(Clause arm, ref int nextAlias)
+    {
+        if (arm is not
+            {
+                Patterns: [Pattern.Tuple shape],
+                Body: Expr.List
+                {
+                    Items: [Expr.Tuple head],
+                    Tail: Expr.Call { Module: null, DynamicRemote: false }
+                } list
+            }
+            || shape.Items.Count is < 2 or >= CoreAliasDepthLimit
+            || !shape.Items.All(item => item is Pattern.Variable { Name: not VariableScopeNames.Wildcard }
+                or Pattern.Literal)
+            || !ReconstructsMatchedValue(shape, head))
+        {
+            return null;
+        }
+
+        // Keep the checked value in the cons head while its tail call runs.
+        // The pattern, guard and call still read the original field bindings.
+        string alias = FormattableString.Invariant($"$case_list_head_carrier_{nextAlias++}");
+
+        return arm with
+        {
+            Patterns = [new AliasPattern(new Pattern.Variable(alias), shape)],
+            Body = list with { Items = [new Expr.Variable(alias)] }
+        };
     }
 
     private static bool HasIdentityCaseFallback(Clause clause) => clause is

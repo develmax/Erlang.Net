@@ -1,0 +1,29 @@
+Error! Failed to eval: [ModuleName,Image]=init:get_plain_arguments(),
+Module=list_to_existing_atom(ModuleName),
+{ok,Beam}=file:read_file(Image),
+code:unstick_mod(Module),code:purge(Module),code:delete(Module),
+{module,Module}=code:load_binary(Module,Image,Beam),
+case Module of
+  orddict->
+    true=orddict:is_empty([]),
+    false=orddict:is_empty([{a,1}]),
+    false=orddict:is_empty([a|b]),
+    Failure=try orddict:is_empty(atom) of V->{unexpected,V}
+      catch error:function_clause:[{orddict,is_empty,[atom],_}|_]->{error,function_clause,atom} end,
+    {error,function_clause,atom}=Failure,
+    io:format("~0tp~n",[{true,false,false,Failure}]);
+  inet_dns->
+    Body = <<3,"one",7,"example",0,1:16,1:16,16#c00c:16,1:16,1:16,60:32,4:16,192,0,2,1>>,
+    Message = <<16#1234:16,16#8180:16,1:16,1:16,0:16,0:16,Body/binary>>,
+    Expected={ok,_}=inet_dns:decode(Message),
+    Cut=binary:part(Message,0,byte_size(Message)-1),
+    Bad = <<16#1234:16,16#8180:16,1:16,2:16,0:16,0:16,Body/binary>>,
+    Malformed=inet_dns:decode(Cut),
+    Missing=inet_dns:decode(Bad),
+    io:format("~0tp~n",[{Expected,Malformed,Missing}])
+end,halt().
+
+
+Runtime terminating during boot ({{badmatch,{error,{12,erl_parse,["syntax error before: ","'['"]}}},[{init,start_it,1,[{file,"init.erl"},{line,1560}]},{init,start_em,1,[{file,"init.erl"},{line,1546}]},{init,do_boot,3,[{file,"init.erl"},{line,1217}]}]})
+
+Crash dump is being written to: D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\part1979-common-entry-and-call-roots-local\native-scoped\orddict-pinned-crash.dump...done

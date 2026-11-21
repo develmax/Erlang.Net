@@ -11,6 +11,11 @@ internal sealed partial class BeamModuleCompiler
 
         private bool TryEmitClosureArgumentTail(FunctionDefinition function)
         {
+            if (TryEmitDeclaredReferenceArgumentTail(function))
+            {
+                return true;
+            }
+
             if (function.Clauses is not [
                 {
                     Guard: null, Body: Expr.Call
@@ -37,6 +42,37 @@ internal sealed partial class BeamModuleCompiler
 
             EmitGeneralClosure(closure, captureRegisters: registers);
             EmitRegisterTailTarget(call with { Module = module }, call.Arguments.Count);
+
+            return true;
+        }
+
+        private bool TryEmitDeclaredReferenceArgumentTail(FunctionDefinition function)
+        {
+            if (!CanUseEntryTypeFacts() || function.Clauses is not [
+                {
+                    Guard: null,
+                    Patterns: [Pattern.Variable { Name: not VariableScopeNames.Wildcard } incoming],
+                    Body: Expr.Call
+                    {
+                        DynamicRemote: false,
+                        Arguments: [Expr.FunctionReference, Expr.Variable forwarded]
+                    } call
+                }]
+                || forwarded.Name != incoming.Name
+                || ReadEntryCall(call, [incoming.Name], allowFunctionArgument: true) is not
+                {
+                    Module: not ErlangModuleNames.Module,
+                    FunctionArgument: { } reference,
+                } tail)
+            {
+                return false;
+            }
+
+            // Keep the incoming value in X0 through the heap check and closure creation.
+            owner.EmitClosureAllocation(0, 1, 1);
+            owner.EmitDeclaredFunctionReference(reference.Reference, reference.Entry, 1);
+            owner.EmitOrderedTailMoves([(0, 1), (1, 0)], []);
+            EmitRegisterTailTarget(call with { Module = tail.Module }, call.Arguments.Count);
 
             return true;
         }
@@ -159,7 +195,8 @@ internal sealed partial class BeamModuleCompiler
                 }
                 else if (owner.SsaTypeInferenceEnabled && !owner.ModuleOptimizationDisabled
                     && !owner.UsesSourceInlining
-                    && HasEarlierClosureFailureReservation(lexicalOwner, function, ordinal))
+                    && (HasEarlierClosureFailureReservation(lexicalOwner, function, ordinal)
+                        || HasPriorListCallbackFailureReservation(lexicalOwner, function, ordinal)))
                 {
                     failure = FormattableString.Invariant(
                         $"-{lexicalOwner.Name}/{lexicalOwner.Arity}-inlined-{ordinal}-"
