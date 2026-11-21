@@ -1,0 +1,60 @@
+dialyzer_cplt pinned [{'-init_md5_list/3-lc$^1/1-1-',2},
+                      {'-init_md5_list/3-lc$^0/1-0-',1}]
+dialyzer_cplt before []
+dialyzer_cplt candidate [{'-init_md5_list/3-lc$^1/1-1-',2},
+                         {'-init_md5_list/3-lc$^0/1-0-',1}]
+dialyzer_iplt pinned [{'-init_md5_list/3-lc$^1/1-1-',2},
+                      {'-init_md5_list/3-lc$^0/1-0-',1}]
+dialyzer_iplt before []
+dialyzer_iplt candidate [{'-init_md5_list/3-lc$^1/1-1-',2},
+                         {'-init_md5_list/3-lc$^0/1-0-',1}]
+ct_property_test pinned [{'-sequential_parallel/1-lc$^0/1-0-',2}]
+ct_property_test before []
+ct_property_test candidate [{'-sequential_parallel/1-lc$^0/1-0-',2}]
+demo_html_tagger pinned [{'-analyse/1-lc$^2/1-2-',2},
+                         {'-analyse/1-lc$^0/1-0-',1},
+                         {'-analyse/1-lc$^1/1-1-',3}]
+demo_html_tagger before []
+demo_html_tagger candidate [{'-analyse/1-lc$^2/1-2-',2},
+                            {'-analyse/1-lc$^0/1-0-',1},
+                            {'-analyse/1-lc$^1/1-1-',3}]
+erl_lint pinned [{'-check_nifs/2-lc$^2/1-2-',2},
+                 {'-check_nifs/2-lc$^0/1-0-',1},
+                 {'-check_nifs/2-lc$^1/1-1-',3}]
+erl_lint before []
+erl_lint candidate [{'-check_nifs/2-lc$^2/1-2-',2},
+                    {'-check_nifs/2-lc$^0/1-0-',1},
+                    {'-check_nifs/2-lc$^1/1-1-',3}]
+asn1ct_check pinned [{'-hstring_to_bitstring/1-lbc$^0/2-0-',2}]
+asn1ct_check before []
+asn1ct_check candidate [{'-hstring_to_bitstring/1-lbc$^0/2-0-',2}]
+ssl_cipher pinned [{'-all_filters/1-anonymous-0-',2}]
+ssl_cipher before [{'-all_filters/1-fun-0-',2}]
+ssl_cipher candidate [{'-all_filters/1-anonymous-0-',2}]
+v3_core pinned [{'-make_clause/5-anonymous-0-',1}]
+v3_core before [{'-make_clause/5-fun-0-',1}]
+v3_core candidate [{'-make_clause/5-anonymous-0-',1}]
+beam_ssa pinned [{'-mapfold_blocks/4-anonymous-0-',3}]
+beam_ssa before [{'-mapfold_blocks/4-fun-0-',3}]
+beam_ssa candidate [{'-mapfold_blocks/4-anonymous-0-',3}]
+beam_validator pinned [{'-merge_values/3-anonymous-0-',5}]
+beam_validator before [{'-merge_values/3-fun-0-',5}]
+beam_validator candidate [{'-merge_values/3-anonymous-0-',5}]
+dialyzer_incremental pinned [{'-handle_return_and_print/3-lc$^0/1-0-',2},
+                             {'-handle_return_and_print/3-lc$^1/1-1-',3},
+                             {'-handle_return_and_print/3-lc$^2/1-2-',2},
+                             {'-handle_return_and_print/3-lc$^3/1-3-',3}]
+dialyzer_incremental before []
+dialyzer_incremental candidate [{'-handle_return_and_print/3-lc$^0/1-0-',2},
+                                {'-handle_return_and_print/3-lc$^1/1-1-',3},
+                                {'-handle_return_and_print/3-lc$^2/1-2-',2},
+                                {'-handle_return_and_print/3-lc$^3/1-3-',3}]
+erl_types pinned [{'-t_inf_lists/2-zlc$^0/2-0-',2}]
+erl_types before []
+erl_types candidate [{'-t_inf_lists/2-zlc$^0/2-0-',2}]
+erl_types pinned [{'-t_sup_lists/2-zlc$^0/2-0-',2}]
+erl_types before []
+erl_types candidate [{'-t_sup_lists/2-zlc$^0/2-0-',2}]
+erl_types pinned [{'-t_subtract_lists/2-zlc$^0/2-0-',2}]
+erl_types before []
+erl_types candidate [{'-t_subtract_lists/2-zlc$^0/2-0-',2}]

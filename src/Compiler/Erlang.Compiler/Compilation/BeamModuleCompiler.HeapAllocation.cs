@@ -89,7 +89,11 @@ internal sealed partial class BeamModuleCompiler
             ? (start, operandStart + cursor.Position, (int)operand.Value) : null;
     }
 
-    private static byte[]? CombineStackAndHeapAllocation(ReadOnlyMemory<byte> code, IReadOnlyList<BeamInstruction> body)
+    private static byte[]? CombineStackAndHeapAllocation(
+        ReadOnlyMemory<byte> code,
+        IReadOnlyList<BeamInstruction> body,
+        int dictionaryLookupImport
+    )
     {
         MemoryStream? output = null;
         BeamProjectionFlow? flow = null;
@@ -120,16 +124,47 @@ internal sealed partial class BeamModuleCompiler
                 && tuple.Value < live.Value && destination.Value < frame.Value
                 && body[end + 1] is { Definition.Opcode: TestHeap, Operands: [_, { Value.IsZero: true }] }
                 && body[end + 2].Definition.Opcode is PutTuple or PutList
-                && body.Skip(start + 1).Take(end - start - 1).All(instruction =>
-                    instruction.Definition.Opcode == InitYRegisters || instruction is
-                    {
-                        Definition.Opcode: Move,
-                        Operands: [{ Kind: BeamOperandParameters.X } input, { Kind: BeamOperandParameters.Y } slot]
-                    } && input.Value < live.Value && slot.Value < frame.Value)
+                && HasSavedAllocationInputs(
+                    start,
+                    end,
+                    frame,
+                    live
+                )
                 && (flow ??= new BeamProjectionFlow(body)).HasCheckedTupleField(start, tuple, field))
             {
                 // The field stays reachable from the pre-allocation X roots while earlier
                 // writes initialize the same Y homes used by the following constructor.
+                end++;
+            }
+
+            else if (dictionaryLookupImport >= 0 && frame.Value.Sign > 0 && end + 2 < body.Count
+                && body[end] is
+                {
+                    Definition.Opcode: BifOne,
+                    Operands:
+                    [
+                    { Kind: BeamOperandParameters.Failure, Value.IsZero: true },
+                    { Kind: BeamOperandParameters.Unsigned } import,
+                    { Kind: BeamOperandParameters.Atom },
+                    { Kind: BeamOperandParameters.X, Value.IsZero: true, TypeIndex: null }
+                    ]
+                }
+                && import.Value == dictionaryLookupImport
+                && body[end + 1] is
+                {
+                    Definition.Opcode: TestHeap,
+                    Operands: [_, { Kind: BeamOperandParameters.Unsigned, Value.IsOne: true }]
+                }
+                && body[end + 2].Definition.Opcode is PutTuple or PutList
+                && HasSavedAllocationInputs(
+                    start,
+                    end,
+                    frame,
+                    live
+                ))
+            {
+                // The lookup cannot collect. Its result stays reachable through
+                // the process dictionary until the post-allocation X0 definition.
                 end++;
             }
 
@@ -164,5 +199,18 @@ internal sealed partial class BeamModuleCompiler
 
             return output.ToArray();
         }
+
+        bool HasSavedAllocationInputs(
+            int first,
+            int afterMoves,
+            BeamOperand frame,
+            BeamOperand live
+        ) =>
+            body.Skip(first + 1).Take(afterMoves - first - 1).All(instruction =>
+                instruction.Definition.Opcode == InitYRegisters || instruction is
+                {
+                    Definition.Opcode: Move,
+                    Operands: [{ Kind: BeamOperandParameters.X } input, { Kind: BeamOperandParameters.Y } slot]
+                } && input.Value < live.Value && slot.Value < frame.Value);
     }
 }

@@ -14,6 +14,17 @@ internal sealed partial class BeamModuleCompiler
         for (int index = 0; index < functions.Count; index++)
         {
             var function = functions[index];
+            if (ExtractZippedListMapper(
+                function,
+                locations[index],
+                declared,
+                localFunctions
+            ) is { } zipped)
+            {
+                helpers.Add(zipped);
+                continue;
+            }
+
             if (ExtractWritableBinaryListBuilder(
                 function,
                 locations[index],

@@ -1,5 +1,13 @@
 # Dependency and compatibility decisions
 
+Part 1988 reuses the managed helper, frame and constructor planners with pinned OTP Core, SSA and physical-code evidence. Existing dependencies and licenses continue. [Evidence](validation/part-1988/README.md).
+
+Part 1987 reuses current managed compiler graph and list-helper planners with pinned Core and SSA source. Dependency and license inputs are unchanged. [Evidence](validation/part-1987/README.md).
+
+Part 1986 relies on existing managed frame, liveness and source planners and pinned SSA control-flow rules with unchanged dependencies and licenses. [Evidence](validation/part-1986/README.md).
+
+Part 1985 uses existing CFG liveness, emitted BEAM frame rules and source-known generator plans from pinned Core and SSA. The dependency and license set is unchanged. [Evidence](validation/part-1985/README.md).
+
 Part 1983 preserves existing dependencies and applies pinned Core and SSA semantics within C#. [Evidence](validation/part-1983/README.md).
 
 Part 1982 reuses compiler frame and control-flow proofs for source-owned entry and tail calls with unchanged dependencies. [Evidence](validation/part-1982/README.md).

@@ -82,7 +82,7 @@ internal sealed partial class BeamModuleCompiler
 
         return expression switch
         {
-            Expr.ListComprehension or Expr.Fun => [expression],
+            Expr.ListComprehension or Expr.MapComprehension or Expr.Fun => [expression],
             Expr.Sequence sequence => Sequence(sequence.Items),
             Expr.Block block => OrderedLocalDefinitions(block.Body, order, outerBindings),
             Expr.Match match => OrderedLocalDefinitions(match.Value, order, outerBindings),
@@ -104,6 +104,126 @@ internal sealed partial class BeamModuleCompiler
             Expr.If @if => OrderedLocalDefinitions(@if.Clauses, order, outerBindings),
             _ => []
         };
+    }
+
+    private (int Core, int Ssa)? ReadMapListDefinitionOrdinals(
+        FunctionDefinition function,
+        IReadOnlyList<Expr> expressions,
+        IReadOnlyList<Expr.ListComprehension> comprehensions,
+        Expr.MapComprehension map
+    )
+    {
+        if (!SsaTypeInferenceEnabled || ModuleOptimizationDisabled || sourceModule is { InlineTargets.Count: > 0 }
+            || function.Clauses is not [{ Guard: null } clause] || !HasUnconditionalParameters(clause)
+            || comprehensions is not
+            [
+            {
+                Qualifiers: [ComprehensionQualifier.Generator { Strict: false, Pattern: Pattern.Variable, Source: Expr.Variable }]
+            } list
+            ]
+            || expressions.Count(expression => expression is Expr.MapComprehension) != 1
+            || expressions.Any(expression => expression is Expr.Fun or Expr.Try or Expr.Catch or Expr.Receive
+                or Expr.Maybe or Expr.Case or Expr.If or Expr.BinaryComprehension)
+            || map is not
+            {
+                Fields: [{ Key: var key, Value: var value, Exact: false }],
+                Qualifiers: [ComprehensionQualifier.Generator { Pattern: var pattern, Source: Expr.Variable input }]
+            }
+            || !(pattern is Pattern.Variable || pattern is Pattern.Tuple tuple
+                && tuple.Items.All(field => field is Pattern.Variable or Pattern.Literal)))
+        {
+            return null;
+        }
+
+        var generatorBindings = Semantics.Variables(pattern).ToHashSet(StringComparer.Ordinal);
+        if (!IsFlatMapField(key)
+            || !(IsFlatMapField(value) || value is Expr.Tuple result && result.Items.All(IsFlatMapField)))
+        {
+            return null;
+        }
+
+        var inputs = clause.Patterns.SelectMany(Semantics.Variables).ToHashSet(StringComparer.Ordinal);
+        if (clause.Body is Expr.Sequence sequence)
+        {
+            foreach (Expr step in sequence.Items)
+            {
+                if (LocalFunctionEntries.Walk(step).Any(expression => ReferenceEquals(expression, map)))
+                {
+                    break;
+                }
+
+                if (step is Expr.Match { Pattern: var bound, Value: Expr.Variable source } && inputs.Contains(source.Name)
+                    && (bound is Pattern.Variable || bound is Pattern.Tuple inputTuple
+                        && inputTuple.Items.All(field => field is Pattern.Variable or Pattern.Literal)))
+                {
+                    inputs.UnionWith(Semantics.Variables(bound));
+                }
+            }
+        }
+
+        if (!inputs.Contains(input.Name))
+        {
+            return null;
+        }
+
+        if ((UsesSourceInlining || automaticCoreInlining) && !HasInlineStableMapListBindings(clause.Body, list, map))
+        {
+            return null;
+        }
+
+        // v3_core lowers these map generators through lc_tq1. Reserve their
+        // letrec position even when the map uses the existing inline emitter.
+        int core = ListOrdinal(ListComprehensionOrder.Core);
+        int ssa = ListOrdinal(ListComprehensionOrder.Ssa);
+
+        return core >= 0 && ssa >= 0 ? (core, ssa) : null;
+
+        bool IsFlatMapField(Expr field) => field is Expr.Variable variable && generatorBindings.Contains(variable.Name)
+            || AttributeLiteral.TryNormalizeConstant(field, out _);
+
+        int ListOrdinal(ListComprehensionOrder order)
+        {
+            var definitions = OrderedLocalDefinitions(clause.Body, order).ToArray();
+
+            return definitions switch
+            {
+                [var first, var second] when ReferenceEquals(first, list) && ReferenceEquals(second, map) => 0,
+                [var first, var second] when ReferenceEquals(first, map) && ReferenceEquals(second, list) => 1,
+                _ => -1
+            };
+        }
+    }
+
+    private static bool HasInlineStableMapListBindings(
+        Expr body,
+        Expr.ListComprehension list,
+        Expr.MapComprehension map
+    )
+    {
+        if (body is not Expr.Sequence sequence || list.Items is not
+            [Expr.Call { Module: null, DynamicRemote: false, Arguments: var arguments }]
+            || arguments.Any(argument => argument is not Expr.Variable))
+        {
+            return false;
+        }
+
+        var bindings = sequence.Items.SkipWhile(step => step is Expr.Match { Pattern: var pattern, Value: Expr.Variable }
+            && (pattern is Pattern.Variable
+                || pattern is Pattern.Tuple tuple && tuple.Items.All(field => field is Pattern.Variable or Pattern.Literal))).ToArray();
+
+        // Unpack dynamic inputs and bind both comprehensions before evaluating
+        // ordinary calls. The mapper is inside the second letrec, after both
+        // names have been reserved by beam_core_to_ssa.
+        return bindings is
+            [
+                Expr.Match { Pattern: Pattern.Variable mapResult, Value: var first },
+                Expr.Match { Pattern: Pattern.Variable listResult, Value: var second },
+                .. var continuation
+            ]
+            && ReferenceEquals(first, map) && ReferenceEquals(second, list)
+            && arguments.OfType<Expr.Variable>().Any(argument => argument.Name == mapResult.Name)
+            && continuation.SelectMany(LocalFunctionEntries.Walk).OfType<Expr.Variable>()
+                .Any(variable => variable.Name == listResult.Name);
     }
 
     private IReadOnlyList<Clause>? ReadLiteralTupleComprehensionCase(IReadOnlyList<Clause> clauses)

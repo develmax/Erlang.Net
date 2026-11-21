@@ -787,7 +787,7 @@ public sealed partial class Parser
         else if (Take(ErlangSyntaxTokens.BinaryOpen))
             result = ParseBits();
         else if (Take(ErlangSyntaxTokens.MapPrefix))
-            result = Is(ErlangSyntaxTokens.OpenTuple) ? ParseMap(null) : ParseRecord(null);
+            result = Is(ErlangSyntaxTokens.OpenTuple) ? ParseMap(null, sourceToken) : ParseRecord(null);
         else if (Take(ErlangSyntaxTokens.OpenTuple))
         {
             var items = new List<Expr>();
@@ -1237,7 +1237,7 @@ public sealed partial class Parser
         };
     }
 
-    private Expr ParseMap(Expr? mapBase)
+    private Expr ParseMap(Expr? mapBase, Token? source = null)
     {
         Expect(ErlangSyntaxTokens.OpenTuple);
         var fields = new List<MapField>();
@@ -1254,8 +1254,16 @@ public sealed partial class Parser
                 else
                     throw Error(ParserDiagnostics.ExpectedMapFieldOperator);
                 fields.Add(new(key, Expression(), exact));
-                if (mapBase is null && Take(ErlangSyntaxTokens.ComprehensionSeparator))
-                    return new Expr.MapComprehension(fields, ComprehensionQualifiers(ErlangSyntaxTokens.CloseTuple));
+                if (mapBase is null && source is not null && Take(ErlangSyntaxTokens.ComprehensionSeparator))
+                {
+                    int lineIndex = Array.BinarySearch(sourceLineStarts, source.Start);
+
+                    return new Expr.MapComprehension(fields, ComprehensionQualifiers(ErlangSyntaxTokens.CloseTuple))
+                    {
+                        SourceLine = source.PreprocessorLine != 0 ? source.PreprocessorLine : lineIndex >= 0 ? lineIndex + 1 : ~lineIndex,
+                        PreprocessorFile = source.PreprocessorFile
+                    };
+                }
             } while (Take(ErlangSyntaxTokens.Comma));
             Expect(ErlangSyntaxTokens.CloseTuple);
         }

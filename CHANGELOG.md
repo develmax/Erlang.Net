@@ -256,3 +256,5 @@ Parts already covered by the main volumes retain their integrated records. The f
 - [0169.md](docs/changelog/0169.md) — parts 1951 onward
 - [0170.md](docs/changelog/0170.md) — parts 1963 onward
 - [0171.md](docs/changelog/0171.md) — parts 1975 onward
+
+- [0172.md](docs/changelog/0172.md) — parts 1988 onward

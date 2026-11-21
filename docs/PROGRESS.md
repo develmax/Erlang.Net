@@ -1,5 +1,15 @@
 # Project progress
 
+Part 1988 linked source passed all 10,397 managed cases and the complete repository gate. [Repository evidence](validation/part-1988-repository-gate/README.md).
+
+Part 1988 records 513 Equal, 853 Different, 0 Unsupported, 0 SourceRejected. All 607 selected cases and 82 native observations passed. [Evidence](validation/part-1988/README.md).
+
+Part 1987 records 512 Equal, 854 Different, 0 Unsupported, 0 SourceRejected. All 603 selected cases and 82 native observations passed. [Evidence](validation/part-1987/README.md).
+
+Part 1986 recorded 512 Equal, 854 Different, 0 Unsupported, 0 SourceRejected. All 600 focused tests and 79 selected native observations passed. [Evidence](validation/part-1986/README.md).
+
+Frozen Part 1985 measured 512 Equal, 854 Different, 0 Unsupported, 0 SourceRejected. It passed 597 compiler cases and 74 pinned native observations, and all 113 changed images prepared. [Evidence](validation/part-1985/README.md).
+
 The integrated Part 1983 repository gate passed all 10,383 managed cases, the pinned native catalog, package consumers and command-line validation in 65 minutes 26 seconds. [Repository evidence](validation/part-1983-repository-gate/README.md).
 
 Part 1984 measured 512 Equal, 854 Different, 0 Unsupported, 0 SourceRejected. A single uncached compile supplied the focused image selection, with 595 managed and 70 native cases. [Evidence](validation/part-1984/README.md).

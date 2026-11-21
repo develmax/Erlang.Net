@@ -132,7 +132,7 @@ internal sealed partial class BeamModuleCompiler
             int ordinal = function.CoreOrdinal ?? anonymousOrdinal++;
             string name = function.SelfName is { } self
                 ? FormattableString.Invariant($"-{lexicalOwner.Name}/{lexicalOwner.Arity}-{self}/{declaredArity}-{ordinal}-")
-                : owner.ReadFirstSsaClosureName(lexicalOwner, function, ordinal) ?? AnonymousClosureName(lexicalOwner, ordinal);
+                : owner.ReadSsaClosureName(lexicalOwner, function, ordinal) ?? AnonymousClosureName(lexicalOwner, ordinal);
             var clauses = function.Clauses.Select(clause =>
             {
                 // A fun head binds its own names. Keep the capture slot for other clauses.

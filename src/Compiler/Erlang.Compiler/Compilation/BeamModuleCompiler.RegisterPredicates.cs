@@ -482,7 +482,7 @@ internal sealed partial class BeamModuleCompiler
                 : 0;
             if (selector < 0)
             {
-                return false;
+                return TryEmitClosedExactAtomGuardTailDispatch(function);
             }
 
             var keys = new HashSet<Atom>();
@@ -653,6 +653,71 @@ internal sealed partial class BeamModuleCompiler
             }
 
             return true;
+        }
+
+
+        private bool TryEmitClosedExactAtomGuardTailDispatch(FunctionDefinition function)
+        {
+            if (!CanUseEntryTypeFacts())
+            {
+                return false;
+            }
+
+            var branches = new Clause[2];
+            int selector = -1;
+            Atom? firstKey = null;
+            Term? firstValue = null;
+            string? target = null;
+            for (int index = 0; index < branches.Length; index++)
+            {
+                Clause clause = function.Clauses[index];
+                if (clause.Guard is not Expr.Binary
+                    {
+                        Operator: ErlangOperators.ExactEqual,
+                        Left: Expr.Variable input,
+                        Right: Expr.Literal { Value: Atom key }
+                    }
+                    || !HasUnconditionalParameters(clause)
+                    || clause.Body is not Expr.Call { Module: null, DynamicRemote: false } call
+                    || call.Arguments.Count != function.Arity
+                    || !entries.ContainsKey((call.Function, call.Arguments.Count)))
+                {
+                    return false;
+                }
+
+                var patterns = clause.Patterns.ToArray();
+                int tested = Array.FindIndex(
+                    patterns,
+                    pattern => pattern is Pattern.Variable variable
+                    && variable.Name != VariableScopeNames.Wildcard && variable.Name == input.Name
+                );
+                if (tested < 0 || !AttributeLiteral.TryNormalizeConstant(call.Arguments[tested], out Term value)
+                    || index != 0 && (tested != selector || target != call.Function
+                        || TermOrder.Compare(firstKey!, key, exact: true) <= 0 || value.Equals(firstValue)))
+                {
+                    return false;
+                }
+
+                for (int argument = 0; argument < patterns.Length; argument++)
+                {
+                    if (argument != tested && (call.Arguments[argument] is not Expr.Variable forwarded
+                        || patterns[argument] is not Pattern.Variable parameter || forwarded.Name != parameter.Name))
+                    {
+                        return false;
+                    }
+                }
+
+                selector = tested;
+                firstKey = key;
+                firstValue = value;
+                target = call.Function;
+                patterns[selector] = new Pattern.Literal(key);
+                branches[index] = clause with { Guard = null, Patterns = patterns };
+            }
+
+            // The existing literal dispatch retains the local failure edge and tail bodies.
+            // Descending source keys keep the original physical order of the independent arms.
+            return TryEmitClosedAtomTailDispatch(function with { Clauses = branches });
         }
 
         private sealed record ClosedAtomBranch(

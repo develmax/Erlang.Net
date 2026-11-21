@@ -90,7 +90,7 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
             if (functions.Length == 1 && tail is null
-                && ReadFirstSsaClosureName(function, functions[index], functions[index].CoreOrdinal ?? ordinal) is { } name)
+                && ReadSsaClosureName(function, functions[index], functions[index].CoreOrdinal ?? ordinal) is { } name)
             {
                 plan = (plan.Closure with { Name = name }, plan.Registers);
             }

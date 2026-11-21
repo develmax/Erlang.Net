@@ -13,7 +13,8 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
-            if (TryEmitSharedConsReplacement(function, functionInfo))
+            if (TryEmitGuardedTupleConsFrames(function, functionInfo)
+                || TryEmitSharedConsReplacement(function, functionInfo))
             {
                 return true;
             }

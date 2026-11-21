@@ -51,7 +51,7 @@ internal sealed partial class BeamModuleCompiler
             BeamInstruction frame = body[projection + 1];
             int oldLive = (int)incoming.Value + 2;
             if (frame.Definition.Opcode is not (Allocate or AllocateHeap)
-                || frame.Operands[0].Value < 2 || frame.Operands[^1].Value != oldLive)
+                || frame.Operands[0].Value < 1 || frame.Operands[^1].Value != oldLive)
             {
                 continue;
             }
@@ -69,7 +69,7 @@ internal sealed partial class BeamModuleCompiler
                 incoming,
                 head,
                 tail
-            ) is not { } copies)
+            ) is not { } copies || copies is { Head: null, Tail: null })
             {
                 continue;
             }
@@ -80,9 +80,37 @@ internal sealed partial class BeamModuleCompiler
                 call++;
             }
 
-            if (body[call].Definition.Opcode is not (LocalCall or ExternalCall)
-                || !(flow ??= new BeamProjectionFlow(body)).IsEntryTemporaryDead(copies.End, head)
-                || !flow.IsEntryTemporaryDead(copies.End, tail))
+            if (body[call].Definition.Opcode is not (LocalCall or ExternalCall))
+            {
+                continue;
+            }
+
+            flow ??= new BeamProjectionFlow(body);
+            bool mixedDestinations = copies.Head is null || copies.Tail is null;
+            BeamOperand? directTemporary = mixedDestinations ? copies.Head is null ? head : tail : null;
+            int fusedCopy = -1;
+            BeamOperand? fusedDestination = null;
+            IReadOnlyDictionary<int, BeamOperand>? outgoingCopies = null;
+            if (mixedDestinations || !flow.IsEntryTemporaryDead(copies.End, head) || !flow.IsEntryTemporaryDead(copies.End, tail))
+            {
+                if (!flow.IsEntryTemporaryDead(call, head) || !flow.IsEntryTemporaryDead(call, tail)
+                    || ReadProjectedFrameOutgoingCopies(
+                        body,
+                        copies.End,
+                        call,
+                        (head, copies.Head),
+                        (tail, copies.Tail),
+                        directTemporary
+                    ) is not { } outgoing)
+                {
+                    continue;
+                }
+
+                (outgoingCopies, fusedCopy, fusedDestination) = outgoing;
+            }
+
+            if ((copies.Head ?? fusedDestination) is not { } headDestination
+                || (copies.Tail ?? fusedDestination) is not { } tailDestination)
             {
                 continue;
             }
@@ -102,10 +130,35 @@ internal sealed partial class BeamModuleCompiler
 
             output.WriteByte(GetList);
             WriteRegister(output, source);
-            WriteRegister(output, copies.Head);
-            WriteRegister(output, copies.Tail);
-            copied = body[copies.End].Offset;
-            info = copies.End - 1;
+            WriteRegister(output, headDestination);
+            WriteRegister(output, tailDestination);
+            int end = copies.End;
+            if (outgoingCopies is not null)
+            {
+                for (int index = end; index < call; index++)
+                {
+                    if (index == fusedCopy)
+                    {
+                        continue;
+                    }
+
+                    if (outgoingCopies.TryGetValue(index, out var slot))
+                    {
+                        output.WriteByte(Move);
+                        WriteRegister(output, slot);
+                        WriteRegister(output, body[index].Operands[1]);
+                    }
+                    else
+                    {
+                        output.Write(code.Span[body[index].Offset..body[index + 1].Offset]);
+                    }
+                }
+
+                end = call;
+            }
+
+            copied = body[end].Offset;
+            info = end - 1;
         }
 
         if (copied == 0)
@@ -118,7 +171,85 @@ internal sealed partial class BeamModuleCompiler
         return output.ToArray();
     }
 
-    private static (int End, BeamOperand Head, BeamOperand Tail)? ReadProjectedFrameListCopies(
+    private static (IReadOnlyDictionary<int, BeamOperand> Aliases, int FusedCopy, BeamOperand? Destination)?
+        ReadProjectedFrameOutgoingCopies(
+            IReadOnlyList<BeamInstruction> body,
+            int start,
+            int call,
+            (BeamOperand Temporary, BeamOperand? Slot) head,
+            (BeamOperand Temporary, BeamOperand? Slot) tail,
+            BeamOperand? directTemporary
+        )
+    {
+        var copies = new Dictionary<int, BeamOperand>();
+        HashSet<BeamOperand>? earlierUses = directTemporary is null ? null : [];
+        BeamOperand? fusedDestination = null;
+        int fusedCopy = -1;
+        for (int index = start; index < call; index++)
+        {
+            BeamInstruction instruction = body[index];
+            if (instruction.Definition.Opcode == Line)
+            {
+                continue;
+            }
+
+            // The initial saves own both values throughout argument setup.
+            // Reject definitions that change either the scratch or saved value.
+            if (instruction is not
+                {
+                    Definition.Opcode: Move,
+                    Operands: [var source, { Kind: BeamOperandParameters.X, TypeIndex: null } destination]
+                }
+                || SameProjectionRegister(destination, head.Temporary)
+                || SameProjectionRegister(destination, tail.Temporary))
+            {
+                return null;
+            }
+
+            // A direct X definition moves before the argument setup. Its old
+            // value must be untouched until the original copy, and the new
+            // value must reach the call without another definition.
+            if (directTemporary is { } temporary && SameProjectionRegister(source, temporary))
+            {
+                if (source.TypeIndex is not null || fusedCopy >= 0
+                    || destination.Value >= body[call].Operands[0].Value || earlierUses!.Contains(destination))
+                {
+                    return null;
+                }
+
+                fusedDestination = destination;
+                fusedCopy = index;
+                continue;
+            }
+
+            if (fusedCopy >= 0 && destination == fusedDestination)
+            {
+                return null;
+            }
+
+            earlierUses?.Add(source with { TypeIndex = null });
+            earlierUses?.Add(destination);
+            if (SameProjectionRegister(source, head.Temporary) || SameProjectionRegister(source, tail.Temporary))
+            {
+                BeamOperand? slot = SameProjectionRegister(source, head.Temporary) ? head.Slot : tail.Slot;
+                if (source.TypeIndex is not null || slot is null)
+                {
+                    return null;
+                }
+
+                copies.Add(index, slot);
+            }
+        }
+
+        if (directTemporary is not null ? fusedCopy < 0 : copies.Count == 0)
+        {
+            return null;
+        }
+
+        return (copies, fusedCopy, fusedDestination);
+    }
+
+    private static (int End, BeamOperand? Head, BeamOperand? Tail)? ReadProjectedFrameListCopies(
         IReadOnlyList<BeamInstruction> body,
         int first,
         BeamInstruction frame,
@@ -157,6 +288,6 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        return headSlot is not null && tailSlot is not null ? (index, headSlot, tailSlot) : null;
+        return (index, headSlot, tailSlot);
     }
 }

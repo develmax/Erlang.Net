@@ -41,7 +41,8 @@ internal sealed partial class BeamModuleCompiler
         IReadOnlyList<(int Start, int End, int Slot)> stackOperands,
         bool atomicOnly,
         bool completeTrimsOnly = false,
-        IReadOnlySet<int>? entriesToCompact = null
+        IReadOnlySet<int>? entriesToCompact = null,
+        bool reuseOccupiedEntrySlots = false
     )
     {
         using var output = new MemoryStream();
@@ -64,13 +65,22 @@ internal sealed partial class BeamModuleCompiler
                 continue;
             }
 
-            if (PlanDisjointFramesCore(
+            var plans = PlanDisjointFramesCore(
                 body,
                 start,
                 end,
                 atomicOnly,
                 completeTrimsOnly
-            ) is not { } plans)
+            );
+            IReadOnlySet<int>? redundantClears = null;
+            if (plans is null && reuseOccupiedEntrySlots && entriesToCompact is not null
+                && !atomicOnly && !completeTrimsOnly
+                && PlanOccupiedEntryFrameAfterRedundantClears(body, start, end) is { } occupied)
+            {
+                (plans, redundantClears) = occupied;
+            }
+
+            if (plans is null)
             {
                 continue;
             }
@@ -97,6 +107,13 @@ internal sealed partial class BeamModuleCompiler
 
                 if (opcode == InitYRegisters)
                 {
+                    if (redundantClears?.Contains(index) == true)
+                    {
+                        output.Write(code.Span[copied..instruction.Offset]);
+                        copied = next;
+                        continue;
+                    }
+
                     int[] kept = instruction.Operands.Skip(1).Select(slot => slots[(int)slot.Value])
                         .Where(slot => slot >= 0).Distinct().Order().ToArray();
                     output.Write(code.Span[copied..instruction.Offset]);

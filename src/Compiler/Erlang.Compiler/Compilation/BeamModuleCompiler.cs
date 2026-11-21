@@ -120,6 +120,12 @@ internal sealed partial class BeamModuleCompiler(
             {
                 continue;
             }
+            if (zippedListOwners.TryGetValue(entry, out var zipped))
+            {
+                pending.Push((zipped.Helper, ZippedListArity));
+                pending.Push((zipped.Mapper, ZippedListArity));
+            }
+
             Clause first = function.Clauses[0];
             foreach (var reference in LocalFunctionEntries.Walk(first.Body).OfType<Expr.FunctionReference>())
             {
@@ -306,6 +312,16 @@ internal sealed partial class BeamModuleCompiler(
             if (function.IsInlineFailure)
             {
                 entryLabel += 2;
+                continue;
+            }
+            if (zippedListOwners.ContainsKey((function.Name, function.Arity)))
+            {
+                entryLabel += 2;
+                continue;
+            }
+            if (zippedListHelpers.ContainsKey((function.Name, function.Arity)))
+            {
+                entryLabel += ZippedListHelperLabelCount;
                 continue;
             }
             if (writableBinaryListOwners.TryGetValue((function.Name, function.Arity), out var writableOwner))
@@ -598,6 +614,18 @@ internal sealed partial class BeamModuleCompiler(
                     localEntries[(function.Name, function.Arity)],
                     localEntries,
                     line
+                );
+            }
+            else if (zippedListOwners.TryGetValue((function.Name, function.Arity), out var zippedOwner))
+            {
+                Op(TailLocalCall, BeamWire.UnsignedTag, ZippedListArity);
+                Operand(LabelTag, localEntries[(zippedOwner.Helper, ZippedListArity)]);
+            }
+            else if (zippedListHelpers.TryGetValue((function.Name, function.Arity), out var zippedHelper))
+            {
+                EmitZippedListHelper(
+                    localEntries[(function.Name, function.Arity)],
+                    localEntries[(zippedHelper.Mapper, ZippedListArity)]
                 );
             }
             else if (writableBinaryListOwners.TryGetValue((function.Name, function.Arity), out var writableOwner))
@@ -1316,6 +1344,11 @@ internal sealed partial class BeamModuleCompiler(
 
         code = PromoteCheckedHeapProjectionSlots(code, labelCount) ?? code;
         code = FoldPureCallArgumentCycles(code, labelCount) ?? code;
+        code = RemoveDeadTupleProjections(code, labelCount) ?? code;
+        code = KeepTupleCarrierAcrossTagTest(code, labelCount) ?? code;
+        code = SinkIndependentTupleReadsPastHeap(code, labelCount) ?? code;
+        code = ExchangeOwnedCallArgument(code, labelCount) ?? code;
+        code = RetainDictionaryResultThroughCons(code, labelCount) ?? code;
 
         lateProjectionDecode = null;
         WriteCode(output, code, labelCount);
@@ -1327,6 +1360,15 @@ internal sealed partial class BeamModuleCompiler(
         {
             code = OrderAdjacentTupleProjections(code, labelCount) ?? code;
         }
+
+        code = EliminateGuardedEntryInitializations(code, labelCount) ?? code;
+        code = BypassRejectedConsRetry(code, labelCount) ?? code;
+        if (RemoveFinalLiteralAndNilRetryProjections(code, labelCount) is { } sharedRetries)
+        {
+            code = KeepTupleCarrierAcrossTagTest(sharedRetries, labelCount) ?? sharedRetries;
+        }
+
+        code = RemoveProjectedLeafComparisonFrame(code, labelCount) ?? code;
 
         Word(output, CodeHeaderSize);
         Word(output, BeamWire.FormatVersion);

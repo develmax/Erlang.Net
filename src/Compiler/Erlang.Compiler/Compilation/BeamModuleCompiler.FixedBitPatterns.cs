@@ -482,7 +482,8 @@ internal sealed partial class BeamModuleCompiler
             int failure,
             IReadOnlyDictionary<string, int>? registerCaptures = null,
             bool knownBinary = false,
-            int? positionedContext = null
+            int? positionedContext = null,
+            int rawEntryLive = 0
         )
         {
             if (positionedContext is null && registerCaptures is null && owner.receiveScratchRegisters is null
@@ -589,7 +590,18 @@ internal sealed partial class BeamModuleCompiler
 
             bool receiving = owner.receiveScratchRegisters is not null;
             int context = receiving || registerCaptures is not null ? 0 : 1;
-            EmitBitMatchStart(context, failure, knownBinary);
+            if (rawEntryLive == 0)
+            {
+                EmitBitMatchStart(context, failure, knownBinary);
+            }
+            else
+            {
+                owner.Op(StartBinaryMatchKnown, AtomTag, owner.Intern(BeamBinaryNames.NoFail));
+                owner.Operand(BeamWire.UnsignedTag, rawEntryLive);
+                owner.Operand(XRegisterTag, 0);
+                owner.Operand(XRegisterTag, 0);
+            }
+
             EmitBitMatchHeader(
                 context,
                 failure,
@@ -600,7 +612,7 @@ internal sealed partial class BeamModuleCompiler
             );
             var captures = new List<(Pattern Value, int Slot)>();
             int? receiveTail = null;
-            int registerLive = 1;
+            int registerLive = Math.Max(1, rawEntryLive);
             for (int index = 0; index < pattern.Segments.Count; index++)
             {
                 var segment = pattern.Segments[index];

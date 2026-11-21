@@ -1,5 +1,15 @@
 # Next steps
 
+The Part 1988 linked repository gate is complete. Continue Part 1989 with the remaining release instructions, frame and table differences. [Repository evidence](validation/part-1988-repository-gate/README.md).
+
+Complete the linked repository gate for the batched Part 1988 source. Continue ZIP inlining, map pair lowering and shared integer-list selector groups. [Evidence](validation/part-1988/README.md).
+
+Run the connected source-owned generator helper group. Complete the release activation and payload planning for the two outstanding CT branches. [Evidence](validation/part-1987/README.md).
+
+Validate the source-proven exclusive tuple retry, neutral dictionary lookup heap and paired map/list helper changes together. Follow with the full linked repository gate. [Evidence](validation/part-1986/README.md).
+
+Verify the combined saved-call exchange, dead tuple carriers, exact atom guard and preprojected guarded cons entry package. Continue qualifying the remaining entry frame and logging cohorts. [Evidence](validation/part-1985/README.md).
+
 Complete the frozen register-ownership and guarded-entry package, then integrate the independently verified frame and helper changes with a shared repository gate. [Repository evidence](validation/part-1983-repository-gate/README.md).
 
 Evaluate the dead tuple and fixed bitstring cohorts and retain the previous release controls. [Evidence](validation/part-1984/README.md).

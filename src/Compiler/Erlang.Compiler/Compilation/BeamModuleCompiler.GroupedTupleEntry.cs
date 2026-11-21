@@ -132,6 +132,18 @@ internal sealed partial class BeamModuleCompiler
                     continue;
                 }
 
+                if (argumentBase == 0 && TryEmitSharedTaggedConsEntry(
+                    clauses,
+                    input,
+                    fallback,
+                    noMatch
+                ))
+                {
+                    frames.Add(group.Key, peakSlot);
+                    functionPeak = Math.Max(functionPeak, peakSlot);
+                    continue;
+                }
+
                 if (argumentBase == 0 && (TryEmitFlatTaggedTupleGroup(
                     clauses,
                     input,

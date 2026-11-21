@@ -1,0 +1,66 @@
+{
+  "Build": {
+    "Parent": "c6d5065fbb8b1bd9cc7ab6e15fb250c1a31f32995fd590731ccaf316f0a6e4b5",
+    "Compiler": "7220500787B593DFB7C5A02A37A936EA45CC76CC71159689CD101FF342AAE174",
+    "Tests": "273A069C8E2C218709CA12B58BA70FD3112664ED8BAD98F67CA092595878C845",
+    "CorpusTool": "00FE4150F7F5E4E4E74C9A2B3F19A930BD87C20421B0B287785C88A5B2024EE5",
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "Finished": "2026-11-21T12:38:01.6287823+03:00"
+  },
+  "BuildInputs": "9f35e1e34e27ac3ec0fc0f07f59065328f1fc49b411482bd24860a52f3e01fdd",
+  "Paths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BinaryCallProofs.cs": {
+      "Before": "e3f1a787017ac8b89f7e8f857fd439a3b2f795053a8c5c4eda810bf4d33b509a",
+      "After": "bf12537bba79027f32661bb47293d7c3e12e71f77127c4a5ce6960b29bb0632f"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DeadTupleProjections.cs": {
+      "Before": null,
+      "After": "4e41241c86b8d9bed02af16867ec47d2cbd5166292adb0a3a0081158644a7e94"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FixedBitPatterns.cs": {
+      "Before": "5f1d8678f53c035c45fbba6739f4eb02262801bffac0e4f9b7def15d2a1c7087",
+      "After": "6b5c19e9e556c577ea5f1aafd390698550c115566a6d33bb3c13973172cd8fec"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": {
+      "Before": "99a6b09b7d9c6ec496e916fbcb6db8ffb77c07a262df77e5985d9ca635418534",
+      "After": "3c8ee06309701db4d6814dafbe6cca3b46680538b49732a34cdc1ba8ad09c2af"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ListComprehensionOrder.cs": {
+      "Before": "0da4365d716442f81c19d14e100f4b9ef0206acf039dedffda8b803be98fdeb5",
+      "After": "ca48d954c4e8a4f2496d74ebc33990464ae4802b9cf5c4e2ba6f60ded06bc3ab"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RawFixedBinaryTerminals.cs": {
+      "Before": null,
+      "After": "502273203593aec9fbe88d682a666b3c3aed42d242bdf1e10a8e1ffc0b16af06"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": {
+      "Before": "2f57f00feefaced8bb721eb459c464735dc1130a530937d434249f7b90b3f70b",
+      "After": "7045a04d4e44950ff6b5b783e4247d3dbcf3be07e2c505acaae0e3f6d75f7348"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamMixedMapListComprehensionChecks.cs": {
+      "Before": "73069ba22b7200b86d1942b77ce800e5ad01944e58212579f6e37bb5da5fee59",
+      "After": "cc05b62a1592b0feae551394dfed4327d11741d6debf337b44d533e426f011e4"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/Binary/BeamDeadTupleProjectionChecks.cs": {
+      "Before": null,
+      "After": "e7bb91f1c22c1f699b3737ad0e56bc52183613704b8afd429fdbdb488b22ab8e"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/Binary/BeamRawFixedBinaryTerminalChecks.cs": {
+      "Before": null,
+      "After": "3b64c34fe683b272a61368becc7abc20bc94d44b50c52e1fb58c49e93915f5e6"
+    },
+    "tests/Erlang.Tests/Harness/Program.cs": {
+      "Before": "14d27d11b2ef825d2fbc8d355dfae67f8f8804163b1c8244217e57a8cba9be52",
+      "After": "ac4f437759bc3213aba91810354f9a246ecff342f6ce50d91d86152edf4b3634"
+    }
+  },
+  "Patches": {
+    "dead-tuple-projection-1985-intake/production.patch": "28e4616c10e42f907fe3c959878c2a0281a22d1972f34f5a9ab1ae836c5c0623",
+    "dead-tuple-projection-1985-intake/fixture.patch": "11f2faca1695ea796ab5f8a0293e9c939ce4a268272fab148af9c927540a4db3",
+    "binary-match-audit-1931/raw-fixed-terminal-2007/production.patch": "e5f64ca21eb6a177fa3d7324ee086df3edb6ec6aa9d0610a8a5333204ac2e26e",
+    "binary-match-audit-1931/raw-fixed-terminal-2007/fixture.patch": "c853295233d83bd253c4e2cce4e64f6f39bcd9867f5ecc96792b0518afc2288e",
+    "part1985-register-and-bit-fields-preparation/binary-binding/production.patch": "5cece6209264b03c473ce6abadd18f4b97f6404a5812c82c1fd6abf4095b605b",
+    "part1985-register-inline-repair-prep/production.patch": "1ff83e94d6952b0c1ca85fc09047f5bebd0a50506846f1c5cb6e5efe5e0de55f",
+    "inline-mixed-list-reservation-p1985-audit/mixed-list-automatic-inline-reservation.patch": "0f8e96993c174c5d426488521f86c811a61038f8cd15379274f83c0263f8c09d"
+  }
+}

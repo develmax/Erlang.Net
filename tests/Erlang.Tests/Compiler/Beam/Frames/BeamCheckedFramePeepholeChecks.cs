@@ -10,6 +10,11 @@ internal static class BeamCheckedFramePeepholeChecks
     internal const string FallthroughTestName = "compiler/beam/shares-physical-fallthrough-return";
     internal const string HeapTestName = "compiler/beam/folds-heap-through-checked-entry-projection";
 
+    private const string HeapPass = "CombineStackAndHeapAllocation";
+    private const int DictionaryImport = 2;
+    private const int OtherImport = 3;
+    private const int AbsentImport = -1;
+
     internal static Task Fallthrough()
     {
         Expect(
@@ -43,29 +48,60 @@ internal static class BeamCheckedFramePeepholeChecks
     internal static Task Heap()
     {
         Expect(
-            "CombineStackAndHeapAllocation",
+            HeapPass,
             HeapCode(false),
             HeapCode(true),
-            BeamCheckedFramePeepholeDiagnostics.CheckedProjection
+            BeamCheckedFramePeepholeDiagnostics.CheckedProjection,
+            AbsentImport
         );
         Expect(
-            "CombineStackAndHeapAllocation",
+            HeapPass,
             HeapCode(false, callBarrier: true),
             null,
-            BeamCheckedFramePeepholeDiagnostics.CallBarrier
+            BeamCheckedFramePeepholeDiagnostics.CallBarrier,
+            AbsentImport
         );
         Expect(
-            "CombineStackAndHeapAllocation",
+            HeapPass,
             HeapCode(false, live: 2),
             null,
-            BeamCheckedFramePeepholeDiagnostics.LaterRoots
+            BeamCheckedFramePeepholeDiagnostics.LaterRoots,
+            AbsentImport
         );
         Expect(
-            "CombineStackAndHeapAllocation",
+            HeapPass,
             HeapCode(false, lineBarrier: true),
             null,
-            BeamCheckedFramePeepholeDiagnostics.DifferentLine
+            BeamCheckedFramePeepholeDiagnostics.DifferentLine,
+            AbsentImport
         );
+
+        Expect(
+            HeapPass,
+            DictionaryHeapCode(false),
+            DictionaryHeapCode(true),
+            BeamCheckedFramePeepholeDiagnostics.DictionaryLookup,
+            DictionaryImport
+        );
+
+        foreach (var barrier in new[]
+        {
+            DictionaryHeapCode(false, import: OtherImport),
+            DictionaryHeapCode(false, failure: 3),
+            DictionaryHeapCode(false, live: 2),
+            DictionaryHeapCode(false, lineBarrier: true),
+            DictionaryHeapCode(false, registerKey: true),
+            DictionaryHeapCode(false, updatesX: true)
+        })
+        {
+            Expect(
+                HeapPass,
+                barrier,
+                null,
+                BeamCheckedFramePeepholeDiagnostics.DictionaryLookupBarrier,
+                DictionaryImport
+            );
+        }
 
         return Task.CompletedTask;
     }
@@ -146,6 +182,46 @@ internal static class BeamCheckedFramePeepholeChecks
         return code.ToArray();
     }
 
+    private static byte[] DictionaryHeapCode(
+        bool combined,
+        int import = DictionaryImport,
+        int failure = 0,
+        int live = 1,
+        bool lineBarrier = false,
+        bool registerKey = false,
+        bool updatesX = false
+    )
+    {
+        var code = ModulePrefix();
+        code.AddRange(combined ? [AllocateHeap, U(2), U(2), U(2)] : [Allocate, U(2), U(2)]);
+        code.AddRange([InitYRegisters, ExtendedListOperand, U(1), Y(0), Move, X(1), Y(1)]);
+        if (updatesX)
+        {
+            code.AddRange([Move, X(0), X(1)]);
+        }
+
+        code.AddRange([BifOne, F(failure), U(import), registerKey ? X(0) : A(3), X(0)]);
+        if (lineBarrier)
+        {
+            code.AddRange([Line, U(1)]);
+        }
+
+        if (!combined)
+        {
+            code.AddRange([TestHeap, U(2), U(live)]);
+        }
+
+        code.AddRange([PutList, Y(1), A(0), X(1), Deallocate, U(2), Return]);
+        if (failure != 0)
+        {
+            code.AddRange([Label, U(failure), Deallocate, U(2), Return]);
+        }
+
+        code.Add(EndCode);
+
+        return code.ToArray();
+    }
+
     private static List<byte> ModulePrefix() => [Label, U(1), FunctionInfo, A(1), A(2), U(2), Label, U(2)];
 
     private static void SaveFrame(List<byte> code, int frame)
@@ -169,7 +245,8 @@ internal static class BeamCheckedFramePeepholeChecks
         string method,
         byte[] source,
         byte[]? expected,
-        string diagnostics
+        string diagnostics,
+        params object[] arguments
     )
     {
         ReadOnlyMemory<byte> bytes = source;
@@ -191,7 +268,7 @@ internal static class BeamCheckedFramePeepholeChecks
             null
         );
         MethodInfo? pass = typeof(BeamModuleCompiler).GetMethod(method, BindingFlags.NonPublic | BindingFlags.Static);
-        byte[]? actual = pass?.Invoke(null, [bytes, instructions]) as byte[];
+        byte[]? actual = pass?.Invoke(null, [bytes, instructions, .. arguments]) as byte[];
         if (expected is null ? actual is not null : actual is null || !expected.AsSpan().SequenceEqual(actual))
         {
             throw new InvalidOperationException(diagnostics);

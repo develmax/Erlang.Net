@@ -25,7 +25,7 @@ internal static class BeamWritableMappedBinaryListChecks
         dynamic(Items) ->
             << <<1:Width>> || Width <- Items >>.
         nibble_value(C) when C >= $0, C =< $9 -> C-$0;
-        nibble_value(C) when C >= $A, C =< $F -> C-55.
+        nibble_value(C) when C >= $A, C =< $F -> C-($A - 10).
         byte_value(alpha) -> 0;
         byte_value(beta) -> 1.
         """;
@@ -85,6 +85,12 @@ internal static class BeamWritableMappedBinaryListChecks
             await Fails(
                 "nibbles",
                 Term.List(new FloatTerm(48.0)),
+                Term.A("badarg"),
+                NibbleHelper
+            );
+            await Fails(
+                "nibbles",
+                Term.List(new FloatTerm(65.5)),
                 Term.A("badarg"),
                 NibbleHelper
             );

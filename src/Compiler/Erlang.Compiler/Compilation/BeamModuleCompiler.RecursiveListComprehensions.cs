@@ -6,6 +6,7 @@ internal sealed partial class BeamModuleCompiler
 {
     private readonly Dictionary<(string Name, int Arity), (string Name, int? Arity)[]> recursiveDefinitionOrder = [];
     private bool hasMixedRecursiveDefinitions;
+    private const string PairedListAppendTail = "$list_generator_append_tail";
     private readonly Dictionary<(string Name, int Arity, int CoreOrdinal), int> recursiveClosureFailureOrdinals = [];
 
     private (FunctionDefinition Parent, IReadOnlyList<(FunctionDefinition Function, BeamSourceLocation Location)> Helpers)? ExtractRecursiveListComprehensions(
@@ -18,8 +19,16 @@ internal sealed partial class BeamModuleCompiler
         var expressions = function.Clauses.SelectMany(clause => LocalFunctionEntries.Walk(clause.Body)).ToArray();
         var comprehensions = expressions.OfType<Expr.ListComprehension>().ToArray();
         var anonymous = expressions.OfType<Expr.Fun>().ToArray();
+        var mapSibling = expressions.OfType<Expr.MapComprehension>().FirstOrDefault();
+        var mapOrdinals = mapSibling is null ? null : ReadMapListDefinitionOrdinals(
+            function,
+            expressions,
+            comprehensions,
+            mapSibling
+        );
         if (comprehensions.Length == 0 || anonymous.Any(fun => fun.SelfName is not null)
-            || expressions.Any(expression => expression is Expr.BinaryComprehension or Expr.MapComprehension)
+            || mapSibling is not null && mapOrdinals is null
+            || expressions.Any(expression => expression is Expr.BinaryComprehension)
             || ReadListMappingPlan(function.Clauses) is not null
             || ReadTupleMappingCase(function) is not null
             || ReadDiscardedListCalls(function, localFunctions) is not null
@@ -29,16 +38,39 @@ internal sealed partial class BeamModuleCompiler
             return null;
         }
 
+        var nestedClosureMapping = comprehensions is [var nestedComprehension] && anonymous.Length != 0
+            ? ReadDirectClosureListMapping(
+                function,
+                anonymous,
+                nestedComprehension,
+                localFunctions
+            )
+            : null;
         Expr[] core = comprehensions;
         var ssa = comprehensions;
-        var helperOrdinals = Enumerable.Range(0, comprehensions.Length).ToArray();
+        var helperOrdinals = Enumerable.Range(mapOrdinals?.Ssa ?? 0, comprehensions.Length).ToArray();
         var failureOrdinals = new Dictionary<Expr.Fun, int>(ReferenceEqualityComparer.Instance);
         Expr[] definitions = comprehensions;
         bool independent = comprehensions.Length > 1 || anonymous.Length != 0;
         bool allowStrict = !independent || function.Clauses.Count == 1 && anonymous.Length == 0;
-        bool nestedSiblings = anonymous.Length == 0 && SsaTypeInferenceEnabled && !ModuleOptimizationDisabled
-            && HasSequentialNestedListGenerators(function, comprehensions);
-        if (independent)
+        bool nestedCaseSiblings = anonymous.Length == 0 && SsaTypeInferenceEnabled && !ModuleOptimizationDisabled
+            && HasBooleanCaseNestedListSiblings(function, comprehensions);
+        bool nestedSiblings = nestedCaseSiblings || anonymous.Length == 0 && SsaTypeInferenceEnabled
+            && !ModuleOptimizationDisabled && HasSequentialNestedListGenerators(function, comprehensions);
+        var pairedAppend = SsaTypeInferenceEnabled && !ModuleOptimizationDisabled && comprehensions.Length == 2
+            && anonymous.Length == 0 && function.Clauses is [{ Guard: null } appendClause]
+            && HasUnconditionalParameters(appendClause)
+            ? ReadPairedListAppend(expressions, appendClause)
+            : null;
+        if (pairedAppend is { } pair)
+        {
+            // v3_core evaluates and numbers the right-hand comprehension before
+            // lowering the left-hand generator with that list as its tail.
+            core = [pair.Right, pair.Left];
+            ssa = [pair.Right, pair.Left];
+            definitions = core;
+        }
+        else if (independent)
         {
             if (LocalFunctionEntries.ClauseExpressions(function.Clauses).SelectMany(LocalFunctionEntries.Walk)
                 .Any(expression => expression is Expr.Try or Expr.Receive or Expr.Maybe
@@ -47,7 +79,7 @@ internal sealed partial class BeamModuleCompiler
                 return null;
             }
 
-            core = OrderedLocalDefinitions(function.Clauses, ListComprehensionOrder.Core).ToArray();
+            core = WithNestedList(OrderedLocalDefinitions(function.Clauses, ListComprehensionOrder.Core)).ToArray();
             var tupleCase = anonymous.Length == 0 && SsaTypeInferenceEnabled && !ModuleOptimizationDisabled
                 ? ReadLiteralTupleComprehensionCase(function.Clauses) : null;
             var constructorOrder = tupleCase is null && SsaTypeInferenceEnabled
@@ -118,7 +150,7 @@ internal sealed partial class BeamModuleCompiler
                     return clauses.SelectMany(clause => OrderedLocalDefinitions(clause.Body, order));
                 }
 
-                return OrderedLocalDefinitions(function.Clauses, order);
+                return WithNestedList(OrderedLocalDefinitions(function.Clauses, order));
             }
 
             // A nested closure or comprehension needs a separate scope and SSA traversal.
@@ -130,7 +162,7 @@ internal sealed partial class BeamModuleCompiler
         }
 
         var names = new Dictionary<Expr, int>(ReferenceEqualityComparer.Instance);
-        int coreOrdinal = 0;
+        int coreOrdinal = mapOrdinals?.Core ?? 0;
         foreach (var definition in core)
         {
             if (!names.TryAdd(definition, coreOrdinal))
@@ -141,7 +173,7 @@ internal sealed partial class BeamModuleCompiler
             coreOrdinal += DefinitionWidth(definition);
         }
 
-        var helpers = new Dictionary<Expr.ListComprehension, (FunctionDefinition Function, BeamSourceLocation Location)[]>(ReferenceEqualityComparer.Instance);
+        var helpers = new Dictionary<Expr, (FunctionDefinition Function, BeamSourceLocation Location)[]>(ReferenceEqualityComparer.Instance);
         var replacements = new Dictionary<Expr, Expr>(ReferenceEqualityComparer.Instance);
         var staticMappers = new Dictionary<Expr.ListComprehension, string>(ReferenceEqualityComparer.Instance);
         if (anonymous.Length != 0)
@@ -183,8 +215,8 @@ internal sealed partial class BeamModuleCompiler
                 continue;
             }
 
-            var clause = function.Clauses.First(candidate => LocalFunctionEntries.Walk(candidate.Body)
-                .Any(expression => ReferenceEquals(expression, comprehension)));
+            var clause = nestedClosureMapping?.Clause ?? function.Clauses.First(candidate =>
+                LocalFunctionEntries.Walk(candidate.Body).Any(expression => ReferenceEquals(expression, comprehension)));
             string name = MappingName(
                 function.Name,
                 function.Arity,
@@ -193,7 +225,7 @@ internal sealed partial class BeamModuleCompiler
             );
             if (DefinitionWidth(comprehension) == 2)
             {
-                if (comprehension.Qualifiers[0] is ComprehensionQualifier.Generator { Pattern: Pattern.Tuple }
+                if ((nestedCaseSiblings || comprehension.Qualifiers[0] is ComprehensionQualifier.Generator { Pattern: Pattern.Tuple })
                     && PlanRecursiveListGenerators(
                         function,
                         comprehension,
@@ -207,7 +239,8 @@ internal sealed partial class BeamModuleCompiler
                             helperOrdinals[index] + 1
                         ),
                         declared,
-                        localFunctions
+                        localFunctions,
+                        allowTaggedTupleOuter: true
                     ) is { } nested)
                 {
                     helpers.Add(comprehension, [nested.Inner, nested.Outer]);
@@ -219,6 +252,20 @@ internal sealed partial class BeamModuleCompiler
             }
 
             var append = !independent ? ReadBoundComprehensionAppend(clause, comprehension) : null;
+            Expr.Call? computedTail = null;
+            Expr.Variable? appendTail = append?.Right as Expr.Variable;
+            if (pairedAppend is { } fused && ReferenceEquals(comprehension, fused.Left))
+            {
+                if (replacements.GetValueOrDefault(fused.Right) is not Expr.Call rightHelper)
+                {
+                    return null;
+                }
+
+                append = fused.Append;
+                appendTail = new Expr.Variable(PairedListAppendTail);
+                computedTail = rightHelper;
+            }
+
             var plan = PlanRecursiveListComprehension(
                 comprehension,
                 clause,
@@ -228,7 +275,7 @@ internal sealed partial class BeamModuleCompiler
                 independent,
                 discarded,
                 allowStrict,
-                append?.Right as Expr.Variable
+                appendTail
             );
             if (plan is not { } mapping || declared.Contains((name, mapping.Helper.Arity)))
             {
@@ -241,7 +288,25 @@ internal sealed partial class BeamModuleCompiler
             }
 
             helpers.Add(comprehension, [(mapping.Helper, mapping.Location)]);
-            replacements.Add((Expr?)append ?? comprehension, mapping.Call);
+            var replacement = mapping.Call;
+            if (computedTail is not null)
+            {
+                replacement = replacement with
+                {
+                    Arguments = replacement.Arguments.Select(argument =>
+                        argument is Expr.Variable { Name: PairedListAppendTail } ? computedTail : argument).ToArray()
+                };
+            }
+
+            if (nestedClosureMapping is { } nestedOwner)
+            {
+                var rewrittenCallback = (Expr.Fun)replacements[nestedOwner.Closure];
+                replacements[nestedOwner.Closure] = rewrittenCallback with { Clauses = [nestedOwner.Clause with { Body = replacement }] };
+            }
+            else
+            {
+                replacements.Add((Expr?)append ?? comprehension, replacement);
+            }
             if (SsaTypeInferenceEnabled && !ModuleOptimizationDisabled && !discarded && append is null
                 && mapping.Helper.Arity == 2 && comprehension is
                 {
@@ -257,9 +322,25 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        if (helpers.Count == 0 || nestedSiblings && !loweredNested)
+        if (helpers.Count == 0 || nestedSiblings && !loweredNested
+            || (nestedCaseSiblings || pairedAppend is not null) && helpers.Count != 2)
         {
             return null;
+        }
+
+        if (mapSibling is not null && mapOrdinals is { } mapOrdinal && function.Clauses is [var mapClause]
+            && PlanMapComprehensionListHelper(
+                function,
+                mapClause,
+                mapSibling,
+                location,
+                mapOrdinal,
+                localFunctions
+            ) is { } mapHelper && !declared.Contains((mapHelper.Helper.Name, mapHelper.Helper.Arity)))
+        {
+            helpers.Add(mapSibling, [(mapHelper.Helper, mapHelper.Location)]);
+            replacements.Add(mapSibling, mapHelper.Call);
+            definitions = OrderedLocalDefinitions(function.Clauses, ListComprehensionOrder.Definition).ToArray();
         }
 
         foreach (var (comprehension, closure) in staticMappers)
@@ -270,8 +351,8 @@ internal sealed partial class BeamModuleCompiler
         }
 
         var emittedDefinitions = definitions.Where(definition =>
-            definition is not Expr.ListComprehension comprehension || helpers.ContainsKey(comprehension)).ToArray();
-        var ordered = emittedDefinitions.OfType<Expr.ListComprehension>().SelectMany(comprehension => helpers[comprehension]).ToArray();
+            definition is not (Expr.ListComprehension or Expr.MapComprehension) || helpers.ContainsKey(definition)).ToArray();
+        var ordered = emittedDefinitions.Where(helpers.ContainsKey).SelectMany(definition => helpers[definition]).ToArray();
         recursiveDefinitionOrder.Add(
             (function.Name, function.Arity),
             emittedDefinitions.SelectMany(DefinitionOrder).ToArray()
@@ -300,15 +381,88 @@ internal sealed partial class BeamModuleCompiler
 
         return (parent, ordered);
 
+        IEnumerable<Expr> WithNestedList(IEnumerable<Expr> definitionsToOrder)
+        {
+            foreach (Expr definition in definitionsToOrder)
+            {
+                // Core traverses the callable body before assigning the fun
+                // identity. The lifted helper remains under the enclosing MFA.
+                if (nestedClosureMapping is { } nested && ReferenceEquals(definition, nested.Closure))
+                {
+                    yield return comprehensions[0];
+                }
+
+                yield return definition;
+            }
+        }
+
         IEnumerable<(string Name, int? Arity)> DefinitionOrder(Expr definition) =>
-            definition is Expr.ListComprehension comprehension
-                ? helpers[comprehension].Select(helper => (helper.Function.Name, (int?)helper.Function.Arity))
+            helpers.TryGetValue(definition, out var group)
+                ? group.Select(helper => (helper.Function.Name, (int?)helper.Function.Arity))
                 : [(AnonymousClosureName(function, names[definition]), null)];
 
         int DefinitionWidth(Expr definition) => nestedSiblings && definition is Expr.ListComprehension
         {
             Qualifiers: [ComprehensionQualifier.Generator, ComprehensionQualifier.Generator]
         } ? 2 : 1;
+    }
+
+    private (Expr.Fun Closure, Clause Clause)? ReadDirectClosureListMapping(
+        FunctionDefinition function,
+        IReadOnlyList<Expr.Fun> closures,
+        Expr.ListComprehension comprehension,
+        IReadOnlyDictionary<(string Name, int Arity), FunctionDefinition> localFunctions
+    )
+    {
+        if (ModuleOptimizationDisabled || !SsaTypeInferenceEnabled || UsesSourceInlining || automaticCoreInlining
+            || function.Clauses is not
+            [
+            {
+                Guard: null,
+                Body: Expr.Call { Module: null, DynamicRemote: false } parentCall
+            } entry]
+            || !HasUnconditionalParameters(entry)
+            || !localFunctions.ContainsKey((parentCall.Function, parentCall.Arguments.Count))
+            || parentCall.Arguments.Any(argument => argument is not (Expr.Variable or Expr.Literal or Expr.Fun))
+            || closures.Any(candidate => !IsTotalAnonymousClosure(candidate)
+                || !parentCall.Arguments.Any(argument => ReferenceEquals(argument, candidate)))
+            || comprehension is not
+            {
+                Items: [Expr.Call { Module: null, DynamicRemote: false } mapped],
+                Qualifiers: [ComprehensionQualifier.Generator
+                {
+                    Strict: false,
+                    Pattern: Pattern.Variable { Name: not VariableScopeNames.Wildcard } item,
+                    Source: Expr.Variable source
+                }]
+            }
+            || !localFunctions.ContainsKey((mapped.Function, mapped.Arguments.Count)))
+        {
+            return null;
+        }
+
+        var closure = closures.SingleOrDefault(candidate => ReferenceEquals(candidate.Clauses[0].Body, comprehension));
+        if (closure is null)
+        {
+            return null;
+        }
+
+        Clause clause = closure.Clauses[0];
+        var visible = new HashSet<string>(
+            entry.Patterns.Concat(clause.Patterns).OfType<Pattern.Variable>().Select(parameter => parameter.Name),
+            StringComparer.Ordinal
+        );
+        var operands = LocalFunctionEntries.Walk(mapped).ToArray();
+        var free = operands.OfType<Expr.Variable>().Select(variable => variable.Name)
+            .Where(name => name != item.Name).ToHashSet(StringComparer.Ordinal);
+        if (!visible.Contains(source.Name) || free.Count > 1 || !free.IsSubsetOf(visible)
+            || operands.Any(operand => operand is not (Expr.Call { Module: null, DynamicRemote: false }
+                or Expr.Variable or Expr.Literal)))
+        {
+            return null;
+        }
+
+        return (closure, clause);
     }
 
     private static bool HasSequentialNestedListGenerators(
@@ -339,6 +493,43 @@ internal sealed partial class BeamModuleCompiler
                     || comprehension.Qualifiers is
                         [ComprehensionQualifier.Generator,
                          ComprehensionQualifier.Generator { Strict: false, Source: Expr.Variable or Expr.Call { DynamicRemote: false } }]));
+    }
+
+    private static (Expr.Binary Append, Expr.ListComprehension Left, Expr.ListComprehension Right)? ReadPairedListAppend(
+        IReadOnlyList<Expr> expressions,
+        Clause clause
+    )
+    {
+        if (expressions.Any(expression => expression is Expr.Try or Expr.Catch or Expr.Receive or Expr.Maybe
+            or Expr.Case or Expr.If or Expr.BinaryComprehension or Expr.MapComprehension))
+        {
+            return null;
+        }
+
+        var parameters = clause.Patterns.OfType<Pattern.Variable>()
+            .Select(parameter => parameter.Name).ToHashSet(StringComparer.Ordinal);
+        foreach (Expr.Binary append in expressions.OfType<Expr.Binary>())
+        {
+            if (append is
+                {
+                    Operator: ErlangOperators.Append,
+                    Left: Expr.ListComprehension left,
+                    Right: Expr.ListComprehension right
+                } && IsInputList(left) && IsInputList(right))
+            {
+                return (append, left, right);
+            }
+        }
+
+        return null;
+
+        bool IsInputList(Expr.ListComprehension comprehension) => comprehension.Qualifiers is
+            [
+                ComprehensionQualifier.Generator
+            {
+                Strict: false, Pattern: Pattern.Variable, Source: Expr.Variable source
+            }
+            ] && parameters.Contains(source.Name);
     }
 
     private static Expr.Binary? ReadBoundComprehensionAppend(Clause clause, Expr.ListComprehension comprehension)

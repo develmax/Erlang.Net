@@ -8,11 +8,13 @@ internal static class BeamTerminalListMatchFrameChecks
 {
     internal const string TestName = "compiler/beam/delays-the-frame-past-a-terminal-list-match-failure";
     private const string MissingPlacement = "Expected the list check and its terminal badmatch to run without a frame.";
+    private const string TuplePlacement = "The public tuple checks must preserve the original badmatch payload and line without a frame.";
     private const string InvalidPlacement = "A changed input, intervening heap check, or shared failure entry must retain the frame.";
     private const byte Zero = 0;
     private const byte One = 0x10;
     private const byte Two = 0x20;
     private const byte Three = 0x30;
+    private const byte Four = 0x40;
     private const byte X0 = 0x03;
     private const byte X1 = 0x13;
     private const byte Y0 = 0x04;
@@ -20,6 +22,7 @@ internal static class BeamTerminalListMatchFrameChecks
     private const byte Function = 0x22;
     private const byte RecursiveEntry = 0x25;
     private const byte Failed = 0x35;
+    private const byte OtherFailure = 0x45;
 
     internal static Task Run()
     {
@@ -64,20 +67,58 @@ internal static class BeamTerminalListMatchFrameChecks
             throw new InvalidOperationException(InvalidPlacement);
         }
 
+        byte[] tupleFrame = [Allocate, One, Two, Move, X1, Y0];
+        byte[] tupleFailure = [Label, Three, Move, Y0, X0, Line, One, BadMatch, X0, EndCode];
+        byte[][] tupleChecks =
+        [
+            [IsTuple, Failed, Y0, TestArity, Failed, Y0, Two],
+            [IsTaggedTuple, Failed, Y0, Two, Module]
+        ];
+        byte[][] unframedChecks =
+        [
+            [IsTuple, Failed, X1, TestArity, Failed, X1, Two],
+            [IsTaggedTuple, Failed, X1, Two, Module]
+        ];
+        for (int index = 0; index < tupleChecks.Length; index++)
+        {
+            byte[] tuple = [.. entry, .. tupleFrame, .. tupleChecks[index], .. savedValueSuccess, .. tupleFailure];
+            byte[] tupleExpected = [.. entry, .. unframedChecks[index], .. tupleFrame, .. savedValueSuccess, .. error];
+            if (Rewrite(tuple, publicEntry: true) is not { } tupleActual
+                || !tupleActual.AsSpan().SequenceEqual(tupleExpected)
+                || Rewrite(tuple) is not null)
+            {
+                throw new InvalidOperationException(TuplePlacement);
+            }
+        }
+
+        byte[] differentTargets =
+        [
+            .. entry, .. tupleFrame,
+            IsTuple, Failed, Y0, TestArity, OtherFailure, Y0, Two, .. savedValueSuccess,
+            Label, Three, Move, Y0, X0, Line, One, BadMatch, X0,
+            Label, Four, Move, Y0, X0, Line, Two, BadMatch, X0, EndCode
+        ];
+        if (Rewrite(differentTargets, publicEntry: true) is not null)
+        {
+            throw new InvalidOperationException(InvalidPlacement);
+        }
+
         return Task.CompletedTask;
     }
 
-    private static byte[]? Rewrite(byte[] source)
+    private static byte[]? Rewrite(byte[] source, bool publicEntry = false)
     {
         ReadOnlyMemory<byte> instructions = source;
         object header = New(
             "BeamCodeHeader",
             0,
             (int)InitYRegisters,
-            4,
+            5,
             1,
             instructions
         );
+        var stackOperands = new List<(int Start, int End, int Slot)>();
+        Action<int, int, int> stack = (start, end, slot) => stackOperands.Add((start, end, slot));
         object body = Call(
             Type("BeamInstructionReader"),
             "Read",
@@ -85,7 +126,7 @@ internal static class BeamTerminalListMatchFrameChecks
             3,
             0,
             null,
-            null
+            stack
         );
 
         return (byte[]?)Call(
@@ -93,9 +134,9 @@ internal static class BeamTerminalListMatchFrameChecks
             "DelayEntryStackFrame",
             instructions,
             body,
-            new List<(int Start, int End, int Slot)>(),
+            stackOperands,
             null,
-            new Func<object, bool>(static _ => false),
+            new Func<object, bool>(_ => publicEntry),
             false
         );
     }

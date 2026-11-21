@@ -73,9 +73,10 @@ internal sealed partial class BeamModuleCompiler
                 Patterns: [Pattern.Variable { Name: not VariableScopeNames.Wildcard } formal],
                 Body: Expr.Binary
                 {
-                    Operator: ErlangOperators.Minus, Left: Expr.Variable source, Right: Expr.Literal { Value: Integer }
+                    Operator: ErlangOperators.Minus, Left: Expr.Variable source, Right: var offset
                 }
-            } && formal.Name == source.Name;
+            } && formal.Name == source.Name
+            && AttributeLiteral.TryNormalizeConstant(offset, out Term value) && value is Integer;
     }
 
     private void EmitWritableMappedBinaryIteration(

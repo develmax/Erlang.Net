@@ -131,7 +131,8 @@ internal static class BeamStackTupleHeapChecks
                 rewrittenSlots,
                 false,
                 false,
-                changed.Item2
+                changed.Item2,
+                false
             );
         }
 

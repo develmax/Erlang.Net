@@ -9,6 +9,31 @@ internal sealed partial class BeamModuleCompiler
         IReadOnlyList<BeamInstruction> body,
         IReadOnlyList<(int Start, int End, int Label)> labelOperands,
         bool shareCheckedFallbacks
+    ) => RewriteFailureProjectionJoins(
+        code,
+        body,
+        labelOperands,
+        shareCheckedFallbacks,
+        literalAndNilOnly: false
+    );
+
+    private byte[]? RemoveFinalLiteralAndNilRetryProjections(ReadOnlyMemory<byte> code, int labelCount) =>
+        !ModuleOptimizationDisabled && SsaTypeInferenceEnabled && code.Span.Contains(IsNil)
+            && DecodeLateAtomicProjectionSlots(code, labelCount) is { } decoded
+            ? RewriteFailureProjectionJoins(
+                code,
+                decoded.Body,
+                [],
+                shareCheckedFallbacks: false,
+                literalAndNilOnly: true
+            ) : null;
+
+    private static byte[]? RewriteFailureProjectionJoins(
+        ReadOnlyMemory<byte> code,
+        IReadOnlyList<BeamInstruction> body,
+        IReadOnlyList<(int Start, int End, int Label)> labelOperands,
+        bool shareCheckedFallbacks,
+        bool literalAndNilOnly
     )
     {
         var removals = new SortedDictionary<int, int>();
@@ -47,7 +72,18 @@ internal sealed partial class BeamModuleCompiler
                 return shared;
             }
 
-            if (!flow.TryGetSingleForwardTarget(index, (int)test.Operands[0].Value, out int target))
+            int label = (int)test.Operands[0].Value;
+            int target;
+            bool owned = literalAndNilOnly
+                ? TryGetLiteralAndNilProjectionRetry(
+                    body,
+                    flow,
+                    index,
+                    label,
+                    out target
+                )
+                : flow.TryGetSingleForwardTarget(index, label, out target);
+            if (!owned)
             {
                 continue;
             }
@@ -106,6 +142,46 @@ internal sealed partial class BeamModuleCompiler
 
         return output.ToArray();
     }
+
+    private static bool TryGetLiteralAndNilProjectionRetry(
+        IReadOnlyList<BeamInstruction> body,
+        BeamProjectionFlow flow,
+        int predicate,
+        int label,
+        out int target
+    )
+    {
+        target = -1;
+        if (predicate + 1 >= body.Count || body[predicate] is not
+            {
+                Definition.Opcode: ExactEqualTest,
+                Operands: [var failure, var compared,
+                {
+                    Kind: BeamOperandParameters.Atom or BeamOperandParameters.Integer
+                        or BeamOperandParameters.LiteralValue or BeamOperandParameters.Nil
+                }]
+            }
+            || !IsBareProjectionRegister(compared) || compared != body[predicate - 1].Operands[^1]
+            || body[predicate + 1] is not
+            {
+                Definition.Opcode: IsNil,
+                Operands: [var nilFailure, var checkedValue]
+            }
+            || nilFailure != failure || !IsBareProjectionRegister(checkedValue))
+        {
+            return false;
+        }
+
+        // Both retry edges follow the same projection and neither test changes it.
+        return flow.TryGetExclusiveForwardTarget(
+            predicate,
+            predicate + 1,
+            label,
+            out target
+        )
+            && HasUnprotectedCheckedFailureRegion(body, predicate - 1, target);
+    }
+
 
     private static byte[]? ShareExclusiveCheckedFailureProjection(
         ReadOnlyMemory<byte> code,

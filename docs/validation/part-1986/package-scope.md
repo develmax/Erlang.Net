@@ -1,0 +1,3 @@
+# Part 1986 — Combined frame ownership, guarded definitions and raw cursor lifetime
+
+The pinned source is OTP 29.1.1 at ad05823719d77c8faee87348ea39513d4e2f99c5. This retake combines the previously admitted four source groups, the initialized function-atom correction in the synthetic call exchange check, and three independent source groups. The new groups retain the outgoing dictionary result root, keep one raw payload cursor across bounded integer arithmetic, and remove guarded entry clears after all-path definition proof. Focused scope, the elected affected cohorts, 79 native observations and the physical frame checks use a single fresh 1,366-image compilation. The first focused failure and the rejected compiled payload's identity are retained.

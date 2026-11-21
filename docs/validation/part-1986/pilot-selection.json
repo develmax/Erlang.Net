@@ -1,0 +1,3042 @@
+{
+  "ParentCorpus": "2f9f6ff3cc096e42906f6cc59c40b5cafe48aa6013ce7068a015d68fe9e398aa",
+  "Evidence": {
+    "retired-call-argument-exchange-1986-audit/whole-proven-exchange.jsonl": "e8efc3cb15017a91e867d4dde8efd1f592845eb9a165c89bb467e5eb8cbe0b8a",
+    "tuple-tag-scratch-1986-audit/sites.jsonl": "087258b75c8a6caa73fb2aabdacf075f4406949504d464b74c3416d34fc29f20",
+    "unused-tuple-carrier-copy-1986-audit/sites.jsonl": "9e5ff31d90e3263eeb85c6c26f20a3875f1beea81b231c76ceaf0b92b8e502d3",
+    "disjoint-entry-placement-1987-audit/guarded-init-frame-ownership.jsonl": "a2220bcce537f76bbe63f4da0d8773f16ed00cf1cffdc43cd7a038458e466591",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\repeated-entry-frame-growth-1977-audit\\all-212-farther-widths.json": "70b7d8699010bc6ebc0a5b37773165f30ab63c2aa0028f7b2e05c00c183fba60",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\part1986-combined-ownership-retake-local\\recent-five-widths.json": "8be8f7fcebb0992d9d40b0c9447da9c2cc951b85fd5da00921c7806274ac0bc6"
+  },
+  "Selection": {
+    "lib/asn1-5.5.2/ebin/asn1ct.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/asn1-5.5.2/ebin/asn1ct_check.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/asn1-5.5.2/ebin/asn1ct_constructed_per.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/asn1-5.5.2/ebin/asn1ct_gen.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/asn1-5.5.2/ebin/asn1ct_gen_check.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument"
+      ]
+    },
+    "lib/asn1-5.5.2/ebin/asn1ct_imm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_config_plain.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_config_xml.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "checked tag scratch order with dead independent aliases",
+        "paired execution or explicit negative control",
+        "paired native execution input or focused source witness"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_doctest.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_hooks_lock.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_logs.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_master_status.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_netconfc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_release_test.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_rpc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control",
+        "paired native execution input or focused source witness"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_run.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_testspec.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_util.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/cth_surefire.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/erl2html2.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/test_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/test_server_ctrl.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/test_server_gl.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/test_server_sup.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/unix_telnet.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired execution or explicit negative control",
+        "paired native execution input or focused source witness"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_call_types.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_core_to_ssa.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_dict.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_doc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_jump.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dead positional projection carrier"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_alias.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_bc_size.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_bool.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_bsm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_dead.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_destructive_update.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_opt.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_pp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_pre_codegen.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_recv.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_type.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_trim.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_types.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_validator.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "five actual late checked-entry widths",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/cerl.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/compile.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "paired native execution input or focused source witness",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/core_parse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths",
+        "paired execution or explicit negative control",
+        "paired native execution input or focused source witness",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/core_scan.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/erl_bifs.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/rec_env.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/sys_core_fold.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/sys_core_inline.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/v3_core.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/crypto-5.10/ebin/crypto.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/debugger-7.0/ebin/dbg_icmd.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/debugger-7.0/ebin/dbg_ieval.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/debugger-7.0/ebin/dbg_iload.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/debugger-7.0/ebin/dbg_istk.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/debugger-7.0/ebin/dbg_wx_break_win.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/debugger-7.0/ebin/dbg_wx_filedialog_win.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/debugger-7.0/ebin/dbg_wx_trace.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/debugger-7.0/ebin/dbg_wx_trace_win.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/debugger-7.0/ebin/dbg_wx_view.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/debugger-7.0/ebin/int.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/cerl_prettypr.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_analysis_callgraph.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_callgraph.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_clean_core.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_contracts.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_cplt.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_dataflow.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_dep.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_incremental.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_iplt.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_options.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_typesig.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_utils.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/erl_bif_types.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/erl_types.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/typer_core.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired execution or explicit negative control",
+        "paired native execution input or focused source witness"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_capx.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_codec.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired native execution input or focused source witness",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_codegen.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_config.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_dbg.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_dict_parser.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_dict_util.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_dist.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_etcp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_gen_relay.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_info.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_peer_fsm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_reg.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_sctp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_service.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_session.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_sync.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_traffic.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_watchdog.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_doclet_markdown.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_html_to_markdown.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_layout.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_layout_chunks.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_parser.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_tags.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_types.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument"
+      ]
+    },
+    "lib/eldap-1.3.1/ebin/eldap.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/erts-17.1/ebin/erl_prim_loader.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/erts-17.1/ebin/erlang.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/erts-17.1/ebin/erts_code_purger.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/erts-17.1/ebin/erts_literal_area_collector.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/erts-17.1/ebin/init.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/erts-17.1/ebin/prim_inet.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/erts-17.1/ebin/prim_zip.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired native execution input or focused source witness",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/et-1.8/ebin/et_collector.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/et-1.8/ebin/et_wx_viewer.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/eunit-2.11/ebin/eunit_data.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/eunit-2.11/ebin/eunit_listener.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/eunit-2.11/ebin/eunit_proc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/eunit-2.11/ebin/eunit_test.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/eunit-2.11/ebin/eunit_tty.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument"
+      ]
+    },
+    "lib/ftp-1.2.6/ebin/ftp_internal.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ftp-1.2.6/ebin/ftp_response.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/inets-9.8/ebin/http_chunk.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpc_cookie.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpc_handler.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpc_manager.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpc_response.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpd_cgi.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpd_request.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpd_request_handler.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpd_response.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/inets-9.8/ebin/inets.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument"
+      ]
+    },
+    "lib/inets-9.8/ebin/mod_alias.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument"
+      ]
+    },
+    "lib/inets-9.8/ebin/mod_disk_log.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/inets-9.8/ebin/mod_range.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/inets-9.8/ebin/mod_security.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/application_controller.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/code.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/code_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/data_publisher.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/disk_log.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/dist_ac.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/dist_util.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/erl_boot_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "checked tag scratch order with dead independent aliases"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/erl_compile_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/erl_erts_errors.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/erl_kernel_errors.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/file_io_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/gen_tcp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control",
+        "paired native execution input or focused source witness"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/gen_tcp_socket.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/gen_udp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control",
+        "paired native execution input or focused source witness"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/gen_udp_socket.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/global.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/group.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control",
+        "paired native execution input or focused source witness",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet_db.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet_dns.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control",
+        "paired native execution input or focused source witness"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet_parse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet_res.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/logger_formatter.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/logger_olp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/logger_std_h.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/net.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/net_kernel.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/prim_tty.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/ram_file.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "checked tag scratch order with dead independent aliases",
+        "paired native execution input or focused source witness"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/raw_file_io_deflate.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/raw_file_io_delayed.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/raw_file_io_inflate.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/user_drv.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/megaco-4.9.2/doc/examples/meas/megaco_codec_mstone1.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_binary_encoder_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_compact_text_encoder_v1.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_compact_text_encoder_v2.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_compact_text_encoder_v3.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_config.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_filter.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_messenger.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v1.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v2.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v3.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_pretty_text_encoder_v1.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_pretty_text_encoder_v2.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_pretty_text_encoder_v3.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_text_mini_parser.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_text_parser_v1.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_text_parser_v2.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_text_parser_v3.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths",
+        "paired execution or explicit negative control",
+        "paired native execution input or focused source witness",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_user_default.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_bup.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_checkpoint.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_frag.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_loader.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_log.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_recover.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_tm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/observer-2.19/ebin/cdv_multi_wx.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/observer-2.19/ebin/cdv_table_wx.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/observer-2.19/ebin/cdv_virtual_list_wx.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/observer-2.19/ebin/crashdump_viewer.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/observer-2.19/ebin/observer_app_wx.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/observer-2.19/ebin/observer_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/observer-2.19/ebin/observer_perf_wx.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/observer-2.19/ebin/observer_port_wx.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/observer-2.19/ebin/observer_pro_wx.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/observer-2.19/ebin/observer_sock_wx.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/observer-2.19/ebin/observer_trace_wx.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/observer-2.19/ebin/observer_tv_table.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/observer-2.19/ebin/observer_tv_wx.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/observer-2.19/ebin/ttb.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/os_mon-2.12/ebin/memsup.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/parsetools-2.8/ebin/leex.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/parsetools-2.8/ebin/yecc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/parsetools-2.8/ebin/yeccparser.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control",
+        "paired native execution input or focused source witness",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/parsetools-2.8/ebin/yeccscan.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired native execution input or focused source witness"
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/PKIXCMP-2023.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/pubkey_cert.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/pubkey_cert_records.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/pubkey_crl.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/pubkey_ocsp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/pubkey_os_cacerts.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/pubkey_policy_tree.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/public_key.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/reltool-1.1/ebin/reltool_app_win.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/reltool-1.1/ebin/reltool_fgraph.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/reltool-1.1/ebin/reltool_fgraph_win.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/reltool-1.1/ebin/reltool_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "checked tag scratch order with dead independent aliases",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/reltool-1.1/ebin/reltool_sys_win.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/runtime_tools-2.5/ebin/appmon_info.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/runtime_tools-2.5/ebin/dbg.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/runtime_tools-2.5/ebin/versions.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/sasl-4.4/ebin/alarm_handler.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/sasl-4.4/ebin/release_handler.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/sasl-4.4/ebin/sasl.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/sasl-4.4/ebin/systools_make.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/sasl-4.4/ebin/systools_rc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument"
+      ]
+    },
+    "lib/snmp-5.20.5/doc/examples/ex1/ex1.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/doc/examples/ex2/snmp_ex2_manager.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/doc/examples/ex2/snmp_ex2_simple_standard_test.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "paired dictionary-root source and negative control",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_app.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_app_sup.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_community_mib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_conf.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_config.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_framework_mib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_generic.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_generic_mnesia.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_index.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_log.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_mini_mib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_misc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_note_store.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_notification_mib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_pdus.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_pdus_basic.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_shadow_table.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_standard_mib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_target_mib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_user_based_sm_mib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_usm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_verbosity.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_view_based_acm_mib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_acm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_agent.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_agent_sup.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_app.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_authentication_service.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_conf.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_discovery_handler.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_discovery_handler_default.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_error.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_error_io.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_error_logger.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_error_report.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_get.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_get_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_get_mechanism.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_local_db.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_mib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_mib_data.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_mib_data_tttn.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_mib_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_mib_storage.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_mib_storage_dets.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_mib_storage_ets.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control",
+        "paired native execution input or focused source witness"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_mib_storage_mnesia.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_misc_sup.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_mpd.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_net_if.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_net_if_filter.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_network_interface.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_network_interface_filter.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_notification_delivery_info_receiver.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_notification_filter.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_set.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_set_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_set_mechanism.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_supervisor.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_svbl.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_symbolic_store.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_target_cache.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_trap.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "paired dictionary-root source and negative control",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_usm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_vacm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpc_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpc_mib_gram.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths",
+        "paired dictionary-root source and negative control",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpc_mib_to_hrl.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpc_misc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpc_tok.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_conf.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_config.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_misc_sup.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_mpd.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_net_if.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_net_if_filter.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_net_if_mt.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_network_interface.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_network_interface_filter.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_server_sup.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_supervisor.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_user.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_user_default.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_user_old.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_usm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired dictionary-root source and negative control"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_auth.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_cli.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_connection.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dead positional projection carrier"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_connection_handler.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_connection_sup.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_dbg.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_file.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_fsm_userauth_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_options.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_shell.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_transport.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization",
+        "source-proven raw positioned payload with native packet witness"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_xfer.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/dtls_client_connection.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/dtls_gen_connection.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/dtls_handshake.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/dtls_server_connection.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_certificate.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_cipher.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_config.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_dist_connection_sup.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_gen_statem.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_handshake.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_manager.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_pkix_db.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_record.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_server_session_cache.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_trace.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_client_connection.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_client_connection_1_3.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_dtls_client_connection.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_dtls_gen_connection.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_dtls_server_connection.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_gen_connection.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "five actual late checked-entry widths",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_gen_connection_1_3.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_handshake.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_handshake_1_3.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_record_1_3.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_sender.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_server_connection.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_server_connection_1_3.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_server_session_ticket.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_socket.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "five actual late checked-entry widths",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/argparse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/calendar.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/dets.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control",
+        "paired native execution input or focused source witness",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/dets_utils.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/dets_v9.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/dict.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/edlin.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/edlin_expand.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/epp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/erl_eval.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/erl_features.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/erl_internal.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/erl_lint.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/erl_parse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths",
+        "paired execution or explicit negative control",
+        "paired native execution input or focused source witness",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/erl_pp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/erl_stdlib_errors.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/erl_tar.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/error_logger_file_h.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/error_logger_tty_h.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/eval_bits.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/file_sorter.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/filename.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/gb_sets.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/gen.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/gen_event.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/gen_fsm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/gen_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/gen_statem.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/io_ansi.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/io_lib_fread.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/io_lib_pretty.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/lists.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/man_docs.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/orddict.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control",
+        "paired native execution input or focused source witness"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/peer.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/proc_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/proplists.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired native execution input or focused source witness"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/qlc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "dead positional projection carrier",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/qlc_pt.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/rand.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/sets.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/shell.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/shell_docs.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/shell_docs_markdown.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/string.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/supervisor.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/timer.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/unicode_util.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/win32reg.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/zip.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "paired native execution input or focused source witness",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/zstd.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/syntax_tools-4.1.1/ebin/erl_prettypr.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/syntax_tools-4.1.1/ebin/erl_recomment.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/syntax_tools-4.1.1/ebin/erl_syntax.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/syntax_tools-4.1.1/ebin/merl.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/syntax_tools-4.1.1/ebin/merl_transform.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/tftp-1.3/ebin/tftp_engine.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/tftp-1.3/ebin/tftp_file.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/tftp-1.3/ebin/tftp_sup.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/cover.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/eprof.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/fprof.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/lcnt.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/tprof.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/xref.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/xref_base.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/xref_parser.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths",
+        "paired execution or explicit negative control",
+        "paired native execution input or focused source witness",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/xref_reader.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/xref_utils.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired native execution input or focused source witness",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/wx-2.7/doc/examples/demo/demo_html_tagger.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument"
+      ]
+    },
+    "lib/wx-2.7/doc/examples/demo/ex_gl.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "five actual late checked-entry widths",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/wx-2.7/doc/examples/sudoku/sudoku_board.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "five actual late checked-entry widths"
+      ]
+    },
+    "lib/wx-2.7/doc/examples/sudoku/sudoku_game.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxBufferedDC.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxColourPickerCtrl.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxDisplay.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxEvtHandler.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxFileDataObject.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxFocusEvent.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxGridEvent.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxHtmlLinkEvent.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxMDIChildFrame.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxSashWindow.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxStaticBitmap.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxStatusBar.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxStyledTextEvent.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxToolbook.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxWebView.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxXmlResource.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_b64Bin.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_sax_parser_latin1.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_sax_parser_list.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16be.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16le.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_sax_parser_utf8.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_sax_simple_dom.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control",
+        "paired native execution input or focused source witness"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_scan.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_simple.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_uri.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_xml_indent.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_xpath.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_xpath_parse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_xpath_pred.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_xsd.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "exclusive ordinary call consumes saved argument",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_xsd_re_parse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths",
+        "single entry-owned frame with guarded definite initialization"
+      ]
+    }
+  }
+}

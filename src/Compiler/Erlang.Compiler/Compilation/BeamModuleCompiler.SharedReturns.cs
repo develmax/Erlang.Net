@@ -99,6 +99,10 @@ internal sealed partial class BeamModuleCompiler
         var edits = new List<CodeEdit>();
         var atomNames = atoms.OrderBy(entry => entry.Value).Select(entry => entry.Key).ToArray();
         var importsByIndex = imports.OrderBy(entry => entry.Value).Select(entry => entry.Key).ToArray();
+        int dictionaryLookupImport = !ModuleOptimizationDisabled && SsaTypeInferenceEnabled
+            && atoms.TryGetValue(ErlangModuleNames.Module, out int erlangAtom)
+            && atoms.TryGetValue(AutoImportNames.Get, out int getAtom)
+            && imports.TryGetValue((erlangAtom, getAtom, 1), out int getImport) ? getImport : -1;
 
         bool CanDiscardExternalTailFrame(BeamInstruction instruction) =>
             !IsTrappingTailBif(importsByIndex[(int)instruction.Operands[1].Value], atomNames);
@@ -243,7 +247,7 @@ internal sealed partial class BeamModuleCompiler
                 ?? FoldListHeadSwap(code, body)
                 ?? ReuseReconstructedCons(code, body)
                 ?? CombineConstructionHeapChecks(code, body)
-                ?? CombineStackAndHeapAllocation(code, body)
+                ?? CombineStackAndHeapAllocation(code, body, dictionaryLookupImport)
                 ?? KeepTerminalCallResultsInX0(code, body, stackOperands)
                 ?? KeepAdjacentResultsInX0(code, body, stackOperands)
                 ?? DelayCallResultStoreThroughConstruction(

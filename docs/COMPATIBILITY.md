@@ -1,5 +1,15 @@
 # Compatibility overview
 
+Part 1988 passed the linked repository gate. No MFA classifications were advanced. [Repository evidence](validation/part-1988-repository-gate/README.md).
+
+The fresh Part 1988 release records 513 Equal, 853 Different, 0 Unsupported, 0 SourceRejected, with 17 normalized gains and 0 losses. [Evidence](validation/part-1988/README.md).
+
+The fresh Part 1987 release records 512 Equal, 854 Different, 0 Unsupported, 0 SourceRejected, with 63 normalized gains and 0 losses. [Evidence](validation/part-1987/README.md).
+
+Part 1986 recorded 512 Equal, 854 Different, 0 Unsupported, 0 SourceRejected. Its whole-module and instruction results are measured independently. [Evidence](validation/part-1986/README.md).
+
+Part 1985 retained 512 Equal, 854 Different, 0 Unsupported, 0 SourceRejected, with six additional normalized bodies and one exact raw-capture allocation vector. [Evidence](validation/part-1985/README.md).
+
 The Part 1983 linked source passed all 10,383 managed cases and required local validation. The release still has 854 bytewise differences. [Repository evidence](validation/part-1983-repository-gate/README.md).
 
 Part 1984 retained 512 Equal, 854 Different, 0 Unsupported, 0 SourceRejected and measured two pinned physical frame improvements. [Evidence](validation/part-1984/README.md).

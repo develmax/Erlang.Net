@@ -13,7 +13,7 @@ internal static class BeamNestedListSiblingGeneratorChecks
 
     private const string Source = """
         -module(beam_nested_sibling_generators).
-        -export([sequential/1, partial/2]).
+        -export([sequential/1, partial/2, tagged/2, nested_tagged/2, selected/4]).
 
         sequential(Input) ->
             Rows = [X || X <- Input, is_tuple(X)],
@@ -26,6 +26,29 @@ internal static class BeamNestedListSiblingGeneratorChecks
             B = [{K, V} || {K, {tag, Values}} <- Fallback, V <- Values],
             C = [{X, X} || X <- B],
             {A, B, C}.
+
+        tagged(Input, Stamp) ->
+            A = [{Anno, Value} || {attribute, Anno, kind, Values} <- Input, Value <- Values],
+            B = [{Stamp, X} || X <- A],
+            {A, B}.
+
+        nested_tagged(Forms, Stamp) ->
+            A = [{{F, A}, Module} ||
+                    {attribute, _, import, {Module, Names}} <- Forms,
+                    {F, A} <- Names],
+            B = [{Stamp, X} || X <- A],
+            {A, B}.
+
+        selected(Selector, Left, Right, Context) ->
+            Result = case Selector =:= [] of
+                true -> [Value || Item <- lists:reverse(Left), Value <- select_inner(Item, Context)];
+                false -> [Value || Item <- Right, Value <- select_inner(Item, Context)]
+            end,
+            {Selector, Result}.
+
+        select_inner(first, Values) -> Values;
+        select_inner(second, Values) -> [second | Values];
+        select_inner(_, _) -> bad_inner.
         """;
 
     internal static async Task Run()
@@ -37,6 +60,16 @@ internal static class BeamNestedListSiblingGeneratorChecks
             .Where(function => function.Name.Contains("-lc$^", StringComparison.Ordinal))
             .ToArray();
         if (!helpers.SequenceEqual([
+                ("-selected/4-lc$^0/1-0-", 2),
+                ("-selected/4-lc$^1/1-1-", 3),
+                ("-selected/4-lc$^2/1-2-", 2),
+                ("-selected/4-lc$^3/1-3-", 3),
+                ("-nested_tagged/2-lc$^2/1-2-", 2),
+                ("-nested_tagged/2-lc$^0/1-0-", 1),
+                ("-nested_tagged/2-lc$^1/1-1-", 3),
+                ("-tagged/2-lc$^2/1-2-", 2),
+                ("-tagged/2-lc$^0/1-0-", 1),
+                ("-tagged/2-lc$^1/1-1-", 3),
                 ("-partial/2-lc$^4/1-4-", 1),
                 ("-partial/2-lc$^0/1-0-", 1),
                 ("-partial/2-lc$^1/1-1-", 3),
@@ -77,7 +110,119 @@ internal static class BeamNestedListSiblingGeneratorChecks
                 throw new InvalidOperationException(Outputs);
             }
 
-            return Nil.Value;
+            Term attribute = Term.A("attribute");
+            Term kind = Term.A("kind");
+            Term import = Term.A("import");
+            Term taggedRows = Term.List(
+                Term.A("skip"),
+                Term.Tuple(
+                    attribute,
+                    a,
+                    kind,
+                    Term.List(one, two)
+                )
+            );
+            Term tagged = await image.Invoke(
+                context,
+                "tagged",
+                taggedRows,
+                x
+            );
+            Term first = Term.Tuple(a, one);
+            Term second = Term.Tuple(a, two);
+            if (!tagged.Equals(Term.Tuple(
+                    Term.List(first, second),
+                    Term.List(Term.Tuple(x, first), Term.Tuple(x, second))
+                )))
+            {
+                throw new InvalidOperationException(Outputs);
+            }
+
+            Term imported = Term.Tuple(
+                attribute,
+                b,
+                import,
+                Term.Tuple(a, Term.List(Term.A("skip"), Term.Tuple(x, four)))
+            );
+            Term nestedTagged = await image.Invoke(
+                context,
+                "nested_tagged",
+                Term.List(imported),
+                b
+            );
+            Term importedValue = Term.Tuple(Term.Tuple(x, four), a);
+            if (!nestedTagged.Equals(Term.Tuple(Term.List(importedValue), Term.List(Term.Tuple(b, importedValue)))))
+            {
+                throw new InvalidOperationException(Outputs);
+            }
+
+            Term firstKey = Term.A("first");
+            Term secondKey = Term.A("second");
+            Term selectedTrue = await image.Invoke(
+                context,
+                "selected",
+                Nil.Value,
+                Term.List(firstKey),
+                b,
+                Term.List(a)
+            );
+            Term selectedFalse = await image.Invoke(
+                context,
+                "selected",
+                x,
+                b,
+                Term.List(firstKey, secondKey),
+                Term.List(a)
+            );
+            if (!selectedTrue.Equals(Term.Tuple(Nil.Value, Term.List(a)))
+                || !selectedFalse.Equals(Term.Tuple(x, Term.List(a, secondKey, a))))
+            {
+                throw new InvalidOperationException(Outputs);
+            }
+
+            bool rejectedInner = false;
+            try
+            {
+                await image.Invoke(
+                    context,
+                    "selected",
+                    x,
+                    Nil.Value,
+                    Term.List(b),
+                    Nil.Value
+                );
+            }
+            catch (ErlangException error) when (error.Reason.Equals(Term.Tuple(Term.A("bad_generator"), Term.A("bad_inner"))))
+            {
+                rejectedInner = true;
+            }
+
+            if (!rejectedInner)
+            {
+                throw new InvalidOperationException(Outputs);
+            }
+
+            try
+            {
+                Term invalid = Term.Tuple(
+                    attribute,
+                    a,
+                    kind,
+                    b
+                );
+                await image.Invoke(
+                    context,
+                    "tagged",
+                    Term.List(invalid),
+                    x
+                );
+            }
+            catch (ErlangException error) when (error.Reason.Equals(Term.Tuple(Term.A("bad_generator"), b)))
+            {
+                return Nil.Value;
+            }
+
+            throw new InvalidOperationException(Outputs);
         });
     }
 }

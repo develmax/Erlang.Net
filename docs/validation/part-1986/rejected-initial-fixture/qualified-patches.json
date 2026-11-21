@@ -1,0 +1,69 @@
+{
+  "Build": {
+    "Parent": "6cf02cc0aa568260cf2f54b165f9279a4dddfe4e2aa2c392d07f29f0ba90de22",
+    "Tests": "E7F8E6C650B42C1B9AA62572E033F2D0A3807858EA1427EC972200880ABD72DE",
+    "Compiler": "C075C3A3A6EF3B67E9102DBABEEE009FEA3AAACC312F3EFF01FC0C79D61D2207",
+    "Finished": "2026-11-21T13:14:52.5611974+03:00",
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "CorpusTool": "7C4AA1B50B846559F2078B58658E687573D23E45B5920D25E52943CE9CCC30B6"
+  },
+  "BuildInputs": "d63aa3ef3bd0c01e2be3758b02270e5b8c9018c9020de6d6492c3ab66618b34a",
+  "Paths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryClauseFrames.cs": {
+      "Before": "d801147a9a80a44c60bf1100540092e32994d1a6a3eeea6e69e622e0110f8437",
+      "After": "ebca2dafaa8d1a57c5d2300d4472778042018470f4d0a4ef63858b82fcf674ce"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralCatch.cs": {
+      "Before": "01808a8eed81c9a7d6aa9f077e2c6a8e57f5d3f438948f66e48adb4d98cf4210",
+      "After": "e65dfb00743b68306a58bf3f85e0c8bc8ec04e448e9bca51bb9ffeb63234dd0c"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GuardedTupleConsFrames.cs": {
+      "Before": null,
+      "After": "71127132f2f6d3c6d58d2836a0d9377a9776581137051ea5dbfdac4a8805b57f"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.OwnedCallExchanges.cs": {
+      "Before": null,
+      "After": "340dd4392ba3d753e53c273c35af02e8eb16d4037e245b756fa48c200b9ed511"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RegisterPredicates.cs": {
+      "Before": "7fcc7540fa612d8bec128a95a8d9d8131007a5423ede033e088db57d98726e00",
+      "After": "c0ea838939fbe6dfbc31b490b10164cb3c97fdddee2fe91991e0369faacae23c"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TupleTagScratchSlots.cs": {
+      "Before": null,
+      "After": "b8af9880b06f367080e5d802970752751ab97eb13325ec5c6f87e457d7c7f9e7"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": {
+      "Before": "7045a04d4e44950ff6b5b783e4247d3dbcf3be07e2c505acaae0e3f6d75f7348",
+      "After": "339d1c907a38cc0b8fc9069aaf232291669d20db15c7550d980c73ad9345db41"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamClosedAtomPairChecks.cs": {
+      "Before": "647c8e2470c78f4b60b1498d55dc3bf229ef778af1a486eb100fb55782cbc1a1",
+      "After": "d9a145a6e529c36bc71bdd43dc4d283e6efd63f2b112c016ccac4280ed50ac4f"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamGuardedTupleConsFrameChecks.cs": {
+      "Before": null,
+      "After": "7686cd452ad1a110e1859e1a66b5a4fd2c37f409c414001e15db6b3a2fb77f31"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/Binary/BeamTupleTagScratchChecks.cs": {
+      "Before": null,
+      "After": "4e940009eb019109b223ba668417743581846f594f980b69c03da9969d34c970"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamCallResultExchangeChecks.cs": {
+      "Before": "960e76180d59bf057593728652da0f07d4f4e781305060a8a0f4af312da4bc94",
+      "After": "43dee169ff8119d2c4d7cad45539ba632a32d432fc08353ed618975fcc80a485"
+    },
+    "tests/Erlang.Tests/Harness/Program.cs": {
+      "Before": "ac4f437759bc3213aba91810354f9a246ecff342f6ce50d91d86152edf4b3634",
+      "After": "8195ecee5979def6b779cc713b8747ec13d6bfc509f91d47acbfd989081af6ae"
+    }
+  },
+  "Patches": {
+    "part1986-owned-register-preparation/combined-hooks/production.patch": "883a51af039996fb594961938bb8e09eee9f155c71820d0cd04e4bba7ee6ef24",
+    "part1986-owned-register-preparation/combined-hooks/fixture.patch": "4d13f4ff9ec30ea0145be1e35643588ea2f0fd45947ca206c3cbe146f94363fa",
+    "retired-call-argument-exchange-1986-audit/owned-call-exchange-fixture.patch": "3499164cdc106a3091c18317e4bf2d8bee92f1ff1caf08c6236fe2645dd4e131",
+    "snmp-ets-near-p1984-audit/closed-exact-atom-guard-tail.patch": "39048a49b1846f38f5d2b257bdeea6cdc395dac0fa2404d06e241531c16b082b",
+    "binary-match-audit-1931/ct-xml-entry-ownership-2009/production.patch": "0b5318eeb39d3a34b3065e57ee4edd34406e090bf5cd26177f04b02d9b068b88",
+    "binary-match-audit-1931/ct-xml-entry-ownership-2009/fixture.patch": "0b7838a940c0a8896598dbaf3b9d458fb3796d37cadf80645b1df9e5a68ea538"
+  }
+}

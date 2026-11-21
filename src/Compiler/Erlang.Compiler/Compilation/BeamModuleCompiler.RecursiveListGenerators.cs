@@ -70,6 +70,7 @@ internal sealed partial class BeamModuleCompiler
             string innerName,
             HashSet<(string Name, int Arity)> declared,
             IReadOnlyDictionary<(string Name, int Arity), FunctionDefinition> localFunctions,
+            bool allowTaggedTupleOuter = false,
             bool recordCursorLayout = false
         )
     {
@@ -102,15 +103,28 @@ internal sealed partial class BeamModuleCompiler
         var outerBindings = Semantics.Variables(outer).ToArray();
         var innerBindings = Semantics.Variables(inner).ToHashSet(StringComparer.Ordinal);
         bool tupleOuter = outer is Pattern.Tuple;
-        if (visible.Overlaps(outerBindings) || visible.Overlaps(innerBindings) || innerBindings.Overlaps(outerBindings)
-            || outer is Pattern.Tuple tuple
-                && (tuple.Items is not [Pattern.Variable, Pattern.Variable]
-                    || outerBindings.Distinct(StringComparer.Ordinal).Count() != outerBindings.Length
-                    || inner is not Pattern.Variable { Name: not VariableScopeNames.Wildcard }
-                    || second.Source is not (Expr.Variable or Expr.Call { DynamicRemote: false })
-                    || second.Source is Expr.Variable collection && !outerBindings.Contains(collection.Name, StringComparer.Ordinal)))
+        if (visible.Overlaps(outerBindings) || visible.Overlaps(innerBindings) || innerBindings.Overlaps(outerBindings))
         {
             return null;
+        }
+
+        if (outer is Pattern.Tuple tuple)
+        {
+            bool pair = tuple.Items is [Pattern.Variable, Pattern.Variable]
+                && inner is Pattern.Variable { Name: not VariableScopeNames.Wildcard };
+            // The tagged pattern is matched before the dependent collection is
+            // read. Generic tuple matching binds the same fields in either shape.
+            bool taggedSibling = allowTaggedTupleOuter
+                && tuple.Items is [Pattern.Literal { Value: Atom }, _, _, ..]
+                && first.Source is Expr.Variable && second.Source is Expr.Variable
+                && IsTupleGeneratorBinding(tuple) && IsTupleGeneratorBinding(inner);
+            if (!(pair || taggedSibling)
+                || outerBindings.Distinct(StringComparer.Ordinal).Count() != outerBindings.Length
+                || second.Source is not (Expr.Variable or Expr.Call { DynamicRemote: false })
+                || second.Source is Expr.Variable collection && !outerBindings.Contains(collection.Name, StringComparer.Ordinal))
+            {
+                return null;
+            }
         }
 
         Expr innerSource = second.Source;
@@ -288,6 +302,13 @@ internal sealed partial class BeamModuleCompiler
                 ? new Expr.Literal(known)
                 : expression;
     }
+
+    private static bool IsTupleGeneratorBinding(Pattern pattern) => pattern switch
+    {
+        Pattern.Variable or Pattern.Literal => true,
+        Pattern.Tuple tuple => tuple.Items.All(IsTupleGeneratorBinding),
+        _ => false
+    };
 
     private Dictionary<string, Atom> ReadNestedCaptureAtoms(
         FunctionDefinition function,

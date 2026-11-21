@@ -1,0 +1,745 @@
+{
+  "ParentCorpus": "3118dc811aa50c58b73c99648a8d491b879b1efdecd5400e1df40b749f3b9a65",
+  "Evidence": {
+    "retired-dictionary-frame-probes-1988-audit/disjoint-plans.jsonl": "802d064f1d14da4cb6f5908ea0554b68150f6900256f4220554019fe27aa5065",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\repeated-entry-frame-growth-1977-audit\\all-212-farther-widths.json": "70b7d8699010bc6ebc0a5b37773165f30ab63c2aa0028f7b2e05c00c183fba60",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\part1988-final-packed\\recent-five-widths.json": "8be8f7fcebb0992d9d40b0c9447da9c2cc951b85fd5da00921c7806274ac0bc6"
+  },
+  "Selection": {
+    "lib/asn1-5.5.2/ebin/asn1ct_check.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control",
+        "pinned source generator helper ownership and order"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_config_plain.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_config_xml.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control",
+        "retained native execution image",
+        "verified previous generator and physical frame controls"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_master_status.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_property_test.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "pinned source generator helper ownership and order"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_rpc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control",
+        "retained native execution image"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/unix_telnet.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired execution or explicit negative control",
+        "retained native execution image"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "pinned source generator helper ownership and order"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_validator.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "five actual late checked-entry widths",
+        "pinned source generator helper ownership and order"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/compile.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "verified previous generator and physical frame controls"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/core_parse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths",
+        "paired execution or explicit negative control",
+        "retained native execution image"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/erl_bifs.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/v3_core.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "pinned source generator helper ownership and order"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_cplt.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "pinned source generator helper ownership and order"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_incremental.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "pinned source generator helper ownership and order"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_iplt.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "pinned source generator helper ownership and order"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/erl_types.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "pinned source generator helper ownership and order"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "paired execution or explicit negative control",
+        "retained native execution image"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_codec.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "retained native execution image"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_config.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_gen_relay.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_session.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_parser.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths"
+      ]
+    },
+    "lib/erts-17.1/ebin/prim_zip.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "retained native execution image"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/gen_tcp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control",
+        "retained native execution image"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/gen_udp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control",
+        "retained native execution image"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control",
+        "retained native execution image"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet_dns.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control",
+        "retained native execution image"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/net.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/ram_file.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "retained native execution image"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v1.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v2.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v3.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_text_mini_parser.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_text_parser_v1.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_text_parser_v2.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_text_parser_v3.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths",
+        "paired execution or explicit negative control",
+        "retained native execution image"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_user_default.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/parsetools-2.8/ebin/yeccparser.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control",
+        "retained native execution image"
+      ]
+    },
+    "lib/parsetools-2.8/ebin/yeccscan.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "retained native execution image"
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/PKIXCMP-2023.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/sasl-4.4/ebin/alarm_handler.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_community_mib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_conf.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_framework_mib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_generic.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_index.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_log.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_note_store.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_notification_mib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_standard_mib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_target_mib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_user_based_sm_mib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_view_based_acm_mib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_acm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_agent.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_get.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_get_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_local_db.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_mib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_mib_data_tttn.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_mib_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_mib_storage_dets.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_mib_storage_ets.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction",
+        "retained native execution image"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_mib_storage_mnesia.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_mpd.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_net_if.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_set.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_set_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_supervisor.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_symbolic_store.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_target_cache.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_trap.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction",
+        "verified previous generator and physical frame controls"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_usm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_vacm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpc_mib_gram.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_config.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_mpd.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_net_if.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_net_if_mt.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_usm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-retention owned-frame compaction",
+        "verified previous generator and physical frame controls"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_connection_sup.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_transport.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "retained native execution image",
+        "verified previous generator and physical frame controls"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_cipher.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "pinned source generator helper ownership and order"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_dist_connection_sup.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_handshake.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_gen_connection.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "five actual late checked-entry widths"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_socket.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "five actual late checked-entry widths"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/dets.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control",
+        "retained native execution image"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/erl_lint.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "pinned source generator helper ownership and order"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/erl_parse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths",
+        "paired execution or explicit negative control",
+        "retained native execution image"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/orddict.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control",
+        "retained native execution image"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/proplists.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "verified previous generator and physical frame controls"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/zip.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "retained native execution image"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/xref_parser.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths",
+        "paired execution or explicit negative control",
+        "retained native execution image"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/xref_utils.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "retained native execution image"
+      ]
+    },
+    "lib/wx-2.7/doc/examples/demo/demo_html_tagger.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "pinned source generator helper ownership and order"
+      ]
+    },
+    "lib/wx-2.7/doc/examples/demo/ex_gl.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "five actual late checked-entry widths"
+      ]
+    },
+    "lib/wx-2.7/doc/examples/sudoku/sudoku_board.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "five actual late checked-entry widths"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxBufferedDC.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxColourPickerCtrl.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxDisplay.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxFileDataObject.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxFocusEvent.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxGridEvent.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxHtmlLinkEvent.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxMDIChildFrame.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxSashWindow.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxStaticBitmap.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxStatusBar.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxStyledTextEvent.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxToolbook.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxWebView.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxXmlResource.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "previously byte-exact retention"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_sax_simple_dom.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "paired execution or explicit negative control",
+        "retained native execution image"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_xpath_parse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_xsd_re_parse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 prior parser widths"
+      ]
+    }
+  }
+}

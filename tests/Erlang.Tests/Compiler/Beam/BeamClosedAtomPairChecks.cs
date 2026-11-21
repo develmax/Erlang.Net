@@ -14,7 +14,7 @@ internal static class BeamClosedAtomPairChecks
     private const string WrongValue = "A selected branch or its original failure changed behavior.";
     private const string Source = """
         -module(beam_closed_atom_pair).
-        -export([dispatch/2, checked/2, previous/0]).
+        -export([dispatch/2, checked/2, previous/0, route/3, guarded/3, forward/3]).
 
         dispatch(Payload, print) ->
             _ = erlang:put(recorded, {printed, Payload}),
@@ -27,12 +27,24 @@ internal static class BeamClosedAtomPairChecks
         checked(Payload, get) when is_atom(Payload) -> dispatch(Payload, get).
 
         previous() -> erlang:get(recorded).
+
+        route(Left, Right, Mode) when Mode =:= true -> pass(Left, Right, [selected]);
+        route(Left, Right, Mode) when Mode =:= false -> pass(Left, Right, []).
+
+        guarded(Left, Right, Mode) when Mode =:= true, is_atom(Left) -> pass(Left, Right, [selected]);
+        guarded(Left, Right, Mode) when Mode =:= false -> pass(Left, Right, []).
+
+        forward(Left, Right, Mode) when Mode =:= true -> pass(Left, Right, Mode);
+        forward(Left, Right, Mode) when Mode =:= false -> pass(Left, Right, []).
+
+        pass(Left, Right, Value) -> {Left, Right, Value}.
         """;
 
     internal static async Task Run()
     {
         byte[] image = CodeGeneration.CompileBeamModule(Source, "beam_closed_atom_pair.erl");
         CheckLayout(image);
+        CheckGuardTailLayout(image);
         var module = BeamModule.Prepare(image);
         await using var runtime = new ProcessRuntime();
         await using var actor = new RuntimeNodeFoundationHostActor(runtime);
@@ -59,6 +71,44 @@ internal static class BeamClosedAtomPairChecks
                 throw new InvalidOperationException(WrongValue);
             }
 
+            Term right = Term.I(19);
+            Term yes = Term.A("true");
+            Term no = Term.A("false");
+            if (!Term.Tuple(payload, right, Term.List(Term.A("selected"))).Equals(await module.Invoke(
+                context,
+                "route",
+                payload,
+                right,
+                yes
+            )) || !Term.Tuple(payload, right, Nil.Value).Equals(await module.Invoke(
+                context,
+                "route",
+                payload,
+                right,
+                no
+            )) || !Term.Tuple(payload, right, yes).Equals(await module.Invoke(
+                context,
+                "forward",
+                payload,
+                right,
+                yes
+            )))
+            {
+                throw new InvalidOperationException(WrongValue);
+            }
+
+            await RejectGuardTail(
+                "route",
+                payload,
+                right,
+                Term.A("neither")
+            );
+            await RejectGuardTail(
+                "guarded",
+                Term.I(2),
+                right,
+                yes
+            );
             await Reject("dispatch", payload, Term.A("neither"));
             await Reject("checked", payload, Term.A("print"));
             await Reject("checked", Term.I(2), Term.A("get"));
@@ -68,6 +118,33 @@ internal static class BeamClosedAtomPairChecks
             }
 
             return Nil.Value;
+
+            async Task RejectGuardTail(
+                string function,
+                Term input,
+                Term other,
+                Term selector
+            )
+            {
+                try
+                {
+                    await module.Invoke(
+                        context,
+                        function,
+                        input,
+                        other,
+                        selector
+                    );
+                }
+                catch (ErlangException error) when (error.Reason.Equals(Term.A(ErlangErrorReasons.FunctionClause))
+                    && error.StackTraceTerm is Cons { Head: TupleTerm { Items: [_, Atom name, var arguments, _] } }
+                    && name.Name == function && Cons.Items(arguments).SequenceEqual(new[] { input, other, selector }))
+                {
+                    return;
+                }
+
+                throw new InvalidOperationException(WrongValue);
+            }
 
             async Task Reject(string function, Term input, Term selector)
             {
@@ -109,6 +186,34 @@ internal static class BeamClosedAtomPairChecks
         {
             throw new InvalidOperationException(WrongLayout);
         }
+    }
+
+    private static void CheckGuardTailLayout(byte[] image)
+    {
+        object code = Code(image);
+        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
+        byte[] body = Body("route").Select(Opcode).ToArray();
+        object selectorInstruction = Body("route")[1];
+        if (body[1] != SelectValue || body.Contains(ExactEqualTest)
+            || body.Contains(Allocate) || body.Contains(AllocateHeap)
+            || body.Count(opcode => opcode == TailLocalCall) != 2
+            || Items(selectorInstruction, "Operands") is not
+                [var selector, var failure, _, var low, var lowLabel, var high, var highLabel]
+            || Value(selector) != 2 || atoms[Value(low)] != "false" || atoms[Value(high)] != "true"
+            || Value(lowLabel) <= Value(highLabel) || Value(failure) >= Value(highLabel)
+            || Body("guarded").Any(instruction => Opcode(instruction) == SelectValue)
+            || Body("forward").Any(instruction => Opcode(instruction) == SelectValue))
+        {
+            throw new InvalidOperationException(WrongLayout);
+        }
+
+        object[] Body(string function) => Items(code, "Instructions")
+            .SkipWhile(instruction => Opcode(instruction) != FunctionInfo
+                || Items(instruction, "Operands") is not [_, var name, var arity]
+                || atoms[Value(name)] != function || Value(arity) != 3)
+            .Skip(1)
+            .TakeWhile(instruction => Opcode(instruction) != FunctionInfo)
+            .ToArray();
     }
 
     private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");

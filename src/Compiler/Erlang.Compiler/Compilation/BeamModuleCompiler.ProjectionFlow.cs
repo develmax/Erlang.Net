@@ -179,7 +179,8 @@ internal sealed partial class BeamModuleCompiler
             int continuation,
             BeamOperand slot,
             bool allowBadRecordExit = false,
-            bool afterCall = false
+            bool afterCall = false,
+            int dictionaryLookupImport = -1
         )
         {
             var work = new Stack<(int Index, BeamOperand Slot, bool PassedCall)>();
@@ -263,6 +264,8 @@ internal sealed partial class BeamModuleCompiler
                         }
 
                         current = current with { Value = current.Value - removed };
+                        break;
+                    case BifOne when IsInfallibleDictionaryLookup(instruction, dictionaryLookupImport):
                         break;
                     case Jump:
                     case Label:

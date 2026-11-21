@@ -1,3 +1,4 @@
+using Erlang;
 using Erlang.Compiler;
 using static Erlang.Compiler.BeamEmissionFormat;
 using static Erlang.Tests.BeamBinaryHostAccess;
@@ -8,6 +9,7 @@ internal static class BeamCallResultExchangeChecks
 {
     internal const string TestName = "compiler/beam/exchanges-call-result-and-saved-input-in-one-frame-cell";
     private const string MissingExchange = "Expected a single saved slot and a swap with the result register.";
+    private const string OwnedExchange = "The outgoing exchange must preserve both later value definitions in the original frame.";
     private const string UnsafeExchange = "Expected the frame to retain slots across an intervening collector, branch or later read.";
     private const byte One = 0x10;
     private const byte Two = 0x20;
@@ -73,7 +75,92 @@ internal static class BeamCallResultExchangeChecks
             }
         }
 
-        return Task.CompletedTask;
+        return VerifyOwnedExchange();
+    }
+
+    private static async Task VerifyOwnedExchange()
+    {
+        var compiler = new BeamModuleCompiler("owned_call_exchange_fixture");
+        _ = Call(compiler, "Intern", BeamOpcodeEdgeNames.Run);
+        byte[] entry = [Label, One, FunctionInfo, Module, Function, One, Label, Two];
+        byte[] prefix =
+        [
+            Allocate, Two, One, InitYRegisters, ExtendedListOperand, One, Y1,
+            Move, X0, Y0, Move, 0x02, X0, ExternalCall, One, 0
+        ];
+        byte[] moves = [Move, X0, Y1, Move, Y0, X0, InitYRegisters, ExtendedListOperand, One, Y0];
+        byte[] call = [ExternalCall, One, 0];
+        byte[] finish = [Deallocate, Two, Return];
+        byte[] body =
+        [
+            .. prefix, .. moves, .. call,
+            Move, X0, Y0, TestHeap, Three, 0, PutTuple, X0, ExtendedListOperand, Two, Y1, Y0, .. finish
+        ];
+        byte[] exchanged =
+        [
+            .. prefix, Swap, Y0, X0, .. call,
+            Move, X0, Y1, TestHeap, Three, 0, PutTuple, X0, ExtendedListOperand, Two, Y0, Y1, .. finish
+        ];
+        if (RewriteOwned(body) is not { } actual || !actual.AsSpan().SequenceEqual([.. entry, .. exchanged, EndCode]))
+        {
+            throw new InvalidOperationException(OwnedExchange);
+        }
+
+        byte[] usedDestination = [.. prefix, Move, X0, Y1, .. body[prefix.Length..]];
+        byte[] sharedSuffix =
+        [
+            .. prefix, IsAtom, Branch, X0, .. moves, .. call, Label, Three, .. body[(prefix.Length + moves.Length + call.Length)..]
+        ];
+        if (RewriteOwned(usedDestination) is not null || RewriteOwned(sharedSuffix) is not null)
+        {
+            throw new InvalidOperationException(UnsafeExchange);
+        }
+
+        BeamModule transformed = BeamModule.Prepare(BeamOpcodeEdgeBytes.Image([.. entry, .. exchanged]));
+        BeamModule original = BeamModule.Prepare(BeamOpcodeEdgeBytes.Image([.. entry, .. body]));
+        await using var runtime = new ProcessRuntime();
+        ProcessHandle process = runtime.Spawn(async context =>
+        {
+            Term input = Term.List(Term.I(5), Term.I(6));
+            Term expected = Term.Tuple(Term.I(0), Term.I(2));
+            foreach (BeamModule image in new[] { transformed, original })
+            {
+                if (!expected.Equals(await image.Invoke(context, BeamOpcodeEdgeNames.Run, input)))
+                {
+                    throw new InvalidOperationException(OwnedExchange);
+                }
+
+                try
+                {
+                    _ = await image.Invoke(context, BeamOpcodeEdgeNames.Run, Term.I(1));
+
+                    throw new InvalidOperationException(UnsafeExchange);
+                }
+                catch (ErlangException error) when (error.Reason.Equals(Term.A(ErlangErrorReasons.BadArgument)))
+                {
+                }
+            }
+
+            return Nil.Value;
+        });
+        Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
+        if (!exit.Equals(Term.A(ProcessExitReasons.Normal)))
+        {
+            throw new InvalidOperationException(UnsafeExchange);
+        }
+
+        byte[]? RewriteOwned(byte[] instructions)
+        {
+            byte[] bytes = [.. entry, .. instructions, EndCode];
+            ReadOnlyMemory<byte> code = bytes;
+
+            return (byte[]?)Call(
+                compiler,
+                "ExchangeOwnedCallArgument",
+                code,
+                5
+            );
+        }
     }
 
     private static byte[]? Rewrite(byte[] source)

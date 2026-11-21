@@ -1787,7 +1787,8 @@ internal sealed partial class BeamModuleCompiler
         private void EmitEntryRegisterCase(
             EntryRegisterCase entry,
             int? preparedCaseFailure = null,
-            bool exactTupleTest = false
+            bool exactTupleTest = false,
+            int? selectorTypeOverride = null
         )
         {
             int extra = entry.PreserveSelector || entry.ReserveNestedSlot ? 1 : 0;
@@ -1822,7 +1823,8 @@ internal sealed partial class BeamModuleCompiler
                 entry.Selector.FrameSize + extra + entry.CallSequenceSlots - trimmed,
                 selectorLocation,
                 exactTupleTest ? AtomTypeBits | TupleTypeBits
-                    : RegisterCaseSelectorType(entry.Selector.Call, entry.Case.Opcode == IsTaggedTuple ? IsTuple : entry.Case.Opcode),
+                    : selectorTypeOverride
+                        ?? RegisterCaseSelectorType(entry.Selector.Call, entry.Case.Opcode == IsTaggedTuple ? IsTuple : entry.Case.Opcode),
                 preparedCaseFailure,
                 exactTupleTest: exactTupleTest
             );

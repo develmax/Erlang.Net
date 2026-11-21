@@ -36,7 +36,8 @@ internal sealed partial class BeamModuleCompiler
                 body,
                 start,
                 allocationIndex,
-                end
+                end,
+                allowTupleMatchRelay: start > 0 && isPublicEntry(body[start - 1])
             ) ?? PlanEntryFramePlacement(
                 body,
                 start,
@@ -408,7 +409,8 @@ internal sealed partial class BeamModuleCompiler
         bool allowFramelessTail = false,
         bool allowLeadingProjection = false,
         Func<BeamInstruction, bool>? isFramelessExternalTail = null,
-        Func<int, bool>? isPendingFramelessTail = null
+        Func<int, bool>? isPendingFramelessTail = null,
+        bool allowTupleMatchRelay = false
     )
     {
         BeamInstruction allocation = body[allocationIndex];
@@ -493,7 +495,7 @@ internal sealed partial class BeamModuleCompiler
             && body[start - 1] is { Definition.Opcode: FunctionInfo, Operands: [_, _, var functionArity] } && functionArity.Value <= live
             && body.Skip(start + 1).Take(allocationIndex - start - 1).All(instruction => instruction.Definition.Opcode == Line)
                 ? EntryFrameFailureLabel(body, start) : -1;
-        int terminalListMatchRelay = ReadTerminalListMatchRelay();
+        int terminalMatchRelay = ReadTerminalMatchRelay();
         var delayed = new HashSet<int>();
         var required = new HashSet<int>();
         var receiveHeaders = new HashSet<int>();
@@ -530,7 +532,7 @@ internal sealed partial class BeamModuleCompiler
             bool deallocates = index + 1 < end && IsEntryFrameReturn(index + 1);
             bool supported = IsDelayedFramePredicate(opcode)
                 || opcode is Label or Line or Jump or BadMatch or BadRecord or CaseEnd or IfEnd or Return
-                || index == terminalListMatchRelay
+                || index == terminalMatchRelay
                 || opcode == Move && deallocates && instruction.Operands[1] is { Kind: BeamOperandParameters.X, Value.IsZero: true }
                 || IsEntryFrameReturn(index) || IsEntryFunctionClauseRelay(index);
             var (registers, projected, maybeProjected) = extendEntry
@@ -861,19 +863,44 @@ internal sealed partial class BeamModuleCompiler
             return hasEntry;
         }
 
-        int ReadTerminalListMatchRelay()
+        int ReadTerminalMatchRelay()
         {
-            if (body[predicate] is not { Definition.Opcode: IsNonemptyList, Operands: [var failure, var source] }
-                || failure.Kind != BeamOperandParameters.Label
-                || !labels.TryGetValue((int)failure.Value, out int failedArm)
-                || failedArm <= predicate + 1)
+            BeamInstruction check = body[predicate];
+            int lastCheck = predicate;
+            bool tuple = allowTupleMatchRelay && allocation.Definition.Opcode == Allocate
+                && check.Definition.Opcode is IsTuple or IsTaggedTuple;
+            if (!(check.Definition.Opcode == IsNonemptyList || tuple)
+                || check.Operands.Count < 2 || check.Operands[0] is not { Kind: BeamOperandParameters.Label } failure)
+            {
+                return -1;
+            }
+
+            BeamOperand source = check.Operands[1];
+            if (tuple && source.Kind is not (BeamOperandParameters.X or BeamOperandParameters.Y))
+            {
+                return -1;
+            }
+
+            if (tuple && check.Definition.Opcode == IsTuple)
+            {
+                if (++lastCheck >= end || body[lastCheck] is not
+                    {
+                        Definition.Opcode: TestArity,
+                        Operands: [var arityFailure, var arityInput, _]
+                    } || arityFailure != failure || !SameProjectionRegister(arityInput, source))
+                {
+                    return -1;
+                }
+            }
+
+            if (!labels.TryGetValue((int)failure.Value, out int failedArm) || failedArm <= lastCheck + 1)
             {
                 return -1;
             }
 
             int move = SkipLines(failedArm + 1);
             if (move >= end || body[move] is not { Definition.Opcode: Move, Operands: [var input, var output] }
-                || input != source
+                || (tuple ? !SameProjectionRegister(input, source) : input != source)
                 || output is not { Kind: BeamOperandParameters.X, Value.IsZero: true })
             {
                 return -1;
@@ -886,11 +913,11 @@ internal sealed partial class BeamModuleCompiler
                 return -1;
             }
 
-            // The checked input is available before allocation. Reject a second entry, including
-            // fallthrough, that could have changed its X register or arrived with a live frame.
+            // Every entry to the matching failure must still carry the same input.
+            // Reject other entries, including fallthrough from framed code.
             for (int index = start; index < end; index++)
             {
-                if (index != predicate && Successors(index).Contains(failedArm))
+                if ((index < predicate || index > lastCheck) && Successors(index).Contains(failedArm))
                 {
                     return -1;
                 }

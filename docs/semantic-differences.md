@@ -1,5 +1,15 @@
 # Semantic differences
 
+Part 1988 separates the new complete match ct_config_xml from the other 17 normalized gains and the measured physical frame cohort. [Repository evidence](validation/part-1988-repository-gate/README.md).
+
+Part 1988 records ordered generated helper keys and physical stack widths alongside raw and behavioral outcomes. [Evidence](validation/part-1988/README.md).
+
+Part 1987 measures actual physical SNMP width recovery as True. Raw image, instruction, frame and behavior results are tracked separately. [Evidence](validation/part-1987/README.md).
+
+Part 1986 measured 4 normalized function gains and 0 losses, with native argument, XML guard and positioned binary observations. [Evidence](validation/part-1986/README.md).
+
+Part 1985 closes the admitted dead checked tuple definitions and the diameter header allocation. Two prim_zip widths and the ordinal zero compile helper remain open. [Evidence](validation/part-1985/README.md).
+
 The Part 1983 lifecycle fixture corrections await the owned dispatcher and externally observable logger cancellation. All 10,383 tests and the independent native gates passed. [Repository evidence](validation/part-1983-repository-gate/README.md).
 
 Part 1984 removes two guarded binary frames and emits one previously absent helper identity. [Evidence](validation/part-1984/README.md).

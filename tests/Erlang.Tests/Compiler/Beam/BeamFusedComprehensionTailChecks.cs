@@ -14,7 +14,7 @@ internal static class BeamFusedComprehensionTailChecks
 
     private const string Source = """
         -module(beam_fused_comprehension_tail).
-        -export([first/3,last/3,shared/2,shadow/2,strict/3,dynamic/1,nested/3]).
+        -export([first/3,last/3,shared/2,shadow/2,strict/3,dynamic/1,nested/3,fused/2]).
 
         first(Tail, Items, Key) -> [pair(X, Key) || X <- Items] ++ Tail.
         last(Key, Items, Tail) -> [pair(X, Key) || X <- Items] ++ Tail.
@@ -22,6 +22,7 @@ internal static class BeamFusedComprehensionTailChecks
         shadow(Items, Tail) -> [pair(Tail,Tail) || Tail <- Items] ++ Tail.
         strict(Key, Items, Tail) -> [pair(X, Key) || {item,X} <:- Items] ++ Tail.
         nested(Key, Items, Tail) -> {result,[pair(X,Key) || X <- Items] ++ Tail}.
+        fused(Left, Right) -> [{remove,X} || X <- Left] ++ [{add,X} || X <- Right].
         dynamic(Items) -> [pair(X,mapped) || X <- mark(source,Items)] ++ mark(tail,[]).
 
         pair(A,B) -> {A,B}.
@@ -40,6 +41,11 @@ internal static class BeamFusedComprehensionTailChecks
             ("shadow/2", 1), ("dynamic/1", 1)
         ];
         if (closures.Any(closure => !functions.Contains(($"-{closure.Name}-lc$^0/1-0-", closure.Arity))))
+        {
+            throw new InvalidOperationException(WrongTopology);
+        }
+
+        if (!functions.Contains(("-fused/2-lc$^0/1-0-", 1)) || !functions.Contains(("-fused/2-lc$^1/1-1-", 2)))
         {
             throw new InvalidOperationException(WrongTopology);
         }
@@ -66,7 +72,9 @@ internal static class BeamFusedComprehensionTailChecks
                 ("shared", [Term.List(a), listTail], Term.List(Term.Tuple(a, listTail), tail)),
                 ("shadow", [Term.List(a), listTail], Term.List(Term.Tuple(a, a), tail)),
                 ("strict", [key, Term.List(Term.Tuple(Term.A("item"), a)), tail], new Cons(Term.Tuple(a, key), tail)),
-                ("nested", [key, Term.List(a), tail], Term.Tuple(Term.A("result"), new Cons(Term.Tuple(a, key), tail)))
+                ("nested", [key, Term.List(a), tail], Term.Tuple(Term.A("result"), new Cons(Term.Tuple(a, key), tail))),
+                ("fused", [Term.List(a), Term.List(b)], Term.List(Term.Tuple(Term.A("remove"), a), Term.Tuple(Term.A("add"), b))),
+                ("fused", [Nil.Value, Term.List(b)], Term.List(Term.Tuple(Term.A("add"), b)))
             ];
             foreach (var test in cases)
             {
@@ -78,6 +86,8 @@ internal static class BeamFusedComprehensionTailChecks
 
             await RequireFailure(ErlangErrorReasons.BadGenerator, "first", [tail, bad, key]);
             await RequireFailure(ErlangErrorReasons.BadMatch, "strict", [key, Term.List(bad), tail]);
+            await RequireFailure(ErlangErrorReasons.BadGenerator, "fused", [tail, bad]);
+            await RequireFailure(ErlangErrorReasons.BadGenerator, "fused", [bad, Term.List(a)]);
 
             return Nil.Value;
 

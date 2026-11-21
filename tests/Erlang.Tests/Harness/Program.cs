@@ -12382,6 +12382,7 @@ Test(Erlang.Tests.BeamBinaryExtractRangeChecks.TestName, Erlang.Tests.BeamBinary
 Test(Erlang.Tests.BeamBinaryTupleBindingChecks.TestName, Erlang.Tests.BeamBinaryTupleBindingChecks.Compare);
 Test(Erlang.Tests.BeamExternalLeafTailChecks.TestName, Erlang.Tests.BeamExternalLeafTailChecks.Run);
 Test(Erlang.Tests.BeamGuardedBifLeafFrameChecks.TestName, Erlang.Tests.BeamGuardedBifLeafFrameChecks.Run);
+Test(Erlang.Tests.BeamProjectedLeafComparisonChecks.TestName, Erlang.Tests.BeamProjectedLeafComparisonChecks.Run);
 Test(
     Erlang.Tests.BeamModuleEmissionChecks.IntegerLiteralBoundsTest,
     Erlang.Tests.BeamModuleEmissionChecks.CompareIntegerLiteralBounds
@@ -12465,6 +12466,7 @@ Test(Erlang.Tests.BeamOptionalTableEncoderChecks.TestName, Erlang.Tests.BeamOpti
 Test(Erlang.Tests.BeamGuardedClosureDefinitionOrderChecks.TestName, Erlang.Tests.BeamGuardedClosureDefinitionOrderChecks.Run);
 Test(Erlang.Tests.BeamMapComprehensionCoreOrdinalChecks.TestName, Erlang.Tests.BeamMapComprehensionCoreOrdinalChecks.Run);
 Test(Erlang.Tests.BeamWritableBinaryListHelperChecks.TestName, Erlang.Tests.BeamWritableBinaryListHelperChecks.Run);
+Test(Erlang.Tests.BeamZippedListHelperChecks.TestName, Erlang.Tests.BeamZippedListHelperChecks.Run);
 Test(Erlang.Tests.BeamWritableBinaryTupleListHelperChecks.TestName, Erlang.Tests.BeamWritableBinaryTupleListHelperChecks.Run);
 Test(Erlang.Tests.BeamWritableMappedBinaryListChecks.TestName, Erlang.Tests.BeamWritableMappedBinaryListChecks.Run);
 Test(
@@ -12558,6 +12560,7 @@ Test(Erlang.Tests.BeamWxSparseOptionForwardChecks.TestName, Erlang.Tests.BeamWxS
 Test(Erlang.Tests.BeamLineFilenameChecks.TestName, Erlang.Tests.BeamLineFilenameChecks.Run);
 Test(Erlang.Tests.BeamRecursiveListValueChecks.TestName, Erlang.Tests.BeamRecursiveListValueChecks.Run);
 Test(Erlang.Tests.BeamNestedListGeneratorChecks.TestName, Erlang.Tests.BeamNestedListGeneratorChecks.Run);
+Test(Erlang.Tests.BeamNestedAnonymousListHelperChecks.TestName, Erlang.Tests.BeamNestedAnonymousListHelperChecks.Run);
 Test(Erlang.Tests.BeamStackTupleHeapChecks.TestName, Erlang.Tests.BeamStackTupleHeapChecks.Run);
 Test(Erlang.Tests.BeamNeutralTailFrameChecks.TestName, Erlang.Tests.BeamNeutralTailFrameChecks.Run);
 Test(Erlang.Tests.BeamProtectedProjectionChecks.TestName, Erlang.Tests.BeamProtectedProjectionChecks.Run);
@@ -12674,6 +12677,7 @@ Test(Erlang.Tests.BeamCheckedEntryTupleSlotChecks.TestName, Erlang.Tests.BeamChe
 Test(Erlang.Tests.BeamTupleAtomEntryChecks.TestName, Erlang.Tests.BeamTupleAtomEntryChecks.Run);
 Test(Erlang.Tests.BeamCoveredCaseArmChecks.TestName, Erlang.Tests.BeamCoveredCaseArmChecks.Run);
 Test(Erlang.Tests.BeamCopiedListInputsChecks.TestName, Erlang.Tests.BeamCopiedListInputsChecks.Run);
+Test(Erlang.Tests.BeamMixedMapListComprehensionChecks.TestName, Erlang.Tests.BeamMixedMapListComprehensionChecks.Run);
 Test(
     Erlang.Tests.BeamConstructorComprehensionOrderChecks.TestName,
     () =>
@@ -13153,6 +13157,9 @@ Test(
     return Task.CompletedTask;
 }
 );
+Test(Erlang.Tests.BeamGuardedBinaryTailCaseChecks.TestName, Erlang.Tests.BeamGuardedBinaryTailCaseChecks.Run);
+Test(Erlang.Tests.BeamRawFixedBinaryTerminalChecks.TestName, Erlang.Tests.BeamRawFixedBinaryTerminalChecks.Run);
+Test(Erlang.Tests.BeamRawPositionedPayloadChecks.TestName, Erlang.Tests.BeamRawPositionedPayloadChecks.Run);
 Test(Erlang.Tests.BeamClosedTerminalSelectorChecks.TestName, Erlang.Tests.BeamClosedTerminalSelectorChecks.Run);
 Test(Erlang.Tests.BeamClosedAtomPairChecks.TestName, Erlang.Tests.BeamClosedAtomPairChecks.Run);
 Test(Erlang.Tests.BeamAtomGuardAlternativesChecks.TestName, Erlang.Tests.BeamAtomGuardAlternativesChecks.Run);
@@ -13729,6 +13736,8 @@ Test(Erlang.Tests.BeamBinaryAppendUnitChecks.TestName, Erlang.Tests.BeamBinaryAp
 Test(Erlang.Tests.BeamNamedBitListChecks.ContinuationTestName, Erlang.Tests.BeamNamedBitListChecks.RunContinuation);
 Test(Erlang.Tests.BeamAliasedBitValueDispatchChecks.TestName, Erlang.Tests.BeamAliasedBitValueDispatchChecks.Run);
 Test(Erlang.Tests.BeamNestedEntryConsCarrierChecks.TestName, Erlang.Tests.BeamNestedEntryConsCarrierChecks.Run);
+Test(Erlang.Tests.BeamSharedTaggedConsEntryChecks.TestName, Erlang.Tests.BeamSharedTaggedConsEntryChecks.Run);
+Test(Erlang.Tests.BeamGuardedTupleConsFrameChecks.TestName, Erlang.Tests.BeamGuardedTupleConsFrameChecks.Run);
 Test(Erlang.Tests.BeamProtectedTaggedCallDispatchChecks.TestName, Erlang.Tests.BeamProtectedTaggedCallDispatchChecks.Run);
 Test(Erlang.Tests.BeamProtectedSingletonOptionsChecks.TestName, Erlang.Tests.BeamProtectedSingletonOptionsChecks.Run);
 Test(Erlang.Tests.BeamSharedPlainConsGuardsChecks.TestName, Erlang.Tests.BeamSharedPlainConsGuardsChecks.Run);
@@ -13892,10 +13901,15 @@ Test(Erlang.Tests.BeamSelectorArgumentConstructionChecks.TestName, Erlang.Tests.
 Test(Erlang.Tests.BeamSingletonRecordTailChecks.TestName, Erlang.Tests.BeamSingletonRecordTailChecks.Run);
 Test(Erlang.Tests.BeamAdjacentCallCaseChecks.TestName, Erlang.Tests.BeamAdjacentCallCaseChecks.Run);
 Test(Erlang.Tests.BeamListFilterTupleExclusionChecks.TestName, Erlang.Tests.BeamListFilterTupleExclusionChecks.Run);
+Test(Erlang.Tests.BeamCheckedConsRetryGateChecks.TestName, Erlang.Tests.BeamCheckedConsRetryGateChecks.Run);
 Test(Erlang.Tests.BeamPureCallArgumentCycleChecks.TestName, Erlang.Tests.BeamPureCallArgumentCycleChecks.Run);
+Test(Erlang.Tests.BeamDeadTupleProjectionChecks.TestName, Erlang.Tests.BeamDeadTupleProjectionChecks.Run);
+Test(Erlang.Tests.BeamTupleTagScratchChecks.TestName, Erlang.Tests.BeamTupleTagScratchChecks.Run);
+Test(Erlang.Tests.BeamTerminalHeapTupleReadsChecks.TestName, Erlang.Tests.BeamTerminalHeapTupleReadsChecks.Run);
 Test(Erlang.Tests.BeamRetiredEntryCallSlotChecks.TestName, Erlang.Tests.BeamRetiredEntryCallSlotChecks.Run);
 Test(Erlang.Tests.BeamEntryTupleFunctionRootChecks.TestName, Erlang.Tests.BeamEntryTupleFunctionRootChecks.Run);
 Test(Erlang.Tests.BeamTupleTagRetryChecks.TestName, Erlang.Tests.BeamTupleTagRetryChecks.Run);
+Test(Erlang.Tests.BeamTupleFieldLiteralRetryChecks.TestName, Erlang.Tests.BeamTupleFieldLiteralRetryChecks.Run);
 Test(Erlang.Tests.BeamModuleEmissionChecks.CallResultBifTestName, Erlang.Tests.BeamModuleEmissionChecks.CompareCallResultBif);
 Test(
     Erlang.Tests.BeamModuleEmissionChecks.EntryResultCaseTestName,
