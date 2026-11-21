@@ -2,7 +2,20 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
-    private static bool HasProperListBinding(Clause clause, Expr.ListComprehension comprehension, string name)
+    private static bool HasProperListBinding(Clause clause, Expr.ListComprehension comprehension, string name) =>
+        HasDominatingListBinding(
+            clause,
+            comprehension,
+            name,
+            IsProperListValue
+        );
+
+    private static bool HasDominatingListBinding(
+        Clause clause,
+        Expr.ListComprehension comprehension,
+        string name,
+        Func<Expr, HashSet<string>, bool> accepts
+    )
     {
         return name != VariableScopeNames.Wildcard && Visit(clause.Body, new HashSet<string>(StringComparer.Ordinal)) == true;
 
@@ -26,7 +39,7 @@ internal sealed partial class BeamModuleCompiler
                         }
 
                         if (item is Expr.Match { Pattern: Pattern.Variable bound, Value: var value }
-                            && bound.Name != VariableScopeNames.Wildcard && IsProper(value, proper))
+                            && bound.Name != VariableScopeNames.Wildcard && accepts(value, proper))
                         {
                             // A match against a bound name also establishes the type on success.
                             proper.Add(bound.Name);
@@ -60,14 +73,15 @@ internal sealed partial class BeamModuleCompiler
             return null;
         }
 
-        static bool IsProper(Expr value, HashSet<string> proper) => value switch
-        {
-            Expr.Literal { Value: Nil } => true,
-            Expr.Variable bound => proper.Contains(bound.Name),
-            Expr.List { Tail: null or Expr.Literal { Value: Nil } } => true,
-            Expr.List { Tail: Expr.Variable tail } => proper.Contains(tail.Name),
-            Expr.ListComprehension => true,
-            _ => false
-        };
     }
+
+    private static bool IsProperListValue(Expr value, HashSet<string> proper) => value switch
+    {
+        Expr.Literal { Value: Nil } => true,
+        Expr.Variable bound => proper.Contains(bound.Name),
+        Expr.List { Tail: null or Expr.Literal { Value: Nil } } => true,
+        Expr.List { Tail: Expr.Variable tail } => proper.Contains(tail.Name),
+        Expr.ListComprehension => true,
+        _ => false
+    };
 }

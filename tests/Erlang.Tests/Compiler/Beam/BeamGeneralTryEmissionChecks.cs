@@ -870,6 +870,7 @@ internal static class BeamGeneralTryEmissionChecks
 
     internal static async Task Check()
     {
+        await BeamUnusedTryLandingCopiesChecks.Check();
         BeamModule image = BeamModule.Prepare(
             CodeGeneration.CompileBeamModule(Source, "beam_general_try_probe.erl"),
             new BeamDependencySelection(["lists"])

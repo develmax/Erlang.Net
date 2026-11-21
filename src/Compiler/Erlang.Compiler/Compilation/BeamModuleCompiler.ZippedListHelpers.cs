@@ -22,43 +22,43 @@ internal sealed partial class BeamModuleCompiler
         if (!SsaTypeInferenceEnabled || ModuleOptimizationDisabled || function.Arity != ZippedListArity
             || IsDeclaredNative((function.Name, function.Arity))
             || function.Clauses is not [
-            {
-                Patterns: [
+                {
+                    Patterns: [
                         Pattern.Variable { Name: not VariableScopeNames.Wildcard } firstParameter,
                         Pattern.Variable { Name: not VariableScopeNames.Wildcard } secondParameter
                     ],
-                Guard: null,
-                Body: Expr.ListComprehension
-                {
-                    Items: [
+                    Guard: null,
+                    Body: Expr.ListComprehension
+                    {
+                        Items: [
                             Expr.Call
-                    {
-                        Module: null,
-                        DynamicRemote: false,
-                        Arguments: [Expr.Variable firstItem, Expr.Variable secondItem]
-                    } mapper
+                        {
+                            Module: null,
+                            DynamicRemote: false,
+                            Arguments: [Expr.Variable firstItem, Expr.Variable secondItem]
+                        } mapper
                         ],
-                    Qualifiers: [
+                        Qualifiers: [
                             ComprehensionQualifier.Zip
-                    {
-                        Generators: [
-                                    ComprehensionQualifier.Generator
                         {
-                            Pattern: Pattern.Variable { Name: not VariableScopeNames.Wildcard } firstPattern,
-                            Source: Expr.Variable firstSource,
-                            Strict: false
-                        } firstGenerator,
+                            Generators: [
                                     ComprehensionQualifier.Generator
-                        {
-                            Pattern: Pattern.Variable { Name: not VariableScopeNames.Wildcard } secondPattern,
-                            Source: Expr.Variable secondSource,
-                            Strict: false
-                        } secondGenerator
+                            {
+                                Pattern: Pattern.Variable { Name: not VariableScopeNames.Wildcard } firstPattern,
+                                Source: Expr.Variable firstSource,
+                                Strict: false
+                            } firstGenerator,
+                                    ComprehensionQualifier.Generator
+                            {
+                                Pattern: Pattern.Variable { Name: not VariableScopeNames.Wildcard } secondPattern,
+                                Source: Expr.Variable secondSource,
+                                Strict: false
+                            } secondGenerator
                                 ]
-                    }
+                        }
                         ]
-                } comprehension
-            }
+                    } comprehension
+                }
             ]
             || firstParameter.Name == secondParameter.Name
             || firstParameter.Name != firstSource.Name || secondParameter.Name != secondSource.Name
@@ -105,6 +105,21 @@ internal sealed partial class BeamModuleCompiler
         zippedListOwners.Add((function.Name, function.Arity), plan);
         zippedListHelpers.Add(key, plan);
 
+        return (BuildZippedListHelper(
+            helper,
+            firstPattern,
+            secondPattern,
+            mapper
+        ), helperLocation);
+    }
+
+    private static FunctionDefinition BuildZippedListHelper(
+        string helper,
+        Pattern firstPattern,
+        Pattern secondPattern,
+        Expr element
+    )
+    {
         const string left = "$zipped_left_cursor";
         const string right = "$zipped_right_cursor";
         var recur = new Expr.Call(null, helper, [new Expr.Variable(left), new Expr.Variable(right)]);
@@ -118,7 +133,7 @@ internal sealed partial class BeamModuleCompiler
                     new Pattern.List([secondPattern], new Pattern.Variable(right))
                 ],
                 null,
-                new Expr.List([mapper], recur)
+                new Expr.List([element], recur)
             ),
             new([new Pattern.Literal(Nil.Value), new Pattern.Literal(Nil.Value)], null, new Expr.Literal(Nil.Value)),
             new(
@@ -128,7 +143,7 @@ internal sealed partial class BeamModuleCompiler
             )
         ];
 
-        return (new FunctionDefinition(helper, ZippedListArity, clauses), helperLocation);
+        return new FunctionDefinition(helper, ZippedListArity, clauses);
     }
 
     private void EmitZippedListHelper(int entry, int mapper)
@@ -141,7 +156,6 @@ internal sealed partial class BeamModuleCompiler
         const int secondSavedTail = 0;
         const int initialFrame = ZippedListArity;
         const int retainedFrame = 1;
-        const int pairHeapWords = 3;
         int firstEmpty = nextLabel++;
         int invalid = nextLabel++;
 
@@ -198,9 +212,40 @@ internal sealed partial class BeamModuleCompiler
         Operand(XRegisterTag, firstCursor);
         EmitFrameReturn(retainedFrame);
 
+        EmitZippedListEnd(
+            firstEmpty,
+            invalid,
+            firstProperList: false,
+            secondProperList: false
+        );
+    }
+
+    private void EmitZippedListEnd(
+        int firstEmpty,
+        int invalid,
+        bool firstProperList,
+        bool secondProperList
+    )
+    {
+        const int firstCursor = 0;
+        const int secondCursor = 1;
+        const int pairHeapWords = 3;
         Op(Label, BeamWire.UnsignedTag, firstEmpty);
-        EmitNilTest(XRegisterTag, firstCursor, invalid);
-        EmitNilTest(XRegisterTag, secondCursor, invalid);
+        if (!firstProperList)
+        {
+            EmitNilTest(XRegisterTag, firstCursor, invalid);
+        }
+
+        Op(IsNil, LabelTag, invalid);
+        if (secondProperList)
+        {
+            EmitTypedRegister(secondCursor, ProperListTypeBits);
+        }
+        else
+        {
+            Operand(XRegisterTag, secondCursor);
+        }
+
         EmitConstant(Nil.Value, firstCursor);
         instructions.WriteByte(Return);
 

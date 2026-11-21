@@ -1,0 +1,42 @@
+{
+  "Gains": {
+    "ExpT": 2,
+    "Type": 2,
+    "LocT": 1
+  },
+  "Losses": {
+    "Line": 1
+  },
+  "Modules": [
+    {
+      "Module": "ct_master_event",
+      "Gains": [
+        "ExpT",
+        "Type"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "edoc_cli",
+      "Gains": [
+        "Type"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "edoc_report",
+      "Gains": [
+        "ExpT",
+        "LocT"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "tags",
+      "Gains": [],
+      "Losses": [
+        "Line"
+      ]
+    }
+  ]
+}

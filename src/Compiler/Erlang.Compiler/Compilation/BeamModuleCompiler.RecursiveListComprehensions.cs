@@ -53,6 +53,8 @@ internal sealed partial class BeamModuleCompiler
         Expr[] definitions = comprehensions;
         bool independent = comprehensions.Length > 1 || anonymous.Length != 0;
         bool allowStrict = !independent || function.Clauses.Count == 1 && anonymous.Length == 0;
+        bool separatedTupleDefinitions = anonymous.Length != 0 && HasSeparatedTupleOwnerDefinitions(function.Clauses);
+        bool orderedTupleDefinitions = false;
         bool nestedCaseSiblings = anonymous.Length == 0 && SsaTypeInferenceEnabled && !ModuleOptimizationDisabled
             && HasBooleanCaseNestedListSiblings(function, comprehensions);
         bool nestedSiblings = nestedCaseSiblings || anonymous.Length == 0 && SsaTypeInferenceEnabled
@@ -91,7 +93,7 @@ internal sealed partial class BeamModuleCompiler
             if (SsaTypeInferenceEnabled && !ModuleOptimizationDisabled
                 && core.Length == comprehensions.Length + anonymous.Length
                 && (ssaDefinitions.Length != core.Length || definitions.Length != core.Length)
-                && (anonymous.Length == 0 || HasSingleComprehensionClosureClause())
+                && (anonymous.Length == 0 || separatedTupleDefinitions || HasSingleComprehensionClosureClause())
                 && CanExpandComprehensionHead(function.Clauses))
             {
                 IReadOnlySet<string> emptyScope = new HashSet<string>(StringComparer.Ordinal);
@@ -107,6 +109,8 @@ internal sealed partial class BeamModuleCompiler
                     emptyScope,
                     functionHead: true
                 ).ToArray();
+                orderedTupleDefinitions = separatedTupleDefinitions && ssaDefinitions.Length == core.Length
+                    && definitions.Length == core.Length;
             }
 
             ssa = ssaDefinitions.OfType<Expr.ListComprehension>().ToArray();
@@ -275,7 +279,8 @@ internal sealed partial class BeamModuleCompiler
                 independent,
                 discarded,
                 allowStrict,
-                appendTail
+                appendTail,
+                allowGuardedAliasSibling: orderedTupleDefinitions
             );
             if (plan is not { } mapping || declared.Contains((name, mapping.Helper.Arity)))
             {
@@ -594,6 +599,56 @@ internal sealed partial class BeamModuleCompiler
         }
     }
 
+    private static bool HasSeparatedTupleOwnerDefinitions(IReadOnlyList<Clause> clauses)
+    {
+        bool hasLists = false;
+        foreach (Clause clause in clauses)
+        {
+            if (clause.Patterns is not
+                [
+                    Pattern.Tuple { Items: [Pattern.Literal { Value: Atom } or Pattern.Variable, _] },
+                    ..
+                ] || clause.Patterns.Skip(1).Any(pattern => pattern is not Pattern.Variable))
+            {
+                return false;
+            }
+
+            Expr[] definitions = LocalFunctionEntries.Walk(clause.Body)
+                .Where(expression => expression is Expr.Fun or Expr.ListComprehension).ToArray();
+            if (definitions is [] or [Expr.Fun { SelfName: null }])
+            {
+                continue;
+            }
+
+            if (definitions.Any(definition => definition is not Expr.ListComprehension
+                {
+                    Qualifiers: [ComprehensionQualifier.Generator { Strict: false }, ..] qualifiers
+                } || qualifiers.Skip(1).Any(qualifier => qualifier is not ComprehensionQualifier.Filter)))
+            {
+                return false;
+            }
+
+            hasLists = true;
+        }
+
+        return hasLists;
+    }
+
+    private static bool IsOwnedTupleAliasFilter(Pattern pattern, Expr value, Expr? filter)
+    {
+        if (filter is null || pattern is not AliasPattern alias || value is not Expr.Variable returned)
+        {
+            return false;
+        }
+
+        return IsAlias(alias.Left, alias.Right) || IsAlias(alias.Right, alias.Left);
+
+        bool IsAlias(Pattern binding, Pattern shape) => binding is Pattern.Variable whole
+            && whole.Name == returned.Name && whole.Name != VariableScopeNames.Wildcard
+            && shape is Pattern.Tuple tuple
+            && tuple.Items.All(field => field is Pattern.Variable or Pattern.Literal { Value: Atom });
+    }
+
     private (Expr.Call Call, FunctionDefinition Helper, BeamSourceLocation Location)? PlanRecursiveListComprehension(
         Expr.ListComprehension comprehension,
         Clause parentClause,
@@ -603,7 +658,8 @@ internal sealed partial class BeamModuleCompiler
         bool independent,
         bool discarded,
         bool allowStrict,
-        Expr.Variable? appendTail
+        Expr.Variable? appendTail,
+        bool allowGuardedAliasSibling = false
     )
     {
         bool guardedElement = !independent && !discarded && SsaTypeInferenceEnabled && !ModuleOptimizationDisabled
@@ -687,7 +743,9 @@ internal sealed partial class BeamModuleCompiler
                 || item is (Pattern.Tuple or Pattern.List) && IsRecursiveListPattern(item)
                 || item is AliasPattern alias && SsaTypeInferenceEnabled && !discarded
                     && (comprehension.Qualifiers.Count == 1 && ReadTupleListProjection(alias, mapped) is not null
-                        || (!independent || generator.Strict) && IsRecursiveTupleGeneratorAlias(alias)
+                        || (!independent || generator.Strict
+                            || allowGuardedAliasSibling && IsOwnedTupleAliasFilter(alias, mapped, filter))
+                            && IsRecursiveTupleGeneratorAlias(alias)
                             && source is Expr.Variable or Expr.Call { DynamicRemote: false }
                             && (comprehension.Qualifiers.Count == 1
                                 || comprehension.Qualifiers[^1] is ComprehensionQualifier.Filter acceptedGuard
@@ -818,7 +876,20 @@ internal sealed partial class BeamModuleCompiler
                 projection?.Arity ?? 2,
                 projection?.Tag
             );
-        bool properSource = hasProvenTupleInput || IsProperListGeneratorCall(source) || SsaTypeInferenceEnabled && !ModuleOptimizationDisabled
+        bool hasProvenTupleFilterInput = SsaTypeInferenceEnabled && !ModuleOptimizationDisabled
+            && !generator.Strict && !discarded && appendTail is null && captures.Length == 0
+            && item is Pattern.Variable filteredItem && mapped is Expr.Variable retained && retained.Name == filteredItem.Name
+            && filter is not null && ComprehensionGuard.IsTest(filter, sourceModule)
+            && ReadTupleFieldExclusions(filter, filteredItem.Name) is { } exclusion
+            && HasMinimumTupleListInput(
+                source,
+                parentClause,
+                comprehension,
+                localFunctions,
+                exclusion.Position
+            );
+        bool properSource = hasProvenTupleInput || hasProvenTupleFilterInput || IsProperListGeneratorCall(source)
+            || SsaTypeInferenceEnabled && !ModuleOptimizationDisabled
             && (source is Expr.List { Tail: null or Expr.Literal { Value: Nil } }
                 || source is Expr.Variable provenList && HasProperListBinding(parentClause, comprehension, provenList.Name));
         var helper = BuildRecursiveMapping(
@@ -838,6 +909,7 @@ internal sealed partial class BeamModuleCompiler
             // Here the result is constructed from a nil base, a recursive call, and optional cons cells.
             HasProperListResult = !discarded && !properSource && appendTail is null,
             HasProvenRecursiveTupleInput = hasProvenTupleInput,
+            HasProvenRecursiveTupleFilterInput = hasProvenTupleFilterInput,
             IsStrictRecursiveListMapper = generator.Strict
         };
 

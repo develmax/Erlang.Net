@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1989 reuses the managed frame, source-helper, register and CFG planners with pinned OTP source evidence. [Evidence](validation/part-1989/README.md).
+
 Part 1988 reuses the managed helper, frame and constructor planners with pinned OTP Core, SSA and physical-code evidence. Existing dependencies and licenses continue. [Evidence](validation/part-1988/README.md).
 
 Part 1987 reuses current managed compiler graph and list-helper planners with pinned Core and SSA source. Dependency and license inputs are unchanged. [Evidence](validation/part-1987/README.md).

@@ -4,6 +4,55 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
+    private byte[]? RefineListFallbacksAfterNilTest(ReadOnlyMemory<byte> code, int labelCount) =>
+        !ModuleOptimizationDisabled && SsaTypeInferenceEnabled
+        && code.Span.Contains(IsNil) && code.Span.Contains(IsList)
+        && DecodeLateAtomicProjectionSlots(code, labelCount) is { Body: var body }
+            ? RewriteListFallbacksAfterNilTest(code, body)
+            : null;
+
+    private static byte[]? RewriteListFallbacksAfterNilTest(
+        ReadOnlyMemory<byte> code,
+        IReadOnlyList<BeamInstruction> body
+    )
+    {
+        BeamProjectionFlow? flow = null;
+        byte[]? rewritten = null;
+        for (int index = 0; index < body.Count; index++)
+        {
+            if (!ReadEntryListKindTest(
+                body[index],
+                IsNil,
+                out int failure,
+                out var input
+            ) || !(flow ??= new BeamProjectionFlow(body)).TryGetSingleForwardTarget(index, failure, out int target))
+            {
+                continue;
+            }
+
+            int test = target + 1;
+            while (test < body.Count && body[test].Definition.Opcode == Line)
+            {
+                test++;
+            }
+
+            // Only the nil failure edge enters this label. The original
+            // register is unchanged, so is_list succeeds only for a cons.
+            if (test < body.Count && ReadEntryListKindTest(
+                body[test],
+                IsList,
+                out _,
+                out var list
+            ) && list == input)
+            {
+                rewritten ??= code.ToArray();
+                rewritten[body[test].Offset] = IsNonemptyList;
+            }
+        }
+
+        return rewritten;
+    }
+
     private static byte[]? OrderEntryListKinds(
         ReadOnlyMemory<byte> code,
         IReadOnlyList<BeamInstruction> body,

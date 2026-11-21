@@ -15,6 +15,8 @@ internal sealed partial class BeamModuleCompiler
             TaggedEntryField[] Fields
         );
 
+        private sealed record RepeatedTaggedEntryBucket(int Field, Atom?[] Keys);
+
         private bool TryEmitFlatTaggedTupleGroup(
             IReadOnlyList<Clause> clauses,
             int input,
@@ -29,30 +31,67 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
-            int tagRegister = clauses[0].Patterns.Count;
-            var order = Comparer<Atom>.Create((left, right) => TermOrder.Compare(left, right, exact: true));
-            var arms = new SortedDictionary<Atom, TaggedEntryArm>(order);
+            var sourceTags = new HashSet<Atom>();
+            bool hasRepeatedTags = false;
             foreach (Clause clause in clauses)
             {
-                if (ReadFlatTaggedEntryArm(clause, input) is not { } arm
-                    || !arms.TryAdd(arm.Tag, arm))
+                if (EntryShape(clause.Patterns[input]) is not Pattern.Tuple tuple || !HasTupleTag(tuple, out Atom tag))
                 {
                     return false;
                 }
+
+                hasRepeatedTags |= !sourceTags.Add(tag);
             }
 
-            int[] shared = arms.Values.First().Fields.Select(field => field.Index)
-                .Where(index => arms.Values.All(arm => arm.Fields.Any(field => field.Index == index)))
+            int tagRegister = clauses[0].Patterns.Count;
+            var order = Comparer<Atom>.Create((left, right) => TermOrder.Compare(left, right, exact: true));
+            var buckets = new SortedDictionary<Atom, List<TaggedEntryArm>>(order);
+            foreach (Clause clause in clauses)
+            {
+                if (ReadFlatTaggedEntryArm(clause, input, allowCarrierAlias: hasRepeatedTags) is not { } arm)
+                {
+                    return false;
+                }
+
+                if (!buckets.TryGetValue(arm.Tag, out var bucket))
+                {
+                    bucket = [];
+                    buckets.Add(arm.Tag, bucket);
+                }
+
+                bucket.Add(arm);
+            }
+
+            var repeated = new Dictionary<Atom, RepeatedTaggedEntryBucket>();
+            foreach (var (tag, bucket) in buckets)
+            {
+                if (bucket.Count == 1)
+                {
+                    continue;
+                }
+
+                if (ReadRepeatedTaggedEntryBucket(bucket) is not { } selector)
+                {
+                    return false;
+                }
+
+                repeated.Add(tag, selector);
+            }
+
+            TaggedEntryArm[] arms = buckets.Values.SelectMany(bucket => bucket).ToArray();
+            int[] shared = arms[0].Fields.Select(field => field.Index)
+                .Where(index => arms.All(arm => arm.Fields.Any(field => field.Index == index)))
                 .ToArray();
-            if (shared.Length == 0
-                || tagRegister + arms.Values.Max(arm => arm.Fields.Length) >= FirstReservedXRegister)
+            if (buckets.Count < 2 || shared.Length == 0 && repeated.Count == 0
+                || tagRegister + arms.Max(arm => arm.Fields.Length) >= FirstReservedXRegister)
             {
                 return false;
             }
 
             int entryFrame = frameSize;
             int maxSlots = peakSlot;
-            int[] labels = arms.Values.Select(_ => Label()).Reverse().ToArray();
+            int nextKey = nextFrameKey;
+            int[] labels = buckets.Values.Select(_ => Label()).Reverse().ToArray();
 
             // The enclosing arity dispatch has already proved that every
             // source field exists. Keep the original input for other tags.
@@ -65,19 +104,70 @@ internal sealed partial class BeamModuleCompiler
                 owner.EmitTuplePart(input, index, register);
             }
 
-            EmitAritySelect(tagRegister, arms.Count, failure);
+            EmitAritySelect(tagRegister, buckets.Count, failure);
             int branch = 0;
-            foreach (Atom tag in arms.Keys)
+            foreach (Atom tag in buckets.Keys)
             {
                 owner.Operand(AtomTag, owner.Intern(tag.Name));
                 owner.Operand(LabelTag, labels[branch++]);
             }
 
-            foreach (var arm in arms.Values.Reverse())
+            foreach (var (tag, bucket) in buckets.Reverse())
             {
                 Mark(labels[--branch]);
+                if (!repeated.TryGetValue(tag, out var selector))
+                {
+                    EmitArm(bucket[0], selectedField: -1);
+                    continue;
+                }
+
+                int register = tagRegister;
+                if (sharedRegisters.TryGetValue(selector.Field, out int sharedRegister))
+                {
+                    register = sharedRegister;
+                }
+                else
+                {
+                    owner.EmitTuplePart(input, selector.Field, register);
+                }
+
+                if (selector.Keys is [Atom retryKey, null])
+                {
+                    int retry = Label();
+                    owner.EmitAtomTest(register, retryKey.Name, retry);
+                    EmitArm(bucket[0], selector.Field);
+                    Mark(retry);
+                    EmitArm(bucket[1], selector.Field);
+                    continue;
+                }
+
+                var targets = bucket.Select((arm, index) => (Arm: arm, Key: selector.Keys[index]!))
+                    .OrderByDescending(item => item.Key, order)
+                    .Select(item => (item.Arm, item.Key, Target: Label())).ToArray();
+                EmitAritySelect(register, targets.Length, failure);
+                foreach (var (_, key, target) in targets.Reverse())
+                {
+                    owner.Operand(AtomTag, owner.Intern(key.Name));
+                    owner.Operand(LabelTag, target);
+                }
+
+                foreach (var (arm, _, target) in targets)
+                {
+                    Mark(target);
+                    EmitArm(arm, selector.Field);
+                }
+            }
+
+            frameSize = entryFrame;
+            peakSlot = maxSlots;
+            nextFrameKey = nextKey;
+
+            return true;
+
+            void EmitArm(TaggedEntryArm arm, int selectedField)
+            {
                 int nextRegister = tagRegister;
-                foreach (TaggedEntryField field in arm.Fields.Where(field => field.Literal is not null))
+                foreach (TaggedEntryField field in arm.Fields.Where(field => field.Literal is not null && field.Index != selectedField))
                 {
                     if (sharedRegisters.TryGetValue(field.Index, out int value))
                     {
@@ -92,7 +182,7 @@ internal sealed partial class BeamModuleCompiler
                 nextSlot = 0;
                 peakSlot = 0;
                 variables = new(StringComparer.Ordinal);
-                int frameKey = nextFrameKey--;
+                int frameKey = nextKey--;
                 frameSize = plannedTupleFrames?.GetValueOrDefault(frameKey, entryFrame) ?? entryFrame;
                 var prepared = arm.Arguments.ToDictionary(
                     binding => binding.Key,
@@ -108,7 +198,8 @@ internal sealed partial class BeamModuleCompiler
                 if (TryEmitSingleEntryEffect(arm.Clause, prepared))
                 {
                     frames.Add(frameKey, peakSlot);
-                    continue;
+
+                    return;
                 }
 
                 foreach (TaggedEntryField field in arm.Fields.Where(field => field.Binding is not null))
@@ -139,23 +230,62 @@ internal sealed partial class BeamModuleCompiler
                 frames.Add(frameKey, peakSlot);
                 maxSlots = Math.Max(maxSlots, peakSlot);
             }
-
-            frameSize = entryFrame;
-            peakSlot = maxSlots;
-
-            return true;
         }
 
-        private static TaggedEntryArm? ReadFlatTaggedEntryArm(Clause clause, int input, string? required = null)
+        private static RepeatedTaggedEntryBucket? ReadRepeatedTaggedEntryBucket(IReadOnlyList<TaggedEntryArm> arms)
         {
-            if (clause.Guard is not null || clause.Patterns[input] is not Pattern.Tuple tuple
-                || !HasTupleTag(tuple, out Atom tag))
+            int[] fields = arms.SelectMany(arm => arm.Fields)
+                .Where(field => field.Literal is not null).Select(field => field.Index).Distinct().Order().ToArray();
+            if (fields.Length == 0)
+            {
+                return null;
+            }
+
+            // Only the first literal column can choose the retry. Every later
+            // test must be common, so it cannot reopen a selected alternative.
+            int selector = fields[0];
+            Atom?[] keys = Column(selector);
+            if (keys.Contains(null) && keys is not [Atom, null]
+                || keys.Distinct().Count() != keys.Length
+                || fields.Skip(1).Any(field => Column(field).Distinct().Count() != 1))
+            {
+                return null;
+            }
+
+            return new(selector, keys);
+
+            Atom?[] Column(int index) => arms.Select(arm =>
+                arm.Fields.FirstOrDefault(field => field.Index == index)?.Literal).ToArray();
+        }
+
+        private static TaggedEntryArm? ReadFlatTaggedEntryArm(
+            Clause clause,
+            int input,
+            string? required = null,
+            bool allowCarrierAlias = false
+        )
+        {
+            Pattern shape = clause.Patterns[input];
+            Pattern.Variable? carrier = null;
+            if (allowCarrierAlias && shape is AliasPattern alias && TryReadPatternAlias(alias, out var binding, out var aliased))
+            {
+                carrier = binding;
+                shape = aliased;
+            }
+
+            if (clause.Guard is not null || shape is not Pattern.Tuple tuple || !HasTupleTag(tuple, out Atom tag))
             {
                 return null;
             }
 
             var names = new HashSet<string>(StringComparer.Ordinal);
             var inputs = new Dictionary<string, int>(StringComparer.Ordinal);
+            if (carrier is { Name: not VariableScopeNames.Wildcard })
+            {
+                names.Add(carrier.Name);
+                inputs.Add(carrier.Name, input);
+            }
+
             for (int register = 0; register < clause.Patterns.Count; register++)
             {
                 if (register == input)

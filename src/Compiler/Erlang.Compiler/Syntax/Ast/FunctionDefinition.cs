@@ -11,6 +11,7 @@ public sealed record FunctionDefinition(string Name, int Arity, IReadOnlyList<Cl
     internal bool IsRecursiveListMapper { get; init; }
     internal bool HasProperListResult { get; init; }
     internal bool HasProvenRecursiveTupleInput { get; init; }
+    internal bool HasProvenRecursiveTupleFilterInput { get; init; }
     internal bool IsStrictRecursiveListMapper { get; init; }
     internal int? StaticListClosureTarget { get; init; }
 }

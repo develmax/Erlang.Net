@@ -1,5 +1,9 @@
 # Compatibility overview
 
+Part 1989 preserves 513 exact Windows release images across the complete linked repository checks. [Repository evidence](validation/part-1989-repository-gate/README.md).
+
+The fresh Part 1989 release records 513 Equal, 853 Different, 0 Unsupported, 0 SourceRejected. It adds 48 complete normalized function bodies. [Evidence](validation/part-1989/README.md).
+
 Part 1988 passed the linked repository gate. No MFA classifications were advanced. [Repository evidence](validation/part-1988-repository-gate/README.md).
 
 The fresh Part 1988 release records 513 Equal, 853 Different, 0 Unsupported, 0 SourceRejected, with 17 normalized gains and 0 losses. [Evidence](validation/part-1988/README.md).

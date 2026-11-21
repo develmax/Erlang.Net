@@ -4,28 +4,23 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
-    private ReadOnlyMemory<byte> RemoveRepeatedLines(ReadOnlyMemory<byte> code, int labelCount)
+    private ReadOnlyMemory<byte> RemoveRepeatedLines(ReadOnlyMemory<byte> code, int labelCount) =>
+        RemoveRepeatedCodeLocations(code, labelCount, removeCallLocations: true);
+
+    private ReadOnlyMemory<byte> RemoveRepeatedCodeLocations(
+        ReadOnlyMemory<byte> code,
+        int labelCount,
+        bool removeCallLocations
+    )
     {
-        IReadOnlyList<BeamInstruction> body;
-        try
-        {
-            var header = new BeamCodeHeader(
-                BeamWire.FormatVersion,
-                highestOpcode,
-                labelCount,
-                exports.Count + locals.Count,
-                code
-            );
-            body = BeamInstructionReader.Read(header, atoms.Count + 1, literalBytes.Count);
-        }
-        catch (Exception error) when (error is InvalidDataException or NotSupportedException)
+        if (DecodeLateAtomicProjectionSlots(code, labelCount) is not { Body: var body })
         {
             return code;
         }
 
         // Debug and executable source markers have separate location references.
         bool hasExecutionMarkers = body.Any(instruction => instruction.Definition.Opcode is DebugLine or ExecutableLine);
-        var safeImports = hasExecutionMarkers ? [] : ReadLocationNeutralExternalImports();
+        var safeImports = removeCallLocations && !hasExecutionMarkers ? ReadLocationNeutralExternalImports() : [];
         var starts = new List<int>();
         for (int index = 0; index + 1 < body.Count; index++)
         {
@@ -56,6 +51,12 @@ internal sealed partial class BeamModuleCompiler
             // Exception-handler functions can require a fresh position at a labeled continuation.
             bool hasHandler = body.Skip(start).Take(end - start)
                 .Any(instruction => instruction.Definition.Opcode is TryEnter or CatchEnter);
+            if (!removeCallLocations && (hasHandler || hasExecutionMarkers && body.Skip(start).Take(end - start)
+                .Any(instruction => instruction.Definition.Opcode is DebugLine or ExecutableLine)))
+            {
+                continue;
+            }
+
             int? previousLine = null;
             for (int index = start; index < end; index++)
             {
@@ -69,7 +70,7 @@ internal sealed partial class BeamModuleCompiler
                 {
                     int line = (int)instruction.Operands[0].Value;
                     // A local tail call discards its caller. OTP's call_line/3 omits that caller's location.
-                    bool redundantCallLine = !hasHandler && !hasExecutionMarkers && index + 1 < end
+                    bool redundantCallLine = removeCallLocations && !hasHandler && !hasExecutionMarkers && index + 1 < end
                         && (body[index + 1].Definition.Opcode is TailLocalCall or TailLocalCallWithFrame
                             || safeImports.Count > 0 && CanDropSafeCallLine(body, index + 1, safeImports));
                     if (line == previousLine || redundantCallLine)

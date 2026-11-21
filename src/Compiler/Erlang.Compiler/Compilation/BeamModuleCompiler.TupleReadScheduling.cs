@@ -32,6 +32,20 @@ internal sealed partial class BeamModuleCompiler
             {
                 continue;
             }
+            if (!ModuleOptimizationDisabled && SsaTypeInferenceEnabled
+                && ReadGuardedTailProjection(body, index, ref flow) is { } tail)
+            {
+                output.Write(code.Span[copied..body[index].Offset]);
+                output.Write(code.Span[body[index + 1].Offset..body[index + 3].Offset]);
+                output.WriteByte(GetTupleElement);
+                WriteRegister(output, tail.Tuple);
+                BeamCompactWriter.Write(output, BeamWire.UnsignedTag, tail.Field.Value);
+                WriteRegister(output, tail.Tuple);
+                copied = body[index + 4].Offset;
+                index += 3;
+                continue;
+            }
+
             int success = ReadAdjacentSiblingTest(body, index, ref flow)
                 ? index + 2
                 : FindCheckedTupleGuardSuccess(body, index, ref flow);
@@ -82,7 +96,7 @@ internal sealed partial class BeamModuleCompiler
             || body[index] is not { Definition.Opcode: GetTupleElement, Operands: [var source, _, var destination] }
             || source != tuple || source.Kind != BeamOperandParameters.X || destination.Kind != BeamOperandParameters.X
             || SameProjectionRegister(tested, destination)
-            || !IsTypeTest(body[index + 1], tested))
+            || !IsTupleProjectionTypeGuard(body[index + 1], tested))
         {
             return false;
         }
@@ -96,12 +110,76 @@ internal sealed partial class BeamModuleCompiler
             destination,
             preserveHeapRoots: !replacesTuple
         );
+    }
 
-        static bool IsTypeTest(BeamInstruction instruction, BeamOperand tested) =>
-            instruction.Definition.Opcode is IsInteger or IsFloat or IsNumber or IsAtom
-                or IsTuple or IsList or IsNonemptyList or IsNil or IsBinary or IsMap
-            && instruction.Operands is [{ Kind: BeamOperandParameters.Label }, var value]
-            && SameProjectionRegister(value, tested);
+    private static bool IsTupleProjectionTypeGuard(BeamInstruction instruction, BeamOperand tested) =>
+        instruction.Definition.Opcode is IsInteger or IsFloat or IsNumber or IsAtom
+            or IsTuple or IsList or IsNonemptyList or IsNil or IsBinary or IsMap
+        && instruction.Operands is [{ Kind: BeamOperandParameters.Label }, var value]
+        && SameProjectionRegister(value, tested);
+
+    private static (BeamOperand Tuple, BeamOperand Field)? ReadGuardedTailProjection(
+        IReadOnlyList<BeamInstruction> body,
+        int projection,
+        ref BeamProjectionFlow? flow
+    )
+    {
+        int terminal = projection + 4;
+        if (terminal >= body.Count
+            || body[projection] is not
+            {
+                Definition.Opcode: GetTupleElement,
+                Operands: [var tuple, var field, { Kind: BeamOperandParameters.X, TypeIndex: null } scratch]
+            }
+            || !IsBareX0(tuple)
+            || body[projection + 1] is not
+            {
+                Definition.Opcode: GetTupleElement,
+                Operands: [var carrier, var siblingField, { Kind: BeamOperandParameters.X, TypeIndex: null } sibling]
+            }
+            || carrier != tuple || field == siblingField || sibling.Value.IsZero || sibling == scratch
+            || !IsTupleProjectionTypeGuard(body[projection + 2], sibling)
+            || body[projection + 3] is not { Definition.Opcode: Move, Operands: [var copy, var outgoing] }
+            || copy != scratch || outgoing != tuple
+            || !HasLocalTupleCheck(
+                body,
+                projection,
+                tuple,
+                field
+            )
+            || !HasLocalTupleCheck(
+                body,
+                projection + 1,
+                tuple,
+                siblingField
+            ))
+        {
+            return null;
+        }
+
+        while (terminal < body.Count && body[terminal].Definition.Opcode == Line)
+        {
+            terminal++;
+        }
+
+        if (terminal == body.Count || body[terminal] is not
+            {
+                Definition.Opcode: TailLocalCall or TailExternalCall,
+                Operands: [var arity, _]
+            }
+            || sibling.Value >= arity.Value || scratch.Value < arity.Value
+            || !(flow ??= new BeamProjectionFlow(body)).IsGuardTemporaryDeadOnFailure(
+                projection + 2,
+                scratch,
+                preserveHeapRoots: true
+            ))
+        {
+            return null;
+        }
+
+        // The sibling feeds the guard. The other checked field can use its
+        // final argument register only after successful fallthrough.
+        return (tuple, field);
     }
 
     private static int FindCheckedTupleGuardSuccess(

@@ -10,6 +10,7 @@ internal static class BeamCallResultExchangeChecks
     internal const string TestName = "compiler/beam/exchanges-call-result-and-saved-input-in-one-frame-cell";
     private const string MissingExchange = "Expected a single saved slot and a swap with the result register.";
     private const string OwnedExchange = "The outgoing exchange must preserve both later value definitions in the original frame.";
+    private const string UnusedExchangeSlot = "Expected an owned exchange to release its unused destination slot.";
     private const string UnsafeExchange = "Expected the frame to retain slots across an intervening collector, branch or later read.";
     private const byte One = 0x10;
     private const byte Two = 0x20;
@@ -106,6 +107,29 @@ internal static class BeamCallResultExchangeChecks
             throw new InvalidOperationException(OwnedExchange);
         }
 
+        byte[] oneSlotBody = [.. prefix, .. moves, .. call, Move, Y1, X0, .. finish];
+        byte[] oneSlotExchange =
+        [
+            Allocate, One, One, Move, X0, Y0, Move, 0x02, X0, ExternalCall, One, 0,
+            Swap, Y0, X0, .. call, Move, Y0, X0, Deallocate, One, Return
+        ];
+        if (RewriteOwned(oneSlotBody) is not { } compacted
+            || !compacted.AsSpan().SequenceEqual([.. entry, .. oneSlotExchange, EndCode]))
+        {
+            throw new InvalidOperationException(UnusedExchangeSlot);
+        }
+
+        byte[] preparedResult = [.. prefix, Move, X0, X1, .. moves, .. call, Move, Y1, X0, .. finish];
+        byte[] preparedExchange =
+        [
+            .. prefix, Move, X0, X1, Swap, Y0, X0, .. call, Move, Y0, X0, .. finish
+        ];
+        if (RewriteOwned(preparedResult) is not { } prepared
+            || !prepared.AsSpan().SequenceEqual([.. entry, .. preparedExchange, EndCode]))
+        {
+            throw new InvalidOperationException(UnsafeExchange);
+        }
+
         byte[] usedDestination = [.. prefix, Move, X0, Y1, .. body[prefix.Length..]];
         byte[] sharedSuffix =
         [
@@ -118,6 +142,8 @@ internal static class BeamCallResultExchangeChecks
 
         BeamModule transformed = BeamModule.Prepare(BeamOpcodeEdgeBytes.Image([.. entry, .. exchanged]));
         BeamModule original = BeamModule.Prepare(BeamOpcodeEdgeBytes.Image([.. entry, .. body]));
+        BeamModule compact = BeamModule.Prepare(BeamOpcodeEdgeBytes.Image(compacted[..^1]));
+        BeamModule originalWide = BeamModule.Prepare(BeamOpcodeEdgeBytes.Image([.. entry, .. oneSlotBody]));
         await using var runtime = new ProcessRuntime();
         ProcessHandle process = runtime.Spawn(async context =>
         {
@@ -138,6 +164,14 @@ internal static class BeamCallResultExchangeChecks
                 }
                 catch (ErlangException error) when (error.Reason.Equals(Term.A(ErlangErrorReasons.BadArgument)))
                 {
+                }
+            }
+
+            foreach (BeamModule image in new[] { compact, originalWide })
+            {
+                if (!Term.I(0).Equals(await image.Invoke(context, BeamOpcodeEdgeNames.Run, input)))
+                {
+                    throw new InvalidOperationException(UnusedExchangeSlot);
                 }
             }
 

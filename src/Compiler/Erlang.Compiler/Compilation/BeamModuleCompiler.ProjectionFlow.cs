@@ -180,7 +180,8 @@ internal sealed partial class BeamModuleCompiler
             BeamOperand slot,
             bool allowBadRecordExit = false,
             bool afterCall = false,
-            int dictionaryLookupImport = -1
+            int dictionaryLookupImport = -1,
+            bool allowEntryFramePredicates = false
         )
         {
             var work = new Stack<(int Index, BeamOperand Slot, bool PassedCall)>();
@@ -274,7 +275,8 @@ internal sealed partial class BeamModuleCompiler
                         break;
                     default:
                         byte opcode = instruction.Definition.Opcode;
-                        if (!(opcode is PutTuple or PutList or SelectValue or SelectTupleArity || IsProjectionFlowTest(opcode))
+                        if (!(opcode is PutTuple or PutList or SelectValue or SelectTupleArity || IsProjectionFlowTest(opcode)
+                                || allowEntryFramePredicates && IsEntryFramePredicate(opcode))
                             || instruction.Operands.Any(operand => SameProjectionRegister(operand, current)))
                         {
                             return false;

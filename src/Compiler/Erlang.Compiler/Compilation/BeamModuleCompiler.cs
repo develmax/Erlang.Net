@@ -126,6 +126,11 @@ internal sealed partial class BeamModuleCompiler(
                 pending.Push((zipped.Mapper, ZippedListArity));
             }
 
+            if (zippedMapOwners.TryGetValue(entry, out string? zippedMap))
+            {
+                pending.Push((zippedMap, ZippedListArity));
+            }
+
             Clause first = function.Clauses[0];
             foreach (var reference in LocalFunctionEntries.Walk(first.Body).OfType<Expr.FunctionReference>())
             {
@@ -319,7 +324,8 @@ internal sealed partial class BeamModuleCompiler(
                 entryLabel += 2;
                 continue;
             }
-            if (zippedListHelpers.ContainsKey((function.Name, function.Arity)))
+            if (zippedListHelpers.ContainsKey((function.Name, function.Arity))
+                || zippedMapHelpers.ContainsKey((function.Name, function.Arity)))
             {
                 entryLabel += ZippedListHelperLabelCount;
                 continue;
@@ -620,6 +626,16 @@ internal sealed partial class BeamModuleCompiler(
             {
                 Op(TailLocalCall, BeamWire.UnsignedTag, ZippedListArity);
                 Operand(LabelTag, localEntries[(zippedOwner.Helper, ZippedListArity)]);
+            }
+            else if (zippedMapHelpers.TryGetValue((function.Name, function.Arity), out bool reversedMapPair))
+            {
+                var signature = (function.Name, function.Arity);
+                EmitZippedMapPairHelper(
+                    localEntries[signature],
+                    reversedMapPair,
+                    HasProperListEntryFact(signature, 0),
+                    HasProperListEntryFact(signature, 1)
+                );
             }
             else if (zippedListHelpers.TryGetValue((function.Name, function.Arity), out var zippedHelper))
             {
@@ -1212,6 +1228,7 @@ internal sealed partial class BeamModuleCompiler(
         {
             code = OrderSafeEnumerationTailArguments(ownedReceiveFrames, labelCount) ?? ownedReceiveFrames;
         }
+        code = AnnotateDominatedAtomComparisons(code, labelCount) ?? code;
         code = OrderTypeOperandsByFirstUse(code, labelCount);
         code = TrimOwnedCallResultBranches(code, labelCount) ?? code;
         code = ClearDeadRecordCallSlots(code, labelCount) ?? code;
@@ -1334,6 +1351,7 @@ internal sealed partial class BeamModuleCompiler(
         code = CoalescePartialTrimListTails(code, labelCount) ?? code;
         code = CoalescePartialTrimCallExchanges(code, labelCount) ?? code;
         code = RemoveOverwrittenHandlerSlotCopies(code, labelCount) ?? code;
+        code = RemoveUnusedTryLandingCopies(code, labelCount) ?? code;
         code = OrderFinalSplitStackArguments(code, labelCount) ?? code;
         if (!ModuleOptimizationDisabled)
         {
@@ -1349,9 +1367,10 @@ internal sealed partial class BeamModuleCompiler(
         code = SinkIndependentTupleReadsPastHeap(code, labelCount) ?? code;
         code = ExchangeOwnedCallArgument(code, labelCount) ?? code;
         code = RetainDictionaryResultThroughCons(code, labelCount) ?? code;
+        code = KeepCheckedCallResultThroughCons(code, labelCount) ?? code;
 
-        lateProjectionDecode = null;
         WriteCode(output, code, labelCount);
+        lateProjectionDecode = null;
     }
 
     private void WriteCode(Stream output, ReadOnlyMemory<byte> code, int labelCount)
@@ -1361,6 +1380,7 @@ internal sealed partial class BeamModuleCompiler(
             code = OrderAdjacentTupleProjections(code, labelCount) ?? code;
         }
 
+        code = RefineListFallbacksAfterNilTest(code, labelCount) ?? code;
         code = EliminateGuardedEntryInitializations(code, labelCount) ?? code;
         code = BypassRejectedConsRetry(code, labelCount) ?? code;
         if (RemoveFinalLiteralAndNilRetryProjections(code, labelCount) is { } sharedRetries)
@@ -1369,6 +1389,17 @@ internal sealed partial class BeamModuleCompiler(
         }
 
         code = RemoveProjectedLeafComparisonFrame(code, labelCount) ?? code;
+
+        // Match beam_z's physical-order cleanup after all branch and layout edits.
+        code = RemoveRepeatedCodeLocations(code, labelCount, removeCallLocations: false);
+
+        // The sink operates on the final X-register layout. Frame and carrier
+        // lowering must run before matching its branch and collector roles.
+        if (!ModuleOptimizationDisabled && SsaTypeInferenceEnabled
+            && DecodeLateAtomicProjectionSlots(code, labelCount) is { Body: var body })
+        {
+            code = SinkCheckedTupleJoinFields(code, body) ?? code;
+        }
 
         Word(output, CodeHeaderSize);
         Word(output, BeamWire.FormatVersion);

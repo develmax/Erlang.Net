@@ -22,6 +22,8 @@ internal sealed partial class BeamModuleCompiler
         NonnegativeIfNumeric = 8192,
         Atom = 16384,
         List = 32768,
+        Tuple = 1 << 16,
+        AtomOrTuple = 1 << 17,
         NoReturn = Positive | PositiveLength | ProperList | NonemptyList
     }
 
@@ -157,6 +159,20 @@ internal sealed partial class BeamModuleCompiler
                 || owner.IsDeclaredNative((function.Name, function.Arity))
                 || (ReadJoinedNumericArgument(function, index) & PairFacts.Atom) == 0
                 ? 0 : AtomTypeBits;
+
+        private int ReadAtomOrTupleEntryType(FunctionDefinition function, int index)
+        {
+            var signature = (function.Name, function.Arity);
+            if (owner.exportedFunctions.Contains(signature) || owner.IsDeclaredNative(signature))
+            {
+                return 0;
+            }
+
+            PairFacts facts = ReadJoinedNumericArgument(function, index);
+            const PairFacts kind = PairFacts.Atom | PairFacts.Tuple | PairFacts.AtomOrTuple;
+
+            return (facts & kind) == PairFacts.AtomOrTuple ? AtomTypeBits | TupleTypeBits : 0;
+        }
 
         internal int ReadSavedComparisonEntryType(FunctionDefinition function, int index)
         {

@@ -16,6 +16,7 @@ internal sealed partial class BeamModuleCompiler
         var x0 = new BeamOperand(BeamOperandParameters.X, 0);
         using var output = new MemoryStream();
         BeamProjectionFlow? flow = null;
+        var entriesToCompact = new HashSet<int>();
         int entry = 0;
         int copied = 0;
         for (int end = 0; end < body.Count; end++)
@@ -133,6 +134,25 @@ internal sealed partial class BeamModuleCompiler
                     }
                 }
 
+                // This exchange can eliminate the final semantic reference to
+                // the fresh destination. Only revisit that frame after the rewrite.
+                int producer = spill - 1;
+                while (producer > allocation && body[producer].Definition.Opcode == Line)
+                {
+                    producer--;
+                }
+
+                if (body[producer].Definition.Opcode is (LocalCall or ExternalCall)
+                    && !Enumerable.Range(clear + 1, end - clear - 1).Any(index =>
+                    body[index].Definition.Opcode != InitYRegisters
+                    && body[index].Operands.Any(operand => SameProjectionRegister(
+                        operand,
+                        continuation.Contains(index) ? source : destination
+                    ))))
+                {
+                    entriesToCompact.Add((int)body[start].Operands[0].Value);
+                }
+
                 break;
 
                 int MapSlot(int slot) => slot == source.Value ? (int)destination.Value
@@ -148,7 +168,19 @@ internal sealed partial class BeamModuleCompiler
         highestOpcode = Math.Max(highestOpcode, Swap);
         output.Write(code.Span[copied..]);
 
-        return output.ToArray();
+        byte[] exchanged = output.ToArray();
+        if (entriesToCompact.Count == 0 || DecodeLateAtomicProjectionSlots(exchanged, labelCount) is not { } reduced)
+        {
+            return exchanged;
+        }
+
+        return RewriteDisjointFrames(
+            exchanged,
+            reduced.Body,
+            reduced.StackOperands,
+            atomicOnly: false,
+            entriesToCompact: entriesToCompact
+        ) ?? exchanged;
     }
 
     private sealed partial class BeamProjectionFlow

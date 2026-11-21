@@ -1,4 +1,8 @@
+using System.Collections;
+using System.Numerics;
 using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
 
 namespace Erlang.Tests;
 
@@ -8,10 +12,11 @@ internal static class BeamIfFailureLocationChecks
     private const string File = "beam_if_exhaustion.erl";
     private const string MappedFile = "logical_if_probe.erl";
     private const string WrongResult = "An if result or its failure location differed from the source if.";
+    private const string EffectError = "A discarded if changed the guarded call or kept an unused branch result.";
     private const string IfClause = "if_clause";
     private const string Source = """
         -module(beam_if_exhaustion).
-        -export([select/1, exhaustive/1, caught/1, following/1, explicit/0, remapped/1]).
+        -export([select/1, exhaustive/1, caught/1, following/1, explicit/0, remapped/1, discard/2, use/2, effect/1]).
 
         select(Value) ->
             if
@@ -44,12 +49,30 @@ internal static class BeamIfFailureLocationChecks
             if
                 Value =:= first -> matched
             end.
+
+        discard(Flag, Value) ->
+            if Flag =:= enabled -> ?MODULE:effect(Value); true -> fallback end,
+            {finished, Flag}.
+
+        use(Flag, Value) ->
+            if Flag =:= enabled -> ?MODULE:effect(Value); true -> fallback end.
+
+        effect(fail) -> erlang:error(effect_failure);
+        effect(Value) -> Value.
         """;
 
     internal static async Task Run()
     {
-        var module = BeamModule.Prepare(CodeGeneration.CompileBeamModule(Source, File));
+        byte[] image = CodeGeneration.CompileBeamModule(Source, File);
+        VerifyEffectContinuation(image);
+        var module = BeamModule.Prepare(image, new BeamDependencySelection(["beam_if_exhaustion"]));
         await using var runtime = new ProcessRuntime();
+        runtime.Modules.Register(
+            module.Name,
+            "effect",
+            1,
+            (context, arguments) => module.Invoke(context, "effect", arguments[0])
+        );
         await using var actor = new RuntimeNodeFoundationHostActor(runtime);
         await actor.InvokeAsync(async context =>
         {
@@ -90,6 +113,43 @@ internal static class BeamIfFailureLocationChecks
                 throw new InvalidOperationException(WrongResult);
             }
 
+            Term disabled = Term.A("disabled");
+            Term enabled = Term.A("enabled");
+            Term fail = Term.A("fail");
+            if (!Term.Tuple(Term.A("finished"), disabled).Equals(await module.Invoke(
+                context,
+                "discard",
+                disabled,
+                fail
+            )) || !Term.Tuple(Term.A("finished"), enabled).Equals(await module.Invoke(
+                context,
+                "discard",
+                enabled,
+                first
+            )) || !Term.A("fallback").Equals(await module.Invoke(
+                context,
+                "use",
+                disabled,
+                fail
+            )))
+            {
+                throw new InvalidOperationException(EffectError);
+            }
+
+            try
+            {
+                _ = await module.Invoke(
+                    context,
+                    "discard",
+                    enabled,
+                    fail
+                );
+                throw new InvalidOperationException(EffectError);
+            }
+            catch (ErlangException error) when (error.Reason.Equals(Term.A("effect_failure")))
+            {
+            }
+
             return Nil.Value;
 
             async Task CheckFailure(
@@ -120,5 +180,22 @@ internal static class BeamIfFailureLocationChecks
                 throw new InvalidOperationException(WrongResult);
             }
         });
+    }
+
+    private static void VerifyEffectContinuation(byte[] image)
+    {
+        object code = Code(image);
+        var atoms = ((IEnumerable)Property(Property(code, "Structure"), "Atoms")).Cast<string?>().ToArray();
+        var operations = ((IEnumerable)Property(code, "Instructions")).Cast<object>();
+        var body = operations.SkipWhile(operation => GetOpcode(operation) != FunctionInfo
+            || atoms[(int)(BigInteger)Property(((IEnumerable)Property(operation, "Operands")).Cast<object>().ElementAt(1), "Value")]
+                != "discard").Skip(1).TakeWhile(operation => GetOpcode(operation) != FunctionInfo).ToArray();
+        if (!body.Any(operation => GetOpcode(operation) == ExternalCall)
+            || body.Any(operation => GetOpcode(operation) == Jump))
+        {
+            throw new InvalidOperationException(EffectError);
+        }
+
+        static byte GetOpcode(object operation) => (byte)Property(Property(operation, "Definition"), "Opcode");
     }
 }

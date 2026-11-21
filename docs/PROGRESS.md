@@ -1,5 +1,9 @@
 # Project progress
 
+Part 1989 passed all 10,410 managed cases and the complete linked repository gate. [Repository evidence](validation/part-1989-repository-gate/README.md).
+
+Part 1989 records 513 Equal, 853 Different, 0 Unsupported, 0 SourceRejected. All 620 selected checks and 105 native outcomes passed. [Evidence](validation/part-1989/README.md).
+
 Part 1988 linked source passed all 10,397 managed cases and the complete repository gate. [Repository evidence](validation/part-1988-repository-gate/README.md).
 
 Part 1988 records 513 Equal, 853 Different, 0 Unsupported, 0 SourceRejected. All 607 selected cases and 82 native observations passed. [Evidence](validation/part-1988/README.md).

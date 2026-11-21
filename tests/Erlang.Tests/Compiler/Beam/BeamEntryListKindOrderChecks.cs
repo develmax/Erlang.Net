@@ -1,3 +1,4 @@
+using Erlang;
 using Erlang.Compiler;
 using static Erlang.Compiler.BeamEmissionFormat;
 using static Erlang.Tests.BeamBinaryHostAccess;
@@ -7,6 +8,7 @@ namespace Erlang.Tests;
 internal static class BeamEntryListKindOrderChecks
 {
     internal const string TestName = "compiler/beam/orders-nonempty-list-before-empty-at-entry";
+    private const string WrongListFallback = "The list fallback must refine only an unchanged input after its own nil failure.";
     private const string MissingOrder = "Expected the cons arm before the nil arm with the original function failure.";
     private const string UnsafeOrder = "A different input, shared arm, inherited exception location or handler must retain the original list block order.";
     private const byte Zero = 0x00;
@@ -87,7 +89,86 @@ internal static class BeamEntryListKindOrderChecks
             throw new InvalidOperationException(UnsafeOrder);
         }
 
-        return Task.CompletedTask;
+        return CheckListFallback();
+    }
+
+    private static async Task CheckListFallback()
+    {
+        byte[] entry = [Label, One, FunctionInfo, Module, Function, One, Label, Two];
+        byte[] nil = [IsNil, SecondArm, X0, Move, Empty, X0, Return];
+        byte[] cons = [FunctionFailure, X0, Move, Nonempty, X0, Return];
+        byte[] tail = [Label, Three, IsList, .. cons, EndCode];
+        byte[] source = [.. entry, .. nil, .. tail];
+        byte[] expected = [.. entry, .. nil, Label, Three, IsNonemptyList, .. cons, EndCode];
+        byte[] line = [.. entry, .. nil, Label, Three, Line, One, IsList, .. cons, EndCode];
+        byte[] expectedLine = [.. entry, .. nil, Label, Three, Line, One, IsNonemptyList, .. cons, EndCode];
+        byte[] reusedLabel = [.. entry, IsAtom, SecondArm, X0, .. nil, .. tail];
+        byte[] otherInput = [.. entry, .. nil, Label, Three, IsList, FunctionFailure, X1, Return, EndCode];
+        byte[] fallThrough = [.. entry, IsNil, SecondArm, X0, Move, Empty, X0, .. tail];
+        if (Refine(source) is not { } actual || !actual.AsSpan().SequenceEqual(expected)
+            || Refine(line) is not { } withLine || !withLine.AsSpan().SequenceEqual(expectedLine)
+            || Refine(reusedLabel) is not null || Refine(otherInput) is not null || Refine(fallThrough) is not null)
+        {
+            throw new InvalidOperationException(WrongListFallback);
+        }
+
+        var before = BeamModule.Prepare(BeamOpcodeEdgeBytes.Image(source[..^1], labels: 4));
+        var after = BeamModule.Prepare(BeamOpcodeEdgeBytes.Image(actual[..^1], labels: 4));
+        await using var runtime = new ProcessRuntime();
+        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
+        await actor.InvokeAsync(async context =>
+        {
+            Term value = Term.A("value");
+            Term proper = Term.List(value);
+            Term improper = new Cons(value, Term.A("tail"));
+            Term empty = Term.A(BeamOpcodeEdgeNames.Middle);
+            Term nonempty = Term.A(BeamOpcodeEdgeNames.Leaf);
+            foreach (BeamModule image in new[] { before, after })
+            {
+                foreach (var (input, result) in new (Term, Term)[] { (Nil.Value, empty), (proper, nonempty), (improper, nonempty) })
+                {
+                    if (!result.Equals(await image.Invoke(
+                        context,
+                        BeamOpcodeEdgeNames.Run,
+                        input
+                    )))
+                    {
+                        throw new InvalidOperationException(WrongListFallback);
+                    }
+                }
+            }
+
+            return Nil.Value;
+        });
+    }
+
+    private static byte[]? Refine(byte[] source)
+    {
+        ReadOnlyMemory<byte> code = source;
+        object header = New(
+            "BeamCodeHeader",
+            0,
+            (int)DebugLine,
+            4,
+            1,
+            code
+        );
+        object body = Call(
+            Type("BeamInstructionReader"),
+            "Read",
+            header,
+            5,
+            0,
+            null,
+            null
+        );
+
+        return (byte[]?)Call(
+            typeof(BeamModuleCompiler),
+            "RewriteListFallbacksAfterNilTest",
+            code,
+            body
+        );
     }
 
     private static byte[]? Rewrite(byte[] source)

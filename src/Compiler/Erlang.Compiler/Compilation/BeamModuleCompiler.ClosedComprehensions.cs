@@ -14,6 +14,13 @@ internal sealed partial class BeamModuleCompiler
         for (int index = 0; index < functions.Count; index++)
         {
             var function = functions[index];
+            if (ExtractZippedMapPairs(function, locations[index], declared) is { } zippedMap)
+            {
+                rewritten[index] = zippedMap.Parent;
+                helpers.Add((zippedMap.Helper, zippedMap.Location));
+                continue;
+            }
+
             if (ExtractZippedListMapper(
                 function,
                 locations[index],

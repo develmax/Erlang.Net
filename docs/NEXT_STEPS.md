@@ -1,5 +1,9 @@
 # Next steps
 
+The Part 1989 linked gate is complete. Continue the Part 1990 checked constructor and private entry groups. [Repository evidence](validation/part-1989-repository-gate/README.md).
+
+Complete the linked Part 1989 source gate. Continue private caller type and checked carrier propagation in Part 1990. [Evidence](validation/part-1989/README.md).
+
 The Part 1988 linked repository gate is complete. Continue Part 1989 with the remaining release instructions, frame and table differences. [Repository evidence](validation/part-1988-repository-gate/README.md).
 
 Complete the linked repository gate for the batched Part 1988 source. Continue ZIP inlining, map pair lowering and shared integer-list selector groups. [Evidence](validation/part-1988/README.md).

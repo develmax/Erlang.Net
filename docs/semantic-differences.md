@@ -1,5 +1,9 @@
 # Semantic differences
 
+Part 1989 records five restored physical frame vectors. The 48 normalized gains and raw outcomes are measured separately. [Repository evidence](validation/part-1989-repository-gate/README.md).
+
+Part 1989 records compiler, raw frame, normalized instruction, loader and native behavior outcomes independently. [Evidence](validation/part-1989/README.md).
+
 Part 1988 separates the new complete match ct_config_xml from the other 17 normalized gains and the measured physical frame cohort. [Repository evidence](validation/part-1988-repository-gate/README.md).
 
 Part 1988 records ordered generated helper keys and physical stack widths alongside raw and behavioral outcomes. [Evidence](validation/part-1988/README.md).
