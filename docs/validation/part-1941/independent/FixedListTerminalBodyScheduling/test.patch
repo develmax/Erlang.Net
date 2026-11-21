@@ -1,0 +1,71 @@
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12595,6 +12595,7 @@
+     Erlang.Tests.BeamTerminalCallResultArgumentChecks.RunTrim
+ );
+ Test(Erlang.Tests.BeamClosedListLengthEntryChecks.TestName, Erlang.Tests.BeamClosedListLengthEntryChecks.Run);
++Test(Erlang.Tests.BeamClosedListTerminalBodyChecks.TestName, Erlang.Tests.BeamClosedListTerminalBodyChecks.Run);
+ Test(Erlang.Tests.BeamCallArgumentKillsChecks.TestName, Erlang.Tests.BeamCallArgumentKillsChecks.Run);
+ Test(Erlang.Tests.BeamMeasuredDecoderPairChecks.TestName, Erlang.Tests.BeamMeasuredDecoderPairChecks.Run);
+ Test(Erlang.Tests.BeamClosedDecoderTagsChecks.TestName, Erlang.Tests.BeamClosedDecoderTagsChecks.Run);
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamClosedListTerminalBodyChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamClosedListTerminalBodyChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamClosedListTerminalBodyChecks.cs
+@@ -0,0 +1,55 @@
++using System.Collections;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamClosedListTerminalBodyChecks
++{
++    internal const string TestName = "compiler/beam/plans-terminal-constructors-in-checked-list-arms";
++    private const string ShapeError = "The terminal return kept a stack slot for its closed constructor value.";
++    private const string LiteralOperand = "literal";
++    private const string Module = "beam_closed_list_terminal_body";
++
++    private const string Source = """
++        -module(beam_closed_list_terminal_body).
++        -export([choose/1]).
++        choose([File,Config,Wait,Log,Address,Port]) ->
++            service:debug(Log),
++            Profile = service:profile(Config, default),
++            Flags = {mode,0,1},
++            Children = [service:configure(Address,Port,Profile), service:save(File,Config,Wait),
++                        service:accept(Address,Port,Profile,undefined)],
++            {ok,{Flags,Children}};
++        choose([File,Config,Wait,Log,Address,Port,Listen]) ->
++            service:debug(Log),
++            Profile = service:profile(Config, default),
++            Flags = {mode,0,1},
++            Children = [service:configure(Address,Port,Profile), service:save(File,Config,Wait),
++                        service:accept(Address,Port,Profile,Listen)],
++            {ok,{Flags,Children}}.
++        """;
++
++    internal static void Run()
++    {
++        string repeated = Source.Replace("{Flags,Children}", "{Flags,Children,Children}", StringComparison.Ordinal);
++        if (repeated == Source || !KeepsFlagsInTerminalConstructor(Source) || KeepsFlagsInTerminalConstructor(repeated))
++        {
++            throw new InvalidOperationException(ShapeError);
++        }
++    }
++
++    private static bool KeepsFlagsInTerminalConstructor(string source)
++    {
++        object code = Code(CodeGeneration.CompileBeamModule(source, Module + ".erl"));
++        object[] instructions = Children(code, "Instructions");
++
++        return instructions.Count(instruction => Opcode(instruction) == PutTuple
++            && Children(instruction, "Operands").Any(operand => (string)Property(operand, "Kind") == LiteralOperand)) == 2;
++    }
++
++    private static object[] Children(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++}

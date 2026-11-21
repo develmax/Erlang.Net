@@ -1,0 +1,1257 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -1338,6 +1338,7 @@
+                     || TryEmitGroupedLiteralTupleClosures(function, functionInfo)
+                     || TryEmitSharedRecordCatchContinuations(function)
+                     || TryEmitGroupedTupleConversion(function)
++                    || TryEmitSharedNestedRecordEntry(function, functionInfo)
+                     || TryEmitGroupedTupleEntry(function, functionInfo)
+                     || TryEmitSharedTaggedTupleDispatch(function, functionInfo)
+                     || TryEmitTupleAndAtomTailDispatch(function, functionInfo)))
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GroupedTupleEntry.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GroupedTupleEntry.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GroupedTupleEntry.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GroupedTupleEntry.cs
+@@ -649,28 +649,32 @@
+             int failure,
+             Action? reserveFailure = null,
+             HashSet<int>? checkedRootFields = null,
+-            bool validateOnly = false
++            bool validateOnly = false,
++            SharedNestedEntryContext? sharedEntry = null
+         )
+         {
+-            if (clause.Patterns[0] is not Pattern.Tuple root
++            if ((sharedEntry is not null ? EntryShape(clause.Patterns[0]) : clause.Patterns[0]) is not Pattern.Tuple root
+                 || reserveFailure is not null && checkedRootFields is null && clause.Guard is null && !root.Items.Any(item => item is Pattern.Tuple))
+             {
+                 return false;
+             }
+ 
++            var sharedNested = sharedEntry?.Nested;
+             int arity = clause.Patterns.Count;
+-            int nextRegister = arity;
++            int nextRegister = sharedNested is null ? arity
++                : Math.Max(sharedNested.Register, sharedNested.Projections.Values.DefaultIfEmpty(-1).Max()) + 1;
+             var checks = new List<Action>();
+             var bindings = new Dictionary<string, (int Input, int? Field)>(StringComparer.Ordinal);
+             for (int index = 1; index < arity; index++)
+             {
+-                if (clause.Patterns[index] is not Pattern.Variable parameter || !AddBinding(parameter, index, null))
++                if (!(sharedEntry is not null ? PlanArgument(clause.Patterns[index], index)
++                    : clause.Patterns[index] is Pattern.Variable parameter && AddBinding(parameter, index, null)))
+                 {
+                     return false;
+                 }
+             }
+ 
+-            if (!PlanTuple(root, 0))
++            if (!PlanArgument(clause.Patterns[0], 0))
+             {
+                 return false;
+             }
+@@ -693,6 +697,11 @@
+                 check();
+             }
+ 
++            if (sharedEntry?.Failures is { } effectFailures && (TryEmitFiniteEntryEffects(clause.Body, bindings, effectFailures)
++                || TryEmitSingleEntryEffect(clause, bindings) || TryEmitLinearEntryEffects(clause, bindings)))
++            {
++                return true;
++            }
+             var saved = bindings.Where(binding => used is null || used.Contains(binding.Key)).ToArray();
+             Expr.Call? forwardedCall = null;
+             (int Input, int Field) forwardedField = default;
+@@ -734,6 +743,8 @@
+             EmitFrameInitialization(saved.Length, frameSize);
+             variables = new(StringComparer.Ordinal);
+             int bindingBase = nextSlot;
++            var incomingRecords = checkedRecordBindings;
++
+             foreach (var (name, (input, field)) in saved)
+             {
+                 int slot = bindingBase + saved.Length - 1 - (Slot() - bindingBase);
+@@ -756,6 +767,15 @@
+                 variables.Add(name, slot);
+             }
+ 
++            if (sharedEntry is not null)
++            {
++                checkedRecordBindings = new(checkedRecordBindings, StringComparer.Ordinal);
++                foreach (var pattern in clause.Patterns)
++                {
++                    RememberCheckedRecord(pattern);
++                }
++            }
++
+             if (forwardedCall is not null)
+             {
+                 owner.EmitTuplePart(forwardedField.Input, forwardedField.Field, 0);
+@@ -774,7 +794,21 @@
+                 owner.EmitFrameReturn(frameSize);
+             }
+ 
++            checkedRecordBindings = incomingRecords;
++
+             return true;
++
++            bool PlanArgument(Pattern pattern, int input)
++            {
++                return pattern switch
++                {
++                    Pattern.Variable variable => AddBinding(variable, input, null),
++                    Pattern.Tuple tuple => PlanTuple(tuple, input),
++                    AliasPattern alias when TryReadPatternAlias(alias, out var variable, out var shape)
++                        && shape is Pattern.Tuple tuple && AddBinding(variable, input, null) => PlanTuple(tuple, input),
++                    _ => false
++                };
++            }
+ 
+             bool AddBinding(Pattern.Variable variable, int input, int? field) =>
+                 variable.Name == VariableScopeNames.Wildcard || bindings.TryAdd(variable.Name, (input, field));
+@@ -830,17 +864,25 @@
+                 return true;
+             }
+ 
+-            bool PlanTuple(Pattern.Tuple tuple, int input)
++            bool PlanTuple(Pattern.Tuple tuple, int input, int? checkedColumn = null)
+             {
+                 bool tagged = HasTupleTag(tuple, out Atom tag);
+-                if (input != 0 || checkedRootFields is null)
++                int reject = failure;
++                if (tagged && sharedEntry is { EntryFailure: var outside, Fallback: { } finalFallback }
++                    && input < arity && EntryShape(finalFallback.Patterns[input]) is Pattern.Tuple final
++                    && final.Items.Count == tuple.Items.Count && HasTupleTag(final, out Atom finalTag) && tag.Equals(finalTag))
++                {
++                    reject = outside;
++                }
++
++                if (checkedColumn is null && (input != 0 || checkedRootFields is null))
+                 {
+                     checks.Add(tagged
+                         ? () => EmitDetailRecordTest(
+                             input,
+                             tuple.Items.Count,
+                             tag,
+-                            failure
++                            reject
+                         )
+                         : () => EmitTupleShapeTest(
+                             XRegisterTag,
+@@ -851,7 +893,7 @@
+                 }
+                 for (int index = tagged ? 1 : 0; index < tuple.Items.Count; index++)
+                 {
+-                    if (input == 0 && checkedRootFields?.Contains(index) == true)
++                    if (checkedColumn == index || input == 0 && checkedRootFields?.Contains(index) == true)
+                     {
+                         continue;
+                     }
+@@ -861,6 +903,14 @@
+                     switch (tuple.Items[index])
+                     {
+                         case Pattern.Any { }:
++                            break;
++                        case Pattern.Variable variable when checkedColumn is not null
++                            && sharedNested is not null && sharedNested.Projections.TryGetValue(field, out int projected):
++                            if (!AddBinding(variable, projected, null))
++                            {
++                                return false;
++                            }
++
+                             break;
+                         case Pattern.Variable variable when AddBinding(variable, input, field):
+                             break;
+@@ -872,6 +922,13 @@
+                                 owner.Operand(XRegisterTag, scratch);
+                                 owner.LiteralOperand(literal.Value);
+                             });
++                            break;
++                        case Pattern.Tuple nested when input == 0 && sharedNested?.Field == field:
++                            if (!PlanTuple(nested, sharedNested.Register, sharedNested.Selector))
++                            {
++                                return false;
++                            }
++
+                             break;
+                         case Pattern.Tuple nested:
+                             nextRegister++;
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedNestedRecordEntry.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedNestedRecordEntry.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedNestedRecordEntry.cs
+@@ -0,0 +1,307 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private sealed partial class GeneralEmitter
++    {
++        private sealed record CheckedNestedEntry(
++            int Field,
++            int Register,
++            int Selector,
++            IReadOnlyDictionary<int, int> Projections
++        );
++        private sealed record SharedNestedEntryContext(
++            CheckedNestedEntry? Nested,
++            Clause? Fallback,
++            int EntryFailure,
++            List<EntryEffectFailure>? Failures = null
++        );
++        private sealed record SharedNestedRecordArm(Clause Source, Pattern.Tuple Shape, Atom Tag);
++        private sealed record SharedNestedRecordGroup(
++            int Arity,
++            Atom Tag,
++            int Selector,
++            (Clause Source, Atom Key)[] Arms,
++            IReadOnlyDictionary<int, int> Projections
++        );
++
++        private bool TryEmitSharedNestedRecordEntry(FunctionDefinition function, int failure)
++        {
++            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled
++                || function.Arity == 0 || function.Arity + 2 >= FirstReservedXRegister
++                || function.Clauses.Count < 2 || function.Clauses[0].Patterns[0] is not Pattern.Tuple first
++                || !HasTupleTag(first, out Atom outerTag))
++            {
++                return false;
++            }
++
++            int field = Array.FindIndex(first.Items.ToArray(), item => item is Pattern.Tuple);
++            if (field <= 0)
++            {
++                return false;
++            }
++
++            int arity = first.Items.Count;
++            int tuple = function.Arity;
++            int selector = tuple + 1;
++            var arms = new List<SharedNestedRecordArm>();
++            Clause? fallback = null;
++            for (int index = 0; index < function.Clauses.Count; index++)
++            {
++                Clause clause = function.Clauses[index];
++                if (EntryShape(clause.Patterns[0]) is not Pattern.Tuple shape || shape.Items.Count != arity
++                    || !HasTupleTag(shape, out Atom tag) || !tag.Equals(outerTag))
++                {
++                    return false;
++                }
++
++                if (shape.Items[field] is Pattern.Tuple nested && HasTupleTag(nested, out Atom nestedTag))
++                {
++                    arms.Add(new SharedNestedRecordArm(clause, nested, nestedTag));
++                }
++                else if (clause.Guard is null && index == function.Clauses.Count - 1
++                    && shape.Items.Skip(1).All(IsSharedEntryWildcard))
++                {
++                    fallback = clause;
++                }
++                else
++                {
++                    return false;
++                }
++            }
++
++            var groups = new List<SharedNestedRecordGroup>();
++            var rootFields = new HashSet<int>();
++            foreach (var branch in arms.GroupBy(arm => (Arity: arm.Shape.Items.Count, arm.Tag)))
++            {
++                int column = FindAtomSelectorColumn(branch.Select(arm => arm.Shape), branch.Key.Arity);
++                if (column < 0)
++                {
++                    return false;
++                }
++
++                var projections = branch.SelectMany(arm => ReadDelayedNestedFields(arm.Source, arm.Shape, column))
++                    .Distinct().Order().Select((position, index) => (position, register: selector + index + 1))
++                    .ToDictionary(projection => projection.position, projection => projection.register);
++                if (projections.Values.DefaultIfEmpty(selector).Max() >= FirstReservedXRegister)
++                {
++                    return false;
++                }
++
++                var dispatch = new CheckedNestedEntry(
++                    field,
++                    tuple,
++                    column,
++                    projections
++                );
++                var choices = new List<(Clause Source, Atom Key)>();
++                foreach (var arm in branch)
++                {
++                    var key = (Atom)((Pattern.Literal)arm.Shape.Items[column]).Value;
++                    if (!TryEmitPlannedTupleEntry(
++                        arm.Source,
++                        failure,
++                        checkedRootFields: rootFields,
++                        validateOnly: true,
++                        sharedEntry: new SharedNestedEntryContext(dispatch, null, failure)
++                    ))
++                    {
++                        return false;
++                    }
++
++                    choices.Add((arm.Source, key));
++                }
++
++                groups.Add(new SharedNestedRecordGroup(
++                    branch.Key.Arity,
++                    branch.Key.Tag,
++                    column,
++                    choices.OrderBy(choice => choice.Key, Comparer<Atom>.Create(CompareAtoms)).ToArray(),
++                    projections
++                ));
++            }
++
++            if (!groups.Any(group => group.Arms.Length >= 2)
++                || fallback is not null && !TryEmitPlannedTupleEntry(
++                    fallback,
++                    failure,
++                    checkedRootFields: rootFields,
++                    validateOnly: true,
++                    sharedEntry: new SharedNestedEntryContext(null, null, failure)
++                ))
++            {
++                return false;
++            }
++
++            int priorFrame = frameSize;
++            int initialSlot = nextSlot;
++            int maximumSlots = peakSlot;
++            var originalVariables = variables;
++            var frames = new Dictionary<int, int>();
++            int frameId = TupleFallbackFrame;
++            var effectFailures = new List<EntryEffectFailure>();
++            int reject = fallback is null ? failure : Label();
++
++            EmitDetailRecordTest(
++                0,
++                arity,
++                outerTag,
++                failure
++            );
++            owner.EmitTuplePart(0, field, tuple);
++            var widths = groups.GroupBy(group => group.Arity).OrderBy(group => group.Key).ToArray();
++            int[] widthLabels = widths.Length == 1 ? [] : widths.Select(_ => Label()).Reverse().ToArray();
++            if (widthLabels.Length != 0)
++            {
++                owner.EmitTupleArityDispatch(reject, widths.Select((width, index) => (width.Key, widthLabels[index])).ToArray(), tuple);
++            }
++            else if (groups.Count == 1)
++            {
++                EmitDetailRecordTest(
++                    tuple,
++                    groups[0].Arity,
++                    groups[0].Tag,
++                    reject
++                );
++            }
++            else
++            {
++                EmitTupleShapeTest(
++                    XRegisterTag,
++                    tuple,
++                    widths[0].Key,
++                    reject
++                );
++            }
++
++            for (int index = widths.Length - 1; index >= 0; index--)
++            {
++                if (widthLabels.Length != 0)
++                {
++                    Mark(widthLabels[index]);
++                }
++
++                var tags = widths[index].OrderBy(group => group.Tag, Comparer<Atom>.Create(CompareAtoms)).ToArray();
++                if (tags is [var single])
++                {
++                    if (widthLabels.Length != 0)
++                    {
++                        owner.EmitTuplePart(tuple, 0, selector);
++                        owner.EmitAtomTest(selector, single.Tag.Name, reject);
++                    }
++
++                    EmitSelector(single);
++                    continue;
++                }
++
++                owner.EmitTuplePart(tuple, 0, selector);
++                int[] targets = tags.Select(_ => Label()).Reverse().ToArray();
++                owner.EmitMembershipSelect(selector, reject, tags.Select((group, ordinal) => ((Term)group.Tag, targets[ordinal])));
++                for (int ordinal = tags.Length - 1; ordinal >= 0; ordinal--)
++                {
++                    Mark(targets[ordinal]);
++                    EmitSelector(tags[ordinal]);
++                }
++            }
++
++            if (fallback is not null)
++            {
++                Mark(reject);
++                EmitArm(fallback, null, failure);
++            }
++
++            foreach (var cold in effectFailures)
++            {
++                Mark(cold.Label);
++                if (cold.Line is { } line)
++                {
++                    owner.EmitLine(line);
++                }
++
++                owner.Op(CaseEnd, XRegisterTag, cold.Register);
++            }
++
++            frameSize = priorFrame;
++            nextSlot = initialSlot;
++            peakSlot = maximumSlots;
++            variables = originalVariables;
++            TupleFrames = frames;
++
++            return true;
++
++            void EmitSelector(SharedNestedRecordGroup group)
++            {
++                var shared = new CheckedNestedEntry(
++                    field,
++                    tuple,
++                    group.Selector,
++                    group.Projections
++                );
++                owner.EmitTuplePart(tuple, group.Selector, selector);
++                foreach (var (index, register) in group.Projections)
++                {
++                    owner.EmitTuplePart(tuple, index, register);
++                }
++                if (group.Arms is [var only])
++                {
++                    owner.EmitAtomTest(selector, only.Key.Name, reject);
++                    EmitArm(only.Source, shared, reject);
++
++                    return;
++                }
++
++                int[] targets = group.Arms.Select(_ => Label()).Reverse().ToArray();
++                owner.EmitMembershipSelect(selector, reject,
++                    group.Arms.Select((arm, ordinal) => ((Term)arm.Key, targets[ordinal])));
++                for (int ordinal = group.Arms.Length - 1; ordinal >= 0; ordinal--)
++                {
++                    Mark(targets[ordinal]);
++                    EmitArm(group.Arms[ordinal].Source, shared, reject);
++                }
++            }
++
++            void EmitArm(Clause arm, CheckedNestedEntry? shared, int noMatch)
++            {
++                nextSlot = initialSlot;
++                peakSlot = initialSlot;
++                variables = new(originalVariables, StringComparer.Ordinal);
++                frameSize = plannedTupleFrames?.GetValueOrDefault(frameId, priorFrame) ?? priorFrame;
++                TryEmitPlannedTupleEntry(
++                    arm,
++                    noMatch,
++                    checkedRootFields: rootFields,
++                    sharedEntry: new SharedNestedEntryContext(
++                        shared,
++                        ReferenceEquals(arm, fallback) ? null : fallback,
++                        failure,
++                        effectFailures
++                    )
++                );
++                frames.Add(frameId--, peakSlot);
++                maximumSlots = Math.Max(maximumSlots, peakSlot);
++            }
++        }
++
++        private static int FindAtomSelectorColumn(IEnumerable<Pattern.Tuple> source, int width)
++        {
++            var shapes = source.ToArray();
++            for (int field = 1; field < width; field++)
++            {
++                var keys = new HashSet<Atom>();
++                if (shapes.All(pattern => pattern.Items[field] is Pattern.Literal { Value: Atom key } && keys.Add(key)))
++                {
++                    return field;
++                }
++            }
++
++            return -1;
++        }
++
++        private static int CompareAtoms(Atom left, Atom right) => TermOrder.Compare(left, right, exact: true);
++
++        private static bool IsSharedEntryWildcard(Pattern pattern) =>
++            pattern is Erlang.Pattern.Any or Erlang.Pattern.Variable { Name: VariableScopeNames.Wildcard };
++    }
++}
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FiniteEntryEffects.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FiniteEntryEffects.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FiniteEntryEffects.cs
+@@ -0,0 +1,225 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private sealed partial class GeneralEmitter
++    {
++        private sealed record EntryEffectFailure(int Label, int Register, BeamSourceLocation? Line);
++        private sealed record FiniteEffectCall(Expr.Call Expression, string? Module, (string? Binding, Term? Constant)[] Operands);
++        private sealed record FiniteEffectArm(Term? Key, FiniteEffectCall[] Calls);
++
++        private bool TryEmitFiniteEntryEffects(
++            Expr body,
++            Dictionary<string, (int Input, int? Field)> bindings,
++            List<EntryEffectFailure> failures
++        )
++        {
++            if (body is not Expr.Sequence
++                {
++                    Items:
++                    [
++                        Expr.Case { Value: Expr.Variable input, Clauses.Count: >= 2 } decision,
++                        Expr.Tuple { Items.Count: > 0 } result
++                    ]
++                } || !bindings.TryGetValue(input.Name, out var selector)
++                || ReadFiniteEffectArguments(result.Items, bindings) is not { } values)
++            {
++                return false;
++            }
++
++            var alternatives = new List<FiniteEffectArm>();
++            var keys = new HashSet<Term>();
++            FiniteEffectArm? fallback = null;
++            for (int index = 0; index < decision.Clauses.Count; index++)
++            {
++                var clause = decision.Clauses[index];
++                if (clause is not { Guard: null, Patterns: [var pattern] }
++                    || ReadFiniteEffectCalls(clause.Body, bindings) is not { } calls)
++                {
++                    return false;
++                }
++
++                if (pattern is Pattern.Literal { Value: Atom or Integer } literal
++                    && (literal.Value is not Integer integer || integer.Value >= int.MinValue && integer.Value <= int.MaxValue)
++                    && keys.Add(literal.Value))
++                {
++                    alternatives.Add(new FiniteEffectArm(literal.Value, calls));
++                }
++                else if (index == decision.Clauses.Count - 1 && IsSharedEntryWildcard(pattern))
++                {
++                    fallback = new FiniteEffectArm(null, calls);
++                }
++                else
++                {
++                    return false;
++                }
++            }
++
++            if (alternatives.Count < 2 || fallback is { Calls.Length: > 0 })
++            {
++                return false;
++            }
++
++            var returned = values.Select(operand => operand.Binding).OfType<string>().ToHashSet(StringComparer.Ordinal);
++            var live = alternatives.SelectMany(arm => arm.Calls).SelectMany(call => call.Operands)
++                .Select(operand => operand.Binding).OfType<string>().Concat(returned).ToHashSet(StringComparer.Ordinal);
++            var saved = bindings.Keys.Where(live.Contains).Reverse().Select((name, slot) => (name, slot))
++                .ToDictionary(entry => entry.name, entry => entry.slot, StringComparer.Ordinal);
++            const int selectorRegister = 1;
++            int inputs = Math.Max(selector.Input, saved.Keys.Select(name => bindings[name].Input).DefaultIfEmpty(-1).Max()) + 1;
++            EmitFrameAllocation(inputs, saved.Count);
++            foreach (string name in saved.Keys.Where(name => bindings[name].Field is null || bindings[name].Input == selectorRegister))
++            {
++                SaveBinding(name);
++            }
++
++            if (selector.Field is int field)
++            {
++                owner.EmitTuplePart(selector.Input, field, selectorRegister);
++            }
++            else
++            {
++                owner.MoveRegister(
++                    XRegisterTag,
++                    selector.Input,
++                    XRegisterTag,
++                    selectorRegister
++                );
++            }
++
++            foreach (string name in saved.Keys.Where(name => bindings[name] is { Field: not null, Input: not selectorRegister }))
++            {
++                SaveBinding(name);
++            }
++
++            int join = Label();
++            int reject = fallback is null ? Label() : join;
++            if (fallback is null)
++            {
++                failures.Add(new EntryEffectFailure(reject, selectorRegister, CaseSourceLocation(decision)));
++            }
++
++            alternatives.Sort((left, right) => TermOrder.Compare(left.Key!, right.Key!, exact: true));
++            int[] targets = alternatives.Select(_ => Label()).Reverse().ToArray();
++            owner.EmitMembershipSelect(selectorRegister, reject, alternatives.Select((arm, index) => (arm.Key!, targets[index])));
++            for (int arm = alternatives.Count - 1; arm >= 0; arm--)
++            {
++                Mark(targets[arm]);
++                var branch = alternatives[arm];
++                var remaining = saved.Keys.Except(returned).ToHashSet(StringComparer.Ordinal);
++                for (int index = 0; index < branch.Calls.Length; index++)
++                {
++                    var call = branch.Calls[index];
++                    var usedLater = branch.Calls.Skip(index + 1).SelectMany(next => next.Operands)
++                        .Select(operand => operand.Binding).OfType<string>().ToHashSet(StringComparer.Ordinal);
++                    var released = remaining.Where(name => !usedLater.Contains(name)).ToArray();
++                    var constants = new List<(int Destination, Term Value)>();
++                    var loads = new List<(int Destination, int Source)>();
++                    for (int argument = 0; argument < call.Operands.Length; argument++)
++                    {
++                        var operand = call.Operands[argument];
++                        if (operand.Binding is { } name)
++                        {
++                            loads.Add((argument, saved[name]));
++                        }
++                        else
++                        {
++                            constants.Add((argument, operand.Constant!));
++                        }
++                    }
++
++                    owner.EmitOrderedTailMoves([], constants, loads);
++                    if (released.Length != 0)
++                    {
++                        owner.EmitSlotKills(released.Select(name => saved[name]).Order().ToArray());
++                        remaining.ExceptWith(released);
++                    }
++
++                    owner.EmitCallLine(call.Expression, location);
++                    Call(call.Module, call.Expression.Function, call.Operands.Length);
++                }
++
++                if (arm != 0)
++                {
++                    JumpTo(join);
++                }
++            }
++
++            Mark(join);
++            EmitEntryEffectTupleReturn(values, saved);
++
++            return true;
++
++            void SaveBinding(string name)
++            {
++                var (register, position) = bindings[name];
++                if (position is int field)
++                {
++                    owner.Op(GetTupleElement, XRegisterTag, register);
++                    owner.Operand(BeamWire.UnsignedTag, field);
++                    owner.Operand(YRegisterTag, saved[name]);
++                }
++                else
++                {
++                    owner.MoveRegister(
++                        XRegisterTag,
++                        register,
++                        YRegisterTag,
++                        saved[name]
++                    );
++                }
++            }
++        }
++
++        private FiniteEffectCall[]? ReadFiniteEffectCalls(Expr body, Dictionary<string, (int Input, int? Field)> bindings)
++        {
++            if (AttributeLiteral.TryNormalizeConstant(body, out _))
++            {
++                return [];
++            }
++
++            var calls = new List<FiniteEffectCall>();
++            IReadOnlyList<Expr> effects = body is Expr.Sequence sequence ? sequence.Items : [body];
++            foreach (Expr expression in effects)
++            {
++                if (expression is not Expr.Call call || call.Arguments.Count >= FirstReservedXRegister
++                    || !TryResolveOrdinaryCallTarget(call, out string? module)
++                    || ReadFiniteEffectArguments(call.Arguments, bindings) is not { } operands)
++                {
++                    return null;
++                }
++
++                calls.Add(new FiniteEffectCall(call, module, operands));
++            }
++
++            return calls.ToArray();
++        }
++
++        private static (string? Binding, Term? Constant)[]? ReadFiniteEffectArguments(
++            IReadOnlyList<Expr> source,
++            Dictionary<string, (int Input, int? Field)> bindings
++        )
++        {
++            var values = new (string? Binding, Term? Constant)[source.Count];
++            for (int index = 0; index < source.Count; index++)
++            {
++                if (source[index] is Expr.Variable variable && bindings.ContainsKey(variable.Name))
++                {
++                    values[index] = (variable.Name, null);
++                }
++                else if (AttributeLiteral.TryNormalizeConstant(source[index], out var value))
++                {
++                    values[index] = (null, value);
++                }
++                else
++                {
++                    return null;
++                }
++            }
++
++            return values;
++        }
++    }
++}
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SingleEntryEffect.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SingleEntryEffect.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SingleEntryEffect.cs
+@@ -0,0 +1,209 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private sealed partial class GeneralEmitter
++    {
++        private sealed record EntryEffectArgument(
++            int Destination,
++            int? Source,
++            int? Projection,
++            Term? Literal,
++            bool Singleton
++        );
++
++        private bool TryEmitSingleEntryEffect(Clause clause, Dictionary<string, (int Input, int? Field)> bindings)
++        {
++            if (clause.Body is not Expr.Sequence
++                {
++                    Items: [Expr.Call effect, Expr.Tuple { Items.Count: > 0 } result]
++                } || effect.Arguments.Count >= FirstReservedXRegister
++                || !TryResolveOrdinaryCallTarget(effect, out string? module)
++                || ReadFiniteEffectArguments(result.Items, bindings) is not { } values)
++            {
++                return false;
++            }
++
++            var pending = new List<EntryEffectArgument>();
++            for (int destination = 0; destination < effect.Arguments.Count; destination++)
++            {
++                if (ReadArgument(effect.Arguments[destination], destination) is not { } operand)
++                {
++                    return false;
++                }
++
++                if (operand is not { Projection: null, Singleton: false } || operand.Source != destination)
++                {
++                    pending.Add(operand);
++                }
++            }
++
++            var ordered = new List<EntryEffectArgument>();
++            while (pending.Count != 0)
++            {
++                int next = pending.FindLastIndex(argument =>
++                    !pending.Any(other => !ReferenceEquals(other, argument) && other.Source == argument.Destination));
++                if (next < 0)
++                {
++                    return false;
++                }
++
++                ordered.Add(pending[next]);
++                pending.RemoveAt(next);
++            }
++
++            var returned = values.Select(value => value.Binding).OfType<string>().Distinct(StringComparer.Ordinal).ToArray();
++            int live = ordered.Select(operand => operand.Source ?? -1)
++                .Concat(returned.Select(name => bindings[name].Input)).DefaultIfEmpty(-1).Max() + 1;
++            int construction = ordered.Count(operand => operand.Singleton) * ConsHeapWords;
++            owner.Op(construction == 0 ? Allocate : AllocateHeap, BeamWire.UnsignedTag, returned.Length);
++            if (construction != 0)
++            {
++                owner.Operand(BeamWire.UnsignedTag, construction);
++            }
++
++            owner.Operand(BeamWire.UnsignedTag, Math.Max(live, InitialArgumentLive()));
++            var slots = new Dictionary<string, int>(StringComparer.Ordinal);
++            foreach (string name in returned)
++            {
++                int slot = slots.Count;
++                slots.Add(name, slot);
++                var (source, field) = bindings[name];
++                if (field is int position)
++                {
++                    owner.Op(GetTupleElement, XRegisterTag, source);
++                    owner.Operand(BeamWire.UnsignedTag, position);
++                    owner.Operand(YRegisterTag, slot);
++                }
++                else
++                {
++                    owner.MoveRegister(
++                        XRegisterTag,
++                        source,
++                        YRegisterTag,
++                        slot
++                    );
++                }
++            }
++
++            foreach (var argument in ordered)
++            {
++                if (argument.Literal is { } literal)
++                {
++                    owner.EmitConstant(literal, argument.Destination);
++                }
++                else if (argument.Singleton)
++                {
++                    owner.Op(PutList, XRegisterTag, argument.Source!.Value);
++                    owner.LiteralOperand(Nil.Value);
++                    owner.Operand(XRegisterTag, argument.Destination);
++                }
++                else if (argument.Projection is int field)
++                {
++                    owner.EmitTuplePart(argument.Source!.Value, field, argument.Destination);
++                }
++                else
++                {
++                    owner.MoveRegister(
++                        XRegisterTag,
++                        argument.Source!.Value,
++                        XRegisterTag,
++                        argument.Destination
++                    );
++                }
++            }
++
++            owner.EmitCallLine(effect, location);
++            Call(module, effect.Function, effect.Arguments.Count);
++            EmitEntryEffectTupleReturn(values, slots);
++
++            return true;
++
++            // Arguments already in place have no moves but remain live at allocation.
++            int InitialArgumentLive() => effect.Arguments
++                .Select((argument, index) => argument is Expr.Variable variable
++                    && bindings.TryGetValue(variable.Name, out var input)
++                    && input.Field is null && input.Input == index ? index + 1 : 0).DefaultIfEmpty(0).Max();
++
++            EntryEffectArgument? ReadArgument(Expr expression, int destination)
++            {
++                if (AttributeLiteral.TryNormalizeConstant(expression, out Term literal))
++                {
++                    return new EntryEffectArgument(
++                        destination,
++                        null,
++                        null,
++                        literal,
++                        false
++                    );
++                }
++
++                if (expression is Expr.Variable variable && bindings.TryGetValue(variable.Name, out var bound))
++                {
++                    return new EntryEffectArgument(
++                        destination,
++                        bound.Input,
++                        bound.Field,
++                        null,
++                        false
++                    );
++                }
++
++                if (expression is Expr.List { Items: [Expr.Variable head], Tail: null }
++                    && bindings.TryGetValue(head.Name, out var list) && list.Field is null)
++                {
++                    return new EntryEffectArgument(
++                        destination,
++                        list.Input,
++                        null,
++                        null,
++                        true
++                    );
++                }
++
++                if (expression is Expr.RecordAccess { Value: Expr.Variable record } access
++                    && ReadCheckedEntryProjection(
++                        clause,
++                        bindings,
++                        record.Name,
++                        access.Name,
++                        access.Arity
++                    )
++                    && access.Index > 0 && access.Index < access.Arity)
++                {
++                    return new EntryEffectArgument(
++                        destination,
++                        bindings[record.Name].Input,
++                        access.Index,
++                        null,
++                        false
++                    );
++                }
++
++                return null;
++            }
++        }
++
++        private void EmitEntryEffectTupleReturn((string? Binding, Term? Constant)[] values, Dictionary<string, int> slots, int? frame = null)
++        {
++            owner.Op(TestHeap, BeamWire.UnsignedTag, values.Length + 1);
++            owner.Operand(BeamWire.UnsignedTag, 0);
++            owner.EmitTupleHeader(XRegisterTag, values.Length, 0);
++            foreach (var value in values)
++            {
++                if (value.Binding is { } name)
++                {
++                    owner.Operand(YRegisterTag, slots[name]);
++                }
++                else
++                {
++                    owner.LiteralOperand(value.Constant!);
++                }
++            }
++
++            owner.EmitFrameReturn(frame ?? slots.Count);
++        }
++    }
++}
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LinearEntryEffects.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LinearEntryEffects.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LinearEntryEffects.cs
+@@ -0,0 +1,318 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private sealed partial class GeneralEmitter
++    {
++        private sealed record LinearEffectArgument(
++            string? Binding,
++            Term? Literal,
++            int? Field,
++            bool Previous
++        );
++        private sealed record LinearEffectCall(Expr.Call Expression, string? Module, LinearEffectArgument[] Arguments);
++        private sealed record LinearEntryEffects(LinearEffectCall[] Calls, (string? Binding, Term? Constant)[] Result);
++
++        private IEnumerable<int> ReadDelayedNestedFields(Clause clause, Pattern.Tuple tuple, int selector)
++        {
++            if (ReadRawEntryCalls(clause, out _) is not { Length: >= 2 } calls)
++            {
++                return [];
++            }
++
++            var delayed = calls.Skip(1).SelectMany(call => call.Call.Arguments)
++                .OfType<Expr.Variable>().Select(variable => variable.Name).ToHashSet(StringComparer.Ordinal);
++
++            return tuple.Items.Select((item, index) => (item, index))
++                .Where(field => field.index != selector && field.item is Pattern.Variable variable && delayed.Contains(variable.Name))
++                .Select(field => field.index);
++        }
++
++        private (Expr.Call Call, string? Result)[]? ReadRawEntryCalls(Clause clause, out Expr.Tuple result)
++        {
++            if (clause.Body is not Expr.Sequence { Items: [_, _, .., Expr.Tuple tuple] } sequence)
++            {
++                result = null!;
++
++                return null;
++            }
++
++            result = tuple;
++            string[] parameters = clause.Patterns.SelectMany(Semantics.Variables).ToArray();
++
++            return ReadStraightCalls(FlattenCallArguments(sequence.Items.SkipLast(1)), parameters);
++        }
++
++        private LinearEntryEffects? ReadLinearEntryEffects(Clause clause, Dictionary<string, (int Input, int? Field)> bindings)
++        {
++            if (ReadRawEntryCalls(clause, out var tuple) is not { Length: >= 2 } source)
++            {
++                return null;
++            }
++
++            var returned = tuple.Items.Select(item => item is Expr.RecordUpdate
++            { Fields.Count: 0, Value: Expr.Variable variable } update
++                && ReadCheckedEntryProjection(
++                    clause,
++                    bindings,
++                    variable.Name,
++                    update.Name,
++                    update.Arity
++                )
++                    ? (Expr)variable : item).ToArray();
++            if (ReadFiniteEffectArguments(returned, bindings) is not { } result)
++            {
++                return null;
++            }
++
++            var calls = new List<LinearEffectCall>();
++            string? preceding = null;
++            for (int index = 0; index < source.Length; index++)
++            {
++                var (call, resultBinding) = source[index];
++                if (call.Arguments.Count >= FirstReservedXRegister || !TryResolveOrdinaryCallTarget(call, out string? module))
++                {
++                    return null;
++                }
++
++                var arguments = new List<LinearEffectArgument>();
++                foreach (Expr expr in call.Arguments)
++                {
++                    if (expr is Expr.Variable variable && variable.Name == preceding)
++                    {
++                        arguments.Add(new LinearEffectArgument(
++                            null,
++                            null,
++                            null,
++                            true
++                        ));
++                    }
++                    else if (expr is Expr.Variable input && bindings.ContainsKey(input.Name))
++                    {
++                        arguments.Add(new LinearEffectArgument(
++                            input.Name,
++                            null,
++                            null,
++                            false
++                        ));
++                    }
++                    else if (expr is Expr.RecordAccess { Value: Expr.Variable record } access
++                        && ReadCheckedEntryProjection(
++                            clause,
++                            bindings,
++                            record.Name,
++                            access.Name,
++                            access.Arity
++                        )
++                        && access.Index > 0 && access.Index < access.Arity)
++                    {
++                        arguments.Add(new LinearEffectArgument(
++                            record.Name,
++                            null,
++                            access.Index,
++                            false
++                        ));
++                    }
++                    else if (AttributeLiteral.TryNormalizeConstant(expr, out Term literal))
++                    {
++                        arguments.Add(new LinearEffectArgument(
++                            null,
++                            literal,
++                            null,
++                            false
++                        ));
++                    }
++                    else
++                    {
++                        return null;
++                    }
++                }
++
++                calls.Add(new LinearEffectCall(call, module, arguments.ToArray()));
++                preceding = resultBinding;
++            }
++
++            return new LinearEntryEffects(calls.ToArray(), result);
++        }
++
++        private static bool ReadCheckedEntryProjection(
++            Clause clause,
++            Dictionary<string, (int Input, int? Field)> bindings,
++            string binding,
++            string tag,
++            int arity
++        ) => bindings.TryGetValue(binding, out var source) && source.Field is null && source.Input < clause.Patterns.Count
++            && clause.Patterns[source.Input] is AliasPattern alias && TryReadPatternAlias(alias, out var variable, out var shape)
++            && variable.Name == binding && shape is Pattern.Tuple tuple && tuple.Items.Count == arity
++            && HasTupleTag(tuple, out Atom name) && name.Name == tag;
++
++        private bool TryEmitLinearEntryEffects(Clause clause, Dictionary<string, (int Input, int? Field)> bindings)
++        {
++            if (ReadLinearEntryEffects(clause, bindings) is not { } plan)
++            {
++                return false;
++            }
++
++            var later = new Dictionary<string, int>(StringComparer.Ordinal);
++            for (int index = 0; index < plan.Calls.Length; index++)
++            {
++                foreach (var name in plan.Calls[index].Arguments.Select(argument => argument.Binding).OfType<string>())
++                {
++                    later[name] = index;
++                }
++            }
++
++            foreach (var name in plan.Result.Select(value => value.Binding).OfType<string>())
++            {
++                later[name] = plan.Calls.Length;
++            }
++
++            var slots = bindings.Keys.Where(name => later.GetValueOrDefault(name) > 0).Reverse()
++                .Select((name, slot) => (name, slot)).ToDictionary(entry => entry.name, entry => entry.slot, StringComparer.Ordinal);
++            var prepared = new List<((int Destination, int? X, int? Y, int? Field, Term? Literal)[] Moves, int Trim, int[] Kills)>();
++            var finalSlots = new Dictionary<string, int>(slots, StringComparer.Ordinal);
++            for (int index = 0; index < plan.Calls.Length; index++)
++            {
++                var call = plan.Calls[index];
++                var moves = call.Arguments.Select((argument, destination) =>
++                {
++                    if (argument.Binding is string name)
++                    {
++                        var bound = bindings[name];
++                        int? field = argument.Field ?? bound.Field;
++
++                        return (destination, X: index == 0 ? (int?)bound.Input : null,
++                            Y: index == 0 ? null : (int?)finalSlots[name], Field: field, argument.Literal);
++                    }
++
++                    return (destination, X: argument.Previous ? (int?)0 : null, Y: (int?)null, Field: (int?)null, argument.Literal);
++                }).Where(move => move.X != move.destination || move.Field is not null).ToList();
++
++                var ordered = new List<(int Destination, int? X, int? Y, int? Field, Term? Literal)>();
++                while (moves.Count != 0)
++                {
++                    int next = moves.FindLastIndex(move =>
++                        moves.All(other => other.destination == move.destination || other.X != move.destination));
++                    if (next < 0)
++                    {
++                        return false;
++                    }
++
++                    ordered.Add(moves[next]);
++                    moves.RemoveAt(next);
++                }
++
++                var dead = finalSlots.Where(entry => later[entry.Key] == index).Select(entry => entry.Value).ToHashSet();
++                int trim = 0;
++                while (dead.Contains(trim))
++                {
++                    trim++;
++                }
++
++                foreach (string name in finalSlots.Keys.ToArray())
++                {
++                    if (dead.Contains(finalSlots[name]))
++                    {
++                        finalSlots.Remove(name);
++                    }
++                    else
++                    {
++                        finalSlots[name] -= trim;
++                    }
++                }
++
++                prepared.Add((ordered.ToArray(), trim, dead.Where(slot => slot >= trim).Order().ToArray()));
++            }
++
++            int live = slots.Keys.Concat(plan.Calls[0].Arguments.Select(argument => argument.Binding).OfType<string>())
++                .Select(name => bindings[name].Input).DefaultIfEmpty(-1).Max() + 1;
++            EmitFrameAllocation(live, slots.Count);
++            foreach (var (name, slot) in slots)
++            {
++                var (register, field) = bindings[name];
++                if (field is int position)
++                {
++                    owner.Op(GetTupleElement, XRegisterTag, register);
++                    owner.Operand(BeamWire.UnsignedTag, position);
++                    owner.Operand(YRegisterTag, slot);
++                }
++                else
++                {
++                    owner.MoveRegister(
++                        XRegisterTag,
++                        register,
++                        YRegisterTag,
++                        slot
++                    );
++                }
++            }
++
++            int frame = slots.Count;
++            for (int index = 0; index < prepared.Count; index++)
++            {
++                var (operations, trim, kills) = prepared[index];
++                if (operations is
++                    [{ Destination: var argument, X: 0, Y: null, Field: null }, { Destination: 0, Y: int slot, Field: int field }])
++                {
++                    owner.EmitTuplePart(
++                        slot,
++                        field,
++                        argument,
++                        YRegisterTag
++                    );
++                    owner.Op(Swap, XRegisterTag, 0);
++                    owner.Operand(XRegisterTag, argument);
++                }
++                else
++                {
++                    foreach (var operation in operations)
++                    {
++                        if (operation.Literal is { } literal)
++                        {
++                            owner.EmitConstant(literal, operation.Destination);
++                        }
++                        else if (operation.Field is int projection)
++                        {
++                            owner.EmitTuplePart(
++                                operation.X ?? operation.Y!.Value,
++                                projection,
++                                operation.Destination,
++                                operation.Y is null ? XRegisterTag : YRegisterTag
++                            );
++                        }
++                        else
++                        {
++                            owner.MoveRegister(
++                                operation.Y is null ? XRegisterTag : YRegisterTag,
++                                operation.X ?? operation.Y!.Value,
++                                XRegisterTag,
++                                operation.Destination
++                            );
++                        }
++                    }
++                }
++
++                if (kills.Length != 0)
++                {
++                    owner.EmitSlotKills(kills);
++                }
++
++                if (trim != 0)
++                {
++                    frame -= trim;
++                    TrimDetailFrame(trim, frame);
++                }
++
++                var call = plan.Calls[index];
++                owner.EmitCallLine(call.Expression, location);
++                Call(call.Module, call.Expression.Function, call.Arguments.Length);
++            }
++
++            EmitEntryEffectTupleReturn(plan.Result, finalSlots, frame);
++
++            return true;
++        }
++    }
++}

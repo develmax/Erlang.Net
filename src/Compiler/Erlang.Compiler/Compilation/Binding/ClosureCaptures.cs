@@ -63,6 +63,14 @@ internal static class ClosureCaptures
         return collector.Names;
     }
 
+    internal static HashSet<string>? ReadListComprehensionBindings(Clause clause, Expr.ListComprehension comprehension)
+    {
+        var collector = new Collector([], comprehension: comprehension);
+        collector.Clause(clause, [], shadow: true);
+
+        return collector.ComprehensionBindings;
+    }
+
     internal static bool RequiresSelfValue(Expr.Fun function)
     {
         if (function.SelfName is not { } self)
@@ -79,11 +87,12 @@ internal static class ClosureCaptures
         return collector.Names.Contains(self);
     }
 
-    private sealed class Collector(IEnumerable<string> outer, int? directSelfArity = null)
+    private sealed class Collector(IEnumerable<string> outer, int? directSelfArity = null, Expr.ListComprehension? comprehension = null)
     {
         private readonly HashSet<string> outerNames = new(outer, StringComparer.Ordinal);
         private int valueScopeDepth;
         public HashSet<string> Names { get; } = new(StringComparer.Ordinal);
+        internal HashSet<string>? ComprehensionBindings { get; private set; }
 
         internal void EntryReferences(Clause clause)
         {
@@ -298,6 +307,11 @@ internal static class ClosureCaptures
                     Parallel(bits.Segments.SelectMany(segment => segment.Size is null ? new[] { segment.Value } : new[] { segment.Value, segment.Size }), local);
                     break;
                 case Expr.ListComprehension list:
+                    if (ReferenceEquals(list, comprehension))
+                    {
+                        ComprehensionBindings = new(local, StringComparer.Ordinal);
+                    }
+
                     Comprehension(list.Items, list.Qualifiers, local);
                     break;
                 case Expr.BinaryComprehension binary:

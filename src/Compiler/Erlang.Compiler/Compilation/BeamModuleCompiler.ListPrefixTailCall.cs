@@ -439,7 +439,7 @@ internal sealed partial class BeamModuleCompiler
             }
             else
             {
-                owner.EmitCallLine(call, previous ?? location);
+                owner.EmitCallLine(call, IsRecursiveListGeneratorFailure(call) ? owner.lastEmittedLine : previous ?? location);
                 owner.Op(TailExternalCall, BeamWire.UnsignedTag, arity);
                 owner.Operand(BeamWire.UnsignedTag, owner.Import(call.Module, call.Function, arity));
             }

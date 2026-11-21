@@ -1,0 +1,142 @@
+{"Partial":true,"SelectedCount":122,"TotalCount":9918}
+PASS compiler/beam/fresh-reference-receive-marker
+PASS compiler/beam/emits-immediate-selective-timeout
+PASS compiler/beam/shares-accepted-receive-tails-across-tuple-arities
+PASS compiler/beam/adjacent-arithmetic-number-result
+PASS compiler/beam/local-success-atom-or-tuple-result
+PASS compiler/beam/record-field-carries-successful-number
+PASS compiler/beam/compacts-the-frame-after-a-terminal-list-match-relay
+PASS compiler/beam/inherits-proper-list-entry-facts-through-recursion
+PASS compiler/beam/record-epp-include-search-provenance
+PASS compiler/beam/composes-redundant-tail-argument-copies
+PASS compiler/beam/windows-kernel-bootstrap-include-profile
+PASS compiler/beam/windows-inets-include-profile
+PASS compiler/beam/sinks-an-independent-argument-clobber-past-a-reload
+PASS compiler/beam/keeps-projection-before-ordinary-argument-copies
+PASS compiler/beam/ordinary-entry-call-composes-scratch-copy
+PASS compiler/beam/windows-stdlib-bootstrap-include-profile
+PASS compiler/beam/restore-physical-and-logical-include-parents
+PASS compiler/beam/abstract-expressions-use-first-annotation
+PASS compiler/beam/constructs-a-tuple-message-directly-in-x1
+PASS compiler/beam/preserve-quoted-feature-keyword-type-annotations
+PASS compiler/beam/bitstring-type-default-annotations
+PASS compiler/beam/constructed-bitstring-starts-dynamic-match-without-type-failure
+PASS compiler/beam/generic-map-patterns-annotate-proven-inputs
+PASS compiler/beam/list-conversion-types-its-successful-bif-consumer
+PASS compiler/beam/substitutes-dominating-helper-constants
+PASS compiler/beam/uses-tuple-record-update-field-failure-location
+PASS compiler/beam/lifts-comprehensions-with-bound-append-tails
+PASS compiler/beam/lifts-list-generators-with-adjacent-guard-filters
+PASS compiler/beam/uses-successful-tuple-size-bounds-in-guards
+PASS compiler/beam/refines-guarded-number-record-fields
+PASS compiler/beam/types-numeric-case-comparisons-across-local-calls
+PASS compiler/beam/splits-checked-entry-conversion-frames
+PASS compiler/beam/validated-call-value-registers
+PASS compiler/beam/if-clause-uses-the-source-if-location
+PASS compiler/beam/coalesces-record-update-and-construction-heap-checks
+PASS compiler/beam/reallocates-owned-record-update-branches
+PASS compiler/beam/folds-fresh-literal-bindings-in-terminal-case-arms
+PASS compiler/beam/localizes-a-checked-record-frame-to-its-call
+PASS compiler/beam/localizes-the-call-frame-before-a-record-join
+PASS compiler/beam/localizes-a-checked-list-guard-frame
+PASS compiler/beam/closed-factory-empty-frame
+PASS compiler/beam/narrows-private-entry-and-singleton-call-dispatch
+PASS compiler/beam/builds-a-single-child-result-after-two-dependent-calls
+PASS compiler/beam/size-checked-tagged-choice
+PASS compiler/beam/shared-head-atom-clause-order
+PASS compiler/beam/guarded-binary-measurement
+PASS compiler/beam/closed-atom-list-tail
+PASS compiler/beam/uses-incoming-registers-for-effect-catch-arguments
+PASS compiler/beam/reuses-a-checked-record-across-projection-and-closure-capture
+PASS compiler/beam/projects-checked-entry-fields-before-their-frame
+PASS compiler/beam/inclusive-size-guard-fallthrough
+PASS compiler/beam/dispatches-two-atom-alternatives-with-branch-owned-frames
+PASS compiler/beam/trims-an-owned-call-result-branch
+PASS compiler/beam/checked-list-decoder-tail
+PASS compiler/beam/reuses-a-checked-nested-tuple-for-an-effectful-call
+PASS compiler/beam/binary-argument-branch-frame
+PASS compiler/beam/elides-source-lines-before-local-tail-calls
+PASS compiler/beam/keeps-terminal-closure-captures-in-call-result-register
+PASS compiler/beam/rooted-call-arithmetic-corridors
+PASS compiler/beam/stores-tested-bif-results-required-across-calls
+PASS compiler/beam/windows-public-key-source-overlay
+PASS compiler/beam/type-operator-source-annotations
+PASS compiler/beam/assembles-text-terms-with-optional-abstract-source
+PASS compiler/beam/lifts-flat-tuple-record-list-results
+PASS compiler/beam/reallocates-owned-linear-leaf-branches
+PASS compiler/beam/windows-common-test-include-provenance
+PASS compiler/beam/lifts-list-helpers-through-mixed-constructors
+PASS compiler/beam/lifts-relaxed-list-pattern-generators
+PASS compiler/beam/documentation-types-use-shared-spec-signatures
+PASS compiler/beam/removes-empty-frames-across-proven-tail-dispatch
+PASS compiler/beam/documentation-equivalence-retains-empty-strings-and-wraps-arguments
+PASS compiler/beam/lifts-list-helpers-through-grouped-atom-columns
+PASS compiler/beam/forwards-record-update-into-outgoing-call-argument
+PASS compiler/beam/lifts-list-siblings-in-tuple-record-field-order
+PASS compiler/beam/lifts-list-siblings-through-literal-tuple-choices
+PASS compiler/beam/promotes-a-lower-slot-between-ordinary-calls
+PASS compiler/beam/diameter-documentation-includes-generated-accessors
+PASS compiler/beam/documentation-follows-typed-record-fields
+PASS compiler/beam/reuses-a-single-frame-after-an-owned-frameless-entry
+PASS compiler/beam/windows-wx-include-source-precedence
+PASS compiler/beam/removes-failure-for-an-exhaustive-local-tagged-case
+PASS compiler/beam/uses-dominating-record-guard-for-field-access
+PASS compiler/beam/constructs-with-checked-record-projections-in-x-registers
+PASS compiler/beam/reuses-dead-stack-inputs-in-atomic-projections
+PASS compiler/beam/list-tail-keeps-first-source-annotation
+PASS compiler/beam/removes-overwritten-tuple-projections
+PASS compiler/beam/removes-dead-list-heads-before-allocating-call-frames
+PASS compiler/beam/disjoint-terminal-atom-and-tagged-tuple
+FAIL compiler/beam/delays-the-frame-before-own-function-clause-failure: System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Erlang.Tests.BeamBinaryHostAccess.Call(Object owner, String method, Object[] values) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Compiler\Beam\Binary\BeamBinaryHostAccess.cs:line 41
+   at Erlang.Tests.BeamFunctionClauseEntryFrameChecks.Rewrite(Byte[] source, List`1 stackOperands) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Compiler\Beam\Frames\BeamFunctionClauseEntryFrameChecks.cs:line 94
+   at Erlang.Tests.BeamFunctionClauseEntryFrameChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Compiler\Beam\Frames\BeamFunctionClauseEntryFrameChecks.cs:line 38
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Harness\Program.cs:line 16532
+PASS compiler/beam/generated-list-result-types-its-local-consumer
+PASS compiler/beam/exchanges-call-result-and-saved-input-in-one-frame-cell
+PASS compiler/beam/lifts-constructed-list-generator-inputs
+PASS compiler/beam/windows-bootstrap-library-include-paths
+PASS compiler/beam/lifts-strict-list-generators-with-ordered-siblings
+PASS compiler/beam/lifts-relaxed-tuple-generator-aliases
+PASS compiler/beam/shared-cons-head-partitions-disjoint-tuple-arities
+PASS compiler/beam/positioned-tail-size-delays-materialization
+PASS compiler/beam/case-clause-uses-the-source-case-location
+PASS compiler/beam/selects-constant-branches-with-an-identity-fallback
+PASS compiler/beam/release-inline-bounded-leaf
+PASS compiler/beam/uses-available-x-in-constructor-with-retained-spill
+PASS compiler/beam/hoists-heap-before-checked-tuple-reads-with-proven-roots
+PASS compiler/beam/flat-tuple-list-generator-constructs-after-recursion
+PASS compiler/beam/retains-entry-tuple-across-producer
+PASS compiler/beam/checks-an-arity-arm-tag-before-its-frame
+FAIL compiler/beam/delays-a-zero-slot-frame-after-a-checked-tag-fallback: System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Erlang.Tests.BeamBinaryHostAccess.Call(Object owner, String method, Object[] values) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Compiler\Beam\Binary\BeamBinaryHostAccess.cs:line 41
+   at Erlang.Tests.BeamCheckedTagZeroFrameFallbackChecks.Rewrite(Byte[] source) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Compiler\Beam\Frames\BeamCheckedTagZeroFrameFallbackChecks.cs:line 91
+   at Erlang.Tests.BeamCheckedTagZeroFrameFallbackChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Compiler\Beam\Frames\BeamCheckedTagZeroFrameFallbackChecks.cs:line 56
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Harness\Program.cs:line 16532
+FAIL compiler/beam/delays-the-frame-past-a-terminal-list-match-failure: System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Erlang.Tests.BeamBinaryHostAccess.Call(Object owner, String method, Object[] values) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Compiler\Beam\Binary\BeamBinaryHostAccess.cs:line 41
+   at Erlang.Tests.BeamTerminalListMatchFrameChecks.Rewrite(Byte[] source) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Compiler\Beam\Frames\BeamTerminalListMatchFrameChecks.cs:line 91
+   at Erlang.Tests.BeamTerminalListMatchFrameChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Compiler\Beam\Frames\BeamTerminalListMatchFrameChecks.cs:line 33
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Harness\Program.cs:line 16532
+PASS compiler/beam/local-success-integer-result
+PASS compiler/beam/trims-owned-branch-with-one-retained-result
+PASS compiler/beam/size-result-propagates-range-through-argument-copies
+PASS compiler/beam/finite-integer-ranges-from-masks-shifts-and-addition
+PASS compiler/beam/type-ordinals-follow-final-code-operand-order
+PASS compiler/beam/promotes-interior-projection-before-first-call
+PASS compiler/beam/clears-unread-stack-projections
+PASS compiler/beam/local-try-fallbacks-use-tail-calls
+PASS compiler/beam/tagged-list-generator-keeps-matched-tuple
+PASS compiler/beam/keyfind-result-typed-tuple-test
+PASS compiler/beam/tuple-list-generator-checks-before-recursing
+PASS compiler/beam/lifts-single-strict-list-generators
+PASS compiler/beam/tuple-tail-switch-shares-identical-external-calls
+PASS compiler/beam/singleton-record-tail-reuses-list-and-constructor-registers
+PASS compiler/beam/documentation-payload-matches-otp
+119/122 passed

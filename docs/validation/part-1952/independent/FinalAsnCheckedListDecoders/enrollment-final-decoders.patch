@@ -1,0 +1,86 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedListDecoder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedListDecoder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedListDecoder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedListDecoder.cs
+@@ -98,9 +98,14 @@
+                     rename = named.Rename;
+                 }
+ 
+-                if (canSpecialize && hasOptionalField && requiredCount == 1 && size is null
++                bool finalEnumAfterForeign = requiredCount == 3 && optionalCount == 3 && fields.Count == 2
++                    && fields[0].Call is { Module: not null, Tags: Nil, Convert: null }
++                    && fields[1].Call is { Module: null, Convert: null };
++                if (canSpecialize && hasOptionalField && (requiredCount == 1 || finalEnumAfterForeign) && size is null
+                     && range is null && rename is null
+-                    && ReadIntegerCase(body, name => !bound.Contains(name)) is { } integerCase)
++                    && ReadIntegerCase(body, name => !bound.Contains(name)) is { } integerCase
++                    && (!finalEnumAfterForeign || IsDecoderIntrinsic(integerCase.Failure)
++                        && (InferPairFacts(integerCase.Decode) & PairFacts.Integer) != 0))
+                 {
+                     decoderBody = integerCase.Decode;
+                     enumeration = integerCase;
+@@ -124,7 +129,16 @@
+             }
+ 
+             bool namedRequiredPrefix = fields[0].Rename is not null;
+-            if (optionalCount > 2 && (requiredCount < 2 || !namedRequiredPrefix))
++            bool foreignBeforeChoices = optionalCount == 3 && fields is
++                [{ Call: { Module: not null, Tags: Nil, Convert: null }, Size: null, Range: null, Rename: null, Enumeration: null }];
++            bool foreignBeforeRequiredEnum = optionalCount == 3 && fields is
++                [
++                { Call: { Module: not null, Tags: Nil, Convert: null }, Size: null, Range: null, Rename: null },
++                { Call: { Module: null, Convert: null }, Size: null, Range: null, Rename: null },
++                { Call: { Module: null, Convert: null }, Enumeration: not null }
++                ];
++            if (optionalCount > 2 && !namedRequiredPrefix && !foreignBeforeChoices && !foreignBeforeRequiredEnum
++                || optionalCount > 2 && namedRequiredPrefix && requiredCount < 2)
+             {
+                 return false;
+             }
+@@ -153,7 +167,8 @@
+                         current,
+                         bound,
+                         allowEnumeration: canSpecialize && optionalCount == 1 && requiredCount == 1,
+-                        allowNamedOptions: canSpecialize && namedRequiredPrefix && optionalCount == 2
++                        allowNamedOptions: canSpecialize && (namedRequiredPrefix && optionalCount == 2
++                            || foreignBeforeChoices && index == optionalCount - 1)
+                     ) ?? (canSpecialize ? ReadWholeOptionalChoice(decision, current, bound) : null)) is not { } field
+                     || field.Call.Convert is not null && !canSpecialize)
+                 {
+@@ -164,13 +179,27 @@
+                 current = outputTail.Name;
+             }
+ 
++            if (foreignBeforeChoices && (optionals is not
++                [
++                { Choices: { Count: > 1 } foreignChoices, Call: var firstChoice },
++                { Call: { Module: null, Convert: not null }, Choices: null, Enumeration: null },
++                { Call: { Module: null, Names: not null, Convert: null }, Choices: null, Enumeration: null }
++                ] || firstChoice.Module is null || foreignChoices.Any(choice => !choice.Whole
++                    || choice.Call is not { Tags: Nil, Convert: null }
++                    || choice.Call.Module != firstChoice.Module || choice.Call.Decode.Function != firstChoice.Decode.Function))
++                || foreignBeforeRequiredEnum && optionals.Any(optional => optional is not
++                { Call.Module: null, Choices: null, Enumeration: null }))
++            {
++                return false;
++            }
++
+             if (ReadCheckedDecoderTail(tailCheck, current) is not { } failure)
+             {
+                 return false;
+             }
+ 
+             int frame = tuple.Items.Count == 2 ? 1 : tuple.Items.Count;
+-            var casePlan = fields[0].Enumeration;
++            var casePlan = fields.Select(field => field.Enumeration).FirstOrDefault(plan => plan is not null);
+             var caseSchedule = casePlan is null ? null : ScheduleIntegerChoices(casePlan);
+             int caseJoined = caseSchedule is null ? 0 : Label();
+             var optionalEnum = optionals.Count == 1 ? optionals[0].Enumeration : null;
+@@ -289,7 +318,7 @@
+                 bool last = index + 1 == optionals.Count;
+                 var labels = optionalLabels[index];
+                 var optional = optionals[index];
+-                int nextTail = last ? 0 : tail - (fields.Count == 1 ? 2 : 1);
++                int nextTail = last ? 0 : tail - (index == 0 && fields.Count == 1 ? 2 : 1);
+                 if (labels.Choices is { } choices)
+                 {
+                     EmitTaggedOptionalChoices(

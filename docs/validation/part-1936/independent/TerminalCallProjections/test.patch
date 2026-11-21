@@ -1,0 +1,114 @@
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12549,6 +12549,7 @@
+ Test(Erlang.Tests.BeamNestedTaggedAppendChecks.TestName, Erlang.Tests.BeamNestedTaggedAppendChecks.Run);
+ Test(Erlang.Tests.BeamCheckedFieldCallFrameChecks.TestName, Erlang.Tests.BeamCheckedFieldCallFrameChecks.Run);
+ Test(Erlang.Tests.BeamTerminalProjectedListHeapChecks.TestName, Erlang.Tests.BeamTerminalProjectedListHeapChecks.Run);
++Test(Erlang.Tests.BeamTerminalCallProjectionChecks.TestName, Erlang.Tests.BeamTerminalCallProjectionChecks.Run);
+ Test(Erlang.Tests.BeamCallArgumentKillsChecks.TestName, Erlang.Tests.BeamCallArgumentKillsChecks.Run);
+ Test(Erlang.Tests.BeamMeasuredDecoderPairChecks.TestName, Erlang.Tests.BeamMeasuredDecoderPairChecks.Run);
+ Test(Erlang.Tests.BeamClosedDecoderTagsChecks.TestName, Erlang.Tests.BeamClosedDecoderTagsChecks.Run);
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamTerminalCallProjectionChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamTerminalCallProjectionChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamTerminalCallProjectionChecks.cs
+@@ -0,0 +1,98 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamTerminalCallProjectionChecks
++{
++    internal const string TestName = "compiler/beam/forwards-projections-to-terminal-call-arguments";
++    private const string Module = "beam_terminal_call_projection";
++    private const string ShapeError = "The terminal call retained stack projections after constructing its arguments.";
++
++    private const string Source = """
++        -module(beam_terminal_call_projection).
++        -export([reply/1, protected/1]).
++        -record(entry, {kind, rows, other}).
++
++        reply(Entry) ->
++            case Entry#entry.kind of
++                proceed ->
++                    case proplists:get_value(state, Entry#entry.rows) of
++                        {_, _, _} -> {ok, Entry#entry.rows};
++                        _ ->
++                            case proplists:get_value(payload, Entry#entry.rows) of
++                                undefined -> fallback(Entry);
++                                {sent, _, _} -> {ok, Entry#entry.rows};
++                                {packet, Data, _} ->
++                                    {ok, lists:keyreplace(payload, 1, Entry#entry.rows, {payload, Data, done})};
++                                {_, _} -> {ok, Entry#entry.rows}
++                            end
++                    end;
++                _ -> {ok, Entry#entry.rows}
++            end.
++
++        protected(Entry) ->
++            case proplists:get_value(payload, Entry#entry.rows) of
++                {packet, Data, _} ->
++                    try lists:keyreplace(payload, 1, Entry#entry.rows, {payload, Data, done}) of
++                        Updated -> {ok, Updated}
++                    catch error:_ -> {kept, Entry#entry.rows}
++                    end;
++                _ -> {ok, Entry#entry.rows}
++            end.
++
++        fallback(Entry) -> {other, Entry#entry.other}.
++        """;
++
++    internal static void Run()
++    {
++        byte[] beam = CodeGeneration.CompileBeamModule(Source, Module + ".erl");
++        object code = Code(beam);
++        object[] instructions = Children(code, "Instructions");
++        string[] atoms = Children(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        if (!HasForwardedProjection(Body("reply")) || HasForwardedProjection(Body("protected")))
++        {
++            throw new InvalidOperationException(ShapeError);
++        }
++
++        object[] Body(string name)
++        {
++            int start = Array.FindIndex(instructions, instruction => Opcode(instruction) == FunctionInfo
++                && atoms[Value(Children(instruction, "Operands")[1])] == name);
++
++            return start < 0 ? [] : instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo).ToArray();
++        }
++    }
++
++    private static bool HasForwardedProjection(object[] instructions)
++    {
++        for (int index = 0; index + 6 < instructions.Length; index++)
++        {
++            if (Opcode(instructions[index]) == TestHeap
++                && Children(instructions[index], "Operands").Select(Value).SequenceEqual([4, 1])
++                && Opcode(instructions[index + 1]) == GetTupleElement
++                && Children(instructions[index + 1], "Operands").Select(Value).Last() == 0
++                && Opcode(instructions[index + 2]) == PutTuple
++                && Value(Children(instructions[index + 2], "Operands")[0]) == 3
++                && Opcode(instructions[index + 3]) == GetTupleElement
++                && Children(instructions[index + 3], "Operands").Select(Value).Last() == 2
++                && Opcode(instructions[index + 4]) == Move && Opcode(instructions[index + 5]) == TrimFrame
++                && Children(instructions[index + 5], "Operands").Select(Value).Last() == 0
++                && Opcode(instructions[index + 6]) == Move)
++            {
++                return true;
++            }
++        }
++
++        return false;
++    }
++
++    private static object[] Children(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++}

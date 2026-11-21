@@ -1,0 +1,54 @@
+[Files,Output]=init:get_plain_arguments(),
+{ok,Bytes}=file:read_file(Files),
+Paths=[list_to_tuple(string:split(binary_to_list(Row),"\t",all)) ||
+          Row<-binary:split(Bytes,<<"\n">>,[global]),byte_size(Row)>0],
+Normalize = fun(Instructions) ->
+    Labels=[Label || {label,Label}<-Instructions],
+    Index=maps:from_list(lists:zip(Labels,lists:seq(1,length(Labels)))),
+    Rewrite=fun Term({label,Label}) -> {label,maps:get(Label,Index)};
+                Term({f,Label}) -> {f,maps:get(Label,Index,Label)};
+                Term({literal,_}=Literal) -> Literal;
+                Term({make_fun3,Module,FunIndex,_,Destination,Arguments}) ->
+                    {make_fun3,Module,FunIndex,uniq,Term(Destination),Term(Arguments)};
+                Term(Tuple) when is_tuple(Tuple) -> list_to_tuple(Term(tuple_to_list(Tuple)));
+                Term([Head|Tail]) -> [Term(Head)|Term(Tail)];
+                Term(Other) -> Other
+            end,
+    Rewrite(Instructions)
+end,
+Read=fun(Path) ->
+    {beam_file,_,_,_,_,Fs}=beam_disasm:file(Path),
+    maps:from_list([{{Name,Arity},Normalize(Body)} || {function,Name,Arity,_,Body}<-Fs])
+end,
+Kill=fun({init_yregs,_})->true; (_)->false end,
+IsCall=fun({call,_,_})->true; ({call_ext,_,_})->true; ({call_fun,_})->true;
+          ({call_fun2,_,_,_})->true; ({apply,_})->true; (_)->false end,
+Qualify=fun(A,B)->
+    case {[K || K<-A,Kill(K)],[K || K<-B,Kill(K)]} of
+        {Same,Same} -> same;
+        _ ->
+            case [I || I<-A,not Kill(I)] =:= [I || I<-B,not Kill(I)] of
+                false -> unrelated;
+                true ->
+                    Unique=fun Strip([H|T], [H|U], Seen) -> Strip(T,U,[H|Seen]);
+                               Strip([{init_yregs,Slots}|T],U,Seen) when T=:=U ->
+                                    {missing,Slots,lists:sublist(Seen,4),lists:sublist(T,4)};
+                               Strip(T,[{init_yregs,Slots}|U],Seen) when T=:=U ->
+                                    {extra,Slots,lists:sublist(Seen,4),lists:sublist(T,4)};
+                               Strip(_,_,_) -> complex end,
+                    Unique(A,B,[])
+            end
+    end
+end,
+{ok,Io}=file:open(Output,[write]),
+Candidates=lists:append([try
+    Expected=Read(Pinned), Actual=Read(Generated),
+    [{Relative,Key,Kind,Slots,Previous,Following,lists:any(IsCall,Following)}
+     || {Key,A}<-maps:to_list(Expected), {ok,B}<-[maps:find(Key,Actual)],
+        {Kind,Slots,Previous,Following}<-[Qualify(A,B)]]
+    catch _:_ -> [] end || {Relative,Pinned,Generated}<-Paths]),
+lists:foreach(fun(Row)->io:format(Io,"~0p.~n",[Row]) end,Candidates),
+io:format(Io,"~p.~n",[#{eligible=>length(Candidates),modules=>length(lists:usort([M || {M,_,_,_,_,_,_}<-Candidates])),
+     next_calls=>length([C || C={_,_,_,_,_,_,true}<-Candidates])}]),
+ok=file:close(Io),
+halt().

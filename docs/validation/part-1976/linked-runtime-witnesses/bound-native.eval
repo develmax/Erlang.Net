@@ -1,0 +1,19 @@
+[Main,Provider,Out]=init:get_plain_arguments(),
+{module,ordered_cons_call_fixture}=code:load_abs(Main),
+{module,ordered_cons_call_provider}=code:load_abs(Provider),
+M=ordered_cons_call_fixture,
+Observe=fun(F,Args)->
+  erase(events),
+  Result=try erlang:apply(M,F,Args) of V->{ok,V} catch error:R->{error,R} end,
+  {Result,lists:reverse(erase(events))}
+end,
+Expect=[
+ {bound,[improper,a,b,c],{{ok,{improper,[{first,a},{second,b},{third,c}|improper]}},[{read,improper},{tail,improper},{consume,improper}]}},
+ {bound,[fail,a,b,c],{{error,tail_failed},[{read,fail},{tail,fail}]}},
+ {bound_effectful,[a,fail_head,fail],{{error,head_failed},[{head,fail_head}]}},
+ {bound_rebound,[[],a,[]],{{error,{badmatch,[{first,a},{second,a}]}},[{tail,[]}]}},
+ {multi,[a,b,improper],{{ok,[{first,a},{second,b},stop|improper]},[{tail,improper}]}},
+ {wrapped,[a,b,[last]],{{ok,{wrapped,[{a,b},last],a}},[{tail,[last]}]}}],
+Results=[{F,V,E,Actual}||{F,V,E}<-Expect,Actual<-[Observe(F,V)]],
+ok=file:write_file(Out,io_lib:format("~tp.~n",[Results])),
+true=lists:all(fun({_,_,E,A})->E=:=A end,Results),halt().

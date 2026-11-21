@@ -4,7 +4,12 @@ internal sealed partial class BeamModuleCompiler
 {
     private sealed partial class GeneralEmitter
     {
-        private bool HasBinaryLocalArgument(FunctionDefinition function, Expr.Call binaryRecursion)
+        private bool HasBinaryLocalArgument(
+            FunctionDefinition function,
+            Expr.Call? binaryRecursion,
+            bool trackBinaryPairResults = false,
+            (int Arity, int Element)? projectedBinaryTuple = null
+        )
         {
             if (owner.ModuleOptimizationDisabled)
             {
@@ -124,6 +129,23 @@ internal sealed partial class BeamModuleCompiler
                                 {
                                     AddCaptures(pattern, scope);
                                 }
+                                else if (trackBinaryPairResults && item is Expr.Match
+                                {
+                                    Pattern: Pattern.Tuple
+                                    {
+                                        Items: [_, Pattern.Variable { Name: not VariableScopeNames.Wildcard } tail]
+                                    },
+                                    Value: Expr.Call { Module: null, DynamicRemote: false } pair
+                                }
+                                    && ReturnsBinaryPair(pair, []))
+                                {
+                                    scope.Add(tail.Name);
+                                }
+                                else if (projectedBinaryTuple is { } projection && item is Expr.Match match
+                                    && ReadBinaryTupleProjection(match.Value, match.Pattern, projection) is { } projected)
+                                {
+                                    scope.Add(projected);
+                                }
                             }
 
                             return true;
@@ -140,6 +162,11 @@ internal sealed partial class BeamModuleCompiler
                                     if (branch.Patterns is [BitPattern pattern])
                                     {
                                         AddCaptures(pattern, branchScope);
+                                    }
+                                    else if (projectedBinaryTuple is { } projection && branch.Patterns is [var tuple]
+                                        && ReadBinaryTupleProjection(decision.Value, tuple, projection) is { } projected)
+                                    {
+                                        branchScope.Add(projected);
                                     }
 
                                     return VisitClause(
@@ -200,6 +227,46 @@ internal sealed partial class BeamModuleCompiler
                         binaries.Add(capture.Name);
                     }
                 }
+            }
+
+            bool ReturnsBinaryPair(Expr.Call call, HashSet<(string Name, int Arity)> active)
+            {
+                var signature = (call.Function, call.Arguments.Count);
+                if (owner.IsDeclaredNative(signature) || !localFunctions.TryGetValue(signature, out var target))
+                {
+                    return false;
+                }
+
+                // Recursive calls only count when they are the final expression of a checked clause.
+                if (!active.Add(signature))
+                {
+                    return true;
+                }
+
+                bool known = target.Clauses.All(clause =>
+                {
+                    var captures = new HashSet<string>(StringComparer.Ordinal);
+                    foreach (var pattern in clause.Patterns.OfType<BitPattern>())
+                    {
+                        AddCaptures(pattern, captures);
+                    }
+
+                    Expr result = clause.Body;
+                    if (result is Expr.Sequence { Items: [.., var last] })
+                    {
+                        result = last;
+                    }
+
+                    return result switch
+                    {
+                        Expr.Tuple { Items: [_, var side] } => IsBinaryValue(side, captures),
+                        Expr.Call { Module: null, DynamicRemote: false } forwarded => ReturnsBinaryPair(forwarded, active),
+                        _ => false
+                    };
+                });
+                active.Remove(signature);
+
+                return known;
             }
         }
     }

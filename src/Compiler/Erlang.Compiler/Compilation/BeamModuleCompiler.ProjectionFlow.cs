@@ -58,6 +58,19 @@ internal sealed partial class BeamModuleCompiler
             labels.TryGetValue(label, out target) && target > from
             && predecessors[target].Count == 1 && predecessors[target][0] == from;
 
+        internal bool TryGetExclusiveForwardTarget(
+            int first,
+            int second,
+            int label,
+            out int target
+        ) =>
+            TryGetForwardLabel(second, label, out target)
+            && predecessors[target].Count == 2 && predecessors[target].Contains(first)
+            && predecessors[target].Contains(second);
+
+        internal bool TryGetForwardLabel(int from, int label, out int target) =>
+            labels.TryGetValue(label, out target) && target > from;
+
         internal bool IsSingleForwardSelectionTarget(int target) =>
             predecessors[target] is [var source] && source < target
             && body[source].Definition.Opcode is (SelectValue or SelectTupleArity);
@@ -65,7 +78,13 @@ internal sealed partial class BeamModuleCompiler
         internal bool CanEliminate(int projection, int continuation, BeamOperand slot) =>
             IsDead(continuation, slot) && IsInitialized(projection, slot);
 
-        internal bool IsInitialized(int projection, BeamOperand slot)
+        internal bool IsInitialized(
+            int projection,
+            BeamOperand slot,
+            int closedCatchEnter = -1,
+            int closedCatchEnd = -1,
+            bool allowFramePredicates = false
+        )
         {
             var work = new Stack<(int Index, bool Initialized)>();
             var seen = new HashSet<(int Index, bool Initialized)>();
@@ -111,6 +130,10 @@ internal sealed partial class BeamModuleCompiler
                             initialized |= SameProjectionRegister(instruction.Operands[1], slot)
                                 || SameProjectionRegister(instruction.Operands[2], slot);
                             break;
+                        case CatchEnter when previous == closedCatchEnter
+                            && !SameProjectionRegister(instruction.Operands[0], slot):
+                        case CatchEnd when previous == closedCatchEnd
+                            && !SameProjectionRegister(instruction.Operands[0], slot):
                         case LocalCall:
                         case ExternalCall:
                         case Label:
@@ -123,7 +146,8 @@ internal sealed partial class BeamModuleCompiler
                         case SelectTupleArity:
                             break;
                         default:
-                            if (!IsProjectionFlowTest(instruction.Definition.Opcode))
+                            if (!IsProjectionFlowTest(instruction.Definition.Opcode)
+                                && !(allowFramePredicates && IsEntryFramePredicate(instruction.Definition.Opcode)))
                             {
                                 return false;
                             }
@@ -138,12 +162,17 @@ internal sealed partial class BeamModuleCompiler
             return foundFrame;
         }
 
-        internal bool IsDead(int continuation, BeamOperand slot)
+        internal bool IsDead(
+            int continuation,
+            BeamOperand slot,
+            bool allowBadRecordExit = false,
+            bool afterCall = false
+        )
         {
             var work = new Stack<(int Index, BeamOperand Slot, bool PassedCall)>();
             var seen = new HashSet<(int Index, BeamOperand Slot, bool PassedCall)>();
             bool foundEnd = false;
-            work.Push((continuation, slot, false));
+            work.Push((continuation, slot, afterCall));
             while (work.TryPop(out var state))
             {
                 if (!seen.Add(state))
@@ -167,6 +196,7 @@ internal sealed partial class BeamModuleCompiler
                     case Deallocate:
                     case CaseEnd:
                     case BadMatch:
+                    case BadRecord when allowBadRecordExit:
                         if (!passedCall || instruction.Operands.Any(operand => SameProjectionRegister(operand, current)))
                         {
                             return false;
@@ -250,6 +280,9 @@ internal sealed partial class BeamModuleCompiler
 
             return foundEnd;
         }
+
+        internal bool IsEntryTemporaryDead(int entry, BeamOperand temporary) =>
+            IsTemporaryDead([entry], temporary, preserveHeapRoots: true);
 
         internal bool IsBranchTemporaryDead(int branch, BeamOperand temporary) =>
             IsTemporaryDead(successors[branch], temporary, preserveHeapRoots: true);
@@ -377,7 +410,7 @@ internal sealed partial class BeamModuleCompiler
         private static bool FallsThrough(byte opcode) => opcode is not (
             Jump or SelectValue or SelectTupleArity or EndCode or Return
             or TailLocalCall or TailExternalCall or TailLocalCallWithFrame or TailExternalCallWithFrame
-            or TailDynamicApply or BadMatch or CaseEnd or TryCaseEnd
+            or TailDynamicApply or BadMatch or CaseEnd or IfEnd or TryCaseEnd
         );
 
         private static bool IsProjectionFlowTest(byte opcode) =>

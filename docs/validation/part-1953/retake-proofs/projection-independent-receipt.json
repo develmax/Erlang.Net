@@ -1,0 +1,34 @@
+{
+  "Part": 1990,
+  "Reference": "OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Dependency": "Frozen Part1952 plus Part1985. Isolated Part1984 compiler also examined as a negative control and retains original mandatory fixture bytes.",
+  "Cause": "The Part1985 overwrite test accepted a dynamic apply target as a forwardable projected argument, removing the OTP get_tuple_element to X0 and following move X0 to X3. The move kill from beam_block applies to its specific call setup. Dynamic apply has a separate target register, as emitted in beam_ssa_codegen and normalized in beam_a and beam_z.",
+  "Change": "Only treat a later register overwrite as sufficient for forwarding into a statically assigned local or external call, within the same contiguous argument setup.",
+  "ExactOldFixture": {
+    "Pinned": "8eb5fc010e0fbf28ab40bb0dc39aef3887fe86364f43daca1689cec2d51e5294",
+    "Part1952": "8eb5fc010e0fbf28ab40bb0dc39aef3887fe86364f43daca1689cec2d51e5294",
+    "Part1984": "8eb5fc010e0fbf28ab40bb0dc39aef3887fe86364f43daca1689cec2d51e5294",
+    "Part1985Red": "959e5eed6a51dba6a75d5c3c84f487ae4b7ac35ac3ddacf1218b0f2906a13c55",
+    "LinkedPart1953Red": "959e5eed6a51dba6a75d5c3c84f487ae4b7ac35ac3ddacf1218b0f2906a13c55",
+    "Part1990Green": "8eb5fc010e0fbf28ab40bb0dc39aef3887fe86364f43daca1689cec2d51e5294"
+  },
+  "Scope": "One worker, 13 files, 7 Equal and 6 Different. Both classifications and all six different retained BEAM bytes unchanged from Part1985. Ex_gauge reset/1 still exactly equals normalized pinned code and line entries.",
+  "Native": "Seven cases on actual dynamic fixture and four actual release gauge clear/malformed cases. Values, ordered effects, and first two error stack frames match pinned.",
+  "CompilerSha256": "7880f76465eb5a2d9a11d0cabce473940e75f3d57bd1db87f4ad11935e904bf9",
+  "ExistingNativeFixtureRetained": "The original mandatory test resource and stored BEAM remain the permanent red/green regression.",
+  "Hashes": {
+    "production.patch": "c5511d8b4d6ef19967bfbbb5fafe948c9d4eb0c9ba6c8234eed2ceac2b336039",
+    "replay-files.json": "bdecee667905599a94b692a3ee0066c6621d834a0b682b9a30a940505e8d0380",
+    "strict-replay.log": "c54f92ab558fa0483de8cdd33e705338da83c4e7774dbedec54936eb3831b058",
+    "style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "fixed-build.log": "1282c83930117d255c311b24c2b8981572891975215a3ae9b35034f0c4801019",
+    "scope-retained.json": "d44e27575377acab08e412d7e0f7d25ca9eeeca72fcfe3979228837c973818d5",
+    "dynamic-pinned.terms": "b196c0be3c4fa6c42531ae7e304305ceaa4b0dcd5bbad024a1d7550abddbe3d1",
+    "dynamic-fixed-probe.terms": "b196c0be3c4fa6c42531ae7e304305ceaa4b0dcd5bbad024a1d7550abddbe3d1",
+    "gauge-pinned.terms": "96ecad560b3afd440f9fa45fd6016e55918f04fab0e00b2567624bc8e7314f4a",
+    "gauge-fixed.terms": "96ecad560b3afd440f9fa45fd6016e55918f04fab0e00b2567624bc8e7314f4a",
+    "reset-pinned.terms": "5180deda4df16b1c0af5ff0c7e2c8312306d88928791415a7ffa2b64fbdbebcd",
+    "reset-fixed.terms": "5180deda4df16b1c0af5ff0c7e2c8312306d88928791415a7ffa2b64fbdbebcd",
+    "scope-retained.json.generated/lib/wx-2.7/doc/examples/demo/ex_gauge.beam": "c3e46a3171cf5a4141aa1993d7997f50cde877034cb44226476f1ae086c61560"
+  }
+}

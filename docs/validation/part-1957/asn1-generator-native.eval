@@ -1,0 +1,11 @@
+[Path,Schema,Output]=init:get_plain_arguments(),
+{ok,Bin}=file:read_file(Path),_=code:unstick_mod(asn1ct_constructed_per),
+{module,asn1ct_constructed_per}=code:load_binary(asn1ct_constructed_per,Path,Bin),
+ok=asn1ct:compile(Schema,[per,{outdir,Output}]),
+{module,'RetakeProof'}=code:load_abs(filename:join(Output,"RetakeProof")),
+Cases=[{'Packet',3,asn1_NOVALUE,asn1_NOVALUE},
+       {'Packet',128,<< "hello" >>,asn1_NOVALUE},
+       {'Packet',-11,asn1_NOVALUE,[1,2,3]},
+       {'Packet',1,<< >>,[]}, {'Packet',-129,<< "long" >>,[-7,0,42]}],
+Results=[begin {ok,Encoded}='RetakeProof':encode('Packet',V), {ok,V}='RetakeProof':decode('Packet',Encoded), {V,Encoded} end||V<-Cases],
+ok=file:write_file(filename:join(Output,"native.terms"),io_lib:format("~0tp.~n",[Results])),halt().

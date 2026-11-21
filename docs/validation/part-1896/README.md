@@ -1,0 +1,5 @@
+# Part 1896 scoped source assembly and tuple record list results
+
+The candidate compiles text assembly terms with the existing C# opcode tables and container writer. An optional abstract source companion follows the pinned release bootstrap recipe. Both installed prim_eval source inputs match the pinned Git objects byte for byte. The diagnostic reference compares actual emitted bytes. A separate bounded list lowering handles tuple-record result expressions with source-defined named fields and literal defaults.
+
+All 86 selected tests pass in the 9,881-case catalog. The 85-image uncached scope finished in 331.8893 seconds with 7 Equal, 78 Different, 0 Unsupported and 0 SourceRejected. prim_eval is newly byte-identical relative to Part 1894 and all earlier whole-file statuses in the selection are retained. All 48 changed images prepare. The normalized comparison gains 16 bodies and loses none. The fixture and controlled reference run verify the independent plain assembly path and selective receive. The later typed-update correction belongs to Part 1897.

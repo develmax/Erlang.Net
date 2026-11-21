@@ -1,0 +1,10 @@
+Paths=init:get_plain_arguments(),
+lists:foreach(fun(Path)->
+  {beam_file,M,_,_,_,Functions}=beam_disasm:file(Path),
+  [{function,'-fill_default_attributes/2-lc$^1/1-0-',2,_,_}]=
+    [F||F={function,'-fill_default_attributes/2-lc$^1/1-0-',2,_,_}<-Functions],
+  [{function,fill_default_attributes,2,_,Body}]=[F||F={function,fill_default_attributes,2,_,_}<-Functions],
+  Widths=[N||I<-Body,N<-case I of {allocate,V,_}->[V];{allocate_heap,V,_,_}->[V];_->[] end],
+  true=lists:max(Widths)=<6,
+  io:format("~tp.~n",[{M,Widths}])
+end,Paths),halt().

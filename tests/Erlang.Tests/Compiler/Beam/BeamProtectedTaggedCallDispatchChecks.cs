@@ -1,0 +1,101 @@
+using System.Collections;
+using System.Numerics;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamProtectedTaggedCallDispatchChecks
+{
+    internal const string TestName = "compiler/beam/shares-protected-tag-payload-before-calls";
+    private const string Fixture = "beam_protected_tagged_calls.erl";
+    private const string WrongDecision = "Protected tuple dispatch did not share its payload and preserve the exception frame.";
+
+    private const string Source = """
+        -module(beam_protected_tagged_calls).
+        -export([lookup/2]).
+        -compile({inline, [report/2]}).
+        lookup(Tagged, Key) ->
+            try
+                case Tagged of
+                    {map, Payload} -> maps:get(Payload, Key);
+                    {set, Payload} -> sets:is_element(Payload, Key);
+                    _ -> error(badarg)
+                end
+            catch
+                error:Reason ->
+                    report(Reason, [Tagged, Key])
+            end.
+        report(Reason, Arguments) ->
+            erlang:error(Reason, Arguments, [{error_info, #{module => erlang}}]).
+        """;
+
+    private const string ArithmeticSource = """
+        -module(beam_protected_tagged_arithmetic).
+        -export([adjust/3]).
+        adjust(Tagged, Key, Amount) ->
+            try
+                Difference = -Amount,
+                case Tagged of
+                    {first, Payload} -> provider:first(Payload, Key, Difference);
+                    {second, Payload} -> provider:second(Payload, Key, Difference);
+                    _ -> erlang:error(badarg)
+                end
+            catch
+                error:Reason ->
+                    erlang:error(Reason, [Tagged, Key, Amount], [{error_info, #{module => erlang}}])
+            end.
+        """;
+
+    internal static Task Run()
+    {
+        object code = Code(CodeGeneration.CompileBeamModule(Source, Fixture));
+        object[] instructions = ((IEnumerable)Property(code, "Instructions")).Cast<object>().ToArray();
+        byte[] opcodes = instructions.Select(instruction => (byte)Property(Property(instruction, "Definition"), "Opcode")).ToArray();
+        int select = Array.IndexOf(opcodes, SelectValue);
+        int handler = Array.IndexOf(opcodes, TryCase);
+        int end = Array.IndexOf(opcodes, TryEnd);
+        int allocate = Array.IndexOf(opcodes, Allocate);
+        int tryEnter = Array.IndexOf(opcodes, TryEnter);
+        if (allocate < 0 || tryEnter != allocate + 3 || select < tryEnter + 5 || handler <= end
+            || !opcodes.Skip(tryEnter + 1).Take(4).SequenceEqual([IsTuple, TestArity, GetTupleElement, GetTupleElement])
+            || opcodes.Count(opcode => opcode == GetTupleElement) != 2
+            || !Operands(instructions[allocate]).Select(Value).SequenceEqual([3, 2])
+            || opcodes[handler + 2] != TestHeap
+            || !Operands(instructions[handler + 2]).Select(Value).SequenceEqual([4, 2])
+            || !opcodes.Skip(handler).Contains(TailExternalCallWithFrame))
+        {
+            throw new InvalidOperationException(WrongDecision);
+        }
+
+        object arithmeticCode = Code(CodeGeneration.CompileBeamModule(ArithmeticSource, "beam_protected_tagged_arithmetic.erl"));
+        object[] arithmeticInstructions = ((IEnumerable)Property(arithmeticCode, "Instructions")).Cast<object>().ToArray();
+        byte[] arithmetic = arithmeticInstructions.Select(instruction =>
+            (byte)Property(Property(instruction, "Definition"), "Opcode")).ToArray();
+        int negate = Array.IndexOf(arithmetic, GcBifOne);
+        int arithmeticEnter = Array.IndexOf(arithmetic, TryEnter);
+        int arithmeticSelect = Array.IndexOf(arithmetic, SelectValue);
+        if (negate <= arithmeticEnter || arithmeticSelect <= negate
+            || Value(Operands(arithmeticInstructions[negate])[1]) != 3
+            || !arithmetic.Skip(negate + 1).Take(4).SequenceEqual([IsTuple, TestArity, GetTupleElement, GetTupleElement])
+            || arithmetic.Count(opcode => opcode == GetTupleElement) != 2)
+        {
+            throw new InvalidOperationException(WrongDecision);
+        }
+
+        string customFallback = Source.Replace("_ -> error(badarg)", "_ -> provider:error(badarg)", StringComparison.Ordinal);
+        object fallbackCode = Code(CodeGeneration.CompileBeamModule(customFallback, Fixture));
+        object[] fallback = ((IEnumerable)Property(fallbackCode, "Instructions")).Cast<object>().ToArray();
+        if (fallback.Count(instruction => (byte)Property(Property(instruction, "Definition"), "Opcode") == GetTupleElement) <= 2)
+        {
+            throw new InvalidOperationException(WrongDecision);
+        }
+
+        return Task.CompletedTask;
+    }
+
+    private static object[] Operands(object instruction) => ((IEnumerable)Property(instruction, "Operands")).Cast<object>().ToArray();
+
+    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
+}

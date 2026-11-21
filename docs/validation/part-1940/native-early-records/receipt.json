@@ -1,0 +1,79 @@
+{
+  "ChangedImagesPrepared": 109,
+  "InputProfiles": 1366,
+  "BatchPrepared": 108,
+  "IndividuallyLoaded": 1,
+  "OnLoad": {
+    "crypto": {
+      "Reference": {
+        "Image": "D0FF5973FEAD5133A5D7CCE5EC75B1430E98634424EF46F3DDAA9BCA7CD50CBF",
+        "Output": "A111B80FF06864DD3958520DE325A625773E9716956EA85F1E0A862D186A0FA7"
+      },
+      "Before": {
+        "Image": "9C47CEFC57B6C8639D978EBB2C969B4EB267A9032C364F8E0361BCAB09A64E0C",
+        "Output": "A111B80FF06864DD3958520DE325A625773E9716956EA85F1E0A862D186A0FA7"
+      },
+      "After": {
+        "Image": "C0C4D3AC63F022F8BBE74916ED29ACC820805C0274831E1EB0783D3A6C994C08",
+        "Output": "A111B80FF06864DD3958520DE325A625773E9716956EA85F1E0A862D186A0FA7"
+      }
+    }
+  },
+  "VerifiedNativeImages": [],
+  "LinkedExecution": {
+    "Compiler": "88fd5c16ffa8de61121ed56dc3908a2f563904f4db79daf1feb5f4eb473eac01",
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "Witnesses": {
+      "mod_head": {
+        "Beam": "84AE33A082B0B01F02C309AD08BCA131E02EE200EB4B584B658FC53BD013D1C9",
+        "Observations": 12,
+        "Outcome": "1B055B2943B03DF6BD0F60FE9533BBAF7B3AA73E03EAA49F5EDD1D0B3EA81525"
+      },
+      "httpd_instance_sup": {
+        "Beam": "B3A2A7243EE712606B79FCDF8616DFF5493441B4EECF9F150CB253368C1653A5",
+        "Observations": 10,
+        "Outcome": "1A233108997ABD390E444A9624D998C4E08A91AAC962B9375C006CC8C28271CB"
+      },
+      "local_udp": {
+        "Beam": "1A6CDF3E14AE8D7B98A693D82163D19461F935D7BBB29BC92CBCAF380B817039",
+        "Observations": 6,
+        "Outcome": "A3ABCB89C40831C1733A8821330D1701B8ECB11D79EA1321CCC6BD4BC3EC1C50"
+      },
+      "erl_parse": {
+        "Beam": "10561D7C28B689540B50AC4217A615F2997E349BCF7A5651C04C2F9BAC0765D4",
+        "Observations": 8,
+        "Outcome": "B757E86D3D3C973B32CD32D7A0508446CF2AC7218FC7159077BB4F63C734AB31"
+      },
+      "ssh_fsm_userauth_client": {
+        "Beam": "D15967BFEE0CA8F0AF9FFF46E255A619A0712F9A27D5BF5BD895693FA459027C",
+        "Observations": 5,
+        "Outcome": "5043B82871542473D1B2E41D994C4F3EEA4401D6447ED0170FC28A043401E12D"
+      },
+      "xmerl_xpath_parse": {
+        "Beam": "5A38D5AB98400A534C27ABA260BE28EFAF9819ECF454A2C4161214313A378977",
+        "Observations": 5,
+        "Outcome": "E1374F38E775C108546A89BF290E672226F99257F378E24C71194C3EBF6BE6FD"
+      },
+      "PKIX-X400Address-2009": {
+        "Beam": "46452597BE2F09F74D7177D344533F87A7D1024080E202EDDEF11D33650B41FE",
+        "Observations": 132,
+        "Outcome": {
+          "binary": "3B7E2DBC55A30EA92FF39692F2092E38A4031A2C6CB0A6C6669AF6C6A85AB1EB",
+          "prepared": "4047AEDE69613BD052DC86A5B4C8602E360D1A6BDFD9533B15742A74E824EA3D"
+        }
+      }
+    },
+    "Observations": 178,
+    "Groups": [
+      "ClosedCatchFrameOwnership",
+      "ExactLiteralReloads",
+      "IntegerStackArguments",
+      "IntegerTailSelector",
+      "LocalMeasurementResult",
+      "PreparedMeasurementTail",
+      "RecordGeneratorTupleReuse",
+      "SharedAfterCatchPayload",
+      "TerminalCallResultOwnership"
+    ]
+  }
+}

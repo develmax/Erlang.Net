@@ -1,0 +1,108 @@
+using System.Collections;
+using System.Numerics;
+using Erlang;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamProvenTerminalIntegerRangeChecks
+{
+    internal const string TestName = "compiler/beam/uses-a-proved-signed-decode-result-at-a-terminal-range";
+    private const string Fixture = "beam_proven_terminal_integer_range_probe.erl";
+    private const string Entry = "entry";
+    private const string Decode = "decode";
+    private const string SignedResult = "<<Number:8/signed>> = Input, Number.";
+    private const int IntegerType = 0x0020;
+    private const string IncorrectValue = "A terminal range changed a signed result or an unknown-type comparison.";
+    private const string IncorrectLayout = "Only a proved integer result may discard the atom upper comparison.";
+
+    private const string Source = """
+        -module(beam_proven_terminal_integer_range_probe).
+        -export([entry/1]).
+
+        entry(Input) ->
+            try decode(Input, []) catch
+                exit:bad_range -> rejected
+            end.
+
+        decode(Input, Tags) ->
+            begin
+                Value = read(Input, Tags),
+                if
+                    0 =< Value, Value =< 'MAX' -> Value;
+                    true -> exit(bad_range)
+                end
+            end.
+
+        read(Input, _) -> <<Number:8/signed>> = Input, Number.
+        """;
+
+    internal static async Task Run()
+    {
+        byte[] known = CodeGeneration.CompileBeamModule(Source, Fixture);
+        byte[] unknown = CodeGeneration.CompileBeamModule(
+            Source.Replace(SignedResult, "Input.", StringComparison.Ordinal), Fixture
+        );
+        var knownModule = BeamModule.Prepare(known);
+        var unknownModule = BeamModule.Prepare(unknown);
+        Term rejected = Term.A("rejected");
+        Term allowedAtom = Term.A("AAA");
+
+        await using var runtime = new ProcessRuntime();
+        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
+        await actor.InvokeAsync(async context =>
+        {
+            if (!Term.I(127).Equals(await knownModule.Invoke(context, Entry, new BitString([127])))
+                || !rejected.Equals(await knownModule.Invoke(context, Entry, new BitString([255])))
+                || !allowedAtom.Equals(await unknownModule.Invoke(context, Entry, allowedAtom))
+                || !rejected.Equals(await unknownModule.Invoke(context, Entry, Term.A("zzz"))))
+            {
+                throw new InvalidOperationException(IncorrectValue);
+            }
+
+            return Nil.Value;
+        });
+
+        if (RangeLayout(known) != (1, IntegerType) || RangeLayout(unknown).Checks != 2)
+        {
+            throw new InvalidOperationException(IncorrectLayout);
+        }
+    }
+
+    private static (int Checks, int? LowerType) RangeLayout(byte[] image)
+    {
+        object code = Code(image);
+        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
+        object[] instructions = Items(code, "Instructions");
+        int start = Array.FindIndex(
+            instructions,
+            instruction => Opcode(instruction) == FunctionInfo
+                && Items(instruction, "Operands") is [_, var name, var arity]
+                && atoms[Value(name)] == Decode && Value(arity) == 2
+        );
+        if (start < 0)
+        {
+            throw new InvalidOperationException(IncorrectLayout);
+        }
+
+        var comparisons = instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo)
+            .Where(instruction => Opcode(instruction) is IsGreaterOrEqual or IsLess)
+            .ToArray();
+        if (comparisons.FirstOrDefault() is { } lower && Property(Items(lower, "Operands")[1], "TypeIndex") is int index)
+        {
+            object[] types = Items(Property(code, "Types"), "Entries");
+
+            return (comparisons.Length, (int)Property(types[index], "TypeUnion"));
+        }
+
+        return (comparisons.Length, null);
+    }
+
+    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
+
+    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
+
+    private static object[] Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
+}

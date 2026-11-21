@@ -7,7 +7,7 @@ internal sealed partial class BeamModuleCompiler
     private static byte[]? PromotePostCallProjectionSlots(
         ReadOnlyMemory<byte> code,
         IReadOnlyList<BeamInstruction> body,
-        List<(int Start, int End, int Slot)> stackOperands
+        IReadOnlyList<(int Start, int End, int Slot)> stackOperands
     )
     {
         using var output = new MemoryStream();
@@ -24,32 +24,46 @@ internal sealed partial class BeamModuleCompiler
 
             int start = entry;
             entry = end + 1;
-            if (ReadPostCallSlice(body, start, end) is not { } plan
-                || PlanLeafFrameRegisters(
-                    body,
-                    plan.Start,
-                    plan.Tail + 1,
-                    1,
-                    afterCanonicalization: true,
-                    isArithmetic: null,
-                    out var heapRoots,
-                    isolatedTailBranch: true,
-                    postCallSlots: plan.Slots,
-                    postCallFrameSize: plan.FrameSize
-                ) is not { } registers)
+            if (ReadPostCallSlice(body, start, end) is not { } plan)
             {
                 continue;
             }
 
-            int[] scratch = registers.OfType<int>().Distinct().ToArray();
-            if (plan.Guards.Any(guard => scratch.Any(register => !(flow ??= new BeamProjectionFlow(body))
-                .IsGuardTemporaryDeadOnFailure(
-                    guard,
-                    new BeamOperand(BeamOperandParameters.X, register),
-                    preserveHeapRoots: true
-                ))))
+            var available = new Dictionary<int, bool>();
+            if (PlanLeafFrameRegisters(
+                body,
+                plan.Start,
+                plan.Tail + 1,
+                1,
+                afterCanonicalization: true,
+                isArithmetic: null,
+                out var heapRoots,
+                isolatedTailBranch: true,
+                postCallSlots: plan.Slots,
+                postCallFrameSize: plan.FrameSize,
+                canUsePostCallRegister: AvailableOnFailure
+            ) is not { } registers)
             {
                 continue;
+            }
+
+            bool AvailableOnFailure(int register)
+            {
+                if (!available.TryGetValue(register, out bool safe))
+                {
+                    // Reject a candidate register before assigning it, so another
+                    // register remains available when a failed guard needs the result.
+                    var operand = new BeamOperand(BeamOperandParameters.X, register);
+                    safe = plan.Guards.All(guard => (flow ??= new BeamProjectionFlow(body))
+                        .IsGuardTemporaryDeadOnFailure(
+                            guard,
+                            operand,
+                            preserveHeapRoots: true
+                        ));
+                    available.Add(register, safe);
+                }
+
+                return safe;
             }
 
             int[] remap = new int[plan.FrameSize];
@@ -211,6 +225,12 @@ internal sealed partial class BeamModuleCompiler
             byte opcode = instruction.Definition.Opcode;
             if (opcode is TailLocalCallWithFrame or TailExternalCallWithFrame)
             {
+                break;
+            }
+
+            if (opcode == Deallocate && tail + 1 < end && body[tail + 1].Definition.Opcode == Return)
+            {
+                tail++;
                 break;
             }
 

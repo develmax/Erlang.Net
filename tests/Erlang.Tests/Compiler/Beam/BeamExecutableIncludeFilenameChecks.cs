@@ -1,0 +1,96 @@
+using System.Text;
+using Erlang;
+using Erlang.Compiler;
+using static Erlang.Tests.BeamDocumentationEmissionChecks;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamExecutableIncludeFilenameChecks
+{
+    internal const string TestName = "compiler/beam/uses-recorded-executable-include-filenames";
+
+    internal const string ModuleName = "beam_executable_include_filename";
+    internal const string Header = "line_helper.hrl";
+    internal const string Recorded = "/workspace/otp/lib/example/include/line_helper.hrl";
+    private const string DebugRecorded = "/different/recorded/include/line_helper.hrl";
+    private const string MissingFilename = "The executable line table did not reflect the recorded include path.";
+    private const string IncorrectDeterministicFilename = "The deterministic executable line table did not preserve the include basename.";
+    private const string IncorrectGeneratedLocation = "The generated accessor did not inherit the first function file and first clause line.";
+    private const string ChangedDebugSource = "Changing executable line provenance changed debug source metadata.";
+
+    internal const string Source = """
+        -module(beam_executable_include_filename).
+        -compile({parse_transform, diameter_exprecs}).
+        -export_records([]).
+        -export([check/1]).
+        -include("line_helper.hrl").
+        """;
+
+    internal const string HeaderSource = """
+        check(Value) -> erlang:integer_to_list(Value).
+        """;
+
+    internal static Task Run()
+    {
+        var directory = Directory.CreateTempSubdirectory("erlang-beam-executable-include-");
+        try
+        {
+            string source = Path.Combine(directory.FullName, ModuleName + ".erl");
+            File.WriteAllText(source, Source);
+            File.WriteAllText(Path.Combine(directory.FullName, Header), HeaderSource);
+            var ordinary = new BeamReleaseBuildProfile(
+                "10.0.6",
+                source,
+                directory.FullName,
+                [],
+                [],
+                RecordedIncludeFiles: new Dictionary<string, string> { [Header] = DebugRecorded },
+                EmitDocumentation: false
+            );
+            var recorded = ordinary with
+            {
+                RecordedExecutableIncludePaths = new Dictionary<string, string> { [Header] = Recorded }
+            };
+            var deterministic = recorded with { RecordedCompileOptions = [Term.A("deterministic")] };
+            var original = Chunks(CodeGeneration.CompileBeamFile(source, buildProfile: ordinary));
+            byte[] mappedImage = CodeGeneration.CompileBeamFile(source, buildProfile: recorded);
+            var mapped = Chunks(mappedImage);
+            var sourceLocations = (IReadOnlyList<Term>)Property(Code(mappedImage), "SourceLocations");
+            const int firstAccessorClauseLine = 189;
+            Term entry = Term.List(
+                Term.Tuple(Term.A("file"), Term.String(Recorded)),
+                Term.Tuple(Term.A("line"), Term.I(firstAccessorClauseLine))
+            );
+            if (sourceLocations.Count < 2 || !entry.Equals(sourceLocations[1]))
+            {
+                throw new InvalidOperationException(IncorrectGeneratedLocation);
+            }
+            var stable = Chunks(CodeGeneration.CompileBeamFile(source, buildProfile: deterministic));
+            byte[] expected = Encoding.UTF8.GetBytes(Recorded);
+            if (mapped.Single(chunk => chunk.Id == "Line").Data.AsSpan().IndexOf(expected) < 0
+                || original.Single(chunk => chunk.Id == "Line").Data.AsSpan().IndexOf(expected) >= 0)
+            {
+                throw new InvalidOperationException(MissingFilename);
+            }
+
+            var stableLine = stable.Single(chunk => chunk.Id == "Line").Data.AsSpan();
+            if (stableLine.IndexOf(expected) >= 0 || stableLine.IndexOf(Encoding.UTF8.GetBytes(Header)) < 0)
+            {
+                throw new InvalidOperationException(IncorrectDeterministicFilename);
+            }
+
+            byte[] previousDebug = original.Single(chunk => chunk.Id == "Dbgi").Data;
+            if (!previousDebug.AsSpan().SequenceEqual(mapped.Single(chunk => chunk.Id == "Dbgi").Data))
+            {
+                throw new InvalidOperationException(ChangedDebugSource);
+            }
+        }
+        finally
+        {
+            directory.Delete(recursive: true);
+        }
+
+        return Task.CompletedTask;
+    }
+}

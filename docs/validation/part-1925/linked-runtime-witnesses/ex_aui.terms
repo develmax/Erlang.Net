@@ -1,0 +1,9 @@
+[{initiate,{ok,{stop,normal,ok,{state,panel,config,manager}}},
+           [{wxAuiManager,unInit,[manager]},
+            {wxAuiManager,destroy,[manager]},
+            {wxPanel,destroy,[panel]}]},
+ {fallback,{ok,{reply,{error,nyi},{state,panel,config,manager}}},
+           [{demo,format,[config,"Got Call ~p\n",[other]]}]},
+ {shutdown_malformed,{error,{badrecord,{state,panel}},[{handle_call,113}]},[]},
+ {fallback_malformed,{error,{badrecord,{state,panel}},[{handle_call,113}]},
+                     []}].

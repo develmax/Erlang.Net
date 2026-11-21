@@ -1,0 +1,178 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamEnrollmentRequiredDefaultChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamEnrollmentRequiredDefaultChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamEnrollmentRequiredDefaultChecks.cs
+@@ -0,0 +1,173 @@
++using System.Collections;
++using System.Numerics;
++using Erlang;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamEnrollmentRequiredDefaultChecks
++{
++    internal const string TestName = "compiler/beam/retains-default-before-a-checked-foreign-pair";
++    private const string Fixture = "beam_defaulted_required.erl";
++    private const string Peer = "beam_defaulted_required_peer";
++    private const string WrongLayout = "A required sequence did not trim the retained default schedule.";
++    private const string WrongValue = "A required sequence changed a default, required field, or checked failure.";
++
++    private const string Source = """
++        -module(beam_defaulted_required).
++        -export([encode/2]).
++
++        encode(Record, Tags) ->
++            {_,A,B,C,D} = Record,
++            {AB,AL} = pack(A,[1]),
++            {BB,BL} = pack(B,[2]),
++            {CB,CL} = case default_flag(C) of
++                true -> {[],0};
++                false -> pack(C,[3])
++            end,
++            {DB,DL} = beam_defaulted_required_peer:pack(D,[4]),
++            Parts = [AB,BB,CB,DB],
++            Length = AL + BL + CL + DL,
++            finish(Tags,Parts,Length).
++
++        default_flag(true) -> true;
++        default_flag(default) -> true;
++        default_flag(_) -> false.
++        pack(Value, _) -> {Value,1}.
++        finish(Tags, Parts, Length) -> {Tags,Parts,Length}.
++        """;
++
++    internal static async Task Run()
++    {
++        byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
++        byte[] unknownDefault = CodeGeneration.CompileBeamModule(
++            Source.Replace("default_flag(_) -> false.", "default_flag(_) -> unknown.", StringComparison.Ordinal),
++            Fixture
++        );
++        var module = BeamModule.Prepare(image, new BeamDependencySelection([Peer]));
++        await using var runtime = new ProcessRuntime();
++        Term broken = Term.A("broken");
++        runtime.Modules.Register(
++            Peer,
++            "pack",
++            2,
++            (_, args) => ValueTask.FromResult(args[0].Equals(broken) ? broken : Term.Tuple(args[0], Term.I(2)))
++        );
++        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
++        await actor.InvokeAsync(async context =>
++        {
++            Term record = Term.A("record");
++            Term a = Term.A("first");
++            Term b = Term.A("second");
++            Term d = Term.A("last");
++            Term missing = Term.A("default");
++            Term no = Term.A("false");
++            await Expect(Term.Tuple(
++                record,
++                a,
++                b,
++                missing,
++                d
++            ), Term.List(
++                a,
++                b,
++                Nil.Value,
++                d
++            ), 4);
++            await Expect(Term.Tuple(
++                record,
++                a,
++                b,
++                Term.A("true"),
++                d
++            ), Term.List(
++                a,
++                b,
++                Nil.Value,
++                d
++            ), 4);
++            await Expect(Term.Tuple(
++                record,
++                a,
++                b,
++                no,
++                d
++            ), Term.List(
++                a,
++                b,
++                no,
++                d
++            ), 5);
++            try
++            {
++                await module.Invoke(
++                    context,
++                    "encode",
++                    Term.Tuple(
++                        record,
++                        a,
++                        b,
++                        no,
++                        broken
++                    ),
++                    record
++                );
++            }
++            catch (ErlangException error) when (error.ExceptionClass == ErlangExceptionClasses.Error
++                && error.Reason.Equals(Term.Tuple(Term.A(ErlangErrorReasons.BadMatch), broken)))
++            {
++                return Nil.Value;
++            }
++
++            throw new InvalidOperationException(WrongValue);
++
++            async Task Expect(Term input, Term bytes, int length)
++            {
++                if (!Term.Tuple(record, bytes, Term.I(length)).Equals(await module.Invoke(
++                    context,
++                    "encode",
++                    input,
++                    record
++                )))
++                {
++                    throw new InvalidOperationException(WrongValue);
++                }
++            }
++        });
++
++        if (ReadLayout(image) != (5, 1, 2) || ReadLayout(unknownDefault) == (5, 1, 2))
++        {
++            throw new InvalidOperationException(WrongLayout);
++        }
++    }
++
++    private static (int Frame, int Trims, int BadMatches) ReadLayout(byte[] image)
++    {
++        object code = Code(image);
++        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        object[] instructions = Items(code, "Instructions");
++        int start = Array.FindIndex(
++            instructions,
++            instruction => Opcode(instruction) == FunctionInfo
++                && Items(instruction, "Operands") is [_, var name, var arity]
++                && atoms[Value(name)] == "encode" && Value(arity) == 2
++        );
++        if (start < 0)
++        {
++            throw new InvalidOperationException(WrongLayout);
++        }
++
++        object[] body = instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo).ToArray();
++        int frame = Value(Items(body.Single(instruction => Opcode(instruction) == Allocate), "Operands")[0]);
++
++        return (frame, body.Count(instruction => Opcode(instruction) == TrimFrame), body.Count(instruction => Opcode(instruction) == BadMatch));
++    }
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++
++    private static object[] Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
++}

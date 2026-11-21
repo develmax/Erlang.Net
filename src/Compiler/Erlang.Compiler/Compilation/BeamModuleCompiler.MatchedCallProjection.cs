@@ -24,16 +24,28 @@ internal sealed partial class BeamModuleCompiler
             }
 
             if (body[index].Definition.Opcode is not (LocalCall or ExternalCall)
-                || body[index + 1] is not { Definition.Opcode: Move, Operands: [var source, var pass] }
-                || source != result || pass != forwarded
-                || body[index + 2] is not { Definition.Opcode: Move, Operands: [var constant, var assign] }
-                || assign != fieldSource || !IsNonRegisterValue(constant)
                 || body[index + 3] is not
                 {
                     Definition.Opcode: Move, Operands: [
                     { Kind: BeamOperandParameters.Y, TypeIndex: null } slot, var reset
                 ]
                 } || reset != result)
+            {
+                continue;
+            }
+
+            int copyResult = index + 1;
+            int loadConstant = index + 2;
+            if (body[copyResult] is { Definition.Opcode: Move, Operands: [_, var target] } && target == fieldSource)
+            {
+                (copyResult, loadConstant) = (loadConstant, copyResult);
+            }
+
+            // These two independent moves can be ordered before this pass runs.
+            if (body[copyResult] is not { Definition.Opcode: Move, Operands: [var source, var pass] }
+                || source != result || pass != forwarded
+                || body[loadConstant] is not { Definition.Opcode: Move, Operands: [var constant, var assign] }
+                || assign != fieldSource || !IsNonRegisterValue(constant))
             {
                 continue;
             }
@@ -89,13 +101,11 @@ internal sealed partial class BeamModuleCompiler
                 continue;
             }
 
-            int copyResult = body[index + 1].Offset;
-            int loadConstant = body[index + 2].Offset;
             int reload = body[index + 3].Offset;
             int next = body[index + 4].Offset;
-            output.Write(code.Span[copied..copyResult]);
-            output.Write(code.Span[loadConstant..reload]);
-            output.Write(code.Span[copyResult..loadConstant]);
+            output.Write(code.Span[copied..body[index + 1].Offset]);
+            output.Write(code.Span[body[loadConstant].Offset..body[loadConstant + 1].Offset]);
+            output.Write(code.Span[body[copyResult].Offset..body[copyResult + 1].Offset]);
             output.Write(code.Span[reload..next]);
             WriteFrameInitialization(output, [(int)slot.Value]);
             int project = body[read].Offset;

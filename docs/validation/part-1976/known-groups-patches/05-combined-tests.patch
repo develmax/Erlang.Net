@@ -1,0 +1,309 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamMixedArityEntryChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamMixedArityEntryChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamMixedArityEntryChecks.cs
+@@ -0,0 +1,146 @@
++using System.Collections;
++using System.Numerics;
++using Erlang;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamMixedArityEntryChecks
++{
++    internal const string TestName = "compiler/beam/partitions-mixed-entry-domains-before-framing";
++    private const string Fixture = "beam_mixed_arity_entry_probe.erl";
++    private const string WrongLayout = "Tuple arities must be selected before allocating a clause frame.";
++    private const string WrongResult = "A mixed entry changed a checked clause, fallback or effect.";
++
++    private const string Source = """
++        -module(beam_mixed_arity_entry_probe).
++        -export([dispatch/2, protected/2, event/0]).
++
++        -record(context, {value}).
++        -record(payload, {value}).
++
++        dispatch(leave, #context{value=Value}) -> {leave, Value};
++        dispatch(finish, #context{value=[{payload, Value} | Tail]}) -> {finish, Value, Tail};
++        dispatch(finish_record, #context{value=[#payload{value=Value} = Head | Tail]}) ->
++            {finish_record, Head#payload{value={checked, Value}}, Tail};
++        dispatch({pair, X}, Context) -> pair(X, Context);
++        dispatch(enter, Context) -> entered(Context);
++        dispatch({triple, leading, X}, Context) -> {leading, X, Context};
++        dispatch({triple, Key, X}, Context) -> {triple, Key, X, Context};
++        dispatch({quad, X, Y, Z}, Context) -> {quad, X, Y, Z, Context};
++        dispatch(Kind, Context) -> {fallback, Kind, Context}.
++
++        pair(X, Context) -> {pair, X, Context}.
++
++        entered(Context) ->
++            erlang:put(last_entry_event, Context),
++            {entered, Context}.
++
++        event() -> erlang:get(last_entry_event).
++
++        protected(read, Context) -> Context;
++        protected({pair, X}, _) ->
++            try check(X) of
++                Result -> {ok, Result}
++            catch
++                error:bad_value -> {rejected, X}
++            end;
++        protected({triple, X, Y}, _) -> {X, Y};
++        protected({quad, X, Y, Z}, _) -> {X, Y, Z};
++        protected(_, Context) -> {fallback, Context}.
++
++        check(bad) -> erlang:error(bad_value);
++        check(Value) -> Value.
++        """;
++
++    internal static async Task Run()
++    {
++        byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
++        object code = Code(image);
++        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        object[] all = Items(code, "Instructions").ToArray();
++        int entry = Array.FindIndex(all, instruction =>
++            Opcode(instruction) == FunctionInfo && atoms[Value(Operands(instruction)[1])] == "dispatch");
++        if (entry < 0)
++        {
++            throw new InvalidOperationException(WrongLayout);
++        }
++
++        object[] body = all.Skip(entry + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo)
++            .Where(instruction => Opcode(instruction) is not (Label or Line)).ToArray();
++        if (body is not [var type, var arities, ..]
++            || Opcode(type) != IsTuple || Opcode(arities) != SelectTupleArity
++            || !Operands(arities).Skip(3).Where((_, index) => index % 2 == 0)
++                .Select(Value).SequenceEqual([2, 3, 4])
++            || Value(Operands(type)[0]) == Value(Operands(arities)[1]))
++        {
++            throw new InvalidOperationException(WrongLayout);
++        }
++
++        var module = BeamModule.Prepare(image, new BeamDependencySelection([]));
++        await using var runtime = new ProcessRuntime();
++        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
++        await actor.InvokeAsync(async context =>
++        {
++            Term alpha = Term.A("alpha");
++            Term bad = Term.A("bad");
++            Term rawContext = Term.A("unmatched_state");
++            Term protectedReject = Term.Tuple(Term.A("rejected"), bad);
++            Term fallback = Term.A("fallback");
++            Term leave = Term.A("leave");
++            Term record = Term.Tuple(Term.A("context"), alpha);
++            Term two = Term.Tuple(Term.A("pair"), alpha);
++            Term leading = Term.Tuple(Term.A("triple"), Term.A("leading"), alpha);
++            Term trailing = Term.Tuple(Term.A("triple"), bad, alpha);
++            Term malformed = Term.Tuple(Term.A("triple"), alpha);
++            if (!Term.Tuple(fallback, leave, rawContext).Equals(await module.Invoke(context, "dispatch", leave, rawContext))
++                || !Term.Tuple(fallback, malformed, rawContext).Equals(await module.Invoke(context, "dispatch", malformed, rawContext))
++                || !Term.Tuple(fallback, Term.I(7), rawContext).Equals(await module.Invoke(context, "dispatch", Term.I(7), rawContext))
++                || !Term.Tuple(leave, alpha).Equals(await module.Invoke(context, "dispatch", leave, record))
++                || !Term.Tuple(Term.A("pair"), alpha, rawContext).Equals(await module.Invoke(context, "dispatch", two, rawContext))
++                || !Term.Tuple(Term.A("leading"), alpha, rawContext).Equals(await module.Invoke(context, "dispatch", leading, rawContext))
++                || !Term.Tuple(Term.A("triple"), bad, alpha, rawContext).Equals(await module.Invoke(context, "dispatch", trailing, rawContext))
++                || !Term.A("undefined").Equals(await module.Invoke(context, "event"))
++                || !Term.Tuple(Term.A("entered"), alpha).Equals(await module.Invoke(context, "dispatch", Term.A("enter"), alpha))
++                || !alpha.Equals(await module.Invoke(context, "event"))
++                || !protectedReject.Equals(await module.Invoke(context, "protected", Term.Tuple(Term.A("pair"), bad), alpha)))
++            {
++                throw new InvalidOperationException(WrongResult);
++            }
++
++            Term finish = Term.A("finish");
++            Term finishRecord = Term.A("finish_record");
++            Term payload = Term.A("payload");
++            Term contextTag = Term.A("context");
++            Term head = Term.Tuple(payload, alpha);
++            Term improperTail = Term.A("improper_tail");
++            Term proper = Term.Tuple(contextTag, Term.List(head));
++            Term improper = Term.Tuple(contextTag, new Cons(head, improperTail));
++            Term empty = Term.Tuple(contextTag, Nil.Value);
++            Term wrongHead = Term.Tuple(contextTag, Term.List(Term.Tuple(Term.A("unmatched"), alpha)));
++            Term checkedHead = Term.Tuple(payload, Term.Tuple(Term.A("checked"), alpha));
++            if (!Term.Tuple(finish, alpha, Nil.Value).Equals(await module.Invoke(context, "dispatch", finish, proper))
++                || !Term.Tuple(finish, alpha, improperTail).Equals(await module.Invoke(context, "dispatch", finish, improper))
++                || !Term.Tuple(finishRecord, checkedHead, improperTail).Equals(await module.Invoke(context, "dispatch", finishRecord, improper))
++                || !Term.Tuple(fallback, finish, empty).Equals(await module.Invoke(context, "dispatch", finish, empty))
++                || !Term.Tuple(fallback, finish, wrongHead).Equals(await module.Invoke(context, "dispatch", finish, wrongHead))
++                || !Term.Tuple(fallback, finishRecord, rawContext).Equals(await module.Invoke(context, "dispatch", finishRecord, rawContext)))
++            {
++                throw new InvalidOperationException(WrongResult);
++            }
++
++            return Nil.Value;
++        });
++    }
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++
++    private static object[] Operands(object instruction) => Items(instruction, "Operands").ToArray();
++
++    private static IEnumerable<object> Items(object owner, string name) =>
++        ((IEnumerable)Property(owner, name)).Cast<object>();
++}
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamTaggedStateEntryChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamTaggedStateEntryChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamTaggedStateEntryChecks.cs
+@@ -0,0 +1,134 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamTaggedStateEntryChecks
++{
++    internal const string TestName = "compiler/beam/partitions-tagged-state-inside-tuple-arity";
++    private const string Fixture = "beam_tagged_state_entry.erl";
++    private const string WrongLayout = "The inner state table did not preserve its independently checked frame owners.";
++    private const string WrongValue = "Nested state selection changed head failure, the original fallback arguments or the selected effect.";
++
++    private const string Source = """
++        -module(beam_tagged_state_entry).
++        %% options
++        -export([dispatch/4, read_effect/1]).
++        -record(session, {value}).
++
++        dispatch(event, {msg, Key}, {read, client}, State = #session{value = Value}) ->
++            erlang:put(Key, Value),
++            {sent, State};
++        dispatch(event, {msg, _}, {wait, client}, State) ->
++            {queued, State};
++        dispatch(event, {single}, _, State) ->
++            {single, State};
++        dispatch(Event, Message, State, Data) ->
++            {fallback, Event, Message, State, Data}.
++
++        read_effect(Key) -> erlang:get(Key).
++        """;
++
++    internal static async Task Run()
++    {
++        byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
++        byte[] disabled = CodeGeneration.CompileBeamModule(
++            Source.Replace("%% options", "-compile(no_ssa_opt).", StringComparison.Ordinal),
++            Fixture
++        );
++        byte[] overlapping = CodeGeneration.CompileBeamModule(
++            Source.Replace("{wait, client}", "{read, client}", StringComparison.Ordinal),
++            Fixture
++        );
++        if (!HasOwnedStateBranches(image) || HasOwnedStateBranches(disabled) || HasOwnedStateBranches(overlapping))
++        {
++            throw new InvalidOperationException(WrongLayout);
++        }
++
++        var module = BeamModule.Prepare(image);
++        var rejected = BeamModule.Prepare(overlapping);
++        await using var runtime = new ProcessRuntime();
++        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
++        await actor.InvokeAsync(async context =>
++        {
++            Atom kind = Term.A("event");
++            Atom key = Term.A("entry_effect");
++            Atom payload = Term.A("payload");
++            Atom wrong = Term.A("wrong");
++            Term message = Term.Tuple(Term.A("msg"), key);
++            Term read = Term.Tuple(Term.A("read"), Term.A("client"));
++            Term wait = Term.Tuple(Term.A("wait"), Term.A("client"));
++            Term missed = Term.Tuple(Term.A("read"), wrong);
++            Term data = Term.Tuple(Term.A("session"), payload);
++            Term queued = Term.Tuple(Term.A("queued"), wrong);
++            if (!await Matches(module, Term.A("undefined"), "read_effect", key)
++                || !await Matches(module, queued, "dispatch", kind, message, wait, wrong)
++                || !await Matches(module, Fallback(kind, message, missed, data), "dispatch", kind, message, missed, data)
++                || !await Matches(module, Fallback(kind, message, read, wrong), "dispatch", kind, message, read, wrong)
++                || !await Matches(module, Fallback(kind, message, wrong, data), "dispatch", kind, message, wrong, data)
++                || !await Matches(rejected, queued, "dispatch", kind, message, read, wrong)
++                || !await Matches(module, Term.A("undefined"), "read_effect", key)
++                || !await Matches(module, Term.Tuple(Term.A("sent"), data), "dispatch", kind, message, read, data)
++                || !await Matches(module, payload, "read_effect", key))
++            {
++                throw new InvalidOperationException(WrongValue);
++            }
++
++            return Nil.Value;
++
++            async Task<bool> Matches(BeamModule target, Term expected, string name, params Term[] arguments) =>
++                expected.Equals(await target.Invoke(context, name, arguments));
++        });
++    }
++
++    private static bool HasOwnedStateBranches(byte[] image)
++    {
++        object code = Code(image);
++        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        object[] body = Items(code, "Instructions").SkipWhile(instruction =>
++            Opcode(instruction) != FunctionInfo || atoms[Value(Operands(instruction)[1])] != "dispatch")
++            .Skip(1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo).ToArray();
++        foreach (object instruction in body.Where(instruction => Opcode(instruction) == SelectValue))
++        {
++            if (Operands(instruction) is not [_, var failure, _, var first, var read, var second, var wait]
++                || !IsKey(first, "read") || !IsKey(second, "wait"))
++            {
++                continue;
++            }
++
++            object[] effect = Block(read);
++            object[] plain = Block(wait);
++            return effect.Length >= 3 && Opcode(effect[0]) == ExactEqualTest
++                && Opcode(effect[1]) == IsTaggedTuple && Opcode(effect[2]) == Allocate
++                && Value(Operands(effect[0])[0]) == Value(failure)
++                && Value(Operands(effect[1])[0]) == Value(failure)
++                && Value(Operands(effect[2])[0]) == 1
++                && plain.Length >= 2 && Opcode(plain[0]) == ExactEqualTest
++                && Value(Operands(plain[0])[0]) == Value(failure)
++                && plain.All(item => Opcode(item) is not (Allocate or AllocateHeap));
++        }
++
++        return false;
++
++        bool IsKey(object operand, string name) => Equals(Property(operand, "Kind"), "atom") && atoms[Value(operand)] == name;
++
++        object[] Block(object label) => body.SkipWhile(instruction =>
++            Opcode(instruction) != Label || Value(Operands(instruction)[0]) != Value(label))
++            .Skip(1).TakeWhile(instruction => Opcode(instruction) != Label).ToArray();
++    }
++
++    private static Term Fallback(
++        Term kind,
++        Term message,
++        Term state,
++        Term data
++    ) => Term.Tuple(Term.A("fallback"), kind, message, state, data);
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++    private static object[] Operands(object instruction) => Items(instruction, "Operands");
++    private static object[] Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
++}
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12457,6 +12457,7 @@
+ Test(Erlang.Tests.BeamLiteralConsContinuationsChecks.TestName, Erlang.Tests.BeamLiteralConsContinuationsChecks.Run);
+ Test(Erlang.Tests.BeamOwnedSupervisorTailsChecks.TestName, Erlang.Tests.BeamOwnedSupervisorTailsChecks.Run);
+ Test(Erlang.Tests.BeamGroupedLiteralTupleClosureChecks.TestName, Erlang.Tests.BeamGroupedLiteralTupleClosureChecks.Run);
++Test(Erlang.Tests.BeamTaggedStateEntryChecks.TestName, Erlang.Tests.BeamTaggedStateEntryChecks.Run);
+ Test(Erlang.Tests.BeamClosedSingleTupleClosureChecks.TestName, Erlang.Tests.BeamClosedSingleTupleClosureChecks.Run);
+ Test(Erlang.Tests.BeamRetainedCallConstructionChecks.TestName, Erlang.Tests.BeamRetainedCallConstructionChecks.Run);
+ Test(Erlang.Tests.BeamSupervisorCallListChecks.TestName, Erlang.Tests.BeamSupervisorCallListChecks.Run);
+@@ -13595,6 +13596,7 @@
+ }
+ );
+ Test(Erlang.Tests.BeamMultiKeyMembershipChecks.TestName, Erlang.Tests.BeamMultiKeyMembershipChecks.Run);
++Test(Erlang.Tests.BeamMixedArityEntryChecks.TestName, Erlang.Tests.BeamMixedArityEntryChecks.Run);
+ Test(Erlang.Tests.BeamDirectListDestinationChecks.TestName, Erlang.Tests.BeamDirectListDestinationChecks.Run);
+ Test(
+     Erlang.Tests.BeamTerminalCallProjectionChecks.ColdOwnershipTestName,

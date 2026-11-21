@@ -1,5 +1,17 @@
 # Architecture decisions
 
+## Lower checked paths using branch ownership and existing operand identities — 2026-11-19
+
+Keep a checked tuple argument in its original register when all crossed effects leave it available. Place a checked record frame in its owning call path and retain distinct cold paths. Propagate source-derived binary constraints through checked decoder continuations. Preserve separate raw, normalized and native evidence. [Full evidence](validation/part-1904/README.md).
+
+## Preserve source-derived tail lines and owned record roots — 2026-11-19
+
+Use the pinned call kind and tail position to decide ordinary Line emission. Keep active handler, executable-line and debug scopes under their source-specific behavior. Compact ordinary line references through the existing first-use table writer. Validate typed record allocation using the original source, explicit destinations and replacement reads. Keep compact record instructions, release byte identity and native behavior under separate acceptance checks. [Decision evidence](validation/part-1902/full-release/README.md).
+
+## Verify release assembly and checked record attribution from source — 2026-11-19
+
+The existing C# assembler reads generated textual BEAM assembly, and the existing preprocessing route supplies the optional abstract companion. Track the source and companion identities in the release profile. Keep raw chunk and native function comparisons independent. In checked tuple record updates, the lowest-order changed field provides the expanded failure location. Apply specialized fallback code schedules before broader compatible frame allocation. [Evidence](validation/part-1898/full-release/README.md).
+
 ## Separate native ABI capability from VM admission — 2026-11-05
 
 Public x86 NIF layout/descriptor/varargs capability is measured independently of

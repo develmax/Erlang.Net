@@ -1,0 +1,12 @@
+Checking patch src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs...
+error: while searching for:
+                    && !LocalFunctionEntries.Walk(parentClause.Body).Any(expression =>
+                        expression is Expr.Try or Expr.Receive or Expr.Maybe))
+                && !(source is Expr.RecordAccess { Value: Expr.Variable } && SsaTypeInferenceEnabled && !discarded
+                    && comprehension.Qualifiers.Count == 1 && ReadTupleListProjection(item, mapped) is not null)
+            || !(item is Pattern.Variable && (generator.Strict || simpleElement || flatElement || independent || filter is not null
+                    || source is Expr.Call or Expr.List
+                    || mapped is Expr.Call { DynamicRemote: false } or Expr.Apply { Function: Expr.Variable })
+
+error: patch failed: src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs:341
+error: src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs: patch does not apply

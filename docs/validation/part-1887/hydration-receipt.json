@@ -1,0 +1,50 @@
+{
+  "Parent": {
+    "Source": "40f3c559f43b8846ce06c9137774ae125e8d42501b0780ab0d9e39bd0df52e6a",
+    "Paths": 259,
+    "Compiler": "b689a9e8824a233f5e0b2a1f726906f2f0d6d415f91bc1d8a02e866ca95198c6",
+    "Tests": "96a5f93852bd655a2572ab99c130a494192ba47cfeeec0f4d3ce7b76dc843287",
+    "ParentSource": "c6b33192521ca97c906d655e44b9044842ad009db5a97c45cff305255e03b3e6",
+    "CorpusTool": "6cf81d7f02cb11333f7e53ca2afbfc84a9402c20902d852c94da2f5703d14424"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamAbstractFirstAnnotation.cs": "6ce794ade053b11649facb0b5fbc72741f2abd11ab5c0a77edd34b92b7c6cbff",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DominatingHelperConstants.cs": "664b9109f60d02b3eec9635123436b87302b8a094c56bcaf5659ea3dc104ef3c",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralClosures.cs": "9731bc2738732e3bb20350a31f5666a523420704c03e3e7dee31f0a93c19ff39",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs": "2302eaef5bac0b961ae844660580e6cef6580d62f93bcce1aeda30ffcbc15001",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": "6973d3b93d463e6d8c869557f39a50e6839c79d0eb9020799d6a74094748ad29",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamReleaseFunctionDebug.cs": "98b0c739e472be6000352a63286e3e07af33b36db452d187dbb75eb24013dda9",
+    "src/Compiler/Erlang.Compiler/Compilation/Binding/LocalFunctionEntries.cs": "a441f2f6d94745b6cf294e6dad03c1f2721e356772561c3cee516d76f661e506",
+    "src/Compiler/Erlang.Compiler/Syntax/Records/NativeRecordTypeParser.cs": "fb17073618fb030c533ddc28f5b87a2b6c19927afe2db0321fc058387d65830f",
+    "tests/Erlang.Tests/Compiler/Beam/BeamAbstractFirstAnnotationChecks.cs": "6d2e076687bbfab7789c0d79c614edc58656776618195e902fed4f4581935547",
+    "tests/Erlang.Tests/Compiler/Beam/BeamBitstringTypeAnnotationChecks.cs": "7ca4c369246adaf7b767d537005d863fe464dff4ffe5fe0992e75355f5389a93",
+    "tests/Erlang.Tests/Compiler/Beam/BeamBootstrapLibraryIncludeChecks.cs": "12967c714325d1df88ecda486c01f0d9b3e2c22abe4eedfaa9a25df07c7f8f3f",
+    "tests/Erlang.Tests/Compiler/Beam/BeamDominatingHelperConstantChecks.cs": "60ffda868f8cc684a9836578f8f956c59d75aab918611554f3ea1e0cf08fc0db",
+    "tests/Erlang.Tests/Harness/Program.cs": "e2388693c01e770c9267bf9d6c58116ce9a9d7df1f52b5fa4d81d02b25f4dc2a",
+    "tools/Validation/Erlang.BeamCorpus/OtpWindowsBootstrapLibraryIncludePaths.cs": "568e5db1ae32edd34542e847473912d0f35c10330745fac7912f0fd778c114b2"
+  },
+  "Patches": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\bootstrap-and-derived-source-annotations-1887\\bootstrap-release-include-provenance.patch",
+      "Hash": "d2522d875b28efd8bcdba22ecc04160c9d58cb046e3af8ac6168c13851fe9b07"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\bootstrap-and-derived-source-annotations-1887\\synthetic-bitstring-type-line.patch",
+      "Hash": "b32776389326db4c164b7d486cc2123a55a397b2beeee6e0e9ef0711e9c1be41"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\bootstrap-and-derived-source-annotations-1887\\abstract-expression-first-annotation.patch",
+      "Hash": "76ed68e3a985eb4c11f59558912aef915cb56505f11f9d9158b0b87d37d7eb6c"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\bootstrap-and-derived-source-annotations-1887\\dominating-helper-constants.patch",
+      "Hash": "b65c94b0f4676f71ded3aed56b728fca51069492a2852364ebe634d5fdbc8ae4"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\bootstrap-and-derived-source-annotations-1887-shadow-retake\\lifted-capture-head-shadowing.patch",
+      "Hash": "4b33dbd8e1cb1e00eed8d8237540faf23587b89f8e44a510cbc19c24790e6923"
+    }
+  ],
+  "HarnessRegistrations": "Rebase metadata and constant capture fixtures against the current harness.",
+  "FailurePreservedAt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\bootstrap-and-derived-source-annotations-1887\\focused.log"
+}

@@ -1,0 +1,104 @@
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -2109,7 +2109,8 @@
+                     variables.TryAdd(self, selfSlot);
+                 }
+                 Expr? emittedGuard = entryPatterns is null ? clause.Guard : entryGuard;
+-                Guard(emittedGuard, failure);
++                // Keep equality edges available to optimize the entry projections before final selection.
++                Guard(emittedGuard, failure, formAtomSelection: false);
+                 RememberRecordGuard(emittedGuard);
+                 guardedBinaryMatches = ReadGuardedBinaryMatches(clause.Body, clause.Guard);
+                 Expr body = clause.Body;
+@@ -8925,7 +8926,12 @@
+             }
+         }
+ 
+-        private void Guard(Expr? guard, int failure, string? selector = null)
++        private void Guard(
++            Expr? guard,
++            int failure,
++            string? selector = null,
++            bool formAtomSelection = true
++        )
+         {
+             if (guard is null or Expr.Literal { Value: Atom { Name: "true" } })
+             {
+@@ -8933,7 +8939,7 @@
+             }
+             if (guard is Expr.GuardAlternatives alternatives)
+             {
+-                if (TryEmitAtomGuardAlternatives(alternatives, failure, selector))
++                if (formAtomSelection && TryEmitAtomGuardAlternatives(alternatives, failure, selector))
+                 {
+                     return;
+                 }
+@@ -8942,7 +8948,12 @@
+                 foreach (Expr item in alternatives.Items)
+                 {
+                     int next = Label();
+-                    Guard(item, next, selector);
++                    Guard(
++                        item,
++                        next,
++                        selector,
++                        formAtomSelection
++                    );
+                     JumpTo(accepted);
+                     Mark(next);
+                 }
+@@ -8954,8 +8965,18 @@
+ 
+             if (guard is Expr.Binary { Operator: ErlangOperators.AndAlso } conjunction)
+             {
+-                Guard(conjunction.Left, failure, selector);
+-                Guard(conjunction.Right, failure, selector);
++                Guard(
++                    conjunction.Left,
++                    failure,
++                    selector,
++                    formAtomSelection
++                );
++                Guard(
++                    conjunction.Right,
++                    failure,
++                    selector,
++                    formAtomSelection
++                );
+ 
+                 return;
+             }
+@@ -8964,10 +8985,20 @@
+             {
+                 int right = Label();
+                 int accepted = Label();
+-                Guard(disjunction.Left, right, selector);
++                Guard(
++                    disjunction.Left,
++                    right,
++                    selector,
++                    formAtomSelection
++                );
+                 JumpTo(accepted);
+                 Mark(right);
+-                Guard(disjunction.Right, failure, selector);
++                Guard(
++                    disjunction.Right,
++                    failure,
++                    selector,
++                    formAtomSelection
++                );
+                 Mark(accepted);
+ 
+                 return;
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GroupedTupleEntry.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GroupedTupleEntry.cs
+@@ -194,7 +194,7 @@
+                         );
+                     }
+ 
+-                    Guard(clause.Guard, failure);
++                    Guard(clause.Guard, failure, formAtomSelection: false);
+                     if (!TailLocal(clause.Body))
+                     {
+                         Expression(clause.Body);

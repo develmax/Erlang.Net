@@ -1,0 +1,19 @@
+
+[Left,Middle,Right,Reference]=init:get_plain_arguments(),
+Read=fun(P)->{ok,B}=file:read_file(P),binary_to_term(B) end,
+R=Read(Left),B=Read(Middle),A=Read(Right),
+Distance=fun(X,Y)->lists:sum([abs(L-M)||{L,M}<-lists:zip(X,Y,trim)]) end,
+Keys=lists:usort(maps:keys(B)++maps:keys(A)),
+Rows=lists:filtermap(fun(Key)->
+    RefIs=maps:get(Key,R,missing), BeforeIs=maps:get(Key,B,missing), AfterIs=maps:get(Key,A,missing),
+    case {RefIs,BeforeIs,AfterIs} of
+        {{X,RB},{Y,BB},{Z,AB}} when Y=/=Z->
+            Delta=case {length(RB)=:=length(BB),length(BB)=:=length(AB)} of
+                {true,true}->Distance(RB,AB)-Distance(RB,BB); _->unknown
+            end,
+            {true,{Key,X=:=Y,X=:=Z,Delta}};
+        {_,Y,Z} when Y=/=Z->{true,{Key,false,false,unknown}};
+        _->false
+    end
+end,Keys),
+io:format("~0p.~n",[{filename:basename(Reference),Rows}]),halt().

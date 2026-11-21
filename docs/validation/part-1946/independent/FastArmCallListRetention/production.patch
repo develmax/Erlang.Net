@@ -1,0 +1,72 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TerminalCallList.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TerminalCallList.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TerminalCallList.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TerminalCallList.cs
+@@ -8,7 +8,14 @@
+     {
+         private bool TryEmitTerminalCallList(FunctionDefinition function)
+         {
+-            if (function.Clauses is not [{ Guard: null, Body: Expr.List { Tail: null } list } clause]
++            (Clause? Clause, (int Input, EntryCall Tail)? Empty) entry = function.Clauses switch
++            {
++                [var single] => (single, null),
++                [var fast, var fallback] when ReadTerminalListNilArm(fast) is { } plan => (fallback, plan),
++                _ => (null, null)
++            };
++            var (clause, empty) = entry;
++            if (clause is not { Guard: null, Body: Expr.List { Tail: null } list }
+                 || !HasUnconditionalParameters(clause) || list.Items.Count < 2
+                 || list.Items[0] is not Expr.Call first)
+             {
+@@ -87,6 +94,16 @@
+                 }
+                 // An earlier result remains live through every later call.
+                 stack[slot] = string.Empty;
++            }
++
++            if (empty is { } fastPath)
++            {
++                int nonempty = Label();
++                owner.EmitNilTest(XRegisterTag, fastPath.Input, nonempty);
++                EmitEntryCallArguments(fastPath.Tail);
++                Expr.Call tail = fastPath.Tail.Call;
++                EmitTailLocal(entries[(tail.Function, tail.Arguments.Count)], tail.Arguments.Count, null);
++                Mark(nonempty);
+             }
+ 
+             int live = Math.Max(EntryCallLiveCount(firstCall, inputs),
+@@ -170,5 +187,35 @@
+ 
+             return true;
+         }
++
++        private (int Input, EntryCall Tail)? ReadTerminalListNilArm(Clause clause)
++        {
++            if (clause is not { Guard: null, Body: Expr.Call tail })
++            {
++                return null;
++            }
++
++            int nil = -1;
++            var inputs = new string[clause.Patterns.Count];
++            for (int register = 0; register < inputs.Length; register++)
++            {
++                switch (clause.Patterns[register])
++                {
++                    case Pattern.List { Items: [], Tail: null } or Pattern.Literal { Value: Nil } when nil < 0:
++                        nil = register;
++                        break;
++                    case Pattern.Variable { Name: not VariableScopeNames.Wildcard } variable when !inputs.Contains(variable.Name):
++                        inputs[register] = variable.Name;
++                        break;
++                    case Pattern.Variable { Name: VariableScopeNames.Wildcard }:
++                    case Erlang.Pattern.Any:
++                        break;
++                    default:
++                        return null;
++                }
++            }
++
++            return nil >= 0 && ReadEntryCall(tail, inputs) is { Module: null } call ? (nil, call) : null;
++        }
+     }
+ }

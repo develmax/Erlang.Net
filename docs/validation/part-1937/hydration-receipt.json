@@ -1,0 +1,40 @@
+{
+  "Parent": {
+    "Source": "a34aaab4724273590c91d36747b3fd117be9c3a3ad00d5e59ee8150da91bea67",
+    "Paths": 760,
+    "RemovedPaths": [],
+    "Compiler": "82253d610adbd454e504508897d9563617167478fda45e6840a546c6a2cb6ca9",
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "Tests": "323c0123448c430202c8f915fcbe94e50d4456bfcd57c1df5901dde1002096a8",
+    "ParentSource": "4ecf38a4a88e2942d4c14d3daf9c80d16b1db47d48cd366070b32ed7ec8c2b6d",
+    "CorpusTool": "9fd4240c56d69f2126274384a74d22ece111e1044fbd09574086412a4abd40b9"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BoundedSequenceAndForwardedChoices.cs": "283e0a3e525e4b47444f19c35d03ab6c2ab4c3219921a94c33f899f1cdc280a3",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DisjointFrameSlots.cs": "c527f19bde10b5e7f917bfacf86407ca2869ab3f89db4b56d25eeb2e75c8431a",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ForwardedChoiceMeasurement.cs": "06af15c7a4064e466a4e9596a17bf99f3a92d1ad3a7ade62d9715f374bc97a34",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": "327356ca24ceeb847b343f5e6af27f99f20479c210c026ad5ea4df0acb3e6aa0",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.MixedTupleCaseReturns.cs": "4d2fbbeb858c1fad8a593deb1195644f3e34781140a7b053927f8d93f5b5b9cb",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProperListEntryFacts.cs": "e91b0a95dc80be2868bc83e7a2a13f9ac22a32f86743191aaa8f833a357a039c",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProvenListHeadInputs.cs": "407824cbf97a3650b09dbeea7d4d57462f07d14bcbaaaf08de5ad847c8ab6807",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": "1e8d629ab5df62127f7f2e6595e8b6963af41414f1914acbed0aca012e31014d",
+    "tests/Erlang.Tests/Compiler/Beam/BeamForwardedChoiceMeasurementChecks.cs": "d9dcd5c61de816ca799166904cdcd38615b46e110ff5f8c0b8a046752f3ed5bc",
+    "tests/Erlang.Tests/Compiler/Beam/BeamProvenConsHeadChecks.cs": "e191cd28a98d0274421a4e262554b847e2aab1275c040b3a075468ed25ed8308",
+    "tests/Erlang.Tests/Compiler/Beam/BeamTerminalCallProjectionChecks.cs": "8a6510bd43c3d8769f382ca0740560c230e75d0bece5cf70c2e423d336ec4793",
+    "tests/Erlang.Tests/Harness/Program.cs": "29b51c3b692cea74077ccb6de3b7d3d37826160c130bdffc1575454faeabb400"
+  },
+  "CandidateRemovedPaths": {},
+  "PatchSources": {
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\asn-named-bits-replay-1931\\post-string-residuals\\forwarded-choice-measurement.patch": "c6e52cf3e710db9f7f61fa0fa367925dade2e6c0c0ab226dce7bda28f57b9960",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\cons-inputs-and-measured-choice-1937\\adapted-tests\\MeasuredChoice.patch": "74c38f53dbe9739b13c0bced0e742e26571f4f235281f4393f2592fe2db2ce3c",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\binary-match-audit-1931\\proven-cons-heads\\proven-cons-heads.patch": "8c16cdc9cb5765b88755b5badce62dc258b4268ad5083359764686d35071a2d4",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\cons-inputs-and-measured-choice-1937\\adapted-tests\\ProvenConsInputs.patch": "c97cdcf9f6180942001af6b0ce003d5817bb7020fdefbc74670d3039e7c233ac",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\compact-completely-trimmed-frames-1937\\production.patch": "12fce5e29660f4c029a3f951c0f0f2367f4e197838aba86d58dc545ed0e9e314",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\cons-inputs-and-measured-choice-1937\\adapted-tests\\CompleteTrim.patch": "ff5e18e3f107f2a8e6b82e19580dd4ad936f26e576abba71b24d8ba1e89fba99",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\mod-head-raw-gap-1938\\production.patch": "c922411a6173f82bdaac946414392643402d1f078b44bc34754ee76c5eee0b3e",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\cons-inputs-and-measured-choice-1937\\adapted-tests\\MixedTupleDecision.patch": "981bbbf8119841c6c0a62748f7513dbdf70d9ef9a7c04ff8d77021155856a2ae",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\mod-head-raw-gap-1938\\relocated-table-order\\production.patch": "fd85cfbcd7085ba4c50c8cc2f3f7f54ab135d965b5d72133abce5712505be1e1",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\cons-inputs-and-measured-choice-1937\\adapted-tests\\RelocatedTables.patch": "af6d82e594625018f255e8b059f1ce8e700b0d9f314df81c70511e5da7cb0fef",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\cons-inputs-and-measured-choice-1937\\adapted-tests\\integrated-harness-registrations.patch": "2faa9ae65336d4da060cb4eaae138db7ddff58dfded78197fe5bd5f048e75fdc"
+  }
+}

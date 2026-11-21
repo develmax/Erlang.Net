@@ -1,0 +1,153 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamOptionalPairLengthsChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamOptionalPairLengthsChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamOptionalPairLengthsChecks.cs
+@@ -0,0 +1,137 @@
++using System.Collections;
++using System.Numerics;
++using Erlang;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamOptionalPairLengthsChecks
++{
++    internal const string TestName = "compiler/beam/joins-proven-lengths-after-repeated-optional-fields";
++    private const string Fixture = "beam_optional_pair_lengths.erl";
++    private const string WrongLayout = "Joined optional pair lengths did not retain the proven nonnegative bounds.";
++    private const string WrongValue = "The optional pair encoder changed a value or failure.";
++
++    private const string Source = """
++        -module(beam_optional_pair_lengths).
++        -export([encode/2, other/1]).
++        encode(Value, Tags) ->
++            {_, Opt1, Opt2, Opt3, Required} = Value,
++            {A, LA} = case Opt1 of absent -> {<<>>, 0}; _ -> pair(Opt1, []) end,
++            {B, LB} = case Opt2 of absent -> {<<>>, 0}; _ -> pair(Opt2, []) end,
++            {C, LC} = case Opt3 of absent -> {<<>>, 0}; _ -> pair(Opt3, []) end,
++            {D, LD} = required(Required, []),
++            Parts = [A,B,C,D],
++            Length = LA + LB + LC + LD,
++            finish(Tags, Parts, Length).
++        pair(Value, []) -> wrap(Value, length(Value)).
++        required(Value, []) -> wrap(Value, length(Value)).
++        other(Value) -> wrap([], Value).
++        wrap(Value, Length) -> {Value,Length}.
++        finish(Tags, Parts, Count) -> {Tags,Parts,Count}.
++        """;
++
++    internal static async Task Run()
++    {
++        byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
++        byte[] unproven = CodeGeneration.CompileBeamModule(
++            Source.Replace("absent -> {<<>>, 0}; _ -> pair(Opt2", "absent -> {<<>>, -1}; _ -> pair(Opt2", StringComparison.Ordinal),
++            Fixture
++        );
++        var module = BeamModule.Prepare(image, new BeamDependencySelection([]));
++        await using var runtime = new ProcessRuntime();
++        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
++        await actor.InvokeAsync(async context =>
++        {
++            Term absent = Term.A("absent");
++            Term chosen = Term.List(Term.I(65));
++            Term required = Term.List(Term.I(66), Term.I(67));
++            Term input = Term.Tuple(
++                Term.A("record"),
++                absent,
++                chosen,
++                absent,
++                required
++            );
++            Term empty = new BitString([]);
++            Term result = await module.Invoke(
++                context,
++                "encode",
++                input,
++                Nil.Value
++            );
++            if (!Term.Tuple(Nil.Value, Term.List(
++                empty,
++                chosen,
++                empty,
++                required
++            ), Term.I(3)).Equals(result))
++            {
++                throw new InvalidOperationException(WrongValue);
++            }
++
++            Term invalid = Term.Tuple(
++                Term.A("record"),
++                absent,
++                Term.A("bad"),
++                absent,
++                required
++            );
++            try
++            {
++                await module.Invoke(
++                    context,
++                    "encode",
++                    invalid,
++                    Nil.Value
++                );
++            }
++            catch (ErlangException error) when (error.ExceptionClass == ErlangExceptionClasses.Error
++                && error.Reason.Equals(Term.A("badarg")))
++            {
++                return Nil.Value;
++            }
++
++            throw new InvalidOperationException(WrongValue);
++        });
++
++        if (!HasTypedSums(image) || HasTypedSums(unproven))
++        {
++            throw new InvalidOperationException(WrongLayout);
++        }
++    }
++
++    private static bool HasTypedSums(byte[] image)
++    {
++        object code = Code(image);
++        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        object[] instructions = Items(code, "Instructions");
++        object[] types = Items(Property(code, "Types"), "Entries");
++        int start = Array.FindIndex(
++            instructions,
++            instruction => Opcode(instruction) == FunctionInfo
++                && Items(instruction, "Operands") is [_, var name, var arity]
++                && atoms[Value(name)] == "encode" && Value(arity) == 2
++        );
++        if (start < 0)
++        {
++            throw new InvalidOperationException(WrongLayout);
++        }
++
++        var arithmetic = instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo)
++            .Where(instruction => Opcode(instruction) == GcBifTwo).Select(instruction => Items(instruction, "Operands")).ToArray();
++
++        return arithmetic.Length == 3 && arithmetic.All(operands => HasBound(operands[3]) && HasBound(operands[4]));
++
++        bool HasBound(object operand) => Property(operand, "TypeIndex") is int index
++            && (long)Property(types[index], "Minimum") == 0;
++    }
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++
++    private static object[] Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
++}
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12613,6 +12613,7 @@
+ Test(Erlang.Tests.BeamIntegerGuardedReferenceChecks.TestName, Erlang.Tests.BeamIntegerGuardedReferenceChecks.Run);
+ Test(Erlang.Tests.BeamSizedRequiredDecoderPairChecks.TestName, Erlang.Tests.BeamSizedRequiredDecoderPairChecks.Run);
+ Test(Erlang.Tests.BeamNaturalListPairLengthChecks.TestName, Erlang.Tests.BeamNaturalListPairLengthChecks.Run);
++Test(Erlang.Tests.BeamOptionalPairLengthsChecks.TestName, Erlang.Tests.BeamOptionalPairLengthsChecks.Run);
+ Test(
+     Erlang.Tests.BeamWxTupleArityForwardChecks.TestName,
+     () =>

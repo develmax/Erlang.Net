@@ -1,0 +1,191 @@
+using static Erlang.Compiler.BeamEmissionFormat;
+
+namespace Erlang.Compiler;
+
+internal sealed partial class BeamModuleCompiler
+{
+    private sealed partial class GeneralEmitter
+    {
+        private bool TryEmitClosedIntegerGuardChoices(FunctionDefinition function)
+        {
+            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled || owner.OnLoadFunction is not null
+                || owner.IsDeclaredNative((function.Name, function.Arity))
+                || function.Clauses is not
+                [
+                {
+                    Patterns: [Pattern.Variable input, Pattern.Variable retained],
+                    Guard: Expr.GuardAlternatives { Items.Count: > 2 } alternatives,
+                    Body: Expr.Tuple
+                    {
+                        Items: [Expr.Call converter, Expr.Variable kept]
+                    }
+                } first,
+                { Guard: { } guard, Body: Expr.Tuple rangeReply } middle,
+                { Guard: null, Body: Expr.Tuple fallbackReply } fallback
+                ]
+                || !HasUnconditionalParameters(first) || !HasUnconditionalParameters(middle) || !HasUnconditionalParameters(fallback)
+                || kept.Name != retained.Name
+                || converter.Arguments is not [Expr.List { Items: [Expr.Variable singleton], Tail: null }]
+                || singleton.Name != input.Name
+                || ReadEntryCall(converter, [input.Name, retained.Name], allowConstructedArgument: true) is not
+                { Module: not null, ConstructedArgument: { } constructed } call
+                || ReadPrivateIntegerInputBounds(function, 0) is not { } bounds
+                || ReadIntegerDecisionReply(middle, rangeReply) is not { } rangeTag
+                || ReadIntegerDecisionReply(fallback, fallbackReply) is not { } fallbackTag)
+            {
+                return false;
+            }
+
+            var rangeNames = middle.Patterns.Cast<Pattern.Variable>().ToArray();
+            if (PredicateConjuncts(guard).ToArray() is not
+                [
+                    Expr.Binary
+                {
+                    Operator: ErlangOperators.LessOrEqual,
+                    Left: Expr.Literal { Value: Integer lower },
+                    Right: Expr.Variable firstBound
+                },
+                    Expr.Binary
+                {
+                    Operator: ErlangOperators.LessOrEqual,
+                    Left: Expr.Variable secondBound,
+                    Right: Expr.Literal { Value: Integer upper }
+                }
+                ]
+                || rangeNames[0].Name != firstBound.Name || firstBound.Name != secondBound.Name
+                || lower.Value <= bounds.Lower || upper.Value >= bounds.Upper || lower.Value > upper.Value)
+            {
+                return false;
+            }
+
+            var keys = new HashSet<Integer>();
+            foreach (Expr alternative in alternatives.Items)
+            {
+                var normalized = alternative is Expr.Binary { Operator: ErlangOperators.NumericEqual } loose
+                    ? loose with { Operator = ErlangOperators.ExactEqual }
+                    : alternative;
+                if (ReadIntegerGuardKey(normalized) is not { } key || key.Name != input.Name || !keys.Add(key.Key)
+                    || key.Key.Value < bounds.Lower || key.Key.Value > bounds.Upper)
+                {
+                    return false;
+                }
+            }
+
+            int selected = Label();
+            int range = Label();
+            int other = Label();
+            owner.EmitMembershipSelect(
+                0,
+                range,
+                keys.OrderBy(key => key.Value).Select(key => ((Term)key, selected)),
+                IntegerTypeBits,
+                bounds
+            );
+            Mark(selected);
+            EmitFrameAllocation(2, 1, constructed.HeapWords);
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                YRegisterTag,
+                0
+            );
+            EmitEntryCall(call);
+            owner.Op(TestHeap, BeamWire.UnsignedTag, 3);
+            owner.Operand(BeamWire.UnsignedTag, 1);
+            owner.EmitTupleHeader(XRegisterTag, 2);
+            owner.Operand(XRegisterTag, 0);
+            owner.Operand(YRegisterTag, 0);
+            owner.EmitFrameReturn(1);
+
+            Mark(range);
+            owner.Op(IsGreaterOrEqual, LabelTag, other);
+            owner.EmitTypedRegister(
+                0,
+                IntegerTypeBits,
+                bounds.Lower,
+                bounds.Upper
+            );
+            owner.LiteralOperand(lower);
+            owner.Op(IsGreaterOrEqual, LabelTag, other);
+            owner.LiteralOperand(upper);
+            owner.EmitTypedRegister(
+                0,
+                IntegerTypeBits,
+                (long)lower.Value,
+                bounds.Upper
+            );
+            EmitDecisionReply(rangeTag);
+            Mark(other);
+            EmitDecisionReply(fallbackTag);
+
+            return true;
+
+            void EmitDecisionReply(Atom tag)
+            {
+                owner.Op(TestHeap, BeamWire.UnsignedTag, 4);
+                owner.Operand(BeamWire.UnsignedTag, 2);
+                owner.EmitTupleHeader(XRegisterTag, 3);
+                owner.LiteralOperand(tag);
+                owner.Operand(XRegisterTag, 1);
+                owner.Operand(XRegisterTag, 0);
+                owner.instructions.WriteByte(Return);
+            }
+        }
+
+        private static Atom? ReadIntegerDecisionReply(Clause clause, Expr.Tuple tuple) =>
+            clause.Patterns is [Pattern.Variable input, Pattern.Variable retained]
+            && tuple.Items is [Expr.Literal { Value: Atom tag }, Expr.Variable output, Expr.Variable value]
+            && input.Name == value.Name && retained.Name == output.Name
+                ? tag
+                : null;
+
+        private (long Lower, long Upper)? ReadPrivateIntegerInputBounds(FunctionDefinition function, int parameter)
+        {
+            var signature = (function.Name, function.Arity);
+            if (owner.exportedFunctions.Contains(signature))
+            {
+                return null;
+            }
+
+            if (ReadPrivateIntegerBounds(function, parameter) is { } constant)
+            {
+                return constant;
+            }
+
+            bool hasDecodedCaller = false;
+            foreach (var caller in localFunctions.Values)
+            {
+                foreach (var clause in caller.Clauses)
+                {
+                    foreach (var expression in LocalFunctionEntries.ClauseExpressions([clause]).SelectMany(LocalFunctionEntries.Walk))
+                    {
+                        if (expression is Expr.FunctionReference reference && (reference.Name, reference.Arity) == signature)
+                        {
+                            return null;
+                        }
+
+                        if (expression is not Expr.Call { Module: null, DynamicRemote: false } call
+                            || (call.Function, call.Arguments.Count) != signature)
+                        {
+                            continue;
+                        }
+
+                        // Direct list elements use the clause's bindings and introduce no new scope.
+                        if (clause.Body is not Expr.List list || !list.Items.Any(item => ReferenceEquals(item, call))
+                            || call.Arguments[parameter] is not Expr.Variable input
+                            || !clause.Patterns.OfType<BitPattern>().SelectMany(pattern => pattern.Segments)
+                                .Any(segment => BitUnicode.IsUtf(segment.Specification.Type)
+                                    && segment.Value is Pattern.Variable decoded && decoded.Name == input.Name))
+                        {
+                            return null;
+                        }
+
+                        hasDecodedCaller = true;
+                    }
+                }
+            }
+
+            return hasDecodedCaller ? (0L, UtfSegmentLimits.MaximumScalar) : null;
+        }
+    }
+}

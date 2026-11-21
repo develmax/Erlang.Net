@@ -1,0 +1,10 @@
+[{choose,{ok,{ok,final}},[{fetch,handle},{forgot,scratch}]},
+ {choose,{ok,{error,reason}},[{fetch,handle},{forgot,scratch}]},
+ {choose,{error,{case_clause,{bad,shape}},8},
+         [{fetch,handle},{forgot,scratch}]},
+ {rewritten,{ok,{error,reason}},[{fetch,handle},{forgot,scratch}]},
+ {rewritten,{error,{case_clause,unexpected},16},
+            [{fetch,handle},{forgot,scratch}]},
+ {varied,{ok,{changed,reason}},[{fetch,handle},{forgot,scratch}]},
+ {choose,{error,unavailable,7},[{fetch,handle}]},
+ {choose,{error,{badrecord,invalid},6},[]}].

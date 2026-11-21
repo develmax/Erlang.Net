@@ -1,0 +1,4 @@
+$stage='D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/ber-continuations-and-owned-frame-frontiers-1958'
+& 'C:/Users/Maksim/AppData/Local/Programs/Python/Python312/python.exe' "$stage/verify-linked-runtime.py" "$stage" 'D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/boolean-branches-and-value-lifetimes-1957-retake' 'D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/library376-official-compiler/installed' 'D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118' 'D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/protected-failures-and-shared-match-lifetime-1956-retake' 'D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/diameter-combined-executable-lines-1954/capture/bin' > "$stage/linked-runtime.stdout.log" 2> "$stage/linked-runtime.stderr.log"
+$LASTEXITCODE | Set-Content "$stage/linked-runtime.exit"
+exit $LASTEXITCODE

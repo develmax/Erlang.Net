@@ -52,6 +52,11 @@ internal sealed partial class BeamModuleCompiler
     {
         private bool TryEmitTupleFieldListComprehension(FunctionDefinition function)
         {
+            if (TryEmitCheckedRecordListProjection(function))
+            {
+                return true;
+            }
+
             if (!owner.SsaTypeInferenceEnabled || !function.IsRecursiveListMapper
                 || function.Clauses[0] is not
                 {
@@ -66,6 +71,23 @@ internal sealed partial class BeamModuleCompiler
             }
 
             int empty = Label();
+            if (function.HasProvenRecursiveTupleInput)
+            {
+                owner.EmitNonemptyList(0, empty);
+                EmitFrameAllocation(1, 1);
+                owner.EmitListParts(
+                    0,
+                    YRegisterTag,
+                    0,
+                    XRegisterTag,
+                    0
+                );
+                EmitProjectedCons();
+                EmitRecursiveListMappingEnd(function, empty);
+
+                return true;
+            }
+
             int skip = Label();
             owner.EmitNonemptyList(0, empty);
             owner.EmitListParts(
@@ -97,33 +119,99 @@ internal sealed partial class BeamModuleCompiler
                 0
             );
 
-            if (projection.Field is int field)
-            {
-                // The selected field's only use follows the recursive call.
-                owner.EmitFieldCall(1, entry);
-                owner.Op(TestHeap, BeamWire.UnsignedTag, ConsHeapWords);
-                owner.Operand(BeamWire.UnsignedTag, 1);
-                owner.EmitTuplePart(
-                    0,
-                    field,
-                    1,
-                    inputTag: YRegisterTag
-                );
-                owner.Op(PutList, XRegisterTag, 1);
-                owner.Operand(XRegisterTag, 0);
-                owner.Operand(XRegisterTag, 0);
-                owner.EmitFrameReturn(1);
-            }
-            else
-            {
-                owner.EmitRecursiveCons(entry, 1);
-            }
-
+            EmitProjectedCons();
             Mark(skip);
             EmitRecursiveListMappingRejection(function, entry, 1);
             EmitRecursiveListMappingEnd(function, empty);
 
             return true;
+
+            void EmitProjectedCons()
+            {
+                if (projection.Field is not int field)
+                {
+                    owner.EmitRecursiveCons(entry, 1);
+
+                    return;
+                }
+
+                EmitRecursiveFieldCons(entry, field);
+            }
+        }
+
+        private bool TryEmitCheckedRecordListProjection(FunctionDefinition function)
+        {
+            if (!owner.SsaTypeInferenceEnabled || owner.ModuleOptimizationDisabled || !function.IsRecursiveListMapper
+                || function.Clauses is not
+                [
+                {
+                    Guard: null,
+                    Patterns: [Pattern.List { Items: [Pattern.Variable item] }],
+                    Body: Expr.List { Items: [Expr.RecordAccess { Value: Expr.Variable source } access] }
+                },
+                { Body: Expr.Variable }
+                ] || source.Name != item.Name || source.Name == VariableScopeNames.Wildcard
+                || !entries.TryGetValue((function.Name, 1), out int entry))
+            {
+                return false;
+            }
+
+            int empty = Label();
+            int badRecord = Label();
+            owner.EmitNonemptyList(0, empty);
+            owner.EmitListParts(
+                0,
+                XRegisterTag,
+                1,
+                XRegisterTag,
+                0
+            );
+            EmitDetailRecordTest(
+                1,
+                access.Arity,
+                new Atom(access.Name),
+                badRecord
+            );
+            EmitFrameAllocation(2, 1);
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                YRegisterTag,
+                0
+            );
+            EmitRecursiveFieldCons(entry, access.Index);
+            EmitRecursiveListMappingEnd(function, empty);
+
+            Mark(badRecord);
+            BeamSourceLocation failure = access.SourceLine > 0
+                ? new(access.PreprocessorFile ?? location.File, access.SourceLine)
+                : location;
+            if (failure != location)
+            {
+                owner.EmitLine(failure);
+            }
+
+            owner.Op(BadRecord, XRegisterTag, 1);
+
+            return true;
+        }
+
+        private void EmitRecursiveFieldCons(int entry, int field)
+        {
+            // The checked field is read only to construct the result after recursion.
+            owner.EmitFieldCall(1, entry);
+            owner.Op(TestHeap, BeamWire.UnsignedTag, ConsHeapWords);
+            owner.Operand(BeamWire.UnsignedTag, 1);
+            owner.EmitTuplePart(
+                0,
+                field,
+                1,
+                inputTag: YRegisterTag
+            );
+            owner.Op(PutList, XRegisterTag, 1);
+            owner.Operand(XRegisterTag, 0);
+            owner.Operand(XRegisterTag, 0);
+            owner.EmitFrameReturn(1);
         }
     }
 }

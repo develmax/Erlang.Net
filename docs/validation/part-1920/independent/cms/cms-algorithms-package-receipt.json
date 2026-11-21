@@ -1,0 +1,120 @@
+{
+  "OTP": {
+    "Tag": "OTP-29.1.1",
+    "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5"
+  },
+  "Sdk": "10.0.400",
+  "Runtime": "10.0.11",
+  "CompilerSha256": "A7A2109F84417ECD6CAAFB91A57AA407574CAAFBC2CB5A10A2BE49ECDDD4A128",
+  "Patch": {
+    "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\safecurves-existing-residual-1912\\mixed-sequences-constant-choice-retake\\replay-V-with-pkixalgs\\mixed-defaults-and-forwarded-choices-V-pkix.patch",
+    "Archive": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\owned-case-layout-and-shared-receivers-1918\\source.zip",
+    "ArchiveSha256": "69429B1415B4E630722A8F573C267FC4707D79ABF3634ECDDABDFC2FF8BF54AF",
+    "PkixPatchSha256": "C8DBA539C180A419D55C22391C5BD3FCA6832CD81E4278E9A98D6A57F408A2AC",
+    "Preimages": {
+      "BeamModuleCompiler.GeneralEmitter.cs": "84DB570161BEF0B15544DA2FA361F24CD3A45E980A23F7CFC210A943713AD8D1",
+      "BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs": "51E1888CE4D4FA20349B20CE0DA3A7E06FEA641EEB9504E5747C283A2157E01E",
+      "BeamModuleCompiler.RequiredOptionalSequenceDecoder.cs": "11F84A13D31C632C581E43A0B1DFB99A77A2433DB718E9FA3DF58C4AA4AAAC3C"
+    },
+    "PatchSha256": "CFDA56DA2DB7FB2B7F4B1065DDAE73F5D7DCB298953C95C947B5C4A644105004"
+  },
+  "Corpus": {
+    "Total": 46,
+    "ElapsedSeconds": 150.4132986,
+    "Cache": "Disabled",
+    "Before": {
+      "Equal": 24,
+      "Different": 22,
+      "Unsupported": 0,
+      "SourceRejected": 0
+    },
+    "After": {
+      "Equal": 25,
+      "Different": 21,
+      "Unsupported": 0,
+      "SourceRejected": 0
+    },
+    "RawSectionsGained": 8,
+    "RawSectionsLost": 0,
+    "ChangedModules": 12,
+    "NewExact": [
+      "lib/public_key-1.21.7/ebin/CryptographicMessageSyntaxAlgorithms-2009.beam"
+    ],
+    "LostExact": [],
+    "NormalizedFunctionsGained": 42,
+    "NormalizedFunctionsLost": 0
+  },
+  "ExactImage": {
+    "SourceGenerated": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/safecurves-existing-residual-1912/mixed-sequences-constant-choice-retake/exact.json.generated/lib/public_key-1.21.7/ebin/CryptographicMessageSyntaxAlgorithms-2009.beam",
+    "Sdk": "10.0.400",
+    "Seconds": 5.1636451,
+    "Tool": "074804F59FB7E7A612A632B0D2DC91F5060750F103A7AC0B8B517D5B546BD5DA",
+    "Compiler": "A7A2109F84417ECD6CAAFB91A57AA407574CAAFBC2CB5A10A2BE49ECDDD4A128",
+    "CorpusExit": 0,
+    "GeneratedSha256": "2FDF23BB29867F7DDB75094A2C41DFB3252AE1387500D2C61EECA8B59189DD10",
+    "Beam": "lib/public_key-1.21.7/ebin/CryptographicMessageSyntaxAlgorithms-2009.beam",
+    "ErlSourceSha256": "093FB2DA637D3C344D76FBB3F11E405B26580A6AA3506ADBA37C9A3F2B929B3B",
+    "ReferenceSha256": "2FDF23BB29867F7DDB75094A2C41DFB3252AE1387500D2C61EECA8B59189DD10",
+    "Equal": true,
+    "Bytes": 56476
+  },
+  "Native": {
+    "Seconds": 1.1466437,
+    "Outcomes": {
+      "bounded": {
+        "Count": 18,
+        "TermsSha256": "9A25CB9F3E8746276420F4233B87B1FACFB6149088F138AC1216DEDD4A1BAF02",
+        "Output": "7 successful returns.\n18 results, 18 prior matches, 18 candidate matches."
+      },
+      "mixed": {
+        "Count": 18,
+        "TermsSha256": "2936E6E32A0693F0BB023B0AD5F85E04CFC49A3A06CD662B15F53057310CB48D",
+        "Output": "8 successful returns.\n18 results, 18 prior matches, 18 candidate matches."
+      },
+      "release": {
+        "Count": 21,
+        "TermsSha256": "417E686F0DB04B2108B9F1126C5D42DC5292468039DFEAD8ECCF334D11D9706B",
+        "Output": "11 successful returns.\n21 results, 21 prior matches, 21 candidate matches."
+      },
+      "ocsp": {
+        "Count": 10,
+        "TermsSha256": "D90A78C451F1DBEA8AAF3133A06C3F662FC5B3440F3F204FBD1596AB82B97872",
+        "Output": "5 successful returns.\n10 results, 10 prior matches, 10 candidate matches."
+      }
+    },
+    "Compiler": "A7A2109F84417ECD6CAAFB91A57AA407574CAAFBC2CB5A10A2BE49ECDDD4A128"
+  },
+  "Managed": {
+    "Carried": 3,
+    "New": 2,
+    "Compiler": "A7A2109F84417ECD6CAAFB91A57AA407574CAAFBC2CB5A10A2BE49ECDDD4A128"
+  },
+  "PreviousAttempt": {
+    "Report": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\safecurves-existing-residual-1912\\mixed-default-and-bounded-sequences\\expanded-delta.json",
+    "RawLoss": "OCSP-2024-08 LitT",
+    "Resolution": "Fold the tagged result tuple when the called decoder has a proven constant return."
+  },
+  "EvidenceSha256": {
+    "expanded.json": "5AD5A7EBFF4C6EE3B3F3F9E2F72757D2300D1112749E2727A74D7BC808C1EA40",
+    "expanded.json.timings.json": "E9DF0951C958503250F335F1806769908CBA9747D9879E9DA2F79A3D9D938D57",
+    "expanded-delta.json": "E44E6B14E871709FE58F3D9B950DDCD0B0F827A2D934018BBCE107F831533E31",
+    "expanded-normalized": "1768299DC15478251261A1617A90FF4014F2CC075490A832AFB18BB6A469C00D",
+    "expanded-normalized.log": "3D5B52F35037DA36D902BCA1420185B40C68171933B8F5829A381D272352ED8F",
+    "exact-receipt.json": "B731A9CC996FD6A1E89DF8F0BBB7E4FD7A153667117E6C629FBC76E52D8E28DE",
+    "native-final-receipt.json": "5ACB6CDC899D2A1EFED005B7884CA60F4BBB669B13F8F37061BDC23DB34DEABB",
+    "fixture-receipt.json": "8F4FDFD57B812E1355A73B9251353E28EFF311145A76E493710F1B175C71A3B2",
+    "style-check-retake.log": "BB08B466C0BFDFB9FC2C1B90B9C6457E06E38B3336410FAE7964D8D1C4F32B1F",
+    "replay-V-with-pkixalgs/capture.json": "5EC8E2E6C701074A9B59F8FA8C06299035305985734E69FB853394EDBDC881C4",
+    "native-final-bounded.terms": "9A25CB9F3E8746276420F4233B87B1FACFB6149088F138AC1216DEDD4A1BAF02",
+    "native-final-mixed.terms": "2936E6E32A0693F0BB023B0AD5F85E04CFC49A3A06CD662B15F53057310CB48D",
+    "native-final-release.terms": "417E686F0DB04B2108B9F1126C5D42DC5292468039DFEAD8ECCF334D11D9706B",
+    "native-final-ocsp.terms": "D90A78C451F1DBEA8AAF3133A06C3F662FC5B3440F3F204FBD1596AB82B97872",
+    "fixtures-retake/bounded/fixture-Candidate/receipt.json": "C4F98777ACB14688938C231F3D5AC1DDC65E7AC024DE2E5B0F1B9BA2F9DCAED1",
+    "carried-mixed/final-receipt.json": "0E9A28E5822FE958E98A134FF59FAC8EF4525AFA81E0AEDAB8C95C1D727F0651",
+    "carried-ec-encoder/final-receipt.json": "601B07212E952A20C49B591B3B4867BFF64B3F44DB3F5BD18AF421694A2A485D",
+    "carried-ec-decoder/final-receipt.json": "7554093A047B0C0B6537C0A704152002BDDA4BF6FA29189C914BB37FDD554EB4",
+    "carried-ordinary-prefix/final-receipt.json": "C68D8CE91FEBFE4C59F4B9BE8A52566522D9F7E58AC7E74118E563C0AA20895B",
+    "fixtures-retake/bounded/fixture-Parent/receipt.json": "7EEAB68396BBDDA7F48B41A5F67F41AD7912E42544A9BA37D9251568D1574723",
+    "replay-V-with-pkixalgs/mixed-defaults-and-forwarded-choices-V-pkix.patch": "CFDA56DA2DB7FB2B7F4B1065DDAE73F5D7DCB298953C95C947B5C4A644105004"
+  }
+}

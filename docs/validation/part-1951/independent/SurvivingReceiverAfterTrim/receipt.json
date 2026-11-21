@@ -1,0 +1,28 @@
+{
+  "Part": 1975,
+  "Reference": "OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourceBaseline": "Part1949 0d74bdc34d7938ef7587b8f2bf8dc98a9b43b4459335ca17a6c2c33483b097b2",
+  "CompilerBaseline": "fbb44521955aec5171678021fa2d7c82c3f34b7b2e0451b7b292893a85906e5a",
+  "PinnedSource": [
+    "lib/compiler/src/beam_ssa_codegen.erl:2645-2700 opt_move_to_x0, move_past_kill, setup_args",
+    "lib/compiler/src/beam_trim.erl surviving frame remap"
+  ],
+  "Scope": "13 actual release files with one worker; 5 Equal and 8 Different before/after. Only the generated ex_frame_utils image changed. new_win/1 is now normalized instruction-exact. The whole image still differs.",
+  "Native": "7 installed Windows OTP cases, exact terms/effect order and first error frame with headless wx stubs.",
+  "Regression": "Permanent focused test, baseline -532462766 expected shape assertion and candidate exit 0.",
+  "Hashes": {
+    "production.patch": "c5f192953c3840f369159a526acd0353bd87af95e99379b6dee1c8a42a9e3cba",
+    "test.patch": "af4c0df2fad37f75bd10c037c6a0e9242f4fc20619b09daf382d307002072c71",
+    "replay-files.json": "b780cf9527a396022f06c6cef0a3e8ddec453446f507106cfaa340be8283cfeb",
+    "strict-replay.log": "433a2a6407570ec7d27974a6ec1aa6a468bc53c0f406acfb277d51bc15529b5d",
+    "style-check.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "before.json": "083b071082af1c017fd7ebc2b1bd20d702874b1e4f93ce0b471d5850e17505c1",
+    "scope.json": "083b071082af1c017fd7ebc2b1bd20d702874b1e4f93ce0b471d5850e17505c1",
+    "ex_frame_utils-post.diff": "d0e2f185809f6aa6abf0689d3877b14357319b081fc2adf57b2020bbde2309dd",
+    "native-frame.eval": "d521d16b4456979ef60aed56ab64ab9f5710943984c0b04aa7ff6334e3237a69",
+    "native-pinned.terms": "6e5c8a18fc01598f9696c8aa81521c06e863516eb663a06d622d611c21abf2fe",
+    "native-candidate.terms": "6e5c8a18fc01598f9696c8aa81521c06e863516eb663a06d622d611c21abf2fe",
+    "focused-exits.json": "1faa2d4586b2e18fbd523bb5df54f7bb4a348aa73665bdf7320961ff840dad1a",
+    "compiler-bin/Erlang.Compiler.dll": "1d62003b5e12d077c1ef58275e22ec273fa62d4960cba99883a190a8b02ccaa4"
+  }
+}

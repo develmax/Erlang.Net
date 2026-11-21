@@ -1,0 +1,108 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamGroupedTupleConversionsChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamGroupedTupleConversionsChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamGroupedTupleConversionsChecks.cs
+@@ -0,0 +1,103 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamGroupedTupleConversionsChecks
++{
++    internal const string TestName = "compiler/beam/groups-checked-tagged-tuple-conversions";
++    private const string Fixture = "beam_grouped_tuple_conversions_probe.erl";
++    private const string UnexpectedLayout = "Grouped tuple conversions did not match their pinned layout.";
++
++    internal const string Source = """
++        -module(beam_grouped_tuple_conversions_probe).
++        -export([convert/1, escaped/0]).
++
++        convert({outer, Nested, Carry}) ->
++            {source, A, B} = Nested,
++            A1 = convert(A),
++            B1 = convert(B),
++            Built = {inner, A1, B1},
++            {converted, Built, Carry};
++        convert({direct, T, {correct, V}}) -> {picked, T, V};
++        convert({item, K, V}) -> {changed, K, convert(V)};
++        convert({kind, New, A, B, C, D}=Original) ->
++            case New of
++                current -> {updated, New, A, B, C, D};
++                _ -> Original
++            end;
++        convert({params,{source_params, A, B, C}}) -> {new_params,A,B,C};
++        convert({retag,_,_,_}=T) -> setelement(1,T,changed);
++        convert(T) when is_tuple(T) ->
++            case keep(T) of
++                true -> T;
++                false -> list_to_tuple(convert_list(tuple_to_list(T)))
++            end;
++        convert(L) when is_list(L) -> convert_list(L);
++        convert(Other) -> Other.
++
++        convert_list(Values) -> [convert(Value) || Value <- Values].
++        keep({leaf,_,_,Bin}) when is_binary(Bin) -> true;
++        keep(T) ->
++            case element(1,T) of
++                I when is_integer(I) -> true;
++                identity -> true;
++                stable -> true;
++                additional -> true;
++                _ -> false
++            end.
++
++        escaped() -> fun keep_open/1.
++        keep_open({leaf,_,_,Bin}) when is_binary(Bin) -> true;
++        keep_open(T) ->
++            case element(1,T) of
++                I when is_integer(I) -> true;
++                identity -> true;
++                stable -> true;
++                additional -> true;
++                _ -> false
++            end.
++        """;
++
++    internal static byte[] CompileFixture() => CodeGeneration.CompileBeamModule(Source, Fixture);
++
++    internal static void Run()
++    {
++        object code = Code(CompileFixture());
++        object[] instructions = Items(code, "Instructions").ToArray();
++        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        object[] heads = Body("convert");
++        object[] predicate = Body("keep");
++        object[] escaped = Body("keep_open");
++        if (heads.Count(instruction => Opcode(instruction) == SelectTupleArity) != 1
++            || !heads.Any(instruction => Opcode(instruction) == Swap)
++            || !heads.Any(instruction => Opcode(instruction) == BadMatch)
++            || predicate.Count(instruction => Opcode(instruction) == SelectValue) != 1
++            || escaped.Any(instruction => Opcode(instruction) == SelectValue))
++        {
++            throw new InvalidOperationException(UnexpectedLayout);
++        }
++
++        object[] Body(string name)
++        {
++            int info = Array.FindIndex(
++                instructions,
++                instruction => Opcode(instruction) == FunctionInfo
++                    && Items(instruction, "Operands").ToArray() is [_, var atom, var width]
++                    && atoms[Value(atom)] == name && Value(width) == 1
++            );
++
++            return info < 0 ? [] : instructions.Skip(info + 2)
++                .TakeWhile(instruction => Opcode(instruction) != FunctionInfo).ToArray();
++        }
++    }
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++
++    private static IEnumerable<object> Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>();
++}

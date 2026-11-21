@@ -1,0 +1,138 @@
+using System.Collections;
+using System.Numerics;
+using Erlang;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamSizedRequiredDecoderPairChecks
+{
+    internal const string TestName = "compiler/beam/retains-two-required-sized-string-reads";
+    private const string Fixture = "beam_sized_required_decoder_pair.erl";
+    private const string WrongLayout = "Two proven sized reads did not share the expected frame and error branches.";
+    private const string WrongValue = "The pair of sized reads changed a value or failure.";
+
+    private const string Source = """
+        -module(beam_sized_required_decoder_pair).
+        -export([read_pair/2]).
+        read_pair(Input, Tags) ->
+            Fields = prepare(Input, Tags),
+            [H1|R1] = Fields,
+            V1 = begin
+                Bin1 = read(H1, []),
+                Len1 = byte_size(Bin1),
+                if 1 =< Len1, Len1 =< 2 -> binary_to_list(Bin1);
+                   true -> exit({error,{format,first}})
+                end
+            end,
+            [H2|R2] = R1,
+            V2 = begin
+                Bin2 = read(H2, []),
+                Len2 = byte_size(Bin2),
+                if 1 =< Len2, Len2 =< 3 -> binary_to_list(Bin2);
+                   true -> exit({error,{format,second}})
+                end
+            end,
+            case R2 of [] -> true; _ -> exit({error,{format,{unexpected,R2}}}) end,
+            Result = {pair,V1,V2},
+            Result.
+        prepare(Input, []) -> Input.
+        read(Value, []) -> iolist_to_binary(Value).
+        unchecked(Value, []) -> Value.
+        """;
+
+    internal static async Task Run()
+    {
+        byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
+        byte[] unproven = CodeGeneration.CompileBeamModule(
+            Source.Replace("Bin2 = read(H2, [])", "Bin2 = unchecked(H2, [])", StringComparison.Ordinal),
+            Fixture
+        );
+        var module = BeamModule.Prepare(image, new BeamDependencySelection([]));
+        await using var runtime = new ProcessRuntime();
+        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
+        await actor.InvokeAsync(async context =>
+        {
+            Term first = Term.List(Term.I(65), Term.I(66));
+            Term second = Term.List(Term.I(67), Term.I(68), Term.I(69));
+            Term extra = Term.A("extra");
+            Term success = await module.Invoke(
+                context,
+                "read_pair",
+                Term.List(first, second),
+                Nil.Value
+            );
+            if (!Term.Tuple(Term.A("pair"), first, second).Equals(success))
+            {
+                throw new InvalidOperationException(WrongValue);
+            }
+
+            await Reject(Term.List(Nil.Value, Nil.Value), ErlangExceptionClasses.Exit, Reason(Term.A("first")));
+            await Reject(Term.List(first, Nil.Value), ErlangExceptionClasses.Exit, Reason(Term.A("second")));
+            await Reject(Term.List(first), ErlangExceptionClasses.Error, Term.Tuple(Term.A("badmatch"), Nil.Value));
+            await Reject(
+                Term.List(first, second, extra),
+                ErlangExceptionClasses.Exit,
+                Reason(Term.Tuple(Term.A("unexpected"), Term.List(extra)))
+            );
+
+            return Nil.Value;
+
+            async Task Reject(Term input, string kind, Term expected)
+            {
+                try
+                {
+                    await module.Invoke(
+                        context,
+                        "read_pair",
+                        input,
+                        Nil.Value
+                    );
+                }
+                catch (ErlangException error) when (error.ExceptionClass == kind && error.Reason.Equals(expected))
+                {
+                    return;
+                }
+
+                throw new InvalidOperationException(WrongValue);
+            }
+        });
+
+        if (Frame(image) != 3 || Frame(unproven) <= 3)
+        {
+            throw new InvalidOperationException(WrongLayout);
+        }
+    }
+
+    private static Term Reason(Term detail) => Term.Tuple(Term.A("error"), Term.Tuple(Term.A("format"), detail));
+
+    private static int Frame(byte[] image)
+    {
+        object code = Code(image);
+        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
+        object[] instructions = Items(code, "Instructions");
+        int start = Array.FindIndex(
+            instructions,
+            instruction => Opcode(instruction) == FunctionInfo
+                && Items(instruction, "Operands") is [_, var name, var arity]
+                && atoms[Value(name)] == "read_pair" && Value(arity) == 2
+        );
+        if (start < 0)
+        {
+            throw new InvalidOperationException(WrongLayout);
+        }
+
+        object frame = instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo)
+            .Single(instruction => Opcode(instruction) == Allocate);
+
+        return Value(Items(frame, "Operands")[0]);
+    }
+
+    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
+
+    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
+
+    private static object[] Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
+}

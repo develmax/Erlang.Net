@@ -1,0 +1,49 @@
+{
+  "Proof": {
+    "Otp": "OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "FrozenParent": {
+      "Source": "fa86f7aca180a8af231eed3bcb6b6eaeed8ce243395852655e6f1a463b09b3b2",
+      "Paths": 743,
+      "RemovedPaths": [],
+      "Compiler": "04e413fc451ffda644f6f02bfeeed15272c459eb5f85a47bc456522a6ad38980",
+      "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+      "Tests": "404248c2a00ddb51319e8ef15d06fc65c5561f89241624ca0bec514e60372db7",
+      "ParentSource": "eea48b5933bb20925b4c49303a2a443a9c7e60796c9951b1769a1cdcaed7d66b",
+      "CorpusTool": "8226ffa9bceb5beb1ae3afc49a9088c437a366ec584ab3060424dabb271de834"
+    },
+    "Compiler": "D1AF6F3775D277A010F751084024A466C318BD439062D5906677C4BDEBCB6434",
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "Cases": {
+      "Compiler": "D1AF6F3775D277A010F751084024A466C318BD439062D5906677C4BDEBCB6434",
+      "Regressions": 2,
+      "Observations": 25
+    },
+    "Counts": {
+      "Different": 8,
+      "Equal": 26
+    },
+    "Scope": {
+      "Count": 34,
+      "Seconds": 70.2385982,
+      "Compiler": "D1AF6F3775D277A010F751084024A466C318BD439062D5906677C4BDEBCB6434",
+      "ExitCode": 1
+    },
+    "Normalized": "#{functions => 10,gains => [],losses => [],frame_decreases => 0,frame_increases => 0}.",
+    "HeldEarlierFrameRegressions": [
+      "snmpm_net_if:socket_params/5",
+      "snmpm_net_if_mt:socket_params/5",
+      "shell_docs:trim_last/2"
+    ],
+    "PatchDigests": {
+      "production.patch": "dddb3521e5d459a690eb22b7d2dc3dc2d0ace197a876e467b729e1f76d16ae49",
+      "test.patch": "159b27c30865a8a51ff61b62a48786157a7508ffaba1ef2883c89e99ae021746"
+    }
+  },
+  "FrozenReplayParent": "4ecf38a4a88e2942d4c14d3daf9c80d16b1db47d48cd366070b32ed7ec8c2b6d",
+  "Rationale": "Compose the existing final label edits without revisiting register allocation.",
+  "PatchDigests": {
+    "production.patch": "02544cf9f29960872e11e3cf743a770835a0a7db95f340ebf729762c25860d70",
+    "test.patch": "448310dc049058d026421af89e773c25444ccb1a698d5038b01cf19489509b14"
+  },
+  "FixtureWhitespace": "Remove delimiter indentation from four blank lines of the Erlang raw string literals."
+}

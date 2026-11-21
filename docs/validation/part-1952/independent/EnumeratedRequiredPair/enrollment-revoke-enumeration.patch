@@ -1,0 +1,247 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs
+@@ -75,6 +75,7 @@
+             DefaultEncodeField? finalDefault = null;
+             DefaultEncodeField? middleDefault = null;
+             DefaultEncodeField? firstDefault = null;
++            RequiredPairEnumeration? requiredEnumeration = null;
+             bool trailingOptionalStarted = false;
+             bool allOptional = true;
+             for (int index = 0; index < count; index++)
+@@ -94,6 +95,7 @@
+ 
+                 if (retainedPredicates is not null)
+                 {
++                    bool allowsLeadingForeign = count == 6 && index == 0;
+                     bool allowsFinalForeign = count == 4 && index == count - 1
+                         && fields[0] is { Omits: null, Call.Module: null, Constants: [Cons] }
+                         && fields[1] is { Omits: null, Call.Module: null, Constants: [Cons] }
+@@ -101,7 +103,21 @@
+                         {
+                             Names: null, Tags: Cons, Default: TupleTerm { Items: [Nil, Integer omittedLength] }
+                         } && omittedLength.Value.IsZero;
+-                    if (field is Expr.Case conditional
++                    if (count == 6 && index == 2
++                        && fields[0] is { Omits: null, Call.Module: not null, Constants: [Nil] }
++                        && fields[1] is { Omits: null, Call.Module: null, Constants: [Cons] }
++                        && ReadRequiredPairEnumeration(field, value.Name, names) is { } enumeration)
++                    {
++                        requiredEnumeration = enumeration;
++                        fields[index] = new(
++                            enumeration.Branches[0].Call,
++                            enumeration.Entry,
++                            [],
++                            null,
++                            null
++                        );
++                    }
++                    else if (field is Expr.Case conditional
+                         && ReadDefaultEncodeField(conditional, value.Name, allowNamedOptions: true) is { } retainedPredicate)
+                     {
+                         retainedPredicates[index] = retainedPredicate;
+@@ -119,7 +135,7 @@
+                         allowForeign: true,
+                         allowForeignOptional: count == 3 && index > 0
+                     ) is { } retained
+-                    && (retained.Call.Module is null
++                    && (retained.Call.Module is null || allowsLeadingForeign && retained is { Omits: null, Constants: [Nil] }
+                         || allowsFinalForeign && retained is { Omits: null, Constants: [Cons] }
+                         || count == 3 && index > 0
+                         && retained is { Omits: Atom, Constants.Count: 1 }
+@@ -360,7 +376,10 @@
+                     && retainedPredicates[2] is null;
+                 bool checkedFinalAfterDefault = retainedPredicates is [null, null, { Names: null }, null]
+                     && fields[^1] is { Omits: null, Call.Module: not null };
+-                if (!allConditional && !leadingRequired && !checkedFinalAfterDefault)
++                bool checkedEnumeratedPrefix = requiredEnumeration is not null && retainedPredicates.All(predicate => predicate is null)
++                    && fields.Skip(3).All(field => field is { Omits: Atom, Call.Module: null, Constants: [Cons] })
++                    && fields[3].Omits!.Equals(fields[4].Omits) && fields[3].Omits!.Equals(fields[5].Omits);
++                if (!allConditional && !leadingRequired && !checkedFinalAfterDefault && !checkedEnumeratedPrefix)
+                 {
+                     return false;
+                 }
+@@ -371,7 +390,8 @@
+                     null,
+                     finishEntry,
+                     additions,
+-                    retainedPredicates
++                    retainedPredicates,
++                    requiredEnumeration
+                 );
+             }
+ 
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultPrefixedSequenceEncoder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultPrefixedSequenceEncoder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultPrefixedSequenceEncoder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultPrefixedSequenceEncoder.cs
+@@ -12,7 +12,8 @@
+             DefaultEncodeField? first,
+             int finishEntry,
+             IReadOnlyList<Expr.Binary> additions,
+-            IReadOnlyList<DefaultEncodeField?>? retainedPredicates = null
++            IReadOnlyList<DefaultEncodeField?>? retainedPredicates = null,
++            RequiredPairEnumeration? requiredEnumeration = null
+         )
+         {
+             int count = fields.Count;
+@@ -62,6 +63,7 @@
+                 }
+             }
+ 
++            int badEnumeration = requiredEnumeration is null ? 0 : Label();
+             int badInput = Label();
+             owner.EmitTupleCheck(0, count + 1, badInput);
+             EmitFrameAllocation(arity: 2, size: frame);
+@@ -117,6 +119,22 @@
+                 int slot = PairSlot(index);
+                 bool last = index == count - 1;
+                 var predicate = retainedPredicates?[index];
++                if (index == 2 && requiredEnumeration is not null)
++                {
++                    owner.MoveRegister(
++                        XRegisterTag,
++                        0,
++                        YRegisterTag,
++                        PairSlot(index - 1)
++                    );
++                    owner.Op(GetTupleElement, YRegisterTag, recordSlot);
++                    owner.Operand(BeamWire.UnsignedTag, index + 1);
++                    owner.Operand(XRegisterTag, 0);
++                    EmitRequiredPairEnumeration(requiredEnumeration, slot, badEnumeration);
++                    pending = false;
++                    continue;
++                }
++
+                 int projectedRegister = predicate is null ? pending ? 1 : 0 : last ? recordSlot : slot;
+                 owner.Op(GetTupleElement, index == 0 ? XRegisterTag : YRegisterTag, index == 0 ? 0 : recordSlot);
+                 owner.Operand(BeamWire.UnsignedTag, index + 1);
+@@ -240,6 +258,18 @@
+                 outerTagSlot: tagsSlot - trimmed,
+                 joinedLengthTypes: lengths
+             );
++            if (requiredEnumeration is not null)
++            {
++                Mark(badEnumeration);
++                EmitTaggedExit(
++                    requiredEnumeration.Failure,
++                    requiredEnumeration.Tags,
++                    location,
++                    framed: true,
++                    frameSlots: frame
++                );
++            }
++
+             foreach (var failure in failedReturns)
+             {
+                 Mark(failure.Value);
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.OptionalPairEnumeration.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.OptionalPairEnumeration.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.OptionalPairEnumeration.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.OptionalPairEnumeration.cs
+@@ -7,6 +7,107 @@
+     private sealed partial class GeneralEmitter
+     {
+         private sealed record OptionalPairEnumeration(Expr.Case Decision, Atom Missing, Term Default);
++
++        private sealed record RequiredPairEnumeration(
++            IReadOnlyList<(Atom Key, Expr.Call Call, Term[] Arguments)> Branches,
++            Expr.Call Failure,
++            List<Atom> Tags,
++            int Entry
++        );
++
++        private RequiredPairEnumeration? ReadRequiredPairEnumeration(
++            Expr expression,
++            string source,
++            IReadOnlySet<string> bindings
++        )
++        {
++            if (expression is not Expr.Case { Value: Expr.Variable tested, Clauses.Count: >= 3 } decision
++                || tested.Name != source || decision.Clauses[^1] is not
++                {
++                    Guard: null, Patterns: [Pattern.Variable rejected], Body: var failure
++                }
++                || rejected.Name == VariableScopeNames.Wildcard || bindings.Contains(rejected.Name)
++                || ReadTaggedExit(failure, rejected.Name) is not { } error || !IsDecoderIntrinsic(error.Call))
++            {
++                return null;
++            }
++
++            var keys = new HashSet<Atom>();
++            var branches = new List<(Atom Key, Expr.Call Call, Term[] Arguments)>();
++            int entry = 0;
++            foreach (var clause in decision.Clauses.SkipLast(1))
++            {
++                if (clause is not
++                    {
++                        Guard: null, Patterns: [Pattern.Literal { Value: Atom key }],
++                        Body: Expr.Call { Module: null, DynamicRemote: false, Arguments.Count: 3 } call
++                    }
++                    || !keys.Add(key) || !entries.TryGetValue((call.Function, 3), out int target)
++                    || entry != 0 && target != entry
++                    || !ProducesNumericPair(call))
++                {
++                    return null;
++                }
++
++                var arguments = new Term[call.Arguments.Count];
++                for (int index = 0; index < arguments.Length; index++)
++                {
++                    if (!AttributeLiteral.TryNormalizeConstant(call.Arguments[index], out arguments[index]))
++                    {
++                        return null;
++                    }
++                }
++
++                entry = target;
++                branches.Add((key, call, arguments));
++            }
++
++            return new(
++                branches,
++                error.Call,
++                error.Tags,
++                entry
++            );
++        }
++
++        private void EmitRequiredPairEnumeration(RequiredPairEnumeration plan, int slot, int failure)
++        {
++            var order = Comparer<Atom>.Create((left, right) => TermOrder.Compare(left, right, exact: true));
++            var branches = plan.Branches.OrderByDescending(branch => branch.Key, order)
++                .Select(branch => (Branch: branch, Label: Label())).ToArray();
++            int joined = Label();
++            EmitAritySelect(0, branches.Length, failure);
++            foreach (var item in branches.Reverse())
++            {
++                owner.LiteralOperand(item.Branch.Key);
++                owner.Operand(LabelTag, item.Label);
++            }
++
++            for (int index = 0; index < branches.Length; index++)
++            {
++                var (branch, label) = branches[index];
++                Mark(label);
++                foreach (int argument in IndependentCallMoveOrder(branch.Arguments.Length))
++                {
++                    owner.EmitConstant(branch.Arguments[argument], argument);
++                }
++
++                owner.EmitCallLine(branch.Call, location);
++                owner.EmitFieldCall(branch.Arguments.Length, plan.Entry);
++                owner.MoveRegister(
++                    XRegisterTag,
++                    0,
++                    YRegisterTag,
++                    slot
++                );
++                if (index + 1 < branches.Length)
++                {
++                    JumpTo(joined);
++                }
++            }
++
++            Mark(joined);
++        }
+ 
+         private static OptionalPairEnumeration? ReadOptionalPairEnumeration(Expr value)
+         {

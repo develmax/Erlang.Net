@@ -10,7 +10,8 @@ internal sealed partial class BeamModuleCompiler
         int entry,
         int end,
         int linearAllocation = -1,
-        bool allowGcBifExceptionExit = false
+        bool allowGcBifExceptionExit = false,
+        bool allowAtomicProjectionAliasing = false
     )
     {
         if (entry + 1 >= end || body[entry].Definition.Opcode != Label)
@@ -290,11 +291,13 @@ internal sealed partial class BeamModuleCompiler
                 BigInteger next = fallsThrough ? live[index + 1] : BigInteger.Zero;
                 byte opcode = body[start + index].Definition.Opcode;
                 bool initializes = opcode == InitYRegisters;
-                // These instructions read their inputs before assigning a single result.
-                // A source whose last use is here can share the result's slot.
+                // A source whose last use is here can share a result slot when the opcode
+                // reads all inputs first. The write mask still keeps independent outputs apart.
                 // Leave move interference intact because moves also carry branch joins.
                 bool readsBeforeWrite = opcode is GetHead or GetTail
-                    or BifOne or BifTwo or BifThree or GcBifOne or GcBifTwo or GcBifThree;
+                    or BifOne or BifTwo or BifThree or GcBifOne or GcBifTwo or GcBifThree
+                    || allowAtomicProjectionAliasing && handlerEntry < 0 && trim == end
+                        && IsAtomicStackProjection(body[start + index]);
                 BigInteger occupied = next | (readsBeforeWrite ? BigInteger.Zero : reads)
                     | (initializes ? BigInteger.Zero : writes);
                 if (targets is not null && (exceptional?.Contains(index) == true
@@ -483,6 +486,50 @@ internal sealed partial class BeamModuleCompiler
         return index < end && body[index].Definition.Opcode is BadMatch or BadRecord or CaseEnd or IfEnd
             && body[index].Operands.All(operand => operand.Kind != BeamOperandParameters.Y);
     }
+
+    private static (int Count, int[] Slots, (int Index, int OriginalRemoved, int Kept)? Trim)? PlanAtomicProjectionStackSlots(
+        IReadOnlyList<BeamInstruction> body,
+        int entry,
+        int end,
+        int linearAllocation = -1,
+        bool allowGcBifExceptionExit = false
+    )
+    {
+        int start = linearAllocation >= 0 ? linearAllocation + 1 : entry;
+        if (start >= end || !Enumerable.Range(start, end - start).Any(index => IsAtomicStackAliasCandidate(body[index]))
+            || PlanBranchStackSlots(
+                body,
+                entry,
+                end,
+                linearAllocation,
+                allowGcBifExceptionExit,
+                allowAtomicProjectionAliasing: true
+            ) is not { Trim: null } candidate)
+        {
+            return null;
+        }
+
+        var original = PlanBranchStackSlots(
+            body,
+            entry,
+            end,
+            linearAllocation,
+            allowGcBifExceptionExit
+        );
+
+        return original is null || candidate.Count < original.Value.Count ? candidate : null;
+    }
+
+    private static bool IsAtomicStackAliasCandidate(BeamInstruction instruction) =>
+        IsAtomicStackProjection(instruction)
+        && instruction.Operands[0] is { Kind: BeamOperandParameters.Y } source
+        && instruction.Operands.Skip(1).Any(operand => operand.Kind == BeamOperandParameters.Y
+            && !SameProjectionRegister(source, operand));
+
+    private static bool IsAtomicStackProjection(BeamInstruction instruction) =>
+        instruction.Definition.Opcode == GetTupleElement
+        || instruction is { Definition.Opcode: GetList, Operands: [_, var head, var tail] }
+            && !SameProjectionRegister(head, tail);
 
     private static void AddStackInterference(BigInteger slots, BigInteger other, BigInteger[] conflicts)
     {

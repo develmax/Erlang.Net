@@ -1,0 +1,88 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+@@ -1204,6 +1204,11 @@
+             code = SimplifyFrameInitialization(code, initializedEntry.Body, includeNonAllocatingDefinitions: true) ?? code;
+         }
+ 
++        if (CanonicalizeCheckedIntegerOrderTests(code, labelCount) is { } integerOrder)
++        {
++            code = OrderTypeOperandsByFirstUse(integerOrder, labelCount);
++        }
++
+         code = MoveColdExactMatchFailures(code, labelCount) ?? code;
+         if (OrderFinalPhysicalLabels(code, labelCount) is { } ordered)
+         {
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedIntegerOrderTests.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedIntegerOrderTests.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedIntegerOrderTests.cs
+@@ -0,0 +1,68 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private byte[]? CanonicalizeCheckedIntegerOrderTests(ReadOnlyMemory<byte> code, int labelCount)
++    {
++        if (ModuleOptimizationDisabled || !SsaTypeInferenceEnabled || !code.Span.Contains(IsLess)
++            || !code.Span.Contains(IsInteger)
++            || DecodeLateAtomicProjectionSlots(code, labelCount) is not { } decoded)
++        {
++            return null;
++        }
++
++        using var output = new MemoryStream(code.Length);
++        int copied = 0;
++        for (int index = 1; index + 1 < decoded.Body.Count; index++)
++        {
++            BeamInstruction test = decoded.Body[index];
++            if (test is not { Definition.Opcode: IsLess, Operands: [var failure, var left, var right] }
++                || decoded.Body[index - 1] is not { Definition.Opcode: IsInteger, Operands: [var rejected, var checkedRegister] }
++                || failure != rejected)
++            {
++                continue;
++            }
++
++            bool literalFirst = left.Kind == BeamOperandParameters.Integer && SameProjectionRegister(right, checkedRegister);
++            bool literalLast = right.Kind == BeamOperandParameters.Integer && SameProjectionRegister(left, checkedRegister);
++            if (!literalFirst && !literalLast)
++            {
++                continue;
++            }
++
++            // beam_jump exchanges the operands using the adjacent bound for a proven integer.
++            var value = literalFirst ? right : left;
++            var bound = (literalFirst ? left.Value + 1 : right.Value - 1);
++            int type = value.TypeIndex ?? GetOperandTypeIndex((IntegerTypeBits, null, null, null));
++            output.Write(code.Span[copied..test.Offset]);
++            output.WriteByte(IsGreaterOrEqual);
++            BeamCompactWriter.Write(output, LabelTag, failure.Value);
++            if (literalLast)
++            {
++                BeamCompactWriter.Write(output, BeamWire.IntegerTag, bound);
++            }
++
++            output.WriteByte(ExtendedTypedRegisterOperand);
++            WriteRegister(output, value);
++            BeamCompactWriter.Write(output, BeamWire.UnsignedTag, type);
++            if (literalFirst)
++            {
++                BeamCompactWriter.Write(output, BeamWire.IntegerTag, bound);
++            }
++
++            copied = decoded.Body[index + 1].Offset;
++        }
++
++        if (copied == 0)
++        {
++            return null;
++        }
++
++        highestOpcode = Math.Max(highestOpcode, IsGreaterOrEqual);
++        output.Write(code.Span[copied..]);
++
++        return output.ToArray();
++    }
++}

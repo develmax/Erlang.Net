@@ -5,10 +5,15 @@ internal sealed class BeamIncludeResolver(
     IReadOnlyList<string> includeDirectories,
     IReadOnlyDictionary<int, string>? recordedIncludeSearchDirectories = null,
     BeamIncludePathMap? pathMap = null,
-    string? mainPhysicalPath = null
+    string? mainPhysicalPath = null,
+    IReadOnlyDictionary<string, string>? recordedExecutablePaths = null
 )
 {
     internal string? SourceArgument => pathMap?.SourceArgument;
+
+    internal string ExecutableFile(string requested, string basename, bool deterministic) => deterministic
+        ? basename
+        : recordedExecutablePaths?.GetValueOrDefault(requested) ?? recordedExecutablePaths?.GetValueOrDefault(basename) ?? basename;
 
     internal BeamResolvedInclude? ResolveInclude(
         string currentPath,
@@ -34,15 +39,17 @@ internal sealed class BeamIncludeResolver(
             return null;
         }
 
-        var current = new BeamIncludeSearchDirectory(
-            Path.GetDirectoryName(currentPath)!,
-            RecordedDirectory(currentArgument)
-        );
-
         var main = new BeamIncludeSearchDirectory(
-            Path.GetDirectoryName(mainPhysicalPath)!,
+            pathMap.PhysicalSourceDirectory ?? Path.GetDirectoryName(mainPhysicalPath)!,
             RecordedDirectory(pathMap.SourceArgument)
         );
+        var current = pathMap.PhysicalSourceDirectory is not null && currentPath == mainPhysicalPath
+            && currentArgument == pathMap.SourceArgument
+            ? main
+            : new BeamIncludeSearchDirectory(
+                Path.GetDirectoryName(currentPath)!,
+                RecordedDirectory(currentArgument)
+            );
 
         // EPP replaces only the first search directory when entering an include.
         var candidate = ResolveCandidate(current, requested)

@@ -1,0 +1,104 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamListGeneratorErrorLineChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamListGeneratorErrorLineChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamListGeneratorErrorLineChecks.cs
+@@ -0,0 +1,99 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamListGeneratorErrorLineChecks
++{
++    internal const string TestName = "compiler/beam/list-generator-error-line";
++    private const string MissingLocation = "The invalid list generator did not use the source expression line.";
++    private const string DuplicateLocation = "The same-line list generator emitted a redundant error line.";
++    private const string UnreachableFailure = "The proper literal list generator retained an invalid source branch.";
++
++    private const string Source = """
++        -module(beam_list_generator_error_line).
++        -export([literal/1, computed/1, direct/2, same_line/2, split_input/2]).
++
++        literal(Sink) ->
++            [event:put(Sink, "Item " ++ integer_to_list(I)) ||
++                I <- [1,2,3]],
++            ok.
++
++        computed(Sink) ->
++            [event:put(Sink, "Item " ++ integer_to_list(I)) ||
++                I <- event:rows(Sink)],
++            ok.
++
++        direct(Sink, Rows) ->
++            [event:put(Sink, "Item " ++ integer_to_list(I)) ||
++                I <- Rows],
++            ok.
++
++        same_line(Sink, Rows) ->
++            [event:put(Sink, integer_to_list(I)) || I <- Rows],
++            ok.
++
++        split_input(Sink, Rows) ->
++            [event:put(Sink, integer_to_list(I)) ||
++                I <-
++                    Rows],
++            ok.
++        """;
++
++    internal static void Run()
++    {
++        object code = Code(CodeGeneration.CompileBeamModule(Source, "beam_list_generator_error_line.erl"));
++        object[] instructions = Items(code, "Instructions");
++        object[] functions = Items(code, "Functions");
++        Term[] locations = Items(code, "SourceLocations").Cast<Term>().ToArray();
++
++        RequireErrorLine("computed", 11);
++        RequireErrorLine("direct", 16);
++        RequireErrorLine("split_input", 26);
++
++        object[] sameLine = Body("same_line");
++        if (sameLine.Length < 2 || Opcode(sameLine[^2]) != PutTuple || Opcode(sameLine[^1]) != TailExternalCall)
++        {
++            throw new InvalidOperationException(DuplicateLocation);
++        }
++
++        if (Body("literal").Any(instruction => Opcode(instruction) == PutTuple))
++        {
++            throw new InvalidOperationException(UnreachableFailure);
++        }
++
++        void RequireErrorLine(string name, int line)
++        {
++            object[] body = Body(name);
++            if (body.Length < 3 || Opcode(body[^3]) != PutTuple || Opcode(body[^2]) != Line
++                || Opcode(body[^1]) != TailExternalCall)
++            {
++                throw new InvalidOperationException(MissingLocation);
++            }
++
++            int index = (int)(BigInteger)Property(Items(body[^2], "Operands")[0], "Value");
++            if (!Cons.Items(locations[index]).Contains(Term.Tuple(Term.A("line"), Term.I(line))))
++            {
++                throw new InvalidOperationException(MissingLocation);
++            }
++        }
++
++        object[] Body(string name)
++        {
++            object function = functions.Single(candidate =>
++                ((string)Property(candidate, "Name")).StartsWith($"-{name}/", StringComparison.Ordinal));
++            int start = (int)Property(function, "FirstInstructionIndex");
++            int end = (int)Property(function, "EndInstructionIndex");
++
++            return instructions[start..end];
++        }
++    }
++
++    private static object[] Items(object owner, string property) =>
++        ((IEnumerable)Property(owner, property)).Cast<object>().ToArray();
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++}

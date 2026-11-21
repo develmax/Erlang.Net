@@ -1,0 +1,52 @@
+{
+  "Gains": {
+    "Attr": 3,
+    "Code": 3,
+    "AtU8": 2,
+    "ExpT": 2,
+    "LocT": 2,
+    "Type": 1,
+    "ImpT": 1
+  },
+  "Losses": {},
+  "Modules": [
+    {
+      "Module": "httpc_profile_sup",
+      "Gains": [
+        "Attr",
+        "Code"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "PKIX1-PSS-OAEP-Algorithms-2009",
+      "Gains": [
+        "AtU8"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "snmpa_agent_sup",
+      "Gains": [
+        "Attr",
+        "Code",
+        "ExpT",
+        "LocT",
+        "Type"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "snmpm_misc_sup",
+      "Gains": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "ImpT",
+        "LocT"
+      ],
+      "Losses": []
+    }
+  ]
+}

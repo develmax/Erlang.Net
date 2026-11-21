@@ -1,0 +1,216 @@
+{
+  "Source": "e5cfbf312f5ec6f8e8d08ec16ae3dd0e2f64fad33a65fe96b054f0422eade7e8",
+  "Reference": {
+    "Tag": "OTP-29.1.1",
+    "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5"
+  },
+  "SDK": "10.0.400",
+  "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+  "Compiler": "e291e51a5bbcdee48cab5e68f362665b323697f3ec8dab25c52de91db9d6cfe2",
+  "BaselineCompiler": "5d11f43d6e7038f6025ea49389b809754c55b498883a17d8a19b09a0d2420824",
+  "CompilerSourceCount": 923,
+  "CompilerInputs": "8c405fd53b974c29abcf2cec483a80f2238c8c3e1f2c0297f1c72555c3c1b2c0",
+  "PinnedPasses": {
+    "Source": "lib/asn1/src/asn1ct_gen.erl generated partial decoder emitter",
+    "Frames": "lib/compiler/src/beam_ssa_pre_codegen.erl find_yregs and beam_ssa_codegen.erl landingpad/call kills"
+  },
+  "Scope": {
+    "Different": 4,
+    "Equal": 27,
+    "Unsupported": 0,
+    "SourceRejected": 0
+  },
+  "ScopeModules": 31,
+  "ScopeMilliseconds": 77052.6287,
+  "WholeFileGains": 0,
+  "WholeFileLosses": 0,
+  "NormalizedWithLineGains": 3,
+  "NormalizedWithLineLosses": 0,
+  "ChangedOwners": [
+    "OTP-PKIX",
+    "OTP-PKIX-Relaxed",
+    "PKIX1Explicit-2009"
+  ],
+  "ChangedFunction": "decode_part/2",
+  "InstructionsEachBefore": 100,
+  "InstructionsEachAfter": 86,
+  "NativeReleaseExactOwnerStacks": 24,
+  "NativeFixtureExact": 11,
+  "NativeFixtureBaselineCandidateExact": 12,
+  "NativeFixtureResidual": "OTP has a stack-free producer throw. The two C# images both keep the producer and dispatcher frames.",
+  "ERTSReleasePreparations": 9,
+  "Focused": [
+    {
+      "Role": "baseline",
+      "Exit": 1,
+      "Compiler": "5D11F43D6E7038F6025EA49389B809754C55B498883A17D8A19B09A0D2420824",
+      "Runtime": "7445A7EA8A055C952841AD41A2F4F0138B7FE39EAB6762EB1030E59308A1C8AA",
+      "Tests": "0C90779BBE1FA3588AD1EF7E6C27697D3867B05A67DDADD9C1EE6E6D412B0D8B"
+    },
+    {
+      "Role": "candidate",
+      "Exit": 0,
+      "Compiler": "E291E51A5BBCDEE48CAB5E68F362665B323697F3EC8DAB25C52DE91DB9D6CFE2",
+      "Runtime": "7445A7EA8A055C952841AD41A2F4F0138B7FE39EAB6762EB1030E59308A1C8AA",
+      "Tests": "0C90779BBE1FA3588AD1EF7E6C27697D3867B05A67DDADD9C1EE6E6D412B0D8B"
+    }
+  ],
+  "Next": "Shared binary match-context ownership and independent finite Form range on decode_incomplete2/5.",
+  "Physical": {
+    "OTP-PKIX-Relaxed": {
+      "Changed": [
+        "Attr",
+        "Code",
+        "FunT"
+      ],
+      "BeforeVsPinned": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "FunT",
+        "ImpT",
+        "Line",
+        "LitT",
+        "LocT",
+        "Type"
+      ],
+      "AfterVsPinned": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "FunT",
+        "ImpT",
+        "Line",
+        "LitT",
+        "LocT",
+        "Type"
+      ],
+      "CodeBytesBefore": 35415,
+      "CodeBytesAfter": 35372
+    },
+    "OTP-PKIX": {
+      "Changed": [
+        "Attr",
+        "Code",
+        "FunT"
+      ],
+      "BeforeVsPinned": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "FunT",
+        "ImpT",
+        "Line",
+        "LitT",
+        "LocT",
+        "Type"
+      ],
+      "AfterVsPinned": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "FunT",
+        "ImpT",
+        "Line",
+        "LitT",
+        "LocT",
+        "Type"
+      ],
+      "CodeBytesBefore": 36411,
+      "CodeBytesAfter": 36368
+    },
+    "PKIX1Explicit-2009": {
+      "Changed": [
+        "Attr",
+        "Code",
+        "FunT"
+      ],
+      "BeforeVsPinned": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "FunT",
+        "ImpT",
+        "Line",
+        "LitT",
+        "LocT",
+        "Type"
+      ],
+      "AfterVsPinned": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "FunT",
+        "ImpT",
+        "Line",
+        "LitT",
+        "LocT",
+        "Type"
+      ],
+      "CodeBytesBefore": 49196,
+      "CodeBytesAfter": 49153
+    }
+  },
+  "Strict": {
+    "Source": "e5cfbf312f5ec6f8e8d08ec16ae3dd0e2f64fad33a65fe96b054f0422eade7e8",
+    "Patches": {
+      "production.patch": "210757062d3ca5675be6a78836697f62993cee64e0d4b820f142aae9a4fd5bab",
+      "test.patch": "5a987f339e402ec5980612c0e3244627c1baec6922371ccef017065cdfc1798d"
+    },
+    "Files": {
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedTryTupleDispatch.cs": {
+        "Before": "38a17a10239d3c522fe57d10640b91dd7250b169f658ad819145aa5f0ca0bafa",
+        "After": "5276c0b60d8b59c4725ab707e8cee099ef47df096b8d5011007496e745c7a3cb"
+      },
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": {
+        "Before": "6a77d426bbac0ac10982d73e2653a8ea8cdc9eee482ea24d1fae361cf58a0f10",
+        "After": "f9d2fde95ccf2ecd7c9ee55fdf8a025e6d5fb6fa53b6a8a07811cb3452baa268"
+      },
+      "tests/Erlang.Tests/Harness/Program.cs": {
+        "Before": "08ccbde4f0961a0674dd16ce3eca67dc44f7098c830bd307fc894326df28bf02",
+        "After": "bd83cdc43cbaccf81cee47e0c9ca35965522d878cbaa5b21f3650fe29c03a3eb"
+      },
+      "tests/Erlang.Tests/Compiler/Beam/BeamGuardedTaggedTryChecks.cs": {
+        "Before": null,
+        "After": "4856f8741ed2b2f58d19e5ebcc13b0589de690331c33ee56c000aae365b7decc"
+      }
+    }
+  },
+  "Evidence": {
+    "source-origin.json": "96eadaa3adb080d96d0c89b9b8b21002cfc34c751b688051c84cc6be0330d7f3",
+    "census.terms": "60ee7ad6e96a0bb4140579e24ebc9d8f9f7b1b662276738c792841b79095ae80",
+    "pinned-targets.terms": "887388536f6b05ee82c015ddbd5272c88b239e1894707ee0bd5690a130933a02",
+    "baseline-targets.terms": "a06e783fd12c3b0cdb791356e9eccda3459431da4ceb861de94715f0ebd74e45",
+    "scope-before.json": "da2173c215926a700f9ea1f97c2c546308a27c6a71dc3b71f43a7e1e5ef9767a",
+    "modules.txt": "218b34a692277cd8b16011a36f0515238be7289541b1989bbc3ad7ce02749f52",
+    "strict-replay.json": "76fbade3761dc1ca2ab669e96948e1f83d775e93fa1fd671ce287211b03d3983",
+    "scope-candidate.json": "10f5ea931a2d6be3aba77bb4dacd9a180d158ffe2082cb1b4371435c1c331b33",
+    "scope-candidate.json.timings.json": "d0278a26b62d119bce6647f54451422e1494397bc82a1295d1bed33cb109eeef",
+    "scope-delta.json": "47b8bbce2df8724d1d80fff6ed21520f448742b8f9d8fafa9dc9a2308b492a9c",
+    "release-audit.terms": "c2cbeb8320624e844209108f43917ee8b86ac92e92836b69e5b2db54332132b5",
+    "rank.terms": "f6638ead7465dfa765803a21d5a5d2a84051ee1956f8ab99e52647a97ffbae61",
+    "rank-opcode-differences.eval": "45d2567badf01109bb469fcd9985485af71d741fbf91b0a98454da7b1aed82eb",
+    "compiler-build.log": "19f18eb24d4bed27805e66d40f238dbac2d09119347aba570fd9090fe413781e",
+    "test-identities.json": "161cafee4259b8d3b9e8cd66a63d401527cb33e4fb44bd9c90e15cc084dfb181",
+    "test-baseline.stderr.log": "d53188fd4112c34a09a43d4b81c68e046fed4549c2eec261bed1007702601573",
+    "test-candidate.log": "c53699f6f78c6791d96951d1eb730ca77892449a5c8e88706efecdd943baf788",
+    "sdk-style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "test-style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "probe/beam_guarded_tagged_try.erl": "37238ac484c3de21a27b2a13b231458973ede96b4d8cffc48c79f9ed76700c86",
+    "probe/dumps/beam_guarded_tagged_try.core": "c979dad07e4791f82adaf3510fa000f33a00478f2cfeccf42592e18474debc51",
+    "probe/dumps/beam_guarded_tagged_try.ssaopt": "f3dbc88457c8c214172819a39478911f3625f7b0b4735bc1e711d5d55789a2ec",
+    "probe/dumps/beam_guarded_tagged_try.precodegen": "04011ec75eb0258519a205ba7076d2cc112fd88b5f182894c3267370b5e5c216",
+    "probe/native.eval": "c77b415e1f404ae6e6758752d4cc796827139bfbe86c222bae5539808957d388",
+    "probe/native-pinned.terms": "6505dc1abe0b3f49caa29d6c4c753cbb171464888d2d3285616416399dbf4b87",
+    "probe/native-baseline.terms": "243002b42cf8af5f9731eaf15e09069191373b2f9a55522c8caeec20941a2a24",
+    "probe/native-candidate.terms": "243002b42cf8af5f9731eaf15e09069191373b2f9a55522c8caeec20941a2a24",
+    "release-native.eval": "6a781f432b61dda18b302f2efae0a13682ba1005df5bb8520aa41a010b01f63e",
+    "release-native.terms": "0c6f8a6c59aec4e84b0daae50483cf67f3378ee8ecc3e9ebd5782b473b7a16fe"
+  }
+}

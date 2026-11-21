@@ -1,0 +1,80 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LinearStackSlots.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LinearStackSlots.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LinearStackSlots.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LinearStackSlots.cs
+@@ -234,6 +234,18 @@
+ 
+         int count = (int)body[allocation].Operands[0].Value;
+         int live = (int)body[allocation].Operands[^1].Value;
++        if (count == 2 && HasEntrySaveAndLaterCallResult(
++            body,
++            allocation,
++            end,
++            live
++        ))
++        {
++            // reserve_yregs groups incoming copies before in-frame definitions.
++            // The assembler numbers those reserved variables in reverse order.
++            return (count, [1, 0], null);
++        }
++
+         // A full closure frame can follow the evaluation order of lifted arguments.
+         if (count < 2 || count > live || count >= end - allocation || (closure && count == live))
+         {
+@@ -281,6 +293,57 @@
+         }
+ 
+         return (count, slots, null);
++    }
++
++    private static bool HasEntrySaveAndLaterCallResult(
++        IReadOnlyList<BeamInstruction> body,
++        int allocation,
++        int end,
++        int live
++    )
++    {
++        var later = new BeamOperand(BeamOperandParameters.Y, 1);
++        if (allocation + 3 >= end || body[allocation + 1] is not
++            {
++                Definition.Opcode: InitYRegisters, Operands: [{ Value.IsOne: true }, var cleared]
++            }
++            || cleared != later || body[allocation + 2] is not
++            {
++                Definition.Opcode: Move,
++                Operands: [{ Kind: BeamOperandParameters.X, TypeIndex: null } source,
++                { Kind: BeamOperandParameters.Y, Value.IsZero: true, TypeIndex: null }]
++            } || source.Value >= live)
++        {
++            return false;
++        }
++
++        bool found = false;
++        for (int index = allocation + 3; index < end; index++)
++        {
++            var instruction = body[index];
++            if (instruction.Definition.Opcode is Allocate or AllocateHeap or TrimFrame or TryEnter or CatchEnter
++                or TryEnd or TryCase or CatchEnd or DebugLine or ExecutableLine)
++            {
++                return false;
++            }
++
++            if (!found && instruction.Operands.Any(operand => SameProjectionRegister(operand, later)))
++            {
++                if (instruction is not
++                    {
++                        Definition.Opcode: Move,
++                        Operands: [{ Kind: BeamOperandParameters.X, Value.IsZero: true, TypeIndex: null }, var saved]
++                    }
++                    || saved != later || body[index - 1].Definition.Opcode is not (LocalCall or ExternalCall))
++                {
++                    return false;
++                }
++
++                found = true;
++            }
++        }
++
++        return found;
+     }
+ 
+     private static (int Count, int[] Slots, (int Index, int OriginalRemoved, int Kept)? Trim)? PlanOwnedEntryBranchSlots(

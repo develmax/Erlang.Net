@@ -192,9 +192,11 @@ internal sealed partial class BeamModuleCompiler
 
         return output.ToArray();
 
-        static bool IsTailArgumentSetup(BeamInstruction instruction) =>
+        bool IsTailArgumentSetup(BeamInstruction instruction) =>
             (instruction.Definition.Opcode is Line or TestHeap or Move or Swap or PutTuple or PutList
-                or GetTupleElement or GetList or GetHead or GetTail)
+                or GetTupleElement or GetList or GetHead or GetTail
+                || instruction is { Definition.Opcode: BifZero, Operands: [var import, _] }
+                    && IsHeapNeutralNullaryBif(importsByIndex[(int)import.Value], atomNames))
             && instruction.Operands.All(operand => operand.Kind != BeamOperandParameters.Y);
     }
 
@@ -208,19 +210,45 @@ internal sealed partial class BeamModuleCompiler
 
     private static byte[]? ExpandShortReturnJumps(ReadOnlyMemory<byte> code, IReadOnlyList<BeamInstruction> body)
     {
-        var returns = FindSharedCallReturns(body);
+        var protectedReturns = new Dictionary<int, int>();
+        var returns = FindSharedCallReturns(body, protectedReturns);
         using var output = new MemoryStream();
         int copied = 0;
         for (int index = 0; index + 1 < body.Count; index++)
         {
-            if (body[index] is not { Definition.Opcode: Jump, Operands: [var target] }
-                || !returns.TryGetValue((int)target.Value, out int start))
+            BeamInstruction operation = body[index];
+            var coldReturn = ReadColdCaseReturn(body, index);
+            if (operation is not { Definition.Opcode: Jump, Operands: [_] }
+                && coldReturn is null)
+            {
+                continue;
+            }
+
+            var returnTarget = operation.Operands[0];
+            // A jump has already established the same stack and handler state as
+            // the destination. Copy its short epilogue even in a protected function.
+            if (!returns.TryGetValue((int)returnTarget.Value, out int start)
+                && (coldReturn is not null || !protectedReturns.TryGetValue((int)returnTarget.Value, out start)))
+            {
+                continue;
+            }
+
+            if (coldReturn is not null && body.SelectMany(instruction => instruction.Operands)
+                .Count(operand => operand.Kind == BeamOperandParameters.Label && operand.Value == returnTarget.Value) != 1)
             {
                 continue;
             }
 
             int end = start + (body[start].Definition.Opcode == Deallocate ? 2 : 1);
-            output.Write(code.Span[copied..body[index].Offset]);
+            output.Write(code.Span[copied..operation.Offset]);
+            if (coldReturn is { } failure)
+            {
+                output.WriteByte(ExactEqualTest);
+                BeamCompactWriter.Write(output, LabelTag, failure);
+                BeamCompactWriter.Write(output, XRegisterTag, 0);
+                BeamCompactWriter.Write(output, AtomTag, operation.Operands[2].Value);
+            }
+
             output.Write(code.Span[body[start].Offset..body[end].Offset]);
             copied = body[index + 1].Offset;
         }
@@ -235,7 +263,59 @@ internal sealed partial class BeamModuleCompiler
         return output.ToArray();
     }
 
-    private static Dictionary<int, int> FindSharedCallReturns(IReadOnlyList<BeamInstruction> body)
+    private static int? ReadColdCaseReturn(IReadOnlyList<BeamInstruction> body, int index)
+    {
+        // A tuple arm with no fallthrough and a separate case failure keep the
+        // atom arm's short return inline when cold exits precede test inversion.
+        if (index < 4 || index + 3 >= body.Count
+            || body[index] is not
+            {
+                Definition.Opcode: ExactNotEqualTest,
+                Operands: [
+                { Kind: BeamOperandParameters.Label },
+                { Kind: BeamOperandParameters.X, Value.IsZero: true, TypeIndex: null },
+                { Kind: BeamOperandParameters.Atom }
+                ]
+            }
+            || body[index - 1] is not { Definition.Opcode: Label, Operands: [var literal] }
+            || !EndsBeamBlock(body[index - 2].Definition.Opcode)
+            || body[index + 1] is not { Definition.Opcode: Label, Operands: [var failure] })
+        {
+            return null;
+        }
+
+        int error = body[index + 2].Definition.Opcode == Line ? index + 3 : index + 2;
+        if (body[error] is not { Definition.Opcode: CaseEnd, Operands: [{ Kind: BeamOperandParameters.X, Value.IsZero: true }] })
+        {
+            return null;
+        }
+
+        for (int cursor = index - 3; cursor > 0 && body[cursor].Definition.Opcode != Label; cursor--)
+        {
+            if (body[cursor] is
+                {
+                    Definition.Opcode: IsTaggedTuple,
+                    Operands: [var taggedFailure, { Kind: BeamOperandParameters.X, Value.IsZero: true, TypeIndex: not null }, _, _]
+                }
+                && taggedFailure.Value == failure.Value
+                && body[cursor - 1] is
+                {
+                    Definition.Opcode: IsTuple,
+                    Operands: [var nonTuple, { Kind: BeamOperandParameters.X, Value.IsZero: true }]
+                }
+                && nonTuple.Value == literal.Value)
+            {
+                return (int)failure.Value;
+            }
+        }
+
+        return null;
+    }
+
+    private static Dictionary<int, int> FindSharedCallReturns(
+        IReadOnlyList<BeamInstruction> body,
+        Dictionary<int, int>? protectedReturns = null
+    )
     {
         var returns = new Dictionary<int, int>();
         int start = 0;
@@ -253,7 +333,8 @@ internal sealed partial class BeamModuleCompiler
                 continue;
             }
 
-            if (!protectedFunction)
+            var targets = protectedFunction ? protectedReturns : returns;
+            if (targets is not null)
             {
                 for (int index = start + 1; index + 1 < end; index++)
                 {
@@ -262,7 +343,7 @@ internal sealed partial class BeamModuleCompiler
                             || body[index + 1].Definition.Opcode == Deallocate
                                 && body[index + 2].Definition.Opcode == Return))
                     {
-                        returns.Add((int)entry.Value, index + 1);
+                        targets.Add((int)entry.Value, index + 1);
                     }
                 }
             }

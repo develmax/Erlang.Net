@@ -1,0 +1,378 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/Binding/LocalFunctionEntries.cs b/src/Compiler/Erlang.Compiler/Compilation/Binding/LocalFunctionEntries.cs
+index 735677a93..80633e7bc 100644
+--- a/src/Compiler/Erlang.Compiler/Compilation/Binding/LocalFunctionEntries.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/Binding/LocalFunctionEntries.cs
+@@ -121,7 +121,7 @@ internal static class LocalFunctionEntries
+ 
+     private static IEnumerable<Expr> Clauses(IEnumerable<Clause> clauses) => clauses.SelectMany(clause => clause.Patterns.SelectMany(PatternExpressions).Concat(clause.Guard is null ? [] : new[] { clause.Guard }).Append(clause.Body));
+ 
+-    private static IEnumerable<Expr> PatternExpressions(Pattern pattern) => pattern switch
++    internal static IEnumerable<Expr> PatternExpressions(Pattern pattern) => pattern switch
+     {
+         NativeRecordPattern record => record.Fields.SelectMany(field => PatternExpressions(field.Value)),
+         AliasPattern alias => PatternExpressions(alias.Left).Concat(PatternExpressions(alias.Right)),
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/CodeGeneration.cs b/src/Compiler/Erlang.Compiler/Compilation/CodeGeneration.cs
+index 76bd9d33e..99b6e9b7d 100644
+--- a/src/Compiler/Erlang.Compiler/Compilation/CodeGeneration.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/CodeGeneration.cs
+@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp;
+ 
+ namespace Erlang.Compiler;
+ 
+-public static class CodeGeneration
++public static partial class CodeGeneration
+ {
+     private const string E = "global::Erlang.Compiler.Expr.";
+     private const string P = "global::Erlang.Pattern.";
+@@ -166,27 +166,44 @@ public static class CodeGeneration
+     )
+     {
+         sourcePath = Path.GetFullPath(sourcePath);
++
++        return CompileBeamModule(
++            sourcePath,
++            OpenBeamSource(
++                sourcePath,
++                otpLibraryDirectory,
++                includeDirectories,
++                buildProfile
++            ),
++            buildProfile
++        );
++    }
++
++    private static BeamMacroPreprocessor OpenBeamSource(
++        string sourcePath,
++        string? otpLibraryDirectory,
++        IReadOnlyList<string>? includeDirectories,
++        BeamReleaseBuildProfile? buildProfile
++    )
++    {
+         string source = File.ReadAllText(sourcePath);
+         var resolver = new BeamIncludeResolver(
+             otpLibraryDirectory is null ? null : Path.GetFullPath(otpLibraryDirectory),
+             includeDirectories?.Select(Path.GetFullPath).ToArray() ?? [],
+             buildProfile?.RecordedIncludeSearchDirectories,
+             buildProfile?.IncludePathMap,
+-            sourcePath
++            sourcePath,
++            buildProfile?.RecordedExecutableIncludePaths
+         );
+ 
+         bool deterministic = buildProfile is null || buildProfile.RecordedCompileOptions?.Contains(Term.A("deterministic")) == true;
+ 
+-        return CompileBeamModule(
++        return new(
++            source,
+             sourcePath,
+-            new BeamMacroPreprocessor(
+-                source,
+-                sourcePath,
+-                resolver,
+-                deterministic,
+-                buildProfile?.PreprocessorDefinitions
+-            ),
+-            buildProfile
++            resolver,
++            deterministic,
++            buildProfile?.PreprocessorDefinitions
+         );
+     }
+ 
+@@ -210,8 +227,9 @@ public static class CodeGeneration
+ 
+         var lines = BeamSourceForms.FunctionLines(tokens, module);
+         var profileInlining = BeamReleaseLeafInliningPlan.Read(module, buildProfile);
+-        if (module.InlineTargets.Count != 0 || module.AutomaticInlining && !profileInlining.SuppressAutomatic
+-            || profileInlining.Size is not null)
++        bool automaticInlining = module.AutomaticInlining && !profileInlining.SuppressAutomatic
++            || profileInlining.Size is not null;
++        if (module.InlineTargets.Count != 0 || automaticInlining)
+         {
+             (functions, lines) = BeamTargetedInlining.Apply(
+                 module,
+@@ -220,6 +238,24 @@ public static class CodeGeneration
+                 profileInlining
+             );
+         }
++        if (module.HasResolvedDiameterRecordTransform)
++        {
++            (functions, lines) = BeamSourceReachability.Retain(
++                functions,
++                lines,
++                IsTransformedRoot,
++                module.Name
++            );
++        }
++
++        bool IsTransformedRoot(FunctionDefinition function)
++        {
++            var signature = (function.Name, function.Arity);
++
++            return exports.Contains(signature) || function.Arity == 0 && function.Name == module.OnLoadFunction
++                || module.DeclaredNifs?.Contains(signature) == true;
++        }
++
+         var specs = buildProfile is null && module.Documentation.Count == 0 && !module.HasGeneratedEunitTest
+             ? new Dictionary<int, Parser.ReleaseSpec>()
+             : BeamSourceForms.Starts(tokens)
+@@ -260,7 +296,11 @@ public static class CodeGeneration
+             module.Name,
+             lineFile,
+             module,
+-            preprocessor.MaybeEnabled
++            preprocessor.MaybeEnabled,
++            automaticCoreInlining: automaticInlining && !module.HasOtherCompileOptions && module.InlineTargets.Count == 0
++                && !(buildProfile?.RecordedCompileOptions?.Contains(Term.A(CompilerOptionNames.InlineListFunctions))
++                    ?? buildProfile?.WarningOptions.Contains(CompilerOptionNames.InlineListFunctions) ?? false),
++            entryTupleAliasesEnabled: !DisableEntryTupleAliases(buildProfile)
+         ).Emit(
+             functions,
+             lines,
+@@ -269,6 +309,18 @@ public static class CodeGeneration
+         );
+     }
+ 
++    private static bool DisableEntryTupleAliases(BeamReleaseBuildProfile? profile)
++    {
++        bool HasOption(string option) => profile?.RecordedCompileOptions is { } options
++            ? options.Contains(Term.A(option))
++            : profile?.WarningOptions.Contains(option) == true;
++
++        return HasOption(CompilerOptionNames.DisableCoreAliases)
++            || HasOption(CompilerOptionNames.DisableCoreOptimization)
++            || HasOption(CompilerOptionNames.BeamDebugInfo)
++            || profile?.RecordedDebugOptions?.Contains(Term.A(CompilerOptionNames.BeamDebugInfo)) == true;
++    }
++
+     internal static string ModuleCode(ModuleDefinition module, string sourcePath, bool includeAttributes = true)
+     {
+         module = module with { SourceFilePath = sourcePath };
+diff --git a/src/Compiler/Erlang.Compiler/Execution/Comprehensions/ComprehensionQualifier.cs b/src/Compiler/Erlang.Compiler/Execution/Comprehensions/ComprehensionQualifier.cs
+index 1d631c8c2..6d2f9c544 100644
+--- a/src/Compiler/Erlang.Compiler/Execution/Comprehensions/ComprehensionQualifier.cs
++++ b/src/Compiler/Erlang.Compiler/Execution/Comprehensions/ComprehensionQualifier.cs
+@@ -8,6 +8,8 @@ public abstract record ComprehensionQualifier
+     {
+         internal int GeneratorLine { get; init; }
+         internal string? GeneratorFile { get; init; }
++        internal int InputLine { get; init; }
++        internal string? InputFile { get; init; }
+     }
+     public sealed record BinaryGenerator(BitPattern Pattern, Expr Source, bool Strict = false) : ComprehensionQualifier;
+     public sealed record MapGenerator(Pattern Pattern, Expr Source, bool Strict = false) : ComprehensionQualifier;
+diff --git a/src/Compiler/Erlang.Compiler/Execution/Comprehensions/ComprehensionSourceBindings.cs b/src/Compiler/Erlang.Compiler/Execution/Comprehensions/ComprehensionSourceBindings.cs
+index c2c2e24eb..28ad92ac9 100644
+--- a/src/Compiler/Erlang.Compiler/Execution/Comprehensions/ComprehensionSourceBindings.cs
++++ b/src/Compiler/Erlang.Compiler/Execution/Comprehensions/ComprehensionSourceBindings.cs
+@@ -46,6 +46,22 @@ internal static class ComprehensionSourceBindings
+ 
+                     return;
+                 }
++                if (expression is Expr.MapComprehension
++                    {
++                        Fields: [{ Key: Expr.Variable, Value: Expr.Variable }],
++                        Qualifiers: [var mapQualifier]
++                    } && ComprehensionGenerator.From(mapQualifier) is
++                    {
++                        Binary: false,
++                        Pattern: Pattern.Tuple { Items: [Pattern.Variable, Pattern.Variable] },
++                        Source: Expr.Variable
++                    })
++                {
++                    // v3_core lowers this map generator through lc_tq1 before translating subsequent funs.
++                    coreOrdinal++;
++
++                    return;
++                }
+                 if (expression is Expr.Fun anonymous)
+                 {
+                     foreach (var child in LocalFunctionEntries.Children(expression))
+diff --git a/src/Compiler/Erlang.Compiler/Syntax/Ast/Expr.cs b/src/Compiler/Erlang.Compiler/Syntax/Ast/Expr.cs
+index 3c29a427d..25f634c87 100644
+--- a/src/Compiler/Erlang.Compiler/Syntax/Ast/Expr.cs
++++ b/src/Compiler/Erlang.Compiler/Syntax/Ast/Expr.cs
+@@ -23,10 +23,15 @@ public abstract record Expr
+         string Name,
+         int Arity,
+         IReadOnlyList<RecordUpdateField> Fields
+-    ) : Expr;
++    ) : Expr
++    {
++        internal int FailureSourceLine { get; init; }
++        internal string? FailureSourceFile { get; init; }
++    }
+     public sealed record Literal(Term Value) : Expr
+     {
+         internal bool IsCharacterLiteral { get; init; }
++        internal bool IsEmptyStringLiteral { get; init; }
+     }
+     public sealed record Variable(string Name) : Expr;
+     public sealed record Tuple(IReadOnlyList<Expr> Items) : Expr;
+@@ -49,6 +54,7 @@ public abstract record Expr
+         public int SourceLine { get; init; }
+         internal string? PreprocessorFile { get; init; }
+         internal bool DynamicRemote { get; init; }
++        internal bool IsListGeneratorSourceFailure { get; init; }
+         public bool CanDiscardBifContinuation { get; internal set; }
+ 
+         public Call(
+@@ -99,7 +105,11 @@ public abstract record Expr
+         IReadOnlyList<Clause> Clauses,
+         IReadOnlyList<Clause> Catches,
+         Expr? After
+-    ) : Expr;
++    ) : Expr
++    {
++        internal int SourceLine { get; init; }
++        internal string? PreprocessorFile { get; init; }
++    }
+     public sealed record Case(Expr Value, IReadOnlyList<Clause> Clauses) : Expr
+     {
+         internal int SourceLine { get; init; }
+diff --git a/src/Compiler/Erlang.Compiler/Syntax/Ast/ModuleDefinition.cs b/src/Compiler/Erlang.Compiler/Syntax/Ast/ModuleDefinition.cs
+index 430ba044d..224b18212 100644
+--- a/src/Compiler/Erlang.Compiler/Syntax/Ast/ModuleDefinition.cs
++++ b/src/Compiler/Erlang.Compiler/Syntax/Ast/ModuleDefinition.cs
+@@ -28,6 +28,7 @@ public sealed partial record ModuleDefinition(
+     internal IReadOnlyList<(string Name, int Arity)> EunitExports { get; init; } = [];
+     internal int EunitAutoExportCount { get; init; }
+     internal IReadOnlyList<int> DiameterAccessorLines { get; init; } = [];
++    internal bool HasResolvedDiameterRecordTransform { get; init; }
+     internal bool HasGeneratedEunitTest { get; init; }
+     internal bool HasOtherCompileOptions { get; init; }
+     internal bool DisableModuleOptimization { get; init; }
+diff --git a/src/Compiler/Erlang.Compiler/Syntax/Parser.cs b/src/Compiler/Erlang.Compiler/Syntax/Parser.cs
+index 95761d15b..26f22e73a 100644
+--- a/src/Compiler/Erlang.Compiler/Syntax/Parser.cs
++++ b/src/Compiler/Erlang.Compiler/Syntax/Parser.cs
+@@ -332,6 +332,7 @@ public sealed partial class Parser
+             OnLoadFunction = onLoad,
+             EunitExports = eunitExports,
+             DiameterAccessorLines = diameterAccessorLines,
++            HasResolvedDiameterRecordTransform = callBindings.HasDiameterRecordTransform,
+             EunitAutoExportCount = callBindings.EunitAutoExportCount,
+             HasGeneratedEunitTest = generatedEunitTest,
+             Documentation = documentation.AsReadOnly(),
+@@ -619,12 +620,19 @@ public sealed partial class Parser
+                 throw Error(ParserDiagnostics.TryNeedsHandler);
+             Expect(ErlangKeywords.End);
+ 
++            int tryLine = Array.BinarySearch(sourceLineStarts, sourceStart);
++
+             return new Expr.Try(
+                 body,
+                 clauses,
+                 catches,
+                 after
+-            );
++            )
++            {
++                SourceLine = sourceToken.PreprocessorLine != 0 ? sourceToken.PreprocessorLine
++                    : tryLine >= 0 ? tryLine + 1 : ~tryLine,
++                PreprocessorFile = sourceToken.PreprocessorFile
++            };
+         }
+         if (Take(ErlangKeywords.Catch))
+             return new Expr.Catch(Expression());
+@@ -837,7 +845,7 @@ public sealed partial class Parser
+                     IsCharacterLiteral = token.IsCharacterLiteral
+                 },
+                 LexerTokenKinds.Float => new Expr.Literal(new FloatTerm(double.Parse(token.Text, CultureInfo.InvariantCulture))),
+-                LexerTokenKinds.String => new Expr.Literal(Term.String(StringLiteralTokens.Read(tokens, ref position))),
++                LexerTokenKinds.String => ReadStringLiteral(),
+                 LexerTokenKinds.BinaryString => new Expr.Literal(new BitString(Encoding.UTF8.GetBytes(token.Text))),
+                 LexerTokenKinds.Variable => new Expr.Variable(token.Text),
+                 LexerTokenKinds.Atom or LexerTokenKinds.QuotedAtom => new Expr.Literal(Term.A(token.Text)),
+@@ -848,6 +856,13 @@ public sealed partial class Parser
+         return result;
+     }
+ 
++    private Expr.Literal ReadStringLiteral()
++    {
++        string text = StringLiteralTokens.Read(tokens, ref position);
++
++        return new(Term.String(text)) { IsEmptyStringLiteral = preserveDocumentationStringLiterals && text.Length == 0 };
++    }
++
+     private Expr ReadFunName() => Current.Kind == LexerTokenKinds.Variable
+         ? new Expr.Variable(tokens[position++].Text)
+         : new Expr.Literal(Term.A(Name()));
+@@ -927,12 +942,23 @@ public sealed partial class Parser
+         {
+             int generatorIndex = Array.BinarySearch(sourceLineStarts, generatorToken.Start);
+             int generatorLine = generatorIndex >= 0 ? generatorIndex + 1 : ~generatorIndex;
++            int inputPosition = position;
++            while (tokens[inputPosition] is { Kind: LexerTokenKinds.Symbol, Text: ErlangSyntaxTokens.OpenParenthesis })
++            {
++                inputPosition++;
++            }
++
++            var inputToken = tokens[inputPosition];
++            int inputIndex = Array.BinarySearch(sourceLineStarts, inputToken.Start);
++            int inputLine = inputIndex >= 0 ? inputIndex + 1 : ~inputIndex;
+ 
+             return new ComprehensionQualifier.Generator(ToPattern(qualifier), Expression(), strict)
+             {
+                 SourceLine = qualifierLine,
+                 GeneratorLine = generatorToken.PreprocessorLine == 0 ? generatorLine : generatorToken.PreprocessorLine,
+-                GeneratorFile = generatorToken.PreprocessorFile
++                GeneratorFile = generatorToken.PreprocessorFile,
++                InputLine = inputToken.PreprocessorLine == 0 ? inputLine : inputToken.PreprocessorLine,
++                InputFile = inputToken.PreprocessorFile
+             };
+         }
+         if (qualifier is Expr.Match)
+@@ -1151,6 +1177,8 @@ public sealed partial class Parser
+         Expect(ErlangSyntaxTokens.OpenTuple);
+         var fields = new List<RecordField>();
+         Expr? wildcard = null;
++        Token? firstUpdateField = null;
++        int firstUpdateIndex = int.MaxValue;
+         if (!Take(ErlangSyntaxTokens.CloseTuple))
+         {
+             do
+@@ -1163,8 +1191,15 @@ public sealed partial class Parser
+                 }
+                 else
+                 {
++                    Token fieldToken = Current;
+                     field = Name();
+-                    FieldIndex(field);
++                    int index = FieldIndex(field);
++                    if (recordBase is not null && index < firstUpdateIndex)
++                    {
++                        // Tuple-record expansion sorts setelement updates by field index.
++                        firstUpdateField = fieldToken;
++                        firstUpdateIndex = index;
++                    }
+                 }
+                 if (fields.Any(value => value.Name == field))
+                     throw RecordError(RecordDiagnostics.DuplicateField(field));
+@@ -1181,12 +1216,25 @@ public sealed partial class Parser
+         if (wildcard is not null)
+             throw RecordError(RecordDiagnostics.WildcardUpdate);
+ 
++        int updateLine = 0;
++        if (firstUpdateField is { } token)
++        {
++            int fieldLine = Array.BinarySearch(sourceLineStarts, token.Start);
++            updateLine = token.PreprocessorLine != 0
++                ? token.PreprocessorLine
++                : fieldLine >= 0 ? fieldLine + 1 : ~fieldLine;
++        }
++
+         return new Expr.RecordUpdate(
+             recordBase,
+             name,
+             definition.Fields.Count + 1,
+             fields.Select(field => new RecordUpdateField(FieldIndex(field.Name), field.Value)).ToArray()
+-        );
++        )
++        {
++            FailureSourceLine = updateLine,
++            FailureSourceFile = firstUpdateField?.PreprocessorFile
++        };
+     }
+ 
+     private Expr ParseMap(Expr? mapBase)

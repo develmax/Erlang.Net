@@ -1,0 +1,21 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
+@@ -315,7 +315,8 @@
+             && comprehension is
+             {
+                 Items: [Expr.Variable or Expr.Literal or Expr.Tuple or Expr.List or Expr.Unary
+-                    or Expr.Binary or Expr.RecordConstruction { Wildcard: null }],
++                    or Expr.Binary or Expr.RecordConstruction { Wildcard: null }
++                    or Expr.RecordUpdate { Value: Expr.Variable }],
+                 Qualifiers: [ComprehensionQualifier.Generator
+                 {
+                     Strict: false, Pattern: Pattern.Variable, Source: Expr.Variable
+@@ -534,6 +535,7 @@
+                 && choice.Clauses.All(branch => branch.Patterns.All(IsRecursiveListPattern)
+                     && (branch.Guard is null || ComprehensionGuard.IsTest(branch.Guard, sourceModule)))
+             || discarded && expression is Expr.Call { DynamicRemote: true }
++            || !discarded && expression is Expr.RecordUpdate { Value: Expr.Variable }
+             || expression is Expr.RecordConstruction { Wildcard: null } record
+                 && record.Definition.Fields.All(field => record.Fields.Any(value => value.Name == field.Name)
+                     || AttributeLiteral.TryNormalizeConstant(field.Value, out _));

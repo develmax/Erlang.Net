@@ -36,8 +36,7 @@ internal sealed partial class BeamModuleCompiler
                 || !(IsAtomTest(left, right, selector) || IsAtomTest(right, left, selector))
                 || failure.Value == notTagged.Value
                 || !targets.TryGetValue((int)failure.Value, out int failed)
-                || body[failed] is not { Definition.Opcode: CaseEnd, Operands: [var rejected] }
-                || !SameRegister(rejected, selector))
+                || !RejectsSelector(failed, selector))
             {
                 continue;
             }
@@ -89,6 +88,19 @@ internal sealed partial class BeamModuleCompiler
         output.Write(code.Span[copied..]);
 
         return output.ToArray();
+
+        bool RejectsSelector(int failure, BeamOperand selector)
+        {
+            // The failure location remains on both paths to the terminal case error.
+            while (failure < body.Count && body[failure].Definition.Opcode == Line)
+            {
+                failure++;
+            }
+
+            return failure < body.Count
+                && body[failure] is { Definition.Opcode: CaseEnd, Operands: [var rejected] }
+                && SameRegister(rejected, selector);
+        }
 
         static bool IsAtomTest(BeamOperand register, BeamOperand value, BeamOperand input) =>
             value.Kind == BeamOperandParameters.Atom && SameRegister(register, input);

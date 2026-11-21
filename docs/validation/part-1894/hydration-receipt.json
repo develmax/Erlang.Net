@@ -1,0 +1,51 @@
+{
+  "Parent": {
+    "Source": "e35da61960a45eab72857c92fa75c204841c33ed107e1654987bf03308fd0af3",
+    "Paths": 298,
+    "Compiler": "d1c32d51799948d96dc21da1dff3ca0a34fe48af7e124c306b9c037450a1136b",
+    "Tests": "2a02b5c02d2eb061e997f0cb13fcf79391db374924bca3f79b1de65003ec3482",
+    "ParentSource": "8d86e673eda8d9b14cb5b41b41be8d157825056da3f2d7b375b8b4d263c494e9",
+    "CorpusTool": "9ada9c8e44602b0f3617c923d2e77588ef982d723255122c43737db7fa76fa45"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamDocumentationMetadata.cs": "acb5d1ead01dcfede057e45b6dd5a14eae0fa57be9538b1432cb05a7956d0c47",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamDocumentationWriter.cs": "c7d0c82e778d551dd4a8ac80670f3014f1f6481c5f8973afb3eacdb367d93882",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AtomColumnComprehensionOrder.cs": "3980bfd0bc8be4fd85bafe9ad2921f7e6b8c75907cb58f911a59eea461b013cf",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LeafFrameRegisters.cs": "ff96973c10f0399fd659d298c406be02c4c17a7dab35ea7dda9210a9e2166b5e",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs": "e3ffc84f107fec50721347ebdb5e699f2bbc608fda9c75d761f11b0168502d68",
+    "src/Compiler/Erlang.Compiler/Syntax/Ast/Expr.cs": "361807f47a7d3d39841ff8ecd2b2a63cab6ae6f0fd1193bbed365d03b77684ca",
+    "src/Compiler/Erlang.Compiler/Syntax/BeamMacroPreprocessor.cs": "83992cc8f506ad6c5bfe33a9e1f4908fe681caca72c71696b12884614c8470e9",
+    "src/Compiler/Erlang.Compiler/Syntax/Parser.DocumentationForms.cs": "bec761fc8e65b2695f432e847443dff9e80039cc1d41544c142f7403207eabc3",
+    "src/Compiler/Erlang.Compiler/Syntax/Parser.cs": "3131298643a2b30e7cbdeff8df1ae98c97b9ec3d9ed93cb8ddef2b3e858ddccb",
+    "src/Compiler/Erlang.Compiler/Syntax/Token.cs": "e27b6b1efc2300cef2bb6166997e818602c53c128a2a805cc1725d6d2f1d6c8d",
+    "tests/Erlang.Tests/Compiler/Beam/BeamAtomColumnComprehensionChecks.cs": "585d557296c9e5977589ee868482053b46aaa603529d67c13e0e1c05bf90aebe",
+    "tests/Erlang.Tests/Compiler/Beam/BeamDocsEquivalenceFormattingChecks.cs": "f53d75731d24e2d890e700c1ee9312a41acbbe90ba7eb2fe1ba2958e6b340e78",
+    "tests/Erlang.Tests/Compiler/Beam/BeamDocumentationEmissionChecks.cs": "5d9c9cee81794a9c51879d7030b9600d9edcb7769f4f55521a2f8a140126368d",
+    "tests/Erlang.Tests/Compiler/Beam/BeamWxReleaseIncludeChecks.cs": "e12f583724955db5dd926c8b024928d6c84284fb0a60c51e73f863d8af42136c",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamEmptyTailDispatchFrameChecks.cs": "f6fcdd7b340b4478ce53a6705dd8f77ee5ab62763fe9ba649a129057e6863915",
+    "tests/Erlang.Tests/Harness/Program.cs": "96b1c276f7a04a2309b9eb696466588368b47cef76e40d9ae76b9e190bb33f4c"
+  },
+  "Patches": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\docs-equiv-audit-1892\\stage\\otp-doc-equivalence-formatting.patch",
+      "Hash": "4f8ddafa503aa4a2c94070fc9c293187ba4da1bcaf427b38bf1b5d7ed6f9df48"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\docs-equiv-audit-1892\\behaviour-stage\\docs-behaviour-source-spelling.patch",
+      "Hash": "379b6dba05a6b32d4492a7c1fd0e224f09bb2930be311a91d9e7f57e138b64d1"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\docs-equiv-audit-1892\\include-docs-stage\\docs-mapped-include-origin.patch",
+      "Hash": "afb46e38d86673520988a0700d553b9df668c923880761a2f37f8053579c742f"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\atom-column-comprehension-order-1894\\proposal\\atom-column-sibling-order.patch",
+      "Hash": "215ea4638368616aa59a39ee44a672f7bcce99c0d0a2a641b8600463b3bd2cf1"
+    }
+  ],
+  "HarnessRegistrations": [
+    "BeamEmptyTailDispatchFrameChecks",
+    "BeamDocsEquivalenceFormattingChecks",
+    "BeamAtomColumnComprehensionChecks"
+  ]
+}

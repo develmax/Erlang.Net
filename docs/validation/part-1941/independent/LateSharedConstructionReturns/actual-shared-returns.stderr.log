@@ -1,0 +1,52 @@
+Error! Failed to eval: [Paths,Output]=init:get_plain_arguments(),
+{ok,Files}=file:read_file(Paths),
+Pairs=[list_to_tuple(string:split(binary_to_list(Line),"	",all)) ||
+       Line<-binary:split(Files,<<"
+">>,[global]),byte_size(Line)>0],
+Read=fun(Path)->
+    {beam_file,Mod,_,_,_,Functions}=beam_disasm:file(Path),
+    {ok,Image}=file:read_file(Path),
+    {ok,_}=code:prepare_loading([{Mod,Path,Image}]),
+    maps:from_list([{{Name,Arity},Ops} || {function,Name,Arity,_,Ops}<-Functions])
+end,
+Opcode=fun(I) when is_tuple(I)->element(1,I); (I)->I end,
+Ends=fun(I)->lists:member(Opcode(I),[return,jump,select_val,select_tuple_arity,call_only,call_last,
+  call_ext_only,call_ext_last,apply_last,case_end,badmatch,badrecord,if_end,try_case_end,raise,wait]) end,
+Pure=fun(Is)-> case lists:reverse(Is) of
+    [return|Before] when length(Before)>=2 -> lists:all(fun(I)->
+       lists:member(Opcode(I),[test_heap,get_tuple_element,put_tuple2,put_list,deallocate])
+    end,Before) andalso lists:any(fun(I)->lists:member(Opcode(I),[put_tuple2,put_list]) end,Before);
+    _->false end
+end,
+BlocksOf=fun(Is)->
+    Split=fun Blocks([{label,L}|T],Prior,Acc)->
+                 {Only,Rest}=lists:splitwith(fun(I)->Opcode(I)=/=label end,T),
+                 Last=case Only of []->Prior;_->lists:last(Only) end,
+                 Blocks(Rest,Last,[{L,Prior,Only}|Acc]);
+              Blocks([I|T],_,Acc)->Blocks(T,I,[{0,none,[I]}|Acc]);
+              Blocks([],_,Acc)->Acc
+          end,
+    Split(Is,none,[])
+end,
+Count=fun(Groups,Key)->length([one||{_,_,Body}<-Groups,Body=:=Key]) end,
+{ok,Io}=file:open(Output,[write]),
+Rows=lists:append([begin
+    Expected=Read(Pinned),Actual=Read(Generated),Prior=Read(Before),
+    lists:append([[{filename:basename(Pinned),Key,Code,Count(Old,Code)-Count(New,Code),Count(Ref,Code)}
+        || Code<-lists:usort([B||{_,_,B}<-Old,Pure(B)]),Count(Old,Code)>1,Count(New,Code)=:=1]
+      || {Key,Ops}<-maps:to_list(Prior),{ok,Desired}<-[maps:find(Key,Expected)],
+         {ok,After} <- [maps:find(Key,Actual)],Old<-[BlocksOf(Ops)],New<-[BlocksOf(After)],Ref<-[BlocksOf(Desired)]])
+end || {Pinned,Before,Generated}<-Pairs]),
+lists:foreach(fun(Row)->io:format(Io,"~0p.~n",[Row]) end,Rows),
+io:format(Io,"~p.~n",[#{removed_blocks=>lists:sum([C||{_,_,_,C,_}<-Rows]),
+  pinned_shared=>length([C||C={_,_,_,_,1}<-Rows]),
+  functions=>length(lists:usort([{M,F}||{M,F,_,_,_}<-Rows])),
+  loaded=>length(Pairs)}]),
+ok=file:close(Io),
+halt().
+
+
+Runtime terminating during boot ({{badmatch,{error,beam_lib,{file_error,"D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\shared-record-actions-and-terminal-clauses-1941\pilot.json.generated\lib\common_test-1.31.2\ebin\test_server_ctrl.beam
+.beam",enoent}}},[{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,796}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,792}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{erl_eval,expr_list,7,[{file,"erl_eval.erl"},{line,1664}]},{erl_eval,eval_lc1,7,[{file,"erl_eval.erl"},{line,1078}]},{erl_eval,eval_generate,9,[{file,"erl_eval.erl"},{line,1462}]},{erl_eval,eval_lc,7,[{file,"erl_eval.erl"},{line,1061}]}]})
+
+Crash dump is being written to: erl_crash.dump...done

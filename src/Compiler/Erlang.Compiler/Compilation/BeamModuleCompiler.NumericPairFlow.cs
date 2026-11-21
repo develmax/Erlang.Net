@@ -158,7 +158,7 @@ internal sealed partial class BeamModuleCompiler
                 || (ReadJoinedNumericArgument(function, index) & PairFacts.Atom) == 0
                 ? 0 : AtomTypeBits;
 
-        private int ReadSavedComparisonEntryType(FunctionDefinition function, int index)
+        internal int ReadSavedComparisonEntryType(FunctionDefinition function, int index)
         {
             var signature = (function.Name, function.Arity);
             if (owner.exportedFunctions.Contains(signature) || owner.IsDeclaredNative(signature))

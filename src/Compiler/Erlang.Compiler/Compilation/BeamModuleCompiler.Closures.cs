@@ -23,6 +23,7 @@ internal sealed partial class BeamModuleCompiler
     )
     {
         internal int Entry { get; set; }
+        internal bool ForwardDefinitionOrder { get; init; }
         internal int Arity => General?.Arity ?? Body?.Patterns.Count ?? DeclaredArity;
     }
 
@@ -88,6 +89,12 @@ internal sealed partial class BeamModuleCompiler
             {
                 return false;
             }
+            if (functions.Length == 1 && tail is null
+                && ReadFirstSsaClosureName(function, functions[index], functions[index].CoreOrdinal ?? ordinal) is { } name)
+            {
+                plan = (plan.Closure with { Name = name }, plan.Registers);
+            }
+
             plans.Add(plan);
             if (plan.Closure.GuardFailure is not null)
             {
@@ -456,23 +463,43 @@ internal sealed partial class BeamModuleCompiler
 
     private void ResolveDeferredLabelOperands()
     {
-        if (deferredLabelOperands.Count == 0)
+        if (deferredLabelOperands.Count == 0 && deferredOwnedCaseCopies.Count == 0)
         {
             return;
         }
 
-        // Replace the compact one-byte placeholders once the helper labels are known.
+        // Positions refer to the original stream. Resolve label operands and insert edge copies in the same write.
         byte[] code = instructions.ToArray();
+        var copies = deferredOwnedCaseCopies.OrderBy(copy => copy.Position).ToArray();
         instructions.Position = 0;
         int copied = 0;
+        int nextCopy = 0;
         foreach (var (position, target) in deferredLabelOperands.OrderBy(operand => operand.Position))
         {
+            WriteOwnedCopiesThrough(position);
             instructions.Write(code, copied, position - copied);
             Operand(LabelTag, target < 0 ? deferredEntries[target] : target);
             copied = position + 1;
         }
 
+        WriteOwnedCopiesThrough(code.Length);
         instructions.Write(code, copied, code.Length - copied);
+
+        void WriteOwnedCopiesThrough(int end)
+        {
+            while (nextCopy < copies.Length && copies[nextCopy].Position <= end)
+            {
+                var (position, source, destination) = copies[nextCopy++];
+                instructions.Write(code, copied, position - copied);
+                MoveRegister(
+                    source.HasValue ? YRegisterTag : XRegisterTag,
+                    source.GetValueOrDefault(),
+                    YRegisterTag,
+                    destination
+                );
+                copied = position;
+            }
+        }
     }
 
     private void EmitReturnedClosureTuple(Clause parent, Expr.Tuple tuple, IReadOnlyList<int> closureRegisters)
@@ -594,9 +621,11 @@ internal sealed partial class BeamModuleCompiler
         while (start < closures.Count)
         {
             int end = closures.Count;
-            for (int index = end - 1; index >= start; index--)
+            var ordered = ReadGuardedClosureDefinitionOrder(start, end);
+            for (int slot = end - 1; slot >= start; slot--)
             {
-                emitAtBoundary?.Invoke(index + 1);
+                emitAtBoundary?.Invoke(slot + 1);
+                int index = ordered?.GetValueOrDefault(slot, slot) ?? slot;
                 var closure = closures[index];
                 if (closure.Body is null && closure.General is null)
                 {
@@ -659,7 +688,7 @@ internal sealed partial class BeamModuleCompiler
         }
 
         var location = closure.Location;
-        var planner = new BeamModuleCompiler(name, sourceModule: sourceModule) { exportedFunctions = exportedFunctions };
+        var planner = CreateLayoutProbe();
         using var scratch = planner.instructions;
         planner.StartFunction(
             function.Name,
@@ -797,16 +826,18 @@ internal sealed partial class BeamModuleCompiler
         Operand(LabelTag, closure.Entry);
     }
 
+    private int MapClosureEntryLabel(int entry) =>
+        MapEmittedLabel(entry < 0 ? deferredEntries[entry] : entry);
+
     private void EmitClosureTable(Stream output, int oldUnique)
     {
         Word(output, closures.Count);
         for (int index = 0; index < closures.Count; index++)
         {
             var closure = closures[index];
-            Word(output, atoms[closure.Name]);
+            Word(output, MapEmittedAtom(atoms[closure.Name]));
             Word(output, closure.Arity);
-            int entry = closure.Entry < 0 ? deferredEntries[closure.Entry] : closure.Entry;
-            Word(output, MapEmittedLabel(entry));
+            Word(output, MapClosureEntryLabel(closure.Entry));
             Word(output, index);
             Word(output, closure.CaptureCount);
             Word(output, oldUnique);

@@ -1,0 +1,6 @@
+{
+  "Path": "tests/Erlang.Tests/Compiler/Beam/BeamNestedRecordEffectDispatchChecks.cs",
+  "Before": "7FC13EB0AB8AF307B879988FABF9FFC4EC30185B2B6AA10A5F6B6D47DE1E2E15",
+  "After": "CC380CF70995980EA71ACB832740D1254AE1C5FDE63A2BA959F4434E2E42CFE4",
+  "Reason": "Pinned OTP shares tuple arity dispatch and executes the field guard before entering the branch; ten native outcomes match."
+}

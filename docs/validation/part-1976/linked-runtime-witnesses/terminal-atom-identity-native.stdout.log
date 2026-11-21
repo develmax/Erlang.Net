@@ -1,0 +1,27 @@
+body {function,member,2,2,[{label,1},{line,[{location,[],4}]},{func_info,{atom,beam_literal_identity_case_probe},{atom,member},2},{label,2},{select_val,{x,0},{f,4},{list,[{atom,alpha},{f,3},{atom,pi},{f,3},{atom,zulu},{f,3},{atom,écho},{f,3}]}},{label,3},return,{label,4},{line,[{location,[],5}]},{case_end,{x,0}}]}
+body {function,selected_second,2,6,[{label,5},{line,[{location,[],12}]},{func_info,{atom,beam_literal_identity_case_probe},{atom,selected_second},2},{label,6},{select_val,{x,1},{f,9},{list,[{atom,north},{f,8},{atom,south},{f,7}]}},{label,7},{move,{atom,south},{x,0}},return,{label,8},{move,{atom,north},{x,0}},return,{label,9},{move,{x,1},{x,0}},{line,[{location,[],13}]},{case_end,{x,0}}]}
+body {function,guarded,2,11,[{label,10},{line,[{location,[],18}]},{func_info,{atom,beam_literal_identity_case_probe},{atom,guarded},2},{label,11},{test,is_eq_exact,{f,12},[{x,0},{atom,gamma}]},{test,is_eq_exact,{f,12},[{x,1},{atom,true}]},{move,{atom,gamma},{x,0}},return,{label,12},{test,is_eq_exact,{f,13},[{x,0},{atom,delta}]},return,{label,13},{test,is_eq_exact,{f,14},[{x,0},{atom,epsilon}]},return,{label,14},{line,[{location,[],19}]},{case_end,{x,0}}]}
+body {function,singleton,1,16,[{label,15},{line,[{location,[],25}]},{func_info,{atom,beam_literal_identity_case_probe},{atom,singleton},1},{label,16},{test,is_eq_exact,{f,17},[{x,0},{atom,single}]},return,{label,17},{line,[{location,[],26}]},{case_end,{x,0}}]}
+body {function,boolean,1,19,[{label,18},{line,[{location,[],28}]},{func_info,{atom,beam_literal_identity_case_probe},{atom,boolean},1},{label,19},{test,is_boolean,{f,20},[{x,0}]},return,{label,20},{line,[{location,[],29}]},{case_end,{x,0}}]}
+body {function,mapped,1,22,[{label,21},{line,[{location,[],31}]},{func_info,{atom,beam_literal_identity_case_probe},{atom,mapped},1},{label,22},{select_val,{x,0},{f,25},{list,[{atom,alpha},{f,24},{atom,zulu},{f,23}]}},{label,23},{move,{atom,other},{x,0}},return,{label,24},return,{label,25},{line,[{location,[],32}]},{case_end,{x,0}}]}
+body {function,explicit_default,1,27,[{label,26},{line,[{location,[],34}]},{func_info,{atom,beam_literal_identity_case_probe},{atom,explicit_default},1},{label,27},{select_val,{x,0},{f,29},{list,[{atom,alpha},{f,28},{atom,zulu},{f,28}]}},{label,28},return,{label,29},{move,{atom,fallback},{x,0}},return]}
+value member [zulu,any] zulu
+value member [écho,any] écho
+stack member {beam_literal_identity_case_probe,member,2,[{file,"beam_literal_identity_case_probe.erl"},{line,5}]}
+value member [gamma,[]] {error,{case_clause,gamma}}
+value selected_second [alpha,south] south
+stack selected_second {beam_literal_identity_case_probe,selected_second,2,[{file,"beam_literal_identity_case_probe.erl"},{line,13}]}
+value selected_second [north,0] {error,{case_clause,0}}
+value guarded [gamma,true] gamma
+stack guarded {beam_literal_identity_case_probe,guarded,2,[{file,"beam_literal_identity_case_probe.erl"},{line,19}]}
+value guarded [gamma,false] {error,{case_clause,gamma}}
+value guarded [delta,false] delta
+value singleton [single] single
+stack singleton {beam_literal_identity_case_probe,singleton,1,[{file,"beam_literal_identity_case_probe.erl"},{line,26}]}
+value singleton [gamma] {error,{case_clause,gamma}}
+value boolean [true] true
+value boolean [false] false
+stack boolean {beam_literal_identity_case_probe,boolean,1,[{file,"beam_literal_identity_case_probe.erl"},{line,29}]}
+value boolean [other] {error,{case_clause,other}}
+value mapped [zulu] other
+value explicit_default [not_a_member] fallback

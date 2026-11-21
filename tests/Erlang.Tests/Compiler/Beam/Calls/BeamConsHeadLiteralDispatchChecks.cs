@@ -1,0 +1,125 @@
+using System.Collections;
+using System.Numerics;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamConsHeadLiteralDispatchChecks
+{
+    internal const string TestName = "compiler/beam/selects-two-atom-heads-with-shared-cons-fallback";
+
+    private const string Source = """
+        -module(cons_head_atom_table_fixture).
+        -export([member/1,suffix/1,keep/2,single/1,overlap/2]).
+
+        member([none|_]) -> true;
+        member([unit|_]) -> true;
+        member([_|Tail]) -> member(Tail);
+        member([]) -> false.
+
+        suffix([from_core|_]) -> ".core";
+        suffix([from_asm|_]) -> ".S";
+        suffix([_|Tail]) -> suffix(Tail);
+        suffix([]) -> ".erl".
+
+        keep([strict|Tail], _) -> keep(Tail,true);
+        keep([loose|Tail], _) -> keep(Tail,false);
+        keep([_|Tail], State) -> keep(Tail,State);
+        keep([], State) -> State.
+
+        single([known|_]) -> found;
+        single([_|Tail]) -> single(Tail);
+        single([]) -> absent.
+
+        overlap([key|_], State) when is_integer(State) -> accepted;
+        overlap([key|_], _) -> rejected;
+        overlap([_|Tail], State) -> overlap(Tail,State);
+        overlap([], _) -> none.
+        """;
+
+    internal static void Run()
+    {
+        object code = Code(CodeGeneration.CompileBeamModule(Source, "cons_head_atom_table_fixture.erl"));
+        VerifyDispatch(
+            code,
+            "member",
+            1,
+            sharedBody: true
+        );
+        VerifyDispatch(
+            code,
+            "suffix",
+            1,
+            sharedBody: false
+        );
+        VerifyDispatch(
+            code,
+            "keep",
+            2,
+            sharedBody: false
+        );
+
+        byte[] single = Instructions(code, "single").Select(Opcode).ToArray();
+        byte[] overlap = Instructions(code, "overlap").Select(Opcode).ToArray();
+        if (!single.Contains(ExactEqualTest) || single.Contains(SelectValue)
+            || !overlap.Contains(IsInteger) || overlap.Contains(SelectValue))
+        {
+            throw new InvalidOperationException(BeamConsHeadLiteralDispatchDiagnostics.Overlap);
+        }
+    }
+
+    private static void VerifyDispatch(
+        object code,
+        string name,
+        int headRegister,
+        bool sharedBody
+    )
+    {
+        object[] instructions = Instructions(code, name);
+        int cons = Array.FindIndex(instructions, item => Opcode(item) == IsNonemptyList);
+        if (cons < 0 || cons + 2 >= instructions.Length || Opcode(instructions[cons + 1]) != GetList
+            || Opcode(instructions[cons + 2]) != SelectValue)
+        {
+            throw new InvalidOperationException(BeamConsHeadLiteralDispatchDiagnostics.Dispatch);
+        }
+
+        object[] extraction = Items(instructions[cons + 1], "Operands");
+        object[] table = Items(instructions[cons + 2], "Operands");
+        BigInteger nonCons = Value(Items(instructions[cons], "Operands")[0]);
+        if (table.Length != 7 || Value(table[0]) != headRegister || !table[0].Equals(extraction[1])
+            || !extraction[0].Equals(extraction[2]) || Value(table[1]) == nonCons
+            || (Value(table[4]) == Value(table[6])) != sharedBody)
+        {
+            throw new InvalidOperationException(BeamConsHeadLiteralDispatchDiagnostics.Dispatch);
+        }
+
+        int fallback = LabelPosition(Value(table[1]));
+        int nil = LabelPosition(nonCons);
+        if (fallback < 0 || nil <= fallback || nil + 1 >= instructions.Length
+            || Opcode(instructions[fallback + 1]) is not (TailLocalCall or Move)
+            || Opcode(instructions[nil + 1]) != IsNil)
+        {
+            throw new InvalidOperationException(BeamConsHeadLiteralDispatchDiagnostics.Fallback);
+        }
+
+        int LabelPosition(BigInteger label) => Array.FindIndex(instructions, item =>
+            Opcode(item) == Label && Value(Items(item, "Operands")[0]) == label);
+    }
+
+    private static object[] Instructions(object code, string name)
+    {
+        object function = Items(code, "Functions").Single(item => (string)Property(item, "Name") == name);
+        int start = (int)Property(function, "FirstInstructionIndex");
+        int end = (int)Property(function, "EndInstructionIndex");
+
+        return Items(code, "Instructions")[start..end];
+    }
+
+    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
+
+    private static BigInteger Value(object operand) => (BigInteger)Property(operand, "Value");
+
+    private static object[] Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
+}

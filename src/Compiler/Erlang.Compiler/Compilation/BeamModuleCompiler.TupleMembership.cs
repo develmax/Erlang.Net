@@ -149,9 +149,14 @@ internal sealed partial class BeamModuleCompiler
                 bounds?.Upper
             );
         }
+        EmitMembershipSelectTable(failure, table);
+    }
+
+    private void EmitMembershipSelectTable(int failure, IReadOnlyList<(Term Key, int Label)> table)
+    {
         Operand(LabelTag, failure);
         instructions.WriteByte(ExtendedListOperand);
-        Operand(BeamWire.UnsignedTag, table.Length * 2);
+        Operand(BeamWire.UnsignedTag, table.Count * 2);
         foreach (var (key, label) in table)
         {
             LiteralOperand(key);

@@ -121,7 +121,7 @@ internal static class LocalFunctionEntries
 
     private static IEnumerable<Expr> Clauses(IEnumerable<Clause> clauses) => clauses.SelectMany(clause => clause.Patterns.SelectMany(PatternExpressions).Concat(clause.Guard is null ? [] : new[] { clause.Guard }).Append(clause.Body));
 
-    private static IEnumerable<Expr> PatternExpressions(Pattern pattern) => pattern switch
+    internal static IEnumerable<Expr> PatternExpressions(Pattern pattern) => pattern switch
     {
         NativeRecordPattern record => record.Fields.SelectMany(field => PatternExpressions(field.Value)),
         AliasPattern alias => PatternExpressions(alias.Left).Concat(PatternExpressions(alias.Right)),

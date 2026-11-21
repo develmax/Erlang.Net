@@ -1,0 +1,66 @@
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12555,6 +12555,7 @@
+ Test(Erlang.Tests.BeamTerminalCallProjectionChecks.MixedTupleTableTestName, Erlang.Tests.BeamTerminalCallProjectionChecks.CheckMixedTupleTableOrder);
+ Test(Erlang.Tests.BeamTerminalCallProjectionChecks.ColdOwnershipTestName, Erlang.Tests.BeamTerminalCallProjectionChecks.CheckColdOwnership);
+ Test(Erlang.Tests.BeamCheckedResultPayloadChecks.TestName, Erlang.Tests.BeamCheckedResultPayloadChecks.Run);
++Test(Erlang.Tests.BeamCheckedResultPayloadChecks.HeaderHeapTestName, Erlang.Tests.BeamCheckedResultPayloadChecks.CheckHeaderHeap);
+ Test(Erlang.Tests.BeamCallArgumentKillsChecks.TestName, Erlang.Tests.BeamCallArgumentKillsChecks.Run);
+ Test(Erlang.Tests.BeamMeasuredDecoderPairChecks.TestName, Erlang.Tests.BeamMeasuredDecoderPairChecks.Run);
+ Test(Erlang.Tests.BeamClosedDecoderTagsChecks.TestName, Erlang.Tests.BeamClosedDecoderTagsChecks.Run);
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamCheckedResultPayloadChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamCheckedResultPayloadChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamCheckedResultPayloadChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamCheckedResultPayloadChecks.cs
+@@ -9,6 +9,8 @@
+ internal static class BeamCheckedResultPayloadChecks
+ {
+     internal const string TestName = "compiler/beam/shares-the-checked-call-result-payload";
++    internal const string HeaderHeapTestName = "compiler/beam/packs-the-terminal-header-list-heap";
++    private const string HeaderHeapError = "The terminal header list did not use its single live heap reservation.";
+     private const string Module = "beam_checked_result_payload";
+     private const string ShapeError = "The checked result payload was not shared within its owning branches.";
+ 
+@@ -50,6 +52,42 @@
+         }
+     }
+ 
++    internal static void CheckHeaderHeap()
++    {
++        const string defaultTail = "{code,200}";
++        string alternate = Source.Replace(defaultTail, "{variant,Mime}, {code,200}", StringComparison.Ordinal);
++        if (alternate == Source || !HasPackedHeaders(Source) || HasPackedHeaders(alternate))
++        {
++            throw new InvalidOperationException(HeaderHeapError);
++        }
++    }
++
++    private static bool HasPackedHeaders(string source)
++    {
++        object code = Code(CodeGeneration.CompileBeamModule(source, Module + ".erl"));
++        object[] instructions = Children(code, "Instructions");
++        string[] atoms = Children(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        for (int index = 1; index + 4 < instructions.Length; index++)
++        {
++            if (Opcode(instructions[index - 1]) == ExternalCall && Opcode(instructions[index]) == TestHeap
++                && Operands(instructions[index]).Select(Value).SequenceEqual([22, 1])
++                && IsTaggedPair(instructions[index + 1], "content_length", 0)
++                && Opcode(instructions[index + 2]) == PutList
++                && IsTaggedPair(instructions[index + 3], "content_type", 1)
++                && Opcode(instructions[index + 4]) == PutList)
++            {
++                return true;
++            }
++        }
++
++        return false;
++
++        bool IsTaggedPair(object instruction, string tag, int register) =>
++            Opcode(instruction) == PutTuple
++            && Operands(instruction) is [var destination, _, var atom, _]
++            && Value(destination) == register && atoms[Value(atom)] == tag;
++    }
++
+     private static bool HasSharedSelection(string source)
+     {
+         object code = Code(CodeGeneration.CompileBeamModule(source, Module + ".erl"));

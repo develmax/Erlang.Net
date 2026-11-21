@@ -1,6 +1,7 @@
 using Erlang.Compiler;
 using static Erlang.Compiler.BeamEmissionFormat;
 using static Erlang.Tests.BeamBinaryHostAccess;
+using static Erlang.Tests.BeamOpcodeEdgeBytes;
 
 namespace Erlang.Tests;
 
@@ -8,6 +9,7 @@ internal static class BeamProjectedCallArgumentCopyChecks
 {
     internal const string TestName = "compiler/beam/keeps-projection-before-ordinary-argument-copies";
     private const string Failure = "Expected the checked tuple projection before the two direct ordinary argument copies.";
+    private const string SplitStackFailure = "Expected independent stack loads ordered by slot before the kill, with the final X0 load and call line unchanged.";
     private const byte Zero = 0;
     private const byte One = 0x10;
     private const byte Two = 0x20;
@@ -47,7 +49,41 @@ internal static class BeamProjectedCallArgumentCopyChecks
             throw new InvalidOperationException(Failure);
         }
 
+        CheckSplitStackArguments();
+
         return Task.CompletedTask;
+    }
+
+    private static void CheckSplitStackArguments()
+    {
+        byte[] prefix =
+        [
+            Label, One, FunctionInfo, Module, Function, Three, Label, Two,
+            Allocate, Three, Three, Move, X0, Y(0), Move, X1, Y(1), Move, X2, Y(2)
+        ];
+        byte[] loadSecond = [Move, Y(2), X1];
+        byte[] loadThird = [Move, Y(0), X2];
+        byte[] kill = [InitYRegisters, ExtendedListOperand, One, Y(2)];
+        byte[] finish =
+        [
+            Move, Y(1), X0, Line, One, LocalCall, Three, Target, Deallocate, Three, Return, EndCode
+        ];
+        byte[] original = [.. prefix, .. loadSecond, .. loadThird, .. kill, .. finish];
+        byte[] expected = [.. prefix, .. loadThird, .. loadSecond, .. kill, .. finish];
+        if (Rewrite(original) is not { } actual || !actual.AsSpan().SequenceEqual(expected))
+        {
+            throw new InvalidOperationException(SplitStackFailure);
+        }
+
+        byte[] lineBetweenLoads = [.. prefix, .. loadSecond, Line, One, .. loadThird, .. kill, .. finish];
+        byte[] sameSource = [.. prefix, .. loadSecond, Move, Y(2), X2, .. kill, .. finish];
+        byte[] dependsOnX = [.. prefix, .. loadSecond, Move, X1, X2, .. kill, .. finish];
+        byte[] longerRun = [.. prefix, Move, Y(1), X2, .. loadSecond, .. loadThird, .. kill, .. finish];
+        if (Rewrite(expected) is not null || Rewrite(lineBetweenLoads) is not null || Rewrite(sameSource) is not null
+            || Rewrite(dependsOnX) is not null || Rewrite(longerRun) is not null)
+        {
+            throw new InvalidOperationException(SplitStackFailure);
+        }
     }
 
     private static byte[]? Rewrite(byte[] source)

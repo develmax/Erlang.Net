@@ -1,0 +1,15 @@
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -11652,7 +11652,11 @@
+             bool mixedTypeSelection = terminalResult && branchContinuation is null && !tailFallback
+                 && registerSelector && owner.SsaTypeInferenceEnabled && !owner.ModuleOptimizationDisabled
+                 && decision.Value is Expr.Call { Module: not (null or ErlangModuleNames.Module), DynamicRemote: false };
+-            var mixedClauses = mixedTypeSelection ? OrderMixedTupleAtomClauses(decision.Clauses) : null;
++            // The measured partition begins at the function's terminal selector.
++            // Nested result cases keep the enclosing continuation's cold layout.
++            var mixedClauses = mixedTypeSelection && terminalCase
++                ? OrderMixedTupleAtomClauses(decision.Clauses)
++                : null;
+             bool registerPatterns = registerSelector && (mixedClauses is not null || decision.Clauses.All(CanTestCasePatternInX0));
+             int? input = testInX0 || registerPatterns ? null : savedInput ?? Save();
+             EmitCaseClauses(

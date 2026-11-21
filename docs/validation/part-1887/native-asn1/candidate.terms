@@ -1,0 +1,9 @@
+{decode_ber_tlv,[<<2,1,5>>],{value,{{2,<<5>>},<<>>}}}.
+{decode_ber_tlv,[<<2,1,5,5,0>>],{value,{{2,<<5>>},<<5,0>>}}}.
+{decode_ber_tlv,[<<48,3,2,1,5>>],{value,{{16,[{2,<<5>>}]},<<>>}}}.
+{decode_ber_tlv,[<<2,3,5>>],{exit,{error,{asn1,{invalid_value,1}}},[]}}.
+{decode_ber_tlv,[<<>>],{exit,{error,{asn1,{invalid_value,0}}},[]}}.
+{encode_ber_tlv,[{2,<<5>>}],{value,<<2,1,5>>}}.
+{encode_ber_tlv,[{16,[{2,<<5>>},{4,<<"*">>}]}],{value,<<48,6,2,1,5,4,1,42>>}}.
+{encode_per_complete,[[<<128>>,<<0:2>>]],{error,badarg,[{asn1rt_nif,encode_per_complete,1}]}}.
+{encode_per_complete,[[]],{value,<<>>}}.

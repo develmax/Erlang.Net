@@ -1,0 +1,188 @@
+using static Erlang.Compiler.BeamEmissionFormat;
+
+namespace Erlang.Compiler;
+
+internal sealed partial class BeamModuleCompiler
+{
+    private readonly record struct FrameReturnEdit(
+        int Start,
+        int End,
+        byte Prefix,
+        int Tag,
+        int Value
+    );
+
+    private (ReadOnlyMemory<byte> Code, int LabelCount)? ShareFinalFrameReturns(
+        ReadOnlyMemory<byte> code,
+        IReadOnlyList<BeamInstruction> body,
+        IReadOnlyList<(int Start, int End, int Label)> references,
+        int labelCount,
+        HashSet<int> sharedEntries
+    )
+    {
+        var edits = new List<FrameReturnEdit>();
+        var redirects = new Dictionary<int, int>();
+        int entry = 0;
+        for (int end = 0; end < body.Count; end++)
+        {
+            if (body[end].Definition.Opcode is not (FunctionInfo or EndCode))
+            {
+                continue;
+            }
+
+            int start = entry;
+            entry = end + 1;
+            var groups = ReadFinalFrameReturnGroups(body, start, end);
+            if (groups is null)
+            {
+                continue;
+            }
+
+            sharedEntries.Add((int)body[start].Operands[0].Value);
+            foreach (int[] group in groups)
+            {
+                int last = group[^1];
+                int target;
+                if (body[last - 1] is { Definition.Opcode: Label, Operands: [var label] })
+                {
+                    target = (int)label.Value;
+                }
+                else
+                {
+                    target = labelCount++;
+                    edits.Add(new FrameReturnEdit(
+                        body[last].Offset,
+                        body[last].Offset,
+                        Label,
+                        BeamWire.UnsignedTag,
+                        target
+                    ));
+                }
+
+                foreach (int index in group.SkipLast(1))
+                {
+                    int first = index;
+                    if (body[first - 1] is { Definition.Opcode: Label, Operands: [var entryLabel] })
+                    {
+                        redirects.Add((int)entryLabel.Value, target);
+                        first--;
+                    }
+
+                    // A label reached only by an explicit edge can simply disappear.
+                    // The predecessor of an unlabeled return still needs a jump.
+                    bool fallthrough = !EndsBeamBlock(body[first - 1].Definition.Opcode);
+                    edits.Add(new FrameReturnEdit(
+                        body[first].Offset,
+                        body[index + 3].Offset,
+                        fallthrough ? Jump : (byte)0,
+                        LabelTag,
+                        fallthrough ? target : 0
+                    ));
+                }
+            }
+        }
+
+        if (edits.Count == 0)
+        {
+            return null;
+        }
+
+        foreach (var (start, end, label) in references)
+        {
+            if (redirects.TryGetValue(label, out int target))
+            {
+                edits.Add(new FrameReturnEdit(
+                    start,
+                    end,
+                    0,
+                    LabelTag,
+                    target
+                ));
+            }
+        }
+
+        using var output = new MemoryStream(code.Length);
+        int copied = 0;
+        foreach (var edit in edits.OrderBy(edit => edit.Start))
+        {
+            output.Write(code.Span[copied..edit.Start]);
+            if (edit.Prefix != 0)
+            {
+                output.WriteByte(edit.Prefix);
+            }
+            if (edit.Value != 0)
+            {
+                BeamCompactWriter.Write(output, edit.Tag, edit.Value);
+            }
+
+            copied = edit.End;
+        }
+
+        output.Write(code.Span[copied..]);
+        highestOpcode = Math.Max(highestOpcode, Jump);
+
+        return (output.ToArray(), labelCount);
+    }
+
+    private static int[][]? ReadFinalFrameReturnGroups(IReadOnlyList<BeamInstruction> body, int entry, int end)
+    {
+        if (entry + 2 >= end || body[entry].Definition.Opcode != Label
+            || body[entry + 1] is not { Definition.Opcode: Allocate, Operands: [var frame, _] })
+        {
+            return null;
+        }
+
+        var returns = new Dictionary<int, List<int>>();
+        bool hasSelection = false;
+        bool hasUnlabeledResult = false;
+        for (int index = entry + 2; index < end; index++)
+        {
+            byte opcode = body[index].Definition.Opcode;
+            if (opcode is Allocate or AllocateHeap or TrimFrame or TryEnter or CatchEnter or TryEnd or TryCase
+                or CatchEnd or LoopReceive or Wait or WaitTimeout or DebugLine or ExecutableLine
+                or TailExternalCall or TailExternalCallWithFrame or TailLocalCall or TailLocalCallWithFrame or TailDynamicApply)
+            {
+                return null;
+            }
+
+            hasSelection |= opcode == SelectValue;
+            if (opcode != Return)
+            {
+                continue;
+            }
+
+            if (index < entry + 4 || body[index - 1] is not { Definition.Opcode: Deallocate, Operands: [var width] }
+                || width.Value != frame.Value || body[index - 2] is not
+                {
+                    Definition.Opcode: Move,
+                    Operands:
+                    [
+                    { Kind: BeamOperandParameters.Y, TypeIndex: null } source,
+                    { Kind: BeamOperandParameters.X, TypeIndex: null, Value.IsZero: true }
+                    ]
+                }
+                || body[index - 3].Definition.Opcode is Line or Label
+                    && body[index - 4].Definition.Opcode is Line or Label)
+            {
+                return null;
+            }
+
+            int site = index - 2;
+            hasUnlabeledResult |= body[site - 1].Definition.Opcode != Label;
+            int slot = (int)source.Value;
+            if (!returns.TryGetValue(slot, out var sites))
+            {
+                sites = [];
+                returns.Add(slot, sites);
+            }
+
+            sites.Add(site);
+        }
+
+        // A selection with repeated slot returns can have both explicit arms
+        // and inline destinations created by an exact comparison.
+        return hasSelection && hasUnlabeledResult && returns.Count >= 2 && returns.Values.All(group => group.Count > 1)
+            ? returns.Values.Select(group => group.ToArray()).ToArray()
+            : null;
+    }
+}

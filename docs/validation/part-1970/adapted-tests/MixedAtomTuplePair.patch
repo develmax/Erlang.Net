@@ -1,0 +1,87 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamAtomTupleCasePairChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamAtomTupleCasePairChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamAtomTupleCasePairChecks.cs
+@@ -0,0 +1,82 @@
++using System.Collections;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamAtomTupleCasePairChecks
++{
++    internal const string TestName = "compiler/beam/partitions-atom-leading-tagged-tuple-case";
++    private const string Fixture = "beam_atom_tuple_case_pair.erl";
++    private const string WrongPartition = "An atom-leading case did not separate its tagged tuple, atom and unmatched exits.";
++
++    internal const string Source = """
++        -module(beam_atom_tuple_case_pair).
++        -export([direct/2,nested/3,guarded/2]).
++
++        direct(Value, Marker) ->
++            case atom_tuple_case_provider:next(Value) of
++                ready -> {seen, Marker};
++                {fault, Reason} -> {fault, Reason}
++            end.
++
++        nested(Start, Finish, Marker) ->
++            case atom_tuple_case_provider:next(Start) of
++                ready ->
++                    case atom_tuple_case_provider:next(Finish) of
++                        ready -> {seen, Marker};
++                        {fault, Reason} -> {transformed, Reason}
++                    end;
++                {fault, Reason} -> {fault, Reason}
++            end.
++
++        guarded(Value, Marker) ->
++            case atom_tuple_case_provider:next(Value) of
++                ready -> {seen, Marker};
++                {fault, Reason} when is_integer(Reason) -> {accepted, Reason};
++                Other -> {fallback, Other}
++            end.
++        """;
++
++    internal static Task Run()
++    {
++        object code = Code(CodeGeneration.CompileBeamModule(Source, Fixture));
++        if (!HasPartition(code, "direct", 1) || !HasPartition(code, "nested", 2))
++        {
++            throw new InvalidOperationException(WrongPartition);
++        }
++
++        return Task.CompletedTask;
++    }
++
++    private static bool HasPartition(object code, string name, int count)
++    {
++        object function = Children(code, "Functions").Single(item => (string)Property(item, "Name") == name);
++        int from = (int)Property(function, "FirstInstructionIndex");
++        int until = (int)Property(function, "EndInstructionIndex");
++        object[] body = Children(code, "Instructions")[from..until];
++        int matches = 0;
++        for (int index = 0; index + 2 < body.Length; index++)
++        {
++            if (Opcode(body[index]) != ExternalCall || Opcode(body[index + 1]) != IsTuple
++                || Opcode(body[index + 2]) != IsTaggedTuple)
++            {
++                continue;
++            }
++
++            object typeFailure = Children(body[index + 1], "Operands")[0];
++            object valueFailure = Children(body[index + 2], "Operands")[0];
++            if (!Equals(Property(typeFailure, "Value"), Property(valueFailure, "Value")))
++            {
++                matches++;
++            }
++        }
++
++        return matches == count;
++    }
++
++    private static byte Opcode(object op) => (byte)Property(Property(op, "Definition"), "Opcode");
++
++    private static object[] Children(object value, string name) => ((IEnumerable)Property(value, name)).Cast<object>().ToArray();
++}

@@ -1,0 +1,46 @@
+{
+  "Parent": {
+    "Source": "4981e099210ec7a8e3eabf07e65c34184c3a980453aed3cf704c717a868e1419",
+    "Paths": 915,
+    "RemovedPaths": [],
+    "Compiler": "087a6cc323a377298f798ba91fa73ca0ea81c1195596ff0bf8bc4bbdf2b3f55c",
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "Tests": "b205ea44d1577fc0dd7d567af2a9bab5812c725282a74e1f9d7cc21ea851c427",
+    "ParentSource": "0d74bdc34d7938ef7587b8f2bf8dc98a9b43b4459335ca17a6c2c33483b097b2",
+    "CorpusTool": "2a2f256ee45ef492517d14167a4777fa3c7d41e74754afdaad8071596f8f95be"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CallArgumentKills.cs": "2bdd97b24910c0b241de31d98cabb2162f3bce964094aa198b6f2af53cdfb1ce",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedReplyOrReceive.cs": "397ec930c9ed3b90b69bacf51c437a7b0594ee7981dacf7744fb123bca6a23e9",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": "ab1f9d662aca1bf947526a8a9ca094be5d0ce91a838b7ce1014f5c63b43ca0f9",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LeadingAtomTailDispatch.cs": "f78b4bc08f31250542fda792cd18d39829b7a47474e255ae4103d80125751764",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.NestedRecordEffects.cs": "9c661c90ce79edb0f3d27e8382290d26c81a886f95c68eca5f994791107334fc",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProjectedIdentityContinuations.cs": "fd076983d9f35d438ffa6c2f881ec6827940eda2ea66d5278513354c06a404d1",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProperListComprehensionBindings.cs": "98782be26816c23d8c956a850c48fd95638d331f4e3e5290bdecbd6f1e7738f3",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProvenTupleOptionGenerator.cs": "0ad60c240237b52df8893da3e69b9b47a3d6369b7eeec4d9cbdc8dd1017320a2",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs": "0bd0d6ef16bc419521b463e640f8d8901035a70ffe8ebda7734b20c4b87677f4",
+    "tests/Erlang.Tests/Compiler/Beam/BeamCheckedReplyOrReceiveChecks.cs": "96f7f1ca45acc1a3fbb5bdc2cbc6a3567066fd78851a0c525a3d6c40db62b3e0",
+    "tests/Erlang.Tests/Compiler/Beam/BeamClosedTerminalSelectorChecks.cs": "b3030d3cbabcbc3577505a401591b1587ed795e8d6f1adf640744d7928cd9d1e",
+    "tests/Erlang.Tests/Compiler/Beam/BeamNestedRecordEffectDispatchChecks.cs": "7fc13eb0ab8af307b879988fabf9ffc4ec30185b2b6aa10a5f6b6d47de1e2e15",
+    "tests/Erlang.Tests/Compiler/Beam/BeamProjectedIdentityContinuationsChecks.cs": "54cbb6372f8d508b8a42ab720237ad30805548c6b88ce58163792260476b5280",
+    "tests/Erlang.Tests/Compiler/Beam/BeamProvenTupleOptionGeneratorChecks.cs": "960d5fb2fe94ed1cc33f11efda5b46f89ea69459eeb39679502f5381b52913ff",
+    "tests/Erlang.Tests/Compiler/Beam/BeamSurvivingCallTrimChecks.cs": "d9f43eb4289d6b6ee75b76a6d41b7811b264f37cfa8fbc5972c5a7f0fc2a14be",
+    "tests/Erlang.Tests/Harness/Program.cs": "2f7ce94053c1588c5bd73556d081937e0bfe804e80b9639589650b641289989b"
+  },
+  "CandidateRemovedPaths": {},
+  "PatchSources": {
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\binary-match-audit-1931\\striptests-sctp-scout-1952\\projected-identity-continuations.patch": "ca6817dfcb3f7fc699d853d9ae92ef73b8978a397b7f99c1709f86fcedec4810",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\entry-and-selective-frames-1951\\adapted-tests\\ProjectedIdentityContinuations.patch": "171c1dbe9c2609146249431a3824edc5aeace99dd822e71c2871227edd22a6b1",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\binary-match-audit-1931\\sctp-checked-receive-1953\\checked-reply-or-receive.patch": "53ad527361a503c0c7a3e15f41dfc79110ebd421b69b5adc3e6238d0ee2e2ab6",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\entry-and-selective-frames-1951\\adapted-tests\\CheckedReplyOrReceive.patch": "3598117c186783076ac24c6b6aba9e48dbde0eced893a432022ee99115a5e50e",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\wx-demo-near-release-1975\\production.patch": "c5f192953c3840f369159a526acd0353bd87af95e99379b6dee1c8a42a9e3cba",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\entry-and-selective-frames-1951\\adapted-tests\\SurvivingReceiverAfterTrim.patch": "ba0c3a82bd0a6e7314f5cbbb3b56d8f1739e63e517433165c04b118ddb3f48c5",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\proven-tuple-option-generators-1976\\production.patch": "950f2946716fa875923eb3bb4f290101d5a1bf5de4ac28449bb73e109a4c75d5",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\entry-and-selective-frames-1951\\adapted-tests\\ProvenTupleOptionGenerators.patch": "0987774b854313c86d0f94cd9defd704c360f4ad850e3a2e70a829ff9d9ef9c5",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\asn-named-bits-replay-1931\\enrollment-terminal-selector-1949\\enrollment-terminal-selector.patch": "b58405eea1cd66ab03961b253a58d7d168b598b71736bcba07db7fdef5375ee6",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\entry-and-selective-frames-1951\\adapted-tests\\ClosedTerminalSelector.patch": "731c227e239b0d7a2a441e178566a1b582bc28778692107abfcf8dc0312d5520",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\nested-record-effect-dispatch-1977\\production.patch": "150058a91248c4cffd5b7c3166a5e0c066daf1ea2e7683967e71a5395455d770",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\entry-and-selective-frames-1951\\adapted-tests\\NestedRecordEffectDispatch.patch": "d0a82f2e261d6bf9c52d81909314a3b6472977cc6db6e9aecf5faa3652c735c0",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\entry-and-selective-frames-1951\\adapted-tests\\integrated-harness-registrations.patch": "2f88b3d35499567706e3f1ad550b814387557d6eafa0180d1b2199e5fe9a9b2f"
+  }
+}

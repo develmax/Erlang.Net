@@ -1,0 +1,16 @@
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12544,7 +12544,12 @@
+ Test(Erlang.Tests.BeamGraphicsProtectedCallSequenceChecks.TestName, Erlang.Tests.BeamGraphicsProtectedCallSequenceChecks.Run);
+ Test(
+     Erlang.Tests.BeamComputedBinaryMatchChecks.TestName,
+-    Erlang.Tests.BeamComputedBinaryMatchChecks.Run
++    () =>
++    {
++        Erlang.Tests.BeamComputedBinaryMatchChecks.Run();
++
++        return Task.CompletedTask;
++    }
+ );
+ 
+ Test(Erlang.Tests.BeamWxFactoredSizerOverloadChecks.TestName, Erlang.Tests.BeamWxFactoredSizerOverloadChecks.Run);

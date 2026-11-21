@@ -1,0 +1,211 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultPrefixedSequenceEncoder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultPrefixedSequenceEncoder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultPrefixedSequenceEncoder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultPrefixedSequenceEncoder.cs
+@@ -11,7 +11,8 @@
+             IReadOnlyList<SequenceEncodePart> fields,
+             DefaultEncodeField? first,
+             int finishEntry,
+-            IReadOnlyList<Expr.Binary> additions
++            IReadOnlyList<Expr.Binary> additions,
++            IReadOnlyList<DefaultEncodeField?>? retainedPredicates = null
+         )
+         {
+             int count = fields.Count;
+@@ -23,7 +24,17 @@
+             int tagsSlot = frame - 2;
+             int firstSlot = frame - 3;
+ 
+-            int PairSlot(int index) => reuseRecordSlot && index == count - 2 ? recordSlot : firstSlot - index;
++            bool reverseLeadingSlots = retainedPredicates is not null && fields[0].Omits is null;
++
++            int PairSlot(int index)
++            {
++                if (reverseLeadingSlots && index < 2)
++                {
++                    return firstSlot - (1 - index);
++                }
++
++                return reuseRecordSlot && index == count - 2 ? recordSlot : firstSlot - index;
++            }
+ 
+             var optional = new Dictionary<int, (int Encode, int Continue)>();
+             for (int index = 0; index < count; index++)
+@@ -97,10 +108,11 @@
+                 var field = fields[index];
+                 int slot = PairSlot(index);
+                 bool last = index == count - 1;
+-                int projectedRegister = pending ? 1 : 0;
++                var predicate = retainedPredicates?[index];
++                int projectedRegister = predicate is null ? pending ? 1 : 0 : last ? recordSlot : slot;
+                 owner.Op(GetTupleElement, index == 0 ? XRegisterTag : YRegisterTag, index == 0 ? 0 : recordSlot);
+                 owner.Operand(BeamWire.UnsignedTag, index + 1);
+-                owner.Operand(XRegisterTag, projectedRegister);
++                owner.Operand(predicate is null ? XRegisterTag : YRegisterTag, projectedRegister);
+                 if (pending)
+                 {
+                     owner.MoveRegister(
+@@ -109,6 +121,43 @@
+                         YRegisterTag,
+                         PairSlot(index - 1)
+                     );
++                }
++
++                if (predicate is not null)
++                {
++                    var branch = optional[index];
++                    owner.MoveToX0(YRegisterTag, projectedRegister);
++                    owner.EmitCallLine(predicate.Predicate, previous);
++                    previous = CallLocation(predicate.Predicate, previous);
++                    owner.EmitFieldCall(1, predicate.PredicateEntry);
++                    CompareMarker(0, Term.A(ErlangBooleanAtoms.True), branch.Encode);
++                    MoveOmitted(predicate.Default, last ? XRegisterTag : YRegisterTag, last ? 0 : slot);
++                    JumpTo(branch.Continue);
++                    Mark(branch.Encode);
++                    if (predicate.Names is { } names)
++                    {
++                        owner.EmitConstant(names, 1);
++                    }
++
++                    owner.EmitConstant(predicate.Tags, predicate.Names is null ? 1 : 2);
++                    owner.MoveToX0(YRegisterTag, projectedRegister);
++                    owner.InitStackSlot(projectedRegister);
++                    owner.EmitCallLine(field.Call, previous);
++                    previous = CallLocation(field.Call, previous);
++                    owner.EmitFieldCall(field.Call.Arguments.Count, field.Entry);
++                    if (!last)
++                    {
++                        owner.MoveRegister(
++                            XRegisterTag,
++                            0,
++                            YRegisterTag,
++                            slot
++                        );
++                    }
++
++                    Mark(branch.Continue);
++                    pending = false;
++                    continue;
+                 }
+ 
+                 if (field.Omits is { } omitted)
+@@ -161,7 +210,7 @@
+ 
+             int[] lengths = first is null ? new int[count] : fields.Select(field => ReadNumericPairLengthType(field.Call)).ToArray();
+             int[]? pairSlots = null;
+-            if (reuseRecordSlot || trimFinal)
++            if (reuseRecordSlot || trimFinal || reverseLeadingSlots)
+             {
+                 pairSlots = Enumerable.Range(0, count).Select(index => trimFinal
+                     ? (index == count - 2 ? recordSlot : PairSlot(index)) - 1 : PairSlot(index)).ToArray();
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs
+@@ -15,7 +15,7 @@
+             int MatchLine = 0
+         );
+ 
+-        private bool TryEmitRequiredOptionalSequenceEncoder(FunctionDefinition function)
++        private bool TryEmitRequiredOptionalSequenceEncoder(FunctionDefinition function, bool retainRecord = false)
+         {
+             if (!owner.SsaTypeInferenceEnabled || owner.ModuleOptimizationDisabled || function.Clauses is not
+                 [
+@@ -61,7 +61,14 @@
+                 return false;
+             }
+ 
++            if (retainRecord && (count < 3 || owner.OnLoadFunction is not null
++                || localFunctions.Keys.Any(owner.IsDeclaredNative)))
++            {
++                return false;
++            }
++
+             var fields = new SequenceEncodePart[count];
++            var retainedPredicates = retainRecord ? new DefaultEncodeField?[count] : null;
+             var lengths = new string[count];
+             var names = new HashSet<string>(StringComparer.Ordinal) { input.Name, tags.Name, parts.Name, length.Name };
+             int required = 0;
+@@ -83,6 +90,33 @@
+                     || !names.Add(encoded.Name) || !names.Add(measured.Name))
+                 {
+                     return false;
++                }
++
++                if (retainedPredicates is not null)
++                {
++                    if (field is Expr.Case conditional
++                        && ReadDefaultEncodeField(conditional, value.Name, allowNamedOptions: true) is { } retainedPredicate)
++                    {
++                        retainedPredicates[index] = retainedPredicate;
++                        fields[index] = new(
++                            retainedPredicate.Encode,
++                            retainedPredicate.EncodeEntry,
++                            retainedPredicate.Names is { } table ? [table, retainedPredicate.Tags] : [retainedPredicate.Tags],
++                            Term.A(ErlangBooleanAtoms.True),
++                            retainedPredicate.Default
++                        );
++                    }
++                    else if (ReadRequiredOptionalSequenceField(field, value.Name, allowForeign: true) is { Call.Module: null } retained)
++                    {
++                        fields[index] = retained;
++                    }
++                    else
++                    {
++                        return false;
++                    }
++
++                    lengths[index] = measured.Name;
++                    continue;
+                 }
+ 
+                 bool allowForeignOptional = firstDefault is not null && count == 4 && index == 1
+@@ -186,7 +220,7 @@
+                 { Omits: null, Call.Module: null },
+                 { Omits: not null, Call.Module: not null }
+                 ];
+-            if (!checkedOptional && !checkedPairWithOptional && !trimFinalRequired && (firstDefault is not null && (required < 3 && !compactMixed || finalDefault is not null || !trailingOptionalStarted)
++            if (!retainRecord && !checkedOptional && !checkedPairWithOptional && !trimFinalRequired && (firstDefault is not null && (required < 3 && !compactMixed || finalDefault is not null || !trailingOptionalStarted)
+                 || firstDefault is null && (required != 2 || required == count || (middleDefault is null && (finalDefault is null
+                     ? fields[0].Constants is not [var named, _] || !IsClosedNamedNumberList(named)
+                     : count != 4 || fields[0].Constants is not [Nil] || fields[2].Omits is not Atom)))))
+@@ -213,6 +247,30 @@
+             if (remaining is not Expr.Variable first || first.Name != lengths[0])
+             {
+                 return false;
++            }
++
++            if (retainedPredicates is not null)
++            {
++                bool allConditional = fields.All(field => field.Omits is not null);
++                bool leadingRequired = fields is
++                [
++                { Omits: null },
++                { Omits: not null },
++                { Omits: not null }
++                ] && retainedPredicates[1] is not null && retainedPredicates[2] is null;
++                if (!allConditional && !leadingRequired)
++                {
++                    return false;
++                }
++
++                return EmitDefaultPrefixedSequence(
++                    unpack,
++                    fields,
++                    null,
++                    finishEntry,
++                    additions,
++                    retainedPredicates
++                );
+             }
+ 
+             if (checkedOptional || checkedPairWithOptional || trimFinalRequired)
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -869,6 +869,7 @@
+                 || TryEmitNilTailTupleFallback(function)
+                 || TryEmitGuardedIntegerForward(function) || TryEmitProjectedChoice(function)
+                 || TryEmitSingleOptionalField(function) || TryEmitDeferredTupleFields(function)
++                || TryEmitRequiredOptionalSequenceEncoder(function, retainRecord: true)
+                 || TryEmitRegisterLookupCase(function) || TryEmitForwardedCaseInput(function)
+                 || TryEmitProtectedProjection(function) || TryEmitProtectedProjectionArgument(function)
+                 || TryEmitCallListResultTail(function) || TryEmitListDecoderEntry(function) || TryEmitRegisterListClause(function)

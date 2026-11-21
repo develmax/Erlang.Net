@@ -1,0 +1,20 @@
+{
+  "status": "source-only strict replay; candidate build/style and native execution pending",
+  "basis": "7169ec6ff063b763abc18d318e4011353b3f0886bd70a8a8d87c039f88a8b1c6",
+  "patches": {
+    "production.patch": "9ffbdbc6193413f88eba994b35dbab4db3191c7a17df5477569c5a2769fa5df2",
+    "test.patch": "3ba7487ab45b6cba4d2433ba5c971cb0dcb70310c337b37bd97d97654bb8d98b"
+  },
+  "sources": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CallFrameTrims.cs": {
+      "before": "03e03b2a0c5bf812c4c113c063e122474ce1ca16d53d587c8be3dfb1f868829d",
+      "after": "de04e6060084923f35b503bc1fa32b4ccd9adef5dc6efa4eabacfa8b8c6d63dd"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamLateOutgoingRootTrimChecks.cs": {
+      "before": "e3ff00cd1e4a85270072f72bccdf141d45935266bd00abbce1850785d0784387",
+      "after": "0b052457a3310804707c1589f48f08712a96b015c5019d5e266c6764e7ed66df"
+    }
+  },
+  "rawCensus": "296732900e165e31857cb357bfbd7204c54c60761ca89bc9c30e3b6596442bd5",
+  "causalComponent": "e5352a5fced29d055575eea4b848912463863663b732786e3ad73bcceb1227a4"
+}

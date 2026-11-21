@@ -1,0 +1,80 @@
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ColdBooleanCaseFailures.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ColdBooleanCaseFailures.cs
+@@ -4,7 +4,7 @@
+ 
+ internal sealed partial class BeamModuleCompiler
+ {
+-    private byte[]? MoveColdBooleanCaseFailures(ReadOnlyMemory<byte> code, int labelCount)
++    private byte[]? MoveColdBooleanCaseFailures(ReadOnlyMemory<byte> code, int labelCount, bool standaloneOnly = false)
+     {
+         if (!code.Span.Contains(SelectValue) || !code.Span.Contains(CaseEnd))
+         {
+@@ -75,8 +75,15 @@
+                 continue;
+             }
+ 
+-            if ((PlanNestedRecordColdCases(body, start, end) ?? PlanDispatchCaseFailures(body, start, end)) is not int[] order)
+-            {
++            int[]? dispatch = standaloneOnly ? PlanDispatchCaseFailures(body, start, end, standaloneOnly: true)
++                : PlanNestedRecordColdCases(body, start, end) ?? PlanDispatchCaseFailures(body, start, end);
++            if (dispatch is not int[] order)
++            {
++                if (standaloneOnly)
++                {
++                    continue;
++                }
++
+                 int exceptionSuffix = FindTrailingExceptionBlocks(body, start, end);
+                 var failures = new SortedSet<int>();
+                 for (int index = start + 1; index < exceptionSuffix; index++)
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DispatchCaseFailures.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DispatchCaseFailures.cs
+@@ -4,7 +4,12 @@
+ 
+ internal sealed partial class BeamModuleCompiler
+ {
+-    private static int[]? PlanDispatchCaseFailures(IReadOnlyList<BeamInstruction> body, int start, int end)
++    private static int[]? PlanDispatchCaseFailures(
++        IReadOnlyList<BeamInstruction> body,
++        int start,
++        int end,
++        bool standaloneOnly = false
++    )
+     {
+         var labels = new Dictionary<int, int>();
+         var exceptions = new List<(int Start, int End)>();
+@@ -42,9 +47,11 @@
+             }
+         }
+ 
+-        if (selections == 1 && exceptions is [(var coldStart, var coldEnd)])
++        if (standaloneOnly)
+         {
+-            return PlanStandaloneCaseFailure(coldStart, coldEnd);
++            return selections == 1 && exceptions is [(var coldStart, var coldEnd)]
++                ? PlanStandaloneCaseFailure(coldStart, coldEnd)
++                : null;
+         }
+ 
+         if (selections < 2 || exceptions.Count < 2
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+@@ -1223,6 +1223,7 @@
+         code = ReturnExactMatchPredicates(code, labelCount) ?? code;
+         code = ForwardLiveCallResultToArgument(code, labelCount) ?? code;
+         code = OrderTrimmedCallResultArguments(code, labelCount) ?? code;
++        code = MoveColdBooleanCaseFailures(code, labelCount, standaloneOnly: true) ?? code;
+         if (OrderFinalPhysicalLabels(code, labelCount) is { } ordered)
+         {
+             (code, labelCount) = ordered;
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamStackArgumentLifetimeChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamStackArgumentLifetimeChecks.cs
+@@ -108,7 +108,8 @@
+             0,
+             5,
+             9,
+-            instructions[5]
++            instructions[5],
++            false
+         );
+     }

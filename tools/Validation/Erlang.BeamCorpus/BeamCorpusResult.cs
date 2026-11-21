@@ -6,5 +6,8 @@ internal sealed record BeamCorpusResult(
     int? FirstDifferentByte = null,
     [property: System.Text.Json.Serialization.JsonIgnore(
         Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
-    string? EmissionSite = null
+    string? EmissionSite = null,
+    [property: System.Text.Json.Serialization.JsonIgnore(
+        Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    BeamAssemblySourceIdentity? AssemblyInput = null
 );

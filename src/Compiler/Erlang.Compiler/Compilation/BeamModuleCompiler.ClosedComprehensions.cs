@@ -14,6 +14,37 @@ internal sealed partial class BeamModuleCompiler
         for (int index = 0; index < functions.Count; index++)
         {
             var function = functions[index];
+            if (ExtractWritableBinaryListBuilder(function, locations[index], declared) is { } writable)
+            {
+                helpers.Add(writable);
+                continue;
+            }
+
+            if ((ExtractNestedListGenerators(function, locations[index], declared)
+                ?? ExtractRecursiveListGenerators(
+                    function,
+                    locations[index],
+                    declared,
+                    localFunctions
+                )) is { } nested)
+            {
+                rewritten[index] = nested.Parent;
+                helpers.AddRange(nested.Helpers);
+                continue;
+            }
+
+            if (ExtractEmptyComprehensionScan(
+                function,
+                locations[index],
+                declared,
+                localFunctions
+            ) is { } emptyScan)
+            {
+                rewritten[index] = emptyScan.Parent;
+                helpers.Add((emptyScan.Helper, emptyScan.Location));
+                continue;
+            }
+
             if (function.Clauses is [var filteredClause]
                 && ExtractCapturedListFilter(
                     function,
@@ -175,6 +206,7 @@ internal sealed partial class BeamModuleCompiler
             helpers.Add((helper, location));
         }
 
+        OrderStandaloneComprehensionsWithClosures(functions, helpers);
         if (hasMixedRecursiveDefinitions)
         {
             foreach (var definitions in recursiveDefinitionOrder.Values)
@@ -361,7 +393,8 @@ internal sealed partial class BeamModuleCompiler
         (Expr Expression, bool IsGuard)? filter = null,
         bool discardResult = false,
         BeamSourceLocation? strictGeneratorLocation = null,
-        BeamSourceLocation? invalidSourceLocation = null
+        BeamSourceLocation? invalidSourceLocation = null,
+        Expr.Variable? appendTail = null
     )
     {
         string tail = useReservedBindings ? "@BeamComprehensionTail" : "BeamComprehensionTail";
@@ -425,10 +458,12 @@ internal sealed partial class BeamModuleCompiler
             ];
         }
 
+        var finishCaptures = captures.Select((capture, index) =>
+            appendTail?.Name == capture.Name ? capture : ignoredCaptures[index]).ToArray();
         Clause[] finish = properInput
-            ? [new([new Pattern.Variable(bad), .. ignoredCaptures], null, new Expr.Variable(bad))]
+            ? [new([new Pattern.Variable(bad), .. finishCaptures], null, (Expr?)appendTail ?? new Expr.Variable(bad))]
             : [
-                new([new Pattern.List([], null), .. ignoredCaptures], null, new Expr.Literal(Nil.Value)),
+                new([new Pattern.List([], null), .. finishCaptures], null, (Expr?)appendTail ?? new Expr.Literal(Nil.Value)),
                 new(
                     [new Pattern.Variable(bad), .. ignoredCaptures],
                     null,
@@ -439,7 +474,8 @@ internal sealed partial class BeamModuleCompiler
                     )
                     {
                         SourceLine = invalidSourceLocation?.Line ?? 0,
-                        PreprocessorFile = invalidSourceLocation?.File
+                        PreprocessorFile = invalidSourceLocation?.File,
+                        IsListGeneratorSourceFailure = invalidSourceLocation is { Line: > 0 }
                     }
                 )
             ];
@@ -450,6 +486,27 @@ internal sealed partial class BeamModuleCompiler
             .. skip,
             .. finish
         ]);
+    }
+
+    private static int RecursiveListBaseResultRegister(FunctionDefinition function)
+    {
+        var finish = function.Clauses[^1];
+        if (finish.Body is not Expr.Variable && function.Clauses.Count > 1)
+        {
+            finish = function.Clauses[^2];
+        }
+        if (finish.Body is Expr.Variable result)
+        {
+            for (int index = 1; index < finish.Patterns.Count; index++)
+            {
+                if (finish.Patterns[index] is Pattern.Variable capture && result.Name == capture.Name)
+                {
+                    return index;
+                }
+            }
+        }
+
+        return 0;
     }
 
     private static bool ClosedMappingExpression(Expr expression, string item) => expression switch

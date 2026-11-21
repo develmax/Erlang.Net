@@ -1,0 +1,40 @@
+{
+  "Parent": {
+    "Source": "16e25af2b4c5a51e01264966581f4ae9a72f237a45965a96e63a687e284bed12",
+    "Paths": 246,
+    "Compiler": "7d924634d84123c5cdb5c750aff9d18eb15101593b38339279985666e0f9a9ee",
+    "Tests": "f98fda4f2d1034fa441b6caaf182f898599db63c976c71b3bd9ba991d7dc9352",
+    "ParentSource": "5298beb6a1fd4ecc6783bc337fd8b538e45f1beae922b2c9a31a11d6d2dd57c5",
+    "CorpusTool": "d06b4f120e77ced5ff544d4f3307193bdaa5e1e856219d99bedfdabfe724c1db"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": "2696c1a4923c84f529b819020a7ecd79d7657b96570e2e935156d7aa111bf423",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GuardedTupleAliasComprehension.cs": "ddfd1bd0e154b23c20c28999186ebc59100d4895cf75b72bbf2b19db2405d4fa",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedExternalTailSwitch.cs": "6c609e0c45cc1296a78a59b68b0f77693a7ff532db610ac0e6b1f9be909e4367",
+    "tests/Erlang.Tests/Compiler/Beam/BeamRelaxedTupleAliasHelperChecks.cs": "628d09c10c3757c8a8efdbeb59e2f59e423c44132dc97e26e2471553f063724c",
+    "tests/Erlang.Tests/Compiler/Beam/BeamSharedExternalTailSwitchChecks.cs": "43de767060e8ec1c8e9893d79c4ef033116505c1fc953979efe585f8ae113c90",
+    "tests/Erlang.Tests/Harness/Program.cs": "8b40b4fa5f0c297ebf3f3dddeb153de56296702cf623a56f43403dd021e513f2",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedReturns.cs": "c6e568659415951f2b061e0587853aa8912752e948d7cfa5f85569a3dc9b6bf0",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamDeadStackProjectionChecks.cs": "b8a2c3c8cf582863ead3e738a70dadf238127a6c71b90ded5bd931268bd969ad"
+  },
+  "Patches": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\guarded-alias-entry-and-shared-external-tails-1885\\guarded-tuple-alias-entry.patch",
+      "Hash": "46e7c46beb6c8d05235b80ad17250e4621de1fd78cad3f9b14ab0061fcf95808"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\guarded-alias-entry-and-shared-external-tails-1885\\shared-external-tail-switch.patch",
+      "Hash": "ef6d77855c16b8a9d1e9ac7ebe1ab8dba98ded3915441335306251c0e9a24121"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\guarded-alias-entry-and-shared-external-tails-1885-retake\\late-unread-stack-projections.patch",
+      "Hash": "2045896d4abd25e4cea64b15d56611846baf39266c79beb02651d398c58d40d3"
+    }
+  ],
+  "HarnessRegistrations": "Register external tail check after the existing filename test.",
+  "Retake": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\guarded-alias-entry-and-shared-external-tails-1885-retake",
+  "Corrections": "Use the explicit Erlang.Pattern type in GeneralEmitter partials. Run unread projection removal only after the existing scheduling passes settle.",
+  "CompilerReuse": "31F466421437B6083872CDC41077F02CC74D5495567D8E21390F2196E81379DE",
+  "PreviousHostAttempt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\guarded-alias-entry-and-shared-external-tails-1885-host-fixture-retake",
+  "HostImportSelection": "Ordinary maps calls retain the actual selector and are admitted by the runtime."
+}

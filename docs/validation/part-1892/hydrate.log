@@ -1,0 +1,50 @@
+{
+  "Parent": {
+    "Source": "814296a21951e8c1d686bd511b40407c27c6c4e5b7090dacb71d3d0e8023cda3",
+    "Paths": 284,
+    "Compiler": "77fcfa99a702ca42283bb6ae2f0caf063641be2c13b212f1090547c540c27682",
+    "Tests": "e4de85065701e20c5e579c9fdfbbe7e0462b55643f4cf1b2bac90d7ec341709e",
+    "ParentSource": "e7d42460ec9ed7b1c08429ecb37a20d3e10b7b8bdcd46b84cc7b1ec886573b51",
+    "CorpusTool": "9203b0adacfc4cb9d39ecf9e55cf13bc88352e266a7fa4d9aea7199d30b19c68"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamDocumentationTypes.cs": "c49cde2376f926abd4e017a9e95044144e1e9fe81f5e0206a2100dd16b25add8",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamDocumentationWriter.cs": "f2a5bc2cbbf10801dfd48e8acdfb23660a4c36fd6e5ef1ccda855757c6b5ec69",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LinearStackSlots.cs": "484ccad0fd3ef5cbee251dfe9c41a3813290767a61834e58e166b17db25cde30",
+    "tests/Erlang.Tests/Compiler/Beam/BeamDocsRecordTypeChecks.cs": "12e07706cfd0103fe2ac65a77f2e8351caa399cfb983f816f964fad05607dc27",
+    "tests/Erlang.Tests/Compiler/Beam/BeamDocumentationEmissionChecks.cs": "55a7514e965d2a308023df3eaab058f3801013592de3e00a89f17d99c9fc82da",
+    "tests/Erlang.Tests/Compiler/Beam/BeamWxReleaseIncludeChecks.cs": "4d76a234795e8df6762e0baa37fedc68ccb3e51f3178f28c5bae640352bff30b",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamOwnedEntryFrameChecks.cs": "391fde6869440837f770e25de9544248fe93e641d7fe80cd10c1eccf6f6bf237",
+    "tests/Erlang.Tests/Harness/Program.cs": "450fc928deeb2a1e0189fdd2e6cfbcf93e56c2f5dedeea73ac3d1b2e560196c2",
+    "tools/Validation/Erlang.BeamCorpus/OtpWindowsInTreeLibraryIncludePaths.cs": "1bbf7a3b19a52d5d8637512f375648407bae2e122be14927f697e1020859dfd4",
+    "tests/Erlang.Tests/Erlang.Tests.csproj": "4ae5444c5d7194e6fd657f5efc30877e06137d96f423ca3d807a1ce5c70347d0"
+  },
+  "Patches": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\owned-entry-frames-and-source-docs-1892\\hidden-docs-provenance.patch",
+      "Hash": "8e9fa3d69597261b64e8ae03cc73c15dd24f5f95893a77c940bb660888685189"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\owned-entry-frames-and-source-docs-1892\\record-field-type-reachability.patch",
+      "Hash": "f80bdbe76cd1e510bff89c0cb0970974dd0a08e0a9424eb4f214a5f4121aab2c"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\owned-entry-frames-and-source-docs-1892\\reuse-stack-slots-after-owned-entry.patch",
+      "Hash": "d3afc92f921a5acdd47420e03ccc66920d14f5fa7e656b026edb116575fbb7ba"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\owned-entry-frames-and-source-docs-1892\\wx-docs-provenance.patch",
+      "Hash": "f2e6f307947f9f7cd87900fe2aa2076452a17451062c6a20ba0e791c00703517"
+    }
+  ],
+  "HarnessRegistrations": [
+    "BeamDocsRecordTypeChecks",
+    "BeamOwnedEntryFrameChecks",
+    "BeamWxReleaseIncludeChecks"
+  ],
+  "TestProjectResolution": {
+    "Path": "tests/Erlang.Tests/Erlang.Tests.csproj",
+    "Cause": "Reuse the canonical release adapter in the test project source links.",
+    "PreviousFailure": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\owned-entry-frames-and-source-docs-1892\\tests-build.log"
+  }
+}

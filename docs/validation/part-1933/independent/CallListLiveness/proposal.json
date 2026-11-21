@@ -1,0 +1,266 @@
+{
+  "base": {
+    "Source": "bea419949a0613f32d6365f028b2ad02d48095bca9c4585273716292e331a4d3",
+    "Paths": 713,
+    "RemovedPaths": [],
+    "Compiler": "165d45503fd11db6a334517e0be46f799fef55da8dc62fa37aac233592c4b5be",
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "Tests": "b69760c3c8cf5836687ca844b5ed8303d0d05f044e7955647b197fbe43a81db8",
+    "ParentSource": "744e5b0bbbcb55c43b5882512de06bec5ee76cbf1517fa7331cc968ce6987180",
+    "CorpusTool": "0b0d3462f7f5b4106cdc2bf6573aa9da4a9a9e8de7320f426b682c717598a616"
+  },
+  "production": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": {
+      "before": "252137c29998a0370dd3d120ff9c5e9710352d217e333d6a3b64ba62f8feab90",
+      "after": "01e0159a6ddaf4257f678186db33da58079957bfc1587ee44c555dde11cb6db9"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedListFilter.cs": {
+      "before": "fe42a64bc1ac92e1641a4a6226911ff6778150c65af1641b8a5aec67284d28d7",
+      "after": "6e632780c7c1e4f16b58ca8fb8bc02d8e59a8382ea748f7c1b1ed2c09c82f78e"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ForkedCallList.cs": {
+      "before": null,
+      "after": "f01f26033e2ed4d1e583c255982422832f94b794c791ff1ef9c9811acfd3dd78"
+    },
+    "patch-sha256": "ae2a646bd0c916a907d04be3896ac96233b86fdc4d0cc7ebd9cb46883eb70423"
+  },
+  "test": {
+    "tests/Erlang.Tests/Harness/Program.cs": {
+      "before": "d7946e29ea4010b3770198810cf17dd50dffb4fc9cfbc154e605b16693924cc4",
+      "after": "e83a8fb68f886438fd74e7ea6d3a958ca62384314b5be3bd47eaf00b942de5e5"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamForkedCallListChecks.cs": {
+      "before": null,
+      "after": "a93ea2456a9d450de6d1c481745ec086d4a12d1d7392aff5b24189b071d1b919"
+    },
+    "patch-sha256": "b28f45a56f684cf937ba963de6ec1f85c7c32e3bf050137e3bc17b0492f8d6a1"
+  },
+  "compiler-bin/Erlang.Compiler.dll": "3078fd16ceb507d36697cfa25ebd87a80f3aaa61738a080db21091344cc623f6",
+  "test-payload/Erlang.Tests.dll": "50ac969ebd37a9b2dc9a3c6e206af569a9bffde6f967358b88ee06999f2d89fe",
+  "candidate-bin/Erlang.BeamCorpus.dll": "0b0d3462f7f5b4106cdc2bf6573aa9da4a9a9e8de7320f426b682c717598a616",
+  "inets-reference.etf": "d77be712d965f740c01834ad2a873330d582ce18c4bffe1aac1c9cbec7f8e3b8",
+  "inets-candidate.etf": "d77be712d965f740c01834ad2a873330d582ce18c4bffe1aac1c9cbec7f8e3b8",
+  "scoped-corpus.json": "160fb8aa36b7d91023461689522041648dff3f95988624607c8c1b6daf16c1b1",
+  "inets_sup-candidate-diff.log": "9e86ebc772d532a40a6cbd0f412aaf3c2c5399a64795df33770eadaafc893f8b",
+  "focused-red.log": "008c0d1d9b2be67253a5cb0dd240a5d4d4a0e65b9e7702bea6409cbf0c04d446",
+  "focused-green.log": "4b62788ce3ff572e961b23493b41624f663c5be47fe363b804adc7294dc76fe1",
+  "release": [
+    {
+      "module": "lib\\common_test-1.31.2\\ebin\\ct_config_plain.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "before": null,
+      "after": null
+    },
+    {
+      "module": "lib\\common_test-1.31.2\\ebin\\ct_event.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "before": null,
+      "after": null
+    },
+    {
+      "module": "lib\\compiler-10.0.6\\ebin\\beam_ssa_codegen.beam",
+      "prior": "Different",
+      "result": "Different",
+      "before": "0dbb28dbc182e3b2bd6d2b047c2c8a95f002234416d2e3234f7687db4a0cef9f",
+      "after": "0dbb28dbc182e3b2bd6d2b047c2c8a95f002234416d2e3234f7687db4a0cef9f"
+    },
+    {
+      "module": "lib\\debugger-7.0\\ebin\\dbg_idb.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "before": null,
+      "after": null
+    },
+    {
+      "module": "lib\\debugger-7.0\\ebin\\debugger.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "before": null,
+      "after": null
+    },
+    {
+      "module": "lib\\dialyzer-6.0.3\\ebin\\dialyzer_typesig.beam",
+      "prior": "Different",
+      "result": "Different",
+      "before": "01fe903e419e0d84d3223e2c6d30fbaa52e44fc5e10886f4bea841cb4bbf3351",
+      "after": "01fe903e419e0d84d3223e2c6d30fbaa52e44fc5e10886f4bea841cb4bbf3351"
+    },
+    {
+      "module": "lib\\diameter-2.7.2\\ebin\\diameter_callback.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "before": null,
+      "after": null
+    },
+    {
+      "module": "lib\\diameter-2.7.2\\ebin\\diameter_session.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "before": null,
+      "after": null
+    },
+    {
+      "module": "lib\\eldap-1.3.1\\ebin\\ELDAPv3.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "before": null,
+      "after": null
+    },
+    {
+      "module": "lib\\erts-17.1\\ebin\\erl_init.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "before": null,
+      "after": null
+    },
+    {
+      "module": "lib\\erts-17.1\\ebin\\erts_trace_cleaner.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "before": null,
+      "after": null
+    },
+    {
+      "module": "lib\\erts-17.1\\ebin\\prim_eval.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "before": null,
+      "after": null
+    },
+    {
+      "module": "lib\\et-1.8\\ebin\\et.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "before": null,
+      "after": null
+    },
+    {
+      "module": "lib\\et-1.8\\ebin\\et_viewer.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "before": null,
+      "after": null
+    },
+    {
+      "module": "lib\\ftp-1.2.6\\ebin\\ftp_progress.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "before": null,
+      "after": null
+    },
+    {
+      "module": "lib\\inets-9.8\\ebin\\httpc_profile_sup.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "before": null,
+      "after": null
+    },
+    {
+      "module": "lib\\inets-9.8\\ebin\\httpd_esi.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "before": null,
+      "after": null
+    },
+    {
+      "module": "lib\\inets-9.8\\ebin\\inets_sup.beam",
+      "prior": "Different",
+      "result": "Different",
+      "before": "ec5cd64a6f41703b1e0e657c28c230e3de261042c82614e4993a35f8e21f37af",
+      "after": "21771587dfb12efd886113b3340278ffb6bcd7e969c93935af22de2850fd5b53"
+    },
+    {
+      "module": "lib\\megaco-4.9.2\\ebin\\megaco_sup.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "before": null,
+      "after": null
+    },
+    {
+      "module": "lib\\megaco-4.9.2\\ebin\\megaco_tcp_accept.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "before": null,
+      "after": null
+    },
+    {
+      "module": "lib\\megaco-4.9.2\\ebin\\megaco_trans_sup.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "before": null,
+      "after": null
+    },
+    {
+      "module": "lib\\public_key-1.21.7\\ebin\\CryptographicMessageSyntax-2009.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "before": null,
+      "after": null
+    },
+    {
+      "module": "lib\\public_key-1.21.7\\ebin\\OCSP-2024-08.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "before": null,
+      "after": null
+    },
+    {
+      "module": "lib\\public_key-1.21.7\\ebin\\PKIXCRMF-2009.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "before": null,
+      "after": null
+    },
+    {
+      "module": "lib\\stdlib-8.1\\ebin\\digraph_utils.beam",
+      "prior": "Different",
+      "result": "Different",
+      "before": "8e548c36820c347e3857f38417b01a901c56a29144f7dc6739c40888f53e4cb3",
+      "after": "8e548c36820c347e3857f38417b01a901c56a29144f7dc6739c40888f53e4cb3"
+    },
+    {
+      "module": "lib\\stdlib-8.1\\ebin\\graph.beam",
+      "prior": "Different",
+      "result": "Different",
+      "before": "78a51c7640daadd1fd4b63d1608ac5e6927b29df25922a4db3f748391d91e486",
+      "after": "78a51c7640daadd1fd4b63d1608ac5e6927b29df25922a4db3f748391d91e486"
+    },
+    {
+      "module": "lib\\stdlib-8.1\\ebin\\ordsets.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "before": null,
+      "after": null
+    },
+    {
+      "module": "lib\\syntax_tools-4.1.1\\ebin\\merl_transform.beam",
+      "prior": "Different",
+      "result": "Different",
+      "before": "a5300e8222f72ad6b5506416bcc2aa69a2147e2154401f439789ce0ded6bfb90",
+      "after": "a5300e8222f72ad6b5506416bcc2aa69a2147e2154401f439789ce0ded6bfb90"
+    },
+    {
+      "module": "lib\\tools-4.2.3\\ebin\\crashdump.beam",
+      "prior": "Different",
+      "result": "Different",
+      "before": "3a492dd080242205244c4d2d81e8aa67fbd07254f02c97f4506073b6b45f68fa",
+      "after": "3a492dd080242205244c4d2d81e8aa67fbd07254f02c97f4506073b6b45f68fa"
+    },
+    {
+      "module": "lib\\wx-2.7\\doc\\examples\\demo\\ex_grid.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "before": null,
+      "after": null
+    },
+    {
+      "module": "lib\\wx-2.7\\doc\\examples\\demo\\ex_radioBox.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "before": null,
+      "after": null
+    }
+  ]
+}

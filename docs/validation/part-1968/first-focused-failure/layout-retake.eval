@@ -1,0 +1,7 @@
+[Pin,Before,After]=init:get_plain_arguments(),
+[begin
+    {beam_file,_,_,_,_,Fs}=beam_disasm:file(P),
+    [{function,reply,1,_,Code}]=[F||F={function,reply,1,_,_}<-Fs],
+    io:format("~s~n",[filename:basename(P)]),
+    [io:format("~w.~n",[I])||I<-Code]
+end||P<-[Pin,Before,After]],halt().

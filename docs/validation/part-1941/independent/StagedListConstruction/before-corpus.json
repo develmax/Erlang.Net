@@ -1,0 +1,73 @@
+{
+  "OtpVersion": "29.1.1",
+  "Total": 9,
+  "Counts": {
+    "Different": 6,
+    "Equal": 3
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\diameter-2.7.2\\ebin\\diameter_dict_parser.beam",
+      "Status": "Different",
+      "Source": "lib\\diameter-2.7.2\\src\\gen\\diameter_dict_parser.erl",
+      "Detail": "Original length 76592, generated length 80184. AtU8 3116-\u003E3129, Code 11865-\u003E15507, ImpT 244-\u003E256, ExpT 64-\u003E64, LitT 130-\u003E109, LocT 2008-\u003E2020, Attr 13458-\u003E13458, Line 893-\u003E869, Type 74-\u003E32",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\megaco-4.9.2\\ebin\\megaco_text_mini_parser.beam",
+      "Status": "Different",
+      "Source": "lib\\megaco-4.9.2\\src\\text\\megaco_text_mini_parser.erl",
+      "Detail": "Original length 102652, generated length 104484. AtU8 4266-\u003E4277, Code 16841-\u003E18899, ImpT 376-\u003E388, ExpT 64-\u003E64, LitT 203-\u003E165, LocT 1936-\u003E1936, Attr 13036-\u003E13036, Line 1214-\u003E1250, Type 298-\u003E52",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\megaco-4.9.2\\ebin\\megaco_text_parser_v1.beam",
+      "Status": "Different",
+      "Source": "lib\\megaco-4.9.2\\src\\text\\megaco_text_parser_v1.erl",
+      "Detail": "Original length 578224, generated length 615172. AtU8 21715-\u003E21446, Code 99683-\u003E136133, ImpT 412-\u003E436, ExpT 64-\u003E64, LitT 945-\u003E1856, LocT 11680-\u003E11464, Attr 84252-\u003E84252, Line 6228-\u003E6560, Type 336-\u003E52",
+      "FirstDifferentByte": 5
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\cdv_bin_cb.beam",
+      "Status": "Equal",
+      "Source": "lib\\observer-2.19\\src\\cdv_bin_cb.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\snmp-5.20.5\\ebin\\snmpc_mib_gram.beam",
+      "Status": "Different",
+      "Source": "lib\\snmp-5.20.5\\src\\compiler\\snmpc_mib_gram.erl",
+      "Detail": "Original length 257464, generated length 266836. AtU8 11165-\u003E11171, Code 45243-\u003E54543, ImpT 484-\u003E484, ExpT 64-\u003E64, LitT 1954-\u003E1933, LocT 6736-\u003E6736, Attr 43829-\u003E43829, Line 3471-\u003E3690, Type 182-\u003E50",
+      "FirstDifferentByte": 5
+    },
+    {
+      "Beam": "lib\\ssh-6.0.6\\ebin\\ssh_bits.beam",
+      "Status": "Equal",
+      "Source": "lib\\ssh-6.0.6\\src\\ssh_bits.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\erl_posix_msg.beam",
+      "Status": "Equal",
+      "Source": "lib\\stdlib-8.1\\src\\erl_posix_msg.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\tools-4.2.3\\ebin\\xref_parser.beam",
+      "Status": "Different",
+      "Source": "lib\\tools-4.2.3\\src\\xref_parser.erl",
+      "Detail": "Original length 79336, generated length 84660. AtU8 2465-\u003E2465, Code 13938-\u003E19275, ImpT 316-\u003E316, ExpT 76-\u003E76, LitT 352-\u003E331, LocT 1468-\u003E1468, Attr 11016-\u003E11016, Line 759-\u003E855, Type 118-\u003E32",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_xsd_re_parse.beam",
+      "Status": "Different",
+      "Source": "lib\\xmerl-2.2\\src\\xmerl_xsd_re_parse.erl",
+      "Detail": "Original length 81840, generated length 83832. AtU8 2505-\u003E2545, Code 15798-\u003E17335, ImpT 292-\u003E316, ExpT 64-\u003E64, LitT 3731-\u003E4261, LocT 1684-\u003E1696, Attr 11135-\u003E11135, Line 832-\u003E812, Type 164-\u003E32",
+      "FirstDifferentByte": 6
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamExactBooleanReturnsChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamExactBooleanReturnsChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamExactBooleanReturnsChecks.cs
+@@ -0,0 +1,62 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamExactBooleanReturnsChecks
++{
++    internal const string TestName = "compiler/beam/returns-exact-predicate-values";
++    private const string Fixture = "beam_exact_boolean_returns_probe.erl";
++    private const string UnexpectedPredicate = "Expected exact predicates to return their Boolean result.";
++
++    internal const string Source = """
++        -module(beam_exact_boolean_returns_probe).
++        -export([same/2, empty/1, selected/1, effect/2]).
++
++        same(T, T) -> true;
++        same(_, _) -> false.
++
++        empty({_, []}) -> true;
++        empty(_) -> false.
++
++        selected(ready) -> true;
++        selected(_) -> false.
++
++        effect(T, T) -> self() ! matched, true;
++        effect(_, _) -> self() ! failed, false.
++        """;
++
++    internal static byte[] CompileFixture() => CodeGeneration.CompileBeamModule(Source, Fixture);
++
++    internal static void Run()
++    {
++        object code = Code(CompileFixture());
++        object[] instructions = Items(code, "Instructions").ToArray();
++        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        if (!HasBooleanBif("same") || !HasBooleanBif("empty") || !HasBooleanBif("selected") || HasBooleanBif("effect"))
++        {
++            throw new InvalidOperationException(UnexpectedPredicate);
++        }
++
++        bool HasBooleanBif(string name)
++        {
++            int start = Array.FindIndex(
++                instructions,
++                instruction => Opcode(instruction) == FunctionInfo
++                && atoms[Value(Items(instruction, "Operands").ElementAt(1))] == name
++            );
++
++            return instructions.Skip(start + 2).TakeWhile(instruction => Opcode(instruction) != FunctionInfo)
++                .Any(instruction => Opcode(instruction) == BifTwo);
++        }
++    }
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++
++    private static IEnumerable<object> Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>();
++}

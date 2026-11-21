@@ -1,0 +1,100 @@
+{
+  "AcceptedPart1969": {
+    "Source": "ef40fcb5d34616d6f68af07ca6e39a739b019a75d8c65e2bf760c8f39cafc009",
+    "Paths": 1111,
+    "RemovedPaths": [],
+    "Compiler": "665a0830c1ef6b17a6abca85c2bd67f1f44bced61b368afd52cd9443e7d8ffc5",
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "Tests": "e4d6f77b37f3eef6dd9e69f52e89e7a34c414cc66e095c188dabbdb5b7fcb5fb",
+    "ParentSource": "7169ec6ff063b763abc18d318e4011353b3f0886bd70a8a8d87c039f88a8b1c6",
+    "CorpusTool": "f9493673bdd9fffa50a5d63b28e72406edccbd9f9eff93be80059cb009e25f70"
+  },
+  "ExpectedPart1970HydrationReceipt": "823ef2fceef26bb1924cb21e3a87e82fc0f45a3a204d4ab99c48e22f0c57b279",
+  "ExpectedPart1970Status": "candidate post-replay and layout bytes, pending accepted freeze",
+  "Replays": {
+    "accepted-part1969": {
+      "CompilerPreimage": "2408f8ceaddbea152c922109ff053a1ac56c42066f5c77ccc9f46d64e8954148",
+      "HarnessPreimage": "5f4e096d64e63fe09bc1d7a53dc4fc63a25f372f300ed9657f6993aee93646db",
+      "CompilerPostimage": "8c0d2504285b57eaaedf49377f3c14cc25460e41cbc948db72362e884209c6e1",
+      "HarnessPostimage": "cf6a46af75d9fb4879ed87b3110caca6ade3bc3e5694804ee2d006c801a92aa0",
+      "ProductionPatch": "b46e9c5070530c9724567f4d8a166f3a650d8bc65e971d3dfc8e54642cb0d299",
+      "TestPatch": "2411e945293ac49770401d6c2a8181374a684b1a21b42a1e65cf6a4918d35aea",
+      "NewTests": {
+        "tests/Erlang.Tests/Compiler/Beam/Calls/BeamTwoAtomEntrySelectionChecks.cs": "ffef6bd877bc591e6063e654eed049824910cc23724454f97db31b171c3ec125",
+        "tests/Erlang.Tests/Compiler/Beam/Calls/BeamTwoAtomEntrySelectionDiagnostics.cs": "d0e5ffcf8f31de4cb5f30c7d97e8db7bb15ead9421cee54801dd6c8222b54477"
+      },
+      "GitApply": [
+        {
+          "Patch": "two-atom-entry-production.patch",
+          "Mode": "check",
+          "Exit": 0,
+          "Stdout": "",
+          "Stderr": ""
+        },
+        {
+          "Patch": "two-atom-entry-production.patch",
+          "Mode": "replay",
+          "Exit": 0,
+          "Stdout": "",
+          "Stderr": ""
+        },
+        {
+          "Patch": "two-atom-entry-tests.patch",
+          "Mode": "check",
+          "Exit": 0,
+          "Stdout": "",
+          "Stderr": ""
+        },
+        {
+          "Patch": "two-atom-entry-tests.patch",
+          "Mode": "replay",
+          "Exit": 0,
+          "Stdout": "",
+          "Stderr": ""
+        }
+      ]
+    },
+    "expected-part1970": {
+      "CompilerPreimage": "2408f8ceaddbea152c922109ff053a1ac56c42066f5c77ccc9f46d64e8954148",
+      "HarnessPreimage": "e135f326a7d5cee6775912ea61d6b954a29d28f48264dfcf03777998d8f415b8",
+      "CompilerPostimage": "8c0d2504285b57eaaedf49377f3c14cc25460e41cbc948db72362e884209c6e1",
+      "HarnessPostimage": "0ca97563b10d53ef40791360e2468196df750786ba61e27d475628a24a2756da",
+      "ProductionPatch": "b46e9c5070530c9724567f4d8a166f3a650d8bc65e971d3dfc8e54642cb0d299",
+      "TestPatch": "a87ce23b71f2544ac73593c2a150f3a1c20675fc127a2b34a348edb3f3de7cd7",
+      "NewTests": {
+        "tests/Erlang.Tests/Compiler/Beam/Calls/BeamTwoAtomEntrySelectionChecks.cs": "ffef6bd877bc591e6063e654eed049824910cc23724454f97db31b171c3ec125",
+        "tests/Erlang.Tests/Compiler/Beam/Calls/BeamTwoAtomEntrySelectionDiagnostics.cs": "d0e5ffcf8f31de4cb5f30c7d97e8db7bb15ead9421cee54801dd6c8222b54477"
+      },
+      "GitApply": [
+        {
+          "Patch": "two-atom-entry-production.patch",
+          "Mode": "check",
+          "Exit": 0,
+          "Stdout": "",
+          "Stderr": ""
+        },
+        {
+          "Patch": "two-atom-entry-production.patch",
+          "Mode": "replay",
+          "Exit": 0,
+          "Stdout": "",
+          "Stderr": ""
+        },
+        {
+          "Patch": "two-atom-entry-tests.patch",
+          "Mode": "check",
+          "Exit": 0,
+          "Stdout": "",
+          "Stderr": ""
+        },
+        {
+          "Patch": "two-atom-entry-tests.patch",
+          "Mode": "replay",
+          "Exit": 0,
+          "Stdout": "",
+          "Stderr": ""
+        }
+      ]
+    }
+  }
+}

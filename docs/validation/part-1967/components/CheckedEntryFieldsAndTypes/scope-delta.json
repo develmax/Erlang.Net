@@ -1,0 +1,356 @@
+{
+  "Candidate": {
+    "Different": 83,
+    "Equal": 6
+  },
+  "Baseline": {
+    "Different": 84,
+    "Equal": 5
+  },
+  "Gains": [
+    "lib/megaco-4.9.2/ebin/megaco_monitor.beam"
+  ],
+  "Losses": [],
+  "Changed": [
+    {
+      "Path": "lib/asn1-5.5.2/ebin/asn1ct_check.beam",
+      "Parent": "b135f3e4695666531fcb3542fddb7128d002620bda8a61dd904b965d6fb6bdc5",
+      "Candidate": "7ccb83e914f27148f1cf154ed882c0399207c2890d820d46eb000c52b2bced9c"
+    },
+    {
+      "Path": "lib/asn1-5.5.2/ebin/asn1ct_constructed_per.beam",
+      "Parent": "643bdf515220f0689d3697b5d0601e5f3607499539d2649d108b3d423b52d3b5",
+      "Candidate": "c8ff63f0142fe458a4d949f8824ee39b92f3fe2d420af3790d7d5f7a8544ba4a"
+    },
+    {
+      "Path": "lib/asn1-5.5.2/ebin/asn1ct_gen.beam",
+      "Parent": "75ebd26415d863596c4d246ccac9d24c8e2b7a0e4800c49ca9747caf5f227d6b",
+      "Candidate": "ec923e6db964b3db204f4f05f63d05fdee7dbb87a63dc90c1be1229fec2ca775"
+    },
+    {
+      "Path": "lib/asn1-5.5.2/ebin/asn1ct_imm.beam",
+      "Parent": "5ce260e15ac9cab220854428a847ff6dcf8f6cb0409b454ff426bd09ca7d7c7b",
+      "Candidate": "3a358c09356562c592bd6bca6f9bb6e898d27533b99366d4af21222c1486d718"
+    },
+    {
+      "Path": "lib/asn1-5.5.2/ebin/asn1ct_parser2.beam",
+      "Parent": "37ee7091dd2fec96b42fee58df80635cfbd47665f62169f6838ab72565876cca",
+      "Candidate": "65051c6783b2771d791f705d798aa8e040294b297a62a2b68c556da372126a3f"
+    },
+    {
+      "Path": "lib/common_test-1.31.2/ebin/ct_framework.beam",
+      "Parent": "09b5b04c678a37273d5ef9c4ebd97f86cc7acbfe3701122fb0d27438515a120d",
+      "Candidate": "e0aa1a0116cfdd11b3f44cda3b91759387f24afae1ea6d7e080c6444f8bae60c"
+    },
+    {
+      "Path": "lib/common_test-1.31.2/ebin/ct_run.beam",
+      "Parent": "b9dfe7dfe3ed586050349242dafc98f0bec270d9c7479a9e52074f394a2c71f7",
+      "Candidate": "f2feebebfc2c96939032b6bc0d65debb70a1d9c471b3bae8f06cfc10f8dbd7b0"
+    },
+    {
+      "Path": "lib/common_test-1.31.2/ebin/ct_testspec.beam",
+      "Parent": "25f463e468d29202d3f6b3c7e06e95b5a14ff00afe064a569b034a269dc0a0e2",
+      "Candidate": "e782b4d2a86ebfdb1e5acf67e1cbda5f781baa4458236d370011283e04fb1420"
+    },
+    {
+      "Path": "lib/common_test-1.31.2/ebin/test_server_ctrl.beam",
+      "Parent": "d9d443c3a420012ae681076d3d5c24bac5f7d7e74953584c8c18c89e88949346",
+      "Candidate": "9a9c654750c2f875acb958ccb7815c0a5379eccf3f3f90b2f1511d1f700a16a0"
+    },
+    {
+      "Path": "lib/compiler-10.0.6/ebin/beam_clean.beam",
+      "Parent": "41b6dd165d86429b59066aebf9e2f56ed731402822706461d5f4e5ce820a46b1",
+      "Candidate": "f579291811a9900038131b6e6d4c7d3391574d955acb066256d9befeed982eb6"
+    },
+    {
+      "Path": "lib/compiler-10.0.6/ebin/beam_jump.beam",
+      "Parent": "22effc9c9556a1aa4871877402aa0de16ec2de55be7dd323b9364f2f05af0dc0",
+      "Candidate": "662b42a88a37f0a063ef2340562d9f0fb58f1289f98c9d95a4a33743b2f09394"
+    },
+    {
+      "Path": "lib/compiler-10.0.6/ebin/beam_ssa.beam",
+      "Parent": "1996d68ea93b49679aa4c2a16b03b5fc1ca76b0ba708c54751d3e752fdcd301e",
+      "Candidate": "805717ac60c83e285065d93183f20c665127dcb8153f67adb28ac102a47877a3"
+    },
+    {
+      "Path": "lib/compiler-10.0.6/ebin/beam_ssa_dead.beam",
+      "Parent": "6c1541b5c34ba112baf58bc7dd4c89a1cbc0cb75393582cf5af33a6f67c8bea2",
+      "Candidate": "0820714a8805ad4e08d9130a191df33a9db7710b9d348b1191798b9b4ed0b628"
+    },
+    {
+      "Path": "lib/compiler-10.0.6/ebin/beam_ssa_opt.beam",
+      "Parent": "9f24fdb6a9fbf4b3909240f2dd6148d175af2219316c0965e0a37a1ed322974b",
+      "Candidate": "f636b0eccfb2ea6c9493b2cd430d3caec00aab2bc9949ab1460465ed7f8e2bb9"
+    },
+    {
+      "Path": "lib/compiler-10.0.6/ebin/beam_ssa_pre_codegen.beam",
+      "Parent": "caf172c67bfd59dedd83693a1a8c60d1c00b2ca4ce48e1e691fe76df65982121",
+      "Candidate": "540739750d29b4756d79bc73b419a1d96bd645021cc484d0cdeb78550799e2fb"
+    },
+    {
+      "Path": "lib/compiler-10.0.6/ebin/beam_trim.beam",
+      "Parent": "230e919149d03b05d9d0d0b7a88734d0729b89af724b35ed12c48f0a8c6baed3",
+      "Candidate": "45447274b9f0a19ed7b5668d5d77962632467d48e0f0d05f1b6b9f866a50df8c"
+    },
+    {
+      "Path": "lib/compiler-10.0.6/ebin/cerl.beam",
+      "Parent": "baf4e04430db2537b12f52dafc994a60866d12e5a984e2d1fcb332c744c74234",
+      "Candidate": "5856361a61ff5ee792db1d5cc3ea186fc311119eb0b9b071dfadbec07eb87199"
+    },
+    {
+      "Path": "lib/compiler-10.0.6/ebin/core_pp.beam",
+      "Parent": "01694ae36c5aa22f6c05000955ceab85f7d8a02a243698c278f1afc781f1b586",
+      "Candidate": "7e871d58cfb10a0d2b5b5cc4a194abee974b5bb913c252af3a21f8c3a9007721"
+    },
+    {
+      "Path": "lib/compiler-10.0.6/ebin/rec_env.beam",
+      "Parent": "43903e8a31ed16d05a3be15410ad8ba425595157330f1a05b7c4aab8171e3b8e",
+      "Candidate": "6f5c38dcdfa52323d4a95a5490f821f411e21f4aee8468dcb04438fa05b2e3dc"
+    },
+    {
+      "Path": "lib/compiler-10.0.6/ebin/sys_core_prepare.beam",
+      "Parent": "ec123f2d669f680339ecb3a0dbaa92d7e886ea6f3699d2c5d08f48074dbfa21a",
+      "Candidate": "48e0515565ba23812cf6d6c370fc82f467dd0a7d5c7f765f167389a9cb1a95f2"
+    },
+    {
+      "Path": "lib/compiler-10.0.6/ebin/v3_core.beam",
+      "Parent": "66b352d892d1539b98fa6a106b45f774dd174672749ef9b8a93fcfacc683b8d5",
+      "Candidate": "7fc05b33e445716a86c79fabd17207a3ef31d70e118c0b907bd451c55b6aeffd"
+    },
+    {
+      "Path": "lib/dialyzer-6.0.3/ebin/dialyzer.beam",
+      "Parent": "d29d038fb36c178d6ed208e27e6066431053f1411ddae5adea32053fca5f3ce4",
+      "Candidate": "25c150155a44a2ea32430b3ef850c34fdef3dd9a86bfff62f3891b581e94025c"
+    },
+    {
+      "Path": "lib/edoc-1.5/ebin/edoc_specs.beam",
+      "Parent": "df0991e0f545f3070175ee6d7bca7f588f901da2aab5a632f6d2dcc968959c18",
+      "Candidate": "688b2a1604e5ad73c36ed2980913735520cc6dc1924a0e76200cec91baaa6543"
+    },
+    {
+      "Path": "lib/edoc-1.5/ebin/edoc_wiki.beam",
+      "Parent": "00fb96541d12745351608adb1a681542b1d0f137468185b6a795a3f252fb8232",
+      "Candidate": "74ce9e6d96e8794e956f8fc945632eab903d3ba26c1aeb2e619a7081feca0d38"
+    },
+    {
+      "Path": "lib/inets-9.8/ebin/httpc_manager.beam",
+      "Parent": "b551eccbd4086b50371613e6d723f373edbd3459b100c8e60b9bd2ec295d627b",
+      "Candidate": "6297c9b03c532e95982d841bbfc3aba10d39feae575d9c8a43833cf2d49d6da7"
+    },
+    {
+      "Path": "lib/kernel-11.0.4/ebin/disk_log.beam",
+      "Parent": "56d2f15c521f3be5693102cca595d4e24c17f814113c3c9f5e48ced792c92cfa",
+      "Candidate": "eeeb8fe432d0c566434e2ef841148282c3108ba190d86f72bf5a21fd876df6b4"
+    },
+    {
+      "Path": "lib/kernel-11.0.4/ebin/disk_log_server.beam",
+      "Parent": "25e40e0c33d56e0aaa8d450c5abc7c460926f564cb31462ddcc95402cfeae670",
+      "Candidate": "ee5f71b15d43dd5db7c107ca3f3c7bd26d363ecae803ae06ace3822f7aebfa36"
+    },
+    {
+      "Path": "lib/kernel-11.0.4/ebin/error_logger.beam",
+      "Parent": "2163f16caa27a204c70f92900726b70e5a7f86918c01a0aefa2f9e7d8129f2cf",
+      "Candidate": "fbea2deb6f0300e15ea8df0648d8b2d18027a3540008a8f28ecfa276a9c9af91"
+    },
+    {
+      "Path": "lib/kernel-11.0.4/ebin/os.beam",
+      "Parent": "c7886fe06f6e03a72093317c309326b9f0d641f7156285def2971985f46dc3fa",
+      "Candidate": "aa262c3278ce49466919f39d22af052328f17268eed78848a9310e07f43c1d6b"
+    },
+    {
+      "Path": "lib/megaco-4.9.2/ebin/megaco_ber_media_gateway_control_v1.beam",
+      "Parent": "c0ec67fb93095b45876a1be4bd22a231fbc1a8b0338745fbbc3b42aae829d7ee",
+      "Candidate": "08e1e68e57967d1488faa698c9b93b26ec5a7a3f75dc46d8d0927b30ff6c1ca4"
+    },
+    {
+      "Path": "lib/megaco-4.9.2/ebin/megaco_ber_media_gateway_control_v2.beam",
+      "Parent": "d3aaea56828fc5fb702c675b0a7f1a008151de9d5e80bba05e9e6d10841b01c1",
+      "Candidate": "427e009457133aa5dc2ba373fb605c3d1c89651ddbeacd604b6ab16282869514"
+    },
+    {
+      "Path": "lib/megaco-4.9.2/ebin/megaco_ber_media_gateway_control_v3.beam",
+      "Parent": "53f82f51f6f2caf4effe31555c9ef71bcc884afcdd2a6c6efa0355cb53c27daf",
+      "Candidate": "20f291aced5b8f2b70fca2f9099d0d9d40b205c32bd76a5bf11776fa77a97f0e"
+    },
+    {
+      "Path": "lib/megaco-4.9.2/ebin/megaco_digit_map.beam",
+      "Parent": "9814d2879fcddb7b404722ce12ee79ee98b7d525825bcb132280473c63b6fadd",
+      "Candidate": "7de6116c691a8339d1c96819cd80cdc06e27e2b689d1cc6ec3d65f287c7fa9ec"
+    },
+    {
+      "Path": "lib/megaco-4.9.2/ebin/megaco_erl_dist_encoder.beam",
+      "Parent": "6a44645c4889bc22f423ff9bf46ef5c1b3df0ce6e4017ce46ba790917add8da1",
+      "Candidate": "759fd67394d63031821869e1b0cce8264e2b76e534319af44270043402ca94dc"
+    },
+    {
+      "Path": "lib/megaco-4.9.2/ebin/megaco_filter.beam",
+      "Parent": "fd4531fba3ce8e7249f72debde727bb41943c02e898325a85f10bf23c9230dc8",
+      "Candidate": "4515a89d496d2fd19ebb0074cba5f917a85512591702b254a59cb2a4fae0981e"
+    },
+    {
+      "Path": "lib/megaco-4.9.2/ebin/megaco_monitor.beam",
+      "Parent": "763bfe7c8d059fbb11260bbc1ba3f0a0a5f4e4e004cb31088eccd85d5f09b682",
+      "Candidate": "32aa39413c9203483ac33c02d43060178c5c1f2e782684d6942614a7e2e1acf8"
+    },
+    {
+      "Path": "lib/mnesia-4.27/ebin/mnesia_lib.beam",
+      "Parent": "677af4771707b9548460ee9f7538beaf06a5e70b1abd693019fa40fe07f33902",
+      "Candidate": "1a8ffc2446cb83c311e5bad5553d0a9eddb5f99e4a8e3291afac88c3290fe87b"
+    },
+    {
+      "Path": "lib/mnesia-4.27/ebin/mnesia_monitor.beam",
+      "Parent": "89b136771653cceefdf7394809ce0bbb5b34793fdd9d2bf77ea55dc316531b77",
+      "Candidate": "70a568b1615841b0855dd050470b55e888a4aaf82beaea1b8273e88090118468"
+    },
+    {
+      "Path": "lib/parsetools-2.8/ebin/leex.beam",
+      "Parent": "0d3127ba12006d5d9d36fb1136ae6b1a5d00c503c0968e191eafbd2eeb17d41f",
+      "Candidate": "9e1b91bca41247db70087e0a8d2ea3af4267158800e4c2655c766dbd6ba294f6"
+    },
+    {
+      "Path": "lib/public_key-1.21.7/ebin/OTP-PKIX-Relaxed.beam",
+      "Parent": "195a0b0d0f72a4dc3b4824abba56b1e656b23a97414e10b223fca2e36a0df806",
+      "Candidate": "bfdb8651a8a9abab4bef4b893d0f6831f4613df3a1495d131b42fdf0a3a3f617"
+    },
+    {
+      "Path": "lib/public_key-1.21.7/ebin/OTP-PKIX.beam",
+      "Parent": "5f0a8f0a718299a87a1fc429b3b9ddaccaf10ee6a11eaa5bd75094d7e31c9bee",
+      "Candidate": "425f7b9cf7e272d1f4368881d4c09807363143068abf1aa0d884d34834070560"
+    },
+    {
+      "Path": "lib/public_key-1.21.7/ebin/PKIX1Explicit-2009.beam",
+      "Parent": "490c3801fe66d53b81a3d9ee0d925b6c77780fa808771e8181878aa2eb5b26a5",
+      "Candidate": "70b6c5137c2620330b22fb1292b608692e06f6a4c3400cea65490fba450f3ce4"
+    },
+    {
+      "Path": "lib/public_key-1.21.7/ebin/pubkey_crl.beam",
+      "Parent": "9866da1470239c6f2306154939b98d47f088b7de63dbc1cccdd20b599b89bbbd",
+      "Candidate": "5d0c0736eea0314b2d4d4ea6773ed000cf0be224cfd05650fb59531446d1f145"
+    },
+    {
+      "Path": "lib/public_key-1.21.7/ebin/public_key.beam",
+      "Parent": "68b9cf3dd45c570fcc25729da86be683e6c4e21ef10722e9fcf89140c167aa86",
+      "Candidate": "798cac0696a7e0038663a20e706c1cd438e65e594fc20138b4aa905136f70503"
+    },
+    {
+      "Path": "lib/snmp-5.20.5/ebin/snmpa_get.beam",
+      "Parent": "88de32a8e40810007cc8c095521973cd20e0dcdb2ae98ef545f3ee6d522304c0",
+      "Candidate": "2e848abda9d49468c753c461b00b28f4b292a3a1e5cbbad2caf9c4e028582d92"
+    },
+    {
+      "Path": "lib/snmp-5.20.5/ebin/snmpm_config.beam",
+      "Parent": "ab7ba300bf0b3d2cf9bf3141febe81dcb6221cbee4a410526af7bf0c424a8634",
+      "Candidate": "de4ecad85b70868948e646f450d0f189f73f8ff0c9048b1d511241fa8c893bf3"
+    },
+    {
+      "Path": "lib/ssh-6.0.6/ebin/ssh_file.beam",
+      "Parent": "1cfe1d3315aa705b7ee4deb9aa6800684768b1277cd5d66ae4c79400253d7589",
+      "Candidate": "defcc4f56c743a3785588831c6f5083cffd705826368174347b73b57264a6fae"
+    },
+    {
+      "Path": "lib/ssh-6.0.6/ebin/ssh_sftp.beam",
+      "Parent": "617af356ada70ffa4ae1c9602e3da1333fb9948ccb8560ae07cfebba79b42456",
+      "Candidate": "b6661b5e005aedea40f843b21b5d29d003f2dad72e4c0bcebe2964b4e15252f5"
+    },
+    {
+      "Path": "lib/ssh-6.0.6/ebin/ssh_transport.beam",
+      "Parent": "0e566f3d68b363c45d66e49c0a6f23f2687e83a06ec2bfc2db8900de7038b389",
+      "Candidate": "81c2c8ec4618f7b37a89385a37389207696ab46776ad693dc7d43fbb8b2d6477"
+    },
+    {
+      "Path": "lib/ssl-11.7.7/ebin/ssl_certificate.beam",
+      "Parent": "87773d01cdd7d525403d33299bb6105468500c24cd9327ba541f8c402c137bde",
+      "Candidate": "46ec86b605e2fec6cd9b73391daf288483b130e0f86aad912e1868ba196f3973"
+    },
+    {
+      "Path": "lib/ssl-11.7.7/ebin/ssl_handshake.beam",
+      "Parent": "5f74d950b2b8ce751c1e56e4e8fd3d764e1e3c86e7dba106179a2eaeb42a18e0",
+      "Candidate": "420f57f202e9cedf026d3e56fe4b0c5613ba8b47da39fb6ead77e8ab8007f030"
+    },
+    {
+      "Path": "lib/ssl-11.7.7/ebin/tls_v1.beam",
+      "Parent": "f4afffc72cb659fdc9eef06e1c2c7fb301b979c3cfcbe926c9ca5d0b5e4368d3",
+      "Candidate": "2be1607bd7480e8912751874f46a88449decd784dcc6ef95735601889845e433"
+    },
+    {
+      "Path": "lib/stdlib-8.1/ebin/beam_lib.beam",
+      "Parent": "c01377835022eabbdc13b12efef7882755bccf10d346964e347794a1686a2766",
+      "Candidate": "31db5a18680e9aab1af132bd7d02069239b88aef3264d38021f6fb90098eeefb"
+    },
+    {
+      "Path": "lib/stdlib-8.1/ebin/edlin_expand.beam",
+      "Parent": "47cda4f7ecb3bead56b31ed020564ae08d6405e451a96059507db6b576b963fb",
+      "Candidate": "2b72d671d6c8ce7a437f9bb3a8008ebbf93d5eb28fa014ccdfd31dadbac75a79"
+    },
+    {
+      "Path": "lib/stdlib-8.1/ebin/erl_tar.beam",
+      "Parent": "0056eb8ae48afb3c7aafaeb651298fe34fa7b91b26d2646dac69d285992dbadf",
+      "Candidate": "058ef051fcb616d8a1703dd179409c39fcbf52e8a2cf99f0b72681842841226e"
+    },
+    {
+      "Path": "lib/stdlib-8.1/ebin/error_logger_file_h.beam",
+      "Parent": "5e768d2f84f157c8d9f216cf9f691ea99c40127cfe0cbc53444f4e228c988c9a",
+      "Candidate": "ccd8055ecf72d3485f82e0627af77d069a8dec01d3a896daabf6806773bea6ee"
+    },
+    {
+      "Path": "lib/stdlib-8.1/ebin/error_logger_tty_h.beam",
+      "Parent": "b1f97427c7d085e164560249a46d91187f09f57e093bdf419df8856d1b6e507a",
+      "Candidate": "163d007cca4ee61c8004086ab4f472abe0c687e7a71360f21f7a5f534915cb4a"
+    },
+    {
+      "Path": "lib/stdlib-8.1/ebin/filelib.beam",
+      "Parent": "cb40c27fd2bd80b614282a4b86f209517069f1370008484897727561342a94f8",
+      "Candidate": "3fe1ff9d4ea364a9ca3acb7d8775c08365955c00fdcf046886ef74becc99e0f3"
+    },
+    {
+      "Path": "lib/stdlib-8.1/ebin/sys.beam",
+      "Parent": "788377cf39ea84fbc623ed6f16d2cafc12f4bd9b12181cc3e192c1ed5c3ae047",
+      "Candidate": "5c227d517dcfd1f1ca2750aa97a78fbb835e823f078cbfd90af7a8b2f86cafaa"
+    },
+    {
+      "Path": "lib/tools-4.2.3/ebin/crashdump.beam",
+      "Parent": "27a0e131e338daf00e4cb1a9ebc17f836aa3a2e9b7c9172f61251a06b6e7c2e8",
+      "Candidate": "d38903928c3ca21f06c047748dc2f130ee93b4aaf6eb0f8991bb4eb58ee55d4d"
+    },
+    {
+      "Path": "lib/tools-4.2.3/ebin/eprof.beam",
+      "Parent": "66a1d313629357ba6c71f820d6a86629324087d3db262495ba827b209e825211",
+      "Candidate": "c667a450826d9a6615aa598ff6639717312a1b80e176609f00a06aff6b0c63ee"
+    },
+    {
+      "Path": "lib/tools-4.2.3/ebin/fprof.beam",
+      "Parent": "6236338e89537122a91ae3a5b4603bdc7db378a0a8bcf961d5e248798e7a8fe7",
+      "Candidate": "5601bd202c4691fdfe51a6828e950c6131ca5a8fbfce0c153c4f1bf1c70a1b46"
+    },
+    {
+      "Path": "lib/wx-2.7/doc/examples/demo/demo.beam",
+      "Parent": "d7b0ef7882197ee05807c177383f42581cbf542d09087d2576a135c7c3c25b20",
+      "Candidate": "45d612e3a2b9927721e84a004805d2259825d8dedadcc8966b7082feff16c5de"
+    },
+    {
+      "Path": "lib/wx-2.7/doc/examples/demo/demo_html_tagger.beam",
+      "Parent": "bc1c99694e3d5c85ee8ce8cbbe7056b7cf02053f98427b05f598859f333ba87a",
+      "Candidate": "9397e4ecbaf3e051bd40aa5c86b266559a54f345318cd8dcefb45e1e870a4118"
+    }
+  ],
+  "Reports": {
+    "representative-scope.json": {
+      "Compiler": "43B4124B53E28BB45A26E65FCC6D7DE22A92BE07A36D6AF180F4638F86896682",
+      "Tool": "01B086B1A4F3D7B7B90B56920D14BE7435F7BE4C0DEDC3B105CA8D46507D0FEB",
+      "Seconds": 354.9079553,
+      "Manifest": "E1EEC455D75D36757680D6AC368D282D95F52AB4E16A3B07AD38215540E60C5D",
+      "RawReport": "D302E2C04C5AA1F30AE6E9C4681EAD6C8AE2D4E894D113164232091F92672AB0"
+    },
+    "remaining-scope.json": {
+      "RawReport": "915ED4944E089854782FCD2C3AC2B7753580375BEB7A1323C3806DA70C299EC1",
+      "Compiler": "43B4124B53E28BB45A26E65FCC6D7DE22A92BE07A36D6AF180F4638F86896682",
+      "Tool": "01B086B1A4F3D7B7B90B56920D14BE7435F7BE4C0DEDC3B105CA8D46507D0FEB",
+      "Seconds": 859.6172828,
+      "Manifest": "13518A8070909A8EBE67284A28F8AADBD3741C954C492C6E7348B98B3A4BE701"
+    }
+  },
+  "CorrectedBaselineCompiler": "14500c5f6ea174835545b9fa898058cb887ff980cd2ef5916cf44087f79d4071",
+  "CorrectedParentCorpus": "1cc670091ed9fb1db25aae229a4f71eb53537aded98acec9c8e45d665f6c063b",
+  "CandidateCompiler": "43b4124b53e28bb45a26e65fcc6d7de22a92be07a36d6af180f4638f86896682",
+  "ScopeHash": "19bac45cb1aa1378e1c76a34317cad4e997932da9e7d663b62b0ff805c4924fd"
+}

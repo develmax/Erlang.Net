@@ -1,0 +1,73 @@
+using System.Collections;
+using System.Numerics;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamFallthroughProjectionLifetimeChecks
+{
+    internal const string TestName = "compiler/beam/project-record-field-only-on-owning-edge";
+    private const string MissingMotion = "The field used exclusively on the successful branch was projected in both branches.";
+    private const string LostAlternateValue = "The projected field is required by both branches.";
+    private const string Source = """
+        -module(beam_fallthrough_projection).
+        -export([only/2, both/2]).
+        -record(state,{reading,receiver}).
+        -record(sample,{value,limit}).
+        only(tick, State=#state{reading=R=#sample{value=Value,limit=Limit},receiver=Receiver}) ->
+            Next = if Value >= Limit -> service:deliver(Receiver), service:mark(Receiver), done;
+                      true -> service:repeat(Value)
+                   end,
+            {ok,State#state{reading=R#sample{value=Next}}};
+        only(other, State=#state{}) ->
+            State.
+        both(tick, State=#state{reading=R=#sample{value=Value,limit=Limit},receiver=Receiver}) ->
+            Next = if Value >= Limit -> service:deliver(Receiver), service:mark(Receiver), done;
+                      true -> service:repeat(Receiver)
+                   end,
+            {ok,State#state{reading=R#sample{value=Next}}};
+        both(other, State=#state{}) ->
+            State.
+        """;
+
+    internal static void Run()
+    {
+        object code = Code(CodeGeneration.CompileBeamModule(Source, "beam_fallthrough_projection.erl"));
+        object[] instructions = Items(code, "Instructions");
+        object[] functions = Items(code, "Functions");
+        if (!CompareProjectionOrder("only", after: true))
+        {
+            throw new InvalidOperationException(MissingMotion);
+        }
+
+        if (!CompareProjectionOrder("both", after: false))
+        {
+            throw new InvalidOperationException(LostAlternateValue);
+        }
+
+        bool CompareProjectionOrder(string name, bool after)
+        {
+            object function = functions.Single(candidate => (string)Property(candidate, "Name") == name);
+            int start = (int)Property(function, "FirstInstructionIndex");
+            int end = (int)Property(function, "EndInstructionIndex");
+            object[] body = instructions[start..end];
+            int compare = Array.FindIndex(body, instruction => Opcode(instruction) is IsLess or IsGreaterOrEqual);
+            if (compare < 0)
+            {
+                return false;
+            }
+
+            int projection = compare + (after ? 1 : -1);
+
+            return Opcode(body[projection]) == GetTupleElement
+                && (BigInteger)Property(Items(body[projection], "Operands")[1], "Value") == 2;
+        }
+    }
+
+    private static object[] Items(object element, string property) =>
+        ((IEnumerable)Property(element, property)).Cast<object>().ToArray();
+
+    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
+}

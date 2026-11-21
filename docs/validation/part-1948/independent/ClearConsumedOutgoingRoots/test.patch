@@ -1,0 +1,88 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamConsumedOutgoingRootsChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamConsumedOutgoingRootsChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamConsumedOutgoingRootsChecks.cs
+@@ -0,0 +1,72 @@
++using System.Collections;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamConsumedOutgoingRootsChecks
++{
++    internal const string TestName = "compiler/beam/clears-a-retained-argument-at-its-final-call";
++    internal const string Fixture = "beam_outgoing_last_use.erl";
++    private const string MissingRootClear = "The final use of the retained argument did not release its Y root.";
++    private const string ClearedLiveRoot = "A live or protected argument was cleared by outgoing call lowering.";
++    internal const string Source = """
++        -module(beam_outgoing_last_use).
++        -export([terminal/1, reuse/1, caught/1, observe/0]).
++
++        terminal(Text) ->
++            {ok, Pattern} = re:compile("^[0-9A-Za-z_\\-]+$", [unicode]),
++            case re:run(Text, Pattern) of
++                {match, _} -> true;
++                nomatch -> false
++            end.
++
++        reuse(Text) ->
++            {ok, Pattern} = re:compile("^[0-9A-Za-z_\\-]+$", [unicode]),
++            {Text, re:run(Text, Pattern)}.
++
++        caught(Text) ->
++            {ok, Pattern} = re:compile("^[0-9A-Za-z_\\-]+$", [unicode]),
++            case catch re:run(Text, Pattern) of
++                {'EXIT', _} -> {failed, Text};
++                Result -> Result
++            end.
++
++        observe() ->
++            [terminal("abc"), terminal("abc!"), reuse("abc"),
++             caught("abc"), caught(invalid)].
++        """;
++
++    internal static Task Run()
++    {
++        object code = Code(CodeGeneration.CompileBeamModule(Source, Fixture));
++        byte[] opcodes = ((IEnumerable)Property(code, "Instructions")).Cast<object>()
++            .Select(instruction => (byte)Property(Property(instruction, "Definition"), "Opcode"))
++            .ToArray();
++        int[] entries = Enumerable.Range(0, opcodes.Length)
++            .Where(index => opcodes[index] == FunctionInfo)
++            .ToArray();
++        byte[] terminal = opcodes[entries[0]..entries[1]];
++        byte[] reuse = opcodes[entries[1]..entries[2]];
++        if (!ClearsBeforeSecondCall(terminal))
++        {
++            throw new InvalidOperationException(MissingRootClear);
++        }
++
++        if (ClearsBeforeSecondCall(reuse))
++        {
++            throw new InvalidOperationException(ClearedLiveRoot);
++        }
++
++        return Task.CompletedTask;
++    }
++
++    private static bool ClearsBeforeSecondCall(byte[] body)
++    {
++        int first = Array.IndexOf(body, ExternalCall);
++        int last = Array.IndexOf(body, ExternalCall, first + 1);
++
++        return first >= 0 && last > first && body[(first + 1)..last].Contains(InitYRegisters);
++    }
++}
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12544,6 +12544,7 @@
+ Test(Erlang.Tests.BeamProtectedEntryAliasChecks.TestName, Erlang.Tests.BeamProtectedEntryAliasChecks.Run);
+ Test(Erlang.Tests.BeamProtectedShortReturnChecks.TestName, Erlang.Tests.BeamProtectedShortReturnChecks.Run);
+ Test(Erlang.Tests.BeamBinaryConstructionStringChecks.TestName, Erlang.Tests.BeamBinaryConstructionStringChecks.Run);
++Test(Erlang.Tests.BeamConsumedOutgoingRootsChecks.TestName, Erlang.Tests.BeamConsumedOutgoingRootsChecks.Run);
+ Test(
+     Erlang.Tests.BeamMappedRecordComprehensionChecks.TestName,
+     () =>

@@ -1,0 +1,30 @@
+{
+  "testName": "compiler/beam/orders-checked-entry-frame-roots-and-delays-call-result-copies",
+  "files": {
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamCheckedEntryRootOrderChecks.cs": {
+      "before": null,
+      "after": "2edfd22a767e23d0c2a6f5ddab68e915fb526757be3f00e0a9c85e6008099c71"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamCheckedEntryRootOrderDiagnostics.cs": {
+      "before": null,
+      "after": "6710c8d4d5a470c102f99054008457548a88dd31a04b6fd0186e63901caf69f5"
+    },
+    "tests/Erlang.Tests/Harness/Program.cs": {
+      "before": "2e576c150f1b168fee25921b20b825fdf9403303b61eda7971d0265cd693d211",
+      "after": "e558d5f3996b48f7bf12bad8ac256150e6764a8523fa66e86fcd9fcd552aecc2"
+    },
+    "tests/Erlang.Tests/Resources/Beam/checked_root_order_fixture.erl": {
+      "before": null,
+      "after": "831ea158b284cc3807574ee834f1cece64b03984f352baff742538434a87e599"
+    }
+  },
+  "sha256": "1dde10ebd2f581b74c23f534d85f5a96f54a3b7a253b251e60cc834e89ca1516",
+  "fixtureSource": "76643b99426e3c3807c308bce3539334fefd0a882f6cf1a578e47be81c581f4c",
+  "fixtureEmbedded": "831ea158b284cc3807574ee834f1cece64b03984f352baff742538434a87e599",
+  "fixtureNormalization": "LF line endings; existing Erlang source is otherwise identical",
+  "productionSha256": {
+    "entry-proof": "31624b336092730e21123f6d2d7af2f7d2cb76e5cb50a80da0b719bc0f851396",
+    "owned-root-order": "4f22d45724d43fcc2c8358a6dc676531542777a379eea66abacd7086f45464f9",
+    "delayed-result-copy": "1fa14f0217e883ec4c7019ed25069accd4ec19510440b40ff7005246b323d9ff"
+  }
+}

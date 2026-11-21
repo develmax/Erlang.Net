@@ -11,10 +11,11 @@ internal sealed partial class BeamModuleCompiler
             return null;
         }
 
-        var indirect = exports.Select(function => MapEmittedLabel(function.Entry))
-            .Concat(closures.Select(closure => MapEmittedLabel(closure.Entry)))
+        var opaque = exports.Select(function => MapEmittedLabel(function.Entry))
             .Concat(locals.Where(function => IsDeclaredNative((atomNames[function.Atom - 1], function.Arity)))
                 .Select(function => MapEmittedLabel(function.Entry))).ToHashSet();
+        var closureEntries = closures.Select(closure => MapEmittedLabel(closure.Entry)).ToHashSet();
+        var closureCreations = new Dictionary<int, List<int>>();
         var calls = new Dictionary<int, List<int>>();
         for (int index = 0; index < body.Count; index++)
         {
@@ -30,13 +31,33 @@ internal sealed partial class BeamModuleCompiler
 
                 sites.Add(index);
             }
+            else if (instruction is { Definition.Opcode: MakeFun, Operands: [var function, _, var count, ..] }
+                && function.Value.Sign >= 0 && function.Value < closures.Count)
+            {
+                LiftedClosure closure = closures[(int)function.Value];
+                int target = MapEmittedLabel(closure.Entry);
+                if (closure.General is null || closure.SelfName is not null || closure.CaptureCount == 0
+                    || closure.CaptureCount != count.Value || instruction.Operands.Count != 3 + closure.CaptureCount)
+                {
+                    opaque.Add(target);
+                    continue;
+                }
+
+                if (!closureCreations.TryGetValue(target, out var sites))
+                {
+                    sites = [];
+                    closureCreations.Add(target, sites);
+                }
+
+                sites.Add(index);
+            }
             else
             {
                 foreach (BeamOperand operand in instruction.Operands)
                 {
                     if (operand.Kind == BeamOperandParameters.Label)
                     {
-                        indirect.Add((int)operand.Value);
+                        opaque.Add((int)operand.Value);
                     }
                 }
             }
@@ -52,7 +73,8 @@ internal sealed partial class BeamModuleCompiler
             if (body[check].Definition.Opcode == FunctionInfo)
             {
                 privateFunctionWithCallers = body[check + 1] is { Definition.Opcode: Label, Operands: [var entryLabel] }
-                    && !indirect.Contains((int)entryLabel.Value)
+                    && !opaque.Contains((int)entryLabel.Value)
+                    && !closureEntries.Contains((int)entryLabel.Value)
                     && calls.ContainsKey((int)entryLabel.Value);
             }
 
@@ -113,31 +135,59 @@ internal sealed partial class BeamModuleCompiler
                         || body[entry] is not { Definition.Opcode: Label, Operands: [var entryLabel] }
                         || register is not { Kind: BeamOperandParameters.X, TypeIndex: null }
                         || register.Value.Sign < 0 || register.Value >= arity.Value
-                        || indirect.Contains((int)entryLabel.Value)
-                        || !calls.TryGetValue((int)entryLabel.Value, out var sites))
+                        || opaque.Contains((int)entryLabel.Value))
                     {
                         return false;
                     }
 
                     pending.Push((entry, register, true));
-                    foreach (int site in sites)
+                    int label = (int)entryLabel.Value;
+                    if (closureEntries.Contains(label))
                     {
-                        if (!ProveAt(site, register))
+                        // A closure caller can choose its explicit arguments but cannot replace its captured environment.
+                        if (calls.ContainsKey(label) || !closureCreations.TryGetValue(label, out var creations)
+                            || creations.Any(site => !ProveCapture(site, (int)register.Value)))
                         {
                             return false;
                         }
                     }
+                    else if (!calls.TryGetValue(label, out var sites) || sites.Any(site => !ProveAt(site, register)))
+                    {
+                        return false;
+                    }
                 }
 
                 return true;
+
+                bool ProveCapture(int site, int register)
+                {
+                    var operands = body[site].Operands;
+                    LiftedClosure closure = closures[(int)operands[0].Value];
+                    int capture = register - (closure.Arity - closure.CaptureCount);
+                    if (capture < 0 || capture >= closure.CaptureCount)
+                    {
+                        return false;
+                    }
+
+                    var value = operands[3 + capture];
+                    if (value.Kind == BeamOperandParameters.LiteralValue)
+                    {
+                        return IsTaggedLiteral(value);
+                    }
+
+                    return value.Kind is BeamOperandParameters.X or BeamOperandParameters.Y
+                        && ProveAt(site, value with { TypeIndex = null });
+                }
+
+                bool IsTaggedLiteral(BeamOperand value) => taggedTupleLiterals.TryGetValue((int)value.Value, out var literal)
+                    && literal.Arity == size.Value && literal.Tag == atomNames[(int)tag.Value - 1];
 
                 bool ProveAt(int instruction, BeamOperand register) => flow.IsTaggedTupleBefore(
                     instruction,
                     register,
                     size,
                     tag,
-                    value => taggedTupleLiterals.TryGetValue((int)value.Value, out var literal)
-                        && literal.Arity == size.Value && literal.Tag == atomNames[(int)tag.Value - 1],
+                    IsTaggedLiteral,
                     (caller, input) => pending.Push((caller, input, false)),
                     tested => tested != check && !removedChecks.Contains(tested)
                 );

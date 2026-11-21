@@ -1,0 +1,139 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Calls/BeamOrderedConsCallChecks.cs b/tests/Erlang.Tests/Compiler/Beam/Calls/BeamOrderedConsCallChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/Calls/BeamOrderedConsCallChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/Calls/BeamOrderedConsCallChecks.cs
+@@ -13,10 +13,12 @@
+     private const string Provider = "ordered_cons_call_provider";
+     private const int MultiHeapWords = 12;
+     private const int WrappedHeapWords = 9;
++    private const int BoundHeapWords = 15;
+ 
+     private const string Source = """
+         -module(ordered_cons_call_fixture).
+-        -export([multi/3, wrapped/3, effectful/2, rebound/3, grouped/1]).
++        -export([multi/3, wrapped/3, effectful/2, rebound/3, grouped/1,
++                 bound/4, bound_effectful/3, bound_rebound/3]).
+ 
+         multi(A, B, Tail) ->
+             [{first,A},{second,B},stop | ordered_cons_call_provider:tail(Tail)].
+@@ -32,6 +34,20 @@
+         rebound(Items, A, Tail) ->
+             Items = [{head,A} | ordered_cons_call_provider:tail(Tail)],
+             {wrapped, Items}.
++
++        bound(Owner, A, B, C) ->
++            Tail = ordered_cons_call_provider:read(Owner),
++            Items = [{first,A},{second,B},{third,C} | ordered_cons_call_provider:tail(Tail)],
++            ordered_cons_call_provider:consume(Owner, Items).
++
++        bound_effectful(Owner, A, Tail) ->
++            Items = [{event,ordered_cons_call_provider:mark(A)},{plain,A}
++                     | ordered_cons_call_provider:tail(Tail)],
++            ordered_cons_call_provider:consume(Owner, Items).
++
++        bound_rebound(Items, A, Tail) ->
++            Items = [{first,A},{second,A} | ordered_cons_call_provider:tail(Tail)],
++            ordered_cons_call_provider:consume(A, Items).
+ 
+         grouped([{Key,Value}|Rest]) when is_atom(Key) ->
+             [{atom,Key},{literal,Value}|grouped(Rest)];
+@@ -56,6 +72,14 @@
+             "wrapped",
+             WrappedHeapWords,
+             [PutTuple, PutList, PutTuple]
++        );
++
++        VerifyConstruction(
++            code,
++            "bound",
++            BoundHeapWords,
++            [PutTuple, PutList, PutTuple, PutList, PutTuple, PutList],
++            callOrdinal: 1
+         );
+ 
+         var image = BeamModule.Prepare(beam, new BeamDependencySelection([Provider]));
+@@ -85,6 +109,28 @@
+                 "head_failed"
+             )
+         );
++        runtime.Modules.Register(
++            Provider,
++            "read",
++            1,
++            (_, args) =>
++            {
++                events.Add(Event("read", args[0]));
++
++                return ValueTask.FromResult(args[0]);
++            }
++        );
++        runtime.Modules.Register(
++            Provider,
++            "consume",
++            2,
++            (_, args) =>
++            {
++                events.Add(Event("consume", args[0]));
++
++                return ValueTask.FromResult<Term>(Term.Tuple(args[0], args[1]));
++            }
++        );
+         await using var actor = new RuntimeNodeFoundationHostActor(runtime);
+         await actor.InvokeAsync(async context =>
+         {
+@@ -132,6 +178,35 @@
+                 "rebound",
+                 [Nil.Value, a, Nil.Value],
+                 Term.Tuple(Term.A("badmatch"), Term.List(head)),
++                [Event("tail", Nil.Value)],
++                throws: true
++            );
++            Term c = Term.A("c");
++            Term third = Term.Tuple(Term.A("third"), c);
++            await Check(
++                "bound",
++                [improper, a, b, c],
++                Term.Tuple(improper, new Cons(first, new Cons(second, new Cons(third, improper)))),
++                [Event("read", improper), Event("tail", improper), Event("consume", improper)]
++            );
++            await Check(
++                "bound",
++                [failTail, a, b, c],
++                Term.A("tail_failed"),
++                [Event("read", failTail), Event("tail", failTail)],
++                throws: true
++            );
++            await Check(
++                "bound_effectful",
++                [a, failHead, failTail],
++                Term.A("head_failed"),
++                [Event("head", failHead)],
++                throws: true
++            );
++            await Check(
++                "bound_rebound",
++                [Nil.Value, a, Nil.Value],
++                Term.Tuple(Term.A("badmatch"), Term.List(first, Term.Tuple(Term.A("second"), a))),
+                 [Event("tail", Nil.Value)],
+                 throws: true
+             );
+@@ -199,14 +274,18 @@
+         object code,
+         string function,
+         int heapWords,
+-        byte[] expected
++        byte[] expected,
++        int callOrdinal = 0
+     )
+     {
+         object entry = Items(code, "Functions").Single(item => (string)Property(item, "Name") == function);
+         int start = (int)Property(entry, "FirstInstructionIndex");
+         int end = (int)Property(entry, "EndInstructionIndex");
+         object[] instructions = Items(code, "Instructions")[start..end];
+-        int call = Array.FindIndex(instructions, instruction => Opcode(instruction) == ExternalCall);
++        int call = Enumerable.Range(0, instructions.Length)
++            .Where(index => Opcode(instructions[index]) == ExternalCall)
++            .Skip(callOrdinal)
++            .FirstOrDefault(-1);
+         if (call < 0 || call + 1 >= instructions.Length || Opcode(instructions[call + 1]) != TestHeap
+             || instructions.Take(call).Any(instruction => Opcode(instruction) is PutTuple or PutList)
+             || (BigInteger)Property(Items(instructions[call + 1], "Operands")[0], "Value") != heapWords

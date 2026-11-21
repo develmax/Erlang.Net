@@ -1,0 +1,223 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamEnrollmentFinalDecodersChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamEnrollmentFinalDecodersChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamEnrollmentFinalDecodersChecks.cs
+@@ -0,0 +1,218 @@
++using System.Collections;
++using System.Numerics;
++using Erlang;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamEnrollmentFinalDecodersChecks
++{
++    internal const string TestName = "compiler/beam/retains-three-optionals-after-checked-foreign-reads";
++    private const string Fixture = "beam_final_decoder_layout.erl";
++    private const string Peer = "beam_final_decoder_peer";
++    private const string WrongLayout = "A checked decoder did not retain the expected foreign and optional schedule.";
++    private const string WrongValue = "A checked decoder changed its values or original failure.";
++
++    private const string Source = """
++        -module(beam_final_decoder_layout).
++        -export([choices/2, enumeration/2]).
++
++        choices(Input, Tags) ->
++            Fields = prepare(Input,Tags),
++            [A0|R1] = Fields,
++            A = beam_final_decoder_peer:read(A0,[]),
++            {B,R2} = case R1 of
++                [V1 = {1,_}|Next1] -> {beam_final_decoder_peer:read(V1,[]),Next1};
++                [V2 = {2,_}|Next2] -> {beam_final_decoder_peer:read(V2,[]),Next2};
++                _ -> {absent,R1}
++            end,
++            {C,R3} = case R2 of
++                [{3,Raw}|Next3] -> {begin binary_to_list(read(Raw,[])) end,Next3};
++                _ -> {absent,R2}
++            end,
++            {D,R4} = case R3 of
++                [{4,Bits}|Next4] -> {read(Bits,[{flag,0}],[]),Next4};
++                _ -> {absent,R3}
++            end,
++            case R4 of [] -> true; _ -> exit({error,{format,{unexpected,R4}}}) end,
++            Result = {choices,A,B,C,D},
++            Result.
++
++        enumeration(Input, Tags) ->
++            Fields = prepare(Input,Tags),
++            [A0|R1] = Fields,
++            A = beam_final_decoder_peer:read(A0,[]),
++            [B0|R2] = R1,
++            B = read(B0,[2]),
++            [C0|R3] = R2,
++            C = case read_integer(C0,[3]) of
++                1 -> one;
++                2 -> two;
++                Other -> exit({error,{format,{invalid,Other}}})
++            end,
++            {D,R4} = case R3 of [{4,V}|Rest4] -> {read(V,[]),Rest4}; _ -> {absent,R3} end,
++            {E,R5} = case R4 of [{5,W}|Rest5] -> {read(W,[]),Rest5}; _ -> {absent,R4} end,
++            {F,R6} = case R5 of [{6,X}|Rest6] -> {read(X,[]),Rest6}; _ -> {absent,R5} end,
++            case R6 of [] -> true; _ -> exit({error,{format,{unexpected,R6}}}) end,
++            Result = {enumeration,A,B,C,D,E,F},
++            Result.
++
++        prepare(Input,[]) -> Input.
++        read(Value,_) -> Value.
++        read(Value,_,_) -> Value.
++        read_integer(Data,_) -> <<Number:8/signed>> = Data, Number.
++        """;
++
++    internal static async Task Run()
++    {
++        byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
++        byte[] changedChoice = CodeGeneration.CompileBeamModule(
++            Source.Replace("beam_final_decoder_peer:read(V2,[])", "beam_final_decoder_peer:other(V2,[])", StringComparison.Ordinal),
++            Fixture
++        );
++        byte[] unproven = CodeGeneration.CompileBeamModule(
++            Source.Replace("read_integer(C0,[3])", "read(C0,[3])", StringComparison.Ordinal),
++            Fixture
++        );
++        var module = BeamModule.Prepare(image, new BeamDependencySelection([Peer]));
++        await using var runtime = new ProcessRuntime();
++        runtime.Modules.Register(
++            Peer,
++            "read",
++            2,
++            (_, args) => ValueTask.FromResult(args[0])
++        );
++        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
++        await actor.InvokeAsync(async context =>
++        {
++            Term first = Term.A("first");
++            Term absent = Term.A("absent");
++            Term flag = Term.A("flag");
++            Term one = Field(1, flag);
++            Term two = Field(2, flag);
++            foreach (Term choice in new[] { one, two })
++            {
++                await Expect(
++                    "choices",
++                    Term.List(
++                        first,
++                        choice,
++                        Field(3, new BitString([65])),
++                        Field(4, flag)
++                    ),
++                    Term.Tuple(
++                        Term.A("choices"),
++                        first,
++                        choice,
++                        Term.List(Term.I(65)),
++                        flag
++                    )
++                );
++            }
++
++            await Expect("choices", Term.List(first), Term.Tuple(
++                Term.A("choices"),
++                first,
++                absent,
++                absent,
++                absent
++            ));
++            await Expect(
++                "enumeration",
++                Term.List(
++                    first,
++                    flag,
++                    new BitString([2]),
++                    Field(4, one),
++                    Field(5, two),
++                    Field(6, flag)
++                ),
++                Term.Tuple(
++                    Term.A("enumeration"),
++                    first,
++                    flag,
++                    Term.A("two"),
++                    one,
++                    two,
++                    flag
++                )
++            );
++            await Reject("enumeration", Term.List(first, flag, new BitString([7])), Term.Tuple(Term.A("invalid"), Term.I(7)));
++            Term other = Field(7, flag);
++            await Reject("choices", Term.List(first, other), Term.Tuple(Term.A("unexpected"), Term.List(other)));
++
++            return Nil.Value;
++
++            async Task Expect(string function, Term input, Term value)
++            {
++                if (!value.Equals(await module.Invoke(
++                    context,
++                    function,
++                    input,
++                    Nil.Value
++                )))
++                {
++                    throw new InvalidOperationException(WrongValue);
++                }
++            }
++
++            async Task Reject(string function, Term input, Term detail)
++            {
++                try
++                {
++                    await module.Invoke(
++                        context,
++                        function,
++                        input,
++                        Nil.Value
++                    );
++                }
++                catch (ErlangException error) when (error.ExceptionClass == ErlangExceptionClasses.Exit
++                    && error.Reason.Equals(Term.Tuple(Term.A("error"), Term.Tuple(Term.A("format"), detail))))
++                {
++                    return;
++                }
++
++                throw new InvalidOperationException(WrongValue);
++            }
++        });
++
++        if (Frame(image, "choices") != 5 || Frame(image, "enumeration") != 7
++            || Frame(changedChoice, "choices") <= 5 || Frame(unproven, "enumeration") <= 7)
++        {
++            throw new InvalidOperationException(WrongLayout);
++        }
++    }
++
++    private static Term Field(int tag, Term value) => Term.Tuple(Term.I(tag), value);
++
++    private static int Frame(byte[] image, string function)
++    {
++        object code = Code(image);
++        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        object[] instructions = Items(code, "Instructions");
++        int start = Array.FindIndex(
++            instructions,
++            instruction => Opcode(instruction) == FunctionInfo
++                && Items(instruction, "Operands") is [_, var name, var arity]
++                && atoms[Value(name)] == function && Value(arity) == 2
++        );
++        if (start < 0)
++        {
++            throw new InvalidOperationException(WrongLayout);
++        }
++
++        object frame = instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo)
++            .Single(instruction => Opcode(instruction) == Allocate);
++
++        return Value(Items(frame, "Operands")[0]);
++    }
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++
++    private static object[] Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
++}

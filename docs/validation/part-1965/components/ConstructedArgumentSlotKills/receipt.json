@@ -1,0 +1,98 @@
+{
+  "state": "Validated scoped local packet",
+  "utc": "2026-11-20T16:28:29.061144+00:00",
+  "otp": "29.1.1",
+  "otpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "sdk": "10.0.400",
+  "runtime": "10.0.11",
+  "runtimeCoreClrSha256": "c98c3078a4f2495dd7d3ced967c7a6981545194ed163454703580b740f435521",
+  "pinnedVersionIdentity": "744d21462fddce81ca82770789d5eccb8c94cde90d412399a1514afff0815a0e",
+  "sealedPart2013": {
+    "receiptSha256": "7945a47abf5e6cd388d3179c2c4dbb133e43d89b921e4a6e44ed36e29c8f75ba",
+    "compilerSha256": "fa1b446e263f4463e71a31d6f8dc0763594a0195acfc3964ebb754040ffa5fc6",
+    "scopeSha256": "75fc2cd828321953801924f5fcfe1fe5768f89e2b76eb260667855ea459b64b6"
+  },
+  "broadCompilerSha256": "d9eb31de06338cc26978b4488d2a039b908d6c66d0ffdf02a79c36411b4cc89c",
+  "candidateCompilerSha256": "b232e1fe1ff8de3b7daec854dbbe0aee7c90b1e4beb53b76bae9311debab9a6c",
+  "native": {
+    "outcomesEqualToPinned": 10,
+    "retainsMnesiaDumperOutputSha256": "9ba82ac4c91d42c91d0d4fb894086c24265e12cac8d8e4aa21232f0e47a8d5c6"
+  },
+  "scope": {
+    "total": 15,
+    "counts": {
+      "Equal": 5,
+      "Different": 10,
+      "Unsupported": 0,
+      "SourceRejected": 0,
+      "CompilerError": 0
+    },
+    "newEqual": [],
+    "lostEqual": [],
+    "changed": [
+      {
+        "beam": "lib\\mnesia-4.27\\ebin\\mnesia_dumper.beam",
+        "before": "Different",
+        "after": "Different",
+        "pinnedSha256": "b4dd3a455295de648a2ffc1156fe40d0e77630eee72f283ed6e840800f478bc3",
+        "beforeSha256": "55a5572fecc195564b58929d2bda854510cafca18060c6b09a04ce02ff2564f5",
+        "afterSha256": "9ba82ac4c91d42c91d0d4fb894086c24265e12cac8d8e4aa21232f0e47a8d5c6"
+      }
+    ],
+    "workers": 1,
+    "compilationResultsCache": false
+  },
+  "elapsedSeconds": {
+    "sdk": 68.0093721,
+    "scope": 31.620511400000396,
+    "nativeScenarios": 1.1178014999986772
+  },
+  "results": {
+    "exactArgumentRegion": "mnesia_dumper:load_from_logfile/3 (12 of 12 instructions and operands)",
+    "newExactNormalizedFunctions": 0,
+    "lostExactNormalizedFunctions": 0,
+    "remaining": "mnesia_dumper:dump_to_logfile/2 protected future slot; other whole-function code/metadata"
+  },
+  "fixture": {
+    "fixture-red": {
+      "exit": 1,
+      "seconds": 0.5384405000004335
+    },
+    "fixture-green": {
+      "exit": 0,
+      "seconds": 0.5851674000005005
+    },
+    "fixture-broad": {
+      "exit": 1,
+      "seconds": 0.5211914999999863
+    }
+  },
+  "hashes": {
+    "validation-narrow\\production.patch": "a8a57af66ce15af63ddbec6280257f1dd5afbe895a0f1bd91fb517b0e6adc8e4",
+    "validation-narrow\\test.patch": "79b14c2d2473997a1bfcf84c16581448d0ff3c76cfaebd13e7bebb1702e47509",
+    "validation-narrow\\strict-replay.json": "e53083f2763b10aff39e977d00fb8d7515b69649266f13f37bd45f3ca8c09ee9",
+    "validation-narrow\\sdk-window.json": "0bff039e98600368e4cff43a36e2ff73bf8306e2a21d119b70be9a331cf28208",
+    "validation-narrow\\build.log": "0d4dc78d696befd3fca154ba53bfbb76b2773013bf5d3ae7786bbb3652ba33cc",
+    "validation-narrow\\build-timing.json": "8c6fd7823cfd7db9cfd5f62f2aca9889b2cda869032c098c8330f6b40aec016e",
+    "validation-narrow\\fixture-red.log": "118383de5b82022c412718a6681b69c32ee499a4cb04108acf912e28b1cc253c",
+    "validation-narrow\\fixture-green.log": "cf7d0c44e9b88e3f28815325a11eab293e5a51b906d6c280b466f51e5d79fabf",
+    "validation-narrow\\fixture-broad.log": "2e55a15d48ab8d46de15f08567bc06df74a604fc9ba70d50e6d02051496742ef",
+    "validation-narrow\\scope.txt": "c158e0b1e299400576b97926b69b0084174640ed0bd6fdc20ee5740ffae715df",
+    "validation-narrow\\scope-candidate.json": "80301cb4b6dbe7d2fc3ed96756780111cc6048bbf55e5e053dcab4c569cdd8c9",
+    "validation-narrow\\scope-candidate.json.timings.json": "78b673a597fbd3795d738d73282de450fcd24ad76885356eac4230cb5b0cf812",
+    "validation-narrow\\scope-delta.json": "0a6214ac5b6c119a4f18daedf3e70262fe286eb8c990934a34097144485c236c",
+    "validation-narrow\\mnesia_dumper.compare.terms": "888137632c7294088ff17833ee3e253205b17d7afeb689aec7368a4e448c82e4",
+    "validation-narrow\\mnesia_dumper.functions.terms": "75bc86e445f96a2663f4df217f46c87a395f68c3236a39724e88911c618d5fc6",
+    "validation-narrow\\mnesia_backup.compare.terms": "0bef710e6e4daedbe9b2abcc297755dafbbdba7a67a77c049a6f4ffc89b6fb20",
+    "validation-narrow\\native-and-diagnostics.json": "1c99917f2d96e5d89ece1c432b270292b039c9afc802c8074d17c9c6916d535d",
+    "validation-narrow\\scope-opcodes.terms": "95df5f79f1f5f0522b4349f7ec2f470797a9fb2138ea6c546cb998a4b51f12ee",
+    "validation\\build.log": "4a0a9785c4b21ac5b307315050fe3222f86ec5133c8c7bc5683d4f8deaad18c3",
+    "validation\\BROAD_RESULT.md": "f9cdade8d835322518fa23eeebecee99ca1c3609d74a9188378384621afe5991",
+    "validation-narrow\\native-nonempty-load.eval": "d67f2884312bf080bf32ed000d7b707e0118a131680e07c6d502cdeb27149881",
+    "validation\\additional-native\\results.json": "e4de2c5fb1e9c64b14c4dfa0f9540009ab98176b04c4647a599c74732499b17c"
+  },
+  "pinnedInputManifests": {
+    "public-key-generated.json": "c8727e7139ac5195da7293f2b9c2ef83d33d82397748b0d747721970fa3c90b5",
+    "pinned-inputs-full.json": "f49bcbfa8af46893ade784e58e5459092634ae5e71a019640d0001b4d79a5fcf"
+  }
+}

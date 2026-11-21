@@ -1,0 +1,12 @@
+[Image]=init:get_plain_arguments(),
+M=beam_ordinary_append_comprehension,
+{ok,Bin}=file:read_file(Image),
+{module,M}=code:load_binary(M,Image,Bin),
+{[one,two,three],[{item,left,one},{item,left,two},{wrapped,left},{item,right,three},{wrapped,right}]}=
+    M:probe_ordinary([one,two],[three]),
+{{failed,{bad_generator,bad_left}},[{item,left,one}]}=
+    M:probe_ordinary([one|bad_left],[two|bad_right]),
+{[one],[{item,closed,one},{wrapped,closed}]}=M:probe_constructor({type,tag,[]},[one]),
+{[one],[{item,tag,one}]}=M:probe_constructor({type,tag,[not_empty]},[one]),
+io:format("~p.~n",[{passed,[ordinary_operand_order,ordinary_failure_order,closed_multirow_selection,neighboring_tuple_selection]}]),
+halt(0).

@@ -1,0 +1,93 @@
+{
+  "OtpTag": "OTP-29.1.1",
+  "OtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "FrozenSource": "9e1ecd4bcf3ad8e2a39f70ccf2057053e4f5f2dd1e16df5b56e2c307e9e87997",
+  "FrozenCompiler": "928aaa8c57a59ecf65692d0b72bc4eb3fefdfce26ec540f9d1a72a97bb456b34",
+  "CorpusTool": "2bdbf9da7ce39cfad1ca25c932255fbc849795bbbe6a0452071376d9e16a6337",
+  "BaselineOverlay": "fcdbc42479c5de5fe35161f7878c975ffa3447a5fb6e840189109a1c90d74941",
+  "BaselineCompiler": "1e222a1f2aff089a47e90a419fb6ca68b2720dad4a61abbba1dc8061b755f59b",
+  "Compiler": "7801d3aecd67ff99e1e53af9a810e36010a147a3ab6228210e60973f9cb0042f",
+  "ScopeModules": 12,
+  "ExactControlsRetained": 3,
+  "ChangedModules": [
+    "lib/compiler-10.0.6/ebin/core_parse.beam",
+    "lib/diameter-2.7.2/ebin/diameter_dict_parser.beam",
+    "lib/edoc-1.5/ebin/edoc_parser.beam",
+    "lib/megaco-4.9.2/ebin/megaco_text_mini_parser.beam",
+    "lib/parsetools-2.8/ebin/yeccparser.beam",
+    "lib/stdlib-8.1/ebin/erl_parse.beam",
+    "lib/tools-4.2.3/ebin/xref_parser.beam",
+    "lib/xmerl-2.2/ebin/xmerl_xpath_parse.beam",
+    "lib/xmerl-2.2/ebin/xmerl_xsd_re_parse.beam"
+  ],
+  "WholeModulesNewlyByteIdentical": [],
+  "WholeModulesLostByteIdentity": [],
+  "NativeLoaderAcceptedModules": 9,
+  "NormalizedFunctions": {
+    "common": 2501,
+    "changed": 72,
+    "gained": 72,
+    "lost": 0,
+    "new_intervals": 72,
+    "pinned_intervals": 72,
+    "only_interval_changes": 72
+  },
+  "SourceCensus": {
+    "Modules": 9,
+    "ExactIntervals": 72,
+    "OtherIntervals": 0
+  },
+  "NativeXPathSuccesses": 4,
+  "NativeXPathErrors": 1,
+  "FixtureNativeValues": 6,
+  "FixtureNativeErrors": 7,
+  "ArtifactHashes": {
+    "README.md": "0266dc7014d8c44f3097d2fde731f1887fb818ef3bbdd6912638907100c8601d",
+    "integer_stack_source_census.erl": "52749265d4e1b584d474208189fdf2c3ab95a4ad72487bc6b08fe291b31eba42",
+    "integer-stack-census-corrected.terms": "bde9a7611d36fb07e1af6f759bd4da0315a072217fc29b69aa4dcb8583935823",
+    "source-range-summary.log": "ef76601e1713f85498118d50c89bc33d21ed184b429e408d6447a6135e2fada5",
+    "integer_stack_clause_census.erl": "6c1bcd1d73acca05911a4df6b9e9162bb780780aa63ed904b0723b358a8851e7",
+    "integer-stack-clause-census.terms": "bde9a7611d36fb07e1af6f759bd4da0315a072217fc29b69aa4dcb8583935823",
+    "source-clause-range-summary.log": "ef76601e1713f85498118d50c89bc33d21ed184b429e408d6447a6135e2fada5",
+    "first-pass-normalized.json": "fe0bb2decb4640065a3d955e44542002e570769f837cbfed905f203608125c09",
+    "first-pass-normalized.terms": "0e5c74ffbb78cb60573900ad2987422a8088dc8b14947bf59d41b2b15dc8553f",
+    "parser-deltas.log": "400fdbb99f9d70804a1a1a7de73ff6d0679c0b17ed715816c5cd41fe30d71410",
+    "integer-stack-arguments.patch": "e9dc7d66ea7376e7bd5abbf1b00cc914f8d8b1da4554cfc647d6cefd6d9b27da",
+    "integer-stack-arguments-test.patch": "c531d3a542aa87624fc62300230bdcde8c561b9964c7f75621832940f65308ad",
+    "strict-replay-hashes.json": "d43e451aba0435c674faa75dc71746786fedb404b2c009b8f9beb5294b4a9c43",
+    "replay-result.txt": "be34091266152081788e0497e8325d22fb89e251b699a599101902c1967aa5a6",
+    "before-corpus.json": "df9ba701f6198d731a8ca6fc21d92439a8edd58fecca392b2747a7a4390338c7",
+    "before-corpus.json.timings.json": "54b4fab30bafbbaa1c42be26eacd4d423d34b34375eef715d499bacf08f4c99d",
+    "candidate-final-corpus.json": "aa065a4612eb179d96cfaf2988bf99746437f079ed42259abec8de63b3649644",
+    "candidate-final-corpus.json.timings.json": "e3ea403cdadf277443a3d8606682dc8ad258ced35156f671820ba000f574e499",
+    "scope-image-hashes.json": "421de65c317b4a07bcd7aa616b3a6e2032e3ccbdc01c684dc51b2fe27283938b",
+    "scope-module-paths.txt": "551914e79652fe285799a0e4a045d823de920b263364d2ed07e5e1e48583da5b",
+    "fixture-image-hashes.json": "0bc981a06eddb41e83c3af423eed8408e669b4b8ef0f830dfcd4495603a380eb",
+    "normalized-replay.json": "0e3b4226f1aaa74a28dddb1639c8558d1aebefdf434c39d6b2f97007004ef268",
+    "normalized-replay.terms": "b036e54455596ebd41cb1d99efc25200e40507d63fba3bfdfef1f016a0e04f18",
+    "integer_stack_replay.erl": "abda0a79945d7f7e3d9a4bcf7c54dcf8a9e16979316ec95f2fce1a93e208f8f7",
+    "regression.result": "5c9c93b94619bcaa6de47b63aa0550b6b9e48a48aa1cc7258866a4b9bc1222c9",
+    "regression.overlay-before.result": "a7becff2cc6d85774fe18da2c6d964a9fbf20abd52b7f7adb7b53aed6e8a5b2f",
+    "native-regression.result": "0e48c2a93fc00c152043e48e3166ddd376b3f289f4b6f33c44e3b7688a00dc00",
+    "native-parser-scope.result": "f3eb017726929bac5870cfd107bea6ff10ecf834e8ce8d1154a9232b31df3691",
+    "native-parser-scope.terms": "e1374f38e775c108546a89bf290e672226f99257f378e24c71194c3ebf6be6fd",
+    "layout-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "part-1938-replay.json": "bb454648401b6cf1deb7ac1421ed60fa2c8de2bf25f30472c1a1b1cb0eb0ff54"
+  },
+  "LaterSourceReplay": {
+    "Source": "d858b109cb6529af7f42d5397a3f1c9a0a663aeabf811508421f9b11a62284f5",
+    "StrictReplay": true,
+    "ExactCompilerBlobs": [
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProperListEntryFacts.cs",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BoundedPrivateEntryTests.cs"
+    ],
+    "ExistingFixtureRegistrationPreserved": true,
+    "ObservedHashes": {
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": "6d92c2a9c2e8e050e92fc96d4330722912683c81a95b3efc4f732b9d6163a0bf",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProperListEntryFacts.cs": "6cd200c4c293a2a270a7e021178d28c882c56cda3771d30a33a655487a2dcb66",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BoundedPrivateEntryTests.cs": "c90163db67aa709cd95541cbf7824c9f8adee9d2e9f4e43b05dbc38b941894ba",
+      "tests/Erlang.Tests/Compiler/Beam/BeamIntegerStackEntryChecks.cs": "b96cb145b198d2c450bf40e2e0953dc9542ccecaa30420aab0f751c00bf0e55e",
+      "tests/Erlang.Tests/Harness/Program.cs": "bed71a8b731138583aaa3f85bc330c4cbcf38d597f87933c0d47b433c1da55da"
+    }
+  }
+}

@@ -1,0 +1,120 @@
+using System.Collections;
+using System.Numerics;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamTwoAtomEntrySelectionChecks
+{
+    internal const string TestName = "compiler/beam/selects-two-atoms-in-one-entry-column";
+
+    private const string Source = """
+        -module(two_atom_entry_fixture).
+        -export([choose/2,member/2,permute/3,one_arm/2,guarded/2]).
+
+        choose(second, X) ->
+            two_atom_entry_provider:effect(X);
+        choose(first, _) ->
+            constant.
+
+        member(_, open) ->
+            accepted;
+        member(_, closed) ->
+            accepted.
+
+        permute(X, second, Y) ->
+            pack(Y, X);
+        permute(X, first, Y) ->
+            pack(X, Y).
+
+        one_arm(chosen, _) ->
+            selected;
+        one_arm(_, _) ->
+            fallback.
+
+        guarded(a, X) when is_integer(X) ->
+            selected;
+        guarded(z, _) ->
+            other.
+
+        pack(X, Y) ->
+            {X, Y}.
+        """;
+
+    internal static void Run()
+    {
+        object code = Code(CodeGeneration.CompileBeamModule(Source, "two_atom_entry_fixture.erl"));
+        VerifySelection(
+            code,
+            "choose",
+            0,
+            sharesBody: false
+        );
+        VerifySelection(
+            code,
+            "member",
+            1,
+            sharesBody: true
+        );
+        VerifySelection(
+            code,
+            "permute",
+            1,
+            sharesBody: false
+        );
+
+        byte[] oneArm = Instructions(code, "one_arm").Select(Opcode).ToArray();
+        byte[] guarded = Instructions(code, "guarded").Select(Opcode).ToArray();
+        if (!oneArm.Contains(ExactEqualTest) || oneArm.Contains(SelectValue) || !guarded.Contains(IsInteger))
+        {
+            throw new InvalidOperationException(BeamTwoAtomEntrySelectionDiagnostics.Fallback);
+        }
+    }
+
+    private static void VerifySelection(
+        object code,
+        string function,
+        int selector,
+        bool sharesBody
+    )
+    {
+        object[] instructions = Instructions(code, function);
+        object? selected = instructions.SingleOrDefault(instruction => Opcode(instruction) == SelectValue);
+        if (selected is null || instructions.Any(instruction => Opcode(instruction) == ExactEqualTest))
+        {
+            throw new InvalidOperationException(BeamTwoAtomEntrySelectionDiagnostics.Table);
+        }
+
+        object[] operands = Items(selected, "Operands");
+        if (operands.Length != 7 || (string)Property(operands[0], "Kind") != "x" || Value(operands[0]) != selector
+            || operands[4].Equals(operands[6]) != sharesBody)
+        {
+            throw new InvalidOperationException(BeamTwoAtomEntrySelectionDiagnostics.Table);
+        }
+
+        if (!sharesBody && LabelPosition(operands[6]) >= LabelPosition(operands[4]))
+        {
+            throw new InvalidOperationException(BeamTwoAtomEntrySelectionDiagnostics.Layout);
+        }
+
+        int LabelPosition(object operand) => Array.FindIndex(instructions, instruction =>
+            Opcode(instruction) == Label && Value(Items(instruction, "Operands")[0]) == Value(operand));
+    }
+
+    private static object[] Instructions(object code, string name)
+    {
+        object function = Items(code, "Functions").Single(item => (string)Property(item, "Name") == name);
+        int start = (int)Property(function, "FirstInstructionIndex");
+        int end = (int)Property(function, "EndInstructionIndex");
+
+        return Items(code, "Instructions")[start..end];
+    }
+
+    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
+
+    private static BigInteger Value(object operand) => (BigInteger)Property(operand, "Value");
+
+    private static object[] Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
+}

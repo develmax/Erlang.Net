@@ -1,0 +1,29 @@
+{
+  "revision": 2,
+  "changed": [
+    "run-ab.ps1",
+    "compare-ab.py",
+    "QUALIFICATION.md"
+  ],
+  "preserved_source_patch_and_receipt": true,
+  "files": {
+    "run-ab.v1.ps1": "1849fabeb07e85d76aeadde90c62c22f8166b0ed973a60e25574422d38be5174",
+    "run-ab.ps1": "78afc9c21116da4a604270363b8055cbcffcdfc697f69e46f2260c72fddf4499",
+    "compare-ab.v1.py": "47144b7d08369334f05146090073d4953f07be1259cff269b3acf57376f00584",
+    "compare-ab.py": "1612cb85b6d36be484ae99b6e0ca696d015930d2fc5d10ff9e224e8ae28a8cd7",
+    "QUALIFICATION.v1.md": "c9644d48775aafbed346ce4a092cf31f4db6400fef76a36c08d7166c65162204",
+    "QUALIFICATION.md": "a8f91164ba8edeb57eb0ac45adbe2df74f5d456602aa5849c8695f482cbb8038",
+    "test-runner.ps1": "27e7ea10f0e5f757418fad19aa52465702f901d3c2d8def91b14c23c6fa15cb0",
+    "runner-self-check-v2.log": "2952f9300d7e63dd1b3305fcacbc648b717e976422c29184f9d6e627c31f1d5b",
+    "projection-decode-reuse.patch": "cdb32dde5f8d02c15b0c746aed80d60401a3b071fb174ae8f43a96ece4a9567a",
+    "source-receipt.json": "26b2f6a7f9d30e2e77530e08935ab72eb745b25256415148aa45619a7cce699e"
+  },
+  "validation": [
+    "PowerShell parser",
+    "synthetic process captured wall/RSS and raw binary stdout/stderr",
+    "exit 0/1 acceptance and six negative report/exit cases",
+    "archived bytes comparator acceptance and changed-byte rejection"
+  ],
+  "sdk_run": false,
+  "candidate_benchmark_run": false
+}

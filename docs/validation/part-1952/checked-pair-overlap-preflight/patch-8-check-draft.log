@@ -1,0 +1,13 @@
+Checking patch src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs...
+error: while searching for:
+                return;
+            }
+
+            if (TryEmitClosedListCallback(function))
+            {
+                return;
+            }
+
+error: patch failed: src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs:436
+error: src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs: patch does not apply
+Checking patch src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedPairContinuations.cs...

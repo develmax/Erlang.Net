@@ -558,8 +558,68 @@ internal sealed partial class BeamModuleCompiler
             );
         }
 
+        private bool TryEmitFramelessTailOrCaughtCall(FunctionDefinition function)
+        {
+            if (!owner.SsaTypeInferenceEnabled || owner.ModuleOptimizationDisabled
+                || function.Clauses is not
+                [
+                { Guard: null, Body: Expr.Call immediate } matched,
+                { Guard: null, Body: Expr.Catch { Operand: Expr.Call protectedCall } } fallback
+                ]
+                || !HasUnconditionalParameters(fallback))
+            {
+                return false;
+            }
+
+            Pattern[] bindings = matched.Patterns.ToArray();
+            int tested = Array.FindIndex(bindings, pattern => pattern is Pattern.Literal { Value: Atom });
+            if (tested < 0 || bindings[tested] is not Pattern.Literal { Value: Atom selector })
+            {
+                return false;
+            }
+
+            bindings[tested] = new Pattern.Variable(VariableScopeNames.Wildcard);
+            if (!HasUnconditionalParameters(matched with { Patterns = bindings }))
+            {
+                return false;
+            }
+
+            string[] directParameters = bindings.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray();
+            string[] caughtParameters = fallback.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray();
+            if (ReadEntryCall(immediate, directParameters) is not { } tail
+                || ReadEntryCall(protectedCall, caughtParameters) is not { } guarded)
+            {
+                return false;
+            }
+
+            // Only the catch arm has a value that survives the call. Its
+            // token can use the first Y slot without spilling either arm's inputs.
+            int protectedBranch = Label();
+            owner.Op(ExactEqualTest, LabelTag, protectedBranch);
+            owner.Operand(XRegisterTag, tested);
+            owner.LiteralOperand(selector);
+            EmitRegisterTailCall(tail);
+
+            Mark(protectedBranch);
+            int handler = Label();
+            EmitFrameAllocation(EntryCallLiveCount(guarded, caughtParameters), 1);
+            EnterCatch(0, handler);
+            EmitEntryCall(guarded);
+            EndCatch(0, handler);
+            owner.EmitFrameReturn(1);
+
+            return true;
+        }
+
         private bool TryEmitDirectCatch(FunctionDefinition function, bool emitReturn = true)
         {
+
+            if (emitReturn && TryEmitFramelessTailOrCaughtCall(function))
+            {
+                return true;
+            }
+
+
             if (function.Clauses is not [{ Guard: null } clause] || !HasUnconditionalParameters(clause))
             {
                 return false;
@@ -635,6 +695,37 @@ internal sealed partial class BeamModuleCompiler
             {
                 owner.EmitFrameReturn(token + 1);
             }
+
+            return true;
+        }
+
+        private bool TryEmitEntryCaughtCall(FunctionDefinition function)
+        {
+            if (owner.ModuleOptimizationDisabled || function.Clauses is not
+                [
+                { Guard: null, Body: Expr.Case { Value: Expr.Catch { Operand: Expr.Call call } } decision } clause
+                ]
+                || !HasUnconditionalParameters(clause)
+                || ReadUsedEntryParameters(clause with { Body = decision with { Value = new Expr.Literal(Nil.Value) } })
+                    is not { Count: 0 })
+            {
+                return false;
+            }
+
+            string[] parameters = clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray();
+            if (ReadEntryCall(call, parameters) is not { } protectedCall
+                || ReadRegisterCase(decision, new Dictionary<string, int>(StringComparer.Ordinal)) is not { } result)
+            {
+                return false;
+            }
+
+            // Only the catch tag survives the protected call.
+            int handler = Label();
+            EmitFrameAllocation(EntryCallLiveCount(protectedCall, parameters), 1);
+            EnterCatch(0, handler);
+            EmitEntryCall(protectedCall);
+            EndCatch(0, handler);
+            EmitRegisterCase(result, 1, CallLocation(call, location));
 
             return true;
         }
@@ -1126,7 +1217,9 @@ internal sealed partial class BeamModuleCompiler
 
         private bool TryEmitEntryRegisterCase(Clause clause)
         {
-            if (TryEmitCallCaseSharedNilOrAtomReturn(clause) || TryEmitGuardedSelectorReturn(clause))
+            if (TryEmitCheckedResultRecordContinuation(clause)
+                || TryEmitCallCaseSharedNilOrAtomReturn(clause)
+                || TryEmitGuardedSelectorReturn(clause))
             {
                 return true;
             }
@@ -1136,7 +1229,14 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
-            EmitEntryRegisterCase(entry);
+            bool exactTupleTest = owner.SsaTypeInferenceEnabled && !owner.ModuleOptimizationDisabled
+                && owner.OnLoadFunction is null && recursiveClosure is null
+                && parentFunction is { } caller && !owner.IsDeclaredNative((caller.Name, caller.Arity))
+                && clause.Body is Expr.Case { Value: Expr.Call direct } && ReferenceEquals(entry.Read, direct)
+                && entry.Case is { Opcode: IsTaggedTuple, Key: Atom tag, TupleArity: > 0, Tests: null }
+                && HasExactAtomOrTaggedTupleResult(entry.Selector.Call, tag, entry.Case.TupleArity);
+
+            EmitEntryRegisterCase(entry, exactTupleTest: exactTupleTest);
 
             return true;
         }
@@ -1216,7 +1316,8 @@ internal sealed partial class BeamModuleCompiler
             bool projectAnyArgument = false,
             bool specializeBranchInputs = false,
             CallListExtraction? extraction = null,
-            IReadOnlySet<int>? entryTupleFields = null
+            IReadOnlySet<int>? entryTupleFields = null,
+            bool allowEmptyListArm = false
         )
         {
             if (clause.Guard is not null || !HasUnconditionalParameters(clause))
@@ -1324,7 +1425,8 @@ internal sealed partial class BeamModuleCompiler
                 allowUnmatchedLiterals: true,
                 selectorCall: selector.Call,
                 deferField: selector.Prefix is null,
-                reuseMatchedLiteral: taggedPrefix is not null
+                reuseMatchedLiteral: taggedPrefix is not null,
+                allowEmptyListArm: allowEmptyListArm
             );
             bool reserveNestedSlot = false;
             if (selector.Prefix is null && extraction is null
@@ -1366,6 +1468,34 @@ internal sealed partial class BeamModuleCompiler
                 if (plan is not null)
                 {
                     callSequenceSlots = 1;
+                }
+            }
+
+            if (plan is null && selector.Prefix is null && extraction is null
+                && field is null && listParts is null && !reserveNestedSlot
+                && decision.Clauses is
+                [
+                { Guard: null, Patterns: [Pattern.Tuple { }] },
+                { Guard: null, Patterns: [Pattern.Variable fallback], Body: Expr.Variable returned }
+                ]
+                && fallback.Name == returned.Name && !saved.ContainsKey(fallback.Name))
+            {
+                var shifted = saved.ToDictionary(binding => binding.Key, binding => binding.Value + 1, StringComparer.Ordinal);
+                if (ReadRegisterCase(
+                    decision,
+                    shifted,
+                    allowUnmatchedLiterals: true,
+                    selectorCall: selector.Call,
+                    matchedTupleSlot: 0
+                ) is { Match.Sequence.ReturnSlot: 0 } reuse)
+                {
+                    return new(
+                        selector,
+                        reuse,
+                        read,
+                        parameters,
+                        PreserveSelector: true
+                    );
                 }
             }
 
@@ -1650,7 +1780,11 @@ internal sealed partial class BeamModuleCompiler
                 ? sequence with { Items = [match with { Value = SubstituteConstants(match.Value, constants) }, SubstituteConstants(tuple, constants)] }
                 : SubstituteConstants(body, constants);
 
-        private void EmitEntryRegisterCase(EntryRegisterCase entry, int? preparedCaseFailure = null)
+        private void EmitEntryRegisterCase(
+            EntryRegisterCase entry,
+            int? preparedCaseFailure = null,
+            bool exactTupleTest = false
+        )
         {
             int extra = entry.PreserveSelector || entry.ReserveNestedSlot ? 1 : 0;
             int? matchFailureOperand = null;
@@ -1683,8 +1817,10 @@ internal sealed partial class BeamModuleCompiler
                 entry.Case,
                 entry.Selector.FrameSize + extra + entry.CallSequenceSlots - trimmed,
                 selectorLocation,
-                RegisterCaseSelectorType(entry.Selector.Call, entry.Case.Opcode == IsTaggedTuple ? IsTuple : entry.Case.Opcode),
-                preparedCaseFailure
+                exactTupleTest ? AtomTypeBits | TupleTypeBits
+                    : RegisterCaseSelectorType(entry.Selector.Call, entry.Case.Opcode == IsTaggedTuple ? IsTuple : entry.Case.Opcode),
+                preparedCaseFailure,
+                exactTupleTest: exactTupleTest
             );
             if (entry.Selector.TaggedPrefix is { } tagged && matchFailureOperand is int operand)
             {
@@ -1709,7 +1845,9 @@ internal sealed partial class BeamModuleCompiler
             bool deferField = false,
             bool reuseMatchedLiteral = false,
             int? reservedNestedSlot = null,
-            int callSequenceSlots = 0
+            int callSequenceSlots = 0,
+            bool allowEmptyListArm = false,
+            int? matchedTupleSlot = null
         )
         {
             if (selectorCall is { Module: null } generated
@@ -1752,6 +1890,16 @@ internal sealed partial class BeamModuleCompiler
                 && first.Name != second.Name
                 && ReadResult(firstBody, null) is { } firstResult && ReadResult(secondBody, null) is { } secondResult)
             {
+                if (first.Name == ErlangBooleanAtoms.False
+                    && selectorCall is { Module: null }
+                    && IsExhaustiveLocalBooleanSelector(selectorCall.Call)
+                    && firstResult.Tail is { Module: null }
+                    && secondResult.Tail is { Module: null })
+                {
+                    (first, second) = (second, first);
+                    (firstResult, secondResult) = (secondResult, firstResult);
+                }
+
                 return new(
                     ExactEqualTest,
                     first,
@@ -1892,6 +2040,46 @@ internal sealed partial class BeamModuleCompiler
 
             RegisterCase? ReadTest(Clause branch)
             {
+                if (allowEmptyListArm && IsEmptyArm(branch) && ReadResult(branch.Body, null) is { } empty)
+                {
+                    return new RegisterCase(
+                        IsNil,
+                        null,
+                        empty,
+                        otherwise
+                    );
+                }
+                if (matchedTupleSlot is int returnSlot && branch is
+                    {
+                        Guard: null,
+                        Patterns: [Pattern.Tuple shape],
+                        Body: Expr.Sequence { Items: [_, .., Expr.Tuple constructedResult] } effects
+                    }
+                    && ReadSingleTupleField(shape) is
+                    { Field: Pattern.Variable { Name: not VariableScopeNames.Wildcard } matchedField } projection
+                    && !saved.ContainsKey(matchedField.Name) && ReturnsMatchedValue(shape, constructedResult)
+                    && ReadRegisterCaseCallSequence(
+                        effects,
+                        matchedField.Name,
+                        saved,
+                        matchedTupleSlot: returnSlot
+                    ) is { } reuse)
+                {
+                    bool usesPayload = effects.Items.Take(effects.Items.Count - 1)
+                        .SelectMany(LocalFunctionEntries.Walk)
+                        .OfType<Expr.Variable>()
+                        .Any(variable => variable.Name == matchedField.Name);
+
+                    return new RegisterCase(
+                        IsTaggedTuple,
+                        projection.Tag,
+                        new RegisterCaseResult(null, null, Sequence: reuse),
+                        otherwise,
+                        TupleArity: shape.Items.Count,
+                        Field: usesPayload ? projection.Index : -1
+                    );
+                }
+
                 // The Core alias pass can reuse the selector when all tuple elements match.
                 if (branch is { Guard: null, Patterns: [Pattern.Tuple matched], Body: Expr.Tuple rebuilt }
                     && ReadSingleTupleField(matched) is
@@ -2404,9 +2592,10 @@ internal sealed partial class BeamModuleCompiler
             };
         }
 
-        private static bool IsBooleanRegisterCaseSelector(EntryCall selector) =>
+        private bool IsBooleanRegisterCaseSelector(EntryCall selector) =>
             (selector.Module, selector.Call.Function, selector.Call.Arguments.Count)
-                is ("lists", "keymember", 3) or ("lists", "member", 2) or ("maps", "is_key", 2);
+                is ("lists", "keymember", 3) or ("lists", "member", 2) or ("maps", "is_key", 2)
+            || selector.Module is null && IsExhaustiveLocalBooleanSelector(selector.Call);
 
         private static bool HasKnownKeyFindTag(EntryCall? selector, Atom tag) =>
             selector is
@@ -2443,7 +2632,8 @@ internal sealed partial class BeamModuleCompiler
             BeamSourceLocation previous,
             int selectorType = 0,
             int? preparedFailure = null,
-            (RegisterCaseResult Result, int Label)? sharedReturn = null
+            (RegisterCaseResult Result, int Label)? sharedReturn = null,
+            bool exactTupleTest = false
         )
         {
             int selectorLineCount = owner.lineInstructions;
@@ -2539,8 +2729,20 @@ internal sealed partial class BeamModuleCompiler
                 return;
             }
 
+            var mixedTests = plan.Tests;
+            if (owner.SsaTypeInferenceEnabled && !owner.ModuleOptimizationDisabled
+                && mixedTests is [
+                { Opcode: ExactEqualTest, Key: Atom } atomArm,
+                { Opcode: IsTaggedTuple, Field: -1, KnownTupleTag: false } tupleArm
+                ]
+                && tupleArm.Match == new RegisterCaseResult(null, null))
+            {
+                // The atom and tuple domains are disjoint. The checked tuple stays in X0.
+                mixedTests = [tupleArm, atomArm];
+            }
+
             if (preparedFailure is null && plan.Fallback.FailureLocation is not null
-                && plan.Tests is [
+                && mixedTests is [
                 { Opcode: IsTaggedTuple } tupleTest,
                 { Opcode: ExactEqualTest } literalTest
                 ])
@@ -2583,7 +2785,12 @@ internal sealed partial class BeamModuleCompiler
 
             void EmitTest(RegisterCase test, int next, bool knownTuple = false)
             {
-                if (test.KnownTupleTag && test.Opcode == IsTaggedTuple)
+                if (exactTupleTest)
+                {
+                    owner.Op(IsTuple, LabelTag, next);
+                    owner.EmitTypedRegister(0, selectorType);
+                }
+                else if (test.KnownTupleTag && test.Opcode == IsTaggedTuple)
                 {
                     if (!knownTuple)
                     {

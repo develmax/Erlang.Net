@@ -1,0 +1,88 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+@@ -1140,6 +1140,7 @@
+         code = OrderTypeOperandsByFirstUse(code, labelCount);
+         code = TrimOwnedCallResultBranches(code, labelCount) ?? code;
+         code = ClearDeadRecordCallSlots(code, labelCount) ?? code;
++        code = OrderCallArgumentAfterKills(code, labelCount) ?? code;
+         code = OrderOwnedRecordCallFrameSlots(code, labelCount) ?? code;
+         code = LocalizeJoinedRecordCallFrame(code, labelCount, functions) ?? code;
+         code = RestoreCapturedArgumentAfterListHead(code, labelCount) ?? code;
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CallArgumentKills.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CallArgumentKills.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CallArgumentKills.cs
+@@ -0,0 +1,72 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private byte[]? OrderCallArgumentAfterKills(ReadOnlyMemory<byte> code, int labelCount)
++    {
++        if (ModuleOptimizationDisabled || !code.Span.Contains(InitYRegisters)
++            || DecodeLateAtomicProjectionSlots(code, labelCount) is not { } decoded)
++        {
++            return null;
++        }
++
++        var body = decoded.Body;
++        using var output = new MemoryStream();
++        int copied = 0;
++        for (int move = 0; move + 2 < body.Count; move++)
++        {
++            if (body[move] is not
++                {
++                    Definition.Opcode: Move,
++                    Operands: [var source, { Kind: BeamOperandParameters.X } destination]
++                } || destination.Value != 0
++                || body[move + 1].Definition.Opcode != InitYRegisters)
++            {
++                continue;
++            }
++
++            int end = move + 1;
++            bool readsClearedSlot = false;
++            while (body[end].Definition.Opcode == InitYRegisters)
++            {
++                readsClearedSlot |= body[end].Operands.Any(operand => SameProjectionRegister(operand, source));
++                end++;
++            }
++
++            int call = end;
++            while (body[call].Definition.Opcode == Line)
++            {
++                call++;
++            }
++
++            if (readsClearedSlot || body[call] is not
++                {
++                    Definition.Opcode: LocalCall or ExternalCall,
++                    Operands: [var arity, _]
++                } || arity.Value <= 0)
++            {
++                continue;
++            }
++
++            // Keep the independent X0 copy next to its call, after the dead Y slots are cleared.
++            int start = body[move].Offset;
++            int kills = body[move + 1].Offset;
++            output.Write(code.Span[copied..start]);
++            output.Write(code.Span[kills..body[end].Offset]);
++            output.Write(code.Span[start..kills]);
++            copied = body[end].Offset;
++            move = end - 1;
++        }
++
++        if (copied == 0)
++        {
++            return null;
++        }
++
++        output.Write(code.Span[copied..]);
++
++        return output.ToArray();
++    }
++}

@@ -1,0 +1,60 @@
+{
+  "Part": 2007,
+  "Reference": "OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ParentCompiler": "3eb23b9d566c3870c3c7961b4bb7d91e4b29d5fc737087468294c678268fa84e",
+  "ParentSource": "Apply after the sealed production and fixture packets of Part 2006.",
+  "Sdk": "10.0.400",
+  "DotNetRuntime": "10.0.11",
+  "PinnedSource": [
+    "lib/compiler/src/beam_ssa_opt.erl:2814\u20132855 sinks pure get_tuple_element definitions to a legal block that dominates uses and checks whether sinking extends tuple lifetime.",
+    "The pinned gauge pre-codegen shows the second reset operand projected from retained Y1 after the first reset call, targeting X0."
+  ],
+  "Change": "For a straight sequence of ordinary effects in a checked entry, read a later single-use call operand from an already-retained checked record. The checked root is also used by the final expression and therefore already remains live. Removing the eager scalar binding saves a stack slot. Reuses the existing checked record access and argument loading.",
+  "Scope": {
+    "Total": 39,
+    "Equal": 18,
+    "Different": 21,
+    "Unsupported": 0,
+    "SourceRejected": 0,
+    "CompilerError": 0,
+    "Seconds": 55.8135831,
+    "NewExact": [],
+    "LostExact": [],
+    "Changed": [
+      "ex_gauge"
+    ]
+  },
+  "Normalized": "The reset arm's complete success path and separate badrecord instruction and source line now match pinned, after renumbering unrelated branch labels. handle_event/2 is 152 vs pinned 139 normalized instructions and the other 14 functions remain exact. Both toggle arms and their cold layout remain.",
+  "Native": "Installed Windows OTP matched 11 actual ex_gauge event cases and seven synthetic fixture cases including ordered effects, partial effects and precise error stacks on the generated outputs.",
+  "PermanentTest": "Extended the existing entry fixture to require a two-slot frame and the retained Y to X0 projection between two external calls. Exit 1 on Part 2006 and 0 on Part 2007.",
+  "Validation": "No build warnings/errors, zero layout changes, strict patch replay and three postimage hashes. Full regression and the complete corpus remain for integration.",
+  "Next": "Reuse entry effect planning for explicit finite-case integer selection, with cold unmatched case continuations and lifetimes shared across branch projections.",
+  "Hashes": {
+    "production.patch": "e782c322916bc4b8736cdb531ac25de0ba52ee4ea20d41be68c4af164a2b164c",
+    "test.patch": "66a401d58f7b2725e6a16e59a332eb896388ae74fd851b04c1a408648e854651",
+    "replay-files.json": "3025fed0e2fc62b7aa573d53064f94a3aba130e9e0422da884496608cd5dcba7",
+    "strict-replay.log": "59d017013b4352f2d08a2859a494e8973ea9d93027aecb238a676056a38bbee7",
+    "style-check-final.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "build.log": "56a1c5522af5c3dd5114f8399aab09697e15012135913332d99586561efc8ef6",
+    "compiler-bin/Erlang.Compiler.dll": "65692176863f8e8db160a0f42a09ac531eb04b7dfeb968d7c064ff6e979bbd7d",
+    "scope-broad.txt": "5d29d6730903fb6753b47d216728c25a2bea1d3c7bdca8291fe4b327b255dd6f",
+    "scope-new.json": "89652d500e42ce9c69cb3c7c78c110992fd7f516414af1068ad6df43cb7b3b90",
+    "scope-seconds.txt": "1a9d07cbfedd63f4fe30e8896b83fe825f50725150dce5a2210227092a37c05f",
+    "scope-hashes.json": "1575c207f96f920547bc274a8d78099e3e9bb52dad11e374d7573ddd025d4b84",
+    "scope-changed.json": "c6c6c073ff74a3ae31d6933f9d6d0170d6a3f5334bfb9f9fc6d243a923e69f72",
+    "gauge-remaining.terms": "681947be57a3b74c82371ca4312cae2a2d23591a20117a79028af528f9db0312",
+    "handle_event.candidate": "1810ed4871011db2d3db494e163bab70c30544293a4c549ee4e818c80095e719",
+    "matched-reset.terms": "5c2933b85fcea17c0f013bb9ec732fd22e138b8ea0bb68ddaf8be7af166a2fb9",
+    "focused-exits.json": "700bbf98c196d4abefa463eb1774484ca8319ba0c4285fdfa8cee31195f8cac6",
+    "focused-red.log": "63f378ae7db3a7158dcf9875f847b551e1ea996a0929598d2a46b857a0791ab4",
+    "focused-green.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-event.eval": "4dc8eac795f8b8582bcc8ba9c5c4cd00c89cb5a261cabd4b87e115f56090f672",
+    "native-fixture.eval": "ad077b681bc0771ef222fd2ffdf1f1238a0e6ff2c7b5c81d0b82ab5fb6f8f7ed",
+    "native-exits.json": "039ae6d8190951d4ee517e06f1abb0958e0fea70f80a5931117e78802d984129",
+    "native-gauge-pinned.terms": "c00e4cfd6fb24b840e60c44f137a55ab700aebe8f30f801a95ea2a589aa94e82",
+    "native-gauge-candidate.terms": "c00e4cfd6fb24b840e60c44f137a55ab700aebe8f30f801a95ea2a589aa94e82",
+    "native-fixture-pinned.terms": "27995cc2086bc2a88f21dd73cf080a3459b6ed96a57388a98475220fad7754b1",
+    "native-fixture-candidate.terms": "27995cc2086bc2a88f21dd73cf080a3459b6ed96a57388a98475220fad7754b1",
+    "scope-new.json.generated/lib/wx-2.7/doc/examples/demo/ex_gauge.beam": "95ea1b45179e827f0a36f45530fd1d30ba22e69b927b965ddacd0a95c41ae089"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "InitialStage": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/checked-tuples-and-constructor-order-1967-linked",
+  "InitialFailures": [
+    "FAIL compiler/beam/lifts-list-helpers-through-mixed-constructors: System.InvalidOperationException: Constructor traversal produced unexpected comprehension helper identities.",
+    "FAIL compiler/beam/lifts-list-helpers-through-grouped-atom-columns: System.InvalidOperationException: Atom-column traversal produced unexpected comprehension helpers.",
+    "FAIL compiler/beam/lifts-list-siblings-through-literal-tuple-choices: System.InvalidOperationException: Tuple choice changed the expected comprehension helper identities."
+  ],
+  "SameRawMonitor": {
+    "Pinned": "32AA39413C9203483AC33C02D43060178C5C1F2E782684D6942614A7E2E1ACF8",
+    "Compiler": "5EFB56E576723BDAFEC6A037B92D36B0C01DC0355EEF87D9F839F01DB9B56804",
+    "Bytes": 12504,
+    "Generated": "32AA39413C9203483AC33C02D43060178C5C1F2E782684D6942614A7E2E1ACF8",
+    "Native": "EB92CF0C0A376335669CFCFEF9846970E7FCC78F2EF8210D5F3BF75984DB71EA"
+  },
+  "Evidence": {
+    "fast-splits/lane-0.json": "f3ee67a992f4bc100b87bd30020e9a84dbc8e368a376b5f78dcafec454c43feb",
+    "fast-splits/lane-0.stdout.log": "b847d33d9fa31ac03acd3cf2c20d278529d80e0516fd36cd8fff2ef8db8b69d4",
+    "focused-fast.stderr.log": "f06ac246719e1c44a082ed10a3346cab6df0a786cd6c3086d782340578cadaa1",
+    "durable.exit": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "focused-identity.json": "064cadc27d1037c4a8b883e0107a72744561a9a32a7082c10795eae541633943",
+    "preview-exact-monitor/receipt.json": "a74df0e1ce350909fb4f77801cb3e749f4ab3732c40a6d48debd6be7aec71603"
+  },
+  "Corrections": {
+    "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/constructor-order-controls-1967-retake/production.patch": "c09f98289be8b4461b138a75b88dd74067dd31daa0d19b5e42f41c3193f237fd"
+  },
+  "Before": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ListComprehensionOrder.cs": "cfe026ff31152720d69f4127fb56caffad160a375ba679eb2d4c6b6199e98625",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs": "c97171195fdeb15755001fea6a793a2db080a1a606ef6f08bf0b64ff1dfb4667",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ConstructorColumnComprehensionOrder.cs": "fe209bf39f592e4bc7519bb8bf9cdc8fb5d91a2fcb226d632dabf69f1d051317"
+  },
+  "After": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ListComprehensionOrder.cs": "3a1ce779aa0e5943fb3ec331c5fa3c49bb108508ff942032107e0f5745f4a96e",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs": "2ab2b58f3a1040aa2543b1d34a893314ab4b27cecc125f08cda84100065603b1",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ConstructorColumnComprehensionOrder.cs": "19ddab341f419dd81b8ee24839446fdb525a88a23e4d34406e37758b523e692c"
+  }
+}

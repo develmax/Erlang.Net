@@ -1,0 +1,27 @@
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12544,6 +12544,24 @@
+ Test(Erlang.Tests.BeamProtectedEntryAliasChecks.TestName, Erlang.Tests.BeamProtectedEntryAliasChecks.Run);
+ Test(Erlang.Tests.BeamProtectedShortReturnChecks.TestName, Erlang.Tests.BeamProtectedShortReturnChecks.Run);
+ Test(Erlang.Tests.BeamBinaryConstructionStringChecks.TestName, Erlang.Tests.BeamBinaryConstructionStringChecks.Run);
++Test(Erlang.Tests.BeamDeferredTupleReturnChecks.TestName, () =>
++{
++    Erlang.Tests.BeamDeferredTupleReturnChecks.Run();
++    return Task.CompletedTask;
++});
++Test(Erlang.Tests.BeamOrderedAppendPrerequisiteChecks.TestName, Erlang.Tests.BeamOrderedAppendPrerequisiteChecks.Run);
++Test(Erlang.Tests.BeamNestedListSiblingGeneratorChecks.TestName, Erlang.Tests.BeamNestedListSiblingGeneratorChecks.Run);
++Test(Erlang.Tests.BeamConsHeadLiteralDispatchChecks.TestName, () =>
++{
++    Erlang.Tests.BeamConsHeadLiteralDispatchChecks.Run();
++    return Task.CompletedTask;
++});
++Test(Erlang.Tests.BeamTerminalTupleFrameSlotChecks.TestName, Erlang.Tests.BeamTerminalTupleFrameSlotChecks.Run);
++Test(Erlang.Tests.BeamTerminalEffectfulCaseCarrierChecks.TestName, () =>
++{
++    Erlang.Tests.BeamTerminalEffectfulCaseCarrierChecks.Run();
++    return Task.CompletedTask;
++});
+ Test(
+     Erlang.Tests.BeamStandaloneCaseFailureChecks.TestName,
+     () =>

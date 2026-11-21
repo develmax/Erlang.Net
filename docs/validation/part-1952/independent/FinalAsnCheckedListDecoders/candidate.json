@@ -1,0 +1,129 @@
+{
+  "OtpVersion": "29.1.1",
+  "Total": 17,
+  "Counts": {
+    "Different": 4,
+    "Equal": 13
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\AttributeCertificateVersion1-2009.beam",
+      "Status": "Equal",
+      "Source": "lib\\public_key-1.21.7\\src\\AttributeCertificateVersion1-2009.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\CryptographicMessageSyntax-2009.beam",
+      "Status": "Equal",
+      "Source": "lib\\public_key-1.21.7\\src\\CryptographicMessageSyntax-2009.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\ECPrivateKey.beam",
+      "Status": "Equal",
+      "Source": "lib\\public_key-1.21.7\\src\\ECPrivateKey.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\EnrollmentMessageSyntax-2009.beam",
+      "Status": "Equal",
+      "Source": "lib\\public_key-1.21.7\\src\\EnrollmentMessageSyntax-2009.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\OCSP-2024-08.beam",
+      "Status": "Equal",
+      "Source": "lib\\public_key-1.21.7\\src\\OCSP-2024-08.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\OTP-PKIX-Relaxed.beam",
+      "Status": "Different",
+      "Source": "lib\\public_key-1.21.7\\src\\OTP-PKIX-Relaxed.erl",
+      "Detail": "Original length 129288, generated length 131920. AtU8 14858-\u003E14937, Code 33178-\u003E35742, ImpT 1492-\u003E1492, ExpT 1324-\u003E1324, FunT 4132-\u003E4132, LitT 1599-\u003E1618, LocT 3544-\u003E3544, Attr 451-\u003E451, Line 2563-\u003E2630, Type 494-\u003E394",
+      "FirstDifferentByte": 5
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\OTP-PKIX.beam",
+      "Status": "Different",
+      "Source": "lib\\public_key-1.21.7\\src\\OTP-PKIX.erl",
+      "Detail": "Original length 139332, generated length 141944. AtU8 19039-\u003E19118, Code 34183-\u003E36732, ImpT 1588-\u003E1588, ExpT 1132-\u003E1132, FunT 5860-\u003E5860, LitT 1713-\u003E1732, LocT 4624-\u003E4624, Attr 443-\u003E443, Line 2466-\u003E2533, Type 520-\u003E420",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKCS-1.beam",
+      "Status": "Equal",
+      "Source": "lib\\public_key-1.21.7\\src\\PKCS-1.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKCS-10.beam",
+      "Status": "Equal",
+      "Source": "lib\\public_key-1.21.7\\src\\PKCS-10.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKIX-X400Address-2009.beam",
+      "Status": "Different",
+      "Source": "lib\\public_key-1.21.7\\src\\PKIX-X400Address-2009.erl",
+      "Detail": "Original length 77616, generated length 78868. AtU8 7110-\u003E7115, Code 20377-\u003E21591, ImpT 292-\u003E292, ExpT 1528-\u003E1528, FunT 1276-\u003E1276, LocT 1432-\u003E1432, Attr 456-\u003E456, Line 1632-\u003E1662, Type 149-\u003E154",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKIX1Explicit-2009.beam",
+      "Status": "Different",
+      "Source": "lib\\public_key-1.21.7\\src\\PKIX1Explicit-2009.erl",
+      "Detail": "Original length 182124, generated length 185136. AtU8 22466-\u003E22545, Code 46611-\u003E49534, ImpT 1588-\u003E1588, ExpT 1996-\u003E1996, FunT 6772-\u003E6772, LitT 2262-\u003E2281, LocT 5080-\u003E5080, Attr 453-\u003E453, Line 3860-\u003E3946, Type 512-\u003E412",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKIX1Implicit-2009.beam",
+      "Status": "Equal",
+      "Source": "lib\\public_key-1.21.7\\src\\PKIX1Implicit-2009.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKIXAttributeCertificate-2009.beam",
+      "Status": "Equal",
+      "Source": "lib\\public_key-1.21.7\\src\\PKIXAttributeCertificate-2009.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKIXCMP-2023.beam",
+      "Status": "Equal",
+      "Source": "lib\\public_key-1.21.7\\src\\PKIXCMP-2023.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKIXCRMF-2009.beam",
+      "Status": "Equal",
+      "Source": "lib\\public_key-1.21.7\\src\\PKIXCRMF-2009.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\X509-ML-DSA-2025.beam",
+      "Status": "Equal",
+      "Source": "lib\\public_key-1.21.7\\src\\X509-ML-DSA-2025.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\X509-ML-KEM-2025.beam",
+      "Status": "Equal",
+      "Source": "lib\\public_key-1.21.7\\src\\X509-ML-KEM-2025.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    }
+  ]
+}

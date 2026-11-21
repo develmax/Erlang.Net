@@ -286,7 +286,8 @@ internal sealed partial class BeamModuleCompiler
             bool knownBinary
         )
         {
-            if (knownBinary && TryEmitProvenBinarySplit(pattern, value, failure))
+            if (knownBinary && (TryEmitProvenBinarySplit(pattern, value, failure)
+                || TryEmitRegisterSizedIntegerMatch(pattern, value, failure)))
             {
                 return;
             }
@@ -345,7 +346,50 @@ internal sealed partial class BeamModuleCompiler
             );
         }
 
-        private int ReadSequentialBitSegment(BitSegment specification, int context, int failure)
+        private bool TryEmitRegisterSizedIntegerMatch(BitPattern pattern, int value, int failure)
+        {
+            if (!owner.SsaTypeInferenceEnabled || owner.receiveScratchRegisters is not null
+                || pattern.Segments is not
+                [
+                    {
+                        Value: Pattern.Variable capture,
+                        Specification: { Type: BitSegmentTypes.Integer, Size: Expr.Variable width } specification
+                    }
+                ]
+                || capture.Name == VariableScopeNames.Wildcard || variables.ContainsKey(capture.Name)
+                || deferredPairMembers.ContainsKey(capture.Name) || !variables.ContainsKey(width.Name))
+            {
+                return false;
+            }
+
+            // The dynamic size is already in Y, so no expression clobbers the context or input.
+            // Retain X0 until the match failure edges have been resolved.
+            Load(value);
+            EmitBitMatchStart(1, failure, knownBinary: true);
+            int destination = ReadSequentialBitSegment(
+                specification,
+                1,
+                failure,
+                registerContext: true
+            );
+            EmitBitMatchHeader(
+                1,
+                failure,
+                2,
+                0,
+                null
+            );
+            Pattern(capture, destination, failure);
+
+            return true;
+        }
+
+        private int ReadSequentialBitSegment(
+            BitSegment specification,
+            int context,
+            int failure,
+            bool registerContext = false
+        )
         {
             byte opcode = specification.Type switch
             {
@@ -360,10 +404,22 @@ internal sealed partial class BeamModuleCompiler
             bool unicode = opcode is GetBinaryUtf8 or GetBinaryUtf16 or GetBinaryUtf32;
             int? size = unicode || specification.Size is null ? null : ValueSlot(specification.Size, failure);
             int destination = Slot();
-            Load(context);
+            if (!registerContext)
+            {
+                Load(context);
+            }
+
             owner.Op(opcode, LabelTag, failure);
-            owner.Operand(XRegisterTag, 0);
-            owner.Operand(BeamWire.UnsignedTag, 1);
+            if (registerContext)
+            {
+                owner.EmitTypedRegister(context, MatchableTypeBits);
+            }
+            else
+            {
+                owner.Operand(XRegisterTag, 0);
+            }
+
+            owner.Operand(BeamWire.UnsignedTag, registerContext ? context + 1 : 1);
             if (!unicode)
             {
                 if (size is int slot)

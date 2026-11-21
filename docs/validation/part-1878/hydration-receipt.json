@@ -1,0 +1,53 @@
+{
+  "Parent": {
+    "Source": "d39673ca5923fc65f9138d3438de466d7d24a1d3273738b92e6c2876d932e4b1",
+    "Paths": 229,
+    "Compiler": "082db96c4d87c905d12d832513d46085703e1fa94f4447c6a77330414403257c",
+    "Tests": "f00902fc870ad1c26360d35278d5b74e518ae5218a5b294e9ad5b9dee655186d",
+    "ParentSource": "923515cb86f31a740ba69198640c9720f3c68421c69c09fbfc77320e28c8b2e0",
+    "CorpusTool": "627e92fb9dc6175ef6b1a7112a7737c3a4ccb577238ea6f9e624dcf2f1c95c80"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryArgumentFlow.cs": "9142c6a3a1e5f2181826be59f13da735622fe6a4e649bd67df8b9c2921f01645",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs": "00d49b9798e0654c300ef56dc4eb005d7b8fdd8d4e02588f7d4c63acbda12690",
+    "tests/Erlang.Tests/Compiler/Beam/BeamBootstrapLibraryIncludeChecks.cs": "8f94b15952d61f06c88ffb78b63bb4a833c18072c007bbdb5649e1e5080d078f",
+    "tests/Erlang.Tests/Compiler/Beam/BeamStrictListSiblingHelperChecks.cs": "2f993b1bacfad9716ed966511153bd2e4845a5e516847dd0b5c0a977d7ccc19c",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamRetainedConstructorAliasChecks.cs": "2fbfea4875b05ba1c8dccf8189f2e5792a5905bf3b394fdfd24ecb16866891ef",
+    "tests/Erlang.Tests/Erlang.Tests.csproj": "06a243d5355bdc1bdb62524be8ae66614b6579f7e8355968807644ccb71743d2",
+    "tests/Erlang.Tests/Harness/Program.cs": "59724897cebeb1baf30a6eb83a425a87359fdb3d600a2ebbb5d76ed5ae4ce79e",
+    "tools/Validation/Erlang.BeamCorpus/OtpWindowsBootstrapLibraryIncludePaths.cs": "3c1531dd0cecfddb423ece4e0e3cf2677937a589b61d54804e39496b358ecaad",
+    "tools/Validation/Erlang.BeamCorpus/Program.cs": "7af59fd01a89e7b73e9d79bd1ad265385f55d2a2f1db1a4708c435c10996e857"
+  },
+  "Patches": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\bootstrap-and-sibling-generator-1878\\bootstrap-library-include-provenance.patch",
+      "Hash": "02b2b8ae30be754a3b034da68fe232ad5ea2285b7a2820a9627a08ad7c5c18b6"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\bootstrap-and-sibling-generator-1878\\strict-sibling-helpers.patch",
+      "Hash": "608df95b2b554c3bbe71d1b4e63c4d54742b08af9881ae4dcaeb1277f16045d5"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\bootstrap-and-sibling-generator-1878\\dynamic-apply-entry-arguments-1876.patch",
+      "Hash": "f1ddeadb9095619332a40c8f32e73e4de3ac4acc51dbd8cac908beca718a2949"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\bootstrap-and-sibling-generator-1878\\register-fixtures.patch",
+      "Hash": "8eab480f16ecb6223fd41db22c0a13581d684d655d0b0ec113aac17592f356be"
+    }
+  ],
+  "Proposals": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\metadata-next-path-audit-1875\\bootstrap-library-include-provenance.patch",
+      "Hash": "11ef1cbc0c5c641d42c38a6f05e8500e4a10f52cbb419e0d98b34cb5fb965f48"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\strict-sibling-materialization-1874\\strict-sibling-helpers.patch",
+      "Hash": "15399a2ec993e0cf9da8d6a1ea222c2771e5c98817b0980df6cebb104712aff8"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\near-exact-audit-1845\\frame-census-1870\\dynamic-apply-1876\\dynamic-apply-entry-arguments-1876.patch",
+      "Hash": "f1ddeadb9095619332a40c8f32e73e4de3ac4acc51dbd8cac908beca718a2949"
+    }
+  ]
+}

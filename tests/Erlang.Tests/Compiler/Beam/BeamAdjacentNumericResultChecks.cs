@@ -41,7 +41,7 @@ internal static class BeamAdjacentNumericResultChecks
             disabled: true
         );
         byte[] noProducer = Compile(Source.Replace(" - 1", "", StringComparison.Ordinal));
-        byte[] spilled = Compile(Source.Replace(
+        byte[] assigned = Compile(Source.Replace(
             "(erlang:hd(Input) - 1) band 255.",
             "Head = erlang:hd(Input),\n    Delta = Head - 1,\n    Delta band 255.",
             StringComparison.Ordinal
@@ -49,7 +49,7 @@ internal static class BeamAdjacentNumericResultChecks
         if (BinaryBifInputType(mixed) != NumberType
             || BinaryBifInputType(disabled) is not null
             || BinaryBifInputType(noProducer) is not null
-            || BinaryBifInputType(spilled) is not null)
+            || BinaryBifInputType(assigned) != NumberType)
         {
             throw new InvalidOperationException(WrongType);
         }

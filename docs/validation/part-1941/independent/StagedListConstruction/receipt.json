@@ -1,0 +1,93 @@
+{
+  "OtpTag": "OTP-29.1.1",
+  "OtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "FrozenSource": "c9df0d115aa42b110913f90df45f7725cf835fab53910d83d9047dd96af3c857",
+  "FrozenCompiler": "db649e3dd9094ac4be2bce30314c42a52b5e265caefee53c7e4ffed5855e1320",
+  "CorpusTool": "3a181d8f6a02241d1e5efed5cebfa2e58c4ea343b2245f96f0dd2c2af02ef32e",
+  "BaselineOverlays": {
+    "integer-stack-arguments/integer-stack-arguments.patch": "e9dc7d66ea7376e7bd5abbf1b00cc914f8d8b1da4554cfc647d6cefd6d9b27da",
+    "integer-stack-arguments/integer-stack-arguments-test.patch": "c531d3a542aa87624fc62300230bdcde8c561b9964c7f75621832940f65308ad",
+    "integer-tail-selector/integer-tail-selector.patch": "d275044c663a0ba55b6b20e0fa2aa280215c1d90f59521521cc350c0ab744d7d",
+    "integer-tail-selector/integer-tail-selector-test.patch": "4594d63a8d0dbd95e8b04e5539b85168f3ab49c51fc2ded6c1785a8851aae126"
+  },
+  "BaselineCompiler": "5f2a535c43f85ea8217b67cb56e1e17b6a5ed3aef1f9b534365bedcb46428677",
+  "Compiler": "31601f1a8e77b82262f4c0fadece38391b33cd6b011b5baf14f9639475409d85",
+  "ScopeModules": 9,
+  "ExactControlsRetained": 3,
+  "ChangedModules": [
+    "lib/diameter-2.7.2/ebin/diameter_dict_parser.beam",
+    "lib/megaco-4.9.2/ebin/megaco_text_mini_parser.beam",
+    "lib/megaco-4.9.2/ebin/megaco_text_parser_v1.beam",
+    "lib/snmp-5.20.5/ebin/snmpc_mib_gram.beam",
+    "lib/tools-4.2.3/ebin/xref_parser.beam",
+    "lib/xmerl-2.2/ebin/xmerl_xsd_re_parse.beam"
+  ],
+  "WholeModulesNewlyByteIdentical": [],
+  "WholeModulesLostByteIdentity": [],
+  "NativeLoaderAcceptedAffectedModules": 6,
+  "NormalizedFunctions": {
+    "common": 2159,
+    "changed": 213,
+    "gained": 177,
+    "lost": 0,
+    "folded": 222,
+    "save_restore_pairs": 107,
+    "unexplained": 0
+  },
+  "ArtifactCensus": {
+    "Modules": 12,
+    "Functions": 467,
+    "PredictedWholeFunctionGains": 387,
+    "PairedSaveRestore": 243,
+    "PredictedLosses": 0,
+    "ByteExactControlsTouched": 0,
+    "ImagesClassified": 1366
+  },
+  "NativeRegexSuccesses": 4,
+  "NativeRegexErrors": 1,
+  "FixtureNativeValues": 5,
+  "ArtifactHashes": {
+    "README.md": "1e4fb6c75c021c28a7ed8a31e31cc26c2f8732e489274e659408279f766621e6",
+    "../next-parser-residual/staged_cons_census.erl": "f538a7f97fc6785c8bdc321da5dfa375fb71fdfb85c1057a95fbe576df7e1946",
+    "../next-parser-residual/staged-cons-census.terms": "58744aa7be2cb40d145e6ee6f8a8391adc34f76fc1bd4af878411a56038508ac",
+    "../next-parser-residual/staged-cons-census.log": "4651cdeee936531bbe4044715bbcec820c12cd8a230536fd8b6d9975bd40362d",
+    "../next-parser-residual/construction-census-paths.tsv": "c7420a8d39329a7c94ecd3478fa9c79e9f3b8dcc5d6e8966d74219aa1f693718",
+    "../next-parser-residual/literal-cons-body-witness.log": "314b7bc5667fc4708885aca0480a9fcbf092bd0fe016199356bf1464087f6094",
+    "staged-list-construction.patch": "64e7d55d1e60b4a660666603314380193b44fe3e94b7d1555334f036936ef901",
+    "staged-list-construction-test.patch": "aa4c0214c122766a25c31693e35f12f723c73e0c1d638c9e7d2ebf1f79aa90ee",
+    "strict-replay-hashes.json": "01fce0def2b4f404b2c3e6185345842925902729ee5fb58b5f952261992319d5",
+    "replay-result.txt": "fc2ee9f07f3e5641d56af714f02945c9da9898886622f9e199fde96948292d1e",
+    "staged-list-construction-on-1940.patch": "ff0080515b545934dbf8c23d2eb16df00f5ded92e1165852b7c7cecbab7fd761",
+    "staged-list-construction-test-on-1940.patch": "9a6a0356625fe7de62c8d779ab79da501e31a26f8ea0c42ddac20ec4984bf533",
+    "part-1940-replay.json": "81d6d9d26607972aead2374fabf06adada1c627b2ae84ab76f7d0a183402157b",
+    "before-corpus.json": "4e581e537e8c001487297715a4e566e49bf414aceef87419446ac3deca473691",
+    "before-corpus.json.timings.json": "34b97d362c80d52509fb66b54d9a4902496ca2522b9103826722f6099a27557c",
+    "candidate-corpus.json": "cb1631f7621dc89137521f8e4df89679cb633bf220fb7421685480e813fd1884",
+    "candidate-corpus.json.timings.json": "8baf9c45e0635e0905a6496b44f734690ea0585c5116f29dc21742e89a2cc781",
+    "scope-image-hashes.json": "5d97743bafc301862124398b65d87a0434e33aab7b51741cd725f649896a52f3",
+    "scope-module-paths.txt": "b5fe8047529f12ce4007d40618758b441e6aaf37af2e88cf117076826198c000",
+    "fixture-image-hashes.json": "9b9f91cb34bde6f8af951f25397975396b3f5a1cb59ab9a4cc5598026f8685ff",
+    "normalized-replay.json": "0e6b44d74de1859a574534479222a46c18c93d2977307b052b4fb57898fe3952",
+    "normalized-replay.terms": "17c23e7344165ccf937e828aa3cc38652ff101c15ea6348721fa9571e4b6f178",
+    "staged_cons_replay.erl": "3c41ffe31722c4bbf0da5b537f361442332ff44d1c801fec78fb012fe231d3a4",
+    "regression.result": "4772bebae47bb2a03297d1d06884a09568e09f3351dffb244fbadd5dc98c8a15",
+    "regression.overlay-before.result": "9e62dab5a4a2c16c1624c1c292f0d195860226b77400c82a958a26c31d665cdf",
+    "native-regression.result": "06af12b4d4c8ecb69d180a11c824f51aacc0ff2f8611dcaf61049e768964c6d9",
+    "native-parser-scope.result": "75a364f4e1074c5aa6175514d1d752aef2f1407d38635bcc87d26e64f529702c",
+    "native-parser-scope.terms": "7f759c7f5f5def093cfbfc6318dc17bf208e66b1224555c9c491de10c7cd6e12",
+    "layout-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f"
+  },
+  "LaterSourceReplay": {
+    "Source": "0c8d6444e3a5d3d38e56e85b1b2ce7b0152351c5f08a097694fcd923c7a1cc70",
+    "PostReplayHashes": {
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": "a4b32bda4dda1dcb6407ce6da888bdbf2e62bf919cc3689f961afbf3cf456507",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.StagedListConstruction.cs": "0c9a7bece089a4a182b47e1198167a92cf7fbc69a154dffbe43a458fcc428c8f",
+      "tests/Erlang.Tests/Compiler/Beam/BeamStagedListConstructionChecks.cs": "d9522ce9fa08af4d0038c86cc8ff5dc347ee0fcf3f6434f65f8f9efe5f5e1fd9",
+      "tests/Erlang.Tests/Harness/Program.cs": "c5f842c78f2cababd87d9b354c66d1fb05871ffccd070c57c4b7c4032ad7a64d"
+    },
+    "PatchHashes": {
+      "staged-list-construction-on-1940.patch": "ff0080515b545934dbf8c23d2eb16df00f5ded92e1165852b7c7cecbab7fd761",
+      "staged-list-construction-test-on-1940.patch": "9a6a0356625fe7de62c8d779ab79da501e31a26f8ea0c42ddac20ec4984bf533"
+    }
+  }
+}

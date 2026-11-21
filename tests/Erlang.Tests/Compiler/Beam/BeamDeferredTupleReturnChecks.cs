@@ -1,0 +1,88 @@
+using System.Collections;
+using System.Numerics;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamDeferredTupleReturnChecks
+{
+    internal const string TestName = "compiler/beam/partitions-cascaded-tagged-return-failures";
+    private const string Fixture = "beam_result_cascade.erl";
+    private const string WrongPartition = "Disjoint passthrough tuple returns must use one type partition per decision and preserve other error arms.";
+
+    private const string Source = """
+        -module(beam_result_cascade).
+        -export([run/1, alternate/1, effectful/1]).
+
+        run(Input) ->
+            case beam_result_cascade_provider:first(Input) of
+                ok ->
+                    case beam_result_cascade_provider:second(Input) of
+                        ok ->
+                            beam_result_cascade_provider:note(Input),
+                            case beam_result_cascade_provider:third(Input) of
+                                ok -> {complete, Input};
+                                {error, Reason} -> {error, Reason}
+                            end;
+                        {error, Reason} -> {error, Reason}
+                    end;
+                {error, Reason} -> {error, Reason}
+            end.
+
+        alternate(Input) ->
+            case beam_result_cascade_provider:first(Input) of
+                ok ->
+                    case beam_result_cascade_provider:second(Input) of
+                        ok -> {done, Input};
+                        {missing, Reason} -> {missing, Reason}
+                    end;
+                {error, Reason} -> {error, Reason}
+            end.
+
+        effectful(Input) ->
+            case beam_result_cascade_provider:first(Input) of
+                ok ->
+                    case beam_result_cascade_provider:second(Input) of
+                        ok -> {done, Input};
+                        {error, Reason} -> beam_result_cascade_provider:report(Reason)
+                    end;
+                {error, Reason} -> beam_result_cascade_provider:report(Reason)
+            end.
+        """;
+
+    internal static void Run()
+    {
+        object code = Code(CodeGeneration.CompileBeamModule(Source, Fixture));
+        object[] instructions = Items(code, "Instructions").ToArray();
+        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
+        byte[] chain = ReadFunction("run");
+        int firstFailure = Array.IndexOf(chain, CaseEnd);
+        if (chain.Count(opcode => opcode == IsTuple) != 3 || firstFailure < 0
+            || chain.Skip(firstFailure).Any(opcode => opcode is not (Label or Line or CaseEnd))
+            || ReadFunction("alternate").Count(opcode => opcode == IsTuple) != 2
+            || ReadFunction("effectful").Count(opcode => opcode == IsTuple) != 0)
+        {
+            throw new InvalidOperationException(WrongPartition);
+        }
+
+        byte[] ReadFunction(string name)
+        {
+            int entry = Array.FindIndex(
+                instructions,
+                instruction => Opcode(instruction) == FunctionInfo
+                    && atoms[(int)(BigInteger)Property(Items(instruction, "Operands").ElementAt(1), "Value")] == name
+            );
+
+            return instructions.Skip(entry + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo)
+                .Select(Opcode).ToArray();
+        }
+    }
+
+    private static byte Opcode(object instruction) =>
+        (byte)Property(Property(instruction, "Definition"), "Opcode");
+
+    private static IEnumerable<object> Items(object owner, string name) =>
+        ((IEnumerable)Property(owner, name)).Cast<object>();
+}

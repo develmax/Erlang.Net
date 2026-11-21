@@ -28,8 +28,9 @@ internal sealed partial class BeamModuleCompiler
                 fields.Add((field, keySlot is null ? key : null, keySlot, valueSlot));
             }
 
+            bool useProvenBase = fields.Count > 0 && baseSlot.HasValue && owner.entryMatchedMapUpdates.Contains(map);
             int? invalidMap = null;
-            if (map.Base is { } source)
+            if (!useProvenBase && map.Base is { } source)
             {
                 if (baseSlot is int register)
                 {
@@ -61,12 +62,14 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 bool emptySource = map.Base is null && index == 0;
+                bool fromEntry = useProvenBase && index == 0;
                 EmitMapInstruction(
                     first.Field.Exact,
                     guardFailure ?? 0,
-                    emptySource ? null : 0,
-                    emptySource ? 0 : 1,
-                    batch.Count
+                    emptySource ? null : fromEntry ? baseSlot : 0,
+                    emptySource || fromEntry ? 0 : 1,
+                    batch.Count,
+                    sourceTag: fromEntry ? YRegisterTag : XRegisterTag
                 );
                 foreach (var field in batch)
                 {
@@ -211,14 +214,9 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
-            var fields = new SortedDictionary<Term, Expr>(MapExpressionKeyOrder);
-            foreach (MapField field in map.Fields)
+            if (ReadDirectMapFields(map) is not { } fields)
             {
-                if (!AttributeLiteral.TryNormalizeConstant(field.Key, out Term key) || !IsCallOperand(field.Value))
-                {
-                    return false;
-                }
-                fields[key] = field.Value;
+                return false;
             }
 
             int? source = map.Base is Expr.Variable variable ? ArgumentRegister(clause, variable.Name) : null;
@@ -271,6 +269,85 @@ internal sealed partial class BeamModuleCompiler
             return true;
         }
 
+        private bool TryEmitDirectMapTailArgument(FunctionDefinition function)
+        {
+            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled || recursiveClosure is not null
+                || function.Clauses is not [{ Guard: null, Body: Expr.Call { DynamicRemote: false } call } clause]
+                || !HasUnconditionalParameters(clause) || call.Arguments.Count != function.Arity
+                || !TryResolveOrdinaryCallTarget(call, out string? module) || module is null
+                || IsTrappingTailBif(module, call.Function, call.Arguments.Count))
+            {
+                return false;
+            }
+
+            int updated = -1;
+            SortedDictionary<Term, Expr>? operands = null;
+            for (int index = 0; index < call.Arguments.Count; index++)
+            {
+                Expr argument = call.Arguments[index];
+                if (argument is Expr.Map { Base: Expr.Variable mapInput, Fields.Count: > 0 } map && updated < 0
+                    && ArgumentRegister(clause, mapInput.Name) == index
+                    && !map.Fields.Any(field => field.Exact)
+                    && ReadDirectMapFields(map) is { } fields
+                    && fields.Values.OfType<Expr.Variable>().All(value => ArgumentRegister(clause, value.Name) >= 0))
+                {
+                    updated = index;
+                    operands = fields;
+                }
+                else if (argument is not Expr.Variable variable || ArgumentRegister(clause, variable.Name) != index)
+                {
+                    return false;
+                }
+            }
+
+            if (operands is null)
+            {
+                return false;
+            }
+
+            int badMap = Label();
+            EmitMapTypeTest(updated, badMap);
+            EmitMapInstruction(
+                exact: false,
+                failure: 0,
+                source: updated,
+                live: function.Arity,
+                count: operands.Count,
+                destination: updated
+            );
+            foreach (var (key, value) in operands)
+            {
+                owner.LiteralOperand(key);
+                EmitDirectOperand(clause, value);
+            }
+
+            owner.EmitCallLine(call, location);
+            owner.Op(TailExternalCall, BeamWire.UnsignedTag, function.Arity);
+            owner.Operand(BeamWire.UnsignedTag, owner.Import(module, call.Function, function.Arity));
+            Mark(badMap);
+            EmitBadMapTuple(updated);
+            owner.Op(TailExternalCall, BeamWire.UnsignedTag, 1);
+            owner.Operand(BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module, ErlangModuleNames.Error, 1));
+
+            return true;
+        }
+
+        private static SortedDictionary<Term, Expr>? ReadDirectMapFields(Expr.Map map)
+        {
+            var fields = new SortedDictionary<Term, Expr>(MapExpressionKeyOrder);
+            foreach (MapField field in map.Fields)
+            {
+                if (!AttributeLiteral.TryNormalizeConstant(field.Key, out Term key) || !IsCallOperand(field.Value))
+                {
+                    return null;
+                }
+
+                fields[key] = field.Value;
+            }
+
+            return fields;
+        }
+
         private void EmitMapTypeTest(int register, int failure)
         {
             owner.Op(IsMap, LabelTag, failure);
@@ -284,13 +361,14 @@ internal sealed partial class BeamModuleCompiler
             int live,
             int count,
             int destination = 0,
-            int destinationTag = XRegisterTag
+            int destinationTag = XRegisterTag,
+            int sourceTag = XRegisterTag
         )
         {
             owner.Op(exact ? PutMapExact : PutMapAssoc, LabelTag, exact ? failure : 0);
             if (source is int register)
             {
-                owner.Operand(XRegisterTag, register);
+                owner.Operand(sourceTag, register);
             }
             else
             {

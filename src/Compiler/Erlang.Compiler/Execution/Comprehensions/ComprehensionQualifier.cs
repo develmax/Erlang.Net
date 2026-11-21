@@ -8,6 +8,8 @@ public abstract record ComprehensionQualifier
     {
         internal int GeneratorLine { get; init; }
         internal string? GeneratorFile { get; init; }
+        internal int InputLine { get; init; }
+        internal string? InputFile { get; init; }
     }
     public sealed record BinaryGenerator(BitPattern Pattern, Expr Source, bool Strict = false) : ComprehensionQualifier;
     public sealed record MapGenerator(Pattern Pattern, Expr Source, bool Strict = false) : ComprehensionQualifier;

@@ -1,0 +1,116 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamSortedTupleListProjectionChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamSortedTupleListProjectionChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamSortedTupleListProjectionChecks.cs
+@@ -0,0 +1,100 @@
++using System.Collections;
++using System.Numerics;
++using Erlang;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamSortedTupleListProjectionChecks
++{
++    internal const string TestName = "compiler/beam/projects-pairs-after-sorting-a-proven-list";
++    private const string Fixture = "beam_sorted_tuple_list_projection.erl";
++    private const string WrongLayout = "Only the sort of a proven tuple list should elide projection shape tests.";
++    private const string WrongValue = "Projection after sorting changed its result.";
++
++    private const string Source = """
++        -module(beam_sorted_tuple_list_projection).
++        -export([pairs/1, mixed/1, unknown/2]).
++        pairs(Inputs) ->
++            F = fun(X) -> case X of
++                Pair = {20,_} -> {2,Pair};
++                Pair = {19,_} -> {1,Pair};
++                Other -> {3,Other}
++            end end,
++            Ranked = [F(Value) || Value <- Inputs],
++            [Value || {_,Value} <- lists:sort(Ranked)].
++        mixed(Inputs) ->
++            F = fun(Value) -> case Value of skip -> skip; _ -> {1,Value} end end,
++            Ranked = [F(Value) || Value <- Inputs],
++            [Value || {_,Value} <- lists:sort(Ranked)].
++        unknown(Inputs, F) ->
++            Ranked = [F(Value) || Value <- Inputs],
++            [Value || {_,Value} <- lists:sort(Ranked)].
++        """;
++
++    internal static async Task Run()
++    {
++        byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
++        var module = BeamModule.Prepare(image, new BeamDependencySelection(["lists"]));
++        var selection = new RuntimeLibrarySelection(
++            [RuntimeModuleSelection.Managed("erlang"), RuntimeModuleSelection.Managed("lists")]
++        );
++        await using var runtime = await ProcessRuntime.CreateAsync(selection, RuntimeNativePrimitives.InternalScalars413, CancellationToken.None);
++        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
++        await actor.InvokeAsync(async context =>
++        {
++            Term payload = Term.A("payload");
++            Term first = Term.Tuple(Term.I(19), payload);
++            Term second = Term.Tuple(Term.I(20), payload);
++            Term skip = Term.A("skip");
++            if (!Term.List(first, second, payload).Equals(await module.Invoke(context, "pairs", Term.List(second, payload, first)))
++                || !Nil.Value.Equals(await module.Invoke(context, "pairs", Nil.Value))
++                || !Term.List(payload).Equals(await module.Invoke(context, "mixed", Term.List(payload, skip))))
++            {
++                throw new InvalidOperationException(WrongValue);
++            }
++
++            return Nil.Value;
++        });
++
++        if (ProjectionTestsTuple(image, "pairs") || !ProjectionTestsTuple(image, "mixed") || !ProjectionTestsTuple(image, "unknown"))
++        {
++            throw new InvalidOperationException(WrongLayout);
++        }
++    }
++
++    private static bool ProjectionTestsTuple(byte[] image, string parent)
++    {
++        object code = Code(image);
++        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        object[] instructions = Items(code, "Instructions");
++        int start = Array.FindIndex(
++            instructions,
++            instruction => Opcode(instruction) == FunctionInfo
++                && Items(instruction, "Operands") is [_, var name, var arity]
++                && atoms[Value(name)].StartsWith($"-{parent}/", StringComparison.Ordinal)
++                && atoms[Value(name)].Contains("-lc$", StringComparison.Ordinal) && Value(arity) == 1
++        );
++        if (start < 0)
++        {
++            throw new InvalidOperationException(WrongLayout);
++        }
++
++        byte[] operations = instructions.Skip(start + 1)
++            .TakeWhile(instruction => Opcode(instruction) != FunctionInfo).Select(Opcode).ToArray();
++        if (!operations.Contains(GetTupleElement))
++        {
++            throw new InvalidOperationException(WrongLayout);
++        }
++
++        return operations.Contains(IsTuple) || operations.Contains(TestArity);
++    }
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++
++    private static object[] Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
++}
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12609,6 +12609,7 @@
+ Test(Erlang.Tests.BeamEnrollmentFinalDecodersChecks.TestName, Erlang.Tests.BeamEnrollmentFinalDecodersChecks.Run);
+ Test(Erlang.Tests.BeamIntegerTaggedAliasResultChecks.TestName, Erlang.Tests.BeamIntegerTaggedAliasResultChecks.Run);
+ Test(Erlang.Tests.BeamStaticListClosureMappingChecks.TestName, Erlang.Tests.BeamStaticListClosureMappingChecks.Run);
++Test(Erlang.Tests.BeamSortedTupleListProjectionChecks.TestName, Erlang.Tests.BeamSortedTupleListProjectionChecks.Run);
+ Test(
+     Erlang.Tests.BeamWxTupleArityForwardChecks.TestName,
+     () =>

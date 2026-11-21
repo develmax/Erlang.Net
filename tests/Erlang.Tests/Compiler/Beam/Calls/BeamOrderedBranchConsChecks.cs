@@ -1,0 +1,221 @@
+using System.Collections;
+using System.Numerics;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamOrderedBranchConsChecks
+{
+    internal const string TestName = "compiler/beam/stages-pure-cons-heads-in-general-branches";
+    private const string Module = "ordered_branch_cons_fixture";
+    private const string Provider = "ordered_cons_call_provider";
+    private const string TailFailure = "tail_failed";
+    private const string HeadFailure = "head_failed";
+    private const int ExpectedHeapWords = 15;
+
+    private const string Source = """
+        -module(ordered_branch_cons_fixture).
+        -export([multi/2,effects/2,recover/2]).
+
+        multi([{token,[A,B]},{mark,T}|Rest], Opt) ->
+            [{head,A},{middle,B},{flag,T}|ordered_cons_call_provider:tail(Opt, Rest)];
+        multi(_,_) -> fallback.
+
+        effects([{token,[A,B]},{mark,T}|Rest], Opt) ->
+            [{head,ordered_cons_call_provider:mark(A)},{middle,B},{flag,T}
+             |ordered_cons_call_provider:tail(Opt, Rest)];
+        effects(_,_) -> fallback.
+
+        recover([{token,[A,B]},{mark,T}|Rest], Opt) ->
+            try [{head,A},{middle,B},{flag,T}|ordered_cons_call_provider:tail(Opt, Rest)]
+            catch error:tail_failed -> {caught,A,B,T}
+            end;
+        recover(_,_) -> fallback.
+        """;
+
+    internal static async Task Run()
+    {
+        byte[] beam = CodeGeneration.CompileBeamModule(Source, Module + ".erl");
+        VerifyConstruction(Code(beam));
+
+        var image = BeamModule.Prepare(beam, new BeamDependencySelection([Provider]));
+        var events = new List<Term>();
+        Term fail = Term.A("fail");
+        Term failHead = Term.A("fail_head");
+        Term improper = Term.A("improper");
+        await using var runtime = new ProcessRuntime();
+        runtime.Modules.Register(
+            Provider,
+            "tail",
+            2,
+            (_, args) =>
+            {
+                events.Add(Term.Tuple(Term.A("tail"), args[0], args[1]));
+                if (args[0].Equals(fail))
+                {
+                    throw new ErlangException(Term.A(TailFailure));
+                }
+
+                return ValueTask.FromResult(args[0].Equals(improper) ? improper : args[1]);
+            }
+        );
+        runtime.Modules.Register(
+            Provider,
+            "mark",
+            1,
+            (_, args) =>
+            {
+                events.Add(Term.Tuple(Term.A("head"), args[0]));
+                if (args[0].Equals(failHead))
+                {
+                    throw new ErlangException(Term.A(HeadFailure));
+                }
+
+                return ValueTask.FromResult(args[0]);
+            }
+        );
+        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
+        await actor.InvokeAsync(async context =>
+        {
+            Term a = Term.A("a");
+            Term b = Term.A("b");
+            Term c = Term.A("c");
+            Term ok = Term.A("ok");
+            Term rest = Term.List(Term.A("tail"));
+            Term inputs = Inputs(a);
+            Term normal = Result(rest);
+            await Check(
+                "multi",
+                inputs,
+                ok,
+                normal,
+                [TailEvent(ok)]
+            );
+            await Check(
+                "multi",
+                inputs,
+                improper,
+                Result(improper),
+                [TailEvent(improper)]
+            );
+            await Check(
+                "multi",
+                Nil.Value,
+                ok,
+                Term.A("fallback"),
+                []
+            );
+            await Check(
+                "effects",
+                inputs,
+                ok,
+                normal,
+                [HeadEvent(a), TailEvent(ok)]
+            );
+            await Check(
+                "effects",
+                inputs,
+                fail,
+                Term.A(TailFailure),
+                [HeadEvent(a), TailEvent(fail)],
+                sourceLine: 10
+            );
+            await Check(
+                "effects",
+                Inputs(failHead),
+                ok,
+                Term.A(HeadFailure),
+                [HeadEvent(failHead)],
+                sourceLine: 9
+            );
+            await Check(
+                "recover",
+                inputs,
+                fail,
+                Term.Tuple(
+                    Term.A("caught"),
+                    a,
+                    b,
+                    c
+                ),
+                [TailEvent(fail)]
+            );
+
+            return Nil.Value;
+
+            Term Inputs(Term head) => Term.List(
+                Term.Tuple(Term.A("token"), Term.List(head, b)),
+                Term.Tuple(Term.A("mark"), c),
+                Term.A("tail")
+            );
+
+            Term Result(Term tail) => new Cons(Term.Tuple(Term.A("head"), a),
+                new Cons(Term.Tuple(Term.A("middle"), b), new Cons(Term.Tuple(Term.A("flag"), c), tail)));
+
+            Term TailEvent(Term option) => Term.Tuple(Term.A("tail"), option, rest);
+
+            async ValueTask Check(
+                string function,
+                Term values,
+                Term option,
+                Term expected,
+                Term[] expectedEvents,
+                int? sourceLine = null
+            )
+            {
+                events.Clear();
+                Term actual;
+                bool matchedFailure = false;
+                try
+                {
+                    actual = await image.Invoke(
+                        context,
+                        function,
+                        values,
+                        option
+                    );
+                }
+                catch (ErlangException error) when (sourceLine is int line && HasFrame(error, function, line))
+                {
+                    actual = error.Reason;
+                    matchedFailure = true;
+                }
+                if (matchedFailure != sourceLine.HasValue || !actual.Equals(expected) || !events.SequenceEqual(expectedEvents))
+                {
+                    throw new InvalidOperationException(BeamOrderedBranchConsDiagnostics.EvaluationOrder);
+                }
+            }
+        });
+    }
+
+    private static Term HeadEvent(Term value) => Term.Tuple(Term.A("head"), value);
+
+    private static bool HasFrame(ErlangException error, string function, int line) =>
+        Cons.Items(error.StackTraceTerm).Any(frame => frame is TupleTerm
+        {
+            Items: [Atom { Name: Module }, Atom name, _, var source]
+        } && name.Name == function && Cons.Items(source).Contains(Term.Tuple(Term.A("line"), Term.I(line))));
+
+    private static void VerifyConstruction(object code)
+    {
+        object entry = Items(code, "Functions").Single(item => (string)Property(item, "Name") == "multi");
+        int start = (int)Property(entry, "FirstInstructionIndex");
+        int end = (int)Property(entry, "EndInstructionIndex");
+        object[] instructions = Items(code, "Instructions")[start..end];
+        int call = Array.FindIndex(instructions, instruction => Opcode(instruction) == ExternalCall);
+        if (call < 0 || call + 1 >= instructions.Length || Opcode(instructions[call + 1]) != TestHeap
+            || instructions.Take(call).Any(instruction => Opcode(instruction) is PutTuple or PutList)
+            || (BigInteger)Property(Items(instructions[call + 1], "Operands")[0], "Value") != ExpectedHeapWords
+            || !instructions.Skip(call + 2).Select(Opcode).Where(opcode => opcode is PutTuple or PutList)
+                .SequenceEqual([PutTuple, PutList, PutTuple, PutList, PutTuple, PutList]))
+        {
+            throw new InvalidOperationException(BeamOrderedBranchConsDiagnostics.ConstructionSchedule);
+        }
+    }
+
+    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
+
+    private static object[] Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
+}

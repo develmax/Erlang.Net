@@ -1,0 +1,5 @@
+{not_binary,{value,{error,bad_binary}}}.
+{<<>>,{failure,error,{case_clause,{error,no_version_found,[{'SEP',1,end_of_input},{endOfMessage,1,endOfMessage}],1}},{megaco_text_mini_decoder,decode_message,2,[{file,"megaco_text_mini_decoder.erl"},{line,43}]}}}.
+{<<"invalid-value">>,{failure,error,{case_clause,{error,no_version_found,[{'SafeChars',1,"invalid-value"},{endOfMessage,1,endOfMessage}],1}},{megaco_text_mini_decoder,decode_message,2,[{file,"megaco_text_mini_decoder.erl"},{line,43}]}}}.
+{<<"MEGACO/1 [127.0.0.1]:2944 Transaction = 123 { Context = - { ServiceChange = ROOT { Services { Method = Restart, Reason = \"901 Cold Boot\" } } } }">>,{value,{ok,{'MegacoMessage',asn1_NOVALUE,{'Message',1,{ip4Address,{'IP4Address',[127,0,0,1],2944}},undefined}}}}}.
+{<<"MEGACO/1 ">>,{value,{error,[{reason,{1,megaco_text_mini_parser,["syntax error before: ",["endOfMessage"]]}},{token,[{'SafeChars',1,"megaco/1"},{'SEP',1},{endOfMessage,1,endOfMessage}]}]}}}.

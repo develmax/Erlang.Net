@@ -1,0 +1,246 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProperListEntryFacts.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProperListEntryFacts.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProperListEntryFacts.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProperListEntryFacts.cs
+@@ -5,7 +5,13 @@
+     private IReadOnlyDictionary<(string Name, int Arity), FunctionDefinition>? properListSourceFunctions;
+     private ProperListEntryFacts? properListEntryFacts;
+ 
+-    private bool HasProperListEntryFact((string Name, int Arity) signature, int argument)
++    private bool HasProperListEntryFact((string Name, int Arity) signature, int argument) =>
++        HasLocalListEntryFact(signature, argument, nonempty: false);
++
++    private bool HasNonemptyListEntryFact((string Name, int Arity) signature, int argument) =>
++        HasLocalListEntryFact(signature, argument, nonempty: true);
++
++    private bool HasLocalListEntryFact((string Name, int Arity) signature, int argument, bool nonempty)
+     {
+         if (properListSourceFunctions is null || !SsaTypeInferenceEnabled || ModuleOptimizationDisabled
+             || OnLoadFunction is not null || sourceModule?.DeclaredNifs is { Count: > 0 })
+@@ -15,16 +21,22 @@
+ 
+         properListEntryFacts ??= new ProperListEntryFacts(this, properListSourceFunctions, exportedFunctions);
+ 
+-        return properListEntryFacts.Proves(signature, argument);
++        return properListEntryFacts.Proves(signature, argument, nonempty);
+     }
+ 
+     private sealed class ProperListEntryFacts
+     {
++        [Flags]
+         private enum Fact
+         {
+-            Unreachable,
+-            ProperList,
+-            Unknown
++            Unreachable = 0,
++            EmptyList = 1,
++            ProperCons = 2,
++            ImproperCons = 4,
++            NonList = 8,
++            ProperList = EmptyList | ProperCons,
++            Cons = ProperCons | ImproperCons,
++            Unknown = ProperList | ImproperCons | NonList
+         }
+ 
+         private readonly BeamModuleCompiler owner;
+@@ -61,12 +73,13 @@
+                 var arguments = incoming[current].ToArray();
+                 Fact result = ReadClauses(functions[current].Clauses, arguments, new(StringComparer.Ordinal));
+                 Fact previous = results.GetValueOrDefault(current);
+-                if ((int)result <= (int)previous)
++                Fact joined = Join(previous, result);
++                if (joined == previous)
+                 {
+                     continue;
+                 }
+ 
+-                results[current] = result;
++                results[current] = joined;
+                 if (dependents.TryGetValue(current, out var callers))
+                 {
+                     foreach (var caller in callers)
+@@ -77,9 +90,10 @@
+             }
+         }
+ 
+-        internal bool Proves((string Name, int Arity) signature, int argument) =>
++        internal bool Proves((string Name, int Arity) signature, int argument, bool nonempty) =>
+             !exports.Contains(signature) && incoming.TryGetValue(signature, out var arguments)
+-            && argument >= 0 && argument < arguments.Length && arguments[argument] == Fact.ProperList;
++            && argument >= 0 && argument < arguments.Length && arguments[argument] is not Fact.Unreachable
++            && (arguments[argument] & ~(nonempty ? Fact.Cons : Fact.ProperList)) == Fact.Unreachable;
+ 
+         private void AddCall((string Name, int Arity) target, Fact[] arguments)
+         {
+@@ -167,7 +181,12 @@
+                         tail = cons.Tail;
+                     }
+ 
+-                    return tail is Nil ? Fact.ProperList : Fact.Unknown;
++                    return literal.Value switch
++                    {
++                        Nil => Fact.EmptyList,
++                        Cons => tail is Nil ? Fact.ProperCons : Fact.ImproperCons,
++                        _ => Fact.NonList
++                    };
+                 case Expr.Variable variable:
+                     return scope.GetValueOrDefault(variable.Name, Fact.Unknown);
+                 case Expr.Match match:
+@@ -177,6 +196,11 @@
+                         ObserveUnknownCalls(patternExpression);
+                     }
+ 
++                    if (match.Pattern is Pattern.List { Items.Count: > 0 })
++                    {
++                        matched &= Fact.Cons;
++                    }
++
+                     if (matched != Fact.Unreachable)
+                     {
+                         Bind(match.Pattern, matched, scope);
+@@ -203,7 +227,9 @@
+                         return Fact.Unreachable;
+                     }
+ 
+-                    return list.Tail is null ? Fact.ProperList : Read(list.Tail, scope);
++                    Fact suffix = list.Tail is null ? Fact.EmptyList : Read(list.Tail, scope);
++
++                    return list.Items.Count == 0 ? suffix : BuildCons(suffix);
+                 case Expr.Tuple tuple:
+                     return ReadOperands(tuple.Items, scope).Contains(Fact.Unreachable) ? Fact.Unreachable : Fact.Unknown;
+                 case Expr.Call call:
+@@ -275,6 +301,29 @@
+             if (!call.DynamicRemote && functions.ContainsKey(signature)
+                 && call.Module is null)
+             {
++                // The invocation can only happen after every argument has evaluated successfully.
++                // Keep these facts on the call edge so sibling evaluation order cannot affect them.
++                for (int projection = 0; projection < arguments.Length; projection++)
++                {
++                    if (call.Arguments[projection] is not Expr.Call
++                        {
++                            Module: null or ErlangModuleNames.Module, DynamicRemote: false,
++                            Function: AutoImportNames.Hd or AutoImportNames.Tl,
++                            Arguments: [Expr.Variable projected]
++                        } prior || !owner.ResolvesErlangBif(prior))
++                    {
++                        continue;
++                    }
++
++                    for (int argument = 0; argument < arguments.Length; argument++)
++                    {
++                        if (call.Arguments[argument] is Expr.Variable forwarded && forwarded.Name == projected.Name)
++                        {
++                            arguments[argument] &= Fact.Cons;
++                        }
++                    }
++                }
++
+                 AddCall(signature, arguments);
+                 if (!dependents.TryGetValue(signature, out var callers))
+                 {
+@@ -287,9 +336,21 @@
+                 return results.GetValueOrDefault(signature);
+             }
+ 
+-            return !call.DynamicRemote && call.Module is (null or ErlangModuleNames.Module)
+-                && call.Function == ErlangModuleNames.Tail && arguments is [Fact.ProperList]
+-                && owner.ResolvesErlangBif(call) ? Fact.ProperList : Fact.Unknown;
++            if (call.DynamicRemote || call.Module is not (null or ErlangModuleNames.Module)
++                || call.Function is not (AutoImportNames.Hd or AutoImportNames.Tl)
++                || arguments is not [var input] || !owner.ResolvesErlangBif(call))
++            {
++                return Fact.Unknown;
++            }
++
++            Fact nonempty = input & Fact.Cons;
++
++            if (nonempty == Fact.Unreachable)
++            {
++                return Fact.Unreachable;
++            }
++
++            return call.Function == AutoImportNames.Tl ? ReadTail(nonempty) : Fact.Unknown;
+         }
+ 
+         private Fact[] ReadOperands(IReadOnlyList<Expr> operands, Dictionary<string, Fact> scope)
+@@ -333,7 +394,7 @@
+ 
+                     if (list.Tail is { } tail)
+                     {
+-                        Bind(tail, fact, scope);
++                        Bind(tail, list.Items.Count == 0 ? fact : ReadTail(fact), scope);
+                     }
+ 
+                     break;
+@@ -353,6 +414,22 @@
+ 
+         private static Fact[] UnknownArguments(int count) => Enumerable.Repeat(Fact.Unknown, count).ToArray();
+ 
+-        private static Fact Join(Fact left, Fact right) => (int)left >= (int)right ? left : right;
++        private static Fact BuildCons(Fact tail)
++        {
++            Fact proper = (tail & Fact.ProperList) != 0 ? Fact.ProperCons : Fact.Unreachable;
++            Fact improper = (tail & (Fact.ImproperCons | Fact.NonList)) != 0 ? Fact.ImproperCons : Fact.Unreachable;
++
++            return proper | improper;
++        }
++
++        private static Fact ReadTail(Fact input)
++        {
++            Fact proper = (input & Fact.ProperCons) != 0 ? Fact.ProperList : Fact.Unreachable;
++            Fact improper = (input & Fact.ImproperCons) != 0 ? Fact.ImproperCons | Fact.NonList : Fact.Unreachable;
++
++            return proper | improper;
++        }
++
++        private static Fact Join(Fact left, Fact right) => left | right;
+     }
+ }
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProvenListHeadInputs.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProvenListHeadInputs.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProvenListHeadInputs.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProvenListHeadInputs.cs
+@@ -53,7 +53,8 @@
+                     Definition.Opcode: BifOne,
+                     Operands: [
+                     { Kind: BeamOperandParameters.Failure }, var import,
+-                    { Kind: BeamOperandParameters.X or BeamOperandParameters.Y, TypeIndex: null } source, _]
++                    { Kind: BeamOperandParameters.X or BeamOperandParameters.Y, TypeIndex: null } source,
++                    { Kind: BeamOperandParameters.X or BeamOperandParameters.Y, TypeIndex: null } destination]
+                 }
+                 || import.Value != headImport)
+             {
+@@ -61,6 +62,21 @@
+             }
+ 
+             flow ??= new BeamProjectionFlow(body);
++            if (flow.ReadProperListEntryOrigins(
++                index,
++                entry,
++                source,
++                argument => HasNonemptyListEntryFact(signature, argument)
++            ))
++            {
++                output.Write(code.Span[copied..instruction.Offset]);
++                output.WriteByte(GetHead);
++                WriteRegister(source);
++                WriteRegister(destination);
++                copied = body[index + 1].Offset;
++                continue;
++            }
++
+             if (!flow.ReadProperListEntryOrigins(
+                 index,
+                 entry,
+@@ -91,5 +107,11 @@
+         output.Write(code.Span[copied..]);
+ 
+         return output.ToArray();
++
++        void WriteRegister(BeamOperand register)
++        {
++            int tag = register.Kind == BeamOperandParameters.X ? XRegisterTag : YRegisterTag;
++            BeamCompactWriter.Write(output, tag, (int)register.Value);
++        }
+     }
+ }

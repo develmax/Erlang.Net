@@ -59,14 +59,35 @@ internal static class BeamSingletonRecordTailChecks
             GetList,
             [0, 0, 1]
         )
-            || Opcode(instructions[calls[3] + 1]) != Move
-            || Opcode(instructions[calls[3] + 5]) != GetList
-            || Operand(instructions[calls[3] + 5], 0) != 3)
+            || !RetainsSelector(calls[3]))
         {
             throw new InvalidOperationException(ControlMismatch);
         }
 
         return Task.CompletedTask;
+
+        bool RetainsSelector(int call)
+        {
+            object saved = ReadOperand(instructions[call + 1], 1);
+            object projected = ReadOperand(instructions[call + 3], 2);
+            object input = ReadOperand(instructions[call + 5], 0);
+            object? fallback = instructions[(call + 6)..]
+                .TakeWhile(instruction => Opcode(instruction) != FunctionInfo)
+                .LastOrDefault(instruction => Opcode(instruction) == PutTuple);
+
+            // The general fallback needs the original selector even after the successful
+            // branch reuses physical cells. Verify the value flow through both slots.
+            return Opcode(instructions[call + 1]) == Move
+                && (string)Property(ReadOperand(instructions[call + 1], 0), "Kind") == "x"
+                && Operand(instructions[call + 1], 0).IsZero
+                && Opcode(instructions[call + 3]) == GetTupleElement
+                && SameStackRegister(saved, ReadOperand(instructions[call + 3], 0))
+                && !SameStackRegister(saved, projected)
+                && Opcode(instructions[call + 5]) == GetList
+                && SameStackRegister(projected, input)
+                && fallback is not null
+                && SameStackRegister(saved, ReadOperand(fallback, 3));
+        }
 
         void CheckMatch(int call, int[] projectedRegisters, int[] tupleRegisters)
         {
@@ -142,5 +163,13 @@ internal static class BeamSingletonRecordTailChecks
         (byte)Property(Property(instruction, "Definition"), "Opcode");
 
     private static BigInteger Operand(object instruction, int index) =>
-        (BigInteger)Property(((IEnumerable)Property(instruction, "Operands")).Cast<object>().ElementAt(index), "Value");
+        (BigInteger)Property(ReadOperand(instruction, index), "Value");
+
+    private static object ReadOperand(object instruction, int index) =>
+        ((IEnumerable)Property(instruction, "Operands")).Cast<object>().ElementAt(index);
+
+    private static bool SameStackRegister(object left, object right) =>
+        (string)Property(left, "Kind") == "y"
+        && (string)Property(right, "Kind") == "y"
+        && (BigInteger)Property(left, "Value") == (BigInteger)Property(right, "Value");
 }

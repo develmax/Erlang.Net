@@ -1,0 +1,168 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamIntegerTailSelectorChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamIntegerTailSelectorChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamIntegerTailSelectorChecks.cs
+@@ -0,0 +1,152 @@
++using System.Collections;
++using System.Numerics;
++using Erlang;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamIntegerTailSelectorChecks
++{
++    internal const string TestName = "compiler/beam/groups-bounded-integer-tail-selector-destinations";
++    private const string Fixture = "beam_integer_tail_selector_probe.erl";
++    private const string WrongLayout = "The bounded integer selector did not share terminal labels in reverse postorder.";
++    private const string WrongControl = "An unproved selector acquired a bounded operand.";
++    private const string WrongValue = "Integer selector layout changed the returned term or failure.";
++
++    internal const string Source = """
++        -module(beam_integer_tail_selector_probe).
++        -export([start/2, open/2, escaping/0, escaped_entry/1, unknown_entry/2]).
++
++        start(one, V) -> forward([1], V);
++        start(two, V) -> forward([2], V);
++        start(three, V) -> forward([3], V);
++        start(four, V) -> forward([4], V);
++        start(other, V) -> forward([5], V).
++        forward(Stack, V) -> choice(hd(Stack), V).
++        choice(1=S, V) -> shared(S,V);
++        choice(2=S, V) -> shared(S,V);
++        choice(3, V) -> alternate(17,V);
++        choice(4=S, V) -> shared(S,V).
++
++        open(1=S, V) -> shared(S,V);
++        open(2=S, V) -> shared(S,V);
++        open(3, V) -> alternate(17,V);
++        open(4=S, V) -> shared(S,V).
++
++        escaping() -> fun escaped/2.
++        escaped_entry(V) -> escaped(1, V).
++        escaped(1=S, V) -> shared(S,V);
++        escaped(2=S, V) -> shared(S,V);
++        escaped(3, V) -> alternate(17,V);
++        escaped(4=S, V) -> shared(S,V).
++
++        unknown_entry(Stack,V) -> unknown_choice(hd(Stack),V).
++        unknown_choice(1=S, V) -> shared(S,V);
++        unknown_choice(2=S, V) -> shared(S,V);
++        unknown_choice(3, V) -> alternate(17,V);
++        unknown_choice(4=S, V) -> shared(S,V).
++
++        shared(State,V) -> {shared,State,V}.
++        alternate(State,V) -> {alternate,State,V}.
++        """;
++
++    internal static byte[] CompileFixture() => CodeGeneration.CompileBeamModule(Source, Fixture);
++
++    internal static async Task Run()
++    {
++        byte[] image = CompileFixture();
++        object code = Code(image);
++        object[] instructions = Items(code, "Instructions").ToArray();
++        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        object[] types = Items(Property(code, "Types"), "Entries").ToArray();
++        object[] choice = Body("choice");
++        object[] selector = Operands(choice.Single(operation => Opcode(operation) == SelectValue));
++        int[] labels = selector.Skip(4).Where((_, index) => index % 2 == 0).Select(Value).ToArray();
++        int[] destinations = choice.Where(operation => Opcode(operation) == TailLocalCall)
++            .Select(operation => Value(Operands(operation)[1])).ToArray();
++        if (Property(selector[0], "TypeIndex") is not int type
++            || Property(types[type], "Minimum") is not 1L || Property(types[type], "Maximum") is not 5L
++            || labels.Length != 4 || labels[0] != labels[1] || labels[0] == labels[2] || labels[0] != labels[3]
++            || !destinations.SequenceEqual([Entry("alternate"), Entry("shared")]))
++        {
++            throw new InvalidOperationException(WrongLayout);
++        }
++
++        if (new[] { "open", "escaped", "unknown_choice" }.SelectMany(Body)
++            .Where(operation => Opcode(operation) == SelectValue)
++            .Any(operation => Property(Operands(operation)[0], "TypeIndex") is not null))
++        {
++            throw new InvalidOperationException(WrongControl);
++        }
++
++        var module = BeamModule.Prepare(image);
++        await using var runtime = new ProcessRuntime();
++        await using var receiver = new RuntimeNodeFoundationHostActor(runtime);
++        await receiver.InvokeAsync(async context =>
++        {
++            Term payload = Term.A("payload");
++            Term first = Term.Tuple(Term.A("shared"), Term.I(1), payload);
++            Term second = Term.Tuple(Term.A("shared"), Term.I(2), payload);
++            Term alternate = Term.Tuple(Term.A("alternate"), Term.I(17), payload);
++            if (!first.Equals(await module.Invoke(
++                context,
++                "start",
++                Term.A("one"),
++                payload
++            ))
++                || !second.Equals(await module.Invoke(
++                    context,
++                    "start",
++                    Term.A("two"),
++                    payload
++                ))
++                || !alternate.Equals(await module.Invoke(
++                    context,
++                    "start",
++                    Term.A("three"),
++                    payload
++                )))
++            {
++                throw new InvalidOperationException(WrongValue);
++            }
++
++            try
++            {
++                _ = await module.Invoke(
++                    context,
++                    "start",
++                    Term.A("other"),
++                    payload
++                );
++            }
++            catch (ErlangException error) when (error.ExceptionClass == ErlangExceptionClasses.Error
++                && error.Reason.Equals(Term.A(ErlangErrorReasons.FunctionClause)))
++            {
++                return Nil.Value;
++            }
++
++            throw new InvalidOperationException(WrongValue);
++        });
++
++        int Info(string name) => Array.FindIndex(
++            instructions,
++            instruction => Opcode(instruction) == FunctionInfo
++            && Operands(instruction) is [_, var atom, _] && atoms[Value(atom)] == name
++        );
++
++        int Entry(string name) => Value(Operands(instructions[Info(name) + 1])[0]);
++
++        object[] Body(string name) =>
++            instructions.Skip(Info(name) + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo).ToArray();
++    }
++
++    private static object[] Operands(object instruction) => Items(instruction, "Operands").ToArray();
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++
++    private static IEnumerable<object> Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>();
++}
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12432,6 +12432,7 @@
+ );
+ Test(Erlang.Tests.BeamLengthNumericEntryChecks.TestName, Erlang.Tests.BeamLengthNumericEntryChecks.Run);
+ Test(Erlang.Tests.BeamIntegerStackEntryChecks.TestName, Erlang.Tests.BeamIntegerStackEntryChecks.Run);
++Test(Erlang.Tests.BeamIntegerTailSelectorChecks.TestName, Erlang.Tests.BeamIntegerTailSelectorChecks.Run);
+ Test(Erlang.Tests.BeamNestedRecordColdCasesChecks.TestName, Erlang.Tests.BeamNestedRecordColdCasesChecks.Run);
+ Test(Erlang.Tests.BeamListConvertedMeasuredTailChecks.TestName, Erlang.Tests.BeamListConvertedMeasuredTailChecks.Run);
+ Test(Erlang.Tests.BeamOwnedRecordFrameSlotsChecks.TestName, Erlang.Tests.BeamOwnedRecordFrameSlotsChecks.Run);

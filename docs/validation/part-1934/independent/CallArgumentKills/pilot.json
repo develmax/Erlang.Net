@@ -1,0 +1,422 @@
+{
+  "OtpVersion": "29.1.1",
+  "Total": 58,
+  "Counts": {
+    "Different": 33,
+    "Equal": 25
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\asn1-5.5.2\\ebin\\asn1ct.beam",
+      "Status": "Different",
+      "Source": "lib\\asn1-5.5.2\\src\\asn1ct.erl",
+      "Detail": "Original length 89632, generated length 92988. AtU8 5756-\u003E5817, Code 21409-\u003E24632, ImpT 1012-\u003E1000, ExpT 544-\u003E544, FunT 1228-\u003E1300, LitT 3035-\u003E2960, LocT 1960-\u003E1984, Attr 153-\u003E153, Line 1306-\u003E1387, Type 32-\u003E16",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\common_test-1.31.2\\ebin\\ct_config.beam",
+      "Status": "Different",
+      "Source": "lib\\common_test-1.31.2\\src\\ct_config.erl",
+      "Detail": "Original length 37432, generated length 38564. AtU8 2805-\u003E2711, Code 10196-\u003E11446, ImpT 760-\u003E820, ExpT 364-\u003E364, FunT 436-\u003E436, LitT 660-\u003E669, LocT 820-\u003E772, Attr 39-\u003E39, Line 506-\u003E512, Type 85-\u003E34",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\common_test-1.31.2\\ebin\\ct_config_plain.beam",
+      "Status": "Equal",
+      "Source": "lib\\common_test-1.31.2\\src\\ct_config_plain.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\common_test-1.31.2\\ebin\\ct_event.beam",
+      "Status": "Equal",
+      "Source": "lib\\common_test-1.31.2\\src\\ct_event.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\common_test-1.31.2\\ebin\\ct_make.beam",
+      "Status": "Different",
+      "Source": "lib\\common_test-1.31.2\\src\\ct_make.erl",
+      "Detail": "Original length 15804, generated length 16200. AtU8 1037-\u003E1048, Code 3897-\u003E4280, ImpT 436-\u003E448, ExpT 76-\u003E76, FunT 28-\u003E28, LocT 364-\u003E364, Attr 39-\u003E39, Line 216-\u003E218, Type 18-\u003E12",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\compiler-10.0.6\\ebin\\beam_ssa_opt.beam",
+      "Status": "Different",
+      "Source": "lib\\compiler-10.0.6\\src\\beam_ssa_opt.erl",
+      "Detail": "Original length 174228, generated length 185856. AtU8 8556-\u003E7555, Code 53937-\u003E66728, ImpT 1528-\u003E1612, ExpT 40-\u003E40, FunT 1588-\u003E1540, LitT 1046-\u003E903, LocT 3856-\u003E3592, Attr 39-\u003E39, Line 2521-\u003E2887, Type 196-\u003E42",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\compiler-10.0.6\\ebin\\beam_validator.beam",
+      "Status": "Different",
+      "Source": "lib\\compiler-10.0.6\\src\\beam_validator.erl",
+      "Detail": "Original length 151784, generated length 158492. AtU8 9655-\u003E8931, Code 46082-\u003E53404, ImpT 964-\u003E1012, ExpT 52-\u003E52, FunT 1588-\u003E1588, LitT 1424-\u003E1406, LocT 3364-\u003E3340, Attr 39-\u003E39, Line 2203-\u003E2527, Type 258-\u003E38",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\debugger-7.0\\ebin\\dbg_idb.beam",
+      "Status": "Equal",
+      "Source": "lib\\debugger-7.0\\src\\dbg_idb.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\debugger-7.0\\ebin\\debugger.beam",
+      "Status": "Equal",
+      "Source": "lib\\debugger-7.0\\src\\debugger.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\dialyzer-6.0.3\\ebin\\dialyzer_dataflow.beam",
+      "Status": "Different",
+      "Source": "lib\\dialyzer-6.0.3\\src\\dialyzer_dataflow.erl",
+      "Detail": "Original length 175448, generated length 180616. AtU8 8953-\u003E8126, Code 55718-\u003E61995, ImpT 3028-\u003E3076, ExpT 64-\u003E64, FunT 532-\u003E532, LitT 806-\u003E692, LocT 2836-\u003E2548, Attr 39-\u003E39, Line 3814-\u003E3993, Type 124-\u003E18",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\dialyzer-6.0.3\\ebin\\dialyzer_dep.beam",
+      "Status": "Different",
+      "Source": "lib\\dialyzer-6.0.3\\src\\dialyzer_dep.erl",
+      "Detail": "Original length 34612, generated length 35816. AtU8 2028-\u003E2001, Code 8568-\u003E9800, ImpT 952-\u003E964, ExpT 40-\u003E40, FunT 124-\u003E124, LocT 724-\u003E712, Attr 39-\u003E39, Line 546-\u003E560, Type 34-\u003E18",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\dialyzer-6.0.3\\ebin\\dialyzer_typesig.beam",
+      "Status": "Different",
+      "Source": "lib\\dialyzer-6.0.3\\src\\dialyzer_typesig.erl",
+      "Detail": "Original length 142728, generated length 147136. AtU8 8988-\u003E7855, Code 44954-\u003E50654, ImpT 2620-\u003E2680, ExpT 52-\u003E52, FunT 1324-\u003E1540, LocT 3400-\u003E2944, Attr 39-\u003E39, Line 3077-\u003E3166, Type 88-\u003E20",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\diameter-2.7.2\\ebin\\diameter_callback.beam",
+      "Status": "Equal",
+      "Source": "lib\\diameter-2.7.2\\src\\base\\diameter_callback.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\diameter-2.7.2\\ebin\\diameter_session.beam",
+      "Status": "Equal",
+      "Source": "lib\\diameter-2.7.2\\src\\base\\diameter_session.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\edoc-1.5\\ebin\\edoc_doclet.beam",
+      "Status": "Different",
+      "Source": "lib\\edoc-1.5\\src\\edoc_doclet.erl",
+      "Detail": "Original length 18484, generated length 18896. AtU8 1115-\u003E1116, Code 3588-\u003E4002, ImpT 412-\u003E412, ExpT 52-\u003E52, FunT 52-\u003E52, LitT 1395-\u003E1395, LocT 388-\u003E388, Attr 39-\u003E39, Line 252-\u003E256, Type 20-\u003E12",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\edoc-1.5\\ebin\\edoc_extract.beam",
+      "Status": "Different",
+      "Source": "lib\\edoc-1.5\\src\\edoc_extract.erl",
+      "Detail": "Original length 31528, generated length 32536. AtU8 2043-\u003E2026, Code 7545-\u003E8708, ImpT 1036-\u003E1096, ExpT 124-\u003E124, FunT 52-\u003E52, LitT 497-\u003E497, LocT 664-\u003E640, Attr 39-\u003E39, Line 492-\u003E500, Type 194-\u003E16",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\eldap-1.3.1\\ebin\\ELDAPv3.beam",
+      "Status": "Equal",
+      "Source": "..\\..\\parity-inputs-20261118\\call-argument-after-kill-1933\\pilot.json.sources\\6ee80f34f33e463da86ab1316dd83817\\ELDAPv3.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\erts-17.1\\ebin\\counters.beam",
+      "Status": "Equal",
+      "Source": "lib\\erts-17.1\\src\\counters.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\erts-17.1\\ebin\\erl_init.beam",
+      "Status": "Equal",
+      "Source": "lib\\erts-17.1\\src\\erl_init.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\erts-17.1\\ebin\\erts_trace_cleaner.beam",
+      "Status": "Equal",
+      "Source": "lib\\erts-17.1\\src\\erts_trace_cleaner.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\erts-17.1\\ebin\\prim_eval.beam",
+      "Status": "Equal",
+      "Source": "lib\\erts-17.1\\src\\prim_eval.erl",
+      "Detail": null,
+      "FirstDifferentByte": null,
+      "AssemblyInput": {
+        "Source": "lib\\erts-17.1\\src\\prim_eval.S",
+        "SourceSha256": "841E527B0A1E8BE83A7EF1F9A951BB366453B95EEAE70FBF2571C0835E54ADE5",
+        "AbstractSource": "lib\\erts-17.1\\src\\prim_eval.erl",
+        "AbstractSourceSha256": "A816F8CA52BA870142F326299E4D4387A9CF5A3997A9C24E825FE8270AD70E1A"
+      }
+    },
+    {
+      "Beam": "lib\\et-1.8\\ebin\\et.beam",
+      "Status": "Equal",
+      "Source": "lib\\et-1.8\\src\\et.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\et-1.8\\ebin\\et_viewer.beam",
+      "Status": "Equal",
+      "Source": "lib\\et-1.8\\src\\et_viewer.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\ftp-1.2.6\\ebin\\ftp_progress.beam",
+      "Status": "Equal",
+      "Source": "lib\\ftp-1.2.6\\src\\ftp_progress.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpc_profile_sup.beam",
+      "Status": "Equal",
+      "Source": "lib\\inets-9.8\\src\\http_client\\httpc_profile_sup.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpd_esi.beam",
+      "Status": "Equal",
+      "Source": "lib\\inets-9.8\\src\\http_server\\httpd_esi.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpd_request.beam",
+      "Status": "Different",
+      "Source": "lib\\inets-9.8\\src\\http_server\\httpd_request.erl",
+      "Detail": "Original length 26024, generated length 27704. AtU8 1211-\u003E1171, Code 6171-\u003E8050, ImpT 376-\u003E400, ExpT 196-\u003E196, FunT 52-\u003E52, LitT 1976-\u003E1876, LocT 220-\u003E196, Attr 62-\u003E62, Line 240-\u003E236, Type 106-\u003E52",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\mod_auth.beam",
+      "Status": "Different",
+      "Source": "lib\\inets-9.8\\src\\http_server\\mod_auth.erl",
+      "Detail": "Original length 32252, generated length 33000. AtU8 1357-\u003E1370, Code 5787-\u003E6541, ImpT 472-\u003E472, ExpT 412-\u003E412, FunT 28-\u003E28, LocT 280-\u003E280, Attr 62-\u003E62, Line 352-\u003E366, Type 52-\u003E16",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\code_server.beam",
+      "Status": "Different",
+      "Source": "lib\\kernel-11.0.4\\src\\code_server.erl",
+      "Detail": "Original length 61600, generated length 63556. AtU8 3744-\u003E3584, Code 17641-\u003E19849, ImpT 1108-\u003E1096, ExpT 136-\u003E136, FunT 340-\u003E340, LitT 754-\u003E754, LocT 1600-\u003E1540, Attr 39-\u003E39, Line 928-\u003E960, Type 72-\u003E18",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\disk_log.beam",
+      "Status": "Different",
+      "Source": "lib\\kernel-11.0.4\\src\\disk_log.erl",
+      "Detail": "Original length 101520, generated length 110344. AtU8 3222-\u003E3240, Code 23534-\u003E32147, ImpT 1048-\u003E1096, ExpT 604-\u003E604, FunT 100-\u003E100, LitT 2333-\u003E2299, LocT 988-\u003E988, Attr 266-\u003E266, Line 1229-\u003E1562, Type 192-\u003E44",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\logger_backend.beam",
+      "Status": "Different",
+      "Source": "lib\\kernel-11.0.4\\src\\logger_backend.erl",
+      "Detail": "Original length 6824, generated length 7588. AtU8 535-\u003E580, Code 1409-\u003E2024, ImpT 172-\u003E268, ExpT 40-\u003E40, LitT 440-\u003E440, LocT 64-\u003E64, Attr 39-\u003E39, Line 72-\u003E88, Type 16-\u003E12",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\net_kernel.beam",
+      "Status": "Different",
+      "Source": "lib\\kernel-11.0.4\\src\\net_kernel.erl",
+      "Detail": "Original length 100544, generated length 106212. AtU8 4464-\u003E4538, Code 24970-\u003E30552, ImpT 1384-\u003E1468, ExpT 568-\u003E568, FunT 316-\u003E316, LitT 2450-\u003E2425, LocT 1240-\u003E1252, Attr 135-\u003E135, Line 1578-\u003E1704, Type 224-\u003E38",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\megaco-4.9.2\\doc\\examples\\meas\\megaco_codec_meas.beam",
+      "Status": "Different",
+      "Source": "lib\\megaco-4.9.2\\doc\\examples\\meas\\megaco_codec_meas.erl",
+      "Detail": "Original length 33612, generated length 34276. AtU8 2201-\u003E2347, Code 8638-\u003E9978, ImpT 604-\u003E604, ExpT 112-\u003E112, LitT 2305-\u003E1507, LocT 736-\u003E736, Attr 39-\u003E39, Line 540-\u003E558, Type 56-\u003E16",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\megaco-4.9.2\\doc\\examples\\meas\\megaco_codec_mstone_lib.beam",
+      "Status": "Different",
+      "Source": "lib\\megaco-4.9.2\\doc\\examples\\meas\\megaco_codec_mstone_lib.erl",
+      "Detail": "Original length 21656, generated length 20748. AtU8 1481-\u003E1603, Code 4158-\u003E5472, ImpT 388-\u003E388, ExpT 160-\u003E160, LitT 3255-\u003E912, LocT 388-\u003E388, Attr 39-\u003E39, Line 292-\u003E300, Type 16-\u003E12",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\megaco-4.9.2\\ebin\\megaco_per_media_gateway_control_v1.beam",
+      "Status": "Different",
+      "Source": "lib\\megaco-4.9.2\\src\\binary\\megaco_per_media_gateway_control_v1.erl",
+      "Detail": "Original length 344968, generated length 405132. AtU8 16036-\u003E15598, Code 113473-\u003E174187, ImpT 352-\u003E364, ExpT 2668-\u003E2668, FunT 820-\u003E820, LitT 1452-\u003E1309, LocT 3256-\u003E3112, Attr 444-\u003E444, Line 7532-\u003E8450, Type 920-\u003E160",
+      "FirstDifferentByte": 5
+    },
+    {
+      "Beam": "lib\\megaco-4.9.2\\ebin\\megaco_per_media_gateway_control_v2.beam",
+      "Status": "Different",
+      "Source": "lib\\megaco-4.9.2\\src\\binary\\megaco_per_media_gateway_control_v2.erl",
+      "Detail": "Original length 405588, generated length 477856. AtU8 19051-\u003E18613, Code 134363-\u003E207019, ImpT 352-\u003E364, ExpT 3076-\u003E3076, FunT 940-\u003E940, LitT 1474-\u003E1331, LocT 3700-\u003E3556, Attr 444-\u003E444, Line 8854-\u003E9989, Type 969-\u003E160",
+      "FirstDifferentByte": 5
+    },
+    {
+      "Beam": "lib\\megaco-4.9.2\\ebin\\megaco_per_media_gateway_control_v3.beam",
+      "Status": "Different",
+      "Source": "lib\\megaco-4.9.2\\src\\binary\\megaco_per_media_gateway_control_v3.erl",
+      "Detail": "Original length 480352, generated length 568856. AtU8 20399-\u003E19869, Code 159414-\u003E248359, ImpT 352-\u003E364, ExpT 3244-\u003E3244, FunT 1012-\u003E1012, LitT 1673-\u003E1392, LocT 3952-\u003E3784, Attr 444-\u003E444, Line 10206-\u003E11552, Type 975-\u003E160",
+      "FirstDifferentByte": 5
+    },
+    {
+      "Beam": "lib\\megaco-4.9.2\\ebin\\megaco_sup.beam",
+      "Status": "Equal",
+      "Source": "lib\\megaco-4.9.2\\src\\engine\\megaco_sup.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\megaco-4.9.2\\ebin\\megaco_tcp_accept.beam",
+      "Status": "Equal",
+      "Source": "lib\\megaco-4.9.2\\src\\tcp\\megaco_tcp_accept.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\megaco-4.9.2\\ebin\\megaco_trans_sup.beam",
+      "Status": "Equal",
+      "Source": "lib\\megaco-4.9.2\\src\\engine\\megaco_trans_sup.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\observer_tv_table.beam",
+      "Status": "Different",
+      "Source": "lib\\observer-2.19\\src\\observer_tv_table.erl",
+      "Detail": "Original length 53112, generated length 55296. AtU8 2366-\u003E2389, Code 11536-\u003E13810, ImpT 1336-\u003E1420, ExpT 148-\u003E148, FunT 172-\u003E172, LitT 1285-\u003E1243, LocT 520-\u003E508, Attr 120-\u003E120, Line 690-\u003E714, Type 181-\u003E14",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\parsetools-2.8\\ebin\\leex.beam",
+      "Status": "Different",
+      "Source": "lib\\parsetools-2.8\\src\\leex.erl",
+      "Detail": "Original length 92148, generated length 96124. AtU8 4140-\u003E3895, Code 24767-\u003E29252, ImpT 1096-\u003E1168, ExpT 148-\u003E148, FunT 556-\u003E556, LitT 4560-\u003E4556, LocT 2236-\u003E2116, Attr 39-\u003E39, Line 1355-\u003E1347, Type 220-\u003E16",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\CryptographicMessageSyntax-2009.beam",
+      "Status": "Equal",
+      "Source": "lib\\public_key-1.21.7\\src\\CryptographicMessageSyntax-2009.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\OCSP-2024-08.beam",
+      "Status": "Equal",
+      "Source": "lib\\public_key-1.21.7\\src\\OCSP-2024-08.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKIXCRMF-2009.beam",
+      "Status": "Equal",
+      "Source": "lib\\public_key-1.21.7\\src\\PKIXCRMF-2009.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\sasl-4.4\\ebin\\release_handler.beam",
+      "Status": "Different",
+      "Source": "lib\\sasl-4.4\\src\\release_handler.erl",
+      "Detail": "Original length 94360, generated length 96136. AtU8 5002-\u003E5002, Code 24036-\u003E25795, ImpT 1252-\u003E1228, ExpT 592-\u003E592, FunT 388-\u003E388, LitT 1577-\u003E1559, LocT 1480-\u003E1480, Attr 70-\u003E70, Line 1722-\u003E1789, Type 24-\u003E16",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\snmp-5.20.5\\ebin\\snmpa_target_cache.beam",
+      "Status": "Different",
+      "Source": "lib\\snmp-5.20.5\\src\\agent\\snmpa_target_cache.erl",
+      "Detail": "Original length 27472, generated length 28428. AtU8 1022-\u003E1015, Code 7056-\u003E8153, ImpT 400-\u003E400, ExpT 172-\u003E172, FunT 28-\u003E28, LitT 2484-\u003E2360, LocT 340-\u003E340, Attr 95-\u003E95, Line 418-\u003E426, Type 30-\u003E12",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\snmp-5.20.5\\ebin\\snmpm_config.beam",
+      "Status": "Different",
+      "Source": "lib\\snmp-5.20.5\\src\\manager\\snmpm_config.erl",
+      "Detail": "Original length 126080, generated length 129508. AtU8 8361-\u003E8377, Code 33219-\u003E36909, ImpT 1168-\u003E1204, ExpT 1120-\u003E1120, FunT 268-\u003E268, LitT 8313-\u003E7949, LocT 1936-\u003E1924, Attr 95-\u003E95, Line 2162-\u003E2289, Type 82-\u003E14",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\ssh-6.0.6\\ebin\\ssh_transport.beam",
+      "Status": "Different",
+      "Source": "lib\\ssh-6.0.6\\src\\ssh_transport.erl",
+      "Detail": "Original length 136652, generated length 142928. AtU8 6026-\u003E6105, Code 31768-\u003E38014, StrT 8-\u003E16, ImpT 1228-\u003E1264, ExpT 628-\u003E628, FunT 148-\u003E388, LitT 9884-\u003E9804, LocT 1444-\u003E1468, Attr 114-\u003E114, Line 1663-\u003E1784, Type 500-\u003E100",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\ssl-11.7.7\\ebin\\dtls_record.beam",
+      "Status": "Different",
+      "Source": "lib\\ssl-11.7.7\\src\\dtls_record.erl",
+      "Detail": "Original length 36208, generated length 37776. AtU8 1787-\u003E1689, Code 5335-\u003E7132, ImpT 472-\u003E508, ExpT 364-\u003E364, FunT 100-\u003E100, LitT 1106-\u003E1106, LocT 184-\u003E136, Attr 39-\u003E39, Line 270-\u003E240, Type 141-\u003E54",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\ssl-11.7.7\\ebin\\ssl_manager.beam",
+      "Status": "Different",
+      "Source": "lib\\ssl-11.7.7\\src\\ssl_manager.erl",
+      "Detail": "Original length 33796, generated length 34256. AtU8 1527-\u003E1543, Code 5331-\u003E5801, ImpT 580-\u003E592, ExpT 328-\u003E328, FunT 76-\u003E76, LitT 176-\u003E131, LocT 244-\u003E244, Attr 70-\u003E70, Line 312-\u003E318, Type 36-\u003E32",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\erl_lint.beam",
+      "Status": "Different",
+      "Source": "lib\\stdlib-8.1\\src\\erl_lint.erl",
+      "Detail": "Original length 289396, generated length 306892. AtU8 18420-\u003E15669, Code 86603-\u003E108004, ImpT 1564-\u003E1576, ExpT 232-\u003E232, FunT 3028-\u003E3052, LitT 13769-\u003E13616, LocT 7120-\u003E6124, Attr 314-\u003E314, Line 4535-\u003E4633, Type 190-\u003E50",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\graph.beam",
+      "Status": "Different",
+      "Source": "lib\\stdlib-8.1\\src\\graph.erl",
+      "Detail": "Original length 40912, generated length 41848. AtU8 1965-\u003E1996, Code 8929-\u003E9914, ImpT 400-\u003E448, ExpT 784-\u003E784, FunT 532-\u003E532, LitT 177-\u003E74, LocT 700-\u003E700, Attr 39-\u003E39, Line 532-\u003E558, Type 84-\u003E36",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\ordsets.beam",
+      "Status": "Equal",
+      "Source": "lib\\stdlib-8.1\\src\\ordsets.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\tools-4.2.3\\ebin\\make.beam",
+      "Status": "Different",
+      "Source": "lib\\tools-4.2.3\\src\\make.erl",
+      "Detail": "Original length 17060, generated length 17352. AtU8 1001-\u003E950, Code 3667-\u003E4015, ImpT 460-\u003E484, ExpT 88-\u003E88, FunT 28-\u003E28, LocT 340-\u003E316, Attr 39-\u003E38, Line 214-\u003E218, Type 18-\u003E12",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\wx-2.7\\doc\\examples\\demo\\ex_frame_utils.beam",
+      "Status": "Different",
+      "Source": "lib\\wx-2.7\\doc\\examples\\demo\\ex_frame_utils.erl",
+      "Detail": "Original length 18596, generated length 18688. AtU8 838-\u003E858, Code 1957-\u003E2019, ImpT 532-\u003E544, ExpT 124-\u003E124, FunT 28-\u003E28, LitT 1104-\u003E1104, LocT 76-\u003E76, Attr 69-\u003E69, Line 176-\u003E176, Type 12-\u003E10",
+      "FirstDifferentByte": 7
+    },
+    {
+      "Beam": "lib\\wx-2.7\\doc\\examples\\demo\\ex_grid.beam",
+      "Status": "Equal",
+      "Source": "lib\\wx-2.7\\doc\\examples\\demo\\ex_grid.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\wx-2.7\\doc\\examples\\demo\\ex_radioBox.beam",
+      "Status": "Equal",
+      "Source": "lib\\wx-2.7\\doc\\examples\\demo\\ex_radioBox.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    }
+  ]
+}

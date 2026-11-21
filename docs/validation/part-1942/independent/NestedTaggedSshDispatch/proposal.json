@@ -1,0 +1,109 @@
+{
+  "source_archive": "0c8d6444e3a5d3d38e56e85b1b2ce7b0152351c5f08a097694fcd923c7a1cc70",
+  "base_compiler": "88fd5c16ffa8de61121ed56dc3908a2f563904f4db79daf1feb5f4eb473eac01",
+  "production": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": {
+      "before": "060c596c89649565f732e310b2d6350cbb4c19a91d0b521e8f00a4940e14d9a5",
+      "after": "4657fb86c44b27b437129cb1e3c1f29d73bba49bccd1312b3bab8f393a31b127"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.NestedTaggedEntry.cs": {
+      "before": null,
+      "after": "52853c0a60fff42217297addf73fd99be4dd8682aeeeebca495bd0f37c0059f7"
+    },
+    "patch-sha256": "7e643526862e47379296a00a9f11a700ab5d00e68b68ab49be18e208b5c5e084"
+  },
+  "test": {
+    "tests/Erlang.Tests/Harness/Program.cs": {
+      "before": "0dc31abaa4c982994f500f1d92cccf3f8d9285a00b2f50a22fd6a0e76da943f0",
+      "after": "57841da692392f7ac3d1dec29de4fa425b93c9ec7d4c1dcc24475798c1af0d31"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamNestedTaggedEntryChecks.cs": {
+      "before": null,
+      "after": "19cbccb7840261ff4c7317f45f4faab3325133c9c62612181ee99a379789a08f"
+    },
+    "patch-sha256": "b43062f2d3c633dc6cf19ab46d5be0ea538700efca28a5f984b72bfd1ff58646"
+  },
+  "release": {
+    "lib\\erts-17.1\\ebin\\counters.beam": {
+      "status": "Equal",
+      "before": "36e38c88d100c8bee9e28ec1144b6f532cd681efcef1f9b3fcd0719dd612cb6f",
+      "after": "36e38c88d100c8bee9e28ec1144b6f532cd681efcef1f9b3fcd0719dd612cb6f",
+      "reference": "36e38c88d100c8bee9e28ec1144b6f532cd681efcef1f9b3fcd0719dd612cb6f"
+    },
+    "lib\\inets-9.8\\ebin\\httpd_instance_sup.beam": {
+      "status": "Different",
+      "before": "b3a2a7243ee712606b79fcdf8616dff5493441b4eecf9f150cb253368c1653a5",
+      "after": "b3a2a7243ee712606b79fcdf8616dff5493441b4eecf9f150cb253368c1653a5",
+      "reference": "a93aa215eb0034f79b4f7a564d5704dde57f47e86b688b443a2acc48e3082193"
+    },
+    "lib\\inets-9.8\\ebin\\inets_sup.beam": {
+      "status": "Equal",
+      "before": "7c57bc8cb3a5a7abb165fb67b834f126b80bd0facd78690cc9e37b7d9c28343d",
+      "after": "7c57bc8cb3a5a7abb165fb67b834f126b80bd0facd78690cc9e37b7d9c28343d",
+      "reference": "7c57bc8cb3a5a7abb165fb67b834f126b80bd0facd78690cc9e37b7d9c28343d"
+    },
+    "lib\\inets-9.8\\ebin\\mod_head.beam": {
+      "status": "Equal",
+      "before": "84ae33a082b0b01f02c309ad08bca131e02ee200eb4b584b658fc53bd013d1c9",
+      "after": "84ae33a082b0b01f02c309ad08bca131e02ee200eb4b584b658fc53bd013d1c9",
+      "reference": "84ae33a082b0b01f02c309ad08bca131e02ee200eb4b584b658fc53bd013d1c9"
+    },
+    "lib\\ssh-6.0.6\\ebin\\ssh_tcpip_forward_acceptor.beam": {
+      "status": "Different",
+      "before": "a7d27fa8633097cca575e776239a7b699c5dda5f6de8c16035429c99bc1dcb11",
+      "after": "a7d27fa8633097cca575e776239a7b699c5dda5f6de8c16035429c99bc1dcb11",
+      "reference": "e554352e89473bf2f123eea4456eeea11ad9a191999063a2f2ac4fa23d241c8f"
+    },
+    "lib\\ssh-6.0.6\\ebin\\ssh_tcpip_forward_client.beam": {
+      "status": "Different",
+      "before": "130f366ea76fb4f93390e60747a1de2109f32aa5e8eee8533e94e6097a838efa",
+      "after": "bc038877497c2166cd897783f8a9a95fff46ef1dc42b781af0dbe5ac0ff12afe",
+      "reference": "1f9da8258f5a9ac4b332a3de8a3af3f28d383a9bcff11a06adc8a7dad011e76d",
+      "code_sizes": [
+        716,
+        660,
+        603
+      ]
+    },
+    "lib\\ssh-6.0.6\\ebin\\ssh_tcpip_forward_srv.beam": {
+      "status": "Different",
+      "before": "24440a3da03ad52e9a2d078f4e15e51afb1134cb34e33edb2d489c944a7b5551",
+      "after": "9de55f705cabc2e7638e56bf9793b0cbc8262926977c30f2391f0a3ebdd3a876",
+      "reference": "d659537c494c2f0de23d2cbebcc695775a1e2505922a25ae65b8e0fc5440fce4",
+      "code_sizes": [
+        637,
+        581,
+        524
+      ]
+    },
+    "lib\\ssh-6.0.6\\ebin\\ssh_transport.beam": {
+      "status": "Different",
+      "before": "dbe5a2b336fb43ed8a331f21dae150a00b3dbf684e38a46e584249831c333afa",
+      "after": "dbe5a2b336fb43ed8a331f21dae150a00b3dbf684e38a46e584249831c333afa",
+      "reference": "e2be5d421a4254e915d05f0a898e5e0e813a4e7da6ab3073ce1bc51a743b98ae"
+    },
+    "lib\\stdlib-8.1\\ebin\\ordsets.beam": {
+      "status": "Equal",
+      "before": "417595cfd47ff9dc43673cee03083776cbacd3abb61166bf58c61dc6a13cce1d",
+      "after": "417595cfd47ff9dc43673cee03083776cbacd3abb61166bf58c61dc6a13cce1d",
+      "reference": "417595cfd47ff9dc43673cee03083776cbacd3abb61166bf58c61dc6a13cce1d"
+    }
+  },
+  "evidence": {
+    "compiler-bin/Erlang.Compiler.dll": "72d85b1253a4d02975b4dfed5899f7b6ab246c779a8e4bc969be5d7535fefbc7",
+    "candidate-bin/Erlang.BeamCorpus.dll": "7d7640386fd900c2a125fa1ce504b6637c03a8cf70d4ef9dff9a66b857c0790e",
+    "final-red-test/Erlang.Compiler.dll": "88fd5c16ffa8de61121ed56dc3908a2f563904f4db79daf1feb5f4eb473eac01",
+    "final-red-test/Erlang.Tests.dll": "22826202353d92f0df8cece08be99478366a2fe700a3b61d290b1ecfa25fb55e",
+    "final-green-test/Erlang.Tests.dll": "22826202353d92f0df8cece08be99478366a2fe700a3b61d290b1ecfa25fb55e",
+    "final-corpus.json": "0699d4593a10793417ebc4acb799c29251657757d332f0d979611d40b0ba9706",
+    "final-functions.terms": "dec9e77bd20a4e7fb70d64cba08ea984866df588e4210257a680702667993891",
+    "focused-exits.json": "60ff5c4ffa65e3b030bb41ce06f569406112dcbd867e3e660b1f92cf5032f415",
+    "final-focused-red.log": "37089bc83a5e696cff458cf33ffcd70cfeb1671bb3c1652013f881d04a753fe7",
+    "final-focused-green.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reference-native.terms": "cdd45012d152bda7813c82805234bce470be1f0188ddcd4ebb1a7c090f55d2f2",
+    "generated-native.terms": "cdd45012d152bda7813c82805234bce470be1f0188ddcd4ebb1a7c090f55d2f2",
+    "pinned-listing/ssh_tcpip_forward_srv.precodegen": "c5ae9c92022d218fb567a8c4f69e5adf35f1b0d7fa7a284997de1baee2e0f917",
+    "pinned-listing/ssh_tcpip_forward_srv.trim": "e9b8dade4c8680c0fd24345e4cf1cdaacd620a94021b66a7487134f97b05f4fc",
+    "layout-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f"
+  }
+}

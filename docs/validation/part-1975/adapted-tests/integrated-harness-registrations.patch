@@ -1,0 +1,12 @@
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12544,6 +12544,9 @@
+ Test(Erlang.Tests.BeamProtectedEntryAliasChecks.TestName, Erlang.Tests.BeamProtectedEntryAliasChecks.Run);
+ Test(Erlang.Tests.BeamProtectedShortReturnChecks.TestName, Erlang.Tests.BeamProtectedShortReturnChecks.Run);
+ Test(Erlang.Tests.BeamBinaryConstructionStringChecks.TestName, Erlang.Tests.BeamBinaryConstructionStringChecks.Run);
++Test(Erlang.Tests.BeamCheckedReturningCallFrameChecks.TestName, Erlang.Tests.BeamCheckedReturningCallFrameChecks.Run);
++Test(Erlang.Tests.BeamPreCallFrameAliasChecks.CollectorTestName, Erlang.Tests.BeamPreCallFrameAliasChecks.RunCollectors);
++Test(Erlang.Tests.BeamPostCallResultAliasChecks.TestName, Erlang.Tests.BeamPostCallResultAliasChecks.Run);
+ Test(Erlang.Tests.BeamSingleReturningCallFrameChecks.TestName, Erlang.Tests.BeamSingleReturningCallFrameChecks.Run);
+ Test(Erlang.Tests.BeamPreCallFrameAliasChecks.TestName, Erlang.Tests.BeamPreCallFrameAliasChecks.Run);
+ Test(

@@ -1,0 +1,59 @@
+{
+  "OtpVersion": "29.1.1",
+  "Total": 7,
+  "Counts": {
+    "Different": 5,
+    "Equal": 2
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\common_test-1.31.2\\ebin\\ct_logs.beam",
+      "Status": "Different",
+      "Source": "lib\\common_test-1.31.2\\src\\ct_logs.erl",
+      "Detail": "Original length 144596, generated length 148280. AtU8 6037-\u003E5750, Code 38318-\u003E42469, ImpT 1600-\u003E1600, ExpT 544-\u003E544, FunT 1036-\u003E1084, LitT 14369-\u003E14296, LocT 2392-\u003E2272, Attr 39-\u003E39, Line 2523-\u003E2600, Type 162-\u003E54",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\common_test-1.31.2\\ebin\\ct_master_logs.beam",
+      "Status": "Different",
+      "Source": "lib\\common_test-1.31.2\\src\\ct_master_logs.erl",
+      "Detail": "Original length 30224, generated length 30708. AtU8 1863-\u003E1873, Code 6837-\u003E7391, ImpT 724-\u003E712, ExpT 88-\u003E88, FunT 412-\u003E412, LitT 3717-\u003E3659, LocT 832-\u003E832, Attr 39-\u003E39, Line 460-\u003E470, Type 30-\u003E12",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\common_test-1.31.2\\ebin\\ct_release_test.beam",
+      "Status": "Different",
+      "Source": "lib\\common_test-1.31.2\\src\\ct_release_test.erl",
+      "Detail": "Original length 39004, generated length 39868. AtU8 2598-\u003E2382, Code 10469-\u003E11705, ImpT 928-\u003E940, ExpT 100-\u003E100, FunT 148-\u003E172, LitT 2406-\u003E2331, LocT 676-\u003E580, Attr 39-\u003E39, Line 588-\u003E590, Type 38-\u003E16",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\diameter-2.7.2\\ebin\\diameter_dict_util.beam",
+      "Status": "Different",
+      "Source": "lib\\diameter-2.7.2\\src\\compiler\\diameter_dict_util.erl",
+      "Detail": "Original length 67272, generated length 70324. AtU8 4365-\u003E4181, Code 20000-\u003E23468, ImpT 772-\u003E868, ExpT 64-\u003E64, FunT 1108-\u003E1108, LitT 4463-\u003E4298, LocT 2020-\u003E1912, Attr 67-\u003E67, Line 838-\u003E858, Type 92-\u003E16",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\cdv_bin_cb.beam",
+      "Status": "Equal",
+      "Source": "lib\\observer-2.19\\src\\cdv_bin_cb.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\ssh-6.0.6\\ebin\\ssh_bits.beam",
+      "Status": "Equal",
+      "Source": "lib\\ssh-6.0.6\\src\\ssh_bits.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\erl_pp.beam",
+      "Status": "Different",
+      "Source": "lib\\stdlib-8.1\\src\\erl_pp.erl",
+      "Detail": "Original length 77464, generated length 79644. AtU8 3326-\u003E3278, Code 23580-\u003E25937, ImpT 676-\u003E700, ExpT 220-\u003E220, FunT 796-\u003E796, LitT 1235-\u003E1235, LocT 1924-\u003E1900, Attr 39-\u003E39, Line 1158-\u003E1158, Type 168-\u003E34",
+      "FirstDifferentByte": 6
+    }
+  ]
+}

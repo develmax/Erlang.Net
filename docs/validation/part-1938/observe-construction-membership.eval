@@ -1,0 +1,22 @@
+[BeamPath, Output] = init:get_plain_arguments(),
+{ok, Beam} = file:read_file(BeamPath),
+{ok, {Module, _}} = beam_lib:chunks(Beam, [exports]),
+case code:is_sticky(Module) of true -> true = code:unstick_mod(Module); false -> ok end,
+code:purge(Module), code:delete(Module), code:purge(Module),
+{module, Module} = code:load_binary(Module, "parity-link-probe", Beam),
+Observe = fun(Fun) ->
+    try {ok, Fun()} catch Class:Reason -> {Class, Reason} end
+end,
+Inputs = case Module of
+    binary -> [fun() -> binary:encode_hex(B) end ||
+                  B <- [<<>>, <<0>>, <<0,10,15,16,127,128,255>>, <<255:4096>>, [], <<1:1>>, bad, 17]];
+    uri_string -> [fun() -> uri_string:normalize(U) end ||
+                   U <- ["HTTP://Example.COM/%41%2f%3b%3F", <<"http://EXAMPLE.com/%7eabc">>,
+                         "https://example.com/%E2%82%AC?x=%23", #{scheme=>"http",host=>"example.com",path=>"/%41"},
+                         "/%25%3A%40%5b%5D", "/%4", "/%zx", "/plain"]]
+end,
+8 = length(Inputs),
+ok = file:write_file(Output, term_to_binary(lists:map(Observe, Inputs))),
+halt().
+
+

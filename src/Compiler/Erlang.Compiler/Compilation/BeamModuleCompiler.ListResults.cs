@@ -5,6 +5,7 @@ namespace Erlang.Compiler;
 internal sealed partial class BeamModuleCompiler
 {
     private const int ConsTypeBits = 1 << 2;
+    private const int ProperListTypeBits = ConsTypeBits | (1 << 7);
 
     private sealed partial class GeneralEmitter
     {

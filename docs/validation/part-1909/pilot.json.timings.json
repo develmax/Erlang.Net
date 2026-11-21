@@ -1,0 +1,827 @@
+{
+  "Jobs": 2,
+  "SetupMilliseconds": 82.8668,
+  "ComparisonMilliseconds": 663515.3617,
+  "Modules": [
+    {
+      "Beam": "lib\\asn1-5.5.2\\ebin\\asn1ct_imm.beam",
+      "Milliseconds": 23674.5772
+    },
+    {
+      "Beam": "lib\\asn1-5.5.2\\ebin\\asn1ct_parser2.beam",
+      "Milliseconds": 8558.8283
+    },
+    {
+      "Beam": "lib\\common_test-1.31.2\\ebin\\ct_config_plain.beam",
+      "Milliseconds": 126.3357
+    },
+    {
+      "Beam": "lib\\common_test-1.31.2\\ebin\\ct_config_xml.beam",
+      "Milliseconds": 67.286
+    },
+    {
+      "Beam": "lib\\common_test-1.31.2\\ebin\\ct_event.beam",
+      "Milliseconds": 51.3655
+    },
+    {
+      "Beam": "lib\\common_test-1.31.2\\ebin\\ct_make.beam",
+      "Milliseconds": 631.2865
+    },
+    {
+      "Beam": "lib\\common_test-1.31.2\\ebin\\ct_master.beam",
+      "Milliseconds": 2279.6292
+    },
+    {
+      "Beam": "lib\\common_test-1.31.2\\ebin\\ct_master_event.beam",
+      "Milliseconds": 44.7818
+    },
+    {
+      "Beam": "lib\\common_test-1.31.2\\ebin\\ct_util.beam",
+      "Milliseconds": 1335.2635
+    },
+    {
+      "Beam": "lib\\common_test-1.31.2\\ebin\\test_server.beam",
+      "Milliseconds": 11768.4742
+    },
+    {
+      "Beam": "lib\\common_test-1.31.2\\ebin\\test_server_io.beam",
+      "Milliseconds": 529.4735
+    },
+    {
+      "Beam": "lib\\compiler-10.0.6\\ebin\\beam_core_to_ssa.beam",
+      "Milliseconds": 49048.6563
+    },
+    {
+      "Beam": "lib\\compiler-10.0.6\\ebin\\beam_ssa_codegen.beam",
+      "Milliseconds": 27789.2906
+    },
+    {
+      "Beam": "lib\\compiler-10.0.6\\ebin\\beam_ssa_type.beam",
+      "Milliseconds": 22446.5662
+    },
+    {
+      "Beam": "lib\\compiler-10.0.6\\ebin\\beam_validator.beam",
+      "Milliseconds": 22926.6671
+    },
+    {
+      "Beam": "lib\\compiler-10.0.6\\ebin\\cerl.beam",
+      "Milliseconds": 6323.4648
+    },
+    {
+      "Beam": "lib\\compiler-10.0.6\\ebin\\sys_core_fold.beam",
+      "Milliseconds": 21124.5502
+    },
+    {
+      "Beam": "lib\\compiler-10.0.6\\ebin\\v3_core.beam",
+      "Milliseconds": 61687.9769
+    },
+    {
+      "Beam": "lib\\debugger-7.0\\ebin\\dbg_debugged.beam",
+      "Milliseconds": 79.7644
+    },
+    {
+      "Beam": "lib\\debugger-7.0\\ebin\\dbg_icmd.beam",
+      "Milliseconds": 1057.7065
+    },
+    {
+      "Beam": "lib\\debugger-7.0\\ebin\\dbg_idb.beam",
+      "Milliseconds": 28.2066
+    },
+    {
+      "Beam": "lib\\debugger-7.0\\ebin\\dbg_ieval.beam",
+      "Milliseconds": 20644.5427
+    },
+    {
+      "Beam": "lib\\debugger-7.0\\ebin\\dbg_iload.beam",
+      "Milliseconds": 5051.6039
+    },
+    {
+      "Beam": "lib\\debugger-7.0\\ebin\\dbg_iserver.beam",
+      "Milliseconds": 806.2547
+    },
+    {
+      "Beam": "lib\\debugger-7.0\\ebin\\dbg_istk.beam",
+      "Milliseconds": 206.249
+    },
+    {
+      "Beam": "lib\\debugger-7.0\\ebin\\dbg_wx_break.beam",
+      "Milliseconds": 40.3106
+    },
+    {
+      "Beam": "lib\\debugger-7.0\\ebin\\dbg_wx_break_win.beam",
+      "Milliseconds": 863.7973
+    },
+    {
+      "Beam": "lib\\debugger-7.0\\ebin\\dbg_wx_code.beam",
+      "Milliseconds": 278.422
+    },
+    {
+      "Beam": "lib\\debugger-7.0\\ebin\\dbg_wx_filedialog_win.beam",
+      "Milliseconds": 1513.3402
+    },
+    {
+      "Beam": "lib\\debugger-7.0\\ebin\\dbg_wx_interpret.beam",
+      "Milliseconds": 196.4687
+    },
+    {
+      "Beam": "lib\\debugger-7.0\\ebin\\dbg_wx_mon.beam",
+      "Milliseconds": 1228.8652
+    },
+    {
+      "Beam": "lib\\debugger-7.0\\ebin\\dbg_wx_mon_win.beam",
+      "Milliseconds": 928.2336
+    },
+    {
+      "Beam": "lib\\debugger-7.0\\ebin\\dbg_wx_settings.beam",
+      "Milliseconds": 169.626
+    },
+    {
+      "Beam": "lib\\debugger-7.0\\ebin\\dbg_wx_src_view.beam",
+      "Milliseconds": 196.1788
+    },
+    {
+      "Beam": "lib\\debugger-7.0\\ebin\\dbg_wx_trace.beam",
+      "Milliseconds": 1113.2034
+    },
+    {
+      "Beam": "lib\\debugger-7.0\\ebin\\dbg_wx_trace_win.beam",
+      "Milliseconds": 3697.6322
+    },
+    {
+      "Beam": "lib\\debugger-7.0\\ebin\\dbg_wx_view.beam",
+      "Milliseconds": 317.1412
+    },
+    {
+      "Beam": "lib\\debugger-7.0\\ebin\\dbg_wx_win.beam",
+      "Milliseconds": 608.4059
+    },
+    {
+      "Beam": "lib\\debugger-7.0\\ebin\\dbg_wx_winman.beam",
+      "Milliseconds": 195.0521
+    },
+    {
+      "Beam": "lib\\debugger-7.0\\ebin\\debugger.beam",
+      "Milliseconds": 26.7371
+    },
+    {
+      "Beam": "lib\\debugger-7.0\\ebin\\i.beam",
+      "Milliseconds": 246.6164
+    },
+    {
+      "Beam": "lib\\debugger-7.0\\ebin\\int.beam",
+      "Milliseconds": 1485.8132
+    },
+    {
+      "Beam": "lib\\dialyzer-6.0.3\\ebin\\dialyzer.beam",
+      "Milliseconds": 3129.2375
+    },
+    {
+      "Beam": "lib\\dialyzer-6.0.3\\ebin\\dialyzer_cl.beam",
+      "Milliseconds": 3263.6327
+    },
+    {
+      "Beam": "lib\\dialyzer-6.0.3\\ebin\\dialyzer_cplt.beam",
+      "Milliseconds": 1520.0614
+    },
+    {
+      "Beam": "lib\\dialyzer-6.0.3\\ebin\\dialyzer_incremental.beam",
+      "Milliseconds": 1603.7575
+    },
+    {
+      "Beam": "lib\\dialyzer-6.0.3\\ebin\\dialyzer_iplt.beam",
+      "Milliseconds": 1692.2153
+    },
+    {
+      "Beam": "lib\\diameter-2.7.2\\ebin\\diameter_callback.beam",
+      "Milliseconds": 76.1982
+    },
+    {
+      "Beam": "lib\\diameter-2.7.2\\ebin\\diameter_session.beam",
+      "Milliseconds": 64.4594
+    },
+    {
+      "Beam": "lib\\diameter-2.7.2\\ebin\\diameter_sup.beam",
+      "Milliseconds": 42.8031
+    },
+    {
+      "Beam": "lib\\diameter-2.7.2\\ebin\\diameter_tcp.beam",
+      "Milliseconds": 3084.3779
+    },
+    {
+      "Beam": "lib\\edoc-1.5\\ebin\\edoc_layout_chunks.beam",
+      "Milliseconds": 2915.3822
+    },
+    {
+      "Beam": "lib\\edoc-1.5\\ebin\\edoc_lib.beam",
+      "Milliseconds": 2205.8894
+    },
+    {
+      "Beam": "lib\\eldap-1.3.1\\ebin\\ELDAPv3.beam",
+      "Milliseconds": 6081.7434
+    },
+    {
+      "Beam": "lib\\erts-17.1\\ebin\\prim_eval.beam",
+      "Milliseconds": 97.9987
+    },
+    {
+      "Beam": "lib\\et-1.8\\ebin\\et.beam",
+      "Milliseconds": 34.3369
+    },
+    {
+      "Beam": "lib\\et-1.8\\ebin\\et_collector.beam",
+      "Milliseconds": 3643.5736
+    },
+    {
+      "Beam": "lib\\et-1.8\\ebin\\et_selector.beam",
+      "Milliseconds": 533.8817
+    },
+    {
+      "Beam": "lib\\et-1.8\\ebin\\et_viewer.beam",
+      "Milliseconds": 66.814
+    },
+    {
+      "Beam": "lib\\et-1.8\\ebin\\et_wx_contents_viewer.beam",
+      "Milliseconds": 1574.0453
+    },
+    {
+      "Beam": "lib\\et-1.8\\ebin\\et_wx_viewer.beam",
+      "Milliseconds": 13660.9794
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpc.beam",
+      "Milliseconds": 2810.5106
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpc_cookie.beam",
+      "Milliseconds": 1007.6089
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpc_response.beam",
+      "Milliseconds": 1243.5602
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpd_request_handler.beam",
+      "Milliseconds": 1625.5487
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\mod_auth.beam",
+      "Milliseconds": 995.6698
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\application_controller.beam",
+      "Milliseconds": 8150.3086
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\code.beam",
+      "Milliseconds": 3630.9158
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\disk_log_1.beam",
+      "Milliseconds": 10017.0366
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\dist_ac.beam",
+      "Milliseconds": 3044.4619
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\gen_sctp.beam",
+      "Milliseconds": 822.7683
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\gen_tcp_socket.beam",
+      "Milliseconds": 18920.9524
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\inet6_sctp.beam",
+      "Milliseconds": 162.6328
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\inet_gethost_native.beam",
+      "Milliseconds": 1185.9553
+    },
+    {
+      "Beam": "lib\\megaco-4.9.2\\ebin\\megaco_ber_media_gateway_control_v1.beam",
+      "Milliseconds": 35563.7772
+    },
+    {
+      "Beam": "lib\\megaco-4.9.2\\ebin\\megaco_ber_media_gateway_control_v2.beam",
+      "Milliseconds": 36575.2264
+    },
+    {
+      "Beam": "lib\\megaco-4.9.2\\ebin\\megaco_ber_media_gateway_control_v3.beam",
+      "Milliseconds": 48076.112
+    },
+    {
+      "Beam": "lib\\megaco-4.9.2\\ebin\\megaco_messenger.beam",
+      "Milliseconds": 38530.1472
+    },
+    {
+      "Beam": "lib\\megaco-4.9.2\\ebin\\megaco_messenger_misc.beam",
+      "Milliseconds": 604.5411
+    },
+    {
+      "Beam": "lib\\megaco-4.9.2\\ebin\\megaco_pretty_text_encoder.beam",
+      "Milliseconds": 397.5754
+    },
+    {
+      "Beam": "lib\\megaco-4.9.2\\ebin\\megaco_tcp.beam",
+      "Milliseconds": 1246.4466
+    },
+    {
+      "Beam": "lib\\megaco-4.9.2\\ebin\\megaco_tcp_accept.beam",
+      "Milliseconds": 25.0504
+    },
+    {
+      "Beam": "lib\\megaco-4.9.2\\ebin\\megaco_trans_sup.beam",
+      "Milliseconds": 57.4967
+    },
+    {
+      "Beam": "lib\\megaco-4.9.2\\ebin\\megaco_user_default.beam",
+      "Milliseconds": 137.4024
+    },
+    {
+      "Beam": "lib\\mnesia-4.27\\ebin\\mnesia_frag_hash.beam",
+      "Milliseconds": 178.9848
+    },
+    {
+      "Beam": "lib\\mnesia-4.27\\ebin\\mnesia_kernel_sup.beam",
+      "Milliseconds": 40.7517
+    },
+    {
+      "Beam": "lib\\mnesia-4.27\\ebin\\mnesia_schema.beam",
+      "Milliseconds": 25827.7307
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\observer_wx.beam",
+      "Milliseconds": 1109.051
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\AttributeCertificateVersion1-2009.beam",
+      "Milliseconds": 921.558
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\CMSAesRsaesOaep-2009.beam",
+      "Milliseconds": 189.2426
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\CryptographicMessageSyntax-2009.beam",
+      "Milliseconds": 8208.2954
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\CryptographicMessageSyntaxAlgorithms-2009.beam",
+      "Milliseconds": 2383.3941
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\DSS.beam",
+      "Milliseconds": 131.8843
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\ECPrivateKey.beam",
+      "Milliseconds": 742.8918
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\EnrollmentMessageSyntax-2009.beam",
+      "Milliseconds": 22226.7296
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\OCSP-2024-08.beam",
+      "Milliseconds": 6998.498
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\OTP-PKIX-Relaxed.beam",
+      "Milliseconds": 9515.0955
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\OTP-PKIX.beam",
+      "Milliseconds": 11486.8663
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKCS-1.beam",
+      "Milliseconds": 5064.5796
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKCS-10.beam",
+      "Milliseconds": 661.9486
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKCS-3.beam",
+      "Milliseconds": 77.6865
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKCS-FRAME.beam",
+      "Milliseconds": 4076.0625
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKIX-X400Address-2009.beam",
+      "Milliseconds": 10014.2573
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKIX1-PSS-OAEP-Algorithms-2009.beam",
+      "Milliseconds": 3220.4626
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKIX1Explicit-2009.beam",
+      "Milliseconds": 15645.5255
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKIX1Implicit-2009.beam",
+      "Milliseconds": 7180.1726
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKIXAlgs-2009.beam",
+      "Milliseconds": 1480.32
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKIXAttributeCertificate-2009.beam",
+      "Milliseconds": 7788.3945
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKIXCMP-2023.beam",
+      "Milliseconds": 16202.542
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKIXCRMF-2009.beam",
+      "Milliseconds": 14344.5737
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\SLH-DSA-Module-2024.beam",
+      "Milliseconds": 718.0271
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\Safecurves-pkix-18.beam",
+      "Milliseconds": 1066.5119
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\SecureMimeMessageV3dot1-2009.beam",
+      "Milliseconds": 4063.0272
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\X509-ML-DSA-2025.beam",
+      "Milliseconds": 746.4461
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\X509-ML-KEM-2025.beam",
+      "Milliseconds": 603.5
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\pubkey_crl.beam",
+      "Milliseconds": 2779.3013
+    },
+    {
+      "Beam": "lib\\sasl-4.4\\ebin\\release_handler_1.beam",
+      "Milliseconds": 2107.8881
+    },
+    {
+      "Beam": "lib\\sasl-4.4\\ebin\\sasl_report_file_h.beam",
+      "Milliseconds": 87.0314
+    },
+    {
+      "Beam": "lib\\sasl-4.4\\ebin\\systools.beam",
+      "Milliseconds": 150.6126
+    },
+    {
+      "Beam": "lib\\sasl-4.4\\ebin\\systools_make.beam",
+      "Milliseconds": 13973.113
+    },
+    {
+      "Beam": "lib\\snmp-5.20.5\\ebin\\snmp_app_sup.beam",
+      "Milliseconds": 65.8361
+    },
+    {
+      "Beam": "lib\\snmp-5.20.5\\ebin\\snmp_misc.beam",
+      "Milliseconds": 1221.8639
+    },
+    {
+      "Beam": "lib\\snmp-5.20.5\\ebin\\snmp_pdus_basic.beam",
+      "Milliseconds": 132.3721
+    },
+    {
+      "Beam": "lib\\snmp-5.20.5\\ebin\\snmp_verbosity.beam",
+      "Milliseconds": 92.3332
+    },
+    {
+      "Beam": "lib\\snmp-5.20.5\\ebin\\snmp_view_based_acm_mib.beam",
+      "Milliseconds": 3227.4817
+    },
+    {
+      "Beam": "lib\\snmp-5.20.5\\ebin\\snmpa.beam",
+      "Milliseconds": 5054.478
+    },
+    {
+      "Beam": "lib\\snmp-5.20.5\\ebin\\snmpa_acm.beam",
+      "Milliseconds": 300.8772
+    },
+    {
+      "Beam": "lib\\snmp-5.20.5\\ebin\\snmpa_agent_sup.beam",
+      "Milliseconds": 68.0387
+    },
+    {
+      "Beam": "lib\\snmp-5.20.5\\ebin\\snmpa_mib_storage.beam",
+      "Milliseconds": 60.7119
+    },
+    {
+      "Beam": "lib\\snmp-5.20.5\\ebin\\snmpa_mib_storage_dets.beam",
+      "Milliseconds": 261.7933
+    },
+    {
+      "Beam": "lib\\snmp-5.20.5\\ebin\\snmpa_mib_storage_ets.beam",
+      "Milliseconds": 306.5643
+    },
+    {
+      "Beam": "lib\\snmp-5.20.5\\ebin\\snmpa_mib_storage_mnesia.beam",
+      "Milliseconds": 138.6476
+    },
+    {
+      "Beam": "lib\\snmp-5.20.5\\ebin\\snmpa_misc_sup.beam",
+      "Milliseconds": 82.6002
+    },
+    {
+      "Beam": "lib\\snmp-5.20.5\\ebin\\snmpa_net_if.beam",
+      "Milliseconds": 5063.9377
+    },
+    {
+      "Beam": "lib\\snmp-5.20.5\\ebin\\snmpa_set_lib.beam",
+      "Milliseconds": 663.8163
+    },
+    {
+      "Beam": "lib\\snmp-5.20.5\\ebin\\snmpa_supervisor.beam",
+      "Milliseconds": 1056.1653
+    },
+    {
+      "Beam": "lib\\snmp-5.20.5\\ebin\\snmpc_misc.beam",
+      "Milliseconds": 259.7343
+    },
+    {
+      "Beam": "lib\\snmp-5.20.5\\ebin\\snmpm_conf.beam",
+      "Milliseconds": 677.9675
+    },
+    {
+      "Beam": "lib\\snmp-5.20.5\\ebin\\snmpm_config.beam",
+      "Milliseconds": 10654.0825
+    },
+    {
+      "Beam": "lib\\snmp-5.20.5\\ebin\\snmpm_misc_sup.beam",
+      "Milliseconds": 81.3246
+    },
+    {
+      "Beam": "lib\\snmp-5.20.5\\ebin\\snmpm_server_sup.beam",
+      "Milliseconds": 26.6154
+    },
+    {
+      "Beam": "lib\\snmp-5.20.5\\ebin\\snmpm_supervisor.beam",
+      "Milliseconds": 56.4916
+    },
+    {
+      "Beam": "lib\\ssh-6.0.6\\ebin\\ssh_channel_sup.beam",
+      "Milliseconds": 84.3006
+    },
+    {
+      "Beam": "lib\\ssh-6.0.6\\ebin\\ssh_client_channel.beam",
+      "Milliseconds": 1210.7973
+    },
+    {
+      "Beam": "lib\\ssh-6.0.6\\ebin\\ssh_io.beam",
+      "Milliseconds": 79.1714
+    },
+    {
+      "Beam": "lib\\ssl-11.7.7\\ebin\\dtls_gen_connection.beam",
+      "Milliseconds": 5619.4565
+    },
+    {
+      "Beam": "lib\\ssl-11.7.7\\ebin\\ssl_app.beam",
+      "Milliseconds": 16.9792
+    },
+    {
+      "Beam": "lib\\ssl-11.7.7\\ebin\\ssl_gen_statem.beam",
+      "Milliseconds": 12615.8868
+    },
+    {
+      "Beam": "lib\\ssl-11.7.7\\ebin\\ssl_server_session_cache.beam",
+      "Milliseconds": 1195.863
+    },
+    {
+      "Beam": "lib\\ssl-11.7.7\\ebin\\tls_dtls_server_connection.beam",
+      "Milliseconds": 4950.9845
+    },
+    {
+      "Beam": "lib\\ssl-11.7.7\\ebin\\tls_handshake_1_3.beam",
+      "Milliseconds": 12743.1795
+    },
+    {
+      "Beam": "lib\\ssl-11.7.7\\ebin\\tls_sender.beam",
+      "Milliseconds": 2652.7131
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\erl_anno.beam",
+      "Milliseconds": 193.7456
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\erl_lint.beam",
+      "Milliseconds": 108476.6818
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\error_logger_tty_h.beam",
+      "Milliseconds": 768.6122
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\gen_event.beam",
+      "Milliseconds": 4516.1131
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\gen_server.beam",
+      "Milliseconds": 4611.9327
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\graph.beam",
+      "Milliseconds": 2137.5352
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\lists.beam",
+      "Milliseconds": 15085.7239
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\maps.beam",
+      "Milliseconds": 816.7912
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\qlc.beam",
+      "Milliseconds": 36687.4641
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\sets.beam",
+      "Milliseconds": 1367.274
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\zip.beam",
+      "Milliseconds": 10667.4988
+    },
+    {
+      "Beam": "lib\\tools-4.2.3\\ebin\\eprof.beam",
+      "Milliseconds": 1288.1285
+    },
+    {
+      "Beam": "lib\\tools-4.2.3\\ebin\\make.beam",
+      "Milliseconds": 560.238
+    },
+    {
+      "Beam": "lib\\tools-4.2.3\\ebin\\xref.beam",
+      "Milliseconds": 2284.6509
+    },
+    {
+      "Beam": "lib\\tools-4.2.3\\ebin\\xref_compiler.beam",
+      "Milliseconds": 3037.555
+    },
+    {
+      "Beam": "lib\\tools-4.2.3\\ebin\\xref_reader.beam",
+      "Milliseconds": 851.9014
+    },
+    {
+      "Beam": "lib\\wx-2.7\\doc\\examples\\demo\\ex_notebook.beam",
+      "Milliseconds": 128.9897
+    },
+    {
+      "Beam": "lib\\wx-2.7\\doc\\examples\\sudoku\\sudoku_gui.beam",
+      "Milliseconds": 416.1092
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl.beam",
+      "Milliseconds": 251.3232
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_b64Bin.beam",
+      "Milliseconds": 3348.436
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_b64Bin_scan.beam",
+      "Milliseconds": 56.2559
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_eventp.beam",
+      "Milliseconds": 1208.2388
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_html.beam",
+      "Milliseconds": 72.9421
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_lib.beam",
+      "Milliseconds": 2859.9902
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_otpsgml.beam",
+      "Milliseconds": 67.7466
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_sax_old_dom.beam",
+      "Milliseconds": 226.2217
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_sax_parser.beam",
+      "Milliseconds": 712.7235
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_sax_parser_latin1.beam",
+      "Milliseconds": 32989.8823
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_sax_parser_list.beam",
+      "Milliseconds": 29071.0315
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_sax_parser_utf16be.beam",
+      "Milliseconds": 25709.0694
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_sax_parser_utf16le.beam",
+      "Milliseconds": 29204.3065
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_sax_parser_utf8.beam",
+      "Milliseconds": 36997.4917
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_sax_simple_dom.beam",
+      "Milliseconds": 231.2334
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_scan.beam",
+      "Milliseconds": 51631.4637
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_sgml.beam",
+      "Milliseconds": 33.1442
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_simple.beam",
+      "Milliseconds": 123.0238
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_text.beam",
+      "Milliseconds": 6.3671
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_ucs.beam",
+      "Milliseconds": 650.5486
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_uri.beam",
+      "Milliseconds": 685.007
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_validate.beam",
+      "Milliseconds": 1486.0011
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_xlate.beam",
+      "Milliseconds": 18.9138
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_xml.beam",
+      "Milliseconds": 21.8341
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_xml_indent.beam",
+      "Milliseconds": 38.1283
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_xpath.beam",
+      "Milliseconds": 2211.3793
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_xpath_lib.beam",
+      "Milliseconds": 75.2411
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_xpath_parse.beam",
+      "Milliseconds": 6160.6304
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_xpath_pred.beam",
+      "Milliseconds": 2645.4821
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_xpath_scan.beam",
+      "Milliseconds": 347.0291
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_xs.beam",
+      "Milliseconds": 43.876
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_xsd.beam",
+      "Milliseconds": 60069.4489
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_xsd_re.beam",
+      "Milliseconds": 70.3811
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_xsd_re_parse.beam",
+      "Milliseconds": 3876.9584
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_xsd_type.beam",
+      "Milliseconds": 3496.9348
+    }
+  ]
+}

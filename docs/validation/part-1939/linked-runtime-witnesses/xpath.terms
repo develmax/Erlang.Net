@@ -1,0 +1,5 @@
+{"//item[@id='abc']",{ok,{path,abs,{refine,{step,{descendant_or_self,{node_type,node},[]}},{step,{child,{name,{item,[],"item"}},[{pred,{comp,'=',{path,rel,{step,{attribute,{name,{id,[],"id"}},[]}}},{literal,"abc"}}}]}}}}}}.
+{"a|b",{ok,{path,union,{{path,rel,{step,{child,{name,{a,[],"a"}},[]}}},{path,rel,{step,{child,{name,{b,[],"b"}},[]}}}}}}}.
+{"count(/root/item)",{ok,{function_call,count,[{path,abs,{refine,{step,{child,{name,{root,[],"root"}},[]}},{step,{child,{name,{item,[],"item"}},[]}}}}]}}}.
+{"1+2*3",{ok,{arith,'+',{number,1},{arith,'*',{number,2},{number,3}}}}}.
+{"(",{error,{1,xmerl_xpath_parse,["syntax error before: ",["'$end'"]]}}}.

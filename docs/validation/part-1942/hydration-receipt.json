@@ -1,0 +1,45 @@
+{
+  "Parent": {
+    "Source": "7928abb1539caa8e08f046766d0a0827b8ce20fa0087359debb4e792f6f61734",
+    "Paths": 804,
+    "RemovedPaths": [],
+    "Compiler": "ebc43a6a80eef137d8e44d4d656101bd4c0af62304321d7e02c91f6c8753e915",
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "Tests": "148700b83b18515695572c6672afbcf0a04a4836a1564736d50bb9b85436b0c8",
+    "ParentSource": "0c8d6444e3a5d3d38e56e85b1b2ce7b0152351c5f08a097694fcd923c7a1cc70",
+    "CorpusTool": "5d536ce62d865a4061de8832e63fccd3024a701e5bd118a5686b466771462490"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultOnlySequenceDecoder.cs": "e518ee98cf2cf123d5e0605271a49b127abe464da73c26b4e8042dd2955d2f90",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs": "2dc221b1087bc3e1cf6213425160fb728c4cf5d6f7923c6d17f9ae058e87166f",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": "e095f3aac50a339909e3d8bd84e65ea387c0de444605a39ff9a88ccd59f2a855",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.NestedTaggedEntry.cs": "52853c0a60fff42217297addf73fd99be4dd8682aeeeebca495bd0f37c0059f7",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.OutgoingStackRoots.cs": "5fcc0e3870e88f95049fc4250c8170670d1de731ed4dc84feefe2f22ba83b34f",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceDecoder.cs": "872f9ade0d42782481eb38ff4f6c6227666e313a3aa7895ae6604ea655928ca9",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TerminalClosureFrames.cs": "0bd755cbc82b7414a62607cb17b2bb2ddaaee671ad0394cf3cdc2c3c3bc68754",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": "fae85c6901b20ead853d73d566bd892613d2ed4aca0632883aa99757f01a36ad",
+    "tests/Erlang.Tests/Compiler/Beam/BeamLeadingRequiredRecordChecks.cs": "20ea0e937ddf827f0c016851a4fa8d608d024bcdb010769b4dc2322bb5ee3154",
+    "tests/Erlang.Tests/Compiler/Beam/BeamNestedTaggedEntryChecks.cs": "19cbccb7840261ff4c7317f45f4faab3325133c9c62612181ee99a379789a08f",
+    "tests/Erlang.Tests/Compiler/Beam/BeamOptionalAliasJoinChecks.cs": "49df4b23db6bccb323383a7a54aa766218690127694ddf45fac70132de98596e",
+    "tests/Erlang.Tests/Compiler/Beam/BeamOptionalLiteralTableChecks.cs": "74e86e60f3b58ffa0b06e9b391117379715c6be094cb4c06fe5b6e4eaa7be0df",
+    "tests/Erlang.Tests/Compiler/Beam/BeamOverwrittenOutgoingRootsChecks.cs": "317d585d597253b8e1823056ee7fe791d6d6302205127408ade0bd538c1fbe06",
+    "tests/Erlang.Tests/Compiler/Beam/BeamTerminalClosureFrameChecks.cs": "4ae96a8e06a6350de0f36c4259163ceecd02dc35ebb72cb3952542990aea4995",
+    "tests/Erlang.Tests/Harness/Program.cs": "696e9e1d715f7762fbaf5e64c29d9c65178e321d0d3fe8ed72d7c38c4ff46f70"
+  },
+  "CandidateRemovedPaths": {},
+  "PatchSources": {
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\asn-named-bits-replay-1931\\leading-required-record-residuals\\leading-required-record.patch": "73500d1ab54eb51943b28d5213200882d9501ca045e7bf8def32cc85703b483b",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\root-slots-closures-and-required-records-1942\\adapted-tests\\LeadingRequiredRecords.patch": "da7197a4dddec1415234c91f678af1fc31522f20d14809e307e82a10c5763ebb",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\root-slots-closures-and-required-records-1942\\adapted-terminal-closures.patch": "a6955cab65bb299dd4a3fe58788e4ea67cc5930b9d70986b787fddf68c83d979",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\root-slots-closures-and-required-records-1942\\adapted-tests\\DirectTerminalClosureFrames.patch": "0efbc50c22cde930739f09aa49735dff46b2df5d3ddc78bf2c24b67fe3c57d8d",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\asn-named-bits-replay-1931\\literal-table-optional-residuals\\optional-literal-table.patch": "843d79dcdab1b8ee7135193461a17ebe4bb1e7ec9275d7cfe440f44b8251139f",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\root-slots-closures-and-required-records-1942\\adapted-tests\\OptionalLiteralTables.patch": "fca4d5f77f97d4759e3b16bb18ef14ccc61e4c1adce91aa17546b6e08617744e",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\root-slots-closures-and-required-records-1942\\adapted-outgoing-stack-roots.patch": "c0385f7f9b2deff47742f625abf20ea9d807b5f4f4b389d06919bcdab8f998b8",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\root-slots-closures-and-required-records-1942\\adapted-tests\\OverwrittenOutgoingStackRoots.patch": "b59def30790dd6fbbe7d215a983dbeb266208eb7e725e0f0595fc66f27655063",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\asn-named-bits-replay-1931\\multi-tag-optional-residuals\\optional-alias-join.patch": "a51bd4136420043984fa14637da71125f1f566fcc8c92d03a7d1b1aef4fc3cda",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\root-slots-closures-and-required-records-1942\\adapted-tests\\OptionalMultiTagAlias.patch": "5d117e08c5a50552c7e6aabc41bc3816f00ae444643d3fe98261f2fc24818ea6",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\nested-ssh-record-dispatch-1953\\production.patch": "7e643526862e47379296a00a9f11a700ab5d00e68b68ab49be18e208b5c5e084",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\root-slots-closures-and-required-records-1942\\adapted-tests\\NestedTaggedSshDispatch.patch": "029ee3fc353bddebbc4ac12732afa0af583a359781695389fa62bff03f6e5924",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\root-slots-closures-and-required-records-1942\\adapted-tests\\integrated-harness-registrations.patch": "3fd48f880486a653cc4bd150802e74198b6abe4cf3ce3c170bc92fad574256b5"
+  }
+}

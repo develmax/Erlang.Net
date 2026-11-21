@@ -1,0 +1,35 @@
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12544,6 +12544,32 @@
+ Test(Erlang.Tests.BeamProtectedEntryAliasChecks.TestName, Erlang.Tests.BeamProtectedEntryAliasChecks.Run);
+ Test(Erlang.Tests.BeamProtectedShortReturnChecks.TestName, Erlang.Tests.BeamProtectedShortReturnChecks.Run);
+ Test(Erlang.Tests.BeamBinaryConstructionStringChecks.TestName, Erlang.Tests.BeamBinaryConstructionStringChecks.Run);
++Test(Erlang.Tests.BeamProjectedIdentityContinuationsChecks.TestName, () =>
++{
++    Erlang.Tests.BeamProjectedIdentityContinuationsChecks.Run();
++    return Task.CompletedTask;
++});
++Test(Erlang.Tests.BeamCheckedReplyOrReceiveChecks.TestName, () =>
++{
++    Erlang.Tests.BeamCheckedReplyOrReceiveChecks.Run();
++    return Task.CompletedTask;
++});
++Test(Erlang.Tests.BeamSurvivingCallTrimChecks.TestName, () =>
++{
++    Erlang.Tests.BeamSurvivingCallTrimChecks.Run();
++    return Task.CompletedTask;
++});
++Test(Erlang.Tests.BeamProvenTupleOptionGeneratorChecks.TestName, () =>
++{
++    Erlang.Tests.BeamProvenTupleOptionGeneratorChecks.Run();
++    return Task.CompletedTask;
++});
++Test(Erlang.Tests.BeamClosedTerminalSelectorChecks.TestName, Erlang.Tests.BeamClosedTerminalSelectorChecks.Run);
++Test(Erlang.Tests.BeamNestedRecordEffectDispatchChecks.TestName, () =>
++{
++    Erlang.Tests.BeamNestedRecordEffectDispatchChecks.Run();
++    return Task.CompletedTask;
++});
+ Test(
+     Erlang.Tests.BeamOwnedConstructorAndCatchChecks.TestName,
+     () =>

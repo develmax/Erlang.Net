@@ -1,0 +1,305 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs
+@@ -128,8 +128,12 @@
+                     continue;
+                 }
+ 
++                bool namedRequiredPrefix = index > 0 && HasNamedRequiredLeader(fields[0]);
++                bool admitsOptionalBookends = count == 4 && index > 0 && firstDefault is null
++                    && fields[0] is { Omits: Atom, Call.Module: null };
+                 bool allowForeignOptional = firstDefault is not null && count == 4 && index == 1
+-                    || (allOptional || count == 2 && index == 1) && field is Expr.Case;
++                    || (allOptional || count == 2 && index == 1 || admitsOptionalBookends && index == count - 1)
++                        && field is Expr.Case;
+                 bool followsLeadingForeignOptional = count == 2 && index == 1
+                     && fields[0] is { Omits: Atom, Call.Module: not null };
+                 bool readsLeadingRequiredPair = count == 2 && index == 0 && field is Expr.Call
+@@ -140,7 +144,7 @@
+                     field,
+                     value.Name,
+                     allowForeign: firstDefault is not null || allowForeignOptional || followsLeadingForeignOptional || readsLeadingRequiredPair
+-                        || followsForeignSequenceOptional || count == 1,
++                        || followsForeignSequenceOptional || count == 1 || namedRequiredPrefix || admitsOptionalBookends,
+                     allowForeignOptional: allowForeignOptional
+                 );
+                 if (plan is null && count >= 4 && index == 0 && field is Expr.Case firstCondition
+@@ -192,7 +196,8 @@
+                         && plan.Call.Module is null;
+                     if (firstDefault is not null && trailingOptionalStarted && !followsForeignOptional
+                         || firstDefault is null && index != required && !finalRequired
+-                            && !followsLeadingForeignOptional && !(middleDefault is not null && index == 2))
++                            && !followsLeadingForeignOptional && !(middleDefault is not null && index == 2)
++                            && !(admitsOptionalBookends && index < count - 1 && plan.Call.Module is null))
+                     {
+                         return false;
+                     }
+@@ -234,6 +239,20 @@
+                 { Omits: null, Call.Module: null },
+                 { Omits: not null, Call.Module: null }
+                 ];
++            bool namedRequiredWithOptionalTail = HasNamedRequiredLeader(fields[0])
++                && firstDefault is null && finalDefault is null && middleDefault is null
++                && required < count && fields.Take(required).All(field => field.Omits is null)
++                && (fields.Take(required).Any(field => field.Call.Module is not null)
++                    || required == 1 && fields[^1].Constants is [var namedSuffix, _] && IsClosedNamedNumberList(namedSuffix))
++                && fields.Skip(required).All(field => field is { Omits: Atom, Call.Module: null })
++                && fields.Skip(1).Take(required - 1).All(field => field.Constants.Count == 1);
++            bool checkedBookends = fields is
++                [
++                { Omits: Atom, Call.Module: null, Constants.Count: 1 },
++                { Omits: null, Call.Module: null, Constants.Count: 1 },
++                { Omits: null, Call.Module: null, Constants.Count: 1 },
++                { Omits: Atom, Call.Module: not null, Constants.Count: 1 }
++                ] && firstDefault is null && finalDefault is null && middleDefault is null;
+             bool checkedOptional = allOptional && firstDefault is null && finalDefault is null && middleDefault is null
+                 && fields.Any(field => field.Call.Module is not null);
+             bool trimFinalRequired = (count >= 4 || count == 3 && fields.Take(count - 1).Any(field => field.Call.Module is not null))
+@@ -250,7 +269,8 @@
+                 { Omits: Atom, Call.Module: not null },
+                 { Omits: null }
+                 ];
+-            if (!retainRecord && !checkedOptional && !checkedPairWithOptional && !trimFinalRequired && !checkedOptionalThenRequired && (firstDefault is not null && (required < 3 && !compactMixed || finalDefault is not null || !trailingOptionalStarted)
++            if (!retainRecord && !checkedOptional && !checkedPairWithOptional && !trimFinalRequired && !checkedOptionalThenRequired
++                && !namedRequiredWithOptionalTail && !checkedBookends && (firstDefault is not null && (required < 3 && !compactMixed || finalDefault is not null || !trailingOptionalStarted)
+                 || firstDefault is null && (required != 2 || required == count || (middleDefault is null && (finalDefault is null
+                     ? fields[0].Constants is not [var named, _] || !IsClosedNamedNumberList(named)
+                     : count != 4 || fields[0].Constants is not [Nil] || fields[2].Omits is not Atom)))))
+@@ -316,6 +336,17 @@
+                     finishEntry,
+                     additions,
+                     retainedPredicates
++                );
++            }
++
++            if (namedRequiredWithOptionalTail || checkedBookends)
++            {
++                return EmitDefaultPrefixedSequence(
++                    unpack,
++                    fields,
++                    null,
++                    finishEntry,
++                    additions
+                 );
+             }
+ 
+@@ -544,6 +575,9 @@
+ 
+             return value is Nil;
+         }
++
++        private static bool HasNamedRequiredLeader(SequenceEncodePart field) =>
++            field is { Omits: null, Call.Module: null, Constants: [var names, _] } && IsClosedNamedNumberList(names);
+ 
+         private bool EmitSingletonRecordPair(Expr.Match unpack, SequenceEncodePart field, int finish)
+         {
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -2552,7 +2552,8 @@
+             Expr.Call? Convert,
+             Term Tags,
+             int Entry,
+-            string? Module = null
++            string? Module = null,
++            Term? Names = null
+         );
+ 
+         private bool TryEmitOptionalDecode(FunctionDefinition function)
+@@ -2717,7 +2718,8 @@
+             string current,
+             HashSet<string> bound,
+             bool allowEnumeration = false,
+-            bool allowRemote = false
++            bool allowRemote = false,
++            bool allowNamedOptions = false
+         )
+         {
+             if (decision is not
+@@ -2746,6 +2748,20 @@
+ 
+             var enumeration = allowEnumeration ? ReadIntegerCase(body, name => !bound.Contains(name)) : null;
+             var call = ReadDecodeCall(enumeration?.Decode ?? body, bytes.Name, allowRemote);
++            if (call is null && allowNamedOptions && body is Expr.Call
++                { Module: null, DynamicRemote: false, Arguments: [Expr.Variable value, var names, var options] } reader
++                && value.Name == bytes.Name && entries.TryGetValue((reader.Function, 3), out int entry)
++                && AttributeLiteral.TryNormalizeConstant(names, out Term table) && IsClosedNamedNumberList(table)
++                && AttributeLiteral.TryNormalizeConstant(options, out Term tags))
++            {
++                call = new(
++                    reader,
++                    null,
++                    tags,
++                    entry,
++                    Names: table
++                );
++            }
+ 
+             return call is null ? null : new(
+                 tag,
+@@ -2807,12 +2823,25 @@
+             EmitDecodeInvocation(call, previous);
+         }
+ 
++        private void EmitDecodeOptions(DecodeCall call)
++        {
++            if (call.Names is { } names)
++            {
++                owner.EmitConstant(call.Tags, 2);
++                owner.EmitConstant(names, 1);
++            }
++            else
++            {
++                owner.EmitConstant(call.Tags, 1);
++            }
++        }
++
+         private void EmitDecodeInvocation(DecodeCall call, BeamSourceLocation previous)
+         {
+             owner.EmitCallLine(call.Decode, previous);
+             if (call.Module is null)
+             {
+-                owner.EmitFieldCall(2, call.Entry);
++                owner.EmitFieldCall(call.Names is null ? 2 : 3, call.Entry);
+             }
+             else
+             {
+@@ -6626,14 +6655,14 @@
+                             {
+                                 Segments:
+                                 [
+-                                {
+-                                    Value: Pattern.Variable number, Specification:
+                                     {
+-                                        Type: BitSegmentTypes.Integer,
+-                                        Unit: BitSyntaxDefaults.BinaryUnit, Signed: true, Endian: BitByteOrders.Big,
+-                                        Size: Expr.Variable width
+-                                    }
+-                                }]
++                                        Value: Pattern.Variable number, Specification:
++                                        {
++                                            Type: BitSegmentTypes.Integer,
++                                            Unit: BitSyntaxDefaults.BinaryUnit, Signed: true, Endian: BitByteOrders.Big,
++                                            Size: Expr.Variable width
++                                        }
++                                    }]
+                             }, Value: Expr.Variable matched
+                         } match,
+                             Expr.Variable result
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedListDecoder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedListDecoder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedListDecoder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedListDecoder.cs
+@@ -53,7 +53,8 @@
+             int optionalCount = tuple.Items.Count * 2 + 2 - items.Count;
+             bool hasOptionalField = optionalCount != 0;
+             int requiredCount = tuple.Items.Count - 1 - optionalCount;
+-            if (requiredCount < 1 || optionalCount is < 0 or > 2
++            if (requiredCount < 1 || optionalCount < 0 || tuple.Items.Count >= FirstReservedXRegister
++                || optionalCount > 2 && !canSpecialize
+                 || hasOptionalField && !canSpecialize && (optionalCount != 1 || tuple.Items.Count != 4))
+             {
+                 return false;
+@@ -122,6 +123,12 @@
+                 current = rest.Name;
+             }
+ 
++            bool namedRequiredPrefix = fields[0].Rename is not null;
++            if (optionalCount > 2 && (requiredCount < 2 || !namedRequiredPrefix))
++            {
++                return false;
++            }
++
+             int sizeCheckCount = fields.Count(field => field.Size is not null);
+             if (sizeCheckCount != 0 && (hasOptionalField || fields.Count != 2))
+             {
+@@ -145,7 +152,8 @@
+                         decision,
+                         current,
+                         bound,
+-                        allowEnumeration: canSpecialize && optionalCount == 1 && requiredCount == 1
++                        allowEnumeration: canSpecialize && optionalCount == 1 && requiredCount == 1,
++                        allowNamedOptions: canSpecialize && namedRequiredPrefix && optionalCount == 2
+                     ) ?? (canSpecialize ? ReadWholeOptionalChoice(decision, current, bound) : null)) is not { } field
+                     || field.Call.Convert is not null && !canSpecialize)
+                 {
+@@ -564,7 +572,7 @@
+             owner.Operand(XRegisterTag, 1);
+             owner.LiteralOperand(optional.Tag);
+             owner.EmitTupleElement(1, 0);
+-            owner.EmitConstant(optional.Call.Tags, 1);
++            EmitDecodeOptions(optional.Call);
+             owner.InitStackSlot(input);
+             EmitDecodeInvocation(optional.Call, previous);
+             if (saveOptionalInInputSlot)
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultPrefixedSequenceEncoder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultPrefixedSequenceEncoder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultPrefixedSequenceEncoder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultPrefixedSequenceEncoder.cs
+@@ -17,7 +17,7 @@
+         {
+             int count = fields.Count;
+             bool trimFinal = first is null && fields[^1].Omits is null;
+-            bool reuseRecordSlot = fields[^1] is { Omits: not null, Call.Module: null }
++            bool reuseRecordSlot = fields[^1].Omits is not null
+                 && fields[^2] is { Omits: null, Call.Module: null };
+             int frame = reuseRecordSlot ? count : count + 1;
+             int recordSlot = frame - 1;
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultPrefixedSequenceDecoder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultPrefixedSequenceDecoder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultPrefixedSequenceDecoder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultPrefixedSequenceDecoder.cs
+@@ -54,11 +54,6 @@
+ 
+             var reserved = new HashSet<string>(StringComparer.Ordinal)
+                 { first.Name, second.Name, list.Name, initial.Name, continuation.Name, output.Name };
+-            if (ReadNamedDefault(decision, list.Name, reserved) is not { } initialField)
+-            {
+-                return false;
+-            }
+-
+             int optionalCount = 2 * tuple.Items.Count - items.Count + 1;
+             int requiredCount = tuple.Items.Count - optionalCount - 2;
+             bool hasLeadingOptional = optionalCount == 2 && items[2] is Expr.Match
+@@ -66,7 +61,17 @@
+                 Pattern: Pattern.Tuple { Items: [Pattern.Variable { }, Pattern.Variable { }] }, Value: Expr.Case
+             };
+             int trailingCount = optionalCount - (hasLeadingOptional ? 1 : 0);
+-            if (optionalCount is not (1 or 2) || requiredCount < (hasLeadingOptional ? 1 : 3))
++            var initialField = ReadNamedDefault(decision, list.Name, reserved);
++            DefaultSequenceField? ordinaryPrefix = null;
++            if (initialField is null && optionalCount == 1 && requiredCount == 2)
++            {
++                reserved = new HashSet<string>(StringComparer.Ordinal)
++                    { first.Name, second.Name, list.Name, initial.Name, continuation.Name, output.Name };
++                ordinaryPrefix = ReadDefaultSequenceField(decision, list.Name, reserved);
++            }
++
++            if (initialField is null && ordinaryPrefix is null
++                || initialField is not null && (optionalCount is not (1 or 2) || requiredCount < (hasLeadingOptional ? 1 : 3)))
+             {
+                 return false;
+             }
+@@ -135,7 +140,13 @@
+                     }
+                     || tuple.Items[member++] is not Expr.Variable result || result.Name != value.Name
+                     || !DistinctBindings(value, next) || !reserved.Add(value.Name) || !reserved.Add(next.Name)
+-                    || ReadDefaultSequenceField(test, current, reserved) is not { } optional)
++                    || ReadDefaultSequenceField(
++                        test,
++                        current,
++                        reserved,
++                        allowRemote: ordinaryPrefix is not null
++                    ) is not { } optional
++                    || ordinaryPrefix is not null && optional.Module is null)
+                 {
+                     return false;
+                 }
+@@ -169,8 +180,8 @@
+                 initialSlot
+             );
+             previous = EmitTaggedOptionalDecoder(
+-                initialField.Decoder,
+-                initialField.Convert,
++                ordinaryPrefix ?? initialField!.Value.Decoder,
++                initialField?.Convert,
+                 initialSlot,
+                 initialSlot - 1,
+                 leadingLabels,

@@ -1,0 +1,37 @@
+{
+  "Seconds": 22.743096599999262,
+  "Workers": 2,
+  "MaxModulesPerProcess": 40,
+  "Modules": 93,
+  "Evaluator": "b363a5baa4c802d611ae756806a34970b0e986f87c6657ad0db4778f57dceafc",
+  "OriginalInput": "76bf51daa9f6b2e3f66b085cc7bc63d781a7270d356d96b5fe514b48eeee8669",
+  "Output": "04588bf8a796f53d9d6f0b7f6088f80dfa8db49b86ca994d7c135b9817c3390b",
+  "CacheKind": "normalized disassembly keyed by BEAM, oracle and evaluator identities",
+  "MeasuredBenchmark": "f76bdbb5fdb9ccb38c1a3b3ac9c1f618de8a36d1854807cb187c7a03d5cd161a",
+  "CompilerResultsReused": false,
+  "ABBA": "93147398d47e723d401d860b4d95b18743fb0bace38888b73f0bb2af918ac895",
+  "Partitions": [
+    {
+      "Partition": 0,
+      "Modules": 40,
+      "Seconds": 9.70784249999997,
+      "Input": "d46c97199112f2ed1565adb62d5949dfb3741981244caf8b0a7938e6a1656206",
+      "Output": "59d9afb48da16bf768951219a3a5368354656131951b78fd4121a14d0787ec01"
+    },
+    {
+      "Partition": 1,
+      "Modules": 40,
+      "Seconds": 22.727396900001622,
+      "Input": "6ce8e89d44aae6a12b77d9f57b1bdbd2f8cf5580c987068a67bf8b92249f1fce",
+      "Output": "1115e293d5bc1c0435382a0bfa6971491f7bfe838901bdb4fff5fddb787ae527"
+    },
+    {
+      "Partition": 2,
+      "Modules": 13,
+      "Seconds": 1.9925395999998727,
+      "Input": "0cb62c093c8fff2dd15af95704627a1247de3c6b7ad00774e10edbd58ae330d9",
+      "Output": "ef95995b9a51be162b1301064e72cb6896625967c4d43e1d1836585c39959dd7"
+    }
+  ],
+  "Reason": "Bound processes after Part 1950 exhausted Erlang heap at four concurrent workers."
+}

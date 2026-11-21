@@ -1,0 +1,93 @@
+{
+  "otpTag": "OTP-29.1.1",
+  "otpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "part1943Archive": "af3484b68ab1d629b6641d8e9c8446b4631273fada3db358712312088ab4e185",
+  "part1958Production": "c9129f85fa5875003ad1d48b48e8006e09d4c8df6923f06a789005437f20e455",
+  "part1959Production": "b45b90b1c5a9438ae9e6a075eb6fa12f02b5720b1702b3f7447a7db62cf21f85",
+  "baselineCompiler": "723356115f3569d0669ef49c1b98a272614eb63221ab5c56f94ab1d2166081ff",
+  "workerCount": 1,
+  "rawScope": {
+    "lib/inets-9.8/ebin/inets_sup.beam": "Equal",
+    "lib/inets-9.8/ebin/mod_actions.beam": "Different",
+    "lib/inets-9.8/ebin/mod_alias.beam": "Different",
+    "lib/inets-9.8/ebin/mod_head.beam": "Equal",
+    "lib/kernel-11.0.4/ebin/local_udp.beam": "Equal",
+    "lib/stdlib-8.1/ebin/ordsets.beam": "Equal",
+    "lib/xmerl-2.2/ebin/xmerl_html.beam": "Equal"
+  },
+  "nativeStoreCases": 9,
+  "modActions": {
+    "normalizedResidualsBefore": 2,
+    "normalizedResidualsAfter": 1,
+    "newExactMFA": "store/2",
+    "remains": "do/1",
+    "codeSizes": [
+      822,
+      754,
+      732
+    ],
+    "before": {
+      "size": 5524,
+      "sha256": "a7d10461f19260e86fb8f8da25c8587b130d5fe409c88bf2691254d4dd37eaaf"
+    },
+    "after": {
+      "size": 5452,
+      "sha256": "d850fcf0fb892f482ec0aa80c43f0ad13f141226f63d92a058602e69b7caf888"
+    }
+  },
+  "unchangedGeneratedControl": {
+    "path": "lib/inets-9.8/ebin/mod_alias.beam",
+    "size": 15028,
+    "sha256": "7fea38c24e5f73ba064af59f8f36d1511e71dfc3cc9dbf71d19c63d86ee15b61"
+  },
+  "artifacts": {
+    "production.patch": {
+      "size": 12010,
+      "sha256": "8289974b79e54d434313eb62143b94f8eb5e943017407f651e67b8dcaeb7b0db"
+    },
+    "test.patch": {
+      "size": 3181,
+      "sha256": "542d4c8f3c7fc4e0b0d6da8b412a1b29752ab73a3d10a47be069b70131a6a88a"
+    },
+    "replay-files.json": {
+      "size": 918,
+      "sha256": "639e8a54997b41cd5f20308c3789c9744ba7531c165bfd88a7cbe0ece6d2ef5e"
+    },
+    "baseline-scope.json": {
+      "size": 2036,
+      "sha256": "dc0118626837e8aa86a966ecd71e119b55bfc52224d7c3244a248843258c8d74"
+    },
+    "final-scope.json": {
+      "size": 2000,
+      "sha256": "3be14e0138637e4c1edc574a2cf2775175dda13eb0071fc785458eb65019dda4"
+    },
+    "baseline-rank.terms": {
+      "size": 783,
+      "sha256": "781e18f8d09e87fa60e3a38d4999a6ec31066727b63f5f25cd2ad4bea391919f"
+    },
+    "final-rank.terms": {
+      "size": 727,
+      "sha256": "6b92a57c7fbe172922ee10b30cc13fcf6bd430aff1e195c651e371de3cd0d584"
+    },
+    "focused-exits.json": {
+      "size": 51,
+      "sha256": "1ef75e784a5dd11b9c2fe71476a71f94295ce972682d28c771dea17e5ae3df61"
+    },
+    "test-green/Erlang.Tests.dll": {
+      "size": 16384,
+      "sha256": "c72172b07ecf105592f443cf7ff2aaf8e2d90dc57451fd4d62161a207a66f903"
+    },
+    "compiler-bin/Erlang.Compiler.dll": {
+      "size": 5090816,
+      "sha256": "55d67c72a00e43fa951c5fee42b0961cbdde7fa0796ec17497794492dc11dc1a"
+    },
+    "native-store-pinned.terms": {
+      "size": 480,
+      "sha256": "eb8a0acbc72da8f35f9fcf5519f43ce01b9d1beb0c4f769b6df61487db331407"
+    },
+    "native-final-generated.terms": {
+      "size": 480,
+      "sha256": "eb8a0acbc72da8f35f9fcf5519f43ce01b9d1beb0c4f769b6df61487db331407"
+    }
+  }
+}

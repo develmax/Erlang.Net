@@ -1,0 +1,107 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamReleaseBuildProfile.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamReleaseBuildProfile.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamReleaseBuildProfile.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamReleaseBuildProfile.cs
+@@ -23,6 +23,9 @@
+ {
+     public BeamIncludePathMap? IncludePathMap { get; init; }
+ 
++    /// <summary>Include names assigned by the build to executable source locations.</summary>
++    public IReadOnlyDictionary<string, string>? RecordedExecutableIncludePaths { get; init; }
++
+     public IReadOnlyDictionary<string, string>? RecordedIncludeLibraryRoots { get; init; }
+ 
+     /// <summary>Logical build paths keyed by the index of the supplied physical include directory.</summary>
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/CodeGeneration.cs b/src/Compiler/Erlang.Compiler/Compilation/CodeGeneration.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/CodeGeneration.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/CodeGeneration.cs
+@@ -192,7 +192,8 @@
+             includeDirectories?.Select(Path.GetFullPath).ToArray() ?? [],
+             buildProfile?.RecordedIncludeSearchDirectories,
+             buildProfile?.IncludePathMap,
+-            sourcePath
++            sourcePath,
++            buildProfile?.RecordedExecutableIncludePaths
+         );
+ 
+         bool deterministic = buildProfile is null || buildProfile.RecordedCompileOptions?.Contains(Term.A("deterministic")) == true;
+diff --git a/src/Compiler/Erlang.Compiler/Syntax/BeamIncludeResolver.cs b/src/Compiler/Erlang.Compiler/Syntax/BeamIncludeResolver.cs
+--- a/src/Compiler/Erlang.Compiler/Syntax/BeamIncludeResolver.cs
++++ b/src/Compiler/Erlang.Compiler/Syntax/BeamIncludeResolver.cs
+@@ -5,10 +5,15 @@
+     IReadOnlyList<string> includeDirectories,
+     IReadOnlyDictionary<int, string>? recordedIncludeSearchDirectories = null,
+     BeamIncludePathMap? pathMap = null,
+-    string? mainPhysicalPath = null
++    string? mainPhysicalPath = null,
++    IReadOnlyDictionary<string, string>? recordedExecutablePaths = null
+ )
+ {
+     internal string? SourceArgument => pathMap?.SourceArgument;
++
++    internal string ExecutableFile(string requested, string basename, bool deterministic) => deterministic
++        ? basename
++        : recordedExecutablePaths?.GetValueOrDefault(requested) ?? recordedExecutablePaths?.GetValueOrDefault(basename) ?? basename;
+ 
+     internal BeamResolvedInclude? ResolveInclude(
+         string currentPath,
+diff --git a/src/Compiler/Erlang.Compiler/Syntax/BeamMacroPreprocessor.cs b/src/Compiler/Erlang.Compiler/Syntax/BeamMacroPreprocessor.cs
+--- a/src/Compiler/Erlang.Compiler/Syntax/BeamMacroPreprocessor.cs
++++ b/src/Compiler/Erlang.Compiler/Syntax/BeamMacroPreprocessor.cs
+@@ -492,11 +492,12 @@
+                 RecordedIncludePath: RecordedPath(provenance)
+             ));
+             string? recordedIncludePath = includes?.SourceArgument is not null ? RecordedPath(provenance) : null;
++            string executableFile = includes?.ExecutableFile(requested, file, deterministicFileNames) ?? file;
+             ProcessDocument(
+                 ScanDocument(
+                     content,
+                     offset,
+-                    file,
++                    executableFile,
+                     recordedIncludePath
+                 ),
+                 resolved,
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamSourceForms.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamSourceForms.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamSourceForms.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamSourceForms.cs
+@@ -4,7 +4,7 @@
+ {
+     internal static IReadOnlyList<BeamSourceLocation> FunctionLines(IReadOnlyList<Token> tokens, ModuleDefinition module)
+     {
+-        var lines = module.DiameterAccessorLines.Select(line => new BeamSourceLocation(null, line)).ToList();
++        var lines = new List<BeamSourceLocation>();
+         var attributes = module.Attributes.Select(attribute => attribute.Name).ToHashSet(StringComparer.Ordinal);
+         bool seenModule = false;
+ 
+@@ -45,6 +45,14 @@
+             lines.Add(new(token.PreprocessorFile, token.PreprocessorLine));
+         }
+ 
++        if (module.DiameterAccessorLines.Count > 0)
++        {
++            // diameter_exprecs inserts its forms before the first original function.
++            // The executable entry inherits that file and the generated function's first clause line.
++            string? generatedFile = lines.Count > 0 ? lines[0].File : null;
++            lines.InsertRange(0, module.DiameterAccessorLines.Select(line => new BeamSourceLocation(generatedFile, line + 1)));
++        }
++
+         if (module.HasGeneratedEunitTest)
+         {
+             lines.Add(default);
+diff --git a/tools/Validation/Erlang.BeamCorpus/OtpWindowsReleaseProfiles.cs b/tools/Validation/Erlang.BeamCorpus/OtpWindowsReleaseProfiles.cs
+--- a/tools/Validation/Erlang.BeamCorpus/OtpWindowsReleaseProfiles.cs
++++ b/tools/Validation/Erlang.BeamCorpus/OtpWindowsReleaseProfiles.cs
+@@ -680,7 +680,12 @@
+             ["diameter.hrl"] = BuildRoot + "diameter/include/diameter.hrl",
+             ["diameter_gen.hrl"] = BuildRoot + "diameter/include/diameter_gen.hrl"
+         }
+-    );
++    )
++    {
++        RecordedExecutableIncludePaths = subdirectory == "gen"
++            ? new Dictionary<string, string> { ["diameter_gen.hrl"] = BuildRoot + "diameter/include/diameter_gen.hrl" }
++            : null
++    };
+ 
+     private static BeamReleaseBuildProfile MegacoProfile(string subdirectory, string module, bool useBuildDefinitions = false)
+     {

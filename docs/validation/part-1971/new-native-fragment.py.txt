@@ -1,0 +1,51 @@
+cold=group("StandaloneCaseFailure")
+cold_beam=compile_fixture("standalone-case-exit",cold/"beam_projected_case_exit.erl")
+cold_behaviors=otp("standalone-case-native",cold/"native-fixture-retake.eval",
+    cold_beam,cold/"fixture-pinned/beam_projected_case_exit.beam")
+assert cold_behaviors.read_bytes()==(cold/"native-fixture-retake.stdout.log").read_bytes()
+synthetic["isolated-case-exit"]={"Cases":12,"Evidence":sha(cold_behaviors),"Image":sha(cold_beam)}
+
+projected=group("ProjectedReturns")
+projected_image=compile_fixture("projected-returns",projected/"beam_projected_fallthrough.erl")
+results={}
+for role,beam in [("linked",projected_image),("pinned",stage/"projected-pinned/beam_projected_fallthrough.beam")]:
+    term=root/(role+"-projected.etf")
+    otp("projected-return-"+role,stage/"projected-return-native.eval",beam.with_suffix(""),
+        stage/"projected-pinned/beam_return_provider",term)
+    results[role]=sha(term)
+assert results["pinned"]==results["linked"]
+synthetic["projected-construction-return"]={"Cases":10,"Evidence":results["linked"],"Image":sha(projected_image)}
+
+generator=group("TupleOuterGenerators")
+generator_image=compile_fixture("tuple-outer-generators",generator/"beam_tuple_outer_generators.erl")
+sender=(generator/"oracle.eval").read_text(encoding="utf-8-sig")
+old="[Path]=init:get_plain_arguments(),{ok,M,B}=compile:file(Path,[binary]),"
+assert sender.count(old)==1
+sender=sender.replace(old,
+    "[Path]=init:get_plain_arguments(), M=beam_tuple_outer_generators, {ok,B}=file:read_file(Path),")
+recipe=root/"tuple-outer-native.eval"
+recipe.write_text(sender,encoding="utf-8",newline="\n")
+generator_behavior=otp("tuple-outer-generator-behavior",recipe,generator_image)
+assert "OTP 7 behavior profiles passed" in generator_behavior.read_text(encoding="utf-8")
+synthetic["tuple-outer-generators"]={"Cases":7,"Evidence":sha(generator_behavior),"Image":sha(generator_image)}
+three("qlc-mforms", "qlc_pt", stage/"qlc-mforms-native-retake.eval", 6)
+
+atom=group("TwoAtomSelection")
+atom_image=compile_fixture("direct-two-atom-selector",atom/"fixture/two_atom_entry_fixture.erl")
+atom_fixture=otp("two-atom-fixture-native",atom/"fixture/native.eval",atom_image.with_suffix(""),
+                 atom/"fixture/pinned/two_atom_entry_provider")
+assert atom_fixture.read_text(encoding="utf-8").strip()=="{ok,13}"
+synthetic["two-atom-selector"]={"Cases":13,"Evidence":sha(atom_fixture),"Image":sha(atom_image)}
+atom_release=otp("two-atom-release-native",atom/"integration/release-native.eval",refs,previous,candidate)
+verified["two-atom-release"]={"Cases":6,"Evidence":sha(atom_release)}
+
+diameter=group("OutgoingBinaryRoot")
+dictionary=refs/"lib/diameter-2.7.2/src/dict/base_rfc6733.dia"
+diameter_results={}
+for role,origin in roles_for_package:
+    term=root/(role+"-diameter-outgoing.etf")
+    otp("diameter-outgoing-native-"+role,diameter/"release-native-retake.eval",
+        origin/beam_names["diameter_codegen"],dictionary,term)
+    diameter_results[role]=sha(term)
+assert len(set(diameter_results.values()))==1,diameter_results
+verified["diameter-outgoing"]={"Cases":15,"Evidence":diameter_results["linked"]}

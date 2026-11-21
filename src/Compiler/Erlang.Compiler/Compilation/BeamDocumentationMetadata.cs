@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text;
 
 namespace Erlang.Compiler;
@@ -74,6 +75,7 @@ internal static class BeamDocumentationMetadata
         Expr.Literal { Value: Atom atom } => BeamDocumentationWriter.FormatFunctionName(atom.Name),
         Expr.Literal { Value: Integer integer } => integer.Value.ToString(System.Globalization.CultureInfo.InvariantCulture),
         Expr.Literal { Value: Cons text } => BeamMacroStringification.Quote(BeamDocumentationText.ReadText(text), '"'),
+        Expr.Literal { IsEmptyStringLiteral: true, Value: Nil } => "\"\"",
         Expr.Literal { Value: Nil } => "[]",
         Expr.Unary { Operator: ErlangOperators.Minus or ErlangOperators.Plus, Operand: Expr.Literal { Value: Integer } } unary
             => unary.Operator + Format(unary.Operand),
@@ -108,40 +110,47 @@ internal static class BeamDocumentationMetadata
             && call.Function != AutoImportNames.Float && AutoImportSignatures.Contains(call.Function, call.Arguments.Count);
         string name = omitModule ? string.Empty : BeamDocumentationWriter.FormatFunctionName(call.Module!) + ":";
         name += BeamDocumentationWriter.FormatFunctionName(call.Function);
+        int argumentIndent = indent + new StringInfo(name).LengthInTextElements + 1;
+        string[] arguments = call.Arguments.Select(argument => Format(argument, argumentIndent)).ToArray();
+        int[] argumentWidths = arguments.Select(argument => new StringInfo(argument).LengthInTextElements).ToArray();
+        bool fitsOnOneLine = arguments.All(argument => !argument.Contains('\n'))
+            && argumentIndent + argumentWidths.Sum() + 2 * Math.Max(arguments.Length - 1, 0) + 1 <= PrettyPrintLineWidth;
         var result = new StringBuilder(name).Append('(');
-        int argumentIndent = indent + name.Length + 1;
-        bool wrapAtomicArguments = call.Arguments.All(argument => argument is Expr.Variable
-            or Expr.Literal { Value: Atom or Nil }
-            or Expr.List { Items.Count: 0, Tail: null }
-            or Expr.Literal { Value: Integer, IsCharacterLiteral: false });
-        int continuationColumn = indent + name.EnumerateRunes().Count() + 1;
-        int column = continuationColumn;
-        for (int index = 0; index < call.Arguments.Count; index++)
+        int column = argumentIndent;
+
+        // erl_pp formats the entire argument list on one line if it fits.
+        // Otherwise, only consecutive atomic arguments can share a line.
+        for (int index = 0; index < arguments.Length; index++)
         {
-            Expr argument = call.Arguments[index];
-            string text = Format(argument, argumentIndent);
-            int width = wrapAtomicArguments ? text.EnumerateRunes().Count() + 1 : 0;
+            bool atomic = IsAtomicArgument(call.Arguments[index]);
+            int width = argumentWidths[index] + 1;
             if (index != 0)
             {
                 result.Append(',');
-                if (argument is Expr.Fun || wrapAtomicArguments && column + 1 + width > PrettyPrintLineWidth)
-                {
-                    result.Append('\n').Append(' ', wrapAtomicArguments ? continuationColumn : argumentIndent);
-                    column = continuationColumn;
-                }
-                else
+                if (fitsOnOneLine || atomic && column + width + 1 <= PrettyPrintLineWidth)
                 {
                     result.Append(' ');
                     column++;
                 }
+                else
+                {
+                    result.Append('\n').Append(' ', argumentIndent);
+                    column = argumentIndent;
+                }
             }
 
-            result.Append(text);
-            column += width;
+            result.Append(arguments[index]);
+            column = atomic ? column + width : PrettyPrintLineWidth + 1;
         }
 
         return result.Append(')').ToString();
     }
+
+    private static bool IsAtomicArgument(Expr argument) => argument is Expr.Variable
+        or Expr.Literal { Value: Atom }
+        or Expr.Literal { Value: Nil, IsEmptyStringLiteral: false }
+        or Expr.Literal { Value: Integer, IsCharacterLiteral: false }
+        or Expr.List { Items.Count: 0, Tail: null };
 
     private static string FormatFun(Clause clause, int indent)
     {

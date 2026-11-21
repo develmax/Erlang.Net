@@ -1,0 +1,61 @@
+--- a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamDirectTupleStoreChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamDirectTupleStoreChecks.cs
+@@ -54,23 +54,44 @@
+         byte[] initialize = [InitYRegisters, ExtendedListOperand, One, Y0];
+         byte[] saveArgument = [Move, X0, Y1];
+         byte[] directTuple = [PutTuple, Y0, ExtendedListOperand, TwoTupleElements, IntegerTwo, X0];
+-        byte[] fromEntry = [.. entryFrame, .. initialize, .. saveArgument, .. tuple, .. store, .. overwrite];
+-        byte[] directEntry = [.. entryFrame, .. initialize, .. saveArgument, .. directTuple, .. overwrite];
++        byte[] loadForCall = [Move, IntegerTwo, X0];
++        byte[] afterCall =
++        [
++            .. loadForCall, LocalCall, One, EntryLabel, Move, Y0, X0, Deallocate, TwoTupleElements, Return, EndCode
++        ];
++        byte[] fromEntry = [.. entryFrame, .. initialize, .. saveArgument, .. tuple, .. store, .. afterCall];
++        byte[] directEntry = [.. entryFrame, .. initialize, .. saveArgument, .. directTuple, .. afterCall];
+         if (Optimize(fromEntry) is not { } saved || !saved.AsSpan().SequenceEqual(directEntry))
+         {
+             throw new InvalidOperationException(MissingStore);
+         }
+ 
+-        byte[] initialized = [.. entryFrame, .. saveArgument, .. directTuple, .. overwrite];
++        byte[] initialized = [.. entryFrame, .. saveArgument, .. directTuple, .. afterCall];
+         if (Optimize(saved, SimplifyInitialization) is not { } trimmed || !trimmed.AsSpan().SequenceEqual(initialized))
+         {
+             throw new InvalidOperationException(MissingStore);
+         }
+ 
+-        byte[] entryRead = [.. entryFrame, .. initialize, .. saveArgument, .. tuple, .. store, Move, X0, X1, .. overwrite];
++        byte[] entryRead = [.. entryFrame, .. initialize, .. saveArgument, .. tuple, .. store, Move, X0, X1, .. afterCall];
++        byte[] trimmedRoot =
++        [
++            .. entryFrame, InitYRegisters, ExtendedListOperand, One, Y1, Move, X0, Y0,
++            .. tuple, Move, X0, Y1, .. loadForCall, TrimFrame, One, One, LocalCall, One, EntryLabel,
++            Move, Y0, X0, Deallocate, One, Return, EndCode
++        ];
++        byte[] sendPayload =
++        [
++            .. entryFrame, .. initialize, .. saveArgument, .. tuple, .. store,
++            .. loadForCall, Move, Y0, X1, Send, Deallocate, TwoTupleElements, Return, EndCode
++        ];
++        byte[] outgoingArgument =
++        [
++            .. entryFrame, .. initialize, .. saveArgument, .. tuple, .. store,
++            .. loadForCall, Move, Y0, X1, LocalCall, TwoTupleElements, EntryLabel, Deallocate, TwoTupleElements, Return, EndCode
++        ];
+         byte[] interveningGc =
+         [
+-            .. entryFrame, .. initialize, .. saveArgument, TestHeap, Three, One, .. tuple, .. store, .. overwrite
++            .. entryFrame, .. initialize, .. saveArgument, TestHeap, Three, One, .. tuple, .. store, .. afterCall
+         ];
+         byte[] readBeforeDefinition =
+         [
+@@ -81,6 +102,8 @@
+             .. overwrite
+         ];
+         if (Optimize(entryRead) is not null || Optimize(interveningGc) is not null
++            || Optimize(sendPayload) is not null || Optimize(outgoingArgument) is not null
++            || Optimize(trimmedRoot) is not null
+             || Optimize(readBeforeDefinition, SimplifyInitialization) is not null)
+         {
+             throw new InvalidOperationException(LostInput);

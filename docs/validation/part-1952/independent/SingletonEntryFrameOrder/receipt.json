@@ -1,0 +1,53 @@
+{
+  "ParentSource": "0d74bdc34d7938ef7587b8f2bf8dc98a9b43b4459335ca17a6c2c33483b097b2",
+  "Compiler": "605d0069d1944311ef09243c0e32231f42991317c920657a79bc794230172772",
+  "SourceInputCount": 872,
+  "Scope": {
+    "Equal": 20,
+    "Different": 6,
+    "Changed": 4,
+    "NormalizedGains": 2,
+    "NormalizedLosses": 0,
+    "NearerFrames": 4,
+    "FartherFrames": 0
+  },
+  "PatchDigests": {
+    "production.patch": "219f6f2a54322cfa3a82e26939a01d04aac774c31be258f7e1b177a936b56e8b",
+    "test.patch": "d00d87a0ef12c1cdd5620af574b38944c39169f2836e552eb535bba4f04ef907"
+  },
+  "Files": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": {
+      "Before": "0799e1252e38193c56ac3a17a7a6dd6bec47050e55cbd93ff156c2f0b36ba8a2",
+      "After": "84581e071ab0ba0986f0252709427fd2ae7789f2d1300444846447b60e6243b1"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SingletonEntryFrames.cs": {
+      "Before": null,
+      "After": "fa2e716a04d40fc6ab6a5a3de216b1bb4ed188f51bcf1677a6cb2139b066f26f"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamSingletonEntryFramesChecks.cs": {
+      "Before": null,
+      "After": "def300b15efdba8c4d79b14f0b36b2b0cdf55304fad3e94c0810c6dba928aa7a"
+    },
+    "tests/Erlang.Tests/Harness/Program.cs": {
+      "Before": "ca2f1511673df7b68aaa22e1fed566dc3676ad4f3aca7a7502030ec3f4aad562",
+      "After": "0a9da73ced630f9f73732bf0b16f892b2a356328e5d8e77339bacded877d638c"
+    }
+  },
+  "Evidence": {
+    "scope-relay/otp-corpus.json": "0675dce6afd24776f74366f88cd2fe2918a31f2d954403bff99e1198e99d41e0",
+    "scope-relay/normalized-summary.terms": "247cdbdba25d786185c11082b07ac27e9c3f7cd72f44940fc431a8765e1604b3",
+    "scope-relay/delta.json": "95eb5a0851b9be6402c15c0dc8526bc1112870dde4da46ac40c7a967163d6aa9",
+    "native-singleton-frame.terms": "59cabfeba15e45112977af05060974977735051036e3678c85933544e143c998",
+    "native-singleton-release-lines.terms": "58368f1aecb58096c81c268e9bf99a7658405f4cfeed2896c783717ffe22b6a5",
+    "fixture-relay-before.log": "4854a9c6fe7d9b2d50e134a20e66186076828bbcc9c7069a851251f347974e13",
+    "fixture-relay-after.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "fixture-relay-before.exit": "e4e7851eff84375b526b7f4fcb50db23a941ff4d35de163fda833cfde6e5ec3e",
+    "fixture-relay-after.exit": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "seal-style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "build/Erlang.Compiler.csproj": "3e02ff15d425e853a14e95ef1ab7411d9e498d74b90d01592ab94dea9a5f4c40"
+  },
+  "FormattedFiles": [
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SingletonEntryFrames.cs",
+    "tests/Erlang.Tests/Compiler/Beam/BeamSingletonEntryFramesChecks.cs"
+  ]
+}

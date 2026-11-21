@@ -1,0 +1,11 @@
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamTerminalClosureCaptureChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamTerminalClosureCaptureChecks.cs
+@@ -61,7 +61,7 @@
+         );
+ 
+         return (byte[]?)Call(
+-            typeof(BeamModuleCompiler),
++            new BeamModuleCompiler("terminal_closure_capture_rewrite"),
+             "KeepTerminalCallResultsInX0",
+             code,
+             body,

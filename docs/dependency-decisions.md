@@ -1,5 +1,117 @@
 # Dependency and compatibility decisions
 
+Part 1978 reuses the pinned OTP frame liveness, guarded writeable binary construction, and stack-to-argument order in existing C# emitters. No third-party dependency or license changed. [Evidence](validation/part-1978/README.md).
+
+Part 1977 follows OTP Core traversal, SSA helper naming and list matching. It reuses existing managed compiler components and retains the OTP license provenance. [Evidence](validation/part-1977/README.md).
+
+Part 1976 reuses pinned OTP Core/SSA call, constructor and register lifetime rules with existing C# emitters. [Evidence](validation/part-1976/README.md).
+
+Part 1955 reuses Core literal partitioning, captured register ownership, binary generator layout, and the original checked record path. No dependencies added. [Evidence](validation/part-1955/README.md).
+
+Part 1954 reuses the source reachability graph, pinned Diameter accessor annotation rules and BER transition lowering. No dependency is added. [Evidence](validation/part-1954/README.md).
+
+Part 1953 reuses pinned OTP checked entry predicates, live-root ownership, nested branch allocation and ASN.1 generator selector scheduling. No dependencies added. [Evidence](validation/part-1953/README.md).
+
+Part 1952 reuses OTP checked entry predicates, root and argument placement, conversion clause partitioning, and generated ASN.1 decoder ownership. No dependencies added. [Evidence](validation/part-1952/README.md).
+
+Part 1951 reuses OTP guarded receive, argument scheduling, type-proven tuple filters, and the ASN.1 terminal selector ordering. No dependencies added. [Evidence](validation/part-1951/README.md).
+
+Part 1950 reuses OTP construction ownership, handler field liveness, late frame trimming and exhaustive case lowering. No dependencies added. [Evidence](validation/part-1950/README.md).
+
+Part 1949 reuses OTP entry-frame definitions, selective receive lowering, constructor dispatch and local ASN.1 generator passes. No dependencies added. [Evidence](validation/part-1949/README.md).
+
+Part 1948 reuses OTP stack-root liveness, checked tuple lowering, and local ASN.1 generator passes. No dependencies added. [Evidence](validation/part-1948/README.md).
+
+Part 1947 reuses OTP binary match contexts, frame reservation, Core comprehension helpers and local ASN.1 generator passes. No dependencies added. [Evidence](validation/part-1947/README.md).
+
+Part 1946 reuses OTP frame reservation, Core comprehension helpers, checked record calls and local ASN.1 generator passes. No dependencies added. [Evidence](validation/part-1946/README.md).
+
+Part 1945 reuses OTP conditional source and register ownership proofs, checked comprehension inputs and protected calls. No dependencies added. [Evidence](validation/part-1945/README.md).
+
+Part 1944 reuses OTP argument scheduling, checked list projections and binary operand type rules. No dependencies added. [Evidence](validation/part-1944/README.md).
+
+Part 1943 reuses OTP argument move scheduling, direct constructor destinations and checked record source binding. No dependencies added. [Evidence](validation/part-1943/README.md).
+
+Part 1942 reuses register decoding, source record patterns and pinned frame, live-root and field scheduling. No dependencies added. [Evidence](validation/part-1942/README.md).
+
+Part 1941 reuses source list pattern facts, pinned frame and call scheduling, terminal block sharing and constructor destinations. No dependencies added. [Evidence](validation/part-1941/README.md).
+
+Part 1940 reuses source and SSA range proofs, register liveness, selection sharing and recursive comprehension helper lowering. No dependencies added. [Evidence](validation/part-1940/README.md).
+
+Part 1939 reuses pinned frame liveness, cold block ownership, constructor propagation, selection sharing and helper naming. No dependencies added. [Evidence](validation/part-1939/README.md).
+
+Part 1938 reuses pinned SSA type proofs, register destinations, branch ownership and block sharing. No dependencies added. [Evidence](validation/part-1938/README.md).
+
+Part 1937 reuses pinned SSA cons proofs, measured branch frame placement and table use order. No dependencies added. [Evidence](validation/part-1937/README.md).
+
+Part 1936 reuses pinned SSA private entry facts, guard proofs and final label edits. No dependencies added. [Evidence](validation/part-1936/README.md).
+
+Part 1935 reuses pinned SSA destination liveness, record proof preservation and heap placement. No dependencies added. [Evidence](validation/part-1935/README.md).
+
+Part 1934 reuses pinned SSA row-shape checks, independent call moves and register liveness. No dependencies added. [Evidence](validation/part-1934/README.md).
+
+Part 1933 reuses pinned SSA context admission, constructor checks, tuple projection ordering and code generation. No dependencies added. [Evidence](validation/part-1933/README.md).
+
+Part 1932 reuses source-backed protected branches, fixed-width unit inference and ASN.1 emitters. No dependencies added. [Evidence](validation/part-1932/README.md).
+
+Part 1931 reuses source-backed branch and binary emitters, pinned literal coalescing and fixed-width unit inference. No dependencies added. [Evidence](validation/part-1931/README.md).
+
+Part 1930 reuses the protected entry instruction and short-return expansion. Pinned beam_ssa_codegen and beam_jump guide the changes. No dependencies added. [Evidence](validation/part-1930/README.md).
+
+Part 1929 reuses existing terminal-call frame normalization, pinned nontrapping BIF classification and the stack projection use scan. Pinned beam_ssa_pre_codegen guides the changes. No dependencies added. [Evidence](validation/part-1929/README.md).
+
+Part 1927 reuses existing Boolean return inference, frame ownership and argument ordering, and shared wx class probes. Pinned beam_ssa_type and beam_ssa_codegen guide these changes. No dependencies added. [Evidence](validation/part-1927/README.md).
+
+Part 1926 reuses saved call movement, tuple liveness, the fixed literal append threshold and codec field scheduling. Pinned beam_jump, sys_core_fold and beam_ssa_codegen guide emission. No external dependency was added. [Evidence](validation/part-1926/README.md).
+
+Part 1925 reuses the existing bit-match context, proven register flow, checked ASN.1 labels and retained owner planning. Pinned beam_ssa_pre_codegen and beam_ssa_codegen guide these changes. No external dependency was added. [Evidence](validation/part-1925/README.md).
+
+Part 1924 reuses the existing recursive mapper, its checked tail emission, source-scoped constructors and ASN.1 field/call planners. Pinned v3_core and beam_core_to_ssa guide generated helper identity and physical order. No new external dependency. [Evidence](validation/part-1924/README.md).
+
+Part 1923 reuses the independent move chain, guarded receive flow, saved-call construction, and ASN.1 closure/record planning. Pinned v3_core and beam_ssa_codegen guide lowering and metadata order. No new external dependency. [Evidence](validation/part-1923/README.md).
+
+Part 1922 reuses existing binary match operations, stashed call sequences, ASN.1 default-value discovery and protected call frames. Pinned v3_core, beam_ssa_pre_codegen and beam_ssa_codegen guide schedules. No new external dependency. [Evidence](validation/part-1922/README.md).
+
+Part 1921 reuses the BEAM operand reader, final reference remapping, guarded source overloads and ASN.1 helper discovery. Pinned beam_asm, beam_ssa_pre_codegen and beam_ssa_codegen guide these changes. No new external dependency. [Evidence](validation/part-1921/README.md).
+
+Part 1920 reuses final code-operand traversal and function metadata remapping, shared source guards and types, and generated ASN.1 decoder inference. Pinned beam_clean, beam_ssa_pre_codegen and beam_ssa_codegen guide these changes. No new external dependency. [Evidence](validation/part-1920/README.md).
+
+Part 1919 reuses closed SSA selector plans, shared source guards, generated ASN.1 prefix decoders, and binary match-context and typed operand handling. Pinned OTP beam_core_to_ssa, beam_ssa_opt and beam_ssa_codegen guide these changes. No new external dependency. [Evidence](validation/part-1919/README.md).
+
+Part 1918 reuses cold branch scheduling, shared source record and option guards, generated ASN.1 constructor helpers, interprocedural typed folds and deferred local definitions. Pinned OTP beam_core_to_ssa, beam_ssa_pre_codegen, beam_ssa_codegen and beam_trim guide these changes. No new external dependency. [Evidence](validation/part-1918/README.md).
+
+Part 1917 reuses wx option scheduling, generated ASN.1 object and sequence contracts, boxed arithmetic emission and typed comprehension lowering. Pinned OTP v3_core, beam_ssa_type and beam_ssa_codegen guide these changes. No new external dependency. [Evidence](validation/part-1917/README.md).
+
+Part 1916 reuses nested tuple guard and projection proofs, typed BEAM and generated ASN.1 lowering, wx option schedules and existing IEEE BIF emission. Pinned OTP v3_core, beam_ssa_type and beam_ssa_codegen guide these changes. No new external dependency. [Evidence](validation/part-1916/README.md).
+
+Part 1915 reuses typed closure and entry proofs, ASN.1 constructor and default paths, native capture and label compaction. Pinned OTP beam_types, beam_ssa_type, beam_ssa_codegen and beam_trim guide the changes. No new external dependency. [Evidence](validation/part-1915/README.md).
+
+Part 1914 reuses guard type reasoning, local argument closure proofs, frame scheduling and terminal construction. Pinned OTP beam_ssa_type, beam_ssa_pre_codegen, beam_ssa_codegen and beam_trim guide the changes. No new external dependency. [Evidence](validation/part-1914/README.md).
+
+Part 1913 reuses native instruction readers, source construction planning and type facts. Pinned OTP SSA simplification, Core constructors, pre-codegen allocation and beam_trim guide the changes. No new external dependency. [Evidence](validation/part-1913/README.md).
+
+Part 1912 reuses file provenance, ownership and type planners plus the compiler's source-derived construction pipeline. Pinned OTP Core and SSA drive helper numbering, counted folds, returned literals and immutable captures. Native reference files are used for comparison. [Release evidence](validation/part-1912/README.md).
+
+Part 1911 reuses checked frame, arithmetic and source-construction planners. Pinned Core and SSA describe the closure constructor and operand order. BER exactness follows the pinned original generator and pooled match contexts with effective release options. No extra external packages or runtime APIs. [Release evidence](validation/part-1911/README.md).
+
+Part 1910 reuses the checked branch and operand planners, the pinned SSA failure and frame ordering, and generated BER runtime source. No new package or runtime export is used. [Release report](validation/part-1910/README.md).
+
+Part 1909 reuses the C# checked-field, list dispatch, result register and type encoding paths. Pinned Apache-2.0 OTP Core, SSA and BEAM sources and the shared BER generator inputs determine the lowering. No additional package or runtime export. [Release report](validation/part-1909/README.md).
+
+Part 1908 reuses checked record capture and projection, size operand facts, branch-local call frames and the existing native validation toolchain. Pinned Apache-2.0 OTP source and its generated ASN.1 inputs explain the complete raw checks. No new external dependency or runtime export is used. [Pinned evidence](validation/part-1908/README.md).
+
+Part 1907 reuses the C# decode, typed operand, case dispatch and checked child-result emission. The pinned Apache-2.0 OTP SSA and generator schedules explain original binary SizeUnit, atom arm order and call lifetime. Raw replay evidence identifies a normalization limitation. No external package was added. [Native and raw evidence](validation/part-1907/README.md).
+
+Part 1906 reuses the C# entry-binding, checked frame ownership and closure live-root machinery. Pinned Apache-2.0 OTP beam_ssa_type, beam_ssa_pre_codegen and beam_ssa_codegen define constant substitution, guarded list continuation frames and closure allocation. No external package was added. [Linked proof](validation/part-1906/README.md).
+
+Part 1905 reuses the C# atom selectors, BEAM compact operands, branch-owned frame helpers and ASN.1 checked decoder model. Pinned Apache-2.0 OTP SSA and assembler scheduling provide the reference. The original Windows tools serve as build inputs or diagnostic executors under the recorded profiles. No new package is needed. [Pinned evidence](validation/part-1905/README.md).
+
+Part 1904 reuses the C# branch, register, numeric range and constructor readers. Pinned Apache-2.0 OTP v3_core, beam_ssa_type, beam_ssa_pre_codegen and beam_ssa_codegen establish bounds, frame placement and register lifetimes. The pinned ASN.1 generator provides checked release-source inputs. No extra package is required. [Source and native evidence](validation/part-1904/README.md).
+
+Part 1902 reuses the C# ownership graph, the original record operand decoder and first-use line table reconstruction. The pinned Apache-2.0 BEAM SSA code generator defines local tail line handling. The updated live-root proof admits typed sources and all record replacement values from the original syntax. Release path remaps follow the pinned Makefiles and native EPP. No new package is required. [Evidence](validation/part-1902/full-release/README.md).
+
+Part 1898 reuses the existing C# BEAM writer and preprocessor for textual assembly and the optional abstract companion. It reuses the selected branch allocator, documentation writers and record expansion model. Pinned Apache-2.0 OTP beam_asm, erl_expand_records, v3_core, beam_ssa_pre_codegen, beam_ssa_codegen and Windows release Makefiles define the observed behavior. No new package is required. [Implementation and evidence](validation/part-1898/full-release/README.md).
+
 Part 1875 reuses operand liveness, symbolic argument scheduling and the existing core EPP path abstraction. Pinned Apache-2.0 OTP beam_validator, SSA call setup and Stdlib release makefiles establish the call inputs and bootstrap order. No additional packages or registered exports. [Evidence](validation/part-1875/README.md).
 
 Part 1874 reuses BEAM operand decoding, compact writing and source-owned terminal lifetimes. Pinned Apache-2.0 OTP SSA pre-codegen and native execution confirm initialized X roots, selector/projection order and direct tail construction. CLR and LLVM registers lack these BEAM live-root operands. The independent byte model serves only as a diagnostic. [Evidence](validation/part-1874/README.md).

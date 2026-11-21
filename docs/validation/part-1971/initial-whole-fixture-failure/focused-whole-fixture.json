@@ -1,0 +1,19 @@
+{
+  "Partial": true,
+  "SelectedCount": 1,
+  "TotalCount": 10317,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/beam/whole-module-matches-otp"
+  ],
+  "Passed": 0,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "compiler/beam/whole-module-matches-otp",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Generated module differs from OTP: beam_finite_entry_dispatch_probe\r\n   at Erlang.Tests.BeamModuleEmissionChecks.CompareFixture(String module) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamModuleEmissionChecks.cs:line 8874\r\n   at Erlang.Tests.BeamModuleEmissionChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamModuleEmissionChecks.cs:line 350\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Harness\\Program.cs:line 17898",
+      "Milliseconds": 1595
+    }
+  ]
+}

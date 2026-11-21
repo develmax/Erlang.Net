@@ -1,0 +1,31 @@
+[Root, Output, CountString] = init:get_plain_arguments(),
+Files = filelib:fold_files(Root, "^functions[.]terms$", true, fun(P, A) -> [P | A] end, []),
+false = (Files =:= []),
+Merge = fun(As, Bs) ->
+    maps:fold(fun(Group, Modules, A) ->
+        maps:update_with(Group, fun(Previous) ->
+            true = lists:all(fun(Key) -> not maps:is_key(Key, Previous) end, maps:keys(Modules)),
+            maps:merge(Previous, Modules)
+        end, Modules, A)
+    end, As, Bs)
+end,
+Data = lists:foldl(fun(Path, Acc) ->
+    {ok, [Part]} = file:consult(Path),
+    #{opcode_groups := Op, allocation_operand_groups := Alloc,
+      different_images := N, same_opcode_sequences := Same, unreadable := Errors} = Part,
+    #{opcode_groups := AOp, allocation_operand_groups := AAlloc,
+      different_images := AN, same_opcode_sequences := ASame, unreadable := AErrors} = Acc,
+    Modules = maps:map(fun(_, {_, Ms}) -> Ms end, Alloc),
+    Before = maps:map(fun(_, {_, Ms}) -> Ms end, AAlloc),
+    Count = fun(Ms) -> lists:sum([length(Fs) || Fs <- maps:values(Ms)]) end,
+    Merged = maps:map(fun(_, Ms) -> {Count(Ms), Ms} end, Merge(Before, Modules)),
+    #{opcode_groups => Merge(AOp, Op), allocation_operand_groups => Merged,
+      different_images => AN + N, same_opcode_sequences => ASame + Same, unreadable => AErrors ++ Errors}
+end, #{opcode_groups => #{}, allocation_operand_groups => #{}, different_images => 0,
+       same_opcode_sequences => 0, unreadable => []}, Files),
+Count = list_to_integer(CountString),
+Count = maps:get(different_images, Data),
+{ok, Out} = file:open(Output, [write,{encoding,utf8}]),
+io:format(Out, "~Kp.~n", [ordered, Data#{unreadable := lists:sort(maps:get(unreadable,Data))}]),
+ok = file:close(Out),
+halt(0).

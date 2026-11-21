@@ -9,7 +9,8 @@ internal sealed partial class BeamModuleCompiler
         int End,
         int Tag,
         int Value,
-        bool IsJump = false
+        bool IsJump = false,
+        bool IsRemoval = false
     );
 
     private int[]? emittedLabels;
@@ -102,6 +103,28 @@ internal sealed partial class BeamModuleCompiler
         bool CanDiscardExternalTailFrame(BeamInstruction instruction) =>
             !IsTrappingTailBif(importsByIndex[(int)instruction.Operands[1].Value], atomNames);
 
+        bool IsBodyHead(BeamInstruction instruction)
+        {
+            if (ModuleOptimizationDisabled || instruction is not
+                {
+                    Definition.Opcode: BifOne,
+                    Operands: [{ Kind: BeamOperandParameters.Failure, Value.IsZero: true }, var index, _, _]
+                })
+            {
+                return false;
+            }
+
+            var import = importsByIndex[(int)index.Value];
+
+            return import.Arity == 1 && atomNames[import.Module - 1] == ErlangModuleNames.Module
+                && atomNames[import.Function - 1] == ErlangModuleNames.Head;
+        }
+
+        bool IsPublicEntry(BeamInstruction instruction) => exportedFunctions.Contains((
+            atomNames[(int)instruction.Operands[1].Value - 1],
+            (int)instruction.Operands[2].Value
+        ));
+
         var exits = importsByIndex.Select((entry, index) => (entry, index))
             .Where(item => atomNames[item.entry.Module - 1] == ErlangModuleNames.Module
                 && atomNames[item.entry.Function - 1] is ErlangModuleNames.Error or ErlangModuleNames.Exit
@@ -178,16 +201,33 @@ internal sealed partial class BeamModuleCompiler
                 .Select(closure => MapEmittedLabel(closure.Entry))
                 .ToHashSet();
             byte[]? simplified = SimplifyValueSelections(code, body, labelOperands)
+                ?? (shareReturns ? null : OrderSharedEntryAtomClauses(
+                    code,
+                    body,
+                    labelOperands,
+                    atomNames
+                ))
+                ?? (SsaTypeInferenceEnabled ? CombineAtomMembershipTests(
+                    code,
+                    body,
+                    labelOperands,
+                    atomNames
+                ) : null)
                 ?? InvertBranchTests(code, body, labelOperands)
                 ?? NormalizeIntegerComparisons(code, body)
+                ?? NormalizeNilEqualityTests(code, body)
+                ?? NormalizeNonnumericComparisonTests(code, body)
                 ?? AnnotateBinaryExtractRanges(code, body, atomNames)
                 ?? NormalizeTaggedTupleBranches(code, body)
+                ?? (shareReturns ? null : ShareCheckedEntryRecordTests(code, body, labelOperands))
                 ?? AnnotateKeyFindTupleTests(
                     code,
                     body,
                     atomNames,
                     importsByIndex
                 )
+                ?? RemoveTerminalTupleAlias(code, body)
+                ?? PlaceCheckedFieldCallFrame(code, body)
                 ?? FoldListHeadSwap(code, body)
                 ?? ReuseReconstructedCons(code, body)
                 ?? CombineConstructionHeapChecks(code, body)
@@ -201,12 +241,14 @@ internal sealed partial class BeamModuleCompiler
                     importsByIndex
                 )
                 ?? ForwardCallResult(code, body)
+                ?? SeparateBinaryArgumentReturnFrame(code, body)
                 ?? EliminateEntryArgumentCopies(
                     code,
                     body,
                     stackOperands,
                     removeSpills: true
                 )
+                ?? RemoveProtectedEntryArgumentReloads(code, body)
                 ?? UseSavedBranchOperands(code, body)
                 ?? ForwardSavedCallResults(code, body, stackOperands)
                 ?? PlaceEntryBifBeforeAllocation(
@@ -215,11 +257,42 @@ internal sealed partial class BeamModuleCompiler
                     stackOperands,
                     instruction => IsLeafArithmeticGcBif(instruction, atomNames, importsByIndex)
                 )
+                ?? KeepCallResultForArithmeticFanout(
+                    code,
+                    body,
+                    stackOperands,
+                    atomNames,
+                    importsByIndex
+                )
+                ?? DelayCallResultStoreThroughArithmetic(
+                    code,
+                    body,
+                    atomNames,
+                    importsByIndex
+                )
+                ?? KeepValidatedCallValueInRegisters(
+                    code,
+                    body,
+                    atomNames,
+                    importsByIndex
+                )
                 ?? StoreBifResultsDirectly(code, body)
+                ?? ConstructSendTupleInArgument(code, body)
                 ?? StoreConstructionResultsDirectly(code, body)
+                ?? ReuseReturningTupleRegister(code, body)
                 ?? SinkTupleReadsAcrossCalls(code, body, stackOperands)
-                ?? RemoveRepeatedFailureProjections(code, body)
+                ?? RemoveRepeatedFailureProjections(
+                    code,
+                    body,
+                    labelOperands,
+                    shareCheckedFallbacks: !ModuleOptimizationDisabled && SsaTypeInferenceEnabled
+                )
                 ?? ForwardStackProjections(code, body)
+                ?? ForwardInteriorCallArgumentCopies(code, body)
+                // Remove unread leaf slots before their projections become X writes.
+                ?? RemoveDeadStackProjections(code, body, requiresOrdinaryCall: false)
+                ?? RemoveDeadCheckedEntryListHeads(code, body)
+                ?? ForwardDuplicatedTrailingFrameReads(code, body, stackOperands)
                 ?? RemoveUnusedTrailingFrameSlots(code, body)
                 ?? ReallocateLeafFrameRegisters(
                     code,
@@ -232,18 +305,28 @@ internal sealed partial class BeamModuleCompiler
                     code,
                     body,
                     stackOperands,
-                    CanDiscardExternalTailFrame
+                    CanDiscardExternalTailFrame,
+                    IsPublicEntry
                 )
+                ?? SplitCheckedConversionFrames(code, body)
                 ?? SinkTupleReadsPastGuards(code, body)
                 ?? SimplifyFrameInitialization(code, body)
                 ?? FoldTerminalCalls(code, body)
                 ?? ScheduleCallResultStores(code, body)
+                ?? ExchangeCallResultWithSavedInput(code, body)
+                ?? ExchangeCallResultWithDeadArgument(code, body, stackOperands)
                 ?? ReuseStackSlots(code, body, stackOperands)
                 ?? OrderIndependentStackStores(code, body)
                 ?? LoadCallArgumentsBeforeReusedResultStore(code, body)
                 ?? ComposeTailArgumentCopies(code, body)
                 ?? OrderIndependentCallArguments(code, body)
                 ?? ReallocateSingletonRecordTail(code, body)
+                ?? RetainPositionedBinaryTail(
+                    code,
+                    body,
+                    atomNames,
+                    importsByIndex
+                )
                 ?? TrimAllocationLiveRegisters(code, body)
                 ?? NormalizeTailCallFrames(
                     code,
@@ -280,7 +363,8 @@ internal sealed partial class BeamModuleCompiler
                     stackOperands,
                     removeSpills: false
                 ))
-                ?? (shareReturns ? null : MoveTerminalErrorBlocks(code, body))
+                ?? (shareReturns ? null : MoveTerminalErrorBlocks(code, body, labelCount))
+                ?? (shareReturns ? null : ForwardDuplicatedOwnedFrameReads(code, body, stackOperands))
                 ?? (shareReturns ? null : CompactDisjointFrames(code, body, stackOperands))
                 ?? (shareReturns ? null : ReallocateLeafFrameRegisters(
                     code,
@@ -288,7 +372,17 @@ internal sealed partial class BeamModuleCompiler
                     stackOperands,
                     afterCanonicalization: true,
                     isArithmetic: instruction => IsLeafArithmeticGcBif(instruction, atomNames, importsByIndex),
-                    canDiscardExternalTailFrame: CanDiscardExternalTailFrame
+                    canDiscardExternalTailFrame: CanDiscardExternalTailFrame,
+                    isBodyHead: IsBodyHead
+                ))
+                // Moving a matched list prefix into X must not hide the original frame from leaf allocation.
+                ?? (shareReturns ? null : DelayEntryStackFrame(
+                    code,
+                    body,
+                    stackOperands,
+                    CanDiscardExternalTailFrame,
+                    IsPublicEntry,
+                    closedListMatchesOnly: true
                 ))
                 ?? (shareReturns ? null : PromotePostCallProjectionSlots(
                     code,
@@ -302,15 +396,55 @@ internal sealed partial class BeamModuleCompiler
                     labelOperands,
                     stackOperands
                 ))
+                // Preserve the specialized select fallback schedule before reallocating other owned frames.
+                ?? (shareReturns ? null : ReallocateLeafFrameRegisters(
+                    code,
+                    body,
+                    stackOperands,
+                    afterCanonicalization: true,
+                    isArithmetic: instruction => IsLeafArithmeticGcBif(instruction, atomNames, importsByIndex),
+                    canDiscardExternalTailFrame: CanDiscardExternalTailFrame,
+                    ownedBranchesOnly: true
+                ))
                 // Keep saved map inputs visible to the frame and alias passes first.
                 ?? KeepAdjacentResultsInX0(
                     code,
                     body,
                     stackOperands,
                     mapOnly: true
-                );
+                )
+                // Call-aware frame rewrites consume complete destructuring shapes.
+                // Once they settle, remove unread projections and revisit frame compaction.
+                ?? (shareReturns ? null : RemoveDeadStackProjections(code, body, requiresOrdinaryCall: true))
+                ?? (shareReturns ? null : RemoveOverwrittenTupleProjections(code, body))
+                ?? (shareReturns ? null : StoreRecordUpdateInCallArgument(code, body))
+                ?? (shareReturns ? null : LocalizeCheckedRecordCallFrame(
+                    code,
+                    body,
+                    instruction => IsLeafArithmeticGcBif(instruction, atomNames, importsByIndex),
+                    atomNames,
+                    importsByIndex
+                ))
+                // Earlier fixed-point passes may still need the original failure reload.
+                ?? (shareReturns ? null : ReuseProducerBinaryMatchFailure(code, body, atomNames));
 
-            return simplified is null ? null : (simplified, Enumerable.Range(0, labelCount).ToArray(), 0);
+            if (simplified is not null)
+            {
+                return (simplified, Enumerable.Range(0, labelCount).ToArray(), 0);
+            }
+
+            if (ShareFallthroughTupleReturns(code, body) is { } sharedFallthrough)
+            {
+                return (sharedFallthrough, Enumerable.Range(0, labelCount).ToArray(), 0);
+            }
+
+            return shareReturns ? null : OrderNestedEntryLabels(
+                code,
+                body,
+                labelOperands,
+                atomNames,
+                labelCount
+            );
         }
 
         var remappedLabels = new int[labelCount];
@@ -714,5 +848,5 @@ internal sealed partial class BeamModuleCompiler
     private static bool EndsBeamBlock(int opcode) =>
         opcode is Return or Jump or SelectValue or SelectTupleArity or TailLocalCall or TailLocalCallWithFrame
             or TailExternalCall or TailExternalCallWithFrame or TailDynamicApply or CaseEnd or BadMatch
-            or BadRecord or TryCaseEnd or Raise or LoopReceiveEnd or Wait;
+            or BadRecord or IfEnd or TryCaseEnd or Raise or LoopReceiveEnd or Wait;
 }

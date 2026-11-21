@@ -1,0 +1,20 @@
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamCallArgumentKillsChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamCallArgumentKillsChecks.cs
+@@ -37,7 +37,7 @@
+             end.
+         """;
+ 
+-    internal static void Run()
++    internal static Task Run()
+     {
+         object code = Code(CodeGeneration.CompileBeamModule(Source, Fixture));
+         string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
+@@ -59,6 +59,8 @@
+         {
+             throw new InvalidOperationException(WrongDependentOrder);
+         }
++
++        return Task.CompletedTask;
+ 
+         (object First, object Second) ReadSecondCallSetup(string name)
+         {

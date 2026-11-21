@@ -1,0 +1,30 @@
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12544,6 +12544,27 @@
+ Test(Erlang.Tests.BeamProtectedEntryAliasChecks.TestName, Erlang.Tests.BeamProtectedEntryAliasChecks.Run);
+ Test(Erlang.Tests.BeamProtectedShortReturnChecks.TestName, Erlang.Tests.BeamProtectedShortReturnChecks.Run);
+ Test(Erlang.Tests.BeamBinaryConstructionStringChecks.TestName, Erlang.Tests.BeamBinaryConstructionStringChecks.Run);
++Test(Erlang.Tests.BeamOwnedConstructorAndCatchChecks.TestName, () =>
++{
++    Erlang.Tests.BeamOwnedConstructorAndCatchChecks.Run();
++    return Task.CompletedTask;
++});
++Test(Erlang.Tests.BeamTerminalReconstructionChecks.TestName, Erlang.Tests.BeamTerminalReconstructionChecks.Run);
++Test(Erlang.Tests.BeamWxInterleavedTextGuardsChecks.TestName, () =>
++{
++    Erlang.Tests.BeamWxInterleavedTextGuardsChecks.Run();
++    return Task.CompletedTask;
++});
++Test(Erlang.Tests.BeamLateOutgoingRootTrimChecks.TestName, () =>
++{
++    Erlang.Tests.BeamLateOutgoingRootTrimChecks.Run();
++    return Task.CompletedTask;
++});
++Test(Erlang.Tests.BeamDeferredHandlerTupleFieldsChecks.TestName, () =>
++{
++    Erlang.Tests.BeamDeferredHandlerTupleFieldsChecks.Run();
++    return Task.CompletedTask;
++});
+ Test(
+     Erlang.Tests.BeamSharedTaggedHeadDispatchChecks.TestName,
+     () =>

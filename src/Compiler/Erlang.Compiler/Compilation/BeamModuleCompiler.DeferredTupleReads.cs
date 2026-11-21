@@ -15,7 +15,7 @@ internal sealed partial class BeamModuleCompiler
     private static byte[]? SinkTupleReadsAcrossCalls(
         ReadOnlyMemory<byte> code,
         IReadOnlyList<BeamInstruction> body,
-        List<(int Start, int End, int Slot)> stackOperands
+        IReadOnlyList<(int Start, int End, int Slot)> stackOperands
     )
     {
         using var output = new MemoryStream();
@@ -75,12 +75,7 @@ internal sealed partial class BeamModuleCompiler
                         continue;
                     }
 
-                    int operand = stackOperands.BinarySearch((copied, 0, 0),
-                        Comparer<(int Start, int End, int Slot)>.Create(static (a, b) => a.Start.CompareTo(b.Start)));
-                    if (operand < 0)
-                    {
-                        operand = ~operand;
-                    }
+                    int operand = FirstStackOperandAtOrAfter(stackOperands, copied);
 
                     for (; operand < stackOperands.Count && stackOperands[operand].Start < next; operand++)
                     {

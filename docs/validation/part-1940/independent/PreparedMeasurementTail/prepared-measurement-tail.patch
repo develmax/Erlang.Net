@@ -1,0 +1,111 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -689,7 +689,7 @@
+                 || TryEmitPairForwarding(function) || TryEmitForwardedCallResult(function)
+                 || TryEmitCapturedComprehensionParent(function)
+                 || TryEmitGuardedCallTupleProjection(function)
+-                || TryEmitProvenTerminalIntegerRange(function) || TryEmitTerminalDecodedRange(function)
++                || TryEmitProvenTerminalRange(function) || TryEmitTerminalDecodedRange(function)
+                 || TryEmitOptionalDecode(function) || TryEmitSingletonListForwarding(function) || TryEmitEmptyOrSingleton(function)
+                 || TryEmitListLookup(function) || TryEmitSignedListLength(function))
+             {
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProvenTerminalIntegerRange.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProvenTerminalIntegerRange.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProvenTerminalIntegerRange.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProvenTerminalIntegerRange.cs
+@@ -6,7 +6,7 @@
+ {
+     private sealed partial class GeneralEmitter
+     {
+-        private bool TryEmitProvenTerminalIntegerRange(FunctionDefinition function)
++        private bool TryEmitProvenTerminalRange(FunctionDefinition function)
+         {
+             if (!owner.SsaTypeInferenceEnabled || owner.ModuleOptimizationDisabled
+                 || function.Clauses is not [{ Guard: null } clause])
+@@ -43,6 +43,27 @@
+             else
+             {
+                 return false;
++            }
++
++            if (selector is not null && prepare is not null && inputs.Count == 2
++                && DistinctBindings(inputs[0], inputs[1])
++                && entries.TryGetValue((prepare.Function, 1), out int preparation)
++                && !owner.IsDeclaredNative((prepare.Function, 1))
++                && ReadForwardedChoiceMeasurement(expression, inputs[0].Name, inputs[1].Name) is
++                {
++                    Measure.Function: AutoImportNames.ByteSize,
++                    Convert: { } conversion
++                } measurement)
++            {
++                EmitPreparedMeasurementTail(
++                    selector,
++                    prepare,
++                    preparation,
++                    measurement,
++                    conversion
++                );
++
++                return true;
+             }
+ 
+             if (expression is not Expr.Block
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ForwardedChoiceMeasurement.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ForwardedChoiceMeasurement.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ForwardedChoiceMeasurement.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ForwardedChoiceMeasurement.cs
+@@ -158,10 +158,45 @@
+             EmitCheckedDecoderExit(measured.Exit, 0);
+         }
+ 
++        private void EmitPreparedMeasurementTail(
++            Atom selector,
++            Expr.Call prepare,
++            int preparation,
++            ForwardedChoiceMeasurement measurement,
++            Expr.Call conversion
++        )
++        {
++            owner.EmitAtomTest(0, selector.Name, owner.nextLabel - 2);
++            EmitFrameAllocation(2, 0);
++            owner.MoveToX0(XRegisterTag, 1);
++            owner.EmitCallLine(prepare, location);
++            owner.EmitFieldCall(1, preparation);
++            BeamSourceLocation previous = CallLocation(prepare, location);
++            EmitDecodeCall(measurement.Decoder, previous);
++            int failure = Label();
++            previous = EmitForwardedChoiceMeasurementCheck(
++                measurement,
++                failure,
++                CallLocation(measurement.Decoder.Decode, previous),
++                emitConversion: false
++            );
++
++            owner.EmitCallLine(conversion, previous);
++            owner.Op(TailExternalCallWithFrame, BeamWire.UnsignedTag, 1);
++            owner.Operand(BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module, conversion.Function, 1));
++            owner.Operand(BeamWire.UnsignedTag, 0);
++
++            Mark(failure);
++            owner.EmitConstant(measurement.Reason, 0);
++            owner.EmitCallLine(measurement.Exit, previous);
++            EmitCheckedDecoderExit(measurement.Exit, 0);
++        }
++
+         private BeamSourceLocation EmitForwardedChoiceMeasurementCheck(
+             ForwardedChoiceMeasurement measured,
+             int failure,
+-            BeamSourceLocation previous
++            BeamSourceLocation previous,
++            bool emitConversion = true
+         )
+         {
+             owner.EmitCallLine(measured.Measure, previous);
+@@ -204,7 +239,7 @@
+                 );
+             }
+ 
+-            if (measured.Convert is { } conversion)
++            if (emitConversion && measured.Convert is { } conversion)
+             {
+                 owner.EmitCallLine(conversion, previous);
+                 Call(ErlangModuleNames.Module, conversion.Function, 1);

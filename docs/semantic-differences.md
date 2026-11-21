@@ -1,3 +1,139 @@
+# Semantic differences
+
+Part 1978 reports 6 normalized function gains and 0 losses, with the 212 known frame widths restored. [Evidence](validation/part-1978/README.md).
+
+Part 1977 records 9 normalized function gains and 212 functions with a greater allocation distance from pinned OTP. [Evidence](validation/part-1977/README.md).
+
+Part 1976 gains 125 normalized functions with zero normalized losses. [Evidence](validation/part-1976/README.md).
+
+Part 1965 gains 3 normalized functions with zero normalized losses. [Evidence](validation/part-1965/README.md).
+
+Part 1964 gains 13 normalized functions with zero normalized losses. [Evidence](validation/part-1964/README.md).
+
+Part 1963 gains 11 normalized functions with zero normalized losses. [Evidence](validation/part-1963/README.md).
+
+Part 1962 gains 14 normalized functions with zero normalized losses. [Evidence](validation/part-1962/README.md).
+
+Part 1961 gains 5 normalized functions with zero normalized losses. [Evidence](validation/part-1961/README.md).
+
+Part 1960 gains 15 normalized functions with zero normalized losses. [Evidence](validation/part-1960/README.md).
+
+Part 1959 gains 36 normalized functions with zero normalized losses. [Evidence](validation/part-1959/README.md).
+
+Part 1958 gains 23 normalized functions with zero normalized losses. [Evidence](validation/part-1958/README.md).
+
+Part 1957 restores both private-argument instruction matches and records byte identity, normalized instructions and native behavior separately. [Evidence](validation/part-1957/README.md).
+
+Part 1956 identifies two inherited private argument emission regressions in make_var/1 and lists_foldl_reverse/2. The raw image count gains three and loses zero against Part 1953. [Evidence](validation/part-1956/README.md).
+
+Part 1955 preserves original exception evidence for checked empty record updates and a raw literal-dispatch difference in erl_bifs. [Evidence](validation/part-1955/README.md).
+
+Part 1954 finds 29 normalized gains, one closure capture-order loss and one executable line table loss in ssl_crl_hash_dir. [Evidence](validation/part-1954/README.md).
+
+Part 1953 gains 81 normalized function matches and loses 0. Raw files and runtime behavior remain separate measurements. [Evidence](validation/part-1953/README.md).
+
+Part 1952 gains 88 normalized function matches and loses 0. Raw files and runtime behavior remain separate measurements. [Evidence](validation/part-1952/README.md).
+
+Part 1951 gains 23 normalized function matches and loses 0. Raw files and runtime behavior remain separate measurements. [Evidence](validation/part-1951/README.md).
+
+Part 1950 gains 85 normalized function matches and loses 0. Raw files and runtime behavior remain separate measurements. [Evidence](validation/part-1950/README.md).
+
+Part 1949 gains 20 normalized function matches and loses 0. Raw files and runtime behavior remain separate measurements. [Evidence](validation/part-1949/README.md).
+
+Part 1948 gains 18 normalized function matches and loses 0. Raw files and runtime behavior remain separate measurements. [Evidence](validation/part-1948/README.md).
+
+Part 1947 gains 28 normalized function matches and loses 0. Raw files and runtime behavior remain separate measurements. [Evidence](validation/part-1947/README.md).
+
+Part 1946 gains 32 normalized function matches and loses 0. Raw files and runtime behavior remain separate measurements. [Evidence](validation/part-1946/README.md).
+
+Part 1945 gains 35 normalized function matches and loses 0. Raw files and runtime behavior remain separate measurements. [Evidence](validation/part-1945/README.md).
+
+Part 1944 gains 11 normalized function matches and loses 0. Raw files and runtime behavior remain separate measurements. [Evidence](validation/part-1944/README.md).
+
+Part 1943 gains 62 normalized function matches and loses 0. Raw files and runtime behavior remain separate measurements. [Evidence](validation/part-1943/README.md).
+
+Part 1942 gains 175 normalized function matches and loses 0. Raw files and runtime behavior remain separate measurements. [Evidence](validation/part-1942/README.md).
+
+Part 1941 gains 394 normalized function matches and loses 0. Raw files and runtime behavior remain separate measurements. [Evidence](validation/part-1941/README.md).
+
+Part 1940 gains 899 normalized function matches and loses 0. Raw files and runtime behavior remain separate measurements. [Evidence](validation/part-1940/README.md).
+
+Part 1939 gains 20 normalized function matches and loses 0. Raw files and runtime behavior remain separate measurements. [Evidence](validation/part-1939/README.md).
+
+Part 1938 gains 261 normalized function matches and loses 0. Raw files and runtime behavior remain separate measurements. [Evidence](validation/part-1938/README.md).
+
+Part 1937 gains 37 normalized function matches and loses 0. Raw files and runtime behavior remain separate measurements. [Evidence](validation/part-1937/README.md).
+
+Part 1936 gains 487 normalized function matches and loses 0. Raw files and runtime behavior remain separate measurements. [Evidence](validation/part-1936/README.md).
+
+Part 1935 gains 93 normalized function matches and loses 0. Raw files and runtime behavior remain separate measurements. [Evidence](validation/part-1935/README.md).
+
+Part 1934 gains 25 normalized function matches and loses 0. Raw files and runtime behavior remain separate measurements. [Evidence](validation/part-1934/README.md).
+
+Part 1933 gains 21 normalized function matches and loses 0. Raw files and runtime behavior remain separate measurements. [Evidence](validation/part-1933/README.md).
+
+Part 1932 gains 14 normalized function matches and loses 0. Raw files and runtime behavior remain separate measurements. [Evidence](validation/part-1932/README.md).
+
+Part 1931 gains 28 normalized function matches and loses 0. Raw files and runtime behavior remain separate measurements. [Evidence](validation/part-1931/README.md).
+
+Part 1930 gains 16 normalized function matches and loses 0. Raw files and runtime behavior remain separate measurements. [Evidence](validation/part-1930/README.md).
+
+Part 1929 gains 27 normalized function matches and loses 0. Raw files and runtime behavior remain separate measurements. [Evidence](validation/part-1929/README.md).
+
+Part 1928 records invalid local call targets in the held asn1ct image. The native cases that passed only covered other paths. [Held evidence](validation/part-1928/README.md).
+
+Part 1927 gains 11 normalized function matches and loses 0. Raw files and runtime behavior remain separate measurements. [Evidence](validation/part-1927/README.md).
+
+Part 1926 gains 197 normalized function matches and loses 0. Native outcomes, instruction shapes and whole-file equality remain independently measured. [Evidence](validation/part-1926/README.md).
+
+Part 1925 gains 131 normalized function matches and loses 0. Exact files and observations remain separately measured. [Evidence](validation/part-1925/README.md).
+
+Part 1924 gains 61 normalized function matches and loses 0. Exact file and execution observations stay separate. The permanent selection verifies pure recursive list mapping, retained tuple list frames, named default fields and guarded closure definition order. [Evidence](validation/part-1924/README.md).
+
+Part 1923 gains 241 normalized function matches and loses 0. Exact file and execution observations stay separate. The permanent selection verifies guarded receive frames, dependent call arguments, protected wx lists and lifted ASN.1 closures. [Evidence](validation/part-1923/README.md).
+
+Part 1922 gains 146 normalized function matches and loses 0. Exact file and execution observations stay separate. The permanent selection verifies binary positions, computed sizes and padding, named defaults and protected saved calls. [Evidence](validation/part-1922/README.md).
+
+Part 1921 gains 228 normalized function matches and loses 0. Exact file and execution observations stay separate. The permanent selection verifies guarded-call projection after argument scheduling, lifetime-aware stack initialization, final atom use and linked generated closures. [Evidence](validation/part-1921/README.md).
+
+Part 1920 gains 49 normalized function matches and loses 0. Exact file and execution observations stay separate. The permanent selection verifies closed generated defaults, checked bitmap argument overloads, variable match ownership and deferred closure entries. [Evidence](validation/part-1920/README.md).
+
+Part 1919 gains 152 normalized function matches and loses 0. Exact file and execution observations stay separate. The permanent selection verifies closed field dispatch, required-prefix frames, checked receivers and positioned binary operand facts. [Evidence](validation/part-1919/README.md).
+
+Part 1918 gains 78 normalized function matches and loses 0. Exact file and execution observations stay separate. The permanent selection verifies nested branch failures and liveness, decoder frames, generated local definition order and checked receiver and environment ownership. [Evidence](validation/part-1918/README.md).
+
+Part 1917 gains 11 normalized function matches and loses 0. Exact file and execution observations stay separate. The permanent selection verifies callback option guards, specialized ASN.1 construction, proper list-source proofs and retained float rounding. [Evidence](validation/part-1917/README.md).
+
+Part 1916 gains 59 normalized function matches and loses 0. Exact file and execution observations stay separate. The permanent selection verifies nested tagged dispatch, bit-string encoding, floating conversions and wrong environment references. [Evidence](validation/part-1916/README.md).
+
+Part 1915 gains 38 normalized function matches and loses 0. Exact file and execution observations stay separate. The permanent test selection verifies closed-nonnumeric comparisons, order-sensitive ingress and independent result ownership. [Evidence](validation/part-1915/README.md).
+
+Part 1914 gains 93 normalized function matches and loses 0. Exact file and execution observations stay separate. The independent scalar group eliminates 93 generic instructions across 46 images. [Evidence](validation/part-1914/README.md).
+
+Part 1913 gains 53 normalized function matches and loses 0. Exact file and execution observations stay separate. The nil group eliminates 584 generic instructions across 210 independently changed images. [Evidence](validation/part-1913/README.md).
+
+Part 1912 gains 156 normalized function matches and 20 raw section matches. One frame distance increases and ct_config_plain loses exact ExpT while gaining exact LocT. Neither module-state metrics nor runtime behavior are inferred from normalization. [Release evidence](validation/part-1912/README.md).
+
+Part 1911 adds 131 normalized matches. The linked source keeps FTP receive selection, Diameter arithmetic evaluation and Megaco child ownership. Independent source captures native effect order and failure stacks. Source-known NIF entry points are excluded from the closed binary continuation proof. [Release evidence](validation/part-1911/README.md).
+
+Part 1910 eliminates 147 normalized function-body differences and keeps all prior exact bodies. Checked record slots are cleared only after call arguments are rooted, and the cold block order retains the same failing expressions. The wx test exercises local stubs and the Megaco test uses loopback. [Release report](validation/part-1910/README.md).
+
+Part 1909 yields 64 normalized function-body gains and 0 losses. Checked records retain their failure site and final projected value. Native fixtures reproduce terminal list effect and Xmerl match precedence. The SSH differential uses local process stubs with no network sessions. [Release report](validation/part-1909/README.md).
+
+Part 1908 verifies four additional complete release images and 368 normalized function bodies. The catch branch retains original effects and failure operands. Native ASN.1 branches preserve decoder sizes and typed guards. The original test adapter failures and the exact compiler-preserving correction are retained in the same release report. [Native and focused results](validation/part-1908/README.md).
+
+Part 1907 confirms raw KEM and the SNMP supervisor result with native error and typed operand checks. The Mnesia Schema two-slot frame is restored by requiring the complete two-atom predicate at the branch combine boundary. Raw section equality increases in ten image sections. [Measured scope](validation/part-1907/README.md).
+
+Part 1906 closes file-level differences in Debugger and Mnesia Frag Hash. Source-proven zero-slot closure removal and branch-owned record calls retain release and fixture behavior. The complete comparison records 273 normalized gains and no normalized losses. Wider raw equivalence and the complete repository gate remain open. [Evidence](validation/part-1906/README.md).
+
+Part 1905 verifies the Et viewer two-atom branch and preserves its selected producer, failure selector and source annotation. The checked ASN.1 decoder gains six normalized bodies and the Mnesia owned result trim gains one body. One frame grows in a three-atom Mnesia Schema predicate; the raw disassembly identifies a root cause at the partially combined guard chain. [Comparison](validation/part-1905/README.md).
+
+The Part 1904 byte comparison adds the checked ASN.1 decoder paths for DSS and PKCS-3 and the checked nested tuple alias in megaco_user_default. Native results include decoder failure reasons and stack positions. Thirty-one changed images prepare, and strong register initialization checks pass on the 20 affected record modules. Other code generation differences remain open. [Evidence](validation/part-1904/README.md).
+
+Part 1902 confirms 954 remaining whole-file differences in the Windows OTP 29.1.1 compiler comparison. Code generation, register lifetimes, helper identity and source line numbering remain open. Eight previously different Line chunks and five Dbgi chunks match. The exact local managed report remains blocked by five suite failures. Four reproduce as passing checks on both tested payloads after the heavy lanes finish. The original Jaro fixture still reaches its inner worker deadline on both .NET payloads and completes in the pinned native ERTS comparison. [Compiler evidence](validation/part-1902/full-release/README.md) · [Original managed result](validation/part-1898/local-managed-final/README.md).
+
+The Windows OTP 29.1.1 compiler comparison retains 954 whole-file differences in Part 1898. Code layout, stack allocation, recursive helper identities, type metadata and first-use Line order remain open. Megaco now reproduces the pinned failing-record stack, and its generated Line chunk still differs. The full-file and runtime reports retain their own scopes. [Release evidence](validation/part-1898/full-release/README.md).
+
 ## Part601 resource/magic32 scope — 2026-11-05
 
 Part 1839 restores ten normalized instruction matches affected by argument placement. Two additional ASN.1 functions and their Type sections gain equality. The full corpus still has 962 whole-file differences. [Evidence](validation/part-1839/README.md).

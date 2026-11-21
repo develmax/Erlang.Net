@@ -1,0 +1,11 @@
+[Before,After,Out]=init:get_plain_arguments(),
+{ok,[B]}=file:consult(Before),
+{ok,[A]}=file:consult(After),
+Prior=ordsets:from_list(maps:get(gains,B)),
+Current=ordsets:from_list(maps:get(gains,A)),
+Missing=ordsets:subtract(Prior,Current),
+ok=file:write_file(Out,io_lib:format("~0tp.~n",[#{before_length=>length(Prior),current_length=>length(Current),lost=>Missing}])),
+[]=Missing,
+[]=maps:get(losses,A),
+halt().
+

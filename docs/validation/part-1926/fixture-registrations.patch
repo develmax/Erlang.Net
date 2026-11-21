@@ -1,0 +1,13 @@
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12537,6 +12537,10 @@
+ Test(Erlang.Tests.BeamWxSparseOptionForwardChecks.TestName, Erlang.Tests.BeamWxSparseOptionForwardChecks.Run);
+ Test(Erlang.Tests.BeamLineFilenameChecks.TestName, Erlang.Tests.BeamLineFilenameChecks.Run);
+ Test(Erlang.Tests.BeamRecursiveListValueChecks.TestName, Erlang.Tests.BeamRecursiveListValueChecks.Run);
++Test(Erlang.Tests.BeamEntryAndListSchedulingChecks.TestName, Erlang.Tests.BeamEntryAndListSchedulingChecks.RunFailureRelay);
++Test(Erlang.Tests.BeamEntryAndListSchedulingChecks.FrameTestName, Erlang.Tests.BeamEntryAndListSchedulingChecks.RunMapper);
++Test(Erlang.Tests.BeamInterleavedNamedSequenceChecks.TestName, Erlang.Tests.BeamInterleavedNamedSequenceChecks.Run);
++Test(Erlang.Tests.BeamJoinedCodecPairChecks.TestName, Erlang.Tests.BeamJoinedCodecPairChecks.Run);
+ Test(Erlang.Tests.BeamLongLiteralBinaryPrefixChecks.TestName, Erlang.Tests.BeamLongLiteralBinaryPrefixChecks.Run);
+ Test(
+     Erlang.Tests.BeamForwardedChoiceAndProtectedProjectionChecks.TestName,

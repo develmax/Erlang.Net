@@ -1,0 +1,67 @@
+{
+  "Compiler": "fbcb7ad69525af62ccbcbc968463b7f7202577f72dcb4c5c11fa175a34697c28",
+  "ParentSource": "48569fd3ab77907ff7963d3f513058a910e3671e7f5fb99fb90558788bc25b69",
+  "ProductionInputCount": 886,
+  "Scope": {
+    "Different": 10,
+    "Equal": 20
+  },
+  "PatchDigests": {
+    "production.patch": "6fcaeaa6f8cc29bbbf23f48c41803de0f6416a29c2eac7dbfde7fdd0a254737d",
+    "test.patch": "865b4c74fb872cb9aa529a06af405a7296af9aed53c21db4bc84c1643cbf58d8"
+  },
+  "Evidence": {
+    "scope/delta.json": "cf073d5479230d402f3d58980dac64f7c63cea20f87615fab5b82390ef66892c",
+    "scope/normalized-summary.terms": "20028f331fdf864d6169c064bbc2b0b51ba32a199024a7e998b631a46fa0127e",
+    "native.terms": "4da45f02e60c27afb2e88b5da4011ed2e5fc1ea006d910dae482eb6eea7a9d6e",
+    "native.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "capture/relay.json": "094f614097ba83d228cb5ae7e9dd8d71ca8baf3ccb960971765103d99976d2d2",
+    "capture/source/Program.cs": "22aad74ac16c6709fb05d13282b260606614a5f528a13ced40c5756f2fc51a1e",
+    "capture/relay.txt": "a55962376a0755bde3cf6cc739eb02a2c3de5b8326f6b7732cdca93a32dee8d5",
+    "generated-red.log": "d2f441a23eee13da9a23d470b1d5716f33823e5f22e16a3097d0cb1e7cff9234",
+    "generated-green.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "line-pinned.terms": "3e2a3271b9c02e1697704fca76e04a56b46af31761d5685dde45d4961dcdbeb8",
+    "line-generated.terms": "7ba5b1123acb5af108e1833c5a2783213f32fe439599a8ecad80a9c3c6076abf",
+    "include-only/scope/otp-corpus.json": "6016f377a4f8259bc066c6e13f14b19c18dd81dcd4e98a549db7dc8b4e93ea35",
+    "fixture-missing-dependency.log": "d7089b6bf89e53ec271784341fea30886e7f50e76bc52548a2e0e0b6cee73e6e",
+    "scope/otp-corpus.json": "02aae921db11abf5644b1133a7e5753fc09c3e42523464fd29131935f87142fd",
+    "native.exit": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "generated-red.exit": "e4e7851eff84375b526b7f4fcb50db23a941ff4d35de163fda833cfde6e5ec3e",
+    "generated-green.exit": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "seal-style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f"
+  },
+  "Files": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamReleaseBuildProfile.cs": {
+      "Before": "1da3d7c19a9c9960469ea89c96048375231ea0e9b0de8b4d54c334f73b82d3e6",
+      "After": "5a01899289fb7c407f7b9b74aa6f2cec4507a71f52bab8ff57f8fb4406076311"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/CodeGeneration.cs": {
+      "Before": "294bc41a31f00237f3cdd62d3ad2c001ace348823577b8f4c0792e997179fad2",
+      "After": "b04670270671f8e443a42003d1af4d27109cb6063720993101c07680be910730"
+    },
+    "src/Compiler/Erlang.Compiler/Syntax/BeamIncludeResolver.cs": {
+      "Before": "db0fff587a90fc315ca8c3532c01b6adf404844ab73bedf5a30b7f7af9bbc8c7",
+      "After": "b0da94ab7ec9d558839165bda01a057b1f94929b717e78058043e5bf92570f90"
+    },
+    "src/Compiler/Erlang.Compiler/Syntax/BeamMacroPreprocessor.cs": {
+      "Before": "83992cc8f506ad6c5bfe33a9e1f4908fe681caca72c71696b12884614c8470e9",
+      "After": "9e480f089a338c7d67a17781c15868f501b1f23907235be5cf675590cecbffa9"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamSourceForms.cs": {
+      "Before": "2c97878226ae597d6ad6053f1e5ef6be8a67e698c9017aed99b2149dd5c3219c",
+      "After": "c39034f41b88d2b09f2b33591a88fe3edf0612c32c36b8777149ce78f77313e6"
+    },
+    "tools/Validation/Erlang.BeamCorpus/OtpWindowsReleaseProfiles.cs": {
+      "Before": "d6c030868d8448e9b142b5c5d284df481cd4099a04f5425f7a416f7af394aa0d",
+      "After": "3a676707b826a9aee3cf3c3c6ad90cfe1d68a29d13253000b0f134f2c90c192d"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamExecutableIncludeFilenameChecks.cs": {
+      "Before": null,
+      "After": "3256dc813e1b65c1890e22ef8ee8a31391834458390402d995aa32a3d29a5a12"
+    },
+    "tests/Erlang.Tests/Harness/Program.cs": {
+      "Before": "3ed43b9e82068c443007cbfcabcaf42da58aa2449cc17deeca886c3cbf89adb9",
+      "After": "5a6204211ea5e23e9383f4c074305c788e6d2dfee5b07aa02f35005e0aaf8abd"
+    }
+  }
+}

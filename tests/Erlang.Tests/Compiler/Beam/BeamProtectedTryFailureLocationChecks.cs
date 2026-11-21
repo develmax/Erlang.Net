@@ -1,0 +1,66 @@
+using System.Collections;
+using System.Numerics;
+using Erlang;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamProtectedTryFailureLocationChecks
+{
+    internal const string TestName = "compiler/beam/retains-the-protected-try-clause-failure-location";
+    internal const string Fixture = "beam_protected_try_failure_probe.erl";
+    private const string MissingLocation = "The try-clause failure lacks its original protected expression location.";
+
+    internal const string Source = """
+        -module(beam_protected_try_failure_probe).
+        -export([guarded/1, feed/1, fallback/1]).
+
+        guarded(Value) ->
+            try ?MODULE:feed(Value) of
+                Data when is_binary(Data) ->
+                    {data,Data}
+            catch
+                error:Reason ->
+                    {caught,Reason}
+            end.
+
+        feed(error) -> error(broken_input);
+        feed(Value) -> Value.
+
+        fallback(Value) ->
+            try ?MODULE:feed(Value) of
+                Any -> {accepted,Any}
+            catch
+                error:Reason -> {caught,Reason}
+            end.
+        """;
+
+    internal static Task Run()
+    {
+        object code = Code(CodeGeneration.CompileBeamModule(Source, Fixture));
+        object[] instructions = ((IEnumerable)Property(code, "Instructions")).Cast<object>().ToArray();
+        byte[] opcodes = instructions.Select(instruction => (byte)Property(Property(instruction, "Definition"), "Opcode")).ToArray();
+        int failure = Array.IndexOf(opcodes, TryCaseEnd);
+        if (failure < 1 || opcodes[failure - 1] != Line)
+        {
+            throw new InvalidOperationException(MissingLocation);
+        }
+
+        var lineOperands = ((IEnumerable)Property(instructions[failure - 1], "Operands")).Cast<object>();
+        int lineIndex = (int)(BigInteger)Property(lineOperands.Single(), "Value");
+        var locations = (IReadOnlyList<Term>)Property(code, "SourceLocations");
+        const int ProtectedTryLine = 5;
+        Term expected = Term.List(
+            Term.Tuple(Term.A("file"), Term.String(Fixture)),
+            Term.Tuple(Term.A("line"), Term.I(ProtectedTryLine))
+        );
+        if (!expected.Equals(locations[lineIndex]))
+        {
+            throw new InvalidOperationException(MissingLocation);
+        }
+
+        return Task.CompletedTask;
+    }
+}

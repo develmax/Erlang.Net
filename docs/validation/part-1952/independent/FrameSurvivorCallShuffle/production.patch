@@ -1,0 +1,24 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SavedCallSequence.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SavedCallSequence.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SavedCallSequence.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SavedCallSequence.cs
+@@ -1292,7 +1292,7 @@
+             int spill = step.Spill is int slot ? remap[slot] : -1;
+             if (spill >= 0 && !step.ReuseSlot && !deferStackLoad && !deferConstant
+                 && call.RegisterConstructions is null && call.Moves.Count == 0
+-                && call.Constants is [{ Destination: 2, Value: Nil }]
++                && (call.Call.Arguments.Count == 2 && call.Constants.Count == 0 || call.Constants is [{ Destination: 2, Value: Nil }])
+                 && loads.OrderBy(move => move.Destination).ToArray() is
+                     [{ Destination: 0 } first, { Destination: 1 } second]
+                 && first.Source != spill && second.Source != spill)
+@@ -1311,7 +1311,10 @@
+                     XRegisterTag,
+                     0
+                 );
+-                owner.EmitConstant(Nil.Value, 2);
++                if (call.Constants.Count != 0)
++                {
++                    owner.EmitConstant(Nil.Value, 2);
++                }
+ 
+                 return;
+             }

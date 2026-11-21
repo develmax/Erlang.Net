@@ -63,6 +63,7 @@ internal static class BeamEmissionFormat
     internal const byte TailExternalCall = 78;
     internal const byte FloatMove = 96;
     internal const byte FloatConvert = 97;
+    internal const byte FloatMultiply = 100;
     internal const byte FloatDivide = 101;
     internal const byte TryEnter = 104;
     internal const byte TryEnd = 105;

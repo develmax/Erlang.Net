@@ -1,0 +1,277 @@
+{
+  "production": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedReturns.cs": {
+      "before": "f995bd794374833ef892c1a9749d1b0565668f877e6b71e14998fac00f682f6f",
+      "after": "2b52224d3c8ba15696e4c7ffc7eaf3941a2e64a9695a4eedd7dfa71364802b13"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedFieldCallFrame.cs": {
+      "before": null,
+      "after": "7136427a4de79c87011cd54f3e0eca329a83eb0e5be85276a29ab8294c68366d"
+    },
+    "patch-sha256": "de05ba5705f3c6ff8403f68f842e9b242bbc7191466195c24508f581d9950964",
+    "parent-patch-sha256": "74462bfaaab32740756e403807e0b4646498c42cf33e12fb6dc5940e585ab98b"
+  },
+  "test": {
+    "tests/Erlang.Tests/Harness/Program.cs": {
+      "before": "8f97016d8e6a4751ca174a17016bdd60c3b958fb2f5ddb897acc1b293d2087ac",
+      "after": "3f7237370dfeace617a34f4f0716fc21887514ac85b37110d25453dfe666a66c"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamCheckedFieldCallFrameChecks.cs": {
+      "before": null,
+      "after": "fc4318321017a23ee2a04915f65165b04906a348a31eb4be6c55e8275d381e67"
+    },
+    "patch-sha256": "87d78d89c5706212b8ec6e09ad53b5382fe0c812b9b3238570a6da9285ea7625",
+    "parent-patch-sha256": "462ea701988c69bfc76846bb5d6238509159f9f6bc3115fc5f0249209bdfd129"
+  },
+  "compiler-bin/Erlang.Compiler.dll": "9b6db6d15c2fdc4d0598b9525f338031a41a17ebe15a6a15e91848a57aa364b2",
+  "test-payload/Erlang.Tests.dll": "d87a00cebefb20c07883bcd495a838e79b9d1f555b46f9701051f0927bff40b7",
+  "candidate-bin/Erlang.BeamCorpus.dll": "0b0d3462f7f5b4106cdc2bf6573aa9da4a9a9e8de7320f426b682c717598a616",
+  "scoped-corpus.json": "6f5cdbaeb43521c9361930e0ea3aa1800ee7fe12a5bf4e6de83010df79d66038",
+  "focused-red.log": "8f55d5205e1df9aa7295f5a19c782bdde3f596e8d13c23421b0e469a01f5d40e",
+  "focused-green.log": "89e3ce2b67d20a2dc39f7851af112e4e90f892f72d8c0d5f2d5eaec32e9b5b52",
+  "native-reference.etf": "ef91bbf54abdf4b631a2e0d58a908e8b05d59563ab1f11264bc0cb5702c59104",
+  "native-candidate.etf": "ef91bbf54abdf4b631a2e0d58a908e8b05d59563ab1f11264bc0cb5702c59104",
+  "mod_actions-candidate-diff.log": "f72b40c1c18172aaf2b5cdf214e747da0d85424586b39aeb72e814206d0b473f",
+  "release": [
+    {
+      "module": "lib\\common_test-1.31.2\\ebin\\ct_config_plain.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "previous_hash": "7c0f0f294a3e7a805c1167808703143388f320dabebafc82e8a6370076bb7c5b",
+      "result_hash": "7c0f0f294a3e7a805c1167808703143388f320dabebafc82e8a6370076bb7c5b",
+      "oracle_hash": "7c0f0f294a3e7a805c1167808703143388f320dabebafc82e8a6370076bb7c5b"
+    },
+    {
+      "module": "lib\\common_test-1.31.2\\ebin\\ct_event.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "previous_hash": "2399c2a849d7e97e993b7e01f81cf59d73a31fb22f9f59ca1529768a9197a29c",
+      "result_hash": "2399c2a849d7e97e993b7e01f81cf59d73a31fb22f9f59ca1529768a9197a29c",
+      "oracle_hash": "2399c2a849d7e97e993b7e01f81cf59d73a31fb22f9f59ca1529768a9197a29c"
+    },
+    {
+      "module": "lib\\debugger-7.0\\ebin\\dbg_idb.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "previous_hash": "324e32cd6528f7c5ba0f1f63f2bc969fb3e57c95ff940016632227388e1d944e",
+      "result_hash": "324e32cd6528f7c5ba0f1f63f2bc969fb3e57c95ff940016632227388e1d944e",
+      "oracle_hash": "324e32cd6528f7c5ba0f1f63f2bc969fb3e57c95ff940016632227388e1d944e"
+    },
+    {
+      "module": "lib\\debugger-7.0\\ebin\\debugger.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "previous_hash": "53aa0a5ddcd15a776cd623e92a7a2a4d620e7ba35d648846f7a3134c8ab6b06c",
+      "result_hash": "53aa0a5ddcd15a776cd623e92a7a2a4d620e7ba35d648846f7a3134c8ab6b06c",
+      "oracle_hash": "53aa0a5ddcd15a776cd623e92a7a2a4d620e7ba35d648846f7a3134c8ab6b06c"
+    },
+    {
+      "module": "lib\\diameter-2.7.2\\ebin\\diameter_callback.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "previous_hash": "573a046e1dac646801bf734063d75e82550c053a2792025598ce741a5d790bd7",
+      "result_hash": "573a046e1dac646801bf734063d75e82550c053a2792025598ce741a5d790bd7",
+      "oracle_hash": "573a046e1dac646801bf734063d75e82550c053a2792025598ce741a5d790bd7"
+    },
+    {
+      "module": "lib\\diameter-2.7.2\\ebin\\diameter_session.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "previous_hash": "2c07f760e6b0707116868590252c7ee62d9b915db3f845d427aa75dacda36c60",
+      "result_hash": "2c07f760e6b0707116868590252c7ee62d9b915db3f845d427aa75dacda36c60",
+      "oracle_hash": "2c07f760e6b0707116868590252c7ee62d9b915db3f845d427aa75dacda36c60"
+    },
+    {
+      "module": "lib\\eldap-1.3.1\\ebin\\ELDAPv3.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "previous_hash": "f137904a4b15ce2fc382264b168b606ab9728b7a5a7c8d641c6937d87cb2ed9d",
+      "result_hash": "f137904a4b15ce2fc382264b168b606ab9728b7a5a7c8d641c6937d87cb2ed9d",
+      "oracle_hash": "f137904a4b15ce2fc382264b168b606ab9728b7a5a7c8d641c6937d87cb2ed9d"
+    },
+    {
+      "module": "lib\\erts-17.1\\ebin\\erl_init.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "previous_hash": "f5373f9d1d678d8261e07ffad0033663f762913c339729a4309df2e6fd11abdf",
+      "result_hash": "f5373f9d1d678d8261e07ffad0033663f762913c339729a4309df2e6fd11abdf",
+      "oracle_hash": "f5373f9d1d678d8261e07ffad0033663f762913c339729a4309df2e6fd11abdf"
+    },
+    {
+      "module": "lib\\erts-17.1\\ebin\\erts_trace_cleaner.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "previous_hash": "44ce918e91dbf0a0601a1ac9d95a56688e360baf8c91de7f77114a643d7d611c",
+      "result_hash": "44ce918e91dbf0a0601a1ac9d95a56688e360baf8c91de7f77114a643d7d611c",
+      "oracle_hash": "44ce918e91dbf0a0601a1ac9d95a56688e360baf8c91de7f77114a643d7d611c"
+    },
+    {
+      "module": "lib\\erts-17.1\\ebin\\prim_eval.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "previous_hash": "98d6e55b825361a4e2316bed02b97fd7506d57c34021ba95f4419fea8acc0936",
+      "result_hash": "98d6e55b825361a4e2316bed02b97fd7506d57c34021ba95f4419fea8acc0936",
+      "oracle_hash": "98d6e55b825361a4e2316bed02b97fd7506d57c34021ba95f4419fea8acc0936"
+    },
+    {
+      "module": "lib\\et-1.8\\ebin\\et.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "previous_hash": "85378a2bec824f3db72e83579f6c3f18e88819861268894fca79a2d04f3ea367",
+      "result_hash": "85378a2bec824f3db72e83579f6c3f18e88819861268894fca79a2d04f3ea367",
+      "oracle_hash": "85378a2bec824f3db72e83579f6c3f18e88819861268894fca79a2d04f3ea367"
+    },
+    {
+      "module": "lib\\et-1.8\\ebin\\et_viewer.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "previous_hash": "7dc3065baa3771126380e0fcd0c7e73034af9e489591abf9ebaf59b3c241115d",
+      "result_hash": "7dc3065baa3771126380e0fcd0c7e73034af9e489591abf9ebaf59b3c241115d",
+      "oracle_hash": "7dc3065baa3771126380e0fcd0c7e73034af9e489591abf9ebaf59b3c241115d"
+    },
+    {
+      "module": "lib\\ftp-1.2.6\\ebin\\ftp_progress.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "previous_hash": "f71b2a3366d24138d5e4588711c22ffebb0150b4bc3f6bfd346159bec09c6da0",
+      "result_hash": "f71b2a3366d24138d5e4588711c22ffebb0150b4bc3f6bfd346159bec09c6da0",
+      "oracle_hash": "f71b2a3366d24138d5e4588711c22ffebb0150b4bc3f6bfd346159bec09c6da0"
+    },
+    {
+      "module": "lib\\inets-9.8\\ebin\\httpc_profile_sup.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "previous_hash": "9841c7ed17cd2f37798ea0b46f534b5b13de1b424272482ccb574e0e47f7fcc1",
+      "result_hash": "9841c7ed17cd2f37798ea0b46f534b5b13de1b424272482ccb574e0e47f7fcc1",
+      "oracle_hash": "9841c7ed17cd2f37798ea0b46f534b5b13de1b424272482ccb574e0e47f7fcc1"
+    },
+    {
+      "module": "lib\\inets-9.8\\ebin\\httpd_custom.beam",
+      "prior": "Different",
+      "result": "Different",
+      "previous_hash": "044dbece4ef0bf659097a098af9a329b1e90b96f2611082423f38c866c98d19b",
+      "result_hash": "044dbece4ef0bf659097a098af9a329b1e90b96f2611082423f38c866c98d19b",
+      "oracle_hash": "90eeaf68bae9339e2461cfcedb35d4207e8ed8ba2f415c63981b6ac487741e80"
+    },
+    {
+      "module": "lib\\inets-9.8\\ebin\\httpd_esi.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "previous_hash": "daa501e2fe940b94dab8b7ec304b52ca26608dcc20ad22fab53ed8c002db846a",
+      "result_hash": "daa501e2fe940b94dab8b7ec304b52ca26608dcc20ad22fab53ed8c002db846a",
+      "oracle_hash": "daa501e2fe940b94dab8b7ec304b52ca26608dcc20ad22fab53ed8c002db846a"
+    },
+    {
+      "module": "lib\\inets-9.8\\ebin\\httpd_instance_sup.beam",
+      "prior": "Different",
+      "result": "Different",
+      "previous_hash": "2acf1abad4aa4701b9ec3ab8d8b7cb66f1d4b1cc9d72853128a375f5456d7dd6",
+      "result_hash": "2acf1abad4aa4701b9ec3ab8d8b7cb66f1d4b1cc9d72853128a375f5456d7dd6",
+      "oracle_hash": "a93aa215eb0034f79b4f7a564d5704dde57f47e86b688b443a2acc48e3082193"
+    },
+    {
+      "module": "lib\\inets-9.8\\ebin\\inets_sup.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "previous_hash": "7c57bc8cb3a5a7abb165fb67b834f126b80bd0facd78690cc9e37b7d9c28343d",
+      "result_hash": "7c57bc8cb3a5a7abb165fb67b834f126b80bd0facd78690cc9e37b7d9c28343d",
+      "oracle_hash": "7c57bc8cb3a5a7abb165fb67b834f126b80bd0facd78690cc9e37b7d9c28343d"
+    },
+    {
+      "module": "lib\\inets-9.8\\ebin\\mod_actions.beam",
+      "prior": "Different",
+      "result": "Different",
+      "previous_hash": "16f7dc692768c2d813193700faa128a732d1980b77dc7130304d0cc660e4d597",
+      "result_hash": "bd92011261acc7854b81fd22713873141aa58964b8d4119501fa9a16fc9b03ce",
+      "oracle_hash": "4fb9230f2588a00ce53a4ac8732e7983cd831813decdb40b7157087e823e3078"
+    },
+    {
+      "module": "lib\\inets-9.8\\ebin\\mod_get.beam",
+      "prior": "Different",
+      "result": "Different",
+      "previous_hash": "6812215dc9204274dcea4721f930699d5ddcec114ace4db2d15481090730afb1",
+      "result_hash": "6812215dc9204274dcea4721f930699d5ddcec114ace4db2d15481090730afb1",
+      "oracle_hash": "13dc26d2325cfd7066f7cf0a16a2302d990793efa83534354384cfa72fa140c8"
+    },
+    {
+      "module": "lib\\inets-9.8\\ebin\\mod_head.beam",
+      "prior": "Different",
+      "result": "Different",
+      "previous_hash": "7d6e9531684e778a121a3c10a90deb51ad249506313482055f807f0491d7005b",
+      "result_hash": "7d6e9531684e778a121a3c10a90deb51ad249506313482055f807f0491d7005b",
+      "oracle_hash": "84ae33a082b0b01f02c309ad08bca131e02ee200eb4b584b658fc53bd013d1c9"
+    },
+    {
+      "module": "lib\\megaco-4.9.2\\ebin\\megaco_sup.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "previous_hash": "f2b147d57974e84fd33c8be564422cfabf54042faad01b3f7e03514a7c26d8af",
+      "result_hash": "f2b147d57974e84fd33c8be564422cfabf54042faad01b3f7e03514a7c26d8af",
+      "oracle_hash": "f2b147d57974e84fd33c8be564422cfabf54042faad01b3f7e03514a7c26d8af"
+    },
+    {
+      "module": "lib\\megaco-4.9.2\\ebin\\megaco_tcp_accept.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "previous_hash": "44c5ec869255b654853ae6e21cc190c52c8e8a69e4591bb021ee27bc279a5d46",
+      "result_hash": "44c5ec869255b654853ae6e21cc190c52c8e8a69e4591bb021ee27bc279a5d46",
+      "oracle_hash": "44c5ec869255b654853ae6e21cc190c52c8e8a69e4591bb021ee27bc279a5d46"
+    },
+    {
+      "module": "lib\\megaco-4.9.2\\ebin\\megaco_trans_sup.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "previous_hash": "f5c007a7411ffdbf400cc78efef96327da966e6cb57075680712f191da1d3252",
+      "result_hash": "f5c007a7411ffdbf400cc78efef96327da966e6cb57075680712f191da1d3252",
+      "oracle_hash": "f5c007a7411ffdbf400cc78efef96327da966e6cb57075680712f191da1d3252"
+    },
+    {
+      "module": "lib\\public_key-1.21.7\\ebin\\CryptographicMessageSyntax-2009.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "previous_hash": "39a45eb4897a159c03de59a3fa99848ed431e8c26e9dd5b2b403f2c8aa2720d5",
+      "result_hash": "39a45eb4897a159c03de59a3fa99848ed431e8c26e9dd5b2b403f2c8aa2720d5",
+      "oracle_hash": "39a45eb4897a159c03de59a3fa99848ed431e8c26e9dd5b2b403f2c8aa2720d5"
+    },
+    {
+      "module": "lib\\public_key-1.21.7\\ebin\\OCSP-2024-08.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "previous_hash": "9041c27dfefc1e27786e08bec1437afc68946c2cd4bf01cb9830602f2f164497",
+      "result_hash": "9041c27dfefc1e27786e08bec1437afc68946c2cd4bf01cb9830602f2f164497",
+      "oracle_hash": "9041c27dfefc1e27786e08bec1437afc68946c2cd4bf01cb9830602f2f164497"
+    },
+    {
+      "module": "lib\\public_key-1.21.7\\ebin\\PKIXCRMF-2009.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "previous_hash": "5e65c0e0ef17b4428c9e41d36990d6305d1a99ded05904cb438a478ff2de44fc",
+      "result_hash": "5e65c0e0ef17b4428c9e41d36990d6305d1a99ded05904cb438a478ff2de44fc",
+      "oracle_hash": "5e65c0e0ef17b4428c9e41d36990d6305d1a99ded05904cb438a478ff2de44fc"
+    },
+    {
+      "module": "lib\\stdlib-8.1\\ebin\\ordsets.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "previous_hash": "417595cfd47ff9dc43673cee03083776cbacd3abb61166bf58c61dc6a13cce1d",
+      "result_hash": "417595cfd47ff9dc43673cee03083776cbacd3abb61166bf58c61dc6a13cce1d",
+      "oracle_hash": "417595cfd47ff9dc43673cee03083776cbacd3abb61166bf58c61dc6a13cce1d"
+    },
+    {
+      "module": "lib\\wx-2.7\\doc\\examples\\demo\\ex_grid.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "previous_hash": "7f73564f667fc643a58a81c14fbd44868cf62b48ec5e6eed4dcc723c99ed80f0",
+      "result_hash": "7f73564f667fc643a58a81c14fbd44868cf62b48ec5e6eed4dcc723c99ed80f0",
+      "oracle_hash": "7f73564f667fc643a58a81c14fbd44868cf62b48ec5e6eed4dcc723c99ed80f0"
+    },
+    {
+      "module": "lib\\wx-2.7\\doc\\examples\\demo\\ex_radioBox.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "previous_hash": "73950bf828ba92dd9019c8cc09abbd90bab8fb3c28b654bb29790b4571c7480b",
+      "result_hash": "73950bf828ba92dd9019c8cc09abbd90bab8fb3c28b654bb29790b4571c7480b",
+      "oracle_hash": "73950bf828ba92dd9019c8cc09abbd90bab8fb3c28b654bb29790b4571c7480b"
+    }
+  ]
+}

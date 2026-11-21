@@ -1,0 +1,12 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LiteralColumnDispatch.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LiteralColumnDispatch.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LiteralColumnDispatch.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LiteralColumnDispatch.cs
+@@ -72,7 +72,7 @@
+             }
+ 
+             // Preserve grouped Boolean arity dispatch, which returns singleton comparisons directly.
+-            if (function.Arity == 2 && TryEmitGroupedArityDispatch(function))
++            if (TryEmitGroupedArityDispatch(function))
+             {
+                 return true;
+             }

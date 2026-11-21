@@ -1,0 +1,154 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamOrdinaryAppendComprehensionChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamOrdinaryAppendComprehensionChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamOrdinaryAppendComprehensionChecks.cs
+@@ -0,0 +1,149 @@
++using System.Collections;
++using Erlang.Compiler;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamOrdinaryAppendComprehensionChecks
++{
++    internal const string TestName = "compiler/beam/ordinary-append-comprehension";
++    private const string Module = "beam_ordinary_append_comprehension";
++    private const string Source = """
++        -module(beam_ordinary_append_comprehension).
++        -export([ordinary/2,fused/2,constructor/2,constant/1,plain/1,probe_ordinary/2,probe_constructor/2]).
++
++        ordinary(Left, Right) ->
++            wrap(left, [note(left, X) || X <- Left]) ++
++            wrap(right, [note(right, Y) || Y <- Right]).
++
++        fused(Left, Right) ->
++            [note(left, X) || X <- Left] ++
++            wrap(right, [note(right, Y) || Y <- Right]).
++
++        constructor({type, tag, []}, Values) ->
++            wrap(closed, [note(closed, Value) || Value <- Values]) ++ [];
++        constructor({type, Tag, _}, Values) ->
++            [note(Tag, Value) || Value <- Values];
++        constructor(Unknown, Values) when is_atom(Unknown) ->
++            [note(Unknown, Value) || Value <- Values];
++        constructor(_, Values) ->
++            [note(other, Value) || Value <- Values].
++
++        constant(Values) ->
++            case {one, two} of
++                {one, other} -> [note(unreachable, X) || X <- Values];
++                _ -> [note(selected, X) || X <- Values]
++            end.
++
++        plain(Values) ->
++            [note(neither_append, X) || X <- Values].
++
++        probe_ordinary(Xs, Ys) ->
++            put(events, []),
++            Result = try ordinary(Xs, Ys)
++                     catch error:Why -> {failed,Why}
++                     end,
++            {Result, lists:reverse(get(events))}.
++
++        probe_constructor(Key, Values) ->
++            put(events, []),
++            Result = constructor(Key, Values),
++            {Result, lists:reverse(get(events))}.
++
++        note(Label, X) ->
++            put(events, [{item,Label,X}|get(events)]),
++            X.
++
++        wrap(Label, Values) ->
++            put(events, [{wrapped,Label}|get(events)]),
++            Values.
++        """;
++
++    internal static async Task Run()
++    {
++        byte[] beam = CodeGeneration.CompileBeamModule(Source, Module + ".erl");
++        object code = Code(beam);
++        var names = ((IEnumerable)Property(code, "Functions")).Cast<object>()
++            .OrderBy(function => (int)Property(function, "FirstInstructionIndex"))
++            .Select(function => ((string)Property(function, "Name"), (int)Property(function, "Arity"))).ToArray();
++
++        Check("ordinary", 2, [("0/1-1-", 1), ("1/1-0-", 1)]);
++        Check(
++            "constructor",
++            2,
++            [("3/1-1-", 1), ("2/1-0-", 2), ("1/1-2-", 2), ("0/1-3-", 1)]
++        );
++        Check("plain", 1, [("0/1-0-", 1)]);
++        Check("fused", 2, []);
++        Check("constant", 1, []);
++
++        await using var runtime = new ProcessRuntime();
++        var dependencies = new BeamDependencySelection(["lists", ErlangModuleNames.Module]);
++        BeamModule image = BeamModule.Prepare(beam, dependencies);
++        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
++        await actor.InvokeAsync(async context =>
++        {
++            Term one = Term.A("one");
++            Term two = Term.A("two");
++            Term three = Term.A("three");
++            Term left = Term.A("left");
++            Term right = Term.A("right");
++            Term badLeft = Term.A("bad_left");
++            Term badRight = Term.A("bad_right");
++            Term first = Item(left, one);
++            Term expected = Term.Tuple(
++                Term.List(one, two, three),
++                Term.List(
++                    first,
++                    Item(left, two),
++                    Wrapped(left),
++                    Item(right, three),
++                    Wrapped(right)
++                )
++            );
++            Term actual = await image.Invoke(context, "probe_ordinary", Term.List(one, two), Term.List(three));
++            Term failed = await image.Invoke(
++                context,
++                "probe_ordinary",
++                new Cons(one, badLeft),
++                new Cons(two, badRight)
++            );
++            Term expectedFailure = Term.Tuple(Term.Tuple(Term.A("failed"), Term.Tuple(Term.A("bad_generator"), badLeft)),
++                Term.List(first));
++            Term closed = Term.A("closed");
++            Term tag = Term.A("tag");
++            Term type = Term.A("type");
++            Term selection = await image.Invoke(
++                context,
++                "probe_constructor",
++                Term.Tuple(type, tag, Nil.Value),
++                Term.List(one)
++            );
++            Term expectedSelection = Term.Tuple(Term.List(one), Term.List(Item(closed, one), Wrapped(closed)));
++            if (!expected.Equals(actual) || !expectedFailure.Equals(failed) || !expectedSelection.Equals(selection))
++            {
++                throw new InvalidOperationException("Ordinary append must preserve operand order, failure order and matched branch effects.");
++            }
++
++            return Nil.Value;
++        });
++
++        void Check(
++            string owner,
++            int arity,
++            (string Suffix, int Arity)[] expected
++        )
++        {
++            string prefix = FormattableString.Invariant($"-{owner}/{arity}-lc$^");
++            var actual = names.Where(function => function.Item1.StartsWith(prefix, StringComparison.Ordinal));
++            if (!actual.SequenceEqual(expected.Select(function => (prefix + function.Suffix, function.Arity))))
++            {
++                throw new InvalidOperationException($"Unexpected comprehension helper order in {owner}.");
++            }
++        }
++
++        static Term Item(Term label, Term value) => Term.Tuple(Term.A("item"), label, value);
++
++        static Term Wrapped(Term label) => Term.Tuple(Term.A("wrapped"), label);
++    }
++}

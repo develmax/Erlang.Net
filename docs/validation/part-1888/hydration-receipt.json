@@ -1,0 +1,62 @@
+{
+  "Parent": {
+    "Source": "ecb7f3b64abe442c4c4bcc9715bd9441fc0846863f91919ab7ac1ec826cb1a63",
+    "Paths": 265,
+    "Compiler": "070ae969202ce8d6efa7641554cdc3f19c01f521b77973fae5c68ee2b2c82bf4",
+    "Tests": "27590b88617db51994dde7c2ca35a4698b8ef4a52fda2ac53749cdad95508b71",
+    "ParentSource": "40f3c559f43b8846ce06c9137774ae125e8d42501b0780ab0d9e39bd0df52e6a",
+    "CorpusTool": "9b7184d3f6039d5bb53f70d5d436c16bdf175812157c09d741cb2a624b206758"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CallResultExchange.cs": "5d745ba55e7df99a91708d7247ad69832a7895584d65a371db330b089f9c85bd",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedRecordConstruction.cs": "174489c8c74f502311ac45340b058c172b0e9192ae0dd8c5c09fd6188df3f678",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DeadStackProjections.cs": "52da13b1b7af59fe520bd56c5d16f01a2e3b4ab5d5c0a6820bab3e4249117ae4",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryFramePlacement.cs": "edd2b685b2bd4b1bded290b2c632a98300e91a19a17cafe3315cddcb672894c8",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": "a4930c8e212333111092e35a3e3b425fb6b7f4fc2002ab23cc6ef5b8117df64a",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ListConversionResults.cs": "af788c60a59433c5f9a9e5a29a6b07ce65dc15a2a5a3509ff677930b8eec3263",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LocalIntegerResults.cs": "bc06a88125342327d2ec7859987a373a3063214438fec38d9484523d94cdc35a",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs": "faec61dc762defc121825c136e98d228329463e7528123a349913e24fd90f662",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedReturns.cs": "133fb9ecae8641ea56895571755d018ff3b2947f7cb633f25bbc2ec2aa43c38a",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": "95e144df1c2cafde4c066db709af41bf4158c897a0f3b03231313ce9087cb48b",
+    "src/Compiler/Erlang.Compiler/Syntax/Ast/FunctionDefinition.cs": "bafc43b6cb7fdb345e9231e69dbed7056bee126d489f78acad24e32116d33860",
+    "tests/Erlang.Tests/Compiler/Beam/BeamCheckedRecordConstructionChecks.cs": "8cce4c28778c5d8221f33ef8c969d3955e2e4a5de0944b04763aebdc8eaaa4f5",
+    "tests/Erlang.Tests/Compiler/Beam/BeamGeneratedListResultChecks.cs": "4c7a5b08dffed716b6ef859401255908cbf432e666f9569b0976d8c9c93ebea9",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamCallResultExchangeChecks.cs": "960e76180d59bf057593728652da0f07d4f4e781305060a8a0f4af312da4bc94",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamDeadStackProjectionChecks.cs": "8b596386f010ba08eb3b61562a89e87a52f2463c689d16e9d6ff51385730cae3",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamFunctionClauseEntryFrameChecks.cs": "158959eccdb74fec53761eb0cdec30b565b7746ff5408c7d1e4123bb364555ff",
+    "tests/Erlang.Tests/Harness/Program.cs": "395d0f95f604775874abc9b024f5956b5ef8808036d989a1592209bf4d6e0cd6"
+  },
+  "Patches": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\entry-frames-and-record-construction-1888\\call-aware-stack-projection-phases.patch",
+      "Hash": "d1a264df0a1dbd34ebb818148ff7138492734d4ba351847ab60a26c13d4166c5"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\entry-frames-and-record-construction-1888\\delay-own-function-clause-frame.patch",
+      "Hash": "58f1ff399d78aeaa6eb9b65dd56c556a088803d53b4bf16c807acefd51c443cc"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\entry-frames-and-record-construction-1888\\generated-list-success-result-types.patch",
+      "Hash": "7b44bed905f3f3d266cd651f08d200496e6d1539a8a8d1b10e354d7c1f671223"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\entry-frames-and-record-construction-1888\\merge-disjoint-call-result-slot.patch",
+      "Hash": "8db1794391cf88ee2881b767fecadc81806aaf3859a0899338e244eeb48f03b4"
+    }
+  ],
+  "HarnessRegistrations": [
+    "BeamCheckedRecordConstructionChecks",
+    "BeamFunctionClauseEntryFrameChecks",
+    "BeamGeneratedListResultChecks",
+    "BeamCallResultExchangeChecks"
+  ],
+  "BindingCorrections": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedRecordConstruction.cs": {
+      "global::Erlang.Compiler.Pattern.Variable": "global::Erlang.Pattern.Variable"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryFramePlacement.cs": {
+      "[_, _, var arity] } && arity.Value <= live": "[_, _, var functionArity] } && functionArity.Value <= live"
+    }
+  },
+  "FailurePreservedAt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\entry-frames-and-record-construction-1888\\compiler-build.log"
+}

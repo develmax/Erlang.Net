@@ -60,12 +60,13 @@ internal static class BeamBranchedFrameOwnershipChecks
             BeamEmissionFormat.Label, 0xD0, BeamEmissionFormat.Allocate, 0x20, 0x20,
             BeamEmissionFormat.Move, 0x13, 0x04, BeamEmissionFormat.Move, 0x03, 0x14
         ];
+        // Try initializes its own tag before the first collection point.
         ReadOnlySpan<byte> protectedSaves =
         [
             BeamEmissionFormat.Label, 0x08, 0x13, BeamEmissionFormat.Allocate, 0x40, 0x20,
-            BeamEmissionFormat.InitYRegisters, BeamEmissionFormat.ExtendedListOperand, 0x20, 0x24, 0x34,
+            BeamEmissionFormat.InitYRegisters, BeamEmissionFormat.ExtendedListOperand, 0x10, 0x34,
             BeamEmissionFormat.Move, 0x03, 0x04, BeamEmissionFormat.Move, 0x13, 0x14,
-            BeamEmissionFormat.TryEnter
+            BeamEmissionFormat.TryEnter, 0x24
         ];
         if (code.AsSpan().IndexOf(oneLiveSave) < 0 || code.AsSpan().IndexOf(noLiveSaves) < 0
             || code.AsSpan().IndexOf(bothLiveSaves) < 0 || code.AsSpan().IndexOf(protectedSaves) < 0)

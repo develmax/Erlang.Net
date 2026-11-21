@@ -1,0 +1,216 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamGroupedCallProjectionChecks.cs b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamGroupedCallProjectionChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamGroupedCallProjectionChecks.cs
+@@ -0,0 +1,197 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamGroupedCallProjectionChecks
++{
++    internal const string TestName = "compiler/beam/keeps-call-only-grouped-tuple-fields-in-x";
++
++    private const string Source = """
++        -module(beam_grouped_call_projection).
++        -export([direct/2, retained/2, intervening/2]).
++
++        direct({route, First, Second, Third}, State) ->
++            record_effect(First, Second, Third, legacy),
++            {kept, State};
++        direct({short, Value}, State) ->
++            {short, Value, State};
++        direct(Command, State) ->
++            {other, Command, State}.
++
++        retained({route, First, Second, Third}, State) ->
++            record_effect(First, Second, Third, retained),
++            {kept, First, State};
++        retained({short, Value}, State) ->
++            {short, Value, State};
++        retained(Command, State) ->
++            {other, Command, State}.
++
++        intervening({route, First, Second, Third}, State) ->
++            note({earlier, First}),
++            record_effect(First, Second, Third, intervening),
++            {kept, State};
++        intervening({short, Value}, State) ->
++            {short, Value, State};
++        intervening(Command, State) ->
++            {other, Command, State}.
++
++        record_effect(First, Second, Third, Kind) ->
++            note({Kind, First, Second, Third}).
++
++        note(Event) ->
++            put(trace, [Event | get(trace)]),
++            ok.
++        """;
++
++    internal static async Task Run()
++    {
++        byte[] image = CodeGeneration.CompileBeamModule(Source, "beam_grouped_call_projection.erl");
++        VerifyRegisters(Code(image));
++
++        var module = BeamModule.Prepare(image);
++        await using var runtime = new ProcessRuntime();
++        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
++        await actor.InvokeAsync(async context =>
++        {
++            Term first = Term.A("field_one");
++            Term second = Term.I(71);
++            Term third = Term.List(Term.A("field_three"));
++            Term state = Term.Tuple(Term.A("state"), Term.I(37));
++            Term trace = Term.A("trace");
++            Term other = Term.A("fallback_key");
++            Term route = Term.Tuple(
++                Term.A("route"),
++                first,
++                second,
++                third
++            );
++
++            Term kept = Term.Tuple(Term.A("kept"), state);
++            await Verify(
++                "direct",
++                route,
++                kept,
++                Term.List(Effect("legacy"))
++            );
++            await Verify(
++                "retained",
++                route,
++                Term.Tuple(Term.A("kept"), first, state),
++                Term.List(Effect("retained"))
++            );
++            await Verify(
++                "intervening",
++                route,
++                kept,
++                Term.List(Effect("intervening"), Term.Tuple(Term.A("earlier"), first))
++            );
++            await Verify(
++                "direct",
++                other,
++                Term.Tuple(Term.A("other"), other, state),
++                Nil.Value
++            );
++
++            return Nil.Value;
++
++            Term Effect(string kind) => Term.Tuple(
++                Term.A(kind),
++                first,
++                second,
++                third
++            );
++
++            async Task Verify(
++                string function,
++                Term message,
++                Term expected,
++                Term expectedTrace
++            )
++            {
++                await runtime.Modules.Call(
++                    context,
++                    ErlangModuleNames.Module,
++                    ErlangModuleNames.Put,
++                    trace,
++                    Nil.Value
++                );
++                Term actual = await module.Invoke(
++                    context,
++                    function,
++                    message,
++                    state
++                );
++                Term events = await runtime.Modules.Call(
++                    context,
++                    ErlangModuleNames.Module,
++                    ErlangModuleNames.Get,
++                    trace
++                );
++                if (!expected.Equals(actual) || !expectedTrace.Equals(events))
++                {
++                    throw new InvalidOperationException(BeamGroupedCallProjectionDiagnostics.Effects);
++                }
++            }
++        });
++    }
++
++    private static void VerifyRegisters(object code)
++    {
++        object[] direct = FunctionBody(code, "direct");
++        int allocation = Array.FindIndex(direct, instruction => Opcode(instruction) is Allocate or AllocateHeap);
++        int call = Array.FindIndex(direct, instruction => Opcode(instruction) == LocalCall);
++        if (allocation < 0 || call <= allocation || Opcode(direct[allocation]) != Allocate
++            || !Operands(direct[allocation]).Select(Value).SequenceEqual([1, 2]))
++        {
++            throw new InvalidOperationException(BeamGroupedCallProjectionDiagnostics.Frame);
++        }
++
++        object[] setup = direct[(allocation + 1)..call].Where(instruction => Opcode(instruction) != Line).ToArray();
++        if (!setup.Select(Opcode).SequenceEqual([Move, GetTupleElement, GetTupleElement, GetTupleElement, Move, Swap, Swap])
++            || !Register(Operands(setup[0])[0], "x", 1) || !Register(Operands(setup[0])[1], "y", 0)
++            || !Projection(setup[1], 1, 1) || !Projection(setup[2], 2, 2) || !Projection(setup[3], 3, 0)
++            || !Register(Operands(setup[5])[0], "x", 2) || !Register(Operands(setup[5])[1], "x", 1)
++            || !Register(Operands(setup[6])[0], "x", 0) || !Register(Operands(setup[6])[1], "x", 2))
++        {
++            throw new InvalidOperationException(BeamGroupedCallProjectionDiagnostics.RegisterSchedule);
++        }
++
++        object[] retained = FunctionBody(code, "retained");
++        int retainedFrame = Array.FindIndex(retained, instruction => Opcode(instruction) is Allocate or AllocateHeap);
++        if (retainedFrame < 0 || Value(Operands(retained[retainedFrame])[0]) < 2)
++        {
++            throw new InvalidOperationException(BeamGroupedCallProjectionDiagnostics.RetainedField);
++        }
++    }
++
++    private static object[] FunctionBody(object code, string function)
++    {
++        object[] instructions = Items(code, "Instructions");
++        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        int start = Array.FindIndex(
++            instructions,
++            instruction => Opcode(instruction) == FunctionInfo && atoms[Value(Operands(instruction)[1])] == function
++        );
++
++        return start < 0 ? [] : instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo).ToArray();
++    }
++
++    private static bool Projection(object instruction, int field, int target) =>
++        Register(Operands(instruction)[0], "x", 0) && Value(Operands(instruction)[1]) == field
++        && Register(Operands(instruction)[2], "x", target);
++
++    private static bool Register(object operand, string kind, int expected) =>
++        Equals(Property(operand, "Kind"), kind) && Value(operand) == expected;
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++
++    private static object[] Operands(object instruction) => Items(instruction, "Operands");
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static object[] Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
++}
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamGroupedCallProjectionDiagnostics.cs b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamGroupedCallProjectionDiagnostics.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamGroupedCallProjectionDiagnostics.cs
+@@ -0,0 +1,9 @@
++namespace Erlang.Tests;
++
++internal static class BeamGroupedCallProjectionDiagnostics
++{
++    internal const string Frame = "The call-only tuple fields must leave one saved state slot and two entry roots.";
++    internal const string RegisterSchedule = "Expected the checked fields in field order and the outgoing argument cycle in X registers.";
++    internal const string RetainedField = "The live return field and state must survive the effect call.";
++    internal const string Effects = "The grouped entry returned the wrong value or changed the effects or their order.";
++}

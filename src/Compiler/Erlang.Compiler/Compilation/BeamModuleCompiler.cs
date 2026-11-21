@@ -15,7 +15,9 @@ internal sealed partial class BeamModuleCompiler(
     string name,
     string? defaultLineFile = null,
     ModuleDefinition? sourceModule = null,
-    bool maybeEnabled = true
+    bool maybeEnabled = true,
+    bool automaticCoreInlining = false,
+    bool entryTupleAliasesEnabled = true
 )
 {
     private string? OnLoadFunction => sourceModule?.OnLoadFunction;
@@ -53,9 +55,24 @@ internal sealed partial class BeamModuleCompiler(
             ? BehaviourInfoLabels - (callbacks.Callbacks.Equals(callbacks.Optional) ? 1 : 0)
             : 0;
         exportedFunctions = publicFunctions;
-        functions = functions.Select(FoldLiteralAtomConversions).Select(FoldUnusedTupleBindings).Select(FoldBinaryMatchTupleBindings).ToArray();
+        functions = functions.Select(FoldLiteralAtomConversions).Select(FoldUnusedTupleBindings).Select(FoldBinaryMatchTupleBindings).Select(PruneUnusedEntryTupleElements).ToArray();
         functions = PropagateLocalConstantArguments(functions);
+        if (!ModuleOptimizationDisabled)
+        {
+            functions = functions.Select(FoldCoveredCaseArms)
+                .Select(FoldTerminalCaseConstants)
+                .Select(FoldTerminalReconstructionCases)
+                .Select(ReuseNonterminalCaseCarriers)
+                .Select(ReuseTerminalEffectfulCaseCarriers)
+                .Select(SubstituteDirectAnonymousHelperConstants).ToArray();
+            if (entryTupleAliasesEnabled)
+            {
+                functions = functions.Select(ReuseEntryTupleCarriers).ToArray();
+            }
+        }
+
         (functions, sourceLines) = ExtractClosedComprehensions(functions, sourceLines);
+        IndexEntryMatchedMapUpdates(functions);
         using var code = instructions;
         var localEntries = new Dictionary<(string Name, int Arity), int>();
         var reachable = new HashSet<(string Name, int Arity)>();
@@ -288,6 +305,12 @@ internal sealed partial class BeamModuleCompiler(
             if (function.IsInlineFailure)
             {
                 entryLabel += 2;
+                continue;
+            }
+            if (writableBinaryListOwners.ContainsKey((function.Name, function.Arity))
+                || writableBinaryListHelpers.ContainsKey((function.Name, function.Arity)))
+            {
+                entryLabel += WritableBinaryListLabelCount;
                 continue;
             }
             if (general.TryGetValue((function.Name, function.Arity), out var plan))
@@ -572,6 +595,17 @@ internal sealed partial class BeamModuleCompiler(
                     line
                 );
             }
+            else if (writableBinaryListOwners.TryGetValue((function.Name, function.Arity), out var writableOwner))
+            {
+                EmitWritableBinaryListOwner(localEntries[(writableOwner.HelperName, WritableBinaryListHelperArity)]);
+            }
+            else if (writableBinaryListHelpers.TryGetValue((function.Name, function.Arity), out var writableHelper))
+            {
+                EmitWritableBinaryListHelper(
+                    localEntries[(function.Name, function.Arity)],
+                    writableHelper
+                );
+            }
             else if (TryEmitReturnedClosure(function, line))
             {
                 continue;
@@ -590,7 +624,8 @@ internal sealed partial class BeamModuleCompiler(
                     plan.Slots,
                     plan.Labels,
                     plan.ListFailures,
-                    plannedTupleFrames: plan.TupleFrames
+                    plannedTupleFrames: plan.TupleFrames,
+                    plannedReversedFrame: plan.ReverseFrameSlots
                 )
                     .Function(function);
             }
@@ -734,7 +769,19 @@ internal sealed partial class BeamModuleCompiler(
                 exported: false
             );
             deferredEntries.Add(-index, nextLabel - 1);
-            var plan = general[(function.Name, function.Arity)];
+            if (writableBinaryListHelpers.TryGetValue((function.Name, function.Arity), out var writable))
+            {
+                EmitWritableBinaryListHelper(nextLabel - 1, writable);
+
+                return;
+            }
+
+            if (!general.TryGetValue((function.Name, function.Arity), out var plan))
+            {
+                EmitFunctionBody(function.Clauses, line, localEntries);
+
+                return;
+            }
             new GeneralEmitter(
                 this,
                 localEntries,
@@ -743,7 +790,8 @@ internal sealed partial class BeamModuleCompiler(
                 plan.Slots,
                 plan.Labels,
                 plan.ListFailures,
-                plannedTupleFrames: plan.TupleFrames
+                plannedTupleFrames: plan.TupleFrames,
+                plannedReversedFrame: plan.ReverseFrameSlots
             ).Function(function);
         }
 
@@ -788,20 +836,28 @@ internal sealed partial class BeamModuleCompiler(
         {
             EmitBehaviourInfoFailure();
         }
+        ResolveListClosureTargets();
         ResolveDeferredLabelOperands();
         code.WriteByte(EndCode);
+
+        return WriteImage(metadata, output => EmitCode(output, functions, localEntries));
+    }
+
+    private byte[] WriteImage(BeamModuleMetadata metadata, Action<Stream> writeCode)
+    {
+        byte[] code = Payload(writeCode);
         (string Id, byte[] Payload)[] essentials =
         [
             (BeamWire.AtomsChunk, Payload(EmitAtoms)),
-            (BeamWire.CodeChunk, Payload(output => EmitCode(output, functions, localEntries))),
+            (BeamWire.CodeChunk, code),
             ("StrT", stringTable.ToArray()),
             (BeamWire.ImportsChunk, Payload(output =>
             {
                 Word(output, imports.Count);
-                foreach (var entry in imports.OrderBy(entry => entry.Value))
+                foreach (var entry in imports.OrderBy(entry => emittedImports?[entry.Value] ?? entry.Value))
                 {
-                    Word(output, entry.Key.Module);
-                    Word(output, entry.Key.Function);
+                    Word(output, MapEmittedAtom(entry.Key.Module));
+                    Word(output, MapEmittedAtom(entry.Key.Function));
                     Word(output, entry.Key.Arity);
                 }
             })),
@@ -937,10 +993,15 @@ internal sealed partial class BeamModuleCompiler(
             && AttributeLiteral.TryNormalizeConstant(sequence.Items[^1], out literal, bindings);
     }
 
-    private static Dictionary<string, Term>? ReadConstantBindings(Clause clause, Expr.Sequence sequence)
+    private static Dictionary<string, Term>? ReadConstantBindings(Clause clause, Expr.Sequence sequence) =>
+        ReadConstantBindings(
+            sequence,
+            clause.Patterns.OfType<Pattern.Variable>().Select(variable => variable.Name).ToHashSet(StringComparer.Ordinal)
+        );
+
+    private static Dictionary<string, Term>? ReadConstantBindings(Expr.Sequence sequence, IReadOnlySet<string> parameters)
     {
         var bindings = new Dictionary<string, Term>(StringComparer.Ordinal);
-        var parameters = clause.Patterns.OfType<Pattern.Variable>().Select(variable => variable.Name).ToHashSet(StringComparer.Ordinal);
         foreach (Expr item in sequence.Items.SkipLast(1))
         {
             if (item is not Expr.Match { Pattern: Pattern.Variable variable } binding
@@ -997,9 +1058,15 @@ internal sealed partial class BeamModuleCompiler(
     private void EmitAtoms(Stream output)
     {
         bool legacy = sourceModule?.LegacyBeamTables == true;
-        Word(output, legacy ? atoms.Count : -atoms.Count);
-        foreach (var entry in atoms.OrderBy(entry => entry.Value))
+        int count = emittedAtoms is null ? atoms.Count : emittedAtomCount;
+        Word(output, legacy ? count : -count);
+        foreach (var entry in atoms.OrderBy(entry => MapEmittedAtom(entry.Value)))
         {
+            if (MapEmittedAtom(entry.Value) == 0)
+            {
+                continue;
+            }
+
             byte[] text = Encoding.UTF8.GetBytes(entry.Key);
             if (legacy)
             {
@@ -1056,13 +1123,181 @@ internal sealed partial class BeamModuleCompiler(
         int labelCount = nextLabel - sharedReturnLabelCount;
         code = FoldInitialFrameTrims(code, labelCount) ?? code;
         code = TrimStackBetweenCalls(code, labelCount) ?? code;
-        code = RemoveRepeatedLines(code);
+        code = StoreListIntoSurvivingSlot(code, labelCount) ?? code;
+        code = ClearConsumedListHeadBeforeRedefinition(code, labelCount) ?? code;
+        code = MoveColdBooleanCaseFailures(code, labelCount) ?? code;
+        code = GroupEntryLiteralTests(code, labelCount) ?? code;
+        if (GroupDisjointEntryTests(
+            code,
+            labelCount,
+            functions,
+            localEntries
+        ) is { } entryPartitions)
+        {
+            (code, labelCount) = entryPartitions;
+        }
+
+        code = RemoveRepeatedLines(code, labelCount);
         code = SpecializeProvenListMatchFailures(code, labelCount) ?? code;
+        code = ReuseLateAtomicProjectionSlots(code, labelCount);
+        code = PromoteLateInterCallFrameSlots(code, labelCount);
+        code = CombineComputedTupleListConstruction(code, labelCount) ?? code;
+        var localResultEntries = ReadLocalResultEntries(functions, localEntries);
         code = AnnotateAdjacentNumericResults(
             code,
             labelCount,
-            ReadLocalResultEntries(functions, localEntries)
+            localResultEntries
         ) ?? code;
+        code = AnnotateFiniteIntegerBounds(
+            code,
+            labelCount,
+            functions,
+            localEntries
+        ) ?? code;
+        code = AnnotateListProducerResults(code, labelCount, localResultEntries) ?? code;
+        code = AnnotateProvenListHeadInputs(code, labelCount) ?? code;
+        code = AnnotateBoundedPrivateEntryTests(code, labelCount) ?? code;
+        code = LocalizeCheckedListGuardFrame(code, labelCount) ?? code;
+        code = SimplifyListOrTaggedCallResult(
+            code,
+            labelCount,
+            functions,
+            localEntries
+        ) ?? code;
+        code = LocalizeComputedBinaryMatch(code, labelCount) ?? code;
+        byte[]? ownedReceiveFrames = LocalizeGuardedReceiveFrames(
+            code,
+            labelCount,
+            functions,
+            localEntries
+        );
+        if (ownedReceiveFrames is not null)
+        {
+            code = OrderSafeEnumerationTailArguments(ownedReceiveFrames, labelCount) ?? ownedReceiveFrames;
+        }
+        code = OrderTypeOperandsByFirstUse(code, labelCount);
+        code = TrimOwnedCallResultBranches(code, labelCount) ?? code;
+        code = ClearDeadRecordCallSlots(code, labelCount) ?? code;
+        code = ClearProjectedTerminalBranchRoots(code, labelCount) ?? code;
+        code = OrderCallArgumentAfterKills(code, labelCount) ?? code;
+        code = TrimNestedTupleCallReturns(code, labelCount) ?? code;
+        code = OrderOwnedRecordCallFrameSlots(code, labelCount) ?? code;
+        code = LocalizeJoinedRecordCallFrame(code, labelCount, functions) ?? code;
+        code = RestoreCapturedArgumentAfterListHead(code, labelCount) ?? code;
+        code = PreferCopiedTupleSourcesInX(code, labelCount) ?? code;
+        code = FrameOnlyContinuingRecordBranch(code, labelCount) ?? code;
+        code = ReserveHeapBeforeStackTupleProjection(code, labelCount) ?? code;
+        code = CombineTerminalProjectedListHeap(code, labelCount) ?? code;
+        code = ForwardTerminalCallProjections(code, labelCount) ?? code;
+        code = CompactCompletelyTrimmedFrames(code, labelCount) ?? code;
+        code = ShareCheckedCallResultPayload(code, labelCount) ?? code;
+        code = ShareCommonCheckedTupleProjection(code, labelCount) ?? code;
+        code = PackTerminalHeaderListHeap(code, labelCount) ?? code;
+        code = ClearConsumedProjectedCallArguments(code, labelCount) ?? code;
+        code = TrimOwnedConstructionCallFrames(code, labelCount) ?? code;
+        var mixedTupleReturns = ShareMixedTupleCaseReturns(code, labelCount);
+        if (mixedTupleReturns is { } sharedMixedDecision)
+        {
+            (code, labelCount) = sharedMixedDecision;
+            code = PreferCopiedTupleSourcesInX(code, labelCount) ?? code;
+            code = OrderTypeOperandsByFirstUse(code, labelCount);
+        }
+        if (removedInteriorRecordFailure)
+        {
+            code = RebuildLineTable(code.ToArray(), labelCount);
+        }
+
+        if (RemoveProvenNonemptyListTests(code, labelCount) is { } nonemptyLists)
+        {
+            code = RebuildLineTable(nonemptyLists, labelCount);
+        }
+
+        code = MoveCaughtListHeadChecksBeforeFrame(code, labelCount) ?? code;
+        code = ShareClosedCatchPairPayload(code, labelCount) ?? code;
+        code = DirectTerminalCallResultArguments(code, labelCount) ?? code;
+        code = CompactClosedCatchArgumentFrame(code, labelCount) ?? code;
+        code = CompactCaughtListTailFrames(code, labelCount) ?? code;
+        code = ClearClosedCatchArgumentRoots(code, labelCount) ?? code;
+        if (ClearConsumedOutgoingRoots(code, labelCount) is { } outgoing)
+        {
+            // The late argument schedule can expose new trim sites after the
+            // original frame pass has fixed the existing ones.
+            code = TrimLinearStackFrames(outgoing.Code, labelCount, outgoing.Initializations) ?? outgoing.Code;
+        }
+        code = TrimClosedCatchPayloadReturns(code, labelCount) ?? code;
+        code = FoldStagedListConstructions(code, labelCount) ?? code;
+        code = FoldTerminalClosureFrames(code, labelCount) ?? code;
+        code = FoldHeadTupleReturnFrames(code, labelCount) ?? code;
+        code = ProjectEntryListDirectlyIntoFrame(code, labelCount) ?? code;
+        code = ProjectCheckedEntryTupleIntoFrame(code, labelCount) ?? code;
+        code = PlaceSingletonListCheckBeforeFrame(code, labelCount) ?? code;
+        code = SinkFallthroughOwnedProjections(code, labelCount) ?? code;
+
+        // Match the entry definitions after transformations that use the
+        // unassigned handler slot to recognize the original frame shape.
+        if (!ModuleOptimizationDisabled && code.Span.Contains(InitYRegisters)
+            && DecodeLateAtomicProjectionSlots(code, labelCount) is { } initializedEntry)
+        {
+            code = SimplifyFrameInitialization(code, initializedEntry.Body, includeNonAllocatingDefinitions: true) ?? code;
+        }
+
+        code = KeepTerminalRecordOperandsInX(code, labelCount) ?? code;
+        code = ClearDeadProjectedBranchRoots(code, labelCount) ?? code;
+        code = ScheduleNestedRecordBranchCopies(code, labelCount) ?? code;
+
+        if (CanonicalizeCheckedIntegerOrderTests(code, labelCount) is { } integerOrder)
+        {
+            code = OrderTypeOperandsByFirstUse(integerOrder, labelCount);
+        }
+
+        code = OrderCheckedEntryFrameRoots(code, labelCount) ?? code;
+        code = MoveColdExactMatchFailures(code, labelCount) ?? code;
+        code = ReturnExactMatchPredicates(code, labelCount) ?? code;
+        code = ForwardLiveCallResultToArgument(code, labelCount) ?? code;
+        code = OrderTrimmedCallResultArguments(code, labelCount) ?? code;
+        code = MoveColdBooleanCaseFailures(code, labelCount, standaloneOnly: true) ?? code;
+        code = DelayCheckedEntryCallResultCopies(code, labelCount) ?? code;
+        code = ShareCheckedCallResultSpills(code, labelCount) ?? code;
+        code = ScheduleEntryTupleFunctionCall(code, labelCount) ?? code;
+        code = RemoveClearedCallProjectionCopies(code, labelCount) ?? code;
+        code = EliminatePreCallFrameAliases(code, labelCount) ?? code;
+        code = RedirectPreCallClosureDestinations(code, labelCount) ?? code;
+        code = EliminatePostCallResultAliases(code, labelCount) ?? code;
+        code = ScheduleCheckedRecordTupleReturns(code, labelCount) ?? code;
+        if (OrderFinalPhysicalLabels(code, labelCount) is { } ordered)
+        {
+            (code, labelCount) = ordered;
+        }
+
+        // Late root initialization can follow the last outgoing argument.
+        code = OrderCallArgumentAfterKills(
+            code,
+            labelCount,
+            finalPass: true
+        ) ?? code;
+        code = RetainNestedCheckedCallResult(code, labelCount) ?? code;
+
+        if ((ownedReceiveFrames is not null || mixedTupleReturns is not null)
+            && OrderRelocatedEntryTables(code, labelCount) is { } orderedTables)
+        {
+            code = orderedTables;
+        }
+        else
+        {
+            code = CompactFinalAtoms(code, labelCount);
+        }
+        code = CoalescePartialTrimListTails(code, labelCount) ?? code;
+        lateProjectionDecode = null;
+        WriteCode(output, code, labelCount);
+    }
+
+    private void WriteCode(Stream output, ReadOnlyMemory<byte> code, int labelCount)
+    {
+        if (!ModuleOptimizationDisabled && hasTupleProjections)
+        {
+            code = OrderAdjacentTupleProjections(code, labelCount) ?? code;
+        }
+
         Word(output, CodeHeaderSize);
         Word(output, BeamWire.FormatVersion);
         Word(output, highestOpcode);
@@ -1076,7 +1311,7 @@ internal sealed partial class BeamModuleCompiler(
         Word(output, entries.Count);
         foreach (var (atom, arity, entry) in entries.AsEnumerable().Reverse())
         {
-            Word(output, atom);
+            Word(output, MapEmittedAtom(atom));
             Word(output, arity);
             Word(output, MapEmittedLabel(entry));
         }
@@ -1115,25 +1350,33 @@ internal sealed partial class BeamModuleCompiler(
 
     private void EmitLine(BeamSourceLocation location)
     {
-        int index = 0;
-        if (location.Line != 0)
+        if (location.Line != 0 && location.File is null && defaultLineFile is not null)
         {
-            if (location.File is null && defaultLineFile is not null)
-            {
-                location = location with { File = defaultLineFile };
-            }
-            // OTP reserves filename index zero for the module's unqualified source name.
-            var entry = location.File == implicitLineFile ? location with { File = null } : location;
-            if (entry.File is not null)
-            {
-                filenames.TryAdd(entry.File, filenames.Count + 1);
-            }
-            lines.TryAdd(entry, lines.Count + 1);
-            index = lines[entry];
+            location = location with { File = defaultLineFile };
         }
+
         lastEmittedLine = location;
         lineInstructions++;
-        Op(Line, BeamWire.UnsignedTag, index);
+        Op(Line, BeamWire.UnsignedTag, IndexLineLocation(location));
+    }
+
+    private int IndexLineLocation(BeamSourceLocation location)
+    {
+        if (location.Line == 0)
+        {
+            return 0;
+        }
+
+        // OTP reserves filename index zero for the module's unqualified source name.
+        var entry = location.File == implicitLineFile ? location with { File = null } : location;
+        if (entry.File is not null)
+        {
+            filenames.TryAdd(entry.File, filenames.Count + 1);
+        }
+
+        lines.TryAdd(entry, lines.Count + 1);
+
+        return lines[entry];
     }
 
     private void Op(byte opcode, int tag, BigInteger value)

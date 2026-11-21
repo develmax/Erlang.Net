@@ -1,0 +1,69 @@
+{
+  "RawFailedReportSha256": "8A08266FF970D90B16AE2F17E18F3C71E5AC3CABAB40B3F3336538ED0EC3B7E1",
+  "Results": [
+    {
+      "Lane": "prior",
+      "AssemblySha256": "ECA1945C13E9AECD11110190D3A17DCF706DD9CACB2894690DD1D8594F64CBDB",
+      "Memory": {
+        "FreePhysicalMemory": 3079032,
+        "FreeVirtualMemory": 4545456
+      },
+      "Cases": [
+        {
+          "Name": "oracle/compiled-module/erlang-length-long-badarg",
+          "Status": "Passed",
+          "Milliseconds": 10742
+        },
+        {
+          "Name": "oracle/compiled-module/erlang-length-matchspec",
+          "Status": "Passed",
+          "Milliseconds": 5260
+        },
+        {
+          "Name": "oracle/compiled-module/queue/core/ordering",
+          "Status": "Passed",
+          "Milliseconds": 11579
+        },
+        {
+          "Name": "mfa/erlang:halt/0",
+          "Status": "Passed",
+          "Milliseconds": 2697
+        }
+      ],
+      "Seconds": 32.3879093,
+      "ExitCode": 0
+    },
+    {
+      "Lane": "candidate",
+      "AssemblySha256": "6745DDA1A8907F9870F2944EBEF2086E3165E62EC21C033EDA3A9EA498AB4C75",
+      "Memory": {
+        "FreePhysicalMemory": 3779980,
+        "FreeVirtualMemory": 5012356
+      },
+      "Cases": [
+        {
+          "Name": "oracle/compiled-module/erlang-length-long-badarg",
+          "Status": "Passed",
+          "Milliseconds": 10846
+        },
+        {
+          "Name": "oracle/compiled-module/erlang-length-matchspec",
+          "Status": "Passed",
+          "Milliseconds": 8298
+        },
+        {
+          "Name": "oracle/compiled-module/queue/core/ordering",
+          "Status": "Passed",
+          "Milliseconds": 14958
+        },
+        {
+          "Name": "mfa/erlang:halt/0",
+          "Status": "Passed",
+          "Milliseconds": 2782
+        }
+      ],
+      "Seconds": 37.9169306,
+      "ExitCode": 0
+    }
+  ]
+}

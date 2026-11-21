@@ -2,22 +2,44 @@ namespace Erlang.Compiler;
 
 internal static class BeamReleaseFunctionDebug
 {
+    private const string QuotedMaybe = "'" + ErlangKeywords.Maybe + "'";
+    private const string QuotedElse = "'" + ErlangKeywords.Else + "'";
+
     internal static Term AbstractAnnotation(Token token, string source)
     {
         Term location = BeamDocumentationWriter.Annotation(token, source);
-        if (token is { Kind: LexerTokenKinds.QuotedAtom, Text: ErlangKeywords.Maybe or ErlangKeywords.Else })
+        string? spelling = token is { Kind: LexerTokenKinds.QuotedAtom } ? token.Text switch
         {
-            string quoted = "'" + token.Text + "'";
-            if (source.AsSpan(token.Start, token.End - token.Start).SequenceEqual(quoted))
-            {
-                return Term.List(
-                    Term.Tuple(Term.A("text"), Term.String(quoted)),
-                    Term.Tuple(Term.A("location"), location));
-            }
+            ErlangKeywords.Maybe => QuotedMaybe,
+            ErlangKeywords.Else => QuotedElse,
+            _ => null
+        } : null;
+
+        return spelling is not null && source.AsSpan(token.Start, token.End - token.Start).SequenceEqual(spelling)
+            ? WithTextAnnotation(location, spelling)
+            : location;
+    }
+
+    internal static Term TypeSourceAnnotation(ReadOnlySpan<char> source, Term location)
+    {
+        // OTP epp:keep_ftr_keywords retains only the exact quoted spelling.
+        if (source.StartsWith(QuotedMaybe, StringComparison.Ordinal))
+        {
+            return WithTextAnnotation(location, QuotedMaybe);
+        }
+        if (source.StartsWith(QuotedElse, StringComparison.Ordinal))
+        {
+            return WithTextAnnotation(location, QuotedElse);
         }
 
         return location;
     }
+
+    private static Term WithTextAnnotation(Term location, string spelling) =>
+        Term.List(
+            Term.Tuple(Term.A("text"), Term.String(spelling)),
+            Term.Tuple(Term.A("location"), location)
+        );
 
     internal static Term WriteRecord(
         IReadOnlyList<Token> tokens,
@@ -78,7 +100,7 @@ internal static class BeamReleaseFunctionDebug
             {
                 throw Unsupported();
             }
-            Term location = BeamDocumentationWriter.Annotation(field, source);
+            Term location = AbstractAnnotation(field, source);
             Term fieldName = Term.Tuple(Term.A("atom"), location, Term.A(field.Text));
             Term definition = Term.Tuple(Term.A("record_field"), location, fieldName);
             if (tokens[index].Text == ErlangOperators.Match)
@@ -465,7 +487,7 @@ internal static class BeamReleaseFunctionDebug
 
                     return Term.Tuple(
                         Term.A("match"),
-                        location,
+                        BeamAbstractFirstAnnotation.Read(left),
                         left,
                         Write(match.Value)
                     );
@@ -586,7 +608,7 @@ internal static class BeamReleaseFunctionDebug
             TakeKeyword(ErlangKeywords.Case);
             Term value = Write(expression.Value);
             TakeKeyword(ErlangKeywords.Of);
-            Term clauses = WritePatternClauses(expression.Clauses);
+            Term clauses = WritePatternClauses(expression.Clauses, usePatternStart: true);
             TakeKeyword(ErlangKeywords.End);
 
             return Term.Tuple(
@@ -651,7 +673,7 @@ internal static class BeamReleaseFunctionDebug
             return result;
         }
 
-        private Term WritePatternClauses(IReadOnlyList<Clause> source)
+        private Term WritePatternClauses(IReadOnlyList<Clause> source, bool usePatternStart = false)
         {
             var clauses = new List<Term>();
             for (int index = 0; index < source.Count; index++)
@@ -670,7 +692,7 @@ internal static class BeamReleaseFunctionDebug
                 Term guards = WriteOptionalGuard(clause.Guard);
                 clauses.Add(Term.Tuple(
                     Term.A("clause"),
-                    clauseLocation,
+                    usePatternStart ? BeamAbstractFirstAnnotation.Read(input) : clauseLocation,
                     Cons.From([input]),
                     guards,
                     WriteClauseBody(clause.Body)
@@ -690,16 +712,11 @@ internal static class BeamReleaseFunctionDebug
                 {
                     Take(ErlangSyntaxTokens.Semicolon);
                 }
-                int guardStart = cursor;
-                while (tokens[guardStart].Text == ErlangSyntaxTokens.OpenParenthesis)
-                {
-                    guardStart++;
-                }
-                Term start = Annotation(tokens[guardStart]);
                 Term guards = WriteGuards(clause.Guard ?? throw Unsupported());
+                var firstGuard = ((Cons)((Cons)guards).Head).Head;
                 clauses.Add(Term.Tuple(
                     Term.A("clause"),
-                    start,
+                    BeamAbstractFirstAnnotation.Read(firstGuard),
                     Nil.Value,
                     guards,
                     WriteClauseBody(clause.Body)
@@ -1294,8 +1311,9 @@ internal static class BeamReleaseFunctionDebug
                 {
                     Take(ErlangSyntaxTokens.Comma);
                 }
-                Term itemLocation = index == 0 ? location : Annotation(FirstUngroupedToken());
-                items.Add((itemLocation, Write(list.Items[index])));
+                Term value = Write(list.Items[index]);
+                Term itemLocation = index == 0 ? location : BeamAbstractFirstAnnotation.Read(value);
+                items.Add((itemLocation, value));
             }
 
             Term tail;

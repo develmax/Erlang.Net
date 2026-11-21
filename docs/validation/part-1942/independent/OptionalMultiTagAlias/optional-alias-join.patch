@@ -1,0 +1,315 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultOnlySequenceDecoder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultOnlySequenceDecoder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultOnlySequenceDecoder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultOnlySequenceDecoder.cs
+@@ -18,6 +18,8 @@
+             TaggedBranchRange? Bounds = null,
+             Term? MiddleArgument = null
+         );
++
++        private sealed record OptionalAliasField(Term Default, IReadOnlyList<(Integer Tag, DecodeCall Decode)> Arms);
+ 
+         private bool TryEmitDefaultOnlySequenceDecoder(FunctionDefinition function)
+         {
+@@ -69,7 +71,7 @@
+                 return false;
+             }
+ 
+-            var plans = new DefaultSequenceField[count];
++            var plans = new (DefaultSequenceField? Direct, OptionalAliasField? Aliased)[count];
+             var defined = new HashSet<string>(StringComparer.Ordinal) { input.Name, tags.Name, initial.Name, result.Name };
+             string previous = initial.Name;
+             for (int index = 0; index < count; index++)
+@@ -94,17 +96,24 @@
+                     allowRemote: true,
+                     allowLiteralMiddleArgument: true
+                 ) ?? ReadBoundedTaggedSequenceField(choice, previous, defined);
++                OptionalAliasField? aliased = null;
+                 if (plan is null)
+                 {
+-                    if (ReadNamedDefault(choice, previous, defined) is not { } named)
++                    if (ReadNamedDefault(choice, previous, defined) is { } named)
++                    {
++                        plan = named.Decoder with { Rename = named.Convert };
++                    }
++                    else if (ReadOptionalAliasField(choice, previous, defined) is { } aliases)
++                    {
++                        aliased = aliases;
++                    }
++                    else
+                     {
+                         return false;
+                     }
+-
+-                    plan = named.Decoder with { Rename = named.Convert };
+-                }
+-
+-                plans[index] = plan;
++                }
++
++                plans[index] = (plan, aliased);
+                 previous = rest.Name;
+             }
+ 
+@@ -127,12 +136,13 @@
+ 
+             for (int index = 0; index < plans.Length; index++)
+             {
+-                var plan = plans[index];
++                var (direct, aliased) = plans[index];
+                 int slot = plans.Length - index;
+                 int sourceTag = index == 0 ? XRegisterTag : YRegisterTag;
+                 int sourceIndex = index == 0 ? 0 : slot;
+                 bool last = index == plans.Length - 1;
+-                int invalid = plan.Bounds is null ? 0 : Label();
++                int invalid = direct?.Bounds is null ? 0 : Label();
++                var branchLabels = aliased?.Arms.Select(_ => Label()).ToArray();
+                 int absent = Label();
+                 int ready = Label();
+ 
+@@ -143,66 +153,63 @@
+                 owner.Operand(YRegisterTag, slot - 1);
+                 owner.EmitTupleCheck(0, 2, absent);
+                 owner.EmitTuplePart(0, 0, 1);
+-                owner.Op(ExactEqualTest, LabelTag, absent);
+-                owner.Operand(XRegisterTag, 1);
+-                owner.LiteralOperand(plan.Tag);
+-                owner.EmitTuplePart(0, 1, 0);
+-                EmitOptionalFieldArguments(plan.Tags, plan.MiddleArgument);
+-                EmitFrameInitialization(slot, slot + 1);
+-                EmitSequenceDecoderCall(
+-                    plan.Decoder,
+-                    plan.Module,
+-                    plan.Entry,
+-                    ref previousLine
+-                );
+-                if (plan.Convert is { } convert)
+-                {
+-                    owner.EmitCallLine(convert, previousLine);
+-                    previousLine = CallLocation(convert, previousLine);
+-                    Call(convert.Module, convert.Function, 1);
+-                }
+-
+-                if (plan.Rename is { } named)
+-                {
+-                    owner.EmitConstant(named.Options, 1);
+-                    EmitLocal(named.Call, named.Entry);
+-                }
+-
+-                if (plan.Bounds is { } bounds)
+-                {
+-                    EmitRangeTests(
++                if (aliased is not null)
++                {
++                    EmitOptionalAliasDispatch(
++                        aliased,
++                        branchLabels!,
++                        slot,
++                        last,
++                        absent,
++                        ready,
++                        ref previousLine
++                    );
++                }
++                else
++                {
++                    var plan = direct!;
++                    owner.Op(ExactEqualTest, LabelTag, absent);
++                    owner.Operand(XRegisterTag, 1);
++                    owner.LiteralOperand(plan.Tag);
++                    owner.EmitTuplePart(0, 1, 0);
++                    EmitOptionalFieldArguments(plan.Tags, plan.MiddleArgument);
++                    EmitFrameInitialization(slot, slot + 1);
++                    EmitSequenceDecoderCall(
+                         plan.Decoder,
+-                        bounds,
+-                        invalid,
+-                        provenInteger: true
++                        plan.Module,
++                        plan.Entry,
++                        ref previousLine
+                     );
+-                }
+-
+-                if (last)
+-                {
+-                    owner.MoveRegister(
+-                        YRegisterTag,
+-                        0,
+-                        XRegisterTag,
+-                        1
+-                    );
+-                }
+-                else
+-                {
+-                    owner.MoveRegister(
+-                        XRegisterTag,
+-                        0,
+-                        YRegisterTag,
+-                        slot
+-                    );
+-                }
+-
+-                JumpTo(ready);
+-                if (plan.Bounds is { } rejected)
+-                {
+-                    Mark(invalid);
+-                    var exitLine = CallLocation(rejected.Exit, previousLine);
+-                    EmitRangeExit(rejected, exitLine == previousLine ? null : exitLine, frame);
++                    if (plan.Convert is { } convert)
++                    {
++                        owner.EmitCallLine(convert, previousLine);
++                        previousLine = CallLocation(convert, previousLine);
++                        Call(convert.Module, convert.Function, 1);
++                    }
++
++                    if (plan.Rename is { } named)
++                    {
++                        owner.EmitConstant(named.Options, 1);
++                        EmitLocal(named.Call, named.Entry);
++                    }
++
++                    if (plan.Bounds is { } bounds)
++                    {
++                        EmitRangeTests(
++                            plan.Decoder,
++                            bounds,
++                            invalid,
++                            provenInteger: true
++                        );
++                    }
++
++                    EmitOptionalJoinResult(slot, last, ready);
++                    if (plan.Bounds is { } rejected)
++                    {
++                        Mark(invalid);
++                        var exitLine = CallLocation(rejected.Exit, previousLine);
++                        EmitRangeExit(rejected, exitLine == previousLine ? null : exitLine, frame);
++                    }
+                 }
+ 
+                 Mark(absent);
+@@ -215,7 +222,7 @@
+                     rest
+                 );
+                 owner.instructions.WriteByte(BeamEmissionFormat.Move);
+-                owner.LiteralOperand(plan.Default);
++                owner.LiteralOperand(aliased?.Default ?? direct!.Default);
+                 owner.Operand(destinationTag, last ? 0 : slot);
+                 Mark(ready);
+             }
+@@ -261,6 +268,115 @@
+                 owner.LiteralOperand(tag);
+                 owner.Operand(XRegisterTag, register);
+             }
++        }
++
++        private OptionalAliasField? ReadOptionalAliasField(
++            Expr.Case choice,
++            string previous,
++            IReadOnlySet<string> bindings
++        )
++        {
++            if (choice.Value is not Expr.Variable tested || tested.Name != previous || choice.Clauses.Count < 3
++                || choice.Clauses[^1] is not
++                {
++                    Guard: null,
++                    Patterns: [Pattern.Variable { Name: VariableScopeNames.Wildcard }],
++                    Body: Expr.Tuple { Items: [var fallback, Expr.Variable unchanged] }
++                }
++                || unchanged.Name != previous
++                || !AttributeLiteral.TryNormalizeConstant(fallback, out Term defaultValue))
++            {
++                return null;
++            }
++
++            var tags = new HashSet<Integer>();
++            var lines = new HashSet<BeamSourceLocation>();
++            var arms = new List<(Integer Tag, DecodeCall Decode)>();
++            foreach (var clause in choice.Clauses.Take(choice.Clauses.Count - 1))
++            {
++                if (clause is not
++                    {
++                        Guard: null,
++                        Patterns: [Pattern.List { Items: [AliasPattern alias], Tail: Pattern.Variable tail }],
++                        Body: Expr.Tuple { Items: [var expression, Expr.Variable remaining] }
++                    }
++                    || !TryReadPatternAlias(alias, out var payload, out var shape)
++                    || shape is not Pattern.Tuple
++                    {
++                        Items: [Pattern.Literal { Value: Integer tag }, Pattern.Variable { Name: VariableScopeNames.Wildcard }]
++                    }
++                    || remaining.Name != tail.Name || !DistinctBindings(payload, tail)
++                    || bindings.Contains(payload.Name) || bindings.Contains(tail.Name)
++                    || ReadDecodeCall(expression, payload.Name, allowRemote: true) is not { Convert: null } decode
++                    || !tags.Add(tag) || !lines.Add(CallLocation(decode.Decode, location)))
++                {
++                    return null;
++                }
++
++                arms.Add((tag, decode));
++            }
++
++            return new(defaultValue, arms.OrderByDescending(arm => arm.Tag.Value).ToArray());
++        }
++
++        private void EmitOptionalAliasDispatch(
++            OptionalAliasField field,
++            int[] labels,
++            int slot,
++            bool last,
++            int absent,
++            int ready,
++            ref BeamSourceLocation previous
++        )
++        {
++            owner.Op(SelectValue, XRegisterTag, 1);
++            owner.Operand(LabelTag, absent);
++            owner.instructions.WriteByte(ExtendedListOperand);
++            owner.Operand(BeamWire.UnsignedTag, field.Arms.Count * 2);
++            for (int index = field.Arms.Count - 1; index >= 0; index--)
++            {
++                owner.LiteralOperand(field.Arms[index].Tag);
++                owner.Operand(LabelTag, labels[index]);
++            }
++
++            for (int index = 0; index < field.Arms.Count; index++)
++            {
++                var (_, decode) = field.Arms[index];
++                Mark(labels[index]);
++                owner.EmitConstant(decode.Tags, 1);
++                EmitFrameInitialization(slot, slot + 1);
++                EmitSequenceDecoderCall(
++                    decode.Decode,
++                    decode.Module,
++                    decode.Entry,
++                    ref previous
++                );
++                EmitOptionalJoinResult(slot, last, ready);
++            }
++        }
++
++        private void EmitOptionalJoinResult(int slot, bool last, int ready)
++        {
++            if (last)
++            {
++                owner.MoveRegister(
++                    YRegisterTag,
++                    0,
++                    XRegisterTag,
++                    1
++                );
++            }
++            else
++            {
++                owner.MoveRegister(
++                    XRegisterTag,
++                    0,
++                    YRegisterTag,
++                    slot
++                );
++            }
++
++            JumpTo(ready);
+         }
+ 
+         private DefaultSequenceField? ReadBoundedTaggedSequenceField(

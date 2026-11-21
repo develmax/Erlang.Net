@@ -1,0 +1,25 @@
+[Ref,Gen,Out]=init:get_plain_arguments(),
+Run=fun(Dir,M,Tasks) ->
+    P=filename:join(Dir,atom_to_list(M)++".beam"),
+    {ok,B}=file:read_file(P), {module,M}=code:load_binary(M,P,B),
+    Values=[{F,A,try apply(M,F,A) of V -> {ok,V}
+               catch Class:Reason:Stack ->
+                   {Class,Reason,[{Name,N,proplists:get_value(line,Metadata)} ||
+                              {Module,Name,N,Metadata}<-Stack,Module=:=M]}
+               end} || {F,A}<-Tasks],
+    true=code:delete(M),code:purge(M),Values
+end,
+Values=[{2,<<N>>}||N<-lists:seq(0,9)],
+[A,B,C,D,E,F,G|_]=Values,
+Cases=[
+ {'DSS',[{dec_DSAPrivateKey,[T,[]]}||T<-[
+      [A,B,C,D,E,F],[A,B,C,D,E,F,G],[A,B],[A|bad],
+      [A,B,C,D,E,F|bad],[A,B,{3,<<1>>},D,E,F]]]},
+ {'PKCS-3',[{dec_DHParameter,[T,[]]}||T<-[
+      [A,B],[A,B,C],[A,B,C,D],[A,B,{3,<<0>>}],[A],
+      [A,B|bad],[A,B,C|bad],[A,{3,<<1>>}]]]}
+],
+Rows=[begin Before=Run(Ref,M,Tasks),After=Run(Gen,M,Tasks),
+ {M,length(Tasks),Before=:=After,Before,After} end || {M,Tasks}<-Cases],
+ok=file:write_file(Out,io_lib:format("~tp.~n",[Rows])),
+true=lists:all(fun({_,_,Equal,_,_})->Equal end,Rows),halt().

@@ -1,0 +1,178 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamLeadingForeignOptionalEncoderChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamLeadingForeignOptionalEncoderChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamLeadingForeignOptionalEncoderChecks.cs
+@@ -0,0 +1,162 @@
++using System.Collections;
++using System.Numerics;
++using Erlang;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamLeadingForeignOptionalEncoderChecks
++{
++    internal const string TestName = "compiler/beam/checks-leading-foreign-optional-pair-before-trimming";
++    private const string Fixture = "beam_leading_foreign_optional_probe.erl";
++    private const string EncodeLocal = "encode_local";
++    private const string EncodeRemote = "encode_remote";
++    private const string Peer = "beam_leading_foreign_optional_peer";
++    private const string IncorrectLayout = "The required pair should run after the leading optional pair frame is trimmed.";
++    private const string IncorrectValue = "The checked pair encoder changed a field or its fault order.";
++
++    private const string Source = """
++        -module(beam_leading_foreign_optional_probe).
++        -export([encode_local/2, encode_remote/2]).
++
++        encode_local(Record, Tags) ->
++            {_,First,Second} = Record,
++            {A,ALen} = case First of
++                absent -> {<<>>,0};
++                _ -> beam_leading_foreign_optional_peer:optional(First,[1])
++            end,
++            {B,BLen} = required(Second,[2]),
++            Parts = [A,B],
++            Size = ALen + BLen,
++            finish(Tags,Parts,Size).
++
++        encode_remote(Record, Tags) ->
++            {_,First,Second} = Record,
++            {A,ALen} = case First of
++                absent -> {<<>>,0};
++                _ -> beam_leading_foreign_optional_peer:optional(First,[1])
++            end,
++            {B,BLen} = beam_leading_foreign_optional_peer:required(Second,[2]),
++            Parts = [A,B],
++            Size = ALen + BLen,
++            finish(Tags,Parts,Size).
++
++        required(Value, _) -> {Value,1}.
++        finish(Tags, Parts, Size) -> {Tags,Parts,Size}.
++        """;
++
++    internal static async Task Run()
++    {
++        byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
++        byte[] dynamicImage = CodeGeneration.CompileBeamModule(
++            Source.Replace("optional(First,[1])", "optional(First,Tags)", StringComparison.Ordinal), Fixture
++        );
++        var module = BeamModule.Prepare(image, new BeamDependencySelection([Peer]));
++        Term first = Term.A("first");
++        Term second = Term.A("second");
++        Term absent = Term.A("absent");
++        Term bad = Term.A("bad_pair");
++        Term target = Term.A("record");
++        int requiredCalls = 0;
++        await using var runtime = new ProcessRuntime();
++        runtime.Modules.Register(
++            Peer,
++            "optional",
++            2,
++            (_, args) => ValueTask.FromResult<Term>(args[0].Equals(bad) ? bad : Term.Tuple(args[0], Term.I(2)))
++        );
++        runtime.Modules.Register(
++            Peer,
++            "required",
++            2,
++            (_, args) =>
++            {
++                requiredCalls++;
++
++                return ValueTask.FromResult<Term>(args[0].Equals(bad) ? bad : Term.Tuple(args[0], Term.I(1)));
++            }
++        );
++        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
++        await actor.InvokeAsync(async context =>
++        {
++            foreach (string encoder in new[] { EncodeLocal, EncodeRemote })
++            {
++                Term present = await module.Invoke(
++                    context,
++                    encoder,
++                    Term.Tuple(target, first, second),
++                    target
++                );
++                Term omitted = await module.Invoke(
++                    context,
++                    encoder,
++                    Term.Tuple(target, absent, second),
++                    target
++                );
++                if (!present.Equals(Term.Tuple(target, Term.List(first, second), Term.I(3)))
++                    || !omitted.Equals(Term.Tuple(target, Term.List(new BitString([]), second), Term.I(1))))
++                {
++                    throw new InvalidOperationException(IncorrectValue);
++                }
++            }
++
++            await CheckBadPair(Term.Tuple(target, bad, second), expectedCalls: 2);
++            await CheckBadPair(Term.Tuple(target, first, bad), expectedCalls: 3);
++
++            return Nil.Value;
++
++            async Task CheckBadPair(Term record, int expectedCalls)
++            {
++                try
++                {
++                    await module.Invoke(
++                        context,
++                        EncodeRemote,
++                        record,
++                        target
++                    );
++                }
++                catch (ErlangException error) when (error.Reason.Equals(Term.Tuple(Term.A("badmatch"), bad))
++                    && requiredCalls == expectedCalls)
++                {
++                    return;
++                }
++
++                throw new InvalidOperationException(IncorrectValue);
++            }
++        });
++
++        if (!HasTrim(image, EncodeLocal) || !HasTrim(image, EncodeRemote) || HasTrim(dynamicImage, EncodeRemote))
++        {
++            throw new InvalidOperationException(IncorrectLayout);
++        }
++    }
++
++    private static bool HasTrim(byte[] image, string function)
++    {
++        object code = Code(image);
++        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        object[] instructions = Items(code, "Instructions");
++        int start = Array.FindIndex(
++            instructions,
++            instruction => Opcode(instruction) == FunctionInfo
++                && Items(instruction, "Operands") is [_, var name, var arity]
++                && atoms[Value(name)] == function && Value(arity) == 2
++        );
++        if (start < 0)
++        {
++            throw new InvalidOperationException(IncorrectLayout);
++        }
++
++        return instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo)
++            .Any(instruction => Opcode(instruction) == TrimFrame);
++    }
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++
++    private static object[] Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
++}
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12518,6 +12518,7 @@
+ Test(Erlang.Tests.BeamProtectedConstantCallChecks.TestName, Erlang.Tests.BeamProtectedConstantCallChecks.Run);
+ Test(Erlang.Tests.BeamRemoteOptionalLifetimeChecks.TestName, Erlang.Tests.BeamRemoteOptionalLifetimeChecks.Run);
+ Test(Erlang.Tests.BeamPrefixedTaggedFieldLifetimeChecks.TestName, Erlang.Tests.BeamPrefixedTaggedFieldLifetimeChecks.Run);
++Test(Erlang.Tests.BeamLeadingForeignOptionalEncoderChecks.TestName, Erlang.Tests.BeamLeadingForeignOptionalEncoderChecks.Run);
+ Test(Erlang.Tests.BeamGuardedKeyfindPairTailChecks.TestName, Erlang.Tests.BeamGuardedKeyfindPairTailChecks.Run);
+ Test(Erlang.Tests.BeamUnpaddedBitStringContextChecks.TestName, Erlang.Tests.BeamUnpaddedBitStringContextChecks.Run);
+ Test(Erlang.Tests.BeamSingleTaggedChoiceFieldChecks.TestName, Erlang.Tests.BeamSingleTaggedChoiceFieldChecks.Run);

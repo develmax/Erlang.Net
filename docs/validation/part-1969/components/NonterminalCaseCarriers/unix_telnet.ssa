@@ -1,0 +1,507 @@
+module unix_telnet.
+exports [{connect,7},{get_prompt_regexp,0},{module_info,0},{module_info,1}].
+attributes [].
+
+%% unix_telnet.erl:85
+%% Counter = 4
+function `unix_telnet`:`get_prompt_regexp`() {
+0:
+  ret `"login: |Password: |\\$ |> "`
+}
+
+%% unix_telnet.erl:110
+%% Counter = 40
+function `unix_telnet`:`connect`(_0, _1, _2, _3, _4, _5, _6) {
+0:
+  _23 = bif:is_tuple _6
+  br _23, ^23, ^20
+
+23:
+  _24 = bif:tuple_size _6
+  _25 = bif:'=:=' _24, `2`
+  br _25, ^22, ^20
+
+22:
+  _15 = get_tuple_element _6, `0`
+  _14 = get_tuple_element _6, `1`
+
+  %% unix_telnet.erl:113
+  _16 = call (`connect1`/8), _0, _1, _2, _3, _4, _5, _15, _14
+  _21 = succeeded:body _16
+  br _21, ^21, ^1
+
+21:
+  ret _16
+
+20:
+  %% unix_telnet.erl:116
+  _7 = call (`get_username_and_password`/1), _6
+  _26 = succeeded:body _7
+  br _26, ^26, ^1
+
+26:
+  _37 = bif:is_tuple _7
+  br _37, ^37, ^28
+
+37:
+  _38 = bif:tuple_size _7
+  _39 = bif:'=:=' _38, `2`
+  br _39, ^36, ^28
+
+36:
+  _11 = get_tuple_element _7, `0`
+  _10 = get_tuple_element _7, `1`
+  _35 = bif:'=:=' _11, `ok`
+  br _35, ^34, ^28
+
+34:
+  _31 = bif:is_tuple _10
+  br _31, ^31, ^28
+
+31:
+  _32 = bif:tuple_size _10
+  _33 = bif:'=:=' _32, `2`
+  br _33, ^30, ^28
+
+30:
+  _13 = get_tuple_element _10, `0`
+  _12 = get_tuple_element _10, `1`
+
+  %% unix_telnet.erl:118
+  _17 = call (`connect1`/8), _0, _1, _2, _3, _4, _5, _13, _12
+  _29 = succeeded:body _17
+  br _29, ^29, ^1
+
+29:
+  ret _17
+
+28:
+  ret _7
+
+1:
+  _18 = call (`erlang`:`error`/1), `badarg`
+  ret _18
+}
+
+%% unix_telnet.erl:125
+%% Counter = 183
+function `unix_telnet`:`connect1`(_0, _1, _2, _3, _4, _5, _6, _7) {
+0:
+  %% unix_telnet.erl:126
+  _77 = call (`ct_telnet`:`start_gen_log`/1), `"unix_telnet connect"`
+  _98 = succeeded:body _77
+  br _98, ^98, ^1
+
+98:
+  %% unix_telnet.erl:128
+  _32 = call (`ct_telnet_client`:`open`/6), _1, _2, _3, _4, _5, _0
+  _99 = succeeded:body _32
+  br _99, ^99, ^1
+
+99:
+  _178 = bif:is_tuple _32
+  br _178, ^178, ^101
+
+178:
+  _179 = bif:tuple_size _32
+  _180 = bif:'=:=' _179, `2`
+  br _180, ^177, ^101
+
+177:
+  _37 = get_tuple_element _32, `0`
+  _36 = get_tuple_element _32, `1`
+  _176 = bif:'=:=' _37, `ok`
+  br _176, ^175, ^101
+
+175:
+  %% unix_telnet.erl:130
+  _38 = call (`ct_telnet`:`silent_teln_expect`/6), _0, _36, `[]`, `[prompt]`, `"login: |Password: |\\$ |> "`, `[]`
+  _102 = succeeded:body _38
+  br _102, ^102, ^1
+
+102:
+  _171 = bif:is_tuple _38
+  br _171, ^171, ^104
+
+171:
+  _172 = bif:tuple_size _38
+  _173 = bif:'=:=' _172, `3`
+  br _173, ^170, ^104
+
+170:
+  _45 = get_tuple_element _38, `0`
+  _44 = get_tuple_element _38, `1`
+  _169 = bif:'=:=' _45, `ok`
+  br _169, ^168, ^104
+
+168:
+  _152 = bif:'=:=' _44, `{prompt,"login: "}`
+  br _152, ^152, ^105
+
+152:
+  _46 = put_list _2, `[]`
+  _47 = put_list _1, _46
+
+  %% unix_telnet.erl:133
+  _79 = call (`ct_telnet`:`log`/4), _0, `send`, `"Logging in to ~p:~p"`, _47
+  _106 = succeeded:body _79
+  br _106, ^106, ^1
+
+106:
+  %% unix_telnet.erl:134
+  _48 = call (`ct_telnet_client`:`send_data`/2), _36, _6
+  _107 = succeeded:body _48
+  br _107, ^107, ^1
+
+107:
+  _150 = bif:'=:=' _48, `ok`
+  br _150, ^149, ^109
+
+149:
+  _49 = put_list _6, `[]`
+
+  %% unix_telnet.erl:135
+  _81 = call (`ct_telnet`:`log`/4), _0, `send`, `"Username: ~ts"`, _49
+  _110 = succeeded:body _81
+  br _110, ^110, ^1
+
+110:
+  %% unix_telnet.erl:136
+  _50 = call (`ct_telnet`:`silent_teln_expect`/6), _0, _36, `[]`, `prompt`, `"login: |Password: |\\$ |> "`, `[]`
+  _111 = succeeded:body _50
+  br _111, ^111, ^1
+
+111:
+  _145 = bif:is_tuple _50
+  br _145, ^145, ^113
+
+145:
+  _146 = bif:tuple_size _50
+  _147 = bif:'=:=' _146, `3`
+  br _147, ^144, ^113
+
+144:
+  _57 = get_tuple_element _50, `0`
+  _56 = get_tuple_element _50, `1`
+  _143 = bif:'=:=' _57, `ok`
+  br _143, ^142, ^113
+
+142:
+  _141 = bif:'=:=' _56, `{prompt,"Password: "}`
+  br _141, ^141, ^113
+
+141:
+  %% unix_telnet.erl:139
+  _58 = call (`ct_telnet_client`:`send_data`/2), _36, _7
+  _114 = succeeded:body _58
+  br _114, ^114, ^1
+
+114:
+  _139 = bif:'=:=' _58, `ok`
+  br _139, ^138, ^116
+
+138:
+  %% unix_telnet.erl:141
+  _10 = call (`string`:`length`/1), _7
+  _117 = succeeded:body _10
+  br _117, ^117, ^1
+
+117:
+  %% unix_telnet.erl:141
+  Stars = call (`lists`:`duplicate`/2), _10, `42`
+  _118 = succeeded:body Stars
+  br _118, ^118, ^1
+
+118:
+  _59 = put_list Stars, `[]`
+
+  %% unix_telnet.erl:142
+  _84 = call (`ct_telnet`:`log`/4), _0, `send`, `"Password: ~s"`, _59
+  _119 = succeeded:body _84
+  br _119, ^119, ^1
+
+119:
+  %% unix_telnet.erl:144
+  _60 = call (`ct_telnet`:`silent_teln_expect`/6), _0, _36, `[]`, `prompt`, `"login: |Password: |\\$ |> "`, `[]`
+  _120 = succeeded:body _60
+  br _120, ^120, ^1
+
+120:
+  _134 = bif:is_tuple _60
+  br _134, ^134, ^122
+
+134:
+  _135 = bif:tuple_size _60
+  _136 = bif:'=:=' _135, `3`
+  br _136, ^133, ^122
+
+133:
+  _65 = get_tuple_element _60, `0`
+  _64 = get_tuple_element _60, `1`
+  _132 = bif:'=:=' _65, `ok`
+  br _132, ^131, ^122
+
+131:
+  _128 = bif:is_tuple _64
+  br _128, ^128, ^122
+
+128:
+  _129 = bif:tuple_size _64
+  _130 = bif:'=:=' _129, `2`
+  br _130, ^127, ^122
+
+127:
+  _67 = get_tuple_element _64, `0`
+  _66 = get_tuple_element _64, `1`
+  _126 = bif:'=:=' _67, `prompt`
+  br _126, ^125, ^122
+
+125:
+  %% unix_telnet.erl:148
+  _12 = bif:'=/=' _66, `"login: "`
+
+  %% unix_telnet.erl:149
+  _13 = bif:'=/=' _66, `"Password: "`
+
+  %% unix_telnet.erl:148
+  _68 = bif:'and' _12, _13
+  _123 = succeeded:guard _68
+  br _123, ^123, ^122
+
+123:
+  _124 = bif:'=:=' _68, `true`
+  br _124, ^124, ^122
+
+124:
+  br ^121
+
+122:
+  _62 = put_list _60, `[]`
+
+  %% unix_telnet.erl:152
+  _86 = call (`ct_telnet`:`log`/4), _0, `recv`, `"Password failed\n~tp\n"`, _62
+  _137 = succeeded:body _86
+  br _137, ^137, ^1
+
+137:
+  _87 = put_tuple `error`, _60
+  br ^121
+
+121:
+  _85 = phi { _32, ^124 }, { _87, ^137 }
+  br ^115
+
+116:
+  %% unix_telnet.erl:139
+  _88 = match_fail `badmatch`, _58
+  _140 = succeeded:body _88
+  br _140, ^140, ^1
+
+140:
+  br ^115
+
+115:
+  _83 = phi { _85, ^121 }, { _88, ^140 }
+  br ^112
+
+113:
+  _52 = put_list _50, `[]`
+  _53 = put_list _2, _52
+  _54 = put_list _1, _53
+
+  %% unix_telnet.erl:157
+  _89 = call (`ct_telnet`:`log`/4), _0, `recv`, `"Login to ~p:~p failed\n~tp\n"`, _54
+  _148 = succeeded:body _89
+  br _148, ^148, ^1
+
+148:
+  _90 = put_tuple `error`, _50
+  br ^112
+
+112:
+  _82 = phi { _83, ^115 }, { _90, ^148 }
+  br ^108
+
+109:
+  %% unix_telnet.erl:134
+  _91 = match_fail `badmatch`, _48
+  _151 = succeeded:body _91
+  br _151, ^151, ^1
+
+151:
+  br ^108
+
+108:
+  _80 = phi { _82, ^112 }, { _91, ^151 }
+  br ^103
+
+105:
+  _167 = is_nonempty_list _44
+  br _167, ^167, ^104
+
+167:
+  _70 = get_hd _44
+  _69 = get_tl _44
+  _164 = bif:is_tuple _70
+  br _164, ^164, ^104
+
+164:
+  _165 = bif:tuple_size _70
+  _166 = bif:'=:=' _165, `2`
+  br _166, ^163, ^104
+
+163:
+  _72 = get_tuple_element _70, `0`
+  _162 = bif:'=:=' _72, `prompt`
+  br _162, ^161, ^104
+
+161:
+  _160 = is_nonempty_list _69
+  br _160, ^160, ^104
+
+160:
+  _74 = get_hd _69
+  _73 = get_tl _69
+  _157 = bif:is_tuple _74
+  br _157, ^157, ^104
+
+157:
+  _158 = bif:tuple_size _74
+  _159 = bif:'=:=' _158, `2`
+  br _159, ^156, ^104
+
+156:
+  _76 = get_tuple_element _74, `0`
+  _155 = bif:'=:=' _76, `prompt`
+  br _155, ^154, ^104
+
+154:
+  _153 = bif:'=:=' _73, `[]`
+  br _153, ^153, ^104
+
+153:
+  br ^103
+
+104:
+  _40 = put_list _38, `[]`
+  _41 = put_list _2, _40
+  _42 = put_list _1, _41
+
+  %% unix_telnet.erl:163
+  _92 = call (`ct_telnet`:`log`/4), _0, `conn_error`, `"Did not get expected prompt from ~p:~p\n~tp\n"`, _42
+  _174 = succeeded:body _92
+  br _174, ^174, ^1
+
+174:
+  _93 = put_tuple `error`, _38
+  br ^103
+
+103:
+  _78 = phi { _80, ^108 }, { _32, ^153 }, { _93, ^174 }
+  br ^100
+
+101:
+  _33 = put_list _32, `[]`
+  _34 = put_list _2, _33
+  _35 = put_list _1, _34
+
+  %% unix_telnet.erl:169
+  _94 = call (`ct_telnet`:`log`/4), _0, `conn_error`, `"Could not open telnet connection to ~p:~p\n~tp\n"`, _35
+  _181 = succeeded:body _94
+  br _181, ^181, ^1
+
+181:
+  br ^100
+
+100:
+  _18 = phi { _78, ^103 }, { _32, ^181 }
+
+  %% unix_telnet.erl:174
+  _95 = call (`ct_telnet`:`end_gen_log`/0)
+  _182 = succeeded:body _95
+  br _182, ^182, ^1
+
+182:
+  ret _18
+
+1:
+  _96 = call (`erlang`:`error`/1), `badarg`
+  ret _96
+}
+
+%% unix_telnet.erl:177
+%% Counter = 24
+function `unix_telnet`:`get_username_and_password`(_0) {
+0:
+  _2 = put_tuple _0, `username`
+
+  %% unix_telnet.erl:178
+  _3 = call (`ct`:`get_config`/1), _2
+  _14 = succeeded:body _3
+  br _14, ^14, ^1
+
+14:
+  _18 = bif:'=:=' _3, `undefined`
+  br _18, ^17, ^16
+
+17:
+  _8 = put_tuple `no_username`, _0
+  _9 = put_tuple `error`, _8
+  ret _9
+
+16:
+  _4 = put_tuple _0, `password`
+
+  %% unix_telnet.erl:182
+  _5 = call (`ct`:`get_config`/1), _4
+  _19 = succeeded:body _5
+  br _19, ^19, ^1
+
+19:
+  _23 = bif:'=:=' _5, `undefined`
+  br _23, ^22, ^21
+
+22:
+  _7 = put_tuple `no_password`, _0
+  _10 = put_tuple `error`, _7
+  ret _10
+
+21:
+  _6 = put_tuple _3, _5
+  _11 = put_tuple `ok`, _6
+  ret _11
+
+1:
+  _12 = call (`erlang`:`error`/1), `badarg`
+  ret _12
+}
+
+%% Counter = 6
+function `unix_telnet`:`module_info`() {
+0:
+  _2 = call (`erlang`:`get_module_info`/1), `unix_telnet`
+  _5 = succeeded:body _2
+  br _5, ^5, ^1
+
+5:
+  ret _2
+
+1:
+  _3 = call (`erlang`:`error`/1), `badarg`
+  ret _3
+}
+
+%% Counter = 6
+function `unix_telnet`:`module_info`(_0) {
+0:
+  _2 = call (`erlang`:`get_module_info`/2), `unix_telnet`, _0
+  _5 = succeeded:body _2
+  br _5, ^5, ^1
+
+5:
+  ret _2
+
+1:
+  _3 = call (`erlang`:`error`/1), `badarg`
+  ret _3
+}

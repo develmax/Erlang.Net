@@ -1,0 +1,27 @@
+{ok,list_conversion_probe,Pinned}=compile:file("list_conversion_probe.erl",[binary,deterministic]),
+ok=file:write_file("pinned-conversion.beam",Pinned),
+Inputs=[{tuple_tail,[{a,b}]},{tuple_tail,[{a}]},{tuple_tail,[{}]},
+        {tuple_tail,[not_tuple]},{tuple_head,[{a,b}]},{atom_length,['ab']},{atom_length,['']},
+        {atom_length,['нап']},{binary_length,[<<1,2,3>>]},{binary_length,[<<>>]},
+        {binary_length,[<<1:1>>]},{copied_length,['ab']},{shadow,[not_tuple]},
+        {dynamic,[erlang,{a,b}]},{unrelated,[{},[a|improper]]},
+        {branch,[false,unused,[a|improper]]},{branch,[true,{a,b},unused]}],
+Run=fun(File) ->
+    {ok,Image}=file:read_file(File),
+    {module,list_conversion_probe}=code:load_binary(list_conversion_probe,File,Image),
+    Values=[try apply(list_conversion_probe,F,A) of Value->{ok,Value}
+            catch Class:Reason:Stack -> {Class,Reason,[{M,N,Args}||{M,N,Args,_}<-Stack,M=:=erlang]}
+            end || {F,A} <- Inputs],
+    true=code:delete(list_conversion_probe),_=code:purge(list_conversion_probe),
+    Values
+end,
+R=Run("pinned-conversion.beam"),
+R=Run("generated-conversion.beam"),
+io:format("Pinned and exact generated C# agree in ~p value/error cases~n",[length(R)]),
+lists:foreach(fun(File) ->
+    {beam_file,_,_,_,_,Fs}=beam_disasm:file(File),
+    io:format("~n~s~n",[File]),
+    [io:format("~p/~p ~p~n",[Fn,A,Body]) || {function,Fn,A,_,Body}<-Fs,Fn=/=module_info]
+end,["pinned-conversion.beam","generated-conversion.beam"]),
+halt().
+

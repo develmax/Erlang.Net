@@ -1,0 +1,11 @@
+[{malformed,
+     {open_failed,
+         {error,
+             {not_a_log_file,
+                 "<fixture>/malformed.log"}}}},
+ {truncated,
+     {removed,7,
+         {opened,
+             {eof,[{row,first}]},
+             {ok,"<fixture>/truncated.log"}}}},
+ {closed_descriptor,{error,{"Possibly truncated",no_such_log}}}].

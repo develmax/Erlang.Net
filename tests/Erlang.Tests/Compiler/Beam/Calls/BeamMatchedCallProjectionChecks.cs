@@ -41,7 +41,7 @@ internal static class BeamMatchedCallProjectionChecks
         ReadOnlySpan<byte> liveSlot =
         [
             BeamEmissionFormat.ExternalCall, 0x10, 0x00,
-            BeamEmissionFormat.Move, 0x03, 0x23, BeamEmissionFormat.Move, 0x11, 0x13,
+            BeamEmissionFormat.Move, 0x11, 0x13, BeamEmissionFormat.Move, 0x03, 0x23,
             BeamEmissionFormat.Move, 0x04, 0x03, BeamEmissionFormat.Line, 0x60,
             BeamEmissionFormat.ExternalCall, 0x30, 0x10
         ];

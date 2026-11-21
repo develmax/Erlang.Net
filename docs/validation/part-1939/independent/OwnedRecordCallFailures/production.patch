@@ -1,0 +1,208 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+@@ -1152,6 +1152,7 @@
+         code = CompactCompletelyTrimmedFrames(code, labelCount) ?? code;
+         code = ShareCheckedCallResultPayload(code, labelCount) ?? code;
+         code = PackTerminalHeaderListHeap(code, labelCount) ?? code;
++        code = ClearConsumedProjectedCallArguments(code, labelCount) ?? code;
+         code = TrimOwnedConstructionCallFrames(code, labelCount) ?? code;
+         var mixedTupleReturns = ShareMixedTupleCaseReturns(code, labelCount);
+         if (mixedTupleReturns is { } sharedMixedDecision)
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedCallResultPayload.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedCallResultPayload.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedCallResultPayload.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedCallResultPayload.cs
+@@ -142,6 +142,21 @@
+             Copy(otherwiseArm + 2, otherArm + 1);
+             copied = body[otherArm + 2].Offset;
+             index = otherArm + 1;
++            if (FindNestedRecordFailure(
++                otherwiseArm,
++                otherArm,
++                failureEntry,
++                saved
++            ) is { } cold)
++            {
++                // The cold record check owns the inner error. The outer
++                // selector's default is emitted after that branch's exits.
++                Copy(otherArm + 2, failureEntry);
++                Copy(cold.Start, cold.End);
++                Copy(failureEntry, cold.Start);
++                copied = body[cold.End].Offset;
++                index = cold.End - 1;
++            }
+         }
+ 
+         if (copied == 0)
+@@ -175,6 +190,39 @@
+             return body[index] is { Definition.Opcode: CaseEnd, Operands: [var result] } && result == x0;
+         }
+ 
++        (int Start, int End)? FindNestedRecordFailure(
++            int normal,
++            int alternative,
++            int outer,
++            BeamOperand payload
++        )
++        {
++            int nested = SkipLine(outer + 1) + 1;
++            if (outer <= alternative || nested + 2 >= body.Count
++                || !EndsBeamBlock(body[outer - 1].Definition.Opcode)
++                || body[nested] is not { Definition.Opcode: Label, Operands: [var entry] }
++                || uses.GetValueOrDefault(entry.Value) != 1)
++            {
++                return null;
++            }
++
++            int exit = SkipLine(nested + 1);
++            if (exit >= body.Count - 1
++                || body[exit] is not { Definition.Opcode: BadRecord, Operands: [var rejected] } || rejected != payload
++                || !Enumerable.Range(normal + 2, alternative - normal - 2).Any(index => body[index] is
++                {
++                    Definition.Opcode: IsTaggedTuple,
++                    Operands: [var failure, var source, _, _]
++                } && failure.Value == entry.Value && source == payload))
++            {
++                return null;
++            }
++
++            return (nested, exit + 1);
++
++            int SkipLine(int index) => body[index].Definition.Opcode == Line ? index + 1 : index;
++        }
++
+         void WriteField(BeamOperand source, int field, BeamOperand destination)
+         {
+             output.WriteByte(GetTupleElement);
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProjectionFlow.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProjectionFlow.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProjectionFlow.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProjectionFlow.cs
+@@ -138,7 +138,7 @@
+             return foundFrame;
+         }
+ 
+-        internal bool IsDead(int continuation, BeamOperand slot)
++        internal bool IsDead(int continuation, BeamOperand slot, bool allowBadRecordExit = false)
+         {
+             var work = new Stack<(int Index, BeamOperand Slot, bool PassedCall)>();
+             var seen = new HashSet<(int Index, BeamOperand Slot, bool PassedCall)>();
+@@ -167,6 +167,7 @@
+                     case Deallocate:
+                     case CaseEnd:
+                     case BadMatch:
++                    case BadRecord when allowBadRecordExit:
+                         if (!passedCall || instruction.Operands.Any(operand => SameProjectionRegister(operand, current)))
+                         {
+                             return false;
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ConsumedProjectedCallArguments.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ConsumedProjectedCallArguments.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ConsumedProjectedCallArguments.cs
+@@ -0,0 +1,107 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private byte[]? ClearConsumedProjectedCallArguments(ReadOnlyMemory<byte> code, int labelCount)
++    {
++        if (ModuleOptimizationDisabled || !SsaTypeInferenceEnabled || !code.Span.Contains(GetTupleElement)
++            || DecodeLateAtomicProjectionSlots(code, labelCount) is not { } decoded)
++        {
++            return null;
++        }
++
++        var body = decoded.Body;
++        var x0 = new BeamOperand(BeamOperandParameters.X, 0);
++        var x1 = new BeamOperand(BeamOperandParameters.X, 1);
++        var x2 = new BeamOperand(BeamOperandParameters.X, 2);
++        BeamProjectionFlow? flow = null;
++        using var output = new MemoryStream();
++        int copied = 0;
++        int end = 0;
++        bool protectedFunction = false;
++        for (int first = 0; first + 5 < body.Count; first++)
++        {
++            if (body[first].Definition.Opcode == FunctionInfo)
++            {
++                end = first + 1;
++                protectedFunction = false;
++                while (body[end].Definition.Opcode is not (FunctionInfo or EndCode))
++                {
++                    protectedFunction |= body[end].Definition.Opcode is TryEnter or CatchEnter or DebugLine or ExecutableLine;
++                    end++;
++                }
++            }
++
++            if (protectedFunction || first + 5 >= end
++                || body[first] is not
++                {
++                    Definition.Opcode: GetTupleElement,
++                    Operands: [{ Kind: BeamOperandParameters.Y, TypeIndex: null } record, _, var projected]
++                } || projected != x0
++                || body[first + 1] is not
++                {
++                    Definition.Opcode: Move,
++                    Operands: [{ Kind: BeamOperandParameters.Y, TypeIndex: null } consumed, var second]
++                } || second != x1 || consumed == record
++                || body[first + 2] is not
++                {
++                    Definition.Opcode: Move,
++                    Operands: [
++                    {
++                        Kind: BeamOperandParameters.Atom or BeamOperandParameters.Nil
++                        or BeamOperandParameters.Integer or BeamOperandParameters.LiteralValue
++                    }, var third]
++                } || third != x2)
++            {
++                continue;
++            }
++
++            int call = first + 3;
++            while (call < end && body[call].Definition.Opcode == Line)
++            {
++                call++;
++            }
++
++            if (call + 1 >= end
++                || body[call] is not { Definition.Opcode: LocalCall or ExternalCall, Operands: [var arity, _] }
++                || arity.Value != 3
++                || body[call + 1] is not
++                {
++                    Definition.Opcode: Move,
++                    Operands: [var result, { Kind: BeamOperandParameters.Y, TypeIndex: null } overwritten]
++                } || result != x0 || overwritten == consumed || overwritten == record)
++            {
++                continue;
++            }
++
++            flow ??= new BeamProjectionFlow(body);
++            if (!flow.IsInitialized(first, overwritten) || !flow.IsDead(call, consumed, allowBadRecordExit: true))
++            {
++                continue;
++            }
++
++            // The constant argument is independent. Both old Y values are
++            // dead across the unprotected call after X1 has been loaded.
++            output.Write(code.Span[copied..body[first + 1].Offset]);
++            output.Write(code.Span[body[first + 2].Offset..body[first + 3].Offset]);
++            output.Write(code.Span[body[first + 1].Offset..body[first + 2].Offset]);
++            int[] dead = [(int)consumed.Value, (int)overwritten.Value];
++            Array.Sort(dead);
++            WriteFrameInitialization(output, dead);
++            copied = body[first + 3].Offset;
++            first += 2;
++        }
++
++        if (copied == 0)
++        {
++            return null;
++        }
++
++        highestOpcode = Math.Max(highestOpcode, InitYRegisters);
++        output.Write(code.Span[copied..]);
++
++        return output.ToArray();
++    }
++}

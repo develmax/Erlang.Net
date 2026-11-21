@@ -1,0 +1,164 @@
+{
+  "reference_otp": "OTP-29.1.1",
+  "reference_commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "source_before": {
+    "Source": "81a80269ca467f0d91ecfe4326032514be82aa3f48450a7e071b62cb846d445e",
+    "Paths": 235,
+    "Compiler": "02c458a25f9f6a0e60741988d334607b12b640f17de07ce518fa8f4f6ac8b0fd",
+    "Tests": "487429f15e29a028bee0aadf02cb8afd74edc6d055afacf06498c9819942262c",
+    "ParentSource": "d0dbf940727fc341fdd0a02dff8844535d0b92bf99573093bd0198ded11036c7",
+    "CorpusTool": "0992147d700e0eb8409a983a05ef4e5bc79cf43a200a9be6bb15e6569ee67cdc"
+  },
+  "source_after": {
+    "Source": "26287d6ebb407c69b9ae2b759a9e7e252e1f2ce23cde7e03015ddd769f7e50e4",
+    "Paths": 237,
+    "Compiler": "3b3dd8d1eaca7caeb3d395f8594e8f9a1acc6338e033a9cbd4aaf9e3d780814c",
+    "Tests": "c853ffdf651b7258c60dd41063983431f77a37e64133027f7489ab2f43b091b5",
+    "ParentSource": "81a80269ca467f0d91ecfe4326032514be82aa3f48450a7e071b62cb846d445e",
+    "CorpusTool": "596f74e99d68e65916006324af26cf48169e821bf9e36c26727d1fbab8c6470d"
+  },
+  "native_identity": "{\"cached-normalized-delta.eval logic; preserve registers, types, constants, order and all local call keys\",[{asn1ct_check,452,1},{test_server,213,1},{beam_ssa_pre_codegen,294,1},{dbg_icmd,36,1},{dbg_iload,122,1},{diameter_codegen,197,1},{diameter_dict_util,174,1},{edoc_extract,65,1},{edoc_layout,164,1},{gen_tcp_socket,160,1},{gen_udp_socket,122,1},{inet_epmd_dist,66,1},{inet_tcp_dist,60,1},{mnesia_schema,350,1},{observer_alloc_wx,32,1},{observer_traceoptions_wx,99,1},{ssh_connection_handler,151,1},{ssl,79,1},{ssl_config,225,1},{edlin_type_suggestion,65,1},{erl_expand_records,124,1},{erl_lint,620,1},{qlc_pt,453,3},{cover,283,1},{xmerl_xsd,394,2}],\"17.1\",<<64,72,86,217,24,138,199,201,199,126,36,185,33,225,146,224>>}.",
+  "normalized_against": "C:/Users/Maksim/.codex/worktrees/beam-release-parity/Erlang.Net/docs/validation/part-1832/cached-normalized-delta.eval",
+  "normalization_description": "Remove function labels, line and func_info records, renumber intra-function label operands, mask make_fun3 unique value while retaining index, registers, types, constants and order.",
+  "scope25": {
+    "reference_keys": 4888,
+    "before_keys": 4433,
+    "after_keys": 4460,
+    "matched_before": 4322,
+    "matched_after": 4348,
+    "missing_before": 566,
+    "missing_after": 540,
+    "extra_before": 111,
+    "extra_after": 112,
+    "key_gains": 26,
+    "key_losses": 0,
+    "new_extra": 1,
+    "removed_extra": 0,
+    "raw": {
+      "exact_before": 23,
+      "exact_after": 25,
+      "gains": 2,
+      "losses": 0,
+      "changed": 2769,
+      "common_key_gains": 2,
+      "added_key_exact": 0
+    },
+    "no_metadata_raw": {
+      "exact_before": 715,
+      "exact_after": 725,
+      "gains": 10,
+      "losses": 0,
+      "changed": 2230,
+      "common_key_gains": 10,
+      "added_key_exact": 0
+    },
+    "normalized": {
+      "exact_before": 1081,
+      "exact_after": 1093,
+      "gains": 12,
+      "losses": 0,
+      "changed": 54,
+      "common_key_gains": 12,
+      "added_key_exact": 0
+    },
+    "opcode": {
+      "exact_before": 1209,
+      "exact_after": 1222,
+      "gains": 13,
+      "losses": 0,
+      "changed": 54,
+      "common_key_gains": 13,
+      "added_key_exact": 0
+    }
+  },
+  "predicted28": {
+    "reference_keys": 28,
+    "before_keys": 0,
+    "after_keys": 24,
+    "matched_before": 0,
+    "matched_after": 24,
+    "missing_before": 28,
+    "missing_after": 4,
+    "extra_before": 0,
+    "extra_after": 0,
+    "key_gains": 24,
+    "key_losses": 0,
+    "new_extra": 0,
+    "removed_extra": 0,
+    "raw": {
+      "exact_before": 0,
+      "exact_after": 0,
+      "gains": 0,
+      "losses": 0,
+      "changed": 24,
+      "common_key_gains": 0,
+      "added_key_exact": 0
+    },
+    "no_metadata_raw": {
+      "exact_before": 0,
+      "exact_after": 0,
+      "gains": 0,
+      "losses": 0,
+      "changed": 24,
+      "common_key_gains": 0,
+      "added_key_exact": 0
+    },
+    "normalized": {
+      "exact_before": 0,
+      "exact_after": 0,
+      "gains": 0,
+      "losses": 0,
+      "changed": 24,
+      "common_key_gains": 0,
+      "added_key_exact": 0
+    },
+    "opcode": {
+      "exact_before": 0,
+      "exact_after": 0,
+      "gains": 0,
+      "losses": 0,
+      "changed": 24,
+      "common_key_gains": 0,
+      "added_key_exact": 0
+    }
+  },
+  "file_status_before": {
+    "Different": 25
+  },
+  "file_status_after": {
+    "Different": 25
+  },
+  "baseline_source_module_counts": {
+    "parent-unmeasured": 20,
+    "tuple-mapping-precedence-and-bit-context-1880-retake": 5
+  },
+  "common_cohort": {
+    "before": 111,
+    "after": 111,
+    "parent_retained": 77,
+    "parent_complement": 34
+  },
+  "changed_modules": 22,
+  "unchanged_modules": 3,
+  "changed_predicted_helper_modules": 21,
+  "status_losses": [],
+  "yecc_overlap": [],
+  "native_timing": {
+    "Seconds": 51.9020058,
+    "ExitCode": 0
+  },
+  "input_hashes": {
+    "audit-retake.eval": "b7d356977854b2f296a6ac69a6a4dca8795a98048e58575a64ac9c08d7617dd1",
+    "prepare.py": "a168351cc04517f16c41adbe85e6c35b95fe6379448455c7fd8d67d487e0d2ac",
+    "expected-keys.terms": "d1c6c5be6ad2645de81a23d292c38b56d676c1b09eff22f739b34524bd75aa40",
+    "receipt-inputs.json": "86e2b3a05f39cb14d0fc9989793b38ed035adf1cd9cda44ca51f2323070254fa",
+    "image-triples.tsv": "bd0917e05153874a6031b8716e2f13c07fbf8ff569e7fe8ff1d690555b32cf56",
+    "alias-modules.txt": "f79956189b4208e2bf12aaa6f28b7e57b95fea7831e611156c45ecbce585b4f7",
+    "cached-normalized-delta.eval": "12cb542d8511e56f1002ebf7b4d7a8daa66753caa3dbe6de6fcffa808d515198"
+  },
+  "outputs": {
+    "function-delta-retake.tsv": "86ca60155c8135cd9d95d96e8b74dae25e0f8b0c24f72f3e6204daf945fa30a9",
+    "predicted-raw-bodies-retake.terms": "4f2c0ba027b034bbe24947e45156a5de6cc4ec441396a7ead3926cb1dd2f4d37",
+    "audit-retake.stdout": "a8cb94b30fec2522e038ee982d10d8ef806a2ff86140e31e1eba5fac182d9a0d"
+  }
+}

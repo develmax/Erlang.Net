@@ -94,7 +94,9 @@ internal static class BeamCheckedTagZeroFrameFallbackChecks
             instructions,
             Read(instructions),
             new List<(int Start, int End, int Slot)>(),
-            null
+            null,
+            new Func<object, bool>(static _ => false),
+            false
         );
     }
 

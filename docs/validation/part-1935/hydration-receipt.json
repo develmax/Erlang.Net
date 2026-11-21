@@ -1,0 +1,39 @@
+{
+  "Parent": {
+    "Source": "fa86f7aca180a8af231eed3bcb6b6eaeed8ce243395852655e6f1a463b09b3b2",
+    "Paths": 743,
+    "RemovedPaths": [],
+    "Compiler": "04e413fc451ffda644f6f02bfeeed15272c459eb5f85a47bc456522a6ad38980",
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "Tests": "404248c2a00ddb51319e8ef15d06fc65c5561f89241624ca0bec514e60372db7",
+    "ParentSource": "eea48b5933bb20925b4c49303a2a443a9c7e60796c9951b1769a1cdcaed7d66b",
+    "CorpusTool": "8226ffa9bceb5beb1ae3afc49a9088c437a366ec584ab3060424dabb271de834"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DirectTupleDestinations.cs": "a63ed3a74947f13fd266803355370ced7ceb64c2ac6abd0de85f3c02734a77bb",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs": "73880b48d654295aa22b00e1d8ad5275f8d7d9bdd7f1afa5b11923753fcebc36",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": "47d02fc68c1e6551a830351db601b14de7ee3aabd8002f03cb0e63058c5c0f27",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RedundantRecordChecks.cs": "fe3e6ee87e5357484b35ac382afd9b7074b84ed08d57f9d4985b4971fd965bf3",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TerminalProjectedListHeap.cs": "49679d43c5d30bf4123063c0e63ba23f81cd35becd6b450b4b3fb448b36b1102",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TupleHeadListAccumulator.cs": "db2def3e06a3bcaeb4dd3ac161ddc912f2e6f9a1546f3fa7f38a3245615d4a28",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": "34cdb31c89285e5a90ce1acb421ad0f0bd8add1080406e3de3a8b2db9c917151",
+    "tests/Erlang.Tests/Compiler/Beam/BeamDirectTupleDestinationChecks.cs": "13d5af154d43e9da4ac3c03372f74f2f527d7fc3d623d850762ac9fdc9f60e1a",
+    "tests/Erlang.Tests/Compiler/Beam/BeamRedundantRecordCheckTests.cs": "3b2b9c541f2d73a0d3f7c025d82e1437d4e47bd446e442ea3e615991972141d5",
+    "tests/Erlang.Tests/Compiler/Beam/BeamTerminalProjectedListHeapChecks.cs": "7f976d2817d3cdcf518397fc8e4a2220c33d22cbe4457c01798a28a8f1d7e791",
+    "tests/Erlang.Tests/Compiler/Beam/BeamTupleHeadListAccumulatorChecks.cs": "5ea8511a281497fa37570b675b54e41caf67ac6e8754d4db7773a8cd2157306d",
+    "tests/Erlang.Tests/Harness/Program.cs": "841898b2819dd3f21103bce717e981259083c32bc514aa20d8a932253e581010"
+  },
+  "CandidateRemovedPaths": {},
+  "PatchSources": {
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\binary-match-audit-1931\\tuple-destination\\tuple-destination.patch": "9998dbdeec38a9d24a827339db3808600034c5a4b5ebeb22e4a672411d64ba04",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\proof-elision-and-destinations-1935\\adapted-tests\\TupleDestinations.patch": "0a568d9496fd9111f8b189bc43405f4577a6cee1781d0b4e628d5ef614c56c50",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\binary-match-audit-1931\\repeated-record-proof\\repeated-record-proof.patch": "23d1208752dd21c56484d652f47141427e727127a091db6a8994ece6f763658d",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\proof-elision-and-destinations-1935\\adapted-tests\\RepeatedRecordProof.patch": "63ce401d28abb847a920a862354269b1789bd6376fdbce9b6adea52d1dcbed02",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\mod-head-field-heap-1935\\production.patch": "02747e83f65b0c9b074ca66f7a10158ab6ae47372a4de993046238cd664474c9",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\proof-elision-and-destinations-1935\\adapted-tests\\ProjectedHeadHeap.patch": "ad86ea3adf30a350e64f7fdcb3fe39c8b053d4cf6a0647ecd3bae946b94a328c",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\asn-named-bits-replay-1931\\generated-owner-residuals\\tuple-head-list-accumulator.patch": "7b9fa023514a3b26b727bdeb69825900e6c769d245f365d47d18ace21bcf3be4",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\proof-elision-and-destinations-1935\\adapted-tests\\TupleHeadEncoding.patch": "eca0888bee9296973b349355bf22a618b4346243787a9a276f01cfba21c30f8d",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\proof-elision-and-destinations-1935\\adapted-tests\\integrated-harness-registrations.patch": "676948197c2527d0b56069095e3e5ad137be27fda30cce852ec78badfffdf6d8",
+    "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/proof-elision-and-destinations-1935/harness-shape-repair/return-task.patch": "25cce06a904952eaf7cd351307aaff20cfb0bb324c5076bcca47a72886dbc2e9"
+  }
+}

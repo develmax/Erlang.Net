@@ -1,0 +1,10 @@
+{lookup,[[item,{row,item,2}]],{value,[{[name,count],{row,item,2}}]}}.
+{invoke_closure,[outer,item],{value,{{fixed,2},outer,item}}}.
+{events,[],{value,[closure,lookup]}}.
+{invoke_shadow,[outer,2],{value,{2,outer}}}.
+{invoke_shadow,[outer,item],{value,{fixed,outer,item}}}.
+{invoke_repeated,[outer,2,2],{value,{2,outer}}}.
+{invoke_repeated,[outer,2,3],{value,{fixed,outer,2,3}}}.
+{shadow_generator,[],{value,[one,two]}}.
+{checked,[fixed,[item]],{value,[{fixed,item}]}}.
+{checked,[outer,[item]],{error,{badmatch,fixed},[{beam_dominating_helper_constants,checked,2}]}}.

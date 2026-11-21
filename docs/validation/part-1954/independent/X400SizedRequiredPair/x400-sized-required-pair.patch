@@ -1,0 +1,240 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BoundedSequenceAndForwardedChoices.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BoundedSequenceAndForwardedChoices.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BoundedSequenceAndForwardedChoices.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BoundedSequenceAndForwardedChoices.cs
+@@ -215,12 +215,14 @@
+             Expr.Call match,
+             Atom record,
+             IReadOnlyList<(Expr.Match Split, DecodeCall Call)> fields,
+-            TaggedBranchRange range,
+-            TableUnexpectedFields extra
++            TaggedBranchRange? range,
++            TableUnexpectedFields extra,
++            (ForwardedChoiceMeasurement First, ForwardedChoiceMeasurement Second)? measurements = null
+         )
+         {
+             const int frame = 3;
+             int leftovers = Label();
++            int secondRangeFailure = measurements.HasValue ? Label() : 0;
+             int rangeFailure = Label();
+             int missingSecond = Label();
+             int missingFirst = Label();
+@@ -238,13 +240,21 @@
+             owner.EmitConstant(first.Tags, 1);
+             EmitDecodeInvocation(first, previous);
+             previous = CallLocation(first.Decode, previous);
++            if (measurements is { } measuredFirst)
++            {
++                MeasureAndConvert(measuredFirst.First, rangeFailure);
++            }
++
+             owner.MoveRegister(
+                 XRegisterTag,
+                 0,
+                 YRegisterTag,
+                 1
+             );
+-            EmitRangeTests(first.Decode, range, rangeFailure);
++            if (range is not null)
++            {
++                EmitRangeTests(first.Decode, range, rangeFailure);
++            }
+ 
+             Unpack(
+                 YRegisterTag,
+@@ -257,6 +267,11 @@
+             owner.InitStackSlot(2);
+             EmitDecodeInvocation(second, previous);
+             previous = CallLocation(second.Decode, previous);
++            if (measurements is { } measuredSecond)
++            {
++                MeasureAndConvert(measuredSecond.Second, secondRangeFailure);
++            }
++
+             owner.EmitNilTest(YRegisterTag, 0, leftovers);
+             owner.Op(TestHeap, BeamWire.UnsignedTag, 4);
+             owner.Operand(BeamWire.UnsignedTag, 1);
+@@ -276,11 +291,42 @@
+             owner.Op(TailExternalCallWithFrame, BeamWire.UnsignedTag, 1);
+             owner.Operand(BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module, extra.Exit.Function, 1));
+             owner.Operand(BeamWire.UnsignedTag, frame);
+-            Mark(rangeFailure);
+-            EmitRangeExit(range, CallLocation(range.Exit, previous), frame);
++            if (measurements is { } checkedFields)
++            {
++                EmitMeasurementExit(checkedFields.Second, secondRangeFailure);
++                EmitMeasurementExit(checkedFields.First, rangeFailure);
++            }
++            else if (range is not null)
++            {
++                Mark(rangeFailure);
++                EmitRangeExit(range, CallLocation(range.Exit, previous), frame);
++            }
++
+             EmitDecoderFailures([(missingFirst, null, fields[0].Split), (missingSecond, 2, fields[1].Split)]);
+ 
+             return true;
++
++            void MeasureAndConvert(ForwardedChoiceMeasurement measurement, int failure)
++            {
++                previous = EmitForwardedChoiceMeasurementCheck(
++                    measurement,
++                    failure,
++                    previous,
++                    emitConversion: false
++                );
++                var convert = measurement.Convert!;
++                owner.EmitCallLine(convert, previous);
++                Call(ErlangModuleNames.Module, convert.Function, 1);
++                previous = CallLocation(convert, previous);
++            }
++
++            void EmitMeasurementExit(ForwardedChoiceMeasurement measurement, int failure)
++            {
++                Mark(failure);
++                owner.EmitConstant(measurement.Reason, 0);
++                owner.EmitCallLine(measurement.Exit, location);
++                EmitCheckedDecoderExit(measurement.Exit, frame);
++            }
+ 
+             void Unpack(
+                 int kind,
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -93,13 +93,13 @@
+                     }
+                 }];
+             bool mapDefaultCase = function.Clauses is [
+-                {
+-                    Body: Expr.Sequence
+-                    {
+-                        Items: [
++            {
++                Body: Expr.Sequence
++                {
++                    Items: [
+                 Expr.Match { Value: Expr.Call { Module: "maps", Function: "get" } }, Expr.Case]
+-                    }
+-                }];
++                }
++            }];
+             bool detailPage = function.Clauses is [
+                 {
+                     Body: Expr.Sequence
+@@ -140,15 +140,15 @@
+                 && decision.Clauses.Any(branch => branch.Body is Expr.Case or Expr.Maybe
+                     or Expr.Sequence { Items: [Expr.Match { Value: Expr.Case }, Expr.Case] });
+             bool configuredTable = function.Clauses is [
+-                {
+-                    Body: Expr.Case
+-                    {
+-                        Clauses: [
+-                        { Body: Expr.Sequence { Items: [Expr.Match, Expr.Match, Expr.Match, Expr.Match, Expr.Call] } },
+-                        { Body: Expr.Call }, { Body: Expr.Call }
++            {
++                Body: Expr.Case
++                {
++                    Clauses: [
++                    { Body: Expr.Sequence { Items: [Expr.Match, Expr.Match, Expr.Match, Expr.Match, Expr.Call] } },
++                    { Body: Expr.Call }, { Body: Expr.Call }
+             ]
+-                    }
+-                }];
++                }
++            }];
+             bool taggedParser = function.Clauses is [
+             {
+                 Body: Expr.Case
+@@ -212,10 +212,10 @@
+             bool recordPredicate = function.Clauses is [{ Body: var recordBody }] && ReadRecordTest(recordBody) is not null;
+             bool numericComparison = function.Clauses is [{ Body: Expr.Binary binary }] && IsNumericEquality(binary);
+             bool subtraction = function.Clauses is [
+-                {
+-                    Body: Expr.Binary { Operator: ErlangOperators.Minus }
++            {
++                Body: Expr.Binary { Operator: ErlangOperators.Minus }
+                 or Expr.Unary { Operator: ErlangOperators.Minus, Operand: not Expr.Literal }
+-                }];
++            }];
+             bool functionReference = function.Clauses is [{ Body: Expr.Call or Expr.Tuple or Expr.List } referenceClause]
+                 && LocalFunctionEntries.Walk(referenceClause.Body).Any(expression => expression is Expr.FunctionReference);
+             bool conditional = function.Clauses is [{ Body: Expr.If or Expr.Block }]
+@@ -3349,6 +3349,7 @@
+             int slots = tuple.Items.Count - 1;
+             var bound = new HashSet<string>(StringComparer.Ordinal) { first.Name, second.Name, list.Name, result.Name };
+             var fields = new List<(Expr.Match Split, DecodeCall Call)>();
++            var measurements = new List<ForwardedChoiceMeasurement>();
+             TaggedBranchRange? range = null;
+             DecodedEnum? enumeration = null;
+             string current = list.Name;
+@@ -3368,6 +3369,34 @@
+                     return false;
+                 }
+ 
++                if (slots == 2 && owner.SsaTypeInferenceEnabled && !owner.ModuleOptimizationDisabled
++                    && body is Expr.Block
++                    {
++                        Body: Expr.Sequence
++                        {
++                            Items: [
++                                Expr.Match { Pattern: Pattern.Variable measuredValue },
++                                Expr.Match { Pattern: Pattern.Variable length }, _
++                            ]
++                        }
++                    }
++                    && ReadForwardedChoiceMeasurement(body, head.Name, rest.Name) is
++                    {
++                        Measure.Function: AutoImportNames.ByteSize, Convert: not null
++                    } measurement)
++                {
++                    if (!DistinctBindings(measuredValue, length) || !bound.Add(measuredValue.Name) || !bound.Add(length.Name))
++                    {
++                        return false;
++                    }
++
++                    fields.Add((split, measurement.Decoder));
++                    measurements.Add(measurement);
++                    current = rest.Name;
++
++                    continue;
++                }
++
+                 if (index == 1 && body is Expr.Block
+                     {
+                         Body: Expr.Sequence
+@@ -3403,6 +3432,20 @@
+                 fields.Add((split, call));
+                 current = rest.Name;
+             }
++            if (measurements.Count != 0)
++            {
++                return measurements is [var firstMeasurement, var secondMeasurement]
++                    && ignored is Expr.Case tail && ReadTableUnexpectedFields(tail, current) is { } leftover
++                    && EmitBoundedRequiredFields(
++                        read,
++                        record,
++                        fields,
++                        range: null,
++                        leftover,
++                        (firstMeasurement, secondMeasurement)
++                    );
++            }
++
+             if (slots == 2 && range is not null && fields[1].Call.Convert is null
+                 && ignored is Expr.Case extra && ReadTableUnexpectedFields(extra, current) is { } unexpected)
+             {
+@@ -10574,10 +10617,10 @@
+                         } convert,
+                         After: null,
+                         Clauses: [
+-                            {
+-                                Guard: null, Patterns: [Pattern.Variable result],
+-                                Body: Expr.Tuple { Items: [Expr.Literal { Value: Atom tag }, Expr.Variable value] }
+-                            }],
++                        {
++                            Guard: null, Patterns: [Pattern.Variable result],
++                            Body: Expr.Tuple { Items: [Expr.Literal { Value: Atom tag }, Expr.Variable value] }
++                        }],
+                         Catches: [var handler]
+                     }
+                 }

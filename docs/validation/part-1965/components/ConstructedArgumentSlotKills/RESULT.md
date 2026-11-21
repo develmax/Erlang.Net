@@ -1,0 +1,14 @@
+# Measured constructed-call slot liveness
+
+The C# pass clears a dead Y value used through a nested tuple in the final proper list argument. It reuses the existing frame ownership and control-flow analysis. The analysis continues to block functions with an active exception-handler shape. It checks that normal continuations overwrite the value or exit before reading it.
+
+`mnesia_dumper:load_from_logfile/3` matches all 12 pinned instructions and physical operands in the option argument region. `init_yregs [Y0]` follows the final cons and precedes the call's line instruction. The protected `dump_to_logfile/2` retains an 11-instruction region. Other whole-function differences remain. The normalized Mnesia dumper total stays at 14 matches with zero additions or losses.
+
+The 15-image comparison returned 5 Equal, 10 Different, 0 Unsupported, 0 SourceRejected and 0 CompilerError. Zero whole-file matches were gained or lost. Only `mnesia_dumper.beam` changed. Both extra compiler witnesses in the broad run, `crypto` and `et_wx_viewer`, return to their sealed Part 2013 bytes with the nested tuple rule. [Raw scope](scope-candidate.json) · [Hashes](scope-delta.json) · [Mnesia regions](mnesia_dumper.compare.terms) · [Broad observations](../validation/BROAD_RESULT.md)
+
+The permanent regression passes four cases after failing on sealed Part 2013 for a missing cleanup and on the broad version for clearing a direct list element. It also covers a normal branch and an active exception handler reading the value. Both patch files passed strict application and byte-exact source replay. SDK 10.0.400 completed the one-worker build in 68.01 seconds without warnings or errors. The corpus took 31.62 seconds using one worker and no compilation-result cache. An earlier build exposed one remaining consumer of a renamed tuple field. The corrected caller and original error log are preserved. [Build](build.log) · [Regression exits](fixture-exits.json) · [Original failure](../validation/build.log)
+
+Ten Mnesia outcomes from the scoped candidate match installed Windows OTP. They cover empty log loading, a missing parent directory and a nonempty real disk_log load through the standard mnesia_lib implementation into ETS. Four backup and three dump outcomes also match. Dump controls use test stubs to observe the table operations. The broader experiment additionally loaded and ran the candidate crypto test-engine/digest smoke and the wx viewer code-change callback with pinned outcomes. [Native outcomes](native-and-diagnostics.json) · [Extra controls](../validation/additional-native/results.json)
+
+The remaining priority is the protected dump case. Its filename slot becomes the destination of a later `TryEnter`. The lifetime proof must account for the handler state active at the preceding call. Whole-corpus acceptance and the integrated repository gate remain pending. [Receipt](receipt.json)
+

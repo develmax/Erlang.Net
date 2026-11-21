@@ -1,0 +1,16 @@
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TerminalCalls.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TerminalCalls.cs
+@@ -192,9 +192,11 @@
+ 
+         return output.ToArray();
+ 
+-        static bool IsTailArgumentSetup(BeamInstruction instruction) =>
++        bool IsTailArgumentSetup(BeamInstruction instruction) =>
+             (instruction.Definition.Opcode is Line or TestHeap or Move or Swap or PutTuple or PutList
+-                or GetTupleElement or GetList or GetHead or GetTail)
++                or GetTupleElement or GetList or GetHead or GetTail
++                || instruction is { Definition.Opcode: BifZero, Operands: [var import, _] }
++                    && IsHeapNeutralNullaryBif(importsByIndex[(int)import.Value], atomNames))
+             && instruction.Operands.All(operand => operand.Kind != BeamOperandParameters.Y);
+     }
+ 

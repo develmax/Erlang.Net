@@ -2,11 +2,22 @@ namespace Erlang.Compiler;
 
 public sealed partial class Parser
 {
+    private bool preserveDocumentationStringLiterals;
+
     private DocumentationSourceForm ReadDocumentationForm(string name)
     {
         bool parenthesized = Take(ErlangSyntaxTokens.OpenParenthesis);
         Token start = Current;
-        Expr expression = Expression();
+        preserveDocumentationStringLiterals = true;
+        Expr expression;
+        try
+        {
+            expression = Expression();
+        }
+        finally
+        {
+            preserveDocumentationStringLiterals = false;
+        }
         if (parenthesized)
         {
             Expect(ErlangSyntaxTokens.CloseParenthesis);

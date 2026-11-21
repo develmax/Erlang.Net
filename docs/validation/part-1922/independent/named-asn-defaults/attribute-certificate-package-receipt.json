@@ -1,0 +1,110 @@
+{
+  "OTP": {
+    "Tag": "OTP-29.1.1",
+    "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5"
+  },
+  "Sdk": "10.0.400",
+  "Runtime": "10.0.11",
+  "CompilerSha256": "8000A6E89C1283C3315D251A91DE9AFAACCE1850FC0DF344C87E57D874F149B3",
+  "Patch": {
+    "Archive": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\safecurves-existing-residual-1912\\default-prefix-local-pair-proof\\replay-isolated-smime\\source-preimages.zip",
+    "ArchiveSha256": "916422AAAFB8DCD1C366ED3BB7CDE583B0FEFB26C5331F9168FB9CC5AE9A53B0",
+    "ExistingInputs": {
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": "1333B031C646D181598427E4FAC64D500F74A06D3215762161A53E934F04D38E",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedListDecoder.cs": "3438B5AC6FBDC8D82444760FAC974FD61E29CF054567620C9A30866419F6CBE6",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultOnlySequenceEncoder.cs": "6F8E8E318261FEACAA43794821D0BAF90F240B9ECFBA010ECC959F91AF76401F",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.OptionalTableEncoder.cs": "50B1C21313D7CBF6630ADACAAA4E802C9467416AF24AF6CDBCB0D2E3A3271FF4",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs": "7604C1F460452938EE7E86D7D02B2EC38543C773D4C326D589E1DB5603CA4D9C",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredTableSequenceEncoder.cs": "423566EE76433E4BCC72E258F8F69E379DFAB05DC4EE9D59C92BA15624066FBC"
+    },
+    "PatchSha256": "5E1E142E4BB7134C848353D971A85468576B55DAA6CF666E7D609573A50D5258",
+    "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\safecurves-existing-residual-1912\\default-prefix-local-pair-proof\\replay-isolated-smime\\default-record-lifetimes.patch",
+    "Base": "isolated S/MIME verified compiler"
+  },
+  "Corpus": {
+    "Total": 46,
+    "ElapsedSeconds": 150.547939,
+    "Cache": "Disabled",
+    "Before": {
+      "Equal": 26,
+      "Different": 20,
+      "Unsupported": 0,
+      "SourceRejected": 0
+    },
+    "After": {
+      "Equal": 27,
+      "Different": 19,
+      "Unsupported": 0,
+      "SourceRejected": 0
+    },
+    "RawSectionsGained": 8,
+    "RawSectionsLost": 0,
+    "ChangedModules": 16,
+    "NewExact": [
+      "lib/public_key-1.21.7/ebin/AttributeCertificateVersion1-2009.beam"
+    ],
+    "LostExact": [],
+    "NormalizedFunctionsGained": 122,
+    "NormalizedFunctionsLost": 0
+  },
+  "ExactImage": {
+    "Tool": "074804F59FB7E7A612A632B0D2DC91F5060750F103A7AC0B8B517D5B546BD5DA",
+    "SourceGenerated": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/safecurves-existing-residual-1912/default-prefix-local-pair-proof/exact.json.generated/lib/public_key-1.21.7/ebin/AttributeCertificateVersion1-2009.beam",
+    "ErlSourceSha256": "FCBA2DD1A19B7FE9BA093DC5E18C0D91F6852AA04FBDB939A32BCAC84B870E97",
+    "Equal": true,
+    "ReferenceSha256": "4A8D73C9B934EFA63C3FCC8C83ADC2019331AC3EDD549F1EABBB3C65D131DD34",
+    "Bytes": 38020,
+    "Seconds": 5.0234487,
+    "Sdk": "10.0.400",
+    "GeneratedSha256": "4A8D73C9B934EFA63C3FCC8C83ADC2019331AC3EDD549F1EABBB3C65D131DD34",
+    "CorpusExit": 0,
+    "Compiler": "8000A6E89C1283C3315D251A91DE9AFAACCE1850FC0DF344C87E57D874F149B3",
+    "Beam": "lib/public_key-1.21.7/ebin/AttributeCertificateVersion1-2009.beam"
+  },
+  "Native": {
+    "ElapsedSeconds": 0.3108002,
+    "Compiler": "8000A6E89C1283C3315D251A91DE9AFAACCE1850FC0DF344C87E57D874F149B3",
+    "Outcome": "26 cases, 26 prior matches, 26 candidate matches, 17 successful round trips."
+  },
+  "NativeLoad": {
+    "Changed": 16,
+    "Seconds": 0.963811,
+    "Message": "Loaded 16 reference and 16 generated changed modules."
+  },
+  "Managed": {
+    "ElapsedSeconds": 93.5859375,
+    "Compiler": "8000A6E89C1283C3315D251A91DE9AFAACCE1850FC0DF344C87E57D874F149B3",
+    "New": 4
+  },
+  "PreviousAttempts": [
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\safecurves-existing-residual-1912\\default-prefixed-records\\compiler-build-captured-list.log",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\safecurves-existing-residual-1912\\default-prefixed-record-decoders\\compiler-build-captured-list.log",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\safecurves-existing-residual-1912\\default-prefixed-record-shape-retake\\attribute-residual.terms"
+  ],
+  "EvidenceSha256": {
+    "expanded.json": "0F83D78929ECE7C469710658ACD58AC7957F429F2030D94D8D89A195E590F3EA",
+    "expanded.json.timings.json": "509717587134281B2C6BE378271F5AA353E7622EC4D0F66EED21D257511D74B9",
+    "expanded-delta.json": "3C5EE113B8E13B894B82F3E7F1F1AFE8F09F8F45A9A0307DA7B0787687616C2A",
+    "expanded-normalized": "6FA2E6771DB974FDF7F89F97867EE5FB57EF1AF28EF917481844FC9714A506C3",
+    "expanded-normalized.log": "2AA45B32A05F2F8D0C5BC5F1FA7C17CE50FFBC02B0FBB3E8C7A8FAC46B9633C6",
+    "focus-delta.json": "C0DF6D20CA568CD011399D6222699EA69FC0F6751BC3610781E12848EE00618B",
+    "exact-receipt.json": "695A86A6EC3E114BDF1B675F13CFCB8278C4C57801E58FE18AED42D005CDAB72",
+    "native-release-receipt.json": "CE1A40A1149E183A0E9D38A8AB88C78D812948BD0804EB6BD1547851EC1B5BBC",
+    "native-scope-loaded-receipt.json": "36F50890CE5A7F5F05E350200CE658182B8311B65D6CBF69C95EBD88D0C3F9A6",
+    "style-check.log": "BB08B466C0BFDFB9FC2C1B90B9C6457E06E38B3336410FAE7964D8D1C4F32B1F",
+    "replay-isolated-smime/capture.json": "07DA18BB487D643E6C86F8CCB0D0364B6B9FE38549845DAE56FC79AE7F17DE71",
+    "focus-receipt.json": "04CE46E0718C2CF9A7D575FF75AC8A2A2B004621B9E7C340904AE9C71C210C1A",
+    "fixture-gate.json": "84855F6D066F9DB596A21F02645204CBF443E862F932301E197FCC462763B5EB",
+    "native-scope-loading.terms": "416F739D07E55B4DEA4C297D6A8FD131AE2CDB8EBC4EAEE916CAD0583296C183",
+    "native-release.terms": "234DC55CE3C4FB3C8960F5DA78778546F511B3F6E07E410DAD93DD2733ACE0E0",
+    "replay-isolated-smime/default-record-lifetimes.patch": "5E1E142E4BB7134C848353D971A85468576B55DAA6CF666E7D609573A50D5258",
+    "fixture-gate/prefixed/fixture-Candidate/receipt.json": "344A35BC4BB668D0386D679AB0F5DC3898DDB2927E600303FE4FE8638709C55E",
+    "fixture-gate/middle/fixture-Candidate/receipt.json": "344A35BC4BB668D0386D679AB0F5DC3898DDB2927E600303FE4FE8638709C55E",
+    "fixture-gate/default/fixture-Candidate/receipt.json": "344A35BC4BB668D0386D679AB0F5DC3898DDB2927E600303FE4FE8638709C55E",
+    "fixture-gate/size/fixture-Candidate/receipt.json": "344A35BC4BB668D0386D679AB0F5DC3898DDB2927E600303FE4FE8638709C55E",
+    "fixture-gate/prefixed/fixture-Parent/receipt.json": "10D6DFC17E3317F57C5FB3C0EC82874DBEA089CD77FA6015F45D18BEB5F1CBFE",
+    "fixture-gate/middle/fixture-Parent/receipt.json": "10D6DFC17E3317F57C5FB3C0EC82874DBEA089CD77FA6015F45D18BEB5F1CBFE",
+    "fixture-gate/default/fixture-Parent/receipt.json": "10D6DFC17E3317F57C5FB3C0EC82874DBEA089CD77FA6015F45D18BEB5F1CBFE",
+    "fixture-gate/size/fixture-Parent/receipt.json": "10D6DFC17E3317F57C5FB3C0EC82874DBEA089CD77FA6015F45D18BEB5F1CBFE"
+  }
+}

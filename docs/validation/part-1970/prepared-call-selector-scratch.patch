@@ -1,0 +1,11 @@
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -11692,7 +11692,7 @@
+                 returningResult: terminalResult,
+                 mixedTypeSelection: mixedTypeSelection && registerPatterns,
+                 mixedTuplePartition: mixedClauses is not null,
+-                savedCallSelector: !inputPrepared && savedInput is null && input.HasValue
++                savedCallSelector: savedInput is null && input.HasValue
+                     && decision.Value is Expr.Call { Module: not null, DynamicRemote: false }
+             );
+             checkedRecordBindings = incomingRecords;

@@ -1,5 +1,139 @@
 # Project progress
 
+Part 1978 reports 510 of 1,366 byte-exact release files and restores all 212 previously widened frame functions. The selected validation passed 567 compiler cases. [Evidence](validation/part-1978/README.md).
+
+Part 1977 measured 510 of 1,366 byte-exact images, with 560 selected compiler checks and 25 native observations. The actual release census found 212 frame-width regressions. [Evidence](validation/part-1977/README.md).
+
+Part 1976 verifies 510 of 1,366 byte-exact images, retaining all 510 previous matches. 552 focused tests and the linked native checks passed. [Evidence](validation/part-1976/README.md).
+
+Part 1965 verifies 508 of 1,366 byte-exact images, retaining all 508 previous matches. 496 focused tests and the linked native checks passed. [Evidence](validation/part-1965/README.md).
+
+Part 1964 verifies 508 of 1,366 byte-exact images, retaining all 508 previous matches. 492 focused tests and the linked native checks passed. [Evidence](validation/part-1964/README.md).
+
+Part 1963 verifies 508 of 1,366 byte-exact images, retaining all 508 previous matches. 488 focused tests and the linked native checks passed. [Evidence](validation/part-1963/README.md).
+
+Part 1962 verifies 508 of 1,366 byte-exact images, retaining all 508 previous matches. 486 focused tests and the linked native checks passed. [Evidence](validation/part-1962/README.md).
+
+Part 1961 verifies 508 of 1,366 byte-exact images, retaining all 507 previous matches. 482 focused tests and the linked native checks passed. [Evidence](validation/part-1961/README.md).
+
+Part 1960 verifies 507 of 1,366 byte-exact images, retaining all 506 previous matches. 479 focused tests and the linked native checks passed. [Evidence](validation/part-1960/README.md).
+
+Part 1959 verifies 506 of 1,366 byte-exact images, retaining all 506 previous matches. 474 focused tests and the linked native checks passed. [Evidence](validation/part-1959/README.md).
+
+Part 1958 verifies 506 of 1,366 byte-exact images, retaining all 506 previous matches. 468 focused tests and the linked native checks passed. [Evidence](validation/part-1958/README.md).
+
+Part 1957 verifies 506 of 1,366 byte-exact release images and restores both normalized regressions. All 462 selected checks passed. [Evidence](validation/part-1957/README.md).
+
+Part 1956 provisionally reaches 506 of 1,366 byte-exact files with every previous byte-exact match retained. Two normalized regressions block compiler promotion. [Evidence](validation/part-1956/README.md).
+
+Part 1955 reached 505 provisional byte-exact files and found two compiler errors. An additional raw regression in erl_bifs blocks promotion. [Evidence](validation/part-1955/README.md).
+
+Part 1954 recorded 504 provisional whole-image matches and retained all 503 accepted Part 1953 matches. One normalized closure capture difference blocks promotion. [Evidence](validation/part-1954/README.md).
+
+Part 1953 reaches 503 of 1,366 byte-exact images. All 502 prior matches remain. The 432 selected checks pass and ERTS accepts all 387 changed images. [Evidence](validation/part-1953/README.md).
+
+Part 1952 reaches 502 of 1,366 byte-exact images. All 500 prior matches remain. The 422 selected checks pass and ERTS accepts all 298 changed images. [Evidence](validation/part-1952/README.md).
+
+Part 1951 reaches 500 of 1,366 byte-exact images. All 498 prior matches remain. The 410 selected checks pass and ERTS accepts all 35 changed images. [Evidence](validation/part-1951/README.md).
+
+Part 1950 reaches 498 of 1,366 byte-exact images. All 495 prior matches remain. The 404 selected checks pass and ERTS accepts all 713 changed images. [Evidence](validation/part-1950/README.md).
+
+Part 1949 reaches 495 of 1,366 byte-exact images. All 491 prior matches remain. The 399 selected checks pass and ERTS accepts all 447 changed images. [Evidence](validation/part-1949/README.md).
+
+Part 1948 reaches 491 of 1,366 byte-exact images. All 490 prior matches remain. The 387 selected checks pass and ERTS accepts all 807 changed images. [Evidence](validation/part-1948/README.md).
+
+Part 1947 reaches 490 of 1,366 byte-exact images. All 488 prior matches remain. The 382 selected checks pass and ERTS accepts all 10 changed images. [Evidence](validation/part-1947/README.md).
+
+Part 1946 reaches 488 of 1,366 byte-exact images. All 486 prior matches remain. The 374 selected checks pass and ERTS accepts all 143 changed images. [Evidence](validation/part-1946/README.md).
+
+Part 1945 reaches 486 of 1,366 byte-exact images. All 484 prior matches remain. The 363 selected checks pass and ERTS accepts all 69 changed images. [Evidence](validation/part-1945/README.md).
+
+Part 1944 reaches 484 of 1,366 byte-exact images. All 482 prior matches remain. The 354 selected checks pass and ERTS accepts all 133 changed images. [Evidence](validation/part-1944/README.md).
+
+Part 1943 reaches 482 of 1,366 byte-exact images. All 480 prior matches remain. The 346 selected checks pass and ERTS accepts all 55 changed images. [Evidence](validation/part-1943/README.md).
+
+Part 1942 reaches 480 of 1,366 byte-exact images. All 480 prior matches remain. The 341 selected checks pass and ERTS accepts all 124 changed images. [Evidence](validation/part-1942/README.md).
+
+Part 1941 reaches 480 of 1,366 byte-exact images. All 479 prior matches remain. The 335 selected checks pass and ERTS accepts all 96 changed images. [Evidence](validation/part-1941/README.md).
+
+Part 1940 reaches 479 of 1,366 byte-exact images. All 479 prior matches remain. The 328 selected checks pass and ERTS accepts all 109 changed images. [Evidence](validation/part-1940/README.md).
+
+Part 1939 reaches 479 of 1,366 byte-exact images. All 478 prior matches remain. The 319 selected checks pass and ERTS accepts all 22 changed images. [Evidence](validation/part-1939/README.md).
+
+Part 1938 reaches 478 of 1,366 byte-exact images. All 478 prior matches remain. The 312 selected checks pass and ERTS accepts all 86 changed images. [Evidence](validation/part-1938/README.md).
+
+Part 1937 reaches 478 of 1,366 byte-exact images. All 478 prior matches remain. The 305 selected checks pass and ERTS accepts all 30 changed images. [Evidence](validation/part-1937/README.md).
+
+Part 1936 reaches 478 of 1,366 byte-exact images. All 478 prior matches remain. The 300 selected checks pass and ERTS accepts all 103 changed images. [Evidence](validation/part-1936/README.md).
+
+Part 1935 reaches 478 of 1,366 byte-exact images. All 478 prior matches remain. The 295 selected checks pass and ERTS accepts all 497 changed images. [Evidence](validation/part-1935/README.md).
+
+Part 1934 reaches 478 of 1,366 byte-exact images. All 477 prior matches remain. The 291 selected checks pass and ERTS accepts all 50 changed images. [Evidence](validation/part-1934/README.md).
+
+Part 1933 reaches 477 of 1,366 byte-exact images. All 477 prior matches remain. The 286 selected checks pass and ERTS accepts all 192 changed images. [Evidence](validation/part-1933/README.md).
+
+Part 1932 reaches 477 of 1,366 byte-exact images. All 476 prior matches remain. The 281 selected checks pass and ERTS accepts all 8 changed images. [Evidence](validation/part-1932/README.md).
+
+Part 1931 reaches 476 of 1,366 byte-exact images. All 475 prior matches remain. The 276 selected checks pass and ERTS accepts all 77 changed images. [Evidence](validation/part-1931/README.md).
+
+Part 1930 reaches 475 of 1,366 byte-exact images. All 475 prior matches remain. The 268 selected checks pass and ERTS accepts all 597 changed images. [Evidence](validation/part-1930/README.md).
+
+Part 1929 reaches 475 of 1,366 byte-exact images. All 475 prior matches remain. The 266 selected checks pass and ERTS accepts all 348 changed images. [Evidence](validation/part-1929/README.md).
+
+Part 1928 is held after the pinned disassembler and the managed loader both rejected invalid asn1ct helper targets. The accepted count remains 475 of 1,366. [Held evidence](validation/part-1928/README.md).
+
+Part 1927 reaches 475 of 1,366 byte-exact images. All 474 prior matches remain. The 262 selected checks pass and ERTS accepts all 108 changed images. [Evidence](validation/part-1927/README.md).
+
+Part 1926 reaches 474 of 1,366 byte-equal images. All 473 prior matches remain. The 259 selected checks pass and ERTS accepts all 317 changed images. [Evidence](validation/part-1926/README.md).
+
+Part 1925 reaches 473 of 1,366 byte-equal images. All 472 previous matches remain. The 251 selected checks pass and ERTS accepts all 316 changed images. [Evidence](validation/part-1925/README.md).
+
+Part 1924 reaches 472 of 1,366 byte-equal images. All 470 previous matches remain. The 246 selected checks pass and ERTS accepts all 151 changed images. [Evidence](validation/part-1924/README.md).
+
+Part 1923 reaches 470 of 1,366 byte-equal images. All 466 previous matches remain. The 241 selected checks pass and ERTS accepts all 97 changed images. [Evidence](validation/part-1923/README.md).
+
+Part 1922 reaches 466 of 1,366 byte-equal images. All 462 previous matches remain. The 232 selected checks pass and ERTS accepts all 24 changed images. [Evidence](validation/part-1922/README.md).
+
+Part 1921 reaches 462 of 1,366 byte-equal images. All 458 previous matches remain. The 225 selected checks pass and ERTS accepts all 584 changed images. [Evidence](validation/part-1921/README.md).
+
+Part 1920 reaches 458 of 1,366 byte-equal images. All 456 previous matches remain. The 217 selected checks pass and ERTS accepts all 896 changed images. [Evidence](validation/part-1920/README.md).
+
+Part 1919 reaches 456 of 1,366 byte-equal images. All 453 previous matches remain. The 211 selected checks pass and ERTS accepts all 24 changed images. [Evidence](validation/part-1919/README.md).
+
+Part 1918 reaches 453 of 1,366 byte-equal images. All 449 previous matches remain. The 204 selected checks pass and ERTS accepts all 72 changed images. [Evidence](validation/part-1918/README.md).
+
+Part 1917 reaches 449 of 1,366 byte-equal images. All 446 previous matches remain. The 195 selected checks pass and ERTS accepts all 37 changed images. [Evidence](validation/part-1917/README.md).
+
+Part 1916 reaches 446 of 1,366 byte-equal images. All 443 previous matches remain. The 189 selected checks pass and ERTS accepts all 30 changed images. [Evidence](validation/part-1916/README.md).
+
+Part 1915 reaches 443 of 1,366 byte-equal images. All 439 previous matches remain. The 181 selected checks pass and ERTS prepares all 63 changed images. [Evidence](validation/part-1915/README.md).
+
+Part 1914 reaches 439 of 1,366 byte-equal images. All 436 previous matches remain. The 172 selected checks pass and ERTS prepares all 58 changed images. [Evidence](validation/part-1914/README.md).
+
+Part 1913 reaches 436 of 1,366 byte-equal images. All 434 previous matches remain. The 162 selected checks pass and ERTS prepares all 222 changed images. [Evidence](validation/part-1913/README.md).
+
+Part 1912 has 434 of 1,366 byte-equal release images. All 431 prior matches remain and all 155 selected checks pass. ERTS prepares all 87 changed images. Normalized equality improves by 156 functions. [Release evidence](validation/part-1912/README.md).
+
+Part 1911 reaches 431 of 1,366 exact Windows release images. diameter_session, ftp_progress and megaco_trans_sup are newly equal and all 428 prior byte matches remain. All 146 selected tests pass. 32 changed images prepare in ERTS, and 131 more functions match after normalization. [Release evidence](validation/part-1911/README.md).
+
+Part 1910 reaches 428 of 1,366 exact Windows release images. wxAcceleratorTable and megaco_tcp_accept are newly equal. All 426 prior matches, 135 scoped tests and 71 native preparations pass. 147 functions gain normalized equality. [Release report](validation/part-1910/README.md).
+
+Part 1909 reaches 426 of 1,366 exact Windows release images. The complete comparison adds ssh_io and xmerl_xs with all 424 prior exact files retained. All 129 selected tests pass. All 335 changed images are checked by pinned ERTS loading or preparation and 64 functions gain normalized equality. [Release report](validation/part-1909/README.md).
+
+Part 1908 reaches 424 of 1,366 exact Windows release images. The complete comparison adds ct_event, X509-ML-DSA-2025, SLH-DSA-Module-2024 and CMSAesRsaesOaep-2009, retaining 420 preceding matches. All 123 selected tests pass on the final snapshot. The 61 changed images prepare in pinned ERTS, and 368 more normalized functions match. [Release and native data](validation/part-1908/README.md).
+
+Part 1907 matches 420 of 1,366 Windows OTP 29.1.1 release images. The complete uncached run adds X509-ML-KEM-2025 and snmpm_server_sup and retains all 418 prior matches. All 118 scoped cases pass. ERTS prepares the 60 changed images. Normalized equality gains 277 functions without losses, and the Mnesia Schema frame returns to two slots. [Raw and native proof](validation/part-1907/README.md).
+
+Part 1906 reaches 418 of 1,366 exact Windows OTP 29.1.1 release images. The linked debugger and mnesia_frag_hash outputs add two complete files and retain all 416 outside matches. All 114 selected checks pass across the fast and exclusive lanes. Pinned ERTS prepares all 45 incremental images, and the full comparison records 273 additional normalized exact functions. Full repository readiness retains its earlier green input. [Release proof](validation/part-1906/README.md).
+
+Part 1905 matches 416 of 1,366 Windows OTP 29.1.1 files in the complete uncached comparison. Et viewer adds one complete match and all 415 previous matches remain. Fifteen normalized functions improve to equality. The original 109/110 focused attempt and the exact-payload single-case retakes are both recorded. Native ERTS prepares 93 changed images and executes the two separately loaded on-load modules. The full repository and readiness results retain their earlier scopes. [Full evidence](validation/part-1905/README.md).
+
+Part 1904 matches 415 of 1,366 Windows OTP 29.1.1 release files after an uncached 965.045-second comparison. DSS, PKCS-3 and megaco_user_default newly match, with all prior matches retained. All 108 focused cases pass. Native ERTS prepares the 31 changed images and executes 18 cases through the three new complete matches. The complete managed result remains Part 1898, and canonical readiness still uses the green Part 1875 report. [Full comparison](validation/part-1904/README.md).
+
+Part 1902 recompiles all 1,366 Windows OTP 29.1.1 release files without cache. It retains 412 Equal and 954 Different, with zero Unsupported and SourceRejected. Eight Line, five Dbgi and eight other raw sections reach equality. All 749 changed images prepare or run in pinned ERTS. Eighty-three normalized functions gain equality. The latest complete managed result belongs to Part 1898 and records 9,880 of 9,885 checks passed. Four failures pass individually on both payloads. The original Jaro worker timeout reproduces on both. Canonical readiness stays tied to the last passed full report. [Release result](validation/part-1902/full-release/README.md) · [Managed result](validation/part-1898/local-managed-final/README.md) · [Four-case reproduction](validation/part-1898/local-managed-reproduction/README.md).
+
+Part 1898 improves the uncached Windows OTP 29.1.1 release comparison to 412 Equal and 954 Different, with zero Unsupported or SourceRejected, in 1,055.41 seconds. The previous accepted commit gains prim_eval and systools with zero losses. All 90 focused tests pass. The native Megaco stack and the affected typed record instructions pass their independent checks. Libraries, Catalog, async, cold consumption and Packages passed. The managed gate remains open after the original Jaro worker deadline reproduced on the previous and candidate runtime payloads. [Release evidence](validation/part-1898/full-release/README.md) · [Local gate and raw diagnostics](validation/part-1898/local-environment/README.md).
+
 Part 1875 completes the full uncached Windows comparison in 525.42 seconds, retaining 410 Equal and 956 Different with zero unsupported and rejected sources. All 75 changed images prepare. Twenty-three Dbgi sections and the remaining diameter_make normalized body gain equality. Complete local validation passes all 9,830 managed cases, standard library, runtime evidence, tool, Catalog and package gates on the verified source. Readiness records 733 registered MFAs across 21 modules with zero delta. [Full release report](validation/part-1875/full-uncached/README.md) · [Local gates](validation/part-1875/local-gates/README.md).
 
 Part 1874 completes the full uncached comparison in 661.74 seconds. There are 410 Equal, 956 Different, 0 Unsupported and 0 SourceRejected, with inet6_sctp as the only new raw match and no losses. All 161 newly changed images prepare and the 19 normalized body gains have no losses against Part 1870. [Full evidence](validation/part-1874/full-uncached/README.md).

@@ -1,0 +1,57 @@
+{
+  "Reference": {
+    "Tag": "OTP-29.1.1",
+    "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5"
+  },
+  "FrozenSource": "dcf7d1bc102f383d0ac959d83fc539a50a1c05984076fbd960d368fdbfa2caf2",
+  "Compiler": "5bfb03b43bdb8856a3b381576ecd194451e43721ff8c96ba0c8fde06a8a1da9a",
+  "ProductionEdits": 0,
+  "Replay": {
+    "FrozenSource": "dcf7d1bc102f383d0ac959d83fc539a50a1c05984076fbd960d368fdbfa2caf2",
+    "Path": "tests/Erlang.Tests/Compiler/Beam/BeamPrimitiveBinaryProjectionChecks.cs",
+    "Before": "d341ecc4d33f595193c86bb0d5cf93c00c627142b1091d627f1500f8e3318dda",
+    "After": "7b4f1fa7fdb1d9424288d79ed9ff8312d4421986f97a31ca05eda07bdaff91d3",
+    "Patch": "8909f24c6ddb3363b217eef0ea6904455619af1eb36b4fe739849d18f2db5235"
+  },
+  "Tests": [
+    {
+      "Kind": "red",
+      "Exit": 1,
+      "Compiler": "26B176E3FBBC3071D71D65775A4FAB80E898123F750874C6402504433E79DCFA",
+      "Test": "47DC1C0C2A5735F923412092EB729298610C067C3F55D1669966AFA1D55E13BF",
+      "Runtime": "7445A7EA8A055C952841AD41A2F4F0138B7FE39EAB6762EB1030E59308A1C8AA"
+    },
+    {
+      "Kind": "sealed",
+      "Exit": 0,
+      "Compiler": "CCB8122A8CECEAD0CE9141F90317193C54D25F5D4738F23A66EED7612E6564B5",
+      "Test": "47DC1C0C2A5735F923412092EB729298610C067C3F55D1669966AFA1D55E13BF",
+      "Runtime": "7445A7EA8A055C952841AD41A2F4F0138B7FE39EAB6762EB1030E59308A1C8AA"
+    },
+    {
+      "Kind": "linked",
+      "Exit": 0,
+      "Compiler": "5BFB03B43BDB8856A3B381576ECD194451E43721FF8C96BA0C8FDE06A8A1DA9A",
+      "Test": "47DC1C0C2A5735F923412092EB729298610C067C3F55D1669966AFA1D55E13BF",
+      "Runtime": "7445A7EA8A055C952841AD41A2F4F0138B7FE39EAB6762EB1030E59308A1C8AA"
+    }
+  ],
+  "NativeUnknownSelector": "{error,{case_clause,3},{beam_primitive_binary_projection,primitive,1,[{file,\"beam_primitive_binary_projection.erl\"},{line,12}]}}",
+  "Evidence": {
+    "prepare-correction.py": "58551a5fbb844bb6ec219f33a172889fb0d8902be01c1ec89374297580f7638b",
+    "verify-correction.ps1": "bb9f9425c196c43a037ef533291cd659e56e90a644781dd08bc11d390cc5bceb",
+    "corrected/strict-replay.json": "b5abc98380a640063304d2d6fa89071a281a8bb2369bb0c2d71fb4091f8ac131",
+    "corrected/tests-receipt.json": "c112c94513ecea29def4d569dd6e3ff6e6b92d88066f1dd4d4b63df35873c447",
+    "corrected/primitive-unknown-selector-proof.patch": "8909f24c6ddb3363b217eef0ea6904455619af1eb36b4fe739849d18f2db5235",
+    "corrected/style.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "corrected/build.log": "2a76eda15c4f51fb3f8cf5cbf7797a8afd49aaca3694e815a2b25a02ca524a27",
+    "corrected/red/fixture.log": "08c95f7e9083f64a5b75794c8944c45fd096c2298128a8e6fe754248c2ebc73a",
+    "corrected/sealed/fixture.log": "81d565dbf62c771872a8503ce9e76b22c597ae90b9505a3a40ca6c4de9adb4bb",
+    "corrected/linked/fixture.log": "81d565dbf62c771872a8503ce9e76b22c597ae90b9505a3a40ca6c4de9adb4bb",
+    "fixture.erl": "da7cfffbd7151eef0a9da153525872ee08565eaa92d6f90becc0e1231ef261b8",
+    "unknown-selector-native.eval": "0b27ad2701be042203997937a9d4ddce9f631eac7f2366ed9190842119f0481d",
+    "unknown-selector-native.log": "df25253b9377a9e005cafb8d5961ad15e822dac4ce5da3012b17b599afbbfad7",
+    "sealed/diagnostic.log": "c26fa3b7800b3208611a767ba82c630371102352defeb9a1fba07c47f804dedb",
+    "linked/diagnostic.log": "9a0333a4c34e9936e093bdf24dd395631d4f3b155b9fa003720858f74ac0011d"
+  }
+}

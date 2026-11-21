@@ -1,0 +1,40 @@
+{
+  "Parent": {
+    "Source": "5298beb6a1fd4ecc6783bc337fd8b538e45f1beae922b2c9a31a11d6d2dd57c5",
+    "Paths": 242,
+    "Compiler": "a6ecc064a2d4863c393dbba37f23634b2983875866830a5148a3453262fcaaa1",
+    "Tests": "d3ffa531397b74d8156fab1b39c269109bfb7b24b5480a0f875f6c70a255a81d",
+    "ParentSource": "338dcf8e3b75c55a67501628041c5221c8866a0fb506edba01398834dfbc7719",
+    "CorpusTool": "a606975b0dbaa65c8a85013c954ad5f7feebb6e1c8a3dfa63b9ec2d582068a98"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FiniteIntegerBounds.cs": "9981c72562554401980670aabfc32c9214ff0afb6c2efc48b3bde0004f9ffbc4",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": "9c90337adb608552e3278177d881641157d676d22ab496a7fccf691556c8e275",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": "78f390b6667af3c0b2fb8ec5ed2505fb259b26d56057a0845bf5bcd78992d213",
+    "tests/Erlang.Tests/Compiler/Beam/BeamCaseFailureLocationChecks.cs": "6a7c8becdd817d2e979ddeebc5b082485480530553e51c1954fb3bdd301aa961",
+    "tests/Erlang.Tests/Compiler/Beam/BeamFiniteIntegerBoundsChecks.cs": "5695c6dd3c3eff4074397af6709ca5f4b2c8637ae7f5842fc8b4f4eda5e1f0a8",
+    "tests/Erlang.Tests/Compiler/Beam/BeamTerminalLocalTryTailChecks.cs": "5bd320390bf07d88ad10a06c9905cc54890a74a7fe4acbd6300e9928563abf23",
+    "tests/Erlang.Tests/Harness/Program.cs": "e49fd502974f1777c4f21671bd875a52780796e06eee162c07b99af5814d0adc",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TaggedTupleBranches.cs": "3eba6d8337219fbfe3efe8ec956009e8b702da2535f85cb0eab39b2282d4ad13"
+  },
+  "Patches": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\case-locations-local-try-and-finite-bounds-1884\\finite-bitwise-and-addition-bounds.patch",
+      "Hash": "e4700781cf5dd0f2b6881f377907d15ccba0661838cf719454578f522da0b26c"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\case-locations-local-try-and-finite-bounds-1884\\terminal-local-try-tail.patch",
+      "Hash": "85dfaa4bb0552a10c964c9e673f7fe7ae66246bc312f2e5470d6dc7fb42d67fe"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\case-locations-local-try-and-finite-bounds-1884\\emit-case-failure-location.patch",
+      "Hash": "2ce47987d7f9a19632ac2df46fb22cf994d0436682935d9f5abf092d35bf27c9"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\case-locations-local-try-and-finite-bounds-1884-retake\\preserve-tagged-tuple-failure-ingress.patch",
+      "Hash": "5078ae64bef0ac792dc1b2c003564359e151c9567a20ce7c626763bad90f0b1e"
+    }
+  ],
+  "HarnessRegistrations": "Register independent case, range and local try regression cases.",
+  "FailedAttempt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\case-locations-local-try-and-finite-bounds-1884"
+}

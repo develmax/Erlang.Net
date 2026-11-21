@@ -1,0 +1,262 @@
+using static Erlang.Compiler.BeamEmissionFormat;
+
+namespace Erlang.Compiler;
+
+internal sealed partial class BeamModuleCompiler
+{
+    private sealed record ColdExactMatch(
+        int Test,
+        int Line,
+        int Failure,
+        int Success
+    );
+
+    private byte[]? MoveColdExactMatchFailures(ReadOnlyMemory<byte> code, int labelCount)
+    {
+        if (ModuleOptimizationDisabled || !code.Span.Contains(ExactNotEqualTest) || !code.Span.Contains(BadMatch))
+        {
+            return null;
+        }
+
+        IReadOnlyList<BeamInstruction> body;
+        try
+        {
+            var header = new BeamCodeHeader(
+                BeamWire.FormatVersion,
+                highestOpcode,
+                labelCount,
+                exports.Count + locals.Count,
+                code
+            );
+            body = BeamInstructionReader.Read(header, atoms.Count + 1, literalBytes.Count);
+        }
+        catch (Exception error) when (error is InvalidDataException or NotSupportedException)
+        {
+            return null;
+        }
+
+        if (body.Any(instruction => instruction.Definition.Opcode is DebugLine or ExecutableLine))
+        {
+            return null;
+        }
+
+        BeamProjectionFlow? flow = null;
+        using var output = new MemoryStream(code.Length);
+        int copied = 0;
+        int entry = 0;
+        for (int boundary = 0; boundary < body.Count; boundary++)
+        {
+            byte opcode = body[boundary].Definition.Opcode;
+            if (opcode is not (FunctionInfo or EndCode))
+            {
+                continue;
+            }
+
+            int start = entry;
+            entry = boundary + 1;
+            int end = boundary;
+            if (opcode == FunctionInfo)
+            {
+                while (end > start && body[end - 1].Definition.Opcode == Line)
+                {
+                    end--;
+                }
+
+                if (end == start || body[end - 1].Definition.Opcode != Label)
+                {
+                    continue;
+                }
+
+                end--;
+            }
+
+            if (end < start + 4 || body[start].Definition.Opcode != Label
+                || body.Skip(start).Take(end - start).Any(instruction => instruction.Definition.Opcode is TryEnter or CatchEnter))
+            {
+                continue;
+            }
+
+            int suffix = FindTrailingExceptionBlocks(body, start, end);
+            if (suffix <= start + 1 || !EndsBeamBlock(body[suffix - 1].Definition.Opcode))
+            {
+                continue;
+            }
+
+            var matches = new List<ColdExactMatch>();
+            for (int index = start + 2; index + 2 < suffix; index++)
+            {
+                if (body[index] is not
+                    {
+                        Definition.Opcode: ExactNotEqualTest,
+                        Operands: [var target, { Kind: BeamOperandParameters.X, Value.IsZero: true } result, _]
+                    })
+                {
+                    continue;
+                }
+
+                int line = index + 1;
+                int failure = body[line].Definition.Opcode == Line ? line + 1 : line;
+                int success = failure + 1;
+                if (success >= suffix
+                    || body[failure] is not { Definition.Opcode: BadMatch, Operands: [var rejected] } || result != rejected
+                    || body[success] is not { Definition.Opcode: Label, Operands: [var label] } || target.Value != label.Value
+                    || !(flow ??= new BeamProjectionFlow(body)).TryGetSingleForwardTarget(index, (int)label.Value, out _))
+                {
+                    continue;
+                }
+
+                int producer = index - 1;
+                if (body[producer].Definition.Opcode == InitYRegisters)
+                {
+                    producer--;
+                }
+
+                if (producer <= start || body[producer].Definition.Opcode is not (LocalCall or ExternalCall))
+                {
+                    continue;
+                }
+
+                if (line == failure)
+                {
+                    // The inline failure inherited the call position on its only incoming path.
+                    line = producer - 1;
+                    if (body[line].Definition.Opcode != Line)
+                    {
+                        continue;
+                    }
+                }
+
+                matches.Add(new(
+                    index,
+                    line,
+                    failure,
+                    success
+                ));
+            }
+
+            if (matches.Count == 0)
+            {
+                continue;
+            }
+
+            var existing = new Dictionary<int, int>();
+            for (int first = suffix; first < end;)
+            {
+                int last = first + 1;
+                while (body[last].Definition.Opcode == Line)
+                {
+                    last++;
+                }
+
+                existing.Add(first, last);
+                first = last + 1;
+            }
+
+            var inline = matches.ToDictionary(match => match.Test + 1);
+            if (flow!.OrderColdFailureBlocks(
+                start,
+                end,
+                inline.Keys,
+                existing.Keys
+            ) is not { } order)
+            {
+                continue;
+            }
+
+            foreach (ColdExactMatch match in matches)
+            {
+                int test = body[match.Test].Offset;
+                output.Write(code.Span[copied..test]);
+                output.WriteByte(ExactEqualTest);
+                output.Write(code.Span[(test + 1)..body[match.Test + 1].Offset]);
+                copied = body[match.Success + 1].Offset;
+            }
+
+            output.Write(code.Span[copied..body[suffix].Offset]);
+            foreach (int block in order)
+            {
+                if (inline.TryGetValue(block, out ColdExactMatch? match))
+                {
+                    WriteInstruction(match.Success);
+                    WriteInstruction(match.Line);
+                    WriteInstruction(match.Failure);
+                }
+                else
+                {
+                    output.Write(code.Span[body[block].Offset..body[existing[block] + 1].Offset]);
+                }
+            }
+
+            copied = body[end].Offset;
+        }
+
+        if (copied == 0)
+        {
+            return null;
+        }
+
+        output.Write(code.Span[copied..]);
+
+        return RebuildLineTable(output.ToArray(), labelCount);
+
+        void WriteInstruction(int index) =>
+            output.Write(code.Span[body[index].Offset..body[index + 1].Offset]);
+    }
+
+    private sealed partial class BeamProjectionFlow
+    {
+        internal int[]? OrderColdFailureBlocks(
+            int entry,
+            int end,
+            IEnumerable<int> inlineFailures,
+            IEnumerable<int> coldFailures
+        )
+        {
+            var inline = inlineFailures.ToHashSet();
+            var failures = inline.Concat(coldFailures).ToHashSet();
+            var order = new List<int>(failures.Count);
+            var visited = new HashSet<int>();
+            var pending = new Stack<(int Index, bool Exiting)>();
+            pending.Push((entry, false));
+            while (pending.TryPop(out var step))
+            {
+                if (step.Exiting)
+                {
+                    if (failures.Contains(step.Index))
+                    {
+                        order.Add(step.Index);
+                    }
+
+                    continue;
+                }
+
+                if (step.Index < entry || step.Index >= end || !visited.Add(step.Index))
+                {
+                    continue;
+                }
+
+                pending.Push((step.Index, true));
+                int[] next = successors[step.Index];
+                if (inline.Contains(step.Index + 1))
+                {
+                    // The inverted instruction encodes the success jump first. SSA visits failure first.
+                    foreach (int target in next)
+                    {
+                        pending.Push((target, false));
+                    }
+                }
+                else
+                {
+                    for (int index = next.Length - 1; index >= 0; index--)
+                    {
+                        pending.Push((next[index], false));
+                    }
+                }
+            }
+
+            order.Reverse();
+
+            return order.Count == failures.Count ? order.ToArray() : null;
+        }
+    }
+}

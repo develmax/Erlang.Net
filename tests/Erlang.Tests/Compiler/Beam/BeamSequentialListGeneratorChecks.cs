@@ -1,0 +1,76 @@
+using System.Collections;
+using System.Numerics;
+using Erlang;
+using Erlang.Compiler;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamSequentialListGeneratorChecks
+{
+    internal const string TestName = "compiler/beam/lifts-sequential-list-comprehension-elements-with-lexical-bindings";
+    private const string Fixture = "beam_sequential_list_generator_probe.erl";
+    private const string MissingHelper = "A sequential comprehension element did not produce its expected lexical helper.";
+    private const string InvalidValue = "The lifted helper changed a local binding or a captured match.";
+
+    internal const string Source = """
+        -module(beam_sequential_list_generator_probe).
+        -export([pairs/1, equal/2, ordered/2]).
+
+        pairs(Pairs) -> [begin {A, B} = Pair, {row, A, B} end || Pair <- Pairs].
+        equal(List, Value) ->
+            Expected = prepare(Value),
+            [begin Expected = Item, {ok, Expected} end || Item <- List].
+        ordered(List, Target) ->
+            [begin Target ! {seen, Item}, Value = wrap(Item), Value end || Item <- List].
+
+        prepare(Value) -> {tag, Value}.
+        wrap(Item) -> {item, Item}.
+        """;
+
+    internal static byte[] CompileFixture() => CodeGeneration.CompileBeamModule(Source, Fixture);
+
+    internal static async Task Run()
+    {
+        byte[] image = CompileFixture();
+        object code = Code(image);
+        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
+        var functions = Items(code, "Instructions").Where(instruction => Opcode(instruction) == BeamEmissionFormat.FunctionInfo)
+            .Select(instruction => Items(instruction, "Operands").ToArray())
+            .Select(operands => (atoms[Value(operands[1])], Value(operands[2]))).ToHashSet();
+        if (!functions.Contains(("-pairs/1-lc$^0/1-0-", 1))
+            || !functions.Contains(("-equal/2-lc$^0/1-0-", 2))
+            || !functions.Contains(("-ordered/2-lc$^0/1-0-", 2)))
+        {
+            throw new InvalidOperationException(MissingHelper);
+        }
+
+        var module = BeamModule.Prepare(image);
+        await using var runtime = new ProcessRuntime();
+        await using var receiver = new RuntimeNodeFoundationHostActor(runtime);
+        await receiver.InvokeAsync(async context =>
+        {
+            Term first = Term.A("first");
+            Term second = Term.A("second");
+            Term nested = Term.Tuple(Term.A("tag"), first);
+            Term pairs = Term.List(Term.Tuple(first, second), Term.Tuple(second, first));
+            Term mapped = Term.List(
+                Term.Tuple(Term.A("row"), first, second),
+                Term.Tuple(Term.A("row"), second, first)
+            );
+            if (!mapped.Equals(await module.Invoke(context, "pairs", [pairs]))
+                || !Term.List(Term.Tuple(Term.A("ok"), nested)).Equals(await module.Invoke(context, "equal", [Term.List(nested), first])))
+            {
+                throw new InvalidOperationException(InvalidValue);
+            }
+
+            return Nil.Value;
+        });
+    }
+
+    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
+
+    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
+
+    private static IEnumerable<object> Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>();
+}

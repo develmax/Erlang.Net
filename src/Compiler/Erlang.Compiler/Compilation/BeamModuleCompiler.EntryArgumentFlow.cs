@@ -223,18 +223,22 @@ internal sealed partial class BeamModuleCompiler
                     return false;
                 }
 
-                // This new route covers only an entry copy followed by straight
-                // argument moves. A closure or collecting operation remains a barrier.
+                // A checked tuple projection may precede the planned copy. The backward
+                // motion interval still prevents the copy from crossing the projection.
+                bool followsProjection = false;
                 for (int index = save + 1; index <= before; index++)
                 {
-                    if (body[index].Definition.Opcode is not (Move or Line)
+                    byte opcode = body[index].Definition.Opcode;
+                    if (opcode is not (Move or Line or GetTupleElement)
                         || predecessors[index] is not [var predecessor] || predecessor != index - 1)
                     {
                         return false;
                     }
+
+                    followsProjection |= opcode == GetTupleElement;
                 }
 
-                return FeedsOrdinaryCall(straightArguments: true);
+                return FeedsOrdinaryCall(straightArguments: true, followsProjection: followsProjection);
             }
 
             bool FeedsCallAfterClosure(int before)
@@ -259,12 +263,18 @@ internal sealed partial class BeamModuleCompiler
                 return FeedsOrdinaryCall();
             }
 
-            bool FeedsOrdinaryCall(bool straightArguments = false)
+            bool FeedsOrdinaryCall(bool straightArguments = false, bool followsProjection = false)
             {
                 int call = use + 1;
                 while (call < entry + incoming.Length)
                 {
                     BeamInstruction following = body[call];
+                    if ((followsProjection || following.Definition.Opcode == Move)
+                        && (predecessors[call] is not [var preceding] || preceding != call - 1))
+                    {
+                        return false;
+                    }
+
                     if (following.Definition.Opcode == Line)
                     {
                         call++;
@@ -280,13 +290,14 @@ internal sealed partial class BeamModuleCompiler
                             {
                                 Kind: BeamOperandParameters.X or BeamOperandParameters.LiteralValue
                                         or BeamOperandParameters.Integer or BeamOperandParameters.Atom
-                                        or BeamOperandParameters.Nil,
+                                        or BeamOperandParameters.Nil or BeamOperandParameters.Y,
                                 TypeIndex: null
                             } read,
                             { Kind: BeamOperandParameters.X, TypeIndex: null } written
                             ]
-                        } || predecessors[call] is not [var predecessor] || predecessor != call - 1
-                        || SameProjectionRegister(read, target) || SameProjectionRegister(written, target))
+                        } || SameProjectionRegister(read, target) || SameProjectionRegister(written, target)
+                        || (read.Kind == BeamOperandParameters.Y
+                            && (!followsProjection || SameProjectionRegister(read, body[save].Operands[1]))))
                     {
                         break;
                     }
@@ -300,6 +311,7 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 const int SendArgumentCount = 2;
+                const int DynamicApplyTargetRegisterCount = 2;
                 BeamInstruction consumer = body[call];
 
                 // Send is a body call with two implicit X arguments and requires an allocated frame.
@@ -307,8 +319,10 @@ internal sealed partial class BeamModuleCompiler
                 return consumer.Definition.Opcode switch
                 {
                     LocalCall or ExternalCall => target.Value < consumer.Operands[0].Value,
-                    CallFun when straightArguments => target.Value < consumer.Operands[0].Value,
-                    Send when straightArguments => target.Value < SendArgumentCount,
+                    CallFun when straightArguments && !followsProjection => target.Value < consumer.Operands[0].Value,
+                    DynamicApply when straightArguments && !followsProjection
+                        => target.Value < consumer.Operands[0].Value + DynamicApplyTargetRegisterCount,
+                    Send when straightArguments && !followsProjection => target.Value < SendArgumentCount,
                     _ => false
                 };
             }

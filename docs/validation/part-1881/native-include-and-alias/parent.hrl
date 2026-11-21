@@ -1,0 +1,3 @@
+-file("header.yrl", 200).
+-include("child.hrl").
+-define(PARENT, parent).

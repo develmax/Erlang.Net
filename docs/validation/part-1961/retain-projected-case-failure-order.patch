@@ -1,0 +1,71 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.NestedRecordColdCases.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.NestedRecordColdCases.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.NestedRecordColdCases.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.NestedRecordColdCases.cs
+@@ -15,6 +15,7 @@
+         int caseFailures = 0;
+         int recordFailure = -1;
+         int selections = 0;
++        bool hasSelectedRegisterFailure = false;
+         for (int index = start; index < end; index++)
+         {
+             BeamInstruction instruction = body[index];
+@@ -49,12 +50,25 @@
+                 {
+                     Definition.Opcode: CaseEnd,
+                     Operands: [{ Kind: BeamOperandParameters.X } rejected]
+-                } && Enumerable.Range(start, index - start).Any(step => body[step] is
+-                {
+-                    Definition.Opcode: SelectValue,
+-                    Operands: [var selector, var target, ..]
+-                } && target.Value == instruction.Operands[0].Value && SameProjectionRegister(selector, rejected)))
+-            {
++                })
++            {
++                // A selected tag can occupy a different register than the rejected tuple.
++                // Preserve the existing X0 failure shape and prove ownership for another register.
++                if (!rejected.Value.IsZero)
++                {
++                    bool ownsSelectedFailure = Enumerable.Range(start, index - start).Any(step => body[step] is
++                    {
++                        Definition.Opcode: SelectValue,
++                        Operands: [var selector, var target, ..]
++                    } && target.Value == instruction.Operands[0].Value && SameProjectionRegister(selector, rejected));
++                    if (!ownsSelectedFailure)
++                    {
++                        continue;
++                    }
++
++                    hasSelectedRegisterFailure = true;
++                }
++
+                 caseFailures++;
+             }
+             else if (body[exit] is { Definition.Opcode: BadRecord, Operands: [{ Kind: BeamOperandParameters.Y }] })
+@@ -87,12 +101,26 @@
+         }
+ 
+         var cold = coldRegions.SelectMany(region => Enumerable.Range(region.Key, region.Value - region.Key + 1)).ToHashSet();
++        if (!hasSelectedRegisterFailure)
++        {
++            int lastWarm = end - 1;
++            while (cold.Contains(lastWarm))
++            {
++                lastWarm--;
++            }
++
++            if (!coldRegions.Keys.Any(index => index < lastWarm))
++            {
++                return null;
++            }
++        }
++
+         int[]? reversePostorder = ReadForwardCaseReversePostorder(
+             body,
+             start,
+             end,
+             labels,
+-            ReadFunctionFailure(body, start)
++            hasSelectedRegisterFailure ? ReadFunctionFailure(body, start) : null
+         );
+         int[] warm = Enumerable.Range(start + 1, end - start - 1).Where(index => !cold.Contains(index)).ToArray();
+         if (reversePostorder is null || !reversePostorder.Where(index => index != start && !cold.Contains(index)).SequenceEqual(warm))

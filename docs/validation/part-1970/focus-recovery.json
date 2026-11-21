@@ -1,0 +1,36 @@
+{
+  "Previous": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/case-type-partitions-and-live-scratch-1970-linked-compiler-retake",
+  "SelectedFailed": [
+    "compiler/beam/partitions-atom-leading-tagged-tuple-case",
+    "compiler/beam/reuses-tagged-case-carrier-in-nested-results"
+  ],
+  "Causes": [
+    "The nested decision reached final physical layout before the atom and tuple partition was emitted.",
+    "The entry evaluator marked the direct call result prepared before the scratch selector could retain its provenance."
+  ],
+  "Corrected": {
+    "closed-atom-tuple-returns.patch": "b845c9d7c985eb9797e33a0939748c1ad0d2a6ff618d9a550e5a80da7acb7c7d",
+    "prepared-call-selector-scratch.patch": "d47426377fb4ae0383f4a8e9a6326d04fea03f7aa9f6c2f36a1ec6ba8e32f8f1"
+  },
+  "Raw": {
+    "initial-focused-failure/compiler-build.log": "bfc11416c0d8eb2993bbd01d4a4483a0720903b201c36e10158e3b7b57b89903",
+    "initial-focused-failure/durable.exit": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "initial-focused-failure/durable.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "initial-focused-failure/finalize-receipts-driver.background.stderr.log": "94755922242381a37e65b17580366e4ece7df120ab6a744cf82dd3a333b86aab",
+    "initial-focused-failure/focused-fast.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "initial-focused-failure/focused-fast.stderr.log": "15e2576daeb265bd3388d2f68ca68a2bdbe6c785a64a37c41a29b3bd4a6dee07",
+    "initial-focused-failure/focused-identity.json": "fc239557e144b74b71e710e2a069625778eec9e5a01012eb7a5a4cf9790e2cb7",
+    "initial-focused-failure/layout-write.log": "5b2b97def6c44d903a42048a5e3f6f72194d3447e0b115214a7d6cced315e898",
+    "initial-focused-failure/sdk-recovery.json": "4296e642bbf105c2acb9ecce597b1f25ecfa05cbd61fc2b660a502911e946eec",
+    "initial-focused-failure/source-identities.json": "303348e993e70df4dcc2f175b06cf0bbb363b9601a0837f31f9c41a26863da4a",
+    "initial-focused-failure/strict-preflight.json": "dffc62aae85cbf8549c2365efad19a9d50ff236b26c65b0f015bbb85d992613d",
+    "initial-focused-failure/tests-build.log": "fb8331357df1227a49ce056ee470227fad74be3a95648d63656e64c54d3fc78e",
+    "initial-focused-failure/fast-splits/failure-receipt.json": "fc583678ddefa9baaad3ebcfdd8823ec6550f82c3bdde9c0a804f3431a3ebc70",
+    "initial-focused-failure/fast-splits/lane-0.json": "2f15fa5f905c5c0dc93b1377cb97c30723ae60fa227045caff26d2a31e776108",
+    "initial-focused-failure/fast-splits/lane-0.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "initial-focused-failure/fast-splits/lane-0.stdout.log": "cd13c19a64028d1f87827dfb2a6b627d3b3134067c4d3065b4bcaa94e8f44a36",
+    "initial-focused-failure/fast-splits/lane-1.json": "852c190812497e149d9390ca3b47af041b4377b7611d868d9e0f3fdd80ff5e34",
+    "initial-focused-failure/fast-splits/lane-1.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "initial-focused-failure/fast-splits/lane-1.stdout.log": "26f46f8096333a757c26297d63881a8bc98d5a9b418a0ba2c4e07e0514747fc5"
+  }
+}

@@ -1,0 +1,8 @@
+Test(Erlang.Tests.BeamWxFactoredSizerOverloadChecks.TestName, Erlang.Tests.BeamWxFactoredSizerOverloadChecks.Run);
+Test(Erlang.Tests.BeamWxFontConstructorOverloadChecks.TestName, Erlang.Tests.BeamWxFontConstructorOverloadChecks.Run);
+Test(Erlang.Tests.BeamAtomTableCompactionChecks.TestName, () => { Erlang.Tests.BeamAtomTableCompactionChecks.Run(); return Task.CompletedTask; });
+Test(Erlang.Tests.BeamRetainedCallArgumentChecks.TestName, Erlang.Tests.BeamRetainedCallArgumentChecks.Run);
+Test(Erlang.Tests.BeamStackArgumentLifetimeChecks.TestName, Erlang.Tests.BeamStackArgumentLifetimeChecks.Run);
+Test(Erlang.Tests.BeamOrderedLiteralAndReferenceRunsChecks.TestName, Erlang.Tests.BeamOrderedLiteralAndReferenceRunsChecks.Run);
+Test(Erlang.Tests.BeamRemoteChoiceContinuationChecks.TestName, Erlang.Tests.BeamRemoteChoiceContinuationChecks.Run);
+Test(Erlang.Tests.BeamListPairLengthJoinChecks.TestName, Erlang.Tests.BeamListPairLengthJoinChecks.Run);

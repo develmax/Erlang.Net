@@ -1,0 +1,83 @@
+{
+  "Reference": {
+    "Tag": "OTP-29.1.1",
+    "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5"
+  },
+  "PinnedGrammar": "lib/stdlib/src/erl_parse.yrl:317 returns the enclosed expression",
+  "ParentReceipt": "8165bcc1d0c62a6d9575172797b739d40b9d10d424571430eb48d87cd8780be0",
+  "SDK": "10.0.400",
+  "Compiler": "7aacea4d4213ee864616b3521ee8e2fb643931453d5017cbdb994b49b55fc520",
+  "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+  "CompilerInputs": "ceed90d6a90fb87b7bab5760b3981ab7bad5247c6c2c0d1532a2bb5bb9c3c63c",
+  "Focused": [
+    {
+      "Role": "parent",
+      "Exit": 1,
+      "Compiler": "9932A81C42AE67CB24AE6B36D08285513DBD564711CFCCAD7892C9F014F9018F",
+      "Test": "05ECDCD36641EDA20C050692F36E714A3E174315CEA3E61DB8CEB4B415F6CD68",
+      "Runtime": "7445A7EA8A055C952841AD41A2F4F0138B7FE39EAB6762EB1030E59308A1C8AA"
+    },
+    {
+      "Role": "previous",
+      "Exit": 1,
+      "Compiler": "8743BBFFF64A7DC7B1CC3ECABE52D1B011B4506623E6A2AF5C8F11511E51E5B9",
+      "Test": "05ECDCD36641EDA20C050692F36E714A3E174315CEA3E61DB8CEB4B415F6CD68",
+      "Runtime": "7445A7EA8A055C952841AD41A2F4F0138B7FE39EAB6762EB1030E59308A1C8AA"
+    },
+    {
+      "Role": "candidate",
+      "Exit": 0,
+      "Compiler": "7AACEA4D4213EE864616B3521EE8E2FB643931453D5017CBDB994B49B55FC520",
+      "Test": "05ECDCD36641EDA20C050692F36E714A3E174315CEA3E61DB8CEB4B415F6CD68",
+      "Runtime": "7445A7EA8A055C952841AD41A2F4F0138B7FE39EAB6762EB1030E59308A1C8AA"
+    }
+  ],
+  "Scope": {
+    "Different": 21,
+    "Equal": 18
+  },
+  "ScopeModules": 39,
+  "ScopeMilliseconds": 86853.7765,
+  "ChangedScopeImages": 0,
+  "WholeFileGains": 0,
+  "WholeFileLosses": 0,
+  "FocusedNativeOutcomes": 4,
+  "NativeLayouts": "Nested parentheses, computed source, record selector across lines, grouped record selector",
+  "Strict": {
+    "ParentReceipt": "8165bcc1d0c62a6d9575172797b739d40b9d10d424571430eb48d87cd8780be0",
+    "Patches": {
+      "grouped-input-parser.patch": "1bb17bb83b47981d4a81dcdae22b2580dfa1ec8d850f3277838d2791e0bbe201",
+      "grouped-input-tests.patch": "138cfd5e02d062d6c2ea982d98b4e68e460a7b84d3e4aaac1aebcfd1a554d5d3"
+    },
+    "Files": {
+      "src/Compiler/Erlang.Compiler/Syntax/Parser.cs": {
+        "Before": "2daa43b5b7016a82f000243aa09e73b9e292c043e6d555e5d8bb56c97fcd8080",
+        "After": "ce530480c6b2e36d3efbfee83d965fad5ac7cc8d2f79499886acc94f83bad0d0"
+      },
+      "tests/Erlang.Tests/Compiler/Beam/BeamListGeneratorErrorLineChecks.cs": {
+        "Before": "c40b7827c54438f329f4ee48e8f9463c038a58b82cfdbbd21919feeac33edd30",
+        "After": "4848b94e12104bdaff77d8d326fd536a6681fc1aa35556ab7c28c8f12b88b097"
+      }
+    }
+  },
+  "Evidence": {
+    "grouped-strict-replay.json": "b562d36be468f2fe587aeac0279fdf8b55dd8f05ef70fa074720d05c925f045d",
+    "compiler-build.log": "ad7f118e6f382f99d88e6dc38e569956069616181a92eec04e4e2d53944cf0f1",
+    "compiler-build.stderr.log": "43c8897fc50560e217aace8984ec7e1aa8df8ec13d3b6aaee346a300d0d3eead",
+    "sdk-style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "focused-identities.json": "109b4387e4ee1ccfcc24c7782113ef9d2e96944fd31bbd6a9b9e8fda78b76655",
+    "focused-parent.stderr.log": "5ea1ac201fbedbe33725ce0b1732b26936ff09334a5be09e2d5e1949b5173ddb",
+    "focused-previous.stderr.log": "99a5ecb044d4d07a989350367c96d585768e844d9b4ef5a00abd02a2c2765cd4",
+    "focused-candidate.log": "59684e56c9ca532eab970420b8a3da957feceda1d388399bdde1fcc56b684ac3",
+    "native/grouped.eval": "d5acc661510cd60ea53b875018b177da668a46c36d14007dba6ad52258b9a594",
+    "native/grouped-otp.terms": "41044149a5f1bff44c0f6b61895852017df730151e298c39624a2e65594611c6",
+    "native/grouped-previous.terms": "512fa346bfe6353ae6c20e129c442de93726da39ed2fd1b535317bc314fa688d",
+    "native/grouped-candidate.terms": "41044149a5f1bff44c0f6b61895852017df730151e298c39624a2e65594611c6",
+    "native/record-otp.terms": "b73d6dd9cc630f553c4d57451cfdd71319ce3442efc402e67331a5143deb2a26",
+    "native/record-previous.terms": "1537f9eed5865a0cba63dfc035ad9e5e0b8608e0caa9190fca6fee1085a0d9f0",
+    "native/record-candidate.terms": "b73d6dd9cc630f553c4d57451cfdd71319ce3442efc402e67331a5143deb2a26",
+    "scope-grouped.json": "b63c7b25b11d25b0dab0abc2286d9c3a6ff4fd27ed55c30d661e1bc519a18f96",
+    "scope-grouped.json.timings.json": "48308b726f153342ddb25e9d3f1e4866727fb117d7f66771c59854c4850caee2",
+    "scope-grouped-images.json": "ee55a52aad38a09f7d598d9b405d26e4dbb85842853e5171fb42773d3ba78a3c"
+  }
+}

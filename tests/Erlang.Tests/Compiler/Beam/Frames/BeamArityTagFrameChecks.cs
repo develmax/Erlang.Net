@@ -11,9 +11,11 @@ internal static class BeamArityTagFrameChecks
     private const string ChangedFallback = "A surviving tag, width mismatch, alternate entry, handler or intervening call must keep the original frame boundary.";
     private const byte X0 = 0x03;
     private const byte X1 = 0x13;
+    private const byte X2 = 0x23;
     private const byte Y0 = 0x04;
     private const byte Y1 = 0x14;
     private const byte Y2 = 0x24;
+    private const byte Y3 = 0x34;
     private const byte Zero = 0;
     private const byte One = 0x10;
     private const byte Two = 0x20;
@@ -108,7 +110,69 @@ internal static class BeamArityTagFrameChecks
             throw new InvalidOperationException(ChangedFallback);
         }
 
+        CheckMultipleSavedArguments();
+
         return Task.CompletedTask;
+    }
+
+    private static void CheckMultipleSavedArguments()
+    {
+        byte[] dispatch =
+        [
+            Label, One,
+            FunctionInfo, Module, Function, Two,
+            Label, Two,
+            IsTuple, FunctionFailure, X0,
+            SelectTupleArity, X0, FunctionFailure, ExtendedListOperand, Four, Two, SmallArm, Three, LargeArm,
+            Label, Three
+        ];
+        byte[] saves = [Move, X1, Y0, Move, X0, Y1];
+        byte[] frame = [Allocate, Four, Two, InitYRegisters, ExtendedListOperand, One, Y3];
+        byte[] tag = [GetTupleElement, Y1, Zero, Y2, ExactEqualTest, DiscardFrame, Y2, Tag];
+        byte[] success =
+        [
+            Move, Y1, X0,
+            Move, Y0, X1,
+            TailExternalCallWithFrame, Two, Zero, Four,
+            Label, Four, Return
+        ];
+        byte[] release = [Deallocate, Four, Jump, FunctionFailure, EndCode];
+        byte[] restores = [Move, Y0, X1, Move, Y1, X0];
+        byte[] source =
+        [
+            .. dispatch, .. frame, .. saves, .. tag, .. success,
+            Label, Five, .. restores, .. release
+        ];
+        byte[] expected =
+        [
+            .. dispatch,
+            GetTupleElement, X0, Zero, X2,
+            ExactEqualTest, FunctionFailure, X2, Tag,
+            Allocate, Four, Two,
+            InitYRegisters, ExtendedListOperand, Two, Y2, Y3,
+            .. saves, .. success,
+            Label, Five, .. restores, .. release
+        ];
+        if (Rewrite(source) is not { } actual || !actual.AsSpan().SequenceEqual(expected))
+        {
+            throw new InvalidOperationException(MissingGuard);
+        }
+
+        byte[] swappedRestore =
+        [
+            .. dispatch, .. frame, .. saves, .. tag, .. success,
+            Label, Five, Move, Y0, X0, Move, Y1, X1, .. release
+        ];
+        byte[] guardOverwritesSavedArgument =
+        [
+            .. dispatch, .. frame, .. saves,
+            GetTupleElement, Y1, Zero, Y0, ExactEqualTest, DiscardFrame, Y0, Tag,
+            .. success, Label, Five, .. restores, .. release
+        ];
+        if (Rewrite(swappedRestore) is not null || Rewrite(guardOverwritesSavedArgument) is not null)
+        {
+            throw new InvalidOperationException(ChangedFallback);
+        }
     }
 
     private static byte[]? Rewrite(byte[] source)

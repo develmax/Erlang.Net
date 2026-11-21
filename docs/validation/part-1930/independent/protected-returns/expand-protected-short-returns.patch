@@ -1,0 +1,55 @@
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TerminalCalls.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TerminalCalls.cs
+@@ -208,7 +208,8 @@
+ 
+     private static byte[]? ExpandShortReturnJumps(ReadOnlyMemory<byte> code, IReadOnlyList<BeamInstruction> body)
+     {
+-        var returns = FindSharedCallReturns(body);
++        var protectedReturns = new Dictionary<int, int>();
++        var returns = FindSharedCallReturns(body, protectedReturns);
+         using var output = new MemoryStream();
+         int copied = 0;
+         for (int index = 0; index + 1 < body.Count; index++)
+@@ -222,7 +223,10 @@
+             }
+ 
+             var returnTarget = operation.Operands[0];
+-            if (!returns.TryGetValue((int)returnTarget.Value, out int start))
++            // A jump has already established the same stack and handler state as
++            // the destination. Copy its short epilogue even in a protected function.
++            if (!returns.TryGetValue((int)returnTarget.Value, out int start)
++                && (coldReturn is not null || !protectedReturns.TryGetValue((int)returnTarget.Value, out start)))
+             {
+                 continue;
+             }
+@@ -306,7 +310,10 @@
+         return null;
+     }
+ 
+-    private static Dictionary<int, int> FindSharedCallReturns(IReadOnlyList<BeamInstruction> body)
++    private static Dictionary<int, int> FindSharedCallReturns(
++        IReadOnlyList<BeamInstruction> body,
++        Dictionary<int, int>? protectedReturns = null
++    )
+     {
+         var returns = new Dictionary<int, int>();
+         int start = 0;
+@@ -324,7 +331,8 @@
+                 continue;
+             }
+ 
+-            if (!protectedFunction)
++            var targets = protectedFunction ? protectedReturns : returns;
++            if (targets is not null)
+             {
+                 for (int index = start + 1; index + 1 < end; index++)
+                 {
+@@ -333,7 +341,7 @@
+                             || body[index + 1].Definition.Opcode == Deallocate
+                                 && body[index + 2].Definition.Opcode == Return))
+                     {
+-                        returns.Add((int)entry.Value, index + 1);
++                        targets.Add((int)entry.Value, index + 1);
+                     }
+                 }
+             }

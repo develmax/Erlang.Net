@@ -1,0 +1,60 @@
+{
+  "Part": 2006,
+  "Reference": "OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ParentCompiler": "8c59a07105da0e483154087148ea2d9fdc5056cb38aa3eedd301f12d3409ef4f",
+  "ParentSource": "Apply after the sealed production and fixture packets of Part 2005.",
+  "Sdk": "10.0.400",
+  "DotNetRuntime": "10.0.11",
+  "PinnedSource": [
+    "lib/compiler/src/beam_ssa_type.erl:2374\u20132393 propagates tuple type from a successful update into subsequent values.",
+    "lib/compiler/src/beam_ssa_codegen.erl:1875\u20131882 emits typed update_record arguments, including replacement records.",
+    "The pinned ex_gauge:handle_event/2 clear arm checks the inner gauge after both calls and emits two consecutive update_record instructions using typed X0."
+  ],
+  "Change": "Allow the successful result of a nested update to directly feed its checked wrapper when the inner source is a saved term. Its runtime shape test establishes the tuple before the successful path uses typed X0. Prior call effects and the cold error path stay in order.",
+  "Scope": {
+    "Total": 39,
+    "Equal": 18,
+    "Different": 21,
+    "Unsupported": 0,
+    "SourceRejected": 0,
+    "CompilerError": 0,
+    "Seconds": 51.9502337,
+    "NewExact": [],
+    "LostExact": [],
+    "Changed": [
+      "ex_gauge"
+    ]
+  },
+  "Normalized": "The reset arm now allocates three slots versus the previous four and the pinned two. It removes the result spill and init_yregs. handle_event/2 drops from 155 to 153 normalized operations versus pinned 139. The other 14 functions remain normalized exact.",
+  "Native": "Eleven actual release event cases and seven standalone fixture cases match under installed OTP, including late badrecord, earlier effect failures, ordered effects, and source frames. The representative ex_gauge image hash from the preliminary native run equals the bounded full-scope output.",
+  "PermanentTest": "The established entry fixture also checks that both effects precede the retained shape test and that consecutive record updates pass typed X0. Exit 1 on Part 2005 and 0 on Part 2006.",
+  "Validation": "No build warnings/errors, zero layout changes, strict replay and both postimage hashes. The full general tests and uncached 1,366-file run remain for integration.",
+  "Next": "The remaining reset slot is the second call's field. Delay the projection from the retained checked state to call preparation. Then inspect distinct branch lifetimes for both toggles.",
+  "Hashes": {
+    "production.patch": "6b17a37a313399718f420296e310c60266da84e8e6b8e9fbf95b62fd8b7afaf1",
+    "test.patch": "9ef0c6456dd1dc331ebbdd94690b80c18b2cb987b274caeb782255e8f254b721",
+    "replay-files.json": "99bf5376dc38a99193b315e0cf97c0227311efa7c27da915f09e61e1489b3470",
+    "strict-replay.log": "a446fe7d06027702f84960ee9883d6da77bb67f335d8c0a6d9d1984b88c8caea",
+    "style-check-final.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "build.log": "99f220702bc382df7b8e99ddddab0128c27032da699df4f23dc1065968869118",
+    "compiler-bin/Erlang.Compiler.dll": "3eb23b9d566c3870c3c7961b4bb7d91e4b29d5fc737087468294c678268fa84e",
+    "scope-broad.txt": "5d29d6730903fb6753b47d216728c25a2bea1d3c7bdca8291fe4b327b255dd6f",
+    "scope-new.json": "37080ac1531e69a3b5e2ab1418e18aa18106f15ca63d5fa879cedc289f714703",
+    "scope-seconds.txt": "6aeaf8ec7c3d7697db96716390dfa7b3c290b5588f91f48e370168ba6d62abcb",
+    "scope-hashes.json": "8ae3d957f61c0963b77431a1df03623ee667b3c6660e1e85e81d4b7fd26bb67c",
+    "scope-changed.json": "d5ddda233d6f06644103cd2ba46e4020c6e279a14307393bcd47583b4b99bbc4",
+    "gauge-remaining.terms": "404ac04508176cb09a4f2c88fcdf042f909a43cb7a6fd785d71732e5e02dd1db",
+    "handle_event.candidate": "f39bfaea427245d05d0c31870dc09b762ce0a21c21ca3bf00bc73ab0feaa6053",
+    "focused-exits.json": "700bbf98c196d4abefa463eb1774484ca8319ba0c4285fdfa8cee31195f8cac6",
+    "focused-red.log": "c5c8c78c53475aaaed41afc1ed00c1a15956817224d6e7f6da410d1ff371a56e",
+    "focused-green.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-event.eval": "4dc8eac795f8b8582bcc8ba9c5c4cd00c89cb5a261cabd4b87e115f56090f672",
+    "native-fixture.eval": "ad077b681bc0771ef222fd2ffdf1f1238a0e6ff2c7b5c81d0b82ab5fb6f8f7ed",
+    "native-exits.json": "b439498f836e77583a744b34263179c67cf574380cbe5eaaf89637c77d594cb8",
+    "native-gauge-pinned.terms": "c00e4cfd6fb24b840e60c44f137a55ab700aebe8f30f801a95ea2a589aa94e82",
+    "native-gauge-candidate.terms": "c00e4cfd6fb24b840e60c44f137a55ab700aebe8f30f801a95ea2a589aa94e82",
+    "native-fixture-pinned.terms": "27995cc2086bc2a88f21dd73cf080a3459b6ed96a57388a98475220fad7754b1",
+    "native-fixture-candidate.terms": "27995cc2086bc2a88f21dd73cf080a3459b6ed96a57388a98475220fad7754b1",
+    "scope-new.json.generated/lib/wx-2.7/doc/examples/demo/ex_gauge.beam": "297cdabf063b7691638979f72d2e7f4fe9c208d73df24862b5cd8f388b777cf7"
+  }
+}

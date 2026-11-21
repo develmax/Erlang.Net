@@ -10,7 +10,38 @@ internal sealed partial class BeamModuleCompiler
     private static byte[]? CompactDisjointFrames(
         ReadOnlyMemory<byte> code,
         IReadOnlyList<BeamInstruction> body,
-        List<(int Start, int End, int Slot)> stackOperands
+        IReadOnlyList<(int Start, int End, int Slot)> stackOperands
+    ) => RewriteDisjointFrames(
+        code,
+        body,
+        stackOperands,
+        atomicOnly: false
+    );
+
+    private byte[]? CompactCompletelyTrimmedFrames(ReadOnlyMemory<byte> code, int labelCount)
+    {
+        if (ModuleOptimizationDisabled || !code.Span.Contains(TrimFrame)
+            || DecodeLateAtomicProjectionSlots(code, labelCount) is not { } decoded)
+        {
+            return null;
+        }
+
+        return RewriteDisjointFrames(
+            code,
+            decoded.Body,
+            decoded.StackOperands,
+            atomicOnly: false,
+            completeTrimsOnly: true
+        );
+    }
+
+    private static byte[]? RewriteDisjointFrames(
+        ReadOnlyMemory<byte> code,
+        IReadOnlyList<BeamInstruction> body,
+        IReadOnlyList<(int Start, int End, int Slot)> stackOperands,
+        bool atomicOnly,
+        bool completeTrimsOnly = false,
+        IReadOnlySet<int>? entriesToCompact = null
     )
     {
         using var output = new MemoryStream();
@@ -26,7 +57,20 @@ internal sealed partial class BeamModuleCompiler
 
             int start = entry;
             entry = end + 1;
-            if (PlanDisjointFrames(body, start, end) is not { } plans)
+            if (entriesToCompact is not null
+                && (start >= end || body[start] is not { Definition.Opcode: Label, Operands: [var label] }
+                    || !entriesToCompact.Contains((int)label.Value)))
+            {
+                continue;
+            }
+
+            if (PlanDisjointFramesCore(
+                body,
+                start,
+                end,
+                atomicOnly,
+                completeTrimsOnly
+            ) is not { } plans)
             {
                 continue;
             }
@@ -65,6 +109,20 @@ internal sealed partial class BeamModuleCompiler
                         {
                             BeamCompactWriter.Write(output, YRegisterTag, slot);
                         }
+                    }
+
+                    copied = next;
+                    continue;
+                }
+
+                if (opcode == TrimFrame)
+                {
+                    output.Write(code.Span[copied..instruction.Offset]);
+                    if (size != 0)
+                    {
+                        output.WriteByte(TrimFrame);
+                        BeamCompactWriter.Write(output, BeamWire.UnsignedTag, size);
+                        BeamCompactWriter.Write(output, BeamWire.UnsignedTag, 0);
                     }
 
                     copied = next;
@@ -115,17 +173,54 @@ internal sealed partial class BeamModuleCompiler
         return output.ToArray();
     }
 
-    private static (int Size, int[] Slots)?[]? PlanDisjointFrames(IReadOnlyList<BeamInstruction> body, int start, int end)
+    private static (int Size, int[] Slots)?[]? PlanDisjointFrames(IReadOnlyList<BeamInstruction> body, int start, int end) =>
+        PlanDisjointFramesCore(
+            body,
+            start,
+            end,
+            atomicOnly: false
+        );
+
+    private static (int Size, int[] Slots)?[]? PlanDisjointFramesCore(
+        IReadOnlyList<BeamInstruction> body,
+        int start,
+        int end,
+        bool atomicOnly,
+        bool completeTrimsOnly = false
+    )
     {
-        if (ReadDisjointFrameOwnership(body, start, end) is not { } ownership)
+        if (completeTrimsOnly && !Enumerable.Range(start, end - start)
+            .Any(index => body[index].Definition.Opcode == TrimFrame))
+        {
+            return null;
+        }
+
+        if (atomicOnly && (Enumerable.Range(start, end - start).Count(index =>
+                body[index].Definition.Opcode is Allocate or AllocateHeap) < 2
+            || !Enumerable.Range(start, end - start).Any(index => IsAtomicStackAliasCandidate(body[index]))))
+        {
+            return null;
+        }
+
+        if (ReadDisjointFrameOwnership(
+            body,
+            start,
+            end,
+            allowCompleteTrims: completeTrimsOnly
+        ) is not { } ownership)
         {
             return null;
         }
 
         var (owners, uses) = ownership;
+        var trimmedOwners = completeTrimsOnly
+            ? Enumerable.Range(start, end - start)
+                .Where(index => body[index].Definition.Opcode == TrimFrame)
+                .Select(index => owners[index - start]).ToHashSet()
+            : null;
 
         var regions = new Dictionary<int, (int End, int Count)>();
-        if (uses.Keys.Count(allocation => owners[allocation - start] != UnseenFrameOwner) > 1)
+        if (!completeTrimsOnly && uses.Keys.Count(allocation => owners[allocation - start] != UnseenFrameOwner) > 1)
         {
             for (int index = 0; index < owners.Length; index++)
             {
@@ -148,7 +243,7 @@ internal sealed partial class BeamModuleCompiler
         foreach (var (allocation, used) in uses)
         {
             // Keep unreachable allocations intact.
-            if (owners[allocation - start] == UnseenFrameOwner)
+            if (owners[allocation - start] == UnseenFrameOwner || trimmedOwners?.Contains(allocation) == false)
             {
                 continue;
             }
@@ -156,19 +251,27 @@ internal sealed partial class BeamModuleCompiler
             // The ownership walk rejects any edge joining two different frames.
             // Include the immediate Return after each Deallocate in this frame's liveness region.
             if (regions.TryGetValue(allocation, out var region) && region.Count == region.End - allocation - 1
-                && PlanBranchStackSlots(
-                    body,
-                    start,
-                    region.End,
-                    linearAllocation: allocation,
-                    allowGcBifExceptionExit: true
-                ) is { Trim: null } plan)
+                && (atomicOnly
+                    ? PlanAtomicProjectionStackSlots(
+                        body,
+                        start,
+                        region.End,
+                        linearAllocation: allocation,
+                        allowGcBifExceptionExit: true
+                    )
+                    : PlanBranchStackSlots(
+                        body,
+                        start,
+                        region.End,
+                        linearAllocation: allocation,
+                        allowGcBifExceptionExit: true
+                    )) is { Trim: null } plan)
             {
                 layouts.Add(allocation, (plan.Count, plan.Slots));
                 continue;
             }
 
-            if (used.All(slot => slot))
+            if (atomicOnly || used.All(slot => slot))
             {
                 continue;
             }
@@ -205,7 +308,8 @@ internal sealed partial class BeamModuleCompiler
     private static (int[] Owners, Dictionary<int, bool[]> Uses)? ReadDisjointFrameOwnership(
         IReadOnlyList<BeamInstruction> body,
         int start,
-        int end
+        int end,
+        bool allowCompleteTrims = false
     )
     {
         if (start >= end || body[start].Definition.Opcode != Label)
@@ -219,12 +323,22 @@ internal sealed partial class BeamModuleCompiler
         {
             BeamInstruction instruction = body[index];
             byte opcode = instruction.Definition.Opcode;
-            if (opcode is TrimFrame or CatchEnter or TryEnter || instruction.Definition.Name == "debug_line")
+            if (opcode is CatchEnter or TryEnter || instruction.Definition.Name == "debug_line")
             {
                 return null;
             }
 
-            if (opcode == Label)
+            if (opcode == TrimFrame)
+            {
+                if (!allowCompleteTrims || !instruction.Operands[1].Value.IsZero)
+                {
+                    return null;
+                }
+
+                // The call frame still exists after the trim, with no Y slots.
+                uses.Add(index, []);
+            }
+            else if (opcode == Label)
             {
                 labels.Add((int)instruction.Operands[0].Value, index);
             }
@@ -272,6 +386,15 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 frame = outgoing = index;
+            }
+            else if (opcode == TrimFrame)
+            {
+                if (frame == UnframedOwner || instruction.Operands[0].Value != uses[frame].Length)
+                {
+                    return null;
+                }
+
+                outgoing = index;
             }
             else if (sizeOperand >= 0)
             {

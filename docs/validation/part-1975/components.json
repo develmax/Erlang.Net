@@ -1,0 +1,713 @@
+{
+  "DisjointCheckedEntry": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/megaco-checked-carrier-two-call-staged",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/checked-entry-frames-and-call-argument-liveness-1966-linked/checked-entry-production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/checked-entry-frames-and-call-argument-liveness-1966-linked/checked-entry-test.patch"
+    ],
+    "SHA": [
+      "dad768b9e03f26eb5ad0661190a9c0b0e4070a3a9c2e33af1bb591ed1620c5bb",
+      "1b9b5236fd5b2e27623d8e74a82eefe75f16146f0871e787ee7b932f348bcd8a"
+    ],
+    "Report": "validation/scope-candidate.json",
+    "Evidence": [
+      "validation/sealed/final-receipt.json",
+      "validation/release-native.eval",
+      "validation/release-native.terms"
+    ]
+  },
+  "DirectSavedTuple": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/stack-tuple-construction-1966-intake",
+    "Patches": [
+      "production.patch",
+      "test.patch"
+    ],
+    "SHA": [
+      "2e4a5802008c40ca62ca27c01d3b94a589c06ee1c6bbf88a6ed0a34fb748e381",
+      "9b10065ebd0dea8cbb0dba061d3f7e2e9e8e9f92b05d005fe12ff3e04e45911a"
+    ],
+    "Report": "scope-candidate.json",
+    "Evidence": [
+      "pattern-scope-receipt.json",
+      "focused-result.json",
+      "scope-delta.json",
+      "representative/receipt.json",
+      "normalization-timing.json"
+    ],
+    "ExistingCase": "compiler/beam/stores-post-call-tuple-directly-when-the-result-register-dies"
+  },
+  "TrimmedResultArguments": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/trimmed-call-result-argument-order-draft/normal-entry-retake",
+    "Patches": [
+      "production.patch",
+      "test.patch"
+    ],
+    "SHA": [
+      "34cb40c7835e34857b58f20c68d2adecc2c3f8e5f6a3cb49e760bcabf5ea4052",
+      "d38dff441768b760e33be35cbf41955f02293d67b747d803e2ba2c22cac501ba"
+    ],
+    "Report": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-tuples-and-trimmed-call-arguments-1966-bundle/scope-candidate.json",
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-tuples-and-trimmed-call-arguments-1966-bundle/focused-result.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-tuples-and-trimmed-call-arguments-1966-bundle/representative/receipt.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-tuples-and-trimmed-call-arguments-1966-bundle/scope-delta.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-tuples-and-trimmed-call-arguments-1966-bundle/scope-normalized.terms"
+    ]
+  },
+  "GuardedTerminalResult": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/predicate-terminal-call-result-1966-intake",
+    "Patches": [
+      "production.patch",
+      "test.patch"
+    ],
+    "SHA": [
+      "1e3b40ab100834e142941a6203734f96bb41a344c2a92d643a4906909f9e7280",
+      "423b4882e8d2838d9d16867c0dc454859c31888eec867243ae22998692f17d20"
+    ],
+    "Report": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-tuples-and-trimmed-call-arguments-1966-bundle/scope-candidate.json",
+    "Evidence": [
+      "receipt.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-tuples-and-trimmed-call-arguments-1966-bundle/focused-result.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-tuples-and-trimmed-call-arguments-1966-bundle/representative/receipt.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-tuples-and-trimmed-call-arguments-1966-bundle/scope-delta.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-tuples-and-trimmed-call-arguments-1966-bundle/scope-normalized.terms"
+    ]
+  },
+  "ProvenCatchPreparation": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/megaco-proven-catch-argument-preparation-1967",
+    "Patches": [
+      "production-verified.patch",
+      "tests-verified.patch"
+    ],
+    "SHA": [
+      "6dd810a5174095e252c88ebd0d9b09fe65694041287bdd88d4413c90bd0b6d42",
+      "f7d0a66ff7b8e73305cd1fbffcb36edfcdfb744b43c9aca6645a01f041a7de91"
+    ],
+    "Report": "first/scope.json",
+    "Evidence": [
+      "first/scope-delta.json",
+      "first/functions.terms",
+      "first/native-fixture.log",
+      "first/native-monitor.log"
+    ]
+  },
+  "CheckedEntryFieldsAndTypes": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/checked-tuple-entry-partition-1967-combination",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/checked-tuples-and-constructor-order-1967-linked/checked-entry-production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/checked-tuples-and-constructor-order-1967-linked/checked-entry-test.patch"
+    ],
+    "SHA": [
+      "47a50f1300366aa525cf77595490354adbc0ab11a2e07f1387e09e503e160485",
+      "05b93a571e4dbb3b9147db103b7ab86870ee475906f6da05b8c1b62dd04fdbb1"
+    ],
+    "Report": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/checked-tuple-entry-partition-1967-combination/scope-candidate.json",
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/checked-tuple-entry-partition-1967-combination/focused-result.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/checked-tuple-entry-partition-1967-combination/scope-delta.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/checked-tuple-entry-partition-1967-combination/wide-scope-plan.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/checked-tuple-entry-partition-1967-combination/capture-module/receipt.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/checked-tuple-entry-partition-1967-combination/capture-module/save-equal-outputs.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/checked-tuple-entry-partition-1967-combination/harness-build.stdout.log",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/checked-tuple-entry-partition-1967-combination/harness-retry-build.stdout.log",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\checked-entry-tuple-frame-intake\\focused-result.json",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\checked-entry-tuple-frame-intake\\representative\\full-function-delta.terms",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\tuple-atom-entry-partitions-1968\\receipt.md"
+    ]
+  },
+  "EliminateCoveredArm": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/covered-adjacent-case-arm-draft/source-retake",
+    "Patches": [
+      "production.patch",
+      "test.patch"
+    ],
+    "SHA": [
+      "00bdf9bcc83de932421fecdf178cc95c670a4bf7d94d7ea035bcc79d6e97d69f",
+      "e66747ec1dbcbdd04c777a47afbeb5692b5cb88d1cdc2627bd41e0d99f5a8821"
+    ],
+    "Report": "validation/scope.json",
+    "Evidence": [
+      "validation/receipt.json",
+      "validation/RESULT.md",
+      "validation/scope-delta.json"
+    ]
+  },
+  "PreferLiveListRoots": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/prefer-x-list-inputs-draft/fused-allocation-retake",
+    "Patches": [
+      "validation/formatted-patches/production.patch",
+      "validation/formatted-patches/test.patch"
+    ],
+    "SHA": [
+      "61bc4bf27b3f821dc9d8ddc42d1efe1aa7344638760d1d00d94abbb3492b54eb",
+      "e1c148406b1123def25e75e498d8aad00d0bdd35e069a6d1f6d1ea03fb43d933"
+    ],
+    "Report": "validation/scope.json",
+    "Evidence": [
+      "validation/receipt.json",
+      "validation/RESULT.md",
+      "validation/scope-delta.json"
+    ]
+  },
+  "ConstructorColumnComprehensions": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/constructor-list-comprehension-order-1966-intake/validation",
+    "Patches": [
+      "styled-patches/production.patch",
+      "styled-patches/test.patch"
+    ],
+    "SHA": [
+      "8fd22cc49b4060254472a5a81b118a895987ec60460e0e6d5fc9c798dd00490a",
+      "3d19a149026d0e6f63add4c9331191a37910485946949f75385b685a0a4feedb"
+    ],
+    "Report": "scope-cohort/candidate.json",
+    "Evidence": [
+      "focused-receipt.json",
+      "asn1-roundtrip/receipt.json",
+      "release-native.terms",
+      "scope-cohort/cohort-receipt.json",
+      "cohort-qualification/qualification-receipt.json"
+    ]
+  },
+  "NarrowSavedTupleLifetime": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/part-1966-normalized-loss-intake",
+    "Patches": [
+      "narrow-entry-tuple-production.patch",
+      "narrow-entry-tuple-test.patch"
+    ],
+    "SHA": [
+      "3b846e56d3ec3c39c70738940b2a133744935ec50bba478b1b55d5df2b00eab4",
+      "cfe9442aaca395bea6372620de42772d9dd1aade7d4d83eb5407cc08c7d5fbe0"
+    ],
+    "Report": "scope-candidate.json",
+    "Evidence": [
+      "focused-result.json",
+      "correction-vs-accepted.terms",
+      "disassembly.terms"
+    ],
+    "ExistingCase": "compiler/beam/stores-post-call-tuple-directly-when-the-result-register-dies"
+  },
+  "PreferTrailingXRoots": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/duplicate-trailing-y-lifetimes-draft/root-checked-retake/validation",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/duplicate-trailing-y-lifetimes-draft/root-checked-retake/validation/formatted-final/production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/duplicate-trailing-y-lifetimes-draft/root-checked-retake/validation/formatted-final/test.patch"
+    ],
+    "SHA": [
+      "3b0c237e383a2ebe048a3b07f4fed3ef1f81d04bc7a044e7fcd5002df889a839",
+      "77774e49d98c5f37ecb8c07e5abf1494ddc15a2b4714b518c9811eb786f1ee33"
+    ],
+    "Report": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/duplicate-trailing-y-lifetimes-draft/root-checked-retake/validation/scope.json",
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/duplicate-trailing-y-lifetimes-draft/root-checked-retake/validation/receipt.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/duplicate-trailing-y-lifetimes-draft/root-checked-retake/validation/native/results.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/duplicate-trailing-y-lifetimes-draft/root-checked-retake/validation/scope-delta.json"
+    ]
+  },
+  "TerminalTupleAtomPartition": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/terminal-mixed-constructor-partition-audit-1968",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/terminal-mixed-constructor-partition-audit-1968/production-verified.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/terminal-mixed-constructor-partition-audit-1968/tests-verified.patch"
+    ],
+    "SHA": [
+      "c40e35f2ed77090952ac503ec07b8f617471c5f1d784ca50be9f5a951b39c9a6",
+      "8f95a53fd87a582f1d1445ee30ea49212658a053cac2db253a335266197a7533"
+    ],
+    "Report": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/terminal-mixed-constructor-partition-audit-1968/qualification/scope.json",
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/terminal-mixed-constructor-partition-audit-1968/verified-receipt.md",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/terminal-mixed-constructor-partition-audit-1968/qualification/native/outcomes.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/terminal-mixed-constructor-partition-audit-1968/qualification/scope-delta.json"
+    ]
+  },
+  "OrderedConsAfterCall": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/ordered-cons-call-constructions-1968/part1965",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/ordered-cons-call-constructions-1968/part1965/production-verified.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/ordered-cons-call-constructions-1968/part1965/tests-verified.patch"
+    ],
+    "SHA": [
+      "4950d17161d514e62a2fc36f67c2c563749e9d35e99689d97fe37b1a6e9f6939",
+      "af489b7797123b7801794a6cc1e740f70780c6186bdaf4730ffbae9135460c7f"
+    ],
+    "Report": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/ordered-cons-call-constructions-1968/part1965/first/scope.json",
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/ordered-cons-call-constructions-1968/part1965/verified-receipt.md",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/ordered-cons-call-constructions-1968/part1965/release-native/outcome.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/ordered-cons-call-constructions-1968/part1965/first/scope-delta.json"
+    ]
+  },
+  "LiteralConsComprehension": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/literal-cons-comprehension-1967-intake",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/literal-cons-comprehension-1967-intake/production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/literal-cons-comprehension-1967-intake/test.patch"
+    ],
+    "SHA": [
+      "066e4de87854477734d6c71f4ea634f74f8857e104bcebd223c0cdfe65d4c3de",
+      "ebd5efadb0392ae257e22fbb56a48dc26e68c84aa4fa2021d4648f9cbb1ec7fe"
+    ],
+    "Report": null,
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/literal-cons-comprehension-1967-intake/receipt.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/literal-cons-comprehension-1967-intake/release-witness.terms",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/literal-cons-comprehension-1967-intake/focused-scope.txt"
+    ]
+  },
+  "OrdinaryBranchCons": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/ordinary-branch-cons-constructions-1968/verification",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/ordinary-branch-cons-constructions-1968/verification/production-verified.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/ordinary-branch-cons-constructions-1968/verification/tests-verified.patch"
+    ],
+    "SHA": [
+      "5ff555eb3f1f4b2e4b98a31e671c6cb58c6d31aa63373f339ed3d85cc645f39f",
+      "035059140bb6699ef28e65105c5a7d0d963e133d661a716f2a789de201fab880"
+    ],
+    "Report": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/ordinary-branch-cons-constructions-1968/verification/first/scope.json",
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/ordinary-branch-cons-constructions-1968/verification/verified-receipt.md",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/ordinary-branch-cons-constructions-1968/verification/first/release-native/outcome.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/ordinary-branch-cons-constructions-1968/verification/first/scope-delta.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/ordinary-branch-cons-constructions-1968/verification/first/build-result.json"
+    ]
+  },
+  "OwnedFrameAliases": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/owned-frame-regions-and-interior-alias-audit/proposal",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/owned-frame-regions-and-interior-alias-audit/proposal/production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/owned-frame-regions-and-interior-alias-audit/proposal/test.patch"
+    ],
+    "SHA": [
+      "b3db334f29031295845f0931a775399f9d764785788c918b76df7e16f12f24f4",
+      "f0954931d58352651ad80ebddf737e8a2d1642130f39865414c2e96fb9e85b28"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/owned-frame-regions-and-interior-alias-audit/proposal/validation/candidate-scope.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/owned-frame-regions-and-interior-alias-audit/proposal/validation/scope-delta.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/owned-frame-regions-and-interior-alias-audit/proposal/validation/receipt.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/owned-frame-regions-and-interior-alias-audit/proposal/validation/validation-summary.terms",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/owned-frame-regions-and-interior-alias-audit/proposal/validation/cohort-outcomes.terms"
+    ]
+  },
+  "NonterminalCaseCarriers": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/closest-release-images-1968-audit",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/closest-release-images-1968-audit/draft-verified-replay/production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/closest-release-images-1968-audit/draft-verified-replay/test.patch"
+    ],
+    "SHA": [
+      "7701abdefd28a1bfbb262ae5188433f748ff9b9c9980b710cd5312807317739d",
+      "d02e9692c0e1462c730ce2db37a2e9894f25ba3e0833784b8f82825114571939"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/closest-release-images-1968-audit/carrier-probe.terms",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/closest-release-images-1968-audit/nonterminal-case-carriers.terms",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/closest-release-images-1968-audit/unix_telnet.ssa"
+    ]
+  },
+  "NestedHeadTokenAliases": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/epp-input-token-alias-audit-1968",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/epp-input-token-alias-audit-1968/production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/epp-input-token-alias-audit-1968/tests.patch"
+    ],
+    "SHA": [
+      "9355f09ddc0839f08f64305a28a40bb951fe27b6f7661d2264dce4892eb8e8aa",
+      "1786c8c0a855144786f3c24cb302c50088f5ec39c9d9b18e49eb90db419f6e48"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/epp-input-token-alias-audit-1968/receipt.md",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/epp-input-token-alias-audit-1968/physical-schedules.terms"
+    ]
+  },
+  "StructuredConsEquality": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/structured-cons-equality-comprehension-1968-intake",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/structured-cons-equality-comprehension-1968-intake/production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/structured-cons-equality-comprehension-1968-intake/test.patch"
+    ],
+    "SHA": [
+      "4ad4224f4498a9540024c95db4c6dfaf974736bf4a710698257b2da7ca6e14e9",
+      "b87e723b71d310fb3ab8770a8414b52259196aa68380f0592aa84c7c6c6c9776"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/structured-cons-equality-comprehension-1968-intake/receipt.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/structured-cons-equality-comprehension-1968-intake/recovered-key-baselines.terms"
+    ]
+  },
+  "OrdinaryAppendComprehensions": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/ordinary-list-append-comprehension-1968-intake",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/ordinary-list-append-comprehension-1968-intake/production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/ordinary-list-append-comprehension-1968-intake/test.patch"
+    ],
+    "SHA": [
+      "7c624c218820388f152a99ec137191c1d901797044529a298981e9b42fd6c95a",
+      "47d3cd5adca4cf209079dffa083aab5d1c2324a8a21352899613985d55526bb4"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/ordinary-list-append-comprehension-1968-intake/receipt.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/ordinary-list-append-comprehension-1968-intake/release-targets.tsv"
+    ]
+  },
+  "LeadingVariableComprehensions": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/xmerl-leading-arm-comprehension-1969-intake",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/xmerl-leading-arm-comprehension-1969-intake/production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/xmerl-leading-arm-comprehension-1969-intake/test.patch"
+    ],
+    "SHA": [
+      "27a6870e200f4db7a99a799ff7eb2d380cbf7e9f2adb76992506e8fbf50f53c7",
+      "e9dbe199443d5ffcc90996779d39e2472be8612a38a6a89a46fa70207841477c"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/xmerl-leading-arm-comprehension-1969-intake/receipt.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/xmerl-leading-arm-comprehension-1969-intake/scope.txt"
+    ]
+  },
+  "EntryRecordHeads": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/entry-first-frame-audit-1967",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/entry-first-frame-audit-1967/list-head-record-production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/entry-first-frame-audit-1967/list-head-record-tests.patch"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/entry-first-frame-audit-1967/REPORT.md",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/entry-first-frame-audit-1967/list-head-record-placement.terms",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/entry-first-frame-audit-1967/exact-control-hashes.tsv",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/entry-first-frame-audit-1967/fixture/native.eval"
+    ]
+  },
+  "BoundOrderedCons": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/returned-constructor-lifetime-census-1967/fresh-bound-rhs-draft",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/returned-constructor-lifetime-census-1967/fresh-bound-rhs-draft/production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/returned-constructor-lifetime-census-1967/fresh-bound-rhs-draft/test.patch"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/returned-constructor-lifetime-census-1967/fresh-bound-rhs-draft/README.md",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/returned-constructor-lifetime-census-1967/fresh-bound-rhs-draft/draft-receipt.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/returned-constructor-lifetime-census-1967/fresh-bound-rhs-draft/reference-results.terms"
+    ]
+  },
+  "SavedCasePayloadScratch": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-case-payload-scratch-1970-intake",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-case-payload-scratch-1970-intake/production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-case-payload-scratch-1970-intake/test.patch"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-case-payload-scratch-1970-intake/receipt.md",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-case-payload-scratch-1970-intake/oracle.stdout.log",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-case-payload-scratch-1970-intake/case_payload_scratch_probe.erl"
+    ]
+  },
+  "MixedAtomTuplePair": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/two-arm-tagged-case-partition-1969-intake-verified-replay",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/two-arm-tagged-case-partition-1969-intake-verified-replay/production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/two-arm-tagged-case-partition-1969-intake-verified-replay/test.patch"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/two-arm-tagged-case-partition-1969-intake-verified-replay/native-pinned.stdout.log",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/two-arm-tagged-case-partition-1969-intake-verified-replay/frozen-native.stdout.log",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/two-arm-tagged-case-partition-1969-intake-verified-replay/frozen-structural.stdout.log",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/two-arm-tagged-case-partition-1969-intake-verified-replay/strict-preflight-draft.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/mnesia-backup-single-code-section-1968-audit/small-mixed-summary.terms",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/mnesia-backup-single-code-section-1968-audit/small-mixed-layouts.terms",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/mnesia-backup-single-code-section-1968-audit/physical-normalized-labels.diff",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/mnesia-backup-single-code-section-1968-audit/normalized.terms"
+    ]
+  },
+  "StandaloneCaseFailure": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/standalone-case-failure-layout-1971-audit",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/standalone-case-failure-layout-1971-audit/production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/standalone-case-failure-layout-1971-audit/test.patch"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/standalone-case-failure-layout-1971-audit/admitted-layouts.terms",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/standalone-case-failure-layout-1971-audit/fixture-shapes.terms",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/standalone-case-failure-layout-1971-audit/native-fixture-retake.stdout.log",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/standalone-case-failure-layout-1971-audit/native-fixture.stderr.log"
+    ]
+  },
+  "ProjectedReturns": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/projected-fallthrough-returns-1971-intake",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/projected-fallthrough-returns-1971-intake/production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/projected-fallthrough-returns-1971-intake/test.patch"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/projected-fallthrough-returns-1971-intake/shapes.terms",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/projected-fallthrough-returns-1971-intake/draft-digests.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/projected-fallthrough-returns-1971-intake/beam_projected_fallthrough.erl"
+    ]
+  },
+  "OutgoingBinaryRoot": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/diameter-codegen-frame-distance-audit-1968/binary-outgoing-last-read-draft",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/diameter-codegen-frame-distance-audit-1968/binary-outgoing-last-read-draft/production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/diameter-codegen-frame-distance-audit-1968/binary-outgoing-last-read-draft/test.patch"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/diameter-codegen-frame-distance-audit-1968/binary-outgoing-last-read-draft/QUALIFICATION.md",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/diameter-codegen-frame-distance-audit-1968/binary-outgoing-last-read-draft/draft-receipt.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/diameter-codegen-frame-distance-audit-1968/binary-outgoing-last-read-draft/trim-validation.eval",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/diameter-codegen-frame-distance-audit-1968/binary-outgoing-last-read-draft/release-native-retake.eval"
+    ]
+  },
+  "TwoAtomSelection": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/atom-selector-census-1968",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/atom-selector-census-1968/two-atom-entry-production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/atom-selector-census-1968/integration/expected-part1970/two-atom-entry-tests.patch"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/atom-selector-census-1968/REPORT.md",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/atom-selector-census-1968/integration/preimages.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/atom-selector-census-1968/integration/scope.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/atom-selector-census-1968/integration/release-native-pinned-and-part1969.terms"
+    ]
+  },
+  "TupleOuterGenerators": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/tuple-outer-list-generators-1971-intake",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/tuple-outer-list-generators-1971-intake/production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/tuple-outer-list-generators-1971-intake/test.patch"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/tuple-outer-list-generators-1971-intake/receipt.md",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/tuple-outer-list-generators-1971-intake/oracle.stdout.log",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/tuple-outer-list-generators-1971-intake/qlc-pinned-ssa.stdout.log"
+    ]
+  },
+  "CascadePassThrough": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/mnesia-terminal-branch-failures-1972-audit",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/mnesia-terminal-branch-failures-1972-audit/production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/mnesia-terminal-branch-failures-1972-audit/test.patch"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/mnesia-terminal-branch-failures-1972-audit/cascade-retake-sites.terms",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/mnesia-terminal-branch-failures-1972-audit/cascade-retake.stdout.log",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/mnesia-terminal-branch-failures-1972-audit/fixture-layout.terms",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/mnesia-terminal-branch-failures-1972-audit/native-fixture.stdout.log"
+    ]
+  },
+  "OrderedAppendPrerequisites": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/diameter-codegen-frame-distance-audit-1968/ordered-append-prerequisites-draft-1969",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/deferred-construction-and-result-ownership-1972-linked-owned-frame/split-patches/append-production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/deferred-construction-and-result-ownership-1972-linked-owned-frame/split-patches/append-tests.patch"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/diameter-codegen-frame-distance-audit-1968/ordered-append-prerequisites-draft-1969/QUALIFICATION.md",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/diameter-codegen-frame-distance-audit-1968/ordered-append-prerequisites-draft-1969/patch-receipt.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/diameter-codegen-frame-distance-audit-1968/ordered-append-prerequisites-draft-1969/release-scope.tsv"
+    ]
+  },
+  "ListGeneratorSiblings": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/nested-list-generator-sibling-order-1972-intake",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/nested-list-generator-sibling-order-1972-intake/production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/nested-list-generator-sibling-order-1972-intake/test.patch"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/nested-list-generator-sibling-order-1972-intake/receipt.md"
+    ]
+  },
+  "ConsHeadAtomSelector": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/atom-selector-census-1968/list-head-draft",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/atom-selector-census-1968/list-head-draft/production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/atom-selector-census-1968/list-head-draft/expected-part1970/tests.patch"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/atom-selector-census-1968/list-head-draft/REPORT.md",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/atom-selector-census-1968/list-head-draft/modules.txt"
+    ]
+  },
+  "TerminalProjectionFrame": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/terminal-arity-projection-frame-1972-intake",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/terminal-arity-projection-frame-1972-intake/production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/terminal-arity-projection-frame-1972-intake/test.patch"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/terminal-arity-projection-frame-1972-intake/receipt.md",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/terminal-arity-projection-frame-1972-intake/slot-roles.stdout.log",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/terminal-arity-projection-frame-1972-intake/flow-proof.stdout.log",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/terminal-arity-projection-frame-1972-intake/oracle.stdout.log"
+    ]
+  },
+  "TerminalEffectfulCarrier": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/terminal-effectful-carrier-1970",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/terminal-effectful-carrier-1970/production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/terminal-effectful-carrier-1970/tests.patch"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/terminal-effectful-carrier-1970/REPORT.md",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/terminal-effectful-carrier-1970/source-cohort-status.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/terminal-effectful-carrier-1970/mnesia-write-paired.terms"
+    ]
+  },
+  "DecoderReuse": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/projection-decode-reuse-draft-1971",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/case-edge-copies-and-owned-frame-order-1973-linked-closure-ordered-test-access-retake-edge-retake/source-adaptations/projection-decode-reuse.patch"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/projection-decode-reuse-draft-1971/QUALIFICATION.md",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/projection-decode-reuse-draft-1971/source-receipt.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/projection-decode-reuse-draft-1971/runner-revision-2.json"
+    ]
+  },
+  "SavedTupleSelector": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-terminal-tagged-results-1973-audit",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-terminal-tagged-results-1973-audit/production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-terminal-tagged-results-1973-audit/test.patch"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-terminal-tagged-results-1973-audit/saved-cases.terms",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-terminal-tagged-results-1973-audit/physical-cases.terms",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-terminal-tagged-results-1973-audit/fixture-layout.terms",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-terminal-tagged-results-1973-audit/native-fixture.stdout.log"
+    ]
+  },
+  "ClearedProjectionCopies": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/precall-cleared-projection-copies-1973-intake",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/precall-cleared-projection-copies-1973-intake/production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/precall-cleared-projection-copies-1973-intake/test.patch"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/precall-cleared-projection-copies-1973-intake/receipt.md"
+    ]
+  },
+  "OwnedCaseResultEdges": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/unix-telnet-near-raw-1970-audit",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/unix-telnet-near-raw-1970-audit/production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/unix-telnet-near-raw-1970-audit/tests.patch"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/unix-telnet-near-raw-1970-audit/REPORT.md",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/unix-telnet-near-raw-1970-audit/scope.json"
+    ]
+  },
+  "CheckedEntryFrameOrder": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/mnesia-entry-frame-root-order-1971-audit",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/mnesia-entry-frame-root-order-1971-audit/entry-proof.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/mnesia-entry-frame-root-order-1971-audit/owned-root-order.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/case-edge-copies-and-owned-frame-order-1973-linked-closure-ordered-test-access-retake-edge-retake/source-adaptations/delayed-result-copy.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/case-edge-copies-and-owned-frame-order-1973-linked-closure-ordered-test-access-retake-edge-retake/source-adaptations/checked-entry-permanent-tests.patch"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/mnesia-entry-frame-root-order-1971-audit/QUALIFICATION.md",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/mnesia-entry-frame-root-order-1971-audit/qualification-receipt.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/mnesia-entry-frame-root-order-1971-audit/permanent-regression-receipt.json"
+    ]
+  },
+  "SingleOrdinaryReturnFrame": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/unneeded-call-frames-1974-audit",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/transient-call-frame-slots-and-protected-roots-1974-linked-readonly/source-adaptations/returning-call-production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/unneeded-call-frames-1974-audit/tests.patch"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/unneeded-call-frames-1974-audit/REPORT.md",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/unneeded-call-frames-1974-audit/linear-scope.terms",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/unneeded-call-frames-1974-audit/exact-controls.terms"
+    ]
+  },
+  "PreCallAliasesWithoutGC": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/precall-owned-slot-def-use-1974-audit",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/precall-owned-slot-def-use-1974-audit/nonallocating-precall-aliases.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/precall-owned-slot-def-use-1974-audit/nonallocating-precall-aliases-test.patch"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/precall-owned-slot-def-use-1974-audit/NO_GC_QUALIFICATION.md",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/precall-owned-slot-def-use-1974-audit/no-gc-qualification-receipt.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/precall-owned-slot-def-use-1974-audit/no-gc-scope-plan.txt"
+    ]
+  },
+  "TerminalTupleRootPrefix": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/terminal-tuple-root-prefix-1974-intake",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/transient-call-frame-slots-and-protected-roots-1974-linked-readonly/source-adaptations/terminal-root-prefix-production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/terminal-tuple-root-prefix-1974-intake/test.patch"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/terminal-tuple-root-prefix-1974-intake/receipt.md"
+    ]
+  },
+  "TypePartitionWithTupleEffect": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/owned-effectful-tuple-partition-1974-audit",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/owned-effectful-tuple-partition-1974-audit/production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/owned-effectful-tuple-partition-1974-audit/test.patch"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/owned-effectful-tuple-partition-1974-audit/fixture-shapes.terms",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/owned-effectful-tuple-partition-1974-audit/compiler.stdout.log",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/owned-effectful-tuple-partition-1974-audit/compiler.stderr.log"
+    ]
+  },
+  "CheckedEntryOrdinaryReturnFrame": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/checked-entry-returning-call-frames-1975-audit",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/checked-entry-returning-call-frames-1975-audit/production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/checked-entry-returning-call-frames-1975-audit/tests.patch"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/checked-entry-returning-call-frames-1975-audit/REPORT.md",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/checked-entry-returning-call-frames-1975-audit/entry-filter.terms",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/checked-entry-returning-call-frames-1975-audit/fixture.pinned.terms",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/checked-entry-returning-call-frames-1975-audit/fixture.part1973.terms"
+    ]
+  },
+  "PreCallAliasesAtOneCollector": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/precall-single-collector-roots-1975-audit",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/precall-single-collector-roots-1975-audit/production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/precall-single-collector-roots-1975-audit/tests.patch"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/precall-single-collector-roots-1975-audit/REPORT.md",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/precall-single-collector-roots-1975-audit/native-modulo.eval",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/precall-single-collector-roots-1975-audit/pinned.stdout.log",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/precall-single-collector-roots-1975-audit/p1972.stdout.log"
+    ]
+  },
+  "StablePostCallResult": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/post-call-x0-aliases-1975-audit",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/checked-call-frames-and-alias-prefixes-1975-linked-record-return/source-adaptations/post-call-x0-aliases.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/post-call-x0-aliases-1975-audit/post-call-x0-aliases-test.patch"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/post-call-x0-aliases-1975-audit/REPORT.md",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/post-call-x0-aliases-1975-audit/validation-receipt.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/post-call-x0-aliases-1975-audit/scope-identities.tsv",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/post-call-x0-aliases-1975-audit/xmerl-native-malformed-failure.log"
+    ]
+  },
+  "CheckedRecordTupleReturns": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/terminal-tuple-record-return-p1974-production",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/checked-call-frames-and-alias-prefixes-1975-linked-record-return/source-adaptations/checked-record-tuple-returns.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/terminal-tuple-record-return-p1974-production/tests.patch"
+    ],
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/terminal-tuple-record-return-p1974-production/REPORT.md",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/terminal-tuple-record-return-p1974-production/exact-flow.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/terminal-tuple-record-return-p1974-production/permanent-fixture.terms"
+    ]
+  }
+}

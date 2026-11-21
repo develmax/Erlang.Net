@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp;
 
 namespace Erlang.Compiler;
 
-public static class CodeGeneration
+public static partial class CodeGeneration
 {
     private const string E = "global::Erlang.Compiler.Expr.";
     private const string P = "global::Erlang.Pattern.";
@@ -166,27 +166,44 @@ public static class CodeGeneration
     )
     {
         sourcePath = Path.GetFullPath(sourcePath);
+
+        return CompileBeamModule(
+            sourcePath,
+            OpenBeamSource(
+                sourcePath,
+                otpLibraryDirectory,
+                includeDirectories,
+                buildProfile
+            ),
+            buildProfile
+        );
+    }
+
+    private static BeamMacroPreprocessor OpenBeamSource(
+        string sourcePath,
+        string? otpLibraryDirectory,
+        IReadOnlyList<string>? includeDirectories,
+        BeamReleaseBuildProfile? buildProfile
+    )
+    {
         string source = File.ReadAllText(sourcePath);
         var resolver = new BeamIncludeResolver(
             otpLibraryDirectory is null ? null : Path.GetFullPath(otpLibraryDirectory),
             includeDirectories?.Select(Path.GetFullPath).ToArray() ?? [],
             buildProfile?.RecordedIncludeSearchDirectories,
             buildProfile?.IncludePathMap,
-            sourcePath
+            sourcePath,
+            buildProfile?.RecordedExecutableIncludePaths
         );
 
         bool deterministic = buildProfile is null || buildProfile.RecordedCompileOptions?.Contains(Term.A("deterministic")) == true;
 
-        return CompileBeamModule(
+        return new(
+            source,
             sourcePath,
-            new BeamMacroPreprocessor(
-                source,
-                sourcePath,
-                resolver,
-                deterministic,
-                buildProfile?.PreprocessorDefinitions
-            ),
-            buildProfile
+            resolver,
+            deterministic,
+            buildProfile?.PreprocessorDefinitions
         );
     }
 
@@ -210,8 +227,9 @@ public static class CodeGeneration
 
         var lines = BeamSourceForms.FunctionLines(tokens, module);
         var profileInlining = BeamReleaseLeafInliningPlan.Read(module, buildProfile);
-        if (module.InlineTargets.Count != 0 || module.AutomaticInlining && !profileInlining.SuppressAutomatic
-            || profileInlining.Size is not null)
+        bool automaticInlining = module.AutomaticInlining && !profileInlining.SuppressAutomatic
+            || profileInlining.Size is not null;
+        if (module.InlineTargets.Count != 0 || automaticInlining)
         {
             (functions, lines) = BeamTargetedInlining.Apply(
                 module,
@@ -220,6 +238,24 @@ public static class CodeGeneration
                 profileInlining
             );
         }
+        if (module.HasResolvedDiameterRecordTransform)
+        {
+            (functions, lines) = BeamSourceReachability.Retain(
+                functions,
+                lines,
+                IsTransformedRoot,
+                module.Name
+            );
+        }
+
+        bool IsTransformedRoot(FunctionDefinition function)
+        {
+            var signature = (function.Name, function.Arity);
+
+            return exports.Contains(signature) || function.Arity == 0 && function.Name == module.OnLoadFunction
+                || module.DeclaredNifs?.Contains(signature) == true;
+        }
+
         var specs = buildProfile is null && module.Documentation.Count == 0 && !module.HasGeneratedEunitTest
             ? new Dictionary<int, Parser.ReleaseSpec>()
             : BeamSourceForms.Starts(tokens)
@@ -260,13 +296,29 @@ public static class CodeGeneration
             module.Name,
             lineFile,
             module,
-            preprocessor.MaybeEnabled
+            preprocessor.MaybeEnabled,
+            automaticCoreInlining: automaticInlining && !module.HasOtherCompileOptions && module.InlineTargets.Count == 0
+                && !(buildProfile?.RecordedCompileOptions?.Contains(Term.A(CompilerOptionNames.InlineListFunctions))
+                    ?? buildProfile?.WarningOptions.Contains(CompilerOptionNames.InlineListFunctions) ?? false),
+            entryTupleAliasesEnabled: !DisableEntryTupleAliases(buildProfile)
         ).Emit(
             functions,
             lines,
             exports,
             metadata
         );
+    }
+
+    private static bool DisableEntryTupleAliases(BeamReleaseBuildProfile? profile)
+    {
+        bool HasOption(string option) => profile?.RecordedCompileOptions is { } options
+            ? options.Contains(Term.A(option))
+            : profile?.WarningOptions.Contains(option) == true;
+
+        return HasOption(CompilerOptionNames.DisableCoreAliases)
+            || HasOption(CompilerOptionNames.DisableCoreOptimization)
+            || HasOption(CompilerOptionNames.BeamDebugInfo)
+            || profile?.RecordedDebugOptions?.Contains(Term.A(CompilerOptionNames.BeamDebugInfo)) == true;
     }
 
     internal static string ModuleCode(ModuleDefinition module, string sourcePath, bool includeAttributes = true)

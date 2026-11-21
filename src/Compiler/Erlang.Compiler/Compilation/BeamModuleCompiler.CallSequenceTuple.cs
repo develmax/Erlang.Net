@@ -11,7 +11,8 @@ internal sealed partial class BeamModuleCompiler
             Expr.Fun? Closure,
             string? ClosureBinding,
             string[] Captures,
-            HashSet<string> Reads
+            HashSet<string> Reads,
+            bool RetainedValue = false
         );
 
         private sealed record CallSequenceTuple(
@@ -21,7 +22,9 @@ internal sealed partial class BeamModuleCompiler
             Dictionary<string, int> CaptureOrder,
             string? ResultCapture,
             int Live,
-            CallArgumentConstructions? Construction = null
+            CallArgumentConstructions? Construction = null,
+            CaseTupleOperand? Scalar = null,
+            (int Slot, int Field, int Register)[]? Projections = null
         );
 
         private bool TryEmitSavedCallSequenceTuple(Clause clause)
@@ -45,15 +48,36 @@ internal sealed partial class BeamModuleCompiler
         private SavedCallSequence? ReadSavedCallSequenceTuple(Expr body, string[] parameters)
         {
             if (body is not (Expr.Tuple or Expr.RecordConstruction
-                or Expr.Sequence { Items: [.., Expr.Tuple or Expr.RecordConstruction] }))
+                or Expr.Sequence { Items: [.., Expr.Tuple or Expr.RecordConstruction or Expr.Variable] }))
             {
                 return null;
             }
 
             IReadOnlyList<Expr> items = body is Expr.Sequence sequence ? sequence.Items : [body];
-            var tuple = items[^1] is Expr.RecordConstruction record
-                ? RecordExpressions.Create(record)
-                : (Expr.Tuple)items[^1];
+            bool retainedValue = items[^1] is Expr.Variable;
+            if (retainedValue && (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled
+                || items.Count < 4 || items[^2] is not Expr.Call
+                || !items.SkipLast(1).OfType<Expr.Match>().Any(match => match.Value is Expr.Call)
+                || !items.SkipLast(1).OfType<Expr.Call>().Any(call => call.Arguments.Any(argument => argument is Expr.Call))
+                    && items is not
+                    [
+                        Expr.Match { Value: Expr.Call { Module: not null, DynamicRemote: false } },
+                        Expr.Match { Value: Expr.Call { Module: null, DynamicRemote: false } },
+                        Expr.Call { Module: not null, DynamicRemote: false },
+                        Expr.Call { Module: not null, DynamicRemote: false },
+                        Expr.Variable
+                    ]))
+            {
+                return null;
+            }
+
+            var tuple = items[^1] switch
+            {
+                Expr.RecordConstruction record => RecordExpressions.Create(record),
+                Expr.Variable retained => new Expr.Tuple([retained]),
+                Expr.Tuple existing => existing,
+                _ => throw new InvalidOperationException()
+            };
             if (AttributeLiteral.TryNormalizeConstant(tuple, out _))
             {
                 return null;
@@ -82,7 +106,11 @@ internal sealed partial class BeamModuleCompiler
             var calls = statements.Any(item => ReadTupleCallCheck(item) is not null)
                 ? ReadCallsWithChecks(statements, parameters, out checks)
                 : ReadCallsWithClosures(statements, parameters, out argumentClosures);
-            if (calls is not { Length: > 0 })
+            if (calls is not { Length: > 0 }
+                || retainedValue && (checks is not null || closure is not null
+                    || argumentClosures is { Count: > 0 } && !TryPrepareRetainedScalarClosure(
+                        calls, argumentClosures, ((Expr.Variable)items[^1]).Name
+                    )))
             {
                 return null;
             }
@@ -141,7 +169,8 @@ internal sealed partial class BeamModuleCompiler
                 closure,
                 closureBinding,
                 captures,
-                reads
+                reads,
+                retainedValue
             );
 
             return ReadSavedCallSequence(
@@ -152,6 +181,44 @@ internal sealed partial class BeamModuleCompiler
                 closures: argumentClosures,
                 checks: checks
             );
+        }
+
+        private static bool TryPrepareRetainedScalarClosure(
+            (Expr.Call Call, string? Result)[] calls,
+            Dictionary<int, CallClosure> closures,
+            string retained
+        )
+        {
+            if (closures.Count != 1)
+            {
+                return false;
+            }
+
+            var (index, closure) = closures.Single();
+            if (index <= 0 || index + 1 >= calls.Length || calls[index - 1].Result is not { } captured
+                || captured == retained || closure.Captures.Length != 2
+                || !closure.Captures.Contains(captured) || !closure.Captures.Contains(retained)
+                || calls[index].Result is not { } operand
+                || calls[index + 1].Call.Arguments is not [Expr.Variable first, Expr.Variable second])
+            {
+                return false;
+            }
+
+            if (first.Name != closure.Binding || second.Name != operand)
+            {
+                return false;
+            }
+
+            // Core-to-SSA appends its ordered set of free variables to the
+            // lifted function's declared arguments.
+            string[] captures = TermOrder.Compare(
+                new Atom(closure.Captures[0]),
+                new Atom(closure.Captures[1]),
+                exact: true
+            ) <= 0 ? closure.Captures : [closure.Captures[1], closure.Captures[0]];
+            closures[index] = closure with { Captures = captures };
+
+            return true;
         }
 
         private static IEnumerable<Expr> ExpandTupleCallBinding(Expr expression)
@@ -185,16 +252,47 @@ internal sealed partial class BeamModuleCompiler
         private static CallSequenceTuple? ReadCallSequenceTuple(
             CallSequenceTupleSource source,
             string? result,
-            Dictionary<string, int> saved
+            Dictionary<string, int> saved,
+            (int Slot, int Field, string Name)[]? projections = null
         )
         {
             int live = result is not null && source.Reads.Contains(result) ? 1 : 0;
+            if (source.RetainedValue)
+            {
+                string returned = ((Expr.Variable)source.Tuple.Items[0]).Name;
+                CaseTupleOperand? scalar = returned == result ? new(XRegisterTag, 0, null)
+                    : saved.TryGetValue(returned, out int slot) ? new(YRegisterTag, slot, null) : null;
+
+                return scalar is null ? null : new(
+                    [],
+                    null,
+                    [],
+                    [],
+                    null,
+                    live,
+                    Scalar: scalar
+                );
+            }
+
             if (source.Closure is null)
             {
                 var inputs = new Dictionary<string, int>(StringComparer.Ordinal);
                 if (live != 0)
                 {
                     inputs.Add(result!, 0);
+                }
+
+                var reads = new List<(int Slot, int Field, int Register)>();
+                foreach (var (slot, field, name) in projections ?? [])
+                {
+                    int register = inputs.Count;
+                    if (register >= FirstReservedXRegister)
+                    {
+                        return null;
+                    }
+
+                    inputs.Add(name, register);
+                    reads.Add((slot, field, register));
                 }
 
                 var construction = ReadCallArgumentConstructions(
@@ -211,7 +309,8 @@ internal sealed partial class BeamModuleCompiler
                     [],
                     null,
                     live,
-                    construction
+                    construction,
+                    Projections: reads.Count == 0 ? null : reads.ToArray()
                 );
             }
 
@@ -264,16 +363,46 @@ internal sealed partial class BeamModuleCompiler
 
         private void EmitCallSequenceTuple(CallSequenceTuple tuple, int frame, int? projectedField)
         {
-            if (tuple.Construction is { } construction)
+            if (tuple.Scalar is { } scalar)
             {
-                if (projectedField is int field)
+                if (scalar.Tag == YRegisterTag)
                 {
-                    owner.Op(TestHeap, BeamWire.UnsignedTag, construction.Constructions[0].HeapWords);
-                    owner.Operand(BeamWire.UnsignedTag, construction.Live);
-                    owner.EmitTuplePart(0, field, 0);
+                    owner.MoveRegister(
+                        YRegisterTag,
+                        scalar.Register,
+                        XRegisterTag,
+                        0
+                    );
                 }
 
-                EmitCallArgumentConstructions(construction, -1, heapChecked: projectedField is not null);
+                owner.EmitFrameReturn(frame);
+
+                return;
+            }
+
+            if (tuple.Construction is { } construction)
+            {
+                bool heapChecked = projectedField.HasValue || tuple.Projections is not null;
+                if (heapChecked)
+                {
+                    owner.Op(TestHeap, BeamWire.UnsignedTag, construction.Constructions.Sum(item => item.HeapWords));
+                    owner.Operand(BeamWire.UnsignedTag, tuple.Projections is null ? construction.Live : tuple.Live);
+                    if (projectedField is int field)
+                    {
+                        owner.EmitTuplePart(0, field, 0);
+                    }
+
+                    // The aggregate is a Y root at the heap check. Its X fields
+                    // become live only for the following construction.
+                    foreach (var (slot, element, register) in tuple.Projections ?? [])
+                    {
+                        owner.Op(GetTupleElement, YRegisterTag, slot);
+                        owner.Operand(BeamWire.UnsignedTag, element);
+                        owner.Operand(XRegisterTag, register);
+                    }
+                }
+
+                EmitCallArgumentConstructions(construction, -1, heapChecked: heapChecked);
                 owner.EmitFrameReturn(frame);
 
                 return;

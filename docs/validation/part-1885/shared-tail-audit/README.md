@@ -1,0 +1,17 @@
+# Part1885 external tail switch acceptance
+
+The actual linked Part1885 compiler image is SHA-256 31f466421437b6083872cdc41077f02cc74d5495567d8e21390f2196e81379de. The 16-module selection is produced by the validated-host-retake package. It is compared with exact Part1884-retake where present, exact full Part1883, and pinned Windows OTP-29.1.1. All 14 parsers have a retained Part1884 image. The two SNMP inputs use exact Part1883 as their prior stage.
+
+| Target function | Modules | Physical direct target calls prior → Part1885 → OTP | Instructions prior → Part1885 → OTP | Frame operations prior → Part1885 → OTP |
+| --- | ---: | --- | --- | --- |
+| yecctoken2string1/1 | 14 | 3 → 1 → 1 | 84 → 71 → 53 | 7 → 5 → 0 |
+| snmp_standard_mib:check_standard/1 | 1 | 4 → 1 → 1 | 65 → 53 → 40 | 3 → 3 → 2 |
+| snmp_generic:table_get_element/3 | 1 | 2 → 2 → 1 | 55 → 55 → 41 | 5 → 5 → 4 |
+
+Labels and line instructions are included in the instruction table's counts. Frame operation counts include allocate, deallocate, trims and slot initialization. In the optimized parser prefix, float, integer and reserved_symbol share one ordinary external tail block reading zero-based tuple field 2 into X0. OTP has the same outgoing value with the projection hoisted before its switch. The common native line is yeccpre.hrl 173. In SNMP four string attributes share the one check_string/1 call with field 1 and native line 259. A total of 31 repeated tail sites disappear. Across changed functions all 104 comparable tag edges retain exact external MFA and line. The other 58 arm targets stay disjoint. Both parser fallback shapes and the SNMP traps/unknown attribute routes remain separate.
+
+The 15 optimized bodies now have the same ordered executable line instructions as the pinned reference. The raw module Line sections remain different. In the parsers the early framed arity-three block is eliminated. The legacy arity-two path still has a two-slot frame. Pinned OTP instead uses one two-arity dispatch, hoists the common field projection and selects the arity-two cases in registers. Part1885 emits a prefix arity test and repeats work on fallback. SNMP removes all six framed external tail sites on the optimized path, but its fallback frame grows from 3 to 4 slots, compared with the zero-slot native frame. The snmp_generic negative uses two separately reconstructed tuples and preserves its prior normalized body. None of the 16 full target bodies match the native instruction lists and no complete file or raw section gained equality in the package report.
+
+Pinned ERTS loaded both actual images of each parser and compared all 154 API observations. The inputs included each shared tag, distinct call targets, arity-two tokens and fallback tokens. All observations match, including exact traced argument sequences for 149 calls to the private stringifier in each candidate set. SNMP standard matched all 11 observations for shared tags, independent targets, guard/body routes and invalid inputs. The generic negative matched both volatile and persistent table requests via an isolated echo process. This assesses public API outcomes plus actual dispatch, separately from the structural byte comparison.
+
+The complete linked Part1885 scope retained 7 Equal, 82 Different and zero rejected or unsupported modules. All 82 changed images prepared. The permanent shared-tail C# harness check passed in the linked validation receipt. No output builds were run for this audit.

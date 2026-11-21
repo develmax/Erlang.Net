@@ -1,0 +1,277 @@
+{
+  "source": {
+    "Source": "ecb7f3b64abe442c4c4bcc9715bd9441fc0846863f91919ab7ac1ec826cb1a63",
+    "Paths": 265,
+    "Compiler": "070ae969202ce8d6efa7641554cdc3f19c01f521b77973fae5c68ee2b2c82bf4",
+    "Tests": "27590b88617db51994dde7c2ca35a4698b8ef4a52fda2ac53749cdad95508b71",
+    "ParentSource": "40f3c559f43b8846ce06c9137774ae125e8d42501b0780ab0d9e39bd0df52e6a",
+    "CorpusTool": "9b7184d3f6039d5bb53f70d5d436c16bdf175812157c09d741cb2a624b206758"
+  },
+  "scope_counts": {
+    "Different": 92,
+    "Equal": 18
+  },
+  "observed_time": {
+    "Count": 110,
+    "Seconds": 186.126353,
+    "ExitCode": 1
+  },
+  "raw_debug_info_matches": {
+    "P": 85,
+    "D": 106,
+    "exact_C_overlap_before": 27,
+    "exact_C_overlap_after": 40
+  },
+  "total_changed_images": 80,
+  "ordinary_erts_prepares": 79,
+  "on_load_verify": {
+    "asn1rt_nif": "9 exact outcomes from linked native receipt"
+  },
+  "whole_image_gains": 0,
+  "whole_image_losses": 0,
+  "groups": {
+    "bootstrap_file_provenance": [
+      "lib/asn1-5.5.2/ebin/asn1ct.beam",
+      "lib/erts-17.1/ebin/erl_prim_loader.beam",
+      "lib/erts-17.1/ebin/init.beam",
+      "lib/erts-17.1/ebin/prim_file.beam",
+      "lib/erts-17.1/ebin/prim_inet.beam",
+      "lib/erts-17.1/ebin/prim_zip.beam",
+      "lib/eunit-2.11/ebin/eunit_data.beam",
+      "lib/ftp-1.2.6/ebin/ftp_progress.beam",
+      "lib/megaco-4.9.2/doc/examples/meas/megaco_codec_meas.beam",
+      "lib/megaco-4.9.2/doc/examples/meas/megaco_codec_mstone_lib.beam",
+      "lib/megaco-4.9.2/doc/examples/meas/megaco_codec_transform.beam",
+      "lib/tftp-1.3/ebin/tftp_file.beam"
+    ],
+    "synthetic_bitstring_default_lines": [
+      "lib/compiler-10.0.6/ebin/beam_dict.beam",
+      "lib/erts-17.1/ebin/erlang.beam",
+      "lib/kernel-11.0.4/ebin/inet.beam",
+      "lib/stdlib-8.1/ebin/binary.beam"
+    ],
+    "first_expression_annotation": [
+      "lib/debugger-7.0/ebin/dbg_iload.beam",
+      "lib/edoc-1.5/ebin/edoc_tags.beam",
+      "lib/kernel-11.0.4/ebin/inet_dns.beam",
+      "lib/mnesia-4.27/ebin/mnesia_bup.beam",
+      "lib/snmp-5.20.5/ebin/snmpm_net_if.beam"
+    ]
+  },
+  "exact_C_overlap_gains": [
+    "lib/asn1-5.5.2/ebin/asn1ct.beam",
+    "lib/debugger-7.0/ebin/dbg_iload.beam",
+    "lib/erts-17.1/ebin/erl_prim_loader.beam",
+    "lib/erts-17.1/ebin/erlang.beam",
+    "lib/erts-17.1/ebin/init.beam",
+    "lib/erts-17.1/ebin/prim_file.beam",
+    "lib/erts-17.1/ebin/prim_inet.beam",
+    "lib/eunit-2.11/ebin/eunit_data.beam",
+    "lib/kernel-11.0.4/ebin/inet.beam",
+    "lib/kernel-11.0.4/ebin/inet_dns.beam",
+    "lib/megaco-4.9.2/doc/examples/meas/megaco_codec_meas.beam",
+    "lib/mnesia-4.27/ebin/mnesia_bup.beam",
+    "lib/tftp-1.3/ebin/tftp_file.beam"
+  ],
+  "exact_C_overlap_losses": [],
+  "exact_C_overlap_groups": {
+    "bootstrap_file_provenance": 8,
+    "synthetic_bitstring_default_lines": 2,
+    "first_expression_annotation": 3
+  },
+  "effective_debug_options_and_raw_compiler_info_unchanged": 110,
+  "effective_debug_options_and_raw_compiler_info_native_equal": 110,
+  "remaining_dbgi": {
+    "lib/compiler-10.0.6/ebin/beam_doc.beam": {
+      "raw": false,
+      "options": true,
+      "forms": false,
+      "compile_info": true,
+      "engine": true,
+      "compile_info_options": true,
+      "forms_ignore_paths": true,
+      "forms_ignore_anno_paths": true,
+      "files_equal": false,
+      "paths_changed": [
+        {
+          "before": "/daily_build/otp_src/bootstrap/lib/kernel/include/eep48.hrl",
+          "after_path": "eep48.hrl"
+        }
+      ]
+    },
+    "lib/eunit-2.11/ebin/eunit_lib.beam": {
+      "raw": false,
+      "options": true,
+      "forms": false,
+      "compile_info": true,
+      "engine": true,
+      "compile_info_options": true,
+      "forms_ignore_paths": false,
+      "forms_ignore_anno_paths": true,
+      "files_equal": true,
+      "paths_changed": []
+    },
+    "lib/runtime_tools-2.5/ebin/observer_backend.beam": {
+      "raw": false,
+      "options": true,
+      "forms": false,
+      "compile_info": true,
+      "engine": true,
+      "compile_info_options": true,
+      "forms_ignore_paths": true,
+      "forms_ignore_anno_paths": true,
+      "files_equal": false,
+      "paths_changed": [
+        {
+          "before": "/daily_build/otp_src/lib/runtime_tools/src/../include/observer_backend.hrl",
+          "after_path": "observer_backend.hrl"
+        }
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_transport.beam": {
+      "raw": false,
+      "options": true,
+      "forms": false,
+      "compile_info": true,
+      "engine": true,
+      "compile_info_options": true,
+      "forms_ignore_paths": true,
+      "forms_ignore_anno_paths": true,
+      "files_equal": false,
+      "paths_changed": [
+        {
+          "before": "/daily_build/otp_src/bootstrap/lib/kernel/include/inet.hrl",
+          "after_path": "inet.hrl"
+        }
+      ]
+    }
+  },
+  "open_code": [
+    {
+      "beam": "lib/kernel-11.0.4/ebin/inet_tcp_dist.beam",
+      "fn": "{'-setopts/2-lc$^0/1-0-',1}",
+      "kind": "gain",
+      "p_ref": false,
+      "b_ref": true,
+      "c_ref": null,
+      "d_ref": true,
+      "d_b": true,
+      "d_c": null,
+      "p_width": [
+        4
+      ],
+      "b_width": [
+        1
+      ],
+      "c_width": null,
+      "d_width": [
+        1
+      ],
+      "ref_width": [
+        1
+      ]
+    },
+    {
+      "beam": "lib/ssh-6.0.6/ebin/ssh_connection_handler.beam",
+      "fn": "{conn_info_chans,1}",
+      "kind": "gain",
+      "p_ref": false,
+      "b_ref": false,
+      "c_ref": false,
+      "d_ref": true,
+      "d_b": false,
+      "d_c": false,
+      "p_width": [],
+      "b_width": [],
+      "c_width": [],
+      "d_width": [],
+      "ref_width": []
+    },
+    {
+      "beam": "lib/debugger-7.0/ebin/dbg_iload.beam",
+      "fn": "{'-record_info_call/3-fun-0-',1}",
+      "kind": "loss",
+      "p_ref": true,
+      "b_ref": false,
+      "c_ref": false,
+      "d_ref": false,
+      "d_b": true,
+      "d_c": true,
+      "p_width": [],
+      "b_width": [],
+      "c_width": [],
+      "d_width": [],
+      "ref_width": []
+    },
+    {
+      "beam": "lib/kernel-11.0.4/ebin/inet.beam",
+      "fn": "{set_bindx_port,2}",
+      "kind": "loss",
+      "p_ref": true,
+      "b_ref": null,
+      "c_ref": false,
+      "d_ref": false,
+      "d_b": null,
+      "d_c": true,
+      "p_width": [],
+      "b_width": null,
+      "c_width": [],
+      "d_width": [],
+      "ref_width": []
+    },
+    {
+      "beam": "lib/tools-4.2.3/ebin/cover.beam",
+      "fn": "{'-get_modules/1-fun-0-',1}",
+      "kind": "loss",
+      "p_ref": true,
+      "b_ref": false,
+      "c_ref": false,
+      "d_ref": false,
+      "d_b": true,
+      "d_c": true,
+      "p_width": [],
+      "b_width": [],
+      "c_width": [],
+      "d_width": [],
+      "ref_width": []
+    },
+    {
+      "beam": "lib/tools-4.2.3/ebin/cover.beam",
+      "fn": "{'-main_process_loop/1-fun-1-',1}",
+      "kind": "loss",
+      "p_ref": true,
+      "b_ref": false,
+      "c_ref": false,
+      "d_ref": false,
+      "d_b": true,
+      "d_c": true,
+      "p_width": [],
+      "b_width": [],
+      "c_width": [],
+      "d_width": [],
+      "ref_width": []
+    },
+    {
+      "beam": "lib/asn1-5.5.2/ebin/asn1ct_constructed_ber_bin_v2.beam",
+      "fn": "{'-gen_dec_set_cases/4-fun-1-',4}",
+      "kind": "width_increase",
+      "p_ref": false,
+      "b_ref": null,
+      "c_ref": null,
+      "d_ref": false,
+      "d_b": null,
+      "d_c": null,
+      "p_width": [
+        6
+      ],
+      "b_width": null,
+      "c_width": null,
+      "d_width": [
+        7
+      ],
+      "ref_width": [
+        5
+      ]
+    }
+  ]
+}

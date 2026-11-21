@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\optimized-compiler-corpus-throughput-1930\verify-abba.py", line 16, in <module>
+    images=[compare(Path(row['Report'])) for row in d['Sequence']]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\optimized-compiler-corpus-throughput-1930\verify-abba.py", line 9, in compare
+    assert report['Total']==12 and report['Counts']['SourceRejected']==report['Counts']['Unsupported']==0
+                                   ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+KeyError: 'SourceRejected'

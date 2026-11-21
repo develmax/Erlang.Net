@@ -18,16 +18,34 @@ internal sealed partial class BeamModuleCompiler
         var atomNames = atoms.OrderBy(entry => entry.Value).Select(entry => entry.Key).ToArray();
         var producers = new HashSet<int>();
         var consumers = new HashSet<int>();
+        var sizeProducers = new HashSet<int>();
+        int tupleSize = -1;
+        var comparisons = new HashSet<int>();
         var importsByIndex = imports.OrderBy(entry => entry.Value).Select(entry => entry.Key).ToArray();
         for (int index = 0; index < importsByIndex.Length; index++)
         {
             var (module, function, arity) = importsByIndex[index];
-            if (arity != 2 || atomNames[module - 1] != ErlangModuleNames.Module)
+            if (atomNames[module - 1] != ErlangModuleNames.Module)
             {
                 continue;
             }
 
-            switch (atomNames[function - 1])
+            string name = atomNames[function - 1];
+            if (arity == 1 && name is AutoImportNames.ByteSize or AutoImportNames.BitSize or AutoImportNames.MapSize)
+            {
+                sizeProducers.Add(index);
+            }
+
+            if (arity == 1 && name == AutoImportNames.TupleSize)
+            {
+                tupleSize = index;
+            }
+            if (arity != 2)
+            {
+                continue;
+            }
+
+            switch (name)
             {
                 case ErlangOperators.Plus or ErlangOperators.Minus or ErlangOperators.Multiply:
                     producers.Add(index);
@@ -36,6 +54,12 @@ internal sealed partial class BeamModuleCompiler
                     or ErlangOperators.ShiftLeft or ErlangOperators.ShiftRight
                     or ErlangOperators.IntegerDivide or ErlangOperators.Remainder:
                     consumers.Add(index);
+                    break;
+                case ErlangOperators.Less or ErlangOperators.LessOrEqual
+                    or ErlangOperators.Greater or ErlangOperators.GreaterOrEqual
+                    or ErlangOperators.NumericEqual or ErlangOperators.NumericNotEqual
+                    or ErlangOperators.ExactEqual or ErlangOperators.ExactNotEqual:
+                    comparisons.Add(index);
                     break;
             }
         }
@@ -46,7 +70,9 @@ internal sealed partial class BeamModuleCompiler
         bool localAtomOrTuple = localResultEntries.ContainsValue(LocalAtomOrTupleType)
             && code.Span.Contains(IsTuple);
         bool numericRecordFields = producers.Count != 0 && code.Span.Contains(UpdateRecord);
-        if (!numericProducer && !localInteger && !localAtomOrTuple && !numericRecordFields)
+        bool sizeRange = sizeProducers.Count != 0 && code.Span.Contains(GcBifOne);
+        bool tupleSizeRange = tupleSize >= 0 && code.Span.Contains(BifOne);
+        if (!numericProducer && !localInteger && !localAtomOrTuple && !numericRecordFields && !sizeRange && !tupleSizeRange)
         {
             return null;
         }
@@ -74,7 +100,15 @@ internal sealed partial class BeamModuleCompiler
         bool opaqueX0 = false;
         int localResultType = 0;
         var localResult = new BeamOperand(BeamOperandParameters.X, 0);
+        BeamOperand? sizeResult = null;
+        long? sizeLowerBound = null;
+        BeamOperand? tupleSizeResult = null;
         HashSet<BeamOperand>? recordValues = numericRecordFields ? [] : null;
+        Dictionary<int, (BeamOperand Slot, long Minimum)>? recordRanges = numericRecordFields ? [] : null;
+        BeamProjectionFlow? recordFlow = null;
+        BeamOperand? integerComparisonResult = null;
+        BeamOperand? recordIntegerResult = null;
+        HashSet<BeamOperand>? savedComparisonNumbers = null;
         for (int index = 0; index < body.Count; index++)
         {
             BeamInstruction instruction = body[index];
@@ -86,7 +120,42 @@ internal sealed partial class BeamModuleCompiler
             int before = copied;
             // A source line is neutral. Every other instruction ends the immediately
             // preceding definition, including labels with additional predecessors.
-            if (producer >= 0 && IsOrdinaryBinaryBif(instruction, consumers))
+            if (integerComparisonResult is not null && instruction.Definition.Opcode == NumericEqualTest)
+            {
+                copied = AnnotateIntegerResultComparison(
+                    code,
+                    output,
+                    copied,
+                    instruction,
+                    integerComparisonResult,
+                    savedComparisonNumbers
+                );
+            }
+            else if (tupleSizeResult is not null && ReadTupleSizeComparison(instruction, tupleSizeResult) is int tupleSizeUse)
+            {
+                copied = AnnotateTupleSizeComparison(
+                    code,
+                    output,
+                    copied,
+                    instruction,
+                    tupleSizeUse,
+                    body[index + 1].Offset
+                );
+            }
+            else if (sizeResult is not null && ReadSizeConsumer(instruction, sizeResult) is int sizeUse)
+            {
+                copied = AnnotateRegisterInput(
+                    code,
+                    output,
+                    copied,
+                    instruction,
+                    sizeUse,
+                    IntegerTypeBits,
+                    minimum: sizeLowerBound ?? 0,
+                    maximum: OtpSizeUpperBound
+                );
+            }
+            else if (producer >= 0 && IsOrdinaryBinaryBif(instruction, consumers))
             {
                 copied = AnnotateNumericUse(
                     code,
@@ -123,8 +192,46 @@ internal sealed partial class BeamModuleCompiler
                 );
             }
 
+            // The local result and a literal integer make this affine operation integer on success.
+            // A normal local call invalidates X facts, but preserves numeric saves in its caller's frame.
+            integerComparisonResult = localResultType == IntegerTypeBits
+                && IsOrdinaryBinaryBif(instruction, producers)
+                && (IsBareX0(instruction.Operands[3]) && instruction.Operands[4].Kind == BeamOperandParameters.Integer
+                    || IsBareX0(instruction.Operands[4]) && instruction.Operands[3].Kind == BeamOperandParameters.Integer)
+                ? instruction.Operands[^1] : null;
+            if (instruction is { Definition.Opcode: LocalCall, Operands: [_, var callee] }
+                && localResultEntries.GetValueOrDefault((int)callee.Value) == IntegerTypeBits)
+            {
+                savedComparisonNumbers = recordValues?.Where(value => value.Kind == BeamOperandParameters.Y).ToHashSet();
+            }
+            else if (integerComparisonResult is null)
+            {
+                savedComparisonNumbers = null;
+            }
+
             if (recordValues is not null)
             {
+                if (instruction is
+                    {
+                        Definition.Opcode: IsLess,
+                        Operands: [var failure, { Kind: BeamOperandParameters.Y } slot,
+                        { Kind: BeamOperandParameters.Integer } bound]
+                    }
+                    && recordValues.Contains(slot) && bound.Value >= long.MinValue && bound.Value <= long.MaxValue
+                    && (recordFlow ??= new BeamProjectionFlow(body)).TryGetSingleForwardTarget(index, (int)failure.Value, out int target)
+                    && ReadBoundedRecordUpdate(body, target, slot) is int update)
+                {
+                    recordRanges!.Add(update, (slot, (long)bound.Value));
+                    copied = AnnotateRegisterInput(
+                        code,
+                        output,
+                        copied,
+                        instruction,
+                        1,
+                        NumberTypeBits
+                    );
+                }
+
                 if (instruction.Definition.Opcode == UpdateRecord)
                 {
                     copied = AnnotateNumericRecordFields(
@@ -132,7 +239,9 @@ internal sealed partial class BeamModuleCompiler
                         output,
                         copied,
                         instruction,
-                        recordValues
+                        recordValues,
+                        recordRanges!.TryGetValue(index, out var range) ? range : null,
+                        recordIntegerResult
                     );
                     recordValues.Clear();
                 }
@@ -147,6 +256,22 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
+            // A checked local integer result can still be read in a record
+            // replacement after nonclobbering rooted instructions.
+            if (numericRecordFields)
+            {
+                recordIntegerResult = instruction switch
+                {
+                    { Definition.Opcode: LocalCall, Operands: [_, var target] }
+                        when localResultEntries.GetValueOrDefault((int)target.Value) == IntegerTypeBits => localResult,
+                    { Definition.Opcode: GcBifTwo, Operands: [var fail, var live, .., var destination] }
+                        when fail.Value.IsZero && live.Value > 0 && !SameProjectionRegister(destination, localResult)
+                        => recordIntegerResult,
+                    { Definition.Opcode: TestHeap, Operands: [_, var live] } when live.Value > 0 => recordIntegerResult,
+                    _ => null
+                };
+            }
+
             // Local result facts are carried only across neutral source lines.
             localResultType = instruction is { Definition.Opcode: LocalCall, Operands: [_, var entry] }
                 ? localResultEntries.GetValueOrDefault((int)entry.Value) : 0;
@@ -159,6 +284,32 @@ internal sealed partial class BeamModuleCompiler
                     atomNames,
                     importsByIndex
                 );
+            // beam_call_types gives these size BIFs the same integer range on
+            // success. A line or copy keeps that result in the fallthrough block.
+            sizeLowerBound = sizeResult is not null && index + 1 < body.Count
+                ? ReadInclusiveSizeLowerBound(instruction, body[index + 1], sizeResult) : null;
+            sizeResult = instruction switch
+            {
+                {
+                    Definition.Opcode: GcBifOne,
+                    Operands: [{ Kind: BeamOperandParameters.Failure }, _, var import,
+                    { Kind: BeamOperandParameters.X or BeamOperandParameters.Y }, var measured]
+                }
+                    when sizeProducers.Contains((int)import.Value) => measured,
+                { Definition.Opcode: Move, Operands: [var from, var to] }
+                    when sizeResult is not null && SameProjectionRegister(sizeResult, from) => to,
+                _ => sizeLowerBound.HasValue ? sizeResult : null
+            };
+            // A successful tuple_size BIF defines its result only on this fallthrough path.
+            // A label or any other instruction that may replace it ends this fact.
+            tupleSizeResult = instruction switch
+            {
+                { Definition.Opcode: BifOne, Operands: [_, var import, _, var arity] }
+                    when import.Value == tupleSize => arity,
+                { Definition.Opcode: Move, Operands: [var from, var to] }
+                    when tupleSizeResult is not null && SameProjectionRegister(tupleSizeResult, from) => to,
+                _ => null
+            };
         }
 
         if (copied == 0)
@@ -169,6 +320,160 @@ internal sealed partial class BeamModuleCompiler
         output.Write(code.Span[copied..]);
 
         return output.ToArray();
+
+        int? ReadSizeConsumer(BeamInstruction instruction, BeamOperand measured)
+        {
+            var operands = instruction.Operands;
+            int first = instruction.Definition.Opcode switch
+            {
+                IsLess or IsGreaterOrEqual or NumericEqualTest or NumericNotEqualTest
+                    or ExactEqualTest or ExactNotEqualTest => 1,
+                BifTwo when operands[0].Kind == BeamOperandParameters.Failure
+                    && comparisons.Contains((int)operands[1].Value) => 2,
+                GcBifTwo when IsOrdinaryBinaryBif(instruction, producers)
+                    || IsOrdinaryBinaryBif(instruction, consumers) => 3,
+                _ => -1
+            };
+            if (first < 0)
+            {
+                return null;
+            }
+
+            bool left = SameProjectionRegister(operands[first], measured);
+            bool right = SameProjectionRegister(operands[first + 1], measured);
+            int index = left ? first : first + 1;
+
+            return left != right && operands[index].TypeIndex is null ? index : null;
+        }
+    }
+
+    private static long? ReadInclusiveSizeLowerBound(
+        BeamInstruction lowerTest,
+        BeamInstruction upperTest,
+        BeamOperand size
+    )
+    {
+        // Both guards consume the same size version. The upper test is only
+        // reached after success of the lower test, without a branch join.
+        if (lowerTest is
+            {
+                Definition.Opcode: IsGreaterOrEqual,
+                Operands: [var failure, var lowerInput, { Kind: BeamOperandParameters.Integer } lower]
+            }
+            && upperTest is
+            {
+                Definition.Opcode: IsGreaterOrEqual,
+                Operands: [var upperFailure, { Kind: BeamOperandParameters.Integer }, var upperInput]
+            }
+            && failure == upperFailure && SameProjectionRegister(lowerInput, size)
+            && SameProjectionRegister(upperInput, size)
+            && lower.Value > 0 && lower.Value <= OtpSizeUpperBound)
+        {
+            return (long)lower.Value;
+        }
+
+        return null;
+    }
+
+    private int AnnotateIntegerResultComparison(
+        ReadOnlyMemory<byte> code,
+        Stream output,
+        int copied,
+        BeamInstruction comparison,
+        BeamOperand integer,
+        HashSet<BeamOperand>? savedNumbers
+    )
+    {
+        if (comparison.Operands is not [_, var left, var right]
+            || SameProjectionRegister(left, integer) == SameProjectionRegister(right, integer))
+        {
+            return copied;
+        }
+
+        for (int index = 1; index < comparison.Operands.Count; index++)
+        {
+            BeamOperand value = comparison.Operands[index];
+            int type = value == integer ? IntegerTypeBits : savedNumbers?.Contains(value) == true ? NumberTypeBits : 0;
+            if (type != 0)
+            {
+                copied = AnnotateRegisterInput(
+                    code,
+                    output,
+                    copied,
+                    comparison,
+                    index,
+                    type
+                );
+            }
+        }
+
+        return copied;
+    }
+
+    private static int? ReadTupleSizeComparison(BeamInstruction test, BeamOperand size)
+    {
+        if (test.Definition.Opcode is not (IsLess or IsGreaterOrEqual)
+            || test.Operands is not [_, var left, var right])
+        {
+            return null;
+        }
+
+        if (right.Kind == BeamOperandParameters.Integer && left.TypeIndex is null && SameProjectionRegister(left, size))
+        {
+            return 1;
+        }
+        if (left.Kind == BeamOperandParameters.Integer && right.TypeIndex is null && SameProjectionRegister(right, size))
+        {
+            return 2;
+        }
+
+        return null;
+    }
+
+    private int AnnotateTupleSizeComparison(
+        ReadOnlyMemory<byte> code,
+        Stream output,
+        int copied,
+        BeamInstruction test,
+        int measured,
+        int end
+    )
+    {
+        if (test.Definition.Opcode == IsGreaterOrEqual)
+        {
+            return AnnotateRegisterInput(
+                code,
+                output,
+                copied,
+                test,
+                measured,
+                IntegerTypeBits,
+                minimum: 0,
+                maximum: MaxTupleArity
+            );
+        }
+
+        // beam_jump rewrites a strict comparison with a typed integer and an
+        // integer literal to an inclusive comparison with the adjacent bound.
+        output.Write(code.Span[copied..test.Offset]);
+        output.WriteByte(IsGreaterOrEqual);
+        BeamCompactWriter.Write(output, LabelTag, test.Operands[0].Value);
+        var value = test.Operands[measured];
+        var bound = test.Operands[3 - measured].Value;
+        if (measured == 1)
+        {
+            BeamCompactWriter.Write(output, BeamWire.IntegerTag, bound - 1);
+        }
+        output.WriteByte(ExtendedTypedRegisterOperand);
+        WriteRegister(output, value);
+        int type = GetOperandTypeIndex((IntegerTypeBits, 0, MaxTupleArity, null));
+        BeamCompactWriter.Write(output, BeamWire.UnsignedTag, type);
+        if (measured == 2)
+        {
+            BeamCompactWriter.Write(output, BeamWire.IntegerTag, bound + 1);
+        }
+
+        return end;
     }
 
     private static bool HasOpaqueNumericInputResult(
@@ -259,7 +564,9 @@ internal sealed partial class BeamModuleCompiler
         int copied,
         BeamInstruction consumer,
         int target,
-        int operandType
+        int operandType,
+        long? minimum = null,
+        long? maximum = null
     )
     {
         // Preserve the consumer operation and failure edge while typing its input.
@@ -284,7 +591,7 @@ internal sealed partial class BeamModuleCompiler
         _ = BeamCompactReader.Read(cursor);
         int end = start + cursor.Position;
         output.Write(code.Span[offset..end]);
-        int type = GetOperandTypeIndex((operandType, null, null, null));
+        int type = GetOperandTypeIndex((operandType, minimum, maximum, null));
         BeamCompactWriter.Write(output, BeamWire.UnsignedTag, type);
 
         return end;

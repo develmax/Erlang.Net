@@ -1,0 +1,143 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamUnusedCaseListBindingChecks.cs b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamUnusedCaseListBindingChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamUnusedCaseListBindingChecks.cs
+@@ -0,0 +1,138 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamUnusedCaseListBindingChecks
++{
++    internal const string TestName = "compiler/beam/omits-unused-bindings-under-case-list-patterns";
++    private const string Fixture = "beam_unused_case_list_binding_probe.erl";
++    private const string UnexpectedProjection = "The unused list-member binding must lower like a wildcard.";
++    private const string ProjectionFrame = "Post-call projections must preserve values needed on failure and avoid unnecessary frame slots.";
++    private const string MissingBinding = "A bound, repeated or exported list-member value must remain live.";
++    private const string DisabledSsa = "-compile(no_ssa_opt).\n-export";
++    private const string Source = """
++        -module(beam_unused_case_list_binding_probe).
++        -export([run/1, check/2, saved/1, nested/1]).
++
++        run(Input) ->
++            case effect:read(Input) of
++                {ok, {prompt, "login"}, _} -> login;
++                {ok, [{prompt, _First}, {prompt, _Second}], _} -> connected;
++                {ok, [{prompt, Kept}], _} -> {one, Kept};
++                Value -> {other, Value}
++            end.
++
++        check(Input, Known) ->
++            case effect:read(Input) of
++                {ok, [{prompt, Known}, {prompt, Same}, {prompt, Same}]} -> same;
++                _ -> different
++            end.
++
++        saved(Input) ->
++            case effect:read(Input) of
++                {ok, [{prompt, Captured}]} -> selected;
++                _ -> Captured = fallback
++            end,
++            Captured.
++
++        nested(Input) ->
++            case effect:read(Input) of
++                [{outer, [{inner, _Skipped}]} | _Rest] -> nested;
++                Other -> {other, Other}
++            end.
++        """;
++
++    private const string ProjectionSource = """
++        -module(beam_post_call_return_projection_probe).
++        -export([get/1, retained/2]).
++
++        get(Value) ->
++            case fetch(Value) of
++                [[_Line, {_, _, Id}, {_, _, _}]] -> {vendor, Id};
++                [] -> false
++            end.
++
++        retained(Value, Retained) ->
++            case fetch(Value) of
++                [[_Line, {_, _, Id}, {_, _, _}]] -> {vendor, Id, Retained};
++                [] -> {no_vendor, Retained};
++                Other -> {other, Other, Retained}
++            end.
++
++        fetch(Value) -> effect:read(Value).
++        """;
++
++    internal static Task Run()
++    {
++        CheckProjectionRegisters();
++
++        string wildcards = Source.Replace("_First", "_", StringComparison.Ordinal)
++            .Replace("_Second", "_", StringComparison.Ordinal)
++            .Replace("_Skipped", "_", StringComparison.Ordinal);
++        object actual = Code(CodeGeneration.CompileBeamModule(Source, Fixture));
++        object wildcard = Code(CodeGeneration.CompileBeamModule(wildcards, Fixture));
++        if (!Opcodes(actual, "run").SequenceEqual(Opcodes(wildcard, "run"))
++            || !Opcodes(actual, "nested").SequenceEqual(Opcodes(wildcard, "nested")))
++        {
++            throw new InvalidOperationException(UnexpectedProjection);
++        }
++
++        if (Opcodes(actual, "check").Count(opcode => opcode == ExactEqualTest) < 2
++            || !Opcodes(actual, "saved").Contains(GetTupleElement))
++        {
++            throw new InvalidOperationException(MissingBinding);
++        }
++
++        object disabled = Code(BeamAdjacentNumericResultChecks.Compile(Source.Replace("-export", DisabledSsa, StringComparison.Ordinal), disabled: true));
++        object disabledWildcard = Code(BeamAdjacentNumericResultChecks.Compile(wildcards.Replace("-export", DisabledSsa, StringComparison.Ordinal), disabled: true));
++        if (Opcodes(disabled, "run").SequenceEqual(Opcodes(disabledWildcard, "run")))
++        {
++            throw new InvalidOperationException(MissingBinding);
++        }
++
++        return Task.CompletedTask;
++    }
++
++    private static void CheckProjectionRegisters()
++    {
++        const string projectionFixture = "beam_post_call_return_projection_probe.erl";
++        object code = Code(CodeGeneration.CompileBeamModule(ProjectionSource, projectionFixture));
++        if (FrameWidth(code, "get") != 0 || FrameWidth(code, "retained") == 0)
++        {
++            throw new InvalidOperationException(ProjectionFrame);
++        }
++    }
++
++    private static int FrameWidth(object code, string name)
++    {
++        object allocation = FunctionBody(code, name).Single(instruction => Opcode(instruction) is Allocate or AllocateHeap);
++
++        return (int)(BigInteger)Property(Items(allocation, "Operands").First(), "Value");
++    }
++
++    private static byte[] Opcodes(object code, string name) => FunctionBody(code, name).Select(Opcode).ToArray();
++
++    private static IEnumerable<object> FunctionBody(object code, string name)
++    {
++        object[] instructions = Items(code, "Instructions").ToArray();
++        var atoms = Items(Property(code, "Structure"), "Atoms").Cast<string?>().ToArray();
++        int start = Array.FindIndex(
++            instructions,
++            instruction => Opcode(instruction) == FunctionInfo
++            && atoms[(int)(BigInteger)Property(Items(instruction, "Operands").ElementAt(1), "Value")] == name
++        );
++        Require(start >= 0);
++
++        return instructions.Skip(start + 2).TakeWhile(instruction => Opcode(instruction) != FunctionInfo);
++    }
++
++    private static byte Opcode(object instruction) =>
++        (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static IEnumerable<object> Items(object container, string name) =>
++        ((IEnumerable)Property(container, name)).Cast<object>();
++}

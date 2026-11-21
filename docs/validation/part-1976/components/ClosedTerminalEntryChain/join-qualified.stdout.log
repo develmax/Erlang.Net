@@ -1,0 +1,111 @@
+ingress {reorder,call_only} 1 1 [{"snmp_conf.beam",{check_sec_model,1}}]
+ingress {reorder,direct} 39 13 [{"diameter_peer_fsm.beam",{cause,1}},{"diameter_peer_fsm.beam",{rejected,1}},{"global_search.beam",{start,2}},{"megaco_compact_text_encoder_v1.beam",{enc_tid_sub_component,2}},{"megaco_compact_text_encoder_v2.beam",{enc_tid_sub_component,2}},{"megaco_compact_text_encoder_v3.beam",{enc_tid_sub_component,2}},{"megaco_per_media_gateway_control_v1.beam",{'-enc_ModemDescriptor_mtl/1-fun-2-',1}}]
+ingress {reorder,get_list} 5 5 [{"compile.beam",{ignore_tags,2}},{"edoc_lib.beam",{split_at_space,2}},{"mod_esi.beam",{input_type,1}},{"file_io_server.beam",{expand_encoding,1}},{"group.beam",{expand_encoding,1}}]
+ingress {reorder,get_tuple_element} 3 3 [{"dialyzer_incremental.beam",{report_incremental_analysis_needed,2}},{"megaco_per_media_gateway_control_v3.beam",{enc_SelectLogic,1}},{"tftp_file.beam",{file_options,1}}]
+ingress {reorder,{test,is_tagged_tuple}} 1 1 [{"etop.beam",{getopt,2}}]
+ingress {share_closed,direct} 4 4 [{"test_server.beam",{format,2}},{"test_server_ctrl.beam",{format,2}},{"diameter_gen_acct_rfc6733.beam",{avp,4}},{"diameter_gen_base_accounting.beam",{avp,4}}]
+ingress {share_closed,get_list} 1 1 [{"snmp_misc.beam",{check_tag_list,3}}]
+ingress {share_return,direct} 13 7 [{"httpc.beam",{'-request_options_defaults/0-fun-1-',1}},{"megaco_binary_transformer_v1.beam",{tr_ContextID,2}},{"megaco_binary_transformer_v1.beam",{tr_term_id_component,2}},{"megaco_binary_transformer_v2.beam",{tr_ContextID,2}},{"megaco_binary_transformer_v2.beam",{tr_term_id_component,2}},{"megaco_binary_transformer_v3.beam",{tr_ContextID,2}},{"megaco_binary_transformer_v3.beam",{tr_opt_SignalDirection,2}}]
+ingress {share_return,get_list} 1 1 [{"ftp_internal.beam",{is_name_sane,1}}]
+ingress {share_return,get_tuple_element} 1 1 [{"dialyzer_dataflow.beam",{warn_type,1}}]
+sourcekind {reorder,[]} 2 2 [{"edoc_lib.beam",{split_at_space,2}},{"mod_esi.beam",{input_type,1}}]
+sourcekind {reorder,[{function_head,flat,none}]} 11 9 [{"diameter_peer_fsm.beam",{cause,1}},{"diameter_peer_fsm.beam",{rejected,1}},{"megaco_compact_text_encoder_v1.beam",{enc_tid_sub_component,2}},{"megaco_compact_text_encoder_v2.beam",{enc_tid_sub_component,2}},{"megaco_compact_text_encoder_v3.beam",{enc_tid_sub_component,2}},{"megaco_pretty_text_encoder_v1.beam",{enc_tid_sub_component,2}},{"megaco_pretty_text_encoder_v2.beam",{enc_tid_sub_component,2}}]
+sourcekind {reorder,[{function_head,struct,none}]} 3 3 [{"compile.beam",{ignore_tags,2}},{"file_io_server.beam",{expand_encoding,1}},{"group.beam",{expand_encoding,1}}]
+sourcekind {reorder,[{source_case,flat,record_field}]} 1 1 [{"tftp_file.beam",{file_options,1}}]
+sourcekind {reorder,[{source_case,flat,var}]} 3 3 [{"dialyzer_incremental.beam",{report_incremental_analysis_needed,2}},{"global_search.beam",{start,2}},{"etop.beam",{getopt,2}}]
+sourcekind {reorder,[{source_if,guard,none}]} 29 3 [{"megaco_per_media_gateway_control_v1.beam",{'-enc_ModemDescriptor_mtl/1-fun-2-',1}},{"megaco_per_media_gateway_control_v1.beam",{enc_EventBufferControl,1}},{"megaco_per_media_gateway_control_v1.beam",{enc_ModemType,1}},{"megaco_per_media_gateway_control_v1.beam",{enc_MuxType,1}},{"megaco_per_media_gateway_control_v1.beam",{enc_Relation,1}},{"megaco_per_media_gateway_control_v1.beam",{enc_ServiceChangeMethod,1}},{"megaco_per_media_gateway_control_v1.beam",{enc_ServiceState,1}}]
+sourcekind {share_closed,[{function_head,flat,none}]} 4 4 [{"test_server.beam",{format,2}},{"test_server_ctrl.beam",{format,2}},{"diameter_gen_acct_rfc6733.beam",{avp,4}},{"diameter_gen_base_accounting.beam",{avp,4}}]
+sourcekind {share_closed,[{function_head,struct,none}]} 1 1 [{"snmp_misc.beam",{check_tag_list,3}}]
+sourcekind {share_return,[]} 5 3 [{"ftp_internal.beam",{is_name_sane,1}},{"megaco_binary_transformer_v3.beam",{tr_opt_SignalDirection,2}},{"megaco_binary_transformer_v3.beam",{tr_opt_SignalType,2}},{"erl_lint.beam",{control_type,2}},{"erl_lint.beam",{is_modifier,2}}]
+sourcekind {share_return,[{function_head,flat,none}]} 1 1 [{"erl_stdlib_errors.beam",{must_be_map_iterator_order,1}}]
+sourcekind {share_return,[{source_case,flat,var}]} 7 4 [{"dialyzer_dataflow.beam",{warn_type,1}},{"megaco_binary_transformer_v1.beam",{tr_ContextID,2}},{"megaco_binary_transformer_v1.beam",{tr_term_id_component,2}},{"megaco_binary_transformer_v2.beam",{tr_ContextID,2}},{"megaco_binary_transformer_v2.beam",{tr_term_id_component,2}},{"megaco_binary_transformer_v3.beam",{tr_ContextID,2}},{"megaco_binary_transformer_v3.beam",{tr_term_id_component,2}}]
+sourcekind {share_return,[{source_fun,flat,none}]} 2 2 [{"httpc.beam",{'-request_options_defaults/0-fun-1-',1}},{"uri_string.beam",{'-all_fields_valid/1-fun-0-',3}}]
+boundary {reorder,call_only,x,test_heap} 1 1 [{"snmp_conf.beam",{check_sec_model,1}}]
+boundary {reorder,direct,x,allocate} 1 1 [{"json.beam",{encode_atom,2}}]
+boundary {reorder,direct,x,line} 1 1 [{"global_search.beam",{start,2}}]
+boundary {reorder,direct,x,test_heap} 29 4 [{"megaco_per_media_gateway_control_v1.beam",{'-enc_ModemDescriptor_mtl/1-fun-2-',1}},{"megaco_per_media_gateway_control_v1.beam",{enc_EventBufferControl,1}},{"megaco_per_media_gateway_control_v1.beam",{enc_ModemType,1}},{"megaco_per_media_gateway_control_v1.beam",{enc_MuxType,1}},{"megaco_per_media_gateway_control_v1.beam",{enc_Relation,1}},{"megaco_per_media_gateway_control_v1.beam",{enc_ServiceChangeMethod,1}},{"megaco_per_media_gateway_control_v1.beam",{enc_ServiceState,1}}]
+boundary {reorder,direct,x,{test,is_integer}} 7 7 [{"diameter_peer_fsm.beam",{rejected,1}},{"megaco_compact_text_encoder_v1.beam",{enc_tid_sub_component,2}},{"megaco_compact_text_encoder_v2.beam",{enc_tid_sub_component,2}},{"megaco_compact_text_encoder_v3.beam",{enc_tid_sub_component,2}},{"megaco_pretty_text_encoder_v1.beam",{enc_tid_sub_component,2}},{"megaco_pretty_text_encoder_v2.beam",{enc_tid_sub_component,2}},{"megaco_pretty_text_encoder_v3.beam",{enc_tid_sub_component,2}}]
+boundary {reorder,direct,x,{test,is_ne}} 1 1 [{"diameter_peer_fsm.beam",{cause,1}}]
+boundary {reorder,get_list,x,allocate} 2 2 [{"file_io_server.beam",{expand_encoding,1}},{"group.beam",{expand_encoding,1}}]
+boundary {reorder,get_list,x,call_only} 2 2 [{"compile.beam",{ignore_tags,2}},{"mod_esi.beam",{input_type,1}}]
+boundary {reorder,get_list,x,test_heap} 1 1 [{"edoc_lib.beam",{split_at_space,2}}]
+boundary {reorder,get_tuple_element,x,line} 3 3 [{"dialyzer_incremental.beam",{report_incremental_analysis_needed,2}},{"megaco_per_media_gateway_control_v3.beam",{enc_SelectLogic,1}},{"tftp_file.beam",{file_options,1}}]
+boundary {reorder,{test,is_tagged_tuple},x,line} 1 1 [{"etop.beam",{getopt,2}}]
+boundary {share_closed,direct,x,move} 2 2 [{"diameter_gen_acct_rfc6733.beam",{avp,4}},{"diameter_gen_base_accounting.beam",{avp,4}}]
+boundary {share_closed,direct,x,{test,is_integer}} 2 2 [{"test_server.beam",{format,2}},{"test_server_ctrl.beam",{format,2}}]
+boundary {share_closed,get_list,x,test_heap} 1 1 [{"snmp_misc.beam",{check_tag_list,3}}]
+boundary {share_return,direct,x,line} 2 1 [{"megaco_binary_transformer_v3.beam",{tr_opt_SignalDirection,2}},{"megaco_binary_transformer_v3.beam",{tr_opt_SignalType,2}}]
+boundary {share_return,direct,x,move} 4 3 [{"httpc.beam",{'-request_options_defaults/0-fun-1-',1}},{"erl_lint.beam",{control_type,2}},{"erl_lint.beam",{is_modifier,2}},{"uri_string.beam",{'-all_fields_valid/1-fun-0-',3}}]
+boundary {share_return,direct,x,{test,is_function2}} 1 1 [{"erl_stdlib_errors.beam",{must_be_map_iterator_order,1}}]
+boundary {share_return,direct,x,{test,is_integer}} 6 3 [{"megaco_binary_transformer_v1.beam",{tr_ContextID,2}},{"megaco_binary_transformer_v1.beam",{tr_term_id_component,2}},{"megaco_binary_transformer_v2.beam",{tr_ContextID,2}},{"megaco_binary_transformer_v2.beam",{tr_term_id_component,2}},{"megaco_binary_transformer_v3.beam",{tr_ContextID,2}},{"megaco_binary_transformer_v3.beam",{tr_term_id_component,2}}]
+boundary {share_return,get_list,x,call_only} 1 1 [{"ftp_internal.beam",{is_name_sane,1}}]
+boundary {share_return,get_tuple_element,x,line} 1 1 [{"dialyzer_dataflow.beam",{warn_type,1}}]
+qualified {"lib/common_test-1.31.2/ebin/test_server.beam",{format,2},share_closed,direct,{x,0},{test,is_integer},[{function_head,flat,none}],[],0}.
+qualified {"lib/common_test-1.31.2/ebin/test_server_ctrl.beam",{format,2},share_closed,direct,{x,0},{test,is_integer},[{function_head,flat,none}],[],0}.
+qualified {"lib/compiler-10.0.6/ebin/compile.beam",{ignore_tags,2},reorder,get_list,{x,2},call_only,[{function_head,struct,none}],[],3}.
+qualified {"lib/dialyzer-6.0.3/ebin/dialyzer_dataflow.beam",{warn_type,1},share_return,get_tuple_element,{x,0},line,[{source_case,flat,var}],[],0}.
+qualified {"lib/dialyzer-6.0.3/ebin/dialyzer_incremental.beam",{report_incremental_analysis_needed,2},reorder,get_tuple_element,{x,0},line,[{source_case,flat,var}],[],0}.
+qualified {"lib/diameter-2.7.2/ebin/diameter_gen_acct_rfc6733.beam",{avp,4},share_closed,direct,{x,2},move,[{function_head,flat,none}],[],0}.
+qualified {"lib/diameter-2.7.2/ebin/diameter_gen_base_accounting.beam",{avp,4},share_closed,direct,{x,2},move,[{function_head,flat,none}],[],0}.
+qualified {"lib/diameter-2.7.2/ebin/diameter_peer_fsm.beam",{cause,1},reorder,direct,{x,0},{test,is_ne},[{function_head,flat,none}],[],0}.
+qualified {"lib/diameter-2.7.2/ebin/diameter_peer_fsm.beam",{rejected,1},reorder,direct,{x,0},{test,is_integer},[{function_head,flat,none}],[],0}.
+qualified {"lib/edoc-1.5/ebin/edoc_lib.beam",{split_at_space,2},reorder,get_list,{x,2},test_heap,[],[],3}.
+qualified {"lib/ftp-1.2.6/ebin/ftp_internal.beam",{is_name_sane,1},share_return,get_list,{x,1},call_only,[],[],0}.
+qualified {"lib/inets-9.8/ebin/httpc.beam",{'-request_options_defaults/0-fun-1-',1},share_return,direct,{x,0},move,[{source_fun,flat,none}],[],0}.
+qualified {"lib/inets-9.8/ebin/mod_esi.beam",{input_type,1},reorder,get_list,{x,1},call_only,[],[],0}.
+qualified {"lib/kernel-11.0.4/ebin/file_io_server.beam",{expand_encoding,1},reorder,get_list,{x,1},allocate,[{function_head,struct,none}],[],2}.
+qualified {"lib/kernel-11.0.4/ebin/global_search.beam",{start,2},reorder,direct,{x,0},line,[{source_case,flat,var}],[],0}.
+qualified {"lib/kernel-11.0.4/ebin/group.beam",{expand_encoding,1},reorder,get_list,{x,1},allocate,[{function_head,struct,none}],[],2}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_binary_transformer_v1.beam",{tr_ContextID,2},share_return,direct,{x,0},{test,is_integer},[{source_case,flat,var}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_binary_transformer_v1.beam",{tr_term_id_component,2},share_return,direct,{x,0},{test,is_integer},[{source_case,flat,var}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_binary_transformer_v2.beam",{tr_ContextID,2},share_return,direct,{x,0},{test,is_integer},[{source_case,flat,var}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_binary_transformer_v2.beam",{tr_term_id_component,2},share_return,direct,{x,0},{test,is_integer},[{source_case,flat,var}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_binary_transformer_v3.beam",{tr_ContextID,2},share_return,direct,{x,0},{test,is_integer},[{source_case,flat,var}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_binary_transformer_v3.beam",{tr_opt_SignalDirection,2},share_return,direct,{x,0},line,[],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_binary_transformer_v3.beam",{tr_opt_SignalType,2},share_return,direct,{x,0},line,[],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_binary_transformer_v3.beam",{tr_term_id_component,2},share_return,direct,{x,0},{test,is_integer},[{source_case,flat,var}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_compact_text_encoder_v1.beam",{enc_tid_sub_component,2},reorder,direct,{x,0},{test,is_integer},[{function_head,flat,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_compact_text_encoder_v2.beam",{enc_tid_sub_component,2},reorder,direct,{x,0},{test,is_integer},[{function_head,flat,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_compact_text_encoder_v3.beam",{enc_tid_sub_component,2},reorder,direct,{x,0},{test,is_integer},[{function_head,flat,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v1.beam",{'-enc_ModemDescriptor_mtl/1-fun-2-',1},reorder,direct,{x,0},test_heap,[{source_if,guard,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v1.beam",{enc_EventBufferControl,1},reorder,direct,{x,0},test_heap,[{source_if,guard,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v1.beam",{enc_ModemType,1},reorder,direct,{x,0},test_heap,[{source_if,guard,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v1.beam",{enc_MuxType,1},reorder,direct,{x,0},test_heap,[{source_if,guard,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v1.beam",{enc_Relation,1},reorder,direct,{x,0},test_heap,[{source_if,guard,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v1.beam",{enc_ServiceChangeMethod,1},reorder,direct,{x,0},test_heap,[{source_if,guard,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v1.beam",{enc_ServiceState,1},reorder,direct,{x,0},test_heap,[{source_if,guard,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v1.beam",{enc_SignalType,1},reorder,direct,{x,0},test_heap,[{source_if,guard,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v1.beam",{enc_StreamMode,1},reorder,direct,{x,0},test_heap,[{source_if,guard,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v2.beam",{'-enc_ModemDescriptor_mtl/1-fun-2-',1},reorder,direct,{x,0},test_heap,[{source_if,guard,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v2.beam",{enc_EventBufferControl,1},reorder,direct,{x,0},test_heap,[{source_if,guard,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v2.beam",{enc_ModemType,1},reorder,direct,{x,0},test_heap,[{source_if,guard,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v2.beam",{enc_MuxType,1},reorder,direct,{x,0},test_heap,[{source_if,guard,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v2.beam",{enc_Relation,1},reorder,direct,{x,0},test_heap,[{source_if,guard,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v2.beam",{enc_ServiceChangeMethod,1},reorder,direct,{x,0},test_heap,[{source_if,guard,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v2.beam",{enc_ServiceState,1},reorder,direct,{x,0},test_heap,[{source_if,guard,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v2.beam",{enc_SignalType,1},reorder,direct,{x,0},test_heap,[{source_if,guard,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v2.beam",{enc_StreamMode,1},reorder,direct,{x,0},test_heap,[{source_if,guard,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v3.beam",{'-enc_ModemDescriptor_mtl/1-fun-2-',1},reorder,direct,{x,0},test_heap,[{source_if,guard,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v3.beam",{enc_EventBufferControl,1},reorder,direct,{x,0},test_heap,[{source_if,guard,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v3.beam",{enc_ModemType,1},reorder,direct,{x,0},test_heap,[{source_if,guard,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v3.beam",{enc_MuxType,1},reorder,direct,{x,0},test_heap,[{source_if,guard,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v3.beam",{enc_Relation,1},reorder,direct,{x,0},test_heap,[{source_if,guard,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v3.beam",{enc_SelectLogic,1},reorder,get_tuple_element,{x,0},line,[{source_if,guard,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v3.beam",{enc_ServiceChangeMethod,1},reorder,direct,{x,0},test_heap,[{source_if,guard,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v3.beam",{enc_ServiceState,1},reorder,direct,{x,0},test_heap,[{source_if,guard,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v3.beam",{enc_SignalDirection,1},reorder,direct,{x,0},test_heap,[{source_if,guard,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v3.beam",{enc_SignalType,1},reorder,direct,{x,0},test_heap,[{source_if,guard,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v3.beam",{enc_StreamMode,1},reorder,direct,{x,0},test_heap,[{source_if,guard,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_pretty_text_encoder_v1.beam",{enc_tid_sub_component,2},reorder,direct,{x,0},{test,is_integer},[{function_head,flat,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_pretty_text_encoder_v2.beam",{enc_tid_sub_component,2},reorder,direct,{x,0},{test,is_integer},[{function_head,flat,none}],[],0}.
+qualified {"lib/megaco-4.9.2/ebin/megaco_pretty_text_encoder_v3.beam",{enc_tid_sub_component,2},reorder,direct,{x,0},{test,is_integer},[{function_head,flat,none}],[],0}.
+qualified {"lib/observer-2.19/ebin/etop.beam",{getopt,2},reorder,{test,is_tagged_tuple},{x,0},line,[{source_case,flat,var}],[],0}.
+qualified {"lib/snmp-5.20.5/ebin/snmp_conf.beam",{check_sec_model,1},reorder,call_only,{x,0},test_heap,[{function_head,flat,none}],[],0}.
+qualified {"lib/snmp-5.20.5/ebin/snmp_conf.beam",{mk_tdomain,1},reorder,direct,{x,0},test_heap,[{function_head,flat,none}],[],0}.
+qualified {"lib/snmp-5.20.5/ebin/snmp_misc.beam",{check_tag_list,3},share_closed,get_list,{x,3},test_heap,[{function_head,struct,none}],[],0}.
+qualified {"lib/stdlib-8.1/ebin/erl_lint.beam",{control_type,2},share_return,direct,{x,0},move,[],[],0}.
+qualified {"lib/stdlib-8.1/ebin/erl_lint.beam",{is_modifier,2},share_return,direct,{x,0},move,[],[],0}.
+qualified {"lib/stdlib-8.1/ebin/erl_stdlib_errors.beam",{must_be_map_iterator_order,1},share_return,direct,{x,0},{test,is_function2},[{function_head,flat,none}],[],0}.
+qualified {"lib/stdlib-8.1/ebin/json.beam",{encode_atom,2},reorder,direct,{x,0},allocate,[{function_head,flat,none}],[],0}.
+qualified {"lib/stdlib-8.1/ebin/uri_string.beam",{'-all_fields_valid/1-fun-0-',3},share_return,direct,{x,0},move,[{source_fun,flat,none}],[],0}.
+qualified {"lib/tftp-1.3/ebin/tftp_file.beam",{file_options,1},reorder,get_tuple_element,{x,0},line,[{source_case,flat,record_field}],[],0}.

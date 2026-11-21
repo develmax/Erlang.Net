@@ -1,0 +1,32 @@
+{
+  "Previous": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/case-edge-copies-and-owned-frame-order-1973-linked-closure-ordered-test-access-retake",
+  "Corrections": [
+    "The fast register tuple case arm now writes the owned result before the common branch jump.",
+    "The checked-root fixture asserts descending ownership and initialization for the emitted frame width. Exact synthetic two-slot cases remain."
+  ],
+  "PatchHashes": {
+    "register-arm-edge-copy.patch": "ee126c77fa93e1498b8bc0c4062cf0117492c4ef4b7785f2fdafe410a5c0f3ce",
+    "width-relative-checked-root-test.patch": "babf6f283fa9bf9fa4a8dfcd3c78fb377bd2cd22551805b652510aeb2a014fc2"
+  },
+  "Raw": {
+    "initial-edge-layout-failure/compiler-build.log": "d1d94fdb9eb12b76d0fe7af345b9131540c67b285e1357152df736ba24c0d08a",
+    "initial-edge-layout-failure/durable.exit": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "initial-edge-layout-failure/durable.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "initial-edge-layout-failure/finalize-receipts-driver.background.stderr.log": "af1125834d5384f5f351e3028de235ab1debf25496763a861a6121c87aeb0dfb",
+    "initial-edge-layout-failure/focused-fast.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "initial-edge-layout-failure/focused-fast.stderr.log": "4bb252e497d3630e6d7e5f5abf91f176016afe3eb536602f3bf4b1bbd87d2791",
+    "initial-edge-layout-failure/focused-identity.json": "d5bb67147721c12482befb64ce71b4f8bfebc624068ba3c64f23de47dc3aeb9a",
+    "initial-edge-layout-failure/linked-scope.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "initial-edge-layout-failure/runtime-reuse-receipt.json": "cd0a50001dca9e13c3463c6cae3df2533cc18cc346eb7572a801264a22ad8cae",
+    "initial-edge-layout-failure/source-identities.json": "413993926f309787d2c7610f6a0b41b80b5367b3993e14cc3e3e93de7767b819",
+    "initial-edge-layout-failure/strict-preflight.json": "c973e12e22e51a4db036f8cb867958e4730e077417c175869dd20def7048baac",
+    "initial-edge-layout-failure/tests-build.log": "4a1aa500c1db0b3206f78a9791dd3a7fbdb9555a984d0e367d3f5a146c357664",
+    "initial-edge-layout-failure/fast-splits/failure-receipt.json": "d3afc855f0e60d9e65511a8d5cb2175a9dfa6c6e4cc88861b1caf240a1ff1fd2",
+    "initial-edge-layout-failure/fast-splits/lane-0.json": "393ec2575438fbf02c6cae196c7cacd7994064730458eedb0870210216e349fd",
+    "initial-edge-layout-failure/fast-splits/lane-0.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "initial-edge-layout-failure/fast-splits/lane-0.stdout.log": "494cd76b179148a722e5382de2634a7bc040e53ce8801816c70d33675c50d7ec",
+    "initial-edge-layout-failure/fast-splits/lane-1.json": "6e8029b642b1633f07089ce2d2b2a6d2ac15ddcba90b296be34873579d718aff",
+    "initial-edge-layout-failure/fast-splits/lane-1.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "initial-edge-layout-failure/fast-splits/lane-1.stdout.log": "811ab48c4a0e7672cb58f2928dffcdb5f9dcc0ea670a68be675d825ef04ad5f3"
+  }
+}

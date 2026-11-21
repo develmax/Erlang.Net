@@ -1,0 +1,25 @@
+{
+  "baseline": {
+    "release": "OTP-29.1.1",
+    "commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "compilerAssembly": "048299c0e2953b3998f9f62a3982e9b37f67c0c5bbb39545c9e370699c956001",
+    "inputCorpus": 1366,
+    "abstractSources": 1366
+  },
+  "positive": [
+    {"image":"lib/common_test-1.31.2/ebin/unix_telnet.beam","function":"connect1/8","effectLine":174,"referenceFrame":8,"candidateFrame":8,"referenceResultY":7,"candidateResultY":7,"currentStatus":"Different"},
+    {"image":"lib/mnesia-4.27/ebin/mnesia_schema.beam","function":"read_schema/2","effectLine":535,"referenceFrame":2,"candidateFrame":2,"referenceResultY":1,"candidateResultY":1,"currentStatus":"Different"},
+    {"image":"lib/snmp-5.20.5/ebin/snmpa_target_cache.beam","function":"get_targets/2","effectLine":133,"referenceFrame":2,"candidateFrame":4,"referenceResultY":1,"candidateResultY":2,"currentStatus":"Different"}
+  ],
+  "sameModuleFunctionControls": ["unix_telnet:connect/7","unix_telnet:get_prompt_regexp/0","unix_telnet:get_username_and_password/1","unix_telnet:module_info/0","unix_telnet:module_info/1"],
+  "fixtureControls": [
+    {"function":"owned_simple/1","expected":"two incoming writes to y0, frame width one, one effect"},
+    {"function":"owned_nested/1","expected":"one effect after any successful leaf; retain width one in candidate scope"},
+    {"function":"observed_join/1","expected":"retain old one incoming result visibility at join"},
+    {"function":"evaluate_after/1","expected":"return transforms the case value after the effect"},
+    {"function":"catch_sink/1","expected":"retain result across the handler and one effect"},
+    {"function":"failing_case/1","expected":"case_clause at line 66 with no effect"},
+    {"function":"failing_arm/1","expected":"rejected at line 76 with no effect"}
+  ],
+  "completed": {"pinnedAndFrozenBehavioralScenariosEach":14,"pinnedMatchesSimpleStructure":true,"frozenReproducesSimpleStructuralFailure":true,"sourceDraftReplayed":true,"sdkBuild":false,"newCompilerProduced":false}
+}

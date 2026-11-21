@@ -1,0 +1,24 @@
+Module=beam_owned_record_slots_probe,
+Good={sock,id,previous},
+Run=fun(Path)->
+    code:purge(Module),code:delete(Module),code:purge(Module),
+    {ok,Beam}=file:read_file(Path),{module,Module}=code:load_binary(Module,Path,Beam),
+    Specs=[{preserve,[Good,destination,input],{ok,socket}},
+           {reordered,[input,Good,destination,extra],{ok,socket}},
+           {preserve,[wrong,destination,input],{ok,socket}},
+           {reordered,[input,wrong,destination,extra],{ok,socket}},
+           {preserve,[Good,destination,input],{error,missing}},
+           {reordered,[input,Good,destination,extra],{error,missing}}],
+    [begin
+       erase(),Module:seed(input,Input),Module:seed(destination,{ok,message}),Module:seed(socket,ok),
+       Result=try erlang:apply(Module,Function,Args) of Value->{ok,Value}
+              catch Class:Reason:Stack->
+                  {Class,Reason,[{F,A,proplists:get_value(line,Info)}||{M,F,A,Info}<-Stack,M=:=Module]}
+              end,
+       {Function,Result,get(destination),get(socket)}
+     end||{Function,Args,Input}<-Specs]
+end,
+[Pinned,Before|Candidates]=init:get_plain_arguments(),
+R=Run(Pinned),R=Run(Before),
+[R=Run(Candidate)||Candidate<-Candidates],6=length(R),
+io:format("~0p.~n",[R]),halt().

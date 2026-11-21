@@ -1,0 +1,25 @@
+# Checked entry frame source drafts
+
+The source proof, physical derivation and actual opcode receipts are in [REPORT.md](REPORT.md). This proposal has two separately enabled transformations and one shared recognition helper.
+
+| Patch | Purpose |
+| --- | --- |
+| [entry-proof.patch](entry-proof.patch) | Establish the checked record carrier, reachability, two-call schedule and single frame. |
+| [owned-root-order.patch](owned-root-order.patch) | Reuse the descending first-definition map and rewrite only owned Y operands and their initialization lists. |
+| [delayed-result-copy.patch](delayed-result-copy.patch) | Delay saving X0 across a proven total record projection at classic unary and binary ordinary calls. |
+
+Apply the helper and either transform in an isolated source checkout, or apply all three. Each transform has a separate EmitCode hook. In a combined build the slot rule runs first, while the original projection schedule can still prove its shape. The source preimages and SHA-256 digests are in [draft-receipt.json](draft-receipt.json). Strict Git application of all three in one invocation succeeded on the frozen local preimage.
+
+The helper requires a leading tagged X0 test, one reachable allocation and a single unframed rejecting edge. The source of the first carrier spill is the same checked X0. The only effect between that spill and the first call is an optional total fixed-field read and source-line markers. Immediately after the first call, X0 is saved to a different Y slot and a field of the known carrier is projected. The old unary setup writes X0, while the binary setup writes X1 followed by a constant X0 argument. No GC checkpoint, label, slot write or X-clobber can interrupt that matched fragment. Calls keep their original Line bytes. The slot pass further requires linear first definitions from the entry carrier spill and successive ordinary-call X0 spills. The actual renumbering covers only the function's sole frame. The common checker verifies every observed Y operand is owned by that allocation.
+
+The deeper [static census](entry-frame-census-qualified.terms) finds seven current source-compatible opcode prefixes within its bounded two-to-eight-slot, straight-first-definition group across the 1,366 Part 1970 outputs. Beside the two source-proven pairs, it identifies ct_cover:files2mods/1, core_lint:return_status/1, inet_res:update_query_id/1, reltool_server:backup/1 and erl_lint:return_status/1 as scope witnesses. These five need candidate and pinned output comparison because their full prefix contexts did not pair in the broader detector. The count is a diagnostic projection of the proof, since the C# matcher checks CFG ownership and the two-call pass can allow later conditional definitions. Use the fixed [12-module release scope](release-plan.txt) as a short gate. It includes the seven prefix witnesses, mnesia_checkpoint as an independent lifetime control, snmpa_set_lib as a paired shape control and three exact modules. Its rows and byte identities are in [release-plan-identities.tsv](release-plan-identities.tsv).
+
+## Native and structural validation
+
+- The permanent fixture source resides in fixture. [Structural evaluator](fixture/structure.eval) accepts the modes baseline, root, delay and both, recording root order, initialization and opcode schedule independently. Run against the actual C# fixture BEAM, and compare the two focused modes before combining. The pinned BEAM passed mode both.
+- The [native fixture evaluator](fixture/native.eval) takes the candidate fixture BEAM, the pinned provider BEAM and an ETF output path. Pinned OTP passed seven outcomes covering unary and binary projection, returned errors, first and next call failures, rejection before either call, observable tracing and source lines.
+- Run [mnesia-native.eval](mnesia-native.eval) with the actual module BEAM, a unique writable temporary file base and an ETF output. It checks log closure, temporary removal, duplicate abort and badrecord. Reference and actual Part 1971 ETF SHA-256 both equal 72be6232c1c6015b3eb8762249e0244ca0ebbd13a7266b75b642925d72d420f3.
+- Run [beam-doc-native.eval](beam-doc-native.eval) with the actual module BEAM and an ETF output path. It verifies the extra temporary export preserves Code, then runs warning creation, two kinds of suppression, badmap and badrecord. Reference and actual Part 1970 ETF SHA-256 both equal 4cfd2bf59dae343ea93dc3b8f45858cfd129d2d764543d429cec496f40d437d5.
+- After candidate builds, compare exact outputs and normalized function bodies separately. Inspect numbers and distinct live Y carriers first, then the projected second argument and saved X0 order. Keep phase-independent post-call branch layouts out of the acceptance claim for this package. Run old and new provider cases on the candidate image, especially early rejection, first-call failure and next-call failure. Use existing module and harness gates before integration.
+
+The supplied evidence covers pinned and unchanged release images. C# compilation, red/green production evidence, candidate native outcomes and whole-file parity changes await an isolated SDK lane.

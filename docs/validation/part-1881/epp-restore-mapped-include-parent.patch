@@ -1,0 +1,359 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamReleaseMetadataWriter.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamReleaseMetadataWriter.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamReleaseMetadataWriter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamReleaseMetadataWriter.cs
+@@ -89,11 +89,11 @@
+                 var transition = fileTransitions[transitionIndex++];
+                 if (transition.Directive is { } directive)
+                 {
+-                    Term generated = Term.List(
+-                        Term.Tuple(Term.A("generated"), Term.A("true")),
+-                        Term.Tuple(Term.A("location"), BeamDocumentationWriter.Annotation(directive, source))
+-                    );
+-                    annotations.Add(Attribute(generated, "file", Term.Tuple(Term.String(transition.File!), Term.I(transition.Line))));
++                    annotations.Add(GeneratedFileForm(
++                        transition.File!,
++                        transition.Line,
++                        BeamDocumentationWriter.Annotation(directive, source)
++                    ));
+                     continue;
+                 }
+                 string file = transition.File is null
+@@ -103,6 +103,17 @@
+                         ?? transition.RecordedIncludePath
+                         ?? (mainFile[..directoryEnd] + transition.File);
+                 annotations.Add(FileForm(file, transition.Line, transition.Column));
++                if (transition.ParentMapping is { } mapping && mapping.File != (mapping.UnformattedParent ?? file))
++                {
++                    string mappedFile = profile.RecordedCompileOptions?.Contains(Term.A("deterministic")) == true
++                        ? Path.GetFileName(mapping.File)
++                        : mapping.File;
++                    annotations.Add(GeneratedFileForm(
++                        mappedFile,
++                        checked(transition.Line + mapping.LineOffset),
++                        Term.Tuple(Term.I(transition.Line), Term.I(transition.Column))
++                    ));
++                }
+             }
+         }
+         var attributes = new List<ModuleAttribute>();
+@@ -321,6 +332,16 @@
+             value
+         );
+ 
++    private static Term GeneratedFileForm(string file, int line, Term location) =>
++        Attribute(
++            Term.List(
++                Term.Tuple(Term.A("generated"), Term.A("true")),
++                Term.Tuple(Term.A("location"), location)
++            ),
++            "file",
++            Term.Tuple(Term.String(file), Term.I(line))
++        );
++
+     private static Term FileForm(string file, int line, int column = 1) =>
+         Attribute(Term.Tuple(Term.I(line), Term.I(column)), "file", Term.Tuple(Term.String(file), Term.I(line)));
+ 
+diff --git a/src/Compiler/Erlang.Compiler/Syntax/BeamFileTransition.cs b/src/Compiler/Erlang.Compiler/Syntax/BeamFileTransition.cs
+--- a/src/Compiler/Erlang.Compiler/Syntax/BeamFileTransition.cs
++++ b/src/Compiler/Erlang.Compiler/Syntax/BeamFileTransition.cs
+@@ -7,5 +7,9 @@
+     Token? Directive = null,
+     int Column = 1,
+     string? IncludeRequest = null,
+-    string? RecordedIncludePath = null
+-);
++    string? RecordedIncludePath = null,
++    BeamFileTransition.MappedParent? ParentMapping = null
++)
++{
++    internal sealed record MappedParent(string File, int LineOffset, string? UnformattedParent);
++}
+diff --git a/src/Compiler/Erlang.Compiler/Syntax/BeamMacroPreprocessor.cs b/src/Compiler/Erlang.Compiler/Syntax/BeamMacroPreprocessor.cs
+--- a/src/Compiler/Erlang.Compiler/Syntax/BeamMacroPreprocessor.cs
++++ b/src/Compiler/Erlang.Compiler/Syntax/BeamMacroPreprocessor.cs
+@@ -90,12 +90,18 @@
+         return output;
+     }
+ 
+-    private readonly record struct IncludeProvenance(string? LibraryRequest, string? RecordedPath);
++    private readonly record struct IncludeProvenance(
++        string? LibraryRequest,
++        string? RecordedPath,
++        string? MappedFile = null,
++        int LineOffset = 0
++    );
+ 
+     private void ProcessDocument(List<Token> tokens, string? currentPath, IncludeProvenance provenance = default)
+     {
+         int conditionDepth = conditions.Count;
+         string? mappedFile = null;
++        string? declaredFile = null;
+         int lineOffset = 0;
+         int columnResetLine = 0;
+         int columnStart = 0;
+@@ -158,8 +164,8 @@
+                     terminator,
+                     currentPath,
+                     tokens[^1].Start,
+-                    mapped ? default : provenance,
+-                    provenance.RecordedPath
++                    tokens[start].PreprocessorFile,
++                    provenance with { MappedFile = declaredFile, LineOffset = lineOffset }
+                 );
+             }
+             else if (TryReadExternalDocumentation(
+@@ -208,6 +214,7 @@
+                     string? mainFile = sourcePath is null ? null
+                         : deterministicFileNames ? Path.GetFileName(sourcePath) : sourcePath;
+                     mappedFile = file == mainFile ? null : file;
++                    declaredFile = file;
+                     lineOffset = line - tokens[start + 1].PreprocessorLine;
+                     columnResetLine = tokens[end].PreprocessorLine;
+                     // The scanner consumes the separator after the dot before resetting the column.
+@@ -422,8 +429,8 @@
+         Token terminator,
+         string? currentPath,
+         int documentEnd,
+-        IncludeProvenance parent,
+-        string? recordedParentPath
++        string? physicalParent,
++        IncludeProvenance parent
+     )
+     {
+         string directive = form[1].Text;
+@@ -448,7 +455,7 @@
+             ? null
+             : includes?.ResolveInclude(
+                 currentPath,
+-                recordedParentPath,
++                parent.RecordedPath,
+                 requested,
+                 library
+             );
+@@ -484,7 +491,7 @@
+             ));
+             ProcessDocument(ScanDocument(content, offset, file), resolved, provenance);
+             fileTransitions.Add(IncludeReturnTransition(
+-                form[0].PreprocessorFile,
++                physicalParent,
+                 terminator,
+                 documentEnd,
+                 parent
+@@ -514,46 +521,56 @@
+     {
+         int next = terminator.End;
+         char following = next < documentEnd ? combinedSource[next] : '\0';
++        int line = checked(terminator.PreprocessorLine - provenance.LineOffset);
++        int column = 1;
++
+         // OTP consumes only the first whitespace character after the directive's full stop.
+         if (following == '\n')
+         {
+-            return new(
+-                output.Count,
+-                file,
+-                terminator.PreprocessorLine + 1,
+-                IncludeRequest: provenance.LibraryRequest,
+-                RecordedIncludePath: RecordedPath(provenance)
+-            );
+-        }
+-
+-        int start = terminator.PreprocessorColumnStart ?? terminator.Start;
+-        if (terminator.PreprocessorColumnStart is null)
+-        {
+-            while (start > 0 && combinedSource[start - 1] != '\n')
+-            {
+-                start--;
+-            }
+-        }
+-        int column = 1;
+-        for (int index = start; index < next; index++)
+-        {
+-            if (!char.IsLowSurrogate(combinedSource[index]))
++            line++;
++        }
++        else
++        {
++            int start = terminator.PreprocessorColumnStart ?? terminator.Start;
++            if (terminator.PreprocessorColumnStart is null)
++            {
++                while (start > 0 && combinedSource[start - 1] != '\n')
++                {
++                    start--;
++                }
++            }
++
++            for (int index = start; index < next; index++)
++            {
++                if (!char.IsLowSurrogate(combinedSource[index]))
++                {
++                    column++;
++                }
++            }
++            if (char.IsWhiteSpace(following))
+             {
+                 column++;
+             }
+         }
+-        if (char.IsWhiteSpace(following))
+-        {
+-            column++;
+-        }
++
++        // epp:leave_file/2 restores the physical parent before a differing
++        // source-declared file mapping. Executable tokens keep their mapping.
++        var mapping = provenance.MappedFile is { } mappedFile
++            ? new BeamFileTransition.MappedParent(
++                mappedFile,
++                provenance.LineOffset,
++                includes?.SourceArgument is not null ? provenance.RecordedPath : null
++            )
++            : null;
+ 
+         return new(
+             output.Count,
+             file,
+-            terminator.PreprocessorLine,
++            line,
+             Column: column,
+             IncludeRequest: provenance.LibraryRequest,
+-            RecordedIncludePath: RecordedPath(provenance)
++            RecordedIncludePath: RecordedPath(provenance),
++            ParentMapping: mapping
+         );
+     }
+ 
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamMappedIncludeReturnChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamMappedIncludeReturnChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamMappedIncludeReturnChecks.cs
+@@ -0,0 +1,118 @@
++using Erlang.Compiler;
++using static Erlang.Tests.BeamDocumentationEmissionChecks;
++
++namespace Erlang.Tests;
++
++internal static class BeamMappedIncludeReturnChecks
++{
++    internal const string TestName = "compiler/beam/restore-physical-and-logical-include-parents";
++    private const string SourceFile = "beam_epp_restore.erl";
++
++    internal static Task Run()
++    {
++        var root = Directory.CreateTempSubdirectory("erlang-epp-restore-");
++        try
++        {
++            Verify(root.FullName);
++        }
++        finally
++        {
++            root.Delete(recursive: true);
++        }
++
++        return Task.CompletedTask;
++    }
++
++    private static void Verify(string root)
++    {
++        string source = Path.Combine(root, SourceFile);
++        Write(
++            source,
++            """
++            -module(beam_epp_restore).
++            -export([value/0, trigger/0]).
++            -include("plain.hrl").
++            -file("virtual.yrl", 100).
++            -include("parent.hrl").
++            value() -> {?PLAIN, ?PARENT, ?CHILD, ?LINE}.
++            trigger() -> erlang:error(mapped).
++            -file("beam_epp_restore.erl", 300).
++            -include("same_file.hrl").
++            """
++        );
++        Write(Path.Combine(root, "plain.hrl"), "-define(PLAIN, plain).");
++        Write(
++            Path.Combine(root, "parent.hrl"),
++            """
++            -file("header.yrl", 200).
++            -include("child.hrl").
++            -define(PARENT, parent).
++            """
++        );
++        Write(Path.Combine(root, "child.hrl"), "-define(CHILD, child).");
++        Write(Path.Combine(root, "same_file.hrl"), "% Keep the original physical source filename.");
++
++        var profile = new BeamReleaseBuildProfile(
++            "10.0.6",
++            "/release/src/" + SourceFile,
++            "/release/src",
++            [],
++            []
++        );
++        byte[] beam = CodeGeneration.CompileBeamFile(source, buildProfile: profile);
++        byte[] debug = Chunks(beam).Single(chunk => chunk.Id == "Dbgi").Data;
++        if (ExternalTermFormat.Decode(RawEtf(debug)) is not TupleTerm
++            {
++                Items: [_, _, TupleTerm { Items: [var forms, _] }]
++            })
++        {
++            throw new InvalidOperationException("Invalid debug information for mapped include restoration.");
++        }
++
++        var tuples = Cons.Items(forms).OfType<TupleTerm>().ToArray();
++        var fileForms = tuples.Where(form => form.Items is [Atom { Name: "attribute" }, _, Atom { Name: "file" }, _]);
++        Term[] expected =
++        [
++            File(SourceFile, 1),
++            File("plain.hrl", 1),
++            File(SourceFile, 4),
++            File("virtual.yrl", 100, Location(4, 2)),
++            File("parent.hrl", 1),
++            File("header.yrl", 200, Location(1, 2)),
++            File("child.hrl", 1),
++            File("parent.hrl", 3),
++            File("header.yrl", 202, Location(3, 1)),
++            File(SourceFile, 6),
++            File("virtual.yrl", 102, Location(6, 1)),
++            File(SourceFile, 300, Location(104, 2)),
++            File("same_file.hrl", 1),
++            File(SourceFile, 10)
++        ];
++        if (!fileForms.SequenceEqual(expected))
++        {
++            throw new InvalidOperationException("Included files did not restore the physical and declared parent locations.");
++        }
++
++        var functions = tuples.Where(form => form.Items is [Atom { Name: "function" }, _, _, _, _]).ToArray();
++        if (functions.Length != 2 || !functions[0].Items[1].Equals(Location(102, 1))
++            || !functions[1].Items[1].Equals(Location(103, 1)))
++        {
++            throw new InvalidOperationException("Include restoration changed the executable source locations.");
++        }
++    }
++
++    private static Term Location(int line, int column) => Term.Tuple(Term.I(line), Term.I(column));
++
++    private static Term File(string path, int line, Term? location = null) =>
++        Term.Tuple(
++            Term.A("attribute"),
++            location is null
++                ? Location(line, 1)
++                : Term.List(Term.Tuple(Term.A("generated"), Term.A("true")), Term.Tuple(Term.A("location"), location)),
++            Term.A("file"),
++            Term.Tuple(Term.String(path), Term.I(line))
++        );
++
++    private static void Write(string path, string content) => System.IO.File.WriteAllText(path, content + "\n");
++}
++
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12245,6 +12245,7 @@
+ Test(Erlang.Tests.BeamProjectedCallArgumentCopyChecks.TestName, Erlang.Tests.BeamProjectedCallArgumentCopyChecks.Run);
+ Test(Erlang.Tests.BeamOrdinaryScratchCopyChecks.TestName, Erlang.Tests.BeamOrdinaryScratchCopyChecks.Run);
+ Test(Erlang.Tests.BeamStdlibIncludeProfileChecks.TestName, Erlang.Tests.BeamStdlibIncludeProfileChecks.Run);
++Test(Erlang.Tests.BeamMappedIncludeReturnChecks.TestName, Erlang.Tests.BeamMappedIncludeReturnChecks.Run);
+ Test(Erlang.Tests.BeamSendArgumentConstructionChecks.TestName, Erlang.Tests.BeamSendArgumentConstructionChecks.Run);
+ Test(Erlang.Tests.BeamQuotedFeatureAtomChecks.TestName, Erlang.Tests.BeamQuotedFeatureAtomChecks.Run);
+ Test(Erlang.Tests.BeamConstructedBitMatchChecks.TestName, Erlang.Tests.BeamConstructedBitMatchChecks.Run);

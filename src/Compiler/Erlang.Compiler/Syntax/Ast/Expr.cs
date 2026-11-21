@@ -23,10 +23,15 @@ public abstract record Expr
         string Name,
         int Arity,
         IReadOnlyList<RecordUpdateField> Fields
-    ) : Expr;
+    ) : Expr
+    {
+        internal int FailureSourceLine { get; init; }
+        internal string? FailureSourceFile { get; init; }
+    }
     public sealed record Literal(Term Value) : Expr
     {
         internal bool IsCharacterLiteral { get; init; }
+        internal bool IsEmptyStringLiteral { get; init; }
     }
     public sealed record Variable(string Name) : Expr;
     public sealed record Tuple(IReadOnlyList<Expr> Items) : Expr;
@@ -49,6 +54,7 @@ public abstract record Expr
         public int SourceLine { get; init; }
         internal string? PreprocessorFile { get; init; }
         internal bool DynamicRemote { get; init; }
+        internal bool IsListGeneratorSourceFailure { get; init; }
         public bool CanDiscardBifContinuation { get; internal set; }
 
         public Call(
@@ -99,7 +105,11 @@ public abstract record Expr
         IReadOnlyList<Clause> Clauses,
         IReadOnlyList<Clause> Catches,
         Expr? After
-    ) : Expr;
+    ) : Expr
+    {
+        internal int SourceLine { get; init; }
+        internal string? PreprocessorFile { get; init; }
+    }
     public sealed record Case(Expr Value, IReadOnlyList<Clause> Clauses) : Expr
     {
         internal int SourceLine { get; init; }

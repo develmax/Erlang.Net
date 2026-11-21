@@ -1,0 +1,30 @@
+{
+  "Parent": {
+    "Source": "81a80269ca467f0d91ecfe4326032514be82aa3f48450a7e071b62cb846d445e",
+    "Paths": 235,
+    "Compiler": "02c458a25f9f6a0e60741988d334607b12b640f17de07ce518fa8f4f6ac8b0fd",
+    "Tests": "487429f15e29a028bee0aadf02cb8afd74edc6d055afacf06498c9819942262c",
+    "ParentSource": "d0dbf940727fc341fdd0a02dff8844535d0b92bf99573093bd0198ded11036c7",
+    "CorpusTool": "0992147d700e0eb8409a983a05ef4e5bc79cf43a200a9be6bb15e6569ee67cdc"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs": "8f6696531a2935d81a0e988cc16232bdfeb23c215f5affd656a15c37e0538436",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamReleaseMetadataWriter.cs": "ed55fdeae9ca07aca3bee3b36e9684e40c90e056878f552b77d1131aa3dad2cb",
+    "src/Compiler/Erlang.Compiler/Syntax/BeamFileTransition.cs": "771e6463c76485a6c32dba77c78e738560c96472e7c6b69fa6177b50a6d4b6f8",
+    "src/Compiler/Erlang.Compiler/Syntax/BeamMacroPreprocessor.cs": "dfd4f4945250d9a66b23cdc652069521db57b2dc3b5c990a13d0b6e812cd5e33",
+    "tests/Erlang.Tests/Compiler/Beam/BeamMappedIncludeReturnChecks.cs": "d365767c8bc2564520c089551e8a6d7c1b4a618d9ef2534f102fa97ec1fa7bc7",
+    "tests/Erlang.Tests/Compiler/Beam/BeamRelaxedTupleAliasHelperChecks.cs": "2297c4549bbca70c6c18345a4ff4cf1da3f566651a623d0b005e05762c50962f",
+    "tests/Erlang.Tests/Harness/Program.cs": "f24de10473e646ed0b64d980c9ab2b0c2a8f78d1e1efa096e3eba9c4d58743d5"
+  },
+  "Patches": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\mapped-include-restores-and-relaxed-aliases-1881\\epp-restore-mapped-include-parent.patch",
+      "Hash": "21e811f323ef03ff73557e8c0f744ced005c88a13de00322c2e7c2c24616f6c7"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\mapped-include-restores-and-relaxed-aliases-1881\\relaxed-tuple-alias-helpers.patch",
+      "Hash": "cc0eea362fc5fdd85fca7b720852e3594c61559594e917171c9dafc75abdd613"
+    }
+  ],
+  "HarnessRegistrations": "Rebased both fixture registrations against the already registered positioned binary tail."
+}

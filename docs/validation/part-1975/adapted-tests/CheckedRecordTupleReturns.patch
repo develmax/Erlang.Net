@@ -1,0 +1,41 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamTerminalTupleFrameSlotChecks.cs b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamTerminalTupleFrameSlotChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamTerminalTupleFrameSlotChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamTerminalTupleFrameSlotChecks.cs
+@@ -14,7 +14,7 @@
+     private const string Fixture = "beam_terminal_tuple_frame.erl";
+     private const string IncorrectWidth = "Only the post-call tuple projection may leave the frame.";
+     private const string InvalidPrefix = "An uninitialized X prefix cannot be extended through a heap test.";
+-    private const string IncorrectRoots = "The remaining continuation and its initialized lower X roots must survive each heap test.";
++    private const string IncorrectRoots = "Each terminal record result must retain the roots used by that branch.";
+     private const string Source = """
+         -module(beam_terminal_tuple_frame).
+         -export([read/1, negative/1, get/2, touch/1]).
+@@ -58,10 +58,24 @@
+             throw new InvalidOperationException(IncorrectWidth);
+         }
+ 
+-        if (read.Count(instruction => Opcode(instruction) == TestHeap
+-                && Operand(instruction, 0) == 9 && Operand(instruction, 1) == 3) != 2
+-            || !read.Any(instruction => Opcode(instruction) == TestHeap
+-                && Operand(instruction, 0) == 5 && Operand(instruction, 1) == 3))
++        var heaps = read.Where(instruction => Opcode(instruction) == TestHeap)
++            .Select(instruction => ((int)Operand(instruction, 0), (int)Operand(instruction, 1)));
++        if (!heaps.SequenceEqual([(9, 1), (6, 1), (5, 2), (9, 2), (4, 0)]))
++        {
++            throw new InvalidOperationException(IncorrectRoots);
++        }
++
++        int firstHeap = Array.FindIndex(read, instruction => Opcode(instruction) == TestHeap);
++        if (Opcode(read[firstHeap + 1]) != GetTupleElement || Operand(read[firstHeap + 1], 2) != 1
++            || Opcode(read[firstHeap + 2]) != UpdateRecord || Operand(read[firstHeap + 2], 3) != 1
++            || Opcode(read[firstHeap + 3]) != GetTupleElement || Operand(read[firstHeap + 3], 2) != 0
++            || Opcode(read[firstHeap + 4]) != PutTuple)
++        {
++            throw new InvalidOperationException(IncorrectRoots);
++        }
++
++        var nil = read.Single(instruction => Opcode(instruction) == IsNil);
++        if (Operand(nil, 1) != 0)
+         {
+             throw new InvalidOperationException(IncorrectRoots);
+         }

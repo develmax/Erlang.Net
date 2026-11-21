@@ -1,0 +1,42 @@
+[
+  {
+    "Group": "Finite integer scanner and binary prefix reuse",
+    "Components": [
+      "ClosedUtfIntegerClassifier",
+      "SharedBytePrefixScanner"
+    ],
+    "RawTarget": "xmerl_xsd_re"
+  },
+  {
+    "Group": "Nested generator continuation topology and ownership",
+    "Components": [
+      "LocalNestedContinuations",
+      "NestedContinuationCursorLayouts"
+    ],
+    "AffectedModules": 15,
+    "AffectedKeys": 55,
+    "IsolatedNormalizedGains": 5
+  },
+  {
+    "Group": "Protected computed lists and outgoing root reuse",
+    "Components": [
+      "CaughtComputedListRoots"
+    ],
+    "RawTarget": "snmp_verbosity"
+  },
+  {
+    "Group": "Checked BER record fields, choices and lists",
+    "Components": [
+      "RequiredOptionalSequenceFields",
+      "BerRecordCallSchedules"
+    ],
+    "IsolatedNormalizedGains": 10
+  },
+  {
+    "Group": "Joined tuple option calls",
+    "Components": [
+      "ImmediateJoinedTupleDestructuring"
+    ],
+    "IsolatedNormalizedGains": 1
+  }
+]

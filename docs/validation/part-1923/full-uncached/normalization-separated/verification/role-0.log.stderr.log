@@ -1,0 +1,40 @@
+Error! Failed to eval: [Image,CacheDirectory,EvalIdentity,Output]=init:get_plain_arguments(),
+Normalize=fun(Is) ->
+    Labels=[L || {label,L} <- Is], Map=maps:from_list(lists:zip(Labels,lists:seq(1,length(Labels)))),
+    Walk=fun
+        T({f,L}) -> {f,maps:get(L,Map,{outside,L})};
+        T({literal,_}=V) -> V;
+        T({make_fun3,M,I,_,Dst,Args}) -> {make_fun3,M,I,uniq,T(Dst),T(Args)};
+        T(V) when is_tuple(V) -> list_to_tuple(T(tuple_to_list(V)));
+        T([H|R]) -> [T(H)|T(R)];
+        T(V) -> V
+    end,
+    [Walk(I) || I <- Is, not(is_tuple(I) andalso lists:member(element(1,I),[label,line,func_info]))]
+end,
+DisasmIdentity={erlang:system_info(version),beam_disasm:module_info(md5),beam_lib:module_info(md5)},
+Read=fun(P) ->
+    Name=binary_to_list(string:trim(P)),
+    {ok,Image}=file:read_file(Name),
+    Key=crypto:hash(sha256,term_to_binary({DisasmIdentity,EvalIdentity,crypto:hash(sha256,Image)})),
+    Entry=filename:join(CacheDirectory,binary_to_list(binary:encode_hex(Key))++".etf"),
+    case file:read_file(Entry) of
+        {ok,Cached} ->
+            {Key,Functions}=binary_to_term(Cached),
+            Functions;
+        {error,enoent} ->
+            {beam_file,_,_,_,_,Body}=beam_disasm:file(Image),
+            Functions=maps:from_list([{{F,A},Normalize(Is)}||{function,F,A,_,Is}<-Body]),
+            Functions
+    end
+end,
+Slots=fun(Is) -> [S||I<-Is,is_tuple(I),S<-case I of {allocate,N,_}->[N];{allocate_heap,N,_,_}->[N];_->[] end] end,
+
+Body=Read(unicode:characters_to_binary(Image)),
+Signature=maps:map(fun(_,Ops)->{term_to_binary(Ops,[deterministic]),Slots(Ops)} end,Body),
+ok=file:write_file(Output,term_to_binary(Signature,[deterministic])),
+halt().
+
+
+Runtime terminating during boot ({{badmatch,{ok,<<70,79,82,49,0,3,237,240,66,69,65,77,65,116,85,56,0,0,51,130,255,255,252,189,192,97,115,110,49,99,116,95,99,104,101,99,107,80,99,104,101,99,107,80,115,116,97,116,101,160,116,111,112,95,109,111,100,117,108,101,96,101,114,108,97,110,103,48,112,117,116,8,21,112,97,114,97,109,101,116,101,114,105,122,101,100,95,111,98,106,101,99,116,115,192,97,115,110,49,99,116,95,116,97,98,108,101,48,110,101,119,240,105,110,108,105,110,101,100,95,111,98,106,101,99,116,115,32,43,43,112,116,111,95,108,105,115,116,80,108,105,115,116,115,48,109,97,112,96,100,101,108,101,116,101,96,102,105,108,116,101,114,144,117,110,100,101,102,105,110,101,100,224,97,115,110,49,95,114,101,102,101,114,101,110,99,101,112,102,108,97,116,116,101,110,128,115,117,98,116,114,97,99,116,32,111,107,80,101,114,114,111,114,8,22,99,111,110,116,101,120,116,95,115,119,105,116,99,104,95,105,110,95,115,112,101,99,80,102,111,108,100,108,8,19,105,110,115,116,97,110,99,101,95,111,102,95,105,110,95,115,112,101,99,48,103,1
+
+Crash dump is being written to: D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\forwarded-projections-and-choice-helpers-1923\full-uncached\normalization-separated\verification\role-0.log.erl_crash.dump...done

@@ -1,0 +1,61 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamNestedListGeneratorChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamNestedListGeneratorChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamNestedListGeneratorChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamNestedListGeneratorChecks.cs
+@@ -10,6 +10,7 @@
+ {
+     internal const string TestName = "compiler/beam/threads-two-list-generators-through-owned-recursive-helpers";
+     private const string WrongTopology = "The outer and inner list generators must preserve their separate continuation and frame.";
++    private const string WrongFailureLocation = "The nested list generator error must retain the generator input line.";
+     private const string Fixture = "beam_nested_generator_topology.erl";
+     private const string Source = """
+         -module(beam_nested_generator_topology).
+@@ -32,6 +33,18 @@
+         mark(Event, Value) ->
+             self() ! {observed, Event},
+             Value.
++        """;
++
++    private const string SplitComputedSource = """
++        -module(beam_split_computed_generators).
++        -export([split/2, mark/2]).
++        split(Rows, Lookup) ->
++            [{Row, Item} || Row <-
++                mark(outer, Rows),
++                            Item <-
++                mark(Row, maps:get(Row, Lookup, []))].
++        mark(_Value, Result) ->
++            Result.
+         """;
+ 
+     private const string MixedSource = """
+@@ -112,6 +125,30 @@
+         {
+             throw new InvalidOperationException(WrongTopology);
+         }
++
++        VerifyGeneratorFailureLine(code, "-joined/2-lc$^0/1-0-", 5);
++        object split = Code(CodeGeneration.CompileBeamModule(SplitComputedSource, "beam_split_computed_generators.erl"));
++        VerifyGeneratorFailureLine(split, "-split/2-lc$^0/1-0-", 5);
++        VerifyGeneratorFailureLine(split, "-split/2-lc$^1/1-1-", 7);
++    }
++
++    private static void VerifyGeneratorFailureLine(object code, string name, int line)
++    {
++        object function = Items(code, "Functions").Single(candidate => (string)Property(candidate, "Name") == name);
++        int start = (int)Property(function, "FirstInstructionIndex");
++        int end = (int)Property(function, "EndInstructionIndex");
++        object[] body = Items(code, "Instructions").ToArray()[start..end];
++        if (body.Length < 3 || Opcode(body[^3]) != PutTuple || Opcode(body[^2]) != Line
++            || Opcode(body[^1]) != TailExternalCall)
++        {
++            throw new InvalidOperationException(WrongFailureLocation);
++        }
++
++        var location = Items(code, "SourceLocations").Cast<Term>().ElementAt(Value(body[^2], 0));
++        if (!Cons.Items(location).Contains(Term.Tuple(Term.A("line"), Term.I(line))))
++        {
++            throw new InvalidOperationException(WrongFailureLocation);
++        }
+     }
+ 
+     private static int Value(object instruction, int index) =>

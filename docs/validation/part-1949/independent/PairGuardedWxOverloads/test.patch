@@ -1,0 +1,90 @@
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -13104,6 +13104,7 @@
+  }
+ );
+ Test(Erlang.Tests.BeamWxTupleConstructorDispatchChecks.TestName, Erlang.Tests.BeamWxTupleConstructorDispatchChecks.Run);
++Test(Erlang.Tests.BeamWxTupleArityForwardChecks.TestName, Erlang.Tests.BeamWxTupleArityForwardChecks.Run);
+ Test(Erlang.Tests.BeamClosedFieldSelectorChecks.TestName, Erlang.Tests.BeamClosedFieldSelectorChecks.Run);
+ Test(Erlang.Tests.BeamClosedLiteralTupleDecisionChecks.TestName, Erlang.Tests.BeamClosedLiteralTupleDecisionChecks.Run);
+ Test(
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamWxTupleArityForwardChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamWxTupleArityForwardChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamWxTupleArityForwardChecks.cs
+@@ -0,0 +1,74 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamWxTupleArityForwardChecks
++{
++    internal const string TestName = "compiler/beam/partitions-wx-forwarding-pairs-from-tagged-records";
++    private const string ShapeError = "The wrapper did not share its receiver check before the typed tuple-width decision.";
++    private const string Source = """
++        -module(beam_wx_tuple_width_forward).
++        -export([probe/3,probe/4]).
++        -record(wx_ref,{ref,type,state=[]}).
++        -define(ENV,
++            case erlang:get(wx_env) of
++                {wx_env,Environment,_,_} -> Environment;
++                _ -> erlang:error({wx,unknown_env})
++            end).
++        -define(CLASS(Type, Class), ((Type) =:= Class) orelse (Type):parent_class(Class)).
++
++        probe(Receiver,{R,C}=Position,{H,W}=Span)
++         when is_record(Receiver,wx_ref),is_integer(R),is_integer(C),is_integer(H),is_integer(W) ->
++            probe(Receiver,Position,Span,[]);
++        probe(#wx_ref{type=ReceiverType}=Receiver,#wx_ref{type=ItemType}=Item,Options) when is_list(Options) ->
++            ?CLASS(ReceiverType,fixture_receiver),
++            ?CLASS(ItemType,fixture_item),
++            Mapper = fun({omit,#wx_ref{type=ExcludedType}}=Option) -> ?CLASS(ExcludedType,fixture_item),Option;
++                        (Invalid) -> erlang:error({badoption,Invalid})
++                     end,
++            Mapped = lists:map(Mapper,Options),
++            wxe_util:queue_cmd(Receiver,Item,Mapped,?ENV,1700),
++            wxe_util:rec(1700).
++
++        probe(Receiver,Position,Span,Options) -> {Receiver,Position,Span,Options}.
++        """;
++
++    internal static void Run()
++    {
++        string differentGuard = Source.Replace("is_integer(H)", "is_number(H)", StringComparison.Ordinal);
++        string boundEnvironment = Source.Replace("Environment", "Receiver", StringComparison.Ordinal);
++        if (!HasSharedWidthDecision(Source) || HasSharedWidthDecision(differentGuard) || HasSharedWidthDecision(boundEnvironment))
++        {
++            throw new InvalidOperationException(ShapeError);
++        }
++    }
++
++    private static bool HasSharedWidthDecision(string source)
++    {
++        object code = Code(CodeGeneration.CompileBeamModule(source, "beam_wx_tuple_width_forward.erl"));
++        object[] body = ((IEnumerable)Property(code, "Instructions")).Cast<object>()
++            .SkipWhile(instruction => Opcode(instruction) != FunctionInfo).Skip(1)
++            .TakeWhile(instruction => Opcode(instruction) != FunctionInfo).ToArray();
++        int selection = Array.FindIndex(body, instruction => Opcode(instruction) == SelectTupleArity);
++        if (selection < 1 || body.Count(instruction => Opcode(instruction) == IsTaggedTuple) != 2)
++        {
++            return false;
++        }
++
++        object[] operands = Operands(body[selection]);
++
++        return Value(operands[0]) == 1 && Property(operands[0], "TypeIndex") is not null
++            && body.Take(selection).Count(instruction => Opcode(instruction) == IsTaggedTuple) == 1
++            && body.Skip(selection).Any(instruction => Opcode(instruction) == TailLocalCall);
++    }
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++
++    private static object[] Operands(object instruction) => ((IEnumerable)Property(instruction, "Operands")).Cast<object>().ToArray();
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++}

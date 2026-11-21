@@ -1,0 +1,209 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceDecoder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceDecoder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceDecoder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceDecoder.cs
+@@ -6,7 +6,12 @@
+ {
+     private sealed partial class GeneralEmitter
+     {
+-        private sealed record SequenceRead(Expr.Call Call, int Entry, Term Options);
++        private sealed record SequenceRead(
++            Expr.Call Call,
++            int Entry,
++            Term Options,
++            string? Module = null
++        );
+ 
+         private sealed record SequenceRequired(
+             Expr.Match Split,
+@@ -71,7 +76,8 @@
+             int fields = result.Items.Count - 1;
+             int requiredCount = sequence.Items.Count - fields - 4;
+             int count = fields - requiredCount;
+-            if (requiredCount < 2 || count < 1 || fields + 1 >= FirstReservedXRegister)
++            bool singleRequired = requiredCount == 1;
++            if (requiredCount < 1 || count < 1 || fields + 1 >= FirstReservedXRegister)
+             {
+                 return false;
+             }
+@@ -94,12 +100,14 @@
+                     return false;
+                 }
+ 
+-                if (index == 0)
++                if (index == 0 && !singleRequired)
+                 {
+                     range = ReadNamedRange(part, bindings);
+                 }
+ 
+-                var read = index == 0 && range is not null ? range.Read : ReadSequenceCall(part.Read, part.Payload.Name);
++                var read = singleRequired
++                    ? ReadSingleRequiredSequenceCall(part.Read, part.Payload.Name)
++                    : index == 0 && range is not null ? range.Read : ReadSequenceCall(part.Read, part.Payload.Name);
+                 if (read is null && index == 1 && range is null && requiredCount == 2
+                     && ReadSequenceBounds(part.Read, part.Payload.Name, bindings) is { } bounded)
+                 {
+@@ -116,10 +124,10 @@
+                 remaining = part.Rest.Name;
+             }
+ 
+-            if (range is not null
++            if (!singleRequired && (range is not null
+                     ? requiredCount != 2
+                     : boundedPrefix is null && (requiredCount < 3 || required.Skip(1).Any(field => field.Read.Entry != required[0].Read.Entry
+-                        || !field.Read.Options.Equals(required[0].Read.Options))))
++                        || !field.Read.Options.Equals(required[0].Read.Options)))))
+             {
+                 return false;
+             }
+@@ -135,7 +143,9 @@
+                     || result.Items[requiredCount + index + 1] is not Expr.Variable value || value.Name != field.Name
+                     || field.Name == VariableScopeNames.Wildcard || rest.Name == VariableScopeNames.Wildcard
+                     || !bindings.Add(field.Name) || !bindings.Add(rest.Name)
+-                    || ReadOptionalSequencePart(choice, remaining, bindings) is not { } plan)
++                    || (singleRequired
++                        ? ReadOptionalAfterSingleRequired(choice, remaining, bindings)
++                        : ReadOptionalSequencePart(choice, remaining, bindings)) is not { } plan)
+                 {
+                     return false;
+                 }
+@@ -144,11 +154,11 @@
+                 remaining = rest.Name;
+             }
+ 
+-            if (boundedPrefix is null && plans.Any(plan => plan.Bounds is not null)
++            if (!singleRequired && (boundedPrefix is null && plans.Any(plan => plan.Bounds is not null)
+                 || boundedPrefix is not null && (count < 2 || boundedPrefix.Upper is not null
+                     || plans[0].Bounds is not { Upper: null } optionalBound
+                     || !optionalBound.Lower.Equals(boundedPrefix.Lower) || plans[0].Read.Entry != required[1].Read.Entry
+-                    || plans.Skip(1).Any(plan => plan.Bounds is not null)))
++                    || plans.Skip(1).Any(plan => plan.Bounds is not null))))
+             {
+                 return false;
+             }
+@@ -192,7 +202,7 @@
+                     EmitFrameInitialization(currentRest, currentRest + 1);
+                 }
+ 
+-                EmitLocal(reader.Call, reader.Entry);
++                EmitSequenceRead(reader);
+                 if (index == 0 && range is not null)
+                 {
+                     EmitRangeTests(range.Read.Call, range.Range, outsideRange);
+@@ -220,13 +230,14 @@
+             for (int index = 0; index < plans.Length; index++)
+             {
+                 var plan = plans[index];
+-                int slot = count - index;
++                int tailSlot = count - index - 1;
++                int slot = singleRequired && index == 0 ? fields : tailSlot + 1;
+                 bool last = index == plans.Length - 1;
+                 var (invalid, missing, ready) = labels[index];
+                 Split(
+                     YRegisterTag,
+                     slot,
+-                    slot - 1,
++                    tailSlot,
+                     missing
+                 );
+                 if (plan.Tag is { } selected)
+@@ -241,7 +252,7 @@
+ 
+                 owner.EmitConstant(plan.Read.Options, 1);
+                 EmitFrameInitialization(slot, slot + 1);
+-                EmitLocal(plan.Read.Call, plan.Read.Entry);
++                EmitSequenceRead(plan.Read);
+                 if (plan.Bounds is { } bounds)
+                 {
+                     EmitRangeTests(plan.Read.Call, bounds, invalid);
+@@ -279,7 +290,7 @@
+                     YRegisterTag,
+                     slot,
+                     destination,
+-                    last ? 1 : slot - 1
++                    last ? 1 : tailSlot
+                 );
+                 owner.instructions.WriteByte(BeamEmissionFormat.Move);
+                 owner.LiteralOperand(plan.Omitted);
+@@ -297,7 +308,12 @@
+                 owner.Operand(YRegisterTag, slot);
+             }
+ 
+-            for (int slot = count; slot > 1; slot--)
++            if (singleRequired && count > 1)
++            {
++                owner.Operand(YRegisterTag, fields);
++            }
++
++            for (int slot = singleRequired ? count - 1 : count; slot > 1; slot--)
+             {
+                 owner.Operand(YRegisterTag, slot);
+             }
+@@ -337,6 +353,20 @@
+ 
+             return true;
+ 
++            void EmitSequenceRead(SequenceRead read)
++            {
++                if (read.Module is { } module)
++                {
++                    owner.EmitCallLine(read.Call, previous);
++                    previous = CallLocation(read.Call, previous);
++                    Call(module, read.Call.Function, 2);
++                }
++                else
++                {
++                    EmitLocal(read.Call, read.Entry);
++                }
++            }
++
+             void EmitLocal(Expr.Call call, int entry)
+             {
+                 owner.EmitCallLine(call, previous);
+@@ -459,6 +489,47 @@
+             }
+ 
+             return (decoder, bounds);
++        }
++
++        private SequenceRead? ReadSingleRequiredSequenceCall(Expr expression, string payload)
++        {
++            return ReadDecodeCall(expression, payload, allowRemote: true) is { Convert: null } read
++                ? new(
++                    read.Decode,
++                    read.Entry,
++                    read.Tags,
++                    read.Module
++                )
++                : null;
++        }
++
++        private SequenceOptional? ReadOptionalAfterSingleRequired(
++            Expr.Case choice,
++            string previous,
++            IReadOnlySet<string> bindings
++        )
++        {
++            var field = ReadDefaultSequenceField(
++                choice,
++                previous,
++                bindings,
++                allowRemote: true
++            )
++                ?? ReadBoundedTaggedSequenceField(choice, previous, bindings);
++
++            return field is null
++                ? null
++                : new(
++                    new(
++                        field.Decoder,
++                        field.Entry,
++                        field.Tags,
++                        field.Module
++                    ),
++                    field.Tag,
++                    field.Default,
++                    field.Bounds
++                );
+         }
+ 
+         private SequenceOptional? ReadOptionalSequencePart(Expr.Case choice, string previous, IReadOnlySet<string> bindings)

@@ -1,0 +1,49 @@
+{
+  "Parent": {
+    "Source": "0c8d6444e3a5d3d38e56e85b1b2ce7b0152351c5f08a097694fcd923c7a1cc70",
+    "Paths": 795,
+    "RemovedPaths": [],
+    "Compiler": "88fd5c16ffa8de61121ed56dc3908a2f563904f4db79daf1feb5f4eb473eac01",
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "Tests": "174bd0f089b4ce5318f54b1b8dc877d840bb6af0a0e1959950fa50935574f8e4",
+    "ParentSource": "c9df0d115aa42b110913f90df45f7725cf835fab53910d83d9047dd96af3c857",
+    "CorpusTool": "7d7640386fd900c2a125fa1ce504b6637c03a8cf70d4ef9dff9a66b857c0790e"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedCatchReturnTrim.cs": "dc160f957fc12dd824270afc4c8591e23e1aaa83b6e46d1d694e5bf27e04ccca",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultOnlySequenceDecoder.cs": "5a7f91f3d2a3f9f373b6dcc63a7a5e4b9e455853cf8f545e60c9d0fb86a7ef1b",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DelayedCallCopies.cs": "447ab7d6ec7eb961bb9b86236f0cb4270c3e832312f4230375e66cab7d08e17e",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs": "9222d669caaed58c608718f31163f25a4d668109d3d2c9b108f0c4db5ccd10f1",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": "c3e740eaf49b40bf159025b8361913036fe3ee436284d825c28077974908d09c",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceDecoder.cs": "31fb0bd91d24b435095c75c2d090d8d81505e4955d1df396e86e8d59db3355c4",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SavedCallSequence.cs": "15f768393d240fa61adabf8878c769272725ada57375bd50e05a54c90f949e34",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedClosedListLengths.cs": "3e827bc2864a544aa5a64af796cc170bfa208fa5e94e5c2ed2709ee1ddb559fc",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.StagedListConstruction.cs": "0c9a7bece089a4a182b47e1198167a92cf7fbc69a154dffbe43a458fcc428c8f",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": "401c5975ce94d20ea672cbe9aaf46b0c3b29cd0de6ce2c2c929912c3489a27cb",
+    "tests/Erlang.Tests/Compiler/Beam/BeamBoundedDefaultSequenceChecks.cs": "2f7984aacb31e19d64b6a6f47a366151374e533a5f4fdd5a9639cc93b9094ca3",
+    "tests/Erlang.Tests/Compiler/Beam/BeamClosedListLengthEntryChecks.cs": "80b3a838c8ee61abb3b15f1369c8b40167832ef2397e8abe8e22cba0f88356d6",
+    "tests/Erlang.Tests/Compiler/Beam/BeamClosedListTerminalBodyChecks.cs": "cb5825b548f0e35ab6b47432b664e710aadb264453ebdfef4c1b205239c35499",
+    "tests/Erlang.Tests/Compiler/Beam/BeamLateConstructionReturnsChecks.cs": "521c438047a18f366d74a15a689ea038467b7da019df74d714fdee3ffc959dde",
+    "tests/Erlang.Tests/Compiler/Beam/BeamStagedListConstructionChecks.cs": "d9522ce9fa08af4d0038c86cc8ff5dc347ee0fcf3f6434f65f8f9efe5f5e1fd9",
+    "tests/Erlang.Tests/Compiler/Beam/BeamTerminalCallResultArgumentChecks.cs": "1623c8d1059d9da3cfdd420849ebc3c7fa6b002d90315dd3a445f8cf493a5203",
+    "tests/Erlang.Tests/Harness/Program.cs": "de3266fa5fe91c868666923adaee4ae2ee9d4da1e143714a3b31b160aa215f64"
+  },
+  "CandidateRemovedPaths": {},
+  "PatchSources": {
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\owned-catch-return-trim-1949\\production.patch": "fb54fb5a31dda784197d9c546754e779059b49244bfe529f6f1440c47a6afd0a",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\list-entry-and-construction-staging-1941\\adapted-tests\\OwnedCatchReturnTrim.patch": "27fc94fd8abdd11eca6a7067a182a7d36ce18f58d029f2dd6e71720731a694c5",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\shared-proper-length-prefix-1950\\production.patch": "18acfd98a95cc81da8d92f9e5af4255ea3c1f86b0d8fb2be7f75920c2b097068",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\list-entry-and-construction-staging-1941\\adapted-tests\\SharedProperLengthPrefix.patch": "fd061de0ad90740b38813286479ae3aa2c6e6ad2ff2c52bea71f4594406583b0",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\asn-named-bits-replay-1931\\bounded-default-sequence-residuals\\bounded-default-sequence.patch": "b54e6a248ed0c258b0b5c0ac8b3cfeb460d92c8ef41030f90cb574ad73660eb5",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\list-entry-and-construction-staging-1941\\adapted-tests\\BoundedDefaultSequenceRecords.patch": "4050997b0974a6576b0f124ff6f88fef204227b1ff1a897b05701ba1393803af",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\shared-record-actions-and-terminal-clauses-1941\\production.patch": "073669c047de1affb3bad0e545a93d50586c25307bb686e793230b7d053a0da3",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\list-entry-and-construction-staging-1941\\adapted-tests\\LateSharedConstructionReturns.patch": "43aef20dd55b1d5321f1cfca4c6164b9ca7240bf8842d5c5c237229ee56f6ad6",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\fixed-list-terminal-body-scheduling-1951\\production.patch": "10739a119a22328c7bb9b8ac9c1ef914717f238c093c920738fe77e932d2b751",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\list-entry-and-construction-staging-1941\\adapted-tests\\FixedListTerminalBodyScheduling.patch": "f130f1da1ee6afafdd4508569cb497bb1120d56631c68272f05d9037c23eec3d",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\list-entry-and-construction-staging-1941\\adapted-staged-cons.patch": "b19899c1be47c4f02751ab7576c9bb9227c134903c96fa8cc6d959308a34c50f",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\list-entry-and-construction-staging-1941\\adapted-tests\\StagedListConstruction.patch": "44c744938ad90cebd09ddb7088187aa57f66335bfba0b633dfc19ded3507e11b",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\fixed-list-delayed-call-copies-1952\\production.patch": "18d497e823490f6e024570a88096d4cd6a85b4a6155c2f9d0ac33bd3dbc43d51",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\list-entry-and-construction-staging-1941\\adapted-tests\\FixedListDelayedCallCopies.patch": "736f2437f04eaba5b8136610275e9751e9b74faff2d45c68d9e4d5df661dc379",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\list-entry-and-construction-staging-1941\\adapted-tests\\integrated-harness-registrations.patch": "d6311686b8f4d4a34f9fdcb199d7bea3201713c339a9cc7c821c724f00608402"
+  }
+}

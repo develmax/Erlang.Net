@@ -1,0 +1,105 @@
+{
+  "Gains": {
+    "Line": 7,
+    "Dbgi": 5,
+    "Type": 1,
+    "AtU8": 1,
+    "ImpT": 1
+  },
+  "Losses": {},
+  "Modules": [
+    {
+      "Module": "dialyzer_timing",
+      "Gains": [
+        "Line"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "diameter_sctp",
+      "Gains": [
+        "Dbgi"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "eldap",
+      "Gains": [
+        "Dbgi"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "eunit_serial",
+      "Gains": [
+        "Line"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "mod_trace",
+      "Gains": [
+        "Line"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "mnesia_frag_hash",
+      "Gains": [
+        "Line",
+        "Type"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "memsup",
+      "Gains": [
+        "Dbgi"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "leex",
+      "Gains": [
+        "Dbgi"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "pubkey_ssh",
+      "Gains": [
+        "AtU8",
+        "ImpT"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "misc_supp",
+      "Gains": [
+        "Line"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "snmpa_mib_storage_ets",
+      "Gains": [
+        "Line"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "inet_tls_dist",
+      "Gains": [
+        "Dbgi"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "ssl_crl_hash_dir",
+      "Gains": [
+        "Line"
+      ],
+      "Losses": []
+    }
+  ]
+}

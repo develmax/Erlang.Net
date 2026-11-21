@@ -1,0 +1,8 @@
+RetakeProof DEFINITIONS AUTOMATIC TAGS ::= BEGIN
+Packet ::= SEQUENCE {
+    id INTEGER,
+    info UTF8String OPTIONAL,
+    numbers SEQUENCE OF INTEGER OPTIONAL,
+    ...
+}
+END

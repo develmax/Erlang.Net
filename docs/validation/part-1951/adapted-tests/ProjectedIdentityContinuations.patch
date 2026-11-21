@@ -1,0 +1,116 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamProjectedIdentityContinuationsChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamProjectedIdentityContinuationsChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamProjectedIdentityContinuationsChecks.cs
+@@ -0,0 +1,111 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamProjectedIdentityContinuationsChecks
++{
++    internal const string TestName = "compiler/beam/forwards-identity-errors-and-checked-map-fields";
++    private const string Fixture = "beam_projected_identity_continuations_probe.erl";
++    private const string UnexpectedLayout = "Projected identity continuations did not match their pinned layout.";
++
++    internal const string Source = """
++        -module(beam_projected_identity_continuations_probe).
++        -export([run/4, run/5, map_fields/4, same_field/2, prepare/2, lookup/2, resolve/1, start/3, start/4]).
++
++        run(Key, Address, Options, Mode) ->
++            case ?MODULE:prepare(Key, Options) of
++                ok ->
++                    case ?MODULE:lookup(Key, active) of
++                        {ok, Value} ->
++                            Delay = if Mode =:= async -> forever; true -> ?MODULE:resolve(Mode) end,
++                            case ?MODULE:start(Key, Address, Delay) of
++                                ok when Mode =/= async -> done(Key, Address, Value, Mode);
++                                Other -> Other
++                            end;
++                        Missing -> Missing
++                    end;
++                Reject -> Reject
++            end.
++
++        run(Key, Address, Port, Options, Mode) ->
++            case ?MODULE:prepare(Key, Options) of
++                ok ->
++                    case ?MODULE:lookup(Key, active) of
++                        {ok, Value} ->
++                            Delay = if Mode =:= async -> forever; true -> ?MODULE:resolve(Mode) end,
++                            case ?MODULE:start(Key, Address, Port, Delay) of
++                                ok when Mode =/= async -> done(Key, Address, Port, Value, Mode);
++                                Other -> Other
++                            end;
++                        Missing -> Missing
++                    end;
++                Reject -> Reject
++            end.
++
++        map_fields(Key, #{addr := Address, port := Port} = _Original, Flag, Timer) ->
++            done(Key, Address, Port, Flag, Timer).
++
++        same_field(Token, #{addr := Token, port := Port}) ->
++            done(Token, Token, Port, repeated, checked).
++
++        prepare(Key, Opts) ->
++            self() ! {prepare, Key, Opts},
++            case Opts of blocked -> {error, blocked}; _ -> ok end.
++        lookup(Key, Tag) ->
++            self() ! {lookup, Key, Tag},
++            case Key of missing -> {error, missing}; _ -> {ok, active_value} end.
++        resolve(Mode) -> self() ! {resolve, Mode}, Mode.
++        start(Key, Address, Delay) ->
++            self() ! {start, Key, Address, Delay},
++            case Address of blocked -> {error, blocked_address}; _ -> ok end.
++        start(Key, Address, Port, Delay) ->
++            self() ! {start, Key, Address, Port, Delay}, ok.
++        done(Key, Address, Value, Mode) -> {done, Key, Address, Value, Mode}.
++        done(Key, Address, Port, Value, Mode) -> {done, Key, Address, Port, Value, Mode}.
++        """;
++
++    internal static byte[] CompileFixture() => CodeGeneration.CompileBeamModule(Source, Fixture);
++
++    internal static void Run()
++    {
++        object code = Code(CompileFixture());
++        object[] instructions = Items(code, "Instructions").ToArray();
++        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        object[] map = Body("map_fields", 4);
++        if (!SharesReturn(Body("run", 4)) || !SharesReturn(Body("run", 5))
++            || map.Count(instruction => Opcode(instruction) == GetMapElements) != 1
++            || map.Any(instruction => Opcode(instruction) == Allocate)
++            || !map.Any(instruction => Opcode(instruction) == TailLocalCall))
++        {
++            throw new InvalidOperationException(UnexpectedLayout);
++        }
++
++        object[] Body(string name, int arity)
++        {
++            int info = Array.FindIndex(
++                instructions,
++                instruction => Opcode(instruction) == FunctionInfo
++                    && Items(instruction, "Operands").ToArray() is [_, var atom, var width]
++                    && atoms[Value(atom)] == name && Value(width) == arity
++            );
++
++            return info < 0 ? [] : instructions.Skip(info + 2)
++                .TakeWhile(instruction => Opcode(instruction) != FunctionInfo).ToArray();
++        }
++    }
++
++    private static bool SharesReturn(object[] body) =>
++        body.Count(instruction => Opcode(instruction) == InitYRegisters) == 1
++        && body.Count(instruction => Opcode(instruction) == TailLocalCallWithFrame) == 1
++        && body.Count(instruction => Opcode(instruction) == Deallocate) == 1;
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++
++    private static IEnumerable<object> Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>();
++}

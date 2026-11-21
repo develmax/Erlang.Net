@@ -11,6 +11,36 @@ internal static class BeamInstructionReader
         int literalCount,
         Action<int, int, int>? recordLabelOperand = null,
         Action<int, int, int>? recordStackOperand = null
+    ) => ReadOperands(
+        code,
+        atomCount,
+        literalCount,
+        recordLabelOperand,
+        recordStackOperand,
+        null
+    );
+
+    internal static IReadOnlyList<BeamInstruction> ReadWithAtomOperands(
+        BeamCodeHeader code,
+        int atomCount,
+        int literalCount,
+        Action<int, int, int> recordAtomOperand
+    ) => ReadOperands(
+        code,
+        atomCount,
+        literalCount,
+        null,
+        null,
+        recordAtomOperand
+    );
+
+    private static IReadOnlyList<BeamInstruction> ReadOperands(
+        BeamCodeHeader code,
+        int atomCount,
+        int literalCount,
+        Action<int, int, int>? recordLabelOperand,
+        Action<int, int, int>? recordStackOperand,
+        Action<int, int, int>? recordAtomOperand
     )
     {
         Require(code.MaximumOpcode >= BeamOperandParameters.MinimumCompatibleOpcode);
@@ -97,6 +127,11 @@ internal static class BeamInstructionReader
                 if (raw.WireTag == BeamOperandParameters.LabelTag && !scalar.Value.IsZero)
                 {
                     recordLabelOperand?.Invoke(operandOffset, cursor.Position, (int)scalar.Value);
+                }
+
+                if (recordAtomOperand is not null && scalar.Kind == BeamOperandParameters.Atom)
+                {
+                    recordAtomOperand(operandOffset, cursor.Position, (int)scalar.Value);
                 }
             }
             result.Add(new(offset, definition, operands.AsReadOnly()));

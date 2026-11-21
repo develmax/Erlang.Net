@@ -1,0 +1,15 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ExactRegisterProofs.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ExactRegisterProofs.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ExactRegisterProofs.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ExactRegisterProofs.cs
+@@ -15,7 +15,10 @@
+                 [
+                     _,
+                 { Kind: BeamOperandParameters.X or BeamOperandParameters.Y } left,
+-                { Kind: BeamOperandParameters.X or BeamOperandParameters.Y } right
++                {
++                    Kind: BeamOperandParameters.X or BeamOperandParameters.Y or BeamOperandParameters.Atom
++                    or BeamOperandParameters.Integer or BeamOperandParameters.Nil
++                } right
+                 ]
+                 })
+             {

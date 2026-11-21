@@ -12,12 +12,17 @@ internal sealed partial class BeamModuleCompiler
         Stream output,
         int copied,
         BeamInstruction instruction,
-        HashSet<BeamOperand> values
+        HashSet<BeamOperand> values,
+        (BeamOperand Slot, long Minimum)? refinement,
+        BeamOperand? integerResult
     )
     {
         for (int index = FirstRecordUpdateValueOperand; index < instruction.Operands.Count; index += RecordUpdateFieldPairWidth)
         {
-            if (values.Contains(instruction.Operands[index]))
+            BeamOperand operand = instruction.Operands[index];
+            long? minimum = refinement is { } known && known.Slot == operand ? known.Minimum : null;
+            bool integer = integerResult is not null && SameProjectionRegister(operand, integerResult);
+            if (integer || minimum.HasValue || values.Contains(operand))
             {
                 copied = AnnotateRegisterInput(
                     code,
@@ -25,12 +30,53 @@ internal sealed partial class BeamModuleCompiler
                     copied,
                     instruction,
                     index,
-                    NumberTypeBits
+                    integer ? IntegerTypeBits : NumberTypeBits,
+                    minimum: minimum
                 );
             }
         }
 
         return copied;
+    }
+
+    private static int? ReadBoundedRecordUpdate(
+        IReadOnlyList<BeamInstruction> body,
+        int target,
+        BeamOperand slot
+    )
+    {
+        // The unique successor of the failed numerical comparison carries a
+        // lower bound until its saved value is overwritten or control splits.
+        for (int index = target + 1; index < body.Count; index++)
+        {
+            BeamInstruction instruction = body[index];
+            switch (instruction.Definition.Opcode)
+            {
+                case Line:
+                case TestHeap:
+                    continue;
+                case Move when !SameProjectionRegister(instruction.Operands[^1], slot):
+                    continue;
+                case GcBifTwo when instruction.Operands[0].Value.IsZero
+                    && !SameProjectionRegister(instruction.Operands[^1], slot):
+                    continue;
+                case UpdateRecord:
+                    for (int operand = FirstRecordUpdateValueOperand; operand < instruction.Operands.Count;
+                        operand += RecordUpdateFieldPairWidth)
+                    {
+                        if (instruction.Operands[operand] == slot)
+                        {
+                            return index;
+                        }
+                    }
+
+                    return null;
+                default:
+                    return null;
+            }
+        }
+
+        return null;
     }
 
     private static void AdvanceNumericRecordValues(

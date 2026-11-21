@@ -6,19 +6,229 @@ internal sealed partial class BeamModuleCompiler
 {
     private sealed partial class GeneralEmitter
     {
+        private bool TryEmitWxClassIndexOverload(FunctionDefinition function)
+        {
+            int arity = function.Arity;
+            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled || arity is < 2 or > 4
+                || function.Clauses is not [var compound, var numeric]
+                || numeric.Patterns[1] is not Pattern.Variable scalar
+                || ReadWxIndexExtras(compound) is not { } compoundExtras
+                || ReadWxIndexExtras(numeric) is not { } numericExtras
+                || compoundExtras.Tuple != numericExtras.Tuple || compoundExtras.Mapped != numericExtras.Mapped
+                || !ReadsBounds(compound.Guard, compoundExtras.Guards, compoundExtras.Mapped)
+                || !ReadsBounds(numeric.Guard, [scalar.Name, .. numericExtras.Guards], numericExtras.Mapped)
+                || ReadWxClassUnionObject(compound.Patterns[0]) is not { } compoundReceiver
+                || ReadWxClassUnionObject(numeric.Patterns[0]) is not { } scalarReceiver
+                || compound.Body is not Expr.Sequence { Items: [var compoundCheck, ..] }
+                || numeric.Body is not Expr.Sequence { Items: [var scalarCheck, ..] }
+                || ReadWxClassTest(compoundCheck, compoundReceiver.Type) is not { } expected
+                || ReadWxClassTest(scalarCheck, scalarReceiver.Type) is not { } fallback
+                || !expected.Class.Equals(fallback.Class))
+            {
+                return false;
+            }
+
+            int receiverType = arity;
+            var union = function with { Clauses = [compound] };
+            var integer = function with { Clauses = [numeric] };
+            if (!TryEmitWxClassUnionCommand(union, validateOnly: true, preparedReceiver: receiverType)
+                || !TryEmitWxObjectCommand(
+                    integer,
+                    sharedType: receiverType,
+                    validateOnly: true,
+                    scalarAfterUnion: true
+                ))
+            {
+                return false;
+            }
+
+            int failure = owner.nextLabel - 2;
+            int scalarEntry = Label();
+            EmitDetailRecordTest(
+                0,
+                4,
+                Term.A("wx_ref"),
+                failure
+            );
+            owner.EmitTuplePart(0, 2, receiverType);
+            EmitDetailRecordTest(
+                1,
+                4,
+                Term.A("wx_ref"),
+                scalarEntry
+            );
+            EmitExtraShape(scalarEntry);
+            EmitExtras(compoundExtras.Tuple ? scalarEntry : failure);
+            TryEmitWxClassUnionCommand(union, functionFailure: failure, preparedReceiver: receiverType);
+            Mark(scalarEntry);
+            EmitExtraShape(failure);
+            EmitIntegerTest(1, failure);
+            EmitExtras(failure);
+
+            return TryEmitWxObjectCommand(
+                integer,
+                sharedType: receiverType,
+                functionFailure: failure,
+                scalarAfterUnion: true
+            );
+
+            void EmitExtraShape(int failedArity)
+            {
+                if (compoundExtras.Tuple)
+                {
+                    owner.Op(IsTuple, LabelTag, failure);
+                    owner.Operand(XRegisterTag, 2);
+                    owner.Op(TestArity, LabelTag, failedArity);
+                    owner.Operand(XRegisterTag, 2);
+                    owner.Operand(BeamWire.UnsignedTag, compoundExtras.Guards.Length);
+                }
+            }
+
+            void EmitExtras(int rejected)
+            {
+                for (int index = 0; index < compoundExtras.Guards.Length; index++)
+                {
+                    if (compoundExtras.Tuple)
+                    {
+                        owner.EmitTuplePart(2, index, receiverType + 1);
+                        EmitIntegerTest(receiverType + 1, rejected);
+                    }
+                    else if (compoundExtras.Mapped)
+                    {
+                        owner.Op(IsList, LabelTag, rejected);
+                        owner.Operand(XRegisterTag, index + 2);
+                    }
+                    else
+                    {
+                        EmitIntegerTest(index + 2, rejected);
+                    }
+                }
+            }
+
+            void EmitIntegerTest(int register, int rejected)
+            {
+                owner.Op(IsInteger, LabelTag, rejected);
+                owner.Operand(XRegisterTag, register);
+            }
+
+            bool ReadsBounds(Expr? guard, string[] bounds, bool lastList) => bounds.Length == 0 ? guard is null
+                : guard is not null && bounds.Distinct(StringComparer.Ordinal).Count() == bounds.Length
+                    && ReadForwardGuard(guard, bounds) is { } tests
+                    && FlattenForwardConjunction(tests).SequenceEqual(
+                        Enumerable.Range(0, bounds.Length).Select(index => new ForwardGuard.Test(
+                            lastList && index == bounds.Length - 1 ? IsList : IsInteger,
+                            index
+                        ))
+                    );
+        }
+
+        private static (bool Tuple, bool Mapped, string[] Guards, string[] Forwarded, string[] Bound)? ReadWxIndexExtras(
+            Clause clause,
+            bool includeMappedTuple = false
+        )
+        {
+            if (clause.Patterns.Count == 2)
+            {
+                return (false, false, [], [], []);
+            }
+
+            if (includeMappedTuple && clause.Patterns is [_, _, AliasPattern pairWithOptions, Pattern.Variable optionsTail]
+                && TryReadPatternAlias(pairWithOptions, out var whole, out var fields)
+                && fields is Pattern.Tuple { Items: [Pattern.Variable row, Pattern.Variable column] }
+                && DistinctBindings(
+                    whole,
+                    row,
+                    column,
+                    optionsTail
+                ))
+            {
+                return (true, true, [row.Name, column.Name, optionsTail.Name], [whole.Name], [whole.Name, row.Name, column.Name]);
+            }
+
+            if (clause.Patterns.Count == 4 && clause.Patterns[2] is Pattern.Variable first
+                && clause.Patterns[3] is Pattern.Variable second && DistinctBindings(first, second))
+            {
+                string[] dimensions = [first.Name, second.Name];
+
+                return (false, false, dimensions, dimensions, dimensions);
+            }
+
+            if (clause.Patterns.Count == 3 && clause.Patterns[2] is Pattern.Variable options
+                && options.Name != VariableScopeNames.Wildcard)
+            {
+                return (false, true, [options.Name], [], []);
+            }
+
+            if (clause.Patterns.Count == 3 && clause.Patterns[2] is AliasPattern pair
+                && TryReadPatternAlias(pair, out var shape, out var tuple)
+                && tuple is Pattern.Tuple { Items: [Pattern.Variable width, Pattern.Variable height] }
+                && DistinctBindings(shape, width, height))
+            {
+                return (true, false, [width.Name, height.Name], [shape.Name], [shape.Name, width.Name, height.Name]);
+            }
+
+            return null;
+        }
+
         private bool TryEmitWxClassUnionCommand(
             FunctionDefinition function,
             bool validateOnly = false,
             int? functionFailure = null,
             bool unaryFallback = false,
-            (int Receiver, int Value)? preparedClasses = null
+            (int Receiver, int Value)? preparedClasses = null,
+            bool unaryTagValidated = false,
+            int? preparedReceiver = null,
+            bool checkedMappedTuple = false
         )
         {
             int arity = function.Arity;
-            bool hasReceiver = arity == 2;
-            if (arity is not (1 or 2) || unaryFallback && hasReceiver || preparedClasses is not null && !hasReceiver
-                || function.Clauses is not [{ Guard: null, Body: Expr.Sequence sequence } clause]
-                || sequence.Items.Count < 4)
+            bool hasReceiver = arity >= 2;
+            bool indexedOverload = preparedReceiver is not null || checkedMappedTuple;
+            if (arity < 1 || arity > (indexedOverload ? 4 : 3) || unaryFallback && hasReceiver
+                || preparedClasses is not null && arity != 2 || indexedOverload && arity < 2
+                || function.Clauses is not [{ Body: Expr.Sequence sequence } clause] || sequence.Items.Count < 4)
+            {
+                return false;
+            }
+
+            Pattern.Variable? extra = null;
+            bool mapped = false;
+            var indexed = indexedOverload ? ReadWxIndexExtras(clause, includeMappedTuple: checkedMappedTuple) : null;
+            if (indexedOverload && indexed is null)
+            {
+                return false;
+            }
+
+            if (checkedMappedTuple)
+            {
+                if (indexed is not { Tuple: true, Mapped: true } || clause.Patterns[^1] is not Pattern.Variable options)
+                {
+                    return false;
+                }
+
+                extra = options;
+                mapped = true;
+            }
+            else if ((!indexedOverload || indexed is { Mapped: true }) && arity == 3)
+            {
+                if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled
+                    || clause.Guard is not Expr.Call
+                    {
+                        Function: "is_integer" or "is_list", Arguments: [Expr.Variable guarded]
+                    } guard || !owner.ResolvesErlangBif(guard))
+                {
+                    return false;
+                }
+
+                mapped = guard.Function == "is_list";
+                if (clause.Patterns[mapped ? 2 : 1] is not Pattern.Variable argument || argument.Name != guarded.Name)
+                {
+                    return false;
+                }
+
+                extra = argument;
+            }
+            else if (!indexedOverload && clause.Guard is not null)
             {
                 return false;
             }
@@ -30,22 +240,25 @@ internal sealed partial class BeamModuleCompiler
                 Arguments: [Expr.Literal { Value: Integer }]
             };
             int queueIndex = sequence.Items.Count - (readsResult ? 2 : 1);
+            int valueRegister = mapped || indexedOverload ? 1 : arity - 1;
             if (sequence.Items[queueIndex] is not Expr.Call
                 {
                     Module: "wxe_util", Function: "queue_cmd", DynamicRemote: false,
-                    Arguments: [.., Expr.Call
-                    {
-                        Module: "wx", Function: "typeCast", DynamicRemote: false,
-                        Arguments: [Expr.Variable input, Expr.Variable castType]
-                    } cast,
-                            Expr.Case environment, Expr.Literal { Value: Integer command }]
-                } queue
+                } queue || queue.Arguments.Count != arity + 2
+                || extra is not null && !readsResult
+                || queue.Arguments[valueRegister] is not Expr.Call
+                {
+                    Module: "wx", Function: "typeCast", DynamicRemote: false,
+                    Arguments: [Expr.Variable input, Expr.Variable castType]
+                } cast
+                || queue.Arguments[arity] is not Expr.Case environment
+                || queue.Arguments[arity + 1] is not Expr.Literal { Value: Integer command }
                 || readsResult && receive!.Arguments[0] is Expr.Literal { Value: Integer received } && !command.Equals(received)
-                || queue.Arguments.Count != arity + 2
-                || ReadWxClassUnionObject(clause.Patterns[^1]) is not { } valueObject
+                || ReadWxClassUnionObject(clause.Patterns[valueRegister]) is not { } valueObject
                 || input.Name != valueObject.Object
                 || !IsWxEnvironment(environment)
-                || sequence.Items[queueIndex - 1] is not Expr.Match
+                || queueIndex < (mapped ? 3 : 1)
+                || sequence.Items[queueIndex - (mapped ? 3 : 1)] is not Expr.Match
                 {
                     Pattern: Pattern.Variable selected, Value: Expr.If
                     {
@@ -68,12 +281,61 @@ internal sealed partial class BeamModuleCompiler
 
             int prefix = hasReceiver ? 1 : 0;
             int classCount = decision.Clauses.Count - 1;
-            if (classCount < 2 || queueIndex != prefix + classCount + 1)
+            if (classCount < 2 || extra is not null && classCount != 2
+                || unaryTagValidated && (hasReceiver || classCount != 2)
+                || queueIndex != prefix + classCount + (mapped ? 3 : 1))
             {
                 return false;
             }
 
+            Expr.Fun? mapper = null;
+            Expr.Call? map = null;
             var bindings = new List<string> { valueObject.Object, valueObject.Type, selected.Name };
+            if (indexed is { } layout)
+            {
+                if (!queue.Arguments.Skip(2).Take(layout.Forwarded.Length).OfType<Expr.Variable>()
+                    .Select(variable => variable.Name).SequenceEqual(layout.Forwarded))
+                {
+                    return false;
+                }
+
+                bindings.AddRange(layout.Bound);
+            }
+
+            if (extra is not null)
+            {
+                bindings.Add(extra.Name);
+                if (mapped)
+                {
+                    if (sequence.Items[queueIndex - 2] is not
+                        Expr.Match { Pattern: Pattern.Variable mapperBinding, Value: Expr.Fun { SelfName: null } lambda }
+                        || sequence.Items[queueIndex - 1] is not Expr.Match
+                        {
+                            Pattern: Pattern.Variable resultBinding,
+                            Value: Expr.Call
+                            {
+                                Module: "lists", Function: "map", DynamicRemote: false,
+                                Arguments: [Expr.Variable mapperArgument, Expr.Variable mapInput]
+                            } mapCall
+                        }
+                        || queue.Arguments[arity - 1] is not Expr.Variable mappedArgument
+                        || mapperArgument.Name != mapperBinding.Name || mapInput.Name != extra.Name
+                        || mappedArgument.Name != resultBinding.Name || !ReadWxOptions(lambda.Clauses, out _, out _))
+                    {
+                        return false;
+                    }
+
+                    mapper = lambda;
+                    map = mapCall;
+                    bindings.Add(mapperBinding.Name);
+                    bindings.Add(resultBinding.Name);
+                }
+                else if (queue.Arguments[1] is not Expr.Variable index || index.Name != extra.Name)
+                {
+                    return false;
+                }
+            }
+
             (Atom Class, Expr.Call Call)? receiverCheck = null;
             if (hasReceiver)
             {
@@ -107,7 +369,12 @@ internal sealed partial class BeamModuleCompiler
                 classes[index] = (test.Class, test.Call);
             }
 
-            if (bindings.Contains(VariableScopeNames.Wildcard) || bindings.Distinct(StringComparer.Ordinal).Count() != bindings.Count)
+            if (bindings.Contains(VariableScopeNames.Wildcard)
+                || bindings.Distinct(StringComparer.Ordinal).Count() != bindings.Count
+                || !UsesFreshWxEnvironment(environment, bindings)
+                || mapper is not null && ClosureCaptures.Capture(
+                    mapper,
+                    bindings.ToDictionary(name => name, _ => (Term)Nil.Value)).Count != 0)
             {
                 return false;
             }
@@ -120,12 +387,18 @@ internal sealed partial class BeamModuleCompiler
             // Each class check uses four labels. Selection uses one per class plus two error labels.
             int failure = unaryFallback ? owner.nextLabel + 5 * classCount + 2 : functionFailure ?? owner.nextLabel - 2;
             int typeSlot = classCount - 1;
-            int valueSlot = classCount;
-            int receiverSlot = classCount + 1;
             int token = classCount + arity;
             int frame = token + 1;
-            for (int register = 0; preparedClasses is null && register < arity; register++)
+            int receiverSlot = token - 1;
+            int valueSlot = receiverSlot - valueRegister;
+            for (int register = 0; !checkedMappedTuple && !unaryTagValidated && preparedClasses is null
+                && preparedReceiver is null && register < arity; register++)
             {
+                if (register != 0 && register != valueRegister)
+                {
+                    continue;
+                }
+
                 EmitDetailRecordTest(
                     register,
                     4,
@@ -134,7 +407,15 @@ internal sealed partial class BeamModuleCompiler
                 );
             }
 
-            EmitFrameAllocation(preparedClasses is { } prepared ? Math.Max(prepared.Receiver, prepared.Value) + 1 : arity, frame);
+            if (extra is not null && !indexedOverload)
+            {
+                owner.Op(mapped ? IsList : IsInteger, LabelTag, failure);
+                owner.Operand(XRegisterTag, mapped ? 2 : 1);
+            }
+
+            int live = preparedClasses is { } prepared ? Math.Max(prepared.Receiver, prepared.Value) + 1
+                : preparedReceiver is int receiver ? receiver + 1 : arity;
+            EmitFrameAllocation(live, frame);
             BeamSourceLocation previous = location;
             if (receiverCheck is { } receiverClass)
             {
@@ -158,24 +439,21 @@ internal sealed partial class BeamModuleCompiler
                     );
                 }
 
-                owner.MoveRegister(
-                    XRegisterTag,
-                    1,
-                    YRegisterTag,
-                    valueSlot
-                );
-                owner.MoveRegister(
-                    XRegisterTag,
-                    0,
-                    YRegisterTag,
-                    receiverSlot
-                );
-                if (preparedClasses is null)
+                for (int register = arity - 1; register >= 0; register--)
+                {
+                    owner.MoveRegister(
+                        XRegisterTag,
+                        register,
+                        YRegisterTag,
+                        receiverSlot - register
+                    );
+                }
+                if (preparedClasses is null && preparedReceiver is null)
                 {
                     owner.EmitTuplePart(0, 2, 0);
                 }
 
-                int receiverType = preparedClasses?.Receiver ?? 0;
+                int receiverType = preparedClasses?.Receiver ?? preparedReceiver ?? 0;
                 int checkedReceiver = Label();
                 owner.Op(ExactNotEqualTest, LabelTag, checkedReceiver);
                 owner.Operand(XRegisterTag, receiverType);
@@ -208,7 +486,15 @@ internal sealed partial class BeamModuleCompiler
             for (int index = 0; index < classCount; index++)
             {
                 var (expected, call) = classes[index];
-                EmitProtectedClass(expected, call, typeSlot - index - 1);
+                EmitProtectedWxClass(
+                    token,
+                    YRegisterTag,
+                    typeSlot,
+                    typeSlot - index - 1,
+                    expected,
+                    call,
+                    ref previous
+                );
             }
 
             int[] nextClass = classes.SkipLast(1).Select(_ => Label()).ToArray();
@@ -222,7 +508,7 @@ internal sealed partial class BeamModuleCompiler
                 owner.Op(ExactEqualTest, LabelTag, last ? badArgument : nextClass[index]);
                 owner.Operand(last ? XRegisterTag : YRegisterTag, last ? 0 : slot);
                 owner.LiteralOperand(Term.A("true"));
-                owner.EmitConstant(classes[index].Class, 1);
+                owner.EmitConstant(classes[index].Class, mapped ? token : 1, mapped ? YRegisterTag : XRegisterTag);
                 if (!last)
                 {
                     JumpTo(chosen);
@@ -231,33 +517,163 @@ internal sealed partial class BeamModuleCompiler
             }
 
             Mark(chosen);
-            owner.MoveRegister(
-                YRegisterTag,
-                valueSlot,
-                XRegisterTag,
-                0
-            );
-            if (hasReceiver)
+            bool relocatesDimensions = indexedOverload && arity > 2 && !mapped;
+            int retained = relocatesDimensions || checkedMappedTuple ? arity - 1 : extra is null ? prefix : 2;
+            int removed = frame - retained;
+            int[] dimensionSlots = relocatesDimensions ? Enumerable.Range(2, arity - 2)
+                .Select(register => receiverSlot - register).ToArray() : [];
+            int preparedReceiverSlot = 0;
+            if (mapper is not null)
+            {
+                owner.EmitClosureAllocation(0, 0, 1);
+                EmitWxOptionMapper(mapper, 0);
+                owner.MoveRegister(
+                    YRegisterTag,
+                    receiverSlot - (arity - 1),
+                    XRegisterTag,
+                    1
+                );
+                int removedBeforeMap = frame - arity;
+                Trim(removedBeforeMap, arity);
+                owner.EmitCallLine(map!, previous);
+                previous = CallLocation(map!, previous);
+                owner.Op(ExternalCall, BeamWire.UnsignedTag, 2);
+                owner.Operand(BeamWire.UnsignedTag, owner.Import("lists", "map", 2));
+                owner.MoveRegister(
+                    YRegisterTag,
+                    valueSlot - removedBeforeMap,
+                    XRegisterTag,
+                    2
+                );
+                owner.MoveRegister(
+                    YRegisterTag,
+                    arity - 1,
+                    XRegisterTag,
+                    1
+                );
+                owner.MoveRegister(
+                    XRegisterTag,
+                    0,
+                    YRegisterTag,
+                    arity - 1
+                );
+                if (checkedMappedTuple)
+                {
+                    owner.MoveRegister(
+                        YRegisterTag,
+                        0,
+                        YRegisterTag,
+                        1
+                    );
+                    preparedReceiverSlot = 1;
+                }
+
+                Trim(1, retained);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    2,
+                    XRegisterTag,
+                    0
+                );
+            }
+            else
             {
                 owner.MoveRegister(
                     YRegisterTag,
-                    receiverSlot,
-                    YRegisterTag,
-                    token
+                    valueSlot,
+                    XRegisterTag,
+                    0
                 );
-            }
+                if (relocatesDimensions)
+                {
+                    int[] savedSlots = [receiverSlot, .. dimensionSlots];
+                    var available = new Queue<int>(Enumerable.Range(removed, retained).Reverse()
+                        .Where(slot => !savedSlots.Contains(slot)));
+                    for (int index = dimensionSlots.Length - 1; index >= 0; index--)
+                    {
+                        int from = dimensionSlots[index];
+                        if (from < removed)
+                        {
+                            int to = available.Dequeue();
+                            owner.MoveRegister(
+                                YRegisterTag,
+                                from,
+                                YRegisterTag,
+                                to
+                            );
+                            dimensionSlots[index] = to;
+                        }
 
-            Trim(frame - prefix, prefix);
+                        dimensionSlots[index] -= removed;
+                    }
+
+                    preparedReceiverSlot = receiverSlot - removed;
+                }
+                else if (hasReceiver)
+                {
+                    owner.MoveRegister(
+                        YRegisterTag,
+                        extra is null ? receiverSlot : receiverSlot - 1,
+                        YRegisterTag,
+                        token
+                    );
+                }
+
+                Trim(frame - retained, retained);
+            }
             owner.EmitCallLine(cast, previous);
             owner.Op(ExternalCall, BeamWire.UnsignedTag, 2);
             owner.Operand(BeamWire.UnsignedTag, owner.Import("wx", "typeCast", 2));
             EmitWxEnvironmentCheck(1, missingEnvironment);
             owner.EmitTuplePart(1, 1, arity);
+            if (relocatesDimensions)
+            {
+                for (int index = dimensionSlots.Length - 1; index >= 0; index--)
+                {
+                    owner.MoveRegister(
+                        YRegisterTag,
+                        dimensionSlots[index],
+                        XRegisterTag,
+                        index + 2
+                    );
+                }
+            }
+
+            if (mapped)
+            {
+                if (checkedMappedTuple)
+                {
+                    owner.MoveRegister(
+                        YRegisterTag,
+                        0,
+                        XRegisterTag,
+                        2
+                    );
+                }
+
+                owner.MoveRegister(
+                    YRegisterTag,
+                    arity - 2,
+                    XRegisterTag,
+                    arity - 1
+                );
+            }
+
             if (hasReceiver)
             {
                 owner.MoveRegister(
                     XRegisterTag,
                     0,
+                    XRegisterTag,
+                    valueRegister
+                );
+            }
+
+            if (extra is not null && !mapped)
+            {
+                owner.MoveRegister(
+                    YRegisterTag,
+                    1,
                     XRegisterTag,
                     1
                 );
@@ -268,13 +684,13 @@ internal sealed partial class BeamModuleCompiler
             {
                 owner.MoveRegister(
                     YRegisterTag,
-                    0,
+                    preparedReceiverSlot,
                     XRegisterTag,
                     0
                 );
                 if (readsResult)
                 {
-                    Trim(1, 0);
+                    Trim(retained, 0);
                 }
             }
 
@@ -332,44 +748,6 @@ internal sealed partial class BeamModuleCompiler
                 owner.Op(DynamicApply, BeamWire.UnsignedTag, 1);
             }
 
-            void EmitProtectedClass(Atom expected, Expr.Call call, int resultSlot)
-            {
-                int invoke = Label();
-                int success = Label();
-                int handler = Label();
-                int done = Label();
-                owner.Op(TryEnter, YRegisterTag, token);
-                owner.Operand(LabelTag, handler);
-                owner.Op(ExactEqualTest, LabelTag, invoke);
-                owner.Operand(YRegisterTag, typeSlot);
-                owner.LiteralOperand(expected);
-                owner.EmitConstant(Term.A("true"), 0);
-                JumpTo(success);
-                Mark(invoke);
-                ApplyClass(
-                    YRegisterTag,
-                    typeSlot,
-                    expected,
-                    call
-                );
-                Mark(success);
-                owner.Op(TryEnd, YRegisterTag, token);
-                if (resultSlot >= 0)
-                {
-                    owner.MoveRegister(
-                        XRegisterTag,
-                        0,
-                        YRegisterTag,
-                        resultSlot
-                    );
-                }
-                JumpTo(done);
-                Mark(handler);
-                owner.Op(TryCase, YRegisterTag, token);
-                owner.EmitConstant(Term.A("false"), Math.Max(0, resultSlot), resultSlot < 0 ? XRegisterTag : YRegisterTag);
-                Mark(done);
-            }
-
             void Trim(int count, int remaining)
             {
                 owner.Op(TrimFrame, BeamWire.UnsignedTag, count);
@@ -382,6 +760,58 @@ internal sealed partial class BeamModuleCompiler
                 owner.Operand(BeamWire.UnsignedTag, owner.Import(module, name, 1));
                 owner.Operand(BeamWire.UnsignedTag, remaining);
             }
+        }
+
+        private void EmitProtectedWxClass(
+            int token,
+            int sourceTag,
+            int source,
+            int resultSlot,
+            Atom expected,
+            Expr.Call call,
+            ref BeamSourceLocation previous
+        )
+        {
+            int invoke = Label();
+            int success = Label();
+            int handler = Label();
+            int done = Label();
+            owner.Op(TryEnter, YRegisterTag, token);
+            owner.Operand(LabelTag, handler);
+            owner.Op(ExactEqualTest, LabelTag, invoke);
+            owner.Operand(sourceTag, source);
+            owner.LiteralOperand(expected);
+            owner.EmitConstant(Term.A("true"), 0);
+            JumpTo(success);
+            Mark(invoke);
+            owner.MoveRegister(
+                sourceTag,
+                source,
+                XRegisterTag,
+                1
+            );
+            owner.EmitConstant(Term.A("parent_class"), 2);
+            owner.EmitConstant(expected, 0);
+            owner.EmitCallLine(call, previous);
+            previous = CallLocation(call, previous);
+            owner.Op(DynamicApply, BeamWire.UnsignedTag, 1);
+            Mark(success);
+            owner.Op(TryEnd, YRegisterTag, token);
+            if (resultSlot >= 0)
+            {
+                owner.MoveRegister(
+                    XRegisterTag,
+                    0,
+                    YRegisterTag,
+                    resultSlot
+                );
+            }
+
+            JumpTo(done);
+            Mark(handler);
+            owner.Op(TryCase, YRegisterTag, token);
+            owner.EmitConstant(Term.A("false"), Math.Max(0, resultSlot), resultSlot < 0 ? XRegisterTag : YRegisterTag);
+            Mark(done);
         }
 
         private static (string Object, string Type)? ReadWxClassUnionObject(Pattern pattern) =>
@@ -422,15 +852,15 @@ internal sealed partial class BeamModuleCompiler
                 Pattern: Pattern.Variable result, Value: Expr.Try
                 {
                     Body: var body, After: null, Clauses: [], Catches: [
-                    {
-                        Guard: null, Patterns:
+                        {
+                            Guard: null, Patterns:
                     [Pattern.Tuple
                     {
                         Items: [Pattern.Variable { Name: VariableScopeNames.Wildcard },
                         Pattern.Variable { Name: VariableScopeNames.Wildcard }, Pattern.Variable { Name: VariableScopeNames.Wildcard }]
                     }],
-                        Body: Expr.Literal { Value: Atom { Name: "false" } }
-                    }]
+                            Body: Expr.Literal { Value: Atom { Name: "false" } }
+                        }]
                 }
             }
             && ReadWxClassTest(body, type) is { } check ? (result.Name, check.Class, check.Call) : null;

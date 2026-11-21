@@ -1,0 +1,83 @@
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12302,6 +12302,7 @@
+ Test(Erlang.Tests.BeamOwnedLeafBranchChecks.TestName, Erlang.Tests.BeamOwnedLeafBranchChecks.Run);
+ Test(Erlang.Tests.BeamAtomOwnedNestedRecordChecks.TestName, Erlang.Tests.BeamAtomOwnedNestedRecordChecks.Run);
+ Test(Erlang.Tests.BeamInitialEntryProjectionChecks.TestName, Erlang.Tests.BeamInitialEntryProjectionChecks.Run);
++Test(Erlang.Tests.BeamNestedRecordRegisterChecks.TestName, Erlang.Tests.BeamNestedRecordRegisterChecks.Run);
+ Test(Erlang.Tests.BeamCommonTestIncludeProfileChecks.TestName, Erlang.Tests.BeamCommonTestIncludeProfileChecks.Run);
+ Test(
+     Erlang.Tests.BeamConstructorColumnComprehensionChecks.TestName,
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamNestedRecordRegisterChecks.cs b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamNestedRecordRegisterChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamNestedRecordRegisterChecks.cs
+@@ -0,0 +1,67 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamNestedRecordRegisterChecks
++{
++    internal const string TestName = "compiler/beam/checked-nested-update-register-result";
++    private const string LostResultRegister = "A checked nested update spilled its result before constructing the enclosing record.";
++    private const string LostCheck = "The unchecked nested update lost its badrecord check.";
++    private const string Source = """
++        -module(beam_nested_record_register_result).
++        -export([run/2, unchecked/2]).
++        -record(state,{first,second}).
++        -record(part,{device,timer}).
++        run(tick, State=#state{first=Part=#part{device=Device}}) ->
++            service:emit(Device),
++            Timer = service:timer(),
++            {ok,State#state{first=Part#part{timer=Timer}}};
++        run(keep, State=#state{second=Part=#part{device=Device}}) ->
++            service:emit(Device),
++            service:again(Device),
++            {ok,State#state{second=Part#part{timer=none}}}.
++        unchecked(State=#state{first=MaybeRecord}, Timer) ->
++            {ok,State#state{first=MaybeRecord#part{timer=Timer}}}.
++        """;
++
++    internal static void Run()
++    {
++        object code = Code(CodeGeneration.CompileBeamModule(Source, "beam_nested_record_register_result.erl"));
++        var instructions = ((IEnumerable)Property(code, "Instructions")).Cast<object>().ToArray();
++        var functions = ((IEnumerable)Property(code, "Functions")).Cast<object>().ToArray();
++        object[] updates = Body("run").Where(instruction => Opcode(instruction) == UpdateRecord).ToArray();
++        if (updates.Length != 4 || !UsesTypedResult(updates[1]) || !UsesTypedResult(updates[3]))
++        {
++            throw new InvalidOperationException(LostResultRegister);
++        }
++
++        if (Body("unchecked").Count(instruction => Opcode(instruction) == IsTaggedTuple) < 2)
++        {
++            throw new InvalidOperationException(LostCheck);
++        }
++
++        object[] Body(string name)
++        {
++            object function = functions.Single(candidate => (string)Property(candidate, "Name") == name);
++            int first = (int)Property(function, "FirstInstructionIndex");
++            int last = (int)Property(function, "EndInstructionIndex");
++
++            return instructions[first..last];
++        }
++    }
++
++    private static bool UsesTypedResult(object update)
++    {
++        object operand = ((IEnumerable)Property(update, "Operands")).Cast<object>().Last();
++
++        return (string)Property(operand, "Kind") == "x"
++            && ((BigInteger)Property(operand, "Value")).IsZero
++            && operand.GetType().GetProperty("TypeIndex")?.GetValue(operand) is int;
++    }
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++}

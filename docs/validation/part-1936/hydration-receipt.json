@@ -1,0 +1,40 @@
+{
+  "Parent": {
+    "Source": "4ecf38a4a88e2942d4c14d3daf9c80d16b1db47d48cd366070b32ed7ec8c2b6d",
+    "Paths": 751,
+    "RemovedPaths": [],
+    "Compiler": "8fd9cf7c60612bc92106f9e03d1f23a8480b9cbb48dfea22af390fbd896127ff",
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "Tests": "58582ebb1673f3cd2c9bb19f9979ff5bce2780f9ec557d7918e42ca3292d6e6c",
+    "ParentSource": "fa86f7aca180a8af231eed3bcb6b6eaeed8ce243395852655e6f1a463b09b3b2",
+    "CorpusTool": "16abd58cf13019583af52cfe9601553397e3bc83671aa830ea874f0363a93bd6"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryListDefault.cs": "40c2e2b532d247ce10f97acea96c4b80fa56d9f0cb2183898f73675d1857d69f",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ExactRegisterProofs.cs": "5b7da3987499067f2976301871ab8748202e6996a82394fbafa7e18d5b40ddf7",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs": "5e451c58ab891c19e8c36c80f9a2c8d094e17a7d25dc3b48fc767a620020287a",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": "a29a912da3419a6d06dc6a331171b817f2a4108f2a93e70ead3049d0f8d292b6",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.NestedListAccumulator.cs": "23a13ea22ee014e1b15eea555ee8b342a9b15d45611201d0292b64e2041f5dba",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProvenListHeadInputs.cs": "f746616c6588b045549439be84c8360e8846a2cc3b149a1653477d7401e76c65",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TerminalCallProjections.cs": "a359bd209b19d7b363f9cba500b9699755cc1df5ef64a3bab7abd14297974201",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": "5c64e399e24126a5d29c2e614fd4e8e39e4c9b7298f847ae38d3487410a8c16a",
+    "tests/Erlang.Tests/Compiler/Beam/BeamNestedListAccumulatorChecks.cs": "060929657382534dc029cac22fd3928dffae2308e7095ed217445297a54b7f77",
+    "tests/Erlang.Tests/Compiler/Beam/BeamProvedExactCopiesChecks.cs": "1e8014051208b50f2efb4114d7bcbaf29721f767255e060be87034924867965c",
+    "tests/Erlang.Tests/Compiler/Beam/BeamProvenListHeadInputChecks.cs": "fce2e8109cd4b2ed6a47f49d3bbbc2e13a4d8a805792eda4f33e1ead937d6364",
+    "tests/Erlang.Tests/Compiler/Beam/BeamReflexiveExactTestsChecks.cs": "226347879de1395d65931854a38839bc17e01a04684ab10919d0eff84ffc1933",
+    "tests/Erlang.Tests/Compiler/Beam/BeamTerminalCallProjectionChecks.cs": "8720b6a35b3cd8553ff880ee88727424032798facb3982104d611f00581b0a39",
+    "tests/Erlang.Tests/Harness/Program.cs": "cd1b773add48632bdeeb17372cf656da88522affa85c5f3398d4e590df26a7c1"
+  },
+  "CandidateRemovedPaths": {},
+  "PatchSources": {
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\binary-match-audit-1931\\private-cons-callers\\proven-list-heads.patch": "03397172e36160dc1312801add88ec34e15dcbf38dd1a0f50ca654e06dad7742",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\late-proofs-and-closed-list-types-1936\\adapted-tests\\ProvenPrivateLists.patch": "176ea6ab2794b199f7cddf231764122f93e7d1dd47d72c92f5a5fe71485de95f",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\asn-named-bits-replay-1931\\nested-list-decoder-scheduling\\nested-list-accumulator-part1934.patch": "8ef74b7688eb5a958b3bf92e8202c15b09a9295f9c937587d09236cac536ea2a",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\late-proofs-and-closed-list-types-1936\\adapted-tests\\NestedListDecoder.patch": "835224e14b53628822ea685d260e08c9802d4b4b411a44a0d42a6e08db1bbd8e",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\mod-head-call-projections-1936\\production.patch": "c2ee6dc53c7140f4c858b0c8aba9e38d38a55348b7b9d44816f45e448648224f",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\late-proofs-and-closed-list-types-1936\\adapted-tests\\TerminalCallProjections.patch": "5722d1af1cc2116735576fa040aa02600cc94b751bf3f432c24f9b69b45a67e8",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\late-proofs-and-closed-list-types-1936\\late-proof-parent-bound\\production.patch": "02544cf9f29960872e11e3cf743a770835a0a7db95f340ebf729762c25860d70",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\late-proofs-and-closed-list-types-1936\\adapted-tests\\LateRegisterProofs.patch": "0292986a9881b00007fbb7e1bc1f9a0d4de40cc9e54cc05cf2516de87990f5a1",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\late-proofs-and-closed-list-types-1936\\adapted-tests\\integrated-harness-registrations.patch": "d2cd0e2aee5436c2ab4e23a3fbc804eb7b27591982ca01e458d67b47032f6afe"
+  }
+}

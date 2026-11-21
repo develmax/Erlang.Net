@@ -1,0 +1,84 @@
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12303,6 +12303,7 @@
+ Test(Erlang.Tests.BeamAtomOwnedNestedRecordChecks.TestName, Erlang.Tests.BeamAtomOwnedNestedRecordChecks.Run);
+ Test(Erlang.Tests.BeamInitialEntryProjectionChecks.TestName, Erlang.Tests.BeamInitialEntryProjectionChecks.Run);
+ Test(Erlang.Tests.BeamNestedRecordRegisterChecks.TestName, Erlang.Tests.BeamNestedRecordRegisterChecks.Run);
++Test(Erlang.Tests.BeamOuterLiteralRecordEntryChecks.TestName, Erlang.Tests.BeamOuterLiteralRecordEntryChecks.Run);
+ Test(Erlang.Tests.BeamCommonTestIncludeProfileChecks.TestName, Erlang.Tests.BeamCommonTestIncludeProfileChecks.Run);
+ Test(
+     Erlang.Tests.BeamConstructorColumnComprehensionChecks.TestName,
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamOuterLiteralRecordEntryChecks.cs b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamOuterLiteralRecordEntryChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamOuterLiteralRecordEntryChecks.cs
+@@ -0,0 +1,68 @@
++using System.Collections;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamOuterLiteralRecordEntryChecks
++{
++    internal const string TestName = "compiler/beam/outer-record-literal-entry-before-frame";
++    private const string MissingDispatch = "A disjoint known record ID did not dispatch before branch allocation.";
++    private const string IncorrectDispatch = "Repeated record IDs were treated as disjoint entry arms.";
++    private const string Source = """
++        -module(beam_outer_literal_record_entry).
++        -export([run/2, overlap/2]).
++        -record(event,{id,body}).
++        -record(command,{kind,item}).
++        -record(state,{data}).
++        run(#event{id=1,body=#command{kind=accept,item=Item}}, State=#state{}) ->
++            service:emit(Item),
++            {ok,State};
++        run(#event{id=4,body=#command{kind=accept,item=Item}}, State=#state{}) ->
++            service:discard(Item),
++            {ok,State};
++        run(Event=#event{}, State=#state{}) ->
++            service:fallback(Event),
++            {ok,State}.
++        overlap(#event{id=1,body=#command{kind=accept,item=Item}}, State=#state{}) ->
++            service:emit(Item),
++            {ok,State};
++        overlap(#event{id=1,body=#command{kind=drop,item=Item}}, State=#state{}) ->
++            service:discard(Item),
++            {ok,State};
++        overlap(Event=#event{}, State=#state{}) ->
++            service:fallback(Event),
++            {ok,State}.
++        """;
++
++    internal static void Run()
++    {
++        object code = Code(CodeGeneration.CompileBeamModule(Source, "beam_outer_literal_record_entry.erl"));
++        var instructions = ((IEnumerable)Property(code, "Instructions")).Cast<object>().ToArray();
++        var functions = ((IEnumerable)Property(code, "Functions")).Cast<object>().ToArray();
++        if (!SelectsIntegerBeforeFrame("run"))
++        {
++            throw new InvalidOperationException(MissingDispatch);
++        }
++
++        if (SelectsIntegerBeforeFrame("overlap"))
++        {
++            throw new InvalidOperationException(IncorrectDispatch);
++        }
++
++        bool SelectsIntegerBeforeFrame(string name)
++        {
++            object function = functions.Single(candidate => (string)Property(candidate, "Name") == name);
++            int first = (int)Property(function, "FirstInstructionIndex");
++            int last = (int)Property(function, "EndInstructionIndex");
++
++            return instructions[first..last].TakeWhile(instruction => Opcode(instruction) is not (Allocate or AllocateHeap))
++                .Any(instruction => Opcode(instruction) == SelectValue
++                    && ((IEnumerable)Property(instruction, "Operands")).Cast<object>()
++                        .Any(operand => (string)Property(operand, "Kind") == "integer"));
++        }
++    }
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++}

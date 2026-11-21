@@ -1,0 +1,65 @@
+{
+  "Gains": {
+    "LocT": 3,
+    "Attr": 3,
+    "Code": 3,
+    "Line": 2,
+    "LitT": 2,
+    "AtU8": 1,
+    "ExpT": 2,
+    "FunT": 1,
+    "ImpT": 1,
+    "Type": 2
+  },
+  "Losses": {
+    "ExpT": 1
+  },
+  "Modules": [
+    {
+      "Module": "ct_config_plain",
+      "Gains": [
+        "LocT"
+      ],
+      "Losses": [
+        "ExpT"
+      ]
+    },
+    {
+      "Module": "httpd_esi",
+      "Gains": [
+        "Attr",
+        "Code",
+        "Line",
+        "LitT",
+        "LocT"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "Safecurves-pkix-18",
+      "Gains": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "FunT",
+        "ImpT",
+        "Line",
+        "LocT",
+        "Type"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "ssh_connection_sup",
+      "Gains": [
+        "Attr",
+        "Code",
+        "ExpT",
+        "LitT",
+        "Type"
+      ],
+      "Losses": []
+    }
+  ]
+}

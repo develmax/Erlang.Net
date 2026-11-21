@@ -1,0 +1,35 @@
+# Retain the sole ordinary-call result in X0
+
+This study starts with the 126 functions in 89 modules from the Part 1971 post-call root-copy census. The source baseline for the independent draft is the frozen Part 1974 strict-link preimage. It contains the Part 1973 read-only late decoder, the preceding Part 1974 no-GC alias rewrite and its selected-entry frame compactor. The focused Part 1973 edge-retake compiler identity is F685472E21EDDB969DC244FA620539FF5D145C8D267B0F8E9486A7F30DAD2476. Its pilot contains 12 of the original cohort functions in ten modules. Only those available pilot images were checked as newer controls. The historical 126-row measurements use actual Part 1971 shard images and the installed Windows OTP 29.1.1 release.
+
+## Scope and choice
+
+| Replay form | Functions | Modules |
+| --- | ---: | ---: |
+| Original root-copy cohort with the same pinned ordinary callee | 126 | 89 |
+| Sole Y alias to X0 with proved physical-use edges, no widened heap roots | 11 | 8 |
+| Same proof with a required heap Live change from zero to one | 23 | 17 combined |
+| Typed normalized instructions match after the alias and frame rewrite | 2 | 2 |
+| Instructions match when ignoring independent type refinements | 6 | 6 |
+
+The two typed matches are system_information:sanity_check/0 and xmerl_xsd:list_members/2. Four more functions still differ in type annotations. Both primary modules retain unrelated section differences as a whole. The replay uses only the original C# output and compares with pinned BEAM. It preserves instruction order and canonicalizes local label numbers for diagnosis. It cannot establish a whole-file raw gain or close unrelated passes. Fresh Part 1973 pilot checks show edlin_type_suggestion:get_types/4 and mnesia_dumper:incr_log_writes/0 retain the same narrow shape.
+
+A terminal GC BIF variant made no additional qualified matches. An exploratory rebinding plus single-key map-fetch variant reaches 33 functions in 27 modules and does not add a typed instruction match. The broader rebinding proof needs riskier edge semantics, so the implementation stays with the sole definition. Part 1974's single ordinary return-frame pass handles functions with zero existing post-call Y reads. This draft requires post-call Y reads. The narrow proposal also excludes the established multi-Y terminal projection family.
+
+## Source and implementation
+
+The pinned beam_ssa_pre_codegen find_yregs pass saves a value when a later use sees it in a clobbered register set. The result is newly defined by the ordinary call and is not clobbered before the relevant case arms. frame_size still records the continuation's zero-width frame, since the ordinary call needs a return address. The fresh pinned precodegen listings show frame_size 0 and empty yregs for system_information:sanity_check/0 and xmerl_xsd:list_members/2. In each, the local callee places its result into X0, an empty list test branches on that same term, and the non-empty arm constructs a status tuple that still uses X0.
+
+The proposed pass proves one allocated owner, exactly one ordinary call, an immediate result copy, a sole owned Y value and reads with no other writes. For every read it walks all backwards CFG predecessors to the copy. An X0 write, reinitialization, unknown operation, alternate entry or protected path blocks the proof. A TestHeap with live zero on such a path widens to one root. Other heaps are copied unchanged. Substituted operands retain existing type annotations, and the allocator compacts just the selected function. It retains Allocate and Deallocate with width zero. The final labels and source lines follow the existing pipeline. The patch uses no module names or release bytes.
+
+[Production patch](post-call-x0-aliases.patch) and [permanent C# test](post-call-x0-aliases-test.patch) passed strict Git application together against the isolated preimage. Test name is compiler/beam/retains-the-sole-postcall-result-in-x0. Synthetic branch tests verify exact bytes for a root-preserving heap, an already-live typed operand, continuation width zero and both branch exits. Negative cases cover a clobber on one arm, Y reinitialization, a second call and a genuinely retained other root. The [20-module release scope](scope-plan.txt) records 17 Different images and three Equal controls. Candidate SDK build, managed fixture result, native candidate behavior, and raw equality remain pending.
+
+## xmerl private malformed-input control
+
+The observed malformed case exploits a temporary export for the private list_members/2 helper. The profile verifies that the export change leaves Code bytes identical. Three well-formed input outcomes agree. For the direct atom input not_a_list, the pinned release returns {error,not_a_list}. The actual Part 1971 generated image raises {bad_generator,not_a_list}. The native backtrace is xmerl_xsd:'-list_members/2-lc$^0/1-0-'/2 and xmerl_xsd:list_members/2, both at source line 5425. The exception is in the helper before this alias can run.
+
+The pinned source at xmerl_xsd.erl:5424–5429 is the comprehension and result case. Fresh precodegen assigns a proper-list argument type to the generated helper and makes its failed is_nonempty_list arm return nil. The codegen listing contains an explicit move nil to X0, and beam_block retains it as a set. beam_jump:eliminate_moves recognizes that failure of is_nonempty_list on a known proper list implies nil. The jump listing is the first checkpoint where the branch returns directly. The actual pinned Windows helper likewise returns with X0 unmodified. Consequently a private out-of-contract atom sent through the temporary export can reach the branch with the wrong physical term and be wrapped by the caller. See the helper pass slices in pinned-precodegen, both native stacks, and both raw disassemblies. The checked-out OTP reference stayed unchanged.
+
+Every call to list_members/2 in the pinned source occurs through legal_block_values/2 or legal_final_values/2 at lines 2324, 2326 and 2331. The exported paths supplying these checks always call split_by_whitespace(Value,[]) first, at lines 2218, 2227, 2287 and 2297. split_by_whitespace/2 at lines 4887–4896 builds only a proper list and returns reverse(Acc) even for inappropriate values. The direct malformed atom passed as Members is therefore outside these exported paths. For actual public sentinels, process_schema/1 accepted the same valid block/final attributes on both images and reported the same four illegal-value lists for invalid attributes on a complex type and an element. The public ETF files match exactly after isolating successful result status and block/final diagnostics. This is a scoped reachable-input check. It does not claim all xmerl_xsd behavior.
+
+Run xmerl-public-schema-native.eval on the root execution images, and xmerl-private-malformed-stack.eval only as a separately labeled diagnostic. The source proposal is unchanged because of this finding. The original expectation failure, native backtrace and phase-specific compilation diagnostics are preserved. No SDK was invoked.

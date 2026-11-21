@@ -1,0 +1,93 @@
+using static Erlang.Compiler.BeamEmissionFormat;
+
+namespace Erlang.Compiler;
+
+internal sealed partial class BeamModuleCompiler
+{
+    private sealed partial class GeneralEmitter
+    {
+        private bool TryEmitIntegerTaggedAliasResult(FunctionDefinition function)
+        {
+            if (owner.ModuleOptimizationDisabled || function.Arity != 1
+                || function.Clauses is not
+                [
+                    {
+                        Guard: null,
+                        Patterns: [Pattern.Variable input],
+                        Body: Expr.Case { Value: Expr.Variable selector, Clauses.Count: >= 3 } decision
+                    }
+                ]
+                || input.Name == VariableScopeNames.Wildcard || selector.Name != input.Name
+                || decision.Clauses[^1] is not { Guard: null, Patterns: [Pattern.Variable fallback], Body: var fallbackBody }
+                || ReadResultPrefix(fallbackBody, fallback) is not { } fallbackPrefix)
+            {
+                return false;
+            }
+
+            var branches = new List<(Integer Tag, Integer Prefix)>();
+            var tags = new HashSet<Integer>();
+            foreach (Clause branch in decision.Clauses.Take(decision.Clauses.Count - 1))
+            {
+                if (branch is not { Guard: null, Patterns: [AliasPattern alias], Body: var body }
+                    || !TryReadPatternAlias(alias, out Pattern.Variable binding, out Pattern shape)
+                    || binding.Name == input.Name
+                    || shape is not Pattern.Tuple
+                    {
+                        Items: [Pattern.Literal { Value: Integer tag }, Pattern.Variable { Name: VariableScopeNames.Wildcard }]
+                    }
+                    || ReadResultPrefix(body, binding) is not { } prefix || !tags.Add(tag))
+                {
+                    return false;
+                }
+
+                branches.Add((tag, prefix));
+            }
+
+            // All selected arms preserve the full input. Disjoint tags can use one switch after the shape check.
+            branches.Sort((left, right) => TermOrder.Compare(left.Tag, right.Tag, exact: true));
+            int[] targets = new int[branches.Count];
+            for (int index = targets.Length - 1; index >= 0; index--)
+            {
+                targets[index] = Label();
+            }
+
+            int otherwise = Label();
+            owner.EmitTupleCheck(0, 2, otherwise);
+            owner.EmitTuplePart(0, 0, 1);
+            EmitAritySelect(1, targets.Length, otherwise);
+            for (int index = 0; index < targets.Length; index++)
+            {
+                owner.LiteralOperand(branches[index].Tag);
+                owner.Operand(LabelTag, targets[index]);
+            }
+
+            for (int index = targets.Length - 1; index >= 0; index--)
+            {
+                Mark(targets[index]);
+                EmitResult(branches[index].Prefix);
+            }
+
+            Mark(otherwise);
+            EmitResult(fallbackPrefix);
+
+            return true;
+
+            static Integer? ReadResultPrefix(Expr body, Pattern.Variable binding) =>
+                binding.Name != VariableScopeNames.Wildcard
+                    && body is Expr.Tuple { Items: [Expr.Literal { Value: Integer value }, Expr.Variable result] }
+                    && result.Name == binding.Name ? value : null;
+
+            void EmitResult(Integer prefix)
+            {
+                owner.Op(TestHeap, BeamWire.UnsignedTag, 3);
+                owner.Operand(BeamWire.UnsignedTag, 1);
+                owner.Op(PutTuple, XRegisterTag, 0);
+                owner.instructions.WriteByte(ExtendedListOperand);
+                owner.Operand(BeamWire.UnsignedTag, 2);
+                owner.LiteralOperand(prefix);
+                owner.Operand(XRegisterTag, 0);
+                owner.instructions.WriteByte(Return);
+            }
+        }
+    }
+}

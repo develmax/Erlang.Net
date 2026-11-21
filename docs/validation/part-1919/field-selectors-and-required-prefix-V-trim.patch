@@ -1,0 +1,919 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedAtomConsDispatch.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedAtomConsDispatch.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedAtomConsDispatch.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedAtomConsDispatch.cs
+@@ -9,7 +9,7 @@
+         private bool TryEmitClosedAtomConsDispatch(FunctionDefinition function)
+         {
+             if (!owner.SsaTypeInferenceEnabled || owner.ModuleOptimizationDisabled
+-                || function.Arity != 3 || function.Clauses.Count < 3)
++                || function.Arity != 3 || function.Clauses.Count < 2)
+             {
+                 return false;
+             }
+@@ -21,13 +21,14 @@
+             var returnCount = 0;
+             var localCount = 0;
+             var externalCount = 0;
++            var constantExits = 0;
++            var localTargets = new HashSet<(string Function, int Arity)>();
+             foreach (var clause in function.Clauses)
+             {
+                 if (clause is not
+                     {
+                         Guard: null, Patterns: [Pattern.Literal { Value: Atom key }, Pattern.Variable input, var context]
+                     }
+-                    || input.Name == VariableScopeNames.Wildcard
+                     || ReadClosedAtomConsArm(
+                         clause,
+                         input,
+@@ -45,19 +46,27 @@
+                     case null:
+                         returnCount++;
+                         break;
+-                    case { Module: null }:
++                    case { Module: null } local:
+                         localCount++;
++                        localTargets.Add((local.Function, local.Arguments.Count));
+                         break;
+                     default:
+                         externalCount++;
++                        if (armTail is { Module: ErlangModuleNames.Module, Function: AutoImportNames.Exit })
++                        {
++                            constantExits++;
++                        }
++
+                         break;
+                 }
+             }
+ 
+-            // Closed selectors with independent arms also need reverse
+-            // postorder when a local tail, a remote tail and a pure return
+-            // are visited through three distinct keys.
+-            if (!hasCons && (returnCount != 1 || localCount != 1 || externalCount != 1))
++            // SSA reverse postorder visits independent selector arms in descending atom order.
++            bool mixedCalls = returnCount == 1 && localCount == 1 && externalCount == 1;
++            bool distinctLocalCalls = returnCount == 1 && localCount == 2 && localTargets.Count == 2;
++            bool constantExitPair = choices.Count == 2 && localCount == 1 && constantExits == 1;
++            if (!hasCons && !mixedCalls && !distinctLocalCalls && !constantExitPair
++                || hasCons && choices.Count == 2 && (localCount != 1 || externalCount != 1))
+             {
+                 return false;
+             }
+@@ -93,13 +102,17 @@
+                 if (!DistinctBindings(input, head, rest)
+                     || clause.Body is not Expr.Call
+                     {
+-                        Module: null, DynamicRemote: false,
++                        DynamicRemote: false,
+                         Arguments: [Expr.Variable first, Expr.Variable second, Expr.Variable third]
+                     } forward || first.Name != head.Name || second.Name != input.Name || third.Name != rest.Name
+-                    || !entries.TryGetValue((forward.Function, 3), out int target))
++                    || !TryResolveOrdinaryCallTarget(forward, out string? module)
++                    || module == ErlangModuleNames.Module
++                    || module is null && !entries.ContainsKey((forward.Function, 3)))
+                 {
+                     return null;
+                 }
++
++                tailTarget = forward with { Module = module };
+ 
+                 return failure =>
+                 {
+@@ -111,11 +124,41 @@
+                         XRegisterTag,
+                         2
+                     );
+-                    EmitTailLocal(target, 3, null);
+-                };
+-            }
+-
+-            if (context is not Pattern.Variable unused || unused.Name == input.Name)
++                    if (module is null)
++                    {
++                        EmitTailLocal(entries[(forward.Function, 3)], 3, null);
++                    }
++                    else
++                    {
++                        owner.EmitCallLine(forward, location);
++                        owner.Op(TailExternalCall, BeamWire.UnsignedTag, 3);
++                        owner.Operand(BeamWire.UnsignedTag, owner.Import(module, forward.Function, 3));
++                    }
++                };
++            }
++
++            if (context is not Pattern.Variable unused || unused.Name == input.Name && input.Name != VariableScopeNames.Wildcard)
++            {
++                return null;
++            }
++
++            if (clause.Body is Expr.Call
++                {
++                    DynamicRemote: false, Function: AutoImportNames.Exit, Arguments: [var reason]
++                } exit && owner.ResolvesErlangBif(exit) && AttributeLiteral.TryNormalizeConstant(reason, out Term exception))
++            {
++                tailTarget = exit with { Module = ErlangModuleNames.Module };
++
++                return _ =>
++                {
++                    owner.EmitConstant(exception, 0);
++                    owner.EmitCallLine(exit, location);
++                    owner.Op(TailExternalCall, BeamWire.UnsignedTag, 1);
++                    owner.Operand(BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module, exit.Function, 1));
++                };
++            }
++
++            if (input.Name == VariableScopeNames.Wildcard)
+             {
+                 return null;
+             }
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -1271,6 +1271,7 @@
+ 
+             if (recursiveClosure is null && clauses.Count == function.Clauses.Count
+                 && (TryEmitTaggedLookupRecordUpdate(function) || TryEmitSharedTupleExternalTailPrefix(function, functionInfo)
++                    || TryEmitClosedLiteralTupleDecision(function)
+                     || TryEmitGroupedLiteralTupleClosures(function, functionInfo)
+                     || TryEmitGroupedTupleEntry(function, functionInfo)
+                     || TryEmitSharedTaggedTupleDispatch(function, functionInfo)
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceDecoder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceDecoder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceDecoder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceDecoder.cs
+@@ -39,10 +39,6 @@
+                                         Arguments: [Expr.Variable source, Expr.Variable tagInput]
+                                     } matcher
+                                 },
+-                                    var firstSplit,
+-                                    var firstRead,
+-                                    var secondSplit,
+-                                    var secondRead,
+                                     ..,
+                                     Expr.Case extra,
+                                     Expr.Match
+@@ -67,43 +63,63 @@
+                 return false;
+             }
+ 
+-            int count = sequence.Items.Count - 8;
+-            if (count < 1 || count + 3 != result.Items.Count || count + 3 >= FirstReservedXRegister)
++            int fields = result.Items.Count - 1;
++            int requiredCount = sequence.Items.Count - fields - 4;
++            int count = fields - requiredCount;
++            if (requiredCount < 2 || count < 1 || fields + 1 >= FirstReservedXRegister)
+             {
+                 return false;
+             }
+ 
+             var bindings = new HashSet<string>(StringComparer.Ordinal) { input.Name, tags.Name, parsed.Name, output.Name };
+-            if (ReadRequiredPart(
+-                firstSplit,
+-                firstRead,
+-                parsed.Name,
+-                result.Items[1],
+-                bindings
+-            ) is not { } first
+-                || ReadNamedRange(first, bindings) is not { } range
+-                || ReadRequiredPart(
+-                    secondSplit,
+-                    secondRead,
+-                    first.Rest.Name,
+-                    result.Items[2],
++            var required = new (SequenceRequired Field, SequenceRead Read)[requiredCount];
++            SequenceRange? range = null;
++            string remaining = parsed.Name;
++            for (int index = 0; index < requiredCount; index++)
++            {
++                if (ReadRequiredPart(
++                    sequence.Items[2 * index + 1],
++                    sequence.Items[2 * index + 2],
++                    remaining,
++                    result.Items[index + 1],
+                     bindings
+-                ) is not { } second
+-                || ReadSequenceCall(second.Read, second.Payload.Name) is not { } required)
++                ) is not { } part)
++                {
++                    return false;
++                }
++
++                if (index == 0)
++                {
++                    range = ReadNamedRange(part, bindings);
++                }
++
++                var read = index == 0 && range is not null ? range.Read : ReadSequenceCall(part.Read, part.Payload.Name);
++                if (read is null)
++                {
++                    return false;
++                }
++
++                required[index] = (part, read);
++                remaining = part.Rest.Name;
++            }
++
++            if (range is not null
++                    ? requiredCount != 2
++                    : requiredCount < 3 || required.Skip(1).Any(field => field.Read.Entry != required[0].Read.Entry
++                        || !field.Read.Options.Equals(required[0].Read.Options)))
+             {
+                 return false;
+             }
+ 
+             var plans = new SequenceOptional[count];
+-            string remaining = second.Rest.Name;
+             for (int index = 0; index < count; index++)
+             {
+-                if (sequence.Items[index + 5] is not Expr.Match
++                if (sequence.Items[2 * requiredCount + index + 1] is not Expr.Match
+                     {
+                         Pattern: Pattern.Tuple { Items: [Pattern.Variable field, Pattern.Variable rest] },
+                         Value: Expr.Case choice
+                     }
+-                    || result.Items[index + 3] is not Expr.Variable value || value.Name != field.Name
++                    || result.Items[requiredCount + index + 1] is not Expr.Variable value || value.Name != field.Name
+                     || field.Name == VariableScopeNames.Wildcard || rest.Name == VariableScopeNames.Wildcard
+                     || !bindings.Add(field.Name) || !bindings.Add(rest.Name)
+                     || ReadOptionalSequencePart(choice, remaining, bindings) is not { } plan)
+@@ -122,49 +138,57 @@
+ 
+             var labels = Enumerable.Range(0, count).Select(_ => (Omitted: Label(), Ready: Label())).ToArray();
+             int hasExtra = Label();
+-            int outsideRange = Label();
+-            int missingSecond = Label();
+-            int missingFirst = Label();
+-            int fields = count + 2;
++            int outsideRange = range is null ? 0 : Label();
++            var missingRequired = new int[requiredCount];
++            for (int index = requiredCount - 1; index >= 0; index--)
++            {
++                missingRequired[index] = Label();
++            }
++
+             int frame = fields + 1;
+             var previous = location;
+             EmitFrameAllocation(arity: 2, size: frame);
+             EmitFrameInitialization(0, frame);
+             EmitLocal(matcher, matcherEntry);
+-            Split(
+-                XRegisterTag,
+-                0,
+-                fields,
+-                missingFirst
+-            );
+-            owner.EmitConstant(range.Read.Options, 1);
+-            EmitLocal(range.Read.Call, range.Read.Entry);
+-            EmitRangeTests(range.Read.Call, range.Range, outsideRange);
+-            owner.EmitConstant(range.Name.Options, 1);
+-            owner.EmitConstant(range.Range.Lower, 0);
+-            EmitLocal(range.Name.Call, range.Name.Entry);
+-            owner.MoveRegister(
+-                XRegisterTag,
+-                0,
+-                YRegisterTag,
+-                fields - 1
+-            );
+-
+-            Split(
+-                YRegisterTag,
+-                fields,
+-                count,
+-                missingSecond
+-            );
+-            owner.EmitConstant(required.Options, 1);
+-            EmitFrameInitialization(fields, fields + 1);
+-            EmitLocal(required.Call, required.Entry);
+-            owner.MoveRegister(
+-                XRegisterTag,
+-                0,
+-                YRegisterTag,
+-                fields
+-            );
++            var requiredInputs = new int[requiredCount];
++            var requiredOutputs = new int[requiredCount];
++            int currentRest = 0;
++            for (int index = 0; index < requiredCount; index++)
++            {
++                var reader = required[index].Read;
++                int nextRest = index == 0 ? fields : fields - index - 1;
++                requiredInputs[index] = currentRest;
++                Split(
++                    index == 0 ? XRegisterTag : YRegisterTag,
++                    currentRest,
++                    nextRest,
++                    missingRequired[index]
++                );
++                owner.EmitConstant(reader.Options, 1);
++                if (index != 0)
++                {
++                    EmitFrameInitialization(currentRest, currentRest + 1);
++                }
++
++                EmitLocal(reader.Call, reader.Entry);
++                if (index == 0 && range is not null)
++                {
++                    EmitRangeTests(range.Read.Call, range.Range, outsideRange);
++                    owner.EmitConstant(range.Name.Options, 1);
++                    owner.EmitConstant(range.Range.Lower, 0);
++                    EmitLocal(range.Name.Call, range.Name.Entry);
++                }
++
++                int outputSlot = index == 0 ? fields - 1 : currentRest;
++                owner.MoveRegister(
++                    XRegisterTag,
++                    0,
++                    YRegisterTag,
++                    outputSlot
++                );
++                requiredOutputs[index] = outputSlot;
++                currentRest = nextRest;
++            }
+ 
+             for (int index = 0; index < plans.Length; index++)
+             {
+@@ -230,8 +254,11 @@
+             owner.Operand(BeamWire.UnsignedTag, 1);
+             owner.EmitTupleHeader(XRegisterTag, fields + 1);
+             owner.LiteralOperand(tag);
+-            owner.Operand(YRegisterTag, fields - 1);
+-            owner.Operand(YRegisterTag, fields);
++            foreach (int slot in requiredOutputs)
++            {
++                owner.Operand(YRegisterTag, slot);
++            }
++
+             for (int slot = count; slot > 1; slot--)
+             {
+                 owner.Operand(YRegisterTag, slot);
+@@ -250,16 +277,19 @@
+                 source: 1,
+                 frameSlots: frame
+             );
+-            Mark(outsideRange);
+-            EmitRangeExit(range.Range, CallLocation(range.Range.Exit, location), frame);
+-            Mark(missingSecond);
+-            previous = location;
+-            owner.EmitArithmeticLine(second.Split.SourceLine, ref previous);
+-            owner.Op(BadMatch, YRegisterTag, fields);
+-            Mark(missingFirst);
+-            previous = location;
+-            owner.EmitArithmeticLine(first.Split.SourceLine, ref previous);
+-            owner.Op(BadMatch, XRegisterTag, 0);
++            if (range is not null)
++            {
++                Mark(outsideRange);
++                EmitRangeExit(range.Range, CallLocation(range.Range.Exit, location), frame);
++            }
++
++            for (int index = requiredCount - 1; index >= 0; index--)
++            {
++                Mark(missingRequired[index]);
++                previous = location;
++                owner.EmitArithmeticLine(required[index].Field.Split.SourceLine, ref previous);
++                owner.Op(BadMatch, index == 0 ? XRegisterTag : YRegisterTag, requiredInputs[index]);
++            }
+ 
+             return true;
+ 
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedLiteralTupleDecision.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedLiteralTupleDecision.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedLiteralTupleDecision.cs
+@@ -0,0 +1,166 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private sealed partial class GeneralEmitter
++    {
++        private sealed record ClosedTupleClosureDecision(
++            int Label,
++            int Field,
++            IReadOnlyList<Term> Shared,
++            LiteralTupleClosureArm? Leaf,
++            IReadOnlyList<(Term Key, ClosedTupleClosureDecision Decision)> Branches
++        );
++
++        private bool TryEmitClosedLiteralTupleDecision(FunctionDefinition function)
++        {
++            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled || recursiveClosure is not null
++                || function.Arity != 1 || function.Clauses.Count < 4
++                || function.Clauses[^1] is not
++                {
++                    Guard: null, Patterns: [Pattern.Variable fallbackBinding], Body: Expr.Fun { SelfName: null } fallback
++                }
++                || HasNestedDefinitions(fallback)
++                || ClosureCaptures.Capture(fallback, new Dictionary<string, Term>(StringComparer.Ordinal)
++                { [fallbackBinding.Name] = Nil.Value }).Count != 0)
++            {
++                return false;
++            }
++
++            var patterns = new HashSet<Term>();
++            var arms = new List<LiteralTupleClosureArm>();
++            for (int index = 0; index < function.Clauses.Count - 1; index++)
++            {
++                if (function.Clauses[index] is not
++                    {
++                        Guard: null, Patterns: [Pattern.Tuple tuple], Body: Expr.Fun { SelfName: null } closure
++                    } || tuple.Items.Count is 0 or >= FirstReservedXRegister
++                    || tuple.Items.Any(item => item is not Pattern.Literal { Value: Integer })
++                    || HasNestedDefinitions(closure))
++                {
++                    return false;
++                }
++
++                Term[] fields = tuple.Items.Cast<Pattern.Literal>().Select(field => field.Value).ToArray();
++                if (!patterns.Add(Term.Tuple(fields)))
++                {
++                    return false;
++                }
++
++                arms.Add(new(fields, closure, index));
++            }
++
++            var arities = arms.GroupBy(arm => arm.Fields.Count).OrderByDescending(group => group.Key).ToArray();
++            if (arities.Length < 2 || !arities.Any(group => Enumerable.Range(0, group.Key)
++                    .Count(field => group.Any(arm => !arm.Fields[field].Equals(group.First().Fields[field]))) > 1))
++            {
++                return false;
++            }
++
++            var order = Comparer<Term>.Create((left, right) => TermOrder.Compare(left, right, exact: true));
++            var groups = arities.Select(group => (Arity: group.Key, Decision: Plan(group.ToArray(), 0))).ToArray();
++            int fallbackLabel = Label();
++            owner.EmitTupleArityDispatch(fallbackLabel, groups.Reverse().Select(group => (group.Arity, group.Decision.Label)).ToArray());
++            variables = new(StringComparer.Ordinal);
++            foreach (var (arity, decision) in groups)
++            {
++                Emit(decision, arity, preloaded: null);
++            }
++
++            Mark(fallbackLabel);
++            EmitGeneralClosure(fallback with { CoreOrdinal = fallback.CoreOrdinal ?? function.Clauses.Count - 1 });
++            owner.instructions.WriteByte(Return);
++
++            return true;
++
++            ClosedTupleClosureDecision Plan(LiteralTupleClosureArm[] candidates, int first)
++            {
++                int label = Label();
++                var shared = new List<Term>();
++                int field = first;
++                while (field < candidates[0].Fields.Count && candidates.All(arm => arm.Fields[field].Equals(candidates[0].Fields[field])))
++                {
++                    shared.Add(candidates[0].Fields[field]);
++                    field++;
++                }
++
++                if (field == candidates[0].Fields.Count)
++                {
++                    return new(
++                        label,
++                        field,
++                        shared,
++                        candidates[0],
++                        []
++                    );
++                }
++
++                var branches = candidates.GroupBy(arm => arm.Fields[field]).OrderByDescending(group => group.Key, order)
++                    .Select(group => (group.Key, Plan(group.ToArray(), field + 1))).ToArray();
++
++                return new(
++                    label,
++                    field,
++                    shared,
++                    null,
++                    branches
++                );
++            }
++
++            void Emit(ClosedTupleClosureDecision decision, int arity, int? preloaded)
++            {
++                Mark(decision.Label);
++                int field = decision.Field - decision.Shared.Count;
++                foreach (Term expected in decision.Shared)
++                {
++                    int register = Register(field, preloaded);
++                    if (preloaded is null)
++                    {
++                        owner.EmitTuplePart(0, field, register);
++                    }
++
++                    owner.Op(ExactEqualTest, LabelTag, fallbackLabel);
++                    owner.Operand(XRegisterTag, register);
++                    owner.LiteralOperand(expected);
++                    field++;
++                }
++
++                if (decision.Leaf is { } leaf)
++                {
++                    EmitGeneralClosure(leaf.Body with { CoreOrdinal = leaf.Body.CoreOrdinal ?? leaf.Ordinal });
++                    owner.instructions.WriteByte(Return);
++
++                    return;
++                }
++
++                if (preloaded is null)
++                {
++                    preloaded = field;
++                    for (int index = field; index < arity; index++)
++                    {
++                        owner.EmitTuplePart(0, index, Register(index, preloaded));
++                    }
++                }
++
++                EmitAritySelect(Register(field, preloaded), decision.Branches.Count, fallbackLabel);
++                foreach (var (key, branch) in decision.Branches.Reverse())
++                {
++                    owner.LiteralOperand(key);
++                    owner.Operand(LabelTag, branch.Label);
++                }
++
++                foreach (var (_, branch) in decision.Branches)
++                {
++                    Emit(branch, arity, preloaded);
++                }
++
++                int Register(int index, int? first) => index == arity - 1 ? 0 : first is int loaded ? index - loaded + 1 : 1;
++            }
++
++            static bool HasNestedDefinitions(Expr.Fun closure) => closure.Clauses.SelectMany(clause => LocalFunctionEntries.Walk(clause.Body))
++                .Any(expression => expression is Expr.Fun or Expr.ListComprehension or Expr.MapComprehension or Expr.BinaryComprehension);
++        }
++    }
++}
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamClosedFieldSelectorChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamClosedFieldSelectorChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamClosedFieldSelectorChecks.cs
+@@ -0,0 +1,126 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamClosedFieldSelectorChecks
++{
++    internal const string TestName = "compiler/beam/lays-out-independent-field-selector-arms-in-reverse-postorder";
++    private const string Fixture = "beam_closed_field_selector_probe.erl";
++    private const string IncorrectBranches = "The closed field selector did not emit the independent target order.";
++    private const string IncorrectResults = "A closed atom selector changed branch results.";
++
++    private const string Source = """
++        -module(beam_closed_field_selector_probe).
++        -export([lookup/3, fallback/3, convert/3, identity/3]).
++
++        lookup(direct, Input, _) -> wrap(Input, [tag]);
++        lookup(external, Input, [Column|Pairs]) -> lists:keyfind(Column, Input, Pairs).
++
++        fallback(direct, Input, _) -> wrap(Input, [tag]);
++        fallback(missing, _, _) -> exit({missing, field}).
++
++        convert(key, Input, _) -> wrap(Input, [key]);
++        convert(params, Input, _) -> alternate(Input, [params]);
++        convert(private, Input, _) -> {Input,0}.
++
++        identity(key, Input, _) ->
++            Value = decode(Input),
++            wrap(Value, [key]);
++        identity(params, Input, _) ->
++            Value = decode(Input),
++            alternate(Value, [params]);
++        identity(private, Input, _) ->
++            Input.
++
++        wrap(Input, Tag) -> {Input,Tag}.
++        alternate(Input, Tag) -> {Tag,Input}.
++        decode(Input) -> {decoded,Input}.
++        """;
++
++    internal static byte[] CompileFixture() => CodeGeneration.CompileBeamModule(Source, Fixture);
++
++    internal static async Task Run()
++    {
++        byte[] image = CompileFixture();
++        object code = Code(image);
++        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        object[] instructions = Items(code, "Instructions").ToArray();
++        Check("lookup", [IsNonemptyList, TailExternalCall, TailLocalCall]);
++        Check("fallback", [TailExternalCall, TailLocalCall]);
++        Check("convert", [Return, TailLocalCall, TailLocalCall]);
++        Check("identity", [Return, TailLocalCallWithFrame, TailLocalCallWithFrame]);
++
++        var module = BeamModule.Prepare(image, new BeamDependencySelection(["lists"]));
++        await using var runtime = new ProcessRuntime();
++        await using var receiver = new RuntimeNodeFoundationHostActor(runtime);
++        await receiver.InvokeAsync(async context =>
++        {
++            Term pair = Term.Tuple(Term.I(4), Term.A("value"));
++            Term tags = Term.List(Term.A("tag"));
++            Term contextList = Term.List(Term.I(4), pair);
++            if (!pair.Equals(await module.Invoke(
++                context,
++                "lookup",
++                Term.A("external"),
++                Term.I(1),
++                contextList
++            ))
++                || !Term.Tuple(Term.I(4), tags).Equals(await module.Invoke(
++                    context,
++                    "fallback",
++                    Term.A("direct"),
++                    Term.I(4),
++                    Nil.Value
++                ))
++                || !Term.Tuple(Term.I(4), Term.I(0)).Equals(await module.Invoke(
++                    context,
++                    "convert",
++                    Term.A("private"),
++                    Term.I(4),
++                    Nil.Value
++                ))
++                || !Term.I(4).Equals(await module.Invoke(
++                    context,
++                    "identity",
++                    Term.A("private"),
++                    Term.I(4),
++                    Nil.Value
++                )))
++            {
++                throw new InvalidOperationException(IncorrectResults);
++            }
++
++            return Nil.Value;
++        });
++
++        void Check(string name, byte[] exits)
++        {
++            int start = Array.FindIndex(
++                instructions,
++                instruction => Opcode(instruction) == FunctionInfo
++                && Items(instruction, "Operands").ToArray() is [_, var atom, _] && atoms[Value(atom)] == name
++            );
++            if (start < 0)
++            {
++                throw new InvalidOperationException(IncorrectBranches);
++            }
++
++            byte[] body = instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo)
++                .Select(Opcode).ToArray();
++            if (body.Count(opcode => opcode == SelectValue) != 1 || !body.Where(opcode => exits.Contains(opcode)).SequenceEqual(exits))
++            {
++                throw new InvalidOperationException(IncorrectBranches);
++            }
++        }
++    }
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++
++    private static IEnumerable<object> Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>();
++}
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamClosedLiteralTupleDecisionChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamClosedLiteralTupleDecisionChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamClosedLiteralTupleDecisionChecks.cs
+@@ -0,0 +1,98 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamClosedLiteralTupleDecisionChecks
++{
++    internal const string TestName = "compiler/beam/branches-on-nested-literal-tuple-fields-without-a-frame";
++    private const string Fixture = "beam_closed_literal_tuple_decision_probe.erl";
++    private const string IncorrectInstructions = "The emitted function has the wrong register or branch layout.";
++    private const string IncorrectResults = "The emitted function returned unexpected values.";
++
++    private const string Source = """
++        -module(beam_closed_literal_tuple_decision_probe).
++        -export([value/1]).
++
++        value(Key) -> (factory(Key))().
++        factory({1,2,7,3}) -> fun() -> a end;
++        factory({1,2,7,4}) -> fun() -> b end;
++        factory({1,3,1,5}) -> fun() -> c end;
++        factory({2,4}) -> fun() -> d end;
++        factory(_) -> fun() -> fallback end.
++        """;
++
++    internal static byte[] CompileFixture() => CodeGeneration.CompileBeamModule(Source, Fixture);
++
++    internal static async Task Run()
++    {
++        byte[] image = CompileFixture();
++        object code = Code(image);
++        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        object[] instructions = Items(code, "Instructions").ToArray();
++        int start = Array.FindIndex(
++            instructions,
++            instruction => Opcode(instruction) == FunctionInfo
++            && Items(instruction, "Operands").ToArray() is [_, var atom, _] && atoms[Value(atom)] == "factory"
++        );
++        if (start < 0)
++        {
++            throw new InvalidOperationException(IncorrectInstructions);
++        }
++
++        object[] body = instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo).ToArray();
++        if (body.Any(value => Opcode(value) == Allocate)
++            || body.Count(value => Opcode(value) == SelectTupleArity) != 1
++            || body.Count(value => Opcode(value) == SelectValue) != 2)
++        {
++            throw new InvalidOperationException(IncorrectInstructions);
++        }
++
++        var module = BeamModule.Prepare(image);
++        await using var runtime = new ProcessRuntime();
++        await using var receiver = new RuntimeNodeFoundationHostActor(runtime);
++        await receiver.InvokeAsync(async context =>
++        {
++            foreach (var (key, expected) in new (Term, Term)[]
++                {
++                    (Term.Tuple(
++                        Term.I(1),
++                        Term.I(2),
++                        Term.I(7),
++                        Term.I(4)
++                    ), Term.A("b")),
++                    (Term.Tuple(
++                        Term.I(1),
++                        Term.I(3),
++                        Term.I(1),
++                        Term.I(5)
++                    ), Term.A("c")),
++                    (Term.Tuple(Term.I(2), Term.I(4)), Term.A("d")),
++                    (Term.Tuple(
++                        Term.I(1),
++                        Term.I(3),
++                        Term.I(1),
++                        Term.I(9)
++                    ), Term.A("fallback")),
++                    (Term.A("atom"), Term.A("fallback"))
++                })
++            {
++                if (!expected.Equals(await module.Invoke(context, "value", key)))
++                {
++                    throw new InvalidOperationException(IncorrectResults);
++                }
++            }
++
++            return Nil.Value;
++        });
++    }
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++
++    private static IEnumerable<object> Items(object owner, string member) => ((IEnumerable)Property(owner, member)).Cast<object>();
++}
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamRepeatedRequiredSequencePrefixChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamRepeatedRequiredSequencePrefixChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamRepeatedRequiredSequencePrefixChecks.cs
+@@ -0,0 +1,132 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamRepeatedRequiredSequencePrefixChecks
++{
++    internal const string TestName = "compiler/beam/frees-required-sequence-remainders-while-keeping-decoded-values";
++    private const string Fixture = "beam_repeated_required_sequence_prefix_probe.erl";
++    private const string IncorrectInstructions = "The emitted function has the wrong register or branch layout.";
++    private const string IncorrectResults = "The emitted function returned unexpected values.";
++
++    private const string Source = """
++        -module(beam_repeated_required_sequence_prefix_probe).
++        -export([decode/2]).
++
++        decode(Input, Tags) ->
++            Parts = unpack(Input, Tags),
++            [First|Rest] = Parts,
++            A = read(First, [2]),
++            [Second|Rest2] = Rest,
++            B = read(Second, [2]),
++            [Third|Rest3] = Rest2,
++            C = read(Third, [2]),
++            {D,Rest4} = case Rest3 of
++                [{4, P}|Tail1] -> {read(P, []), Tail1};
++                _ -> {absent, Rest3}
++            end,
++            {E,Left} = case Rest4 of
++                [{5, Q}|Tail2] -> {read(Q, []), Tail2};
++                _ -> {absent, Rest4}
++            end,
++            case Left of
++                [] -> true;
++                _ -> exit({error,{asn1,{unexpected,Left}}})
++            end,
++            Result = {fields,A,B,C,D,E},
++            Result.
++
++        read(Value, _) -> Value.
++        unpack(Input, _) -> Input.
++        """;
++
++    internal static byte[] CompileFixture() => CodeGeneration.CompileBeamModule(Source, Fixture);
++
++    internal static async Task Run()
++    {
++        byte[] image = CompileFixture();
++        object code = Code(image);
++        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        object[] instructions = Items(code, "Instructions").ToArray();
++        int start = Array.FindIndex(
++            instructions,
++            instruction => Opcode(instruction) == FunctionInfo
++            && Items(instruction, "Operands").ToArray() is [_, var atom, _] && atoms[Value(atom)] == "decode"
++        );
++        if (start < 0)
++        {
++            throw new InvalidOperationException(IncorrectInstructions);
++        }
++
++        object[] body = instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo).ToArray();
++        if (body.Where(instruction => Opcode(instruction) == Allocate).Select(instruction =>
++                Value(Items(instruction, "Operands").First())).ToArray() is not [6]
++            || body.Count(instruction => Opcode(instruction) == InitYRegisters) != 5
++            || body.Count(instruction => Opcode(instruction) == BadMatch) != 3)
++        {
++            throw new InvalidOperationException(IncorrectInstructions);
++        }
++
++        var module = BeamModule.Prepare(image);
++        await using var runtime = new ProcessRuntime();
++        await using var receiver = new RuntimeNodeFoundationHostActor(runtime);
++        await receiver.InvokeAsync(async context =>
++        {
++            Term a = Term.I(1);
++            Term b = Term.I(2);
++            Term c = Term.I(3);
++            Term d = Term.A("fourth");
++            Term e = Term.A("fifth");
++            Term absent = Term.A("absent");
++            Term complete = Term.List(
++                a,
++                b,
++                c,
++                Term.Tuple(Term.I(4), d),
++                Term.Tuple(Term.I(5), e)
++            );
++            Term missing = Term.List(a, b, c);
++            if (!Term.Tuple(
++                Term.A("fields"),
++                a,
++                b,
++                c,
++                d,
++                e
++            ).Equals(await module.Invoke(
++                context,
++                "decode",
++                complete,
++                Nil.Value
++            ))
++                || !Term.Tuple(
++                    Term.A("fields"),
++                    a,
++                    b,
++                    c,
++                    absent,
++                    absent
++                ).Equals(await module.Invoke(
++                    context,
++                    "decode",
++                    missing,
++                    Nil.Value
++                )))
++            {
++                throw new InvalidOperationException(IncorrectResults);
++            }
++
++            return Nil.Value;
++        });
++    }
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++
++    private static IEnumerable<object> Items(object owner, string member) => ((IEnumerable)Property(owner, member)).Cast<object>();
++}

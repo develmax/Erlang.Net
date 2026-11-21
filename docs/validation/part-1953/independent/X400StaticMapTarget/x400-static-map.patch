@@ -1,0 +1,191 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+@@ -801,6 +801,7 @@
+         {
+             EmitBehaviourInfoFailure();
+         }
++        ResolveListClosureTargets();
+         ResolveDeferredLabelOperands();
+         code.WriteByte(EndCode);
+ 
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
+@@ -111,6 +111,7 @@
+ 
+         var helpers = new Dictionary<Expr.ListComprehension, (FunctionDefinition Function, BeamSourceLocation Location)>(ReferenceEqualityComparer.Instance);
+         var replacements = new Dictionary<Expr, Expr>(ReferenceEqualityComparer.Instance);
++        var staticMappers = new Dictionary<Expr.ListComprehension, string>(ReferenceEqualityComparer.Instance);
+         if (anonymous.Length != 0)
+         {
+             var folded = FoldImmutableClosureOperands(function.Clauses);
+@@ -181,11 +182,30 @@
+ 
+             helpers.Add(comprehension, (mapping.Helper, mapping.Location));
+             replacements.Add((Expr?)append ?? comprehension, mapping.Call);
++            if (SsaTypeInferenceEnabled && !ModuleOptimizationDisabled && !discarded && append is null
++                && mapping.Helper.Arity == 2 && comprehension is
++                {
++                    Items: [Expr.Apply { Function: Expr.Variable callback, Arguments: [Expr.Variable argument] } mapped],
++                    Qualifiers: [ComprehensionQualifier.Generator { Strict: false, Pattern: Pattern.Variable item }]
++                }
++                && argument.Name == item.Name && callback.Name != item.Name
++                && (mapped.SourceLine == 0 || mapped.SourceLine == mapping.Location.Line)
++                && ReadClosedListClosure(clause, comprehension, callback.Name) is { } closure
++                && names.TryGetValue(closure, out int ordinal))
++            {
++                staticMappers.Add(comprehension, AnonymousClosureName(function, ordinal));
++            }
+         }
+ 
+         if (helpers.Count == 0)
+         {
+             return null;
++        }
++
++        foreach (var (comprehension, closure) in staticMappers)
++        {
++            var (helper, helperLocation) = helpers[comprehension];
++            helpers[comprehension] = (helper with { StaticListClosureTarget = DeferListClosureTarget(closure) }, helperLocation);
+         }
+ 
+         var emittedDefinitions = definitions.Where(definition =>
+@@ -1025,9 +1045,56 @@
+             return true;
+         }
+ 
++        private bool TryEmitStaticListClosureMapping(FunctionDefinition function)
++        {
++            if (function.StaticListClosureTarget is not int target
++                || !entries.TryGetValue((function.Name, 2), out int recurse))
++            {
++                return false;
++            }
++
++            int empty = Label();
++            owner.EmitNonemptyList(0, empty);
++            EmitFrameAllocation(2, 2);
++            owner.MoveRegister(
++                XRegisterTag,
++                1,
++                YRegisterTag,
++                1
++            );
++            owner.EmitListParts(
++                0,
++                XRegisterTag,
++                0,
++                YRegisterTag,
++                0
++            );
++            owner.EmitFieldCall(1, target);
++            Load(0, 2);
++            Load(1, 1);
++            owner.MoveRegister(
++                XRegisterTag,
++                0,
++                YRegisterTag,
++                1
++            );
++            owner.Op(TrimFrame, BeamWire.UnsignedTag, 1);
++            owner.Operand(BeamWire.UnsignedTag, 1);
++            owner.MoveRegister(
++                XRegisterTag,
++                2,
++                XRegisterTag,
++                0
++            );
++            owner.EmitRecursiveCons(recurse, 2);
++            EmitRecursiveListMappingEnd(function, empty);
++
++            return true;
++        }
++
+         private bool TryEmitCapturedListMapping(FunctionDefinition function)
+         {
+-            if (TryEmitImmediateListMapping(function))
++            if (TryEmitStaticListClosureMapping(function) || TryEmitImmediateListMapping(function))
+             {
+                 return true;
+             }
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.StaticListClosureMapping.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.StaticListClosureMapping.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.StaticListClosureMapping.cs
+@@ -0,0 +1,66 @@
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private readonly Dictionary<string, int> deferredListClosureTargets = new(StringComparer.Ordinal);
++
++    private static Expr.Fun? ReadClosedListClosure(
++        Clause clause,
++        Expr.ListComprehension comprehension,
++        string name
++    )
++    {
++        if (clause.Body is not Expr.Sequence sequence || ClauseBindsName(clause.Patterns, name)
++            || ClosureCaptures.ReadListComprehensionBindings(clause, comprehension) is not { } visible)
++        {
++            return null;
++        }
++
++        Expr.Fun? candidate = null;
++        foreach (Expr expression in sequence.Items)
++        {
++            if (ReferenceEquals(expression, comprehension)
++                || expression is Expr.Match { Value: var value } && ReferenceEquals(value, comprehension))
++            {
++                return candidate;
++            }
++
++            if (candidate is null && expression is Expr.Match
++                {
++                    Pattern: Pattern.Variable binding,
++                    Value: Expr.Fun { SelfName: null, Clauses: [{ Guard: null, Patterns: [Pattern.Variable] } body] } closure
++                }
++                && binding.Name == name
++                && ClosureCaptures.ReadEntryReferences(body, visible) is { Count: 0 })
++            {
++                candidate = closure;
++            }
++        }
++
++        return null;
++    }
++
++    private static bool ClauseBindsName(IReadOnlyList<Pattern> patterns, string name) =>
++        patterns.SelectMany(Semantics.Variables).Contains(name, StringComparer.Ordinal);
++
++    private int DeferListClosureTarget(string name)
++    {
++        if (!deferredListClosureTargets.TryGetValue(name, out int target))
++        {
++            // Ordinary deferred function targets use negated definition indexes.
++            target = int.MinValue + 1 + deferredListClosureTargets.Count;
++            deferredListClosureTargets.Add(name, target);
++        }
++
++        return target;
++    }
++
++    private void ResolveListClosureTargets()
++    {
++        foreach (var (name, target) in deferredListClosureTargets)
++        {
++            var closure = closures.Single(closure => closure.Name == name && closure.Arity == 1 && closure.CaptureCount == 0);
++            deferredEntries.Add(target, closure.Entry);
++        }
++    }
++}
+diff --git a/src/Compiler/Erlang.Compiler/Syntax/Ast/FunctionDefinition.cs b/src/Compiler/Erlang.Compiler/Syntax/Ast/FunctionDefinition.cs
+--- a/src/Compiler/Erlang.Compiler/Syntax/Ast/FunctionDefinition.cs
++++ b/src/Compiler/Erlang.Compiler/Syntax/Ast/FunctionDefinition.cs
+@@ -12,4 +12,5 @@
+     internal bool HasProperListResult { get; init; }
+     internal bool HasProvenRecursiveTupleInput { get; init; }
+     internal bool IsStrictRecursiveListMapper { get; init; }
++    internal int? StaticListClosureTarget { get; init; }
+ }

@@ -13,6 +13,7 @@ public sealed record Token(
 {
     internal int PreprocessorLine { get; init; }
     internal string? PreprocessorFile { get; init; }
+    internal string? RecordedIncludePath { get; init; }
     internal bool HasExplicitFileLocation { get; init; }
     internal int? PreprocessorColumnStart { get; init; }
     internal bool IsCharacterLiteral { get; init; }

@@ -1,0 +1,69 @@
+using System.Collections;
+using System.Numerics;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamForwardBifCallArgumentChecks
+{
+    internal const string TestName = "compiler/beam/forwards-bif-result-into-call-argument";
+    internal const string Fixture = "beam_bif_call_argument.erl";
+    private const string MissingDirectResult = "The BIF result still uses a copied temporary across call setup.";
+
+    internal const string Source = """
+        -module(beam_bif_call_argument).
+        -export([boot/1, observe/0]).
+
+        boot([Parent]) ->
+            erlang:register(beam_bif_call_argument, self()),
+            mark(),
+            Monitor = erlang:monitor(process, Parent),
+            {ok, #{monitor => Monitor, parent => Parent}}.
+
+        mark() ->
+            put(beam_bif_call_arg_called, true),
+            ok.
+
+        observe() ->
+            This = self(),
+            {ok, #{monitor := Monitor, parent := This}} = boot([This]),
+            This = whereis(beam_bif_call_argument),
+            true = demonitor(Monitor, [flush]),
+            Failed = try boot([This])
+                     catch error:badarg:Trace ->
+                         [{erlang, register, _, _}, {?MODULE, boot, _, Location} | _] = Trace,
+                         proplists:get_value(line, Location)
+                     end,
+            true = unregister(beam_bif_call_argument),
+            {get(beam_bif_call_arg_called), Failed}.
+        """;
+
+    internal static Task Run()
+    {
+        object code = Code(CodeGeneration.CompileBeamModule(Source, Fixture));
+        var instructions = ((IEnumerable)Property(code, "Instructions")).Cast<object>().ToArray();
+        byte[] opcodes = instructions.Select(instruction => (byte)Property(Property(instruction, "Definition"), "Opcode")).ToArray();
+        int[] entries = Enumerable.Range(0, opcodes.Length).Where(index => opcodes[index] == FunctionInfo).ToArray();
+        int bif = Array.IndexOf(
+            opcodes,
+            BifZero,
+            entries[0],
+            entries[1] - entries[0]
+        );
+        if (bif < 0)
+        {
+            throw new InvalidOperationException(MissingDirectResult);
+        }
+
+        var operands = ((IEnumerable)Property(instructions[bif], "Operands")).Cast<object>();
+        object destination = operands.Last();
+        if ((BigInteger)Property(destination, "Value") != BigInteger.One)
+        {
+            throw new InvalidOperationException(MissingDirectResult);
+        }
+
+        return Task.CompletedTask;
+    }
+}

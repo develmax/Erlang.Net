@@ -16,7 +16,8 @@ internal static class BeamIncludeProvenanceChecks
         var temporary = Directory.CreateTempSubdirectory("erlang-include-provenance-");
         try
         {
-            Verify(Compile(temporary.FullName));
+            Verify(Compile(Path.Combine(temporary.FullName, "default")));
+            Verify(Compile(Path.Combine(temporary.FullName, "projected"), useProjectedSourceDirectory: true));
         }
         finally
         {
@@ -61,9 +62,13 @@ internal static class BeamIncludeProvenanceChecks
 
     }
 
-    internal static byte[] Compile(string root)
+    internal static byte[] Compile(string root, bool useProjectedSourceDirectory = false)
     {
-        string source = Path.Combine(root, "src", MainFile);
+        string installedSourceDirectory = Path.Combine(root, "src");
+        string source = Path.Combine(installedSourceDirectory, MainFile);
+        string sourceDirectory = useProjectedSourceDirectory
+            ? Path.Combine(root, "pinned_src")
+            : installedSourceDirectory;
         string include = Path.Combine(root, "physical_include");
         string secondInclude = Path.Combine(root, "second_include");
         string library = Path.Combine(root, "example-1.0");
@@ -84,13 +89,16 @@ internal static class BeamIncludeProvenanceChecks
             """
         );
         Write(Path.Combine(
-            root,
-            "src",
+            sourceDirectory,
             "example",
             "include",
             "shadow.hrl"
         ), "-define(SHADOW, local).");
         Write(Path.Combine(library, "include", "shadow.hrl"), "-define(SHADOW, wrong).");
+        if (useProjectedSourceDirectory)
+        {
+            Write(Path.Combine(installedSourceDirectory, "deep", "parent.hrl"), "-define(ACTUAL, wrong).");
+        }
         Write(Path.Combine(include, "deep", "parent.hrl"), "-include(\"../actual.hrl\").");
         Write(Path.Combine(include, "actual.hrl"), "-define(ACTUAL, first).");
         Write(Path.Combine(secondInclude, "actual.hrl"), "-define(ACTUAL, wrong).");
@@ -115,7 +123,7 @@ internal static class BeamIncludeProvenanceChecks
         {
             IncludePathMap = new(
                 MainFile,
-                new(Path.GetDirectoryName(source)!, "."),
+                new(sourceDirectory, "."),
                 [new(include, ReleaseInclude), new(secondInclude, "/release/other"), inTree],
                 new Dictionary<string, BeamIncludeSearchDirectory>
                 {
@@ -123,6 +131,9 @@ internal static class BeamIncludeProvenanceChecks
                     ["mapped"] = new(bootstrapMapped, "/release/bootstrap/lib/mapped")
                 }
             )
+            {
+                PhysicalSourceDirectory = useProjectedSourceDirectory ? sourceDirectory : null
+            }
         };
 
         return CodeGeneration.CompileBeamFile(source, buildProfile: profile);

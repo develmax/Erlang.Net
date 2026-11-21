@@ -1,0 +1,156 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultOnlySequenceDecoder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultOnlySequenceDecoder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultOnlySequenceDecoder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultOnlySequenceDecoder.cs
+@@ -14,7 +14,8 @@
+             Term Default,
+             SequenceRead? Rename = null,
+             Expr.Call? Convert = null,
+-            string? Module = null
++            string? Module = null,
++            TaggedBranchRange? Bounds = null
+         );
+ 
+         private bool TryEmitDefaultOnlySequenceDecoder(FunctionDefinition function)
+@@ -90,7 +91,7 @@
+                     defined,
+                     allowConversion: true,
+                     allowRemote: true
+-                );
++                ) ?? ReadBoundedTaggedSequenceField(choice, previous, defined);
+                 if (plan is null)
+                 {
+                     if (ReadNamedDefault(choice, previous, defined) is not { } named)
+@@ -129,6 +130,7 @@
+                 int sourceTag = index == 0 ? XRegisterTag : YRegisterTag;
+                 int sourceIndex = index == 0 ? 0 : slot;
+                 bool last = index == plans.Length - 1;
++                int invalid = plan.Bounds is null ? 0 : Label();
+                 int absent = Label();
+                 int ready = Label();
+ 
+@@ -168,6 +170,16 @@
+                     EmitLocal(named.Call, named.Entry);
+                 }
+ 
++                if (plan.Bounds is { } bounds)
++                {
++                    EmitRangeTests(
++                        plan.Decoder,
++                        bounds,
++                        invalid,
++                        provenInteger: true
++                    );
++                }
++
+                 if (last)
+                 {
+                     owner.MoveRegister(
+@@ -188,6 +200,13 @@
+                 }
+ 
+                 JumpTo(ready);
++                if (plan.Bounds is { } rejected)
++                {
++                    Mark(invalid);
++                    var exitLine = CallLocation(rejected.Exit, previousLine);
++                    EmitRangeExit(rejected, exitLine == previousLine ? null : exitLine, frame);
++                }
++
+                 Mark(absent);
+                 int destinationTag = last ? XRegisterTag : YRegisterTag;
+                 int rest = last ? 1 : slot - 1;
+@@ -244,6 +263,42 @@
+                 owner.LiteralOperand(tag);
+                 owner.Operand(XRegisterTag, register);
+             }
++        }
++
++        private DefaultSequenceField? ReadBoundedTaggedSequenceField(
++            Expr.Case choice,
++            string previous,
++            IReadOnlySet<string> bindings
++        )
++        {
++            if (choice.Clauses is not
++                [
++                {
++                    Patterns: [Pattern.List
++                    {
++                        Items: [Pattern.Tuple { Items: [_, Pattern.Variable member] }],
++                        Tail: Pattern.Variable tail
++                    }],
++                    Body: Expr.Tuple { Items: [var checkedValue, var rest] } result
++                } arm,
++                    var fallback
++                ]
++                || ReadSequenceBounds(
++                    checkedValue,
++                    member.Name,
++                    bindings,
++                    tail.Name
++                ) is not { } bounded
++                || !IsDecoderIntrinsic(bounded.Bounds.Exit)
++                || ReadDefaultSequenceField(choice with
++                {
++                    Clauses = [arm with { Body = result with { Items = [bounded.Read.Call, rest] } }, fallback]
++                }, previous, bindings) is not { } tagged)
++            {
++                return null;
++            }
++
++            return tagged with { Bounds = bounded.Bounds };
+         }
+ 
+         private DefaultSequenceField? ReadDefaultSequenceField(
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceDecoder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceDecoder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceDecoder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceDecoder.cs
+@@ -438,7 +438,8 @@
+         private (SequenceRead Read, TaggedBranchRange Bounds)? ReadSequenceBounds(
+             Expr expression,
+             string source,
+-            IReadOnlySet<string> bindings
++            IReadOnlySet<string> bindings,
++            string? containingBinding = null
+         )
+         {
+             if (expression is not Expr.Block
+@@ -448,7 +449,8 @@
+                         Items: [Expr.Match { Pattern: Pattern.Variable value, Value: var decode }, Expr.If test]
+                     }
+                 }
+-                || value.Name == VariableScopeNames.Wildcard || value.Name == source || bindings.Contains(value.Name)
++                || value.Name == VariableScopeNames.Wildcard || value.Name == source || value.Name == containingBinding
++                || bindings.Contains(value.Name)
+                 || ReadSequenceCall(decode, source) is not { } decoder
+                 || (InferPairFacts(decoder.Call) & PairFacts.Integer) == 0
+                 || ReadTaggedBranchRange(test, value.Name, integerResult: true) is not { } bounds)
+@@ -466,24 +468,12 @@
+                 return new(new(tagged.Decoder, tagged.Entry, tagged.Tags), tagged.Tag, tagged.Default);
+             }
+ 
+-            if (choice.Clauses is
+-                [
+-                {
+-                    Patterns: [Pattern.List { Items: [Pattern.Tuple { Items: [_, Pattern.Variable member] }] }],
+-                    Body: Expr.Tuple { Items: [var checkedValue, var rest] } result
+-                } arm,
+-                    var fallback
+-                ]
+-                && ReadSequenceBounds(checkedValue, member.Name, bindings) is { } bounded
+-                && ReadDefaultSequenceField(choice with
+-                {
+-                    Clauses = [arm with { Body = result with { Items = [bounded.Read.Call, rest] } }, fallback]
+-                }, previous, bindings) is { } boundedTag)
++            if (ReadBoundedTaggedSequenceField(choice, previous, bindings) is { } bounded)
+             {
+                 return new(
+-                    bounded.Read,
+-                    boundedTag.Tag,
+-                    boundedTag.Default,
++                    new(bounded.Decoder, bounded.Entry, bounded.Tags),
++                    bounded.Tag,
++                    bounded.Default,
+                     bounded.Bounds
+                 );
+             }

@@ -1,0 +1,59 @@
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12544,6 +12544,7 @@
+ Test(Erlang.Tests.BeamProtectedEntryAliasChecks.TestName, Erlang.Tests.BeamProtectedEntryAliasChecks.Run);
+ Test(Erlang.Tests.BeamProtectedShortReturnChecks.TestName, Erlang.Tests.BeamProtectedShortReturnChecks.Run);
+ Test(Erlang.Tests.BeamBinaryConstructionStringChecks.TestName, Erlang.Tests.BeamBinaryConstructionStringChecks.Run);
++Test(Erlang.Tests.BeamClosedCatchArgumentRootsChecks.TestName, Erlang.Tests.BeamClosedCatchArgumentRootsChecks.Run);
+ Test(Erlang.Tests.BeamLeadingRequiredRecordChecks.TestName, Erlang.Tests.BeamLeadingRequiredRecordChecks.Run);
+ Test(Erlang.Tests.BeamTerminalClosureFrameChecks.TestName, Erlang.Tests.BeamTerminalClosureFrameChecks.Run);
+ Test(Erlang.Tests.BeamOptionalLiteralTableChecks.TestName, Erlang.Tests.BeamOptionalLiteralTableChecks.Run);
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamClosedCatchArgumentRootsChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamClosedCatchArgumentRootsChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamClosedCatchArgumentRootsChecks.cs
+@@ -0,0 +1,43 @@
++using System.Collections;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamClosedCatchArgumentRootsChecks
++{
++    internal const string TestName = "compiler/beam/clears-consumed-arguments-inside-a-closed-catch";
++    internal const string Fixture = "beam_closed_catch_argument_roots.erl";
++    private const string RetainedArgument = "Protected call arguments stayed rooted after their final load.";
++
++    internal const string Source = """
++        -module(beam_closed_catch_argument_roots).
++        -export([send/3]).
++
++        send(false, _, _) -> ignored;
++        send(_, Label, Values) ->
++            Prepared = prepare(Values, []),
++            (catch deliver(Label ++ "!", Prepared)).
++
++        prepare(Values, Empty) -> lists:reverse(Values, Empty).
++        deliver(Label, Values) -> {Label, Values}.
++        """;
++
++    internal static byte[] CompileFixture() => CodeGeneration.CompileBeamModule(Source, Fixture);
++
++    internal static Task Run()
++    {
++        object code = Code(CompileFixture());
++        var instructions = ((IEnumerable)Property(code, "Instructions")).Cast<object>();
++        byte[] operations = instructions.Select(item => (byte)Property(Property(item, "Definition"), "Opcode")).ToArray();
++        int enter = Array.IndexOf(operations, CatchEnter);
++        if (enter < 0 || operations.Skip(enter + 1).TakeWhile(opcode => opcode != CatchEnd)
++            .Count(opcode => opcode == InitYRegisters) != 2)
++        {
++            throw new InvalidOperationException(RetainedArgument);
++        }
++
++        return Task.CompletedTask;
++    }
++}

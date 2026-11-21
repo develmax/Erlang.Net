@@ -680,7 +680,12 @@ internal static class OtpWindowsReleaseProfiles
             ["diameter.hrl"] = BuildRoot + "diameter/include/diameter.hrl",
             ["diameter_gen.hrl"] = BuildRoot + "diameter/include/diameter_gen.hrl"
         }
-    );
+    )
+    {
+        RecordedExecutableIncludePaths = subdirectory == "gen"
+            ? new Dictionary<string, string> { ["diameter_gen.hrl"] = BuildRoot + "diameter/include/diameter_gen.hrl" }
+            : null
+    };
 
     private static BeamReleaseBuildProfile MegacoProfile(string subdirectory, string module, bool useBuildDefinitions = false)
     {

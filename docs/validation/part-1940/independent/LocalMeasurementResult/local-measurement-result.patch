@@ -1,0 +1,233 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ValidatedCallValue.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ValidatedCallValue.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ValidatedCallValue.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ValidatedCallValue.cs
+@@ -16,6 +16,9 @@
+         var length = new BeamOperand(BeamOperandParameters.X, 1);
+         int copied = 0;
+         int entry = 0;
++        Dictionary<(string Name, int Arity), FunctionDefinition>? definitions = null;
++        Dictionary<int, (string Name, int Arity)>? entries = null;
++        var binaryResults = new Dictionary<(string Name, int Arity), bool>();
+         for (int end = 0; end < body.Count; end++)
+         {
+             if (body[end].Definition.Opcode is not (FunctionInfo or EndCode))
+@@ -197,6 +200,31 @@
+                 measuredType = GetOperandTypeIndex((MatchableTypeBits, null, null, null));
+             }
+ 
++            if (measuredType is null && SsaTypeInferenceEnabled && !ModuleOptimizationDisabled
++                && OnLoadFunction is null && sourceModule is { } module
++                && body[call] is
++                {
++                    Definition.Opcode: LocalCall,
++                    Operands: [var callArity, { Kind: BeamOperandParameters.Label } entryOperand]
++                })
++            {
++                definitions ??= module.Functions.ToDictionary(definition => (definition.Name, definition.Arity));
++                entries ??= ReadLocalEntries();
++                if (entries.TryGetValue((int)entryOperand.Value, out var signature) && callArity.Value == signature.Arity)
++                {
++                    if (!binaryResults.TryGetValue(signature, out bool proven))
++                    {
++                        proven = ProvesMeasurementReturn(signature, binary: true, definitions);
++                        binaryResults.Add(signature, proven);
++                    }
++
++                    if (proven)
++                    {
++                        measuredType = GetOperandTypeIndex((MatchableTypeBits, null, null, BitSyntaxDefaults.BitStringUnit));
++                    }
++                }
++            }
++
+             WriteTypedRegister(value, measuredType);
+             WriteRegister(output, length);
+             copied = body[size + 2].Offset;
+@@ -300,6 +328,25 @@
+             }
+         }
+ 
++        Dictionary<int, (string Name, int Arity)> ReadLocalEntries()
++        {
++            var found = new Dictionary<int, (string Name, int Arity)>();
++            for (int index = 0; index + 1 < body.Count; index++)
++            {
++                if (body[index] is
++                    {
++                        Definition.Opcode: FunctionInfo,
++                        Operands: [_, { Kind: BeamOperandParameters.Atom } name, var arity]
++                    }
++                    && body[index + 1] is { Definition.Opcode: Label, Operands: [var label] })
++                {
++                    found.Add((int)label.Value, (atomNames[(int)name.Value - 1], (int)arity.Value));
++                }
++            }
++
++            return found;
++        }
++
+         if (copied == 0)
+         {
+             return null;
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ForwardedChoiceMeasurement.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ForwardedChoiceMeasurement.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ForwardedChoiceMeasurement.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ForwardedChoiceMeasurement.cs
+@@ -138,69 +138,9 @@
+             );
+         }
+ 
+-        private bool ProvesForwardedMeasurementInput(Expr.Call initial, bool binary)
+-        {
+-            var active = new HashSet<(string Name, int Arity)>();
+-
+-            return Prove(initial);
+-
+-            bool ProveClause(Clause clause) => binary
+-                && clause.Body is Expr.Variable value
+-                && clause.Guard is Expr.Call
+-                {
+-                    Function: AutoImportNames.IsBinary, DynamicRemote: false, Arguments: [Expr.Variable tested]
+-                } guard
+-                && value.Name == tested.Name && IsDecoderIntrinsic(guard)
+-                || Prove(clause.Body);
+-
+-            bool Prove(Expr expr)
+-            {
+-                if (expr is Expr.Call { DynamicRemote: false } call)
+-                {
+-                    if (call.Arguments.Count == 1)
+-                    {
+-                        if (call.Function == AutoImportNames.Exit && IsDecoderIntrinsic(call))
+-                        {
+-                            return true;
+-                        }
+-
+-                        if (binary ? call.Function is AutoImportNames.ListToBinary or AutoImportNames.IolistToBinary
+-                                && IsDecoderIntrinsic(call) : call is { Module: "lists", Function: "reverse" })
+-                        {
+-                            return true;
+-                        }
+-                    }
+-
+-                    var key = (call.Function, call.Arguments.Count);
+-                    if (call.Module is not null || owner.IsDeclaredNative(key) || !localFunctions.TryGetValue(key, out var target))
+-                    {
+-                        return false;
+-                    }
+-
+-                    // Only terminal calls reach this proof. A recursive edge returns through a checked clause.
+-                    if (!active.Add(key))
+-                    {
+-                        return true;
+-                    }
+-
+-                    bool result = target.Clauses.All(ProveClause);
+-                    active.Remove(key);
+-
+-                    return result;
+-                }
+-
+-                return expr switch
+-                {
+-                    Expr.Block block => Prove(block.Body),
+-                    Expr.Sequence { Items: [.., var last] } => Prove(last),
+-                    Expr.Case choice => choice.Clauses.All(ProveClause),
+-                    Expr.If choice => choice.Clauses.All(ProveClause),
+-                    Expr.List list => !binary && (list.Tail is null || Prove(list.Tail)),
+-                    Expr.Literal { Value: Nil } => !binary,
+-                    _ => false
+-                };
+-            }
+-        }
++        private bool ProvesForwardedMeasurementInput(Expr.Call initial, bool binary) =>
++            initial is { Module: null, DynamicRemote: false }
++            && owner.ProvesMeasurementReturn((initial.Function, initial.Arguments.Count), binary, localFunctions);
+ 
+         private void EmitForwardedChoiceMeasurement(
+             Atom tag,
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.MeasurementResultProof.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.MeasurementResultProof.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.MeasurementResultProof.cs
+@@ -0,0 +1,81 @@
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private bool ProvesMeasurementReturn(
++        (string Name, int Arity) entry,
++        bool binary,
++        IReadOnlyDictionary<(string Name, int Arity), FunctionDefinition> functions
++    )
++    {
++        var active = new HashSet<(string Name, int Arity)>();
++
++        return ProveLocal(entry);
++
++        bool ProveLocal((string Name, int Arity) signature)
++        {
++            if (IsDeclaredNative(signature) || !functions.TryGetValue(signature, out var target))
++            {
++                return false;
++            }
++
++            // Only terminal edges enter this proof. Returning from a recursive edge
++            // requires eventually returning from one of the checked clauses.
++            if (!active.Add(signature))
++            {
++                return true;
++            }
++
++            bool result = target.Clauses.All(ProveClause);
++            active.Remove(signature);
++
++            return result;
++        }
++
++        bool ProveClause(Clause clause) => binary
++            && clause.Body is Expr.Variable value
++            && clause.Guard is Expr.Call
++            {
++                Function: AutoImportNames.IsBinary, DynamicRemote: false, Arguments: [Expr.Variable tested]
++            } guard
++            && value.Name == tested.Name && IsIntrinsic(guard)
++            || Prove(clause.Body);
++
++        bool IsIntrinsic(Expr.Call call) =>
++            (call.Module ?? (functions.ContainsKey((call.Function, 1))
++                ? null : ResolveExternalModule(call.Function, 1))) == ErlangModuleNames.Module;
++
++        bool Prove(Expr expression)
++        {
++            if (expression is Expr.Call { DynamicRemote: false } call)
++            {
++                if (call.Arguments.Count == 1)
++                {
++                    if (call.Function == AutoImportNames.Exit && IsIntrinsic(call))
++                    {
++                        return true;
++                    }
++
++                    if (binary ? call.Function is AutoImportNames.ListToBinary or AutoImportNames.IolistToBinary
++                            && IsIntrinsic(call) : call is { Module: "lists", Function: "reverse" })
++                    {
++                        return true;
++                    }
++                }
++
++                return call.Module is null && ProveLocal((call.Function, call.Arguments.Count));
++            }
++
++            return expression switch
++            {
++                Expr.Block block => Prove(block.Body),
++                Expr.Sequence { Items: [.., var last] } => Prove(last),
++                Expr.Case choice => choice.Clauses.All(ProveClause),
++                Expr.If choice => choice.Clauses.All(ProveClause),
++                Expr.List list => !binary && (list.Tail is null || Prove(list.Tail)),
++                Expr.Literal { Value: Nil } => !binary,
++                _ => false
++            };
++        }
++    }
++}

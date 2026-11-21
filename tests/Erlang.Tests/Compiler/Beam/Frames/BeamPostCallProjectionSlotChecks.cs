@@ -10,7 +10,8 @@ internal static class BeamPostCallProjectionSlotChecks
 {
     internal const string TestName = "compiler/beam/promotes-only-post-call-projections-local-to-a-terminal-arm";
     private const string FixtureFailure = "The terminal projection must retain the surviving high stack value and resize the frame.";
-    private const string ControlFailure = "The projection slot must stay on the stack when it or a displaced X root survives a failure edge.";
+    private const string ControlFailure = "The projection slot must stay on the stack if the fallback reads it, or if a second call owns the frame.";
+    private const string RootFailure = "The terminal projection must use X1 while X0 remains a fallback heap root.";
     private const byte X0 = 0x03;
     private const byte X1 = 0x13;
     private const byte Y0 = 0x04;
@@ -67,9 +68,23 @@ internal static class BeamPostCallProjectionSlotChecks
         byte[] readsSlot = [.. prefix, Move, Y0, X0, .. finish];
         byte[] rootsX0 = [.. prefix, TestHeap, Zero, One, Move, Y2, X0, .. finish];
         byte[] callsAgain = [.. prefix, Move, Y2, X0, ExternalCall, One, Zero, .. finish];
-        if (Rewrite(readsSlot) is not null || Rewrite(rootsX0) is not null || Rewrite(callsAgain) is not null)
+        if (Rewrite(readsSlot) is not null || Rewrite(callsAgain) is not null)
         {
             throw new InvalidOperationException(ControlFailure);
+        }
+
+        if (Rewrite(rootsX0) is not { } preservingRoot)
+        {
+            throw new InvalidOperationException(RootFailure);
+        }
+
+        object[] rooted = ((IEnumerable)Read(preservingRoot)).Cast<object>().ToArray();
+        object projection = rooted.Single(instruction => Opcode(instruction) == GetTupleElement);
+        object fallbackHeap = rooted.Last(instruction => Opcode(instruction) == TestHeap);
+        if (Kind(projection, 0) != "x" || Value(projection, 0) != 0
+            || Kind(projection, 2) != "x" || Value(projection, 2) != 1 || Value(fallbackHeap, 1) != 1)
+        {
+            throw new InvalidOperationException(RootFailure);
         }
 
         return Task.CompletedTask;

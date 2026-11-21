@@ -1,0 +1,79 @@
+{"Partial":true,"SelectedCount":67,"TotalCount":9863}
+PASS compiler/beam/whole-module-matches-otp
+PASS compiler/beam/fresh-reference-receive-marker
+PASS compiler/beam/emits-immediate-selective-timeout
+PASS compiler/beam/shares-accepted-receive-tails-across-tuple-arities
+PASS compiler/beam/adjacent-arithmetic-number-result
+PASS compiler/beam/local-success-atom-or-tuple-result
+PASS compiler/beam/record-field-carries-successful-number
+PASS compiler/beam/compacts-the-frame-after-a-terminal-list-match-relay
+FAIL compiler/beam/inherits-proper-list-entry-facts-through-recursion: System.NullReferenceException: Object reference not set to an instance of an object.
+   at Erlang.Tests.BeamProperListEntryChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Compiler\Beam\Frames\BeamProperListEntryChecks.cs:line 50
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Harness\Program.cs:line 16474
+PASS compiler/beam/record-epp-include-search-provenance
+PASS compiler/beam/composes-redundant-tail-argument-copies
+PASS compiler/beam/windows-kernel-bootstrap-include-profile
+PASS compiler/beam/windows-inets-include-profile
+PASS compiler/beam/sinks-an-independent-argument-clobber-past-a-reload
+PASS compiler/beam/keeps-projection-before-ordinary-argument-copies
+PASS compiler/beam/ordinary-entry-call-composes-scratch-copy
+PASS compiler/beam/windows-stdlib-bootstrap-include-profile
+PASS compiler/beam/restore-physical-and-logical-include-parents
+PASS compiler/beam/abstract-expressions-use-first-annotation
+PASS compiler/beam/constructs-a-tuple-message-directly-in-x1
+PASS compiler/beam/preserve-quoted-feature-keyword-type-annotations
+PASS compiler/beam/bitstring-type-default-annotations
+PASS compiler/beam/constructed-bitstring-starts-dynamic-match-without-type-failure
+PASS compiler/beam/generic-map-patterns-annotate-proven-inputs
+PASS compiler/beam/list-conversion-types-its-successful-bif-consumer
+PASS compiler/beam/substitutes-dominating-helper-constants
+FAIL compiler/beam/removes-failure-for-an-exhaustive-local-tagged-case: System.IO.InvalidDataException: BEAM local call target or arity is invalid
+   at Erlang.BeamLinkedCodeReader.Require(Boolean condition, String message) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamLinkedCodeReader.cs:line 710
+   at Erlang.BeamLinkedCodeReader.ValidateRoles(BeamInstruction instruction, BeamStructure structure, IReadOnlyDictionary`2 functions, IReadOnlyList`1 lambdas) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamLinkedCodeReader.cs:line 604
+   at Erlang.BeamLinkedCodeReader.Read(BeamStructure structure) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamLinkedCodeReader.cs:line 92
+   at Erlang.BeamModule.Prepare(ReadOnlyMemory`1 bytes, BeamDependencySelection dependencies) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamModule.cs:line 47
+   at Erlang.BeamModule.Prepare(ReadOnlyMemory`1 bytes) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamModule.cs:line 41
+   at Erlang.Tests.BeamBinaryHostAccess.Code(Byte[] image) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Compiler\Beam\Binary\BeamBinaryHostAccess.cs:line 61
+   at Erlang.Tests.BeamExhaustiveLocalCaseChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Compiler\Beam\BeamExhaustiveLocalCaseChecks.cs:line 54
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Harness\Program.cs:line 16474
+PASS compiler/beam/uses-dominating-record-guard-for-field-access
+PASS compiler/beam/constructs-with-checked-record-projections-in-x-registers
+PASS compiler/beam/reuses-dead-stack-inputs-in-atomic-projections
+PASS compiler/beam/list-tail-keeps-first-source-annotation
+PASS compiler/beam/removes-overwritten-tuple-projections
+PASS compiler/beam/removes-dead-list-heads-before-allocating-call-frames
+PASS compiler/beam/disjoint-terminal-atom-and-tagged-tuple
+PASS compiler/beam/delays-the-frame-before-own-function-clause-failure
+PASS compiler/beam/generated-list-result-types-its-local-consumer
+PASS compiler/beam/exchanges-call-result-and-saved-input-in-one-frame-cell
+PASS compiler/beam/lifts-constructed-list-generator-inputs
+PASS compiler/beam/windows-bootstrap-library-include-paths
+PASS compiler/beam/lifts-strict-list-generators-with-ordered-siblings
+PASS compiler/beam/lifts-relaxed-tuple-generator-aliases
+PASS compiler/beam/shared-cons-head-partitions-disjoint-tuple-arities
+PASS compiler/beam/positioned-tail-size-delays-materialization
+PASS compiler/beam/case-clause-uses-the-source-case-location
+PASS compiler/beam/selects-constant-branches-with-an-identity-fallback
+PASS compiler/beam/release-inline-bounded-leaf
+PASS compiler/beam/uses-available-x-in-constructor-with-retained-spill
+PASS compiler/beam/hoists-heap-before-checked-tuple-reads-with-proven-roots
+PASS compiler/beam/flat-tuple-list-generator-constructs-after-recursion
+PASS compiler/beam/retains-entry-tuple-across-producer
+PASS compiler/beam/checks-an-arity-arm-tag-before-its-frame
+PASS compiler/beam/delays-a-zero-slot-frame-after-a-checked-tag-fallback
+PASS compiler/beam/delays-the-frame-past-a-terminal-list-match-failure
+PASS compiler/beam/local-success-integer-result
+PASS compiler/beam/trims-owned-branch-with-one-retained-result
+PASS compiler/beam/size-result-propagates-range-through-argument-copies
+PASS compiler/beam/finite-integer-ranges-from-masks-shifts-and-addition
+PASS compiler/beam/type-ordinals-follow-final-code-operand-order
+PASS compiler/beam/promotes-interior-projection-before-first-call
+PASS compiler/beam/clears-unread-stack-projections
+PASS compiler/beam/local-try-fallbacks-use-tail-calls
+PASS compiler/beam/tagged-list-generator-keeps-matched-tuple
+PASS compiler/beam/keyfind-result-typed-tuple-test
+PASS compiler/beam/tuple-list-generator-checks-before-recursing
+PASS compiler/beam/lifts-single-strict-list-generators
+PASS compiler/beam/tuple-tail-switch-shares-identical-external-calls
+PASS compiler/beam/singleton-record-tail-reuses-list-and-constructor-registers
+65/67 passed

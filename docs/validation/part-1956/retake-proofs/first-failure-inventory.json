@@ -1,0 +1,93 @@
+{
+  "Counts": {
+    "Different": 859,
+    "Equal": 505,
+    "CompilerError": 2
+  },
+  "ProvisionalDelta": [
+    {
+      "Beam": "lib\\compiler-10.0.6\\ebin\\erl_bifs.beam",
+      "Before": "Equal",
+      "After": "Different",
+      "Detail": "Original length 6844, generated length 6844. AtU8 1055->1055, Code 871->869, ImpT 40->40, Attr 39->39"
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKIX-X400Address-2009.beam",
+      "Before": "Different",
+      "After": "Equal",
+      "Detail": null
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\otp_internal.beam",
+      "Before": "Different",
+      "After": "Equal",
+      "Detail": null
+    },
+    {
+      "Beam": "lib\\wx-2.7\\doc\\examples\\demo\\ex_canvas_paint.beam",
+      "Before": "Different",
+      "After": "CompilerError",
+      "Detail": "ArgumentOutOfRangeException: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')"
+    },
+    {
+      "Beam": "lib\\wx-2.7\\doc\\examples\\sudoku\\sudoku_game.beam",
+      "Before": "Different",
+      "After": "CompilerError",
+      "Detail": "ArgumentOutOfRangeException: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')"
+    }
+  ],
+  "AcceptedDelta": [
+    {
+      "Beam": "lib\\compiler-10.0.6\\ebin\\erl_bifs.beam",
+      "Before": "Equal",
+      "After": "Different",
+      "Detail": "Original length 6844, generated length 6844. AtU8 1055->1055, Code 871->869, ImpT 40->40, Attr 39->39"
+    },
+    {
+      "Beam": "lib\\diameter-2.7.2\\ebin\\diameter_gen_relay.beam",
+      "Before": "Different",
+      "After": "Equal",
+      "Detail": null
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKIX-X400Address-2009.beam",
+      "Before": "Different",
+      "After": "Equal",
+      "Detail": null
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\otp_internal.beam",
+      "Before": "Different",
+      "After": "Equal",
+      "Detail": null
+    },
+    {
+      "Beam": "lib\\wx-2.7\\doc\\examples\\demo\\ex_canvas_paint.beam",
+      "Before": "Different",
+      "After": "CompilerError",
+      "Detail": "ArgumentOutOfRangeException: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')"
+    },
+    {
+      "Beam": "lib\\wx-2.7\\doc\\examples\\sudoku\\sudoku_game.beam",
+      "Before": "Different",
+      "After": "CompilerError",
+      "Detail": "ArgumentOutOfRangeException: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')"
+    }
+  ],
+  "Interruptions": [
+    {
+      "Beam": "lib\\wx-2.7\\doc\\examples\\demo\\ex_canvas_paint.beam",
+      "Status": "CompilerError",
+      "Source": "lib\\wx-2.7\\doc\\examples\\demo\\ex_canvas_paint.erl",
+      "Detail": "ArgumentOutOfRangeException: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')",
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\wx-2.7\\doc\\examples\\sudoku\\sudoku_game.beam",
+      "Status": "CompilerError",
+      "Source": "lib\\wx-2.7\\doc\\examples\\sudoku\\sudoku_game.erl",
+      "Detail": "ArgumentOutOfRangeException: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')",
+      "FirstDifferentByte": null
+    }
+  ]
+}

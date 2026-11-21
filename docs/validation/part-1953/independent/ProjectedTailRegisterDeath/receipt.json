@@ -1,0 +1,24 @@
+{
+  "Part": 1985,
+  "Reference": "OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourceBaseline": "Part1952 48569fd3ab77907ff7963d3f513058a910e3671e7f5fb99fb90558788bc25b69",
+  "CompilerBaseline": "ab248826c7151f3a1fbc75a90f528b61f5149353a1684557963ceb2d3845a35c",
+  "PinnedSource": "beam_block.erl is_unused distinguishes a read of X from a write to X and ends liveness after the write",
+  "Scope": "13 release files one worker; 7 Equal and 6 Different before and after, only ex_gauge changes. reset/1 normalized instruction and line exact SHA 5180deda4df16b1c0af5ff0c7e2c8312306d88928791415a7ffa2b64fbdbeBCD. Whole image still Different.",
+  "Native": "Four actual ex_gauge clear paths on installed Windows OTP, two normal and two bad gauge cases. Pinned and candidate value, effects and first two error frames match.",
+  "Regression": "Independent red/green including original projection still used as a second outgoing argument.",
+  "Hashes": {
+    "production.patch": "f46262b5c7485e7620d2df19e89dc6f57d5237e46f47f3b05230a691dde39c42",
+    "test.patch": "f69c320c665f69995d774395e8504d80d6cac6e22799c6cdac827dfee8b8f7cc",
+    "strict-replay.log": "433a2a6407570ec7d27974a6ec1aa6a468bc53c0f406acfb277d51bc15529b5d",
+    "replay-files.json": "5b85430e467c60a6478da2439e84b6628ca12a62fbbfa95309d720f660f002c3",
+    "style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "scope.json": "d44e27575377acab08e412d7e0f7d25ca9eeeca72fcfe3979228837c973818d5",
+    "reset-current.terms": "5180deda4df16b1c0af5ff0c7e2c8312306d88928791415a7ffa2b64fbdbebcd",
+    "native-reset.eval": "2b9d10cd6a82bbd122f84581101172f67e82709f2142057d61e14bcf0c672ecb",
+    "native-pinned.terms": "96ecad560b3afd440f9fa45fd6016e55918f04fab0e00b2567624bc8e7314f4a",
+    "native-candidate.terms": "96ecad560b3afd440f9fa45fd6016e55918f04fab0e00b2567624bc8e7314f4a",
+    "focused-exits.json": "1ef75e784a5dd11b9c2fe71476a71f94295ce972682d28c771dea17e5ae3df61",
+    "compiler-bin/Erlang.Compiler.dll": "cf5e8abb44d9fbeaac37e463695b7d9e34e1d0b724374d7a0dd521be38de2100"
+  }
+}

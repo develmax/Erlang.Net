@@ -1,0 +1,80 @@
+{
+  "OtpVersion": "29.1.1",
+  "Total": 10,
+  "Counts": {
+    "Different": 4,
+    "Equal": 6
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\asn1-5.5.2\\ebin\\asn1ct_check.beam",
+      "Status": "Different",
+      "Source": "lib\\asn1-5.5.2\\src\\asn1ct_check.erl",
+      "Detail": "Original length 257528, generated length 271324. AtU8 13186-\u003E12480, Code 73621-\u003E90233, ImpT 1168-\u003E1156, ExpT 64-\u003E64, FunT 964-\u003E1012, LitT 9789-\u003E7710, LocT 5356-\u003E5092, Attr 39-\u003E39, Line 4315-\u003E4799, Type 338-\u003E56",
+      "FirstDifferentByte": 5
+    },
+    {
+      "Beam": "lib\\common_test-1.31.2\\ebin\\ct.beam",
+      "Status": "Different",
+      "Source": "lib\\common_test-1.31.2\\src\\ct.erl",
+      "Detail": "Original length 45124, generated length 46008. AtU8 1498-\u003E1504, Code 5185-\u003E6168, ImpT 964-\u003E976, ExpT 892-\u003E892, FunT 52-\u003E52, LitT 716-\u003E591, LocT 100-\u003E100, Attr 39-\u003E39, Line 432-\u003E452, Type 18-\u003E12",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\common_test-1.31.2\\ebin\\ct_event.beam",
+      "Status": "Equal",
+      "Source": "lib\\common_test-1.31.2\\src\\ct_event.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\erts-17.1\\ebin\\counters.beam",
+      "Status": "Equal",
+      "Source": "lib\\erts-17.1\\src\\counters.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpd_instance_sup.beam",
+      "Status": "Equal",
+      "Source": "lib\\inets-9.8\\src\\http_server\\httpd_instance_sup.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\mod_head.beam",
+      "Status": "Equal",
+      "Source": "lib\\inets-9.8\\src\\http_server\\mod_head.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\snmp-5.20.5\\ebin\\snmp_misc.beam",
+      "Status": "Different",
+      "Source": "lib\\snmp-5.20.5\\src\\misc\\snmp_misc.erl",
+      "Detail": "Original length 25744, generated length 26316. AtU8 1965-\u003E1892, Code 5666-\u003E6408, ImpT 676-\u003E676, ExpT 580-\u003E580, FunT 52-\u003E100, LitT 911-\u003E881, LocT 244-\u003E220, Attr 64-\u003E64, Line 320-\u003E320, Type 104-\u003E14",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\snmp-5.20.5\\ebin\\snmp_verbosity.beam",
+      "Status": "Different",
+      "Source": "lib\\snmp-5.20.5\\src\\misc\\snmp_verbosity.erl",
+      "Detail": "Original length 8712, generated length 8684. Code 1779-\u003E1752, Attr 64-\u003E64",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\ordsets.beam",
+      "Status": "Equal",
+      "Source": "lib\\stdlib-8.1\\src\\ordsets.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\wx-2.7\\doc\\examples\\demo\\ex_grid.beam",
+      "Status": "Equal",
+      "Source": "lib\\wx-2.7\\doc\\examples\\demo\\ex_grid.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    }
+  ]
+}

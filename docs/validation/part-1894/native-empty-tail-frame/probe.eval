@@ -1,0 +1,5 @@
+M=beam_empty_tail_dispatch_frame,
+Run=fun(F,A)->try {ok,apply(M,F,A)} catch C:R:S->{C,R,[{X,Y}||{X,Y,_,_}<-S,X=:=M]} end end,
+Out=[Run(member,[[chosen]]),Run(member,[{state,[chosen]}]),Run(member,[{state,[other]}]),
+     Run(member,[{state,{state,[]}}]),Run(member,[wrong]),Run(trap,[{state,self()}]),Run(trap,[wrong])],
+io:format("~0tp.~n",[Out]), halt().

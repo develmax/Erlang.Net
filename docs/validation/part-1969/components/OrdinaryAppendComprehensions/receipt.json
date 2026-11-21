@@ -1,0 +1,36 @@
+{
+  "PrerequisiteSourceInputs": {
+    "P8Hydration": "1c7b09e6b99c38e44b9f29bf23490e8d62442c3f47826e3908dfde7fd0c47228",
+    "LiteralCons": "066e4de87854477734d6c71f4ea634f74f8857e104bcebd223c0cdfe65d4c3de",
+    "StructuredCons": "4ad4224f4498a9540024c95db4c6dfaf974736bf4a710698257b2da7ca6e14e9"
+  },
+  "Target": {
+    "Module": "lib/stdlib-8.1/ebin/edlin_type_suggestion.beam",
+    "Owner": "print_type/4",
+    "DirectlyVisibleOrdinaryAppendOperands": 3,
+    "BlockedSiblings": 3,
+    "Keys": 6
+  },
+  "SourceGate": "Ordinary append traversal only; immediate direct-left LC is excluded. Retain owner-head fallback only for closed tuple singleton promotion.",
+  "TestName": "compiler/beam/ordinary-append-comprehension",
+  "PinnedNativeFixtureCases": 4,
+  "PinnedIndependentControls": 6,
+  "PinnedAudit": "7924367eb676fea8e960404f0004be6bc946550fe37f5c3ba6533f8bf77783cf",
+  "Seed": "8f64d65eb4fca1c93866dc4fe18f57224e253cb4ef60e2f3fda8a51a828f3039",
+  "CandidateSdkOrCorpusValidation": "Pending coordination",
+  "Evidence": {
+    "receipt.md": "f9fdb5e9f2084b24172f7388dc4afbe788861d098e5cb8dc56de4c067df8ecac",
+    "strict-replay.json": "2589903edccba755a47c76fed3baaf652806b88e2d6e4b9a1f5aa7c3e609b9ca",
+    "production.patch": "7c624c218820388f152a99ec137191c1d901797044529a298981e9b42fd6c95a",
+    "test.patch": "47d3cd5adca4cf209079dffa083aab5d1c2324a8a21352899613985d55526bb4",
+    "release-targets.tsv": "5aab6bbbd2260b866959e6ed089ca77b296d5539dd03c4020ccd0629844fe7e2",
+    "focused-scope.txt": "87e4287787cfeb4153e9143aead843f6ee95eb851e7881dfe6c7b4e82ec81e10",
+    "BeamOrdinaryAppendComprehensionChecks.cs": "aa6200f0649f0127d568c9052ee29af0f512ddf280cbfbe098baa6b9a295ea76",
+    "oracle/beam_ordinary_append_comprehension.erl": "495efe008ea944f294d7c41425c14a5e9f3609b847344faae2deb007aeed4359",
+    "oracle/beam_ordinary_append_comprehension.beam": "7acffb17d67097bfce86d21cd0ad5d42bfc1143ddb4d0e0bc517b45bef6d7c1d",
+    "oracle/beam_ordinary_append_comprehension.ssa": "0d05b758ebb2566d31597b9edf26adf35d773b412f65d2aea3ec9ba61d26be0a",
+    "oracle/native.eval": "b2f6b318602162e9b4db1916c9200867a544c02b06b5ea7c2ea27f725c08e79d",
+    "oracle/pinned.terms": "e27a448ad0aec4f6162eb7a14a71e7391e26970201ca105996302e3685274e48",
+    "oracle/pinned.exit": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+  }
+}

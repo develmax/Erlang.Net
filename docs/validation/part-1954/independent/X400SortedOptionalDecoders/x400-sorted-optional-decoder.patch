@@ -1,0 +1,361 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -903,7 +903,8 @@
+                 || TryEmitRequiredOptionalSequenceEncoder(function, retainRecord: true)
+                 || TryEmitRegisterLookupCase(function) || TryEmitForwardedCaseInput(function)
+                 || TryEmitProtectedProjection(function) || TryEmitProtectedProjectionArgument(function)
+-                || TryEmitCallListResultTail(function) || TryEmitListDecoderEntry(function) || TryEmitRegisterListClause(function)
++                || TryEmitCallListResultTail(function)
++                || TryEmitSortedOptionalDecoderPair(function) || TryEmitListDecoderEntry(function) || TryEmitRegisterListClause(function)
+                 || TryEmitCheckedListIdentity(function) || TryEmitListConversionTuple(function)
+                 || TryEmitGroupedArityDispatch(function) || owner.TryEmitAtomReplacementDispatch(function)
+                 || owner.TryEmitAtomIntegerDispatch(function, location)
+@@ -2588,7 +2589,8 @@
+             Atom Absent,
+             DecodeCall Call,
+             IntegerCase? Enumeration = null,
+-            IReadOnlyList<TaggedOptionalChoice>? Choices = null
++            IReadOnlyList<TaggedOptionalChoice>? Choices = null,
++            ForwardedChoiceMeasurement? Measurement = null
+         );
+         private sealed record DecodeCall(
+             Expr.Call Decode,
+@@ -2762,7 +2764,8 @@
+             HashSet<string> bound,
+             bool allowEnumeration = false,
+             bool allowRemote = false,
+-            bool allowNamedOptions = false
++            bool allowNamedOptions = false,
++            bool allowMeasurement = false
+         )
+         {
+             if (decision is not
+@@ -2806,11 +2809,33 @@
+                 );
+             }
+ 
++            ForwardedChoiceMeasurement? measurement = null;
++            if (call is null && allowMeasurement && body is Expr.Block
++                {
++                    Body: Expr.Sequence
++                    {
++                        Items: [
++                            Expr.Match { Pattern: Pattern.Variable decoded },
++                            Expr.Match { Pattern: Pattern.Variable measured }, _
++                        ]
++                    }
++                }
++                && DistinctBindings(decoded, measured) && !bound.Contains(decoded.Name) && !bound.Contains(measured.Name)
++                && ReadForwardedChoiceMeasurement(body, bytes.Name, rest.Name) is
++                { Measure.Function: AutoImportNames.ByteSize, Convert: not null } sized)
++            {
++                bound.Add(decoded.Name);
++                bound.Add(measured.Name);
++                measurement = sized;
++                call = sized.Decoder;
++            }
++
+             return call is null ? null : new(
+                 tag,
+                 absent,
+                 call,
+-                enumeration
++                enumeration,
++                Measurement: measurement
+             );
+         }
+ 
+@@ -10617,10 +10642,10 @@
+                         } convert,
+                         After: null,
+                         Clauses: [
+-                        {
+-                            Guard: null, Patterns: [Pattern.Variable result],
+-                            Body: Expr.Tuple { Items: [Expr.Literal { Value: Atom tag }, Expr.Variable value] }
+-                        }],
++                            {
++                                Guard: null, Patterns: [Pattern.Variable result],
++                                Body: Expr.Tuple { Items: [Expr.Literal { Value: Atom tag }, Expr.Variable value] }
++                            }],
+                         Catches: [var handler]
+                     }
+                 }
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SortedOptionalPairDecoder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SortedOptionalPairDecoder.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SortedOptionalPairDecoder.cs
+@@ -0,0 +1,273 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private sealed partial class GeneralEmitter
++    {
++        private sealed record SortedListPreparation(
++            Expr.Call Source,
++            int SourceEntry,
++            Expr.Fun Callback,
++            Expr.Call Map,
++            int MapEntry,
++            Expr.Call Sort,
++            Expr.Call Project,
++            int ProjectEntry,
++            string Result,
++            HashSet<string> Bound
++        );
++
++        private SortedListPreparation? ReadSortedListPreparation(Clause clause, IReadOnlyList<Expr> items)
++        {
++            if (clause.Patterns is not [Pattern.Variable input, Pattern.Variable tags]
++                || items is not
++                [
++                    Expr.Match
++                {
++                    Pattern: Pattern.Variable prepared,
++                    Value: Expr.Call
++                    {
++                        Module: null, DynamicRemote: false,
++                        Arguments: [Expr.Variable actualInput, Expr.Variable actualTags]
++                    } source
++                },
++                    Expr.Match
++                {
++                    Pattern: Pattern.Variable callback,
++                    Value: Expr.Fun { SelfName: null, CoreOrdinal: not null, Clauses: [{ Guard: null, Patterns: [Pattern.Variable { }] } body] } closure
++                },
++                    Expr.Match
++                {
++                    Pattern: Pattern.Variable mapped,
++                    Value: Expr.Call
++                    {
++                        Module: null, DynamicRemote: false,
++                        Arguments: [Expr.Variable mapInput, Expr.Variable mapCallback]
++                    } map
++                },
++                    Expr.Match
++                {
++                    Pattern: Pattern.Variable projected,
++                    Value: Expr.Call
++                    {
++                        Module: null, DynamicRemote: false,
++                        Arguments:
++                            [
++                                Expr.Call { Module: "lists", Function: "sort", DynamicRemote: false, Arguments: [Expr.Variable ranked] } sort
++                            ]
++                    } project
++                },
++                    ..
++                ]
++                || !DistinctBindings(
++                    input,
++                    tags,
++                    prepared,
++                    callback,
++                    mapped,
++                    projected
++                )
++                || actualInput.Name != input.Name || actualTags.Name != tags.Name
++                || mapInput.Name != prepared.Name || mapCallback.Name != callback.Name || ranked.Name != mapped.Name
++                || ClosureCaptures.ReadEntryReferences(body, [input.Name, tags.Name, prepared.Name]) is not { Count: 0 }
++                || !entries.TryGetValue((source.Function, 2), out int sourceEntry)
++                || !entries.TryGetValue((map.Function, 2), out int mapEntry)
++                || !entries.TryGetValue((project.Function, 1), out int projectEntry)
++                || !localFunctions.TryGetValue((map.Function, 2), out var mapping) || mapping.StaticListClosureTarget is null
++                || !localFunctions.TryGetValue((project.Function, 1), out var projection) || !projection.HasProvenRecursiveTupleInput)
++            {
++                return null;
++            }
++
++            return new(
++                source,
++                sourceEntry,
++                closure,
++                map,
++                mapEntry,
++                sort,
++                project,
++                projectEntry,
++                projected.Name,
++                new(StringComparer.Ordinal) { input.Name, tags.Name, prepared.Name, callback.Name, mapped.Name, projected.Name }
++            );
++        }
++
++        private BeamSourceLocation EmitSortedListPreparation(SortedListPreparation plan)
++        {
++            owner.EmitCallLine(plan.Source, location);
++            owner.EmitFieldCall(2, plan.SourceEntry);
++            variables = new(StringComparer.Ordinal);
++            owner.EmitClosureAllocation(0, 1, 1);
++            EmitGeneralClosure(plan.Callback, heapChecked: true, destination: 1);
++            BeamSourceLocation previous = CallLocation(plan.Source, location);
++            owner.EmitCallLine(plan.Map, previous);
++            owner.EmitFieldCall(2, plan.MapEntry);
++            previous = CallLocation(plan.Map, previous);
++            owner.EmitCallLine(plan.Sort, previous);
++            Call(plan.Sort.Module, plan.Sort.Function, 1);
++            previous = CallLocation(plan.Sort, previous);
++            owner.EmitCallLine(plan.Project, previous);
++            owner.EmitFieldCall(1, plan.ProjectEntry);
++
++            return CallLocation(plan.Project, previous);
++        }
++
++        private bool TryEmitSortedOptionalDecoderPair(FunctionDefinition function)
++        {
++            if (!owner.SsaTypeInferenceEnabled || owner.ModuleOptimizationDisabled || recursiveClosure is not null
++                || function.Clauses is not [{ Guard: null, Body: Expr.Sequence sequence } clause]
++                || sequence.Items is not
++                [
++                    _, _, _, _,
++                    Expr.Match { Pattern: Pattern.Tuple { Items: [Pattern.Variable left, Pattern.Variable leftTail] }, Value: Expr.Case first },
++                    Expr.Match { Pattern: Pattern.Tuple { Items: [Pattern.Variable right, Pattern.Variable rightTail] }, Value: Expr.Case second },
++                    Expr.Case tailCheck,
++                    Expr.Match
++                {
++                    Pattern: Pattern.Variable result,
++                    Value: Expr.Tuple
++                    {
++                        Items: [Expr.Literal { Value: Atom record }, Expr.Variable firstResult, Expr.Variable lastResult]
++                    }
++                },
++                    Expr.Variable returned
++                ]
++                || left.Name != firstResult.Name || right.Name != lastResult.Name || result.Name != returned.Name
++                || ReadSortedListPreparation(clause, sequence.Items) is not { } sorted
++                || !DistinctBindings(
++                    left,
++                    leftTail,
++                    right,
++                    rightTail,
++                    result
++                )
++                || !sorted.Bound.Add(left.Name) || !sorted.Bound.Add(leftTail.Name) || !sorted.Bound.Add(right.Name)
++                || !sorted.Bound.Add(rightTail.Name) || !sorted.Bound.Add(result.Name)
++                || ReadOptionalDecode(
++                    first,
++                    sorted.Result,
++                    sorted.Bound,
++                    allowMeasurement: true
++                ) is not { } leftField
++                || ReadOptionalDecode(
++                    second,
++                    leftTail.Name,
++                    sorted.Bound,
++                    allowMeasurement: true
++                ) is not
++                { Measurement: not null } rightField
++                || ReadTableUnexpectedFields(tailCheck, rightTail.Name) is not { } extra)
++            {
++                return false;
++            }
++
++            const int frame = 3;
++            EmitGeneralFrame(2, slots: frame);
++            BeamSourceLocation previous = EmitSortedListPreparation(sorted);
++            owner.MoveRegister(
++                XRegisterTag,
++                0,
++                YRegisterTag,
++                2
++            );
++            EmitField(leftField, terminal: false);
++            EmitField(rightField, terminal: true);
++
++            int unexpected = Label();
++            owner.Op(IsNil, LabelTag, unexpected);
++            owner.EmitTypedRegister(1, ProperListTypeBits);
++            owner.Op(TestHeap, BeamWire.UnsignedTag, 4);
++            owner.Operand(BeamWire.UnsignedTag, 1);
++            owner.EmitTupleHeader(XRegisterTag, 3);
++            owner.LiteralOperand(record);
++            owner.Operand(YRegisterTag, 2);
++            owner.Operand(XRegisterTag, 0);
++            owner.EmitFrameReturn(frame);
++
++            Mark(unexpected);
++            owner.Op(TestHeap, BeamWire.UnsignedTag, 9);
++            owner.Operand(BeamWire.UnsignedTag, 2);
++            owner.EmitProtectedPair(AtomTag, owner.Intern(extra.UnexpectedTag.Name), 1);
++            owner.EmitProtectedPair(AtomTag, owner.Intern(extra.DetailsTag.Name));
++            owner.EmitProtectedPair(AtomTag, owner.Intern(extra.ErrorTag.Name));
++            owner.EmitCallLine(extra.Exit, previous);
++            EmitCheckedDecoderExit(extra.Exit, frame);
++
++            return true;
++
++            void EmitField(OptionalDecode field, bool terminal)
++            {
++                int invalid = field.Measurement is null ? 0 : Label();
++                int missing = Label();
++                int done = Label();
++                int sourceRegister = terminal ? 1 : 0;
++                int sourceTag = terminal ? YRegisterTag : XRegisterTag;
++                owner.Op(IsNonemptyList, LabelTag, missing);
++                owner.Operand(sourceTag, sourceRegister);
++                owner.Op(GetList, sourceTag, sourceRegister);
++                owner.Operand(XRegisterTag, 0);
++                owner.Operand(YRegisterTag, terminal ? 0 : 1);
++                owner.EmitTupleCheck(0, 2, missing);
++                owner.EmitTupleElement(0, 1);
++                owner.Op(ExactEqualTest, LabelTag, missing);
++                owner.Operand(XRegisterTag, 1);
++                owner.LiteralOperand(field.Tag);
++                owner.EmitTupleElement(1, 0);
++                owner.EmitConstant(field.Call.Tags, 1);
++                owner.InitStackSlot(terminal ? 1 : 2);
++                EmitDecodeInvocation(field.Call, previous);
++                previous = CallLocation(field.Call.Convert ?? field.Call.Decode, previous);
++                if (field.Measurement is { } measurement)
++                {
++                    previous = EmitForwardedChoiceMeasurementCheck(measurement, invalid, previous);
++                    previous = CallLocation(measurement.Convert!, previous);
++                }
++
++                if (terminal)
++                {
++                    Load(0, 1);
++                }
++                else
++                {
++                    owner.MoveRegister(
++                        XRegisterTag,
++                        0,
++                        YRegisterTag,
++                        2
++                    );
++                }
++
++                JumpTo(done);
++                if (field.Measurement is { } checkedLength)
++                {
++                    Mark(invalid);
++                    owner.EmitConstant(checkedLength.Reason, 0);
++                    owner.EmitCallLine(checkedLength.Exit, previous);
++                    EmitCheckedDecoderExit(checkedLength.Exit, frame);
++                }
++
++                Mark(missing);
++                if (terminal)
++                {
++                    Load(1, 1);
++                    owner.EmitConstant(field.Absent, 0);
++                }
++                else
++                {
++                    owner.MoveRegister(
++                        YRegisterTag,
++                        2,
++                        YRegisterTag,
++                        1
++                    );
++                    owner.EmitConstant(field.Absent, 2, YRegisterTag);
++                }
++
++                Mark(done);
++            }
++        }
++    }
++}

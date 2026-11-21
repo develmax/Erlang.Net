@@ -1,0 +1,13 @@
+[Beam] = init:get_plain_arguments(),
+{ok,Bytes}=file:read_file(Beam),
+{module,cerl}=code:load_binary(cerl,Beam,Bytes),
+Lit = fun cerl:abstract/1,
+Map=Lit(#{seed=>1}),
+Assoc=fun(K,V)->cerl:c_map_pair(Lit(K),Lit(V)) end,
+Exact=fun(K,V)->cerl:c_map_pair_exact(Lit(K),Lit(V)) end,
+Cases=[cerl:c_map(Map,[]),cerl:c_map(Map,[Assoc(a,2)]),cerl:c_map(Map,[Exact(seed,3)]),
+       cerl:c_map(Map,[Exact(absent,4)]),
+       cerl:c_map(Map,[Assoc(a,2),Exact(a,5)]),
+       cerl:c_map(Map,[cerl:c_map_pair(cerl:c_var('Key'),Lit(9))])],
+io:format("~0tp.~n",[Cases]),
+halt().

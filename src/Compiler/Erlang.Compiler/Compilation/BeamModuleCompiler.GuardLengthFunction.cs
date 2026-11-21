@@ -134,9 +134,17 @@ internal sealed partial class BeamModuleCompiler
             int? slot = operand is Expr.Variable variable && variables.TryGetValue(variable.Name, out int saved)
                 ? saved : null;
             bool direct = slot.HasValue || AttributeLiteral.TryNormalizeConstant(operand, out _);
+            bool floating = false;
             if (!direct)
             {
-                Expression(operand);
+                if (IsRoundingCall(call) && operand is Expr.Binary { Operator: ErlangOperators.Multiply } multiply)
+                {
+                    floating = EmitArithmetic(multiply, guardFailure: null);
+                }
+                else
+                {
+                    Expression(operand);
+                }
             }
 
             owner.EmitCallLine(call, owner.lastEmittedLine);
@@ -152,12 +160,44 @@ internal sealed partial class BeamModuleCompiler
             {
                 GuardOperand(operand, slot);
             }
+            else if (floating)
+            {
+                owner.EmitTypedRegister(0, FloatTypeBits);
+            }
             else
             {
                 owner.Operand(XRegisterTag, 0);
             }
             owner.Operand(XRegisterTag, 0);
             ReleaseOperandSlots(operandBase);
+        }
+
+        private bool IsRoundingCall(Expr.Call call) =>
+            call.Function is AutoImportNames.Round or AutoImportNames.Trunc or AutoImportNames.Ceil or AutoImportNames.Floor
+            && call.Arguments.Count == 1 && owner.ResolvesErlangBif(call);
+
+        private int EmitSavedRounding(Expr.Call call)
+        {
+            int operandBase = nextSlot;
+            var multiply = (Expr.Binary)call.Arguments[0];
+            bool floating = EmitArithmetic(multiply, guardFailure: null);
+            owner.EmitCallLine(call, owner.lastEmittedLine);
+            EmitSizeInstruction(call.Function, failure: 0, live: 1);
+            if (!floating)
+            {
+                owner.Operand(XRegisterTag, 0);
+                owner.Operand(XRegisterTag, 0);
+                ReleaseOperandSlots(operandBase);
+
+                return Save();
+            }
+
+            owner.EmitTypedRegister(0, FloatTypeBits);
+            ReleaseOperandSlots(operandBase);
+            int slot = Slot();
+            owner.Operand(YRegisterTag, slot);
+
+            return slot;
         }
 
         private void EmitSizeInstruction(string function, int failure, int live)

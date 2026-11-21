@@ -1,0 +1,48 @@
+{
+  "Gains": {
+    "Attr": 1,
+    "Code": 1,
+    "Dbgi": 3
+  },
+  "Losses": {
+    "Line": 1
+  },
+  "Modules": [
+    {
+      "Module": "diameter_callback",
+      "Gains": [
+        "Attr",
+        "Code"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "megaco_filter",
+      "Gains": [
+        "Dbgi"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "megaco_tcp_accept",
+      "Gains": [],
+      "Losses": [
+        "Line"
+      ]
+    },
+    {
+      "Module": "pubkey_os_cacerts",
+      "Gains": [
+        "Dbgi"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "rand",
+      "Gains": [
+        "Dbgi"
+      ],
+      "Losses": []
+    }
+  ]
+}

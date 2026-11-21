@@ -1,0 +1,24 @@
+# Verification of fallthrough tail sharing and allocation with a checked field
+
+The candidate compiler is `320040bc2b8a10be48cde3a0f68b9b8f1d94862f44202c98f8a95d31c92b8d4a`. The comparison compiler is sealed DB7217 over frozen Part 1963. The SDK is 10.0.400, with .NET runtime 10.0.11. Both source variants differ by the four C# implementation files named by the two verified production patches. Both compiler and focused-test builds completed with zero warnings and errors. The layout tool reported zero remaining formatting changes. Strict replay reproduced the verified source postimages. [Patch identities](patch-manifest-verified.json), [C# source delta](first/compiler-source-delta.json), [build receipt](first/build-result.json), [starting resources](first/resource.json).
+
+| Measurement | DB7217 | Candidate | OTP 29.1.1 |
+| --- | ---: | ---: | ---: |
+| Whole-file Equal | 7 | 7 | 17 |
+| Whole-file Different | 10 | 10 | 0 |
+| Unsupported | 0 | 0 | 0 |
+| SourceRejected | 0 | 0 | 0 |
+| `megaco_monitor:handle_info/2` normalized instructions | 114 | 109 | 107 |
+| `megaco_monitor` Code section bytes | 2,405 | 2,390 | 2,357 |
+
+The uncached 17-file repeat took 17.078 seconds with one job. New and lost whole-file matches were both zero. New and lost equal normalized functions were also zero. `handle_info/2` lost four operations from sharing the two-slot fallthrough return and one operation from combining the stack and heap allocations over the checked projection. The separate diagnostics apply each mechanism alone to the already-generated DB7217 code stream. They report 110 operations and 13 fewer instruction bytes for return sharing, and 113 operations and two fewer instruction bytes for heap fusion. The combined result comes from a fresh compile from source. `Code` and `Attr` remain the two differing sections in `megaco_monitor`. [Corpus report](first/scope.json), [raw section delta](first/scope-delta.json), [function delta](first/functions.terms), [per-mechanism counts](first/mechanisms.json), [three-way disassembly](first/handle-info-paired.terms).
+
+The two focused tests failed at their respective expected assertions on DB7217 and passed on the candidate. The accepted sequence preserves the exact framed Y operands, line boundaries, live X root count and Y stores. The negative cases keep distinct frame widths, return slots and line boundaries, carry extra roots across the later heap check or insert an ordinary effect. [Return red](first/red-fallthrough.log), [return green](first/green-fallthrough.log), [heap red](first/red-heap.log), [heap green](first/green-heap.log).
+
+Pinned ERTS loaded the original, DB7217 and candidate monitor images and reproduced eight observations. These cover absent and successful DOWN lookups, the wrong message kind, callback delivery, `badrecord` at line 316, cancellation of present and absent monitor references, and an erased dictionary key followed by `badarg` at line 298. [Native behavior](first/native-monitor.log), [scope timing and exit codes](first/scope-result.json).
+
+Two already-different controls also changed at the byte level. Their baseline hashes reproduced in an isolated repeat on the same corpus tool with DB7217. The `test_heap` moved before the scratch-register copy in `ttb:'-loop/2-fun-0-'/5` and before the copy and field read in `gen_fsm:print_event/3`. Both heap operands now agree with the corresponding local OTP instruction and relative placement, at 6 words with five live X roots and 4 words with three live X roots respectively. Both functions retain their old normalized instruction counts. Their surrounding code and metadata still differ from OTP. Pinned ERTS loaded both generated versions of both controls. The optional managed program-level decoding of these controls failed at their pre-existing literal representation. The native disassembler produced the paired evidence and the exact fixed-point pass sequence responsible for the collateral scheduling remains open. [Control hashes](first/control-retake/control-identities.json), [control code](first/control-retake/paired-control.terms), [pinned control code](first/control-retake/pinned-control.terms), [native loader results](first/control-retake/load-controls.log), [raw literal-reader failure](first/control-retake/ttb-mechanisms.log).
+
+The remaining two excess operations in `handle_info/2` arise from the legacy arity-four delivery frame and call-only projections. The full 1,366-file acceptance run and repository-wide regression are integration work. This package used the isolated compile/test lane, local files, and pinned ERTS.
+
+[Verified return patch](fallthrough-return-verified.patch), [verified heap patch](checked-projection-heap-verified.patch), [verified permanent tests](tests-verified.patch), [evidence hashes](receipt-hashes.json).

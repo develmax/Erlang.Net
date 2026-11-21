@@ -1,0 +1,49 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamLiteralColumnDispatchChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamLiteralColumnDispatchChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamLiteralColumnDispatchChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamLiteralColumnDispatchChecks.cs
+@@ -10,11 +10,12 @@
+ {
+     internal const string TestName = "compiler/beam/groups-literal-columns-and-shares-fallbacks";
+     private const string Fixture = "beam_literal_column_dispatch_probe.erl";
++    private const string UnexpectedBoolean = "Expected grouped Boolean arities to return comparisons directly.";
+     private const string UnexpectedMatrix = "Expected a shared literal-column decision graph.";
+ 
+     internal const string Source = """
+         -module(beam_literal_column_dispatch_probe).
+-        -export([route/3, mixed/3, guarded/3, repeated/3]).
++        -export([route/3, mixed/3, guarded/3, repeated/3, classify/3]).
+ 
+         route(alpha, item, 1) -> {accepted,first};
+         route(alpha, item, 2) -> {accepted,second};
+@@ -40,6 +41,13 @@
+         repeated(alpha, Value, Value) -> equal;
+         repeated(beta, _, _) -> open;
+         repeated(_, _, _) -> different.
++
++        classify(alpha, head, 1) -> true;
++        classify(alpha, head, 2) -> true;
++        classify(alpha, tail, 1) -> true;
++        classify(beta, head, 0) -> true;
++        classify(beta, tail, 1) -> true;
++        classify(_, _, _) -> false.
+         """;
+ 
+     internal static byte[] CompileFixture() => CodeGeneration.CompileBeamModule(Source, Fixture);
+@@ -68,6 +76,17 @@
+         {
+             throw new InvalidOperationException(UnexpectedMatrix);
+         }
++
++        int booleanStart = Array.FindIndex(
++            instructions,
++            instruction => Opcode(instruction) == FunctionInfo
++            && atoms[Value(Items(instruction, "Operands").ElementAt(1))] == "classify"
++        );
++        if (!instructions.Skip(booleanStart + 2).TakeWhile(instruction => Opcode(instruction) != FunctionInfo)
++            .Any(instruction => Opcode(instruction) == BifTwo))
++        {
++            throw new InvalidOperationException(UnexpectedBoolean);
++        }
+     }
+ 
+     private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");

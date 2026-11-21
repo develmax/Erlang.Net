@@ -1,0 +1,17 @@
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.IndependentArgumentMoves.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.IndependentArgumentMoves.cs
+@@ -72,10 +72,13 @@
+         return OrderIndependentCallArguments(code, decoded.Body, completeTrimsOnly: true);
+     }
+ 
++    private static byte[]? OrderIndependentCallArguments(ReadOnlyMemory<byte> code, IReadOnlyList<BeamInstruction> body) =>
++        OrderIndependentCallArguments(code, body, completeTrimsOnly: false);
++
+     private static byte[]? OrderIndependentCallArguments(
+         ReadOnlyMemory<byte> code,
+         IReadOnlyList<BeamInstruction> body,
+-        bool completeTrimsOnly = false
++        bool completeTrimsOnly
+     )
+     {
+         using var output = new MemoryStream();

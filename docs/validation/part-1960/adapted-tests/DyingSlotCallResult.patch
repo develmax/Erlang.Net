@@ -1,0 +1,70 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamRetainedCallTupleChecks.cs b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamRetainedCallTupleChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamRetainedCallTupleChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamRetainedCallTupleChecks.cs
+@@ -10,6 +10,7 @@
+ {
+     internal const string TestName = "compiler/beam/retained-call-tuple";
+     private const string EarlyRead = "Keep the proven local tuple intact until its fields are needed.";
++    private const string ExtraSlot = "Reuse the slot after loading the outgoing argument that last reads it.";
+     private const string ShapeLost = "Keep the check on a result whose tuple shape is unknown.";
+ 
+     private const string Source = """
+@@ -34,7 +35,9 @@
+ 
+         make_result(Input) ->
+             Handle = store:lookup(Input),
+-            {Handle, Input, 3}.
++            Name = store:lookup({name, Input}),
++            Index = store:lookup({index, Input}),
++            {Handle, Name, Index}.
+         """;
+ 
+     internal static void Run()
+@@ -54,6 +57,27 @@
+             || !IsProjection(configured[lastEffect + 3], 2, 1))
+         {
+             throw new InvalidOperationException(EarlyRead);
++        }
++
++        object frame = configured.Single(instruction => Opcode(instruction) == Allocate);
++        if ((BigInteger)Property(Items(frame, "Operands")[0], "Value") != 2
++            || firstEffect <= producer + 4
++            || !IsMove(
++                configured[producer + 2],
++                "y",
++                1,
++                "x",
++                1
++            )
++            || !IsMove(
++                configured[producer + 3],
++                "x",
++                0,
++                "y",
++                1
++            ))
++        {
++            throw new InvalidOperationException(ExtraSlot);
+         }
+ 
+         object[] uncheckedResult = Body("dynamic");
+@@ -83,6 +107,19 @@
+             && (BigInteger)Property(destination, "Value") == register;
+     }
+ 
++    private static bool IsMove(
++        object instruction,
++        string source,
++        int sourceRegister,
++        string target,
++        int targetRegister
++    )
++    {
++        return Opcode(instruction) == Move && Items(instruction, "Operands") is [var from, var to]
++            && (string)Property(from, "Kind") == source && (BigInteger)Property(from, "Value") == sourceRegister
++            && (string)Property(to, "Kind") == target && (BigInteger)Property(to, "Value") == targetRegister;
++    }
++
+     private static object[] Items(object owner, string property) =>
+         ((IEnumerable)Property(owner, property)).Cast<object>().ToArray();
+ 

@@ -1,0 +1,66 @@
+{
+  "OtpVersion": "29.1.1",
+  "Total": 8,
+  "Counts": {
+    "Different": 5,
+    "Equal": 3
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\asn1-5.5.2\\ebin\\asn1ct_constructed_per.beam",
+      "Status": "Different",
+      "Source": "lib\\asn1-5.5.2\\src\\asn1ct_constructed_per.erl",
+      "Detail": "Original length 109496, generated length 112512. AtU8 6929-\u003E6672, Code 29221-\u003E32633, ImpT 1048-\u003E1048, ExpT 124-\u003E124, FunT 1252-\u003E1252, LitT 5576-\u003E5660, LocT 2548-\u003E2440, Attr 39-\u003E39, Line 1692-\u003E1710, Type 186-\u003E54",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\gen_tcp_socket.beam",
+      "Status": "Different",
+      "Source": "lib\\kernel-11.0.4\\src\\gen_tcp_socket.erl",
+      "Detail": "Original length 102280, generated length 113108. AtU8 4091-\u003E3981, Code 31509-\u003E42569, ImpT 1048-\u003E1168, ExpT 376-\u003E376, FunT 28-\u003E28, LitT 2793-\u003E2727, LocT 1528-\u003E1444, Attr 70-\u003E70, Line 1368-\u003E1390, Type 149-\u003E34",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\megaco-4.9.2\\ebin\\megaco_pretty_text_encoder_v3.beam",
+      "Status": "Different",
+      "Source": "lib\\megaco-4.9.2\\src\\text\\megaco_pretty_text_encoder_v3.erl",
+      "Detail": "Original length 122700, generated length 130780. AtU8 11285-\u003E11441, Code 33911-\u003E42863, ImpT 136-\u003E160, ExpT 112-\u003E112, FunT 2164-\u003E2188, LitT 3981-\u003E3150, LocT 3064-\u003E3076, Attr 116-\u003E116, Line 1734-\u003E1741, Type 290-\u003E26",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKCS-1.beam",
+      "Status": "Equal",
+      "Source": "lib\\public_key-1.21.7\\src\\PKCS-1.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\dets_v9.beam",
+      "Status": "Different",
+      "Source": "lib\\stdlib-8.1\\src\\dets_v9.erl",
+      "Detail": "Original length 129668, generated length 141988. AtU8 4086-\u003E4075, Code 38617-\u003E48239, StrT 16-\u003E8, ImpT 1432-\u003E1444, ExpT 328-\u003E328, FunT 556-\u003E556, LitT 703-\u003E4014, LocT 1888-\u003E1888, Attr 76-\u003E76, Line 2029-\u003E2116, Type 778-\u003E90",
+      "FirstDifferentByte": 5
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\ordsets.beam",
+      "Status": "Equal",
+      "Source": "lib\\stdlib-8.1\\src\\ordsets.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\syntax_tools-4.1.1\\ebin\\erl_syntax.beam",
+      "Status": "Different",
+      "Source": "lib\\syntax_tools-4.1.1\\src\\erl_syntax.erl",
+      "Detail": "Original length 170688, generated length 173976. AtU8 8898-\u003E8711, Code 44248-\u003E47859, ImpT 580-\u003E592, ExpT 3664-\u003E3664, FunT 172-\u003E172, LocT 1912-\u003E1828, Attr 39-\u003E39, Line 3993-\u003E3989, Type 92-\u003E32",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\wx-2.7\\ebin\\wxGrid.beam",
+      "Status": "Equal",
+      "Source": "lib\\wx-2.7\\src\\gen\\wxGrid.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+[
+  {
+    "Group": "Retained record projections and action dispatch",
+    "Components": [
+      "GuardedTaggedAliasSwitch",
+      "RetainedRecordCallChain"
+    ],
+    "RawTarget": "mod_actions"
+  },
+  {
+    "Group": "Saved entry and in-frame value lifetimes",
+    "Components": [
+      "SavedEntryAndInFrameValues"
+    ],
+    "AffectedModules": 123,
+    "AffectedFunctions": 162,
+    "IsolatedFunctionGains": 10
+  },
+  {
+    "Group": "List helper record update and strict aliases",
+    "Components": [
+      "MappedRecordUpdateElements",
+      "StrictListAliasSiblings"
+    ]
+  },
+  {
+    "Group": "Fast-arm retained Xmerl lists",
+    "Components": [
+      "FastArmCallListRetention"
+    ]
+  },
+  {
+    "Group": "ASN.1 field lifetimes, mixed closure order and physical layout",
+    "Components": [
+      "PrefixedTaggedFieldLifetimes",
+      "LeadingOptionalForeignRecordPairs",
+      "RetainedForeignRecordTriple",
+      "ConstantRemoteOptionalDispatch",
+      "CompleteAttributeCertificateFunctions"
+    ],
+    "RawTarget": "PKIXAttributeCertificate-2009"
+  }
+]

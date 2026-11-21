@@ -1,0 +1,32 @@
+{
+  "production": {
+    "patch": "704b079a9c1d57291246a8ee1646fd62bf20394a442e385891223706a2e1990f",
+    "files": {
+      "src/Compiler/Erlang.Compiler/Syntax/Ast/Expr.cs": {
+        "before": "62a595c564ddacc12255a7c5367fc30afe0ac20ddb2f34f44813ae7ed3b7f510",
+        "after": "2e270bfa0cdf0baa2c37afb0c063df6eb9ac5b0b37d8ee56429103c1c2d6adfe"
+      },
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedComprehensions.cs": {
+        "before": "80b8d403fa2ca9bd2a6a111b929510def1f258d758350a2d0f38f48133cdaf28",
+        "after": "9c085ae344173a81fe02fb9668b52b584dd421f1ec2c23ff4ed9be8881ed8532"
+      },
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs": {
+        "before": "ec1ce73863e2c566c0e5ffc0e77dc309af3fa696a2c251702b663ac4a6315d18",
+        "after": "3a6cff04fa8e539e447f5d7165a1de08a5ef7e6999decc794178e252f252f5b7"
+      },
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListGenerators.cs": {
+        "before": "bd95a912764d9f07eebfd0763b7cb03df74afbfa2352aafc7c57b36e9d6922c4",
+        "after": "c02215d9eab16e9248ffda10d1dfc0fcb97d00f693f71342b621ef6030141234"
+      }
+    }
+  },
+  "regression": {
+    "patch": "bbfe2f1f92dee617619918519597cebce2b0aad7533a868b64d693420b2b138e",
+    "files": {
+      "tests/Erlang.Tests/Compiler/Beam/BeamNestedListGeneratorChecks.cs": {
+        "before": "f6416765d35421368c80b88030ad2f3f0212cdfb1f722cf138f4ab51efcf19c7",
+        "after": "ab3f0a718c64c5e3ec732015b165c5ae1f7cbe2e7fec24d31263d4ff9613cbf4"
+      }
+    }
+  }
+}

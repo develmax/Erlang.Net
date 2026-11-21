@@ -1,0 +1,21 @@
+[Pinned,Candidate] = init:get_plain_arguments(),
+{ok,size_result_probe_peer,Dependency}=compile:forms([{attribute,1,module,size_result_probe_peer},{attribute,2,export,[{byte_size,1}]},{function,3,byte_size,1,[{clause,3,[{var,3,'X'}],[],[{var,3,'X'}]}]}],[binary]),
+{module,size_result_probe_peer}=code:load_binary(size_result_probe_peer,"size_result_probe_peer",Dependency),
+Inputs = [
+ {bytes,[<<>>]},{bytes,[<<7:7>>]},{bytes,[atom]},
+ {bits,[<<7:3>>]},{bits,[<<>>]},{bits,[atom]},
+ {items,[#{}]},{items,[#{a=>1,b=>2}]},{items,[<<>>]},
+ {above,[<<255>>,0]},{above,[<<255>>,atom]},{above,[<<255>>,1 bsl 256]},
+ {same,[<<255>>,1]},{same,[<<255>>,1.0]},
+ {unknown,[3]},{unknown,[atom]},
+ {guard_path,[wrong,2]},{guard_path,[<<1,2>>,1]},{guard_path,[<<>>,2]},
+ {other,[<<7>>,{size,9}]},{other,[<<7>>,{size,not_numeric}]},{other,[<<7>>,elsewhere]}
+],
+Run=fun(Path)->
+ {ok,Image}=file:read_file(Path),{module,size_result_probe}=code:load_binary(size_result_probe,Path,Image),
+ R=[try apply(size_result_probe,N,As) of V->{ok,V} catch C:X->{C,X} end||{N,As}<-Inputs],
+ true=code:delete(size_result_probe),_=code:purge(size_result_probe),R
+end,
+R=Run(Pinned),R=Run(Candidate),
+io:format("~p native values and reasons match~n",[length(R)]),halt().
+

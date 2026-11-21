@@ -1,0 +1,23 @@
+Error! Failed to eval: [Ref,Before,After,Out]=init:get_plain_arguments(),
+M=httpc_profile_sup,
+Scenarios=[{init,[[]]},{init,[[[]]]},
+           {init,[[[{httpc,{profile_for_native_proof,"d:/temporary-profile"}}]]]},
+           {init,[[[{httpc,[{profile,profile_for_native_proof},{data_dir,"d:/temporary-profile"}]}]]]},
+           {init,[bad]},{init,[[first,second]]},{start_child,[[]]}],
+Run=fun(File)->
+    {ok,Bin}=file:read_file(File),
+    {ok,_}=code:prepare_loading([{M,File,Bin}]),{module,M}=code:load_binary(M,File,Bin),
+    R=[{F,A,try apply(M,F,A) of V->{ok,V} catch C:E:S->{C,E,[X||X={Mod,_,_,_}<-S,Mod=:=M]} end}
+       ||{F,A}<-Scenarios],
+    true=code:delete(M),code:purge(M),R
+end,
+N=Run(Ref),B=Run(Before),A=Run(After),
+Delta=[{L,R}||{L,R}<-lists:zip(N,A),L=/=R],
+ok=file:write_file(Out,io_lib:format("~tp.~n",[#{native=>N,before=>B,after_result=>A,differences=>Delta}])),
+io:format("~B release outcomes, ~B differences~n",[length(N),length(Delta)]),
+halt(case Delta of []->0;_->1 end).
+
+
+Runtime terminating during boot ({{badmatch,{error,enoent}},[{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,796}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,792}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{init,start_it,1,[{file,"init.erl"},{line,1561}]},{init,start_em,1,[{file,"init.erl"},{line,1546}]},{init,do_boot,3,[{file,"init.erl"},{line,1217}]}]})
+
+Crash dump is being written to: D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/retained-constructor-result-1913/tagged-list-payload-ownership-retake/native-release-crash.dump...done

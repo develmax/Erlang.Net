@@ -11,7 +11,20 @@ internal sealed partial class BeamModuleCompiler
 
     // A null result identifies a function without handler setup. Otherwise only the
     // returned instruction indices are proved reachable with an empty handler stack.
-    private static HashSet<int>? UnprotectedReturnLabels(IReadOnlyList<BeamInstruction> body, int start, int end)
+    private static HashSet<int>? UnprotectedReturnLabels(IReadOnlyList<BeamInstruction> body, int start, int end) =>
+        ReadUnprotectedInstructionIndices(
+            body,
+            start,
+            end,
+            labelsOnly: true
+        );
+
+    private static HashSet<int>? ReadUnprotectedInstructionIndices(
+        IReadOnlyList<BeamInstruction> body,
+        int start,
+        int end,
+        bool labelsOnly
+    )
     {
         if (!body.Skip(start).Take(end - start).Any(instruction => instruction.Definition.Opcode is CatchEnter or TryEnter))
         {
@@ -69,6 +82,11 @@ internal sealed partial class BeamModuleCompiler
             {
                 Enqueue(index + 1, scope);
             }
+        }
+
+        if (!labelsOnly)
+        {
+            return states.Where(state => state.Value is null).Select(state => state.Key).ToHashSet();
         }
 
         return labels.Where(label => !handlers.Contains(label.Key)

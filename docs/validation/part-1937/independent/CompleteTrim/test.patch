@@ -1,0 +1,94 @@
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12550,6 +12550,7 @@
+ Test(Erlang.Tests.BeamCheckedFieldCallFrameChecks.TestName, Erlang.Tests.BeamCheckedFieldCallFrameChecks.Run);
+ Test(Erlang.Tests.BeamTerminalProjectedListHeapChecks.TestName, Erlang.Tests.BeamTerminalProjectedListHeapChecks.Run);
+ Test(Erlang.Tests.BeamTerminalCallProjectionChecks.TestName, Erlang.Tests.BeamTerminalCallProjectionChecks.Run);
++Test(Erlang.Tests.BeamTerminalCallProjectionChecks.CompactFrameTestName, Erlang.Tests.BeamTerminalCallProjectionChecks.CheckCompactFrame);
+ Test(Erlang.Tests.BeamCallArgumentKillsChecks.TestName, Erlang.Tests.BeamCallArgumentKillsChecks.Run);
+ Test(Erlang.Tests.BeamMeasuredDecoderPairChecks.TestName, Erlang.Tests.BeamMeasuredDecoderPairChecks.Run);
+ Test(Erlang.Tests.BeamClosedDecoderTagsChecks.TestName, Erlang.Tests.BeamClosedDecoderTagsChecks.Run);
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamTerminalCallProjectionChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamTerminalCallProjectionChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamTerminalCallProjectionChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamTerminalCallProjectionChecks.cs
+@@ -9,6 +9,8 @@
+ internal static class BeamTerminalCallProjectionChecks
+ {
+     internal const string TestName = "compiler/beam/forwards-projections-to-terminal-call-arguments";
++    internal const string CompactFrameTestName = "compiler/beam/compacts-owned-frames-before-complete-trims";
++    private const string FrameShapeError = "The complete trim kept an unused slot or modified the protected frame.";
+     private const string Module = "beam_terminal_call_projection";
+     private const string ShapeError = "The terminal call retained stack projections after constructing its arguments.";
+ 
+@@ -49,14 +51,55 @@
+ 
+     internal static void Run()
+     {
++        var body = ReadBodies();
++        if (!HasForwardedProjection(body("reply")) || HasForwardedProjection(body("protected")))
++        {
++            throw new InvalidOperationException(ShapeError);
++        }
++    }
++
++    internal static void CheckCompactFrame()
++    {
++        var body = ReadBodies();
++        object[] reply = body("reply");
++        object[] protectedReply = body("protected");
++        if (!HasOperands(
++            reply,
++            Allocate,
++            1,
++            1
++        ) || !HasOperands(
++            reply,
++            TrimFrame,
++            1,
++            0
++        )
++            || HasOperands(
++                reply,
++                Allocate,
++                2,
++                1
++            ) || HasOperands(
++                reply,
++                TrimFrame,
++                2,
++                0
++            )
++            || !protectedReply.Any(instruction => Opcode(instruction) == TryEnter)
++            || protectedReply.Any(instruction => Opcode(instruction) == TrimFrame))
++        {
++            throw new InvalidOperationException(FrameShapeError);
++        }
++    }
++
++    private static Func<string, object[]> ReadBodies()
++    {
+         byte[] beam = CodeGeneration.CompileBeamModule(Source, Module + ".erl");
+         object code = Code(beam);
+         object[] instructions = Children(code, "Instructions");
+         string[] atoms = Children(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
+-        if (!HasForwardedProjection(Body("reply")) || HasForwardedProjection(Body("protected")))
+-        {
+-            throw new InvalidOperationException(ShapeError);
+-        }
++
++        return Body;
+ 
+         object[] Body(string name)
+         {
+@@ -66,6 +109,10 @@
+             return start < 0 ? [] : instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo).ToArray();
+         }
+     }
++
++    private static bool HasOperands(object[] instructions, byte opcode, params int[] operands) =>
++        instructions.Any(instruction => Opcode(instruction) == opcode
++            && Children(instruction, "Operands").Select(Value).SequenceEqual(operands));
+ 
+     private static bool HasForwardedProjection(object[] instructions)
+     {

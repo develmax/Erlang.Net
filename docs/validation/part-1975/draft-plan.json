@@ -1,0 +1,16 @@
+{
+  "NewTests": [
+    "compiler/beam/uses-zero-slot-frame-after-unframed-entry-checks",
+    "compiler/beam/retains-precall-aliases-at-one-collector",
+    "compiler/beam/retains-the-sole-postcall-result-in-x0"
+  ],
+  "AffectedAndControlImages": 51,
+  "ParentScopeDeferred": true,
+  "ReleaseEvidence": [
+    "17 checked-entry frame candidates across eleven modules",
+    "17 independently measured one-collector alias sites",
+    "23 stable post-call result candidates across seventeen modules",
+    "One diagnosed whole-file exact closure, with both terminal record windows reproduced"
+  ],
+  "CompileCache": false
+}

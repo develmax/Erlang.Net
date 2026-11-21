@@ -8,7 +8,7 @@ internal sealed partial class BeamModuleCompiler
         ReadOnlyMemory<byte> code,
         IReadOnlyList<BeamInstruction> body,
         List<(int Start, int End, int Label)> labelOperands,
-        List<(int Start, int End, int Slot)> stackOperands
+        IReadOnlyList<(int Start, int End, int Slot)> stackOperands
     )
     {
         for (int function = 0; function + 3 < body.Count; function++)

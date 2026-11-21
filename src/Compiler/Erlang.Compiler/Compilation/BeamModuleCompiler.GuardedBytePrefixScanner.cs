@@ -1,0 +1,462 @@
+using static Erlang.Compiler.BeamEmissionFormat;
+
+namespace Erlang.Compiler;
+
+internal sealed partial class BeamModuleCompiler
+{
+    private sealed partial class GeneralEmitter
+    {
+        private sealed record GuardedByteArm(Atom Tag, Integer[] Keys, Expr.Binary Advance);
+
+        private bool TryEmitGuardedBytePrefixScanner(FunctionDefinition function)
+        {
+            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled || owner.OnLoadFunction is not null
+                || owner.IsDeclaredNative((function.Name, function.Arity))
+                || function.Clauses is not
+                [
+                {
+                    Guard: null,
+                    Patterns: [BitPattern { Segments.Count: 0 }, Pattern.Variable emptyPosition],
+                    Body: Expr.List
+                    {
+                        Tail: null,
+                        Items: [Expr.Tuple { Items: [Expr.Literal { Value: Atom emptyTag }, Expr.Variable emptyValue] }]
+                    }
+                },
+                    _, _, ..,
+                {
+                    Patterns: [BitPattern { Segments: [var utf, var utfTail] }, Pattern.Variable utfPosition],
+                    Guard: Expr.Binary
+                    {
+                        Operator: ErlangOperators.NumericNotEqual or ErlangOperators.ExactNotEqual,
+                        Left: Expr.Variable utfTest,
+                        Right: Expr.Literal { Value: Integer rejectedPrefix }
+                    },
+                    Body: Expr.List { Items: [Expr.Call classify], Tail: Expr.Call utfRecur }
+                },
+                {
+                    Guard: null,
+                    Patterns: [Pattern.Variable left, Pattern.Variable errorPosition],
+                    Body: Expr.Call
+                    {
+                        Function: AutoImportNames.Error,
+                        Arguments: [Expr.Tuple
+                        {
+                            Items: [Expr.Literal { Value: Atom errorTag }, Expr.Variable position, Expr.Variable leftover]
+                        }]
+                    } raise
+                }
+                ]
+                || function.Arity != 2 || emptyValue.Name != emptyPosition.Name
+                || !DistinctBindings(left, errorPosition)
+                || position.Name != errorPosition.Name || leftover.Name != left.Name || !owner.ResolvesErlangBif(raise)
+                || utf is not
+                {
+                    Value: Pattern.Variable utfValue, Specification: { Type: BitSegmentTypes.Utf8, Size: null }
+                }
+                || ReadBinaryTailBinding(utfTail) is not { } utfRest || !DistinctBindings(utfValue, utfRest, utfPosition)
+                || utfTest.Name != utfValue.Name
+                || classify is not { Module: null, DynamicRemote: false, Arguments: [Expr.Variable decoded, Expr.Variable current] }
+                || decoded.Name != utfValue.Name || current.Name != utfPosition.Name
+                || !entries.TryGetValue((classify.Function, 2), out int classifier)
+                || (classify.Function, 2) == (function.Name, function.Arity)
+                || ReadScannerAdvance(
+                    function,
+                    utfRecur,
+                    utfRest.Name,
+                    utfPosition.Name
+                ) is not { } utfAdvance)
+            {
+                return false;
+            }
+
+            var groups = new List<GuardedByteArm>();
+            var known = new HashSet<Integer>();
+            BitSegment? byteEncoding = null;
+            foreach (var clause in function.Clauses.Skip(1).SkipLast(2))
+            {
+                if (clause is not
+                    {
+                        Patterns:
+                        [
+                            BitPattern { Segments: [var lead, var selected, var remainder] },
+                            Pattern.Variable currentPosition
+                        ],
+                        Guard: Expr.GuardAlternatives alternatives,
+                        Body: Expr.List
+                        {
+                            Items: [Expr.Tuple
+                            {
+                                Items: [Expr.Literal { Value: Atom tag }, Expr.Variable at, Expr.Variable character]
+                            }],
+                            Tail: Expr.Call recur
+                        }
+                    }
+                    || lead.Value is not Pattern.Literal { Value: Integer leadingValue } || !leadingValue.Equals(rejectedPrefix)
+                    || !IsUnsignedByte(lead.Specification) || !IsUnsignedByte(selected.Specification)
+                    || selected.Value is not Pattern.Variable selectedByte || ReadBinaryTailBinding(remainder) is not { } rest
+                    || !DistinctBindings(currentPosition, selectedByte, rest)
+                    || at.Name != currentPosition.Name || character.Name != selectedByte.Name
+                    || ReadScannerAdvance(
+                        function,
+                        recur,
+                        rest.Name,
+                        currentPosition.Name
+                    ) is not { } advance)
+                {
+                    return false;
+                }
+
+                var keys = new List<Integer>();
+                foreach (Expr alternative in alternatives.Items)
+                {
+                    var exact = alternative is Expr.Binary { Operator: ErlangOperators.NumericEqual } numeric
+                        ? numeric with { Operator = ErlangOperators.ExactEqual }
+                        : alternative;
+                    if (ReadIntegerGuardKey(exact) is not { } choice || choice.Name != selectedByte.Name
+                        || choice.Key.Value < 0 || choice.Key.Value > byte.MaxValue || !known.Add(choice.Key))
+                    {
+                        return false;
+                    }
+
+                    keys.Add(choice.Key);
+                }
+
+                if (keys.Count == 0)
+                {
+                    return false;
+                }
+
+                groups.Add(new(tag, keys.ToArray(), advance));
+                byteEncoding ??= selected.Specification;
+            }
+
+            if (!HasPrivateNonnegativeScannerPosition(function))
+            {
+                return false;
+            }
+
+            groups.Sort((leftGroup, rightGroup) =>
+                rightGroup.Keys.Min(key => key.Value).CompareTo(leftGroup.Keys.Min(key => key.Value)));
+            int originalError = Label();
+            int prefix = Label();
+            int unicode = Label();
+            int restoredError = Label();
+            int[] targets = groups.Select(_ => Label()).ToArray();
+
+            owner.Op(StartBinaryMatch, LabelTag, originalError);
+            owner.Operand(XRegisterTag, 0);
+            owner.Operand(BeamWire.UnsignedTag, 2);
+            owner.Operand(XRegisterTag, 2);
+            owner.Op(GetBinaryPosition, XRegisterTag, 2);
+            owner.Operand(XRegisterTag, 0);
+            owner.Operand(BeamWire.UnsignedTag, 3);
+            EmitBitMatchHeader(
+                2,
+                prefix,
+                2,
+                0,
+                null
+            );
+            owner.Op(TestHeap, BeamWire.UnsignedTag, 5);
+            owner.Operand(BeamWire.UnsignedTag, 2);
+            owner.EmitTupleHeader(XRegisterTag, 2);
+            owner.LiteralOperand(emptyTag);
+            owner.Operand(XRegisterTag, 1);
+            owner.Op(PutList, XRegisterTag, 0);
+            owner.LiteralOperand(Nil.Value);
+            owner.Operand(XRegisterTag, 0);
+            owner.instructions.WriteByte(Return);
+
+            Mark(prefix);
+            EmitByte(BitSyntaxDefaults.NumericUnit);
+            owner.Op(ExactEqualTest, LabelTag, unicode);
+            owner.EmitTypedRegister(
+                3,
+                IntegerTypeBits,
+                0,
+                byte.MaxValue
+            );
+            owner.LiteralOperand(rejectedPrefix);
+            EmitByte(BitSyntaxDefaults.BinaryUnit);
+            owner.EmitMembershipSelect(
+                3,
+                unicode,
+                groups.SelectMany((group, index) => group.Keys.Select(key => ((Term)key, targets[index])))
+                    .OrderBy(pair => ((Integer)pair.Item1).Value),
+                IntegerTypeBits,
+                (0, byte.MaxValue)
+            );
+
+            for (int index = 0; index < groups.Count; index++)
+            {
+                Mark(targets[index]);
+                var group = groups[index];
+                var previous = location;
+                owner.EmitArithmeticLine(group.Advance.SourceLine, ref previous);
+                EmitAdvance(
+                    group.Advance,
+                    XRegisterTag,
+                    4,
+                    0
+                );
+                EmitFrameAllocation(4, 2);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    3,
+                    YRegisterTag,
+                    0
+                );
+                owner.MoveRegister(
+                    XRegisterTag,
+                    1,
+                    YRegisterTag,
+                    1
+                );
+                owner.MoveRegister(
+                    XRegisterTag,
+                    0,
+                    XRegisterTag,
+                    1
+                );
+                owner.MoveRegister(
+                    XRegisterTag,
+                    2,
+                    XRegisterTag,
+                    0
+                );
+                Call(null, function.Name, 2);
+                owner.Op(TestHeap, BeamWire.UnsignedTag, 6);
+                owner.Operand(BeamWire.UnsignedTag, 1);
+                owner.EmitTupleHeader(XRegisterTag, 3, 1);
+                owner.LiteralOperand(group.Tag);
+                owner.Operand(YRegisterTag, 1);
+                owner.Operand(YRegisterTag, 0);
+                owner.Op(PutList, XRegisterTag, 1);
+                owner.Operand(XRegisterTag, 0);
+                owner.Operand(XRegisterTag, 0);
+                owner.EmitFrameReturn(2);
+            }
+
+            Mark(unicode);
+            RestorePosition();
+            owner.Op(GetBinaryUtf8, LabelTag, restoredError);
+            owner.EmitTypedRegister(2, MatchableTypeBits);
+            owner.Operand(BeamWire.UnsignedTag, 3);
+            owner.Operand(BeamWire.UnsignedTag, 0);
+            owner.Operand(XRegisterTag, 3);
+            EmitBitMatchHeader(
+                2,
+                restoredError,
+                3,
+                0,
+                BitSyntaxDefaults.BinaryUnit
+            );
+            owner.Op(ExactNotEqualTest, LabelTag, restoredError);
+            owner.EmitTypedRegister(
+                3,
+                IntegerTypeBits,
+                0,
+                UtfSegmentLimits.MaximumScalar
+            );
+            owner.LiteralOperand(rejectedPrefix);
+            EmitFrameAllocation(4, 2);
+            owner.MoveRegister(
+                XRegisterTag,
+                2,
+                YRegisterTag,
+                0
+            );
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                YRegisterTag,
+                1
+            );
+            owner.MoveRegister(
+                XRegisterTag,
+                3,
+                XRegisterTag,
+                0
+            );
+            owner.EmitCallLine(classify, location);
+            owner.EmitFieldCall(2, classifier);
+            EmitAdvance(
+                utfAdvance,
+                YRegisterTag,
+                1,
+                1
+            );
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                1
+            );
+            owner.MoveRegister(
+                YRegisterTag,
+                0,
+                XRegisterTag,
+                0
+            );
+            owner.Op(TrimFrame, BeamWire.UnsignedTag, 1);
+            owner.Operand(BeamWire.UnsignedTag, 1);
+            Call(null, function.Name, 2);
+            owner.Op(TestHeap, BeamWire.UnsignedTag, ConsHeapWords);
+            owner.Operand(BeamWire.UnsignedTag, 1);
+            owner.Op(PutList, YRegisterTag, 0);
+            owner.Operand(XRegisterTag, 0);
+            owner.Operand(XRegisterTag, 0);
+            owner.EmitFrameReturn(1);
+
+            Mark(restoredError);
+            RestorePosition();
+            owner.Op(GetBinaryTail, XRegisterTag, 2);
+            owner.Operand(XRegisterTag, 0);
+            owner.Operand(BeamWire.UnsignedTag, 3);
+            EmitError(emitLocation: true);
+            Mark(originalError);
+            EmitError(emitLocation: false);
+
+            return true;
+
+            void EmitByte(int unit)
+            {
+                EmitBitMatchHeader(
+                    2,
+                    unicode,
+                    9,
+                    BitSyntaxDefaults.BinaryUnit,
+                    unit
+                );
+                EmitBitSegment(
+                    byteEncoding!,
+                    BitSyntaxDefaults.BinaryUnit,
+                    3,
+                    XRegisterTag,
+                    3
+                );
+            }
+
+            void RestorePosition()
+            {
+                owner.Op(SetBinaryPosition, XRegisterTag, 2);
+                owner.Operand(XRegisterTag, 0);
+            }
+
+            void EmitAdvance(
+                Expr.Binary advance,
+                int tag,
+                int live,
+                int output
+            )
+            {
+                owner.Op(GcBifTwo, LabelTag, 0);
+                owner.Operand(BeamWire.UnsignedTag, live);
+                owner.Operand(BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module, ErlangOperators.Plus, 2));
+                owner.EmitTypedRegister(
+                    1,
+                    IntegerTypeBits,
+                    lower: 0,
+                    registerTag: tag
+                );
+                owner.LiteralOperand(((Expr.Literal)advance.Right).Value);
+                owner.Operand(XRegisterTag, output);
+            }
+
+            void EmitError(bool emitLocation)
+            {
+                owner.Op(TestHeap, BeamWire.UnsignedTag, 4);
+                owner.Operand(BeamWire.UnsignedTag, 2);
+                owner.EmitTupleHeader(XRegisterTag, 3);
+                owner.LiteralOperand(errorTag);
+                owner.Operand(XRegisterTag, 1);
+                owner.Operand(XRegisterTag, 0);
+                if (emitLocation)
+                {
+                    owner.EmitCallLine(raise, location);
+                }
+                owner.Op(TailExternalCall, BeamWire.UnsignedTag, 1);
+                owner.Operand(BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module, AutoImportNames.Error, 1));
+            }
+        }
+
+        private static bool IsUnsignedByte(BitSegment segment) =>
+            segment is { Type: BitSegmentTypes.Integer, Signed: false, Endian: BitByteOrders.Big, Unit: BitSyntaxDefaults.NumericUnit }
+            && FixedSize(segment) == BitSyntaxDefaults.BinaryUnit;
+
+        private static Pattern.Variable? ReadBinaryTailBinding(BitPatternSegment segment) =>
+            segment is
+            {
+                Value: Pattern.Variable bound,
+                Specification: { Type: BitSegmentTypes.Binary, Size: null, Unit: BitSyntaxDefaults.BinaryUnit }
+            } ? bound : null;
+
+        private static Expr.Binary? ReadScannerAdvance(
+            FunctionDefinition function,
+            Expr.Call call,
+            string tail,
+            string position
+        ) =>
+            call is
+            {
+                Module: null, DynamicRemote: false,
+                Arguments:
+                [
+                    Expr.Variable forwarded,
+                    Expr.Binary
+                {
+                    Operator: ErlangOperators.Plus,
+                    Left: Expr.Variable read,
+                    Right: Expr.Literal { Value: Integer amount }
+                } advance
+                ]
+            } && call.Function == function.Name && forwarded.Name == tail && read.Name == position && amount.Value.Sign > 0
+                ? advance
+                : null;
+
+        private bool HasPrivateNonnegativeScannerPosition(FunctionDefinition function)
+        {
+            var target = (function.Name, function.Arity);
+            if (owner.exportedFunctions.Contains(target))
+            {
+                return false;
+            }
+
+            bool hasSeed = false;
+            foreach (var caller in localFunctions.Values)
+            {
+                foreach (var clause in caller.Clauses)
+                {
+                    foreach (var expression in LocalFunctionEntries.ClauseExpressions([clause]).SelectMany(LocalFunctionEntries.Walk))
+                    {
+                        if (expression is Expr.FunctionReference reference && (reference.Name, reference.Arity) == target)
+                        {
+                            return false;
+                        }
+
+                        if (expression is not Expr.Call { Module: null, DynamicRemote: false } call
+                            || (call.Function, call.Arguments.Count) != target)
+                        {
+                            continue;
+                        }
+
+                        if (ReferenceEquals(caller, function) && clause.Body is Expr.List { Tail: Expr.Call tail } && ReferenceEquals(call, tail))
+                        {
+                            continue;
+                        }
+
+                        if (call.Arguments[1] is not Expr.Literal { Value: Integer seed } || seed.Value.Sign < 0)
+                        {
+                            return false;
+                        }
+
+                        hasSeed = true;
+                    }
+                }
+            }
+
+            return hasSeed;
+        }
+    }
+}

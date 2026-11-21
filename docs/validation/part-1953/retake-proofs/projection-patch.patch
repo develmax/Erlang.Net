@@ -1,0 +1,22 @@
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProjectionMoves.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProjectionMoves.cs
+@@ -335,7 +335,18 @@
+ 
+                     if (SameProjectionRegister(instruction.Operands[1], temporary))
+                     {
+-                        return true;
++                        // An overwrite can forward a projected argument in a
++                        // statically assigned call's argument setup. Dynamic
++                        // apply keeps the callee in a separate outgoing register.
++                        int next = index + 1;
++                        while (next < body.Count && body[next].Definition.Opcode is Line or Move)
++                        {
++                            next++;
++                        }
++
++                        return next < body.Count && body[next].Definition.Opcode is
++                            LocalCall or ExternalCall or TailLocalCall or TailExternalCall
++                            or TailLocalCallWithFrame or TailExternalCallWithFrame;
+                     }
+ 
+                     continue;

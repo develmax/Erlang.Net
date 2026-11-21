@@ -1,0 +1,16 @@
+[Image,Report]=init:get_plain_arguments(),
+{ok,Binary}=file:read_file(Image),
+M=inet_sctp,
+{module,M}=code:load_binary(M,Image,Binary),
+Cases=[{address,connect,[invalid,#{family=>inet,addr=>{127,0,0,1},port=>9},[],nowait]},
+       {address_options,connect,[invalid,#{family=>inet,addr=>{127,0,0,1},port=>9},invalid,nowait]},
+       {host,connect,[invalid,{127,0,0,1},9,[],nowait]},
+       {host_options,connect,[invalid,{127,0,0,1},9,invalid,nowait]}],
+Run=fun({Name,Op,Args}) ->
+    Value=try apply(M,Op,Args) of {error,_}=Error->{result,Error}
+          catch Kind:Reason:Stack->{Kind,Reason,[Frame||Frame<-Stack,element(1,Frame)=:=M]} end,
+    {Name,Value}
+end,
+ok=file:write_file(Report,io_lib:format("~tp.~n",[[Run(Case)||Case<-Cases]])),
+halt().
+

@@ -1,0 +1,14 @@
+Checking patch src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LocalConstantArguments.cs...
+Checking patch src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListGenerators.cs...
+Hunk #1 succeeded at 212 (offset 40 lines).
+Hunk #2 succeeded at 255 (offset 40 lines).
+error: while searching for:
+
+        return (function with { Clauses = [clause with { Body = parentBody }] },
+            [(innerLoop, innerLocation), (outerLoop, outerLocation)]);
+    }
+
+    private static bool HasRetainedRecursiveListResult(Expr.ListComprehension comprehension, IReadOnlyList<Expr> expressions) =>
+
+error: patch failed: src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListGenerators.cs:224
+error: src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListGenerators.cs: patch does not apply

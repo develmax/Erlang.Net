@@ -1,0 +1,208 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamRetainedForeignTripleEncoderChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamRetainedForeignTripleEncoderChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamRetainedForeignTripleEncoderChecks.cs
+@@ -0,0 +1,192 @@
++using System.Collections;
++using System.Numerics;
++using Erlang;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamRetainedForeignTripleEncoderChecks
++{
++    internal const string TestName = "compiler/beam/retains-foreign-encoder-pairs-through-three-fields";
++    private const string Fixture = "beam_retained_foreign_triple_probe.erl";
++    private const string LocalMiddle = "local_middle";
++    private const string RemoteMiddle = "remote_middle";
++    private const string Peer = "beam_retained_foreign_triple_peer";
++    private const string First = "first";
++    private const string Middle = "middle";
++    private const string WrongLayout = "The checked foreign pairs did not use the retained record layout.";
++    private const string WrongValue = "The retained record changed pair values or the failure order.";
++
++    private const string Source = """
++        -module(beam_retained_foreign_triple_probe).
++        -export([local_middle/2, remote_middle/2]).
++
++        local_middle(Record, Tags) ->
++            {_,First,Second,Last} = Record,
++            {A,ALen} = beam_retained_foreign_triple_peer:first(First,[1]),
++            {B,BLen} = middle(Second,[2]),
++            {C,CLen} = final(Last,[3]),
++            Parts = [A,B,C],
++            Size = ALen + BLen + CLen,
++            finish(Tags,Parts,Size).
++
++        remote_middle(Record, Tags) ->
++            {_,First,Second,Last} = Record,
++            {A,ALen} = beam_retained_foreign_triple_peer:first(First,[1]),
++            {B,BLen} = beam_retained_foreign_triple_peer:middle(Second,[2]),
++            {C,CLen} = case Last of
++                absent -> {<<>>,0};
++                _ -> final(Last,[3])
++            end,
++            Parts = [A,B,C],
++            Size = ALen + BLen + CLen,
++            finish(Tags,Parts,Size).
++
++        middle(Value, _) -> {Value,2}.
++        final(Value, _) -> {Value,3}.
++        finish(Tags, Parts, Size) -> {Tags,Parts,Size}.
++        """;
++
++    internal static async Task Run()
++    {
++        byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
++        byte[] dynamicTags = CodeGeneration.CompileBeamModule(
++            Source.Replace("middle(Second,[2])", "middle(Second,Tags)", StringComparison.Ordinal), Fixture
++        );
++        var module = BeamModule.Prepare(image, new BeamDependencySelection([Peer]));
++        Term tag = Term.A("tag");
++        Term bad = Term.A("bad_pair");
++        Term first = Term.A("first");
++        Term second = Term.A("second");
++        Term third = Term.A("third");
++        Term absent = Term.A("absent");
++        Term expected = Term.Tuple(tag, Term.List(first, second, third), Term.I(6));
++        int middleCalls = 0;
++        await using var runtime = new ProcessRuntime();
++        runtime.Modules.Register(
++            Peer,
++            First,
++            2,
++            (_, args) => ValueTask.FromResult<Term>(args[0].Equals(bad) ? bad : Term.Tuple(args[0], Term.I(1)))
++        );
++        runtime.Modules.Register(
++            Peer,
++            Middle,
++            2,
++            (_, args) =>
++            {
++                middleCalls++;
++
++                return ValueTask.FromResult<Term>(args[0].Equals(bad) ? bad : Term.Tuple(args[0], Term.I(2)));
++            }
++        );
++        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
++        await actor.InvokeAsync(async context =>
++        {
++            Term input = Term.Tuple(
++                tag,
++                first,
++                second,
++                third
++            );
++            foreach (string function in new[] { LocalMiddle, RemoteMiddle })
++            {
++                if (!expected.Equals(await module.Invoke(
++                    context,
++                    function,
++                    input,
++                    tag
++                )))
++                {
++                    throw new InvalidOperationException(WrongValue);
++                }
++            }
++
++            Term defaulted = await module.Invoke(
++                context,
++                RemoteMiddle,
++                Term.Tuple(
++                    tag,
++                    first,
++                    second,
++                    absent
++                ),
++                tag
++            );
++            if (!defaulted.Equals(Term.Tuple(tag, Term.List(first, second, new BitString([])), Term.I(3))))
++            {
++                throw new InvalidOperationException(WrongValue);
++            }
++
++            await CheckBadPair(Term.Tuple(
++                tag,
++                bad,
++                second,
++                third
++            ), expectedCalls: 2);
++            await CheckBadPair(Term.Tuple(
++                tag,
++                first,
++                bad,
++                third
++            ), expectedCalls: 3);
++
++            return Nil.Value;
++
++            async Task CheckBadPair(Term record, int expectedCalls)
++            {
++                try
++                {
++                    await module.Invoke(
++                        context,
++                        RemoteMiddle,
++                        record,
++                        tag
++                    );
++                }
++                catch (ErlangException error) when (error.Reason.Equals(Term.Tuple(Term.A("badmatch"), bad))
++                    && middleCalls == expectedCalls)
++                {
++                    return;
++                }
++
++                throw new InvalidOperationException(WrongValue);
++            }
++        });
++
++        if (Frame(image, LocalMiddle) != 3 || Frame(image, RemoteMiddle) != 4 || Frame(dynamicTags, RemoteMiddle) <= 4)
++        {
++            throw new InvalidOperationException(WrongLayout);
++        }
++    }
++
++    private static int Frame(byte[] image, string function)
++    {
++        object code = Code(image);
++        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        object[] instructions = Items(code, "Instructions");
++        int start = Array.FindIndex(
++            instructions,
++            instruction => Opcode(instruction) == FunctionInfo
++                && Items(instruction, "Operands") is [_, var name, var arity]
++                && atoms[Value(name)] == function && Value(arity) == 2
++        );
++        if (start < 0)
++        {
++            throw new InvalidOperationException(WrongLayout);
++        }
++
++        object frame = instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo)
++            .Single(instruction => Opcode(instruction) == Allocate);
++
++        return Value(Items(frame, "Operands")[0]);
++    }
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++
++    private static object[] Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
++}
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12519,6 +12519,7 @@
+ Test(Erlang.Tests.BeamRemoteOptionalLifetimeChecks.TestName, Erlang.Tests.BeamRemoteOptionalLifetimeChecks.Run);
+ Test(Erlang.Tests.BeamPrefixedTaggedFieldLifetimeChecks.TestName, Erlang.Tests.BeamPrefixedTaggedFieldLifetimeChecks.Run);
+ Test(Erlang.Tests.BeamLeadingForeignOptionalEncoderChecks.TestName, Erlang.Tests.BeamLeadingForeignOptionalEncoderChecks.Run);
++Test(Erlang.Tests.BeamRetainedForeignTripleEncoderChecks.TestName, Erlang.Tests.BeamRetainedForeignTripleEncoderChecks.Run);
+ Test(Erlang.Tests.BeamGuardedKeyfindPairTailChecks.TestName, Erlang.Tests.BeamGuardedKeyfindPairTailChecks.Run);
+ Test(Erlang.Tests.BeamUnpaddedBitStringContextChecks.TestName, Erlang.Tests.BeamUnpaddedBitStringContextChecks.Run);
+ Test(Erlang.Tests.BeamSingleTaggedChoiceFieldChecks.TestName, Erlang.Tests.BeamSingleTaggedChoiceFieldChecks.Run);

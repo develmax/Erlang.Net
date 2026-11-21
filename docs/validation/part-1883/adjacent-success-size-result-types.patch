@@ -1,0 +1,288 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AdjacentNumericResults.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AdjacentNumericResults.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AdjacentNumericResults.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AdjacentNumericResults.cs
+@@ -18,16 +18,29 @@
+         var atomNames = atoms.OrderBy(entry => entry.Value).Select(entry => entry.Key).ToArray();
+         var producers = new HashSet<int>();
+         var consumers = new HashSet<int>();
++        var sizeProducers = new HashSet<int>();
++        var comparisons = new HashSet<int>();
+         var importsByIndex = imports.OrderBy(entry => entry.Value).Select(entry => entry.Key).ToArray();
+         for (int index = 0; index < importsByIndex.Length; index++)
+         {
+             var (module, function, arity) = importsByIndex[index];
+-            if (arity != 2 || atomNames[module - 1] != ErlangModuleNames.Module)
++            if (atomNames[module - 1] != ErlangModuleNames.Module)
+             {
+                 continue;
+             }
+ 
+-            switch (atomNames[function - 1])
++            string name = atomNames[function - 1];
++            if (arity == 1 && name is AutoImportNames.ByteSize or AutoImportNames.BitSize or AutoImportNames.MapSize)
++            {
++                sizeProducers.Add(index);
++            }
++
++            if (arity != 2)
++            {
++                continue;
++            }
++
++            switch (name)
+             {
+                 case ErlangOperators.Plus or ErlangOperators.Minus or ErlangOperators.Multiply:
+                     producers.Add(index);
+@@ -37,6 +50,12 @@
+                     or ErlangOperators.IntegerDivide or ErlangOperators.Remainder:
+                     consumers.Add(index);
+                     break;
++                case ErlangOperators.Less or ErlangOperators.LessOrEqual
++                    or ErlangOperators.Greater or ErlangOperators.GreaterOrEqual
++                    or ErlangOperators.NumericEqual or ErlangOperators.NumericNotEqual
++                    or ErlangOperators.ExactEqual or ErlangOperators.ExactNotEqual:
++                    comparisons.Add(index);
++                    break;
+             }
+         }
+ 
+@@ -46,7 +65,8 @@
+         bool localAtomOrTuple = localResultEntries.ContainsValue(LocalAtomOrTupleType)
+             && code.Span.Contains(IsTuple);
+         bool numericRecordFields = producers.Count != 0 && code.Span.Contains(UpdateRecord);
+-        if (!numericProducer && !localInteger && !localAtomOrTuple && !numericRecordFields)
++        bool sizeRange = sizeProducers.Count != 0 && code.Span.Contains(GcBifOne);
++        if (!numericProducer && !localInteger && !localAtomOrTuple && !numericRecordFields && !sizeRange)
+         {
+             return null;
+         }
+@@ -74,6 +94,7 @@
+         bool opaqueX0 = false;
+         int localResultType = 0;
+         var localResult = new BeamOperand(BeamOperandParameters.X, 0);
++        BeamOperand? sizeResult = null;
+         HashSet<BeamOperand>? recordValues = numericRecordFields ? [] : null;
+         for (int index = 0; index < body.Count; index++)
+         {
+@@ -86,7 +107,20 @@
+             int before = copied;
+             // A source line is neutral. Every other instruction ends the immediately
+             // preceding definition, including labels with additional predecessors.
+-            if (producer >= 0 && IsOrdinaryBinaryBif(instruction, consumers))
++            if (sizeResult is not null && ReadSizeConsumer(instruction, sizeResult) is int sizeUse)
++            {
++                copied = AnnotateRegisterInput(
++                    code,
++                    output,
++                    copied,
++                    instruction,
++                    sizeUse,
++                    IntegerTypeBits,
++                    minimum: 0,
++                    maximum: OtpSizeUpperBound
++                );
++            }
++            else if (producer >= 0 && IsOrdinaryBinaryBif(instruction, consumers))
+             {
+                 copied = AnnotateNumericUse(
+                     code,
+@@ -159,6 +193,18 @@
+                     atomNames,
+                     importsByIndex
+                 );
++            // beam_call_types gives these size BIFs the same integer range on
++            // success. A line or copy keeps that result in the fallthrough block.
++            sizeResult = instruction switch
++            {
++                { Definition.Opcode: GcBifOne,
++                    Operands: [{ Kind: BeamOperandParameters.Failure }, _, var import,
++                        { Kind: BeamOperandParameters.X or BeamOperandParameters.Y }, var measured] }
++                    when sizeProducers.Contains((int)import.Value) => measured,
++                { Definition.Opcode: Move, Operands: [var from, var to] }
++                    when sizeResult is not null && SameProjectionRegister(sizeResult, from) => to,
++                _ => null
++            };
+         }
+ 
+         if (copied == 0)
+@@ -169,6 +215,31 @@
+         output.Write(code.Span[copied..]);
+ 
+         return output.ToArray();
++
++        int? ReadSizeConsumer(BeamInstruction instruction, BeamOperand measured)
++        {
++            var operands = instruction.Operands;
++            int first = instruction.Definition.Opcode switch
++            {
++                IsLess or IsGreaterOrEqual or NumericEqualTest or NumericNotEqualTest
++                    or ExactEqualTest or ExactNotEqualTest => 1,
++                BifTwo when operands[0].Kind == BeamOperandParameters.Failure
++                    && comparisons.Contains((int)operands[1].Value) => 2,
++                GcBifTwo when IsOrdinaryBinaryBif(instruction, producers)
++                    || IsOrdinaryBinaryBif(instruction, consumers) => 3,
++                _ => -1
++            };
++            if (first < 0)
++            {
++                return null;
++            }
++
++            bool left = SameProjectionRegister(operands[first], measured);
++            bool right = SameProjectionRegister(operands[first + 1], measured);
++            int index = left ? first : first + 1;
++
++            return left != right && operands[index].TypeIndex is null ? index : null;
++        }
+     }
+ 
+     private static bool HasOpaqueNumericInputResult(
+@@ -259,7 +330,9 @@
+         int copied,
+         BeamInstruction consumer,
+         int target,
+-        int operandType
++        int operandType,
++        long? minimum = null,
++        long? maximum = null
+     )
+     {
+         // Preserve the consumer operation and failure edge while typing its input.
+@@ -284,7 +357,7 @@
+         _ = BeamCompactReader.Read(cursor);
+         int end = start + cursor.Position;
+         output.Write(code.Span[offset..end]);
+-        int type = GetOperandTypeIndex((operandType, null, null, null));
++        int type = GetOperandTypeIndex((operandType, minimum, maximum, null));
+         BeamCompactWriter.Write(output, BeamWire.UnsignedTag, type);
+ 
+         return end;
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamSizeResultRangeChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamSizeResultRangeChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamSizeResultRangeChecks.cs
+@@ -0,0 +1,113 @@
++using System.Collections;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamSizeResultRangeChecks
++{
++    internal const string TestName = "compiler/beam/size-result-propagates-range-through-argument-copies";
++    private const string ScheduleMismatch = "The size range must describe the actual comparison or arithmetic argument.";
++    private const string ValueMismatch = "The size expression returned an unexpected value or error.";
++    private const long KnownSizeUpperBound = (1L << 58) - 1;
++    private const int IntegerType = 1 << 5;
++    private const string Source = """
++        -module(size_result_probe).
++        -export([bytes/1, bits/1, items/1, above/2, same/2, unknown/1, guard_path/2, other/2]).
++
++        bytes(Bin) -> byte_size(Bin) + 1.
++        bits(Bits) -> bit_size(Bits) rem 8.
++        items(Map) -> map_size(Map) - 1.
++        above(Bin, Limit) -> byte_size(Bin) >= Limit.
++        same(Bin, Limit) -> byte_size(Bin) =:= Limit.
++        unknown(Value) -> size_result_probe_peer:byte_size(Value) + 1.
++        guard_path(Bin, Minimum) when byte_size(Bin) > Minimum -> big;
++        guard_path(_, _) -> none.
++        other(Bin, Value) ->
++            Size = byte_size(Bin),
++            case Value of
++                {size, K} -> K + 1;
++                _ -> {Size, Value}
++            end.
++        """;
++
++    internal static async Task Run()
++    {
++        byte[] image = CodeGeneration.CompileBeamModule(Source, "size_result_probe.erl");
++        CheckTypes(image);
++        var module = BeamModule.Prepare(image);
++        await using var runtime = new ProcessRuntime();
++        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
++        await actor.InvokeAsync(async context =>
++        {
++            Term binary = new BitString(new byte[] { 255 });
++            Term field = new BitString(new byte[] { 224 }, 3);
++            Term none = Term.A("none");
++            Term emptyMap = new MapTerm([]);
++            if (!(await module.Invoke(context, "bytes", binary)).Equals(Term.I(2))
++                || !(await module.Invoke(context, "bits", field)).Equals(Term.I(3))
++                || !(await module.Invoke(context, "items", emptyMap)).Equals(Term.I(-1))
++                || !(await module.Invoke(
++                    context,
++                    "above",
++                    binary,
++                    Term.I(1)
++                )).Equals(Term.A("true"))
++                || !(await module.Invoke(
++                    context,
++                    "guard_path",
++                    none,
++                    Term.I(1)
++                )).Equals(none))
++            {
++                throw new InvalidOperationException(ValueMismatch);
++            }
++
++            try
++            {
++                await module.Invoke(context, "items", binary);
++                throw new InvalidOperationException(ValueMismatch);
++            }
++            catch (ErlangException error) when (error.Reason.Equals(Term.Tuple(Term.A("badmap"), binary)))
++            {
++            }
++
++            return Nil.Value;
++        });
++    }
++
++    private static void CheckTypes(byte[] image)
++    {
++        object code = Code(image);
++        object table = Call(Type("BeamTypeTableReader"), "Read", Property(code, "Structure"));
++        object[] types = ((IEnumerable)Property(table, "Entries")).Cast<object>().ToArray();
++        object[] instructions = ((IEnumerable)Property(code, "Instructions")).Cast<object>().ToArray();
++        int[] entries = Enumerable.Range(0, instructions.Length)
++            .Where(index => Opcode(instructions[index]) == FunctionInfo).ToArray();
++        for (int index = 0; index < 8; index++)
++        {
++            object[] body = instructions[entries[index]..entries[index + 1]];
++            object consumer = body.Single(instruction => Opcode(instruction) is GcBifTwo or BifTwo or IsLess);
++            int position = Opcode(consumer) switch
++            {
++                BifTwo => 2,
++                IsLess => 2,
++                _ => 3
++            };
++            object operand = ((IEnumerable)Property(consumer, "Operands")).Cast<object>().ElementAt(position);
++            object? typeIndex = Property(operand, "TypeIndex");
++            bool matched = typeIndex is int type
++                && (int)Property(types[type], "TypeUnion") == IntegerType
++                && (long)Property(types[type], "Minimum") == 0
++                && (long)Property(types[type], "Maximum") == KnownSizeUpperBound;
++            if (matched != (index < 5))
++            {
++                throw new InvalidOperationException(ScheduleMismatch);
++            }
++        }
++    }
++
++    private static byte Opcode(object instruction) =>
++        (byte)Property(Property(instruction, "Definition"), "Opcode");
++}
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12248,6 +12248,7 @@
+ Test(Erlang.Tests.BeamSendArgumentConstructionChecks.TestName, Erlang.Tests.BeamSendArgumentConstructionChecks.Run);
+ Test(Erlang.Tests.BeamQuotedFeatureAtomChecks.TestName, Erlang.Tests.BeamQuotedFeatureAtomChecks.Run);
+ Test(Erlang.Tests.BeamConstructedBitMatchChecks.TestName, Erlang.Tests.BeamConstructedBitMatchChecks.Run);
++Test(Erlang.Tests.BeamSizeResultRangeChecks.TestName, Erlang.Tests.BeamSizeResultRangeChecks.Run);
+ Test(
+     Erlang.Tests.BeamConstructedListGeneratorHelperChecks.TestName,
+     Erlang.Tests.BeamConstructedListGeneratorHelperChecks.Run

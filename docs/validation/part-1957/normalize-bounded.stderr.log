@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\boolean-branches-and-value-lifetimes-1957-retake\normalize-frozen-partitions.py", line 57, in <module>
+    MeasuredBenchmark=sha(stage/'normalized-cache-benchmark.json'),
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\boolean-branches-and-value-lifetimes-1957-retake\normalize-frozen-partitions.py", line 16, in sha
+    return hashlib.sha256(p.read_bytes()).hexdigest()
+                          ^^^^^^^^^^^^^^
+  File "C:\Users\Maksim\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Maksim\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\boolean-branches-and-value-lifetimes-1957-retake\\normalized-cache-benchmark.json'

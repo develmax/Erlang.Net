@@ -61,6 +61,16 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
+        private void RememberRecordGuard(Expr? guard)
+        {
+            if (owner.SsaTypeInferenceEnabled && !owner.ModuleOptimizationDisabled && guard is not null
+                && owner.ReadRecordTest(guard) is { Value: Expr.Variable variable } record
+                && SavedRecordSlot(variable) is not null)
+            {
+                RememberRecordShape(variable.Name, record.Name.Name, record.Arity);
+            }
+        }
+
         private void RememberRecordAccesses(Expr expression)
         {
             switch (expression)
@@ -299,7 +309,12 @@ internal sealed partial class BeamModuleCompiler
         private void EmitCheckedRecordUpdate(Expr.RecordUpdate update, Term[]? tuplePrefix = null)
         {
             int operandBase = nextSlot;
-            bool registerReplacement = tuplePrefix is not null && update.Fields[^1].Value is Expr.Call;
+            Expr? lastValue = update.Fields.Count == 0 ? null : update.Fields[^1].Value;
+            bool nestedReplacement = tuplePrefix is not null && !owner.ModuleOptimizationDisabled
+                && owner.SsaTypeInferenceEnabled && lastValue is Expr.RecordUpdate nested
+                // Emitting the inner update checks a saved source before it returns the resulting tuple.
+                && SavedRecordSlot(nested.Value) is not null;
+            bool registerReplacement = tuplePrefix is not null && (lastValue is Expr.Call || nestedReplacement);
             int?[] values = new int?[update.Fields.Count];
             for (int index = 0; index < values.Length; index++)
             {
@@ -328,12 +343,18 @@ internal sealed partial class BeamModuleCompiler
 
             if (source is null && checkedSlot is null)
             {
-                EmitCheckedRecord(update.Name, update.Arity, sourceSlot);
+                EmitCheckedRecord(
+                    update.Name,
+                    update.Arity,
+                    sourceSlot,
+                    new(update.FailureSourceFile, update.FailureSourceLine)
+                );
             }
 
             if (fields.Length != 0)
             {
                 string hint = fields.Length == 1 && fields[0].Equal != false && update.Arity < RecordUpdateArityLimit
+                    && !PrefersCopyRecordOperand(fields[0].Field)
                     ? "reuse"
                     : "copy";
                 owner.Op(TestHeap, BeamWire.UnsignedTag, update.Arity + 1 + (tuplePrefix is null ? 0 : tuplePrefix.Length + 2));
@@ -350,7 +371,11 @@ internal sealed partial class BeamModuleCompiler
                 foreach (var entry in fields)
                 {
                     owner.Operand(BeamWire.UnsignedTag, entry.Field.Index + 1);
-                    if (registerReplacement && ReferenceEquals(entry.Field, update.Fields[^1]))
+                    if (nestedReplacement && ReferenceEquals(entry.Field, update.Fields[^1]))
+                    {
+                        owner.EmitTypedRegister(0, TupleTypeBits);
+                    }
+                    else if (registerReplacement && ReferenceEquals(entry.Field, update.Fields[^1]))
                     {
                         owner.Operand(XRegisterTag, 0);
                     }

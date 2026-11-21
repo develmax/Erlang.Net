@@ -96,10 +96,20 @@ internal sealed partial class BeamModuleCompiler
             int ordinal = function.CoreOrdinal ?? anonymousOrdinal++;
             string name = function.SelfName is { } self
                 ? FormattableString.Invariant($"-{lexicalOwner.Name}/{lexicalOwner.Arity}-{self}/{declaredArity}-{ordinal}-")
-                : AnonymousClosureName(lexicalOwner, ordinal);
-            var clauses = function.Clauses.Select(clause => clause with
+                : owner.ReadFirstSsaClosureName(lexicalOwner, function, ordinal) ?? AnonymousClosureName(lexicalOwner, ordinal);
+            var clauses = function.Clauses.Select(clause =>
             {
-                Patterns = [.. clause.Patterns, .. captures.Select(capture => new Pattern.Variable(capture))]
+                // A fun head binds its own names. Keep the capture slot for other clauses.
+                var shadowed = captures.Length != 0
+                    && !clause.Patterns.SelectMany(LocalFunctionEntries.PatternExpressions).Any()
+                    ? clause.Patterns.SelectMany(Semantics.Variables).ToHashSet(StringComparer.Ordinal)
+                    : null;
+
+                return clause with
+                {
+                    Patterns = [.. clause.Patterns, .. captures.Select(capture =>
+                        new Pattern.Variable(shadowed?.Contains(capture) == true ? VariableScopeNames.Wildcard : capture))]
+                };
             }).ToArray();
             BeamSourceLocation source = function.ClauseLine == 0 ? location : new(function.ClauseFile, function.ClauseLine);
             var lifted = new FunctionDefinition(name, arity, clauses);
@@ -139,13 +149,32 @@ internal sealed partial class BeamModuleCompiler
             if (entryPatternFailure || captures.Length != 0 && (function.SelfName is null || emitCapturedFailure)
                 && !function.Clauses.Any(clause => clause.Guard is null && HasUnconditionalParameters(clause)))
             {
-                do
+                if (owner.recursiveClosureFailureOrdinals.TryGetValue(
+                    (lexicalOwner.Name, lexicalOwner.Arity, ordinal), out int plannedFailure
+                ))
                 {
                     failure = FormattableString.Invariant(
-                        $"-{lexicalOwner.Name}/{lexicalOwner.Arity}-inlined-{anonymousFailureOrdinal++}-"
+                        $"-{lexicalOwner.Name}/{lexicalOwner.Arity}-inlined-{plannedFailure}-"
                     );
                 }
-                while (owner.closures.Any(closure => closure.GuardFailure == failure));
+                else if (owner.SsaTypeInferenceEnabled && !owner.ModuleOptimizationDisabled
+                    && !owner.UsesSourceInlining
+                    && HasEarlierClosureFailureReservation(lexicalOwner, function, ordinal))
+                {
+                    failure = FormattableString.Invariant(
+                        $"-{lexicalOwner.Name}/{lexicalOwner.Arity}-inlined-{ordinal}-"
+                    );
+                }
+                else
+                {
+                    do
+                    {
+                        failure = FormattableString.Invariant(
+                            $"-{lexicalOwner.Name}/{lexicalOwner.Arity}-inlined-{anonymousFailureOrdinal++}-"
+                        );
+                    }
+                    while (owner.closures.Any(closure => closure.GuardFailure == failure));
+                }
             }
 
             owner.closures.Add(new(

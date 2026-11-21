@@ -1,0 +1,10 @@
+[{missing,{error,no_profile}},
+ {default,{ok,true}},
+ {explicit,{ok,true}},
+ {duplicate,already_started},
+ {children,[{{httpc,profile_parity_default},worker,[httpc_manager],true},
+            {{httpc,profile_parity_explicit},worker,[httpc_manager],true}]},
+ {restart,{ok,true}},
+ {stop_default,ok},
+ {stop_explicit,ok},
+ {empty,[]}].

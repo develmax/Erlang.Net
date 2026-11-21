@@ -1,0 +1,167 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamAtomGuardAlternativesChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamAtomGuardAlternativesChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamAtomGuardAlternativesChecks.cs
+@@ -0,0 +1,151 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamAtomGuardAlternativesChecks
++{
++    internal const string TestName = "compiler/beam/dispatches-atom-only-guard-alternatives";
++    private const string Fixture = "beam_guard_atom_alternatives.erl";
++    private const string Entry = "dispatch";
++    private const int IfLine = 6;
++    private const string WrongLayout = "Atom guard alternatives did not retain their selector, common destination and failure edge.";
++    private const string WrongResult = "Guard selection changed an alternative, its fallback, or the if failure location.";
++    private const string SourceGuard = "Key == zeta; alpha =:= Key; Key == beta";
++
++    private const string Source = """
++        -module(beam_guard_atom_alternatives).
++        %% options
++        -export([dispatch/2]).
++
++        dispatch({wrapped, Key}, GuardInput) ->
++            if
++                Key == zeta; alpha =:= Key; Key == beta ->
++                    {selected, Key, GuardInput}
++            end;
++        dispatch(Value, GuardInput) ->
++            {fallback, Value, GuardInput}.
++        """;
++
++    internal static async Task Run()
++    {
++        byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
++        byte[] disabled = CodeGeneration.CompileBeamModule(
++            Source.Replace("%% options", "-compile(no_ssa_opt).", StringComparison.Ordinal),
++            Fixture
++        );
++        byte[] compound = CodeGeneration.CompileBeamModule(
++            Source.Replace(
++                SourceGuard,
++                "element(1, GuardInput) =:= yes, Key == zeta; alpha =:= Key; Key == beta",
++                StringComparison.Ordinal
++            ),
++            Fixture
++        );
++        byte[] numeric = CodeGeneration.CompileBeamModule(
++            Source.Replace(SourceGuard, "Key == 1; alpha =:= Key; Key == beta", StringComparison.Ordinal),
++            Fixture
++        );
++
++        if (!HasMembershipTable(image) || HasMembershipTable(disabled) || HasMembershipTable(compound)
++            || HasMembershipTable(numeric))
++        {
++            throw new InvalidOperationException(WrongLayout);
++        }
++
++        var module = BeamModule.Prepare(image);
++        var noSsa = BeamModule.Prepare(disabled);
++        var mixed = BeamModule.Prepare(compound);
++        var numericModule = BeamModule.Prepare(numeric);
++        await using var runtime = new ProcessRuntime();
++        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
++        await actor.InvokeAsync(async context =>
++        {
++            foreach (string value in new[] { "alpha", "beta", "zeta" })
++            {
++                Term key = Term.A(value);
++                Term wrapped = Wrap(key);
++                Term expected = Selected(key, Nil.Value);
++                if (!expected.Equals(await module.Invoke(context, Entry, wrapped, Nil.Value))
++                    || !expected.Equals(await noSsa.Invoke(context, Entry, wrapped, Nil.Value)))
++                {
++                    throw new InvalidOperationException(WrongResult);
++                }
++            }
++
++            Term alpha = Term.A("alpha");
++            Term zeta = Term.A("zeta");
++            Term passInput = Term.Tuple(Term.A("yes"));
++            Term floatKey = new FloatTerm(1.0);
++            Term other = Term.A("other");
++            Term fallback = Term.Tuple(Term.A("fallback"), other, Nil.Value);
++            if (!Selected(alpha, Nil.Value).Equals(await mixed.Invoke(context, Entry, Wrap(alpha), Nil.Value))
++                || !Selected(zeta, passInput).Equals(await mixed.Invoke(context, Entry, Wrap(zeta), passInput))
++                || !Selected(floatKey, Nil.Value).Equals(await numericModule.Invoke(context, Entry, Wrap(floatKey), Nil.Value))
++                || !fallback.Equals(await module.Invoke(context, Entry, other, Nil.Value)))
++            {
++                throw new InvalidOperationException(WrongResult);
++            }
++
++            await ExpectIfFailure(module, other);
++            await ExpectIfFailure(noSsa, other);
++            await ExpectIfFailure(mixed, zeta);
++
++            return Nil.Value;
++
++            async Task ExpectIfFailure(BeamModule target, Term key)
++            {
++                try
++                {
++                    _ = await target.Invoke(context, Entry, Wrap(key), Nil.Value);
++                }
++                catch (ErlangException error) when (error.ExceptionClass == ErlangExceptionClasses.Error
++                    && error.Reason.Equals(Term.A(ErlangErrorReasons.IfClause))
++                    && error.StackTraceTerm is Cons { Head: TupleTerm { Items: [_, Atom { Name: Entry }, _, var position] } }
++                    && Cons.Items(position).Contains(Term.Tuple(Term.A("file"), Term.String(Fixture)))
++                    && Cons.Items(position).Contains(Term.Tuple(Term.A("line"), Term.I(IfLine))))
++                {
++                    return;
++                }
++
++                throw new InvalidOperationException(WrongResult);
++            }
++        });
++    }
++
++    private static bool HasMembershipTable(byte[] image)
++    {
++        object code = Code(image);
++        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        object[] instructions = Items(code, "Instructions");
++        foreach (object instruction in instructions.Where(instruction => Opcode(instruction) == SelectValue))
++        {
++            if (Items(instruction, "Operands") is not
++                [var selector, var failure, _, var first, var firstTarget, var second, var secondTarget, var third, var thirdTarget]
++                || Property(selector, "Kind") is not ("x" or "y")
++                || Value(firstTarget) != Value(secondTarget) || Value(firstTarget) != Value(thirdTarget)
++                || Value(firstTarget) == Value(failure))
++            {
++                continue;
++            }
++
++            if (new[] { first, second, third }.All(item => Equals(Property(item, "Kind"), "atom"))
++                && new[] { atoms[Value(first)], atoms[Value(second)], atoms[Value(third)] }
++                    .SequenceEqual(new[] { "alpha", "beta", "zeta" }))
++            {
++                return true;
++            }
++        }
++
++        return false;
++    }
++
++    private static Term Wrap(Term key) => Term.Tuple(Term.A("wrapped"), key);
++    private static Term Selected(Term key, Term guardInput) => Term.Tuple(Term.A("selected"), key, guardInput);
++    private static int Value(object value) => (int)(BigInteger)Property(value, "Value");
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++    private static object[] Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
++}
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -13117,6 +13117,7 @@
+ }
+ );
+ Test(Erlang.Tests.BeamClosedTerminalSelectorChecks.TestName, Erlang.Tests.BeamClosedTerminalSelectorChecks.Run);
++Test(Erlang.Tests.BeamAtomGuardAlternativesChecks.TestName, Erlang.Tests.BeamAtomGuardAlternativesChecks.Run);
+ Test(
+     Erlang.Tests.BeamNestedRecordEffectDispatchChecks.TestName,
+     () =>

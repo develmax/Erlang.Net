@@ -1,0 +1,31 @@
+[Image,Output]=init:get_plain_arguments(),
+{ok,Bytes}=file:read_file(Image),
+true=code:unstick_mod(disk_log_1),
+{module,disk_log_1}=code:load_binary(disk_log_1,Image,Bytes),
+LogicalName="local-cache",
+Probe=fun(Index,Payload)->
+    Path=Output++"."++integer_to_list(Index)++".dat",
+    {ok,Fd}=file:open(Path,[raw,write,binary]),
+    put(write_cache_timer_is_running,pending),
+    Cache={cache,Fd,7,Payload},
+    {ok,Updated}=disk_log_1:write_cache(Cache,LogicalName),
+    Marker=get(write_cache_timer_is_running),
+    ok=file:close(Fd),
+    {ok,Data}=file:read_file(Path),
+    {element(2,Updated)=:=Fd,element(3,Updated),element(4,Updated),Marker,Data}
+end,
+Rows=[Probe(1,[]),Probe(2,<<"value">>),Probe(3,[<<"nested">>,[$!,[]]])],
+Error=fun(Cache)->
+    put(write_cache_timer_is_running,pending),
+    Value=try disk_log_1:write_cache(Cache,LogicalName) of
+        Result -> Result
+    catch C:R:Stack ->
+        [{M,F,A,_}|_]=Stack,
+        {C,R,{M,F,A}}
+    end,
+    {Value,erase(write_cache_timer_is_running)}
+end,
+All=Rows++[Error({cache,invalid,7,<<"value">>}),Error({invalid,1,2,3})],
+ok=file:write_file(Output,term_to_binary(All)),
+io:format("~B observations~n",[length(All)]),
+halt(0).

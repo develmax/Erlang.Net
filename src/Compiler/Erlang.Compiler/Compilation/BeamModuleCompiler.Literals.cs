@@ -10,6 +10,7 @@ internal sealed partial class BeamModuleCompiler
 
     private readonly Dictionary<string, int> literalIndices = new(StringComparer.Ordinal);
     private readonly List<byte[]> literalBytes = [];
+    private readonly HashSet<int> nonnumericLiteralIndices = [];
     private readonly Dictionary<int, (string Tag, int Arity)> taggedTupleLiterals = [];
 
     private static FunctionTerm? ReadExternalFunctionLiteral(Expr expression)
@@ -117,6 +118,11 @@ internal sealed partial class BeamModuleCompiler
             index = literalBytes.Count;
             literalIndices.Add(key, index);
             literalBytes.Add(etf);
+            if (HasNonnumericLiteralType(literal))
+            {
+                nonnumericLiteralIndices.Add(index);
+            }
+
             if (literal is TupleTerm { Items: [Atom tag, ..] } tuple)
             {
                 taggedTupleLiterals.Add(index, (tag.Name, tuple.Items.Count));

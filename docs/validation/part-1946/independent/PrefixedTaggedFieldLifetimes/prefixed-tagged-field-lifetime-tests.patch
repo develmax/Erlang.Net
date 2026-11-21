@@ -1,0 +1,217 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamPrefixedTaggedFieldLifetimeChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamPrefixedTaggedFieldLifetimeChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamPrefixedTaggedFieldLifetimeChecks.cs
+@@ -0,0 +1,201 @@
++using System.Collections;
++using System.Numerics;
++using Erlang;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamPrefixedTaggedFieldLifetimeChecks
++{
++    internal const string TestName = "compiler/beam/keeps-required-prefix-fields-through-optional-join";
++    private const string Fixture = "beam_prefixed_tagged_field_probe.erl";
++    private const string Prefix = "prefix";
++    private const string Enumerated = "enumerated";
++    private const string Required = "beam_prefixed_tagged_field_peer";
++    private const string IncorrectLayout = "Required fields and the optional value should use the compact join layout.";
++    private const string IncorrectValue = "The optional join changed a retained field or the unmatched suffix.";
++
++    private const string Source = """
++        -module(beam_prefixed_tagged_field_probe).
++        -export([prefix/2, enumerated/2]).
++
++        prefix(Input, Tags) ->
++            Fields = prepare(Input, Tags),
++            [First | Tail1] = Fields,
++            A = take(First, [1]),
++            [Second | Tail2] = Tail1,
++            B = take(Second, [2]),
++            {C, Tail3} = case Tail2 of
++                [{7, Value} | Rest] -> {take(Value, []), Rest};
++                _ -> {absent, Tail2}
++            end,
++            [Last | Extra] = Tail3,
++            D = beam_prefixed_tagged_field_peer:take(Last, [4]),
++            case Extra of
++                [] -> true;
++                _ -> exit({error, {asn1, {unexpected, Extra}}})
++            end,
++            Result = {observed, A, B, C, D},
++            Result.
++
++        enumerated(Input, Tags) ->
++            Fields = prepare(Input, Tags),
++            [First | Tail1] = Fields,
++            A = case read_number(First, [1]) of
++                0 -> zero;
++                1 -> one;
++                N -> exit({error, {asn1, {bad_enum, N}}})
++            end,
++            {B, Tail2} = case Tail1 of
++                [{7, Value} | Rest] -> {take(Value, []), Rest};
++                _ -> {absent, Tail1}
++            end,
++            [Third | Tail3] = Tail2,
++            C = take(Third, [3]),
++            [Last | Extra] = Tail3,
++            D = take(Last, [4]),
++            case Extra of
++                [] -> true;
++                _ -> exit({error, {asn1, {unexpected, Extra}}})
++            end,
++            Result = {observed, A, B, C, D},
++            Result.
++
++        prepare(Input, _) -> Input.
++        take(Value, _) -> Value.
++        read_number(Value, _) -> byte_size(Value).
++        """;
++
++    internal static async Task Run()
++    {
++        byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
++        byte[] runtimeTags = CodeGeneration.CompileBeamModule(
++            Source.Replace("read_number(First, [1])", "read_number(First, Tags)", StringComparison.Ordinal), Fixture
++        );
++        var module = BeamModule.Prepare(image, new BeamDependencySelection([Required]));
++        await using var runtime = new ProcessRuntime();
++        runtime.Modules.Register(
++            Required,
++            "take",
++            2,
++            (_, arguments) => ValueTask.FromResult(arguments[0])
++        );
++        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
++        await actor.InvokeAsync(async context =>
++        {
++            Term a = Term.A("first");
++            Term b = Term.A("second");
++            Term c = Term.A("optional");
++            Term d = Term.A("last");
++            Term absent = Term.A("absent");
++            Term observed = Term.A("observed");
++            Term tagged = Term.Tuple(Term.I(7), c);
++            Term positive = Term.List(
++                a,
++                b,
++                tagged,
++                d
++            );
++            Term defaulted = Term.List(a, b, d);
++            Term enumInput = Term.List(
++                new BitString([42]),
++                tagged,
++                b,
++                d
++            );
++            if (!Term.Tuple(
++                observed,
++                a,
++                b,
++                c,
++                d
++            ).Equals(await module.Invoke(
++                context,
++                Prefix,
++                positive,
++                Nil.Value
++            ))
++                || !Term.Tuple(
++                    observed,
++                    a,
++                    b,
++                    absent,
++                    d
++                ).Equals(await module.Invoke(
++                    context,
++                    Prefix,
++                    defaulted,
++                    Nil.Value
++                ))
++                || !Term.Tuple(
++                    observed,
++                    Term.A("one"),
++                    c,
++                    b,
++                    d
++                ).Equals(await module.Invoke(
++                    context,
++                    Enumerated,
++                    enumInput,
++                    Nil.Value
++                )))
++            {
++                throw new InvalidOperationException(IncorrectValue);
++            }
++
++            try
++            {
++                await module.Invoke(
++                    context,
++                    Prefix,
++                    Term.List(a),
++                    Nil.Value
++                );
++                throw new InvalidOperationException(IncorrectValue);
++            }
++            catch (ErlangException error) when (error.Reason.Equals(Term.Tuple(Term.A("badmatch"), Nil.Value)))
++            {
++            }
++
++            return Nil.Value;
++        });
++
++        if (Layout(image, Prefix).Frame != 4 || Layout(image, Enumerated) != (5, true)
++            || Layout(runtimeTags, Enumerated).FirstHeadInArgument)
++        {
++            throw new InvalidOperationException(IncorrectLayout);
++        }
++    }
++
++    private static (int Frame, bool FirstHeadInArgument) Layout(byte[] image, string function)
++    {
++        object code = Code(image);
++        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        object[] instructions = Items(code, "Instructions");
++        int start = Array.FindIndex(
++            instructions,
++            instruction => Opcode(instruction) == FunctionInfo
++                && Items(instruction, "Operands") is [_, var name, var arity]
++                && atoms[Value(name)] == function && Value(arity) == 2
++        );
++        if (start < 0)
++        {
++            throw new InvalidOperationException(IncorrectLayout);
++        }
++
++        var body = instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo).ToArray();
++        object frame = body.Single(instruction => Opcode(instruction) == Allocate);
++        object firstSplit = body.First(instruction => Opcode(instruction) == GetList);
++        object head = Items(firstSplit, "Operands")[1];
++
++        return (Value(Items(frame, "Operands")[0]), Property(head, "Kind") is "x" && Value(head) == 0);
++    }
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++
++    private static object[] Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
++}
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12517,6 +12517,7 @@
+ Test(Erlang.Tests.BeamBinaryChoiceWireUnitChecks.TestName, Erlang.Tests.BeamBinaryChoiceWireUnitChecks.Run);
+ Test(Erlang.Tests.BeamProtectedConstantCallChecks.TestName, Erlang.Tests.BeamProtectedConstantCallChecks.Run);
+ Test(Erlang.Tests.BeamRemoteOptionalLifetimeChecks.TestName, Erlang.Tests.BeamRemoteOptionalLifetimeChecks.Run);
++Test(Erlang.Tests.BeamPrefixedTaggedFieldLifetimeChecks.TestName, Erlang.Tests.BeamPrefixedTaggedFieldLifetimeChecks.Run);
+ Test(Erlang.Tests.BeamGuardedKeyfindPairTailChecks.TestName, Erlang.Tests.BeamGuardedKeyfindPairTailChecks.Run);
+ Test(Erlang.Tests.BeamUnpaddedBitStringContextChecks.TestName, Erlang.Tests.BeamUnpaddedBitStringContextChecks.Run);
+ Test(Erlang.Tests.BeamSingleTaggedChoiceFieldChecks.TestName, Erlang.Tests.BeamSingleTaggedChoiceFieldChecks.Run);

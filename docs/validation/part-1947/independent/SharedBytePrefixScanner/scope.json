@@ -1,0 +1,66 @@
+{
+  "OtpVersion": "29.1.1",
+  "Total": 8,
+  "Counts": {
+    "Different": 1,
+    "Equal": 7
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\mod_actions.beam",
+      "Status": "Equal",
+      "Source": "lib\\inets-9.8\\src\\http_server\\mod_actions.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\mod_trace.beam",
+      "Status": "Equal",
+      "Source": "lib\\inets-9.8\\src\\http_server\\mod_trace.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\local_udp.beam",
+      "Status": "Equal",
+      "Source": "lib\\kernel-11.0.4\\src\\local_udp.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\ordsets.beam",
+      "Status": "Equal",
+      "Source": "lib\\stdlib-8.1\\src\\ordsets.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_html.beam",
+      "Status": "Equal",
+      "Source": "lib\\xmerl-2.2\\src\\xmerl_html.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_lib.beam",
+      "Status": "Different",
+      "Source": "lib\\xmerl-2.2\\src\\xmerl_lib.erl",
+      "Detail": "Original length 51244, generated length 47604. AtU8 1279-\u003E1274, Code 14080-\u003E14886, ImpT 280-\u003E292, ExpT 520-\u003E520, FunT 76-\u003E76, LitT 1183-\u003E1397, LocT 292-\u003E292, Attr 39-\u003E39, Line 366-\u003E376, Type 4790-\u003E112",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_xml.beam",
+      "Status": "Equal",
+      "Source": "lib\\xmerl-2.2\\src\\xmerl_xml.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_xsd_re.beam",
+      "Status": "Equal",
+      "Source": "lib\\xmerl-2.2\\src\\xmerl_xsd_re.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    }
+  ]
+}

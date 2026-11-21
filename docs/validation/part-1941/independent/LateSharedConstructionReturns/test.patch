@@ -1,0 +1,86 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamLateConstructionReturnsChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamLateConstructionReturnsChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamLateConstructionReturnsChecks.cs
+@@ -0,0 +1,70 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamLateConstructionReturnsChecks
++{
++    internal const string TestName = "compiler/beam/shares-owned-terminal-construction-returns-after-layout";
++    private const string Fixture = "beam_shared_late_construction.erl";
++    private const string DuplicateReturn = "The final layout kept a duplicate terminal record return.";
++
++    private const string Source = """
++        -module(beam_shared_late_construction).
++        -export([dispatch/1]).
++        -record(request, {data=[], context=missing}).
++        dispatch(Info) ->
++            case proplists:get_value(status, Info#request.data) of
++                {_, _, _} -> {proceed, Info#request.data};
++                undefined ->
++                    case proplists:get_value(response, Info#request.data) of
++                        undefined ->
++                            case lookup(Info#request.context) of
++                                {yes, Value} -> {proceed, [{new_value, Value} | Info#request.data]};
++                                no -> {proceed, Info#request.data}
++                            end;
++                        _ -> {proceed, Info#request.data}
++                    end
++            end.
++        lookup({given, Value}) -> {yes, Value};
++        lookup(_) -> no.
++        """;
++
++    internal static Task Run()
++    {
++        object code = Code(CodeGeneration.CompileBeamModule(Source, Fixture));
++        object[] instructions = Items(code, "Instructions").ToArray();
++        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        int start = Array.FindIndex(
++            instructions,
++            item => Opcode(item) == FunctionInfo && atoms[Value(Items(item, "Operands").ElementAt(1))] == "dispatch"
++        );
++        byte[] opcodes = instructions.Skip(start + 1).TakeWhile(item => Opcode(item) != FunctionInfo).Select(Opcode).ToArray();
++        byte[] terminal = [TestHeap, GetTupleElement, PutTuple, Deallocate, Return];
++        int matching = 0;
++        for (int index = 0; index <= opcodes.Length - terminal.Length; index++)
++        {
++            if (opcodes.AsSpan(index, terminal.Length).SequenceEqual(terminal))
++            {
++                matching++;
++            }
++        }
++
++        if (matching != 2)
++        {
++            throw new InvalidOperationException(DuplicateReturn);
++        }
++
++        return Task.CompletedTask;
++    }
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++
++    private static IEnumerable<object> Items(object owner, string name) =>
++        ((IEnumerable)Property(owner, name)).Cast<object>();
++}
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12544,6 +12544,7 @@
+ Test(Erlang.Tests.BeamProtectedEntryAliasChecks.TestName, Erlang.Tests.BeamProtectedEntryAliasChecks.Run);
+ Test(Erlang.Tests.BeamProtectedShortReturnChecks.TestName, Erlang.Tests.BeamProtectedShortReturnChecks.Run);
+ Test(Erlang.Tests.BeamBinaryConstructionStringChecks.TestName, Erlang.Tests.BeamBinaryConstructionStringChecks.Run);
++Test(Erlang.Tests.BeamLateConstructionReturnsChecks.TestName, Erlang.Tests.BeamLateConstructionReturnsChecks.Run);
+ Test(
+     Erlang.Tests.BeamCheckedResultPayloadChecks.ConstructionTrimTestName,
+     () =>

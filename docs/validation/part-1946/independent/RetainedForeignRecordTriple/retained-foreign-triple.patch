@@ -1,0 +1,244 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedForeignFieldPairs.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedForeignFieldPairs.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedForeignFieldPairs.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedForeignFieldPairs.cs
+@@ -34,6 +34,22 @@
+                 return false;
+             }
+ 
++            if (left.Module is not null && TryEmitRetainedForeignTriple(
++                rest,
++                extract,
++                arity,
++                projections,
++                input,
++                tags,
++                first,
++                second,
++                left,
++                right
++            ))
++            {
++                return true;
++            }
++
+             string[] pairNames = [firstBytes.Name, firstLength.Name, secondBytes.Name, secondLength.Name];
+             if (pairNames.Any(name => name == input || name == tags || projections.ContainsKey(name)))
+             {
+@@ -150,6 +166,217 @@
+                 Mark(entry);
+                 var previous = location;
+                 owner.EmitArithmeticLine(match.SourceLine, ref previous);
++                owner.Op(BadMatch, XRegisterTag, 0);
++            }
++        }
++
++        private bool TryEmitRetainedForeignTriple(
++            Expr[] rest,
++            Expr.Match extract,
++            int arity,
++            IReadOnlyDictionary<string, int> projections,
++            string input,
++            string tags,
++            Expr.Match first,
++            Expr.Match second,
++            (Expr.Call Call, string? Module, Term Option, int Field) left,
++            (Expr.Call Call, string? Module, Term Option, int Field) middle
++        )
++        {
++            if (arity != 4 || projections.Count != 3 || rest is not
++                [
++                    Expr.Match
++                {
++                    Pattern: Pattern.Tuple { Items: [Pattern.Variable { }, Pattern.Variable { }] },
++                    Value: var last
++                } third,
++                    .. var result
++                ])
++            {
++                return false;
++            }
++
++            var optional = ReadDeferredOptional(last);
++            if (optional is { Second: not null } || optional is not null && optional.Default is not TupleTerm { Items.Count: 2 }
++                || ReadForeignFieldPair(optional?.Call ?? last, projections) is not { Module: null } right
++                || middle.Module is not null && optional is null)
++            {
++                return false;
++            }
++
++            var names = new[] { first, second, third }
++                .SelectMany(binding => ((Pattern.Tuple)binding.Pattern).Items)
++                .Cast<Pattern.Variable>().Select(variable => variable.Name).ToArray();
++            var pairs = names.ToHashSet(StringComparer.Ordinal);
++            if (pairs.Count != names.Length || pairs.Contains(VariableScopeNames.Wildcard)
++                || names.Any(name => name == input || name == tags || projections.ContainsKey(name)))
++            {
++                return false;
++            }
++
++            var bound = new HashSet<string>(pairs, StringComparer.Ordinal) { input, tags };
++            bound.UnionWith(projections.Keys);
++            if (ReadDeferredPairTail(
++                new Expr.Sequence(result),
++                tags,
++                bound,
++                pairs
++            ) is not
++            {
++                List.Items: [Expr.Variable firstBytes, Expr.Variable secondBytes, Expr.Variable thirdBytes],
++                Operands: [var firstLength, var secondLength, var thirdLength]
++            } tail
++                || firstBytes.Name != names[0] || secondBytes.Name != names[2] || thirdBytes.Name != names[4]
++                || firstLength != names[1] || secondLength != names[3] || thirdLength != names[5])
++            {
++                return false;
++            }
++
++            bool checkMiddle = middle.Module is not null;
++            int frame = checkMiddle ? 4 : 3;
++            int record = frame - 1;
++            int tagSlot = frame - 2;
++            int firstPair = frame - 3;
++            int secondPair = checkMiddle ? 0 : record;
++            int nextFailure = owner.nextLabel + (optional is null ? 0 : 2);
++            int rejectedMiddle = checkMiddle ? nextFailure++ : 0;
++            int rejectedFirst = nextFailure++;
++            int rejectedInput = nextFailure;
++            owner.EmitTupleCheck(0, arity, rejectedInput);
++            EmitGeneralFrame(2, initializedByMoves: 2, slots: frame);
++            owner.MoveRegister(
++                XRegisterTag,
++                1,
++                YRegisterTag,
++                tagSlot
++            );
++            owner.MoveRegister(
++                XRegisterTag,
++                0,
++                YRegisterTag,
++                record
++            );
++            Project(
++                XRegisterTag,
++                0,
++                left.Field,
++                0
++            );
++            owner.EmitConstant(left.Option, 1);
++            owner.EmitCallLine(left.Call, location);
++            Call(left.Module, left.Call.Function, 2);
++            SaveAndCheck(firstPair, rejectedFirst);
++            Project(
++                YRegisterTag,
++                record,
++                middle.Field,
++                0
++            );
++            owner.EmitConstant(middle.Option, 1);
++            BeamSourceLocation previous = CallLocation(left.Call, location);
++            owner.EmitCallLine(middle.Call, previous);
++            Call(middle.Module, middle.Call.Function, 2);
++
++            if (checkMiddle)
++            {
++                SaveAndCheck(secondPair, rejectedMiddle);
++                Project(
++                    YRegisterTag,
++                    record,
++                    right.Field,
++                    0
++                );
++            }
++            else
++            {
++                Project(
++                    YRegisterTag,
++                    record,
++                    right.Field,
++                    1
++                );
++                owner.MoveRegister(
++                    XRegisterTag,
++                    0,
++                    YRegisterTag,
++                    secondPair
++                );
++            }
++
++            if (optional is not null)
++            {
++                EmitDeferredOptional(
++                    optional,
++                    -1,
++                    checkMiddle ? record : null,
++                    inputRegister: checkMiddle ? 0 : 1
++                );
++            }
++            else
++            {
++                owner.MoveToX0(XRegisterTag, 1);
++                owner.EmitConstant(right.Option, 1);
++                owner.EmitCallLine(right.Call, CallLocation(middle.Call, previous));
++                Call(null, right.Call.Function, 2);
++            }
++
++            deferredPairMembers.Add(names[0], (firstPair, 0));
++            deferredPairMembers.Add(names[1], (firstPair, 1));
++            deferredPairMembers.Add(names[2], (secondPair, 0));
++            deferredPairMembers.Add(names[3], (secondPair, 1));
++            deferredPairMembers.Add(names[4], (-1, 0));
++            deferredPairMembers.Add(names[5], (-1, 1));
++            EmitDeferredPairTail(
++                tail,
++                tagSlot,
++                new Dictionary<string, PairAdditionType>(StringComparer.Ordinal),
++                frame
++            );
++            deferredPairMembers.Clear();
++
++            if (checkMiddle)
++            {
++                EmitFailure(second);
++            }
++
++            EmitFailure(first);
++            EmitFailure(extract);
++
++            return true;
++
++            void Project(
++                int sourceTag,
++                int source,
++                int field,
++                int output
++            )
++            {
++                owner.Op(GetTupleElement, sourceTag, source);
++                owner.Operand(BeamWire.UnsignedTag, field);
++                owner.Operand(XRegisterTag, output);
++            }
++
++            void SaveAndCheck(int slot, int rejected)
++            {
++                owner.MoveRegister(
++                    XRegisterTag,
++                    0,
++                    YRegisterTag,
++                    slot
++                );
++                EmitTupleShapeTest(
++                    XRegisterTag,
++                    0,
++                    2,
++                    rejected
++                );
++            }
++
++            void EmitFailure(Expr.Match match)
++            {
++                Mark(Label());
++                var at = location;
++                owner.EmitArithmeticLine(match.SourceLine, ref at);
+                 owner.Op(BadMatch, XRegisterTag, 0);
+             }
+         }

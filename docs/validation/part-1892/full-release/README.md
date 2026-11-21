@@ -1,0 +1,9 @@
+# Part 1892 complete uncached Windows OTP comparison
+
+The bound inputs are Windows OTP 29.1.1, commit ad05823719d77c8faee87348ea39513d4e2f99c5, .NET SDK 10.0.400 and .NET runtime 10.0.11. The report verifies 3,016 installed files, all 1,366 reference BEAMs among them, 265 supplemental files and 89 generated ASN.1 inputs. It preserves transitive headers, pinned generator profiles, the unchanged OTP checkout and immutable source identities. All 1,366 decoded effective build descriptions match Part 1888 under distinct sources and outputs. There are 937 mapped release profiles, with 296 new or changed logical maps across runtime_tools, SSH and Wx.
+
+The four uncached shards completed in 828.1401 seconds. The result is 411 Equal, 955 Different, 0 Unsupported and 0 SourceRejected. Whole-file status changes are zero relative to Part 1888. Across 724 changed payloads, 722 prepare directly. Crypto SHA-256 and zstd compression and decompression execute in separate pinned ERTS instances for reference, Part 1888 and Part 1892. All outputs match.
+
+Forty-eight Docs, 12 Dbgi and two Line sections gain complete byte equality, with zero section losses. Normalized analysis records 29 new equal function bodies and one loss, asn1ct:is_werr/1. The next candidate restores its zero-stack tail dispatch. Entry frame distances improve in 2,953 functions and become larger in 152. These distance counts depend on positional comparison and do not assert semantics or full bytes.
+
+The first allocation rank still has 7,560 same-live excess allocate functions across 823 modules and 761 same-heap, same-live excess allocate_heap functions across 328 modules. The function-key rank lists 2,550 missing list-comprehension names or arities across 378 modules. Current section residuals contain 955 Code, 913 Line, 853 Type, 18 Docs and 15 Dbgi mismatches.

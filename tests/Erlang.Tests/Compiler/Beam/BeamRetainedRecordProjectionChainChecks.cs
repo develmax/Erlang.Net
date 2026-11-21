@@ -1,0 +1,93 @@
+using System.Collections;
+using System.Numerics;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamRetainedRecordProjectionChainChecks
+{
+    internal const string TestName = "compiler/beam/retained-record-projections-and-proven-tagged-replies";
+    private const string ShapeError = "The retained record chain lost a call-result root or a checked tuple reply.";
+    private const string Source = """
+        -module(beam_retained_record_projection_chain).
+        -export([dispatch/1]).
+        -record(state, {data, context, key, fallback}).
+
+        dispatch(State) ->
+            case probe:state(before, State#state.data) of
+                {_,_,_} -> {result,State#state.data};
+                absent ->
+                    case probe:state(after_state, State#state.data) of
+                        absent ->
+                            Seed = probe:seed(State#state.data, State#state.context, State#state.key),
+                            Next = probe:convert(Seed),
+                            Retained = probe:normalize(State#state.context, Next, default),
+                            Selected = probe:find(State#state.context, primary),
+                            case match(State#state.key, Retained, Selected) of
+                                {yes, Value} -> {result,[{found,Value}|State#state.data]};
+                                no ->
+                                    Fallback = probe:find(State#state.context, secondary),
+                                    case match(State#state.key, State#state.fallback, Fallback) of
+                                        {yes, Another} -> {result,[{found,Another}|State#state.data]};
+                                        no -> {result,State#state.data}
+                                    end
+                            end;
+                        _ -> {result,State#state.data}
+                    end
+            end.
+
+        match(Key,Value,[accept]) -> {yes,{Key,Value}};
+        match(Key,Value,[_|Tail]) -> match(Key,Value,Tail);
+        match(_,_,[]) -> no.
+        """;
+
+    internal static void Run()
+    {
+        string unproven = Source.Replace("match(_,_,[]) -> no.", "match(_,_,[]) -> no; match(_,_,extra) -> unexpected.", StringComparison.Ordinal);
+        string bound = Source.Replace(
+            "{yes, Value} -> {result,[{found,Value}|State#state.data]}",
+            "{yes, Retained} -> {result,[{found,Retained}|State#state.data]}",
+            StringComparison.Ordinal
+        );
+        if (!HasPackedProjectionReplies(Source) || HasPackedProjectionReplies(unproven) || HasPackedProjectionReplies(bound)
+            || !HasSeparateRecordFailureLine())
+        {
+            throw new InvalidOperationException(ShapeError);
+        }
+    }
+
+    private static bool HasSeparateRecordFailureLine()
+    {
+        string multiline = Source.Replace(
+            "probe:state(before, State#state.data)",
+            "probe:state(before,\n                       State#state.data)",
+            StringComparison.Ordinal
+        );
+        object code = Code(CodeGeneration.CompileBeamModule(multiline, "beam_retained_record_projection_chain.erl"));
+        var operations = ((IEnumerable)Property(code, "Instructions")).Cast<object>().ToArray();
+        int failure = Array.FindIndex(operations, operation => Opcode(operation) == BadRecord);
+
+        return failure > 0 && Opcode(operations[failure - 1]) == Line;
+    }
+
+    private static bool HasPackedProjectionReplies(string source)
+    {
+        object code = Code(CodeGeneration.CompileBeamModule(source, "beam_retained_record_projection_chain.erl"));
+        var operations = ((IEnumerable)Property(code, "Instructions")).Cast<object>()
+            .SkipWhile(operation => Opcode(operation) != FunctionInfo).Skip(1)
+            .TakeWhile(operation => Opcode(operation) != FunctionInfo).ToArray();
+        int packed = operations.Count(operation => Opcode(operation) == TestHeap
+            && Operands(operation) is [var words, var live] && Value(words) == 8 && Value(live) == 1);
+
+        return packed == 2 && operations.Count(operation => Opcode(operation) == IsTaggedTuple) == 1
+            && operations.Count(operation => Opcode(operation) == InitYRegisters) == 2;
+    }
+
+    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
+
+    private static object[] Operands(object operation) => ((IEnumerable)Property(operation, "Operands")).Cast<object>().ToArray();
+
+    private static byte Opcode(object operation) => (byte)Property(Property(operation, "Definition"), "Opcode");
+}

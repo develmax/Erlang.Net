@@ -1,0 +1,117 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -15460,6 +15460,40 @@
+ 
+             Mark(handler);
+             owner.Op(TryCase, YRegisterTag, token);
++            // try_case leaves the reason in X1. The class and raw stack are unused for this catch.
++            if (!owner.ModuleOptimizationDisabled && owner.SsaTypeInferenceEnabled
++                && owner.receiveScratchRegisters is null
++                && expression.Catches is
++                [
++                    {
++                        Guard: null,
++                        Patterns: [Pattern.Tuple
++                        {
++                            Items:
++                            [
++                                Pattern.Variable { Name: VariableScopeNames.Wildcard },
++                                Pattern.Variable { Name: not VariableScopeNames.Wildcard } reasonBinding,
++                                Pattern.Variable { Name: VariableScopeNames.Wildcard }
++                            ]
++                        }],
++                        Body: Expr.Tuple reasonTuple
++                    }
++                ]
++                && !original.ContainsKey(reasonBinding.Name) && !deferredPairMembers.ContainsKey(reasonBinding.Name)
++                && ReadCaseTuple(
++                    reasonTuple,
++                    reasonBinding.Name,
++                    original,
++                    selectorRegister: 1
++                ) is { UsesSelector: true } reasonOnly)
++            {
++                EmitCaseTuple(reasonOnly with { EntryLive = 2 });
++                Mark(done);
++                variables = original;
++
++                return;
++            }
++
+             if (expression.Catches is [
+                 {
+                     Guard: null, Patterns: [Pattern.Tuple
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamIgnoredTryCallExactCatchChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamIgnoredTryCallExactCatchChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamIgnoredTryCallExactCatchChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamIgnoredTryCallExactCatchChecks.cs
+@@ -14,7 +14,7 @@
+     private const string IncorrectValue = "The default shortcut, branch value or reraised exception changed.";
+     private const string Source = """
+         -module(beam_ignored_try_call_exact_catch_probe).
+-        -export([choice/1, guarded/1, atoms/1]).
++        -export([choice/1, guarded/1, atoms/1, reason_only/1]).
+         choice(default) ->
+             true;
+         choice(Value) ->
+@@ -35,6 +35,13 @@
+             true;
+         atoms(_) ->
+             false.
++        reason_only(Value) ->
++            try read(Value) of
++                accepted -> admitted
++            catch
++                _:Reason -> {caught, Reason}
++            end.
++        read(accepted) -> accepted;
+         read(known) -> found;
+         read(reject) -> throw(false);
+         read(other_throw) -> throw(rejected);
+@@ -53,6 +60,19 @@
+         object[] choice = Function("choice");
+         object[] guarded = Function("guarded");
+         object[] atomSelector = Function("atoms");
++        object[] reasonBody = Function("reason_only");
++        int handler = Array.FindIndex(reasonBody, instruction => Opcode(instruction) == TryCase);
++        if (handler < 0 || reasonBody.Length <= handler + 2
++            || Opcode(reasonBody[handler + 1]) != TestHeap
++            || Items(reasonBody[handler + 1], "Operands").ToArray() is not [var words, var roots]
++            || Value(words) != 3 || Value(roots) != 2
++            || Opcode(reasonBody[handler + 2]) != PutTuple
++            || Items(reasonBody[handler + 2], "Operands").ToArray() is not [_, _, _, var input]
++            || (string)Property(input, "Kind") != "x" || Value(input) != 1)
++        {
++            throw new InvalidOperationException(IncorrectCatch);
++        }
++
+         object[] frames = choice.Where(instruction => Opcode(instruction) == Allocate).ToArray();
+         if (frames is not [var frame] || Items(frame, "Operands").ToArray() is not [var slots, var live]
+             || Value(slots) != 1 || Value(live) != 1
+@@ -85,8 +105,25 @@
+             await ExpectError("other_throw", ErlangExceptionClasses.Throw, "rejected");
+             await ExpectError("fault", ErlangExceptionClasses.Error, "selected_error");
+             await ExpectError("stop", ErlangExceptionClasses.Exit, "selected_exit");
++            if (!Term.A("admitted").Equals(await module.Invoke(context, "reason_only", Term.A("accepted")))
++                || !Term.Tuple(Term.A("caught"), no).Equals(await module.Invoke(context, "reason_only", Term.A("reject")))
++                || !Term.Tuple(Term.A("caught"), Term.A("selected_error")).Equals(await module.Invoke(context, "reason_only", Term.A("fault")))
++                || !Term.Tuple(Term.A("caught"), Term.A("selected_exit")).Equals(await module.Invoke(context, "reason_only", Term.A("stop"))))
++            {
++                throw new InvalidOperationException(IncorrectValue);
++            }
+ 
+-            return Nil.Value;
++            try
++            {
++                _ = await module.Invoke(context, "reason_only", Term.A("known"));
++            }
++            catch (ErlangException error) when (error.ExceptionClass == ErlangExceptionClasses.Error
++                && error.Reason.Equals(Term.Tuple(Term.A("try_clause"), Term.A("found"))))
++            {
++                return Nil.Value;
++            }
++
++            throw new InvalidOperationException(IncorrectValue);
+ 
+             async Task ExpectError(string input, string kind, string reason)
+             {

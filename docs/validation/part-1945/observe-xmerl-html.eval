@@ -1,0 +1,26 @@
+[Image,Output] = init:get_plain_arguments(),
+{ok,Bytes}=file:read_file(Image),
+{module,xmerl_html}=code:load_binary(xmerl_html,Image,Bytes),
+Attrs=[{xmlAttribute,version,[],[],[],[],1,[],"Example",false},
+       {xmlAttribute,uri,[],[],[],[],2,[],"https://example.invalid/type",false}],
+Cases=[{root_defaults,'#root#',["hello",[],[],ignored]},
+       {root_attributes,'#root#',["hello",Attrs,[],ignored]},
+       {root_invalid_ancestor,'#root#',["hello",[],[bad],ignored]},
+       {void_element,'#element#',[br,[],[],[],ignored]},
+       {normal_element,'#element#',['div',"hello",[],[],ignored]},
+       {empty_paragraph,p,[[],[],[],ignored]},
+       {ordinary_text,'#text#',["a&b<c"]},
+       {cdata,'#cdata#',["a&b<c"]},
+       {comment,'#comment#',["adjacent"]}],
+Run=fun({Name,Function,Arguments}) ->
+    try apply(xmerl_html,Function,Arguments) of
+        Value -> {Name,Value}
+    catch Class:Reason:Stack ->
+        Frames=[{M,F,case A of L when is_list(L)->length(L); _->A end,Location}
+                || {M,F,A,Location} <- lists:sublist(Stack,1)],
+        {Name,Class,Reason,Frames}
+    end
+end,
+Results=[Run(C)||C<-Cases],
+ok=file:write_file(Output,io_lib:format("~tp.~n",[Results])),
+halt().

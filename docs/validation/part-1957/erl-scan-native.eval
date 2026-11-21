@@ -1,0 +1,8 @@
+[Path,Output]=init:get_plain_arguments(),
+{ok,Bin}=file:read_file(Path), true=code:unstick_mod(erl_scan) orelse true,
+{module,erl_scan}=code:load_binary(erl_scan,Path,Bin),
+Cases=[[34|"0123456789abcdefghijk"],[39|"NameMissingEnd"],[34,34,34,10|"  unclosed\n  triple"],
+       [34|"escaped\\nAndMissingEnd"],[34|"valid\"."], [39|"valid'."]],
+Values=[erl_scan:string(C,{7,12},[text]) || C<-Cases],
+[error,error,error,error,ok,ok]=[element(1,V)||V<-Values],
+ok=file:write_file(Output,io_lib:format("~0p.~n",[Values])), halt().

@@ -1,0 +1,77 @@
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12564,6 +12564,7 @@
+ }
+ );
+ Test(Erlang.Tests.BeamConsumedOutgoingRootsChecks.TestName, Erlang.Tests.BeamConsumedOutgoingRootsChecks.Run);
++Test(Erlang.Tests.BeamLateOutgoingRootTrimChecks.TestName, Erlang.Tests.BeamLateOutgoingRootTrimChecks.Run);
+ Test(Erlang.Tests.BeamEnrollmentObjectEncoderChecks.TestName, Erlang.Tests.BeamEnrollmentObjectEncoderChecks.Run);
+ Test(
+     Erlang.Tests.BeamClosedIntegerGuardChoicesChecks.TestName,
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamLateOutgoingRootTrimChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamLateOutgoingRootTrimChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamLateOutgoingRootTrimChecks.cs
+@@ -0,0 +1,61 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamLateOutgoingRootTrimChecks
++{
++    internal const string TestName = "compiler/beam/trim-consumed-outgoing-root-before-terminal-call";
++    private const string ShapeError = "The consumed high Y slot did not receive the retained value before the call.";
++    private const string Source = """
++        -module(beam_late_outgoing_root_trim).
++        -export([resolve/3]).
++        -record(handle,{ref,type,state=[]}).
++
++        resolve(Window = #handle{}, Name, Class) when is_list(Name), is_atom(Class) ->
++            Identifier = service:identify(Name),
++            Found = service:lookup(Window, Identifier),
++            service:cast(Found, Class).
++        """;
++
++    internal static void Run()
++    {
++        string retainedWindow = Source.Replace("service:cast(Found, Class)", "service:cast(Found, Class, Window)", StringComparison.Ordinal);
++        if (!HasConsumedRootTrim(Source) || HasConsumedRootTrim(retainedWindow))
++        {
++            throw new InvalidOperationException(ShapeError);
++        }
++    }
++
++    private static bool HasConsumedRootTrim(string source)
++    {
++        object code = Code(CodeGeneration.CompileBeamModule(source, "beam_late_outgoing_root_trim.erl"));
++        object[] body = ((IEnumerable)Property(code, "Instructions")).Cast<object>()
++            .SkipWhile(instruction => Opcode(instruction) != FunctionInfo).Skip(1)
++            .TakeWhile(instruction => Opcode(instruction) != FunctionInfo).ToArray();
++        int trim = Array.FindIndex(body, instruction => Opcode(instruction) == TrimFrame);
++        if (trim < 1 || Opcode(body[trim - 1]) != Move)
++        {
++            return false;
++        }
++
++        object[] relocation = Operands(body[trim - 1]);
++        object[] sizes = Operands(body[trim]);
++
++        return (string)Property(relocation[0], "Kind") == "y" && Value(relocation[0]) == 0
++            && (string)Property(relocation[1], "Kind") == "y" && Value(relocation[1]) == 1
++            && Value(sizes[0]) == 1 && Value(sizes[1]) == 1
++            && body.Skip(trim + 1).First(instruction => Opcode(instruction) != Line) is { } call
++            && Opcode(call) == ExternalCall
++            && body.Any(instruction => Opcode(instruction) == TailExternalCallWithFrame && Value(Operands(instruction)[2]) == 1);
++    }
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++
++    private static object[] Operands(object instruction) => ((IEnumerable)Property(instruction, "Operands")).Cast<object>().ToArray();
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++}

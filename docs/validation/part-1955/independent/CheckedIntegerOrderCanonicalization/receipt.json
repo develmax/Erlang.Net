@@ -1,0 +1,46 @@
+{
+  "Compiler": "b649423dda1523259db2688e20880bc30ff3ee816dcfcab31d1351520fe1395d",
+  "ParentSource": "849729ef00f55f0ffc09c5bac934b92138b5a783fe48712b270eda87c94778e2",
+  "ProductionInputCount": 900,
+  "Scope": {
+    "Different": 16,
+    "Equal": 18
+  },
+  "PatchDigests": {
+    "production.patch": "7a37400b06b22b6e3f763e6d14d37f4278904a58ec3f152a19059558c3f41462",
+    "test.patch": "e0c8d0411471c17bef9ab4e49ed2a56ed92f35be53d3a23af735ba61ee56db4d"
+  },
+  "Evidence": {
+    "scope/delta.json": "b2f21ad6bf4c5c59290cb56806cd9f49fba3a4631cb5d7dd5e6c3da3bbba18bb",
+    "scope/normalized-summary.terms": "f50ac986fd8352650c80d11b41ea13e7d056cb8ecd1af966ca183a5bbecc180e",
+    "native-pinned.terms": "2f02ffb5f004582332298744c0bcd10ad77e9fd13d6aa5fe8ede6b9d26677530",
+    "native-green.terms": "2f02ffb5f004582332298744c0bcd10ad77e9fd13d6aa5fe8ede6b9d26677530",
+    "native.eval": "1e2ccf9499b34ea971476ed06e1427d8b257b59b6d347c5d2b9205898b68fa63",
+    "red.log": "d6e1dba0158807f16cab3735ef2734c2b911cefdf8a39c1b4cff7ea4045ff36d",
+    "green.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "compiler-build.log": "b7d5f0fd2818780015c03f5c3b471d1f462b4bd45e825b9ae1f62734c4dbd88d",
+    "scope/otp-corpus.json": "835dc4ae8c1e9f06a0917035136c61b658fce6baf5eb8bf661342065069efb97",
+    "native.exit": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "red.exit": "e4e7851eff84375b526b7f4fcb50db23a941ff4d35de163fda833cfde6e5ec3e",
+    "green.exit": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "seal-style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f"
+  },
+  "Files": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": {
+      "Before": "6d6233074431e76baea055d776fca51d64999b3737ca42c2ba6409d4bccc4a26",
+      "After": "a9692d19a15c7dfcd1171391e133980bffaeffa3f5eeff58bd0b54156c729ce2"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedIntegerOrderTests.cs": {
+      "Before": null,
+      "After": "e7fd42a09a313a96cd0536a29e4afa42cec698d42b3f605f75521984856f3216"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamCheckedIntegerOrderChecks.cs": {
+      "Before": null,
+      "After": "4817a51d79ac75fbb8ce8b9942ce0d3d8e17301804137f1d93f437e575b768a8"
+    },
+    "tests/Erlang.Tests/Harness/Program.cs": {
+      "Before": "9899576edc80b15c4e4d14fdd95be19bcf6a2c2eefa254667e2ea6c7a27dc3e5",
+      "After": "1aea6801951ba0269f2ac9ac2ffd43a97c8e5676d129336197deefe5daaf325d"
+    }
+  }
+}

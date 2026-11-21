@@ -1,0 +1,45 @@
+{
+  "OtpVersion": "29.1.1",
+  "Total": 5,
+  "Counts": {
+    "Different": 4,
+    "Equal": 1
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\common_test-1.31.2\\ebin\\ct_ftp.beam",
+      "Status": "Different",
+      "Source": "lib\\common_test-1.31.2\\src\\ct_ftp.erl",
+      "Detail": "Original length 14420, generated length 14488. AtU8 462-\u003E462, Code 2559-\u003E2630, ImpT 280-\u003E280, ExpT 220-\u003E220, FunT 52-\u003E52, LitT 375-\u003E358, LocT 124-\u003E124, Attr 119-\u003E119, Line 168-\u003E182, Type 14-\u003E12",
+      "FirstDifferentByte": 7
+    },
+    {
+      "Beam": "lib\\common_test-1.31.2\\ebin\\ct_snmp.beam",
+      "Status": "Different",
+      "Source": "lib\\common_test-1.31.2\\src\\ct_snmp.erl",
+      "Detail": "Original length 37632, generated length 37652. AtU8 2700-\u003E2764, Code 7919-\u003E7911, ImpT 724-\u003E736, ExpT 244-\u003E244, FunT 292-\u003E292, LitT 643-\u003E599, LocT 604-\u003E604, Attr 39-\u003E39, Line 586-\u003E588, Type 16-\u003E10",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\inet_parse.beam",
+      "Status": "Different",
+      "Source": "lib\\kernel-11.0.4\\src\\inet_parse.erl",
+      "Detail": "Original length 35848, generated length 37020. AtU8 1255-\u003E1241, Code 10593-\u003E12180, ImpT 400-\u003E388, ExpT 424-\u003E424, FunT 292-\u003E292, LitT 379-\u003E370, LocT 796-\u003E796, Attr 39-\u003E39, Line 538-\u003E526, Type 409-\u003E42",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\cdv_bin_cb.beam",
+      "Status": "Equal",
+      "Source": "lib\\observer-2.19\\src\\cdv_bin_cb.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\tools-4.2.3\\ebin\\xref_utils.beam",
+      "Status": "Different",
+      "Source": "lib\\tools-4.2.3\\src\\xref_utils.erl",
+      "Detail": "Original length 27756, generated length 28776. AtU8 1965-\u003E1966, Code 6873-\u003E7906, ImpT 856-\u003E868, ExpT 412-\u003E412, FunT 148-\u003E148, LocT 412-\u003E412, Attr 39-\u003E39, Line 390-\u003E408, Type 70-\u003E32",
+      "FirstDifferentByte": 6
+    }
+  ]
+}

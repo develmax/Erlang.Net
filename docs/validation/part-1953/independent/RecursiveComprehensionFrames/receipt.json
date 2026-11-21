@@ -1,0 +1,47 @@
+{
+  "Compiler": "f4eb32992676e2264c2a40d5b4cde286bbb8ef2fc806308863bce73f0579b520",
+  "ParentSource": "cb7ef2fac1cf46ffb7c9e3ada13c4c90c4efbb954acd1ab41103df9c0ba8d766",
+  "ProductionInputCount": 880,
+  "Scope": {
+    "Different": 12,
+    "Equal": 20
+  },
+  "PatchDigests": {
+    "production.patch": "78da3da14829d797b92b29a15df94186b1c22df3f0859bcc7618b6e788d218ea",
+    "test.patch": "ed6ed2b7b51170288e4550cbb2c150cd09e12fa3d0474bbb7be9c16f14541831"
+  },
+  "Evidence": {
+    "native-canonical.terms": "bfe8124b1b26aa465890b4c87e024017d302e6f88412fb49848d81909cc3be23",
+    "scope-canonical/delta.json": "847eb29ea75e36b5ec6dac51ae3bbc9de2c6759080309db2676c93a58fa5d88d",
+    "scope-canonical/normalized-summary.terms": "4c7f1522bc83c8416ffbbbf5215e3a5c7c46fc2163dc48682f0f10bec3622fd9",
+    "cerl_inline.terms": "0fbfda8c92652c6014ef2186ee00e4d2180ae9dfcab723f29dfe909d67b39348",
+    "systools_relup.terms": "4f3dc855392606117aa9ec962f70dd1a3be5e9fe45cf18a247956b4c2189a14c",
+    "scope-canonical/otp-corpus.json": "92a6d3f728af8f6ba1ed20d543fadfa8f271f79a6a71b859acd84ea7e27c0fa6",
+    "native-canonical.exit": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "fixture-before.exit": "e4e7851eff84375b526b7f4fcb50db23a941ff4d35de163fda833cfde6e5ec3e",
+    "fixture-after-canonical.exit": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "seal-style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f"
+  },
+  "Files": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TupleFieldListComprehension.cs": {
+      "Before": "1a013c26a2e1ef223fb5251d38a371e251648bf43802b0a708937bf4db4daefa",
+      "After": "1c0a262896ee679b9c71180fc8866a0936d96dcc0b7cfcd048be9c3a04d35a51"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FlatTupleListComprehension.cs": {
+      "Before": "bf1836663505bbc000b2a7e41b5f215405aed505a8d3a27b989f9f6d768ef8ef",
+      "After": "036bb12d9cb3c9d340d7e9f48d7fc3e2c25e60697f25ad03b329f63fc7c901aa"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ListMappings.cs": {
+      "Before": "71ad36e846b9fb2e1a690217d0250aca17d479e674b708b61c56539431b67b50",
+      "After": "188b4ad4d136ac38cbcb4762b254faa3288f9509aab4f218c00fd0ffd3f59b7e"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamRecursiveComprehensionFrameChecks.cs": {
+      "Before": null,
+      "After": "680e37d043f93a6aafedf21a91322081de9552053c2402c3eaac10b4c0683a74"
+    },
+    "tests/Erlang.Tests/Harness/Program.cs": {
+      "Before": "515cfef7490ace8dff73e214c39fa77405e80c54cd4cc4754fe7d589faed0448",
+      "After": "c07b5d5bbe0b02ca4d04c01abe2d1f43f9d863ee6436ac0052279d8b6bd95686"
+    }
+  }
+}

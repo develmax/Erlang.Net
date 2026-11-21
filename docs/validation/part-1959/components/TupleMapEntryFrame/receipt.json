@@ -1,0 +1,36 @@
+{
+  "Pinned": "OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Parent": "55ec32db62b51f300d43388732efe3ff8a6aef4e866a0b18e7237ded8fa6a5ee",
+  "Compiler": "23bce41727c731cc66e5971da615c04512776ede9258dfc9ae373e6f1736d021",
+  "CheckedEntry": "beam_core_to_ssa:select_map and beam_ssa_pre_codegen:place_frames. Tuple arity dispatch proves the incoming tuple, map probes and exact binding checks leave its arguments intact and run before the owning frame.",
+  "ExactControls": 21,
+  "TotalImages": 37,
+  "ChangedImages": 1,
+  "NormalizedGains": 0,
+  "NormalizedLosses": 0,
+  "CloserFrames": 1,
+  "FrameWidths": "Two checked ct_default_gl arms move map checks before allocation and go from 6 to 2 and 3 on the Part1958 early tuple lifetime parent.",
+  "ActualNative": 5,
+  "SyntheticNative": 7,
+  "Patches": {
+    "production.patch": "6d6a884b15478e94c2a9df86cbf982cef0f88e511b02b89a13b3821b7ff267a5",
+    "test.patch": "2363ef45a285721e5beaedfac57e9a210b9f0215fad86678cc98b704a5fade08"
+  },
+  "Inputs": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GroupedTupleEntry.cs": "da5171751dd9ffda275178a5f144d66e5809d637b1a7067121fc4a457565f2e8",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TupleMapEntry.cs": "9b9a68597359f3250d507c4f0c6a45b2a1b1a1078542ec307b7448c4edaa3658",
+    "tests/Erlang.Tests/Compiler/Beam/BeamTupleMapEntryFrameChecks.cs": "92a885196c3fe247b8b49e4354e3d294b8eb2f665f03aba49d64afb1e1e78230",
+    "tests/Erlang.Tests/Harness/Program.cs": "b9f8eabcea816511b54d6b5e347d467d381b90a09cca3d61178fcb8743a3fed1"
+  },
+  "Evidence": {
+    "scope-styled/delta.json": "8039fd4de1f5b39ba16998f7ae4adbeed504245402c558da7e4d5bfc9a51407c",
+    "scope-styled/otp-corpus.json": "42a520ead6e047e29b6cc2217bc150870a35ed712de720a4654bd9554d61ea18",
+    "scope-styled/normalized-summary.terms": "c4f4fbadce2b6c28177e891fcfb615b4ee170e43ae2debdafecb6de62ca80bd8",
+    "ct-handle-info.terms": "65c410d0ef3dc3da75016b33c88e5a9b64e4f5ed6b0eba7e18e8446432662a2c",
+    "layout-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "strict-replay.log": "37cb479f1f08da5165779a601c4289e8edd46cc93feb65bef67ce7a85794ca08",
+    "native-actual.terms": "50841b615fea08746ecfc4f9adec49a38f4101d0dbda803239f1b5d8dfa2aca0",
+    "native-fixture.terms": "29bcc66a68e3f76ebaea57c331b437c236670c644b72e1c0bc681ccf8d783a7e",
+    "compiler-build.log": "272639c2eb7b03b672faa6ef14501b700be99dd3a7ea1537147cccb83d0ebddd"
+  }
+}

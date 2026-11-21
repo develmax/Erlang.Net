@@ -1,0 +1,51 @@
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12544,6 +12544,7 @@
+ Test(Erlang.Tests.BeamProtectedEntryAliasChecks.TestName, Erlang.Tests.BeamProtectedEntryAliasChecks.Run);
+ Test(Erlang.Tests.BeamProtectedShortReturnChecks.TestName, Erlang.Tests.BeamProtectedShortReturnChecks.Run);
+ Test(Erlang.Tests.BeamBinaryConstructionStringChecks.TestName, Erlang.Tests.BeamBinaryConstructionStringChecks.Run);
++Test(Erlang.Tests.BeamTerminalCallResultArgumentChecks.FrameTestName, Erlang.Tests.BeamTerminalCallResultArgumentChecks.RunFrame);
+ Test(
+     Erlang.Tests.BeamCheckedResultPayloadChecks.ConstructionTrimTestName,
+     () =>
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamTerminalCallResultArgumentChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamTerminalCallResultArgumentChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamTerminalCallResultArgumentChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamTerminalCallResultArgumentChecks.cs
+@@ -9,6 +9,8 @@
+ internal static class BeamTerminalCallResultArgumentChecks
+ {
+     internal const string TestName = "compiler/beam/keeps-call-results-in-terminal-argument-registers";
++    internal const string FrameTestName = "compiler/beam/compacts-dead-caught-input-stack-slot";
++    private const string FrameShapeError = "The protected call retained an extra entry argument slot.";
+     private const string Module = "beam_terminal_call_result_arguments";
+     private const string ShapeError = "The terminal call kept a stack spill for its local result.";
+ 
+@@ -41,6 +43,27 @@
+         }
+     }
+ 
++    internal static void RunFrame()
++    {
++        string liveInput = Source.Replace("service:report(Reason)", "service:report({Reason,Options})", StringComparison.Ordinal);
++        if (liveInput == Source || !HasCompactedFrame(Source) || HasCompactedFrame(liveInput))
++        {
++            throw new InvalidOperationException(FrameShapeError);
++        }
++    }
++
++    private static bool HasCompactedFrame(string source)
++    {
++        object code = Code(CodeGeneration.CompileBeamModule(source, Module + ".erl"));
++        object[] instructions = Children(code, "Instructions");
++        var allocations = instructions.Where(instruction => Opcode(instruction) == Allocate).ToArray();
++        var catches = instructions.Where(instruction => Opcode(instruction) == CatchEnter).ToArray();
++
++        return allocations.Length == 1 && catches.Length == 1
++            && Children(allocations[0], "Operands").Select(Value).SequenceEqual([5, 3])
++            && Value(Children(catches[0], "Operands")[0]) == 4;
++    }
++
+     private static bool UsesDirectArguments(string source)
+     {
+         object code = Code(CodeGeneration.CompileBeamModule(source, Module + ".erl"));

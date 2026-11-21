@@ -1,0 +1,23 @@
+[Image,Output]=init:get_plain_arguments(),
+{ok,Bytes}=file:read_file(Image),
+M=asn1ct_eval_ext,
+true=code:unstick_mod(M),
+{module,M}=code:load_binary(M,Image,Bytes),
+Probe=fun(X)->
+    try M:transform_to_EXTERNAL1994(X) of
+        Value->{value,Value}
+    catch C:R:Stack->
+        [{SM,SF,SA,_}|_]=Stack,
+        {C,R,{SM,SF,SA}}
+    end
+end,
+No=asn1_NOVALUE,
+Rows=[Probe(X)||X<-[{'EXTERNAL',direct,No,desc,{'octet-aligned',<<1,2>>}},
+    {'EXTERNAL',No,17,desc,{'octet-aligned',[1,2]}},
+    {'EXTERNAL',direct,17,desc,{'octet-aligned',<<>>}},
+    {'EXTERNAL',No,No,desc,{'octet-aligned',[]}},
+    {'EXTERNAL',direct,17,desc,{'octet-aligned',other}},
+    {'EXTERNAL',direct,17,desc,{other,<<0>>}},invalid]],
+ok=file:write_file(Output,term_to_binary(Rows)),
+io:format("~B observations~n",[length(Rows)]),
+halt(0).

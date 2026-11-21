@@ -1,0 +1,62 @@
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12551,6 +12551,7 @@
+ Test(Erlang.Tests.BeamTerminalProjectedListHeapChecks.TestName, Erlang.Tests.BeamTerminalProjectedListHeapChecks.Run);
+ Test(Erlang.Tests.BeamTerminalCallProjectionChecks.TestName, Erlang.Tests.BeamTerminalCallProjectionChecks.Run);
+ Test(Erlang.Tests.BeamTerminalCallProjectionChecks.CompactFrameTestName, Erlang.Tests.BeamTerminalCallProjectionChecks.CheckCompactFrame);
++Test(Erlang.Tests.BeamTerminalCallProjectionChecks.SharedReturnsTestName, Erlang.Tests.BeamTerminalCallProjectionChecks.CheckMixedTupleReturns);
+ Test(Erlang.Tests.BeamCallArgumentKillsChecks.TestName, Erlang.Tests.BeamCallArgumentKillsChecks.Run);
+ Test(Erlang.Tests.BeamMeasuredDecoderPairChecks.TestName, Erlang.Tests.BeamMeasuredDecoderPairChecks.Run);
+ Test(Erlang.Tests.BeamClosedDecoderTagsChecks.TestName, Erlang.Tests.BeamClosedDecoderTagsChecks.Run);
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamTerminalCallProjectionChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamTerminalCallProjectionChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamTerminalCallProjectionChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamTerminalCallProjectionChecks.cs
+@@ -10,7 +10,9 @@
+ {
+     internal const string TestName = "compiler/beam/forwards-projections-to-terminal-call-arguments";
+     internal const string CompactFrameTestName = "compiler/beam/compacts-owned-frames-before-complete-trims";
++    internal const string SharedReturnsTestName = "compiler/beam/shares-terminal-returns-in-mixed-tuple-dispatch";
+     private const string FrameShapeError = "The complete trim kept an unused slot or modified the protected frame.";
++    private const string SharedReturnsError = "The mixed decision did not share only identical terminal arms.";
+     private const string Module = "beam_terminal_call_projection";
+     private const string ShapeError = "The terminal call retained stack projections after constructing its arguments.";
+ 
+@@ -92,9 +94,35 @@
+         }
+     }
+ 
+-    private static Func<string, object[]> ReadBodies()
++    internal static void CheckMixedTupleReturns()
+     {
+-        byte[] beam = CodeGeneration.CompileBeamModule(Source, Module + ".erl");
++        const string sharedClause = "{sent, _, _} -> {ok, Entry#entry.rows}";
++        string different = Source.Replace(sharedClause, "{sent, _, _} -> {unchanged, Entry#entry.rows}", StringComparison.Ordinal);
++        if (different == Source || !HasSharedTupleReturn(ReadBodies()("reply"))
++            || HasSharedTupleReturn(ReadBodies(different)("reply")))
++        {
++            throw new InvalidOperationException(SharedReturnsError);
++        }
++    }
++
++    private static bool HasSharedTupleReturn(object[] instructions)
++    {
++        object? arity = instructions.FirstOrDefault(instruction => Opcode(instruction) == SelectTupleArity);
++        object? tags = instructions.FirstOrDefault(instruction => Opcode(instruction) == SelectValue);
++        if (arity is null || tags is null
++            || Children(arity, "Operands") is not [var input, _, _, _, var shared, _, _]
++            || Children(tags, "Operands") is not [_, _, _, _, var first, _, var second])
++        {
++            return false;
++        }
++
++        return input.GetType().GetProperty("TypeIndex")?.GetValue(input) is not null
++            && (Value(shared) == Value(first) || Value(shared) == Value(second));
++    }
++
++    private static Func<string, object[]> ReadBodies(string source = Source)
++    {
++        byte[] beam = CodeGeneration.CompileBeamModule(source, Module + ".erl");
+         object code = Code(beam);
+         object[] instructions = Children(code, "Instructions");
+         string[] atoms = Children(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();

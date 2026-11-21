@@ -1,0 +1,94 @@
+{
+  "DisjointCheckedEntry": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/megaco-checked-carrier-two-call-staged",
+    "Patches": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/checked-entry-frames-and-call-argument-liveness-1966-linked/checked-entry-production.patch",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/checked-entry-frames-and-call-argument-liveness-1966-linked/checked-entry-test.patch"
+    ],
+    "SHA": [
+      "dad768b9e03f26eb5ad0661190a9c0b0e4070a3a9c2e33af1bb591ed1620c5bb",
+      "1b9b5236fd5b2e27623d8e74a82eefe75f16146f0871e787ee7b932f348bcd8a"
+    ],
+    "Report": "validation/scope-candidate.json",
+    "Evidence": [
+      "validation/sealed/final-receipt.json",
+      "validation/release-native.eval",
+      "validation/release-native.terms"
+    ]
+  },
+  "DirectSavedTuple": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/stack-tuple-construction-1966-intake",
+    "Patches": [
+      "production.patch",
+      "test.patch"
+    ],
+    "SHA": [
+      "2e4a5802008c40ca62ca27c01d3b94a589c06ee1c6bbf88a6ed0a34fb748e381",
+      "9b10065ebd0dea8cbb0dba061d3f7e2e9e8e9f92b05d005fe12ff3e04e45911a"
+    ],
+    "Report": "scope-candidate.json",
+    "Evidence": [
+      "pattern-scope-receipt.json",
+      "focused-result.json",
+      "scope-delta.json",
+      "representative/receipt.json",
+      "normalization-timing.json"
+    ],
+    "ExistingCase": "compiler/beam/stores-post-call-tuple-directly-when-the-result-register-dies"
+  },
+  "TrimmedResultArguments": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/trimmed-call-result-argument-order-draft/normal-entry-retake",
+    "Patches": [
+      "production.patch",
+      "test.patch"
+    ],
+    "SHA": [
+      "34cb40c7835e34857b58f20c68d2adecc2c3f8e5f6a3cb49e760bcabf5ea4052",
+      "d38dff441768b760e33be35cbf41955f02293d67b747d803e2ba2c22cac501ba"
+    ],
+    "Report": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-tuples-and-trimmed-call-arguments-1966-bundle/scope-candidate.json",
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-tuples-and-trimmed-call-arguments-1966-bundle/focused-result.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-tuples-and-trimmed-call-arguments-1966-bundle/representative/receipt.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-tuples-and-trimmed-call-arguments-1966-bundle/scope-delta.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-tuples-and-trimmed-call-arguments-1966-bundle/scope-normalized.terms"
+    ]
+  },
+  "GuardedTerminalResult": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/predicate-terminal-call-result-1966-intake",
+    "Patches": [
+      "production.patch",
+      "test.patch"
+    ],
+    "SHA": [
+      "1e3b40ab100834e142941a6203734f96bb41a344c2a92d643a4906909f9e7280",
+      "423b4882e8d2838d9d16867c0dc454859c31888eec867243ae22998692f17d20"
+    ],
+    "Report": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-tuples-and-trimmed-call-arguments-1966-bundle/scope-candidate.json",
+    "Evidence": [
+      "receipt.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-tuples-and-trimmed-call-arguments-1966-bundle/focused-result.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-tuples-and-trimmed-call-arguments-1966-bundle/representative/receipt.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-tuples-and-trimmed-call-arguments-1966-bundle/scope-delta.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/saved-tuples-and-trimmed-call-arguments-1966-bundle/scope-normalized.terms"
+    ]
+  },
+  "ProvenCatchPreparation": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/megaco-proven-catch-argument-preparation-1967",
+    "Patches": [
+      "production-verified.patch",
+      "tests-verified.patch"
+    ],
+    "SHA": [
+      "6dd810a5174095e252c88ebd0d9b09fe65694041287bdd88d4413c90bd0b6d42",
+      "f7d0a66ff7b8e73305cd1fbffcb36edfcdfb744b43c9aca6645a01f041a7de91"
+    ],
+    "Report": "first/scope.json",
+    "Evidence": [
+      "first/scope-delta.json",
+      "first/functions.terms",
+      "first/native-fixture.log",
+      "first/native-monitor.log"
+    ]
+  }
+}

@@ -1,0 +1,238 @@
+qlc_pt:mforms 267 [ 
+ {File, [M]} ||
+     {File, Ms} <- L,
+     M <- Ms
+]
+%% qlc_pt.erl:267
+%% Counter = 43
+function `qlc_pt`:`'-mforms/1-lc$^0/1-0-'`(_5) {
+0:
+  _40 = is_nonempty_list _5
+  br _40, ^40, ^32
+
+40:
+  _14 = get_hd _5
+  _13 = get_tl _5
+  _36 = bif:is_tuple _14
+  br _36, ^36, ^33
+
+36:
+  _37 = bif:tuple_size _14
+  _38 = bif:'=:=' _37, `2`
+  br _38, ^35, ^33
+
+35:
+  _16 = get_tuple_element _14, `0`
+  _15 = get_tuple_element _14, `1`
+
+  %% qlc_pt.erl:267
+  _26 = call (`'-mforms/1-lc$^1/1-1-'`/3), _15, _13, _16
+  _34 = succeeded:body _26
+  br _34, ^34, ^1
+
+34:
+  ret _26
+
+33:
+  %% qlc_pt.erl:267
+  _27 = call (`'-mforms/1-lc$^0/1-0-'`/1), _13
+  _39 = succeeded:body _27
+  br _39, ^39, ^1
+
+39:
+  ret _27
+
+32:
+  _41 = bif:'=:=' _5, `[]`
+  br _41, ^41, ^31
+
+41:
+  ret `[]`
+
+31:
+  _12 = put_tuple `bad_generator`, _5
+
+  %% qlc_pt.erl:267
+  _28 = call (`erlang`:`error`/1), _12
+  _42 = succeeded:body _28
+  br _42, ^42, ^1
+
+42:
+  ret _28
+
+1:
+  _29 = call (`erlang`:`error`/1), `badarg`
+  ret _29
+}
+
+%% qlc_pt.erl:267
+%% Counter = 35
+function `qlc_pt`:`'-mforms/1-lc$^1/1-1-'`(_7, _13, _16) {
+0:
+  _31 = is_nonempty_list _7
+  br _31, ^31, ^29
+
+31:
+  _20 = get_hd _7
+  _19 = get_tl _7
+
+  %% qlc_pt.erl:267
+  _9 = call (`'-mforms/1-lc$^1/1-1-'`/3), _19, _13, _16
+  _30 = succeeded:body _9
+  br _30, ^30, ^1
+
+30:
+  _21 = put_list _20, `[]`
+  _22 = put_tuple _16, _21
+  _24 = put_list _22, _9
+  ret _24
+
+29:
+  _33 = bif:'=:=' _7, `[]`
+  br _33, ^33, ^28
+
+33:
+  %% qlc_pt.erl:267
+  _23 = call (`'-mforms/1-lc$^0/1-0-'`/1), _13
+  _32 = succeeded:body _23
+  br _32, ^32, ^1
+
+32:
+  ret _23
+
+28:
+  _18 = put_tuple `bad_generator`, _7
+
+  %% qlc_pt.erl:267
+  _25 = call (`erlang`:`error`/1), _18
+  _34 = succeeded:body _25
+  br _34, ^34, ^1
+
+34:
+  ret _25
+
+1:
+  _26 = call (`erlang`:`error`/1), `badarg`
+  ret _26
+}
+
+physical '-mforms/1-lc$^0/1-0-'/1 1545
+physical '-mforms/1-lc$^1/1-1-'/3 1550
+qlc_pt:mforms 238 [ 
+ {Tag, M} ||
+     {_File, Ms} <- L,
+     M <- Ms
+]
+%% qlc_pt.erl:238
+%% Counter = 43
+function `qlc_pt`:`'-mforms/2-lc$^0/1-0-'`(_6, _0) {
+0:
+  _40 = is_nonempty_list _6
+  br _40, ^40, ^32
+
+40:
+  _15 = get_hd _6
+  _14 = get_tl _6
+  _36 = bif:is_tuple _15
+  br _36, ^36, ^33
+
+36:
+  _37 = bif:tuple_size _15
+  _38 = bif:'=:=' _37, `2`
+  br _38, ^35, ^33
+
+35:
+  _16 = get_tuple_element _15, `1`
+
+  %% qlc_pt.erl:238
+  _26 = call (`'-mforms/2-lc$^1/1-1-'`/3), _16, _0, _14
+  _34 = succeeded:body _26
+  br _34, ^34, ^1
+
+34:
+  ret _26
+
+33:
+  %% qlc_pt.erl:238
+  _27 = call (`'-mforms/2-lc$^0/1-0-'`/2), _14, _0
+  _39 = succeeded:body _27
+  br _39, ^39, ^1
+
+39:
+  ret _27
+
+32:
+  _41 = bif:'=:=' _6, `[]`
+  br _41, ^41, ^31
+
+41:
+  ret `[]`
+
+31:
+  _13 = put_tuple `bad_generator`, _6
+
+  %% qlc_pt.erl:238
+  _28 = call (`erlang`:`error`/1), _13
+  _42 = succeeded:body _28
+  br _42, ^42, ^1
+
+42:
+  ret _28
+
+1:
+  _29 = call (`erlang`:`error`/1), `badarg`
+  ret _29
+}
+
+%% qlc_pt.erl:238
+%% Counter = 35
+function `qlc_pt`:`'-mforms/2-lc$^1/1-1-'`(_8, _0, _14) {
+0:
+  _31 = is_nonempty_list _8
+  br _31, ^31, ^29
+
+31:
+  _21 = get_hd _8
+  _20 = get_tl _8
+
+  %% qlc_pt.erl:238
+  _10 = call (`'-mforms/2-lc$^1/1-1-'`/3), _20, _0, _14
+  _30 = succeeded:body _10
+  br _30, ^30, ^1
+
+30:
+  _22 = put_tuple _0, _21
+  _24 = put_list _22, _10
+  ret _24
+
+29:
+  _33 = bif:'=:=' _8, `[]`
+  br _33, ^33, ^28
+
+33:
+  %% qlc_pt.erl:238
+  _23 = call (`'-mforms/2-lc$^0/1-0-'`/2), _14, _0
+  _32 = succeeded:body _23
+  br _32, ^32, ^1
+
+32:
+  ret _23
+
+28:
+  _19 = put_tuple `bad_generator`, _8
+
+  %% qlc_pt.erl:238
+  _25 = call (`erlang`:`error`/1), _19
+  _34 = succeeded:body _25
+  br _34, ^34, ^1
+
+34:
+  ret _25
+
+1:
+  _26 = call (`erlang`:`error`/1), `badarg`
+  ret _26
+}
+
+physical '-mforms/2-lc$^0/1-0-'/2 1569
+physical '-mforms/2-lc$^1/1-1-'/3 1574

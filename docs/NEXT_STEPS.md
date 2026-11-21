@@ -1,5 +1,139 @@
 # Next steps
 
+Validate the pending nested tuple checks, cons and nil branch order, positioned binary context reads and shared saved returns. Continue moving source-derived defects into connected local validation packages. [Evidence](validation/part-1978/README.md).
+
+Recover the pre-existing allocation widths for all 212 identified functions after moving list projections before allocation. Validate the connected frame, argument and helper corrections together. [Evidence](validation/part-1977/README.md).
+
+Use the updated instruction ranking to prioritize branch-local lifetimes and remaining helper families. [Evidence](validation/part-1976/README.md).
+
+Validate deferred carrier projections across two calls, branch-local repeated bindings, and protected prefixes inferred from private callers. [Evidence](validation/part-1965/README.md).
+
+Check last-use stack initialization before outgoing constructed arguments, shared failure returns in record continuations, and process-dictionary results forwarded in X0. [Evidence](validation/part-1964/README.md).
+
+Continue recurring guard and constructor frame scheduling, remaining protected BER continuations, and captured wx state lifetimes. [Evidence](validation/part-1963/README.md).
+
+Continue recurring guard and constructor frame scheduling, remaining protected BER continuations, and captured wx state lifetimes. [Evidence](validation/part-1962/README.md).
+
+Continue recurring guard and constructor frame scheduling, remaining TCP continuations, and case-arm list proofs. [Evidence](validation/part-1961/README.md).
+
+Continue source-defined ASN.1 result projections, checked entry-test dominance, selected record roots, and the WX and TCP near-parity paths. [Evidence](validation/part-1960/README.md).
+
+Continue source-defined ASN.1 result projections, checked entry-test dominance, selected record roots, and the WX and TCP near-parity paths. [Evidence](validation/part-1959/README.md).
+
+Continue source-defined ASN.1 result projections, checked entry-test dominance, selected record roots, and the WX and TCP near-parity paths. [Evidence](validation/part-1958/README.md).
+
+Continue BER indefinite continuation and split lifetimes, shared guarded tail blocks, and the next measured projected-root and entry-frame groups. [Evidence](validation/part-1957/README.md).
+
+Preserve direct same-register input atoms at the first ordinary call and classify a statically resolved external function as a literal during private argument analysis. Replay the two affected functions with the linked compiler before the next full corpus. [Evidence](validation/part-1956/README.md).
+
+Handle zero-field checked updates, preserve the native Boolean return path in literal dispatch, and rerun the corrected linked release. [Evidence](validation/part-1955/README.md).
+
+Restore pinned closure capture order in atom-owned branches and validate the protected try failure location. Rerun the linked package and complete release after the confirmed repairs. [Evidence](validation/part-1954/README.md).
+
+Part 1953 verifies general nested wx event selection, X400 SET and extension selector passes, and two checked entry frame repairs. Continue common map tail calls, remaining X400 length shapes and frame liveness. [Evidence](validation/part-1953/README.md).
+
+Part 1952 verifies complete Enrollment BER generation, grouped key tuple conversions, checked entry frames, native argument placement and wx call scheduling. Continue shared event selection, X400 SET comprehensions and remaining frame lifetime cohorts. [Evidence](validation/part-1952/README.md).
+
+Part 1951 verifies checked SCTP receive continuations, wx event and initialization ordering, and literal BER terminal selectors. Continue remaining Enrollment records and frame lifetime cohorts. [Evidence](validation/part-1951/README.md).
+
+Part 1950 verifies owned arithmetic construction, deferred handler fields, checked wrappers and binding-free terminal reconstruction. Continue frame lifetimes, inet_sctp and remaining Enrollment records. [Evidence](validation/part-1950/README.md).
+
+Part 1949 verifies shared tagged list continuations, checked GUI branches, private call arguments, and ASN.1 record encoders and decoders. Continue Megaco term identifiers, wx XML resources and the remaining Enrollment records. [Evidence](validation/part-1949/README.md).
+
+Part 1948 verifies checked directory choice calls, outgoing argument ownership and ASN.1 record schedules. Continue the near complete debugger and Megaco images and remaining Enrollment decoders. [Evidence](validation/part-1948/README.md).
+
+Part 1947 verifies the checked Xmerl byte scanner, protected list roots, nested generator cursor ownership and BER record scheduling. Continue the near complete debugger directory and CMP images. [Evidence](validation/part-1947/README.md).
+
+Part 1946 verifies retained record projections and calls, saved entry stack slots, strict comprehension aliases, Xmerl retained lists and ASN.1 field order. Continue byte scanner and nested generator schedules. [Evidence](validation/part-1946/README.md).
+
+Part 1945 verifies guarded UDP result dispatch, Xmerl source and branch order, computed and case-valued list helpers, protected roots and ASN.1 field lifetimes. Continue the measured stack and call scheduling groups. [Evidence](validation/part-1945/README.md).
+
+Part 1944 verifies terminal TRACE emission, sequential list helper bindings, direct list projection, protected call roots and binary-size type encoding. Continue ranked frame liveness and checked expression helper lowering. [Evidence](validation/part-1944/README.md).
+
+Part 1943 verifies owned record action dispatch, direct parser returns, record field list generators, terminal argument moves and retained ASN.1 encoder pairs. Continue lexical comprehension bindings and existing-contract frame ownership. [Evidence](validation/part-1943/README.md).
+
+Part 1942 verifies outgoing stack roots, terminal closure frames, record dispatch and bounded ASN.1 field paths. Continue shared frame liveness, helper lowering and retained record pair scheduling. [Evidence](validation/part-1942/README.md).
+
+Part 1941 verifies shared proper-list entry, protected argument ownership, delayed terminal call copies, bounded ASN.1 records and direct staged list construction. Continue scope-ranked terminal closure and frame liveness work. [Evidence](validation/part-1941/README.md).
+
+Part 1940 verifies bounded parser dispatch, retained tuple generators, binary measurement facts and shared protected call operands. Continue the ranked frame and entry-pattern groups. [Evidence](validation/part-1940/README.md).
+
+Part 1939 verifies return frame trims, guarded comprehension stacks, two-column atom dispatch and constructor propagation. Continue scope-ranked frame and call layout work. [Evidence](validation/part-1939/README.md).
+
+Part 1938 verifies source-proven value stacks, late atom membership, direct list construction and checked result ownership. Continue correcting partial trims and closed state ranges. [Evidence](validation/part-1938/README.md).
+
+Part 1937 verifies source-owned private cons heads, measured choices and shared record decisions. Continue correcting allocation and function entry differences. [Evidence](validation/part-1937/README.md).
+
+Part 1936 verifies source-owned private list operand types, nested decoder patterns and exact register proofs. Continue correcting allocation and function entry differences. [Evidence](validation/part-1936/README.md).
+
+Part 1935 verifies source-owned tuple destinations, repeated record checks and projected heads. Continue correcting allocation and function entry differences. [Evidence](validation/part-1935/README.md).
+
+Part 1934 verifies source-owned inets supervisor decisions, call argument liveness and bounded bit tables. Continue correcting allocation and function entry differences. [Evidence](validation/part-1934/README.md).
+
+Part 1933 verifies source-owned closed decode contexts, tuple checks and call result liveness. Continue correcting allocation and function entry differences. [Evidence](validation/part-1933/README.md).
+
+Part 1932 verifies source-owned protected tag decisions, writable append units and packed bit continuations. Continue correcting allocation and function entry differences. [Evidence](validation/part-1932/README.md).
+
+Part 1931 verifies source-owned list decisions, binary construction units and named-bit packing. Continue correcting allocation and function entry differences. [Evidence](validation/part-1931/README.md).
+
+Part 1930 verifies live entry arguments through handler installation and direct expansion of short protected return continuations. Continue correcting allocation and function entry differences. [Evidence](validation/part-1930/README.md).
+
+Part 1929 verifies the repaired nested helper planning, frameless neutral arguments and protected register lifetimes. Continue correcting allocation and function entry differences. [Evidence](validation/part-1929/README.md).
+
+Bind the nested-generator plan to both the label-count pass and emission, and cover later local helper calls and malformed ASN.1 inputs. [Held evidence](validation/part-1928/README.md).
+
+Part 1927 verifies finite Boolean dispatch, source-owned signed remainder frames and protected wx class and index overloads. Continue list helper creation and entry frame liveness. [Evidence](validation/part-1927/README.md).
+
+Part 1926 verifies source-owned CMS field joins, direct function-clause edges, short literal list prefixes and call results retained through callbacks. Continue finite Boolean dispatch, named-bit loops and source-owned binary frames. [Evidence](validation/part-1926/README.md).
+
+Part 1925 verifies long literal binary prefixes, live copies in X registers, complete CRMF field forwarding and wx retained record effects. Continue exact call-result movement, entry frame ownership and literal list construction. [Evidence](validation/part-1925/README.md).
+
+Part 1924 verifies lifted list values, protected wx constructors and checked OCSP default handling. Continue final source line retention, first projections through saved aliases and literal binary prefix selection. [Evidence](validation/part-1924/README.md).
+
+Part 1923 verifies guarded receive entry selection, stable literal call setup and checked codec factories. Continue first projections through saved aliases and generated list helper discovery. [Evidence](validation/part-1923/README.md).
+
+Part 1922 verifies computed binary widths, optional default fields and protected wx dispatch. Continue first projections through saved aliases and generated helper discovery. [Evidence](validation/part-1922/README.md).
+
+Part 1921 verifies finite argument lifetimes, final atom entries, wx overloads and generated S/MIME closures. Continue sized binary register ownership, shared wx event and graphics paths, and checked ASN.1 default fields. [Evidence](validation/part-1921/README.md).
+
+Part 1920 verifies final labels, bounded generated fields and checked bitmap commands. Continue finite Y-value lifetimes, late atom provenance, shared wx constructors and generated codec closures. [Evidence](validation/part-1920/README.md).
+
+Part 1919 verifies generated field selectors, shared wx receivers and positioned binary constructors. Continue final label numbering, finite Y-value lifetimes and source-qualified codec layouts. [Evidence](validation/part-1919/README.md).
+
+Part 1918 verifies nested configuration, generated sequence and checked receiver paths. Continue prepared argument schedules, matched binary producers, shared sparse forwarding and type and frame propagation. [Evidence](validation/part-1918/README.md).
+
+Part 1917 verifies exact callback and codec images. Continue nested case liveness, wx receiver and conversion dispatch, and closure ordering and register allocation. [Evidence](validation/part-1917/README.md).
+
+Part 1916 establishes three more exact images. Continue scoped wx callback folds, ordinary list and rounded-value ownership, ASN.1 required optional codec construction and nested case liveness. [Evidence](validation/part-1916/README.md).
+
+Part 1915 establishes four exact images. Continue wx option and event dispatch, nested tagged projections and ASN.1 bit-string lowering. Verify source-owned list and floating register scheduling. [Evidence](validation/part-1915/README.md).
+
+Part 1914 establishes three exact supervisor images. Verify the next generated ASN.1 default sequence and closed list callback package. Continue nested tagged projection and source-owned register scheduling. [Evidence](validation/part-1914/README.md).
+
+Part 1913 verifies nil comparisons, retained constructions and checked source result ownership. Continue source-derived checked frame and dispatch grouping. Measure the dependency between helper construction and native register scheduling. [Evidence](validation/part-1913/README.md).
+
+Part 1912 completes three exact HTTP, SSH and BER files. Verify nil guard normalization and list result typing across the linked scope. Resolve the remaining ct_config_plain export label numbering and prioritize nested checked projection and frame placement. [Release evidence](validation/part-1912/README.md).
+
+Part 1911 closes the FTP, Diameter and Megaco supervisor raw targets. Confirm the linked HTTP and SSH supervisor file results and Safecurves generated BER ordering. Measure a separate nil guard cohort, then prioritize frames and checked entry ownership from the current residual counts. [Release evidence](validation/part-1911/README.md).
+
+Part 1910 verifies the Wx, Megaco and BER changes. Verify the linked FTP process, Diameter arithmetic, Megaco supervisor and BER numeric/context package. Continue the closure failure and helper ordinal audit where Core local-definition names share a counter. [Release report](validation/part-1910/README.md).
+
+Part 1909 retains all exact files. Complete the linked Wx, Megaco and BER release comparison. Prioritize validation of the three-level owned record frame changes and the BER measured encoder chain. Continue the constructor and list helper ordering audit on independent source fixtures, including old matching modules. [Release report](validation/part-1909/README.md).
+
+Complete the linked Xmerl, SSH local I/O, terminal projection and shared BER comparison. Preserve the 424 exact files and retain all observed error stack and frame roots. The independently exact Wx list-effect and Megaco cold-layout candidates are the next whole-file targets. Keep the local-only delivery and continue the mixed anonymous/list helper ordering investigation. [Raw release result](validation/part-1908/README.md).
+
+Complete the split tests, 129-module pilot and uncached full run for the linked DSA, SLH, CMS and CtEvent package. Retain all 420 accepted raw matches. Combine the separately verified shared BER and record projection passes after their native and raw controls. Classical single unfiltered list generators are the next highest measured source-helper group. [Latest full comparison](validation/part-1907/README.md) · [Source helper groups](validation/part-1907/source-helper-census/shape-summary.json).
+
+Complete the uncached Part 1907 run with the raw KEM, SNMP supervisor and Mnesia Schema frame controls. Then integrate the separately verified DSA, CtEvent and SLH candidates with independent typed, frame and branch witnesses. Use the current function rank to prioritize broad list helper extraction over synthetic-only matches. Keep the delivery local. [Full Part 1906 result](validation/part-1906/README.md) · [Opcode and frame rank](validation/part-1906/compact-function-rank.terms).
+
+Complete the frozen Part 1906 full release comparison with the two new scoped matches, debugger and mnesia_frag_hash. Preserve all 416 exact files and the independent normalized ASN.1 closure gains. Restore the previous Mnesia Schema frame width by preventing a two-atom rewrite on part of a longer guard chain. Verify scheduler changes against full typed operands and raw Type bytes. Continue local-only delivery. [Current raw comparison](validation/part-1905/README.md) · [Frame witness](validation/part-1905/frame-outlier-raw.terms).
+
+Complete the uncached result for the linked two-atom branch, owned result trim and ASN.1 sized decoder changes. Continue with the source-proven Mnesia guard continuation, finite atom branches and zero-slot closure factories. Preserve the 415 exact files, report the sole remaining Dbgi cohort independently and use the ranked source grouping for later frame and list helpers. Keep delivery local. [Full comparison](validation/part-1904/README.md) · [Ranked common causes](validation/part-1902/partitioned-rank/README.md).
+
+Complete the uncached linked check for the newly matching Megaco, DSS and PKCS-3 source paths and retain all 412 known raw matches. Continue the precise source-driven ASN.1 checked tail, owned record call frame and two-atom case branch groups. Keep native preparation, normalized instructions and complete raw files in separate reports. Continue local-only delivery. [Raw predecessor](validation/part-1902/full-release/README.md) · [Measured scope](validation/part-1902/scoped/README.md).
+
+Use the Part 1898 frozen corpus as the byte comparison predecessor. Evaluate the one-call zero-data-frame controls and adjacent guard-generator groups, then check Type and Code ordering in the nearest release modules. Retain the exact prim_eval, systools and diameter_callback controls through the next complete uncached comparison. Keep every package local. [Current full comparison](validation/part-1898/full-release/README.md) · [Ranked groups](validation/part-1898/partitioned-rank/README.md).
+
 Extend the accepted Part 1875 compiler through measured liveness, list-comprehension, range and source-location cohorts. Check previously equal controls and dependency-focused tests on the linked candidate, then run all 1,366 release inputs uncached and the complete local repository gate. [Ranked remaining causes](validation/part-1875/full-uncached/ranked-causes.md) · [Accepted local gates](validation/part-1875/local-gates/README.md).
 
 Validate the Part 1875 send frame group, final diameter_make scratch motion and stdlib include paths on their locked scopes. Compare the linked candidate against the full 410/1,366 Part 1874 result. Then execute whole managed and readiness acceptance on the sealed sources. [Accepted release baseline](validation/part-1874/full-uncached/README.md).

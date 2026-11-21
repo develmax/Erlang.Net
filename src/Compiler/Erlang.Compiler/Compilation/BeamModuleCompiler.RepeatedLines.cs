@@ -4,7 +4,7 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
-    private ReadOnlyMemory<byte> RemoveRepeatedLines(ReadOnlyMemory<byte> code)
+    private ReadOnlyMemory<byte> RemoveRepeatedLines(ReadOnlyMemory<byte> code, int labelCount)
     {
         IReadOnlyList<BeamInstruction> body;
         try
@@ -12,7 +12,7 @@ internal sealed partial class BeamModuleCompiler
             var header = new BeamCodeHeader(
                 BeamWire.FormatVersion,
                 highestOpcode,
-                nextLabel - sharedReturnLabelCount,
+                labelCount,
                 exports.Count + locals.Count,
                 code
             );
@@ -24,8 +24,8 @@ internal sealed partial class BeamModuleCompiler
         }
 
         // Debug and executable source markers have separate location references.
-        var safeImports = body.Any(instruction => instruction.Definition.Opcode is DebugLine or ExecutableLine)
-            ? [] : ReadLocationNeutralExternalImports();
+        bool hasExecutionMarkers = body.Any(instruction => instruction.Definition.Opcode is DebugLine or ExecutableLine);
+        var safeImports = hasExecutionMarkers ? [] : ReadLocationNeutralExternalImports();
         var starts = new List<int>();
         for (int index = 0; index + 1 < body.Count; index++)
         {
@@ -68,8 +68,10 @@ internal sealed partial class BeamModuleCompiler
                 else if (opcode == Line)
                 {
                     int line = (int)instruction.Operands[0].Value;
-                    bool redundantCallLine = !hasHandler && safeImports.Count > 0 && index + 1 < end
-                        && CanDropSafeCallLine(body, index + 1, safeImports);
+                    // A local tail call discards its caller. OTP's call_line/3 omits that caller's location.
+                    bool redundantCallLine = !hasHandler && !hasExecutionMarkers && index + 1 < end
+                        && (body[index + 1].Definition.Opcode is TailLocalCall or TailLocalCallWithFrame
+                            || safeImports.Count > 0 && CanDropSafeCallLine(body, index + 1, safeImports));
                     if (line == previousLine || redundantCallLine)
                     {
                         output.Write(code.Span[copied..instruction.Offset]);
@@ -96,6 +98,6 @@ internal sealed partial class BeamModuleCompiler
 
         byte[] rewritten = output.ToArray();
 
-        return removedCallLine ? RebuildLineTable(rewritten, nextLabel - sharedReturnLabelCount) : rewritten;
+        return removedCallLine ? RebuildLineTable(rewritten, labelCount) : rewritten;
     }
 }

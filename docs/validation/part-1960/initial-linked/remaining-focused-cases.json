@@ -1,0 +1,846 @@
+{
+  "Partial": true,
+  "SelectedCount": 139,
+  "TotalCount": 10274,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/beam/branch-owned-nested-records-after-atom-selection",
+    "compiler/beam/call-list-retains-entry-values-without-spilling-final-result",
+    "compiler/beam/calls-proven-closed-list-mapper-directly",
+    "compiler/beam/canonicalizes-proven-integer-order-comparisons",
+    "compiler/beam/checked-nested-list-payload-feeds-cons-in-registers",
+    "compiler/beam/checked-nested-update-register-result",
+    "compiler/beam/checked-selector-projects-after-outgoing-list",
+    "compiler/beam/checks-a-common-leading-atom-before-tuple-entry-selection",
+    "compiler/beam/checks-foreign-required-pairs-before-optional-fields",
+    "compiler/beam/checks-leading-foreign-optional-pair-before-trimming",
+    "compiler/beam/checks-tuple-and-map-before-entering-owning-frame",
+    "compiler/beam/clears-a-retained-argument-at-its-final-call",
+    "compiler/beam/clears-consumed-arguments-inside-a-closed-catch",
+    "compiler/beam/clears-dead-record-root-after-final-projected-argument",
+    "compiler/beam/closure-boolean-effect-arithmetic-continuation",
+    "compiler/beam/empty-list-fast-arm-precedes-terminal-call-list-frame",
+    "compiler/beam/empty-record-update-preserves-check",
+    "compiler/beam/extracts-element-before-effect-frame",
+    "compiler/beam/flat-binding-constant",
+    "compiler/beam/folds-closed-compound-patterns",
+    "compiler/beam/folds-exhaustive-terminal-reconstruction",
+    "compiler/beam/forward-projection-through-temporary-overwrite",
+    "compiler/beam/forward-zero-bif-argument-through-literal-moves",
+    "compiler/beam/forwards-bif-result-into-call-argument",
+    "compiler/beam/forwards-identity-errors-and-checked-map-fields",
+    "compiler/beam/fresh-record-replacement-copy-hint",
+    "compiler/beam/groups-checked-tagged-tuple-conversions",
+    "compiler/beam/groups-literal-columns-and-shares-fallbacks",
+    "compiler/beam/groups-two-literal-columns",
+    "compiler/beam/guarded-byte-groups-reuse-context-and-restore-on-error",
+    "compiler/beam/guarded-call-result-tails-keep-projections-in-x-registers",
+    "compiler/beam/guarded-tagged-alias-dispatch-retains-original-tuple",
+    "compiler/beam/ignores-overwritten-entry-roots-before-handler-and-bif",
+    "compiler/beam/joins-proven-lengths-after-repeated-optional-fields",
+    "compiler/beam/keeps-checked-handler-tuples-until-field-use",
+    "compiler/beam/keeps-checked-pair-tails-and-lookup-roots-in-pinned-registers",
+    "compiler/beam/keeps-checked-record-callback-protection",
+    "compiler/beam/keeps-closed-tuple-match-outside-protected-dispatch",
+    "compiler/beam/keeps-constructor-results-and-catch-entry-arguments-in-x",
+    "compiler/beam/keeps-eager-pairs-and-proves-private-bitstring-inputs",
+    "compiler/beam/keeps-enumerated-pairs-in-the-required-record-schedule",
+    "compiler/beam/keeps-exact-catch-registers-with-literal-call-arguments",
+    "compiler/beam/keeps-four-field-pairs-and-foreign-return-checks",
+    "compiler/beam/keeps-named-sequence-and-checked-bookend-schedules",
+    "compiler/beam/keeps-only-the-terminal-list-roots-across-catch",
+    "compiler/beam/keeps-only-values-used-after-checked-entry-effects",
+    "compiler/beam/keeps-owned-entry-and-receive-payloads-in-pinned-registers",
+    "compiler/beam/keeps-range-checked-forwarded-choice-in-registers",
+    "compiler/beam/keeps-received-record-and-passive-reply-frames-independent",
+    "compiler/beam/keeps-remote-optional-fields-through-required-decode",
+    "compiler/beam/keeps-required-prefix-fields-through-optional-join",
+    "compiler/beam/keeps-sized-iolist-results-in-owned-record-slots",
+    "compiler/beam/known-local-boolean-dispatch-enters-true-tail-first",
+    "compiler/beam/lifts-case-list-elements-from-proven-lexical-scope",
+    "compiler/beam/lifts-checked-record-updates-in-list-helpers",
+    "compiler/beam/lifts-computed-sources-for-discarded-list-effects",
+    "compiler/beam/lifts-list-generators-from-checked-record-fields",
+    "compiler/beam/lifts-ordinary-second-list-generators-with-owned-continuations",
+    "compiler/beam/lifts-sequential-list-comprehension-elements-with-lexical-bindings",
+    "compiler/beam/lifts-strict-tuple-aliases-and-independent-list-siblings",
+    "compiler/beam/load-surviving-x0-argument-after-frame-trim",
+    "compiler/beam/lower-wx-chardata-between-two-record-arguments",
+    "compiler/beam/nested-branch-copy-schedule",
+    "compiler/beam/nested-record-effect-dispatch",
+    "compiler/beam/omits-unused-tuple-projections-in-mixed-entry-patterns",
+    "compiler/beam/orders-closed-selector-arms-with-a-literal-exit",
+    "compiler/beam/orders-one-register-and-constant-tail-arguments",
+    "compiler/beam/outer-record-literal-entry-before-frame",
+    "compiler/beam/owned-atom-entry-retains-lifted-capture-order",
+    "compiler/beam/owns-checked-tagged-record-action-frames",
+    "compiler/beam/partitions-wx-forwarding-pairs-from-tagged-records",
+    "compiler/beam/places-exact-check-failures-in-cold-continuations",
+    "compiler/beam/places-heap-before-frameless-list-head-return",
+    "compiler/beam/places-singleton-check-before-frame",
+    "compiler/beam/preserves-alignment-only-for-proved-binary-measurements",
+    "compiler/beam/preserves-computed-list-roots-across-catch",
+    "compiler/beam/preserves-entry-slot-order-before-an-in-frame-call-result",
+    "compiler/beam/preserves-pattern-shape-for-a-constructed-case-selector",
+    "compiler/beam/preserves-projection-order-and-shared-caught-call-tails",
+    "compiler/beam/preserves-singleton-and-checked-foreign-field-layouts",
+    "compiler/beam/project-first-call-argument-from-owned-entry",
+    "compiler/beam/project-record-field-only-on-owning-edge",
+    "compiler/beam/projected-root-cleared-after-last-branch-use",
+    "compiler/beam/projects-checked-entry-list-directly-into-call-frame",
+    "compiler/beam/projects-pairs-after-sorting-a-proven-list",
+    "compiler/beam/proven-tuple-option-and-result-generators",
+    "compiler/beam/rematerializes-private-singletons-after-call-effects",
+    "compiler/beam/reserves-closed-recursive-entry-slots-in-argument-order",
+    "compiler/beam/resumes-closed-indefinite-binary-continuation",
+    "compiler/beam/resumes-private-binary-prefix-context",
+    "compiler/beam/retained-call-tuple",
+    "compiler/beam/retained-record-projections-and-proven-tagged-replies",
+    "compiler/beam/retains-atom-already-in-first-call-register",
+    "compiler/beam/retains-default-before-a-checked-foreign-pair",
+    "compiler/beam/retains-foreign-encoder-pairs-through-three-fields",
+    "compiler/beam/retains-input-and-proved-pairs-in-conditional-record-encoding",
+    "compiler/beam/retains-nonnegative-count-and-pair-length",
+    "compiler/beam/retains-only-the-needed-recursive-list-head",
+    "compiler/beam/retains-optional-foreign-pair-and-matches-closed-bit-padding",
+    "compiler/beam/retains-original-binary-at-proven-split",
+    "compiler/beam/retains-proven-primitive-result-boundary",
+    "compiler/beam/retains-proven-recursive-integer-entry-kind",
+    "compiler/beam/retains-reachable-entries-after-resolved-transforms",
+    "compiler/beam/retains-record-fields-across-object-selected-encoding",
+    "compiler/beam/retains-required-fields-around-a-checked-foreign-pair",
+    "compiler/beam/retains-sorted-optional-decoder-remainders",
+    "compiler/beam/retains-the-protected-try-clause-failure-location",
+    "compiler/beam/retains-three-optionals-after-checked-foreign-reads",
+    "compiler/beam/retains-two-required-sized-string-reads",
+    "compiler/beam/retains-wx-pair-across-protected-union-option-map",
+    "compiler/beam/retire-rejected-selector-root-before-replacement-call",
+    "compiler/beam/returns-exact-predicate-values",
+    "compiler/beam/reuses-checked-tuple-head-before-list-append",
+    "compiler/beam/reuses-matched-map-owners-across-calls",
+    "compiler/beam/reuses-selected-tuple-after-call-effects",
+    "compiler/beam/schedule-literal-call-with-spilled-result",
+    "compiler/beam/selects-disjoint-integer-tags-and-preserves-whole-tuples",
+    "compiler/beam/selects-local-function-references-by-exact-integer-guards",
+    "compiler/beam/sequential-tagged-bindings-preserve-final-list-register",
+    "compiler/beam/shared-checked-nested-selector-column",
+    "compiler/beam/shared-frame-returns-after-branch-allocations",
+    "compiler/beam/shared-frame-roots-and-cold-exit-lines",
+    "compiler/beam/shares-checked-nested-tuple-terminal-fields",
+    "compiler/beam/shares-checked-tuple-fields-across-tag-dispatch",
+    "compiler/beam/shares-equivalent-tagged-list-head-continuations",
+    "compiler/beam/shares-private-binary-length-prefix",
+    "compiler/beam/shares-unchanged-guarded-local-tails",
+    "compiler/beam/skips-proven-binary-length-payload",
+    "compiler/beam/stage-binary-call-receiver-while-saving-result",
+    "compiler/beam/switches-closed-remote-dispatch-with-constant-exit",
+    "compiler/beam/terminal-record-update-exact-x-roots",
+    "compiler/beam/trim-consumed-outgoing-root-before-terminal-call",
+    "compiler/beam/trim-nested-tuple-return-after-call-arguments",
+    "compiler/beam/tuple-join-fields-feed-options-without-intermediate-tuple",
+    "compiler/beam/types-only-closed-integer-recurrence-operands",
+    "compiler/beam/updates-map-in-place-for-forwarded-tail-arguments",
+    "compiler/beam/uses-direct-cursor-registers-in-nested-list-helpers",
+    "compiler/beam/uses-recorded-executable-include-filenames",
+    "compiler/beam/utf-pattern-bounds-feed-private-integer-guard-table"
+  ],
+  "Passed": 139,
+  "Failed": 0,
+  "Tests": [
+    {
+      "Name": "compiler/beam/extracts-element-before-effect-frame",
+      "Status": "Passed",
+      "Milliseconds": 2853
+    },
+    {
+      "Name": "compiler/beam/retained-call-tuple",
+      "Status": "Passed",
+      "Milliseconds": 155
+    },
+    {
+      "Name": "compiler/beam/keeps-only-values-used-after-checked-entry-effects",
+      "Status": "Passed",
+      "Milliseconds": 208
+    },
+    {
+      "Name": "compiler/beam/reserves-closed-recursive-entry-slots-in-argument-order",
+      "Status": "Passed",
+      "Milliseconds": 132
+    },
+    {
+      "Name": "compiler/beam/types-only-closed-integer-recurrence-operands",
+      "Status": "Passed",
+      "Milliseconds": 162
+    },
+    {
+      "Name": "compiler/beam/retains-proven-primitive-result-boundary",
+      "Status": "Passed",
+      "Milliseconds": 260
+    },
+    {
+      "Name": "compiler/beam/keeps-closed-tuple-match-outside-protected-dispatch",
+      "Status": "Passed",
+      "Milliseconds": 237
+    },
+    {
+      "Name": "compiler/beam/nested-branch-copy-schedule",
+      "Status": "Passed",
+      "Milliseconds": 61
+    },
+    {
+      "Name": "compiler/beam/flat-binding-constant",
+      "Status": "Passed",
+      "Milliseconds": 21
+    },
+    {
+      "Name": "compiler/beam/shares-checked-tuple-fields-across-tag-dispatch",
+      "Status": "Passed",
+      "Milliseconds": 81
+    },
+    {
+      "Name": "compiler/beam/checks-tuple-and-map-before-entering-owning-frame",
+      "Status": "Passed",
+      "Milliseconds": 18
+    },
+    {
+      "Name": "compiler/beam/resumes-closed-indefinite-binary-continuation",
+      "Status": "Passed",
+      "Milliseconds": 217
+    },
+    {
+      "Name": "compiler/beam/retains-original-binary-at-proven-split",
+      "Status": "Passed",
+      "Milliseconds": 232
+    },
+    {
+      "Name": "compiler/beam/shares-unchanged-guarded-local-tails",
+      "Status": "Passed",
+      "Milliseconds": 19
+    },
+    {
+      "Name": "compiler/beam/projected-root-cleared-after-last-branch-use",
+      "Status": "Passed",
+      "Milliseconds": 34
+    },
+    {
+      "Name": "compiler/beam/omits-unused-tuple-projections-in-mixed-entry-patterns",
+      "Status": "Passed",
+      "Milliseconds": 20
+    },
+    {
+      "Name": "compiler/beam/reuses-selected-tuple-after-call-effects",
+      "Status": "Passed",
+      "Milliseconds": 37
+    },
+    {
+      "Name": "compiler/beam/retains-atom-already-in-first-call-register",
+      "Status": "Passed",
+      "Milliseconds": 22
+    },
+    {
+      "Name": "compiler/beam/returns-exact-predicate-values",
+      "Status": "Passed",
+      "Milliseconds": 16
+    },
+    {
+      "Name": "compiler/beam/skips-proven-binary-length-payload",
+      "Status": "Passed",
+      "Milliseconds": 115
+    },
+    {
+      "Name": "compiler/beam/project-record-field-only-on-owning-edge",
+      "Status": "Passed",
+      "Milliseconds": 15
+    },
+    {
+      "Name": "compiler/beam/retains-the-protected-try-clause-failure-location",
+      "Status": "Passed",
+      "Milliseconds": 13
+    },
+    {
+      "Name": "compiler/beam/groups-two-literal-columns",
+      "Status": "Passed",
+      "Milliseconds": 38
+    },
+    {
+      "Name": "compiler/beam/fresh-record-replacement-copy-hint",
+      "Status": "Passed",
+      "Milliseconds": 22
+    },
+    {
+      "Name": "compiler/beam/terminal-record-update-exact-x-roots",
+      "Status": "Passed",
+      "Milliseconds": 20
+    },
+    {
+      "Name": "compiler/beam/resumes-private-binary-prefix-context",
+      "Status": "Passed",
+      "Milliseconds": 66
+    },
+    {
+      "Name": "compiler/beam/checks-a-common-leading-atom-before-tuple-entry-selection",
+      "Status": "Passed",
+      "Milliseconds": 13
+    },
+    {
+      "Name": "compiler/beam/shares-private-binary-length-prefix",
+      "Status": "Passed",
+      "Milliseconds": 103
+    },
+    {
+      "Name": "compiler/beam/preserves-pattern-shape-for-a-constructed-case-selector",
+      "Status": "Passed",
+      "Milliseconds": 23
+    },
+    {
+      "Name": "compiler/beam/empty-record-update-preserves-check",
+      "Status": "Passed",
+      "Milliseconds": 14
+    },
+    {
+      "Name": "compiler/beam/rematerializes-private-singletons-after-call-effects",
+      "Status": "Passed",
+      "Milliseconds": 53
+    },
+    {
+      "Name": "compiler/beam/checked-nested-update-register-result",
+      "Status": "Passed",
+      "Milliseconds": 14
+    },
+    {
+      "Name": "compiler/beam/outer-record-literal-entry-before-frame",
+      "Status": "Passed",
+      "Milliseconds": 31
+    },
+    {
+      "Name": "compiler/beam/groups-literal-columns-and-shares-fallbacks",
+      "Status": "Passed",
+      "Milliseconds": 23
+    },
+    {
+      "Name": "compiler/beam/canonicalizes-proven-integer-order-comparisons",
+      "Status": "Passed",
+      "Milliseconds": 8
+    },
+    {
+      "Name": "compiler/beam/updates-map-in-place-for-forwarded-tail-arguments",
+      "Status": "Passed",
+      "Milliseconds": 13
+    },
+    {
+      "Name": "compiler/beam/retains-reachable-entries-after-resolved-transforms",
+      "Status": "Passed",
+      "Milliseconds": 41
+    },
+    {
+      "Name": "compiler/beam/uses-recorded-executable-include-filenames",
+      "Status": "Passed",
+      "Milliseconds": 74
+    },
+    {
+      "Name": "compiler/beam/reuses-matched-map-owners-across-calls",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "compiler/beam/forward-zero-bif-argument-through-literal-moves",
+      "Status": "Passed",
+      "Milliseconds": 11
+    },
+    {
+      "Name": "compiler/beam/branch-owned-nested-records-after-atom-selection",
+      "Status": "Passed",
+      "Milliseconds": 22
+    },
+    {
+      "Name": "compiler/beam/owned-atom-entry-retains-lifted-capture-order",
+      "Status": "Passed",
+      "Milliseconds": 10
+    },
+    {
+      "Name": "compiler/beam/project-first-call-argument-from-owned-entry",
+      "Status": "Passed",
+      "Milliseconds": 8
+    },
+    {
+      "Name": "compiler/beam/retains-two-required-sized-string-reads",
+      "Status": "Passed",
+      "Milliseconds": 151
+    },
+    {
+      "Name": "compiler/beam/retains-nonnegative-count-and-pair-length",
+      "Status": "Passed",
+      "Milliseconds": 152
+    },
+    {
+      "Name": "compiler/beam/joins-proven-lengths-after-repeated-optional-fields",
+      "Status": "Passed",
+      "Milliseconds": 94
+    },
+    {
+      "Name": "compiler/beam/retains-sorted-optional-decoder-remainders",
+      "Status": "Passed",
+      "Milliseconds": 916
+    },
+    {
+      "Name": "compiler/beam/folds-closed-compound-patterns",
+      "Status": "Passed",
+      "Milliseconds": 18
+    },
+    {
+      "Name": "compiler/beam/retains-proven-recursive-integer-entry-kind",
+      "Status": "Passed",
+      "Milliseconds": 26
+    },
+    {
+      "Name": "compiler/beam/selects-disjoint-integer-tags-and-preserves-whole-tuples",
+      "Status": "Passed",
+      "Milliseconds": 77
+    },
+    {
+      "Name": "compiler/beam/calls-proven-closed-list-mapper-directly",
+      "Status": "Passed",
+      "Milliseconds": 182
+    },
+    {
+      "Name": "compiler/beam/projects-pairs-after-sorting-a-proven-list",
+      "Status": "Passed",
+      "Milliseconds": 172
+    },
+    {
+      "Name": "compiler/beam/shared-checked-nested-selector-column",
+      "Status": "Passed",
+      "Milliseconds": 71
+    },
+    {
+      "Name": "compiler/beam/selects-local-function-references-by-exact-integer-guards",
+      "Status": "Passed",
+      "Milliseconds": 84
+    },
+    {
+      "Name": "compiler/beam/places-exact-check-failures-in-cold-continuations",
+      "Status": "Passed",
+      "Milliseconds": 31
+    },
+    {
+      "Name": "compiler/beam/forward-projection-through-temporary-overwrite",
+      "Status": "Passed",
+      "Milliseconds": 9
+    },
+    {
+      "Name": "compiler/beam/retains-only-the-needed-recursive-list-head",
+      "Status": "Passed",
+      "Milliseconds": 43
+    },
+    {
+      "Name": "compiler/beam/groups-checked-tagged-tuple-conversions",
+      "Status": "Passed",
+      "Milliseconds": 55
+    },
+    {
+      "Name": "compiler/beam/places-singleton-check-before-frame",
+      "Status": "Passed",
+      "Milliseconds": 32
+    },
+    {
+      "Name": "compiler/beam/keeps-range-checked-forwarded-choice-in-registers",
+      "Status": "Passed",
+      "Milliseconds": 115
+    },
+    {
+      "Name": "compiler/beam/retains-default-before-a-checked-foreign-pair",
+      "Status": "Passed",
+      "Milliseconds": 118
+    },
+    {
+      "Name": "compiler/beam/closure-boolean-effect-arithmetic-continuation",
+      "Status": "Passed",
+      "Milliseconds": 16
+    },
+    {
+      "Name": "compiler/beam/keeps-enumerated-pairs-in-the-required-record-schedule",
+      "Status": "Passed",
+      "Milliseconds": 171
+    },
+    {
+      "Name": "compiler/beam/forwards-bif-result-into-call-argument",
+      "Status": "Passed",
+      "Milliseconds": 24
+    },
+    {
+      "Name": "compiler/beam/trim-nested-tuple-return-after-call-arguments",
+      "Status": "Passed",
+      "Milliseconds": 55
+    },
+    {
+      "Name": "compiler/beam/keeps-checked-pair-tails-and-lookup-roots-in-pinned-registers",
+      "Status": "Passed",
+      "Milliseconds": 46
+    },
+    {
+      "Name": "compiler/beam/retains-three-optionals-after-checked-foreign-reads",
+      "Status": "Passed",
+      "Milliseconds": 228
+    },
+    {
+      "Name": "compiler/beam/stage-binary-call-receiver-while-saving-result",
+      "Status": "Passed",
+      "Milliseconds": 12
+    },
+    {
+      "Name": "compiler/beam/schedule-literal-call-with-spilled-result",
+      "Status": "Passed",
+      "Milliseconds": 14
+    },
+    {
+      "Name": "compiler/beam/forwards-identity-errors-and-checked-map-fields",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "compiler/beam/keeps-received-record-and-passive-reply-frames-independent",
+      "Status": "Passed",
+      "Milliseconds": 26
+    },
+    {
+      "Name": "compiler/beam/load-surviving-x0-argument-after-frame-trim",
+      "Status": "Passed",
+      "Milliseconds": 6
+    },
+    {
+      "Name": "compiler/beam/proven-tuple-option-and-result-generators",
+      "Status": "Passed",
+      "Milliseconds": 66
+    },
+    {
+      "Name": "compiler/beam/orders-closed-selector-arms-with-a-literal-exit",
+      "Status": "Passed",
+      "Milliseconds": 84
+    },
+    {
+      "Name": "compiler/beam/nested-record-effect-dispatch",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "compiler/beam/keeps-constructor-results-and-catch-entry-arguments-in-x",
+      "Status": "Passed",
+      "Milliseconds": 42
+    },
+    {
+      "Name": "compiler/beam/folds-exhaustive-terminal-reconstruction",
+      "Status": "Passed",
+      "Milliseconds": 30
+    },
+    {
+      "Name": "compiler/beam/lower-wx-chardata-between-two-record-arguments",
+      "Status": "Passed",
+      "Milliseconds": 73
+    },
+    {
+      "Name": "compiler/beam/trim-consumed-outgoing-root-before-terminal-call",
+      "Status": "Passed",
+      "Milliseconds": 12
+    },
+    {
+      "Name": "compiler/beam/keeps-checked-handler-tuples-until-field-use",
+      "Status": "Passed",
+      "Milliseconds": 47
+    },
+    {
+      "Name": "compiler/beam/shares-equivalent-tagged-list-head-continuations",
+      "Status": "Passed",
+      "Milliseconds": 16
+    },
+    {
+      "Name": "compiler/beam/preserves-projection-order-and-shared-caught-call-tails",
+      "Status": "Passed",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "compiler/beam/keeps-checked-record-callback-protection",
+      "Status": "Passed",
+      "Milliseconds": 313
+    },
+    {
+      "Name": "compiler/beam/retire-rejected-selector-root-before-replacement-call",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "compiler/beam/shared-frame-returns-after-branch-allocations",
+      "Status": "Passed",
+      "Milliseconds": 64
+    },
+    {
+      "Name": "compiler/beam/shared-frame-roots-and-cold-exit-lines",
+      "Status": "Passed",
+      "Milliseconds": 30
+    },
+    {
+      "Name": "compiler/beam/ignores-overwritten-entry-roots-before-handler-and-bif",
+      "Status": "Passed",
+      "Milliseconds": 15
+    },
+    {
+      "Name": "compiler/beam/keeps-four-field-pairs-and-foreign-return-checks",
+      "Status": "Passed",
+      "Milliseconds": 139
+    },
+    {
+      "Name": "compiler/beam/keeps-owned-entry-and-receive-payloads-in-pinned-registers",
+      "Status": "Passed",
+      "Milliseconds": 52
+    },
+    {
+      "Name": "compiler/beam/retains-required-fields-around-a-checked-foreign-pair",
+      "Status": "Passed",
+      "Milliseconds": 208
+    },
+    {
+      "Name": "compiler/beam/partitions-wx-forwarding-pairs-from-tagged-records",
+      "Status": "Passed",
+      "Milliseconds": 47
+    },
+    {
+      "Name": "compiler/beam/retains-wx-pair-across-protected-union-option-map",
+      "Status": "Passed",
+      "Milliseconds": 61
+    },
+    {
+      "Name": "compiler/beam/keeps-named-sequence-and-checked-bookend-schedules",
+      "Status": "Passed",
+      "Milliseconds": 148
+    },
+    {
+      "Name": "compiler/beam/checked-nested-list-payload-feeds-cons-in-registers",
+      "Status": "Passed",
+      "Milliseconds": 48
+    },
+    {
+      "Name": "compiler/beam/checked-selector-projects-after-outgoing-list",
+      "Status": "Passed",
+      "Milliseconds": 43
+    },
+    {
+      "Name": "compiler/beam/clears-a-retained-argument-at-its-final-call",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "compiler/beam/retains-record-fields-across-object-selected-encoding",
+      "Status": "Passed",
+      "Milliseconds": 182
+    },
+    {
+      "Name": "compiler/beam/utf-pattern-bounds-feed-private-integer-guard-table",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "compiler/beam/guarded-byte-groups-reuse-context-and-restore-on-error",
+      "Status": "Passed",
+      "Milliseconds": 51
+    },
+    {
+      "Name": "compiler/beam/lifts-ordinary-second-list-generators-with-owned-continuations",
+      "Status": "Passed",
+      "Milliseconds": 83
+    },
+    {
+      "Name": "compiler/beam/checks-foreign-required-pairs-before-optional-fields",
+      "Status": "Passed",
+      "Milliseconds": 132
+    },
+    {
+      "Name": "compiler/beam/preserves-computed-list-roots-across-catch",
+      "Status": "Passed",
+      "Milliseconds": 22
+    },
+    {
+      "Name": "compiler/beam/uses-direct-cursor-registers-in-nested-list-helpers",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "compiler/beam/preserves-singleton-and-checked-foreign-field-layouts",
+      "Status": "Passed",
+      "Milliseconds": 120
+    },
+    {
+      "Name": "compiler/beam/tuple-join-fields-feed-options-without-intermediate-tuple",
+      "Status": "Passed",
+      "Milliseconds": 41
+    },
+    {
+      "Name": "compiler/beam/lifts-checked-record-updates-in-list-helpers",
+      "Status": "Passed",
+      "Milliseconds": 49
+    },
+    {
+      "Name": "compiler/beam/keeps-required-prefix-fields-through-optional-join",
+      "Status": "Passed",
+      "Milliseconds": 111
+    },
+    {
+      "Name": "compiler/beam/checks-leading-foreign-optional-pair-before-trimming",
+      "Status": "Passed",
+      "Milliseconds": 107
+    },
+    {
+      "Name": "compiler/beam/lifts-strict-tuple-aliases-and-independent-list-siblings",
+      "Status": "Passed",
+      "Milliseconds": 55
+    },
+    {
+      "Name": "compiler/beam/retains-foreign-encoder-pairs-through-three-fields",
+      "Status": "Passed",
+      "Milliseconds": 117
+    },
+    {
+      "Name": "compiler/beam/empty-list-fast-arm-precedes-terminal-call-list-frame",
+      "Status": "Passed",
+      "Milliseconds": 17
+    },
+    {
+      "Name": "compiler/beam/guarded-tagged-alias-dispatch-retains-original-tuple",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "compiler/beam/retained-record-projections-and-proven-tagged-replies",
+      "Status": "Passed",
+      "Milliseconds": 98
+    },
+    {
+      "Name": "compiler/beam/preserves-entry-slot-order-before-an-in-frame-call-result",
+      "Status": "Passed",
+      "Milliseconds": 14
+    },
+    {
+      "Name": "compiler/beam/switches-closed-remote-dispatch-with-constant-exit",
+      "Status": "Passed",
+      "Milliseconds": 57
+    },
+    {
+      "Name": "compiler/beam/retains-optional-foreign-pair-and-matches-closed-bit-padding",
+      "Status": "Passed",
+      "Milliseconds": 207
+    },
+    {
+      "Name": "compiler/beam/clears-consumed-arguments-inside-a-closed-catch",
+      "Status": "Passed",
+      "Milliseconds": 8
+    },
+    {
+      "Name": "compiler/beam/lifts-case-list-elements-from-proven-lexical-scope",
+      "Status": "Passed",
+      "Milliseconds": 83
+    },
+    {
+      "Name": "compiler/beam/keeps-exact-catch-registers-with-literal-call-arguments",
+      "Status": "Passed",
+      "Milliseconds": 113
+    },
+    {
+      "Name": "compiler/beam/guarded-call-result-tails-keep-projections-in-x-registers",
+      "Status": "Passed",
+      "Milliseconds": 37
+    },
+    {
+      "Name": "compiler/beam/lifts-computed-sources-for-discarded-list-effects",
+      "Status": "Passed",
+      "Milliseconds": 85
+    },
+    {
+      "Name": "compiler/beam/keeps-remote-optional-fields-through-required-decode",
+      "Status": "Passed",
+      "Milliseconds": 67
+    },
+    {
+      "Name": "compiler/beam/call-list-retains-entry-values-without-spilling-final-result",
+      "Status": "Passed",
+      "Milliseconds": 40
+    },
+    {
+      "Name": "compiler/beam/known-local-boolean-dispatch-enters-true-tail-first",
+      "Status": "Passed",
+      "Milliseconds": 41
+    },
+    {
+      "Name": "compiler/beam/sequential-tagged-bindings-preserve-final-list-register",
+      "Status": "Passed",
+      "Milliseconds": 15
+    },
+    {
+      "Name": "compiler/beam/reuses-checked-tuple-head-before-list-append",
+      "Status": "Passed",
+      "Milliseconds": 14
+    },
+    {
+      "Name": "compiler/beam/keeps-sized-iolist-results-in-owned-record-slots",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "compiler/beam/clears-dead-record-root-after-final-projected-argument",
+      "Status": "Passed",
+      "Milliseconds": 22
+    },
+    {
+      "Name": "compiler/beam/lifts-sequential-list-comprehension-elements-with-lexical-bindings",
+      "Status": "Passed",
+      "Milliseconds": 78
+    },
+    {
+      "Name": "compiler/beam/projects-checked-entry-list-directly-into-call-frame",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "compiler/beam/keeps-eager-pairs-and-proves-private-bitstring-inputs",
+      "Status": "Passed",
+      "Milliseconds": 119
+    },
+    {
+      "Name": "compiler/beam/keeps-only-the-terminal-list-roots-across-catch",
+      "Status": "Passed",
+      "Milliseconds": 16
+    },
+    {
+      "Name": "compiler/beam/preserves-alignment-only-for-proved-binary-measurements",
+      "Status": "Passed",
+      "Milliseconds": 82
+    },
+    {
+      "Name": "compiler/beam/owns-checked-tagged-record-action-frames",
+      "Status": "Passed",
+      "Milliseconds": 26
+    },
+    {
+      "Name": "compiler/beam/places-heap-before-frameless-list-head-return",
+      "Status": "Passed",
+      "Milliseconds": 46
+    },
+    {
+      "Name": "compiler/beam/lifts-list-generators-from-checked-record-fields",
+      "Status": "Passed",
+      "Milliseconds": 70
+    },
+    {
+      "Name": "compiler/beam/retains-input-and-proved-pairs-in-conditional-record-encoding",
+      "Status": "Passed",
+      "Milliseconds": 93
+    },
+    {
+      "Name": "compiler/beam/orders-one-register-and-constant-tail-arguments",
+      "Status": "Passed",
+      "Milliseconds": 7
+    },
+    {
+      "Name": "compiler/beam/shares-checked-nested-tuple-terminal-fields",
+      "Status": "Passed",
+      "Milliseconds": 30
+    }
+  ]
+}

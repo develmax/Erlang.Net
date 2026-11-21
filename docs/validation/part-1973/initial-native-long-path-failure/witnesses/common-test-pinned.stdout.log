@@ -1,0 +1,27 @@
+
+Common Test starting (cwd is d:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/case-edge-copies-and-owned-frame-order-1973-linked-closure-ordered-test-access-retake-edge-retake/linked-runtime-witnesses)
+
+=ERROR REPORT==== 21-Nov-2026::01:31:21.288000 ===
+Error in process <0.91.0> with exit value:
+{{badmatch,{error,eio}},
+ [{ct_logs,logger,4,[{file,"ct_logs.erl"},{line,776}]}]}
+
+RESULT {{could_not_start_process,ct_logs,{{badmatch,{error,eio}},[{ct_logs,logger,4,[{file,"ct_logs.erl"},{line,776}]}]}},["ct_default.css","jquery-latest.js","jquery-migrate.js","jquery.tablesorter.min.js"]}.
+=ERROR REPORT==== 21-Nov-2026::01:31:21.292000 ===
+** Generic server test_server_io terminating 
+** Last message in was {'EXIT',<0.91.0>,
+                           {{badmatch,{error,eio}},
+                            [{ct_logs,logger,4,
+                                 [{file,"ct_logs.erl"},{line,776}]}]}}
+** When Server state == {st,{1,{unexpected_io,<0.94.0>,nil,nil}},
+                            [unexpected_io],
+                            <0.93.0>,
+                            {0,nil},
+                            {0,nil},
+                            {0,nil},
+                            "</body>\n</html>\n","<name not set>",[],started,
+                            [],undefined,[]}
+** Reason for termination ==
+** {{badmatch,{error,eio}},
+    [{ct_logs,logger,4,[{file,"ct_logs.erl"},{line,776}]}]}
+

@@ -1,0 +1,52 @@
+{
+  "OtpVersion": "29.1.1",
+  "Total": 6,
+  "Counts": {
+    "Different": 1,
+    "Equal": 5
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\local_udp.beam",
+      "Status": "Equal",
+      "Source": "lib\\kernel-11.0.4\\src\\local_udp.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\cdv_bin_cb.beam",
+      "Status": "Equal",
+      "Source": "lib\\observer-2.19\\src\\cdv_bin_cb.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\sasl-4.4\\ebin\\sasl_report.beam",
+      "Status": "Different",
+      "Source": "lib\\sasl-4.4\\src\\sasl_report.erl",
+      "Detail": "Original length 10164, generated length 10476. AtU8 641-\u003E640, Code 2666-\u003E3013, ImpT 196-\u003E184, ExpT 52-\u003E52, LitT 594-\u003E580, LocT 244-\u003E244, Attr 39-\u003E39, Line 154-\u003E156, Type 20-\u003E14",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\sasl-4.4\\ebin\\sasl_report_file_h.beam",
+      "Status": "Equal",
+      "Source": "lib\\sasl-4.4\\src\\sasl_report_file_h.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\sasl-4.4\\ebin\\sasl_report_tty_h.beam",
+      "Status": "Equal",
+      "Source": "lib\\sasl-4.4\\src\\sasl_report_tty_h.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\snmp-5.20.5\\ebin\\snmp_verbosity.beam",
+      "Status": "Equal",
+      "Source": "lib\\snmp-5.20.5\\src\\misc\\snmp_verbosity.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    }
+  ]
+}

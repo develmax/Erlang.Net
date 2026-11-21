@@ -1,0 +1,18 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AtomOwnedTupleEntries.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AtomOwnedTupleEntries.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AtomOwnedTupleEntries.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AtomOwnedTupleEntries.cs
+@@ -28,6 +28,14 @@
+             }
+ 
+             if (selected < 0)
++            {
++                return false;
++            }
++
++            // Reordering branch stack slots also reorders lifted arguments
++            // unless a capture plan is available independently of those slots.
++            if (function.Clauses.SelectMany(clause => LocalFunctionEntries.Walk(clause.Body)).OfType<Expr.Fun>()
++                .Any(closure => ClosureCaptures.Names(closure) is not { Length: 0 }))
+             {
+                 return false;
+             }

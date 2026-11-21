@@ -31,7 +31,13 @@ internal static class BeamDocumentationWriter
             .ToDictionary(group => group.Key, group => group.Last().Signature);
         var exportedSpecs = specForms.Where(spec => exports.Contains(spec.Function)).ToLookup(spec => spec.Function);
         var publicSpecs = exportedSpecs.SelectMany(group => group).Concat(callbacks.Values);
-        var reachableTypes = BeamDocumentationTypes.Reachable(definitions, typeExports, publicSpecs);
+        var recordFields = BeamDocumentationTypes.RecordFields(module);
+        var reachableTypes = BeamDocumentationTypes.Reachable(
+            definitions,
+            typeExports,
+            publicSpecs,
+            recordFields
+        );
         Term? moduleAnnotation = null;
         Term docAnnotation = Term.I(1);
         Term moduleDoc = Term.A("none");
@@ -44,7 +50,9 @@ internal static class BeamDocumentationWriter
         var pendingMetadata = new Dictionary<Term, Term>();
         var deprecations = new BeamDocumentationDeprecations(module.Attributes);
         int docIndex = 0;
-        int functionIndex = module.DiameterAccessorLines.Count;
+        int generatedCount = module.DiameterAccessorLines.Count;
+        int functionIndex = generatedCount;
+        bool writeGeneratedAccessors = generatedCount != 0;
         int typeIndex = 0;
         var typeEntries = new List<((string Name, int Arity) Key, Term Entry)>();
         var visibleReferences = new HashSet<(string Name, int Arity)>(typeExports);
@@ -65,8 +73,11 @@ internal static class BeamDocumentationWriter
                         var moduleForm = module.Documentation[docIndex++];
                         if (moduleForm.Value is not (MapTerm or Atom { Name: "true" }))
                         {
-                            docAnnotation = EntryAnnotation(attribute, Annotation(attribute, source), releaseIncludeFiles);
                             moduleDoc = BeamDocumentationText.Read(moduleForm.Value).Value;
+                            Term location = Annotation(attribute, source);
+                            docAnnotation = moduleForm.Value is Atom { Name: "false" or "hidden" }
+                                ? location
+                                : EntryAnnotation(attribute, location, releaseIncludeFiles);
                         }
                         break;
                     case ModuleAttributeNames.Doc:
@@ -87,12 +98,12 @@ internal static class BeamDocumentationWriter
                         Term callbackLocation = Annotation(attribute, source);
                         var (callbackSignature, callbackDoc) = ReadEntry(pending?.Value, callback.Function);
                         string callbackName = FormatFunctionName(callback.Function.Name);
-                        string signatureText = callbackSignature ?? (signatures.GetValueOrDefault(callback.Function) is { } parsedSignature
-                            ? callbackName + parsedSignature[callback.Function.Name.Length..]
-                            : $"{callbackName}/{callback.Function.Arity}");
+                        string signatureText = callbackSignature
+                            ?? ReadSpecSignature(callback.Function)
+                            ?? $"{callbackName}/{callback.Function.Arity}";
                         if (callbackDoc is not Atom { Name: "hidden" })
                         {
-                            visibleReferences.UnionWith(BeamDocumentationTypes.References(callback.Form));
+                            visibleReferences.UnionWith(BeamDocumentationTypes.References(callback.Form, recordFields));
                         }
                         callbackEntries.Add(Term.Tuple(
                             Term.Tuple(Term.A("callback"), Term.A(callback.Function.Name), Term.I(callback.Function.Arity)),
@@ -110,16 +121,19 @@ internal static class BeamDocumentationWriter
                         var (signature, doc) = ReadEntry(pending?.Value, key);
                         if (doc is not Atom { Name: "hidden" })
                         {
-                            visibleReferences.UnionWith(BeamDocumentationTypes.References(definition.Items[1]));
+                            visibleReferences.UnionWith(BeamDocumentationTypes.References(definition.Items[1], recordFields));
                         }
                         if (reachableTypes.Contains(key))
                         {
                             Term location = Annotation(attribute, source);
                             Term entryLocation = EntryAnnotation(attribute, location, releaseIncludeFiles);
+                            string typeSignature = signature
+                                ?? ReadSpecSignature(key)
+                                ?? BeamDocumentationTypes.Signature(definition, key);
                             typeEntries.Add((key, Term.Tuple(
                                 Term.Tuple(Term.A("type"), Term.A(key.Name), Term.I(key.Arity)),
                                 pending?.Annotation ?? entryLocation,
-                                Cons.From([Binary(signature ?? BeamDocumentationTypes.Signature(definition, key))]),
+                                Cons.From([Binary(typeSignature)]),
                                 doc,
                                 EntryMetadata(
                                     "type",
@@ -136,6 +150,7 @@ internal static class BeamDocumentationWriter
                 continue;
             }
 
+            WriteGeneratedAccessors(token);
             var function = module.DeclaredFunctions[functionIndex++];
             if (!exports.Contains((function.Name, function.Arity)))
             {
@@ -143,29 +158,10 @@ internal static class BeamDocumentationWriter
                 pendingMetadata.Clear();
                 continue;
             }
-            Term functionLocation = Annotation(token, source);
-            var functionKey = (function.Name, function.Arity);
-            var (functionSignature, functionDoc) = ReadEntry(pending?.Value, functionKey);
-            if (functionDoc is not Atom { Name: "hidden" })
-            {
-                foreach (Parser.ReleaseSpec spec in exportedSpecs[functionKey])
-                {
-                    visibleReferences.UnionWith(BeamDocumentationTypes.References(spec.Form));
-                }
-            }
-            string functionSignatureText = functionSignature ?? (signatures.GetValueOrDefault(functionKey) is { } parsedSpec
-                ? FormatFunctionName(function.Name) + parsedSpec[function.Name.Length..]
-                : Signature(function));
-            entries.Add(Term.Tuple(
-                Term.Tuple(Term.A("function"), Term.A(function.Name), Term.I(function.Arity)),
-                pending?.Annotation ?? EntryAnnotation(token, functionLocation, releaseIncludeFiles),
-                Cons.From([Binary(functionSignatureText)]),
-                functionDoc,
-                EntryMetadata("function", functionKey, functionLocation)
-            ));
-            pending = null;
-            pendingMetadata.Clear();
+
+            WriteFunction(function, token, Annotation(token, source));
         }
+        WriteGeneratedAccessors(tokens[^1]);
         if (moduleAnnotation is null || pending is not null || pendingMetadata.Count != 0)
         {
             throw Unsupported();
@@ -202,6 +198,53 @@ internal static class BeamDocumentationWriter
         );
 
         return BeamOtpEtfCompression.Encode(document);
+
+        void WriteGeneratedAccessors(Token firstSource)
+        {
+            if (!writeGeneratedAccessors)
+            {
+                return;
+            }
+
+            writeGeneratedAccessors = false;
+            // diameter_exprecs inserts its functions before the first function or EOF.
+            for (int index = 0; index < generatedCount; index++)
+            {
+                WriteFunction(
+                    module.DeclaredFunctions[index],
+                    firstSource,
+                    Term.I(module.DiameterAccessorLines[index])
+                );
+            }
+        }
+
+        void WriteFunction(FunctionDefinition function, Token token, Term functionLocation)
+        {
+            var functionKey = (function.Name, function.Arity);
+            var (functionSignature, functionDoc) = ReadEntry(pending?.Value, functionKey);
+            if (functionDoc is not Atom { Name: "hidden" })
+            {
+                foreach (Parser.ReleaseSpec spec in exportedSpecs[functionKey])
+                {
+                    visibleReferences.UnionWith(BeamDocumentationTypes.References(spec.Form, recordFields));
+                }
+            }
+            string functionSignatureText = functionSignature ?? ReadSpecSignature(functionKey) ?? Signature(function);
+            entries.Add(Term.Tuple(
+                Term.Tuple(Term.A("function"), Term.A(function.Name), Term.I(function.Arity)),
+                pending?.Annotation ?? EntryAnnotation(token, functionLocation, releaseIncludeFiles),
+                Cons.From([Binary(functionSignatureText)]),
+                functionDoc,
+                EntryMetadata("function", functionKey, functionLocation)
+            ));
+            pending = null;
+            pendingMetadata.Clear();
+        }
+
+        string? ReadSpecSignature((string Name, int Arity) key) =>
+            signatures.GetValueOrDefault(key) is { } signature
+                ? FormatFunctionName(key.Name) + signature[key.Name.Length..]
+                : null;
 
         Term EntryMetadata(
             string kind,
@@ -253,7 +296,7 @@ internal static class BeamDocumentationWriter
 
         int separator = Math.Max(file.LastIndexOf('/'), file.LastIndexOf('\\'));
 
-        string recordedFile = releaseIncludeFiles?.GetValueOrDefault(file)
+        string recordedFile = attribute.RecordedIncludePath ?? releaseIncludeFiles?.GetValueOrDefault(file)
             ?? (attribute.HasExplicitFileLocation ? file : file[(separator + 1)..]);
 
         return Term.List(
@@ -265,7 +308,7 @@ internal static class BeamDocumentationWriter
     private static BitString Binary(string value) => new(Encoding.UTF8.GetBytes(value));
 
     private static bool IsBehaviour(ModuleAttribute attribute) =>
-        attribute.Name is "behaviour" or "behavior" && attribute.Value is Atom;
+        attribute.Name == "behaviour" && attribute.Value is Atom;
 
     private static string Signature(FunctionDefinition function)
     {

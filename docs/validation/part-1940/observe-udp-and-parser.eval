@@ -1,0 +1,23 @@
+[Image,Output]=init:get_plain_arguments(),
+{ok,Bytes}=file:read_file(Image),
+{ok,{Module,_}}=beam_lib:chunks(Bytes,[exports]),
+case code:is_sticky(Module) of true -> true=code:unstick_mod(Module); false -> ok end,
+code:purge(Module),code:delete(Module),code:purge(Module),
+{module,Module}=code:load_binary(Module,"linked-probe",Bytes),
+Results=case Module of
+    erl_parse ->
+        Inputs=[{parse_form,"-module(parsed)."}, {parse_form,"f(0)-> ok; f(X)-> {ok,X}."},
+                {parse_form,"f( -> x."},{parse_exprs,"[X || X <- [1,2], X > 1]."},
+                {parse_exprs,"#{a => <<4:8>>,b => self()}."},{parse_exprs,"[1|]."},
+                {parse_term,"{sample,[1,2],<<8>>}."},{parse_term,"{sample, $A, 2.0}."}],
+        [begin {ok,Tokens,_}=erl_scan:string(Text), Module:Mode(Tokens) end || {Mode,Text}<-Inputs];
+    local_udp ->
+        Inputs=[[invalid,{local,<<>>},0],[invalid,{local,"none"},0],
+                [invalid,{local,<<>>},0.0],[invalid,{inet,<<>>},0],
+                [invalid,bad,0],[invalid,{local,<<>>},10]],
+        [try apply(Module,connect,Args) of Value->{ok,Value}
+         catch Class:Reason:Stack->{Class,Reason,[{F,A,proplists:get_value(line,Info)}
+                                              || {Mod,F,A,Info}<-Stack,Mod=:=Module]} end || Args<-Inputs]
+end,
+ok=file:write_file(Output,term_to_binary(Results)),
+halt().

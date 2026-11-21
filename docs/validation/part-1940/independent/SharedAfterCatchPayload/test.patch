@@ -1,0 +1,58 @@
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12560,6 +12560,7 @@
+ Test(Erlang.Tests.BeamCheckedResultPayloadChecks.OwnedCallTestName, Erlang.Tests.BeamCheckedResultPayloadChecks.CheckOwnedCallsAndFailures);
+ Test(Erlang.Tests.BeamBoundConstructorConstantChecks.TestName, Erlang.Tests.BeamBoundConstructorConstantChecks.Run);
+ Test(Erlang.Tests.BeamCaughtListHeadEntryChecks.TestName, Erlang.Tests.BeamCaughtListHeadEntryChecks.Run);
++Test(Erlang.Tests.BeamCaughtListHeadEntryChecks.SharedPayloadTestName, Erlang.Tests.BeamCaughtListHeadEntryChecks.CheckSharedPayload);
+ Test(Erlang.Tests.BeamCallArgumentKillsChecks.TestName, Erlang.Tests.BeamCallArgumentKillsChecks.Run);
+ Test(Erlang.Tests.BeamMeasuredDecoderPairChecks.TestName, Erlang.Tests.BeamMeasuredDecoderPairChecks.Run);
+ Test(Erlang.Tests.BeamClosedDecoderTagsChecks.TestName, Erlang.Tests.BeamClosedDecoderTagsChecks.Run);
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamCaughtListHeadEntryChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamCaughtListHeadEntryChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamCaughtListHeadEntryChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamCaughtListHeadEntryChecks.cs
+@@ -9,6 +9,8 @@
+ internal static class BeamCaughtListHeadEntryChecks
+ {
+     internal const string TestName = "compiler/beam/checks-caught-list-heads-before-allocating-the-frame";
++    internal const string SharedPayloadTestName = "compiler/beam/shares-a-checked-pair-after-closing-catch";
++    private const string SharedPayloadError = "The closed catch did not share the selected pair payload.";
+     private const string Module = "beam_caught_list_head_entry";
+     private const string ShapeError = "A checked entry head retained its framed failure relay.";
+ 
+@@ -56,6 +58,34 @@
+         }
+     }
+ 
++    internal static void CheckSharedPayload()
++    {
++        string alternate = Source.Replace("service:report(Reason),", "service:report(refused),", StringComparison.Ordinal)
++            .Replace("{stop,Reason}", "{stop,refused}", StringComparison.Ordinal);
++        if (alternate == Source || !HasSharedPayload(Source) || HasSharedPayload(alternate))
++        {
++            throw new InvalidOperationException(SharedPayloadError);
++        }
++    }
++
++    private static bool HasSharedPayload(string source)
++    {
++        object code = Code(CodeGeneration.CompileBeamModule(source, Module + ".erl"));
++        object[] instructions = Children(code, "Instructions");
++        for (int index = 0; index + 5 < instructions.Length; index++)
++        {
++            if (Opcode(instructions[index]) == CatchEnd && Opcode(instructions[index + 1]) == IsTuple
++                && Opcode(instructions[index + 2]) == TestArity && Opcode(instructions[index + 3]) == GetTupleElement
++                && Opcode(instructions[index + 4]) == GetTupleElement && Opcode(instructions[index + 5]) == SelectValue
++                && Children(instructions[index + 4], "Operands")[^1].Equals(Children(instructions[index], "Operands")[0]))
++            {
++                return true;
++            }
++        }
++
++        return false;
++    }
++
+     private static object[] Children(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
+ 
+     private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");

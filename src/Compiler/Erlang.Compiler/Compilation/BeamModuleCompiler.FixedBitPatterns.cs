@@ -419,6 +419,63 @@ internal sealed partial class BeamModuleCompiler
             return true;
         }
 
+        private bool TryEmitLongOpenBinaryPrefix(
+            BitPattern pattern,
+            int value,
+            int failure,
+            bool knownBinary
+        )
+        {
+            const int maximumEnsuredStringBits = 64;
+            int length = pattern.Segments.Count - 1;
+            if (length <= maximumEnsuredStringBits / BitSyntaxDefaults.BinaryUnit
+                || pattern.Segments[^1] is not
+                {
+                    Value: Pattern.Variable { Name: VariableScopeNames.Wildcard },
+                    Specification:
+                    {
+                        Type: BitSegmentTypes.Binary, Size: null,
+                        Unit: BitSyntaxDefaults.BinaryUnit or BitSyntaxDefaults.BitStringUnit
+                    } tail
+                })
+            {
+                return false;
+            }
+
+            var prefix = new byte[length];
+            for (int index = 0; index < length; index++)
+            {
+                var segment = pattern.Segments[index];
+                if (!IsByte(segment.Specification)
+                    || segment.Value is not Pattern.Literal { Value: Integer literal }
+                    || literal.Value < byte.MinValue || literal.Value > byte.MaxValue)
+                {
+                    return false;
+                }
+
+                prefix[index] = (byte)literal.Value;
+            }
+
+            Load(value);
+            const int context = 1;
+            EmitBitMatchStart(context, failure, knownBinary);
+            owner.EmitBinaryString(prefix, failure, context);
+            if (!knownBinary && tail.Unit == BitSyntaxDefaults.BinaryUnit)
+            {
+                // Matching the constant prefix establishes length. Binary tails
+                // still require unit alignment after the last matched byte.
+                EmitBitMatchHeader(
+                    context,
+                    failure,
+                    3,
+                    0,
+                    tail.Unit
+                );
+            }
+
+            return true;
+        }
+
         private void EmitFixedBitPattern(
             BitPattern pattern,
             int value,
@@ -427,6 +484,17 @@ internal sealed partial class BeamModuleCompiler
             bool knownBinary = false
         )
         {
+            if (registerCaptures is null && owner.receiveScratchRegisters is null
+                && TryEmitLongOpenBinaryPrefix(
+                    pattern,
+                    value,
+                    failure,
+                    knownBinary
+                ))
+            {
+                return;
+            }
+
             for (int index = 0; index < pattern.Segments.Count; index++)
             {
                 var segment = pattern.Segments[index].Specification;

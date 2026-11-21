@@ -817,7 +817,9 @@ internal sealed partial class BeamModuleCompiler
             Op(Move, XRegisterTag, sourceRegister);
             Operand(YRegisterTag, 0);
         }
-        if (orderTailMoves)
+        bool mixedCallWithOneRegisterMove = !ordinary && !call.DynamicRemote && consArgument is null
+            && moves.Count == 1 && constants.Count != 0;
+        if (orderTailMoves || mixedCallWithOneRegisterMove)
         {
             EmitOrderedTailMoves(moves, constants);
         }
@@ -827,21 +829,6 @@ internal sealed partial class BeamModuleCompiler
         }
         else
         {
-            // The independent x1 move precedes the x0-to-x2 forwarding chain.
-            if (makeFunction && !ordinary && moves is [(2, 0)]
-                && constants is [(0, _), (1, var functionName)])
-            {
-                EmitConstant(functionName, 1);
-                constants.RemoveAt(1);
-            }
-            // A local tail call can populate the new argument register before forwarding x1.
-            if (!ordinary && call.Module is null && !call.DynamicRemote && consArgument is null
-                && clause.Patterns.Count == 2 && moves is [(0, 1)]
-                && constants is [(1, _), (2, var trailing)])
-            {
-                EmitConstant(trailing, 2);
-                constants.RemoveAt(1);
-            }
             EmitArgumentMoves(moves, constants);
         }
         if (ordinary || call.Module is not null)

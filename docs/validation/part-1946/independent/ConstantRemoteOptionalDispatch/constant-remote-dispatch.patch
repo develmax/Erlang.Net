@@ -1,0 +1,118 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LeadingAtomTailDispatch.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LeadingAtomTailDispatch.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LeadingAtomTailDispatch.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LeadingAtomTailDispatch.cs
+@@ -11,6 +11,11 @@
+             if (function.Arity < 2 || function.Clauses.Count < 2)
+             {
+                 return false;
++            }
++
++            if (closed && !owner.ModuleOptimizationDisabled && TryEmitClosedRemoteTailDispatch(function))
++            {
++                return true;
+             }
+ 
+             Clause first = function.Clauses[0];
+@@ -143,6 +148,102 @@
+             return true;
+         }
+ 
++        private bool TryEmitClosedRemoteTailDispatch(FunctionDefinition function)
++        {
++            if (function.Clauses is not
++                [
++                { Guard: null, Patterns: [Pattern.Literal { Value: Atom first }, ..], Body: var action } run,
++                {
++                    Guard: null,
++                    Patterns: [Pattern.Literal { Value: Atom second }, ..],
++                    Body: Expr.Call { Function: AutoImportNames.Exit, Arguments: [var reason] } exit
++                } reject
++                ]
++                || first.Equals(second) || !owner.ResolvesErlangBif(exit)
++                || !AttributeLiteral.TryNormalizeConstant(reason, out _))
++            {
++                return false;
++            }
++
++            var runParameters = run.Patterns.ToArray();
++            var rejectedParameters = reject.Patterns.ToArray();
++            runParameters[0] = new Pattern.Variable(VariableScopeNames.Wildcard);
++            rejectedParameters[0] = runParameters[0];
++            if (!HasUnconditionalParameters(run with { Patterns = runParameters })
++                || !HasUnconditionalParameters(reject with { Patterns = rejectedParameters })
++                || ReadEntryCall(exit, [], allowControlTransfer: true) is not { } failure)
++            {
++                return false;
++            }
++
++            var parameters = runParameters.Cast<Pattern.Variable>().Select(item => item.Name).ToArray();
++            EntryCall? preparation = null;
++            string[] tailInputs = parameters;
++            if (action is Expr.Sequence
++                {
++                    Items: [Expr.Match { Pattern: Pattern.Variable bound, Value: Expr.Call prepare }, Expr.Call tail]
++                })
++            {
++                if (bound.Name == VariableScopeNames.Wildcard || parameters.Contains(bound.Name, StringComparer.Ordinal)
++                    || prepare.Arguments is not [Expr.Variable]
++                    || ReadEntryCall(prepare, parameters) is not { Module: null, ConstructedArgument: null } producer)
++                {
++                    return false;
++                }
++
++                preparation = producer;
++                tailInputs = [bound.Name];
++                action = tail;
++            }
++
++            if (action is not Expr.Call { Arguments: [Expr.Variable, var options] } target
++                || !AttributeLiteral.TryNormalizeConstant(options, out _)
++                || ReadEntryCall(target, tailInputs) is not { Module: not (null or ErlangModuleNames.Module) } continuation)
++            {
++                return false;
++            }
++
++            int functionInfo = owner.nextLabel - 2;
++            bool ascending = TermOrder.Compare(first, second, exact: true) < 0;
++            int higher = Label();
++            int lower = Label();
++            owner.Op(SelectValue, XRegisterTag, 0);
++            owner.Operand(LabelTag, functionInfo);
++            owner.instructions.WriteByte(ExtendedListOperand);
++            owner.Operand(BeamWire.UnsignedTag, 4);
++            owner.LiteralOperand(ascending ? first : second);
++            owner.Operand(LabelTag, lower);
++            owner.LiteralOperand(ascending ? second : first);
++            owner.Operand(LabelTag, higher);
++
++            Mark(higher);
++            EmitArm(rejected: ascending);
++            Mark(lower);
++            EmitArm(rejected: !ascending);
++
++            return true;
++
++            void EmitArm(bool rejected)
++            {
++                if (rejected)
++                {
++                    EmitRegisterTailCall(failure);
++                }
++                else if (preparation is null)
++                {
++                    EmitRegisterTailCall(continuation);
++                }
++                else
++                {
++                    EmitEntryCallChain(
++                        preparation,
++                        parameters,
++                        [(continuation, null)]
++                    );
++                }
++            }
++        }
++
+         private static bool HasIndependentLeadingTailCalls(IEnumerable<EntryCall> calls)
+         {
+             var seen = new List<EntryCall>();

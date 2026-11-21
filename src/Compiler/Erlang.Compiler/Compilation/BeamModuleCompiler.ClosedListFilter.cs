@@ -8,7 +8,7 @@ internal sealed partial class BeamModuleCompiler
 
     private sealed partial class GeneralEmitter
     {
-        private bool TryEmitBooleanFilterTuple(FunctionDefinition function)
+        private bool TryEmitRecursiveListBooleanFilter(FunctionDefinition function)
         {
             if (!function.IsRecursiveListMapper || function.Clauses[0] is not
                 {
@@ -17,9 +17,24 @@ internal sealed partial class BeamModuleCompiler
                     Body: Expr.Case
                     {
                         Value: Expr.Call predicate,
-                        Clauses: [{ Body: Expr.List { Items: [Expr.Tuple tuple] } }, _, _]
+                        Clauses: [{ Body: Expr.List { Items: [var value] } }, _, _]
                     }
                 })
+            {
+                return false;
+            }
+
+            var calls = new List<ListMapperCall>();
+            if (value is Expr.Variable returned && returned.Name == item.Name && function.Arity == 1
+                && !function.IsStrictRecursiveListMapper && IsExhaustiveLocalBooleanSelector(predicate)
+                && AppendListMapperCalls(predicate, item.Name, calls))
+            {
+                EmitClosedListFilter([], new(predicate, calls, Negate: false), (function, null));
+
+                return true;
+            }
+
+            if (value is not Expr.Tuple tuple)
             {
                 return false;
             }
@@ -27,18 +42,17 @@ internal sealed partial class BeamModuleCompiler
             var fields = new Term?[tuple.Items.Count];
             for (int index = 0; index < tuple.Items.Count; index++)
             {
-                Expr value = tuple.Items[index];
-                if (AttributeLiteral.TryNormalizeConstant(value, out Term constant))
+                Expr field = tuple.Items[index];
+                if (AttributeLiteral.TryNormalizeConstant(field, out Term constant))
                 {
                     fields[index] = constant;
                 }
-                else if (value is not Expr.Variable variable || variable.Name != item.Name)
+                else if (field is not Expr.Variable variable || variable.Name != item.Name)
                 {
                     return false;
                 }
             }
 
-            var calls = new List<ListMapperCall>();
             if (fields.All(field => field is not null) || !AppendListMapperCalls(predicate, item.Name, calls))
             {
                 return false;
@@ -52,7 +66,7 @@ internal sealed partial class BeamModuleCompiler
         private void EmitClosedListFilter(
             IReadOnlyList<ListMapperCall> mapperCalls,
             ListMapperFilter filter,
-            (FunctionDefinition Function, Term?[] Fields)? projection = null
+            (FunctionDefinition Function, Term?[]? Fields)? projection = null
         )
         {
             var predicate = filter.Calls[^1].Call;
@@ -171,14 +185,14 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 owner.EmitFieldCall(1, entry);
-                owner.Op(TestHeap, BeamWire.UnsignedTag, ConsHeapWords + (projection is { } tuple ? tuple.Fields.Length + 1 : 0));
+                owner.Op(TestHeap, BeamWire.UnsignedTag, ConsHeapWords + (projection?.Fields is { } fields ? fields.Length + 1 : 0));
                 owner.Operand(BeamWire.UnsignedTag, 1);
-                if (projection is { } result)
+                if (projection?.Fields is { } tupleFields)
                 {
                     owner.Op(PutTuple, XRegisterTag, 1);
                     owner.instructions.WriteByte(ExtendedListOperand);
-                    owner.Operand(BeamWire.UnsignedTag, result.Fields.Length);
-                    foreach (Term? field in result.Fields)
+                    owner.Operand(BeamWire.UnsignedTag, tupleFields.Length);
+                    foreach (Term? field in tupleFields)
                     {
                         if (field is null)
                         {
@@ -191,7 +205,7 @@ internal sealed partial class BeamModuleCompiler
                     }
                 }
 
-                owner.Op(PutList, projection is null ? YRegisterTag : XRegisterTag, projection is null ? 0 : 1);
+                owner.Op(PutList, projection?.Fields is null ? YRegisterTag : XRegisterTag, projection?.Fields is null ? 0 : 1);
                 owner.Operand(XRegisterTag, 0);
                 owner.Operand(XRegisterTag, 0);
                 owner.EmitFrameReturn(1);
@@ -204,6 +218,23 @@ internal sealed partial class BeamModuleCompiler
                 owner.Operand(LabelTag, entry);
                 owner.Operand(BeamWire.UnsignedTag, 2);
             }
+        }
+
+        private bool IsExhaustiveLocalBooleanSelector(Expr expression)
+        {
+            if (!owner.SsaTypeInferenceEnabled || owner.ModuleOptimizationDisabled
+                || owner.OnLoadFunction is not null || owner.SourceModule?.DeclaredNifs is { Count: > 0 }
+                || expression is not Expr.Call { Module: null, DynamicRemote: false } call
+                || owner.ResolvesErlangBif(call))
+            {
+                return false;
+            }
+
+            var target = (call.Function, call.Arguments.Count);
+
+            return localFunctions.TryGetValue(target, out var function)
+                && !owner.IsDeclaredNative(target)
+                && function.Clauses.All(clause => IsBooleanResult(clause.Body));
         }
 
         private static bool IsBooleanResult(Expr expression) => expression switch

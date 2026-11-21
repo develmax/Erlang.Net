@@ -1,0 +1,34 @@
+{
+  "Gains": {
+    "AtU8": 1,
+    "ImpT": 2,
+    "Type": 1,
+    "StrT": 1
+  },
+  "Losses": {},
+  "Modules": [
+    {
+      "Module": "ct_config_xml",
+      "Gains": [
+        "AtU8",
+        "ImpT",
+        "Type"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "ssh_transport",
+      "Gains": [
+        "StrT"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "xmerl_sax_simple_dom",
+      "Gains": [
+        "ImpT"
+      ],
+      "Losses": []
+    }
+  ]
+}

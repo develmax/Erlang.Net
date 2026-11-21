@@ -1,0 +1,10 @@
+# Nested computed generator failure locations
+
+The exact Part1976 linked native fixture uses the copied compiler 72959CEE. The failed outcome is joined/2 with a malformed outer input. Its helper starts at line 5, its physically earlier success block emits line 6 for maps:get, and the cold bad_generator tail call lacks a restoring Line. Pinned emits Line 5 just before erlang:error/1. The native helper, arity, reason and observed producer order otherwise match.
+
+Pinned v3_core:lc_tq1 calls bad_generator with the evaluated Arg at line 1843. bad_generator_common takes get_anno(Arg) at line 3128. A multiline independent source witness proves the distinction from the helper header. Pinned native exceptions use RHS lines 5 and 7, and the helper headers are at 4 and 6. On the exact current C# assembly, followed by pinned native execution, errors instead use lines 7 and 6.
+
+The nested planning path previously used the generator operator annotation for failure rather than the parser's InputLine/InputFile. Also, the two nested helpers do not use the single-recursive-mapper flag checked by IsRecursiveListGeneratorFailure, so the regular and tail path suppress a cold Line against the planned lexical function location. The patch records the existing RHS annotation on only the synthesized generator error. It routes that call through the existing last-emitted-Line rule, including both call forms. Helper names, capture arguments, and helper header/parent call locations stay in their existing planning paths.
+
+Extend the existing BeamNestedListGeneratorChecks test. It keeps helper topology assertions and verifies explicit cold Line 5 for joined and RHS lines 5/7 for both multiline helpers. No registry change. Both patches applied strictly to copied preimages and all five C# files parsed without syntax errors. The original linked stderr, actual native disassembly, exact original and pinned multiline images and logs are retained. The patched candidate has no SDK build or native retake in this artifact.
+

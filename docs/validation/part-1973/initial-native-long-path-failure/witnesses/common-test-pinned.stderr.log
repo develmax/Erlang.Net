@@ -1,0 +1,24 @@
+Error! Failed to eval: [Image,SuiteDir,LogDir]=init:get_plain_arguments(),
+{ok,Beam}=file:read_file(Image),
+{module,ct_logs}=code:load_binary(ct_logs,Image,Beam),
+Parent=self(),
+spawn(fun()-> Parent!{ct_result,ct:run_test([{dir,SuiteDir},{suite,case_arm_ct_SUITE},
+                                          {logdir,LogDir},{basic_html,false}])} end),
+receive {ct_result,TestResults}->
+    {ok,Top}=file:list_dir(LogDir),
+    [Run]=[Path||Path<-Top,lists:prefix("ct_run.",Path)],
+    {ok,RunFiles}=file:list_dir(filename:join(LogDir,Run)),
+    Static=fun(Files)->lists:sort([F||F<-Files,lists:member(filename:extension(F),[".css",".js"])]) end,
+    Both=Static(Top),
+    Both=Static(RunFiles),
+    true=length(Both)=:=4,
+    io:format("RESULT ~0p.~n",[{TestResults,Both}]),
+    {1,0,{0,0}}=TestResults,
+    halt()
+after 30000->erlang:error(ct_timeout)
+end.
+
+
+Runtime terminating during boot ({{badmatch,{could_not_start_process,ct_logs,{{badmatch,{error,eio}},[{ct_logs,logger,4,[{file,"ct_logs.erl"},{line,776}]}]}}},[{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,796}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{init,start_it,1,[{file,"init.erl"},{line,1561}]},{init,start_em,1,[{file,"init.erl"},{line,1546}]},{init,do_boot,3,[{file,"init.erl"},{line,1217}]}]})
+
+Crash dump is being written to: D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\case-edge-copies-and-owned-frame-order-1973-linked-closure-ordered-test-access-retake-edge-retake\linked-runtime-witnesses\common-test-pinned-crash.dump...done

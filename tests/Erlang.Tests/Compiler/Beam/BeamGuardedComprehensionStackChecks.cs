@@ -1,0 +1,90 @@
+using Erlang;
+using Erlang.Compiler;
+
+namespace Erlang.Tests;
+
+internal static class BeamGuardedComprehensionStackChecks
+{
+    internal const string TestName = "compiler/beam/keeps-guarded-comprehension-failure-frames";
+    private const string Fixture = "beam_guarded_comprehension_stack_probe.erl";
+    private const string Entry = "entry";
+    private const string Helper = "-run/2-lc$^0/1-0-";
+    private const string IncorrectValue = "The guarded comprehension changed a decoded result.";
+    private const string IncorrectStack = "The guarded comprehension lost its helper frame or source line.";
+
+    private const string Source = """
+        -module(beam_guarded_comprehension_stack_probe).
+        -export([entry/1]).
+
+        entry(Input) -> run(Input, []).
+
+        run(Input, Tags) ->
+            Items = prepare(Input, Tags),
+            [begin
+                Value = decode(Item, [2]),
+                if
+                    0 =< Value, Value =< 9 -> Value;
+                    true -> exit({error, bad_range})
+                end
+            end || Item <- Items].
+
+        prepare(Input, []) -> Input.
+        decode(Item, [2]) -> Item.
+        """;
+
+    internal static async Task Run()
+    {
+        byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
+        var module = BeamModule.Prepare(image, new BeamDependencySelection(["lists"]));
+        await using var runtime = new ProcessRuntime();
+        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
+        await actor.InvokeAsync(async context =>
+        {
+            Term input = Term.List(Term.I(0), Term.I(9));
+            if (!input.Equals(await module.Invoke(context, Entry, input))
+                || !Nil.Value.Equals(await module.Invoke(context, Entry, Nil.Value)))
+            {
+                throw new InvalidOperationException(IncorrectValue);
+            }
+
+            try
+            {
+                await module.Invoke(context, Entry, Term.List(Term.I(0), Term.I(10)));
+                throw new InvalidOperationException(IncorrectValue);
+            }
+            catch (ErlangException error)
+            {
+                RequireFrame(error, Term.Tuple(Term.A("error"), Term.A("bad_range")), ErrorLine("true -> exit"));
+            }
+
+            Term invalidSource = Term.A("not_a_list");
+            try
+            {
+                await module.Invoke(context, Entry, invalidSource);
+                throw new InvalidOperationException(IncorrectValue);
+            }
+            catch (ErlangException error)
+            {
+                RequireFrame(error, Term.Tuple(Term.A("bad_generator"), invalidSource), ErrorLine("Item <- Items"));
+            }
+
+            return Nil.Value;
+        });
+    }
+
+    private static int ErrorLine(string anchor) =>
+        Source.Split('\n').Select((line, index) => (line, index)).Single(
+            item => item.line.Contains(anchor, StringComparison.Ordinal)
+        ).index + 1;
+
+    private static void RequireFrame(ErlangException error, Term reason, int line)
+    {
+        if (!reason.Equals(error.Reason)
+            || error.StackTraceTerm is not Cons { Head: TupleTerm { Items: [_, Atom name, Integer arity, var location] } }
+            || name.Name != Helper || arity.Value != 1
+            || !Cons.Items(location).Any(value => value.Equals(Term.Tuple(Term.A("line"), Term.I(line)))))
+        {
+            throw new InvalidOperationException(IncorrectStack);
+        }
+    }
+}

@@ -46,6 +46,14 @@ internal sealed partial class BeamModuleCompiler
                     .Any(expression => expression is Expr.Fun));
             bool tupleBodyDispatch = tupleDispatchSupported
                 && (recordReturnDispatch || function.Clauses.Any(clause => clause.Body is Expr.Sequence or Expr.Case or Expr.If));
+            bool canPartitionTupleAndAtom = owner.SsaTypeInferenceEnabled && !owner.ModuleOptimizationDisabled
+                && tupleBodyDispatch && !listDispatch
+                && function.Clauses is [
+                { Guard: null, Patterns: [Pattern.Tuple partitionShape, ..] },
+                { Guard: null, Patterns: [Pattern.Literal { Value: Atom }, ..] },
+                { Guard: null } partitionCatchAll
+                ]
+                && HasTupleTag(partitionShape, out _) && HasUnconditionalParameters(partitionCatchAll);
             bool hasArithmeticCall = function.Clauses.Any(clause => clause.Body is Expr.Call call
                 && call.Arguments.Any(argument => argument is Expr.Binary));
             bool literalDispatch = !tupleDispatch && !listDispatch
@@ -77,8 +85,9 @@ internal sealed partial class BeamModuleCompiler
                 EntryConstructedArgument? TupleResult, (Pattern.Variable Variable, int Register)[]? BodyInputs,
                 DeferredConsEntry? DeferredCons, bool ArithmeticTail, CallArgumentConstructions? ReturnedConstruction,
                 SavedCallSequence? SavedCalls)>();
-            foreach (Clause clause in function.Clauses)
+            foreach (Clause sourceClause in function.Clauses)
             {
+                Clause clause = owner.ModuleOptimizationDisabled ? sourceClause : AliasNestedOrderedConsHead(sourceClause);
                 HashSet<string> unusedTupleFields = [];
                 if (clause.Patterns.Any(pattern => pattern is Pattern.Tuple))
                 {
@@ -579,7 +588,7 @@ internal sealed partial class BeamModuleCompiler
                     };
                 }
 
-                if (consResult is not null && fieldTests.Count == 0 && equalities.Count == 0 && cons is [var sourceList]
+                if (consResult is { Ordered: null } && fieldTests.Count == 0 && equalities.Count == 0 && cons is [var sourceList]
                     && tuples is [var sourceTuple] && sourceTuple.Input == sourceList.Head && sourceTuple.Fields.Count > 0)
                 {
                     var last = sourceTuple.Fields[^1];
@@ -717,8 +726,8 @@ internal sealed partial class BeamModuleCompiler
                         }
 
                         cons.Add((current, headRegister, tailRegister, (head as Pattern.Literal)?.Value));
-                        if (head is not (Erlang.Pattern.Literal or Erlang.Pattern.Variable) && (head is not Pattern.Tuple tuple
-                            || !ReadTuple(headRegister, tuple)))
+                        if (head is not (Erlang.Pattern.Literal or Erlang.Pattern.Variable)
+                            && (EntryShape(head) is not Pattern.Tuple tuple || !ReadConsTuple(headRegister, head, tuple)))
                         {
                             return false;
                         }
@@ -763,7 +772,9 @@ internal sealed partial class BeamModuleCompiler
                         if (!names.Add(variable.Name))
                         {
                             int bound = parameters.IndexOf(variable.Name);
-                            if (!listDispatch || cons.Count == 0 || bound < 0)
+                            bool checkedAtomArm = canPartitionTupleAndAtom && branches.Count == 1 && tuples.Count > 0
+                                && tuples.Any(shape => shape.Fields.Any(field => field.Register == bound));
+                            if (bound < 0 || !(checkedAtomArm || listDispatch && cons.Count != 0))
                             {
                                 return false;
                             }
@@ -1007,6 +1018,64 @@ internal sealed partial class BeamModuleCompiler
                 arityCount = tuplePrefix.Count;
             }
 
+            int atomHeadBranch = -1;
+            bool groupedHeadArities = false;
+            if (arityCount == 0 && mixedPrefix is { } headPrefix && twoCellPrefix is null && !reuseMixedTail
+                && headPrefix.Count + 1 == branches.Count
+                && branches[^1] is { Clause.Guard: null, Literals: [var emptyFallback], Equalities.Count: 0 }
+                && emptyFallback.Index == headPrefix.Input && emptyFallback.Value is Nil)
+            {
+                // Tests that can fail inside an arity must leave the original arguments and shared list parts intact.
+                var tupleArms = new List<int>();
+                bool closedPrefix = true;
+                for (int index = 0; index < headPrefix.Count; index++)
+                {
+                    var candidate = branches[index];
+                    if (candidate is not
+                        {
+                            Cons: [var list],
+                            Literals.Count: 0,
+                            Equalities.Count: 0,
+                            ConsResult: not { HeadCall.ExtractTail: true }
+                        }
+                        || list.Input != headPrefix.Input || list.Head != function.Arity || list.Tail != list.Head + 1
+                        || candidate.Parameters.Length >= FirstReservedXRegister
+                        || function.Clauses[index].Patterns[headPrefix.Input] is not
+                            Erlang.Pattern.List { Items: [Erlang.Pattern.Tuple or Erlang.Pattern.Literal], Tail: Erlang.Pattern.Variable })
+                    {
+                        closedPrefix = false;
+                        break;
+                    }
+
+                    if (list.HeadLiteral is Atom && candidate is { Clause.Guard: null, Tuples.Count: 0 }
+                        && atomHeadBranch < 0)
+                    {
+                        atomHeadBranch = index;
+                    }
+                    else if (list.HeadLiteral is null && candidate.Tuples is [{ Tag: null } tuple]
+                        && tuple.Input == list.Head && tuple.Fields.All(field => field.Register > list.Tail))
+                    {
+                        tupleArms.Add(index);
+                    }
+                    else
+                    {
+                        closedPrefix = false;
+                        break;
+                    }
+                }
+
+                if (closedPrefix && tupleArms.Select(index => branches[index].Tuples[0].Arity).Distinct().Count() > 1)
+                {
+                    groupedHeadArities = true;
+                    arityCount = tupleArms.Count;
+                    tupleArms.OrderByDescending(index => branches[index].Tuples[0].Arity).ToArray().CopyTo(order, 0);
+                    if (atomHeadBranch >= 0)
+                    {
+                        order[arityCount] = atomHeadBranch;
+                    }
+                }
+            }
+
             bool splitTupleAndAtom = reuseMixedTail && mixedPrefix is { Count: > 2 }
                 && branches[0] is
                 {
@@ -1030,7 +1099,7 @@ internal sealed partial class BeamModuleCompiler
                     TermOrder.Compare(prefixKeys.Keys[right], prefixKeys.Keys[left], exact: true))
                 );
             }
-            else if (arityCount > 0)
+            else if (arityCount > 0 && !groupedHeadArities)
             {
                 Array.Sort(
                     order,
@@ -1058,7 +1127,8 @@ internal sealed partial class BeamModuleCompiler
                 {
                     if (index > 0 || arityCount > 0 || twoCellPrefix is not null)
                     {
-                        mixedLabels[index < arityCount || index < twoCellPrefix?.Keys.Length ? order[index] : index] = Label();
+                        mixedLabels[groupedHeadArities || index < arityCount || index < twoCellPrefix?.Keys.Length
+                            ? order[index] : index] = Label();
                     }
 
                     if (groupedBranches[index] is { } group)
@@ -1078,8 +1148,8 @@ internal sealed partial class BeamModuleCompiler
                 : Enumerable.Range(0, branches.Count - 2).Select(_ => Label()).ToArray();
             int nonCons = mixedPrefix is { } sharedPrefix ? mixedLabels![sharedPrefix.Count]
                 : sharedGuardFailures is null ? 0 : Label();
-            int tupleFailure = arityCount > 0 && arityCount + 1 == branches.Count
-                && ListEntryTest(function.Clauses[^1].Patterns[mixedPrefix!.Value.Input]) == IsNil
+            int tupleFailure = groupedHeadArities || (arityCount > 0 && arityCount + 1 == branches.Count
+                && ListEntryTest(function.Clauses[^1].Patterns[mixedPrefix!.Value.Input]) == IsNil)
                 ? functionInfo : nonCons;
             var emptyReturn = hasConsResult && nonCons != 0 && mixedPrefix is null ? listReturn : null;
 
@@ -1157,12 +1227,23 @@ internal sealed partial class BeamModuleCompiler
                 );
             }
 
+            bool partitionTupleAndAtom = canPartitionTupleAndAtom
+                && tupleSelections?.Any(selection => selection is not null) != true
+                && branches[0] is { Literals.Count: 0, Tuples: [{ Input: 0, Tag: not null }] }
+                && branches[1] is { Literals: [{ Index: 0, Value: Atom }], Tuples.Count: > 1, FieldTests.Count: > 0 };
+            int atomEntry = partitionTupleAndAtom ? Label() : 0;
+            int unmatchedEntry = partitionTupleAndAtom ? Label() : 0;
             BeamSourceLocation? tupleTailLine = null;
             for (int position = 0; position < order.Length; position++)
             {
                 var previousTupleTailLine = tupleTailLine;
                 tupleTailLine = null;
                 int branch = order[position];
+                if (partitionTupleAndAtom && branch != 0)
+                {
+                    Mark(branch == 1 ? atomEntry : unmatchedEntry);
+                }
+
                 bool selectedAtom = atomSuffixLabels is not null && position >= atomSuffixStart && position < atomSuffixEnd;
                 if (selectedAtom && position == atomSuffixStart)
                 {
@@ -1201,7 +1282,14 @@ internal sealed partial class BeamModuleCompiler
                     Mark(fallback);
                 }
 
-                bool arityBranch = branch < arityCount;
+                bool arityBranch = (groupedHeadArities ? position : branch) < arityCount;
+                int arityFailure = tupleFailure;
+                if (groupedHeadArities && position + 1 < arityCount
+                    && branches[branch].Tuples[0].Arity == branches[order[position + 1]].Tuples[0].Arity)
+                {
+                    arityFailure = mixedLabels![order[position + 1]];
+                }
+
                 if (arityBranch && position == 0)
                 {
                     var (input, head, tail, _) = branches[branch].Cons[0];
@@ -1213,9 +1301,16 @@ internal sealed partial class BeamModuleCompiler
                         XRegisterTag,
                         tail
                     );
-                    var cases = order.Take(arityCount).Reverse()
+                    var cases = order.Take(arityCount)
+                        .DistinctBy(index => branches[index].Tuples[0].Arity)
+                        .Reverse()
                         .Select(index => (branches[index].Tuples[0].Arity, mixedLabels![index])).ToArray();
-                    owner.EmitTupleArityDispatch(tupleFailure, cases, head);
+                    owner.EmitTupleArityDispatch(
+                        tupleFailure,
+                        cases,
+                        head,
+                        typeFailure: groupedHeadArities && atomHeadBranch >= 0 ? mixedLabels![atomHeadBranch] : null
+                    );
                 }
 
                 var literalGroup = groupedBranches[branch];
@@ -1320,7 +1415,8 @@ internal sealed partial class BeamModuleCompiler
                 {
                     Mark(dispatchLabels[branch]);
                 }
-                else if (mixedLabels is not null && literalGroup is null && (branch > 0 || arityBranch || twoCellPrefix is not null))
+                else if (mixedLabels is not null && literalGroup is null
+                    && (branch > 0 || arityBranch || groupedHeadArities || twoCellPrefix is not null))
                 {
                     Mark(mixedLabels[branch]);
                 }
@@ -1390,8 +1486,11 @@ internal sealed partial class BeamModuleCompiler
                     LabelListElementCase(elementPlan.Branch);
                 }
 
-                int failure = selectedAtom ? atomSuffixFallback : tupleSelection is not null ? tupleSelectionFailure
-                    : arityBranch ? tupleFailure : !hasNext || selectedLiteral ? functionInfo : mixedLabels is not null
+                int failure = partitionTupleAndAtom && branch < 2 ? unmatchedEntry
+                    : selectedAtom ? atomSuffixFallback : tupleSelection is not null ? tupleSelectionFailure
+                    : arityBranch ? arityFailure
+                    : !hasNext || selectedLiteral || groupedHeadArities && branch == atomHeadBranch ? functionInfo
+                    : mixedLabels is not null
                     ? mixedLabels[literalGroup?.End ?? (branch + 1)]
                     : sharedGuardFailures is null
                     ? Label() : branch < sharedGuardFailures.Length ? sharedGuardFailures[branch] : nonCons;
@@ -1638,10 +1737,61 @@ internal sealed partial class BeamModuleCompiler
                     }
                 }
 
-                foreach (var tuple in tupleSelection is null || tupleSelection.Shape.SelectsTag
-                    ? tuples.Where(tuple => !nestedPrefix || cons.All(item => item.Head != tuple.Input)) : [])
+                if (partitionTupleAndAtom && branch == 0 && tuples is [var carrier]
+                    && fieldTests.Count == 0 && equalities.Count == 0
+                    && TryEmitCheckedCarrierContinuation(
+                        clause,
+                        parameters,
+                        function.Arity,
+                        carrier.Input,
+                        carrier.Fields,
+                        () => EmitTupleShape(carrier)
+                    ))
                 {
-                    EmitTuple(tuple);
+                    continue;
+                }
+
+                bool checkAllTupleShapes = partitionTupleAndAtom && branch == 1;
+                if (checkAllTupleShapes)
+                {
+                    foreach (var tuple in tuples)
+                    {
+                        EmitTupleShape(tuple);
+                    }
+                }
+
+                if (!checkAllTupleShapes || !EmitCheckedRepeatedFieldComparison())
+                {
+                    foreach (var tuple in tupleSelection is null || tupleSelection.Shape.SelectsTag
+                        ? tuples.Where(tuple => !nestedPrefix || cons.All(item => item.Head != tuple.Input)) : [])
+                    {
+                        EmitTuple(tuple, shapeChecked: checkAllTupleShapes);
+                    }
+                }
+
+                bool EmitCheckedRepeatedFieldComparison()
+                {
+                    if (fieldTests.Count != 1
+                        || tuples is not [
+                        { Tag: null, Fields: [var callerField] } caller,
+                        { Tag: not null, Fields: [var taggedField] } tagged
+                        ]
+                        || !fieldTests.TryGetValue(taggedField.Register, out var compared)
+                        || compared.Register != callerField.Register
+                        || ReadUsedEntryParameters(clause) is not { } used
+                        || used.Contains(parameters[callerField.Register]))
+                    {
+                        return false;
+                    }
+
+                    // A tagged field is selected before its untagged counterpart after both shape checks.
+                    owner.EmitTuplePart(tagged.Input, taggedField.Index, callerField.Register);
+                    owner.EmitTuplePart(caller.Input, callerField.Index, taggedField.Register);
+                    owner.Op(ExactEqualTest, LabelTag, failure);
+                    owner.Operand(XRegisterTag, callerField.Register);
+                    owner.Operand(XRegisterTag, taggedField.Register);
+
+                    return true;
                 }
 
                 foreach (var (input, bound) in equalities)
@@ -1651,7 +1801,7 @@ internal sealed partial class BeamModuleCompiler
                     owner.Operand(XRegisterTag, bound);
                 }
 
-                void EmitTuple((int Input, int Arity, Atom? Tag, List<(int Index, int Register)> Fields) tuple)
+                void EmitTupleShape((int Input, int Arity, Atom? Tag, List<(int Index, int Register)> Fields) tuple)
                 {
                     var (input, arity, tag, fields) = tuple;
                     bool shapeChecked = tupleSelection?.Shape.Input == input;
@@ -1681,9 +1831,9 @@ internal sealed partial class BeamModuleCompiler
                     }
                     else if (!shapeChecked && !arityBranch)
                     {
-                        if (splitTupleAndAtom && branch == 0)
+                        if (branch == 0 && (splitTupleAndAtom || partitionTupleAndAtom))
                         {
-                            owner.Op(IsTuple, LabelTag, mixedLabels![1]);
+                            owner.Op(IsTuple, LabelTag, partitionTupleAndAtom ? atomEntry : mixedLabels![1]);
                             owner.Operand(XRegisterTag, input);
                         }
 
@@ -1692,11 +1842,22 @@ internal sealed partial class BeamModuleCompiler
                             arity,
                             tag!,
                             splitTupleAndAtom && branch == 0 ? mixedLabels![groupedBranches[1]?.End ?? 2] : tupleCheckFailure,
-                            splitTupleAndAtom && branch == 0 ? TupleTypeBits : 0
+                            branch == 0 && (splitTupleAndAtom || partitionTupleAndAtom) ? TupleTypeBits : 0
                         );
                     }
+                }
 
+                void EmitTuple(
+                    (int Input, int Arity, Atom? Tag, List<(int Index, int Register)> Fields) tuple,
+                    bool shapeChecked = false
+                )
+                {
+                    if (!shapeChecked)
+                    {
+                        EmitTupleShape(tuple);
+                    }
 
+                    var (input, _, _, fields) = tuple;
                     if (heapWords > 0 && clause.Guard is null && cons.Count == 0 && tuples.Count == 1)
                     {
                         owner.Op(TestHeap, BeamWire.UnsignedTag, heapWords);
@@ -1919,6 +2080,10 @@ internal sealed partial class BeamModuleCompiler
                 {
                     TryEmitProtectedTaggedResult(clause.Body, parameters, protectedEntryTuple);
                 }
+                else if (partitionTupleAndAtom && branch == 2 && TryEmitConstructedEntryEffect(clause, parameters))
+                {
+                    continue;
+                }
                 else if (bodyInputs is not null)
                 {
                     if (elementCase is { } element)
@@ -1998,7 +2163,8 @@ internal sealed partial class BeamModuleCompiler
                         Mark(tupleSelectionFailure);
                     }
                 }
-                else if (!selectedAtom && !selectedLiteral && mixedLabels is null && hasNext && (nonCons == 0 || clause.Guard is not null
+                else if (!partitionTupleAndAtom && !selectedAtom && !selectedLiteral && mixedLabels is null
+                    && hasNext && (nonCons == 0 || clause.Guard is not null
                     || sharedHeadInput >= 0 && branch < branches.Count - 2))
                 {
                     Mark(failure);
@@ -2269,7 +2435,13 @@ internal sealed partial class BeamModuleCompiler
             }
             else
             {
-                EmitConsEntryBody(clause, inputs, reuseCallSlots: true);
+                bool useReservedOrder = literalDispatch && clause.Body is Expr.Case { Value: Expr.Call }
+                    && parentFunction is { } ownerFunction && inputs.Length > 1
+                    && owner.properListSourceFunctions is { } definitions
+                    && inputs.Any(input => input.Register < ownerFunction.Arity
+                        && owner.ReadClosedIntegerRecurrence(ownerFunction, input.Register, definitions));
+                var bodyInputs = useReservedOrder ? inputs.OrderByDescending(input => input.Register).ToArray() : inputs;
+                EmitConsEntryBody(clause, bodyInputs, reuseCallSlots: true);
             }
 
             frames.Add(branch, peakSlot);

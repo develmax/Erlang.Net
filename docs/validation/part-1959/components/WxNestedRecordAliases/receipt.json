@@ -1,0 +1,45 @@
+{
+  "Part": 2001,
+  "Reference": "OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "FrozenSource": "81fe483cddbe51403b1520e49ebef73f9f394e78c534699dc2f9a7c3b4fa5cdc",
+  "ParentCompiler": "8ae927891e0f4be56df88accd7bf1bbcc08d03ea384d99189b87322db2cce01d",
+  "Dependencies": {
+    "Part1999": "branch-owned-projection-sinking-1999/production.patch",
+    "Part2000": "projected-call-root-frontier-2000/production.patch",
+    "Context": "Replay over both production patches on the frozen Part1956 retake. Insert after ClearDeadProjectedBranchRoots in EmitCode."
+  },
+  "PinnedSource": [
+    "lib/compiler/src/beam_ssa_pre_codegen.erl lines 2661, 2728 and 2811 reserve, copy and invert frame registers",
+    "lib/compiler/src/beam_ssa_codegen.erl lines 1934 and 2689–2725 schedule frame copies and omit the projected argument identity before reordering setup moves",
+    "lib/wx/examples/demo/ex_gauge.erl lines 97 and 115 establish nested aliases across disjoint callback arms"
+  ],
+  "Change": "Allocate the earlier, checked outer copy above its projected inner alias in an existing disjoint frame whose wrapped terminating nested update consumes both aliases. Rewrite all typed and untyped Y uses under the same owner. In that owner, schedule outgoing independent constants from the already-available projected receiver in X0.",
+  "Reuse": "Use existing disjoint frame ownership, typed operand span decoding, literal operand classification and pinned independent move scheduling. Eligibility is based on checked projection origin, frame ownership and terminal nested update dependencies.",
+  "Scope": "Eight actual Windows release images compare as 4 Equal and 4 Different. Every outside-gauge raw image preserves its prior SHA256, including ex_canvas_paint, sudoku_game, ct_logs and all four equal comparisons.",
+  "Gauge": "handle_info/2 matches all 76 normalized instructions with source lines. 13 of 15 normalized function keys match the pinned release. do_init/1 remains 90 OTP vs 95 emitted instructions and handle_event/2 remains 139 vs 155. Whole raw ex_gauge.beam remains Different.",
+  "Native": "All nine actual release gauge successes and failures reproduce pinned values, effects, timer and error stack. Six independent fixture cases match pinned OTP, including nested positive cases, independent incoming aliases, and malformed outer and nested inputs.",
+  "PermanentTest": "The exact same focused fixture exits 1 through sealed Part2000 and 0 through Part2001. Mandatory whole-image beam_tuple_dynamic_case_probe remains byte-identical.",
+  "Iteration": "The discarded early source-layer prototype produced no measured layout transition. The successful bounded rule uses actual disjoint frame ownership after the existing frame passes. The standalone build used the same frozen DLL reference substitution as Part2000.",
+  "Hashes": {
+    "production.patch": "a03eb8128b6c26d444f66f7da8da930058e00741190ca806ff27c9ef8af374f0",
+    "test.patch": "28a5c423d9394fccd83f202860486c3468bd37f29263004e222bb11269b80b0e",
+    "replay-files.json": "07e9d0b563ee129d9ec98bad37c276173914dcb5a5b446798a09fcd1051dcf2f",
+    "strict-replay.log": "7df1b41fe901113377c710f56a3bbd3122b7d834329d78b9e089ffadc3817279",
+    "style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "build-final.log": "782baa65b37fb997d9ad7a68d6cd943fdb19308718fadbb626cc06b57637f1fb",
+    "compiler-bin/Erlang.Compiler.dll": "1bd2aeb66436a54bcc588a5e964d432a36c64dd6298c41c6cdde7868e375e1c5",
+    "scope-final.json": "7ff154df6c2bee8fe36ad8f119288b77e02acd17e386707f773f76424c6c845a",
+    "scope.hashes.json": "a959ed1ca8765d266a5c95df33416fdbcb5d2b0a89f57e7a2d0ba590538dd17a",
+    "normalize.terms": "238f24974c628c291525027da2a433afbf65873ee916248108307abd9ebac096",
+    "gauge-remaining.terms": "91b3322ef9b80237c0ac82ea8154451bf878ebb042a207f280f8c2e93b099090",
+    "gauge-final.terms": "665cc02ef01d9d4a822073ac4536e1a1c728a9666ef61bf1d170e70d988452c8",
+    "gauge-final-native.terms": "50e4a78cd7fe6399b2ffd5f98f0a06127266efd735fdd5baccaeda7d01e29ef6",
+    "ex_gauge.precodegen": "bc2e3626258764f1eb45d3b49852d71b5cd2c0ab324369fe93b52fb72d3710d9",
+    "focused-exits.json": "310cdcc14f0f6f31e2a7d35f3171cc54420dd5c1396caa206c20298d614add4e",
+    "focused-red.log": "3465ff4faa6e7b7f555cf84dd9f202e9e5d83b8753442d125dbb8d902ab7f75a",
+    "emitter/beam_tuple_dynamic_case_probe.beam": "8eb5fc010e0fbf28ab40bb0dc39aef3887fe86364f43daca1689cec2d51e5294",
+    "native-fixture-pinned.terms": "38ed47e28895a04fe66c0978ff4b0f73aba7d552fbf381fe2210ce4ace580fc9",
+    "native-fixture-final.terms": "38ed47e28895a04fe66c0978ff4b0f73aba7d552fbf381fe2210ce4ace580fc9",
+    "scope-final.json.generated/lib/wx-2.7/doc/examples/demo/ex_gauge.beam": "b6d91f6e29bc62fbbd5a46e3dea74cc2e06bd7217d719e197b7a7dd0a6a067f3"
+  }
+}

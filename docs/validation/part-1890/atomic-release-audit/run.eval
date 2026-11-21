@@ -1,0 +1,20 @@
+[Inputs,Outputs]=init:get_plain_arguments(),{ok,Rows}=file:consult(Inputs),
+Read=fun(Path)->{beam_file,_,_,_,_,Fs}=beam_disasm:file(Path),
+ maps:from_list([{{N,A}, Ops}||{function,N,A,_,Ops}<-Fs]) end,
+Widths=fun(F,Key)->case maps:find(Key,F) of {ok,Ops}->[W||I<-Ops,W<-case I of {allocate,N,_}->[N];{allocate_heap,N,_,_}->[N];_->[]end]; error->missing end end,
+Grouped=maps:groups_from_list(fun({M,A,B,_,_,_,_})->{M,A,B} end,Rows),
+{ok,Out}=file:open(Outputs,[write]),
+maps:foreach(fun({M,A,B},List)->Old=Read(A),New=Read(B),
+ lists:foreach(fun({_,_,_,Key,Ref,P,Estimate})->
+     Before=Widths(Old,Key),After=Widths(New,Key),
+     Status=case {Before,After} of
+        {[X],[Y]} when Y<X->smaller;
+        {[X],[Y]} when Y>X->larger;
+        {Same,Same} when Same=/=missing->unchanged;
+        {missing,_}->missing_old;
+        {_,missing}->missing_new;
+        _->different_shape
+     end,
+     io:format(Out,"~w.~n",[{list_to_binary(M),Key,Ref,P,Estimate,Before,After,Status,After=:=[Ref]}])
+ end,List)
+end,Grouped),ok=file:close(Out),halt().

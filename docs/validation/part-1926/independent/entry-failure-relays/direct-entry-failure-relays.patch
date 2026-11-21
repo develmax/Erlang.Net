@@ -1,0 +1,15 @@
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedReturns.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedReturns.cs
+@@ -583,6 +583,12 @@
+             }
+         }
+ 
++        int failure = EntryFrameFailureLabel(body, start);
++        if (failure > 0)
++        {
++            labels.Add(failure);
++        }
++
+         var forwarding = new Dictionary<int, int>();
+         for (int index = start + 1; index < end; index++)
+         {

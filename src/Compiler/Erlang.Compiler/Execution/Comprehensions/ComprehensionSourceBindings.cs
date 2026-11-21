@@ -46,6 +46,22 @@ internal static class ComprehensionSourceBindings
 
                     return;
                 }
+                if (expression is Expr.MapComprehension
+                    {
+                        Fields: [{ Key: Expr.Variable, Value: Expr.Variable }],
+                        Qualifiers: [var mapQualifier]
+                    } && ComprehensionGenerator.From(mapQualifier) is
+                    {
+                        Binary: false,
+                        Pattern: Pattern.Tuple { Items: [Pattern.Variable, Pattern.Variable] },
+                        Source: Expr.Variable
+                    })
+                {
+                    // v3_core lowers this map generator through lc_tq1 before translating subsequent funs.
+                    coreOrdinal++;
+
+                    return;
+                }
                 if (expression is Expr.Fun anonymous)
                 {
                     foreach (var child in LocalFunctionEntries.Children(expression))

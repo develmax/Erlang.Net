@@ -1,0 +1,37 @@
+{
+  "Part": 1993,
+  "Reference": "OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Dependency": "Frozen Part1952 + Part1984 contextual + Parts1985,1986,1988,1990,1991. Test patch anchors on Part1991 registration.",
+  "PinnedSource": [
+    "beam_ssa_pre_codegen.erl find_yregs_is/3 only saves values read after an X clobber",
+    "beam_ssa_codegen.erl prefer_xregs/2 consumes existing X operands",
+    "ex_gauge.erl wrapped nested record updates in tick and pulse"
+  ],
+  "Change": "Carry the checked nested update in X0 into the enclosing last checked field under the existing constant prefix tuple plan. Preserve evaluation order, other update operands, and the badrecord path for an unproved inner source.",
+  "Scope": "Thirteen release images, 8 Equal and 5 Different. Only ex_gauge output changes; tick and pulse both eliminate the intermediate Y copy and match the outer typed X0 replacement. Remaining gauge normalized residuals are recorded separately.",
+  "Native": "Seven real release handle_info/2 cases match pinned. Five independently generated checked/unchecked record update cases match pinned values and effects, including the unchecked badrecord and checked function_clause first frames.",
+  "Focused": {
+    "Green": 0,
+    "Fixture": "Both checked nested updates remain in X0, while an unproved nested update preserves the badrecord check.",
+    "Red": -532462766
+  },
+  "RequiredRawFixture": "8eb5fc010e0fbf28ab40bb0dc39aef3887fe86364f43daca1689cec2d51e5294",
+  "ExactCursor": "714c854a2c33e458fb68763759ce40ae8cfcf3f1f3b122c16466f955fa514c96",
+  "Hashes": {
+    "production.patch": "e96d8b3eb21f7cede6a930612f2522e158f4a6a69652c656f16508e5b7046cbc",
+    "test.patch": "9541363cf18a0355dc6973af284312390a49b1e0cb87de755344dc0b98648770",
+    "strict-replay.log": "8db13095085254f88c042feab8dc4f6275e402481195160fd402b3f16ea776ee",
+    "replay-files.json": "85ac89901789f39cc174e466e57078d6d599fd764aa3c40c9343c72f06177e8e",
+    "style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "build.log": "b39915488908c3d534a197b1d8c52ddb5a267852a6c5632b82d51fb0ad25893c",
+    "focused-exits.json": "bc94548b9bb262641f7723f0c47bc5981857f61c35d54feb175dbd26bb309508",
+    "scope.json": "1dad7f072ef31f392e50f80fe8b1c908520f016c36871f620434b7f3006bcf26",
+    "info-candidate.terms": "efb653f266a8d97e3be8485049a961b33cb6af88bcb0d2115afec6e314c78291",
+    "native-pinned.terms": "e05fa990e8738bc0bb53ac936680c19ef6e7c18d36abfe247c5d52ca56279c12",
+    "native-candidate.terms": "e05fa990e8738bc0bb53ac936680c19ef6e7c18d36abfe247c5d52ca56279c12",
+    "native-fixture/pinned.terms": "397bb13b52448712395a42dbb3b0a43b70eef8a7819df392fa08a21224de7a12",
+    "native-fixture/candidate.terms": "397bb13b52448712395a42dbb3b0a43b70eef8a7819df392fa08a21224de7a12",
+    "compiler-bin/Erlang.Compiler.dll": "67ea294dcb751c9d02050e7417a06237f2fe7d4acf4ca54f2d6e26c9066fee2a",
+    "scope.json.generated/lib/wx-2.7/doc/examples/demo/ex_gauge.beam": "2a72afd95e4d042d3a4e97956fc0996cad74a09e25b14079ff0afcfa810f934e"
+  }
+}

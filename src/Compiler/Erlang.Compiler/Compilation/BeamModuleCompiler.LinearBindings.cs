@@ -530,6 +530,27 @@ internal sealed partial class BeamModuleCompiler
                     continue;
                 }
 
+                if (match.Pattern is Pattern.Tuple tuple)
+                {
+                    // Flat fresh fields only bind names after a successful match. Keep the
+                    // match and preserve its failure while substituting earlier constants.
+                    foreach (Pattern field in tuple.Items)
+                    {
+                        if (field is Erlang.Pattern.Any or Pattern.Variable { Name: VariableScopeNames.Wildcard })
+                        {
+                            continue;
+                        }
+
+                        if (field is not Pattern.Variable variable || !bound.Add(variable.Name))
+                        {
+                            return function;
+                        }
+                    }
+
+                    items.Add(match with { Value = SubstituteConstants(value, constants) });
+                    continue;
+                }
+
                 // A repeated match reads the existing binding, so keep the original sequence.
                 if (match.Pattern is not Pattern.Variable binding || binding.Name == VariableScopeNames.Wildcard
                     || !bound.Add(binding.Name))

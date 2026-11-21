@@ -1,0 +1,224 @@
+{
+  "Reference": {
+    "Tag": "OTP-29.1.1",
+    "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5"
+  },
+  "FrozenSource": "9a5c26adee139596a587cfb216b2aa557c48cfbcc577f9ec74f139b8dad60b3c",
+  "Compiler": "3E6F4CD50EAC1264E86FD2C10F46771E810009A1ABFC99D13108624A00934957",
+  "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+  "ExactControls": [
+    "PKIX-X400Address-2009",
+    "ct_event"
+  ],
+  "StableImages": 8,
+  "NormalizedGains": 0,
+  "NormalizedLosses": 0,
+  "WholeImageGains": 0,
+  "Images": {
+    "asn1ct_constructed_per": {
+      "Relative": "lib/asn1-5.5.2/ebin/asn1ct_constructed_per.beam",
+      "Status": "Different",
+      "Baseline": "6913821CF88D42C795A692F7CB176912B967940BDA86149EAAB9B2A91E06496B",
+      "Candidate": "6913821CF88D42C795A692F7CB176912B967940BDA86149EAAB9B2A91E06496B",
+      "Oracle": "06AFB88A41E933D85390CC910E4C5D84BF7BD3D8234079D620B7E69BB61D6943"
+    },
+    "ct_default_gl": {
+      "Relative": "lib/common_test-1.31.2/ebin/ct_default_gl.beam",
+      "Status": "Different",
+      "Baseline": "7CAAE32745D083961F58F405206E85973134679F86CA1B5F0EE9F0AC61436970",
+      "Candidate": "C5B701FA96A047D02A72835D4893D08EE28725A2FE2DB42FF113511B61DA0BAC",
+      "Oracle": "DF590C31FFD4398EBEAAB7771C30C038B1B16F1687AF7F48021D8359ADD9BA87"
+    },
+    "ct_event": {
+      "Relative": "lib/common_test-1.31.2/ebin/ct_event.beam",
+      "Status": "Equal",
+      "Baseline": "2399C2A849D7E97E993B7E01F81CF59D73A31FB22F9F59CA1529768A9197A29C",
+      "Candidate": "2399C2A849D7E97E993B7E01F81CF59D73A31FB22F9F59CA1529768A9197A29C",
+      "Oracle": "2399C2A849D7E97E993B7E01F81CF59D73A31FB22F9F59CA1529768A9197A29C"
+    },
+    "ct_util": {
+      "Relative": "lib/common_test-1.31.2/ebin/ct_util.beam",
+      "Status": "Different",
+      "Baseline": "660E1DE086DF6C7F0F24217B7EB13AFC655F30E98DB2344F9E9F9272B8CB9B5D",
+      "Candidate": "660E1DE086DF6C7F0F24217B7EB13AFC655F30E98DB2344F9E9F9272B8CB9B5D",
+      "Oracle": "CFA1A58FD1AC8B63E9DFDCC1D77DF12C92F4DA16AA6B702FC04D3113DB37A67A"
+    },
+    "PKIX-X400Address-2009": {
+      "Relative": "lib/public_key-1.21.7/ebin/PKIX-X400Address-2009.beam",
+      "Status": "Equal",
+      "Baseline": "AEF91479C878358479430121DF991AAD15D7BFFF973DB720D4C041B4BB740B77",
+      "Candidate": "AEF91479C878358479430121DF991AAD15D7BFFF973DB720D4C041B4BB740B77",
+      "Oracle": "AEF91479C878358479430121DF991AAD15D7BFFF973DB720D4C041B4BB740B77"
+    },
+    "lists": {
+      "Relative": "lib/stdlib-8.1/ebin/lists.beam",
+      "Status": "Different",
+      "Baseline": "B32A05FF6C7E56E72301697C32AFA22F85510E61AE981E0A73ACBA5386D3FBA7",
+      "Candidate": "B32A05FF6C7E56E72301697C32AFA22F85510E61AE981E0A73ACBA5386D3FBA7",
+      "Oracle": "8941092DC34F0470CD404979E1890DF514D83F2EEB3B0AA8A276553E76471262"
+    },
+    "maps": {
+      "Relative": "lib/stdlib-8.1/ebin/maps.beam",
+      "Status": "Different",
+      "Baseline": "E5A84A7FA40EC4EFBC4AF3A62675BEAE2ACF61941C503698A5AC802018104AA5",
+      "Candidate": "E5A84A7FA40EC4EFBC4AF3A62675BEAE2ACF61941C503698A5AC802018104AA5",
+      "Oracle": "DCDBAF8551AE63258BDA7BC1415C7DCD2D3310AAA9036A34BD09F24E90966454"
+    },
+    "supervisor": {
+      "Relative": "lib/stdlib-8.1/ebin/supervisor.beam",
+      "Status": "Different",
+      "Baseline": "B8FB4250F0C567BB7E25F704D1F0E0FDDFC5AFC2B46E87852E8CF4F7C1F49AC7",
+      "Candidate": "B8FB4250F0C567BB7E25F704D1F0E0FDDFC5AFC2B46E87852E8CF4F7C1F49AC7",
+      "Oracle": "7AE065D34F2B1DEC6E98631CEE9AE0D42EB68E38CE61180B06BB1FDDF5322482"
+    },
+    "timer": {
+      "Relative": "lib/stdlib-8.1/ebin/timer.beam",
+      "Status": "Different",
+      "Baseline": "6C047900B2DD56DCD0786157D65144CD908647D13E834F17DF15AFEAA55EFE9C",
+      "Candidate": "6C047900B2DD56DCD0786157D65144CD908647D13E834F17DF15AFEAA55EFE9C",
+      "Oracle": "1CB0E1BC10FB7BDB19F5189D440B155C1AE7F3A45A5A24B5893CA9745908796B"
+    }
+  },
+  "Normalized": {
+    "asn1ct_constructed_per": {
+      "Reference": 222,
+      "Baseline": 65,
+      "Candidate": 65
+    },
+    "ct_default_gl": {
+      "Reference": 10,
+      "Baseline": 8,
+      "Candidate": 8
+    },
+    "ct_event": {
+      "Reference": 20,
+      "Baseline": 20,
+      "Candidate": 20
+    },
+    "ct_util": {
+      "Reference": 96,
+      "Baseline": 44,
+      "Candidate": 44
+    },
+    "PKIX-X400Address-2009": {
+      "Reference": 246,
+      "Baseline": 246,
+      "Candidate": 246
+    },
+    "lists": {
+      "Reference": 247,
+      "Baseline": 63,
+      "Candidate": 63
+    },
+    "maps": {
+      "Reference": 60,
+      "Baseline": 21,
+      "Candidate": 21
+    },
+    "supervisor": {
+      "Reference": 140,
+      "Baseline": 43,
+      "Candidate": 43
+    },
+    "timer": {
+      "Reference": 52,
+      "Baseline": 15,
+      "Candidate": 15
+    }
+  },
+  "Physical": {
+    "ChangedFromBaseline": [
+      "Attr",
+      "Code"
+    ],
+    "BeforeVsPinned": [
+      "Attr",
+      "Code",
+      "ExpT"
+    ],
+    "AfterVsPinned": [
+      "Attr",
+      "Code",
+      "ExpT"
+    ],
+    "BaselineCode": 633,
+    "CandidateCode": 635,
+    "PinnedCode": 599,
+    "TypeSha256": "353fd8f76b83dc198c3f9502a5db4836c520494750c58dec69812c300c2a3cbe",
+    "AttributeDelta": "vsn only"
+  },
+  "NativeScenarios": 5,
+  "Test": "4011051C9CD86F0A126C000F971375FA80370BA23DE6FD35CC13FD54F31B5A68",
+  "BaselineTestExit": 1,
+  "CandidateTestExit": 0,
+  "Strict": {
+    "Source": "9a5c26adee139596a587cfb216b2aa557c48cfbcc577f9ec74f139b8dad60b3c",
+    "CompilerBefore": "7ee99f367e36e98cc86fd8b43c745db6affed0b01ef589d99ab67e92e241c642",
+    "Patches": {
+      "closed-recursive-integer.patch": "a40c9f64db71ca3944309b3e24420bd2d69fc0ca6a0b315bf2468826e25b72e2",
+      "closed-recursive-integer-tests.patch": "ab1f7cd91a326eafa92d14ae776ea3be0fb5838479b4dfb3bd278b3fd10cb3eb"
+    },
+    "Files": {
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedIntegerRecurrences.cs": {
+        "Before": "89e74acc8cf66f5b23d22d87dc0fb4b6ca6642f7af6d575f1367147560842ca6",
+        "After": "1ac7738b2757826e00f51622a2c2d7e79f1a8cbba2a3b34b6302b412e363bdee"
+      },
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": {
+        "Before": "f2b89e57eaf29c612bf2ae984379475b755011173bb3a1f14ab6f5457eb66b2e",
+        "After": "b87ed79c3ae1060744959fa4a7cab0e3b1d44b3989d225e37603645044a997be"
+      },
+      "tests/Erlang.Tests/Compiler/Beam/BeamClosedIntegerRecurrenceChecks.cs": {
+        "Before": null,
+        "After": "925d12d0a122a6c91386856210065abb136718aa7d3147ad665e0c69ac5e5666"
+      },
+      "tests/Erlang.Tests/Harness/Program.cs": {
+        "Before": "84528a110cfd469270ed0309ec847ab17f9e44ae6039fe3f515f78b12381d694",
+        "After": "78f3ee826fa9e39491fa504dfbb51058c5c5f9d766d5f56eb881a1ee7a5f3ac1"
+      }
+    }
+  },
+  "LinkedReplay": {
+    "Source": "dcf7d1bc102f383d0ac959d83fc539a50a1c05984076fbd960d368fdbfa2caf2",
+    "Patch": "a40c9f64db71ca3944309b3e24420bd2d69fc0ca6a0b315bf2468826e25b72e2",
+    "Files": {
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedIntegerRecurrences.cs": {
+        "Before": "89e74acc8cf66f5b23d22d87dc0fb4b6ca6642f7af6d575f1367147560842ca6",
+        "After": "1ac7738b2757826e00f51622a2c2d7e79f1a8cbba2a3b34b6302b412e363bdee"
+      },
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": {
+        "Before": "2756f968192c084a0e60960c2cf86410bb28e3e3b41bbfdf7942b139752482f0",
+        "After": "d49e8bcd0c983abb634c8eedd829544b796979873b08baaded857a346f08ba44"
+      }
+    }
+  },
+  "Evidence": {
+    "README.md": "dea0bc2234a08c3bfde181789a476d64aa989ebaf3a202f3212596e1abe9f6d7",
+    "pinned-source-proof.txt": "fe70222584c2c0d0785e9e5a2803de9f584ed8b14d63c29a3d8a03a6386270ca",
+    "pinned-arithmetic-scope.log": "5d971f73cf1c3ce6351f15c362905ae5e9a2d436d843e55e18a5c433219cde73",
+    "prepare.py": "1587eaf04bc35cca13461805ddd453273dcda84d4cb9ef41492a6c3bd58aeed1",
+    "hydrate-missing.py": "7d4c4c4e0bc502f7a7b7cde2f778f2bb3a13704b5f7f56484d828ec957d788b3",
+    "compiler-inputs.json": "bd2006f6e18bff13abc8259890509e9c015cdb0967e2ad774fb4450af5b26e7a",
+    "exploratory-plus/compiler-inputs.json": "4340335f1d2ece03b4899d5213dfb09a788cd775379b9a7d5090cabe53240a1e",
+    "build-and-verify.ps1": "b0aaf419fcc59b5c95784f10b0c726606fa63ad27f0bf3b3f1f714aadee0f3e1",
+    "compiler-build.log": "32a1526b22e3bc81a126c2ac5e8d908ffe0576f398603ba675028196faa3a6d9",
+    "style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "validate.ps1": "d17f9342643e0bdff28c61b0f4664fa87d9aac2342603d035c2c21508ec1de86",
+    "native-ct-retry.eval": "fd2b05ed9ea3548470829f6d265e40eed5cdec21dc487e5ee8aba5bc079d79bb",
+    "native-ct-retry.log": "686dda040dd7354ae859a063adba59e51b620b8d8601b41881d96b1bb6c4eb20",
+    "normalized.log": "9d471d90410e8caf4e40f7e04567e917af353306d554bbef3bc14d109eab4fc8",
+    "images-receipt.json": "eb9c6609a52f0e9c15b0024a8ac22870c0bd6b2432bc32831dcaef044b6bb6a6",
+    "test-identities.json": "e2e96dd257740e93fa2b8f8080617770d66f9081d21a62691dcd6e03fb82585c",
+    "tests-baseline.log": "d8996bffe304ae0a21482f74079bbebbc542790ec174e7f6e6055f27c23a830f",
+    "tests-candidate.log": "b50a2dd89fe694b8503793819f9aea24162244966bdb65e452efc21af25df84c",
+    "strict-replay.json": "24f70f2f99fad77e9a49a5cf3b4a5f14c6fcea681dc98fd239e38f0624b9c618",
+    "linked-replay.json": "3716f2b019a6d4041818af224230bbda9d87410001236a87722456cca9ae962e",
+    "scoped-type-delta.log": "4e9b152d7ac7683c2b5aa281265698d42065dbd945413c45caf2d430209b1b93",
+    "verify-ct-operand.log": "c677175d050fac756944f1fdab355f5e7b2a4b3e69917937b4971f69c6978987",
+    "load-all.log": "949312abc8f00712d849b84cea11063d65295a92213a7e680c4658767a692b42",
+    "verify-ct-attributes.eval": "04f7a7e4a769dace6031533c11870d5f6d09beb451c9832b18c94e3227839d52",
+    "verify-ct-attributes.log": "62fbc21bc5eec2beef6d112117ad7ca735d2b4b9a1a47700261581aa3fc41762",
+    "recovery-origin.json": "49b6d33eff6848595696e27f98a3da9495a4dff8eb46cc7cf7d30ca12e92f5ba",
+    "pre-seal-assertion-failure/seal.py": "a38b113177daf7c0d20aab98dd3c4dbf82d542c5f5e4b9769f5edc57f707522a",
+    "pre-seal-assertion-failure/recover-driver.stderr.log": "1870f5b58ea8445818cd82e2174ba910d919cf5499af647ed9a41b988d759a1e"
+  }
+}

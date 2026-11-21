@@ -1,0 +1,129 @@
+using System.Collections;
+using System.Numerics;
+using Erlang;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamClosedDecoderTagsChecks
+{
+    internal const string TestName = "compiler/beam/rematerializes-a-closed-decoder-tag-before-its-call";
+    private const string Fixture = "beam_closed_decoder_tags_probe.erl";
+    private const string Entry = "entry";
+    private const string Decode = "decode";
+    private const string ExportEntry = "-export([entry/3]).";
+    private const string ExportDecoder = "-export([entry/3, decode/3]).";
+    private const string NilCall = "entry(Data, Names, _Tags) -> decode(Data, Names, []).";
+    private const string AtomCall = "entry(Data, Names, _Tags) -> decode(Data, Names, other).";
+    private const string UnknownCall = "entry(Data, Names, Tags) -> decode(Data, Names, Tags).";
+    private const string IncorrectValue = "The collector received a different tag or decoded value.";
+    private const string IncorrectLayout = "The collector tag register should be live for unknown or public inputs.";
+
+    private const string Source = """
+        -module(beam_closed_decoder_tags_probe).
+        -export([entry/3]).
+
+        entry(Data, Names, _Tags) -> decode(Data, Names, []).
+
+        decode(Data, Names, Tags) ->
+            case collect(Data, Tags) of
+                <<0>> -> [];
+                <<Unused, Payload/binary>> ->
+                    Bits = octets(byte_size(Payload), Unused, Payload),
+                    finish(Bits, Names)
+            end.
+
+        collect(Data, Tags) when is_binary(Data) ->
+            case Tags of
+                [] -> Data;
+                _ -> <<7,128>>
+            end.
+        finish(Bits, Names) -> {Bits, Names}.
+
+        octets(1, Unused, <<B7:1,B6:1,B5:1,B4:1,B3:1,B2:1,B1:1,B0:1,_/binary>>) ->
+            lists:sublist([B7,B6,B5,B4,B3,B2,B1,B0], 8 - Unused);
+        octets(Length, Unused, <<B7:1,B6:1,B5:1,B4:1,B3:1,B2:1,B1:1,B0:1,Rest/binary>>) ->
+            [B7,B6,B5,B4,B3,B2,B1,B0 | octets(Length - 1, Unused, Rest)].
+        """;
+
+    internal static async Task Run()
+    {
+        byte[] nil = CodeGeneration.CompileBeamModule(Source, Fixture);
+        byte[] atom = CodeGeneration.CompileBeamModule(Source.Replace(NilCall, AtomCall, StringComparison.Ordinal), Fixture);
+        byte[] unknown = CodeGeneration.CompileBeamModule(Source.Replace(NilCall, UnknownCall, StringComparison.Ordinal), Fixture);
+        byte[] exported = CodeGeneration.CompileBeamModule(Source.Replace(ExportEntry, ExportDecoder, StringComparison.Ordinal), Fixture);
+        var dependencies = new BeamDependencySelection(["lists"]);
+        await using var runtime = new ProcessRuntime();
+        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
+        await actor.InvokeAsync(async context =>
+        {
+            Term data = new BitString([7, 0]);
+            Term names = Term.A("names");
+            Term tags = Term.A("other");
+            Term zero = Term.Tuple(Term.List(Term.I(0)), names);
+            Term one = Term.Tuple(Term.List(Term.I(1)), names);
+            (byte[] Image, string Export, Term Tags, Term Expected)[] calls =
+            [
+                (nil, Entry, tags, zero),
+                (atom, Entry, Nil.Value, one),
+                (unknown, Entry, Nil.Value, zero),
+                (unknown, Entry, tags, one),
+                (exported, Entry, tags, zero),
+                (exported, Decode, tags, one)
+            ];
+            foreach (var (image, export, suppliedTags, expected) in calls)
+            {
+                if (!expected.Equals(await BeamModule.Prepare(image, dependencies).Invoke(
+                    context,
+                    export,
+                    data,
+                    names,
+                    suppliedTags
+                )))
+                {
+                    throw new InvalidOperationException(IncorrectValue);
+                }
+            }
+
+            return Nil.Value;
+        });
+
+        const int liveWithoutTag = 2;
+        const int liveWithTag = 3;
+        if (ReadAllocationLive(nil) != liveWithoutTag || ReadAllocationLive(atom) != liveWithoutTag
+            || ReadAllocationLive(unknown) != liveWithTag || ReadAllocationLive(exported) != liveWithTag)
+        {
+            throw new InvalidOperationException(IncorrectLayout);
+        }
+    }
+
+    private static int ReadAllocationLive(byte[] image)
+    {
+        object code = Code(image);
+        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
+        object[] instructions = Items(code, "Instructions");
+        int start = Array.FindIndex(
+            instructions,
+            instruction => Opcode(instruction) == FunctionInfo
+                && Items(instruction, "Operands") is [_, var name, var arity]
+                && atoms[Value(name)] == Decode && Value(arity) == 3
+        );
+        if (start < 0)
+        {
+            throw new InvalidOperationException(IncorrectLayout);
+        }
+
+        var allocation = instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo)
+            .FirstOrDefault(instruction => Opcode(instruction) == Allocate);
+
+        return allocation is not null && Items(allocation, "Operands") is [_, var live] ? Value(live) : -1;
+    }
+
+    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
+
+    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
+
+    private static object[] Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
+}

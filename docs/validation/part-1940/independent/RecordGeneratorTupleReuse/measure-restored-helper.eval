@@ -1,0 +1,22 @@
+[Before,Official,After,Output]=init:get_plain_arguments(),
+Normalize=fun(Ops)->
+    Labels=maps:from_list([{L,I}||{L,I}<-lists:zip([N||{label,N}<-Ops],lists:seq(1,length([N||{label,N}<-Ops])))]),
+    Update=fun Walk({label,L})->{label,maps:get(L,Labels)};
+                Walk({f,L})->{f,maps:get(L,Labels,L)};
+                Walk({literal,_}=V)->V;
+                Walk(T) when is_tuple(T)->list_to_tuple(Walk(tuple_to_list(T)));
+                Walk([H|T])->[Walk(H)|Walk(T)];
+                Walk(T)->T
+            end,
+    Update(Ops)
+end,
+Load=fun(Path)->
+    {beam_file,_,_,_,_,Functions}=beam_disasm:file(Path),
+    maps:from_list([{{Name,Arity},Normalize(Is)}||{function,Name,Arity,_,Is}<-Functions])
+end,
+B=Load(Before),R=Load(Official),A=Load(After),
+Restored=lists:sort([Name||{Name,Ops}<-maps:to_list(A),not maps:is_key(Name,B),
+                           maps:get(Name,R,undefined)=:=Ops]),
+AllRestored=lists:sort([Name||Name<-maps:keys(A),not maps:is_key(Name,B),maps:is_key(Name,R)]),
+ok=file:write_file(Output,io_lib:format("~0p.~n",[#{matching_new_helpers=>Restored,restored_keys=>AllRestored}])),
+halt().

@@ -1,0 +1,127 @@
+{
+  "otpTag": "OTP-29.1.1",
+  "otpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "part1948Archive": {
+    "size": 2085945,
+    "sha256": "f56db2486823b088038d1a52b4dc6ddb83ba48f32e96e2ccd3e9ab1dd6594786"
+  },
+  "baselineCompiler": {
+    "size": 5198848,
+    "sha256": "51bcab7d953442a6b668b3db09de45909beceddc5926442af18a802178c58221"
+  },
+  "jobs": 1,
+  "scope": {
+    "lib/inets-9.8/ebin/inets_sup.beam": "Equal",
+    "lib/stdlib-8.1/ebin/ordsets.beam": "Equal",
+    "lib/wx-2.7/ebin/wxAuiNotebook.beam": "Equal",
+    "lib/wx-2.7/ebin/wxGridBagSizer.beam": "Different",
+    "lib/wx-2.7/ebin/wxGridSizer.beam": "Equal",
+    "lib/wx-2.7/ebin/wxListCtrl.beam": "Different",
+    "lib/wx-2.7/ebin/wxMenu.beam": "Equal",
+    "lib/wx-2.7/ebin/wxSizer.beam": "Different",
+    "lib/wx-2.7/ebin/wxSizerItem.beam": "Equal",
+    "lib/wx-2.7/ebin/wxStyledTextCtrl.beam": "Equal",
+    "lib/wx-2.7/ebin/wxTextCtrl.beam": "Equal",
+    "lib/wx-2.7/ebin/wxToolBar.beam": "Equal",
+    "lib/wx-2.7/ebin/wxTreeCtrl.beam": "Equal",
+    "lib/wx-2.7/ebin/wxWindow.beam": "Different",
+    "lib/wx-2.7/ebin/wxXmlResource.beam": "Different"
+  },
+  "targetGeneratedBefore": {
+    "size": 22020,
+    "sha256": "20d5516077df1e96866ebc518945e991c0fb3450f0141c8f24daf0dfce32131a"
+  },
+  "targetGeneratedAfter": {
+    "size": 21916,
+    "sha256": "8a4a98b5d64976614766a2165a5ca709a6224435ee721a362f4d503820a71bbc"
+  },
+  "unchangedDifferingControls": {
+    "lib/wx-2.7/ebin/wxGridBagSizer.beam": {
+      "size": 31004,
+      "sha256": "f4827c8a4c06f423148d76f557ff78c88c6a532ba0bd4a7a0a6080ab891921ea"
+    },
+    "lib/wx-2.7/ebin/wxListCtrl.beam": {
+      "size": 73644,
+      "sha256": "14ab2501959433b9077784d27566f5eedc4147619e2f0980a075d54141f79041"
+    },
+    "lib/wx-2.7/ebin/wxSizer.beam": {
+      "size": 51308,
+      "sha256": "6176ba3495495746b313a67dda6346134b1d9ba43fffc2b6cb1095fdd7e55f43"
+    },
+    "lib/wx-2.7/ebin/wxWindow.beam": {
+      "size": 119664,
+      "sha256": "cf179a1b85193102c4f3ada53ca253557e35d82c36bc761ba8479a2e7e699faf"
+    }
+  },
+  "nativeCases": 10,
+  "files": {
+    "production.patch": {
+      "size": 2075,
+      "sha256": "bc1c88c33d3a8b20fd43351bc2de7b658b7bfda07dd3ab90f1570e2e43bc2323"
+    },
+    "test.patch": {
+      "size": 5256,
+      "sha256": "a80a3c281f45efb4cd20c274f1f9d09f767d045ca176f22870d40f12bf80a965"
+    },
+    "replay-files.json": {
+      "size": 969,
+      "sha256": "8df60ef9e27fed167371e544101a6f96f248dc2e6652fbbb67ee5a28eedca7f1"
+    },
+    "compiler-bin/Erlang.Compiler.dll": {
+      "size": 4875264,
+      "sha256": "9922c7a5fc84a784aeb72d30afba9950f9efd790292b0495a32e2fcf970423da"
+    },
+    "scope.json": {
+      "size": 4248,
+      "sha256": "baa614b14aaa00251495f96685d6718a57540d2a2b2fa82b0a70ea41f66ef0b8"
+    },
+    "post-rank.terms": {
+      "size": 234,
+      "sha256": "d17026a07bc0f5e761c0fb429c08b05cdcfba3d85400ddba6a5d327768b67c7a"
+    },
+    "remaining-without-derived-uniq.diff": {
+      "size": 879,
+      "sha256": "fd75857652f038a7ceda6d72473f0ad30a218e8154e7690ed35e4c8226ec1fab"
+    },
+    "build.log": {
+      "size": 2145,
+      "sha256": "03a9a5fee1c99da4ad93ab8e8171b4fdbf47324f3c08de88134fe3b7e9994056"
+    },
+    "layout-check.log": {
+      "size": 40,
+      "sha256": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f"
+    },
+    "focused-exits.json": {
+      "size": 51,
+      "sha256": "1ef75e784a5dd11b9c2fe71476a71f94295ce972682d28c771dea17e5ae3df61"
+    },
+    "focused-red.log": {
+      "size": 530,
+      "sha256": "8bb6d41b01e90e3bdec077c54fdff3beaf01559643cc290aa37a72084e03d194"
+    },
+    "focused-green.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "wxXmlResource.precodegen": {
+      "size": 97852,
+      "sha256": "24397c893e130fc2b9fae654b916a0db73ab180108031ba4c65bebee53264390"
+    },
+    "native-resource.eval": {
+      "size": 1911,
+      "sha256": "d8146a458390487ee0bf3ad3f72b7d62909263fd940161f184dd85d1d41ab039"
+    },
+    "native-pinned.terms": {
+      "size": 1616,
+      "sha256": "950ed9e9032708a4fd4ed727b4e9e28d75de9811a4c36eb2648a1d6c8a429aed"
+    },
+    "native-candidate.terms": {
+      "size": 1616,
+      "sha256": "950ed9e9032708a4fd4ed727b4e9e28d75de9811a4c36eb2648a1d6c8a429aed"
+    },
+    "stub/wxe_util.erl": {
+      "size": 320,
+      "sha256": "ae73f7450d98d22c552e227d0eb020726f2268a38df6292191d33780056eb400"
+    }
+  }
+}

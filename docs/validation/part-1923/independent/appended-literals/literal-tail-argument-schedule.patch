@@ -1,0 +1,74 @@
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.IndependentArgumentMoves.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.IndependentArgumentMoves.cs
+@@ -170,6 +170,23 @@
+                 continue;
+             }
+ 
++            if (count >= 2 && count < arity && start >= 2
++                && body[call].Definition.Opcode is (TailLocalCall or TailExternalCall)
++                && body[start - 1].Definition.Opcode == Label
++                && body[start - 2] is { Definition.Opcode: FunctionInfo, Operands: [_, _, var incoming] }
++                && incoming.Value == arity - count
++                && TryReadLiteralTailMoveOrder(
++                    body,
++                    start,
++                    end,
++                    arity,
++                    out int[] literalOrder
++                ))
++            {
++                WriteMoves(start, end, literalOrder);
++                continue;
++            }
++
+             if (count < 2 || count > arity
+                 || start > 0 && body[start - 1].Definition.Opcode == Move)
+             {
+@@ -353,6 +370,47 @@
+         }
+     }
+ 
++    private static bool TryReadLiteralTailMoveOrder(
++        IReadOnlyList<BeamInstruction> body,
++        int start,
++        int end,
++        int arity,
++        out int[] order
++    )
++    {
++        order = [];
++        var moves = new int[end - start];
++        Array.Fill(moves, -1);
++        for (int index = start; index < end; index++)
++        {
++            var source = body[index].Operands[0];
++            if (source.TypeIndex is not null
++                || source.Kind is not (BeamOperandParameters.LiteralValue or BeamOperandParameters.Integer
++                    or BeamOperandParameters.Atom or BeamOperandParameters.Nil))
++            {
++                return false;
++            }
++
++            int slot = (int)body[index].Operands[1].Value - (arity - moves.Length);
++            if (slot < 0 || slot >= moves.Length || moves[slot] >= 0)
++            {
++                return false;
++            }
++
++            moves[slot] = index;
++        }
++
++        // The unchanged incoming arguments contribute no moves to OTP's call setup.
++        // Apply that same chain order only to the appended independent literals.
++        order = IndependentCallMoveOrder(moves.Length);
++        for (int index = 0; index < order.Length; index++)
++        {
++            order[index] = moves[order[index]];
++        }
++
++        return true;
++    }
++
+     private static int[]? ReadSavedCallResultArguments(
+         IReadOnlyList<BeamInstruction> body,
+         int start,

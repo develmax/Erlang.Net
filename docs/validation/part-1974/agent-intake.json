@@ -1,0 +1,48 @@
+[
+  {
+    "Agent": "SingleOrdinaryReturnFrame",
+    "PatchDigests": {
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/transient-call-frame-slots-and-protected-roots-1974-linked-readonly/source-adaptations/returning-call-production.patch": "f24a85fa31df3f6ff51e2bc7a3c1fc0080f9a932f0a477ab0efcb2a2a339cc51",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/unneeded-call-frames-1974-audit/tests.patch": "f504254bc0738cf541404036132183c3923d7957eca62d46711f0124f7d2d29e"
+    },
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/unneeded-call-frames-1974-audit/REPORT.md",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/unneeded-call-frames-1974-audit/linear-scope.terms",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/unneeded-call-frames-1974-audit/exact-controls.terms"
+    ]
+  },
+  {
+    "Agent": "PreCallAliasesWithoutGC",
+    "PatchDigests": {
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/precall-owned-slot-def-use-1974-audit/nonallocating-precall-aliases.patch": "9a15cf2b643958a04a932246626c0de7c8762575f3919fe7fceb8ca46cc228ac",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/precall-owned-slot-def-use-1974-audit/nonallocating-precall-aliases-test.patch": "c46040eafb4d5e30ef931557e4b79f0dbc2747b916a84fd94342fa68994f3013"
+    },
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/precall-owned-slot-def-use-1974-audit/NO_GC_QUALIFICATION.md",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/precall-owned-slot-def-use-1974-audit/no-gc-qualification-receipt.json",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/precall-owned-slot-def-use-1974-audit/no-gc-scope-plan.txt"
+    ]
+  },
+  {
+    "Agent": "TerminalTupleRootPrefix",
+    "PatchDigests": {
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/transient-call-frame-slots-and-protected-roots-1974-linked-readonly/source-adaptations/terminal-root-prefix-production.patch": "b1d4a6bfae1aca96dd10d54d49a9748c7b600ed116dc5703266156ff1f5a5703",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/terminal-tuple-root-prefix-1974-intake/test.patch": "477a1818d9e5b94e5ccbdd3fde31a8190039687e4cb743218a580f8a1a43edde"
+    },
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/terminal-tuple-root-prefix-1974-intake/receipt.md"
+    ]
+  },
+  {
+    "Agent": "TypePartitionWithTupleEffect",
+    "PatchDigests": {
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/owned-effectful-tuple-partition-1974-audit/production.patch": "3fbac6b0e984052277b181cac958bbda50159fbf11e0fd86657582cbd6426897",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/owned-effectful-tuple-partition-1974-audit/test.patch": "a9afeea22ef85cbc01e3abc7b96e9d88fbe7c49945f13696716efe4527a1008c"
+    },
+    "Evidence": [
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/owned-effectful-tuple-partition-1974-audit/fixture-shapes.terms",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/owned-effectful-tuple-partition-1974-audit/compiler.stdout.log",
+      "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/owned-effectful-tuple-partition-1974-audit/compiler.stderr.log"
+    ]
+  }
+]

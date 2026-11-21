@@ -1,0 +1,39 @@
+[Image,Dictionary,Out]=init:get_plain_arguments(),
+M=diameter_codegen,
+{ok,Original}=file:read_file(Image),
+{beam_file,M,_,_,_,Functions}=beam_disasm:file(Original),
+Wanted=[f_avp,f_avp_arity_1,f_avp_header,f_enumerated_avp,f_msg_header],
+{ok,{M,[{atoms,Atoms},{exports,Exports}]}}=beam_lib:chunks(Original,[atoms,exports]),
+{ok,M,Chunks}=beam_lib:all_chunks(Original),
+{"ExpT",<<N:32,Slots/binary>>}=lists:keyfind("ExpT",1,Chunks),
+Added=[begin
+         [Label]=[L||{function,Fn,1,L,_}<-Functions,Fn=:=F],
+         {Index,F}=lists:keyfind(F,2,Atoms),
+         <<Index:32,1:32,Label:32>>
+       end||F<-Wanted,not lists:member({F,1},Exports)],
+Entries=iolist_to_binary([Slots|Added]),
+{ok,Opened}=beam_lib:build_module(lists:keyreplace("ExpT",1,Chunks,{"ExpT",<<(N+length(Added)):32,Entries/binary>>})),
+{ok,{M,[{"Code",C}]}}=beam_lib:chunks(Opened,["Code"]),
+{ok,{M,[{"Code",C}]}}=beam_lib:chunks(Original,["Code"]),
+true=code:unstick_mod(M),
+{module,M}=code:load_binary(M,Image,Opened),
+{ok,Parsed}=diameter_dict_util:parse({path,Dictionary},[]),
+Check=fun(F,Context)->
+    try erlang:apply(M,F,[Context]) of
+      {function,Anno,Name,Arity,Clauses}=T->
+         true=is_integer(erl_anno:line(Anno)),
+         true=is_atom(Name) andalso is_integer(Arity) andalso Clauses=/=[],
+         {ok,T}
+    catch
+       Class:Reason->{Class,Reason}
+    end
+end,
+put({M,verbose},false),
+Direct=[{F,Check(F,Parsed),Check(F,[]),Check(F,[{avp_types,invalid},{messages,invalid},{enum,invalid}])}||F<-Wanted],
+true=lists:all(fun({_,{ok,_},{ok,_},_})->true;(_)->false end,Direct),
+erase({M,verbose}),
+Public=diameter_codegen:from_dict(Dictionary,Parsed,[return],forms),
+true=is_list(Public) andalso Public=/=[],
+ok=file:write_file(Out,term_to_binary({Direct,Public},[deterministic])),
+io:format("Five private generator entries evaluated across populated, empty and malformed input; public forms ~p.~n",[length(Public)]),
+halt().

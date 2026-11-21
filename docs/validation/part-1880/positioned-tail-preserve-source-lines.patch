@@ -1,0 +1,94 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.PositionedBinaryTail.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.PositionedBinaryTail.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.PositionedBinaryTail.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.PositionedBinaryTail.cs
+@@ -158,7 +158,10 @@
+         PositionedTailArm? ReadArm(int start, BeamOperand head, BeamOperand tail)
+         {
+             int size = SkipTailLines(start);
+-            if (size + 6 >= body.Count
++            int addition = SkipTailLines(size + 1);
++            int store = SkipTailLines(addition + 1);
++            int construction = SkipTailLines(store + 1);
++            if (construction + 3 >= body.Count
+                 || body[size] is not
+                 {
+                     Definition.Opcode: GcBifOne,
+@@ -166,7 +169,7 @@
+                 }
+                 || live.Value != 0 || source != tail || !IsX(measured, 0)
+                 || !(IsBif(measure, ErlangModuleNames.ByteSize, 1) || IsBif(measure, ErlangModuleNames.BitSize, 1))
+-                || body[size + 1] is not
++                || body[addition] is not
+                 {
+                     Definition.Opcode: GcBifTwo,
+                     Operands: [
+@@ -176,22 +179,22 @@
+                 }
+                 || sumLive.Value != 1 || !IsBif(add, ErlangOperators.Plus, 2)
+                 || !SameProjectionRegister(oldSize, measured) || sum != measured
+-                || body[size + 2] is not { Definition.Opcode: Move, Operands: [var saved, var length] }
++                || body[store] is not { Definition.Opcode: Move, Operands: [var saved, var length] }
+                 || saved != measured || !IsY(length) || length == head || length == tail
+-                || body[size + 3] is not
++                || body[construction] is not
+                 {
+                     Definition.Opcode: CreateBinary,
+                     Operands: [{ Kind: BeamOperandParameters.Failure }, var heap, var binaryLive, _, var target, var count, ..]
+                 }
+                 || heap.Value != 0 || binaryLive.Value != 0 || target != measured
+-                || body[size + 4].Definition.Opcode != Deallocate || body[size + 5].Definition.Opcode != Return)
++                || body[construction + 1].Definition.Opcode != Deallocate || body[construction + 2].Definition.Opcode != Return)
+             {
+                 return null;
+             }
+ 
+             // Each stack operand becomes a proved input register. All other
+             // segments must have literal operands and therefore cannot alias it.
+-            var fields = body[size + 3].Operands.Skip(6).ToArray();
++            var fields = body[construction].Operands.Skip(6).ToArray();
+             if (count.Value != fields.Length || fields.Any(field => field != head && field != tail && field != length
+                     && field.Kind is not (BeamOperandParameters.Unsigned or BeamOperandParameters.Integer
+                         or BeamOperandParameters.Atom or BeamOperandParameters.Nil or BeamOperandParameters.LiteralValue))
+@@ -201,7 +204,7 @@
+                 return null;
+             }
+ 
+-            return new(size, size + 3, length);
++            return new(size, addition, store, construction, length);
+         }
+ 
+         void EmitArm(
+@@ -221,7 +224,10 @@
+             WriteTypedX(1, contextType);
+             WriteX(2);
+ 
+-            var sum = body[arm.Size + 1].Operands;
++            // Keep source markers at their original operations. The final line
++            // pass removes repeats after the rewritten instructions are in place.
++            Copy(arm.Size + 1, arm.Addition);
++            var sum = body[arm.Addition].Operands;
+             output.WriteByte(GcBifTwo);
+             WriteValue(sum[0]);
+             BeamCompactWriter.Write(output, BeamWire.UnsignedTag, 3);
+@@ -237,6 +243,8 @@
+ 
+             WriteValue(sum[4]);
+             WriteX(2);
++            Copy(arm.Addition + 1, arm.Store);
++            Copy(arm.Store + 1, arm.Construction);
+             output.WriteByte(GetBinaryTail);
+             WriteX(1);
+             WriteX(1);
+@@ -341,5 +349,11 @@
+             instruction.Definition.Opcode == Label && instruction.Operands[0].Value == label.Value;
+     }
+ 
+-    private readonly record struct PositionedTailArm(int Size, int Construction, BeamOperand Length);
++    private readonly record struct PositionedTailArm(
++        int Size,
++        int Addition,
++        int Store,
++        int Construction,
++        BeamOperand Length
++    );
+ }

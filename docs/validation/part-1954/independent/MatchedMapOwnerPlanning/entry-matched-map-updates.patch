@@ -1,0 +1,161 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+@@ -63,6 +63,7 @@
+         }
+ 
+         (functions, sourceLines) = ExtractClosedComprehensions(functions, sourceLines);
++        IndexEntryMatchedMapUpdates(functions);
+         using var code = instructions;
+         var localEntries = new Dictionary<(string Name, int Arity), int>();
+         var reachable = new HashSet<(string Name, int Arity)>();
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.MapExpressions.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.MapExpressions.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.MapExpressions.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.MapExpressions.cs
+@@ -28,8 +28,9 @@
+                 fields.Add((field, keySlot is null ? key : null, keySlot, valueSlot));
+             }
+ 
++            bool useProvenBase = fields.Count > 0 && baseSlot.HasValue && owner.entryMatchedMapUpdates.Contains(map);
+             int? invalidMap = null;
+-            if (map.Base is { } source)
++            if (!useProvenBase && map.Base is { } source)
+             {
+                 if (baseSlot is int register)
+                 {
+@@ -61,12 +62,14 @@
+                 }
+ 
+                 bool emptySource = map.Base is null && index == 0;
++                bool fromEntry = useProvenBase && index == 0;
+                 EmitMapInstruction(
+                     first.Field.Exact,
+                     guardFailure ?? 0,
+-                    emptySource ? null : 0,
+-                    emptySource ? 0 : 1,
+-                    batch.Count
++                    emptySource ? null : fromEntry ? baseSlot : 0,
++                    emptySource || fromEntry ? 0 : 1,
++                    batch.Count,
++                    sourceTag: fromEntry ? YRegisterTag : XRegisterTag
+                 );
+                 foreach (var field in batch)
+                 {
+@@ -284,13 +287,14 @@
+             int live,
+             int count,
+             int destination = 0,
+-            int destinationTag = XRegisterTag
++            int destinationTag = XRegisterTag,
++            int sourceTag = XRegisterTag
+         )
+         {
+             owner.Op(exact ? PutMapExact : PutMapAssoc, LabelTag, exact ? failure : 0);
+             if (source is int register)
+             {
+-                owner.Operand(XRegisterTag, register);
++                owner.Operand(sourceTag, register);
+             }
+             else
+             {
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryMatchedMapUpdates.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryMatchedMapUpdates.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryMatchedMapUpdates.cs
+@@ -0,0 +1,63 @@
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private IReadOnlySet<Expr.Map> entryMatchedMapUpdates = new HashSet<Expr.Map>(ReferenceEqualityComparer.Instance);
++
++    // A measured body and the emitted body must use the same immutable analysis facts.
++    private BeamModuleCompiler CreateLayoutProbe() => new(name, sourceModule: sourceModule)
++    {
++        exportedFunctions = exportedFunctions,
++        entryMatchedMapUpdates = entryMatchedMapUpdates
++    };
++
++    private void IndexEntryMatchedMapUpdates(IReadOnlyList<FunctionDefinition> functions)
++    {
++        if (ModuleOptimizationDisabled || !SsaTypeInferenceEnabled)
++        {
++            return;
++        }
++
++        var updates = new HashSet<Expr.Map>(ReferenceEqualityComparer.Instance);
++        foreach (FunctionDefinition function in functions)
++        {
++            foreach (Clause clause in function.Clauses)
++            {
++                var known = clause.Patterns.Select(MapOwner).OfType<string>().ToHashSet(StringComparer.Ordinal);
++                if (known.Count > 0)
++                {
++                    FindUpdates(clause.Body, known, updates);
++                }
++            }
++        }
++
++        entryMatchedMapUpdates = updates;
++    }
++
++    private static void FindUpdates(Expr expression, HashSet<string> known, HashSet<Expr.Map> updates)
++    {
++        if (expression is Expr.Fun or Expr.ListComprehension or Expr.BinaryComprehension or Expr.MapComprehension
++            || expression is NativeRecordExpression)
++        {
++            // These introduce independently scoped names or backend-specific bindings.
++            return;
++        }
++
++        if (expression is Expr.Map { Base: Expr.Variable variable } map && known.Contains(variable.Name))
++        {
++            updates.Add(map);
++        }
++
++        foreach (Expr child in LocalFunctionEntries.Children(expression))
++        {
++            FindUpdates(child, known, updates);
++        }
++    }
++
++    private static string? MapOwner(Pattern pattern) => pattern switch
++    {
++        AliasPattern { Left: MapPattern, Right: Pattern.Variable { Name: not VariableScopeNames.Wildcard } name } => name.Name,
++        AliasPattern { Left: Pattern.Variable { Name: not VariableScopeNames.Wildcard } name, Right: MapPattern } => name.Name,
++        _ => null
++    };
++}
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -267,7 +267,7 @@
+ 
+                 fallbackPlan = true;
+             }
+-            var planner = new BeamModuleCompiler(name, sourceModule: sourceModule) { exportedFunctions = exportedFunctions };
++            var planner = CreateLayoutProbe();
+             foreach (var (entry, filter) in capturedListFilters)
+             {
+                 planner.capturedListFilters.Add(entry, filter);
+@@ -328,7 +328,7 @@
+             return false;
+         }
+ 
+-        var probe = new BeamModuleCompiler(name, sourceModule: sourceModule) { exportedFunctions = exportedFunctions };
++        var probe = CreateLayoutProbe();
+         using var scratch = probe.instructions;
+         probe.numericWidthFunctions.UnionWith(numericWidthFunctions);
+         probe.StartFunction(function.Name, function.Arity, location);
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.Closures.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.Closures.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.Closures.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.Closures.cs
+@@ -662,7 +662,7 @@
+         }
+ 
+         var location = closure.Location;
+-        var planner = new BeamModuleCompiler(name, sourceModule: sourceModule) { exportedFunctions = exportedFunctions };
++        var planner = CreateLayoutProbe();
+         using var scratch = planner.instructions;
+         planner.StartFunction(
+             function.Name,

@@ -1,0 +1,42 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SequenceEncoding.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SequenceEncoding.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SequenceEncoding.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SequenceEncoding.cs
+@@ -247,7 +247,8 @@
+             }
+ 
+             PairFacts joinedLength = ReadJoinedNumericPairFacts(encode);
+-            bool numericLength = (joinedLength & PairFacts.NumericLength) != 0 && (joinedLength & PairFacts.Length) == 0;
++            bool integerLength = (joinedLength & PairFacts.Length) != 0;
++            bool numericLength = (joinedLength & PairFacts.NumericLength) != 0;
+             bool naturalTotal = HasOnlyLocalCalls(function, 3, (_, call) =>
+                 ReferenceEquals(call, recur) || call.Arguments[2] is Expr.Literal { Value: Integer seed } && seed.Value >= 0);
+             int functionInfo = owner.nextLabel - 2;
+@@ -288,8 +289,8 @@
+             {
+                 owner.EmitTypedRegister(
+                     1,
+-                    numericLength ? NumberTypeBits : IntegerTypeBits,
+-                    lower: numericLength ? null : 0,
++                    integerLength ? IntegerTypeBits : NumberTypeBits,
++                    lower: integerLength ? 0 : null,
+                     registerTag: YRegisterTag
+                 );
+             }
+@@ -297,7 +298,16 @@
+             {
+                 owner.Operand(YRegisterTag, 1);
+             }
+-            owner.EmitTypedRegister(1, numericLength ? NumberTypeBits : IntegerTypeBits, lower: numericLength ? null : 0);
++            // A call-site proof justifies the pair projection. Its annotation uses the joined return fact.
++            if (integerLength || numericLength)
++            {
++                owner.EmitTypedRegister(1, integerLength ? IntegerTypeBits : NumberTypeBits, lower: integerLength ? 0 : null);
++            }
++            else
++            {
++                owner.Operand(XRegisterTag, 1);
++            }
++
+             owner.Operand(XRegisterTag, 1);
+ 
+             owner.Op(TestHeap, BeamWire.UnsignedTag, 2);

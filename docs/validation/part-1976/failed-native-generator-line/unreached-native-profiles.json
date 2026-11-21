@@ -1,0 +1,64 @@
+{
+  "Purpose": "Unreached native fixture diagnosis after the first fail-fast gate",
+  "Identity": {
+    "Tests": "B61C82407BAF2EDE9F31572845937A4386BAE0AAD71DAA6BCA5CB7DB207EBE63",
+    "SourceParent": "8214c7399f803e7afe759541d4a0d9ffe8af41194aca53b3806a10cb851ac641",
+    "Started": "2026-11-21T03:44:35.2624089+03:00",
+    "Compiler": "72959CEEEA6DAF0133BD39EF23A349297348EECE56EE8E2E4E178DBCF8C4F0C8",
+    "Runtime": "7445A7EA8A055C952841AD41A2F4F0138B7FE39EAB6762EB1030E59308A1C8AA"
+  },
+  "AlreadyFailedScopeExcluded": "computed-outer-generator",
+  "Completed": [
+    "diameter",
+    "singleton-generator-head",
+    "closed-flat-generator-head",
+    "terminal-literal",
+    "wide",
+    "head",
+    "parser",
+    "capture"
+  ],
+  "Failures": {},
+  "Actual": {
+    "diameter-literal-mapping": {
+      "Cases": 6,
+      "Evidence": "8412F72B7675761B02FAE4D021F6318B8D724EB758944BE1630DCE22E2210310"
+    },
+    "frameless-head-parsers": {
+      "Cases": 5,
+      "Evidence": "1fe03b876f2553529b7e925f990bee1c898c0e5e4e6d6e1ecaae59d7fe905226"
+    }
+  },
+  "Synthetic": {
+    "singleton-generator-head": {
+      "Cases": 9,
+      "Evidence": "B9F41386C88A447FF3A8A246885588862CD76DDED7108503205B985E5FB09B1C",
+      "Image": "46BF848A9F8B6EB8A6FF98236011F01E9AA91522DB80F3ACB780A2081D0BB4A9"
+    },
+    "closed-flat-generator-head": {
+      "Cases": 9,
+      "Evidence": "55B8053E0E04A4FB794E365FD40438C0CB65DF2923E7165F33E679369157FC35",
+      "Image": "1C5D05D7453523CF3A689D700B17FCBFC776CFBC7BAA552F2F93F3DDEB0033B1"
+    },
+    "terminal-literal-mapping": {
+      "Cases": 16,
+      "Evidence": "765AA08220B241F5CA71C1954662F7DFE16C9914522C7DDE2A875D106214E34B",
+      "Image": "0C2274291172B538655E81EF4212767984ACF1FA4CA66D65ADE2024787014B51"
+    },
+    "wide-integer-construction": {
+      "Cases": 8,
+      "Evidence": "8A80B049FC7E8C87DBA1B39063D39E5F92E949F02EE212670D2FF2E04BAF3326",
+      "Image": "E7DAEA83203A8315804EAB63D3030A3803B696DCCEC2E287FCABE9A886BEB739"
+    },
+    "frameless-head-bif": {
+      "Cases": 10,
+      "Evidence": "E94A96F6EB75787B9FB5E2E2B38DA4C94A6F9320E7918E85F5FD4976EC8DF8C9",
+      "Image": "FFA7CEE393E239F3B81E6426D2CFE98DBFCBFE2EB5564BD3111B32B3AAAEB8DC"
+    },
+    "nested-singleton-capture": {
+      "Cases": 9,
+      "Evidence": "880A68A39B672949DC50BB9553B9B2BA20A069EB9026882198B62A440F02A65D",
+      "Image": "2630205C4957B16A2BE267ED8F73549363BFEFD659CBCA66A48A5593D25A4C8B"
+    }
+  }
+}

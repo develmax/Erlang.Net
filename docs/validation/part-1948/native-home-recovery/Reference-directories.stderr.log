@@ -1,0 +1,64 @@
+Error! Failed to eval: [Image,Stubs,Root,Output]=init:get_plain_arguments(),
+{module,wxFileDialog}=code:load_abs(filename:join(Stubs,"wxFileDialog")),
+{module,dbg_wx_win}=code:load_abs(filename:join(Stubs,"dbg_wx_win")),
+{ok,Bytes}=file:read_file(Image),
+{module,dbg_wx_settings}=code:load_binary(dbg_wx_settings,Image,Bytes),
+{ok,[[Home]]}=init:get_argument(home),
+false=filelib:is_dir(filename:join([Home,".erlang_tools","debugger"])),
+{ok,Cwd}=file:get_cwd(),
+Cases=[{existing,exists,ok,chosen,false,true},
+       {make_child,parent,ok,chosen,true,true},
+       {make_parent_and_child,none,ok,chosen,true,true},
+       {child_is_file,child_file,ok,cwd,true,false},
+       {parent_is_file,parent_file,ok,cwd,true,false},
+       {declined,none,cancel,cwd,true,false},
+       {invalid_response,none,unexpected,error,true,false}],
+Run=fun({Name,Setup,Response,Expected,ExpectPrompt,ExistsAfter}) ->
+    Base=filename:join(Root,atom_to_list(Name)),
+    ok=file:make_dir(Base),
+    true=os:putenv("APPDATA",Base),
+    Parent=filename:join(Base,"erlang"),
+    Config=filename:join(Parent,"debugger"),
+    SetupResult=case Setup of
+        exists ->
+            ok=file:make_dir(Parent),
+            file:make_dir(Config);
+        parent -> file:make_dir(Parent);
+        child_file ->
+            ok=file:make_dir(Parent),
+            file:write_file(Config,<<"child">>);
+        parent_file -> file:write_file(Parent,<<"parent">>);
+        none -> ok
+    end,
+    ok=SetupResult,
+    put(dialog_status,5100),
+    put(dialog_calls,[]),
+    put(confirm_calls,[]),
+    put(confirm_response,Response),
+    Result=try dbg_wx_settings:load(owner,{1,2},default) of
+        {ok,"selected.state"} ->
+            [{new,owner,Opts},show,get_path]=lists:reverse(get(dialog_calls)),
+            ExpectedDir=case Expected of chosen -> Config; cwd -> Cwd end,
+            true=string:casefold(filename:absname(ExpectedDir))=:=
+                string:casefold(filename:absname(proplists:get_value(defaultDir,Opts))),
+            Expected
+    catch error:{case_clause,unexpected} ->
+        []=get(dialog_calls),
+        error
+    end,
+    Prompt=case get(confirm_calls) of
+        [] -> false;
+        [{owner,["Default directory ",Config|_]}] -> true
+    end,
+    ExpectPrompt=Prompt,
+    Expected=Result,
+    ExistsAfter=filelib:is_dir(Config),
+    {Name,Result,Prompt,filelib:is_dir(Parent),ExistsAfter}
+end,
+ok=file:write_file(Output,io_lib:format("~tp.~n",[[Run(C)||C<-Cases]])),
+halt().
+
+
+Runtime terminating during boot ({{badmatch,{ok,[["C:\Users\Maksim"],["D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/ber-final-record-schedules-and-frame-roots-1948/linked-runtime-witnesses/directory-fixtures/empty-home"]]}},[{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,796}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{init,start_it,1,[{file,"init.erl"},{line,1561}]},{init,start_em,1,[{file,"init.erl"},{line,1546}]},{init,do_boot,3,[{file,"init.erl"},{line,1217}]}]})
+
+Crash dump is being written to: D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\ber-final-record-schedules-and-frame-roots-1948\linked-runtime-witnesses\Reference-directories-crash.dump...done

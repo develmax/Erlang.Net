@@ -1,0 +1,196 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultOnlySequenceDecoder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultOnlySequenceDecoder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultOnlySequenceDecoder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultOnlySequenceDecoder.cs
+@@ -15,7 +15,8 @@
+             SequenceRead? Rename = null,
+             Expr.Call? Convert = null,
+             string? Module = null,
+-            TaggedBranchRange? Bounds = null
++            TaggedBranchRange? Bounds = null,
++            Term? MiddleArgument = null
+         );
+ 
+         private bool TryEmitDefaultOnlySequenceDecoder(FunctionDefinition function)
+@@ -90,7 +91,8 @@
+                     previous,
+                     defined,
+                     allowConversion: true,
+-                    allowRemote: true
++                    allowRemote: true,
++                    allowLiteralMiddleArgument: true
+                 ) ?? ReadBoundedTaggedSequenceField(choice, previous, defined);
+                 if (plan is null)
+                 {
+@@ -145,18 +147,14 @@
+                 owner.Operand(XRegisterTag, 1);
+                 owner.LiteralOperand(plan.Tag);
+                 owner.EmitTuplePart(0, 1, 0);
+-                owner.EmitConstant(plan.Tags, 1);
++                EmitOptionalFieldArguments(plan.Tags, plan.MiddleArgument);
+                 EmitFrameInitialization(slot, slot + 1);
+-                if (plan.Module is { } module)
+-                {
+-                    owner.EmitCallLine(plan.Decoder, previousLine);
+-                    previousLine = CallLocation(plan.Decoder, previousLine);
+-                    Call(module, plan.Decoder.Function, 2);
+-                }
+-                else
+-                {
+-                    EmitLocal(plan.Decoder, plan.Entry);
+-                }
++                EmitSequenceDecoderCall(
++                    plan.Decoder,
++                    plan.Module,
++                    plan.Entry,
++                    ref previousLine
++                );
+                 if (plan.Convert is { } convert)
+                 {
+                     owner.EmitCallLine(convert, previousLine);
+@@ -301,12 +299,46 @@
+             return tagged with { Bounds = bounded.Bounds };
+         }
+ 
++        private void EmitOptionalFieldArguments(Term options, Term? middle)
++        {
++            if (middle is null)
++            {
++                owner.EmitConstant(options, 1);
++
++                return;
++            }
++
++            owner.EmitConstant(options, 2);
++            owner.EmitConstant(middle, 1);
++        }
++
++        private void EmitSequenceDecoderCall(
++            Expr.Call call,
++            string? module,
++            int entry,
++            ref BeamSourceLocation previous
++        )
++        {
++            owner.EmitCallLine(call, previous);
++            previous = CallLocation(call, previous);
++            int arity = call.Arguments.Count;
++            if (module is null)
++            {
++                owner.EmitFieldCall(arity, entry);
++            }
++            else
++            {
++                Call(module, call.Function, arity);
++            }
++        }
++
+         private DefaultSequenceField? ReadDefaultSequenceField(
+             Expr.Case choice,
+             string previous,
+             IReadOnlySet<string> defined,
+             bool allowConversion = false,
+-            bool allowRemote = false
++            bool allowRemote = false,
++            bool allowLiteralMiddleArgument = false
+         )
+         {
+             if (choice is not
+@@ -342,8 +374,31 @@
+                 || tested.Name != previous || unchanged.Name != previous
+                 || remaining.Name != tail.Name || !DistinctBindings(payload, tail)
+                 || defined.Contains(payload.Name) || defined.Contains(tail.Name)
+-                || !AttributeLiteral.TryNormalizeConstant(defaultValue, out Term fallback)
+-                || ReadDecodeCall(body, payload.Name, allowRemote) is not { } decoder
++                || !AttributeLiteral.TryNormalizeConstant(defaultValue, out Term fallback))
++            {
++                return null;
++            }
++
++            if (allowLiteralMiddleArgument && body is Expr.Call
++                {
++                    Module: null, DynamicRemote: false, Arguments: [Expr.Variable data, var middle, var options]
++                } literalCall
++                && data.Name == payload.Name
++                && entries.TryGetValue((literalCall.Function, literalCall.Arguments.Count), out int literalEntry)
++                && AttributeLiteral.TryNormalizeConstant(middle, out Term middleArgument)
++                && AttributeLiteral.TryNormalizeConstant(options, out Term finalArgument))
++            {
++                return new(
++                    tag,
++                    literalCall,
++                    literalEntry,
++                    finalArgument,
++                    fallback,
++                    MiddleArgument: middleArgument
++                );
++            }
++
++            if (ReadDecodeCall(body, payload.Name, allowRemote) is not { } decoder
+                 || decoder.Convert is not null && !allowConversion)
+             {
+                 return null;
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceDecoder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceDecoder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceDecoder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceDecoder.cs
+@@ -10,7 +10,8 @@
+             Expr.Call Call,
+             int Entry,
+             Term Options,
+-            string? Module = null
++            string? Module = null,
++            Term? MiddleArgument = null
+         );
+ 
+         private sealed record SequenceRequired(
+@@ -250,7 +251,7 @@
+                     owner.EmitTuplePart(0, 1, 0);
+                 }
+ 
+-                owner.EmitConstant(plan.Read.Options, 1);
++                EmitOptionalFieldArguments(plan.Read.Options, plan.Read.MiddleArgument);
+                 EmitFrameInitialization(slot, slot + 1);
+                 EmitSequenceRead(plan.Read);
+                 if (plan.Bounds is { } bounds)
+@@ -355,16 +356,12 @@
+ 
+             void EmitSequenceRead(SequenceRead read)
+             {
+-                if (read.Module is { } module)
+-                {
+-                    owner.EmitCallLine(read.Call, previous);
+-                    previous = CallLocation(read.Call, previous);
+-                    Call(module, read.Call.Function, 2);
+-                }
+-                else
+-                {
+-                    EmitLocal(read.Call, read.Entry);
+-                }
++                EmitSequenceDecoderCall(
++                    read.Call,
++                    read.Module,
++                    read.Entry,
++                    ref previous
++                );
+             }
+ 
+             void EmitLocal(Expr.Call call, int entry)
+@@ -513,7 +510,8 @@
+                 choice,
+                 previous,
+                 bindings,
+-                allowRemote: true
++                allowRemote: true,
++                allowLiteralMiddleArgument: true
+             )
+                 ?? ReadBoundedTaggedSequenceField(choice, previous, bindings);
+ 
+@@ -524,7 +522,8 @@
+                         field.Decoder,
+                         field.Entry,
+                         field.Tags,
+-                        field.Module
++                        field.Module,
++                        field.MiddleArgument
+                     ),
+                     field.Tag,
+                     field.Default,

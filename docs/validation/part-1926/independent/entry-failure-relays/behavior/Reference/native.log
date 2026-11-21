@@ -1,0 +1,21 @@
+Error! Failed to eval: [Image,Output]=init:get_plain_arguments(),
+M=beam_function_failure_relay_probe,
+{ok,Bytes}=file:read_file(Image),
+{ok,Prepared}=code:prepare_loading([{M,Image,Bytes}]),
+ok=code:finish_loading(Prepared),
+Calls=[{connect,[socket,{local,addr},0]},{connect,[socket,{local,addr},1]},
+       {connect,[socket,{other,addr},0]},{connect,[socket,local,0]},
+       {choose,[{key,value},one]},{choose,[{key,value},zero]},{choose,[{key,value},two]},
+       {guarded,[{key,{one}},0]},{guarded,[{key,not_tuple},0]},{guarded,[{key,{one}},1]}],
+Project=fun(F,Args)->
+ try apply(M,F,Args) of V->{value,V}
+ catch Class:Reason:[{M,F,Origin,Where}|_]->
+  {Class,Reason,Origin,proplists:get_value(line,Where)}
+ end end,
+Rows=[{F,A,Project(F,A)}||{F,A}<-Calls],
+ok=file:write_file(Output,io_lib:format("~0p.~n",[Rows])),
+halt().
+
+Runtime terminating during boot ({{badmatch,{error,{12,erl_parse,["syntax error before: ","'['"]}}},[{init,start_it,1,[{file,"init.erl"},{line,1560}]},{init,start_em,1,[{file,"init.erl"},{line,1546}]},{init,do_boot,3,[{file,"init.erl"},{line,1217}]}]})
+
+Crash dump is being written to: D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/near-raw-residual-triage-1925/function-entry-failure-relays-verified-delivery-source/behavior-crash.dump...done

@@ -1,0 +1,29 @@
+{init_state,[table,not_undefined],error,function_clause,[{mnesia_frag_hash,init_state,[table,not_undefined],[{file,"mnesia_frag_hash.erl"},{line,85}]},{erl_eval,do_apply,7,[{file,"erl_eval.erl"},{line,1044}]},{erl_eval,try_clauses,10,[{file,"erl_eval.erl"},{line,1690}]},{erl_eval,expr_list,7,[{file,"erl_eval.erl"},{line,1664}]},{erl_eval,expr_list,5,[{file,"erl_eval.erl"},{line,1660}]},{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,451}]},{erl_eval,expr_list,7,[{file,"erl_eval.erl"},{line,1664}]},{erl_eval,eval_lc1,7,[{file,"erl_eval.erl"},{line,1078}]}]}
+{add_frag,[{hash_state,5,bad,2,phash2}],error,badarith,[{erlang,'+',[bad,1],[{error_info,#{module => erl_erts_errors}}]},{mnesia_frag_hash,add_frag,1,[{file,"mnesia_frag_hash.erl"},{line,120}]},{erl_eval,do_apply,7,[{file,"erl_eval.erl"},{line,1044}]},{erl_eval,try_clauses,10,[{file,"erl_eval.erl"},{line,1690}]},{erl_eval,expr_list,7,[{file,"erl_eval.erl"},{line,1664}]},{erl_eval,expr_list,5,[{file,"erl_eval.erl"},{line,1660}]},{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,451}]},{erl_eval,expr_list,7,[{file,"erl_eval.erl"},{line,1664}]}]}
+{add_frag,[{}],error,function_clause,[{mnesia_frag_hash,convert_old_state,[{}],[{file,"mnesia_frag_hash.erl"},{line,91}]},{mnesia_frag_hash,add_frag,1,[{file,"mnesia_frag_hash.erl"},{line,133}]},{erl_eval,do_apply,7,[{file,"erl_eval.erl"},{line,1044}]},{erl_eval,try_clauses,10,[{file,"erl_eval.erl"},{line,1690}]},{erl_eval,expr_list,7,[{file,"erl_eval.erl"},{line,1664}]},{erl_eval,expr_list,5,[{file,"erl_eval.erl"},{line,1660}]},{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,451}]},{erl_eval,expr_list,7,[{file,"erl_eval.erl"},{line,1664}]}]}
+{del_frag,[{hash_state,5,bad,2,phash2}],error,badarith,[{erlang,'-',[bad,1],[{error_info,#{module => erl_erts_errors}}]},{mnesia_frag_hash,del_frag,1,[{file,"mnesia_frag_hash.erl"},{line,159}]},{erl_eval,do_apply,7,[{file,"erl_eval.erl"},{line,1044}]},{erl_eval,try_clauses,10,[{file,"erl_eval.erl"},{line,1690}]},{erl_eval,expr_list,7,[{file,"erl_eval.erl"},{line,1664}]},{erl_eval,expr_list,5,[{file,"erl_eval.erl"},{line,1660}]},{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,451}]},{erl_eval,expr_list,7,[{file,"erl_eval.erl"},{line,1664}]}]}
+{key_to_frag_number,[{hash_state,5,2,bad,phash2},a],error,badarith,[{erlang,'+',[bad,1],[{error_info,#{module => erl_erts_errors}}]},{mnesia_frag_hash,key_to_frag_number,2,[{file,"mnesia_frag_hash.erl"},{line,196}]},{erl_eval,do_apply,7,[{file,"erl_eval.erl"},{line,1044}]},{erl_eval,try_clauses,10,[{file,"erl_eval.erl"},{line,1690}]},{erl_eval,expr_list,7,[{file,"erl_eval.erl"},{line,1664}]},{erl_eval,expr_list,5,[{file,"erl_eval.erl"},{line,1660}]},{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,451}]},{erl_eval,expr_list,7,[{file,"erl_eval.erl"},{line,1664}]}]}
+{init_state,[table,not_undefined],{error,function_clause,[{mnesia_frag_hash,init_state,[table,not_undefined]}]}}.
+{add_frag,[{hash_state,1,1,0,phash2}],{ok,{{hash_state,2,1,1,phash2},[1],[2]}}}.
+{add_frag,[{hash_state,5,2,2}],{ok,{{hash_state,6,3,2,phash},[2],[6]}}}.
+{add_frag,[{hash_state,5,2,2,phash2}],{ok,{{hash_state,6,3,2,phash2},[2],[6]}}}.
+{add_frag,[{hash_state,5,bad,2,phash2}],{error,badarith,[{erlang,'+',[bad,1]},{mnesia_frag_hash,add_frag,1}]}}.
+{add_frag,[{hash_state,5.25,2.5,2,phash2}],{ok,{{hash_state,6.25,3.5,2,phash2},[2.5],[6.25]}}}.
+{add_frag,[{}],{error,function_clause,[{mnesia_frag_hash,convert_old_state,[{}]},{mnesia_frag_hash,add_frag,1}]}}.
+{del_frag,[{hash_state,1,1,0,phash2}],{ok,{{hash_state,0,0,-1,phash2},[1],[0]}}}.
+{del_frag,[{hash_state,5,2,2}],{ok,{{hash_state,4,1,2,phash},[5],[1]}}}.
+{del_frag,[{hash_state,5,2,2,phash2}],{ok,{{hash_state,4,1,2,phash2},[5],[1]}}}.
+{del_frag,[{hash_state,5,3,2,phash2}],{ok,{{hash_state,4,2,2,phash2},[5],[2]}}}.
+{del_frag,[{hash_state,5,bad,2,phash2}],{error,badarith,[{erlang,'-',[bad,1]},{mnesia_frag_hash,del_frag,1}]}}.
+{del_frag,[{hash_state,5.25,2.5,2,phash2}],{ok,{{hash_state,4.25,1.5,2,phash2},[5.25],[1.5]}}}.
+{key_to_frag_number,[{hash_state,1,1,0,phash2},a],{ok,1}}.
+{key_to_frag_number,[{hash_state,5,2,2},a],{ok,2}}.
+{key_to_frag_number,[{hash_state,5,2,2,phash2},a],{ok,2}}.
+{key_to_frag_number,[{hash_state,5,2,2,phash2},{multi,tuple}],{ok,3}}.
+{key_to_frag_number,[{hash_state,5,2,bad,phash2},a],{error,badarith,[{erlang,'+',[bad,1]},{mnesia_frag_hash,key_to_frag_number,2}]}}.
+{match_spec_to_frag_numbers,[{hash_state,5,2,2,phash2},[{{rec,a,ignored},[],[true]}]],{ok,[2]}}.
+{match_spec_to_frag_numbers,[{hash_state,5,2,2,phash2},[{{rec,'$1',ignored},[],[true]}]],{ok,[1,2,3,4,5]}}.
+{match_spec_to_frag_numbers,[{hash_state,5,2,2,phash2},[{{rec,a},[],[]}]],{ok,[1,2,3,4,5]}}.
+{match_spec_to_frag_numbers,[{hash_state,5,2,2,phash2},[{{rec,a,ignored},[],[]},{{rec,a,ignored},[],[]}]],{ok,[1,2,3,4,5]}}.
+{match_spec_to_frag_numbers,[{hash_state,5,2,2,phash2},[{{rec,a,ignored},[],[]}|improper]],{ok,[1,2,3,4,5]}}.
+{match_spec_to_frag_numbers,[{hash_state,5,2,2},[{{rec,old,ignored},[],[true]}]],{ok,[5]}}.

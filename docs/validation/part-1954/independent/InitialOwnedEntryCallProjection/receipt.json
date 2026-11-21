@@ -1,0 +1,36 @@
+{
+  "Part": 1991,
+  "Reference": "OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Dependency": "Frozen Part1952 + Part1984 contextual + Parts1985,1986,1988,1990. Test patch anchors on Part1988 test registration.",
+  "PinnedSource": [
+    "beam_ssa_pre_codegen.erl find_yregs/1 and find_yregs_is/3. A variable becomes Y only when read after an X-register clobber.",
+    "ex_gauge.erl handle_info/2 pulse arm"
+  ],
+  "Change": "Send a checked tuple projection directly to the single argument of the first ordinary non-tail call when that entry binding has no read in the continuation. Drop the unnecessary frame slot before planning. Keep continuation reads and failures on their existing path.",
+  "Scope": "Thirteen release images, 8 Equal/5 Different; only ex_gauge output changes. Pulse owned frame now 2 slots, matching OTP. Remaining pulse differences are alias slot order and nested update scheduling/hint. Whole gauge remains Different.",
+  "Native": "Seven actual release handle_info/2 calls. Same ordered effects, returned state, timer delivery, and failure stack.",
+  "Focused": {
+    "Green": 0,
+    "Red": -532462766,
+    "Fixture": "One-use field forwards to X0; same field read again after the call retains its Y home."
+  },
+  "RequiredRawFixture": "8eb5fc010e0fbf28ab40bb0dc39aef3887fe86364f43daca1689cec2d51e5294",
+  "ExactCursor": "714c854a2c33e458fb68763759ce40ae8cfcf3f1f3b122c16466f955fa514c96",
+  "Hashes": {
+    "production.patch": "0072aaa112d47f9923098278338347707bd0fea319477396a94f07bef2d19acd",
+    "test.patch": "a8c80a73da96e006277622732abc8d8a0c9350a6249335464ab03c2b8e8fa776",
+    "strict-replay.log": "019ddcccab08024525d19eebf1792ce4d38a191477400d61c83cd1de66e878c8",
+    "replay-files.json": "d9c57cf96807d25597f8cca2eddec8b0ba1d783a0bc46690c63882ec0464b909",
+    "style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "build.log": "a6ff25a014a0d0ceb94308805f6fb8e2e38feb1e011c40baeda4aa79eb5dd6be",
+    "focused-build.log": "e30613f9b226c410f0a0fe043f8c4e617efbf37e2d7cc58aff6cf18bdad9de3e",
+    "test-red.log": "777056bdf07c6ce0353d8cd24965221c8fdf74fb6081f52fa14001999257ee99",
+    "test-green.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "scope.json": "fe704fe96a832b0a5c71ce23ba69fedcd0978443231a71826f7009c19dd92ada",
+    "info-candidate.terms": "b4c1b59d1c05d05004537f893c476f018ee844a8890c6e3a5568ce87d2072b33",
+    "native-pinned.terms": "e05fa990e8738bc0bb53ac936680c19ef6e7c18d36abfe247c5d52ca56279c12",
+    "native-candidate.terms": "e05fa990e8738bc0bb53ac936680c19ef6e7c18d36abfe247c5d52ca56279c12",
+    "compiler-bin/Erlang.Compiler.dll": "91445dbf424126ac0e01d20970502888be6d94e8043270a791626d127a2b8e50",
+    "scope.json.generated/lib/wx-2.7/doc/examples/demo/ex_gauge.beam": "b74591936372149e15e05a78bab18c75b05902d4fcf03675fb56b0480cd291eb"
+  }
+}

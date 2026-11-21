@@ -1,0 +1,46 @@
+{
+  "Parent": {
+    "Source": "0d74bdc34d7938ef7587b8f2bf8dc98a9b43b4459335ca17a6c2c33483b097b2",
+    "Paths": 905,
+    "RemovedPaths": [],
+    "Compiler": "fbb44521955aec5171678021fa2d7c82c3f34b7b2e0451b7b292893a85906e5a",
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "Tests": "5eeba2263b4127799298cbd28e4a917e7e451fc4ad4ed71224e219d35efde0e1",
+    "ParentSource": "f56db2486823b088038d1a52b4dc6ddb83ba48f32e96e2ccd3e9ab1dd6594786",
+    "CorpusTool": "0f373a357cd56a0d19fa15635b7d8d4cfa86bd6c812a9bc7e2e356c97cb6f940"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CallResultConstruction.cs": "3c6b4cb47a7f99cdaf4e8d72528a247f9b6596dc6286a727dd1acfc6a8fc33d9",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ConsumedOutgoingRoots.cs": "659849fd2109cc7b5551d0b9896c6bd5edea3afad88650db61ebdc0ccf801444",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": "7be7ba491c6a50d63491ad47cc5336d4af1c23ec08dd33223b7d91c3fabd3d00",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ListDefaultTupleContinuation.cs": "33c79ff6bbed2fdb0e1a29bb4738aa56f67197b5e24263a53f529a5a7a9c9c03",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecordGuards.cs": "e16bda5eb19e3b17b2128a5e6017bfc1185d91958f8eeb81cf3df4da896c7edc",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedRecordCatchContinuations.cs": "d2cd4e7c9478ebf62aa885931a1a4e8d80eaf78c60f57aa1c2cd3d972eaa6396",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.StackFrameTrimming.cs": "079507071012040b5041a2c14e33a51520f762aa4a7c484c16d9fcf8f6ed982e",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TerminalReconstructionCases.cs": "6d6ef9b09f17834cc4ed4a3745e75b42be1f17daa1ddba3f28d3b49280387972",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TupleProjectionContinuations.cs": "6d11772783c78e1896b3fd2ecf7977e90d13a8effe80a7cb682dbf7e3a3e1ac9",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.WxObjectCommands.cs": "ae9fd8b167efc9cff3a9f7a7469d18cfc071d034524ddbbaf51befb0d36170c0",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": "6c3d06c02075068eaf9c2488de214da85692c0a0fb18b54d1364b86fecd883a1",
+    "tests/Erlang.Tests/Compiler/Beam/BeamDeferredHandlerTupleFieldsChecks.cs": "b07ac9a8ba5862a43572cbe7908074d5bb4f58aebdc8a2bfcf3e46c3d10189f7",
+    "tests/Erlang.Tests/Compiler/Beam/BeamLateOutgoingRootTrimChecks.cs": "e3ff00cd1e4a85270072f72bccdf141d45935266bd00abbce1850785d0784387",
+    "tests/Erlang.Tests/Compiler/Beam/BeamOwnedConstructorAndCatchChecks.cs": "e722aaa2bee3378aebe3ce4de3d50d918905ae0632cc7681c4552edf3bea5dc6",
+    "tests/Erlang.Tests/Compiler/Beam/BeamTerminalReconstructionChecks.cs": "5a15433a40d77c9cf1cba614682c7f3574ffb955509b6304b5e51bf7131fd446",
+    "tests/Erlang.Tests/Compiler/Beam/BeamWxInterleavedTextGuardsChecks.cs": "61a99643c8fbe1771e98f1db52f3a5cad4ecccf58bd7c367f450992a2706d50b",
+    "tests/Erlang.Tests/Harness/Program.cs": "c9dc80f6ff412fbd1a0a9209c1b1bf62f407461fb4e0692861d2588e70bbf64f"
+  },
+  "CandidateRemovedPaths": {},
+  "PatchSources": {
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\binary-match-audit-1931\\megaco-term-id-1950\\arithmetic-constructor-ownership.patch": "a759abc32374d8ef4da9fbb27f95c59ce92a41976af9873279ca60caa9905ce1",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\binary-match-audit-1931\\megaco-term-id-1950\\shared-protected-record-continuations.patch": "7bc5fef03738ad0d6ee7495870c783ad5f34d8b60e83581d99eb58928ae669d3",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\arithmetic-constructors-and-xml-wrappers-1950\\adapted-tests\\ArithmeticConstructorAndProtectedRecords.patch": "8faa165cedaf16b4dd4345c1898b76a5502378776fb2dd6a2f378f32f6854d44",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\binding-free-composite-case-selectors-1949\\production.patch": "6ceb964afe94c06137f42a9853467dafd24618a3eae6934d38508649a17f0ab9",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\arithmetic-constructors-and-xml-wrappers-1950\\adapted-tests\\BindingFreeTerminalReconstruction.patch": "e27ccc55bb83b1ce2894159a8c2b7774ff8cf2b46db401ecafd2e2eefa6105cb",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\xml-resource-wx-wrappers-1973\\production.patch": "bc1c88c33d3a8b20fd43351bc2de7b658b7bfda07dd3ab90f1570e2e43bc2323",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\arithmetic-constructors-and-xml-wrappers-1950\\adapted-tests\\XmlResourceWxWrappers.patch": "4e14b50e2880d716157c7e84a4804f8fedcf9fa3fdc16f38cf625c0e7af10aa0",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\late-outgoing-root-trims-1974\\production.patch": "c6520cae43a2711bfb0177d9045142f566f148978023337a230e3dc073c0e4d7",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\arithmetic-constructors-and-xml-wrappers-1950\\adapted-tests\\TrimNewOutgoingRoots.patch": "c8766763f7eb6a036bd8cfa4c659654cf850b4a980b98d29bff55c170bfce8af",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\binary-match-audit-1931\\sasl-report-handler-1951\\deferred-handler-tuple-fields.patch": "976de625b3304cb5d37781072b6d114b5d0d94474ecdf7965a61138c44fdb139",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\arithmetic-constructors-and-xml-wrappers-1950\\adapted-tests\\DeferredHandlerTupleFields.patch": "4c1463dc683b0334eb4cc6bd9ea42c307d72456fd33d6f02f486b5bf28e31010",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\arithmetic-constructors-and-xml-wrappers-1950\\adapted-tests\\integrated-harness-registrations.patch": "fa4244894b77dda88bc6a0d747a5642e158b40f8046a75f6b4ad52984101ab0e"
+  }
+}

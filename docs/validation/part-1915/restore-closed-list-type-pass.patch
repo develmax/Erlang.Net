@@ -1,0 +1,15 @@
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+@@ -1094,6 +1094,12 @@
+         ) ?? code;
+         code = AnnotateListProducerResults(code, labelCount, localResultEntries) ?? code;
+         code = LocalizeCheckedListGuardFrame(code, labelCount) ?? code;
++        code = SimplifyListOrTaggedCallResult(
++            code,
++            labelCount,
++            functions,
++            localEntries
++        ) ?? code;
+         code = OrderTypeOperandsByFirstUse(code, labelCount);
+         code = TrimOwnedCallResultBranches(code, labelCount) ?? code;
+         code = ClearDeadRecordCallSlots(code, labelCount) ?? code;

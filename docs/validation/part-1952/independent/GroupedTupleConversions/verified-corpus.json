@@ -1,0 +1,52 @@
+{
+  "OtpVersion": "29.1.1",
+  "Total": 6,
+  "Counts": {
+    "Different": 1,
+    "Equal": 5
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\eunit-2.11\\ebin\\eunit_striptests.beam",
+      "Status": "Different",
+      "Source": "lib\\eunit-2.11\\src\\eunit_striptests.erl",
+      "Detail": "Original length 3752, generated length 3848. AtU8 357-\u003E361, Code 511-\u003E590, ImpT 148-\u003E160, ExpT 40-\u003E40, FunT 52-\u003E52, LocT 40-\u003E40, Attr 39-\u003E39, Line 50-\u003E50",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\local_udp.beam",
+      "Status": "Equal",
+      "Source": "lib\\kernel-11.0.4\\src\\local_udp.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\cdv_bin_cb.beam",
+      "Status": "Equal",
+      "Source": "lib\\observer-2.19\\src\\cdv_bin_cb.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\pubkey_translation.beam",
+      "Status": "Equal",
+      "Source": "lib\\public_key-1.21.7\\src\\pubkey_translation.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\sasl-4.4\\ebin\\sasl_report_tty_h.beam",
+      "Status": "Equal",
+      "Source": "lib\\sasl-4.4\\src\\sasl_report_tty_h.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\snmp-5.20.5\\ebin\\snmp_verbosity.beam",
+      "Status": "Equal",
+      "Source": "lib\\snmp-5.20.5\\src\\misc\\snmp_verbosity.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    }
+  ]
+}

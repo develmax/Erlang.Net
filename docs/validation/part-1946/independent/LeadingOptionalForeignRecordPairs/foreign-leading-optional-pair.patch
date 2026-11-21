@@ -1,0 +1,126 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs
+@@ -121,10 +121,12 @@
+ 
+                 bool allowForeignOptional = firstDefault is not null && count == 4 && index == 1
+                     || (allOptional || count == 2 && index == 1) && field is Expr.Case;
++                bool followsLeadingForeignOptional = count == 2 && index == 1
++                    && fields[0] is { Omits: Atom, Call.Module: not null };
+                 SequenceEncodePart? plan = ReadRequiredOptionalSequenceField(
+                     field,
+                     value.Name,
+-                    allowForeign: firstDefault is not null || allowForeignOptional,
++                    allowForeign: firstDefault is not null || allowForeignOptional || followsLeadingForeignOptional,
+                     allowForeignOptional: allowForeignOptional
+                 );
+                 if (plan is null && count >= 4 && index == 0 && field is Expr.Case firstCondition
+@@ -175,7 +177,7 @@
+                         && plan.Call.Module is null;
+                     if (firstDefault is not null && trailingOptionalStarted && !followsForeignOptional
+                         || firstDefault is null && index != required && !finalRequired
+-                            && !(middleDefault is not null && index == 2))
++                            && !followsLeadingForeignOptional && !(middleDefault is not null && index == 2))
+                     {
+                         return false;
+                     }
+@@ -220,7 +222,12 @@
+                 { Omits: null, Call.Module: null },
+                 { Omits: not null, Call.Module: not null }
+                 ];
+-            if (!retainRecord && !checkedOptional && !checkedPairWithOptional && !trimFinalRequired && (firstDefault is not null && (required < 3 && !compactMixed || finalDefault is not null || !trailingOptionalStarted)
++            bool checkedOptionalThenRequired = fields is
++                [
++                { Omits: Atom, Call.Module: not null },
++                { Omits: null }
++                ];
++            if (!retainRecord && !checkedOptional && !checkedPairWithOptional && !trimFinalRequired && !checkedOptionalThenRequired && (firstDefault is not null && (required < 3 && !compactMixed || finalDefault is not null || !trailingOptionalStarted)
+                 || firstDefault is null && (required != 2 || required == count || (middleDefault is null && (finalDefault is null
+                     ? fields[0].Constants is not [var named, _] || !IsClosedNamedNumberList(named)
+                     : count != 4 || fields[0].Constants is not [Nil] || fields[2].Omits is not Atom)))))
+@@ -288,13 +295,14 @@
+                 );
+             }
+ 
+-            if (checkedOptional || checkedPairWithOptional || trimFinalRequired)
++            if (checkedOptional || checkedPairWithOptional || trimFinalRequired || checkedOptionalThenRequired)
+             {
+                 if (fields is [var left, var right])
+                 {
+                     var firstOptional = ReadDeferredOptional(((Expr.Match)sequence.Items[1]).Value);
++                    var lastOptional = ReadDeferredOptional(((Expr.Match)sequence.Items[2]).Value);
+                     if (left.Omits is not null && firstOptional is not { Second: null }
+-                        || ReadDeferredOptional(((Expr.Match)sequence.Items[2]).Value) is not { Second: null } lastOptional
++                        || right.Omits is not null && lastOptional is not { Second: null }
+                         || left.Call.Arguments.Count is not (2 or 3) || firstOptional is not null && left.Call.Arguments.Count != 2
+                         || right.Call.Arguments.Count != 2)
+                     {
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedOptionalPairFields.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedOptionalPairFields.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedOptionalPairFields.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedOptionalPairFields.cs
+@@ -82,13 +82,13 @@
+             SequenceEncodePart first,
+             SequenceEncodePart second,
+             DeferredOptional? firstOptional,
+-            DeferredOptional secondOptional,
++            DeferredOptional? secondOptional,
+             Expr.Binary sum,
+             int finish
+         )
+         {
+             const int Frame = 3;
+-            int afterFields = owner.nextLabel + (firstOptional is null ? 2 : 4);
++            int afterFields = owner.nextLabel + (firstOptional is null ? 0 : 2) + (secondOptional is null ? 0 : 2);
+             int badSecond = second.Call.Module is null ? 0 : afterFields++;
+             int badFirst = first.Call.Module is null ? 0 : afterFields++;
+             int badInput = afterFields;
+@@ -136,12 +136,32 @@
+                 );
+             }
+ 
+-            EmitDeferredOptional(
+-                secondOptional,
+-                -1,
+-                1,
+-                inputSlot: 1
+-            );
++            int trim = 0;
++            if (secondOptional is not null)
++            {
++                EmitDeferredOptional(
++                    secondOptional,
++                    -1,
++                    1,
++                    inputSlot: 1
++                );
++            }
++            else
++            {
++                owner.EmitConstant(second.Constants[0], 1);
++                Load(1, 0);
++                owner.MoveRegister(
++                    YRegisterTag,
++                    0,
++                    YRegisterTag,
++                    1
++                );
++                owner.Op(TrimFrame, BeamWire.UnsignedTag, 1);
++                owner.Operand(BeamWire.UnsignedTag, Frame - 1);
++                owner.EmitCallLine(second.Call, location);
++                Call(second.Call.Module, second.Call.Function, 2);
++                trim = 1;
++            }
+             if (badSecond != 0)
+             {
+                 EmitTupleShapeTest(
+@@ -155,8 +175,8 @@
+             EmitTwoDeferredPairResult(
+                 sum,
+                 finish,
+-                Frame,
+-                2,
++                Frame - trim,
++                2 - trim,
+                 default,
+                 default
+             );

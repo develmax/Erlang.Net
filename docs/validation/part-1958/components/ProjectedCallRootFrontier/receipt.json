@@ -1,0 +1,42 @@
+{
+  "Part": 2000,
+  "Reference": "OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "FrozenSource": "81fe483cddbe51403b1520e49ebef73f9f394e78c534699dc2f9a7c3b4fa5cdc",
+  "FrozenCompiler": "194e9de374fbebd7d9507b09c11cb2c7a864446315cfd334a63376fae4a9bb23",
+  "Dependency": "Apply sealed Part1999 first. Frozen Part1956 already contains Part1996 terminal arithmetic operand forwarding. The production hook follows that forwarding to see final lifetimes.",
+  "PinnedSource": [
+    "beam_ssa_codegen.erl call liveness annotation kill_yregs; setup_args and kill_yregs/2",
+    "ex_gauge.erl handle_info/2 tick branches"
+  ],
+  "Change": "Clear previously projected Y roots at a non-tail call when both the argument setup and the reachable shared continuation prove no later read. Use the disjoint frame owner, existing projected-root provenance, and the already rooted arithmetic operand in the joined nested-record return. Keep roots observed after a call.",
+  "Scope": "Eight actual Windows release images, 4 Equal and 4 Different. The seven outside-gauge images retain frozen Part1956 identity and status. This includes exact ex_cursor and the unchanged repaired ex_canvas_paint and sudoku_game images. In ex_gauge, only handle_info/2 changes in normalized instructions.",
+  "Gauge": "All three pinned call-root sets are present. Normalized instruction count 72 to 76 matching OTP count. The alias-slot permutation and one format-call argument ordering still differ. No whole function or whole file byte match claimed.",
+  "Native": "Nine actual gauge cases match OTP, including bignum, error stack and effects, and live timer. Four independent fixture cases with and without a later use match the same pinned semantics.",
+  "Regression": "The final focused fixture cleaner returns 1 under the actual frozen1956 compiler and 0 under the final candidate. The original Windows red fixture process logged its expected assertion and stalled during exit, so that isolated child was stopped and the same assertion rerun with a deterministic exception-catching driver.",
+  "Superseded": "The initial broader attempts admitted noncanonical record branch scheduling. Held artifacts remain separate from the final guarded patch.",
+  "ExactCursor": "Both scopes directly compare Equal with the pinned BEAM.",
+  "RequiredRawFixture": "8eb5fc010e0fbf28ab40bb0dc39aef3887fe86364f43daca1689cec2d51e5294",
+  "Hashes": {
+    "production.patch": "002ed8464212da6d475decf94ded9ffdcddcaf39cde455e682510c7b59a2d9ab",
+    "test.patch": "2e3f72cab71e09fa3135521507a9d35fb6fba4bfbe12dc39dca48f4dbb4e15b0",
+    "strict-arith-replay.log": "f5a47267fa5ce3ec4ca9f3e09da866027c053d7f9c1e24fe8fdf447a22718971",
+    "replay-files.json": "3a4e5daf7823531923398aba8717185ec74c771d06f22c2407cd3ee3ed963731",
+    "style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "final-style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "arith-build.log": "ecc35e498f855d678da7331c76d00d5a384f9b7065c4d54198f198855a273c61",
+    "clean-focused-exits.json": "310cdcc14f0f6f31e2a7d35f3171cc54420dd5c1396caa206c20298d614add4e",
+    "clean-red.log": "80d11152ac582e3132ed36e49c6dd587f1d3e2ebea6a8b1737512742cab9fb5a",
+    "clean-green.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "scope-arith.json": "7ff154df6c2bee8fe36ad8f119288b77e02acd17e386707f773f76424c6c845a",
+    "gauge-parent.terms": "c3fa425aca1b32ef601a4ffc9de5349347e69e7b74648063e73917ed2026ba70",
+    "gauge-arith.terms": "61ada3f6b7de268b12313cb0b7fe0386c2e37ca46373bdf5ca39d0498dc10f7c",
+    "gauge-arith-native.terms": "50e4a78cd7fe6399b2ffd5f98f0a06127266efd735fdd5baccaeda7d01e29ef6",
+    "normalize-arith.terms": "0dc36a5de6bd02060799b63d482d1e280b739ec53abac18f8fee5e7879a76bb4",
+    "native-arith/pinned.terms": "6cf5dbe4a94793f5e01ec06798366d5b54ff53b519bb90b665a3ad964729aa53",
+    "native-arith/candidate.terms": "6cf5dbe4a94793f5e01ec06798366d5b54ff53b519bb90b665a3ad964729aa53",
+    "arith-compiler/Erlang.Compiler.dll": "8ae927891e0f4be56df88accd7bf1bbcc08d03ea384d99189b87322db2cce01d",
+    "scope-arith.json.generated/lib/wx-2.7/doc/examples/demo/ex_gauge.beam": "783dbc6101cac7a85620f76a9e5e88d4cd0467874fe9f4951c1ceb8bbb2a7342",
+    "scope-arith.json.generated/lib/wx-2.7/doc/examples/demo/ex_canvas_paint.beam": "6a27f578bf1c557c47069c2910640974dc05cdbae7ade0f127922efcfed90ef5",
+    "scope-arith.json.generated/lib/wx-2.7/doc/examples/sudoku/sudoku_game.beam": "294e66b0ee3121e346014cc0f3050163eaf7aae471edee0585aef3f8825abcdb"
+  }
+}

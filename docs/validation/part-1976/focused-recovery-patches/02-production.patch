@@ -1,0 +1,82 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AtomCompanionEntries.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AtomCompanionEntries.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AtomCompanionEntries.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AtomCompanionEntries.cs
+@@ -133,7 +133,7 @@
+                 (left, right) => TermOrder.Compare(left, right, exact: true)
+             )).ToArray();
+             bool exhaustive = finite is not null && finite.SetEquals(ordered.Select(arm => (Atom)arm.Key));
+-            var representatives = terminalArms ? GroupIdenticalTerminalArms(ordered) : null;
++            var representatives = terminalArms ? GroupIdenticalTerminalArms(ordered, selector) : null;
+             if (terminalArms && ordered is [var first, var second] && UsesOneBooleanArm(first, second, representatives!))
+             {
+                 continue;
+@@ -206,7 +206,8 @@
+                         }
+                     }
+                 }
+-                output.Write(code.Span[body[branch.Body].Offset..body[branch.End].Offset]);
++                int branchBody = terminalArms ? ReadTerminalEntryBody(branch, selector) : branch.Body;
++                output.Write(code.Span[body[branchBody].Offset..body[branch.End].Offset]);
+             }
+ 
+             copied = body[arms[^1].End].Offset;
+@@ -285,17 +286,38 @@
+             arms.Any(arm => body.Skip(arm.Body).Take(arm.End - arm.Body)
+                 .Any(instruction => instruction.Definition.Opcode == Line));
+ 
+-        Dictionary<Term, Term> GroupIdenticalTerminalArms(DisjointEntryArm[] ordered)
++        int ReadTerminalEntryBody(DisjointEntryArm arm, BeamOperand selector)
++        {
++            // A select edge already proves that X0 equals its integer key.
++            if (arm.Literal.Kind == BeamOperandParameters.Integer && IsBareX0(selector)
++                && arm.Body + 2 == arm.End
++                && body[arm.Body] is
++                {
++                    Definition.Opcode: Move,
++                    Operands: [var literal, var destination]
++                }
++                && literal == arm.Literal && destination == selector
++                && body[arm.Body + 1].Definition.Opcode == Return)
++            {
++                return arm.Body + 1;
++            }
++
++            return arm.Body;
++        }
++
++        Dictionary<Term, Term> GroupIdenticalTerminalArms(DisjointEntryArm[] ordered, BeamOperand selector)
+         {
+             var representatives = new Dictionary<Term, Term>();
+             var distinct = new List<DisjointEntryArm>();
+             foreach (DisjointEntryArm arm in ordered)
+             {
+-                ReadOnlySpan<byte> instructions = code.Span[body[arm.Body].Offset..body[arm.End].Offset];
++                int start = ReadTerminalEntryBody(arm, selector);
++                ReadOnlySpan<byte> instructions = code.Span[body[start].Offset..body[arm.End].Offset];
+                 DisjointEntryArm? same = null;
+                 foreach (DisjointEntryArm previous in distinct)
+                 {
+-                    if (instructions.SequenceEqual(code.Span[body[previous.Body].Offset..body[previous.End].Offset]))
++                    int previousStart = ReadTerminalEntryBody(previous, selector);
++                    if (instructions.SequenceEqual(code.Span[body[previousStart].Offset..body[previous.End].Offset]))
+                     {
+                         same = previous;
+                         break;
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryAtomIdentityCase.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryAtomIdentityCase.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryAtomIdentityCase.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryAtomIdentityCase.cs
+@@ -47,6 +47,14 @@
+             Mark(success);
+             owner.instructions.WriteByte(Return);
+             var failureLocation = CaseSourceLocation(decision);
++            // The selector and shared return carry no intervening source line.
++            if (failureLocation is { } source && source.Line == location.Line
++                && (source.File ?? owner.defaultLineFile ?? owner.implicitLineFile)
++                    == (location.File ?? owner.defaultLineFile ?? owner.implicitLineFile))
++            {
++                failureLocation = null;
++            }
++
+             EmitBooleanCaseFailure(failure, failureLocation == owner.lastEmittedLine ? null : failureLocation);
+ 
+             return true;

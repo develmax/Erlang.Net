@@ -163,6 +163,23 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
+        private bool HasExactAtomOrTaggedTupleResult(EntryCall selector, Atom tag, int arity)
+        {
+            if (selector.Module is not null || selector.Call is not { Module: null, DynamicRemote: false } call
+                || !localFunctions.TryGetValue((call.Function, call.Arguments.Count), out var definition))
+            {
+                return false;
+            }
+
+            return owner.ReadClosedTaggedCallResult(
+                definition,
+                arity,
+                tag.Name,
+                localFunctions,
+                allowAtom: true
+            ) == LocalAtomOrTupleType;
+        }
+
         private int ReadCallResultUnion(Expr.Call call)
         {
             var signature = (call.Function, call.Arguments.Count);

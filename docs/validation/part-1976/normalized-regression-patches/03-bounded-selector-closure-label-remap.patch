@@ -1,0 +1,134 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryLiteralTests.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryLiteralTests.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryLiteralTests.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryLiteralTests.cs
+@@ -221,7 +221,7 @@
+                 // A code entry can also be retained through module metadata.
+                 if (exports.Any(entry => MapEmittedLabel(entry.Entry) == branch.Label)
+                     || locals.Any(entry => MapEmittedLabel(entry.Entry) == branch.Label)
+-                    || closures.Any(closure => MapEmittedLabel(MapClosureEntryLabel(closure.Entry)) == branch.Label))
++                    || closures.Any(closure => MapClosureEntryLabel(closure.Entry) == branch.Label))
+                 {
+                     return null;
+                 }
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamIntegerTailSelectorChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamIntegerTailSelectorChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamIntegerTailSelectorChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamIntegerTailSelectorChecks.cs
+@@ -1,9 +1,12 @@
+ using System.Collections;
+ using System.Numerics;
++using System.Reflection;
++using System.Runtime.CompilerServices;
+ using Erlang;
+ using Erlang.Compiler;
+ using static Erlang.Compiler.BeamEmissionFormat;
+ using static Erlang.Tests.BeamBinaryHostAccess;
++using static Erlang.Tests.BeamOpcodeEdgeBytes;
+ 
+ namespace Erlang.Tests;
+ 
+@@ -56,6 +59,7 @@
+ 
+     internal static async Task Run()
+     {
++        CheckDeferredClosureEntryMapping();
+         byte[] image = CompileFixture();
+         object code = Code(image);
+         object[] instructions = Items(code, "Instructions").ToArray();
+@@ -142,6 +146,97 @@
+             instructions.Skip(Info(name) + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo).ToArray();
+     }
+ 
++    private static void CheckDeferredClosureEntryMapping()
++    {
++        byte[] prefix = Start(
++            1,
++            2,
++            2,
++            2
++        );
++        byte[] suffix =
++        [
++            .. Start(
++                5,
++                6,
++                3,
++                2
++            ),
++            Return,
++            .. Start(
++                7,
++                8,
++                4,
++                2
++            ),
++            Return,
++            EndCode
++        ];
++        byte[] comparisonBytes =
++        [
++            .. prefix,
++            ExactEqualTest, F(3), X(0), I(1),
++            TailLocalCall, U(2), F(8),
++            Label, U(3),
++            ExactEqualTest, F(4), X(0), I(2),
++            TailLocalCall, U(2), F(8),
++            Label, U(4), Jump, F(1),
++            .. suffix
++        ];
++        ReadOnlyMemory<byte> comparisons = comparisonBytes;
++        byte[] expected =
++        [
++            .. prefix,
++            SelectValue, ExtendedTypedRegisterOperand, X(0), U(1), F(1), ExtendedListOperand, U(4),
++            I(1), F(3), I(2), F(3),
++            Label, U(3), TailLocalCall, U(2), F(8),
++            .. suffix
++        ];
++
++        byte[]? distinctClosure = GroupWithClosure(6);
++        byte[]? retainedArm = GroupWithClosure(4);
++        if (distinctClosure is null || !distinctClosure.AsSpan().SequenceEqual(expected)
++            || retainedArm is null || retainedArm[prefix.Length + 1] != X(0))
++        {
++            throw new InvalidOperationException(WrongLayout);
++        }
++
++        byte[]? GroupWithClosure(int mappedEntry)
++        {
++            const BindingFlags InstanceMembers = BindingFlags.Instance | BindingFlags.NonPublic;
++            var module = new Parser(Source).ParseModule();
++            var compiler = new BeamModuleCompiler(module.Name, sourceModule: module);
++            Type compilerType = compiler.GetType();
++            var atoms = (Dictionary<string, int>)compilerType.GetField("atoms", InstanceMembers)!.GetValue(compiler)!;
++            atoms.Add("choice", 2);
++            atoms.Add("escaped", 3);
++            atoms.Add("shared", 4);
++            compilerType.GetField("properListSourceFunctions", InstanceMembers)!.SetValue(
++                compiler,
++                module.DeclaredFunctions.ToDictionary(function => (function.Name, function.Arity))
++            );
++            compilerType.GetField("exportedFunctions", InstanceMembers)!.SetValue(compiler, module.DeclaredExports.ToHashSet());
++
++            var deferred = (Dictionary<int, int>)compilerType.GetField("deferredEntries", InstanceMembers)!
++                .GetValue(compiler)!;
++            deferred.Add(-1, 8);
++            int[] remapped = [0, 1, 2, 3, 3, 3, 4, 5, mappedEntry, 7, 8];
++            compilerType.GetField("emittedLabels", InstanceMembers)!.SetValue(compiler, remapped);
++            FieldInfo closureField = compilerType.GetField("closures", InstanceMembers)!;
++            var closures = (IList)closureField.GetValue(compiler)!;
++            object closure = RuntimeHelpers.GetUninitializedObject(closureField.FieldType.GetGenericArguments()[0]);
++            closure.GetType().GetProperty("Entry", InstanceMembers)!.SetValue(closure, -1);
++            closures.Add(closure);
++
++            return (byte[]?)Call(
++                compiler,
++                "GroupEntryLiteralTests",
++                comparisons,
++                9
++            );
++        }
++    }
++
+     private static object[] Operands(object instruction) => Items(instruction, "Operands").ToArray();
+ 
+     private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");

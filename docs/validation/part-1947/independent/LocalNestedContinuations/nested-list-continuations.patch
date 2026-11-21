@@ -1,0 +1,268 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
+@@ -538,17 +538,22 @@
+                 && record.Definition.Fields.All(field => record.Fields.Any(value => value.Name == field.Name)
+                     || AttributeLiteral.TryNormalizeConstant(field.Value, out _));
+ 
+-        bool CanUseExpression(Expr expression) => expression switch
+-        {
+-            Expr.Call { DynamicRemote: false } call => call.Module is not null
+-                || localFunctions.ContainsKey((call.Function, call.Arguments.Count))
+-                || ResolveExternalModule(call.Function, call.Arguments.Count) is not null,
+-            Expr.Apply { Function: Expr.Variable } => true,
+-            Expr.Variable or Expr.Literal or Expr.Tuple or Expr.List or Expr.Unary or Expr.Binary
+-                or Expr.RecordAccess or Expr.RecordTest => true,
+-            _ => false
+-        };
++        bool CanUseExpression(Expr expression) => CanUseRecursiveListOperand(expression, localFunctions);
+     }
++
++    private bool CanUseRecursiveListOperand(
++        Expr expression,
++        IReadOnlyDictionary<(string Name, int Arity), FunctionDefinition> localFunctions
++    ) => expression switch
++    {
++        Expr.Call { DynamicRemote: false } call => call.Module is not null
++            || localFunctions.ContainsKey((call.Function, call.Arguments.Count))
++            || ResolveExternalModule(call.Function, call.Arguments.Count) is not null,
++        Expr.Apply { Function: Expr.Variable } => true,
++        Expr.Variable or Expr.Literal or Expr.Tuple or Expr.List or Expr.Unary or Expr.Binary
++            or Expr.RecordAccess or Expr.RecordTest => true,
++        _ => false
++    };
+ 
+     private static bool HasProvenTupleGenerator(
+         Expr source,
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedComprehensions.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedComprehensions.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedComprehensions.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedComprehensions.cs
+@@ -14,7 +14,13 @@
+         for (int index = 0; index < functions.Count; index++)
+         {
+             var function = functions[index];
+-            if (ExtractNestedListGenerators(function, locations[index], declared) is { } nested)
++            if ((ExtractNestedListGenerators(function, locations[index], declared)
++                ?? ExtractRecursiveListGenerators(
++                    function,
++                    locations[index],
++                    declared,
++                    localFunctions
++                )) is { } nested)
+             {
+                 rewritten[index] = nested.Parent;
+                 helpers.AddRange(nested.Helpers);
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListGenerators.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListGenerators.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListGenerators.cs
+@@ -0,0 +1,209 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private (FunctionDefinition Parent, IReadOnlyList<(FunctionDefinition Function, BeamSourceLocation Location)> Helpers)?
++        ExtractRecursiveListGenerators(
++            FunctionDefinition function,
++            BeamSourceLocation fallback,
++            HashSet<(string Name, int Arity)> declared,
++            IReadOnlyDictionary<(string Name, int Arity), FunctionDefinition> localFunctions
++        )
++    {
++        if (ModuleOptimizationDisabled || !SsaTypeInferenceEnabled
++            || function.Clauses is not [var clause] || clause.Guard is not null || !HasUnconditionalParameters(clause))
++        {
++            return null;
++        }
++
++        var expressions = LocalFunctionEntries.Walk(clause.Body).ToArray();
++        if (expressions.Any(expression => expression is Expr.Fun or Expr.Try or Expr.Catch or Expr.Receive
++                or Expr.Maybe or Expr.MapComprehension or Expr.BinaryComprehension)
++            || expressions.OfType<Expr.ListComprehension>().ToArray() is not
++            [
++            {
++                Items: [var mapped],
++                Qualifiers:
++                    [
++                        ComprehensionQualifier.Generator
++                    {
++                        Strict: false,
++                        Pattern: Pattern.Variable { Name: not VariableScopeNames.Wildcard } outer,
++                        Source: Expr.Variable outerSource
++                    } first,
++                        ComprehensionQualifier.Generator
++                    {
++                        Strict: false,
++                        Pattern: var inner,
++                        Source: Expr.Variable or Expr.Call { DynamicRemote: false } or Expr.RecordAccess
++                    } second
++                    ]
++            } comprehension
++            ]
++            || !IsRecursiveListPattern(inner)
++            || !HasRetainedRecursiveListResult(comprehension, expressions)
++            || ClosureCaptures.ReadListComprehensionBindings(clause, comprehension) is not { } visible)
++        {
++            return null;
++        }
++
++        var innerBindings = Semantics.Variables(inner).ToHashSet(StringComparer.Ordinal);
++        if (!visible.Contains(outerSource.Name) || visible.Overlaps(innerBindings) || visible.Contains(outer.Name)
++            || innerBindings.Contains(outer.Name))
++        {
++            return null;
++        }
++
++        Expr innerSource = second.Source;
++        Expr source = outerSource;
++        var constants = ReadNestedListGeneratorConstants(clause, comprehension);
++        if (constants.Count > 0)
++        {
++            // A call through a lexical variable retains its callable operand.
++            foreach (Expr.Apply apply in LocalFunctionEntries.Walk(innerSource).Concat(LocalFunctionEntries.Walk(mapped)).OfType<Expr.Apply>())
++            {
++                if (apply.Function is Expr.Variable variable)
++                {
++                    constants.Remove(variable.Name);
++                }
++            }
++
++            source = SubstituteHelperOperandConstants(source, constants);
++            innerSource = SubstituteHelperOperandConstants(innerSource, constants);
++            mapped = SubstituteHelperOperandConstants(mapped, constants);
++        }
++
++        var sourceOperands = LocalFunctionEntries.Walk(innerSource).ToArray();
++        var valueOperands = LocalFunctionEntries.Walk(mapped).ToArray();
++        if (sourceOperands.Concat(valueOperands).Any(expression => !CanUseRecursiveListOperand(expression, localFunctions))
++            || innerSource is Expr.Literal { Value: not Cons { Tail: Cons } })
++        {
++            return null;
++        }
++
++        var sourceNames = sourceOperands.OfType<Expr.Variable>().Select(variable => variable.Name).ToHashSet(StringComparer.Ordinal);
++        var valueNames = valueOperands.OfType<Expr.Variable>().Select(variable => variable.Name).ToHashSet(StringComparer.Ordinal);
++        valueNames.ExceptWith(innerBindings);
++
++        // The outer item is needed in inner calls only if the mapped value reads it.
++        bool keepOuter = valueNames.Remove(outer.Name);
++        sourceNames.Remove(outer.Name);
++        sourceNames.UnionWith(valueNames);
++        if (!sourceNames.IsSubsetOf(visible))
++        {
++            return null;
++        }
++
++        var captures = clause.Patterns.OfType<Pattern.Variable>().Select(parameter => parameter.Name)
++            .Where(sourceNames.Remove).Concat(sourceNames.Order(StringComparer.Ordinal))
++            .Select(name => new Pattern.Variable(name)).ToArray();
++        const string outerTail = "@BeamOuterListRemainder";
++        var remainder = new Pattern.Variable(outerTail);
++        Pattern.Variable[] innerCaptures = keepOuter ? [.. captures, remainder, outer] : [.. captures, remainder];
++        int outerWidth = captures.Length + 1;
++        int innerWidth = innerCaptures.Length + 1;
++        string outerName = MappingName(function.Name, function.Arity);
++        string innerName = MappingName(
++            function.Name,
++            function.Arity,
++            1,
++            1
++        );
++        if (innerWidth >= FirstReservedXRegister || declared.Contains((outerName, outerWidth))
++            || declared.Contains((innerName, innerWidth)))
++        {
++            return null;
++        }
++
++        var outerLocation = new BeamSourceLocation(
++            first.GeneratorFile ?? comprehension.PreprocessorFile ?? fallback.File,
++            first.GeneratorLine == 0 ? fallback.Line : first.GeneratorLine
++        );
++        var innerLocation = new BeamSourceLocation(
++            second.GeneratorFile ?? outerLocation.File,
++            second.GeneratorLine == 0 ? outerLocation.Line : second.GeneratorLine
++        );
++        var outerLoop = BuildRecursiveMapping(
++            outerName,
++            outer,
++            mapped,
++            captures,
++            invalidSourceLocation: outerLocation
++        );
++        var outerClauses = outerLoop.Clauses.ToArray();
++        var currentTail = ((Pattern.List)outerClauses[0].Patterns[0]).Tail as Pattern.Variable
++            ?? throw new System.Diagnostics.UnreachableException();
++        var outerArguments = captures.Select(capture => new Expr.Variable(capture.Name)).ToArray();
++        // Evaluate the inner source in the successful outer head. Even an independent
++        // call is evaluated for each accepted outer element, never for empty outer input.
++        var nextArguments = innerCaptures.Select(capture => new Expr.Variable(
++            capture.Name == outerTail ? currentTail.Name : capture.Name
++        ));
++        outerClauses[0] = outerClauses[0] with
++        {
++            Body = new Expr.Call(null, innerName, [innerSource, .. nextArguments])
++        };
++        outerLoop = outerLoop with { Clauses = outerClauses };
++
++        var innerLoop = BuildRecursiveMapping(
++            innerName,
++            inner,
++            mapped,
++            innerCaptures,
++            invalidSourceLocation: innerLocation
++        );
++        var innerClauses = innerLoop.Clauses.ToArray();
++        var empty = innerClauses[^2];
++        Pattern[] finishPatterns = keepOuter
++            ? [empty.Patterns[0], .. captures, remainder, empty.Patterns[^1]]
++            : [empty.Patterns[0], .. captures, remainder];
++        innerClauses[^2] = empty with
++        {
++            Patterns = finishPatterns,
++            Body = new Expr.Call(null, outerName, [new Expr.Variable(outerTail), .. outerArguments])
++        };
++        innerLoop = innerLoop with { Clauses = innerClauses };
++
++        var parentCall = new Expr.Call(null, outerName, [source, .. outerArguments])
++        {
++            SourceLine = outerLocation.Line,
++            PreprocessorFile = outerLocation.File
++        };
++        var parentBody = BeamTargetedInlining.Rewrite(
++            clause.Body,
++            expression => expression,
++            rewriteScope: expression => ReferenceEquals(expression, comprehension) ? parentCall : null
++        );
++        declared.Add((outerName, outerWidth));
++        declared.Add((innerName, innerWidth));
++        recursiveDefinitionOrder.Add((function.Name, function.Arity), [(outerName, outerWidth), (innerName, innerWidth)]);
++
++        return (function with { Clauses = [clause with { Body = parentBody }] },
++            [(outerLoop, outerLocation), (innerLoop, innerLocation)]);
++    }
++
++    private static bool HasRetainedRecursiveListResult(Expr.ListComprehension comprehension, IReadOnlyList<Expr> expressions) =>
++        !expressions.OfType<Expr.Sequence>().Any(sequence =>
++            sequence.Items.SkipLast(1).Any(item => ReferenceEquals(item, comprehension)))
++        && !expressions.OfType<Expr.Match>().Any(match =>
++            match.Pattern is Pattern.Variable { Name: VariableScopeNames.Wildcard }
++            && ReferenceEquals(match.Value, comprehension))
++        && !expressions.OfType<Expr.Binary>().Any(binary =>
++            binary.Operator == ErlangOperators.Append && ReferenceEquals(binary.Left, comprehension));
++
++    private static Dictionary<string, Term> ReadNestedListGeneratorConstants(Clause clause, Expr.ListComprehension comprehension)
++    {
++        Expr entry = comprehension;
++        if (clause.Body is Expr.Sequence sequence
++            && sequence.Items.FirstOrDefault(statement => LocalFunctionEntries.Walk(statement)
++                .Any(expression => ReferenceEquals(expression, comprehension))) is { } containing)
++        {
++            // Clause-local constants still dominate when the sole comprehension is in a case arm.
++            entry = ReadDirectHelperExpression(containing);
++        }
++
++        return ReadDominatingHelperConstants(clause, entry);
++    }
++}

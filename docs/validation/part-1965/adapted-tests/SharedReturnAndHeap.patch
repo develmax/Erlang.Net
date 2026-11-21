@@ -1,0 +1,234 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamCheckedFramePeepholeChecks.cs b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamCheckedFramePeepholeChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamCheckedFramePeepholeChecks.cs
+@@ -0,0 +1,212 @@
++using System.Reflection;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamCheckedFramePeepholeChecks
++{
++    internal const string FallthroughTestName = "compiler/beam/shares-physical-fallthrough-return";
++    internal const string HeapTestName = "compiler/beam/folds-heap-through-checked-entry-projection";
++
++    internal static Task Fallthrough()
++    {
++        Expect(
++            "ShareFallthroughTupleReturns",
++            ReturnCode(false),
++            ReturnCode(true),
++            BeamCheckedFramePeepholeDiagnostics.SharedReturn
++        );
++        Expect(
++            "ShareFallthroughTupleReturns",
++            ReturnCode(false, lateFrame: 3),
++            null,
++            BeamCheckedFramePeepholeDiagnostics.DifferentFrame
++        );
++        Expect(
++            "ShareFallthroughTupleReturns",
++            ReturnCode(false, lateResult: 0),
++            null,
++            BeamCheckedFramePeepholeDiagnostics.DifferentSlot
++        );
++        Expect(
++            "ShareFallthroughTupleReturns",
++            ReturnCode(false, lateLine: true),
++            null,
++            BeamCheckedFramePeepholeDiagnostics.DifferentLine
++        );
++
++        return Task.CompletedTask;
++    }
++
++    internal static Task Heap()
++    {
++        Expect(
++            "CombineStackAndHeapAllocation",
++            HeapCode(false),
++            HeapCode(true),
++            BeamCheckedFramePeepholeDiagnostics.CheckedProjection
++        );
++        Expect(
++            "CombineStackAndHeapAllocation",
++            HeapCode(false, callBarrier: true),
++            null,
++            BeamCheckedFramePeepholeDiagnostics.CallBarrier
++        );
++        Expect(
++            "CombineStackAndHeapAllocation",
++            HeapCode(false, live: 2),
++            null,
++            BeamCheckedFramePeepholeDiagnostics.LaterRoots
++        );
++        Expect(
++            "CombineStackAndHeapAllocation",
++            HeapCode(false, lineBarrier: true),
++            null,
++            BeamCheckedFramePeepholeDiagnostics.DifferentLine
++        );
++
++        return Task.CompletedTask;
++    }
++
++    private static byte[] ReturnCode(
++        bool shared,
++        int lateFrame = 2,
++        int lateResult = 1,
++        bool lateLine = false
++    )
++    {
++        var code = ModulePrefix();
++        code.AddRange([ExactEqualTest, F(4), X(0), A(3)]);
++        SaveFrame(code, 2);
++        code.AddRange([ExactNotEqualTest, F(3), X(0), A(3)]);
++        TupleReturn(code, 2, 0);
++        if (!shared)
++        {
++            code.AddRange([Label, U(3)]);
++            TupleReturn(code, 2, 1);
++        }
++
++        code.AddRange([Label, U(4)]);
++        SaveFrame(code, lateFrame);
++        code.AddRange([ExactEqualTest, F(5), X(0), A(4)]);
++        if (shared)
++        {
++            code.AddRange([Label, U(3)]);
++        }
++
++        if (lateLine)
++        {
++            code.AddRange([Line, U(1)]);
++        }
++
++        TupleReturn(code, lateFrame, lateResult);
++        code.AddRange([Label, U(5)]);
++        TupleReturn(code, lateFrame, 0);
++        code.Add(EndCode);
++
++        return code.ToArray();
++    }
++
++    private static byte[] HeapCode(
++        bool combined,
++        bool callBarrier = false,
++        int live = 0,
++        bool lineBarrier = false
++    )
++    {
++        var code = ModulePrefix();
++        code.AddRange([IsTuple, F(3), X(0)]);
++        code.AddRange([SelectTupleArity, X(0), F(3), ExtendedListOperand, U(2), U(2), F(4)]);
++        code.AddRange([Label, U(4)]);
++        code.AddRange([GetTupleElement, X(0), U(0), X(2)]);
++        code.AddRange([ExactEqualTest, F(3), X(2), A(3)]);
++        code.AddRange(combined ? [AllocateHeap, U(2), U(3), U(2)] : [Allocate, U(2), U(2)]);
++        code.AddRange([Move, X(1), Y(1)]);
++        code.AddRange([GetTupleElement, X(0), U(1), Y(0)]);
++        if (callBarrier)
++        {
++            code.AddRange([ExternalCall, U(0), U(0)]);
++        }
++
++        if (lineBarrier)
++        {
++            code.AddRange([Line, U(1)]);
++        }
++
++        if (!combined)
++        {
++            code.AddRange([TestHeap, U(3), U(live)]);
++        }
++
++        code.AddRange([PutTuple, X(0), ExtendedListOperand, U(2), Y(0), Y(1)]);
++        code.AddRange([Deallocate, U(2), Return, Label, U(3), Return, EndCode]);
++
++        return code.ToArray();
++    }
++
++    private static List<byte> ModulePrefix() => [Label, U(1), FunctionInfo, A(1), A(2), U(2), Label, U(2)];
++
++    private static void SaveFrame(List<byte> code, int frame)
++    {
++        code.AddRange([Allocate, U(frame), U(2)]);
++        code.AddRange([Move, X(0), Y(0), Move, X(1), Y(1)]);
++        if (frame > 2)
++        {
++            code.AddRange([InitYRegisters, ExtendedListOperand, U(1), Y(2)]);
++        }
++    }
++
++    private static void TupleReturn(List<byte> code, int frame, int slot)
++    {
++        code.AddRange([TestHeap, U(3), U(0)]);
++        code.AddRange([PutTuple, X(0), ExtendedListOperand, U(2), A(5), Y(slot)]);
++        code.AddRange([Deallocate, U(frame), Return]);
++    }
++
++    private static void Expect(
++        string method,
++        byte[] source,
++        byte[]? expected,
++        string diagnostics
++    )
++    {
++        ReadOnlyMemory<byte> bytes = source;
++        object header = New(
++            "BeamCodeHeader",
++            0,
++            (int)InitYRegisters,
++            6,
++            1,
++            bytes
++        );
++        object instructions = Call(
++            Type("BeamInstructionReader"),
++            "Read",
++            header,
++            6,
++            0,
++            null,
++            null
++        );
++        MethodInfo? pass = typeof(BeamModuleCompiler).GetMethod(method, BindingFlags.NonPublic | BindingFlags.Static);
++        byte[]? actual = pass?.Invoke(null, [bytes, instructions]) as byte[];
++        if (expected is null ? actual is not null : actual is null || !expected.AsSpan().SequenceEqual(actual))
++        {
++            throw new InvalidOperationException(diagnostics);
++        }
++    }
++
++    private static byte U(int value) => Compact(value, 0);
++
++    private static byte X(int value) => Compact(value, XRegisterTag);
++
++    private static byte Y(int value) => Compact(value, YRegisterTag);
++
++    private static byte A(int value) => Compact(value, AtomTag);
++
++    private static byte F(int value) => Compact(value, LabelTag);
++
++    private static byte Compact(int value, int tag) => (byte)((value << 4) | tag);
++}
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamCheckedFramePeepholeDiagnostics.cs b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamCheckedFramePeepholeDiagnostics.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamCheckedFramePeepholeDiagnostics.cs
+@@ -0,0 +1,12 @@
++namespace Erlang.Tests;
++
++internal static class BeamCheckedFramePeepholeDiagnostics
++{
++    internal const string SharedReturn = "Expected the earlier label to select the identical framed fallthrough return.";
++    internal const string DifferentFrame = "A return with a different deallocation width must remain separate.";
++    internal const string DifferentSlot = "A return reading a different live Y slot must remain separate.";
++    internal const string DifferentLine = "The instruction rewrite must preserve the explicit line boundary.";
++    internal const string CheckedProjection = "Expected the fused heap allocation before the checked projection with both X roots and the same Y slots.";
++    internal const string CallBarrier = "Stack and heap allocation must remain separate across an effect.";
++    internal const string LaterRoots = "The restricted allocation fold requires a later heap test with no live X roots.";
++}

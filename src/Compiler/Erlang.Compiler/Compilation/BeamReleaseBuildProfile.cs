@@ -23,6 +23,9 @@ public sealed record BeamReleaseBuildProfile(
 {
     public BeamIncludePathMap? IncludePathMap { get; init; }
 
+    /// <summary>Include names assigned by the build to executable source locations.</summary>
+    public IReadOnlyDictionary<string, string>? RecordedExecutableIncludePaths { get; init; }
+
     public IReadOnlyDictionary<string, string>? RecordedIncludeLibraryRoots { get; init; }
 
     /// <summary>Logical build paths keyed by the index of the supplied physical include directory.</summary>

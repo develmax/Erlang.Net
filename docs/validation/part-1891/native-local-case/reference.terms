@@ -1,0 +1,8 @@
+{{covered,[key,[{yes,42}]]},{value,{found,42}}}.
+{{covered,[key,[ignored,{yes,value}]]},{value,{found,value}}}.
+{{covered,[key,[]]},{value,missing}}.
+{{covered,[key,not_a_list]},{error,function_clause,[{beam_exhaustive_local_case,tagged,1}]}}.
+{{bound,[key,[{yes,key}]]},{value,found}}.
+{{bound,[key,[{yes,other}]]},{error,{case_clause,{yes,other}},[]}}.
+{{unknown,[key,external_value]},{error,{case_clause,external_value},[]}}.
+{{unknown,[key,[]]},{value,missing}}.

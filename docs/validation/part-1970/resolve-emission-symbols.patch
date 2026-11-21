@@ -1,0 +1,76 @@
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SavedSelectorPayloadScratch.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SavedSelectorPayloadScratch.cs
+@@ -1,3 +1,5 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
+ namespace Erlang.Compiler;
+ 
+ internal sealed partial class BeamModuleCompiler
+@@ -11,9 +13,9 @@
+             bool checkedShape
+         )
+         {
+-            if (pattern is not Pattern.Tuple { Items: [Pattern.Literal { Value: Atom tag }, var payload, ..] } tuple
++            if (pattern is not Erlang.Pattern.Tuple { Items: [Erlang.Pattern.Literal { Value: Atom tag }, var payload, ..] } tuple
+                 || !tuple.Items.Skip(2).All(IsDiscardedScratchPattern)
+-                || payload is not Pattern.Literal && (payload is not Pattern.List { Tail: null, Items.Count: > 0 } list
++                || payload is not Erlang.Pattern.Literal && (payload is not Erlang.Pattern.List { Tail: null, Items.Count: > 0 } list
+                     || !list.Items.All(IsDiscardedScratchTaggedTuple)))
+             {
+                 return false;
+@@ -35,7 +37,7 @@
+             owner.Op(GetTupleElement, YRegisterTag, selector);
+             owner.Operand(BeamWire.UnsignedTag, 1);
+             owner.Operand(XRegisterTag, 0);
+-            if (payload is Pattern.Literal literal)
++            if (payload is Erlang.Pattern.Literal literal)
+             {
+                 Pattern(
+                     literal,
+@@ -47,7 +49,7 @@
+                 return true;
+             }
+ 
+-            foreach (Pattern item in ((Pattern.List)payload).Items)
++            foreach (Pattern item in ((Erlang.Pattern.List)payload).Items)
+             {
+                 owner.Op(IsNonemptyList, LabelTag, failure);
+                 owner.Operand(XRegisterTag, 0);
+@@ -55,7 +57,7 @@
+                 owner.Operand(XRegisterTag, 1);
+                 owner.Operand(XRegisterTag, 0);
+ 
+-                var head = (Pattern.Tuple)item;
++                var head = (Erlang.Pattern.Tuple)item;
+                 HasTupleTag(head, out Atom headTag);
+                 owner.EmitRecordTest(
+                     failure,
+@@ -72,9 +74,9 @@
+         }
+ 
+         private static bool IsDiscardedScratchTaggedTuple(Pattern item) =>
+-            item is Pattern.Tuple tuple && HasTupleTag(tuple, out _) && tuple.Items.Skip(1).All(IsDiscardedScratchPattern);
++            item is Erlang.Pattern.Tuple tuple && HasTupleTag(tuple, out _) && tuple.Items.Skip(1).All(IsDiscardedScratchPattern);
+ 
+         private static bool IsDiscardedScratchPattern(Pattern item) =>
+-            item is Pattern.Any or Pattern.Variable { Name: VariableScopeNames.Wildcard };
++            item is Erlang.Pattern.Any or Erlang.Pattern.Variable { Name: VariableScopeNames.Wildcard };
+     }
+ }
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.StructuralListEntry.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.StructuralListEntry.cs
+@@ -44,10 +44,10 @@
+ 
+         private (Atom Name, int Arity)? ReadListHeadRecordGuard(Clause clause, int input)
+         {
+-            if (!owner.ModuleOptimizationDisabled && clause.Patterns[input] is Pattern.List
+-                {
+-                    Items: [Pattern.Variable { Name: not VariableScopeNames.Wildcard } head],
+-                    Tail: Pattern.Variable
++            if (!owner.ModuleOptimizationDisabled && clause.Patterns[input] is Erlang.Pattern.List
++                {
++                    Items: [Erlang.Pattern.Variable { Name: not VariableScopeNames.Wildcard } head],
++                    Tail: Erlang.Pattern.Variable
+                 } && clause.Guard is { } guard
+                 && owner.ReadRecordTest(guard) is { Value: Expr.Variable operand } record
+                 && head.Name == operand.Name)

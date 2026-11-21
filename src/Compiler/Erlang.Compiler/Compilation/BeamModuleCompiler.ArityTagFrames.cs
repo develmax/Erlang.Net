@@ -65,18 +65,28 @@ internal sealed partial class BeamModuleCompiler
                 int frameSize = (int)body[allocation].Operands[0].Value;
                 int init = body[allocation + 1].Definition.Opcode == InitYRegisters ? allocation + 1 : -1;
                 int save = init >= 0 ? init + 1 : allocation + 1;
-                int projection = save + 1;
-                int guard = projection + 1;
-                if (body[save] is not
+                int projection = save;
+                var savedArguments = new Dictionary<BeamOperand, BeamOperand>();
+                while (projection < end && body[projection] is
                     {
                         Definition.Opcode: Move,
-                        Operands: [var original, { Kind: BeamOperandParameters.Y, TypeIndex: null } saved]
-                    } || original != input
-                    || body[projection] is not
+                        Operands: [
+                        { Kind: BeamOperandParameters.X, TypeIndex: null } argument,
+                        { Kind: BeamOperandParameters.Y, TypeIndex: null } slot
+                        ]
+                    } && argument.Value < arity && slot.Value < frameSize
+                    && savedArguments.TryAdd(slot, argument))
+                {
+                    projection++;
+                }
+
+                int guard = projection + 1;
+                if (guard + 1 >= end || body[projection] is not
                     {
                         Definition.Opcode: GetTupleElement,
                         Operands: [var source, { Value.IsZero: true }, { Kind: BeamOperandParameters.Y, TypeIndex: null } tagSlot]
-                    } || source != saved || tagSlot == saved || saved.Value >= frameSize || tagSlot.Value >= frameSize
+                    } || !savedArguments.TryGetValue(source, out var original) || original != input
+                    || savedArguments.ContainsKey(tagSlot) || tagSlot.Value >= frameSize
                     || body[guard] is not
                     {
                         Definition.Opcode: ExactEqualTest,
@@ -96,8 +106,8 @@ internal sealed partial class BeamModuleCompiler
                         body,
                         cleanup,
                         end,
-                        saved,
-                        input,
+                        savedArguments,
+                        source,
                         failure,
                         frameSize
                     ))
@@ -180,15 +190,29 @@ internal sealed partial class BeamModuleCompiler
         IReadOnlyList<BeamInstruction> body,
         int cleanup,
         int end,
-        BeamOperand saved,
-        BeamOperand input,
+        IReadOnlyDictionary<BeamOperand, BeamOperand> savedArguments,
+        BeamOperand carrier,
         int failure,
         int frameSize
-    ) => cleanup + 3 < end
-        && body[cleanup + 1] is { Definition.Opcode: Move, Operands: [var source, var restored] }
-        && source == saved && restored == input
-        && body[cleanup + 2] is { Definition.Opcode: Deallocate, Operands: [var size] } && size.Value == frameSize
-        && body[cleanup + 3] is { Definition.Opcode: Jump, Operands: [var target] } && target.Value == failure;
+    )
+    {
+        bool carrierRestored = false;
+        int release = cleanup + 1;
+        while (release < end && body[release] is { Definition.Opcode: Move, Operands: [var source, var restored] })
+        {
+            if (!savedArguments.TryGetValue(source, out var argument) || argument != restored)
+            {
+                return false;
+            }
+
+            carrierRestored |= source == carrier;
+            release++;
+        }
+
+        return carrierRestored && release + 1 < end
+            && body[release] is { Definition.Opcode: Deallocate, Operands: [var size] } && size.Value == frameSize
+            && body[release + 1] is { Definition.Opcode: Jump, Operands: [var target] } && target.Value == failure;
+    }
 
     private sealed partial class BeamProjectionFlow
     {

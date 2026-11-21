@@ -136,17 +136,18 @@ internal sealed partial class BeamModuleCompiler
             start = end + 1;
             var references = new Dictionary<int, int>();
             bool stableFrame = true;
+            bool hasHandler = false;
             int allocations = 0;
             for (int index = entry; index < end; index++)
             {
                 BeamInstruction instruction = body[index];
-                if (instruction.Definition.Opcode is TrimFrame or CatchEnter or TryEnter
-                    || instruction.Definition.Name == "debug_line")
+                if (instruction.Definition.Opcode == TrimFrame || instruction.Definition.Name == "debug_line")
                 {
                     stableFrame = false;
                     break;
                 }
 
+                hasHandler |= instruction.Definition.Opcode is CatchEnter or TryEnter;
                 if (instruction.Definition.Opcode is Allocate or AllocateHeap)
                 {
                     allocations++;
@@ -172,22 +173,43 @@ internal sealed partial class BeamModuleCompiler
                 continue;
             }
 
+            var protectedCopies = hasHandler
+                ? FindProtectedProjectionCopies(
+                    body,
+                    entry,
+                    end,
+                    references
+                )
+                : null;
             for (int index = entry; index < end; index++)
             {
                 if (body[index] is not
                     { Definition.Opcode: GetTupleElement, Operands: [_, _, { Kind: BeamOperandParameters.Y, TypeIndex: null } temporary] }
-                    || references[(int)temporary.Value] != 2)
+                    || !hasHandler && references[(int)temporary.Value] != 2)
                 {
                     continue;
                 }
 
-                int copy = FindProjectionCopy(
+                int copy = protectedCopies?.GetValueOrDefault(index, -1) ?? FindProjectionCopy(
                     body,
                     index,
                     temporary,
                     crossProjections: true
                 );
-                if (copy < 0)
+                bool preserveCapture = !hasHandler && copy < 0 && CanPreserveProjectedCallCapture(
+                    body,
+                    index,
+                    end,
+                    temporary
+                );
+                if (preserveCapture)
+                {
+                    copy = index + 2;
+                    output.Write(code.Span[copied..body[index].Offset]);
+                    output.Write(code.Span[body[index + 1].Offset..body[copy].Offset]);
+                    copied = body[index].Offset;
+                }
+                else if (copy < 0)
                 {
                     continue;
                 }
@@ -198,7 +220,11 @@ internal sealed partial class BeamModuleCompiler
                 output.Write(code.Span[copied..(next - registerWidth)]);
                 BeamCompactWriter.Write(output, XRegisterTag, body[copy].Operands[1].Value);
                 WriteFrameInitialization(output, [(int)temporary.Value]);
-                output.Write(code.Span[next..body[copy].Offset]);
+                if (!preserveCapture)
+                {
+                    output.Write(code.Span[next..body[copy].Offset]);
+                }
+
                 copied = body[copy + 1].Offset;
                 index = copy;
             }
@@ -212,6 +238,80 @@ internal sealed partial class BeamModuleCompiler
         output.Write(code.Span[copied..]);
 
         return output.ToArray();
+    }
+
+    private static Dictionary<int, int> FindProtectedProjectionCopies(
+        IReadOnlyList<BeamInstruction> body,
+        int entry,
+        int end,
+        Dictionary<int, int> references
+    )
+    {
+        var pairs = new List<(int Slot, int Projection, int Copy)>();
+        for (int index = entry; index < end; index++)
+        {
+            if (body[index] is not
+                { Definition.Opcode: GetTupleElement, Operands: [_, _, { Kind: BeamOperandParameters.Y, TypeIndex: null } slot] })
+            {
+                continue;
+            }
+
+            int copy = FindProjectionCopy(body, index, slot);
+            if (copy >= 0)
+            {
+                pairs.Add(((int)slot.Value, index, copy));
+                index = copy;
+            }
+        }
+
+        // A protected slot can be eliminated when every use belongs to a closed
+        // projection and copy pair. A handler or another arm then cannot read it.
+        return pairs.GroupBy(pair => pair.Slot).Where(group => group.Count() * 2 == references[group.Key])
+            .SelectMany(group => group).ToDictionary(pair => pair.Projection, pair => pair.Copy);
+    }
+
+    private static bool CanPreserveProjectedCallCapture(
+        IReadOnlyList<BeamInstruction> body,
+        int projection,
+        int end,
+        BeamOperand temporary
+    )
+    {
+        if (projection + 3 >= end || body[projection].Operands[0] is not { Kind: BeamOperandParameters.Y, TypeIndex: null }
+            || body[projection + 1] is not
+            {
+                Definition.Opcode: Move,
+                Operands: [{ Kind: BeamOperandParameters.X, TypeIndex: null } target,
+                { Kind: BeamOperandParameters.X, TypeIndex: null } capture]
+            }
+            || target == capture || body[projection + 2] is not
+            {
+                Definition.Opcode: Move, Operands: [var input, var destination]
+            }
+            || input != temporary || destination != target)
+        {
+            return false;
+        }
+
+        // The getter only reads the saved tuple. Saving the old outgoing X first
+        // lets the getter write X directly without changing any live value at the call.
+        for (int index = projection + 3; index < end; index++)
+        {
+            BeamInstruction instruction = body[index];
+            if (instruction.Definition.Opcode is LocalCall or ExternalCall)
+            {
+                return target.Value < instruction.Operands[0].Value && capture.Value < instruction.Operands[0].Value;
+            }
+
+            if (instruction.Definition.Opcode != Line && (instruction is not
+                { Definition.Opcode: Move, Operands: [_, { Kind: BeamOperandParameters.X } written] }
+                || SameProjectionRegister(written, target) || SameProjectionRegister(written, capture)))
+            {
+                return false;
+            }
+        }
+
+        return false;
     }
 
     private static bool IsProjectionTemporaryDead(
@@ -228,9 +328,25 @@ internal sealed partial class BeamModuleCompiler
                 case Line:
                     continue;
                 case Move:
-                    if (instruction.Operands.Any(operand => SameProjectionRegister(operand, temporary)))
+                    if (SameProjectionRegister(instruction.Operands[0], temporary))
                     {
                         return false;
+                    }
+
+                    if (SameProjectionRegister(instruction.Operands[1], temporary))
+                    {
+                        // An overwrite can forward a projected argument in a
+                        // statically assigned call's argument setup. Dynamic
+                        // apply keeps the callee in a separate outgoing register.
+                        int next = index + 1;
+                        while (next < body.Count && body[next].Definition.Opcode is Line or Move)
+                        {
+                            next++;
+                        }
+
+                        return next < body.Count && body[next].Definition.Opcode is
+                            LocalCall or ExternalCall or TailLocalCall or TailExternalCall
+                            or TailLocalCallWithFrame or TailExternalCallWithFrame;
                     }
 
                     continue;

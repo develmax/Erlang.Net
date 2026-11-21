@@ -1,0 +1,32 @@
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -45,6 +45,7 @@
+                 continue;
+             }
+ 
++            nestedListGenerators.TryGetValue(function.Name, out var nestedGenerator);
+             bool emptyScan = emptyComprehensionScans.Contains((function.Name, function.Arity));
+             bool nestedCall = function.Clauses is [{ Body: Expr.Call call }]
+                 && call.Arguments.Any(argument => argument is Expr.Call
+@@ -256,7 +257,8 @@
+                 && GeneralEmitter.ReadForwardedCallResult(function, placeholderEntries) is null
+                 && !HasClosedAtomSelector(function, localFunctions) && ReadTupleKeyFilter(function) is null
+                 && ReadTupleProjectionHelper(function) is null && ReadTupleFieldComprehensionHelper(function) is null
+-                && !function.IsClosedListMapper && !emptyScan && ReadTaggedAccumulator(function) is null)
++                && !function.IsClosedListMapper && !emptyScan && nestedGenerator is null
++                && ReadTaggedAccumulator(function) is null)
+             {
+                 if (!NeedsGeneralBody(function, sourceLines[index], placeholderEntries))
+                 {
+@@ -272,6 +274,11 @@
+             }
+ 
+             planner.emptyComprehensionScans.UnionWith(emptyComprehensionScans);
++            if (nestedGenerator is not null)
++            {
++                // Measure the same generated helper that the source emitter will write.
++                planner.nestedListGenerators.Add(function.Name, nestedGenerator);
++            }
+ 
+             using var scratch = planner.instructions;
+             var location = sourceLines[index];

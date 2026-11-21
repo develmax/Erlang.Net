@@ -1,0 +1,8 @@
+[{disabled,{error,{has_no_disc,nonode@nohost}},[],false},
+ {success,ok,
+          [{tmp,sample},
+           {fix,ram_copies,sample,true},
+           {select,ram_copies,sample,100},
+           {fix,ram_copies,sample,false}],
+          true},
+ {failure,{error,{file_error,"blocked.log",enoent}},[{tmp,sample}],false}].

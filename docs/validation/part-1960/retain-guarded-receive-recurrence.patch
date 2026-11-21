@@ -1,0 +1,16 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GuardedReceiveFrames.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GuardedReceiveFrames.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GuardedReceiveFrames.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GuardedReceiveFrames.cs
+@@ -256,9 +256,11 @@
+             )
+             {
+                 var operands = Operands(offset);
++                // The recurrence proof below rederives the counter type for the moved operand.
+                 if (operands[0].Kind != BeamOperandParameters.Failure || operands[1] != U(live)
+                     || operands[2].Value >= importsByIndex.Length
+-                    || operands[3] != left || operands[4] != right || operands[5] != destination)
++                    || (operands[3] with { TypeIndex = null }) != left
++                    || operands[4] != right || operands[5] != destination)
+                 {
+                     return false;
+                 }

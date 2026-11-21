@@ -4,7 +4,7 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
-    private byte[]? MoveTerminalErrorBlocks(ReadOnlyMemory<byte> code, IReadOnlyList<BeamInstruction> body)
+    private byte[]? MoveTerminalErrorBlocks(ReadOnlyMemory<byte> code, IReadOnlyList<BeamInstruction> body, int labelCount)
     {
         using var output = new MemoryStream();
         int copied = 0;
@@ -109,7 +109,6 @@ internal sealed partial class BeamModuleCompiler
                     line = originalLine;
                 }
 
-                lineInstructions += (needsLine ? 1 : 0) - (hadLine ? 1 : 0);
                 int failure = label + (hadLine ? 2 : 1);
                 output.Write(code.Span[body[failure].Offset..body[resume].Offset]);
             }
@@ -122,6 +121,6 @@ internal sealed partial class BeamModuleCompiler
 
         output.Write(code.Span[copied..]);
 
-        return output.ToArray();
+        return RebuildLineTable(output.ToArray(), labelCount);
     }
 }

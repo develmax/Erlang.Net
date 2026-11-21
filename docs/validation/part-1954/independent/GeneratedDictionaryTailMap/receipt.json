@@ -1,0 +1,50 @@
+{
+  "Compiler": "295bdc799ecc792d4559614c194e8d8ccec0df5ed3e1613602ea2855bc69a351",
+  "ParentSource": "48569fd3ab77907ff7963d3f513058a910e3671e7f5fb99fb90558788bc25b69",
+  "ProductionInputCount": 886,
+  "Scope": {
+    "Different": 11,
+    "Equal": 19
+  },
+  "PatchDigests": {
+    "production.patch": "38bc1b746708571861cca6d52118800dd38648bb76cb742cf97f2aca49d979ed",
+    "test.patch": "e88c96344aa324d389fbeecdc580abecd4270bd4010c3d0fde381f5ac5b6ba66"
+  },
+  "Evidence": {
+    "scope/delta.json": "1921db403d947a370cada14425bcbf7d528e5e6c308e24beafe8599a989a6c89",
+    "scope/normalized-summary.terms": "29450f56f73cc57bfae97a991104007c79e014567c37721d2206fa395f05db9e",
+    "native.terms": "4da45f02e60c27afb2e88b5da4011ed2e5fc1ea006d910dae482eb6eea7a9d6e",
+    "native.eval": "47331063a1aad00bbcc83bffed0eecf24ed441c6f2a2778ae3b2b32d8d2ea258",
+    "native.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "compiler-build.log": "1b4f2952a8774a59878e8b25fa14fe394169f6db3b9514a1ec39a67a844f09ca",
+    "red.log": "a4be7641471056e79620ab4287d367159e34dd4715b534b1ff4018cb867c829d",
+    "initial-native.stderr.log": "236ad3b03ffd7b1517d137947f57c479e2b63eaf011680c88910122c752877b6",
+    "path-type-native.stderr.log": "0eccc08a16c65a3d8ac9693ffaa3d7451beb72232d61ff989d79a42797ee8551",
+    "relay-map-tail.terms": "144fe00111871f5804ff30e929ce3b4928ec48bc73f31c68d9f2e911f25a1522",
+    "fixture-build.log": "ecc970abb6b8d84eaa1e0701268651aecf5046d101f630637868583b4c76bb74",
+    "diameter_gen.hrl": "6394951de1f6c8232ecddaef4ea26e438a150b13e565f3d79e040604e0ea1e3f",
+    "scope/otp-corpus.json": "d9d02bd5dc0f2034b8aaf7bd88de3ea9b0ae70395a874b8a4be5ce9c63ea7940",
+    "native.exit": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "red.exit": "e4e7851eff84375b526b7f4fcb50db23a941ff4d35de163fda833cfde6e5ec3e",
+    "green.exit": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "seal-style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f"
+  },
+  "Files": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.MapExpressions.cs": {
+      "Before": "6712802d406aa3f839abbef349d3fb84036bfe9d6e1d3742f8a2171c8bc2b083",
+      "After": "3b226262784ff5c9435661ed09b1db031170722e5d8a01388cb28c773d31e459"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": {
+      "Before": "ef322496657248e021d98af19d1406859200a5af89ff9027b09e12dd29172f4c",
+      "After": "ef2f9ae16143aa17dff93c093faa2309f85014d17c8c91f9d5647f0d88028f1f"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamMapTailArgumentChecks.cs": {
+      "Before": null,
+      "After": "c291bd120c210aaf89d88569d669688a0a108b299318b81038156092f9b5cee4"
+    },
+    "tests/Erlang.Tests/Harness/Program.cs": {
+      "Before": "3ed43b9e82068c443007cbfcabcaf42da58aa2449cc17deeca886c3cbf89adb9",
+      "After": "5374d0b326bb6438cc4682d2ff1ea4842412451b281d0b52b45638d59d082456"
+    }
+  }
+}

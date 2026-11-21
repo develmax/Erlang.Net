@@ -1,0 +1,14 @@
+[R,G]=init:get_plain_arguments(),
+M=beam_terminal_local_try_tail,
+Cases=[{run,undefined},{run,throwme},{run,v},{run,fallback_error},{run,catch_fallback_error},
+       {projected,{token,v}},{projected,invalid_tuple},{wrapped,throwme},{cleanup,throwme},{remote,[]}],
+Run=fun(P)->
+   erase(cleaned),
+   {ok,B}=file:read_file(P),{module,M}=code:load_binary(M,P,B),
+   Values=[try apply(M,F,[X]) of V->{ok,V} catch C:E->{C,E} end||{F,X}<-Cases],
+   true=get(cleaned),
+   true=code:delete(M),_=code:purge(M),
+   Values
+end,
+O=Run(R),O=Run(G),io:format("~p values/reasons and cleanup agree ~tp.~n",[length(O),O]),halt().
+

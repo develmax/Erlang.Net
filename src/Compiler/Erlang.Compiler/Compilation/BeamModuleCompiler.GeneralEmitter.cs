@@ -4,13 +4,13 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
-    private Dictionary<(string Name, int Arity), (int Slots, int Labels, int ListFailures, IReadOnlyDictionary<int, int>? TupleFrames)> PlanGeneralFunctions(
+    private Dictionary<(string Name, int Arity), (int Slots, int Labels, int ListFailures, IReadOnlyDictionary<int, int>? TupleFrames, bool ReverseFrameSlots)> PlanGeneralFunctions(
         IReadOnlyList<FunctionDefinition> functions,
         IReadOnlyList<BeamSourceLocation> sourceLines,
         IReadOnlyDictionary<(string Name, int Arity), FunctionDefinition> localFunctions
     )
     {
-        var plans = new Dictionary<(string Name, int Arity), (int Slots, int Labels, int ListFailures, IReadOnlyDictionary<int, int>? TupleFrames)>();
+        var plans = new Dictionary<(string Name, int Arity), (int Slots, int Labels, int ListFailures, IReadOnlyDictionary<int, int>? TupleFrames, bool ReverseFrameSlots)>();
         var placeholderEntries = localFunctions.Keys.ToDictionary(key => key, _ => 2);
         placeholderEntries.Add(("module_info", 0), 2);
         placeholderEntries.Add(("module_info", 1), 2);
@@ -28,7 +28,8 @@ internal sealed partial class BeamModuleCompiler
         for (int index = 0; index < functions.Count; index++)
         {
             var function = functions[index];
-            if (function.IsInlineFailure)
+            if (function.IsInlineFailure || writableBinaryListOwners.ContainsKey((function.Name, function.Arity))
+                || writableBinaryListHelpers.ContainsKey((function.Name, function.Arity)))
             {
                 continue;
             }
@@ -45,6 +46,8 @@ internal sealed partial class BeamModuleCompiler
                 continue;
             }
 
+            nestedListGenerators.TryGetValue(function.Name, out var nestedGenerator);
+            bool emptyScan = emptyComprehensionScans.Contains((function.Name, function.Arity));
             bool nestedCall = function.Clauses is [{ Body: Expr.Call call }]
                 && call.Arguments.Any(argument => argument is Expr.Call
                     or Expr.Tuple { Items: [Expr.Literal { Value: Atom }, Expr.Call] }
@@ -65,31 +68,31 @@ internal sealed partial class BeamModuleCompiler
                     }
                 }];
             bool detailTab = function.Clauses is [
-            {
-                Body: Expr.Sequence
-                {
-                    Items: [
-                Expr.Match { Value: Expr.Call { Module: null } },
-                Expr.Match { Pattern: Pattern.Literal, Value: Expr.Call { Module: not null } }, Expr.Variable]
-                }
-            }]
-                || function.Clauses is [
                 {
                     Body: Expr.Sequence
                     {
                         Items: [
+                Expr.Match { Value: Expr.Call { Module: null } },
+                Expr.Match { Pattern: Pattern.Literal, Value: Expr.Call { Module: not null } }, Expr.Variable]
+                    }
+                }]
+                || function.Clauses is [
+                    {
+                        Body: Expr.Sequence
+                        {
+                            Items: [
                     Expr.Match, Expr.Call, Expr.Call, Expr.Match,
                     Expr.Match { Value: Expr.Call { Function: AutoImportNames.Apply } }, Expr.Call, Expr.Call, Expr.Variable]
+                        }
+                    }];
+            bool pageRecord = function.Clauses is [
+                {
+                    Body: Expr.Sequence
+                    {
+                        Items: [
+                Expr.Call, Expr.Call, Expr.Match, Expr.Call, Expr.Call, Expr.Tuple { Items: [Expr.Variable, Expr.RecordConstruction] }]
                     }
                 }];
-            bool pageRecord = function.Clauses is [
-            {
-                Body: Expr.Sequence
-                {
-                    Items: [
-                Expr.Call, Expr.Call, Expr.Match, Expr.Call, Expr.Call, Expr.Tuple { Items: [Expr.Variable, Expr.RecordConstruction] }]
-                }
-            }];
             bool mapDefaultCase = function.Clauses is [
                 {
                     Body: Expr.Sequence
@@ -99,14 +102,14 @@ internal sealed partial class BeamModuleCompiler
                     }
                 }];
             bool detailPage = function.Clauses is [
+            {
+                Body: Expr.Sequence
                 {
-                    Body: Expr.Sequence
-                    {
-                        Items: [
+                    Items: [
                 Expr.Match, Expr.Call { Module: not null, Arguments: [Expr.Variable, Expr.Literal, Expr.Variable] }
             ]
-                    }
-                }] || function.Clauses is [
+                }
+            }] || function.Clauses is [
                 {
                     Body: Expr.Sequence
                     {
@@ -138,43 +141,43 @@ internal sealed partial class BeamModuleCompiler
                 && decision.Clauses.Any(branch => branch.Body is Expr.Case or Expr.Maybe
                     or Expr.Sequence { Items: [Expr.Match { Value: Expr.Case }, Expr.Case] });
             bool configuredTable = function.Clauses is [
-            {
-                Body: Expr.Case
-                {
-                    Clauses: [
-                    { Body: Expr.Sequence { Items: [Expr.Match, Expr.Match, Expr.Match, Expr.Match, Expr.Call] } },
-                    { Body: Expr.Call }, { Body: Expr.Call }
-            ]
-                }
-            }];
-            bool taggedParser = function.Clauses is [
-            {
-                Body: Expr.Case
-                {
-                    Clauses: [
-                    { Patterns: [Pattern.Tuple], Body: Expr.Call { Arguments: [Expr.Tuple { Items: [Expr.Literal, Expr.Tuple] }] } },
-                    { Patterns: [Pattern.Tuple], Body: Expr.Call { Module: null } }, ..
-            ]
-                }
-            }];
-            bool recordDetails = function.Clauses is [
                 {
                     Body: Expr.Case
                     {
                         Clauses: [
-                        {
-                            Body: Expr.Sequence
-                            {
-                                Items: [Expr.Match, Expr.Match
-                                {
-                                    Value: Expr.Call
-                                    { Arguments: [_, Expr.List { Items: [Expr.RecordAccess, _] }] }
-                                }, Expr.Tuple]
-                            }
-                        }, _
+                        { Body: Expr.Sequence { Items: [Expr.Match, Expr.Match, Expr.Match, Expr.Match, Expr.Call] } },
+                        { Body: Expr.Call }, { Body: Expr.Call }
             ]
                     }
                 }];
+            bool taggedParser = function.Clauses is [
+                {
+                    Body: Expr.Case
+                    {
+                        Clauses: [
+                        { Patterns: [Pattern.Tuple], Body: Expr.Call { Arguments: [Expr.Tuple { Items: [Expr.Literal, Expr.Tuple] }] } },
+                        { Patterns: [Pattern.Tuple], Body: Expr.Call { Module: null } }, ..
+            ]
+                    }
+                }];
+            bool recordDetails = function.Clauses is [
+            {
+                Body: Expr.Case
+                {
+                    Clauses: [
+                    {
+                        Body: Expr.Sequence
+                        {
+                            Items: [Expr.Match, Expr.Match
+                            {
+                                Value: Expr.Call
+                                { Arguments: [_, Expr.List { Items: [Expr.RecordAccess, _] }] }
+                            }, Expr.Tuple]
+                        }
+                    }, _
+            ]
+                }
+            }];
             bool collectionBody = function.Clauses is [{ Body: Expr.Sequence { Items: [Expr.Match { Pattern: Pattern.Tuple }, Expr.Call] } } tupleCall]
                 && ReadLocalBinding(tupleCall) is null
                 || function.Clauses is [{ Body: Expr.Sequence { Items: [Expr.Match, Expr.ListComprehension] } }]
@@ -210,10 +213,10 @@ internal sealed partial class BeamModuleCompiler
             bool recordPredicate = function.Clauses is [{ Body: var recordBody }] && ReadRecordTest(recordBody) is not null;
             bool numericComparison = function.Clauses is [{ Body: Expr.Binary binary }] && IsNumericEquality(binary);
             bool subtraction = function.Clauses is [
-            {
-                Body: Expr.Binary { Operator: ErlangOperators.Minus }
+                {
+                    Body: Expr.Binary { Operator: ErlangOperators.Minus }
                 or Expr.Unary { Operator: ErlangOperators.Minus, Operand: not Expr.Literal }
-            }];
+                }];
             bool functionReference = function.Clauses is [{ Body: Expr.Call or Expr.Tuple or Expr.List } referenceClause]
                 && LocalFunctionEntries.Walk(referenceClause.Body).Any(expression => expression is Expr.FunctionReference);
             bool conditional = function.Clauses is [{ Body: Expr.If or Expr.Block }]
@@ -238,10 +241,10 @@ internal sealed partial class BeamModuleCompiler
             bool selectiveReceive = function.Clauses.Any(clause =>
                 LocalFunctionEntries.Walk(clause.Body).Any(expression => expression is Expr.Receive));
             bool dictionaryAssertion = function.Clauses is [
-                {
-                    Patterns: [Pattern.Variable key],
-                    Body: Expr.Sequence { Items: [Expr.Match { Value: var lookup }, _, _] }
-                }] && IsDictionaryLookup(lookup, key, placeholderEntries);
+            {
+                Patterns: [Pattern.Variable key],
+                Body: Expr.Sequence { Items: [Expr.Match { Value: var lookup }, _, _] }
+            }] && IsDictionaryLookup(lookup, key, placeholderEntries);
             bool guardedOption = function.Clauses is [{ Guard: null, Patterns: [], Body: var optionBody }]
                 && GeneralEmitter.ReadGuardedOption(optionBody, placeholderEntries) is { Success: Expr.Variable returned } option
                 && returned.Name == option.Value.Name && AttributeLiteral.TryNormalizeConstant(option.Fallback, out _);
@@ -255,7 +258,8 @@ internal sealed partial class BeamModuleCompiler
                 && GeneralEmitter.ReadForwardedCallResult(function, placeholderEntries) is null
                 && !HasClosedAtomSelector(function, localFunctions) && ReadTupleKeyFilter(function) is null
                 && ReadTupleProjectionHelper(function) is null && ReadTupleFieldComprehensionHelper(function) is null
-                && !function.IsClosedListMapper && ReadTaggedAccumulator(function) is null)
+                && !function.IsClosedListMapper && !emptyScan && nestedGenerator is null
+                && ReadTaggedAccumulator(function) is null)
             {
                 if (!NeedsGeneralBody(function, sourceLines[index], placeholderEntries))
                 {
@@ -264,10 +268,22 @@ internal sealed partial class BeamModuleCompiler
 
                 fallbackPlan = true;
             }
-            var planner = new BeamModuleCompiler(name, sourceModule: sourceModule) { exportedFunctions = exportedFunctions };
+            var planner = CreateLayoutProbe();
             foreach (var (entry, filter) in capturedListFilters)
             {
                 planner.capturedListFilters.Add(entry, filter);
+            }
+
+            planner.emptyComprehensionScans.UnionWith(emptyComprehensionScans);
+            if (nestedGenerator is not null)
+            {
+                // Measure the same generated helper that the source emitter will write.
+                planner.nestedListGenerators.Add(function.Name, nestedGenerator);
+            }
+
+            if (nestedListCursorLayouts.TryGetValue(function.Name, out var cursorLayout))
+            {
+                planner.nestedListCursorLayouts.Add(function.Name, cursorLayout);
             }
 
             using var scratch = planner.instructions;
@@ -292,7 +308,10 @@ internal sealed partial class BeamModuleCompiler
             {
                 throw new NotSupportedException($"{name}:{function.Name}/{function.Arity}: {error.Message}", error);
             }
-            plans.Add((function.Name, function.Arity), (emitter.SlotCount, planner.nextLabel - 1, emitter.ListFailureCount, emitter.TupleFrames));
+            plans.Add(
+                (function.Name, function.Arity),
+                (emitter.SlotCount, planner.nextLabel - 1, emitter.ListFailureCount, emitter.TupleFrames, emitter.UsesRegisterSelectorContinuation)
+            );
         }
 
         return plans;
@@ -310,7 +329,7 @@ internal sealed partial class BeamModuleCompiler
             return false;
         }
 
-        var probe = new BeamModuleCompiler(name, sourceModule: sourceModule) { exportedFunctions = exportedFunctions };
+        var probe = CreateLayoutProbe();
         using var scratch = probe.instructions;
         probe.numericWidthFunctions.UnionWith(numericWidthFunctions);
         probe.StartFunction(function.Name, function.Arity, location);
@@ -347,7 +366,8 @@ internal sealed partial class BeamModuleCompiler
         LiftedClosure? recursiveClosure = null,
         int recursiveClosureIndex = 0,
         Dictionary<string, int>? guardFailureOperands = null,
-        IReadOnlyDictionary<int, int>? plannedTupleFrames = null
+        IReadOnlyDictionary<int, int>? plannedTupleFrames = null,
+        bool plannedReversedFrame = false
     )
     {
         private Dictionary<string, int> variables = new(StringComparer.Ordinal);
@@ -356,13 +376,14 @@ internal sealed partial class BeamModuleCompiler
         private int nextSlot;
         private int peakSlot;
         private HashSet<Expr.Match> guardedBinaryMatches = new(ReferenceEqualityComparer.Instance);
-        private int decoderSlotCount;
+        private int decoderSlotCount = plannedReversedFrame ? frameSize : 0;
         private int? decoderListLabel;
         private int? decoderRangeLabel;
         private FunctionDefinition? parentFunction = lexicalOwner;
         private int anonymousOrdinal;
         internal int SlotCount => peakSlot;
         internal int ListFailureCount { get; private set; }
+        internal bool UsesRegisterSelectorContinuation { get; private set; }
 
         private int Slot()
         {
@@ -410,6 +431,47 @@ internal sealed partial class BeamModuleCompiler
         internal void Function(FunctionDefinition function)
         {
             parentFunction ??= function;
+            if (TryEmitMeasuredBinaryContextDecode(function) || TryEmitResumedBitListDecode(function)
+                || TryEmitResumedBinaryPrefix(function) || TryEmitBinaryLengthPrefix(function)
+                || TryEmitBinaryLengthConsumer(function) || TryEmitIndefiniteBinaryContinuation(function) || TryEmitBinarySplitBoundary(function)
+                || TryEmitPrimitiveBinaryProjection(function) || TryEmitDefiniteBinaryList(function)
+                || TryEmitClosedAtomForwarder(function) || TryEmitClosedTryTupleDispatch(function)
+                || TryEmitGuardedTaggedTryDispatch(function)
+                || TryEmitFramelessElementArgument(function)
+                || TryEmitDictionaryArgumentContinuation(function)
+                || TryEmitPrivateTuplePayloadResult(function) || TryEmitEffectBeforeReceiveCallCase(function))
+            {
+                return;
+            }
+
+            if (TryEmitClosedTupleElementMembership(function) || TryEmitPairLookup(function)
+                || TryEmitCheckedPairTail(function) || TryEmitClosedListCallback(function))
+            {
+                return;
+            }
+
+            if (recursiveClosure is null && TryEmitTaggedListPayloadRecursion(function, owner.nextLabel - 2))
+            {
+                return;
+            }
+
+            if (TryEmitGuardedCallResultTails(function)
+                || TryEmitTupleJoinOptionCalls(function)
+                || TryEmitGuardedTaggedAliasChoice(function)
+                || TryEmitRetainedRecordProjectionChain(function)
+                || TryEmitClosedIntegerGuardChoices(function)
+                || TryEmitGuardedBytePrefixScanner(function)
+                || function.Clauses is [var literalCase]
+                    && (TryEmitLiteralCaseRetainedCallChain(literalCase) || TryEmitTaggedListBindingPair(literalCase)))
+            {
+                return;
+            }
+
+            if (plannedReversedFrame)
+            {
+                owner.registerSelectorEntries.Add(owner.nextLabel - 1);
+            }
+
             ReadProperListCaseBindings(function);
             if (function.Clauses.Any(clause => clause.Body is Expr.Match { Pattern: Pattern.Variable { Name: VariableScopeNames.Wildcard } }
                 && UnwrapWildcardMatch(clause.Body) is Expr.Call))
@@ -446,13 +508,23 @@ internal sealed partial class BeamModuleCompiler
             }
             if (function.Clauses.Any(clause => clause.Body is Expr.Call call
                     && ReadRegisterAppendPrefix(clause, call) is not null) && TryEmitRegisterTailCall(function)
+                || TryEmitNilEntryForwardedResult(function) || TryEmitSharedLiteralConsContinuation(function)
+                || TryEmitStringKeyTupleResultLoop(function)
+                || TryEmitEntryListTaggedUnwrap(function) || TryEmitCaughtKeyedTupleProjection(function)
+                || TryEmitExactListMapChildren(function)
                 || TryEmitRegisterCapturedClosure(function) || TryEmitClosureArgumentTail(function)
+                || TryEmitClosedMapTailContinuation(function)
+                || TryEmitDirectMapTailArgument(function)
+                || TryEmitCheckedMapFieldTail(function) || TryEmitIdentityFailureCallChain(function)
+                || TryEmitNestedArgumentTailCall(function, capturedExitOnly: true)
+                || TryEmitGuardedBinaryMeasurement(function)
                 || TryEmitRoundedCallCase(function)
                 || TryEmitSharedIntegerGuardResult(function) || TryEmitDisjointRangePredicate(function)
                 || TryEmitSharedConsIdentityTail(function)
                 || TryEmitTerminalPredicateCalls(function) || TryEmitTerminalCallMatch(function)
                 || TryEmitSingletonResultTailWrapper(function)
                 || TryEmitForwardedRecordList(function)
+                || TryEmitRetainedRecordEffects(function)
                 || TryEmitDeferredRecordFieldCall(function) || TryEmitRecordFieldCallAndReturn(function))
             {
                 return;
@@ -500,32 +572,67 @@ internal sealed partial class BeamModuleCompiler
                 return;
             }
 
-            if (TryEmitAppendChainFrame(function) || TryEmitNifErrorStub(function) || TryEmitRetainedTupleConstruction(function)
+            if (TryEmitTimedProcessMonitor(function)
+                || TryEmitSharedListChildEntry(function, owner.nextLabel - 2)
+                || function.Clauses is [var childSpec]
+                    && (TryEmitRegisterListRemoteTail(childSpec) || TryEmitChildSpecConstructor(childSpec))
+                || TryEmitRematerializedLookupCleanup(function)
+                || TryEmitRematerializedCheckedConstruction(function)
+                || TryEmitTaggedChildLookup(function)
+                || function.Clauses is [var taggedChild]
+                    && (TryEmitOwnedForwardingList(taggedChild) || TryEmitTaggedKeyCleanup(taggedChild))
+                || function.Clauses is [var forwarder] && TryEmitRegisterListForwarder(forwarder)
+                || TryEmitSingletonListTupleChain(function, owner.nextLabel - 2)
+                || TryEmitAppendChainFrame(function) || TryEmitNifErrorStub(function) || TryEmitRetainedTupleConstruction(function)
+                || TryEmitRetainedCallResultConstruction(function)
                 || TryEmitCallResultConstruction(function)
-                || TryEmitCallWithRetainedArgument(function) || TryEmitRetainedTupleFieldTail(function) || TryEmitCapturedFoldRecordAppend(function)
-                || TryEmitWxTextCommand(function)
-                || TryEmitConstantRemoteCall(function) || TryEmitWxOptionCommand(function) || TryEmitWxOptionClosure(function) || TryEmitWxStaticCommand(function)
+                || TryEmitCallWithRetainedArgument(function) || TryEmitSizedRecordIolistDelivery(function) || TryEmitRetainedTupleFieldTail(function) || TryEmitCapturedFoldRecordAppend(function)
+                || TryEmitWxTextCommand(function) || TryEmitWxCallbackFoldCommand(function)
+                || TryEmitConstantRemoteCall(function) || TryEmitWxMappedTextOverload(function)
+                || TryEmitWxOptionCommand(function) || TryEmitWxOptionClosure(function) || TryEmitWxCallbackFoldClosure(function) || TryEmitWxStaticCommand(function)
                 || TryEmitWxScalarTupleOverload(function) || TryEmitWxObjectOverload(function) || TryEmitWxUnaryObjectOverload(function)
                 || TryEmitWxObjectOptionOverload(function) || TryEmitWxClassUnionCommand(function) || TryEmitWxObjectCommand(function)
                 || TryEmitWxGuardedForwardOverload(function) || TryEmitWxRepackedTupleCommand(function)
                 || TryEmitWxTupleOverload(function) || TryEmitWxStaticTupleCommand(function)
-                || TryEmitTupleOfListHeads(function) || TryEmitDirectFixedBitPattern(function) || TryEmitFixedBitTuple(function) || TryEmitGuardedBinarySplit(function) || TryEmitBinaryTailRecursion(function) || TryEmitRegisterBinaryRebuild(function) || TryEmitDirectMapPattern(function) || TryEmitDirectTryAfter(function) || TryEmitDirectBits(function) || TryEmitDirectFunctionValueCall(function) || TryEmitDirectArithmetic(function) || TryEmitDirectBooleanNot(function) || TryEmitDirectValueGuard(function) || TryEmitTaggedListResult(function) || TryEmitNumericComparison(function)
-                || TryEmitGuardedLocalForward(function) || TryEmitRecordPredicateFunction(function) || TryEmitDirectGuardedRecordAccess(function) || TryEmitDirectTypeOrArityGuard(function) || TryEmitDirectListOrFunctionGuard(function) || TryEmitDirectCatch(function)
+                || TryEmitTupleOfListHeads(function) || TryEmitDirectFixedBitPattern(function) || TryEmitFixedBitTuple(function) || TryEmitGuardedBinarySplit(function) || TryEmitBinaryTailRecursion(function) || TryEmitClosedPaddingPredicate(function) || TryEmitUnpaddedBitStringContext(function) || TryEmitPaddedBitStringTail(function) || TryEmitRegisterBinaryRebuild(function) || TryEmitDirectMapPattern(function) || TryEmitProtectedSavedCallSequence(function) || TryEmitFloatCallContinuation(function) || TryEmitDirectTryAfter(function) || TryEmitDirectBits(function) || TryEmitDirectFunctionValueCall(function) || TryEmitDirectArithmetic(function) || TryEmitDirectBooleanNot(function) || TryEmitDirectValueGuard(function) || TryEmitTaggedListResult(function) || TryEmitNumericComparison(function)
+                || TryEmitLiteralOrProtectedResult(function) || TryEmitClosedIntegerTablePredicate(function)
+                || TryEmitEmptyComprehensionScan(function) || TryEmitSingleSizeCheckedChoice(function)
+                || TryEmitSharedTaggedHeadDispatch(function) || TryEmitTaggedPairListResult(function)
+                || TryEmitSharedCaughtTupleTails(function) || TryEmitBinaryGuardedTupleTails(function)
+                || TryEmitAliasedListHeadGuardTails(function) || TryEmitTaggedLookupConsLoop(function) || TryEmitGuardedKeyfindPairTail(function) || TryEmitGuardedLocalForward(function) || TryEmitRecordPredicateFunction(function) || TryEmitDirectGuardedRecordAccess(function) || TryEmitDirectTypeOrArityGuard(function) || TryEmitDirectListOrFunctionGuard(function) || TryEmitDirectCatch(function)
                 || TryEmitDiscardedBranchCatch(function) || TryEmitEntryCatchResultDispatch(function) || TryEmitNestedListCallCatch(function)
-                || TryEmitTerminalProtectedTuples(function)
+                || TryEmitLiteralShortcutBoolean(function) || TryEmitIgnoredTryCallExactCatch(function)
+                || TryEmitEntryCaughtCall(function)
+                || TryEmitRecordFieldListAndClosure(function)
+                || TryEmitTerminalRecordFields(function)
+                || TryEmitNestedFunctionReferenceTail(function)
+                || TryEmitNestedRecordEffects(function)
+                || TryEmitNestedTaggedEntry(function)
+                || TryEmitOwnedTaggedRecordActions(function)
+                || TryEmitProtectedTaggedCallDispatch(function)
+                || TryEmitProtectedSingletonOptions(function)
+                || TryEmitProvenCatchArgumentPreparation(function)
+                || TryEmitCaughtPreparedTupleCall(function) || TryEmitProtectedCallTuple(function) || TryEmitTerminalProtectedTuples(function)
                 || TryEmitProtectedTaggedResult(function)
                 || TryEmitCaughtTaggedSingleton(function) || TryEmitCaughtTaggedApply(function)
                 || owner.TryEmitDictionaryCall(function.Clauses, location, entries) || TryEmitNegatedPredicateTail(function)
                 || TryEmitStateReturningDispatch(function) || TryEmitCheckedMapCalls(function)
                 || TryEmitMapGuardedSend(function) || TryEmitTupleNodeGuard(function)
+                || TryEmitNodeGuardPreservedTupleEffect(function) || TryEmitTupleFieldEffectReturn(function)
+                || TryEmitListDefaultTupleContinuation(function)
+                || TryEmitConstantArgumentChildList(function) || TryEmitSharedClosedListLocalTail(function)
+                || TryEmitTwoCheckedExternalCalls(function) || TryEmitTaggedSingletonArgumentResult(function)
                 || TryEmitForwardedChildList(function) || TryEmitSupervisorReceiverOptions(function)
                 || TryEmitChildCountDispatch(function) || TryEmitConfiguredTableStart(function)
                 || TryEmitTaggedParserResult(function) || TryEmitEvaluatedConfiguration(function)
                 || TryEmitConfigurationDecode(function) || TryEmitProtectedCacheCall(function)
                 || TryEmitConvertedCallTail(function) || TryEmitClosureWithConvertedArgument(function)
-                || TryEmitSharedTuplePrefix(function) || TryEmitComputedScalar(function)
+                || TryEmitSharedTuplePrefix(function) || TryEmitSharedTupleArithmeticCall(function) || TryEmitComputedScalar(function)
                 || owner.TryEmitNestedTupleDynamicTail(function, location)
+                || TryEmitRegisterReceiveStateTail(function)
+                || TryEmitOwnedRecordChoice(function)
                 || TryEmitBoundReplyReceive(function) || TryEmitRecordTransportOpen(function)
+                || TryEmitCheckedReplyOrReceive(function)
                 || TryEmitLiteralTimeoutReceive(function) || TryEmitTimedMonitorReceive(function) || TryEmitConditionalTupleTail(function)
                 || TryEmitGuardedSocketRecord(function) || TryEmitSocketOptionDispatch(function)
                 || TryEmitSocketOptionRead(function) || TryEmitSocketStatsDispatch(function)
@@ -544,17 +651,26 @@ internal sealed partial class BeamModuleCompiler
                 || TryEmitLinkedRecordClosures(function)
                 || TryEmitSocketAccept(function)
                 || TryEmitSocketControllerTransfer(function)
+                || TryEmitGuardedComprehensionHelper(function) || TryEmitGuardedComprehensionParent(function)
                 || TryEmitTupleKeyFilter(function) || TryEmitTupleFieldComprehension(function) || TryEmitClosedListMapper(function)
+                || TryEmitProtectedMappedList(function)
+                || TryEmitWxCheckedListCommand(function)
+                || TryEmitDiscardedClassEffectHelper(function)
                 || TryEmitConditionalListComprehension(function)
                 || TryEmitFlatTupleListComprehension(function)
                 || TryEmitTupleFieldListComprehension(function)
+                || TryEmitProvenTupleOptionGenerator(function)
+                || TryEmitNestedListGenerators(function)
+                || TryEmitNestedListCursorLayout(function)
+                || TryEmitRecursiveListCallMapping(function)
                 || TryEmitIdentityListComprehension(function) || TryEmitCapturedListMapping(function)
-                || TryEmitTupleComprehensionResult(function) || TryEmitBooleanFilterTuple(function)
+                || TryEmitGuardedTupleAliasComprehension(function)
+                || TryEmitTupleComprehensionResult(function) || TryEmitRecursiveListBooleanFilter(function)
                 || TryEmitTupleProjectionHelper(function) || TryEmitTaggedAccumulator(function)
                 || TryEmitCertificateNameCheck(function)
                 || TryEmitTlsServerHandshake(function)
                 || TryEmitRemoteResultTailCall(function) || TryEmitListResultTailCall(function) || TryEmitLiteralSelectorTailCall(function)
-                || TryEmitClosedAtomSelector(function) || TryEmitSplitTupleFormat(function)
+                || TryEmitClosedAtomConsDispatch(function) || TryEmitClosedAtomSelector(function) || TryEmitSplitTupleFormat(function)
                 || TryEmitTaggedPairWithSavedCall(function) || TryEmitTaggedPairProjection(function)
                 || TryEmitPreservedTaggedResult(function)
                 || TryEmitReportedStateEvent(function)
@@ -565,10 +681,21 @@ internal sealed partial class BeamModuleCompiler
                 || TryEmitMemoryDetailPage(function) || TryEmitIndexedDetailPage(function) || TryEmitBinaryDigitList(function)
                 || TryEmitBinaryDetailLookup(function) || TryEmitTermDetailLookup(function)
                 || TryEmitCallbackPageList(function) || TryEmitTermCallbackPage(function) || TryEmitInterleavedCallList(function)
+                || TryEmitForkedCallList(function)
                 || TryEmitDynamicDetailReply(function) || TryEmitConditionalProgressPulse(function) || TryEmitDetailWindow(function)
                 || TryEmitCheckedDetailTab(function) || TryEmitScrolledDetailPanel(function) || TryEmitPageComprehension(function)
+                || TryEmitRecordPayloadReports(function)
+                || TryEmitNestedRecordReadReport(function)
+                || TryEmitPairedRecordGeometry(function)
+                || TryEmitGroundListCallChoice(function)
+                || TryEmitRetainedConstructorList(function)
+                || TryEmitTaggedRecordActionAndReport(function)
+                || TryEmitTaggedEventReportTable(function)
+                || TryEmitTaggedInnerEventSelection(function)
+                || TryEmitNestedTaggedAcquisition(function)
                 || TryEmitNestedRecordEvent(function) || TryEmitNestedRecordCallBranches(function)
                 || TryEmitRecordCleanup(function) || TryEmitGuardedPageArguments(function)
+                || TryEmitRetainedCompoundCall(function)
                 || TryEmitReturnedRecordUpdate(function) || TryEmitPageRecord(function) || TryEmitDelayedPageInfo(function) || TryEmitRecordFieldCallUpdate(function) || TryEmitKnownRecordDispatch(function) || TryEmitWindowRecordExpansion(function) || TryEmitHtmlLinkEvent(function) || TryEmitListTupleTailCall(function) || TryEmitSupervisorChildNotification(function) || TryEmitProtectedListenerLookup(function)
                 || TryEmitCapturedTableList(function) || TryEmitReadTableWithWarning(function)
                 || TryEmitMemoryInfoFields(function) || TryEmitRecursiveFieldTitles(function) || TryEmitRecursiveTermExpansion(function)
@@ -597,10 +724,20 @@ internal sealed partial class BeamModuleCompiler
                 return;
             }
 
-            if (TryEmitSequenceEncoding(function) || TryEmitSequenceEncodingWrapper(function)
+            if (TryEmitOptionalTableEncoder(function) || TryEmitOptionalTableDecoder(function) || TryEmitInlineTablePairEncoder(function) || TryEmitInlineTablePairDecoder(function) || TryEmitDefaultOnlySequenceDecoder(function)
+                || TryEmitRequiredOptionalSequenceDecoder(function) || TryEmitRequiredTableSequenceDecoder(function) || TryEmitNamedRequiredSequenceDecoder(function)
+                || TryEmitSelectedRecordSequenceDecoder(function)
+                || TryEmitInterleavedNamedSequenceDecoder(function)
+                || TryEmitDefaultOnlySequenceEncoder(function)
+                || TryEmitRequiredOptionalSequenceEncoder(function)
+                || TryEmitRequiredTableSequenceEncoder(function)
+                || TryEmitRequiredSequenceWithForeignPair(function)
+                || TryEmitSelectedRecordSequenceEncoder(function)
+                || TryEmitSequenceEncoding(function) || TryEmitSequenceEncodingWrapper(function)
                 || TryEmitPairForwarding(function) || TryEmitForwardedCallResult(function)
                 || TryEmitCapturedComprehensionParent(function)
-                || TryEmitTerminalDecodedRange(function)
+                || TryEmitGuardedCallTupleProjection(function)
+                || TryEmitProvenTerminalRange(function) || TryEmitTerminalDecodedRange(function)
                 || TryEmitOptionalDecode(function) || TryEmitSingletonListForwarding(function) || TryEmitEmptyOrSingleton(function)
                 || TryEmitListLookup(function) || TryEmitSignedListLength(function))
             {
@@ -636,6 +773,14 @@ internal sealed partial class BeamModuleCompiler
                     location
                 );
 
+                return;
+            }
+
+            if (TryEmitCountedMaskAccumulator(function) || TryEmitGuardedMaskAccumulatorEntry(function)
+                || TryEmitPositionedBinaryAccumulator(function) || TryEmitDecodedIntegerPrefix(function)
+                || TryEmitCountedTermFold(function)
+                || TryEmitNestedListAccumulator(function) || TryEmitTupleHeadListAccumulator(function) || TryEmitBoundedNameTableBitList(function) || TryEmitCountedPositionList(function) || TryEmitCountedListPairAccumulator(function))
+            {
                 return;
             }
 
@@ -685,12 +830,16 @@ internal sealed partial class BeamModuleCompiler
                 && entries.TryGetValue((length.Octets.Function, 1), out int octetsEntry))
             {
                 bool properOctets = (InferPairFacts(length.Octets) & PairFacts.ProperList) != 0;
+                long? lower = NaturalArgumentLowerBound(function, 0);
+                bool numeric = !lower.HasValue && owner.SsaTypeInferenceEnabled && !owner.ModuleOptimizationDisabled
+                    && (ReadJoinedNumericArgument(function, 0) & (PairFacts.Numeric | PairFacts.Integer)) == PairFacts.Numeric;
                 owner.EmitLengthEncoding(
                     length,
                     octetsEntry,
                     location,
                     properOctets,
-                    NaturalArgumentLowerBound(function, 0)
+                    lower,
+                    numeric
                 );
 
                 return;
@@ -737,13 +886,14 @@ internal sealed partial class BeamModuleCompiler
                 return;
             }
 
-            if (TryEmitSignedDecode(function) || TryEmitFixedDecode(function)
-                || TryEmitLiteralEncoder(function) || TryEmitMeasuredEncoder(function)
+            if (TryEmitSignedDecode(function) || TryEmitFixedDecode(function) || TryEmitIntegerCaseDispatch(function)
+                || TryEmitLiteralEncoder(function) || TryEmitPackedConsArithmetic(function) || TryEmitPositiveTuplePayloadForwarding(function) || TryEmitMeasuredEncoder(function) || TryEmitListConvertedMeasuredTail(function)
                 || owner.TryEmitSingletonListConstructor(function, location, entries) || TryEmitNestedListRegistration(function)
                 || TryEmitListPrefixTailCall(function) || TryEmitSingletonListTailCall(function)
                 || TryEmitListCallAndConstant(function) || TryEmitTerminalCallList(function) || TryEmitAppendFormatTail(function)
                 || TryEmitRegisteredProcessCase(function)
-                || TryEmitTaggedTupleAndConstantsTail(function) || TryEmitTupleElementAtomDispatchTail(function)
+                || TryEmitClosedListMembershipLoop(function)
+                || TryEmitClosedTupleInputForwarding(function) || TryEmitProjectedTaggedLiteralTail(function) || TryEmitTaggedTupleAndConstantsTail(function) || TryEmitTupleElementAtomDispatchTail(function)
                 || TryEmitTaggedTupleFieldsTail(function)
                 || TryEmitTupleListTailCall(function)
                 || TryEmitRegisterConstructedArgument(function, foldAppendArguments: true)
@@ -757,8 +907,10 @@ internal sealed partial class BeamModuleCompiler
                 || TryEmitSocketConnectSequence(function) || TryEmitSocketAcceptSequence(function) || TryEmitSocketReplySequence(function)
                 || TryEmitPathOptionList(function) || TryEmitTaggedCallProjection(function) || TryEmitPairedListTailCalls(function)
                 || TryEmitRegisterIntegerMembership(function) || TryEmitNestedTaggedForward(function)
+                || TryEmitMatchedTupleArgumentEffect(function)
                 || TryEmitRegisterPredicate(function) || TryEmitAtomCheckedTailCall(function)
                 || recursiveClosure is null && TryEmitLeadingAtomTailDispatch(function, closed: true)
+                || TryEmitLiteralColumnDispatch(function)
                 || TryEmitComputedLiteralDispatch(function) || TryEmitLiteralTailClauses(function)
                 || TryEmitGuardedConstantReturns(function) || TryEmitGuardedRemoteTailCall(function)
                 || TryEmitLiteralPatternTailCall(function) || TryEmitNilArgumentReturn(function)
@@ -766,16 +918,20 @@ internal sealed partial class BeamModuleCompiler
                 || TryEmitNilTailTupleFallback(function)
                 || TryEmitGuardedIntegerForward(function) || TryEmitProjectedChoice(function)
                 || TryEmitSingleOptionalField(function) || TryEmitDeferredTupleFields(function)
+                || TryEmitRequiredOptionalSequenceEncoder(function, retainRecord: true)
                 || TryEmitRegisterLookupCase(function) || TryEmitForwardedCaseInput(function)
                 || TryEmitProtectedProjection(function) || TryEmitProtectedProjectionArgument(function)
-                || TryEmitListDecoderEntry(function) || TryEmitRegisterListClause(function)
+                || TryEmitCallListResultTail(function)
+                || TryEmitSortedRequiredDecoder(function)
+                || TryEmitSortedOptionalDecoderPair(function) || TryEmitListDecoderEntry(function) || TryEmitRegisterListClause(function)
                 || TryEmitCheckedListIdentity(function) || TryEmitListConversionTuple(function)
                 || TryEmitGroupedArityDispatch(function) || owner.TryEmitAtomReplacementDispatch(function)
                 || owner.TryEmitAtomIntegerDispatch(function, location)
-                || owner.TryEmitAtomAliasDispatch(function, entries) || TryEmitLiteralResultDispatch(function)
+                || owner.TryEmitAtomAliasDispatch(function, entries) || TryEmitLiteralResultDispatch(function) || TryEmitAtomPatternMatrix(function)
                 || TryEmitRegisterTailCall(function)
                 || TryEmitNonAllocatingBifOperands(function) || TryEmitRegisterConstructedArgument(function)
                 || function.Clauses is [var constructionContinuation] && TryEmitConstructedCallContinuation(constructionContinuation)
+                || TryEmitIntegerTaggedAliasResult(function)
                 || TryEmitEmbeddedConstructorTail(function) || TryEmitReusedTupleCaseTail(function)
                 || TryEmitSingletonCallTupleReturns(function) || TryEmitLiteralEntryCallCase(function) || TryEmitEffectfulTupleOrAtomCase(function))
             {
@@ -1108,17 +1264,39 @@ internal sealed partial class BeamModuleCompiler
             {
                 function = FoldLeadingCaseConstants(FoldLeadingDynamicModule(function));
                 function = FoldStraightSequenceConstants(function);
+                function = FoldSingletonEntryCase(function);
             }
+            if (recursiveClosure is null && TryEmitCaughtComputedListResult(function))
+            {
+                return;
+            }
+
             if (recursiveClosure is null && (TryEmitAppendTupleBranches(function) || TryEmitSingletonListCheckedCalls(function, functionInfo) || TryEmitDynamicUnicodePair(function, functionInfo)))
             {
                 return;
             }
 
             if (recursiveClosure is null && (TryEmitTaggedAppendApply(function, functionInfo)
+                || TryEmitAtomListTail(function, functionInfo)
                 || TryEmitListFunctionTailAndTupleCall(function, functionInfo)
                 || TryEmitTupleSelectorCallTails(function, functionInfo)
                 || TryEmitTerminalCaseTuple(function, functionInfo)))
             {
+                return;
+            }
+
+            if (recursiveClosure is null && (TryEmitFiniteAtomEntryCallTails(function)
+                || TryEmitAtomAndListGuardTails(function, functionInfo)
+                || TryEmitSingletonListCallListResult(function, functionInfo)))
+            {
+                return;
+            }
+
+            if (recursiveClosure is null && function.Clauses.Count > 1
+                && TryEmitLeadingCaughtLocalTail(function))
+            {
+                EmitGeneralFunction(function with { Clauses = function.Clauses.Skip(1).ToArray() }, functionInfo);
+
                 return;
             }
 
@@ -1159,7 +1337,8 @@ internal sealed partial class BeamModuleCompiler
             }
 
             if (recursiveClosure is null && function.Clauses.Count == 1 && function.Arity != 0
-                && (TryEmitDeferredRecordCallUpdate(clauses[0], functionInfo)
+                && (TryEmitSingletonLookupConstruction(clauses[0])
+                    || TryEmitDeferredRecordCallUpdate(clauses[0], functionInfo)
                     || TryEmitTupleEntryListCall(clauses[0], functionInfo)
                     || TryEmitTupleEntryCallSequence(clauses[0], functionInfo)
                     || TryEmitTupleEntryWithRegisterFields(clauses[0], functionInfo, baseSlot: null)))
@@ -1168,7 +1347,15 @@ internal sealed partial class BeamModuleCompiler
             }
 
             if (recursiveClosure is null && clauses.Count == function.Clauses.Count
-                && (TryEmitTaggedLookupRecordUpdate(function) || TryEmitGroupedTupleEntry(function, functionInfo)
+                && (TryEmitTaggedLookupRecordUpdate(function) || TryEmitSharedTupleExternalTailPrefix(function, functionInfo)
+                    || TryEmitGuardedReferenceClosures(function) || TryEmitClosedLiteralTupleDecision(function)
+                    || TryEmitGroupedLiteralTupleClosures(function, functionInfo)
+                    || TryEmitSharedRecordCatchContinuations(function)
+                    || TryEmitGroupedTupleConversion(function)
+                    || TryEmitSharedNestedRecordEntry(function, functionInfo)
+                    || TryEmitAtomOwnedTupleEntries(function, functionInfo)
+                    || TryEmitOuterRecordLiteralEntry(function, functionInfo)
+                    || TryEmitGroupedTupleEntry(function, functionInfo)
                     || TryEmitSharedTaggedTupleDispatch(function, functionInfo)
                     || TryEmitTupleAndAtomTailDispatch(function, functionInfo)))
             {
@@ -1211,6 +1398,7 @@ internal sealed partial class BeamModuleCompiler
                     || TryEmitEntryTupleArithmeticResult(clauses[0])
                     || TryEmitEntryTupleAndCallResult(clauses[0])
                     || recursiveClosure is null && TryEmitEntryBinaryReturn(clauses[0])
+                    || TryEmitClosureBooleanEffect(clauses[0])
                     || TryEmitEntryArithmeticCase(clauses[0])
                     || TryEmitSingletonListResultPrefix(clauses[0])
                     || TryEmitCheckedListEntry(clauses[0])
@@ -1222,13 +1410,16 @@ internal sealed partial class BeamModuleCompiler
                     || recursiveClosure is null && TryEmitNestedGuardedTailCall(clauses[0])
                     || TryEmitEntryRegisterCase(clauses[0])
                     || TryEmitTupleResultCase(clauses[0])
-                    || TryEmitSavedCallSequenceCase(clauses[0]) || TryEmitEntryClosureTail(clauses[0])
+                    || TryEmitSavedLookupCleanup(clauses[0])
+                    || TryEmitTerminalRemainderEffects(clauses[0]) || TryEmitSavedCallSequenceCase(clauses[0]) || TryEmitEntryClosureTail(clauses[0])
                     || recursiveClosure is null && entryInfo is null && TryEmitAdjacentCallCase(clauses[0])
                     || TryEmitSavedCallSequenceTuple(clauses[0])
                     || TryEmitLengthSelectorApply(clauses[0])
                     || TryEmitEntryBifTail(clauses[0]) || TryEmitEntryDynamicApplyTail(clauses[0])
                     || TryEmitDictionarySequenceTail(clauses[0])
                     || TryEmitCallResultCaseTails(clauses[0])
+                    || recursiveClosure is null && entryInfo is null && TryEmitEntryAtomIdentityCase(function)
+                    || TryEmitNonexhaustiveAtomCallCase(clauses[0])
                     || TryEmitEntryAtomTailDispatch(clauses[0]) || TryEmitEntryAtomCallTails(clauses[0]) || TryEmitEntryCallCaseWithFallback(clauses[0]) || TryEmitDiscardedCallSequence(clauses[0]) || TryEmitNestedEntryCalls(clauses[0]) || TryEmitSiblingEntryCalls(clauses[0])
                     || TryEmitCheckedCallSequence(clauses[0]) || TryEmitEntryCallWithComputedOperands(clauses[0])))
             {
@@ -1236,7 +1427,7 @@ internal sealed partial class BeamModuleCompiler
             }
 
             if (recursiveClosure is null && function.Arity > 0 && function.Clauses.Count == 1
-                && (TryEmitEntryConstructedSend(clauses[0], functionInfo)
+                && (TryEmitEntryLiteralSend(clauses[0]) || TryEmitEntryConstructedSend(clauses[0], functionInfo)
                     || TryEmitDeferredRecordList(clauses[0], functionInfo)
                     || TryEmitTupleEntryWithRegisterFields(
                         clauses[0],
@@ -1244,13 +1435,15 @@ internal sealed partial class BeamModuleCompiler
                         nextSlot,
                         checkShape: true
                     )
+                    || TryEmitPlannedTupleEntry(clauses[0], functionInfo, requireSingleEffect: true)
                     || TryEmitPlannedTupleEntry(clauses[0], functionInfo)))
             {
                 return;
             }
 
             if (recursiveClosure is null && clauses is [var construction]
-                && (TryEmitSiblingTupleAndList(construction) || TryEmitEntryConstructionSequence(construction)))
+                && (TryEmitCheckedRecordConstruction(construction) || TryEmitSiblingTupleAndList(construction)
+                    || TryEmitEntryConstructionSequence(construction)))
             {
                 return;
             }
@@ -1284,7 +1477,8 @@ internal sealed partial class BeamModuleCompiler
             }
 
             if (recursiveClosure is null && clauses.Count == function.Clauses.Count
-                && (TryEmitGuardedListConstructors(function, functionInfo)
+                && (TryEmitProjectedConsRecursion(function, functionInfo)
+                    || TryEmitGuardedListConstructors(function, functionInfo)
                     || TryEmitNilOrTupleResultConsTail(function)
                     || TryEmitListRecordMerge(function, functionInfo)
                     || TryEmitSharedListRecordTail(function, functionInfo)
@@ -1292,6 +1486,11 @@ internal sealed partial class BeamModuleCompiler
                     || TryEmitConsAndNilTailCalls(clauses, functionInfo)
                     || TryEmitOrderedConsSearch(function, functionInfo)
                     || TryEmitConsHeadAlternatives(function, functionInfo)
+                    || TryEmitNestedTaggedAppendLoop(function, functionInfo)
+                    || TryEmitTupleListAppendLoop(function, functionInfo)
+                    || TryEmitSharedPlainConsGuards(function, functionInfo)
+                    || TryEmitSharedConsInsertion(function, functionInfo)
+                    || TryEmitConsCallContinuation(function, functionInfo)
                     || TryEmitGuardedConsCaseDispatch(function, functionInfo)
                     || TryEmitSingletonConsDispatch(function, functionInfo)
                     || TryEmitArithmeticListEntry(function, functionInfo)
@@ -1349,7 +1548,8 @@ internal sealed partial class BeamModuleCompiler
             }
 
             if (recursiveClosure is null && clauses.Count == function.Clauses.Count
-                && TryEmitStructuralListEntry(function, functionInfo))
+                && (TryEmitSharedClosedListLengths(function, functionInfo)
+                    || TryEmitStructuralListEntry(function, functionInfo)))
             {
                 return;
             }
@@ -1375,7 +1575,11 @@ internal sealed partial class BeamModuleCompiler
             if (recursiveClosure is null && clauses.Count == function.Clauses.Count)
             {
                 function = FoldEntryResultCase(function);
-                clauses = function.Clauses;
+                clauses = AliasNestedOrderedConsHeads(function.Clauses);
+                if (!ReferenceEquals(clauses, function.Clauses))
+                {
+                    function = function with { Clauses = clauses };
+                }
             }
 
             Pattern?[]? entryPatterns = null;
@@ -1790,7 +1994,15 @@ internal sealed partial class BeamModuleCompiler
                 bool initializesTryToken = caughtApply is not null
                     || recursiveClosure is null && clauses.Count == 1 && clauses[0].Guard is null
                         && HasUnconditionalParameters(clauses[0]) && clauses[0].Body is Expr.Try { After: null };
-                EmitFrameInitialization(nextSlot - argumentBase + (initializesTryToken ? 1 : 0), frameSize);
+                int initialized = nextSlot - argumentBase + (initializesTryToken ? 1 : 0);
+                if (plannedReversedFrame)
+                {
+                    EmitFrameInitialization(0, frameSize - initialized);
+                }
+                else
+                {
+                    EmitFrameInitialization(initialized, frameSize);
+                }
             }
             if (sharedHead >= 0)
             {
@@ -1898,7 +2110,9 @@ internal sealed partial class BeamModuleCompiler
                     variables.TryAdd(self, selfSlot);
                 }
                 Expr? emittedGuard = entryPatterns is null ? clause.Guard : entryGuard;
-                Guard(emittedGuard, failure);
+                // Keep equality edges available to optimize the entry projections before final selection.
+                Guard(emittedGuard, failure, formAtomSelection: false);
+                RememberRecordGuard(emittedGuard);
                 guardedBinaryMatches = ReadGuardedBinaryMatches(clause.Body, clause.Guard);
                 Expr body = clause.Body;
                 if (entryBindings != 0 && body is Expr.Sequence entrySequence)
@@ -2012,7 +2226,9 @@ internal sealed partial class BeamModuleCompiler
                             owner.EmitFrameReturn(sequenceFrame);
                         }
                     }
-                    else if ((foldedEntryCase is not null
+                    else if (!(foldedEntryCase is null && entryCaseArithmetic is null
+                            && TryEmitTerminalSingletonListCase(entryCallCase, inputPrepared: true))
+                        && (foldedEntryCase is not null
                             || !(entryCaseArithmetic is null && TryEmitTerminalIdentityCase(entryCallCase, firstCall!.Call))
                                 && !TryEmitTerminalTaggedCase(entryCallCase))
                         && (terminalAtomCase is null || !TryCaseSelection(
@@ -2035,7 +2251,8 @@ internal sealed partial class BeamModuleCompiler
                             returnResult: foldedEntryCase is not null,
                             tailFallback: foldedEntryCase is not null,
                             preparedProperList: foldedEntryCase is null && entryCaseArithmetic is null
-                                && IsProperListProducer(firstCall!.Module, firstCall.Call.Function, firstCall.Call.Arguments.Count)
+                                && IsProperListProducer(firstCall!.Module, firstCall.Call.Function, firstCall.Call.Arguments.Count),
+                            returningResult: foldedEntryCase is null
                         );
                         if (foldedEntryCase is null)
                         {
@@ -2090,7 +2307,7 @@ internal sealed partial class BeamModuleCompiler
                 else if (entryCallCase is null && !TryEmitDiscardedDynamicReturn(body)
                     && !(recursiveClosure is null && firstCall is null && entryBindings == 0
                         && TryEmitFramedTupleMatchTail(body, tupleMatchFailures))
-                    && !TailLocal(body, reuseCallSlots: true))
+                    && !TailLocal(body, reuseCallSlots: true, directFunctionReturn: true))
                 {
                     int? returnFrame = frameSize;
                     if (clauses.Count == 1 && clause.Guard is null && HasUnconditionalParameters(clause)
@@ -2103,6 +2320,10 @@ internal sealed partial class BeamModuleCompiler
                         EmitEntryCaughtApply(caughtApply);
 
                         return;
+                    }
+                    else if (TryEmitTerminalSingletonListCase(body))
+                    {
+                        returnFrame = null;
                     }
                     else
                     {
@@ -2396,12 +2617,20 @@ internal sealed partial class BeamModuleCompiler
         }
 
         private sealed record OptionalDecode(
-            Integer Tag, Atom Absent, DecodeCall Call);
+            Integer Tag,
+            Atom Absent,
+            DecodeCall Call,
+            IntegerCase? Enumeration = null,
+            IReadOnlyList<TaggedOptionalChoice>? Choices = null,
+            ForwardedChoiceMeasurement? Measurement = null
+        );
         private sealed record DecodeCall(
             Expr.Call Decode,
             Expr.Call? Convert,
             Term Tags,
-            int Entry
+            int Entry,
+            string? Module = null,
+            Term? Names = null
         );
 
         private bool TryEmitOptionalDecode(FunctionDefinition function)
@@ -2561,7 +2790,15 @@ internal sealed partial class BeamModuleCompiler
             return true;
         }
 
-        private OptionalDecode? ReadOptionalDecode(Expr.Case decision, string current, HashSet<string> bound)
+        private OptionalDecode? ReadOptionalDecode(
+            Expr.Case decision,
+            string current,
+            HashSet<string> bound,
+            bool allowEnumeration = false,
+            bool allowRemote = false,
+            bool allowNamedOptions = false,
+            bool allowMeasurement = false
+        )
         {
             if (decision is not
                 {
@@ -2582,15 +2819,59 @@ internal sealed partial class BeamModuleCompiler
                 }
                 || selector.Name != current || unchanged.Name != current
                 || !DistinctBindings(bytes, rest) || !bound.Add(bytes.Name) || !bound.Add(rest.Name)
-                || remaining.Name != rest.Name || ReadDecodeCall(body, bytes.Name) is not { } call)
+                || remaining.Name != rest.Name)
             {
                 return null;
             }
 
-            return new(tag, absent, call);
+            var enumeration = allowEnumeration ? ReadIntegerCase(body, name => !bound.Contains(name)) : null;
+            var call = ReadDecodeCall(enumeration?.Decode ?? body, bytes.Name, allowRemote);
+            if (call is null && allowNamedOptions && body is Expr.Call
+                { Module: null, DynamicRemote: false, Arguments: [Expr.Variable value, var names, var options] } reader
+                && value.Name == bytes.Name && entries.TryGetValue((reader.Function, 3), out int entry)
+                && AttributeLiteral.TryNormalizeConstant(names, out Term table) && IsClosedNamedNumberList(table)
+                && AttributeLiteral.TryNormalizeConstant(options, out Term tags))
+            {
+                call = new(
+                    reader,
+                    null,
+                    tags,
+                    entry,
+                    Names: table
+                );
+            }
+
+            ForwardedChoiceMeasurement? measurement = null;
+            if (call is null && allowMeasurement && body is Expr.Block
+                {
+                    Body: Expr.Sequence
+                    {
+                        Items: [
+                            Expr.Match { Pattern: Pattern.Variable decoded },
+                            Expr.Match { Pattern: Pattern.Variable measured }, _
+                        ]
+                    }
+                }
+                && DistinctBindings(decoded, measured) && !bound.Contains(decoded.Name) && !bound.Contains(measured.Name)
+                && ReadForwardedChoiceMeasurement(body, bytes.Name, rest.Name) is
+                { Measure.Function: AutoImportNames.ByteSize, Convert: not null } sized)
+            {
+                bound.Add(decoded.Name);
+                bound.Add(measured.Name);
+                measurement = sized;
+                call = sized.Decoder;
+            }
+
+            return call is null ? null : new(
+                tag,
+                absent,
+                call,
+                enumeration,
+                Measurement: measurement
+            );
         }
 
-        private DecodeCall? ReadDecodeCall(Expr body, string payload)
+        private DecodeCall? ReadDecodeCall(Expr body, string payload, bool allowRemote = false)
         {
             if (body is Expr.Block block)
             {
@@ -2605,21 +2886,35 @@ internal sealed partial class BeamModuleCompiler
             var candidate = convert is null ? body : convert.Arguments[0];
             if (candidate is not Expr.Call
                 {
-                    Module: null, DynamicRemote: false,
-                    Arguments: [Expr.Variable bytes, var tags]
+                    DynamicRemote: false, Arguments: [Expr.Variable bytes, var tags]
                 } decode
-                || bytes.Name != payload || !entries.TryGetValue((decode.Function, 2), out int entry)
-                || !AttributeLiteral.TryNormalizeConstant(tags, out Term decoderTags))
+                || bytes.Name != payload || !AttributeLiteral.TryNormalizeConstant(tags, out Term decoderTags))
             {
                 return null;
             }
 
-            return new(
-                decode,
-                convert,
-                decoderTags,
-                entry
-            );
+            int entry = 0;
+            string? module = null;
+            if (decode.Module is null && entries.TryGetValue((decode.Function, 2), out entry))
+            {
+                return new(
+                    decode,
+                    convert,
+                    decoderTags,
+                    entry
+                );
+            }
+
+            return allowRemote && TryResolveOrdinaryCallTarget(decode, out module)
+                && module is not (null or ErlangModuleNames.Module)
+                ? new(
+                    decode,
+                    convert,
+                    decoderTags,
+                    0,
+                    module
+                )
+                : null;
         }
 
         private void EmitDecodeCall(DecodeCall call, BeamSourceLocation previous)
@@ -2628,10 +2923,31 @@ internal sealed partial class BeamModuleCompiler
             EmitDecodeInvocation(call, previous);
         }
 
+        private void EmitDecodeOptions(DecodeCall call)
+        {
+            if (call.Names is { } names)
+            {
+                owner.EmitConstant(call.Tags, 2);
+                owner.EmitConstant(names, 1);
+            }
+            else
+            {
+                owner.EmitConstant(call.Tags, 1);
+            }
+        }
+
         private void EmitDecodeInvocation(DecodeCall call, BeamSourceLocation previous)
         {
             owner.EmitCallLine(call.Decode, previous);
-            owner.EmitFieldCall(2, call.Entry);
+            if (call.Module is null)
+            {
+                owner.EmitFieldCall(call.Names is null ? 2 : 3, call.Entry);
+            }
+            else
+            {
+                Call(call.Module, call.Decode.Function, 2);
+            }
+
             if (call.Convert is { } convert)
             {
                 owner.EmitCallLine(convert, CallLocation(call.Decode, previous));
@@ -2947,16 +3263,22 @@ internal sealed partial class BeamModuleCompiler
                 {
                     Pattern: Pattern.Variable list, Value: Expr.Call
                     { Module: null, DynamicRemote: false, Arguments: [Expr.Variable left, Expr.Variable right] } read
-                },
-                    Expr.Match
-                {
-                    Pattern: Pattern.List { Items: [Pattern.Variable { }], Tail: Pattern.Variable { } },
-                    Value: Expr.Variable input
-                }, _, _, ..]
+                }, _, _, _, ..]
                 || !DistinctBindings(first, second, list) || left.Name != first.Name || right.Name != second.Name
-                || input.Name != list.Name || !entries.ContainsKey((read.Function, 2)))
+                || !entries.ContainsKey((read.Function, 2)))
             {
                 return false;
+            }
+
+            if (TryEmitBoundedSelectedPairDecoder(
+                sequence.Items,
+                first,
+                second,
+                list,
+                read
+            ))
+            {
+                return true;
             }
 
             var suffix = sequence.Items.Skip(1).SelectMany(LocalFunctionEntries.Walk).ToArray();
@@ -2965,13 +3287,69 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
-            if (TryEmitTerminalRequiredFields(
+            if (TryEmitPreparedOptionalFields(
                 sequence.Items,
                 first,
                 second,
                 list,
                 read
             )
+                || TryEmitDefaultPrefixedSequenceDecoder(
+                    sequence.Items,
+                    first,
+                    second,
+                    list,
+                    read
+                )
+                || TryEmitFilteredNamedSequenceDecoder(
+                    sequence.Items,
+                    first,
+                    second,
+                    list,
+                    read
+                )
+                || TryEmitOptionalBeforeRequiredField(
+                    sequence.Items,
+                    first,
+                    second,
+                    list,
+                    read
+                ))
+            {
+                return true;
+            }
+
+            if (sequence.Items[1] is not Expr.Match
+                {
+                    Pattern: Pattern.List { Items: [Pattern.Variable { }], Tail: Pattern.Variable { } },
+                    Value: Expr.Variable input
+                }
+                || input.Name != list.Name)
+            {
+                return false;
+            }
+
+            if (TryEmitRequiredAndSizedOptional(
+                sequence.Items,
+                first,
+                second,
+                list,
+                read
+            )
+                || TryEmitTerminalRequiredFields(
+                    sequence.Items,
+                    first,
+                    second,
+                    list,
+                    read
+                )
+                || TryEmitCheckedListFields(
+                    sequence.Items,
+                    first,
+                    second,
+                    list,
+                    read
+                )
                 || TryEmitRequiredAndTrailingOptional(
                     sequence.Items,
                     first,
@@ -3053,6 +3431,7 @@ internal sealed partial class BeamModuleCompiler
             int slots = tuple.Items.Count - 1;
             var bound = new HashSet<string>(StringComparer.Ordinal) { first.Name, second.Name, list.Name, result.Name };
             var fields = new List<(Expr.Match Split, DecodeCall Call)>();
+            var measurements = new List<ForwardedChoiceMeasurement>();
             TaggedBranchRange? range = null;
             DecodedEnum? enumeration = null;
             string current = list.Name;
@@ -3070,6 +3449,34 @@ internal sealed partial class BeamModuleCompiler
                     || member is not Expr.Variable returnedField || returnedField.Name != value.Name)
                 {
                     return false;
+                }
+
+                if (slots == 2 && owner.SsaTypeInferenceEnabled && !owner.ModuleOptimizationDisabled
+                    && body is Expr.Block
+                    {
+                        Body: Expr.Sequence
+                        {
+                            Items: [
+                                Expr.Match { Pattern: Pattern.Variable measuredValue },
+                                Expr.Match { Pattern: Pattern.Variable length }, _
+                            ]
+                        }
+                    }
+                    && ReadForwardedChoiceMeasurement(body, head.Name, rest.Name) is
+                    {
+                        Measure.Function: AutoImportNames.ByteSize, Convert: not null
+                    } measurement)
+                {
+                    if (!DistinctBindings(measuredValue, length) || !bound.Add(measuredValue.Name) || !bound.Add(length.Name))
+                    {
+                        return false;
+                    }
+
+                    fields.Add((split, measurement.Decoder));
+                    measurements.Add(measurement);
+                    current = rest.Name;
+
+                    continue;
                 }
 
                 if (index == 1 && body is Expr.Block
@@ -3107,6 +3514,32 @@ internal sealed partial class BeamModuleCompiler
                 fields.Add((split, call));
                 current = rest.Name;
             }
+            if (measurements.Count != 0)
+            {
+                return measurements is [var firstMeasurement, var secondMeasurement]
+                    && ignored is Expr.Case tail && ReadTableUnexpectedFields(tail, current) is { } leftover
+                    && EmitBoundedRequiredFields(
+                        read,
+                        record,
+                        fields,
+                        range: null,
+                        leftover,
+                        (firstMeasurement, secondMeasurement)
+                    );
+            }
+
+            if (slots == 2 && range is not null && fields[1].Call.Convert is null
+                && ignored is Expr.Case extra && ReadTableUnexpectedFields(extra, current) is { } unexpected)
+            {
+                return EmitBoundedRequiredFields(
+                    read,
+                    record,
+                    fields,
+                    range,
+                    unexpected
+                );
+            }
+
             if ((slots == 3 && range is null) || !IsIgnoredListTail(ignored, current))
             {
                 return false;
@@ -3457,6 +3890,11 @@ internal sealed partial class BeamModuleCompiler
             bool reuseCallSlots = false
         )
         {
+            if (start == 0 && reuseCallSlots && TryEmitNestedSingletonConsCall(sequence.Items, failures))
+            {
+                start = 2;
+            }
+
             for (int index = start; index < sequence.Items.Count - 1; index++)
             {
                 if (index == sequence.Items.Count - 2)
@@ -3511,6 +3949,11 @@ internal sealed partial class BeamModuleCompiler
                     RememberRecordAccesses(sequence.Items[index]);
                 }
             }
+            if (reuseCallSlots && TryEmitTerminalSingletonListCase(sequence.Items[^1]))
+            {
+                return null;
+            }
+
             EmitReturnExpression(sequence.Items[^1], reuseCallSlots, terminalCase: true);
 
             return frameSize;
@@ -4022,8 +4465,21 @@ internal sealed partial class BeamModuleCompiler
             }
 
             var rest = sequence.Items.Skip(1).ToArray();
+            if (TryEmitCheckedForeignFieldPairs(
+                rest,
+                initial,
+                tuple.Items.Count,
+                fields,
+                input.Name,
+                tag.Name
+            ))
+            {
+                return true;
+            }
+
             var projections = new List<int>();
             var optionalFields = new List<DeferredOptional?>();
+            OptionalPairEnumeration? nestedEnum = null;
             var bound = new HashSet<string>(StringComparer.Ordinal) { input.Name, tag.Name };
             foreach (Expr item in rest)
             {
@@ -4045,12 +4501,15 @@ internal sealed partial class BeamModuleCompiler
                     break;
                 }
                 var optional = ReadDeferredOptional(value);
-                if (DeferredField(optional?.Call ?? value, fields, bound) is not int fieldIndex)
+                var optionalEnum = projections.Count == 1 && rest.Length == 5
+                    ? ReadOptionalPairEnumeration(value) : null;
+                if (DeferredField(optional?.Call ?? optionalEnum?.Decision ?? value, fields, bound) is not int fieldIndex)
                 {
                     break;
                 }
                 projections.Add(fieldIndex);
                 optionalFields.Add(optional);
+                nestedEnum ??= optionalEnum;
             }
             int count = projections.Count;
             if (count < 2 || count == rest.Length)
@@ -4091,10 +4550,13 @@ internal sealed partial class BeamModuleCompiler
                 && ((Expr.Match)rest[count - 1]).Value is Expr.Call
                 && ((Expr.Match)rest[count - 2]).Value is Expr.Call;
             if (!inputNeeded && count == 2 && registerTail is { } twoFields
-                && (reuseInput || optionalFields[1] is { Second: null }
-                    && (((Expr.Match)rest[0]).Value is Expr.Call || optionalFields[0] is { Second: null })
+                && (reuseInput || optionalFields[0] is { Second: null } && ((Expr.Match)rest[1]).Value is Expr.Call
+                    || optionalFields[1] is { Second: null }
+                    && (((Expr.Match)rest[0]).Value is Expr.Call || optionalFields[0] is { Second: null }
+                        || optionalFields[0] is null && ((Expr.Match)rest[0]).Value is Expr.Case)
                     || optionalFields[0] is null && ((Expr.Match)rest[0]).Value is Expr.Case
-                    && ((Expr.Match)rest[1]).Value is Expr.Call)
+                    && ((Expr.Match)rest[1]).Value is Expr.Call
+                    || nestedEnum is not null && ((Expr.Match)rest[0]).Value is Expr.Call)
                 && ((Expr.Match)rest[0]).Pattern is Pattern.Tuple
                 { Items: [Pattern.Variable firstBytes, Pattern.Variable firstLength] }
                 && ((Expr.Match)rest[1]).Pattern is Pattern.Tuple
@@ -4113,10 +4575,16 @@ internal sealed partial class BeamModuleCompiler
                     ((Expr.Match)rest[1]).Value,
                     optionalFields[1],
                     twoFields.Sum,
-                    twoFields.Entry
+                    twoFields.Entry,
+                    nestedEnum
                 );
 
                 return true;
+            }
+
+            if (nestedEnum is not null)
+            {
+                return false;
             }
 
             reuseInput |= reuseForFinalOptional;
@@ -4134,6 +4602,10 @@ internal sealed partial class BeamModuleCompiler
                 .Select(match => match.Value).OfType<Expr.Case>().ToArray();
             // Each enum emits one label per literal branch plus its join. The
             // error blocks follow those joins in reverse order, then badmatch.
+            bool trimLastInput = reverseOptionalSlots && count >= 4 && decisions.Length == 0
+                && optionalFields[^3] is { Second: null }
+                && optionalFields[^2] is { Second: null }
+                && ((Expr.Match)rest[count - 1]).Value is Expr.Call;
             int failure = owner.nextLabel + decisions.Sum(decision => decision.Clauses.Count) + decisions.Length
                 + optionalFields.Sum(optional => optional is null ? 0 : optional.Second is null ? 2 : 3);
             int enumFailure = failure - 1;
@@ -4201,14 +4673,33 @@ internal sealed partial class BeamModuleCompiler
                 }
                 else if (match.Value is Expr.Call call)
                 {
-                    owner.EmitConstant(call.Arguments[1], 1);
+                    EmitDeferredPairCallConstants(call);
+                    if (last && trimLastInput)
+                    {
+                        owner.MoveRegister(
+                            YRegisterTag,
+                            0,
+                            YRegisterTag,
+                            tupleSlot
+                        );
+                        owner.Op(TrimFrame, BeamWire.UnsignedTag, 1);
+                        owner.Operand(BeamWire.UnsignedTag, frameSize - 1);
+                        foreach (string name in deferredPairMembers.Keys.ToArray())
+                        {
+                            var member = deferredPairMembers[name];
+                            int slot = member.Slot == 0 ? tupleSlot : member.Slot;
+                            deferredPairMembers[name] = (slot - 1, member.Index);
+                        }
+                    }
+
                     owner.EmitCallLine(call, location);
-                    Call(call.Module, call.Function, 2);
+                    Call(call.Module, call.Function, call.Arguments.Count);
                     if (result >= 0)
                     {
                         if (!last && (((Expr.Match)rest[index + 1]).Value is Expr.Call
                             || reuseForFinalOptional && index + 2 == count
-                            || reverseOptionalSlots && index + 2 < count && optionalFields[index + 1] is { Second: null }))
+                            || (reverseOptionalSlots || reuseInput) && index + 2 < count
+                                && optionalFields[index + 1] is { Second: null }))
                         {
                             pendingPairSlot = result;
                         }
@@ -4240,7 +4731,13 @@ internal sealed partial class BeamModuleCompiler
                     var pair = (Pattern.Tuple)match.Pattern;
                     lengths.Add(((Pattern.Variable)pair.Items[1]).Name, InferPairAdditionType(match.Value));
                 }
-                EmitDeferredPairTail(plan, tagSlot, lengths);
+                int trim = trimLastInput ? 1 : 0;
+                EmitDeferredPairTail(
+                    plan,
+                    tagSlot - trim,
+                    lengths,
+                    frameSize - trim
+                );
             }
             else if (!TailLocal(tail))
             {
@@ -4276,13 +4773,17 @@ internal sealed partial class BeamModuleCompiler
             Expr second,
             DeferredOptional? optional,
             Expr.Binary sum,
-            int entry
+            int entry,
+            OptionalPairEnumeration? lastEnumeration
         )
         {
             var enumeration = firstOptional is null ? first as Expr.Case : null;
             int failure = owner.nextLabel + (optional is null ? 0 : 2) + (firstOptional is null ? 0 : 2)
-                + (enumeration is null ? 0 : enumeration.Clauses.Count + 1);
-            int slots = optional is null && enumeration is null ? 2 : 3;
+                + (enumeration is null ? 0 : enumeration.Clauses.Count + 1)
+                + (lastEnumeration is null ? 0 : lastEnumeration.Decision.Clauses.Count + 2);
+            bool saveFirstPair = optional is null && lastEnumeration is null
+                && (enumeration is not null || firstOptional is not null);
+            int slots = optional is null && lastEnumeration is null && !saveFirstPair ? 2 : 3;
             int tagSlot = slots - 1;
             int secondSlot = slots - 2;
             owner.EmitTupleCheck(0, arity, failure);
@@ -4319,19 +4820,23 @@ internal sealed partial class BeamModuleCompiler
             else
             {
                 var call = (Expr.Call)first;
+                EmitFirstProjectedPairArguments(call);
+                owner.EmitCallLine(call, location);
+                Call(call.Module, call.Function, call.Arguments.Count);
+            }
+            if (lastEnumeration is not null)
+            {
                 owner.MoveRegister(
                     XRegisterTag,
-                    1,
-                    XRegisterTag,
+                    0,
+                    YRegisterTag,
                     0
                 );
-                owner.EmitConstant(call.Arguments[1], 1);
-                owner.EmitCallLine(call, location);
-                Call(call.Module, call.Function, 2);
+                enumError = EmitOptionalPairEnumeration(lastEnumeration, secondSlot, failure - 1);
             }
-            if (optional is not null)
+            else if (optional is not null)
             {
-                if (firstOptional is null)
+                if (firstOptional is null && enumeration is null)
                 {
                     owner.MoveRegister(
                         XRegisterTag,
@@ -4350,13 +4855,13 @@ internal sealed partial class BeamModuleCompiler
             else
             {
                 var call = (Expr.Call)second;
-                if (enumeration is null)
+                if (!saveFirstPair)
                 {
                     owner.Op(Swap, YRegisterTag, secondSlot);
                     owner.Operand(XRegisterTag, 0);
                 }
-                owner.EmitConstant(call.Arguments[1], 1);
-                if (enumeration is not null)
+                EmitDeferredPairCallConstants(call);
+                if (saveFirstPair)
                 {
                     Load(secondSlot, 0);
                     owner.MoveRegister(
@@ -4369,13 +4874,53 @@ internal sealed partial class BeamModuleCompiler
                     owner.Operand(BeamWire.UnsignedTag, 2);
                 }
                 owner.EmitCallLine(call, first is Expr.Call previousCall ? CallLocation(previousCall, location) : location);
-                Call(call.Module, call.Function, 2);
+                Call(call.Module, call.Function, call.Arguments.Count);
             }
 
+            int trim = saveFirstPair ? 1 : 0;
+            EmitTwoDeferredPairResult(
+                sum,
+                entry,
+                slots - trim,
+                tagSlot - trim,
+                InferPairAdditionType(first),
+                InferPairAdditionType(second)
+            );
+
+            if (enumError is { } error)
+            {
+                Mark(Label());
+                EmitTaggedExit(
+                    error.Call,
+                    error.Tags,
+                    location,
+                    framed: true,
+                    live: lastEnumeration is null ? 2 : 0,
+                    source: 1,
+                    frameSlots: slots,
+                    sourceTag: lastEnumeration is null ? XRegisterTag : YRegisterTag
+                );
+            }
+            Mark(Label());
+            var previous = location;
+            owner.EmitArithmeticLine(initial.SourceLine, ref previous);
+            owner.Op(BadMatch, XRegisterTag, 0);
+        }
+
+        private void EmitTwoDeferredPairResult(
+            Expr.Binary sum,
+            int entry,
+            int slots,
+            int tagSlot,
+            PairAdditionType first,
+            PairAdditionType second,
+            int firstPairSlot = 0
+        )
+        {
             owner.Op(TestHeap, BeamWire.UnsignedTag, 4);
             owner.Operand(BeamWire.UnsignedTag, 1);
-            EmitDeferredPairMember((0, 0), 1);
-            EmitDeferredPairMember((0, 1), 2);
+            EmitDeferredPairMember((firstPairSlot, 0), 1);
+            EmitDeferredPairMember((firstPairSlot, 1), 2);
             EmitDeferredPairMember((-1, 0), 3);
             EmitDeferredPairMember((-1, 1), 0);
             owner.Op(PutList, XRegisterTag, 3);
@@ -4391,32 +4936,13 @@ internal sealed partial class BeamModuleCompiler
                 3,
                 2,
                 0,
-                InferPairAdditionType(first),
-                InferPairAdditionType(second)
+                first,
+                second
             );
-            int trim = enumeration is null ? 0 : 1;
-            Load(tagSlot - trim, 0);
+            Load(tagSlot, 0);
             owner.Op(TailLocalCallWithFrame, BeamWire.UnsignedTag, 3);
             owner.Operand(LabelTag, entry);
-            owner.Operand(BeamWire.UnsignedTag, slots - trim);
-
-            if (enumError is { } error)
-            {
-                Mark(Label());
-                EmitTaggedExit(
-                    error.Call,
-                    error.Tags,
-                    location,
-                    framed: true,
-                    live: 2,
-                    source: 1,
-                    frameSlots: slots
-                );
-            }
-            Mark(Label());
-            previous = location;
-            owner.EmitArithmeticLine(initial.SourceLine, ref previous);
-            owner.Op(BadMatch, XRegisterTag, 0);
+            owner.Operand(BeamWire.UnsignedTag, slots);
         }
 
         private (Expr.List List, Expr.Binary Sum, Expr.Call Call, int Entry, List<string> Operands)?
@@ -4468,7 +4994,8 @@ internal sealed partial class BeamModuleCompiler
         private void EmitDeferredPairTail(
             (Expr.List List, Expr.Binary Sum, Expr.Call Call, int Entry, List<string> Operands) plan,
             int tagSlot,
-            Dictionary<string, PairAdditionType> lengths
+            Dictionary<string, PairAdditionType> lengths,
+            int slots
         )
         {
             var first = deferredPairMembers[plan.Operands[0]];
@@ -4524,7 +5051,7 @@ internal sealed partial class BeamModuleCompiler
             // OTP omits a call-site line for local tail calls.
             owner.Op(TailLocalCallWithFrame, BeamWire.UnsignedTag, 3);
             owner.Operand(LabelTag, plan.Entry);
-            owner.Operand(BeamWire.UnsignedTag, frameSize);
+            owner.Operand(BeamWire.UnsignedTag, slots);
         }
 
         private bool TrySchedulePairList(
@@ -4626,9 +5153,10 @@ internal sealed partial class BeamModuleCompiler
         private PairAdditionType InferPairAdditionType(Expr expression)
         {
             PairFacts joined = ReadJoinedNumericPairFacts(expression);
-            if ((joined & PairFacts.NumericLength) != 0 && (joined & PairFacts.Length) == 0)
+            if ((joined & PairFacts.Length) == 0
+                && (owner.SsaTypeInferenceEnabled || (joined & PairFacts.NumericLength) != 0))
             {
-                return new(PairFacts.NumericLength);
+                return new(joined & PairFacts.NumericLength);
             }
 
             if ((InferPairFacts(expression) & PairFacts.Length) == 0)
@@ -4924,7 +5452,8 @@ internal sealed partial class BeamModuleCompiler
 
                     return (sizeFacts & PairFacts.Natural) == PairFacts.Natural
                         ? PairFacts.Length : (sizeFacts & PairFacts.Numeric) != 0 ? PairFacts.NumericLength : PairFacts.Unknown;
-                case Expr.Binary binary when observeListArithmeticCalls && IsRegisterArithmeticOperator(binary.Operator):
+                case Expr.Binary binary when observeListArithmeticCalls
+                    && binary.Operator != ErlangOperators.Plus && IsRegisterArithmeticOperator(binary.Operator):
                     var leftFacts = ReadPairFacts(binary.Left, bindings, contexts);
                     var rightFacts = ReadPairFacts(binary.Right, bindings, contexts);
 
@@ -4942,6 +5471,11 @@ internal sealed partial class BeamModuleCompiler
                     }
 
                     PairFacts integerSum = left & right & PairFacts.Natural;
+                    if (observeListArithmeticCalls)
+                    {
+                        integerSum |= left & right & PairFacts.Integer;
+                    }
+
                     PairFacts sign = left & right & (PairFacts.NonnegativeNumber | PairFacts.NonpositiveNumber);
 
                     return inferNumericPairs ? integerSum | PairFacts.Numeric | sign : integerSum;
@@ -5403,10 +5937,31 @@ internal sealed partial class BeamModuleCompiler
             Mark(done);
         }
 
+        private void EmitFirstProjectedPairArguments(Expr.Call call)
+        {
+            for (int index = call.Arguments.Count - 1; index > 1; index--)
+            {
+                owner.EmitConstant(call.Arguments[index], index);
+            }
+
+            owner.MoveToX0(XRegisterTag, 1);
+            owner.EmitConstant(call.Arguments[1], 1);
+        }
+
+        private void EmitDeferredPairCallConstants(Expr.Call call)
+        {
+            for (int index = call.Arguments.Count - 1; index > 0; index--)
+            {
+                owner.EmitConstant(call.Arguments[index], index);
+            }
+        }
+
         private int? DeferredField(Expr value, Dictionary<string, int> fields, HashSet<string> bound)
         {
-            if (value is Expr.Call { Module: null, DynamicRemote: false, Arguments: [Expr.Variable field, var literal] }
-                && AttributeLiteral.TryNormalizeConstant(literal, out _))
+            if (value is Expr.Call { Module: null, DynamicRemote: false, Arguments: [Expr.Variable field, ..] } call
+                && (call.Arguments is [_, var literal] && AttributeLiteral.TryNormalizeConstant(literal, out _)
+                    || call.Arguments is [_, var names, var tags] && AttributeLiteral.TryNormalizeConstant(names, out Term table)
+                        && IsClosedNamedNumberList(table) && AttributeLiteral.TryNormalizeConstant(tags, out _)))
             {
                 return fields.TryGetValue(field.Name, out int fieldIndex) ? fieldIndex : null;
             }
@@ -5554,7 +6109,7 @@ internal sealed partial class BeamModuleCompiler
                         {
                             Pattern: Pattern.Tuple { Items: [Pattern.Variable bytes, Pattern.Variable size] },
                             Value: Expr.Case decision
-                        },
+                        } projection,
                         Expr.Call
                         {
                             Module: null, DynamicRemote: false,
@@ -5571,7 +6126,7 @@ internal sealed partial class BeamModuleCompiler
                 || forwarded.Name != saved.Name || data.Name != bytes.Name || length.Name != size.Name
                 || !IsElementOf(decision.Value, 1, input.Name)
                 || !entries.TryGetValue((tail.Function, 3), out int tailEntry)
-                || decision.Clauses.Count < 3
+                || decision.Clauses.Count < 2
                 || decision.Clauses[^1] is not { Guard: null, Patterns: [Pattern.Variable key] } fallback
                 || !DistinctBindings(input, saved, key)
                 || ReadTaggedExit(fallback.Body, key.Name) is not { } error)
@@ -5579,28 +6134,61 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
-            var branches = new List<(Atom Key, Expr.Call Call, Term Constant, int Entry)>();
+            var branches = new List<(Atom Key, Expr.Call Call, Term[] Constants, int Entry, string? Module, bool KnownPair)>();
             var keys = new HashSet<string>(StringComparer.Ordinal);
             foreach (Clause branch in decision.Clauses.SkipLast(1))
             {
                 if (branch is not
                     {
                         Guard: null, Patterns: [Pattern.Literal { Value: Atom atom }],
-                        Body: Expr.Call { Module: null, DynamicRemote: false, Arguments: [var projected, var literal] } call
+                        Body: Expr.Call { DynamicRemote: false, Arguments: [var projected, ..] and var arguments } call
                     }
                     || !keys.Add(atom.Name) || !IsElementOf(projected, 2, input.Name)
-                    || !AttributeLiteral.TryNormalizeConstant(literal, out Term constant)
-                    || !entries.TryGetValue((call.Function, 2), out int entry)
-                    || !ReturnsTuple(
-                        call,
-                        2,
-                        [],
-                        exact: true
-                    ))
+                    || arguments.Count is not (2 or 3)
+                    || !TryResolveOrdinaryCallTarget(call, out string? module) || module == ErlangModuleNames.Module)
                 {
                     return false;
                 }
-                branches.Add((atom, call, constant, entry));
+                var constants = new Term[arguments.Count - 1];
+                for (int index = 0; index < constants.Length; index++)
+                {
+                    if (!AttributeLiteral.TryNormalizeConstant(arguments[index + 1], out Term constant))
+                    {
+                        return false;
+                    }
+
+                    constants[index] = constant;
+                }
+
+                if (constants.Length == 2 && !IsClosedNamedNumberList(constants[0]))
+                {
+                    return false;
+                }
+
+                int entry = 0;
+                if (module is null && !entries.TryGetValue((call.Function, call.Arguments.Count), out entry))
+                {
+                    return false;
+                }
+
+                bool knownPair = module is null && ReturnsTuple(
+                    call,
+                    2,
+                    [],
+                    exact: true
+                );
+                branches.Add((atom, call, constants, entry, module, knownPair));
+            }
+
+            if (branches is [var single])
+            {
+                return (single.KnownPair || single.Module is not null) && single.Constants is [var constant] && TryEmitSingleProjectedChoice(
+                    function,
+                    decision,
+                    (single.Key, single.Call with { Module = single.Module }, constant),
+                    tailEntry,
+                    error
+                );
             }
 
             var ordered = branches.OrderByDescending(branch => branch.Key, Comparer<Atom>.Create(
@@ -5608,9 +6196,12 @@ internal sealed partial class BeamModuleCompiler
                 .Select(branch => (Branch: branch, Label: Label())).ToArray();
             int done = Label();
             int failure = Label();
+            bool returnedTupleRequiresCheck = branches.Any(branch => !branch.KnownPair);
+            int malformed = returnedTupleRequiresCheck ? Label() : 0;
             bool emptyTag = AlwaysCalledWithEmptySecondArgument(function);
+            bool keepNilArgument = emptyTag && branches.Any(branch => branch.Constants is [Nil]);
             int frameSlots = emptyTag ? 0 : 1;
-            int selector = emptyTag ? 1 : 2;
+            int selector = emptyTag && !keepNilArgument ? 1 : 2;
             int live = selector + 1;
             int element = owner.Import(ErlangModuleNames.Module, "element", 2);
             owner.EmitCallLine((Expr.Call)decision.Value, location);
@@ -5641,9 +6232,25 @@ internal sealed partial class BeamModuleCompiler
                 Mark(item.Label);
                 owner.EmitCallLine(item.Branch.Call, location);
                 EmitChoiceElement(element, 2, 0);
-                owner.EmitConstant(item.Branch.Constant, 1);
-                owner.Op(LocalCall, BeamWire.UnsignedTag, 2);
-                owner.Operand(LabelTag, item.Branch.Entry);
+                var constants = item.Branch.Constants;
+                for (int option = constants.Length - 1; option >= 0; option--)
+                {
+                    if (!keepNilArgument || constants is not [Nil])
+                    {
+                        owner.EmitConstant(constants[option], option + 1);
+                    }
+                }
+
+                int arity = item.Branch.Call.Arguments.Count;
+                if (item.Branch.Module is { } module)
+                {
+                    Call(module, item.Branch.Call.Function, arity);
+                }
+                else
+                {
+                    owner.EmitFieldCall(arity, item.Branch.Entry);
+                }
+
                 if (index + 1 < ordered.Length)
                 {
                     JumpTo(done);
@@ -5651,6 +6258,11 @@ internal sealed partial class BeamModuleCompiler
             }
 
             Mark(done);
+            if (returnedTupleRequiresCheck)
+            {
+                owner.EmitTupleCheck(0, 2, malformed);
+            }
+
             owner.EmitTupleElement(0, 1);
             owner.EmitTupleElement(1, 2);
             if (emptyTag)
@@ -5679,6 +6291,14 @@ internal sealed partial class BeamModuleCompiler
                 source: selector,
                 frameSlots: frameSlots
             );
+
+            if (returnedTupleRequiresCheck)
+            {
+                Mark(malformed);
+                var previous = location;
+                owner.EmitArithmeticLine(projection.SourceLine, ref previous);
+                owner.Op(BadMatch, XRegisterTag, 0);
+            }
 
             return true;
         }
@@ -6070,7 +6690,7 @@ internal sealed partial class BeamModuleCompiler
         {
             if (function.Arity != 2 || function.Clauses is not [var first, var second]
                 || ReadMeasuredBranch(first, "is_binary", "byte_size") is not { } binary
-                || ReadMeasuredBranch(second, "is_list", "length") is not { } list)
+                || ReadMeasuredBranch(second, second.Guard is null ? null : "is_list", "length") is not { } list)
             {
                 return false;
             }
@@ -6089,24 +6709,19 @@ internal sealed partial class BeamModuleCompiler
             EmitMeasuredTail(
                 list.Measure,
                 list.Entry,
-                IsList,
-                listTypeBits,
+                second.Guard is null ? null : IsList,
+                second.Guard is null ? 0 : listTypeBits,
                 functionInfo
             );
 
             return true;
         }
 
-        private (Expr.Call Measure, int Entry)? ReadMeasuredBranch(Clause clause, string guardName, string measureName)
+        private (Expr.Call Measure, int Entry)? ReadMeasuredBranch(Clause clause, string? guardName, string measureName)
         {
             if (clause is not
                 {
                     Patterns: [Pattern.Variable value, Pattern.Variable tag],
-                    Guard: Expr.Call
-                    {
-                        Module: null or ErlangModuleNames.Module, DynamicRemote: false,
-                        Arguments: [Expr.Variable tested]
-                    } guard,
                     Body: Expr.Call
                     {
                         Module: null, DynamicRemote: false, Arguments:
@@ -6118,36 +6733,68 @@ internal sealed partial class BeamModuleCompiler
                     } call
                 }
                 || !DistinctBindings(value, tag) || first.Name != tag.Name || second.Name != value.Name
-                || tested.Name != value.Name || measured.Name != value.Name
-                || guard.Function != guardName || measure.Function != measureName
-                || guard.Module is null && entries.ContainsKey((guardName, 1))
-                || measure.Module is null && entries.ContainsKey((measureName, 1))
+                || measured.Name != value.Name || measure.Function != measureName || !owner.ResolvesErlangBif(measure)
                 || !entries.TryGetValue((call.Function, 3), out int entry))
             {
                 return null;
             }
 
-            return (measure, entry);
+            if (guardName is null)
+            {
+                return clause.Guard is null ? (measure, entry) : null;
+            }
+
+            return clause.Guard is Expr.Call { DynamicRemote: false, Arguments: [Expr.Variable tested] } guard
+                && tested.Name == value.Name && guard.Function == guardName && owner.ResolvesErlangBif(guard)
+                ? (measure, entry)
+                : null;
         }
 
         private void EmitMeasuredTail(
             Expr.Call measure,
             int entry,
-            byte test,
+            byte? test,
             int typeBits,
-            int failure
+            int failure,
+            bool nilTag = false
         )
         {
-            owner.Op(test, LabelTag, failure);
-            owner.Operand(XRegisterTag, 0);
+            if (test is byte entryTest)
+            {
+                owner.Op(entryTest, LabelTag, failure);
+                owner.Operand(XRegisterTag, 0);
+            }
+
             owner.EmitCallLine(measure, location);
             owner.Op(GcBifOne, LabelTag, 0);
-            owner.Operand(BeamWire.UnsignedTag, 2);
+            owner.Operand(BeamWire.UnsignedTag, nilTag ? 1 : 2);
             owner.Operand(BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module, measure.Function, 1));
-            owner.EmitTypedRegister(0, typeBits, unit: test == IsBinary ? BitSyntaxDefaults.BinaryUnit : null);
+            if (typeBits == 0)
+            {
+                owner.Operand(XRegisterTag, 0);
+            }
+            else
+            {
+                owner.EmitTypedRegister(0, typeBits, unit: test == IsBinary ? BitSyntaxDefaults.BinaryUnit : null);
+            }
+
             owner.Operand(XRegisterTag, 2);
-            owner.Op(Swap, XRegisterTag, 0);
-            owner.Operand(XRegisterTag, 1);
+            if (nilTag)
+            {
+                owner.MoveRegister(
+                    XRegisterTag,
+                    0,
+                    XRegisterTag,
+                    1
+                );
+                owner.EmitConstant(Nil.Value, 0);
+            }
+            else
+            {
+                owner.Op(Swap, XRegisterTag, 0);
+                owner.Operand(XRegisterTag, 1);
+            }
+
             owner.Op(TailLocalCall, BeamWire.UnsignedTag, 3);
             owner.Operand(LabelTag, entry);
         }
@@ -6367,7 +7014,8 @@ internal sealed partial class BeamModuleCompiler
             bool framed,
             int live = 1,
             int source = 0,
-            int frameSlots = 0
+            int frameSlots = 0,
+            int sourceTag = XRegisterTag
         )
         {
             owner.Op(TestHeap, BeamWire.UnsignedTag, tags.Count * 3);
@@ -6378,8 +7026,9 @@ internal sealed partial class BeamModuleCompiler
                 owner.instructions.WriteByte(ExtendedListOperand);
                 owner.Operand(BeamWire.UnsignedTag, 2);
                 owner.LiteralOperand(tag);
-                owner.Operand(XRegisterTag, source);
+                owner.Operand(sourceTag, source);
                 source = 0;
+                sourceTag = XRegisterTag;
             }
             owner.EmitCallLine(call, previous);
             owner.Op(framed ? TailExternalCallWithFrame : TailExternalCall, BeamWire.UnsignedTag, 1);
@@ -6520,7 +7169,12 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(BeamWire.UnsignedTag, 0);
         }
 
-        private bool TailLocal(Expr body, bool reuseCallSlots = false, bool caseTail = false)
+        private bool TailLocal(
+            Expr body,
+            bool reuseCallSlots = false,
+            bool caseTail = false,
+            bool directFunctionReturn = false
+        )
         {
             if (reuseCallSlots && body is Expr.Case { Value: Expr.Call selector } decision
                 && ReadTerminalAtomCase(decision, variables.Keys) is { } terminal)
@@ -6541,7 +7195,8 @@ internal sealed partial class BeamModuleCompiler
             }
 
             if (body is Expr.Try { After: null } protectedBody
-                && TryEmitDirectExceptionMatch(protectedBody, reservedToken: null, terminal: true))
+                && (directFunctionReturn && TryEmitTerminalLocalProtectedFallback(protectedBody)
+                    || TryEmitDirectExceptionMatch(protectedBody, reservedToken: null, terminal: true)))
             {
                 return true;
             }
@@ -6608,19 +7263,31 @@ internal sealed partial class BeamModuleCompiler
             {
                 LoadCallArguments(call.Arguments, null, orderSimpleOperands: true);
             }
-            // OTP does not emit a call-site line for a local tail call.
-            owner.Op(TailLocalCallWithFrame, BeamWire.UnsignedTag, call.Arguments.Count);
-            owner.Operand(LabelTag, entry);
-            owner.Operand(BeamWire.UnsignedTag, frameSize);
+            EmitFramedLocalTail(call.Arguments.Count, entry);
 
             return true;
+        }
+
+        private void EmitFramedLocalTail(int arity, int entry)
+        {
+            // OTP does not emit a call-site line for a local tail call.
+            owner.Op(TailLocalCallWithFrame, BeamWire.UnsignedTag, arity);
+            owner.Operand(LabelTag, entry);
+            owner.Operand(BeamWire.UnsignedTag, frameSize);
         }
 
         private void EmitAppend(Expr.Binary append, bool tail)
         {
             int argumentBase = nextSlot;
-            var previous = LoadCallArguments([append.Left, append.Right], null,
-                callSite: new BeamSourceLocation(location.File, append.SourceLine));
+            var previous = location;
+            if (tail || !TryLoadOrderedAppendPrerequisites(append))
+            {
+                previous = LoadCallArguments(
+                    [append.Left, append.Right],
+                    null,
+                    callSite: new BeamSourceLocation(location.File, append.SourceLine)
+                );
+            }
             if (previous.File != location.File)
             {
                 previous = location;
@@ -6842,7 +7509,11 @@ internal sealed partial class BeamModuleCompiler
             if (failure is null && expressions is [var argument])
             {
                 int previousLineCount = owner.lineInstructions;
-                Expression(argument);
+                if (argument is not Expr.List list || !TryEmitDeferredTupleListArgument(list))
+                {
+                    Expression(argument);
+                }
+
                 if (callSite is { } site && owner.lineInstructions != previousLineCount
                     && owner.lastEmittedLine == site && IsStraightAppendOperand(argument))
                 {
@@ -8256,7 +8927,12 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        private void Guard(Expr? guard, int failure, string? selector = null)
+        private void Guard(
+            Expr? guard,
+            int failure,
+            string? selector = null,
+            bool formAtomSelection = true
+        )
         {
             if (guard is null or Expr.Literal { Value: Atom { Name: "true" } })
             {
@@ -8264,11 +8940,21 @@ internal sealed partial class BeamModuleCompiler
             }
             if (guard is Expr.GuardAlternatives alternatives)
             {
+                if (formAtomSelection && TryEmitAtomGuardAlternatives(alternatives, failure, selector))
+                {
+                    return;
+                }
+
                 int accepted = Label();
                 foreach (Expr item in alternatives.Items)
                 {
                     int next = Label();
-                    Guard(item, next, selector);
+                    Guard(
+                        item,
+                        next,
+                        selector,
+                        formAtomSelection
+                    );
                     JumpTo(accepted);
                     Mark(next);
                 }
@@ -8280,8 +8966,18 @@ internal sealed partial class BeamModuleCompiler
 
             if (guard is Expr.Binary { Operator: ErlangOperators.AndAlso } conjunction)
             {
-                Guard(conjunction.Left, failure, selector);
-                Guard(conjunction.Right, failure, selector);
+                Guard(
+                    conjunction.Left,
+                    failure,
+                    selector,
+                    formAtomSelection
+                );
+                Guard(
+                    conjunction.Right,
+                    failure,
+                    selector,
+                    formAtomSelection
+                );
 
                 return;
             }
@@ -8290,10 +8986,20 @@ internal sealed partial class BeamModuleCompiler
             {
                 int right = Label();
                 int accepted = Label();
-                Guard(disjunction.Left, right, selector);
+                Guard(
+                    disjunction.Left,
+                    right,
+                    selector,
+                    formAtomSelection
+                );
                 JumpTo(accepted);
                 Mark(right);
-                Guard(disjunction.Right, failure, selector);
+                Guard(
+                    disjunction.Right,
+                    failure,
+                    selector,
+                    formAtomSelection
+                );
                 Mark(accepted);
 
                 return;
@@ -9667,8 +10373,15 @@ internal sealed partial class BeamModuleCompiler
                     return;
                 case Expr.Sequence sequence:
                     var sequenceRecords = checkedRecordBindings;
-                    DiscardSequencePrefix(sequence.Items, guardFailure, rememberRecords: guardFailure is null);
+                    var sequenceCopyHints = freshRecordUpdateOperands;
+                    DiscardSequencePrefix(
+                        sequence.Items,
+                        guardFailure,
+                        rememberRecords: guardFailure is null,
+                        rememberFreshRecordOperands: guardFailure is null
+                    );
                     Expression(sequence.Items[^1], guardFailure);
+                    freshRecordUpdateOperands = sequenceCopyHints;
                     checkedRecordBindings = sequenceRecords;
 
                     return;
@@ -9983,7 +10696,11 @@ internal sealed partial class BeamModuleCompiler
                         orderSimpleOperands: guardFailure is null,
                         callSite: CallLocation(call, location)
                     );
-                    if (CallLocation(call, argumentLocation) != previousDiscardedCall)
+                    if (IsRecursiveListGeneratorFailure(call))
+                    {
+                        owner.EmitCallLine(call, owner.lastEmittedLine);
+                    }
+                    else if (CallLocation(call, argumentLocation) != previousDiscardedCall)
                     {
                         owner.EmitCallLine(call, argumentLocation);
                     }
@@ -10039,17 +10756,17 @@ internal sealed partial class BeamModuleCompiler
                         } convert,
                         After: null,
                         Clauses: [
-                            {
-                                Guard: null, Patterns: [Pattern.Variable result],
-                                Body: Expr.Tuple { Items: [Expr.Literal { Value: Atom tag }, Expr.Variable value] }
-                            }],
+                        {
+                            Guard: null, Patterns: [Pattern.Variable result],
+                            Body: Expr.Tuple { Items: [Expr.Literal { Value: Atom tag }, Expr.Variable value] }
+                        }],
                         Catches: [var handler]
                     }
                 }
                 || !DistinctBindings(first, second, result) || result.Name != value.Name
                 || !ReadWrappedCatch(clause, handler)
-                || convert.Module is null && entries.ContainsKey(("iolist_to_binary", 1))
-                || ReadTupleProjection(projection) is not { } projected
+                || !owner.ResolvesErlangBif(convert)
+                || ReadTupleProjection(projection, requireShape: false) is not { } projected
                 || projected.Producer.Arguments is not [Expr.Variable left, Expr.Variable right]
                 || left.Name != first.Name || right.Name != second.Name
                 || !entries.ContainsKey((projected.Producer.Function, 2)))
@@ -10065,8 +10782,20 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(LabelTag, catchLabel);
             owner.EmitCallLine(projected.Producer, location);
             Call(projected.Producer.Module, projected.Producer.Function, 2);
-            owner.EmitTupleElement(projected.Index, 0);
-            owner.EmitCallLine(convert, CallLocation(projected.Producer, location));
+            var previous = CallLocation(projected.Producer, location);
+            if (ReturnsTuple(projected.Producer, projected.Index + 1, []))
+            {
+                owner.EmitTupleElement(projected.Index, 0);
+            }
+            else
+            {
+                owner.EmitCallLine(projection, previous);
+                int element = owner.Import(ErlangModuleNames.Module, AutoImportNames.Element, 2);
+                EmitChoiceElement(element, projected.Index + 1, 0);
+                previous = CallLocation(projection, previous);
+            }
+
+            owner.EmitCallLine(convert, previous);
             Call(convert.Module, convert.Function, 1);
             EmitWrappedCatchResult(tag, token, catchLabel);
 
@@ -10153,7 +10882,7 @@ internal sealed partial class BeamModuleCompiler
             owner.EmitWrappedCatch(catchLabel, token);
         }
 
-        private (Expr.Call Producer, int Index)? ReadTupleProjection(Expr.Call call)
+        private (Expr.Call Producer, int Index)? ReadTupleProjection(Expr.Call call, bool requireShape = true)
         {
             if (call is not
                 {
@@ -10161,8 +10890,8 @@ internal sealed partial class BeamModuleCompiler
                     Arguments: [Expr.Literal { Value: Integer index }, Expr.Call { Module: null, DynamicRemote: false } producer]
                 }
                 || index.Value < 1 || index.Value > int.MaxValue
-                || call.Module is null && localFunctions.ContainsKey(("element", 2))
-                || !ReturnsTuple(producer, (int)index.Value, []))
+                || !owner.ResolvesErlangBif(call)
+                || requireShape && !ReturnsTuple(producer, (int)index.Value, []))
             {
                 return null;
             }
@@ -10323,7 +11052,7 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        private void EmitArithmetic(
+        private bool EmitArithmetic(
             Expr.Binary expression,
             int? guardFailure,
             int destination = 0,
@@ -10341,6 +11070,24 @@ internal sealed partial class BeamModuleCompiler
             {
                 var previous = previousLine ?? location;
                 owner.EmitArithmeticLine(expression.SourceLine, ref previous);
+            }
+
+            if (keepRegister && owner.SsaTypeInferenceEnabled && !owner.ModuleOptimizationDisabled
+                && ReceiveGuardLiveRegisters == 0 && expression.Operator == ErlangOperators.Multiply
+                && (leftInX && AttributeLiteral.TryNormalizeConstant(expression.Right, out var rightLiteral) && rightLiteral is FloatTerm
+                    || rightInX && AttributeLiteral.TryNormalizeConstant(expression.Left, out var leftLiteral) && leftLiteral is FloatTerm))
+            {
+                Expr constant = leftInX ? expression.Right : expression.Left;
+                _ = AttributeLiteral.TryNormalizeConstant(constant, out Term scale);
+                owner.Op(FloatConvert, XRegisterTag, 0);
+                EmitFloatRegister(0);
+                owner.instructions.WriteByte(FloatMove);
+                owner.LiteralOperand(scale);
+                EmitFloatRegister(1);
+                EmitFloatArithmeticResult(FloatMultiply, live: 0, destination: destination);
+                ReleaseOperandSlots(operandBase);
+
+                return true;
             }
 
             owner.Op(needsGc ? GcBifTwo : BifTwo, LabelTag, guardFailure ?? 0);
@@ -10366,6 +11113,8 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(XRegisterTag, destination);
             ReleaseOperandSlots(operandBase);
 
+            return false;
+
             bool CanKeepInX(Expr value, Expr other) =>
                 (value is Expr.Call { DynamicRemote: false }
                     || value is Expr.Binary binary && IsRegisterArithmeticOperator(binary.Operator))
@@ -10387,7 +11136,12 @@ internal sealed partial class BeamModuleCompiler
 
             void EmitOperand(Expr value, int? slot, bool inX)
             {
-                if (!inX)
+                if (!inX && slot is int register && guardFailure is null
+                    && ReferenceEquals(value, expression.Left) && IsClosedIntegerRecurrenceOperand(expression))
+                {
+                    owner.EmitTypedRegister(register, IntegerTypeBits, registerTag: YRegisterTag);
+                }
+                else if (!inX)
                 {
                     GuardOperand(value, slot);
                 }
@@ -10427,11 +11181,17 @@ internal sealed partial class BeamModuleCompiler
             int? guardFailure,
             bool reuseCallSlots = false,
             bool rememberRecords = false,
-            int trailingItems = 1
+            int trailingItems = 1,
+            bool rememberFreshRecordOperands = false
         )
         {
             for (int index = 0; index < items.Count - trailingItems; index++)
             {
+                if (rememberFreshRecordOperands && index == items.Count - 2)
+                {
+                    RememberFreshRecordOperand(items[index], items[^1]);
+                }
+
                 DiscardSequenceItem(
                     items,
                     index,
@@ -10516,8 +11276,14 @@ internal sealed partial class BeamModuleCompiler
             }
 
             if (!caseInputPrepared && reuseCallSlots && !returnValue && guardFailure is null
-                && (TryBindSplitBinaryResult(item, continuation)
-                    || TryReuseBindingSlot(item, continuation, variables.Values.OrderDescending())))
+                && (TryBindOwnedCaseResult(item, continuation)
+                    || TryBindSplitBinaryResult(item, continuation)
+                    || TryReuseBindingSlot(
+                        item,
+                        continuation,
+                        variables.Values.OrderDescending(),
+                        allowOrderedCons: true
+                    )))
             {
                 return;
             }
@@ -10859,9 +11625,21 @@ internal sealed partial class BeamModuleCompiler
             List<(int Label, BeamSourceLocation? Location)>? deferredBooleanFailures = null,
             (int True, int False)? reservedBooleanLabels = null,
             bool terminalCase = false,
-            bool preparedProperList = false
+            bool preparedProperList = false,
+            bool returningResult = false,
+            List<(int Position, int? Source)>? ownedResult = null
         )
         {
+            bool sourceTerminalSelector = parentFunction?.Clauses.Any(clause =>
+                ReferenceEquals(
+                    (clause.Body is Expr.Sequence sequence ? sequence.Items[^1] : clause.Body),
+                    decision
+                )) == true;
+            if (!inputPrepared && guardFailure is null)
+            {
+                decision = RewriteExhaustiveLocalCase(decision);
+            }
+
             if (!inputPrepared && guardFailure is null
                 && TryEmitPreparedTupleCase(
                     decision,
@@ -10870,7 +11648,8 @@ internal sealed partial class BeamModuleCompiler
                     exports: exports,
                     reuseSelectorSlots: reuseBranchSlots,
                     reuseBranchSlots: reuseBranchSlots,
-                    branchContinuation: branchContinuation
+                    branchContinuation: branchContinuation,
+                    ownedResult: ownedResult
                 ))
             {
                 return;
@@ -10878,7 +11657,14 @@ internal sealed partial class BeamModuleCompiler
 
             if (exports is null && !inputPrepared && destinations is null && guardFailure is null && TryEmitSingletonUnwrap(decision))
             {
+                RecordOwnedCaseResult(ownedResult);
+
                 return;
+            }
+
+            if (guardFailure is null)
+            {
+                decision = FoldClosedCasePatterns(decision);
             }
 
             var incomingRecords = checkedRecordBindings;
@@ -10909,7 +11695,8 @@ internal sealed partial class BeamModuleCompiler
                     branchContinuation,
                     deferredBooleanFailures,
                     reservedBooleanLabels,
-                    preparedInput: inputPrepared
+                    preparedInput: inputPrepared,
+                    ownedResult: ownedResult
                 ))
             {
                 checkedRecordBindings = incomingRecords;
@@ -10924,12 +11711,20 @@ internal sealed partial class BeamModuleCompiler
                 },
                 { Guard: null, Patterns: [Pattern.Variable { Name: VariableScopeNames.Wildcard }] }
                 ];
-            bool registerPatterns = !testInX0 && savedInput is null && guardFailure is null
-                && destinations is null && exports is null && owner.receiveScratchRegisters is null
-                && decision.Clauses.All(CanTestCasePatternInX0);
+            bool registerSelector = !testInX0 && savedInput is null && guardFailure is null
+                && destinations is null && exports is null && owner.receiveScratchRegisters is null;
+            bool terminalResult = returningResult || returnResult || terminalCase;
+            bool mixedTypeSelection = terminalResult && branchContinuation is null && !tailFallback
+                && registerSelector && owner.SsaTypeInferenceEnabled && !owner.ModuleOptimizationDisabled
+                && decision.Value is Expr.Call { Module: not (null or ErlangModuleNames.Module), DynamicRemote: false };
+            // Only the function's terminal selector has a measured cold layout.
+            var mixedClauses = mixedTypeSelection && sourceTerminalSelector
+                ? OrderMixedTupleAtomClauses(decision.Clauses)
+                : null;
+            bool registerPatterns = registerSelector && (mixedClauses is not null || decision.Clauses.All(CanTestCasePatternInX0));
             int? input = testInX0 || registerPatterns ? null : savedInput ?? Save();
             EmitCaseClauses(
-                decision.Clauses,
+                mixedClauses ?? decision.Clauses,
                 input,
                 guardFailure,
                 destinations,
@@ -10941,9 +11736,16 @@ internal sealed partial class BeamModuleCompiler
                 registerPatterns: registerPatterns,
                 terminalCase: terminalCase,
                 selectorBinding: selectorBinding,
+                caseFailureLocation: CaseSourceLocation(decision),
                 properListSelector: preparedProperList
                     || !inputPrepared && guardFailure is null
-                        && (IsProperListSelector(decision.Value) || savedInput.HasValue && HasProperListCaseBinding(decision))
+                        && (IsProperListSelector(decision.Value) || savedInput.HasValue && HasProperListCaseBinding(decision)),
+                returningResult: terminalResult,
+                mixedTypeSelection: mixedTypeSelection && registerPatterns,
+                mixedTuplePartition: mixedClauses is not null,
+                savedCallSelector: savedInput is null && input.HasValue
+                    && decision.Value is Expr.Call { Module: not null, DynamicRemote: false },
+                ownedResult: ownedResult
             );
             checkedRecordBindings = incomingRecords;
         }
@@ -10975,12 +11777,38 @@ internal sealed partial class BeamModuleCompiler
             tuple.Items.All(item => item is Erlang.Pattern.Variable or Erlang.Pattern.Any or Erlang.Pattern.Literal
                 || item is Pattern.Tuple nested && CanTestTupleInX0(nested));
 
-        private void EmitReturnExpression(Expr body, bool reuseCallSlots = false, bool terminalCase = false)
+        private bool EmitReturnExpression(
+            Expr body,
+            bool reuseCallSlots = false,
+            bool terminalCase = false,
+            bool returningResult = false
+        )
         {
             var incomingRecords = checkedRecordBindings;
             if (reuseCallSlots && body is Expr.Sequence sequence)
             {
+                if (TryEmitCheckedSelectorProjection(sequence))
+                {
+                    checkedRecordBindings = incomingRecords;
+
+                    return false;
+                }
+
+                if ((terminalCase || returningResult) && TryEmitRegisterSelectorContinuation(sequence))
+                {
+                    checkedRecordBindings = incomingRecords;
+
+                    return true;
+                }
+
                 body = ReadReturnSequence(sequence);
+            }
+
+            if ((terminalCase || returningResult) && TryEmitOrderedBranchCons(body))
+            {
+                checkedRecordBindings = incomingRecords;
+
+                return false;
             }
 
             if (body is Expr.Case decision)
@@ -10991,18 +11819,19 @@ internal sealed partial class BeamModuleCompiler
                         decision,
                         null,
                         reuseBranchSlots: true,
-                        terminalCase: terminalCase
+                        terminalCase: terminalCase,
+                        returningResult: returningResult
                     );
 
                     checkedRecordBindings = incomingRecords;
 
-                    return;
+                    return false;
                 }
                 if (TryEmitPreparedTupleCase(decision, reuseSelectorSlots: true))
                 {
                     checkedRecordBindings = incomingRecords;
 
-                    return;
+                    return false;
                 }
             }
 
@@ -11012,11 +11841,13 @@ internal sealed partial class BeamModuleCompiler
 
                 checkedRecordBindings = incomingRecords;
 
-                return;
+                return false;
             }
 
             Expression(body);
             checkedRecordBindings = incomingRecords;
+
+            return false;
         }
 
         private Expr ReadReturnSequence(Expr.Sequence sequence)
@@ -11089,7 +11920,8 @@ internal sealed partial class BeamModuleCompiler
             IReadOnlyList<string>? exports = null,
             bool reuseSelectorSlots = false,
             bool reuseBranchSlots = false,
-            Expr[]? branchContinuation = null
+            Expr[]? branchContinuation = null,
+            List<(int Position, int? Source)>? ownedResult = null
         )
         {
             if (decision.Value is not Expr.Tuple tuple
@@ -11133,7 +11965,9 @@ internal sealed partial class BeamModuleCompiler
                 exports: exports,
                 tupleInput: (tuple, slots, failureOperands, reuseSelectorSlots || returnResult),
                 reuseBranchSlots: reuseBranchSlots || returnResult,
-                branchContinuation: branchContinuation
+                branchContinuation: branchContinuation,
+                caseFailureLocation: CaseSourceLocation(decision),
+                ownedResult: ownedResult
             );
 
             return true;
@@ -11154,7 +11988,13 @@ internal sealed partial class BeamModuleCompiler
             bool registerPatterns = false,
             bool terminalCase = false,
             string? selectorBinding = null,
-            bool properListSelector = false
+            BeamSourceLocation? caseFailureLocation = null,
+            bool properListSelector = false,
+            bool returningResult = false,
+            bool mixedTypeSelection = false,
+            bool mixedTuplePartition = false,
+            bool savedCallSelector = false,
+            List<(int Position, int? Source)>? ownedResult = null
         )
         {
             int? firstAlternative = linearBindings && clauses is [
@@ -11180,7 +12020,34 @@ internal sealed partial class BeamModuleCompiler
             var groupEnds = new HashSet<int>();
             bool savedTupleSelector = input.HasValue && tupleInput is null && guardFailure is null
                 && owner.receiveScratchRegisters is null;
-            if ((registerPatterns || savedTupleSelector) && !tailFallback)
+            int literalBranch = 0;
+            int mixedFailure = 0;
+            if (mixedTypeSelection && clauses.Count == 2)
+            {
+                var atom = clauses.FirstOrDefault(clause => clause is
+                { Guard: null, Patterns: [Pattern.Literal { Value: Atom matched }] }
+                    && SkipDiscardedRegisterCaseLiterals(clause.Body) is Expr.Literal { Value: Atom returned }
+                    && matched.Equals(returned));
+                var tuple = ReferenceEquals(atom, clauses[0]) ? clauses[1] : clauses[0];
+                if (atom is not null && tuple is
+                    {
+                        Guard: null,
+                        Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom }, Pattern.Variable payload] }]
+                    }
+                    && !variables.ContainsKey(payload.Name) && !deferredPairMembers.ContainsKey(payload.Name)
+                    && (payload.Name == VariableScopeNames.Wildcard
+                        || ReadUsedEntryParameters(new Clause([payload], null, tuple.Body)) is { Count: 0 }))
+                {
+                    // Tuple and atom have disjoint domains. A tag or arity failure cannot reach the atom arm.
+                    clauses = [tuple, atom];
+                    literalBranch = Label();
+                    mixedFailure = Label();
+                    owner.Op(IsTuple, LabelTag, literalBranch);
+                    owner.Operand(XRegisterTag, 0);
+                }
+            }
+
+            if (mixedFailure == 0 && (registerPatterns || savedTupleSelector) && !tailFallback)
             {
                 var groups = clauses.TakeWhile(clause => EntryShape(clause.Patterns[0]) is Pattern.Tuple)
                     .GroupBy(clause => ((Pattern.Tuple)EntryShape(clause.Patterns[0])).Items.Count)
@@ -11238,11 +12105,17 @@ internal sealed partial class BeamModuleCompiler
                     else
                     {
                         dispatch.Reverse();
+                        if (mixedTuplePartition)
+                        {
+                            literalBranch = Label();
+                        }
+
                         owner.EmitTupleArityDispatch(
                             arityFallback,
                             dispatch,
                             input ?? 0,
-                            selectorTag
+                            selectorTag,
+                            typeFailure: mixedTuplePartition ? literalBranch : null
                         );
                     }
 
@@ -11250,9 +12123,20 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
+            int literalIndex = mixedTuplePartition ? groupedClauses : 1;
+            int arityFallbackIndex = groupedClauses + (mixedTuplePartition ? 1 : 0);
             bool tagKnown = false;
+            int sharedPayloadArm = -1;
+            int sharedPayloadSlot = -1;
+            string? sharedPayloadName = null;
             for (int clauseIndex = 0; clauseIndex < clauses.Count; clauseIndex++)
             {
+                if (literalBranch != 0 && clauseIndex == literalIndex)
+                {
+                    Mark(literalBranch);
+                    tagKnown = false;
+                }
+
                 if (arityEntries.TryGetValue(clauseIndex, out var arityEntry))
                 {
                     if (arityEntry.Label != 0)
@@ -11272,7 +12156,7 @@ internal sealed partial class BeamModuleCompiler
                     Mark(tagEntry);
                 }
 
-                if (clauseIndex == groupedClauses && arityFallback != 0)
+                if (clauseIndex == arityFallbackIndex && arityFallback != 0)
                 {
                     Mark(arityFallback);
                     tagKnown = false;
@@ -11357,12 +12241,23 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 bool arityKnown = clauseIndex < groupedClauses;
-                bool lastInGroup = groupEnds.Contains(clauseIndex);
-                int next = lastInGroup ? arityFallback : firstAlternative ?? Label();
+                bool lastInGroup = mixedFailure != 0 || groupEnds.Contains(clauseIndex)
+                    || mixedTuplePartition && clauseIndex == literalIndex;
+                int next = mixedFailure != 0 ? mixedFailure : lastInGroup ? arityFallback : firstAlternative ?? Label();
                 firstAlternative = null;
                 bool tailCall = branchContinuation is null && (terminalCase || returnResult) && clause.Body is Expr.Call;
+                bool ownsPayload = sharedPayloadArm == clauseIndex;
+                var sharedPayload = !ownsPayload && arityKnown && tagKnown && registerPatterns && input is null
+                    && !lastInGroup && destinations is null && joined.Length == 0 && branchContinuation is null
+                    && !tailFallback && owner.SsaTypeInferenceEnabled && !owner.ModuleOptimizationDisabled
+                    ? ReadSharedCasePayload(clause, clauses[clauseIndex + 1])
+                    : null;
                 bool savedRegisterArm = savedTupleSelector && destinations is null && joined.Length == 0;
-                if ((savedRegisterArm || registerPatterns && branchContinuation is null) && !tailFallback
+                bool projectedChoice = input is null && guardFailure is null && tupleInput is null && destinations is null
+                    && joined.Length == 0 && branchContinuation is null && owner.receiveScratchRegisters is null
+                    && clause.Body is Expr.Case { Value: Expr.Variable };
+                if (!ownsPayload && sharedPayload is null && mixedFailure == 0
+                    && (savedRegisterArm || projectedChoice || registerPatterns && branchContinuation is null) && !tailFallback
                     && TryEmitRegisterTupleCaseArm(
                         clauses[clauseIndex],
                         next,
@@ -11378,6 +12273,7 @@ internal sealed partial class BeamModuleCompiler
                     }
                     if (!tailCall)
                     {
+                        RecordOwnedCaseResult(ownedResult);
                         JumpTo(end);
                     }
 
@@ -11392,7 +12288,25 @@ internal sealed partial class BeamModuleCompiler
                     && clause.Patterns[0] is Pattern.Variable { Name: not VariableScopeNames.Wildcard } guarded
                     && !variables.ContainsKey(guarded.Name) ? guarded.Name : null;
                 var guardedAlias = registerPatterns ? ReadRegisterCaseGuardAlias(clause) : null;
-                if (properListSelector && clauseIndex == 0 && ListEntryTest(clause.Patterns[0]) == IsNil)
+                if (ownsPayload)
+                {
+                    variables.Add(sharedPayloadName!, sharedPayloadSlot);
+                    nextSlot = Math.Max(nextSlot, DecoderSlot(sharedPayloadSlot) + 1);
+                }
+                else if (sharedPayload is { } payload)
+                {
+                    int slot = Slot();
+                    owner.Op(GetTupleElement, XRegisterTag, 0);
+                    owner.Operand(BeamWire.UnsignedTag, 1);
+                    owner.Operand(YRegisterTag, slot);
+                    owner.Op(ExactEqualTest, LabelTag, next);
+                    owner.Operand(YRegisterTag, slot);
+                    owner.LiteralOperand(payload.Constant);
+                    sharedPayloadArm = clauseIndex + 1;
+                    sharedPayloadSlot = slot;
+                    sharedPayloadName = payload.Variable;
+                }
+                else if (properListSelector && clauseIndex == 0 && ListEntryTest(clause.Patterns[0]) == IsNil)
                 {
                     owner.Op(IsNil, LabelTag, next);
                     owner.EmitTypedRegister(input ?? 0, ProperListTypeBits, registerTag: input.HasValue ? YRegisterTag : XRegisterTag);
@@ -11410,16 +12324,26 @@ internal sealed partial class BeamModuleCompiler
                         checkedTag = true;
                     }
 
-                    Pattern(
-                        clause.Patterns[0],
-                        matchedInput,
-                        next,
-                        checkedShape: checkedShape,
-                        checkedTupleTag: checkedTag,
-                        entryPatternScratch: arityKnown,
-                        tupleScratch: reuseBranchSlots && guardFailure is null && owner.receiveScratchRegisters is null ? 1 : null,
-                        properListValue: properListSelector
-                    );
+                    if (!savedCallSelector || !savedTupleSelector || tailFallback || clause.Guard is not null
+                        || !owner.SsaTypeInferenceEnabled || owner.ModuleOptimizationDisabled
+                        || !TryEmitSavedSelectorPayloadScratch(
+                            clause.Patterns[0],
+                            matchedInput,
+                            next,
+                            arityKnown && checkedTag
+                        ))
+                    {
+                        Pattern(
+                            clause.Patterns[0],
+                            matchedInput,
+                            next,
+                            checkedShape: checkedShape,
+                            checkedTupleTag: checkedTag,
+                            entryPatternScratch: arityKnown,
+                            tupleScratch: reuseBranchSlots && guardFailure is null && owner.receiveScratchRegisters is null ? 1 : null,
+                            properListValue: properListSelector
+                        );
+                    }
                 }
                 else if (guardSelector is not null)
                 {
@@ -11437,12 +12361,25 @@ internal sealed partial class BeamModuleCompiler
                     var shape = EntryShape(pattern) as Pattern.Tuple;
                     if (!tagKnown && shape is not null && HasTupleTag(shape, out Atom shapeTag))
                     {
-                        EmitCaseTupleTest(
-                            shape.Items.Count,
-                            shapeTag,
-                            next,
-                            arityKnown
-                        );
+                        if (mixedFailure != 0)
+                        {
+                            EmitDetailRecordTest(
+                                0,
+                                shape.Items.Count,
+                                shapeTag,
+                                next,
+                                TupleTypeBits
+                            );
+                        }
+                        else
+                        {
+                            EmitCaseTupleTest(
+                                shape.Items.Count,
+                                shapeTag,
+                                next,
+                                arityKnown
+                            );
+                        }
                     }
 
                     Pattern(
@@ -11533,8 +12470,11 @@ internal sealed partial class BeamModuleCompiler
                 }
                 else
                 {
-                    EmitBranchResult(clause.Body);
-                    JumpTo(end);
+                    bool branchReturns = (mixedFailure == 0 || clauseIndex == 0) && EmitBranchResult(clause.Body);
+                    if (!branchReturns)
+                    {
+                        JumpTo(end);
+                    }
                 }
                 caseLimit = Math.Max(caseLimit, nextSlot);
                 if (!lastInGroup)
@@ -11542,7 +12482,11 @@ internal sealed partial class BeamModuleCompiler
                     Mark(next);
                 }
             }
-            if (arityFallback != 0 && groupedClauses == clauses.Count)
+            if (mixedFailure != 0)
+            {
+                Mark(mixedFailure);
+            }
+            else if (arityFallback != 0 && arityFallbackIndex == clauses.Count)
             {
                 Mark(arityFallback);
             }
@@ -11562,7 +12506,7 @@ internal sealed partial class BeamModuleCompiler
                     {
                         Expression(prepared.Value);
                     }
-                    owner.Op(CaseEnd, XRegisterTag, 0);
+                    EmitCaseEnd(caseFailureLocation);
                 }
                 else if (failureReason is null)
                 {
@@ -11571,7 +12515,7 @@ internal sealed partial class BeamModuleCompiler
                         Load(failedInput);
                     }
 
-                    owner.Op(CaseEnd, XRegisterTag, 0);
+                    EmitCaseEnd(caseFailureLocation);
                 }
                 else
                 {
@@ -11600,9 +12544,13 @@ internal sealed partial class BeamModuleCompiler
                 owner.EmitFrameReturn(frameSize);
             }
 
-            void EmitBranchResult(Expr body)
+            bool EmitBranchResult(Expr body)
             {
-                if (branchContinuation is not null && destinations is null && guardFailure is null)
+                if (ownedResult is not null)
+                {
+                    EmitOwnedCaseResult(body, ownedResult, branchContinuation);
+                }
+                else if (branchContinuation is not null && destinations is null && guardFailure is null)
                 {
                     EmitExportingBranch(body, joined, branchContinuation: branchContinuation);
                 }
@@ -11616,7 +12564,10 @@ internal sealed partial class BeamModuleCompiler
 
                     if (reuseBranchSlots && destinations is null && guardFailure is null)
                     {
-                        EmitReturnExpression(body, reuseCallSlots: true);
+                        if (EmitReturnExpression(body, reuseCallSlots: true, returningResult: returningResult))
+                        {
+                            return true;
+                        }
                     }
                     else
                     {
@@ -11628,6 +12579,8 @@ internal sealed partial class BeamModuleCompiler
                     EmitExportingBranch(body, joined, guardFailure);
                 }
                 StoreBranchExports(joined);
+
+                return false;
             }
 
             bool IsUnconditionalTuple(Pattern.Tuple tuple)
@@ -11642,7 +12595,9 @@ internal sealed partial class BeamModuleCompiler
         private Clause OmitUnusedCaseBindings(Clause clause, IReadOnlyList<string>? exports, Expr[]? continuation)
         {
             var pattern = clause.Patterns[0];
-            if (pattern is not (Erlang.Pattern.Tuple or AliasPattern or Erlang.Pattern.Variable))
+            bool pruneListBindings = owner.SsaTypeInferenceEnabled;
+            if (pattern is not (Erlang.Pattern.Tuple or AliasPattern or Erlang.Pattern.Variable)
+                && !(pruneListBindings && pattern is Erlang.Pattern.List))
             {
                 return clause;
             }
@@ -11676,6 +12631,11 @@ internal sealed partial class BeamModuleCompiler
             {
                 Pattern.Variable variable when removable.Contains(variable.Name) => new Pattern.Variable(VariableScopeNames.Wildcard),
                 Pattern.Tuple tuple => tuple with { Items = tuple.Items.Select(WithoutUnusedBindings).ToArray() },
+                Pattern.List list when pruneListBindings => list with
+                {
+                    Items = list.Items.Select(item => item is Erlang.Pattern.Variable ? item : WithoutUnusedBindings(item)).ToArray(),
+                    Tail = list.Tail is null or Erlang.Pattern.Variable ? list.Tail : WithoutUnusedBindings(list.Tail)
+                },
                 AliasPattern alias => alias with
                 {
                     Left = WithoutUnusedBindings(alias.Left),
@@ -11727,7 +12687,11 @@ internal sealed partial class BeamModuleCompiler
             return true;
         }
 
-        private bool TryEmitTerminalTaggedCase(Expr.Case decision, bool requireNestedPayload = false)
+        private bool TryEmitTerminalTaggedCase(
+            Expr.Case decision,
+            bool requireNestedPayload = false,
+            bool allowPreparedCallContinuation = false
+        )
         {
             if (decision.Clauses.Count < 2)
             {
@@ -11743,7 +12707,7 @@ internal sealed partial class BeamModuleCompiler
             }
 
             var tags = new HashSet<Atom>();
-            var branches = new List<(Atom Tag, Clause Clause)>();
+            var branches = new List<(Atom Tag, Clause Clause, EntryCall? Continuation)>();
             foreach (Clause clause in decision.Clauses)
             {
                 if (clause.Patterns is not [var pattern]
@@ -11754,21 +12718,28 @@ internal sealed partial class BeamModuleCompiler
                         payload,
                         nestedPayload
                     )
-                    || !tags.Add(tag)
-                    || !TryEmitRegisterTupleCaseArm(
-                        clause,
-                        failure: 0,
-                        tailCall: clause.Body is Expr.Call,
-                        arityKnown: true,
-                        tagKnown: true,
-                        payloadRegister: payloadRegister,
-                        validateOnly: true
-                    ))
+                    || !tags.Add(tag))
                 {
                     return false;
                 }
 
-                branches.Add((tag, clause));
+                EntryCall? continuation = allowPreparedCallContinuation && payloadRegister is int register
+                    ? ReadPreparedCasePayloadCall(clause, payload, register)
+                    : null;
+                if (continuation is null && !TryEmitRegisterTupleCaseArm(
+                    clause,
+                    failure: 0,
+                    tailCall: clause.Body is Expr.Call,
+                    arityKnown: true,
+                    tagKnown: true,
+                    payloadRegister: payloadRegister,
+                    validateOnly: true
+                ))
+                {
+                    return false;
+                }
+
+                branches.Add((tag, clause, continuation));
             }
 
             branches.Sort((left, right) => TermOrder.Compare(left.Tag, right.Tag, exact: true));
@@ -11786,6 +12757,24 @@ internal sealed partial class BeamModuleCompiler
                 Clause clause = branches[index].Clause;
                 bool tailCall = clause.Body is Expr.Call;
                 Mark(table[index].Label);
+                if (branches[index].Continuation is { } continuation)
+                {
+                    int priorSlot = nextSlot;
+                    owner.EmitOrderedTailMoves(continuation.Moves, continuation.Constants, continuation.SavedInputs);
+                    owner.EmitCallLine(continuation.Call, location);
+                    Call(continuation.Module, continuation.Call.Function, continuation.Call.Arguments.Count);
+                    EmitCase(
+                        (Expr.Case)clause.Body,
+                        null,
+                        inputPrepared: true,
+                        reuseBranchSlots: true,
+                        returningResult: true
+                    );
+                    owner.EmitFrameReturn(frameSize);
+                    nextSlot = priorSlot;
+                    continue;
+                }
+
                 TryEmitRegisterTupleCaseArm(
                     clause,
                     failure,
@@ -11925,6 +12914,23 @@ internal sealed partial class BeamModuleCompiler
             }
 
             var value = clause.Body is Expr.RecordConstruction record ? RecordExpressions.Create(record) : clause.Body;
+            if (guardBinding is null && clause.Guard is null && savedSelector is null && pattern is Pattern.Tuple
+                && value is Expr.Case choice
+                && TryEmitProjectedTaggedChoice(
+                    choice,
+                    tuple,
+                    tag,
+                    failure,
+                    arityKnown,
+                    tagKnown,
+                    payloadRegister,
+                    validateOnly
+                ))
+            {
+                return true;
+            }
+
+
             if (value is not (Expr.Variable or Expr.Tuple or Expr.List or Expr.Call))
             {
                 return false;
@@ -12270,7 +13276,12 @@ internal sealed partial class BeamModuleCompiler
             return body;
         }
 
-        private bool TryReuseBindingSlot(Expr item, IEnumerable<Expr> continuation, IEnumerable<int> candidateSlots)
+        private bool TryReuseBindingSlot(
+            Expr item,
+            IEnumerable<Expr> continuation,
+            IEnumerable<int> candidateSlots,
+            bool allowOrderedCons = false
+        )
         {
             if (owner.receiveScratchRegisters is not null
                 || item is not Expr.Match
@@ -12279,7 +13290,14 @@ internal sealed partial class BeamModuleCompiler
                     Value: var value
                 }
                 || variables.ContainsKey(result.Name) || deferredPairMembers.ContainsKey(result.Name)
-                || value is Expr.Variable || !HasPreparedBindingOperands(value))
+                || value is Expr.Variable)
+            {
+                return false;
+            }
+
+            var ordered = allowOrderedCons && value is Expr.List { Items.Count: > 0 } list
+                ? ReadLiveOrderedConsConstruction(list) : null;
+            if (ordered is null && !HasPreparedBindingOperands(value))
             {
                 return false;
             }
@@ -12305,7 +13323,15 @@ internal sealed partial class BeamModuleCompiler
                 }
                 else
                 {
-                    Expression(value);
+                    if (ordered is { } plan)
+                    {
+                        EmitLiveOrderedConsConstruction(plan.Construction, plan.Tail, plan.Slots);
+                    }
+                    else
+                    {
+                        Expression(value);
+                    }
+
                     owner.MoveRegister(
                         XRegisterTag,
                         0,
@@ -12369,6 +13395,28 @@ internal sealed partial class BeamModuleCompiler
                 }))
             {
                 return false;
+            }
+
+            if (CanUnwrapSingleton(unwrap) && TryEmitSingleForwardedTupleChoice(
+                function.Arity,
+                decision,
+                call,
+                entry,
+                result
+            ))
+            {
+                return true;
+            }
+
+            if (owner.SsaTypeInferenceEnabled && !owner.ModuleOptimizationDisabled
+                && CanUnwrapSingleton(unwrap) && TryEmitForwardedTupleChoices(
+                    decision,
+                    call,
+                    entry,
+                    result.Name
+                ))
+            {
+                return true;
             }
 
             EmitGeneralFrame(function.Arity);
@@ -12652,8 +13700,22 @@ internal sealed partial class BeamModuleCompiler
 
             int failure = Label();
             int done = Label();
-            if (match.Pattern is BitPattern bits && guardedBinaryMatches.Contains(match))
+            if (match.Pattern is BitPattern bits
+                && (guardedBinaryMatches.Contains(match) || match.Value is Expr.Bits && bits.Segments is
+                    [
+                    {
+                        Specification:
+                        {
+                            Type: BitSegmentTypes.Integer,
+                            Signed: false,
+                            Endian: BitByteOrders.Big,
+                            Unit: BitSyntaxDefaults.BitStringUnit,
+                            Size: Expr.Variable
+                        }
+                    }]))
             {
+                // Successful bit construction proves the input kind, regardless of its size.
+                // The integer extraction and exhaustion checks still branch to badmatch.
                 EmitFixedBitPattern(
                     bits,
                     matched,
@@ -12909,6 +13971,7 @@ internal sealed partial class BeamModuleCompiler
         {
             Pattern.Variable variable => variable.Name != first && variable.Name != second,
             Pattern.Tuple tuple => tuple.Items.All(item => CanBindExactPair(item, first, second)),
+            AliasPattern alias => CanBindExactPair(alias.Left, first, second) && CanBindExactPair(alias.Right, first, second),
             Pattern.List list => list.Items.All(item => CanBindExactPair(item, first, second))
                 && (list.Tail is null || CanBindExactPair(list.Tail, first, second)),
             Pattern.Literal { } => true,
@@ -13008,9 +14071,18 @@ internal sealed partial class BeamModuleCompiler
             return true;
         }
 
+        // v3_core uses the case expression's annotation on its synthetic failure clause.
+        private BeamSourceLocation? CaseSourceLocation(Expr.Case decision) =>
+            decision.SourceLine == 0 ? null : new(decision.PreprocessorFile ?? location.File, decision.SourceLine);
+
         private void EmitBooleanCaseFailure(int label, BeamSourceLocation? failureLocation)
         {
             Mark(label);
+            EmitCaseEnd(failureLocation);
+        }
+
+        private void EmitCaseEnd(BeamSourceLocation? failureLocation)
+        {
             if (failureLocation is { } source)
             {
                 owner.EmitLine(source);
@@ -13120,7 +14192,8 @@ internal sealed partial class BeamModuleCompiler
             List<(int Label, BeamSourceLocation? Location)>? deferredBooleanFailures,
             (int True, int False)? reservedBooleanLabels,
             bool preparedInput,
-            bool terminalAtomTails = false
+            bool terminalAtomTails = false,
+            List<(int Position, int? Source)>? ownedResult = null
         )
         {
             bool booleanPair = IsBooleanCase(expression);
@@ -13160,6 +14233,12 @@ internal sealed partial class BeamModuleCompiler
             }
 
             branches.Sort((left, right) => TermOrder.Compare(left.Key, right.Key, exact: true));
+            if (tuple && returnResult && input is null && branchContinuation is null
+                && fallback is { Name: not VariableScopeNames.Wildcard }
+                && TryEmitSizeCheckedTaggedChoice(branches, fallback.Name, expression.Clauses[^1].Body))
+            {
+                return true;
+            }
             var direct = branches.Select(branch => ReadDirectTaggedBranch(branch.Field, branch.Body, returnResult)).ToArray();
             bool sharedPayload = direct.Any(branch => branch.HasValue);
             bool keepTupleInX0 = tuple && input is null && fallback?.Name == VariableScopeNames.Wildcard;
@@ -13171,15 +14250,25 @@ internal sealed partial class BeamModuleCompiler
             {
                 input = Save();
             }
+            bool exhaustiveBoolean = booleanPair && deferredBooleanFailures is null && reservedBooleanLabels is null
+                && IsExhaustiveLocalBooleanSelector(expression.Value);
             bool tailBoolean = booleanPair && returnResult && IsTailBooleanCase(expression);
             // SSA reverse postorder visits independent boolean arms before their failure block.
             bool orderedBooleanLabels = booleanPair && preparedInput && expression.Value is Expr.Call
                 && branchContinuation is null && deferredBooleanFailures is null && reservedBooleanLabels is null
                 && branches.All(branch => LocalFunctionEntries.Walk(branch.Body).All(node => node is
                     Expr.Call or Expr.Sequence or Expr.Tuple or Expr.List or Expr.Literal or Expr.Variable or Expr.Block));
-            bool orderedLabels = terminalAtomTails || tailBoolean || returnResult && direct.All(branch => branch.HasValue);
+            bool orderedForwarded = tuple && preparedInput && returnResult && input is null
+                && branchContinuation is null && fallback is { Name: not VariableScopeNames.Wildcard }
+                && ReadTaggedFallbackCall(fallback, expression.Clauses[^1].Body) is not null
+                && branches.All(branch => branch.Field is { } field && branch.Body is Expr.Tuple
+                {
+                    Items: [Expr.Literal { Value: Atom }, var value]
+                } && ReadDecodeCall(value, field.Name, allowRemote: true) is { Convert: null });
+            bool orderedLabels = terminalAtomTails || tailBoolean || orderedForwarded
+                || returnResult && direct.All(branch => branch.HasValue);
             bool deferredContinuation = booleanPair && !returnResult && deferredBooleanFailures is not null;
-            int otherwise = orderedLabels || orderedBooleanLabels || deferredContinuation ? 0 : Label();
+            int otherwise = exhaustiveBoolean || orderedLabels || orderedBooleanLabels || deferredContinuation ? 0 : Label();
             int done = returnResult || orderedBooleanLabels || deferredContinuation ? 0 : Label();
             var labels = new int[branches.Count];
             int[]? sharedTails = terminalAtomTails ? FindSharedAtomTails(branches.Select(branch => branch.Body).ToArray()) : null;
@@ -13210,7 +14299,7 @@ internal sealed partial class BeamModuleCompiler
             {
                 done = Label();
             }
-            if (orderedLabels || orderedBooleanLabels || deferredContinuation)
+            if (!exhaustiveBoolean && (orderedLabels || orderedBooleanLabels || deferredContinuation))
             {
                 otherwise = Label();
             }
@@ -13223,14 +14312,25 @@ internal sealed partial class BeamModuleCompiler
                     owner.EmitTupleElement(1, 2);
                 }
             }
-            owner.Op(SelectValue, XRegisterTag, sharedPayload || keepTupleInX0 ? 1 : 0);
-            owner.Operand(LabelTag, otherwise);
-            owner.instructions.WriteByte(ExtendedListOperand);
-            owner.Operand(BeamWire.UnsignedTag, branches.Count * 2);
-            for (int index = 0; index < branches.Count; index++)
+            int selectorRegister = sharedPayload || keepTupleInX0 ? 1 : 0;
+            if (exhaustiveBoolean)
             {
-                owner.LiteralOperand(branches[index].Key);
-                owner.Operand(LabelTag, labels[index]);
+                // The false branch is the only possible rejecting value of this call.
+                owner.Op(ExactEqualTest, LabelTag, labels[0]);
+                owner.Operand(XRegisterTag, selectorRegister);
+                owner.LiteralOperand(branches[1].Key);
+            }
+            else
+            {
+                owner.Op(SelectValue, XRegisterTag, selectorRegister);
+                owner.Operand(LabelTag, otherwise);
+                owner.instructions.WriteByte(ExtendedListOperand);
+                owner.Operand(BeamWire.UnsignedTag, branches.Count * 2);
+                for (int index = 0; index < branches.Count; index++)
+                {
+                    owner.LiteralOperand(branches[index].Key);
+                    owner.Operand(LabelTag, labels[index]);
+                }
             }
             int selectorLineCount = owner.lineInstructions;
             var original = variables;
@@ -13283,6 +14383,7 @@ internal sealed partial class BeamModuleCompiler
                         call.Range,
                         orderedLabels ? labels[index] + 1 : null
                     );
+                    RecordOwnedCaseResult(ownedResult);
                 }
                 else
                 {
@@ -13305,7 +14406,11 @@ internal sealed partial class BeamModuleCompiler
                         }
                         variables.Add(bound.Name, fieldSlot);
                     }
-                    if ((booleanPair || unmatchedAtoms) && branchContinuation is not null)
+                    if (ownedResult is not null)
+                    {
+                        EmitOwnedCaseResult(branch.Body, ownedResult, branchContinuation);
+                    }
+                    else if ((booleanPair || unmatchedAtoms) && branchContinuation is not null)
                     {
                         EmitExportingBranch(branch.Body, [], branchContinuation: branchContinuation);
                     }
@@ -13314,7 +14419,10 @@ internal sealed partial class BeamModuleCompiler
                         if (!booleanPair || deferredBooleanFailures is null || returnResult
                             || !TryEmitCaseCallClearingFrame(branch.Body))
                         {
-                            EmitReturnExpression(branch.Body, reuseCallSlots: true);
+                            Expr body = booleanPair && index == 0
+                                ? ReuseRejectedSelectorSlot(expression.Value, branches[1].Body, branch.Body)
+                                : branch.Body;
+                            EmitReturnExpression(body, reuseCallSlots: true);
                         }
                     }
                     else
@@ -13338,12 +14446,26 @@ internal sealed partial class BeamModuleCompiler
             }
             variables = new(original, StringComparer.Ordinal);
             nextSlot = branchBase;
-            if (booleanPair)
+            if (booleanPair && !exhaustiveBoolean)
             {
+                if (CaseSourceLocation(expression) is { } source)
+                {
+                    owner.caseFailureLocations[otherwise] = source;
+                }
+
                 BeamSourceLocation? failureLocation = (tailBoolean || deferredBooleanFailures is not null && !returnResult
                         || orderedBooleanLabels && owner.lineInstructions != selectorLineCount)
                     && expression.Value is Expr.Call { SourceLine: not 0 } selector
                     ? CallLocation(selector, location) : null;
+                if (failureLocation is null && branchContinuation is null
+                    && expression.Value is Expr.Call { Module: null, DynamicRemote: false } local
+                    && entries.ContainsKey((local.Function, local.Arguments.Count))
+                    && owner.lineInstructions != selectorLineCount
+                    && CaseSourceLocation(expression) is { } caseSource && owner.lastEmittedLine != caseSource)
+                {
+                    // The rejecting selector edge skips both arms and raises at the case keyword.
+                    failureLocation = caseSource;
+                }
                 if (deferredBooleanFailures is null)
                 {
                     EmitBooleanCaseFailure(otherwise, failureLocation);
@@ -13353,14 +14475,14 @@ internal sealed partial class BeamModuleCompiler
                     deferredBooleanFailures.Add((otherwise, failureLocation));
                 }
             }
-            else if (unmatchedAtoms)
+            else if (unmatchedAtoms && !exhaustiveBoolean)
             {
                 BeamSourceLocation? failureLocation = owner.lineInstructions != selectorLineCount
                     && expression.Value is Expr.Call { SourceLine: not 0 } selector
                     ? CallLocation(selector, location) : null;
                 EmitBooleanCaseFailure(otherwise, failureLocation);
             }
-            else
+            else if (!exhaustiveBoolean)
             {
                 Mark(otherwise);
                 Expr fallbackBody = expression.Clauses[^1].Body;
@@ -13371,7 +14493,18 @@ internal sealed partial class BeamModuleCompiler
                         // Tagged dispatch keeps X0 intact on its failure edge.
                         variables.Add(named.Name, input ?? Save());
                     }
-                    Expression(fallbackBody);
+                    if (ownedResult is not null)
+                    {
+                        EmitOwnedCaseResult(fallbackBody, ownedResult, branchContinuation);
+                    }
+                    else
+                    {
+                        Expression(fallbackBody);
+                    }
+                }
+                else
+                {
+                    RecordOwnedCaseResult(ownedResult);
                 }
                 if (returnResult)
                 {
@@ -13429,16 +14562,12 @@ internal sealed partial class BeamModuleCompiler
             {
                 return true;
             }
-            if (body is not Expr.Tuple
-                {
-                    Items: [Expr.Literal { Value: Atom tag }, Expr.Call
-                    { Module: null, DynamicRemote: false, Arguments: [Expr.Variable payload] } call]
-                }
-                || payload.Name != fallback.Name || !entries.ContainsKey((call.Function, 1)))
+            if (ReadTaggedFallbackCall(fallback, body) is not { } tagged)
             {
                 return false;
             }
 
+            var (tag, call) = tagged;
             owner.EmitCallLine(call, location);
             Call(call.Module, call.Function, 1);
             EmitTaggedCallResult(tag, call);
@@ -13446,9 +14575,19 @@ internal sealed partial class BeamModuleCompiler
             return true;
         }
 
+        private (Atom Tag, Expr.Call Call)? ReadTaggedFallbackCall(Pattern.Variable fallback, Expr body) =>
+            body is Expr.Tuple
+            {
+                Items: [Expr.Literal { Value: Atom tag }, Expr.Call
+                {
+                    Module: null, DynamicRemote: false, Arguments: [Expr.Variable payload]
+                } call]
+            }
+            && payload.Name == fallback.Name && entries.ContainsKey((call.Function, 1)) ? (tag, call) : null;
+
         private sealed record TaggedBranchRange(
             Integer Lower,
-            Integer Upper,
+            Integer? Upper,
             Expr.Call Exit,
             Term Reason
         );
@@ -13499,7 +14638,7 @@ internal sealed partial class BeamModuleCompiler
             return (tag, call, constant, conversion, range);
         }
 
-        private TaggedBranchRange? ReadTaggedBranchRange(Expr.If test, string result)
+        private TaggedBranchRange? ReadTaggedBranchRange(Expr.If test, string result, bool integerResult = false)
         {
             if (test.Clauses is not
                 [
@@ -13515,7 +14654,7 @@ internal sealed partial class BeamModuleCompiler
                         Right: Expr.Binary
                         {
                             Operator: ErlangOperators.LessOrEqual,
-                            Left: Expr.Variable second, Right: Expr.Literal { Value: Integer upper }
+                            Left: Expr.Variable second, Right: Expr.Literal { Value: var upper }
                         }
                     },
                     Body: Expr.Variable accepted
@@ -13528,6 +14667,7 @@ internal sealed partial class BeamModuleCompiler
                     } exit
                 }
                 ]
+                || (upper is not Integer && (!integerResult || upper is not Atom))
                 || result != first.Name || result != second.Name || result != accepted.Name
                 || exit.Module is null && entries.ContainsKey(("exit", 1))
                 || !AttributeLiteral.TryNormalizeConstant(reason, out Term error))
@@ -13537,7 +14677,7 @@ internal sealed partial class BeamModuleCompiler
 
             return new(
                 lower,
-                upper,
+                upper as Integer,
                 exit,
                 error
             );
@@ -13596,17 +14736,25 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(BeamWire.UnsignedTag, frameSlots);
         }
 
-        private void EmitRangeTests(Expr.Call call, TaggedBranchRange range, int failure)
+        private void EmitRangeTests(
+            Expr.Call call,
+            TaggedBranchRange range,
+            int failure,
+            bool provenInteger = false
+        )
         {
-            bool integerResult = (InferPairFacts(call) & PairFacts.Integer) != 0;
+            bool integerResult = provenInteger || (InferPairFacts(call) & PairFacts.Integer) != 0;
             owner.Op(IsGreaterOrEqual, LabelTag, failure);
             EmitRangeResultOperand(integerResult);
             owner.LiteralOperand(range.Lower);
-            owner.Op(IsGreaterOrEqual, LabelTag, failure);
-            owner.LiteralOperand(range.Upper);
-            long? lower = range.Lower.Value >= long.MinValue && range.Lower.Value <= long.MaxValue
-                ? (long)range.Lower.Value : null;
-            EmitRangeResultOperand(integerResult, lower);
+            if (range.Upper is { } upper)
+            {
+                owner.Op(IsGreaterOrEqual, LabelTag, failure);
+                owner.LiteralOperand(upper);
+                long? lower = range.Lower.Value >= long.MinValue && range.Lower.Value <= long.MaxValue
+                    ? (long)range.Lower.Value : null;
+                EmitRangeResultOperand(integerResult, lower);
+            }
         }
 
         private void EmitRangeResultOperand(bool integerResult, long? lower = null)
@@ -13730,7 +14878,13 @@ internal sealed partial class BeamModuleCompiler
             }
             if (exhausted)
             {
-                Error("if_clause");
+                // v3_core locates the synthetic failure at the opening if token.
+                if (expression.SourceLine != 0)
+                {
+                    owner.EmitLine(new BeamSourceLocation(expression.PreprocessorFile ?? location.File, expression.SourceLine));
+                }
+
+                owner.instructions.WriteByte(IfEnd);
             }
             Mark(done);
             variables = original;
@@ -13787,6 +14941,103 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module, plan.Raise.Function, 3));
             owner.Operand(BeamWire.UnsignedTag, frameSize);
         }
+
+        private bool TryEmitTerminalLocalProtectedFallback(Expr.Try expression)
+        {
+            if (owner.receiveScratchRegisters is not null
+                || expression is not
+                {
+                    After: null,
+                    Body: Expr.Call { DynamicRemote: false } body,
+                    Clauses:
+                    [
+                    {
+                        Guard: null,
+                        Patterns: [Pattern.Literal { Value: Atom } literal],
+                        Body: Expr.Call
+                        {
+                            Module: null,
+                            DynamicRemote: false,
+                            Arguments: [Expr.Variable input]
+                        } fallback
+                    },
+                    {
+                        Guard: null,
+                        Patterns: [Pattern.Variable { Name: not VariableScopeNames.Wildcard } result],
+                        Body: Expr.Variable returned
+                    }
+                    ],
+                    Catches:
+                    [
+                        {
+                            Guard: null,
+                            Patterns: [Pattern.Tuple
+                            {
+                                Items:
+                                [
+                                    Pattern.Variable { Name: VariableScopeNames.Wildcard },
+                                    Pattern.Variable { Name: VariableScopeNames.Wildcard },
+                                    Pattern.Variable { Name: VariableScopeNames.Wildcard }
+                                ]
+                            }],
+                            Body: Expr.Call
+                            {
+                                Module: null,
+                                DynamicRemote: false,
+                                Arguments: [Expr.Variable caughtInput]
+                            } caught
+                        }
+                    ]
+                }
+                || input.Name != caughtInput.Name
+                || fallback.Function != caught.Function
+                || result.Name != returned.Name
+                || variables.ContainsKey(result.Name)
+                || deferredPairMembers.ContainsKey(result.Name)
+                || deferredPairMembers.ContainsKey(input.Name)
+                || !variables.TryGetValue(input.Name, out int saved)
+                || !entries.TryGetValue((fallback.Function, fallback.Arguments.Count), out int entry)
+                || !TryResolveOrdinaryCallTarget(body, out _)
+                || !IsProtectedFallbackInput(body))
+            {
+                return false;
+            }
+
+            int token = Slot();
+            int handler = Label();
+            int identity = Label();
+            owner.Op(TryEnter, YRegisterTag, token);
+            owner.Operand(LabelTag, handler);
+            Expression(body, null);
+            owner.Op(TryEnd, YRegisterTag, token);
+
+            Pattern(
+                literal,
+                0,
+                identity,
+                valueTag: XRegisterTag
+            );
+            Load(saved);
+            EmitFramedLocalTail(fallback.Arguments.Count, entry);
+
+            Mark(identity);
+            owner.EmitFrameReturn(frameSize);
+
+            Mark(handler);
+            owner.Op(TryCase, YRegisterTag, token);
+            Load(saved);
+            EmitFramedLocalTail(fallback.Arguments.Count, entry);
+
+            return true;
+        }
+
+        private bool IsProtectedFallbackInput(Expr expression) => expression switch
+        {
+            Expr.Variable variable => variables.ContainsKey(variable.Name),
+            Expr.Literal => true,
+            Expr.Call { DynamicRemote: false } call => call.Arguments.All(IsProtectedFallbackInput),
+            _ => false
+        };
 
         private bool TryEmitDirectExceptionMatch(Expr.Try expression, int? reservedToken, bool terminal = false)
         {
@@ -14234,11 +15485,52 @@ internal sealed partial class BeamModuleCompiler
                     Mark(next);
                 }
                 Load(result);
+                if (expression.SourceLine > 0 && expression.Clauses.All(clause => clause.Guard is not null
+                    || clause.Patterns[0] is not (Erlang.Pattern.Variable or Erlang.Pattern.Any)))
+                {
+                    // A try-clause mismatch belongs to the protected expression's source location.
+                    owner.EmitLine(new(expression.PreprocessorFile ?? location.File, expression.SourceLine));
+                }
+
                 owner.Op(TryCaseEnd, XRegisterTag, 0);
             }
 
             Mark(handler);
             owner.Op(TryCase, YRegisterTag, token);
+            // try_case leaves the reason in X1. The class and raw stack are unused for this catch.
+            if (!owner.ModuleOptimizationDisabled && owner.SsaTypeInferenceEnabled
+                && owner.receiveScratchRegisters is null
+                && expression.Catches is
+                [
+                    {
+                        Guard: null,
+                        Patterns: [Pattern.Tuple
+                        {
+                            Items:
+                            [
+                                Pattern.Variable { Name: VariableScopeNames.Wildcard },
+                                Pattern.Variable { Name: not VariableScopeNames.Wildcard } reasonBinding,
+                                Pattern.Variable { Name: VariableScopeNames.Wildcard }
+                            ]
+                        }],
+                        Body: Expr.Tuple reasonTuple
+                    }
+                ]
+                && !original.ContainsKey(reasonBinding.Name) && !deferredPairMembers.ContainsKey(reasonBinding.Name)
+                && ReadCaseTuple(
+                    reasonTuple,
+                    reasonBinding.Name,
+                    original,
+                    selectorRegister: 1
+                ) is { UsesSelector: true } reasonOnly)
+            {
+                EmitCaseTuple(reasonOnly with { EntryLive = 2 });
+                Mark(done);
+                variables = original;
+
+                return;
+            }
+
             if (expression.Catches is [
                 {
                     Guard: null, Patterns: [Pattern.Tuple
@@ -14362,6 +15654,15 @@ internal sealed partial class BeamModuleCompiler
             if (expression is Expr.Variable variable && variables.TryGetValue(variable.Name, out int slot))
             {
                 return slot;
+            }
+
+            if (failure is null && owner.receiveScratchRegisters is null && expression is Expr.Call { DynamicRemote: false } sourceCall)
+            {
+                var call = owner.ResolveImportedCall(sourceCall, entries);
+                if (IsRoundingCall(call) && call.Arguments is [Expr.Binary { Operator: ErlangOperators.Multiply }])
+                {
+                    return EmitSavedRounding(call);
+                }
             }
 
             Expression(expression, failure);

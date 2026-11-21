@@ -1,0 +1,87 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamProjectedBranchRootChecks.cs b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamProjectedBranchRootChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamProjectedBranchRootChecks.cs
+@@ -0,0 +1,82 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamProjectedBranchRootChecks
++{
++    internal const string TestName = "compiler/beam/projected-root-cleared-after-last-branch-use";
++    private const string MissingKill = "The receiver must remain live through the first call and be cleared at the last call.";
++    private const string LostRoot = "The receiver must remain live when the result uses it.";
++    private const string Source = """
++        -module(beam_projected_branch_root).
++        -export([released/2, retained/2]).
++        -record(state,{reading,receiver}).
++        -record(sample,{value,limit,result}).
++        released(tick, State=#state{reading=R=#sample{value=Value,limit=Limit},receiver=Receiver}) ->
++            Next = if Value >= Limit -> service:deliver(Receiver), service:mark(Receiver), done;
++                      true -> service:repeat(Value)
++                   end,
++            {ok,State#state{reading=R#sample{value=Value+5,result=Next}}};
++        released(other, State=#state{}) ->
++            State.
++        retained(tick, State=#state{reading=R=#sample{value=Value,limit=Limit},receiver=Receiver}) ->
++            Next = if Value >= Limit -> service:deliver(Receiver), service:mark(Receiver), done;
++                      true -> service:repeat(Value)
++                   end,
++            {ok,State#state{reading=R#sample{value=Value+5,result=Next}},Receiver};
++        retained(other, State=#state{}) ->
++            State.
++        """;
++
++    internal static void Run()
++    {
++        object code = Code(CodeGeneration.CompileBeamModule(Source, "beam_projected_branch_root.erl"));
++        object[] instructions = Items(code, "Instructions");
++        object[] functions = Items(code, "Functions");
++        if (ReadRootKills("released") is not [false, true])
++        {
++            throw new InvalidOperationException(MissingKill);
++        }
++
++        if (ReadRootKills("retained") is not [false, false])
++        {
++            throw new InvalidOperationException(LostRoot);
++        }
++
++        bool[] ReadRootKills(string name)
++        {
++            object function = functions.Single(candidate => (string)Property(candidate, "Name") == name);
++            int start = (int)Property(function, "FirstInstructionIndex");
++            int end = (int)Property(function, "EndInstructionIndex");
++            object[] body = instructions[start..end];
++            int firstCall = Array.FindIndex(body, instruction => Opcode(instruction) == ExternalCall);
++            int finalCall = Array.FindIndex(body, firstCall + 1, instruction => Opcode(instruction) == ExternalCall);
++            object receiver = body.Take(firstCall).Where(instruction => Opcode(instruction) == GetTupleElement)
++                .Select(instruction => Items(instruction, "Operands")).Last(operands =>
++                    (BigInteger)Property(operands[1], "Value") == 2 && (string)Property(operands[^1], "Kind") == "y")[^1];
++
++            return [HasKill(firstCall), HasKill(finalCall)];
++
++            bool HasKill(int call)
++            {
++                int previous = call - 1;
++                while (Opcode(body[previous]) == Line)
++                {
++                    previous--;
++                }
++
++                return Opcode(body[previous]) == InitYRegisters
++                    && Items(body[previous], "Operands").Skip(1).Contains(receiver);
++            }
++        }
++    }
++
++    private static object[] Items(object owner, string property) =>
++        ((IEnumerable)Property(owner, property)).Cast<object>().ToArray();
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++}

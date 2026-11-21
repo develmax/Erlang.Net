@@ -1,0 +1,193 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamForeignRequiredOptionalChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamForeignRequiredOptionalChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamForeignRequiredOptionalChecks.cs
+@@ -0,0 +1,177 @@
++using System.Collections;
++using System.Numerics;
++using Erlang;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamForeignRequiredOptionalChecks
++{
++    internal const string TestName = "compiler/beam/checks-foreign-required-pairs-before-optional-fields";
++    private const string Fixture = "beam_foreign_required_optional_probe.erl";
++    private const string Peer = "beam_foreign_required_optional_peer";
++    private const string Both = "both";
++    private const string Required = "required";
++    private const string Optional = "optional";
++    private const string WrongLayout = "The checked required and optional fields did not retain their pairs in three slots.";
++    private const string WrongValue = "The field result or malformed foreign pair was not preserved.";
++
++    private const string Source = """
++        -module(beam_foreign_required_optional_probe).
++        -export([both/2, required/2, optional/2]).
++
++        both(Record, Tags) ->
++            {_,First,Last} = Record,
++            {A,ALen} = beam_foreign_required_optional_peer:first(First,[1]),
++            {B,BLen} = case Last of
++                absent -> {<<>>,0};
++                _ -> beam_foreign_required_optional_peer:last(Last,[2])
++            end,
++            Parts = [A,B],
++            Size = ALen + BLen,
++            finish(Tags,Parts,Size).
++
++        required(Record, Tags) ->
++            {_,First,Last} = Record,
++            {A,ALen} = beam_foreign_required_optional_peer:first(First,[1]),
++            {B,BLen} = case Last of
++                absent -> {<<>>,0};
++                _ -> local(Last,[2])
++            end,
++            Parts = [A,B],
++            Size = ALen + BLen,
++            finish(Tags,Parts,Size).
++
++        optional(Record, Tags) ->
++            {_,First,Last} = Record,
++            {A,ALen} = local(First,[1]),
++            {B,BLen} = case Last of
++                absent -> {<<>>,0};
++                _ -> beam_foreign_required_optional_peer:last(Last,[2])
++            end,
++            Parts = [A,B],
++            Size = ALen + BLen,
++            finish(Tags,Parts,Size).
++
++        local(Value, _) -> {Value,1}.
++        finish(Tags, Parts, Size) -> {Tags,Parts,Size}.
++        """;
++
++    internal static async Task Run()
++    {
++        byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
++        byte[] dynamicTags = CodeGeneration.CompileBeamModule(
++            Source.Replace("first(First,[1])", "first(First,Tags)", StringComparison.Ordinal), Fixture
++        );
++        var module = BeamModule.Prepare(image, new BeamDependencySelection([Peer]));
++        Term tag = Term.A("tag");
++        Term bad = Term.A("bad");
++        Term first = Term.A("first");
++        Term last = Term.A("last");
++        Term absent = Term.A("absent");
++        int optionalCalls = 0;
++        await using var runtime = new ProcessRuntime();
++        runtime.Modules.Register(
++            Peer,
++            "first",
++            2,
++            (_, args) => ValueTask.FromResult<Term>(args[0].Equals(bad) ? bad : Term.Tuple(args[0], Term.I(1)))
++        );
++        runtime.Modules.Register(
++            Peer,
++            "last",
++            2,
++            (_, args) =>
++            {
++                optionalCalls++;
++
++                return ValueTask.FromResult<Term>(args[0].Equals(bad) ? bad : Term.Tuple(args[0], Term.I(1)));
++            }
++        );
++        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
++        await actor.InvokeAsync(async context =>
++        {
++            foreach (string encoder in new[] { Both, Required, Optional })
++            {
++                Term present = await module.Invoke(
++                    context,
++                    encoder,
++                    Term.Tuple(tag, first, last),
++                    tag
++                );
++                Term missing = await module.Invoke(
++                    context,
++                    encoder,
++                    Term.Tuple(tag, first, absent),
++                    tag
++                );
++                if (!present.Equals(Term.Tuple(tag, Term.List(first, last), Term.I(2)))
++                    || !missing.Equals(Term.Tuple(tag, Term.List(first, new BitString([])), Term.I(1))))
++                {
++                    throw new InvalidOperationException(WrongValue);
++                }
++            }
++
++            await CheckBadPair(Term.Tuple(tag, bad, last), expectedCalls: 2);
++            await CheckBadPair(Term.Tuple(tag, first, bad), expectedCalls: 3);
++
++            return Nil.Value;
++
++            async Task CheckBadPair(Term record, int expectedCalls)
++            {
++                try
++                {
++                    await module.Invoke(
++                        context,
++                        Both,
++                        record,
++                        tag
++                    );
++                }
++                catch (ErlangException error) when (error.Reason.Equals(Term.Tuple(Term.A("badmatch"), bad))
++                    && optionalCalls == expectedCalls)
++                {
++                    return;
++                }
++
++                throw new InvalidOperationException(WrongValue);
++            }
++        });
++
++        if (Frame(image, Both) != 3 || Frame(image, Required) != 3 || Frame(image, Optional) != 3
++            || Frame(dynamicTags, Both) <= 3)
++        {
++            throw new InvalidOperationException(WrongLayout);
++        }
++    }
++
++    private static int Frame(byte[] image, string function)
++    {
++        object code = Code(image);
++        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        object[] instructions = Items(code, "Instructions");
++        int start = Array.FindIndex(
++            instructions,
++            instruction => Opcode(instruction) == FunctionInfo
++                && Items(instruction, "Operands") is [_, var name, var arity]
++                && atoms[Value(name)] == function && Value(arity) == 2
++        );
++        if (start < 0)
++        {
++            throw new InvalidOperationException(WrongLayout);
++        }
++
++        object frame = instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo)
++            .Single(instruction => Opcode(instruction) == Allocate);
++
++        return Value(Items(frame, "Operands")[0]);
++    }
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++
++    private static object[] Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
++}
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12522,6 +12522,7 @@
+ Test(Erlang.Tests.BeamRetainedForeignTripleEncoderChecks.TestName, Erlang.Tests.BeamRetainedForeignTripleEncoderChecks.Run);
+ Test(Erlang.Tests.BeamConstantRemoteDispatchChecks.TestName, Erlang.Tests.BeamConstantRemoteDispatchChecks.Run);
+ Test(Erlang.Tests.BeamAttributeFinalFunctionsChecks.TestName, Erlang.Tests.BeamAttributeFinalFunctionsChecks.Run);
++Test(Erlang.Tests.BeamForeignRequiredOptionalChecks.TestName, Erlang.Tests.BeamForeignRequiredOptionalChecks.Run);
+ Test(Erlang.Tests.BeamGuardedKeyfindPairTailChecks.TestName, Erlang.Tests.BeamGuardedKeyfindPairTailChecks.Run);
+ Test(Erlang.Tests.BeamUnpaddedBitStringContextChecks.TestName, Erlang.Tests.BeamUnpaddedBitStringContextChecks.Run);
+ Test(Erlang.Tests.BeamSingleTaggedChoiceFieldChecks.TestName, Erlang.Tests.BeamSingleTaggedChoiceFieldChecks.Run);

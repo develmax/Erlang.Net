@@ -7,9 +7,25 @@ internal sealed partial class BeamModuleCompiler
     private static byte[]? ReuseStackSlots(
         ReadOnlyMemory<byte> code,
         IReadOnlyList<BeamInstruction> body,
-        List<(int Start, int End, int Slot)> stackOperands,
+        IReadOnlyList<(int Start, int End, int Slot)> stackOperands,
         bool useValueLiveness = false,
         IReadOnlySet<int>? closureEntries = null
+    ) => RewriteReusedStackSlots(
+        code,
+        body,
+        stackOperands,
+        useValueLiveness,
+        closureEntries,
+        atomicOnly: false
+    );
+
+    private static byte[]? RewriteReusedStackSlots(
+        ReadOnlyMemory<byte> code,
+        IReadOnlyList<BeamInstruction> body,
+        IReadOnlyList<(int Start, int End, int Slot)> stackOperands,
+        bool useValueLiveness,
+        IReadOnlySet<int>? closureEntries,
+        bool atomicOnly
     )
     {
         using var output = new MemoryStream();
@@ -25,26 +41,88 @@ internal sealed partial class BeamModuleCompiler
 
             int entry = start;
             start = end + 1;
+            if (atomicOnly && !Enumerable.Range(entry, end - entry).Any(index => IsAtomicStackAliasCandidate(body[index])))
+            {
+                continue;
+            }
+
             int frame = useValueLiveness
                 ? FindLinearFrameSuffix(body, entry, end)
                 : FindEntryFrameAllocation(body, entry, end);
-            var linear = PlanLinearStackSlots(
+            var linear = atomicOnly ? null : PlanLinearStackSlots(
                 body,
                 frame,
                 end,
                 includeUnchanged: useValueLiveness
             );
-            var allocation = linear is { } layout && !useValueLiveness
+            var allocation = atomicOnly
+                ? PlanAtomicProjectionStackSlots(body, entry, end)
+                : linear is { } layout && !useValueLiveness
                 ? (layout.Count, layout.Slots, Trim: ((int Index, int OriginalRemoved, int Kept)?)null)
                 : !useValueLiveness || linear is not null
                     ? PlanBranchStackSlots(
                         body,
                         entry,
                         end,
-                        linearAllocation: useValueLiveness ? frame : -1
+                        linearAllocation: useValueLiveness ? frame : -1,
+                        allowGcBifExceptionExit: useValueLiveness && linear is not null
                     )
                     : null;
-            if (useValueLiveness && allocation is null)
+            if (atomicOnly && allocation is null)
+            {
+                int suffix = FindLinearFrameSuffix(body, entry, end);
+                if (PlanLinearStackSlots(
+                    body,
+                    suffix,
+                    end,
+                    includeUnchanged: true
+                ) is { } linearProof
+                    && PlanAtomicProjectionStackSlots(
+                        body,
+                        entry,
+                        end,
+                        linearAllocation: suffix
+                    ) is { } atomic && atomic.Count < linearProof.Count)
+                {
+                    allocation = atomic;
+                }
+            }
+
+            if (atomicOnly && allocation is null)
+            {
+                int suffix = FindLinearFrameSuffix(body, entry, end);
+                allocation = PlanOwnedEntryBranchSlots(
+                    body,
+                    entry,
+                    suffix,
+                    end,
+                    allowAtomicProjectionAliasing: true
+                );
+            }
+
+            if (!atomicOnly && useValueLiveness && allocation is null && linear is { } ordered
+                && ordered.Count == body[frame].Operands[0].Value
+                && Enumerable.Range(frame + 1, end - frame - 1).Any(index => body[index] is
+                {
+                    Definition.Opcode: GcBifOne,
+                    Operands: [_, _, _, { Kind: BeamOperandParameters.X, TypeIndex: not null }, { Kind: BeamOperandParameters.Y }]
+                })
+                && ordered.Uses.Select(use => use.First).Distinct().Count() == ordered.Count
+                && ordered.Slots.Where((slot, original) => slot != original).Any())
+            {
+                allocation = (ordered.Count, ordered.Slots, null);
+            }
+            if (!atomicOnly && useValueLiveness && allocation is null)
+            {
+                allocation = PlanOwnedEntryBranchSlots(
+                    body,
+                    entry,
+                    frame,
+                    end
+                );
+            }
+
+            if (!atomicOnly && useValueLiveness && allocation is null)
             {
                 int entryFrame = FindEntryFrameAllocation(body, entry, end);
                 bool closure = entryFrame >= 0 && closureEntries?.Contains((int)body[entry].Operands[0].Value) == true;
@@ -91,7 +169,7 @@ internal sealed partial class BeamModuleCompiler
                     // Clearing an old slot must leave its live alias intact.
                     int[] cleared = instruction.Operands.Skip(1)
                         .Select(slot => plan.Slots[(int)slot.Value + originalShift])
-                        .Where(register => register >= 0 && (useValueLiveness || linear is null || !Enumerable.Range(0, plan.Slots.Length)
+                        .Where(register => register >= 0 && (atomicOnly || useValueLiveness || linear is null || !Enumerable.Range(0, plan.Slots.Length)
                             .Any(slot => plan.Slots[slot] == register
                                 && linear.Value.Uses[slot].First < index && linear.Value.Uses[slot].Last > index)))
                         .Select(register => register - allocatedShift)
@@ -168,6 +246,18 @@ internal sealed partial class BeamModuleCompiler
 
         int count = (int)body[allocation].Operands[0].Value;
         int live = (int)body[allocation].Operands[^1].Value;
+        if (count == 2 && HasEntrySaveAndLaterCallResult(
+            body,
+            allocation,
+            end,
+            live
+        ))
+        {
+            // reserve_yregs groups incoming copies before in-frame definitions.
+            // The assembler numbers those reserved variables in reverse order.
+            return (count, [1, 0], null);
+        }
+
         // A full closure frame can follow the evaluation order of lifted arguments.
         if (count < 2 || count > live || count >= end - allocation || (closure && count == live))
         {
@@ -215,6 +305,163 @@ internal sealed partial class BeamModuleCompiler
         }
 
         return (count, slots, null);
+    }
+
+    private static bool HasEntrySaveAndLaterCallResult(
+        IReadOnlyList<BeamInstruction> body,
+        int allocation,
+        int end,
+        int live
+    )
+    {
+        var later = new BeamOperand(BeamOperandParameters.Y, 1);
+        if (allocation + 3 >= end || body[allocation + 1] is not
+            {
+                Definition.Opcode: InitYRegisters, Operands: [{ Value.IsOne: true }, var cleared]
+            }
+            || cleared != later || body[allocation + 2] is not
+            {
+                Definition.Opcode: Move,
+                Operands: [{ Kind: BeamOperandParameters.X, TypeIndex: null } source,
+                { Kind: BeamOperandParameters.Y, Value.IsZero: true, TypeIndex: null }]
+            } || source.Value >= live)
+        {
+            return false;
+        }
+
+        bool found = false;
+        for (int index = allocation + 3; index < end; index++)
+        {
+            var instruction = body[index];
+            if (instruction.Definition.Opcode is Allocate or AllocateHeap or TrimFrame or TryEnter or CatchEnter
+                or TryEnd or TryCase or CatchEnd or DebugLine or ExecutableLine)
+            {
+                return false;
+            }
+
+            if (!found && instruction.Operands.Any(operand => SameProjectionRegister(operand, later)))
+            {
+                if (instruction is not
+                    {
+                        Definition.Opcode: Move,
+                        Operands: [{ Kind: BeamOperandParameters.X, Value.IsZero: true, TypeIndex: null }, var saved]
+                    }
+                    || saved != later || body[index - 1].Definition.Opcode is not (LocalCall or ExternalCall))
+                {
+                    return false;
+                }
+
+                found = true;
+            }
+        }
+
+        return found;
+    }
+
+    private static (int Count, int[] Slots, (int Index, int OriginalRemoved, int Kept)? Trim)? PlanOwnedEntryBranchSlots(
+        IReadOnlyList<BeamInstruction> body,
+        int entry,
+        int frame,
+        int end,
+        bool allowAtomicProjectionAliasing = false
+    )
+    {
+        if (frame <= entry + 1 || body[frame].Operands[0].Value < 2)
+        {
+            return null;
+        }
+
+        int ownFailure = EntryFrameFailureLabel(body, entry);
+        bool needsOwnership = false;
+        bool hasBadMatch = false;
+        for (int index = entry + 1; index < frame; index++)
+        {
+            BeamInstruction instruction = body[index];
+            if (allowAtomicProjectionAliasing && instruction is
+                {
+                    Definition.Opcode: BadMatch,
+                    Operands: [{ Kind: BeamOperandParameters.X }]
+                })
+            {
+                hasBadMatch = true;
+                continue;
+            }
+
+            if (!IsOwnedEntryPrefixInstruction(instruction))
+            {
+                return null;
+            }
+
+            byte opcode = instruction.Definition.Opcode;
+            needsOwnership |= opcode == Move
+                || opcode is not (TailLocalCall or TailExternalCall)
+                    && instruction.Operands.Any(operand => operand.Kind == BeamOperandParameters.Label
+                        && operand.Value != ownFailure);
+        }
+
+        if (!needsOwnership || allowAtomicProjectionAliasing && !hasBadMatch
+            || ReadDisjointFrameOwnership(body, entry, end) is not { } ownership
+            || ownership.Uses.Count != 1 || ownership.Owners[frame - entry] != UnframedOwner)
+        {
+            return null;
+        }
+
+        for (int index = entry + 1; index < end; index++)
+        {
+            BeamInstruction instruction = body[index];
+            byte opcode = instruction.Definition.Opcode;
+            if (opcode is TryEnter or CatchEnter or TryEnd or TryCase or CatchEnd or TryCaseEnd or TrimFrame or Raise
+                || instruction.Definition.Name is "debug_line" or "executable_line")
+            {
+                return null;
+            }
+
+            if (index == frame)
+            {
+                continue;
+            }
+
+            int owner = ownership.Owners[index - entry];
+            if (owner != frame && (LinearFrameSizeOperand(opcode) >= 0
+                    || instruction.Operands.Any(operand => operand.Kind == BeamOperandParameters.Y))
+                || owner == UnframedOwner && index > frame
+                    && !(IsOwnedEntryPrefixInstruction(instruction)
+                        || opcode is TestHeap or PutTuple or PutList or BadMatch or BadRecord or CaseEnd or IfEnd)
+                || owner == frame && opcode is not (LocalCall or TailLocalCall or TailLocalCallWithFrame)
+                    && instruction.Operands.Any(operand => operand.Kind == BeamOperandParameters.Label
+                        && operand.Value == ownFailure))
+            {
+                // The emitter visits even unreachable instructions. Only owned sites may change
+                // stack operands or widths, and naked exits must never acquire a framed edge.
+                return null;
+            }
+        }
+
+        // A matched prefix can end in a frameless badmatch while its success
+        // continuation still needs the same atomic projection reuse as an entry frame.
+        return allowAtomicProjectionAliasing
+            ? PlanAtomicProjectionStackSlots(
+                body,
+                entry,
+                end,
+                linearAllocation: frame
+            )
+            : PlanBranchStackSlots(
+                body,
+                entry,
+                end,
+                linearAllocation: frame
+            );
+    }
+
+    private static bool IsOwnedEntryPrefixInstruction(BeamInstruction instruction)
+    {
+        byte opcode = instruction.Definition.Opcode;
+
+        return (opcode is Label or Line or Jump or Return or TailLocalCall or TailExternalCall
+                || opcode == Move && instruction.Operands[^1].Kind == BeamOperandParameters.X
+                || IsEntryFramePredicate(opcode) || IsUnframedEntryProjection(instruction))
+            && instruction.Operands.All(operand => operand.Kind != BeamOperandParameters.Y);
     }
 
     private static int FindLinearFrameSuffix(IReadOnlyList<BeamInstruction> body, int entry, int end)
@@ -285,7 +532,8 @@ internal sealed partial class BeamModuleCompiler
                 || opcode is RemoveMessage or ReceiveTimeout or LoopReceive or LoopReceiveEnd or Wait or WaitTimeout
                 || instruction.Definition.Name == "debug_line"
                 || opcode is not (LocalCall or TailLocalCall or TailLocalCallWithFrame)
-                    && instruction.Operands.Any(operand => operand.Kind == BeamOperandParameters.Label))
+                    && instruction.Operands.Any(operand => operand.Kind == BeamOperandParameters.Label
+                        && (!operand.Value.IsZero || opcode is not (GcBifOne or GcBifTwo or GcBifThree))))
             {
                 return null;
             }

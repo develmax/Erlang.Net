@@ -1,0 +1,119 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Calls/BeamClearedCallProjectionCopyChecks.cs b/tests/Erlang.Tests/Compiler/Beam/Calls/BeamClearedCallProjectionCopyChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/Calls/BeamClearedCallProjectionCopyChecks.cs
+@@ -0,0 +1,114 @@
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++using static Erlang.Tests.BeamOpcodeEdgeBytes;
++
++namespace Erlang.Tests;
++
++internal static class BeamClearedCallProjectionCopyChecks
++{
++    internal const string TestName = "compiler/beam/removes-cleared-call-projection-copy-pairs";
++    private const string ChangedArgument = "The original call argument and existing frame clear must survive removal of the copy pair.";
++    private const string UnsafeRemoval = "A live slot, overwritten X register, intervening effect or unclear slot must keep its copies.";
++
++    internal static Task Run()
++    {
++        byte[] original = Program();
++        byte[] expected = Program(includeCopies: false);
++        if (Rewrite(original) is not { } rewritten || !rewritten.AsSpan().SequenceEqual(expected))
++        {
++            throw new InvalidOperationException(ChangedArgument);
++        }
++
++        byte[] secondRegister = Program(projectedRegister: 1);
++        byte[] secondExpected = Program(projectedRegister: 1, includeCopies: false);
++        if (Rewrite(secondRegister) is not { } second || !second.AsSpan().SequenceEqual(secondExpected))
++        {
++            throw new InvalidOperationException(ChangedArgument);
++        }
++
++        byte[][] negative =
++        [
++            Program(clear: false),
++            Program(intervening: [Move, Y(0), X(2)]),
++            Program(intervening: [GetTupleElement, Y(0), U(0), X(2)]),
++            Program(intervening: [Move, X(1), X(0)]),
++            Program(intervening: [TestHeap, U(2), U(1)]),
++            Program(afterReload: [Move, Y(0), X(2)]),
++            Program(afterReload: [InitYRegisters, ExtendedListOperand, U(1), Y(1)], clear: false),
++            Program(intervening: [.. Enumerable.Repeat(new byte[] { Move, X(1), X(2) }, 6).SelectMany(move => move)])
++        ];
++        if (negative.Any(candidate => Rewrite(candidate) is not null))
++        {
++            throw new InvalidOperationException(UnsafeRemoval);
++        }
++
++        return Task.CompletedTask;
++    }
++
++    private static byte[] Program(
++        int projectedRegister = 0,
++        bool includeCopies = true,
++        bool clear = true,
++        byte[]? intervening = null,
++        byte[]? afterReload = null
++    )
++    {
++        byte argument = X(projectedRegister);
++        byte other = X(1 - projectedRegister);
++        byte[] save = includeCopies ? [Move, argument, Y(0)] : [];
++        byte[] load = includeCopies ? [Move, Y(0), argument] : [];
++        byte[] initialize = clear ? [InitYRegisters, ExtendedListOperand, U(1), Y(0)] : [];
++        byte[] entry = Start(
++            1,
++            2,
++            1,
++            2
++        );
++        byte[] leaf = Start(
++            3,
++            4,
++            2,
++            2
++        );
++
++        return
++        [
++            .. entry, Allocate, U(2), U(2), Move, other, Y(1),
++            GetTupleElement, argument, U(0), argument, .. save,
++            GetTupleElement, Y(1), U(1), other, .. (intervening ?? []), .. load,
++            .. (afterReload ?? []), .. initialize, LocalCall, U(2), F(4),
++            Move, X(0), Y(0), Move, Y(0), X(0), Deallocate, U(2), Return,
++            .. leaf, Return, EndCode
++        ];
++    }
++
++    private static byte[]? Rewrite(byte[] program)
++    {
++        ReadOnlyMemory<byte> code = program;
++        object header = New(
++            "BeamCodeHeader",
++            0,
++            (int)InitYRegisters,
++            5,
++            2,
++            code
++        );
++        object body = Call(
++            Type("BeamInstructionReader"),
++            "Read",
++            header,
++            4,
++            0,
++            null,
++            null
++        );
++
++        return (byte[]?)Call(
++            typeof(BeamModuleCompiler),
++            "RemoveClearedCallProjectionCopyPairs",
++            code,
++            body
++        );
++    }
++}

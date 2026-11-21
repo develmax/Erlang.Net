@@ -1,0 +1,2 @@
+[P,Out]=init:get_plain_arguments(),{beam_file,asn1ct,_,_,_,Fs}=beam_disasm:file(P),
+ok=file:write_file(Out,io_lib:format("~p.~n",[length(Fs)])),halt().

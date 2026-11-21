@@ -7,8 +7,10 @@ internal sealed partial class BeamModuleCompiler
     private static byte[]? DelayEntryStackFrame(
         ReadOnlyMemory<byte> code,
         IReadOnlyList<BeamInstruction> body,
-        List<(int Start, int End, int Slot)> stackOperands,
-        Func<BeamInstruction, bool> isFramelessExternalTail
+        IReadOnlyList<(int Start, int End, int Slot)> stackOperands,
+        Func<BeamInstruction, bool> isFramelessExternalTail,
+        Func<BeamInstruction, bool> isPublicEntry,
+        bool closedListMatchesOnly = false
     )
     {
         using var output = new MemoryStream();
@@ -25,7 +27,7 @@ internal sealed partial class BeamModuleCompiler
             }
 
             int allocationIndex = FindEntryFrameAllocation(body, start, end);
-            var plan = allocationIndex < 0 ? null : PlanCheckedTagFallbackFrame(
+            var plan = allocationIndex < 0 || closedListMatchesOnly ? null : PlanCheckedTagFallbackFrame(
                 body,
                 start,
                 allocationIndex,
@@ -61,6 +63,25 @@ internal sealed partial class BeamModuleCompiler
                 allowLeadingProjection: true,
                 isPendingFramelessTail: IsPendingFramelessTail
             );
+            if (closedListMatchesOnly && allocationIndex >= 0)
+            {
+                plan = PlanRepeatedEntryListTails(
+                    body,
+                    start,
+                    allocationIndex,
+                    end
+                );
+            }
+
+            // Exported arguments may arrive without the local record facts
+            // that can eliminate a private callee's entry refinements.
+            if (!closedListMatchesOnly && plan is null && start > 0 && isPublicEntry(body[start - 1])
+                && PlanCheckedEntryProjectionAndTests(body, start, end) is { } projected)
+            {
+                allocationIndex = projected.Allocation;
+                plan = projected.Placement;
+            }
+
             if (plan is { } placement)
             {
                 int allocation = body[allocationIndex].Offset;
@@ -187,7 +208,12 @@ internal sealed partial class BeamModuleCompiler
             (flow ??= new BeamProjectionFlow(body)).IsBranchTemporaryDead(index, value);
     }
 
-    private static int FindEntryFrameAllocation(IReadOnlyList<BeamInstruction> body, int start, int end)
+    private static int FindEntryFrameAllocation(
+        IReadOnlyList<BeamInstruction> body,
+        int start,
+        int end,
+        bool allowUnframedProjections = false
+    )
     {
         if (end - start < 3 || body[start].Definition.Opcode != Label)
         {
@@ -212,7 +238,8 @@ internal sealed partial class BeamModuleCompiler
 
             bool bif = opcode is BifZero or BifOne or BifTwo or BifThree or GcBifOne or GcBifTwo or GcBifThree;
             // Earlier branches may leave through func_info, but cannot bypass the moved frame.
-            if (!(bif || opcode == Line || IsEntryFramePredicate(opcode))
+            if (!(bif || opcode == Line || IsEntryFramePredicate(opcode)
+                    || allowUnframedProjections && IsUnframedEntryProjection(instruction))
                 || instruction.Operands.Any(operand => operand.Kind == BeamOperandParameters.Y
                     || operand.Kind == BeamOperandParameters.Label && operand.Value != failure))
             {
@@ -412,6 +439,10 @@ internal sealed partial class BeamModuleCompiler
             return null;
         }
 
+        int ownFailure = !extendEntry && allocation.Definition.Opcode == Allocate
+            && body[start - 1] is { Definition.Opcode: FunctionInfo, Operands: [_, _, var functionArity] } && functionArity.Value <= live
+            && body.Skip(start + 1).Take(allocationIndex - start - 1).All(instruction => instruction.Definition.Opcode == Line)
+                ? EntryFrameFailureLabel(body, start) : -1;
         int terminalListMatchRelay = ReadTerminalListMatchRelay();
         var delayed = new HashSet<int>();
         var required = new HashSet<int>();
@@ -451,7 +482,7 @@ internal sealed partial class BeamModuleCompiler
                 || opcode is Label or Line or Jump or BadMatch or BadRecord or CaseEnd or IfEnd or Return
                 || index == terminalListMatchRelay
                 || opcode == Move && deallocates && instruction.Operands[1] is { Kind: BeamOperandParameters.X, Value.IsZero: true }
-                || IsEntryFrameReturn(index);
+                || IsEntryFrameReturn(index) || IsEntryFunctionClauseRelay(index);
             var (registers, projected, maybeProjected) = extendEntry
                 ? registerLimits[index] : (live, false, false);
             if (allowFramelessTail)
@@ -729,6 +760,56 @@ internal sealed partial class BeamModuleCompiler
         }
 
         return null;
+
+        bool IsEntryFunctionClauseRelay(int index)
+        {
+            if (ownFailure < 0 || index + 1 >= end || body[index].Definition.Opcode != Deallocate
+                || body[index].Operands[0].Value != frameSize
+                || body[index + 1] is not { Definition.Opcode: Jump, Operands: [var target] }
+                || target.Kind != BeamOperandParameters.Label || target.Value != ownFailure)
+            {
+                return false;
+            }
+
+            int relay = index - 1;
+            while (relay > first && body[relay].Definition.Opcode == Line)
+            {
+                relay--;
+            }
+
+            if (relay <= first || body[relay].Definition.Opcode != Label)
+            {
+                return false;
+            }
+
+            int testsEnd = first;
+            while (testsEnd < relay && (body[testsEnd].Definition.Opcode == Line
+                || IsEntryFramePredicate(body[testsEnd].Definition.Opcode)))
+            {
+                testsEnd++;
+            }
+
+            // Func_info reads the original arity's X registers. Only the straight-line,
+            // read-only entry predicates may reach the relay. A framed edge must deallocate.
+            bool hasEntry = false;
+            for (int predecessor = start; predecessor < end; predecessor++)
+            {
+                if (!Successors(predecessor).Contains(relay))
+                {
+                    continue;
+                }
+
+                if (predecessor < first || predecessor >= testsEnd
+                    || !IsEntryFramePredicate(body[predecessor].Definition.Opcode))
+                {
+                    return false;
+                }
+
+                hasEntry = true;
+            }
+
+            return hasEntry;
+        }
 
         int ReadTerminalListMatchRelay()
         {

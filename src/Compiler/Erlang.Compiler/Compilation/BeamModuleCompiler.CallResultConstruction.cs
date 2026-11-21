@@ -64,7 +64,33 @@ internal sealed partial class BeamModuleCompiler
 
         private bool TryEmitCallResultConstruction(FunctionDefinition function)
         {
-            if (function.Clauses is not [{ Guard: null } clause])
+            EntryCall? emptyTail = null;
+            Clause clause;
+            if (function.Clauses is [{ Guard: null } single])
+            {
+                clause = single;
+            }
+            else if (!owner.ModuleOptimizationDisabled && function.Clauses is
+                [
+                {
+                    Guard: null, Patterns: [Pattern.Literal { Value: Nil } or Pattern.List { Items.Count: 0, Tail: null }],
+                    Body: Expr.Call { Module: null, DynamicRemote: false, Arguments: [Expr fallbackValue] } fallback
+                },
+                { Guard: null, Patterns: [Pattern.List { Items: [Erlang.Pattern.Variable { }], Tail: null }] } nonempty
+                ]
+                && function.Arity == 1 && function.Name == fallback.Function
+                && AttributeLiteral.TryNormalizeConstant(fallbackValue, out Term defaultList)
+                && defaultList is Cons { Tail: Nil })
+            {
+                emptyTail = ReadEntryCall(fallback, []);
+                if (emptyTail is null)
+                {
+                    return false;
+                }
+
+                clause = nonempty;
+            }
+            else
             {
                 return false;
             }
@@ -76,6 +102,7 @@ internal sealed partial class BeamModuleCompiler
             string? resultBinding = null;
             Expr.Call? call = null;
             EntryCall? closureCall = null;
+            EntryCall? headCall = null;
             var result = expressions[^1];
             if (expressions is [.., Expr.Match
                 {
@@ -95,7 +122,7 @@ internal sealed partial class BeamModuleCompiler
             }
 
             bool testsNil = clause.Patterns is [Pattern.List { Items: [], Tail: null } or Pattern.Literal { Value: Nil }];
-            if (!testsNil && head is null && !HasUnconditionalParameters(clause))
+            if (head is null && (emptyTail is not null || !testsNil && !HasUnconditionalParameters(clause)))
             {
                 return false;
             }
@@ -132,8 +159,11 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
+            Expr.Binary? adjustment = null;
+            Integer? increment = null;
             var containers = new List<(bool IsList, Term?[] Items)>();
             if (!ReadConstruction(result) || containers.Count == 0 || call is null
+                || result is Expr.RecordConstruction && adjustment is null
                 || discarded is not null && closureCall is null)
             {
                 return false;
@@ -146,10 +176,12 @@ internal sealed partial class BeamModuleCompiler
             }
 
             BeamSourceLocation previous = location;
-            if (head is not null)
+            int functionInfo = owner.nextLabel - 2;
+            int emptyLabel = emptyTail is null ? 0 : Label();
+            if (headCall is not null)
             {
-                int failure = owner.nextLabel - 2;
-                owner.EmitNonemptyList(0, failure);
+                // OTP emits the checked cons branch before the nil fallback.
+                owner.EmitNonemptyList(0, emptyTail is null ? functionInfo : emptyLabel);
                 owner.EmitListParts(
                     0,
                     XRegisterTag,
@@ -157,14 +189,9 @@ internal sealed partial class BeamModuleCompiler
                     XRegisterTag,
                     2
                 );
-                owner.EmitNilTest(XRegisterTag, 2, failure);
+                owner.EmitNilTest(XRegisterTag, 2, functionInfo);
                 EmitFrameAllocation(2, 0);
-                owner.MoveRegister(
-                    XRegisterTag,
-                    1,
-                    XRegisterTag,
-                    0
-                );
+                EmitEntryCallArguments(headCall);
             }
             else
             {
@@ -219,6 +246,28 @@ internal sealed partial class BeamModuleCompiler
                 owner.Op(ExternalCall, BeamWire.UnsignedTag, arity);
                 owner.Operand(BeamWire.UnsignedTag, owner.Import(call.Module, call.Function, arity));
             }
+            if (adjustment is not null)
+            {
+                var adjustmentLocation = CallLocation(call, previous);
+                owner.EmitArithmeticLine(adjustment.SourceLine, ref adjustmentLocation);
+                owner.Op(GcBifTwo, LabelTag, 0);
+                owner.Operand(BeamWire.UnsignedTag, 1);
+                owner.Operand(BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module, adjustment.Operator, 2));
+                if (call.Module is null && localFunctions.TryGetValue((call.Function, arity), out var callee)
+                    && !owner.IsDeclaredNative((call.Function, arity))
+                    && callee.Clauses.All(clause => ReturnsNumber(clause.Body)))
+                {
+                    owner.EmitTypedRegister(0, NumberTypeBits);
+                }
+                else
+                {
+                    owner.Operand(XRegisterTag, 0);
+                }
+
+                owner.LiteralOperand(increment!);
+                owner.Operand(XRegisterTag, 0);
+            }
+
             int heap = containers.Sum(container => container.IsList ? ConsHeapWords * container.Items.Length : container.Items.Length + 1);
             owner.Op(TestHeap, BeamWire.UnsignedTag, heap);
             owner.Operand(BeamWire.UnsignedTag, 1);
@@ -247,6 +296,14 @@ internal sealed partial class BeamModuleCompiler
             }
 
             owner.EmitFrameReturn(0);
+            if (emptyTail is not null)
+            {
+                Mark(emptyLabel);
+                owner.EmitNilTest(XRegisterTag, 0, functionInfo);
+                EmitEntryCallArguments(emptyTail);
+                owner.Op(TailLocalCall, BeamWire.UnsignedTag, emptyTail.Call.Arguments.Count);
+                owner.Operand(LabelTag, entries[(emptyTail.Call.Function, emptyTail.Call.Arguments.Count)]);
+            }
 
             return true;
 
@@ -254,8 +311,17 @@ internal sealed partial class BeamModuleCompiler
             {
                 if (head is not null)
                 {
-                    return candidate.Arguments is [Expr.Variable argument] && argument.Name == head.Name
-                        && TryResolveOrdinaryCall(candidate, out string? module) && module == candidate.Module;
+                    if (owner.ModuleOptimizationDisabled && candidate.Arguments.Count != 1
+                        || !candidate.Arguments.OfType<Expr.Variable>().Any(argument => argument.Name == head.Name)
+                        || ReadEntryCall(candidate, [VariableScopeNames.Wildcard, head.Name]) is not { } plannedHead
+                        || plannedHead.Module != candidate.Module)
+                    {
+                        return false;
+                    }
+
+                    headCall = plannedHead;
+
+                    return true;
                 }
 
                 if (candidate.Arguments.Count == 0)
@@ -285,6 +351,14 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
+            static bool ReturnsNumber(Expr expression) => expression switch
+            {
+                Expr.Binary { Operator: ErlangOperators.Plus or ErlangOperators.Minus or ErlangOperators.Multiply } => true,
+                Expr.Sequence { Items.Count: > 0 } sequence => ReturnsNumber(sequence.Items[^1]),
+                Expr.Block block => ReturnsNumber(block.Body),
+                _ => false
+            };
+
             bool ReadConstruction(Expr expression)
             {
                 if (expression is Expr.Variable variable)
@@ -299,9 +373,23 @@ internal sealed partial class BeamModuleCompiler
                     return true;
                 }
 
+                if (call is null && owner.SsaTypeInferenceEnabled && !owner.ModuleOptimizationDisabled
+                    && expression is Expr.Binary arithmetic
+                    && ReadCallArithmetic(arithmetic) is { } operands
+                    && TryResolveOrdinaryCallTarget(operands.Call, out _))
+                {
+                    // A single owner passes from the call through arithmetic to the enclosing constructors.
+                    call = operands.Call;
+                    adjustment = arithmetic;
+                    increment = operands.Increment;
+
+                    return true;
+                }
+
                 IReadOnlyList<Expr>? children = expression switch
                 {
                     Expr.Tuple tuple => tuple.Items,
+                    Expr.RecordConstruction record when ReferenceEquals(record, result) => RecordExpressions.Create(record).Items,
                     Expr.List { Tail: null } list => list.Items,
                     _ => null
                 };
@@ -339,6 +427,21 @@ internal sealed partial class BeamModuleCompiler
 
                 return true;
             }
+
+            static (Expr.Call Call, Integer Increment)? ReadCallArithmetic(Expr.Binary expression) => expression switch
+            {
+                {
+                    Operator: ErlangOperators.Plus or ErlangOperators.Minus,
+                    Left: Expr.Call { Module: null, DynamicRemote: false, Arguments.Count: 0 } call,
+                    Right: Expr.Literal { Value: Integer value }
+                } => (call, value),
+                {
+                    Operator: ErlangOperators.Plus,
+                    Left: Expr.Literal { Value: Integer value },
+                    Right: Expr.Call { Module: null, DynamicRemote: false, Arguments.Count: 0 } call
+                } => (call, value),
+                _ => null
+            };
         }
     }
 }

@@ -58,7 +58,9 @@ internal sealed class NativeRecordTypeParser(
                 column++;
         }
 
-        return Term.Tuple(Term.I(line), Term.I(column));
+        Term location = Term.Tuple(Term.I(line), Term.I(column));
+
+        return BeamReleaseFunctionDebug.TypeSourceAnnotation(source.AsSpan(offset), location);
     }
 
     private Term Node(string kind, int offset, params Term[] values) => new TupleTerm(new[] { Term.A(kind), Annotation(offset) }.Concat(values));
@@ -129,11 +131,11 @@ internal sealed class NativeRecordTypeParser(
         while (Current.Kind is LexerTokenKinds.Symbol or LexerTokenKinds.Keyword
             && Priority(Current.Text) is var priority && priority >= minimum && priority > 0)
         {
-            string operation = tokens[Position++].Text;
-            value = Node(
-                NativeRecordTypeNames.Operator,
-                offset,
-                Term.A(operation),
+            Token operation = tokens[Position++];
+            value = Term.Tuple(
+                Term.A(NativeRecordTypeNames.Operator),
+                BeamReleaseFunctionDebug.AbstractAnnotation(operation, source),
+                Term.A(operation.Text),
                 value,
                 Arithmetic(priority + 1)
             );
@@ -175,7 +177,9 @@ internal sealed class NativeRecordTypeParser(
         }
         if (Take(ErlangSyntaxTokens.BinaryOpen))
         {
-            Term zero = Node(NativeRecordTypeNames.Integer, offset, Term.I(0));
+            // erl_parse abstracts omitted components with erl_anno:line/1.
+            Term line = ((TupleTerm)Annotation(offset)).Items[0];
+            Term zero = Term.Tuple(Term.A(NativeRecordTypeNames.Integer), line, Term.I(0));
             Term basis = zero;
             Term unit = zero;
             if (!Take(ErlangSyntaxTokens.BinaryClose))

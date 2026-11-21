@@ -180,9 +180,12 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(XRegisterTag, 2);
         }
 
-        private void EmitFloatDivisionResult(int live, int destination)
+        private void EmitFloatDivisionResult(int live, int destination) =>
+            EmitFloatArithmeticResult(FloatDivide, live, destination);
+
+        private void EmitFloatArithmeticResult(byte opcode, int live, int destination)
         {
-            owner.Op(FloatDivide, LabelTag, 0);
+            owner.Op(opcode, LabelTag, 0);
             EmitFloatRegister(0);
             EmitFloatRegister(1);
             EmitFloatRegister(0);

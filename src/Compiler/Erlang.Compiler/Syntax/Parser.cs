@@ -332,6 +332,7 @@ public sealed partial class Parser
             OnLoadFunction = onLoad,
             EunitExports = eunitExports,
             DiameterAccessorLines = diameterAccessorLines,
+            HasResolvedDiameterRecordTransform = callBindings.HasDiameterRecordTransform,
             EunitAutoExportCount = callBindings.EunitAutoExportCount,
             HasGeneratedEunitTest = generatedEunitTest,
             Documentation = documentation.AsReadOnly(),
@@ -619,12 +620,19 @@ public sealed partial class Parser
                 throw Error(ParserDiagnostics.TryNeedsHandler);
             Expect(ErlangKeywords.End);
 
+            int tryLine = Array.BinarySearch(sourceLineStarts, sourceStart);
+
             return new Expr.Try(
                 body,
                 clauses,
                 catches,
                 after
-            );
+            )
+            {
+                SourceLine = sourceToken.PreprocessorLine != 0 ? sourceToken.PreprocessorLine
+                    : tryLine >= 0 ? tryLine + 1 : ~tryLine,
+                PreprocessorFile = sourceToken.PreprocessorFile
+            };
         }
         if (Take(ErlangKeywords.Catch))
             return new Expr.Catch(Expression());
@@ -837,7 +845,7 @@ public sealed partial class Parser
                     IsCharacterLiteral = token.IsCharacterLiteral
                 },
                 LexerTokenKinds.Float => new Expr.Literal(new FloatTerm(double.Parse(token.Text, CultureInfo.InvariantCulture))),
-                LexerTokenKinds.String => new Expr.Literal(Term.String(StringLiteralTokens.Read(tokens, ref position))),
+                LexerTokenKinds.String => ReadStringLiteral(),
                 LexerTokenKinds.BinaryString => new Expr.Literal(new BitString(Encoding.UTF8.GetBytes(token.Text))),
                 LexerTokenKinds.Variable => new Expr.Variable(token.Text),
                 LexerTokenKinds.Atom or LexerTokenKinds.QuotedAtom => new Expr.Literal(Term.A(token.Text)),
@@ -846,6 +854,13 @@ public sealed partial class Parser
         }
 
         return result;
+    }
+
+    private Expr.Literal ReadStringLiteral()
+    {
+        string text = StringLiteralTokens.Read(tokens, ref position);
+
+        return new(Term.String(text)) { IsEmptyStringLiteral = preserveDocumentationStringLiterals && text.Length == 0 };
     }
 
     private Expr ReadFunName() => Current.Kind == LexerTokenKinds.Variable
@@ -927,12 +942,23 @@ public sealed partial class Parser
         {
             int generatorIndex = Array.BinarySearch(sourceLineStarts, generatorToken.Start);
             int generatorLine = generatorIndex >= 0 ? generatorIndex + 1 : ~generatorIndex;
+            int inputPosition = position;
+            while (tokens[inputPosition] is { Kind: LexerTokenKinds.Symbol, Text: ErlangSyntaxTokens.OpenParenthesis })
+            {
+                inputPosition++;
+            }
+
+            var inputToken = tokens[inputPosition];
+            int inputIndex = Array.BinarySearch(sourceLineStarts, inputToken.Start);
+            int inputLine = inputIndex >= 0 ? inputIndex + 1 : ~inputIndex;
 
             return new ComprehensionQualifier.Generator(ToPattern(qualifier), Expression(), strict)
             {
                 SourceLine = qualifierLine,
                 GeneratorLine = generatorToken.PreprocessorLine == 0 ? generatorLine : generatorToken.PreprocessorLine,
-                GeneratorFile = generatorToken.PreprocessorFile
+                GeneratorFile = generatorToken.PreprocessorFile,
+                InputLine = inputToken.PreprocessorLine == 0 ? inputLine : inputToken.PreprocessorLine,
+                InputFile = inputToken.PreprocessorFile
             };
         }
         if (qualifier is Expr.Match)
@@ -1151,6 +1177,8 @@ public sealed partial class Parser
         Expect(ErlangSyntaxTokens.OpenTuple);
         var fields = new List<RecordField>();
         Expr? wildcard = null;
+        Token? firstUpdateField = null;
+        int firstUpdateIndex = int.MaxValue;
         if (!Take(ErlangSyntaxTokens.CloseTuple))
         {
             do
@@ -1163,8 +1191,15 @@ public sealed partial class Parser
                 }
                 else
                 {
+                    Token fieldToken = Current;
                     field = Name();
-                    FieldIndex(field);
+                    int index = FieldIndex(field);
+                    if (recordBase is not null && index < firstUpdateIndex)
+                    {
+                        // Tuple-record expansion sorts setelement updates by field index.
+                        firstUpdateField = fieldToken;
+                        firstUpdateIndex = index;
+                    }
                 }
                 if (fields.Any(value => value.Name == field))
                     throw RecordError(RecordDiagnostics.DuplicateField(field));
@@ -1181,12 +1216,25 @@ public sealed partial class Parser
         if (wildcard is not null)
             throw RecordError(RecordDiagnostics.WildcardUpdate);
 
+        int updateLine = 0;
+        if (firstUpdateField is { } token)
+        {
+            int fieldLine = Array.BinarySearch(sourceLineStarts, token.Start);
+            updateLine = token.PreprocessorLine != 0
+                ? token.PreprocessorLine
+                : fieldLine >= 0 ? fieldLine + 1 : ~fieldLine;
+        }
+
         return new Expr.RecordUpdate(
             recordBase,
             name,
             definition.Fields.Count + 1,
             fields.Select(field => new RecordUpdateField(FieldIndex(field.Name), field.Value)).ToArray()
-        );
+        )
+        {
+            FailureSourceLine = updateLine,
+            FailureSourceFile = firstUpdateField?.PreprocessorFile
+        };
     }
 
     private Expr ParseMap(Expr? mapBase)

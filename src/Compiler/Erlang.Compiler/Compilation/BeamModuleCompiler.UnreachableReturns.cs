@@ -4,6 +4,8 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
+    private bool removedInteriorRecordFailure;
+
     private void CollectUnreachableBlocks(
         IReadOnlyList<BeamInstruction> body,
         List<(int Start, int End, int Label)> labelOperands,
@@ -12,6 +14,7 @@ internal sealed partial class BeamModuleCompiler
     )
     {
         var referenced = labelOperands.Select(operand => operand.Label).ToHashSet();
+        bool? supportsLineRebuild = null;
         for (int index = 1; index + 1 < body.Count; index++)
         {
             if (body[index] is not { Definition.Opcode: Label, Operands: [var entry] }
@@ -37,10 +40,33 @@ internal sealed partial class BeamModuleCompiler
                     failure++;
                 }
 
-                if (body[failure].Definition.Opcode is not (BadRecord or BadMatch or CaseEnd or IfEnd)
-                    || !IsNextFunctionBoundary(body, failure + 1))
+                int failureOpcode = body[failure].Definition.Opcode;
+                if (failureOpcode is not (BadRecord or BadMatch or CaseEnd or IfEnd))
                 {
                     continue;
+                }
+
+                if (!IsNextFunctionBoundary(body, failure + 1))
+                {
+                    // A proven local record can leave its failure between live cold
+                    // blocks. Keep any source location inherited by the next block.
+                    if (ModuleOptimizationDisabled || failureOpcode != BadRecord
+                        || failure + 2 >= body.Count
+                        || body[failure + 1].Definition.Opcode != Label
+                        || body[failure + 2].Definition.Opcode != Line)
+                    {
+                        continue;
+                    }
+
+                    supportsLineRebuild ??= body.All(instruction =>
+                        instruction.Definition.Opcode is not (DebugLine or ExecutableLine)
+                    );
+                    if (!supportsLineRebuild.Value)
+                    {
+                        continue;
+                    }
+
+                    removedInteriorRecordFailure = true;
                 }
 
                 lineInstructions -= failure - end;

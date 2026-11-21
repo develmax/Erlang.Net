@@ -1,0 +1,32 @@
+--- original/Program.cs
++++ capture/Program.cs
+@@ -330,6 +330,14 @@
+         );
+     }
+ 
++    if (generatedDirectory is not null)
++    {
++        string imagePath = Path.Combine(generatedDirectory, relative);
++        Directory.CreateDirectory(Path.GetDirectoryName(imagePath)!);
++        File.WriteAllBytes(imagePath, generated);
++    }
++
++    int offset = 0;
+     byte[] original = File.ReadAllBytes(beam);
+     if (original.AsSpan().SequenceEqual(generated))
+     {
+@@ -341,14 +349,6 @@
+         );
+     }
+ 
+-    if (generatedDirectory is not null)
+-    {
+-        string imagePath = Path.Combine(generatedDirectory, relative);
+-        Directory.CreateDirectory(Path.GetDirectoryName(imagePath)!);
+-        File.WriteAllBytes(imagePath, generated);
+-    }
+-
+-    int offset = 0;
+     int sharedLength = Math.Min(original.Length, generated.Length);
+     while (offset < sharedLength && original[offset] == generated[offset])
+     {

@@ -1,0 +1,162 @@
+using System.Collections;
+using System.Numerics;
+using Erlang;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamAliasedBitValueDispatchChecks
+{
+    internal const string TestName = "compiler/beam/dispatches-aliased-bit-values-without-consuming-the-list-tail";
+    private const string Fixture = "beam_aliased_bit_value_dispatch_probe.erl";
+    private const string Dispatch = "choose";
+    private const string InvalidValue = "The bit-value dispatcher changed the selected branch, original input, or function-clause error.";
+    private const string InvalidLayout = "The dispatcher should read the head alone only when the two named clauses forward the same arguments.";
+    private const string SharedTaggedBranch =
+        "choose([{bit, _} | _] = Input, Names, Tags) -> named(Input, Names, Tags);";
+    private const string DifferentTaggedBranch =
+        "choose([{bit, _} | _] = Input, _Names, Tags) -> unnamed(Input, Tags);";
+
+    private const string Source = """
+        -module(beam_aliased_bit_value_dispatch_probe).
+        -export([choose/3]).
+
+        choose([Head | _] = Input, Names, Tags) when is_atom(Head) ->
+            named(Input, Names, Tags);
+        choose([{bit, _} | _] = Input, Names, Tags) -> named(Input, Names, Tags);
+        choose([], _Names, Tags) -> unnamed(<<>>, Tags);
+        choose(Input, _Names, Tags) when is_bitstring(Input) -> unnamed(Input, Tags).
+
+        named(Input, Names, Tags) -> {named, Input, Names, Tags}.
+        unnamed(Input, Tags) -> {unnamed, Input, Tags}.
+        """;
+
+    internal static async Task Run()
+    {
+        byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
+        byte[] controlImage = CodeGeneration.CompileBeamModule(
+            Source.Replace(SharedTaggedBranch, DifferentTaggedBranch, StringComparison.Ordinal),
+            Fixture
+        );
+        var matched = BeamModule.Prepare(image);
+        var control = BeamModule.Prepare(controlImage);
+        await using var runtime = new ProcessRuntime();
+        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
+        await actor.InvokeAsync(async context =>
+        {
+            Term names = Term.A("names");
+            Term tags = Term.A("tags");
+            Term named = Term.A("named");
+            Term unnamed = Term.A("unnamed");
+            Term position = Term.Tuple(Term.A("bit"), Term.I(9));
+            Term tagged = Term.List(position);
+            Term symbolic = new Cons(Term.A("high"), Term.A("improper_tail"));
+            Term empty = new BitString([]);
+            Term unaligned = new BitString([160], 3);
+            (Term Input, Term Expected)[] cases =
+            [
+                (tagged, Term.Tuple(
+                    named,
+                    tagged,
+                    names,
+                    tags
+                )),
+                (symbolic, Term.Tuple(
+                    named,
+                    symbolic,
+                    names,
+                    tags
+                )),
+                (Nil.Value, Term.Tuple(unnamed, empty, tags)),
+                (empty, Term.Tuple(unnamed, empty, tags)),
+                (unaligned, Term.Tuple(unnamed, unaligned, tags))
+            ];
+            foreach (var (input, expected) in cases)
+            {
+                if (!expected.Equals(await matched.Invoke(
+                    context,
+                    Dispatch,
+                    input,
+                    names,
+                    tags
+                )))
+                {
+                    throw new InvalidOperationException(InvalidValue);
+                }
+            }
+
+            if (!Term.Tuple(unnamed, tagged, tags).Equals(await control.Invoke(
+                context,
+                Dispatch,
+                tagged,
+                names,
+                tags
+            )))
+            {
+                throw new InvalidOperationException(InvalidValue);
+            }
+
+            Term[] invalid = [position, Term.List(Term.Tuple(Term.A("bit"), Term.I(0), tags)), Term.List(unaligned)];
+            foreach (Term input in invalid)
+            {
+                try
+                {
+                    _ = await matched.Invoke(
+                        context,
+                        Dispatch,
+                        input,
+                        names,
+                        tags
+                    );
+                }
+                catch (ErlangException error) when (error.ExceptionClass == ErlangExceptionClasses.Error
+                    && error.Reason.Equals(Term.A(ErlangErrorReasons.FunctionClause)))
+                {
+                    continue;
+                }
+
+                throw new InvalidOperationException(InvalidValue);
+            }
+
+            return Nil.Value;
+        });
+
+        byte[] body = ReadDispatch(image);
+        byte[] controlBody = ReadDispatch(controlImage);
+        byte[] tests = body.Where(opcode => opcode is IsNonemptyList or GetHead or GetList
+            or IsAtom or IsTaggedTuple or IsNil or IsBitString).ToArray();
+        if (tests is not [IsNonemptyList, GetHead, IsAtom, IsTaggedTuple, IsNil, IsBitString]
+            || body.Count(opcode => opcode == TailLocalCall) != 4
+            || !controlBody.Contains(GetList))
+        {
+            throw new InvalidOperationException(InvalidLayout);
+        }
+    }
+
+    private static byte[] ReadDispatch(byte[] image)
+    {
+        object code = Code(image);
+        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
+        object[] instructions = Items(code, "Instructions");
+        int start = Array.FindIndex(
+            instructions,
+            instruction => Opcode(instruction) == FunctionInfo
+                && Items(instruction, "Operands") is [_, var name, var arity]
+                && atoms[Value(name)] == Dispatch && Value(arity) == 3
+        );
+        if (start < 0)
+        {
+            throw new InvalidOperationException(InvalidLayout);
+        }
+
+        return instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo).Select(Opcode).ToArray();
+    }
+
+    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
+
+    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
+
+    private static object[] Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
+}

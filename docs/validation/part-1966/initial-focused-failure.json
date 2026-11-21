@@ -1,0 +1,19 @@
+{
+  "Stage": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/checked-entry-frames-and-call-argument-liveness-1966-linked",
+  "Compiler": {
+    "Runtime": "7445A7EA8A055C952841AD41A2F4F0138B7FE39EAB6762EB1030E59308A1C8AA",
+    "Tests": "47A230E588FA055345EA469E1C0C39A9E8D52112C18D53ACF61B75F5F12949C3",
+    "Compiler": "87D907CDA803084D2085324D1A3B412B8704696E129FF8954ADDCD7F7072510E",
+    "SourceParent": "31d2c427affb6f750b93be6ea046843795962015479d04105af10b2d7592b494",
+    "Started": "2026-11-20T20:18:00.5073726+03:00"
+  },
+  "FailingTest": "compiler/beam/keeps-projection-before-ordinary-argument-copies",
+  "Cause": "Reflection requested the existing two-argument method after it acquired a third formal parameters.",
+  "Correction": "431f40453503bd6ff63eb4208682d9452f2f7439409125e19778826b460b8c46",
+  "Evidence": {
+    "fast-splits/lane-0.stdout.log": "0fbd5093a5934a7be6520fc2c3816fbd3f5e108d73f6f502ae6ad7a8e47e4d4b",
+    "fast-splits/lane-0.json": "c6ba63e099ec7919bf94fa74afcda9511d32a66e8b637c5df461128fb9d51429",
+    "focused-fast.stderr.log": "b832aa417ee42ee22749c4bff0fa90ac7ad936c3dd05592807cac98651169cf3",
+    "durable.exit": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04"
+  }
+}

@@ -1,0 +1,14 @@
+[Manifest] = init:get_plain_arguments(),
+{ok, Input}=file:read_file(Manifest),
+Rows=[binary:split(Row,<<9>>,[global])||Row<-binary:split(Input,<<10>>,[global]), Row=/=<<>>],
+lists:foreach(fun([P,B,A]) ->
+    {F,Ar}=case filename:basename(binary_to_list(P)) of
+        "ct_master.beam" -> {cast,2};
+        "dialyzer_timing.beam" -> {send_size_info,3};
+        "group.beam" -> {io_reply,3}
+    end,
+    io:format("~n~w/~w~n",[F,Ar]),
+    lists:foreach(fun({Role,File})->{beam_file,_,_,_,_,Fs}=beam_disasm:file(binary_to_list(File)),
+        [Body]=[Is || {function,N,Arity,_,Is}<-Fs,N=:=F,Arity=:=Ar], io:format("~w: ~tp.~n",[Role,Body])
+    end,[{pinned,P},{before,B},{after_change,A}])
+end,Rows),halt().

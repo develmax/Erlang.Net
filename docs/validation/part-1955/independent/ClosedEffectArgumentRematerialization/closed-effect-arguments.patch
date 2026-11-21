@@ -1,0 +1,80 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LocalConstantArguments.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LocalConstantArguments.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LocalConstantArguments.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LocalConstantArguments.cs
+@@ -33,6 +33,7 @@
+             return functions;
+         }
+ 
++        var localEntries = functions.Select(function => (function.Name, function.Arity)).ToHashSet();
+         var escaped = new HashSet<(string Name, int Arity)>();
+         var incoming = new Dictionary<(string Name, int Arity), Term?[]>();
+         foreach (Expr expression in functions.SelectMany(function =>
+@@ -57,13 +58,13 @@
+ 
+             if (!incoming.TryGetValue(signature, out var constants))
+             {
+-                incoming.Add(signature, call.Arguments.Select(ReadLocalSingletonArgument).ToArray());
++                incoming.Add(signature, call.Arguments.Select(ReadEntrySingleton).ToArray());
+                 continue;
+             }
+ 
+             for (int index = 0; index < constants.Length; index++)
+             {
+-                if (ReadLocalSingletonArgument(call.Arguments[index]) is not { } value || !value.Equals(constants[index]))
++                if (ReadEntrySingleton(call.Arguments[index]) is not { } value || !value.Equals(constants[index]))
+                 {
+                     constants[index] = null;
+                 }
+@@ -86,11 +87,13 @@
+                 && sequence.Items.SkipLast(1).All(item => item is Expr.Literal)
+                 ? sequence.Items[^1] : clause.Body;
+             bool constructor = SsaTypeInferenceEnabled && IsLocalSingletonConstructorBody(result, names);
++            bool effectSequence = SsaTypeInferenceEnabled && HasPlainCallBody(clause.Body, localEntries);
+             var constants = new Dictionary<string, Term>(StringComparer.Ordinal);
+             for (int index = 0; index < arguments.Length; index++)
+             {
+                 if (arguments[index] is { } value && names[index] != VariableScopeNames.Wildcard
+-                    && (constructor || (value is Atom && (reorderedRelay || IsParameterLiveAcrossEntryCall(clause.Body, names[index])))))
++                    && (effectSequence || constructor && value is not Integer
++                        || value is Atom && (reorderedRelay || IsParameterLiveAcrossEntryCall(clause.Body, names[index]))))
+                 {
+                     constants.Add(names[index], value);
+                 }
+@@ -145,6 +148,37 @@
+                     : null
+             );
+         }).ToArray();
++
++        Term? ReadEntrySingleton(Expr expression) => ReadLocalSingletonArgument(expression)
++            ?? (SsaTypeInferenceEnabled && expression is Expr.Literal { Value: Integer integer } ? integer : null);
++    }
++
++    private static bool HasPlainCallBody(Expr body, IReadOnlySet<(string Name, int Arity)> localEntries)
++    {
++        if (body is not (Expr.Sequence { Items.Count: > 1 } or Expr.List or Expr.Tuple)
++            && !(body is Expr.Call nested && nested.Arguments.Any(argument => argument is Expr.Call)))
++        {
++            return false;
++        }
++
++        bool ordinaryCall = false;
++        foreach (Expr expression in LocalFunctionEntries.Walk(body))
++        {
++            switch (expression)
++            {
++                case Expr.Call { DynamicRemote: false } call:
++                    ordinaryCall |= IsRegisterClobberingCall(call)
++                        || call.Module is null && localEntries.Contains((call.Function, call.Arguments.Count));
++                    break;
++                case Expr.Variable or Expr.Literal or Expr.Tuple or Expr.List or Expr.Sequence:
++                case Expr.Match { Pattern: Pattern.Variable }:
++                    break;
++                default:
++                    return false;
++            }
++        }
++
++        return ordinaryCall;
+     }
+ 
+     private sealed partial class GeneralEmitter

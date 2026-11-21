@@ -1,0 +1,112 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs
+@@ -83,6 +83,11 @@
+ 
+         if (!ModuleOptimizationDisabled)
+         {
++            CollectDirectTupleDestinationEdits(
++                code,
++                body,
++                edits
++            );
+             RedirectIsolatedTupleArityFailures(
+                 body,
+                 references,
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DirectTupleDestinations.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DirectTupleDestinations.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DirectTupleDestinations.cs
+@@ -0,0 +1,92 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private static void CollectDirectTupleDestinationEdits(
++        ReadOnlyMemory<byte> code,
++        IReadOnlyList<BeamInstruction> body,
++        List<CodeEdit> edits
++    )
++    {
++        for (int index = 0; index + 2 < body.Count; index++)
++        {
++            BeamInstruction tuple = body[index];
++            BeamInstruction copy = body[index + 1];
++            if (tuple.Definition.Opcode != PutTuple
++                || tuple.Operands[0] is not { Kind: BeamOperandParameters.X, TypeIndex: null } temporary
++                || copy is not
++                {
++                    Definition.Opcode: Move,
++                    Operands: [var source, { Kind: BeamOperandParameters.X, TypeIndex: null } destination]
++                }
++                || source != temporary || destination == temporary
++                || !DiscardsCopiedTupleTemporary(body, index + 2, temporary))
++            {
++                continue;
++            }
++
++            // The tuple reads all of its elements before writing its result.
++            // Keep those operands and replace only the dead intermediate result.
++            int start = tuple.Offset + 1;
++            var cursor = new BeamCursor(code[start..]);
++            _ = BeamCompactReader.Read(cursor);
++            edits.Add(new CodeEdit(
++                start,
++                start + cursor.Position,
++                XRegisterTag,
++                checked((int)destination.Value)
++            ));
++            edits.Add(new CodeEdit(
++                copy.Offset,
++                body[index + 2].Offset,
++                0,
++                0,
++                IsRemoval: true
++            ));
++        }
++    }
++
++    private static bool DiscardsCopiedTupleTemporary(
++        IReadOnlyList<BeamInstruction> body,
++        int start,
++        BeamOperand temporary
++    )
++    {
++        for (int index = start; index < body.Count; index++)
++        {
++            BeamInstruction instruction = body[index];
++            switch (instruction.Definition.Opcode)
++            {
++                case Line:
++                    continue;
++                case Move:
++                    if (SameProjectionRegister(instruction.Operands[0], temporary))
++                    {
++                        return false;
++                    }
++
++                    if (SameProjectionRegister(instruction.Operands[1], temporary))
++                    {
++                        return true;
++                    }
++
++                    continue;
++                case Deallocate:
++                    return !temporary.Value.IsZero && index + 1 < body.Count && body[index + 1].Definition.Opcode == Return;
++                case Return:
++                    return !temporary.Value.IsZero;
++                case TailLocalCall:
++                case TailLocalCallWithFrame:
++                case TailExternalCall:
++                case TailExternalCallWithFrame:
++                    return instruction.Operands[0].Value <= temporary.Value;
++                default:
++                    return false;
++            }
++        }
++
++        return false;
++    }
++}

@@ -1,0 +1,71 @@
+using System.Collections;
+using System.Numerics;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamSharedGuardedLocalTailsChecks
+{
+    internal const string TestName = "compiler/beam/shares-unchanged-guarded-local-tails";
+    private const string Fixture = "beam_shared_guarded_local_tails_probe.erl";
+    private const string UnexpectedTail = "Expected unchanged guarded branches to share one local tail.";
+
+    internal const string Source = """
+        -module(beam_shared_guarded_local_tails_probe).
+        -export([route/2, changed/2, effect/2, different/2]).
+
+        route(A, fast) -> target(A, fast);
+        route(A, T) when is_integer(T), T >= 0 -> target(A, T).
+
+        changed(A, fast) -> target(A, changed);
+        changed(A, T) when is_integer(T), T >= 0 -> target(A, T).
+
+        effect(A, fast) -> self() ! marked, target(A, fast);
+        effect(A, T) when is_integer(T), T >= 0 -> target(A, T).
+
+        different(A, fast) -> other(A, fast);
+        different(A, T) when is_integer(T), T >= 0 -> target(A, T).
+
+        target(A, 0) -> {zero,A};
+        target(A, T) -> {sent,A,T}.
+
+        other(A, 0) -> {other_zero,A};
+        other(A, T) -> {other,A,T}.
+        """;
+
+    internal static byte[] CompileFixture() => CodeGeneration.CompileBeamModule(Source, Fixture);
+
+    internal static void Run()
+    {
+        object code = Code(CompileFixture());
+        object[] instructions = Items(code, "Instructions").ToArray();
+        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
+        object[] route = Function("route").ToArray();
+        if (route.Count(instruction => Opcode(instruction) == TailLocalCall) != 1
+            || !route.Any(instruction => Opcode(instruction) == ExactNotEqualTest)
+            || Function("changed").Count(instruction => Opcode(instruction) == TailLocalCall) != 2
+            || Function("different").Count(instruction => Opcode(instruction) == TailLocalCall) != 2)
+        {
+            throw new InvalidOperationException(UnexpectedTail);
+        }
+
+        IEnumerable<object> Function(string name)
+        {
+            int start = Array.FindIndex(
+                instructions,
+                instruction => Opcode(instruction) == FunctionInfo
+                && atoms[Value(Items(instruction, "Operands").ElementAt(1))] == name
+            );
+
+            return instructions.Skip(start + 2).TakeWhile(instruction => Opcode(instruction) != FunctionInfo);
+        }
+    }
+
+    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
+
+    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
+
+    private static IEnumerable<object> Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>();
+}

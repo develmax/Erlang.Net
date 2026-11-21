@@ -12,7 +12,8 @@ internal sealed partial class BeamModuleCompiler
             int? TupleArity = null,
             (Atom Class, Expr.Call Call)? ClassCheck = null,
             Term? ConversionTail = null,
-            NestedTupleRepack? Repack = null
+            NestedTupleRepack? Repack = null,
+            bool ChecksCallback = false
         )
         {
             internal Atom? UniqueTag => Convert is not null || ClassCheck is not null || Repack is not null ? Tag : null;
@@ -21,6 +22,17 @@ internal sealed partial class BeamModuleCompiler
 
         private bool TryEmitWxOptionCommand(FunctionDefinition function, int? guardFailure = null, bool validateOnly = false)
         {
+            if (!validateOnly && TryEmitWxScalarTupleOptionOverload(function)
+                || TryEmitWxStaticScalarOptions(function, guardFailure, validateOnly))
+            {
+                return true;
+            }
+
+            if (!owner.ModuleOptimizationDisabled)
+            {
+                function = FoldWxOptionCommandNumber(function);
+            }
+
             if (function.Clauses is not [
                 {
                     Patterns: [Pattern.Variable options],
@@ -51,8 +63,14 @@ internal sealed partial class BeamModuleCompiler
                 || mapper.Name != mapperArgument.Name || mapped.Name != queueInput.Name
                 || options.Name == mapper.Name || options.Name == mapped.Name || mapper.Name == mapped.Name
                 || mapper.Name == VariableScopeNames.Wildcard || mapped.Name == VariableScopeNames.Wildcard
-                || !owner.ResolvesErlangBif(guard) || !IsWxEnvironment(environment)
-                || lambda.SelfName is not null || !ReadWxOptions(lambda.Clauses, out _, out _))
+                || !owner.ResolvesErlangBif(guard)
+                || !UsesFreshWxEnvironment(environment, [options.Name, mapper.Name, mapped.Name])
+                || lambda.SelfName is not null || !ReadWxOptions(
+                    lambda.Clauses,
+                    out _,
+                    out _,
+                    allowCallback: true
+                ))
             {
                 return false;
             }
@@ -122,6 +140,393 @@ internal sealed partial class BeamModuleCompiler
             return true;
         }
 
+        private bool TryEmitWxStaticScalarOptions(
+            FunctionDefinition function,
+            int? guardFailure,
+            bool validateOnly,
+            bool dimensionTuple = false,
+            bool scalarTupleOptionArm = false,
+            int? alternateEntry = null
+        )
+        {
+            int arity = function.Arity;
+            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled
+                || (scalarTupleOptionArm ? arity < 3 : dimensionTuple ? arity != 2 : arity is not (3 or 4))
+                || function.Clauses is not
+                [
+                {
+                    Guard: { } guard,
+                    Body: Expr.Sequence
+                    {
+                        Items: [
+                            Expr.Match
+                        {
+                            Pattern: Pattern.Variable mapper,
+                            Value: Expr.Fun { SelfName: null } lambda
+                        },
+                            Expr.Match
+                        {
+                            Pattern: Pattern.Variable mapped,
+                            Value: Expr.Call
+                            {
+                                Module: "lists", Function: "map", DynamicRemote: false,
+                                Arguments: [Expr.Variable mapperArgument, Expr.Variable mapInput]
+                            } map
+                        },
+                            Expr.Call { Module: "wxe_util", Function: "queue_cmd", DynamicRemote: false } queue,
+                            Expr.Call
+                        {
+                            Module: "wxe_util", Function: "rec", DynamicRemote: false,
+                            Arguments: [Expr.Literal { Value: Integer received }]
+                        } receive
+                        ]
+                    }
+                } clause]
+                || mapper.Name != mapperArgument.Name
+                || queue.Arguments.Count != arity + 2
+                || queue.Arguments[arity - 1] is not Expr.Variable supplied || supplied.Name != mapped.Name
+                || queue.Arguments[arity] is not Expr.Case environment
+                || queue.Arguments[arity + 1] is not Expr.Literal { Value: Integer command } || !command.Equals(received)
+                || !ReadWxOptions(lambda.Clauses, out _, out _))
+            {
+                return false;
+            }
+
+            if (ReadForwardParameters(clause) is not { } inputs
+                || (dimensionTuple ? inputs.Shapes is not [(0, 2)] : inputs.Shapes.Count != 0))
+            {
+                return false;
+            }
+
+            string[] parameters = inputs.Parameters;
+            string[] sourceNames = [.. parameters, .. inputs.Fields.Keys];
+            string[] bindings = [.. sourceNames, mapper.Name, mapped.Name];
+            if (bindings.Contains(VariableScopeNames.Wildcard)
+                || bindings.Distinct(StringComparer.Ordinal).Count() != bindings.Length
+                || mapInput.Name != parameters[^1]
+                || !queue.Arguments.Take(arity - 1).SequenceEqual(parameters.SkipLast(1).Select(name => new Expr.Variable(name)))
+                || !UsesFreshWxEnvironment(environment, bindings)
+                || ClosureCaptures.Capture(lambda, sourceNames.ToDictionary(name => name, _ => (Term)Nil.Value)).Count != 0
+                || ReadForwardGuard(guard, parameters, inputs.Fields) is not { } parsed)
+            {
+                return false;
+            }
+
+            ForwardGuard[] expected;
+            if (scalarTupleOptionArm)
+            {
+                ForwardGuard[] head = dimensionTuple
+                    ? [new ForwardGuard.FieldTest(
+                        IsInteger,
+                        0,
+                        0,
+                        arity
+                    ), new ForwardGuard.FieldTest(
+                        IsInteger,
+                        0,
+                        1,
+                        arity
+                    )]
+                    : [new ForwardGuard.Test(IsInteger, 0)];
+                expected =
+                [
+                    .. head,
+                    .. Enumerable.Range(1, arity - 2).Select(register => new ForwardGuard.Test(IsInteger, register)),
+                    new ForwardGuard.Test(IsList, arity - 1)
+                ];
+            }
+            else
+            {
+                expected = arity switch
+                {
+                    2 => [new ForwardGuard.FieldTest(
+                        IsInteger,
+                        0,
+                        0,
+                        2
+                    ), new ForwardGuard.FieldTest(
+                        IsInteger,
+                        0,
+                        1,
+                        2
+                    ), new ForwardGuard.Test(IsList, 1)],
+                    3 => [new ForwardGuard.Test(IsInteger, 0), new ForwardGuard.Test(IsInteger, 1), new ForwardGuard.Test(IsList, 2)],
+                    _ => [new ForwardGuard.Test(IsBinary, 0), new ForwardGuard.Test(IsInteger, 1), new ForwardGuard.Test(IsInteger, 2), new ForwardGuard.Test(IsList, 3)]
+                };
+            }
+
+            if (!FlattenForwardConjunction(parsed).SequenceEqual(expected))
+            {
+                return false;
+            }
+
+            if (validateOnly)
+            {
+                return true;
+            }
+
+            int functionFailure = guardFailure ?? owner.nextLabel - 2;
+            int missingEnvironment = Label();
+            for (int index = 0; index < expected.Length; index++)
+            {
+                EmitForwardGuard(expected[index], index == 0 ? alternateEntry ?? functionFailure : functionFailure);
+            }
+
+            int frame = arity - 1;
+            owner.Op(AllocateHeap, BeamWire.UnsignedTag, frame);
+            owner.EmitClosureHeap(0, arity, 1);
+            for (int register = arity - 2; register >= 0; register--)
+            {
+                owner.MoveRegister(
+                    XRegisterTag,
+                    register,
+                    YRegisterTag,
+                    arity - register - 2
+                );
+            }
+
+            EmitWxOptionMapper(lambda, 0);
+            owner.MoveRegister(
+                XRegisterTag,
+                arity - 1,
+                XRegisterTag,
+                1
+            );
+            owner.EmitCallLine(map, location);
+            owner.Op(ExternalCall, BeamWire.UnsignedTag, 2);
+            owner.Operand(BeamWire.UnsignedTag, owner.Import("lists", "map", 2));
+            EmitWxEnvironmentCheck(1, missingEnvironment);
+            owner.EmitTuplePart(1, 1, arity);
+
+            for (int register = arity - 2; register >= 2; register--)
+            {
+                owner.MoveRegister(
+                    YRegisterTag,
+                    arity - register - 2,
+                    XRegisterTag,
+                    register
+                );
+            }
+
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                XRegisterTag,
+                arity - 1
+            );
+            if (arity > 2)
+            {
+                owner.MoveRegister(
+                    YRegisterTag,
+                    arity - 3,
+                    XRegisterTag,
+                    1
+                );
+            }
+
+            owner.EmitConstant(command, arity + 1);
+            owner.MoveRegister(
+                YRegisterTag,
+                frame - 1,
+                XRegisterTag,
+                0
+            );
+            owner.Op(TrimFrame, BeamWire.UnsignedTag, frame);
+            owner.Operand(BeamWire.UnsignedTag, 0);
+            owner.EmitCallLine(queue, CallLocation(map, location));
+            owner.Op(ExternalCall, BeamWire.UnsignedTag, arity + 2);
+            owner.Operand(BeamWire.UnsignedTag, owner.Import("wxe_util", "queue_cmd", arity + 2));
+            owner.EmitConstant(command, 0);
+            owner.EmitCallLine(receive, CallLocation(queue, location));
+            owner.Op(TailExternalCallWithFrame, BeamWire.UnsignedTag, 1);
+            owner.Operand(BeamWire.UnsignedTag, owner.Import("wxe_util", "rec", 1));
+            owner.Operand(BeamWire.UnsignedTag, 0);
+
+            Mark(missingEnvironment);
+            owner.EmitConstant(Term.Tuple(Term.A("wx"), Term.A("unknown_env")), 0);
+            owner.EmitCallLine((Expr.Call)environment.Clauses[1].Body, CallLocation(receive, location));
+            owner.Op(TailExternalCallWithFrame, BeamWire.UnsignedTag, 1);
+            owner.Operand(BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module, "error", 1));
+            owner.Operand(BeamWire.UnsignedTag, frame);
+
+            return true;
+        }
+
+        private bool TryEmitWxScalarTupleOptionOverload(FunctionDefinition function)
+        {
+            if (function.Clauses is not [var scalar, var dimensions])
+            {
+                return false;
+            }
+
+            var first = function with { Clauses = [scalar] };
+            var second = function with { Clauses = [dimensions] };
+            int failure = owner.nextLabel - 2;
+            if (!TryEmitWxStaticScalarOptions(
+                first,
+                failure,
+                validateOnly: true,
+                scalarTupleOptionArm: true
+            ) || !TryEmitWxStaticScalarOptions(
+                second,
+                failure,
+                validateOnly: true,
+                dimensionTuple: true,
+                scalarTupleOptionArm: true
+            ))
+            {
+                return false;
+            }
+
+            // The integer arm reserves its missing environment edge before the dimension arm.
+            int tuple = owner.nextLabel + 1;
+            TryEmitWxStaticScalarOptions(
+                first,
+                failure,
+                validateOnly: false,
+                scalarTupleOptionArm: true,
+                alternateEntry: tuple
+            );
+            Mark(Label());
+            EmitTupleShapeTest(
+                XRegisterTag,
+                0,
+                2,
+                failure
+            );
+
+            return TryEmitWxStaticScalarOptions(
+                second,
+                failure,
+                validateOnly: false,
+                dimensionTuple: true,
+                scalarTupleOptionArm: true
+            );
+        }
+
+        private bool TryEmitWxMappedTextOverload(FunctionDefinition function)
+        {
+            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled
+                || function.Arity != 2 || function.Clauses is not [var integer, var chardata]
+                || integer.Guard is not { } scalarGuard || chardata.Guard is not { } textGuard
+                || !HasUnconditionalParameters(integer) || !HasUnconditionalParameters(chardata)
+                || integer.Body is not Expr.Sequence { Items: [Expr.Match { Value: Expr.Fun }, _, _, _] }
+                || chardata.Body is not Expr.Sequence { Items: [Expr.Match, Expr.Match { Value: Expr.Fun }, _, _, _] }
+                || !HasFreshWxMappedEnvironment(integer) || !HasFreshWxMappedEnvironment(chardata))
+            {
+                return false;
+            }
+
+            string[] scalarArguments = integer.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray();
+            string[] textArguments = chardata.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray();
+            if (ReadForwardGuard(scalarGuard, scalarArguments) is not ForwardGuard.Conjunction
+                {
+                    Left: ForwardGuard.Test { Opcode: IsInteger, Register: 0 },
+                    Right: ForwardGuard.Test { Opcode: IsList, Register: 1 }
+                }
+                || ReadForwardGuard(textGuard, textArguments) is not ForwardGuard.Conjunction
+                {
+                    Left: ForwardGuard.Disjunction
+                    {
+                        Left: ForwardGuard.Test { Opcode: IsList, Register: 0 },
+                        Right: ForwardGuard.Test { Opcode: IsBinary, Register: 0 }
+                    },
+                    Right: ForwardGuard.Test { Opcode: IsList, Register: 1 }
+                })
+            {
+                return false;
+            }
+
+            var scalarCommand = function with { Clauses = [integer] };
+            var textCommand = function with { Clauses = [chardata] };
+            if (!TryEmitWxObjectCommand(scalarCommand, validateOnly: true)
+                || !TryEmitWxObjectCommand(textCommand, validateOnly: true))
+            {
+                return false;
+            }
+
+            int failure = owner.nextLabel - 2;
+            // The first command owns one cold environment failure before the next guard.
+            int next = owner.nextLabel + 1;
+            int firstMapper = owner.closures.Count;
+            TryEmitWxObjectCommand(scalarCommand, guardFailure: next);
+            Mark(Label());
+            TryEmitWxObjectCommand(textCommand, functionFailure: failure);
+
+            // The Core branches define both mappers in source order. Keep their
+            // discovery indices for make_fun3 while ordering their definitions.
+            owner.closures[firstMapper] = owner.closures[firstMapper] with { ForwardDefinitionOrder = true };
+            owner.closures[firstMapper + 1] = owner.closures[firstMapper + 1] with { ForwardDefinitionOrder = true };
+
+            return true;
+        }
+
+        private static bool HasFreshWxMappedEnvironment(Clause clause)
+        {
+            var items = ((Expr.Sequence)clause.Body).Items;
+            if (items[^2] is not Expr.Call { Arguments: [_, _, Expr.Case environment, _] })
+            {
+                return false;
+            }
+
+            var bindings = clause.Patterns.Cast<Pattern.Variable>().Select(pattern => pattern.Name)
+                .Concat(items.Take(items.Count - 2).OfType<Expr.Match>().Select(match => match.Pattern)
+                    .OfType<Pattern.Variable>().Select(variable => variable.Name));
+
+            return UsesFreshWxEnvironment(environment, bindings);
+        }
+
+        private static bool UsesFreshWxEnvironment(Expr.Case environment, IEnumerable<string> bindings) =>
+            IsWxEnvironment(environment)
+            && environment.Clauses[0].Body is Expr.Variable { Name: not VariableScopeNames.Wildcard } reference
+            && !bindings.Contains(reference.Name, StringComparer.Ordinal);
+
+        private static FunctionDefinition FoldWxOptionCommandNumber(FunctionDefinition function)
+        {
+            if (function.Clauses is not
+                [
+                {
+                    Patterns: [Pattern.Variable options],
+                    Body: Expr.Sequence
+                    {
+                        Items: [
+                            Expr.Match { Pattern: Pattern.Variable binding, Value: Expr.Literal { Value: Integer } literal },
+                            Expr.Match { Pattern: Pattern.Variable mapper } defineMapper,
+                            Expr.Match { Pattern: Pattern.Variable mapped } applyMapper,
+                            Expr.Call
+                        {
+                            Module: "wxe_util", Function: "queue_cmd", DynamicRemote: false,
+                            Arguments: [var queueOptions, Expr.Case environment, Expr.Variable command]
+                        } queue,
+                            Expr.Call
+                        {
+                            Module: "wxe_util", Function: "rec", DynamicRemote: false,
+                            Arguments: [Expr.Variable received]
+                        } receive
+                        ]
+                    } sequence
+                } clause]
+                || binding.Name == VariableScopeNames.Wildcard || binding.Name == options.Name
+                || binding.Name == mapper.Name || binding.Name == mapped.Name
+                || command.Name != binding.Name || received.Name != binding.Name
+                || !UsesFreshWxEnvironment(environment, [options.Name, mapper.Name, mapped.Name, binding.Name]))
+            {
+                return function;
+            }
+
+            var folded = sequence with
+            {
+                Items = [
+                    defineMapper,
+                    applyMapper,
+                    queue with { Arguments = [queueOptions, environment, literal] },
+                    receive with { Arguments = [literal] }
+                ]
+            };
+
+            return function with { Clauses = [clause with { Body = folded }] };
+        }
+
         private bool TryEmitWxStaticMappedOptions(
             Expr? guard,
             string[] arguments,
@@ -131,7 +536,8 @@ internal sealed partial class BeamModuleCompiler
             Expr.Call receive,
             Integer command,
             Expr.Call? colour,
-            bool validateOnly
+            bool validateOnly,
+            int? guardFailure = null
         )
         {
             if (guard is not Expr.Binary { Operator: ErlangOperators.AndAlso } conjunction
@@ -148,7 +554,7 @@ internal sealed partial class BeamModuleCompiler
                 return true;
             }
 
-            int failure = owner.nextLabel - 2;
+            int failure = guardFailure ?? owner.nextLabel - 2;
             if (colour is null)
             {
                 owner.Op(IsInteger, LabelTag, failure);
@@ -234,7 +640,7 @@ internal sealed partial class BeamModuleCompiler
             return true;
         }
 
-        private void EmitWxOptionMapper(Expr.Fun lambda, int destination)
+        private void EmitWxOptionMapper(Expr.Fun lambda, int destination, int arity = 1)
         {
             var lexicalOwner = parentFunction!;
             int ordinal = lambda.CoreOrdinal ?? anonymousOrdinal++;
@@ -244,7 +650,7 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(XRegisterTag, destination);
             owner.instructions.WriteByte(ExtendedListOperand);
             owner.Operand(BeamWire.UnsignedTag, 0);
-            var lifted = new FunctionDefinition(name, 1, lambda.Clauses);
+            var lifted = new FunctionDefinition(name, arity, lambda.Clauses);
             owner.closures.Add(new(
                 name,
                 null,
@@ -258,7 +664,12 @@ internal sealed partial class BeamModuleCompiler
 
         private bool TryEmitWxOptionClosure(FunctionDefinition function)
         {
-            if (!ReadWxOptions(function.Clauses, out var options, out Expr.Call? error))
+            if (!ReadWxOptions(
+                function.Clauses,
+                out var options,
+                out Expr.Call? error,
+                allowCallback: true
+            ))
             {
                 return false;
             }
@@ -339,7 +750,25 @@ internal sealed partial class BeamModuleCompiler
                 if (option.Convert is { } convert)
                 {
                     int live = sharedField ? 3 : 1;
-                    if (option.ConversionTail is { } tail)
+                    if (option.ChecksCallback)
+                    {
+                        int field = sharedField ? 2 : 1;
+                        if (!sharedField)
+                        {
+                            owner.EmitTuplePart(0, 1, field);
+                        }
+
+                        owner.Op(IsFunction, LabelTag, rejected);
+                        owner.Operand(XRegisterTag, field);
+                        EmitFrameAllocation(field + 1, 0);
+                        owner.MoveRegister(
+                            XRegisterTag,
+                            field,
+                            XRegisterTag,
+                            0
+                        );
+                    }
+                    else if (option.ConversionTail is { } tail)
                     {
                         owner.Op(AllocateHeap, BeamWire.UnsignedTag, 0);
                         owner.Operand(BeamWire.UnsignedTag, 2);
@@ -498,6 +927,11 @@ internal sealed partial class BeamModuleCompiler
         {
             owner.Op(TestHeap, BeamWire.UnsignedTag, 3);
             owner.Operand(BeamWire.UnsignedTag, 1);
+            EmitWxOptionTupleValue(tag);
+        }
+
+        private void EmitWxOptionTupleValue(Atom tag)
+        {
             owner.Op(PutTuple, XRegisterTag, 0);
             owner.instructions.WriteByte(ExtendedListOperand);
             owner.Operand(BeamWire.UnsignedTag, 2);
@@ -505,7 +939,12 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(XRegisterTag, 0);
         }
 
-        private static bool ReadWxOptions(IReadOnlyList<Clause> clauses, out List<WxOption> options, out Expr.Call? error)
+        private bool ReadWxOptions(
+            IReadOnlyList<Clause> clauses,
+            out List<WxOption> options,
+            out Expr.Call? error,
+            bool allowCallback = false
+        )
         {
             options = [];
             error = null;
@@ -536,6 +975,11 @@ internal sealed partial class BeamModuleCompiler
                     } && binding.Name == result.Name && ReadWxOptionField(field, binding.Name, out int? tupleArity))
                 {
                     options.Add(new(tag, null, tupleArity));
+                }
+                else if (allowCallback && !owner.ModuleOptimizationDisabled && owner.SsaTypeInferenceEnabled
+                    && ReadWxCallbackOption(clause) is { } callback)
+                {
+                    options.Add(callback);
                 }
                 else if (ReadWxClassOption(clause) is { } classOption)
                 {
@@ -601,6 +1045,33 @@ internal sealed partial class BeamModuleCompiler
             error = call;
 
             return options.Select(option => option.Tag).Distinct().Count() == options.Count;
+        }
+
+        private WxOption? ReadWxCallbackOption(Clause clause)
+        {
+            if (clause is not
+                {
+                    Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom tag }, Pattern.Variable callback] }],
+                    Guard: Expr.Call { Function: "is_function", Arguments: [Expr.Variable tested] } guard,
+                    Body: Expr.Tuple
+                    {
+                        Items: [
+                            Expr.Literal { Value: Atom returnedTag },
+                            Expr.Call
+                        {
+                            Module: "wxe_util", Function: "get_cbId", DynamicRemote: false,
+                            Arguments: [Expr.Variable argument]
+                        } register
+                        ]
+                    }
+                }
+                || callback.Name == VariableScopeNames.Wildcard || callback.Name != tested.Name
+                || callback.Name != argument.Name || !tag.Equals(returnedTag) || !owner.ResolvesErlangBif(guard))
+            {
+                return null;
+            }
+
+            return new(tag, register, ChecksCallback: true);
         }
 
         private static bool ReadWxOptionConversionTail(Expr expression, string input, out Term? tail)

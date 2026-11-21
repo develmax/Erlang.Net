@@ -1,0 +1,56 @@
+{
+  "Parent": {
+    "Source": "987ed96055de5ecc168ed48a139e42384b490a2187d17e15521a94e66bda54fd",
+    "Paths": 306,
+    "Compiler": "c805e9fa2d478b66d08f71dea60135144a065302ec418d69ae881f569c7a49f6",
+    "Tests": "43340a7ae582afa14c9fa45cb40b557d3a4613bce84745a0a6b7f44214862880",
+    "ParentSource": "e35da61960a45eab72857c92fa75c204841c33ed107e1654987bf03308fd0af3",
+    "CorpusTool": "8aaaa56546660f4d8d4999e19dfa3404acdeb356d5b32cceb847f6030b53d2ba"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamDocumentationWriter.cs": "8C73A7425141D217707A323F0A0751C12B058D5189B1D0F1147C01C622A787FB",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ConstructorColumnComprehensionOrder.cs": "9AE554F25911BCCAFB8F56CC223759663883EA455302AE2E8056F62670F8BFB5",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LeafFrameRegisters.cs": "0199AE85BC1CDC4653966ED481EA1647E85796CCCDB55456937F8701CB9FA75C",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs": "DC6A9E1C17A555A44BC17CC83D3378495B43C83E8002DDF0C946086AA035A606",
+    "tests/Erlang.Tests/Compiler/Beam/BeamBootstrapLibraryIncludeChecks.cs": "7998656AF492E53E61E586BAE741AF39DD5A79F59714DAE93F83CD115D6596BA",
+    "tests/Erlang.Tests/Compiler/Beam/BeamCommonTestIncludeProfileChecks.cs": "35A2E721853702EB02B6C41222E243A4AB75D8510E4EBDD6E42376662221B3F2",
+    "tests/Erlang.Tests/Compiler/Beam/BeamConstructorColumnComprehensionChecks.cs": "0CC887D1F3E089C48F2A5A4DFBF9CC4CC355855ABCF75A9CA804B94FE89A013F",
+    "tests/Erlang.Tests/Compiler/Beam/BeamDocsSharedSignatureChecks.cs": "800DE3DD9BB438EDC4CA6DEEF91828F90A5F6C4C973235A160F11F02141AC371",
+    "tests/Erlang.Tests/Compiler/Beam/BeamListPatternGeneratorHelperChecks.cs": "D128C2B5842205579A9DAD16CC1EB672DFB6E78538A6DA9FA0BD8B0F104046D9",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamOwnedLeafBranchChecks.cs": "38461102BCCF66A1AA4B978490DB38D21286267B8B6153A0945C1CBCA0882D75",
+    "tests/Erlang.Tests/Harness/Program.cs": "94E1A7E8A0333FD85B49D2D61027198011EC48E8C494D65928039A1DD21F1749",
+    "tools/Validation/Erlang.BeamCorpus/OtpWindowsBootstrapLibraryIncludePaths.cs": "AB6874DB7680C3A4CFB548514CEA351344243B634288324A1B7F579AE0667B5A"
+  },
+  "RemovedPaths": [
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AtomColumnComprehensionOrder.cs"
+  ],
+  "Patches": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\docs-equiv-audit-1892\\ct-stage\\common-test-release-include-provenance.patch",
+      "Hash": "e781e3e15490ef2aa64f338be42cf1cfa51227b250ed1febcbf9bca4866b8eb6"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\docs-equiv-audit-1892\\compiler-after-ct\\compiler-release-includes-after-ct.patch",
+      "Hash": "c5bfddee7c173b3df9f77a74a4b89710a58b0e0025939417ccc21c8136f6c341"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\mixed-constructor-comprehension-order-1895\\mixed-constructor-sibling-order.patch",
+      "Hash": "5d511cc1105afd53b7202591b4ccdafd7d55549762aa7635fbd02a203512a039"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\mixed-constructor-comprehension-order-1895\\list-pattern-proposal\\relaxed-list-pattern-generator.patch",
+      "Hash": "19468aa29f843bf9b776fddfc15508604e04465a59ed90e7adc61362373f2a2e"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\final-doc-language-audit-1892\\signature-stage\\docs-shared-signature-precedence.patch",
+      "Hash": "ce64bddc11911f72ac825aec1192e38a444c6b3d53bcc3bbc07cf1ba8c07b72f"
+    }
+  ],
+  "HarnessRegistrations": [
+    "BeamOwnedLeafBranchChecks",
+    "BeamCommonTestIncludeProfileChecks",
+    "BeamConstructorColumnComprehensionChecks",
+    "BeamListPatternGeneratorHelperChecks",
+    "BeamDocsSharedSignatureChecks"
+  ]
+}

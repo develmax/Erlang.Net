@@ -1,0 +1,268 @@
+{
+  "source_archive": "eea48b5933bb20925b4c49303a2a443a9c7e60796c9951b1769a1cdcaed7d66b",
+  "checked_payload_supplier": "355bfe34de8a789e55ec9d208e1dcb12965b916b584c5b9c7bb1b8563b394ed0",
+  "production": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": {
+      "before": "56e6416f553379c42cfeb8325505d59de0b9a3aec805a2f1d7872d89e2333084",
+      "after": "07666b638ddf30d0e847d1d54f049789acfa8494e77413f3a8a6495bc2fedd4e"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TerminalHeaderListHeap.cs": {
+      "before": null,
+      "after": "5be84055fc7fde9920cf16f5206b3c081cd0fe01b410171e00ab32f5b359acd0"
+    },
+    "patch-sha256": "98843ba61457e072732d8a4c2674685e5fef886462bf8aba9bd16b6cbd880e80"
+  },
+  "test": {
+    "tests/Erlang.Tests/Harness/Program.cs": {
+      "before": "3361f708a14d3b679476c104ee88fadc46fe92da77db497c460987b402cba413",
+      "after": "b1cfe6db6018734acf95c8b6d3c2cbc0239abb9541fbd2995edd5eee3dda3649"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamCheckedResultPayloadChecks.cs": {
+      "before": "b1928831454b258e31b824f4d30ee74ade0229c930cf91dce20596be550a2f96",
+      "after": "bec596518ab0726b52f8f7a39278edef31b93492268781cf54788438a1d869c8"
+    },
+    "patch-sha256": "14ef717589c74bc9dd51b0ecf31630aa92c5e2aee065aca2e6b6610ea1803077"
+  },
+  "release": {
+    "lib\\common_test-1.31.2\\ebin\\ct_config_plain.beam": {
+      "status": "Equal",
+      "before": "7c0f0f294a3e7a805c1167808703143388f320dabebafc82e8a6370076bb7c5b",
+      "after": "7c0f0f294a3e7a805c1167808703143388f320dabebafc82e8a6370076bb7c5b",
+      "reference": "7c0f0f294a3e7a805c1167808703143388f320dabebafc82e8a6370076bb7c5b"
+    },
+    "lib\\common_test-1.31.2\\ebin\\ct_event.beam": {
+      "status": "Equal",
+      "before": "2399c2a849d7e97e993b7e01f81cf59d73a31fb22f9f59ca1529768a9197a29c",
+      "after": "2399c2a849d7e97e993b7e01f81cf59d73a31fb22f9f59ca1529768a9197a29c",
+      "reference": "2399c2a849d7e97e993b7e01f81cf59d73a31fb22f9f59ca1529768a9197a29c"
+    },
+    "lib\\debugger-7.0\\ebin\\dbg_idb.beam": {
+      "status": "Equal",
+      "before": "324e32cd6528f7c5ba0f1f63f2bc969fb3e57c95ff940016632227388e1d944e",
+      "after": "324e32cd6528f7c5ba0f1f63f2bc969fb3e57c95ff940016632227388e1d944e",
+      "reference": "324e32cd6528f7c5ba0f1f63f2bc969fb3e57c95ff940016632227388e1d944e"
+    },
+    "lib\\debugger-7.0\\ebin\\debugger.beam": {
+      "status": "Equal",
+      "before": "53aa0a5ddcd15a776cd623e92a7a2a4d620e7ba35d648846f7a3134c8ab6b06c",
+      "after": "53aa0a5ddcd15a776cd623e92a7a2a4d620e7ba35d648846f7a3134c8ab6b06c",
+      "reference": "53aa0a5ddcd15a776cd623e92a7a2a4d620e7ba35d648846f7a3134c8ab6b06c"
+    },
+    "lib\\diameter-2.7.2\\ebin\\diameter_callback.beam": {
+      "status": "Equal",
+      "before": "573a046e1dac646801bf734063d75e82550c053a2792025598ce741a5d790bd7",
+      "after": "573a046e1dac646801bf734063d75e82550c053a2792025598ce741a5d790bd7",
+      "reference": "573a046e1dac646801bf734063d75e82550c053a2792025598ce741a5d790bd7"
+    },
+    "lib\\diameter-2.7.2\\ebin\\diameter_session.beam": {
+      "status": "Equal",
+      "before": "2c07f760e6b0707116868590252c7ee62d9b915db3f845d427aa75dacda36c60",
+      "after": "2c07f760e6b0707116868590252c7ee62d9b915db3f845d427aa75dacda36c60",
+      "reference": "2c07f760e6b0707116868590252c7ee62d9b915db3f845d427aa75dacda36c60"
+    },
+    "lib\\eldap-1.3.1\\ebin\\ELDAPv3.beam": {
+      "status": "Equal",
+      "before": "f137904a4b15ce2fc382264b168b606ab9728b7a5a7c8d641c6937d87cb2ed9d",
+      "after": "f137904a4b15ce2fc382264b168b606ab9728b7a5a7c8d641c6937d87cb2ed9d",
+      "reference": "f137904a4b15ce2fc382264b168b606ab9728b7a5a7c8d641c6937d87cb2ed9d"
+    },
+    "lib\\erts-17.1\\ebin\\counters.beam": {
+      "status": "Equal",
+      "before": "36e38c88d100c8bee9e28ec1144b6f532cd681efcef1f9b3fcd0719dd612cb6f",
+      "after": "36e38c88d100c8bee9e28ec1144b6f532cd681efcef1f9b3fcd0719dd612cb6f",
+      "reference": "36e38c88d100c8bee9e28ec1144b6f532cd681efcef1f9b3fcd0719dd612cb6f"
+    },
+    "lib\\erts-17.1\\ebin\\erl_init.beam": {
+      "status": "Equal",
+      "before": "f5373f9d1d678d8261e07ffad0033663f762913c339729a4309df2e6fd11abdf",
+      "after": "f5373f9d1d678d8261e07ffad0033663f762913c339729a4309df2e6fd11abdf",
+      "reference": "f5373f9d1d678d8261e07ffad0033663f762913c339729a4309df2e6fd11abdf"
+    },
+    "lib\\erts-17.1\\ebin\\erts_trace_cleaner.beam": {
+      "status": "Equal",
+      "before": "44ce918e91dbf0a0601a1ac9d95a56688e360baf8c91de7f77114a643d7d611c",
+      "after": "44ce918e91dbf0a0601a1ac9d95a56688e360baf8c91de7f77114a643d7d611c",
+      "reference": "44ce918e91dbf0a0601a1ac9d95a56688e360baf8c91de7f77114a643d7d611c"
+    },
+    "lib\\erts-17.1\\ebin\\prim_eval.beam": {
+      "status": "Equal",
+      "before": "98d6e55b825361a4e2316bed02b97fd7506d57c34021ba95f4419fea8acc0936",
+      "after": "98d6e55b825361a4e2316bed02b97fd7506d57c34021ba95f4419fea8acc0936",
+      "reference": "98d6e55b825361a4e2316bed02b97fd7506d57c34021ba95f4419fea8acc0936"
+    },
+    "lib\\et-1.8\\ebin\\et.beam": {
+      "status": "Equal",
+      "before": "85378a2bec824f3db72e83579f6c3f18e88819861268894fca79a2d04f3ea367",
+      "after": "85378a2bec824f3db72e83579f6c3f18e88819861268894fca79a2d04f3ea367",
+      "reference": "85378a2bec824f3db72e83579f6c3f18e88819861268894fca79a2d04f3ea367"
+    },
+    "lib\\et-1.8\\ebin\\et_viewer.beam": {
+      "status": "Equal",
+      "before": "7dc3065baa3771126380e0fcd0c7e73034af9e489591abf9ebaf59b3c241115d",
+      "after": "7dc3065baa3771126380e0fcd0c7e73034af9e489591abf9ebaf59b3c241115d",
+      "reference": "7dc3065baa3771126380e0fcd0c7e73034af9e489591abf9ebaf59b3c241115d"
+    },
+    "lib\\ftp-1.2.6\\ebin\\ftp_progress.beam": {
+      "status": "Equal",
+      "before": "f71b2a3366d24138d5e4588711c22ffebb0150b4bc3f6bfd346159bec09c6da0",
+      "after": "f71b2a3366d24138d5e4588711c22ffebb0150b4bc3f6bfd346159bec09c6da0",
+      "reference": "f71b2a3366d24138d5e4588711c22ffebb0150b4bc3f6bfd346159bec09c6da0"
+    },
+    "lib\\inets-9.8\\ebin\\httpc_profile_sup.beam": {
+      "status": "Equal",
+      "before": "9841c7ed17cd2f37798ea0b46f534b5b13de1b424272482ccb574e0e47f7fcc1",
+      "after": "9841c7ed17cd2f37798ea0b46f534b5b13de1b424272482ccb574e0e47f7fcc1",
+      "reference": "9841c7ed17cd2f37798ea0b46f534b5b13de1b424272482ccb574e0e47f7fcc1"
+    },
+    "lib\\inets-9.8\\ebin\\httpd_custom.beam": {
+      "status": "Different",
+      "before": "044dbece4ef0bf659097a098af9a329b1e90b96f2611082423f38c866c98d19b",
+      "after": "044dbece4ef0bf659097a098af9a329b1e90b96f2611082423f38c866c98d19b",
+      "reference": "90eeaf68bae9339e2461cfcedb35d4207e8ed8ba2f415c63981b6ac487741e80"
+    },
+    "lib\\inets-9.8\\ebin\\httpd_esi.beam": {
+      "status": "Equal",
+      "before": "daa501e2fe940b94dab8b7ec304b52ca26608dcc20ad22fab53ed8c002db846a",
+      "after": "daa501e2fe940b94dab8b7ec304b52ca26608dcc20ad22fab53ed8c002db846a",
+      "reference": "daa501e2fe940b94dab8b7ec304b52ca26608dcc20ad22fab53ed8c002db846a"
+    },
+    "lib\\inets-9.8\\ebin\\httpd_file.beam": {
+      "status": "Equal",
+      "before": "9937c9c225be3a5e537d6f07251a0f50d5a22515a4f13cb6ab6a4634c7ff5b2d",
+      "after": "9937c9c225be3a5e537d6f07251a0f50d5a22515a4f13cb6ab6a4634c7ff5b2d",
+      "reference": "9937c9c225be3a5e537d6f07251a0f50d5a22515a4f13cb6ab6a4634c7ff5b2d"
+    },
+    "lib\\inets-9.8\\ebin\\httpd_instance_sup.beam": {
+      "status": "Different",
+      "before": "2acf1abad4aa4701b9ec3ab8d8b7cb66f1d4b1cc9d72853128a375f5456d7dd6",
+      "after": "2acf1abad4aa4701b9ec3ab8d8b7cb66f1d4b1cc9d72853128a375f5456d7dd6",
+      "reference": "a93aa215eb0034f79b4f7a564d5704dde57f47e86b688b443a2acc48e3082193"
+    },
+    "lib\\inets-9.8\\ebin\\inets_sup.beam": {
+      "status": "Equal",
+      "before": "7c57bc8cb3a5a7abb165fb67b834f126b80bd0facd78690cc9e37b7d9c28343d",
+      "after": "7c57bc8cb3a5a7abb165fb67b834f126b80bd0facd78690cc9e37b7d9c28343d",
+      "reference": "7c57bc8cb3a5a7abb165fb67b834f126b80bd0facd78690cc9e37b7d9c28343d"
+    },
+    "lib\\inets-9.8\\ebin\\mod_actions.beam": {
+      "status": "Different",
+      "before": "7202458274841f4ce632fedeb028da14b422d056f3ab9b488c0b4520f288d00d",
+      "after": "7202458274841f4ce632fedeb028da14b422d056f3ab9b488c0b4520f288d00d",
+      "reference": "4fb9230f2588a00ce53a4ac8732e7983cd831813decdb40b7157087e823e3078"
+    },
+    "lib\\inets-9.8\\ebin\\mod_get.beam": {
+      "status": "Different",
+      "before": "2fb5cb23661f185990424d7f75394f8f9033b9582ac18360b856d45c23695b25",
+      "after": "2fb5cb23661f185990424d7f75394f8f9033b9582ac18360b856d45c23695b25",
+      "reference": "13dc26d2325cfd7066f7cf0a16a2302d990793efa83534354384cfa72fa140c8"
+    },
+    "lib\\inets-9.8\\ebin\\mod_head.beam": {
+      "status": "Different",
+      "before": "b9765b0d1df9e5e9ef36916ca484cb882875007be112a94b0887eef80ababb44",
+      "after": "ae4d1ca8c4dc27e3d28fca567a4c0332a679533fdda20764210c0e5e13ad8625",
+      "reference": "84ae33a082b0b01f02c309ad08bca131e02ee200eb4b584b658fc53bd013d1c9"
+    },
+    "lib\\inets-9.8\\ebin\\mod_trace.beam": {
+      "status": "Different",
+      "before": "70fd8a9753b8a37b62f325f6daad8c53dcecbb7b860c63c224601b5dfd29d06d",
+      "after": "70fd8a9753b8a37b62f325f6daad8c53dcecbb7b860c63c224601b5dfd29d06d",
+      "reference": "daa144007178a9e1c5c5d3dc4e1591d83e6db83ab71b66d311d5c59307f0940c"
+    },
+    "lib\\kernel-11.0.4\\ebin\\error_handler.beam": {
+      "status": "Equal",
+      "before": "ba176440039080acbf0231e5b6db8fdd67551ff1ec532d53d57b491e9f3aae7b",
+      "after": "ba176440039080acbf0231e5b6db8fdd67551ff1ec532d53d57b491e9f3aae7b",
+      "reference": "ba176440039080acbf0231e5b6db8fdd67551ff1ec532d53d57b491e9f3aae7b"
+    },
+    "lib\\megaco-4.9.2\\ebin\\megaco_sup.beam": {
+      "status": "Equal",
+      "before": "f2b147d57974e84fd33c8be564422cfabf54042faad01b3f7e03514a7c26d8af",
+      "after": "f2b147d57974e84fd33c8be564422cfabf54042faad01b3f7e03514a7c26d8af",
+      "reference": "f2b147d57974e84fd33c8be564422cfabf54042faad01b3f7e03514a7c26d8af"
+    },
+    "lib\\megaco-4.9.2\\ebin\\megaco_tcp_accept.beam": {
+      "status": "Equal",
+      "before": "44c5ec869255b654853ae6e21cc190c52c8e8a69e4591bb021ee27bc279a5d46",
+      "after": "44c5ec869255b654853ae6e21cc190c52c8e8a69e4591bb021ee27bc279a5d46",
+      "reference": "44c5ec869255b654853ae6e21cc190c52c8e8a69e4591bb021ee27bc279a5d46"
+    },
+    "lib\\megaco-4.9.2\\ebin\\megaco_trans_sup.beam": {
+      "status": "Equal",
+      "before": "f5c007a7411ffdbf400cc78efef96327da966e6cb57075680712f191da1d3252",
+      "after": "f5c007a7411ffdbf400cc78efef96327da966e6cb57075680712f191da1d3252",
+      "reference": "f5c007a7411ffdbf400cc78efef96327da966e6cb57075680712f191da1d3252"
+    },
+    "lib\\public_key-1.21.7\\ebin\\CryptographicMessageSyntax-2009.beam": {
+      "status": "Equal",
+      "before": "39a45eb4897a159c03de59a3fa99848ed431e8c26e9dd5b2b403f2c8aa2720d5",
+      "after": "39a45eb4897a159c03de59a3fa99848ed431e8c26e9dd5b2b403f2c8aa2720d5",
+      "reference": "39a45eb4897a159c03de59a3fa99848ed431e8c26e9dd5b2b403f2c8aa2720d5"
+    },
+    "lib\\public_key-1.21.7\\ebin\\OCSP-2024-08.beam": {
+      "status": "Equal",
+      "before": "9041c27dfefc1e27786e08bec1437afc68946c2cd4bf01cb9830602f2f164497",
+      "after": "9041c27dfefc1e27786e08bec1437afc68946c2cd4bf01cb9830602f2f164497",
+      "reference": "9041c27dfefc1e27786e08bec1437afc68946c2cd4bf01cb9830602f2f164497"
+    },
+    "lib\\public_key-1.21.7\\ebin\\PKIXCRMF-2009.beam": {
+      "status": "Equal",
+      "before": "5e65c0e0ef17b4428c9e41d36990d6305d1a99ded05904cb438a478ff2de44fc",
+      "after": "5e65c0e0ef17b4428c9e41d36990d6305d1a99ded05904cb438a478ff2de44fc",
+      "reference": "5e65c0e0ef17b4428c9e41d36990d6305d1a99ded05904cb438a478ff2de44fc"
+    },
+    "lib\\stdlib-8.1\\ebin\\io_ansi.beam": {
+      "status": "Different",
+      "before": "1eecff490a25e0dd8f70103ce38d2637ca1b94b8926f8537b11e7200051cdf04",
+      "after": "1eecff490a25e0dd8f70103ce38d2637ca1b94b8926f8537b11e7200051cdf04",
+      "reference": "2d75d598dfb09ba93edde00a8101e3c2342e9501f109f573d23767e2592e3c6d"
+    },
+    "lib\\stdlib-8.1\\ebin\\ordsets.beam": {
+      "status": "Equal",
+      "before": "417595cfd47ff9dc43673cee03083776cbacd3abb61166bf58c61dc6a13cce1d",
+      "after": "417595cfd47ff9dc43673cee03083776cbacd3abb61166bf58c61dc6a13cce1d",
+      "reference": "417595cfd47ff9dc43673cee03083776cbacd3abb61166bf58c61dc6a13cce1d"
+    },
+    "lib\\stdlib-8.1\\ebin\\zstd.beam": {
+      "status": "Different",
+      "before": "e804caeef23df84f8b29f17dd9d9bb3abcf0d5f25463497f813be76003015bfb",
+      "after": "e804caeef23df84f8b29f17dd9d9bb3abcf0d5f25463497f813be76003015bfb",
+      "reference": "dbcbcb263bbe36226687999f96bcd1f4860cf83ea1db25f0fbaa10c59970aa43"
+    },
+    "lib\\wx-2.7\\doc\\examples\\demo\\ex_grid.beam": {
+      "status": "Equal",
+      "before": "7f73564f667fc643a58a81c14fbd44868cf62b48ec5e6eed4dcc723c99ed80f0",
+      "after": "7f73564f667fc643a58a81c14fbd44868cf62b48ec5e6eed4dcc723c99ed80f0",
+      "reference": "7f73564f667fc643a58a81c14fbd44868cf62b48ec5e6eed4dcc723c99ed80f0"
+    },
+    "lib\\wx-2.7\\doc\\examples\\demo\\ex_radioBox.beam": {
+      "status": "Equal",
+      "before": "73950bf828ba92dd9019c8cc09abbd90bab8fb3c28b654bb29790b4571c7480b",
+      "after": "73950bf828ba92dd9019c8cc09abbd90bab8fb3c28b654bb29790b4571c7480b",
+      "reference": "73950bf828ba92dd9019c8cc09abbd90bab8fb3c28b654bb29790b4571c7480b"
+    }
+  },
+  "mod_head_code_sizes": {
+    "before": 601,
+    "after": 586,
+    "reference": 592
+  },
+  "newly_exact_sections": [
+    "AtU8"
+  ],
+  "evidence": {
+    "compiler-bin/Erlang.Compiler.dll": "177f5009cd74b5fdfc3464059b8965b94dc0a9e1a589edb6af2250512bfa3c72",
+    "candidate-bin/Erlang.BeamCorpus.dll": "f500fa814be2aada617316deaed5ef1b5969cb63b0fd89df317ab8649ad78799",
+    "red-test/Erlang.Compiler.dll": "355bfe34de8a789e55ec9d208e1dcb12965b916b584c5b9c7bb1b8563b394ed0",
+    "red-test/Erlang.Tests.dll": "ac1e3d2ad564a160c216bc5104bf9410c0d4250c51cbdfade98be566b7a82ebc",
+    "green-test/Erlang.Tests.dll": "ac1e3d2ad564a160c216bc5104bf9410c0d4250c51cbdfade98be566b7a82ebc",
+    "../checked-result-payload-1940/final-corpus.json": "1da956706f40c341106fc4abca0405c0557e034f1ad52cba412f7cdedadef1f6",
+    "final-corpus.json": "32b5652b89a351051c0efafb639c34cda73a6a9830a53e76845893e819f1a007",
+    "focused-exits.json": "60ff5c4ffa65e3b030bb41ce06f569406112dcbd867e3e660b1f92cf5032f415",
+    "final-focused-red.log": "6ef176879d6286bf98356ba9765c7bb2a966145c3b9ed35d3301e1a63167f39a",
+    "final-focused-green.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "final-candidate-diff.log": "c49e88a10456ec6b786de445aa17931019f66d5719caa1ea43054b2893ca9e06",
+    "reference-native.terms": "35d78ff5bd7d6935d5b02866065bcca0ac2a77647157e73c7e38393f559cdafb",
+    "final-native.terms": "35d78ff5bd7d6935d5b02866065bcca0ac2a77647157e73c7e38393f559cdafb",
+    "layout-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f"
+  }
+}

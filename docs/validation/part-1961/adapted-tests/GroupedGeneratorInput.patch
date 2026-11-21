@@ -1,0 +1,40 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamListGeneratorErrorLineChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamListGeneratorErrorLineChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamListGeneratorErrorLineChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamListGeneratorErrorLineChecks.cs
+@@ -15,7 +15,7 @@
+ 
+     private const string Source = """
+         -module(beam_list_generator_error_line).
+-        -export([literal/1, computed/1, direct/2, same_line/2, split_input/2]).
++        -export([literal/1, computed/1, direct/2, same_line/2, split_input/2, grouped_direct/2, grouped_call/1]).
+ 
+         literal(Sink) ->
+             [event:put(Sink, "Item " ++ integer_to_list(I)) ||
+@@ -41,6 +41,18 @@
+                 I <-
+                     Rows],
+             ok.
++
++        grouped_direct(Sink, Rows) ->
++            [event:put(Sink, integer_to_list(I)) ||
++                I <- ((
++                    Rows))],
++            ok.
++
++        grouped_call(Sink) ->
++            [event:put(Sink, integer_to_list(I)) ||
++                I <- (
++                    event:rows(Sink))],
++            ok.
+         """;
+ 
+     internal static void Run()
+@@ -53,6 +65,8 @@
+         RequireErrorLine("computed", 11);
+         RequireErrorLine("direct", 16);
+         RequireErrorLine("split_input", 26);
++        RequireErrorLine("grouped_direct", 32);
++        RequireErrorLine("grouped_call", 38);
+ 
+         object[] sameLine = Body("same_line");
+         if (sameLine.Length < 2 || Opcode(sameLine[^2]) != PutTuple || Opcode(sameLine[^1]) != TailExternalCall)

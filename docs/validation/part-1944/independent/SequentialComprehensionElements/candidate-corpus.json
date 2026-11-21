@@ -1,0 +1,52 @@
+{
+  "OtpVersion": "29.1.1",
+  "Total": 6,
+  "Counts": {
+    "Different": 4,
+    "Equal": 2
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\common_test-1.31.2\\ebin\\ct_release_test.beam",
+      "Status": "Different",
+      "Source": "lib\\common_test-1.31.2\\src\\ct_release_test.erl",
+      "Detail": "Original length 39004, generated length 39884. AtU8 2598-\u003E2382, Code 10469-\u003E11723, ImpT 928-\u003E940, ExpT 100-\u003E100, FunT 148-\u003E172, LitT 2406-\u003E2331, LocT 676-\u003E580, Attr 39-\u003E39, Line 588-\u003E590, Type 38-\u003E16",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\compiler-10.0.6\\ebin\\beam_asm.beam",
+      "Status": "Different",
+      "Source": "lib\\compiler-10.0.6\\src\\beam_asm.erl",
+      "Detail": "Original length 42296, generated length 42988. AtU8 2693-\u003E2394, Code 11856-\u003E13340, StrT 24-\u003E24, ImpT 880-\u003E904, ExpT 52-\u003E52, FunT 172-\u003E148, LitT 571-\u003E529, LocT 736-\u003E676, Attr 39-\u003E39, Line 540-\u003E570, Type 494-\u003E70",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\cdv_bin_cb.beam",
+      "Status": "Equal",
+      "Source": "lib\\observer-2.19\\src\\cdv_bin_cb.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\crashdump_viewer.beam",
+      "Status": "Different",
+      "Source": "lib\\observer-2.19\\src\\crashdump_viewer.erl",
+      "Detail": "Original length 148252, generated length 150008. AtU8 6410-\u003E6300, Code 48489-\u003E49690, StrT 20-\u003E2, ImpT 1360-\u003E1372, ExpT 508-\u003E508, FunT 724-\u003E724, LitT 7199-\u003E8141, LocT 3016-\u003E2968, Attr 39-\u003E39, Line 2915-\u003E3014, Type 380-\u003E56",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\ssh-6.0.6\\ebin\\ssh_bits.beam",
+      "Status": "Equal",
+      "Source": "lib\\ssh-6.0.6\\src\\ssh_bits.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\erl_pp.beam",
+      "Status": "Different",
+      "Source": "lib\\stdlib-8.1\\src\\erl_pp.erl",
+      "Detail": "Original length 77464, generated length 79644. AtU8 3326-\u003E3278, Code 23580-\u003E25937, ImpT 676-\u003E700, ExpT 220-\u003E220, FunT 796-\u003E796, LitT 1235-\u003E1235, LocT 1924-\u003E1900, Attr 39-\u003E39, Line 1158-\u003E1158, Type 168-\u003E34",
+      "FirstDifferentByte": 6
+    }
+  ]
+}

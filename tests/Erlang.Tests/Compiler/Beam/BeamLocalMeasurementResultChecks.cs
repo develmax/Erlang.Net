@@ -1,0 +1,137 @@
+using System.Collections;
+using System.Numerics;
+using Erlang;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamLocalMeasurementResultChecks
+{
+    internal const string TestName = "compiler/beam/types-a-measured-proved-local-binary-result";
+    private const string Fixture = "beam_local_measurement_result_probe.erl";
+    private const string Decode = "decode";
+    private const string Guard = " when is_binary(Value)";
+    private const int MatchableType = 0x0002;
+    private const string IncorrectValue = "Measuring a local result changed its conversion or errors.";
+    private const string IncorrectLayout = "The size operand should carry a binary proof only for a proved local producer.";
+
+    private const string Source = """
+        -module(beam_local_measurement_result_probe).
+        -export([decode/2]).
+
+        decode(Input, Tags) ->
+            begin
+                Value = read(Input, Tags),
+                Size = byte_size(Value),
+                if
+                    1 =< Size, Size =< 3 -> binary_to_list(Value);
+                    true -> exit(bad_range)
+                end
+            end.
+
+        read(Value, []) when is_binary(Value) -> Value.
+        """;
+
+    internal static async Task Run()
+    {
+        byte[] known = CodeGeneration.CompileBeamModule(Source, Fixture);
+        byte[] unknown = CodeGeneration.CompileBeamModule(
+            Source.Replace(Guard, string.Empty, StringComparison.Ordinal), Fixture
+        );
+        var knownModule = BeamModule.Prepare(known);
+        var unknownModule = BeamModule.Prepare(unknown);
+        Term input = new BitString([65, 66]);
+        Term expected = Term.List(Term.I(65), Term.I(66));
+        await using var runtime = new ProcessRuntime();
+        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
+        await actor.InvokeAsync(async context =>
+        {
+            if (!expected.Equals(await knownModule.Invoke(
+                context,
+                Decode,
+                input,
+                Nil.Value
+            ))
+                || !expected.Equals(await unknownModule.Invoke(
+                    context,
+                    Decode,
+                    input,
+                    Nil.Value
+                )))
+            {
+                throw new InvalidOperationException(IncorrectValue);
+            }
+
+            try
+            {
+                await knownModule.Invoke(
+                    context,
+                    Decode,
+                    new BitString([]),
+                    Nil.Value
+                );
+                throw new InvalidOperationException(IncorrectValue);
+            }
+            catch (ErlangException error) when (error.Reason.Equals(Term.A("bad_range")))
+            {
+            }
+
+            try
+            {
+                await unknownModule.Invoke(
+                    context,
+                    Decode,
+                    Term.A("not_bytes"),
+                    Nil.Value
+                );
+                throw new InvalidOperationException(IncorrectValue);
+            }
+            catch (ErlangException error) when (error.Reason.Equals(Term.A("badarg")))
+            {
+            }
+
+            return Nil.Value;
+        });
+
+        if (MeasurementType(known) != MatchableType || MeasurementType(unknown) is not null)
+        {
+            throw new InvalidOperationException(IncorrectLayout);
+        }
+    }
+
+    private static int? MeasurementType(byte[] image)
+    {
+        object code = Code(image);
+        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
+        object[] instructions = Items(code, "Instructions");
+        int start = Array.FindIndex(
+            instructions,
+            instruction => Opcode(instruction) == FunctionInfo
+                && Items(instruction, "Operands") is [_, var name, var arity]
+                && atoms[Value(name)] == Decode && Value(arity) == 2
+        );
+        if (start < 0)
+        {
+            throw new InvalidOperationException(IncorrectLayout);
+        }
+
+        object measured = instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo)
+            .Single(instruction => Opcode(instruction) == GcBifOne);
+        if (Property(Items(measured, "Operands")[3], "TypeIndex") is not int index)
+        {
+            return null;
+        }
+
+        object[] types = Items(Property(code, "Types"), "Entries");
+
+        return (int)Property(types[index], "TypeUnion");
+    }
+
+    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
+
+    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
+
+    private static object[] Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
+}

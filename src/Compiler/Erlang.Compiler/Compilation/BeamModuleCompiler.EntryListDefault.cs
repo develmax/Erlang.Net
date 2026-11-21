@@ -273,7 +273,13 @@ internal sealed partial class BeamModuleCompiler
                 : null;
         }
 
-        private bool HasProperListEntry(FunctionDefinition function, int parameter, bool followForwarding = false)
+        private bool HasProperListEntry(
+            FunctionDefinition function,
+            int parameter,
+            bool followForwarding = false,
+            bool followReturnedLists = false,
+            bool acceptBinaryListResult = false
+        )
         {
             var visiting = new HashSet<(string Name, int Arity, int Parameter)>();
 
@@ -299,6 +305,11 @@ internal sealed partial class BeamModuleCompiler
                         hasCaller = true;
 
                         return IsListComprehensionResult(argument)
+                            || acceptBinaryListResult && argument is Expr.Call
+                            {
+                                Module: null or ErlangModuleNames.Module, DynamicRemote: false,
+                                Function: AutoImportNames.BinaryToList, Arguments.Count: 1
+                            } converted && owner.ResolvesErlangBif(converted)
                             || (InferPairFacts(argument) & PairFacts.ProperList) != 0
                             || followForwarding && argument is Expr.Variable variable && ProveForwarded(caller, call, variable);
                     }
@@ -349,12 +360,14 @@ internal sealed partial class BeamModuleCompiler
             bool IsListComprehensionResult(Expr expression) => expression is Expr.ListComprehension
                 || expression is Expr.Call { Module: null, DynamicRemote: false } call
                     && localFunctions.TryGetValue((call.Function, call.Arguments.Count), out var mapper)
-                    && mapper.IsRecursiveListMapper;
+                    && mapper.IsRecursiveListMapper && RecursiveListBaseResultRegister(mapper) == 0;
 
-            static bool IsDirectUse(Expr expression, Expr.Call call) =>
+            bool IsDirectUse(Expr expression, Expr.Call call) =>
                 ReferenceEquals(expression, call)
                 || expression is Expr.Match binding && IsDirectUse(binding.Value, call)
-                || expression is Expr.Tuple tuple && tuple.Items.Any(item => IsDirectUse(item, call));
+                || expression is Expr.Tuple tuple && tuple.Items.Any(item => IsDirectUse(item, call))
+                || followReturnedLists && expression is Expr.List { Tail: null } list
+                    && list.Items.Any(item => IsDirectUse(item, call));
 
             static bool PreservesProperTail(Expr argument, Pattern source)
             {
@@ -1383,8 +1396,8 @@ internal sealed partial class BeamModuleCompiler
                 Patterns = inputs.Select(name => (Pattern)new Pattern.Variable(name)).ToArray()
             };
             if (ReadEntryTypeGuard(guardClause, guard) is not { } test
-                || ReadConsCallResult(matched, inputs) is not { HeadCall: null } first
-                || ReadConsCallResult(fallback, inputs) is not { HeadCall: null } second)
+                || ReadConsCallResult(matched, inputs) is not { HeadCall: null, Ordered: null } first
+                || ReadConsCallResult(fallback, inputs) is not { HeadCall: null, Ordered: null } second)
             {
                 return false;
             }
@@ -1414,21 +1427,30 @@ internal sealed partial class BeamModuleCompiler
             EntryConstructedArgument? Tuple,
             bool ExtractHead,
             int? DeferredField = null,
-            ConsHeadCall? HeadCall = null
+            ConsHeadCall? HeadCall = null,
+            OrderedConsConstruction? Ordered = null
         );
 
         private bool TryEmitDeferredConsHead(Clause clause)
         {
-            if (clause.Guard is not null || !HasUnconditionalParameters(clause)
-                || clause.Body is not Expr.List { Items: [Expr.Tuple head], Tail: { } tail })
+            if (clause.Guard is not null || !HasUnconditionalParameters(clause))
             {
                 return false;
             }
 
+            var parameters = clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray();
+            if (ReadOrderedConsCallResult(clause.Body, parameters) is { } ordered)
+            {
+                int roots = Math.Max(ordered.Saved.Max() + 1, EntryCallLiveCount(ordered.Call, parameters));
+                EmitConsCallResult(ordered, roots);
+
+                return true;
+            }
+
             // Core extracts effectful head prerequisites before the tail. These
             // fields can only read entry bindings or already folded constants.
-            var parameters = clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray();
-            if (ReadEntryConstructedArgument(head, 1, parameters) is not { } tuple)
+            if (clause.Body is not Expr.List { Items: [Expr.Tuple head], Tail: { } tail }
+                || ReadEntryConstructedArgument(head, 1, parameters) is not { } tuple)
             {
                 return false;
             }
@@ -1499,7 +1521,7 @@ internal sealed partial class BeamModuleCompiler
         {
             if (body is not Expr.List { Items: [var head], Tail: Expr.Call call })
             {
-                return null;
+                return directHead < 0 ? ReadOrderedConsCallResult(body, inputs) : null;
             }
 
             int headRegister = head is Expr.Variable { Name: not VariableScopeNames.Wildcard } variable
@@ -1613,6 +1635,14 @@ internal sealed partial class BeamModuleCompiler
 
             owner.EmitCallLine(call.Call, previous ?? location);
             Call(call.Module, call.Call.Function, call.Call.Arguments.Count);
+            if (result.Ordered is { } ordered)
+            {
+                EmitOrderedConsConstruction(ordered, result.Saved);
+                owner.EmitFrameReturn(frame);
+
+                return;
+            }
+
             owner.Op(TestHeap, BeamWire.UnsignedTag, ConsHeapWords + (result.Tuple?.HeapWords ?? 0));
             owner.Operand(BeamWire.UnsignedTag, 1);
             if (result.DeferredField is int field)

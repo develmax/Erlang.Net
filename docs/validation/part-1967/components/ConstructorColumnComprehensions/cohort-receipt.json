@@ -1,0 +1,469 @@
+{
+  "Scope": {
+    "Modules": 60,
+    "Parent": {
+      "Different": 60
+    },
+    "Candidate": {
+      "Different": 60
+    },
+    "Gains": [],
+    "Losses": []
+  },
+  "EstimatedOriginalCensusKeys": 145,
+  "HelperDirectoryTotals": {
+    "PlannedKeysParent": 0,
+    "PlannedKeysCandidate": 96,
+    "RestoredPinnedListNamedKeys": 141,
+    "LostPinnedListNamedKeys": 0
+  },
+  "ChangedHelperModules": [
+    "lib/asn1-5.5.2/ebin/asn1ct_check.beam",
+    "lib/asn1-5.5.2/ebin/asn1ct_constructed_per.beam",
+    "lib/asn1-5.5.2/ebin/asn1ct_imm.beam",
+    "lib/asn1-5.5.2/ebin/asn1ct_partial_decode.beam",
+    "lib/common_test-1.31.2/ebin/ct_logs.beam",
+    "lib/common_test-1.31.2/ebin/ct_property_test.beam",
+    "lib/common_test-1.31.2/ebin/cth_surefire.beam",
+    "lib/common_test-1.31.2/ebin/test_server_ctrl.beam",
+    "lib/compiler-10.0.6/ebin/beam_ssa_bc_size.beam",
+    "lib/compiler-10.0.6/ebin/beam_ssa_bool.beam",
+    "lib/compiler-10.0.6/ebin/beam_ssa_codegen.beam",
+    "lib/compiler-10.0.6/ebin/beam_ssa_ss.beam",
+    "lib/debugger-7.0/ebin/dbg_wx_filedialog_win.beam",
+    "lib/dialyzer-6.0.3/ebin/dialyzer_cl.beam",
+    "lib/dialyzer-6.0.3/ebin/dialyzer_incremental.beam",
+    "lib/dialyzer-6.0.3/ebin/dialyzer_typesig.beam",
+    "lib/dialyzer-6.0.3/ebin/dialyzer_utils.beam",
+    "lib/dialyzer-6.0.3/ebin/erl_types.beam",
+    "lib/diameter-2.7.2/ebin/diameter_dict_util.beam",
+    "lib/diameter-2.7.2/ebin/diameter_dist.beam",
+    "lib/et-1.8/ebin/et_wx_viewer.beam",
+    "lib/ftp-1.2.6/ebin/ftp_internal.beam",
+    "lib/kernel-11.0.4/ebin/dist_ac.beam",
+    "lib/kernel-11.0.4/ebin/inet.beam",
+    "lib/megaco-4.9.2/ebin/megaco_erl_dist_encoder.beam",
+    "lib/megaco-4.9.2/ebin/megaco_filter.beam",
+    "lib/megaco-4.9.2/ebin/megaco_messenger.beam",
+    "lib/megaco-4.9.2/ebin/megaco_trans_sender.beam",
+    "lib/mnesia-4.27/ebin/mnesia_index.beam",
+    "lib/mnesia-4.27/ebin/mnesia_schema.beam",
+    "lib/observer-2.19/ebin/observer_trace_wx.beam",
+    "lib/snmp-5.20.5/ebin/snmpc_lib.beam",
+    "lib/ssh-6.0.6/ebin/ssh_dbg.beam",
+    "lib/ssl-11.7.7/ebin/ssl_config.beam",
+    "lib/ssl-11.7.7/ebin/ssl_gen_statem.beam",
+    "lib/ssl-11.7.7/ebin/ssl_trace.beam",
+    "lib/stdlib-8.1/ebin/edlin_type_suggestion.beam",
+    "lib/stdlib-8.1/ebin/erl_pp.beam",
+    "lib/stdlib-8.1/ebin/lists.beam",
+    "lib/stdlib-8.1/ebin/qlc.beam",
+    "lib/tftp-1.3/ebin/tftp_lib.beam",
+    "lib/tools-4.2.3/ebin/cover.beam",
+    "lib/tools-4.2.3/ebin/tprof.beam"
+  ],
+  "Affected": [
+    {
+      "Beam": "lib/stdlib-8.1/ebin/edlin_type_suggestion.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 3,
+      "RestoredPinnedListNamedKeys": 10,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-get_arity1/3-lc$^1/1-0-',2},{'-get_arity1/3-lc$^2/1-2-',3},{'-get_arity1/3-lc$^3/1-3-',1},{'-get_atoms1/3-lc$^1/1-0-',2},{'-get_atoms1/3-lc$^2/1-2-',3},{'-get_atoms1/3-lc$^3/1-3-',1},{'-get_function_type/4-lc$^0/1-2-',3},{'-get_function_type/4-lc$^2/1-1-',3},{'-get_types1/5-lc$^0/1-0-',5},{'-get_types1/5-lc$^2/1-1-',2}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/stdlib-8.1/ebin/lists.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 10,
+      "RestoredPinnedListNamedKeys": 10,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-zip/3-lc$^0/1-1-',2},{'-zip/3-lc$^1/1-0-',2},{'-zip3/4-lc$^0/1-2-',3},{'-zip3/4-lc$^1/1-1-',3},{'-zip3/4-lc$^2/1-0-',3},{'-zipwith/4-lc$^0/1-1-',3},{'-zipwith/4-lc$^1/1-0-',3},{'-zipwith3/5-lc$^0/1-2-',4},{'-zipwith3/5-lc$^1/1-1-',4},{'-zipwith3/5-lc$^2/1-0-',4}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/mnesia-4.27/ebin/mnesia_schema.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 4,
+      "RestoredPinnedListNamedKeys": 9,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-check_restore_arg/2-lc$^0/1-0-',1},{'-check_restore_arg/2-lc$^1/1-1-',1},{'-check_restore_arg/2-lc$^2/1-2-',1},{'-check_restore_arg/2-lc$^3/1-3-',1},{'-do_merge_schema/1-lc$^0/1-0-',1},{'-do_merge_schema/1-lc$^1/1-1-',1},{'-do_merge_schema/1-lc$^2/1-2-',4},{'-do_merge_schema/1-lc$^3/1-3-',4},{'-do_merge_schema/1-lc$^4/1-4-',2}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/common_test-1.31.2/ebin/ct_property_test.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 2,
+      "RestoredPinnedListNamedKeys": 5,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-compile_tests/2-lc$^0/1-0-',1},{'-compile_tests/2-lc$^1/1-1-',1},{'-compile_tests/2-lc$^2/1-2-',1},{'-mean/1-lc$^0/1-0-',1},{'-mean/1-lc$^1/1-1-',1}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/dialyzer-6.0.3/ebin/dialyzer_cl.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 2,
+      "RestoredPinnedListNamedKeys": 5,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-add_to_plt/1-lc$^0/1-0-',1},{'-plt_common/3-lc$^0/1-0-',1},{'-plt_common/3-lc$^1/1-1-',1},{'-print_warnings/1-lc$^0/1-0-',2},{'-print_warnings/1-lc$^1/1-1-',1}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/dialyzer-6.0.3/ebin/erl_types.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 3,
+      "RestoredPinnedListNamedKeys": 5,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-separate_key/1-lc$^0/1-0-',1},{'-separate_key/1-lc$^1/1-1-',1},{'-t_elements/1-lc$^0/1-0-',1},{'-t_elements/1-lc$^1/1-1-',1},{'-t_elements/1-lc$^2/1-2-',1}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/ssl-11.7.7/ebin/ssl_config.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 4,
+      "RestoredPinnedListNamedKeys": 5,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-binary_cipher_suites/2-lc$^0/1-1-',1},{'-binary_cipher_suites/2-lc$^1/1-2-',1},{'-binary_cipher_suites/2-lc$^2/1-3-',2},{'-binary_cipher_suites/2-lc$^3/1-4-',1},{'-binary_cipher_suites/2-lc$^4/1-0-',1}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/asn1-5.5.2/ebin/asn1ct_check.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 2,
+      "RestoredPinnedListNamedKeys": 4,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-check_object_set/2-lc$^0/1-0-',1},{'-check_object_set/2-lc$^2/1-2-',1},{'-printable_string_1/1-lc$^0/1-1-',1},{'-printable_string_1/1-lc$^1/1-0-',1}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/asn1-5.5.2/ebin/asn1ct_imm.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 4,
+      "RestoredPinnedListNamedKeys": 4,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-enc_cg/1-lc$^0/1-0-',1},{'-enc_cg/1-lc$^1/1-2-',1},{'-enc_cg/1-lc$^2/1-3-',1},{'-enc_cg/1-lc$^3/1-1-',1}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/common_test-1.31.2/ebin/ct_logs.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 2,
+      "RestoredPinnedListNamedKeys": 4,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-get_groupleader/3-lc$^0/1-1-',1},{'-get_groupleader/3-lc$^1/1-0-',1},{'-make_relative1/2-lc$^0/1-1-',1},{'-make_relative1/2-lc$^1/1-0-',1}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/compiler-10.0.6/ebin/beam_ssa_codegen.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 3,
+      "RestoredPinnedListNamedKeys": 4,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-cg_alloc/2-lc$^0/1-0-',1},{'-cg_alloc/2-lc$^1/1-1-',2},{'-def_is/4-lc$^0/1-0-',2},{'-def_is/4-lc$^1/1-1-',3}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/dialyzer-6.0.3/ebin/dialyzer_typesig.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 1,
+      "RestoredPinnedListNamedKeys": 4,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-expand_to_conjunctions/1-lc$^0/1-0-',1},{'-expand_to_conjunctions/1-lc$^2/1-2-',2},{'-expand_to_conjunctions/1-lc$^3/1-3-',1},{'-expand_to_conjunctions/1-lc$^4/1-4-',1}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/megaco-4.9.2/ebin/megaco_messenger.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 2,
+      "RestoredPinnedListNamedKeys": 4,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-handle_ack/5-lc$^0/1-0-',1},{'-handle_ack/5-lc$^1/1-1-',1},{'-to_local_trans_id/2-lc$^0/1-1-',2},{'-to_local_trans_id/2-lc$^1/1-0-',2}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/megaco-4.9.2/ebin/megaco_trans_sender.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 4,
+      "RestoredPinnedListNamedKeys": 4,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-do_send_msg/3-lc$^0/1-1-',1},{'-do_send_msg/3-lc$^1/1-0-',1},{'-do_send_msg/4-lc$^0/1-1-',1},{'-do_send_msg/4-lc$^1/1-0-',1}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/asn1-5.5.2/ebin/asn1ct_partial_decode.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 2,
+      "RestoredPinnedListNamedKeys": 3,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-get_tag_command/3-lc$^0/1-1-',1},{'-get_tag_command/3-lc$^1/1-2-',1},{'-get_tag_command/3-lc$^2/1-0-',4}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/debugger-7.0/ebin/dbg_wx_filedialog_win.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 2,
+      "RestoredPinnedListNamedKeys": 3,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-show_completion/2-lc$^0/1-0-',1},{'-show_completion/2-lc$^1/1-1-',1},{'-show_completion/2-lc$^2/1-2-',1}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/dialyzer-6.0.3/ebin/dialyzer_utils.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 2,
+      "RestoredPinnedListNamedKeys": 3,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-process_options/2-lc$^0/1-0-',1},{'-process_options/2-lc$^1/1-1-',1},{'-process_record_remote_types/1-lc$^1/1-1-',1}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/diameter-2.7.2/ebin/diameter_dict_util.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 3,
+      "RestoredPinnedListNamedKeys": 3,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-io/2-lc$^1/1-2-',2},{'-io/2-lc$^2/1-0-',2},{'-io/2-lc$^3/1-1-',2}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/et-1.8/ebin/et_wx_viewer.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 3,
+      "RestoredPinnedListNamedKeys": 3,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-parse_opt/3-lc$^0/1-0-',1},{'-parse_opt/3-lc$^1/1-1-',2},{'-parse_opt/3-lc$^2/1-2-',2}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/observer-2.19/ebin/observer_trace_wx.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 3,
+      "RestoredPinnedListNamedKeys": 3,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-setup_tps/2-lc$^0/1-1-',1},{'-setup_tps/2-lc$^1/1-0-',1},{'-setup_tps/2-lc$^2/1-2-',1}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/stdlib-8.1/ebin/qlc.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 1,
+      "RestoredPinnedListNamedKeys": 3,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-pref_lookup_join/4-lc$^0/1-1-',8},{'-pref_lookup_join/4-lc$^1/1-2-',8},{'-pref_lookup_join/4-lc$^2/1-0-',4}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/tools-4.2.3/ebin/cover.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 2,
+      "RestoredPinnedListNamedKeys": 3,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-patch_code1/2-lc$^0/1-1-',2},{'-patch_code1/2-lc$^1/1-0-',2},{'-sync_compiled/2-lc$^1/1-1-',2}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/common_test-1.31.2/ebin/cth_surefire.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 0,
+      "RestoredPinnedListNamedKeys": 2,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-get_line_from_suite/2-lc$^0/1-0-',2},{'-get_line_from_suite/2-lc$^1/1-1-',2}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/common_test-1.31.2/ebin/test_server_ctrl.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 2,
+      "RestoredPinnedListNamedKeys": 2,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-make_relative1/2-lc$^0/1-1-',1},{'-make_relative1/2-lc$^1/1-0-',1}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/compiler-10.0.6/ebin/beam_ssa_bc_size.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 1,
+      "RestoredPinnedListNamedKeys": 2,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-calc_size_instr/2-lc$^0/1-0-',2},{'-calc_size_instr/2-lc$^1/1-1-',1}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/compiler-10.0.6/ebin/beam_ssa_bool.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 1,
+      "RestoredPinnedListNamedKeys": 2,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-collect_phi_args/2-lc$^1/1-1-',1},{'-do_ensure_init_instr/3-lc$^1/1-0-',2}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/compiler-10.0.6/ebin/beam_ssa_ss.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 1,
+      "RestoredPinnedListNamedKeys": 2,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-get_status_of_extracted_element/3-lc$^0/1-0-',2},{'-get_status_of_extracted_element/3-lc$^1/1-1-',1}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/dialyzer-6.0.3/ebin/dialyzer_incremental.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 2,
+      "RestoredPinnedListNamedKeys": 2,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-print_warnings/6-lc$^0/1-0-',2},{'-print_warnings/6-lc$^1/1-1-',1}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/diameter-2.7.2/ebin/diameter_dist.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 2,
+      "RestoredPinnedListNamedKeys": 2,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-handle_cast/2-lc$^0/1-0-',2},{'-handle_cast/2-lc$^1/1-1-',1}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/ftp-1.2.6/ebin/ftp_internal.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 2,
+      "RestoredPinnedListNamedKeys": 2,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-validate_options/3-lc$^0/1-0-',1},{'-validate_options/3-lc$^1/1-1-',1}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/kernel-11.0.4/ebin/dist_ac.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 2,
+      "RestoredPinnedListNamedKeys": 2,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-dist_replace/3-lc$^0/1-0-',1},{'-dist_replace/3-lc$^1/1-1-',1}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/kernel-11.0.4/ebin/inet.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 2,
+      "RestoredPinnedListNamedKeys": 2,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-bindx/3-lc$^0/1-0-',2},{'-bindx/3-lc$^1/1-1-',2}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/megaco-4.9.2/ebin/megaco_filter.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 2,
+      "RestoredPinnedListNamedKeys": 2,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-do_filter_contents/4-lc$^0/1-0-',2},{'-do_filter_contents/4-lc$^1/1-1-',2}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/mnesia-4.27/ebin/mnesia_index.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 1,
+      "RestoredPinnedListNamedKeys": 2,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-add_index2/7-lc$^0/1-0-',3},{'-add_index2/7-lc$^1/1-1-',5}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/snmp-5.20.5/ebin/snmpc_lib.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 2,
+      "RestoredPinnedListNamedKeys": 2,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-update_trap_objects/3-lc$^0/1-0-',2},{'-update_trap_objects/3-lc$^1/1-1-',2}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/ssh-6.0.6/ebin/ssh_dbg.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 1,
+      "RestoredPinnedListNamedKeys": 2,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-wr_record/3-lc$^0/1-0-',1},{'-wr_record/3-lc$^1/1-1-',3}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/ssl-11.7.7/ebin/ssl_gen_statem.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 2,
+      "RestoredPinnedListNamedKeys": 2,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-host_str/1-lc$^0/1-0-',1},{'-host_str/1-lc$^1/1-1-',1}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/ssl-11.7.7/ebin/ssl_trace.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 2,
+      "RestoredPinnedListNamedKeys": 2,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-handle_call/3-lc$^0/1-0-',1},{'-handle_call/3-lc$^1/1-1-',1}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/stdlib-8.1/ebin/erl_pp.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 2,
+      "RestoredPinnedListNamedKeys": 2,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-map_vars/2-lc$^0/1-1-',2},{'-map_vars/2-lc$^1/1-0-',2}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/tftp-1.3/ebin/tftp_lib.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 2,
+      "RestoredPinnedListNamedKeys": 2,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-encode_msg/1-lc$^0/1-0-',1},{'-encode_msg/1-lc$^1/1-1-',1}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/tools-4.2.3/ebin/tprof.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 1,
+      "RestoredPinnedListNamedKeys": 2,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-combine_trace/1-lc$^0/1-0-',1},{'-combine_trace/1-lc$^1/1-1-',1}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/asn1-5.5.2/ebin/asn1ct_constructed_per.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 1,
+      "RestoredPinnedListNamedKeys": 1,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-textual_order/1-lc$^1/1-1-',1}]",
+      "Lost": "[]"
+    },
+    {
+      "Beam": "lib/megaco-4.9.2/ebin/megaco_erl_dist_encoder.beam",
+      "PlannedKeysParent": 0,
+      "PlannedKeysCandidate": 1,
+      "RestoredPinnedListNamedKeys": 1,
+      "LostPinnedListNamedKeys": 0,
+      "Restored": "[{'-dmt1/3-lc$^0/1-1-',2}]",
+      "Lost": "[]"
+    }
+  ],
+  "Timing": {
+    "Jobs": 1,
+    "Milliseconds": 953440.181
+  },
+  "Evidence": {
+    "candidate.json": "dfeedf412811d6505631c8bf8baba77b2185ab0a51e51dd1fbfdedee6a7675d0",
+    "candidate.json.timings.json": "fbf97564e4cb03dbc450efed7f4de2029208904649da6f6a027b951eb799de17",
+    "delta.json": "fd13bd0b20943d72b82c4e1977fac45b9a0036fd7414b5850ce051fc166efe29",
+    "helper-keys.tsv": "f6b9261e8e7a0f69f7e58a481aed7e42bc527a69cf4b4b143c17f2ec78a1bf95",
+    "helper-keys.exit": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "corpus.log": "8f8492e598e7dffac7feac6771981dd5a1881a6441268c48a8c0bc98c726b1e2",
+    "corpus.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "FocusedReceipt": "37971529f19b6e94cf72ec639c78f4276ad67bfa24e2e9aca0257f234977099f",
+  "Asn1RoundTripReceipt": "ae14307755d2851736039f08fccc2019ef3137899fd671d747105bf7ff070b1c"
+}

@@ -1,0 +1,86 @@
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosureResultStores.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosureResultStores.cs
+@@ -18,8 +18,7 @@
+             int destination = construction.Definition.Opcode switch
+             {
+                 MakeFun => 1,
+-                PutTuple when IsPostCallTupleBeforeOverwrite(body, index)
+-                    || IsEntryTupleBeforeOverwrite(body, index) => 0,
++                PutTuple => 0,
+                 PutList when IsPostCallListBeforeOverwrite(body, index) => 2,
+                 _ => -1
+             };
+@@ -33,6 +32,8 @@
+             if (body[store] is not { Definition.Opcode: Move, Operands: [var source, var slot] }
+                 || source != result || slot is not { Kind: BeamOperandParameters.Y, TypeIndex: null }
+                 || construction.Operands.Skip(destination + 1).Any(operand => SameProjectionRegister(operand, slot))
++                || construction.Definition.Opcode == PutTuple && !IsPostCallTupleBeforeOverwrite(body, index)
++                    && !IsEntryTupleSavedAcrossCall(body, index, slot)
+                 || !(flow ??= new BeamProjectionFlow(body)).IsBranchTemporaryDead(store, result))
+             {
+                 continue;
+@@ -103,7 +104,7 @@
+             && OverwritesConstructionTemporary(body[tuple + 2], result);
+     }
+ 
+-    private static bool IsEntryTupleBeforeOverwrite(IReadOnlyList<BeamInstruction> body, int tuple)
++    private static bool IsEntryTupleSavedAcrossCall(IReadOnlyList<BeamInstruction> body, int tuple, BeamOperand slot)
+     {
+         if (body[tuple].Operands[0] is not { Kind: BeamOperandParameters.X } result
+             || !OverwritesConstructionTemporary(body[tuple + 2], result))
+@@ -118,7 +119,7 @@
+             BeamInstruction instruction = body[index];
+             if (instruction.Definition.Opcode == AllocateHeap)
+             {
+-                return true;
++                return HasFirstReadAfterOrdinaryCall(body, tuple + 2, slot);
+             }
+ 
+             if (instruction.Definition.Opcode != InitYRegisters
+@@ -135,6 +136,46 @@
+         return false;
+     }
+ 
++    private static bool HasFirstReadAfterOrdinaryCall(
++        IReadOnlyList<BeamInstruction> body,
++        int start,
++        BeamOperand slot
++    )
++    {
++        // OTP reserves Y for values needed after an ordinary call clobbers X.
++        // A construction used by the outgoing send or call still belongs in X.
++        bool crossedCall = false;
++        for (int index = start; index < body.Count; index++)
++        {
++            BeamInstruction instruction = body[index];
++            if (instruction.Definition.Opcode is LocalCall or ExternalCall)
++            {
++                crossedCall = true;
++                continue;
++            }
++
++            if (instruction is { Definition.Opcode: Move, Operands: [var source, var destination] })
++            {
++                if (SameProjectionRegister(source, slot))
++                {
++                    return crossedCall && destination.Kind == BeamOperandParameters.X;
++                }
++
++                if (!SameProjectionRegister(destination, slot))
++                {
++                    continue;
++                }
++            }
++
++            if (instruction.Definition.Opcode != Line)
++            {
++                return false;
++            }
++        }
++
++        return false;
++    }
++
+     private static bool OverwritesConstructionTemporary(BeamInstruction instruction, BeamOperand temporary) =>
+         instruction is { Definition.Opcode: Move, Operands: [var source, var destination] }
+         && SameProjectionRegister(destination, temporary)

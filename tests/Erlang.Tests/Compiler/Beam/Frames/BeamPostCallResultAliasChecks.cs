@@ -1,0 +1,123 @@
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+using static Erlang.Tests.BeamOpcodeEdgeBytes;
+
+namespace Erlang.Tests;
+
+internal static class BeamPostCallResultAliasChecks
+{
+    internal const string TestName = "compiler/beam/retains-the-sole-postcall-result-in-x0";
+    private const string Module = "postcall_result_alias_fixture";
+    private const string Pass = "EliminatePostCallResultAliases";
+
+    internal static Task Run()
+    {
+        var compiler = new BeamModuleCompiler(Module);
+        CheckRewrite(
+            compiler,
+            Fixture(),
+            Fixture(compact: true, roots: 1),
+            BeamPostCallResultAliasDiagnostics.SoleResult
+        );
+        CheckRewrite(
+            compiler,
+            Fixture(roots: 1, typed: true),
+            Fixture(compact: true, roots: 1, typed: true),
+            BeamPostCallResultAliasDiagnostics.TypedRead
+        );
+
+        CheckDeclined(
+            compiler,
+            Fixture(beforeHeap: [Move, A(1), X(0)]),
+            BeamPostCallResultAliasDiagnostics.Clobber
+        );
+        CheckDeclined(
+            compiler,
+            Fixture(beforeHeap: [InitYRegisters, ExtendedListOperand, U(1), Y(0)]),
+            BeamPostCallResultAliasDiagnostics.Replacement
+        );
+        CheckDeclined(
+            compiler,
+            Fixture(beforeHeap: [ExternalCall, U(0), U(1)]),
+            BeamPostCallResultAliasDiagnostics.SecondCall
+        );
+        CheckDeclined(
+            compiler,
+            Fixture(retainedOtherRoot: true),
+            BeamPostCallResultAliasDiagnostics.OtherRoot
+        );
+
+        return Task.CompletedTask;
+    }
+
+    private static void CheckRewrite(
+        BeamModuleCompiler compiler,
+        byte[] input,
+        byte[] expected,
+        string reason
+    )
+    {
+        if (Rewrite(compiler, input) is not { } actual || !actual.SequenceEqual(expected))
+        {
+            throw new InvalidOperationException(reason);
+        }
+    }
+
+    private static void CheckDeclined(BeamModuleCompiler compiler, byte[] input, string reason)
+    {
+        if (Rewrite(compiler, input) is not null)
+        {
+            throw new InvalidOperationException(reason);
+        }
+    }
+
+    private static byte[]? Rewrite(BeamModuleCompiler compiler, ReadOnlyMemory<byte> code) =>
+        (byte[]?)Call(
+            compiler,
+            Pass,
+            code,
+            4
+        );
+
+    private static byte[] Fixture(
+        bool compact = false,
+        int roots = 0,
+        bool typed = false,
+        byte[]? beforeHeap = null,
+        bool retainedOtherRoot = false
+    )
+    {
+        int frameWidth = compact ? 0 : retainedOtherRoot ? 2 : 1;
+        byte saved = compact ? X(0) : Y(0);
+        byte[] rootInit = compact ? [] : [InitYRegisters, ExtendedListOperand, U(1), Y(0)];
+        byte[] otherSpill = retainedOtherRoot ? [Move, X(0), Y(1)] : [];
+        byte[] resultSpill = compact ? [] : [Move, X(0), Y(0)];
+        byte[] reload = compact ? [] : [Move, Y(0), X(0)];
+        byte[] guardValue = typed ? [ExtendedTypedRegisterOperand, saved, U(1)] : [saved];
+        byte lastElement = retainedOtherRoot ? Y(1) : A(1);
+
+        return
+        [
+            .. Start(
+                1,
+                2,
+                1,
+                1
+            ),
+            Allocate, U(frameWidth), U(1),
+            .. rootInit,
+            .. otherSpill,
+            Line, U(1), ExternalCall, U(0), U(0),
+            .. resultSpill,
+            IsNil, F(3), .. guardValue,
+            .. reload,
+            Deallocate, U(frameWidth), Return,
+            Label, U(3),
+            .. (beforeHeap ?? []),
+            TestHeap, U(3), U(roots),
+            PutTuple, X(0), ExtendedListOperand, U(2), saved, lastElement,
+            Deallocate, U(frameWidth), Return, EndCode
+        ];
+    }
+}

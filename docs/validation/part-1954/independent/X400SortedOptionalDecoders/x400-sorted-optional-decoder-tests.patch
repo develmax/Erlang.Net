@@ -1,0 +1,222 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamSortedOptionalDecoderChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamSortedOptionalDecoderChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamSortedOptionalDecoderChecks.cs
+@@ -0,0 +1,206 @@
++using System.Collections;
++using System.Numerics;
++using Erlang;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamSortedOptionalDecoderChecks
++{
++    internal const string TestName = "compiler/beam/retains-sorted-optional-decoder-remainders";
++    private const string Fixture = "beam_sorted_optional_decoder.erl";
++    private const string WrongLayout = "The sorted optional decoder did not reuse the expected three slots.";
++    private const string WrongValue = "The sorted optional decoder changed an output or malformed input.";
++
++    private const string Source = """
++        -module(beam_sorted_optional_decoder).
++        -export([decode/2, plain/2]).
++        decode(Input, Tags) ->
++            Fields = prepare(Input, Tags),
++            Rank = fun(Item) -> case Item of
++                Pair = {19,_} -> {1,Pair};
++                Pair = {20,_} -> {2,Pair};
++                Other -> {3,Other}
++            end end,
++            Ranked = [Rank(V) || V <- Fields],
++            Sorted = [Value || {_,Value} <- lists:sort(Ranked)],
++            {First,R1} = case Sorted of
++                [{19,A}|Tail1] -> {begin
++                    Bin1 = read(A, []),
++                    Len1 = byte_size(Bin1),
++                    if 1 =< Len1, Len1 =< 2 -> binary_to_list(Bin1);
++                       true -> exit({error,{format,first}})
++                    end
++                end,Tail1};
++                _ -> {absent,Sorted}
++            end,
++            {Second,R2} = case R1 of
++                [{20,B}|Tail2] -> {begin
++                    Bin2 = read(B, []),
++                    Len2 = byte_size(Bin2),
++                    if 1 =< Len2, Len2 =< 3 -> binary_to_list(Bin2);
++                       true -> exit({error,{format,second}})
++                    end
++                end,Tail2};
++                _ -> {absent,R1}
++            end,
++            case R2 of [] -> true; _ -> exit({error,{format,{unexpected,R2}}}) end,
++            Result = {fields,First,Second},
++            Result.
++        plain(Input, Tags) ->
++            Fields = prepare(Input, Tags),
++            Rank = fun(Item) -> case Item of
++                Pair = {16,_} -> {1,Pair};
++                Pair = {20,_} -> {2,Pair};
++                Other -> {3,Other}
++            end end,
++            Ranked = [Rank(V) || V <- Fields],
++            Sorted = [Value || {_,Value} <- lists:sort(Ranked)],
++            {First,R1} = case Sorted of [{16,A}|Tail1] -> {unchanged(A, []),Tail1}; _ -> {absent,Sorted} end,
++            {Second,R2} = case R1 of
++                [{20,B}|Tail2] -> {begin
++                    Bin2 = read(B, []),
++                    Len2 = byte_size(Bin2),
++                    if 1 =< Len2, Len2 =< 3 -> binary_to_list(Bin2);
++                       true -> exit({error,{format,second}})
++                    end
++                end,Tail2};
++                _ -> {absent,R1}
++            end,
++            case R2 of [] -> true; _ -> exit({error,{format,{unexpected,R2}}}) end,
++            Result = {fields,First,Second},
++            Result.
++        prepare(Input, []) -> Input.
++        read(Value, []) -> iolist_to_binary(Value).
++        unchanged(Value, []) -> Value.
++        """;
++
++    internal static async Task Run()
++    {
++        byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
++        byte[] unproven = CodeGeneration.CompileBeamModule(
++            Source.Replace("Other -> {3,Other}", "_ -> different_shape", StringComparison.Ordinal),
++            Fixture
++        );
++        var module = BeamModule.Prepare(image, new BeamDependencySelection(["lists"]));
++        var selection = new RuntimeLibrarySelection(
++            [RuntimeModuleSelection.Managed("erlang"), RuntimeModuleSelection.Managed("lists")]
++        );
++        await using var runtime = await ProcessRuntime.CreateAsync(selection, RuntimeNativePrimitives.InternalScalars413, CancellationToken.None);
++        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
++        await actor.InvokeAsync(async context =>
++        {
++            Term absent = Term.A("absent");
++            Term first = Term.List(Term.I(65), Term.I(66));
++            Term second = Term.List(Term.I(67), Term.I(68), Term.I(69));
++            Term left = Field(19, first);
++            Term right = Field(20, second);
++            await Check(
++                "decode",
++                Term.List(right, left),
++                first,
++                second
++            );
++            await Check(
++                "plain",
++                Term.List(right, Field(16, first)),
++                first,
++                second
++            );
++            await Check(
++                "decode",
++                Nil.Value,
++                absent,
++                absent
++            );
++            await Check(
++                "decode",
++                Term.List(right),
++                absent,
++                second
++            );
++            await Reject(Term.List(Field(19, Nil.Value), Field(20, Nil.Value)), Reason(Term.A("first")));
++            await Reject(Term.List(left, Field(20, Nil.Value)), Reason(Term.A("second")));
++            Term extra = Field(21, Term.A("extra"));
++            await Reject(Term.List(right, extra, left), Reason(Term.Tuple(Term.A("unexpected"), Term.List(extra))));
++
++            return Nil.Value;
++
++            async Task Check(
++                string entry,
++                Term input,
++                Term a,
++                Term b
++            )
++            {
++                if (!Term.Tuple(Term.A("fields"), a, b).Equals(await module.Invoke(
++                    context,
++                    entry,
++                    input,
++                    Nil.Value
++                )))
++                {
++                    throw new InvalidOperationException(WrongValue);
++                }
++            }
++
++            async Task Reject(Term input, Term expected)
++            {
++                try
++                {
++                    await module.Invoke(
++                        context,
++                        "decode",
++                        input,
++                        Nil.Value
++                    );
++                }
++                catch (ErlangException error) when (error.ExceptionClass == ErlangExceptionClasses.Exit && error.Reason.Equals(expected))
++                {
++                    return;
++                }
++
++                throw new InvalidOperationException(WrongValue);
++            }
++        });
++
++        if (Frame(image, "decode") != 3 || Frame(image, "plain") != 3 || Frame(unproven, "decode") <= 3)
++        {
++            throw new InvalidOperationException(WrongLayout);
++        }
++    }
++
++    private static Term Field(int tag, Term value) => Term.Tuple(Term.I(tag), value);
++
++    private static Term Reason(Term detail) => Term.Tuple(Term.A("error"), Term.Tuple(Term.A("format"), detail));
++
++    private static int Frame(byte[] image, string name)
++    {
++        object code = Code(image);
++        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        object[] instructions = Items(code, "Instructions");
++        int start = Array.FindIndex(
++            instructions,
++            instruction => Opcode(instruction) == FunctionInfo
++                && Items(instruction, "Operands") is [_, var function, var arity]
++                && atoms[Value(function)] == name && Value(arity) == 2
++        );
++        if (start < 0)
++        {
++            throw new InvalidOperationException(WrongLayout);
++        }
++
++        object frame = instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo)
++            .Single(instruction => Opcode(instruction) == Allocate);
++
++        return Value(Items(frame, "Operands")[0]);
++    }
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++
++    private static object[] Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
++}
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12614,6 +12614,7 @@
+ Test(Erlang.Tests.BeamSizedRequiredDecoderPairChecks.TestName, Erlang.Tests.BeamSizedRequiredDecoderPairChecks.Run);
+ Test(Erlang.Tests.BeamNaturalListPairLengthChecks.TestName, Erlang.Tests.BeamNaturalListPairLengthChecks.Run);
+ Test(Erlang.Tests.BeamOptionalPairLengthsChecks.TestName, Erlang.Tests.BeamOptionalPairLengthsChecks.Run);
++Test(Erlang.Tests.BeamSortedOptionalDecoderChecks.TestName, Erlang.Tests.BeamSortedOptionalDecoderChecks.Run);
+ Test(
+     Erlang.Tests.BeamWxTupleArityForwardChecks.TestName,
+     () =>

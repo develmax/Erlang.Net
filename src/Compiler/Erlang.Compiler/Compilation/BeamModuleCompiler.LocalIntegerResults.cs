@@ -23,6 +23,12 @@ internal sealed partial class BeamModuleCompiler
                 continue;
             }
 
+            if (function.HasProperListResult)
+            {
+                results.Add(MapEmittedLabel(label), ProperListTypeBits);
+                continue;
+            }
+
             if (ReadLocalAtomTupleClauses(function.Clauses) == LocalAtomOrTupleType)
             {
                 results.Add(MapEmittedLabel(label), LocalAtomOrTupleType);

@@ -7,7 +7,7 @@ internal sealed partial class BeamModuleCompiler
     private static byte[]? PromoteTransientFrameSlots(
         ReadOnlyMemory<byte> code,
         IReadOnlyList<BeamInstruction> body,
-        List<(int Start, int End, int Slot)> stackOperands
+        IReadOnlyList<(int Start, int End, int Slot)> stackOperands
     )
     {
         var edits = new List<CodeEdit>();

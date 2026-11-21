@@ -102,7 +102,8 @@ internal sealed partial class BeamModuleCompiler
             } : first;
             if (ReadWxTupleInput(firstInputs, argument, receiver?.Type) is not { } tuple)
             {
-                return hasReceiver && TryEmitWxClassUnionTupleOverload(function, first, second);
+                return hasReceiver && (TryEmitWxScalarOrTupleSetter(function, first, second)
+                    || TryEmitWxClassUnionTupleOverload(function, first, second));
             }
 
             var firstCommand = function with { Clauses = [first with { Guard = null }] };
@@ -225,6 +226,84 @@ internal sealed partial class BeamModuleCompiler
                 preparedSecondClass: hasReceiver ? valueType : null,
                 preparedTupleOverload: true
             );
+        }
+
+        private bool TryEmitWxScalarOrTupleSetter(
+            FunctionDefinition function,
+            Clause scalar,
+            Clause structured
+        )
+        {
+            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled
+                || ReadWxClassUnionObject(scalar.Patterns[0]) is not { } scalarReceiver
+                || ReadWxClassUnionObject(structured.Patterns[0]) is not { } tupleReceiver
+                || scalar.Patterns[1] is not Pattern.Variable value || scalar.Guard is not Expr.Call
+                {
+                    Function: "is_number", Arguments: [Expr.Variable guarded]
+                } scalarGuard || guarded.Name != value.Name || !owner.ResolvesErlangBif(scalarGuard)
+                || structured.Body is not Expr.Sequence { Items: [_, Expr.Call queue] }
+                || queue.Arguments is not [_, _, Expr.Case environment, _])
+            {
+                return false;
+            }
+
+            var parameters = structured with
+            {
+                Patterns = [new Pattern.Variable(tupleReceiver.Object), structured.Patterns[1]]
+            };
+            if (ReadWxTupleInput(parameters, 1, tupleReceiver.Type) is not { Width: 2 } tuple
+                || ReadForwardParameters(parameters) is not { } patterns
+                || !UsesFreshWxEnvironment(environment,
+                    patterns.Fields.Keys.Concat(patterns.Parameters).Append(tupleReceiver.Type)))
+            {
+                return false;
+            }
+
+            var scalarCommand = function with { Clauses = [scalar with { Guard = null }] };
+            var tupleCommand = function with
+            {
+                Clauses = [structured with
+                {
+                    Patterns = [structured.Patterns[0], new Pattern.Variable(patterns.Parameters[1])],
+                    Guard = null
+                }]
+            };
+            if (!EmitSetter(scalarCommand, validateOnly: true) || !EmitSetter(tupleCommand, validateOnly: true))
+            {
+                return false;
+            }
+
+            int failure = owner.nextLabel - 2;
+            EmitDetailRecordTest(
+                0,
+                4,
+                Term.A("wx_ref"),
+                failure
+            );
+            owner.EmitTuplePart(0, 2, 2);
+            int tupleLabel = owner.nextLabel + 2;
+            EmitForwardGuard(new ForwardGuard.Test(IsNumber, 1), tupleLabel);
+            EmitSetter(scalarCommand);
+            Mark(Label());
+            EmitTupleShapeTest(
+                XRegisterTag,
+                1,
+                tuple.Width,
+                failure
+            );
+            EmitTupleFields(tuple, failure);
+            EmitSetter(tupleCommand);
+
+            return true;
+
+            bool EmitSetter(FunctionDefinition command, bool validateOnly = false) =>
+                TryEmitWxObjectCommand(
+                    command,
+                    2,
+                    validateOnly: validateOnly,
+                    preparedTupleOverload: true,
+                    preparedTupleSetter: true
+                );
         }
 
         private bool ValidateTupleCommand(FunctionDefinition command) =>

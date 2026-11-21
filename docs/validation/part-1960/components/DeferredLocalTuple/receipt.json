@@ -1,0 +1,42 @@
+{
+  "Part": 2003,
+  "Reference": "OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ParentCompiler": "168dbe2679d04cedc04168c8669898b79eafb0f8ff45e02b28cb567af75626d9",
+  "ParentSource": "Sealed Part2002 on the Part2001 dependency stack. Earlier work is immutable. The formal production preimages are listed in replay-files.json and touch CheckedCallSequence, SavedCallSequence and CallSequenceTuple only.",
+  "PinnedSource": [
+    "lib/compiler/src/beam_ssa_opt.erl lines 2756–2814 documents sinking get_tuple_element to the last dominating block and using fewer across-call stack slots",
+    "lib/compiler/src/beam_ssa_pre_codegen.erl lines 2126–2151 describes saving call results before the next clobber",
+    "Pinned ex_gauge.precodegen from Part2001 shows the aggregate surviving from create_option_sizer/1 to the later wxSizer:add and final state construction"
+  ],
+  "Change": "Extend existing deferred checked-result tuple planning to retain a fixed-shape local result across prepared intermediate argument reads and at least two terminal-only fields. Place those projections after the combined final heap test so only live incoming X values carry the heap frontier. Prior same-consumer deferral remains available and dynamic shape checks are preserved.",
+  "Safety": "Fixed tuple shape and reusable local definition are proven via HasFixedTupleCallResult. Call argument use must belong to one prepared consumer. At least two terminal fields justify one aggregate lifetime. The saved Y count and physical trim offsets come from the existing planner. Independent dynamic malformed return keeps error stack and prior effects.",
+  "RawScope": "39 Windows release images, 18 Equal and 21 Different. Only ex_gauge.beam changes raw hash. Both ex_canvas_paint and sudoku_game remain loadable compiler products with identical hashes to Part2002. Mandatory beam_tuple_dynamic_case_probe exact.",
+  "Normalized": "Only ex_gauge:do_init/1 changes. Actual normalized instruction count 91→90, pinned 90, with the suffix from wxPanel:setSizer/2 onward exact. The function still differs because of early call-result copy scheduling, one temporary stack slot before the aggregate copy, and outgoing X0 relative to the final trim. handle_info/2 stays fully exact.",
+  "Native": "Real ex_gauge:init/1 succeeds with matching state and effects; injected second gauge constructor failure matches stack and effect prefix. Nine real ex_gauge callback cases and four independent fixture cases match OTP, including a dynamic malformed tuple result.",
+  "PermanentTest": "Focused fixture red 1 under actual Part2002 and green 0 under Part2003. It checks delayed intermediate and terminal projections for the local producer, and preserved dynamic shape checks. Strict patch replay and final SDK layout checks passed.",
+  "Hashes": {
+    "production.patch": "c57a4d9e6db15794dd48383050503177c8aa23bf17304d7972d317b8913d8acf",
+    "test.patch": "18902b96d2dda9c3335d641c76c11942113685dde15e56f3cc73052a5640b979",
+    "replay-files.json": "cb9cf3941ab5bc6fd6364d56bde112334bf686a736ba5f9053ab0967da5b33e3",
+    "strict-replay.log": "5e2bf819b595595a77bf0a6d3b569978e9d5cbb62c45652ff7a664396987d164",
+    "style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "build-final.log": "ce90e011957288438c0df42fd2be8ed3fdb2133797ed488ebefb29fc044d338f",
+    "compiler-bin/Erlang.Compiler.dll": "0a7c9c694d860c20ce1967720cfd41e0d3167669fa7ec989fda57a467634bce5",
+    "scope-broad.txt": "5d29d6730903fb6753b47d216728c25a2bea1d3c7bdca8291fe4b327b255dd6f",
+    "scope-new.json": "ffb1beb721e3bd00d0494ffea9eb9b931dbf0f8072d0923099cc93b4e0af7753",
+    "scope-hashes.json": "6942dba76bfa9e1b8ae358bbbb14cd3fde39dbb1285cc212b531658f0c4eeda1",
+    "scope-changed.json": "0699d6029f77cadc2efae1b1cc50acd3351c6fa3cc12e84a0c2e45521819d8d7",
+    "normalize.terms": "3288921291ebda84481bbc0f5e615a043f34fd2421b9ad8049024c48ed84950c",
+    "handle-info-final.terms": "665cc02ef01d9d4a822073ac4536e1a1c728a9666ef61bf1d170e70d988452c8",
+    "terminal-exact.terms": "e33ffe2a36c47a8fd71b926c50ec0524221b29a53f706a4b80099293063571f5",
+    "final-disasm/do_init.candidate": "c2b88e041bf05a2236ca019c09310b75d50a68ed61c065f00089a2e38d4bba01",
+    "focused-exits.json": "310cdcc14f0f6f31e2a7d35f3171cc54420dd5c1396caa206c20298d614add4e",
+    "focused-red.log": "8a1286500c7ed3b41e2ae2db09d831be09d959361535b1282db8b3293d759545",
+    "emitter/beam_tuple_dynamic_case_probe.beam": "8eb5fc010e0fbf28ab40bb0dc39aef3887fe86364f43daca1689cec2d51e5294",
+    "native-fixture/pinned.terms": "e0ed10699fa5e34090308553d3304f2dc99ae2017dcb4366e6ad281934c7aee2",
+    "native-fixture/candidate.terms": "e0ed10699fa5e34090308553d3304f2dc99ae2017dcb4366e6ad281934c7aee2",
+    "native-init.terms": "e15f9f3453aa3d7a5730afb5e3c04b2b24e5f1a00b93cb105ae5ce623430095a",
+    "native-info.terms": "50e4a78cd7fe6399b2ffd5f98f0a06127266efd735fdd5baccaeda7d01e29ef6",
+    "scope-new.json.generated/lib/wx-2.7/doc/examples/demo/ex_gauge.beam": "7055f654f5ed40e4d318fc740e68c1d58022f60b551a1c5b2c322c583df03ccc"
+  }
+}

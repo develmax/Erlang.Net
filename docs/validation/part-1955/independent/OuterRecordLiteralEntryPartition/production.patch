@@ -1,0 +1,233 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -1340,6 +1340,7 @@
+                     || TryEmitGroupedTupleConversion(function)
+                     || TryEmitSharedNestedRecordEntry(function, functionInfo)
+                     || TryEmitAtomOwnedTupleEntries(function, functionInfo)
++                    || TryEmitOuterRecordLiteralEntry(function, functionInfo)
+                     || TryEmitGroupedTupleEntry(function, functionInfo)
+                     || TryEmitSharedTaggedTupleDispatch(function, functionInfo)
+                     || TryEmitTupleAndAtomTailDispatch(function, functionInfo)))
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GroupedTupleEntry.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GroupedTupleEntry.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GroupedTupleEntry.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GroupedTupleEntry.cs
+@@ -664,6 +664,11 @@
+             int arity = clause.Patterns.Count;
+             int nextRegister = sharedNested is null ? arity
+                 : Math.Max(sharedNested.Register, sharedNested.Projections.Values.DefaultIfEmpty(-1).Max()) + 1;
++            if (sharedEntry?.ProjectedRootFields is { Count: > 0 } projectedRoot)
++            {
++                nextRegister = Math.Max(nextRegister, projectedRoot.Values.Max() + 1);
++            }
++
+             var checks = new List<Action>();
+             var bindings = new Dictionary<string, (int Input, int? Field)>(StringComparer.Ordinal);
+             for (int index = sharedEntry?.CheckedAtomArgument is null ? 1 : 0; index < arity; index++)
+@@ -950,7 +955,16 @@
+                             }
+ 
+                             break;
+-                        case AliasPattern alias when sharedEntry?.CheckedAtomArgument is not null
++                        case Pattern.Tuple nested when input == 0
++                            && sharedEntry?.ProjectedRootFields?.TryGetValue(field, out int projectedRootRegister) == true:
++                            if (!PlanTuple(nested, projectedRootRegister))
++                            {
++                                return false;
++                            }
++
++                            break;
++                        case AliasPattern alias when (sharedEntry?.CheckedAtomArgument is not null
++                            || sharedEntry?.ProjectedRootFields is not null)
+                             && TryReadPatternAlias(alias, out var nestedAlias, out var nestedShape) && nestedShape is Pattern.Tuple aliased:
+                             nextRegister++;
+                             checks.Add(() => owner.EmitTuplePart(input, field, scratch));
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedNestedRecordEntry.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedNestedRecordEntry.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedNestedRecordEntry.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedNestedRecordEntry.cs
+@@ -17,7 +17,8 @@
+             Clause? Fallback,
+             int EntryFailure,
+             List<EntryEffectFailure>? Failures = null,
+-            int? CheckedAtomArgument = null
++            int? CheckedAtomArgument = null,
++            IReadOnlyDictionary<int, int>? ProjectedRootFields = null
+         );
+         private sealed record SharedNestedRecordArm(Clause Source, Pattern.Tuple Shape, Atom Tag);
+         private sealed record SharedNestedRecordGroup(
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.OuterRecordLiteralEntry.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.OuterRecordLiteralEntry.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.OuterRecordLiteralEntry.cs
+@@ -0,0 +1,171 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private sealed partial class GeneralEmitter
++    {
++        private bool TryEmitOuterRecordLiteralEntry(FunctionDefinition function, int failure)
++        {
++            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled
++                || function.Arity == 0 || function.Clauses.Count < 3
++                || EntryShape(function.Clauses[0].Patterns[0]) is not Pattern.Tuple first
++                || !HasTupleTag(first, out Atom tag)
++                || function.Clauses[^1] is not { Guard: null } fallback)
++            {
++                return false;
++            }
++
++            var shapes = new List<Pattern.Tuple>();
++            foreach (Clause clause in function.Clauses)
++            {
++                if (EntryShape(clause.Patterns[0]) is not Pattern.Tuple shape || shape.Items.Count != first.Items.Count
++                    || !HasTupleTag(shape, out Atom other) || !tag.Equals(other))
++                {
++                    return false;
++                }
++
++                shapes.Add(shape);
++            }
++
++            if (!shapes[^1].Items.Skip(1).All(IsSharedEntryWildcard))
++            {
++                return false;
++            }
++
++            var branches = shapes.SkipLast(1).ToArray();
++            int selectorField = -1;
++            for (int column = 1; column < first.Items.Count; column++)
++            {
++                var keys = new HashSet<Integer>();
++                if (branches.All(branch => branch.Items[column] is Pattern.Literal { Value: Integer key } && keys.Add(key)))
++                {
++                    selectorField = column;
++                    break;
++                }
++            }
++
++            int selector = function.Arity;
++            var projections = Enumerable.Range(1, first.Items.Count - 1)
++                .Where(field => branches.All(branch => branch.Items[field] is Pattern.Tuple))
++                .Select((field, index) => (field, register: selector + index + 1))
++                .ToDictionary(pair => pair.field, pair => pair.register);
++            if (selectorField < 0 || projections.Count == 0 || selector + projections.Count >= FirstReservedXRegister)
++            {
++                return false;
++            }
++
++            var checkedColumns = new HashSet<int> { selectorField };
++            var branchContext = new SharedNestedEntryContext(
++                null,
++                fallback,
++                failure,
++                ProjectedRootFields: projections
++            );
++            var fallbackContext = new SharedNestedEntryContext(null, null, failure);
++            if (function.Clauses.SkipLast(1).Any(clause => !TryEmitPlannedTupleEntry(
++                clause,
++                failure,
++                checkedRootFields: checkedColumns,
++                validateOnly: true,
++                sharedEntry: branchContext
++            )) || !TryEmitPlannedTupleEntry(
++                fallback,
++                failure,
++                checkedRootFields: [],
++                validateOnly: true,
++                sharedEntry: fallbackContext
++            ))
++            {
++                return false;
++            }
++
++            int reject = Label();
++            var arms = function.Clauses.SkipLast(1).Zip(branches).Select(pair =>
++                (Clause: pair.First, Key: (Integer)((Pattern.Literal)pair.Second.Items[selectorField]).Value))
++                .OrderBy(arm => arm.Key.Value).ToArray();
++            int[] labels = arms.Select(_ => Label()).Reverse().ToArray();
++            EmitDetailRecordTest(
++                0,
++                first.Items.Count,
++                tag,
++                failure
++            );
++            owner.EmitTuplePart(0, selectorField, selector);
++            foreach (var (field, register) in projections)
++            {
++                owner.EmitTuplePart(0, field, register);
++            }
++
++            owner.EmitMembershipSelect(selector, reject, arms.Select((arm, index) => ((Term)arm.Key, labels[index])));
++            int originalFrame = frameSize;
++            int originalSlot = nextSlot;
++            int maximumSlots = peakSlot;
++            var originalVariables = variables;
++            var frames = new Dictionary<int, int>();
++            var failures = new List<EntryEffectFailure>();
++            for (int index = arms.Length - 1; index >= 0; index--)
++            {
++                Mark(labels[index]);
++                EmitArm(
++                    arms[index].Clause,
++                    index,
++                    reject,
++                    checkedColumns,
++                    branchContext
++                );
++            }
++
++            Mark(reject);
++            EmitArm(
++                fallback,
++                arms.Length,
++                failure,
++                [],
++                fallbackContext
++            );
++            foreach (var cold in failures)
++            {
++                Mark(cold.Label);
++                if (cold.Line is { } line)
++                {
++                    owner.EmitLine(line);
++                }
++
++                owner.Op(CaseEnd, XRegisterTag, cold.Register);
++            }
++
++            frameSize = originalFrame;
++            nextSlot = originalSlot;
++            peakSlot = maximumSlots;
++            variables = originalVariables;
++            TupleFrames = frames;
++
++            return true;
++
++            void EmitArm(
++                Clause clause,
++                int ordinal,
++                int noMatch,
++                HashSet<int> columns,
++                SharedNestedEntryContext context
++            )
++            {
++                int key = TupleFallbackFrame - ordinal;
++                frameSize = plannedTupleFrames?.GetValueOrDefault(key, originalFrame) ?? originalFrame;
++                nextSlot = originalSlot;
++                peakSlot = originalSlot;
++                variables = new(originalVariables, StringComparer.Ordinal);
++                TryEmitPlannedTupleEntry(
++                    clause,
++                    noMatch,
++                    checkedRootFields: columns,
++                    sharedEntry: context with { Failures = failures }
++                );
++                frames.Add(key, peakSlot);
++                maximumSlots = Math.Max(maximumSlots, peakSlot);
++            }
++        }
++    }
++}

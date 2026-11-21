@@ -1,0 +1,347 @@
+{
+  "reference": {
+    "release": "OTP-29.1.1",
+    "commit": "ad05823719d77c8faee87348ea39513d4e2f99c5"
+  },
+  "parent": {
+    "Source": "48569fd3ab77907ff7963d3f513058a910e3671e7f5fb99fb90558788bc25b69",
+    "Paths": 943,
+    "RemovedPaths": [],
+    "Compiler": "ab248826c7151f3a1fbc75a90f528b61f5149353a1684557963ceb2d3845a35c",
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "Tests": "a00568995931726d6d8d37be60f2f28660e421843f5510525812114c3f7ec6b5",
+    "ParentSource": "cb7ef2fac1cf46ffb7c9e3ada13c4c90c4efbb954acd1ab41103df9c0ba8d766",
+    "CorpusTool": "0a10c47e47d128d34cd9149f5280eea48673c054f44f4d59e31e7d92e494f3b1"
+  },
+  "compilerClosure": {
+    "bytes": 112704,
+    "sha256": "7559d169e67c1e9a28d23ea90cff475d23683c9f3fe8f794f0cdcd4ed0b7a67e"
+  },
+  "compiler": {
+    "bytes": 5382144,
+    "sha256": "cd6a2406960c8afc8ecb6a74ff472757bdd3b14f4954f785288ff685f58c01fe"
+  },
+  "images": {
+    "lib/common_test-1.31.2/ebin/ct_default_gl.beam": {
+      "status": "Different",
+      "reference": {
+        "bytes": 4160,
+        "sha256": "df590c31ffd4398ebeaab7771c30c038b1b16f1687af7f48021d8359add9ba87"
+      },
+      "before": {
+        "bytes": 4264,
+        "sha256": "67d0d8b20bcd2ba4751afc07cfedbae395ec9288052af684afe357cf60769f5f"
+      },
+      "after": {
+        "bytes": 4212,
+        "sha256": "852cf37f361ca825322f9cf0708855735ad78b7dc030526573ff723c5306e7b6"
+      }
+    },
+    "lib/common_test-1.31.2/ebin/ct_master_event.beam": {
+      "status": "Different",
+      "reference": {
+        "bytes": 6304,
+        "sha256": "e10321098be723b7b3e986cc994dce1d63816ae2919dac6d6d233874f51815a5"
+      },
+      "before": {
+        "bytes": 6320,
+        "sha256": "cdd16bb52304318bcdf717b4e1a8dd18f77e305630c639282e7720af819db5dd"
+      },
+      "after": {
+        "bytes": 6320,
+        "sha256": "cdd16bb52304318bcdf717b4e1a8dd18f77e305630c639282e7720af819db5dd"
+      }
+    },
+    "lib/kernel-11.0.4/ebin/local_udp.beam": {
+      "status": "Equal",
+      "reference": {
+        "bytes": 4808,
+        "sha256": "001c0c891b6da95f5333489973c272c4b403ab0747f22b644041fb7359410a74"
+      },
+      "before": {
+        "bytes": 4808,
+        "sha256": "001c0c891b6da95f5333489973c272c4b403ab0747f22b644041fb7359410a74"
+      },
+      "after": {
+        "bytes": 4808,
+        "sha256": "001c0c891b6da95f5333489973c272c4b403ab0747f22b644041fb7359410a74"
+      }
+    },
+    "lib/kernel-11.0.4/ebin/logger_config.beam": {
+      "status": "Different",
+      "reference": {
+        "bytes": 9024,
+        "sha256": "799755218f6c8ea60c3f8ab448aeae2f81971684411a489b8422a11598933c0b"
+      },
+      "before": {
+        "bytes": 9016,
+        "sha256": "1fb0cc2cfd52d89df68c1ed75c6ec4bd6c21926f75e8861349d61a499eb55953"
+      },
+      "after": {
+        "bytes": 9016,
+        "sha256": "1fb0cc2cfd52d89df68c1ed75c6ec4bd6c21926f75e8861349d61a499eb55953"
+      }
+    },
+    "lib/observer-2.19/ebin/cdv_bin_cb.beam": {
+      "status": "Equal",
+      "reference": {
+        "bytes": 6120,
+        "sha256": "361fc8d3af7a55d57106d2a3be7e9fadc77d8a4580462897fa6ed5474e778c3d"
+      },
+      "before": {
+        "bytes": 6120,
+        "sha256": "361fc8d3af7a55d57106d2a3be7e9fadc77d8a4580462897fa6ed5474e778c3d"
+      },
+      "after": {
+        "bytes": 6120,
+        "sha256": "361fc8d3af7a55d57106d2a3be7e9fadc77d8a4580462897fa6ed5474e778c3d"
+      }
+    },
+    "lib/runtime_tools-2.5/ebin/observer_backend.beam": {
+      "status": "Different",
+      "reference": {
+        "bytes": 54040,
+        "sha256": "4a9cbde62ac9b560385e003904d5cb2de3b4f621afd8e6fbca360f71c94878b5"
+      },
+      "before": {
+        "bytes": 55480,
+        "sha256": "2b41c865be7ffd920138f30cd3d2d05c7d4d5375096d2fd17275422c6c0a3b08"
+      },
+      "after": {
+        "bytes": 55480,
+        "sha256": "2b41c865be7ffd920138f30cd3d2d05c7d4d5375096d2fd17275422c6c0a3b08"
+      }
+    },
+    "lib/snmp-5.20.5/ebin/snmp_verbosity.beam": {
+      "status": "Equal",
+      "reference": {
+        "bytes": 8712,
+        "sha256": "71ca903bdce729dd5aa4ab8fca36b38d0fb809c13831fbea9ef5933ab5c8f745"
+      },
+      "before": {
+        "bytes": 8712,
+        "sha256": "71ca903bdce729dd5aa4ab8fca36b38d0fb809c13831fbea9ef5933ab5c8f745"
+      },
+      "after": {
+        "bytes": 8712,
+        "sha256": "71ca903bdce729dd5aa4ab8fca36b38d0fb809c13831fbea9ef5933ab5c8f745"
+      }
+    },
+    "lib/ssh-6.0.6/ebin/ssh_connection_handler.beam": {
+      "status": "Different",
+      "reference": {
+        "bytes": 130504,
+        "sha256": "e23598d886752ed6ea2ec78cb9b959533f3825e09c2d8fe88cab69fec138e87c"
+      },
+      "before": {
+        "bytes": 137740,
+        "sha256": "e9630254ec2515983d5c217e07c716d007b031ee4b4560597d8e438dab4e202c"
+      },
+      "after": {
+        "bytes": 137740,
+        "sha256": "e9630254ec2515983d5c217e07c716d007b031ee4b4560597d8e438dab4e202c"
+      }
+    },
+    "lib/stdlib-8.1/ebin/gen_event.beam": {
+      "status": "Different",
+      "reference": {
+        "bytes": 62260,
+        "sha256": "732b365da64eb2b6d418652e70c4506516bb9da223e1ede90795864ae69ea11e"
+      },
+      "before": {
+        "bytes": 64668,
+        "sha256": "c87452430d34ca28fe7d5577d4c68a3087151e432deb5991e48719bccf2ea937"
+      },
+      "after": {
+        "bytes": 64608,
+        "sha256": "22cfd60d7a597200d26dc1f8fad52c253858cd88131cd5748cc029ce5db5bc3a"
+      }
+    },
+    "lib/stdlib-8.1/ebin/gen_server.beam": {
+      "status": "Different",
+      "reference": {
+        "bytes": 75428,
+        "sha256": "9880976c8e7aff6609e695b3c44ceda792d709c4e64d6f03730f0ced68b33623"
+      },
+      "before": {
+        "bytes": 78080,
+        "sha256": "6181e1e67f169684bc6cd7f6c73add937771428d085acb04ac6b5334f1529107"
+      },
+      "after": {
+        "bytes": 78028,
+        "sha256": "1d6f5a780882e0ff1a5c40f9da636749565b9801f7d2b69e79b6c2e72b72b5be"
+      }
+    },
+    "lib/stdlib-8.1/ebin/maps.beam": {
+      "status": "Different",
+      "reference": {
+        "bytes": 29016,
+        "sha256": "dcdbaf8551ae63258bda7bc1415c7dcd2d3310aaa9036a34bd09f24e90966454"
+      },
+      "before": {
+        "bytes": 30380,
+        "sha256": "e5a84a7fa40ec4efbc4af3a62675beae2acf61941c503698a5ac802018104aa5"
+      },
+      "after": {
+        "bytes": 30380,
+        "sha256": "e5a84a7fa40ec4efbc4af3a62675beae2acf61941c503698a5ac802018104aa5"
+      }
+    }
+  },
+  "normalized": {
+    "common": 562,
+    "changed": 3,
+    "gained": 0,
+    "lost": 0,
+    "helpers_restored": 0,
+    "helpers_exact": 0,
+    "source_bound": 0,
+    "other_pinned_restored": 0,
+    "extra_added": 0,
+    "removed": 0,
+    "removed_pinned": 0
+  },
+  "localCallsPreserved": {
+    "gen_event": 128,
+    "gen_server": 148
+  },
+  "invalidPrototypeLocalCalls": {
+    "gen_event": 16,
+    "gen_server": 13
+  },
+  "negativeNativeExits": {
+    "gen_event": -1073741819,
+    "gen_server": 1
+  },
+  "strictReplay": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": {
+      "Before": "5e81162aad290360f4bc7e0c06f089382bffbbce1264c092e54e5346e8989697",
+      "After": "4ead256702f5bb0defc8fa2c7812bbdc09469a6c84f9914a6281f3402c46c415"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.MapExpressions.cs": {
+      "Before": "6712802d406aa3f839abbef349d3fb84036bfe9d6e1d3742f8a2171c8bc2b083",
+      "After": "889bff9bc5ade5ae44af922ef37320d25ef7e09aa72978ce79d7b164fa2e919b"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryMatchedMapUpdates.cs": {
+      "Before": null,
+      "After": "848224b4bdd284476c20187dbecaa3f4863c2f753b261a2b262ffba18f3659ee"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": {
+      "Before": "ef322496657248e021d98af19d1406859200a5af89ff9027b09e12dd29172f4c",
+      "After": "38d270b6130c67d5ae2592fd0d73fd1ddf0f149587b6a3abc540c12a6d387079"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.Closures.cs": {
+      "Before": "c2cf4b41f141680419471035708171880f305a71f333d0afdd447185c988679f",
+      "After": "aba3e5567633c69fe835cee7daa00507d3a6faf1ce6ce5bc408f0a06e3ce3791"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamEntryMatchedMapUpdateChecks.cs": {
+      "Before": null,
+      "After": "f1e9c6f9cbe023c83ac379ffa00f201f25dafb81dcb1daa570f36230265cef72"
+    },
+    "tests/Erlang.Tests/Harness/Program.cs": {
+      "Before": "3ed43b9e82068c443007cbfcabcaf42da58aa2449cc17deeca886c3cbf89adb9",
+      "After": "6591898f1b00eb38c3f553c8144022d594bd5e5293223be3d7fbbacb479381c6"
+    }
+  },
+  "patches": {
+    "entry-matched-map-updates-test.patch": {
+      "bytes": 4476,
+      "sha256": "a4c3ecf8d333d5a64ec05ef20f9b64df9b31c7027716baf3911fa9aeea00ad7e"
+    },
+    "entry-matched-map-updates.patch": {
+      "bytes": 7242,
+      "sha256": "33591c1e52611ccc5cb4ce703427f0def6d2a86232c828c53ad02bd07da2219d"
+    }
+  },
+  "evidence": {
+    "README.md": {
+      "bytes": 2106,
+      "sha256": "a243da293573dbd2cab5b6a89485ff6d7a1ba7cb2ffed15bf2ce8f1f47fbb4fe"
+    },
+    "gen_event.trace": {
+      "bytes": 1351,
+      "sha256": "6c4bcff0d6f4a20b04439039f910281c2f20e3222aa404da8da0a9b0c5711a68"
+    },
+    "gen_server.trace": {
+      "bytes": 1021,
+      "sha256": "ed5570dfe9fe3bdd20b5df0ec50cb6a6674488ec21cbb6a3cc7d07d194d0f7c5"
+    },
+    "repaired-disassembler.terms": {
+      "bytes": 1909,
+      "sha256": "f3aa0a10db64f48a6b1fcd1d948f94b5b3b280d073988e08b02ebddf78004262"
+    },
+    "gen_event-call-identities.result": {
+      "bytes": 59,
+      "sha256": "ac189cf7126c91bbfa4bd66bea9235dc8cab26702402fd23ade529dc054e9906"
+    },
+    "gen_server-call-identities.result": {
+      "bytes": 58,
+      "sha256": "7ae53d78d0f2c2826c08d111489a3eb283635c13633e5af1fe0239f93961b32a"
+    },
+    "native-regression.result": {
+      "bytes": 130,
+      "sha256": "4985da0a95d04d658f3aa12c219dcd5185bd949518861a987506ab8f7dfe4546"
+    },
+    "regression.unsafe.result": {
+      "bytes": 621,
+      "sha256": "4e7e4a6bc32496b0c4ce28d61369e5e169db7cf1ffce73ce27d19836866b3aeb"
+    },
+    "regression.overlay-before.result": {
+      "bytes": 621,
+      "sha256": "4e7e4a6bc32496b0c4ce28d61369e5e169db7cf1ffce73ce27d19836866b3aeb"
+    },
+    "regression.result": {
+      "bytes": 62,
+      "sha256": "289e0ad1e547c62699c2233a46a3c24128533f809cddca1ed57068fbb6e06b82"
+    },
+    "normalized-replay.terms": {
+      "bytes": 2798,
+      "sha256": "051d82add4d6c1144f0d42d61dab17e296a50bc57a772fd2914aa2ce86da805f"
+    },
+    "native-real-call-targets.eval": {
+      "bytes": 1239,
+      "sha256": "c5c98f340a6ad6119c2323c8f7cbbd800bfa1b200c96806605c27f926fa909fd"
+    },
+    "beam_local_entry_target_probe.erl": {
+      "bytes": 552,
+      "sha256": "902042f08aa8d10a5cf762a91f1b2c402eee2097d12ffd51b733707b3e4b2797"
+    },
+    "replay-result.txt": {
+      "bytes": 79,
+      "sha256": "28b620506bab2333b7177dd8a9893ea4ce2de340c4b7ad784ac53edcc1b98ada"
+    },
+    "source-closure.log": {
+      "bytes": 90,
+      "sha256": "5a09022cd576915d90338c84d5ff95d01e13a5ac37b54a02543638742362d202"
+    },
+    "layout-final.log": {
+      "bytes": 40,
+      "sha256": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f"
+    },
+    "gen_event-repaired-native.log": {
+      "bytes": 51,
+      "sha256": "284f1e0b12f70d6930920d364299723cff497615c164fe68ceef8c422a29947d"
+    },
+    "gen_server-repaired-native.log": {
+      "bytes": 2060,
+      "sha256": "d874a34ab643636e8ff523ede9ad86e96dff3a638fc987fd42870f3e79b48e75"
+    },
+    "gen_event-unsafe-native.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "gen_server-unsafe-native.stderr.log": {
+      "bytes": 2145,
+      "sha256": "4487b77aa29f44a93939fdc4a6b1f47b60aabcb53b4ce1171918adcae49685e6"
+    },
+    "negative-native-exits.json": {
+      "bytes": 54,
+      "sha256": "dd298b689c3e82dca88fdb139bbf062a5a563e2326e70d9fc8ac3e6bae82e114"
+    }
+  },
+  "scope": {
+    "fullCorpus": false,
+    "isolatedWorkers": 1,
+    "nativeFixtureCases": 8
+  }
+}

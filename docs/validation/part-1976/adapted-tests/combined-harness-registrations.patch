@@ -1,0 +1,15 @@
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12544,6 +12544,12 @@
+ Test(Erlang.Tests.BeamProtectedEntryAliasChecks.TestName, Erlang.Tests.BeamProtectedEntryAliasChecks.Run);
+ Test(Erlang.Tests.BeamProtectedShortReturnChecks.TestName, Erlang.Tests.BeamProtectedShortReturnChecks.Run);
+ Test(Erlang.Tests.BeamBinaryConstructionStringChecks.TestName, Erlang.Tests.BeamBinaryConstructionStringChecks.Run);
++Test(Erlang.Tests.BeamSingletonGeneratorHeadChecks.TestName, Erlang.Tests.BeamSingletonGeneratorHeadChecks.Run);
++Test(Erlang.Tests.BeamTerminalLiteralMappingChecks.TestName, Erlang.Tests.BeamTerminalLiteralMappingChecks.Run);
++Test(Erlang.Tests.BeamWideIntegerConstructionChecks.TestName, Erlang.Tests.BeamWideIntegerConstructionChecks.Run);
++Test(Erlang.Tests.BeamFramelessHeadBifChecks.TestName, Erlang.Tests.BeamFramelessHeadBifChecks.Run);
++Test(Erlang.Tests.BeamNestedSingletonCaptureChecks.TestName, Erlang.Tests.BeamNestedSingletonCaptureChecks.Run);
++Test(Erlang.Tests.BeamClosedEntryChainChecks.TestName, Erlang.Tests.BeamClosedEntryChainChecks.Run);
+ Test(Erlang.Tests.BeamLateCallKillOrderChecks.TestName, Erlang.Tests.BeamLateCallKillOrderChecks.Run);
+ Test(Erlang.Tests.BeamEntryAtomIdentityCaseChecks.TestName, Erlang.Tests.BeamEntryAtomIdentityCaseChecks.Run);
+ Test(Erlang.Tests.BeamSharedEntryRecordChecks.TestName, Erlang.Tests.BeamSharedEntryRecordChecks.Run);

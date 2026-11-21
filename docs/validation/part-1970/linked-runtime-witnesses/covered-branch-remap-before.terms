@@ -1,0 +1,11 @@
+[{ok_case,{restored,standard_handle}},
+ {exact_repaired,{restored,exact_handle}},
+ {nonzero_repaired,{restored,nonzero_handle}},
+ {different_fourth,{restored,unusual_handle}},
+ {error_case,{returned,{error,denied}}},
+ {wrong_tag,{error,{case_clause,{wrong,not_a_handle,ignored,{badbytes,0}}},
+                   [{open_read,1,158}]}},
+ {wrong_arity,{error,{case_clause,{repaired,not_a_handle,ignored}},
+                     [{open_read,1,158}]}},
+ {wrong_shape,{error,{case_clause,unexpected},[{open_read,1,158}]}},
+ {missing_skips_open,{error,enoent}}].

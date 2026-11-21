@@ -1,0 +1,1 @@
+[Path,Count]=init:get_plain_arguments(),{ok,[Terms]}=file:consult(Path),true=(length(Terms)=:=list_to_integer(Count)),halt().

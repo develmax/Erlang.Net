@@ -1,0 +1,93 @@
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProjectionMoves.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProjectionMoves.cs
+@@ -136,17 +136,18 @@
+             start = end + 1;
+             var references = new Dictionary<int, int>();
+             bool stableFrame = true;
++            bool hasHandler = false;
+             int allocations = 0;
+             for (int index = entry; index < end; index++)
+             {
+                 BeamInstruction instruction = body[index];
+-                if (instruction.Definition.Opcode is TrimFrame or CatchEnter or TryEnter
+-                    || instruction.Definition.Name == "debug_line")
++                if (instruction.Definition.Opcode == TrimFrame || instruction.Definition.Name == "debug_line")
+                 {
+                     stableFrame = false;
+                     break;
+                 }
+ 
++                hasHandler |= instruction.Definition.Opcode is CatchEnter or TryEnter;
+                 if (instruction.Definition.Opcode is Allocate or AllocateHeap)
+                 {
+                     allocations++;
+@@ -172,22 +173,25 @@
+                 continue;
+             }
+ 
++            var protectedCopies = hasHandler
++                ? FindProtectedProjectionCopies(body, entry, end, references)
++                : null;
+             for (int index = entry; index < end; index++)
+             {
+                 if (body[index] is not
+                     { Definition.Opcode: GetTupleElement, Operands: [_, _, { Kind: BeamOperandParameters.Y, TypeIndex: null } temporary] }
+-                    || references[(int)temporary.Value] != 2)
+-                {
+-                    continue;
+-                }
+-
+-                int copy = FindProjectionCopy(
++                    || !hasHandler && references[(int)temporary.Value] != 2)
++                {
++                    continue;
++                }
++
++                int copy = protectedCopies?.GetValueOrDefault(index, -1) ?? FindProjectionCopy(
+                     body,
+                     index,
+                     temporary,
+                     crossProjections: true
+                 );
+-                bool preserveCapture = copy < 0 && CanPreserveProjectedCallCapture(
++                bool preserveCapture = !hasHandler && copy < 0 && CanPreserveProjectedCallCapture(
+                     body,
+                     index,
+                     end,
+@@ -229,6 +233,36 @@
+         output.Write(code.Span[copied..]);
+ 
+         return output.ToArray();
++    }
++
++    private static Dictionary<int, int> FindProtectedProjectionCopies(
++        IReadOnlyList<BeamInstruction> body,
++        int entry,
++        int end,
++        Dictionary<int, int> references
++    )
++    {
++        var pairs = new List<(int Slot, int Projection, int Copy)>();
++        for (int index = entry; index < end; index++)
++        {
++            if (body[index] is not
++                { Definition.Opcode: GetTupleElement, Operands: [_, _, { Kind: BeamOperandParameters.Y, TypeIndex: null } slot] })
++            {
++                continue;
++            }
++
++            int copy = FindProjectionCopy(body, index, slot);
++            if (copy >= 0)
++            {
++                pairs.Add(((int)slot.Value, index, copy));
++                index = copy;
++            }
++        }
++
++        // A protected slot can be eliminated when every use belongs to a closed
++        // projection and copy pair. A handler or another arm then cannot read it.
++        return pairs.GroupBy(pair => pair.Slot).Where(group => group.Count() * 2 == references[group.Key])
++            .SelectMany(group => group).ToDictionary(pair => pair.Projection, pair => pair.Copy);
+     }
+ 
+     private static bool CanPreserveProjectedCallCapture(

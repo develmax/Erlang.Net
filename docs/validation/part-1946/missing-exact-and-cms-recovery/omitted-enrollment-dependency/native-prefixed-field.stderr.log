@@ -1,0 +1,69 @@
+Error! Failed to eval: [Official,Baseline,Candidate]=init:get_plain_arguments(),
+Attr='PKIXAttributeCertificate-2009',
+Cmp='PKIXCMP-2023',
+Enrollment='EnrollmentMessageSyntax-2009',
+Implicit='PKIX1Implicit-2009',
+Crmf='PKIXCRMF-2009',
+W=fun(Tag,Data)-><<Tag,(byte_size(Data)),Data/binary>> end,
+Alg=W(48,W(6,<<42,3>>)),
+Other=W(6,<<42,4>>),
+Digest=W(3,<<0,65>>),
+Pub=W(10,<<0>>),
+Cert=W(10,<<1>>),
+Object=W(10,<<2>>),
+Unknown=W(10,<<3>>),
+Context=W(160,W(4,<<"context">>)),
+One=W(2,<<1>>),
+Zero=W(2,<<0>>),
+Negative=W(2,<<255>>),
+Big=W(2,<<1,0,0,0,0,0,0,0,0,0>>),
+Path=W(48,One),
+Refs=W(48,<<One/binary,One/binary>>),
+Bool=W(1,<<0>>),
+Template=W(48,<<>>),
+Extra=W(21,<<"unexpected">>),
+Cases=[
+ {Attr,'ObjectDigestInfo',[<<>>,Pub,<<Pub/binary,Alg/binary>>,<<Pub/binary,Alg/binary,Digest/binary>>,
+    <<Cert/binary,Other/binary,Alg/binary,Digest/binary>>,<<Object/binary,Other/binary,Alg/binary,Digest/binary>>,
+    <<Unknown/binary,Other/binary,Alg/binary,Digest/binary>>,<<Pub/binary,Other/binary,Digest/binary>>,
+    <<Pub/binary,Alg/binary,Digest/binary,Extra/binary>>,<<Pub/binary,Alg/binary,3,0>>]},
+ {Cmp,'KemBMParameter',[<<>>,Alg,<<Alg/binary,Context/binary>>,<<Alg/binary,One/binary,Alg/binary>>,
+    <<Alg/binary,Context/binary,One/binary,Alg/binary>>,<<Alg/binary,Context/binary,Big/binary,Alg/binary>>,
+    <<Alg/binary,Context/binary,Zero/binary,Alg/binary>>,<<Alg/binary,Negative/binary,Alg/binary>>,
+    <<Alg/binary,Context/binary,One/binary>>,<<Alg/binary,One/binary,Alg/binary,Extra/binary>>]},
+ {Enrollment,'ModCertTemplate',[<<>>,Path,<<Path/binary,Refs/binary>>,<<Path/binary,Refs/binary,Bool/binary>>,
+    <<Path/binary,Refs/binary,Template/binary>>,<<Path/binary,Refs/binary,Bool/binary,Template/binary>>,
+    <<Path/binary,Refs/binary,1,1,255,Template/binary>>,<<Path/binary,Refs/binary,Bool/binary,Template/binary,Extra/binary>>,
+    <<Path/binary,Refs/binary,Template/binary,Bool/binary>>,<<Path/binary,Refs/binary,Bool/binary,48,2,4,0>>]}
+],
+Load=fun(Root,Mod)->
+    code:purge(Mod),code:delete(Mod),code:purge(Mod),
+    PathName=filename:join([Root,"lib","public_key-1.21.7","ebin",atom_to_list(Mod)++".beam"]),
+    {ok,Beam}=file:read_file(PathName),{module,Mod}=code:load_binary(Mod,"probe:"++atom_to_list(Mod),Beam)
+end,
+Observe=fun(Mod,Type,Value)->
+    case Mod:decode(Type,Value) of
+        {error,{asn1,{Reason,Stack}}} when is_list(Stack) ->
+            {error,{asn1,Reason,[Frame||Frame<-Stack,lists:member(element(1,Frame),[Mod,Implicit,Crmf])]}};
+        Result->Result
+    end
+end,
+Run=fun(Root)->
+    Load(Root,Implicit),Load(Root,Crmf),
+    [{Mod,Type,begin Load(Root,Mod),
+      [{Value,Observe(Mod,Type,Value)}||Value<-[W(48,Part)||Part<-Fields]++[<<>>,<<48,1>>,<<49,0>>]] end}
+      ||{Mod,Type,Fields}<-Cases]
+end,
+R=Run(Official),B=Run(Baseline),A=Run(Candidate),
+lists:foreach(fun({{Mod,Type,X},{Mod,Type,Y},{Mod,Type,Z}})->
+    Count=fun(Actual)->length([same||{Same,Same}<-lists:zip(X,Actual)]) end,
+    io:format("~p/~p ~p cases, baseline ~p, candidate ~p~n",[Mod,Type,length(X),Count(Y),Count(Z)]),
+    [io:format("~0p.~n",[Row])||Row<-lists:zip3(X,Y,Z)]
+end,lists:zip3(R,B,A)),
+halt(case R=:=A andalso lists:all(fun({_,_,Rows})->lists:any(fun({_,{ok,_}})->true;(_)->false end,Rows) end,R)
+    of true->0;false->1 end).
+
+
+Runtime terminating during boot ({{badmatch,{error,enoent}},[{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,796}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{erl_eval,expr_list,7,[{file,"erl_eval.erl"},{line,1664}]},{erl_eval,expr_list,5,[{file,"erl_eval.erl"},{line,1660}]},{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,451}]},{erl_eval,expr_list,7,[{file,"erl_eval.erl"},{line,1664}]},{erl_eval,eval_lc1,7,[{file,"erl_eval.erl"},{line,1078}]},{erl_eval,eval_generate,9,[{file,"erl_eval.erl"},{line,1462}]}]})
+
+Crash dump is being written to: D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\mapped-records-and-prefixed-field-lifetimes-1946\linked-runtime-witnesses\native-prefixed-field-crash.dump...done

@@ -33,6 +33,30 @@ internal sealed partial class BeamModuleCompiler
     {
         private bool TryEmitGuardedLocalForward(FunctionDefinition function)
         {
+            if (!owner.ModuleOptimizationDisabled && owner.SsaTypeInferenceEnabled
+                && function.Clauses is [var candidate, var fallback]
+                && ReadGuardedLocalForward(candidate) is
+                { Arity: 1, AddsEmptyList: true, Shapes.Count: 0, Tests: ForwardGuard.Test { Opcode: IsInteger, Register: 0 } } integer
+                && ReadGuardedLocalForward(fallback) is
+                {
+                    Arity: 1, AddsEmptyList: true, Shapes.Count: 0,
+                    Tests: ForwardGuard.Disjunction
+                    {
+                        Left: ForwardGuard.Test { Opcode: IsList, Register: 0 },
+                        Right: ForwardGuard.Test { Opcode: IsBinary, Register: 0 }
+                    }
+                } chardata
+                && integer.Entry == chardata.Entry)
+            {
+                int failure = owner.nextLabel - 2;
+                int next = Label();
+                EmitGuardedLocalForward(integer, next);
+                Mark(next);
+                EmitGuardedLocalForward(chardata, failure);
+
+                return true;
+            }
+
             if (function.Clauses is not [var clause] || ReadGuardedLocalForward(clause) is not { } plan)
             {
                 return false;
@@ -96,7 +120,12 @@ internal sealed partial class BeamModuleCompiler
             var ordered = FlattenForwardConjunction(tests).ToArray();
             if (shapes.Count == 0)
             {
-                if (addsEmptyList)
+                if (addsEmptyList && !owner.ModuleOptimizationDisabled && owner.SsaTypeInferenceEnabled
+                    && ReadSparseWxTextForward(ordered, arity) is { } sparse)
+                {
+                    ordered = [.. sparse.Records, .. sparse.Values];
+                }
+                else if (addsEmptyList)
                 {
                     var leadingTests = ordered.TakeWhile(test => test is
                         ForwardGuard.Test { Tag: not null } or ForwardGuard.Test { Opcode: IsInteger }).ToArray();
@@ -164,6 +193,45 @@ internal sealed partial class BeamModuleCompiler
             }
             owner.Op(TailLocalCall, BeamWire.UnsignedTag, arity + (addsEmptyList ? 1 : 0));
             owner.Operand(LabelTag, entry);
+        }
+
+        private sealed record SparseWxTextForward(ForwardGuard.Test[] Records, ForwardGuard[] Values);
+
+        private static SparseWxTextForward? ReadSparseWxTextForward(ForwardGuard[] tests, int arity)
+        {
+            if (arity is < 3 or > 5)
+            {
+                return null;
+            }
+
+            var records = tests.OfType<ForwardGuard.Test>().Where(test => test is
+            { Opcode: IsTaggedTuple, Tag.Name: "wx_ref", Arity: 4 }).OrderBy(test => test.Register).ToArray();
+            if (records.Length < 2 || records[0].Register != 0)
+            {
+                return null;
+            }
+
+            int text = records[1].Register - 1;
+            if (text < 1 || !records.Skip(1).Select(test => test.Register)
+                    .SequenceEqual(Enumerable.Range(text + 1, arity - text - 1)))
+            {
+                return null;
+            }
+
+            var values = tests.Except(records).ToArray();
+            if (values.Length != text || values[^1] is not ForwardGuard.Disjunction
+                {
+                    Left: ForwardGuard.Test { Opcode: IsList, Register: var list },
+                    Right: ForwardGuard.Test { Opcode: IsBinary, Register: var binary }
+                }
+                || list != text || binary != text
+                || !values.Take(values.Length - 1).SequenceEqual(Enumerable.Range(1, text - 1)
+                    .Select(register => new ForwardGuard.Test(IsInteger, register))))
+            {
+                return null;
+            }
+
+            return new SparseWxTextForward(records, values);
         }
 
         private static int ForwardGuardLabelCount(ForwardGuard guard) => guard switch

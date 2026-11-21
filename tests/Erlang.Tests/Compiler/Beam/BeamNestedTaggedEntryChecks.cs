@@ -1,0 +1,51 @@
+using System.Collections;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamNestedTaggedEntryChecks
+{
+    internal const string TestName = "compiler/beam/shares-checked-nested-tuple-terminal-fields";
+    private const string ShapeError = "The checked nested tuple did not share its terminal tuple construction.";
+    private const string Source = """
+        -module(beam_nested_tagged_entry).
+        -export([receive_event/2]).
+        -record(state, {key, socket, extra}).
+
+        receive_event({wire,_Owner,{payload,_,_,Data}}, #state{socket=Socket}=State) ->
+            service:send(Socket, Data),
+            {ok,State};
+        receive_event({wire,_Owner,{closed,Key}}, State) ->
+            {stop,Key,State};
+        receive_event({wire,_Owner,{signal,_,_}}, State) ->
+            {ok,State};
+        receive_event({wire,_Owner,{terminal,Key,_,_,_}}, State) ->
+            {stop,Key,State};
+        receive_event({wire,_Owner,{status,Key,_}}, State) ->
+            {stop,Key,State}.
+        """;
+
+    internal static void Run()
+    {
+        string repeated = Source.Replace("{signal,_,_}", "{signal,Code,Code}", StringComparison.Ordinal);
+        if (repeated == Source || !SharesTerminal(Source) || SharesTerminal(repeated))
+        {
+            throw new InvalidOperationException(ShapeError);
+        }
+    }
+
+    private static bool SharesTerminal(string source)
+    {
+        object code = Code(CodeGeneration.CompileBeamModule(source, "beam_nested_tagged_entry.erl"));
+        var instructions = ((IEnumerable)Property(code, "Instructions")).Cast<object>().ToArray();
+
+        return instructions.Count(instruction => Opcode(instruction) == SelectTupleArity) == 1
+            && instructions.Count(instruction => Opcode(instruction) == PutTuple) == 3
+            && instructions.Count(instruction => Opcode(instruction) == Allocate) == 1
+            && instructions.Count(instruction => Opcode(instruction) == Jump) == 1;
+    }
+
+    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
+}

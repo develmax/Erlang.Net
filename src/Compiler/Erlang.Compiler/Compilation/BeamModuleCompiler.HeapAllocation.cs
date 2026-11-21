@@ -27,7 +27,7 @@ internal sealed partial class BeamModuleCompiler
             {
                 BeamInstruction instruction = body[index];
                 byte opcode = instruction.Definition.Opcode;
-                if (opcode is PutTuple or PutList)
+                if (opcode is PutTuple or PutList or UpdateRecord)
                 {
                     constructed = true;
                 }
@@ -89,9 +89,10 @@ internal sealed partial class BeamModuleCompiler
             ? (start, operandStart + cursor.Position, (int)operand.Value) : null;
     }
 
-    private byte[]? CombineStackAndHeapAllocation(ReadOnlyMemory<byte> code, IReadOnlyList<BeamInstruction> body)
+    private static byte[]? CombineStackAndHeapAllocation(ReadOnlyMemory<byte> code, IReadOnlyList<BeamInstruction> body)
     {
         MemoryStream? output = null;
+        BeamProjectionFlow? flow = null;
         int copied = 0;
         for (int start = 0; start + 2 < body.Count; start++)
         {
@@ -103,6 +104,32 @@ internal sealed partial class BeamModuleCompiler
             int end = start + 1;
             while (body[end].Definition.Opcode is Move or InitYRegisters)
             {
+                end++;
+            }
+
+            if (end + 2 < body.Count && body[end] is
+                {
+                    Definition.Opcode: GetTupleElement,
+                    Operands:
+                    [
+                    { Kind: BeamOperandParameters.X } tuple,
+                    { Kind: BeamOperandParameters.Unsigned } field,
+                    { Kind: BeamOperandParameters.Y } destination
+                    ]
+                }
+                && tuple.Value < live.Value && destination.Value < frame.Value
+                && body[end + 1] is { Definition.Opcode: TestHeap, Operands: [_, { Value.IsZero: true }] }
+                && body[end + 2].Definition.Opcode is PutTuple or PutList
+                && body.Skip(start + 1).Take(end - start - 1).All(instruction =>
+                    instruction.Definition.Opcode == InitYRegisters || instruction is
+                    {
+                        Definition.Opcode: Move,
+                        Operands: [{ Kind: BeamOperandParameters.X } input, { Kind: BeamOperandParameters.Y } slot]
+                    } && input.Value < live.Value && slot.Value < frame.Value)
+                && (flow ??= new BeamProjectionFlow(body)).HasCheckedTupleField(start, tuple, field))
+            {
+                // The field stays reachable from the pre-allocation X roots while earlier
+                // writes initialize the same Y homes used by the following constructor.
                 end++;
             }
 

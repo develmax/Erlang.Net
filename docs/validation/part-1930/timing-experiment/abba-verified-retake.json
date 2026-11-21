@@ -1,0 +1,101 @@
+{
+  "Sequence": [
+    {
+      "Report": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\optimized-compiler-corpus-throughput-1930\\ab-0-Debug/result.json",
+      "Exit": 1,
+      "Role": "Debug",
+      "Seconds": 50.5343137,
+      "Index": 0
+    },
+    {
+      "Report": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\optimized-compiler-corpus-throughput-1930\\ab-1-Optimized/result.json",
+      "Exit": 1,
+      "Role": "Optimized",
+      "Seconds": 53.5655503,
+      "Index": 1
+    },
+    {
+      "Report": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\optimized-compiler-corpus-throughput-1930\\ab-2-Optimized/result.json",
+      "Exit": 1,
+      "Role": "Optimized",
+      "Seconds": 51.6543556,
+      "Index": 2
+    },
+    {
+      "Report": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\optimized-compiler-corpus-throughput-1930\\ab-3-Debug/result.json",
+      "Exit": 1,
+      "Role": "Debug",
+      "Seconds": 38.7320854,
+      "Index": 3
+    }
+  ],
+  "Identities": {
+    "Debug": {
+      "Compiler": "40BC898F62418E9880E611B30BD41A66086FD61A5863180F4E6F52A69960EE59",
+      "Runtime": "7445A7EA8A055C952841AD41A2F4F0138B7FE39EAB6762EB1030E59308A1C8AA",
+      "Tool": "22ABFF20CF6D6BDA3752B70B94DB69738EAAF107BEBFAE6C1C987803DADBA7C7"
+    },
+    "Optimized": {
+      "Compiler": "9C5FC2071B557D294F4C665AA6E2175673FDA414E647BEBBDD6319957CBECA91",
+      "Runtime": "7445A7EA8A055C952841AD41A2F4F0138B7FE39EAB6762EB1030E59308A1C8AA",
+      "Tool": "22ABFF20CF6D6BDA3752B70B94DB69738EAAF107BEBFAE6C1C987803DADBA7C7"
+    }
+  },
+  "Dotnet": "AB1B71FD3DD71062E074C9FAB8312081A81B7F2B3E0327C48C4D249C8D1A3135",
+  "Sample": "CDA4D70CECE7172AFF7489FE081C3AF961CCFE7AF05DF1288F99B68A3CB90088",
+  "IdenticalOutput": {
+    "lib/asn1-5.5.2/ebin/asn1ct.beam": {
+      "State": "Different",
+      "SHA256": "6cc80065d9fd842ca51d02706a4832b623323dd0d0a04786827d34cafc1c30b2"
+    },
+    "lib/diameter-2.7.2/ebin/diameter_service.beam": {
+      "State": "Different",
+      "SHA256": "96f8407682517a8550feb9f8c057d676ff8bc4fbb4946528ca826eae5045ddea"
+    },
+    "lib/erts-17.1/ebin/erl_init.beam": {
+      "State": "Equal",
+      "SHA256": "f5373f9d1d678d8261e07ffad0033663f762913c339729a4309df2e6fd11abdf"
+    },
+    "lib/inets-9.8/ebin/mod_trace.beam": {
+      "State": "Different",
+      "SHA256": "d603c7c6900b1a9c6c7e93c845c695d1b7c565d8cb7be9b45faeacc9611ebbe1"
+    },
+    "lib/mnesia-4.27/ebin/mnesia_backup.beam": {
+      "State": "Different",
+      "SHA256": "933833983fdc78e1e422cc7748495951b9ddaca8e56e8c80afff1dd1c1f57126"
+    },
+    "lib/public_key-1.21.7/ebin/PKIXCRMF-2009.beam": {
+      "State": "Equal",
+      "SHA256": "5e65c0e0ef17b4428c9e41d36990d6305d1a99ded05904cb438a478ff2de44fc"
+    },
+    "lib/snmp-5.20.5/ebin/snmp_verbosity.beam": {
+      "State": "Different",
+      "SHA256": "8b9cf79bb4604640a93d77bddf630888131500cafd0341ac1d32124d9db518ae"
+    },
+    "lib/ssl-11.7.7/ebin/ssl_logger.beam": {
+      "State": "Different",
+      "SHA256": "3839e1bc49fc2d1620caa3676a1af4ecafe4518086ff839c583098689a30cbfe"
+    },
+    "lib/stdlib-8.1/ebin/ordsets.beam": {
+      "State": "Different",
+      "SHA256": "af2e195b83a66103acae6103ce3005f81680f500c86d5170f9dcc20b8453c509"
+    },
+    "lib/stdlib-8.1/ebin/zstd.beam": {
+      "State": "Different",
+      "SHA256": "836fe4e6636384f21426166230e6f76e860511ee6d76d54991b105b01209326c"
+    },
+    "lib/wx-2.7/doc/examples/demo/ex_grid.beam": {
+      "State": "Equal",
+      "SHA256": "7f73564f667fc643a58a81c14fbd44868cf62b48ec5e6eed4dcc723c99ed80f0"
+    },
+    "lib/wx-2.7/ebin/wxSizer.beam": {
+      "State": "Different",
+      "SHA256": "6dcaa32c28ecaff55c335b314f367a12ccda58de169efe7b1366ade8c926e883"
+    }
+  },
+  "MedianSeconds": {
+    "Debug": 44.63319955,
+    "Optimized": 52.60995295
+  },
+  "Speedup": 0.8483793854067684
+}

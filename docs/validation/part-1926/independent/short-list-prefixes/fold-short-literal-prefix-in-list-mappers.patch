@@ -1,0 +1,105 @@
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
+@@ -720,9 +720,11 @@
+                 return false;
+             }
+ 
++            Term[] prefix = ReadFoldedListMapperPrefix(append.Left);
++            Expr mapped = prefix.Length == 0 ? append : append.Right;
+             var calls = new List<ListMapperCall>();
+             if (!AppendListMapperCalls(
+-                append,
++                mapped,
+                 item.Name,
+                 calls,
+                 allowAppend: true
+@@ -735,19 +737,83 @@
+ 
+             int empty = Label();
+             owner.EmitNonemptyList(0, empty);
+-            EmitFrameAllocation(1, 1);
++            if (prefix.Length == 0)
++            {
++                EmitFrameAllocation(1, 1);
++                owner.EmitListParts(
++                    0,
++                    XRegisterTag,
++                    0,
++                    YRegisterTag,
++                    0
++                );
++                var current = EmitListMapperCalls(calls, location);
++                owner.EmitMappingResult(entry, current == location ? null : location);
++            }
++            else
++            {
++                EmitFoldedListMapperPrefix(prefix, calls, entry);
++            }
++
++            EmitRecursiveListMappingEnd(function, empty);
++
++            return true;
++        }
++
++        private static Term[] ReadFoldedListMapperPrefix(Expr left)
++        {
++            if (!AttributeLiteral.TryNormalizeConstant(left, out Term value)
++                || AppendPrefix(new Expr.Literal(value)) is not { Count: > 0 } items)
++            {
++                return [];
++            }
++
++            return items.Cast<Expr.Literal>().Select(item => item.Value).ToArray();
++        }
++
++        private void EmitFoldedListMapperPrefix(Term[] prefix, List<ListMapperCall> calls, int entry)
++        {
++            EmitFrameAllocation(1, 2);
++            EmitFrameInitialization(0, 1);
+             owner.EmitListParts(
+                 0,
+                 XRegisterTag,
+                 0,
+                 YRegisterTag,
++                1
++            );
++
++            var current = EmitListMapperCalls(calls, location);
++            owner.Op(TestHeap, BeamWire.UnsignedTag, ConsHeapWords * prefix.Length);
++            owner.Operand(BeamWire.UnsignedTag, 1);
++            for (int index = prefix.Length - 1; index >= 0; index--)
++            {
++                owner.instructions.WriteByte(PutList);
++                owner.LiteralOperand(prefix[index]);
++                owner.Operand(XRegisterTag, 0);
++                owner.Operand(index == 0 ? YRegisterTag : XRegisterTag, 0);
++            }
++
++            owner.MoveRegister(
++                YRegisterTag,
++                1,
++                XRegisterTag,
+                 0
+             );
+-            var current = EmitListMapperCalls(calls, location);
+-            owner.EmitMappingResult(entry, current == location ? null : location);
+-            EmitRecursiveListMappingEnd(function, empty);
+-
+-            return true;
++            owner.MoveRegister(
++                YRegisterTag,
++                0,
++                YRegisterTag,
++                1
++            );
++            owner.Op(TrimFrame, BeamWire.UnsignedTag, 1);
++            owner.Operand(BeamWire.UnsignedTag, 1);
++            if (current != location)
++            {
++                owner.EmitLine(location);
++            }
++
++            owner.EmitRecursiveCons(entry, 1);
+         }
+ 
+         private void EmitRecursiveListMappingEnd(FunctionDefinition function, int empty)

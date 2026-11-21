@@ -1,0 +1,405 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+@@ -1120,6 +1120,7 @@
+         ) ?? code;
+         code = AnnotateListProducerResults(code, labelCount, localResultEntries) ?? code;
+         code = AnnotateProvenListHeadInputs(code, labelCount) ?? code;
++        code = AnnotateBoundedPrivateEntryTests(code, labelCount) ?? code;
+         code = LocalizeCheckedListGuardFrame(code, labelCount) ?? code;
+         code = SimplifyListOrTaggedCallResult(
+             code,
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProperListEntryFacts.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProperListEntryFacts.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProperListEntryFacts.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProperListEntryFacts.cs
+@@ -11,23 +11,27 @@
+     private bool HasNonemptyListEntryFact((string Name, int Arity) signature, int argument) =>
+         HasLocalListEntryFact(signature, argument, nonempty: true);
+ 
+-    private bool HasLocalListEntryFact((string Name, int Arity) signature, int argument, bool nonempty)
++    private bool HasLocalListEntryFact((string Name, int Arity) signature, int argument, bool nonempty) =>
++        ReadPrivateEntryFacts()?.Proves(signature, argument, nonempty) == true;
++
++    private (long Lower, long Upper)? ReadIntegerEntryRange((string Name, int Arity) signature, int argument) =>
++        ReadPrivateEntryFacts()?.ReadIntegerRange(signature, argument);
++
++    private ProperListEntryFacts? ReadPrivateEntryFacts()
+     {
+         if (properListSourceFunctions is null || !SsaTypeInferenceEnabled || ModuleOptimizationDisabled
+             || OnLoadFunction is not null || sourceModule?.DeclaredNifs is { Count: > 0 })
+         {
+-            return false;
+-        }
+-
+-        properListEntryFacts ??= new ProperListEntryFacts(this, properListSourceFunctions, exportedFunctions);
+-
+-        return properListEntryFacts.Proves(signature, argument, nonempty);
++            return null;
++        }
++
++        return properListEntryFacts ??= new ProperListEntryFacts(this, properListSourceFunctions, exportedFunctions);
+     }
+ 
+     private sealed class ProperListEntryFacts
+     {
+         [Flags]
+-        private enum Fact
++        private enum Shape
+         {
+             Unreachable = 0,
+             EmptyList = 1,
+@@ -37,6 +41,30 @@
+             ProperList = EmptyList | ProperCons,
+             Cons = ProperCons | ImproperCons,
+             Unknown = ProperList | ImproperCons | NonList
++        }
++
++        private readonly record struct Fact(
++            Shape Possible,
++            (long Lower, long Upper)? Integer = null,
++            (long Lower, long Upper)? Elements = null
++        )
++        {
++            internal static readonly Fact Unreachable = new(Shape.Unreachable);
++            internal static readonly Fact EmptyList = new(Shape.EmptyList);
++            internal static readonly Fact Unknown = new(Shape.Unknown);
++
++            internal bool MayContainCons => (Possible & Shape.Cons) != 0;
++
++            internal Fact Intersect(Shape admitted)
++            {
++                Shape possible = Possible & admitted;
++
++                return new Fact(
++                    possible,
++                    (possible & Shape.NonList) != 0 ? Integer : null,
++                    (possible & Shape.Cons) != 0 ? Elements : null
++                );
++            }
+         }
+ 
+         private readonly BeamModuleCompiler owner;
+@@ -91,9 +119,15 @@
+         }
+ 
+         internal bool Proves((string Name, int Arity) signature, int argument, bool nonempty) =>
++            ReadEntryArgument(signature, argument) is { } input && input != Fact.Unreachable
++            && (input.Possible & ~(nonempty ? Shape.Cons : Shape.ProperList)) == 0;
++
++        internal (long Lower, long Upper)? ReadIntegerRange((string Name, int Arity) signature, int argument) =>
++            ReadEntryArgument(signature, argument)?.Integer;
++
++        private Fact? ReadEntryArgument((string Name, int Arity) signature, int argument) =>
+             !exports.Contains(signature) && incoming.TryGetValue(signature, out var arguments)
+-            && argument >= 0 && argument < arguments.Length && arguments[argument] is not Fact.Unreachable
+-            && (arguments[argument] & ~(nonempty ? Fact.Cons : Fact.ProperList)) == Fact.Unreachable;
++            && argument >= 0 && argument < arguments.Length ? arguments[argument] : null;
+ 
+         private void AddCall((string Name, int Arity) target, Fact[] arguments)
+         {
+@@ -175,18 +209,7 @@
+             switch (expression)
+             {
+                 case Expr.Literal literal:
+-                    Term tail = literal.Value;
+-                    while (tail is Cons cons)
+-                    {
+-                        tail = cons.Tail;
+-                    }
+-
+-                    return literal.Value switch
+-                    {
+-                        Nil => Fact.EmptyList,
+-                        Cons => tail is Nil ? Fact.ProperCons : Fact.ImproperCons,
+-                        _ => Fact.NonList
+-                    };
++                    return ReadLiteral(literal.Value);
+                 case Expr.Variable variable:
+                     return scope.GetValueOrDefault(variable.Name, Fact.Unknown);
+                 case Expr.Match match:
+@@ -198,7 +221,7 @@
+ 
+                     if (match.Pattern is Pattern.List { Items.Count: > 0 })
+                     {
+-                        matched &= Fact.Cons;
++                        matched = matched.Intersect(Shape.Cons);
+                     }
+ 
+                     if (matched != Fact.Unreachable)
+@@ -212,14 +235,19 @@
+                 case Expr.Block block:
+                     return Read(block.Body, scope);
+                 case Expr.List list:
+-                    if (ReadOperands(list.Items, scope).Contains(Fact.Unreachable))
++                    Fact[] elements = ReadOperands(list.Items, scope);
++                    if (elements.Contains(Fact.Unreachable))
+                     {
+                         return Fact.Unreachable;
+                     }
+ 
+                     Fact suffix = list.Tail is null ? Fact.EmptyList : Read(list.Tail, scope);
+-
+-                    return list.Items.Count == 0 ? suffix : BuildCons(suffix);
++                    for (int index = elements.Length - 1; index >= 0; index--)
++                    {
++                        suffix = BuildCons(elements[index], suffix);
++                    }
++
++                    return suffix;
+                 case Expr.Tuple tuple:
+                     return ReadOperands(tuple.Items, scope).Contains(Fact.Unreachable) ? Fact.Unreachable : Fact.Unknown;
+                 case Expr.Call call:
+@@ -341,7 +369,7 @@
+                     {
+                         if (call.Arguments[argument] is Expr.Variable forwarded && forwarded.Name == projected.Name)
+                         {
+-                            arguments[argument] &= Fact.Cons;
++                            arguments[argument] = arguments[argument].Intersect(Shape.Cons);
+                         }
+                     }
+                 }
+@@ -365,14 +393,14 @@
+                 return Fact.Unknown;
+             }
+ 
+-            Fact nonempty = input & Fact.Cons;
++            Fact nonempty = input.Intersect(Shape.Cons);
+ 
+             if (nonempty == Fact.Unreachable)
+             {
+                 return Fact.Unreachable;
+             }
+ 
+-            return call.Function == AutoImportNames.Tl ? ReadTail(nonempty) : Fact.Unknown;
++            return call.Function == AutoImportNames.Tl ? ReadTail(nonempty) : ReadHead(nonempty);
+         }
+ 
+         private Fact[] ReadOperands(IReadOnlyList<Expr> operands, Dictionary<string, Fact> scope)
+@@ -411,7 +439,7 @@
+                 case Pattern.List list:
+                     foreach (var item in list.Items)
+                     {
+-                        Bind(item, Fact.Unknown, scope);
++                        Bind(item, ReadHead(fact), scope);
+                     }
+ 
+                     if (list.Tail is { } tail)
+@@ -419,6 +447,12 @@
+                         Bind(tail, list.Items.Count == 0 ? fact : ReadTail(fact), scope);
+                     }
+ 
++                    break;
++                case AliasPattern { Left: Pattern.Literal { Value: Integer leftInteger } } left:
++                    Bind(left.Right, ReadLiteral(leftInteger), scope);
++                    break;
++                case AliasPattern { Right: Pattern.Literal { Value: Integer rightInteger } } right:
++                    Bind(right.Left, ReadLiteral(rightInteger), scope);
+                     break;
+                 case AliasPattern alias:
+                     Bind(alias.Left, fact, scope);
+@@ -436,22 +470,83 @@
+ 
+         private static Fact[] UnknownArguments(int count) => Enumerable.Repeat(Fact.Unknown, count).ToArray();
+ 
+-        private static Fact BuildCons(Fact tail)
+-        {
+-            Fact proper = (tail & Fact.ProperList) != 0 ? Fact.ProperCons : Fact.Unreachable;
+-            Fact improper = (tail & (Fact.ImproperCons | Fact.NonList)) != 0 ? Fact.ImproperCons : Fact.Unreachable;
+-
+-            return proper | improper;
++        private static Fact ReadLiteral(Term value)
++        {
++            switch (value)
++            {
++                case Nil:
++                    return Fact.EmptyList;
++                case Integer integer:
++                    return new Fact(Shape.NonList, ReadSmallInteger(integer));
++                case Cons first:
++                    Term tail = first.Tail;
++                    var elements = ReadSmallInteger(first.Head);
++                    for (; tail is Cons cell; tail = cell.Tail)
++                    {
++                        elements = JoinRange(elements, ReadSmallInteger(cell.Head));
++                    }
++
++                    return new Fact(tail is Nil ? Shape.ProperCons : Shape.ImproperCons, Elements: elements);
++                default:
++                    return new Fact(Shape.NonList);
++            }
++        }
++
++        private static (long Lower, long Upper)? ReadSmallInteger(Term value) =>
++            value is Integer integer && integer.Value >= long.MinValue && integer.Value <= long.MaxValue
++                ? ((long)integer.Value, (long)integer.Value) : null;
++
++        private static Fact BuildCons(Fact head, Fact tail)
++        {
++            Shape proper = (tail.Possible & Shape.ProperList) != 0 ? Shape.ProperCons : Shape.Unreachable;
++            Shape improper = (tail.Possible & (Shape.ImproperCons | Shape.NonList)) != 0
++                ? Shape.ImproperCons : Shape.Unreachable;
++            Shape possible = proper | improper;
++            var elements = tail.MayContainCons ? JoinRange(head.Integer, tail.Elements) : head.Integer;
++
++            return possible == Shape.Unreachable ? Fact.Unreachable : new Fact(possible, Elements: elements);
+         }
+ 
+         private static Fact ReadTail(Fact input)
+         {
+-            Fact proper = (input & Fact.ProperCons) != 0 ? Fact.ProperList : Fact.Unreachable;
+-            Fact improper = (input & Fact.ImproperCons) != 0 ? Fact.ImproperCons | Fact.NonList : Fact.Unreachable;
+-
+-            return proper | improper;
+-        }
+-
+-        private static Fact Join(Fact left, Fact right) => left | right;
++            Shape proper = (input.Possible & Shape.ProperCons) != 0 ? Shape.ProperList : Shape.Unreachable;
++            Shape improper = (input.Possible & Shape.ImproperCons) != 0
++                ? Shape.ImproperCons | Shape.NonList : Shape.Unreachable;
++            Shape possible = proper | improper;
++
++            return possible == Shape.Unreachable ? Fact.Unreachable : new Fact(possible, Elements: input.Elements);
++        }
++
++        private static Fact ReadHead(Fact list) => list.MayContainCons
++            ? list.Elements is { } elements ? new Fact(Shape.NonList, elements) : Fact.Unknown
++            : Fact.Unreachable;
++
++        private static Fact Join(Fact left, Fact right)
++        {
++            if (left == Fact.Unreachable)
++            {
++                return right;
++            }
++
++            if (right == Fact.Unreachable)
++            {
++                return left;
++            }
++
++            var elements = (left.MayContainCons, right.MayContainCons) switch
++            {
++                (true, true) => JoinRange(left.Elements, right.Elements),
++                (true, false) => left.Elements,
++                (false, true) => right.Elements,
++                _ => null
++            };
++
++            return new Fact(left.Possible | right.Possible, JoinRange(left.Integer, right.Integer), elements);
++        }
++
++        private static (long Lower, long Upper)? JoinRange(
++            (long Lower, long Upper)? left,
++            (long Lower, long Upper)? right
++        ) => left is { } a && right is { } b ? (Math.Min(a.Lower, b.Lower), Math.Max(a.Upper, b.Upper)) : null;
+     }
+ }
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BoundedPrivateEntryTests.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BoundedPrivateEntryTests.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BoundedPrivateEntryTests.cs
+@@ -0,0 +1,104 @@
++using System.Numerics;
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private byte[]? AnnotateBoundedPrivateEntryTests(ReadOnlyMemory<byte> code, int labelCount)
++    {
++        if (properListSourceFunctions is null || !SsaTypeInferenceEnabled || ModuleOptimizationDisabled
++            || OnLoadFunction is not null || sourceModule?.DeclaredNifs is { Count: > 0 }
++            || !code.Span.Contains(ExactEqualTest))
++        {
++            return null;
++        }
++
++        IReadOnlyList<BeamInstruction> body;
++        try
++        {
++            var header = new BeamCodeHeader(
++                BeamWire.FormatVersion,
++                highestOpcode,
++                labelCount,
++                exports.Count + locals.Count,
++                code
++            );
++            body = BeamInstructionReader.Read(header, atoms.Count + 1, literalBytes.Count);
++        }
++        catch (Exception error) when (error is InvalidDataException or NotSupportedException)
++        {
++            return null;
++        }
++
++        string[] atomNames = atoms.OrderBy(entry => entry.Value).Select(entry => entry.Key).ToArray();
++        using var output = new MemoryStream();
++        int copied = 0;
++        for (int index = 0; index + 2 < body.Count; index++)
++        {
++            if (body[index] is not { Definition.Opcode: FunctionInfo, Operands: [_, var function, var arity] }
++                || body[index + 1].Definition.Opcode != Label)
++            {
++                continue;
++            }
++
++            var signature = (atomNames[(int)function.Value - 1], (int)arity.Value);
++            if (exportedFunctions.Contains(signature)
++                || !properListSourceFunctions.TryGetValue(signature, out FunctionDefinition? definition)
++                || definition.Clauses is not [{ Guard: null, Patterns: var patterns }])
++            {
++                continue;
++            }
++
++            int comparison = index + 2;
++            while (comparison < body.Count && body[comparison].Definition.Opcode == Line)
++            {
++                comparison++;
++            }
++
++            if (comparison >= body.Count || body[comparison] is not
++                {
++                    Definition.Opcode: ExactEqualTest,
++                    Operands: [
++                        _,
++                    { Kind: BeamOperandParameters.X, TypeIndex: null } tested,
++                    { Kind: BeamOperandParameters.Integer } literal]
++                }
++                || tested.Value >= patterns.Count || !IsEntryIntegerPattern(patterns[(int)tested.Value], literal.Value)
++                || ReadIntegerEntryRange(signature, (int)tested.Value) is not { } bounds
++                || bounds.Lower == bounds.Upper || literal.Value < bounds.Lower || literal.Value > bounds.Upper)
++            {
++                continue;
++            }
++
++            // The first instruction sees the original private argument on every caller edge.
++            copied = AnnotateRegisterInput(
++                code,
++                output,
++                copied,
++                body[comparison],
++                1,
++                IntegerTypeBits,
++                bounds.Lower,
++                bounds.Upper
++            );
++        }
++
++        if (copied == 0)
++        {
++            return null;
++        }
++
++        output.Write(code.Span[copied..]);
++
++        return output.ToArray();
++    }
++
++    private static bool IsEntryIntegerPattern(Pattern pattern, BigInteger value) =>
++        pattern switch
++        {
++            Pattern.Literal { Value: Integer integer } => integer.Value == value,
++            AliasPattern alias => IsEntryIntegerPattern(alias.Left, value) || IsEntryIntegerPattern(alias.Right, value),
++            _ => false
++        };
++}

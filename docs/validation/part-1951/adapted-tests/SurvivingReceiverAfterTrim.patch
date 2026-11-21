@@ -1,0 +1,75 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamSurvivingCallTrimChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamSurvivingCallTrimChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamSurvivingCallTrimChecks.cs
+@@ -0,0 +1,70 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamSurvivingCallTrimChecks
++{
++    internal const string TestName = "compiler/beam/load-surviving-x0-argument-after-frame-trim";
++    private const string ShapeError = "The call did not read the remapped receiver from the surviving frame.";
++    private const string Source = """
++        -module(beam_surviving_call_trim).
++        -export([show/1]).
++        show(Parent) ->
++            Frame = service:new(Parent),
++            Status = service:status(Frame, []),
++            Toolbar = service:toolbar(Frame, []),
++            service:realize(Toolbar),
++            service:set(Frame, Toolbar),
++            service:connect(Frame, motion, [{data, Status}]),
++            service:connect(Frame, clicked, []),
++            service:center(Frame),
++            service:show(Frame).
++        """;
++
++    internal static void Run()
++    {
++        if (!HasTrimmedReceiver(Source))
++        {
++            throw new InvalidOperationException(ShapeError);
++        }
++    }
++
++    private static bool HasTrimmedReceiver(string source)
++    {
++        object code = Code(CodeGeneration.CompileBeamModule(source, "beam_surviving_call_trim.erl"));
++        object[] body = ((IEnumerable)Property(code, "Instructions")).Cast<object>().ToArray();
++        for (int index = 0; index + 2 < body.Length; index++)
++        {
++            if (Opcode(body[index]) != TrimFrame || Opcode(body[index + 1]) != Move)
++            {
++                continue;
++            }
++
++            object[] move = Operands(body[index + 1]);
++            int next = index + 2;
++            while (next < body.Length && Opcode(body[next]) == Line)
++            {
++                next++;
++            }
++
++            if (next < body.Length && Opcode(body[next]) == ExternalCall
++                && (string)Property(move[0], "Kind") == "y"
++                && (string)Property(move[1], "Kind") == "x" && Value(move[1]) == 0)
++            {
++                return true;
++            }
++        }
++
++        return false;
++    }
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++
++    private static object[] Operands(object instruction) => ((IEnumerable)Property(instruction, "Operands")).Cast<object>().ToArray();
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++}

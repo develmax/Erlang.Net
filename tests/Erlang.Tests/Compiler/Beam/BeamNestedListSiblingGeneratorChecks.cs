@@ -1,0 +1,83 @@
+using System.Collections;
+using Erlang.Compiler;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamNestedListSiblingGeneratorChecks
+{
+    internal const string TestName = "compiler/beam/orders-nested-list-generator-siblings";
+    private const string Module = "beam_nested_sibling_generators";
+    private const string Ordering = "Nested list helpers must keep both ordinals and stay adjacent in the emitted order.";
+    private const string Outputs = "Sequential and structurally different nested generators must preserve their values.";
+
+    private const string Source = """
+        -module(beam_nested_sibling_generators).
+        -export([sequential/1, partial/2]).
+
+        sequential(Input) ->
+            Rows = [X || X <- Input, is_tuple(X)],
+            Marked = lists:reverse([Mark || {Mark, _} <- Rows]),
+            Expanded = [{Mark, V} || {Mark, Values} <- Rows, V <- Values],
+            {Marked, Expanded}.
+
+        partial(Input, Fallback) ->
+            A = lists:reverse([{Key, V} || {Key, Values} <- Input, V <- Values]),
+            B = [{K, V} || {K, {tag, Values}} <- Fallback, V <- Values],
+            C = [{X, X} || X <- B],
+            {A, B, C}.
+        """;
+
+    internal static async Task Run()
+    {
+        byte[] beam = CodeGeneration.CompileBeamModule(Source, Module + ".erl");
+        var helpers = ((IEnumerable)Property(Code(beam), "Functions")).Cast<object>()
+            .OrderBy(function => (int)Property(function, "FirstInstructionIndex"))
+            .Select(function => (Name: (string)Property(function, "Name"), Arity: (int)Property(function, "Arity")))
+            .Where(function => function.Name.Contains("-lc$^", StringComparison.Ordinal))
+            .ToArray();
+        if (!helpers.SequenceEqual([
+                ("-partial/2-lc$^4/1-4-", 1),
+                ("-partial/2-lc$^0/1-0-", 1),
+                ("-partial/2-lc$^1/1-1-", 3),
+                ("-sequential/1-lc$^2/1-2-", 1),
+                ("-sequential/1-lc$^3/1-3-", 3),
+                ("-sequential/1-lc$^1/1-1-", 1),
+                ("-sequential/1-lc$^0/1-0-", 1)
+            ]))
+        {
+            throw new InvalidOperationException(Ordering);
+        }
+
+        await using var runtime = new ProcessRuntime();
+        BeamModule image = BeamModule.Prepare(beam, new BeamDependencySelection(["lists", ErlangModuleNames.Module]));
+        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
+        await actor.InvokeAsync(async context =>
+        {
+            Term a = Term.A("a");
+            Term b = Term.A("b");
+            Term x = Term.A("x");
+            Term one = Term.I(1);
+            Term two = Term.I(2);
+            Term four = Term.I(4);
+            Term valid = Term.List(Term.Tuple(a, Term.List(one, two)), Term.A("skip"), Term.Tuple(b, Nil.Value));
+            Term sequential = await image.Invoke(context, "sequential", valid);
+            Term nested = Term.List(Term.A("skip"), Term.Tuple(x, Term.Tuple(Term.A("tag"), Term.List(four))));
+            Term partial = await image.Invoke(
+                context,
+                "partial",
+                valid,
+                nested
+            );
+            Term hit = Term.Tuple(x, four);
+            Term expected = Term.Tuple(Term.List(Term.Tuple(a, two), Term.Tuple(a, one)), Term.List(hit), Term.List(Term.Tuple(hit, hit)));
+            if (!sequential.Equals(Term.Tuple(Term.List(b, a), Term.List(Term.Tuple(a, one), Term.Tuple(a, two))))
+                || !partial.Equals(expected))
+            {
+                throw new InvalidOperationException(Outputs);
+            }
+
+            return Nil.Value;
+        });
+    }
+}

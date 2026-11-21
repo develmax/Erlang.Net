@@ -1,0 +1,31 @@
+[Name, Ref, Candidate] = init:get_plain_arguments(),
+Module=list_to_atom(Name),
+Cases=case Module of
+    beam_epp_restore -> [{value,[]},{trigger,[]}];
+    beam_relaxed_tuple_alias_helpers ->
+        Row={ignore,2,value}, Entry={entry,2,value},
+        [{guarded,[1,[wrong,{tag,bad},{wrong,2},{tag,1},{tag,2}]]},
+         {project,[[wrong,Row]]},{recorded,[[Row,Entry]]},{project,[[]]},
+         {project,[[Row|invalid_tail]]},{strict,[[{tag,2}]]},{strict,[[wrong]]}]
+end,
+Run=fun(File)->
+    {ok,Bin}=file:read_file(File),
+    {module,Module}=code:load_binary(Module,File,Bin),
+    Values=[try apply(Module,F,Args) of V->{ok,V}
+            catch Class:Reason:Stack ->
+                case Module of
+                    beam_epp_restore ->
+                        [{Module,F,0,Attrs}|_]=Stack,
+                        {Class,Reason,proplists:get_value(file,Attrs),proplists:get_value(line,Attrs)};
+                    _ -> {Class,Reason}
+                end
+            end || {F,Args}<-Cases],
+    true=code:delete(Module),
+    _=code:purge(Module),
+    Values
+end,
+Expected=Run(Ref),
+Actual=Run(Candidate),
+io:format("~p.~n",[#{module=>Module,reference=>Expected,generated=>Actual}]),
+case Actual=:=Expected of true->halt(0);false->halt(1) end.
+

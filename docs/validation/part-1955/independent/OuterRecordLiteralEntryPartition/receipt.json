@@ -1,0 +1,39 @@
+{
+  "Part": 1994,
+  "Reference": "OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Dependency": "Frozen Part1952 + Part1984 contextual + Parts1985,1986,1988,1990,1991,1993. Test patch anchors on Part1993 registration.",
+  "PinnedSource": [
+    "beam_core_to_ssa.erl select_val/4 and select_val_cg/8 lower tuple columns to checked projections and value switches.",
+    "beam_ssa_codegen.erl cg_switch/3 emits the literal branch table.",
+    "ex_gauge.erl handle_event/2 source clauses"
+  ],
+  "Change": "Check common record tag and arity, then project the selected unique integer ID and any shared nested fields before branch allocation. A trailing wildcard record remains the ordered fallback for either absent IDs or rejected nested patterns. Duplicate IDs keep the existing lowering.",
+  "Scope": "Thirteen actual release images on final formatted compiler, 8 Equal and 5 Different. Only ex_gauge changes compared with Part1993. Handle_event/2 starts with the pinned first nine normalized instructions modulo labels and shrinks from 161 to 155 instructions (139 pinned). Whole ex_gauge remains Different. Pre/post formatting all emitted scope bytes and classifications identical.",
+  "Native": "Eleven actual release handle_event/2 cases match pinned, including both timer deliveries, both stop paths, clear, ordinary fallback for absent ID or mismatching nested type, invalid state/envelope and bad case input. Compared return values, ordered effects, and first two error stack frames.",
+  "Focused": {
+    "Fixture": "Unique integer column is selected before allocation. The duplicate-ID branch guard verifies no disjoint integer partition. Final formatted compiler passes too.",
+    "Red": -532462766,
+    "Green": 0
+  },
+  "RequiredRawFixture": "8eb5fc010e0fbf28ab40bb0dc39aef3887fe86364f43daca1689cec2d51e5294",
+  "ExactCursor": "714c854a2c33e458fb68763759ce40ae8cfcf3f1f3b122c16466f955fa514c96",
+  "Hashes": {
+    "production.patch": "de878483b209b148d3d00daf2a914be8f4683d372402f4083f227013d3de76ad",
+    "test.patch": "6a74ad0df59eba2b131ef2890ba670be7ea9e88b6d92a291e87a0b3a489d8d8b",
+    "strict-replay.log": "dba3c215ca689e40913c04f7be8f9bdc85315e8bffd1e661a569b84411e46871",
+    "replay-files.json": "773f35bf8685d41f6b76e226fc6e7e9b984602b55835d54cb26c513fb0b2fe3d",
+    "style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "build-final.log": "4bfed94a880e7b53c80127194bf7e2972af7c1c7e09f0b388fe8c4c9c8f5e429",
+    "focused-exits.json": "e4a251bcfa06c1ab50a345f823f76f1240193c58f47b5b53ab3486169419d2fd",
+    "test-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "scope-final.json": "900ec5583f725a16e3c5db7ee63822f133fcca58c23c9e85b3b15f08394d8b4a",
+    "rank-before.terms": "1569ed60d700e3d282719ae348afdfa1b8146eb4949bbe5b1fd4437ae434843d",
+    "rank-after.terms": "884eb5f477d503476284e4773fbe05bcbd3e7ef43598cab04d9e36dec158e278",
+    "handle-event.terms": "f991531263f6966934120d268a9e73d6b63705b8d01074823aa702dac045cc35",
+    "native-gauge.event.eval": "b983737e3eb0a5a0b939fb355555b2d38c5b8348d25e85db147e18b42058e389",
+    "native-pinned.terms": "8c43afe335c4e0ddf71f57e95f32be099c04fee49b764332786b0e4f62e22f75",
+    "native-candidate.terms": "8c43afe335c4e0ddf71f57e95f32be099c04fee49b764332786b0e4f62e22f75",
+    "final-compiler/Erlang.Compiler.dll": "08ac734b018e58911ed0c26f88baf924aac1193fa1aa8d5016c7761fdf7debbb",
+    "scope-final.json.generated/lib/wx-2.7/doc/examples/demo/ex_gauge.beam": "5700ac868e73ba0160cd7e725a64d0ab87beb630c7d09481880e92dda3c57874"
+  }
+}

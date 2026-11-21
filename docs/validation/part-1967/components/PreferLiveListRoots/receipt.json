@@ -1,0 +1,190 @@
+{
+  "state": "Measured local component",
+  "utc": "2026-11-20T17:46:52.751270+00:00",
+  "sdk": "10.0.400",
+  "runtime": "10.0.11",
+  "otp": "29.1.1",
+  "otpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "baselineCompiler": "03d6fadd7b4d790b1f798473500db621cf0ecaaa51edf240da15bfb210ed2b4f",
+  "candidateCompiler": "dd844910121106e591fe20ffef92394fa5485bf174286677707213cc3ff0e9da",
+  "counts": {
+    "Equal": 6,
+    "Different": 26,
+    "Unsupported": 0,
+    "SourceRejected": 0,
+    "CompilerError": 0
+  },
+  "newEqual": [],
+  "lostEqual": [],
+  "changedImages": [
+    "lib\\asn1-5.5.2\\ebin\\asn1ct_imm.beam",
+    "lib\\common_test-1.31.2\\ebin\\ct.beam",
+    "lib\\common_test-1.31.2\\ebin\\ct_doctest.beam",
+    "lib\\common_test-1.31.2\\ebin\\test_server_ctrl.beam",
+    "lib\\erts-17.1\\ebin\\erlang.beam",
+    "lib\\eunit-2.11\\ebin\\eunit_lib.beam",
+    "lib\\inets-9.8\\ebin\\mod_range.beam",
+    "lib\\kernel-11.0.4\\ebin\\gen_tcp_socket.beam",
+    "lib\\kernel-11.0.4\\ebin\\gen_udp_socket.beam",
+    "lib\\megaco-4.9.2\\ebin\\megaco_messenger.beam",
+    "lib\\mnesia-4.27\\ebin\\mnesia_backup.beam",
+    "lib\\mnesia-4.27\\ebin\\mnesia_lib.beam",
+    "lib\\observer-2.19\\ebin\\crashdump_viewer.beam",
+    "lib\\public_key-1.21.7\\ebin\\pubkey_os_cacerts.beam",
+    "lib\\reltool-1.1\\ebin\\reltool_server.beam",
+    "lib\\sasl-4.4\\ebin\\rb.beam",
+    "lib\\snmp-5.20.5\\ebin\\snmp_config.beam",
+    "lib\\snmp-5.20.5\\ebin\\snmp_log.beam",
+    "lib\\snmp-5.20.5\\ebin\\snmpa_supervisor.beam",
+    "lib\\ssh-6.0.6\\ebin\\ssh.beam",
+    "lib\\stdlib-8.1\\ebin\\erl_compile.beam",
+    "lib\\stdlib-8.1\\ebin\\io_ansi.beam",
+    "lib\\stdlib-8.1\\ebin\\pool.beam",
+    "lib\\stdlib-8.1\\ebin\\slave.beam",
+    "lib\\syntax_tools-4.1.1\\ebin\\erl_comment_scan.beam",
+    "lib\\wx-2.7\\doc\\examples\\demo\\demo_html_tagger.beam"
+  ],
+  "functionsAndLoaders": {
+    "changed_functions": 35,
+    "new_normalized_matches": [
+      {
+        "arity": 1,
+        "function": "print_props",
+        "module": "test_server_ctrl"
+      },
+      {
+        "arity": 1,
+        "function": "send_pending_limit_error",
+        "module": "megaco_messenger"
+      },
+      {
+        "arity": 1,
+        "function": "-move_log/1-fun-1-",
+        "module": "snmp_log"
+      }
+    ],
+    "lost_normalized_matches": [],
+    "raw_prepared": 26,
+    "public_prepared": 25,
+    "identical_on_load_restrictions": [
+      "pubkey_os_cacerts"
+    ]
+  },
+  "mnesiaNativeCases": {
+    "ordinary": 4,
+    "damagedOrClosed": 3,
+    "forcedBranch": 9
+  },
+  "mnesiaIdentity": {
+    "beam": "lib\\mnesia-4.27\\ebin\\mnesia_backup.beam",
+    "baseline": "Different",
+    "candidate": "Different",
+    "beforeSha256": "e423de33e46f4973e69eeda74ac47a4dcd8242e709700701eb1766a4eff0a267",
+    "afterSha256": "50e6ad52dbd0c1bfa781598547b3c17fc147c2041af49303e1f883a5f9e1377b",
+    "pinnedSha256": "f47b2eeeaecaad1195ce659c05dd46c5a5e9c830f74f53c67c292f48c766aac0",
+    "beforePath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\shared-returns-and-initialized-call-roots-1965-linked\\full-uncached\\shard-3\\otp-corpus.json.generated\\lib\\mnesia-4.27\\ebin\\mnesia_backup.beam",
+    "afterPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\prefer-x-list-inputs-draft\\fused-allocation-retake\\validation\\scope.json.generated\\lib\\mnesia-4.27\\ebin\\mnesia_backup.beam",
+    "pinnedPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\lib\\mnesia-4.27\\ebin\\mnesia_backup.beam",
+    "sourceSha256": "a6820b8ec590824b0670df389f1ab8e3f9138a717a484cfadce58d1ababf4b46"
+  },
+  "mnesiaRawDelta": {
+    "changedByteOffsets": [
+      {
+        "offset": 366,
+        "before": 20,
+        "after": 3
+      }
+    ],
+    "beforeFromPinned": [
+      "AtU8",
+      "Code",
+      "ImpT",
+      "ExpT"
+    ],
+    "afterFromPinned": [
+      "AtU8",
+      "Code",
+      "ImpT",
+      "ExpT"
+    ],
+    "sourceLineUnchanged": true
+  },
+  "build": {
+    "style": 0,
+    "exit": 0,
+    "buildSeconds": 156.1522326
+  },
+  "timings": {
+    "red": {
+      "exit": 1,
+      "seconds": 0.8789569999971718
+    },
+    "green": {
+      "exit": 0,
+      "seconds": 1.7049824999994598
+    },
+    "compact": {
+      "exit": 1,
+      "seconds": 5.211767799999507
+    },
+    "scope": {
+      "exit": 1,
+      "seconds": 185.98954249999952
+    }
+  },
+  "patches": {
+    "production.patch": "61bc4bf27b3f821dc9d8ddc42d1efe1aa7344638760d1d00d94abbb3492b54eb",
+    "test.patch": "e1c148406b1123def25e75e498d8aad00d0bdd35e069a6d1f6d1ea03fb43d933"
+  },
+  "checkedSources": {
+    "compilerSourceInputs": 934,
+    "compilerClosureSha256": "a13dd4349417749a6c45b030aebd91498dbfa7c92daecd1749ba2c3cd72ad0d3",
+    "postimages": {
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CopiedTupleSources.cs": {
+        "before": "51ede1e140a09f2e94d1f36dd56d8348be4134d4a61ddf2e1578e3c73638e1bf",
+        "after": "6c59c97c44d99e7315abda44aa843fe4f500ce0c4777fd59c77f02562017cda2"
+      },
+      "tests/Erlang.Tests/Compiler/Beam/Frames/BeamCopiedListInputsChecks.cs": {
+        "before": null,
+        "after": "ee71be2282f6a5b1af37f5f45b2f02ead438b65512e5e76221077d117cd0550a"
+      },
+      "tests/Erlang.Tests/Harness/Program.cs": {
+        "before": "5dd68dc9c9fd00533ab79d1be40e430a0f94e33dea2a1ec48556ff88e6df2de5",
+        "after": "beefc5ae580c3c37f889696a45c2a6ffd8db0b5637f7af12e48a69308677975c"
+      }
+    }
+  },
+  "hashes": {
+    "RESULT.md": "0a076bc683382180cb93d9811ebddac5df7be5efb6f36877e4b2bb144b8be8cd",
+    "verified-source-inputs.json": "ff2cb2f46c546ed0ac48f96912a52928f27bebd95c602c6dc793abd26bf4bdd2",
+    "build.log": "ae5d8b91165d8790a9298c09919c71db7a8107485900a376bed16912c4cdd328",
+    "build-timing.json": "af4e460778df049c507b90ffc07ac978658926022641568babb90f85bd274ebc",
+    "style-check.log": "1efed1063a3d4bba17f9412ea966f1c20cd752c700cc3be994f9a2c6510e45f7",
+    "style-check-retake.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "formatted-fixture-build.log": "0d47b3aab7a871fcd853d1fc49f4b3301d60e0a1d8eacf1ab62990a6f7764c3a",
+    "formatted-fixture-build.json": "85ab6a2b79a143f7a2eb1fec6867269d2cebb2b60fc7dec75fd22a78f238e029",
+    "fixture-exits.json": "c078a0920b2c5438827f1ef5ca4267630a3941cf78f0c739030c93da9adc0896",
+    "fixture-red.log": "1f2a58a445a4dd3427e6b8d56080e553d6ec00716bacab21c19346c8a6a3e437",
+    "fixture-green.log": "49a43303c3c7d2f763f5c7e66d0067e5eceea127321d1e10586c47cb495b5d43",
+    "scope.txt": "87567db7950c86408b86ab59069c2dfa874c5442273230c3298cfbe3afbec4f1",
+    "scope.json": "29cd71be5ba49602abdeb886bf4f552f6e3da8f2318dc443b8d3e2c510d12b8f",
+    "scope.json.timings.json": "83658ef6e8dcd59d537ed6a934c390c062a1e55517e56d59ddd5848ec0150d68",
+    "scope-delta.json": "0a4935d5d4864df67e8042347d3a106804fa533f800212441e62526d371cb2ff",
+    "timings.json": "c346a6d119a59105356e27c1908e417715011c06bef3f416eacb5130fe7a35c5",
+    "compact-delta.json": "d256934f08178bdcbb84d30d06a0ba40fbe7257549dc3ca1dd9ca417d7fc0281",
+    "mnesia-delta.json": "944345b22cf9cf31fd8caf7ab0816f6cadded33750bc581add8df9939e5ae60c",
+    "prepared-images.terms": "9b267fc07cce95ab8a57f83076a36cc9aa716befa7bb1b3a24123d3c6308990c",
+    "prepare-changed.log": "5cde967ad365775ba3db78660f27bec905018f7cde4a2e32c436ff252276d327",
+    "prepare-summary.json": "0094bff46a81b4c0abaf488bbbfd377ee97e949db336a9c11aa3f543e4ec14e5",
+    "prepare-classification.log": "79112772ff785124a6fe0a1da76cbf139630f701b758b1dc9f0dc5987a855b4e",
+    "native/execution.json": "f78495145cb0c8b3e6cd26465c1ced6b0c460c7cfe4ef14aa275e88135db5c39",
+    "native/mnesia-first-root.terms": "d83fb6c1302f4dacaa4b814d88af731b5fc9a015dd7b67d6a11a54feea9c7d5c",
+    "formatted-patches/strict-replay.json": "a0d2bcb76844e0cbf6c370b1afecf6eb1f8c084bded0ce3081401102b0121b6d",
+    "formatted-patches/production.patch": "61bc4bf27b3f821dc9d8ddc42d1efe1aa7344638760d1d00d94abbb3492b54eb",
+    "formatted-patches/test.patch": "e1c148406b1123def25e75e498d8aad00d0bdd35e069a6d1f6d1ea03fb43d933"
+  },
+  "headerInputs": {
+    "public-key-generated.json": "c8727e7139ac5195da7293f2b9c2ef83d33d82397748b0d747721970fa3c90b5",
+    "pinned-inputs-full.json": "f49bcbfa8af46893ade784e58e5459092634ae5e71a019640d0001b4d79a5fcf"
+  }
+}

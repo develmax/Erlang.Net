@@ -1,0 +1,66 @@
+{
+  "Source": [
+    {
+      "Sha256": "C06AB5F4ED3660EB7DD95631EB9E02D7CC0A473D56EAE646861C551D38C1346E",
+      "Path": "tests/Erlang.Tests/Otp/Stdlib/String/StringBackendChecks.cs"
+    },
+    {
+      "Sha256": "23FCE0D6B77DF1B55A94846B2250B18F8BE1DAC35642D390B9969CA8CCFE8156",
+      "Path": "tests/Erlang.Tests/Runtime/Execution/RuntimeNodeFoundationHostActor.cs"
+    },
+    {
+      "Sha256": "FC7CD922A949F390A1958FE6113791BC5A1A784F5CE033845230D75BF222F2B0",
+      "Path": "tests/Erlang.Tests/Runtime/Execution/RuntimeNodeFoundationHostActorParameters.cs"
+    }
+  ],
+  "SDK": "10.0.400",
+  "Cases": [
+    {
+      "Label": "W",
+      "Started": "2026-11-19T09:16:29.3495550+03:00",
+      "TestAssemblySha256": "ECA1945C13E9AECD11110190D3A17DCF706DD9CACB2894690DD1D8594F64CBDB",
+      "Result": {
+        "Name": "runtime/string/original-jaro-indexed-resource-contract",
+        "Status": "Failed",
+        "Error": "System.TimeoutException: The operation has timed out.\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func`2 command) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 51\r\n   at Erlang.Tests.StringBackendChecks.Run(Boolean managed, Boolean jaro, Boolean managedUnicode) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringBackendChecks.cs:line 45\r\n   at Erlang.Tests.StringBackendChecks.Run(Boolean managed, Boolean jaro, Boolean managedUnicode) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringBackendChecks.cs:line 69\r\n   at Erlang.Tests.StringBackendChecks.Run(Boolean managed, Boolean jaro, Boolean managedUnicode) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringBackendChecks.cs:line 69\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16438",
+        "Milliseconds": 14400
+      }
+    },
+    {
+      "Label": "Y",
+      "Started": "2026-11-19T09:16:46.9426465+03:00",
+      "TestAssemblySha256": "6745DDA1A8907F9870F2944EBEF2086E3165E62EC21C033EDA3A9EA498AB4C75",
+      "Result": {
+        "Name": "runtime/string/original-jaro-indexed-resource-contract",
+        "Status": "Failed",
+        "Error": "System.TimeoutException: The operation has timed out.\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func`2 command) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 51\r\n   at Erlang.Tests.StringBackendChecks.Run(Boolean managed, Boolean jaro, Boolean managedUnicode) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringBackendChecks.cs:line 45\r\n   at Erlang.Tests.StringBackendChecks.Run(Boolean managed, Boolean jaro, Boolean managedUnicode) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringBackendChecks.cs:line 69\r\n   at Erlang.Tests.StringBackendChecks.Run(Boolean managed, Boolean jaro, Boolean managedUnicode) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringBackendChecks.cs:line 69\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16499",
+        "Milliseconds": 13986
+      }
+    },
+    {
+      "Label": "Y-control",
+      "Started": "2026-11-19T09:17:02.6312914+03:00",
+      "TestAssemblySha256": "6745DDA1A8907F9870F2944EBEF2086E3165E62EC21C033EDA3A9EA498AB4C75",
+      "Result": {
+        "Name": "runtime/string/original-jaro-indexed-resource-contract",
+        "Status": "Failed",
+        "Error": "System.TimeoutException: The operation has timed out.\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func`2 command) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 51\r\n   at Erlang.Tests.StringBackendChecks.Run(Boolean managed, Boolean jaro, Boolean managedUnicode) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringBackendChecks.cs:line 45\r\n   at Erlang.Tests.StringBackendChecks.Run(Boolean managed, Boolean jaro, Boolean managedUnicode) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringBackendChecks.cs:line 69\r\n   at Erlang.Tests.StringBackendChecks.Run(Boolean managed, Boolean jaro, Boolean managedUnicode) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringBackendChecks.cs:line 69\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16499",
+        "Milliseconds": 13982
+      }
+    },
+    {
+      "Label": "W-control",
+      "Started": "2026-11-19T09:17:18.4591995+03:00",
+      "TestAssemblySha256": "ECA1945C13E9AECD11110190D3A17DCF706DD9CACB2894690DD1D8594F64CBDB",
+      "Result": {
+        "Name": "runtime/string/original-jaro-indexed-resource-contract",
+        "Status": "Failed",
+        "Error": "System.TimeoutException: The operation has timed out.\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func`2 command) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 51\r\n   at Erlang.Tests.StringBackendChecks.Run(Boolean managed, Boolean jaro, Boolean managedUnicode) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringBackendChecks.cs:line 45\r\n   at Erlang.Tests.StringBackendChecks.Run(Boolean managed, Boolean jaro, Boolean managedUnicode) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringBackendChecks.cs:line 69\r\n   at Erlang.Tests.StringBackendChecks.Run(Boolean managed, Boolean jaro, Boolean managedUnicode) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringBackendChecks.cs:line 69\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16438",
+        "Milliseconds": 13766
+      }
+    }
+  ],
+  "Platform": "Windows",
+  "Runtime": "10.0.11",
+  "SameRuntimeSha256": "0E4E62440BDF2956D9BD1E641F6AF80D5B45102E2ABB50231A761B3620F94666"
+}

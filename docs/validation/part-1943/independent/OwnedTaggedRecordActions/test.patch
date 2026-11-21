@@ -1,0 +1,74 @@
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12893,6 +12893,7 @@
+ Test(Erlang.Tests.BeamGuardMaskTypeChecks.TestName, Erlang.Tests.BeamGuardMaskTypeChecks.Run);
+ Test(Erlang.Tests.BeamNestedGuardedTailChecks.TestName, Erlang.Tests.BeamNestedGuardedTailChecks.Run);
+ Test(Erlang.Tests.BeamNestedTaggedEntryChecks.TestName, Erlang.Tests.BeamNestedTaggedEntryChecks.Run);
++Test(Erlang.Tests.BeamOwnedTaggedRecordActionChecks.TestName, Erlang.Tests.BeamOwnedTaggedRecordActionChecks.Run);
+ 
+ Test("compiler/source/dynamic-remote-call", async () => Equal(await Eval("begin M=erlang,F=length,M:F([a,b]) end"), Term.I(2)));
+ 
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamOwnedTaggedRecordActionChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamOwnedTaggedRecordActionChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamOwnedTaggedRecordActionChecks.cs
+@@ -0,0 +1,58 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamOwnedTaggedRecordActionChecks
++{
++    internal const string TestName = "compiler/beam/owns-checked-tagged-record-action-frames";
++    private const string ShapeError = "The tagged record action allocated before checking its repeated field.";
++    private const string Source = """
++        -module(beam_owned_tagged_record_actions).
++        -export([event/2]).
++        -record(state, {id, manager, endpoint}).
++
++        event({opened,Id,Manager}, State) ->
++            {ok,State#state{id=Id,manager=Manager}};
++        event({packet,Endpoint,Bytes}, #state{id=Id,manager=Manager,endpoint=Endpoint}=State) ->
++            service:send(Manager, Id, Bytes),
++            service:setopts(Endpoint, [{active,once}]),
++            {ok,State};
++        event({closed,Endpoint}, #state{id=Id,manager=Manager,endpoint=Endpoint}=State) ->
++            service:send_eof(Manager, Id),
++            {stop,Id,State#state{endpoint=undefined}}.
++        """;
++
++    internal static void Run()
++    {
++        string independent = Source.Replace(",endpoint=Endpoint", "", StringComparison.Ordinal);
++        if (independent == Source || !HasOwnedFrames(Source) || HasOwnedFrames(independent))
++        {
++            throw new InvalidOperationException(ShapeError);
++        }
++    }
++
++    private static bool HasOwnedFrames(string source)
++    {
++        object code = Code(CodeGeneration.CompileBeamModule(source, "beam_owned_tagged_record_actions.erl"));
++        var instructions = ((IEnumerable)Property(code, "Instructions")).Cast<object>().ToArray();
++        var allocations = instructions.Select((instruction, index) => (instruction, index))
++            .Where(item => Opcode(item.instruction) == Allocate).ToArray();
++
++        return allocations.Length == 2
++            && IsCheckedFrame(allocations[0].index, 5)
++            && IsCheckedFrame(allocations[1].index, 2)
++            && instructions.Count(instruction => Opcode(instruction) == TrimFrame) == 1
++            && instructions.Count(instruction => Opcode(instruction) == BadRecord) == 1;
++
++        bool IsCheckedFrame(int index, int live) => index > 0
++            && Opcode(instructions[index - 1]) == ExactEqualTest
++            && ((IEnumerable)Property(instructions[index], "Operands")).Cast<object>()
++                .Select(operand => (int)(BigInteger)Property(operand, "Value")).SequenceEqual([2, live]);
++    }
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++}

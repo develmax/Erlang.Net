@@ -1,0 +1,30 @@
+{
+  "FrozenParent": {
+    "Source": "a34aaab4724273590c91d36747b3fd117be9c3a3ad00d5e59ee8150da91bea67",
+    "Paths": 760,
+    "RemovedPaths": [],
+    "Compiler": "82253d610adbd454e504508897d9563617167478fda45e6840a546c6a2cb6ca9",
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "Tests": "323c0123448c430202c8f915fcbe94e50d4456bfcd57c1df5901dde1002096a8",
+    "ParentSource": "4ecf38a4a88e2942d4c14d3daf9c80d16b1db47d48cd366070b32ed7ec8c2b6d",
+    "CorpusTool": "9fd4240c56d69f2126274384a74d22ece111e1044fbd09574086412a4abd40b9"
+  },
+  "Corpus": {
+    "Compiler": "5ABB85E2B2C069760C78DD4356B10DCC1CB4FAB220F44B9977425D8554278790",
+    "Seconds": 326.9161614,
+    "Count": 64,
+    "ExitCode": 1
+  },
+  "Counts": {
+    "Different": 38,
+    "Equal": 26
+  },
+  "NativeObservations": 8,
+  "Regressions": 1,
+  "Normalized": "#{functions => 64,gains => [{\"dialyzer_plt.beam\",{table_delete_module,2}},{\"dialyzer_plt.beam\",{table_delete_module1,2}},{\"diameter_stats.beam\",{pids,1}},{\"erlang.beam\",{get_cookie,1}},{\"erlang.beam\",{set_cookie,1}},{\"erlang.beam\",{spawn_link,1}},{\"erlang.beam\",{spawn_monitor,1}},{\"megaco_monitor.beam\",{which_replies,1}},{\"megaco_monitor.beam\",{which_requests,1}},{\"binary.beam\",{encode_hex,1}},{\"unicode.beam\",{category,1}}],losses => [],frame_decreases => 0,frame_increases => 0}.",
+  "OriginalCensus": "8583c930ee5ae1cdb5eaf67680ea10f46bb8cb6d14b06a0fc632bcc63be72654",
+  "PatchDigests": {
+    "production.patch": "5443e100577749234dae572489ecbfa22206e8f0790bec94b7fb394cdea77faf",
+    "test.patch": "f051ea26dbba54d359de5593e0ec5821e90bc9ef797aa82fce703eb9a3bdc273"
+  }
+}

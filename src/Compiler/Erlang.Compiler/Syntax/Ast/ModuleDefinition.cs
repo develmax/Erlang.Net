@@ -28,6 +28,7 @@ public sealed partial record ModuleDefinition(
     internal IReadOnlyList<(string Name, int Arity)> EunitExports { get; init; } = [];
     internal int EunitAutoExportCount { get; init; }
     internal IReadOnlyList<int> DiameterAccessorLines { get; init; } = [];
+    internal bool HasResolvedDiameterRecordTransform { get; init; }
     internal bool HasGeneratedEunitTest { get; init; }
     internal bool HasOtherCompileOptions { get; init; }
     internal bool DisableModuleOptimization { get; init; }

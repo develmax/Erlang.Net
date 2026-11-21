@@ -184,7 +184,8 @@ internal sealed partial class BeamModuleCompiler
             int Register,
             Term? Constant = null,
             int Type = 0,
-            bool Bit = false
+            bool Bit = false,
+            int RegisterTag = XRegisterTag
         );
 
         private sealed record RegisterArithmeticStep(
@@ -209,7 +210,8 @@ internal sealed partial class BeamModuleCompiler
             IReadOnlyDictionary<string, int> inputs,
             int firstResult,
             bool tail,
-            IReadOnlyDictionary<int, PairFacts>? inputFacts = null
+            IReadOnlyDictionary<int, PairFacts>? inputFacts = null,
+            IReadOnlyDictionary<int, int>? stackInputs = null
         )
         {
             var operations = new List<(Expr.Binary Expression, RegisterArithmeticOperand Left,
@@ -245,18 +247,20 @@ internal sealed partial class BeamModuleCompiler
             for (int index = 0; index < operations.Count; index++)
             {
                 var (expression, left, right, preferred) = operations[index];
-                int live = registers.Values.DefaultIfEmpty(-1).Max() + 1;
+                int live = (stackInputs is null ? registers.Values : registers
+                    .Where(pair => !stackInputs.ContainsKey(pair.Key)).Select(pair => pair.Value)).DefaultIfEmpty(-1).Max() + 1;
                 var lhs = Resolve(left);
                 var rhs = Resolve(right);
                 Consume(left);
                 Consume(right);
-                int destination = preferred >= 0 && preferred <= live && !registers.ContainsValue(preferred)
+                int destination = preferred >= 0 && preferred <= live && IsAvailable(preferred)
                     ? preferred
-                    : new[] { lhs.Register, rhs.Register }.Where(register => register >= 0 && !registers.ContainsValue(register))
+                    : new[] { lhs, rhs }.Where(value => value.RegisterTag == XRegisterTag && value.Register >= 0)
+                        .Select(value => value.Register).Where(IsAvailable)
                         .DefaultIfEmpty(-1).Min();
                 if (destination < 0)
                 {
-                    destination = Enumerable.Range(0, live + 1).First(register => !registers.ContainsValue(register));
+                    destination = Enumerable.Range(0, live + 1).First(IsAvailable);
                 }
 
                 if (destination >= FirstReservedXRegister)
@@ -313,7 +317,9 @@ internal sealed partial class BeamModuleCompiler
                 value.Constant is null
                     ? value with
                     {
-                        Register = registers[value.Register],
+                        Register = stackInputs?.GetValueOrDefault(value.Register, -1) is int slot && slot >= 0
+                            ? slot : registers[value.Register],
+                        RegisterTag = stackInputs?.ContainsKey(value.Register) == true ? YRegisterTag : XRegisterTag,
                         Type = types.GetValueOrDefault(value.Register),
                         Bit = ((inputFacts?.GetValueOrDefault(value.Register) ?? PairFacts.Unknown) & PairFacts.BitValue)
                             == PairFacts.BitValue
@@ -330,6 +336,9 @@ internal sealed partial class BeamModuleCompiler
 
             static bool IsIntegerOperand(RegisterArithmeticOperand value) =>
                 value.Constant is Integer || value.Type == IntegerTypeBits;
+
+            bool IsAvailable(int register) => stackInputs is null ? !registers.ContainsValue(register)
+                : !registers.Any(pair => pair.Value == register && !stackInputs.ContainsKey(pair.Key));
 
             void Consume(RegisterArithmeticOperand value)
             {
@@ -379,12 +388,13 @@ internal sealed partial class BeamModuleCompiler
                     operand.Register,
                     operand.Type,
                     lower: operand.Bit ? 0 : null,
-                    upper: operand.Bit ? 1 : null
+                    upper: operand.Bit ? 1 : null,
+                    registerTag: operand.RegisterTag
                 );
             }
             else
             {
-                owner.Operand(XRegisterTag, operand.Register);
+                owner.Operand(operand.RegisterTag, operand.Register);
             }
         }
     }

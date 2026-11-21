@@ -1,0 +1,107 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamConstructedCallSlotChecks.cs b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamConstructedCallSlotChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamConstructedCallSlotChecks.cs
+@@ -0,0 +1,102 @@
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++using static Erlang.Tests.BeamOpcodeEdgeBytes;
++
++namespace Erlang.Tests;
++
++internal static class BeamConstructedCallSlotChecks
++{
++    internal const string TestName = "compiler/beam/clears-dead-constructed-call-slots";
++    private const string Pass = "ClearDeadRecordCallSlots";
++    private const string ClearArgumentSlot = "Clear the nested argument's dead Y slot after construction and before the call line.";
++    private const string PreserveBranchSlot = "Preserve the argument's Y slot when the branch reads its original value.";
++    private const string PreserveHandlerSlot = "Preserve the argument's Y slot when an active handler reads its original value.";
++
++    private const string PreserveDirectSlot = "Keep the existing layout when the Y value is a direct list element.";
++
++    internal static Task Run()
++    {
++        byte[] positive = Image();
++        ReadOnlyMemory<byte> code = positive;
++        int line = Array.IndexOf(positive, Line);
++        byte[] expected = [.. positive[..line], InitYRegisters, ExtendedListOperand, U(1), Y(0), .. positive[line..]];
++        var compiler = new BeamModuleCompiler("beam_constructed_call_slot");
++        byte[]? changed = (byte[]?)Call(compiler, Pass, code, 5);
++        if (changed is null || !changed.SequenceEqual(expected))
++        {
++            throw new InvalidOperationException(ClearArgumentSlot);
++        }
++
++        code = Image(preserveInBranch: true);
++        if (Call(compiler, Pass, code, 5) is not null)
++        {
++            throw new InvalidOperationException(PreserveBranchSlot);
++        }
++
++        code = Image(preserveInHandler: true);
++        if (Call(compiler, Pass, code, 5) is not null)
++        {
++            throw new InvalidOperationException(PreserveHandlerSlot);
++        }
++
++        code = Image(directListElement: true);
++        if (Call(compiler, Pass, code, 5) is not null)
++        {
++            throw new InvalidOperationException(PreserveDirectSlot);
++        }
++
++        return Task.CompletedTask;
++    }
++
++    private static byte[] Image(
++        bool preserveInBranch = false,
++        bool preserveInHandler = false,
++        bool directListElement = false
++    )
++    {
++        byte slots = U(preserveInHandler ? 2 : 1);
++        byte[] installHandler = preserveInHandler ? [TryEnter, Y(1), F(4)] : [];
++        byte[] closeHandler = preserveInHandler ? [TryEnd, Y(1)] : [];
++        byte[] handler = preserveInHandler
++            ? [Label, U(4), TryCase, Y(1), Move, Y(0), X(0), Deallocate, slots, Return]
++            : [];
++        byte[] list = directListElement
++            ? [PutList, Y(0), X(1), X(0)]
++            : [PutTuple, X(2), ExtendedListOperand, U(2), X(0), Y(0), PutList, X(2), X(1), X(0)];
++        byte[] function = Start(
++            1,
++            2,
++            1,
++            1
++        );
++
++        return
++        [
++            .. function,
++            Allocate, slots, U(1),
++            Move, X(0), Y(0),
++            .. installHandler,
++            ExternalCall, U(0), U(0),
++            TestHeap, U(directListElement ? 7 : 10), U(1),
++            BifZero, U(1), X(1),
++            PutTuple, X(1), ExtendedListOperand, U(2), A(1), X(1),
++            PutList, X(1), A(NilAtomIndex), X(1),
++            .. list,
++            Line, U(1),
++            ExternalCall, U(1), U(2),
++            .. closeHandler,
++            IsTuple, F(3), X(0),
++            GetTupleElement, X(0), U(0), Y(0),
++            Move, Y(0), X(0),
++            Deallocate, slots,
++            Return,
++            Label, U(3),
++            Move, preserveInBranch ? Y(0) : A(1), X(0),
++            Deallocate, slots,
++            Return,
++            .. handler,
++            EndCode
++        ];
++    }
++}

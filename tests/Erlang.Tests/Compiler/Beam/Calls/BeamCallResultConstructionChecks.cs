@@ -44,7 +44,55 @@ internal static class BeamCallResultConstructionChecks
         }
 
         _ = BeamModule.Prepare(beam);
+        VerifyNullaryCallArguments();
 
         return Task.CompletedTask;
+    }
+
+    private static void VerifyNullaryCallArguments()
+    {
+        const string source = """
+            -module(call_arguments).
+            -export([node_arg/1, self_arg/1, effect/1]).
+            node_arg(X) ->
+                Result = term_to_binary(X),
+                [Result, atom_to_list(node())].
+            self_arg(X) ->
+                Result = term_to_binary(X),
+                {Result, pid_to_list(self())}.
+            effect(X) ->
+                Result = term_to_binary(X),
+                {Result, erase()}.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "call_arguments.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> nodeArgument =
+        [
+            BeamEmissionFormat.ExternalCall, 0x10, 0x00,
+            BeamEmissionFormat.BifZero, 0x10, 0x13,
+            BeamEmissionFormat.Move, 0x03, 0x04,
+            BeamEmissionFormat.Move, 0x13, 0x03
+        ];
+        ReadOnlySpan<byte> selfArgument =
+        [
+            BeamEmissionFormat.ExternalCall, 0x10, 0x00,
+            BeamEmissionFormat.BifZero, 0x30, 0x13,
+            BeamEmissionFormat.Move, 0x03, 0x04,
+            BeamEmissionFormat.Move, 0x13, 0x03
+        ];
+        ReadOnlySpan<byte> effectBeforeLine =
+        [
+            BeamEmissionFormat.ExternalCall, 0x10, 0x00,
+            BeamEmissionFormat.Move, 0x03, 0x04,
+            BeamEmissionFormat.Line
+        ];
+        ReadOnlySpan<byte> effectCall = [BeamEmissionFormat.ExternalCall, 0x00, 0x50];
+        if (code.AsSpan().IndexOf(nodeArgument) < 0 || code.AsSpan().IndexOf(selfArgument) < 0
+            || code.AsSpan().IndexOf(effectBeforeLine) < 0 || code.AsSpan().IndexOf(effectCall) < 0)
+        {
+            throw new InvalidOperationException(BeamCallResultConstructionDiagnostics.NullaryArgumentOrderMismatch);
+        }
+
+        _ = BeamModule.Prepare(beam);
     }
 }

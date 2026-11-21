@@ -55,9 +55,9 @@ internal sealed partial class BeamModuleCompiler
             return new FiniteAtomLiteralDispatch(branches, labels);
         }
 
-        internal IReadOnlySet<Atom>? ReadFiniteAtomArguments(FunctionDefinition function, int index)
+        internal IReadOnlySet<Atom>? ReadFiniteAtomArguments(FunctionDefinition function, int index, bool admitGuardFacts = false)
         {
-            if (ReadAtomEntryType(function, index) == 0)
+            if (!admitGuardFacts && ReadAtomEntryType(function, index) == 0)
             {
                 return null;
             }
@@ -100,6 +100,16 @@ internal sealed partial class BeamModuleCompiler
                     int source = FindAtomParameter(site.Clause.Patterns, variable.Name);
                     if (source >= 0)
                     {
+                        if (admitGuardFacts && site.Clause.Guard is { } guard)
+                        {
+                            var keys = new List<Atom>();
+                            if (ReadAtomGuardKeys(guard, variable.Name, keys))
+                            {
+                                values.UnionWith(keys);
+                                continue;
+                            }
+                        }
+
                         pending.Push((site.Caller.Name, site.Caller.Arity, source));
                     }
                     else if (FindPriorAtomBinding(site, variable.Name) is { } binding && CollectReturnedAtoms(binding, values))

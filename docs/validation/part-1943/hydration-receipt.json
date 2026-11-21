@@ -1,0 +1,42 @@
+{
+  "Parent": {
+    "Source": "f179db8059ceceb9db836ca593ec077341935cbaee989e85bd608ab93da316ca",
+    "Paths": 813,
+    "RemovedPaths": [],
+    "Compiler": "c961248a8db8a8b05521f78dc27bdc9f5e7c94fe5c886e0107bce2cc2a1bda74",
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "Tests": "b200f688b7fe257b6787e4d4712d146df323ab337be53a42045199f08517b2c0",
+    "ParentSource": "7928abb1539caa8e08f046766d0a0827b8ce20fa0087359debb4e792f6f61734",
+    "CorpusTool": "14ee157ce3ef4ce648abbd8bca36d0a384b0b98ea3001fada8590dd3a07b8754"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultPrefixedSequenceEncoder.cs": "77e60e6ab3280b9a8c535c209fa583701f6893783ed696c2191fab5a17ff6956",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": "834f04834fe4a3e1f76c0b6f9b8ed56b150cbd294c502a6db55480f5bc35c976",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.HeadTupleReturnFrames.cs": "bca844173da018dc9d0bb0ad908dd8f530287678d9ebcbbcaf838ca59816e53e",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.Lowering.cs": "daf2adde2a921e8833f54e9aedd328383a320a251d0e4bd7ddfc46ee43f32e16",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.OwnedTaggedRecordActions.cs": "78b8576b7ab827e1732a7cbf93fe092bbb6a863c18570992d893eed3b48ccd94",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs": "6b94bdfbdf73ad6ec4151b487906a43c7e9f5330d51dd2eccd2b2361bafded77",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs": "b0011ebaed353086a3aa54f94c0b73f9b0fc59e35745d895232dd44fc2ad2d8c",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": "b28b956fca1a3c0d18bc4a635b16ce760ce8f5293d9f5d1a549f7bfa665e1d49",
+    "tests/Erlang.Tests/Compiler/Beam/BeamHeadTupleReturnFrameChecks.cs": "cd91f329d6ecc2047f97e648b55ae817162d7784c4c69c18436284307854c91c",
+    "tests/Erlang.Tests/Compiler/Beam/BeamMixedTailArgumentChainsChecks.cs": "f2707c3751b87fb83ec78b78f0a825c2d07e815229b1db08f3cde23c169d6cc9",
+    "tests/Erlang.Tests/Compiler/Beam/BeamOwnedTaggedRecordActionChecks.cs": "bdc70b52dcacb812290a42edf25c01113d23d8ee27d35a80a0fc4472d6bff4e5",
+    "tests/Erlang.Tests/Compiler/Beam/BeamRecordFieldListGeneratorChecks.cs": "086adf815bbee608b636067a7f6124e771e71e878be632ffeaf5c5ceb8e3db12",
+    "tests/Erlang.Tests/Compiler/Beam/BeamRetainedRecordEncoderChecks.cs": "c0a32ee984c5406ecf289aae78651e7d38cd0eb7ac9ae8eb51eaef82753c8379",
+    "tests/Erlang.Tests/Harness/Program.cs": "d713bc56017b9bc0cc403ac9e406a4e14f909f3ed2e6a57728756f29e702fc77"
+  },
+  "CandidateRemovedPaths": {},
+  "PatchSources": {
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\owned-record-action-arms-1954\\production.patch": "607e71b076489345c69d9f6c63d30801a2caf0f9e2e6ff348cdc5fbd321dba33",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\terminal-arms-and-comprehension-sources-1943\\adapted-tests\\OwnedTaggedRecordActions.patch": "c97998bd27e71c8cd5f0ed2bf225f3f05226b5c49ce262c45d606af0c47265fb",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\terminal-arms-and-comprehension-sources-1943\\adapted-head-tuple-return-frames.patch": "e9b1f7ae3d9dbf3449af280b2c3e4822f7f8fa1607feb574d9149f5d0c69f210",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\terminal-arms-and-comprehension-sources-1943\\adapted-tests\\DirectHeadTupleReturns.patch": "430d81b62103cc2a9120292cb5189402960da0876da3633548ded2ca2728dbb3",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\binary-match-audit-1931\\list-helper-admission-1942\\record-field-generator.patch": "e6074b83dde04d79984fa4344bc6eb93c21c885c0eee9ff795dec9c569e686d7",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\terminal-arms-and-comprehension-sources-1943\\adapted-tests\\DirectRecordComprehensionSources.patch": "c5b8c09fb090dafc04a28281a357d4d809f17e2d7d5df6560ae17a7bbfcb008c",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\asn-named-bits-replay-1931\\record-encoder-residuals\\retained-record-encoder.patch": "6052832364e53d840c5666f1d9832d64bff5adcdeab20f578e225c58205fb2f0",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\terminal-arms-and-comprehension-sources-1943\\adapted-tests\\RetainedAsnRecordEncoderPairs.patch": "458ce5341c6b954671c66439085c44907adfe99646cda96783f4704a6aeab060",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\independent-outgoing-call-moves-1943\\single-source-chain\\production.patch": "9accb6ecd0690cfe7b322dda6c9211f766204163bf80919f253d03b5b4375e94",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\terminal-arms-and-comprehension-sources-1943\\adapted-tests\\MixedTailArgumentChains.patch": "8f5a4da95026c8f419d54e7a3c1faadb6e835eca6ce0ba587503685c5f034a28",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\terminal-arms-and-comprehension-sources-1943\\adapted-tests\\integrated-harness-registrations.patch": "ae4a8b1d7e3f3b88a920f8e0d6b2700ae19b963c3b9f70b611826bb29423d1ba"
+  }
+}

@@ -1,0 +1,53 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AtomCompanionEntries.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AtomCompanionEntries.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AtomCompanionEntries.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AtomCompanionEntries.cs
+@@ -152,9 +152,9 @@
+             WriteInput(selector, selectorType);
+             Write(LabelTag, exhaustive ? entries[ordered[0].Key] : fallback);
+             output.WriteByte(ExtendedListOperand);
+-            int firstKey = exhaustive ? 1 : 0;
+-            Write(BeamWire.UnsignedTag, (ordered.Length - firstKey) * 2);
+-            foreach (DisjointEntryArm branch in ordered.Skip(firstKey))
++            int firstTableKey = exhaustive ? 1 : 0;
++            Write(BeamWire.UnsignedTag, (ordered.Length - firstTableKey) * 2);
++            foreach (DisjointEntryArm branch in ordered.Skip(firstTableKey))
+             {
+                 if (branch.Literal.Kind == BeamOperandParameters.Atom)
+                 {
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BitExpressions.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BitExpressions.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BitExpressions.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BitExpressions.cs
+@@ -366,7 +366,7 @@
+                 number,
+                 unit,
+                 BitByteOrders.Big,
+-                new Expr.Literal(Term.I(integer.Value >> suffixBits)),
++                new Expr.Literal(Term.I(integer.Value.Sign < 0 ? -1 : 0)),
+                 new Expr.Literal(Term.I(prefixBits / unit)),
+                 null
+             ));
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedEntryRecordTests.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedEntryRecordTests.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedEntryRecordTests.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedEntryRecordTests.cs
+@@ -139,8 +139,8 @@
+     private static bool TryReadSharedEntryField(
+         BeamInstruction instruction,
+         BeamOperand selector,
+-        out BeamOperand field,
+-        out BeamOperand register
++        [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out BeamOperand? field,
++        [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out BeamOperand? register
+     )
+     {
+         if (instruction is
+@@ -157,8 +157,8 @@
+             return true;
+         }
+ 
+-        field = default;
+-        register = default;
++        field = null;
++        register = null;
+ 
+         return false;
+     }

@@ -1,0 +1,11 @@
+[Path]=init:get_plain_arguments(),
+M=case_payload_scratch_probe,
+{ok,B}=file:read_file(Path),
+{module,M}=code:load_binary(M,Path,B),
+Cases=[{{ok,{prompt,"login: "},other},matched,[keep]},{{ok,[{prompt,left},{prompt,right}],other},accepted,[keep]},{{ok,[{capture,selected}],other},selected,[selected,keep]}],
+Bad=[{ok,[{prompt,one}|improper],control},{ok,[{prompt,one},{wrong,two}],control},{ok,[{prompt,one},{prompt,two},{prompt,three}],control},{other,{prompt,"login: "},other}],
+Expected=Cases++[{V,{error,V},[V,keep]}||V<-Bad],
+[begin Want=M:run(Value,keep), [receive {recorded,E}->ok after 0->error({missing,E}) end||E<-Effects], receive Unexpected->error({unexpected,Unexpected}) after 0->ok end end||{Value,Want,Effects}<-Expected],
+try M:run(throw,keep) of UnexpectedValue -> error({unexpected_result,UnexpectedValue}) catch error:selector_failed:Stack -> [{M,step,1,_}|_]=Stack, ok end,
+receive UnexpectedEffect->error(UnexpectedEffect) after 0->ok end,
+io:format("oracle ~p cases passed~n",[length(Expected)+1]),halt(0).

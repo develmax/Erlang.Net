@@ -1,5 +1,139 @@
 # Compatibility overview
 
+Part 1978 reports 510 Equal and 856 Different. Native observations cover the exact selected outputs and loader behavior remains separate. [Evidence](validation/part-1978/README.md).
+
+Part 1977 measured 510 Equal and 856 Different. Parser frames remain wider in 212 functions and the module readiness scope does not advance. [Evidence](validation/part-1977/README.md).
+
+Part 1976 verifies 510 Equal and 856 Different with zero other raw statuses. Native scope includes call arguments, selector failures, record heads and generator effects. [Evidence](validation/part-1976/README.md).
+
+Part 1965 verifies 508 Equal and 858 Different with zero other raw statuses. Native scope includes Mnesia file effects, checked-record calls, and exact malformed-record stacks. [Evidence](validation/part-1965/README.md).
+
+Part 1964 verifies 508 Equal and 858 Different with zero other raw statuses. Native scope includes Mnesia file effects, checked-record calls, and exact malformed-record stacks. [Evidence](validation/part-1964/README.md).
+
+Part 1963 verifies 508 Equal and 858 Different with zero other raw statuses. Native scope includes guarded decoder failure stacks and shared tagged-entry effects. [Evidence](validation/part-1963/README.md).
+
+Part 1962 verifies 508 Equal and 858 Different with zero other raw statuses. Native scope includes protected megaco calls, Common Test stylesheet initialization and checked wx callbacks. [Evidence](validation/part-1962/README.md).
+
+Part 1961 verifies 508 Equal and 858 Different with zero other raw statuses. Native scope includes protected megaco calls, source stack lines, Common Test retry and wx callbacks. [Evidence](validation/part-1961/README.md).
+
+Part 1960 verifies 507 Equal and 859 Different with zero other raw statuses. Native scope includes BER directive values, Common Test retry and wx callback and initialization behavior. [Evidence](validation/part-1960/README.md).
+
+Part 1959 verifies 506 Equal and 860 Different with zero other raw statuses. Native scope includes BER length cases, transport, and wx. [Evidence](validation/part-1959/README.md).
+
+Part 1958 verifies 506 Equal and 860 Different with zero other raw statuses. Native scope includes BER length cases, transport, and wx. [Evidence](validation/part-1958/README.md).
+
+Part 1957 verifies 506 Equal and 860 Different, with zero Unsupported, SourceRejected and CompilerError. Windows build profiles agree and direct native cases cover BER, wx, scanner and ASN.1 generator behavior. [Evidence](validation/part-1957/README.md).
+
+Part 1956 records 506 provisional Equal and 860 Different, with zero Unsupported, SourceRejected and CompilerError. Pinned Windows ERTS agrees on 1,775 release observations. [Evidence](validation/part-1956/README.md).
+
+Part 1955 records 505 provisional Equal, 859 Different, two CompilerError, zero Unsupported and zero SourceRejected. The source remains at accepted Part 1953. [Evidence](validation/part-1955/README.md).
+
+Part 1954 provisionally records 504 Equal, 862 Different, zero Unsupported and zero SourceRejected. Pinned ERTS accepted all 179 changed images. [Evidence](validation/part-1954/README.md).
+
+Part 1953 records 503 Equal, 863 Different, zero Unsupported and zero SourceRejected. Windows build profiles agree. The linked native cases cover wx events with guarded fallbacks and X400 extension selectors, including malformed inputs. [Evidence](validation/part-1953/README.md).
+
+Part 1952 records 502 Equal, 864 Different, zero Unsupported and zero SourceRejected. Windows build profiles agree. The linked native cases cover retained release controls, Enrollment BER boundaries and pinned public key conversions, including malformed nested records. [Evidence](validation/part-1952/README.md).
+
+Part 1951 records 500 Equal, 866 Different, zero Unsupported and zero SourceRejected. Windows build profiles agree. The linked native cases cover retained release controls, SCTP source-located invalid calls, headless wx event and initialization, and BER terminal selectors. [Evidence](validation/part-1951/README.md).
+
+Part 1950 records 498 Equal, 868 Different, zero Unsupported and zero SourceRejected. Windows build profiles agree. The linked native cases cover retained release controls, Megaco termination IDs, SASL file handlers, and headless XML resource wrapper calls. [Evidence](validation/part-1950/README.md).
+
+Part 1949 records 495 Equal, 871 Different, zero Unsupported and zero SourceRejected. Windows build profiles agree. The linked native cases cover retained release controls, debugger directory choices, wx wrappers, Megaco decoding, selective receive, and ASN.1 record flows. [Evidence](validation/part-1949/README.md).
+
+Part 1948 records 491 Equal, 875 Different, zero Unsupported and zero SourceRejected. Windows build profiles agree. The linked native cases cover retained release controls, headless debugger directory choices, outgoing argument roots and ASN.1 record flows. [Evidence](validation/part-1948/README.md).
+
+Part 1947 records 490 Equal, 876 Different, zero Unsupported and zero SourceRejected. Windows build profiles agree. The linked native cases cover retained release controls, Xmerl scanning, SNMP, headless debugger dialogs and ASN.1 record flows. [Evidence](validation/part-1947/README.md).
+
+Part 1946 records 488 Equal, 878 Different, zero Unsupported and zero SourceRejected. Windows build profiles agree. The linked native cases cover retained release controls, inets request actions, Xmerl markup, Observer HTML and ASN.1 field lifetimes. [Evidence](validation/part-1946/README.md).
+
+Part 1945 records 486 Equal, 880 Different, zero Unsupported and zero SourceRejected. Windows build profiles agree. The linked native cases cover retained release controls, local UDP, Xmerl HTML, SNMP, Mnesia fragment updates and ASN.1 field lifetimes. [Evidence](validation/part-1945/README.md).
+
+Part 1944 records 484 Equal, 882 Different, zero Unsupported and zero SourceRejected. Windows build profiles agree. The linked native cases cover TRACE responses, retained inets and SSH images, SNMP and Erlang form formatting, and binary ASN.1 paths. [Evidence](validation/part-1944/README.md).
+
+Part 1943 records 482 Equal, 884 Different, zero Unsupported and zero SourceRejected. Windows build profiles agree. The linked native cases cover inets, SSH forwarding, UDP sends, regex parsing, Reltool configuration and ASN.1 encoding. [Evidence](validation/part-1943/README.md).
+
+Part 1942 records 480 Equal, 886 Different, zero Unsupported and zero SourceRejected. Windows build profiles agree. The linked native cases cover inets, random state, term formatting, inet parsing, SSH forwarding and ASN.1 field paths. [Evidence](validation/part-1942/README.md).
+
+Part 1941 records 480 Equal, 886 Different, zero Unsupported and zero SourceRejected. Windows build profiles agree. The linked native cases cover HEAD responses, supervisor and action results, XML Schema regex parsing and bounded ASN.1 record defaults. [Evidence](validation/part-1941/README.md).
+
+Part 1940 records 479 Equal, 887 Different, zero Unsupported and zero SourceRejected. Windows build profiles agree. The linked native cases cover HEAD responses and supervision, Erlang and XPath parsing, X400 measurements, local UDP validation and SSH generator stacks. [Evidence](validation/part-1940/README.md).
+
+Part 1939 records 479 Equal, 887 Different, zero Unsupported and zero SourceRejected. Windows build profiles agree. Pinned ERTS verifies HEAD responses and supervision, XPath, SNMP logging, and ASN.1 range and stack behavior. All 81 ASN.1 round trips agree, including the four prior Enrollment decode stack differences. [Evidence](validation/part-1939/README.md).
+
+Part 1938 records 478 Equal, 888 Different, zero Unsupported and zero SourceRejected. Windows build profiles agree. The linked native cases cover HEAD responses, XPath parsing, ASN.1 encoders, hexadecimal encoding and URI normalization. Four Enrollment decode stacks remain different. [Evidence](validation/part-1938/README.md).
+
+Part 1937 records 478 Equal, 888 Different, zero Unsupported and zero SourceRejected. Windows build profiles agree. The linked native cases cover HEAD responses, XPath parsing and ASN.1 CHOICE boundaries. [Evidence](validation/part-1937/README.md).
+
+Part 1936 records 478 Equal, 888 Different, zero Unsupported and zero SourceRejected. Windows build profiles agree. The linked native cases cover HEAD responses, XPath parsing and ASN.1 decoding. [Evidence](validation/part-1936/README.md).
+
+Part 1935 records 478 Equal, 888 Different, zero Unsupported and zero SourceRejected. Windows build profiles agree. The linked native cases cover HEAD responses, Erlang syntax construction and ASN.1 string encoding. [Evidence](validation/part-1935/README.md).
+
+Part 1934 records 478 Equal, 888 Different, zero Unsupported and zero SourceRejected. Windows build profiles agree. The linked native cases cover inets initialization and routing, make option paths and ASN.1 named bits. [Evidence](validation/part-1934/README.md).
+
+Part 1933 records 477 Equal, 889 Different, zero Unsupported and zero SourceRejected. Windows build profiles agree. The linked native cases cover inets initialization, trace tuple error paths, disk cache writes and ASN.1 decoding. [Evidence](validation/part-1933/README.md).
+
+Part 1932 records 477 Equal, 889 Different, zero Unsupported and zero SourceRejected. Windows build profiles agree. The linked native cases cover counter operations, seeded random bytes and ASN.1 values and errors. [Evidence](validation/part-1932/README.md).
+
+Part 1931 records 476 Equal, 890 Different, zero Unsupported and zero SourceRejected. Windows build profiles agree. The linked native cases cover HTTP chunks, ordered sets, tree sets and ASN.1 values and errors. [Evidence](validation/part-1931/README.md).
+
+Part 1930 records 475 Equal, 891 Different, zero Unsupported and zero SourceRejected. Windows build profiles agree, and linked native cases cover transaction output, counter outcomes and ASN.1 failures. [Evidence](validation/part-1930/README.md).
+
+Part 1929 records 475 Equal, 891 Different, zero Unsupported and zero SourceRejected. Windows build profiles agree, and the linked native cases cover ASN.1 success and error paths, wx, transactions and counters. [Evidence](validation/part-1929/README.md).
+
+The Part 1928 raw comparison retained all 475 complete matches. The linked compiler package remains held because one changed image failed instruction validation. [Held evidence](validation/part-1928/README.md).
+
+Part 1927 records 475 Equal, 891 Different, zero Unsupported and zero SourceRejected. Windows build profiles and linked ex_grid effects agree. [Evidence](validation/part-1927/README.md).
+
+Part 1926 records 474 Equal, 892 Different, zero Unsupported and zero SourceRejected. The Windows input profiles and CMS runtime observations agree with pinned OTP. [Evidence](validation/part-1926/README.md).
+
+Part 1925 records 473 Equal, 893 Different, zero Unsupported and zero SourceRejected. All 1,366 effective profiles agree. The CRMF and wx witnesses verify linked outcomes. [Evidence](validation/part-1925/README.md).
+
+Part 1924 records 472 Equal, 894 Different, zero Unsupported and zero SourceRejected. All 1,366 effective profiles agree. Linked OCSP and wx witnesses verify selected outcomes. Restored helper keys and whole file equality stay independently measured. [Evidence](validation/part-1924/README.md).
+
+Part 1923 records 470 Equal, 896 Different, zero Unsupported and zero SourceRejected. All 1,366 effective profiles agree. Linked ASN.1 and wx witnesses verify selected outcomes. Trace preparation and compiler byte equality remain independently recorded. [Evidence](validation/part-1923/README.md).
+
+Part 1922 records 466 Equal, 900 Different, zero Unsupported and zero SourceRejected. All 1,366 effective profiles agree. Linked ASN.1, wx and SSH witnesses verify selected results, effects and errors. [Evidence](validation/part-1922/README.md).
+
+Part 1921 records 462 Equal, 904 Different, zero Unsupported and zero SourceRejected. All 1,366 effective profiles agree. Linked S/MIME, wx and SSH witnesses verify selected results, effects and failures. [Evidence](validation/part-1921/README.md).
+
+Part 1920 records 458 Equal, 908 Different, zero Unsupported and zero SourceRejected. All 1,366 effective profiles agree. Linked CMS, OCSP, wx and SSH witnesses verify selected results, effects and failures. [Evidence](validation/part-1920/README.md).
+
+Part 1919 records 456 Equal, 910 Different, zero Unsupported and zero SourceRejected. All 1,366 effective profiles agree. Linked PKIX, wx and SSH witnesses verify selected results, effects and failures. [Evidence](validation/part-1919/README.md).
+
+Part 1918 records 453 Equal, 913 Different, zero Unsupported and zero SourceRejected. All 1,366 effective profiles agree. Independent configuration, PKCS-10 and wx driver witnesses verify selected effects and failures. [Evidence](validation/part-1918/README.md).
+
+Part 1917 records 449 Equal, 917 Different, zero Unsupported and zero SourceRejected. All 1,366 effective profiles agree. Independent wx callback and ASN.1 witnesses verify selected effects and failures. [Evidence](validation/part-1917/README.md).
+
+Part 1916 records 446 Equal, 920 Different, zero Unsupported and zero SourceRejected. All 1,366 effective profiles agree. Independent wx event, driver option and bound environment witnesses verify selected effects and failures. [Evidence](validation/part-1916/README.md).
+
+Part 1915 records 443 Equal, 923 Different, zero Unsupported and zero SourceRejected. All 1,366 effective profiles agree. Independent ASN.1, SNMP and boot callback witnesses verify selected effects, failures and source stacks. [Evidence](validation/part-1915/README.md).
+
+Part 1914 records 439 Equal, 927 Different, zero Unsupported and zero SourceRejected. All 1,366 effective profiles agree. Independent HTTP and SNMP witnesses verify selected effects and failures. [Evidence](validation/part-1914/README.md).
+
+Part 1913 records 436 Equal, 930 Different, zero Unsupported and zero SourceRejected. All 1,366 effective profiles agree. Independent Megaco and wx witnesses verify selected effects and failures. [Evidence](validation/part-1913/README.md).
+
+Part 1912 records 434 Equal, 932 Different, zero Unsupported and zero SourceRejected. Effective profiles agree for all 1,366 images. Independent ERTS observations cover HTTP ESI, SSH supervisor arguments and generated ASN.1 codecs and factories. [Release evidence](validation/part-1912/README.md).
+
+Part 1911 records 431 Equal, 935 Different, zero Unsupported and zero SourceRejected. Effective profiles agree for all 1,366 images, pinned ERTS prepares all 32 changed images, and independently generated exact outputs reproduce the selected FTP, Diameter and Megaco outcomes. [Release evidence](validation/part-1911/README.md).
+
+Part 1910 yields 428 Equal, 938 Different, zero Unsupported and zero SourceRejected with all 1,366 effective release profiles preserved. Pinned ERTS prepares all 71 changed outputs. Local wx command effects and controlled Megaco socket cleanup agree on the two new exact images. [Release report](validation/part-1910/README.md).
+
+Part 1909 yields 426 Equal, 940 Different, zero Unsupported and zero SourceRejected on Windows OTP 29.1.1. Pinned ERTS prepares 334 ordinary images, runs zstd separately and reproduces the bound Xmerl evaluation and SSH local I/O behavior. [Release report](validation/part-1909/README.md).
+
+Part 1908 yields 424 Equal, 942 Different, zero Unsupported and zero SourceRejected on Windows OTP 29.1.1. Strongly bound native comparisons cover the four new exact files, including inclusive-size and record failure stacks. All 61 incremental outputs prepare in the pinned ERTS. [Evidence](validation/part-1908/README.md).
+
+Part 1907 produces 420 byte-identical release images, 946 Different and no source rejection or unsupported format. The new KEM and SNMP supervisor images preserve native tests and raw metadata. Sixty changed images load in pinned ERTS. The corrected ASN.1 type constraint retains binary size unit eight. [Proof](validation/part-1907/README.md).
+
+Part 1906 reports 418 exact Windows OTP 29.1.1 release images, 948 Different and zero Unsupported or SourceRejected. The two new whole hashes are Debugger and Mnesia Frag Hash. All 45 changed images prepare in pinned ERTS. The source-generated images for both exact files retain the recorded value and error observations. [Native proof](validation/part-1906/native-early-records/receipt.json) · [Raw results](validation/part-1906/README.md).
+
+Part 1905 has 416 byte-identical Windows OTP 29.1.1 images, 950 Different and zero Unsupported or SourceRejected. Remaining raw differences include 950 Code, 902 Line, 851 Type and one Dbgi section. Native execution agrees for Et viewer including its failure line, and for the crypto and zstd on-load checks. [Residuals](validation/part-1905/full-uncached/residual-sections.json) · [Native evidence](validation/part-1905/native-early-records/receipt.json).
+
+Part 1904 has 415 byte-identical Windows release images, 951 Different and zero unsupported or rejected sources. The residual set includes 951 Code, 904 Line, 851 Type and one Dbgi mismatch. CInf, Docs and Meta remain exact across the corpus. The corrected ASN.1 malformed-input cases and Megaco calls agree in pinned ERTS. [Residual chunks](validation/part-1904/full-uncached/residual-sections.json) · [Native evidence](validation/part-1904/native-early-records/receipt.json).
+
+Part 1902 retains 412 exact Windows OTP 29.1.1 files. Across the remaining 954 files, 904 Line, 851 Type and one Dbgi chunks differ. CInf, Docs and Meta are exact across all 1,366. Strong initialization checks pass on the 20 affected typed record modules. Original ERTS prepares or executes all 749 newly changed images. [Raw section inventory](validation/part-1902/full-release/full-uncached/residual-sections.json) · [Native and raw results](validation/part-1902/full-release/README.md).
+
+Part 1898 matches 412 of the 1,366 Windows OTP 29.1.1 release files byte-for-byte. CInf, Docs and Meta are exact for the full corpus. The remaining differences include 954 Code, 912 Line, 853 Type and six Dbgi sections. Windows ERTS confirms the repaired typed record inputs and exact Megaco failure-stack result on their scopes. The generated assembly fallback and debug companion are included in the pinned release profiles. [Corpus](validation/part-1898/full-release/README.md) · [Raw section inventory](validation/part-1898/full-release/full-uncached/residual-sections.json).
+
 Part 1875 retains 410 byte-identical release images. All 75 incremental images prepare, and exact native message witnesses agree. All previous Part 1870 normalized losses restore. Frame width, raw chunk, native runtime and whole-file counts are recorded separately. The complete local 9,830-case regression and configured source and packaged catalog pass. Windows whole-file parity is still partial with 956 differing release images. [Full scope](validation/part-1875/full-uncached/README.md) · [Local gates](validation/part-1875/local-gates/README.md).
 
 Part 1874 verifies 410 byte-identical Windows OTP 29.1.1 release images. Both SCTP send bodies gain normalized equality and the generated inet6_sctp image is byte-identical. Pinned ERTS prepares all 161 images changed from Part 1870 and the native fixture outcomes agree. [Full evidence](validation/part-1874/full-uncached/README.md).

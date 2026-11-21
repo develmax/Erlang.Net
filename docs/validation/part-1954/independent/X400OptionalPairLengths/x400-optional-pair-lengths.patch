@@ -1,0 +1,89 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultOnlySequenceEncoder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultOnlySequenceEncoder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultOnlySequenceEncoder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultOnlySequenceEncoder.cs
+@@ -231,7 +231,8 @@
+             IReadOnlyList<int>? pairSlots = null,
+             int? outerTagSlot = null,
+             int secondLengthType = NumberTypeBits,
+-            IReadOnlyList<int>? joinedLengthTypes = null
++            IReadOnlyList<int>? joinedLengthTypes = null,
++            bool naturalLengths = false
+         )
+         {
+             owner.Op(TestHeap, BeamWire.UnsignedTag, count * ConsHeapWords);
+@@ -366,6 +367,21 @@
+             )
+             {
+                 owner.EmitArithmeticLine(source.SourceLine, ref previous);
++                if (naturalLengths)
++                {
++                    var length = new PairAdditionType(PairFacts.Length);
++                    EmitPairAddition(
++                        owner.Import(ErlangModuleNames.Module, ErlangOperators.Plus, 2),
++                        live,
++                        firstArg,
++                        secondArg,
++                        length,
++                        length
++                    );
++
++                    return;
++                }
++
+                 owner.GcArithmetic(
+                     GcBifTwo,
+                     ErlangOperators.Plus,
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultPrefixedSequenceEncoder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultPrefixedSequenceEncoder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultPrefixedSequenceEncoder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultPrefixedSequenceEncoder.cs
+@@ -6,6 +6,30 @@
+ {
+     private sealed partial class GeneralEmitter
+     {
++        private bool HasDirectOptionalLengthProof(IReadOnlyList<SequenceEncodePart> fields)
++        {
++            if (!owner.SsaTypeInferenceEnabled || owner.ModuleOptimizationDisabled || fields.Count < 3
++                || fields[^1] is not { Omits: null, Call: { Module: null, DynamicRemote: false } }
++                || fields[0] is not { Omits: Atom marker, Call: { Module: null, DynamicRemote: false } encoder })
++            {
++                return false;
++            }
++
++            if (!fields.Take(fields.Count - 1).All(field => field is
++                {
++                    Omits: Atom omitted,
++                    Omitted: TupleTerm { Items: [BitString { BitLength: 0 }, Integer size] },
++                    Call: { Module: null, DynamicRemote: false }
++                }
++                && omitted.Equals(marker) && field.Call.Function == encoder.Function && size.Value.IsZero))
++            {
++                return false;
++            }
++
++            // The absent alternatives contribute zero. Each evaluated encoder has a proven length in its own call context.
++            return fields.All(field => (InferPairFacts(field.Call) & PairFacts.Length) != 0);
++        }
++
+         private bool EmitDefaultPrefixedSequence(
+             Expr.Match unpack,
+             IReadOnlyList<SequenceEncodePart> fields,
+@@ -239,6 +263,9 @@
+             }
+ 
+             int[] lengths = first is null ? new int[count] : fields.Select(field => ReadNumericPairLengthType(field.Call)).ToArray();
++            bool naturalLengths = first is null && requiredEnumeration is null
++                && retainedPredicates?.Any(predicate => predicate is not null) != true
++                && HasDirectOptionalLengthProof(fields);
+             int[]? pairSlots = null;
+             if (reuseRecordSlot || trimFinal || reverseLeadingSlots)
+             {
+@@ -256,7 +283,8 @@
+                 previous,
+                 pairSlots: pairSlots,
+                 outerTagSlot: tagsSlot - trimmed,
+-                joinedLengthTypes: lengths
++                joinedLengthTypes: lengths,
++                naturalLengths: naturalLengths
+             );
+             if (requiredEnumeration is not null)
+             {

@@ -1,0 +1,162 @@
+{
+  "source_archive": "7928abb1539caa8e08f046766d0a0827b8ce20fa0087359debb4e792f6f61734",
+  "base_compiler": "847d097c2aa1d94c413d87076ad33d1d8f0e12148b0305a432ce95345c06e7ad",
+  "production": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": {
+      "before": "401c5975ce94d20ea672cbe9aaf46b0c3b29cd0de6ce2c2c929912c3489a27cb",
+      "after": "0316b25e7218f772f26fcc0ec91e4d4e3d61e36650dda1df7642e9705b37039a"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProjectedTerminalBranchRoots.cs": {
+      "before": null,
+      "after": "58a5c1b66658310ffc1818b87d83589c1e2161cfd9804b2d1d12b49acaab70a8"
+    },
+    "patch-sha256": "318d28d12b6b85c57515141b5dcf91d0fcdb46f5bd8270553fcfb9ffb20af97a"
+  },
+  "test": {
+    "tests/Erlang.Tests/Harness/Program.cs": {
+      "before": "d4862e9bf0d6bbe18cf37c058040abffea0a22b17acee35fb365aaeef655d86c",
+      "after": "d75598af25d62c5813daa0f3fb7641b1a926921f7822c07f2878bc586ebe4610"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamProjectedTerminalBranchRootChecks.cs": {
+      "before": null,
+      "after": "ba9fd05716a7caebe712cc4793795e933001b039aadd59f56d7ee49877cf5f97"
+    },
+    "patch-sha256": "bc57c8d7bf547cbc67159584584186ce9ce7c9a84f85995c9fdd31f9e4573f6c"
+  },
+  "parent_1956": "d9189df24b88f0272a7e2cd1cc41ef1a4b88caf0f2f3d23ba3b95cf8cde1f0b9",
+  "release": {
+    "lib\\erts-17.1\\ebin\\counters.beam": {
+      "status": "Equal",
+      "before": "36e38c88d100c8bee9e28ec1144b6f532cd681efcef1f9b3fcd0719dd612cb6f",
+      "after": "36e38c88d100c8bee9e28ec1144b6f532cd681efcef1f9b3fcd0719dd612cb6f",
+      "reference": "36e38c88d100c8bee9e28ec1144b6f532cd681efcef1f9b3fcd0719dd612cb6f"
+    },
+    "lib\\inets-9.8\\ebin\\httpd_instance_sup.beam": {
+      "status": "Equal",
+      "before": "a93aa215eb0034f79b4f7a564d5704dde57f47e86b688b443a2acc48e3082193",
+      "after": "a93aa215eb0034f79b4f7a564d5704dde57f47e86b688b443a2acc48e3082193",
+      "reference": "a93aa215eb0034f79b4f7a564d5704dde57f47e86b688b443a2acc48e3082193"
+    },
+    "lib\\inets-9.8\\ebin\\inets_sup.beam": {
+      "status": "Equal",
+      "before": "7c57bc8cb3a5a7abb165fb67b834f126b80bd0facd78690cc9e37b7d9c28343d",
+      "after": "7c57bc8cb3a5a7abb165fb67b834f126b80bd0facd78690cc9e37b7d9c28343d",
+      "reference": "7c57bc8cb3a5a7abb165fb67b834f126b80bd0facd78690cc9e37b7d9c28343d"
+    },
+    "lib\\inets-9.8\\ebin\\mod_get.beam": {
+      "status": "Different",
+      "before": "2fb5cb23661f185990424d7f75394f8f9033b9582ac18360b856d45c23695b25",
+      "after": "2fb5cb23661f185990424d7f75394f8f9033b9582ac18360b856d45c23695b25",
+      "reference": "13dc26d2325cfd7066f7cf0a16a2302d990793efa83534354384cfa72fa140c8"
+    },
+    "lib\\inets-9.8\\ebin\\mod_head.beam": {
+      "status": "Equal",
+      "before": "84ae33a082b0b01f02c309ad08bca131e02ee200eb4b584b658fc53bd013d1c9",
+      "after": "84ae33a082b0b01f02c309ad08bca131e02ee200eb4b584b658fc53bd013d1c9",
+      "reference": "84ae33a082b0b01f02c309ad08bca131e02ee200eb4b584b658fc53bd013d1c9"
+    },
+    "lib\\inets-9.8\\ebin\\mod_trace.beam": {
+      "status": "Equal",
+      "before": "5e5ade240b791c472c64c211de7578baf9cf9c5e51bacafd54c9181f6efba6df",
+      "after": "daa144007178a9e1c5c5d3dc4e1591d83e6db83ab71b66d311d5c59307f0940c",
+      "reference": "daa144007178a9e1c5c5d3dc4e1591d83e6db83ab71b66d311d5c59307f0940c",
+      "code_sizes": [
+        526,
+        530,
+        530
+      ]
+    },
+    "lib\\stdlib-8.1\\ebin\\ordsets.beam": {
+      "status": "Equal",
+      "before": "417595cfd47ff9dc43673cee03083776cbacd3abb61166bf58c61dc6a13cce1d",
+      "after": "417595cfd47ff9dc43673cee03083776cbacd3abb61166bf58c61dc6a13cce1d",
+      "reference": "417595cfd47ff9dc43673cee03083776cbacd3abb61166bf58c61dc6a13cce1d"
+    }
+  },
+  "raw_identity": {
+    "path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\projected-terminal-branch-root-1957\\captured-exact.json.generated\\lib\\inets-9.8\\ebin\\mod_trace.beam",
+    "bytes": 4560,
+    "sha256": "daa144007178a9e1c5c5d3dc4e1591d83e6db83ab71b66d311d5c59307f0940c",
+    "sections": {
+      "AtU8": {
+        "length": 270,
+        "sha256": "f422e4fa32b7bf33db35f8c054c02a850ca96989f46c7ab299f0af94f9122713"
+      },
+      "Code": {
+        "length": 530,
+        "sha256": "5a86a4a7779aebf18288ec2ce94bd6b2aeb32ef248d96844c428252683d1ef08"
+      },
+      "StrT": {
+        "length": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "ImpT": {
+        "length": 100,
+        "sha256": "7e63af88b4f1cb17c0c5f610fc55e64bb037658cb48e0b905fa43bff1d24d75b"
+      },
+      "ExpT": {
+        "length": 40,
+        "sha256": "eb9c09b9b415b45a4491844d06f2ce3681f6d7e052af5c5e32c7513fdd24d471"
+      },
+      "LitT": {
+        "length": 126,
+        "sha256": "8acf123cb6228cbb24f43690bba030fe02f843fbcff7c7f20b05b1b42e5ab8f6"
+      },
+      "Meta": {
+        "length": 45,
+        "sha256": "846e52e745c7ccf36c2da8720765d905c971ad3a5574f9470ca44cfc21d18b4a"
+      },
+      "LocT": {
+        "length": 52,
+        "sha256": "ba5716534ec06673bdc729b8792d33a1b6671adc7d8bf0de8d95e217ec7672f3"
+      },
+      "Attr": {
+        "length": 62,
+        "sha256": "2e219c53ea58780bcf580b124102ce7a9769bd7a27d5eacfc6095ca6c082cadc"
+      },
+      "CInf": {
+        "length": 509,
+        "sha256": "88cc6dd5a2beb26d797e5a67d89148946cb8b6e8b9a9cdf5c4b2ddee03b178d7"
+      },
+      "Dbgi": {
+        "length": 2413,
+        "sha256": "f26513cc95bf849ec114fa209591a82d0b25085ac7160db52e77ff56f5ee91d2"
+      },
+      "Docs": {
+        "length": 208,
+        "sha256": "5f0f1bde36d0a772d6dd754f9aa97ab7f99c4f8cfa7bd82cb690df97db41e30f"
+      },
+      "Line": {
+        "length": 50,
+        "sha256": "175c45232d78367de3086610164aa81dd4410970539c39f93ad84de789b4ab0e"
+      },
+      "Type": {
+        "length": 12,
+        "sha256": "8fd21060a5e9bfb83931019f2c482745b38b077381f2b4a08498f2c227ad4e19"
+      }
+    }
+  },
+  "evidence": {
+    "compiler-bin/Erlang.Compiler.dll": "971dbc9a4940d4f09444766d25c58f65491afba899ffbb826314e0840d68cb8a",
+    "candidate-bin/Erlang.BeamCorpus.dll": "5d536ce62d865a4061de8832e63fccd3024a701e5bd118a5686b466771462490",
+    "final-red-test/Erlang.Compiler.dll": "847d097c2aa1d94c413d87076ad33d1d8f0e12148b0305a432ce95345c06e7ad",
+    "final-red-test/Erlang.Tests.dll": "48df43290f0703679a8ff411505b4d23e7354f589e8a721e6f0359d7ecacc768",
+    "final-green-test/Erlang.Tests.dll": "48df43290f0703679a8ff411505b4d23e7354f589e8a721e6f0359d7ecacc768",
+    "final-corpus.json": "694c472528eca68221377e25b5dd0aeecc2156334320b969e217b498cf524fe5",
+    "final-functions.terms": "f1ccdc44b786918b3776423bcc77afbbbec80f481b99241d6c986b726fd11cb7",
+    "focused-exits.json": "6e6eb894725aa6a2ecc77a28961a170be82b0f13fb9bdf87ebf60c2c3fb0f3ec",
+    "final-focused-red.log": "01fb4ea1e58ea1b3f89e2c25dc6362aca4b61631e927ee9e21f72b769a43f2df",
+    "final-focused-green.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reference-native.terms": "5e42c6491164ce0e8b633f128c9f66d3c3ce33ce20f14db9bf7cd9201f673888",
+    "generated-native.terms": "5e42c6491164ce0e8b633f128c9f66d3c3ce33ce20f14db9bf7cd9201f673888",
+    "stub/httpd_socket.beam": "4475d7692c3468df14237acafc5bbdb4115149905351de30cb50bce096aa97b6",
+    "native.eval": "422155f201e8d3f2d5d3abbe29178926ad0728560e7962a03828017eb9ab9f6a",
+    "../tuple-list-append-loop-1955/pinned-listing/mod_trace.precodegen": "877da6b532c2e86626a7aa4ba60b2a89f67280494ca7c55edc2df36979f04d94",
+    "../tuple-list-append-loop-1955/pinned-listing/mod_trace.trim": "da1d87f6a556ed90272ba32ea559b168613bf2bfe1dc0315f4653d298a99c05d",
+    "layout-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "otp-source-evidence.txt": "5d687b8ebdf59d517c819a8d3a5097cec3599cb7b4a8b5b7face75a47830c375",
+    "captured-exact.json": "67f9a241d91088e5f9da03ade94781a4afc3e87513439ebbb4f2fcf1f9aeb700",
+    "capture-tool/Program.cs": "84d35196edd152beb785bad263ddb13669c4333dad986a2659f71bb319d5a790",
+    "capture-bin/Erlang.BeamCorpus.dll": "b3ad96e9bf9730ea2f70c7aed84bada3f33e77d46289bcb81e040c449db6f0c7"
+  }
+}

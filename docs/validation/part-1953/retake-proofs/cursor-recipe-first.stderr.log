@@ -1,0 +1,43 @@
+Error! Failed to eval: [Module,Image,Stub,Output]=init:get_plain_arguments(),
+M=list_to_atom(Module),
+{ok,[Generated]}=file:consult(filename:join(Stub,"modules.terms")),
+[begin {module,S}=code:load_abs(filename:join(Stub,atom_to_list(S))) end||S<-[fixture_calls|Generated]],
+{ok,Bytes}=file:read_file(Image),
+{module,M}=code:load_binary(M,Image,Bytes),
+Frame=fun(Event) -> {wx,17,control,user,Event} end,
+Command=fun(Key) -> {wxCommand,Key,[],0,0} end,
+Notebook=fun(Key) -> {wxAuiNotebook,Key,0,1,nil} end,
+Manager=fun(Key,Button) -> {wxAuiManager,Key,manager,pane,Button,false,true,context} end,
+Cases=case M of
+    ex_aui -> State={state,parent,config,aui},
+        [{click,Frame(Command(command_button_clicked)),State},
+         {change,Frame(Notebook(command_auinotebook_page_changed)),State},
+         {close,Frame(Notebook(command_auinotebook_page_close)),State},
+         {pane,Frame(Manager(aui_pane_button,101)),State},
+         {bad_button,Frame(Manager(aui_pane_button,19)),State},
+         {maximize,Frame(Manager(aui_pane_maximize,0)),State},
+         {restore,Frame(Manager(aui_pane_restore,0)),State},
+         {fallback,Frame(other),State},
+         {invalid,other,State}];
+    ex_button -> State={state,parent,config},
+        [{button,Frame(Command(command_button_clicked)),State},
+         {toggle,Frame(Command(command_togglebutton_clicked)),State},
+         {fallback,Frame(other),State},
+         {bad_state,Frame(Command(command_button_clicked)),bad_state},
+         {invalid,other,State}]
+end,
+Run=fun({Name,Input,St}) ->
+    fixture_calls:reset(),
+    Outcome=try M:handle_event(Input,St) of Value->{ok,Value}
+       catch Class:Reason:Stack -> {Class,Reason,lists:sublist(Stack,1)} end,
+    {Name,Outcome,fixture_calls:calls()}
+end,
+Result=[Run(C)||C<-Cases],
+true=length(Result)==length(Cases),
+ok=file:write_file(Output,io_lib:format("~tp.~n",[Result])),
+halt().
+
+
+Runtime terminating during boot ({{case_clause,ex_cursor},[{erl_eval,case_clauses,8,[{file,"erl_eval.erl"},{line,1744}]},{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,792}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{init,start_it,1,[{file,"init.erl"},{line,1561}]},{init,start_em,1,[{file,"init.erl"},{line,1546}]},{init,do_boot,3,[{file,"init.erl"},{line,1217}]}]})
+
+Crash dump is being written to: D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\checked-entry-and-general-event-plans-1953-boundary-retake\linked-runtime-witnesses\ex_cursor-pinned-crash.dump...done

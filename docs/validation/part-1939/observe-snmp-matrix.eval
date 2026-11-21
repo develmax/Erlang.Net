@@ -1,0 +1,27 @@
+[ImagePath,Output]=init:get_plain_arguments(),
+{ok,Image}=file:read_file(ImagePath),
+code:purge(snmp_verbosity), code:delete(snmp_verbosity), code:purge(snmp_verbosity),
+{module,snmp_verbosity}=code:load_binary(snmp_verbosity,"matrix-linked-probe",Image),
+Sink=spawn(fun Collect()->
+    receive
+        {io_request,Sender,ReplyAs,Request} ->
+            Sender ! {captured,Request},
+            Sender ! {io_reply,ReplyAs,ok},
+            Collect();
+        stop -> ok
+    end
+end),
+Original=group_leader(),
+true=group_leader(Sink,self()),
+Pairs=[{info,info},{info,log},{log,info},{log,log},{log,debug},{debug,debug},
+       {debug,other},{trace,other},{trace,false},{missing,info},{trace,7},{silence,debug}],
+Observed=[begin
+    Result=snmp_verbosity:printc(Mode,Severity,"Mode ~p",[Severity]),
+    Captured=receive {captured,Request} -> Request after 0 -> none end,
+    {Mode,Severity,Result,Captured}
+end || {Mode,Severity}<-Pairs],
+true=group_leader(Original,self()),
+Sink ! stop,
+12=length(Observed),
+ok=file:write_file(Output,term_to_binary(Observed)),
+halt().

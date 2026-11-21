@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\owned-entry-frames-and-source-docs-1892\hydrate-linked-source.py", line 36, in <module>
+    hidden=sorted(row['beam'].replace('\\','/') for row in docs if row['yecc_root_anno_raw_exact'] is True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\owned-entry-frames-and-source-docs-1892\hydrate-linked-source.py", line 36, in <genexpr>
+    hidden=sorted(row['beam'].replace('\\','/') for row in docs if row['yecc_root_anno_raw_exact'] is True)
+                                                                   ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'yecc_root_anno_raw_exact'

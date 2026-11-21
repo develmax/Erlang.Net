@@ -1,0 +1,38 @@
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamNestedListGeneratorChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamNestedListGeneratorChecks.cs
+@@ -18,6 +18,27 @@
+         overlap(Left,Right) -> [X || X <- Left, Y <- Right, X =:= Y].
+         """;
+ 
++    private const string MixedSource = """
++        -module(nested_gen_entry_probe).
++        -export([rule/1, report/1]).
++
++        report(Errors) when is_list(Errors) ->
++            _ = [write_error(File, Module, Reason) ||
++                 {structured_error,File,Module,Reason} <- Errors],
++            ok.
++
++        write_error(File, Module, Reason) ->
++            erlang:put(last_nested_generator_error,{File,Module,Reason}).
++
++        rule(Options) ->
++            case [Rule || Rule <- [ber,per,uper,jer],
++                          Opt <- Options,
++                          Rule =:= Opt] of
++                [] -> ber;
++                [Mode|_] -> Mode
++            end.
++        """;
++
+     internal static Task Run()
+     {
+         object code = Code(CodeGeneration.CompileBeamModule(Source, Fixture));
+@@ -25,6 +46,7 @@
+         string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
+         Verify("pairs", 2, hasFilter: false);
+         Verify("overlap", 1, hasFilter: true);
++        _ = Code(CodeGeneration.CompileBeamModule(MixedSource, "nested_gen_entry_probe.erl"));
+ 
+         return Task.CompletedTask;
+ 

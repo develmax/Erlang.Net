@@ -4,10 +4,10 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
+    private const int BinaryComprehensionInitialCapacity = 256;
+
     private sealed partial class GeneralEmitter
     {
-        private const int BinaryComprehensionInitialCapacity = 256;
-
         private void EmitBinaryComprehension(Expr.BinaryComprehension comprehension)
         {
             Expr.Bits output = comprehension.Body as Expr.Bits ?? new Expr.Bits([

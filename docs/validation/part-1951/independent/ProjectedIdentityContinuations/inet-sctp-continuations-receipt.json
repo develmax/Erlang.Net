@@ -1,0 +1,244 @@
+{
+  "reference": {
+    "release": "OTP-29.1.1",
+    "tagCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "sourceSha256": "73146a262f248103a3ee50d79c2d1e291e2d1a6de2577ddca44771e887737346"
+  },
+  "parentPart": 1949,
+  "parentFullRaw": {
+    "Different": 871,
+    "Equal": 495
+  },
+  "parent": {
+    "Source": "0d74bdc34d7938ef7587b8f2bf8dc98a9b43b4459335ca17a6c2c33483b097b2",
+    "Paths": 905,
+    "RemovedPaths": [],
+    "Compiler": "fbb44521955aec5171678021fa2d7c82c3f34b7b2e0451b7b292893a85906e5a",
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "Tests": "5eeba2263b4127799298cbd28e4a917e7e451fc4ad4ed71224e219d35efde0e1",
+    "ParentSource": "f56db2486823b088038d1a52b4dc6ddb83ba48f32e96e2ccd3e9ab1dd6594786",
+    "CorpusTool": "0f373a357cd56a0d19fa15635b7d8d4cfa86bd6c812a9bc7e2e356c97cb6f940"
+  },
+  "compilerClosure": {
+    "bytes": 110804,
+    "sha256": "0e80b701bb4536653c09ba6033ac034d5bf9cb586af91d721258e7a5e00105e1"
+  },
+  "candidateCompiler": {
+    "bytes": 5251584,
+    "sha256": "b65e91aa8a52dca2e79a90d73a8c047eb3f96cb668dfca94694bbf51deecac90"
+  },
+  "rawScopeBefore": {
+    "Different": 2,
+    "Equal": 4
+  },
+  "rawScopeAfter": {
+    "Different": 2,
+    "Equal": 4
+  },
+  "modules": {
+    "lib/eunit-2.11/ebin/eunit_striptests.beam": {
+      "statusAfter": "Different",
+      "reference": {
+        "bytes": 3752,
+        "sha256": "80973ff0c163df88e39a2325db8f888f2812cbddd08c887d4c502ca52d73d0d9"
+      },
+      "before": {
+        "bytes": 3848,
+        "sha256": "1e5fcb8aa6b9b9e9d607c386e0ff30a9d9558e7f844375ef65ff58aad246394f"
+      },
+      "after": {
+        "bytes": 3848,
+        "sha256": "1e5fcb8aa6b9b9e9d607c386e0ff30a9d9558e7f844375ef65ff58aad246394f"
+      }
+    },
+    "lib/kernel-11.0.4/ebin/inet_sctp.beam": {
+      "statusAfter": "Different",
+      "reference": {
+        "bytes": 10048,
+        "sha256": "98063fdaa6b87093fc93c2c2ef502c344ccfa4ec723d6357219e94b5b8419f00"
+      },
+      "before": {
+        "bytes": 10156,
+        "sha256": "901b1f9b174cb74944a135332c8cb3e2469d907eefadde8f959027b2ffb9a585"
+      },
+      "after": {
+        "bytes": 10068,
+        "sha256": "f10f0e89e05931c87fed5c9718ae62f2d341c9b7681e85d11d7f798ebcb48189"
+      }
+    },
+    "lib/kernel-11.0.4/ebin/local_udp.beam": {
+      "statusAfter": "Equal",
+      "reference": {
+        "bytes": 4808,
+        "sha256": "001c0c891b6da95f5333489973c272c4b403ab0747f22b644041fb7359410a74"
+      },
+      "before": {
+        "bytes": 4808,
+        "sha256": "001c0c891b6da95f5333489973c272c4b403ab0747f22b644041fb7359410a74"
+      },
+      "after": {
+        "bytes": 4808,
+        "sha256": "001c0c891b6da95f5333489973c272c4b403ab0747f22b644041fb7359410a74"
+      }
+    },
+    "lib/observer-2.19/ebin/cdv_bin_cb.beam": {
+      "statusAfter": "Equal",
+      "reference": {
+        "bytes": 6120,
+        "sha256": "361fc8d3af7a55d57106d2a3be7e9fadc77d8a4580462897fa6ed5474e778c3d"
+      },
+      "before": {
+        "bytes": 6120,
+        "sha256": "361fc8d3af7a55d57106d2a3be7e9fadc77d8a4580462897fa6ed5474e778c3d"
+      },
+      "after": {
+        "bytes": 6120,
+        "sha256": "361fc8d3af7a55d57106d2a3be7e9fadc77d8a4580462897fa6ed5474e778c3d"
+      }
+    },
+    "lib/sasl-4.4/ebin/sasl_report_tty_h.beam": {
+      "statusAfter": "Equal",
+      "reference": {
+        "bytes": 2300,
+        "sha256": "38708e8d20deb3ebf4a05b7d97acf6d3a24254deca5fc038f8bba740c6c2657a"
+      },
+      "before": {
+        "bytes": 2300,
+        "sha256": "38708e8d20deb3ebf4a05b7d97acf6d3a24254deca5fc038f8bba740c6c2657a"
+      },
+      "after": {
+        "bytes": 2300,
+        "sha256": "38708e8d20deb3ebf4a05b7d97acf6d3a24254deca5fc038f8bba740c6c2657a"
+      }
+    },
+    "lib/snmp-5.20.5/ebin/snmp_verbosity.beam": {
+      "statusAfter": "Equal",
+      "reference": {
+        "bytes": 8712,
+        "sha256": "71ca903bdce729dd5aa4ab8fca36b38d0fb809c13831fbea9ef5933ab5c8f745"
+      },
+      "before": {
+        "bytes": 8712,
+        "sha256": "71ca903bdce729dd5aa4ab8fca36b38d0fb809c13831fbea9ef5933ab5c8f745"
+      },
+      "after": {
+        "bytes": 8712,
+        "sha256": "71ca903bdce729dd5aa4ab8fca36b38d0fb809c13831fbea9ef5933ab5c8f745"
+      }
+    }
+  },
+  "equalImageIdentity": "The frozen corpus tool compares generated and installed images as bytes. Equal images are not written by the tool, so each Equal identity comes from the compared installed image.",
+  "remainingMfas": [
+    "inet_sctp:connect_get_assoc/5"
+  ],
+  "normalizedScope": {
+    "common": 77,
+    "changed": 3,
+    "gained": 3,
+    "lost": 0,
+    "helpers_restored": 0,
+    "helpers_exact": 0,
+    "source_bound": 0,
+    "other_pinned_restored": 0,
+    "extra_added": 0,
+    "removed": 0,
+    "removed_pinned": 0
+  },
+  "gains": [
+    "inet_sctp:connect/4",
+    "inet_sctp:connect/5",
+    "inet_sctp:connect_get_assoc/4"
+  ],
+  "fixture": {
+    "red": {
+      "bytes": 611,
+      "sha256": "d6ca34dbd7be68feb60ca641f330db90111cf0081fe7ee163d954367e2b0fdbc"
+    },
+    "green": {
+      "bytes": 71,
+      "sha256": "4f7a55175c5aba5abfb6fcc0abeb68e2c1f5453bec023b66c444cc7580eba7db"
+    },
+    "native": {
+      "bytes": 147,
+      "sha256": "b4f98ded86ce65f19ab63b10d04be9cba339f39b999de124bb90f5144dda344d"
+    },
+    "images": {
+      "beam_projected_identity_continuations_probe.erl": "6fbc156c9db64786852cdd6f8382c85965765f12046bf1cbcaa52aa4ae5619da",
+      "beam_projected_identity_continuations_probe.beam": "6d0b5a8e1d29354d34d5eeaeaa2095b904fb0d580d83f1f32736192a17c6f175",
+      "baseline-fixture/beam_projected_identity_continuations_probe.beam": "84b3fc873a82f0d3e1415dd0be862afe86bac7674d9a96feafb969622c735121",
+      "native-reference.beam": "491785307bafa833d93a578ca22fd766a5e7f95c2ecee1a118331f0899d198bc"
+    }
+  },
+  "strictReplay": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": {
+      "Before": "a36db316a41ed84f8ffdb7abff09b1c52e435a6202568f976e252e46a74fcbde",
+      "After": "b03b9ba01bd385122b12a80c65925a68b1c74476a90c3011bb8e288262243012"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProjectedIdentityContinuations.cs": {
+      "Before": null,
+      "After": "fd076983d9f35d438ffa6c2f881ec6827940eda2ea66d5278513354c06a404d1"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamProjectedIdentityContinuationsChecks.cs": {
+      "Before": null,
+      "After": "54cbb6372f8d508b8a42ab720237ad30805548c6b88ce58163792260476b5280"
+    },
+    "tests/Erlang.Tests/Harness/Program.cs": {
+      "Before": "ca2f1511673df7b68aaa22e1fed566dc3676ad4f3aca7a7502030ec3f4aad562",
+      "After": "86c5d72ec186126acdba275e1a9e46908c63c4c06b58db6ac744cd685a061256"
+    }
+  },
+  "replayFiles": {
+    "projected-identity-continuations-test.patch": {
+      "bytes": 6513,
+      "sha256": "2289234eb6dec55b94f6a1cd8cadea56121bc6d3be56673b584128982bef1169"
+    },
+    "projected-identity-continuations.patch": {
+      "bytes": 16190,
+      "sha256": "ca6817dfcb3f7fc699d853d9ae92ef73b8978a397b7f99c1709f86fcedec4810"
+    }
+  },
+  "files": {
+    "before-corpus.json": {
+      "bytes": 1802,
+      "sha256": "48e940baf59127035dd806a1adc3254b3bbab939f581a3f24cd4458b8771f381"
+    },
+    "candidate-corpus.json": {
+      "bytes": 1744,
+      "sha256": "50efcad28b13f30baa70420f90bf6e01459c111a985bcb0e24f80945edea17a8"
+    },
+    "normalized-replay.json": {
+      "bytes": 175,
+      "sha256": "bed98e240f0e4706a0b26e85874213d1a2d5db13f7d87accb2e46d1084594117"
+    },
+    "normalized-replay.terms": {
+      "bytes": 1560,
+      "sha256": "b7e6cf37fa527ec9d8c8bdb2a16d31d9d769c26c4860aa1bc6fac9ab12c16964"
+    },
+    "replay-result.txt": {
+      "bytes": 79,
+      "sha256": "fc2ee9f07f3e5641d56af714f02945c9da9898886622f9e199fde96948292d1e"
+    },
+    "layout-check.log": {
+      "bytes": 40,
+      "sha256": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f"
+    },
+    "native-regression.eval": {
+      "bytes": 3137,
+      "sha256": "5fdde75e24d66c2f3a5685425e5ba728805c5bb0a06ff2571a6193e7a7648c87"
+    },
+    "candidate-inet-sctp.terms": {
+      "bytes": 6207,
+      "sha256": "7c84c0289815f1f5227292bdf44f0097c867ea558091d437a1856f07d81dce51"
+    },
+    "source-closure.log": {
+      "bytes": 151,
+      "sha256": "97c6083aaef02b320a7b92d6cd2827d40340aebb72bebde8b9e6de2df2a7a587"
+    }
+  },
+  "scope": {
+    "workers": 1,
+    "fullCorpus": false,
+    "nativeRealModules": "loader preparation",
+    "nativeFixtureNormalBodies": 3
+  }
+}

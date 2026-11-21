@@ -1,0 +1,87 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamOuterLiteralRecordEntryChecks.cs b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamOuterLiteralRecordEntryChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamOuterLiteralRecordEntryChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamOuterLiteralRecordEntryChecks.cs
+@@ -1,4 +1,5 @@
+ using System.Collections;
++using System.Numerics;
+ using Erlang.Compiler;
+ using static Erlang.Compiler.BeamEmissionFormat;
+ using static Erlang.Tests.BeamBinaryHostAccess;
+@@ -10,9 +11,10 @@
+     internal const string TestName = "compiler/beam/outer-record-literal-entry-before-frame";
+     private const string MissingDispatch = "A disjoint known record ID did not dispatch before branch allocation.";
+     private const string IncorrectDispatch = "Repeated record IDs were treated as disjoint entry arms.";
++    private const string ColumnOrder = "Test the selected constructor fields before the remaining pattern arguments and reuse the consumed selector.";
+     private const string Source = """
+         -module(beam_outer_literal_record_entry).
+-        -export([run/2, overlap/2]).
++        -export([run/2, overlap/2, ordered/2]).
+         -record(event,{id,body}).
+         -record(command,{kind,item}).
+         -record(state,{data}).
+@@ -34,6 +36,14 @@
+         overlap(Event=#event{}, State=#state{}) ->
+             service:fallback(Event),
+             {ok,State}.
++
++        ordered(#event{id = 1, body = #command{kind = accept, item = Item}},
++                #state{data = {mapping, Key}}) ->
++            {found, Item, Key};
++        ordered(#event{id = 2, body = #command{kind = accept}}, #state{}) ->
++            cleared;
++        ordered(#event{}, #state{}) ->
++            ignored.
+         """;
+ 
+     internal static void Run()
+@@ -51,18 +61,45 @@
+             throw new InvalidOperationException(IncorrectDispatch);
+         }
+ 
+-        bool SelectsIntegerBeforeFrame(string name)
++        object[] ordered = Body("ordered");
++        int selection = Array.FindIndex(ordered, instruction => Opcode(instruction) == SelectValue);
++        if (selection < 0)
++        {
++            throw new InvalidOperationException(MissingDispatch);
++        }
++
++        object[] checks = ordered[(selection + 1)..];
++        int nested = Array.FindIndex(checks, instruction => Opcode(instruction) == IsTaggedTuple && IsX(Operands(instruction)[1], 2));
++        if (nested < 5 || !checks[(nested - 5)..(nested + 1)].Select(Opcode).SequenceEqual(
++                new byte[] { IsTaggedTuple, GetTupleElement, ExactEqualTest, IsTaggedTuple, GetTupleElement, IsTaggedTuple })
++            || !IsX(Operands(checks[nested - 5])[1], 3)
++            || !IsX(Operands(checks[nested - 4])[2], 2)
++            || !IsX(Operands(checks[nested - 2])[1], 1)
++            || !IsX(Operands(checks[nested - 1])[2], 2))
++        {
++            throw new InvalidOperationException(ColumnOrder);
++        }
++
++        bool SelectsIntegerBeforeFrame(string name) => Body(name).TakeWhile(instruction => Opcode(instruction) is not (Allocate or AllocateHeap))
++                .Any(instruction => Opcode(instruction) == SelectValue
++                    && ((IEnumerable)Property(instruction, "Operands")).Cast<object>()
++                        .Any(operand => (string)Property(operand, "Kind") == "integer"));
++
++        object[] Body(string name)
+         {
+             object function = functions.Single(candidate => (string)Property(candidate, "Name") == name);
+             int first = (int)Property(function, "FirstInstructionIndex");
+             int last = (int)Property(function, "EndInstructionIndex");
+ 
+-            return instructions[first..last].TakeWhile(instruction => Opcode(instruction) is not (Allocate or AllocateHeap))
+-                .Any(instruction => Opcode(instruction) == SelectValue
+-                    && ((IEnumerable)Property(instruction, "Operands")).Cast<object>()
+-                        .Any(operand => (string)Property(operand, "Kind") == "integer"));
++            return instructions[first..last];
+         }
+     }
+ 
++    private static object[] Operands(object instruction) =>
++        ((IEnumerable)Property(instruction, "Operands")).Cast<object>().ToArray();
++
++    private static bool IsX(object operand, int register) =>
++        (string)Property(operand, "Kind") == "x" && (BigInteger)Property(operand, "Value") == register;
++
+     private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
+ }

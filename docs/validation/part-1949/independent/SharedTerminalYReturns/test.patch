@@ -1,0 +1,102 @@
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12366,6 +12366,7 @@
+ Test(Erlang.Tests.BeamStrictListGeneratorHelperChecks.TestName, Erlang.Tests.BeamStrictListGeneratorHelperChecks.Run);
+ Test(Erlang.Tests.BeamReturnedSiblingConstructionChecks.TestName, Erlang.Tests.BeamReturnedSiblingConstructionChecks.Compare);
+ Test(Erlang.Tests.BeamPostCallProjectionSlotChecks.TestName, Erlang.Tests.BeamPostCallProjectionSlotChecks.Run);
++Test(Erlang.Tests.BeamFinalFrameReturnsChecks.TestName, Erlang.Tests.BeamFinalFrameReturnsChecks.Run);
+ Test(Erlang.Tests.BeamConditionalListHelperChecks.TestName, Erlang.Tests.BeamConditionalListHelperChecks.Run);
+ Test(Erlang.Tests.BeamBinaryExtractRangeChecks.TestName, Erlang.Tests.BeamBinaryExtractRangeChecks.Compare);
+ Test(Erlang.Tests.BeamBinaryTupleBindingChecks.TestName, Erlang.Tests.BeamBinaryTupleBindingChecks.Compare);
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamFinalFrameReturnsChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamFinalFrameReturnsChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamFinalFrameReturnsChecks.cs
+@@ -0,0 +1,86 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamFinalFrameReturnsChecks
++{
++    internal const string TestName = "compiler/beam/shared-frame-returns-after-branch-allocations";
++    private const string ShapeError = "The repeated terminal branch returns did not share the frame slots.";
++    private const string Source = """
++        -module(beam_shared_frame_return).
++        -export([pick/1]).
++        pick(Owner) ->
++            {found, [[Seed]]} = service:read(initial),
++            Primary = service:resolve([Seed, a, b]),
++            case service:exists(Primary) of
++                true -> Primary;
++                false ->
++                    Alternate = service:resolve(service:base(seed, option), target),
++                    case service:exists(Alternate) of
++                        true -> Alternate;
++                        false ->
++                            {ready, Fallback} = service:fallback(),
++                            Request = [request, Alternate, confirmation],
++                            case service:confirm(Owner, Request) of
++                                accepted ->
++                                    Parent = service:parent(Alternate),
++                                    case service:exists(Parent) of
++                                        true ->
++                                            case service:effect(Alternate) of
++                                                ok -> Alternate;
++                                                _ -> Fallback
++                                            end;
++                                        false ->
++                                            case service:effect(Parent) of
++                                                ok ->
++                                                    case service:effect(Alternate) of
++                                                        ok -> Alternate;
++                                                        _ -> Fallback
++                                                    end;
++                                                _ -> Fallback
++                                            end
++                                    end;
++                                declined -> Fallback
++                            end
++                    end
++            end.
++        """;
++
++    internal static void Run()
++    {
++        string differing = Source.Replace("ok -> Alternate", "ok -> {paired, Alternate}", StringComparison.Ordinal);
++        if (!HasTwoSlotReturns(Source) || HasTwoSlotReturns(differing))
++        {
++            throw new InvalidOperationException(ShapeError);
++        }
++    }
++
++    private static bool HasTwoSlotReturns(string source)
++    {
++        object code = Code(CodeGeneration.CompileBeamModule(source, "beam_shared_frame_return.erl"));
++        object[] operations = ((IEnumerable)Property(code, "Instructions")).Cast<object>()
++            .SkipWhile(operation => Opcode(operation) != FunctionInfo).Skip(1)
++            .TakeWhile(operation => Opcode(operation) != FunctionInfo).ToArray();
++        int[] exits = Enumerable.Range(0, operations.Length).Where(index => Opcode(operations[index]) == Return).ToArray();
++        if (exits.Length != 2)
++        {
++            return false;
++        }
++
++        int[] slots = exits.Where(index => index >= 2 && Opcode(operations[index - 1]) == Deallocate
++                && Opcode(operations[index - 2]) == Move)
++            .Select(index => Operands(operations[index - 2])[0])
++            .Where(operand => (string)Property(operand, "Kind") == "y")
++            .Select(operand => (int)(BigInteger)Property(operand, "Value")).ToArray();
++
++        return slots.Length == 2 && slots[0] != slots[1];
++    }
++
++    private static object[] Operands(object operation) => ((IEnumerable)Property(operation, "Operands")).Cast<object>().ToArray();
++
++    private static byte Opcode(object operation) => (byte)Property(Property(operation, "Definition"), "Opcode");
++}

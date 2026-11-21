@@ -1,0 +1,88 @@
+using System.Collections;
+using System.Numerics;
+using Erlang;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamBinaryAppendUnitChecks
+{
+    internal const string TestName = "compiler/beam/uses-binary-append-unit-floor";
+    private const string Fixture = "beam_binary_append_unit_probe.erl";
+    private const string IncorrectUnit = "The binary construction header did not preserve the leading append unit.";
+    private const string IncorrectValue = "The emitted binary construction returned an unexpected bitstring.";
+    private const string IncorrectPrefix = "Appending a prefix with insufficient bit alignment succeeded.";
+
+    internal const string Source = """
+        -module(beam_binary_append_unit_probe).
+        -export([append8/3, append16/3, prepend/3]).
+        append8(Prefix, Value, Size) -> <<Prefix/binary, Value:Size>>.
+        append16(Prefix, Value, Size) -> <<Prefix/binary-unit:16, Value:Size>>.
+        prepend(Suffix, Value, Size) -> <<Value:Size, Suffix/binary>>.
+        """;
+
+    internal static byte[] CompileFixture() => CodeGeneration.CompileBeamModule(Source, Fixture);
+
+    internal static async Task Run()
+    {
+        byte[] image = CompileFixture();
+        object code = Code(image);
+        const int unitOperand = 3;
+        int[] units = Items(code, "Instructions")
+            .Where(instruction => (byte)Property(Property(instruction, "Definition"), "Opcode") == CreateBinary)
+            .Select(instruction => (int)(BigInteger)Property(Items(instruction, "Operands").ElementAt(unitOperand), "Value"))
+            .ToArray();
+        if (!units.SequenceEqual([8, 16, 1]))
+        {
+            throw new InvalidOperationException(IncorrectUnit);
+        }
+
+        var module = BeamModule.Prepare(image);
+        await using var runtime = new ProcessRuntime();
+        await using var receiver = new RuntimeNodeFoundationHostActor(runtime);
+        await receiver.InvokeAsync(async context =>
+        {
+            (string Function, BitString Input, BitString Result)[] paths =
+            [
+                ("append8", new BitString([18]), new BitString([18, 160], 11)),
+                ("append16", new BitString([18, 52]), new BitString([18, 52, 160], 19)),
+                ("prepend", new BitString([18]), new BitString([162, 64], 11))
+            ];
+            foreach (var (function, input, expected) in paths)
+            {
+                if (!expected.Equals(await module.Invoke(
+                    context,
+                    function,
+                    input,
+                    Term.I(5),
+                    Term.I(3)
+                )))
+                {
+                    throw new InvalidOperationException(IncorrectValue);
+                }
+            }
+
+            try
+            {
+                _ = await module.Invoke(
+                    context,
+                    "append16",
+                    new BitString([18]),
+                    Term.I(5),
+                    Term.I(3)
+                );
+            }
+            catch (ErlangException error) when (error.ExceptionClass == ErlangExceptionClasses.Error
+                && error.Reason.Equals(Term.A(ErlangErrorReasons.BadArgument)))
+            {
+                return Nil.Value;
+            }
+
+            throw new InvalidOperationException(IncorrectPrefix);
+        });
+    }
+
+    private static IEnumerable<object> Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>();
+}

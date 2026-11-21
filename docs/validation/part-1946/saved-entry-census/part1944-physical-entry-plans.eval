@@ -1,0 +1,48 @@
+[Inputs,Output]=init:get_plain_arguments(),
+{ok,Raw}=file:read_file(Inputs),
+Paths=[string:split(binary_to_list(Row),"\t",all)||Row<-binary:split(Raw,<<"\n">>,[global]),byte_size(Row)>0],
+Op=fun(I) when is_tuple(I)->element(1,I);(I)->I end,
+Uses=fun U({y,1})->true;
+         U(T) when is_tuple(T)->lists:any(U,tuple_to_list(T));
+         U([H|R])->U(H) orelse U(R);
+         U(_)->false
+end,
+Rename=fun R({y,N}) when N=:=0;N=:=1->{y,1-N};
+           R({literal,_}=Value)->Value;
+           R(T) when is_tuple(T)->list_to_tuple([R(X)||X<-tuple_to_list(T)]);
+           R([H|Tail])->[R(H)|R(Tail)];
+           R(V)->V
+end,
+Terminal=fun F([],_) -> false;
+             F([{move,{x,0},{y,1}}|_],true)->true;
+             F([I|Rest],_)->not Uses(I) andalso F(Rest, lists:member(Op(I),[call,call_ext]))
+end,
+Try=fun(Body)->
+    As=[I||I<-Body,lists:member(Op(I),[allocate,allocate_heap,trim,'try','catch','try_end','try_case','catch_end'])],
+    case As of
+        [A] when (element(1,A)=:=allocate orelse element(1,A)=:=allocate_heap), element(2,A)=:=2->
+            case lists:dropwhile(fun(I)->I=/=A end,Body) of
+                [A,{init_yregs,{list,[{y,1}]}},{move,{x,_},{y,0}}|Rest]->
+                    case Terminal(Rest,false) of
+                        true->[Rename(I)||I<-Body];
+                        false->Body
+                    end;
+                _->Body
+            end;
+        _->Body
+    end
+end,
+
+{ok,Io}=file:open(Output,[write]),
+Summary=lists:foldl(fun([Rel,Status,Path],Acc)->
+    {beam_file,_,_,_,_,Functions}=beam_disasm:file(Path),
+    Keys=[{F,A}||{function,F,A,_,Body}<-Functions,Try(Body)=/=Body],
+    case Keys of
+        []->Acc;
+        _->io:format(Io,"~0p.~n",[{Rel,Status,Keys}]),
+           {M,N}=maps:get(Status,Acc,{0,0}),
+           Acc#{Status=>{M+1,N+length(Keys)}}
+    end
+end,#{},Paths),
+io:format("~0p.~n",[Summary]),
+ok=file:close(Io),halt().

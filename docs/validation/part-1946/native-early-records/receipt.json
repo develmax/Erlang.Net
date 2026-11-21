@@ -1,0 +1,104 @@
+{
+  "ChangedImagesPrepared": 143,
+  "InputProfiles": 1366,
+  "BatchPrepared": 143,
+  "IndividuallyLoaded": 0,
+  "OnLoad": {},
+  "VerifiedNativeImages": [
+    {
+      "Beam": "lib/inets-9.8/ebin/mod_actions.beam",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\lib\\inets-9.8\\ebin\\mod_actions.beam",
+      "Sha256": "4FB9230F2588A00CE53A4AC8732E7983CD831813DECDB40B7157087E823E3078"
+    },
+    {
+      "Beam": "lib/public_key-1.21.7/ebin/PKIXAttributeCertificate-2009.beam",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\lib\\public_key-1.21.7\\ebin\\PKIXAttributeCertificate-2009.beam",
+      "Sha256": "B05D69F57E8295828E22C36D3FB44D01395D4F3483849B28C5F97569E708B92C"
+    }
+  ],
+  "LinkedExecution": {
+    "Compiler": "925fb7bb2623f5e27a7f730f0cf44bfe742481fe38d587b747faabed093c9a41",
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "Witnesses": {
+      "mod_actions": {
+        "Beam": "4FB9230F2588A00CE53A4AC8732E7983CD831813DECDB40B7157087E823E3078",
+        "Observations": 10,
+        "Outcomes": {
+          "do": "2B88F574A35AAA083FD934A151F254D7A848EB01B3D52C6176A929434E711CAA",
+          "store": "EB8A0ACBC72DA8F35F9FCF5519F43CE01B9D1BEB0C4F769B6DF61487DB331407"
+        }
+      },
+      "xmerl_lib": {
+        "Beam": "6D51FA967854919E997BB8AEFE15FB12B369EB43AC0605293956B9AA64657B5C",
+        "Observations": 6,
+        "Outcomes": {
+          "markup": "90584C1DBE73DAFBDDB66F0D3361A3FF3C97248DC73F14BE5D2FF342FC229D8B"
+        }
+      },
+      "observer_html_lib": {
+        "Beam": "B279B8F0F5FB4FF854F255F21BBF7097C783005DA9F43CC20B94FDE1556EF95A",
+        "Observations": 3,
+        "Outcomes": {
+          "plain_page": "0AC397B6723CB4F2465D2F1E568D15D95A33E1AA52FCF0815BDEBBB5EA32C949"
+        }
+      },
+      "EnrollmentMessageSyntax-2009": {
+        "Beam": "49DAD96DD97CE1849E78F08F45981B71046D340CABF6FDBC8F1058B5E752F4F9",
+        "Observations": 13,
+        "Outcomes": {
+          "native-prefixed-field": "5550A1CFDA75BD89AAB952A9BBCF4DFBDA318E5FDE6714CEEBFA1533902AEB6D"
+        }
+      },
+      "PKIXAttributeCertificate-2009": {
+        "Beam": "B05D69F57E8295828E22C36D3FB44D01395D4F3483849B28C5F97569E708B92C",
+        "Observations": 113,
+        "Outcomes": {
+          "native-prefixed-field": "5550A1CFDA75BD89AAB952A9BBCF4DFBDA318E5FDE6714CEEBFA1533902AEB6D",
+          "native-foreign-first-optional": "29F0D46EB86FFCD0057639A6BB72FFF17D5922A8089BA68B681A3F34261DB67B",
+          "native-retained-foreign-triple": "5CD7339D85854935973B4AD4B120EA9BD7630583D8D220F5835F544A7F598F9E",
+          "native-constant-remote-dispatch": "A8CF7D8E6162CA536E711373C7FA7834B79D0AF9D3008732069BD8423069B446",
+          "native-attribute-final": "A8DD0D55E6B3C0A024D402659388661952A85DD5FB132CB93DC9BDE487540D75"
+        }
+      },
+      "PKIXCMP-2023": {
+        "Beam": "F4FADDFCF57D308792788678D9457168A38CD0C9EAD4984E6648A713F449CB92",
+        "Observations": 13,
+        "Outcomes": {
+          "native-prefixed-field": "5550A1CFDA75BD89AAB952A9BBCF4DFBDA318E5FDE6714CEEBFA1533902AEB6D"
+        }
+      },
+      "PKIX1Implicit-2009": {
+        "Beam": "2E67439BD0A525610DC8B4B8B317A83F75E6B33508614DCCDB81EAE1581EF5CF",
+        "Observations": 0,
+        "Outcomes": {},
+        "Dependency": true
+      },
+      "PKIXCRMF-2009": {
+        "Beam": "5E65C0E0EF17B4428C9E41D36990D6305D1A99DED05904CB438A478FF2DE44FC",
+        "Observations": 0,
+        "Outcomes": {},
+        "Dependency": true
+      },
+      "CryptographicMessageSyntax-2009": {
+        "Beam": "39A45EB4897A159C03DE59A3FA99848ED431E8C26E9DD5B2B403F2C8AA2720D5",
+        "Observations": 0,
+        "Outcomes": {},
+        "Dependency": true
+      }
+    },
+    "Observations": 158,
+    "Groups": [
+      "CompleteAttributeCertificateFunctions",
+      "ConstantRemoteOptionalDispatch",
+      "FastArmCallListRetention",
+      "GuardedTaggedAliasSwitch",
+      "LeadingOptionalForeignRecordPairs",
+      "MappedRecordUpdateElements",
+      "PrefixedTaggedFieldLifetimes",
+      "RetainedForeignRecordTriple",
+      "RetainedRecordCallChain",
+      "SavedEntryAndInFrameValues",
+      "StrictListAliasSiblings"
+    ]
+  }
+}

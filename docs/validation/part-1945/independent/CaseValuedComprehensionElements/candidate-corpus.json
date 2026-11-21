@@ -1,0 +1,52 @@
+{
+  "OtpVersion": "29.1.1",
+  "Total": 6,
+  "Counts": {
+    "Different": 4,
+    "Equal": 2
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\dialyzer-6.0.3\\ebin\\dialyzer_options.beam",
+      "Status": "Different",
+      "Source": "lib\\dialyzer-6.0.3\\src\\dialyzer_options.erl",
+      "Detail": "Original length 31528, generated length 32572. AtU8 2740-\u003E2694, Code 6513-\u003E7610, ImpT 472-\u003E520, ExpT 64-\u003E64, FunT 52-\u003E52, LitT 2255-\u003E2114, LocT 412-\u003E388, Attr 39-\u003E39, Line 344-\u003E458, Type 18-\u003E12",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\erl_compile_server.beam",
+      "Status": "Different",
+      "Source": "lib\\kernel-11.0.4\\src\\erl_compile_server.erl",
+      "Detail": "Original length 13824, generated length 14364. AtU8 1136-\u003E1105, Code 3254-\u003E3787, ImpT 436-\u003E460, ExpT 100-\u003E100, FunT 76-\u003E76, LitT 239-\u003E263, LocT 304-\u003E292, Attr 70-\u003E70, Line 184-\u003E186, Type 38-\u003E34",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\cdv_bin_cb.beam",
+      "Status": "Equal",
+      "Source": "lib\\observer-2.19\\src\\cdv_bin_cb.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\ttb.beam",
+      "Status": "Different",
+      "Source": "lib\\observer-2.19\\src\\ttb.erl",
+      "Detail": "Original length 79828, generated length 82332. AtU8 4542-\u003E4498, Code 18630-\u003E21311, ImpT 1780-\u003E1780, ExpT 520-\u003E520, FunT 772-\u003E772, LitT 1415-\u003E1363, LocT 1576-\u003E1552, Attr 133-\u003E133, Line 1136-\u003E1158, Type 110-\u003E30",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\ssh-6.0.6\\ebin\\ssh_bits.beam",
+      "Status": "Equal",
+      "Source": "lib\\ssh-6.0.6\\src\\ssh_bits.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\tools-4.2.3\\ebin\\lcnt.beam",
+      "Status": "Different",
+      "Source": "lib\\tools-4.2.3\\src\\lcnt.erl",
+      "Detail": "Original length 58140, generated length 59860. AtU8 2509-\u003E2329, Code 15126-\u003E17217, ImpT 760-\u003E784, ExpT 568-\u003E568, FunT 268-\u003E268, LitT 2315-\u003E2255, LocT 1120-\u003E1036, Attr 152-\u003E152, Line 770-\u003E824, Type 174-\u003E52",
+      "FirstDifferentByte": 6
+    }
+  ]
+}

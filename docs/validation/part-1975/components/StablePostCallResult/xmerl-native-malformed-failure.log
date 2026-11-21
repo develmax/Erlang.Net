@@ -1,0 +1,28 @@
+Error! Failed to eval: [Image,Out]=init:get_plain_arguments(),
+Mod=xmerl_xsd, Fn=list_members,
+{ok,Input}=file:read_file(Image),
+{ok,{Mod,[{atoms,Atoms},{exports,Exports}]}}=beam_lib:chunks(Input,[atoms,exports]),
+{ok,Mod,Chunks}=beam_lib:all_chunks(Input),
+{beam_file,Mod,_,_,_,Functions}=beam_disasm:file(Input),
+[Label]=[L||{function,F,2,L,_}<-Functions,F=:=Fn],
+{Index,Fn}=lists:keyfind(Fn,2,Atoms),
+{"ExpT",<<N:32,Slots/binary>>}=lists:keyfind("ExpT",1,Chunks),
+New=case lists:member({Fn,2},Exports) of true-><<N:32,Slots/binary>>;
+   false-><<(N+1):32,Slots/binary,Index:32,2:32,Label:32>> end,
+{ok,Opened}=beam_lib:build_module(lists:keyreplace("ExpT",1,Chunks,{"ExpT",New})),
+{ok,{Mod,[{"Code",Code}]}}=beam_lib:chunks(Input,["Code"]),
+{ok,{Mod,[{"Code",Code}]}}=beam_lib:chunks(Opened,["Code"]),
+_ = code:unstick_mod(Mod),
+{module,Mod}=code:load_binary(Mod,Image,Opened),
+Check=fun(Members,All)->try {value,apply(Mod,Fn,[Members,All])} catch C:R -> {C,R} end end,
+Outcomes=[Check([],[]),Check([a,b,a],[b,a]),Check([z,a,y,z],[a]),Check(not_a_list,[])],
+[{value,true},{value,true},{value,{error,[z,y,z]}},{value,{error,not_a_list}}]=Outcomes,
+ok=file:write_file(Out,term_to_binary(Outcomes,[deterministic])),
+io:format("Four native list_members outcomes passed, including malformed input~n"),
+halt().
+
+
+
+Runtime terminating during boot ({{badmatch,[{value,true},{value,true},{value,{error,[z,y,z]}},{error,{bad_generator,not_a_list}}]},[{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,796}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{init,start_it,1,[{file,"init.erl"},{line,1561}]},{init,start_em,1,[{file,"init.erl"},{line,1546}]},{init,do_boot,3,[{file,"init.erl"},{line,1217}]}]})
+
+Crash dump is being written to: D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/post-call-x0-aliases-1975-audit/xmerl-native-retake-crash.dump...done

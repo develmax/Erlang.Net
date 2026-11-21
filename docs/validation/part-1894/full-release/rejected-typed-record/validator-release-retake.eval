@@ -1,0 +1,16 @@
+[Ref,Gen]=init:get_plain_arguments(),
+Read=fun(P)->
+  {beam_file,M,E,A,_,Fs}=beam_disasm:file(P),
+  Labels=maps:from_list([{{M,N,Ar},Label}||{function,N,Ar,Label,_}<-Fs]),
+  Fix=fun
+    ({call,Ar,{Local,Fun,Fa}}) when Local=:=M -> {call,Ar,{f,maps:get({Local,Fun,Fa},Labels)}};
+    ({call_only,Ar,{Local,Fun,Fa}}) when Local=:=M -> {call_only,Ar,{f,maps:get({Local,Fun,Fa},Labels)}};
+    ({call_last,Ar,{Local,Fun,Fa},Dealloc}) when Local=:=M -> {call_last,Ar,{f,maps:get({Local,Fun,Fa},Labels)},Dealloc};
+    ({bif,Op,nofail,Args,Dst}) -> {bif,Op,{f,0},Args,Dst};
+    (I) -> I
+  end,
+  Fns=[{function,N,Ar,Label,lists:map(Fix,Is)} || {function,N,Ar,Label,Is}<-Fs],
+  beam_validator:validate({M,[{N,Ar}||{N,Ar,_}<-E],A,#{},Fns,28},strong)
+end,
+R=Read(Ref),G=Read(Gen),
+io:format("~tp.~n~tp.~n",[R,G]),halt().

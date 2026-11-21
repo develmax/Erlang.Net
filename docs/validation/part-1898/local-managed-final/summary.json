@@ -1,0 +1,59 @@
+{
+  "Coverage": {
+    "Total": 9885,
+    "Passed": 9880,
+    "Failed": 5,
+    "Failures": [
+      {
+        "Name": "runtime/string/original-jaro-indexed-resource-contract",
+        "Error": "System.TimeoutException: The operation has timed out.\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func`2 command) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 51\r\n   at Erlang.Tests.StringBackendChecks.Run(Boolean managed, Boolean jaro, Boolean managedUnicode) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringBackendChecks.cs:line 45\r\n   at Erlang.Tests.StringBackendChecks.Run(Boolean managed, Boolean jaro, Boolean managedUnicode) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringBackendChecks.cs:line 69\r\n   at Erlang.Tests.StringBackendChecks.Run(Boolean managed, Boolean jaro, Boolean managedUnicode) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringBackendChecks.cs:line 69\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16499",
+        "Milliseconds": 10806
+      },
+      {
+        "Name": "oracle/compiled-module/erlang-length-long-badarg",
+        "Error": "System.TimeoutException: The operation has timed out.\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16499",
+        "Milliseconds": 15471
+      },
+      {
+        "Name": "oracle/compiled-module/erlang-length-matchspec",
+        "Error": "System.TimeoutException: The operation has timed out.\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16499",
+        "Milliseconds": 15659
+      },
+      {
+        "Name": "oracle/compiled-module/queue/core/ordering",
+        "Error": "System.TimeoutException: The operation has timed out.\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16499",
+        "Milliseconds": 15193
+      },
+      {
+        "Name": "mfa/erlang:halt/0",
+        "Error": "System.InvalidOperationException: Default halt subprocess MFA contract failed:System.Threading.Tasks.TaskCanceledException: A task was canceled.\r\n   at Erlang.HaltProbe.HaltSubprocessRunner.Run(HaltSubprocessContract contract, HaltProcessBackend backend, String executable, String probeAssembly, String artifactRoot, CancellationToken cancellation) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tools\\Runtime\\Erlang.HaltProbe\\HaltSubprocessRunner.cs:line 95,raw-exit-code:-1,actual-sdk-source-identity,actual-sdk-halt-request\r\n   at Erlang.Tests.HaltSubprocessMfaContracts.Run(HaltSubprocessContract contract) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Runtime\\Lifecycle\\HaltSubprocessMfaContracts.cs:line 34\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16499",
+        "Milliseconds": 12124
+      }
+    ]
+  },
+  "Files": [
+    {
+      "RawFile": "repository-full.json",
+      "RawSize": 1386737,
+      "RawSha256": "8a08266ff970d90b16ae2f17e18f3c71e5ac3cabab40b3f3336538ed0ec3b7e1",
+      "GzipSha256": "2e738967d6733461134bc671da757f5b6971601ed6ba3221d5ce08015cad7add"
+    },
+    {
+      "RawFile": "repository-full.json.stdout.log",
+      "RawSize": 630019,
+      "RawSha256": "be21bfa60176499fe43de05bd7272438143a3caf5273c55d17ba119da8e1994e",
+      "GzipSha256": "ba7fa736ee53319f4352f68f5b20a8853639d8e20c8a63ebce38b8db7b47d1e4"
+    },
+    {
+      "RawFile": "repository-full.json.stderr.log",
+      "RawSize": 2321,
+      "RawSha256": "887ab5af78ddc2803228125b6584c247ca142e50272f1ddb28a098d01bea513a",
+      "GzipSha256": "28c60f77708ac9eefd7c889969a6c3b38be9432e8d616bdfa0aaa17a972d97ab"
+    }
+  ],
+  "GateSeconds": 4948.9815271,
+  "ExitCode": 1,
+  "OfficialProviderSha256": "41CCC2FDE5493D85BEAA21996E12D0885D2919B0D4BF44137D0673DCDC9D5EA6",
+  "FrozenCompilerSha256": "7090FEDB575ED8880B319C6468C35563C7EB6C7A61DB7484CCB25E7B3763E42A",
+  "FrozenTestAssemblySha256": "6745DDA1A8907F9870F2944EBEF2086E3165E62EC21C033EDA3A9EA498AB4C75"
+}

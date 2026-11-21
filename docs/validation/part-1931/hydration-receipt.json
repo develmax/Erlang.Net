@@ -1,0 +1,47 @@
+{
+  "Parent": {
+    "Source": "744e5b0bbbcb55c43b5882512de06bec5ee76cbf1517fa7331cc968ce6987180",
+    "Paths": 700,
+    "RemovedPaths": [],
+    "Compiler": "9d805b7747df9b4630d6d6216b63c709beea9bfc1946e048620b63c4aefca410",
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "Tests": "90549eac8c223bb96088f86546203822f1bfe115eb238089013bbe18681a6f0a",
+    "ParentSource": "a98b39b53be86742904cda9f4eef15d2da3fbba22ded85f125a80c85a5fa5fd6",
+    "CorpusTool": "1b70d3e60d96435c5d9814cde52a00ab877d005ef31e56df55839182f550f7d6"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BitExpressions.cs": "9de30fcce6e522ff014694fcc5f3c159bc29cacfb5ddc7ee37895a4b5999229b",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ConsCallContinuation.cs": "33db1c1d800d601a41a6b1b934f53b3550d2c3724a1241509abcd6cbda683d06",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": "252137c29998a0370dd3d120ff9c5e9710352d217e333d6a3b64ba62f8feab90",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.NumericComparisons.cs": "8c534dad6bba338897657382cc0f9398cd577f5b550fb80da4c128f1c6cc86f1",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.PackedConsArithmetic.cs": "0e0c873c23d966212c518a20a60b55846ca0ba37e2e7b2cbfd5111f5786a1cda",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedConsInsertion.cs": "439319d194189fc7d66c3c3580e6d62c99e0dccb276bf192bb559a8b18260f39",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedPlainConsGuards.cs": "9dc17540e19bd5a48ef26341d33cde45231ba6c19aaae36a2dc924fac2625e49",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TaggedLookupConsLoop.cs": "1ecee255bee2b70a2536f5b0522ef09a7c6b749396ffe6fb51b59b9d289b27f8",
+    "tests/Erlang.Tests/Compiler/Beam/BeamCheckedListComparisonChecks.cs": "106affeeb6fd9e44f20722af633e0e8c8fbbd8bc90e89d81b1cf0720ab1d847d",
+    "tests/Erlang.Tests/Compiler/Beam/BeamConsCallContinuationChecks.cs": "ce81cdccecbe8dbcbe96ee51c950242ac05c4ad7829ba87c2c1ba2d43e8a9b36",
+    "tests/Erlang.Tests/Compiler/Beam/BeamNamedBitListChecks.cs": "c29dc73c231eee3748cfa325c4c54e9b531333d0977befa940bae65655dec34b",
+    "tests/Erlang.Tests/Compiler/Beam/BeamSharedPlainConsGuardsChecks.cs": "3e19591168c5ec0f9398bdd5380a8a0a452f56b6ea160f797ea8769ddfda5d0a",
+    "tests/Erlang.Tests/Compiler/Beam/Binary/BeamBinaryConstructionStringChecks.cs": "7361a1a7ac79eb0b8c7691c902c6a34e8fc69b441a22dd82f37536b0c7a32f5e",
+    "tests/Erlang.Tests/Compiler/Beam/Binary/BeamBinaryConstructionUnitChecks.cs": "fcb7169dac6191e2b53bab515df13d6d2aac60071fc8de5151949c84c8b219c0",
+    "tests/Erlang.Tests/Harness/Program.cs": "449725a658dca2144117c561b9813ed859942fca3737b43862e8a964c12db8f6"
+  },
+  "CandidateRemovedPaths": {},
+  "PatchSources": {
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\binary-match-audit-1931\\binary-construction-strings-1931.patch": "6cfa617c9470631c2091b18489baa892d80af4156b613f43e34f5b5741157ed5",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\construction-and-list-source-lowering-1931\\adapted-tests\\BinaryString.patch": "49efb4471429d3e31d76b7b159d1e999f8d896b48dda144ebea16d510166ace2",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\plain-list-guard-sharing-1931\\production.patch": "b5488aab976a0f13e00b0ee32ebade2790133ec22f20ddb88ba921597d910366",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\construction-and-list-source-lowering-1931\\adapted-tests\\SharedCons.patch": "e72330823ab733bf06102d17ba1fdcc10b2b10bf126c11af9c31ed143498e413",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\plain-list-guard-sharing-1931\\one-column\\production.patch": "b7e66f10a47accb93f34de84c85a1dc6bd075c319f0345a2da03e22811cfc042",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\construction-and-list-source-lowering-1931\\adapted-tests\\ConsInsertion.patch": "e805580b38adb6f967490ecd66824a8bab7e95b97d189b0a7b2a0cbf1f34109f",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\plain-list-guard-sharing-1931\\cons-call-continuation\\production.patch": "5865b2da061b042ed9a1e1bd275ec984d38111af5b4832326928266a0ca97bd5",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\construction-and-list-source-lowering-1931\\adapted-tests\\ConsContinuation.patch": "f307e44a0c22573ce52006dc85172e8fa5b480e65caa7baee05a5b31cab8136d",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\asn-named-bits-replay-1931\\named-bits.patch": "20a4e62e4df32cc916beffb3f51a5490cb7c73982b6450af247f5ecdfeac5e78",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\construction-and-list-source-lowering-1931\\adapted-tests\\AsnNamedBits.patch": "b693e1717bbcd62d4c92d0e59850409c925059f5ded4b2267fcdc93226a5d28e",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\binary-match-audit-1931\\adjacent-inference\\binary-construction-units.patch": "790206a7006da8cdb493d606885276acf77a830d12a67646d79ca79cd6cafd3d",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\construction-and-list-source-lowering-1931\\adapted-tests\\BinaryResultUnit.patch": "a838b2022278880ad74e9649614a983ea903f371b15790908c230f5f54d52532",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\construction-and-list-source-lowering-1931\\adapted-tests\\CheckedListTypes.patch": "e1c60f5ab67dd6aa9899494d82333934218c4e0b9dad0e6534d7e9dddddb4e61",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\plain-list-guard-sharing-1931\\checked-list-equality\\production.patch": "c95eea1c66ec82e58880c6ce20221faa98c154205103784d1bfef2f5b977dc63",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\construction-and-list-source-lowering-1931\\adapted-tests\\integrated-harness-registrations.patch": "27c8b39cdbd3ff4d84be545bd4d7a0c3d5cd174e7baacaf389f6a95c17b51238"
+  }
+}

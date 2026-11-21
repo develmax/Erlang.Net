@@ -1,0 +1,90 @@
+using static Erlang.Compiler.BeamEmissionFormat;
+
+namespace Erlang.Compiler;
+
+internal sealed partial class BeamModuleCompiler
+{
+    private static void CollectRedundantRecordChecks(
+        IReadOnlyList<BeamInstruction> body,
+        IReadOnlyList<(int Start, int End, int Label)> references,
+        Dictionary<int, (int Target, int End)> relays,
+        List<CodeEdit> edits
+    )
+    {
+        (BeamOperand Source, BeamOperand Fail, BeamOperand Arity, BeamOperand Tag)? proof = null;
+        Dictionary<int, int>? labels = null;
+        Dictionary<int, int>? uses = null;
+        for (int index = 0; index + 1 < body.Count; index++)
+        {
+            var instruction = body[index];
+            if (instruction is { Definition.Opcode: Move or GetTupleElement })
+            {
+                var destination = instruction.Operands[^1];
+                if (proof is { } record && SameProjectionRegister(destination, record.Source))
+                {
+                    proof = null;
+                }
+
+                continue;
+            }
+
+            if (instruction is not
+                {
+                    Definition.Opcode: IsTaggedTuple,
+                    Operands: [
+                    { Kind: BeamOperandParameters.Label } failure,
+                    { Kind: BeamOperandParameters.X or BeamOperandParameters.Y, TypeIndex: null } source,
+                    { Kind: BeamOperandParameters.Unsigned } arity,
+                    { Kind: BeamOperandParameters.Atom } tag
+                    ]
+                })
+            {
+                proof = null;
+                continue;
+            }
+
+            var previous = proof;
+            proof = (source, failure, arity, tag);
+            if (previous is not { } proven || proven.Source != source || proven.Arity != arity || proven.Tag != tag)
+            {
+                continue;
+            }
+
+            if (proven.Fail != failure)
+            {
+                labels ??= body.Select((value, position) => (value, position))
+                    .Where(entry => entry.value.Definition.Opcode == Label)
+                    .ToDictionary(entry => (int)entry.value.Operands[0].Value, entry => entry.position);
+                uses ??= references.GroupBy(reference => reference.Label)
+                    .ToDictionary(group => group.Key, group => group.Count());
+                int earlier = (int)proven.Fail.Value;
+                int redundant = (int)failure.Value;
+                if (uses.GetValueOrDefault(redundant) != 1
+                    || !labels.TryGetValue(earlier, out int first)
+                    || !labels.TryGetValue(redundant, out int second)
+                    || first <= index || second != first + 2 || second + 2 >= body.Count
+                    || !EndsBeamBlock(body[first - 1].Definition.Opcode)
+                    || body[second + 2].Definition.Opcode is not (Label or EndCode)
+                    || body[first + 1] is not { Definition.Opcode: BadRecord, Operands: [var original] }
+                    || body[second + 1] is not { Definition.Opcode: BadRecord, Operands: [var discarded] }
+                    || original != source || discarded != source
+                    || !relays.TryAdd(second, (earlier, second + 2)))
+                {
+                    continue;
+                }
+            }
+
+            proof = proven;
+
+            // No intervening instruction has changed the tested register.
+            // Retain the first failure edge and discard the unreachable second one.
+            edits.Add(new CodeEdit(
+                instruction.Offset,
+                body[index + 1].Offset,
+                0,
+                0,
+                IsRemoval: true
+            ));
+        }
+    }
+}

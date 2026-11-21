@@ -1,0 +1,23 @@
+{
+  "InitialCandidate": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/stack-aliases-and-terminal-constructions-1968-linked-qualified",
+  "InitialFailure": "FAIL compiler/beam/keeps-live-entry-alias-and-delays-cold-case-failure: System.InvalidOperationException: The mixed decision left a dead entry alias or an early case failure.",
+  "Correction": "6ba5ead5822179b2eae0d53eafc37b7a31e4a602d7ad3fe24f9f9d8029733a9b",
+  "Proof": "Pinned OTP and Part1967 fixture reply/1 disassembly are identical. The broad Part1968 application changes projected source and moves a nested failure ahead of outer return.",
+  "Coverage": "Use the measured function-terminal case path only; direct mixed partition fixture is a positive.",
+  "Raw": {
+    "beam_terminal_call_projection.terms": "f6ecce5ff1ed3104ca000c4723f115ee2c62b3fb48924434dceaeeb3290b0392",
+    "before.terms": "f6ecce5ff1ed3104ca000c4723f115ee2c62b3fb48924434dceaeeb3290b0392",
+    "compiler-build.log": "2ea54700546220685fa59730aa393841e480008019909ab09661f4abdb99f1ad",
+    "durable.exit": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "focused-fast.stderr.log": "c3695d7e49c8d1258f5ca18260d546ac380e5cdb575249161975c62804bdf7ee",
+    "focused-identity.json": "5e53110c2ef48d0cc5983c08b5a3b9ca093325ee1214f4ea82deb100f891aa67",
+    "lane-0.json": "2de604b50021cb00015da61cc6982d42c05d03f20d1cc7bc27f5e1849bb1c8bc",
+    "lane-0.stdout.log": "570044aa7ee5b7fa41066ecd3ef3e64c1bdbb5f47a6c9a1ea1891819907b5514",
+    "layout-retake.eval": "5efb84de0bb425148e9ee4a5a86fa486d7481e067dcf07f27f546bbe9a555ca1",
+    "layout.stderr.log": "08929aa94d0b1a6417a4f074c362ca960bb2c4302e281b85e63edcd5ee4669ad",
+    "linked.terms": "30d4ede517448808344567184d09ee101d37b997989b10bcc0ad69d0de74bd55",
+    "source-identities.json": "6cbf9811d30d2392f5229b6b603c034201708a1c76bc898c483c0731d09eb62c",
+    "strict-preflight.json": "e08ba9800d084d23aa9a8260a219b0e387b55f57e5405a297d565966b5dc36a3",
+    "tests-build.log": "5e3bdab6b7bfa54b6da5fdce6ca2e2fdd6ee994fb848b0c88c9ed04b125df7b3"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "Parent": {
+    "Source": "c6b33192521ca97c906d655e44b9044842ad009db5a97c45cff305255e03b3e6",
+    "Paths": 249,
+    "Compiler": "31f466421437b6083872cdc41077f02cc74d5495567d8e21390f2196e81379de",
+    "Tests": "2aac4bb563d28cb1ca70c90a383760ed1a666751f13589ae889e6192f29b4c98",
+    "ParentSource": "16e25af2b4c5a51e01264966581f4ae9a72f237a45965a96e63a687e284bed12",
+    "CorpusTool": "063539a5af152a4c4b95e2b6abc021ff512b0b1abb9931aee9bafaea5fc951a9"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryClauseFrames.cs": "25fbb82821aed1dc6438372476b82ceaf225d16bf864586d9192354eaf835e0e",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ListConversionResults.cs": "fbb92962367fe3127468e20e5694325c126ed6a135b6c2e7f99d8dbdccd92a39",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ListResults.cs": "3a243aa2a5abcc177ad0f6e3b03dd873692833baac3f02517b49ae9e7701531f",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProjectionMoves.cs": "724d23e073ab443f71e45b6dd57f5a79299b8d5e4d985772752eb86d0d85a9d0",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SingletonConsDispatch.cs": "02a4496e286297ca971676a7e0566d2f3e396bc03085650706b37f589ac40088",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TaggedPatterns.cs": "7d548e0369d37d7b554b753d3c5a0f90e0a0e331a9e95dd37ec40bab2daaa36c",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TypeFirstUse.cs": "9c187ac62b37945301196b56927ee674e9ea10350bc4094ee68fdc6b08c2a6b2",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": "fd476386076311f3f0dbfb4a5fbc6f5956bfbe394bc39cd59b26d9a858cca2d1",
+    "tests/Erlang.Tests/Compiler/Beam/BeamListConversionResultChecks.cs": "7b76369a6528d54521a2a2c8ca6392b16008344cfbd6370bdf5b3cdbbe44afa8",
+    "tests/Erlang.Tests/Compiler/Beam/BeamSharedListHeadArityChecks.cs": "bfea3c8051dac9d944b62b643139938eb3285b85aaad1f8ffb306215bb94747b",
+    "tests/Erlang.Tests/Compiler/Beam/BeamTypeFirstUseChecks.cs": "89f773dd9e383f0e57d074be23009df1e96e97c3b2c9442e1dcc44d884ae42e1",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamRetainedConstructorAliasChecks.cs": "57bf2e421254f4c59afd98ec3810e93de4cc263c057776cc488d634a43d544a9",
+    "tests/Erlang.Tests/Harness/Program.cs": "80986ff8ebb84cc5553eff0ec61f0d52ec5d30bb991252d5b439442aeff22d43"
+  },
+  "Patches": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\shared-head-arity-and-final-type-order-1886\\shared-list-head-tuple-arity.patch",
+      "Hash": "dd0d1ab02bff30b26217e87d40561d3ffe7a78eca4ffc51dd99821fd87c4c0ec"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\shared-head-arity-and-final-type-order-1886\\final-type-first-use-order.patch",
+      "Hash": "767181769b733568c447ae64ca665a12ebbba2e50b0934e63cc558228ba370cb"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\shared-head-arity-and-final-type-order-1886\\preserve-projected-call-capture.patch",
+      "Hash": "f1d27d0fd1ee553c5a412ebfc6cdf7d21e2ea4a3cdd54a8ae8bffe36a35cef31"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\shared-head-arity-and-final-type-order-1886\\list-conversion-result-types.patch",
+      "Hash": "fcdc88b6af8c59d531e614f204609b39bf919847c9af3fb78b0cdc5217d5fba6"
+    }
+  ],
+  "MainHook": "Rebase both emission hooks after finite inference, with first-use ordering last.",
+  "FirstCompilationAttempt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\shared-head-arity-and-final-type-order-1886",
+  "BindingFix": "Qualify the pattern types in GeneralEmitter and give the empty fallback a distinct local binding."
+}

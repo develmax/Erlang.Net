@@ -1,0 +1,165 @@
+{
+  "Source": "5749e14639d5d7fadfb4cf111aec4813f9fdbfe59e3643afe4b9e7038f0fec9c",
+  "Reference": "OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "BaselineCompiler": "061352dd54adf01c548a224825c3930a6a8d73b09d0212324d1e2c9b576d6518",
+  "Compiler": "c2846c196d6452f647c8551388fe05c8745585c2945df9cafcad44db1ad5d594",
+  "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+  "SDK": "10.0.400",
+  "CompilerInputs": "c0ded6033b2b9a599f5a2d7af9e3ea10617520972a58105c52bcdafb030c682b",
+  "CompilerSourceCount": 929,
+  "Scope": {
+    "Different": 5,
+    "Equal": 5,
+    "Unsupported": 0,
+    "SourceRejected": 0
+  },
+  "ScopeModules": 10,
+  "ScopeMilliseconds": {
+    "baseline": 6751.3339,
+    "candidate": 6155.0673
+  },
+  "NormalizedWithLineGains": {
+    "ETS": 5,
+    "DETS": 7,
+    "Mnesia": 1
+  },
+  "NormalizedWithLineLosses": 0,
+  "WholeFileGains": 0,
+  "WholeFileLosses": 0,
+  "Remaining": "ETS info/1 still differs in late return layout. All five raw-equal controls, including ex_gauge, have unchanged bytes.",
+  "Physical": {
+    "snmpa_mib_storage_dets": {
+      "Changed": [
+        "Attr",
+        "Code",
+        "FunT"
+      ],
+      "BeforeVsPinned": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "FunT",
+        "ImpT",
+        "Line",
+        "LitT",
+        "LocT",
+        "Type"
+      ],
+      "AfterVsPinned": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "FunT",
+        "ImpT",
+        "Line",
+        "LitT",
+        "LocT",
+        "Type"
+      ],
+      "CodeBytesBefore": 2477,
+      "CodeBytesAfter": 2403
+    },
+    "snmpa_mib_storage_ets": {
+      "Changed": [
+        "Attr",
+        "Code"
+      ],
+      "BeforeVsPinned": [
+        "Attr",
+        "Code",
+        "ExpT",
+        "LitT",
+        "LocT"
+      ],
+      "AfterVsPinned": [
+        "Attr",
+        "Code",
+        "ExpT",
+        "LitT",
+        "LocT"
+      ],
+      "CodeBytesBefore": 2779,
+      "CodeBytesAfter": 2723
+    },
+    "snmpa_mib_storage_mnesia": {
+      "Changed": [
+        "Attr",
+        "Code",
+        "FunT"
+      ],
+      "BeforeVsPinned": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "FunT",
+        "ImpT",
+        "Line",
+        "LocT",
+        "Type"
+      ],
+      "AfterVsPinned": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "FunT",
+        "ImpT",
+        "Line",
+        "LocT",
+        "Type"
+      ],
+      "CodeBytesBefore": 2252,
+      "CodeBytesAfter": 2240
+    }
+  },
+  "Strict": {
+    "Source": "5749e14639d5d7fadfb4cf111aec4813f9fdbfe59e3643afe4b9e7038f0fec9c",
+    "BaselineCompiler": "061352dd54adf01c548a224825c3930a6a8d73b09d0212324d1e2c9b576d6518",
+    "Patches": {
+      "production-corrected.patch": "be036c8ae3f6304ca2499ee476c2f82a41be9c26edea8a801965769cad666d61",
+      "test-corrected.patch": "3d9d7334e22323205babc7f193db3839727c557c11acb88bb919da0980d685f6"
+    },
+    "Files": {
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": {
+        "Before": "020600833813d2a9e1d39542d82d4d814373f06073800d5e81520632c3b6c53e",
+        "After": "c648150ed431ca6395550bf3000010e7c05cc7bcfc914ff47e5b82255f6acf22"
+      },
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DictionaryArgumentContinuation.cs": {
+        "Before": null,
+        "After": "8daa01a5f9dc4c18192e1689fd0d7a533dc7c5ceb51e336295c1e66e98de889a"
+      },
+      "tests/Erlang.Tests/Compiler/Beam/BeamDictionaryArgumentContinuationChecks.cs": {
+        "Before": null,
+        "After": "2de03b68b21ab08bb8e4cb8c87321db57a0715cc51620fd36d495ad5c9adbf84"
+      },
+      "tests/Erlang.Tests/Harness/Program.cs": {
+        "Before": "16806855d6dc9f558baac73b6780f979b71eceab9dd38aca9a8037400570f2b2",
+        "After": "ff57daf522a9bca70fae435018ddcc66c334bce95a26bd88ece695fe7e9278e6"
+      }
+    }
+  },
+  "Native": "72fbfc7c1fd8dc74acbb472212668311ca63b47c9ac1bf0140d66a3ceeec182e",
+  "Evidence": {
+    "compiler-build.log": "f3f943bd129e5ec4ca245f2d6b2d53226428c9d96997c6a69f32f3fbffa206a1",
+    "initial-build-failure/compiler-build.log": "67fb1172bd0886535b8453d314c93d249d1e8532d3a2d21cdcaa51e85a2a2b2f",
+    "strict-replay-corrected.json": "5d5a87b08be843e8fd3305950719be6f407e7ac82c8187dd611f8f3f13d3f7f4",
+    "test-identities.json": "5ab5ae8475c4478dfd19386952c718c14702c7541d582e67e59383e92cf9c812",
+    "test-baseline.stderr.log": "5006dd16ab62db59d8ea1e72cad599ea355dc59e998f2462bc884771e056e8f7",
+    "test-candidate.log": "d4b69d741a240eae0a15dda3ff50329a6bfff27c9209f02a31d43f733185b564",
+    "style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "scope-baseline.json": "74290fa1f75bb27db9589813b04d3d79415269c7bdf911c1e5d17dd1ba0618ba",
+    "scope-candidate.json": "8025e3c972914f1241372e4af67a253c0da654c0a73890a1505ff9394a93cebb",
+    "scope-baseline.json.timings.json": "ce2234745f8ac7416b0b2b999fc70108c6ba858242254e927ca1e824b7028087",
+    "scope-candidate.json.timings.json": "00d2c756b8376493154348752e76952ba3688827978c8da0a7f5987f21cf2a1c",
+    "scope-delta.json": "0b3a62e5a36fa431d98d469b08bd65d8ea5c7565c0f20c9d027da6eb2bef21ec",
+    "audit-changed.eval": "ae2254c527d083796f3cb5d1b264ef07578e814f3e5f6888346382d20a0f3289",
+    "audit-changed.terms": "8a10892b01dd0acabe975ff43eb01bdee52845026d31d4a901b0a02e799fa3c9",
+    "native-receipt.json": "72fbfc7c1fd8dc74acbb472212668311ca63b47c9ac1bf0140d66a3ceeec182e",
+    "source-freeze.json": "5799eee8bd5faaa2010b517c9f372197dd723ed95df4203b2a85337bb1417c6c",
+    "baseline-inputs.json": "72ccdab472702dafcd0d070256b1d9335181f15358488bd241e2998652b2e6f4",
+    "modules.txt": "97f5e43e1ea1984de8924146d8860fdda78672d6f087c4a0d3324f747aee2553"
+  }
+}

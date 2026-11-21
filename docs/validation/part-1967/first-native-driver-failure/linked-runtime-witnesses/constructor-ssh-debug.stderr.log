@@ -1,0 +1,28 @@
+Error! Failed to eval: [Ref,Base,Candidate]=init:get_plain_arguments(),
+Dirs=[filename:join([Base,"shard-"++integer_to_list(I),"otp-corpus.json.generated"])||I<-lists:seq(0,4)],
+Paths=[{"lib/ssh-6.0.6/ebin/ssh_dbg.beam",ssh_dbg},{"lib/asn1-5.5.2/ebin/asn1ct_gen_ber_bin_v2.beam",asn1ct_gen_ber_bin_v2}],
+lists:foreach(fun({P,M})->
+   [Parent]=[filename:join(D,P)||D<-Dirs,filelib:is_regular(filename:join(D,P))],
+   Pin=filename:join(Ref,P),
+   CandidatePath=filename:join(Candidate,P),
+   Values=[begin
+       {ok,B}=file:read_file(F),
+       code:purge(M),
+       code:delete(M),
+       {module,M}=code:load_binary(M,F,B),
+       case M of
+           ssh_dbg ->
+               [iolist_to_binary(M:wr_record({record,42,hidden},[shown,concealed],[concealed])),
+                iolist_to_binary(M:wr_record([record,first,second],[left,right],[])),
+                M:wr_record({record},[],[])];
+           _->loaded
+       end
+       end || F<-[Pin,Parent,CandidatePath]],
+   [Same,Same,Same]=Values,
+   io:format("~tp.~n",[{M,Same}])
+end,Paths),halt(0).
+
+
+Runtime terminating during boot ({{badmatch,[]},[{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,796}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{lists,foreach_1,2,[{file,"lists.erl"},{line,2641}]},{erl_eval,do_apply,7,[{file,"erl_eval.erl"},{line,1044}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{init,start_it,1,[{file,"init.erl"},{line,1561}]},{init,start_em,1,[{file,"init.erl"},{line,1546}]},{init,do_boot,3,[{file,"init.erl"},{line,1217}]}]})
+
+Crash dump is being written to: D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\checked-tuples-and-constructor-order-1967-linked-retake\linked-runtime-witnesses\constructor-ssh-debug-crash.dump...done

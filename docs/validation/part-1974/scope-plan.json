@@ -1,0 +1,18 @@
+{
+  "NewTests": [
+    "compiler/beam/uses-zero-slot-frame-for-single-returning-call",
+    "compiler/beam/removes-precall-frame-aliases-without-crossing-gc"
+  ],
+  "AffectedAndControlImages": 69,
+  "ParentScopeDeferred": false,
+  "ReleaseEvidence": [
+    "31 bounded ordinary-call functions",
+    "18 differing modules with bounded no-GC precall copies",
+    "Single owned frame with all lower X roots initialized"
+  ],
+  "CompileCache": false,
+  "SourceParent": "3a834f1bd054df421f7d563178599b2bd4cf868dfd0c475ee1cb810e42e20cfa",
+  "ModuleCount": 102,
+  "ReleaseNativeCases": 259,
+  "SyntheticCases": 216
+}

@@ -1,0 +1,11 @@
+[Image]=init:get_plain_arguments(),
+M=beam_leading_variable_mixed_defs,
+{ok,Bin}=file:read_file(Image),
+{module,M}=code:load_binary(M,Image,Bin),
+shortcut=M:fill(shortcut,{state,[]}),
+Expected={selected,[{hit,selected,true},{old,saved,false}],extra},
+Expected=M:fill({selected,[{old,saved}],extra},{state,[{hit,selected},{miss,different}]}),
+[{early,one},{early,two}]=M:leading_effect([one,two],{state,[]}),
+Expected=M:leading_effect({selected,[{old,saved}],extra},{state,[{hit,selected},{miss,different}]}),
+io:format("~p.~n",[{passed,[early_return,frozen_fold_filter_and_map,early_definition_control,reachable_later_group]}]),
+halt(0).

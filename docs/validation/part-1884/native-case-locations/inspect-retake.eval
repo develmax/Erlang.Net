@@ -1,0 +1,17 @@
+[ModulePath, Output] = init:get_plain_arguments(),
+{ok,Beam}=file:read_file(ModulePath),
+{module,beam_case_failure_position}=code:load_binary(beam_case_failure_position,ModulePath,Beam),
+F=fun(Name,Arg)->
+    try apply(beam_case_failure_position,Name,[Arg]) of V->{ok,V}
+    catch error:Reason:Stack->
+        [{beam_case_failure_position,Fn,A,Location}|_]=Stack,
+        {error,Reason,Fn,A,Location}
+    end
+end,
+Rows=[{N,Arg,F(N,Arg)} || {N,Arg}<-[{pick,wrong},{pick,{one,5}},{called,wrong},{nested,{inner,wrong}}, {nested,wrong}, {covered,wrong}, {mapped,wrong}]],
+{beam_file,beam_case_failure_position,_,_,_,Functions}=beam_disasm:file(ModulePath),
+Ends=fun(Ops)->[{Prev,Op} || {Prev,Op={case_end,_}}<-lists:zip([none|lists:droplast(Ops)],Ops)] end,
+Results = #{values=>Rows, case_ends => [{N,A,Ends(Ops)}||{function,N,A,_,Ops}<-Functions]},
+ok=file:write_file(Output,io_lib:format("~tp.~n",[Results])),
+halt().
+

@@ -1,0 +1,79 @@
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12596,6 +12596,10 @@
+ );
+ Test(Erlang.Tests.BeamClosedListLengthEntryChecks.TestName, Erlang.Tests.BeamClosedListLengthEntryChecks.Run);
+ Test(Erlang.Tests.BeamClosedListTerminalBodyChecks.TestName, Erlang.Tests.BeamClosedListTerminalBodyChecks.Run);
++Test(
++    Erlang.Tests.BeamClosedListTerminalBodyChecks.CopiesTestName,
++    Erlang.Tests.BeamClosedListTerminalBodyChecks.RunCopies
++);
+ Test(Erlang.Tests.BeamCallArgumentKillsChecks.TestName, Erlang.Tests.BeamCallArgumentKillsChecks.Run);
+ Test(Erlang.Tests.BeamMeasuredDecoderPairChecks.TestName, Erlang.Tests.BeamMeasuredDecoderPairChecks.Run);
+ Test(Erlang.Tests.BeamClosedDecoderTagsChecks.TestName, Erlang.Tests.BeamClosedDecoderTagsChecks.Run);
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamClosedListTerminalBodyChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamClosedListTerminalBodyChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamClosedListTerminalBodyChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamClosedListTerminalBodyChecks.cs
+@@ -1,4 +1,5 @@
+ using System.Collections;
++using System.Numerics;
+ using Erlang.Compiler;
+ using static Erlang.Compiler.BeamEmissionFormat;
+ using static Erlang.Tests.BeamBinaryHostAccess;
+@@ -8,6 +9,8 @@
+ internal static class BeamClosedListTerminalBodyChecks
+ {
+     internal const string TestName = "compiler/beam/plans-terminal-constructors-in-checked-list-arms";
++    internal const string CopiesTestName = "compiler/beam/delays-result-spills-after-checked-list-arguments";
++    private const string CopiesShapeError = "The saved call missed the delayed result-copy and argument swap.";
+     private const string ShapeError = "The terminal return kept a stack slot for its closed constructor value.";
+     private const string LiteralOperand = "literal";
+     private const string Module = "beam_closed_list_terminal_body";
+@@ -40,6 +43,38 @@
+         }
+     }
+ 
++    internal static void RunCopies()
++    {
++        string local = Source.Replace("service:configure", "configure", StringComparison.Ordinal)
++            + "\nconfigure(A,P,R) -> service:configure(A,P,R).\n";
++        if (!UsesDelayedArgumentSwap(local) || UsesDelayedArgumentSwap(Source))
++        {
++            throw new InvalidOperationException(CopiesShapeError);
++        }
++    }
++
++    private static bool UsesDelayedArgumentSwap(string source)
++    {
++        object code = Code(CodeGeneration.CompileBeamModule(source, Module + ".erl"));
++        object[] instructions = Children(code, "Instructions");
++        for (int index = 3; index < instructions.Length; index++)
++        {
++            if (Opcode(instructions[index]) == Swap
++                && Children(instructions[index], "Operands").Select(Value).SequenceEqual([0, 2])
++                && Opcode(instructions[index - 3]) == Move
++                && Value(Children(instructions[index - 3], "Operands")[1]) == 2
++                && Opcode(instructions[index - 2]) == Move
++                && Value(Children(instructions[index - 2], "Operands")[0]) == 0
++                && Opcode(instructions[index - 1]) == Move
++                && Value(Children(instructions[index - 1], "Operands")[1]) == 1)
++            {
++                return true;
++            }
++        }
++
++        return false;
++    }
++
+     private static bool KeepsFlagsInTerminalConstructor(string source)
+     {
+         object code = Code(CodeGeneration.CompileBeamModule(source, Module + ".erl"));
+@@ -51,5 +86,7 @@
+ 
+     private static object[] Children(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
+ 
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++
+     private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
+ }

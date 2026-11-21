@@ -1,0 +1,70 @@
+{
+  "Baseline": "C918199574344400663513D3D56F4D31765BF33092FAFCA0DEDC0A03F09BA28E",
+  "Compiler": "27121C37F994CBC2CEDA46A1999D7B55337419C73615383BDCD29DFB59CE972E",
+  "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+  "Reference": "OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "NativePassed": 107,
+  "NormalizedGains": 4,
+  "NormalizedLosses": 0,
+  "WholeImageGains": 0,
+  "RegressionPassed": 3,
+  "NewRegressionFailsBaseline": true,
+  "FormatterScopeNote": "The candidate triggers one unrelated existing pattern-indentation change under the frozen formatter. This verified patch omits that formatter-only hunk; apply the integrated layout gate.",
+  "Images": {
+    "lib/public_key-1.21.7/ebin/EnrollmentMessageSyntax-2009.beam": {
+      "Oracle": "AD1F67280F2EBDDD70BE9151DE4610C85D70BF10A770489599743D2A36954045",
+      "Baseline": "09EC395EA089338DA6EA8C82A675EFE015C3FDB61C9178A6230A428B30FD24CF",
+      "Candidate": "cfa744f869bc36fdc653ca2f90ee170f96f921b4d53b7c4ab71df347d8c19bce",
+      "Normalized": [
+        641,
+        642
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/PKIX1Implicit-2009.beam": {
+      "Oracle": "2E67439BD0A525610DC8B4B8B317A83F75E6B33508614DCCDB81EAE1581EF5CF",
+      "Baseline": "3D47D3C7F2716D830AF067796423FD212B3B80C00628A1332AB898059E61EF7A",
+      "Candidate": "cd63358031ba85e349f9f97b3b5697377a2bb47ab269ed5ad9c6746979e2cfe2",
+      "Normalized": [
+        382,
+        383
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/PKIXAttributeCertificate-2009.beam": {
+      "Oracle": "B05D69F57E8295828E22C36D3FB44D01395D4F3483849B28C5F97569E708B92C",
+      "Baseline": "D8F1130044FA6597249F41A66E3B307EB8158959F17BEE658C7A65E0F38C3C22",
+      "Candidate": "2715346ed1df2bc208c8df7ed1f320d44deebb25fa56a18583ecb4bb8f1bde69",
+      "Normalized": [
+        314,
+        315
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/PKIXCMP-2023.beam": {
+      "Oracle": "BE1E59D5E8A9564963B67DE66AD03FB5AD998F61AC5C58FA454A360F4E6C4A9B",
+      "Baseline": "9D9273EC5EED510577B60B393A6EBBE33A7C46FADBA8D53FA41160B469C02214",
+      "Candidate": "2fdf2079bfce044d8c017c7ff3e412b11e6f7fa6d349f6db81223ccb1083b095",
+      "Normalized": [
+        442,
+        443
+      ]
+    }
+  },
+  "Evidence": {
+    "packed-continuation.patch": "ce2427f7646dc4da664a0f90e25404716f8f974b57c4d19598b8a7d20a218e6e",
+    "packed-continuation-tests.patch": "80bc0cc295e2a195f675e1f8e8d9da4f98d94ef3cc803858cc0c8dd91f2baba0",
+    "strict-replay-receipt.json": "2c26d9a70e66d9784cd8cad94363db03f080cc35d1adca294a022483f8859c0b",
+    "source-receipt.json": "b2f835f7d838550d94166b10a0412d2e1f76a272741d77dc27c185954baebc36",
+    "complete-source-identities.json": "d38b5ba9e16a4585106069eb4618ab8026e36239bf33adf57f01cbca89265ee1",
+    "build.log": "b6b53ca5a9e3e9addc03cfe1678c5be538089f54bcec05fbe58222ec2967985b",
+    "corpus.json": "58dd1904cfcb27d0d88c7bc6f5ee90f42fae533130e9024ef8079aecb8073007",
+    "normalized.log": "983a0371bbe480fc5391838d15efad45fe3d668136ea266d8a2ebddc2a790f38",
+    "native-multiple-octets.eval": "4cec27b39951f385f487bf830f069c58b4d147b5b3e074c03ee7a42ed1b85e88",
+    "native.log": "af95fd62bad224ab208e3bcf1fdc0444cd88701a1ace74bc5858918144744ef4",
+    "test-identities.json": "954832b1a3bed750e70c378a6a7e497a41c76478ea7b8d9c6a4c8a0c1270492f",
+    "tests-build.log": "587f24f6f2b2899d2da226034a8550a47dd12cc74a3e2892442284dd41843970",
+    "tests-baseline.log": "8fa4e3726c29d43ac19dfdbc7bd10dca1f50c0fcea5abe580be8d6dc7fe6a699",
+    "tests-candidate.log": "579367ee9c93d98d5bbe983319382fdfa16734bd4b3dc861dbb401406be8af7d",
+    "style-write.log": "cd9054a77a078cb0f888bd4ecac39be95189f9307ef578f4b6ac97c22a9463b6",
+    "style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "style-baseline.log": "5b2b97def6c44d903a42048a5e3f6f72194d3447e0b115214a7d6cced315e898"
+  }
+}

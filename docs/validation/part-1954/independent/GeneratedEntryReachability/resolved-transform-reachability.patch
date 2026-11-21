@@ -1,0 +1,180 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamSourceReachability.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamSourceReachability.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamSourceReachability.cs
+@@ -0,0 +1,65 @@
++namespace Erlang.Compiler;
++
++internal static class BeamSourceReachability
++{
++    internal static (IReadOnlyList<FunctionDefinition>, IReadOnlyList<BeamSourceLocation>) Retain(
++        IReadOnlyList<FunctionDefinition> functions,
++        IReadOnlyList<BeamSourceLocation> lines,
++        Func<FunctionDefinition, bool> isRoot,
++        string? transformedModule = null
++    )
++    {
++        var retained = new bool[functions.Count];
++        var pending = new Queue<int>();
++        var indices = new Dictionary<(string Name, int Arity), int>();
++        for (int index = 0; index < functions.Count; index++)
++        {
++            FunctionDefinition function = functions[index];
++            var signature = (function.Name, function.Arity);
++            indices.Add(signature, index);
++            if (isRoot(function))
++            {
++                retained[index] = true;
++                pending.Enqueue(index);
++            }
++        }
++
++        while (pending.TryDequeue(out int caller))
++        {
++            foreach (Expr expression in LocalFunctionEntries.ClauseExpressions(functions[caller].Clauses)
++                .SelectMany(LocalFunctionEntries.Walk))
++            {
++                if (transformedModule is not null && HasOpaqueDispatch(expression))
++                {
++                    return (functions, lines);
++                }
++
++                var reference = expression switch
++                {
++                    Expr.Call { Module: null, DynamicRemote: false } local => (local.Function, local.Arguments.Count),
++                    Expr.Call { DynamicRemote: false } self when transformedModule is not null && self.Module == transformedModule
++                        => (self.Function, self.Arguments.Count),
++                    Expr.FunctionReference local => (local.Name, local.Arity),
++                    _ => default
++                };
++                if (reference.Item1 is not null && indices.TryGetValue(reference, out int target) && !retained[target])
++                {
++                    retained[target] = true;
++                    pending.Enqueue(target);
++                }
++            }
++        }
++
++        return (functions.Where((_, index) => retained[index]).ToArray(),
++            lines.Where((_, index) => retained[index]).ToArray());
++    }
++
++    private static bool HasOpaqueDispatch(Expr expression) => expression is
++        Expr.Apply { Function: not (Expr.FunctionReference or Expr.Fun) }
++        or Expr.Call { DynamicRemote: true }
++        or Expr.Call
++        {
++            Module: null or ErlangModuleNames.Module,
++            Function: AutoImportNames.Apply or FunctionReferenceLoweringNames.MakeFunction
++        };
++}
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamTargetedInlining.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamTargetedInlining.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamTargetedInlining.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamTargetedInlining.cs
+@@ -408,44 +408,20 @@
+             lines.Add(location);
+         }
+ 
+-        var retained = new bool[functions.Count];
+-        var pending = new Queue<int>();
+-        var indices = new Dictionary<(string, int), int>();
+-        for (int index = 0; index < functions.Count; index++)
+-        {
+-            FunctionDefinition function = functions[index];
++        return BeamSourceReachability.Retain(
++            functions,
++            lines,
++            IsInliningRoot
++        );
++
++        bool IsInliningRoot(FunctionDefinition function)
++        {
+             var signature = (function.Name, function.Arity);
+-            indices.Add(signature, index);
+-            if ((!function.IsInlineFailure && !targets.ContainsKey(signature) && !dispatches.ContainsKey(signature))
++
++            return (!function.IsInlineFailure && !targets.ContainsKey(signature) && !dispatches.ContainsKey(signature))
+                 || releaseTargets.Contains(signature) && !substitutedReleaseTargets.Contains(signature)
+-                || exports.Contains(signature) || function.Arity == 0 && function.Name == module.OnLoadFunction)
+-            {
+-                retained[index] = true;
+-                pending.Enqueue(index);
+-            }
+-        }
+-
+-        while (pending.TryDequeue(out int caller))
+-        {
+-            foreach (Expr expression in LocalFunctionEntries.ClauseExpressions(functions[caller].Clauses)
+-                .SelectMany(LocalFunctionEntries.Walk))
+-            {
+-                var reference = expression switch
+-                {
+-                    Expr.Call { Module: null, DynamicRemote: false } local => (local.Function, local.Arguments.Count),
+-                    Expr.FunctionReference local => (local.Name, local.Arity),
+-                    _ => default
+-                };
+-                if (reference.Item1 is not null && indices.TryGetValue(reference, out int target) && !retained[target])
+-                {
+-                    retained[target] = true;
+-                    pending.Enqueue(target);
+-                }
+-            }
+-        }
+-
+-        return (functions.Where((_, index) => retained[index]).ToArray(),
+-            lines.Where((_, index) => retained[index]).ToArray());
++                || exports.Contains(signature) || function.Arity == 0 && function.Name == module.OnLoadFunction;
++        }
+     }
+ 
+     private static bool IsBoundedReleaseLeaf(Clause clause, int baseSize)
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/CodeGeneration.cs b/src/Compiler/Erlang.Compiler/Compilation/CodeGeneration.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/CodeGeneration.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/CodeGeneration.cs
+@@ -236,6 +236,24 @@
+                 profileInlining
+             );
+         }
++        if (module.HasResolvedDiameterRecordTransform)
++        {
++            (functions, lines) = BeamSourceReachability.Retain(
++                functions,
++                lines,
++                IsTransformedRoot,
++                module.Name
++            );
++        }
++
++        bool IsTransformedRoot(FunctionDefinition function)
++        {
++            var signature = (function.Name, function.Arity);
++
++            return exports.Contains(signature) || function.Arity == 0 && function.Name == module.OnLoadFunction
++                || module.DeclaredNifs?.Contains(signature) == true;
++        }
++
+         var specs = buildProfile is null && module.Documentation.Count == 0 && !module.HasGeneratedEunitTest
+             ? new Dictionary<int, Parser.ReleaseSpec>()
+             : BeamSourceForms.Starts(tokens)
+diff --git a/src/Compiler/Erlang.Compiler/Syntax/Ast/ModuleDefinition.cs b/src/Compiler/Erlang.Compiler/Syntax/Ast/ModuleDefinition.cs
+--- a/src/Compiler/Erlang.Compiler/Syntax/Ast/ModuleDefinition.cs
++++ b/src/Compiler/Erlang.Compiler/Syntax/Ast/ModuleDefinition.cs
+@@ -28,6 +28,7 @@
+     internal IReadOnlyList<(string Name, int Arity)> EunitExports { get; init; } = [];
+     internal int EunitAutoExportCount { get; init; }
+     internal IReadOnlyList<int> DiameterAccessorLines { get; init; } = [];
++    internal bool HasResolvedDiameterRecordTransform { get; init; }
+     internal bool HasGeneratedEunitTest { get; init; }
+     internal bool HasOtherCompileOptions { get; init; }
+     internal bool DisableModuleOptimization { get; init; }
+diff --git a/src/Compiler/Erlang.Compiler/Syntax/Parser.cs b/src/Compiler/Erlang.Compiler/Syntax/Parser.cs
+--- a/src/Compiler/Erlang.Compiler/Syntax/Parser.cs
++++ b/src/Compiler/Erlang.Compiler/Syntax/Parser.cs
+@@ -332,6 +332,7 @@
+             OnLoadFunction = onLoad,
+             EunitExports = eunitExports,
+             DiameterAccessorLines = diameterAccessorLines,
++            HasResolvedDiameterRecordTransform = callBindings.HasDiameterRecordTransform,
+             EunitAutoExportCount = callBindings.EunitAutoExportCount,
+             HasGeneratedEunitTest = generatedEunitTest,
+             Documentation = documentation.AsReadOnly(),

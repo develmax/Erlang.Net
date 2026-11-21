@@ -1,0 +1,57 @@
+{
+  "Parent": {
+    "Source": "360f1f7bb6428560f7c0e833a7835a9329a67a158462fd058a924194f162dbde",
+    "Paths": 275,
+    "Compiler": "11a21aad9d7badcb2d5479c297092735db156754849b24d6aae9b124324e51d0",
+    "Tests": "f1876fffedd1540962603102ceea7b9e077d046742846120417fad285f4b7658",
+    "ParentSource": "5f5d6a4f6e65d2c6bed7938474e9317426bbea0b08dc8ca90cd19644d12c0733",
+    "CorpusTool": "35b65bd1b3e4a573604b50950dcad63130c2b9ba97c4927a77c43ea0c1ae3925"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BranchStackSlots.cs": "448cd944ed7a5021202d64ecfeb06d24e71d695a8d83169c714629231edcae2f",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DisjointFrameSlots.cs": "f832edc89ad3e5f1ff55302946fdfe43146f7f0eae5110de5198bdb1df1922e7",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LateAtomicProjectionSlots.cs": "d7c56c4ad5a19b39d091b986ad3c961f186bb3b56a7acccefbf18c6d3b5afbca",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LinearStackSlots.cs": "4db31908df85e982c904dc06bc5ae5be1a261778765885c37b9626255832ba09",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.OverwrittenTupleProjections.cs": "3902d4b4cd45a6ad525c870f66d57442ff33ba88d86e965aa5a85a2c0988dfab",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": "7eebae80978732e8a1a10aead65acc190b8a21995cc4a43946bb3cc276388d1f",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamReleaseFunctionDebug.cs": "1d0b192373a8bc38be97501977ed4b0eeb73b4101c16cea373fbb988d50db882",
+    "tests/Erlang.Tests/Compiler/Beam/BeamBootstrapLibraryIncludeChecks.cs": "0166555b1d6e8f30f2fb5812529259549bf1c20adb9766923b0d428966fede8d",
+    "tests/Erlang.Tests/Compiler/Beam/BeamListTailAnnotationChecks.cs": "5be1ade58e3295aba9d8becc16770e012b99133a67268ba19492b1ec9e64efab",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamAtomicProjectionFrameChecks.cs": "de18cbc53a99e1002f3bd0c8093e95d8faa18ae6fd377f1604e98268827b84c2",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamOverwrittenTupleProjectionChecks.cs": "99886d60f36db6d8373cce05a2623b9862f5b6a2bbfc94ebdb112086a13a5a28",
+    "tests/Erlang.Tests/Harness/Program.cs": "cf638d2100b4ae660310db86daa02e466a9404837dc72e1fac6caa79153840f4",
+    "tools/Validation/Erlang.BeamCorpus/OtpWindowsBootstrapLibraryIncludePaths.cs": "ea1f84d140b690b8103276a0b42cfe6a5cc4ee9102f3aaa10e78e7c98be904ff"
+  },
+  "Patches": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\atomic-projection-and-list-source-annotations-1890\\atomic-stack-projection-aliases.patch",
+      "Hash": "d6e69c4e562e6680abe2790ae25d4fc3c02653af840c23b305d4c87aa6872cb7"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\atomic-projection-and-list-source-annotations-1890\\list-tail-first-annotation.patch",
+      "Hash": "9579f80695aa181a4b3f7bb0ff5257e0a07073d2f5e9fba80cecb2db04a0efdd"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\atomic-projection-and-list-source-annotations-1890\\runtime-tools-and-ssh-provenance.patch",
+      "Hash": "9e3eeb81922ed046fba8ecf2d399813a14220ae8f36788f463090c2e635987ab"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\atomic-projection-and-list-source-annotations-1890\\terminal-x-projection-use.patch",
+      "Hash": "9e89aae859f597965c7f191eb4ef4aa96575c6f5b80256a3a1a2b960462f71f0"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\atomic-projection-and-list-source-annotations-1890-schedule-retake\\fixture-wire.patch",
+      "Hash": "e3af5d5e2fded3b639633e36bb48a9c42eab3cdd2b7f3362413cb7fb10ce5654"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\atomic-projection-and-list-source-annotations-1890-schedule-retake\\late-atomic-projection-slot-aliasing.patch",
+      "Hash": "3aa9c2ba26bc79d4496d067446715dc019cccc77fbbf93503c12004d13e0a23c"
+    }
+  ],
+  "HarnessRegistrations": [
+    "BeamAtomicProjectionFrameChecks",
+    "BeamListTailAnnotationChecks"
+  ],
+  "FailurePreservedAt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\atomic-projection-and-list-source-annotations-1890\\focused.log",
+  "ReferenceWitnessAudit": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\atomic-projection-and-list-source-annotations-1890\\exact-failure-audit\\f-to-g.txt"
+}

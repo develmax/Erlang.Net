@@ -1,0 +1,15 @@
+Input=os:getenv("ERL_JARO_INPUT"), Out=os:getenv("ERL_JARO_OUTPUT"),
+{ok,Fixture}=file:read_file(filename:join(Input,"jaro-regression.etf")),
+[{F,A,Expected}]=binary_to_term(Fixture),
+{module,string_port_cases}=code:load_abs(filename:join(Input,"string_port_cases")),
+io:format("OTP=~p ERTS=~p schedulers=~p string=~p~n",[erlang:system_info(otp_release),erlang:system_info(version),erlang:system_info(schedulers_online),code:which(string)]),
+[begin
+ {C0,_}=statistics(runtime), T0=erlang:monotonic_time(microsecond),
+ Result=try string_port_cases:run(F,A) of Actual -> {return,Actual} catch C:R:S -> {failed,C,R,S} end,
+ T1=erlang:monotonic_time(microsecond), {C1,_}=statistics(runtime),
+ Matches=Result=:={return,Expected},
+ io:format("trial=~p wall_ms=~p vm_cpu_ms=~p exact=~p result=~0p~n",[N,(T1-T0)/1000,C1-C0,Matches,Result]),
+ ok=file:write_file(filename:join(Out,"trial-"++integer_to_list(N)++".result.etf"),term_to_binary(Result)),
+ Matches
+end || N <- [1,2,3]] =:= [true,true,true] orelse erlang:halt(1),
+halt(0).

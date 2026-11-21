@@ -11,6 +11,16 @@ internal sealed partial class BeamModuleCompiler
         (int Module, int Function, int Arity)[] importsByIndex
     )
     {
+        if (DelayCallResultStoreThroughNullaryArgument(
+            code,
+            body,
+            atomNames,
+            importsByIndex
+        ) is { } delayed)
+        {
+            return delayed;
+        }
+
         using var output = new MemoryStream();
         var result = new BeamOperand(BeamOperandParameters.X, 0);
         var construction = new BeamOperand(BeamOperandParameters.X, 1);
@@ -85,6 +95,73 @@ internal sealed partial class BeamModuleCompiler
             }
 
             index = next - 1;
+        }
+
+        if (copied == 0)
+        {
+            return null;
+        }
+
+        output.Write(code.Span[copied..]);
+
+        return output.ToArray();
+    }
+
+    private static byte[]? DelayCallResultStoreThroughNullaryArgument(
+        ReadOnlyMemory<byte> code,
+        IReadOnlyList<BeamInstruction> body,
+        string[] atomNames,
+        (int Module, int Function, int Arity)[] importsByIndex
+    )
+    {
+        using var output = new MemoryStream();
+        var result = new BeamOperand(BeamOperandParameters.X, 0);
+        var argument = new BeamOperand(BeamOperandParameters.X, 1);
+        int copied = 0;
+        for (int call = 0; call + 3 < body.Count; call++)
+        {
+            if (body[call].Definition.Opcode is not (LocalCall or ExternalCall)
+                || body[call + 1] is not
+                {
+                    Definition.Opcode: Move,
+                    Operands: [var source, { Kind: BeamOperandParameters.Y, TypeIndex: null }]
+                } || source != result
+                || body[call + 2] is not
+                {
+                    Definition.Opcode: BifZero,
+                    Operands: [var import, var target]
+                } || target != result
+                || !IsHeapNeutralNullaryBif(importsByIndex[(int)import.Value], atomNames))
+            {
+                continue;
+            }
+
+            int consumer = call + 3;
+            while (consumer < body.Count && body[consumer].Definition.Opcode == Line)
+            {
+                consumer++;
+            }
+
+            if (consumer == body.Count || body[consumer].Definition.Opcode is not (LocalCall or ExternalCall)
+                || !body[consumer].Operands[0].Value.IsOne)
+            {
+                continue;
+            }
+
+            // The preceding call defines only X0. OTP delays saving its result
+            // until the next call and computes the independent argument in X1.
+            int save = body[call + 1].Offset;
+            int bif = body[call + 2].Offset;
+            output.Write(code.Span[copied..save]);
+            output.WriteByte(BifZero);
+            BeamCompactWriter.Write(output, BeamWire.UnsignedTag, import.Value);
+            WriteRegister(output, argument);
+            output.Write(code.Span[save..bif]);
+            output.WriteByte(Move);
+            WriteRegister(output, argument);
+            WriteRegister(output, result);
+            copied = body[call + 3].Offset;
+            call += 2;
         }
 
         if (copied == 0)

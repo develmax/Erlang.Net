@@ -1,0 +1,80 @@
+Error! Failed to eval: [Mode,Image,Directory,Out]=init:get_plain_arguments(),
+{ok,B}=file:read_file(Image),
+{beam_file,M,_,_,_,_}=beam_disasm:file(Image),
+{ok,_}=code:prepare_loading([{M,Image,B}]),
+{module,M}=code:load_binary(M,Image,B),
+lists:foreach(fun(Mod)->
+    {module,Mod}=code:load_abs(filename:join(Directory,atom_to_list(Mod)))
+end,[wxe_util,fixture_subclass]),
+Run=fun(Label,Function,Args,Env) ->
+    case Env of absent -> erlang:erase(wx_env); Value -> erlang:put(wx_env,Value) end,
+    Outcome=try {ok,apply(M,Function,Args)} catch
+        Class:Reason:Stack ->
+            [{M,Name,_,Props}|_]=[Frame||Frame={Mod,_,_,_}<-Stack,Mod=:=M],
+            {Class,Reason,Name,proplists:get_value(line,Props)}
+    end,
+    {Label,Outcome,wxe_util:capture()}
+end,
+Ready={wx_env,environment_ref,driver_owner,0},
+Env=fun(Reference)->{wx_env,Reference,driver_owner,0} end,
+Menu={wx_ref,1,wxMenu,[]},
+AltMenu={wx_ref,2,fixture_subclass,[]},
+Bar={wx_ref,3,wxToolBar,[]},
+Bitmap={wx_ref,4,wxBitmap,[]},
+AltBitmap={wx_ref,5,fixture_subclass,[]},
+Receiver={wx_ref,6,fixture_receiver,[]},
+Peer={wx_ref,7,fixture_peer,[]},
+AltReceiver={wx_ref,8,fixture_subclass,[]},
+AltPeer={wx_ref,9,fixture_subclass,[]},
+List={wx_ref,10,wxListCtrl,[]},
+ListItem={wx_ref,11,wxListItem,[]},
+MenuItem={wx_ref,12,wxMenuItem,[]},
+Cases=case Mode of
+    "wxMenu" -> [
+        {insert_index,insert,[Menu,11,12],Ready},
+        {insert_item,insert,[Menu,11,MenuItem],Ready},
+        {insert_subclass,insert,[AltMenu,11,AltPeer],Ready},
+        {prepend_index,prepend,[Menu,12],Ready},
+        {prepend_item,prepend,[Menu,MenuItem],Ready},
+        {prepend_subclass,prepend,[AltMenu,AltPeer],Ready},
+        {bad_receiver,prepend,[invalid,12],Ready},
+        {bad_position,insert,[Menu,invalid,MenuItem],Ready},
+        {bad_item,insert,[Menu,11,invalid],Ready},
+        {environment,prepend,[Menu,MenuItem],absent}];
+    "wxListCtrl" -> [
+        {list_head,insertColumn,[List,1,[120,233]],Ready},
+        {binary_head,insertColumn,[List,1,<<"label">>],Ready},
+        {descriptor,insertColumn,[List,1,ListItem],Ready},
+        {subclass,insertColumn,[AltReceiver,1,AltPeer],Ready},
+        {bad_guard,insertColumn,[List,1.5,ListItem],Ready},
+        {bad_descriptor,insertColumn,[List,1,not_reference],Ready},
+        {environment,insertColumn,[List,1,ListItem],absent}];
+    "fixture" -> [
+        {integer,put,[Receiver,1],Ready},
+        {raw_ref,put,[Receiver,Peer],Ready},
+        {class_record,put,[AltReceiver,AltPeer],Ready},
+        {list_head,mount,[Receiver,4,"title"],Ready},
+        {binary_head,mount,[Receiver,4,<<"label">>],Ready},
+        {peer,mount,[Receiver,4,Peer],Ready},
+        {bad_receipt,put,[bad,1],Ready},
+        {bad_guard,mount,[Receiver,bad,Peer],Ready},
+        {bad_ref,mount,[Receiver,4,invalid],Ready},
+        {env_order,mount,[AltReceiver,4,AltPeer],absent}];
+    "bound-env" -> [
+        {put_mismatched,put,[Receiver,Peer],Ready},
+        {put_matching,put,[Receiver,Peer],Env(Receiver)},
+        {mount_mismatched,mount,[Receiver,4,Peer],Ready},
+        {mount_matching,mount,[Receiver,4,Peer],Env(Receiver)}];
+    "different-guard" -> [
+        {mount_float_peer,mount,[Receiver,4.5,Peer],Ready},
+        {mount_float_text,mount,[Receiver,4.5,"name"],Ready},
+        {mount_scalar,mount,[Receiver,4,"name"],Ready},
+        {mount_peer,mount,[Receiver,4,Peer],Ready}]
+end,
+Results=[Run(Label,Function,Args,EnvRef)||{Label,Function,Args,EnvRef}<-Cases],
+ok=file:write_file(Out,io_lib:format("~tp.~n",[Results])),
+halt().
+
+Runtime terminating during boot ({{badmatch,{error,enoent}},[{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,796}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{init,start_it,1,[{file,"init.erl"},{line,1561}]},{init,start_em,1,[{file,"init.erl"},{line,1546}]},{init,do_boot,3,[{file,"init.erl"},{line,1217}]}]})
+
+Crash dump is being written to: erl_crash.dump...done

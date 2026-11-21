@@ -1,0 +1,14 @@
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12544,6 +12544,11 @@
+ Test(Erlang.Tests.BeamProtectedEntryAliasChecks.TestName, Erlang.Tests.BeamProtectedEntryAliasChecks.Run);
+ Test(Erlang.Tests.BeamProtectedShortReturnChecks.TestName, Erlang.Tests.BeamProtectedShortReturnChecks.Run);
+ Test(Erlang.Tests.BeamBinaryConstructionStringChecks.TestName, Erlang.Tests.BeamBinaryConstructionStringChecks.Run);
++Test(Erlang.Tests.BeamNonterminalCaseCarrierChecks.TestName, Erlang.Tests.BeamNonterminalCaseCarrierChecks.Run);
++Test(Erlang.Tests.BeamOrderedConsHeadAliasChecks.TestName, Erlang.Tests.BeamOrderedConsHeadAliasChecks.Run);
++Test(Erlang.Tests.BeamStructuredConsEqualityComprehensionChecks.TestName, Erlang.Tests.BeamStructuredConsEqualityComprehensionChecks.Run);
++Test(Erlang.Tests.BeamOrdinaryAppendComprehensionChecks.TestName, Erlang.Tests.BeamOrdinaryAppendComprehensionChecks.Run);
++Test(Erlang.Tests.BeamLeadingVariableComprehensionChecks.TestName, Erlang.Tests.BeamLeadingVariableComprehensionChecks.Run);
+ Test(Erlang.Tests.BeamDuplicateTrailingSlotChecks.TestName, Erlang.Tests.BeamDuplicateTrailingSlotChecks.Run);
+ Test(Erlang.Tests.BeamMixedConstructorCaseChecks.TestName, Erlang.Tests.BeamMixedConstructorCaseChecks.Run);
+ Test(Erlang.Tests.BeamOrderedConsCallChecks.TestName, Erlang.Tests.BeamOrderedConsCallChecks.Run);

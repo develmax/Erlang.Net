@@ -1,0 +1,4 @@
+[<<"3\r\nabc\r\n">>,<<"3\r\nabc\r\n">>,<<"0\r\n\r\n">>,
+ <<"0\r\nX-Parity:ok\r\n\r\n\r\n">>,
+ {ok,{["content-length:3"],<<"abc">>}},
+ {throw,{error,{chunk_size,"invalid"}}}].

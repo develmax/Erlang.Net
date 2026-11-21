@@ -1,0 +1,36 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
+@@ -326,6 +326,15 @@
+                 || appendTail is null && expression is Expr.Binary { Operator: ErlangOperators.Append, Left: var left }
+                     && ReferenceEquals(left, comprehension));
+ 
++        // The checked field read stays in the parent and is evaluated once.
++        bool recordFieldSource = SsaTypeInferenceEnabled && !discarded && comprehension.Qualifiers is
++        [
++            ComprehensionQualifier.Generator
++        {
++            Strict: false, Pattern: Pattern.Variable, Source: Expr.RecordAccess { Value: Expr.Variable }
++        }, ..
++        ];
++
+         if (comprehension is not
+             {
+                 Items: [var mapped], Qualifiers: [ComprehensionQualifier.Generator
+@@ -338,6 +347,7 @@
+                     expression is Expr.Try or Expr.Receive or Expr.Maybe
+                     or Expr.BinaryComprehension or Expr.MapComprehension))
+             || source is not (Expr.Variable or Expr.Call { DynamicRemote: false })
++                && !recordFieldSource
+                 && !(source is Expr.List { Items.Count: > 0 } && !generator.Strict && !independent && !discarded
+                     && comprehension.Qualifiers.Count == 1
+                     && !LocalFunctionEntries.Walk(parentClause.Body).Any(expression =>
+@@ -347,7 +357,7 @@
+                         || !generator.Strict && item is Pattern.Tuple && filter is not null
+                             && ComprehensionGuard.IsTest(filter, sourceModule)))
+             || !(item is Pattern.Variable && (generator.Strict || simpleElement || flatElement || guardedElement || independent || filter is not null
+-                    || source is Expr.Call or Expr.List
++                    || recordFieldSource || source is Expr.Call or Expr.List
+                     || mapped is Expr.Call { DynamicRemote: false } or Expr.Apply { Function: Expr.Variable })
+                 || item is (Pattern.Tuple or Pattern.List) && IsRecursiveListPattern(item)
+                 || item is AliasPattern alias && SsaTypeInferenceEnabled && !discarded

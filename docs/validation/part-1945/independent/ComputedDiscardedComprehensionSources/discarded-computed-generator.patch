@@ -1,0 +1,105 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
+@@ -350,6 +350,7 @@
+                     expression is Expr.Try or Expr.Receive or Expr.Maybe
+                     or Expr.BinaryComprehension or Expr.MapComprehension))
+             || source is not (Expr.Variable or Expr.Call { DynamicRemote: false })
++                && !(discarded && IsComputedDiscardedListSource(source))
+                 && !recordFieldSource
+                 && !(source is Expr.List { Items.Count: > 0 } && !generator.Strict && !independent && !discarded
+                     && comprehension.Qualifiers.Count == 1
+@@ -404,7 +405,11 @@
+         Expr[] output = [.. mappedOperands, .. filterOperands];
+         if (!ModuleOptimizationDisabled && flatOutput)
+         {
+-            var constants = ReadDominatingHelperConstants(parentClause, comprehension);
++            var constants = ReadDominatingHelperConstants(
++                parentClause,
++                comprehension,
++                allowListComprehensionPrefix: discarded && IsComputedDiscardedListSource(source)
++            );
+             foreach (string name in bound)
+             {
+                 constants.Remove(name);
+@@ -638,8 +643,13 @@
+         if (comprehension is not
+             {
+                 Items: [var effect],
+-                Qualifiers: [ComprehensionQualifier.Generator { Pattern: var pattern, Source: Expr.Variable }]
++                Qualifiers: [ComprehensionQualifier.Generator { Strict: false, Pattern: var pattern, Source: var source }]
+             })
++        {
++            return false;
++        }
++
++        if (source is not Expr.Variable && !IsComputedDiscardedListSource(source))
+         {
+             return false;
+         }
+@@ -651,7 +661,7 @@
+ 
+         // The result of a checked dynamic call is unused, but the call, short circuit
+         // and relaxed pattern skip must still run in the recursive helper.
+-        return pattern is Pattern.Tuple && IsRecursiveListPattern(pattern) && effect is Expr.Binary
++        return source is Expr.Variable && pattern is Pattern.Tuple && IsRecursiveListPattern(pattern) && effect is Expr.Binary
+         {
+             Operator: ErlangOperators.OrElse,
+             Left: Expr.Binary
+@@ -666,6 +676,11 @@
+             }
+         } && receiver.Name == receiverCall.Name;
+     }
++
++    private static bool IsComputedDiscardedListSource(Expr source) =>
++        source is Expr.Call { DynamicRemote: false }
++            or Expr.RecordAccess { Value: Expr.Variable }
++            or Expr.List { Items.Count: >= 2 };
+ 
+     private static bool IsProperListGeneratorCall(Expr expression) => expression is Expr.Call
+     {
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DominatingHelperConstants.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DominatingHelperConstants.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DominatingHelperConstants.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DominatingHelperConstants.cs
+@@ -2,7 +2,11 @@
+ 
+ internal sealed partial class BeamModuleCompiler
+ {
+-    private static Dictionary<string, Term> ReadDominatingHelperConstants(Clause clause, Expr helper)
++    private static Dictionary<string, Term> ReadDominatingHelperConstants(
++        Clause clause,
++        Expr helper,
++        bool allowListComprehensionPrefix = false
++    )
+     {
+         var constants = new Dictionary<string, Term>(StringComparer.Ordinal);
+         if (clause.Body is not Expr.Sequence sequence)
+@@ -20,7 +24,7 @@
+ 
+             if (statement is Expr.Match { Pattern: Pattern.Variable variable } binding)
+             {
+-                if (!LocalFunctionEntries.Walk(binding.Value).All(IsNonbindingHelperPrefixValue))
++                if (!IsNonbindingPrefix(binding.Value))
+                 {
+                     break;
+                 }
+@@ -32,7 +36,7 @@
+                     constants.Add(variable.Name, value);
+                 }
+             }
+-            else if (!LocalFunctionEntries.Walk(statement).All(IsNonbindingHelperPrefixValue))
++            else if (!IsNonbindingPrefix(statement))
+             {
+                 break;
+             }
+@@ -41,6 +45,10 @@
+         constants.Clear();
+ 
+         return constants;
++
++        // Comprehension scopes do not export their internal bindings into the statement sequence.
++        bool IsNonbindingPrefix(Expr value) => allowListComprehensionPrefix && value is Expr.ListComprehension
++            || LocalFunctionEntries.Walk(value).All(IsNonbindingHelperPrefixValue);
+     }
+ 
+     private static Expr ReadDirectHelperExpression(Expr statement) => statement switch

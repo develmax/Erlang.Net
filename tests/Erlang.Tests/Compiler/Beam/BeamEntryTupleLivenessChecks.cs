@@ -1,0 +1,63 @@
+using System.Collections;
+using System.Numerics;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamEntryTupleLivenessChecks
+{
+    internal const string TestName = "compiler/beam/omits-unused-tuple-projections-in-mixed-entry-patterns";
+    internal const string Fixture = "beam_entry_tuple_liveness_probe.erl";
+    private const string IncorrectProjection = "Mixed entry matching retained a dead tuple field or omitted a field still in use.";
+
+    internal const string Source = """
+        -module(beam_entry_tuple_liveness_probe).
+        -export([route/2, capture/2]).
+        route({first,Key,fixed,_Ignore,_Unused}, #{key := Key} = State) ->
+            Value = erlang:whereis(user),
+            {selected,State#{value => Value, monitor => erlang:monitor(process, Value)}};
+        route({second,_Ignore,_Unused,_Discard} = Payload, #{target := Target} = State) ->
+            Target ! Payload,
+            {sent,State};
+        route(Input,State) ->
+            io:format(user, "Skipped ~tp~n", [Input]),
+            {fallback,State}.
+        capture({tag,Keep,_Unused,Other}, #{key := Key}) when is_integer(Other) ->
+            fun() -> {Keep, Key, Other} end;
+        capture(_, _) ->
+            fallback.
+        """;
+
+    internal static Task Run()
+    {
+        object code = Code(CodeGeneration.CompileBeamModule(Source, Fixture));
+        object[] instructions = ((IEnumerable)Property(code, "Instructions")).Cast<object>().ToArray();
+        byte[] opcodes = instructions.Select(instruction => (byte)Property(Property(instruction, "Definition"), "Opcode")).ToArray();
+        int[] entries = Enumerable.Range(0, opcodes.Length).Where(index => opcodes[index] == FunctionInfo).ToArray();
+        HashSet<int> route = ReadProjections(entries[0], entries[1]);
+        if (route.Except([0, 1, 2]).Any() || !route.IsSupersetOf([1, 2])
+            || !ReadProjections(entries[1], entries[2]).SetEquals([1, 3]))
+        {
+            throw new InvalidOperationException(IncorrectProjection);
+        }
+
+        return Task.CompletedTask;
+
+        HashSet<int> ReadProjections(int start, int end)
+        {
+            var fields = new HashSet<int>();
+            for (int index = start; index < end; index++)
+            {
+                if (opcodes[index] == GetTupleElement)
+                {
+                    object[] operands = ((IEnumerable)Property(instructions[index], "Operands")).Cast<object>().ToArray();
+                    fields.Add((int)(BigInteger)Property(operands[1], "Value"));
+                }
+            }
+
+            return fields;
+        }
+    }
+}

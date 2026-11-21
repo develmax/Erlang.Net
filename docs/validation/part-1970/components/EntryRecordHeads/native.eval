@@ -1,0 +1,25 @@
+[F,P]=init:get_plain_arguments(),
+{module,M}=code:load_abs(F),
+{module,list_head_record_frame_provider}=code:load_abs(P),
+erase(record_frame_effect),
+{{item,value},[tail],effect}=M:nil_fallback([{item,value},tail],effect),
+effect=get(record_frame_effect),
+erase(record_frame_effect),
+empty=M:nil_fallback([],unused),
+undefined=get(record_frame_effect),
+Funclause=fun(In)->try M:nil_fallback(In,no_effect) of _->false catch
+    error:function_clause:S1->[{M,nil_fallback,[In,no_effect],A}|_]=S1,proplists:get_value(line,A)=:=5 end end,
+true=Funclause([{other,value}]),
+true=Funclause([{item,value,extra}]),
+undefined=get(record_frame_effect),
+{[{wrong,value}],{fallback,checked}}=M:owned_fallback([{wrong,value}],checked),
+{fallback,checked}=get(record_frame_effect),
+true=try M:unchecked([{wrong,value}],preserved) of _->false catch
+    error:{badrecord,{wrong,value}}:S2->[{M,unchecked,2,B}|_]=S2,proplists:get_value(line,B)=:=20 end,
+preserved=get(record_frame_effect),
+{[rest],skip}=M:disjunction([skip,rest]),
+skip=get(record_frame_effect),
+true=try M:nil_fallback([{item,value}],fail) of _->false catch
+    error:raised:S3->[{list_head_record_frame_provider,note,1,_},{M,nil_fallback,2,C}|_]=S3,proplists:get_value(line,C)=:=6 end,
+fail=get(record_frame_effect),
+io:format("~p~n",[{ok,8}]),halt().

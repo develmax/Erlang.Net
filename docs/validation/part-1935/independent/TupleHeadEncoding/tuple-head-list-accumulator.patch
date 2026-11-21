@@ -1,0 +1,198 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -730,7 +730,7 @@
+             if (TryEmitCountedMaskAccumulator(function) || TryEmitGuardedMaskAccumulatorEntry(function)
+                 || TryEmitPositionedBinaryAccumulator(function) || TryEmitDecodedIntegerPrefix(function)
+                 || TryEmitCountedTermFold(function)
+-                || TryEmitBoundedNameTableBitList(function) || TryEmitCountedPositionList(function) || TryEmitCountedListPairAccumulator(function))
++                || TryEmitTupleHeadListAccumulator(function) || TryEmitBoundedNameTableBitList(function) || TryEmitCountedPositionList(function) || TryEmitCountedListPairAccumulator(function))
+             {
+                 return;
+             }
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TupleHeadListAccumulator.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TupleHeadListAccumulator.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TupleHeadListAccumulator.cs
+@@ -0,0 +1,181 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private sealed partial class GeneralEmitter
++    {
++        private bool TryEmitTupleHeadListAccumulator(FunctionDefinition function)
++        {
++            if (!owner.SsaTypeInferenceEnabled || owner.ModuleOptimizationDisabled || recursiveClosure is not null
++                || owner.OnLoadFunction is not null || owner.IsDeclaredNative((function.Name, 2))
++                || function.Clauses is not
++                [
++                {
++                    Guard: null,
++                    Patterns: [Pattern.List { Items.Count: 0, Tail: null } or Pattern.Literal { Value: Nil },
++                            Pattern.Variable finished],
++                    Body: Expr.Call { Arguments: [Expr.Variable result] } finish
++                },
++                {
++                    Guard: null,
++                    Patterns: [
++                            Pattern.List { Items: [Pattern.Tuple tuple], Tail: Pattern.Variable tail },
++                            Pattern.Variable accumulator
++                        ],
++                    Body: Expr.Call
++                    {
++                        Module: null, DynamicRemote: false,
++                        Arguments: [Expr.Variable rest, Expr.List { Tail: Expr.Variable previous } projected]
++                    } recur
++                },
++                {
++                    Guard: null,
++                    Patterns: [Pattern.List { Items: [Pattern.Variable head], Tail: Pattern.Variable fallbackTail },
++                            Pattern.Variable fallbackAcc],
++                    Body: Expr.Call
++                    {
++                        Module: null, DynamicRemote: false,
++                        Arguments: [Expr.Variable fallbackRest, Expr.List { Tail: Expr.Variable fallbackPrevious } scalar]
++                    } fallback
++                }
++                ]
++                || finished.Name == VariableScopeNames.Wildcard || finished.Name != result.Name
++                || !DistinctBindings(tail, accumulator) || !DistinctBindings(head, fallbackTail, fallbackAcc)
++                || rest.Name != tail.Name || previous.Name != accumulator.Name
++                || fallbackRest.Name != fallbackTail.Name || fallbackPrevious.Name != fallbackAcc.Name
++                || function.Name != recur.Function || function.Name != fallback.Function
++                || tuple.Items.Count + function.Arity >= FirstReservedXRegister
++                || !entries.TryGetValue((function.Name, 2), out int entry)
++                || !TryResolveOrdinaryCall(finish, out string? finishModule))
++            {
++                return false;
++            }
++
++            var literalFields = new List<(int Index, Term Value)>();
++            var fields = new List<Pattern.Variable>();
++            for (int index = 0; index < tuple.Items.Count; index++)
++            {
++                if (fields.Count == 0 && tuple.Items[index] is Pattern.Literal { Value: Integer } literal)
++                {
++                    literalFields.Add((index, literal.Value));
++                }
++                else if (tuple.Items[index] is Pattern.Variable variable)
++                {
++                    fields.Add(variable);
++                }
++                else
++                {
++                    return false;
++                }
++            }
++
++            if (fields.Count < 2 || !DistinctBindings([tail, accumulator, .. fields])
++                || !projected.Items.SequenceEqual(fields.AsEnumerable().Reverse().Select(field => new Expr.Variable(field.Name)))
++                || scalar.Items is not [Expr.Variable fallbackHead, ..] || fallbackHead.Name != head.Name)
++            {
++                return false;
++            }
++
++            var paddingValues = new List<Term>();
++            foreach (Expr item in scalar.Items.Skip(1))
++            {
++                if (!AttributeLiteral.TryNormalizeConstant(item, out Term value))
++                {
++                    return false;
++                }
++
++                paddingValues.Add(value);
++            }
++
++            const int list = 0;
++            const int acc = 1;
++            const int tupleHead = 2;
++            const int firstField = 3;
++            int info = owner.nextLabel - 2;
++            int other = Label();
++            int empty = Label();
++
++            owner.EmitNonemptyList(list, empty);
++            owner.EmitListParts(
++                list,
++                XRegisterTag,
++                tupleHead,
++                XRegisterTag,
++                list
++            );
++            EmitTupleShapeTest(
++                XRegisterTag,
++                tupleHead,
++                tuple.Items.Count,
++                other
++            );
++            foreach (var (index, value) in literalFields)
++            {
++                // All failed tests need the original list head. A tested literal is dead after its comparison.
++                owner.EmitTuplePart(tupleHead, index, firstField);
++                owner.Op(ExactEqualTest, LabelTag, other);
++                owner.Operand(XRegisterTag, firstField);
++                owner.LiteralOperand(value);
++            }
++
++            TestConsHeap(fields.Count);
++            for (int index = 0; index < fields.Count; index++)
++            {
++                // Once the tuple is known to match, only the last projection can replace it.
++                int destination = index + 1 == fields.Count ? tupleHead : firstField + index;
++                owner.EmitTuplePart(tupleHead, literalFields.Count + index, destination);
++            }
++
++            for (int index = 0; index < fields.Count; index++)
++            {
++                owner.Op(PutList, XRegisterTag, index + 1 == fields.Count ? tupleHead : firstField + index);
++                FinishCons();
++            }
++
++            EmitRecur();
++            Mark(other);
++            TestConsHeap(paddingValues.Count + 1);
++            for (int index = paddingValues.Count - 1; index >= 0; index--)
++            {
++                owner.instructions.WriteByte(PutList);
++                owner.LiteralOperand(paddingValues[index]);
++                FinishCons();
++            }
++
++            owner.Op(PutList, XRegisterTag, tupleHead);
++            FinishCons();
++            EmitRecur();
++            Mark(empty);
++            owner.EmitNilTest(XRegisterTag, list, info);
++            owner.MoveRegister(
++                XRegisterTag,
++                acc,
++                XRegisterTag,
++                list
++            );
++            EmitRegisterTailTarget(finish with { Module = finishModule }, 1);
++
++            return true;
++
++            void TestConsHeap(int count)
++            {
++                owner.Op(TestHeap, BeamWire.UnsignedTag, count * ConsHeapWords);
++                owner.Operand(BeamWire.UnsignedTag, firstField);
++            }
++
++            void FinishCons()
++            {
++                owner.Operand(XRegisterTag, acc);
++                owner.Operand(XRegisterTag, acc);
++            }
++
++            void EmitRecur()
++            {
++                owner.Op(TailLocalCall, BeamWire.UnsignedTag, 2);
++                owner.Operand(LabelTag, entry);
++            }
++        }
++    }
++}

@@ -1,0 +1,444 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -441,7 +441,8 @@
+             }
+ 
+             if (TryEmitGuardedCallResultTails(function)
+-                || function.Clauses is [var literalCase] && TryEmitLiteralCaseRetainedCallChain(literalCase))
++                || function.Clauses is [var literalCase]
++                    && (TryEmitLiteralCaseRetainedCallChain(literalCase) || TryEmitTaggedListBindingPair(literalCase)))
+             {
+                 return;
+             }
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralCatch.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralCatch.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralCatch.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralCatch.cs
+@@ -1786,6 +1786,16 @@
+                 && first.Name != second.Name
+                 && ReadResult(firstBody, null) is { } firstResult && ReadResult(secondBody, null) is { } secondResult)
+             {
++                if (first.Name == ErlangBooleanAtoms.False
++                    && selectorCall is { Module: null }
++                    && IsExhaustiveLocalBooleanSelector(selectorCall.Call)
++                    && firstResult.Tail is { Module: null }
++                    && secondResult.Tail is { Module: null })
++                {
++                    (first, second) = (second, first);
++                    (firstResult, secondResult) = (secondResult, firstResult);
++                }
++
+                 return new(
+                     ExactEqualTest,
+                     first,
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TerminalCallList.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TerminalCallList.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TerminalCallList.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TerminalCallList.cs
+@@ -22,7 +22,9 @@
+             }
+ 
+             var laterCalls = list.Items.Skip(1).OfType<Expr.Call>().ToArray();
+-            if (laterCalls.Length != list.Items.Count - 1)
++            var retainedItems = list.Items.OfType<Expr.Variable>().ToArray();
++            if (laterCalls.Length + retainedItems.Length != list.Items.Count - 1
++                || retainedItems.Any(item => item.Name == VariableScopeNames.Wildcard || !inputs.Contains(item.Name)))
+             {
+                 return false;
+             }
+@@ -34,6 +36,12 @@
+                 {
+                     lastReads[variable.Name] = index;
+                 }
++            }
++
++            // List operands remain live after the last call.
++            foreach (var item in retainedItems)
++            {
++                lastReads[item.Name] = laterCalls.Length;
+             }
+ 
+             var savedInputs = inputs.Select((name, register) => (Name: name, Register: register))
+@@ -120,21 +128,43 @@
+ 
+             owner.Op(TestHeap, BeamWire.UnsignedTag, list.Items.Count * ConsHeapWords);
+             owner.Operand(BeamWire.UnsignedTag, 1);
+-            for (int index = steps.Length; index >= 0; index--)
++            int callIndex = steps.Length;
++            int tailRegister = 1;
++            bool emptyTail = true;
++            for (int index = list.Items.Count - 1; index >= 0; index--)
+             {
+                 owner.instructions.WriteByte(PutList);
+-                if (index == steps.Length)
++                if (list.Items[index] is Expr.Variable variable)
++                {
++                    int inputSlot = Array.IndexOf(stack, variable.Name);
++                    owner.Operand(YRegisterTag, inputSlot);
++                }
++                else if (callIndex == steps.Length)
+                 {
+                     owner.Operand(XRegisterTag, 0);
++                }
++                else
++                {
++                    owner.Operand(YRegisterTag, steps[callIndex].Slot);
++                }
++
++                if (emptyTail)
++                {
+                     owner.LiteralOperand(Nil.Value);
+                 }
+                 else
+                 {
+-                    owner.Operand(YRegisterTag, steps[index].Slot);
+-                    owner.Operand(XRegisterTag, 0);
++                    owner.Operand(XRegisterTag, tailRegister);
+                 }
+ 
+-                owner.Operand(XRegisterTag, 0);
++                if (list.Items[index] is Expr.Call)
++                {
++                    tailRegister = 0;
++                    callIndex--;
++                }
++
++                owner.Operand(XRegisterTag, tailRegister);
++                emptyTail = false;
+             }
+             owner.EmitFrameReturn(frame);
+ 
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TaggedListBindingPair.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TaggedListBindingPair.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TaggedListBindingPair.cs
+@@ -0,0 +1,330 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private sealed partial class GeneralEmitter
++    {
++        private sealed record TaggedBinding(
++            string Result,
++            Expr.Case Decision,
++            Expr.Call Selector,
++            Atom Tag,
++            Atom Fallback,
++            Term Default,
++            Term[] Prefix,
++            Term? Suffix
++        );
++
++        private bool TryEmitTaggedListBindingPair(Clause clause)
++        {
++            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled || clause.Guard is not null
++                || clause.Body is not Expr.Sequence
++                {
++                    Items: [var firstMatch, var secondMatch, Expr.List { Tail: null, Items: [_, .., Expr.Variable] } list]
++                })
++            {
++                return false;
++            }
++
++            var inputs = new string[clause.Patterns.Count];
++            var nilPatterns = new List<int>();
++            for (int register = 0; register < inputs.Length; register++)
++            {
++                switch (clause.Patterns[register])
++                {
++                    case Pattern.Variable { Name: not VariableScopeNames.Wildcard } variable when !inputs.Contains(variable.Name):
++                        inputs[register] = variable.Name;
++                        break;
++                    case Pattern.Variable { Name: VariableScopeNames.Wildcard }:
++                    case Erlang.Pattern.Any:
++                        break;
++                    case Pattern.Literal { Value: Nil }:
++                    case Pattern.List { Tail: null, Items: [] }:
++                        nilPatterns.Add(register);
++                        break;
++                    default:
++                        return false;
++                }
++            }
++
++            if (ReadTaggedBinding(firstMatch, inputs) is not { Suffix: null } first
++                || ReadTaggedBinding(secondMatch, [.. inputs, first.Result]) is not { Suffix: not null } second
++                || ReadEntryCall(first.Selector, inputs) is not { Module: not (null or ErlangModuleNames.Module) } firstCall)
++            {
++                return false;
++            }
++
++            int savedResultReads = 0;
++            int finalResultReads = 0;
++            var used = second.Selector.Arguments.OfType<Expr.Variable>().Select(variable => variable.Name)
++                .ToHashSet(StringComparer.Ordinal);
++            var terminalNames = new HashSet<string>(StringComparer.Ordinal);
++            foreach (Expr item in list.Items)
++            {
++                if (item is Expr.Variable variable)
++                {
++                    if (variable.Name == first.Result)
++                    {
++                        savedResultReads++;
++                    }
++                    else if (variable.Name == second.Result)
++                    {
++                        finalResultReads++;
++                    }
++                    else if (variable.Name != VariableScopeNames.Wildcard && inputs.Contains(variable.Name))
++                    {
++                        used.Add(variable.Name);
++                        terminalNames.Add(variable.Name);
++                    }
++                    else
++                    {
++                        return false;
++                    }
++                }
++                else if (!AttributeLiteral.TryNormalizeConstant(item, out _))
++                {
++                    return false;
++                }
++            }
++
++            if (savedResultReads == 0 || finalResultReads != 1)
++            {
++                return false;
++            }
++
++            var retained = inputs.Select((name, register) => (Name: name, Register: register))
++                .Where(input => input.Name is not null && used.Contains(input.Name)).ToArray();
++            int frame = retained.Length + 1;
++            var slots = new string[frame];
++            slots[0] = first.Result;
++            for (int index = 0; index < retained.Length; index++)
++            {
++                slots[frame - 1 - index] = retained[index].Name;
++            }
++
++            if (ReadEntryCall(second.Selector, [], slots) is not
++                {
++                    Module: not (null or ErlangModuleNames.Module),
++                    Constants: [{ Destination: 0 }],
++                    SavedInputs: [{ Destination: 1, Source: > 0 }]
++                } secondCall || second.Selector.Arguments.Count != 2)
++            {
++                return false;
++            }
++
++            int failure = owner.nextLabel - 2;
++            foreach (int register in nilPatterns)
++            {
++                owner.EmitNilTest(XRegisterTag, register, failure);
++            }
++            int live = Math.Max(EntryCallLiveCount(firstCall, inputs), retained.Select(arg => arg.Register + 1).DefaultIfEmpty(0).Max());
++            EmitFrameAllocation(live, frame);
++            EmitFrameInitialization(0, 1);
++            for (int index = retained.Length - 1; index >= 0; index--)
++            {
++                owner.MoveRegister(
++                    XRegisterTag,
++                    retained[index].Register,
++                    YRegisterTag,
++                    frame - 1 - index
++                );
++            }
++            EmitEntryCall(firstCall);
++            int firstFailure = Label();
++            EmitTaggedBinding(first, firstFailure, resultSlot: 0);
++
++            int[] expired = secondCall.SavedInputs.Where(load => !terminalNames.Contains(slots[load.Source]))
++                .Select(load => load.Source).ToArray();
++            owner.EmitOrderedTailMoves(
++                secondCall.Moves,
++                secondCall.Constants,
++                secondCall.SavedInputs,
++                expired
++            );
++            var firstLine = CallLocation(first.Selector, location);
++            owner.EmitCallLine(second.Selector, firstLine);
++            Call(secondCall.Module, second.Selector.Function, second.Selector.Arguments.Count);
++            int secondFailure = Label();
++            EmitTaggedBinding(second, secondFailure, resultSlot: null);
++            EmitBoundList(list, slots, second.Result);
++            owner.EmitFrameReturn(frame);
++
++            Mark(secondFailure);
++            var secondLine = CallLocation(second.Selector, firstLine);
++            EmitBindingFailure(second, secondLine);
++            Mark(firstFailure);
++            EmitBindingFailure(first, secondLine);
++
++            return true;
++        }
++
++        private static TaggedBinding? ReadTaggedBinding(Expr expression, string[] existing)
++        {
++            if (expression is not Expr.Match
++                {
++                    Pattern: Pattern.Variable { Name: not VariableScopeNames.Wildcard } result,
++                    Value: Expr.Case
++                    {
++                        Value: Expr.Call selector,
++                        Clauses:
++                        [
++                        {
++                            Guard: null, Patterns: [Pattern.Tuple
++                            {
++                                Items: [Pattern.Literal { Value: Atom tag },
++                                Pattern.Variable { Name: not VariableScopeNames.Wildcard } field]
++                            }], Body: var projected
++                        },
++                        { Guard: null, Patterns: [Pattern.Literal { Value: Atom fallback }], Body: var defaultValue }
++                        ]
++                    } decision
++                } || existing.Contains(result.Name) || existing.Contains(field.Name)
++                || !AttributeLiteral.TryNormalizeConstant(defaultValue, out var normalizedDefault))
++            {
++                return null;
++            }
++
++            if (projected is Expr.Variable variable && variable.Name == field.Name)
++            {
++                return new(
++                    result.Name,
++                    decision,
++                    selector,
++                    tag,
++                    fallback,
++                    normalizedDefault,
++                    [],
++                    null
++                );
++            }
++
++            if (projected is not Expr.List { Tail: null, Items: var items })
++            {
++                return null;
++            }
++
++            int position = Array.FindIndex(items.ToArray(), item => item is Expr.Variable value && value.Name == field.Name);
++            if (position < 0 || !AttributeLiteral.TryNormalizeConstant(new Expr.List(items.Skip(position + 1).ToArray(), null), out var suffix))
++            {
++                return null;
++            }
++
++            var prefix = new Term[position];
++            for (int index = 0; index < position; index++)
++            {
++                if (!AttributeLiteral.TryNormalizeConstant(items[index], out prefix[index]!))
++                {
++                    return null;
++                }
++            }
++
++            return new(
++                result.Name,
++                decision,
++                selector,
++                tag,
++                fallback,
++                normalizedDefault,
++                prefix,
++                suffix
++            );
++        }
++
++        private void EmitTaggedBinding(TaggedBinding binding, int failure, int? resultSlot)
++        {
++            int literal = Label();
++            int done = Label();
++            owner.Op(IsTuple, LabelTag, literal);
++            owner.Operand(XRegisterTag, 0);
++            EmitDetailRecordTest(
++                0,
++                2,
++                binding.Tag,
++                failure,
++                TupleTypeBits
++            );
++            if (binding.Suffix is not null)
++            {
++                owner.Op(TestHeap, BeamWire.UnsignedTag, (binding.Prefix.Length + 1) * ConsHeapWords);
++                owner.Operand(BeamWire.UnsignedTag, 1);
++            }
++
++            owner.EmitTuplePart(0, 1, 0);
++            if (binding.Suffix is { } suffix)
++            {
++                owner.Op(PutList, XRegisterTag, 0);
++                owner.LiteralOperand(suffix);
++                owner.Operand(XRegisterTag, 0);
++                for (int index = binding.Prefix.Length - 1; index >= 0; index--)
++                {
++                    owner.instructions.WriteByte(PutList);
++                    owner.LiteralOperand(binding.Prefix[index]);
++                    owner.Operand(XRegisterTag, 0);
++                    owner.Operand(XRegisterTag, 0);
++                }
++            }
++
++            if (resultSlot is int slot)
++            {
++                owner.MoveRegister(
++                    XRegisterTag,
++                    0,
++                    YRegisterTag,
++                    slot
++                );
++            }
++            JumpTo(done);
++            Mark(literal);
++            owner.Op(ExactEqualTest, LabelTag, failure);
++            owner.Operand(XRegisterTag, 0);
++            owner.LiteralOperand(binding.Fallback);
++            owner.EmitConstant(binding.Default, resultSlot.GetValueOrDefault(), resultSlot.HasValue ? YRegisterTag : XRegisterTag);
++            Mark(done);
++        }
++
++        private void EmitBoundList(Expr.List list, string[] slots, string finalResult)
++        {
++            owner.Op(TestHeap, BeamWire.UnsignedTag, list.Items.Count * ConsHeapWords);
++            owner.Operand(BeamWire.UnsignedTag, 1);
++            int tail = 1;
++            for (int index = list.Items.Count - 1; index >= 0; index--)
++            {
++                owner.instructions.WriteByte(PutList);
++                bool useFinal = list.Items[index] is Expr.Variable { Name: var name } && name == finalResult;
++                if (list.Items[index] is Expr.Variable variable)
++                {
++                    owner.Operand(useFinal ? XRegisterTag : YRegisterTag, useFinal ? 0 : Array.IndexOf(slots, variable.Name));
++                }
++                else
++                {
++                    AttributeLiteral.TryNormalizeConstant(list.Items[index], out var value);
++                    owner.LiteralOperand(value);
++                }
++
++                if (index == list.Items.Count - 1)
++                {
++                    owner.LiteralOperand(Nil.Value);
++                }
++                else
++                {
++                    owner.Operand(XRegisterTag, tail);
++                }
++
++                tail = useFinal ? 0 : tail;
++                owner.Operand(XRegisterTag, tail);
++            }
++        }
++
++        private void EmitBindingFailure(TaggedBinding binding, BeamSourceLocation previous)
++        {
++            var failure = new BeamSourceLocation(binding.Decision.PreprocessorFile ?? location.File, binding.Decision.SourceLine);
++            if (failure != previous && binding.Decision.SourceLine != 0)
++            {
++                owner.EmitLine(failure);
++            }
++            owner.Op(CaseEnd, XRegisterTag, 0);
++        }
++    }
++}

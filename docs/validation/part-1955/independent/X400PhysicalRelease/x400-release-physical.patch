@@ -1,0 +1,52 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.StandaloneComprehensionOrder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.StandaloneComprehensionOrder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.StandaloneComprehensionOrder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.StandaloneComprehensionOrder.cs
+@@ -7,8 +7,8 @@
+         IReadOnlyList<(FunctionDefinition Function, BeamSourceLocation Location)> helpers
+     )
+     {
+-        if (ModuleOptimizationDisabled || hasMixedRecursiveDefinitions || deferredProjections.Count != 0
+-            || helpers.Count == 0
++        if (ModuleOptimizationDisabled || helpers.Count == 0
++            || !hasMixedRecursiveDefinitions && deferredProjections.Count != 0
+             || !functions.Any(function => function.Clauses.Any(clause =>
+                 LocalFunctionEntries.Walk(clause.Body).Any(expression => expression is Expr.Fun))))
+         {
+@@ -17,8 +17,19 @@
+ 
+         var parents = functions.ToDictionary(function => MappingName(function.Name, function.Arity), StringComparer.Ordinal);
+         var standalone = new List<(FunctionDefinition Parent, FunctionDefinition Helper)>();
++        var positioned = hasMixedRecursiveDefinitions
++            ? recursiveDefinitionOrder.Values.SelectMany(order => order)
++                .Where(definition => definition.Arity.HasValue)
++                .Select(definition => (definition.Name, definition.Arity!.Value))
++                .ToHashSet()
++            : null;
+         foreach (var (helper, _) in helpers)
+         {
++            if (positioned?.Contains((helper.Name, helper.Arity)) is true)
++            {
++                continue;
++            }
++
+             if (!parents.TryGetValue(helper.Name, out var parent))
+             {
+                 return;
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ValidatedCallValue.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ValidatedCallValue.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ValidatedCallValue.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ValidatedCallValue.cs
+@@ -220,7 +220,13 @@
+ 
+                     if (proven)
+                     {
+-                        measuredType = GetOperandTypeIndex((MatchableTypeBits, null, null, BitSyntaxDefaults.BitStringUnit));
++                        // binary_to_list on the original call result keeps the byte-aligned proof at the size read.
++                        int unit = restore >= 0 && body[success].Definition.Opcode == TailExternalCallWithFrame
++                            && IsSizeImport(body[success].Operands[1], AutoImportNames.BinaryToList)
++                            ? BitSyntaxDefaults.BinaryUnit : BitSyntaxDefaults.BitStringUnit;
++                        measuredType = GetOperandTypeIndex(
++                            (MatchableTypeBits, null, null, unit)
++                        );
+                     }
+                 }
+             }

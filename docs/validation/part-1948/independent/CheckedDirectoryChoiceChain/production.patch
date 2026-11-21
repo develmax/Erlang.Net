@@ -1,0 +1,117 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -3715,6 +3715,11 @@
+             bool reuseCallSlots = false
+         )
+         {
++            if (start == 0 && reuseCallSlots && TryEmitNestedSingletonConsCall(sequence.Items, failures))
++            {
++                start = 2;
++            }
++
+             for (int index = start; index < sequence.Items.Count - 1; index++)
+             {
+                 if (index == sequence.Items.Count - 2)
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.NestedSingletonConsCalls.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.NestedSingletonConsCalls.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.NestedSingletonConsCalls.cs
+@@ -0,0 +1,97 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private sealed partial class GeneralEmitter
++    {
++        private bool TryEmitNestedSingletonConsCall(
++            IReadOnlyList<Expr> items,
++            List<(int Label, int? Slot, Expr.Match Match)> failures
++        )
++        {
++            if (owner.receiveScratchRegisters is not null || !owner.SsaTypeInferenceEnabled
++                || owner.ModuleOptimizationDisabled
++                || items is not [
++                    Expr.Match
++                {
++                    Pattern: Pattern.Tuple { Items: [Pattern.Literal { Value: Atom tag }, Pattern.List list] },
++                    Value: Expr.Call { DynamicRemote: false } producer
++                } check,
++                    Expr.Match
++                {
++                    Pattern: Pattern.Variable { Name: not VariableScopeNames.Wildcard } result,
++                    Value: Expr.Call { DynamicRemote: false, Arguments: [Expr.List cons] } consumer
++                },
++                    _, ..
++                ]
++                || variables.ContainsKey(result.Name) || deferredPairMembers.ContainsKey(result.Name)
++                || !TryResolveOrdinaryCallTarget(producer, out _)
++                || !TryResolveOrdinaryCallTarget(consumer, out string? module))
++            {
++                return false;
++            }
++
++            int depth = 0;
++            Pattern member = list;
++            while (member is Pattern.List { Items: [var head], Tail: null })
++            {
++                depth++;
++                member = head;
++            }
++
++            if (depth < 2 || depth + 2 > BeamOperandParameters.MaximumRegister || member is not Pattern.Variable payload
++                || !DistinctBindings(payload, result)
++                || variables.ContainsKey(payload.Name) || deferredPairMembers.ContainsKey(payload.Name)
++                || cons.Items is not [Expr.Variable first, ..] || first.Name != payload.Name
++                || !AttributeLiteral.TryNormalizeConstant(cons with { Items = cons.Items.Skip(1).ToArray() }, out Term tail)
++                || ReadUsedEntryParameters(
++                    new Clause([payload], null, new Expr.Sequence(items.Skip(2).ToArray()))
++                ) is not { Count: 0 })
++            {
++                return false;
++            }
++
++            Expression(producer);
++            // Keep the original result in X0 for badmatch until every exact-list check has succeeded.
++            int failure = Label();
++            EmitDetailRecordTest(
++                0,
++                2,
++                tag,
++                failure
++            );
++            owner.EmitTuplePart(0, 1, 1);
++            for (int register = 1; register <= depth; register++)
++            {
++                owner.EmitNonemptyList(register, failure);
++                owner.EmitListParts(
++                    register,
++                    XRegisterTag,
++                    register + 1,
++                    XRegisterTag,
++                    register
++                );
++            }
++
++            for (int register = depth; register > 0; register--)
++            {
++                owner.Op(IsNil, LabelTag, failure);
++                owner.Operand(XRegisterTag, register);
++            }
++
++            owner.Op(TestHeap, BeamWire.UnsignedTag, ConsHeapWords);
++            owner.Operand(BeamWire.UnsignedTag, depth + 2);
++            owner.Op(PutList, XRegisterTag, depth + 1);
++            owner.LiteralOperand(tail);
++            owner.Operand(XRegisterTag, 0);
++            owner.EmitCallLine(consumer, CallLocation(producer, location));
++            Call(module, consumer.Function, 1);
++            variables.Add(result.Name, Save());
++            failures.Add((failure, null, check));
++
++            return true;
++        }
++    }
++}

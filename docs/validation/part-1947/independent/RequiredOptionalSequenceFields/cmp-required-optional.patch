@@ -1,0 +1,64 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs
+@@ -130,10 +130,12 @@
+                     || (allOptional || count == 2 && index == 1) && field is Expr.Case;
+                 bool followsLeadingForeignOptional = count == 2 && index == 1
+                     && fields[0] is { Omits: Atom, Call.Module: not null };
++                bool readsLeadingRequiredPair = count == 2 && index == 0 && field is Expr.Call
++                    && sequence.Items[2] is Expr.Match { Value: Expr.Case };
+                 SequenceEncodePart? plan = ReadRequiredOptionalSequenceField(
+                     field,
+                     value.Name,
+-                    allowForeign: firstDefault is not null || allowForeignOptional || followsLeadingForeignOptional,
++                    allowForeign: firstDefault is not null || allowForeignOptional || followsLeadingForeignOptional || readsLeadingRequiredPair,
+                     allowForeignOptional: allowForeignOptional
+                 );
+                 if (plan is null && count >= 4 && index == 0 && field is Expr.Case firstCondition
+@@ -226,9 +228,9 @@
+                 && fields.Take(count - 1).All(field => field.Omits is not null);
+             bool checkedPairWithOptional = fields is
+                 [
+-                { Omits: null, Call.Module: null },
+-                { Omits: not null, Call.Module: not null }
+-                ];
++                { Omits: null },
++                { Omits: not null }
++                ] && (fields[0].Call.Module is not null || fields[1].Call.Module is not null);
+             bool checkedOptionalThenRequired = fields is
+                 [
+                 { Omits: Atom, Call.Module: not null },
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedOptionalPairFields.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedOptionalPairFields.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedOptionalPairFields.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedOptionalPairFields.cs
+@@ -108,7 +108,7 @@
+             {
+                 EmitFirstProjectedPairArguments(first.Call);
+                 owner.EmitCallLine(first.Call, location);
+-                owner.EmitFieldCall(first.Call.Arguments.Count, first.Entry);
++                Call(first.Call.Module, first.Call.Function, first.Call.Arguments.Count);
+                 owner.MoveRegister(
+                     XRegisterTag,
+                     0,
+@@ -126,10 +126,11 @@
+                 );
+             }
+ 
++            int firstCheckTag = firstOptional is null ? XRegisterTag : YRegisterTag;
+             if (badFirst != 0)
+             {
+                 EmitTupleShapeTest(
+-                    YRegisterTag,
++                    firstCheckTag,
+                     0,
+                     2,
+                     badFirst
+@@ -189,7 +190,7 @@
+             if (badFirst != 0)
+             {
+                 Mark(Label());
+-                EmitPairFailure(first.MatchLine, YRegisterTag);
++                EmitPairFailure(first.MatchLine, firstCheckTag);
+             }
+ 
+             Mark(Label());

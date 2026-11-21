@@ -1,0 +1,169 @@
+using static Erlang.Compiler.BeamEmissionFormat;
+
+namespace Erlang.Compiler;
+
+internal sealed partial class BeamModuleCompiler
+{
+    private sealed partial class GeneralEmitter
+    {
+        private bool TryEmitClosureBooleanEffect(Clause clause)
+        {
+            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled
+                || recursiveClosure is not { SelfName: null, GuardFailure: null, CaptureCount: 1 }
+                || clause.Guard is not null || !HasUnconditionalParameters(clause)
+                || clause.Patterns is not [Pattern.Variable input, Pattern.Variable retained, Pattern.Variable capture]
+                || clause.Body is not Expr.Sequence
+                {
+                    Items:
+                    [
+                        _, _, ..,
+                        Expr.Case { Value: Expr.Call selector } decision,
+                        Expr.Binary
+                    {
+                        Operator: ErlangOperators.Plus,
+                        Left: Expr.Variable operand,
+                        Right: Expr.Literal { Value: Integer increment }
+                    } arithmetic
+                    ]
+                } sequence || operand.Name != retained.Name
+                || !IsBooleanCase(decision)
+                || decision.Clauses.Count(branch => branch.Body is Expr.Call) != 1
+                || decision.Clauses.First(branch => branch.Body is Expr.Call) is not
+                { Patterns: [Pattern.Literal { Value: Atom effectKey }], Body: Expr.Call effect }
+                || decision.Clauses.Single(branch => branch.Body is not Expr.Call) is not
+                { Patterns: [Pattern.Literal { Value: Atom skipKey }], Body: Expr.Literal }
+                || effect.Arguments is not [Expr.Variable receiver, Expr.Variable count, ..]
+                || receiver.Name != capture.Name || count.Name != retained.Name
+                || !effect.Arguments.Skip(2).All(value => AttributeLiteral.TryNormalizeConstant(value, out _))
+                || effect.Arguments.Count >= FirstReservedXRegister
+                || !TryResolveOrdinaryCallTarget(effect, out string? effectModule))
+            {
+                return false;
+            }
+
+            string[] parameters = [input.Name, retained.Name, capture.Name];
+            if (parameters.Any(name => name == VariableScopeNames.Wildcard)
+                || parameters.Distinct(StringComparer.Ordinal).Count() != parameters.Length
+                || ReadStraightCalls(FlattenCallArguments(sequence.Items.SkipLast(2).Append(selector)), parameters)
+                    is not [var first, var second, .. var remaining]
+                || first.Call.Arguments.Count != 0 || first.Result is null
+                || second.Call.Arguments is not [Expr.Variable value, Expr.Variable previous]
+                || value.Name != input.Name || previous.Name != first.Result
+                || second.Result is null || !TryResolveOrdinaryCallTarget(first.Call, out string? firstModule)
+                || !TryResolveOrdinaryCallTarget(second.Call, out string? secondModule))
+            {
+                return false;
+            }
+
+            string? lastResult = second.Result;
+            var unary = new List<(Expr.Call Call, string? Module)>();
+            foreach (var (call, result) in remaining)
+            {
+                if (lastResult is null || call.Arguments is not [Expr.Variable consumed]
+                    || consumed.Name != lastResult || !TryResolveOrdinaryCallTarget(call, out string? module))
+                {
+                    return false;
+                }
+
+                unary.Add((call, module));
+                lastResult = result;
+            }
+
+            if (unary.Count == 0 || lastResult is not null)
+            {
+                return false;
+            }
+
+            // The capture is below the two arguments in the closure frame.
+            // The first input dies at the lookup and the capture dies only on the effect edge.
+            EmitFrameAllocation(3, 3);
+            owner.MoveRegister(
+                XRegisterTag,
+                2,
+                YRegisterTag,
+                0
+            );
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                1
+            );
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                YRegisterTag,
+                2
+            );
+            EmitCall(first.Call, firstModule);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                XRegisterTag,
+                1
+            );
+            owner.MoveRegister(
+                YRegisterTag,
+                1,
+                XRegisterTag,
+                0
+            );
+            owner.EmitSlotKills([1]);
+            EmitCall(second.Call, secondModule);
+            foreach (var (call, module) in unary)
+            {
+                EmitCall(call, module);
+            }
+
+            int runEffect = Label();
+            int join = Label();
+            int failure = Label();
+            var branches = new[] { (Key: (Term)effectKey, Label: runEffect), (Key: (Term)skipKey, Label: join) };
+            owner.EmitMembershipSelect(
+                0,
+                failure,
+                branches.OrderBy(branch => branch.Key, Comparer<Term>.Create((left, right) => TermOrder.Compare(left, right, exact: true)))
+            );
+
+            Mark(runEffect);
+            owner.MoveRegister(
+                YRegisterTag,
+                2,
+                XRegisterTag,
+                1
+            );
+            for (int index = 2; index < effect.Arguments.Count; index++)
+            {
+                owner.EmitConstant(effect.Arguments[index], index);
+            }
+
+            owner.MoveRegister(
+                YRegisterTag,
+                0,
+                XRegisterTag,
+                0
+            );
+            owner.EmitSlotKills([0]);
+            EmitCall(effect, effectModule);
+            Mark(join);
+            var line = CallLocation(effect, location);
+            owner.EmitArithmeticLine(arithmetic.SourceLine, ref line);
+            owner.Op(GcBifTwo, LabelTag, 0);
+            owner.Operand(BeamWire.UnsignedTag, 0);
+            owner.Operand(BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module, arithmetic.Operator, 2));
+            owner.Operand(YRegisterTag, 2);
+            owner.LiteralOperand(increment);
+            owner.Operand(XRegisterTag, 0);
+            owner.EmitFrameReturn(3);
+            EmitBooleanCaseFailure(failure, CallLocation(selector, location));
+
+            return true;
+
+            void EmitCall(Expr.Call call, string? module)
+            {
+                owner.EmitCallLine(call, location);
+                Call(module, call.Function, call.Arguments.Count);
+            }
+        }
+    }
+}

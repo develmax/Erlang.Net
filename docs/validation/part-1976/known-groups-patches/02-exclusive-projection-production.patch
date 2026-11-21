@@ -1,0 +1,202 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FailureProjections.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FailureProjections.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FailureProjections.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FailureProjections.cs
+@@ -6,7 +6,9 @@
+ {
+     private static byte[]? RemoveRepeatedFailureProjections(
+         ReadOnlyMemory<byte> code,
+-        IReadOnlyList<BeamInstruction> body
++        IReadOnlyList<BeamInstruction> body,
++        IReadOnlyList<(int Start, int End, int Label)> labelOperands,
++        bool shareCheckedFallbacks
+     )
+     {
+         var removals = new SortedDictionary<int, int>();
+@@ -16,12 +18,24 @@
+             BeamInstruction test = body[index];
+             if (body[index - 1].Definition.Opcode != GetTupleElement
+                 || !IsEntryFramePredicate(test.Definition.Opcode)
+-                || test.Operands[0].Kind != BeamOperandParameters.Label
+-                || !(flow ??= new BeamProjectionFlow(body)).TryGetSingleForwardTarget(
+-                    index,
+-                    (int)test.Operands[0].Value,
+-                    out int target
+-                ))
++                || test.Operands[0].Kind != BeamOperandParameters.Label)
++            {
++                continue;
++            }
++
++            flow ??= new BeamProjectionFlow(body);
++            if (shareCheckedFallbacks && ShareExclusiveCheckedFailureProjection(
++                code,
++                body,
++                labelOperands,
++                flow,
++                index
++            ) is { } shared)
++            {
++                return shared;
++            }
++
++            if (!flow.TryGetSingleForwardTarget(index, (int)test.Operands[0].Value, out int target))
+             {
+                 continue;
+             }
+@@ -81,6 +95,116 @@
+         return output.ToArray();
+     }
+ 
++    private static byte[]? ShareExclusiveCheckedFailureProjection(
++        ReadOnlyMemory<byte> code,
++        IReadOnlyList<BeamInstruction> body,
++        IReadOnlyList<(int Start, int End, int Label)> labelOperands,
++        BeamProjectionFlow flow,
++        int predicate
++    )
++    {
++        if (predicate < 2 || body[predicate] is not
++            {
++                Definition.Opcode: ExactEqualTest or ExactNotEqualTest,
++                Operands: [var failure, var compared, {
++                    Kind: BeamOperandParameters.Atom or BeamOperandParameters.Integer
++                        or BeamOperandParameters.LiteralValue or BeamOperandParameters.Nil }]
++            }
++            || failure.Value.Sign <= 0
++            || body[predicate - 1].Operands is not [var source, _, var destination]
++            || !IsBareProjectionRegister(source) || !IsBareProjectionRegister(destination)
++            || source == destination || compared != destination
++            || body[predicate - 2] is not
++            {
++                Definition.Opcode: IsTaggedTuple,
++                Operands: [var shapeFailure, var carrier, var arity, var tag]
++            }
++            || shapeFailure != failure || carrier != source
++            || !flow.TryGetExclusiveForwardTarget(predicate - 2, predicate, (int)failure.Value, out int target)
++            || target + 3 >= body.Count
++            || body[target + 1] is not
++            {
++                Definition.Opcode: IsTaggedTuple,
++                Operands: [{ Kind: BeamOperandParameters.Label } finalFailure, var secondCarrier, var secondArity, var secondTag]
++            }
++            || finalFailure == failure || secondCarrier != carrier || secondArity != arity || secondTag != tag
++            || body[target + 2].Definition.Opcode != GetTupleElement
++            || !body[target + 2].Operands.SequenceEqual(body[predicate - 1].Operands)
++            || body[target + 3].Definition.Opcode is Label or FunctionInfo or EndCode
++            || !flow.TryGetForwardLabel(target + 2, (int)finalFailure.Value, out int finalTarget)
++            || !HasUnprotectedCheckedFailureRegion(body, predicate - 2, finalTarget))
++        {
++            return null;
++        }
++
++        int failureOffset = body[predicate - 2].Offset + 1;
++        var operand = labelOperands.FirstOrDefault(
++            label => label.Start == failureOffset && label.Label == (int)failure.Value
++        );
++        if (operand.Start != failureOffset)
++        {
++            return null;
++        }
++
++        // A failed shape goes directly to the same rejection. The failed
++        // comparison still enters with its checked field available.
++        using var output = new MemoryStream();
++        output.Write(code.Span[..operand.Start]);
++        BeamCompactWriter.Write(output, LabelTag, finalFailure.Value);
++        output.Write(code.Span[operand.End..body[target + 1].Offset]);
++        output.Write(code.Span[body[target + 3].Offset..]);
++
++        return output.ToArray();
++    }
++
++    private static bool HasUnprotectedCheckedFailureRegion(
++        IReadOnlyList<BeamInstruction> body,
++        int start,
++        int finalTarget
++    )
++    {
++        int info = start;
++        while (info >= 0 && body[info].Definition.Opcode != FunctionInfo)
++        {
++            info--;
++        }
++
++        if (info < 0)
++        {
++            return false;
++        }
++
++        int end = info + 1;
++        while (body[end].Definition.Opcode is not (FunctionInfo or EndCode))
++        {
++            if (body[end].Definition.Opcode is CatchEnter or CatchEnd or TryEnter or TryEnd or TryCase or TryCaseEnd
++                or LoopReceive or LoopReceiveEnd or Wait or WaitTimeout or RemoveMessage
++                or ReceiveMarkerBind or ReceiveMarkerClear or ReceiveMarkerReserve or ReceiveMarkerUse
++                or ExecutableLine or DebugLine)
++            {
++                return false;
++            }
++
++            end++;
++        }
++
++        if (body[end].Definition.Opcode == FunctionInfo)
++        {
++            // The next function's info label precedes its FunctionInfo.
++            while (body[end - 1].Definition.Opcode == Line)
++            {
++                end--;
++            }
++
++            if (body[end - 1].Definition.Opcode == Label)
++            {
++                end--;
++            }
++        }
++
++        return finalTarget < end;
++    }
++
+     private static bool SameStableProjections(
+         IReadOnlyList<BeamInstruction> body,
+         int first,
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProjectionFlow.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProjectionFlow.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProjectionFlow.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProjectionFlow.cs
+@@ -57,6 +57,19 @@
+         internal bool TryGetSingleForwardTarget(int from, int label, out int target) =>
+             labels.TryGetValue(label, out target) && target > from
+             && predecessors[target].Count == 1 && predecessors[target][0] == from;
++
++        internal bool TryGetExclusiveForwardTarget(
++            int first,
++            int second,
++            int label,
++            out int target
++        ) =>
++            TryGetForwardLabel(second, label, out target)
++            && predecessors[target].Count == 2 && predecessors[target].Contains(first)
++            && predecessors[target].Contains(second);
++
++        internal bool TryGetForwardLabel(int from, int label, out int target) =>
++            labels.TryGetValue(label, out target) && target > from;
+ 
+         internal bool IsSingleForwardSelectionTarget(int target) =>
+             predecessors[target] is [var source] && source < target
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedReturns.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedReturns.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedReturns.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedReturns.cs
+@@ -281,7 +281,12 @@
+                 ?? StoreConstructionResultsDirectly(code, body)
+                 ?? ReuseReturningTupleRegister(code, body)
+                 ?? SinkTupleReadsAcrossCalls(code, body, stackOperands)
+-                ?? RemoveRepeatedFailureProjections(code, body)
++                ?? RemoveRepeatedFailureProjections(
++                    code,
++                    body,
++                    labelOperands,
++                    shareCheckedFallbacks: !ModuleOptimizationDisabled && SsaTypeInferenceEnabled
++                )
+                 ?? ForwardStackProjections(code, body)
+                 ?? ForwardInteriorCallArgumentCopies(code, body)
+                 // Remove unread leaf slots before their projections become X writes.

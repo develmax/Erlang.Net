@@ -7,7 +7,7 @@ internal sealed partial class BeamModuleCompiler
     private static byte[]? EliminateEntryArgumentCopies(
         ReadOnlyMemory<byte> code,
         IReadOnlyList<BeamInstruction> body,
-        List<(int Start, int End, int Slot)> stackOperands,
+        IReadOnlyList<(int Start, int End, int Slot)> stackOperands,
         bool removeSpills,
         bool allowFramelessBranches = false
     )
@@ -212,20 +212,18 @@ internal sealed partial class BeamModuleCompiler
 
     private static void RecordEntryArgumentUses(
         IReadOnlyList<BeamInstruction> body,
-        List<(int Start, int End, int Slot)> stackOperands,
+        IReadOnlyList<(int Start, int End, int Slot)> stackOperands,
         IReadOnlyDictionary<int, BeamOperand> uses,
         BeamOperand slot,
         Dictionary<int, (int End, BeamOperand Source)> edits
     )
     {
-        var byOffset = Comparer<(int Start, int End, int Slot)>.Create(
-            static (left, right) => left.Start.CompareTo(right.Start));
         foreach (var (use, source) in uses)
         {
             int first = body[use].Offset;
             int last = body[use + 1].Offset;
-            int indexOfOperand = stackOperands.BinarySearch((first, 0, 0), byOffset);
-            for (int index = indexOfOperand < 0 ? ~indexOfOperand : indexOfOperand;
+            int indexOfOperand = FirstStackOperandAtOrAfter(stackOperands, first);
+            for (int index = indexOfOperand;
                 index < stackOperands.Count && stackOperands[index].Start < last;
                 index++)
             {

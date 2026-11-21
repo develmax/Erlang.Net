@@ -1,0 +1,21 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BitExpressions.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BitExpressions.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BitExpressions.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BitExpressions.cs
+@@ -361,10 +361,16 @@
+                 owner.EmitArithmeticLine(bits.SourceLine, ref previous);
+             }
+ 
++            BigInteger unit = BinaryConstructionResultUnit(segments);
++            if (segments is [{ Kind: BinaryAppendSegment or BinaryPrivateAppendSegment } append, ..])
++            {
++                unit = BigInteger.Max(unit, append.Unit);
++            }
++
+             owner.Op(CreateBinary, LabelTag, failure ?? 0);
+             owner.Operand(BeamWire.UnsignedTag, 0);
+             owner.Operand(BeamWire.UnsignedTag, live);
+-            owner.Operand(BeamWire.UnsignedTag, BinaryConstructionResultUnit(segments));
++            owner.Operand(BeamWire.UnsignedTag, unit);
+             owner.Operand(XRegisterTag, 0);
+             owner.instructions.WriteByte(ExtendedListOperand);
+             owner.Operand(BeamWire.UnsignedTag, segments.Count * BinaryConstructionSegmentOperands);

@@ -3087,12 +3087,12 @@ internal static class BeamModuleEmissionChecks
         byte[] code = BeamDocumentationEmissionChecks.Chunks(bytes).Single(chunk => chunk.Id == "Code").Data;
         ReadOnlySpan<byte> callArguments =
         [
-            BeamEmissionFormat.GetTupleElement, 0x04, 0x10, 0x03,
+            BeamEmissionFormat.GetTupleElement, 0x03, 0x10, 0x03,
             BeamEmissionFormat.GetTupleElement, 0x04, 0x20, 0x13
         ];
         if (code.AsSpan().IndexOf(callArguments) < 0)
         {
-            throw new InvalidOperationException("Expected consecutive tuple projections into the two X argument registers.");
+            throw new InvalidOperationException("Expected the initial tuple projection from X0 and the next projection from its saved Y0 copy.");
         }
     }
 

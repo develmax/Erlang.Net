@@ -1,0 +1,89 @@
+{
+  "OtpTag": "OTP-29.1.1",
+  "OtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "FrozenSource": "d858b109cb6529af7f42d5397a3f1c9a0a663aeabf811508421f9b11a62284f5",
+  "FrozenCompiler": "3a959a7ecaeb61cbb0a03c88c1a3808aa3dfb6369a38a59049207d9612d9406b",
+  "CorpusTool": "01ea8388bd795adb127e91de550642b2c2f969743d5c791e80c608e7a0249f10",
+  "BaselineOverlay": "e9dc7d66ea7376e7bd5abbf1b00cc914f8d8b1da4554cfc647d6cefd6d9b27da",
+  "BaselineCompiler": "f2c338e42dfb5988bfe3e00c59672ea33cc7cb8b09aa3ee6a75bda29f5f00bdf",
+  "Compiler": "2d88f3115d038e91b0c47c46870eb3fec18b8cc6b2a7d2a7515de88c259e893e",
+  "ScopeModules": 12,
+  "ExactControlsRetained": 3,
+  "ChangedModules": [
+    "lib/compiler-10.0.6/ebin/core_parse.beam",
+    "lib/diameter-2.7.2/ebin/diameter_dict_parser.beam",
+    "lib/edoc-1.5/ebin/edoc_parser.beam",
+    "lib/megaco-4.9.2/ebin/megaco_text_mini_parser.beam",
+    "lib/parsetools-2.8/ebin/yeccparser.beam",
+    "lib/stdlib-8.1/ebin/erl_parse.beam",
+    "lib/tools-4.2.3/ebin/xref_parser.beam",
+    "lib/xmerl-2.2/ebin/xmerl_xpath_parse.beam",
+    "lib/xmerl-2.2/ebin/xmerl_xsd_re_parse.beam"
+  ],
+  "WholeModulesNewlyByteIdentical": [],
+  "WholeModulesLostByteIdentity": [],
+  "NativeLoaderAcceptedModules": 9,
+  "NormalizedFunctions": {
+    "common": 2501,
+    "changed": 214,
+    "gained": 214,
+    "lost": 0,
+    "shared_terminal_arms": 3710,
+    "source_bound_plans": 214
+  },
+  "SourceCensus": {
+    "Modules": 9,
+    "ExactIntervals": 330,
+    "OtherIntervals": 0,
+    "PredictedWholeFunctionGains": 216
+  },
+  "NativeXPathSuccesses": 4,
+  "NativeXPathErrors": 1,
+  "FixtureNativeValues": 6,
+  "FixtureNativeErrors": 3,
+  "ArtifactHashes": {
+    "README.md": "98c7a235e8fa0e283be96c01a8db34602f4db13f42a9a22170619087d3608ae4",
+    "integer_selector_range_census.erl": "f520c1b51a218164767c8947d23fc719bb7cea472d9432eb6d036f53be3fd480",
+    "selector-source-ranges.terms": "a2cb8ca1c68f08eebd0bda00d4636e1a15fdf0dccf0772d0612a0d905c7a2ff2",
+    "selector-source-range-summary.log": "73fb36cbf98b4ceae74a4541a918c9bbb1e5cc98fd87b3999efdc2d625041707",
+    "integer_selector_plan_census.erl": "08a15ff92c7752cd05816eb71dbc82aa19337c997bf05624f8b4540615967411",
+    "selector-plans.terms": "0dc24222a6f7caca925645b2275a75c50e0776c20dd26ae6af467bf235afe83f",
+    "selector-plans.log": "483521a474293d12890abb7d33ea92fefde935980f6766bc7e90d74492c3f99a",
+    "selector-plan-delta.terms": "6699b97599622b61fcfa068137104e4186ba09893de41d39e72f4516ea29636f",
+    "integer-tail-selector.patch": "d275044c663a0ba55b6b20e0fa2aa280215c1d90f59521521cc350c0ab744d7d",
+    "integer-tail-selector-test.patch": "4594d63a8d0dbd95e8b04e5539b85168f3ab49c51fc2ded6c1785a8851aae126",
+    "strict-replay-hashes.json": "a6d35d3d151d9bf99b5c2dd04a21a3641ff0622c094ac91442c42433e5e5fdf2",
+    "replay-result.txt": "5c17143e4778c8f8815e5f31e95b5051d87d2e2b089163e44b31f93f41bf7cad",
+    "before-corpus.json": "aa065a4612eb179d96cfaf2988bf99746437f079ed42259abec8de63b3649644",
+    "before-corpus.json.timings.json": "bf6fd59dc8698c839eec106053359135a3faa2cd74fbb58be3c8df52199e3d2b",
+    "candidate-corpus.json": "f70cdc9794ddb5456a2ea46ea2b4d93177681ee585d6ae1299aba1e790e0ca49",
+    "candidate-corpus.json.timings.json": "d6ec33523e2aac3d615bade65d8c3eba4c036a7925579387ef87aab3166476d9",
+    "scope-image-hashes.json": "1523c6d169ead7a0243b7e075d6fa218d8900d07c7b77eb6b99fa5d8d87af0dd",
+    "scope-module-paths.txt": "551914e79652fe285799a0e4a045d823de920b263364d2ed07e5e1e48583da5b",
+    "fixture-image-hashes.json": "9efbe64998ae251a05ab2c94eded55760d0f93291548141be7f3ea94867e7c91",
+    "normalized-replay.json": "2e8889327d5301564a3eb847087c1072d141c4f4d0782327ae2194dfd3671868",
+    "normalized-replay.terms": "60dde3b0bfa292ccc7397e1a495a16ccb6526c9634220b6ca89c4d12edce354f",
+    "integer_selector_replay.erl": "f46c1a50591919c0cf568b2b215abc6e09b3820ee838b5bff95187f9ef6e8bb8",
+    "regression.result": "2d7a5255eccf58198eca3a0b4a71a2ee4ddb0bd88ec70f808368121b698bff6d",
+    "regression.overlay-before.result": "055ac06ca6b71180fe51a0708cb1ac4dc7cc4f85f77116cb18db85d494b2fedb",
+    "native-regression.result": "01595b5e98dc77f62c4d22b4c9b2a1477c0f6c45f4a26507a14a3076adb4cbc2",
+    "native-parser-scope.result": "f3eb017726929bac5870cfd107bea6ff10ecf834e8ce8d1154a9232b31df3691",
+    "native-parser-scope.terms": "e1374f38e775c108546a89bf290e672226f99257f378e24c71194c3ebf6be6fd",
+    "layout-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "part-1939-replay.json": "059ce27da599b72dc2cf9269512fc41761c7c41ccee0ebff9f34fba02e9eb878"
+  },
+  "LaterSourceReplay": {
+    "Source": "c9df0d115aa42b110913f90df45f7725cf835fab53910d83d9047dd96af3c857",
+    "SealedPrerequisite": "e9dc7d66ea7376e7bd5abbf1b00cc914f8d8b1da4554cfc647d6cefd6d9b27da",
+    "StrictReplay": true,
+    "ExactCompilerBlobs": [
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryLiteralTests.cs"
+    ],
+    "EarlierFixtureRegistrationsPreserved": true,
+    "ObservedHashes": {
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryLiteralTests.cs": "98ded5984fb7794f5da4b7dd0d713ab1d6e650173c9406d003b3e9e7b148e505",
+      "tests/Erlang.Tests/Compiler/Beam/BeamIntegerTailSelectorChecks.cs": "63b0d6a089de140811b497b335f311dc61d9f2dce045bcc5c8cbf5a914b10e9f",
+      "tests/Erlang.Tests/Harness/Program.cs": "68ea2d088a1714d8c49dbdb69c320fca23c666d992662d2ee1df72075b4027ba"
+    }
+  }
+}

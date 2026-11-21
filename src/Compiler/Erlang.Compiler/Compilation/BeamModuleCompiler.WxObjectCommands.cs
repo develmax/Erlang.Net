@@ -8,6 +8,12 @@ internal sealed partial class BeamModuleCompiler
     {
         private bool TryEmitWxObjectOverload(FunctionDefinition function)
         {
+            if (TryEmitWxSharedObjectCommandPair(function) || TryEmitWxScalarOptionRecordPair(function)
+                || TryEmitWxClassIndexOverload(function))
+            {
+                return true;
+            }
+
             if (function.Arity >= 3 && function.Clauses is [var numeric, var reference]
                 && numeric.Patterns[^1] is Pattern.Variable && reference.Patterns[^1] is AliasPattern)
             {
@@ -182,6 +188,148 @@ internal sealed partial class BeamModuleCompiler
             return true;
         }
 
+        private bool TryEmitWxSharedObjectCommandPair(FunctionDefinition function)
+        {
+            int arity = function.Arity;
+            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled
+                || arity is not (2 or 3) || function.Clauses is not [var first, var other])
+            {
+                return false;
+            }
+
+            bool startsWithObject = arity == 3 && first.Patterns[^1] is AliasPattern && first.Guard is null
+                && other.Patterns[^1] is Pattern.Variable colour && IsWxColourGuard(other.Guard, colour.Name);
+            bool startsWithInteger = first.Patterns[^1] is Pattern.Variable index
+                && first.Guard is Expr.Call { Function: "is_integer", Arguments: [Expr.Variable tested] } guard
+                && tested.Name == index.Name && owner.ResolvesErlangBif(guard);
+            if (!startsWithObject && !startsWithInteger)
+            {
+                return false;
+            }
+
+            var firstCommand = function with { Clauses = [first] };
+            var secondCommand = function with { Clauses = [other] };
+            int receiver = arity == 2 ? 2 : 4;
+            int? secondReceiver = arity == 2 ? null : 3;
+            if (!TryEmitWxObjectCommand(
+                firstCommand,
+                receiver,
+                guardFailure: 0,
+                validateOnly: true,
+                preparedSecondClass: secondReceiver,
+                sharedObjectPair: true
+            )
+                || !TryEmitWxObjectCommand(
+                    secondCommand,
+                    receiver,
+                    validateOnly: true,
+                    preparedSecondClass: secondReceiver,
+                    sharedObjectPair: true
+                ))
+            {
+                return false;
+            }
+
+            int rejected = owner.nextLabel - 2;
+            for (int register = 0; register < arity - 1; register++)
+            {
+                EmitDetailRecordTest(
+                    register,
+                    4,
+                    Term.A("wx_ref"),
+                    rejected
+                );
+            }
+
+            if (secondReceiver is int secondType)
+            {
+                owner.EmitTuplePart(1, 2, secondType);
+            }
+
+            owner.EmitTuplePart(0, 2, receiver);
+            // The first branch allocates one label per class check and an environment failure.
+            int fallback = owner.nextLabel + arity + (startsWithObject ? 1 : 0);
+            TryEmitWxObjectCommand(
+                firstCommand,
+                receiver,
+                fallback,
+                functionFailure: rejected,
+                preparedSecondClass: secondReceiver,
+                sharedObjectPair: true
+            );
+            Mark(Label());
+            TryEmitWxObjectCommand(
+                secondCommand,
+                receiver,
+                functionFailure: rejected,
+                preparedSecondClass: secondReceiver,
+                sharedObjectPair: true
+            );
+
+            return true;
+        }
+
+        private bool TryEmitWxScalarOptionRecordPair(FunctionDefinition function)
+        {
+            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled || function.Arity != 4
+                || function.Clauses is not [var options, var other] || options.Guard is null || other.Guard is null
+                || options.Patterns[^1] is not Pattern.Variable { } || other.Patterns[^1] is not AliasPattern)
+            {
+                return false;
+            }
+
+            var optionCommand = function with { Clauses = [options] };
+            var objectCommand = function with { Clauses = [other] };
+            const int receiverType = 4;
+            if (!TryEmitWxObjectCommand(
+                optionCommand,
+                receiverType,
+                0,
+                validateOnly: true,
+                scalarOptionPair: true
+            )
+                || !TryEmitWxObjectCommand(
+                    objectCommand,
+                    receiverType,
+                    validateOnly: true,
+                    scalarOptionPair: true
+                ))
+            {
+                return false;
+            }
+
+            int failure = owner.nextLabel - 2;
+            EmitDetailRecordTest(
+                0,
+                4,
+                Term.A("wx_ref"),
+                failure
+            );
+            for (int register = 1; register <= 2; register++)
+            {
+                EmitForwardGuard(new ForwardGuard.Test(IsInteger, register), failure);
+            }
+
+            owner.EmitTuplePart(0, 2, receiverType);
+            int fallback = owner.nextLabel + 2;
+            TryEmitWxObjectCommand(
+                optionCommand,
+                receiverType,
+                fallback,
+                functionFailure: failure,
+                scalarOptionPair: true
+            );
+            Mark(Label());
+            TryEmitWxObjectCommand(
+                objectCommand,
+                receiverType,
+                functionFailure: failure,
+                scalarOptionPair: true
+            );
+
+            return true;
+        }
+
         private bool TryEmitWxGuardedForwardOverload(FunctionDefinition function)
         {
             if (function.Clauses.Count < 2 || ReadGuardedLocalForward(function.Clauses[0]) is not { } forward)
@@ -191,6 +339,16 @@ internal sealed partial class BeamModuleCompiler
 
             var continuation = function with { Clauses = function.Clauses.Skip(1).ToArray() };
             int failure = owner.nextLabel - 2;
+            if (TryEmitWxTupleArityForward(forward, continuation, failure)
+                || TryEmitWxMappedTupleUnionForward(forward, continuation, failure)
+                || TryEmitWxTupleConstructorForward(function, forward, failure)
+                || TryEmitWxClassedConstructorOverload(function, forward, failure)
+                || TryEmitWxSharedReceiverForward(forward, continuation, failure)
+                || TryEmitWxGuardedScalarOptionForward(forward, continuation, failure))
+            {
+                return true;
+            }
+
             bool classUnion = TryEmitWxUnaryClassUnionOverload(continuation, failure, validateOnly: true);
             if (!classUnion && !TryEmitWxObjectCommand(continuation, validateOnly: true))
             {
@@ -203,6 +361,90 @@ internal sealed partial class BeamModuleCompiler
 
             return classUnion ? TryEmitWxUnaryClassUnionOverload(continuation, failure)
                 : TryEmitWxObjectCommand(continuation, functionFailure: failure);
+        }
+
+        private bool TryEmitWxGuardedScalarOptionForward(
+            GuardedLocalForward forward,
+            FunctionDefinition command,
+            int failure
+        )
+        {
+            if (forward.Arity is not (3 or 4) || !forward.AddsEmptyList || forward.Shapes.Count != 0
+                || command.Clauses is not [{ Guard: { } guard } clause] || !HasUnconditionalParameters(clause))
+            {
+                return false;
+            }
+
+            var tests = FlattenForwardConjunction(forward.Tests).ToArray();
+            string[] names = clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray();
+            if (tests.Length != forward.Arity || tests.Any(test => test is not ForwardGuard.Test { Opcode: IsBinary or IsInteger })
+                || ReadForwardGuard(guard, names) is not { } parsed
+                || !TryEmitWxStaticScalarOptions(command, failure, validateOnly: true))
+            {
+                return false;
+            }
+
+            var fallbackTests = FlattenForwardConjunction(parsed).ToHashSet();
+            int fallback = Label();
+            foreach (var test in tests)
+            {
+                EmitForwardGuard(test, fallbackTests.Contains(test) ? failure : fallback);
+            }
+
+            owner.EmitConstant(Nil.Value, forward.Arity);
+            owner.Op(TailLocalCall, BeamWire.UnsignedTag, forward.Arity + 1);
+            owner.Operand(LabelTag, forward.Entry);
+            Mark(fallback);
+            TryEmitWxStaticScalarOptions(command, failure, validateOnly: false);
+
+            return true;
+        }
+
+        private bool TryEmitWxSharedReceiverForward(
+            GuardedLocalForward forward,
+            FunctionDefinition command,
+            int failure
+        )
+        {
+            int arity = forward.Arity;
+            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled
+                || arity is not (2 or 3) || !forward.AddsEmptyList || forward.Shapes.Count != 0)
+            {
+                return false;
+            }
+
+            var tests = FlattenForwardConjunction(forward.Tests).ToArray();
+            if (tests is not [
+                ForwardGuard.Test { Opcode: IsTaggedTuple, Register: 0, Tag.Name: "wx_ref", Arity: 4 },
+                .. var indexTests,
+                var choice
+            ] || !indexTests.SequenceEqual(Enumerable.Range(1, arity - 2)
+                    .Select(register => new ForwardGuard.Test(IsInteger, register)))
+                || !(choice is ForwardGuard.Test { Opcode: IsInteger, Register: var scalar } && scalar == arity - 1
+                    || choice is ForwardGuard.Disjunction
+                    {
+                        Left: ForwardGuard.Test { Opcode: IsList, Register: var list },
+                        Right: ForwardGuard.Test { Opcode: IsBinary, Register: var binary }
+                    } && list == arity - 1 && binary == arity - 1)
+                || !TryEmitWxObjectCommand(command, validateOnly: true, sharedReceiverForward: true))
+            {
+                return false;
+            }
+
+            foreach (var shared in tests.SkipLast(1))
+            {
+                EmitForwardGuard(shared, failure);
+            }
+
+            int next = owner.nextLabel + ForwardGuardLabelCount(choice);
+            EmitForwardGuard(choice, next);
+            owner.EmitConstant(Nil.Value, arity);
+            owner.Op(TailLocalCall, BeamWire.UnsignedTag, arity + 1);
+            owner.Operand(LabelTag, forward.Entry);
+            Mark(Label());
+            TryEmitWxObjectCommand(command, functionFailure: failure, sharedReceiverForward: true);
+
+            return true;
         }
 
         private bool TryEmitWxUnaryClassUnionOverload(FunctionDefinition function, int failure, bool validateOnly = false)
@@ -230,6 +472,42 @@ internal sealed partial class BeamModuleCompiler
             return true;
         }
 
+        private bool TryEmitWxUnaryTextObjectOverload(FunctionDefinition function, Clause text, Clause reference)
+        {
+            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled
+                || text.Patterns is not [Pattern.Variable input] || text.Guard is not { } guard
+                || ReadForwardGuard(guard, [input.Name]) is not { } tests || !IsWxChardataTest(tests)
+                || ReadWxClassUnionObject(reference.Patterns[0]) is null || reference.Guard is not null
+                || text.Body is not Expr.Sequence
+                {
+                    Items: [
+                        Expr.Match { Pattern: Pattern.Variable output },
+                        Expr.Call { DynamicRemote: false, Arguments: [_, Expr.Case environment, _] },
+                        Expr.Call { Module: "wxe_util", Function: "rec", DynamicRemote: false }
+                    ]
+                }
+                || !UsesFreshWxEnvironment(environment, [input.Name, output.Name]))
+            {
+                return false;
+            }
+
+            var textCommand = function with { Clauses = [text] };
+            var referenceCommand = function with { Clauses = [reference] };
+            if (!TryEmitWxStaticCommand(textCommand, validateOnly: true)
+                || !TryEmitWxObjectCommand(referenceCommand, validateOnly: true))
+            {
+                return false;
+            }
+
+            int failure = owner.nextLabel - 2;
+            // Two guard edges and the converted command's missing environment edge precede the record arm.
+            int record = owner.nextLabel + 3;
+            TryEmitWxStaticCommand(textCommand, record);
+            Mark(Label());
+
+            return TryEmitWxObjectCommand(referenceCommand, functionFailure: failure);
+        }
+
         private bool TryEmitWxUnaryObjectOverload(FunctionDefinition function)
         {
             if (function.Arity != 1 || function.Clauses is not [var first, var second])
@@ -238,7 +516,8 @@ internal sealed partial class BeamModuleCompiler
             }
 
             var fallbackCommand = function with { Clauses = [second] };
-            if (TryEmitWxUnaryClassUnionOverload(function, owner.nextLabel - 2))
+            if (TryEmitWxUnaryTextObjectOverload(function, first, second)
+                || TryEmitWxUnaryClassUnionOverload(function, owner.nextLabel - 2))
             {
                 return true;
             }
@@ -351,6 +630,18 @@ internal sealed partial class BeamModuleCompiler
             }
 
             var ordered = FlattenForwardConjunction(tests).ToArray();
+            if (shapes.Count == 0 && !owner.ModuleOptimizationDisabled && owner.SsaTypeInferenceEnabled
+                && ReadSparseWxTextForward(ordered, arity) is { } sparse
+                && TryEmitWxSparseTextOptionOverload(
+                    function,
+                    options,
+                    entry,
+                    sparse
+                ))
+            {
+                return true;
+            }
+
             int sharedRecords = 0;
             while (sharedRecords < Math.Min(ordered.Length, arity - 1)
                 && ordered[sharedRecords] is ForwardGuard.Test
@@ -408,6 +699,40 @@ internal sealed partial class BeamModuleCompiler
             return true;
         }
 
+        private bool TryEmitWxSparseTextOptionOverload(
+            FunctionDefinition function,
+            Clause options,
+            int entry,
+            SparseWxTextForward forward
+        )
+        {
+            var command = function with { Clauses = [options] };
+            if (!TryEmitWxObjectCommand(command, validateOnly: true, sparseForward: forward))
+            {
+                return false;
+            }
+
+            int failure = owner.nextLabel - 2;
+            int fallback = owner.nextLabel + 2;
+            foreach (var record in forward.Records)
+            {
+                EmitForwardGuard(record, record.Register == function.Arity - 1 ? fallback : failure);
+            }
+
+            foreach (ForwardGuard test in forward.Values)
+            {
+                EmitForwardGuard(test, test is ForwardGuard.Disjunction ? fallback : failure);
+            }
+
+            owner.EmitConstant(Nil.Value, function.Arity);
+            owner.Op(TailLocalCall, BeamWire.UnsignedTag, function.Arity + 1);
+            owner.Operand(LabelTag, entry);
+            Mark(Label());
+            TryEmitWxObjectCommand(command, functionFailure: failure, sparseForward: forward);
+
+            return true;
+        }
+
         private bool TryEmitWxObjectCommand(
             FunctionDefinition function,
             int? sharedType = null,
@@ -419,7 +744,14 @@ internal sealed partial class BeamModuleCompiler
             bool listThenObject = false,
             bool numericThenObject = false,
             int? preparedSecondClass = null,
-            bool preparedTupleOverload = false
+            bool preparedTupleOverload = false,
+            bool sharedObjectPair = false,
+            SparseWxTextForward? sparseForward = null,
+            bool sharedReceiverForward = false,
+            bool scalarOptionPair = false,
+            bool tupleConstructorArm = false,
+            bool preparedTupleSetter = false,
+            bool scalarAfterUnion = false
         )
         {
             if (function.Clauses is not [var clause] || clause.Body is not Expr.Sequence sequence)
@@ -615,6 +947,26 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
+            if (optionMapper is not null)
+            {
+                var bindings = variables.Concat(preliminaryConversions.Select(item => item.Name));
+                if (convertedName is not null)
+                {
+                    bindings = bindings.Append(convertedName);
+                }
+
+                if (optionMap is not { Arguments: [Expr.Variable mapperBinding, _] } || mappedOptions is null
+                    || !UsesFreshWxEnvironment(environment, bindings.Concat([mapperBinding.Name, mappedOptions])))
+                {
+                    return false;
+                }
+            }
+
+            if (convert is null && optionMapper is null && !UsesFreshWxEnvironment(environment, variables))
+            {
+                return false;
+            }
+
             int firstColourRegister = -1;
             if (convert is null)
             {
@@ -696,7 +1048,8 @@ internal sealed partial class BeamModuleCompiler
                         receive,
                         command,
                         convert,
-                        validateOnly
+                        validateOnly,
+                        guardFailure ?? functionFailure
                     );
             }
 
@@ -728,11 +1081,24 @@ internal sealed partial class BeamModuleCompiler
                 classChecks.Add((register, expectedClass, classCall));
             }
 
-            if (interleavesTextConversion && (convert is null || convertedRegister != 1
-                || classChecks[0].Register != 0
-                || clause.Guard is null
-                || result is not null || optionMapper is not null || preliminaryConversions.Count != 0
-                || sharedType is not null && !numericThenObject))
+            bool interleavesMappedText = interleavesTextConversion && optionMapper is not null
+                && !owner.ModuleOptimizationDisabled && owner.SsaTypeInferenceEnabled
+                && arity is >= 4 and <= 6 && classChecks[0].Register == 0
+                && convertedRegister >= 1 && convertedRegister < arity - 2
+                && classChecks.Skip(1).Select(check => check.Register)
+                    .SequenceEqual(Enumerable.Range(convertedRegister + 1, arity - convertedRegister - 2))
+                && preliminaryConversions.Count == 0 && sharedType is null
+                && convert is { Module: "unicode", Function: "characters_to_binary" }
+                && receive is { DynamicRemote: false } && !queue.DynamicRemote
+                && optionMap is { DynamicRemote: false, Arguments: [Expr.Variable mapperInput, _] }
+                && convertedName is not null && mappedOptions is not null
+                && UsesFreshWxEnvironment(environment, variables.Concat([convertedName, mapperInput.Name, mappedOptions]))
+                && ClosureCaptures.Capture(optionMapper, variables.Append(convertedName)
+                    .ToDictionary(name => name, _ => (Term)Nil.Value)).Count == 0;
+            if (interleavesTextConversion && !interleavesMappedText
+                && (convert is null || convertedRegister != 1 || classChecks[0].Register != 0
+                    || clause.Guard is null || result is not null || optionMapper is not null
+                    || preliminaryConversions.Count != 0 || sharedType is not null && !numericThenObject))
             {
                 return false;
             }
@@ -845,7 +1211,45 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
-            bool objectFallback = (textThenObject || listThenObject || numericThenObject) && guardFailure is null;
+            bool hasSharedObjectArm = sharedObjectPair && classChecks.Count == arity && convert is null;
+            bool scalarObjectFallback = scalarOptionPair && guardFailure is null;
+            bool objectFallback = hasSharedObjectArm || scalarObjectFallback
+                || (textThenObject || listThenObject || numericThenObject) && guardFailure is null;
+            if (scalarOptionPair)
+            {
+                var expected = scalarObjectFallback
+                    ? new[] { (IsInteger, 1), (IsInteger, 2) }
+                    : new[] { (IsInteger, 1), (IsInteger, 2), (IsList, 3) };
+                if (receive is not { DynamicRemote: false } || queue.DynamicRemote || convert is not null
+                    || combinedGuard is not null || (optionMapper is null) != scalarObjectFallback
+                    || classChecks.Count != (scalarObjectFallback ? 2 : 1)
+                    || classChecks[0].Register != 0 || scalarObjectFallback && classChecks[1].Register != 3
+                    || !guards.Select(test => (test.Opcode, guardSources[test.Register]))
+                        .SequenceEqual(expected.Select(test => (test.Item1, (test.Item2, (int?)null))))
+                    || optionMapper is not null && ClosureCaptures.Capture(
+                        optionMapper,
+                        variables.ToDictionary(name => name, _ => (Term)Nil.Value)).Count != 0)
+                {
+                    return false;
+                }
+            }
+            if (sharedObjectPair)
+            {
+                if (receive is null || optionMapper is not null || preliminaryConversions.Count != 0
+                    || interleavesTextConversion || combinedGuard is not null
+                    || classChecks.Count != (hasSharedObjectArm ? arity : arity - 1)
+                    || classChecks.Where((check, index) => check.Register != index).Any()
+                    || !UsesFreshWxEnvironment(environment, convertedName is null ? variables : variables.Append(convertedName))
+                    || (guardFailure is not null
+                        ? convert is not null || (hasSharedObjectArm
+                            ? guards.Count != 0
+                            : guards is not [(IsInteger, _)] || guardSources[guards[0].Register] != (arity - 1, null))
+                        : guards.Count != 0 || !hasSharedObjectArm && (convert is null || convertedRegister != arity - 1)))
+                {
+                    return false;
+                }
+            }
+
             if (numericThenObject && (result is not null || optionMapper is not null || preliminaryConversions.Count != 0
                 || convert is not { Module: "unicode", Function: "characters_to_binary" } || convertedRegister != 1
                 || classChecks.Count != (objectFallback ? 2 : 1) || classChecks[0].Register != 0
@@ -894,17 +1298,69 @@ internal sealed partial class BeamModuleCompiler
 
             if (preparedTupleOverload && (classChecks.Count != (preparedSecondClass is null ? 1 : 2)
                 || classChecks.Where((check, index) => check.Register != index).Any()
-                || convert is not null || optionMapper is not null || receive is null || guards.Count != 0))
+                || convert is not null || optionMapper is not null || guards.Count != 0
+                || (preparedTupleSetter ? result is not null || arity != 2 || queue.DynamicRemote : receive is null)))
             {
                 return false;
             }
 
-            if (!preparedTupleOverload && !textThenObject && !listThenObject && !numericThenObject && sharedType is not null && (classChecks.Count != 1 || classChecks[0].Register != 0
+            if (scalarAfterUnion && (sharedType is null || arity is < 2 or > 4 || classChecks is not [{ Register: 0 }]
+                || (optionMapper is not null
+                    ? arity != 3 || guards is not [{ Opcode: IsInteger }, { Opcode: IsList }]
+                    : guards.Count != (arity == 2 ? 1 : 3) || guards.Any(guard => guard.Opcode != IsInteger))
+                || combinedGuard is not null || convert is not null || receive is null))
+            {
+                return false;
+            }
+
+            if (!scalarAfterUnion && !scalarOptionPair && !sharedObjectPair && !preparedTupleOverload && !textThenObject && !listThenObject
+                && !numericThenObject && sharedType is not null && (classChecks.Count != 1 || classChecks[0].Register != 0
                 || optionMapper is not null || result is not null || convertedRegister == 0
                 || (convert is null
                     ? guardFailure is null || guards.Count != 1 || guards[0].Opcode != IsInteger
                     : guards.Count != 0 || (inlineColour ? guardFailure is not null
                         : convert is not { Module: "unicode", Function: "characters_to_binary" }))))
+            {
+                return false;
+            }
+
+            if (sharedReceiverForward
+                && (receive is not { DynamicRemote: false } || queue.DynamicRemote
+                    || convert is not null || optionMapper is not null || combinedGuard is not null
+                    || classChecks is not [{ Register: 0 }, { Register: var other }] || other != arity - 1
+                    || !guards.Select(test => (test.Opcode, guardSources[test.Register])).SequenceEqual(
+                        Enumerable.Range(1, arity - 2).Select(register => (IsInteger, (register, (int?)null))))))
+            {
+                return false;
+            }
+
+            if (sparseForward is not null
+                && (combinedGuard is null || !convertsBeforeMapping
+                    || convert is not { Module: "unicode", Function: "characters_to_binary" }
+                    || preliminaryConversions.Count != 0 || !checkedObjects.SetEquals(sparseForward.Records
+                        .Take(sparseForward.Records.Length - 1).Select(test => test.Register))
+                    || !FlattenForwardConjunction(combinedGuard).SequenceEqual(
+                        sparseForward.Values.Append(new ForwardGuard.Test(IsList, arity - 1)))
+                    || optionMap is not { DynamicRemote: false, Arguments: [Expr.Variable forwardMapperInput, _] }
+                    || convertedName is null || mappedOptions is null || receive is not { DynamicRemote: false }
+                    || queue.DynamicRemote || !UsesFreshWxEnvironment(
+                        environment,
+                        variables.Concat([convertedName, forwardMapperInput.Name, mappedOptions]))
+                    || ClosureCaptures.Capture(optionMapper!, variables.Append(convertedName)
+                        .ToDictionary(name => name, _ => (Term)Nil.Value)).Count != 0))
+            {
+                return false;
+            }
+
+            if (tupleConstructorArm && (receive is not { DynamicRemote: false } || optionMapper is null
+                || mappedOptionsCheck is not null || preliminaryConversions.Count != 0
+                || (checkedRecordPrefix == 0 ? !staticTextOptions || convertedRegister != 0
+                    || combinedGuard is not ForwardGuard.Conjunction
+                    {
+                        Right: ForwardGuard.Test { Opcode: IsList, Register: 1 }
+                    } textGuard || !IsWxChardataTest(textGuard.Left)
+                    : classChecks is not [{ Register: 0 }] || combinedGuard is not null
+                        || guards.Count != 1 || guards[0].Opcode != IsList)))
             {
                 return false;
             }
@@ -931,13 +1387,14 @@ internal sealed partial class BeamModuleCompiler
                     arity - 1,
                     4,
                     Term.A("wx_ref"),
-                    failureLabel
+                    hasSharedObjectArm ? guardFailure ?? failureLabel : failureLabel
                 );
             }
 
             for (int register = 0; sharedType is null && register < arity; register++)
             {
-                if (checkedObjects.Contains(register) && register >= checkedRecordPrefix)
+                if (checkedObjects.Contains(register) && register >= (sharedReceiverForward ? 1 : checkedRecordPrefix)
+                    && (sparseForward is null || !sparseForward.Records.Any(record => record.Register == register)))
                 {
                     EmitDetailRecordTest(
                         register,
@@ -955,7 +1412,7 @@ internal sealed partial class BeamModuleCompiler
                     owner.Operand(BeamWire.UnsignedTag, tupleArity);
                 }
             }
-            foreach (var (opcode, guardIndex) in guards)
+            foreach (var (opcode, guardIndex) in guards.Skip(scalarOptionPair ? 2 : sharedReceiverForward || scalarAfterUnion ? guards.Count : 0))
             {
                 var (register, field) = guardSources[guardIndex];
                 if (field is int tupleField)
@@ -973,7 +1430,8 @@ internal sealed partial class BeamModuleCompiler
             }
             else if (inlineColour)
             {
-                EmitWxColourGuard(arity - 1, sharedType is null ? arity : arity + 1, failureLabel);
+                int scratch = sharedObjectPair ? sharedType!.Value + 1 : sharedType is null ? arity : arity + 1;
+                EmitWxColourGuard(arity - 1, scratch, failureLabel);
             }
             else if (convert is { Module: not null } && !convertsMiddleArgument)
             {
@@ -991,7 +1449,8 @@ internal sealed partial class BeamModuleCompiler
             bool preservesSecondClass = preparedSecondClass is not null || listThenObject && arity == 3;
             int extraSlot = preservesSecondClass ? 1 : 0;
             int initialFrame = staticTextOptions ? 1 : arity + extraSlot;
-            int live = preparedSecondClass is int secondType ? secondType + 1 : sharedType is null ? arity : sharedType.Value + 1;
+            int live = sharedObjectPair ? sharedType!.Value + 1
+                : preparedSecondClass is int secondType ? secondType + 1 : sharedType is null ? arity : sharedType.Value + 1;
             EmitFrameAllocation(live, initialFrame);
             if (preservesSecondClass)
             {
@@ -1104,7 +1563,7 @@ internal sealed partial class BeamModuleCompiler
             int matchFailure = mappedOptionsCheck is null ? 0 : Label();
             if (optionMapper is not null)
             {
-                if (convert is not null && !colourAfterOptions)
+                if (convert is not null && !colourAfterOptions && !interleavesMappedText)
                 {
                     int convertedSlot = arity - convertedRegister - 1;
                     if (!staticTextOptions)
@@ -1317,7 +1776,8 @@ internal sealed partial class BeamModuleCompiler
             }
             else
             {
-                int convertedSlot = arity - convertedRegister - 1;
+                int droppedSlots = sharedObjectPair ? 1 + extraSlot : 1;
+                int convertedSlot = arity - convertedRegister - 1 + droppedSlots - 1;
                 owner.MoveRegister(
                     YRegisterTag,
                     convertedSlot,
@@ -1333,7 +1793,7 @@ internal sealed partial class BeamModuleCompiler
                         convertedSlot
                     );
                 }
-                owner.Op(TrimFrame, BeamWire.UnsignedTag, 1);
+                owner.Op(TrimFrame, BeamWire.UnsignedTag, droppedSlots);
                 owner.Operand(BeamWire.UnsignedTag, arity - 1);
                 owner.EmitCallLine(convert, previous);
                 previous = CallLocation(convert, previous);
@@ -1421,7 +1881,7 @@ internal sealed partial class BeamModuleCompiler
                 else
                 {
                     bool moveConvertedFirst = arity == 3
-                        && (inlineColour && result is null
+                        && (inlineColour && (sharedObjectPair || result is null)
                             || convert.Module == "unicode"
                                 && (result is null || checkedObjects.Contains(1) || preliminaryConversions.Count > 0
                                     || guards is [(IsInteger, var indexGuard)] && guardSources[indexGuard] == (1, null)));

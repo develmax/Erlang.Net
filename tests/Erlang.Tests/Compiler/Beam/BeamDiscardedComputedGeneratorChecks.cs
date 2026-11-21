@@ -1,0 +1,94 @@
+using System.Collections;
+using System.Numerics;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamDiscardedComputedGeneratorChecks
+{
+    internal const string TestName = "compiler/beam/lifts-computed-sources-for-discarded-list-effects";
+    private const string Fixture = "beam_discarded_computed_generator_probe.erl";
+    private const string MissingHelper = "A computed discarded generator did not produce its effect-only helper.";
+
+    internal const string Source = """
+        -module(beam_discarded_computed_generator_probe).
+        -export([from_call/2, from_record/2, from_cons/4, capture_after/2, retained/2]).
+        -record(bucket, {values}).
+
+        from_call(List, Target) ->
+            [notify({item, X}, Target) || X <- produce(List, Target)],
+            done.
+
+        from_record(Bucket, Target) ->
+            _ = [notify({item, X}, Target) || X <- Bucket#bucket.values],
+            done.
+
+        from_cons(A, B, Tail, Target) ->
+            [notify({item, X}, Target) || X <- [stage(A, Target), stage(B, Target) | Tail]],
+            done.
+
+        capture_after(List, Target) ->
+            Values = [wrap(X) || X <- List],
+            Flag = {kind, fixed},
+            [notify({Flag, X}, Target) || X <- produce(Values, Target)],
+            done.
+
+        retained(List, Target) -> [notify({item, X}, Target) || X <- List].
+
+        wrap(X) -> {wrapped, X}.
+        produce(List, Target) -> Target ! produced, List.
+        stage({fail, Value}, Target) -> Target ! {staged, Value}, erlang:error({stage, Value});
+        stage(Value, Target) -> Target ! {staged, Value}, Value.
+        notify(Message, Target) -> Target ! Message.
+        """;
+
+    internal static byte[] CompileFixture() => CodeGeneration.CompileBeamModule(Source, Fixture);
+
+    internal static void Run()
+    {
+        object code = Code(CompileFixture());
+        object[] instructions = Items(code, "Instructions").ToArray();
+        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
+        if (!HasShape("-from_call/2-lc$^0/1-0-", returnsList: false)
+            || !HasShape("-from_record/2-lc$^0/1-0-", returnsList: false)
+            || !HasShape("-from_cons/4-lc$^0/1-0-", returnsList: false)
+            || !HasShape("-capture_after/2-lc$^1/1-1-", returnsList: false)
+            || !HasShape("-retained/2-lc$^0/1-0-", returnsList: true))
+        {
+            throw new InvalidOperationException(MissingHelper);
+        }
+
+        bool HasShape(string name, bool returnsList)
+        {
+            int info = Array.FindIndex(
+                instructions,
+                instruction => Opcode(instruction) == FunctionInfo
+                && Operands(instruction) is [_, var atom, var arity] && atoms[Value(atom)] == name && Value(arity) == 2
+            );
+            if (info < 0 || Opcode(instructions[info + 1]) != Label)
+            {
+                return false;
+            }
+
+            int target = Value(Operands(instructions[info + 1])[0]);
+            var body = instructions.Skip(info + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo).ToArray();
+            int call = Array.FindIndex(body, instruction => Opcode(instruction) == LocalCall);
+
+            return body.Any(instruction => Opcode(instruction) == PutList) == returnsList
+                && body.Take(call).Any(instruction => Opcode(instruction) == PutTuple)
+                && body.Any(instruction => (returnsList ? Opcode(instruction) == LocalCall
+                    : Opcode(instruction) is TailLocalCall or TailLocalCallWithFrame)
+                    && Value(Operands(instruction)[1]) == target);
+        }
+    }
+
+    private static object[] Operands(object instruction) => Items(instruction, "Operands").ToArray();
+
+    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
+
+    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
+
+    private static IEnumerable<object> Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>();
+}

@@ -1,0 +1,115 @@
+using System.Collections;
+using System.Numerics;
+using Erlang;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamTupleHeadListAccumulatorChecks
+{
+    internal const string TestName = "compiler/beam/reuses-a-terminal-tuple-projection-without-losing-fallback";
+    private const string Fixture = "beam_tuple_head_list_accumulator_probe.erl";
+    private const string Entry = "entry";
+    private const string Fold = "fold";
+    private const string Pattern = "{0, 0, First, Second}";
+    private const string Projection = "[Second, First | Acc]";
+    private const string IncorrectValue = "Projection, fallback, or accumulator order changed.";
+    private const string IncorrectLayout = "Only the proven final projection may overwrite the tuple head.";
+
+    private const string Source = """
+        -module(beam_tuple_head_list_accumulator_probe).
+        -export([entry/1]).
+
+        entry(Input) -> fold(Input, [suffix]).
+
+        fold([], Acc) -> lists:reverse(Acc);
+        fold([{0, 0, First, Second} | Tail], Acc) -> fold(Tail, [Second, First | Acc]);
+        fold([Other | Tail], Acc) -> fold(Tail, [Other, 0 | Acc]).
+        """;
+
+    internal static async Task Run()
+    {
+        byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
+        byte[] reordered = CodeGeneration.CompileBeamModule(
+            Source.Replace(Projection, "[First, Second | Acc]", StringComparison.Ordinal), Fixture
+        );
+        byte[] aliased = CodeGeneration.CompileBeamModule(
+            Source.Replace(Pattern, "{0, First, First, Second}", StringComparison.Ordinal), Fixture
+        );
+        var module = BeamModule.Prepare(image, new BeamDependencySelection(["lists"]));
+        Term zero = Term.I(0);
+        Term one = Term.I(1);
+        Term two = Term.I(2);
+        Term rejected = Term.Tuple(
+            zero,
+            one,
+            one,
+            two
+        );
+        Term accepted = Term.Tuple(
+            zero,
+            zero,
+            one,
+            two
+        );
+        Term list = Term.List(accepted, rejected, two);
+        Term expected = Term.List(
+            Term.A("suffix"),
+            one,
+            two,
+            zero,
+            rejected,
+            zero,
+            two
+        );
+
+        await using var runtime = new ProcessRuntime();
+        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
+        await actor.InvokeAsync(async context =>
+        {
+            if (!expected.Equals(await module.Invoke(context, Entry, list))
+                || !Term.List(Term.A("suffix")).Equals(await module.Invoke(context, Entry, Nil.Value)))
+            {
+                throw new InvalidOperationException(IncorrectValue);
+            }
+
+            return Nil.Value;
+        });
+
+        if (!HasProjectedLayout(image) || HasProjectedLayout(reordered) || HasProjectedLayout(aliased))
+        {
+            throw new InvalidOperationException(IncorrectLayout);
+        }
+    }
+
+    private static bool HasProjectedLayout(byte[] image)
+    {
+        object code = Code(image);
+        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
+        object[] instructions = Items(code, "Instructions");
+        int start = Array.FindIndex(
+            instructions,
+            instruction => Opcode(instruction) == FunctionInfo
+                && Items(instruction, "Operands") is [_, var name, var arity]
+                && atoms[Value(name)] == Fold && Value(arity) == 2
+        );
+        if (start < 0)
+        {
+            throw new InvalidOperationException(IncorrectLayout);
+        }
+
+        var projections = instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo)
+            .Where(instruction => Opcode(instruction) == GetTupleElement)
+            .Select(instruction => Items(instruction, "Operands").Select(Value).ToArray()).ToArray();
+
+        return projections is [[2, 0, 3], [2, 1, 3], [2, 2, 3], [2, 3, 2]];
+    }
+
+    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
+
+    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
+
+    private static object[] Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
+}

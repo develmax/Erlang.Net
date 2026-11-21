@@ -1,0 +1,15 @@
+Error! Failed to eval: [Before,After]=init:get_plain_arguments(),
+Read=fun(Path)->
+ {beam_file,unix_telnet,_,_,_,Functions}=beam_disasm:file(Path),
+ [{function,connect1,8,_,Body}]=[F||F={function,connect1,8,_,_}<-Functions],
+ {ok,unix_telnet,Chunks}=beam_lib:all_chunks(Path),
+ {length(Body),byte_size(proplists:get_value("Code",Chunks)),
+  [I||I={put_tuple2,_,{list,[{atom,ok}|_]}}<-Body],
+  [N||I<-Body,N<-case I of {allocate,F,_}->[F];{allocate_heap,F,_,_}->[F];_->[] end]}
+end,
+io:format("~tp.~n",[{Read(Before),Read(After)}]),halt(0).
+
+
+Runtime terminating during boot ({{badmatch,["D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/stack-aliases-and-terminal-constructions-1968-linked-qualified-retake-source-terminal/pilot.json.generated/","lib/common_test-1.31.2/ebin/unix_telnet.beam","D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/case-carriers-owned-frames-and-comprehensions-1969-linked/independent-target-preview/result.json.generated/lib/common_test-1.31.2/ebin/unix_telnet.beam"]},[{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,796}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{init,start_it,1,[{file,"init.erl"},{line,1561}]},{init,start_em,1,[{file,"init.erl"},{line,1546}]},{init,do_boot,3,[{file,"init.erl"},{line,1217}]}]})
+
+Crash dump is being written to: D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/case-carriers-owned-frames-and-comprehensions-1969-linked/independent-target-preview/unix-telnet-carrier-crash.dump...done

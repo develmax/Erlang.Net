@@ -1,0 +1,11 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -12235,6 +12235,7 @@
+                     }
+                     if (!tailCall)
+                     {
++                        RecordOwnedCaseResult(ownedResult);
+                         JumpTo(end);
+                     }
+ 

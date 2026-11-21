@@ -1,0 +1,27 @@
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12544,6 +12544,24 @@
+ Test(Erlang.Tests.BeamProtectedEntryAliasChecks.TestName, Erlang.Tests.BeamProtectedEntryAliasChecks.Run);
+ Test(Erlang.Tests.BeamProtectedShortReturnChecks.TestName, Erlang.Tests.BeamProtectedShortReturnChecks.Run);
+ Test(Erlang.Tests.BeamBinaryConstructionStringChecks.TestName, Erlang.Tests.BeamBinaryConstructionStringChecks.Run);
++Test(Erlang.Tests.BeamIndefiniteBinaryContinuationChecks.TestName, Erlang.Tests.BeamIndefiniteBinaryContinuationChecks.Run);
++Test(Erlang.Tests.BeamBinarySplitBoundaryChecks.TestName, Erlang.Tests.BeamBinarySplitBoundaryChecks.Run);
++Test(Erlang.Tests.BeamSharedGuardedLocalTailsChecks.TestName, () =>
++{
++    Erlang.Tests.BeamSharedGuardedLocalTailsChecks.Run();
++    return Task.CompletedTask;
++});
++Test(Erlang.Tests.BeamProjectedBranchRootChecks.TestName, () =>
++{
++    Erlang.Tests.BeamProjectedBranchRootChecks.Run();
++    return Task.CompletedTask;
++});
++Test(Erlang.Tests.BeamEntryTupleLivenessChecks.TestName, Erlang.Tests.BeamEntryTupleLivenessChecks.Run);
++Test(Erlang.Tests.BeamSelectorAliasAcrossEffectsChecks.TestName, () =>
++{
++    Erlang.Tests.BeamSelectorAliasAcrossEffectsChecks.Run();
++    return Task.CompletedTask;
++});
+ Test(Erlang.Tests.BeamForwardedEntryAtomChecks.TestName, Erlang.Tests.BeamForwardedEntryAtomChecks.Run);
+ Test(
+     Erlang.Tests.BeamExactBooleanReturnsChecks.TestName,

@@ -1,0 +1,111 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamCaseArmProperListChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamCaseArmProperListChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamCaseArmProperListChecks.cs
+@@ -0,0 +1,106 @@
++using System.Collections;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamCaseArmProperListChecks
++{
++    internal const string TestName = "compiler/beam/case-arm-proper-list";
++    private const string MissingProof = "A successful assignment in the generator's case arm should establish its proper-list input.";
++    private const string EscapedProof = "A proper-list fact escaped the case arm or the binding that established it.";
++
++    private const string Source = """
++        -module(beam_case_arm_proper_list).
++        -export([branch/2, nested/3, checked/2, mixed/2, joined/2, shadow/1]).
++
++        branch(Mode, Item) ->
++            case Mode of
++                keep ->
++                    Seed = [Item],
++                    Rows = [2 | Seed],
++                    [erlang:integer_to_list(I) || I <- Rows];
++                _ ->
++                    []
++            end.
++
++        nested(Outer, Inner, Item) ->
++            case Outer of
++                keep ->
++                    Seed = [Item],
++                    case Inner of
++                        append ->
++                            Rows = [3 | Seed],
++                            [erlang:integer_to_list(I) || I <- Rows];
++                        _ ->
++                            []
++                    end;
++                _ ->
++                    []
++            end.
++
++        checked(Mode, Rows) ->
++            case Mode of
++                check ->
++                    Rows = [1],
++                    [erlang:integer_to_list(I) || I <- Rows];
++                _ ->
++                    []
++            end.
++
++        mixed(Mode, Input) ->
++            case Mode of
++                proper ->
++                    Rows = [1],
++                    [erlang:integer_to_list(I) || I <- Rows];
++                other ->
++                    Rows = Input,
++                    [erlang:integer_to_list(I) || I <- Rows]
++            end.
++
++        joined(Mode, Input) ->
++            Rows = case Mode of proper -> [1]; other -> Input end,
++            [erlang:integer_to_list(I) || I <- Rows].
++
++        shadow(Input) ->
++            Rows = [1],
++            Consume = fun(Rows) -> [erlang:integer_to_list(I) || I <- Rows] end,
++            {Rows, Consume(Input)}.
++        """;
++
++    internal static void Run()
++    {
++        object code = Code(CodeGeneration.CompileBeamModule(Source, "beam_case_arm_proper_list.erl"));
++        object[] functions = Items(code, "Functions");
++        object[] instructions = Items(code, "Instructions");
++
++        if (HasGeneratorFailure("-branch/2-") || HasGeneratorFailure("-nested/3-")
++            || HasGeneratorFailure("-checked/2-") || HasGeneratorFailure("-mixed/2-lc$^0/"))
++        {
++            throw new InvalidOperationException(MissingProof);
++        }
++
++        if (!HasGeneratorFailure("-mixed/2-lc$^1/") || !HasGeneratorFailure("-joined/2-")
++            || !HasGeneratorFailure("-shadow/1-"))
++        {
++            throw new InvalidOperationException(EscapedProof);
++        }
++
++        bool HasGeneratorFailure(string prefix)
++        {
++            object function = functions.Single(candidate =>
++                ((string)Property(candidate, "Name")).StartsWith(prefix, StringComparison.Ordinal));
++            int start = (int)Property(function, "FirstInstructionIndex");
++            int end = (int)Property(function, "EndInstructionIndex");
++
++            // The mapping body builds strings and list cells. Only failure builds a tuple.
++            return instructions[start..end].Any(instruction => Opcode(instruction) == PutTuple);
++        }
++    }
++
++    private static object[] Items(object owner, string property) =>
++        ((IEnumerable)Property(owner, property)).Cast<object>().ToArray();
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++}

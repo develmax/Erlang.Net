@@ -1,0 +1,57 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamCheckedEntryRootOrderChecks.cs b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamCheckedEntryRootOrderChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamCheckedEntryRootOrderChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamCheckedEntryRootOrderChecks.cs
+@@ -97,10 +97,19 @@
+         int allocation = Array.FindIndex(body, instruction => Opcode(instruction) == Allocate);
+         int producer = Array.FindIndex(body, instruction => Opcode(instruction) == ExternalCall);
+         if (allocation < 1 || producer <= allocation + 2 || producer + 4 >= body.Length
+-            || Opcode(body[allocation - 1]) != IsTaggedTuple
+-            || Value(Operands(body[allocation])[0]) != 2
+-            || !OneInitializedResult(body[allocation + 1])
+-            || !IsMove(body[allocation + 2], ("x", 0), ("y", FirstDefinitionSlot)))
++            || Opcode(body[allocation - 1]) != IsTaggedTuple)
++        {
++            throw new InvalidOperationException(BeamCheckedEntryRootOrderDiagnostics.RootPermutation);
++        }
++
++        int width = (int)Value(Operands(body[allocation])[0]);
++        // The emitter can reserve another slot for a later result. The checked
++        // carrier and immediate saved result are the first two definitions.
++        int carrierSlot = width - 1;
++        int savedResultSlot = carrierSlot - 1;
++        if (width < 2
++            || !InitializesFutureRoots(body[allocation + 1], carrierSlot)
++            || !IsMove(body[allocation + 2], ("x", 0), ("y", carrierSlot)))
+         {
+             throw new InvalidOperationException(BeamCheckedEntryRootOrderDiagnostics.RootPermutation);
+         }
+@@ -108,9 +117,9 @@
+         object projection = body[producer + 1];
+         if (Opcode(projection) != GetTupleElement
+             || Operands(projection) is not [var carrier, var field, var output]
+-            || !IsRegister(carrier, "y", FirstDefinitionSlot) || Value(field) != ProjectedField
++            || !IsRegister(carrier, "y", carrierSlot) || Value(field) != ProjectedField
+             || !IsRegister(output, "x", 1)
+-            || !IsMove(body[producer + 2], ("x", 0), ("y", SavedResultSlot))
++            || !IsMove(body[producer + 2], ("x", 0), ("y", savedResultSlot))
+             || Opcode(body[producer + 4]) != ExternalCall
+             || Value(Operands(body[producer + 4])[0]) != arity
+             || (arity == 1
+@@ -121,9 +130,14 @@
+         }
+     }
+ 
+-    private static bool OneInitializedResult(object instruction) =>
+-        Opcode(instruction) == InitYRegisters && Operands(instruction) is [var length, var slot]
+-        && Value(length) == 1 && IsRegister(slot, "y", SavedResultSlot);
++    private static bool InitializesFutureRoots(object instruction, int carrierSlot)
++    {
++        object[] operands = Operands(instruction);
++
++        return Opcode(instruction) == InitYRegisters
++            && operands.Length == carrierSlot + 1 && Value(operands[0]) == carrierSlot
++            && operands.Skip(1).Select((slot, index) => IsRegister(slot, "y", index)).All(valid => valid);
++    }
+ 
+     private static bool IsMove(
+         object instruction,

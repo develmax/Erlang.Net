@@ -1,0 +1,67 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamOuterLiteralRecordEntryChecks.cs b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamOuterLiteralRecordEntryChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamOuterLiteralRecordEntryChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamOuterLiteralRecordEntryChecks.cs
+@@ -16,10 +16,11 @@
+     private const string DiscardedEffectValue = "Select the finite effect arms without keeping their unused results.";
+     private const string BranchFieldRoots = "Use one checked tuple slot across an effect when a branch needs several of its fields.";
+     private const string SelectedResultSlot = "Store both selected results in the continuation slot before cleanup.";
++    private const string SelectedFailures = "Lay out mixed cold failures by the selected control flow.";
+     private const string ColumnOrder = "Test the selected constructor fields before the remaining pattern arguments and reuse the consumed selector.";
+     private const string Source = """
+         -module(beam_outer_literal_record_entry).
+-        -export([run/2, overlap/2, ordered/2, update/2, effects/2, branch_fields/2, joined/2]).
++        -export([run/2, overlap/2, ordered/2, update/2, effects/2, branch_fields/2, joined/2, cold/2]).
+         -record(event,{id,body}).
+         -record(command,{kind,item}).
+         -record(state,{data,spare}).
+@@ -101,6 +102,32 @@
+             {ok, State};
+         joined(#event{}, State = #state{}) ->
+             {unhandled, State}.
++
++        cold(#event{id = 1, body = #command{kind = accept, item = Selector}},
++             State = #state{data = #branch_data{key = Key, value = Value, timer = Timer}, spare = Target}) ->
++            case Selector of
++                1 -> service:check(Target), service:pair(Key, Value);
++                0 -> service:check(Timer), service:check(Target), ignored
++            end,
++            {ok, State};
++        cold(#event{id = 2, body = #command{kind = accept, item = Selector}},
++             State = #state{data = Record = #branch_data{key = Key, timer = Timer}, spare = Target}) ->
++            Chosen =
++                case Selector of
++                    1 -> service:check(Target), service:make(Key);
++                    0 -> service:check(Target), service:check(Record), none
++                end,
++            case Timer of
++                none -> ok;
++                _ -> erlang:cancel_timer(Timer)
++            end,
++            {ok, State#state{data = Record#branch_data{timer = Chosen}}};
++        cold(#event{id = 3, body = #command{kind = accept}}, State = #state{data = Item, spare = Spare}) ->
++            service:check(Item),
++            service:check(Spare),
++            {ok, State#state{data = Item#item{quantity = 0}}};
++        cold(#event{}, State = #state{}) ->
++            {unhandled, State}.
+         """;
+ 
+     internal static void Run()
+@@ -190,6 +217,17 @@
+             throw new InvalidOperationException(SelectedResultSlot);
+         }
+ 
++        object[] cold = Body("cold");
++        int warmReturn = Array.FindLastIndex(cold, instruction => Opcode(instruction) == Return);
++        int recordError = Array.FindIndex(cold, instruction => Opcode(instruction) == BadRecord);
++        var caseErrors = cold.Where(instruction => Opcode(instruction) == CaseEnd).ToArray();
++        if (recordError <= warmReturn || Array.FindIndex(cold, instruction => Opcode(instruction) == CaseEnd) <= recordError
++            || caseErrors is not [var firstCase, var secondCase]
++            || !IsX(Operands(firstCase)[0], 1) || !IsX(Operands(secondCase)[0], 0))
++        {
++            throw new InvalidOperationException(SelectedFailures);
++        }
++
+         bool SelectsIntegerBeforeFrame(string name) => Body(name).TakeWhile(instruction => Opcode(instruction) is not (Allocate or AllocateHeap))
+                 .Any(instruction => Opcode(instruction) == SelectValue
+                     && ((IEnumerable)Property(instruction, "Operands")).Cast<object>()

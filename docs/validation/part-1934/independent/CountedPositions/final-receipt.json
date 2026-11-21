@@ -1,0 +1,121 @@
+{
+  "Baseline": "7DA9DE1617CD8C5C8620082B1101A7C00EDD7D5865DC3345B3B269D2545F7864",
+  "Compiler": "9B8F8A54C0BA440700CF2C8C63FD5409C96EDFE6ECBB69F2E7E4FDEC44157EC9",
+  "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+  "Reference": "OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "NormalizedGains": 8,
+  "NormalizedLosses": 0,
+  "WholeImageGains": 0,
+  "ExactControls": 4,
+  "NativePassed": 187,
+  "RegressionPassed": 1,
+  "RegressionFailsBaseline": true,
+  "Images": {
+    "lib/public_key-1.21.7/ebin/CryptographicMessageSyntax-2009.beam": {
+      "Relative": "lib/public_key-1.21.7/ebin/CryptographicMessageSyntax-2009.beam",
+      "Status": "Equal",
+      "ExactControl": true,
+      "BaselineSha256": "39A45EB4897A159C03DE59A3FA99848ED431E8C26E9DD5B2B403F2C8AA2720D5",
+      "CandidateSha256": "39A45EB4897A159C03DE59A3FA99848ED431E8C26E9DD5B2B403F2C8AA2720D5",
+      "OracleSha256": "39A45EB4897A159C03DE59A3FA99848ED431E8C26E9DD5B2B403F2C8AA2720D5",
+      "SourceSha256": "880A03C536BAF9A5B67320BC928E6229E5B18D0E83A173C5310F75EB99FA79C0"
+    },
+    "lib/public_key-1.21.7/ebin/ECPrivateKey.beam": {
+      "Relative": "lib/public_key-1.21.7/ebin/ECPrivateKey.beam",
+      "Status": "Equal",
+      "ExactControl": true,
+      "BaselineSha256": "0BD74AF833D519586F343DD46459F40DF8DB82A7578F0FCDE6429CB2137D805B",
+      "CandidateSha256": "0BD74AF833D519586F343DD46459F40DF8DB82A7578F0FCDE6429CB2137D805B",
+      "OracleSha256": "0BD74AF833D519586F343DD46459F40DF8DB82A7578F0FCDE6429CB2137D805B",
+      "SourceSha256": "D84DB38F011FEA7862E63932F53F832CF78C86AC0EB2AFC9360485D4F934EF49"
+    },
+    "lib/public_key-1.21.7/ebin/EnrollmentMessageSyntax-2009.beam": {
+      "Relative": "lib/public_key-1.21.7/ebin/EnrollmentMessageSyntax-2009.beam",
+      "Status": "Different",
+      "ExactControl": false,
+      "BaselineSha256": "000D8F794D040A473EDE82CF5628919CD5392724E6D47F6642E3E9D7BF6BA5D8",
+      "CandidateSha256": "1635A75585C3816DAC52B4F94833094F8108F8F968FA0DF1AB54B939026C099A",
+      "OracleSha256": "AD1F67280F2EBDDD70BE9151DE4610C85D70BF10A770489599743D2A36954045",
+      "SourceSha256": "69620A4940E6B88C0BDE9633F11C2013D17A478492FBFC55F83E8C6D4F3189F5",
+      "Normalized": [
+        645,
+        647
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/PKCS-10.beam": {
+      "Relative": "lib/public_key-1.21.7/ebin/PKCS-10.beam",
+      "Status": "Equal",
+      "ExactControl": true,
+      "BaselineSha256": "0ACC46CA429937A35EE0ABAF85541F53AB4BB0A470CEA69B2A61B359626F506F",
+      "CandidateSha256": "0ACC46CA429937A35EE0ABAF85541F53AB4BB0A470CEA69B2A61B359626F506F",
+      "OracleSha256": "0ACC46CA429937A35EE0ABAF85541F53AB4BB0A470CEA69B2A61B359626F506F",
+      "SourceSha256": "646FA03DB33E340A6E3072011ABD50110D64DF4AB5B1FD31F743B8DE82576B13"
+    },
+    "lib/public_key-1.21.7/ebin/PKIX1Implicit-2009.beam": {
+      "Relative": "lib/public_key-1.21.7/ebin/PKIX1Implicit-2009.beam",
+      "Status": "Different",
+      "ExactControl": false,
+      "BaselineSha256": "4D4C2C557560AA1EB0C52150B27A069062E9A8AB48F645C6673F935B7FAD499E",
+      "CandidateSha256": "A2DB52DB2E95A358838F0054D2C7B685619EE68C09D6CB1B1EFABAE6C7070780",
+      "OracleSha256": "2E67439BD0A525610DC8B4B8B317A83F75E6B33508614DCCDB81EAE1581EF5CF",
+      "SourceSha256": "A00961E6C7489A6557AA0AA0FE81E00C9F124E2392F1415B52192C3D8A4E2DC0",
+      "Normalized": [
+        386,
+        388
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/PKIXAttributeCertificate-2009.beam": {
+      "Relative": "lib/public_key-1.21.7/ebin/PKIXAttributeCertificate-2009.beam",
+      "Status": "Different",
+      "ExactControl": false,
+      "BaselineSha256": "4642C41C3617AAC15DA027C5C1E5267F56EF23C88F6A1E172BCEBF333A0483CE",
+      "CandidateSha256": "E745C6B29EA157C4EF68F7F7EC611F9F0FBC19307FCEFE82205EE68C635E038A",
+      "OracleSha256": "B05D69F57E8295828E22C36D3FB44D01395D4F3483849B28C5F97569E708B92C",
+      "SourceSha256": "25793C2CAB2C5A133346ADD40DDAABF8959FA582194DC718F6DB75C03F5B4B71",
+      "Normalized": [
+        318,
+        320
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/PKIXCMP-2023.beam": {
+      "Relative": "lib/public_key-1.21.7/ebin/PKIXCMP-2023.beam",
+      "Status": "Different",
+      "ExactControl": false,
+      "BaselineSha256": "FF8FD5EAF1F45B95E84EC826D1694D061656020E920EED924B81629F0293610E",
+      "CandidateSha256": "7783563428C3D2BEF34D612E87AAAAA0F97E5617F4101AD70663B518007174B7",
+      "OracleSha256": "BE1E59D5E8A9564963B67DE66AD03FB5AD998F61AC5C58FA454A360F4E6C4A9B",
+      "SourceSha256": "59C59C3C862A0B19B5A6716C075FB8F42B7D5CB044D9A1DDB815BF552F912030",
+      "Normalized": [
+        446,
+        448
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/PKIXCRMF-2009.beam": {
+      "Relative": "lib/public_key-1.21.7/ebin/PKIXCRMF-2009.beam",
+      "Status": "Equal",
+      "ExactControl": true,
+      "BaselineSha256": "5E65C0E0EF17B4428C9E41D36990D6305D1A99DED05904CB438A478FF2DE44FC",
+      "CandidateSha256": "5E65C0E0EF17B4428C9E41D36990D6305D1A99DED05904CB438A478FF2DE44FC",
+      "OracleSha256": "5E65C0E0EF17B4428C9E41D36990D6305D1A99DED05904CB438A478FF2DE44FC",
+      "SourceSha256": "B9A91A4DDFDD23C62125B26C07288FBED8AE1F12AC451EE87B41EDCDB79AFC63"
+    }
+  },
+  "Assets": {
+    "counted-position-payload.patch": "05ad824554588d26ed1486159b0756c1439758f204c65c36b9d2f5ef239853b0",
+    "counted-position-payload-tests.patch": "e5d22fb30d7f265b828fc69db8ca995913e256020f861207137040aa456a74db",
+    "intake.json": "912b93304124410203c484a1c3e426c707a5a0a4bfef64467cc486527abed097",
+    "strict-replay-receipt.json": "516ac1fa7626d02af81613d1ebf86ab45dbe8f4b4ba6c148e1bc85a613eab8a2",
+    "complete-source-identities.json": "79f0bd97dd5fa8295337bcd2884a188f726c8364e09fc76e5e3564ec1ef3b89a",
+    "build.log": "6d8d73fe5ecaf04ae4e19e8a903adee7cd7308521df6a32bad08c351db1327e6",
+    "corpus.json": "9bf0c86c89e801629db4e50357b54a1aad16edb036f1f4ff4e91a86637d4420c",
+    "image-identities.json": "e8bdeb86c3bf88e9a22c0d47bc83d52e56258591f47255f1ccc3eecf10f0c66f",
+    "normalized.log": "1941554c56ce9268df18cd52ddda25bb875b196e37bf65942816348a0dd9e850",
+    "native.eval": "4d6ccf6f2bbf1c1879de7d72cd54e4e44d40984683b333da1d9747bd75cecb6c",
+    "native.log": "b8fad87d7494f9e5305ed2ba2c4cc61e49cb01b49c9dd331877fa20767817167",
+    "test-identities.json": "18abbbbca23a3a1c7637e5cce58f4fc69966a14384dfbf8636c4a9042ccc202f",
+    "tests-build.log": "1281c3395c55889e27a5f6ffabee76c69d68877d47af5090867020c70097a938",
+    "tests-baseline.log": "45264b0230f920e785fe5408d333178e22e1fd507cfd60ff62559cf298b0ebbc",
+    "tests-candidate.log": "090888edc3ead5ff843afea0472423b3eaf830db96f83146261a2bb580c5714f",
+    "test-style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f"
+  }
+}

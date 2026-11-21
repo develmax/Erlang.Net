@@ -1,0 +1,96 @@
+{
+  "Profile": "E",
+  "EFreeze": {
+    "Source": "87af6b88d63fd9a632c15548ddaf0b52874f8c3cadb0ff34d8875356c0a0872e",
+    "Paths": 650,
+    "RemovedPaths": [],
+    "Compiler": "a8176cf5d5c99e5bc28c04917a959d6a02c04de43222107a21758f6d9534e391",
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "Tests": "626fe084934956cc3df27f27f64f8b904dcfd875c10d9bb252becd68e4333472",
+    "ParentSource": "6f11f7f28f1e3d77e8874cc6d5550d6347a356cd00de6160864a59ac2f61299d",
+    "CorpusTool": "60d99bac0bf1fbb3e814cdfc922c55aaad08e2321625eed423cc69a16cc54276"
+  },
+  "SourceCount": 769,
+  "OverlaySHA": null,
+  "Patches": {
+    "1941": {
+      "Patch": "e33b799539d99453cfad30e9a0de154aeac7e785ae9805446d8f6935a198a92d",
+      "Harness": "8e204ab38308ba03ca690d5bb966cf925c1a699861bfc494a61c0a133e333c7e",
+      "Changes": {
+        "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedListMapper.cs": {
+          "Base": "1a352182ee5fa2557ea396617f5d16c247208e5bf8b5ca6f77a72ee02bd622df",
+          "Candidate": "6453996ac024d772b1f76d3e6139e2f315bbbc228d71212c314fdb34b291e9d6"
+        },
+        "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": {
+          "Base": "64fdc0dc0d14e3896ed05a596f7cefeb30a866002b149ccb69688ac9177cf352",
+          "Candidate": "f84b3a5402e64d3d0b58a383e6ddd272de791e3ce7cd8d9a1449460c0f7b5b15"
+        },
+        "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs": {
+          "Base": "b55498c0ee4637e308ff33f3f1bfca54319c8a72c7e4ddd652d7c0f35fc2b5e5",
+          "Candidate": "0a344d253146ac22dcf91292fa15951c927d949f5ba0d8e95dd36c291b8baa94"
+        },
+        "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TupleFieldListComprehension.cs": {
+          "Base": "41268ff7d29205a86d97b39d9618636ba40e9e723f32f6d36c7cd4f11677d4d3",
+          "Candidate": "1a013c26a2e1ef223fb5251d38a371e251648bf43802b0a708937bf4db4daefa"
+        },
+        "src/Compiler/Erlang.Compiler/Syntax/Ast/FunctionDefinition.cs": {
+          "Base": "bafc43b6cb7fdb345e9231e69dbed7056bee126d489f78acad24e32116d33860",
+          "Candidate": "ba6572965efbfb208c34d34cc62b52ae9ef32109a17a4a54d469e14a616a1513"
+        },
+        "tests/Erlang.Tests/Compiler/Beam/BeamRecursiveListFrameChecks.cs": {
+          "Base": null,
+          "Candidate": "7c28ab541b0b01dace0e38e14acdb145be35944e529e1ebc76f95132b9920cae"
+        },
+        "tests/Erlang.Tests/Harness/Program.cs": {
+          "Base": "3bb3df88eae7dc1e7c29c0816d5f198804a664a77a46b8029dcd1ebde63ae425",
+          "Candidate": "597f332d265ac1d63f41213df54485117bd76ed1df956aa105e0e81bf140a11b"
+        }
+      }
+    },
+    "1942": {
+      "Patch": "3c5cea4780b39cbfdcf59acba959d2f7455b0b1ff68ca37896456bfddc17c63c",
+      "Harness": "7e9c1b3f24a84dc1beeae026d3c99df2477c2235bbf2f72e7b42b2244b27c761",
+      "Changes": {
+        "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": {
+          "Base": "f84b3a5402e64d3d0b58a383e6ddd272de791e3ce7cd8d9a1449460c0f7b5b15",
+          "Candidate": "2418d0e6fddc09bb2ee9d4f9fc63a3a6fd5606d43b85e4de4ee45759e871eca7"
+        },
+        "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RetainedConstructorList.cs": {
+          "Base": null,
+          "Candidate": "54d081035b3badb49e791b10e689fd44128e2046e7b7e027720007f57527edb8"
+        },
+        "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.StandaloneComprehensionOrder.cs": {
+          "Base": "323b18fd2c450e49a937f1a7b6c1e859448edd93d16825bb39018d3509c7a4bb",
+          "Candidate": "e20df2942383769420a73a721e40d02d7d1ddd00fb446ba8947d81c5c3c2d391"
+        },
+        "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TaggedEventReportTable.cs": {
+          "Base": null,
+          "Candidate": "7469a2a67300bcf6826efb8a5c2a4c689a040b21c01ff6573ea9e9b4d75da9c3"
+        },
+        "tests/Erlang.Tests/Compiler/Beam/BeamRetainedConstructorListChecks.cs": {
+          "Base": null,
+          "Candidate": "7aa8812852d118191a4d971e064a0c25fb4bbfaae693ece65edb336f8c287edf"
+        },
+        "tests/Erlang.Tests/Harness/Program.cs": {
+          "Base": "597f332d265ac1d63f41213df54485117bd76ed1df956aa105e0e81bf140a11b",
+          "Candidate": "2f834f2284f5dd79a31d351045532def664344d23c269d35c238e0f543032732"
+        }
+      }
+    }
+  },
+  "SourcePathsVerified": 650,
+  "FrozenAfterFormat": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": {
+      "Staged": "b5e5c3c81a0b4041c3b2ef982857ca4e44d232311c7d9e11d61184884fbca7bd",
+      "Frozen": "64fdc0dc0d14e3896ed05a596f7cefeb30a866002b149ccb69688ac9177cf352"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GroundListCallChoice.cs": {
+      "Staged": "7291c2e6829b04893668da40ac44dfc533d33d3e25b671d510684dc3d55ca662",
+      "Frozen": "05071ead84df225b18c56eca873127344bbf2f011e573a9a01954eb1fe8d470d"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TaggedRecordActionAndReport.cs": {
+      "Staged": "0de6e03dd187949b96b379b9893b6c553d1cb498c52ab36b130b6d17d8fffbf3",
+      "Frozen": "5b78606b911353d76c8960417bdf34823abbb04362016ffb35b6aa1d046bfc8d"
+    }
+  }
+}

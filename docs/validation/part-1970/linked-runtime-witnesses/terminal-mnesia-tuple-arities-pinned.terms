@@ -1,0 +1,12 @@
+[{eof,{ok,{ok,{restore,fixture,descriptor,start},[]}},[{descriptor,start}]},
+ {reported_error,{ok,{error,{"Possibly truncated",truncated}}},
+                 [{descriptor,start}]},
+ {empty_continuation,{ok,{ok,{restore,fixture,descriptor,done},[recovered]}},
+                     [{descriptor,start},{descriptor,next}]},
+ {good_pair,{ok,{ok,{restore,fixture,descriptor,next},[first]}},
+            [{descriptor,start}]},
+ {good_triple,{ok,{ok,{restore,fixture,descriptor,next},[first]}},
+              [{descriptor,start}]},
+ {unexpected_arity,{error,{case_clause,{a,b,c,d}},182},[{descriptor,start}]},
+ {unexpected_atom,{error,{case_clause,other},182},[{descriptor,start}]},
+ {invalid_record,{error,{badrecord,other},181},[]}].

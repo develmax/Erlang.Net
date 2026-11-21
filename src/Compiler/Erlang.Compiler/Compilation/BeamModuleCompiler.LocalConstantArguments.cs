@@ -2,6 +2,8 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
+    private readonly Dictionary<(string Name, int Arity), Term?[]> localSingletonArguments = [];
+
     private IReadOnlyList<FunctionDefinition> PropagateLocalConstantArguments(IReadOnlyList<FunctionDefinition> functions)
     {
         if (ModuleOptimizationDisabled || OnLoadFunction is not null)
@@ -33,6 +35,7 @@ internal sealed partial class BeamModuleCompiler
             return functions;
         }
 
+        var localEntries = functions.Select(function => (function.Name, function.Arity)).ToHashSet();
         var escaped = new HashSet<(string Name, int Arity)>();
         var incoming = new Dictionary<(string Name, int Arity), Term?[]>();
         foreach (Expr expression in functions.SelectMany(function =>
@@ -57,13 +60,13 @@ internal sealed partial class BeamModuleCompiler
 
             if (!incoming.TryGetValue(signature, out var constants))
             {
-                incoming.Add(signature, call.Arguments.Select(ReadLocalSingletonArgument).ToArray());
+                incoming.Add(signature, call.Arguments.Select(ReadEntrySingleton).ToArray());
                 continue;
             }
 
             for (int index = 0; index < constants.Length; index++)
             {
-                if (ReadLocalSingletonArgument(call.Arguments[index]) is not { } value || !value.Equals(constants[index]))
+                if (ReadEntrySingleton(call.Arguments[index]) is not { } value || !value.Equals(constants[index]))
                 {
                     constants[index] = null;
                 }
@@ -79,16 +82,38 @@ internal sealed partial class BeamModuleCompiler
             }
 
             Clause clause = function.Clauses[0];
+            if (SsaTypeInferenceEnabled && arguments.Any(argument => argument is Atom)
+                && ReadSingleNestedListMapper(clause.Body) is not null)
+            {
+                localSingletonArguments.Add(signature, arguments);
+            }
+
             string[] names = parameters[signature];
             bool reorderedRelay = IsReorderedRemoteRelay(clause.Body, names);
             // Like beam_ssa_type's singleton substitution, this keeps the local entry and call arity.
-            bool constructor = SsaTypeInferenceEnabled && clause.Body is (Expr.Tuple or Expr.List)
-                && IsLocalSingletonConstructor(clause.Body);
+            Expr result = clause.Body is Expr.Sequence { Items.Count: > 0 } sequence
+                && sequence.Items.SkipLast(1).All(item => item is Expr.Literal)
+                ? sequence.Items[^1] : clause.Body;
+            bool constructor = SsaTypeInferenceEnabled && IsLocalSingletonConstructorBody(result, names);
+            Expr.Call? firstCall = SsaTypeInferenceEnabled ? ReadFirstPlainCall(clause.Body, localEntries) : null;
+            Expr.Call? entryCall = firstCall is { Module: null }
+                && localEntries.Contains((firstCall.Function, firstCall.Arguments.Count)) ? firstCall : null;
             var constants = new Dictionary<string, Term>(StringComparer.Ordinal);
             for (int index = 0; index < arguments.Length; index++)
             {
+                // A direct entry argument already occupies the matching register at the first local call.
+                bool forwarded = entryCall is not null && index < entryCall.Arguments.Count
+                    && entryCall.Arguments[index] is Expr.Variable read && read.Name == names[index];
                 if (arguments[index] is { } value && names[index] != VariableScopeNames.Wildcard
-                    && (constructor || (value is Atom && (reorderedRelay || IsParameterLiveAcrossEntryCall(clause.Body, names[index])))))
+                    && (firstCall is not null && !forwarded
+                        && (value is not Atom || !IsSoleForwardedFirstAtom(
+                            firstCall,
+                            clause.Body,
+                            index,
+                            names[index]
+                        ))
+                        || constructor && value is not Integer
+                        || value is Atom && (reorderedRelay || IsParameterLiveAcrossEntryCall(clause.Body, names[index]))))
                 {
                     constants.Add(names[index], value);
                 }
@@ -143,6 +168,103 @@ internal sealed partial class BeamModuleCompiler
                     : null
             );
         }).ToArray();
+
+        Term? ReadEntrySingleton(Expr expression) => ReadLocalSingletonArgument(expression)
+            ?? (SsaTypeInferenceEnabled && expression is Expr.Literal { Value: Integer integer } ? integer : null);
+    }
+
+    private static Expr.ListComprehension? ReadSingleNestedListMapper(Expr body)
+    {
+        Expr mapper = body is Expr.Call { DynamicRemote: false, Arguments: [var input] } ? input : body;
+
+        return mapper is Expr.ListComprehension
+        {
+            Items: [Expr.Tuple],
+            Qualifiers:
+            [
+                ComprehensionQualifier.Generator { Strict: false, Pattern: Pattern.Tuple, Source: Expr.Variable },
+                ComprehensionQualifier.Generator { Strict: false, Pattern: Pattern.Variable }
+            ]
+        } comprehension ? comprehension : null;
+    }
+
+    private static bool IsSoleForwardedFirstAtom(
+        Expr.Call call,
+        Expr body,
+        int index,
+        string parameter
+    ) =>
+        IsRegisterClobberingCall(call) && index < call.Arguments.Count
+            && call.Arguments[index] is Expr.Variable read && read.Name == parameter
+            && LocalFunctionEntries.Walk(body).OfType<Expr.Variable>().Count(variable => variable.Name == parameter) == 1;
+
+    private static Expr.Call? ReadFirstPlainCall(Expr body, IReadOnlySet<(string Name, int Arity)> localEntries)
+    {
+        if (body is not (Expr.Sequence { Items.Count: > 1 } or Expr.List or Expr.Tuple)
+            && !(body is Expr.Call nested && nested.Arguments.Any(argument =>
+                argument is Expr.Call && ReadExternalFunctionLiteral(argument) is null)))
+        {
+            return null;
+        }
+
+        Expr.Call? first = null;
+        bool ordinaryCall = false;
+
+        return Visit(body) && ordinaryCall ? first : null;
+
+        bool Visit(Expr expression)
+        {
+            if (expression is not (Expr.Call { DynamicRemote: false } or Expr.Variable or Expr.Literal
+                or Expr.Tuple or Expr.List or Expr.Sequence or Expr.Match { Pattern: Pattern.Variable }))
+            {
+                return false;
+            }
+
+            if (!LocalFunctionEntries.Children(expression).All(Visit))
+            {
+                return false;
+            }
+
+            // A static external function reference lowers to a literal without an intervening call.
+            if (expression is Expr.Call call && ReadExternalFunctionLiteral(call) is null)
+            {
+                first ??= call;
+                ordinaryCall |= IsRegisterClobberingCall(call)
+                    || call.Module is null && localEntries.Contains((call.Function, call.Arguments.Count));
+            }
+
+            return true;
+        }
+    }
+
+    private sealed partial class GeneralEmitter
+    {
+        private Term? ReadClosedSingletonArgument(FunctionDefinition function, int register)
+        {
+            if (owner.OnLoadFunction is not null || owner.IsDeclaredNative((function.Name, function.Arity)))
+            {
+                return null;
+            }
+
+            Term? value = null;
+
+            return HasOnlyLocalCalls(
+                function,
+                function.Arity,
+                (_, call) =>
+            {
+                if (ReadLocalSingletonArgument(call.Arguments[register]) is not { } argument
+                    || value is not null && !value.Equals(argument))
+                {
+                    return false;
+                }
+
+                value = argument;
+
+                return true;
+            }
+            ) ? value : null;
+        }
     }
 
     private static Term? ReadLocalSingletonArgument(Expr argument) => argument switch
@@ -151,6 +273,36 @@ internal sealed partial class BeamModuleCompiler
         Expr.List { Items.Count: 0, Tail: null } => Nil.Value,
         _ => null
     };
+
+    private static bool IsLocalSingletonConstructorBody(Expr expression, IReadOnlyList<string> parameters)
+    {
+        if (expression is not Expr.Sequence { Items.Count: > 0 } sequence)
+        {
+            return expression is (Expr.Tuple or Expr.List) && IsLocalSingletonConstructor(expression);
+        }
+
+        var names = new HashSet<string>(parameters, StringComparer.Ordinal);
+        foreach (var item in sequence.Items.SkipLast(1))
+        {
+            if (item is Expr.Literal)
+            {
+                continue;
+            }
+
+            if (item is not Expr.Match
+                {
+                    Pattern: Pattern.Variable { Name: not VariableScopeNames.Wildcard } variable,
+                    Value: var value
+                } || !IsLocalSingletonConstructor(value) || !names.Add(variable.Name))
+            {
+                return false;
+            }
+        }
+
+        Expr result = sequence.Items[^1];
+
+        return result is (Expr.Tuple or Expr.List) && IsLocalSingletonConstructor(result);
+    }
 
     private static bool IsLocalSingletonConstructor(Expr expression) => expression switch
     {

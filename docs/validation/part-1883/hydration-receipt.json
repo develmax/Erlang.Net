@@ -1,0 +1,29 @@
+{
+  "Parent": {
+    "Source": "338dcf8e3b75c55a67501628041c5221c8866a0fb506edba01398834dfbc7719",
+    "Paths": 239,
+    "Compiler": "14634545b76ca5846fcd6e50c011cfcb81cd25ec0e5ca03f993bc99c6928d223",
+    "Tests": "d957d20dcbee80b31ab0c319b630816ac3b11fcf290aa400e160f0675f0f7176",
+    "ParentSource": "26287d6ebb407c69b9ae2b759a9e7e252e1f2ce23cde7e03015ddd769f7e50e4",
+    "CorpusTool": "596f74e99d68e65916006324af26cf48169e821bf9e36c26727d1fbab8c6470d"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AdjacentNumericResults.cs": "25859661a5a1954874fdcb97517351069fe5a91f41273e5df8f99757527d58d5",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DeadStackProjections.cs": "4a9e6c2413013df96d81a9e79f250fffc401478a218dd390991f196b18d0b93e",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedReturns.cs": "165698747c5e456f5c9016f8b7688c2435226ee84af3b5eef8128eb92d14ff86",
+    "tests/Erlang.Tests/Compiler/Beam/BeamSizeResultRangeChecks.cs": "024283b2c436abdf9ddc13a2664163b5973d227b0160404bf83d6f61030d3e8b",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamDeadStackProjectionChecks.cs": "2827453522a9b5574bdd42e583cc4ebb45975351623697b3cb9b8ca7d3d4bee1",
+    "tests/Erlang.Tests/Harness/Program.cs": "216d419cbe48757d58f09a61fb0bb1d89e39f1991e8e307674e973c212b56f99"
+  },
+  "Patches": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\size-ranges-and-unread-projections-1883\\adjacent-success-size-result-types.patch",
+      "Hash": "fc56f619f290f1a6297e08e283a87bcc44f568de3bf45b1dafbaa37b744cf747"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\size-ranges-and-unread-projections-1883\\unread-stack-projections.patch",
+      "Hash": "13e4059b155a8fde4ecef702f39ce690593c0e5a5f7225301d5957ea5786dfe5"
+    }
+  ],
+  "HarnessRegistrations": "Apply the two test entries to the current linked harness."
+}

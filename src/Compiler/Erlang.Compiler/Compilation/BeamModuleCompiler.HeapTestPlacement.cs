@@ -4,6 +4,60 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
+    private byte[]? ReserveHeapBeforeStackTupleProjection(ReadOnlyMemory<byte> code, int labelCount)
+    {
+        if (ModuleOptimizationDisabled || !code.Span.Contains(TestHeap)
+            || DecodeLateAtomicProjectionSlots(code, labelCount) is not { } decoded)
+        {
+            return null;
+        }
+
+        var body = decoded.Body;
+        using var output = new MemoryStream();
+        int copied = 0;
+        for (int index = 1; index + 1 < body.Count; index++)
+        {
+            if (body[index] is not { Definition.Opcode: TestHeap, Operands: [_, { Value.IsOne: true }] }
+                || body[index - 1] is not
+                {
+                    Definition.Opcode: GetTupleElement,
+                    Operands: [
+                    { Kind: BeamOperandParameters.Y, TypeIndex: null },
+                        _,
+                    { Kind: BeamOperandParameters.X, Value.IsZero: true, TypeIndex: null }
+                    ]
+                })
+            {
+                continue;
+            }
+
+            int projection = body[index - 1].Offset;
+            int heap = body[index].Offset;
+            int end = body[index + 1].Offset;
+            output.Write(code.Span[copied..projection]);
+            // The Y slot roots the tuple. The projected value can be defined after the heap check.
+            WriteHeapRoots(
+                output,
+                code,
+                heap,
+                end,
+                1,
+                0
+            );
+            output.Write(code.Span[projection..heap]);
+            copied = end;
+        }
+
+        if (copied == 0)
+        {
+            return null;
+        }
+
+        output.Write(code.Span[copied..]);
+
+        return output.ToArray();
+    }
+
     private static byte[]? MoveHeapTestsBeforeNeutralInstructions(
         ReadOnlyMemory<byte> code,
         IReadOnlyList<BeamInstruction> body,
@@ -23,12 +77,18 @@ internal sealed partial class BeamModuleCompiler
             }
 
             int original = (int)heap.Operands[^1].Value;
-            if (ReadCheckedTupleHeap(
+            var checkedProjection = ReadCheckedTupleHeap(
                 body,
                 index,
                 original,
                 ref flow
-            ) is { } projection)
+            ) ?? ReadRecordUpdateProjection(
+                body,
+                index,
+                original,
+                ref flow
+            );
+            if (checkedProjection is { } projection)
             {
                 int projections = body[projection.First].Offset;
                 int guard = body[projection.End].Offset;

@@ -1,0 +1,65 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.MatchedCallProjection.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.MatchedCallProjection.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.MatchedCallProjection.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.MatchedCallProjection.cs
+@@ -24,16 +24,28 @@
+             }
+ 
+             if (body[index].Definition.Opcode is not (LocalCall or ExternalCall)
+-                || body[index + 1] is not { Definition.Opcode: Move, Operands: [var source, var pass] }
+-                || source != result || pass != forwarded
+-                || body[index + 2] is not { Definition.Opcode: Move, Operands: [var constant, var assign] }
+-                || assign != fieldSource || !IsNonRegisterValue(constant)
+                 || body[index + 3] is not
+                 {
+                     Definition.Opcode: Move, Operands: [
+                     { Kind: BeamOperandParameters.Y, TypeIndex: null } slot, var reset
+                 ]
+                 } || reset != result)
++            {
++                continue;
++            }
++
++            int copyResult = index + 1;
++            int loadConstant = index + 2;
++            if (body[copyResult] is { Definition.Opcode: Move, Operands: [_, var target] } && target == fieldSource)
++            {
++                (copyResult, loadConstant) = (loadConstant, copyResult);
++            }
++
++            // These two independent moves can be ordered before this pass runs.
++            if (body[copyResult] is not { Definition.Opcode: Move, Operands: [var source, var pass] }
++                || source != result || pass != forwarded
++                || body[loadConstant] is not { Definition.Opcode: Move, Operands: [var constant, var assign] }
++                || assign != fieldSource || !IsNonRegisterValue(constant))
+             {
+                 continue;
+             }
+@@ -89,13 +101,11 @@
+                 continue;
+             }
+ 
+-            int copyResult = body[index + 1].Offset;
+-            int loadConstant = body[index + 2].Offset;
+             int reload = body[index + 3].Offset;
+             int next = body[index + 4].Offset;
+-            output.Write(code.Span[copied..copyResult]);
+-            output.Write(code.Span[loadConstant..reload]);
+-            output.Write(code.Span[copyResult..loadConstant]);
++            output.Write(code.Span[copied..body[index + 1].Offset]);
++            output.Write(code.Span[body[loadConstant].Offset..body[loadConstant + 1].Offset]);
++            output.Write(code.Span[body[copyResult].Offset..body[copyResult + 1].Offset]);
+             output.Write(code.Span[reload..next]);
+             WriteFrameInitialization(output, [(int)slot.Value]);
+             int project = body[read].Offset;
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Calls/BeamMatchedCallProjectionChecks.cs b/tests/Erlang.Tests/Compiler/Beam/Calls/BeamMatchedCallProjectionChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/Calls/BeamMatchedCallProjectionChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/Calls/BeamMatchedCallProjectionChecks.cs
+@@ -41,7 +41,7 @@
+         ReadOnlySpan<byte> liveSlot =
+         [
+             BeamEmissionFormat.ExternalCall, 0x10, 0x00,
+-            BeamEmissionFormat.Move, 0x03, 0x23, BeamEmissionFormat.Move, 0x11, 0x13,
++            BeamEmissionFormat.Move, 0x11, 0x13, BeamEmissionFormat.Move, 0x03, 0x23,
+             BeamEmissionFormat.Move, 0x04, 0x03, BeamEmissionFormat.Line, 0x60,
+             BeamEmissionFormat.ExternalCall, 0x30, 0x10
+         ];

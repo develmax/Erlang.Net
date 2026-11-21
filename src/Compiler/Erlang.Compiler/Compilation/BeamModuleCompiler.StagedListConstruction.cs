@@ -1,0 +1,112 @@
+using static Erlang.Compiler.BeamEmissionFormat;
+
+namespace Erlang.Compiler;
+
+internal sealed partial class BeamModuleCompiler
+{
+    private byte[]? FoldStagedListConstructions(ReadOnlyMemory<byte> code, int labelCount)
+    {
+        if (ModuleOptimizationDisabled || !code.Span.Contains(PutList))
+        {
+            return null;
+        }
+
+        IReadOnlyList<BeamInstruction> body;
+        try
+        {
+            var header = new BeamCodeHeader(
+                BeamWire.FormatVersion,
+                highestOpcode,
+                labelCount,
+                exports.Count + locals.Count,
+                code
+            );
+            body = BeamInstructionReader.Read(header, atoms.Count + 1, literalBytes.Count);
+        }
+        catch (Exception error) when (error is InvalidDataException or NotSupportedException)
+        {
+            return null;
+        }
+
+        using var output = new MemoryStream();
+        int copied = 0;
+        for (int index = 0; index + 4 < body.Count; index++)
+        {
+            BeamInstruction staged = body[index];
+            BeamInstruction independent = body[index + 2];
+            BeamInstruction copy = body[index + 3];
+            if (staged is not
+                {
+                    Definition.Opcode: Move,
+                    Operands: [
+                    {
+                        Kind: BeamOperandParameters.Nil or BeamOperandParameters.Atom
+                            or BeamOperandParameters.Integer or BeamOperandParameters.LiteralValue
+                    },
+                    { Kind: BeamOperandParameters.X, TypeIndex: null } temporary]
+                }
+                || body[index + 1] is not { Definition.Opcode: PutList, Operands: [var head, var tail, var result] }
+                || copy is not
+                {
+                    Definition.Opcode: Move,
+                    Operands: [var copiedResult, { Kind: BeamOperandParameters.X, TypeIndex: null } destination]
+                }
+                || temporary != head || temporary != result || temporary != copiedResult
+                || destination == temporary || tail != destination || independent.Definition.Opcode != PutList
+                || Mentions(independent, temporary) || Mentions(independent, destination))
+            {
+                continue;
+            }
+
+            int first = index;
+            int next = index + 4;
+            if (index > 0 && body[index - 1].Offset >= copied && next + 1 < body.Count
+                && body[index - 1] is
+                {
+                    Definition.Opcode: Move,
+                    Operands: [var saved, { Kind: BeamOperandParameters.X, TypeIndex: null } scratch]
+                }
+                && saved == temporary && scratch != temporary && scratch != destination
+                && body[next] is { Definition.Opcode: Move, Operands: [var restored, var restoredDestination] }
+                && restored == scratch && restoredDestination == temporary && !Mentions(independent, scratch)
+                && DiscardsCopiedConstructionTemporary(body, next + 1, scratch))
+            {
+                first--;
+                next++;
+            }
+            else if (!DiscardsCopiedConstructionTemporary(body, next, temporary))
+            {
+                continue;
+            }
+
+            // The cons reads its original tail before writing the argument register.
+            int literalStart = staged.Offset + 1;
+            var cursor = new BeamCursor(code[literalStart..body[index + 1].Offset]);
+            if (BeamCompactReader.Read(cursor).WireTag == BeamOperandParameters.ExtendedTag)
+            {
+                _ = BeamCompactReader.Read(cursor);
+            }
+
+            output.Write(code.Span[copied..body[first].Offset]);
+            output.WriteByte(PutList);
+            output.Write(code.Span[literalStart..(literalStart + cursor.Position)]);
+            BeamCompactWriter.Write(output, XRegisterTag, destination.Value);
+            BeamCompactWriter.Write(output, XRegisterTag, destination.Value);
+            output.Write(code.Span[independent.Offset..copy.Offset]);
+            copied = body[next].Offset;
+            index = next - 1;
+        }
+
+        if (copied == 0)
+        {
+            return null;
+        }
+
+        output.Write(code.Span[copied..]);
+
+        return output.ToArray();
+
+        static bool Mentions(BeamInstruction instruction, BeamOperand register) =>
+            instruction.Operands.Any(operand => SameProjectionRegister(operand, register));
+    }
+}

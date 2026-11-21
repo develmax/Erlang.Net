@@ -408,44 +408,20 @@ internal static class BeamTargetedInlining
             lines.Add(location);
         }
 
-        var retained = new bool[functions.Count];
-        var pending = new Queue<int>();
-        var indices = new Dictionary<(string, int), int>();
-        for (int index = 0; index < functions.Count; index++)
+        return BeamSourceReachability.Retain(
+            functions,
+            lines,
+            IsInliningRoot
+        );
+
+        bool IsInliningRoot(FunctionDefinition function)
         {
-            FunctionDefinition function = functions[index];
             var signature = (function.Name, function.Arity);
-            indices.Add(signature, index);
-            if ((!function.IsInlineFailure && !targets.ContainsKey(signature) && !dispatches.ContainsKey(signature))
+
+            return (!function.IsInlineFailure && !targets.ContainsKey(signature) && !dispatches.ContainsKey(signature))
                 || releaseTargets.Contains(signature) && !substitutedReleaseTargets.Contains(signature)
-                || exports.Contains(signature) || function.Arity == 0 && function.Name == module.OnLoadFunction)
-            {
-                retained[index] = true;
-                pending.Enqueue(index);
-            }
+                || exports.Contains(signature) || function.Arity == 0 && function.Name == module.OnLoadFunction;
         }
-
-        while (pending.TryDequeue(out int caller))
-        {
-            foreach (Expr expression in LocalFunctionEntries.ClauseExpressions(functions[caller].Clauses)
-                .SelectMany(LocalFunctionEntries.Walk))
-            {
-                var reference = expression switch
-                {
-                    Expr.Call { Module: null, DynamicRemote: false } local => (local.Function, local.Arguments.Count),
-                    Expr.FunctionReference local => (local.Name, local.Arity),
-                    _ => default
-                };
-                if (reference.Item1 is not null && indices.TryGetValue(reference, out int target) && !retained[target])
-                {
-                    retained[target] = true;
-                    pending.Enqueue(target);
-                }
-            }
-        }
-
-        return (functions.Where((_, index) => retained[index]).ToArray(),
-            lines.Where((_, index) => retained[index]).ToArray());
     }
 
     private static bool IsBoundedReleaseLeaf(Clause clause, int baseSize)
