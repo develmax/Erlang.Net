@@ -21,7 +21,7 @@ internal static class BeamLocalTaggedTuplePayloadChecks
             """;
         Check(Source, true);
         Check(Source.Replace("{error,no_value}", "{ok,no_value}", StringComparison.Ordinal), false);
-        Check(Source.Replace("true -> Both", "true -> untyped()", StringComparison.Ordinal), false);
+        Check(Source.Replace("true -> Both", "true -> external_probe:untyped()", StringComparison.Ordinal), false);
         Check(Source, true, tag: "ignored");
 
         static void Check(string source, bool expected, string tag = "ok")

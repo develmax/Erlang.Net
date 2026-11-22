@@ -58,7 +58,7 @@ internal static class BeamClosureRegistrationOrderChecks
         byte opcode = (byte)Property(Property(instruction, "Definition"), "Opcode");
         var operands = ((IEnumerable)Property(instruction, "Operands")).Cast<object>();
 
-        return opcode == CallFunTyped && (string)Property(operands.First(), "Kind") == BeamOperandParameters.Unsigned;
+        return opcode == CallFunTyped && (string)Property(operands.First(), "Kind") == BeamBinaryHostNames.Unsigned;
     }
 
     private static int[]? Plan(byte[] uses, int[] captures)

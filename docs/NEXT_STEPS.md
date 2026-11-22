@@ -1,5 +1,7 @@
 # Next steps
 
+Use the existing grouped tuple selector for the complete disjoint tagged bank and carry finite captured list-length facts through branch-owned allocation. [Evidence](validation/part-2005-publication-source-closure/README.md).
+
 Extend the shared returning-call trim recipe across independently owned branches. Reuse predecessor proofs to sink checked projections after heap checks with exact roots. Keep the final uncached corpus and the full regression gate open. [Local Part 2003](validation/part-2003-local-cons-tuple-and-register-values/README.md).
 
 Partition shared cons head tuple decisions by arity and tag before assigning frame homes. Extend virtual call argument handling and compare only the affected Different paths until the final uncached corpus and package gate. [Local Part 2002](validation/part-2002-local-fixed-list-and-bitstring-runs/README.md).

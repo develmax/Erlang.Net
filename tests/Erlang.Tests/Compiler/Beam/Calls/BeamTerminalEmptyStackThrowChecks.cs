@@ -8,6 +8,7 @@ namespace Erlang.Tests;
 internal static class BeamTerminalEmptyStackThrowChecks
 {
     internal const string TestName = "compiler/beam/exits-the-frame-on-a-proven-empty-stack-throw";
+    private const int SyntheticAtomCount = 3;
     private const string FrameError = "Only a frame-owned raise of a literal throw with an empty trace can be terminal.";
 
     internal static void Run()
@@ -65,7 +66,7 @@ internal static class BeamTerminalEmptyStackThrowChecks
             Type("BeamInstructionReader"),
             "Read",
             header,
-            2,
+            SyntheticAtomCount,
             0,
             null,
             null

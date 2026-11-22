@@ -32,9 +32,12 @@ internal static class BeamPositionedBinarySegmentListChecks
     {
         byte[] image = CodeGeneration.CompileBeamModule(Source, "beam_positioned_binary_segment_list.erl");
         CheckLayout(image);
-        var module = BeamModule.Prepare(image, new BeamDependencySelection([ListModuleNames.Module]));
+        var module = BeamModule.Prepare(image, new BeamDependencySelection([NativeBindingSelectionNames.Lists]));
         var selection = new RuntimeLibrarySelection(
-            [RuntimeModuleSelection.Managed(ErlangModuleNames.Module), RuntimeModuleSelection.Managed(ListModuleNames.Module)]
+            [
+                RuntimeModuleSelection.Managed(ErlangModuleNames.Module),
+                RuntimeModuleSelection.Managed(NativeBindingSelectionNames.Lists)
+            ]
         );
         await using var runtime = await ProcessRuntime.CreateAsync(
             selection,

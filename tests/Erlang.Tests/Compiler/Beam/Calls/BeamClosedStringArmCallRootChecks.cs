@@ -8,6 +8,7 @@ namespace Erlang.Tests;
 internal static class BeamClosedStringArmCallRootChecks
 {
     internal const string TestName = "compiler/beam/clears-a-frame-root-only-in-the-accepting-string-arm";
+    private const int SyntheticAtomCount = 4;
     private const string RewriteMethod = "RewriteClosedStringArmCallRoot";
     private const string IncorrectRoot = "A closed string arm cleared the wrong frame root.";
 
@@ -81,7 +82,7 @@ internal static class BeamClosedStringArmCallRootChecks
             Type("BeamInstructionReader"),
             "Read",
             header,
-            3,
+            SyntheticAtomCount,
             1,
             null,
             null

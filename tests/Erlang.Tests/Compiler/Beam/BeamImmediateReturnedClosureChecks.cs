@@ -21,13 +21,12 @@ internal static class BeamImmediateReturnedClosureChecks
     internal static Task Run()
     {
         byte[] inline = CodeGeneration.CompileBeamModule(Source, SourceFile);
-        byte[] disabled = CodeGeneration.CompileBeamModule(Source.Replace(
-            "%% options",
-            "-compile(no_ssa_opt).",
-            StringComparison.Ordinal
-        ), SourceFile);
+        byte[] disabled = BeamAdjacentNumericResultChecks.Compile(
+            Source.Replace("%% options", "-compile(no_ssa_opt).", StringComparison.Ordinal),
+            disabled: true
+        );
         if (Functions(inline) != 1 || Functions(disabled) != 2
-            || !BeamDocumentationEmissionChecks.Chunks(inline).Single(chunk => chunk.Id == "AtU8")
+            || BeamDocumentationEmissionChecks.Chunks(inline).Single(chunk => chunk.Id == "AtU8")
                 .Data.AsSpan().IndexOf("-make/0-fun-1-"u8) < 0)
         {
             throw new InvalidOperationException(Construction);

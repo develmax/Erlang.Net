@@ -43,9 +43,9 @@ internal static class BeamNamedCallCaptureOrderChecks
         object saved = Items(code, "Instructions")[first..last].First(instruction =>
             (byte)Property(Property(instruction, "Definition"), "Opcode") == Move);
         object[] operands = Items(saved, "Operands");
-        if ((string)Property(operands[0], "Kind") != BeamOperandParameters.X
+        if ((string)Property(operands[0], "Kind") != BeamBinaryHostNames.X
             || (BigInteger)Property(operands[0], "Value") != 1
-            || (string)Property(operands[1], "Kind") != BeamOperandParameters.Y)
+            || (string)Property(operands[1], "Kind") != BeamBinaryHostNames.Y)
         {
             throw new InvalidOperationException(WrongCapture);
         }

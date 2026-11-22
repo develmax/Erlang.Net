@@ -9,6 +9,7 @@ namespace Erlang.Tests;
 internal static class BeamListCallRetryLayoutChecks
 {
     internal const string TestName = "compiler/beam/places-owned-list-retries-after-checked-calls";
+    private const int SyntheticAtomCount = 3;
     private const string LayoutError = "Expected independent frame saves and the owned list retry in SSA order.";
 
     internal static void Run()
@@ -242,7 +243,7 @@ internal static class BeamListCallRetryLayoutChecks
             Type("BeamInstructionReader"),
             "Read",
             header,
-            2,
+            SyntheticAtomCount,
             0,
             null,
             null

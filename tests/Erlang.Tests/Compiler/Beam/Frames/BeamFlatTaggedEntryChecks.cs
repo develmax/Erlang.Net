@@ -135,7 +135,13 @@ internal static class BeamFlatTaggedEntryChecks
             throw new InvalidOperationException(WrongGuard);
         }
 
-        return CheckRepeatedBuckets();
+        return CheckAdditionalBuckets();
+    }
+
+    private static async Task CheckAdditionalBuckets()
+    {
+        await CheckRepeatedBuckets();
+        await BeamMixedPairEntryChecks.Check();
     }
 
     private static async Task CheckRepeatedBuckets()

@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Numerics;
 using Erlang.Compiler;
 using static Erlang.Compiler.BeamEmissionFormat;
 using static Erlang.Tests.BeamBinaryHostAccess;
@@ -121,4 +123,11 @@ internal static class BeamCapturedEntryIntegerChecks
             ? (long)Property(type, "Minimum")
             : null;
     }
+
+    private static IEnumerable<object> Children(object owner, string name) =>
+        ((IEnumerable)Property(owner, name)).Cast<object>();
+
+    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
+
+    private static BigInteger Value(object operand) => (BigInteger)Property(operand, "Value");
 }

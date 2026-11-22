@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Local Part 2005 verifies source closure and project compilation. The 60-case harness records two open BEAM compiler differences. The observed whole-file ledger remains 539 of 1,366. [Evidence](validation/part-2005-publication-source-closure/README.md).
+
 Local Part 2003 groups checked cons-head tuple decisions, forwards GC BIF arguments and propagates proved literal binary operands. The 276-file Different scope gained 39 normalized function matches with none lost. The byte ledger remains 539 Equal. [Validation](validation/part-2003-local-cons-tuple-and-register-values/README.md).
 
 Local Parts 2001 and 2002 share list decisions and terminal result construction, and pack literal bitstrings before instruction emission. The latest selected group remains 11 Different. The observed byte ledger remains 539 Equal and 827 Different. [Scoped evidence](validation/part-2002-local-fixed-list-and-bitstring-runs/README.md).

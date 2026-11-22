@@ -8,6 +8,7 @@ namespace Erlang.Tests;
 internal static class BeamClosedCatchEmptyStackThrowChecks
 {
     internal const string TestName = "compiler/beam/tails-an-empty-stack-throw-after-the-catch-closes";
+    private const int SyntheticAtomCount = 3;
 
     internal static void Run()
     {
@@ -72,7 +73,7 @@ internal static class BeamClosedCatchEmptyStackThrowChecks
             Type("BeamInstructionReader"),
             "Read",
             header,
-            2,
+            SyntheticAtomCount,
             0,
             null,
             null

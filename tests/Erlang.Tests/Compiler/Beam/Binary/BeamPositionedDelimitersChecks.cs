@@ -31,11 +31,15 @@ internal static class BeamPositionedDelimitersChecks
     {
         byte[] image = CodeGeneration.CompileBeamModule(Source, "beam_positioned_delimiters.erl");
         CheckLayout(image, optimized: true);
-        string disabled = Source.Replace("-export", "-compile(no_ssa_opt).\n-export", StringComparison.Ordinal);
-        CheckLayout(CodeGeneration.CompileBeamModule(disabled, "beam_positioned_delimiters.erl"), optimized: false);
-        var module = BeamModule.Prepare(image, new BeamDependencySelection([ListModuleNames.Module]));
+        string disabled = Source.Replace("-export", "-compile(no_ssa_opt).\n-export", StringComparison.Ordinal)
+            .Replace("?MODULE", "beam_positioned_delimiters", StringComparison.Ordinal);
+        CheckLayout(BeamAdjacentNumericResultChecks.Compile(disabled, disabled: true), optimized: false);
+        var module = BeamModule.Prepare(image, new BeamDependencySelection([NativeBindingSelectionNames.Lists]));
         var selection = new RuntimeLibrarySelection(
-            [RuntimeModuleSelection.Managed(ErlangModuleNames.Module), RuntimeModuleSelection.Managed(ListModuleNames.Module)]
+            [
+                RuntimeModuleSelection.Managed(ErlangModuleNames.Module),
+                RuntimeModuleSelection.Managed(NativeBindingSelectionNames.Lists)
+            ]
         );
         await using var runtime = await ProcessRuntime.CreateAsync(
             selection,

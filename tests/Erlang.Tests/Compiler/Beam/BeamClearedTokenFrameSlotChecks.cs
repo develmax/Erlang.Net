@@ -8,6 +8,7 @@ namespace Erlang.Tests;
 internal static class BeamClearedTokenFrameSlotChecks
 {
     internal const string TestName = "compiler/beam/reuses-a-cleared-frame-slot-for-a-checked-token";
+    private const int SyntheticAtomCount = 3;
     private const string RewriteMethod = "RewriteClearedTokenFrameSlot";
     private const string ChangedCapture = "Checked token extraction chose an incorrect frame slot.";
 
@@ -73,7 +74,7 @@ internal static class BeamClearedTokenFrameSlotChecks
             Type("BeamInstructionReader"),
             "Read",
             header,
-            2,
+            SyntheticAtomCount,
             1,
             null,
             null

@@ -23,6 +23,20 @@ internal static class BeamLateCallKillOrderChecks
         CheckOrder(compiler, [.. copy, .. kill, .. external], [.. kill, .. copy, .. external]);
         CheckOrder(compiler, [.. copy, .. doubleKill, .. local], [.. doubleKill, .. copy, .. local]);
 
+        byte[] literal = [Move, A(1), X(0)];
+        byte[] trim = [TrimFrame, U(1), U(2)];
+        CheckOrder(compiler, [.. literal, .. trim, .. local], [.. trim, .. literal, .. local]);
+        CheckUnchanged(
+            compiler,
+            [.. literal, .. trim, .. external],
+            BeamLateCallKillOrderDiagnostics.LiteralSource
+        );
+        CheckUnchanged(
+            compiler,
+            [.. literal, .. trim, TestHeap, U(2), U(2), .. local],
+            BeamLateCallKillOrderDiagnostics.Collector
+        );
+
         CheckUnchanged(
             compiler,
             [.. copy, .. kill, InitYRegisters, ExtendedListOperand, U(1), Y(0), .. external],

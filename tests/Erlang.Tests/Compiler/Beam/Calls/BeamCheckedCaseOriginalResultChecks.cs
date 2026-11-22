@@ -86,7 +86,7 @@ internal static class BeamCheckedCaseOriginalResultChecks
             }
 
             return body.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo)
-                .Any(instruction => Opcode(instruction) == PutTuple2);
+                .Any(instruction => Opcode(instruction) == PutTuple);
         }
     }
 

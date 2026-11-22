@@ -8,6 +8,7 @@ namespace Erlang.Tests;
 internal static class BeamCheckedListTailCallInputChecks
 {
     internal const string TestName = "compiler/beam/keeps-a-checked-list-tail-in-its-outgoing-argument";
+    private const int SyntheticAtomCount = 3;
     private const string LayoutError = "Expected both call arms to retain the checked list tail.";
 
     internal static void Run()
@@ -147,7 +148,7 @@ internal static class BeamCheckedListTailCallInputChecks
             Type("BeamInstructionReader"),
             "Read",
             header,
-            2,
+            SyntheticAtomCount,
             0,
             null,
             null

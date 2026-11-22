@@ -1,3 +1,4 @@
+using System.Collections;
 using Erlang.Compiler;
 using static Erlang.Tests.BeamBinaryHostAccess;
 
@@ -45,7 +46,8 @@ internal static class BeamComputedComprehensionTailChecks
     {
         byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
         object code = Code(image);
-        if (!Children(Property(code, "Structure"), "Atoms").Cast<string>().Contains(Helper, StringComparer.Ordinal))
+        var atoms = (IEnumerable)Property(Property(code, "Structure"), "Atoms");
+        if (!atoms.Cast<string>().Contains(Helper, StringComparer.Ordinal))
         {
             throw new InvalidOperationException(Incorrect);
         }

@@ -6,6 +6,8 @@ namespace Erlang.Tests;
 
 internal static class BeamDisjointNilIntegerEntriesChecks
 {
+    private const int IntegerUnion = 0x0020;
+
     internal static Task Run()
     {
         const string source = """
@@ -41,7 +43,7 @@ internal static class BeamDisjointNilIntegerEntriesChecks
         object equality = instructions.Single(instruction =>
             Property(Property(instruction, "Definition"), "Opcode") is BeamEmissionFormat.ExactEqualTest);
         if (Property(Items(equality, "Operands")[1], "TypeIndex") is not int type
-            || Property(types[type], "TypeUnion") is not BeamEmissionFormat.IntegerTypeBits
+            || Property(types[type], "TypeUnion") is not IntegerUnion
             || Property(types[type], "MetadataFlags") is not 0)
         {
             throw new InvalidOperationException("The integer test does not establish a finite range.");
