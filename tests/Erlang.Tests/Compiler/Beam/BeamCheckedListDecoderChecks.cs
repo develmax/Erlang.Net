@@ -17,7 +17,7 @@ internal static class BeamCheckedListDecoderChecks
         -module(beam_checked_list_decoder_probe).
         -compile({no_auto_import,[exit/1,byte_size/1]}).
         -export([decode2/2,decode3/2,decode6/2,optional/2,custom/2,sized/2,shadowed_size/2]).
-        
+
         decode2(Input, Tag) ->
             Tail0 = read(Input, Tag),
             [Value0|Tail1] = Tail0,
@@ -30,7 +30,7 @@ internal static class BeamCheckedListDecoderChecks
             end,
             Result = {decode2, Field0, Field1},
             Result.
-        
+
         decode3(Input, Tag) ->
             Tail0 = read(Input, Tag),
             [Value0|Tail1] = Tail0,
@@ -45,7 +45,7 @@ internal static class BeamCheckedListDecoderChecks
             end,
             Result = {decode3, Field0, Field1, Field2},
             Result.
-        
+
         decode6(Input, Tag) ->
             Tail0 = read(Input, Tag),
             [Value0|Tail1] = Tail0,
@@ -66,7 +66,7 @@ internal static class BeamCheckedListDecoderChecks
             end,
             Result = {decode6, Field0, Field1, Field2, Field3, Field4, Field5},
             Result.
-        
+
         custom(Input, Tag) ->
             Tail0 = read(Input, Tag),
             [Value0|Tail1] = Tail0,
@@ -79,7 +79,7 @@ internal static class BeamCheckedListDecoderChecks
             end,
             Result = {custom, Field0, Field1},
             Result.
-        
+
         optional(Input, Tag) ->
             Tail0 = read(Input, Tag),
             [Value0|Tail1] = Tail0,

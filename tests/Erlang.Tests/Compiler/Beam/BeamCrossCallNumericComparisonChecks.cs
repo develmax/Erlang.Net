@@ -20,7 +20,7 @@ internal static class BeamCrossCallNumericComparisonChecks
         %% options
         -export([positive/1,unbounded_integer/2,unknown/2,unrelated/2]).
         -record(counter,{n,p,l}).
-        
+
         positive(#counter{p=Index,n=Count,l=Level}=Original) ->
             Next = Index + 1,
             Larger = Count + 1,

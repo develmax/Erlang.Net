@@ -19,7 +19,7 @@ internal static class BeamCheckedListGuardFrameChecks
         -export([match/2, barrier/2, mode/2, read_tails/3, read_checked_head/3, observed/1]).
         -export([read_pair/3, split_matches/3]).
         -record(bucket, {count, marker, shift, extra}).
-        
+
         match(#bucket{count = Count} = State, Spec) ->
             case Spec of
                 [{Head,_,_}] when is_tuple(Head), tuple_size(Head) > 2 ->
@@ -33,7 +33,7 @@ internal static class BeamCheckedListGuardFrameChecks
         match(OldState, Spec) ->
             State = convert(OldState),
             match(State, Spec).
-        
+
         barrier(#bucket{count = Count} = State, Spec) ->
             case Spec of
                 [{Head,_,_}] when is_tuple(Head), tuple_size(Head) > 2 ->
@@ -47,7 +47,7 @@ internal static class BeamCheckedListGuardFrameChecks
         barrier(OldState, Spec) ->
             State = convert(OldState),
             barrier(State, Spec).
-        
+
         classify(Key) -> erlang:get(Key).
         select_key(#bucket{count = Count}, Key) -> erlang:put(selected, {Count, Key}), Count + 1.
         convert({bucket, Count, Marker, Shift}) ->

@@ -17,7 +17,7 @@ internal static class BeamOwnedCallResultTrimChecks
         -module(beam_owned_call_result_trim_probe).
         -export([bucket/2, retain/2]).
         -record(bucket, {limit, hole, shift, engine}).
-        
+
         bucket(#bucket{engine = alpha, limit = Lim, shift = Shift}, Key) ->
             Value = erlang:phash(Key, scale(Shift + 1)),
             if Value > Lim -> Value - scale(Shift); true -> Value end;
@@ -27,7 +27,7 @@ internal static class BeamOwnedCallResultTrimChecks
         bucket(Previous, Key) ->
             Value = convert(Previous),
             bucket(Value, Key).
-        
+
         retain(#bucket{engine = alpha, limit = Lim, shift = Shift}, Key) ->
             Value = erlang:phash(Key, scale(Shift + 1)),
             if Value > Lim -> Value - scale(Shift) + Lim; true -> Value end;
@@ -37,7 +37,7 @@ internal static class BeamOwnedCallResultTrimChecks
         retain(Previous, Key) ->
             Value = convert(Previous),
             retain(Value, Key).
-        
+
         convert({bucket, Lim, Hole, Shift}) ->
             #bucket{limit = Lim, hole = Hole, shift = Shift, engine = alpha}.
         scale(Shift) -> 1 bsl Shift.

@@ -29,7 +29,7 @@ internal static class BeamJoinedRecordCallFrameChecks
         grow(Previous) ->
             State = convert(Previous),
             grow(State).
-        
+
         barrier(#bucket{count = Count, marker = Prev, shift = Shift} = R) ->
             Advanced = Prev + 1,
             Count1 = Count + 1,
@@ -44,7 +44,7 @@ internal static class BeamJoinedRecordCallFrameChecks
         barrier(Previous) ->
             State = convert(Previous),
             barrier(State).
-        
+
         convert({bucket, Count, Marker, Shift}) ->
             #bucket{count = Count, marker = Marker, shift = Shift}.
         scale(Shift) -> 1 bsl Shift.

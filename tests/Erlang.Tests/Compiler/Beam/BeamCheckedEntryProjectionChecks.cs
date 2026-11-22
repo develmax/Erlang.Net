@@ -19,7 +19,7 @@ internal static class BeamCheckedEntryProjectionChecks
         -export([nested/2, simple/2, fallback/2, retained/2, retained_fallback/2, caught/2]).
         -record(outer, {value, extra}).
         -record(inner, {value, mark}).
-        
+
         nested(#outer{value = #inner{value = Value}}, Key) ->
             Previous = erlang:put(Key, Value),
             {Value, Previous}.
@@ -33,12 +33,12 @@ internal static class BeamCheckedEntryProjectionChecks
         retained(#outer{value = #inner{} = Value} = Original, Key) ->
             Previous = erlang:put(Key, Value),
             {Original, Value, Previous}.
-        
+
         retained_fallback(#outer{value = #inner{} = Value} = Original, Key) ->
             Previous = erlang:put(Key, Value),
             {Original, Value, Previous};
         retained_fallback(_, Key) -> erlang:put(Key, fallback).
-        
+
         caught(#outer{value = #inner{} = Value} = Original, Key) ->
             Previous = catch erlang:put(Key, Value),
             {Original, Value, Previous}.
@@ -389,8 +389,9 @@ internal static class BeamCheckedEntryProjectionChecks
         }
     }
 
-    private static byte[]? RewriteRecordSpill(ReadOnlyMemory<byte> code)
+    private static byte[]? RewriteRecordSpill(byte[] bytes)
     {
+        ReadOnlyMemory<byte> code = bytes;
         object header = New(
             "BeamCodeHeader",
             0,
