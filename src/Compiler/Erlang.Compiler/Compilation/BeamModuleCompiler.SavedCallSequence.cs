@@ -1055,6 +1055,7 @@ internal sealed partial class BeamModuleCompiler
                     owner.MoveToX0(XRegisterTag, delayedReceiver);
                 }
 
+                MarkPlannedMapDefault(step.Call.Call, step.Call.Module);
                 owner.EmitCallLine(step.Call.Call, previousCall);
                 Call(step.Call.Module, step.Call.Call.Function, step.Call.Call.Arguments.Count);
                 previousCall = CallLocation(step.Call.Call, previousCall);

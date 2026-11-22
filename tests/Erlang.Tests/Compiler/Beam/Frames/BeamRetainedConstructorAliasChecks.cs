@@ -376,6 +376,138 @@ internal static class BeamRetainedConstructorAliasChecks
         }
 
         CheckPreservedProjection();
+        CheckOwnedProjectionCopies();
+        CheckOwnedListArithmetic();
+
+        void CheckOwnedListArithmetic()
+        {
+            const byte head = 0x04;
+            const byte tail = 0x14;
+            const byte keptHead = 0x24;
+            const byte arithmeticSlot = 0x34;
+            const byte keptList = 0x44;
+            const byte alternate = 0x35;
+            const byte selected = 0x25;
+            byte[] prefix = [Label, One, IsTuple, alternate, X1, Jump, selected, Label, Two];
+            byte[] frame = [Allocate, Five, Two, InitYRegisters, ExtendedListOperand, Five, head, tail, keptHead, arithmeticSlot, keptList];
+            byte[] match = [IsNonemptyList, alternate, X0, GetList, X0, head, tail, Move, head, keptHead];
+            byte[] build =
+            [
+                Line, One, GcBifTwo, 0x05, Zero, Zero, head, 0x11, X0, Move, X0, arithmeticSlot,
+                TestHeap, Four, Zero, PutList, arithmeticSlot, tail, X0, PutList, 0x11, X0, X0,
+                Move, X0, keptList
+            ];
+            byte[] finish =
+            [
+                TestHeap, Three, Zero, PutTuple, X0, ExtendedListOperand, Two, keptHead, keptList,
+                Deallocate, Five, Return
+            ];
+            byte[] fallback = [Label, Three, Return, EndCode];
+            byte[] original =
+            [
+                .. prefix, .. frame, IsNonemptyList, 0x45, X0, .. match[3..], .. build, .. finish,
+                .. fallback[..^1], Label, Four, BadMatch, X0, EndCode
+            ];
+            byte[] lowered =
+            [
+                .. prefix, Allocate, Two, Two, InitYRegisters, ExtendedListOperand, Two, head, tail,
+                IsNonemptyList, 0x45, X0, GetList, X0, X0, X1, Line, One,
+                GcBifTwo, 0x05, Two, Zero, X0, 0x11, X2, TestHeap, Four, Three,
+                PutList, X2, X1, X1, PutList, 0x11, X1, X1, Move, X1, tail, Move, X0, head
+            ];
+            byte[] expected =
+            [
+                .. lowered, TestHeap, Three, Zero, PutTuple, X0, ExtendedListOperand, Two, head, tail,
+                Deallocate, Two, Return, .. fallback[..^1], Label, Four, BadMatch, X0, EndCode
+            ];
+            byte[] usedAfterBuild =
+            [
+                .. prefix, .. frame, IsNonemptyList, 0x45, X0, .. match[3..], .. build,
+                Move, arithmeticSlot, X1, .. finish, .. fallback[..^1], Label, Four, BadMatch, X0, EndCode
+            ];
+            if (TransformRoots(original) is not { } compacted || !compacted.AsSpan().SequenceEqual(expected)
+                || TransformRoots(usedAfterBuild) is not null)
+            {
+                throw new InvalidOperationException(BeamEntryArgumentMotionDiagnostics.MissingMotion);
+            }
+
+            const byte six = 0x60;
+            const byte late = 0x54;
+            byte[] widerFrame =
+            [
+                Allocate, six, Two, InitYRegisters, ExtendedListOperand, six,
+                head, tail, keptHead, arithmeticSlot, keptList, late
+            ];
+            byte[] lateValue =
+            [
+                Move, keptHead, X0, ExternalCall, One, Zero, Move, X0, late,
+                ExternalCall, Zero, Zero
+            ];
+            byte[] terminalFailure = [.. fallback[..^1], Label, Four, BadMatch, X0, EndCode];
+            byte[] afterLastUse =
+            [
+                .. prefix, .. widerFrame, IsNonemptyList, 0x45, X0, .. match[3..], .. build, .. lateValue,
+                TestHeap, Three, Zero, PutTuple, X0, ExtendedListOperand, Two, late, keptList,
+                Deallocate, six, Return, .. terminalFailure
+            ];
+            byte[] reused =
+            [
+                .. lowered, Move, head, X0, ExternalCall, One, Zero, Move, X0, head, ExternalCall, Zero, Zero,
+                TestHeap, Three, Zero, PutTuple, X0, ExtendedListOperand, Two, head, tail,
+                Deallocate, Two, Return, .. terminalFailure
+            ];
+            byte[] simultaneous =
+            [
+                .. prefix, .. widerFrame, IsNonemptyList, 0x45, X0, .. match[3..], .. build, .. lateValue,
+                TestHeap, Four, Zero, PutTuple, X0, ExtendedListOperand, Three, late, keptList, keptHead,
+                Deallocate, six, Return, .. terminalFailure
+            ];
+            if (TransformRoots(afterLastUse) is not { } packed || !packed.AsSpan().SequenceEqual(reused)
+                || TransformRoots(simultaneous) is not { } retained || retained[prefix.Length + 1] != Three)
+            {
+                throw new InvalidOperationException(BeamEntryArgumentMotionDiagnostics.MissingMotion);
+            }
+
+            static byte[]? TransformRoots(ReadOnlyMemory<byte> code) => (byte[]?)Call(
+                new BeamModuleCompiler("owned_list_arithmetic.erl"),
+                "KeepOwnedListArithmeticInRegistersCore",
+                code,
+                5,
+                new Func<object, bool>(static _ => true)
+            );
+        }
+
+        void CheckOwnedProjectionCopies()
+        {
+            byte[] prefix =
+            [
+                Label, One, IsTuple, Merge, X0, Jump, 0x25, Label, Two
+            ];
+            byte[] frame = [Allocate, Two, Two, Move, X1, Y1];
+            byte[] copy = [GetTupleElement, X0, One, Y0, Move, Y0, X1];
+            byte[] call = [ExternalCall, Two, Zero];
+            byte[] release = [Move, Y1, X0, Deallocate, Two, Return];
+            byte[] tail = [Label, Three, .. frame, Move, X0, Y0, Move, Y0, X0, .. release, EndCode];
+            byte[] original = [.. prefix, .. frame, .. copy, .. call, .. release, .. tail];
+            byte[] expected =
+            [
+                .. prefix, Allocate, One, Two, Move, X1, Y0, GetTupleElement, X0, One, X1,
+                .. call, Move, Y0, X0, Deallocate, One, Return, .. tail
+            ];
+            byte[] usedAfterCall = [.. prefix, .. frame, .. copy, .. call, Move, Y0, X0, .. release, .. tail];
+            if (TransformOwned(original) is not { } compacted || !compacted.AsSpan().SequenceEqual(expected)
+                || TransformOwned(usedAfterCall) is not null)
+            {
+                throw new InvalidOperationException(BeamEntryArgumentMotionDiagnostics.MissingMotion);
+            }
+
+            static byte[]? TransformOwned(ReadOnlyMemory<byte> code) => (byte[]?)Call(
+                new BeamModuleCompiler("owned_projection_copy.erl"),
+                "ForwardOwnedBranchProjectionCopiesCore",
+                code,
+                4
+            );
+        }
 
         void CheckPreservedProjection()
         {

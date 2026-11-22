@@ -350,6 +350,11 @@ internal sealed partial class BeamModuleCompiler
             }
             else
             {
+                if (tailPlan.Module == MapModuleNames.Module)
+                {
+                    MarkValueMapDefault(tail, tail);
+                }
+
                 owner.EmitCallLine(tail, previous);
                 owner.Op(TailExternalCallWithFrame, BeamWire.UnsignedTag, tail.Arguments.Count);
                 owner.Operand(BeamWire.UnsignedTag, owner.Import(tailPlan.Module, tail.Function, tail.Arguments.Count));

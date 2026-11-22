@@ -4,7 +4,8 @@ internal sealed partial class BeamModuleCompiler
 {
     private Dictionary<int, int> ReadLocalResultEntries(
         IReadOnlyList<FunctionDefinition> functions,
-        IReadOnlyDictionary<(string Name, int Arity), int> localEntries
+        IReadOnlyDictionary<(string Name, int Arity), int> localEntries,
+        bool provenTupleFiltersOnly = false
     )
     {
         var results = new Dictionary<int, int>();
@@ -23,7 +24,23 @@ internal sealed partial class BeamModuleCompiler
                 continue;
             }
 
-            if (function.HasProperListResult)
+            if (provenTupleFiltersOnly)
+            {
+                // The checked filter returns its proper generator tail or adds
+                // a cons after recursion. Its early result flag serves a separate
+                // emission case. Only the late compacted consumer needs this fact.
+                if (function.IsRecursiveListMapper && function.HasProvenRecursiveTupleFilterInput)
+                {
+                    results.Add(MapEmittedLabel(label), ProperListTypeBits);
+                }
+
+                continue;
+            }
+
+            // Propagate the input-rooted result of recursive helpers. The existing
+            // entry analysis seeds escaped functions with unknown inputs and joins
+            // every returning path before certifying a proper list.
+            if (function.HasProperListResult || ReadPrivateEntryFacts()?.ProvesProperListResult(signature) == true)
             {
                 results.Add(MapEmittedLabel(label), ProperListTypeBits);
                 continue;

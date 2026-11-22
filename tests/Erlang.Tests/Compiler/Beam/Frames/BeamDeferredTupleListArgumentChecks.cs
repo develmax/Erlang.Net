@@ -3,6 +3,7 @@ using System.Numerics;
 using Erlang.Compiler;
 using static Erlang.Compiler.BeamEmissionFormat;
 using static Erlang.Tests.BeamBinaryHostAccess;
+using static Erlang.Tests.BeamOpcodeEdgeBytes;
 
 namespace Erlang.Tests;
 
@@ -11,6 +12,7 @@ internal static class BeamDeferredTupleListArgumentChecks
     internal const string TestName = "compiler/beam/plans-deferred-tuple-list-arguments";
     private const string Construction = "Keep the allocating result in a register and reserve one heap window for the list.";
     private const string Evaluation = "Preserve the operand order and keep shadowed BIFs on the ordinary call path.";
+    private const string SelectedField = "Defer a tuple field only into its owned result arm while the original carrier remains live.";
 
     private const string Source = """
         -module(beam_deferred_tuple_list_argument).
@@ -57,6 +59,7 @@ internal static class BeamDeferredTupleListArgumentChecks
         object[] functions = Values(code, "Functions");
         Check("ordered", 17);
         Check("leading_field", 19);
+        VerifySelectedTupleRead();
 
         object[] reversed = Body("reads_first");
         int intrinsic = Array.FindIndex(reversed, item => Opcode(item) == BifZero);
@@ -89,6 +92,73 @@ internal static class BeamDeferredTupleListArgumentChecks
             int end = (int)Property(function, "EndInstructionIndex");
 
             return instructions[start..end];
+        }
+    }
+
+    private static void VerifySelectedTupleRead()
+    {
+        if (Rewrite(Fixture()) is not { } actual || !actual.AsSpan().SequenceEqual(Fixture(deferred: true))
+            || Rewrite(Fixture(shared: true)) is not null
+            || Rewrite(Fixture(retainsCarrier: false)) is not null)
+        {
+            throw new InvalidOperationException(SelectedField);
+        }
+
+        static byte[] Fixture(bool deferred = false, bool shared = false, bool retainsCarrier = true)
+        {
+            byte[] field = deferred ? [] : [GetTupleElement, Y(1), U(0), Y(0)];
+            byte[] consumption = deferred ? [GetTupleElement, Y(1), U(0), X(0)] : [Move, Y(0), X(0)];
+            byte[] incoming = shared ? [IsAtom, F(3), Y(1)] : [];
+
+            return
+            [
+                .. Start(
+                    1,
+                    2,
+                    1,
+                    1
+                ),
+                IsTaggedTuple, F(1), X(0), U(2), A(1),
+                Allocate, U(2), U(1), InitYRegisters, ExtendedListOperand, U(1), Y(0),
+                Move, X(0), Y(1), .. field,
+                ExternalCall, U(0), U(0),
+                SelectValue, X(0), F(5), ExtendedListOperand, U(4), A(1), F(3), A(2), F(4),
+                Label, U(3), .. consumption, Deallocate, U(2), Return,
+                Label, U(4), .. incoming, Move, retainsCarrier ? Y(1) : A(2), X(0), Deallocate, U(2), Return,
+                Label, U(5), CaseEnd, X(0), EndCode
+            ];
+        }
+
+        static byte[]? Rewrite(byte[] source)
+        {
+            var code = new ReadOnlyMemory<byte>(source);
+            object header = New(
+                "BeamCodeHeader",
+                0,
+                (int)InitYRegisters,
+                6,
+                1,
+                code
+            );
+            var slots = new List<(int Start, int End, int Slot)>();
+            Action<int, int, int> record = (start, end, slot) => slots.Add((start, end, slot));
+            object body = Call(
+                Type("BeamInstructionReader"),
+                "Read",
+                header,
+                3,
+                1,
+                null,
+                record
+            );
+
+            return (byte[]?)Call(
+                typeof(BeamModuleCompiler),
+                "SinkTupleReadsAcrossCalls",
+                code,
+                body,
+                slots
+            );
         }
     }
 

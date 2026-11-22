@@ -13,13 +13,66 @@ internal sealed partial class BeamModuleCompiler
             List<(int Input, int Arity, Atom Tag)> Checks
         );
 
+        private sealed record TaggedStateRetry(Atom State, int Target, int RoleRegister);
+
+        private bool TryEmitTaggedStateCallResult(TaggedStateEntryArm arm)
+        {
+            Expr body = arm.Clause.Body;
+            Expr.Call? invocation = null;
+            if (body is Expr.Sequence
+                {
+                    Items:
+                    [
+                        Expr.Match { Pattern: global::Erlang.Pattern.Variable result, Value: Expr.Call call },
+                        Expr.Tuple { Items: [_, Expr.Variable returned] } tuple
+                    ]
+                }
+                && result.Name != VariableScopeNames.Wildcard && result.Name == returned.Name
+                && !arm.Clause.Patterns.SelectMany(Semantics.Variables).Contains(result.Name, StringComparer.Ordinal))
+            {
+                invocation = call;
+                body = tuple;
+            }
+
+            if (body is not Expr.Tuple { Items: [Expr.Literal { Value: Atom tag }, var operand] }
+                || (invocation ?? operand as Expr.Call) is not
+                {
+                    Arguments: [Expr.Variable first, Expr.Variable second]
+                } effect
+                || !arm.Bindings.TryGetValue(first.Name, out var left) || left.Field is not null
+                || !arm.Bindings.TryGetValue(second.Name, out var right) || right.Field is not null
+                || left.Input == right.Input || !TryResolveOrdinaryCallTarget(effect, out string? module))
+            {
+                return false;
+            }
+
+            int live = Math.Max(left.Input, right.Input) + 1;
+            EmitFrameAllocation(live, 0);
+            var moves = new[] { (Destination: 0, Source: left.Input), (Destination: 1, Source: right.Input) }
+                .Where(move => move.Destination != move.Source).ToList();
+            owner.EmitOrderedTailMoves(moves, []);
+            owner.EmitCallLine(effect, location);
+            Call(module, effect.Function, effect.Arguments.Count);
+            owner.Op(TestHeap, BeamWire.UnsignedTag, 3);
+            owner.Operand(BeamWire.UnsignedTag, 1);
+            owner.EmitTupleHeader(XRegisterTag, 2);
+            owner.LiteralOperand(tag);
+            owner.Operand(XRegisterTag, 0);
+            owner.EmitFrameReturn(0);
+
+            return true;
+        }
+
         private bool TryEmitTaggedStateTupleGroup(
             IReadOnlyList<Clause> clauses,
             int input,
             int failure,
             Dictionary<int, int> frames,
             List<(int Label, BeamSourceLocation Location)> recordFailures,
-            ref int nextFrameKey
+            ref int nextFrameKey,
+            bool tagAlreadyChecked = false,
+            bool validateOnly = false,
+            TaggedStateRetry? retry = null
         )
         {
             int arity = clauses[0].Patterns.Count;
@@ -59,6 +112,11 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
+            if (validateOnly)
+            {
+                return true;
+            }
+
             int previousFrame = frameSize;
             int previousPeak = peakSlot;
             int previousSlot = nextSlot;
@@ -69,8 +127,12 @@ internal sealed partial class BeamModuleCompiler
             var destinations = arms.OrderByDescending(arm => arm.StateTag, atomOrder)
                 .Select(arm => (Arm: arm, Label: Label())).ToArray();
 
-            owner.EmitTuplePart(input, 0, scratch);
-            owner.EmitAtomTest(scratch, messageTag!.Name, failure);
+            if (!tagAlreadyChecked)
+            {
+                owner.EmitTuplePart(input, 0, scratch);
+                owner.EmitAtomTest(scratch, messageTag!.Name, failure);
+            }
+
             EmitTupleShapeTest(
                 XRegisterTag,
                 state,
@@ -78,17 +140,24 @@ internal sealed partial class BeamModuleCompiler
                 failure
             );
             owner.EmitTuplePart(state, 0, scratch);
-            owner.EmitTuplePart(state, 1, scratch + 1);
+            int roleRegister = retry?.RoleRegister ?? scratch + 1;
+            owner.EmitTuplePart(state, 1, roleRegister);
+            var stateEntries = destinations.Reverse().Select(item => ((Term)item.Arm.StateTag, item.Label));
+            if (retry is not null)
+            {
+                stateEntries = stateEntries.Append(((Term)retry.State, retry.Target))
+                    .OrderBy(item => (Atom)item.Item1, atomOrder);
+            }
             owner.EmitMembershipSelect(
                 scratch,
                 failure,
-                destinations.Reverse().Select(item => ((Term)item.Arm.StateTag, item.Label))
+                stateEntries
             );
 
             foreach (var (arm, target) in destinations)
             {
                 Mark(target);
-                owner.EmitAtomTest(scratch + 1, role!.Name, failure);
+                owner.EmitAtomTest(roleRegister, role!.Name, failure);
                 foreach (var (register, width, tag) in arm.Checks)
                 {
                     EmitDetailRecordTest(
@@ -106,7 +175,14 @@ internal sealed partial class BeamModuleCompiler
                 variables = new(StringComparer.Ordinal);
                 checkedRecordBindings = new(StringComparer.Ordinal);
 
-                if (!TryEmitSingleEntryEffect(arm.Clause, arm.Bindings))
+                if (TryEmitTaggedStateRetainedRecordMapResult(arm))
+                {
+                    frames.Add(frameKey, 1);
+                    previousPeak = Math.Max(previousPeak, 1);
+                    continue;
+                }
+
+                if (!TryEmitTaggedStateCallResult(arm) && !TryEmitSingleEntryEffect(arm.Clause, arm.Bindings))
                 {
                     var inputs = new Dictionary<string, int>(StringComparer.Ordinal);
                     int projection = scratch;

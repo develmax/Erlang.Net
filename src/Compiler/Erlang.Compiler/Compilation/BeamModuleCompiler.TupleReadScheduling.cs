@@ -21,8 +21,8 @@ internal sealed partial class BeamModuleCompiler
                 branch = (int)label.Value;
             }
 
-            // Some source scheduling plans define the projection before a separate
-            // record check to place it in the live prefix at frame entry.
+            // Some source scheduling plans keep a checked field across guards
+            // so the success path already has it in the frame's live prefix.
             if (retained is not null && body[index] is
                 {
                     Definition.Opcode: GetTupleElement,

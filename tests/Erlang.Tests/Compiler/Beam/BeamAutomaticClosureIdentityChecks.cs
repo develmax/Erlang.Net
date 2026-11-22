@@ -68,7 +68,7 @@ internal static class BeamAutomaticClosureIdentityChecks
     private const string OpaqueFoldValues = """
         -module(beam_automatic_closure_identity).
         -import(lists, [foldl/3]).
-        -export([fold/3, check/1]).
+        -export([fold/3, check/1, named/1]).
 
         fold(Callback, Values, Seed) ->
             foldl(fun(Value, Acc) -> relay(Callback, Value, Acc) end, Seed, Values).
@@ -86,6 +86,13 @@ internal static class BeamAutomaticClosureIdentityChecks
 
         append_value(Value, Acc) ->
             {Acc, Value}.
+
+        named(Seed) ->
+            Callbacks = [fun left/1, fun right/1],
+            foldl(fun(Callback, Acc) -> Callback(Acc) end, Seed, Callbacks).
+
+        left(Acc) -> {left, Acc}.
+        right(Acc) -> {right, Acc}.
         """;
 
     internal static async Task Run()
@@ -186,7 +193,9 @@ internal static class BeamAutomaticClosureIdentityChecks
 
             Term folded = await opaqueFold.Invoke(context, "check", Term.List(Term.A("one"), Term.A("two")));
             Term ordered = Term.Tuple(Term.Tuple(Term.A("seed"), Term.A("one")), Term.A("two"));
-            if (!ordered.Equals(folded))
+            Term named = await opaqueFold.Invoke(context, "named", Term.A("seed"));
+            Term namedOrder = Term.Tuple(Term.A("right"), Term.Tuple(Term.A("left"), Term.A("seed")));
+            if (!ordered.Equals(folded) || !namedOrder.Equals(named))
             {
                 throw new InvalidOperationException(IncorrectValue);
             }
@@ -208,7 +217,9 @@ internal static class BeamAutomaticClosureIdentityChecks
     private static void RequireFoldName(BeamModule module, bool automatic)
     {
         string identity = automatic ? "-fold/3-anonymous-0-" : "-fold/3-fun-0-";
-        if (!module.Functions.Any(function => function.Name == identity && function.Arity == 3))
+        string named = automatic ? "-named/1-anonymous-0-" : "-named/1-fun-0-";
+        if (!module.Functions.Any(function => function.Name == identity && function.Arity == 3)
+            || !module.Functions.Any(function => function.Name == named && function.Arity == 2))
         {
             throw new InvalidOperationException(IncorrectName);
         }

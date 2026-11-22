@@ -4,10 +4,14 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
-    private ReadOnlyMemory<byte> OrderTypeOperandsByFirstUse(ReadOnlyMemory<byte> code, int labelCount)
+    private ReadOnlyMemory<byte> OrderTypeOperandsByFirstUse(
+        ReadOnlyMemory<byte> code,
+        int labelCount,
+        bool discardUnused = false
+    )
     {
         // OTP seeds Any at index zero, so one additional type cannot move.
-        if (typeBits.Count <= 2)
+        if (typeBits.Count <= (discardUnused ? 1 : 2))
         {
             return code;
         }
@@ -94,9 +98,18 @@ internal sealed partial class BeamModuleCompiler
             return code;
         }
 
-        // Permute the live table as a whole. A table with unused entries uses
-        // the original encoding until its distinct lifetime rule is supported.
-        if (edits.Count == 0 || order.Count != typeBits.Count)
+        bool hasUnused = order.Count != typeBits.Count;
+        if (hasUnused && !discardUnused || !hasUnused && edits.Count == 0)
+        {
+            return code;
+        }
+
+        // Only final assembly owns removal: earlier passes can still emit new
+        // references with the existing type indices.
+        var rows = order.Select(index => typeBits[index]).ToArray();
+        typeBits.Clear();
+        typeBits.AddRange(rows);
+        if (edits.Count == 0)
         {
             return code;
         }
@@ -111,11 +124,7 @@ internal sealed partial class BeamModuleCompiler
         }
 
         output.Write(code.Span[copied..]);
-        byte[] rewritten = output.ToArray();
-        var rows = order.Select(index => typeBits[index]).ToArray();
-        typeBits.Clear();
-        typeBits.AddRange(rows);
 
-        return rewritten;
+        return output.ToArray();
     }
 }

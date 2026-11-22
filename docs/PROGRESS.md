@@ -1,5 +1,27 @@
 # Project progress
 
+Local Parts 2001 and 2002 share list decisions and terminal result construction, and pack literal bitstrings before instruction emission. The latest selected group remains 11 Different. The observed byte ledger remains 539 Equal and 827 Different. [Scoped evidence](validation/part-2002-local-fixed-list-and-bitstring-runs/README.md).
+
+Local Part 2000 shares outgoing construction and terminal call placement. The 28-file scope changed 21 images and all prepared in OTP. The observed byte ledger remains 539 Equal and 827 Different. [Scoped evidence](validation/part-2000-local-call-arguments-and-frame-slots/README.md).
+
+Local Part 1999 resolves source calls by emitted function identity and restores six outlined list-helper identities in three Different modules. [Scoped evidence](validation/part-1999-local-call-and-helper-identities/README.md).
+
+Local Part 1998 verifies a shared inherited frame and normalized inequality branches. The 21-file corrected comparison adds three normalized matches and retains the observed byte-identical ledger of 539. [Scoped evidence](validation/part-1998-local-inherited-frames/README.md).
+
+Local Part 1996 measures outgoing Y-root placement and bounded release map inlining. The latest scope remains 26 Different with zero Equal, Unsupported or SourceRejected. [Scoped evidence](validation/part-1996-local-root-schedule/README.md).
+
+Local Part 1995 shares projected return graphs across record and guarded branches and restores selected generated helper identities. The three Different-file scopes add 8, 7 and 1 normalized body matches. The observed byte-identical ledger remains 539 of 1,366. [Scoped evidence](validation/part-1995-local-return-graphs/README.md).
+
+Local Part 1994 retains checked return fields in X and applies the returning-call Y relocation recipe. The 86-file scope adds 23 normalized matches, including restored Common Test. The observed byte-identical ledger remains 539 of 1,366. [Scoped evidence](validation/part-1994-local-call-results/README.md).
+
+Local Part 1993 shifts checked tuple projections to their final call and return regions. The latest scope had 0 Equal, 37 Different, 0 Unsupported and 0 SourceRejected, with two normalized gains and zero losses. [Scoped evidence](validation/part-1993-local-tuple-sinking/README.md).
+
+Local Part 1992 restores the scoped projection regressions. The latest run had 0 Equal, 28 Different, 0 Unsupported and 0 SourceRejected on the selected files. [Scoped evidence](validation/part-1992-local-projection-liveness/README.md).
+
+Local Part 1991 measures 18 new normalized bodies with zero losses in the 72-file projection scope. The accumulated byte-identical ledger stays at 539 of 1,366. [Scoped evidence](validation/part-1991-local-projected-frames/README.md).
+
+The local Part 1990 checkpoint transfers shared source value planning, atom domains and frame placement. The accumulated observations are 539 Equal, 827 Different, 0 Unsupported and 0 SourceRejected. The latest 28-file comparison measured one new normalized body and zero losses. [Local evidence](validation/part-1990-local-parity/README.md).
+
 Part 1989 passed all 10,410 managed cases and the complete linked repository gate. [Repository evidence](validation/part-1989-repository-gate/README.md).
 
 Part 1989 records 513 Equal, 853 Different, 0 Unsupported, 0 SourceRejected. All 620 selected checks and 105 native outcomes passed. [Evidence](validation/part-1989/README.md).

@@ -4,6 +4,7 @@ using Erlang;
 using Erlang.Compiler;
 using static Erlang.Compiler.BeamEmissionFormat;
 using static Erlang.Tests.BeamBinaryHostAccess;
+using static Erlang.Tests.BeamOpcodeEdgeBytes;
 
 namespace Erlang.Tests;
 
@@ -29,6 +30,7 @@ internal static class BeamDirectTupleDestinationChecks
 
     internal static async Task Run()
     {
+        CheckConsBeforeIndependentTuple();
         byte[] image = CompileFixture();
         object code = Code(image);
         object[] instructions = Items(code, "Instructions").ToArray();
@@ -102,6 +104,79 @@ internal static class BeamDirectTupleDestinationChecks
 
             return instructions.Skip(info + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo).ToArray();
         }
+    }
+
+    private static void CheckConsBeforeIndependentTuple()
+    {
+        byte[] positive = ConsFixture();
+        if (Rewrite(positive) is not { } result || !result.AsSpan().SequenceEqual(ConsFixture(rewritten: true))
+            || Rewrite(ConsFixture(readsOldCons: true)) is not null
+            || Rewrite(ConsFixture(replacesOtherRegister: true)) is not null)
+        {
+            throw new InvalidOperationException(IncorrectDestination);
+        }
+
+        static byte[]? Rewrite(byte[] bytes)
+        {
+            ReadOnlyMemory<byte> code = bytes;
+            object header = New(
+                "BeamCodeHeader",
+                0,
+                (int)PutTuple,
+                3,
+                1,
+                code
+            );
+            object body = Call(
+                Type("BeamInstructionReader"),
+                "Read",
+                header,
+                3,
+                0,
+                null,
+                null
+            );
+            System.Type edit = typeof(BeamModuleCompiler).GetNestedType("CodeEdit", System.Reflection.BindingFlags.NonPublic)!;
+            object edits = Activator.CreateInstance(typeof(List<>).MakeGenericType(edit))!;
+            _ = Call(
+                typeof(BeamModuleCompiler),
+                "CollectDirectConstructionDestinationEdits",
+                code,
+                body,
+                edits
+            );
+
+            return (byte[]?)Call(
+                typeof(BeamModuleCompiler),
+                "ApplyDuplicatedFrameReadEdits",
+                code,
+                edits
+            );
+        }
+    }
+
+    private static byte[] ConsFixture(
+        bool rewritten = false,
+        bool readsOldCons = false,
+        bool replacesOtherRegister = false
+    )
+    {
+        byte[] save = rewritten ? [] : [Move, X(0), X(3)];
+        byte[] tupleInput = readsOldCons ? [ExtendedTypedRegisterOperand, X(0), U(0)] : [A(2)];
+
+        return
+        [
+            .. Start(
+                1,
+                2,
+                1,
+                3
+            ),
+            TestHeap, U(5), U(3), PutList, X(1), X(2), rewritten ? X(3) : X(0),
+            .. save,
+            PutTuple, replacesOtherRegister ? X(4) : X(0), ExtendedListOperand, U(2), X(3), .. tupleInput,
+            Return, EndCode
+        ];
     }
 
     private static object[] Operands(object instruction) => Items(instruction, "Operands").ToArray();

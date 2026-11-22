@@ -85,11 +85,76 @@ internal sealed partial class BeamModuleCompiler
         return output.ToArray();
     }
 
+    private static byte[]? StoreArithmeticResultAcrossZeroFrame(
+        ReadOnlyMemory<byte> code,
+        IReadOnlyList<BeamInstruction> body,
+        Func<BeamInstruction, bool> isArithmetic
+    )
+    {
+        using var output = new MemoryStream();
+        int copied = 0;
+        for (int index = 0; index + 4 < body.Count; index++)
+        {
+            if (body[index] is not
+                {
+                    Definition.Opcode: GcBifTwo,
+                    Operands: [
+                    { Kind: BeamOperandParameters.Failure, Value.IsZero: true },
+                    { Value.Sign: > 0 } roots,
+                        _, _, _,
+                    { Kind: BeamOperandParameters.X, TypeIndex: null } scratch
+                    ]
+                } || scratch.Value != roots.Value
+                || body[index + 1] is not { Definition.Opcode: Allocate, Operands: [{ Value.IsZero: true }, var live] }
+                || live.Value != scratch.Value + 1
+                || body[index + 2] is not
+                {
+                    Definition.Opcode: Move,
+                    Operands: [var value, { Kind: BeamOperandParameters.X, TypeIndex: null } target]
+                } || value != scratch || target.Value >= scratch.Value
+                || body[index + 3] is not { Definition.Opcode: Move, Operands: [var replacement, _] }
+                || !IsNonRegisterValue(replacement)
+                || !ReplacesBifResultBeforeCall(
+                    body,
+                    index + 3,
+                    scratch,
+                    target,
+                    ordinaryOnly: true
+                )
+                || !isArithmetic(body[index]))
+            {
+                continue;
+            }
+
+            // The scratch result is the only new allocation root. The copy
+            // killed the old argument, and a literal replaces the scratch
+            // before the call can read it.
+            int destination = body[index + 1].Offset - CompactRegisterCountWidth((int)scratch.Value);
+            output.Write(code.Span[copied..destination]);
+            WriteRegister(output, target);
+            output.WriteByte(Allocate);
+            BeamCompactWriter.Write(output, BeamWire.UnsignedTag, 0);
+            BeamCompactWriter.Write(output, BeamWire.UnsignedTag, roots.Value);
+            copied = body[index + 3].Offset;
+            index += 2;
+        }
+
+        if (copied == 0)
+        {
+            return null;
+        }
+
+        output.Write(code.Span[copied..]);
+
+        return output.ToArray();
+    }
+
     private static bool ReplacesBifResultBeforeCall(
         IReadOnlyList<BeamInstruction> body,
         int overwrite,
         BeamOperand result,
-        BeamOperand argument
+        BeamOperand argument,
+        bool ordinaryOnly = false
     )
     {
         if (body[overwrite] is not { Definition.Opcode: Move, Operands: [var replacement, var destination] }
@@ -110,8 +175,10 @@ internal sealed partial class BeamModuleCompiler
 
         BeamInstruction consumer = body[call];
 
-        return consumer.Definition.Opcode is LocalCall or ExternalCall or TailLocalCall or TailExternalCall
-            or TailLocalCallWithFrame or TailExternalCallWithFrame
+        byte opcode = consumer.Definition.Opcode;
+
+        return (opcode is LocalCall or ExternalCall || !ordinaryOnly && opcode is (TailLocalCall or TailExternalCall
+            or TailLocalCallWithFrame or TailExternalCallWithFrame))
             && result.Value < consumer.Operands[0].Value && argument.Value < consumer.Operands[0].Value;
     }
 

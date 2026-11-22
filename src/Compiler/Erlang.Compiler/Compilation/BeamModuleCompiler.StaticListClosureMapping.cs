@@ -31,8 +31,7 @@ internal sealed partial class BeamModuleCompiler
     {
         if (!deferredListClosureTargets.TryGetValue(name, out int target))
         {
-            // Ordinary deferred function targets use negated definition indexes.
-            target = int.MinValue + 1 + deferredListClosureTargets.Count;
+            target = ReserveDeferredFunctionTarget();
             deferredListClosureTargets.Add(name, target);
         }
 

@@ -18,6 +18,19 @@ internal static class BeamPreCallFrameAliasChecks
         CheckCompacts(compiler, typedGuard: false);
         CheckCompacts(compiler, typedGuard: true);
         BeamPreCallClosureDestinationChecks.Run(compiler);
+        if (Rewrite(compiler, Fixture(afterCall: [Move, Y(1), X(1), ExternalCall, U(2), U(0)])) is not { } multiple
+            || !multiple.SequenceEqual(Fixture(
+                compact: true,
+                afterCall: [Move, Y(0), X(1), ExternalCall, U(2), U(0)])))
+        {
+            throw new InvalidOperationException(BeamPreCallFrameAliasDiagnostics.FrameAndGuard);
+        }
+
+        CheckUnchanged(
+            compiler,
+            Fixture(afterCall: [Move, Y(1), X(1), ExternalCall, U(2), U(0), Move, Y(0), X(1)]),
+            BeamPreCallFrameAliasDiagnostics.AcrossCall
+        );
 
         CheckUnchanged(
             compiler,

@@ -28,12 +28,40 @@ internal sealed partial class BeamModuleCompiler
                 literalAndNilOnly: true
             ) : null;
 
+    private byte[]? ReuseFinalSavedEqualityRetryProjection(ReadOnlyMemory<byte> code, int labelCount) =>
+        !ModuleOptimizationDisabled && SsaTypeInferenceEnabled && code.Span.Contains(ExactEqualTest)
+            && DecodeLateAtomicProjectionSlots(code, labelCount) is { } decoded
+            ? RewriteFailureProjectionJoinsCore(
+                code,
+                decoded.Body,
+                [],
+                shareCheckedFallbacks: false,
+                literalAndNilOnly: false,
+                savedEqualityOnly: true
+            ) : null;
+
     private static byte[]? RewriteFailureProjectionJoins(
         ReadOnlyMemory<byte> code,
         IReadOnlyList<BeamInstruction> body,
         IReadOnlyList<(int Start, int End, int Label)> labelOperands,
         bool shareCheckedFallbacks,
         bool literalAndNilOnly
+    ) => RewriteFailureProjectionJoinsCore(
+        code,
+        body,
+        labelOperands,
+        shareCheckedFallbacks,
+        literalAndNilOnly,
+        savedEqualityOnly: false
+    );
+
+    private static byte[]? RewriteFailureProjectionJoinsCore(
+        ReadOnlyMemory<byte> code,
+        IReadOnlyList<BeamInstruction> body,
+        IReadOnlyList<(int Start, int End, int Label)> labelOperands,
+        bool shareCheckedFallbacks,
+        bool literalAndNilOnly,
+        bool savedEqualityOnly
     )
     {
         var removals = new SortedDictionary<int, int>();
@@ -44,6 +72,19 @@ internal sealed partial class BeamModuleCompiler
             if (body[index - 1].Definition.Opcode != GetTupleElement
                 || !IsEntryFramePredicate(test.Definition.Opcode)
                 || test.Operands[0].Kind != BeamOperandParameters.Label)
+            {
+                continue;
+            }
+
+            if (savedEqualityOnly &&
+                (test.Definition.Opcode != ExactEqualTest
+                    || body[index - 1].Operands is not
+                    [
+                    { Kind: BeamOperandParameters.Y, TypeIndex: null },
+                        _,
+                    { Kind: BeamOperandParameters.X, TypeIndex: null } projected
+                    ]
+                    || !test.Operands.Skip(1).Any(operand => SameProjectionRegister(operand, projected))))
             {
                 continue;
             }
@@ -107,13 +148,14 @@ internal sealed partial class BeamModuleCompiler
             }
 
             int count = index - first;
-            if (repeat + count >= body.Count || !SameStableProjections(
-                body,
-                first,
-                repeat,
-                count,
-                live
-            ))
+            if (savedEqualityOnly && (count != 1 || !HasUnprotectedCheckedFailureRegion(body, index, target))
+                || repeat + count >= body.Count || !SameStableProjections(
+                    body,
+                    first,
+                    repeat,
+                    count,
+                    live
+                ))
             {
                 continue;
             }

@@ -10,6 +10,7 @@ internal static class BeamProperListEntryChecks
     internal const string TestName = "compiler/beam/inherits-proper-list-entry-facts-through-recursion";
     private const string EntryFactsFailure = "Expected only the closed proper-list caller graph to prove a proper list.";
     private const string FailureRewrite = "Expected the verified terminal list match to encode nil and keep its source line.";
+    private const string RedundantNilCheck = "A proper-list rejection must enter the nil clause with its original source line.";
     private const string RejectedRewrite = "An open entry, escaping fun, overwritten argument, or shared failure must keep the operand.";
     private const byte One = 0x10;
     private const byte Two = 0x20;
@@ -25,7 +26,7 @@ internal static class BeamProperListEntryChecks
 
     private const string Source = """
         -module(proper_list_scc_probe).
-        -export([parse/1, open/2, escape/1, remote/0]).
+        -export([parse/1, open/2, escape/1, remote/0, flatten/1, foreign/1, list_result/1, difference/2]).
         parse(Tokens) -> step(Tokens, []).
         step([{push, V} | Rest], Stack) -> step(Rest, [V | Stack]);
         step([pop | Rest], Stack) -> step(Rest, pop(known, Stack));
@@ -40,6 +41,14 @@ internal static class BeamProperListEntryChecks
         escaped(_, Stack) -> [_ | Tail] = Stack, Tail.
         remote() -> remote_pop(known, other:tl([value])).
         remote_pop(_, Stack) -> [_ | Tail] = Stack, Tail.
+        flatten(Nested) -> flattened(known, lists:flatten(Nested)).
+        flattened(_, Stack) -> [_ | Tail] = Stack, Tail.
+        foreign(Nested) -> foreign_list(known, other:flatten(Nested)).
+        foreign_list(_, Stack) -> [_ | Tail] = Stack, Tail.
+        list_result(Items) -> completion(known, [X || X <- Items]).
+        completion(_, Stack) -> [_ | Tail] = Stack, Tail.
+        difference(L, R) -> remaining(known, lists:subtract(L, R)).
+        remaining(_, Stack) -> [_ | Tail] = Stack, Tail.
         """;
 
     internal static Task Run()
@@ -54,7 +63,8 @@ internal static class BeamProperListEntryChecks
         typeof(BeamModuleCompiler).GetField("exportedFunctions", fields)!.SetValue(compiler, module.Exports.ToHashSet());
 
         if (!Proves("pop", 1) || Proves("pop", 0) || Proves("open_pop", 1) || Proves("escaped", 1)
-            || Proves("remote_pop", 1))
+            || Proves("remote_pop", 1) || !Proves("flattened", 1) || Proves("foreign_list", 1)
+            || !Proves("completion", 1) || !Proves("remaining", 1))
         {
             throw new InvalidOperationException(EntryFactsFailure);
         }
@@ -78,7 +88,45 @@ internal static class BeamProperListEntryChecks
             throw new InvalidOperationException(RejectedRewrite);
         }
 
+        const byte FunctionFailure = 0x15;
+        byte[] nilClause = [Label, Three, Line, One, IsNil, FunctionFailure, X1, Return, EndCode];
+        byte[] withNilCheck = [.. Entry(Pop), .. test, Return, .. nilClause];
+        byte[] withoutNilCheck = [.. Entry(Pop), .. test, Return, Label, Three, Line, One, Return, EndCode];
+        byte[] openNil = [.. Entry(Open), .. test, Return, .. nilClause];
+        byte[] sharedNil = [.. Entry(Pop), .. test, Jump, Failed, .. nilClause];
+        byte[] unrelated = [.. Entry(Pop), .. test, Return, Label, Three, IsNil, FunctionFailure, X0, Return, EndCode];
+        if (Rewrite(withNilCheck) is not { } exactNil || !exactNil.AsSpan().SequenceEqual(withoutNilCheck)
+            || Rewrite(openNil) is not null || Rewrite(sharedNil) is not null || Rewrite(unrelated) is not null)
+        {
+            throw new InvalidOperationException(RedundantNilCheck);
+        }
+
+        _ = Call(compiler, "Intern", "pop");
+        _ = Call(compiler, "Intern", "open_pop");
+        _ = Call(compiler, "Intern", "escaped");
+        byte[] originalTail = [.. Entry(Pop), .. test, GetTail, X1, X1, IsNil, Failed, X1, Return, .. error];
+        byte[] typedTail =
+        [
+            .. Entry(Pop), .. test, GetTail, X1, X1,
+            IsNil, Failed, ExtendedTypedRegisterOperand, X1, One, Return, .. error
+        ];
+        byte[] openTail = [.. Entry(Open), .. test, GetTail, X1, X1, IsNil, Failed, X1, Return, .. error];
+        byte[] head = [.. Entry(Pop), .. test, GetHead, X1, X1, IsNil, Failed, X1, Return, .. error];
+        if (Annotate(originalTail) is not { } derived || !derived.AsSpan().SequenceEqual(typedTail)
+            || Annotate(openTail) is not null || Annotate(head) is not null)
+        {
+            throw new InvalidOperationException(EntryFactsFailure);
+        }
+
         return Task.CompletedTask;
+
+        byte[]? Annotate(byte[] source) => (byte[]?)Call(
+            compiler,
+            "AnnotateProvenListOperands",
+            new ReadOnlyMemory<byte>(source),
+            4,
+            new Dictionary<int, int>()
+        );
 
         bool Proves(string function, int argument) =>
             (bool)Call(

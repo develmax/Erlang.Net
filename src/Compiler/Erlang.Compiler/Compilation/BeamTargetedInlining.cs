@@ -8,6 +8,10 @@ internal static class BeamTargetedInlining
     private const int CoreConstructorWeight = 1;
     private const int CoreElementWeight = 1;
     private const int CoreLiteralWeight = 1;
+    private const int CoreArgumentWeight = 1;
+    private const int CoreClauseWeight = 1;
+    private const int CoreMapPatternWeight = 4;
+    private const int CoreMapPairWeight = 3;
 
     internal static (IReadOnlyList<FunctionDefinition>, IReadOnlyList<BeamSourceLocation>) Apply(
         ModuleDefinition module,
@@ -21,6 +25,7 @@ internal static class BeamTargetedInlining
         var failureStubs = new Dictionary<(string, int), (FunctionDefinition Function, BeamSourceLocation Location)>();
         var automaticCosts = new Dictionary<(string, int), int>();
         var releaseTargets = new HashSet<(string, int)>();
+        var releaseMapCallbacks = new HashSet<(string, int)>();
         var substitutedReleaseTargets = new HashSet<(string, int)>();
         bool sourceAutomatic = module.AutomaticInlining && !profileInlining.SuppressAutomatic;
         for (int index = 0; index < module.DeclaredFunctions.Count; index++)
@@ -57,8 +62,17 @@ internal static class BeamTargetedInlining
 
                     automaticCosts.Add(signature, cost);
                 }
-                else if (profileInlining.Size is int size && IsBoundedReleaseLeaf(candidate, size))
+                else if (profileInlining.Size is int size)
                 {
+                    if (IsBoundedReleaseMapCallback(candidate, size))
+                    {
+                        releaseMapCallbacks.Add(signature);
+                    }
+                    else if (!IsBoundedReleaseLeaf(candidate, size))
+                    {
+                        continue;
+                    }
+
                     releaseTargets.Add(signature);
                 }
                 else
@@ -162,6 +176,7 @@ internal static class BeamTargetedInlining
                     bool releaseLeaf = releaseTargets.Contains(targetKey);
                     if ((!dispatch && !targets.ContainsKey(targetKey))
                         || releaseLeaf && !local.Arguments.All(IsImmutableReleaseOperand)
+                        || releaseMapCallbacks.Contains(targetKey) && !local.Arguments.All(argument => argument is Expr.Variable)
                         || automaticCosts.TryGetValue(targetKey, out int cost) && cost > remainingEffort
                         || !active.Add(targetKey))
                     {
@@ -450,6 +465,55 @@ internal static class BeamTargetedInlining
 
         // The counters reject when the remaining budget reaches zero.
         return size < limit && tuple.Items.Count < AutomaticInlineEffort - 1;
+    }
+
+    private static bool IsBoundedReleaseMapCallback(Clause clause, int baseSize)
+    {
+        if (clause.Patterns.Count != 3 || clause.Body is not Expr.Case
+            {
+                Value: Expr.Variable map,
+                Clauses:
+                [
+                {
+                    Guard: null,
+                    Patterns:
+                        [
+                            MapPattern
+                        {
+                            Fields: [{ Key: Expr.Variable key, Value: Pattern.Variable binding }]
+                        }
+                        ],
+                    Body: Expr.Variable selected
+                },
+                {
+                    Guard: null,
+                    Patterns: [Pattern.Variable { Name: VariableScopeNames.Wildcard }],
+                    Body: Expr.Apply
+                    {
+                        Function: Expr.Variable callback, Arguments: [Expr.Variable fallbackKey]
+                    }
+                }
+                ]
+            }
+            || binding.Name == VariableScopeNames.Wildcard || selected.Name != binding.Name || fallbackKey.Name != key.Name)
+        {
+            return false;
+        }
+
+        var formals = clause.Patterns.OfType<Pattern.Variable>()
+            .Select(parameter => parameter.Name).ToHashSet(StringComparer.Ordinal);
+        if (!formals.SetEquals([map.Name, key.Name, callback.Name]) || formals.Contains(binding.Name))
+        {
+            return false;
+        }
+
+        // Two retained clauses, one dynamic map-pattern pair and one unary
+        // apply. Variable visits and the two literal guards add no size.
+        const int size = 2 * CoreClauseWeight + CoreMapPatternWeight + CoreMapPairWeight
+            + CoreApplyWeight + CoreArgumentWeight;
+        long limit = (long)baseSize + CoreApplyWeight + clause.Patterns.Count;
+
+        return size < limit;
     }
 
     private static bool IsImmutableReleaseOperand(Expr operand) =>

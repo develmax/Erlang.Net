@@ -12,4 +12,10 @@ internal static class BeamPostCallResultAliasDiagnostics
     internal const string OwnedBif = "A post-call BIF must consume the original X0 and keep its independent stack operand.";
     internal const string PassThrough = "A standalone saved result reload must retain its existing failure continuation layout.";
     internal const string OtherRoot = "Keep a frame that owns another retained value.";
+    internal const string GuardedContinuation = "Only a guard branch reached from the original call may retain its result in X0.";
+    internal const string OutgoingConstructor =
+        "Keep the outgoing call argument in X0 while constructing its independent sibling.";
+    internal const string CheckedRecordField =
+        "Keep the original call result rooted until a checked record update consumes its field.";
+    internal const string ConstructorSibling = "A sibling constructor did not preserve the immediate call result in X0.";
 }

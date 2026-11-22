@@ -82,8 +82,17 @@ internal sealed partial class BeamModuleCompiler
             int[] shared = arms[0].Fields.Select(field => field.Index)
                 .Where(index => arms.All(arm => arm.Fields.Any(field => field.Index == index)))
                 .ToArray();
-            if (buckets.Count < 2 || shared.Length == 0 && repeated.Count == 0
-                || tagRegister + arms.Max(arm => arm.Fields.Length) >= FirstReservedXRegister)
+            if (buckets.Count < 2 || tagRegister + arms.Max(arm => arm.Fields.Length) >= FirstReservedXRegister)
+            {
+                return false;
+            }
+
+            // Distinct tags choose one leaf even when no data field is used in
+            // every arm. Keep closure and record update ownership on the
+            // existing entry path until their leaf plans can carry it.
+            if (shared.Length == 0 && repeated.Count == 0 && clauses.Any(clause =>
+                LocalFunctionEntries.Walk(clause.Body).Any(expression =>
+                    expression is Expr.Fun or Expr.FunctionReference or Expr.RecordUpdate)))
             {
                 return false;
             }

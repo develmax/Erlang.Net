@@ -47,6 +47,10 @@ internal static class BeamCheckedEntryProjectionChecks
     internal static async Task Run()
     {
         CheckRecordSpillLayout();
+        CheckConsChildCapture();
+        CheckPlainOuterTupleProjection();
+        CheckTerminalPayloadTrim();
+        CheckProjectedTerminalBranchLayout();
         byte[] beam = CodeGeneration.CompileBeamModule(Source, Fixture);
         CheckLayouts(beam);
         var module = BeamModule.Prepare(beam);
@@ -92,6 +96,102 @@ internal static class BeamCheckedEntryProjectionChecks
 
             throw new InvalidOperationException(WrongResult);
         });
+    }
+
+    private static void CheckConsChildCapture()
+    {
+        if (Schedule(ConsChild()) is not { } moved || !moved.AsSpan().SequenceEqual(ConsChild(scheduled: true))
+            || Schedule(moved) is not null
+            || Schedule(ConsChild(rejectionReadsOldHead: true)) is not null
+            || Schedule(ConsChild(readsOriginalHead: true)) is not null
+            || Schedule(ConsChild(overwritesChild: true)) is not null)
+        {
+            throw new InvalidOperationException(WrongFrame);
+        }
+
+        static byte[]? Schedule(byte[] code) => (byte[]?)Call(
+            new BeamModuleCompiler("beam_checked_cons_child_probe"),
+            "ScheduleCheckedConsChildCapture",
+            new ReadOnlyMemory<byte>(code),
+            4
+        );
+    }
+
+    private static byte[] ConsChild(
+        bool scheduled = false,
+        bool rejectionReadsOldHead = false,
+        bool readsOriginalHead = false,
+        bool overwritesChild = false
+    )
+    {
+        byte parent = X(scheduled ? 4 : 3);
+        byte[] early = scheduled ? [GetTupleElement, X(2), U(1), X(3)] : [];
+        byte[] field = scheduled ? [Move, X(3), Y(0)] : [GetTupleElement, X(2), U(1), Y(0)];
+        byte[] overwrite = overwritesChild ? [Move, X(1), X(2)] : [];
+        byte[] observe = readsOriginalHead ? [Move, X(3), X(0)] : [];
+
+        return
+        [
+            .. Start(
+                1,
+                2,
+                1,
+                2
+            ),
+            Move, X(1), X(3), IsNonemptyList, F(3), X(0), GetList, X(0), X(2), X(0),
+            IsTuple, F(3), X(2), TestArity, F(3), X(2), U(3), .. early,
+            IsNonemptyList, F(3), X(0), GetList, X(0), parent, X(0),
+            IsTuple, F(3), parent, TestArity, F(3), parent, U(3),
+            Allocate, U(2), U(scheduled ? 5 : 4), .. overwrite, .. field, Move, parent, Y(1), .. observe,
+            Line, U(1), LocalCall, U(1), F(2), TestHeap, U(3), U(0),
+            PutTuple, X(0), ExtendedListOperand, U(2), Y(0), Y(1), Deallocate, U(2), Return,
+            Label, U(3), Move, X(rejectionReadsOldHead ? 3 : 1), X(0), Return, EndCode
+        ];
+    }
+
+    private static void CheckTerminalPayloadTrim()
+    {
+        byte[] entry =
+        [
+            Label, U(1), Allocate, U(3), U(2),
+            InitYRegisters, ExtendedListOperand, U(2), Y(1), Y(2), Move, X(0), Y(0)
+        ];
+        byte[] compare = [ExactEqualTest, F(2), X(0), X(1)];
+        byte[] success = [Deallocate, U(3), Return, Label, U(2)];
+        byte[] literal = [Move, A(1), X(0)];
+        byte[] call = [Line, U(1), ExternalCall, U(2), U(0), Move, X(0), X(1), Move, Y(0), X(0)];
+        byte[] finish = [ExternalCall, U(2), U(0), Deallocate, U(0), Return, EndCode];
+        byte[] cleared = [InitYRegisters, ExtendedListOperand, U(1), Y(1)];
+        byte[] original =
+        [
+            .. entry, .. compare, .. success, .. literal, .. cleared, .. call, TrimFrame, U(3), U(0), .. finish
+        ];
+        byte[] expected =
+        [
+            .. entry, .. compare, .. success, Move, Y(0), Y(2), TrimFrame, U(2), U(1),
+            .. literal, .. call, TrimFrame, U(1), U(0), .. finish
+        ];
+        byte[] shared =
+        [
+            .. entry, .. compare, .. compare, .. success, .. literal, .. cleared, .. call, TrimFrame, U(3), U(0), .. finish
+        ];
+        byte[] clearedPayload =
+        [
+            .. entry, .. compare, .. success, .. literal, InitYRegisters, ExtendedListOperand, U(1), Y(0),
+            .. call, TrimFrame, U(3), U(0), .. finish
+        ];
+        if (Rewrite(original) is not { } shortened || !shortened.AsSpan().SequenceEqual(expected)
+            || Rewrite(shared) is not null || Rewrite(clearedPayload) is not null)
+        {
+            throw new InvalidOperationException(WrongFrame);
+        }
+
+        static byte[]? Rewrite(ReadOnlyMemory<byte> code) => (byte[]?)Call(
+            new BeamModuleCompiler("terminal_payload_trim.erl"),
+            "TrimTerminalCallPayloadFrames",
+            code,
+            3
+        );
     }
 
     private static void CheckRecordSpillLayout()
@@ -187,6 +287,105 @@ internal static class BeamCheckedEntryProjectionChecks
             || RewriteRecordSpill(liveInput) is not null || RewriteRecordSpill(liveDestination) is not null)
         {
             throw new InvalidOperationException(WrongRecordSpill);
+        }
+    }
+
+    private static void CheckProjectedTerminalBranchLayout()
+    {
+        byte[] check =
+        [
+            .. Start(
+                1,
+                2,
+                2,
+                2
+            ),
+            IsTaggedTuple, F(1), X(1), U(2), A(3)
+        ];
+        byte[] setup = [InitYRegisters, ExtendedListOperand, U(1), Y(0), Move, X(1), Y(1)];
+        byte[] frame = [Allocate, U(2), U(2), .. setup];
+        byte[] relocatedFrame = [Allocate, U(2), U(3), .. setup, Move, X(2), Y(0)];
+        byte[] projection = [GetTupleElement, Y(1), U(1), Y(0), ExactEqualTest, F(3), Y(0), A(4)];
+        byte[] projected = [GetTupleElement, X(1), U(1), X(2), ExactEqualTest, F(3), X(2), A(4)];
+        byte[] construction =
+        [
+            TestHeap, U(6), U(0), PutTuple, X(0), ExtendedListOperand, U(2), Y(1), A(4),
+            PutTuple, X(0), ExtendedListOperand, U(2), A(3), X(0)
+        ];
+        byte[] framedReturn = [Deallocate, U(2), Return];
+        byte[] framelessConstruction =
+        [
+            TestHeap, U(6), U(2), PutTuple, X(0), ExtendedListOperand, U(2), X(1), A(4),
+            PutTuple, X(0), ExtendedListOperand, U(2), A(3), X(0)
+        ];
+        byte[] fallback = [Label, U(3)];
+        byte[] continuation = [Move, Y(0), X(0), .. framedReturn, EndCode];
+        byte[] original =
+        [
+            .. check, .. frame, .. projection, .. construction, .. framedReturn, .. fallback, .. continuation
+        ];
+        byte[] expected =
+        [
+            .. check, .. projected, .. framelessConstruction, Return,
+            .. fallback, .. relocatedFrame, .. continuation
+        ];
+        byte[] protectedContinuation =
+        [
+            TryEnter, Y(1), F(4), ExternalCall, U(1), U(0), TryEnd, Y(1), .. framedReturn,
+            Label, U(4), TryCase, Y(1), Move, Y(0), X(0), .. framedReturn, EndCode
+        ];
+        byte[] protectedOriginal =
+        [
+            .. check, .. frame, .. projection, .. construction, .. framedReturn, .. fallback, .. protectedContinuation
+        ];
+        byte[] protectedExpected =
+        [
+            .. check, .. projected, .. framelessConstruction, Return,
+            .. fallback, .. relocatedFrame, .. protectedContinuation
+        ];
+        byte[] shared =
+        [
+            .. check, .. frame, .. projection, .. construction, .. framedReturn,
+            .. fallback, Jump, F(3), EndCode
+        ];
+        byte[] effect =
+        [
+            .. check, .. frame, .. projection, ExternalCall, U(1), U(0),
+            .. construction, .. framedReturn, .. fallback, .. continuation
+        ];
+        if (RewriteRecordSpill(original) is not { } result || !result.AsSpan().SequenceEqual(expected)
+            || RewriteRecordSpill(protectedOriginal) is not { } protectedResult
+            || !protectedResult.AsSpan().SequenceEqual(protectedExpected)
+            || RewriteRecordSpill(shared) is not null || RewriteRecordSpill(effect) is not null)
+        {
+            throw new InvalidOperationException(WrongFrame);
+        }
+    }
+
+    private static void CheckPlainOuterTupleProjection()
+    {
+        byte[] entry = [Label, U(1), FunctionInfo, A(1), A(2), U(1), Label, U(2)];
+        byte[] outer = [IsTuple, F(1), X(0), TestArity, F(1), X(0), U(2)];
+        byte[] differentFailure = [IsTuple, F(4), X(0), TestArity, F(1), X(0), U(2)];
+        byte[] frame = [Allocate, U(1), U(1)];
+        byte[] projection = [GetTupleElement, X(0), U(0), Y(0), IsTaggedTuple, F(3), Y(0), U(2), A(3)];
+        byte[] body = [Move, Y(0), X(0), ExternalCall, U(1), U(0), Deallocate, U(1), Return];
+        byte[] relay = [Label, U(3), Deallocate, U(1), Jump, F(1), EndCode];
+        byte[] separateFailure = [Label, U(3), Deallocate, U(1), Jump, F(1), Label, U(4), Move, A(1), X(0), Return, EndCode];
+        byte[] liveFailure = [Label, U(3), Move, Y(0), X(0), Deallocate, U(1), Return, EndCode];
+        byte[] expected =
+        [
+            .. entry, .. outer,
+            GetTupleElement, X(0), U(0), X(1), IsTaggedTuple, F(3), X(1), U(2), A(3),
+            Allocate, U(1), U(2), Move, X(1), Y(0),
+            .. body, Label, U(3), Jump, F(1), EndCode
+        ];
+        if (RewriteRecordSpill([.. entry, .. outer, .. frame, .. projection, .. body, .. relay]) is not { } rewritten
+            || !rewritten.AsSpan().SequenceEqual(expected)
+            || RewriteRecordSpill([.. entry, .. differentFailure, .. frame, .. projection, .. body, .. separateFailure]) is not null
+            || RewriteRecordSpill([.. entry, .. outer, .. frame, .. projection, .. body, .. liveFailure]) is not null)
+        {
+            throw new InvalidOperationException(WrongFrame);
         }
     }
 

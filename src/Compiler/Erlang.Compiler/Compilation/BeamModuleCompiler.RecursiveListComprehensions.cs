@@ -64,7 +64,24 @@ internal sealed partial class BeamModuleCompiler
             && HasUnconditionalParameters(appendClause)
             ? ReadPairedListAppend(expressions, appendClause)
             : null;
-        if (pairedAppend is { } pair)
+        var ownedAppend = anonymous is [var sibling] && comprehensions is [var appended]
+            && SsaTypeInferenceEnabled && !ModuleOptimizationDisabled
+            ? ReadSiblingClosureAppend(
+                function,
+                sibling,
+                appended,
+                localFunctions
+            )
+            : null;
+        if (ownedAppend is not null)
+        {
+            // The closure is installed before evaluating the final call. The
+            // append tail contains no definitions and the generator owns the first letrec.
+            core = [anonymous[0], comprehensions[0]];
+            ssa = comprehensions;
+            definitions = core;
+        }
+        else if (pairedAppend is { } pair)
         {
             // v3_core evaluates and numbers the right-hand comprehension before
             // lowering the left-hand generator with that list as its tail.
@@ -93,7 +110,8 @@ internal sealed partial class BeamModuleCompiler
             if (SsaTypeInferenceEnabled && !ModuleOptimizationDisabled
                 && core.Length == comprehensions.Length + anonymous.Length
                 && (ssaDefinitions.Length != core.Length || definitions.Length != core.Length)
-                && (anonymous.Length == 0 || separatedTupleDefinitions || HasSingleComprehensionClosureClause())
+                && (anonymous.Length == 0 || separatedTupleDefinitions || HasSingleComprehensionClosureClause()
+                    || HasSeparatedClauseComprehensionBindings())
                 && CanExpandComprehensionHead(function.Clauses))
             {
                 IReadOnlySet<string> emptyScope = new HashSet<string>(StringComparer.Ordinal);
@@ -139,6 +157,18 @@ internal sealed partial class BeamModuleCompiler
                 // Reordering the constructor alternatives cannot interleave definitions from other clauses.
                 && function.Clauses.Any(clause => clause.Guard is null
                     && OrderedLocalDefinitions(clause.Body, ListComprehensionOrder.Core).Count() == core.Length);
+
+            bool HasSeparatedClauseComprehensionBindings() => comprehensions.Length == 2
+                && comprehensions.All(comprehension => comprehension.Qualifiers is
+                    [ComprehensionQualifier.Generator { Strict: false }])
+                // Definitions are local to these source clauses. The expanded
+                // head still determines how Core-to-SSA visits the clauses.
+                && function.Clauses.Count(clause => clause.Body is Expr.Sequence sequence
+                    && sequence.Items.Count(item => item is Expr.Match
+                    {
+                        Pattern: Pattern.Variable,
+                        Value: Expr.ListComprehension
+                    }) == 1) == comprehensions.Length;
 
             IEnumerable<Expr> Ordered(ListComprehensionOrder order)
             {
@@ -257,7 +287,24 @@ internal sealed partial class BeamModuleCompiler
 
             var append = !independent ? ReadBoundComprehensionAppend(clause, comprehension) : null;
             Expr.Call? computedTail = null;
-            Expr.Variable? appendTail = append?.Right as Expr.Variable;
+            Expr? appendTail = append?.Right;
+            if (append is null && !independent && !discarded && SsaTypeInferenceEnabled && !ModuleOptimizationDisabled
+                && ReadLiteralListComprehensionAppend(clause, comprehension) is { } literalAppend)
+            {
+                append = literalAppend.Append;
+                appendTail = literalAppend.Tail;
+            }
+
+            if (append is null && (!independent || ownedAppend is not null) && !discarded
+                && SsaTypeInferenceEnabled && !ModuleOptimizationDisabled
+                && (ownedAppend ?? ReadComputedComprehensionAppend(clause, comprehension, localFunctions)) is { } computed
+                && computed.Right is Expr.Call tail)
+            {
+                append = computed;
+                appendTail = new Expr.Variable(PairedListAppendTail);
+                computedTail = tail;
+            }
+
             if (pairedAppend is { } fused && ReferenceEquals(comprehension, fused.Left))
             {
                 if (replacements.GetValueOrDefault(fused.Right) is not Expr.Call rightHelper)
@@ -280,7 +327,8 @@ internal sealed partial class BeamModuleCompiler
                 discarded,
                 allowStrict,
                 appendTail,
-                allowGuardedAliasSibling: orderedTupleDefinitions
+                allowGuardedAliasSibling: orderedTupleDefinitions,
+                allowOrderedFilters: anonymous.Length == 0 && mapSibling is null && !nestedSiblings
             );
             if (plan is not { } mapping || declared.Contains((name, mapping.Helper.Arity)))
             {
@@ -555,6 +603,84 @@ internal sealed partial class BeamModuleCompiler
             && !Semantics.Variables(generator.Pattern).Contains(tail.Name, StringComparer.Ordinal));
     }
 
+    private Expr.Binary? ReadSiblingClosureAppend(
+        FunctionDefinition function,
+        Expr.Fun sibling,
+        Expr.ListComprehension comprehension,
+        IReadOnlyDictionary<(string Name, int Arity), FunctionDefinition> localFunctions
+    )
+    {
+        if (function.Clauses is not
+            [
+            {
+                Guard: null,
+                Body: Expr.Sequence
+                {
+                    Items: { Count: >= 2 } items
+                }
+            } clause
+            ]
+            || !HasUnconditionalParameters(clause)
+            || !sibling.Clauses.Any(branch => branch.Guard is null && HasUnconditionalParameters(branch))
+            || LocalFunctionEntries.Walk(clause.Body).Any(expression =>
+                expression is Expr.Try or Expr.Catch or Expr.Receive or Expr.Maybe)
+            || ReadComputedComprehensionAppend(clause, comprehension, localFunctions) is not { } append
+            || items[^1] is not Expr.Call { DynamicRemote: false } consumer
+            || !consumer.Arguments.Any(argument => ReferenceEquals(argument, append))
+            || consumer.Arguments.Any(argument => argument is not (Expr.Variable or Expr.Literal)
+                && !ReferenceEquals(argument, append)))
+        {
+            return null;
+        }
+
+        // The same single earlier definition must be visible in all orderings.
+        foreach (ListComprehensionOrder order in Enum.GetValues<ListComprehensionOrder>())
+        {
+            var prior = items.Take(items.Count - 1).SelectMany(step => OrderedLocalDefinitions(step, order)).ToArray();
+            if (prior is not [var definition] || !ReferenceEquals(definition, sibling))
+            {
+                return null;
+            }
+        }
+
+        return append;
+    }
+
+    private static Expr.Binary? ReadComputedComprehensionAppend(
+        Clause clause,
+        Expr.ListComprehension comprehension,
+        IReadOnlyDictionary<(string Name, int Arity), FunctionDefinition> localFunctions
+    )
+    {
+        if (comprehension is not
+            {
+                Items: [var mapped],
+                Qualifiers: [ComprehensionQualifier.Generator
+                {
+                    Strict: false,
+                    Pattern: Pattern.Variable item,
+                    Source: Expr.Variable source
+                }]
+            }
+            || ClosureCaptures.ReadListComprehensionBindings(clause, comprehension) is not { } visible
+            || !visible.Contains(source.Name)
+            || LocalFunctionEntries.Walk(mapped).OfType<Expr.Variable>()
+                .Any(variable => variable.Name != item.Name && !visible.Contains(variable.Name)))
+        {
+            return null;
+        }
+
+        // v3_core passes the evaluated right operand as the generator's nil
+        // result. The source is already a value, so the only effect in the new
+        // call arguments is the append tail, still in its original branch.
+        return LocalFunctionEntries.Walk(clause.Body).OfType<Expr.Binary>().FirstOrDefault(expression =>
+            expression.Operator == ErlangOperators.Append && ReferenceEquals(expression.Left, comprehension)
+            && expression.Right is Expr.Call { Module: null, DynamicRemote: false } tail
+            && localFunctions.ContainsKey((tail.Function, tail.Arguments.Count))
+            && tail.Arguments.All(argument => argument is Expr.Literal
+                || argument is Expr.Variable variable && visible.Contains(variable.Name)));
+    }
+
     private static string AnonymousClosureName(FunctionDefinition owner, int ordinal) =>
         FormattableString.Invariant($"-{owner.Name}/{owner.Arity}-fun-{ordinal}-");
 
@@ -658,8 +784,9 @@ internal sealed partial class BeamModuleCompiler
         bool independent,
         bool discarded,
         bool allowStrict,
-        Expr.Variable? appendTail,
-        bool allowGuardedAliasSibling = false
+        Expr? appendTail,
+        bool allowGuardedAliasSibling = false,
+        bool allowOrderedFilters = false
     )
     {
         bool guardedElement = !independent && !discarded && SsaTypeInferenceEnabled && !ModuleOptimizationDisabled
@@ -693,16 +820,31 @@ internal sealed partial class BeamModuleCompiler
                 || appendTail is null && expression is Expr.Binary { Operator: ErlangOperators.Append, Left: var left }
                     && ReferenceEquals(left, comprehension));
 
-        bool sequentialElement = !discarded && comprehension.Items is [Expr.Block or Expr.Sequence or Expr.Match]
+        bool tupleElement = !discarded && !guardedElement && SsaTypeInferenceEnabled && !ModuleOptimizationDisabled
+            && comprehension.Qualifiers is
+            [
+                ComprehensionQualifier.Generator { Strict: false, Pattern: Pattern.Tuple tuple, Source: Expr.Variable }
+            ]
+            && IsRecursiveListPattern(tuple);
+        bool lexicalOutput = !discarded || IsDiscardedLexicalListEffect(comprehension);
+        bool sequentialElement = lexicalOutput && comprehension.Items is [Expr.Block or Expr.Sequence or Expr.Match]
             && comprehension.Qualifiers is [ComprehensionQualifier.Generator sequential, ..]
-            && (!sequential.Strict && sequential.Pattern is Pattern.Variable
+            && (!sequential.Strict && (sequential.Pattern is Pattern.Variable || tupleElement)
                 || sequential.Strict && sequential.Pattern is AliasPattern sequentialAlias
                     && IsRecursiveTupleGeneratorAlias(sequentialAlias));
 
         bool caseElement = !discarded && !guardedElement && comprehension.Items is [var element]
-            && comprehension.Qualifiers is [ComprehensionQualifier.Generator { Strict: false, Pattern: Pattern.Variable }, ..]
+            && (tupleElement || comprehension.Qualifiers is
+                [ComprehensionQualifier.Generator { Strict: false, Pattern: Pattern.Variable }, ..])
             && LocalFunctionEntries.Walk(element).Any(expression => expression is Expr.Case);
-        bool lexicalElement = sequentialElement || caseElement;
+        // An if has the same lexical branch scopes as a case in Core.
+        // Keep its guards and branch bodies together in the generated helper.
+        bool ifElement = lexicalOutput && !guardedElement && SsaTypeInferenceEnabled && !ModuleOptimizationDisabled
+            && (tupleElement || comprehension.Qualifiers is
+                [ComprehensionQualifier.Generator { Strict: false, Pattern: Pattern.Variable, Source: Expr.Variable }])
+            && comprehension.Items is [var branchValue]
+            && LocalFunctionEntries.Walk(branchValue).Any(expression => expression is Expr.If);
+        bool lexicalElement = sequentialElement || caseElement || ifElement;
 
         // The checked field read stays in the parent and is evaluated once.
         bool recordFieldSource = SsaTypeInferenceEnabled && !discarded && comprehension.Qualifiers is
@@ -713,12 +855,65 @@ internal sealed partial class BeamModuleCompiler
         }, ..
         ];
 
+        // The dynamic producer remains the first argument of the parent call.
+        // Its receiver, member and arguments are evaluated before the helper binds a row.
+        bool dynamicRemoteSource = SsaTypeInferenceEnabled && !ModuleOptimizationDisabled
+            && !independent && !discarded && appendTail is null
+            && comprehension.Qualifiers is
+            [
+                ComprehensionQualifier.Generator
+            {
+                Strict: false,
+                Source: Expr.Call
+                {
+                    DynamicRemote: true,
+                    Arguments: [Expr.Variable, Expr.Literal { Value: Atom }, Expr.List { Tail: null } arguments]
+                }
+            }
+            ]
+            && arguments.Items.All(argument => argument is Expr.Variable or Expr.Literal)
+            && !LocalFunctionEntries.Walk(parentClause.Body).Any(expression =>
+                expression is Expr.Try or Expr.Catch or Expr.Receive or Expr.Maybe
+                || expression is Expr.Binary { Operator: ErlangOperators.Append, Left: var left }
+                    && ReferenceEquals(left, comprehension));
+
+        // An unfiltered relaxed alias needs only the accepting branch's fresh
+        // bindings. Other comprehensions do not share or alter those bindings.
+        bool independentTupleAlias = independent && SsaTypeInferenceEnabled && !ModuleOptimizationDisabled
+            && comprehension.Qualifiers is
+            [
+                ComprehensionQualifier.Generator { Strict: false, Pattern: AliasPattern siblingAlias }
+            ] && CanLiftNestedListAlias(siblingAlias);
+        bool hasSimpleFilter = TryReadRecursiveListFilter(comprehension.Qualifiers, out Expr? filter);
+        ComprehensionQualifier.Filter[]? orderedFilters = null;
+        if (!hasSimpleFilter && allowOrderedFilters && !discarded && !lexicalElement
+            && SsaTypeInferenceEnabled && !ModuleOptimizationDisabled && appendTail is null
+            && comprehension.Qualifiers is
+            [
+                ComprehensionQualifier.Generator
+            {
+                Strict: false, Pattern: Pattern.Variable or Pattern.Tuple or AliasPattern, Source: Expr.Variable
+            },
+                ..
+            ]
+            && !LocalFunctionEntries.Walk(parentClause.Body).Any(expression =>
+                expression is Expr.Try or Expr.Catch or Expr.Receive or Expr.Maybe
+                || expression is Expr.Binary { Operator: ErlangOperators.Append, Left: var left }
+                    && ReferenceEquals(left, comprehension)))
+        {
+            var filters = comprehension.Qualifiers.Skip(1).OfType<ComprehensionQualifier.Filter>().ToArray();
+            if (filters.Length == comprehension.Qualifiers.Count - 1)
+            {
+                orderedFilters = filters;
+            }
+        }
+
         if (comprehension is not
             {
                 Items: [var mapped], Qualifiers: [ComprehensionQualifier.Generator
                 { Pattern: var item, Source: var source } generator, ..]
             }
-            || !TryReadRecursiveListFilter(comprehension.Qualifiers, out Expr? filter)
+            || !hasSimpleFilter && orderedFilters is null
             || generator.Strict && (!allowStrict || discarded
                 || comprehension.Qualifiers.Count != 1 && !CanLiftStrictListComparison(item, source, filter)
                 || item is not (Pattern.Variable or Pattern.Tuple)
@@ -726,9 +921,12 @@ internal sealed partial class BeamModuleCompiler
                 || LocalFunctionEntries.Walk(parentClause.Body).Any(expression =>
                     expression is Expr.Try or Expr.Receive or Expr.Maybe
                     or Expr.BinaryComprehension or Expr.MapComprehension))
-            || source is not (Expr.Variable or Expr.Call { DynamicRemote: false })
+            || !dynamicRemoteSource && source is not (Expr.Variable or Expr.Call { DynamicRemote: false })
                 && !(discarded && IsComputedDiscardedListSource(source))
                 && !recordFieldSource
+                && !(independent && !discarded && !generator.Strict && SsaTypeInferenceEnabled
+                    && !ModuleOptimizationDisabled && appendTail is null
+                    && IsFixedListComprehensionBinding(parentClause, comprehension))
                 && !(source is Expr.List { Items.Count: > 0 } && !generator.Strict && !independent && !discarded
                     && comprehension.Qualifiers.Count == 1
                     && !LocalFunctionEntries.Walk(parentClause.Body).Any(expression =>
@@ -738,12 +936,20 @@ internal sealed partial class BeamModuleCompiler
                         || !generator.Strict && item is Pattern.Tuple && filter is not null
                             && ComprehensionGuard.IsTest(filter, sourceModule)))
             || !(item is Pattern.Variable && (generator.Strict || simpleElement || flatElement || guardedElement || independent || filter is not null
-                    || recordFieldSource || lexicalElement || source is Expr.Call or Expr.List
+                    || recordFieldSource || lexicalElement || orderedFilters is not null || source is Expr.Call or Expr.List
                     || mapped is Expr.Call { DynamicRemote: false } or Expr.Apply { Function: Expr.Variable })
-                || item is (Pattern.Tuple or Pattern.List) && IsRecursiveListPattern(item)
+                || item is (Pattern.Tuple or Pattern.List)
+                    && (IsRecursiveListPattern(item)
+                        || SsaTypeInferenceEnabled && !ModuleOptimizationDisabled
+                            && !independent && !discarded && !generator.Strict && appendTail is null
+                            && comprehension.Qualifiers.Count == 1 && source is Expr.Variable
+                            && IsListAliasProjection(mapped) && CanLiftNestedListAlias(item)
+                            && !LocalFunctionEntries.Walk(parentClause.Body).Any(expression =>
+                                expression is Expr.Try or Expr.Catch or Expr.Receive or Expr.Maybe))
                 || item is AliasPattern alias && SsaTypeInferenceEnabled && !discarded
-                    && (comprehension.Qualifiers.Count == 1 && ReadTupleListProjection(alias, mapped) is not null
-                        || (!independent || generator.Strict
+                    && (orderedFilters is not null && IsRecursiveTupleGeneratorAlias(alias)
+                        || comprehension.Qualifiers.Count == 1 && ReadTupleListProjection(alias, mapped) is not null
+                        || (!independent || generator.Strict || independentTupleAlias
                             || allowGuardedAliasSibling && IsOwnedTupleAliasFilter(alias, mapped, filter))
                             && IsRecursiveTupleGeneratorAlias(alias)
                             && source is Expr.Variable or Expr.Call { DynamicRemote: false }
@@ -772,22 +978,50 @@ internal sealed partial class BeamModuleCompiler
         }
 
         var mappedOperands = LocalFunctionEntries.Walk(mapped).ToArray();
-        Expr[] filterOperands = filter is null ? [] : LocalFunctionEntries.Walk(filter).ToArray();
+        if (SsaTypeInferenceEnabled && !ModuleOptimizationDisabled && !independent && !discarded
+            && !generator.Strict && source is Expr.Variable && comprehension.Qualifiers.Count == 1
+            && mappedOperands.Any(expression => expression is Expr.Bits)
+            && !LocalFunctionEntries.Walk(parentClause.Body).Any(expression =>
+                expression is Expr.Try or Expr.Catch or Expr.Receive or Expr.Maybe
+                || appendTail is null && expression is Expr.Binary { Operator: ErlangOperators.Append, Left: var left }
+                    && ReferenceEquals(left, comprehension)))
+        {
+            // A closed, target-independent bitstring is a value in Core.
+            // Keep dynamic or invalid segments in the original expression path.
+            mapped = BeamTargetedInlining.Rewrite(
+                mapped,
+                expression =>
+                expression is Expr.Bits bits && bits.Segments.All(segment =>
+                    segment.Endian != BitByteOrders.Native && segment.Value is Expr.Literal
+                    && segment.Size is null or Expr.Literal)
+                && AttributeLiteral.TryNormalizeConstant(bits, out Term constant)
+                    ? new Expr.Literal(constant) : expression
+            );
+            mappedOperands = LocalFunctionEntries.Walk(mapped).ToArray();
+        }
+
+        Expr[] filterOperands = orderedFilters is not null
+            ? orderedFilters.SelectMany(qualifier => LocalFunctionEntries.Walk(qualifier.Expression)).ToArray()
+            : filter is null ? [] : LocalFunctionEntries.Walk(filter).ToArray();
         bool flatOutput = mappedOperands.All(CanUseMappedExpression) && filterOperands.All(CanUseExpression);
         // The source stays in the parent and runs once, before the helper can bind a generator pattern.
-        if (!simpleElement && !flatOutput && !guardedElement || !LocalFunctionEntries.Walk(source).All(CanUseExpression))
+        if (orderedFilters is not null && !flatOutput
+            || !simpleElement && !flatOutput && !guardedElement
+            || !dynamicRemoteSource && !LocalFunctionEntries.Walk(source).All(CanUseExpression))
         {
             return null;
         }
 
         var bound = Semantics.Variables(item).ToHashSet(StringComparer.Ordinal);
         Expr[] output = [.. mappedOperands, .. filterOperands];
-        if (!ModuleOptimizationDisabled && flatOutput)
+        if (!ModuleOptimizationDisabled && flatOutput && orderedFilters is null)
         {
             var constants = ReadDominatingHelperConstants(
                 parentClause,
                 comprehension,
-                allowListComprehensionPrefix: discarded && IsComputedDiscardedListSource(source)
+                allowListComprehensionPrefix: discarded && IsComputedDiscardedListSource(source),
+                allowFixedListComprehensionPrefix: independent && !lexicalElement && SsaTypeInferenceEnabled
+                    && IsFixedListComprehensionBinding(parentClause, comprehension)
             );
             foreach (string name in bound)
             {
@@ -832,9 +1066,9 @@ internal sealed partial class BeamModuleCompiler
                 .ToHashSet(StringComparer.Ordinal);
         }
 
-        if (appendTail is not null)
+        if (appendTail is Expr.Variable capturedTail)
         {
-            free.Add(appendTail.Name);
+            free.Add(capturedTail.Name);
         }
 
         // Core names incoming arguments before variables defined in the clause body.
@@ -867,7 +1101,7 @@ internal sealed partial class BeamModuleCompiler
         var projection = ReadTupleListProjection(item, mapped);
         var optionCall = !discarded ? ReadTupleOptionGenerator(item, mapped) : null;
         bool hasProvenTupleInput = SsaTypeInferenceEnabled && !ModuleOptimizationDisabled && !generator.Strict
-            && filter is null && (projection is not null || optionCall is not null)
+            && filter is null && orderedFilters is null && (projection is not null || optionCall is not null)
             && HasProvenTupleGenerator(
                 source,
                 parentClause,
@@ -888,7 +1122,7 @@ internal sealed partial class BeamModuleCompiler
                 localFunctions,
                 exclusion.Position
             );
-        bool properSource = hasProvenTupleInput || hasProvenTupleFilterInput || IsProperListGeneratorCall(source)
+        bool properSource = appendTail is Expr.Literal || hasProvenTupleInput || hasProvenTupleFilterInput || IsProperListGeneratorCall(source)
             || SsaTypeInferenceEnabled && !ModuleOptimizationDisabled
             && (source is Expr.List { Tail: null or Expr.Literal { Value: Nil } }
                 || source is Expr.Variable provenList && HasProperListBinding(parentClause, comprehension, provenList.Name));
@@ -902,10 +1136,17 @@ internal sealed partial class BeamModuleCompiler
             discardResult: discarded,
             strictGeneratorLocation: generator.Strict ? helperLocation : null,
             invalidSourceLocation: invalidSource,
-            appendTail: appendTail
+            appendTail: appendTail,
+            orderedFilters: orderedFilters?.Select(qualifier => (
+                qualifier.Expression,
+                ComprehensionGuard.IsTest(qualifier.Expression, sourceModule),
+                qualifier.SourceLine
+            )).ToArray()
         ) with
         {
             IsRecursiveListMapper = true,
+            CapturedListLengthParameter = appendTail is not Expr.Variable || !SsaTypeInferenceEnabled || ModuleOptimizationDisabled
+                ? null : ReadCapturedListLength(parentClause, comprehension, captures),
             // Here the result is constructed from a nil base, a recursive call, and optional cons cells.
             HasProperListResult = !discarded && !properSource && appendTail is null,
             HasProvenRecursiveTupleInput = hasProvenTupleInput,
@@ -923,6 +1164,19 @@ internal sealed partial class BeamModuleCompiler
             || caseElement && expression is Expr.Case choice
                 && choice.Clauses.All(branch => branch.Patterns.All(IsRecursiveListPattern)
                     && (branch.Guard is null || ComprehensionGuard.IsTest(branch.Guard, sourceModule)))
+            || ifElement && expression is Expr.If conditional
+                && conditional.Clauses.All(branch => branch.Patterns.Count == 0
+                    && branch.Guard is { } condition && ComprehensionGuard.IsTest(condition, sourceModule))
+            // Width and segment operands stay inside the selected item branch.
+            // Use the regular binary emitter, including its badarg source line.
+            || lexicalElement && SsaTypeInferenceEnabled && !ModuleOptimizationDisabled
+                && expression is Expr.Bits bits && bits.Segments.All(segment =>
+                    segment is
+                    {
+                        Type: BitSegmentTypes.Integer, Unit: BitSyntaxDefaults.NumericUnit, Endian: BitByteOrders.Big,
+                        Signed: false, IsStringLiteral: false, Value: Expr.Variable or Expr.Literal { Value: Integer }
+                    }
+                    && (segment.Size is null or Expr.Literal { Value: Integer { Value.Sign: > 0 } }))
             || discarded && expression is Expr.Call { DynamicRemote: true }
             || !discarded && expression is Expr.RecordUpdate { Value: Expr.Variable }
             || expression is Expr.RecordConstruction { Wildcard: null } record
@@ -1067,7 +1321,7 @@ internal sealed partial class BeamModuleCompiler
         return true;
     }
 
-    private static bool IsDiscardedListEffect(Expr.ListComprehension comprehension)
+    private bool IsDiscardedListEffect(Expr.ListComprehension comprehension)
     {
         if (comprehension is not
             {
@@ -1088,6 +1342,11 @@ internal sealed partial class BeamModuleCompiler
             return pattern is Pattern.Variable || pattern is Pattern.Tuple && IsRecursiveListPattern(pattern);
         }
 
+        if (IsDiscardedLexicalListEffect(comprehension))
+        {
+            return true;
+        }
+
         // The result of a checked dynamic call is unused, but the call, short circuit
         // and relaxed pattern skip must still run in the recursive helper.
         return source is Expr.Variable && pattern is Pattern.Tuple && IsRecursiveListPattern(pattern) && effect is Expr.Binary
@@ -1104,6 +1363,28 @@ internal sealed partial class BeamModuleCompiler
                 DynamicRemote: true, Arguments: [Expr.Variable receiverCall, Expr.Literal { Value: Atom }, Expr.List { Tail: null }]
             }
         } && receiver.Name == receiverCall.Name;
+    }
+
+    private bool IsDiscardedLexicalListEffect(Expr.ListComprehension comprehension)
+    {
+        if (!SsaTypeInferenceEnabled || ModuleOptimizationDisabled || comprehension is not
+            {
+                Items: [var effect and (Expr.Block or Expr.Sequence)],
+                Qualifiers: [ComprehensionQualifier.Generator
+                {
+                    Strict: false, Pattern: Pattern.Variable, Source: Expr.Variable
+                }]
+            })
+        {
+            return false;
+        }
+
+        // The accepting helper executes this block before its tail transfer.
+        // Branch locals stay in the block and only enclosing references are captured.
+        return LocalFunctionEntries.Walk(effect).All(expression => expression is not
+            (Expr.Fun or Expr.ListComprehension or Expr.MapComprehension or Expr.BinaryComprehension
+            or Expr.Try or Expr.Catch or Expr.Receive or Expr.Maybe or Expr.Case or Expr.Apply
+            or Expr.Call { DynamicRemote: true }));
     }
 
     private static bool IsComputedDiscardedListSource(Expr source) =>
@@ -1126,6 +1407,42 @@ internal sealed partial class BeamModuleCompiler
             IsRecursiveListPattern(tuple),
         _ => false
     };
+
+    private static bool IsListAliasProjection(Expr expression) => expression switch
+    {
+        Expr.Variable or Expr.Literal => true,
+        Expr.Tuple tuple => tuple.Items.All(IsListAliasProjection),
+        _ => false
+    };
+
+    private static bool CanLiftNestedListAlias(Pattern pattern)
+    {
+        // Each name is bound by this generator alone. The alias remains part of the
+        // accepting pattern, so a rejected head takes the same recursive skip clause.
+        var names = new HashSet<string>(StringComparer.Ordinal);
+
+        return Matches(pattern);
+
+        bool Matches(Pattern item) => item switch
+        {
+            Pattern.Variable { Name: VariableScopeNames.Wildcard } => true,
+            Pattern.Variable variable => names.Add(variable.Name),
+            Pattern.Literal => true,
+            Pattern.Tuple tuple => tuple.Items.All(Matches),
+            Pattern.List list => list.Items.All(Matches) && (list.Tail is null || Matches(list.Tail)),
+            AliasPattern
+            {
+                Left: Pattern.Variable { Name: not VariableScopeNames.Wildcard } binding,
+                Right: Pattern.Tuple shape
+            } => Matches(binding) && Matches(shape),
+            AliasPattern
+            {
+                Left: Pattern.Tuple shape,
+                Right: Pattern.Variable { Name: not VariableScopeNames.Wildcard } binding
+            } => Matches(binding) && Matches(shape),
+            _ => false
+        };
+    }
 
     private static bool IsRecursiveListPattern(Pattern pattern) => pattern switch
     {
@@ -1318,6 +1635,21 @@ internal sealed partial class BeamModuleCompiler
 
         private void EmitRecursiveListMappingEnd(FunctionDefinition function, int empty)
         {
+            if (function.IsRecursiveListMapper && function.Clauses[^1] is
+                {
+                    Guard: null,
+                    Patterns: [Erlang.Pattern.Variable],
+                    Body: Expr.Literal { Value: Cons continuation }
+                })
+            {
+                // The proper-list plan replaces the nil result with this literal.
+                Mark(empty);
+                owner.EmitConstant(continuation, 0);
+                owner.instructions.WriteByte(Return);
+
+                return;
+            }
+
             int baseResult = function.IsRecursiveListMapper ? RecursiveListBaseResultRegister(function) : 0;
             if (function.IsRecursiveListMapper && function.Clauses[^1].Body is Expr.Variable)
             {

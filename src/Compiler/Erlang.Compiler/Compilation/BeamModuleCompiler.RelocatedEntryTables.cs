@@ -57,14 +57,7 @@ internal sealed partial class BeamModuleCompiler
         {
             BeamInstruction instruction = body[index];
             int end = index + 1 < body.Count ? body[index + 1].Offset : code.Length;
-            int importOperand = instruction.Definition.Opcode switch
-            {
-                ExternalCall or TailExternalCall or TailExternalCallWithFrame => 1,
-                BifZero => 0,
-                BifOne or BifTwo or BifThree => 1,
-                GcBifOne or GcBifTwo or GcBifThree => 2,
-                _ => -1
-            };
+            int importOperand = ReadAssemblyImportPosition(instruction.Definition.Opcode);
             bool hasLine = instruction.Definition.Opcode == Line;
             if (importOperand >= 0 || hasLine)
             {

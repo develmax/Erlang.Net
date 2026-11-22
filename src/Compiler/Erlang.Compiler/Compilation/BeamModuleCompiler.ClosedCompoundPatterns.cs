@@ -4,6 +4,27 @@ internal sealed partial class BeamModuleCompiler
 {
     private sealed partial class GeneralEmitter
     {
+        private FunctionDefinition FoldClosedEntryListPattern(FunctionDefinition function)
+        {
+            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled
+                || function.Clauses is not
+                [
+                { Patterns: [Pattern.List { Items.Count: > 0 } pattern] } first,
+                { Patterns: [global::Erlang.Pattern.Variable or global::Erlang.Pattern.Any], Guard: null } fallback
+                ]
+                || ReadClosedPattern(pattern) is not Cons value)
+            {
+                return function;
+            }
+
+            // A closed cons has no binding to retain. The next clause accepts
+            // every other value of the same original argument.
+            return function with
+            {
+                Clauses = [first with { Patterns = [new Pattern.Literal(value)] }, fallback]
+            };
+        }
+
         private Expr.Case FoldClosedCasePatterns(Expr.Case decision)
         {
             if (owner.ModuleOptimizationDisabled)
@@ -102,7 +123,43 @@ internal sealed partial class BeamModuleCompiler
                 return new Pattern.Literal(cons);
             }
 
+            if (pattern is Pattern.List { Items: [var head, Pattern.Literal { Value: Atom last }], Tail: null } pair
+                && HasDisjointConsHeads(head, peers))
+            {
+                // The first cons splits into a head and tail column. Once the
+                // atom and tuple heads separate, the closed tail has no cons peer.
+                return pair with { Items = [head], Tail = new Pattern.Literal(Term.List(last)) };
+            }
+
             return pattern;
+        }
+
+        private static bool HasDisjointConsHeads(Pattern head, Pattern[] peers)
+        {
+            var own = EntryShape(head);
+            bool hasPeer = false;
+            foreach (Pattern peer in peers)
+            {
+                Pattern? other = peer switch
+                {
+                    Pattern.List { Items.Count: > 0 } list => EntryShape(list.Items[0]),
+                    Pattern.Literal { Value: Cons cons } => new Pattern.Literal(cons.Head),
+                    _ => null
+                };
+                if (other is null)
+                {
+                    continue;
+                }
+
+                hasPeer = true;
+                if (!(own is Pattern.Literal { Value: Atom } && IsTupleConstructor(other)
+                    || other is Pattern.Literal { Value: Atom } && IsTupleConstructor(own)))
+                {
+                    return false;
+                }
+            }
+
+            return hasPeer;
         }
 
         private static bool IsTupleConstructor(Pattern pattern) => pattern is

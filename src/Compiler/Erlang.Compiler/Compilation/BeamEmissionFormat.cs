@@ -56,6 +56,7 @@ internal static class BeamEmissionFormat
     internal const byte IfEnd = 73;
     internal const byte CaseEnd = 74;
     internal const byte CallFun = 75;
+    internal const byte LegacyMakeFunWithOldUnique = 76;
     internal const byte IsFunction = 77;
     internal const byte Move = 64;
     internal const byte GetList = 65;
@@ -65,6 +66,7 @@ internal static class BeamEmissionFormat
     internal const byte FloatConvert = 97;
     internal const byte FloatMultiply = 100;
     internal const byte FloatDivide = 101;
+    internal const byte LegacyMakeFun = 103;
     internal const byte TryEnter = 104;
     internal const byte TryEnd = 105;
     internal const byte TryCase = 106;

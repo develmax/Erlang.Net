@@ -73,6 +73,25 @@ internal sealed partial class BeamModuleCompiler
                 setupEnd++;
             }
 
+            if (!removeSpills && !allowFramelessBranches
+                && ReadDependentEntryCallCopies(
+                    body,
+                    allocation,
+                    setupEnd,
+                    end
+                ) is { } pair)
+            {
+                output.Write(code.Span[copied..body[pair.FirstLoad].Offset]);
+                output.WriteByte(Move);
+                BeamCompactWriter.Write(output, XRegisterTag, 1);
+                BeamCompactWriter.Write(output, XRegisterTag, 0);
+                output.WriteByte(Move);
+                WriteRegister(output, pair.SecondArgument);
+                BeamCompactWriter.Write(output, XRegisterTag, 1);
+                copied = body[pair.FirstLoad + 2].Offset;
+                continue;
+            }
+
             var remove = new Dictionary<int, BeamOperand>();
             var replace = new Dictionary<int, (int End, BeamOperand Source)>();
             var earlyLoads = new Dictionary<int, (int Use, BeamOperand Source)>();
@@ -191,6 +210,94 @@ internal sealed partial class BeamModuleCompiler
         output.Write(code.Span[copied..]);
 
         return output.ToArray();
+    }
+
+    private static (int FirstLoad, BeamOperand SecondArgument)? ReadDependentEntryCallCopies(
+        IReadOnlyList<BeamInstruction> body,
+        int allocation,
+        int call,
+        int end
+    )
+    {
+        if (call >= end || body[allocation].Definition.Opcode != Allocate
+            || body[call] is not
+            {
+                Definition.Opcode: LocalCall or ExternalCall,
+                Operands: [{ Value: var arity }, _]
+            } || arity != 2)
+        {
+            return null;
+        }
+
+        int last = call - 1;
+        while (last > allocation && body[last].Definition.Opcode == Line)
+        {
+            last--;
+        }
+
+        if (last <= allocation + 1
+            || body[last - 1] is not
+            {
+                Definition.Opcode: Move,
+                Operands: [
+                { Kind: BeamOperandParameters.Y, TypeIndex: null } second,
+                { Kind: BeamOperandParameters.X, TypeIndex: null, Value.IsOne: true }
+                ]
+            }
+            || body[last] is not { Definition.Opcode: Move, Operands: [var first, var target] }
+            || first is not { Kind: BeamOperandParameters.Y, TypeIndex: null } || !IsBareX0(target))
+        {
+            return null;
+        }
+
+        BeamOperand? firstSource = null;
+        BeamOperand? secondSource = null;
+        BeamOperand live = body[allocation].Operands[1];
+        for (int index = allocation + 1; index < last - 1; index++)
+        {
+            var instruction = body[index];
+            if (instruction is
+                {
+                    Definition.Opcode: Move,
+                    Operands: [
+                    { Kind: BeamOperandParameters.X, TypeIndex: null } source,
+                    { Kind: BeamOperandParameters.Y, TypeIndex: null } saved
+                    ]
+                } && source.Value < live.Value)
+            {
+                if (saved == first)
+                {
+                    firstSource = source;
+                }
+
+                if (saved == second)
+                {
+                    secondSource = source;
+                }
+            }
+            else if (instruction.Definition.Opcode == InitYRegisters)
+            {
+                if (instruction.Operands.Contains(first))
+                {
+                    firstSource = null;
+                }
+
+                if (instruction.Operands.Contains(second))
+                {
+                    secondSource = null;
+                }
+            }
+            else if (instruction.Definition.Opcode != Line)
+            {
+                return null;
+            }
+        }
+
+        // The first argument reads the old X1 before the second replaces it.
+        // Both stack definitions remain available to later continuations.
+        return firstSource is { Value.IsOne: true } && secondSource is { Value: var original } && original >= 2
+            ? (last - 1, secondSource)
+            : null;
     }
 
     private static bool OwnsSingleBranchFrame(

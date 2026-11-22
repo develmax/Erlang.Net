@@ -13,7 +13,7 @@ internal sealed partial class BeamModuleCompiler
                 || function.Clauses is not
                 [
                     {
-                        Guard: null,
+                        Guard: var guard,
                         Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom tag }, ..] } record, ..] patterns,
                         Body: Expr.Sequence
                         {
@@ -35,24 +35,44 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
+            if (patterns.Count == 2 && patterns[1] is not Pattern.Variable { Name: not VariableScopeNames.Wildcard })
+            {
+                return false;
+            }
+
+            string? otherName = patterns.Count == 2 ? ((Pattern.Variable)patterns[1]).Name : null;
+            var elementGuard = guard is not null && otherName is not null
+                ? ReadDictionaryRecordElementGuard(guard, otherName) : null;
+            if (guard is not null && elementGuard is null)
+            {
+                return false;
+            }
+
             var fields = record.Items.Skip(1).Cast<Pattern.Variable>()
                 .Select((field, index) => (field.Name, Index: index + 1))
                 .Where(field => field.Name != VariableScopeNames.Wildcard).ToArray();
-            if (fields is not [var binding] || patterns.Count == 2
-                && patterns[1] is not Pattern.Variable { Name: not VariableScopeNames.Wildcard })
+            int checkedField = 0;
+            if (elementGuard is { } checkedElement)
+            {
+                if (fields.Length != 2 || checkedElement.Field == otherName
+                    || fields.Where(field => field.Name == checkedElement.Field).ToArray() is not [var tested])
+                {
+                    return false;
+                }
+
+                checkedField = tested.Index;
+                fields = fields.Where(field => field.Index != checkedField).ToArray();
+            }
+
+            int logItems = checkedField == 0 ? patterns.Count : 1;
+            if (fields is not [var binding] || otherName == binding.Name || arguments.Items.Count != logItems
+                || arguments.Items[0] is not Expr.Variable first || first.Name != binding.Name
+                || logItems == 2 && (arguments.Items[1] is not Expr.Variable second || second.Name != otherName))
             {
                 return false;
             }
 
             string fieldName = binding.Name;
-            string? otherName = patterns.Count == 2 ? ((Pattern.Variable)patterns[1]).Name : null;
-            if (otherName == fieldName || arguments.Items.Count != patterns.Count
-                || arguments.Items[0] is not Expr.Variable first || first.Name != fieldName
-                || otherName is not null && (arguments.Items[1] is not Expr.Variable second || second.Name != otherName))
-            {
-                return false;
-            }
-
             var retained = new Dictionary<string, int>(StringComparer.Ordinal) { [fieldName] = 0 };
             var incoming = new Dictionary<string, int>(StringComparer.Ordinal);
             if (otherName is not null)
@@ -74,12 +94,29 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
+            int failure = owner.nextLabel - 2;
             EmitDetailRecordTest(
                 0,
                 record.Items.Count,
                 tag,
-                owner.nextLabel - 2
+                failure
             );
+            if (elementGuard is { } element)
+            {
+                // Both guards and the checked field projection keep the original
+                // arguments intact for function_clause. Only success owns a frame.
+                owner.Op(IsTuple, LabelTag, failure);
+                owner.Operand(XRegisterTag, 1);
+                EmitElementInstruction(failure);
+                owner.LiteralOperand(element.Position);
+                owner.EmitTypedRegister(1, TupleTypeBits);
+                owner.Operand(XRegisterTag, 2);
+                owner.EmitTuplePart(0, checkedField, 3);
+                owner.Op(ExactEqualTest, LabelTag, failure);
+                owner.Operand(XRegisterTag, 2);
+                owner.Operand(XRegisterTag, 3);
+            }
+
             EmitFrameAllocation(frame, frame, construction.Constructions.Sum(node => node.HeapWords));
             if (otherName is not null)
             {
@@ -244,6 +281,37 @@ internal sealed partial class BeamModuleCompiler
                     owner.EmitFrameReturn(frame);
                 };
             }
+        }
+
+        private (string Field, Integer Position)? ReadDictionaryRecordElementGuard(Expr guard, string input)
+        {
+            if (guard is not Expr.Binary
+                {
+                    Operator: ErlangOperators.AndAlso,
+                    Left: Expr.Call
+                    {
+                        Function: AutoImportNames.IsTuple,
+                        Arguments: [Expr.Variable tuple]
+                    } check,
+                    Right: Expr.Binary
+                    {
+                        Operator: ErlangOperators.ExactEqual,
+                        Left: Expr.Call
+                        {
+                            Function: AutoImportNames.Element,
+                            Arguments: [Expr.Literal { Value: Integer position }, Expr.Variable selected]
+                        } field,
+                        Right: Expr.Variable expected
+                    }
+                }
+                || tuple.Name != input || selected.Name != input || position.Value.Sign <= 0
+                || check.DynamicRemote || field.DynamicRemote
+                || !owner.ResolvesErlangBif(check) || !owner.ResolvesErlangBif(field))
+            {
+                return null;
+            }
+
+            return (expected.Name, position);
         }
     }
 }

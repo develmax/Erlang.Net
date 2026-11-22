@@ -62,8 +62,25 @@ internal sealed partial class BeamModuleCompiler
             return true;
         }
 
-        private bool TryEmitCallResultConstruction(FunctionDefinition function)
+        private bool TryEmitCallResultConstruction(
+            FunctionDefinition function,
+            bool preparedNil = false,
+            bool validateOnly = false
+        )
         {
+            if (preparedNil && (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled
+                || function.Clauses is not
+                [
+                    {
+                        Guard: null,
+                        Patterns: [Pattern.List { Items.Count: 0, Tail: null } or Pattern.Literal { Value: Nil }],
+                        Body: Expr.List { Items: [Expr.Tuple], Tail: null }
+                    }
+                ]))
+            {
+                return false;
+            }
+
             EntryCall? emptyTail = null;
             Clause clause;
             if (function.Clauses is [{ Guard: null } single])
@@ -103,6 +120,7 @@ internal sealed partial class BeamModuleCompiler
             Expr.Call? call = null;
             EntryCall? closureCall = null;
             EntryCall? headCall = null;
+            EntryCall? preparedCall = null;
             var result = expressions[^1];
             if (expressions is [.., Expr.Match
                 {
@@ -170,9 +188,19 @@ internal sealed partial class BeamModuleCompiler
             }
 
             int entry = 0;
+            if (preparedCall is { } prepared)
+            {
+                call = call with { Module = prepared.Module };
+            }
+
             if ((closureCall?.Module ?? call.Module) is null && !entries.TryGetValue((call.Function, call.Arguments.Count), out entry))
             {
                 return false;
+            }
+
+            if (validateOnly)
+            {
+                return true;
             }
 
             BeamSourceLocation previous = location;
@@ -195,7 +223,7 @@ internal sealed partial class BeamModuleCompiler
             }
             else
             {
-                if (testsNil)
+                if (testsNil && !preparedNil)
                 {
                     owner.Op(IsNil, LabelTag, owner.nextLabel - 2);
                     owner.Operand(XRegisterTag, 0);
@@ -232,6 +260,10 @@ internal sealed partial class BeamModuleCompiler
                 else
                 {
                     EmitFrameAllocation(0, 0);
+                    if (preparedCall is { } arguments)
+                    {
+                        EmitEntryCallArguments(arguments);
+                    }
                 }
             }
 
@@ -326,6 +358,14 @@ internal sealed partial class BeamModuleCompiler
 
                 if (candidate.Arguments.Count == 0)
                 {
+                    return true;
+                }
+
+                if (preparedNil && ReadEntryCall(candidate, []) is { } closed
+                    && closed.Constants.Count == candidate.Arguments.Count)
+                {
+                    preparedCall = closed;
+
                     return true;
                 }
 

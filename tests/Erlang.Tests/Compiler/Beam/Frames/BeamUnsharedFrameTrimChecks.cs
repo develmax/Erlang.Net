@@ -57,8 +57,34 @@ internal static class BeamUnsharedFrameTrimChecks
             throw new InvalidOperationException(LiveSlotMismatch);
         }
 
+        CheckFinalLoadedArguments();
         _ = BeamModule.Prepare(beam);
 
         return Task.CompletedTask;
     }
+
+    private static void CheckFinalLoadedArguments()
+    {
+        const string source = """
+            -module(beam_loaded_call_frame).
+            -export([report/3]).
+            report(Check, Left, Right) ->
+                beam_trim_dep:observe(Check),
+                if is_integer(Check), Check > 0 -> beam_trim_dep:observe(line);
+                   true -> ok
+                end,
+                beam_trim_dep:display(Left, Right),
+                beam_trim_dep:stop().
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_loaded_call_frame.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> deadSlots = [BeamEmissionFormat.TrimFrame, 0x30, 0x00];
+        if (code.AsSpan().IndexOf(deadSlots) < 0)
+        {
+            throw new InvalidOperationException(DeadSlotsMismatch);
+        }
+
+        _ = BeamModule.Prepare(beam);
+    }
+
 }

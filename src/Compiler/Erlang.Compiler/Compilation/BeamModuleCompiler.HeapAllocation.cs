@@ -89,10 +89,41 @@ internal sealed partial class BeamModuleCompiler
             ? (start, operandStart + cursor.Position, (int)operand.Value) : null;
     }
 
+    private byte[]? CombineProjectedDictionaryHeapAllocation(ReadOnlyMemory<byte> code, int labelCount)
+    {
+        if (ModuleOptimizationDisabled || !SsaTypeInferenceEnabled || !code.Span.Contains(BifOne)
+            || !atoms.TryGetValue(ErlangModuleNames.Module, out int erlang)
+            || !atoms.TryGetValue(AutoImportNames.Get, out int get)
+            || !imports.TryGetValue((erlang, get, 1), out int import)
+            || DecodeLateAtomicProjectionSlots(code, labelCount) is not { } decoded)
+        {
+            return null;
+        }
+
+        return CombineStackAndHeapAllocationCore(
+            code,
+            decoded.Body,
+            emittedImports?[import] ?? import,
+            projectedDictionaryOnly: true
+        );
+    }
+
     private static byte[]? CombineStackAndHeapAllocation(
         ReadOnlyMemory<byte> code,
         IReadOnlyList<BeamInstruction> body,
         int dictionaryLookupImport
+    ) => CombineStackAndHeapAllocationCore(
+        code,
+        body,
+        dictionaryLookupImport,
+        projectedDictionaryOnly: false
+    );
+
+    private static byte[]? CombineStackAndHeapAllocationCore(
+        ReadOnlyMemory<byte> code,
+        IReadOnlyList<BeamInstruction> body,
+        int dictionaryLookupImport,
+        bool projectedDictionaryOnly
     )
     {
         MemoryStream? output = null;
@@ -111,32 +142,22 @@ internal sealed partial class BeamModuleCompiler
                 end++;
             }
 
-            if (end + 2 < body.Count && body[end] is
-                {
-                    Definition.Opcode: GetTupleElement,
-                    Operands:
-                    [
-                    { Kind: BeamOperandParameters.X } tuple,
-                    { Kind: BeamOperandParameters.Unsigned } field,
-                    { Kind: BeamOperandParameters.Y } destination
-                    ]
-                }
-                && tuple.Value < live.Value && destination.Value < frame.Value
-                && body[end + 1] is { Definition.Opcode: TestHeap, Operands: [_, { Value.IsZero: true }] }
-                && body[end + 2].Definition.Opcode is PutTuple or PutList
-                && HasSavedAllocationInputs(
+            if (end < body.Count && body[end].Definition.Opcode == GetTupleElement
+                && ReadProjectedHeapCheck(
                     start,
                     end,
                     frame,
                     live
-                )
-                && (flow ??= new BeamProjectionFlow(body)).HasCheckedTupleField(start, tuple, field))
+                ) is int projectedHeap)
             {
-                // The field stays reachable from the pre-allocation X roots while earlier
-                // writes initialize the same Y homes used by the following constructor.
-                end++;
+                // The source tuples stay reachable from the pre-allocation X
+                // roots. The projections still initialize their Y homes in order.
+                end = projectedHeap;
             }
-
+            else if (projectedDictionaryOnly)
+            {
+                continue;
+            }
             else if (dictionaryLookupImport >= 0 && frame.Value.Sign > 0 && end + 2 < body.Count
                 && body[end] is
                 {
@@ -198,6 +219,91 @@ internal sealed partial class BeamModuleCompiler
             output.Write(code.Span[copied..]);
 
             return output.ToArray();
+        }
+
+        int? ReadProjectedHeapCheck(
+            int allocation,
+            int first,
+            BeamOperand frame,
+            BeamOperand live
+        )
+        {
+            if (!HasSavedAllocationInputs(
+                allocation,
+                first,
+                frame,
+                live
+            ))
+            {
+                return null;
+            }
+
+            var saved = new Dictionary<int, BeamOperand>();
+            for (int index = allocation + 1; index < first; index++)
+            {
+                BeamInstruction instruction = body[index];
+                if (instruction.Definition.Opcode == InitYRegisters)
+                {
+                    foreach (BeamOperand slot in instruction.Operands.Skip(1))
+                    {
+                        saved.Remove((int)slot.Value);
+                    }
+                }
+                else
+                {
+                    saved[(int)instruction.Operands[1].Value] = instruction.Operands[0];
+                }
+            }
+
+            var destinations = new HashSet<int>();
+            int next = first;
+            while (next < body.Count && body[next].Definition.Opcode == GetTupleElement)
+            {
+                if (body[next] is not
+                    {
+                        Operands:
+                        [
+                            var source,
+                        { Kind: BeamOperandParameters.Unsigned } field,
+                        { Kind: BeamOperandParameters.Y } destination
+                        ]
+                    }
+                    || destination.Value >= frame.Value || !destinations.Add((int)destination.Value))
+                {
+                    return null;
+                }
+
+                BeamOperand? tuple = source.Kind == BeamOperandParameters.Y
+                    ? saved.GetValueOrDefault((int)source.Value) : source;
+                if (tuple is not { Kind: BeamOperandParameters.X } || tuple.Value >= live.Value
+                    || !(flow ??= new BeamProjectionFlow(body)).HasCheckedTupleField(allocation, tuple, field))
+                {
+                    return null;
+                }
+
+                saved.Remove((int)destination.Value);
+                next++;
+            }
+
+            bool lookup = dictionaryLookupImport >= 0 && allocation > 0 && next < body.Count
+                && body[allocation - 1].Definition.Opcode == IsTaggedTuple
+                && IsInfallibleDictionaryLookup(body[next], dictionaryLookupImport);
+            if (projectedDictionaryOnly && !lookup)
+            {
+                return null;
+            }
+
+            // The checked fields and their source tuples are reachable from
+            // the incoming roots. Infallible get/1 retrieves its result from
+            // the process dictionary after allocation, so only its X0 is live
+            // at the original heap check.
+            int heap = lookup ? next + 1 : next;
+            int liveAfterSetup = lookup ? 1 : 0;
+
+            return heap + 1 < body.Count
+                && body[heap] is { Definition.Opcode: TestHeap, Operands: [_, var roots] }
+                && roots.Value == liveAfterSetup
+                && body[heap + 1].Definition.Opcode is PutTuple or PutList ? heap : null;
         }
 
         bool HasSavedAllocationInputs(

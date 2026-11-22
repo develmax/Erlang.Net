@@ -257,7 +257,7 @@ internal sealed partial class BeamModuleCompiler
                 register,
                 IntegerTypeBits,
                 0,
-                bytes == 1 ? byte.MaxValue : ushort.MaxValue
+                (1 << (bytes * BitSyntaxDefaults.BinaryUnit)) - 1
             );
             owner.Operand(LabelTag, failure);
             owner.instructions.WriteByte(ExtendedListOperand);

@@ -2,13 +2,14 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
-    private static FunctionDefinition FoldCoveredCaseArms(FunctionDefinition function)
+    private FunctionDefinition FoldCoveredCaseArms(FunctionDefinition function)
     {
+        FunctionDefinition? localTail = SsaTypeInferenceEnabled ? function : null;
         Clause[]? rewritten = null;
         for (int index = 0; index < function.Clauses.Count; index++)
         {
             Clause clause = function.Clauses[index];
-            Expr body = FoldCoveredTerminalCases(clause.Body);
+            Expr body = FoldCoveredTerminalCases(clause.Body, localTail);
             if (!ReferenceEquals(body, clause.Body))
             {
                 rewritten ??= function.Clauses.ToArray();
@@ -19,11 +20,11 @@ internal sealed partial class BeamModuleCompiler
         return rewritten is null ? function : function with { Clauses = rewritten };
     }
 
-    private static Expr FoldCoveredTerminalCases(Expr expression)
+    private static Expr FoldCoveredTerminalCases(Expr expression, FunctionDefinition? localTail)
     {
         if (expression is Expr.Sequence { Items.Count: > 0 } sequence)
         {
-            Expr last = FoldCoveredTerminalCases(sequence.Items[^1]);
+            Expr last = FoldCoveredTerminalCases(sequence.Items[^1], localTail);
             if (ReferenceEquals(last, sequence.Items[^1]))
             {
                 return sequence;
@@ -44,7 +45,7 @@ internal sealed partial class BeamModuleCompiler
         for (int index = 0; index < decision.Clauses.Count; index++)
         {
             Clause clause = decision.Clauses[index];
-            Expr body = FoldCoveredTerminalCases(clause.Body);
+            Expr body = FoldCoveredTerminalCases(clause.Body, localTail);
             if (!ReferenceEquals(body, clause.Body))
             {
                 rewritten ??= decision.Clauses.ToArray();
@@ -53,11 +54,13 @@ internal sealed partial class BeamModuleCompiler
         }
 
         IReadOnlyList<Clause> clauses = rewritten ?? decision.Clauses;
+        Expr.Call? commonTail = localTail is not null ? ReadClosedLiteralCaseTail(clauses, localTail) : null;
         List<Clause>? kept = null;
         for (int index = 0; index < clauses.Count; index++)
         {
             Clause clause = clauses[index];
-            if (index + 1 < clauses.Count && IsCoveredCaseArm(clause, clauses[index + 1]))
+            if (index + 1 < clauses.Count
+                && (IsCoveredCaseArm(clause, clauses[index + 1]) || RepeatsWildcardTail(clause, commonTail)))
             {
                 kept ??= clauses.Take(index).ToList();
             }
@@ -69,6 +72,59 @@ internal sealed partial class BeamModuleCompiler
 
         return kept is not null ? decision with { Clauses = kept }
             : rewritten is not null ? decision with { Clauses = rewritten } : decision;
+    }
+
+    private static Expr.Call? ReadClosedLiteralCaseTail(IReadOnlyList<Clause> clauses, FunctionDefinition enclosing)
+    {
+        if (clauses.Count < 2
+            || clauses[^1] is not
+            {
+                Patterns: [Pattern.Any or Pattern.Variable { Name: VariableScopeNames.Wildcard }],
+                Guard: null,
+                Body: Expr.Call
+                {
+                    Module: null,
+                    DynamicRemote: false
+                } fallback
+            }
+            || fallback.Function != enclosing.Name
+            || fallback.Arguments.Count != enclosing.Arity)
+        {
+            return null;
+        }
+
+        // As in beam_ssa_share, a literal successor equivalent to the default
+        // can be dropped. Exact, distinct keys rule out exposing a later arm.
+        var keys = new HashSet<Term>();
+        for (int index = 0; index < clauses.Count - 1; index++)
+        {
+            if (clauses[index].Patterns is not [Pattern.Literal key] || !keys.Add(key.Value))
+            {
+                return null;
+            }
+        }
+
+        return fallback;
+    }
+
+    private static bool RepeatsWildcardTail(Clause clause, Expr.Call? fallback) =>
+        fallback is not null
+        && clause is { Guard: null, Body: Expr.Call { Module: null, DynamicRemote: false } call }
+        && call.Function == fallback.Function
+        && call.Arguments.Count == fallback.Arguments.Count
+        && call.Arguments.Zip(fallback.Arguments, SamePureTailArgument).All(equal => equal);
+
+    private static bool SamePureTailArgument(Expr earlier, Expr later)
+    {
+        if (earlier is Expr.List left && later is Expr.List right)
+        {
+            return left.Items.Count == right.Items.Count
+                && left.Items.Zip(right.Items, SamePureCaseResult).All(equal => equal)
+                && (left.Tail is null && right.Tail is null
+                    || left.Tail is { } leftTail && right.Tail is { } rightTail && SamePureCaseResult(leftTail, rightTail));
+        }
+
+        return SamePureCaseResult(earlier, later);
     }
 
     private static bool IsCoveredCaseArm(Clause earlier, Clause later)

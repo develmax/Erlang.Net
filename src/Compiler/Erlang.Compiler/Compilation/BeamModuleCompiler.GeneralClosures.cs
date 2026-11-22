@@ -121,6 +121,11 @@ internal sealed partial class BeamModuleCompiler
                 entryCaptureOrder?.TryGetValue(name, out int order) == true
                     ? (Local: false, Order: order)
                     : (Local: entryCaptureOrder is not null, Order: captureRegisters?.GetValueOrDefault(name) ?? variables[name])).ToArray();
+            if (UsesCoreNamedCallCaptureOrder(function, captures))
+            {
+                Array.Sort(captures, StringComparer.Ordinal);
+            }
+
             int declaredArity = function.Clauses[0].Patterns.Count;
             int arity = declaredArity + captures.Length;
             if (arity > BeamWire.MaximumArity)
@@ -147,7 +152,7 @@ internal sealed partial class BeamModuleCompiler
                         new Pattern.Variable(shadowed?.Contains(capture) == true ? VariableScopeNames.Wildcard : capture))]
                 };
             }).ToArray();
-            BeamSourceLocation source = function.ClauseLine == 0 ? location : new(function.ClauseFile, function.ClauseLine);
+            BeamSourceLocation source = function.DeclarationLine == 0 ? location : new(function.DeclarationFile, function.DeclarationLine);
             var lifted = new FunctionDefinition(name, arity, clauses);
 
             if (!heapChecked)
@@ -227,6 +232,68 @@ internal sealed partial class BeamModuleCompiler
                 EntryPatternFailure: entryPatternFailure,
                 RequiresSelfValue: ClosureCaptures.RequiresSelfValue(function)
             ));
+        }
+
+        private bool UsesCoreNamedCallCaptureOrder(Expr.Fun closure, IReadOnlyList<string> captures)
+        {
+            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled || captures.Count != 2
+                || captures.Any(name => !name.All(char.IsAscii)) || parentFunction is not { } lexicalOwner
+                || owner.SourceModule?.DeclaredFunctions.FirstOrDefault(function =>
+                    function.Name == lexicalOwner.Name && function.Arity == lexicalOwner.Arity)?.Clauses is not
+                    [{ Guard: null, Body: Expr.Sequence sequence } source])
+            {
+                return false;
+            }
+
+            var parameters = source.Patterns.SelectMany(Semantics.Variables).ToHashSet(StringComparer.Ordinal);
+            if (captures.Any(parameters.Contains))
+            {
+                return false;
+            }
+
+            var boundCalls = new HashSet<string>(StringComparer.Ordinal);
+            var constants = new Dictionary<string, Term>(StringComparer.Ordinal);
+            string? callback = null;
+            for (int index = 0; index + 1 < sequence.Items.Count; index++)
+            {
+                if (sequence.Items[index] is Expr.Match
+                    { Pattern: Pattern.Variable { Name: not VariableScopeNames.Wildcard } binding } match)
+                {
+                    if (match.Value is Expr.Fun { SelfName: null } sourceClosure
+                        && sourceClosure.DeclarationLine == closure.DeclarationLine)
+                    {
+                        if (callback is not null || !captures.All(boundCalls.Contains))
+                        {
+                            return false;
+                        }
+
+                        callback = binding.Name;
+                    }
+                    else if (match.Value is Expr.Call { DynamicRemote: false })
+                    {
+                        boundCalls.Add(binding.Name);
+                    }
+                    else if (AttributeLiteral.TryNormalizeConstant(match.Value, out Term value, constants))
+                    {
+                        constants.TryAdd(binding.Name, value);
+                    }
+                }
+                else if (callback is not null && sequence.Items[index] is Expr.ListComprehension
+                {
+                    Items: [Expr.Apply { Function: Expr.Variable callable, Arguments: [Expr.Variable item] }],
+                    Qualifiers: [ComprehensionQualifier.Generator
+                    { Strict: false, Pattern: Pattern.Variable generator, Source: var list }]
+                } && callable.Name == callback && item.Name == generator.Name
+                    && AttributeLiteral.TryNormalizeConstant(list, out Term literal, constants) && literal is Cons)
+                {
+                    // No Core alpha-renaming is needed for the two dominating
+                    // call result names. beam_core_to_ssa uses an ordered set
+                    // of free names when adding those arguments to the lifted fun.
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private bool TryEmitEntryClosureTail(Clause clause)

@@ -12,7 +12,7 @@ internal static class BeamTwoAtomEntrySelectionChecks
 
     private const string Source = """
         -module(two_atom_entry_fixture).
-        -export([choose/2,member/2,permute/3,one_arm/2,guarded/2]).
+        -export([choose/2,member/2,permute/3,one_arm/2,guarded/2,with_list/3,with_unproved/3]).
 
         choose(second, X) ->
             two_atom_entry_provider:effect(X);
@@ -38,6 +38,24 @@ internal static class BeamTwoAtomEntrySelectionChecks
             selected;
         guarded(z, _) ->
             other.
+
+        with_list(none, _, _) -> [];
+        with_list(all, Value, Tail) ->
+            case produce(Value, [prefix | Tail]) of
+                [] -> [];
+                Result -> [{header, 1} | Result]
+            end.
+
+        with_unproved(none, _, _) -> [];
+        with_unproved(all, Value, Tail) ->
+            case unknown(Value, [prefix | Tail]) of
+                [] -> [];
+                Result -> [{header, 1} | Result]
+            end.
+
+        produce([], _) -> [];
+        produce([Head | _], _) -> [Head].
+        unknown(Value, _) -> Value.
 
         pack(X, Y) ->
             {X, Y}.
@@ -65,11 +83,38 @@ internal static class BeamTwoAtomEntrySelectionChecks
             sharesBody: false
         );
 
+        VerifySelection(
+            code,
+            "with_list",
+            0,
+            sharesBody: false
+        );
+        VerifyOwnedListCall(code);
+
         byte[] oneArm = Instructions(code, "one_arm").Select(Opcode).ToArray();
         byte[] guarded = Instructions(code, "guarded").Select(Opcode).ToArray();
         if (!oneArm.Contains(ExactEqualTest) || oneArm.Contains(SelectValue) || !guarded.Contains(IsInteger))
         {
             throw new InvalidOperationException(BeamTwoAtomEntrySelectionDiagnostics.Fallback);
+        }
+    }
+
+    private static void VerifyOwnedListCall(object code)
+    {
+        object[] body = Instructions(code, "with_list");
+        object? frame = body.SingleOrDefault(instruction => Opcode(instruction) == AllocateHeap);
+        object? check = body.SingleOrDefault(instruction => Opcode(instruction) == IsNil);
+        object? call = body.SingleOrDefault(instruction => Opcode(instruction) == LocalCall);
+        object producer = Items(code, "Functions").Single(function => (string)Property(function, "Name") == "produce");
+        if (call is null || Value(Items(call, "Operands")[1]) != (int)Property(producer, "EntryLabel")
+            || frame is null || !Items(frame, "Operands").Select(Value).SequenceEqual([0, 2, 3])
+            || check is null || Items(check, "Operands") is not [_, var result]
+            || (string)Property(result, "Kind") != "x" || Value(result) != 0
+            || Property(result, "TypeIndex") is null
+            || Instructions(code, "with_unproved").Any(instruction => Opcode(instruction) == IsNil
+                && Items(instruction, "Operands") is [_, var unproved] && Property(unproved, "TypeIndex") is not null))
+        {
+            throw new InvalidOperationException(BeamTwoAtomEntrySelectionDiagnostics.Layout);
         }
     }
 

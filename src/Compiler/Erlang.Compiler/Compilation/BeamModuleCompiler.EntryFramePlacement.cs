@@ -13,6 +13,11 @@ internal sealed partial class BeamModuleCompiler
         bool closedListMatchesOnly = false
     )
     {
+        if (!closedListMatchesOnly && DelayNestedCheckedArmFrame(code, body) is { } nestedArm)
+        {
+            return nestedArm;
+        }
+
         using var output = new MemoryStream();
         int copied = 0;
         int operand = 0;
@@ -95,6 +100,39 @@ internal sealed partial class BeamModuleCompiler
             {
                 allocationIndex = recordSpill.Allocation;
                 plan = recordSpill.Placement;
+            }
+
+            if (!closedListMatchesOnly && plan is null && allocationIndex >= 0)
+            {
+                plan = PlanDiscardedEntryListHead(
+                    body,
+                    start,
+                    allocationIndex,
+                    end,
+                    ref flow
+                );
+            }
+
+            if (!closedListMatchesOnly && plan is null && allocationIndex >= 0)
+            {
+                plan = PlanCheckedProjectionTerminalBranch(
+                    body,
+                    start,
+                    allocationIndex,
+                    end,
+                    isFramelessExternalTail
+                );
+            }
+
+            if (!closedListMatchesOnly && plan is null && allocationIndex >= 0)
+            {
+                plan = PlanDisjointTaggedEntryFrames(
+                    body,
+                    start,
+                    allocationIndex,
+                    end,
+                    ref flow
+                );
             }
 
             if (plan is { } placement)
@@ -249,6 +287,122 @@ internal sealed partial class BeamModuleCompiler
 
         bool IsTemporaryDead(int index, BeamOperand value) =>
             (flow ??= new BeamProjectionFlow(body)).IsBranchTemporaryDead(index, value);
+    }
+
+    private static EntryFramePlacement? PlanDiscardedEntryListHead(
+        IReadOnlyList<BeamInstruction> body,
+        int start,
+        int allocation,
+        int end,
+        ref BeamProjectionFlow? flow
+    )
+    {
+        if (start <= 0 || allocation != start + 1
+            || body[start - 1] is not { Definition.Opcode: FunctionInfo, Operands: [_, _, var arity] }
+            || body[allocation] is not { Definition.Opcode: Allocate, Operands: [var width, var live] }
+            || live != arity || live.Value >= FirstReservedXRegister)
+        {
+            return null;
+        }
+
+        var saved = new Dictionary<int, int>();
+        var initialized = new HashSet<int>();
+        int first = allocation + 1;
+        for (; first < end; first++)
+        {
+            BeamInstruction instruction = body[first];
+            if (instruction.Definition.Opcode == InitYRegisters)
+            {
+                foreach (BeamOperand slot in instruction.Operands.Skip(1))
+                {
+                    if (!initialized.Add((int)slot.Value))
+                    {
+                        return null;
+                    }
+                }
+            }
+            else if (instruction is
+            {
+                Definition.Opcode: Move,
+                Operands: [
+                { Kind: BeamOperandParameters.X, TypeIndex: null } input,
+                { Kind: BeamOperandParameters.Y, TypeIndex: null } slot
+                ]
+            } && input.Value < live.Value)
+            {
+                if (!initialized.Add((int)slot.Value) || !saved.TryAdd((int)slot.Value, (int)input.Value))
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        if (first + 7 >= end || !Enumerable.Range(0, (int)width.Value).All(initialized.Contains)
+            || body[first] is not { Definition.Opcode: IsNonemptyList, Operands: [var fail, var list] }
+            || list is not { Kind: BeamOperandParameters.Y, TypeIndex: null }
+            || !saved.ContainsKey((int)list.Value)
+            || body[first + 1] is not { Definition.Opcode: GetHead, Operands: [var inputList, var head] }
+            || inputList != list || head is not { Kind: BeamOperandParameters.Y, TypeIndex: null }
+            || !initialized.Contains((int)head.Value) || saved.ContainsKey((int)head.Value)
+            || body[first + 2] is not { Definition.Opcode: IsNil, Operands: [var nilFail, var testedHead] }
+            || nilFail != fail || testedHead != head
+            || body[first + 3] is not
+            {
+                Definition.Opcode: Move,
+                Operands: [{ Kind: BeamOperandParameters.Nil }, { Kind: BeamOperandParameters.X, Value.IsZero: true }]
+            }
+            || body[first + 4] is not { Definition.Opcode: Deallocate, Operands: [var released] } || released != width
+            || body[first + 5].Definition.Opcode != Return
+            || !(flow ??= new BeamProjectionFlow(body)).TryGetExclusiveForwardTarget(
+                first,
+                first + 2,
+                (int)fail.Value,
+                out int retry
+            ) || retry != first + 6
+            || ReadDisjointFrameOwnership(body, start, end) is not { } owner || owner.Uses.Count != 1
+            || owner.Owners[retry - start] != allocation)
+        {
+            return null;
+        }
+
+        int continuation = retry + 1;
+        int consumer = continuation;
+        for (; consumer < end; consumer++)
+        {
+            BeamInstruction instruction = body[consumer];
+            if (instruction.Definition.Opcode is not (Line or TestHeap or MakeFun or Move))
+            {
+                break;
+            }
+
+            if (instruction.Operands.Any(operand => SameProjectionRegister(operand, head)))
+            {
+                return null;
+            }
+        }
+
+        // The failed list test and the failed nil test reopen the same
+        // frame. Its scratch slot carries no value into the first effect.
+        if (consumer == end || body[consumer].Definition.Opcode is not (LocalCall or ExternalCall)
+            || !flow.IsDead(consumer, head, allowEntryFramePredicates: true))
+        {
+            return null;
+        }
+
+        saved.Add((int)head.Value, (int)live.Value);
+
+        return new(
+            first,
+            saved,
+            [first, first + 1, first + 2, first + 4],
+            new Dictionary<int, int> { [continuation] = (int)live.Value },
+            new Dictionary<int, int>(),
+            new Dictionary<int, (int Slot, int Register)[]>()
+        );
     }
 
     private static int FindEntryFrameAllocation(
@@ -491,10 +645,12 @@ internal sealed partial class BeamModuleCompiler
             return null;
         }
 
+        int entryFailure = EntryFrameFailureLabel(body, start);
         int ownFailure = !extendEntry && allocation.Definition.Opcode == Allocate
             && body[start - 1] is { Definition.Opcode: FunctionInfo, Operands: [_, _, var functionArity] } && functionArity.Value <= live
-            && body.Skip(start + 1).Take(allocationIndex - start - 1).All(instruction => instruction.Definition.Opcode == Line)
-                ? EntryFrameFailureLabel(body, start) : -1;
+            && (body.Skip(start + 1).Take(allocationIndex - start - 1).All(instruction => instruction.Definition.Opcode == Line)
+                || HasLeadingCheckedFormal((int)functionArity.Value))
+                ? entryFailure : -1;
         int terminalMatchRelay = ReadTerminalMatchRelay();
         var delayed = new HashSet<int>();
         var required = new HashSet<int>();
@@ -558,6 +714,11 @@ internal sealed partial class BeamModuleCompiler
                             heapLives.Add(index, heapLive);
                         }
                     }
+                }
+                else if (opcode == Move && ReadFramelessTailArgumentMove(index, registers) is int argumentLive)
+                {
+                    supported = true;
+                    registers = argumentLive;
                 }
                 else
                 {
@@ -812,6 +973,32 @@ internal sealed partial class BeamModuleCompiler
         }
 
         return null;
+
+        bool HasLeadingCheckedFormal(int arity)
+        {
+            // The earlier constructor check reads an original argument and has already
+            // established the unframed function_clause edge. The later literal test
+            // can precede the same allocation without changing either argument.
+            return entryFailure > 0 && allocationIndex == start + 2
+                && body[start + 1] is
+                {
+                    Definition.Opcode: IsTaggedTuple,
+                    Operands: [
+                    { Kind: BeamOperandParameters.Label } failure,
+                    { Kind: BeamOperandParameters.X } checkedFormal,
+                        _, _
+                    ]
+                } && failure.Value == entryFailure
+                && body[predicate] is
+                {
+                    Definition.Opcode: ExactEqualTest,
+                    Operands: [
+                    { Kind: BeamOperandParameters.Label },
+                    { Kind: BeamOperandParameters.X } literalFormal,
+                    { Kind: BeamOperandParameters.Atom or BeamOperandParameters.Integer }
+                    ]
+                } && checkedFormal.Value < literalFormal.Value && literalFormal.Value < arity;
+        }
 
         bool IsEntryFunctionClauseRelay(int index)
         {
@@ -1214,6 +1401,96 @@ internal sealed partial class BeamModuleCompiler
             instruction.Definition.Opcode == TailLocalCallWithFrame
             || instruction.Definition.Opcode == TailExternalCallWithFrame
                 && isFramelessExternalTail?.Invoke(instruction) == true;
+
+        int? ReadFramelessTailArgumentMove(int firstMove, int initialized)
+        {
+            int? nextLive = null;
+            var replacedInputs = new HashSet<int>();
+            for (int index = firstMove; index < end; index++)
+            {
+                BeamInstruction instruction = body[index];
+                if (instruction.Definition.Opcode == Line)
+                {
+                    continue;
+                }
+
+                if (instruction is not
+                    {
+                        Definition.Opcode: Move,
+                        Operands: [{ TypeIndex: null } source, { Kind: BeamOperandParameters.X, TypeIndex: null } destination]
+                    })
+                {
+                    // Keep leaf-first plans for ordinary same-arity tails. A
+                    // literal default can reenter its own checked entry directly.
+                    return IsFramelessTail(instruction)
+                        && (instruction.Operands[0].Value > live || IsNilDefaultReentry(firstMove, index))
+                        && instruction.Operands[0].Value <= initialized
+                        && instruction.Operands[^1].Value == frameSize ? nextLive : null;
+                }
+
+                if (destination.Value > initialized || destination.Value >= FirstReservedXRegister)
+                {
+                    return null;
+                }
+
+                int sourceRegister = source.Kind switch
+                {
+                    BeamOperandParameters.X when source.Value < initialized => (int)source.Value,
+                    BeamOperandParameters.Y when saved.TryGetValue((int)source.Value, out int argument)
+                        && !replacedInputs.Contains(argument) => argument,
+                    _ => -1
+                };
+                if (sourceRegister < 0 && source.Kind is not (BeamOperandParameters.Atom or BeamOperandParameters.Integer
+                    or BeamOperandParameters.Nil or BeamOperandParameters.LiteralValue))
+                {
+                    return null;
+                }
+
+                // Subsequent reads of a saved Y input still need its original
+                // X value, even if this preparation has replaced that X slot.
+                int target = (int)destination.Value;
+                if (sourceRegister != target)
+                {
+                    replacedInputs.Add(target);
+                }
+
+                initialized = Math.Max(initialized, target + 1);
+                nextLive ??= initialized;
+            }
+
+            return null;
+        }
+
+        bool IsNilDefaultReentry(int firstMove, int tail)
+        {
+            if (firstOpcode != IsNil || firstMove <= predicate || start == 0
+                || Enumerable.Range(predicate + 1, firstMove - predicate - 1).Any(index => body[index].Definition.Opcode != Line)
+                || body[start - 1] is not { Definition.Opcode: FunctionInfo, Operands: [_, _, var arity] }
+                || arity.Value != live
+                || body[tail] is not
+                {
+                    Definition.Opcode: TailLocalCallWithFrame,
+                    Operands: [var callArity, var target, _]
+                } || callArity.Value != live || target.Value != body[start].Operands[0].Value
+                || body[firstMove] is not
+                {
+                    Definition.Opcode: Move,
+                    Operands: [
+                    { Kind: BeamOperandParameters.Atom or BeamOperandParameters.Integer or BeamOperandParameters.LiteralValue },
+                    { Kind: BeamOperandParameters.X } replacement
+                    ]
+                }
+                || Enumerable.Range(firstMove + 1, tail - firstMove - 1).Any(index => body[index].Definition.Opcode != Line))
+            {
+                return false;
+            }
+
+            BeamOperand tested = body[predicate].Operands[1];
+
+            return SameProjectionRegister(tested, replacement)
+                || tested.Kind == BeamOperandParameters.Y && saved.TryGetValue((int)tested.Value, out int register)
+                    && replacement.Value == register;
+        }
 
         bool IsDelayedFramePredicate(byte opcode) => IsEntryFramePredicate(opcode)
             || (extendEntry || allocationIndex != start + 1) && opcode is SelectValue or SelectTupleArity;

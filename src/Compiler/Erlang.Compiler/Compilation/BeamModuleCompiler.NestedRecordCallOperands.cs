@@ -155,27 +155,36 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        if (outgoingSave < 0 || body[call + 1].Definition.Opcode != IsTaggedTuple
-            || body[call + 2].Definition.Opcode != TestHeap
-            || body[call + 3] is not { Definition.Opcode: UpdateRecord } inner
+        int heap = call + 1;
+        if (body[heap].Definition.Opcode == IsTaggedTuple)
+        {
+            heap++;
+        }
+
+        // The entry check can prove the inner record across the call. The
+        // post-call copy proof works with or without the redundant check.
+        int resultSave = heap + 2;
+        int branchReturn = resultSave + 4;
+        if (outgoingSave < 0 || branchReturn >= end || body[heap].Definition.Opcode != TestHeap
+            || body[heap + 1] is not { Definition.Opcode: UpdateRecord } inner
             || !SameProjectionRegister(inner.Operands[2], carrier) || !IsBareX0(inner.Operands[3])
-            || !TryReadRecordOperandSave(body[call + 4], out BeamOperand savedResult)
+            || !TryReadRecordOperandSave(body[resultSave], out BeamOperand savedResult)
             || !SameProjectionRegister(savedResult, scratch)
-            || body[call + 5] is not
+            || body[resultSave + 1] is not
             {
                 Definition.Opcode: UpdateRecord,
                 Operands: [_, _, { Kind: BeamOperandParameters.Y }, var outerResult, _, _, var replacement]
             } || !IsBareX0(outerResult) || replacement != scratch
-            || body[call + 6].Definition.Opcode != PutTuple
-            || body[call + 7].Definition.Opcode != Deallocate
-            || call + 8 >= end || body[call + 8].Definition.Opcode != Return)
+            || body[resultSave + 2].Definition.Opcode != PutTuple
+            || body[resultSave + 3].Definition.Opcode != Deallocate
+            || body[branchReturn].Definition.Opcode != Return)
         {
             return null;
         }
 
         // A single owned path consumes each of the two independent definitions.
         // Their absence must remove the slot entirely rather than leave a GC hole.
-        if (Enumerable.Range(outgoingSave, call + 8 - outgoingSave).Any(index =>
+        if (Enumerable.Range(outgoingSave, branchReturn - outgoingSave).Any(index =>
                 ownership.Owners[index - entry] != frame)
             || body.Skip(entry).Take(end - entry).SelectMany(instruction => instruction.Operands)
                 .Count(operand => SameProjectionRegister(operand, scratch)) != 4)
@@ -183,6 +192,6 @@ internal sealed partial class BeamModuleCompiler
             return null;
         }
 
-        return (outgoingSave, projection, reload, call + 4);
+        return (outgoingSave, projection, reload, resultSave);
     }
 }

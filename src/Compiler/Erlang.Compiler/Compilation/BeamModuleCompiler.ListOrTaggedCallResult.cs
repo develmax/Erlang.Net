@@ -249,4 +249,77 @@ internal sealed partial class BeamModuleCompiler
             && source is Pattern.Tuple tuple && tuple.Items.Count == arity
             && tuple.Items[0] is Pattern.Literal { Value: Atom matched } && matched.Name == tag;
     }
+
+    private byte[]? AnnotateLocalTuplePairResults(ReadOnlyMemory<byte> code, int labelCount)
+    {
+        if (ModuleOptimizationDisabled || !SsaTypeInferenceEnabled || !code.Span.Contains(IsTaggedTuple)
+            || !code.Span.Contains(LocalCall)
+            || ReadPrivateEntryFacts() is not { } facts
+            || DecodeLateAtomicProjectionSlots(code, labelCount) is not { Body: var body })
+        {
+            return null;
+        }
+
+        // This scan uses final physical entries. No later optimizer needs to
+        // interpret a typed operand as a plain register in a structural match.
+        var names = atoms.Where(pair => MapEmittedAtom(pair.Value) > 0)
+            .ToDictionary(pair => MapEmittedAtom(pair.Value), pair => pair.Key);
+        var pairEntries = new HashSet<int>();
+        for (int index = 0; index + 1 < body.Count; index++)
+        {
+            if (body[index] is { Definition.Opcode: FunctionInfo, Operands: [_, var atom, var arity] }
+                && body[index + 1] is { Definition.Opcode: Label, Operands: [var entry] }
+                && names.TryGetValue((int)atom.Value, out string? name))
+            {
+                var signature = (name, (int)arity.Value);
+                if (!IsDeclaredNative(signature) && facts.ProvesTuplePairResult(signature))
+                {
+                    pairEntries.Add((int)entry.Value);
+                }
+            }
+        }
+
+        using var output = new MemoryStream(code.Length);
+        int copied = 0;
+        for (int index = 0; index + 1 < body.Count; index++)
+        {
+            if (body[index] is not { Definition.Opcode: LocalCall, Operands: [_, var callee] }
+                || !pairEntries.Contains((int)callee.Value))
+            {
+                continue;
+            }
+
+            int test = index + 1;
+            while (test < body.Count && body[test].Definition.Opcode == Line)
+            {
+                test++;
+            }
+
+            if (test < body.Count && body[test] is
+                {
+                    Definition.Opcode: IsTaggedTuple,
+                    Operands: [_, var result, { Value: var arity }, _]
+                }
+                && arity == 2 && IsBareX0(result))
+            {
+                copied = AnnotateRegisterInput(
+                    code,
+                    output,
+                    copied,
+                    body[test],
+                    1,
+                    TupleTypeBits
+                );
+            }
+        }
+
+        if (copied == 0)
+        {
+            return null;
+        }
+
+        output.Write(code.Span[copied..]);
+
+        return output.ToArray();
+    }
 }

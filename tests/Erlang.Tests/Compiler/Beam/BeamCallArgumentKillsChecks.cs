@@ -3,6 +3,7 @@ using System.Numerics;
 using Erlang.Compiler;
 using static Erlang.Compiler.BeamEmissionFormat;
 using static Erlang.Tests.BeamBinaryHostAccess;
+using static Erlang.Tests.BeamOpcodeEdgeBytes;
 
 namespace Erlang.Tests;
 
@@ -60,6 +61,8 @@ internal static class BeamCallArgumentKillsChecks
             throw new InvalidOperationException(WrongDependentOrder);
         }
 
+        CheckLiteralAfterListRootKill();
+
         return Task.CompletedTask;
 
         (object First, object Second) ReadSecondCallSetup(string name)
@@ -74,6 +77,46 @@ internal static class BeamCallArgumentKillsChecks
 
             return (instructions[second - 2], instructions[second - 1]);
         }
+    }
+
+    private static void CheckLiteralAfterListRootKill()
+    {
+        var compiler = new BeamModuleCompiler("beam_list_argument_root_order");
+        _ = Call(compiler, "Intern", "format");
+        byte[] prefix =
+        [
+            .. Start(
+                1,
+                2,
+                1,
+                1
+            ),
+            Allocate, U(2), U(1),
+            Move, X(0), Y(0),
+            InitYRegisters, ExtendedListOperand, U(1), Y(1),
+            TestHeap, U(2), U(0),
+            PutList, Y(0), A(0), X(1)
+        ];
+        byte[] literal = [Move, A(2), X(0)];
+        byte[] killsHead = [InitYRegisters, ExtendedListOperand, U(1), Y(0)];
+        byte[] killsAnother = [InitYRegisters, ExtendedListOperand, U(1), Y(1)];
+        byte[] suffix = [Line, U(0), ExternalCall, U(2), U(0), Return, EndCode];
+        byte[] input = [.. prefix, .. literal, .. killsHead, .. suffix];
+        byte[] expected = [.. prefix, .. killsHead, .. literal, .. suffix];
+        byte[] unrelated = [.. prefix, .. literal, .. killsAnother, .. suffix];
+        if (Rewrite(input) is not { } result || !result.SequenceEqual(expected)
+            || Rewrite(unrelated) is not null)
+        {
+            throw new InvalidOperationException(WrongIndependentOrder);
+        }
+
+        byte[]? Rewrite(ReadOnlyMemory<byte> body) => (byte[]?)Call(
+            compiler,
+            "OrderCallArgumentAfterKills",
+            body,
+            3,
+            true
+        );
     }
 
     private static bool CopiesToX0(object instruction, string kind)

@@ -45,6 +45,8 @@ internal static class BeamOverwrittenOutgoingRootsChecks
             throw new InvalidOperationException(LiveRootCleared);
         }
 
+        AssertDefiniteReturnRoots();
+
         return Task.CompletedTask;
 
         bool HasOutgoingRootClear(string name)
@@ -64,6 +66,77 @@ internal static class BeamOverwrittenOutgoingRootsChecks
             }
 
             return false;
+        }
+    }
+
+    private static void AssertDefiniteReturnRoots()
+    {
+        const byte zero = 0x00;
+        const byte one = 0x10;
+        const byte two = 0x20;
+        const byte three = 0x30;
+        const byte failed = 0x35;
+        const byte x0 = 0x03;
+        const byte y0 = 0x04;
+        const byte nil = 0x02;
+        const byte atom = 0x12;
+
+        byte[] original = MakeImage(cleared: false);
+        byte[] expected = MakeImage(cleared: true);
+        if (Rewrite(original) is not { } actual || !actual.AsSpan().SequenceEqual(expected))
+        {
+            throw new InvalidOperationException(OldRootRetained);
+        }
+
+        if (Rewrite(MakeImage(cleared: false, readsAfterCall: true)) is not null
+            || Rewrite(MakeImage(cleared: false, readsOnFailure: true)) is not null || Rewrite(expected) is not null)
+        {
+            throw new InvalidOperationException(LiveRootCleared);
+        }
+
+        static byte[] MakeImage(bool cleared, bool readsAfterCall = false, bool readsOnFailure = false)
+        {
+            byte[] initialization = cleared ? [InitYRegisters, ExtendedListOperand, one, y0] : [];
+            byte[] fallback = readsOnFailure ? [Move, y0, x0] : [];
+
+            return
+            [
+                Label, one, FunctionInfo, atom, atom, one, Label, two,
+                Allocate, one, one, Move, x0, y0, ExternalCall, one, zero,
+                Move, y0, x0, .. initialization, Line, one, ExternalCall, one, zero,
+                ExactEqualTest, failed, x0, atom, Move, readsAfterCall ? y0 : nil, x0,
+                Deallocate, one, Return, Label, three, .. fallback, Deallocate, one, Return, EndCode
+            ];
+        }
+
+        static byte[]? Rewrite(byte[] code)
+        {
+            var image = new ReadOnlyMemory<byte>(code);
+            object header = New(
+                "BeamCodeHeader",
+                0,
+                (int)InitYRegisters,
+                4,
+                1,
+                image
+            );
+            object body = Call(
+                Type("BeamInstructionReader"),
+                "Read",
+                header,
+                2,
+                0,
+                null,
+                null
+            );
+            var compiler = new BeamModuleCompiler("beam_terminal_outgoing_root");
+
+            return (byte[]?)Call(
+                compiler,
+                "ClearOverwrittenOutgoingRoots",
+                image,
+                body
+            );
         }
     }
 

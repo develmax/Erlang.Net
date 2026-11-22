@@ -19,18 +19,30 @@ internal sealed partial class BeamModuleCompiler
         var producers = new HashSet<int>();
         var consumers = new HashSet<int>();
         var sizeProducers = new HashSet<int>();
+        var mathFloatCalls = new HashSet<int>();
+        var integerConversions = new HashSet<int>();
         int tupleSize = -1;
         var comparisons = new HashSet<int>();
         var importsByIndex = imports.OrderBy(entry => entry.Value).Select(entry => entry.Key).ToArray();
         for (int index = 0; index < importsByIndex.Length; index++)
         {
             var (module, function, arity) = importsByIndex[index];
+            string name = atomNames[function - 1];
+            if (atomNames[module - 1] == MathNativeNames.Module && ReturnsMathFloat(name, arity))
+            {
+                mathFloatCalls.Add(index);
+            }
+
             if (atomNames[module - 1] != ErlangModuleNames.Module)
             {
                 continue;
             }
 
-            string name = atomNames[function - 1];
+            if (arity == 1 && name is AutoImportNames.Trunc or AutoImportNames.Round or AutoImportNames.Ceil or AutoImportNames.Floor)
+            {
+                integerConversions.Add(index);
+            }
+
             if (arity == 1 && name is AutoImportNames.ByteSize or AutoImportNames.BitSize or AutoImportNames.MapSize)
             {
                 sizeProducers.Add(index);
@@ -72,7 +84,9 @@ internal sealed partial class BeamModuleCompiler
         bool numericRecordFields = producers.Count != 0 && code.Span.Contains(UpdateRecord);
         bool sizeRange = sizeProducers.Count != 0 && code.Span.Contains(GcBifOne);
         bool tupleSizeRange = tupleSize >= 0 && code.Span.Contains(BifOne);
-        if (!numericProducer && !localInteger && !localAtomOrTuple && !numericRecordFields && !sizeRange && !tupleSizeRange)
+        bool mathResult = mathFloatCalls.Count != 0 && integerConversions.Count != 0 && code.Span.Contains(ExternalCall);
+        if (!numericProducer && !localInteger && !localAtomOrTuple && !numericRecordFields && !sizeRange && !tupleSizeRange
+            && !mathResult)
         {
             return null;
         }
@@ -103,6 +117,8 @@ internal sealed partial class BeamModuleCompiler
         BeamOperand? sizeResult = null;
         long? sizeLowerBound = null;
         BeamOperand? tupleSizeResult = null;
+        BeamOperand? mathValue = null;
+        int mathType = 0;
         HashSet<BeamOperand>? recordValues = numericRecordFields ? [] : null;
         Dictionary<int, (BeamOperand Slot, long Minimum)>? recordRanges = numericRecordFields ? [] : null;
         BeamProjectionFlow? recordFlow = null;
@@ -120,7 +136,34 @@ internal sealed partial class BeamModuleCompiler
             int before = copied;
             // A source line is neutral. Every other instruction ends the immediately
             // preceding definition, including labels with additional predecessors.
-            if (integerComparisonResult is not null && instruction.Definition.Opcode == NumericEqualTest)
+            bool convertsMathFloat = mathType == (NumberTypeBits & ~IntegerTypeBits) && mathValue is not null
+                && instruction is { Definition.Opcode: GcBifOne, Operands: [var conversionFailure, _, var conversion, var arg, _] }
+                && conversionFailure.Value.IsZero && integerConversions.Contains((int)conversion.Value)
+                && SameProjectionRegister(arg, mathValue);
+            if (convertsMathFloat && instruction.Operands[3].TypeIndex is null)
+            {
+                copied = AnnotateRegisterInput(
+                    code,
+                    output,
+                    copied,
+                    instruction,
+                    3,
+                    mathType
+                );
+            }
+            else if (mathType == IntegerTypeBits && mathValue is not null
+                && (IsOrdinaryBinaryBif(instruction, producers) || IsOrdinaryBinaryBif(instruction, consumers)))
+            {
+                copied = AnnotateNumericUse(
+                    code,
+                    output,
+                    copied,
+                    instruction,
+                    mathValue,
+                    mathType
+                );
+            }
+            else if (integerComparisonResult is not null && instruction.Definition.Opcode == NumericEqualTest)
             {
                 copied = AnnotateIntegerResultComparison(
                     code,
@@ -190,6 +233,32 @@ internal sealed partial class BeamModuleCompiler
                     1,
                     LocalAtomOrTupleType
                 );
+            }
+
+            // Pinned beam_call_types gives a float on successful math calls.
+            // It then gives an unbounded integer on the rounding BIF's success.
+            // Follow copies in that fallthrough block. A label ends both facts.
+            if (mathResult && instruction is { Definition.Opcode: ExternalCall, Operands: [_, var mathImport] }
+                && mathFloatCalls.Contains((int)mathImport.Value))
+            {
+                mathValue = localResult;
+                mathType = NumberTypeBits & ~IntegerTypeBits;
+            }
+            else if (convertsMathFloat)
+            {
+                mathValue = instruction.Operands[^1];
+                mathType = IntegerTypeBits;
+            }
+            else if (mathValue is not null
+                && instruction is { Definition.Opcode: Move, Operands: [var mathSource, var mathDestination] }
+                && SameProjectionRegister(mathSource, mathValue))
+            {
+                mathValue = mathDestination;
+            }
+            else
+            {
+                mathValue = null;
+                mathType = 0;
             }
 
             // The local result and a literal integer make this affine operation integer on success.
@@ -346,6 +415,14 @@ internal sealed partial class BeamModuleCompiler
             return left != right && operands[index].TypeIndex is null ? index : null;
         }
     }
+
+    private static bool ReturnsMathFloat(string function, int arity) => arity switch
+    {
+        0 => function == MathNativeNames.Pi,
+        1 => MathNativeNames.UnaryFunctions.Contains(function),
+        2 => MathNativeNames.BinaryFunctions.Contains(function),
+        _ => false
+    };
 
     private static long? ReadInclusiveSizeLowerBound(
         BeamInstruction lowerTest,

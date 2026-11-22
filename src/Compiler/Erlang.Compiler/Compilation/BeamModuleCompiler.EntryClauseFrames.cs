@@ -6,6 +6,8 @@ internal sealed partial class BeamModuleCompiler
 {
     private sealed partial class GeneralEmitter
     {
+        private sealed record CheckedListPayload(int Carrier, int Index, int Register);
+
         private bool TryEmitSeparateEntryFrames(FunctionDefinition function, int functionInfo)
         {
             if (function.Clauses.Count < 2)
@@ -13,7 +15,11 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
-            if (TryEmitGuardedTupleConsFrames(function, functionInfo)
+            if (TryEmitPlannedProjectedEntry(function, functionInfo)
+                || TryEmitOrderedPairDistanceSelection(function, functionInfo)
+                || TryEmitClosedSignalCounterLoop(function)
+                || TryEmitBoundedListPredicate(function)
+                || TryEmitGuardedTupleConsFrames(function, functionInfo)
                 || TryEmitSharedConsReplacement(function, functionInfo))
             {
                 return true;
@@ -90,9 +96,14 @@ internal sealed partial class BeamModuleCompiler
             {
                 Clause clause = owner.ModuleOptimizationDisabled ? sourceClause : AliasNestedOrderedConsHead(sourceClause);
                 HashSet<string> unusedTupleFields = [];
-                if (clause.Patterns.Any(pattern => pattern is Pattern.Tuple))
+                var entryShapes = owner.PruneAliasedEntryTupleFields
+                    ? clause.Patterns.Select(EntryShape)
+                    : clause.Patterns;
+                if (entryShapes.Any(pattern => pattern is Pattern.Tuple))
                 {
-                    var tupleFields = clause.Patterns.OfType<Pattern.Tuple>()
+                    // Apply the same reference proof to the constructor under
+                    // an alias. The alias remains bound to the original tuple.
+                    var tupleFields = entryShapes.OfType<Pattern.Tuple>()
                         .SelectMany(tuple => tuple.Items.OfType<Pattern.Variable>())
                         .Select(field => field.Name).ToHashSet(StringComparer.Ordinal);
                     unusedTupleFields = clause.Patterns.SelectMany(Semantics.Variables)
@@ -527,7 +538,13 @@ internal sealed partial class BeamModuleCompiler
                         || (listDispatch || literalDispatch || guardDispatch || tupleBodyDispatch)
                         && clause.Body is Expr.Sequence or Expr.Case or Expr.If
                         || (literalDispatch || guardDispatch) && clause.Body is Expr.Try or Expr.Call
-                        || guardDispatch && clause.Body is Expr.List { Items: [Expr.Call], Tail: null };
+                        || guardDispatch && clause.Body is Expr.List { Items: [Expr.Call], Tail: null }
+                        || sharedNilReturn && sharedHeadInput == 0 && branches.Count + 1 == function.Clauses.Count
+                            && TryEmitCallResultConstruction(
+                                function with { Clauses = [clause] },
+                                preparedNil: true,
+                                validateOnly: true
+                            );
                     if (!canPlanBody)
                     {
                         return false;
@@ -702,6 +719,11 @@ internal sealed partial class BeamModuleCompiler
                 bool ReadListPrefix(int input, Pattern.List prefix)
                 {
                     int current = input;
+                    bool reuseCheckedScratch = input == sharedHeadInput && clause.Guard is null
+                        && owner.SsaTypeInferenceEnabled && !owner.ModuleOptimizationDisabled
+                        && CanReuseCheckedConsPrefixScratch(prefix);
+                    int scratchHead = -1;
+                    int scratchTail = -1;
                     for (int offset = 0; offset < prefix.Items.Count; offset++)
                     {
                         Pattern head = prefix.Items[offset];
@@ -711,8 +733,6 @@ internal sealed partial class BeamModuleCompiler
                             return false;
                         }
 
-                        int headRegister = parameters.Count;
-                        parameters.Add(headName);
                         bool last = offset == prefix.Items.Count - 1;
                         var tail = last ? (Pattern.Variable)prefix.Tail! : null;
                         if (tail is { Name: not VariableScopeNames.Wildcard } && !names.Add(tail.Name))
@@ -720,10 +740,36 @@ internal sealed partial class BeamModuleCompiler
                             return false;
                         }
 
-                        int tailRegister = offset == 0 && input == sharedHeadInput ? input : parameters.Count;
-                        if (tailRegister == parameters.Count)
+                        int headRegister;
+                        int tailRegister;
+                        if (reuseCheckedScratch && offset != 0)
                         {
-                            parameters.Add(tail?.Name ?? VariableScopeNames.Wildcard);
+                            // Checked head fields already have their own
+                            // registers before the next spine cell is read.
+                            if (scratchHead < 0)
+                            {
+                                scratchHead = parameters.Count;
+                                parameters.Add(VariableScopeNames.Wildcard);
+                                scratchTail = parameters.Count;
+                                parameters.Add(VariableScopeNames.Wildcard);
+                            }
+
+                            headRegister = scratchHead;
+                            tailRegister = scratchTail;
+                            if (tail is not null)
+                            {
+                                parameters[tailRegister] = tail.Name;
+                            }
+                        }
+                        else
+                        {
+                            headRegister = parameters.Count;
+                            parameters.Add(headName);
+                            tailRegister = offset == 0 && input == sharedHeadInput ? input : parameters.Count;
+                            if (tailRegister == parameters.Count)
+                            {
+                                parameters.Add(tail?.Name ?? VariableScopeNames.Wildcard);
+                            }
                         }
 
                         cons.Add((current, headRegister, tailRegister, (head as Pattern.Literal)?.Value));
@@ -1144,11 +1190,28 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
-            int[]? sharedGuardFailures = sharedConsInput < 0
+            var checkedHeadShapes = sharedHeadInput == 0 && function.Arity == 1 && mixedPrefix is null
+                && reorderedListInput < 0
+                && !owner.ModuleOptimizationDisabled && owner.SsaTypeInferenceEnabled
+                && branches[^2] is
+                {
+                    Clause.Guard: null, Cons: [(0, 1, 0, null)], Tuples.Count: 0, Equalities.Count: 0
+                }
+                && branches[^1] is { Clause.Guard: null, Literals: [(0, Nil)] }
+                && branches.Take(branches.Count - 2).All(branch =>
+                    branch.Clause.Guard is null && branch.FieldTests.Count == 0
+                    && branch.Cons is [(0, 1, 0, null), ..]
+                    && branch.Cons.Skip(1).All(part => part.Head > 1 && part.Tail > 1)
+                    && branch.Tuples is [{ Input: 1, Tag: not null }, ..]
+                    && branch.Tuples.All(tuple => tuple.Fields.All(field => field.Register > 1)))
+                ? branches.Take(branches.Count - 2).Select(branch => (Arity: branch.Tuples[0].Arity, Tag: branch.Tuples[0].Tag!)).ToArray()
+                : [];
+            bool groupCheckedHeads = checkedHeadShapes.Select(shape => shape.Arity).Distinct().Skip(1).Any();
+            int[]? sharedGuardFailures = sharedConsInput < 0 || groupCheckedHeads
                 ? null
                 : Enumerable.Range(0, branches.Count - 2).Select(_ => Label()).ToArray();
             int nonCons = mixedPrefix is { } sharedPrefix ? mixedLabels![sharedPrefix.Count]
-                : sharedGuardFailures is null ? 0 : Label();
+                : sharedConsInput < 0 ? 0 : Label();
             int tupleFailure = groupedHeadArities || (arityCount > 0 && arityCount + 1 == branches.Count
                 && ListEntryTest(function.Clauses[^1].Patterns[mixedPrefix!.Value.Input]) == IsNil)
                 ? functionInfo : nonCons;
@@ -1234,12 +1297,32 @@ internal sealed partial class BeamModuleCompiler
                 && branches[1] is { Literals: [{ Index: 0, Value: Atom }], Tuples.Count: > 1, FieldTests.Count: > 0 };
             int atomEntry = partitionTupleAndAtom ? Label() : 0;
             int unmatchedEntry = partitionTupleAndAtom ? Label() : 0;
+            var headDispatch = groupCheckedHeads ? EmitSharedConsHeadDispatch(
+                checkedHeadShapes,
+                nonCons,
+                checkCons: !HasProvenConsEntry(reorderedListInput >= 0 ? sourceFunction : function, 0)
+            ) : null;
+            if (headDispatch is not null)
+            {
+                headDispatch.Order.CopyTo(order, 0);
+            }
+
             BeamSourceLocation? tupleTailLine = null;
             for (int position = 0; position < order.Length; position++)
             {
                 var previousTupleTailLine = tupleTailLine;
                 tupleTailLine = null;
                 int branch = order[position];
+                bool checkedHead = headDispatch is not null && branch < headDispatch.Arms.Length;
+                if (checkedHead)
+                {
+                    EmitSharedConsHeadEntry(headDispatch!, branch);
+                }
+                else if (headDispatch is not null && branch == headDispatch.Arms.Length)
+                {
+                    Mark(headDispatch.Fallback);
+                }
+
                 if (partitionTupleAndAtom && branch != 0)
                 {
                     Mark(branch == 1 ? atomEntry : unmatchedEntry);
@@ -1487,7 +1570,8 @@ internal sealed partial class BeamModuleCompiler
                     LabelListElementCase(elementPlan.Branch);
                 }
 
-                int failure = partitionTupleAndAtom && branch < 2 ? unmatchedEntry
+                int failure = checkedHead ? headDispatch!.Arms[branch].Failure
+                    : partitionTupleAndAtom && branch < 2 ? unmatchedEntry
                     : selectedAtom ? atomSuffixFallback : tupleSelection is not null ? tupleSelectionFailure
                     : arityBranch ? arityFailure
                     : !hasNext || selectedLiteral || groupedHeadArities && branch == atomHeadBranch ? functionInfo
@@ -1662,14 +1746,56 @@ internal sealed partial class BeamModuleCompiler
                 bool heapChecked = false;
                 int checkedTagRegister = -1;
                 bool nestedPrefix = function.Arity == 1 && cons.Count > 1;
+                bool reusesNestedScratch = nestedPrefix && cons.Count > 2 && cons[1].Head == cons[2].Head;
+                if (nestedPrefix && branch == 0 && position == 0 && function.Clauses.Count == 3
+                    && sharedHeadInput == 0 && nonCons != 0 && failure != nonCons
+                    && !arityBranch && !selectedAtom && !selectedLiteral && literalGroup is null
+                    && tupleSelection is null && mixedLabels is null
+                    && twoCellPrefix is null && !owner.ModuleOptimizationDisabled && owner.SsaTypeInferenceEnabled
+                    && TryEmitCheckedTwoConsPattern(
+                        clause with { Patterns = entryPatterns },
+                        failure,
+                        nonCons,
+                        checkCons: !HasProvenConsEntry(reorderedListInput >= 0 ? sourceFunction : function, 0)
+                    ))
+                {
+                    Mark(failure);
+                    continue;
+                }
+
+                var delayedPayload = reusesNestedScratch && !arityBranch && clause.Guard is null
+                    && cons[^1].Input >= 0 && cons[^1].Tail >= 0
+                    && owner.SsaTypeInferenceEnabled && !owner.ModuleOptimizationDisabled
+                    && equalities.Count == 0 && fieldTests.Count == 0 && tuples.Count == cons.Count
+                    && tuples[^2] is { Input: var carrier, Tag: not null, Fields: [var payload] }
+                    && tuples[^1] is { Input: var closing, Tag: not null, Fields.Count: 0 }
+                    && carrier == closing && cons[^2].Head == carrier && cons[^1].Head == closing
+                    && parameters[carrier] == VariableScopeNames.Wildcard && payload.Register > 1
+                    && payload.Register != cons[^1].Input && payload.Register != cons[^1].Tail
+                    && bodyInputs?.Any(binding => binding.Register == payload.Register) == true
+                    && clause.Body is Expr.Sequence
+                    {
+                        Items: [Expr.Match { Pattern: Erlang.Pattern.Variable, Value: Expr.Tuple }, Expr.List { Tail: Expr.Call }]
+                    }
+                    ? new CheckedListPayload(carrier, payload.Index, payload.Register)
+                    : null;
+
                 // In a prefix, X0 may be reused for the first tail. Only the first test can branch to the non-cons case.
                 for (int depth = 0; depth < cons.Count; depth++)
                 {
                     var (input, head, tail, headLiteral) = cons[depth];
+                    bool closingCell = delayedPayload is not null && depth == cons.Count - 1;
+                    if (closingCell)
+                    {
+                        // This body binding is still undefined. Borrow its register for
+                        // the closing check while retaining the previously checked tuple.
+                        head = delayedPayload!.Register;
+                    }
+
                     bool shared = (!nestedPrefix || depth == 0) && (input == sharedConsInput
                         || mixedPrefix is { } prefix && input == prefix.Input && branch < prefix.Count);
                     bool firstCons = twoCellPrefix is null && (mixedPrefix is null ? branch == 0 : position == 0);
-                    if (!arityBranch && (!shared || firstCons))
+                    if (!arityBranch && !(checkedHead && depth == 0) && (!shared || firstCons))
                     {
                         if ((nestedPrefix && depth != 0) || !firstCons
                             || !HasProvenConsEntry(reorderedListInput >= 0 ? sourceFunction : function, input))
@@ -1729,7 +1855,14 @@ internal sealed partial class BeamModuleCompiler
                         owner.LiteralOperand(headLiteral);
                     }
 
-                    if (nestedPrefix)
+                    if (reusesNestedScratch)
+                    {
+                        // The reused head register represents a distinct
+                        // checked tuple at each depth.
+                        var tuple = tuples[depth];
+                        EmitTuple(closingCell ? (head, tuple.Arity, tuple.Tag, tuple.Fields) : tuple);
+                    }
+                    else if (nestedPrefix)
                     {
                         foreach (var tuple in tuples.Where(tuple => tuple.Input == head))
                         {
@@ -1738,15 +1871,20 @@ internal sealed partial class BeamModuleCompiler
                     }
                 }
 
-                if (partitionTupleAndAtom && branch == 0 && tuples is [var carrier]
+                if (delayedPayload is { } delayed)
+                {
+                    owner.EmitTuplePart(delayed.Carrier, delayed.Index, delayed.Register);
+                }
+
+                if (partitionTupleAndAtom && branch == 0 && tuples is [var continuationCarrier]
                     && fieldTests.Count == 0 && equalities.Count == 0
                     && TryEmitCheckedCarrierContinuation(
                         clause,
                         parameters,
                         function.Arity,
-                        carrier.Input,
-                        carrier.Fields,
-                        () => EmitTupleShape(carrier)
+                        continuationCarrier.Input,
+                        continuationCarrier.Fields,
+                        () => EmitTupleShape(continuationCarrier)
                     ))
                 {
                     continue;
@@ -1805,6 +1943,11 @@ internal sealed partial class BeamModuleCompiler
                 void EmitTupleShape((int Input, int Arity, Atom? Tag, List<(int Index, int Register)> Fields) tuple)
                 {
                     var (input, arity, tag, fields) = tuple;
+                    if (checkedHead && input == 1)
+                    {
+                        return;
+                    }
+
                     bool shapeChecked = tupleSelection?.Shape.Input == input;
                     if (!shapeChecked && arityBranch && tag is not null)
                     {
@@ -1879,6 +2022,7 @@ internal sealed partial class BeamModuleCompiler
                     foreach (var (index, register) in fields.Take(fieldLimit))
                     {
                         if (recordUpdate is not null || protectedEntryTuple is not null || projectedReturn is not null
+                            || delayedPayload?.Register == register
                             || (resultIndex >= 0 && register == resultRegister)
                             || registerCase?.Deferred is { } projection && projection.Tuple == input
                                 && (projection.Field == index || registerCase.SavedTupleFields?.Any(item => item.Field == index) == true
@@ -2087,6 +2231,14 @@ internal sealed partial class BeamModuleCompiler
                 }
                 else if (bodyInputs is not null)
                 {
+                    if (sharedHeadInput == 0 && !hasNext && nonCons != 0 && TryEmitCallResultConstruction(
+                        function with { Clauses = [function.Clauses[branch]] },
+                        preparedNil: true
+                    ))
+                    {
+                        continue;
+                    }
+
                     if (elementCase is { } element)
                     {
                         EmitListElementCase(element.Source, element.Branch);
@@ -2101,7 +2253,8 @@ internal sealed partial class BeamModuleCompiler
                         var reusedTail = cons is [var extracted] && extracted.Tail == extracted.Input && extracted.Head >= function.Arity
                             ? (Register: extracted.Tail, extracted.Head)
                             : ((int Register, int Head)?)null;
-                        bool registerTupleTail = IsSimpleTupleMatchTail(clause.Body)
+                        bool registerTupleTail = (IsSimpleTupleMatchTail(clause.Body)
+                            || clause.Guard is null && MayPlanProjectedTupleMatchReturn(clause.Body))
                             && TryEmitEntryTupleMatchResult(
                                 clause.Body,
                                 parameters,
@@ -2127,7 +2280,8 @@ internal sealed partial class BeamModuleCompiler
                                 bodyFrames,
                                 reusedTail,
                                 deferredCons,
-                                literalDispatch
+                                literalDispatch,
+                                tupleMatchFailures
                             );
                         }
                     }
@@ -2164,7 +2318,7 @@ internal sealed partial class BeamModuleCompiler
                         Mark(tupleSelectionFailure);
                     }
                 }
-                else if (!partitionTupleAndAtom && !selectedAtom && !selectedLiteral && mixedLabels is null
+                else if (!checkedHead && !partitionTupleAndAtom && !selectedAtom && !selectedLiteral && mixedLabels is null
                     && hasNext && (nonCons == 0 || clause.Guard is not null
                     || sharedHeadInput >= 0 && branch < branches.Count - 2))
                 {
@@ -2369,7 +2523,8 @@ internal sealed partial class BeamModuleCompiler
             Dictionary<int, int> frames,
             (int Register, int Head)? reusedTail,
             DeferredConsEntry? deferred,
-            bool literalDispatch
+            bool literalDispatch,
+            List<(int Label, BeamSourceLocation Location)>? tupleMatchFailures = null
         )
         {
             if (clause.Body is Expr.List { Items: [Expr.Call call], Tail: null })
@@ -2456,7 +2611,12 @@ internal sealed partial class BeamModuleCompiler
                     && inputs.Any(input => input.Register < ownerFunction.Arity
                         && owner.ReadClosedIntegerRecurrence(ownerFunction, input.Register, definitions));
                 var bodyInputs = useReservedOrder ? inputs.OrderByDescending(input => input.Register).ToArray() : inputs;
-                EmitConsEntryBody(clause, bodyInputs, reuseCallSlots: true);
+                EmitConsEntryBody(
+                    clause,
+                    bodyInputs,
+                    reuseCallSlots: true,
+                    tupleMatchFailures
+                );
             }
 
             frames.Add(branch, peakSlot);
@@ -2569,6 +2729,11 @@ internal sealed partial class BeamModuleCompiler
         )
         {
             if (deferred is null && !literalDispatch && TryEmitRetiredEntryCallSlot(sequence, inputs))
+            {
+                return;
+            }
+
+            if (deferred is null && entryGuard is null && TryEmitClosedBooleanListResult(sequence, inputs, entryPatterns))
             {
                 return;
             }
@@ -2731,6 +2896,11 @@ internal sealed partial class BeamModuleCompiler
 
             if (sequence.Continuation is Expr.If conditional && TryEmitTerminalListConditional(conditional,
                 measuredListFrame ? measurement?.Result.Name : null, entryGuard))
+            {
+                return;
+            }
+
+            if (entryGuard is null && TryEmitTerminalNegatedBooleanCase(sequence.Continuation))
             {
                 return;
             }

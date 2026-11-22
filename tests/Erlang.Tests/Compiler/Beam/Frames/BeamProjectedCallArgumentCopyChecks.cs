@@ -50,8 +50,39 @@ internal static class BeamProjectedCallArgumentCopyChecks
         }
 
         CheckSplitStackArguments();
+        CheckReceiverCopy();
 
         return Task.CompletedTask;
+    }
+
+    private static void CheckReceiverCopy()
+    {
+        var compiler = new BeamModuleCompiler("overwritten_receiver_fixture");
+        byte[] prefix = [Label, One, FunctionInfo, Module, Module, Three, Label, Two, Allocate, One, Three, Move, X0, Y0];
+        byte[] suffix = [Move, Y0, X0, Line, One, LocalCall, Three, Target, Deallocate, One, Return, EndCode];
+        byte[] original = [.. prefix, Move, X2, X0, Move, X0, X1, .. suffix];
+        byte[] expected = [.. prefix, Move, X2, X1, .. suffix[3..]];
+        byte[] otherReceiver = [.. prefix[..^2], X1, Y0];
+        byte[] changesReceiver = [.. otherReceiver, Move, X2, X0, Move, X0, X1, .. suffix];
+        byte[] retainsReceiver = [.. otherReceiver, Move, X2, X1, .. suffix];
+        byte[] targetWasSource = [.. prefix, Move, X2, X0, Move, X0, X2, .. suffix];
+        byte[] targetWasSourceExpected = [.. prefix, .. suffix[3..]];
+        byte[] collected = [.. prefix, Move, X2, X0, TestHeap, One, Three, Move, X0, X1, .. suffix];
+        byte[] readsScratch = [.. prefix, Move, X2, X0, Move, X0, X1, Move, X0, X0, .. suffix[3..]];
+        if (Forward(original) is not byte[] actual || !actual.SequenceEqual(expected)
+            || Forward(changesReceiver) is not byte[] changed || !changed.SequenceEqual(retainsReceiver)
+            || Forward(targetWasSource) is not byte[] unused || !unused.SequenceEqual(targetWasSourceExpected)
+            || Forward(expected) is not null || Forward(collected) is not null || Forward(readsScratch) is not null)
+        {
+            throw new InvalidOperationException(Failure);
+        }
+
+        object? Forward(byte[] image) => Call(
+            compiler,
+            "ForwardOverwrittenReceiverCopies",
+            (ReadOnlyMemory<byte>)image,
+            6
+        );
     }
 
     private static void CheckSplitStackArguments()

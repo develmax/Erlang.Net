@@ -15,6 +15,7 @@ internal sealed partial class BeamModuleCompiler
 
         var (body, operands) = decoded;
         var edits = new List<CodeEdit>();
+        var swaps = new List<int>();
         var entries = new HashSet<int>();
         BeamProjectionFlow? flow = null;
         int start = 0;
@@ -73,8 +74,41 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
+            if (hasClosure && start < end && body[start] is { Definition.Opcode: Label, Operands: [var entry] }
+                && !entries.Contains((int)entry.Value)
+                && ReadPreCallClosureInput(body, start, end) is { } input
+                && ReadDisjointFrameOwnership(body, start, end) is { } inputFrame && inputFrame.Uses.Count == 1)
+            {
+                int allocation = inputFrame.Uses.Keys.Single();
+                if (inputFrame.Owners[input.Spill - start] == allocation
+                    && inputFrame.Owners[input.Make - start] == allocation
+                    && inputFrame.Owners[input.Call - start] == allocation)
+                {
+                    AddPreCallClosureInputEdits(
+                        code,
+                        body,
+                        operands,
+                        input,
+                        edits
+                    );
+                    swaps.Add(body[input.Reload].Offset);
+                    entries.Add((int)entry.Value);
+                }
+            }
+
             start = end + 1;
             hasClosure = false;
+        }
+
+        if (swaps.Count != 0)
+        {
+            byte[] swapped = code.ToArray();
+            foreach (int reload in swaps)
+            {
+                swapped[reload] = Swap;
+            }
+
+            code = swapped;
         }
 
         if (ApplyDuplicatedFrameReadEdits(code, edits) is not { } rewritten
@@ -98,7 +132,7 @@ internal sealed partial class BeamModuleCompiler
         int end
     )
     {
-        if (ReadSinglePreCallFrameReferences(body, start, end) is not { } plan)
+        if (ReadFirstPreCallFrameReferences(body, start, end) is not { } plan)
         {
             return null;
         }
@@ -197,5 +231,146 @@ internal sealed partial class BeamModuleCompiler
         }
 
         return true;
+    }
+
+    private sealed record PreCallClosureInput(
+        int Spill,
+        int Make,
+        int Reload,
+        int Call,
+        BeamOperand Saved,
+        BeamOperand Input,
+        BeamOperand Outgoing
+    );
+
+    private static PreCallClosureInput? ReadPreCallClosureInput(
+        IReadOnlyList<BeamInstruction> body,
+        int start,
+        int end
+    )
+    {
+        if (ReadFirstPreCallFrameReferences(
+            body,
+            start,
+            end,
+            allowLaterCalls: true
+        ) is not { } plan)
+        {
+            return null;
+        }
+
+        int arity = (int)body[plan.Call].Operands[0].Value;
+        foreach (var (slot, (spill, reload, _)) in plan.References)
+        {
+            if (spill >= reload || reload >= plan.Call || body[spill] is not
+                {
+                    Definition.Opcode: Move,
+                    Operands: [
+                    { Kind: BeamOperandParameters.X, TypeIndex: null } input,
+                    { Kind: BeamOperandParameters.Y, TypeIndex: null }
+                    ]
+                }
+                || body[reload] is not
+                {
+                    Definition.Opcode: Move,
+                    Operands: [
+                    { Kind: BeamOperandParameters.Y, TypeIndex: null } saved,
+                    { Kind: BeamOperandParameters.X, TypeIndex: null } outgoing
+                    ]
+                } || saved.Value != slot || input == outgoing || input.Value >= arity || outgoing.Value >= arity)
+            {
+                continue;
+            }
+
+            int make = AfterLines(spill);
+            if (make >= reload || body[make] is not
+                {
+                    Definition.Opcode: MakeFun,
+                    Operands: [_, var destination, { Kind: BeamOperandParameters.Count }, ..]
+                }
+                || destination != input || AfterLines(make) != reload || AfterLines(reload) != plan.Call)
+            {
+                continue;
+            }
+
+            // make_fun3 uses the preceding heap reservation and reads its
+            // environment before writing its destination.
+            return new(
+                spill,
+                make,
+                reload,
+                plan.Call,
+                saved,
+                input,
+                outgoing
+            );
+        }
+
+        return null;
+
+        int AfterLines(int instruction)
+        {
+            int next = instruction + 1;
+            while (next < plan.Call && body[next].Definition.Opcode == Line)
+            {
+                next++;
+            }
+
+            return next;
+        }
+    }
+
+    private static void AddPreCallClosureInputEdits(
+        ReadOnlyMemory<byte> code,
+        IReadOnlyList<BeamInstruction> body,
+        IReadOnlyList<(int Start, int End, int Slot)> stackOperands,
+        PreCallClosureInput plan,
+        List<CodeEdit> edits
+    )
+    {
+        edits.Add(new(
+            body[plan.Spill].Offset,
+            body[plan.Spill + 1].Offset,
+            0,
+            0,
+            IsRemoval: true
+        ));
+
+        int make = body[plan.Make].Offset + 1;
+        int makeEnd = body[plan.Make + 1].Offset;
+        var cursor = new BeamCursor(code[make..makeEnd]);
+        _ = BeamCompactReader.Read(cursor);
+        int destination = make + cursor.Position;
+        _ = BeamCompactReader.Read(cursor);
+        edits.Add(new(
+            destination,
+            make + cursor.Position,
+            XRegisterTag,
+            (int)plan.Outgoing.Value
+        ));
+        int operand = FirstStackOperandAtOrAfter(stackOperands, make + cursor.Position);
+        while (operand < stackOperands.Count && stackOperands[operand].Start < makeEnd)
+        {
+            var (from, to, slot) = stackOperands[operand++];
+            if (slot == plan.Saved.Value)
+            {
+                edits.Add(new(
+                    from,
+                    to,
+                    XRegisterTag,
+                    (int)plan.Input.Value
+                ));
+            }
+        }
+
+        int register = body[plan.Reload].Offset + 1;
+        var reload = new BeamCursor(code[register..body[plan.Reload + 1].Offset]);
+        _ = BeamCompactReader.Read(reload);
+        edits.Add(new(
+            register,
+            register + reload.Position,
+            XRegisterTag,
+            (int)plan.Input.Value
+        ));
     }
 }

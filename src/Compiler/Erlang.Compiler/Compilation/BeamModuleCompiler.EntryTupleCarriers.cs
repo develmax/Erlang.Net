@@ -68,6 +68,37 @@ internal sealed partial class BeamModuleCompiler
                 string name = FormattableString.Invariant($"$entry_tuple_carrier_{clauseIndex}_{index}");
                 var alias = new Expr.Variable(name);
                 Expr replacement = ReuseEntryCarrierInBody(body, tuple, alias);
+                if (list is { Tail: Pattern.Variable { Name: not VariableScopeNames.Wildcard } }
+                    && tuple.Items.Count == 2 && ReferenceEquals(body, replacement)
+                    && ReuseEntryPairConsInBooleanCase(
+                        function,
+                        body,
+                        tuple,
+                        alias
+                    ) is { } reused)
+                {
+                    replacement = reused;
+                    HashSet<string> used;
+                    try
+                    {
+                        used = ClosureCaptures.ReadEntryReferences(
+                            clause with { Body = replacement },
+                            tuple.Items.Cast<Pattern.Variable>().Select(variable => variable.Name)
+                        );
+                    }
+                    catch (NotSupportedException)
+                    {
+                        continue;
+                    }
+
+                    tuple = tuple with
+                    {
+                        Items = tuple.Items.Cast<Pattern.Variable>().Select<Pattern.Variable, Pattern>(variable =>
+                            used.Contains(variable.Name) ? variable : new Pattern.Variable(VariableScopeNames.Wildcard)
+                        ).ToArray()
+                    };
+                }
+
                 if (ReferenceEquals(body, replacement))
                 {
                     continue;
@@ -87,6 +118,67 @@ internal sealed partial class BeamModuleCompiler
         }
 
         return updated is null ? function : function with { Clauses = updated };
+    }
+
+    private static Expr? ReuseEntryPairConsInBooleanCase(
+        FunctionDefinition function,
+        Expr expression,
+        Pattern.Tuple checkedPair,
+        Expr.Variable carrier
+    )
+    {
+        if (expression is not Expr.Case
+            {
+                Value: Expr.Call { Module: not null, DynamicRemote: false } selector,
+                Clauses:
+                [
+                { Guard: null, Patterns: [Pattern.Literal { Value: Atom first }], Body: var onFirst },
+                { Guard: null, Patterns: [Pattern.Literal { Value: Atom second }], Body: var onSecond }
+                ]
+            } decision
+            || first.Name is not (ErlangBooleanAtoms.True or ErlangBooleanAtoms.False)
+            || second.Name is not (ErlangBooleanAtoms.True or ErlangBooleanAtoms.False)
+            || first.Name == second.Name || !HasBindingFreeSelector(selector)
+            || onFirst is not Expr.Call firstCall || !IsRecursion(firstCall)
+            || onSecond is not Expr.Call secondCall || !IsRecursion(secondCall))
+        {
+            return null;
+        }
+
+        // The two literal arms introduce no bindings. A direct recursive
+        // cons head that reconstructs this checked pair can reuse its source.
+        Expr.Call firstRewritten = Rewrite(firstCall);
+        Expr.Call secondRewritten = Rewrite(secondCall);
+
+        return ReferenceEquals(firstCall, firstRewritten) && ReferenceEquals(secondCall, secondRewritten)
+            ? null
+            : decision with
+            {
+                Clauses =
+                [
+                    decision.Clauses[0] with { Body = firstRewritten },
+                    decision.Clauses[1] with { Body = secondRewritten }
+                ]
+            };
+
+        bool IsRecursion(Expr.Call arm) => arm is { Module: null, DynamicRemote: false }
+            && arm.Function == function.Name && arm.Arguments.Count == function.Arity;
+
+        Expr.Call Rewrite(Expr.Call call)
+        {
+            Expr[]? arguments = null;
+            for (int index = 0; index < call.Arguments.Count; index++)
+            {
+                if (call.Arguments[index] is Expr.List { Items: [Expr.Tuple rebuilt], Tail: Expr.Variable } cons
+                    && ReconstructsMatchedValue(checkedPair, rebuilt))
+                {
+                    arguments ??= call.Arguments.ToArray();
+                    arguments[index] = cons with { Items = [carrier] };
+                }
+            }
+
+            return arguments is null ? call : call with { Arguments = arguments };
+        }
     }
 
     private static (Pattern Pattern, Expr Body)? ReuseTerminalEntryCons(

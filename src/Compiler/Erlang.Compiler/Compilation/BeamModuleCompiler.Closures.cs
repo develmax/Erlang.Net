@@ -255,7 +255,7 @@ internal sealed partial class BeamModuleCompiler
         return (new(
             liftedName,
             body with { Patterns = [.. body.Patterns, .. captures.Select(capture => capture.Parameter)] },
-            fun.ClauseLine == 0 ? location : new(fun.ClauseFile, fun.ClauseLine),
+            fun.DeclarationLine == 0 ? location : new(fun.DeclarationFile, fun.DeclarationLine),
             captures.Count,
             tail,
             GuardFailure: guardFailure

@@ -4,10 +4,36 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
+    private ReadOnlyMemory<byte>? PartitionLateSavedEffectfulTupleReturns(ReadOnlyMemory<byte> code, int labelCount)
+    {
+        if (ModuleOptimizationDisabled || !SsaTypeInferenceEnabled || !code.Span.Contains(IsTaggedTuple)
+            || !code.Span.Contains(CaseEnd) || DecodeLateAtomicProjectionSlots(code, labelCount) is not { Body: var body })
+        {
+            return null;
+        }
+
+        var references = body.SelectMany(instruction => instruction.Operands
+            .Where(operand => operand.Kind == BeamOperandParameters.Label)
+            .Select(operand => (Start: instruction.Offset, End: instruction.Offset, Label: (int)operand.Value)))
+            .ToArray();
+        if (PartitionClosedAtomTupleReturns(
+            code,
+            body,
+            references,
+            savedEffectsOnly: true
+        ) is not { } rewritten)
+        {
+            return null;
+        }
+
+        return OrderTypeOperandsByFirstUse(rewritten, labelCount);
+    }
+
     private byte[]? PartitionClosedAtomTupleReturns(
         ReadOnlyMemory<byte> code,
         IReadOnlyList<BeamInstruction> body,
-        IReadOnlyList<(int Start, int End, int Label)> references
+        IReadOnlyList<(int Start, int End, int Label)> references,
+        bool savedEffectsOnly = false
     )
     {
         if (!code.Span.Contains(IsTaggedTuple) || !code.Span.Contains(CaseEnd))
@@ -36,13 +62,15 @@ internal sealed partial class BeamModuleCompiler
             {
                 for (int index = begin + 1; index + 6 < end; index++)
                 {
-                    if (body[index - 1].Definition.Opcode != ExternalCall
-                        || body[index] is not
+                    if (body[index] is not
                         {
                             Definition.Opcode: ExactEqualTest,
                             Operands: [var other, var selector, { Kind: BeamOperandParameters.Atom } literal]
                         } || selector != callResult && selector is not { Kind: BeamOperandParameters.Y, TypeIndex: null }
-                        || !inputs.TryGetValue((int)other.Value, out int count) || count != 1)
+                        || !inputs.TryGetValue((int)other.Value, out int count) || count != 1
+                        || (savedEffectsOnly
+                            ? selector.Kind != BeamOperandParameters.Y || !IsMove(body[index - 1], callResult, selector)
+                            : body[index - 1].Definition.Opcode != ExternalCall))
                     {
                         continue;
                     }
@@ -62,8 +90,24 @@ internal sealed partial class BeamModuleCompiler
 
                     int tupleStart = atomReturn + 3;
                     int tupleReturn = ReadClosedReturn(tupleStart, end);
+                    int expectedFailureInputs = 1;
                     bool carryAcrossEffect = false;
-                    if (tupleReturn < 0 && selector == callResult
+                    if (savedEffectsOnly)
+                    {
+                        if (ReadSavedEffectfulTupleReturn(
+                            tupleStart,
+                            end,
+                            selector,
+                            wrongValue
+                        ) is not { } planned)
+                        {
+                            continue;
+                        }
+
+                        tupleReturn = planned.Return;
+                        expectedFailureInputs += planned.Checks;
+                    }
+                    else if (tupleReturn < 0 && selector == callResult
                         && ReadEffectfulTupleReturn(tupleStart, end) is { } effect
                         && !body.Skip(index + 1).Take(atomReturn - index)
                             .Any(operation => operation.Operands.Any(value => SameProjectionRegister(value, effect.Saved))))
@@ -81,7 +125,7 @@ internal sealed partial class BeamModuleCompiler
 
                     bool saved = selector.Kind == BeamOperandParameters.Y;
                     int failureLoad = tupleReturn + 2;
-                    if (saved && (!inputs.TryGetValue((int)wrongValue.Value, out int failureInputs) || failureInputs != 1
+                    if (saved && (!inputs.TryGetValue((int)wrongValue.Value, out int failureInputs) || failureInputs != expectedFailureInputs
                         || body[failureLoad] is not { Definition.Opcode: Move, Operands: [var failed, var loaded] }
                         || failed != selector || loaded != callResult))
                     {
@@ -89,6 +133,13 @@ internal sealed partial class BeamModuleCompiler
                     }
 
                     int caseEnd = saved ? failureLoad + 1 : failureLoad;
+                    bool hasFailureLine = caseEnd < end && body[caseEnd] is
+                    { Definition.Opcode: Line, Operands: [{ Value.Sign: > 0 }] };
+                    if (savedEffectsOnly && !hasFailureLine)
+                    {
+                        continue;
+                    }
+
                     if (caseEnd < end && body[caseEnd].Definition.Opcode == Line)
                     {
                         caseEnd++;
@@ -234,6 +285,95 @@ internal sealed partial class BeamModuleCompiler
             }
 
             return (index + 3, saved);
+        }
+
+        (int Return, int Checks)? ReadSavedEffectfulTupleReturn(
+            int start,
+            int limit,
+            BeamOperand saved,
+            BeamOperand failure
+        )
+        {
+            var aliases = new HashSet<int> { (int)saved.Value };
+            int checks = 0;
+            bool trimmed = false;
+            int index = start;
+            for (; index < limit; index++)
+            {
+                BeamInstruction operation = body[index];
+                byte opcode = operation.Definition.Opcode;
+                if (opcode is IsTuple or TestArity or IsTaggedTuple or ExactEqualTest or IsNil)
+                {
+                    if (trimmed || !aliases.Contains((int)saved.Value) || operation.Operands[0] != failure)
+                    {
+                        return null;
+                    }
+
+                    checks++;
+                    continue;
+                }
+
+                if (opcode == TrimFrame)
+                {
+                    if (trimmed)
+                    {
+                        return null;
+                    }
+
+                    int dropped = (int)operation.Operands[0].Value;
+                    aliases = aliases.Where(slot => slot >= dropped).Select(slot => slot - dropped).ToHashSet();
+                    trimmed = true;
+                    continue;
+                }
+
+                if (opcode == InitYRegisters)
+                {
+                    aliases.ExceptWith(operation.Operands.Skip(1).Select(slot => (int)slot.Value));
+                    continue;
+                }
+
+                if (opcode == TestHeap)
+                {
+                    continue;
+                }
+
+                if (opcode is not (Move or GetTupleElement or PutList or PutTuple))
+                {
+                    break;
+                }
+
+                BeamOperand destination = operation.Operands[StackWriteOperand(operation)];
+                if (destination.Kind == BeamOperandParameters.Y)
+                {
+                    if (opcode == Move && operation.Operands[0] is { Kind: BeamOperandParameters.Y } source
+                        && aliases.Contains((int)source.Value))
+                    {
+                        aliases.Add((int)destination.Value);
+                    }
+                    else
+                    {
+                        aliases.Remove((int)destination.Value);
+                    }
+                }
+            }
+
+            // The effect keeps its signalling line and the retained status.
+            // Check failures all occur while that status still owns its old slot.
+            if (checks == 0 || index + 4 >= limit
+                || body[index] is not { Definition.Opcode: Line, Operands: [{ Value.Sign: > 0 }] }
+                || body[index + 1].Definition.Opcode is not (LocalCall or ExternalCall)
+                || body[index + 2] is not
+                {
+                    Definition.Opcode: Move,
+                    Operands: [{ Kind: BeamOperandParameters.Y, TypeIndex: null } result, var output]
+                }
+                || !aliases.Contains((int)result.Value) || output != callResult
+                || body[index + 3].Definition.Opcode != Deallocate || body[index + 4].Definition.Opcode != Return)
+            {
+                return null;
+            }
+
+            return (index + 4, checks);
         }
 
         int ReadClosedReturn(int start, int limit)

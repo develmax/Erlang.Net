@@ -88,6 +88,16 @@ internal sealed partial class BeamModuleCompiler
                 continue;
             }
 
+            if (body[first] is { Definition.Opcode: IsNil, Operands: [_, var checkedNil] }
+                && checkedNil == tested && body[first].Offset >= copied
+                && HasProperListOrigin())
+            {
+                // A proper list with no cons cell at its head can only be nil.
+                output.Write(code.Span[copied..body[first].Offset]);
+                copied = body[first + 1].Offset;
+                continue;
+            }
+
             int terminal = first;
             if (body[first] is { Definition.Opcode: Move, Operands: [var input, var destination] }
                 && input == tested && destination is { Kind: BeamOperandParameters.X, Value.IsZero: true })
@@ -99,12 +109,7 @@ internal sealed partial class BeamModuleCompiler
             if (terminal >= functionEnd || body[terminal] is not
                 { Definition.Opcode: BadMatch, Operands: [var value] } || value != rejected
                 || body[first].Offset < copied
-                || !flow.ReadProperListEntryOrigins(
-                    index,
-                    entry,
-                    tested,
-                    argument => HasProperListEntryFact(signature, argument)
-                ))
+                || !HasProperListOrigin())
             {
                 continue;
             }
@@ -118,6 +123,13 @@ internal sealed partial class BeamModuleCompiler
             output.WriteByte(BadMatch);
             BeamCompactWriter.Write(output, AtomTag, NilAtomIndex);
             copied = body[terminal + 1].Offset;
+
+            bool HasProperListOrigin() => flow!.ReadProperListEntryOrigins(
+                index,
+                entry,
+                tested,
+                argument => HasProperListEntryFact(signature, argument)
+            );
         }
 
         if (copied == 0)

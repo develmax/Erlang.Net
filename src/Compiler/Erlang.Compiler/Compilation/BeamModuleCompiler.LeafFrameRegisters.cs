@@ -13,7 +13,37 @@ internal sealed partial class BeamModuleCompiler
         Func<BeamInstruction, bool>? isArithmetic = null,
         Func<BeamInstruction, bool>? canDiscardExternalTailFrame = null,
         bool ownedBranchesOnly = false,
-        Func<BeamInstruction, bool>? isBodyProjection = null
+        Func<BeamInstruction, bool>? isBodyProjection = null,
+        Func<BeamInstruction, bool>? isColdMapErrorTail = null,
+        bool ownedMapIteratorsOnly = false
+    )
+        => ReallocateLeafFrameRegistersCore(
+            code,
+            body,
+            stackOperands,
+            afterCanonicalization,
+            isArithmetic,
+            canDiscardExternalTailFrame,
+            ownedBranchesOnly,
+            isBodyProjection,
+            isColdMapErrorTail,
+            ownedMapIteratorsOnly,
+            guardedReturningEntries: null
+        );
+
+
+    private byte[]? ReallocateLeafFrameRegistersCore(
+        ReadOnlyMemory<byte> code,
+        IReadOnlyList<BeamInstruction> body,
+        IReadOnlyList<(int Start, int End, int Slot)> stackOperands,
+        bool afterCanonicalization,
+        Func<BeamInstruction, bool>? isArithmetic,
+        Func<BeamInstruction, bool>? canDiscardExternalTailFrame,
+        bool ownedBranchesOnly,
+        Func<BeamInstruction, bool>? isBodyProjection,
+        Func<BeamInstruction, bool>? isColdMapErrorTail,
+        bool ownedMapIteratorsOnly,
+        IReadOnlySet<int>? guardedReturningEntries
     )
     {
         using var output = new MemoryStream();
@@ -21,6 +51,12 @@ internal sealed partial class BeamModuleCompiler
         int operand = 0;
         int start = 0;
         int arity = 0;
+        var iteratorAtomNames = ownedMapIteratorsOnly
+            ? atoms.Where(pair => MapEmittedAtom(pair.Value) > 0)
+                .ToDictionary(pair => MapEmittedAtom(pair.Value), pair => pair.Key)
+            : null;
+        bool planLeaves = !ownedBranchesOnly && !ownedMapIteratorsOnly;
+        BeamProjectionFlow? linearArithmeticFlow = null;
         for (int end = 0; end < body.Count; end++)
         {
             BeamInstruction boundary = body[end];
@@ -30,9 +66,16 @@ internal sealed partial class BeamModuleCompiler
             }
 
             Dictionary<int, int>? heapRoots = null;
-            int? returningCall = afterCanonicalization && !ownedBranchesOnly && !ModuleOptimizationDisabled
-                ? FindSingleFrameOnlyCall(body, start, end) : null;
-            int?[]? registers = ownedBranchesOnly ? null : PlanLeafFrameRegisters(
+            bool guardedReturning = guardedReturningEntries is not null
+                && start < end && body[start].Definition.Opcode == Label
+                && guardedReturningEntries.Contains((int)body[start].Operands[0].Value);
+            int? returningCall = guardedReturning
+                ? FindGuardedReturningSelector(body, start, end)
+                : guardedReturningEntries is null && planLeaves && afterCanonicalization && !ModuleOptimizationDisabled
+                    ? FindSingleFrameOnlyCall(body, start, end) ?? FindSingleFrameBranchCall(body, start, end)
+                    : null;
+            bool tryLeaf = guardedReturningEntries is null ? planLeaves : returningCall.HasValue;
+            int?[]? registers = !tryLeaf ? null : PlanLeafFrameRegisters(
                 body,
                 start,
                 end,
@@ -42,7 +85,8 @@ internal sealed partial class BeamModuleCompiler
                 out heapRoots,
                 canDiscardExternalTailFrame: canDiscardExternalTailFrame,
                 returningCall: returningCall,
-                isBodyProjection: isBodyProjection
+                isBodyProjection: isBodyProjection,
+                isColdMapErrorTail: isColdMapErrorTail
             );
             if (registers is not null)
             {
@@ -54,6 +98,33 @@ internal sealed partial class BeamModuleCompiler
                     keepCallFrame: returningCall.HasValue
                 );
             }
+            else if (iteratorAtomNames is not null && start > 0
+                && iteratorAtomNames.TryGetValue((int)body[start - 1].Operands[1].Value, out string? iteratorOwner)
+                && PlanMapIteratorBranchFrame(
+                    body,
+                    start,
+                    end,
+                    arity,
+                    iteratorOwner,
+                    isArithmetic,
+                    canDiscardExternalTailFrame,
+                    isColdMapErrorTail!
+                ) is { } iterator)
+            {
+                WritePlan(
+                    start,
+                    iterator.Cut,
+                    iterator.Registers,
+                    iterator.Roots
+                );
+                copied = WriteMapIteratorBranchFrame(
+                    code,
+                    body,
+                    output,
+                    copied,
+                    iterator
+                );
+            }
             else if (ownedBranchesOnly)
             {
                 int entryAllocation = FindEntryFrameAllocation(body, start, end);
@@ -62,8 +133,7 @@ internal sealed partial class BeamModuleCompiler
                 for (int allocation = start + 2; allocation + 2 < end; allocation++)
                 {
                     BeamInstruction frame = body[allocation];
-                    if (allocation == entryAllocation || frame.Definition.Opcode is not (Allocate or AllocateHeap)
-                        || frame.Operands[0].Value.IsZero)
+                    if (allocation == entryAllocation || frame.Definition.Opcode is not (Allocate or AllocateHeap))
                     {
                         continue;
                     }
@@ -72,8 +142,18 @@ internal sealed partial class BeamModuleCompiler
                         body,
                         allocation,
                         end,
-                        out int next
+                        afterCanonicalization ? isArithmetic : null,
+                        out int next,
+                        out bool hasArithmetic
                     );
+                    bool emptyFrame = frame.Operands[0].Value.IsZero;
+                    if (emptyFrame && (ModuleOptimizationDisabled || !SsaTypeInferenceEnabled
+                        || frame.Definition.Opcode != Allocate || branchEnd < 0
+                        || !IsOwnedZeroFrameProjectionReturn(body, allocation, branchEnd)))
+                    {
+                        continue;
+                    }
+
                     if (branchEnd < 0 && (next >= end || !ContinuesLeafFrame(body[next].Definition.Opcode)))
                     {
                         continue;
@@ -106,25 +186,47 @@ internal sealed partial class BeamModuleCompiler
                         }
                     }
 
-                    if (ownership is not { } branchOwnership || branchOwnership.Owners[allocation - start] != UnframedOwner
-                        || !branchOwnership.Uses.ContainsKey(allocation))
+                    if (ownership is { } branchOwnership)
+                    {
+                        if (branchOwnership.Owners[allocation - start] != UnframedOwner
+                            || !branchOwnership.Uses.ContainsKey(allocation))
+                        {
+                            continue;
+                        }
+
+                        if (branchEnd < 0)
+                        {
+                            branchEnd = ReadOwnedLeafFrameTail(
+                                body,
+                                start,
+                                end,
+                                allocation,
+                                branchOwnership.Owners
+                            );
+                        }
+                    }
+                    else if (!hasArithmetic || branchEnd < 0 || body[branchEnd - 1].Definition.Opcode != Return
+                        || !(linearArithmeticFlow ??= new BeamProjectionFlow(body)).ReachesLinearFrameUnframed(start, allocation))
                     {
                         continue;
                     }
 
                     if (branchEnd < 0)
                     {
-                        branchEnd = ReadOwnedLeafFrameTail(
-                            body,
-                            start,
-                            end,
-                            allocation,
-                            branchOwnership.Owners
-                        );
+                        continue;
                     }
 
-                    if (branchEnd < 0)
+                    if (emptyFrame)
                     {
+                        // Ownership is already proved for this branch. All values
+                        // stay in X, so there is no register or heap-root rewrite.
+                        WritePlan(
+                            allocation,
+                            branchEnd,
+                            [],
+                            null
+                        );
+                        allocation = branchEnd - 1;
                         continue;
                     }
 
@@ -186,6 +288,15 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 byte opcode = instruction.Definition.Opcode;
+                if (ownedMapIteratorsOnly && opcode == Move && instruction.Operands is [var source, var destination]
+                    && PromotedRegister(source, slots) is int register
+                    && PromotedRegister(destination, slots) == register)
+                {
+                    output.Write(code.Span[copied..instruction.Offset]);
+                    copied = next;
+                    continue;
+                }
+
                 if (keepCallFrame && opcode is Allocate or AllocateHeap)
                 {
                     int frame = (int)instruction.Operands[0].Value;
@@ -236,6 +347,25 @@ internal sealed partial class BeamModuleCompiler
                             live
                         );
                     }
+                    else if (opcode == PutMapAssoc)
+                    {
+                        if (instruction.Operands[1].Kind == BeamOperandParameters.Y)
+                        {
+                            // The base precedes both the destination and the live count.
+                            var (from, to, slot) = stackOperands[operand++];
+                            output.Write(code.Span[copied..from]);
+                            BeamCompactWriter.Write(output, XRegisterTag, slots[slot]!.Value);
+                            copied = to;
+                        }
+
+                        copied = WriteLeafMapAssociationRoots(
+                            code,
+                            output,
+                            instruction.Offset,
+                            copied,
+                            live
+                        );
+                    }
                     else
                     {
                         int original = (int)instruction.Operands[^1].Value;
@@ -264,6 +394,16 @@ internal sealed partial class BeamModuleCompiler
             }
         }
     }
+
+    private static int? PromotedRegister(BeamOperand register, IReadOnlyList<int?> slots) =>
+        register.TypeIndex is null
+            ? register.Kind switch
+            {
+                BeamOperandParameters.X => (int)register.Value,
+                BeamOperandParameters.Y when register.Value < slots.Count => slots[(int)register.Value],
+                _ => null
+            }
+            : null;
 
     private static int? FindSingleFrameOnlyCall(IReadOnlyList<BeamInstruction> body, int start, int end)
     {
@@ -327,6 +467,73 @@ internal sealed partial class BeamModuleCompiler
         return finished ? call : null;
     }
 
+    private static int? FindSingleFrameBranchCall(IReadOnlyList<BeamInstruction> body, int start, int end)
+    {
+        int allocation = FindEntryFrameAllocation(
+            body,
+            start,
+            end,
+            allowUnframedProjections: true
+        );
+        if (allocation < 0 || body[allocation].Operands[0].Value.IsZero)
+        {
+            return null;
+        }
+
+        int call = -1;
+        int failure = EntryFrameFailureLabel(body, start);
+        bool checkedResult = false;
+        for (int index = start + 1; index < end; index++)
+        {
+            BeamInstruction instruction = body[index];
+            byte opcode = instruction.Definition.Opcode;
+            if (opcode is LocalCall or ExternalCall)
+            {
+                if (call >= 0 || index <= allocation)
+                {
+                    return null;
+                }
+
+                call = index;
+                continue;
+            }
+
+            if (opcode is Allocate or AllocateHeap && index != allocation
+                || instruction.Operands.Any(operand => operand.Kind == BeamOperandParameters.Y
+                    && (operand.TypeIndex is not null || call >= 0))
+                || (!IsFramelessInstruction(instruction) && opcode is not (TailLocalCallWithFrame or TailExternalCallWithFrame)))
+            {
+                return null;
+            }
+
+            if (call < 0)
+            {
+                if (opcode is (Label or Jump or SelectValue or SelectTupleArity)
+                    || IsTrimTest(opcode) && (index >= allocation
+                        || instruction.Operands[0].Kind != BeamOperandParameters.Label
+                        || instruction.Operands[0].Value != failure))
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                checkedResult |= IsTrimTest(opcode);
+            }
+        }
+
+        if (!checkedResult || ReadDisjointFrameOwnership(body, start, end) is not { } ownership
+            || ownership.Owners[call - start] != allocation)
+        {
+            return null;
+        }
+
+        // The ordinary call needs its continuation frame. The successor graph
+        // contains no Y reads or writes, so only values used before the call
+        // need registers. The existing planner checks the X clobber and GC roots.
+        return call;
+    }
+
     private static bool ContinuesLeafFrame(byte opcode) =>
         opcode is Label or Jump or SelectValue or SelectTupleArity || IsEntryFramePredicate(opcode);
 
@@ -334,13 +541,31 @@ internal sealed partial class BeamModuleCompiler
         IReadOnlyList<BeamInstruction> body,
         int allocation,
         int end,
-        out int terminal
+        Func<BeamInstruction, bool>? isArithmetic,
+        out int terminal,
+        out bool hasArithmetic
     )
     {
         terminal = allocation + 1;
-        while (terminal < end && body[terminal].Definition.Opcode is
-            Line or InitYRegisters or Move or Swap or GetTupleElement or GetList or GetHead or GetTail or TestHeap or PutTuple or PutList or UpdateRecord)
+        hasArithmetic = false;
+        while (terminal < end)
         {
+            BeamInstruction instruction = body[terminal];
+            if (instruction.Definition.Opcode is Line or InitYRegisters or Move or Swap or GetTupleElement
+                or GetList or GetHead or GetTail or TestHeap or PutTuple or PutList or UpdateRecord)
+            {
+                terminal++;
+                continue;
+            }
+
+            if (instruction.Definition.Opcode != GcBifTwo
+                || instruction.Operands[0] is not { Kind: BeamOperandParameters.Failure, Value.IsZero: true }
+                || isArithmetic?.Invoke(instruction) != true)
+            {
+                break;
+            }
+
+            hasArithmetic = true;
             terminal++;
         }
 
@@ -355,6 +580,46 @@ internal sealed partial class BeamModuleCompiler
             TailLocalCallWithFrame or TailExternalCallWithFrame => terminal + 1,
             _ => -1
         };
+    }
+
+    private static bool IsOwnedZeroFrameProjectionReturn(
+        IReadOnlyList<BeamInstruction> body,
+        int allocation,
+        int limit
+    )
+    {
+        if (limit - allocation < 4
+            || body[limit - 2] is not { Definition.Opcode: Deallocate, Operands: [{ Value.IsZero: true }] }
+            || body[limit - 1].Definition.Opcode != Return)
+        {
+            return false;
+        }
+
+        bool projects = false;
+        for (int index = allocation + 1; index < limit - 2; index++)
+        {
+            if (body[index].Definition.Opcode == Line)
+            {
+                continue;
+            }
+
+            if (body[index] is not
+                {
+                    Definition.Opcode: GetTupleElement,
+                    Operands: [
+                    { Kind: BeamOperandParameters.X, TypeIndex: null },
+                    { Kind: BeamOperandParameters.Unsigned },
+                    { Kind: BeamOperandParameters.X, TypeIndex: null }
+                    ]
+                })
+            {
+                return false;
+            }
+
+            projects = true;
+        }
+
+        return projects;
     }
 
     private static int ReadOwnedLeafFrameTail(
@@ -443,7 +708,9 @@ internal sealed partial class BeamModuleCompiler
         Func<int, bool>? canUsePostCallRegister = null,
         int? returningCall = null,
         Func<BeamInstruction, bool>? isBodyProjection = null,
-        BigInteger? externalBranchInputs = null
+        BigInteger? externalBranchInputs = null,
+        Func<BeamInstruction, bool>? isColdMapErrorTail = null,
+        bool allowStackMapBase = false
     )
     {
         heapRoots = null;
@@ -480,6 +747,12 @@ internal sealed partial class BeamModuleCompiler
         var slotsUsed = new HashSet<int>();
         bool needsCanonicalization = false;
         bool hasLocalTail = false;
+        bool hasExternalTail = false;
+        bool hasOtherExternalTail = false;
+        bool hasRegisterMapAssociation = false;
+        bool hasLeafMapOperation = false;
+        bool allowLeafMapOperations = !returningCall.HasValue && postCallSlots is null
+            && !allocationAtStart && !isolatedTailBranch;
         bool hasBodyTupleProjection = false;
         for (int index = 0; index < count; index++)
         {
@@ -487,11 +760,27 @@ internal sealed partial class BeamModuleCompiler
             byte opcode = instruction.Definition.Opcode;
             bool localTail = opcode == TailLocalCallWithFrame;
             hasLocalTail |= localTail;
+            if (opcode == TailExternalCallWithFrame)
+            {
+                hasExternalTail = true;
+                hasOtherExternalTail |= isColdMapErrorTail?.Invoke(instruction) != true;
+            }
             bool externalTail = opcode == TailExternalCallWithFrame
                 && (returningCall.HasValue || isolatedTailBranch || canDiscardExternalTailFrame?.Invoke(instruction) == true);
             bool returning = start + index == returningCall;
             bool arithmetic = opcode == GcBifTwo && isArithmetic?.Invoke(instruction) == true;
-            bool guardedBif = IsLeafGuardBif(instruction);
+            bool guardedBif = IsLeafGuardBif(instruction)
+                || returningCall is int guardedCall && body[guardedCall + 1].Definition.Opcode == IsTuple
+                    && opcode == BifTwo && isBodyProjection?.Invoke(instruction) == true;
+            bool mapProjection = allowLeafMapOperations && IsSingleLeafMapProjection(instruction);
+            bool mapAssociation = allowLeafMapOperations && IsLeafMapAssociation(
+                instruction,
+                allowRegisterBase: isColdMapErrorTail is not null,
+                allowStackBase: allowStackMapBase
+            );
+            hasRegisterMapAssociation |= mapAssociation
+                && instruction.Operands[1].Kind is BeamOperandParameters.X or BeamOperandParameters.Y;
+            hasLeafMapOperation |= mapProjection || mapAssociation;
             // This BIF neither allocates nor clobbers X registers. Its failure leaves the leaf by throwing.
             bool bodyProjection = !returningCall.HasValue && isBodyProjection?.Invoke(instruction) == true;
             hasBodyTupleProjection |= bodyProjection && opcode == BifTwo;
@@ -506,12 +795,12 @@ internal sealed partial class BeamModuleCompiler
             bool callClosure = returningCall.HasValue && opcode == MakeFun && instruction.Operands.Count >= 3
                 && instruction.Operands[1].Kind is BeamOperandParameters.X or BeamOperandParameters.Y
                 && instruction.Operands[2].Kind == BeamOperandParameters.Count;
-            needsCanonicalization |= opcode == PutTuple || arithmetic || bodyProjection;
-            if ((!returning && !localTail && !externalTail && !recordUpdate && !emptyFrameClosure && !callClosure
+            needsCanonicalization |= opcode == PutTuple || arithmetic || bodyProjection || mapAssociation;
+            if ((!returning && !localTail && !externalTail && !recordUpdate && !emptyFrameClosure && !callClosure && !mapAssociation
                     && !IsFramelessInstruction(instruction))
                 || (opcode is Allocate or AllocateHeap && start + index != allocation)
                 || (!afterCanonicalization && opcode == PutTuple)
-                || opcode is GetMapElements or GcBifOne or GcBifThree
+                || (opcode == GetMapElements && !mapProjection) || opcode is GcBifOne or GcBifThree
                 || (opcode is BifOne or BifTwo or BifThree && !guardedBif && !bodyProjection)
                 || (opcode == GcBifTwo && !arithmetic)
                 || ((externalTail || opcode is Deallocate or TailLocalCallWithFrame) && instruction.Operands[^1].Value != slots))
@@ -557,8 +846,9 @@ internal sealed partial class BeamModuleCompiler
 
                 if (opcode == Swap || opcode == GetList && position > 0 || opcode == PutTuple && position == 0
                     || (emptyFrameClosure || callClosure) && position == 1
-                    || recordUpdate && position == StackWriteOperand(instruction)
-                    || (guardedBif || bodyProjection || opcode is Move or GetHead or GetTail or GetTupleElement or PutList or GcBifTwo)
+                    || (recordUpdate || mapAssociation) && position == StackAllocationDestination(instruction)
+                    || (guardedBif || mapProjection || bodyProjection
+                            || opcode is Move or GetHead or GetTail or GetTupleElement or PutList or GcBifTwo)
                         && position == instruction.Operands.Count - 1)
                 {
                     destinations.Add(register);
@@ -578,7 +868,8 @@ internal sealed partial class BeamModuleCompiler
             writes[index] = destinations.ToArray();
         }
 
-        if (hasBodyTupleProjection && !hasLocalTail
+        bool mapTailNeedsFrame = hasLocalTail || hasExternalTail && (!hasRegisterMapAssociation || hasOtherExternalTail);
+        if (hasLeafMapOperation && mapTailNeedsFrame || hasBodyTupleProjection && !hasLocalTail
             || afterCanonicalization && !needsCanonicalization && postCallSlots is null && !allocationAtStart
                 && !returningCall.HasValue)
         {
@@ -602,7 +893,7 @@ internal sealed partial class BeamModuleCompiler
                     && operand.Kind == BeamOperandParameters.Label)
                 {
                     int target = labels.GetValueOrDefault((int)operand.Value, -1);
-                    if (instruction.Definition.Opcode == GcBifTwo || IsLeafGuardBif(instruction))
+                    if (instruction.Definition.Opcode is GcBifTwo or GetMapElements || IsLeafGuardBif(instruction))
                     {
                         if (target < 0)
                         {
@@ -649,7 +940,7 @@ internal sealed partial class BeamModuleCompiler
                     after &= ~(BigInteger.One << destination);
                 }
 
-                // A BIF writes its destination only along its success edge.
+                // Guarded BIFs and one-key projections write only on success.
                 if (conditionalWriteFailures[index] is int failure)
                 {
                     after |= liveIn[failure];
@@ -735,7 +1026,10 @@ internal sealed partial class BeamModuleCompiler
         foreach (int slot in slotsInOrder)
         {
             int reg = xCount + slot;
-            int candidate = (preferred[slot] ?? []).Concat(Enumerable.Range(0, xCount))
+            bool denseReturningRoots = returningCall is int guardedCall
+                && body[guardedCall + 1].Definition.Opcode == IsTuple;
+            IEnumerable<int> choices = denseReturningRoots ? [] : preferred[slot] ?? [];
+            int candidate = choices.Concat(Enumerable.Range(0, xCount))
                 .FirstOrDefault(CanUse, -1);
             if (candidate < 0)
             {
@@ -754,7 +1048,7 @@ internal sealed partial class BeamModuleCompiler
 
         for (int index = 0; index < count; index++)
         {
-            if (body[start + index].Definition.Opcode is not (TestHeap or AllocateHeap or GcBifTwo))
+            if (body[start + index].Definition.Opcode is not (TestHeap or AllocateHeap or GcBifTwo or PutMapAssoc))
             {
                 continue;
             }
@@ -788,6 +1082,65 @@ internal sealed partial class BeamModuleCompiler
             returningCall
         ) ? registers : null;
     }
+
+    private static bool IsLeafMapAssociation(
+        BeamInstruction instruction,
+        bool allowRegisterBase,
+        bool allowStackBase
+    ) =>
+        instruction is
+        {
+            Definition.Opcode: PutMapAssoc,
+            Operands: [
+            { Kind: BeamOperandParameters.Failure },
+            var source,
+            { Kind: BeamOperandParameters.X, TypeIndex: null },
+            { Kind: BeamOperandParameters.Unsigned },
+            { Kind: BeamOperandParameters.Count }, _, _, ..
+            ]
+        }
+        && (source.Kind == BeamOperandParameters.LiteralValue
+            || allowRegisterBase && source is { Kind: BeamOperandParameters.X, TypeIndex: null }
+            || allowStackBase && source is { Kind: BeamOperandParameters.Y, TypeIndex: null });
+
+    private static int WriteLeafMapAssociationRoots(
+        ReadOnlyMemory<byte> code,
+        Stream output,
+        int offset,
+        int copied,
+        int live
+    )
+    {
+        int operands = offset + 1;
+        var cursor = new BeamCursor(code[operands..]);
+        // The map base is an extended literal or an untyped register.
+        // A promoted base has already been written by the caller.
+        _ = BeamCompactReader.Read(cursor);
+        var source = BeamCompactReader.Read(cursor);
+        if (source.WireTag == BeamOperandParameters.ExtendedTag)
+        {
+            _ = BeamCompactReader.Read(cursor);
+        }
+
+        _ = BeamCompactReader.Read(cursor);
+        int liveOffset = operands + cursor.Position;
+        _ = BeamCompactReader.Read(cursor);
+        output.Write(code.Span[copied..liveOffset]);
+        BeamCompactWriter.Write(output, BeamWire.UnsignedTag, live);
+
+        return operands + cursor.Position;
+    }
+
+    private static bool IsSingleLeafMapProjection(BeamInstruction instruction) =>
+        instruction is
+        {
+            Definition.Opcode: GetMapElements,
+            Operands: [
+            { Kind: BeamOperandParameters.Label, Value.Sign: > 0 }, _,
+            { Kind: BeamOperandParameters.Count }, _,
+            { Kind: BeamOperandParameters.X or BeamOperandParameters.Y }
+            ]
+        };
 
     private static bool IsLeafGuardBif(BeamInstruction instruction) =>
         instruction.Definition.Opcode is BifOne or BifTwo or BifThree

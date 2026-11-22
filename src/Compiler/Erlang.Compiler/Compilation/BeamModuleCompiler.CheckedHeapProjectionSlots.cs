@@ -127,7 +127,9 @@ internal sealed partial class BeamModuleCompiler
                     ]
                 }
                 || body[projection + 1] is not { Definition.Opcode: TestHeap, Operands: [_, var live] }
-                || tuple.Value > live.Value || live.Value >= FirstReservedXRegister
+                || live.Value >= FirstReservedXRegister
+                || tuple.Value > live.Value && (tuple.Value != 1 || !live.Value.IsZero
+                    || !HasCheckedHeapLowerRoot(body, entry, projection))
                 || !HasCheckedHeapTuple(
                     body,
                     entry,
@@ -196,6 +198,40 @@ internal sealed partial class BeamModuleCompiler
         }
 
         return null;
+    }
+
+    private static bool HasCheckedHeapLowerRoot(
+        IReadOnlyList<BeamInstruction> body,
+        int entry,
+        int projection
+    )
+    {
+        for (int index = projection - 1; index > entry; index--)
+        {
+            var instruction = body[index];
+            if (instruction is
+                {
+                    Definition.Opcode: GetTupleElement,
+                    Operands: [var source, _, var target]
+                })
+            {
+                // Reading the carrier or defining a field in X0 establishes
+                // a term in the lower root of the contiguous X0/X1 prefix.
+                if (IsBareX0(source) || IsBareX0(target))
+                {
+                    return true;
+                }
+
+                continue;
+            }
+
+            if (instruction.Definition.Opcode != Line && !IsEntryFramePredicate(instruction.Definition.Opcode))
+            {
+                return false;
+            }
+        }
+
+        return false;
     }
 
     private static int? FindSingleHeapProjectionConsumer(

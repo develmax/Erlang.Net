@@ -20,22 +20,54 @@ internal sealed partial class BeamModuleCompiler
         int arity = (int)incoming.Value;
         int failure = EntryFrameFailureLabel(body, start);
         int check = start + 1;
-        if (failure < 0 || body[check] is not
+        if (failure < 0)
+        {
+            return null;
+        }
+
+        byte tupleCheck = IsTaggedTuple;
+        if (body[check].Definition.Opcode == IsTuple)
+        {
+            if (body[check] is not
+                {
+                    Operands:
+                    [
+                    { Kind: BeamOperandParameters.Label } typeFailure,
+                    { Kind: BeamOperandParameters.X } outer
+                    ]
+                }
+                || typeFailure.Value != failure
+                || body[check + 1] is not
+                {
+                    Definition.Opcode: TestArity,
+                    Operands: [_, var arityInput, _]
+                } || arityInput != outer)
             {
-                Definition.Opcode: IsTaggedTuple,
-                Operands: [
-                { Kind: BeamOperandParameters.Label } outsideFailure,
-                { Kind: BeamOperandParameters.X } input,
-                { Kind: BeamOperandParameters.Unsigned, Value.Sign: > 0 } tupleArity,
-                { Kind: BeamOperandParameters.Atom }
-                ]
-            } || outsideFailure.Value != failure || input.Value >= arity)
+                return null;
+            }
+
+            // A plain tuple contributes the same field bounds when the
+            // arity test observes the same formal on the tested edge.
+            check++;
+            tupleCheck = TestArity;
+        }
+
+        if (body[check].Definition.Opcode != tupleCheck
+            || body[check].Operands is not
+            [
+            { Kind: BeamOperandParameters.Label } outsideFailure,
+            { Kind: BeamOperandParameters.X } input,
+            { Kind: BeamOperandParameters.Unsigned, Value.Sign: > 0 } tupleArity,
+                ..
+            ]
+            || tupleCheck == IsTaggedTuple && body[check].Operands[^1].Kind != BeamOperandParameters.Atom
+            || outsideFailure.Value != failure || input.Value >= arity)
         {
             return null;
         }
 
         int allocation = check + 1;
-        if (body[allocation] is not
+        if (allocation >= end || body[allocation] is not
             {
                 Definition.Opcode: Allocate,
                 Operands: [{ Value.Sign: > 0 } width, var live]

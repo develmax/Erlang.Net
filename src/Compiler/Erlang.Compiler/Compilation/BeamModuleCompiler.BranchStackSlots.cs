@@ -11,7 +11,11 @@ internal sealed partial class BeamModuleCompiler
         int end,
         int linearAllocation = -1,
         bool allowGcBifExceptionExit = false,
-        bool allowAtomicProjectionAliasing = false
+        bool allowAtomicProjectionAliasing = false,
+        IReadOnlyList<int>? trimEpochOwners = null,
+        int? firstOwnedInstruction = null,
+        bool allowSerialTryHandlers = false,
+        bool allowNestedTryHandlers = false
     )
     {
         if (entry + 1 >= end || body[entry].Definition.Opcode != Label)
@@ -61,7 +65,7 @@ internal sealed partial class BeamModuleCompiler
             return null;
         }
 
-        int start = allocation + 1;
+        int start = firstOwnedInstruction ?? allocation + 1;
         int trim = end;
         int removed = 0;
         for (int index = start; index < end; index++)
@@ -88,6 +92,22 @@ internal sealed partial class BeamModuleCompiler
         int handlerEntry = -1;
         int handlerSlot = -1;
         bool isCatch = false;
+        var serialEntries = allowSerialTryHandlers ? new Dictionary<int, (int Slot, int Label)>() : null;
+        var serialSlots = allowSerialTryHandlers ? new HashSet<int>() : null;
+        var tagDepths = allowNestedTryHandlers ? new Dictionary<int, int>() : null;
+        if (tagDepths is not null && (serialSlots is null || failureLabels.Count != 0 || Enumerable.Range(start, end - start)
+            .Any(index => body[index].Definition.Opcode is LoopReceive or LoopReceiveEnd or Wait or WaitTimeout
+                or ReceiveTimeout or RemoveMessage or ReceiveMarkerBind or ReceiveMarkerClear
+                or ReceiveMarkerReserve or ReceiveMarkerUse or DebugLine or ExecutableLine
+                || body[index].Definition.Name is "recv_mark" or "recv_set")))
+        {
+            return null;
+        }
+        if (serialEntries is not null && trim != end)
+        {
+            return null;
+        }
+
         Array.Fill(firstUse, int.MaxValue);
         for (int index = start; index < end; index++)
         {
@@ -100,24 +120,40 @@ internal sealed partial class BeamModuleCompiler
             if (instruction.Definition.Opcode is TryEnter or CatchEnter)
             {
                 if (trim != end || handlerEntry >= 0
-                    || instruction.Operands is not [{ Kind: BeamOperandParameters.Y } tag, { Kind: BeamOperandParameters.Label }]
+                    || instruction.Operands is not
+                    [
+                    { Kind: BeamOperandParameters.Y } tag,
+                    { Kind: BeamOperandParameters.Label } target
+                    ]
                     || tag.Value >= frame)
                 {
                     return null;
                 }
 
-                handlerEntry = index;
-                handlerSlot = (int)tag.Value;
-                isCatch = instruction.Definition.Opcode == CatchEnter;
+                if (serialEntries is null)
+                {
+                    handlerEntry = index;
+                    handlerSlot = (int)tag.Value;
+                    isCatch = instruction.Definition.Opcode == CatchEnter;
+                }
+                else if (instruction.Definition.Opcode == TryEnter)
+                {
+                    serialEntries.Add(index - start, ((int)tag.Value, (int)target.Value));
+                    serialSlots!.Add((int)tag.Value);
+                }
+                else
+                {
+                    return null;
+                }
             }
 
-            int shift = index > trim ? removed : 0;
+            int shift = InTrimmedEpoch(index) ? removed : 0;
             foreach (BeamOperand operand in instruction.Operands)
             {
                 if (operand.Kind == BeamOperandParameters.Y && operand.Value < frame - shift)
                 {
                     int slot = (int)operand.Value + shift;
-                    neededAfterTrim[slot] |= index > trim;
+                    neededAfterTrim[slot] |= InTrimmedEpoch(index);
                     if (instruction.Definition.Opcode != InitYRegisters)
                     {
                         firstUse[slot] = Math.Min(firstUse[slot], index);
@@ -158,7 +194,7 @@ internal sealed partial class BeamModuleCompiler
             }
 
             int frameOperand = LinearFrameSizeOperand(opcode);
-            int shift = index > trim ? removed : 0;
+            int shift = InTrimmedEpoch(index) ? removed : 0;
             if (frameOperand >= 0)
             {
                 if (instruction.Operands[frameOperand].Value != frame - shift)
@@ -173,12 +209,15 @@ internal sealed partial class BeamModuleCompiler
             List<int>? targets = null;
             bool call = opcode is LocalCall or TailLocalCall or TailLocalCallWithFrame;
             bool initializes = opcode == InitYRegisters;
-            if (opcode is TryEnd or TryCase or CatchEnd && (handlerEntry < 0
-                || (opcode == CatchEnd) != isCatch
-                || instruction.Operands is not [{ Kind: BeamOperandParameters.Y } tag]
-                || tag.Value != handlerSlot))
+            if (opcode is TryEnd or TryCase or CatchEnd)
             {
-                return null;
+                if (instruction.Operands is not [{ Kind: BeamOperandParameters.Y } tag]
+                    || (serialSlots is null
+                        ? handlerEntry < 0 || (opcode == CatchEnd) != isCatch || tag.Value != handlerSlot
+                        : opcode == CatchEnd || !serialSlots.Contains((int)tag.Value)))
+                {
+                    return null;
+                }
             }
 
             int destination = opcode switch
@@ -193,13 +232,15 @@ internal sealed partial class BeamModuleCompiler
             for (int position = 0; position < instruction.Operands.Count; position++)
             {
                 BeamOperand operand = instruction.Operands[position];
-                bool exceptionExit = allowGcBifExceptionExit && handlerEntry < 0 && operand.Value.IsZero
-                    && opcode is GcBifOne or GcBifTwo or GcBifThree;
+                bool exceptionExit = operand.Value.IsZero
+                    && ((allowGcBifExceptionExit && handlerEntry < 0 || serialEntries is not null)
+                        && opcode is GcBifOne or GcBifTwo or GcBifThree
+                        || serialEntries is not null && opcode is BifOne or BifTwo or BifThree);
                 if (!call && !exceptionExit && opcode is not (TryEnter or CatchEnter)
                     && operand.Kind == BeamOperandParameters.Label && operand.Value != clauseFailure)
                 {
                     if (!labels.TryGetValue((int)operand.Value, out int target)
-                        || (target > trim) != (index > trim) && !IsFramelessStackAllocationExit(body, target, end))
+                        || InTrimmedEpoch(target) != InTrimmedEpoch(index) && !IsFramelessStackAllocationExit(body, target, end))
                     {
                         return null;
                     }
@@ -222,6 +263,13 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 int slot = (int)operand.Value + shift;
+                if (serialSlots?.Contains(slot) == true
+                    && opcode is not (TryEnter or TryEnd or TryCase or InitYRegisters))
+                {
+                    // A reserved try register is never an ordinary Erlang value.
+                    return null;
+                }
+
                 if (initializes && firstUse[slot] == int.MaxValue)
                 {
                     continue;
@@ -252,14 +300,49 @@ internal sealed partial class BeamModuleCompiler
             effects[index - start] = (reads, writes, fallsThrough, targets);
         }
 
-        var exceptional = handlerEntry >= 0 ? new HashSet<int>() : null;
+        var exceptional = handlerEntry >= 0 || serialEntries is not null ? new HashSet<int>() : null;
         bool[]? handlerFreeInstructions = allowAtomicProjectionAliasing && handlerEntry >= 0 && linearAllocation < 0
             && FindEntryFrameAllocation(body, entry, end) == allocation
                 ? new bool[effects.Length]
                 : null;
-        if (exceptional is not null && !AddHandlerEdges(exceptional) || linearAllocation < 0 && !branched && trim == end || !released)
+        bool validHandlers = serialEntries is not null
+            ? AddSerialTryEdges(serialEntries, exceptional!)
+            : exceptional is null || AddHandlerEdges(exceptional);
+        if (!validHandlers || linearAllocation < 0 && !branched && trim == end || !released)
         {
             return null;
+        }
+
+        if (serialSlots is not null)
+        {
+            // beam_ssa_pre_codegen:reserve_try_tags uses the same reserved
+            // register for disjoint handlers at the same depth.
+            BigInteger tokenMask = serialSlots.Aggregate(BigInteger.Zero, (mask, slot) => mask | masks[slot]);
+            BigInteger valueMask = ((BigInteger.One << frame) - 1) & ~tokenMask;
+            AddStackInterference(tokenMask, valueMask, conflicts);
+            AddStackInterference(valueMask, tokenMask, conflicts);
+        }
+
+        if (tagDepths is not null)
+        {
+            // OTP reserves dedicated registers for lexical try depth, even
+            // when two different depths are not simultaneously live here.
+            BigInteger outer = BigInteger.Zero;
+            BigInteger inner = BigInteger.Zero;
+            foreach (var (slot, depth) in tagDepths)
+            {
+                if (depth == 0)
+                {
+                    outer |= masks[slot];
+                }
+                else
+                {
+                    inner |= masks[slot];
+                }
+            }
+
+            AddStackInterference(outer, inner, conflicts);
+            AddStackInterference(inner, outer, conflicts);
         }
 
         bool changed;
@@ -332,7 +415,8 @@ internal sealed partial class BeamModuleCompiler
         Array.Fill(slots, -1);
         foreach (int slot in Enumerable.Range(0, frame)
             .Where(slot => firstUse[slot] != int.MaxValue)
-            .OrderByDescending(slot => slot == handlerSlot || neededAfterTrim[slot])
+            .OrderByDescending(slot => slot == handlerSlot || serialSlots?.Contains(slot) == true || neededAfterTrim[slot])
+            .ThenBy(slot => tagDepths?.GetValueOrDefault(slot) ?? 0)
             .ThenBy(slot => firstUse[slot]))
         {
             int register = groups.FindIndex(group => (group & conflicts[slot]).IsZero);
@@ -354,7 +438,9 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        if (groups.Count == 0 || groups.Count >= frame)
+        if (groups.Count == 0 || groups.Count >= frame
+            || tagDepths is not null && tagDepths.GroupBy(slot => slot.Value)
+                .Any(level => level.Select(slot => slots[slot.Key]).Distinct().Count() != 1))
         {
             return null;
         }
@@ -368,6 +454,151 @@ internal sealed partial class BeamModuleCompiler
         }
 
         return (groups.Count, slots, trim < end ? (trim, removed, keptSlots) : null);
+
+        bool InTrimmedEpoch(int index) => trimEpochOwners is null
+            ? index > trim
+            : trimEpochOwners[index - entry] == trim;
+
+        bool AddSerialTryEdges(Dictionary<int, (int Slot, int Label)> entries, HashSet<int> protectedInstructions)
+        {
+            var targets = new Dictionary<int, (int Target, int Landing, int Slot)>();
+            foreach (var (at, (slot, label)) in entries)
+            {
+                if (!labels.TryGetValue(label, out int target))
+                {
+                    return false;
+                }
+
+                int landing = target;
+                while (landing < end && body[landing].Definition.Opcode is Label or Line)
+                {
+                    landing++;
+                }
+
+                if (landing == end || body[landing] is not { Definition.Opcode: TryCase, Operands: [var tag] }
+                    || tag.Value != slot)
+                {
+                    return false;
+                }
+
+                targets.Add(at + 1, (target - start, landing - start, slot));
+            }
+
+            var parentByTry = tagDepths is not null ? new int[effects.Length + 1] : null;
+            if (tagDepths is not null && targets.Values.Select(target => target.Target).Distinct().Count() != targets.Count)
+            {
+                return false;
+            }
+
+            var reached = new int?[effects.Length];
+            var pending = new Stack<(int Index, int Owner)>();
+            pending.Push((0, 0));
+            while (pending.TryPop(out var state))
+            {
+                var (index, active) = state;
+                if (index < 0 || index >= effects.Length)
+                {
+                    return false;
+                }
+
+                if (reached[index] is int prior)
+                {
+                    if (prior != active)
+                    {
+                        return false;
+                    }
+
+                    continue;
+                }
+
+                reached[index] = active;
+                BeamInstruction instruction = body[start + index];
+                byte opcode = instruction.Definition.Opcode;
+                int next = active;
+                if (tagDepths is not null && active < 0 && opcode is not (Label or Line or TryCase))
+                {
+                    return false;
+                }
+
+                if (opcode == TryEnter)
+                {
+                    next = index + 1;
+                    int slot = targets[next].Slot;
+                    if (active != 0 && (parentByTry is null || active < 0
+                        || parentByTry[active] != 0 || targets[active].Slot == slot))
+                    {
+                        return false;
+                    }
+
+                    if (tagDepths is not null)
+                    {
+                        int depth = active == 0 ? 0 : 1;
+                        if (tagDepths.TryGetValue(slot, out int previousDepth) && previousDepth != depth)
+                        {
+                            return false;
+                        }
+
+                        // Each reachable installation has one incoming state.
+                        // Its recorded parent makes the signed top identity describe the full stack.
+                        tagDepths[slot] = depth;
+                        parentByTry![next] = active;
+                    }
+
+                    pending.Push((targets[next].Target, -next));
+                }
+                else if (opcode == TryEnd)
+                {
+                    if (active <= 0 || instruction.Operands[0].Value != targets[active].Slot)
+                    {
+                        return false;
+                    }
+
+                    next = parentByTry?[active] ?? 0;
+                }
+                else if (opcode == TryCase)
+                {
+                    if (active >= 0 || index != targets[-active].Landing)
+                    {
+                        return false;
+                    }
+
+                    next = parentByTry?[-active] ?? 0;
+                }
+                else if (active != 0 && (opcode is Return or TailLocalCall or TailExternalCall || LinearFrameSizeOperand(opcode) >= 0))
+                {
+                    return false;
+                }
+
+                var effect = effects[index];
+                if (effect.FallsThrough)
+                {
+                    pending.Push((index + 1, next));
+                }
+
+                if (effect.Targets is not null)
+                {
+                    foreach (int successor in effect.Targets)
+                    {
+                        pending.Push((successor, next));
+                    }
+                }
+
+                if (active > 0 && opcode != TryEnd)
+                {
+                    int failure = targets[active].Target;
+                    protectedInstructions.Add(index);
+                    (effect.Targets ??= []).Add(failure);
+                    effects[index] = effect;
+                    pending.Push((failure, -active));
+                    hasBackEdge |= failure <= index;
+                    branched = true;
+                }
+            }
+
+            return tagDepths is null
+                ? entries.Keys.All(index => reached[index] == 0)
+                : tagDepths.Values.Contains(1) && entries.Keys.All(index => reached[index] is >= 0);
+        }
 
         bool AddHandlerEdges(HashSet<int> protectedInstructions)
         {

@@ -1,0 +1,11 @@
+# Part 1998 local inherited result branches
+
+Baseline Windows OTP 29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5. The observed ledger remains 539 Equal, 827 Different, 0 Unsupported and 0 SourceRejected.
+
+The corrected 21-file [comparison](status.json) took 54.341 s and recorded 0 Equal, 21 Different, 0 Unsupported and 0 SourceRejected. Fourteen changed release images prepared in OTP. Normalization measured three gains and zero losses against the saved per-module observations. The two outlined Common Test loop bodies still differ in their other register and lifetime rules.
+
+The new terminal graph path reuses current Y homes for a nested fixed call whose checked tuple and atom successors complete independently. Clause labels, all bound inputs and the original malformed selector are kept. The first attempt measured the inherited branch with a zero provisional frame. It later emitted that branch with an actual frame, changing downstream entry offsets. Managed image validation and OTP disassembly both identify invalid references. The isolated rejected shard stalled in compilation and was stopped after the corrected scope completed. See the [original physical code](before-inherited-calls.code.txt), [rejected physical code](rejected-inherited-calls.code.txt), [loader error](rejected-managed-load.stderr) and [stop receipt](rejected-shard-stop.json). The corrected sizing phase uses its measured stack high-water mark in the admitted region.
+
+The associated if branch rule derives equality or exact equality by complementing the source inequality and exchanging the two successors after both operands are proven bound. Computed guard operands retain their checked path.
+
+Fourteen focused managed tests passed. Native OTP and generated code produced the same result, malformed case reasons with source lines, numerical comparison effects and checked guard behavior in [eleven paired observations](branch-behavior.terms). The released SSH option resolution also matched all [three priorities](ssh-options.terms). The unchanged 110 prior fixture observations were rerun. See the [transferred source identities](source-transfer-2158.json). Full corpus acceptance, complete package regression, readiness and local commit remain pending.

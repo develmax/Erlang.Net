@@ -4,6 +4,103 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
+    private byte[]? ForwardOverwrittenReceiverCopies(ReadOnlyMemory<byte> code, int labelCount)
+    {
+        if (ModuleOptimizationDisabled || !SsaTypeInferenceEnabled || !code.Span.Contains(Move)
+            || DecodeLateAtomicProjectionSlots(code, labelCount) is not { Body: var body })
+        {
+            return null;
+        }
+
+        BeamOperand receiver = new(BeamOperandParameters.X, 0);
+        using var output = new MemoryStream(code.Length);
+        int copied = 0;
+        for (int start = 0; start + 3 < body.Count; start++)
+        {
+            if (body[start] is not
+                {
+                    Definition.Opcode: Move,
+                    Operands: [{ Kind: BeamOperandParameters.X, TypeIndex: null } source, var saved]
+                }
+                || source == receiver || saved != receiver
+                || body[start + 1] is not
+                {
+                    Definition.Opcode: Move,
+                    Operands: [var scratch, { Kind: BeamOperandParameters.X, TypeIndex: null } argument]
+                }
+                || scratch != receiver || argument == receiver
+                || body[start + 2] is not { Definition.Opcode: Move, Operands: [var replacement, var replaced] }
+                || replaced != receiver || replacement.TypeIndex is not null
+                || (replacement.Kind != BeamOperandParameters.Y && !IsNonRegisterValue(replacement)))
+            {
+                continue;
+            }
+
+            int call = start + 3;
+            while (call < body.Count && body[call].Definition.Opcode is Move or Line)
+            {
+                call++;
+            }
+
+            if (call >= body.Count || body[call].Definition.Opcode is not
+                (LocalCall or ExternalCall or TailLocalCall or TailExternalCall
+                 or TailLocalCallWithFrame or TailExternalCallWithFrame)
+                || body[call].Operands[0].Value <= argument.Value)
+            {
+                continue;
+            }
+
+            // The original X0 value is replaced before any intervening use.
+            // Use the original source for its outgoing copy and keep the
+            // final receiver load in its original position.
+            output.Write(code.Span[copied..body[start].Offset]);
+            if (source != argument)
+            {
+                output.WriteByte(Move);
+                WriteRegister(output, source);
+                WriteRegister(output, argument);
+            }
+
+            bool restoresSameReceiver = replacement.Kind == BeamOperandParameters.Y
+                && RestoresUnchangedReceiver(start, replacement);
+            copied = body[start + (restoresSameReceiver ? 3 : 2)].Offset;
+            start += restoresSameReceiver ? 2 : 1;
+        }
+
+        if (copied == 0)
+        {
+            return null;
+        }
+
+        output.Write(code.Span[copied..]);
+
+        return output.ToArray();
+
+        bool RestoresUnchangedReceiver(int start, BeamOperand slot)
+        {
+            for (int prior = start - 1; prior >= 0; prior--)
+            {
+                if (body[prior].Definition.Opcode == Line)
+                {
+                    continue;
+                }
+
+                if (body[prior] is not { Definition.Opcode: Move, Operands: [var from, var to] }
+                    || SameProjectionRegister(to, receiver))
+                {
+                    return false;
+                }
+
+                if (SameProjectionRegister(to, slot))
+                {
+                    return from == receiver;
+                }
+            }
+
+            return false;
+        }
+    }
+
     private static byte[]? ComposeTailArgumentCopies(
         ReadOnlyMemory<byte> code,
         IReadOnlyList<BeamInstruction> body

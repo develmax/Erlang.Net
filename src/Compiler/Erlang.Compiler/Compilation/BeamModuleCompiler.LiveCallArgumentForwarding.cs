@@ -43,7 +43,22 @@ internal sealed partial class BeamModuleCompiler
                     { Kind: BeamOperandParameters.X, Value.IsZero: true, TypeIndex: null } resultRegister,
                     { Kind: BeamOperandParameters.Y, TypeIndex: null } saved
                     ]
-                } || body[index + 1] is not
+                })
+            {
+                continue;
+            }
+
+            if (ReadRetainedX0Reload(index + 1, saved, resultRegister) is int reload)
+            {
+                // Preparing the other arguments leaves X0 untouched. Keep
+                // the Y copy for later uses and discard only this reload.
+                result.Write(code.Span[copied..body[reload].Offset]);
+                copied = body[reload + 1].Offset;
+                index = reload;
+                continue;
+            }
+
+            if (body[index + 1] is not
                 {
                     Definition.Opcode: Move, Operands:
                     [
@@ -73,6 +88,47 @@ internal sealed partial class BeamModuleCompiler
         result.Write(code.Span[copied..]);
 
         return result.ToArray();
+
+        int? ReadRetainedX0Reload(int first, BeamOperand saved, BeamOperand resultRegister)
+        {
+            int highestArgument = 0;
+            int position = first;
+            for (; position < body.Count; position++)
+            {
+                if (body[position] is
+                    {
+                        Definition.Opcode: Move,
+                        Operands: [
+                        {
+                            Kind: BeamOperandParameters.Atom or BeamOperandParameters.Integer
+                        or BeamOperandParameters.Nil
+                        },
+                        { Kind: BeamOperandParameters.X, Value.Sign: > 0, TypeIndex: null } argument]
+                    })
+                {
+                    highestArgument = Math.Max(highestArgument, (int)argument.Value);
+                }
+                else if (body[position].Definition.Opcode != Line)
+                {
+                    break;
+                }
+            }
+
+            if (highestArgument == 0 || position + 1 >= body.Count
+                || !IsMove(body[position], saved, resultRegister))
+            {
+                return null;
+            }
+
+            int call = position + 1;
+            while (call < body.Count && body[call].Definition.Opcode == Line)
+            {
+                call++;
+            }
+
+            return call < body.Count && body[call].Definition.Opcode is LocalCall or ExternalCall
+                && body[call].Operands[0].Value > highestArgument ? position : null;
+        }
 
         bool IsOutgoingArgument(int next, System.Numerics.BigInteger argument)
         {

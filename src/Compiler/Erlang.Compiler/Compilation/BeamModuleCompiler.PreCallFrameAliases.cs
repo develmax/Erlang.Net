@@ -4,10 +4,123 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
+    private byte[]? ForwardInitializedCallArgument(ReadOnlyMemory<byte> code, int labelCount)
+    {
+        if (ModuleOptimizationDisabled || !SsaTypeInferenceEnabled || !code.Span.Contains(InitYRegisters)
+            || DecodeLateAtomicProjectionSlots(code, labelCount) is not { Body: var body })
+        {
+            return null;
+        }
+
+        using var output = new MemoryStream();
+        int copied = 0;
+        for (int frame = 0; frame + 6 < body.Count; frame++)
+        {
+            if (body[frame].Definition.Opcode is not (Allocate or AllocateHeap)
+                || body[frame + 1] is not { Definition.Opcode: InitYRegisters } initial)
+            {
+                continue;
+            }
+
+            for (int store = frame + 2; store + 4 < body.Count && body[store].Definition.Opcode == Move; store++)
+            {
+                if (body[store] is not
+                    {
+                        Operands: [
+                        { Kind: BeamOperandParameters.X, TypeIndex: null } source,
+                        { Kind: BeamOperandParameters.Y, TypeIndex: null } slot
+                        ]
+                    }
+                    || body[store + 1] is not
+                    {
+                        Definition.Opcode: Move,
+                        Operands: [var saved, { Kind: BeamOperandParameters.X, TypeIndex: null } outgoing]
+                    }
+                    || saved != slot || source == outgoing
+                    || Enumerable.Range(frame + 2, store - frame - 2)
+                        .Any(at => body[at].Operands.Any(operand => SameProjectionRegister(operand, slot))))
+                {
+                    continue;
+                }
+
+                int kill = store + 2;
+                while (kill < body.Count && body[kill].Definition.Opcode == Move
+                    && body[kill].Operands.All(operand => operand.Kind != BeamOperandParameters.Y))
+                {
+                    kill++;
+                }
+
+                if (kill + 1 >= body.Count || body[kill] is not
+                    { Definition.Opcode: InitYRegisters, Operands: [_, var cleared] }
+                    || cleared != slot)
+                {
+                    continue;
+                }
+
+                int call = kill + 1;
+                while (call < body.Count && body[call].Definition.Opcode == Line)
+                {
+                    call++;
+                }
+
+                if (call >= body.Count || body[call] is not
+                    { Definition.Opcode: LocalCall or ExternalCall, Operands: [{ Value: var arity }, _] }
+                    || outgoing.Value >= arity)
+                {
+                    continue;
+                }
+
+                // The pre-call copy begins and ends within the same initial
+                // frame and its saved slot is dead at the first call. Keep
+                // that slot initialized before making the argument directly.
+                output.Write(code.Span[copied..initial.Offset]);
+                WriteFrameInitialization(output, initial.Operands.Skip(1).Append(slot)
+                    .Select(operand => (int)operand.Value).Distinct().Order().ToArray());
+                output.Write(code.Span[body[frame + 2].Offset..body[store].Offset]);
+                output.WriteByte(Move);
+                WriteRegister(output, source);
+                WriteRegister(output, outgoing);
+                output.Write(code.Span[body[store + 2].Offset..body[kill].Offset]);
+                copied = body[kill + 1].Offset;
+                frame = call;
+                break;
+            }
+        }
+
+        if (copied == 0)
+        {
+            return null;
+        }
+
+        output.Write(code.Span[copied..]);
+
+        return output.ToArray();
+    }
+
     private byte[]? EliminatePreCallFrameAliases(
         ReadOnlyMemory<byte> code,
         int labelCount,
         bool allowCollectors = true
+    ) => RewritePreCallFrameAliases(
+        code,
+        labelCount,
+        allowCollectors,
+        consumedBeforeCallOnly: false
+    );
+
+    private byte[]? EliminateConsumedPreCallRoots(ReadOnlyMemory<byte> code, int labelCount) =>
+        RewritePreCallFrameAliases(
+            code,
+            labelCount,
+            allowCollectors: true,
+            consumedBeforeCallOnly: true
+        );
+
+    private byte[]? RewritePreCallFrameAliases(
+        ReadOnlyMemory<byte> code,
+        int labelCount,
+        bool allowCollectors,
+        bool consumedBeforeCallOnly
     )
     {
         if (ModuleOptimizationDisabled || !SsaTypeInferenceEnabled || !code.Span.Contains(Move)
@@ -48,12 +161,14 @@ internal sealed partial class BeamModuleCompiler
 
             int allocation = frame.Uses.Keys.Single();
             if (frame.Owners[plan.Call - start] != allocation
-                || !HasRetainedPreCallRoot(
-                    body,
-                    flow ??= new BeamProjectionFlow(body),
-                    plan.Call,
-                    end
-                ))
+                || (consumedBeforeCallOnly
+                    ? !IsConsumedPreCallFrame(body, plan.Call, end)
+                    : !HasRetainedPreCallRoot(
+                        body,
+                        flow ??= new BeamProjectionFlow(body),
+                        plan.Call,
+                        end
+                    )))
             {
                 continue;
             }
@@ -63,7 +178,7 @@ internal sealed partial class BeamModuleCompiler
                 && frame.Owners[alias.Value.LastUse - start] == allocation)
                 .ToDictionary();
             var collectorRoots = PlanPreCallCollectorRoots(body, aliases);
-            if (aliases.Count == 0)
+            if (aliases.Count == 0 || consumedBeforeCallOnly && collectorRoots.Count == 0)
             {
                 continue;
             }
@@ -152,6 +267,23 @@ internal sealed partial class BeamModuleCompiler
         );
     }
 
+    private static bool IsConsumedPreCallFrame(IReadOnlyList<BeamInstruction> body, int call, int end)
+    {
+        // The first ordinary call still owns its return-address frame. Only
+        // the argument roots consumed before that call can leave the frame.
+        for (int index = call + 1; index < end; index++)
+        {
+            var instruction = body[index];
+            if (instruction.Definition.Opcode != InitYRegisters
+                && instruction.Operands.Any(operand => operand.Kind == BeamOperandParameters.Y))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     private static Dictionary<int, int> PlanPreCallCollectorRoots(
         IReadOnlyList<BeamInstruction> body,
         Dictionary<int, (int Spill, int LastUse, BeamOperand Source, int Collector)> aliases
@@ -205,7 +337,12 @@ internal sealed partial class BeamModuleCompiler
         bool allowCollectors
     )
     {
-        if (ReadSinglePreCallFrameReferences(body, start, end) is not { } plan)
+        if (ReadFirstPreCallFrameReferences(
+            body,
+            start,
+            end,
+            allowLaterCalls: true
+        ) is not { } plan)
         {
             return null;
         }
@@ -243,7 +380,12 @@ internal sealed partial class BeamModuleCompiler
     private static (
         int Call,
         Dictionary<int, (int First, int Last, int Count)> References
-    )? ReadSinglePreCallFrameReferences(IReadOnlyList<BeamInstruction> body, int start, int end)
+    )? ReadFirstPreCallFrameReferences(
+        IReadOnlyList<BeamInstruction> body,
+        int start,
+        int end,
+        bool allowLaterCalls = false
+    )
     {
         int call = -1;
         var references = new Dictionary<int, (int First, int Last, int Count)>();
@@ -254,12 +396,17 @@ internal sealed partial class BeamModuleCompiler
             {
                 case LocalCall:
                 case ExternalCall:
-                    if (call >= 0)
+                    if (call < 0)
+                    {
+                        call = index;
+                    }
+                    else if (!allowLaterCalls)
                     {
                         return null;
                     }
 
-                    call = index;
+                    // Later calls cannot extend the X lifetime. Continue
+                    // counting Y uses so a surviving slot vetoes aliasing.
                     break;
                 case TryEnter:
                 case CatchEnter:

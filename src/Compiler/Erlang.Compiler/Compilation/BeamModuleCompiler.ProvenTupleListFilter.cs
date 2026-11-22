@@ -76,33 +76,55 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
-            bool constructsTuple = false;
+            bool provesTupleHead = false;
 
-            return producer.Clauses.All(clause => IsTupleListResult(clause.Body)) && constructsTuple;
+            return producer.Clauses.All(clause => IsTupleListResult(clause.Body, null)) && provesTupleHead;
 
             // A successful self call has a finite return derivation. Every terminal
-            // path in that derivation must return nil or construct a proper tuple list.
-            bool IsTupleListResult(Expr result) => result switch
+            // path in that derivation must return nil or add a proven tuple head.
+            bool IsTupleListResult(Expr result, (string Name, int Arity)? tupleAlias) => result switch
             {
-                Expr.Block block => IsTupleListResult(block.Body),
-                Expr.Sequence { Items: [.., var final] } => IsTupleListResult(final),
-                Expr.Case choice => choice.Clauses.All(arm => IsTupleListResult(arm.Body)),
-                Expr.If choice => choice.Clauses.All(arm => IsTupleListResult(arm.Body)),
-                Expr.List list => list.Items.All(IsTupleHead) && (list.Tail is null || IsTupleListResult(list.Tail)),
+                Expr.Block block => IsTupleListResult(block.Body, tupleAlias),
+                Expr.Sequence { Items: [.., var final] } => IsTupleListResult(final, tupleAlias),
+                Expr.Case choice => choice.Clauses.All(arm =>
+                    IsTupleListResult(arm.Body, ReadMatchedTupleAlias(arm) ?? tupleAlias)),
+                Expr.If choice => choice.Clauses.All(arm => IsTupleListResult(arm.Body, tupleAlias)),
+                Expr.List list => list.Items.All(head => IsTupleHead(head, tupleAlias))
+                    && (list.Tail is null || IsTupleListResult(list.Tail, tupleAlias)),
                 Expr.Literal { Value: Nil } => true,
                 Expr.Call { Module: null, DynamicRemote: false } recurse =>
                     recurse.Function == signature.Function && recurse.Arguments.Count == signature.Count,
                 _ => false
             };
 
-            bool IsTupleHead(Expr head)
+            bool IsTupleHead(Expr head, (string Name, int Arity)? tupleAlias)
             {
                 bool tuple = head is Expr.Tuple construction && construction.Items.Count >= minimumArity
-                    || head is Expr.Literal { Value: TupleTerm literal } && literal.Items.Count >= minimumArity;
-                constructsTuple |= tuple;
+                    || head is Expr.Literal { Value: TupleTerm literal } && literal.Items.Count >= minimumArity
+                    || head is Expr.Variable variable && tupleAlias is { } alias
+                        && variable.Name == alias.Name && alias.Arity >= minimumArity;
+                provesTupleHead |= tuple;
 
                 return tuple;
             }
+
+            // Core carrier reuse can replace a tuple constructor with the checked
+            // alias on this arm. The same fact holds for a source-written alias.
+            static (string Name, int Arity)? ReadMatchedTupleAlias(Clause arm) => arm.Patterns switch
+            {
+                [AliasPattern
+                {
+                    Left: Pattern.Variable { Name: not VariableScopeNames.Wildcard } alias,
+                    Right: Pattern.Tuple tuple
+                }] => (alias.Name, tuple.Items.Count),
+                [AliasPattern
+                {
+                    Left: Pattern.Tuple tuple,
+                    Right: Pattern.Variable { Name: not VariableScopeNames.Wildcard } alias
+                }] =>
+                    (alias.Name, tuple.Items.Count),
+                _ => null
+            };
         }
     }
 

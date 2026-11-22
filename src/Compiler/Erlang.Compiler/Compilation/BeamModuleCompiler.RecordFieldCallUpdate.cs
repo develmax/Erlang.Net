@@ -321,16 +321,22 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        private void EmitSavedRecordUpdate(int arity, int index)
+        private void EmitSavedRecordUpdate(
+            int arity,
+            int index,
+            int sourceSlot = 0,
+            int valueRegister = 0,
+            int destination = 0
+        )
         {
             owner.Op(UpdateRecord, AtomTag, owner.Intern(arity < RecordUpdateArityLimit ? "reuse" : "copy"));
             owner.Operand(BeamWire.UnsignedTag, arity);
-            owner.EmitTypedRegister(0, TupleTypeBits, registerTag: YRegisterTag);
-            owner.Operand(XRegisterTag, 0);
+            owner.EmitTypedRegister(sourceSlot, TupleTypeBits, registerTag: YRegisterTag);
+            owner.Operand(XRegisterTag, destination);
             owner.instructions.WriteByte(ExtendedListOperand);
             owner.Operand(BeamWire.UnsignedTag, 2);
             owner.Operand(BeamWire.UnsignedTag, index + 1);
-            owner.Operand(XRegisterTag, 0);
+            owner.Operand(XRegisterTag, valueRegister);
         }
 
         private bool TryEmitDeferredRecordFieldCall(FunctionDefinition function)

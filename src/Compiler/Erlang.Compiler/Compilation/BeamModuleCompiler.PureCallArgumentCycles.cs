@@ -16,28 +16,31 @@ internal sealed partial class BeamModuleCompiler
     )
     {
         using var output = new MemoryStream();
+        BeamProjectionFlow? flow = null;
         int copied = 0;
         for (int index = 0; index < body.Count; index++)
         {
-            if (ReadPureCallArgumentCycle(body, index) is not { } plan)
+            if (ReadProjectedTailArgumentCycle(body, index, ref flow) is { } projected)
             {
-                continue;
-            }
+                output.Write(code.Span[copied..body[index].Offset]);
+                WriteProjection(index + 1, projected.FieldRegister);
+                WriteProjection(index + 2, projected.Carrier);
+                if (projected.RetainInitialProjection)
+                {
+                    output.Write(code.Span[body[index].Offset..body[index + 1].Offset]);
+                }
 
-            output.Write(code.Span[copied..body[index].Offset]);
-            var registers = plan.Registers;
-            int first = registers.IndexOf(registers.Min());
-            // beam_ssa_codegen orders the parallel argument copies by destination,
-            // then walks the cycle from its lowest destination.
-            for (int position = 1; position + 1 < registers.Count; position++)
+                WriteCycle(projected.Registers);
+                index = projected.End - 1;
+                copied = body[projected.End].Offset;
+            }
+            else if (ReadPureCallArgumentCycle(body, index) is { } plan)
             {
-                WriteSwap(registers[(first + position + 1) % registers.Count],
-                    registers[(first + position) % registers.Count]);
+                output.Write(code.Span[copied..body[index].Offset]);
+                WriteCycle(plan.Registers);
+                index = plan.End - 1;
+                copied = body[plan.End].Offset;
             }
-
-            WriteSwap(registers[first], registers[(first + registers.Count - 1) % registers.Count]);
-            index = plan.End - 1;
-            copied = body[plan.End].Offset;
         }
 
         if (copied == 0)
@@ -49,12 +52,119 @@ internal sealed partial class BeamModuleCompiler
 
         return output.ToArray();
 
+        void WriteCycle(List<int> registers)
+        {
+            int first = registers.IndexOf(registers.Min());
+            // beam_ssa_codegen orders the parallel argument copies by destination,
+            // then walks the cycle from its lowest destination.
+            for (int position = 1; position + 1 < registers.Count; position++)
+            {
+                WriteSwap(registers[(first + position + 1) % registers.Count],
+                    registers[(first + position) % registers.Count]);
+            }
+
+            WriteSwap(registers[first], registers[(first + registers.Count - 1) % registers.Count]);
+        }
+
+        void WriteProjection(int index, BeamOperand destination)
+        {
+            IReadOnlyList<BeamOperand> operands = body[index].Operands;
+            output.WriteByte(GetTupleElement);
+            WriteRegister(output, operands[0]);
+            BeamCompactWriter.Write(output, BeamWire.UnsignedTag, operands[1].Value);
+            WriteRegister(output, destination);
+        }
+
         void WriteSwap(int source, int destination)
         {
             output.WriteByte(Swap);
             BeamCompactWriter.Write(output, XRegisterTag, source);
             BeamCompactWriter.Write(output, XRegisterTag, destination);
         }
+    }
+
+    private static (int End, List<int> Registers, BeamOperand Carrier, BeamOperand FieldRegister, bool RetainInitialProjection)?
+        ReadProjectedTailArgumentCycle(IReadOnlyList<BeamInstruction> body, int start, ref BeamProjectionFlow? flow)
+    {
+        if (start + 4 >= body.Count
+            || body[start + 1] is not
+            {
+                Definition.Opcode: GetTupleElement,
+                Operands:
+                [
+                { Kind: BeamOperandParameters.X, TypeIndex: null } tuple,
+                { Kind: BeamOperandParameters.Unsigned } first,
+                { Kind: BeamOperandParameters.X, TypeIndex: null } initialDestination
+                ]
+            }
+            || body[start + 2] is not
+            {
+                Definition.Opcode: GetTupleElement,
+                Operands:
+                [
+                    var source,
+                { Kind: BeamOperandParameters.Unsigned } second,
+                { Kind: BeamOperandParameters.X, TypeIndex: null } output
+                ]
+            }
+            || source != tuple || first == second || tuple == output || initialDestination == output
+            || body[start + 3] is not
+            {
+                Definition.Opcode: Move,
+                Operands: [{ Kind: BeamOperandParameters.X, TypeIndex: null } temporary, var restored]
+            }
+            || restored != tuple)
+        {
+            return null;
+        }
+
+        int after = start + 4;
+        int call = after;
+        while (call < body.Count && body[call].Definition.Opcode == Line)
+        {
+            call++;
+        }
+
+        if (call == body.Count || body[call].Definition.Opcode is not
+            (TailLocalCall or TailExternalCall or TailLocalCallWithFrame or TailExternalCallWithFrame))
+        {
+            return null;
+        }
+
+        var arity = body[call].Operands[0].Value;
+        if (temporary.Value < arity
+            || tuple.Value >= arity || output.Value >= arity
+            || !(flow ??= new BeamProjectionFlow(body)).HasCheckedTupleField(start, tuple, first)
+            || !flow.HasCheckedTupleField(start, tuple, second))
+        {
+            return null;
+        }
+
+        int carrier = (int)tuple.Value;
+        int result = (int)output.Value;
+        if (body[start] is { Definition.Opcode: Move, Operands: [var saved, var backup] }
+            && saved == initialDestination && backup == temporary && saved != tuple && saved.Value < arity)
+        {
+            return (after, [carrier, (int)saved.Value, result], tuple, output, false);
+        }
+
+        if (initialDestination == temporary && body[start] is
+            {
+                Definition.Opcode: GetTupleElement,
+                Operands: [{ Kind: BeamOperandParameters.X, TypeIndex: null } parent, var field, var destination]
+            }
+            && parent == destination && parent != tuple && parent != output && parent.Value < arity
+            && HasLocalTupleCheck(
+                body,
+                start,
+                parent,
+                field
+            ))
+        {
+            return (after, [carrier, result], tuple, output, true);
+        }
+
+        return null;
     }
 
     private static (int End, List<int> Registers)? ReadPureCallArgumentCycle(

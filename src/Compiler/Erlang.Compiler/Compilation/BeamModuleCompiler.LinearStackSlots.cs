@@ -26,7 +26,9 @@ internal sealed partial class BeamModuleCompiler
         bool useValueLiveness,
         IReadOnlySet<int>? closureEntries,
         bool atomicOnly,
-        bool nestedCheckedEntriesOnly = false
+        bool nestedCheckedEntriesOnly = false,
+        IReadOnlySet<int>? entriesToCompact = null,
+        IReadOnlyDictionary<int, (int Count, int[] Slots)>? provenBranchLayouts = null
     )
     {
         using var output = new MemoryStream();
@@ -42,7 +44,10 @@ internal sealed partial class BeamModuleCompiler
 
             int entry = start;
             start = end + 1;
-            if (nestedCheckedEntriesOnly && !HasNestedCheckedAtomicEntry(body, entry, end)
+            if (entriesToCompact is not null
+                && (entry >= end || body[entry] is not { Definition.Opcode: Label, Operands: [var label] }
+                    || !entriesToCompact.Contains((int)label.Value))
+                || nestedCheckedEntriesOnly && !HasNestedCheckedAtomicEntry(body, entry, end)
                 || atomicOnly && !Enumerable.Range(entry, end - entry).Any(index => IsAtomicStackAliasCandidate(body[index])))
             {
                 continue;
@@ -142,6 +147,11 @@ internal sealed partial class BeamModuleCompiler
                     end,
                     closure
                 );
+            }
+
+            if (provenBranchLayouts?.TryGetValue((int)body[entry].Operands[0].Value, out var proven) == true)
+            {
+                allocation = (proven.Count, proven.Slots, null);
             }
 
             if (allocation is not { } plan)

@@ -15,7 +15,7 @@ internal static class BeamProvenTupleListFilterChecks
     private const string WrongResult = "Tuple filtering changed a retained item, guard failure, or generator failure.";
     private const string Source = """
         -module(beam_proven_tuple_list_filter_probe).
-        -export([from_producer/1, unknown/1, mixed/1]).
+        -export([from_producer/1, unknown/1, mixed/1, mixed_alias/1]).
 
         from_producer(Input) ->
             Tokens = make_tokens(Input),
@@ -31,17 +31,32 @@ internal static class BeamProvenTupleListFilterChecks
             [Token || Token <- Tokens, element(2, Token) =/= blank,
                       element(2, Token) =/= hidden].
 
+        mixed_alias(Input) ->
+            Tokens = mixed_alias_tokens(Input),
+            [Token || Token <- Tokens, element(2, Token) =/= blank,
+                      element(2, Token) =/= hidden].
+
         make_tokens([]) -> [];
         make_tokens([Head | Tail]) ->
             case Head of
                 gap -> [{blank,Head} | make_tokens(Tail)];
                 mark -> [{hidden,Head,seen} | make_tokens(Tail)];
+                {copy,Value} -> [{copy,Value} | make_tokens(Tail)];
+                {keep,_,_} = Matched -> [Matched | make_tokens(Tail)];
                 _ -> [{visible,Head} | make_tokens(Tail)]
             end.
 
         mixed_tokens([]) -> [];
         mixed_tokens([short | Tail]) -> [{short} | mixed_tokens(Tail)];
         mixed_tokens([Head | Tail]) -> [{token,Head} | mixed_tokens(Tail)].
+
+        mixed_alias_tokens([]) -> [];
+        mixed_alias_tokens([Head | Tail]) ->
+            case Head of
+                Short = {short} -> [Short | mixed_alias_tokens(Tail)];
+                Matched = {keep,_} -> [Matched | mixed_alias_tokens(Tail)];
+                Other -> [Other | mixed_alias_tokens(Tail)]
+            end.
         """;
 
     internal static async Task Run()
@@ -76,11 +91,20 @@ internal static class BeamProvenTupleListFilterChecks
             Term payload = Term.A("payload");
             Term kept = Term.Tuple(visible, payload);
             Term bad = Term.A("improper");
+            Term copied = Term.Tuple(Term.A("copy"), payload);
+            Term aliased = Term.Tuple(Term.A("keep"), payload, visible);
+            Term keptAlias = Term.Tuple(Term.A("keep"), payload);
             if (!Nil.Value.Equals(await module.Invoke(context, "from_producer", Nil.Value))
-                || !Term.List(kept).Equals(await module.Invoke(
+                || !Term.List(copied, aliased, kept).Equals(await module.Invoke(
                     context,
                     "from_producer",
-                    Term.List(Term.A("gap"), payload, Term.A("mark"))
+                    Term.List(
+                        Term.A("gap"),
+                        copied,
+                        aliased,
+                        payload,
+                        Term.A("mark")
+                    )
                 ))
                 || !Term.List(kept).Equals(await module.Invoke(
                     context,
@@ -96,9 +120,30 @@ internal static class BeamProvenTupleListFilterChecks
                     context,
                     "mixed",
                     Term.List(Term.A("short"), Term.A("blank"), payload)
+                ))
+                || !Term.List(keptAlias).Equals(await module.Invoke(
+                    context,
+                    "mixed_alias",
+                    Term.List(
+                        Term.Tuple(Term.A("short")),
+                        keptAlias,
+                        Term.Tuple(Term.A("keep"), Term.A("hidden")),
+                        bad
+                    )
                 )))
             {
                 throw new InvalidOperationException(WrongResult);
+            }
+
+            try
+            {
+                await module.Invoke(context, "from_producer", new Cons(copied, bad));
+                throw new InvalidOperationException(WrongResult);
+            }
+            catch (ErlangException error) when (error.ExceptionClass == ErlangExceptionClasses.Error
+                && error.Reason.Equals(Term.A("function_clause")))
+            {
+                // The input fails before the producer establishes its tuple-list result.
             }
 
             try

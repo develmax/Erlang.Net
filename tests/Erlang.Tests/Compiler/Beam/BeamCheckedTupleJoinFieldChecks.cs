@@ -4,6 +4,7 @@ using Erlang;
 using Erlang.Compiler;
 using static Erlang.Compiler.BeamEmissionFormat;
 using static Erlang.Tests.BeamBinaryHostAccess;
+using static Erlang.Tests.BeamOpcodeEdgeBytes;
 
 namespace Erlang.Tests;
 
@@ -46,6 +47,8 @@ internal static class BeamCheckedTupleJoinFieldChecks
 
     internal static async Task Run()
     {
+        CheckCheckedArityFields();
+
         byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
         object code = Code(image);
         object[] instructions = Items(code, "Instructions").ToArray();
@@ -147,6 +150,54 @@ internal static class BeamCheckedTupleJoinFieldChecks
 
             return Nil.Value;
         });
+    }
+
+    private static void CheckCheckedArityFields()
+    {
+        var compiler = new BeamModuleCompiler("beam_arity_fields_fixture");
+        int function = (int)Call(compiler, "Intern", "choose");
+        int first = (int)Call(compiler, "Intern", "one");
+        int second = (int)Call(compiler, "Intern", "two");
+        byte[] arities =
+        [
+            .. Start(
+                1,
+                2,
+                function,
+                4
+            ), IsTuple, F(6), X(0), SelectTupleArity, X(0), F(6), ExtendedListOperand, U(4),
+            U(3), F(3), U(4), F(4), Label, U(3)
+        ];
+        byte[] fields = [GetTupleElement, X(0), U(1), X(1), GetTupleElement, X(0), U(2), X(2)];
+        byte[] readTag = [GetTupleElement, X(0), U(0), X(1)];
+        byte[] select = [SelectValue, X(1), F(8), ExtendedListOperand, U(4), A(first), F(5), A(second), F(7)];
+        byte[] firstArm = [Label, U(5), .. fields, Move, X(2), X(0), Return];
+        byte[] secondArm = [Label, U(7), .. fields, Move, X(1), X(0), Return];
+        byte[] defaults = [Label, U(4), Return, Label, U(6), Return, Label, U(8), Return, EndCode];
+        byte[] original = [.. arities, .. readTag, .. select, .. firstArm, .. secondArm, .. defaults];
+        byte[] expected =
+        [
+            .. arities, GetTupleElement, X(0), U(0), X(3), .. fields,
+            SelectValue, X(3), F(8), ExtendedListOperand, U(4), A(first), F(5), A(second), F(7),
+            Label, U(5), Move, X(2), X(0), Return, Label, U(7), Move, X(1), X(0), Return, .. defaults
+        ];
+        byte[] anotherArityEnters = [Label, U(4), Jump, F(5), .. defaults[3..]];
+        byte[] observesTag = [.. defaults[..^2], Move, X(1), X(0), Return, EndCode];
+        byte[] observesScratch = [.. defaults[..^2], Move, X(3), X(0), Return, EndCode];
+        if (Apply(original) is not { } actual || !actual.AsSpan().SequenceEqual(expected)
+            || Apply([.. arities, .. readTag, .. select, .. firstArm, .. secondArm, .. anotherArityEnters]) is not null
+            || Apply([.. arities, .. readTag, .. select, .. firstArm, .. secondArm, .. observesTag]) is not null
+            || Apply([.. arities, .. readTag, .. select, .. firstArm, .. secondArm, .. observesScratch]) is not null)
+        {
+            throw new InvalidOperationException(WrongLayout);
+        }
+
+        byte[]? Apply(byte[] bytes) => (byte[]?)Call(
+            compiler,
+            "ShareAritySelectedTupleFields",
+            (ReadOnlyMemory<byte>)bytes,
+            9
+        );
     }
 
     private static byte Opcode(object instruction) =>

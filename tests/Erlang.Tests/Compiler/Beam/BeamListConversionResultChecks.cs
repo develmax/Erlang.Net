@@ -9,6 +9,55 @@ namespace Erlang.Tests;
 internal static class BeamListConversionResultChecks
 {
     internal const string TestName = "compiler/beam/list-conversion-types-its-successful-bif-consumer";
+    internal const string InferredLocalTestName = "compiler/beam/inferred-local-proper-list-result";
+    private const string WrongInferredLocalType = "Expected the proper list annotation only for a closed recursive accumulator.";
+    private const string InferredLocalSource = """
+        -module(beam_adjacent_numeric).
+        %% options
+        -export([value/2]).
+        value(Items, Excluded) ->
+            case collect(Items, Excluded, []) of
+                [] -> [];
+                Found -> [{output, Found}]
+            end.
+        collect([], _Excluded, Acc) ->
+            Acc;
+        collect([Item | Rest], Excluded, Acc) ->
+            case lists:member(Item, Excluded) of
+                true -> collect(Rest, Excluded, Acc);
+                false -> collect(Rest, Excluded, [Item | Acc])
+            end.
+        """;
+
+    internal static Task RunInferredLocalResult()
+    {
+        byte[] direct = BeamAdjacentNumericResultChecks.Compile(InferredLocalSource);
+        byte[] disabled = BeamAdjacentNumericResultChecks.Compile(
+            InferredLocalSource.Replace("%% options", "-compile(no_ssa_opt).", StringComparison.Ordinal),
+            disabled: true
+        );
+        byte[] improper = BeamAdjacentNumericResultChecks.Compile(InferredLocalSource.Replace(
+            "collect(Items, Excluded, [])",
+            "collect(Items, Excluded, improper_tail)",
+            StringComparison.Ordinal
+        ));
+        if (ReadType(direct) != ListType || ReadType(disabled) is not null || ReadType(improper) == ListType)
+        {
+            throw new InvalidOperationException(WrongInferredLocalType);
+        }
+
+        return Task.CompletedTask;
+
+        static int? ReadType(byte[] beam) =>
+            BeamAdjacentNumericResultChecks.InstructionInputType(
+                beam,
+                IsNil,
+                1,
+                first: true,
+                required: false
+            );
+    }
+
     private const int ListType = (1 << 2) | (1 << 7);
     private const string WrongOperand = "The ordinary list BIF must type only the result of a resolved conversion.";
     private const string WrongValue = "The list conversion and its consumer returned an unexpected value or error.";

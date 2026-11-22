@@ -173,6 +173,54 @@ internal sealed partial class BeamModuleCompiler
             return previous;
         }
 
+        private (Expr.Call Call, CallArgumentConstructions Arguments)? ReadTaggedThrowConstruction(
+            Expr.Call invocation,
+            string payload
+        )
+        {
+            if (invocation.Arguments is not [Expr.Tuple]
+                || ReadStackFreeThrow(invocation, requireCallerHandler: true) is not { } raised
+                || ReadCallArgumentConstructions(
+                    raised.Arguments,
+                    0,
+                    variables,
+                    inputs: new Dictionary<string, int>(StringComparer.Ordinal) { [payload] = 0 }
+                ) is not { Live: 1, Loads.Count: 0, Moves.Count: 0, Constructions.Count: > 0 } construction)
+            {
+                return null;
+            }
+
+            return (raised, construction);
+        }
+
+        private bool TryEmitRetainedSelectorThrow(Clause clause, string selector)
+        {
+            if (owner.receiveScratchRegisters is not null || clause.Guard is not null
+                || selector == VariableScopeNames.Wildcard || deferredPairMembers.ContainsKey(selector)
+                || clause.Body is not Expr.Call invocation
+                || ReadTaggedThrowConstruction(invocation, selector) is not { } plan)
+            {
+                return false;
+            }
+
+            // This final arm owns the untouched catch result in X0. The
+            // construction keeps it rooted through the initial heap check.
+            EmitCallArgumentConstructions(plan.Arguments, -1);
+            owner.EmitConstant(Term.A(ErlangExceptionClasses.Throw), 0);
+            EmitPreparedFrameTail(
+                new EntryCall(
+                    plan.Call,
+                    ErlangModuleNames.Module,
+                    [],
+                    []
+                ),
+                location,
+                frameSize
+            );
+
+            return true;
+        }
+
         private bool CanDiscardThrowStack(Expr.Call call, Expr reason, bool requireCallerHandler)
         {
             if (owner.ModuleOptimizationDisabled || recursiveClosure is not null || parentFunction is not { } function)

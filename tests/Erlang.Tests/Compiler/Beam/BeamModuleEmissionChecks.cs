@@ -558,7 +558,6 @@ internal static class BeamModuleEmissionChecks
         await CompareTupleClosureInvocation();
         await CompareMultipleTupleClosures();
         await CompareInlineListReduction();
-        await BeamGeneralTryEmissionChecks.Check();
     }
 
     private static void RejectInvalidOnLoadDeclarations()

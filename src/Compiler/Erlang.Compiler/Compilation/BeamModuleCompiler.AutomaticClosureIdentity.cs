@@ -124,7 +124,7 @@ internal sealed partial class BeamModuleCompiler
 
     private bool UsesIndependentSsaClosureIdentity(FunctionDefinition lexicalOwner, Expr.Fun closure, int coreOrdinal)
     {
-        if (!automaticCoreInlining || coreOrdinal != 0 || sourceModule is null || !IsTotalAnonymousClosure(closure))
+        if (!automaticCoreInlining || coreOrdinal != 0 || sourceModule is null || !IsExhaustiveAnonymousClosure(closure))
         {
             return false;
         }
@@ -134,12 +134,152 @@ internal sealed partial class BeamModuleCompiler
         {
             automaticClosureSourceFunctions ??= sourceModule.DeclaredFunctions
                 .ToDictionary(function => (function.Name, function.Arity));
-            result = CanAssignFirstSsaAnonymousName(signature, automaticClosureSourceFunctions, sourceModule);
+            result = CanAssignFirstSsaAnonymousName(signature, automaticClosureSourceFunctions, sourceModule)
+                || !inlineListFunctions && CanAssignSoleOpaqueSsaClosureName(
+                    signature,
+                    automaticClosureSourceFunctions,
+                    sourceModule
+                );
             automaticClosureIdentities.Add(signature, result);
         }
 
         return result;
     }
+
+    private static bool CanAssignSoleOpaqueSsaClosureName(
+        (string Name, int Arity) signature,
+        IReadOnlyDictionary<(string Name, int Arity), FunctionDefinition> functions,
+        ModuleDefinition module
+    )
+    {
+        if (!functions.TryGetValue(signature, out var source))
+        {
+            return false;
+        }
+
+        var sourceExpressions = LocalFunctionEntries.ClauseExpressions(source.Clauses)
+            .SelectMany(LocalFunctionEntries.Walk).ToArray();
+        if (sourceExpressions.OfType<Expr.Fun>().ToArray() is not [var callback]
+            || !IsExhaustiveAnonymousClosure(callback))
+        {
+            return false;
+        }
+
+        Expr.Try? protection = ReadProtectedOpaqueCallback(
+            source,
+            callback,
+            sourceExpressions,
+            module
+        );
+        if (protection is null && !sourceExpressions.OfType<Expr.Call>().Any(call =>
+            IsOpaqueCallbackConsumer(call, module)
+            && call.Arguments.Any(argument => ReferenceEquals(argument, callback))))
+        {
+            return false;
+        }
+
+        // cerl_inline removes the Core id of a fun kept as a value. This
+        // traversal proves that there is no earlier definition to allocate
+        // an SSA ordinal, including definitions reachable through local calls.
+        var pending = new Queue<FunctionDefinition>();
+        var seen = new HashSet<(string Name, int Arity)> { signature };
+        pending.Enqueue(source);
+        while (pending.TryDequeue(out var function))
+        {
+            var formalApplications = function.Clauses.SelectMany(ReadFormalCallbackApplications)
+                .ToHashSet<Expr.Apply>(ReferenceEqualityComparer.Instance);
+            foreach (Expr expression in LocalFunctionEntries.ClauseExpressions(function.Clauses)
+                .SelectMany(LocalFunctionEntries.Walk))
+            {
+                if (expression is Expr.Fun retained && !ReferenceEquals(retained, callback)
+                    || expression is Expr.Apply application && !formalApplications.Contains(application)
+                    || expression is Expr.Try attempt && !ReferenceEquals(attempt, protection)
+                    || expression is Expr.FunctionReference or Expr.Catch or Expr.Receive or Expr.Maybe
+                    or Expr.ListComprehension or Expr.MapComprehension or Expr.BinaryComprehension
+                    or Expr.Call { DynamicRemote: true })
+                {
+                    return false;
+                }
+
+                if (expression is not Expr.Call call
+                    || call.Module is { } explicitModule && explicitModule != module.Name)
+                {
+                    continue;
+                }
+
+                var target = (call.Function, call.Arguments.Count);
+                if (!functions.TryGetValue(target, out var callee) || !seen.Add(target))
+                {
+                    continue;
+                }
+
+                if (callee.Clauses.LastOrDefault() is not { Guard: null } exhaustive
+                    || !HasUnconditionalParameters(exhaustive))
+                {
+                    return false;
+                }
+
+                pending.Enqueue(callee);
+            }
+        }
+
+        return true;
+    }
+
+    private static Expr.Try? ReadProtectedOpaqueCallback(
+        FunctionDefinition source,
+        Expr.Fun callback,
+        IReadOnlyList<Expr> sourceExpressions,
+        ModuleDefinition module
+    )
+    {
+        foreach (Clause clause in source.Clauses)
+        {
+            Expr first = clause.Body is Expr.Sequence { Items.Count: > 0 } sequence
+                ? sequence.Items[0]
+                : clause.Body;
+            if (first is Expr.Match { Pattern: Pattern.Variable, Value: Expr.Try boundProtection })
+            {
+                first = boundProtection;
+            }
+
+            if (clause.Guard is not null || first is not Expr.Try
+                {
+                    Clauses.Count: 0, Catches.Count: > 0, After: null,
+                    Body: Expr.Sequence
+                    {
+                        Items:
+                        [
+                            Expr.Match { Pattern: Pattern.Variable alias, Value: Expr.Fun value },
+                            Expr.Call consumer
+                        ]
+                    }
+                } protection
+                || !ReferenceEquals(value, callback)
+                || alias.Name == VariableScopeNames.Wildcard
+                || clause.Patterns.SelectMany(Semantics.Variables).Contains(alias.Name)
+                || !IsOpaqueCallbackConsumer(consumer, module)
+                || !consumer.Arguments.OfType<Expr.Variable>().Any(argument => argument.Name == alias.Name)
+                || sourceExpressions.OfType<Expr.Variable>().Count(variable => variable.Name == alias.Name) != 1)
+            {
+                continue;
+            }
+
+            // A try without an after body owns one evaluation of the callback.
+            // Its fresh alias is used only as a value by the opaque call.
+            return protection;
+        }
+
+        return null;
+    }
+
+    private static bool IsOpaqueCallbackConsumer(Expr.Call call, ModuleDefinition module) =>
+        !call.DynamicRemote
+        && (call.Module ?? module.CallBindings.ImportedModule(call.Function, call.Arguments.Count)) is { } target
+        && target != module.Name && target != ErlangModuleNames.Module;
+
+    private static bool IsExhaustiveAnonymousClosure(Expr.Fun closure) => closure.SelfName is null
+        && closure.Clauses.LastOrDefault() is { Guard: null } clause && HasUnconditionalParameters(clause);
 
     private static bool CanAssignFirstSsaAnonymousName(
         (string Name, int Arity) signature,
@@ -151,6 +291,11 @@ internal sealed partial class BeamModuleCompiler
             || source.Clauses.Count != 1 && !HasAtomEntryBeforeCatchAll(source.Clauses))
         {
             return false;
+        }
+
+        if (RetainsNamedCallbackListFold(source, functions, module))
+        {
+            return true;
         }
 
         // The automatic inliner drops the Core name. An inlined local callee must
@@ -225,6 +370,69 @@ internal sealed partial class BeamModuleCompiler
         }
 
         return found;
+    }
+
+    private static bool RetainsNamedCallbackListFold(
+        FunctionDefinition function,
+        IReadOnlyDictionary<(string Name, int Arity), FunctionDefinition> functions,
+        ModuleDefinition module
+    )
+    {
+        if (function.Clauses is not [
+            {
+                Guard: null,
+                Body: Expr.Sequence
+                {
+                    Items: [
+                            Expr.Match
+                    {
+                        Pattern: Pattern.Variable { Name: not VariableScopeNames.Wildcard } callbacks,
+                        Value: Expr.List { Items.Count: > 0, Tail: null } references
+                    },
+                            Expr.Call
+                    {
+                        DynamicRemote: false,
+                        Function: "foldl",
+                        Arguments: [
+                                    Expr.Fun
+                        {
+                            SelfName: null,
+                            Clauses: [
+                                {
+                                    Guard: null,
+                                    Patterns: [
+                                                    Pattern.Variable { Name: not VariableScopeNames.Wildcard } handler,
+                                                    Pattern.Variable { Name: not VariableScopeNames.Wildcard } accumulator
+                                                ],
+                                    Body: Expr.Apply
+                                    {
+                                        Function: Expr.Variable applied,
+                                        Arguments: [Expr.Variable argument]
+                                    }
+                                }
+                                        ]
+                        },
+                                    Expr.Variable seed,
+                                    Expr.Variable input
+                                ]
+                    } fold
+                        ]
+                }
+            } clause
+            ] || !HasUnconditionalParameters(clause) || handler.Name == accumulator.Name
+            || applied.Name != handler.Name || argument.Name != accumulator.Name
+            || input.Name != callbacks.Name || callbacks.Name == seed.Name
+            || clause.Patterns.Cast<Pattern.Variable>().Any(formal => formal.Name == callbacks.Name)
+            || !clause.Patterns.Cast<Pattern.Variable>().Any(formal => formal.Name == seed.Name)
+            || !references.Items.All(reference => reference is Expr.FunctionReference { Arity: 1 } local
+                && functions.ContainsKey((local.Name, local.Arity))))
+        {
+            return false;
+        }
+
+        // The proper list holds existing local names. The opaque fold visits
+        // its only lambda for value, and the lambda applies an unknown formal.
+        return (fold.Module ?? module.CallBindings.ImportedModule(fold.Function, fold.Arguments.Count)) == "lists";
     }
 
     private static bool RetainsOpaqueFoldCallback(FunctionDefinition function, ModuleDefinition module)

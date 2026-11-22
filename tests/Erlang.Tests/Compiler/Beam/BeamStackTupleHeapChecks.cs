@@ -92,7 +92,42 @@ internal static class BeamStackTupleHeapChecks
         int consumer = Array.IndexOf(scratchExpected, PutList);
         scratchExpected[consumer + 2] = X(1);
         scratchExpected = [.. scratchExpected[..consumer], .. replacement, .. scratchExpected[consumer..]];
-        if (Rewrite(source) is not { } rewritten || !rewritten.AsSpan().SequenceEqual(expected)
+        byte[] splitRoot =
+        [
+            .. entry, .. initialized, .. tag, GetTupleElement, X(0), U(1), X(1),
+            IsTaggedTuple, F(3), X(1), U(2), A(3), GetTupleElement, X(1), U(1), Y(0),
+            .. heap, .. consume, .. finish
+        ];
+        byte[] splitExpected =
+        [
+            .. Start(
+                1,
+                2,
+                2,
+                3
+            ),
+            Allocate, U(0), U(3), .. tag, GetTupleElement, X(0), U(1), X(1),
+            IsTaggedTuple, F(3), X(1), U(2), A(3), TestHeap, U(2), U(2),
+            GetTupleElement, X(1), U(1), X(0),
+            PutList, ExtendedTypedRegisterOperand, X(0), U(1), A(0), X(0),
+            Deallocate, U(0), Return, Label, U(3), BadRecord, X(0), EndCode
+        ];
+        byte[] clearedLowerRoot =
+        [
+            .. Start(
+                1,
+                2,
+                2,
+                3
+            ),
+            Allocate, U(2), U(3), .. initialized, Move, X(1), Y(1), TestHeap, U(2), U(0),
+            Move, Y(1), X(1), IsTaggedTuple, F(3), X(1), U(2), A(3),
+            GetTupleElement, X(1), U(1), Y(0), .. heap, .. consume,
+            Deallocate, U(2), Return, Label, U(3), BadRecord, X(1), EndCode
+        ];
+        if (Rewrite(splitRoot) is not { } split || !split.AsSpan().SequenceEqual(splitExpected)
+            || Rewrite(clearedLowerRoot) is not null
+            || Rewrite(source) is not { } rewritten || !rewritten.AsSpan().SequenceEqual(expected)
             || Rewrite(scratch) is not { } alternative || !alternative.AsSpan().SequenceEqual(scratchExpected)
             || Rewrite(expected) is not null
             || Rewrite([.. entry, .. initialized, IsTaggedTuple, F(3), X(2), U(2), A(2),

@@ -26,7 +26,8 @@ internal sealed partial class BeamModuleCompiler
         string Endian,
         Expr Value,
         Expr Size,
-        byte[]? Bytes
+        byte[]? Bytes,
+        int? PartialBitLength = null
     );
 
     private void BeginBinaryConstruction(
@@ -34,11 +35,12 @@ internal sealed partial class BeamModuleCompiler
         int live,
         BigInteger unit,
         int destination,
-        int segmentCount
+        int segmentCount,
+        int heapWords = 0
     )
     {
         Op(CreateBinary, LabelTag, failure);
-        Operand(BeamWire.UnsignedTag, 0);
+        Operand(BeamWire.UnsignedTag, heapWords);
         Operand(BeamWire.UnsignedTag, live);
         Operand(BeamWire.UnsignedTag, unit);
         Operand(XRegisterTag, destination);
@@ -297,6 +299,7 @@ internal sealed partial class BeamModuleCompiler
         private List<BinaryConstructionSegment> ReadBinaryConstruction(Expr.Bits bits)
         {
             var segments = new List<BinaryConstructionSegment>();
+            bool optimize = owner.SsaTypeInferenceEnabled && !owner.ModuleOptimizationDisabled;
             for (int index = 0; index < bits.Segments.Count; index++)
             {
                 BitSegment segment = bits.Segments[index];
@@ -304,9 +307,10 @@ internal sealed partial class BeamModuleCompiler
                 bool constant = segment.Endian != BitByteOrders.Native
                     && AttributeLiteral.TryNormalizeConstant(new Expr.Bits([segment]), out encoded)
                     && encoded is BitString;
-                if (constant && encoded is BitString { IsBinary: true } bytes)
+                if (constant && encoded is BitString bytes
+                    && (bytes.IsBinary || optimize && bytes.BitLength < WideIntegerSignFillBits))
                 {
-                    if (owner.SsaTypeInferenceEnabled && !owner.ModuleOptimizationDisabled
+                    if (optimize && bytes.IsBinary
                         && TryLowerWideBigEndianInteger(
                             segment,
                             bytes,
@@ -326,7 +330,8 @@ internal sealed partial class BeamModuleCompiler
                             BitByteOrders.Big,
                             segment.Value,
                             new Expr.Literal(Term.I(bytes.BitLength / BitSyntaxDefaults.BinaryUnit)),
-                            bytes.ToArray()
+                            bytes.ToArray(),
+                            bytes.IsBinary ? null : bytes.BitLength
                         ));
                     }
                     continue;
@@ -359,6 +364,7 @@ internal sealed partial class BeamModuleCompiler
                 ));
             }
 
+            segments = PackPartialBinaryStrings(segments);
             CoalesceBinaryConstructionStrings(segments);
 
             return segments;
@@ -417,6 +423,83 @@ internal sealed partial class BeamModuleCompiler
             }
 
             return true;
+        }
+
+        private static List<BinaryConstructionSegment> PackPartialBinaryStrings(List<BinaryConstructionSegment> segments)
+        {
+            if (!segments.Any(segment => segment.PartialBitLength.HasValue))
+            {
+                return segments;
+            }
+
+            var result = new List<BinaryConstructionSegment>(segments.Count);
+            for (int index = 0; index < segments.Count; index++)
+            {
+                BinaryConstructionSegment segment = segments[index];
+                if (segment.Bytes is null)
+                {
+                    result.Add(segment);
+                    continue;
+                }
+
+                int start = index;
+                bool containsPartial = segment.PartialBitLength.HasValue;
+                while (index + 1 < segments.Count && segments[index + 1].Bytes is not null)
+                {
+                    index++;
+                    containsPartial |= segments[index].PartialBitLength.HasValue;
+                }
+
+                if (!containsPartial)
+                {
+                    result.AddRange(segments.GetRange(start, index - start + 1));
+                    continue;
+                }
+
+                // The SSA binary-construction pass joins literal bitstrings
+                // before the code generator divides each run into bytes and a tail.
+                var parts = new (Term, Term?, BitSegment)[index - start + 1];
+                for (int item = start; item <= index; item++)
+                {
+                    BinaryConstructionSegment literal = segments[item];
+                    var bits = new BitString(literal.Bytes!, literal.PartialBitLength);
+                    parts[item - start] = (bits, null, new(
+                        new Expr.Literal(bits),
+                        null,
+                        BitSegmentTypes.Binary,
+                        BitSyntaxDefaults.BitStringUnit
+                    ));
+                }
+
+                var packed = BitConstruction.Create(parts);
+                int trailingBits = packed.BitLength % BitSyntaxDefaults.BinaryUnit;
+                int alignedBits = packed.BitLength - trailingBits;
+                if (alignedBits != 0)
+                {
+                    result.Add(segment with
+                    {
+                        Size = new Expr.Literal(Term.I(alignedBits / BitSyntaxDefaults.BinaryUnit)),
+                        Bytes = packed.SliceBits(0, alignedBits).ToArray(),
+                        PartialBitLength = null
+                    });
+                }
+
+                if (trailingBits != 0)
+                {
+                    byte residue = packed.SliceBits(alignedBits, trailingBits).ToArray()[0];
+                    result.Add(new(
+                        BitSegmentTypes.Integer,
+                        0,
+                        BitSyntaxDefaults.BitStringUnit,
+                        BitByteOrders.Big,
+                        new Expr.Literal(Term.I(residue >> (BitSyntaxDefaults.BinaryUnit - trailingBits))),
+                        new Expr.Literal(Term.I(trailingBits)),
+                        null
+                    ));
+                }
+            }
+
+            return result;
         }
 
         private static void CoalesceBinaryConstructionStrings(List<BinaryConstructionSegment> segments)

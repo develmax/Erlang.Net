@@ -6,7 +6,7 @@ internal sealed partial class BeamModuleCompiler
 {
     private sealed partial class GeneralEmitter
     {
-        private bool TryEmitNonAllocatingBifOperands(FunctionDefinition function)
+        private bool TryEmitPreparedBifOperands(FunctionDefinition function)
         {
             if (function.Clauses is not [{ Guard: null } clause]
                 || !HasUnconditionalParameters(clause))
@@ -17,13 +17,13 @@ internal sealed partial class BeamModuleCompiler
             var parameters = clause.Patterns.Cast<Pattern.Variable>().Select(pattern => pattern.Name).ToArray();
             if (clause.Body is Expr.Sequence { Items: [_, .., Expr.Call tail] } sequence)
             {
-                return TryEmitNonAllocatingBifTail(sequence, tail, parameters);
+                return TryEmitPreparedBifTail(sequence, tail, parameters);
             }
 
-            return TryEmitNonAllocatingBifOperands(clause.Body, parameters);
+            return TryEmitPreparedBifOperands(clause.Body, parameters);
         }
 
-        private bool TryEmitNonAllocatingBifTail(Expr.Sequence sequence, Expr.Call tail, string[] parameters)
+        private bool TryEmitPreparedBifTail(Expr.Sequence sequence, Expr.Call tail, string[] parameters)
         {
             if (ReadStraightCalls(sequence.Items.SkipLast(1).ToArray(), parameters) is not { } calls)
             {
@@ -43,7 +43,7 @@ internal sealed partial class BeamModuleCompiler
                 registers = result is null ? [] : [result];
             }
 
-            return TryEmitNonAllocatingBifOperands(
+            return TryEmitPreparedBifOperands(
                 tail,
                 registers,
                 prefix,
@@ -51,7 +51,7 @@ internal sealed partial class BeamModuleCompiler
             );
         }
 
-        private bool TryEmitNonAllocatingBifOperands(
+        private bool TryEmitPreparedBifOperands(
             Expr body,
             string[] parameters,
             IReadOnlyList<EntryCall>? prefix = null,
@@ -85,6 +85,7 @@ internal sealed partial class BeamModuleCompiler
             var remainingReads = new int[parameters.Length];
             var occupied = new HashSet<int>();
             int live = 0;
+            bool hasGcBif = false;
             for (int index = 0; index < operands.Count; index++)
             {
                 Expr item = operands[index];
@@ -110,7 +111,10 @@ internal sealed partial class BeamModuleCompiler
                     return false;
                 }
 
-                bool supported = bif is
+                bool gcBif = target is not null && !owner.ModuleOptimizationDisabled && owner.SsaTypeInferenceEnabled
+                    && bif is { Function: AutoImportNames.Length, Arguments: [Expr.Variable] };
+                hasGcBif |= gcBif;
+                bool supported = gcBif || bif is
                 { Function: AutoImportNames.Self or AutoImportNames.Node, Arguments: [] }
                     or
                 {
@@ -143,6 +147,14 @@ internal sealed partial class BeamModuleCompiler
             }
 
             if (calls.Count == 0 || parameters.Length + calls.Count > BeamWire.MaximumArity)
+            {
+                return false;
+            }
+
+            // At the single GC instruction, every X input is still from the
+            // incoming call window. A later BIF region needs a fresh root computation.
+            if (hasGcBif && (calls.Count != 1 || parameters.Length >= FirstReservedXRegister
+                || fields.Length >= FirstReservedXRegister))
             {
                 return false;
             }
@@ -192,7 +204,20 @@ internal sealed partial class BeamModuleCompiler
                         EmitZeroGuardBif(bif.Function, destination);
                         break;
                     case 1:
-                        EmitUnaryGuardInstruction(bif.Function, 0);
+                        if (hasGcBif)
+                        {
+                            owner.Op(GcBifOne, LabelTag, 0);
+                            owner.Operand(BeamWire.UnsignedTag, live);
+                            owner.Operand(
+                                BeamWire.UnsignedTag,
+                                owner.Import(ErlangModuleNames.Module, bif.Function, 1)
+                            );
+                        }
+                        else
+                        {
+                            EmitUnaryGuardInstruction(bif.Function, 0);
+                        }
+
                         WriteOperand(arguments[0].Register, arguments[0].Literal);
                         owner.Operand(XRegisterTag, destination);
                         break;
@@ -229,7 +254,7 @@ internal sealed partial class BeamModuleCompiler
                 owner.EmitArgumentMoves(moves, constants);
                 if (prefix is null)
                 {
-                    EmitRegisterTailTarget(target, fields.Length);
+                    EmitRegisterTailTarget(target, fields.Length, hasGcBif ? previous : null);
                 }
                 else
                 {

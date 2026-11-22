@@ -213,7 +213,8 @@ internal sealed partial class BeamModuleCompiler
             BeamOperand tag,
             Func<BeamOperand, bool> isTaggedLiteral,
             Action<int, BeamOperand> requireEntryArgument,
-            Func<int, bool> isAvailableCheck
+            Func<int, bool> isAvailableCheck,
+            bool preserveGuardedXResults = false
         )
         {
             var pending = new Stack<(int Next, BeamOperand Register)>();
@@ -318,7 +319,7 @@ internal sealed partial class BeamModuleCompiler
                             register = register with { Value = register.Value + removed.Value };
                         }
                     }
-                    else if (!PreservesRecordArgument(instruction, register))
+                    else if (!PreservesRecordArgument(instruction, register, preserveGuardedXResults))
                     {
                         return false;
                     }
@@ -392,7 +393,11 @@ internal sealed partial class BeamModuleCompiler
             return false;
         }
 
-        private static bool PreservesRecordArgument(BeamInstruction instruction, BeamOperand register)
+        private static bool PreservesRecordArgument(
+            BeamInstruction instruction,
+            BeamOperand register,
+            bool preserveGuardedXResults = false
+        )
         {
             byte opcode = instruction.Definition.Opcode;
             if (opcode is Label or Line or Jump or SelectValue or SelectTupleArity || IsEntryFramePredicate(opcode))
@@ -410,6 +415,13 @@ internal sealed partial class BeamModuleCompiler
             if (opcode is LocalCall or ExternalCall or DynamicApply or CallFun or CallFunTyped)
             {
                 return register.Kind == BeamOperandParameters.Y;
+            }
+
+            // The guarded BIF can change X or take its recorded failure edge.
+            // Neither outcome redefines a saved record in the caller's frame.
+            if (preserveGuardedXResults && register.Kind == BeamOperandParameters.Y && IsGuardedXResultBif(instruction))
+            {
+                return true;
             }
 
             if (opcode == InitYRegisters)

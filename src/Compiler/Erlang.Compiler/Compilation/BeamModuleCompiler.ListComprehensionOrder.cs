@@ -2,6 +2,31 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
+    private static bool IsFixedListComprehensionBinding(Clause parent, Expr.ListComprehension comprehension)
+    {
+        if (comprehension.Qualifiers is not
+            [
+                ComprehensionQualifier.Generator
+            {
+                Pattern: Pattern.Variable,
+                Source: Expr.List { Items.Count: > 1, Tail: null } input
+            }
+            ]
+            || !input.Items.All(item => item is Expr.Literal)
+            || parent.Body is not Expr.Sequence sequence)
+        {
+            return false;
+        }
+
+        // Keep the literal input and the fixed result match in the parent.
+        // The helper evaluates the mapped expression once for each input item.
+        return sequence.Items.OfType<Expr.Match>().Any(match =>
+            ReferenceEquals(match.Value, comprehension)
+            && match.Pattern is Pattern.List { Tail: null } output
+            && output.Items.Count == input.Items.Count
+            && output.Items.All(item => item is Pattern.Variable));
+    }
+
     private enum ListComprehensionOrder
     {
         Core,

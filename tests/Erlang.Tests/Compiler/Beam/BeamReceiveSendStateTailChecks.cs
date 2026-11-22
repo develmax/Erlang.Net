@@ -16,7 +16,7 @@ internal static class BeamReceiveSendStateTailChecks
 
     private const string Source = """
         -module(beam_receive_send_state_tail).
-        -export([notify/1, negative/1, loop/1, guarded_loop/1]).
+        -export([notify/1, negative/1, loop/1, guarded_loop/1, relay/1, changed_recipient/1]).
 
         notify(Destination) ->
             Destination ! ready,
@@ -41,6 +41,16 @@ internal static class BeamReceiveSendStateTailChecks
                     guarded_loop(Updated);
                 finish ->
                     done
+            end.
+
+        relay(Pid) ->
+            receive
+                Message -> Pid ! Message, relay(Pid)
+            end.
+
+        changed_recipient(Pid) ->
+            receive
+                Message -> Pid ! Message, changed_recipient(Message)
             end.
 
         step(Payload, {Pid, Counter}) ->
@@ -80,7 +90,24 @@ internal static class BeamReceiveSendStateTailChecks
             throw new InvalidOperationException(WrongReceive);
         }
 
+        object[] relay = Operations("relay");
+        if (!HasDirectRelay(relay) || HasDirectRelay(Operations("changed_recipient")))
+        {
+            throw new InvalidOperationException(WrongReceive);
+        }
+
         return Task.CompletedTask;
+
+        static bool HasDirectRelay(object[] body)
+        {
+            int message = Array.FindIndex(body, instruction => Opcode(instruction) == LoopReceive);
+
+            return message >= 0 && message + 2 < body.Length
+                && Opcode(body[message + 1]) == Move && Opcode(body[message + 2]) == RemoveMessage
+                && body.Where(instruction => Opcode(instruction) == Allocate)
+                    .Select(instruction => Value(Operands(instruction)[0])).ToArray() is [1]
+                && body.Count(instruction => Opcode(instruction) == Send) == 1;
+        }
 
         object[] Operations(string name)
         {

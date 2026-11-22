@@ -196,4 +196,51 @@ internal sealed partial class BeamModuleCompiler
             BeamCompactWriter.Write(output, YRegisterTag, slot);
         }
     }
+
+    private byte[]? MergeAdjacentFrameInitializations(ReadOnlyMemory<byte> code, int labelCount)
+    {
+        if (ModuleOptimizationDisabled || !code.Span.Contains(InitYRegisters)
+            || DecodeLateAtomicProjectionSlots(code, labelCount) is not { Body: var body })
+        {
+            return null;
+        }
+
+        using var output = new MemoryStream();
+        int copied = 0;
+        for (int index = 0; index + 2 < body.Count; index++)
+        {
+            if (body[index].Definition.Opcode != InitYRegisters || body[index + 1].Definition.Opcode != InitYRegisters)
+            {
+                continue;
+            }
+
+            var slots = new SortedSet<int>();
+            output.Write(code.Span[copied..body[index].Offset]);
+            do
+            {
+                foreach (BeamOperand slot in body[index].Operands.Skip(1))
+                {
+                    slots.Add((int)slot.Value);
+                }
+
+                index++;
+            }
+            while (index + 1 < body.Count && body[index].Definition.Opcode == InitYRegisters);
+
+            // Without an intervening instruction, both clears initialize the
+            // same physical frame and no observer reads the intermediate state.
+            WriteFrameInitialization(output, slots);
+            copied = body[index].Offset;
+            index--;
+        }
+
+        if (copied == 0)
+        {
+            return null;
+        }
+
+        output.Write(code.Span[copied..]);
+
+        return output.ToArray();
+    }
 }

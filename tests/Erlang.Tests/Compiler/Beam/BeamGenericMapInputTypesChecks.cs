@@ -9,6 +9,7 @@ internal static class BeamGenericMapInputTypesChecks
 {
     internal const string TestName = "compiler/beam/generic-map-patterns-annotate-proven-inputs";
     private const string WrongType = "Expected the map type on every proved generic map pattern operand.";
+    private const string WrongProjection = "Expected each generic map lookup to preserve its individual destination.";
     private const string BadResult = "The map pattern returned an unexpected value.";
     private const int ExpectedMapType = 1 << 6;
     private const string Source = """
@@ -51,12 +52,14 @@ internal static class BeamGenericMapInputTypesChecks
             Term beta = Term.A("beta");
             Term missing = Term.A("missing");
             Term pair = new MapTerm([new(alpha, Term.I(1)), new(beta, Term.I(2))]);
+            Term betaOnly = new MapTerm([new(beta, Term.I(2))]);
             Term inner = new MapTerm([new(alpha, Term.I(8))]);
             Term outer = new MapTerm([new(Term.A("outer"), inner), new(Term.A("extra"), Term.I(9))]);
             Term keys = new MapTerm([new(alpha, Term.I(3)), new(Term.A("extra"), Term.I(4))]);
             if (!(await module.Invoke(context, "pick", pair)).Equals(Term.Tuple(Term.I(1), Term.I(2)))
                 || !(await module.Invoke(context, "nested", outer)).Equals(Term.Tuple(Term.I(8), Term.I(9)))
                 || !(await module.Invoke(context, "pick", inner)).Equals(missing)
+                || !(await module.Invoke(context, "pick", betaOnly)).Equals(missing)
                 || !(await module.Invoke(context, "pick", alpha)).Equals(missing)
                 || !(await module.Invoke(
                     context,
@@ -85,17 +88,18 @@ internal static class BeamGenericMapInputTypesChecks
         object code = Code(image);
         object table = Call(Type("BeamTypeTableReader"), "Read", Property(code, "Structure"));
         object[] types = ((IEnumerable)Property(table, "Entries")).Cast<object>().ToArray();
-        object[] inputs = ((IEnumerable)Property(code, "Instructions")).Cast<object>()
+        object[][] projections = ((IEnumerable)Property(code, "Instructions")).Cast<object>()
             .Where(instruction => (byte)Property(Property(instruction, "Definition"), "Opcode") == GetMapElements)
-            .Select(instruction => ((IEnumerable)Property(instruction, "Operands")).Cast<object>().ElementAt(1))
+            .Select(instruction => ((IEnumerable)Property(instruction, "Operands")).Cast<object>().ToArray())
             .ToArray();
-        if (inputs.Length != 7)
+        if (projections.Length != 7 || projections.Any(operands => operands.Length != 5))
         {
-            throw new InvalidOperationException(WrongType);
+            throw new InvalidOperationException(WrongProjection);
         }
 
-        foreach (object input in inputs)
+        foreach (object[] operands in projections)
         {
+            object input = operands[1];
             object? index = Property(input, "TypeIndex");
             bool valid = annotated
                 ? index is int type && (int)Property(types[type], "TypeUnion") == ExpectedMapType

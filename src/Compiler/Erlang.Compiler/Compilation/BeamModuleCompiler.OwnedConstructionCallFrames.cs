@@ -4,7 +4,17 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
-    private byte[]? TrimOwnedConstructionCallFrames(ReadOnlyMemory<byte> code, int labelCount)
+    private byte[]? TrimOwnedConstructionCallFrames(ReadOnlyMemory<byte> code, int labelCount) =>
+        TrimOwnedConstructionCallFramesCore(code, labelCount, checkedRecord: false);
+
+    private byte[]? TrimOwnedCheckedRecordCallFrames(ReadOnlyMemory<byte> code, int labelCount) =>
+        TrimOwnedConstructionCallFramesCore(code, labelCount, checkedRecord: true);
+
+    private byte[]? TrimOwnedConstructionCallFramesCore(
+        ReadOnlyMemory<byte> code,
+        int labelCount,
+        bool checkedRecord
+    )
     {
         if (ModuleOptimizationDisabled || !SsaTypeInferenceEnabled || !code.Span.Contains(TestHeap)
             || DecodeLateAtomicProjectionSlots(code, labelCount) is not { } decoded)
@@ -35,7 +45,7 @@ internal sealed partial class BeamModuleCompiler
             {
                 if (body[exit] is not { Definition.Opcode: Deallocate, Operands: [{ Value: var width }] }
                     || width < 2 || width > BeamOperandParameters.MaximumRegister
-                    || body[exit - 1].Definition.Opcode != PutTuple
+                    || body[exit - 1].Definition.Opcode != (checkedRecord ? UpdateRecord : PutTuple)
                     || body[exit + 1].Definition.Opcode != Return)
                 {
                     continue;
@@ -55,7 +65,8 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 int heap = first - 1;
-                if (!readsTuple || removed <= 0 || removed >= width || heap <= start
+                if ((checkedRecord ? removed != 1 : !readsTuple)
+                    || removed <= 0 || removed >= width || heap <= start
                     || body[heap] is not { Definition.Opcode: TestHeap, Operands: [_, { Value.IsOne: true }] })
                 {
                     continue;
@@ -98,7 +109,18 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 if (body[site].Offset < copied
-                    || (ownership ??= ReadDisjointFrameOwnership(body, start, boundary)) is not { } frames
+                    || (checkedRecord && (call != heap - 1 || !HasCheckedConstructionCall(
+                        body,
+                        start,
+                        site,
+                        call
+                    )))
+                    || (ownership ??= ReadDisjointFrameOwnership(
+                        body,
+                        start,
+                        boundary,
+                        trackSiblingTrimEpochs: checkedRecord
+                    )) is not { } frames
                     || !frames.Uses.TryGetValue(frames.Owners[site - start], out bool[]? slots) || slots.Length != width)
                 {
                     continue;
@@ -149,9 +171,56 @@ internal sealed partial class BeamModuleCompiler
                 => true,
             { Definition.Opcode: PutTuple, Operands: [{ Kind: BeamOperandParameters.X }, ..] } => true,
             { Definition.Opcode: PutList, Operands: [_, _, { Kind: BeamOperandParameters.X }] } => true,
+            { Definition.Opcode: UpdateRecord, Operands: [_, _, _, { Kind: BeamOperandParameters.X }, ..] }
+                => checkedRecord,
             _ => false
         };
 
         void Unsigned(int value) => BeamCompactWriter.Write(output, BeamWire.UnsignedTag, value);
+    }
+
+    private static bool HasCheckedConstructionCall(
+        IReadOnlyList<BeamInstruction> body,
+        int start,
+        int site,
+        int call
+    )
+    {
+        if (site - 4 < start || !IsOwnedProjectionUnaryCall(body[call]))
+        {
+            return false;
+        }
+
+        int projection = site - 1;
+        var x0 = new BeamOperand(BeamOperandParameters.X, 0);
+        var x1 = new BeamOperand(BeamOperandParameters.X, 1);
+        BeamOperand? savedComparison = null;
+        if (body[projection] is
+            {
+                Definition.Opcode: Move,
+                Operands: [var result, { Kind: BeamOperandParameters.Y, TypeIndex: null } retained]
+            } && result == x1)
+        {
+            savedComparison = retained;
+            projection--;
+        }
+
+        return projection - 3 >= start
+            && body[projection] is
+            {
+                Definition.Opcode: GetTupleElement,
+                Operands: [{ Kind: BeamOperandParameters.Y, Value.Sign: > 0, TypeIndex: null } carrier, _, var argument]
+            } && argument == x0 && (savedComparison is null || savedComparison == carrier)
+            && body[projection - 1] is
+            {
+                Definition.Opcode: ExactEqualTest,
+                Operands: [{ Kind: BeamOperandParameters.Label, Value.Sign: > 0 }, var left, var right]
+            } && SameProjectionRegister(left, x0) && right == x1
+            && body[projection - 2] is
+            {
+                Definition.Opcode: GetTupleElement,
+                Operands: [var comparedCarrier, _, var compared]
+            } && comparedCarrier == carrier && compared == x1
+            && IsOwnedProjectionUnaryCall(body[projection - 3]);
     }
 }

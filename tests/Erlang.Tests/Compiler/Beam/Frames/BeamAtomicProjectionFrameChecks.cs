@@ -144,8 +144,104 @@ internal static class BeamAtomicProjectionFrameChecks
             PutTuple, X0, ExtendedListOperand, Two, X0, 0x02,
             Deallocate, Three, Return, Label, Three, BadRecord, Y0
         ];
+        byte[] entryCheckedUpdates = recordUpdates[5..^4];
         if (!HasRecordCallReuse([.. recordCall, .. recordUpdates])
-            || HasRecordCallReuse([.. recordCall, Move, Y1, X1, .. recordUpdates]))
+            || !HasRecordCallReuse([.. recordCall, .. entryCheckedUpdates])
+            || HasRecordCallReuse([.. recordCall, Move, Y1, X1, .. recordUpdates])
+            || HasRecordCallReuse([.. recordCall, Move, Y1, X1, .. entryCheckedUpdates]))
+        {
+            throw new InvalidOperationException(WrongFrame);
+        }
+
+        byte[] checkedHead =
+        [
+            IsTuple, FunctionClause, X1, TestArity, FunctionClause, X1, Two, Allocate, Two, Two,
+            GetTupleElement, X1, 0, Y0, GetTupleElement, X1, One, Y1
+        ];
+        byte[] construction =
+        [
+            ExternalCall, One, 0, TestHeap, Five, One,
+            PutList, X0, Y1, X0, PutTuple, X0, ExtendedListOperand, Two, Y0, X0, Deallocate, Two, Return
+        ];
+        byte[] fullTrim = [Label, Three, TrimFrame, Two, 0, TailExternalCallWithFrame, One, 0, 0];
+        byte[] unrelatedOwners =
+        [
+            Label, Four, IsAtom, Cold, X1, Allocate, One, Two, InitYRegisters, ExtendedListOperand, One, Y0,
+            Jump, Framed, Label, Five, Allocate, One, Two, InitYRegisters, ExtendedListOperand, One, Y0,
+            Jump, Framed, Label, Six, Deallocate, One, Return
+        ];
+        if (!HasCheckedTupleConstructorCarrier([.. checkedHead, .. construction], completeTrims: false)
+            || !HasCheckedTupleConstructorCarrier(
+                [IsAtom, Join, X0, .. checkedHead, .. construction, .. unrelatedOwners],
+                completeTrims: false
+            )
+            || HasCheckedTupleConstructorCarrier(
+                [IsAtom, Join, X0, .. checkedHead, IsAtom, Failed, X0, .. construction, .. fullTrim,
+                    Label, Four, Allocate, Two, Two, InitYRegisters, ExtendedListOperand, Two, Y0, Y1, Jump, Failed],
+                completeTrims: true
+            )
+            || !HasCheckedTupleConstructorCarrier(
+                [.. checkedHead, IsAtom, Failed, X0, .. construction, .. fullTrim],
+                completeTrims: true
+            )
+            || HasCheckedTupleConstructorCarrier(
+                [.. checkedHead, Move, Y0, X0, .. construction],
+                completeTrims: false
+            )
+            || HasCheckedTupleConstructorCarrier(
+                [.. checkedHead, IsAtom, Failed, X0, .. construction,
+                    Label, Three, TrimFrame, One, One, TailExternalCallWithFrame, One, 0, One],
+                completeTrims: true
+            ))
+        {
+            throw new InvalidOperationException(WrongFrame);
+        }
+
+        byte[] childHead =
+        [
+            IsTuple, FunctionClause, X1, TestArity, FunctionClause, X1, Three, Allocate, Three, Two,
+            GetTupleElement, X1, 0, Y0, GetTupleElement, X1, One, Y1, GetTupleElement, X1, Two, Y2
+        ];
+        byte[] childCompare = [ExternalCall, One, 0, ExactEqualTest, Failed, X0, Y0];
+        byte[] childConstruct =
+        [
+            Move, Y2, X0, ExternalCall, One, 0, TestHeap, Four, One,
+            PutTuple, X0, ExtendedListOperand, Three, Y0, Y1, X0, Deallocate, Three, Return
+        ];
+        byte[] childFailure =
+        [
+            Label, Three, Move, Y0, X1, TrimFrame, Three, 0, TailExternalCallWithFrame, Two, 0, 0
+        ];
+        if (!HasRenamedChildPlan([.. childHead, .. childCompare, Move, X0, Y0, .. childConstruct, .. childFailure])
+            || HasRenamedChildPlan([.. childHead, .. childCompare, .. childConstruct, .. childFailure])
+            || HasRenamedChildPlan(
+                [.. childHead, Move, Y1, X1, .. childCompare, Move, X0, Y0, .. childConstruct, .. childFailure]
+            ))
+        {
+            throw new InvalidOperationException(WrongFrame);
+        }
+
+        byte[] originalFailure =
+        [
+            Label, Three, Move, Y0, X1, Move, 0x12, X0, InitYRegisters, ExtendedListOperand, One, Y0,
+            TrimFrame, Three, 0, TailExternalCallWithFrame, Two, 0, 0
+        ];
+        if (!HasChildDeliveryPlan(
+                [.. childHead, .. childCompare, .. childConstruct, .. originalFailure],
+                originalName: true
+            )
+            || HasChildDeliveryPlan(
+                [.. childHead, .. childCompare, .. childConstruct, .. childFailure],
+                originalName: true
+            )
+            || HasChildDeliveryPlan(
+                [.. childHead, Move, Y2, X0, .. childCompare, .. childConstruct, .. originalFailure],
+                originalName: true
+            )
+            || HasChildDeliveryPlan(
+                [.. childHead, .. childCompare, Move, X0, Y0, .. childConstruct, .. originalFailure],
+                originalName: true
+            ))
         {
             throw new InvalidOperationException(WrongFrame);
         }
@@ -292,6 +388,72 @@ internal static class BeamAtomicProjectionFrameChecks
             instructions,
             2,
             (int)Property(instructions, "Count") - 1
+        ) is not null;
+    }
+
+    private static bool HasCheckedTupleConstructorCarrier(byte[] body, bool completeTrims)
+    {
+        byte[] entry = [Label, One, FunctionInfo, 0x12, 0x22, Two, Label, Two];
+        byte[] encoded = [.. entry, .. body, EndCode];
+        object header = New(
+            "BeamCodeHeader",
+            0,
+            (int)InitYRegisters,
+            7,
+            1,
+            new ReadOnlyMemory<byte>(encoded)
+        );
+        object instructions = Call(
+            Type("BeamInstructionReader"),
+            "Read",
+            header,
+            3,
+            0,
+            null,
+            null
+        );
+
+        return Call(
+            typeof(BeamModuleCompiler),
+            "PlanCheckedTupleConstructorCarrier",
+            instructions,
+            2,
+            (int)Property(instructions, "Count") - 1,
+            completeTrims
+        ) is not null;
+    }
+
+    private static bool HasRenamedChildPlan(byte[] body) => HasChildDeliveryPlan(body, originalName: false);
+
+    private static bool HasChildDeliveryPlan(byte[] body, bool originalName)
+    {
+        byte[] entry = [Label, One, FunctionInfo, 0x12, 0x22, Two, Label, Two];
+        byte[] encoded = [.. entry, .. body, EndCode];
+        object header = New(
+            "BeamCodeHeader",
+            0,
+            (int)InitYRegisters,
+            7,
+            1,
+            new ReadOnlyMemory<byte>(encoded)
+        );
+        object instructions = Call(
+            Type("BeamInstructionReader"),
+            "Read",
+            header,
+            3,
+            0,
+            null,
+            null
+        );
+
+        return Call(
+            typeof(BeamModuleCompiler),
+            originalName ? "PlanOriginalCheckedTupleChild" : "PlanRenamedCheckedTupleChild",
+            instructions,
+            2,
+            (int)Property(instructions, "Count") - 1,
+            true
         ) is not null;
     }
 

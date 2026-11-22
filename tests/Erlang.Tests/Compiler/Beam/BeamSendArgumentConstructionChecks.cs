@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Numerics;
+using Erlang;
 using Erlang.Compiler;
 using static Erlang.Compiler.BeamEmissionFormat;
 using static Erlang.Tests.BeamBinaryHostAccess;
@@ -19,7 +22,7 @@ internal static class BeamSendArgumentConstructionChecks
     private const byte X1 = 0x13;
     private const byte Y0 = 0x04;
 
-    internal static Task Run()
+    internal static async Task Run()
     {
         byte[] allocate = [Label, One, AllocateHeap, One, Three, Two, Move, X0, Y0];
         byte[] message = [PutTuple, X0, ExtendedListOperand, Two, MessageTag, X1];
@@ -56,7 +59,105 @@ internal static class BeamSendArgumentConstructionChecks
             throw new InvalidOperationException(UnsafeSchedule);
         }
 
-        return Task.CompletedTask;
+        await CheckEntrySends();
+    }
+
+    private static async Task CheckEntrySends()
+    {
+        const string fixture = """
+            -module(beam_register_send).
+            -export([literal/1, nested/3, variable/2, preserve/2]).
+
+            literal(Pid) -> Pid ! {user,stop}.
+            nested(Pid, Tag, Payload) -> Pid ! {user,{Tag,Payload}}.
+            variable(Pid, Payload) -> Pid ! Payload.
+            preserve(Pid, Payload) ->
+                Pid ! {user,Payload},
+                Payload.
+            """;
+
+        byte[] image = CodeGeneration.CompileBeamModule(fixture, "beam_register_send.erl");
+        object code = Code(image);
+        object structure = Property(code, "Structure");
+        string[] atoms = Values(structure, "Atoms").Cast<string>().ToArray();
+        object[] instructions = Values(code, "Instructions");
+        foreach (string function in new[] { "literal", "nested", "variable" })
+        {
+            int entry = Array.FindIndex(instructions, instruction => Opcode(instruction) == FunctionInfo
+                && atoms[Value(Values(instruction, "Operands")[1])] == function);
+            if (entry < 0)
+            {
+                throw new InvalidOperationException(IncorrectSchedule);
+            }
+
+            object[] body = instructions.Skip(entry + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo).ToArray();
+            if (body.Count(instruction => Opcode(instruction) == Send) != 1
+                || body.Where(instruction => Opcode(instruction) is Allocate or AllocateHeap or Deallocate)
+                    .Select(instruction => Value(Values(instruction, "Operands")[0])).ToArray() is not [0, 0])
+            {
+                throw new InvalidOperationException(IncorrectSchedule);
+            }
+        }
+
+        var module = BeamModule.Prepare(image);
+        await using var runtime = new ProcessRuntime();
+        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
+        await actor.InvokeAsync(async context =>
+        {
+            Term user = Term.A("user");
+            Term tag = Term.A("event");
+            Term payload = Term.List(Term.I(1), Term.I(2));
+            Term literalMessage = Term.Tuple(user, Term.A("stop"));
+            Term constructedMessage = Term.Tuple(user, Term.Tuple(tag, payload));
+            Term retainedMessage = Term.Tuple(user, payload);
+            await Verify(
+                "literal",
+                literalMessage,
+                literalMessage,
+                [context.Self]
+            );
+            await Verify(
+                "nested",
+                constructedMessage,
+                constructedMessage,
+                [context.Self, tag, payload]
+            );
+            await Verify(
+                "variable",
+                payload,
+                payload,
+                [context.Self, payload]
+            );
+            await Verify(
+                "preserve",
+                retainedMessage,
+                payload,
+                [context.Self, payload]
+            );
+
+            return Nil.Value;
+
+            async Task Verify(
+                string name,
+                Term expectedMessage,
+                Term expectedResult,
+                Term[] args
+            )
+            {
+                Term returned = await module.Invoke(context, name, args);
+                Term? received = await context.ReceiveAsync(message => message, TimeSpan.FromSeconds(1));
+                if (!expectedResult.Equals(returned) || !expectedMessage.Equals(received))
+                {
+                    throw new InvalidOperationException(IncorrectSchedule);
+                }
+            }
+        });
+
+        static object[] Values(object item, string property) => ((IEnumerable)Property(item, property)).Cast<object>().ToArray();
+
+        static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
+
+        static byte Opcode(object operation) => (byte)Property(Property(operation, "Definition"), "Opcode");
     }
 
     private static byte[]? Rewrite(byte[] source)

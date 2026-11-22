@@ -16,11 +16,13 @@ internal static class BeamBinaryConstructionStringChecks
 
     internal const string Source = """
         -module(beam_binary_construction_string_probe).
-        -export([split/2, partial/1, native/1, control/1]).
+        -export([split/2, partial/1, native/1, control/1, packed/1, barrier/1]).
         split(X, Y) -> <<X/binary, 13, 10, Y/binary, "0", 13, 10>>.
         partial(X) -> <<17, 34, X:5>>.
         native(X) -> <<17, 34, 4660:16/native, 68, 85, X>>.
         control(X) -> <<X/binary, 42>>.
+        packed(X) -> <<5:3, 19:5, X:8, 7:3, 1:7>>.
+        barrier(X) -> <<5:3, X:8, 1:5>>.
         """;
 
     internal static byte[] CompileFixture() => CodeGeneration.CompileBeamModule(Source, Fixture);
@@ -37,7 +39,7 @@ internal static class BeamBinaryConstructionStringChecks
         object[][] constructions = Items(code, "Instructions")
             .Where(instruction => (byte)Property(Property(instruction, "Definition"), "Opcode") == CreateBinary)
             .Select(instruction => Items(instruction, "Operands").ToArray()).ToArray();
-        if (constructions.Length != 4)
+        if (constructions.Length != 6)
         {
             throw new InvalidOperationException(IncorrectLayout);
         }
@@ -71,6 +73,21 @@ internal static class BeamBinaryConstructionStringChecks
             [("append", 1, []), ("string", 0, [42])]
         );
 
+        VerifyConstruction(
+            constructions[4],
+            atoms,
+            strings,
+            2,
+            [("string", 0, [179]), ("integer", 3, []), ("string", 0, [224]), ("integer", 0, [])]
+        );
+        VerifyConstruction(
+            constructions[5],
+            atoms,
+            strings,
+            16,
+            [("integer", 0, []), ("integer", 2, []), ("integer", 0, [])]
+        );
+
         var module = BeamModule.Prepare(image);
         await using var runtime = new ProcessRuntime();
         await using var receiver = new RuntimeNodeFoundationHostActor(runtime);
@@ -87,7 +104,9 @@ internal static class BeamBinaryConstructionStringChecks
             ))
                 || !new BitString([17, 34, 248], 21).Equals(await module.Invoke(context, "partial", Term.I(31)))
                 || !new BitString([17, 34, .. native, 68, 85, 7]).Equals(await module.Invoke(context, "native", Term.I(7)))
-                || !new BitString([1, 42]).Equals(await module.Invoke(context, "control", left)))
+                || !new BitString([1, 42]).Equals(await module.Invoke(context, "control", left))
+                || !new BitString([179, 42, 224, 64], 26).Equals(await module.Invoke(context, "packed", Term.I(42)))
+                || !new BitString([165, 65]).Equals(await module.Invoke(context, "barrier", Term.I(42))))
             {
                 throw new InvalidOperationException(IncorrectValue);
             }

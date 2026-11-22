@@ -9,7 +9,8 @@ internal sealed partial class BeamModuleCompiler
             Expr.Call? binaryRecursion,
             bool trackBinaryPairResults = false,
             (int Arity, int Element)? projectedBinaryTuple = null,
-            bool materializedBitstringOnly = false
+            bool materializedBitstringOnly = false,
+            bool trackGuardedBinaryInputs = false
         )
         {
             if (owner.ModuleOptimizationDisabled)
@@ -71,7 +72,7 @@ internal sealed partial class BeamModuleCompiler
                     int patternExpressions = clause.Guard is null ? 1 : 2;
 
                     var bodyFacts = afterMatch;
-                    if (materializedBitstringOnly && clause.Guard is { } guarded)
+                    if ((materializedBitstringOnly || trackGuardedBinaryInputs) && clause.Guard is { } guarded)
                     {
                         bodyFacts = new HashSet<string>(afterMatch, StringComparer.Ordinal);
                         foreach (Expr.Call proof in PredicateConjuncts(guarded).OfType<Expr.Call>())
@@ -81,7 +82,8 @@ internal sealed partial class BeamModuleCompiler
                                     DynamicRemote: false,
                                     Function: AutoImportNames.IsBinary or AutoImportNames.IsBitstring,
                                     Arguments: [Expr.Variable variable]
-                                } && owner.ResolvesErlangBif(proof))
+                                } && (proof.Function == AutoImportNames.IsBinary || materializedBitstringOnly)
+                                    && owner.ResolvesErlangBif(proof))
                             {
                                 bodyFacts.Add(variable.Name);
                             }
@@ -232,6 +234,22 @@ internal sealed partial class BeamModuleCompiler
                                 && LocalFunctionEntries.QualifierExpressions([generator with { Source = new Expr.Literal(Nil.Value) }])
                                     .Concat(LocalFunctionEntries.QualifierExpressions(list.Qualifiers.Skip(1)))
                                     .Concat(list.Items).All(item => Visit(
+                                        item,
+                                        [],
+                                        caller,
+                                        null
+                                    ));
+                        case Expr.Try attempted when trackGuardedBinaryInputs:
+                            // The try body starts in the caller's scope. Bindings in
+                            // of/catch/after do not participate in the entry proof.
+                            return Visit(
+                                attempted.Body,
+                                binaries,
+                                caller,
+                                entry
+                            )
+                                && LocalFunctionEntries.Children(attempted).Where(item => !ReferenceEquals(item, attempted.Body))
+                                    .All(item => Visit(
                                         item,
                                         [],
                                         caller,

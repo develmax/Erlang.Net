@@ -111,7 +111,8 @@ internal sealed partial class BeamModuleCompiler
                 helperLocation = new(generator.GeneratorFile ?? comprehension.PreprocessorFile ?? location.File, line);
                 helper = new(name, 1, [new([new Pattern.Variable(source.Name)], null, expression)])
                 {
-                    IsClosedListMapper = mapper is not null
+                    IsClosedListMapper = mapper is not null,
+                    HasNilTerminatedMapperResult = true
                 };
 
                 return new Expr.Call(null, name, [source])

@@ -78,6 +78,52 @@ internal static class BeamCheckedFramePeepholeChecks
 
         Expect(
             HeapPass,
+            ProjectedFieldsHeapCode(false),
+            ProjectedFieldsHeapCode(true),
+            BeamCheckedFramePeepholeDiagnostics.CheckedProjection,
+            AbsentImport
+        );
+        Expect(
+            HeapPass,
+            ProjectedFieldsHeapCode(false, duplicateDestination: true),
+            null,
+            BeamCheckedFramePeepholeDiagnostics.LaterRoots,
+            AbsentImport
+        );
+        Expect(
+            HeapPass,
+            ProjectedFieldsHeapCode(false, lineBarrier: true),
+            null,
+            BeamCheckedFramePeepholeDiagnostics.DifferentLine,
+            AbsentImport
+        );
+
+        Expect(
+            HeapPass,
+            ProjectedDictionaryHeapCode(false),
+            ProjectedDictionaryHeapCode(true),
+            BeamCheckedFramePeepholeDiagnostics.CheckedProjection,
+            DictionaryImport
+        );
+        foreach (var barrier in new[]
+        {
+            ProjectedDictionaryHeapCode(false, import: OtherImport),
+            ProjectedDictionaryHeapCode(false, field: 3),
+            ProjectedDictionaryHeapCode(false, live: 2),
+            ProjectedDictionaryHeapCode(false, lineBarrier: true)
+        })
+        {
+            Expect(
+                HeapPass,
+                barrier,
+                null,
+                BeamCheckedFramePeepholeDiagnostics.DictionaryLookupBarrier,
+                DictionaryImport
+            );
+        }
+
+        Expect(
+            HeapPass,
             DictionaryHeapCode(false),
             DictionaryHeapCode(true),
             BeamCheckedFramePeepholeDiagnostics.DictionaryLookup,
@@ -178,6 +224,61 @@ internal static class BeamCheckedFramePeepholeChecks
 
         code.AddRange([PutTuple, X(0), ExtendedListOperand, U(2), Y(0), Y(1)]);
         code.AddRange([Deallocate, U(2), Return, Label, U(3), Return, EndCode]);
+
+        return code.ToArray();
+    }
+
+    private static byte[] ProjectedFieldsHeapCode(
+        bool combined,
+        bool duplicateDestination = false,
+        bool lineBarrier = false
+    )
+    {
+        var code = ModulePrefix();
+        code.AddRange([IsTaggedTuple, F(3), X(0), U(3), A(3)]);
+        code.AddRange(combined ? [AllocateHeap, U(3), U(3), U(2)] : [Allocate, U(3), U(2)]);
+        code.AddRange([Move, X(0), Y(2), GetTupleElement, Y(2), U(1), Y(0)]);
+        code.AddRange([GetTupleElement, Y(2), U(2), Y(duplicateDestination ? 0 : 1)]);
+        if (lineBarrier)
+        {
+            code.AddRange([Line, U(1)]);
+        }
+
+        if (!combined)
+        {
+            code.AddRange([TestHeap, U(3), U(0)]);
+        }
+
+        code.AddRange([PutTuple, X(0), ExtendedListOperand, U(2), Y(0), Y(duplicateDestination ? 2 : 1)]);
+        code.AddRange([Deallocate, U(3), Return, Label, U(3), Return, EndCode]);
+
+        return code.ToArray();
+    }
+
+    private static byte[] ProjectedDictionaryHeapCode(
+        bool combined,
+        int import = DictionaryImport,
+        int field = 1,
+        int live = 1,
+        bool lineBarrier = false
+    )
+    {
+        var code = ModulePrefix();
+        code.AddRange([IsTaggedTuple, F(3), X(0), U(3), A(3)]);
+        code.AddRange(combined ? [AllocateHeap, U(2), U(2), U(2)] : [Allocate, U(2), U(2)]);
+        code.AddRange([Move, X(1), Y(1), GetTupleElement, X(0), U(field), Y(0)]);
+        code.AddRange([BifOne, F(0), U(import), A(3), X(0)]);
+        if (lineBarrier)
+        {
+            code.AddRange([Line, U(1)]);
+        }
+
+        if (!combined)
+        {
+            code.AddRange([TestHeap, U(2), U(live)]);
+        }
+
+        code.AddRange([PutList, Y(0), A(0), X(1), Deallocate, U(2), Return, Label, U(3), Return, EndCode]);
 
         return code.ToArray();
     }

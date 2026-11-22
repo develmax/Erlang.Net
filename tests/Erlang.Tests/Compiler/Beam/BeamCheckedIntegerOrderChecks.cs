@@ -3,6 +3,7 @@ using System.Numerics;
 using Erlang.Compiler;
 using static Erlang.Compiler.BeamEmissionFormat;
 using static Erlang.Tests.BeamBinaryHostAccess;
+using static Erlang.Tests.BeamOpcodeEdgeBytes;
 
 namespace Erlang.Tests;
 
@@ -75,6 +76,58 @@ internal static class BeamCheckedIntegerOrderChecks
             }
         }
 
+        var compiler = new BeamModuleCompiler("beam_checked_interval_fixture");
+        _ = Call(compiler, "Intern", "run");
+        if (Rewrite(CheckedInterval()) is not { } annotated || !annotated.SequenceEqual(CheckedInterval(annotated: true))
+            || Rewrite(annotated) is not null
+            || Rewrite(CheckedInterval(interveningWrite: true)) is not null)
+        {
+            throw new InvalidOperationException(IncorrectBound);
+        }
+
+        var flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
+        var emittedTypes = ((IEnumerable)typeof(BeamModuleCompiler).GetField("typeBits", flags)!.GetValue(compiler)!)
+            .Cast<(int Bits, long? Lower, long? Upper, int? Unit)>().ToArray();
+        if (emittedTypes.Length != 3 || emittedTypes[1].Lower is not null || emittedTypes[1].Upper is not null
+            || emittedTypes[2].Lower != 7L || emittedTypes[2].Upper is not null
+            || emittedTypes[1].Bits != emittedTypes[2].Bits)
+        {
+            throw new InvalidOperationException(IncorrectBound);
+        }
+
         return Task.CompletedTask;
+
+        byte[]? Rewrite(ReadOnlyMemory<byte> fixture) =>
+            (byte[]?)Call(
+                compiler,
+                "AnnotateCheckedIntegerOrderInputs",
+                fixture,
+                5
+            );
+
+    }
+
+    private static byte[] CheckedInterval(bool annotated = false, bool interveningWrite = false)
+    {
+        byte[] first = annotated ? [ExtendedTypedRegisterOperand, X(0), U(1)] : [X(0)];
+        byte[] second = annotated ? [ExtendedTypedRegisterOperand, X(1), U(1)] : [X(1)];
+        byte[] lower = annotated ? [ExtendedTypedRegisterOperand, X(0), U(2)] : [X(0)];
+        byte[] overwrite = interveningWrite ? [Move, A(2), X(0)] : [];
+
+        return
+        [
+            .. Start(
+                1,
+                2,
+                2,
+                2
+            ),
+            IsInteger, F(4), X(0), IsInteger, F(3), X(1), .. overwrite,
+            IsGreaterOrEqual, F(3), .. first, I(7),
+            IsGreaterOrEqual, F(3), .. second, .. lower,
+            Return,
+            Label, U(3), IsGreaterOrEqual, F(4), X(0), I(7), Return,
+            Label, U(4), Return, EndCode
+        ];
     }
 }

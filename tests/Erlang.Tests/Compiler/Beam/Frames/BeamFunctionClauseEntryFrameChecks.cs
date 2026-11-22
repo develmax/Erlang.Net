@@ -74,9 +74,40 @@ internal static class BeamFunctionClauseEntryFrameChecks
             throw new InvalidOperationException(InvalidPlacement);
         }
 
+        CheckAlreadyFramelessTaggedFormal();
         CheckNestedRecord();
 
         return Task.CompletedTask;
+    }
+
+    private static void CheckAlreadyFramelessTaggedFormal()
+    {
+        byte[] entry =
+        [
+            Label, One, FunctionInfo, Module, Function, Two, Label, Two,
+            IsTaggedTuple, FunctionClause, X0, Two, Outer
+        ];
+        byte[] frame = [Allocate, One, Two, Move, X0, Y0];
+        byte[] tests = [ExactEqualTest, Failed, X1, Outer];
+        byte[] success = [LocalCall, Two, RecursiveEntry, Move, Y0, X0, Deallocate, One, Return];
+        byte[] failure = [Label, Three, Deallocate, One, Jump, FunctionClause, EndCode];
+        byte[] delayedFailure = [Label, Three, Jump, FunctionClause, EndCode];
+        RequireNestedRewrite(
+            [.. entry, .. frame, .. tests, .. success, .. failure],
+            [.. entry, .. tests, .. frame, .. success, .. delayedFailure]
+        );
+
+        byte[] reversed = [.. entry[..9], FunctionClause, X1, Two, Outer];
+        byte[] reversedTests = [ExactEqualTest, Failed, X0, Outer];
+        byte[] damagedFailure = [Label, Three, Move, X1, X0, Deallocate, One, Jump, FunctionClause, EndCode];
+        byte[] differentTarget = [.. entry[..9], LocalExit, X0, Two, Outer];
+        byte[] alternative = [.. failure[..^1], Label, Four, BadMatch, X0, EndCode];
+        if (Rewrite([.. reversed, .. frame, .. reversedTests, .. success, .. failure]) is not null
+            || Rewrite([.. entry, .. frame, .. tests, .. success, .. damagedFailure]) is not null
+            || Rewrite([.. differentTarget, .. frame, .. tests, .. success, .. alternative]) is not null)
+        {
+            throw new InvalidOperationException(InvalidPlacement);
+        }
     }
 
     private static void CheckNestedRecord()

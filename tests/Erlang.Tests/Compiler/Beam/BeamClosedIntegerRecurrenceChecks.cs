@@ -84,11 +84,69 @@ internal static class BeamClosedIntegerRecurrenceChecks
             return Nil.Value;
         });
 
+        VerifyIncreasingCounter();
+
         if (!IsTypedUpdate(image, "loop") || IsTypedUpdate(open, "loop")
             || IsTypedUpdate(escaping, "loop") || IsTypedUpdate(floatSeed, "loop") || IsTypedUpdate(floatStep, "loop")
             || IsTypedUpdate(increment, "loop"))
         {
             throw new InvalidOperationException(WrongSchedule);
+        }
+    }
+
+    private static void VerifyIncreasingCounter()
+    {
+        const string source = """
+            -module(beam_guarded_increasing_counter).
+            -export([run/1, read/1]).
+            run(Input) -> rise(Input, 0).
+            rise(Input, Count) ->
+                case ?MODULE:read(Input) of
+                    step ->
+                        case Count > 4 of
+                            true -> complete;
+                            false -> rise(Input, Count + 1)
+                        end;
+                    Other -> Other
+                end.
+            read(Value) -> Value.
+            """;
+        const string file = "beam_guarded_increasing_counter.erl";
+        byte[] closed = CodeGeneration.CompileBeamModule(source, file);
+        byte[] open = CodeGeneration.CompileBeamModule(
+            source.Replace("[run/1, read/1]", "[run/1, read/1, rise/2]", StringComparison.Ordinal),
+            file
+        );
+        byte[] negativeSeed = CodeGeneration.CompileBeamModule(
+            source.Replace("rise(Input, 0)", "rise(Input, -1)", StringComparison.Ordinal),
+            file
+        );
+        if (!UsesCounterRange(closed, IsGreaterOrEqual, 1) || !UsesCounterRange(closed, GcBifTwo, 3)
+            || UsesCounterRange(open, IsGreaterOrEqual, 1) || UsesCounterRange(open, GcBifTwo, 3)
+            || UsesCounterRange(negativeSeed, IsGreaterOrEqual, 1) || UsesCounterRange(negativeSeed, GcBifTwo, 3))
+        {
+            throw new InvalidOperationException(WrongSchedule);
+        }
+
+        static bool UsesCounterRange(byte[] image, byte opcode, int operand)
+        {
+            const int integerType = 0x20;
+            object code = Code(image);
+            object[] types = Items(Property(code, "Types"), "Entries");
+            foreach (object instruction in Items(code, "Instructions").Where(item => Opcode(item) == opcode))
+            {
+                object[] operands = Items(instruction, "Operands");
+                if (Property(operands[operand], "TypeIndex") is int type
+                    && Property(types[type], "TypeUnion") is integerType
+                    && Property(types[type], "Minimum") is 0L
+                    && (opcode == GcBifTwo ? Property(types[type], "Maximum") is 4L
+                        : (BigInteger)Property(operands[2], "Value") == 5))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 

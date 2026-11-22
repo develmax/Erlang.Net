@@ -18,7 +18,18 @@ internal static class BeamReleaseLeafInliningChecks
         pack(Argument) -> {ok, Argument}.
         """;
 
-    internal static Task Run()
+    private const string MapCallbackSource = """
+        -module(beam_release_inline_leaf).
+        -export([value/3]).
+        value(Key, Map, Callback) -> lookup(Key, Map, Callback).
+        lookup(Key, Map, Callback) ->
+            case Map of
+                #{Key := Found} -> Found;
+                _ -> Callback(Key)
+            end.
+        """;
+
+    internal static async Task Run()
     {
         var directory = Directory.CreateTempSubdirectory("erlang-beam-release-inline-leaf-");
         try
@@ -53,7 +64,25 @@ internal static class BeamReleaseLeafInliningChecks
                 4
             );
 
-            void CheckLocalCount(
+            var small = explicitInline with
+            {
+                RecordedCompileOptions = [Term.A("inline"), Term.Tuple(Term.A("inline_size"), Term.I(7))]
+            };
+            CheckLocalCount(MapCallbackSource, small, 1);
+            CheckLocalCount(MapCallbackSource, disabled, 1);
+            CheckLocalCount(
+                MapCallbackSource.Replace(
+                    "-> lookup(Key, Map, Callback).",
+                    "-> lookup(erlang:integer_to_binary(Key), Map, Callback).",
+                    StringComparison.Ordinal
+                ),
+                explicitInline,
+                1
+            );
+            var inlinedMap = CheckLocalCount(MapCallbackSource, explicitInline, 0);
+            await CheckMapCallback(inlinedMap);
+
+            byte[] CheckLocalCount(
                 string source,
                 BeamReleaseBuildProfile profile,
                 int expected,
@@ -70,6 +99,8 @@ internal static class BeamReleaseLeafInliningChecks
                 {
                     throw new InvalidOperationException(Failure);
                 }
+
+                return beam;
             }
         }
         finally
@@ -77,6 +108,79 @@ internal static class BeamReleaseLeafInliningChecks
             directory.Delete(recursive: true);
         }
 
-        return Task.CompletedTask;
+    }
+
+    private static async Task CheckMapCallback(byte[] bytes)
+    {
+        var image = BeamModule.Prepare(bytes);
+        await using var runtime = new ProcessRuntime();
+        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
+        await actor.InvokeAsync(async context =>
+        {
+            Term key = Term.A("key");
+            Term value = Term.A("found");
+            Term invalid = Term.A("not_a_fun");
+            var map = new MapTerm([new(key, value)]);
+            var fallback = Term.Tuple(Term.A("fallback"), key);
+            int calls = 0;
+            var callback = new FunctionTerm(1, (_, arguments) =>
+            {
+                calls++;
+
+                return ValueTask.FromResult<Term>(Term.Tuple(Term.A("fallback"), arguments[0]));
+            });
+
+            if (!value.Equals(await image.Invoke(
+                context,
+                "value",
+                key,
+                map,
+                invalid
+            ))
+                || !value.Equals(await image.Invoke(
+                    context,
+                    "value",
+                    key,
+                    map,
+                    callback
+                ))
+                || calls != 0
+                || !fallback.Equals(await image.Invoke(
+                    context,
+                    "value",
+                    key,
+                    new MapTerm([]),
+                    callback
+                ))
+                || calls != 1
+                || !fallback.Equals(await image.Invoke(
+                    context,
+                    "value",
+                    key,
+                    Nil.Value,
+                    callback
+                ))
+                || calls != 2)
+            {
+                throw new InvalidOperationException(Failure);
+            }
+
+            try
+            {
+                await image.Invoke(
+                    context,
+                    "value",
+                    key,
+                    Nil.Value,
+                    invalid
+                );
+                throw new InvalidOperationException(Failure);
+            }
+            catch (ErlangException exception) when (exception.Reason.Equals(Term.Tuple(Term.A("badfun"), invalid)))
+            {
+            }
+
+            return Nil.Value;
+        });
     }
 }

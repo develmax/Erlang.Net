@@ -12,6 +12,7 @@ internal static class CompilerOptionNames
     internal const string InlineSize = "inline_size";
     internal const string InlineEffort = "inline_effort";
     internal const string DisableCoreOptimization = "no_copt";
+    internal const string DisableCoreFolding = "no_fold";
     internal const string DisableCoreAliases = "no_alias";
     internal const string BeamDebugInfo = "beam_debug_info";
 }

@@ -5,7 +5,8 @@ internal sealed partial class BeamModuleCompiler
     private static Dictionary<string, Term> ReadDominatingHelperConstants(
         Clause clause,
         Expr helper,
-        bool allowListComprehensionPrefix = false
+        bool allowListComprehensionPrefix = false,
+        bool allowFixedListComprehensionPrefix = false
     )
     {
         var constants = new Dictionary<string, Term>(StringComparer.Ordinal);
@@ -35,6 +36,13 @@ internal sealed partial class BeamModuleCompiler
                 {
                     constants.Add(variable.Name, value);
                 }
+            }
+            else if (allowFixedListComprehensionPrefix
+                && statement is Expr.Match { Pattern: Pattern.List results, Value: Expr.ListComprehension previous }
+                && IsFixedListComprehensionBinding(clause, previous))
+            {
+                // Only the outer result match binds names in this clause.
+                bound.UnionWith(Semantics.Variables(results));
             }
             else if (!IsNonbindingPrefix(statement))
             {

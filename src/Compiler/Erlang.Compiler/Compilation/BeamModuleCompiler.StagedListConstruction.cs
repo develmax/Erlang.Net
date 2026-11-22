@@ -4,6 +4,85 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
+    private byte[]? FoldUnaryTailListScratch(ReadOnlyMemory<byte> code, int labelCount)
+    {
+        if (ModuleOptimizationDisabled || !SsaTypeInferenceEnabled || !code.Span.Contains(PutList)
+            || DecodeLateAtomicProjectionSlots(code, labelCount) is not { Body: var body })
+        {
+            return null;
+        }
+
+        return RewriteUnaryTailListScratch(code, body);
+    }
+
+    private static byte[]? RewriteUnaryTailListScratch(ReadOnlyMemory<byte> code, IReadOnlyList<BeamInstruction> body)
+    {
+        var x0 = new BeamOperand(BeamOperandParameters.X, 0);
+        var edits = new List<CodeEdit>();
+        for (int heap = 0; heap + 5 < body.Count; heap++)
+        {
+            if (body[heap] is not { Definition.Opcode: TestHeap, Operands: [_, { Value.IsOne: true }] }
+                || body[heap + 1] is not
+                {
+                    Definition.Opcode: PutList,
+                    Operands: [var item, { Kind: BeamOperandParameters.Nil }, var singleton]
+                }
+                || item != x0 || singleton != x0
+                || body[heap + 2] is not
+                {
+                    Definition.Opcode: Move,
+                    Operands: [var list, { Kind: BeamOperandParameters.X, TypeIndex: null } scratch]
+                }
+                || list != x0 || scratch == x0
+                || body[heap + 3] is not { Definition.Opcode: PutList, Operands: [var head, var suffix, var combined] }
+                || head != scratch || !IsNonRegisterValue(suffix) || combined != x0)
+            {
+                continue;
+            }
+
+            int tail = heap + 4;
+            while (tail < body.Count && body[tail] is
+                {
+                    Definition.Opcode: PutList,
+                    Operands: [var prefix, var current, var result]
+                } && IsNonRegisterValue(prefix) && current == x0 && result == x0)
+            {
+                tail++;
+            }
+
+            if (tail == heap + 4 || tail >= body.Count || body[tail] is not
+                {
+                    Definition.Opcode: TailLocalCallWithFrame or TailExternalCallWithFrame,
+                    Operands: [{ Value.IsOne: true }, _, { Value.IsZero: true }]
+                })
+            {
+                continue;
+            }
+
+            // Within this heap reservation the next cons reads the singleton
+            // before overwriting X0. The later prefix and unary call use only X0.
+            int use = body[heap + 3].Offset;
+            var cursor = new BeamCursor(code[(use + 1)..]);
+            _ = BeamCompactReader.Read(cursor);
+            edits.Add(new CodeEdit(
+                body[heap + 2].Offset,
+                use,
+                0,
+                0,
+                IsRemoval: true
+            ));
+            edits.Add(new CodeEdit(
+                use + 1,
+                use + 1 + cursor.Position,
+                XRegisterTag,
+                0
+            ));
+            heap = tail;
+        }
+
+        return ApplyDuplicatedFrameReadEdits(code, edits);
+    }
+
     private byte[]? FoldStagedListConstructions(ReadOnlyMemory<byte> code, int labelCount)
     {
         if (ModuleOptimizationDisabled || !code.Span.Contains(PutList))

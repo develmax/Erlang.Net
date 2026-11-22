@@ -169,7 +169,23 @@ internal sealed partial class BeamModuleCompiler
                 later[name] = plan.Calls.Length;
             }
 
-            var slots = bindings.Keys.Where(name => later.GetValueOrDefault(name) > 0).Reverse()
+            var valueIds = bindings.Keys.Select((name, id) => (name, id))
+                .ToDictionary(entry => entry.name, entry => entry.id, StringComparer.Ordinal);
+            var sourceOperations = new List<BeamFrameValueLiveness.Operation>(plan.Calls.Length + 1);
+            for (int index = 0; index < plan.Calls.Length; index++)
+            {
+                LinearEffectCall call = plan.Calls[index];
+                int[] uses = call.Arguments.Where(argument => argument.Binding is not null || argument.Previous)
+                    .Select(argument => argument.Previous ? valueIds.Count + index - 1 : valueIds[argument.Binding!])
+                    .ToArray();
+                sourceOperations.Add(new(uses, valueIds.Count + index, ClobbersXRegisters: true));
+            }
+
+            int[] returned = plan.Result.Select(value => value.Binding).OfType<string>()
+                .Select(name => valueIds[name]).ToArray();
+            sourceOperations.Add(new(returned, null, ClobbersXRegisters: false));
+            var saved = BeamFrameValueLiveness.FindSavedValues(valueIds.Values, sourceOperations);
+            var slots = bindings.Keys.Where(name => saved.Contains(valueIds[name])).Reverse()
                 .Select((name, slot) => (name, slot)).ToDictionary(entry => entry.name, entry => entry.slot, StringComparer.Ordinal);
             var prepared = new List<((int Destination, int? X, int? Y, int? Field, Term? Literal)[] Moves, int Trim, int[] Kills)>();
             var finalSlots = new Dictionary<string, int>(slots, StringComparer.Ordinal);

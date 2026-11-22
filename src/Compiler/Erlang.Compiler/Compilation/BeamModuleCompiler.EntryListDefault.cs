@@ -1292,7 +1292,12 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        private void EmitConsEntryBody(Clause clause, (Pattern.Variable Variable, int Register)[] used, bool reuseCallSlots = false)
+        private void EmitConsEntryBody(
+            Clause clause,
+            (Pattern.Variable Variable, int Register)[] used,
+            bool reuseCallSlots = false,
+            List<(int Label, BeamSourceLocation Location)>? tupleMatchFailures = null
+        )
         {
             if (clause.Body is Expr.Call call && TryEmitRegisterConstructedArgument(call,
                 used.ToDictionary(binding => binding.Variable.Name, binding => binding.Register, StringComparer.Ordinal)))
@@ -1318,6 +1323,20 @@ internal sealed partial class BeamModuleCompiler
                     slot
                 );
                 variables.Add(variable.Name, slot);
+            }
+
+            if (reuseCallSlots && clause.Guard is null && clause.Body is Expr.Sequence sequence)
+            {
+                List<(int Label, BeamSourceLocation Location)> failures = tupleMatchFailures ?? [];
+                if (TryEmitCheckedPairStringCase(sequence, failures))
+                {
+                    if (tupleMatchFailures is null)
+                    {
+                        EmitRegisterTupleMatchFailures(failures);
+                    }
+
+                    return;
+                }
             }
 
             if (!TailLocal(clause.Body, reuseCallSlots))

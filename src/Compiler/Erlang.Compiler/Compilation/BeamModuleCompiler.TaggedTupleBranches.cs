@@ -11,6 +11,13 @@ internal sealed partial class BeamModuleCompiler
             return null;
         }
 
+        if (!ModuleOptimizationDisabled && code.Span.Contains(TestArity) && RewriteTaggedTupleGuards(code, body) is { } fused)
+        {
+            highestOpcode = Math.Max(highestOpcode, IsTaggedTuple);
+
+            return fused;
+        }
+
         var targets = new Dictionary<int, int>();
         for (int index = 0; index < body.Count - 1; index++)
         {

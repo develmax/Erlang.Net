@@ -14,7 +14,7 @@ internal static class BeamStrictListAliasComprehensionChecks
 
     internal const string Source = """
         -module(beam_strict_list_alias_comprehension_probe).
-        -export([strict/3, mixed/4]).
+        -export([strict/3, mixed/4, siblings/2, repeat/2]).
 
         strict(Rows, Target, Expected) ->
             [begin
@@ -29,6 +29,16 @@ internal static class BeamStrictListAliasComprehensionChecks
         mixed(skip, _, _, _) ->
             skipped.
 
+        siblings(First, Second) ->
+            A = [Whole || Whole = {_, _} <- First],
+            B = [{Value, Whole} || {_, Value} = Whole <- Second],
+            {A, B}.
+
+        repeat(First, Second) ->
+            A = [Whole || Whole = {Value, Value} <- First],
+            B = [Value || Value <- Second],
+            {A, B}.
+
         observe(Value, Target) -> Target ! {seen, Value}, Value.
         """;
 
@@ -40,7 +50,10 @@ internal static class BeamStrictListAliasComprehensionChecks
         object[] instructions = Items(code, "Instructions").ToArray();
         string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
         if (!HasRecursiveListResult("-strict/3-lc$^0/1-0-", 3)
-            || !HasRecursiveListResult("-mixed/4-lc$^1/1-1-", 2))
+            || !HasRecursiveListResult("-mixed/4-lc$^1/1-1-", 2)
+            || !HasRecursiveListResult("-siblings/2-lc$^0/1-0-", 1)
+            || !HasRecursiveListResult("-siblings/2-lc$^1/1-1-", 1)
+            || HasRecursiveListResult("-repeat/2-lc$^0/1-0-", 1))
         {
             throw new InvalidOperationException(MissingHelper);
         }

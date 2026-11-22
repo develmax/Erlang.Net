@@ -96,6 +96,94 @@ internal sealed partial class BeamModuleCompiler
         return output.ToArray();
     }
 
+    private byte[]? FoldTransientArgumentFrameTrims(ReadOnlyMemory<byte> code, int labelCount)
+    {
+        if (ModuleOptimizationDisabled || !SsaTypeInferenceEnabled || !code.Span.Contains(TrimFrame)
+            || DecodeLateAtomicProjectionSlots(code, labelCount) is not { Body: var body })
+        {
+            return null;
+        }
+
+        using var output = new MemoryStream();
+        int copied = 0;
+        for (int index = 0; index + 5 < body.Count; index++)
+        {
+            if (ReadTransientArgumentTrim(body, index) is not { } plan)
+            {
+                continue;
+            }
+
+            // The saved register is read before its unrelated replacement.
+            // The sole Y value now has no use, so keep only the zero-slot
+            // call frame that the completed trim already established.
+            output.Write(code.Span[copied..body[index].Offset]);
+            output.WriteByte(Allocate);
+            BeamCompactWriter.Write(output, BeamWire.UnsignedTag, 0);
+            BeamCompactWriter.Write(output, BeamWire.UnsignedTag, body[index].Operands[1].Value);
+            output.WriteByte(Move);
+            WriteRegister(output, plan.Saved);
+            WriteRegister(output, plan.Destination);
+            output.Write(code.Span[body[index + 2].Offset..body[index + 3].Offset]);
+            copied = body[index + 5].Offset;
+            index += 4;
+        }
+
+        if (copied == 0)
+        {
+            return null;
+        }
+
+        output.Write(code.Span[copied..]);
+
+        return output.ToArray();
+    }
+
+    private static (BeamOperand Saved, BeamOperand Destination)? ReadTransientArgumentTrim(
+        IReadOnlyList<BeamInstruction> body,
+        int allocation
+    )
+    {
+        if (body[allocation] is not { Definition.Opcode: Allocate, Operands: [{ Value.IsOne: true }, var live] }
+            || body[allocation + 1] is not
+            {
+                Definition.Opcode: Move,
+                Operands: [{ Kind: BeamOperandParameters.X, TypeIndex: null } saved,
+                { Kind: BeamOperandParameters.Y, Value.IsZero: true, TypeIndex: null } temporary]
+            }
+            || body[allocation + 2] is not
+            {
+                Definition.Opcode: Move,
+                Operands: [{ Kind: BeamOperandParameters.X, TypeIndex: null } other, var overwritten]
+            }
+            || overwritten != saved || saved.Value >= live.Value || other.Value >= live.Value
+            || body[allocation + 3] is not
+            {
+                Definition.Opcode: Move,
+                Operands: [var reload, { Kind: BeamOperandParameters.X, TypeIndex: null } destination]
+            }
+            || reload != temporary || saved == destination || saved == other || other == destination
+            || body[allocation + 4] is not
+            { Definition.Opcode: TrimFrame, Operands: [{ Value.IsOne: true }, { Value.IsZero: true }] })
+        {
+            return null;
+        }
+
+        int call = allocation + 5;
+        while (call < body.Count && body[call].Definition.Opcode == Line)
+        {
+            call++;
+        }
+
+        if (call >= body.Count || body[call] is not
+            { Definition.Opcode: LocalCall or ExternalCall, Operands: [var arity, _] }
+            || saved.Value >= arity.Value || destination.Value >= arity.Value)
+        {
+            return null;
+        }
+
+        return (saved, destination);
+    }
+
     private static int? FindInitialFrameTrim(IReadOnlyList<BeamInstruction> body, int allocation)
     {
         int size = (int)body[allocation].Operands[0].Value;

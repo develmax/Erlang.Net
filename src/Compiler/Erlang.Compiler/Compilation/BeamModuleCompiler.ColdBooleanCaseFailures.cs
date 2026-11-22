@@ -4,7 +4,12 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
-    private byte[]? MoveColdBooleanCaseFailures(ReadOnlyMemory<byte> code, int labelCount, bool standaloneOnly = false)
+    private byte[]? MoveColdBooleanCaseFailures(
+        ReadOnlyMemory<byte> code,
+        int labelCount,
+        bool standaloneOnly = false,
+        bool unannotatedOnly = false
+    )
     {
         if (!code.Span.Contains(SelectValue) || !code.Span.Contains(CaseEnd))
         {
@@ -75,7 +80,7 @@ internal sealed partial class BeamModuleCompiler
                 continue;
             }
 
-            int[]? dispatch = standaloneOnly ? PlanDispatchCaseFailures(
+            int[]? dispatch = unannotatedOnly ? null : standaloneOnly ? PlanDispatchCaseFailures(
                 body,
                 start,
                 end,
@@ -90,7 +95,12 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 int exceptionSuffix = FindTrailingExceptionBlocks(body, start, end);
-                var failures = new SortedSet<int>();
+                if (exceptionSuffix <= start + 1 || !EndsBeamBlock(body[exceptionSuffix - 1].Definition.Opcode))
+                {
+                    continue;
+                }
+
+                var failures = new List<(int Start, int End)>();
                 for (int index = start + 1; index < exceptionSuffix; index++)
                 {
                     if (body[index] is not
@@ -102,14 +112,28 @@ internal sealed partial class BeamModuleCompiler
                         }
                         || atomNames[(int)first.Value - 1] != ErlangBooleanAtoms.False || atomNames[(int)second.Value - 1] != ErlangBooleanAtoms.True
                         || !(flow ??= new BeamProjectionFlow(body)).TryGetSingleForwardTarget(index, (int)failure.Value, out int cold)
-                        || cold + 2 >= exceptionSuffix || body[cold + 1].Definition.Opcode != Line
-                        || body[cold + 2] is not { Definition.Opcode: CaseEnd, Operands: [{ Kind: BeamOperandParameters.X, Value.IsZero: true }] }
-                        || cold + 3 < end && body[cold + 3].Definition.Opcode != Label)
+                        || ReadColdBooleanCaseBlock(
+                            body,
+                            cold,
+                            exceptionSuffix,
+                            end
+                        ) is not int afterCold)
                     {
                         continue;
                     }
 
-                    failures.Add(cold);
+                    if (unannotatedOnly && afterCold - cold != 2)
+                    {
+                        continue;
+                    }
+
+                    if (afterCold - cold == 2
+                        && (exceptionSuffix == end || body[end - 1].Definition.Opcode != BadMatch))
+                    {
+                        continue;
+                    }
+
+                    failures.Add((cold, afterCold));
                 }
                 if (failures.Count == 0)
                 {
@@ -117,7 +141,15 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 // beam_jump relocates a short exception block that cannot be reached by fallthrough.
-                var coldInstructions = failures.SelectMany(failure => Enumerable.Range(failure, 3)).ToHashSet();
+                if (failures.Count > 1 && failures.Any(failure => failure.End - failure.Start == 2))
+                {
+                    // A moved annotated failure could carry a different line
+                    // into the otherwise unannotated failure.
+                    continue;
+                }
+
+                var coldInstructions = failures.SelectMany(failure => Enumerable.Range(failure.Start, failure.End - failure.Start))
+                    .ToHashSet();
                 order = Enumerable.Range(start + 1, exceptionSuffix - start - 1)
                     .Where(index => !coldInstructions.Contains(index))
                     .Concat(coldInstructions.Order())
@@ -211,6 +243,47 @@ internal sealed partial class BeamModuleCompiler
         output.Write(bytes.AsSpan(emitted, offsets[^1] - emitted));
 
         return RebuildLineTable(output.ToArray(), labelCount);
+    }
+
+    private static int? ReadColdBooleanCaseBlock(
+        IReadOnlyList<BeamInstruction> body,
+        int label,
+        int suffix,
+        int end
+    )
+    {
+        int exit = label + 1;
+        if (exit >= suffix)
+        {
+            return null;
+        }
+
+        bool explicitLine = body[exit].Definition.Opcode == Line;
+        if (explicitLine)
+        {
+            exit++;
+        }
+
+        if (exit >= suffix || body[exit] is not
+            {
+                Definition.Opcode: CaseEnd,
+                Operands: [{ Kind: BeamOperandParameters.X, Value.IsZero: true }]
+            } || exit + 1 < end && body[exit + 1].Definition.Opcode != Label)
+        {
+            return null;
+        }
+
+        // The loader can inherit the preceding physical line for a bare exit.
+        // Moving it across another line would change that failure location.
+        for (int index = exit + 1; !explicitLine && index < suffix; index++)
+        {
+            if (body[index].Definition.Opcode == Line)
+            {
+                return null;
+            }
+        }
+
+        return exit + 1;
     }
 
     private static int FindTrailingExceptionBlocks(

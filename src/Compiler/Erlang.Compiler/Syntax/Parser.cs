@@ -443,6 +443,7 @@ public sealed partial class Parser
 
     private Expr Expression(int minimum = 1, bool stopQualifier = false)
     {
+        int leftStart = position;
         Expr left = Primary(stopQualifier: stopQualifier);
         while (true)
         {
@@ -462,11 +463,7 @@ public sealed partial class Parser
                 stopQualifier
             );
             left = op == ErlangOperators.Match
-                ? new Expr.Match(ToPattern(left), right)
-                {
-                    SourceLine = operatorToken.PreprocessorLine == 0 ? operatorLine : operatorToken.PreprocessorLine,
-                    PreprocessorFile = operatorToken.PreprocessorFile
-                }
+                ? ReadAnnotatedMatch(left, right, leftStart)
                 : new Expr.Binary(op, left, right) { SourceLine = operatorLine };
             if (allowBeamOnLoad)
             {
@@ -477,6 +474,26 @@ public sealed partial class Parser
         }
 
         return left;
+    }
+
+    private Expr.Match ReadAnnotatedMatch(Expr left, Expr right, int first)
+    {
+        // erl_parse annotates '=' with first_anno of the pattern. Grouping
+        // parentheses are not part of that annotation.
+        while (tokens[first] is { Kind: LexerTokenKinds.Symbol, Text: ErlangSyntaxTokens.OpenParenthesis })
+        {
+            first++;
+        }
+
+        Token token = tokens[first];
+        int index = Array.BinarySearch(sourceLineStarts, token.Start);
+        int line = index >= 0 ? index + 1 : ~index;
+
+        return new(ToPattern(left), right)
+        {
+            SourceLine = token.PreprocessorLine == 0 ? line : token.PreprocessorLine,
+            PreprocessorFile = token.PreprocessorFile
+        };
     }
 
     private Expr Primary(bool bitSegment = false, bool stopQualifier = false)
@@ -740,7 +757,6 @@ public sealed partial class Parser
             }
             var clauses = new List<Clause>();
             string? selfName = Current.Kind == LexerTokenKinds.Variable ? Current.Text : null;
-            Token firstHead = Current;
             do
             {
                 if (selfName is not null)
@@ -756,14 +772,14 @@ public sealed partial class Parser
             } while (Take(ErlangSyntaxTokens.Semicolon));
             Expect(ErlangKeywords.End);
 
-            int headLine = Array.BinarySearch(sourceLineStarts, firstHead.Start);
+            int funLine = Array.BinarySearch(sourceLineStarts, sourceStart);
 
             return new Expr.Fun(clauses)
             {
                 SelfName = selfName == VariableScopeNames.Wildcard ? null : selfName,
-                ClauseLine = firstHead.PreprocessorLine != 0 ? firstHead.PreprocessorLine
-                    : headLine >= 0 ? headLine + 1 : ~headLine,
-                ClauseFile = firstHead.PreprocessorFile
+                DeclarationLine = sourceToken.PreprocessorLine != 0 ? sourceToken.PreprocessorLine
+                    : funLine >= 0 ? funLine + 1 : ~funLine,
+                DeclarationFile = sourceToken.PreprocessorFile
             };
         }
         if (SyntaxToken && Current.Text is ErlangOperators.Plus or ErlangOperators.Minus or ErlangOperators.Not or ErlangOperators.BitwiseNot)

@@ -12,10 +12,12 @@ internal static class BeamListGeneratorErrorLineChecks
     private const string MissingLocation = "The invalid list generator did not use the source expression line.";
     private const string DuplicateLocation = "The same-line list generator emitted a redundant error line.";
     private const string UnreachableFailure = "The proper literal list generator retained an invalid source branch.";
+    private const string WrongLiteralHelpers = "Fixed literal list bindings did not retain the expected generator helpers.";
 
     private const string Source = """
         -module(beam_list_generator_error_line).
-        -export([literal/1, computed/1, direct/2, same_line/2, split_input/2, grouped_direct/2, grouped_call/1]).
+        -export([literal/1, computed/1, direct/2, same_line/2, split_input/2, grouped_direct/2, grouped_call/1,
+                 literal_siblings/1, improper_sibling/2]).
 
         literal(Sink) ->
             [event:put(Sink, "Item " ++ integer_to_list(I)) ||
@@ -53,6 +55,16 @@ internal static class BeamListGeneratorErrorLineChecks
                 I <- (
                     event:rows(Sink))],
             ok.
+
+        literal_siblings(Sink) ->
+            [A, B] = [event:put(Sink, V) || V <- [first, second]],
+            [C, D, E] = [event:put(Sink, V) || V <- [third, fourth, fifth]],
+            {A, B, C, D, E}.
+
+        improper_sibling(Sink, Tail) ->
+            [A, B] = [event:put(Sink, V) || V <- [first, second]],
+            [C, D] = [event:put(Sink, V) || V <- [third, fourth | Tail]],
+            {A, B, C, D}.
         """;
 
     internal static void Run()
@@ -78,6 +90,16 @@ internal static class BeamListGeneratorErrorLineChecks
         {
             throw new InvalidOperationException(UnreachableFailure);
         }
+
+        if (!HasHelper("-literal_siblings/1-lc$^0/1-0-")
+            || !HasHelper("-literal_siblings/1-lc$^1/1-1-")
+            || !HasHelper("-improper_sibling/2-lc$^0/1-0-")
+            || HasHelper("-improper_sibling/2-lc$^1/1-1-"))
+        {
+            throw new InvalidOperationException(WrongLiteralHelpers);
+        }
+
+        bool HasHelper(string name) => functions.Any(function => (string)Property(function, "Name") == name);
 
         void RequireErrorLine(string name, int line)
         {

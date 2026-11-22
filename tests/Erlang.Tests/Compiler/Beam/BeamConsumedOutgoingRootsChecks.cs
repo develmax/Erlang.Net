@@ -12,6 +12,8 @@ internal static class BeamConsumedOutgoingRootsChecks
     internal const string Fixture = "beam_outgoing_last_use.erl";
     private const string MissingRootClear = "The final use of the retained argument did not release its Y root.";
     private const string ClearedLiveRoot = "A live or protected argument was cleared by outgoing call lowering.";
+    private const string CompactedRootOrder = "The joined call must order the outgoing arguments before clearing each dead root.";
+    private const string RecursiveTrimError = "The recursive helper must preserve its captures and retain only the new result across recursion.";
     private const string ClearPass = "ClearConsumedOutgoingRoots";
     private const string WrongConstruction = "The call must clear a consumed list element only when the outgoing list retains it.";
     internal const string Source = """
@@ -63,8 +65,156 @@ internal static class BeamConsumedOutgoingRootsChecks
         }
 
         CheckListRoots();
+        CheckCompactedArgumentRoots();
+        CheckRecursiveAppendFrame();
 
         return Task.CompletedTask;
+    }
+
+    private static void CheckCompactedArgumentRoots()
+    {
+        var compiler = new BeamModuleCompiler("compacted_argument_roots_fixture");
+        byte[] frame =
+        [
+            .. Start(
+                1,
+                2,
+                2,
+                4
+            ), Allocate, U(4), U(4), Move, X(3), Y(0), Move, X(2), Y(1), Move, X(1), Y(2), Move, X(0), Y(3),
+            ExternalCall, U(1), U(0), ExactEqualTest, F(3), X(0), A(7)
+        ];
+        byte[] collecting = [GcBifOne, F(0), U(0), U(0), Y(0), Y(0)];
+        byte[] next = [Move, Y(0), X(0), ExternalCall, U(1), U(0), Move, X(0), X(1)];
+        byte[] moves = [Move, Y(2), X(0), Move, Y(0), X(2)];
+        byte[] call = [Line, U(1), ExternalCall, U(3), U(0)];
+        byte[] continuation =
+        [
+            Move, X(0), X(2), Jump, F(4), Label, U(3), Move, Y(2), X(2), Label, U(4),
+            Move, Y(1), X(1), Move, Y(3), X(0), TailExternalCallWithFrame, U(3), U(0), U(4), EndCode
+        ];
+        byte[] before = [.. frame, .. collecting, .. next, .. moves, .. call, .. continuation];
+        byte[] expected =
+        [
+            .. frame, .. collecting, .. next, Move, Y(0), X(2), Move, Y(2), X(0),
+            InitYRegisters, ExtendedListOperand, U(2), Y(0), Y(2), .. call, .. continuation
+        ];
+        byte[] withLaterRead = [.. frame, .. collecting, .. next, .. moves, .. call, Move, Y(0), X(2), .. continuation];
+        byte[] branchOnFailure = (byte[])collecting.Clone();
+        branchOnFailure[1] = F(3);
+        if (Apply(before, [2]) is not { } actual || !actual.AsSpan().SequenceEqual(expected)
+            || Apply(before, []) is not null || Apply(withLaterRead, [2]) is not null
+            || Apply([.. frame, .. branchOnFailure, .. next, .. moves, .. call, .. continuation], [2]) is not null)
+        {
+            throw new InvalidOperationException(CompactedRootOrder);
+        }
+
+        byte[]? Apply(byte[] code, int[] entries) => (byte[]?)Call(
+            compiler,
+            "ScheduleCompactedCallArgumentRoots",
+            (ReadOnlyMemory<byte>)code,
+            5,
+            entries.ToHashSet()
+        );
+    }
+
+    private static void CheckRecursiveAppendFrame()
+    {
+        const string helperName = "mapped_list_helper";
+        var compiler = new BeamModuleCompiler("appended_frame_fixture");
+        int helper = (int)Call(compiler, "Intern", helperName);
+        int append = (int)Call(
+            compiler,
+            "Import",
+            "erlang",
+            "++",
+            2
+        );
+        int producer = (int)Call(
+            compiler,
+            "Import",
+            "sample",
+            "prefix",
+            1
+        );
+        int plus = (int)Call(
+            compiler,
+            "Import",
+            "erlang",
+            "+",
+            2
+        );
+        int error = (int)Call(
+            compiler,
+            "Import",
+            "erlang",
+            "error",
+            1
+        );
+        int badGenerator = (int)Call(compiler, "Intern", "bad_generator");
+        var declared = new FunctionDefinition(helperName, 3, []) { IsRecursiveListMapper = true };
+        byte[] entry =
+        [
+            .. Start(
+                1,
+                2,
+                helper,
+                3
+            ), IsNonemptyList, F(3), X(0), Allocate, U(4), U(3),
+            Move, X(2), Y(2), Move, X(1), Y(3), GetList, X(0), Y(1), Y(0)
+        ];
+        byte[] left =
+        [
+            Line, U(1), GcBifTwo, F(0), U(3), U(plus), X(2), I(1), X(0), ExternalCall, U(1), U(producer),
+            Move, Y(1), X(1)
+        ];
+        byte[] add = [ExternalCall, U(2), U(append)];
+        byte[] args = [Move, X(0), Y(1), Move, Y(3), X(1), Move, Y(2), X(2), Move, Y(0), X(0)];
+        byte[] recur = [Line, U(2), LocalCall, U(3), F(2), TestHeap, U(2), U(1)];
+        byte[] closed =
+        [
+            PutList, Y(1), X(0), X(0), Deallocate, U(4), Return,
+            Label, U(3), Move, X(1), X(0), Return, EndCode
+        ];
+        byte[] original = [.. entry, .. left, .. add, .. args, .. recur, .. closed];
+        byte[] expected =
+        [
+            .. entry, .. left, InitYRegisters, ExtendedListOperand, U(1), Y(1), .. add,
+            Move, Y(0), X(3), Move, Y(3), X(1), Move, X(0), Y(3), Move, Y(2), X(2),
+            TrimFrame, U(3), U(1), Move, X(3), X(0), .. recur,
+            PutList, Y(0), X(0), X(0), Deallocate, U(1), Return,
+            Label, U(3), Move, X(1), X(0), Return, EndCode
+        ];
+        byte[] withGeneratorLine = [.. entry[..2], Line, U(2), .. entry[2..]];
+        byte[] hotReturn = closed[..7];
+        byte[] cold =
+        [
+            Label, U(3), TestHeap, U(3), U(1), PutTuple, X(0), ExtendedListOperand, U(2), A(badGenerator), X(0),
+            Line, U(2), TailExternalCall, U(1), U(error), EndCode
+        ];
+        byte[] lacksRecursiveLocation = [.. withGeneratorLine, .. left, .. add, .. args, .. recur[2..], .. hotReturn, .. cold];
+        byte[] expectedLocation = [.. expected[..2], Line, U(2), .. expected[2..^7], .. cold];
+        if (Apply(lacksRecursiveLocation, [declared]) is not { } location || !location.AsSpan().SequenceEqual(expectedLocation))
+        {
+            throw new InvalidOperationException(RecursiveTrimError);
+        }
+
+        byte[] previousCaptureInReturn = (byte[])closed.Clone();
+        previousCaptureInReturn[1] = Y(3);
+        if (Apply(original, [declared]) is not { } actual || !actual.AsSpan().SequenceEqual(expected)
+            || Apply(original, []) is not null
+            || Apply([.. entry, .. left, .. add, .. args, .. recur, .. previousCaptureInReturn], [declared]) is not null)
+        {
+            throw new InvalidOperationException(RecursiveTrimError);
+        }
+
+        byte[]? Apply(byte[] body, FunctionDefinition[] helpers) => (byte[]?)Call(
+            compiler,
+            "TrimRecursiveAppendFrames",
+            (ReadOnlyMemory<byte>)body,
+            4,
+            helpers
+        );
     }
 
     private static void CheckListRoots()

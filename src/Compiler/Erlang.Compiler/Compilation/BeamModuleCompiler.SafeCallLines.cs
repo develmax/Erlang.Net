@@ -52,6 +52,7 @@ internal sealed partial class BeamModuleCompiler
                         ..,
                     ] && ExternalTermFormat.Decode(literalBytes[(int)map.Value]) is MapTerm:
                     continue;
+                case BifZero when safeImports.Contains((int)instruction.Operands[0].Value):
                 case ExternalCall when IsSafeExternalBifCall(instruction, safeImports):
                     continue;
                 case TailExternalCall or TailExternalCallWithFrame:

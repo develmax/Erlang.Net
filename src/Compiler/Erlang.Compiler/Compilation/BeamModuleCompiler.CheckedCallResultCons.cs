@@ -32,6 +32,143 @@ internal sealed partial class BeamModuleCompiler
         ) ?? rewritten;
     }
 
+    private byte[]? KeepJoinedResultThroughCons(ReadOnlyMemory<byte> code, int labelCount)
+    {
+        if (ModuleOptimizationDisabled || !SsaTypeInferenceEnabled || !code.Span.Contains(TestHeap)
+            || DecodeLateAtomicProjectionSlots(code, labelCount) is not { Body: var body })
+        {
+            return null;
+        }
+
+        var result = new BeamOperand(BeamOperandParameters.X, 0);
+        var nil = new BeamOperand(BeamOperandParameters.Nil, NilAtomIndex);
+        using var output = new MemoryStream();
+        int copied = 0;
+        for (int index = 1; index + 3 < body.Count; index++)
+        {
+            if (body[index - 1].Definition.Opcode != Label
+                || body[index] is not
+                {
+                    Definition.Opcode: Move,
+                    Operands: [var value, { Kind: BeamOperandParameters.Y, TypeIndex: null } saved]
+                } || value != result || body[index + 1] is not
+                {
+                    Definition.Opcode: TestHeap,
+                    Operands: [{ Kind: BeamOperandParameters.Unsigned } words, { Value.IsZero: true }]
+                }
+                || body[index + 2] is not
+                { Definition.Opcode: PutList, Operands: [var first, var tail, var list] }
+                || first != saved || tail != nil || list != result)
+            {
+                continue;
+            }
+
+            int end = index + 3;
+            while (end < body.Count && body[end] is
+                { Definition.Opcode: PutList, Operands: [var head, var older, var current] }
+                && older == result && current == result && head.TypeIndex is null
+                && (head.Kind == BeamOperandParameters.Y || IsNonRegisterValue(head)))
+            {
+                end++;
+            }
+
+            if (words.Value != ConsHeapWords * (end - index - 2))
+            {
+                continue;
+            }
+
+            int call = end;
+            while (call < body.Count && body[call].Definition.Opcode is InitYRegisters or Line)
+            {
+                call++;
+            }
+
+            if (call >= body.Count || body[call] is not
+                { Definition.Opcode: LocalCall or ExternalCall, Operands: [{ Value.IsOne: true }, _] }
+                || !HasDedicatedJoinedHeadSlot(
+                    body,
+                    index,
+                    call,
+                    saved
+                ))
+            {
+                continue;
+            }
+
+            // Each incoming edge already produces X0 before the old save.
+            // Retain it as the one heap root and start the list in that slot.
+            output.Write(code.Span[copied..body[index].Offset]);
+            WriteHeapRoots(
+                output,
+                code,
+                body[index + 1].Offset,
+                body[index + 2].Offset,
+                0,
+                1
+            );
+            output.WriteByte(PutList);
+            WriteRegister(output, result);
+            BeamCompactWriter.Write(output, AtomTag, NilAtomIndex);
+            WriteRegister(output, result);
+            copied = body[index + 3].Offset;
+        }
+
+        if (copied == 0)
+        {
+            return null;
+        }
+
+        output.Write(code.Span[copied..]);
+
+        return output.ToArray();
+    }
+
+    private static bool HasDedicatedJoinedHeadSlot(
+        IReadOnlyList<BeamInstruction> body,
+        int spill,
+        int call,
+        BeamOperand saved
+    )
+    {
+        int start = spill - 1;
+        while (start > 0 && body[start - 1].Definition.Opcode != FunctionInfo)
+        {
+            start--;
+        }
+
+        int end = call + 1;
+        while (end < body.Count && body[end].Definition.Opcode is not (EndCode or FunctionInfo))
+        {
+            end++;
+        }
+
+        if (ReadDisjointFrameOwnership(
+            body,
+            start,
+            end,
+            trackSiblingTrimEpochs: true
+        ) is not { } frame || frame.Uses.Count > 2)
+        {
+            return false;
+        }
+
+        int allocation = frame.Owners[spill - start];
+        if (allocation < start || frame.Owners[call - start] != allocation || body[allocation].Definition.Opcode != Allocate
+            || body[allocation + 1].Definition.Opcode != InitYRegisters
+            || !body[allocation + 1].Operands.Contains(saved)
+            || frame.Uses.Keys.Any(other => other != allocation
+                && (other <= call || body[other].Definition.Opcode != TrimFrame || body[other].Operands[0].Value <= saved.Value)))
+        {
+            return false;
+        }
+
+        // Keep a separate epoch's Y0 intact when that epoch also uses it.
+        return Enumerable.Range(allocation + 1, end - allocation - 1).All(index =>
+            index == spill || index == spill + 2 || frame.Owners[index - start] != allocation
+            || body[index].Definition.Opcode == InitYRegisters
+            || !body[index].Operands.Any(operand => SameProjectionRegister(operand, saved)));
+    }
+
     private static byte[]? RewriteCheckedCallResultThroughCons(
         ReadOnlyMemory<byte> code,
         IReadOnlyList<BeamInstruction> body,

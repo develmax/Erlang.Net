@@ -9,6 +9,7 @@ namespace Erlang.Tests;
 internal static class BeamTaggedStateEntryChecks
 {
     internal const string TestName = "compiler/beam/partitions-tagged-state-inside-tuple-arity";
+    internal const string PartitionTestName = "compiler/beam/partitions-disjoint-message-tags-before-checked-state";
     private const string Fixture = "beam_tagged_state_entry.erl";
     private const string WrongLayout = "The inner state table did not preserve its independently checked frame owners.";
     private const string WrongValue = "Nested state selection changed head failure, the original fallback arguments or the selected effect.";
@@ -166,6 +167,85 @@ internal static class BeamTaggedStateEntryChecks
                 expected.Equals(await target.Invoke(context, name, arguments));
         });
     }
+
+    internal static async Task RunPartitioned()
+    {
+        const string single = "dispatch(event, {single}, _, State) ->";
+        const string other = """
+                dispatch(event, {other, _}, {read, client}, State) ->
+                    {first, State};
+                dispatch(event, {other, _}, _, State) ->
+                    {second, State};
+            """;
+        string mixed = Source.Replace(single, other.TrimStart() + "\n" + single, StringComparison.Ordinal);
+        byte[] image = CodeGeneration.CompileBeamModule(mixed, Fixture);
+        byte[] rejected = CodeGeneration.CompileBeamModule(
+            mixed.Replace("{wait, client}", "{read, client}", StringComparison.Ordinal),
+            Fixture
+        );
+        if (!HasOwnedStateBranches(image) || !HasMessagePartition(image) || HasMessagePartition(rejected))
+        {
+            throw new InvalidOperationException(WrongLayout);
+        }
+
+        var module = BeamModule.Prepare(image);
+        await using var runtime = new ProcessRuntime();
+        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
+        await actor.InvokeAsync(async context =>
+        {
+            Atom kind = Term.A("event");
+            Atom key = Term.A("entry_effect");
+            Atom payload = Term.A("payload");
+            Atom wrong = Term.A("wrong");
+            Term message = Term.Tuple(Term.A("msg"), key);
+            Term otherMessage = Term.Tuple(Term.A("other"), key);
+            Term read = Term.Tuple(Term.A("read"), Term.A("client"));
+            Term wait = Term.Tuple(Term.A("wait"), Term.A("client"));
+            Term data = Term.Tuple(Term.A("session"), payload);
+            if (!Term.Tuple(Term.A("sent"), data).Equals(await module.Invoke(context, "dispatch", [kind, message, read, data]))
+                || !Term.Tuple(Term.A("queued"), data).Equals(await module.Invoke(context, "dispatch", [kind, message, wait, data]))
+                || !Term.Tuple(Term.A("first"), data).Equals(await module.Invoke(context, "dispatch", [kind, otherMessage, read, data]))
+                || !Term.Tuple(Term.A("second"), data).Equals(await module.Invoke(context, "dispatch", [kind, otherMessage, wait, data]))
+                || !Fallback(
+                    kind,
+                    message,
+                    wrong,
+                    data
+                ).Equals(await module.Invoke(context, "dispatch", [kind, message, wrong, data]))
+                || !Fallback(
+                    kind,
+                    wrong,
+                    read,
+                    data
+                ).Equals(await module.Invoke(context, "dispatch", [kind, wrong, read, data]))
+                || !Fallback(
+                    wrong,
+                    message,
+                    read,
+                    data
+                ).Equals(await module.Invoke(context, "dispatch", [wrong, message, read, data]))
+                || !payload.Equals(await module.Invoke(context, "read_effect", [key])))
+            {
+                throw new InvalidOperationException(WrongValue);
+            }
+
+            return Nil.Value;
+        });
+    }
+
+    private static bool HasMessagePartition(byte[] image)
+    {
+        object code = Code(image);
+        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
+
+        return Items(code, "Instructions").Any(instruction =>
+            Opcode(instruction) == SelectValue
+            && Operands(instruction) is [_, _, _, var first, var firstTarget, var second, var secondTarget]
+            && Equals(Property(first, "Kind"), "atom") && atoms[Value(first)] == "msg"
+            && Equals(Property(second, "Kind"), "atom") && atoms[Value(second)] == "other"
+            && Value(firstTarget) != Value(secondTarget));
+    }
+
 
     private static bool HasOwnedStateBranches(byte[] image)
     {

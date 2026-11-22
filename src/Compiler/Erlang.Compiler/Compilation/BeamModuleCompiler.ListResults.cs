@@ -6,6 +6,7 @@ internal sealed partial class BeamModuleCompiler
 {
     private const int ConsTypeBits = 1 << 2;
     private const int ProperListTypeBits = ConsTypeBits | (1 << 7);
+    private const int NonNilTypeBits = AnyTypeBits & ~(ProperListTypeBits & ~ConsTypeBits);
 
     private sealed partial class GeneralEmitter
     {

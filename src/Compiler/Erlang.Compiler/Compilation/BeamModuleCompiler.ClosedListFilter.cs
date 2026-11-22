@@ -220,7 +220,7 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        private bool IsExhaustiveLocalBooleanSelector(Expr expression)
+        private bool IsExhaustiveLocalBooleanSelector(Expr expression, bool allowNegation = false)
         {
             if (!owner.SsaTypeInferenceEnabled || owner.ModuleOptimizationDisabled
                 || owner.OnLoadFunction is not null || owner.SourceModule?.DeclaredNifs is { Count: > 0 }
@@ -234,16 +234,49 @@ internal sealed partial class BeamModuleCompiler
 
             return localFunctions.TryGetValue(target, out var function)
                 && !owner.IsDeclaredNative(target)
-                && function.Clauses.All(clause => IsBooleanResult(clause.Body));
+                && function.Clauses.All(clause => IsBooleanResult(clause.Body, allowNegation));
         }
 
-        private static bool IsBooleanResult(Expr expression) => expression switch
+        private bool IsExhaustiveBoundLocalBooleanSelector(Expr.Case decision)
+        {
+            if (decision.Value is not Expr.Variable selector || parentFunction is null)
+            {
+                return false;
+            }
+
+            foreach (Clause clause in parentFunction.Clauses)
+            {
+                if (clause.Body is Expr.Sequence
+                    {
+                        Items:
+                        [
+                            Expr.Match { Pattern: Erlang.Pattern.Variable producer, Value: Expr.Call call },
+                            Expr.Match { Pattern: Erlang.Pattern.Variable, Value: Expr.Case use },
+                            _,
+                            ..
+                        ]
+                    } && ReferenceEquals(use, decision) && selector.Name == producer.Name
+                    && selector.Name != VariableScopeNames.Wildcard
+                    && clause.Patterns.All(pattern => pattern is Erlang.Pattern.Any
+                        || pattern is Erlang.Pattern.Variable variable && variable.Name != selector.Name))
+                {
+                    // This is the first binding in its clause and the next expression
+                    // selects the same immutable result. Exceptions from the call still propagate.
+                    return IsExhaustiveLocalBooleanSelector(call, allowNegation: true);
+                }
+            }
+
+            return false;
+        }
+
+        private static bool IsBooleanResult(Expr expression, bool allowNegation = false) => expression switch
         {
             Expr.Literal { Value: Atom { Name: "true" or "false" } } => true,
-            Expr.Block block => IsBooleanResult(block.Body),
-            Expr.Sequence { Items: [.., var result] } => IsBooleanResult(result),
-            Expr.Case decision => decision.Clauses.All(branch => IsBooleanResult(branch.Body)),
-            Expr.If decision => decision.Clauses.All(branch => IsBooleanResult(branch.Body)),
+            Expr.Block block => IsBooleanResult(block.Body, allowNegation),
+            Expr.Sequence { Items: [.., var result] } => IsBooleanResult(result, allowNegation),
+            Expr.Case decision => decision.Clauses.All(branch => IsBooleanResult(branch.Body, allowNegation)),
+            Expr.If decision => decision.Clauses.All(branch => IsBooleanResult(branch.Body, allowNegation)),
+            Expr.Unary { Operator: ErlangOperators.Not } when allowNegation => true,
             _ => false
         };
     }

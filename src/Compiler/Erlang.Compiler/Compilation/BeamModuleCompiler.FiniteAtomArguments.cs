@@ -55,9 +55,14 @@ internal sealed partial class BeamModuleCompiler
             return new FiniteAtomLiteralDispatch(branches, labels);
         }
 
-        internal IReadOnlySet<Atom>? ReadFiniteAtomArguments(FunctionDefinition function, int index, bool admitGuardFacts = false)
+        internal IReadOnlySet<Atom>? ReadFiniteAtomArguments(
+            FunctionDefinition function,
+            int index,
+            bool admitGuardFacts = false,
+            bool requireInferredAtomType = true
+        )
         {
-            if (!admitGuardFacts && ReadAtomEntryType(function, index) == 0)
+            if (requireInferredAtomType && !admitGuardFacts && ReadAtomEntryType(function, index) == 0)
             {
                 return null;
             }

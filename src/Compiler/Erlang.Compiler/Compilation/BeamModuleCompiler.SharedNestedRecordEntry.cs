@@ -20,7 +20,10 @@ internal sealed partial class BeamModuleCompiler
             int? CheckedAtomArgument = null,
             IReadOnlyDictionary<int, int>? ProjectedRootFields = null,
             int? ConsumedSelectorRegister = null,
-            bool AllowConsTupleField = false
+            bool AllowConsTupleField = false,
+            int? CheckedListPrefixInput = null,
+            bool MatchRepeatedRootFields = false,
+            (int Field, int Register)? CarriedRootField = null
         );
         private sealed record SharedNestedRecordArm(Clause Source, Pattern.Tuple Shape, Atom Tag);
         private sealed record SharedNestedRecordGroup(

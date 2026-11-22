@@ -645,7 +645,7 @@ internal sealed partial class BeamModuleCompiler
             var lexicalOwner = parentFunction!;
             int ordinal = lambda.CoreOrdinal ?? anonymousOrdinal++;
             string name = FormattableString.Invariant($"-{lexicalOwner.Name}/{lexicalOwner.Arity}-fun-{ordinal}-");
-            BeamSourceLocation source = lambda.ClauseLine == 0 ? location : new(lambda.ClauseFile, lambda.ClauseLine);
+            BeamSourceLocation source = lambda.DeclarationLine == 0 ? location : new(lambda.DeclarationFile, lambda.DeclarationLine);
             owner.Op(MakeFun, BeamWire.UnsignedTag, owner.closures.Count);
             owner.Operand(XRegisterTag, destination);
             owner.instructions.WriteByte(ExtendedListOperand);

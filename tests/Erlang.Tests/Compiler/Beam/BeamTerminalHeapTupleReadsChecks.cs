@@ -25,6 +25,15 @@ internal static class BeamTerminalHeapTupleReadsChecks
             throw new InvalidOperationException(WrongPath);
         }
 
+        byte[] framed = FramedFixture();
+        if (Rewrite(framed, framed: true) is not { } compact || !compact.SequenceEqual(FramedFixture(sunk: true))
+            || Rewrite(compact, framed: true) is not null
+            || Rewrite(FramedFixture(otherResultRead: true), framed: true) is not null
+            || Rewrite(FramedFixture(liveOldField: true), framed: true) is not null)
+        {
+            throw new InvalidOperationException(WrongPath);
+        }
+
         var before = BeamModule.Prepare(Image(original[..^1], labels: LabelCount, arity: Arity));
         var after = BeamModule.Prepare(Image(rewritten[..^1], labels: LabelCount, arity: Arity));
         await using var runtime = new ProcessRuntime();
@@ -96,7 +105,28 @@ internal static class BeamTerminalHeapTupleReadsChecks
         ];
     }
 
-    private static byte[]? Rewrite(ReadOnlyMemory<byte> code)
+    private static byte[] FramedFixture(bool sunk = false, bool otherResultRead = false, bool liveOldField = false)
+    {
+        byte[] before = sunk ? [] : [GetTupleElement, X(1), U(2), X(2)];
+        byte[] after = sunk ? [GetTupleElement, X(1), U(2), X(0)] : [];
+        byte[] last = liveOldField ? [Move, X(2), X(0)] : [];
+
+        return
+        [
+            .. Start(
+                FunctionInfoLabel,
+                EntryLabel,
+                2,
+                Arity
+            ),
+            IsTaggedTuple, F(RejectLabel), X(1), U(3), A(2),
+            .. before, AllocateHeap, U(1), U(3), U(sunk ? 2 : 3), Move, X(1), Y(0), .. after,
+            PutTuple, X(0), ExtendedListOperand, U(2), X(otherResultRead ? 0 : 1), X(sunk ? 0 : 2),
+            .. last, Deallocate, U(1), Return, Label, U(RejectLabel), Return, EndCode
+        ];
+    }
+
+    private static byte[]? Rewrite(ReadOnlyMemory<byte> code, bool framed = false)
     {
         object header = New(
             "BeamCodeHeader",
@@ -118,7 +148,7 @@ internal static class BeamTerminalHeapTupleReadsChecks
 
         return (byte[]?)Call(
             typeof(BeamModuleCompiler),
-            "MoveTerminalTupleReadsPastHeap",
+            framed ? "RewriteCheckedTupleFieldAcrossAllocation" : "MoveTerminalTupleReadsPastHeap",
             code,
             body
         );

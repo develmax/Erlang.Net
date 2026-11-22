@@ -1256,3 +1256,7 @@ rewriters. The existing .NET collections and SDK cover the data structures.
 No external compiler or intermediate-code library is added to the product.
 Reference assembly images are comparison inputs. Their installed build and
 generator identities remain explicitly validated.
+
+## Shared OTP source and register planning — 2026-11-22
+
+Reuse the existing C# immutable terms, body liveness, frame placement and operand encoder. Standard .NET collections supply the bounded atom sets, constructor dependencies and register intervals. The pinned Apache-2.0 OTP compiler remains the development oracle. The existing generated C# path delegates source AST execution to the managed evaluator and remains useful for behavioral checks. [Local evidence](validation/part-1990-local-parity/README.md).

@@ -17,7 +17,12 @@ internal sealed partial class BeamModuleCompiler
                 continue;
             }
 
-            int continuation = FindTerminalCallReturn(body, index, returnBlocks);
+            int continuation = FindTerminalCallReturn(
+                body,
+                index,
+                returnBlocks,
+                allowSharedFallthrough: true
+            );
             if (continuation < 0)
             {
                 continue;
@@ -47,7 +52,11 @@ internal sealed partial class BeamModuleCompiler
                 output.Write(code.Span[(body[continuation].Offset + 1)..body[terminal].Offset]);
             }
 
-            index = continuation == consumed ? terminal : consumed;
+            if (body[consumed].Definition.Opcode != Label)
+            {
+                index = continuation == consumed ? terminal : consumed;
+            }
+
             copied = body[index + 1].Offset;
         }
 
@@ -64,15 +73,25 @@ internal sealed partial class BeamModuleCompiler
     private static int FindTerminalCallReturn(
         IReadOnlyList<BeamInstruction> body,
         int call,
-        Dictionary<int, int> returnBlocks
+        Dictionary<int, int> returnBlocks,
+        bool allowSharedFallthrough = false
     )
     {
         int continuation = call + 1;
-        if (continuation >= body.Count
-            || body[continuation] is { Definition.Opcode: Jump, Operands: [var target] }
-                && !returnBlocks.TryGetValue((int)target.Value, out continuation))
+        if (continuation >= body.Count)
         {
             return -1;
+        }
+
+        BeamInstruction next = body[continuation];
+        if (next.Definition.Opcode == Jump || allowSharedFallthrough && next.Definition.Opcode == Label)
+        {
+            // The other predecessors still enter the original return block.
+            // Only the call's fallthrough path is converted to a tail call.
+            if (!returnBlocks.TryGetValue((int)next.Operands[0].Value, out continuation))
+            {
+                return -1;
+            }
         }
 
         int terminal = continuation + (body[continuation].Definition.Opcode == Deallocate ? 1 : 0);

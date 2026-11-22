@@ -98,6 +98,17 @@ internal sealed partial class BeamModuleCompiler
     )
     {
         Clause clause = clauses[0];
+        if (clauses.Count == 1 && GeneralEmitter.MayPlanStraightLineValues(clause) && new GeneralEmitter(
+            this,
+            entries,
+            new Dictionary<(string Name, int Arity), FunctionDefinition>(),
+            location,
+            frameSize: 0
+        ).TryEmitStraightLineValues(clause))
+        {
+            return;
+        }
+
         if (clauses.Count == 1 && (TryEmitSelfArgumentList(clause, location) || TryEmitPairArgumentList(clause, location)
             || TryEmitLoggedCallReply(clause, location) || TryEmitComputedPairArgumentList(clause, location)
             || TryEmitNestedTupleArgument(clause, location)))
@@ -730,6 +741,7 @@ internal sealed partial class BeamModuleCompiler
         bool orderTailMoves = false
     )
     {
+        Expr.Call sourceCall = call;
         call = ResolveImportedCall(call, entries);
         IReadOnlyList<Expr> arguments = call.Arguments;
         int arity = arguments.Count;
@@ -831,6 +843,12 @@ internal sealed partial class BeamModuleCompiler
         {
             EmitArgumentMoves(moves, constants);
         }
+        if (!ordinary && CoreMapCallsEnabled && IsOriginalTerminalMapDefault(sourceCall)
+            && call is { Module: MapModuleNames.Module, Function: MapModuleNames.Get, DynamicRemote: false, Arguments.Count: 3 })
+        {
+            MarkPreparedMapDefault(handler: null);
+        }
+
         if (ordinary || call.Module is not null)
         {
             var callLocation = new BeamSourceLocation(call.PreprocessorFile, call.SourceLine);
@@ -850,7 +868,7 @@ internal sealed partial class BeamModuleCompiler
         else if (call.Module is null)
         {
             Op(ordinary ? LocalCall : TailLocalCall, BeamWire.UnsignedTag, arity);
-            Operand(LabelTag, target);
+            Operand(LabelTag, LocalCallTarget(call.Function, arity, target));
         }
         else
         {

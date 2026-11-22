@@ -24,6 +24,8 @@ internal sealed partial class BeamModuleCompiler
         List = 32768,
         Tuple = 1 << 16,
         AtomOrTuple = 1 << 17,
+        AtomInFirstPairField = 1 << 18,
+        AtomInSecondPairField = 1 << 19,
         NoReturn = Positive | PositiveLength | ProperList | NonemptyList
     }
 
@@ -152,6 +154,21 @@ internal sealed partial class BeamModuleCompiler
 
             return flow.Entries.TryGetValue((function.Name, function.Arity), out var entry)
                 ? entry.Arguments[index] : PairFacts.Unknown;
+        }
+
+        internal int ReadLocalAtomComparisonResultType((string Name, int Arity) signature)
+        {
+            if (!GetNumericPairFlow().Entries.TryGetValue(signature, out var entry))
+            {
+                return 0;
+            }
+
+            return (entry.Result & (PairFacts.Atom | PairFacts.Tuple | PairFacts.AtomOrTuple)) switch
+            {
+                PairFacts.Atom | PairFacts.AtomOrTuple => AtomTypeBits,
+                PairFacts.AtomOrTuple => LocalAtomOrTupleType,
+                _ => 0
+            };
         }
 
         internal int ReadAtomEntryType(FunctionDefinition function, int index) =>

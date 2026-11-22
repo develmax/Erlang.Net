@@ -95,10 +95,67 @@ internal static class BeamSingleReturningCallFrameChecks
         }
 
         CheckConstructedReturnFrames();
+        CheckReturnedBranchFrames();
         CheckOwnedConstructingBranches();
+        CheckOwnedProjectionReturn();
         CheckSharedLeafReturn();
 
         return Task.CompletedTask;
+    }
+
+    private static void CheckReturnedBranchFrames()
+    {
+        if (RewriteConstructorFrame(BranchResultFrame(readsSavedOnFailure: false)) is not { } reduced
+            || RewriteConstructorFrame(BranchResultFrame(readsSavedOnFailure: true)) is not null)
+        {
+            throw new InvalidOperationException(WrongCallFrame);
+        }
+
+        var image = new ReadOnlyMemory<byte>(reduced);
+        object header = New(
+            "BeamCodeHeader",
+            0,
+            MinimumHighestOpcode,
+            6,
+            1,
+            image
+        );
+        object body = Call(
+            Type("BeamInstructionReader"),
+            "Read",
+            header,
+            2,
+            0,
+            null,
+            null
+        );
+        object[] instructions = ((IEnumerable)body).Cast<object>().ToArray();
+        if (Value(Operands(instructions.Single(instruction => Opcode(instruction) == Allocate))[0]) != 0
+            || instructions.Count(instruction => Opcode(instruction) == ExternalCall) != 1
+            || instructions.Count(instruction => Opcode(instruction) == Return) != 2
+            || instructions.Any(instruction => Opcode(instruction) == Deallocate && Value(Operands(instruction)[0]) != 0))
+        {
+            throw new InvalidOperationException(WrongCallFrame);
+        }
+    }
+
+    private static byte[] BranchResultFrame(bool readsSavedOnFailure)
+    {
+        byte[] failure = readsSavedOnFailure ? [Move, Y(0), X(0)] : [Move, A(1), X(0)];
+
+        return
+        [
+            .. Start(
+                1,
+                2,
+                2,
+                1
+            ),
+            Allocate, U(1), U(1), Move, X(0), Y(0), Move, Y(0), X(0), ExternalCall, U(1), U(0),
+            IsAtom, F(3), X(0), Deallocate, U(1), Return,
+            Label, U(3), .. failure, Deallocate, U(1), Return,
+            EndCode
+        ];
     }
 
     private static void CheckConstructedReturnFrames()
@@ -184,6 +241,46 @@ internal static class BeamSingleReturningCallFrameChecks
         ];
         if (RewriteConstructorFrame(shared, ownedBranches: true) is not null
             || RewriteConstructorFrame(withCall, ownedBranches: true) is not null)
+        {
+            throw new InvalidOperationException(WrongOwnedLeaf);
+        }
+    }
+
+    private static void CheckOwnedProjectionReturn()
+    {
+        byte[] entry =
+        [
+            .. Start(
+                1,
+                2,
+                1,
+                1
+            ),
+            IsTaggedTuple, F(3), X(0), U(2), A(1)
+        ];
+        byte[] frame = [Allocate, U(0), U(1)];
+        byte[] projection = [GetTupleElement, X(0), U(1), X(0)];
+        byte[] release = [Deallocate, U(0)];
+        byte[] fallback = [Label, U(3), TailExternalCall, U(1), U(0), EndCode];
+        byte[] original = [.. entry, .. frame, .. projection, .. release, Return, .. fallback];
+        byte[] expected = [.. entry, .. projection, Return, .. fallback];
+        if (RewriteConstructorFrame(original, ownedBranches: true) is not { } actual
+            || !actual.SequenceEqual(expected))
+        {
+            throw new InvalidOperationException(WrongOwnedLeaf);
+        }
+
+        byte[] ordinaryCall =
+        [
+            .. entry, .. frame, .. projection, ExternalCall, U(1), U(0), .. release, Return, .. fallback
+        ];
+        byte[] sharedExit =
+        [
+            .. entry, .. frame, .. projection, .. release, Jump, F(4),
+            Label, U(3), Move, A(1), X(0), Label, U(4), Return, EndCode
+        ];
+        if (RewriteConstructorFrame(ordinaryCall, ownedBranches: true) is not null
+            || RewriteConstructorFrame(sharedExit, ownedBranches: true) is not null)
         {
             throw new InvalidOperationException(WrongOwnedLeaf);
         }
@@ -308,7 +405,9 @@ internal static class BeamSingleReturningCallFrameChecks
             null,
             null,
             ownedBranches,
-            null
+            null,
+            null,
+            false
         );
     }
 

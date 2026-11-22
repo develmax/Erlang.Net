@@ -5,8 +5,21 @@ namespace Erlang.Compiler;
 internal sealed partial class BeamModuleCompiler
 {
     private byte[]? ClearDeadRecordCallSlots(ReadOnlyMemory<byte> code, int labelCount)
+        => ClearCallSlotRoots(code, labelCount, replacedUnaryOnly: false);
+
+    private byte[]? ClearCallSlotRoots(
+        ReadOnlyMemory<byte> code,
+        int labelCount,
+        bool replacedUnaryOnly,
+        bool projectedArgumentsOnly = false
+    )
     {
-        if (ModuleOptimizationDisabled || (!code.Span.Contains(UpdateRecord) && !code.Span.Contains(PutList)))
+        bool hasCandidate = projectedArgumentsOnly
+            ? code.Span.Contains(GetTupleElement)
+            : code.Span.Contains(UpdateRecord) || code.Span.Contains(PutList)
+                || replacedUnaryOnly && code.Span.Contains(PutTuple);
+        if (ModuleOptimizationDisabled || !hasCandidate
+            || (projectedArgumentsOnly && !SsaTypeInferenceEnabled))
         {
             return null;
         }
@@ -28,6 +41,51 @@ internal sealed partial class BeamModuleCompiler
             return null;
         }
 
+        byte[]? rewritten = projectedArgumentsOnly
+            ? RewriteProjectedArgumentCallSlotRoots(code, body)
+            : RewriteDeadRecordCallSlots(code, body, replacedUnaryOnly);
+        if (rewritten is not null)
+        {
+            highestOpcode = Math.Max(highestOpcode, InitYRegisters);
+        }
+
+        return rewritten;
+    }
+
+    private byte[]? ClearProjectedArgumentCallSlotRoots(ReadOnlyMemory<byte> code, int labelCount) =>
+        ClearCallSlotRoots(
+            code,
+            labelCount,
+            replacedUnaryOnly: false,
+            projectedArgumentsOnly: true
+        );
+
+    private static byte[]? RewriteProjectedArgumentCallSlotRoots(ReadOnlyMemory<byte> code, IReadOnlyList<BeamInstruction> body) =>
+        RewriteCallSlotRoots(
+            code,
+            body,
+            replacedUnaryOnly: false,
+            projectedArgumentsOnly: true
+        );
+
+    private static byte[]? RewriteDeadRecordCallSlots(
+        ReadOnlyMemory<byte> code,
+        IReadOnlyList<BeamInstruction> body,
+        bool replacedUnaryOnly
+    ) => RewriteCallSlotRoots(
+        code,
+        body,
+        replacedUnaryOnly,
+        projectedArgumentsOnly: false
+    );
+
+    private static byte[]? RewriteCallSlotRoots(
+        ReadOnlyMemory<byte> code,
+        IReadOnlyList<BeamInstruction> body,
+        bool replacedUnaryOnly,
+        bool projectedArgumentsOnly
+    )
+    {
         using var output = new MemoryStream();
         BeamProjectionFlow? flow = null;
         int copied = 0;
@@ -48,13 +106,26 @@ internal sealed partial class BeamModuleCompiler
             (int[] Owners, Dictionary<int, bool[]> Uses)? ownership = null;
             for (int call = entry + 2; call + 1 < end; call++)
             {
-                if ((ReadRecordCallSlotUses(body, entry, call)
-                    ?? ReadTupleListCallSlotUses(body, entry, call)) is not { } setup)
+                var plan = projectedArgumentsOnly
+                    ? ReadProjectedArgumentCallSlotUses(body, entry, call)
+                    : replacedUnaryOnly ? ReadReplacedUnaryCallSlot(
+                        body,
+                        entry,
+                        call,
+                        end
+                    )
+                    : ReadRecordCallSlotUses(body, entry, call) ?? ReadTupleListCallSlotUses(body, entry, call);
+                if (plan is not { } setup)
                 {
                     continue;
                 }
 
-                if ((ownership ??= ReadDisjointFrameOwnership(body, entry, end)) is not { } frame)
+                if ((ownership ??= ReadDisjointFrameOwnership(
+                    body,
+                    entry,
+                    end,
+                    trackSiblingTrimEpochs: replacedUnaryOnly || projectedArgumentsOnly
+                )) is not { } frame)
                 {
                     break;
                 }
@@ -69,7 +140,7 @@ internal sealed partial class BeamModuleCompiler
                 var clear = new SortedSet<int>(setup.Existing);
                 foreach (BeamOperand slot in setup.Reads)
                 {
-                    if (!clear.Contains((int)slot.Value) && flow.IsInitialized(setup.Start, slot)
+                    if (!clear.Contains((int)slot.Value) && (replacedUnaryOnly || projectedArgumentsOnly || flow.IsInitialized(setup.Start, slot))
                         && flow.IsDead(call, slot))
                     {
                         clear.Add((int)slot.Value);
@@ -84,7 +155,6 @@ internal sealed partial class BeamModuleCompiler
                 output.Write(code.Span[copied..body[setup.Insert].Offset]);
                 WriteFrameInitialization(output, clear.ToArray());
                 copied = body[setup.Initialize ? setup.Insert + 1 : setup.Insert].Offset;
-                highestOpcode = Math.Max(highestOpcode, InitYRegisters);
             }
         }
 
@@ -96,6 +166,49 @@ internal sealed partial class BeamModuleCompiler
         output.Write(code.Span[copied..]);
 
         return output.ToArray();
+    }
+
+    private static (int Start, int Insert, bool Initialize, int[] Existing, BeamOperand[] Reads)? ReadReplacedUnaryCallSlot(
+        IReadOnlyList<BeamInstruction> body,
+        int entry,
+        int call,
+        int end
+    )
+    {
+        if (call + 1 >= end || body[call] is not
+            {
+                Definition.Opcode: LocalCall or ExternalCall,
+                Operands: [{ Value.IsOne: true }, _]
+            })
+        {
+            return null;
+        }
+
+        int move = call - 1;
+        while (move > entry && body[move].Definition.Opcode == Line)
+        {
+            move--;
+        }
+
+        if (move <= entry || body[move - 1].Definition.Opcode is not (PutList or PutTuple)
+            || body[move] is not
+            {
+                Definition.Opcode: Move,
+                Operands: [{ Kind: BeamOperandParameters.Y, TypeIndex: null } saved, var argument]
+            } || !IsBareX0(argument)
+            || body[call + 1] is not
+            {
+                Definition.Opcode: Move, Operands: [var result, var replaced]
+            } || !IsBareX0(result) || replaced != saved
+            || !HasUnprotectedCheckedFailureRegion(body, move, call + 1))
+        {
+            return null;
+        }
+
+        // The outgoing move has already read the initialized Y operand.
+        // The argument holds the old term in X0. On return the same Y slot
+        // receives the new value before any path can read the old term.
+        return (move, move + 1, false, [], [saved]);
     }
 
     private static (int Start, int Insert, bool Initialize, int[] Existing, BeamOperand[] Reads)? ReadRecordCallSlotUses(

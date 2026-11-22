@@ -54,12 +54,12 @@ internal sealed partial class BeamModuleCompiler
                         {
                             Definition.Opcode: LocalCall or ExternalCall,
                             Operands: [var arity, _]
-                        } && arity.Value > 0 && ReplacesOutgoingRoot(
+                        } && arity.Value > 0 && (ReplacesOutgoingRoot(
                             body,
                             start,
                             end,
                             call + 1
-                        ))
+                        ) || arity.Value.IsOne && ReturnsWithoutOutgoingRoot(body, call + 1, end)))
                     {
                         sites.Add(body[index + 1].Offset);
                         defined = false;
@@ -120,6 +120,33 @@ internal sealed partial class BeamModuleCompiler
         instruction.Definition.Opcode is Move or GetTupleElement
         && instruction.Operands[0].Kind == BeamOperandParameters.X
         && instruction.Operands[^1] is { Kind: BeamOperandParameters.Y, Value.IsZero: true };
+
+    private static bool ReturnsWithoutOutgoingRoot(IReadOnlyList<BeamInstruction> body, int next, int end)
+    {
+        // Both paths return without another call or an observation of the
+        // outgoing Y root. The argument has already been copied to X0.
+        return next + 6 < end
+            && body[next] is
+            {
+                Definition.Opcode: ExactEqualTest,
+                Operands: [
+                { Kind: BeamOperandParameters.Label } failed,
+                { Kind: BeamOperandParameters.X, TypeIndex: null, Value.IsZero: true },
+                    var expected
+                ]
+            } && IsNonRegisterValue(expected)
+            && body[next + 1] is
+            {
+                Definition.Opcode: Move,
+                Operands: [var value, { Kind: BeamOperandParameters.X, TypeIndex: null, Value.IsZero: true }]
+            } && IsNonRegisterValue(value)
+            && body[next + 2] is { Definition.Opcode: Deallocate, Operands: [{ Value.IsOne: true }] }
+            && body[next + 3].Definition.Opcode == Return
+            && body[next + 4] is { Definition.Opcode: Label, Operands: [var target] }
+            && failed.Value == target.Value
+            && body[next + 5] is { Definition.Opcode: Deallocate, Operands: [{ Value.IsOne: true }] }
+            && body[next + 6].Definition.Opcode == Return;
+    }
 
     private static bool ReplacesOutgoingRoot(
         IReadOnlyList<BeamInstruction> body,

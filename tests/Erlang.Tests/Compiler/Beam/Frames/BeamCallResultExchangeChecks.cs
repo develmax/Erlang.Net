@@ -2,6 +2,7 @@ using Erlang;
 using Erlang.Compiler;
 using static Erlang.Compiler.BeamEmissionFormat;
 using static Erlang.Tests.BeamBinaryHostAccess;
+using static Erlang.Tests.BeamOpcodeEdgeBytes;
 
 namespace Erlang.Tests;
 
@@ -76,7 +77,50 @@ internal static class BeamCallResultExchangeChecks
             }
         }
 
+        CheckOwnedHandoff();
+        CheckClosureHandoff();
+
         return VerifyOwnedExchange();
+    }
+
+    private static void CheckClosureHandoff()
+    {
+        var compiler = new BeamModuleCompiler("owned_closure_exchange_fixture");
+        _ = Call(compiler, "Intern", BeamOpcodeEdgeNames.Run);
+        byte[] entry = [Label, One, FunctionInfo, Module, Function, Two, Label, Two];
+        byte[] suffix = [Line, Two, LocalCall, Two, Entry, TestHeap, Two, One];
+        byte[] original =
+        [
+            .. entry, AllocateHeap, Three, 0, Two, InitYRegisters, ExtendedListOperand, One, Y(2),
+            Move, X0, Y0, Move, X1, Y1, LocalCall, One, Entry,
+            Move, X0, Y(2), TestHeap, One, 0, MakeFun, 0, X0, ExtendedListOperand, 0,
+            Move, Y1, X1, .. suffix, Move, Y0, X1, PutList, Y(2), X0, X0, Deallocate, Three, Return, EndCode
+        ];
+        byte[] expected =
+        [
+            .. entry, AllocateHeap, Two, 0, Two,
+            Move, X0, Y0, Move, X1, Y1, LocalCall, One, Entry,
+            TestHeap, One, One, MakeFun, 0, X1, ExtendedListOperand, 0,
+            Move, Y1, X(2), Move, X0, Y1, Move, X1, X0, Move, X(2), X1,
+            .. suffix, Move, Y0, X1, PutList, Y1, X0, X0, Deallocate, Two, Return, EndCode
+        ];
+        byte[] laterUse = original.ToArray();
+        int put = Array.IndexOf(laterUse, PutList);
+        laterUse[put - 2] = Y1;
+        int closure = Array.IndexOf(original, MakeFun);
+        byte[] captures = [.. original[..(closure + 4)], One, Y1, .. original[(closure + 5)..]];
+        if (Apply(original) is not { } actual || !actual.SequenceEqual(expected)
+            || Apply(laterUse) is not null || Apply(captures) is not null)
+        {
+            throw new InvalidOperationException(UnsafeExchange);
+        }
+
+        byte[]? Apply(ReadOnlyMemory<byte> code) => (byte[]?)Call(
+            compiler,
+            "ReuseRetiredClosureInputForCallResult",
+            code,
+            5
+        );
     }
 
     private static async Task VerifyOwnedExchange()
@@ -225,4 +269,63 @@ internal static class BeamCallResultExchangeChecks
             body
         );
     }
+
+    private static void CheckOwnedHandoff()
+    {
+        var compiler = new BeamModuleCompiler("beam_owned_call_result_handoff");
+        foreach (bool argumentInX0 in new[] { true, false })
+        {
+            if (Apply(Shape(argumentInX0)) is not { } actual
+                || !actual.SequenceEqual(Shape(argumentInX0, compacted: true))
+                || Apply(actual) is not null || Apply(Shape(argumentInX0, liveInput: true)) is not null
+                || Apply(Shape(argumentInX0, bypass: true)) is not null
+                || Apply(Shape(argumentInX0, dependentCopy: true)) is not null)
+            {
+                throw new InvalidOperationException("The retired call input must carry only the new result after the outgoing load.");
+            }
+        }
+
+        byte[]? Apply(ReadOnlyMemory<byte> code) => (byte[]?)Call(
+            compiler,
+            "ReuseRetiredInputForCallResult",
+            code,
+            5
+        );
+    }
+
+    private static byte[] Shape(
+        bool argumentInX0,
+        bool compacted = false,
+        bool liveInput = false,
+        bool bypass = false,
+        bool dependentCopy = false
+    )
+    {
+        byte old = compacted ? Y(0) : Y(1);
+        byte saved = Y(0);
+        byte argument = X(argumentInX0 ? 0 : 1);
+        byte second = X(argumentInX0 ? 1 : 0);
+        byte[] exchange = compacted
+            ? (argumentInX0 ? [Swap, old, X(0)] : [Move, old, argument, Move, X(0), saved])
+            : [Move, X(0), saved];
+        byte[] outgoing = compacted ? [] : [Move, old, argument, InitYRegisters, ExtendedListOperand, U(1), old];
+        byte[] initial = compacted ? [] : [InitYRegisters, ExtendedListOperand, U(1), saved];
+        byte[] bypassed = bypass ? [IsAtom, F(3), X(0)] : [];
+        byte[] keep = liveInput ? [Move, old, X(1)] : [];
+
+        return
+        [
+            .. Start(
+                1,
+                2,
+                1,
+                1
+            ),
+            Allocate, U(compacted ? 1 : 2), U(1), .. initial, Move, X(0), old, .. bypassed,
+            ExternalCall, U(1), U(0), .. exchange, Move, A(1), dependentCopy ? argument : second,
+            .. outgoing, Line, U(1), ExternalCall, U(2), U(1), Label, U(3), .. keep,
+            Move, saved, X(0), Deallocate, U(compacted ? 1 : 2), Return, EndCode
+        ];
+    }
+
 }

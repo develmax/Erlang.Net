@@ -14,7 +14,7 @@ internal static class BeamClosedCompoundPatternChecks
 
     internal const string Source = """
         -module(beam_closed_compound_pattern_probe).
-        -export([nested/1, list/1, tagged/1, overlap/1, select/1]).
+        -export([nested/1, list/1, tagged/1, overlap/1, disjoint_heads/1, overlapping_heads/1, select/1]).
 
         nested(Value) ->
             case ?MODULE:select(Value) of
@@ -42,6 +42,20 @@ internal static class BeamClosedCompoundPatternChecks
                 Other -> {other,Other}
             end.
 
+        disjoint_heads(Value) ->
+            case ?MODULE:select(Value) of
+                [marker] -> marker;
+                [{head,Data}, tail_only] -> {matched,Data};
+                Other -> Other
+            end.
+
+        overlapping_heads(Value) ->
+            case ?MODULE:select(Value) of
+                [{head,Data}, retained_tail] -> {matched,Data};
+                [{head,Data}, Open] -> {open,Data,Open};
+                Other -> Other
+            end.
+
         select(Value) -> Value.
         """;
 
@@ -56,13 +70,20 @@ internal static class BeamClosedCompoundPatternChecks
         object[] list = Body("list");
         object[] tagged = Body("tagged");
         object[] overlap = Body("overlap");
+        object[] disjointHeads = Body("disjoint_heads");
+        object[] overlappingHeads = Body("overlapping_heads");
+        var literals = Items(Property(code, "Structure"), "Literals").Cast<Term>().ToArray();
         if (!nested.Zip(nested.Skip(1)).Any(pair => IsNestedExactTest(pair.First, pair.Second))
             || !nested.Any(instruction => Opcode(instruction) == IsNonemptyList)
             || !list.Any(instruction => Opcode(instruction) == ExactEqualTest)
             || list.Any(instruction => Opcode(instruction) == IsNonemptyList)
             || !tagged.Any(instruction => Opcode(instruction) == ExactEqualTest)
             || tagged.Any(instruction => Opcode(instruction) == GetTupleElement)
-            || !overlap.Any(instruction => Opcode(instruction) == GetTupleElement))
+            || !overlap.Any(instruction => Opcode(instruction) == GetTupleElement)
+            || !disjointHeads.Any(instruction => Opcode(instruction) == GetList)
+            || !literals.Contains(Term.List(Term.A("tail_only")))
+            || !overlappingHeads.Any(instruction => Opcode(instruction) == IsNonemptyList)
+            || literals.Contains(Term.List(Term.A("retained_tail"))))
         {
             throw new InvalidOperationException(MissingClosedTests);
         }

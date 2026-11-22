@@ -15,7 +15,7 @@ internal static class BeamCountedListPairAccumulatorChecks
 
     private const string Source = """
         -module(beam_counted_list_pair_accumulator_probe).
-        -export([direct/1, with_callback/2, unchecked/1]).
+        -export([direct/1, with_callback/2, unchecked/1, divide/1]).
 
         direct(Input) -> direct_fold(Input, [], 0).
         direct_fold([], Acc, Count) -> {ordered(Acc), Count};
@@ -36,6 +36,10 @@ internal static class BeamCountedListPairAccumulatorChecks
             {Bytes, Size} = unknown(Head, []),
             unchecked_fold(Tail, [Bytes|Acc], Count + Size).
 
+        divide(Input) -> divided(Input, [], []).
+        divided([], Left, Right) -> {lists:reverse(Left), lists:reverse(Right)};
+        divided([L,R|Tail], Left, Right) -> divided(Tail, [L|Left], [R|Right]).
+
         unknown(Value, _) -> Value.
         encode(Bytes, _) -> {Bytes, byte_size(Bytes)}.
         ordered(Items) -> lists:reverse(Items).
@@ -52,6 +56,13 @@ internal static class BeamCountedListPairAccumulatorChecks
 
         Check("direct_fold", 3, expectsCallback: false);
         Check("callback_fold", 4, expectsCallback: true);
+        object[] split = Read("divided");
+        if (split.Count(instruction => Opcode(instruction) == Allocate) != 1
+            || split.Any(instruction => Opcode(instruction) == TailLocalCallWithFrame)
+            || !split.Any(instruction => Opcode(instruction) == Swap))
+        {
+            throw new InvalidOperationException(IncorrectFrame);
+        }
 
         if (!Read("unchecked_fold").Any(instruction => Opcode(instruction) == BadMatch))
         {
@@ -70,6 +81,35 @@ internal static class BeamCountedListPairAccumulatorChecks
                 || !Term.Tuple(Term.List(Term.I(1), Term.I(2)), Term.I(7)).Equals(await module.Invoke(context, "unchecked", pairs)))
             {
                 throw new InvalidOperationException(IncorrectResult);
+            }
+
+            Term one = Term.I(1);
+            Term two = Term.I(2);
+            Term three = Term.I(3);
+            Term four = Term.I(4);
+            if (!Term.Tuple(Term.List(one, three), Term.List(two, four)).Equals(await module.Invoke(
+                context,
+                "divide",
+                Term.List(
+                    one,
+                    two,
+                    three,
+                    four
+                )
+            ))
+                || !Term.Tuple(Nil.Value, Nil.Value).Equals(await module.Invoke(context, "divide", Nil.Value)))
+            {
+                throw new InvalidOperationException(IncorrectResult);
+            }
+
+            try
+            {
+                await module.Invoke(context, "divide", Term.List(one));
+                throw new InvalidOperationException(IncorrectResult);
+            }
+            catch (ErlangException error) when (error.ExceptionClass == ErlangExceptionClasses.Error
+                && error.Reason.Equals(Term.A("function_clause")))
+            {
             }
 
             return Nil.Value;

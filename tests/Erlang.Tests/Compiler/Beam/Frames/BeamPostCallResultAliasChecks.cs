@@ -83,7 +83,191 @@ internal static class BeamPostCallResultAliasChecks
             BeamPostCallResultAliasDiagnostics.DifferentReason
         );
 
+        CheckRewrite(
+            compiler,
+            GuardedContinuation(),
+            GuardedContinuation(compact: true),
+            BeamPostCallResultAliasDiagnostics.GuardedContinuation
+        );
+        CheckDeclined(compiler, GuardedContinuation(clobber: true), BeamPostCallResultAliasDiagnostics.Clobber);
+        CheckDeclined(compiler, GuardedContinuation(bypass: true), BeamPostCallResultAliasDiagnostics.GuardedContinuation);
+
+        CheckConstructorResult(compiler);
+        CheckRewrite(
+            compiler,
+            RecordUpdateResult(),
+            RecordUpdateResult(compact: true),
+            BeamPostCallResultAliasDiagnostics.CheckedRecordField
+        );
+        CheckDeclined(
+            compiler,
+            RecordUpdateResult(separateArityCheck: true),
+            BeamPostCallResultAliasDiagnostics.CheckedRecordField
+        );
+        CheckDeclined(
+            compiler,
+            RecordUpdateResult(reusesFieldAfterUpdate: true),
+            BeamPostCallResultAliasDiagnostics.Clobber
+        );
+        CheckRewrite(
+            compiler,
+            ConstructorArgument(),
+            ConstructorArgument(compact: true),
+            BeamPostCallResultAliasDiagnostics.OutgoingConstructor
+        );
+        CheckRewrite(
+            compiler,
+            ConstructorArgument(closure: true),
+            ConstructorArgument(compact: true, closure: true),
+            BeamPostCallResultAliasDiagnostics.OutgoingConstructor
+        );
+        CheckDeclined(
+            compiler,
+            ConstructorArgument(clobber: true),
+            BeamPostCallResultAliasDiagnostics.Clobber
+        );
+        CheckDeclined(
+            compiler,
+            ConstructorArgument(interveningCall: true),
+            BeamPostCallResultAliasDiagnostics.SecondCall
+        );
+        CheckDeclined(
+            compiler,
+            ConstructorArgument(ignoresArgument: true),
+            BeamPostCallResultAliasDiagnostics.OutgoingConstructor
+        );
+
         return Task.CompletedTask;
+    }
+
+    private static byte[] ConstructorArgument(
+        bool compact = false,
+        bool closure = false,
+        bool clobber = false,
+        bool interveningCall = false,
+        bool ignoresArgument = false
+    )
+    {
+        int width = compact ? 1 : 2;
+        byte destination = X(clobber ? 0 : 1);
+        byte[] initialized = compact ? [] : [InitYRegisters, ExtendedListOperand, U(1), Y(1)];
+        byte[] saved = compact ? [] : [Move, X(0), Y(1)];
+        byte[] reload = compact ? [] : [Move, Y(1), X(0)];
+        byte[] call = interveningCall ? [ExternalCall, U(1), U(1)] : [];
+        byte[] heap = closure
+            ? [
+                (byte)(U(AllocationList) | ExtendedTag), U(AllocationKinds),
+                U(AllocationWords), U(0), U(AllocationFloats), U(0), U(AllocationFuns), U(1)
+            ]
+            : [U(ConsHeapWords)];
+        byte[] construction = closure
+            ? [MakeFun, U(0), destination, ExtendedListOperand, U(1), Y(0)]
+            : [PutList, Y(0), A(0), destination];
+
+        return
+        [
+            .. Start(
+                1,
+                2,
+                1,
+                1
+            ),
+            Allocate, U(width), U(1), .. initialized, Move, X(0), Y(0),
+            Line, U(1), ExternalCall, U(0), U(0), .. saved,
+            TestHeap, .. heap, U(compact ? 1 : 0), .. construction, .. call, .. reload,
+            Line, U(2), TailExternalCallWithFrame, U(ignoresArgument ? 0 : 2), U(2), U(width),
+            EndCode
+        ];
+    }
+
+    private static byte[] RecordUpdateResult(
+        bool compact = false,
+        bool separateArityCheck = false,
+        bool reusesFieldAfterUpdate = false
+    )
+    {
+        int width = compact ? 1 : 2;
+        byte[] initial = compact ? [] : [InitYRegisters, ExtendedListOperand, U(1), Y(1)];
+        byte[] spill = compact ? [] : [Move, X(0), Y(1)];
+        byte[] check = separateArityCheck
+            ? [IsTuple, F(3), Y(0), TestArity, F(3), Y(0), U(3)]
+            : [IsTaggedTuple, F(3), Y(0), U(3), A(2)];
+        byte[] laterUse = reusesFieldAfterUpdate ? [Move, Y(1), X(0)] : [];
+        byte field = compact ? X(0) : Y(1);
+
+        return
+        [
+            .. Start(
+                1,
+                2,
+                1,
+                1
+            ),
+            Allocate, U(width), U(1), .. initial, Move, X(0), Y(0),
+            Line, U(1), ExternalCall, U(0), U(0), .. spill,
+            .. check, TestHeap, U(4), U(compact ? 1 : 0),
+            UpdateRecord, A(3), U(3), Y(0), X(0), ExtendedListOperand, U(4),
+            U(2), field, U(3), A(4),
+            .. laterUse, Deallocate, U(width), Return,
+            Label, U(3), BadRecord, Y(0), EndCode
+        ];
+    }
+
+    private static void CheckConstructorResult(BeamModuleCompiler compiler)
+    {
+        byte[]? Rewrite(byte[] input) => (byte[]?)Call(
+            compiler,
+            "RetainPostCallConstructorInputs",
+            (ReadOnlyMemory<byte>)input,
+            4
+        );
+
+        if (Rewrite(ConstructorResult()) is not { } compact
+            || !compact.SequenceEqual(ConstructorResult(compact: true))
+            || Rewrite(ConstructorResult(reusesScratch: true)) is not { } reused
+            || !reused.SequenceEqual(ConstructorResult(compact: true, reusesScratch: true))
+            || Rewrite(ConstructorResult(occupiedScratch: true, reusesScratch: true)) is not null
+            || Rewrite(ConstructorResult(occupiedScratch: true)) is not null
+            || Rewrite(ConstructorResult(crossesCollector: true)) is not null
+            || Rewrite(ConstructorResult(reloadsOldScratch: true)) is not null)
+        {
+            throw new InvalidOperationException(BeamPostCallResultAliasDiagnostics.ConstructorSibling);
+        }
+    }
+
+    private static byte[] ConstructorResult(
+        bool compact = false,
+        bool occupiedScratch = false,
+        bool crossesCollector = false,
+        bool reloadsOldScratch = false,
+        bool reusesScratch = false
+    )
+    {
+        int width = compact ? 1 : 2;
+        byte scratch = X(compact ? 1 : 0);
+        byte result = compact ? X(0) : Y(1);
+        byte destination = X(reusesScratch ? 1 : 2);
+        byte otherArgument = X(reusesScratch ? 2 : 1);
+        byte[] initialized = compact ? [] : [InitYRegisters, ExtendedListOperand, U(1), Y(1)];
+        byte[] saved = compact ? [] : [Move, X(0), Y(1)];
+        byte[] clobber = occupiedScratch ? [Move, Y(0), X(1)] : [];
+        byte[] collector = crossesCollector ? [TestHeap, U(ConsHeapWords), U(1)] : [];
+        byte[] lateLoad = reloadsOldScratch ? [Move, X(0), X(1)] : [];
+
+        return
+        [
+            .. Start(
+                1,
+                2,
+                1,
+                1
+            ),
+            Allocate, U(width), U(1), .. initialized, Move, X(0), Y(0),
+            ExternalCall, U(0), U(0), .. saved, TestHeap, U(2 * ConsHeapWords), U(compact ? 1 : 0),
+            .. clobber, PutList, Y(0), A(0), scratch, .. collector,
+            PutList, result, scratch, destination, .. lateLoad, Move, A(1), otherArgument, Move, Y(0), X(0),
+            TailExternalCallWithFrame, U(3), U(0), U(width), EndCode
+        ];
     }
 
     private static void CheckRewrite(
@@ -114,6 +298,30 @@ internal static class BeamPostCallResultAliasChecks
             code,
             4
         );
+
+    private static byte[] GuardedContinuation(bool compact = false, bool clobber = false, bool bypass = false)
+    {
+        int width = compact ? 1 : 2;
+        byte[] initial = compact ? [] : [InitYRegisters, ExtendedListOperand, U(1), Y(1)];
+        byte[] beforeCall = bypass ? [IsNil, F(3), X(0)] : [];
+        byte[] overwrite = clobber ? [Move, A(1), X(0)] : [];
+        byte[] spill = compact ? [] : [Move, X(0), Y(1)];
+
+        return
+        [
+            .. Start(
+                1,
+                2,
+                1,
+                1
+            ),
+            Allocate, U(width), U(1), .. initial, Move, X(0), Y(0), .. beforeCall,
+            ExternalCall, U(1), U(0), ExactEqualTest, F(3), X(0), A(1),
+            Move, Y(0), X(0), Deallocate, U(width), Return,
+            Label, U(3), .. overwrite, .. spill, TestHeap, U(ConsHeapWords), U(compact ? 1 : 0),
+            PutList, compact ? X(0) : Y(1), Y(0), X(0), Deallocate, U(width), Return, EndCode
+        ];
+    }
 
     private static byte[] ListBranchFixture(
         bool compact = false,

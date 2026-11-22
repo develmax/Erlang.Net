@@ -4,6 +4,7 @@ using Erlang;
 using Erlang.Compiler;
 using static Erlang.Compiler.BeamEmissionFormat;
 using static Erlang.Tests.BeamBinaryHostAccess;
+using static Erlang.Tests.BeamOpcodeEdgeBytes;
 
 namespace Erlang.Tests;
 
@@ -39,10 +40,72 @@ internal static class BeamStagedListConstructionChecks
         finish(S,Cat,Ss,Stack,_T,_Ts,_Z) -> {S,Cat,Ss,Stack}.
         """;
 
+    private static void CheckSingletonTailScratch()
+    {
+        if (Rewrite(Build()) is not { } result || !result.AsSpan().SequenceEqual(Build(rewritten: true))
+            || Rewrite(Build(keepsScratch: true)) is not null
+            || Rewrite(Build(collects: true)) is not null)
+        {
+            throw new InvalidOperationException(RedundantStaging);
+        }
+
+        static byte[] Build(bool rewritten = false, bool keepsScratch = false, bool collects = false)
+        {
+            byte[] save = rewritten ? [] : [Move, X(0), X(1)];
+            byte[] collector = collects ? [TestHeap, U(4), U(2)] : [];
+
+            return
+            [
+                .. Start(
+                    1,
+                    2,
+                    1,
+                    1
+                ),
+                Allocate, U(0), U(1), TestHeap, U(6), U(1),
+                PutList, X(0), A(0), X(0),
+                .. save, .. collector,
+                PutList, rewritten ? X(0) : X(1), A(2), X(0),
+                PutList, A(2), X(0), X(0),
+                TailExternalCallWithFrame, U(keepsScratch ? 2 : 1), U(0), U(0), EndCode
+            ];
+        }
+
+        static byte[]? Rewrite(byte[] bytes)
+        {
+            ReadOnlyMemory<byte> code = bytes;
+            object header = New(
+                "BeamCodeHeader",
+                0,
+                (int)PutList,
+                3,
+                1,
+                code
+            );
+            object body = Call(
+                Type("BeamInstructionReader"),
+                "Read",
+                header,
+                3,
+                0,
+                null,
+                null
+            );
+
+            return (byte[]?)Call(
+                typeof(BeamModuleCompiler),
+                "RewriteUnaryTailListScratch",
+                code,
+                body
+            );
+        }
+    }
+
     internal static byte[] CompileFixture() => CodeGeneration.CompileBeamModule(Source, Fixture);
 
     internal static async Task Run()
     {
+        CheckSingletonTailScratch();
         byte[] image = CompileFixture();
         object code = Code(image);
         object[] instructions = Items(code, "Instructions").ToArray();

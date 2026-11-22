@@ -10,6 +10,7 @@ internal static class BeamLocalConstantArgumentChecks
     private const string ConstantArgumentMismatch = "A proven local atom argument occupied a stack slot across a call.";
     private const string OpenArgumentMismatch = "Conflicting or escaped call arguments lost their stack slots.";
     private const string EarlyOnlyArgumentMismatch = "A key read before the only call was materialized again in its original register.";
+    private const string NilContinuationMismatch = "Only a proven private empty-list argument may disappear from the selector continuation frame.";
     private const string SelectorArgumentMismatch = "A private atom argument changed its selector read or its post-call stack lifetime.";
 
     internal static Task RunRelay()
@@ -79,8 +80,37 @@ internal static class BeamLocalConstantArgumentChecks
         _ = BeamModule.Prepare(beam);
         CheckCaseSelector();
         CheckMovedSelector();
+        CheckNilContinuation();
 
         return Task.CompletedTask;
+    }
+
+    private static void CheckNilContinuation()
+    {
+        const string fixture = "beam_local_nil_selector.erl";
+        const string source = """
+            -module(beam_local_nil_selector).
+            -export([run/2]).
+            run(A, B) -> check(A, B, []).
+            check(A, B, Tag) ->
+                case selector_dep:classify(A, B, Tag) of
+                    {error, Reason} -> exit({Tag, Reason});
+                    _ -> ok
+                end.
+            """;
+        string explicitNil = source.Replace("exit({Tag, Reason})", "exit({[], Reason})", StringComparison.Ordinal);
+        string open = source.Replace("-export([run/2]).", "-export([run/2, check/3]).", StringComparison.Ordinal);
+        string openNil = open.Replace("exit({Tag, Reason})", "exit({[], Reason})", StringComparison.Ordinal);
+        byte[] closed = CodeGeneration.CompileBeamModule(source, fixture);
+        byte[] first = CodeGeneration.CompileBeamModule(open, fixture);
+        byte[] second = CodeGeneration.CompileBeamModule(openNil, fixture);
+        if (!closed.SequenceEqual(CodeGeneration.CompileBeamModule(explicitNil, fixture)) || first.SequenceEqual(second))
+        {
+            throw new InvalidOperationException(NilContinuationMismatch);
+        }
+
+        _ = BeamModule.Prepare(closed);
+        _ = BeamModule.Prepare(first);
     }
 
     private static void CheckMovedSelector()

@@ -15,7 +15,15 @@ internal sealed partial class BeamModuleCompiler
         int equal = FindImport(ErlangOperators.ExactEqual);
         int unequal = FindImport(ErlangOperators.ExactNotEqual);
         int element = FindImport(ErlangModuleNames.Element);
-        if (equal < 0 && unequal < 0 || element < 0 && !hasTupleProjections
+        int[] directImports =
+        [
+            equal,
+            unequal,
+            FindImport(ErlangModuleNames.MapGet),
+            FindImport(ErlangModuleNames.IsMapKey),
+            FindImport(ErlangOperators.Not, 1)
+        ];
+        if (directImports.All(index => index < 0) || element < 0 && !hasTupleProjections
             || DecodeLateAtomicProjectionSlots(code, labelCount) is not { } decoded)
         {
             return null;
@@ -26,11 +34,12 @@ internal sealed partial class BeamModuleCompiler
             decoded.Body,
             element,
             equal,
-            unequal
+            unequal,
+            directImports
         );
 
-        int FindImport(string name) => atoms.TryGetValue(name, out int atom)
-            && imports.TryGetValue((erlang, atom, 2), out int index)
+        int FindImport(string name, int arity = 2) => atoms.TryGetValue(name, out int atom)
+            && imports.TryGetValue((erlang, atom, arity), out int index)
                 ? emittedImports?[index] ?? index : -1;
     }
 
@@ -39,7 +48,8 @@ internal sealed partial class BeamModuleCompiler
         IReadOnlyList<BeamInstruction> body,
         int element,
         int equal,
-        int unequal
+        int unequal,
+        IReadOnlyList<int> directImports
     )
     {
         using var output = new MemoryStream();
@@ -71,6 +81,22 @@ internal sealed partial class BeamModuleCompiler
                     Operands: [{ Value.IsOne: true }, _]
                 })
             {
+                continue;
+            }
+
+            if (ReadDirectProjectedLeafBif(
+                body,
+                frame,
+                end,
+                directImports
+            ) is { } leaf)
+            {
+                output.Write(code.Span[copied..body[frame].Offset]);
+                output.Write(code.Span[body[frame + 1].Offset..body[leaf.Projection].Offset]);
+                WriteProjectedOperand(leaf.Projection, 2, leaf.Register);
+                output.Write(code.Span[body[leaf.Projection + 1].Offset..body[leaf.Bif].Offset]);
+                WriteProjectedOperand(leaf.Bif, leaf.Operand, leaf.Register);
+                copied = body[leaf.Bif + 2].Offset;
                 continue;
             }
 
@@ -161,6 +187,22 @@ internal sealed partial class BeamModuleCompiler
 
         return output.ToArray();
 
+        void WriteProjectedOperand(int instruction, int operand, BeamOperand register)
+        {
+            int start = body[instruction].Offset;
+            var cursor = new BeamCursor(code[(start + 1)..]);
+            for (int index = 0; index < operand; index++)
+            {
+                _ = BeamCompactReader.Read(cursor);
+            }
+
+            int operandStart = start + 1 + cursor.Position;
+            _ = BeamCompactReader.Read(cursor);
+            output.Write(code.Span[start..operandStart]);
+            WriteRegister(output, register);
+            output.Write(code.Span[(start + 1 + cursor.Position)..body[instruction + 1].Offset]);
+        }
+
         static bool IsEntryPrefix(BeamInstruction instruction) =>
             instruction.Definition.Opcode == Line || IsTupleField(instruction)
             || IsEntryFramePredicate(instruction.Definition.Opcode)
@@ -185,5 +227,70 @@ internal sealed partial class BeamModuleCompiler
             { Kind: BeamOperandParameters.X, TypeIndex: null }
             ]
         } && import.Value == target;
+    }
+
+    private static (int Projection, int Bif, int Operand, BeamOperand Register)? ReadDirectProjectedLeafBif(
+        IReadOnlyList<BeamInstruction> body,
+        int frame,
+        int end,
+        IReadOnlyList<int> imports
+    )
+    {
+        int projection = NextInstruction(frame + 1);
+        int bif = NextInstruction(projection + 1);
+        if (bif + 2 >= end
+            || body[projection] is not
+            {
+                Definition.Opcode: GetTupleElement,
+                Operands:
+                [
+                { Kind: BeamOperandParameters.X, TypeIndex: null } source,
+                { Kind: BeamOperandParameters.Unsigned },
+                { Kind: BeamOperandParameters.Y, Value.IsZero: true, TypeIndex: null } slot
+                ]
+            }
+            || body[bif] is not { Definition.Opcode: BifOne or BifTwo, Operands: var operands }
+            || operands[0].Kind != BeamOperandParameters.Failure
+            || operands[1].Kind != BeamOperandParameters.Unsigned
+            || !imports.Contains((int)operands[1].Value)
+            || operands[^1] is not { Kind: BeamOperandParameters.X, Value.IsZero: true, TypeIndex: null }
+            || body[bif + 1] is not { Definition.Opcode: Deallocate, Operands: [{ Value.IsOne: true }] }
+            || body[bif + 2].Definition.Opcode != Return)
+        {
+            return null;
+        }
+
+        var live = body[frame].Operands[^1].Value;
+        int occurrence = -1;
+        for (int index = 2; index < operands.Count - 1; index++)
+        {
+            BeamOperand operand = operands[index];
+            if (operand == slot && occurrence < 0)
+            {
+                occurrence = index;
+                continue;
+            }
+
+            if (!(operand is { Kind: BeamOperandParameters.X } && operand.Value < live && operand.Value != source.Value
+                || operand.Kind is BeamOperandParameters.Atom or BeamOperandParameters.Integer
+                    or BeamOperandParameters.Nil or BeamOperandParameters.LiteralValue))
+            {
+                return null;
+            }
+        }
+
+        // The allocation has no owner-visible work beyond this straight return.
+        // Only the BIF observes the projection, and its other input never needs the original tuple.
+        return occurrence >= 0 && source.Value < live ? (projection, bif, occurrence, source) : null;
+
+        int NextInstruction(int index)
+        {
+            while (index < end && body[index].Definition.Opcode == Line)
+            {
+                index++;
+            }
+
+            return index;
+        }
     }
 }

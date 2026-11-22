@@ -128,7 +128,7 @@ internal sealed partial class BeamModuleCompiler
 
             Mark(bitstring);
             owner.Op(IsBitString, LabelTag, failure);
-            owner.EmitTypedRegister(0, AnyTypeBits & ~(ProperListTypeBits & ~ConsTypeBits));
+            owner.EmitTypedRegister(0, NonNilTypeBits);
             owner.MoveRegister(
                 XRegisterTag,
                 2,

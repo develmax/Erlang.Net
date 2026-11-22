@@ -4,6 +4,77 @@ internal sealed partial class BeamModuleCompiler
 {
     private sealed partial class GeneralEmitter
     {
+        private long? ReadGuardedIncreasingCounterLimit(Expr.Binary site, bool update)
+        {
+            if (!CanUseEntryTypeFacts() || recursiveClosure is not null || parentFunction is not { } function
+                || site.Operator != (update ? ErlangOperators.Plus : ErlangOperators.Greater)
+                || site.Left is not Expr.Variable input)
+            {
+                return null;
+            }
+
+            var signature = (function.Name, function.Arity);
+            foreach (Clause clause in function.Clauses)
+            {
+                int argument = Array.FindIndex(clause.Patterns.ToArray(),
+                    pattern => pattern is Pattern.Variable counter && counter.Name == input.Name);
+                if (argument < 0)
+                {
+                    continue;
+                }
+
+                Expr[] expressions = LocalFunctionEntries.Walk(clause.Body).ToArray();
+                if (expressions.Any(expression => expression is
+                    Expr.Fun or Expr.ListComprehension or Expr.BinaryComprehension or Expr.MapComprehension))
+                {
+                    continue;
+                }
+
+                foreach (Expr.If decision in expressions.OfType<Expr.If>())
+                {
+                    if (decision.Clauses is not
+                        [
+                        {
+                            Guard: Expr.Binary
+                            {
+                                Operator: ErlangOperators.Greater, Left: Expr.Variable counter,
+                                Right: Expr.Literal { Value: Integer limit }
+                            } comparison,
+                            Body: Expr.Literal
+                        },
+                        {
+                            Guard: Expr.Literal { Value: Atom { Name: ErlangBooleanAtoms.True } },
+                            Body: Expr.Call { Module: null, DynamicRemote: false } recur
+                        }
+                        ]
+                        || counter.Name != input.Name || limit.Value.Sign < 0
+                        || limit.Value >= BeamBinaryExtractRangeLimits.MaximumEncodedInteger
+                        || (recur.Function, recur.Arguments.Count) != signature
+                        || recur.Arguments[argument] is not
+                        Expr.Binary
+                        {
+                            Operator: ErlangOperators.Plus, Left: Expr.Variable previous,
+                            Right: Expr.Literal { Value: Integer { Value.Sign: > 0 } }
+                        } advance || previous.Name != counter.Name
+                        || !ReferenceEquals(site, update ? advance : comparison))
+                    {
+                        continue;
+                    }
+
+                    // Every caller seeds or advances a nonnegative integer.
+                    // Only the failed comparison's direct recursion can use the upper bound.
+                    return owner.ReadClosedIntegerRecurrence(
+                        function,
+                        argument,
+                        localFunctions,
+                        zeroSeededNonnegative: true
+                    ) ? (long)limit.Value : null;
+                }
+            }
+
+            return null;
+        }
+
         private bool IsClosedIntegerRecurrenceOperand(Expr.Binary expression)
         {
             if (!owner.SsaTypeInferenceEnabled || owner.ModuleOptimizationDisabled
@@ -49,7 +120,8 @@ internal sealed partial class BeamModuleCompiler
     private bool ReadClosedIntegerRecurrence(
         FunctionDefinition target,
         int argument,
-        IReadOnlyDictionary<(string Name, int Arity), FunctionDefinition> definitions
+        IReadOnlyDictionary<(string Name, int Arity), FunctionDefinition> definitions,
+        bool zeroSeededNonnegative = false
     )
     {
         var signature = (target.Name, target.Arity);
@@ -82,9 +154,14 @@ internal sealed partial class BeamModuleCompiler
                     }
 
                     Expr input = call.Arguments[argument];
-                    if (input is Expr.Literal { Value: Integer })
+                    if (input is Expr.Literal { Value: Integer literal })
                     {
-                        initialized = true;
+                        if (zeroSeededNonnegative && literal.Value.Sign < 0)
+                        {
+                            return false;
+                        }
+
+                        initialized |= !zeroSeededNonnegative || literal.Value.IsZero && (caller.Name, caller.Arity) != signature;
                         continue;
                     }
 
@@ -104,13 +181,19 @@ internal sealed partial class BeamModuleCompiler
                         {
                             Operator: ErlangOperators.Plus or ErlangOperators.Minus,
                             Left: Expr.Variable previous, Right: var step
-                        } || previous.Name != counter.Name)
+                        } update || previous.Name != counter.Name
+                        || zeroSeededNonnegative && update.Operator != ErlangOperators.Plus)
                     {
                         return false;
                     }
 
-                    if (step is Expr.Literal { Value: Integer })
+                    if (step is Expr.Literal { Value: Integer increase })
                     {
+                        if (zeroSeededNonnegative && increase.Value.Sign < 0)
+                        {
+                            return false;
+                        }
+
                         continue;
                     }
 
@@ -126,7 +209,7 @@ internal sealed partial class BeamModuleCompiler
                             ]
                         } || !ReferenceEquals(call, next) || binding.Name != increment.Name
                         || !definitions.TryGetValue((producer.Function, producer.Arguments.Count), out var callee)
-                        || ReadLiteralIntegerResult(callee) is null)
+                        || ReadLiteralIntegerResult(callee) is not { } bounds || zeroSeededNonnegative && bounds.Lower < 0)
                     {
                         return false;
                     }

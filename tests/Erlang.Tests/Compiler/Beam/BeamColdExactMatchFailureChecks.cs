@@ -3,6 +3,7 @@ using System.Numerics;
 using Erlang.Compiler;
 using static Erlang.Compiler.BeamEmissionFormat;
 using static Erlang.Tests.BeamBinaryHostAccess;
+using static Erlang.Tests.BeamOpcodeEdgeBytes;
 
 namespace Erlang.Tests;
 
@@ -63,6 +64,8 @@ internal static class BeamColdExactMatchFailureChecks
             throw new InvalidOperationException(UnexpectedLayout);
         }
 
+        CheckTerminalRetries();
+
         object[] FunctionInstructions(string name)
         {
             int start = Array.FindIndex(
@@ -79,6 +82,55 @@ internal static class BeamColdExactMatchFailureChecks
 
             return segment[..count];
         }
+    }
+
+    private static void CheckTerminalRetries()
+    {
+        var compiler = new BeamModuleCompiler("beam_terminal_list_retries");
+        _ = Call(compiler, "Intern", "run");
+        _ = Call(compiler, "Intern", ErlangBooleanAtoms.True);
+        byte[] prefix = Start(
+            1,
+            2,
+            2,
+            3
+        );
+        byte[] original = TerminalRetries(prefix, reordered: false);
+        byte[] expected = TerminalRetries(prefix, reordered: true);
+        if (Apply(original) is not { } actual || !actual.SequenceEqual(expected)
+            || Apply(expected) is not null || Apply(TerminalRetries(prefix, reordered: false, shared: true)) is not null)
+        {
+            throw new InvalidOperationException(UnexpectedLayout);
+        }
+
+        byte[]? Apply(ReadOnlyMemory<byte> code) => (byte[]?)Call(
+            compiler,
+            "OrderTerminalListRetryBlocks",
+            code,
+            5
+        );
+    }
+
+    private static byte[] TerminalRetries(byte[] prefix, bool reordered, bool shared = false)
+    {
+        int empty = reordered ? 4 : 3;
+        int retry = reordered ? 3 : 4;
+        byte[] extraEdge = shared ? [IsAtom, F(3), X(0)] : [];
+        byte[] initial =
+        [
+            .. prefix, IsNonemptyList, F(empty), X(0), .. extraEdge, Allocate, U(2), U(3),
+            Move, X(0), Y(0), Move, X(2), Y(1), Move, X(1), X(0),
+            Line, U(1), ExternalCall, U(1), U(0), ExactEqualTest, F(retry), X(0), A(3),
+            Move, Y(0), X(0), TailLocalCallWithFrame, U(3), F(2), U(2)
+        ];
+        byte[] unframed = [Label, U(empty), IsNil, F(1), X(0), Move, X(2), X(0), Return];
+        byte[] framed =
+        [
+            Label, U(retry), TestHeap, U(2), U(0), PutList, Y(0), Y(1), X(2),
+            Move, Y(0), X(0), TailLocalCallWithFrame, U(3), F(2), U(2)
+        ];
+
+        return reordered ? [.. initial, .. framed, .. unframed, EndCode] : [.. initial, .. unframed, .. framed, EndCode];
     }
 
     private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");

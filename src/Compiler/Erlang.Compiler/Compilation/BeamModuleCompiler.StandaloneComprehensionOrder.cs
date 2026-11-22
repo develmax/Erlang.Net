@@ -44,6 +44,7 @@ internal sealed partial class BeamModuleCompiler
             }
 
             if (writableBinaryListHelpers.ContainsKey((helper.Name, helper.Arity))
+                || HasMapIteratorHelper((helper.Name, helper.Arity))
                 || emptyComprehensionScans.Contains((parent.Name, parent.Arity))
                 || helper.IsRecursiveListMapper
                     && recursiveDefinitionOrder.TryGetValue((parent.Name, parent.Arity), out var definitions)

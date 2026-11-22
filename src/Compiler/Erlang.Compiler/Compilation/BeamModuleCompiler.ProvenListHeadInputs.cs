@@ -4,13 +4,22 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
-    private byte[]? AnnotateProvenListHeadInputs(ReadOnlyMemory<byte> code, int labelCount)
+    private byte[]? AnnotateProvenListOperands(
+        ReadOnlyMemory<byte> code,
+        int labelCount,
+        IReadOnlyDictionary<int, int> localResultEntries
+    )
     {
         if (properListSourceFunctions is null || !SsaTypeInferenceEnabled || ModuleOptimizationDisabled
-            || OnLoadFunction is not null || sourceModule?.DeclaredNifs is { Count: > 0 }
-            || !atoms.TryGetValue(AutoImportNames.Hd, out int headAtom)
-            || !atoms.TryGetValue(ErlangModuleNames.Module, out int erlangAtom)
-            || !imports.TryGetValue((erlangAtom, headAtom, 1), out int headImport))
+            || OnLoadFunction is not null || sourceModule?.DeclaredNifs is { Count: > 0 })
+        {
+            return null;
+        }
+
+        int headImport = atoms.TryGetValue(AutoImportNames.Hd, out int headAtom)
+            && atoms.TryGetValue(ErlangModuleNames.Module, out int erlangAtom)
+            ? imports.GetValueOrDefault((erlangAtom, headAtom, 1), -1) : -1;
+        if (headImport < 0 && !code.Span.Contains(IsNil))
         {
             return null;
         }
@@ -35,6 +44,7 @@ internal sealed partial class BeamModuleCompiler
         string[] atomNames = atoms.OrderBy(pair => pair.Value).Select(pair => pair.Key).ToArray();
         using var output = new MemoryStream();
         BeamProjectionFlow? flow = null;
+        Dictionary<int, (string Name, int Arity)>? functionsByEntry = null;
         (string Name, int Arity) signature = default;
         int entry = -1;
         int copied = 0;
@@ -48,7 +58,25 @@ internal sealed partial class BeamModuleCompiler
                 continue;
             }
 
-            if (entry < 0 || instruction is not
+            if (instruction is
+                {
+                    Definition.Opcode: IsNil,
+                    Operands: [_, { Kind: BeamOperandParameters.X, TypeIndex: null } list]
+                } && HasProvenNilInput(index, (int)list.Value))
+            {
+                const int nilInput = 1;
+                copied = AnnotateRegisterInput(
+                    code,
+                    output,
+                    copied,
+                    instruction,
+                    nilInput,
+                    ProperListTypeBits
+                );
+                continue;
+            }
+
+            if (headImport < 0 || entry < 0 || instruction is not
                 {
                     Definition.Opcode: BifOne,
                     Operands: [
@@ -107,6 +135,86 @@ internal sealed partial class BeamModuleCompiler
         output.Write(code.Span[copied..]);
 
         return output.ToArray();
+
+        bool HasProvenNilInput(int index, int tested)
+        {
+            int prior = index - 1;
+            while (prior >= 0 && body[prior].Definition.Opcode == Line)
+            {
+                prior--;
+            }
+
+            if (entry >= 0 && prior == entry)
+            {
+                return tested < signature.Arity && HasProperListEntryFact(signature, tested);
+            }
+
+            if (tested == 0 && HasProvenLocalListResult(prior))
+            {
+                return true;
+            }
+
+            // A checked tail of a proper list is also proper. The head
+            // projection carries no such guarantee.
+            if (prior <= 0 || body[prior] is not
+                {
+                    Definition.Opcode: GetList or GetTail,
+                    Operands: [{ Kind: BeamOperandParameters.X or BeamOperandParameters.Y, TypeIndex: null } original,
+                        .., { Kind: BeamOperandParameters.X, TypeIndex: null } tail]
+                } || tail.Value != tested)
+            {
+                return false;
+            }
+
+            if (entry >= 0 && (flow ??= new BeamProjectionFlow(body)).ReadProperListEntryOrigins(
+                prior,
+                entry,
+                original,
+                argument => HasProperListEntryFact(signature, argument)
+            ))
+            {
+                return true;
+            }
+
+            return original.Kind == BeamOperandParameters.X && original.Value.IsZero
+                && body[prior - 1] is
+                {
+                    Definition.Opcode: IsNonemptyList, Operands: [_, var checkedSource]
+                } && SameProjectionRegister(original, checkedSource) && HasProvenLocalListResult(prior - 2);
+        }
+
+        bool HasProvenLocalListResult(int call)
+        {
+            if (call < 0 || body[call] is not { Definition.Opcode: LocalCall, Operands: [_, var callee] })
+            {
+                return false;
+            }
+
+            if (localResultEntries.GetValueOrDefault((int)callee.Value) == ProperListTypeBits)
+            {
+                return true;
+            }
+
+            functionsByEntry ??= IndexFunctionEntries();
+
+            return functionsByEntry.TryGetValue((int)callee.Value, out var called)
+                && ReadPrivateEntryFacts()?.ProvesProperListResult(called) == true;
+        }
+
+        Dictionary<int, (string Name, int Arity)> IndexFunctionEntries()
+        {
+            var entries = new Dictionary<int, (string Name, int Arity)>();
+            for (int index = 0; index + 1 < body.Count; index++)
+            {
+                if (body[index] is { Definition.Opcode: FunctionInfo, Operands: [_, var function, var arity] }
+                    && body[index + 1] is { Definition.Opcode: Label, Operands: [var label] })
+                {
+                    entries.Add((int)label.Value, (atomNames[(int)function.Value - 1], (int)arity.Value));
+                }
+            }
+
+            return entries;
+        }
 
         void WriteRegister(BeamOperand register)
         {

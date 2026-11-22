@@ -238,6 +238,24 @@ public static partial class CodeGeneration
                 profileInlining
             );
         }
+        bool debugInstructions = UsesBeamDebugInstructions(buildProfile);
+        if (!debugInstructions)
+        {
+            functions = BeamComparisonControlFlow.Rewrite(functions);
+        }
+
+        bool coreMapCallsEnabled = !debugInstructions
+            && !HasReleaseCompileOption(buildProfile, CompilerOptionNames.DisableCoreOptimization)
+            && !HasReleaseCompileOption(buildProfile, CompilerOptionNames.DisableCoreFolding);
+        if (coreMapCallsEnabled)
+        {
+            functions = BeamMapCoreCalls.Rewrite(functions, module.CallBindings);
+        }
+
+        if (!module.DisableModuleOptimization && !module.HasOtherCompileOptions)
+        {
+            functions = BeamImmediateEffectClosures.Inline(functions);
+        }
         if (module.HasResolvedDiameterRecordTransform)
         {
             (functions, lines) = BeamSourceReachability.Retain(
@@ -304,7 +322,10 @@ public static partial class CodeGeneration
                 && !inlineListFunctions,
             entryTupleAliasesEnabled: !DisableEntryTupleAliases(buildProfile),
             inlineListFunctions: inlineListFunctions
-        ).Emit(
+        )
+        {
+            CoreMapCallsEnabled = coreMapCallsEnabled
+        }.Emit(
             functions,
             lines,
             exports,
@@ -314,15 +335,19 @@ public static partial class CodeGeneration
 
     private static bool DisableEntryTupleAliases(BeamReleaseBuildProfile? profile)
     {
-        bool HasOption(string option) => profile?.RecordedCompileOptions is { } options
+        return HasReleaseCompileOption(profile, CompilerOptionNames.DisableCoreAliases)
+            || HasReleaseCompileOption(profile, CompilerOptionNames.DisableCoreOptimization)
+            || UsesBeamDebugInstructions(profile);
+    }
+
+    private static bool UsesBeamDebugInstructions(BeamReleaseBuildProfile? profile) =>
+        HasReleaseCompileOption(profile, CompilerOptionNames.BeamDebugInfo)
+        || profile?.RecordedDebugOptions?.Contains(Term.A(CompilerOptionNames.BeamDebugInfo)) == true;
+
+    private static bool HasReleaseCompileOption(BeamReleaseBuildProfile? profile, string option) =>
+        profile?.RecordedCompileOptions is { } options
             ? options.Contains(Term.A(option))
             : profile?.WarningOptions.Contains(option) == true;
-
-        return HasOption(CompilerOptionNames.DisableCoreAliases)
-            || HasOption(CompilerOptionNames.DisableCoreOptimization)
-            || HasOption(CompilerOptionNames.BeamDebugInfo)
-            || profile?.RecordedDebugOptions?.Contains(Term.A(CompilerOptionNames.BeamDebugInfo)) == true;
-    }
 
     internal static string ModuleCode(ModuleDefinition module, string sourcePath, bool includeAttributes = true)
     {

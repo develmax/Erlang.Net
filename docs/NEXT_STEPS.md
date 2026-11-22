@@ -1,5 +1,27 @@
 # Next steps
 
+Partition shared cons head tuple decisions by arity and tag before assigning frame homes. Extend virtual call argument handling and compare only the affected Different paths until the final uncached corpus and package gate. [Local Part 2002](validation/part-2002-local-fixed-list-and-bitstring-runs/README.md).
+
+Extend the shared source planner with successor-specific values and carry short outgoing lifetimes across reused stack homes. Verify each group with selected Different images and preserve the full acceptance gate. [Local Part 2000](validation/part-2000-local-call-arguments-and-frame-slots/README.md).
+
+Continue Part 1999 with outgoing value lifetime reductions and the shared terminal operand graph. [Scoped evidence](validation/part-1999-local-call-and-helper-identities/README.md).
+
+Continue Part 1998 with stable local call targets and separate lexical helper ownership. [Scoped evidence](validation/part-1998-local-inherited-frames/README.md).
+
+Continue Part 1996 by sharing existing frame homes and branch liveness in source call-result decisions. [Scoped evidence](validation/part-1996-local-root-schedule/README.md).
+
+Continue Part 1995 with the pinned outgoing-call argument and Y-root scheduling rule using the existing frame ownership proof. [Scoped evidence](validation/part-1995-local-return-graphs/README.md).
+
+Continue Part 1994 with pure named bindings and type guards around shared call-result construction. [Scoped evidence](validation/part-1994-local-call-results/README.md).
+
+Continue the pinned returning-call frame recipe and checked operand schedule after Part 1993. [Scoped evidence](validation/part-1993-local-tuple-sinking/README.md).
+
+Continue the shared compiler value graph with deferred tuple fields and the verified local Part 1992 source. [Scoped evidence](validation/part-1992-local-projection-liveness/README.md).
+
+Continue shared projected-register and proper-list facts from the local Part 1991 compiler. [Scoped evidence](validation/part-1991-local-projected-frames/README.md).
+
+Continue the local Windows OTP compiler parity package from the shared value planner. Verify pending-result copy order, extend projected branch ownership and checked operations, and run the required corpus and regression at acceptance. [Local evidence](validation/part-1990-local-parity/README.md).
+
 The Part 1989 linked gate is complete. Continue the Part 1990 checked constructor and private entry groups. [Repository evidence](validation/part-1989-repository-gate/README.md).
 
 Complete the linked Part 1989 source gate. Continue private caller type and checked carrier propagation in Part 1990. [Evidence](validation/part-1989/README.md).

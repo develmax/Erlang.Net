@@ -151,6 +151,127 @@ internal sealed partial class BeamModuleCompiler
         return rewritten.ToArray();
     }
 
+    private byte[]? OrderDisjointNilAndIntegerEntries(ReadOnlyMemory<byte> code, int labelCount)
+    {
+        if (ModuleOptimizationDisabled || !SsaTypeInferenceEnabled || !code.Span.Contains(IsNil)
+            || DecodeLateAtomicProjectionSlots(code, labelCount) is not { Body: var body }
+            || body.Any(instruction => instruction.Definition.Opcode is DebugLine or ExecutableLine))
+        {
+            return null;
+        }
+
+        BeamProjectionFlow? flow = null;
+        using var rewritten = new MemoryStream();
+        int copied = 0;
+        for (int entry = 1; entry + 4 < body.Count; entry++)
+        {
+            int nilTest = entry + 2;
+            if (body[entry - 1].Definition.Opcode != Line || body[entry].Definition.Opcode != FunctionInfo
+                || body[entry + 1].Definition.Opcode != Label
+                || !ReadEntryListKindTest(
+                    body[nilTest],
+                    IsNil,
+                    out int alternate,
+                    out BeamOperand? input
+                ) || input is not { } value)
+            {
+                continue;
+            }
+
+            int nilStart = nilTest + 1;
+            int middle = EntryListBlockEnd(body, nilStart);
+            int integerTest = middle + 1;
+            if (integerTest >= body.Count || body[integerTest] is not
+                {
+                    Definition.Opcode: ExactEqualTest,
+                    Operands: [{ Kind: BeamOperandParameters.Label, Value.Sign: > 0 } failure,
+                        var compared, { Kind: BeamOperandParameters.Integer, TypeIndex: null } literal]
+                }
+                || compared != value || failure.Value == alternate
+                || !(flow ??= new BeamProjectionFlow(body)).TryGetSingleForwardTarget(nilTest, alternate, out int target)
+                || target != middle || !IsTerminalConstruction(nilStart, middle, needsOwnLine: false))
+            {
+                continue;
+            }
+
+            int integerStart = integerTest + 1;
+            int fallback = EntryListBlockEnd(body, integerStart);
+            if (fallback >= body.Count || body[fallback] is not { Definition.Opcode: Label, Operands: [var fallbackLabel] }
+                || fallbackLabel.Value != failure.Value || !IsTerminalConstruction(integerStart, fallback, needsOwnLine: true))
+            {
+                continue;
+            }
+
+            int fallbackStart = fallback + 1;
+            int end = EntryListBlockEnd(body, fallbackStart);
+            if (!IsTerminalConstruction(fallbackStart, end, needsOwnLine: true))
+            {
+                continue;
+            }
+
+            // Core matching partitions disjoint literal types before comparing
+            // their values. A different integer bypasses the nil arm directly.
+            int type = GetOperandTypeIndex((IntegerTypeBits, null, null, null));
+            ReadOnlySpan<byte> bytes = code.Span;
+            rewritten.Write(bytes[copied..body[nilTest].Offset]);
+            WritePredicate(IsInteger, alternate, value);
+            rewritten.WriteByte(ExactEqualTest);
+            BeamCompactWriter.Write(rewritten, LabelTag, failure.Value);
+            rewritten.WriteByte(ExtendedTypedRegisterOperand);
+            WriteRegister(rewritten, value);
+            BeamCompactWriter.Write(rewritten, BeamWire.UnsignedTag, type);
+            BeamCompactWriter.Write(rewritten, BeamWire.IntegerTag, literal.Value);
+            rewritten.Write(bytes[body[integerStart].Offset..body[fallback].Offset]);
+            rewritten.Write(bytes[body[middle].Offset..body[integerTest].Offset]);
+            WritePredicate(IsNil, (int)failure.Value, value);
+            int nilTail = middle - 1;
+            rewritten.Write(bytes[body[nilStart].Offset..body[nilTail].Offset]);
+            if (body[nilTail - 1].Definition.Opcode != Line)
+            {
+                // The nil arm originally inherited the function's entry line.
+                rewritten.Write(bytes[body[entry - 1].Offset..body[entry].Offset]);
+            }
+
+            rewritten.Write(bytes[body[nilTail].Offset..body[middle].Offset]);
+            copied = body[fallback].Offset;
+            entry = fallback;
+        }
+
+        if (copied == 0)
+        {
+            return null;
+        }
+
+        rewritten.Write(code.Span[copied..]);
+
+        return RebuildLineTable(OrderTypeOperandsByFirstUse(rewritten.ToArray(), labelCount).ToArray(), labelCount);
+
+        bool IsTerminalConstruction(int start, int end, bool needsOwnLine)
+        {
+            if (end <= start || body[end - 1].Definition.Opcode != TailExternalCall)
+            {
+                return false;
+            }
+
+            int last = end - 1;
+            bool ownLine = last > start && body[last - 1].Definition.Opcode == Line;
+            if (ownLine)
+            {
+                last--;
+            }
+
+            return (!needsOwnLine || ownLine) && body.Skip(start).Take(last - start).All(instruction =>
+                instruction.Definition.Opcode is Move or TestHeap or PutTuple);
+        }
+
+        void WritePredicate(byte opcode, int failure, BeamOperand input)
+        {
+            rewritten.WriteByte(opcode);
+            BeamCompactWriter.Write(rewritten, LabelTag, failure);
+            WriteRegister(rewritten, input);
+        }
+    }
+
     private static bool ReadEntryListKindTest(
         BeamInstruction instruction,
         byte opcode,

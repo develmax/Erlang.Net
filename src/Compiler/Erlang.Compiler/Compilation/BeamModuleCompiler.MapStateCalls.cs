@@ -4,9 +4,10 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
+    private const int MapTypeBits = 1 << 6;
+
     private sealed partial class GeneralEmitter
     {
-        private const int MapTypeBits = 1 << 6;
         private static readonly IComparer<Atom> MapKeyOrder =
             Comparer<Atom>.Create((left, right) => TermOrder.Compare(left, right, exact: true));
 

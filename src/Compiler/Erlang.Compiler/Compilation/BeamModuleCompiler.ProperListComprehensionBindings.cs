@@ -14,7 +14,8 @@ internal sealed partial class BeamModuleCompiler
         Clause clause,
         Expr.ListComprehension comprehension,
         string name,
-        Func<Expr, HashSet<string>, bool> accepts
+        Func<Expr, HashSet<string>, bool> accepts,
+        bool walkAppendConsumer = false
     )
     {
         return name != VariableScopeNames.Wildcard && Visit(clause.Body, new HashSet<string>(StringComparer.Ordinal)) == true;
@@ -68,6 +69,11 @@ internal sealed partial class BeamModuleCompiler
                     break;
                 case Expr.Block block:
                     return Visit(block.Body, inherited);
+                case Expr.Call { DynamicRemote: false, Arguments: [var argument] } when walkAppendConsumer:
+                    return Visit(argument, inherited);
+                case Expr.Binary { Operator: ErlangOperators.Append, Left: Expr.ListComprehension left }
+                    when walkAppendConsumer:
+                    return Visit(left, inherited);
             }
 
             return null;

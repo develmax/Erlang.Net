@@ -9,8 +9,50 @@ namespace Erlang.Tests;
 
 internal static class BeamAdjacentNumericResultChecks
 {
+    internal const string RepeatedInputTestName = "compiler/beam/repeated-numeric-operand";
+    private const string RepeatedInputMessage = "Expected a number annotation for a surviving input after successful arithmetic.";
+    private const string RepeatedInputSource = """
+        -module(beam_adjacent_numeric).
+        %% options
+        -export([value/3]).
+        value(Number, Other, Effect) ->
+            First = Number - 1,
+            Effect(First),
+            Number - 2.
+        """;
+
+    internal static Task RunRepeatedInput()
+    {
+        byte[] same = Compile(RepeatedInputSource);
+        byte[] unrelated = Compile(RepeatedInputSource.Replace("Number - 2", "Other - 2", StringComparison.Ordinal));
+        byte[] disabled = Compile(
+            RepeatedInputSource.Replace("%% options", "-compile(no_ssa_opt).", StringComparison.Ordinal),
+            disabled: true
+        );
+        if (BinaryBifInputType(same) != NumberType
+            || BinaryBifInputType(unrelated) is not null
+            || BinaryBifInputType(disabled) is not null)
+        {
+            throw new InvalidOperationException(RepeatedInputMessage);
+        }
+
+        return Task.CompletedTask;
+    }
+
     internal const string TestName = "compiler/beam/adjacent-arithmetic-number-result";
     internal const string LocalIntegerTestName = "compiler/beam/local-success-integer-result";
+    internal const string MathResultTestName = "compiler/beam/math-success-numeric-results";
+    private const int FloatType = 0x0008;
+    private const string MathResultMessage = "Expected float and integer types after successful math and conversion instructions.";
+    private const string MathSource = """
+        -module(beam_adjacent_numeric).
+        %% options
+        -export([value/1]).
+        value(Input) ->
+            Log = math:log10(Input),
+            Rounded = erlang:trunc(Log),
+            Rounded + 1.
+        """;
     private const int UnboundedIntegerType = 0x0020;
     private const string WrongLocalType = "Expected the unbounded integer annotation only after a proven local return.";
     private const string LocalSource = """
@@ -91,6 +133,25 @@ internal static class BeamAdjacentNumericResultChecks
         return Task.CompletedTask;
     }
 
+    internal static Task RunMathResult()
+    {
+        byte[] direct = Compile(MathSource);
+        byte[] disabled = Compile(
+            MathSource.Replace("%% options", "-compile(no_ssa_opt).", StringComparison.Ordinal),
+            disabled: true
+        );
+        byte[] unknown = Compile(MathSource.Replace("math:log10", "another_module:log10", StringComparison.Ordinal));
+        if (InstructionInputType(direct, GcBifOne, 3) != FloatType
+            || BinaryBifInputType(direct, first: true) != UnboundedIntegerType
+            || InstructionInputType(disabled, GcBifOne, 3) is not null
+            || InstructionInputType(unknown, GcBifOne, 3) == FloatType)
+        {
+            throw new InvalidOperationException(MathResultMessage);
+        }
+
+        return Task.CompletedTask;
+    }
+
     internal static byte[] Compile(string source, bool disabled = false)
     {
         byte[] beam;
@@ -159,6 +220,11 @@ internal static class BeamAdjacentNumericResultChecks
             return null;
         }
 
+        return ReadOperandTypeBits(beam, type);
+    }
+
+    internal static int ReadOperandTypeBits(byte[] beam, int type)
+    {
         byte[] types = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Type").Data;
         int offset = sizeof(int) * 2;
         for (int index = 0; index < type; index++)

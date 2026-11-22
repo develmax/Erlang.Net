@@ -13,9 +13,10 @@ internal sealed partial class BeamModuleCompiler
     )
     {
         // Consecutive exact atom tests share a selector and a common success edge.
-        var selections = new List<(int Start, int End, BeamOperand Selector, int Failure, int Success, List<BeamOperand> Keys)>();
+        var selections = new List<(int Start, int End, BeamOperand Selector, int Failure, int Success, List<BeamOperand> Keys, bool Boolean)>();
         var renumbered = new Dictionary<int, int>();
         Dictionary<int, int>? labelPositions = null;
+        BeamProjectionFlow? flow = null;
         for (int index = 0; index + 2 < body.Count; index++)
         {
             if (!ReadTest(
@@ -74,7 +75,57 @@ internal sealed partial class BeamModuleCompiler
             }
 
             var names = atomNames ??= atoms.OrderBy(entry => entry.Value).Select(entry => entry.Key).ToArray();
-            if (keys.All(key => names[(int)key.Value - 1] is ErlangBooleanAtoms.False or ErlangBooleanAtoms.True))
+            bool boolean = keys.All(key => names[(int)key.Value - 1]
+                is ErlangBooleanAtoms.False or ErlangBooleanAtoms.True);
+            if (boolean && ContinuesSelection(failure, selector))
+            {
+                if (selector.Kind == BeamOperandParameters.X
+                    && (flow ??= new BeamProjectionFlow(body)).TryGetSingleForwardTarget(end, failure, out int arm)
+                    && arm > end + 1 && arm + 2 < body.Count
+                    && labelOperands.Count(item => item.Label == failure) == 1
+                    && ReadTest(
+                        body[arm + 1],
+                        ExactEqualTest,
+                        out int fallback,
+                        out var tested,
+                        out var alternate
+                    ) && tested == selector && fallback != success && fallback != failure
+                    && labelPositions!.TryGetValue(fallback, out int fallbackIndex) && fallbackIndex > arm + 1
+                    && keys.All(key => key.Value != alternate.Value)
+                    && !body.Any(instruction => instruction.Definition.Opcode is DebugLine or ExecutableLine))
+                {
+                    keys.Add(alternate);
+                    keys.Sort((left, right) => TermOrder.Compare(
+                        new Atom(names[(int)left.Value - 1]),
+                        new Atom(names[(int)right.Value - 1]),
+                        exact: true
+                    ));
+
+                    // Only the membership failure reaches the third test.
+                    // Retain either arm's body and its original entry label.
+                    using var combined = new MemoryStream(code.Length);
+                    combined.Write(code.Span[..body[index].Offset]);
+                    combined.WriteByte(SelectValue);
+                    WriteRegister(combined, selector);
+                    BeamCompactWriter.Write(combined, LabelTag, fallback);
+                    combined.WriteByte(ExtendedListOperand);
+                    BeamCompactWriter.Write(combined, BeamWire.UnsignedTag, keys.Count * 2);
+                    foreach (BeamOperand key in keys)
+                    {
+                        BeamCompactWriter.Write(combined, AtomTag, key.Value);
+                        BeamCompactWriter.Write(combined, LabelTag, key == alternate ? failure : success);
+                    }
+
+                    combined.Write(code.Span[body[end + 1].Offset..body[arm + 1].Offset]);
+                    combined.Write(code.Span[body[arm + 2].Offset..]);
+
+                    return combined.ToArray();
+                }
+
+                continue;
+            }
+
+            if (!boolean && selector.Kind != BeamOperandParameters.X)
             {
                 continue;
             }
@@ -97,7 +148,7 @@ internal sealed partial class BeamModuleCompiler
                 new Atom(names[(int)right.Value - 1]),
                 exact: true
             ));
-            selections.Add((body[index].Offset, body[directSuccess].Offset, selector, failure, success, keys));
+            selections.Add((body[index].Offset, body[directSuccess].Offset, selector, failure, success, keys, boolean));
             index = end;
         }
 
@@ -134,7 +185,7 @@ internal sealed partial class BeamModuleCompiler
         int nextEdit = 0;
         int copied = 0;
         using var output = new MemoryStream(code.Length);
-        foreach (var (start, end, selector, failure, success, keys) in selections)
+        foreach (var (start, end, selector, failure, success, keys, boolean) in selections)
         {
             CopyThrough(start);
             while (nextEdit < orderedEdits.Length && orderedEdits[nextEdit].Start < end)
@@ -142,15 +193,27 @@ internal sealed partial class BeamModuleCompiler
                 nextEdit++;
             }
 
-            output.WriteByte(SelectValue);
-            BeamCompactWriter.Write(output, XRegisterTag, selector.Value);
-            BeamCompactWriter.Write(output, LabelTag, renumbered.GetValueOrDefault(failure, failure));
-            output.WriteByte(ExtendedListOperand);
-            BeamCompactWriter.Write(output, BeamWire.UnsignedTag, keys.Count * 2);
-            foreach (BeamOperand key in keys)
+            int reject = renumbered.GetValueOrDefault(failure, failure);
+            if (boolean)
             {
-                BeamCompactWriter.Write(output, AtomTag, key.Value);
-                BeamCompactWriter.Write(output, LabelTag, renumbered.GetValueOrDefault(success, success));
+                // beam_jump replaces two boolean keys with a shared destination
+                // by one is_boolean test, with the accepted block falling through.
+                output.WriteByte(IsBoolean);
+                BeamCompactWriter.Write(output, LabelTag, reject);
+                WriteRegister(output, selector);
+            }
+            else
+            {
+                output.WriteByte(SelectValue);
+                BeamCompactWriter.Write(output, XRegisterTag, selector.Value);
+                BeamCompactWriter.Write(output, LabelTag, reject);
+                output.WriteByte(ExtendedListOperand);
+                BeamCompactWriter.Write(output, BeamWire.UnsignedTag, keys.Count * 2);
+                foreach (BeamOperand key in keys)
+                {
+                    BeamCompactWriter.Write(output, AtomTag, key.Value);
+                    BeamCompactWriter.Write(output, LabelTag, renumbered.GetValueOrDefault(success, success));
+                }
             }
             copied = end;
         }
@@ -169,6 +232,33 @@ internal sealed partial class BeamModuleCompiler
             }
             output.Write(code.Span[copied..end]);
             copied = end;
+        }
+
+        bool ContinuesSelection(int label, BeamOperand selector)
+        {
+            if (!(labelPositions ??= ReadLabelPositions()).TryGetValue(label, out int target)
+                || target + 1 >= body.Count)
+            {
+                return false;
+            }
+
+            BeamInstruction continuation = body[target + 1];
+
+            return continuation.Definition.Opcode == SelectValue
+                && SameProjectionRegister(continuation.Operands[0], selector)
+                || (ReadTest(
+                    continuation,
+                    ExactEqualTest,
+                    out _,
+                    out var input,
+                    out _
+                ) || ReadTest(
+                    continuation,
+                    ExactNotEqualTest,
+                    out _,
+                    out input,
+                    out _
+                )) && SameProjectionRegister(input, selector);
         }
 
         Dictionary<int, int> ReadLabelPositions() => body.Select((instruction, index) => (instruction, index))
@@ -196,7 +286,7 @@ internal sealed partial class BeamModuleCompiler
                 (left, right) = (right, left);
             }
 
-            if (left is not { Kind: BeamOperandParameters.X, TypeIndex: null }
+            if (left is not { Kind: BeamOperandParameters.X or BeamOperandParameters.Y, TypeIndex: null }
                 || right.Kind != BeamOperandParameters.Atom)
             {
                 return false;

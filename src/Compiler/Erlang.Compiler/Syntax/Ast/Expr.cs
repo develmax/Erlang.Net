@@ -129,8 +129,8 @@ public abstract record Expr
     {
         public int? CoreOrdinal { get; internal set; }
         public string? SelfName { get; init; }
-        internal int ClauseLine { get; init; }
-        internal string? ClauseFile { get; init; }
+        internal int DeclarationLine { get; init; }
+        internal string? DeclarationFile { get; init; }
 
         public Fun(IReadOnlyList<Clause> clauses, int coreOrdinal) : this(clauses)
         {

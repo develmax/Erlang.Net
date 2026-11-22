@@ -21,6 +21,8 @@ internal static class BeamTupleFieldLiteralRetryChecks
     internal static async Task Run()
     {
         CheckSourceEntry();
+        CheckStableProjectionRetry();
+        CheckInterleavedStableProjectionRetry();
         byte[] original = Fixture();
         if (Rewrite(original) is not { } rewritten || !rewritten.SequenceEqual(Fixture(shared: true))
             || Rewrite(Fixture(extraPredecessor: true)) is not null
@@ -67,6 +69,99 @@ internal static class BeamTupleFieldLiteralRetryChecks
 
             return Nil.Value;
         });
+    }
+
+    private static void CheckStableProjectionRetry()
+    {
+        var compiler = new BeamModuleCompiler("beam_stable_retry_fixture");
+        _ = Call(compiler, "Intern", "stable_retry_tag");
+        byte[] checkedTuple =
+        [
+            .. Start(
+                FunctionInfoLabel,
+                EntryLabel,
+                2,
+                Arity
+            ), IsTuple, F(RejectLabel), X(0), TestArity, F(RejectLabel), X(0), U(3)
+        ];
+        byte[] fields = [GetTupleElement, X(0), U(1), X(2), GetTupleElement, X(0), U(2), X(3)];
+        byte[] guard =
+        [
+            IsNonemptyList, F(RetryLabel), X(1), GetList, X(1), X(4), X(5),
+            IsTaggedTuple, F(RetryLabel), X(4), U(2), A(2), IsNil, F(RetryLabel), X(5),
+            Move, X(2), X(0), Return, Label, U(RetryLabel)
+        ];
+        byte[] continuation = [Move, X(3), X(0), Return, Label, U(RejectLabel), Move, X(1), X(0), Return, EndCode];
+        byte[] input = [.. checkedTuple, .. fields, .. guard, .. fields, .. continuation];
+        byte[] expected = [.. checkedTuple, .. fields, .. guard, .. continuation];
+        byte[] otherPredecessor = [.. checkedTuple, IsAtom, F(RetryLabel), X(1), .. fields, .. guard, .. fields, .. continuation];
+        byte[] overwritten = [.. checkedTuple, .. fields, Move, X(1), X(2), .. guard, .. fields, .. continuation];
+        byte[] collects = [.. checkedTuple, .. fields, TestHeap, U(2), U(4), .. guard, .. fields, .. continuation];
+        if (Apply(input) is not { } actual || !actual.AsSpan().SequenceEqual(expected)
+            || Apply(otherPredecessor) is not null || Apply(overwritten) is not null || Apply(collects) is not null)
+        {
+            throw new InvalidOperationException(WrongPath);
+        }
+
+        byte[]? Apply(byte[] bytes) => (byte[]?)Call(
+            compiler,
+            "ReuseStableRetryTupleProjections",
+            (ReadOnlyMemory<byte>)bytes,
+            LabelCount
+        );
+    }
+
+    private static void CheckInterleavedStableProjectionRetry()
+    {
+        var compiler = new BeamModuleCompiler("beam_interleaved_stable_retry");
+        _ = Call(compiler, "Intern", "stable_retry_tag");
+        _ = Call(compiler, "Intern", "stable_retry_field");
+        byte[] prefix =
+        [
+            .. Start(
+                FunctionInfoLabel,
+                EntryLabel,
+                2,
+                Arity
+            ),
+            IsTaggedTuple, F(RejectLabel), X(0), U(3), A(2)
+        ];
+        byte[] first = [GetTupleElement, X(0), U(1), X(2)];
+        byte[] second = [GetTupleElement, X(0), U(2), X(3)];
+        byte[] guard = [ExactEqualTest, F(RetryLabel), X(3), I(7), Move, X(2), X(0), Return, Label, U(RetryLabel)];
+        byte[] literal = [ExactEqualTest, F(RejectLabel), X(2), A(3)];
+        byte[] end = [ExactEqualTest, F(RejectLabel), X(3), I(8), Move, X(1), X(0), Return,
+            Label, U(RejectLabel), Return, EndCode];
+        byte[] input = [.. prefix, .. first, .. second, .. guard, .. first, .. literal, .. second, .. end];
+        byte[] expected = [.. prefix, .. first, .. second, .. guard, .. literal, .. end];
+        byte[] earlyRetry = [.. prefix, IsAtom, F(RetryLabel), X(1), .. input[prefix.Length..]];
+        byte[] clobber = [.. prefix, .. first, .. second, Move, X(1), X(2), .. input[(prefix.Length + first.Length + second.Length)..]];
+        byte[] duplicatedTag = prefix[^5..];
+        byte[] independentCheck = prefix.ToArray();
+        independentCheck[^4] = F(RetryLabel);
+        byte[] beforeTagSharing =
+        [
+            .. independentCheck, .. first, .. second, .. guard, .. duplicatedTag, .. first, .. literal, .. second, .. end
+        ];
+        if (Apply(beforeTagSharing) is not null
+            || Call(
+                compiler,
+                "ShareCheckedTaggedTupleGuardRetries",
+                (ReadOnlyMemory<byte>)beforeTagSharing,
+                LabelCount
+            ) is not byte[] shared || !shared.AsSpan().SequenceEqual(input)
+            || Apply(shared) is not { } actual || !actual.AsSpan().SequenceEqual(expected)
+            || Apply(expected) is not null || Apply(earlyRetry) is not null || Apply(clobber) is not null)
+        {
+            throw new InvalidOperationException(WrongPath);
+        }
+
+        byte[]? Apply(byte[] bytes) => (byte[]?)Call(
+            compiler,
+            "ReuseInterleavedRetryTupleProjections",
+            (ReadOnlyMemory<byte>)bytes,
+            LabelCount
+        );
     }
 
     private static void CheckSourceEntry()

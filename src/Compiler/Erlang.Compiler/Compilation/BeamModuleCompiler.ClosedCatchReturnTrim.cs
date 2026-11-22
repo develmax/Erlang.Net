@@ -4,7 +4,13 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
-    private byte[]? TrimClosedCatchPayloadReturns(ReadOnlyMemory<byte> code, int labelCount)
+    private byte[]? TrimClosedCatchPayloadReturns(ReadOnlyMemory<byte> code, int labelCount) =>
+        RewriteClosedCatchPayloadTrims(code, labelCount, terminalOnly: false);
+
+    private byte[]? TrimClosedCatchPayloadExits(ReadOnlyMemory<byte> code, int labelCount) =>
+        RewriteClosedCatchPayloadTrims(code, labelCount, terminalOnly: true);
+
+    private byte[]? RewriteClosedCatchPayloadTrims(ReadOnlyMemory<byte> code, int labelCount, bool terminalOnly)
     {
         if (ModuleOptimizationDisabled || !SsaTypeInferenceEnabled || !code.Span.Contains(CatchEnd)
             || DecodeLateAtomicProjectionSlots(code, labelCount) is not { } decoded)
@@ -80,8 +86,37 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
-            if (!valid || closed < 0 || closed + 6 >= end
-                || body[closed + 1] is not
+            if (!valid || closed < 0 || closed + 6 >= end)
+            {
+                continue;
+            }
+
+            if (terminalOnly)
+            {
+                var flowAfterCatch = flow ??= new BeamProjectionFlow(body);
+                int catchLabel = (int)body[enter].Operands[1].Value;
+                if (body[closed - 2].Definition.Opcode is (LocalCall or ExternalCall)
+                    && flowAfterCatch.TryGetExclusiveForwardTarget(
+                        enter,
+                        closed - 2,
+                        catchLabel,
+                        out int landing
+                    ) && landing == closed - 1)
+                {
+                    ReadSelectedExitArms(
+                        closed,
+                        end,
+                        frame,
+                        payload,
+                        flowAfterCatch
+                    );
+                }
+
+                info = end - 1;
+                continue;
+            }
+
+            if (body[closed + 1] is not
                 {
                     Definition.Opcode: IsTuple, Operands: [var failure, var checkedTuple]
                 } || checkedTuple != x0
@@ -153,8 +188,14 @@ internal sealed partial class BeamModuleCompiler
                 copied = slot.End;
             }
 
-            output.Write(code.Span[copied..finish]);
-            output.WriteByte(Deallocate);
+            int operandCount = LinearFrameSizeOperand(body[release].Definition.Opcode);
+            var cursor = new BeamCursor(code[(finish + 1)..]);
+            for (int operand = 0; operand < operandCount; operand++)
+            {
+                _ = BeamCompactReader.Read(cursor);
+            }
+
+            output.Write(code.Span[copied..(finish + 1 + cursor.Position)]);
             BeamCompactWriter.Write(output, BeamWire.UnsignedTag, 1);
             copied = body[release + 1].Offset;
         }
@@ -162,6 +203,157 @@ internal sealed partial class BeamModuleCompiler
         output.Write(code.Span[copied..]);
 
         return output.ToArray();
+
+        void ReadSelectedExitArms(
+            int closed,
+            int end,
+            int size,
+            BeamOperand payload,
+            BeamProjectionFlow ownership
+        )
+        {
+            if (body[closed + 1] is not
+                {
+                    Definition.Opcode: IsTuple, Operands: [{ Kind: BeamOperandParameters.Label } failed, var tuple]
+                } || tuple != x0
+                || body[closed + 2] is not
+                {
+                    Definition.Opcode: SelectTupleArity, Operands: [var tested, var invalid, _, _, _, _, _, ..]
+                } aritySelector || !SameProjectionRegister(tested, tuple) || invalid != failed)
+            {
+                return;
+            }
+
+            int exitImport = ReadExitImport();
+            if (exitImport < 0)
+            {
+                return;
+            }
+
+            for (int option = 3; option + 1 < aritySelector.Operands.Count; option += 2)
+            {
+                if (aritySelector.Operands[option].Value != 2
+                    || aritySelector.Operands[option + 1] is not { Kind: BeamOperandParameters.Label } arityTarget
+                    || !ownership.TryGetSingleForwardTarget(closed + 2, (int)arityTarget.Value, out int group)
+                    || group + 2 >= end
+                    || body[group + 1] is not
+                    {
+                        Definition.Opcode: GetTupleElement,
+                        Operands: [var original, { Value.IsZero: true },
+                        { Kind: BeamOperandParameters.X, TypeIndex: null, Value.IsOne: true } tag]
+                    }
+                    || original != tuple || body[group + 2] is not
+                    {
+                        Definition.Opcode: SelectValue, Operands: [var compared, var rejection, _, _, _, ..]
+                    } tags || compared != tag || rejection != failed)
+                {
+                    continue;
+                }
+
+                for (int key = 3; key + 1 < tags.Operands.Count; key += 2)
+                {
+                    if (tags.Operands[key].Kind != BeamOperandParameters.Atom
+                        || tags.Operands[key + 1] is not { Kind: BeamOperandParameters.Label } selected
+                        || !ownership.TryGetSingleForwardTarget(group + 2, (int)selected.Value, out int branch)
+                        || ReadExitArm(
+                            branch + 1,
+                            end,
+                            size,
+                            payload,
+                            exitImport
+                        ) is not { } arm)
+                    {
+                        continue;
+                    }
+
+                    edits.Add(arm.Site, (arm.Release, size));
+                }
+            }
+        }
+
+        (int Site, int Release)? ReadExitArm(
+            int start,
+            int end,
+            int size,
+            BeamOperand payload,
+            int exitImport
+        )
+        {
+            if (start + 5 >= end || body[start] is not
+                {
+                    Definition.Opcode: GetTupleElement,
+                    Operands: [var source, { Value.IsOne: true }, var reason]
+                } || source != x0 || reason != payload
+                || body[start + 1] is not
+                {
+                    Definition.Opcode: Move,
+                    Operands: [{ Kind: BeamOperandParameters.Y, TypeIndex: null } argument, var incoming]
+                } || argument.Value < 0 || argument.Value >= payload.Value || incoming != x0)
+            {
+                return null;
+            }
+
+            int firstCall = SkipLines(start + 2, end);
+            if (firstCall >= end || body[firstCall] is not
+                { Definition.Opcode: LocalCall or ExternalCall, Operands: [{ Value.IsOne: true }, _] })
+            {
+                return null;
+            }
+
+            int calls = 1;
+            for (int index = firstCall + 1; index < end; index++)
+            {
+                BeamInstruction instruction = body[index];
+                if (instruction is { Definition.Opcode: Move, Operands: [var kept, var output] }
+                    && kept == payload && output == x0)
+                {
+                    int release = SkipLines(index + 1, end);
+
+                    return calls == 2 && release < end && body[release] is
+                    {
+                        Definition.Opcode: TailExternalCallWithFrame,
+                        Operands: [{ Value.IsOne: true }, var import, var frame]
+                    } && import.Value == exitImport && frame.Value == size
+                        ? (start + 2, release) : null;
+                }
+
+                if (instruction.Definition.Opcode is not
+                    (Line or Move or TestHeap or PutList or PutTuple or LocalCall or ExternalCall)
+                    || instruction.Operands.Any(operand => operand.Kind == BeamOperandParameters.Y))
+                {
+                    return null;
+                }
+
+                if (instruction.Definition.Opcode is LocalCall or ExternalCall)
+                {
+                    calls++;
+                }
+            }
+
+            return null;
+        }
+
+        int SkipLines(int index, int end)
+        {
+            while (index < end && body[index].Definition.Opcode == Line)
+            {
+                index++;
+            }
+
+            return index;
+        }
+
+        int ReadExitImport()
+        {
+            if (!atoms.TryGetValue(ErlangModuleNames.Module, out int module)
+                || !atoms.TryGetValue(AutoImportNames.Exit, out int function)
+                || !imports.TryGetValue((module, function, 1), out int index))
+            {
+                return -1;
+            }
+
+            return emittedImports?[index] ?? index;
+        }
 
         int ReadReturningArm(
             int start,

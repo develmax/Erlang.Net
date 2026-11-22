@@ -223,13 +223,14 @@ internal sealed partial class BeamModuleCompiler
                 BeamOperand tupleSlot = capture ? reads[0].Slot : source;
                 int first = reads[0].Definition;
                 int lastUse = reads.Max(read => read.Use);
-                int lastCall = lastUse - 1;
+                bool selectedArm = lastUse >= last;
+                int lastCall = selectedArm ? call : lastUse - 1;
                 while (lastCall > call && body[lastCall].Definition.Opcode is not (LocalCall or ExternalCall))
                 {
                     lastCall--;
                 }
 
-                bool extendsPreviousProof = lastCall != call || renumbersSlots
+                bool extendsPreviousProof = selectedArm || lastCall != call || renumbersSlots
                     || references[(int)reads[0].Slot.Value].Count != 2;
                 if (!capture && reads.Count == 1 && extendsPreviousProof
                     && (flow ??= new BeamProjectionFlow(body)).IsDeferredSlotDeadAfterUse(
@@ -328,7 +329,9 @@ internal sealed partial class BeamModuleCompiler
         }
 
         int use = sites[next];
-        if (use <= call || use >= last || !IsDeferredTupleConsumer(body[use], slot))
+        if (use <= call || !IsDeferredTupleConsumer(body[use], slot)
+            || use >= last && (renumbersSlots || sites.Count != 2 || body[use].Definition.Opcode != Move
+                || !(flow ??= new BeamProjectionFlow(body)).IsDeferredTupleReadInSelectedArm(call, use)))
         {
             return null;
         }
@@ -420,6 +423,41 @@ internal sealed partial class BeamModuleCompiler
 
     private sealed partial class BeamProjectionFlow
     {
+        internal bool IsDeferredTupleReadInSelectedArm(int call, int use)
+        {
+            int selector = call + 1;
+            while (selector < use && body[selector].Definition.Opcode == Line)
+            {
+                selector++;
+            }
+
+            if (selector >= use || body[selector] is not
+                {
+                    Definition.Opcode: SelectValue,
+                    Operands: [var result, var fallback, ..]
+                } || !IsBareX0(result))
+            {
+                return false;
+            }
+
+            // The selected operand's only use belongs to this straight-line
+            // arm. Other entries could observe a different field definition.
+            int arm = use - 1;
+            while (arm > selector && body[arm].Definition.Opcode is (Line or Move or GetTupleElement or InitYRegisters))
+            {
+                arm--;
+            }
+
+            if (arm <= selector || body[arm] is not { Definition.Opcode: Label, Operands: [var label] }
+                || label.Value == fallback.Value || !body[selector].Operands.Skip(2).Any(operand =>
+                    operand.Kind == BeamOperandParameters.Label && operand.Value == label.Value))
+            {
+                return false;
+            }
+
+            return TryGetSingleForwardTarget(selector, (int)label.Value, out int target) && target == arm;
+        }
+
         internal bool IsDeferredSlotDeadAfterUse(
             int use,
             int entry,

@@ -113,6 +113,8 @@ internal sealed partial class BeamModuleCompiler
                             names[index]
                         ))
                         || constructor && value is not Integer
+                        || value is Nil && clause.Body is Expr.Case
+                            && IsParameterLiveAcrossEntryCall(clause.Body, names[index])
                         || value is Atom && (reorderedRelay || IsParameterLiveAcrossEntryCall(clause.Body, names[index]))))
                 {
                     constants.Add(names[index], value);

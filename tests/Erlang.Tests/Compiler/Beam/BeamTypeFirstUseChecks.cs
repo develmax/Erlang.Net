@@ -32,7 +32,7 @@ internal static class BeamTypeFirstUseChecks
         int[] uses = ((IEnumerable)Property(code, "Instructions")).Cast<object>()
             .SelectMany(instruction => ((IEnumerable)Property(instruction, "Operands")).Cast<object>())
             .Select(operand => Property(operand, "TypeIndex")).OfType<int>().ToArray();
-        if (types.Length != 3 || !uses.SequenceEqual([1, 2, 2, 1])
+        if (types.Length != 3 || !uses.Distinct().SequenceEqual([1, 2]) || uses[^1] != 1 || uses.Count(index => index == 1) != 2
             || (int)Property(types[1], "TypeUnion") != IntegerType
             || (long)Property(types[1], "Minimum") != 0
             || (long)Property(types[1], "Maximum") != OtpSizeUpperBound

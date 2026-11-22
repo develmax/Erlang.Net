@@ -288,17 +288,22 @@ internal sealed partial class BeamModuleCompiler
 
             bool call = body[producer].Definition.Opcode is LocalCall or ExternalCall;
             producer = spill;
-            if (!call || instruction is not
+            if (instruction is not
                 {
                     Definition.Opcode: Move,
                     Operands: [var source, { Kind: BeamOperandParameters.Y, TypeIndex: null } slot]
                 } || !IsBareX0(source)
+                || !call && (spill + 2 >= end || body[spill + 1].Definition.Opcode != TestHeap
+                    || body[spill + 2].Definition.Opcode is not (PutList or PutTuple)
+                    || !body[spill + 2].Operands.Any(operand => SameProjectionRegister(operand, slot))
+                    || !(flow ??= new BeamProjectionFlow(body)).HasPostCallResultAt(spill, allocation))
                 || ReadResultSlotConsumers(
                     body,
                     start,
                     end,
                     spill,
-                    slot
+                    slot,
+                    call
                 ) is not { } reads)
             {
                 continue;
@@ -320,7 +325,8 @@ internal sealed partial class BeamModuleCompiler
         int start,
         int end,
         int spill,
-        BeamOperand slot
+        BeamOperand slot,
+        bool immediateCallResult
     )
     {
         var reads = new List<int>();
@@ -343,8 +349,11 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 int writes = ReadPostCallAliasWriteMask(instruction);
-                if (index < spill || operand.TypeIndex is not null || writes < 0
-                    || position < sizeof(int) * 8 && (writes & (1 << position)) != 0)
+                bool checkedUpdateField = writes < 0 && immediateCallResult
+                    && IsCheckedPostCallRecordUpdate(body, spill, index)
+                    && position > StackWriteOperand(instruction);
+                if (index < spill || operand.TypeIndex is not null || !checkedUpdateField
+                    && (writes < 0 || position < sizeof(int) * 8 && (writes & (1 << position)) != 0))
                 {
                     return null;
                 }
@@ -359,9 +368,109 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        // Pass-through loads can belong to an out-of-line failure continuation
-        // that keeps its saved result until joining other call paths.
-        return consumed ? reads : null;
+        if (consumed || immediateCallResult && reads is [var reload]
+            && IsPostCallConstructorArgument(
+                body,
+                spill,
+                reload,
+                end
+            ))
+        {
+            return reads;
+        }
+
+        return null;
+    }
+
+    private static bool IsCheckedPostCallRecordUpdate(
+        IReadOnlyList<BeamInstruction> body,
+        int spill,
+        int update
+    )
+    {
+        // A checked update reads its field values from the old registers.
+        // Its separate reservation is the only collector in this corridor.
+        return update == spill + 3
+            && body[update] is
+            {
+                Definition.Opcode: UpdateRecord,
+                Operands: [_, var size, { Kind: BeamOperandParameters.Y } record, var destination, ..]
+            }
+            && IsBareX0(destination)
+            && body[spill + 1] is
+            {
+                Definition.Opcode: IsTaggedTuple,
+                Operands: [_, var checkedRecord, var checkedSize, _]
+            }
+            && checkedSize.Value == size.Value && SameProjectionRegister(record, checkedRecord)
+            && body[spill + 2] is
+            {
+                Definition.Opcode: TestHeap,
+                Operands: [_, { Value.IsZero: true }]
+            };
+    }
+
+    private static bool IsPostCallConstructorArgument(
+        IReadOnlyList<BeamInstruction> body,
+        int spill,
+        int reload,
+        int end
+    )
+    {
+        if (body[reload] is not { Definition.Opcode: Move, Operands: [_, var destination] }
+            || !IsBareX0(destination))
+        {
+            return false;
+        }
+
+        bool hasHeap = false;
+        bool hasConstructor = false;
+        for (int at = spill + 1; at < reload; at++)
+        {
+            switch (body[at].Definition.Opcode)
+            {
+                case TestHeap:
+                    hasHeap = true;
+                    break;
+                case PutList:
+                case PutTuple:
+                case MakeFun:
+                    hasConstructor = true;
+                    break;
+                case Line:
+                case Move:
+                    break;
+                default:
+                    return false;
+            }
+        }
+
+        if (!hasHeap || !hasConstructor)
+        {
+            return false;
+        }
+
+        for (int at = reload + 1; at < end; at++)
+        {
+            var next = body[at];
+            if (next.Definition.Opcode == Line
+                || next is
+                {
+                    Definition.Opcode: Move,
+                    Operands: [_, { Kind: BeamOperandParameters.X, Value.IsZero: false }]
+                })
+            {
+                continue;
+            }
+
+            // The sibling constructor does not consume the saved slot. X0 becomes
+            // live through its heap check because the outgoing call consumes it.
+            return next.Definition.Opcode is (LocalCall or ExternalCall
+                or TailLocalCallWithFrame or TailExternalCallWithFrame)
+                && !next.Operands[0].Value.IsZero;
+        }
+
+        return false;
     }
 
     private static int ReadPostCallAliasWriteMask(BeamInstruction instruction) =>
@@ -372,6 +481,54 @@ internal sealed partial class BeamModuleCompiler
 
     private sealed partial class BeamProjectionFlow
     {
+        internal bool HasPostCallResultAt(int spill, int allocation)
+        {
+            int producer = -1;
+            var seen = new HashSet<int>();
+            var pending = new Stack<int>();
+            pending.Push(spill);
+            while (pending.TryPop(out int current))
+            {
+                foreach (int previous in predecessors[current])
+                {
+                    if (previous <= allocation || previous >= current)
+                    {
+                        return false;
+                    }
+
+                    byte opcode = body[previous].Definition.Opcode;
+                    if (opcode is LocalCall or ExternalCall)
+                    {
+                        if (producer >= 0 && producer != previous)
+                        {
+                            return false;
+                        }
+
+                        producer = previous;
+                    }
+                    else if (opcode is Label or Line or Jump or SelectValue or SelectTupleArity || IsEntryFramePredicate(opcode))
+                    {
+                        if (seen.Add(previous))
+                        {
+                            pending.Push(previous);
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+
+                if (predecessors[current].Count == 0)
+                {
+                    return false;
+                }
+            }
+
+            // Every path to the save is a non-clobbering continuation of one call.
+            return producer >= 0;
+        }
+
         internal IReadOnlySet<int>? ReadRetainedResultHeapRoots(int spill, int end, IReadOnlyList<int> reads)
         {
             var heaps = new HashSet<int>();

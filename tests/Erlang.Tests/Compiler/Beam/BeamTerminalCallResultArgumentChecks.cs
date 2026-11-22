@@ -3,6 +3,7 @@ using System.Numerics;
 using Erlang.Compiler;
 using static Erlang.Compiler.BeamEmissionFormat;
 using static Erlang.Tests.BeamBinaryHostAccess;
+using static Erlang.Tests.BeamOpcodeEdgeBytes;
 
 namespace Erlang.Tests;
 
@@ -14,6 +15,8 @@ internal static class BeamTerminalCallResultArgumentChecks
     internal const string TrimTestName = "compiler/beam/trims-owned-return-arm-after-closed-catch";
     private const string TrimShapeError = "The closed catch retained dead stack slots in the returning arm.";
     private const string Module = "beam_terminal_call_result_arguments";
+    private const string BranchResultError = "The collecting result must reuse only an input that is dead on both outgoing paths.";
+    private const string JoinError = "The terminal argument join retained a temporary stack copy or used it in another argument.";
     private const string ShapeError = "The terminal call kept a stack spill for its local result.";
 
     private const string Source = """
@@ -38,11 +41,114 @@ internal static class BeamTerminalCallResultArgumentChecks
 
     internal static void Run()
     {
+        CheckTerminalJoin();
+        CheckBranchCollectingResult();
+
         string alternate = Source.Replace("{local,Name}, service,", "{local,Name}, Debug,", StringComparison.Ordinal);
         if (alternate == Source || !UsesDirectArguments(Source) || UsesDirectArguments(alternate))
         {
             throw new InvalidOperationException(ShapeError);
         }
+    }
+
+    private static void CheckTerminalJoin()
+    {
+        var compiler = new BeamModuleCompiler("terminal_join_fixture");
+        byte[] frame =
+        [
+            .. Start(
+                1,
+                2,
+                2,
+                3
+            ), Allocate, U(3), U(3), Move, X(0), Y(0), Move, X(1), Y(1), Move, X(2), Y(2)
+        ];
+        byte[] dispatch = [ExactEqualTest, F(3), X(0), A(7), ExternalCall, U(1), U(0)];
+        byte[] jump = [Jump, F(4), Label, U(3)];
+        byte[] joined = [Label, U(4)];
+        byte[] tail = [Line, U(1), TailExternalCallWithFrame, U(3), U(0), U(3), EndCode];
+        byte[] withSpill =
+        [
+            .. dispatch, .. jump, Move, Y(0), X(0), .. joined,
+            Move, X(0), Y(0), Move, Y(1), X(1), Move, Y(0), X(2), Move, Y(2), X(0)
+        ];
+        byte[] original = [.. frame, .. withSpill, .. tail];
+        byte[] expected =
+        [
+            .. frame, .. dispatch, Move, X(0), X(2), .. jump, Move, Y(0), X(2), .. joined,
+            Move, Y(1), X(1), Move, Y(2), X(0), .. tail
+        ];
+        byte[] extraJoinEdge =
+        [
+            .. frame, ExactEqualTest, F(4), X(0), A(8), .. withSpill, .. tail
+        ];
+        byte[] secondScratchRead = (byte[])original.Clone();
+        secondScratchRead[frame.Length + withSpill.Length - 8] = Y(0);
+        byte[] collectsAtJoin = [.. frame, .. withSpill, TestHeap, U(2), U(3), .. tail];
+        if (Apply(original) is not { } result || !result.AsSpan().SequenceEqual(expected)
+            || Apply(extraJoinEdge) is not null || Apply(secondScratchRead) is not null
+            || Apply(collectsAtJoin) is not null)
+        {
+            throw new InvalidOperationException(JoinError);
+        }
+
+        byte[]? Apply(byte[] body) => (byte[]?)Call(
+            compiler,
+            "ForwardTerminalJoinArgument",
+            (ReadOnlyMemory<byte>)body,
+            5
+        );
+    }
+
+    private static void CheckBranchCollectingResult()
+    {
+        var compiler = new BeamModuleCompiler("branch_collecting_result_fixture");
+        byte[] entry = Start(
+            1,
+            2,
+            2,
+            3
+        );
+        byte[] selector = [ExternalCall, U(1), U(0)];
+        byte[] branch = [ExactEqualTest, F(3), X(0), A(7), Line, U(1)];
+        byte[] producer = [GcBifOne, F(0), U(0), U(0), Y(1), X(0), Move, X(0), Y(0)];
+        byte[] hot = [ExternalCall, U(1), U(0), Move, Y(0), X(2), Jump, F(4)];
+        byte[] cold = [Label, U(3), Move, Y(2), X(2), Label, U(4), Move, Y(3), X(0), Move, Y(2), X(1)];
+        byte[] entrySpill =
+        [
+            .. entry, Allocate, U(4), U(3), InitYRegisters, ExtendedListOperand, U(1), Y(0),
+            Move, X(2), Y(1), Move, X(1), Y(2), Move, X(0), Y(3),
+            .. selector, Move, X(0), Y(0), .. branch
+        ];
+        byte[] tail = [TailExternalCallWithFrame, U(3), U(0), U(4), EndCode];
+        byte[] before = [.. entrySpill, .. producer, .. hot, .. cold, .. tail];
+        byte[] expected =
+        [
+            .. entry, Allocate, U(3), U(3), Move, X(2), Y(0), Move, X(1), Y(1), Move, X(0), Y(2),
+            .. selector, .. branch, GcBifOne, F(0), U(0), U(0), Y(0), Y(0), Move, Y(0), X(0),
+            ExternalCall, U(1), U(0), Move, Y(0), X(2), Jump, F(4),
+            Label, U(3), Move, Y(1), X(2), Label, U(4), Move, Y(2), X(0), Move, Y(1), X(1),
+            TailExternalCallWithFrame, U(3), U(0), U(3), EndCode
+        ];
+        byte[] readsInputOnRetry = (byte[])cold.Clone();
+        readsInputOnRetry[3] = Y(1);
+        byte[] readsInputAfterResult = [Move, Y(1), X(1), .. hot];
+        byte[] branchOnFailure = (byte[])producer.Clone();
+        branchOnFailure[1] = F(3);
+        if (Apply(before) is not { } actual || !actual.AsSpan().SequenceEqual(expected)
+            || Apply([.. entrySpill, .. producer, .. hot, .. readsInputOnRetry, .. tail]) is not null
+            || Apply([.. entrySpill, .. producer, .. readsInputAfterResult, .. cold, .. tail]) is not null
+            || Apply([.. entrySpill, .. branchOnFailure, .. hot, .. cold, .. tail]) is not null)
+        {
+            throw new InvalidOperationException(BranchResultError);
+        }
+
+        byte[]? Apply(byte[] code) => (byte[]?)Call(
+            compiler,
+            "ReuseBranchCollectingResultSlot",
+            (ReadOnlyMemory<byte>)code,
+            5
+        );
     }
 
     internal static void RunFrame()

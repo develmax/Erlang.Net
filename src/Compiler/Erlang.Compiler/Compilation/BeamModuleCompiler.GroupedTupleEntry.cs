@@ -95,6 +95,8 @@ internal sealed partial class BeamModuleCompiler
             int functionPeak = peakSlot;
             var frames = new Dictionary<int, int>();
             var recordFailures = new List<(int Label, BeamSourceLocation Location)>();
+            var checkedEffectExits = new List<CheckedRecordEffectExits>();
+            var tupleMatchFailures = new List<(int Label, BeamSourceLocation Location)>();
             int nextNestedFrameKey = TupleFallbackFrame - 1;
             for (int groupIndex = groups.Length - 1; groupIndex >= 0; groupIndex--)
             {
@@ -103,6 +105,23 @@ internal sealed partial class BeamModuleCompiler
                 var clauses = group.ToArray();
                 peakSlot = argumentBase;
                 frameSize = plannedTupleFrames?.GetValueOrDefault(group.Key, functionFrame) ?? functionFrame;
+                if (argumentBase == 0 && TryEmitTerminalTupleBuckets(
+                    clauses,
+                    input,
+                    noMatch,
+                    out Clause[] residual
+                ))
+                {
+                    if (residual.Length == 0)
+                    {
+                        frames.Add(group.Key, peakSlot);
+                        functionPeak = Math.Max(functionPeak, peakSlot);
+                        continue;
+                    }
+
+                    clauses = residual;
+                }
+
                 if (clauses is [var checkedTuple] && TryEmitGroupedTupleNilCase(
                     checkedTuple,
                     input,
@@ -170,6 +189,20 @@ internal sealed partial class BeamModuleCompiler
                     frames,
                     recordFailures,
                     ref nextNestedFrameKey
+                ) || TryEmitCheckedPeerTagGroup(
+                    clauses,
+                    input,
+                    noMatch,
+                    fallback,
+                    frames,
+                    ref nextNestedFrameKey
+                ) || TryEmitRepeatedCheckedPeerTags(
+                    clauses,
+                    input,
+                    noMatch,
+                    fallback,
+                    frames,
+                    ref nextNestedFrameKey
                 ) || !owner.IsDeclaredNative((function.Name, function.Arity)) && TryEmitTaggedStateTupleGroup(
                     clauses,
                     input,
@@ -183,6 +216,29 @@ internal sealed partial class BeamModuleCompiler
                     functionPeak = Math.Max(functionPeak, peakSlot);
                     nextSlot = clauseBase;
                     continue;
+                }
+
+                if (argumentBase == 0 && !owner.IsDeclaredNative((function.Name, function.Arity))
+                    && TryPartitionTaggedStateBuckets(
+                        clauses,
+                        input,
+                        noMatch,
+                        frames,
+                        recordFailures,
+                        checkedEffectExits,
+                        tupleMatchFailures,
+                        ref nextNestedFrameKey
+                    ) is { } unpartitioned)
+                {
+                    owner.nestedEntryLabelOrder.Add((function.Name, function.Arity));
+                    functionPeak = Math.Max(functionPeak, peakSlot);
+                    nextSlot = clauseBase;
+                    if (unpartitioned.Length == 0)
+                    {
+                        continue;
+                    }
+
+                    clauses = unpartitioned;
                 }
 
                 peakSlot = clauseBase;
@@ -296,6 +352,12 @@ internal sealed partial class BeamModuleCompiler
                 EmitCheckedResultRecordFailure(label, at);
             }
 
+            foreach (var exits in checkedEffectExits)
+            {
+                EmitCheckedRecordEffectExits(exits);
+            }
+
+            EmitRegisterTupleMatchFailures(tupleMatchFailures);
             foreach (var failure in atomFailures)
             {
                 Mark(failure.Label);
@@ -372,9 +434,8 @@ internal sealed partial class BeamModuleCompiler
             int failure
         )
         {
-            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled || fallback is null
-                || function.Clauses.Any(clause => LocalFunctionEntries.Walk(clause.Body).Any(expression =>
-                    expression is Expr.Try or Expr.Receive or Expr.Catch or Expr.Maybe or Expr.Fun)))
+            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled
+                || !CanGroupMixedEntryBodies(function, allowBoundCallback: fallback is null))
             {
                 return null;
             }
@@ -390,7 +451,7 @@ internal sealed partial class BeamModuleCompiler
             var keys = new HashSet<Atom>();
             var tuples = new List<Clause>();
             var atoms = new List<(Atom Key, Clause Clause)>();
-            foreach (Clause clause in function.Clauses.SkipLast(1))
+            foreach (Clause clause in function.Clauses.SkipLast(fallback is null ? 0 : 1))
             {
                 if (EntryShape(clause.Patterns[0]) is Pattern.Tuple tuple && HasTupleTag(tuple, out _))
                 {
@@ -415,9 +476,95 @@ internal sealed partial class BeamModuleCompiler
                 atoms.Add((key, clause));
             }
 
-            return arities.Count >= 3 && atoms.Count > 0
+            return arities.Count >= (fallback is null ? 2 : 3) && atoms.Count > 0
                 ? (tuples.ToArray(), atoms.OrderBy(arm => arm.Key, Comparer<Atom>.Create(CompareAtoms)).ToArray())
                 : null;
+        }
+
+        private bool CanGroupMixedEntryBodies(FunctionDefinition function, bool allowBoundCallback)
+        {
+            Expr.Fun? closure = null;
+            Clause? callbackOwner = null;
+            foreach (Clause clause in function.Clauses)
+            {
+                foreach (Expr expression in LocalFunctionEntries.Walk(clause.Body))
+                {
+                    if (expression is Expr.Try or Expr.Receive or Expr.Catch or Expr.Maybe)
+                    {
+                        return false;
+                    }
+
+                    if (expression is Expr.Fun callback)
+                    {
+                        if (closure is not null)
+                        {
+                            return false;
+                        }
+
+                        closure = callback;
+                        callbackOwner = clause;
+                    }
+                }
+            }
+
+            if (closure is null || callbackOwner is null)
+            {
+                return true;
+            }
+
+            if (closure.SelfName is not null
+                || LocalFunctionEntries.ClauseExpressions(function.Clauses).SelectMany(LocalFunctionEntries.Walk)
+                    .Any(expression => expression is Expr.FunctionReference or Expr.ListComprehension
+                        or Expr.MapComprehension or Expr.BinaryComprehension
+                        || expression is Expr.Fun sibling && !ReferenceEquals(sibling, closure)))
+            {
+                return false;
+            }
+
+            if (callbackOwner.Guard is not null || EntryShape(callbackOwner.Patterns[0]) is not Pattern.Tuple tuple
+                || !HasTupleTag(tuple, out _)
+                || function.Clauses.Count(clause => EntryShape(clause.Patterns[0]) is Pattern.Tuple candidate
+                    && candidate.Items.Count == tuple.Items.Count) != 1)
+            {
+                return false;
+            }
+
+            if (closure.Clauses.All(clause => clause.Guard is null && clause.Body is Expr.Literal
+                && !clause.Patterns.SelectMany(LocalFunctionEntries.PatternExpressions).Any())
+                && LocalFunctionEntries.Walk(callbackOwner.Body).OfType<Expr.Call>().Any(call =>
+                    call.Arguments.Any(argument => ReferenceEquals(argument, closure))
+                        && TryResolveOrdinaryCallTarget(call, out _)))
+            {
+                return true;
+            }
+
+            if (!allowBoundCallback || callbackOwner.Body is not
+                Expr.Sequence
+                {
+                    Items:
+                    [
+                        Expr.Match
+                    {
+                        Pattern: Pattern.Variable { Name: not VariableScopeNames.Wildcard } binding,
+                        Value: Expr.Fun initializer
+                    },
+                        _, ..
+                    ]
+                } sequence
+                || !ReferenceEquals(initializer, closure)
+                || callbackOwner.Patterns.SelectMany(Semantics.Variables).Contains(binding.Name, StringComparer.Ordinal))
+            {
+                return false;
+            }
+
+            // A single bound callback expands only in its own tuple arm. No other generated
+            // function or competing fun can change its ordinal when the entry arms are grouped.
+            var uses = sequence.Items.Skip(1).SelectMany(LocalFunctionEntries.Walk)
+                .OfType<Expr.Variable>().Where(variable => variable.Name == binding.Name).ToArray();
+
+            return uses is [var input] && sequence.Items.Skip(1).OfType<Expr.Call>().Any(call =>
+                call.Arguments.Any(argument => ReferenceEquals(argument, input))
+                    && TryResolveOrdinaryCallTarget(call, out _));
         }
 
         private static Clause OmitGroupedEntryAtom(Clause clause) => clause with
@@ -996,6 +1143,28 @@ internal sealed partial class BeamModuleCompiler
                 used = ReadUsedEntryParameters(new Clause(parameters, null, deferred));
             }
 
+            if (sharedEntry is not null && used is not null
+                && ReadDeferredRecordListSelector(
+                    clause,
+                    bindings,
+                    parameters
+                ) is { } deferredSelector)
+            {
+                clause = clause with { Body = deferredSelector };
+                used = ReadUsedEntryParameters(new Clause(parameters, null, deferredSelector));
+            }
+
+            if (sharedEntry is not null && used is not null
+                && ReadDeferredRecordListTails(
+                    clause,
+                    bindings,
+                    parameters
+                ) is { } deferredTails)
+            {
+                clause = clause with { Body = deferredTails };
+                used = ReadUsedEntryParameters(new Clause(parameters, null, deferredTails));
+            }
+
             var saved = bindings.Where(binding => used is null || used.Contains(binding.Key)).ToArray();
             var initialProjection = ReadInitialEntryProjection(clause.Body, bindings, parameters);
             if (initialProjection is { } projection)
@@ -1138,6 +1307,53 @@ internal sealed partial class BeamModuleCompiler
             bool AddBinding(Pattern.Variable variable, int input, int? field) =>
                 variable.Name == VariableScopeNames.Wildcard || bindings.TryAdd(variable.Name, (input, field));
 
+            bool PlanTupleFieldBinding(Pattern.Variable variable, int input, int field)
+            {
+                int? carried = input == 0 && sharedEntry?.CarriedRootField is { } projection && projection.Field == field
+                    ? projection.Register : null;
+                if (carried is null && input == 0
+                    && sharedEntry?.ProjectedRootFields?.TryGetValue(field, out int shared) == true)
+                {
+                    carried = shared;
+                }
+                if (AddBinding(variable, carried ?? input, carried.HasValue ? null : field))
+                {
+                    return true;
+                }
+
+                if (input != 0 || orderConstructorFirst || sharedEntry?.MatchRepeatedRootFields != true
+                    || !bindings.TryGetValue(variable.Name, out var previous) || previous.Input == input)
+                {
+                    return false;
+                }
+
+                int observed = carried ?? nextRegister;
+                int expected = previous.Field.HasValue ? nextRegister + (carried.HasValue ? 0 : 1) : previous.Input;
+                if (expected >= FirstReservedXRegister)
+                {
+                    return false;
+                }
+
+                checks.Add(() =>
+                {
+                    if (!carried.HasValue)
+                    {
+                        owner.EmitTuplePart(input, field, observed);
+                    }
+
+                    if (previous.Field is int position)
+                    {
+                        owner.EmitTuplePart(previous.Input, position, expected);
+                    }
+
+                    owner.Op(ExactEqualTest, LabelTag, failure);
+                    owner.Operand(XRegisterTag, expected);
+                    owner.Operand(XRegisterTag, observed);
+                });
+
+                return true;
+            }
+
             bool PlanGuard(Expr? guard)
             {
                 if (guard is null)
@@ -1253,6 +1469,76 @@ internal sealed partial class BeamModuleCompiler
                 return true;
             }
 
+            bool PlanCheckedRecordListPrefix(
+                int input,
+                int field,
+                Pattern.List list,
+                Pattern.Variable tail
+            )
+            {
+                int cursor = nextRegister++;
+                checks.Add(() => owner.EmitTuplePart(input, field, cursor));
+                foreach (Pattern item in list.Items)
+                {
+                    if (item is Erlang.Pattern.Any or Pattern.Variable { Name: VariableScopeNames.Wildcard })
+                    {
+                        checks.Add(() =>
+                        {
+                            owner.EmitNonemptyList(cursor, failure);
+                            owner.Op(GetTail, XRegisterTag, cursor);
+                            owner.Operand(XRegisterTag, cursor);
+                        });
+                        continue;
+                    }
+
+                    int head = nextRegister++;
+                    checks.Add(() =>
+                    {
+                        owner.EmitNonemptyList(cursor, failure);
+                        owner.EmitListParts(
+                            cursor,
+                            XRegisterTag,
+                            head,
+                            XRegisterTag,
+                            cursor
+                        );
+                    });
+
+                    if (item is Pattern.Variable variable)
+                    {
+                        if (!AddBinding(variable, head, null))
+                        {
+                            return false;
+                        }
+
+                        continue;
+                    }
+
+                    if (item is AliasPattern alias && TryReadPatternAlias(alias, out var name, out var original))
+                    {
+                        if (!AddBinding(name, head, null))
+                        {
+                            return false;
+                        }
+
+                        if (original is not Pattern.Tuple aliased || !PlanTuple(aliased, head))
+                        {
+                            return false;
+                        }
+                    }
+                    else if (item is not Pattern.Tuple tuple || !PlanTuple(tuple, head))
+                    {
+                        return false;
+                    }
+
+                    (checkedConsHeads ??= []).Add(item);
+                }
+
+                // Only the projected list cursor changes. Every rejection can
+                // use the two original entry arguments, even on a later cell.
+                return AddBinding(tail, cursor, null);
+            }
+
             bool PlanTuple(Pattern.Tuple tuple, int input, int? checkedColumn = null)
             {
                 bool tagged = HasTupleTag(tuple, out Atom tag);
@@ -1301,7 +1587,7 @@ internal sealed partial class BeamModuleCompiler
                             }
 
                             break;
-                        case Pattern.Variable variable when AddBinding(variable, input, field):
+                        case Pattern.Variable variable when PlanTupleFieldBinding(variable, input, field):
                             break;
                         case Pattern.Literal literal:
                             int operand = selector is int consumed
@@ -1315,6 +1601,37 @@ internal sealed partial class BeamModuleCompiler
                                 owner.Operand(XRegisterTag, operand);
                                 owner.LiteralOperand(literal.Value);
                             });
+                            break;
+                        case Pattern.List { Items.Count: > 0, Tail: Pattern.Variable finalTail } prefix
+                            when sharedEntry?.CheckedListPrefixInput == input:
+                            if (!PlanCheckedRecordListPrefix(
+                                input,
+                                field,
+                                prefix,
+                                finalTail
+                            ))
+                            {
+                                return false;
+                            }
+
+                            break;
+                        case Erlang.Pattern.List
+                        {
+                            Items: [Erlang.Pattern.Variable { Name: not VariableScopeNames.Wildcard }],
+                            Tail: Erlang.Pattern.Variable listTail
+                        } variableHead
+                            when tagged && input > 0 && input < arity
+                                && sharedEntry is { CheckedAtomArgument: 0, AllowConsTupleField: true }:
+                            if (!PlanCheckedRecordListPrefix(
+                                input,
+                                field,
+                                variableHead,
+                                listTail
+                            ))
+                            {
+                                return false;
+                            }
+
                             break;
                         case Pattern.List { Items: [_], Tail: Pattern.Variable tail } list
                             when sharedEntry?.AllowConsTupleField == true:

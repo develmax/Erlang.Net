@@ -27,6 +27,52 @@ internal static class BeamPreCallClosureDestinationChecks
         CheckUnchanged(compiler, Fixture(afterCall: [Move, Y(0), X(0)]));
         CheckUnchanged(compiler, Fixture(captureOutgoing: true));
         CheckUnchanged(compiler, Fixture(interiorEntry: true));
+
+        foreach (bool captureSavedInput in new[] { false, true })
+        {
+            byte[] original = InputFixture(captureSavedInput: captureSavedInput);
+            byte[] expected = InputFixture(compact: true, captureSavedInput: captureSavedInput);
+            if (Rewrite(compiler, original) is not { } result || !result.SequenceEqual(expected))
+            {
+                throw new InvalidOperationException(Expected);
+            }
+        }
+
+        CheckUnchanged(compiler, InputFixture(corridor: [TestHeap, U(1), U(1)]));
+        CheckUnchanged(compiler, InputFixture(corridor: [Label, U(3)]));
+        CheckUnchanged(compiler, InputFixture(afterCall: [Move, Y(1), X(0)]));
+        CheckUnchanged(compiler, InputFixture(arity: 1));
+    }
+
+    private static byte[] InputFixture(
+        bool compact = false,
+        bool captureSavedInput = false,
+        byte[]? corridor = null,
+        byte[]? afterCall = null,
+        int arity = 2
+    )
+    {
+        int width = compact ? 1 : 2;
+        byte destination = X(compact ? 1 : 0);
+        byte captured = captureSavedInput ? compact ? X(0) : Y(1) : X(1);
+        byte[] save = compact ? [] : [Move, X(0), Y(1)];
+        byte[] outgoing = compact ? [Swap, X(0), X(1)] : [Move, Y(1), X(1)];
+
+        return
+        [
+            .. Start(
+                1,
+                2,
+                1,
+                2
+            ),
+            AllocateHeap, U(width), (byte)(U(AllocationList) | ExtendedTag), U(AllocationKinds),
+            U(AllocationWords), U(1), U(AllocationFloats), U(0), U(AllocationFuns), U(1), U(2),
+            Move, X(1), Y(0), .. save, Line, U(1),
+            MakeFun, U(0), destination, ExtendedListOperand, U(1), captured,
+            .. (corridor ?? []), .. outgoing, Line, U(2), ExternalCall, U(arity), U(0),
+            .. (afterCall ?? []), Move, Y(0), X(0), Deallocate, U(width), Return, EndCode
+        ];
     }
 
     private static byte[]? Rewrite(BeamModuleCompiler compiler, ReadOnlyMemory<byte> code) =>

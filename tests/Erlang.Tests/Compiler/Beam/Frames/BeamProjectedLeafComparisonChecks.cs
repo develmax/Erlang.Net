@@ -9,6 +9,7 @@ internal static class BeamProjectedLeafComparisonChecks
     internal const string TestName = "compiler/beam/projected-exact-comparison-has-no-frame";
     private const string Difference = "The projected leaf comparison frame did not retain its result and failure path.";
     private const byte X0 = 0x03;
+    private const byte X1 = 0x13;
     private const byte Y0 = 0x04;
     private const byte F0 = 0x05;
     private const byte F3 = 0x35;
@@ -16,6 +17,7 @@ internal static class BeamProjectedLeafComparisonChecks
     private const byte U1 = 0x10;
     private const byte U2 = 0x20;
     private const byte U3 = 0x30;
+    private const byte U4 = 0x40;
     private const byte A1 = 0x12;
     private const byte A2 = 0x22;
     private const byte A3 = 0x32;
@@ -54,6 +56,33 @@ internal static class BeamProjectedLeafComparisonChecks
             null
         );
 
+        byte[] directField = [GetTupleElement, X0, U1, Y0];
+        byte[] tupleOnRight = [GetTupleElement, X1, U1, Y0];
+        byte[] entryTwo = [Label, U1, FunctionInfo, A1, A2, U2, Label, U2];
+        byte[] frameWithTwoInputs = [Allocate, U1, U2];
+        Check(
+            [.. entry, .. guard, .. frame, .. directField, .. compare, .. release, Return, .. rejected],
+            [.. entry, .. guard, .. field, .. direct, Return, .. rejected]
+        );
+        Check(
+            [.. entryTwo, .. frameWithTwoInputs, .. tupleOnRight, Line, U1, BifTwo, F0, U4, X0, Y0, X0,
+                .. release, Return, EndCode],
+            [.. entryTwo, GetTupleElement, X1, U1, X1, Line, U1, BifTwo, F0, U4, X0, X1, X0, Return, EndCode]
+        );
+        Check(
+            [.. entry, .. frame, .. directField, BifOne, F0, U3, Y0, X0, .. release, Return, EndCode],
+            [.. entry, .. field, BifOne, F0, U3, X0, X0, Return, EndCode]
+        );
+        Check(
+            [.. entry, .. frame, .. directField, BifTwo, F0, U1, Y0, X0, X0, .. release, Return, EndCode],
+            null
+        );
+        Check(
+            [.. entry, .. frame, .. directField, BifTwo, F3, U1, Y0, A3, X0,
+                .. release, Return, .. rejected],
+            null
+        );
+
         return Task.CompletedTask;
     }
 
@@ -84,7 +113,8 @@ internal static class BeamProjectedLeafComparisonChecks
             body,
             0,
             1,
-            3
+            3,
+            new[] { 1, 3, 4 }
         ) as byte[];
         if (expected is null ? actual is not null : actual is null || !expected.AsSpan().SequenceEqual(actual))
         {

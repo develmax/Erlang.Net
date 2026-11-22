@@ -293,10 +293,23 @@ internal sealed partial class BeamModuleCompiler
         EmitFrameReturn(1);
     }
 
-    private void EmitAtomTest(int register, string atom, int failure)
+    private void EmitAtomTest(
+        int register,
+        string atom,
+        int failure,
+        int type = 0
+    )
     {
         Op(ExactEqualTest, LabelTag, failure);
-        Operand(XRegisterTag, register);
+        if (type == 0)
+        {
+            Operand(XRegisterTag, register);
+        }
+        else
+        {
+            EmitTypedRegister(register, type);
+        }
+
         Operand(AtomTag, Intern(atom));
     }
 }

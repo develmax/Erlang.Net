@@ -1,0 +1,9 @@
+# Part 2000 local call arguments and frame slots
+
+Windows OTP 29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5. The uncached [28-file scope](status.json) compiled in 40.841 s. Its result was 0 Equal, 28 Different, 0 Unsupported and 0 SourceRejected. All 21 changed images [prepared in OTP](native-loader.stdout.log). The [normalized comparison](normalized.terms) records 40 changed bodies without new or lost matches. The observed aggregate remains 539 Equal and 827 Different. Analysis took 9.340 s.
+
+The dynamic call emitter now shares pure argument dependency planning with known calls when selector operands are simple. It keeps the existing evaluation path for computed selectors and protected scratch handling. Terminal atom and map branches can share checked function-value calls, including shared-variable map keys and a wildcard path. The physical frame pass removes a highest Y slot when all proved lifetimes are short outgoing transfers, and updates its owned allocation and exits. The measured SNMP enum lookup and Mnesia fragment search widths match the pinned widths of four and five slots. Other instruction differences remain.
+
+All 18 [focused managed tests](focused.stdout) passed. The prior terminal fixture was rechecked. The [new paired native fixtures](call-shapes-generated.terms) check ten callback, map-key, selector-order and failure scenarios. The [released SNMP probe](snmp-generated.terms) matched all seven pinned values and failures. The initial [C# source diagnostic](initial-diagnostic.log) for the unavailable apply location field was preserved and corrected by reusing the existing line emission rule. The [source transfer](source-transfer-2162.json) records ten exact source and test changes.
+
+Full corpus acceptance, complete regression, whole-package readiness and local commit remain open.

@@ -92,9 +92,8 @@ internal sealed partial class BeamModuleCompiler
                 .ToLookup(item => item.label, item => item.position);
 
             HashSet<Atom>? closedAtoms = firstKey.Kind == BeamOperandParameters.Atom
-                && exports.Any(entry => entry.Atom == functionName.Value && entry.Arity == function.Arity)
                 && !IsDeclaredNative((function.Name, function.Arity))
-                ? ReadClosedScalarAtomPair(function, argument) : null;
+                ? ReadClosedScalarAtomAlternatives(function, argument) : null;
             int ownFailure = closedAtoms is null ? -1 : EntryFrameFailureLabel(body, start - 1);
             int cursor = start;
             var arms = new List<DisjointEntryArm>();
@@ -103,7 +102,7 @@ internal sealed partial class BeamModuleCompiler
                 selector,
                 firstKey.Kind,
                 allowSingleInstruction: closedAtoms is not null,
-                closedFailure: arms.Count == 1 ? ownFailure : -1
+                closedFailure: closedAtoms is not null && arms.Count == closedAtoms.Count - 1 ? ownFailure : -1
             ) is { } arm && (arms.Count == 0 || SameTests(arms[0], arm)))
             {
                 arms.Add(arm);
@@ -121,17 +120,17 @@ internal sealed partial class BeamModuleCompiler
             }
 
             bool terminalArms = arms[0].Body == arms[0].Test + 1;
-            bool directClosedPair = closedAtoms is not null && arms.Count == closedAtoms.Count
+            bool directClosedSelection = closedAtoms is not null && arms.Count == closedAtoms.Count
                 && arms[^1].Failure == ownFailure
                 && closedAtoms.SetEquals(arms.Select(arm => (Atom)arm.Key));
-            if (!directClosedPair && closedAtoms is not null && arms.Any(arm => arm.End == arm.Test + 2))
+            if (!directClosedSelection && closedAtoms is not null && arms.Any(arm => arm.End == arm.Test + 2))
             {
                 continue;
             }
 
             if (terminalArms
-                ? !terminalPartition || !directClosedPair && HasLineInAnyArm(arms)
-                : !companionPartition || directClosedPair)
+                ? !terminalPartition || !directClosedSelection && HasLineInAnyArm(arms)
+                : !companionPartition || directClosedSelection)
             {
                 continue;
             }
@@ -147,7 +146,10 @@ internal sealed partial class BeamModuleCompiler
             var finite = firstKey.Kind == BeamOperandParameters.Atom
                 ? emitter.ReadFiniteAtomArguments(function, argument, admitGuardFacts: true)
                 : null;
-            if (terminalArms && finite is not null)
+            // A private entry with known incoming atoms can use a smaller
+            // decision or a typed selector. Preserve that existing layout.
+            if (terminalArms && (finite is not null
+                || directClosedSelection && emitter.ReadAtomEntryType(function, argument) != 0))
             {
                 continue;
             }
@@ -491,9 +493,9 @@ internal sealed partial class BeamModuleCompiler
         void Write(int tag, System.Numerics.BigInteger value) => BeamCompactWriter.Write(output, tag, value);
     }
 
-    private static HashSet<Atom>? ReadClosedScalarAtomPair(FunctionDefinition function, int argument)
+    private static HashSet<Atom>? ReadClosedScalarAtomAlternatives(FunctionDefinition function, int argument)
     {
-        if (function.Clauses is not [_, _])
+        if (function.Clauses.Count < 2)
         {
             return null;
         }

@@ -54,10 +54,27 @@ internal sealed partial class BeamModuleCompiler
         private void RememberCheckedRecord(Pattern pattern)
         {
             if (pattern is AliasPattern alias && TryReadPatternAlias(alias, out var binding, out var shape)
-                && shape is Pattern.Tuple tuple && HasTupleTag(tuple, out Atom tag)
-                && variables.TryGetValue(binding.Name, out int slot))
+                && shape is Erlang.Pattern.Tuple tuple)
             {
-                checkedRecordBindings[binding.Name] = (slot, tag.Name, tuple.Items.Count);
+                if (HasTupleTag(tuple, out Atom tag) && variables.TryGetValue(binding.Name, out int slot))
+                {
+                    checkedRecordBindings[binding.Name] = (slot, tag.Name, tuple.Items.Count);
+                }
+
+                pattern = tuple;
+            }
+
+            // Pattern emission has already checked every member on this edge.
+            // Keep the nested aliases in the same arm-local record scope.
+            if (owner.SsaTypeInferenceEnabled && !owner.ModuleOptimizationDisabled && pattern is Erlang.Pattern.Tuple matched)
+            {
+                foreach (Pattern field in matched.Items)
+                {
+                    if (field is AliasPattern or Erlang.Pattern.Tuple)
+                    {
+                        RememberCheckedRecord(field);
+                    }
+                }
             }
         }
 
@@ -171,6 +188,82 @@ internal sealed partial class BeamModuleCompiler
             {
                 owner.EmitTuplePart(0, access.Index, destination);
             }
+        }
+
+        private bool TryLoadComputedCheckedRecordArguments(
+            IReadOnlyList<Expr> expressions,
+            out BeamSourceLocation previous
+        )
+        {
+            previous = location;
+            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled || owner.receiveScratchRegisters is not null
+                || expressions.Count >= FirstReservedXRegister || expressions.FirstOrDefault() is not Expr.RecordAccess)
+            {
+                return false;
+            }
+
+            Expr.Call? producer = null;
+            Expr.RecordAccess? producerField = null;
+            int computed = -1;
+            var fields = new List<(int Destination, int Slot, Expr.RecordAccess Field)>();
+            var stack = new List<(int Destination, int Source)>();
+            var constants = new List<(int Destination, Term Value)>();
+            for (int destination = 0; destination < expressions.Count; destination++)
+            {
+                Expr expression = expressions[destination];
+                if (expression is Expr.RecordAccess field
+                    && CheckedRecordSlot(field.Value, field.Name, field.Arity) is int fieldSlot)
+                {
+                    fields.Add((destination, fieldSlot, field));
+                }
+                else if (expression is Expr.Call
+                {
+                    Module: null, DynamicRemote: false, Arguments: [Expr.RecordAccess input]
+                } unary && producer is null && entries.ContainsKey((unary.Function, 1))
+                    && CheckedRecordSlot(input.Value, input.Name, input.Arity) is not null)
+                {
+                    producer = unary;
+                    producerField = input;
+                    computed = destination;
+                }
+                else if (SavedRecordSlot(expression) is int saved)
+                {
+                    stack.Add((destination, saved));
+                }
+                else if (AttributeLiteral.TryNormalizeConstant(expression, out Term value))
+                {
+                    constants.Add((destination, value));
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            if (producer is null || producerField is null || computed <= 0 || fields.Count != 2
+                || producerField.Value is not Expr.Variable record || fields.Any(projection =>
+                    projection.Field.Value is not Expr.Variable alias || alias.Name != record.Name
+                    || projection.Field.Name != producerField.Name || projection.Field.Arity != producerField.Arity)
+                || CheckedRecordSlot(record, producerField.Name, producerField.Arity) is not int carrier)
+            {
+                return false;
+            }
+
+            // All other operands are already bound or checked. Project the unary
+            // input at its original call and leave the other two reads until return.
+            EmitSavedRecordField(carrier, producerField.Index, 0);
+            owner.EmitCallLine(producer, location);
+            Call(null, producer.Function, 1);
+            previous = CallLocation(producer, location);
+            int scratch = stack.Count == 0 ? expressions.Count : stack[0].Destination;
+            foreach (var (destination, slot, field) in fields)
+            {
+                EmitSavedRecordField(slot, field.Index, destination == 0 ? scratch : destination);
+            }
+
+            owner.EmitOrderedTailMoves([(0, scratch), (computed, 0)], constants, stack);
+
+            return true;
         }
 
         private bool TryLoadRecordFieldArguments(IReadOnlyList<Expr> expressions)

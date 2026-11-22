@@ -23,7 +23,7 @@ internal sealed partial class BeamModuleCompiler
                     Operands:
                     [
                     { Kind: BeamOperandParameters.Label } retry,
-                    { Kind: BeamOperandParameters.X, TypeIndex: null } state
+                    { Kind: BeamOperandParameters.X or BeamOperandParameters.Y, TypeIndex: null } state
                     ]
                 }
                 || body[first + 1] is not { Definition.Opcode: GetList, Operands: [var inspected, _, _] }
@@ -76,7 +76,7 @@ internal sealed partial class BeamModuleCompiler
     {
         int predicate = target + 1;
         var overwritten = new List<BeamOperand>();
-        while (predicate + 1 < body.Count && body[predicate] is
+        while (state.Kind == BeamOperandParameters.X && predicate + 1 < body.Count && body[predicate] is
             {
                 Definition.Opcode: GetTupleElement,
                 Operands:

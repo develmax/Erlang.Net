@@ -97,7 +97,12 @@ internal sealed partial class BeamModuleCompiler
         var reason = new BeamOperand(BeamOperandParameters.X, BeamTryParameters.ReasonRegister);
         var trace = new BeamOperand(BeamOperandParameters.X, BeamTryParameters.SavedTraceRegister);
         int first = landing + 1;
-        int copy = ReadsLandingCopy(body[first], exceptionClass, token) ? first + 1 : first;
+        BeamOperand? classSave = body[first] is
+        {
+            Definition.Opcode: Move,
+            Operands: [var value, { Kind: BeamOperandParameters.Y, TypeIndex: null } destination]
+        } && value == exceptionClass && destination.Value < body[frame].Operands[0].Value ? destination : null;
+        int copy = classSave is null ? first : first + 1;
         int continuation = copy + 3;
         if (continuation >= end
             || !ReadsLandingCopy(body[copy], reason, token)
@@ -117,9 +122,47 @@ internal sealed partial class BeamModuleCompiler
             return null;
         }
 
+        if (classSave is { } alias && alias != token
+            && (!HasTerminalLandingConstruction(body, continuation, end)
+                || !flow.IsInitialized(installation, alias, allowFramePredicates: true)
+                || !flow.IsDead(
+                    continuation,
+                    alias,
+                    allowBadRecordExit: true,
+                    afterCall: true,
+                    allowEntryFramePredicates: true
+                )))
+        {
+            return null;
+        }
+
         // try_case removes the sole handler and initializes its tag slot.
         // No remaining path reads the overwritten class register or a saved exception value.
         return (first, continuation);
+    }
+
+    private static bool HasTerminalLandingConstruction(
+        IReadOnlyList<BeamInstruction> body,
+        int start,
+        int end
+    )
+    {
+        for (int index = start; index < end; index++)
+        {
+            switch (body[index].Definition.Opcode)
+            {
+                case Line or Move or TestHeap or PutList or PutTuple:
+                    continue;
+                case TailLocalCallWithFrame or TailExternalCallWithFrame:
+                    return true;
+                case Deallocate:
+                    return index + 1 < end && body[index + 1].Definition.Opcode == Return;
+                default:
+                    return false;
+            }
+        }
+
+        return false;
     }
 
     private static bool ReadsLandingCopy(BeamInstruction instruction, BeamOperand from, BeamOperand to) =>

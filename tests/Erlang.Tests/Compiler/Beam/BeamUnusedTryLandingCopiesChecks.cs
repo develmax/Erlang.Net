@@ -17,8 +17,26 @@ internal static class BeamUnusedTryLandingCopiesChecks
         byte[] expected = Fixture(compacted: true);
         byte[] original = Fixture();
         byte[] withClass = Fixture(saveClass: true);
+        byte[] withSeparateClass = Fixture(saveClass: true, separateClass: true);
+        byte[] separateExpected = Fixture(compacted: true, separateClass: true);
         if (Rewrite(original) is not { } reduced || !reduced.AsSpan().SequenceEqual(expected)
             || Rewrite(withClass) is not { } compactedClass || !compactedClass.AsSpan().SequenceEqual(expected)
+            || Rewrite(withSeparateClass) is not { } compactedSeparate || !compactedSeparate.AsSpan().SequenceEqual(separateExpected)
+            || Rewrite(Fixture(
+                saveClass: true,
+                separateClass: true,
+                initializeClass: false
+            )) is not null
+            || Rewrite(Fixture(
+                saveClass: true,
+                separateClass: true,
+                continuation: [Move, Y(1), X(0), Deallocate, U(2), Return]
+            )) is not null
+            || Rewrite(Fixture(
+                saveClass: true,
+                separateClass: true,
+                continuation: [ExternalCall, U(0), U(0), Move, A(7), X(0), Deallocate, U(2), Return]
+            )) is not null
             || Rewrite(Fixture(continuation: [BuildStacktrace, Deallocate, U(1), Return])) is not null
             || Rewrite(Fixture(continuation: [Move, Y(0), X(0), BuildStacktrace, Deallocate, U(1), Return])) is not null
             || Rewrite(Fixture(continuation: [TestHeap, U(3), U(1), Move, A(7), X(0), Deallocate, U(1), Return])) is not null)
@@ -28,13 +46,15 @@ internal static class BeamUnusedTryLandingCopiesChecks
 
         var wide = BeamModule.Prepare(Image(original[..^1], labels: LabelCount));
         var narrow = BeamModule.Prepare(Image(reduced[..^1], labels: LabelCount));
+        var withAlias = BeamModule.Prepare(Image(withSeparateClass[..^1], labels: LabelCount));
+        var withoutAlias = BeamModule.Prepare(Image(compactedSeparate[..^1], labels: LabelCount));
         await using var runtime = new ProcessRuntime();
         await using var actor = new RuntimeNodeFoundationHostActor(runtime);
         await actor.InvokeAsync(async context =>
         {
             Term input = Term.List(Term.I(1), Term.I(2));
             Term badInput = Term.A("not_a_list");
-            foreach (BeamModule image in new[] { wide, narrow })
+            foreach (BeamModule image in new[] { wide, narrow, withAlias, withoutAlias })
             {
                 if (!Term.I(2).Equals(await image.Invoke(context, BeamOpcodeEdgeNames.Run, input))
                     || !Term.A(BeamOpcodeEdgeNames.Marker).Equals(await image.Invoke(
@@ -51,7 +71,13 @@ internal static class BeamUnusedTryLandingCopiesChecks
         });
     }
 
-    private static byte[] Fixture(bool compacted = false, bool saveClass = false, byte[]? continuation = null)
+    private static byte[] Fixture(
+        bool compacted = false,
+        bool saveClass = false,
+        byte[]? continuation = null,
+        bool separateClass = false,
+        bool initializeClass = true
+    )
     {
         byte[] entry = Start(
             1,
@@ -59,18 +85,20 @@ internal static class BeamUnusedTryLandingCopiesChecks
             2,
             1
         );
+        int width = separateClass ? 2 : 1;
+        byte[] initialize = separateClass && initializeClass ? [Move, A(0), Y(1)] : [];
         byte[] copies = compacted ? [] :
         [
-            .. (saveClass ? new[] { Move, X(0), Y(0) } : []),
+            .. (saveClass ? new[] { Move, X(0), Y(separateClass ? 1 : 0) } : []),
             Move, X(1), Y(0), Move, X(2), X(0), Move, X(0), Y(0)
         ];
-        continuation ??= [Move, A(7), X(0), Deallocate, U(1), Return];
+        continuation ??= [Move, A(7), X(0), Deallocate, U(width), Return];
 
         return
         [
             .. entry,
-            Allocate, U(1), U(1), TryEnter, Y(0), F(Handler),
-            ExternalCall, U(1), U(0), TryEnd, Y(0), Deallocate, U(1), Return,
+            Allocate, U(width), U(1), .. initialize, TryEnter, Y(0), F(Handler),
+            ExternalCall, U(1), U(0), TryEnd, Y(0), Deallocate, U(width), Return,
             Label, U(Handler), TryCase, Y(0), .. copies, .. continuation, EndCode
         ];
     }

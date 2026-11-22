@@ -16,7 +16,7 @@ internal static class BeamListOrTaggedResultChecks
 
     private const string Source = """
         -module(beam_list_or_tagged_result_probe).
-        -export([decode/1, control/1, decode_atom/1, decode_case/1, control_shape/1, control_reason/1]).
+        -export([decode/1, control/1, decode_atom/1, decode_case/1, control_shape/1, control_reason/1, decode_pair/1, control_pair_arity/1]).
 
         decode(Mode) ->
             case read(Mode) of
@@ -83,6 +83,26 @@ internal static class BeamListOrTaggedResultChecks
         read_shape(wrong_arity) -> {error, invalid, extra};
         read_shape(Input) -> read_atom(Input).
 
+        decode_pair(Input) ->
+            case read_pair(Input) of
+                {error, Reason} -> {failure, Reason};
+                Result -> {ok, Result}
+            end.
+
+        control_pair_arity(Input) ->
+            case read_multiple_arities(Input) of
+                {error, Reason} -> {failure, Reason};
+                Result -> {ok, Result}
+            end.
+
+        read_pair(first) -> {error, closed};
+        read_pair(second) -> {other, open};
+        read_pair(next) -> read_pair(second);
+        read_pair(_) -> {ok, ready}.
+
+        read_multiple_arities(wide) -> {error, closed, extra};
+        read_multiple_arities(_) -> {other, open}.
+
         read_reason(Input) ->
             try erlang:apply(Input, []) of
                 done -> none;
@@ -117,7 +137,18 @@ internal static class BeamListOrTaggedResultChecks
             throw new InvalidOperationException(WrongAtomResult);
         }
 
+        if (!HasTaggedTupleOperand("decode_pair", typed: true)
+            || !HasTaggedTupleOperand("control_pair_arity", typed: false))
+        {
+            throw new InvalidOperationException(WrongTag);
+        }
+
         return Task.CompletedTask;
+
+        bool HasTaggedTupleOperand(string function, bool typed) => Body(function).Any(instruction =>
+            Opcode(instruction) == IsTaggedTuple
+            && Items(instruction, "Operands").ToArray() is [_, var input, _, _]
+            && (Property(input, "TypeIndex") is int) == typed);
 
         bool HasTypedTupleTest(string function) => Body(function).Any(instruction =>
             Opcode(instruction) == IsTuple

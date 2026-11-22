@@ -78,13 +78,16 @@ internal sealed partial class BeamModuleCompiler
                     end,
                     frame,
                     out var lastUse,
-                    out int release
+                    out int release,
+                    allowCompleteRelease: !ModuleOptimizationDisabled && SsaTypeInferenceEnabled
                 ))
             {
                 TrimDeadBranchFrames(start, end);
                 continue;
             }
 
+            bool endsWithCompleteTrim = body[release].Definition.Opcode == TrimFrame;
+            int consumedClear = -1;
             var slots = Enumerable.Range(0, frame).ToList();
             int[] mapped = slots.ToArray();
             var initialized = new bool[frame];
@@ -180,6 +183,28 @@ internal sealed partial class BeamModuleCompiler
                         }
                     }
 
+                    if (endsWithCompleteTrim)
+                    {
+                        if (consumedClear >= 0 || site <= previousCall + 2
+                            || body[site - 1] is not
+                            {
+                                Definition.Opcode: InitYRegisters,
+                                Operands: [{ Value.IsOne: true }, { Kind: BeamOperandParameters.Y, Value.IsOne: true }]
+                            }
+                            || !ReadsFinalClosureArgument(body, start, site - 2)
+                            || lastUse[1] != site - 1 || trim.Removed != 1
+                            || trim.Kills.Length != 0 || trim.Moves is not [(0, 1)])
+                        {
+                            previousCall = call;
+
+                            continue;
+                        }
+
+                        // OTP consumes this last clear by relocating the lowest
+                        // live root into its dead slot before releasing Y0.
+                        consumedClear = --site;
+                    }
+
                     trims.Add(site, trim);
                     foreach (var (source, destination) in trim.Moves)
                     {
@@ -222,6 +247,13 @@ internal sealed partial class BeamModuleCompiler
                     output.WriteByte(TrimFrame);
                     BeamCompactWriter.Write(output, BeamWire.UnsignedTag, trim.Removed);
                     BeamCompactWriter.Write(output, BeamWire.UnsignedTag, slots.Count);
+                    if (index == consumedClear)
+                    {
+                        copied = body[index + 1].Offset;
+
+                        continue;
+                    }
+
                     copied = offset;
                 }
 
@@ -240,6 +272,17 @@ internal sealed partial class BeamModuleCompiler
                         copied = to;
                     }
                 }
+            }
+
+            if (endsWithCompleteTrim)
+            {
+                output.Write(code.Span[copied..body[release].Offset]);
+                output.WriteByte(TrimFrame);
+                BeamCompactWriter.Write(output, BeamWire.UnsignedTag, slots.Count);
+                BeamCompactWriter.Write(output, BeamWire.UnsignedTag, 0);
+                copied = body[release + 1].Offset;
+
+                continue;
             }
 
             int size = LinearFrameSizeOperand(body[release].Definition.Opcode);
@@ -276,6 +319,7 @@ internal sealed partial class BeamModuleCompiler
             }
 
             (int[] Owners, Dictionary<int, bool[]> Uses)? ownership = null;
+            BeamProjectionFlow? flow = null;
             for (int exit = start; exit + 1 < end; exit++)
             {
                 int size = body[exit].Definition.Opcode switch
@@ -290,24 +334,39 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 var width = body[exit].Operands[size].Value;
-                int site = size == 0 && width == 2 ? FindSingleLiveBranchTrimSite(body, start, exit) : -1;
-                bool relocate = false;
-                if (site >= 0 && !CallsPureBif(body[exit - 2])
-                    && (ownership ??= ReadDisjointFrameOwnership(body, start, end)) is { } frame
-                    && frame.Uses.Count == 1
-                    && frame.Uses.TryGetValue(frame.Owners[site - start], out bool[]? slots)
-                    && slots.Length == width)
+                int retained = size == 0 && width >= 2 && width <= BeamOperandParameters.MaximumRegister
+                    ? width == 2 ? 0 : (int)width - 1
+                    : -1;
+                int site = retained >= 0 ? FindSingleLiveBranchTrimSite(
+                    body,
+                    start,
+                    exit,
+                    retained,
+                    ref flow
+                ) : -1;
+                if (site < 0 || CallsPureBif(body[exit - 2])
+                    || (ownership ??= ReadDisjointFrameOwnership(body, start, end)) is not { } frame
+                    || frame.Uses.Count != 1
+                    || !frame.Uses.TryGetValue(frame.Owners[site - start], out bool[]? slots)
+                    || slots.Length != width)
                 {
-                    relocate = true;
-                }
-                else
-                {
+                    retained = -1;
                     site = FindDeadBranchTrimSite(body, start, exit);
                     if (site < 0 && size == 0 && width >= 3 && body[start].Definition.Opcode == Label
                         && registerSelectorEntries.Contains((int)body[start].Operands[0].Value))
                     {
                         site = FindTerminalConstructionTrimSite(body, start, exit);
                     }
+                }
+
+                int loaded = site < 0 ? FindFinalLoadedCallTrimSite(body, start, exit) : -1;
+                if (loaded >= 0
+                    && (ownership ??= ReadDisjointFrameOwnership(body, start, end)) is { } joined
+                    && joined.Owners[loaded - start] == joined.Owners[exit - start]
+                    && joined.Uses.TryGetValue(joined.Owners[loaded - start], out bool[]? roots)
+                    && roots.Length == width)
+                {
+                    site = loaded;
                 }
 
                 if (site < 0 || body[site].Offset < copied)
@@ -317,8 +376,8 @@ internal sealed partial class BeamModuleCompiler
 
                 int offset = body[site].Offset;
                 output.Write(code.Span[copied..offset]);
-                int remaining = relocate ? 1 : 0;
-                if (relocate)
+                int remaining = retained >= 0 ? 1 : 0;
+                if (retained == 0)
                 {
                     // Y1 has supplied the call argument. Move the saved result before removing Y0.
                     output.WriteByte(Move);
@@ -329,6 +388,16 @@ internal sealed partial class BeamModuleCompiler
                 output.WriteByte(TrimFrame);
                 BeamCompactWriter.Write(output, BeamWire.UnsignedTag, width - remaining);
                 BeamCompactWriter.Write(output, BeamWire.UnsignedTag, remaining);
+
+                if (retained > 0)
+                {
+                    int restore = body[exit - 1].Offset;
+                    output.Write(code.Span[offset..restore]);
+                    output.WriteByte(Move);
+                    BeamCompactWriter.Write(output, YRegisterTag, 0);
+                    BeamCompactWriter.Write(output, XRegisterTag, 0);
+                    offset = body[exit].Offset;
+                }
 
                 int operandStart = body[exit].Offset + 1;
                 var cursor = new BeamCursor(code[operandStart..]);
@@ -357,7 +426,13 @@ internal sealed partial class BeamModuleCompiler
         }
     }
 
-    private static int FindSingleLiveBranchTrimSite(IReadOnlyList<BeamInstruction> body, int start, int exit)
+    private static int FindSingleLiveBranchTrimSite(
+        IReadOnlyList<BeamInstruction> body,
+        int start,
+        int exit,
+        int retained,
+        ref BeamProjectionFlow? flow
+    )
     {
         int call = exit - 2;
         if (call <= start
@@ -365,7 +440,7 @@ internal sealed partial class BeamModuleCompiler
             || !IsTrimRegisterMove(
                 body[exit - 1],
                 BeamOperandParameters.Y,
-                0,
+                retained,
                 BeamOperandParameters.X,
                 0
             ))
@@ -385,17 +460,47 @@ internal sealed partial class BeamModuleCompiler
                 BeamOperandParameters.X,
                 0,
                 BeamOperandParameters.Y,
-                0
+                retained
             )
-            || !IsTrimRegisterMove(
-                body[load],
-                BeamOperandParameters.Y,
-                1,
-                BeamOperandParameters.X,
-                0
-            ))
+            || body[load] is not
+            {
+                Definition.Opcode: Move,
+                Operands: [
+                { Kind: BeamOperandParameters.Y, TypeIndex: null } argument,
+                { Kind: BeamOperandParameters.X, TypeIndex: null, Value.IsZero: true }
+                ]
+            }
+            || (retained == 0 ? argument.Value != 1 : argument.Value >= retained))
         {
             return -1;
+        }
+
+        if (retained > 0)
+        {
+            // The exact-test rejection owns this terminal call. Its top slot
+            // contains the saved result, and the argument has already left Y.
+            int landing = load - 2;
+            int test = landing - 4;
+            if (test <= start || body[landing - 1].Definition.Opcode != Return
+                || body[landing - 2].Definition.Opcode != Deallocate
+                || body[test] is not
+                {
+                    Definition.Opcode: ExactEqualTest,
+                    Operands: [
+                    { Kind: BeamOperandParameters.Label } target,
+                    { Kind: BeamOperandParameters.X, TypeIndex: null, Value.IsZero: true },
+                    { Kind: BeamOperandParameters.Atom }
+                    ]
+                }
+                || target.Value != body[landing].Operands[0].Value
+                || !(flow ??= new BeamProjectionFlow(body)).TryGetSingleForwardTarget(
+                    test,
+                    (int)target.Value,
+                    out int destination
+                ) || destination != landing)
+            {
+                return -1;
+            }
         }
 
         return load + 1;
@@ -441,6 +546,65 @@ internal sealed partial class BeamModuleCompiler
         return -1;
     }
 
+    private static int FindFinalLoadedCallTrimSite(IReadOnlyList<BeamInstruction> body, int start, int exit)
+    {
+        if (body[exit] is not
+            { Definition.Opcode: TailExternalCallWithFrame, Operands: [{ Value.IsZero: true }, _, _] })
+        {
+            return -1;
+        }
+
+        int call = exit - 1;
+        while (call > start && body[call].Definition.Opcode == Line)
+        {
+            call--;
+        }
+
+        if (call <= start || body[call] is not { Definition.Opcode: ExternalCall, Operands: [var arity, _] }
+            || arity.Value != 2)
+        {
+            return -1;
+        }
+
+        int firstLine = call;
+        while (firstLine > start && body[firstLine - 1].Definition.Opcode == Line)
+        {
+            firstLine--;
+        }
+
+        // Both incoming call arguments have taken their last stack reads.
+        // The block has no later label, frame operand or protected call edge.
+        if (firstLine < start + 3 || body[firstLine - 3].Definition.Opcode != Label
+            || !ReadsStackArgument(body[firstLine - 2], 1, out var second)
+            || !ReadsStackArgument(body[firstLine - 1], 0, out var first)
+            || first == second)
+        {
+            return -1;
+        }
+
+        return firstLine;
+
+        static bool ReadsStackArgument(BeamInstruction instruction, int argument, out int slot)
+        {
+            slot = -1;
+            if (instruction is not
+                {
+                    Definition.Opcode: Move,
+                    Operands: [
+                    { Kind: BeamOperandParameters.Y, TypeIndex: null } saved,
+                    { Kind: BeamOperandParameters.X, TypeIndex: null } destination
+                    ]
+                } || destination.Value != argument)
+            {
+                return false;
+            }
+
+            slot = (int)saved.Value;
+
+            return true;
+        }
+    }
+
     private static int FindTerminalConstructionTrimSite(IReadOnlyList<BeamInstruction> body, int start, int exit)
     {
         bool constructs = false;
@@ -475,13 +639,40 @@ internal sealed partial class BeamModuleCompiler
         return -1;
     }
 
+    private static bool ReadsFinalClosureArgument(IReadOnlyList<BeamInstruction> body, int start, int load)
+    {
+        if (!IsTrimRegisterMove(
+            body[load],
+            BeamOperandParameters.Y,
+            1,
+            BeamOperandParameters.X,
+            0
+        ))
+        {
+            return false;
+        }
+
+        var closure = new BeamOperand(BeamOperandParameters.Y, 1);
+        for (int index = load - 1; index > start; index--)
+        {
+            var instruction = body[index];
+            if (instruction.Operands.Any(operand => SameProjectionRegister(operand, closure)))
+            {
+                return instruction.Definition.Opcode == MakeFun && instruction.Operands[1] == closure;
+            }
+        }
+
+        return false;
+    }
+
     private static bool ReadCallFrame(
         IReadOnlyList<BeamInstruction> body,
         int start,
         int end,
         int frame,
         out int[] lastUse,
-        out int release
+        out int release,
+        bool allowCompleteRelease = false
     )
     {
         lastUse = new int[frame];
@@ -491,6 +682,14 @@ internal sealed partial class BeamModuleCompiler
         {
             BeamInstruction instruction = body[index];
             byte opcode = instruction.Definition.Opcode;
+            if (allowCompleteRelease && opcode == TrimFrame
+                && instruction.Operands is [var removed, { Value.IsZero: true }] && removed.Value == frame)
+            {
+                release = index;
+
+                return true;
+            }
+
             if (opcode is Label or Allocate or AllocateHeap or TrimFrame or CatchEnter or TryEnter or CatchEnd
                 or TryEnd or TryCase or Wait or WaitTimeout or LoopReceive or LoopReceiveEnd or ReceiveTimeout or RemoveMessage
                 || instruction.Definition.Name == "debug_line"

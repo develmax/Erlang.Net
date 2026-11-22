@@ -4,7 +4,11 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
-    private byte[]? ProjectEntryListDirectlyIntoFrame(ReadOnlyMemory<byte> code, int labelCount)
+    private byte[]? ProjectEntryListDirectlyIntoFrame(
+        ReadOnlyMemory<byte> code,
+        int labelCount,
+        bool repeatedInitializationOnly = false
+    )
     {
         if (ModuleOptimizationDisabled || !SsaTypeInferenceEnabled || !code.Span.Contains(GetList)
             || DecodeLateAtomicProjectionSlots(code, labelCount) is not { } decoded)
@@ -48,7 +52,13 @@ internal sealed partial class BeamModuleCompiler
                 continue;
             }
 
-            BeamInstruction frame = body[projection + 1];
+            int frameIndex = projection + 1;
+            while (body[frameIndex].Definition.Opcode == Line)
+            {
+                frameIndex++;
+            }
+
+            BeamInstruction frame = body[frameIndex];
             int oldLive = (int)incoming.Value + 2;
             if (frame.Definition.Opcode is not (Allocate or AllocateHeap)
                 || frame.Operands[0].Value < 1 || frame.Operands[^1].Value != oldLive)
@@ -56,7 +66,7 @@ internal sealed partial class BeamModuleCompiler
                 continue;
             }
 
-            int firstCopy = projection + 2;
+            int firstCopy = frameIndex + 1;
             while (body[firstCopy].Definition.Opcode == InitYRegisters)
             {
                 firstCopy++;
@@ -74,13 +84,30 @@ internal sealed partial class BeamModuleCompiler
                 continue;
             }
 
+            if (repeatedInitializationOnly && !body.Skip(firstCopy).Take(copies.End - firstCopy)
+                .Any(instruction => instruction.Definition.Opcode == InitYRegisters))
+            {
+                continue;
+            }
+
             int call = copies.End;
             while (body[call].Definition.Opcode is Line or Move)
             {
                 call++;
             }
 
-            if (body[call].Definition.Opcode is not (LocalCall or ExternalCall))
+            bool hasProjectionLine = frameIndex != projection + 1;
+            bool feedsCollectingPrelude = hasProjectionLine && frame.Definition.Opcode == Allocate
+                && copies.Head is not null && copies.Tail is not null
+                && HasClosedProjectedListCallPrelude(
+                    body,
+                    copies.End,
+                    call,
+                    incoming,
+                    head,
+                    tail
+                );
+            if (!feedsCollectingPrelude && (hasProjectionLine || body[call].Definition.Opcode is not (LocalCall or ExternalCall)))
             {
                 continue;
             }
@@ -91,7 +118,9 @@ internal sealed partial class BeamModuleCompiler
             int fusedCopy = -1;
             BeamOperand? fusedDestination = null;
             IReadOnlyDictionary<int, BeamOperand>? outgoingCopies = null;
-            if (mixedDestinations || !flow.IsEntryTemporaryDead(copies.End, head) || !flow.IsEntryTemporaryDead(copies.End, tail))
+            if (!feedsCollectingPrelude
+                && (mixedDestinations || !flow.IsEntryTemporaryDead(copies.End, head)
+                    || !flow.IsEntryTemporaryDead(copies.End, tail)))
             {
                 if (!flow.IsEntryTemporaryDead(call, head) || !flow.IsEntryTemporaryDead(call, tail)
                     || ReadProjectedFrameOutgoingCopies(
@@ -116,13 +145,13 @@ internal sealed partial class BeamModuleCompiler
             }
 
             output.Write(code.Span[copied..body[projection].Offset]);
-            output.Write(code.Span[frame.Offset..(body[projection + 2].Offset - CompactRegisterCountWidth(oldLive))]);
+            output.Write(code.Span[frame.Offset..(body[frameIndex + 1].Offset - CompactRegisterCountWidth(oldLive))]);
             // Before the projection, the original list roots both values.
             BeamCompactWriter.Write(output, BeamWire.UnsignedTag, incoming.Value);
-            output.Write(code.Span[body[projection + 2].Offset..body[firstCopy].Offset]);
+            output.Write(code.Span[body[frameIndex + 1].Offset..body[firstCopy].Offset]);
             for (int index = firstCopy; index < copies.End; index++)
             {
-                if (body[index].Operands[0].Value < incoming.Value)
+                if (body[index].Definition.Opcode == Move && body[index].Operands[0].Value < incoming.Value)
                 {
                     output.Write(code.Span[body[index].Offset..body[index + 1].Offset]);
                 }
@@ -132,6 +161,12 @@ internal sealed partial class BeamModuleCompiler
             WriteRegister(output, source);
             WriteRegister(output, headDestination);
             WriteRegister(output, tailDestination);
+            if (hasProjectionLine)
+            {
+                // The collecting BIF still owns its original error location.
+                output.Write(code.Span[body[projection + 1].Offset..frame.Offset]);
+            }
+
             int end = copies.End;
             if (outgoingCopies is not null)
             {
@@ -169,6 +204,44 @@ internal sealed partial class BeamModuleCompiler
         output.Write(code.Span[copied..]);
 
         return output.ToArray();
+    }
+
+    private static bool HasClosedProjectedListCallPrelude(
+        IReadOnlyList<BeamInstruction> body,
+        int start,
+        int bif,
+        BeamOperand incoming,
+        BeamOperand head,
+        BeamOperand tail
+    )
+    {
+        if (body[bif] is not
+            {
+                Definition.Opcode: GcBifOne or GcBifTwo or GcBifThree,
+                Operands: [{ Kind: BeamOperandParameters.Failure, Value.IsZero: true }, var live, ..]
+            }
+            || live.Value > incoming.Value
+            || body[bif].Operands.Any(operand => SameProjectionRegister(operand, head) || SameProjectionRegister(operand, tail)))
+        {
+            return false;
+        }
+
+        for (int index = start; index < bif; index++)
+        {
+            if (body[index].Definition.Opcode != Line)
+            {
+                return false;
+            }
+        }
+
+        int call = bif + 1;
+        while (body[call].Definition.Opcode == Line)
+        {
+            call++;
+        }
+
+        return body[call] is { Definition.Opcode: LocalCall or ExternalCall, Operands: [var arity, _] }
+            && arity.Value <= incoming.Value;
     }
 
     private static (IReadOnlyDictionary<int, BeamOperand> Aliases, int FusedCopy, BeamOperand? Destination)?
@@ -258,17 +331,41 @@ internal sealed partial class BeamModuleCompiler
         BeamOperand tail
     )
     {
+        var initiallyCleared = new HashSet<BeamOperand>();
+        for (int initial = first - 1; initial >= 0 && body[initial].Definition.Opcode == InitYRegisters; initial--)
+        {
+            initiallyCleared.UnionWith(body[initial].Operands.Skip(1));
+        }
+
         var written = new HashSet<BeamOperand>();
         BeamOperand? headSlot = null;
         BeamOperand? tailSlot = null;
         int index = first;
-        for (; body[index] is
+        for (; ; index++)
         {
-            Definition.Opcode: Move,
-            Operands: [{ Kind: BeamOperandParameters.X, TypeIndex: null } source,
-            { Kind: BeamOperandParameters.Y, TypeIndex: null } slot]
-        }; index++)
-        {
+            BeamInstruction instruction = body[index];
+            if (instruction.Definition.Opcode == InitYRegisters)
+            {
+                // A repeated nil store contributes no new definition until an
+                // intervening save has written that slot.
+                if (instruction.Operands.Skip(1).Any(cleared => !initiallyCleared.Contains(cleared) || written.Contains(cleared)))
+                {
+                    return null;
+                }
+
+                continue;
+            }
+
+            if (instruction is not
+                {
+                    Definition.Opcode: Move,
+                    Operands: [{ Kind: BeamOperandParameters.X, TypeIndex: null } source,
+                    { Kind: BeamOperandParameters.Y, TypeIndex: null } slot]
+                })
+            {
+                break;
+            }
+
             if (slot.Value >= frame.Operands[0].Value || !written.Add(slot))
             {
                 return null;

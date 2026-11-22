@@ -58,6 +58,26 @@ internal sealed partial class BeamModuleCompiler
             labels.TryGetValue(label, out target) && target > from
             && predecessors[target].Count == 1 && predecessors[target][0] == from;
 
+        internal int FindCheckedCarrierFallback(int target, BeamOperand carrier)
+        {
+            if (body[target] is not { Definition.Opcode: Label, Operands: [var label] }
+                || predecessors[target] is not [var check, var select]
+                || check + 1 != select || select >= target
+                || body[check] is not
+                {
+                    Definition.Opcode: IsTaggedTuple,
+                    Operands: [var rejected, var tested, _, _]
+                }
+                || rejected.Value != label.Value || tested != carrier
+                || body[select] is not { Definition.Opcode: SelectValue, Operands: [_, var fallback, ..] }
+                || fallback.Value != label.Value)
+            {
+                return -1;
+            }
+
+            return check;
+        }
+
         internal bool TryGetExclusiveForwardTarget(
             int first,
             int second,
@@ -84,6 +104,63 @@ internal sealed partial class BeamModuleCompiler
         internal bool TryGetForwardLabel(int from, int label, out int target) =>
             labels.TryGetValue(label, out target) && target > from;
 
+        internal bool ReachesLinearFrameUnframed(int entry, int allocation)
+        {
+            if (entry >= allocation || body[entry].Definition.Opcode != Label)
+            {
+                return false;
+            }
+
+            // The frame body has no incoming labels. Check every predecessor
+            // of its allocation, even if other arms share or trim a frame.
+            var seen = new HashSet<int> { allocation };
+            var work = new Stack<int>();
+            work.Push(allocation);
+            while (work.TryPop(out int index))
+            {
+                if (index == entry)
+                {
+                    if (predecessors[index].Any(predecessor => predecessor >= entry))
+                    {
+                        return false;
+                    }
+
+                    continue;
+                }
+
+                if (predecessors[index].Count == 0)
+                {
+                    return false;
+                }
+
+                foreach (int predecessor in predecessors[index])
+                {
+                    if (predecessor < entry || predecessor >= index)
+                    {
+                        return false;
+                    }
+
+                    if (!seen.Add(predecessor))
+                    {
+                        continue;
+                    }
+
+                    BeamInstruction instruction = body[predecessor];
+                    byte opcode = instruction.Definition.Opcode;
+                    if (opcode is not (Label or Line or Move or GetTupleElement or GetList or GetHead or GetTail
+                            or Jump or SelectValue or SelectTupleArity) && !IsEntryFramePredicate(opcode)
+                        || instruction.Operands.Any(operand => operand.Kind == BeamOperandParameters.Y))
+                    {
+                        return false;
+                    }
+
+                    work.Push(predecessor);
+                }
+            }
+
+            return seen.Contains(entry);
+        }
+
         internal bool IsSingleForwardSelectionTarget(int target) =>
             predecessors[target] is [var source] && source < target
             && body[source].Definition.Opcode is (SelectValue or SelectTupleArity);
@@ -96,7 +173,11 @@ internal sealed partial class BeamModuleCompiler
             BeamOperand slot,
             int closedCatchEnter = -1,
             int closedCatchEnd = -1,
-            bool allowFramePredicates = false
+            bool allowFramePredicates = false,
+            bool requireClearedSlot = false,
+            bool allowOwnedCollectingWrite = false,
+            bool allowUnchangedTryEntry = false,
+            bool allowRegisterRecordUpdates = false
         )
         {
             var work = new Stack<(int Index, bool Initialized)>();
@@ -137,12 +218,31 @@ internal sealed partial class BeamModuleCompiler
                         case GetTupleElement:
                         case GetHead:
                         case GetTail:
-                            initialized |= SameProjectionRegister(instruction.Operands[^1], slot);
-                            break;
                         case GetList:
-                            initialized |= SameProjectionRegister(instruction.Operands[1], slot)
-                                || SameProjectionRegister(instruction.Operands[2], slot);
+                            bool writes = SameProjectionRegister(instruction.Operands[^1], slot)
+                                || instruction.Definition.Opcode == GetList && SameProjectionRegister(instruction.Operands[1], slot);
+                            if (writes && requireClearedSlot && !initialized)
+                            {
+                                return false;
+                            }
+
+                            initialized |= writes;
                             break;
+                        case GcBifTwo when allowOwnedCollectingWrite && instruction.Operands is
+                            [{ Value.IsZero: true }, _, _,
+                            { Kind: BeamOperandParameters.X }, { Kind: BeamOperandParameters.Integer },
+                            { Kind: BeamOperandParameters.X }]:
+                            // The unprotected collecting instruction does not define or clear a Y slot.
+                            break;
+                        case GcBifOne when allowOwnedCollectingWrite && instruction.Operands is
+                            [{ Value.IsZero: true }, { Value.IsZero: true }, _,
+                            { Kind: BeamOperandParameters.Y, TypeIndex: null } input, var result]
+                            && input == result:
+                            // The aliased operand must already be initialized. Reading
+                            // backwards still needs an earlier definition of the slot.
+                            break;
+                        case TryEnter when allowUnchangedTryEntry
+                            && !SameProjectionRegister(instruction.Operands[0], slot):
                         case CatchEnter when previous == closedCatchEnter
                             && !SameProjectionRegister(instruction.Operands[0], slot):
                         case CatchEnd when previous == closedCatchEnd
@@ -152,11 +252,21 @@ internal sealed partial class BeamModuleCompiler
                         case Label:
                         case Line:
                         case TestHeap:
-                        case PutTuple:
-                        case PutList:
                         case Jump:
                         case SelectValue:
                         case SelectTupleArity:
+                            break;
+                        case UpdateRecord when allowRegisterRecordUpdates
+                            && instruction.Operands[3].Kind == BeamOperandParameters.X:
+                            break;
+                        case PutTuple:
+                        case PutList:
+                            if (requireClearedSlot && !initialized
+                                && SameProjectionRegister(instruction.Operands[StackWriteOperand(instruction)], slot))
+                            {
+                                return false;
+                            }
+
                             break;
                         default:
                             if (!IsProjectionFlowTest(instruction.Definition.Opcode)
@@ -181,7 +291,8 @@ internal sealed partial class BeamModuleCompiler
             bool allowBadRecordExit = false,
             bool afterCall = false,
             int dictionaryLookupImport = -1,
-            bool allowEntryFramePredicates = false
+            bool allowEntryFramePredicates = false,
+            bool endsAtCatchSlotWrite = false
         )
         {
             var work = new Stack<(int Index, BeamOperand Slot, bool PassedCall)>();
@@ -266,6 +377,10 @@ internal sealed partial class BeamModuleCompiler
 
                         current = current with { Value = current.Value - removed };
                         break;
+                    case CatchEnter when endsAtCatchSlotWrite && passedCall
+                        && SameProjectionRegister(instruction.Operands[0], current):
+                        foundEnd = true;
+                        continue;
                     case BifOne when IsInfallibleDictionaryLookup(instruction, dictionaryLookupImport):
                         break;
                     case Jump:
@@ -309,6 +424,16 @@ internal sealed partial class BeamModuleCompiler
             successors[guard] is [int failure, int success] && success == guard + 1
                 && failure != success && IsTemporaryDead([failure], temporary, preserveHeapRoots);
 
+        internal bool IsFallthroughTemporaryDead(int index, BeamOperand register, bool trackUnprotectedBifs = false) =>
+            successors[index].Contains(index + 1)
+            && IsTemporaryDead(
+                [index + 1],
+                register,
+                preserveHeapRoots: true,
+                trackReceive: true,
+                trackUnprotectedBifs: trackUnprotectedBifs
+            );
+
         internal bool IsAllocationRootDead(int allocation, BeamOperand register) =>
             IsTemporaryDead(
                 successors[allocation],
@@ -321,7 +446,8 @@ internal sealed partial class BeamModuleCompiler
             IEnumerable<int> entries,
             BeamOperand temporary,
             bool preserveHeapRoots,
-            bool trackReceive = false
+            bool trackReceive = false,
+            bool trackUnprotectedBifs = false
         )
         {
             var visited = new HashSet<int>();
@@ -358,6 +484,8 @@ internal sealed partial class BeamModuleCompiler
                     continue;
                 }
 
+                bool unprotectedBif = trackUnprotectedBifs && opcode is (GcBifOne or GcBifTwo)
+                    && instruction.Operands[0].Value.IsZero;
                 int implicitInputs = opcode switch
                 {
                     LocalCall or ExternalCall or TailLocalCall or TailLocalCallWithFrame
@@ -366,6 +494,7 @@ internal sealed partial class BeamModuleCompiler
                     CallFun => (int)instruction.Operands[0].Value + 1,
                     Allocate or AllocateHeap or FunctionInfo => (int)instruction.Operands[^1].Value,
                     TestHeap when preserveHeapRoots => (int)instruction.Operands[^1].Value,
+                    GcBifOne or GcBifTwo when unprotectedBif => (int)instruction.Operands[1].Value,
                     Return => 1,
                     _ => 0
                 };
@@ -385,6 +514,7 @@ internal sealed partial class BeamModuleCompiler
                 {
                     Move or GetTupleElement or GetHead or GetTail or GetList or PutList or PutTuple =>
                         StackWriteOperand(instruction),
+                    GcBifOne or GcBifTwo when unprotectedBif => instruction.Operands.Count - 1,
                     _ => -1
                 };
                 bool overwritten = false;

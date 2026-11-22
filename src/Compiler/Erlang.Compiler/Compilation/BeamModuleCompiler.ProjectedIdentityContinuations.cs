@@ -15,7 +15,7 @@ internal sealed partial class BeamModuleCompiler
                 || !TryResolveOrdinaryCallTarget(call, out string? module) || module is not null
                 || call.Arguments.Any(argument => argument is not Expr.Variable))
             {
-                return false;
+                return TryEmitLiteralMapFieldTail(function);
             }
 
             int mapInput = -1;
@@ -78,6 +78,78 @@ internal sealed partial class BeamModuleCompiler
             EmitEntryCallArguments(tail);
             owner.Op(TailLocalCall, BeamWire.UnsignedTag, call.Arguments.Count);
             owner.Operand(LabelTag, entries[(call.Function, call.Arguments.Count)]);
+
+            return true;
+        }
+
+        private bool TryEmitLiteralMapFieldTail(FunctionDefinition function)
+        {
+            if (recursiveClosure is not null || owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled
+                || function.Arity >= FirstReservedXRegister || function.Clauses is not
+                [
+                {
+                    Guard: null, Body: Expr.Call { Module: not (null or ErlangModuleNames.Module) } call
+                } clause
+                ])
+            {
+                return false;
+            }
+
+            var parameters = new string[function.Arity];
+            int mapInput = -1;
+            Atom? key = null;
+            Atom? value = null;
+            for (int index = 0; index < parameters.Length; index++)
+            {
+                if (clause.Patterns[index] is Pattern.Variable parameter)
+                {
+                    parameters[index] = parameter.Name;
+                    continue;
+                }
+
+                if (mapInput >= 0 || clause.Patterns[index] is not AliasPattern alias
+                    || !TryReadPatternAlias(alias, out Pattern.Variable binding, out Pattern shape)
+                    || shape is not MapPattern
+                    {
+                        Fields:
+                        [
+                        { Key: Expr.Literal { Value: Atom field }, Value: Pattern.Literal { Value: Atom expected } }
+                        ]
+                    } || binding.Name == VariableScopeNames.Wildcard)
+                {
+                    return false;
+                }
+
+                mapInput = index;
+                parameters[index] = binding.Name;
+                key = field;
+                value = expected;
+            }
+
+            string[] named = parameters.Where(name => name != VariableScopeNames.Wildcard).ToArray();
+            if (mapInput < 0 || key is null || value is null
+                || named.Distinct(StringComparer.Ordinal).Count() != named.Length
+                || !call.Arguments.OfType<Expr.Variable>().Any(argument => argument.Name == parameters[mapInput])
+                || ReadEntryCall(call, parameters) is not { Module: { } module } tail)
+            {
+                return false;
+            }
+
+            int failure = owner.nextLabel - 2;
+            int destination = function.Arity;
+            EmitMapTest(mapInput, failure);
+            owner.Op(GetMapElements, LabelTag, failure);
+            owner.EmitTypedRegister(mapInput, MapTypeBits);
+            owner.instructions.WriteByte(ExtendedListOperand);
+            owner.Operand(BeamWire.UnsignedTag, 2);
+            owner.LiteralOperand(key);
+            owner.Operand(XRegisterTag, destination);
+            owner.EmitAtomTest(destination, value.Name, failure);
+
+            EmitEntryCallArguments(tail);
+            owner.EmitCallLine(call, location);
+            owner.Op(TailExternalCall, BeamWire.UnsignedTag, call.Arguments.Count);
+            owner.Operand(BeamWire.UnsignedTag, owner.Import(module, call.Function, call.Arguments.Count));
 
             return true;
         }

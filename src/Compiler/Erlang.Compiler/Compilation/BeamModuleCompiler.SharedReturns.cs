@@ -107,6 +107,15 @@ internal sealed partial class BeamModuleCompiler
         bool CanDiscardExternalTailFrame(BeamInstruction instruction) =>
             !IsTrappingTailBif(importsByIndex[(int)instruction.Operands[1].Value], atomNames);
 
+        bool IsColdMapErrorTail(BeamInstruction instruction)
+        {
+            var import = importsByIndex[(int)instruction.Operands[1].Value];
+
+            return import.Arity == 1 && instruction.Operands[0].Value.IsOne
+                && atomNames[import.Module - 1] == ErlangModuleNames.Module
+                && atomNames[import.Function - 1] == ErlangModuleNames.Error;
+        }
+
         bool IsNonCollectingBodyProjection(BeamInstruction instruction)
         {
             if (ModuleOptimizationDisabled || instruction.Operands.Count == 0
@@ -293,6 +302,13 @@ internal sealed partial class BeamModuleCompiler
                     importsByIndex
                 )
                 ?? StoreBifResultsDirectly(code, body)
+                ?? (!ModuleOptimizationDisabled && SsaTypeInferenceEnabled
+                    ? StoreArithmeticResultAcrossZeroFrame(
+                        code,
+                        body,
+                        instruction => IsLeafArithmeticGcBif(instruction, atomNames, importsByIndex)
+                    )
+                    : null)
                 ?? ConstructSendTupleInArgument(code, body)
                 ?? StoreConstructionResultsDirectly(code, body)
                 ?? ReuseReturningTupleRegister(code, body)
@@ -358,6 +374,8 @@ internal sealed partial class BeamModuleCompiler
                     importsByIndex
                 )
                 ?? RemoveProvenLocalRecordChecks(code, body, atomNames)
+                ?? (ModuleOptimizationDisabled || !SsaTypeInferenceEnabled
+                    ? null : RemoveRepeatedSavedRecordChecks(code, body))
                 ?? (shareReturns ? null : EliminateEntryArgumentCopies(
                     code,
                     body,
@@ -389,7 +407,8 @@ internal sealed partial class BeamModuleCompiler
                     afterCanonicalization: true,
                     isArithmetic: instruction => IsLeafArithmeticGcBif(instruction, atomNames, importsByIndex),
                     canDiscardExternalTailFrame: CanDiscardExternalTailFrame,
-                    isBodyProjection: IsNonCollectingBodyProjection
+                    isBodyProjection: IsNonCollectingBodyProjection,
+                    isColdMapErrorTail: !ModuleOptimizationDisabled && SsaTypeInferenceEnabled ? IsColdMapErrorTail : null
                 ))
                 // Moving a matched list prefix into X must not hide the original frame from leaf allocation.
                 ?? (shareReturns ? null : DelayEntryStackFrame(

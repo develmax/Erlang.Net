@@ -13,7 +13,7 @@ internal static class BeamExhaustiveLocalBooleanChecks
     private const string IncorrectSelector = "The local call must remain before its proven Boolean branch, with unmatched outcomes preserved.";
     private const string Source = """
         -module(local_boolean_call_probe).
-        -export([route/1, guarded/2, raw/1]).
+        -export([route/1, guarded/2, raw/1, bound/2, bound_raw/2, bound_input/2]).
         -record(row,{method,data}).
 
         route(Row) ->
@@ -58,6 +58,36 @@ internal static class BeamExhaustiveLocalBooleanChecks
                 _ -> false
             end.
 
+        bound([],Key) -> {none,Key};
+        bound(Data,Key) ->
+            Verdict = negated(Data),
+            Value = case Verdict of
+                true -> {accepted,Data};
+                false -> {refused,Data}
+            end,
+            {Key,Value}.
+
+        bound_raw(Data,Key) ->
+            Verdict = opaque(Data),
+            Value = case Verdict of
+                true -> {accepted,Data};
+                false -> {refused,Data}
+            end,
+            {Key,Value}.
+
+        bound_input(Verdict,Data) ->
+            Verdict = negated(Data),
+            Value = case Verdict of
+                true -> {accepted,Data};
+                false -> {refused,Data}
+            end,
+            {Data,Value}.
+
+        negated([[Head|_]|_]) ->
+            not is_integer(Head);
+        negated(Data) when is_list(Data) ->
+            false.
+
         opaque(Term) ->
             erlang:put(last_key,Term),
             Term.
@@ -74,7 +104,12 @@ internal static class BeamExhaustiveLocalBooleanChecks
             || !route.Skip(called + 1).Any(TestsTrue)
             || route.Any(instruction => Opcode(instruction) is SelectValue or CaseEnd)
             || !Body("guarded").Any(instruction => Opcode(instruction) == CaseEnd)
-            || !Body("raw").Any(instruction => Opcode(instruction) == CaseEnd))
+            || !Body("raw").Any(instruction => Opcode(instruction) == CaseEnd)
+            || Body("bound").Count(instruction => Opcode(instruction) == LocalCall) != 1
+            || !Body("bound").Any(TestsTrue)
+            || Body("bound").Any(instruction => Opcode(instruction) == CaseEnd)
+            || !Body("bound_raw").Any(instruction => Opcode(instruction) == CaseEnd)
+            || !Body("bound_input").Any(instruction => Opcode(instruction) == BadMatch))
         {
             throw new InvalidOperationException(IncorrectSelector);
         }

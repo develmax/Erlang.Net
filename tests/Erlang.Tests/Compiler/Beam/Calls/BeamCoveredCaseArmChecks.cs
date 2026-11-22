@@ -11,11 +11,15 @@ internal static class BeamCoveredCaseArmChecks
     private const string Guard = "guard_detail";
     private const string Effect = "effect_detail";
     private const string Order = "order_detail";
+    private const string LocalTail = "ordinary-header";
+    private const string GuardedTail = "guarded-header";
+    private const string OverlappingTail = "overlap-header";
+    private const string EffectfulTail = "effectful-header";
 
     private const string Source = """
         -module(beam_covered_case_arm).
         -record(saved, {file, handle, cont}).
-        -export([open/1, binding/1, guarded/1, effect/1, ordered/1]).
+        -export([open/1, binding/1, guarded/1, effect/1, ordered/1, collect/3, guarded_tail/3, overlap_tail/3, effect_tail/3]).
 
         open(Filename) ->
             File = Filename,
@@ -54,6 +58,36 @@ internal static class BeamCoveredCaseArmChecks
                 {repaired, Field, _, {_, 0}} -> {special, Field};
                 {repaired, Field, _, _} -> {ok, Field}
             end.
+
+        collect([], Acc, _Accepted) -> Acc;
+        collect([{Key, Value} | Rest], Acc, Accepted) ->
+            case Key of
+                "ordinary-header" -> collect(Rest, [{Key, Value} | Acc], Accepted);
+                "ignored-header" -> collect(Rest, Acc, Accepted);
+                _ -> collect(Rest, [{Key, Value} | Acc], Accepted)
+            end.
+
+        guarded_tail([], Acc, _Accepted) -> Acc;
+        guarded_tail([{Key, Value} | Rest], Acc, Accepted) ->
+            case Key of
+                "guarded-header" when Accepted -> guarded_tail(Rest, [{Key, Value} | Acc], Accepted);
+                _ when is_atom(Key) -> guarded_tail(Rest, [{Key, Value} | Acc], Accepted)
+            end.
+
+        overlap_tail([], Acc, Accepted) -> {Acc, Accepted};
+        overlap_tail([{Key, Value} | Rest], Acc, Accepted) ->
+            case Key of
+                "overlap-header" -> overlap_tail(Rest, [{Key, Value} | Acc], Accepted);
+                [$o | _] -> overlap_tail(Rest, Acc, Accepted);
+                _ -> overlap_tail(Rest, [{Key, Value} | Acc], Accepted)
+            end.
+
+        effect_tail([], Acc, Accepted) -> {Acc, Accepted};
+        effect_tail([{Key, Value} | Rest], Acc, Accepted) ->
+            case Key of
+                "effectful-header" -> effect_tail(Rest, [provider:finish(Value) | Acc], Accepted);
+                _ -> effect_tail(Rest, [provider:finish(Value) | Acc], Accepted)
+            end.
         """;
 
     internal static Task Run()
@@ -64,6 +98,10 @@ internal static class BeamCoveredCaseArmChecks
         CheckRemoval(original, Guard, equivalent: false);
         CheckRemoval(original, Effect, equivalent: false);
         CheckRemoval(original, Order, equivalent: false);
+        CheckRemoval(original, LocalTail, equivalent: true);
+        CheckRemoval(original, GuardedTail, equivalent: false);
+        CheckRemoval(original, OverlappingTail, equivalent: false);
+        CheckRemoval(original, EffectfulTail, equivalent: false);
 
         return Task.CompletedTask;
     }

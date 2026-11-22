@@ -12,7 +12,9 @@ internal sealed partial class BeamModuleCompiler
     private (ReadOnlyMemory<byte> Code, int LabelCount)? OrderFinalPhysicalLabelsCore(
         ReadOnlyMemory<byte> code,
         int labelCount,
-        bool formMultiKeySelections
+        bool formMultiKeySelections,
+        bool relocateOnly = false,
+        bool shareAdjacentCopyReturns = false
     )
     {
         var references = new List<(int Start, int End, int Label)>();
@@ -38,14 +40,14 @@ internal sealed partial class BeamModuleCompiler
             return null;
         }
 
-        if (formMultiKeySelections && !ModuleOptimizationDisabled && SsaTypeInferenceEnabled
+        if (!relocateOnly && formMultiKeySelections && !ModuleOptimizationDisabled && SsaTypeInferenceEnabled
             && ShareGuardedLocalTails(code, body, references) is { } guardedTails)
         {
             return OrderFinalPhysicalLabelsCore(guardedTails, labelCount, formMultiKeySelections: true)
                 ?? (guardedTails, labelCount);
         }
 
-        if (formMultiKeySelections && !ModuleOptimizationDisabled && SsaTypeInferenceEnabled
+        if (!relocateOnly && formMultiKeySelections && !ModuleOptimizationDisabled && SsaTypeInferenceEnabled
             && CombineAtomMembershipTests(
                 code,
                 body,
@@ -58,14 +60,14 @@ internal sealed partial class BeamModuleCompiler
                 ?? (selected, labelCount);
         }
 
-        if (!ModuleOptimizationDisabled && SsaTypeInferenceEnabled
+        if (!relocateOnly && !ModuleOptimizationDisabled && SsaTypeInferenceEnabled
             && ClearOverwrittenOutgoingRoots(code, body) is { } initialized)
         {
             return OrderFinalPhysicalLabelsCore(initialized, labelCount, formMultiKeySelections: false)
                 ?? (initialized, labelCount);
         }
 
-        if (!ModuleOptimizationDisabled && SsaTypeInferenceEnabled
+        if (!relocateOnly && !ModuleOptimizationDisabled && SsaTypeInferenceEnabled
             && (PartitionClosedAtomTupleReturns(code, body, references)
                 ?? PartitionDeferredTupleReturns(code, body, references)) is { } partitioned)
         {
@@ -73,8 +75,15 @@ internal sealed partial class BeamModuleCompiler
                 ?? (partitioned, labelCount);
         }
 
+        if (!relocateOnly && !ModuleOptimizationDisabled && SsaTypeInferenceEnabled
+            && KeepSavedChoiceInFrame(code, body, references) is { } savedChoices)
+        {
+            return OrderFinalPhysicalLabelsCore(savedChoices, labelCount, formMultiKeySelections)
+                ?? (savedChoices, labelCount);
+        }
+
         var sharedFrameEntries = new HashSet<int>();
-        if (!ModuleOptimizationDisabled && SsaTypeInferenceEnabled
+        if (!relocateOnly && !ModuleOptimizationDisabled && SsaTypeInferenceEnabled
             && ShareFinalFrameReturns(
                 code,
                 body,
@@ -89,14 +98,14 @@ internal sealed partial class BeamModuleCompiler
                 ?? shared;
         }
 
-        if (!ModuleOptimizationDisabled && SsaTypeInferenceEnabled
+        if (!relocateOnly && !ModuleOptimizationDisabled && SsaTypeInferenceEnabled
             && ShareProjectedConstructionTails(code, body) is { } constructionTails)
         {
             return OrderFinalPhysicalLabelsCore(constructionTails, labelCount, formMultiKeySelections: false)
                 ?? (constructionTails, labelCount);
         }
 
-        if (!ModuleOptimizationDisabled && SsaTypeInferenceEnabled
+        if (!relocateOnly && !ModuleOptimizationDisabled && SsaTypeInferenceEnabled
             && ShareStackCopyTails(
                 code,
                 body,
@@ -110,15 +119,21 @@ internal sealed partial class BeamModuleCompiler
 
         // Entry literal partitioning may consume a failure relay to build its select.
         // Resolve the remaining own-function relays after the branch layout is final.
-        var relays = ModuleOptimizationDisabled ? [] : CollectFinalFunctionFailureRelays(code, body);
-        if (!ModuleOptimizationDisabled && SsaTypeInferenceEnabled)
+        var relays = relocateOnly || ModuleOptimizationDisabled ? [] : CollectFinalFunctionFailureRelays(code, body);
+        if (!relocateOnly && !ModuleOptimizationDisabled && SsaTypeInferenceEnabled)
         {
             CollectClosedSelectReturnRelays(body, references, relays);
+            CollectClosedCatchArityReturnRelays(body, references, relays);
+        }
+
+        if (shareAdjacentCopyReturns && !ModuleOptimizationDisabled && SsaTypeInferenceEnabled)
+        {
+            CollectAdjacentCopyReturnRelays(body, relays);
         }
 
         var labels = new int[labelCount];
         var edits = new List<CodeEdit>();
-        if (!ModuleOptimizationDisabled)
+        if (!relocateOnly && !ModuleOptimizationDisabled)
         {
             CollectExactRegisterEdits(body, edits);
             CollectRedundantRecordChecks(
@@ -185,7 +200,7 @@ internal sealed partial class BeamModuleCompiler
             return null;
         }
 
-        if (!ModuleOptimizationDisabled)
+        if (!relocateOnly && !ModuleOptimizationDisabled)
         {
             CollectDirectConstructionDestinationEdits(
                 code,
@@ -213,6 +228,15 @@ internal sealed partial class BeamModuleCompiler
             labels,
             edits
         );
+        ComposeEmittedPhysicalLabels(labels);
+
+        return (ordered, physical);
+
+        bool IsDefined(int label) => label > 0 && label < labels.Length && labels[label] > 0;
+    }
+
+    private void ComposeEmittedPhysicalLabels(int[] labels)
+    {
         if (emittedLabels is null)
         {
             emittedLabels = labels;
@@ -224,10 +248,6 @@ internal sealed partial class BeamModuleCompiler
                 emittedLabels[label] = labels[emittedLabels[label]];
             }
         }
-
-        return (ordered, physical);
-
-        bool IsDefined(int label) => label > 0 && label < labels.Length && labels[label] > 0;
     }
 
     private static Dictionary<int, (int Target, int End)> CollectFinalFunctionFailureRelays(

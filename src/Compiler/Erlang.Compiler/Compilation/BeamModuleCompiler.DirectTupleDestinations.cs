@@ -24,7 +24,12 @@ internal sealed partial class BeamModuleCompiler
                     Operands: [var source, { Kind: BeamOperandParameters.X, TypeIndex: null } destination]
                 }
                 || source != temporary || destination == temporary
-                || !DiscardsCopiedConstructionTemporary(body, index + 2, temporary))
+                || !DiscardsCopiedConstructionTemporary(
+                    body,
+                    index + 2,
+                    temporary,
+                    immediateTupleMayReplace: opcode == PutList
+                ))
             {
                 continue;
             }
@@ -59,7 +64,8 @@ internal sealed partial class BeamModuleCompiler
     private static bool DiscardsCopiedConstructionTemporary(
         IReadOnlyList<BeamInstruction> body,
         int start,
-        BeamOperand temporary
+        BeamOperand temporary,
+        bool immediateTupleMayReplace = false
     )
     {
         for (int index = start; index < body.Count; index++)
@@ -69,6 +75,11 @@ internal sealed partial class BeamModuleCompiler
             {
                 case Line:
                     continue;
+                case PutTuple when immediateTupleMayReplace && index == start:
+                    // The replacement tuple reads all fields before it overwrites
+                    // the temporary. None may read the old cons, even through a type annotation.
+                    return SameProjectionRegister(instruction.Operands[0], temporary)
+                        && !instruction.Operands.Skip(2).Any(operand => SameProjectionRegister(operand, temporary));
                 case Move:
                     if (SameProjectionRegister(instruction.Operands[0], temporary))
                     {

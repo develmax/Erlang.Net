@@ -14,7 +14,8 @@ internal static class BeamEntryMatchedMapUpdateChecks
 
     internal const string Source = """
         -module(beam_entry_matched_map_update_probe).
-        -export([forward/1, matched/2, dynamic/2, exact/2, remember/1]).
+        -export([forward/1, matched/2, dynamic/2, exact/2, remember/1, constructed/2, branch/3,
+                 joined/3, uncertain/3]).
 
         forward(Value) -> after_map(Value).
 
@@ -32,6 +33,37 @@ internal static class BeamEntryMatchedMapUpdateChecks
         exact(#{ready := Old} = State, Value) ->
             ?MODULE:remember(Old),
             State#{missing := Value}.
+
+        constructed(Value, Flag) ->
+            State = #{ready => Value},
+            case Flag of
+                keep -> State;
+                update -> State#{ready => {updated,Value}}
+            end.
+
+        branch(State, Value, Which) ->
+            case Which of
+                fresh ->
+                    Built = #{ready => Value},
+                    Built#{ready => 1};
+                unknown -> State#{ready => Value}
+            end.
+
+        joined(Which, Value, Extra) ->
+            Seed = #{ready => Value},
+            Result = case Which of
+                keep -> Seed;
+                _ -> Seed#{updated => Value}
+            end,
+            Result#{next => ?MODULE:remember(Extra)}.
+
+        uncertain(Which, Value, Unknown) ->
+            Seed = #{ready => Value},
+            Result = case Which of
+                keep -> Seed;
+                _ -> Unknown
+            end,
+            Result#{next => ?MODULE:remember(Value)}.
 
         remember(Value) -> self() ! {effect,Value}, Value.
 
@@ -51,6 +83,10 @@ internal static class BeamEntryMatchedMapUpdateChecks
         if (update is null || !Equals(Property(Items(update, "Operands").ElementAt(1), "Kind"), "y")
             || matched.Count(instruction => Opcode(instruction) == IsMap) != 1
             || !dynamic.Any(instruction => Opcode(instruction) == IsMap)
+            || FunctionInstructions("constructed").Any(instruction => Opcode(instruction) == IsMap)
+            || FunctionInstructions("branch").Count(instruction => Opcode(instruction) == IsMap) != 1
+            || FunctionInstructions("joined").Any(instruction => Opcode(instruction) == IsMap)
+            || FunctionInstructions("uncertain").Count(instruction => Opcode(instruction) == IsMap) != 1
             || !CallsForwardEntry())
         {
             throw new InvalidOperationException(UnexpectedMapPlan);

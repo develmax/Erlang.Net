@@ -13,7 +13,7 @@ internal static class BeamDominatingHelperConstantChecks
 
     private const string Source = """
         -module(beam_dominating_helper_constants).
-        -export([lookup/1, events/0, invoke_closure/2, invoke_shadow/2, invoke_repeated/3, checked/2, shadow_generator/0]).
+        -export([lookup/1, events/0, invoke_closure/2, invoke_shadow/2, invoke_repeated/3, checked/2, shadow_generator/0, sibling_constants/1]).
         -record(row, {name, count}).
         lookup(Rows) ->
             Fields = record_info(fields, row),
@@ -53,6 +53,17 @@ internal static class BeamDominatingHelperConstantChecks
         checked(Expected, Rows) ->
             Expected = fixed,
             [decorate(Expected, Item) || Item <- Rows].
+        sibling_constants(Caller) ->
+            Base = [read],
+            [A, B] = [remember_item(first, V) || V <- [one, two]],
+            Options = [public | Base],
+            [C, D] = [remember_item(Options, V) || V <- [three, four]],
+            [E, F] = [remember_item(Caller, V) || V <- [five, six]],
+            {A, B, C, D, E, F}.
+        remember_item(Tag, Item) ->
+            Value = {Tag, Item},
+            remember(Value),
+            Value.
         shadow_generator() ->
             Source = [one,two],
             [Source || Source <- Source, is_atom(Source)].
@@ -63,7 +74,10 @@ internal static class BeamDominatingHelperConstantChecks
         byte[] beam = CodeGeneration.CompileBeamModule(Source, Fixture);
         var helpers = ((IEnumerable)Property(Code(beam), "Functions")).Cast<object>()
             .Select(function => ((string)Property(function, "Name"), (int)Property(function, "Arity"))).ToHashSet();
-        if (!helpers.Contains(("-lookup/1-lc$^0/1-0-", 1)) || !helpers.Contains(("-closure/1-fun-0-", 2)))
+        if (!helpers.Contains(("-lookup/1-lc$^0/1-0-", 1)) || !helpers.Contains(("-closure/1-fun-0-", 2))
+            || !helpers.Contains(("-sibling_constants/1-lc$^0/1-0-", 1))
+            || !helpers.Contains(("-sibling_constants/1-lc$^1/1-1-", 1))
+            || !helpers.Contains(("-sibling_constants/1-lc$^2/1-2-", 2)))
         {
             throw new InvalidOperationException(WrongArity);
         }
@@ -133,6 +147,38 @@ internal static class BeamDominatingHelperConstantChecks
                     fixedValue,
                     Term.List(item)
                 )
+            );
+
+            Term options = Term.List(Term.A("public"), Term.A("read"));
+            Term first = Term.Tuple(Term.A("first"), Term.A("one"));
+            Term second = Term.Tuple(Term.A("first"), Term.A("two"));
+            Term third = Term.Tuple(options, Term.A("three"));
+            Term fourth = Term.Tuple(options, Term.A("four"));
+            Term fifth = Term.Tuple(outer, Term.A("five"));
+            Term sixth = Term.Tuple(outer, Term.A("six"));
+            Require(
+                Term.Tuple(
+                    first,
+                    second,
+                    third,
+                    fourth,
+                    fifth,
+                    sixth
+                ),
+                await module.Invoke(context, "sibling_constants", outer)
+            );
+            Require(
+                Term.List(
+                    sixth,
+                    fifth,
+                    fourth,
+                    third,
+                    second,
+                    first,
+                    Term.A("closure"),
+                    Term.A("lookup")
+                ),
+                await module.Invoke(context, "events")
             );
 
             try

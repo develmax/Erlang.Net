@@ -4,12 +4,17 @@ internal sealed partial class BeamModuleCompiler
 {
     private sealed partial class GeneralEmitter
     {
-        private bool HasFixedTupleCallResult(Expr.Call root, int arity)
+        private bool HasFixedTupleCallResult(Expr.Call root, int arity) => HasFixedTupleResult([root], arity);
+
+        internal bool HasFixedTupleResult(FunctionDefinition definition, int arity) =>
+            !owner.IsDeclaredNative((definition.Name, definition.Arity))
+            && HasFixedTupleResult(definition.Clauses.Select(clause => clause.Body), arity);
+
+        private bool HasFixedTupleResult(IEnumerable<Expr> roots, int arity)
         {
             var visited = new HashSet<(string Name, int Arity)>();
-            var pending = new Stack<Expr>();
+            var pending = new Stack<Expr>(roots);
             bool hasTuple = false;
-            pending.Push(root);
             while (pending.TryPop(out Expr? expression))
             {
                 switch (expression)

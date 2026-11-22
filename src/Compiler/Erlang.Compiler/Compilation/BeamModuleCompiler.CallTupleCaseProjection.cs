@@ -136,7 +136,18 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
-            if (paths.Count == 0 || fallbackAtom is not null && paths.Count != 1 || (tupleReturn is not null || tupleTail is not null) && fallbackAtom is null)
+            // A constant catch-all need not recover the producer value after projection.
+            bool closedCheckedPair = fallback is Atom && CanUseEntryTypeFacts()
+                && tupleReturn is { Tuple.Items: [Expr.Literal { Value: Atom }, Expr.Variable] }
+                && paths is
+                [
+                    [
+                    { Arity: 2, Field: 1, Tag: not null, Checks: [] },
+                    { Arity: 2, Field: 1, Tag: null, Checks: [{ Field: 0 }] }
+                    ]
+                ];
+            if (paths.Count == 0 || fallbackAtom is not null && paths.Count != 1
+                || (tupleReturn is not null || tupleTail is not null) && fallbackAtom is null && !closedCheckedPair)
             {
                 return false;
             }

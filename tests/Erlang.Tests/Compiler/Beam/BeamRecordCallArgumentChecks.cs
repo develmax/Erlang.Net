@@ -43,8 +43,72 @@ internal static class BeamRecordCallArgumentChecks
         }
 
         CheckUpdateProjection();
+        CheckListResultField(update);
+        CheckClosedMapperResult();
 
         return Task.CompletedTask;
+    }
+
+    private static void CheckClosedMapperResult()
+    {
+        var compiler = new BeamModuleCompiler("closed_mapper_record_probe");
+        var mapper = (FunctionDefinition)Call(
+            typeof(BeamModuleCompiler),
+            "BuildClosedMapping",
+            "closed",
+            new Pattern.Variable("Element"),
+            new Expr.Variable("Element"),
+            null
+        );
+        var entries = new Dictionary<(string Name, int Arity), int> { [("closed", 1)] = 2, [("open", 1)] = 4 };
+        var results = (HashSet<int>)Call(
+            compiler,
+            "ReadNilTerminatedMapperEntries",
+            new FunctionDefinition[] { mapper, mapper with { Name = "open", HasNilTerminatedMapperResult = false } },
+            entries
+        );
+        if (!results.SetEquals([2]))
+        {
+            throw new InvalidOperationException(WrongProjection);
+        }
+    }
+
+    private static void CheckListResultField(byte[] update)
+    {
+        var compiler = new BeamModuleCompiler("list_record_operand_probe");
+        _ = Call(compiler, "Intern", "reuse");
+        const int callee = 2;
+        int listType = (int)typeof(BeamModuleCompiler)
+            .GetField("ProperListTypeBits", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)!
+            .GetRawConstantValue()!;
+        var resultTypes = new Dictionary<int, int> { [callee] = listType };
+        const byte target = 0x25;
+        byte[] typed = [.. update[..^1], ExtendedTypedRegisterOperand, X0, One];
+        byte[] original = [Label, One, LocalCall, One, target, TestHeap, Two, One, .. update, Return, Label, Two, Return, EndCode];
+        byte[] expected = [Label, One, LocalCall, One, target, TestHeap, Two, One, .. typed, Return, Label, Two, Return, EndCode];
+        byte[] overwritten =
+        [
+            Label, One, LocalCall, One, target, TestHeap, Two, One, Move, Y1, X0,
+            .. update, Return, Label, Two, Return, EndCode
+        ];
+        if (Annotate(original) is not { } result || !result.AsSpan().SequenceEqual(expected)
+            || Annotate(overwritten) is not null || Annotate(result) is not null
+            || Annotate(original, recordOnly: true) is not { } fromMapper || !fromMapper.AsSpan().SequenceEqual(expected)
+            || Annotate([Label, One, LocalCall, One, target, IsNil, target, X0, Return, Label, Two, Return, EndCode],
+                recordOnly: true) is not null)
+        {
+            throw new InvalidOperationException(WrongProjection);
+        }
+
+        byte[]? Annotate(byte[] code, bool recordOnly = false) => (byte[]?)Call(
+            compiler,
+            "AnnotateListProducerResults",
+            new ReadOnlyMemory<byte>(code),
+            3,
+            recordOnly ? new Dictionary<int, int>() : resultTypes,
+            null,
+            recordOnly ? new HashSet<int> { callee } : null
+        );
     }
 
     private static void CheckUpdateProjection()

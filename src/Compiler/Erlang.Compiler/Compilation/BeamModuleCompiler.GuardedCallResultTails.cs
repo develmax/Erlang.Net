@@ -259,7 +259,8 @@ internal sealed partial class BeamModuleCompiler
             int index,
             Term marker,
             Term fallbackValue,
-            int rejected
+            int rejected,
+            int elementRegister = 3
         )
         {
             int failed = Label();
@@ -295,8 +296,8 @@ internal sealed partial class BeamModuleCompiler
             );
             owner.Operand(BeamWire.IntegerTag, index);
             owner.EmitTypedRegister(0, TupleTypeBits);
-            owner.Operand(XRegisterTag, 3);
-            EmitComparison(3, marker, 3);
+            owner.Operand(XRegisterTag, elementRegister);
+            EmitComparison(elementRegister, marker, elementRegister);
             EmitBif(
                 BifTwo,
                 ErlangOperators.And,
@@ -304,13 +305,13 @@ internal sealed partial class BeamModuleCompiler
                 0
             );
             owner.EmitTypedRegister(1, AtomTypeBits);
-            owner.EmitTypedRegister(3, AtomTypeBits);
+            owner.EmitTypedRegister(elementRegister, AtomTypeBits);
             owner.Operand(XRegisterTag, 1);
             JumpTo(join);
             Mark(failed);
             owner.EmitConstant(Term.A("false"), 1);
             Mark(join);
-            EmitComparison(0, fallbackValue, 3);
+            EmitComparison(0, fallbackValue, elementRegister);
             EmitGuardedResultEquality(
                 1,
                 Term.A("false"),
@@ -318,7 +319,7 @@ internal sealed partial class BeamModuleCompiler
                 boolean: true
             );
             EmitGuardedResultEquality(
-                3,
+                elementRegister,
                 Term.A("true"),
                 rejected,
                 boolean: true

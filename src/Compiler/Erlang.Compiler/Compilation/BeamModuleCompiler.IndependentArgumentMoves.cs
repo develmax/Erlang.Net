@@ -4,6 +4,131 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
+    private byte[]? ScheduleBoundedTailCounter(ReadOnlyMemory<byte> code, int labelCount)
+    {
+        if (ModuleOptimizationDisabled || !SsaTypeInferenceEnabled || !code.Span.Contains(GcBifTwo)
+            || !atoms.TryGetValue(ErlangModuleNames.Module, out int erlangAtom)
+            || !atoms.TryGetValue(ErlangOperators.Plus, out int plusAtom)
+            || !imports.TryGetValue((erlangAtom, plusAtom, 2), out int addition)
+            || DecodeLateAtomicProjectionSlots(code, labelCount) is not { Body: var body })
+        {
+            return null;
+        }
+
+        BeamOperand x0 = new(BeamOperandParameters.X, 0);
+        using var output = new MemoryStream(code.Length);
+        int copied = 0;
+        int entry = -1;
+        for (int call = 0; call < body.Count; call++)
+        {
+            if (body[call].Definition.Opcode == FunctionInfo)
+            {
+                entry = call + 1;
+                continue;
+            }
+
+            if (entry < 0 || body[entry] is not { Definition.Opcode: Label, Operands: [var function] }
+                || body[call] is not
+                {
+                    Definition.Opcode: TailLocalCallWithFrame,
+                    Operands: [var arity, var target, var width]
+                }
+                || target.Value != function.Value || arity.Value < 3
+                || arity.Value > BeamOperandParameters.MaximumRegister || width.Value != arity.Value - 1)
+            {
+                continue;
+            }
+
+            int count = (int)arity.Value;
+            int start = call - count - 1;
+            var destination = new BeamOperand(BeamOperandParameters.X, count - 1);
+            if (start <= entry || body[start] is not
+                {
+                    Definition.Opcode: GcBifTwo,
+                    Operands:
+                    [
+                    { Kind: BeamOperandParameters.Failure, Value.IsZero: true },
+                    { Value.IsZero: true },
+                        var operation,
+                    { Kind: BeamOperandParameters.Y, TypeIndex: int type } counter,
+                    { Kind: BeamOperandParameters.Integer, Value.IsOne: true },
+                        var result
+                    ]
+                }
+                || operation.Value != addition || result != x0 || type < 0 || type >= typeBits.Count
+                || typeBits[type] is not (IntegerTypeBits, long _, long _, null)
+                || !IsMove(body[start + 1], x0, destination))
+            {
+                continue;
+            }
+
+            var byDestination = new int[count - 1];
+            Array.Fill(byDestination, -1);
+            var reads = new HashSet<int> { (int)counter.Value };
+            int literalCount = 0;
+            for (int index = start + 2; index < call; index++)
+            {
+                if (body[index] is not
+                    {
+                        Definition.Opcode: Move,
+                        Operands: [var input, { Kind: BeamOperandParameters.X, TypeIndex: null } argument]
+                    }
+                    || argument.Value >= count - 1 || byDestination[(int)argument.Value] >= 0)
+                {
+                    break;
+                }
+
+                if (input is { Kind: BeamOperandParameters.Y, TypeIndex: null } && input.Value < width.Value
+                    && reads.Add((int)input.Value))
+                {
+                    byDestination[(int)argument.Value] = index;
+                }
+                else if (input is { Kind: BeamOperandParameters.Atom, TypeIndex: null } && literalCount == 0)
+                {
+                    byDestination[(int)argument.Value] = index;
+                    literalCount++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            if (counter.Value >= width.Value || literalCount != 1 || byDestination.Contains(-1))
+            {
+                continue;
+            }
+
+            // The collecting BIF reads the old frame with an empty X prefix.
+            // Its result is the final tail argument, and no sibling copy reads X.
+            int oldDestination = body[start + 1].Offset - 1;
+            if (code.Span[oldDestination] != XRegisterTag)
+            {
+                continue;
+            }
+
+            int[] order = IndependentCallMoveOrder(count - 1).Select(index => byDestination[index]).ToArray();
+            SortOutgoingStackLoads(body, order);
+            output.Write(code.Span[copied..oldDestination]);
+            WriteRegister(output, destination);
+            foreach (int index in order)
+            {
+                output.Write(code.Span[body[index].Offset..body[index + 1].Offset]);
+            }
+
+            copied = body[call].Offset;
+        }
+
+        if (copied == 0)
+        {
+            return null;
+        }
+
+        output.Write(code.Span[copied..]);
+
+        return output.ToArray();
+    }
+
     private static byte[]? OrderIndependentStackStores(ReadOnlyMemory<byte> code, IReadOnlyList<BeamInstruction> body)
     {
         using var output = new MemoryStream();
@@ -88,6 +213,96 @@ internal sealed partial class BeamModuleCompiler
         );
     }
 
+    private byte[]? OrderDictionaryListArguments(ReadOnlyMemory<byte> code, int labelCount)
+    {
+        if (ModuleOptimizationDisabled || !SsaTypeInferenceEnabled || !code.Span.Contains(BifOne) || !code.Span.Contains(PutList)
+            || !atoms.TryGetValue(ErlangModuleNames.Module, out int erlang)
+            || !atoms.TryGetValue(AutoImportNames.Get, out int get)
+            || !imports.TryGetValue((erlang, get, 1), out int import)
+            || DecodeLateAtomicProjectionSlots(code, labelCount) is not { } decoded)
+        {
+            return null;
+        }
+
+        return OrderIndependentCallArguments(
+            code,
+            decoded.Body,
+            completeTrimsOnly: false,
+            dictionaryLookupImport: emittedImports?[import] ?? import
+        );
+    }
+
+    private static int[]? ReadDictionaryListArgumentOrder(
+        IReadOnlyList<BeamInstruction> body,
+        int end,
+        int arity,
+        int lookupImport
+    )
+    {
+        if (arity < 4 || arity >= FirstReservedXRegister)
+        {
+            return null;
+        }
+
+        int count = arity - 2;
+        int start = end - count;
+        int constructor = start - 1;
+        if (constructor < 1 || body[constructor] is not
+            {
+                Definition.Opcode: PutList,
+                Operands: [_, _, { Kind: BeamOperandParameters.X, TypeIndex: null } list]
+            } || list.Value <= 0 || list.Value >= arity)
+        {
+            return null;
+        }
+
+        var byDestination = new Dictionary<int, int>();
+        for (int index = start; index < end; index++)
+        {
+            if (body[index] is not
+                {
+                    Definition.Opcode: Move,
+                    Operands:
+                    [
+                    {
+                        Kind: BeamOperandParameters.Atom or BeamOperandParameters.Nil or BeamOperandParameters.Integer
+                            or BeamOperandParameters.LiteralValue, TypeIndex: null
+                    },
+                    { Kind: BeamOperandParameters.X, TypeIndex: null } destination
+                    ]
+                } || destination.Value <= 0 || destination.Value >= arity || destination == list
+                || !byDestination.TryAdd((int)destination.Value, index))
+            {
+                return null;
+            }
+        }
+
+        int producer = constructor;
+        for (; producer >= 0 && body[producer].Definition.Opcode == PutList; producer--)
+        {
+            if (body[producer].Operands[^1] is { Kind: BeamOperandParameters.X, Value.IsZero: true })
+            {
+                return null;
+            }
+        }
+
+        if (producer > 0 && body[producer] is { Definition.Opcode: TestHeap, Operands: [_, { Value.IsOne: true }] })
+        {
+            producer--;
+        }
+
+        if (producer < 0 || !IsInfallibleDictionaryLookup(body[producer], lookupImport))
+        {
+            return null;
+        }
+
+        // The lookup already owns X0, and the final cons owns one other
+        // argument. setup_args omits identity copies before order_moves.
+        int[] present = byDestination.OrderBy(entry => entry.Key).Select(entry => entry.Value).ToArray();
+
+        return IndependentCallMoveOrder(count).Select(index => present[index]).ToArray();
+    }
+
     private static byte[]? OrderIndependentCallArguments(ReadOnlyMemory<byte> code, IReadOnlyList<BeamInstruction> body) =>
         OrderIndependentCallArguments(code, body, completeTrimsOnly: false);
 
@@ -95,7 +310,8 @@ internal sealed partial class BeamModuleCompiler
         ReadOnlyMemory<byte> code,
         IReadOnlyList<BeamInstruction> body,
         bool completeTrimsOnly,
-        bool splitStackOnly = false
+        bool splitStackOnly = false,
+        int dictionaryLookupImport = -1
     )
     {
         using var output = new MemoryStream();
@@ -121,10 +337,41 @@ internal sealed partial class BeamModuleCompiler
             }
 
             int arity = (int)body[call].Operands[0].Value + extraArguments;
+            if (dictionaryLookupImport >= 0)
+            {
+                if (body[call].Definition.Opcode == ExternalCall && call - end <= 1
+                    && ReadDictionaryListArgumentOrder(
+                        body,
+                        end,
+                        arity,
+                        dictionaryLookupImport
+                    ) is { } dictionaryOrder)
+                {
+                    WriteMoves(end - dictionaryOrder.Length, end, dictionaryOrder);
+                }
+
+                continue;
+            }
+
+
+            if (!completeTrimsOnly && extraArguments == 0 && arity == 3
+                && end >= 3 && IsIndependentArithmeticResultSetup(body, end))
+            {
+                WriteMoves(end - 2, end, [end - 1, end - 2]);
+                continue;
+            }
+
             if (!completeTrimsOnly && body[call].Definition.Opcode is (LocalCall or ExternalCall)
                 && ReadSplitStackArgumentOrder(body, end, arity) is { } splitOrder)
             {
                 WriteMoves(end - arity - 1, end - 2, splitOrder);
+                continue;
+            }
+
+            if (splitStackOnly && body[call].Definition.Opcode is (LocalCall or ExternalCall)
+                && ReadClearedCallResultArgumentOrder(body, end, arity) is { } clearedOrder)
+            {
+                WriteMoves(end - arity - 1, end - 1, clearedOrder);
                 continue;
             }
 
@@ -577,7 +824,58 @@ internal sealed partial class BeamModuleCompiler
         return null;
     }
 
-    private static int[]? ReadSplitStackArgumentOrder(IReadOnlyList<BeamInstruction> body, int end, int arity)
+    private static int[]? ReadClearedCallResultArgumentOrder(IReadOnlyList<BeamInstruction> body, int end, int arity)
+    {
+        int start = end - arity - 1;
+        if (arity != 3 || start < 1 || body[start - 1].Definition.Opcode is not (LocalCall or ExternalCall)
+            || body[start] is not
+            {
+                Definition.Opcode: Move,
+                Operands: [
+                { Kind: BeamOperandParameters.X, Value.IsZero: true, TypeIndex: null },
+                { Kind: BeamOperandParameters.X, Value: var destination, TypeIndex: null }
+                ]
+            } || destination != 2
+            || body[start + 1] is not
+            {
+                Definition.Opcode: Move,
+                Operands: [
+                { Kind: BeamOperandParameters.Y, TypeIndex: null } receiver,
+                { Kind: BeamOperandParameters.X, Value.IsZero: true, TypeIndex: null }
+                ]
+            }
+            || body[start + 2] is not
+            {
+                Definition.Opcode: Move,
+                Operands: [
+                { Kind: BeamOperandParameters.Y, TypeIndex: null } independent,
+                { Kind: BeamOperandParameters.X, Value.IsOne: true, TypeIndex: null }
+                ]
+            } || independent == receiver
+            || body[end - 1] is not
+            {
+                Definition.Opcode: InitYRegisters,
+                Operands: [_, var firstClear, var secondClear]
+            } || !(firstClear == receiver && secondClear == independent
+                || firstClear == independent && secondClear == receiver))
+        {
+            return null;
+        }
+
+        // beam_ssa_codegen:order_moves emits the independent component
+        // before preserving the previous call's X0 and then replacing it.
+        // The two cleared Y sources still have their original last reads.
+        int[] byDestination = [start + 1, start + 2, start];
+
+        return IndependentCallMoveOrder(arity).Select(destination => byDestination[destination]).ToArray();
+    }
+
+    private static int[]? ReadSplitStackArgumentOrder(
+        IReadOnlyList<BeamInstruction> body,
+        int end,
+        int arity,
+        bool ascendingDestinations = false
+    )
     {
         int start = end - arity - 1;
         if (arity < 3 || start < 0
@@ -604,7 +902,7 @@ internal sealed partial class BeamModuleCompiler
         }
 
         var sources = new HashSet<int>();
-        int[] scheduled = IndependentCallMoveOrder(arity);
+        int[] scheduled = ascendingDestinations ? Enumerable.Range(1, arity - 1).ToArray() : IndependentCallMoveOrder(arity);
         for (int index = start; index < end - 2; index++)
         {
             if (body[index] is not
@@ -624,6 +922,33 @@ internal sealed partial class BeamModuleCompiler
         // beam_block sorts the adjacent loads by Y. The kill and following X0
         // move are outside this block and keep their original positions.
         return Enumerable.Range(start, arity - 1).OrderBy(index => body[index].Operands[0].Value).ToArray();
+    }
+
+    private static bool IsIndependentArithmeticResultSetup(IReadOnlyList<BeamInstruction> body, int end)
+    {
+        // The BIF has already supplied one argument. The two remaining
+        // moves are independent, and beam_ssa_codegen:order_moves
+        // leaves the X0 move next to the located call.
+        return body[end - 3] is
+        {
+            Definition.Opcode: GcBifTwo,
+            Operands: [{ Value.IsZero: true }, _, _, _, _, { Kind: BeamOperandParameters.X } produced]
+        }
+            && produced.Value > 0 && produced.Value < 3
+            && body[end - 2] is
+            {
+                Definition.Opcode: Move,
+                Operands: [
+                { Kind: BeamOperandParameters.Y, TypeIndex: null },
+                { Kind: BeamOperandParameters.X, TypeIndex: null, Value.IsZero: true }
+                ]
+            }
+            && body[end - 1] is
+            {
+                Definition.Opcode: Move,
+                Operands: [var constant, { Kind: BeamOperandParameters.X, TypeIndex: null } outgoing]
+            }
+            && outgoing.Value == 3 - produced.Value && IsNonRegisterValue(constant) && constant.TypeIndex is null;
     }
 
     private static void SortOutgoingStackLoads(IReadOnlyList<BeamInstruction> body, int[] order)
@@ -658,8 +983,10 @@ internal sealed partial class BeamModuleCompiler
         int discardedSlots = 0
     )
     {
+        bool framedTail = body[call].Definition.Opcode is TailLocalCallWithFrame or TailExternalCallWithFrame;
         if (start == 0 || body[start - 1].Definition.Opcode is not (LocalCall or ExternalCall)
-            || body[call].Definition.Opcode is not (LocalCall or ExternalCall))
+            || !framedTail && body[call].Definition.Opcode is not (LocalCall or ExternalCall)
+            || framedTail && discardedSlots != 0)
         {
             return null;
         }
@@ -680,7 +1007,7 @@ internal sealed partial class BeamModuleCompiler
             BeamOperand source = body[index].Operands[0];
             BeamOperand destination = body[index].Operands[1];
             if (destination.Value >= arity || byDestination[(int)destination.Value] >= 0
-                || discardedSlots > 0 && destination.TypeIndex is not null)
+                || (discardedSlots > 0 || framedTail) && destination.TypeIndex is not null)
             {
                 return null;
             }
@@ -711,7 +1038,8 @@ internal sealed partial class BeamModuleCompiler
             byDestination[(int)destination.Value] = index;
         }
 
-        if (!copiedResult)
+        if (!copiedResult || framedTail && body[byDestination[0]].Operands[0] is not
+            { Kind: BeamOperandParameters.Y, TypeIndex: null })
         {
             return null;
         }
