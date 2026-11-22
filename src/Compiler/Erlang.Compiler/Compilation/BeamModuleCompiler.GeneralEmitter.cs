@@ -1567,7 +1567,8 @@ internal sealed partial class BeamModuleCompiler
             }
 
             if (recursiveClosure is null && clauses.Count == function.Clauses.Count
-                && (TryEmitClosedConsAccumulator(function)
+                && (TryEmitStructuralListEntry(function, functionInfo, requireGroupedHead: true)
+                    || TryEmitClosedConsAccumulator(function)
                     || TryEmitSharedConsTupleEquality(function)
                     || TryEmitProjectedConsRecursion(function, functionInfo)
                     || TryEmitGuardedListConstructors(function, functionInfo)

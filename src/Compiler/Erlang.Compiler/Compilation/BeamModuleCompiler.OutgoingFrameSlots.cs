@@ -1,3 +1,4 @@
+using System.Numerics;
 using static Erlang.Compiler.BeamEmissionFormat;
 
 namespace Erlang.Compiler;
@@ -180,12 +181,9 @@ internal sealed partial class BeamModuleCompiler
         {
             BeamInstruction instruction = body[index];
             byte opcode = instruction.Definition.Opcode;
-            if (opcode is LocalCall or ExternalCall or TailLocalCall or TailExternalCall
-                or TailLocalCallWithFrame or TailExternalCallWithFrame or DynamicApply or TailDynamicApply)
+            if (ReadFixedOutgoingCallArity(instruction) is { } arity)
             {
-                int selectors = opcode is DynamicApply or TailDynamicApply ? 2 : 0;
-
-                return destination.Value < instruction.Operands[0].Value + selectors ? index : null;
+                return destination.Value < arity ? index : null;
             }
 
             if (opcode is not (Move or Line) || MentionsOutgoingX(instruction, destination))
@@ -196,6 +194,15 @@ internal sealed partial class BeamModuleCompiler
 
         return null;
     }
+
+    private static BigInteger? ReadFixedOutgoingCallArity(BeamInstruction instruction) =>
+        instruction.Definition.Opcode switch
+        {
+            LocalCall or ExternalCall or TailLocalCall or TailExternalCall
+                or TailLocalCallWithFrame or TailExternalCallWithFrame => instruction.Operands[0].Value,
+            DynamicApply or TailDynamicApply => instruction.Operands[0].Value + 2,
+            _ => null
+        };
 
     private static bool IsOutgoingSlotDefinition(BeamInstruction instruction, int slot) =>
         instruction is

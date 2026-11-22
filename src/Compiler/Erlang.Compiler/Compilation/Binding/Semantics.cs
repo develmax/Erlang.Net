@@ -22,6 +22,8 @@ public static class Semantics
 
     public static void Validate(Expr expression) => Walk(expression, [], false);
 
+    internal static void TrackSourceBindings(Expr expression, HashSet<string> bound) => Walk(expression, bound, false);
+
     internal static IEnumerable<string> Variables(Pattern p) => p switch
     {
         NativeRecordPattern record => record.Fields.SelectMany(field => Variables(field.Value)),

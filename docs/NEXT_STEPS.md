@@ -1,5 +1,7 @@
 # Next steps
 
+Extend the shared returning-call trim recipe across independently owned branches. Reuse predecessor proofs to sink checked projections after heap checks with exact roots. Keep the final uncached corpus and the full regression gate open. [Local Part 2003](validation/part-2003-local-cons-tuple-and-register-values/README.md).
+
 Partition shared cons head tuple decisions by arity and tag before assigning frame homes. Extend virtual call argument handling and compare only the affected Different paths until the final uncached corpus and package gate. [Local Part 2002](validation/part-2002-local-fixed-list-and-bitstring-runs/README.md).
 
 Extend the shared source planner with successor-specific values and carry short outgoing lifetimes across reused stack homes. Verify each group with selected Different images and preserve the full acceptance gate. [Local Part 2000](validation/part-2000-local-call-arguments-and-frame-slots/README.md).

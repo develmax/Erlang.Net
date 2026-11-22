@@ -6,7 +6,11 @@ internal sealed partial class BeamModuleCompiler
 {
     private sealed partial class GeneralEmitter
     {
-        private bool TryEmitStructuralListEntry(FunctionDefinition function, int functionInfo)
+        private bool TryEmitStructuralListEntry(
+            FunctionDefinition function,
+            int functionInfo,
+            bool requireGroupedHead = false
+        )
         {
             if (function.Clauses.Count < 2 || function.Arity + 2 >= FirstReservedXRegister)
             {
@@ -34,7 +38,8 @@ internal sealed partial class BeamModuleCompiler
                     ordered,
                     prefix.Length,
                     functionInfo,
-                    flatListGenerator
+                    flatListGenerator,
+                    requireGroupedHead
                 ))
                 {
                     return true;
@@ -142,7 +147,8 @@ internal sealed partial class BeamModuleCompiler
             Clause[] clauses,
             int consCount,
             int functionInfo,
-            bool flatListGenerator
+            bool flatListGenerator,
+            bool requireGroupedHead
         )
         {
             int arity = function.Arity;
@@ -169,25 +175,41 @@ internal sealed partial class BeamModuleCompiler
             int tail = reuseTail ? listInput : arity + 1;
             bool needsTail = clauses.Take(consCount).Any(clause => !IsDiscarded(((Pattern.List)clause.Patterns[listInput]).Tail));
             int firstConsScratch = arity + (needsTail && !reuseTail ? 2 : 1);
+            var unusedFieldsByBranch = clauses.Select(ReadStructuralEntryUnusedFields).ToArray();
+            var consHeadGroups = requireGroupedHead ? ReadConsHeadTupleGroups(
+                clauses,
+                listInput,
+                consCount,
+                reuseTail,
+                unusedFieldsByBranch
+            ) : null;
+            if (requireGroupedHead && consHeadGroups is null)
+            {
+                return false;
+            }
+
+            var consHeadBranches = consHeadGroups?.SelectMany(group => group.Rows.Select(row => (group, row)))
+                .ToDictionary(entry => entry.row.Branch);
             var arityGroups = clauses.Take(consCount).Select((clause, index) => (Clause: clause, Shape: ReadTaggedHead(index)))
                 .TakeWhile(entry => entry.Shape.HasValue)
                 .GroupBy(entry => entry.Shape!.Value.Arity)
                 .OrderByDescending(group => group.Key)
                 .ToArray();
             int arityDispatchEnd = 0;
-            if (reuseTail && arityGroups.Length > 1
+            if (consHeadGroups is null && reuseTail && arityGroups.Length > 1
                 && arityGroups.All(group => group.All(entry => entry.Shape!.Value.Tag.Equals(group.First().Shape!.Value.Tag))))
             {
                 var sorted = arityGroups.SelectMany(group => group.Select(entry => entry.Clause)).ToArray();
                 arityDispatchEnd = sorted.Length;
                 clauses = [.. sorted, .. clauses.Skip(arityDispatchEnd)];
+                unusedFieldsByBranch = clauses.Select(ReadStructuralEntryUnusedFields).ToArray();
             }
 
             var sharedShapes = new Dictionary<int, (int End, int Arity, Atom Tag, bool SharesDiscriminator, Term[]? Keys, int Payload)>();
             var checkedHeads = new Dictionary<int, bool>();
             var selectedHeads = new HashSet<int>();
             var sharedPayloads = new Dictionary<int, int>();
-            for (int start = 0; start < consCount;)
+            for (int start = consHeadBranches?.Count ?? 0; start < consCount;)
             {
                 if (ReadTaggedHead(start) is not { } shape)
                 {
@@ -267,20 +289,17 @@ internal sealed partial class BeamModuleCompiler
                 var tests = new List<Action<int>>();
                 var bindings = new Dictionary<string, int>(StringComparer.Ordinal);
                 var reusedBindingPositions = new Dictionary<string, int>(StringComparer.Ordinal);
-                var unusedFields = clause.Patterns.SelectMany(Semantics.Variables)
-                    .GroupBy(name => name, StringComparer.Ordinal)
-                    .Where(group => group.Count() == 1)
-                    .Select(group => group.Key).ToHashSet(StringComparer.Ordinal);
-                try
-                {
-                    unusedFields.ExceptWith(ClosureCaptures.ReadEntryReferences(clause, unusedFields));
-                }
-                catch (NotSupportedException)
-                {
-                    unusedFields.Clear();
-                }
+                var unusedFields = unusedFieldsByBranch[branch];
+                var groupedHead = consHeadBranches is not null && consHeadBranches.TryGetValue(branch, out var selectedHead)
+                    ? selectedHead
+                    : default;
 
                 int nextRegister = branch < consCount ? firstConsScratch : arity;
+                if (groupedHead.group is { } sharedHead)
+                {
+                    nextRegister += sharedHead.Fields.Length;
+                }
+
                 bool shapeChecked = checkedHeads.TryGetValue(branch, out bool sharesDiscriminator);
                 int discriminator = sharesDiscriminator ? nextRegister : -1;
                 int payload = sharedPayloads.GetValueOrDefault(branch, -1);
@@ -308,8 +327,10 @@ internal sealed partial class BeamModuleCompiler
                     if (branch < consCount && index == listInput)
                     {
                         var list = (Pattern.List)clause.Patterns[index];
-                        if (!ReadPattern(list.Items[0], head, checkedHead: shapeChecked)
-                            || !ReadPattern(list.Tail ?? new Pattern.List([], null), tail))
+                        bool matchedHead = groupedHead.group is { } group
+                            ? ReadGroupedHead(group, groupedHead.row)
+                            : ReadPattern(list.Items[0], head, checkedHead: shapeChecked);
+                        if (!matchedHead || !ReadPattern(list.Tail ?? new Pattern.List([], null), tail))
                         {
                             return false;
                         }
@@ -519,8 +540,26 @@ internal sealed partial class BeamModuleCompiler
                     }
                 }
 
-                bool DiscardTupleField(Pattern member) => IsDiscarded(member)
-                    || member is Erlang.Pattern.Variable variable && unusedFields.Contains(variable.Name);
+                bool ReadGroupedHead(ConsHeadTupleGroup group, ConsHeadTupleRow row)
+                {
+                    if (row.TagBinding is { } alias && !ReadPattern(alias, firstConsScratch))
+                    {
+                        return false;
+                    }
+
+                    for (int column = 1; column < group.Fields.Length; column++)
+                    {
+                        Pattern member = row.Tuple.Items[group.Fields[column]];
+                        if (!DiscardTupleField(member) && !ReadPattern(member, firstConsScratch + column))
+                        {
+                            return false;
+                        }
+                    }
+
+                    return true;
+                }
+
+                bool DiscardTupleField(Pattern member) => DiscardStructuralTupleField(member, unusedFields);
 
                 bool ReadList(Pattern.List list, int index, int register)
                 {
@@ -603,9 +642,27 @@ internal sealed partial class BeamModuleCompiler
             bool disjointGuardedNilFallback = emptyReturn is null && consCount < clauses.Length
                 && ReadListHeadRecordGuard(clauses[consCount - 1], listInput) is not null
                 && clauses.Skip(consCount).All(clause => ListEntryTest(clause.Patterns[listInput]) == IsNil);
+            int firstBranch = 0;
+            if (consHeadGroups is not null)
+            {
+                // Every tagged row has a distinct key. Failed nested matches and guards
+                // can only reach the unconditional cons row, while the non-cons edge
+                // still sees the original input and can reach the proper nil clause.
+                int consFallback = Label();
+                EmitConsHeadTupleGroups(
+                    consHeadGroups,
+                    head,
+                    firstConsScratch,
+                    consFallback,
+                    EmitBranch
+                );
+                Mark(consFallback);
+                firstBranch = consCount - 1;
+            }
+
             int sharedShapeEnd = -1;
             int sharedShapeFailure = 0;
-            for (int branch = 0; branch < branches.Count; branch++)
+            for (int branch = firstBranch; branch < branches.Count; branch++)
             {
                 if (branch == consCount && emptyReturn is { } emptyList)
                 {

@@ -72,6 +72,10 @@ internal sealed partial class BeamModuleCompiler(
                 .Select(ReuseAssignedPairConsHeads)
                 .Select(ReuseTerminalEffectfulCaseCarriers)
                 .Select(SubstituteDirectAnonymousHelperConstants).ToArray();
+            if (SsaTypeInferenceEnabled)
+            {
+                functions = functions.Select(FoldDominatingBinaryOperands).ToArray();
+            }
             if (entryTupleAliasesEnabled)
             {
                 functions = functions.Select(ReuseEntryTupleCarriers).ToArray();
@@ -1809,6 +1813,7 @@ internal sealed partial class BeamModuleCompiler(
         code = ScheduleRetiredCallArgumentRoots(code, labelCount) ?? code;
         code = CompactTransientOutgoingSlots(code, labelCount) ?? code;
         code = ForwardRetiredOutgoingProjections(code, labelCount) ?? code;
+        code = ForwardGcBifCallArguments(code, labelCount) ?? code;
         code = OrderFinalAssemblyTables(code, labelCount);
         Word(output, CodeHeaderSize);
         Word(output, BeamWire.FormatVersion);
