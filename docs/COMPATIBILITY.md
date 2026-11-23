@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 2010 verifies the closure-order fixture against pinned OTP. Release parity measurements and runtime registry classifications keep their prior evidence. [Validation](validation/part-2010-pr143-lambda-table-order/README.md).
+
 Part 2009 restores known client_server equality and the registered whole-module and release image checks. The remaining platform failures and the full release ledger retain separate acceptance. [Validation](validation/part-2009-pr143-platform-retake/README.md).
 
 Part 2008 verifies the pinned tuple literal fixture and the whole-module component case. The 25 remaining observed compiler failures and eight Different release representatives retain their separate acceptance status. [Validation](validation/part-2008-pr143-compiler-fixture-check/README.md).

@@ -18,12 +18,13 @@ internal static class BeamFinalAssemblyTablesChecks
         Check(0);
         Check(1);
         Check(2);
+        Check(2, reverseClosureReferences: true);
         CheckTypesWithoutOtherTableEdits();
 
         return Task.CompletedTask;
     }
 
-    private static void Check(int closureCount)
+    private static void Check(int closureCount, bool reverseClosureReferences = false)
     {
         var compiler = new BeamModuleCompiler("assembly_table_probe");
         var atoms = ReadField<Dictionary<string, int>>("atoms");
@@ -62,12 +63,11 @@ internal static class BeamFinalAssemblyTablesChecks
             if (closureCount == 2)
             {
                 AddClosure(closures, "early", 2);
-                ExpectUnchanged([1, 0]);
                 ExpectUnchanged([0, 0]);
             }
         }
 
-        int[] firstUse = closureCount switch
+        int[] finalUse = closureCount switch
         {
             0 => [],
             1 => [0],
@@ -78,7 +78,7 @@ internal static class BeamFinalAssemblyTablesChecks
             2,
             1,
             0,
-            firstUse,
+            reverseClosureReferences ? [1, 1, 0] : finalUse,
             firstType: 2
         );
         var after = (ReadOnlyMemory<byte>)Call(
@@ -92,7 +92,7 @@ internal static class BeamFinalAssemblyTablesChecks
             5,
             0,
             1,
-            firstUse,
+            finalUse,
             firstType: 1
         ))
             || types.Count != 3 || types[1] != floatType || types[2] != integer
@@ -114,18 +114,20 @@ internal static class BeamFinalAssemblyTablesChecks
                 0
             );
             byte[] row = table.ToArray();
+            var first = reverseClosureReferences ? (Atom: 2, Label: 2) : (Atom: 5, Label: 4);
+            var second = reverseClosureReferences ? (Atom: 5, Label: 4) : (Atom: 2, Label: 2);
             if (BinaryPrimitives.ReadInt32BigEndian(row) != closureCount
                 || row.Length != 4 + closureCount * 24
                 || !EntryMatches(
                     row.AsSpan(4),
-                    5,
-                    4,
+                    first.Atom,
+                    first.Label,
                     0
                 )
                 || closureCount == 2 && !EntryMatches(
                     row.AsSpan(28),
-                    2,
-                    2,
+                    second.Atom,
+                    second.Label,
                     1
                 ))
             {

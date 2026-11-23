@@ -1,5 +1,7 @@
 # Project progress
 
+Part 2010 verifies first-use closure table order and the whole-module and installed-release controls. Focused retakes now recover 25 of the 60 published platform failures. [Validation](validation/part-2010-pr143-lambda-table-order/README.md).
+
 Part 2009 restores byte equality for the previously matched client_server release. Focused retakes of the actual PR failures recover 24 of 60 cases. [Validation](validation/part-2009-pr143-platform-retake/README.md).
 
 Part 2008 passes the complete registered whole-module compiler case, including 308 pinned images. The recheck of 44 previously failing cases passed 19. Eight selected release files remain Different. [Validation](validation/part-2008-pr143-compiler-fixture-check/README.md).
