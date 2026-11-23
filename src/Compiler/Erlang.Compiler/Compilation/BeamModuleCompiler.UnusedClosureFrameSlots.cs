@@ -13,7 +13,7 @@ internal sealed partial class BeamModuleCompiler
         }
 
         var (body, operands) = decoded;
-        var entries = closures.Select(closure => MapEmittedLabel(MapClosureEntryLabel(closure.Entry))).ToHashSet();
+        var entries = closures.Select(closure => MapClosureEntryLabel(closure.Entry)).ToHashSet();
         var unused = ReadUnusedClosureFrameEntries(body, entries);
         if (unused.Count == 0)
         {

@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 2006 restores scoped compiler behavior, labels and source admissions. The release whole-file ledger still uses the last measured 539 of 1,366. Current full regressions and corpus acceptance remain open. [Validation](validation/part-2006-pr143-source-admission/README.md).
+
 Local Part 2005 verifies source closure and project compilation. The 60-case harness records two open BEAM compiler differences. The observed whole-file ledger remains 539 of 1,366. [Evidence](validation/part-2005-publication-source-closure/README.md).
 
 Local Part 2003 groups checked cons-head tuple decisions, forwards GC BIF arguments and propagates proved literal binary operands. The 276-file Different scope gained 39 normalized function matches with none lost. The byte ledger remains 539 Equal. [Validation](validation/part-2003-local-cons-tuple-and-register-values/README.md).

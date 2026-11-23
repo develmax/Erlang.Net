@@ -119,6 +119,8 @@ internal sealed partial class BeamModuleCompiler(
         }
 
         var general = PlanGeneralFunctions(functions, sourceLines, byName);
+        bool needsCompleteReachability = general.Count == 0 && tupleMappingCases.Count == 0;
+        GeneralEmitter? straightLineAnalysis = null;
         var pending = new Stack<(string Name, int Arity)>(publicFunctions);
         if (sourceModule?.OnLoadFunction is { } onLoad)
         {
@@ -142,6 +144,21 @@ internal sealed partial class BeamModuleCompiler(
             }
 
             Clause first = function.Clauses[0];
+            if (needsCompleteReachability && function.Clauses.Count == 1 && GeneralEmitter.MayPlanStraightLineValues(first))
+            {
+                straightLineAnalysis ??= new GeneralEmitter(
+                    this,
+                    byName.Keys.ToDictionary(key => key, _ => 2),
+                    new Dictionary<(string Name, int Arity), FunctionDefinition>(),
+                    default,
+                    frameSize: 0
+                );
+                foreach (var target in straightLineAnalysis.ReadStraightLineLocalTargets(first))
+                {
+                    pending.Push(target);
+                }
+            }
+
             foreach (var reference in LocalFunctionEntries.Walk(first.Body).OfType<Expr.FunctionReference>())
             {
                 if (byName.ContainsKey((reference.Name, reference.Arity)))
@@ -303,7 +320,7 @@ internal sealed partial class BeamModuleCompiler(
                 pending.Push((choice.Input.Function, 1));
             }
         }
-        if (general.Count == 0 && tupleMappingCases.Count == 0 && !reachable.SetEquals(byName.Keys))
+        if (needsCompleteReachability && !reachable.SetEquals(byName.Keys))
         {
             throw new NotSupportedException(Unsupported);
         }

@@ -1,0 +1,73 @@
+Thread (0xA6A4):
+  [Native Frames]
+  System.Private.CoreLib.il!System.Threading.Monitor.Wait(class System.Object,int32)
+  System.Private.CoreLib.il!System.Threading.ManualResetEventSlim.Wait(int32,value class System.Threading.CancellationToken)
+  System.Private.CoreLib.il!System.Threading.Tasks.Task.SpinThenBlockingWait(int32,value class System.Threading.CancellationToken)
+  System.Private.CoreLib.il!System.Threading.Tasks.Task.InternalWaitCore(int32,value class System.Threading.CancellationToken)
+  System.Private.CoreLib.il!System.Threading.Tasks.Task.InternalWait(int32,value class System.Threading.CancellationToken)
+  System.Private.CoreLib.il!System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(class System.Threading.Tasks.Task,value class System.Threading.Tasks.ConfigureAwaitOptions)
+  System.Private.CoreLib.il!System.Runtime.CompilerServices.TaskAwaiter`1[System.Int32].GetResult()
+  Erlang.Tool!Program.<Main>(class System.String[])
+
+Thread (0x9DCC):
+  [Native Frames]
+  System.Private.CoreLib.il!System.Threading.PortableThreadPool+IOCompletionPoller.Poll()
+  System.Private.CoreLib.il!System.Threading.Thread.StartCallback()
+
+Thread (0x913C):
+  [Native Frames]
+  System.Private.CoreLib.il!Interop+Kernel32.GetQueuedCompletionStatus(int,unsigned int32&,unsigned int&,int&,int32)
+  System.Private.CoreLib.il!System.Threading.LowLevelLifoSemaphore.WaitForSignal(int32)
+  System.Private.CoreLib.il!System.Threading.PortableThreadPool+WorkerThread.WorkerThreadStart()
+  System.Private.CoreLib.il!System.Threading.Thread.StartCallback()
+
+Thread (0xD688):
+  [Native Frames]
+  System.Private.CoreLib.il!System.Threading.WaitHandle.WaitOneNoCheck(int32,bool,class System.Object,value class WaitHandleWaitSourceMap)
+  System.Private.CoreLib.il!System.Threading.PortableThreadPool+GateThread.GateThreadStart()
+  System.Private.CoreLib.il!System.Threading.Thread.StartCallback()
+
+Thread (0x5630):
+  CPU_TIME
+  Erlang.Compiler!Erlang.Compiler.BeamModuleCompiler.ForwardSavedCallResults(value class System.ReadOnlyMemory`1<unsigned int8>,class System.Collections.Generic.IReadOnlyList`1<class Erlang.BeamInstruction>,class System.Collections.Generic.IReadOnlyList`1<value class System.ValueTuple`3<int32,int32,int32>>)
+  Erlang.Compiler!Erlang.Compiler.BeamModuleCompiler.ShareReturnBlocksOnce(value class System.ReadOnlyMemory`1<unsigned int8>,int32,bool)
+  Erlang.Compiler!Erlang.Compiler.BeamModuleCompiler.ShareReturnBlocks(value class System.ReadOnlyMemory`1<unsigned int8>)
+  Erlang.Compiler!Erlang.Compiler.BeamModuleCompiler.EmitCode(class System.IO.Stream,class System.Collections.Generic.IReadOnlyList`1<class Erlang.Compiler.FunctionDefinition>,class System.Collections.Generic.IReadOnlyDictionary`2<value class System.ValueTuple`2<class System.String,int32>,int32>)
+  Erlang.Compiler!Erlang.Compiler.BeamModuleCompiler+<>c__DisplayClass626_0.<Emit>b__7(class System.IO.Stream)
+  Erlang.Compiler!Erlang.Compiler.BeamModuleCompiler.Payload(class System.Action`1<class System.IO.Stream>)
+  Erlang.Compiler!Erlang.Compiler.BeamModuleCompiler.WriteImage(class Erlang.Compiler.BeamModuleMetadata,class System.Action`1<class System.IO.Stream>)
+  Erlang.Compiler!Erlang.Compiler.BeamModuleCompiler.Emit(class System.Collections.Generic.IReadOnlyList`1<class Erlang.Compiler.FunctionDefinition>,class System.Collections.Generic.IReadOnlyList`1<value class Erlang.Compiler.BeamSourceLocation>,class System.Collections.Generic.IReadOnlySet`1<value class System.ValueTuple`2<class System.String,int32>>,class Erlang.Compiler.BeamModuleMetadata)
+  Erlang.Compiler!Erlang.Compiler.CodeGeneration.CompileBeamModule(class System.String,class Erlang.Compiler.BeamMacroPreprocessor,class Erlang.Compiler.BeamReleaseBuildProfile)
+  Erlang.Compiler!Erlang.Compiler.CodeGeneration.CompileBeamFile(class System.String,class System.String,class System.Collections.Generic.IReadOnlyList`1<class System.String>,class Erlang.Compiler.BeamReleaseBuildProfile)
+  Erlang.Tool!Program+<<Main>$>d__0.MoveNext()
+  System.Private.CoreLib.il!System.Threading.ExecutionContext.RunInternal(class System.Threading.ExecutionContext,class System.Threading.ContextCallback,class System.Object)
+  System.Private.CoreLib.il!System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1[System.Int32,System.__Canon].MoveNext(class System.Threading.Thread)
+  System.Private.CoreLib.il!System.Threading.Tasks.AwaitTaskContinuation.RunOrScheduleAction(class System.Runtime.CompilerServices.IAsyncStateMachineBox,bool)
+  System.Private.CoreLib.il!System.Threading.Tasks.Task.RunContinuations(class System.Object)
+  System.Private.CoreLib.il!System.Threading.Tasks.Task`1[System.__Canon].TrySetResult(!0)
+  System.Private.CoreLib.il!System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1[System.__Canon].SetExistingTaskResult(class System.Threading.Tasks.Task`1<!0>,!0)
+  System.Private.CoreLib.il!System.IO.File+<InternalReadAllTextAsync>d__94.MoveNext()
+  System.Private.CoreLib.il!System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1[System.__Canon,System.IO.File+<InternalReadAllTextAsync>d__94].ExecutionContextCallback(class System.Object)
+  System.Private.CoreLib.il!System.Threading.ExecutionContext.RunInternal(class System.Threading.ExecutionContext,class System.Threading.ContextCallback,class System.Object)
+  System.Private.CoreLib.il!System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1[System.__Canon,System.IO.File+<InternalReadAllTextAsync>d__94].MoveNext(class System.Threading.Thread)
+  System.Private.CoreLib.il!System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1[System.__Canon,System.IO.File+<InternalReadAllTextAsync>d__94].MoveNext()
+  System.Private.CoreLib.il!System.Threading.Tasks.AwaitTaskContinuation.RunOrScheduleAction(class System.Runtime.CompilerServices.IAsyncStateMachineBox,bool)
+  System.Private.CoreLib.il!System.Threading.Tasks.Task.RunContinuations(class System.Object)
+  System.Private.CoreLib.il!System.Threading.Tasks.Task`1[System.Int32].TrySetResult(!0)
+  System.Private.CoreLib.il!System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1[System.Int32].SetExistingTaskResult(class System.Threading.Tasks.Task`1<!0>,!0)
+  System.Private.CoreLib.il!System.IO.StreamReader+<ReadAsyncInternal>d__69.MoveNext()
+  System.Private.CoreLib.il!System.Threading.ExecutionContext.RunInternal(class System.Threading.ExecutionContext,class System.Threading.ContextCallback,class System.Object)
+  System.Private.CoreLib.il!System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1[System.Int32,System.IO.StreamReader+<ReadAsyncInternal>d__69].MoveNext(class System.Threading.Thread)
+  System.Private.CoreLib.il!System.Threading.Tasks.AwaitTaskContinuation.RunOrScheduleAction(class System.Runtime.CompilerServices.IAsyncStateMachineBox,bool)
+  System.Private.CoreLib.il!System.Threading.Tasks.Task.RunContinuations(class System.Object)
+  System.Private.CoreLib.il!System.Threading.Tasks.Task`1[System.Int32].TrySetResult(!0)
+  System.Private.CoreLib.il!System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1[System.Int32].SetExistingTaskResult(class System.Threading.Tasks.Task`1<!0>,!0)
+  System.Private.CoreLib.il!System.IO.StreamReader+<ReadBufferAsync>d__72.MoveNext()
+  System.Private.CoreLib.il!System.Threading.ExecutionContext.RunInternal(class System.Threading.ExecutionContext,class System.Threading.ContextCallback,class System.Object)
+  System.Private.CoreLib.il!System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1[System.Int32,System.IO.StreamReader+<ReadBufferAsync>d__72].MoveNext(class System.Threading.Thread)
+  System.Private.CoreLib.il!System.IO.Strategies.BufferedFileStreamStrategy+<ReadAsyncSlowPath>d__37.MoveNext()
+  System.Private.CoreLib.il!System.Threading.ExecutionContext.RunInternal(class System.Threading.ExecutionContext,class System.Threading.ContextCallback,class System.Object)
+  System.Private.CoreLib.il!System.Threading.ThreadPoolWorkQueue.Dispatch()
+  System.Private.CoreLib.il!System.Threading.PortableThreadPool+WorkerThread.WorkerThreadStart()
+  System.Private.CoreLib.il!System.Threading.Thread.StartCallback()
+

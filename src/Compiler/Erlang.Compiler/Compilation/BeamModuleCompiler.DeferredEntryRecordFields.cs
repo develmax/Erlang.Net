@@ -16,13 +16,13 @@ internal sealed partial class BeamModuleCompiler
                     Items: [
                         Expr.Match { Pattern: Erlang.Pattern.Variable earlierResult, Value: Expr.Call earlier },
                         Expr.Match
+                    {
+                        Pattern: Erlang.Pattern.Tuple
                         {
-                            Pattern: Erlang.Pattern.Tuple
-                            {
-                                Items: [Erlang.Pattern.Variable first, Erlang.Pattern.Variable second]
-                            },
-                            Value: Expr.Case { Value: Expr.Variable selector } decision
-                        } assignment,
+                            Items: [Erlang.Pattern.Variable first, Erlang.Pattern.Variable second]
+                        },
+                        Value: Expr.Case { Value: Expr.Variable selector } decision
+                    } assignment,
                         ..,
                         Expr.RecordUpdate { Value: Expr.Variable retained } update
                     ]
@@ -48,7 +48,12 @@ internal sealed partial class BeamModuleCompiler
 
             // The unchanged, checked carrier already crosses the earlier call.
             // Read the field at its first use, after that call returns.
-            var access = new Expr.RecordAccess(retained, update.Name, update.Arity, field);
+            var access = new Expr.RecordAccess(
+                retained,
+                update.Name,
+                update.Arity,
+                field
+            );
             var items = sequence.Items.ToArray();
             items[1] = assignment with { Value = decision with { Value = access } };
             var rewritten = sequence with { Items = items };
@@ -63,16 +68,16 @@ internal sealed partial class BeamModuleCompiler
         {
             return decision.Clauses is
             [
-                { Guard: null, Patterns: [var empty] },
-                {
-                    Guard: null,
-                    Patterns: [
+            { Guard: null, Patterns: [var empty] },
+            {
+                Guard: null,
+                Patterns: [
                         Erlang.Pattern.List
-                        {
-                            Items: [Erlang.Pattern.Variable head],
-                            Tail: Erlang.Pattern.Variable tail
-                        }]
-                }
+                {
+                    Items: [Erlang.Pattern.Variable head],
+                    Tail: Erlang.Pattern.Variable tail
+                }]
+            }
             ] && IsEmptyListPattern(empty) && DistinctBindings(head, tail)
                 ? (head, tail)
                 : null;

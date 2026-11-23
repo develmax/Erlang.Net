@@ -771,7 +771,7 @@ internal static class BeamModuleEmissionChecks
         byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
         ReadOnlySpan<byte> tupleFromArguments =
         [
-            BeamEmissionFormat.PutTuple, 0x03, BeamEmissionFormat.ExtendedListOperand, 0x20, 0x03, 0x13
+            BeamEmissionFormat.PutTuple, 0x13, BeamEmissionFormat.ExtendedListOperand, 0x20, 0x03, 0x13
         ];
         ReadOnlySpan<byte> branchWithInitializedSlot =
         [

@@ -57,12 +57,23 @@ internal static class BeamDeferredRecordCaseSelectorChecks
             Term value = Term.A("observed_value");
             Term malformed = Term.A("malformed");
             Term stateTag = Term.A("state");
-            Term eventValue = Term.Tuple(Term.A("open"), value, Nil.Value, Nil.Value, Nil.Value);
+            Term eventValue = Term.Tuple(
+                Term.A("open"),
+                value,
+                Nil.Value,
+                Nil.Value,
+                Nil.Value
+            );
             Term count = Term.I(7);
             Term counter = new Cons(count, malformed);
             Term state = Term.Tuple(stateTag, counter, Nil.Value);
             Term result = Term.Tuple(stateTag, counter, Term.Tuple(count, new Cons(Term.I(8), malformed), value));
-            if (!result.Equals(await module.Invoke(context, "build", eventValue, state)))
+            if (!result.Equals(await module.Invoke(
+                context,
+                "build",
+                eventValue,
+                state
+            )))
             {
                 throw new InvalidOperationException(WrongValue);
             }
@@ -81,7 +92,12 @@ internal static class BeamDeferredRecordCaseSelectorChecks
 
             try
             {
-                await module.Invoke(context, "build", eventValue, Term.Tuple(stateTag, malformed, Nil.Value));
+                await module.Invoke(
+                    context,
+                    "build",
+                    eventValue,
+                    Term.Tuple(stateTag, malformed, Nil.Value)
+                );
                 throw new InvalidOperationException(WrongValue);
             }
             catch (ErlangException error) when (error.Reason.Equals(Term.Tuple(Term.A("case_clause"), malformed)))
@@ -141,5 +157,6 @@ internal static class BeamDeferredRecordCaseSelectorChecks
     }
 
     private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
+
     private static IEnumerable<object> Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>();
 }

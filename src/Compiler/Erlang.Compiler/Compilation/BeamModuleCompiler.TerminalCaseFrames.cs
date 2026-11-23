@@ -323,24 +323,63 @@ internal sealed partial class BeamModuleCompiler
             clause is { Guard: null, Body: Expr.Tuple or Expr.List or Expr.Sequence or Expr.Block }
             && clause.Patterns.Count < FirstReservedXRegister && HasUnconditionalParameters(clause);
 
-        internal bool TryEmitStraightLineValues(Clause clause)
+        internal bool TryEmitStraightLineValues(Clause clause, FunctionDefinition? function = null)
+        {
+            if (ReadStraightLineValuePlan(clause) is not { } plan)
+            {
+                return false;
+            }
+
+            // The specific recipes keep their established argument and heap schedules.
+            if (TryEmitEntryDynamicApplyTail(clause) || TryEmitConstructedCallContinuation(clause))
+            {
+                return true;
+            }
+
+            if (function is not null && TryEmitScrolledDetailPanel(function))
+            {
+                return true;
+            }
+
+            EmitTerminalCaseArm(plan.Branch, plan.Frame);
+
+            return true;
+        }
+
+        internal IEnumerable<(string Name, int Arity)> ReadStraightLineLocalTargets(Clause clause)
+        {
+            if (ReadStraightLineValuePlan(clause) is not { } plan)
+            {
+                yield break;
+            }
+
+            foreach (var call in plan.Branch.Calls)
+            {
+                if (call.Entry is { Module: null, Source: Expr.Call local })
+                {
+                    yield return (local.Function, local.Arguments.Count);
+                }
+            }
+        }
+
+        private (TerminalCaseBranch Branch, bool Frame)? ReadStraightLineValuePlan(Clause clause)
         {
             if (owner.ModuleOptimizationDisabled || recursiveClosure is not null || !MayPlanStraightLineValues(clause))
             {
-                return false;
+                return null;
             }
 
             string[] parameters = clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray();
             if (LowerTerminalCaseArm(null, clause.Body, parameters) is not { } arm)
             {
-                return false;
+                return null;
             }
 
             if (arm.Calls.Length == 0)
             {
                 if (arm is not { Constructions.Length: > 1, Result.Value: int result })
                 {
-                    return false;
+                    return null;
                 }
 
                 var live = new HashSet<int> { result };
@@ -348,7 +387,7 @@ internal sealed partial class BeamModuleCompiler
                 {
                     if (!live.Remove(construction.Result))
                     {
-                        return false;
+                        return null;
                     }
 
                     live.UnionWith(ReadValues(construction.Inputs));
@@ -357,17 +396,15 @@ internal sealed partial class BeamModuleCompiler
             else if (!owner.SsaTypeInferenceEnabled || arm.Calls.Length < 2
                 || !arm.Calls.Any(call => call.Constructions.Length != 0))
             {
-                return false;
+                return null;
             }
 
             if (AllocateTerminalCaseRegisters(arm, parameters) is not { } plan)
             {
-                return false;
+                return null;
             }
 
-            EmitTerminalCaseArm(plan, arm.RequiresFrame);
-
-            return true;
+            return (plan, arm.RequiresFrame);
         }
 
         private VirtualTerminalCaseArm? LowerTerminalCaseArm(

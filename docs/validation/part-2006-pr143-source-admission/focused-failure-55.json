@@ -1,0 +1,19 @@
+{
+  "Partial": true,
+  "SelectedCount": 1,
+  "TotalCount": 10716,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/beam/reserves-a-closed-closure-s-failure-ordinal"
+  ],
+  "Passed": 0,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "compiler/beam/reserves-a-closed-closure-s-failure-ordinal",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Closed partial and total functions must leave different ordinals for the captured failure helper.\r\n   at Erlang.Tests.BeamClosedClosureFailureReservationChecks.Run() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamClosedClosureFailureReservationChecks.cs:line 56\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 18414",
+      "Milliseconds": 1552
+    }
+  ]
+}

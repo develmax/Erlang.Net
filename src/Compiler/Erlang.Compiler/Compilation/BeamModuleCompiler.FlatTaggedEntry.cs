@@ -79,9 +79,7 @@ internal sealed partial class BeamModuleCompiler
             }
 
             TaggedEntryArm[] arms = buckets.Values.SelectMany(bucket => bucket).ToArray();
-            int[] shared = arms[0].Fields.Select(field => field.Index)
-                .Where(index => arms.All(arm => arm.Fields.Any(field => field.Index == index)))
-                .ToArray();
+            int[] shared = ReadSharedFlatTaggedFields(arms);
             if (buckets.Count < 2 || tagRegister + arms.Max(arm => arm.Fields.Length) >= FirstReservedXRegister)
             {
                 return false;
@@ -266,6 +264,29 @@ internal sealed partial class BeamModuleCompiler
             Atom?[] Column(int index) => arms.Select(arm =>
                 arm.Fields.FirstOrDefault(field => field.Index == index)?.Literal).ToArray();
         }
+
+        private static bool CanUseCompleteSharedFlatTaggedGroup(IReadOnlyList<Clause> clauses, int input)
+        {
+            var arms = new List<TaggedEntryArm>();
+            var tags = new HashSet<Atom>();
+            foreach (Clause clause in clauses)
+            {
+                if (ReadFlatTaggedEntryArm(clause, input) is not { } arm
+                    || !tags.Add(arm.Tag) || clause.Patterns.Count + arm.Fields.Length >= FirstReservedXRegister)
+                {
+                    return false;
+                }
+
+                arms.Add(arm);
+            }
+
+            return arms.Count >= 2 && ReadSharedFlatTaggedFields(arms).Length != 0;
+        }
+
+        private static int[] ReadSharedFlatTaggedFields(IReadOnlyList<TaggedEntryArm> arms) =>
+            arms[0].Fields.Select(field => field.Index)
+                .Where(index => arms.All(arm => arm.Fields.Any(field => field.Index == index)))
+                .ToArray();
 
         private static TaggedEntryArm? ReadFlatTaggedEntryArm(
             Clause clause,

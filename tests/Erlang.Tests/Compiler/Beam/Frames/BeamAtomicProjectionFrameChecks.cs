@@ -502,7 +502,9 @@ internal static class BeamAtomicProjectionFrameChecks
             false,
             null,
             atomicOnly,
-            nestedCheckedEntriesOnly
+            nestedCheckedEntriesOnly,
+            null,
+            null
         );
 
         return rewritten is null ? null : rewritten[entry.Length..^1];

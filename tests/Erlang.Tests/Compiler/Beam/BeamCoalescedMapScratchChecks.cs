@@ -14,6 +14,9 @@ internal static class BeamCoalescedMapScratchChecks
     internal static Task Run()
     {
         var compiler = new BeamModuleCompiler("beam_map_scratch_probe");
+        _ = Call(compiler, "Intern", "first");
+        _ = Call(compiler, "Intern", "extra");
+
         byte[] first = [GetMapElements, F(3), X(1), ExtendedListOperand, U(2), A(2), X(0)];
         byte[] second = [GetMapElements, F(3), X(1), ExtendedListOperand, U(2), A(3), X(0)];
         byte[] corridor = [.. first, Move, X(0), X(2), .. second];

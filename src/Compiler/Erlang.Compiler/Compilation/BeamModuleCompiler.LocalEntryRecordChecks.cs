@@ -14,7 +14,7 @@ internal sealed partial class BeamModuleCompiler
         var opaque = exports.Select(function => MapEmittedLabel(function.Entry))
             .Concat(locals.Where(function => IsDeclaredNative((atomNames[function.Atom - 1], function.Arity)))
                 .Select(function => MapEmittedLabel(function.Entry))).ToHashSet();
-        var closureEntries = closures.Select(closure => MapEmittedLabel(closure.Entry)).ToHashSet();
+        var closureEntries = closures.Select(closure => MapClosureEntryLabel(closure.Entry)).ToHashSet();
         var closureCreations = new Dictionary<int, List<int>>();
         var calls = new Dictionary<int, List<int>>();
         for (int index = 0; index < body.Count; index++)
@@ -35,7 +35,7 @@ internal sealed partial class BeamModuleCompiler
                 && function.Value.Sign >= 0 && function.Value < closures.Count)
             {
                 LiftedClosure closure = closures[(int)function.Value];
-                int target = MapEmittedLabel(closure.Entry);
+                int target = MapClosureEntryLabel(closure.Entry);
                 if (closure.General is null || closure.SelfName is not null || closure.CaptureCount == 0
                     || closure.CaptureCount != count.Value || instruction.Operands.Count != 3 + closure.CaptureCount)
                 {

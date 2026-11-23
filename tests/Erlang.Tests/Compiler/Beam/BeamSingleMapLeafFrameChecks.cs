@@ -152,7 +152,7 @@ internal static class BeamSingleMapLeafFrameChecks
             "PlanLeafFrameRegisters",
             BindingFlags.Static | BindingFlags.NonPublic
         );
-        object?[] arguments = [body, 2, end, 2, false, null, null, false, null, null, 0, false, null, null, null, null, null];
+        object?[] arguments = [body, 2, end, 2, false, null, null, false, null, null, 0, false, null, null, null, null, null, false];
 
         return plan!.Invoke(null, arguments) is int?[] registers && registers.Length == 1 && registers[0].HasValue;
     }

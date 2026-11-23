@@ -7,6 +7,7 @@ namespace Erlang.Tests;
 
 internal static class BeamCheckedPayloadStackOrderChecks
 {
+    private const int SyntheticAtomCount = 2;
     internal const string TestName = "compiler/beam/orders-checked-payload-stack-loads-before-the-clear";
 
     internal static Task Run()
@@ -63,7 +64,7 @@ internal static class BeamCheckedPayloadStackOrderChecks
             Type("BeamInstructionReader"),
             "Read",
             header,
-            1,
+            SyntheticAtomCount,
             0,
             null,
             null

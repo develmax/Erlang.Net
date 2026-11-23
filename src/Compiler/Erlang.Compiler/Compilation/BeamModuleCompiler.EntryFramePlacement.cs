@@ -13,7 +13,8 @@ internal sealed partial class BeamModuleCompiler
         bool closedListMatchesOnly = false
     )
     {
-        if (!closedListMatchesOnly && DelayNestedCheckedArmFrame(code, body) is { } nestedArm)
+        if (!closedListMatchesOnly && DelayNestedCheckedArmFrame(code, body) is { } nestedArm
+            && !code.Span.SequenceEqual(nestedArm))
         {
             return nestedArm;
         }
@@ -270,7 +271,10 @@ internal sealed partial class BeamModuleCompiler
 
         output.Write(code.Span[copied..]);
 
-        return output.ToArray();
+        byte[] rewritten = output.ToArray();
+
+        // An already placed frame must not restart the physical optimization pass.
+        return code.Span.SequenceEqual(rewritten) ? null : rewritten;
 
         bool IsPendingFramelessTail(int index)
         {

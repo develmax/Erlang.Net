@@ -7,6 +7,7 @@ namespace Erlang.Tests;
 
 internal static class BeamProjectedArgumentCallRootsChecks
 {
+    private const int SyntheticAtomCount = 2;
     internal const string TestName = "compiler/beam/clears-only-dead-stack-roots-after-projected-call-arguments";
 
     internal static Task Run()
@@ -80,7 +81,7 @@ internal static class BeamProjectedArgumentCallRootsChecks
             Type("BeamInstructionReader"),
             "Read",
             header,
-            1,
+            SyntheticAtomCount,
             0,
             null,
             null

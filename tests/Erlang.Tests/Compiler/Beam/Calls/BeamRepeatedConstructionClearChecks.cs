@@ -7,6 +7,7 @@ namespace Erlang.Tests;
 
 internal static class BeamRepeatedConstructionClearChecks
 {
+    private const int SyntheticAtomCount = 2;
     internal const string TestName = "compiler/beam/removes-a-construction-clear-only-for-initialized-slots";
 
     internal static Task Run()
@@ -58,7 +59,7 @@ internal static class BeamRepeatedConstructionClearChecks
             Type("BeamInstructionReader"),
             "Read",
             header,
-            1,
+            SyntheticAtomCount,
             0,
             null,
             null

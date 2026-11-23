@@ -223,7 +223,7 @@ internal sealed partial class BeamModuleCompiler
         {
             var closureEntries = shareReturns || closures.Count == 0 ? null : closures
                 .Where(closure => closure.Body is not null || closure.General is not null)
-                .Select(closure => MapEmittedLabel(closure.Entry))
+                .Select(closure => MapClosureEntryLabel(closure.Entry))
                 .ToHashSet();
             byte[]? simplified = SimplifyValueSelections(code, body, labelOperands)
                 ?? (shareReturns ? null : OrderSharedEntryAtomClauses(

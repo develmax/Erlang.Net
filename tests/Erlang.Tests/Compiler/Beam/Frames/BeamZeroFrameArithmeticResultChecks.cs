@@ -59,7 +59,7 @@ internal static class BeamZeroFrameArithmeticResultChecks
         object header = New(
             "BeamCodeHeader",
             0,
-            (int)Line,
+            MinimumHighestOpcode,
             4,
             1,
             instructions

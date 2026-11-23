@@ -1,0 +1,19 @@
+{
+  "Partial": true,
+  "SelectedCount": 1,
+  "TotalCount": 10716,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/beam/keeps-nonempty-status-retry-in-fallthrough"
+  ],
+  "Passed": 0,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "compiler/beam/keeps-nonempty-status-retry-in-fallthrough",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: A retry may clear consumed roots only after its nil path has branched to the original value.\r\n   at Erlang.Tests.BeamOwnedNilRetryChecks.Run() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOwnedNilRetryChecks.cs:line 21\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 18414",
+      "Milliseconds": 32
+    }
+  ]
+}

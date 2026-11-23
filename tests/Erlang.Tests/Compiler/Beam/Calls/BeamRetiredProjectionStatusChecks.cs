@@ -7,6 +7,7 @@ namespace Erlang.Tests;
 
 internal static class BeamRetiredProjectionStatusChecks
 {
+    private const int SyntheticAtomCount = 2;
     internal const string TestName = "compiler/beam/reuses-the-last-projected-root-for-terminal-cleanup";
 
     internal static Task Run()
@@ -65,7 +66,7 @@ internal static class BeamRetiredProjectionStatusChecks
             Type("BeamInstructionReader"),
             "Read",
             header,
-            1,
+            SyntheticAtomCount,
             0,
             null,
             null

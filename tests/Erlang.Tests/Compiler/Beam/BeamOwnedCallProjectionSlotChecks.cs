@@ -164,7 +164,7 @@ internal static class BeamOwnedCallProjectionSlotChecks
                 1,
                 5
             ),
-            TestHeap, U(22), U(5), PutList, X(4), X(2), X(forwarded ? 2 : 4),
+            TestHeap, .. BeamBinaryHostBytes.U(22), U(5), PutList, X(4), X(2), X(forwarded ? 2 : 4),
             PutTuple, X(0), ExtendedListOperand, U(2), X(0), X(observesTail ? 2 : 3),
             PutList, X(0), X(3), X(0), .. save,
             UpdateRecord, A(forwarded ? 2 : 3), U(5), X(1), X(0), ExtendedListOperand, U(2), U(4), .. replaced,
@@ -235,12 +235,18 @@ internal static class BeamOwnedCallProjectionSlotChecks
         ];
     }
 
-    private static byte[]? DelayCheckedEntry(byte[] code) => (byte[]?)Call(
-        new BeamModuleCompiler("beam_entry_carrier_frame_probe"),
-        "DelayCheckedEntryCarrierFrames",
-        new ReadOnlyMemory<byte>(code),
-        9
-    );
+    private static byte[]? DelayCheckedEntry(byte[] code)
+    {
+        var compiler = new BeamModuleCompiler("beam_entry_carrier_frame_probe");
+        _ = Call(compiler, "Intern", "entry_tag");
+
+        return (byte[]?)Call(
+            compiler,
+            "DelayCheckedEntryCarrierFrames",
+            new ReadOnlyMemory<byte>(code),
+            9
+        );
+    }
 
     private static byte[] OwnedTerminalTail(bool deferred = false, bool extraTailRead = false, bool clobbersState = false)
     {
@@ -273,12 +279,18 @@ internal static class BeamOwnedCallProjectionSlotChecks
         ];
     }
 
-    private static byte[]? DeferTerminalTail(byte[] code) => (byte[]?)Call(
-        new BeamModuleCompiler("beam_owned_terminal_tail_probe"),
-        "DeferOwnedTerminalRecordTail",
-        new ReadOnlyMemory<byte>(code),
-        6
-    );
+    private static byte[]? DeferTerminalTail(byte[] code)
+    {
+        var compiler = new BeamModuleCompiler("beam_owned_terminal_tail_probe");
+        _ = Call(compiler, "Intern", "state_tag");
+
+        return (byte[]?)Call(
+            compiler,
+            "DeferOwnedTerminalRecordTail",
+            new ReadOnlyMemory<byte>(code),
+            6
+        );
+    }
 
     private static byte[] NilTailFrame(bool delayed = false, bool sharesFallback = false, bool unknownSpill = false)
     {
@@ -491,7 +503,7 @@ internal static class BeamOwnedCallProjectionSlotChecks
             GetTupleElement, X(1), U(2), list, GetList, X(2), position, X(2),
             IsNonemptyList, F(3), list, GetList, list, X(5), list, .. check,
             .. early, Line, U(1), GcBifTwo, F(0), live, U(0), readsBeforeHeap ? tags : position, I(1), result,
-            TestHeap, U(20), heapLive, .. late,
+            TestHeap, .. BeamBinaryHostBytes.U(20), heapLive, .. late,
             PutList, result, X(2), result, PutTuple, X(0), ExtendedListOperand, U(5), X(0), tags, position, X(5), X(7),
             PutList, X(0), list, X(0), UpdateRecord, A(2), U(5), X(1), X(0), ExtendedListOperand,
             U(4), U(2), result, U(3), X(0),
@@ -533,7 +545,7 @@ internal static class BeamOwnedCallProjectionSlotChecks
             IsNonemptyList, F(3), list, GetList, list, X(5), list,
             IsTuple, F(3), X(5), TestArity, F(3), X(5), U(3), .. early, Line, U(1),
             GcBifTwo, F(0), U(scheduled ? 6 : 9), U(0), position, I(1), position,
-            TestHeap, U(16), U(scheduled ? 6 : 9), .. late, .. count,
+            TestHeap, .. BeamBinaryHostBytes.U(16), U(scheduled ? 6 : 9), .. late, .. count,
             PutList, X(scheduled ? 0 : 8), X(usesOldX0AfterCount ? 0 : 5), X(0),
             PutTuple, X(0), ExtendedListOperand, U(3), X(6), observesCountInTuple ? position : X(7), X(0), .. nested,
             UpdateRecord, A(4), U(5), X(1), X(0), ExtendedListOperand,

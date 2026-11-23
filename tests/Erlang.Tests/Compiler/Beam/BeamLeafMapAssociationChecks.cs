@@ -209,7 +209,7 @@ internal static class BeamLeafMapAssociationChecks
         );
         Func<object, bool>? isColdMapErrorTail = allowRegisterBase ? _ => false : null;
         object?[] arguments = [decoded, 2, instructions.Length - 1, 1, false, null, null, false,
-            null, null, 0, false, null, null, null, null, isColdMapErrorTail];
+            null, null, 0, false, null, null, null, null, isColdMapErrorTail, false];
 
         return planner!.Invoke(null, arguments) is int?[] && arguments[6] is Dictionary<int, int> roots
             ? roots[Array.FindIndex(instructions, instruction => Opcode(instruction) == PutMapAssoc)]

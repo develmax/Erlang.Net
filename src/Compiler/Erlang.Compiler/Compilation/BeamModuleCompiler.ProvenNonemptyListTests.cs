@@ -38,7 +38,7 @@ internal sealed partial class BeamModuleCompiler
         string[] atomNames = atoms.OrderBy(entry => entry.Value).Select(entry => entry.Key).ToArray();
         var retainedLabels = exports.Select(entry => MapEmittedLabel(entry.Entry))
             .Concat(locals.Select(entry => MapEmittedLabel(entry.Entry)))
-            .Concat(closures.Select(closure => MapEmittedLabel(MapClosureEntryLabel(closure.Entry)))).ToHashSet();
+            .Concat(closures.Select(closure => MapClosureEntryLabel(closure.Entry))).ToHashSet();
         using var output = new MemoryStream();
         BeamProjectionFlow? flow = null;
         (string Name, int Arity) signature = default;

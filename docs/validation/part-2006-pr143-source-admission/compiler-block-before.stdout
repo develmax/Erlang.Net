@@ -1,0 +1,1788 @@
+{"Partial":true,"SelectedCount":4806,"TotalCount":10716}
+PASS runtime/string/managed-jaro-indexed-resource-contract
+PASS runtime/string/original-jaro-indexed-resource-contract
+{"Expectation":"control","Reason":"replacement_reverse","NativeOnlyHelperPresent":false,"Stack":"[]"}
+{"Expectation":"after","Swaps":1,"Reason":"badarg","NativeOnlyHelperPresent":true,"Stack":"[{lists,reverse,[[1|tail],[2,1]],[{error_info,#{module=\u003Eerl_stdlib_errors}}]},{lists,umerge2_2,4,[{file,[108,105,115,116,115,46,101,114,108]},{line,3471}]},{lists,umergel,3,[{file,[108,105,115,116,115,46,101,114,108]},{line,3306}]}]"}
+PASS runtime/lists/native-binding/replacement-after-native-marker
+PASS runtime/native-store600/ets-source-header-drop-real-payload
+PASS runtime/native-store600/persistent-source-header-drop-real-payload
+PASS runtime/resource-bits583/nested-portable-recipe-keeps-original-binref
+PASS runtime/resource-bits577/slice-recipe-shared-binref-minor-major
+PASS runtime/resource-bits577/unpublished-rollback-host-export-and-stale-foreign
+PASS runtime/resource-bits577/canonical-part-and-public-reregister-opaque
+PASS runtime/beam-mixed580/resource-identity-and-captured-recipe
+PASS runtime/beam-mixed580/local-opaque-native-and-closure-refused
+PASS runtime/beam-mixed580/public-reregister-exact-helper-remains-opaque
+PASS runtime/beam-mixed580/public-reregister-function-predicate-opaque
+PASS oracle/compiled-module/ets-source-queries414-all144-full-typed-raw
+PASS oracle/compiled-module/collectors-ordinary415-all36-full-typed-raw
+PASS oracle/compiled-module/internal-ports416-statuses-and-undef174-full-typed-raw
+PASS runtime/ets-traversal416/real-hash-key-groups-lookup-and-source-aliases
+PASS oracle/compiled-module/ets-source-traversal416-all300-full-typed-raw
+PASS oracle/compiled-module/apply-tail416-native-canonical84-full-typed-raw
+PASS oracle/compiled-module/dynamic-apply477-whole-values-and-stacks
+PASS compiler/dynamic-apply477-selected-host-bindings
+PASS oracle/compiled-module/closed-wait480-closure-record-whole-values-and-stacks
+PASS compiler/closed-wait480/original-debugger-image-publication
+PASS oracle/compiled-module/frame481-record-throw-whole-values-effects-and-stacks
+PASS oracle/compiled-module/frame481-original-ssl-extensions-whole-values-and-stacks
+PASS compiler/frame481/original-ssl-and-leex-publication
+PASS oracle/compiled-module/comparison482-eight-bifs-whole-values-and-stacks
+PASS oracle/compiled-module/comparison482-original-crashdump-whole-values-and-stacks
+PASS compiler/comparison482/original-crashdump-image-publication
+PASS compiler/receive484/original-megaco-image
+PASS compiler/receive483/uninitialized-binary-subject-refused
+PASS compiler/receive483/uninitialized-function-arity-refused
+PASS compiler/receive483/unsupported-function-arity-role-refused
+PASS compiler/receive483/foreign-receive-branch-refused
+PASS compiler/receive483/original-image/ct_ssh
+PASS compiler/receive483/original-image/test_server_node
+PASS compiler/receive483/original-image/mod_cgi
+PASS compiler/receive483/original-image/mod_esi
+PASS compiler/receive483/original-image/mnesia_loader
+PASS compiler/receive483/original-image/snmpm_server
+PASS compiler/receive483/original-image/tftp_engine
+PASS compiler/comparison482/uninitialized-operand-refused
+PASS compiler/comparison482/opaque-operand-refused
+PASS compiler/comparison482/uninitialized-gc-roots-refused
+PASS compiler/comparison482/failable-bif-roots-refused
+PASS compiler/comparison482/out-of-range-destination-refused
+PASS compiler/frame481/nil-atom-context-forwarding-resume-and-nofail
+PASS compiler/frame481/context-forgery-overwrite-position-and-cycle-refused
+PASS compiler/frame481/finite-swap-before-caught-exit
+PASS compiler/frame481/swap-return-uninitialized-and-unknown-tail-refused
+PASS compiler/closed-wait480/tuple-dispatch-caught-exit
+PASS compiler/closed-wait480/returning-dispatch-arm-refused
+PASS compiler/closed-wait480/foreign-dispatch-label-refused
+PASS compiler/closed-wait480/uninitialized-frame-root-refused
+PASS compiler/closed-wait480/unknown-tail-refused
+PASS compiler/float-store479/fills-frame-before-gc
+PASS compiler/float-store479/trim-discards-unused-slot
+PASS compiler/float-store479/gc-requires-initialized-roots
+PASS compiler/float-store479/uninitialized-y-read-refused
+PASS compiler/float-store479/uninitialized-float-refused
+PASS compiler/float-store479/destination-bounds-refused
+PASS compiler/float-store479/handler-overwrite-refused
+PASS oracle/compiled-module/ets-source-counters417-all288-full-typed-raw
+PASS oracle/compiled-module/ddll-error416-windows264-full-typed-raw
+PASS oracle/compiled-module/ets-source-mutations414-all252-full-typed-raw
+PASS runtime/library453/bootstrap-filesystem-refuses-substitute-bindings
+PASS oracle/compiled-module/ets-source-deletion412-all72-full-typed-raw
+PASS runtime/beam/raise-empty412/original-whole36-strict-worker
+PASS runtime/beam/raise-empty412/changed-native-binding-refused-before-invocation
+PASS runtime/beam/raise-empty412/ordinary-invalid-class-badarg-return
+PASS runtime/beam/closed-wait412/original-whole36-strict-worker
+PASS runtime/beam/closed-wait412/original-inet-owned-publication
+PASS runtime/beam/closed-wait412/caught-wait-error-retains-rejected-message
+PASS runtime/beam/closed-wait412/mutual-tail-wait-component-admission
+PASS runtime/beam/closed-wait412/return-handler-unknown-tail-roots-still-refused
+PASS runtime/beam/native-provider411/original-whole36-explicit-source-loader
+PASS runtime/beam/standalone-timeout411/literal-zero-y-and-active-handler
+PASS runtime/beam/standalone-timeout411/expired-x-uninitialized-y-and-opaque-refused
+PASS runtime/library442/ets-compressed-source-roots-and-owner-resource-release
+PASS oracle/compiled-module/ets442-compressed-mutations324-values-stacks-and-own-cursors
+PASS HOST/loader410/source-declared-dependency-inherits-and-publishes
+PASS HOST/loader410/foreign-registry-source-cannot-lend-declarations
+PASS HOST/loader410/ended-source-lease-cannot-lend-declarations
+PASS HOST/loader410/nearest-empty-source-shadows-broader-outer
+PASS HOST/message-queue411/invalid-immediate-and-remote-parser
+PASS HOST/library415/collector-prestart-death-releases-source-role
+PASS HOST/library413/collectors-real-designated-source-ordered-ack
+PASS HOST/library416/persistent-native-payload-does-not-retain-source-graph
+PASS HOST/library416/persistent-native-source-wrap-clone-grow-shrink
+PASS HOST/persistent-native417/original-seven-source-image-info-arena
+PASS HOST/beamfile418/raw-iff-not-linker-duplicate-and-subrange
+PASS HOST/beamfile418/raw-iff-malformed-and-full-native-arguments
+PASS HOST/beamfile418/raw-iff-real-owner-cancel-and-closed
+PASS oracle/compiled-module/counters421-all192-full-typed-raw
+PASS runtime/ets-replace420/native-binding-rollback
+PASS oracle/compiled-module/ets-source-replace420-all180-full-typed-raw
+PASS runtime/ets-info420/native-binding-capability-rollback
+PASS oracle/compiled-module/ets-source-info422-all216-full-typed-raw
+PASS oracle/compiled-module/internal-dirty-query423-all72-full-typed-raw
+PASS runtime/internal-check-own-code423-binding-owner-cancel
+PASS runtime/internal-check-own-code423-real-old-source-continuation
+PASS runtime/internal-check-own-code423-exit-releases-real-source-ownership
+PASS runtime/internal-is-alive425-binding-ref-validation
+PASS oracle/compiled-module/internal-is-alive425-all60-own4-full-typed-raw
+PASS oracle/compiled-module/code-purger432-full72-typed-raw
+PASS oracle/compiled-module/erts-debug436-unique-state-all144-full-typed-raw
+PASS oracle/compiled-module/ets436-counter-hints192-whole-static-stacks-own-pid-proof
+PASS oracle/compiled-module/ets442-compressed156-whole-values-and-stacks
+PASS oracle/compiled-module/allocator-gather434-full96-typed-raw
+PASS runtime/dist-channel429-real-generation-and-foreign-resource-refusal
+PASS oracle/compiled-module/dist-channel429-all84-full-source-facet3-full-typed-raw
+PASS oracle/compiled-module/debug432-breakpoint96-full-stacks-and-real-handler-profile
+PASS runtime/internal-system-task428-binding-role-and-default-preservation
+PASS runtime/internal-system-task428-real-source-handler-drains-physical-dirty-target
+PASS oracle/compiled-module/hamt430-native3-all258-raw-full-stacks-and-own4
+PASS HOST/internal-system-check431-status-owner-source-helper
+PASS oracle/compiled-module/internal-system-check431-full60-typed-raw
+PASS oracle/compiled-module/system-tasks428-all144-full-source-facet5-full-typed-raw
+PASS oracle/compiled-module/export431-entire-three-row-matrix-raw-and-typed
+PASS runtime/internal-gc428-binding-validation-owner
+PASS oracle/compiled-module/internal-gc428-all36-full-source-facet1-full-typed-raw
+PASS oracle/compiled-module/debug-dirty424-all948-full-typed-raw
+PASS oracle/compiled-module/debug-sharing425-all624-full-typed-raw
+PASS oracle/compiled-module/debug-code427-all126-full-typed-raw
+PASS runtime/raw-beam-md5423-metadata-not-link-validation
+PASS runtime/raw-beam-md5423-opt-in-owner-cancellation
+PASS oracle/compiled-module/internal-beamfile-md5423-all48-full-typed-raw
+PASS oracle/compiled-module/internal-beamfile-md5423-all318-full-typed-raw
+PASS oracle/compiled-module/debug-dist-decode423-all228-full-typed-raw
+PASS runtime/dirty-query423/native-owner-binding-and-live-dead-pid
+PASS HOST/library420/ets-cursor8-native-binding-rollback-and-alias-end
+PASS HOST/library420/ets-cursor-real-tree8-resource-bounds-and-raw-protocol
+PASS oracle/compiled-module/ets-source-cursors420-all246-full-typed-raw
+PASS oracle/compiled-module/ets-table-matchspec-leaf420-all96-full-typed-raw
+PASS HOST/library420/ets-index-native-fixation-slot-binding-rollback
+PASS oracle/compiled-module/ets-source-index420-all120-full-typed-raw
+PASS HOST/library420/ets-all-native-binding-authentic-idempotent-rollback
+PASS oracle/compiled-module/ets-source-all420-all48-full-typed-raw
+PASS oracle/compiled-module/erts-debug419-internal-state-all114-full-typed-raw
+PASS oracle/compiled-module/erts-debug419-word-identity-all144-full-typed-raw
+PASS oracle/compiled-module/erts-debug419-unaligned-all186-full-typed-raw
+PASS oracle/compiled-module/erts-debug419-no-lock-counting-all78-full-typed-raw
+PASS oracle/compiled-module/ets-compiled419-252-full-typed-raw
+PASS oracle/compiled-module/ets-compiled419-24-whole-own-resource-protocol
+PASS oracle/compiled-module/internal-owner419-all90-full-typed-raw
+PASS oracle/compiled-module/ets-source-new-heir419-all120-full-typed-raw
+PASS HOST/ets-compiled419/authentic-resource-run-and-registry-rollback
+PASS HOST/ets-compiled419/native-guards-independent-of-host-overrides
+PASS HOST/ets-compiled419/residual-native-arguments-after4000-trap
+PASS HOST/ets-compiled419/foreign-canceled-closed-resource-authority
+PASS HOST/ets-compiled419/real-program-literal-roots-retire-on-close
+PASS oracle/compiled-module/ets-source-heir419-all192-full-typed-raw
+PASS HOST/library418/ets-rename-own-native-binding-idempotence-conflicts
+PASS oracle/compiled-module/ets-source-rename418-all120-full-typed-raw
+PASS oracle/compiled-module/erts-internal-chunk418-all270-full-typed-raw
+PASS HOST/library411/explicit-order-mixed-source-imports
+PASS HOST/prim-file410/source-composition-not-general-nfc
+PASS runtime/native-provider408/source-owner-refusal
+PASS runtime/native-provider408/idempotent-and-displaced-binding
+PASS runtime/library407/source-and-external-function-storage
+PASS runtime/library407/original-beam-restored-fun-entry-and-purge
+PASS runtime/library406/beam-fun-detached-env-resource-and-authenticity
+PASS runtime/library406/beam-fun-stored-original-image-purge-entry
+PASS runtime/library405/owned-storage-resource-retention-and-read-lease
+PASS runtime/library404/io-printable-range-startup-and-source-owner
+PASS runtime/beam/callback399/shape-frame-opaque
+PASS runtime/beam/position398/proven-tail-after-position-overwrite
+PASS runtime/beam/position398/source-reference-identity
+PASS runtime/beam/handler397/continuation-proof-admission
+PASS runtime/beam/handler397/actual-caught-runtime
+PASS runtime/beam/handler397/returning-override-cannot-forge-handler
+PASS runtime/beam/context397/optional-required-forwarding
+PASS runtime/beam/context397/opaque-entry-forwarding-refusals
+PASS runtime/beam/context412/expanded-tail-opaque-refusals
+PASS runtime/beam/opaque412/variant-budget-fails-closed
+PASS runtime/prim-tty412/scoped-twenty-table-and-source-value-branches
+PASS runtime/prim-tty412/real-redirected-resource-foreign-and-closed-owner
+PASS runtime/library396/file-encoding-private-source-owner
+PASS runtime/beam/flags395/signed-little-partial-byte-offset3
+PASS runtime/beam/flags395/native-normalization-and-unknown-flags-refuse
+PASS runtime/beam/literal-failure467/admission-controls
+PASS runtime/math392/system-crt-erf-erfc-real-bindings
+PASS runtime/beam/small393/numeric-inequality
+PASS runtime/beam/small393/negation-bits
+PASS runtime/beam/small393/negation-uninitialized
+PASS runtime/beam/small393/negation-stale-after-call
+PASS runtime/beam/small393/negation-fresh-after-call
+PASS runtime/beam/small393/negation-wrong-destination
+PASS runtime/beam/small393/inequality-uninitialized-y
+PASS runtime/beam/pretty392/equal16-success-mismatch-and-short
+PASS runtime/beam/pretty392/equal16-at-bit-offset3
+PASS runtime/beam/pretty392/equal-width-value-kind-and-flags-refuse
+PASS runtime/beam/pretty392/equal64-private-plan-value-proof
+PASS runtime/beam/tail392/unit1-no-spurious-position-edge
+PASS runtime/beam/tail392/unit2-equality-and-opaque-return-still-refuse
+PASS runtime/beam-catch/protocol-refusals
+PASS runtime/beam-catch/normal-exception-retained-trim
+PASS runtime/beam/initialized-roots391/GcOnly
+PASS runtime/beam/initialized-roots391/TrimGc
+PASS runtime/beam/initialized-roots391/TransportEscape
+PASS runtime/beam/initialized-roots391/TrimEscape
+PASS runtime/beam/initialized-roots391/ReallocateUninitialized
+PASS runtime/beam/initialized-roots391/OverwriteThenRead
+PASS runtime/beam/line-location/missing-header-does-not-inherit-prior-function
+PASS runtime/library390/beam-only-and-missing-dependency-refused
+PASS runtime/beam/queue-original-lists/long-reverse-split
+PASS runtime/beam/queue-original-lists/callback-errors
+PASS runtime/beam/queue-original-lists/cancel-callback-owner-cleanup
+PASS runtime/beam/lists/native-boundary-preserves-source-caller
+PASS runtime/beam/lists/export/reverse/1
+PASS runtime/beam/lists/export/reverse/2
+PASS runtime/beam/lists/export/append/2
+PASS runtime/beam/lists/export/append/1
+PASS runtime/beam/lists/export/duplicate/2
+PASS runtime/beam/lists/export/flatten/1
+PASS runtime/beam/lists/export/flatten/2
+PASS runtime/beam/lists/export/member/2
+PASS runtime/beam/lists/export/sum/1
+PASS runtime/beam/lists/export/max/1
+PASS runtime/beam/lists/export/min/1
+PASS runtime/beam/lists/export/keyfind/3
+PASS runtime/beam/lists/export/keymember/3
+PASS runtime/beam/lists/export/keysearch/3
+PASS runtime/beam/lists/export/nth/2
+PASS runtime/beam/lists/export/nthtail/2
+PASS runtime/beam/lists/export/last/1
+PASS runtime/beam/lists/export/split/2
+PASS runtime/beam/lists/export/seq/2
+PASS runtime/beam/lists/export/seq/3
+PASS runtime/beam/lists/export/map/2
+PASS runtime/beam/lists/export/sort/1
+PASS runtime/beam/lists/export/sort/2
+PASS runtime/beam/lists/export/usort/1
+PASS runtime/beam/lists/export/usort/2
+PASS runtime/beam/lists/export/all/2
+PASS runtime/beam/lists/export/any/2
+PASS runtime/beam/lists/export/partition/2
+PASS runtime/beam/lists/export/filtermap/2
+PASS runtime/beam/lists/export/zf/2
+PASS runtime/beam/lists/export/foreach/2
+PASS runtime/beam/lists/export/takewhile/2
+PASS runtime/beam/lists/export/dropwhile/2
+PASS runtime/beam/lists/export/foldl/3
+PASS runtime/beam/lists/export/foldr/3
+PASS runtime/beam/lists/export/mapfoldl/3
+PASS runtime/beam/lists/export/mapfoldr/3
+PASS runtime/beam/lists/export/concat/1
+PASS runtime/beam/lists/export/delete/2
+PASS runtime/beam/lists/export/droplast/1
+PASS runtime/beam/lists/export/enumerate/1
+PASS runtime/beam/lists/export/enumerate/2
+PASS runtime/beam/lists/export/enumerate/3
+PASS runtime/beam/lists/export/join/2
+PASS runtime/beam/lists/export/prefix/2
+PASS runtime/beam/lists/export/suffix/2
+PASS runtime/beam/lists/export/sublist/2
+PASS runtime/beam/lists/export/sublist/3
+PASS runtime/beam/lists/export/subtract/2
+PASS runtime/beam/lists/export/uniq/1
+PASS runtime/beam/lists/export/uniq/2
+PASS runtime/beam/lists/export/unzip/1
+PASS runtime/beam/lists/export/unzip3/1
+PASS runtime/beam/lists/export/keydelete/3
+PASS runtime/beam/lists/export/keytake/3
+PASS runtime/beam/lists/export/keyreplace/4
+PASS runtime/beam/lists/export/keystore/4
+PASS runtime/beam/lists/export/keymap/3
+PASS runtime/beam/lists/export/filter/2
+PASS runtime/beam/lists/export/flatmap/2
+PASS runtime/beam/lists/export/search/2
+PASS runtime/beam/lists/export/splitwith/2
+PASS runtime/beam/lists/export/keysort/2
+PASS runtime/beam/lists/export/ukeysort/2
+PASS runtime/beam/lists/export/merge/1
+PASS runtime/beam/lists/export/merge/2
+PASS runtime/beam/lists/export/merge/3
+PASS runtime/beam/lists/export/umerge/1
+PASS runtime/beam/lists/export/umerge/2
+PASS runtime/beam/lists/export/umerge/3
+PASS runtime/beam/lists/export/rmerge/2
+PASS runtime/beam/lists/export/rmerge/3
+PASS runtime/beam/lists/export/rumerge/2
+PASS runtime/beam/lists/export/rumerge/3
+PASS runtime/beam/lists/export/keymerge/3
+PASS runtime/beam/lists/export/ukeymerge/3
+PASS runtime/beam/lists/export/rkeymerge/3
+PASS runtime/beam/lists/export/rukeymerge/3
+PASS runtime/beam/lists/export/merge3/3
+PASS runtime/beam/lists/export/rmerge3/3
+PASS runtime/beam/lists/export/umerge3/3
+PASS runtime/beam/lists/export/rumerge3/3
+PASS runtime/beam/lists/export/zip/2
+PASS runtime/beam/lists/export/zip/3
+PASS runtime/beam/lists/export/zip3/3
+PASS runtime/beam/lists/export/zip3/4
+PASS runtime/beam/lists/export/zipwith/3
+PASS runtime/beam/lists/export/zipwith/4
+PASS runtime/beam/lists/export/zipwith3/4
+PASS runtime/beam/lists/export/zipwith3/5
+PASS runtime/beam/lists/native-boundaries-and-pure-bodies
+PASS runtime/beam/queue-original-lists/new
+PASS runtime/beam/queue-original-lists/is_queue
+PASS runtime/beam/queue-original-lists/is_empty
+PASS runtime/beam/queue-original-lists/len
+PASS runtime/beam/queue-original-lists/in
+PASS runtime/beam/queue-original-lists/out
+PASS runtime/beam/queue-original-lists/from_list
+PASS runtime/beam/queue-original-lists/to_list
+PASS runtime/beam/queue-original-lists/member
+PASS runtime/beam/queue-original-lists/reverse
+PASS runtime/beam/queue-original-lists/join
+PASS runtime/beam/queue-original-lists/split
+PASS runtime/beam/queue-original-lists/filter
+PASS runtime/beam/queue-original-lists/filtermap
+PASS runtime/beam/queue-original-lists/fold
+PASS runtime/beam/queue-original-lists/any
+PASS runtime/beam/queue-original-lists/all
+PASS runtime/beam/queue-original-lists/delete
+PASS runtime/beam/queue-original-lists/delete_r
+PASS runtime/beam/queue-original-lists/delete_with
+PASS runtime/beam/queue-original-lists/delete_with_r
+PASS runtime/beam/queue-original-lists/in_r
+PASS runtime/beam/queue-original-lists/out_r
+PASS runtime/beam/queue-original-lists/get
+PASS runtime/beam/queue-original-lists/get_r
+PASS runtime/beam/queue-original-lists/peek
+PASS runtime/beam/queue-original-lists/peek_r
+PASS runtime/beam/queue-original-lists/drop
+PASS runtime/beam/queue-original-lists/drop_r
+PASS runtime/beam/queue-original-lists/cons
+PASS runtime/beam/queue-original-lists/head
+PASS runtime/beam/queue-original-lists/tail
+PASS runtime/beam/queue-original-lists/snoc
+PASS runtime/beam/queue-original-lists/last
+PASS runtime/beam/queue-original-lists/daeh
+PASS runtime/beam/queue-original-lists/init
+PASS runtime/beam/queue-original-lists/liat
+PASS runtime/beam/queue-original-lists/lait
+PASS runtime/beam/opcode-edges/trim-zero-tail-continuation
+PASS runtime/beam/opcode-edges/guard-bif-destination
+PASS runtime/beam/opcode-edges/select-table-admission
+PASS host_original_queue_beam_direct_roundtrip
+PASS host_original_queue_beam_selected_backend_roundtrip
+PASS compiler/binding/guard/local_guard_shadow
+PASS compiler/binding/guard/local_guard_shadow_suppressed
+PASS compiler/binding/guard/suppressed_guard
+PASS compiler/binding/guard/suppressed_ordinary
+PASS compiler/binding/guard/suppressed_named_fun
+PASS compiler/binding/guard/foreign_import_guard
+PASS compiler/binding/guard/imported_fun_forbidden
+PASS compiler/binding/guard/erlang_imported_fun_forbidden
+PASS compiler/binding/guard/import_local_conflict
+PASS compiler/binding/guard/duplicate_import
+PASS compiler/binding/guard/suppressed_filter
+PASS compiler/binding/guard/suppressed_bit_size
+PASS compiler/binding/guard/suppressed_map_key
+PASS compiler/binding/import-module-name/latin1
+PASS compiler/binding/generated-metadata-roundtrip
+PASS source-fun-current-old-purged-sibling-captures
+PASS compiler/native-record-cross-module-current-definitions-and-captured-values
+PASS runtime/module-loading-owned-zero-export-rollback-and-snapshots
+PASS compiler/standalone-auto-imports-qualified-and-dynamic-calls
+PASS runtime/module-information-cache-code-ownership-and-rollback
+PASS compiler/source-attributes-literal-only-and-code-fingerprint-isolation
+PASS host/BEAM-on-load-cleanup-fault-quiescence-and-retirement
+PASS runtime/source-stage-transaction-ownership-and-purge-generation
+PASS runtime/beam-fun-entry-pending-purge-active-continuation
+PASS runtime/source-tail-owned-entry-version-and-rollback
+PASS runtime/qualified-callback-tail-releases-source-frame
+PASS runtime/source-code-images-old-continuations-and-fun-calls
+PASS compiler/maybe/invalid-grammar/1 ?= 1
+PASS compiler/maybe/invalid-grammar/maybe end
+PASS compiler/maybe/invalid-grammar/maybe ok else end
+PASS compiler/maybe/invalid-grammar/maybe ok ?= wrong ?= nope end
+PASS compiler/maybe/invalid-grammar/maybe (ok ?= ok) end
+PASS compiler/maybe/invalid-grammar/maybe ok ?= wrong else _ -> ok ?= wrong end
+PASS compiler/maybe/illegal-guard
+PASS oracle/source-quoting-roundtrip
+PASS compiler/numeric-mixed-nearest-even
+PASS compiler/numeric-integer-division-rounding
+PASS compiler/numeric-conversion-overflow-badarith
+PASS compiler/numeric-conversion-guard-failure
+PASS compiler/quoted-unicode-valid-codepoint-order
+PASS compiler/quoted-unicode-illegal-character
+PASS compiler/arithmetic-precedence
+PASS compiler/exact-equality
+PASS compiler/case-pattern-guard
+PASS compiler/guard-error-rejects
+PASS compiler/guard-alternative
+PASS compiler/list-fun-map
+PASS compiler/receive-after-zero
+PASS compiler/binding-and-repeat
+PASS compiler/single-assignment-mismatch
+PASS compiler/unbound-diagnostic
+PASS compiler/unsafe-variable-diagnostic
+PASS compiler/illegal-guard-diagnostic
+PASS compiler/quoted-keyword-atom
+PASS compiler/module-clauses-private-function
+PASS compiler/spawn-fun-child-self
+PASS compiler/selective-receive-clause-order
+PASS compiler/tail-recursion-50000
+PASS compiler/unsafe-variable-rebinding-diagnostic
+PASS compiler/signed-zero-pattern
+PASS compiler/large-literal-codegeneration
+PASS compiler/reserved-keywords-rejected
+PASS compiler/unsupported-escape-diagnostic
+PASS compiler/quoted-operator-atom
+PASS compiler/map-empty-and-nonmap-pattern
+PASS compiler/map-duplicate-last-wins
+PASS compiler/map-exact-numeric-keys
+PASS compiler/map-assoc-and-exact-update
+PASS compiler/map-mixed-duplicate-update
+PASS compiler/map-chained-update
+PASS compiler/map-badkey
+PASS compiler/map-exact-before-assoc-fails
+PASS compiler/map-badmap-empty-update
+PASS compiler/map-error-expression-before-badmap
+PASS compiler/map-error-expression-before-badkey
+PASS compiler/map-subset-nested-repeat
+PASS compiler/map-repeated-variable-reject
+PASS compiler/map-duplicate-pattern-keys
+PASS compiler/map-bound-key-and-guard-expression
+PASS compiler/map-structured-key
+PASS compiler/map-guard-key-error-rejects
+PASS compiler/map-construction-in-guard
+PASS compiler/map-update-guard-error-rejects
+PASS compiler/map-unbound-key-diagnostic
+PASS compiler/map-sibling-binding-key-diagnostic
+PASS compiler/map-assoc-pattern-diagnostic
+PASS compiler/map-exact-construction-diagnostic
+PASS compiler/map-illegal-key-call-diagnostic
+PASS compiler/map-receive-preserves-unmatched
+PASS compiler/map-closure-captured-key
+PASS compiler/map-closure-key-value-shadow
+PASS compiler/map-context-guard-key
+PASS compiler/map-bifs-positive-negative-types
+PASS compiler/map-get-exact-key-badkey
+PASS compiler/map-get-badmap
+PASS compiler/map-size-badmap
+PASS compiler/is-map-key-badmap
+PASS compiler/map-key-signed-zero
+PASS compiler/map-guard-bifs-qualified
+PASS compiler/map-guard-missing-key-alternative
+PASS compiler/map-guard-nonmap-rejection
+PASS compiler/map-pattern-key-map-get
+PASS compiler/map-pattern-key-map-get-failure
+PASS compiler/maps-module-not-guard-legal
+PASS compiler/bits-empty-default-bytes
+PASS compiler/bits-truncate-negative
+PASS compiler/bits-unaligned-concatenation
+PASS compiler/bits-big-little-native
+PASS compiler/bits-little-partial-octet
+PASS compiler/bits-explicit-unit
+PASS compiler/bits-string-literal
+PASS compiler/bits-bound-expression-size
+PASS compiler/bits-binary-prefix
+PASS compiler/bits-bitstring-interpolation
+PASS compiler/bits-binary-unit-one
+PASS compiler/bits-zero-size
+PASS compiler/bits-bad-value
+PASS compiler/bits-negative-size
+PASS compiler/bits-size-prefix-requires-parentheses
+PASS compiler/bits-float-size
+PASS compiler/bits-short-binary
+PASS compiler/bits-binary-unit-alignment
+PASS compiler/bits-invalid-unit-diagnostic
+PASS compiler/bits-utf-size-unit-diagnostic
+PASS compiler/bits-float16-vector
+PASS compiler/bits-float32-vector
+PASS compiler/bits-float64-default
+PASS compiler/bits-float-little-native
+PASS compiler/bits-float-integer-coercion
+PASS compiler/bits-float-unit
+PASS compiler/bits-float-bad-size
+PASS compiler/bits-float-bad-value
+PASS compiler/bits-float16-round-once
+PASS compiler/bits-float16-subnormal-vectors
+PASS compiler/bits-float-narrow-overflow
+PASS compiler/bits-float-pattern16-rounded
+PASS compiler/bits-float-integer-rounding
+PASS compiler/bits-float-integer-max-boundary
+PASS compiler/bits-float-pattern32
+PASS compiler/bits-float-pattern64-default
+PASS compiler/bits-float-pattern-unaligned
+PASS compiler/bits-float-pattern-zero
+PASS compiler/bits-float-pattern-nonfinite-reject
+PASS compiler/bits-float-pattern-invalid-short
+PASS compiler/bits-float-pattern-numeric-literal
+PASS compiler/bits-float-pattern-bound-integer
+PASS compiler/bits-float-signed-zero
+PASS compiler/bits-float-pattern-prior-width
+PASS compiler/bits-float-guard-and-map-key
+PASS compiler/bits-float-unit-without-size-diagnostic
+PASS compiler/bits-float16-all-finite-roundtrip
+PASS compiler/bits-duplicate-spec-diagnostic
+PASS compiler/bits-utf8-boundary-vectors
+PASS compiler/bits-utf16-surrogate-vector
+PASS compiler/bits-utf32-vector
+PASS compiler/bits-utf-endian-native
+PASS compiler/bits-utf-invalid-values
+PASS compiler/bits-utf-undefined-size-diagnostic
+PASS compiler/bits-utf-noncharacters
+PASS compiler/bits-utf8-prefix-rest
+PASS compiler/bits-utf16-pattern-pair
+PASS compiler/bits-utf32-pattern
+PASS compiler/bits-utf8-invalid-sequences
+PASS compiler/bits-utf16-invalid-sequences
+PASS compiler/bits-utf32-invalid-scalars
+PASS compiler/bits-utf-unaligned
+PASS compiler/bits-utf-truncated-bit-tail
+PASS compiler/bits-utf-binding-rollback
+PASS compiler/bits-utf-size-binding
+PASS compiler/bits-utf-literal-and-bound
+PASS compiler/bits-utf-string-construction
+PASS compiler/bits-utf-string-pattern
+PASS compiler/bits-utf-guard-map-key
+PASS compiler/bits-utf-deterministic-roundtrips
+PASS compiler/bits-pattern-default
+PASS compiler/bits-pattern-signed
+PASS compiler/bits-pattern-unsigned
+PASS compiler/bits-pattern-signed-little
+PASS compiler/bits-pattern-little-partial
+PASS compiler/bits-pattern-native
+PASS compiler/bits-pattern-prior-size
+PASS compiler/bits-pattern-bound-size-expression
+PASS compiler/bits-pattern-shadow-size
+PASS compiler/bits-pattern-shadow-repeat
+PASS compiler/fun-clause-local-shadow-capture
+PASS compiler/fun-guard-fallback-capture
+PASS compiler/fun-bit-clause-fallback-capture
+PASS compiler/bits-pattern-repeat-mismatch
+PASS compiler/bits-pattern-bound-value
+PASS compiler/bits-pattern-short-extra-nonbits
+PASS compiler/bits-pattern-zero-signed
+PASS compiler/bits-pattern-binary-prefix
+PASS compiler/bits-pattern-unaligned-prefix
+PASS compiler/bits-pattern-unit
+PASS compiler/bits-pattern-rest-unit-mismatch
+PASS compiler/bits-pattern-invalid-size-alternative
+PASS compiler/bits-pattern-string-prefix
+PASS compiler/bits-pattern-literal-no-truncation
+PASS compiler/bits-pattern-signed-literal
+PASS compiler/bits-pattern-empty
+PASS compiler/bits-pattern-rollback
+PASS compiler/bits-pattern-forward-size-diagnostic
+PASS compiler/bits-pattern-nonlast-rest-diagnostic
+PASS compiler/bits-pattern-size-call-diagnostic
+PASS compiler/bits-pattern-nested-diagnostic
+PASS compiler/bits-pattern-map-value
+PASS compiler/bits-pattern-match-badmatch
+PASS compiler/bits-pattern-receive-preserves-unmatched
+PASS compiler/bits-guard-and-map-key
+PASS compiler/bits-unit-without-size-diagnostic
+PASS compiler/bits-string-little-per-codepoint
+PASS compiler/bits-string-unit-per-codepoint
+PASS compiler/bits-string-unaligned
+PASS compiler/bits-string-unicode-integer-truncation
+PASS compiler/bits-string-float-half
+PASS compiler/bits-string-float-single-little
+PASS compiler/bits-string-float-default
+PASS compiler/bits-string-size-evaluated-once
+PASS compiler/bits-string-size-binding
+PASS compiler/bits-empty-string-valid-modifiers
+PASS compiler/bits-empty-string-size-evaluation
+PASS compiler/bits-string-zero-width
+PASS compiler/bits-string-invalid-sizes
+PASS compiler/bits-string-modifier-pattern-diagnostic
+PASS compiler/bits-string-guard-and-map-key
+PASS compiler/bits-numeric-literal-all-diagnostic
+PASS compiler/bits-identical-specifiers
+PASS compiler/bits-alias-specifier-unit-conflict
+PASS compiler/bits-explicit-all-binary
+PASS compiler/bit-size-byte-rounding
+PASS compiler/bitstring-predicate-distinction
+PASS compiler/bit-size-invalid-badarg
+PASS compiler/byte-size-invalid-badarg
+PASS compiler/bit-bifs-qualified-guard
+PASS compiler/bit-bif-guard-failure-alternative
+PASS compiler/bit-bif-map-pattern-key
+PASS compiler/comprehension/binary-invalid-patterns
+PASS compiler/comprehension/map-invalid-syntax
+PASS compiler/comprehension/map-exact-template-rejected
+PASS compiler/comprehension/map-illegal-guard
+PASS compiler/comprehension/binary-illegal-guard
+PASS compiler/comprehension/binary-zero-progress-resource-policy
+PASS compiler/zip/invalid-group
+PASS compiler/zip/illegal-guard
+PASS compiler/zip/large-iterative
+PASS compiler/zip/no-progress-local-policy
+PASS compiler/operators/begin-value
+PASS compiler/operators/begin-binding-export
+PASS compiler/operators/begin-order
+PASS compiler/operators/begin-nested-if
+PASS compiler/operators/begin-body-exception
+PASS compiler/operators/begin-prebound-badmatch
+PASS compiler/operators/begin-closure
+PASS compiler/operators/bnot-zero
+PASS compiler/operators/bnot-negative
+PASS compiler/operators/bnot-big
+PASS compiler/operators/band-positive
+PASS compiler/operators/band-negative
+PASS compiler/operators/bor-big
+PASS compiler/operators/bxor-negative
+PASS compiler/operators/shift-left
+PASS compiler/operators/shift-right
+PASS compiler/operators/shift-right-negative-value
+PASS compiler/operators/shift-left-negative-count
+PASS compiler/operators/shift-right-negative-count
+PASS compiler/operators/shift-big-value
+PASS compiler/operators/shift-huge-right-positive
+PASS compiler/operators/shift-huge-right-negative
+PASS compiler/operators/shift-huge-left-negative
+PASS compiler/operators/shift-huge-zero
+PASS compiler/operators/shift-huge-left-resource
+PASS compiler/operators/shift-huge-right-negative-resource
+PASS compiler/operators/bnot-float-error
+PASS compiler/operators/band-float-error
+PASS compiler/operators/bor-atom-error
+PASS compiler/operators/bxor-float-error
+PASS compiler/operators/shift-float-count-error
+PASS compiler/operators/shift-float-value-error
+PASS compiler/operators/and-tt
+PASS compiler/operators/and-tf
+PASS compiler/operators/and-ft
+PASS compiler/operators/and-ff
+PASS compiler/operators/or-tt
+PASS compiler/operators/or-tf
+PASS compiler/operators/or-ft
+PASS compiler/operators/or-ff
+PASS compiler/operators/xor-tt
+PASS compiler/operators/xor-tf
+PASS compiler/operators/xor-ft
+PASS compiler/operators/xor-ff
+PASS compiler/operators/and-invalid-right
+PASS compiler/operators/or-invalid-right
+PASS compiler/operators/xor-invalid-left
+PASS compiler/operators/strict-and-rhs-exception
+PASS compiler/operators/strict-or-rhs-exception
+PASS compiler/operators/strict-invalid-lhs-rhs-error
+PASS compiler/operators/bit-precedence
+PASS compiler/operators/shift-add-left-association
+PASS compiler/operators/boolean-precedence
+PASS compiler/operators/andalso-right-association
+PASS compiler/operators/orelse-right-association
+PASS compiler/operators/short-invalid-left
+PASS compiler/operators/short-binding-discard
+PASS compiler/operators/strict-binding-export
+PASS compiler/operators/strict-binding-conflict
+PASS compiler/operators/guard-bit-operators
+PASS compiler/operators/guard-strict-failure-alternative
+PASS compiler/operators/catch-value
+PASS compiler/operators/catch-throw
+PASS compiler/operators/catch-exit
+PASS compiler/operators/catch-error-reason
+PASS compiler/operators/catch-error-stack-shape
+PASS compiler/operators/catch-error-stack-nonempty
+PASS compiler/operators/catch-low-precedence
+PASS compiler/operators/catch-nested-begin
+PASS compiler/operators/catch-prebound-binding
+PASS compiler/operators/comparison-parentheses
+PASS compiler/operators/send-match-precedence
+PASS compiler/operators/begin-bit-size
+PASS compiler/operators/tuple-export
+PASS compiler/operators/tuple-equal-binding
+PASS compiler/operators/tuple-conflict
+PASS compiler/operators/tuple-exact-conflict
+PASS compiler/operators/tuple-conflict-stops-next
+PASS compiler/operators/tuple-side-effect-order
+PASS compiler/operators/tuple-nested-export
+PASS compiler/operators/tuple-prebound
+PASS compiler/operators/call-export
+PASS compiler/operators/call-equal-binding
+PASS compiler/operators/call-conflict
+PASS compiler/operators/call-first-error
+PASS compiler/operators/call-nested-export
+PASS compiler/operators/apply-argument-export
+PASS compiler/operators/sequential-body-control
+PASS compiler/operators/tuple-closure-export
+PASS compiler/operators/list-export
+PASS compiler/operators/list-tail-export
+PASS compiler/operators/list-conflict-right-value
+PASS compiler/operators/list-conflict-after-tail-effects
+PASS compiler/operators/map-fields-export
+PASS compiler/operators/map-base-export
+PASS compiler/operators/map-base-field-conflict
+PASS compiler/operators/map-base-field-equal
+PASS compiler/operators/map-field-conflict
+PASS compiler/operators/map-exact-after-assoc
+PASS compiler/operators/map-fields-before-badmap
+PASS compiler/operators/map-badkey-before-base-merge
+PASS compiler/operators/map-fields-effect-order
+PASS compiler/operators/map-signed-zero-and-numeric-keys
+PASS compiler/operators/bits-float-conversion-before-huge-size
+PASS compiler/operators/bits-utf-before-huge-size
+PASS compiler/operators/bits-negative-size-before-huge-size
+PASS compiler/operators/bits-float-conversion-after-evaluation
+PASS compiler/operators/bits-invalid-value-after-size-evaluation
+PASS compiler/operators/bits-invalid-value-before-next-size-effect
+PASS compiler/operators/bits-value-size-export
+PASS compiler/operators/bits-equal-binding
+PASS compiler/operators/bits-conflicting-binding
+PASS compiler/operators/bits-string-size-export
+PASS compiler/operators/bits-empty-string-valid-size
+PASS compiler/operators/bits-empty-string-error-after-evaluation
+PASS compiler/operators/empty-string-dynamic-negative-later-error
+PASS compiler/operators/empty-string-dynamic-atom-later-error
+PASS compiler/operators/empty-string-dynamic-negative-later-effect
+PASS compiler/operators/empty-string-size-binding-export
+PASS compiler/operators/empty-string-float-unused-width
+PASS compiler/operators/empty-string-unused-huge-size
+PASS compiler/operators/match-tuple-sibling-structure
+PASS compiler/operators/match-list-sibling-structure
+PASS compiler/operators/match-prebound-whole-value
+PASS compiler/operators/try-success-after
+PASS compiler/operators/try-success-catch
+PASS compiler/operators/try-of-body-bindings
+PASS compiler/operators/try-default-throw
+PASS compiler/operators/try-error-pattern
+PASS compiler/operators/try-exit-class
+PASS compiler/operators/try-class-variable
+PASS compiler/operators/try-default-does-not-catch-error
+PASS compiler/operators/try-class-mismatch
+PASS compiler/operators/try-stack-body
+PASS compiler/operators/try-guard-alternatives
+PASS compiler/operators/try-guard-failure-fallback
+PASS compiler/operators/try-guard-rethrow
+PASS compiler/operators/try-of-guard-fallback
+PASS compiler/operators/try-of-no-match
+PASS compiler/operators/try-of-error-outside-catch
+PASS compiler/operators/try-handler-error-outside-catch
+PASS compiler/operators/try-after-success-effect
+PASS compiler/operators/try-after-handler-effect
+PASS compiler/operators/try-after-of-failure-effect
+PASS compiler/operators/try-after-rethrow-effect
+PASS compiler/operators/try-after-overrides-value
+PASS compiler/operators/try-after-overrides-error
+PASS compiler/operators/try-after-overrides-handler
+PASS compiler/operators/try-incoming-binding
+PASS compiler/operators/try-after-local-binding
+PASS compiler/operators/try-negative-integer-stack-pattern
+PASS compiler/operators/try-negative-float-stack-pattern
+PASS compiler/operators/try-parenthesized-negative-stack-pattern
+PASS compiler/operators/stack-body-if-guard
+PASS compiler/operators/stack-body-case-guard
+PASS compiler/operators/stack-captured-fun-guard
+PASS compiler/operators/stack-shadowed-fun-guard
+PASS compiler/operators/stack-nested-catch-guard
+PASS compiler/operators/stack-body-receive-guard
+PASS compiler/operators/maybe-ordinary-sequence
+PASS compiler/operators/maybe-match-last-value
+PASS compiler/operators/maybe-sequential-matches
+PASS compiler/operators/maybe-first-mismatch
+PASS compiler/operators/maybe-later-mismatch
+PASS compiler/operators/maybe-success-skips-else
+PASS compiler/operators/maybe-else-pattern
+PASS compiler/operators/maybe-else-guard-alternatives
+PASS compiler/operators/maybe-else-guard-failure
+PASS compiler/operators/maybe-else-no-match
+PASS compiler/operators/maybe-else-all-guards-fail
+PASS compiler/operators/maybe-rhs-error-propagates
+PASS compiler/operators/maybe-rhs-throw-propagates
+PASS compiler/operators/maybe-rhs-exit-propagates
+PASS compiler/operators/maybe-body-error-propagates
+PASS compiler/operators/maybe-ordinary-badmatch
+PASS compiler/operators/maybe-else-body-error
+PASS compiler/operators/maybe-incoming-binding
+PASS compiler/operators/maybe-incoming-mismatch-else
+PASS compiler/operators/maybe-repeated-pattern-variable
+PASS compiler/operators/maybe-exact-numeric-match
+PASS compiler/operators/maybe-list-tail-pattern
+PASS compiler/operators/maybe-map-pattern
+PASS compiler/operators/maybe-bit-pattern
+PASS compiler/operators/maybe-pattern-expression-failure
+PASS compiler/operators/maybe-nested-independent-bindings
+PASS compiler/operators/maybe-rhs-binds-before-pattern
+PASS compiler/operators/maybe-else-captures-incoming
+PASS compiler/operators/maybe-success-effect-order
+PASS compiler/operators/maybe-mismatch-effect-order
+PASS compiler/operators/alias-case-whole-and-parts
+PASS compiler/operators/alias-reversed-case
+PASS compiler/operators/alias-nested-case
+PASS compiler/operators/alias-structural-pair
+PASS compiler/operators/alias-mismatch-fallback
+PASS compiler/operators/alias-exact-repeated-variable
+PASS compiler/operators/alias-fun-argument
+PASS compiler/operators/alias-fun-shadow
+PASS compiler/operators/alias-maybe-match
+PASS compiler/operators/alias-maybe-mismatch
+PASS compiler/operators/alias-maybe-else
+PASS compiler/operators/alias-try-catch-stack
+PASS compiler/operators/prefix-string-suffix
+PASS compiler/operators/prefix-string-alias-whole
+PASS compiler/operators/prefix-string-alias-suffix
+PASS compiler/operators/prefix-integer-list-improper-tail
+PASS compiler/operators/prefix-nested-proper-literal
+PASS compiler/operators/prefix-empty-list
+PASS compiler/operators/prefix-empty-string
+PASS compiler/operators/prefix-chained
+PASS compiler/operators/prefix-mismatch-fallback
+PASS compiler/operators/prefix-unicode
+PASS compiler/operators/alias-map-incoming-key
+PASS compiler/operators/alias-bit-incoming-size
+PASS compiler/operators/lc-basic
+PASS compiler/operators/lc-ordered-filter
+PASS compiler/operators/lc-empty
+PASS compiler/operators/lc-no-generator
+PASS compiler/operators/lc-false-filter
+PASS compiler/operators/lc-guard-nonboolean
+PASS compiler/operators/lc-guard-failure-skips
+PASS compiler/operators/lc-ordinary-nonboolean
+PASS compiler/operators/lc-ordinary-error
+PASS compiler/operators/lc-ordinary-fun-filter
+PASS compiler/operators/lc-relaxed-mismatch
+PASS compiler/operators/lc-repeated-exact
+PASS compiler/operators/lc-strict-success
+PASS compiler/operators/lc-strict-mismatch
+PASS compiler/operators/lc-strict-filter-not-match
+PASS compiler/operators/lc-bad-source
+PASS compiler/operators/lc-improper-source
+PASS compiler/operators/lc-empty-before-bad-source
+PASS compiler/operators/lc-cartesian-order
+PASS compiler/operators/lc-dependent-generator
+PASS compiler/operators/lc-shadow-outer
+PASS compiler/operators/lc-shadow-earlier-generator
+PASS compiler/operators/lc-filter-binding
+PASS compiler/operators/lc-source-binding-private
+PASS compiler/operators/lc-nested
+PASS compiler/operators/lc-multiple-templates
+PASS compiler/operators/lc-template-match-private
+PASS compiler/operators/lc-body-side-effect-order
+PASS compiler/operators/lc-alias-pattern
+PASS compiler/operators/lc-map-input-key
+PASS compiler/operators/lc-bit-input-size
+PASS compiler/operators/lc-closure-capture
+PASS compiler/operators/lc-failure-before-improper-tail
+PASS compiler/operators/lc-false-before-improper-tail
+PASS compiler/operators/lc-remote-operator-filter
+PASS compiler/operators/lc-remote-arithmetic-guard-failure
+PASS compiler/operators/bc-list-source
+PASS compiler/operators/bc-filter
+PASS compiler/operators/bc-empty
+PASS compiler/operators/bc-no-generator
+PASS compiler/operators/bc-variable-template
+PASS compiler/operators/bc-nonbit-template
+PASS compiler/operators/bc-unaligned-output
+PASS compiler/operators/bc-empty-template
+PASS compiler/operators/bc-template-segments
+PASS compiler/operators/bc-nested
+PASS compiler/operators/bc-ordinary-filter
+PASS compiler/operators/bc-guard-errors
+PASS compiler/operators/bc-template-before-next-error
+PASS compiler/operators/bg-byte-list
+PASS compiler/operators/bg-byte-binary
+PASS compiler/operators/bg-empty
+PASS compiler/operators/bg-strict-empty
+PASS compiler/operators/bg-relaxed-literal
+PASS compiler/operators/bg-strict-literal
+PASS compiler/operators/bg-relaxed-tail
+PASS compiler/operators/bg-strict-tail
+PASS compiler/operators/bg-unaligned
+PASS compiler/operators/bg-strict-unaligned-tail
+PASS compiler/operators/bg-bad-source
+PASS compiler/operators/bg-repeated
+PASS compiler/operators/bg-incoming-shadow
+PASS compiler/operators/bg-incoming-size
+PASS compiler/operators/bg-sequential-size
+PASS compiler/operators/bg-dependent-source
+PASS compiler/operators/bg-source-private
+PASS compiler/operators/bg-utf8
+PASS compiler/operators/bg-utf-invalid-tail
+PASS compiler/operators/bg-strict-utf-invalid-tail
+PASS compiler/operators/bg-float-invalid-skips
+PASS compiler/operators/bg-binary-segments
+PASS compiler/operators/bg-little-signed
+PASS compiler/operators/mc-list
+PASS compiler/operators/mc-filter
+PASS compiler/operators/mc-empty
+PASS compiler/operators/mc-no-generator
+PASS compiler/operators/mc-false
+PASS compiler/operators/mc-multiple-fields
+PASS compiler/operators/mc-last-key
+PASS compiler/operators/mc-last-field
+PASS compiler/operators/mc-exact-numeric-keys
+PASS compiler/operators/mc-tuple-key
+PASS compiler/operators/mc-nested
+PASS compiler/operators/mc-binary-source
+PASS compiler/operators/mc-dependent
+PASS compiler/operators/mc-key-value-conflict
+PASS compiler/operators/mc-template-private
+PASS compiler/operators/mc-effect-order
+PASS compiler/operators/mg-map-result
+PASS compiler/operators/mg-list-result
+PASS compiler/operators/mg-binary-result
+PASS compiler/operators/mg-empty
+PASS compiler/operators/mg-strict-empty
+PASS compiler/operators/mg-key-filter
+PASS compiler/operators/mg-value-filter
+PASS compiler/operators/mg-strict-key
+PASS compiler/operators/mg-strict-value
+PASS compiler/operators/mg-repeated
+PASS compiler/operators/mg-repeated-strict
+PASS compiler/operators/mg-bad-map
+PASS compiler/operators/mg-bad-list
+PASS compiler/operators/mg-shadow
+PASS compiler/operators/mg-nested-source
+PASS compiler/operators/mg-follow-list
+PASS compiler/operators/mg-follow-binary
+PASS compiler/operators/mg-key-incoming-scope
+PASS compiler/operators/mg-guard-filter
+PASS compiler/operators/mg-ordinary-filter
+PASS compiler/operators/mg-bad-filter
+PASS compiler/operators/mg-filter-binding
+PASS compiler/operators/mg-none-iterator
+PASS compiler/operators/mg-tuple-iterator
+PASS compiler/operators/mg-invalid-iterator-tail
+PASS compiler/operators/mg-ordered-iterator
+PASS compiler/operators/mg-reversed-iterator
+PASS compiler/operators/mg-default-iterator
+PASS compiler/operators/mg-partial-iterator
+PASS compiler/operators/mg-literal-key-iterator
+PASS compiler/operators/mc-source-binding-isolated
+PASS compiler/operators/mc-closure-capture
+PASS compiler/operators/mi-bad-map
+PASS compiler/operators/mi-invalid-order
+PASS compiler/operators/mi-order-invalid-map
+PASS compiler/operators/mi-next-none
+PASS compiler/operators/mi-next-tuple
+PASS compiler/operators/mi-next-invalid
+PASS compiler/operators/mg-validation-before-body
+PASS compiler/operators/mc-large-map
+PASS compiler/operators/mc-safe-keys-reversed
+PASS compiler/operators/mc-three-safe-keys
+PASS compiler/operators/mc-first-fallback
+PASS compiler/operators/mc-second-fallback
+PASS compiler/operators/mc-distinct-safe-values
+PASS compiler/operators/mc-incoming-safe-value
+PASS compiler/operators/mc-generator-value-disables-prefix
+PASS compiler/operators/mc-filter-value-disables-prefix
+PASS compiler/operators/sort-empty
+PASS compiler/operators/sort-single-no-call
+PASS compiler/operators/sort-ascending
+PASS compiler/operators/sort-descending
+PASS compiler/operators/sort-split-runs
+PASS compiler/operators/sort-reverse-runs
+PASS compiler/operators/sort-stable-ties
+PASS compiler/operators/sort-numeric-ties
+PASS compiler/operators/sort-always-true
+PASS compiler/operators/sort-always-false
+PASS compiler/operators/sort-nonboolean
+PASS compiler/operators/sort-callback-error
+PASS compiler/operators/sort-callback-throw
+PASS compiler/operators/sort-badfun-empty
+PASS compiler/operators/sort-badfun-two
+PASS compiler/operators/sort-improper-one
+PASS compiler/operators/sort-improper-two
+PASS compiler/operators/sort-error-before-tail
+PASS compiler/operators/sort-trace-ascending
+PASS compiler/operators/iterator-custom-reversed
+PASS compiler/operators/iterator-custom-empty
+PASS compiler/operators/iterator-custom-single
+PASS compiler/operators/iterator-custom-badarity
+PASS compiler/operators/iterator-custom-nonmap
+PASS compiler/operators/iterator-custom-error
+PASS compiler/operators/iterator-custom-nonboolean
+PASS compiler/operators/iterator-custom-map-output
+PASS compiler/operators/zip-lists
+PASS compiler/operators/zip-three
+PASS compiler/operators/zip-before
+PASS compiler/operators/zip-after
+PASS compiler/operators/zip-two-groups
+PASS compiler/operators/zip-filter
+PASS compiler/operators/zip-relaxed-pattern
+PASS compiler/operators/zip-shared-variable
+PASS compiler/operators/zip-strict-conflict
+PASS compiler/operators/zip-strict-first
+PASS compiler/operators/zip-later-strict-name
+PASS compiler/operators/zip-skip-strict-tag
+PASS compiler/operators/zip-skip-unrelated-strict
+PASS compiler/operators/zip-alias
+PASS compiler/operators/zip-length-left
+PASS compiler/operators/zip-length-right
+PASS compiler/operators/zip-empty
+PASS compiler/operators/zip-improper-tail
+PASS compiler/operators/zip-invalid-list
+PASS compiler/operators/zip-source-error-before-validation
+PASS compiler/operators/zip-shadow-private
+PASS compiler/operators/zip-source-binding-dependency
+PASS compiler/operators/zip-source-private
+PASS compiler/operators/zip-effect-order
+PASS compiler/operators/zip-binary-list
+PASS compiler/operators/zip-binary-binary
+PASS compiler/operators/zip-binary-shared-variable
+PASS compiler/operators/zip-unaligned
+PASS compiler/operators/zip-binary-partial
+PASS compiler/operators/zip-binary-strict-partial
+PASS compiler/operators/zip-strict-partial-list-first
+PASS compiler/operators/zip-binary-long-list-empty
+PASS compiler/operators/zip-binary-short
+PASS compiler/operators/zip-binary-mismatch
+PASS compiler/operators/zip-binary-strict-mismatch
+PASS compiler/operators/zip-binary-dynamic
+PASS compiler/operators/zip-binary-utf
+PASS compiler/operators/zip-binary-signed
+PASS compiler/operators/zip-binary-template
+PASS compiler/operators/zip-binary-incoming-size
+PASS compiler/operators/zip-zero-binary-finite-list
+PASS compiler/operators/zip-map-list
+PASS compiler/operators/zip-map-map
+PASS compiler/operators/zip-map-binary
+PASS compiler/operators/zip-map-numeric-default
+PASS compiler/operators/zip-map-numeric-default-tail
+PASS compiler/operators/zip-map-iterator
+PASS compiler/operators/zip-map-tuple-chain
+PASS compiler/operators/zip-map-none
+PASS compiler/operators/zip-map-short
+PASS compiler/operators/zip-map-long
+PASS compiler/operators/zip-map-strict
+PASS compiler/operators/zip-invalid-map-before-source-error
+PASS compiler/operators/zip-map-template
+PASS compiler/operators/zip-incoming-map-key
+PASS compiler/operators/zip-shadow-map-key
+PASS compiler/operators/chained-comparison-diagnostic
+PASS compiler/operators/empty-block-diagnostic
+PASS compiler/operators/block-catch-illegal-guard
+PASS compiler/operators/catch-logical-stack-frame
+PASS compiler/if/ordered-first
+PASS compiler/if/false-fallback
+PASS compiler/if/nonboolean-fallback
+PASS compiler/if/arithmetic-guard-failure
+PASS compiler/if/bif-alternative-recovery
+PASS compiler/if/comma-conjunction-failure
+PASS compiler/if/comma-conjunction-success
+PASS compiler/if/semicolon-alternatives
+PASS compiler/if/short-circuit
+PASS compiler/if/no-match
+PASS compiler/if/all-guards-fail
+PASS compiler/if/body-error-propagates
+PASS compiler/if/selected-side-effect
+PASS compiler/if/unselected-body-not-run
+PASS compiler/if/common-binding-first
+PASS compiler/if/common-binding-second
+PASS compiler/if/prebound-match
+PASS compiler/if/prebound-badmatch
+PASS compiler/if/nested-if
+PASS compiler/if/closure-capture
+PASS compiler/if/nonboolean-last-conjunct
+PASS compiler/if/map-bit-guard
+PASS compiler/if/case-if-nesting
+PASS compiler/if/quoted-if-atom
+PASS compiler/if/empty-syntax
+PASS compiler/if/illegal-guards
+PASS compiler/if/unsafe-rematch
+PASS compiler/try/invalid-grammar/try ok end
+PASS compiler/try/invalid-grammar/try ok of catch _ -> no end
+PASS compiler/try/invalid-grammar/try error(reason) catch error:R:[] -> R end
+PASS compiler/try/stack-diagnostic/begin S=[],try error(reason) catch error:R:S -> R end end
+PASS compiler/try/stack-diagnostic/try throw(reason) catch C:S:S -> C end
+PASS compiler/try/stack-diagnostic/try error(reason) catch error:R:S when is_list(S) -> R end
+PASS compiler/beam/compact-operands-match-otp
+PASS compiler/beam/keeps-live-binary-context-across-adjacent-field-reads
+FAIL compiler/beam/whole-module-matches-otp: System.NotSupportedException: The function or module uses a form outside the current BEAM emission profile.
+   at Erlang.Compiler.BeamModuleCompiler.Emit(IReadOnlyList`1 functions, IReadOnlyList`1 sourceLines, IReadOnlySet`1 publicFunctions, BeamModuleMetadata metadata) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\BeamModuleCompiler.cs:line 308
+   at Erlang.Compiler.CodeGeneration.CompileBeamModule(String sourcePath, BeamMacroPreprocessor preprocessor, BeamReleaseBuildProfile buildProfile) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\CodeGeneration.cs:line 316
+   at Erlang.Compiler.CodeGeneration.CompileBeamModule(String source, String sourcePath) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\CodeGeneration.cs:line 159
+   at Erlang.Tests.BeamModuleEmissionChecks.CompareFixture(String module) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamModuleEmissionChecks.cs:line 8869
+   at Erlang.Tests.BeamModuleEmissionChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamModuleEmissionChecks.cs:line 350
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/protected-try-module-matches-otp
+PASS compiler/beam/closed-literal-bindings-cross-calls-as-literals
+PASS compiler/beam/checked-entry-list-return-keeps-register
+PASS compiler/beam/tagged-tuple-test-preserves-atom-fallback
+PASS compiler/beam/singleton-return-tuple-keeps-calls
+PASS compiler/beam/gc-bif-keeps-call-result-root
+PASS compiler/beam/map-allocation-keeps-call-result-root
+PASS compiler/beam/map-root-preserves-earlier-frame-compaction
+PASS compiler/beam/promotes-only-an-expired-pre-call-frame-slot
+PASS compiler/beam/in-place-tuple-projection-keeps-heap-roots
+PASS compiler/beam/checked-entry-keeps-two-projections-before-frame
+PASS compiler/beam/named-self-materializes-only-on-value-use
+PASS compiler/beam/orders-literal-and-preceding-result-arguments
+PASS compiler/beam/cons-tuple-head-follows-call-tail
+PASS compiler/beam/duplicates-terminal-tuples-into-case-call-predecessors
+PASS compiler/beam/fresh-reference-receive-marker
+PASS compiler/beam/emits-immediate-selective-timeout
+PASS compiler/beam/shares-accepted-receive-tails-across-tuple-arities
+PASS compiler/beam/checks-a-receive-literal-before-the-bound-field
+PASS compiler/beam/adjacent-arithmetic-number-result
+PASS compiler/beam/local-success-atom-or-tuple-result
+PASS compiler/beam/record-field-carries-successful-number
+PASS compiler/beam/compacts-the-frame-after-a-terminal-list-match-relay
+PASS compiler/beam/inherits-proper-list-entry-facts-through-recursion
+PASS compiler/beam/record-epp-include-search-provenance
+PASS compiler/beam/composes-redundant-tail-argument-copies
+PASS compiler/beam/windows-kernel-bootstrap-include-profile
+PASS compiler/beam/windows-inets-include-profile
+PASS compiler/beam/sinks-an-independent-argument-clobber-past-a-reload
+PASS compiler/beam/keeps-projection-before-ordinary-argument-copies
+PASS compiler/beam/omits-copies-overwritten-by-handler-installation
+PASS compiler/beam/clears-dead-roots-before-a-shared-saved-return
+PASS compiler/beam/ordinary-entry-call-composes-scratch-copy
+PASS compiler/beam/windows-stdlib-bootstrap-include-profile
+PASS compiler/beam/restore-physical-and-logical-include-parents
+PASS compiler/beam/abstract-expressions-use-first-annotation
+PASS compiler/beam/runs-generated-parse-transform-with-selected-dependencies
+PASS compiler/beam/constructs-a-tuple-message-directly-in-x1
+PASS compiler/beam/preserve-quoted-feature-keyword-type-annotations
+PASS compiler/beam/bitstring-type-default-annotations
+PASS compiler/beam/constructed-bitstring-starts-dynamic-match-without-type-failure
+FAIL compiler/beam/generic-map-patterns-annotate-proven-inputs: System.InvalidOperationException: Expected each generic map lookup to preserve its individual destination.
+   at Erlang.Tests.BeamGenericMapInputTypesChecks.CheckTypes(Byte[] image, Boolean annotated) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamGenericMapInputTypesChecks.cs:line 97
+   at Erlang.Tests.BeamGenericMapInputTypesChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamGenericMapInputTypesChecks.cs:line 38
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+FAIL compiler/beam/keeps-single-key-map-leaf-projections-frameless: System.Reflection.TargetParameterCountException: Parameter count mismatch.
+   at System.Reflection.MethodBaseInvoker.ThrowTargetParameterCountException()
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at Erlang.Tests.BeamSingleMapLeafFrameChecks.PlansPhysicalLeaf(Boolean multipleKeys) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamSingleMapLeafFrameChecks.cs:line 157
+   at Erlang.Tests.BeamSingleMapLeafFrameChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamSingleMapLeafFrameChecks.cs:line 37
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+FAIL compiler/beam/recomputes-collector-roots-for-frameless-map-construction: System.Reflection.TargetParameterCountException: Parameter count mismatch.
+   at System.Reflection.MethodBaseInvoker.ThrowTargetParameterCountException()
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at Erlang.Tests.BeamLeafMapAssociationChecks.PlanRoots(Boolean registerBase, Boolean missingPrefix, Boolean allowRegisterBase) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamLeafMapAssociationChecks.cs:line 214
+   at Erlang.Tests.BeamLeafMapAssociationChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamLeafMapAssociationChecks.cs:line 42
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/uses-map-presence-for-unused-checked-key
+FAIL compiler/beam/orders-ordinary-lines-by-final-instruction-use: System.InvalidOperationException: The final line table must preserve source locations in first physical use order.
+   at Erlang.Tests.BeamFinalLineOrderChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamFinalLineOrderChecks.cs:line 80
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+FAIL compiler/beam/keeps-guarded-float-base-arm-frameless: System.NotSupportedException: The BEAM external import is outside the supported host subset
+   at Erlang.BeamExternalImports.Resolve(BeamLinkedCode code, String module, String function, Int32 arity) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamExternalImports.cs:line 40
+   at Erlang.BeamRegisterValidation.ValidateCore(BeamLinkedCode code, BeamLinkedFunction entry, HashSet`1 visited)
+   at Erlang.BeamModule.InvokePublicOwned(ProcessContext context, String function, IReadOnlyList`1 arguments, BeamLinkedFunction entry) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamModule.DirectEntry.cs:line 14
+   at Erlang.Tests.BeamGuardedFloatRecursionChecks.<>c__DisplayClass5_0.<<Run>b__6>d.MoveNext() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamGuardedFloatRecursionChecks.cs:line 58
+--- End of stack trace from previous location ---
+   at Erlang.Tests.RuntimeNodeFoundationHostActor.<>c__DisplayClass9_0`1.<<InvokeAsync>b__0>d.MoveNext() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Runtime\Execution\RuntimeNodeFoundationHostActor.cs:line 43
+--- End of stack trace from previous location ---
+   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func`2 command) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Runtime\Execution\RuntimeNodeFoundationHostActor.cs:line 51
+   at Erlang.Tests.BeamGuardedFloatRecursionChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamGuardedFloatRecursionChecks.cs:line 54
+   at Erlang.Tests.BeamGuardedFloatRecursionChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamGuardedFloatRecursionChecks.cs:line 54
+   at Erlang.Tests.BeamGuardedFloatRecursionChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamGuardedFloatRecursionChecks.cs:line 54
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/keeps-protected-list-construction-result-in-x0
+FAIL compiler/beam/coalesces-checked-map-scratch-projections: System.InvalidOperationException: Adjacent map scratch copies must preserve failure-visible values.
+   at Erlang.Tests.BeamCoalescedMapScratchChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamCoalescedMapScratchChecks.cs:line 36
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+FAIL compiler/beam/keeps-the-original-map-register-across-constructor-joins: System.InvalidOperationException: The formal map must remain in X0 until it is returned or passed to the iterator.
+   at Erlang.Tests.BeamMapJoinRegisterChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamMapJoinRegisterChecks.cs:line 53
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/drops-immediately-overwritten-catch-entry-roots
+PASS compiler/beam/places-zero-slot-frames-only-on-calling-paths
+PASS compiler/beam/removes-literal-moves-proven-by-a-guard
+PASS compiler/beam/keeps-nested-list-predicates-in-x-registers
+PASS compiler/beam/orders-independent-arguments-around-a-retained-call-result
+PASS compiler/beam/reuses-a-result-slot-through-a-safe-zero-arity-bif
+PASS compiler/beam/keeps-safe-call-line-analysis-through-safe-bif0
+PASS compiler/beam/shares-a-checked-tuple-across-a-guard-retry
+PASS compiler/beam/selects-distinct-atom-guards-after-a-common-tag-check
+PASS compiler/beam/merges-adjacent-initializations-of-one-frame
+PASS compiler/beam/removes-init-only-slots-from-an-owned-nonzero-frame
+PASS compiler/beam/compacts-an-owned-frame-beside-a-sibling-partial-trim
+PASS compiler/beam/places-frames-on-owned-virtual-control-flow
+PASS compiler/beam/keeps-literal-record-leaf-and-badrecord-in-x
+PASS compiler/beam/removes-unchanged-register-spills-before-calls
+PASS compiler/beam/owns-map-iterator-fallback-frame
+PASS compiler/beam/places-checked-entry-tail-before-try-frame
+FAIL compiler/beam/shares-literal-map-case-projections: System.InvalidOperationException: A literal map case must share the proved keys without sharing unequal key sets.
+   at Erlang.Tests.BeamSharedLiteralMapCaseChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamSharedLiteralMapCaseChecks.cs:line 57
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/list-conversion-types-its-successful-bif-consumer
+PASS compiler/beam/substitutes-dominating-helper-constants
+PASS compiler/beam/uses-tuple-record-update-field-failure-location
+PASS compiler/beam/lifts-comprehensions-with-bound-append-tails
+FAIL compiler/beam/lifts-list-generators-with-adjacent-guard-filters: System.InvalidOperationException: Adjacent guard filters did not share the generator helper.
+   at Erlang.Tests.BeamGroupedListGuardChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamGroupedListGuardChecks.cs:line 41
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/uses-successful-tuple-size-bounds-in-guards
+PASS compiler/beam/refines-guarded-number-record-fields
+PASS compiler/beam/types-numeric-case-comparisons-across-local-calls
+PASS compiler/beam/joins-private-atom-and-tuple-selector-entry-types
+FAIL compiler/beam/types-proven-atom-entry-operands: System.InvalidOperationException: The atom entry operand disagrees with the source proof.
+   at Erlang.Tests.BeamProvenAtomEntryChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamProvenAtomEntryChecks.cs:line 86
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/splits-checked-entry-conversion-frames
+FAIL compiler/beam/forwards-an-arithmetic-argument-across-a-zero-frame: System.IO.InvalidDataException: Invalid generic BEAM opcode or operand boundary
+   at Erlang.BeamInstructionReader.ReadOperands(BeamCodeHeader code, Int32 atomCount, Int32 literalCount, Action`3 recordLabelOperand, Action`3 recordStackOperand, Action`3 recordAtomOperand) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamInstructionReader.cs:line 46
+   at Erlang.BeamInstructionReader.Read(BeamCodeHeader code, Int32 atomCount, Int32 literalCount, Action`3 recordLabelOperand, Action`3 recordStackOperand) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamInstructionReader.cs:line 14
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+--- End of stack trace from previous location ---
+   at Erlang.Tests.BeamBinaryHostAccess.Call(Object owner, String method, Object[] values) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Binary\BeamBinaryHostAccess.cs:line 52
+   at Erlang.Tests.BeamZeroFrameArithmeticResultChecks.Rewrite(Byte[] source) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Frames\BeamZeroFrameArithmeticResultChecks.cs:line 67
+   at Erlang.Tests.BeamZeroFrameArithmeticResultChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Frames\BeamZeroFrameArithmeticResultChecks.cs:line 36
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+FAIL compiler/beam/places-checked-tuple-call-arguments-before-the-catch-frame: System.InvalidOperationException: The early checked fields must preserve the argument exchange, call line, and catch path.
+   at Erlang.Tests.BeamCheckedCatchArgumentChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Frames\BeamCheckedCatchArgumentChecks.cs:line 54
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/splits-disjoint-tagged-entry-call-frames
+PASS compiler/beam/validated-call-value-registers
+PASS compiler/beam/if-clause-uses-the-source-if-location
+PASS compiler/beam/coalesces-record-update-and-construction-heap-checks
+PASS compiler/beam/reallocates-owned-record-update-branches
+PASS compiler/beam/folds-fresh-literal-bindings-in-terminal-case-arms
+PASS compiler/beam/localizes-a-checked-record-frame-to-its-call
+PASS compiler/beam/localizes-the-call-frame-before-a-record-join
+PASS compiler/beam/localizes-a-checked-list-guard-frame
+PASS compiler/beam/closed-factory-empty-frame
+FAIL compiler/beam/narrows-private-entry-and-singleton-call-dispatch: System.InvalidOperationException: A private entry did not use its proven atom domain.
+   at Erlang.Tests.BeamFiniteAtomCallDispatchChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamFiniteAtomCallDispatchChecks.cs:line 83
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/builds-a-single-child-result-after-two-dependent-calls
+PASS compiler/beam/size-checked-tagged-choice
+PASS compiler/beam/shared-head-atom-clause-order
+PASS compiler/beam/guarded-binary-measurement
+PASS compiler/beam/closed-atom-list-tail
+PASS compiler/beam/uses-incoming-registers-for-effect-catch-arguments
+PASS compiler/beam/reuses-a-checked-record-across-projection-and-closure-capture
+PASS compiler/beam/keeps-terminal-record-projections-and-closure-arguments-in-registers
+PASS compiler/beam/sinks-checked-tuple-fields-through-guards
+PASS compiler/beam/shares-record-fields-across-an-exclusive-literal-retry
+PASS compiler/beam/retains-checked-saved-records-through-local-flow
+PASS compiler/beam/orders-shared-record-roots-by-ssa-field-identity
+PASS compiler/beam/projects-checked-fields-directly-into-terminal-registers
+PASS compiler/beam/guarded-call-tuple-projection
+PASS compiler/beam/private-tuple-call-result
+PASS compiler/beam/uses-list-head-dispatch-and-terminal-empty-list-branches
+PASS compiler/beam/projects-checked-entry-fields-before-their-frame
+PASS compiler/beam/inclusive-size-guard-fallthrough
+FAIL compiler/beam/dispatches-two-atom-alternatives-with-branch-owned-frames: System.InvalidOperationException: The atom case lost its selector call, constant argument, or unframed rejection value.
+   at Erlang.Tests.BeamTwoAtomDispatchChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamTwoAtomDispatchChecks.cs:line 91
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/trims-an-owned-call-result-branch
+PASS compiler/beam/checked-list-decoder-tail
+PASS compiler/beam/reuses-a-checked-nested-tuple-for-an-effectful-call
+PASS compiler/beam/binary-argument-branch-frame
+PASS compiler/beam/elides-source-lines-before-local-tail-calls
+PASS compiler/beam/keeps-terminal-closure-captures-in-call-result-register
+PASS compiler/beam/rooted-call-arithmetic-corridors
+PASS compiler/beam/stores-tested-bif-results-required-across-calls
+PASS compiler/beam/windows-public-key-source-overlay
+PASS compiler/beam/type-operator-source-annotations
+PASS compiler/beam/assembles-text-terms-with-optional-abstract-source
+PASS compiler/beam/lifts-flat-tuple-record-list-results
+PASS compiler/beam/reallocates-owned-linear-leaf-branches
+PASS compiler/beam/windows-common-test-include-provenance
+PASS compiler/beam/lifts-list-helpers-through-mixed-constructors
+PASS compiler/beam/lifts-relaxed-list-pattern-generators
+PASS compiler/beam/documentation-types-use-shared-spec-signatures
+PASS compiler/beam/removes-empty-frames-across-proven-tail-dispatch
+PASS compiler/beam/documentation-equivalence-retains-empty-strings-and-wraps-arguments
+PASS compiler/beam/lifts-list-helpers-through-grouped-atom-columns
+PASS compiler/beam/orders-list-helpers-between-separate-tuple-owner-closures
+FAIL compiler/beam/forwards-record-update-into-outgoing-call-argument: System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Erlang.Tests.BeamBinaryHostAccess.Call(Object owner, String method, Object[] values) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Binary\BeamBinaryHostAccess.cs:line 41
+   at Erlang.Tests.BeamRecordCallArgumentChecks.<CheckListResultField>g__Annotate|12_0(Byte[] code, Boolean recordOnly, <>c__DisplayClass12_0&) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamRecordCallArgumentChecks.cs:line 103
+   at Erlang.Tests.BeamRecordCallArgumentChecks.CheckListResultField(Byte[] update) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamRecordCallArgumentChecks.cs:line 94
+   at Erlang.Tests.BeamRecordCallArgumentChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamRecordCallArgumentChecks.cs:line 46
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/lifts-list-siblings-in-tuple-record-field-order
+PASS compiler/beam/lifts-list-siblings-through-literal-tuple-choices
+PASS compiler/beam/promotes-a-lower-slot-between-ordinary-calls
+PASS compiler/beam/diameter-documentation-includes-generated-accessors
+PASS compiler/beam/documentation-follows-typed-record-fields
+PASS compiler/beam/reuses-a-single-frame-after-an-owned-frameless-entry
+PASS compiler/beam/windows-wx-include-source-precedence
+PASS compiler/beam/removes-failure-for-an-exhaustive-local-tagged-case
+PASS compiler/beam/uses-dominating-record-guard-for-field-access
+PASS compiler/beam/constructs-with-checked-record-projections-in-x-registers
+FAIL compiler/beam/reuses-dead-stack-inputs-in-atomic-projections: System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Erlang.Tests.BeamBinaryHostAccess.Call(Object owner, String method, Object[] values) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Binary\BeamBinaryHostAccess.cs:line 41
+   at Erlang.Tests.BeamAtomicProjectionFrameChecks.Rewrite(Byte[] body, Boolean atomicOnly, Boolean nestedCheckedEntriesOnly) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Frames\BeamAtomicProjectionFrameChecks.cs:line 496
+   at Erlang.Tests.BeamAtomicProjectionFrameChecks.RequireRewrite(Byte[] body, Byte[] expected) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Frames\BeamAtomicProjectionFrameChecks.cs:line 462
+   at Erlang.Tests.BeamAtomicProjectionFrameChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Frames\BeamAtomicProjectionFrameChecks.cs:line 42
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/reuses-cons-tail-scratch-before-a-single-frame-trim
+PASS compiler/beam/exchanges-call-result-before-redundant-single-slot-trim
+PASS compiler/beam/list-tail-keeps-first-source-annotation
+PASS compiler/beam/removes-overwritten-tuple-projections
+PASS compiler/beam/removes-dead-list-heads-before-allocating-call-frames
+PASS compiler/beam/disjoint-terminal-atom-and-tagged-tuple
+PASS compiler/beam/loads-checked-single-use-fields-into-call-registers
+PASS compiler/beam/delays-the-frame-before-own-function-clause-failure
+PASS compiler/beam/generated-list-result-types-its-local-consumer
+PASS compiler/beam/exchanges-call-result-and-saved-input-in-one-frame-cell
+PASS compiler/beam/lifts-constructed-list-generator-inputs
+PASS compiler/beam/windows-bootstrap-library-include-paths
+PASS compiler/beam/lifts-strict-list-generators-with-ordered-siblings
+PASS compiler/beam/lifts-relaxed-tuple-generator-aliases
+PASS compiler/beam/returns-the-checked-carrier-after-the-accepted-attempt
+PASS compiler/beam/shared-cons-head-partitions-disjoint-tuple-arities
+PASS compiler/beam/positioned-tail-size-delays-materialization
+PASS compiler/beam/keeps-original-suffix-for-positioned-strict-match-failure
+PASS compiler/beam/plans-owned-positioned-case-selectors
+PASS compiler/beam/case-clause-uses-the-source-case-location
+PASS compiler/beam/selects-constant-branches-with-an-identity-fallback
+PASS compiler/beam/release-inline-bounded-leaf
+PASS compiler/beam/keeps-a-release-zip-call-boundary
+PASS compiler/beam/uses-available-x-in-constructor-with-retained-spill
+PASS compiler/beam/hoists-heap-before-checked-tuple-reads-with-proven-roots
+PASS compiler/beam/flat-tuple-list-generator-constructs-after-recursion
+PASS compiler/beam/stores-post-call-tuple-directly-when-the-result-register-dies
+PASS compiler/beam/retains-entry-tuple-across-producer
+PASS compiler/beam/sinks-checked-tuple-fields-into-constructor-continuations
+PASS compiler/beam/checks-an-arity-arm-tag-before-its-frame
+PASS compiler/beam/shares-dominated-short-returns-after-catch
+PASS compiler/beam/orders-nonempty-list-before-empty-at-entry
+PASS compiler/beam/delays-a-zero-slot-frame-after-a-checked-tag-fallback
+PASS compiler/beam/delays-the-frame-past-a-terminal-list-match-failure
+PASS compiler/beam/local-success-integer-result
+PASS compiler/beam/trims-owned-branch-with-one-retained-result
+PASS compiler/beam/size-result-propagates-range-through-argument-copies
+PASS compiler/beam/finite-integer-ranges-from-masks-shifts-and-addition
+PASS compiler/beam/type-ordinals-follow-final-code-operand-order
+PASS compiler/beam/promotes-interior-projection-before-first-call
+PASS compiler/beam/clears-unread-stack-projections
+PASS compiler/beam/local-try-fallbacks-use-tail-calls
+PASS compiler/beam/tagged-list-generator-keeps-matched-tuple
+PASS compiler/beam/keyfind-result-typed-tuple-test
+PASS compiler/beam/tuple-list-generator-checks-before-recursing
+PASS compiler/beam/lifts-single-strict-list-generators
+PASS compiler/beam/constructs-returned-siblings-from-live-call-roots
+PASS compiler/beam/promotes-only-post-call-projections-local-to-a-terminal-arm
+FAIL compiler/beam/swaps-checked-projection-into-two-call-arguments: System.InvalidOperationException: The projected two-argument call changed its roots or swap order.
+   at Erlang.Tests.BeamProjectedCallArgumentSwapChecks.CheckGuardedProjection(Byte carrier) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Calls\BeamProjectedCallArgumentSwapChecks.cs:line 185
+   at Erlang.Tests.BeamProjectedCallArgumentSwapChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Calls\BeamProjectedCallArgumentSwapChecks.cs:line 81
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+FAIL compiler/beam/keeps-a-dead-guarded-call-payload-in-x: System.InvalidOperationException: The guarded carrier moved through a live call or changed its error routes.
+   at Erlang.Tests.BeamGuardedCallPayloadCarrierChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Calls\BeamGuardedCallPayloadCarrierChecks.cs:line 45
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/forwards-checked-call-pair-across-record-update
+PASS compiler/beam/compacts-locally-owned-checked-record-pair-frame
+PASS compiler/beam/forwards-nested-record-update-between-owned-registers
+PASS compiler/beam/conditional-list-generator-uses-own-recursion
+PASS compiler/beam/binary-extract-keeps-proven-operand-range
+FAIL compiler/beam/discarded-binary-tuple-binds-fields-directly: System.InvalidOperationException: Expected temporary tuple elimination only for distinct fresh bindings with no observable inner aliases.
+   at Erlang.Tests.BeamBinaryTupleBindingChecks.Compare() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamBinaryTupleBindingChecks.cs:line 40
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+FAIL compiler/beam/leaf-external-tail-removes-unused-frame: System.InvalidOperationException: Expected pinned OTP instructions for a leaf with a nontrapping external tail.
+   at Erlang.Tests.BeamExternalLeafTailChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Frames\BeamExternalLeafTailChecks.cs:line 20
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/guard-bif-leaf-removes-unused-frame
+PASS compiler/beam/projected-exact-comparison-has-no-frame
+PASS compiler/beam/signed-integer-literal-boundaries-match-otp
+PASS compiler/beam/private-branch-trims-dead-stack-slots
+PASS compiler/beam/prepared-boolean-case-orders-clause-and-failure-labels
+PASS compiler/beam/outgoing-call-removes-dead-roundtrip
+PASS compiler/beam/entry-values-after-frameless-branch-keep-owned-frame
+PASS compiler/beam/private-atom-selector-moves-only-when-needed
+PASS compiler/beam/private-atom-tail-relay-keeps-register-order
+PASS compiler/beam/integer-conversion-result-keeps-unbounded-type
+FAIL compiler/beam/accumulated-pair-lengths-preserve-minimum: System.InvalidOperationException: Expected positive lower bounds only for all-caller proven pair lengths.
+   at Erlang.Tests.BeamModuleEmissionChecks.ComparePairLengthBounds() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamModuleEmissionChecks.cs:line 1752
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/independent-atom-tails-use-otp-body-order
+PASS compiler/beam/tagged-case-reuses-the-matched-tuple
+FAIL compiler/beam/local-constructor-keeps-singleton-arguments: System.InvalidOperationException: Expected known arguments to fold only in the private constructor with a single set of inputs.
+   at Erlang.Tests.BeamLocalConstructorSingletonChecks.Compare() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamLocalConstructorSingletonChecks.cs:line 39
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/sibling-constructors-preserve-core-order
+PASS compiler/beam/size-bif-result-keeps-otp-range
+PASS compiler/beam/nonnegative-call-result-keeps-otp-range
+PASS compiler/beam/proper-list-proof-follows-only-tail
+PASS compiler/beam/list-result-keeps-proper-list-type
+PASS compiler/beam/select-arithmetic-precedes-branch-frame
+PASS compiler/beam/guard-comparison-keeps-proven-integer-type
+PASS compiler/beam/select-fallback-uses-frameless-external-tail
+PASS compiler/beam/length-numeric-entry
+PASS compiler/beam/orders-closed-nested-record-case-failures
+PASS compiler/beam/list-converted-measured-tail
+PASS compiler/beam/orders-overlapping-record-call-frame-slots
+PASS compiler/beam/clears-dead-record-arguments-after-call-setup
+PASS compiler/beam/isolates-a-discarded-record-list-check-before-queueing
+PASS compiler/beam/outlines-discarded-list-item-blocks-with-lexical-bindings
+PASS compiler/beam/projects-a-shared-cons-before-its-singleton-and-recursive-branches
+PASS compiler/beam/orders-clause-separated-list-helpers-and-closures
+PASS compiler/beam/complements-total-inequality-at-a-two-arm-if
+PASS compiler/beam/joins-decoded-integer-prefixes-in-registers
+PASS compiler/beam/delays-tuple-fallback-frame-until-arithmetic-succeeds
+PASS compiler/beam/retains-a-call-result-across-independent-integer-operations
+PASS compiler/beam/constructs-sibling-list-cells-after-scalar-operands
+PASS compiler/beam/emits-singleton-call-result-with-unframed-empty-default
+PASS compiler/beam/defers-the-nested-call-tuple-across-an-effect
+PASS compiler/beam/guarded-mask-accumulator-entry
+PASS compiler/beam/threads-a-closed-binary-match-context-through-recursion
+PASS compiler/beam/counted-mask-accumulator
+PASS compiler/beam/retains-register-operands-for-sends-and-selective-receive
+PASS compiler/beam/keeps-private-record-choice-unframed-until-the-checked-branch
+PASS compiler/beam/delays-a-counted-fold-frame-until-after-arithmetic
+PASS compiler/beam/replaces-only-proven-constant-closure-captures
+FAIL compiler/beam/keeps-direct-anonymous-application-frames: System.InvalidOperationException: Direct anonymous application changed capture, scope, function identity, or failure behavior.
+   at Erlang.Tests.BeamDirectAnonymousFunChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamDirectAnonymousFunChecks.cs:line 53
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/keeps-optional-table-decode-roots-through-the-catch
+PASS compiler/beam/preserves-a-required-field-across-an-optional-table-call
+FAIL compiler/beam/keeps-source-order-for-guarded-closure-definitions: System.IndexOutOfRangeException: Index was outside the bounds of the array.
+   at Erlang.Compiler.BeamModuleCompiler.MapEmittedLabel(Int32 label) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\BeamModuleCompiler.SharedReturns.cs:line 19
+   at Erlang.Compiler.BeamModuleCompiler.<RemoveUnusedClosureFrameSlots>b__1993_0(LiftedClosure closure) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\BeamModuleCompiler.UnusedClosureFrameSlots.cs:line 16
+   at System.Linq.Enumerable.ListSelectIterator`2.MoveNext()
+   at System.Linq.Enumerable.ToHashSet[TSource](IEnumerable`1 source)
+   at Erlang.Compiler.BeamModuleCompiler.RemoveUnusedClosureFrameSlots(ReadOnlyMemory`1 code, Int32 labelCount) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\BeamModuleCompiler.UnusedClosureFrameSlots.cs:line 16
+   at Erlang.Compiler.BeamModuleCompiler.WriteCode(Stream output, ReadOnlyMemory`1 code, Int32 labelCount, Dictionary`2 tupleFilterResults) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\BeamModuleCompiler.cs:line 1638
+   at Erlang.Compiler.BeamModuleCompiler.EmitCode(Stream output, IReadOnlyList`1 functions, IReadOnlyDictionary`2 localEntries) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\BeamModuleCompiler.cs:line 1458
+   at Erlang.Compiler.BeamModuleCompiler.<>c__DisplayClass626_0.<Emit>b__7(Stream output) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\BeamModuleCompiler.cs:line 945
+   at Erlang.Compiler.BeamModuleCompiler.Payload(Action`1 write) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\BeamModuleCompiler.cs:line 1934
+   at Erlang.Compiler.BeamModuleCompiler.WriteImage(BeamModuleMetadata metadata, Action`1 writeCode) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\BeamModuleCompiler.cs:line 950
+   at Erlang.Compiler.BeamModuleCompiler.Emit(IReadOnlyList`1 functions, IReadOnlyList`1 sourceLines, IReadOnlySet`1 publicFunctions, BeamModuleMetadata metadata) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\BeamModuleCompiler.cs:line 945
+   at Erlang.Compiler.CodeGeneration.CompileBeamModule(String sourcePath, BeamMacroPreprocessor preprocessor, BeamReleaseBuildProfile buildProfile) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\CodeGeneration.cs:line 316
+   at Erlang.Compiler.CodeGeneration.CompileBeamModule(String source, String sourcePath) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\CodeGeneration.cs:line 159
+   at Erlang.Tests.BeamGuardedClosureDefinitionOrderChecks.CompileFixture() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamGuardedClosureDefinitionOrderChecks.cs:line 42
+   at Erlang.Tests.BeamGuardedClosureDefinitionOrderChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamGuardedClosureDefinitionOrderChecks.cs:line 46
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/reserves-core-ordinals-for-map-generators
+PASS compiler/beam/moves-a-single-bit-list-builder-into-a-writable-helper
+PASS compiler/beam/lifts-a-terminal-two-list-zip-with-an-ordered-mapper
+PASS compiler/beam/uses-a-writable-helper-for-list-of-byte-pairs
+PASS compiler/beam/keeps-owned-writable-roots-across-an-element-call
+FAIL compiler/beam/reserves-a-closed-closure-s-failure-ordinal: System.InvalidOperationException: Closed partial and total functions must leave different ordinals for the captured failure helper.
+   at Erlang.Tests.BeamClosedClosureFailureReservationChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamClosedClosureFailureReservationChecks.cs:line 56
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/orders-guarded-constructor-and-closure-helpers
+PASS compiler/beam/places-leading-catch-token-and-terminal-tuple-results
+FAIL compiler/beam/preserves-shared-list-prefixes-and-branch-local-frames: System.InvalidOperationException: The string-key dispatch lost its first-element selection and tuple check.
+   at Erlang.Tests.BeamLiteralConsContinuationsChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamLiteralConsContinuationsChecks.cs:line 88
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/checks-a-two-cons-literal-before-repeated-fields
+PASS compiler/beam/keeps-the-shared-list-entry-outside-calling-nil-construction
+PASS compiler/beam/groups-checked-cons-head-dispatch-by-arity-and-tag
+PASS compiler/beam/keeps-source-owned-supervisor-arguments-and-protected-results
+FAIL compiler/beam/keeps-captured-fallback-input-through-tuple-arity-switch: System.IndexOutOfRangeException: Index was outside the bounds of the array.
+   at Erlang.Compiler.BeamModuleCompiler.MapEmittedLabel(Int32 label) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\BeamModuleCompiler.SharedReturns.cs:line 19
+   at Erlang.Compiler.BeamModuleCompiler.<RemoveUnusedClosureFrameSlots>b__1993_0(LiftedClosure closure) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\BeamModuleCompiler.UnusedClosureFrameSlots.cs:line 16
+   at System.Linq.Enumerable.ListSelectIterator`2.MoveNext()
+   at System.Linq.Enumerable.ToHashSet[TSource](IEnumerable`1 source)
+   at Erlang.Compiler.BeamModuleCompiler.RemoveUnusedClosureFrameSlots(ReadOnlyMemory`1 code, Int32 labelCount) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\BeamModuleCompiler.UnusedClosureFrameSlots.cs:line 16
+   at Erlang.Compiler.BeamModuleCompiler.WriteCode(Stream output, ReadOnlyMemory`1 code, Int32 labelCount, Dictionary`2 tupleFilterResults) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\BeamModuleCompiler.cs:line 1638
+   at Erlang.Compiler.BeamModuleCompiler.EmitCode(Stream output, IReadOnlyList`1 functions, IReadOnlyDictionary`2 localEntries) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\BeamModuleCompiler.cs:line 1458
+   at Erlang.Compiler.BeamModuleCompiler.<>c__DisplayClass626_0.<Emit>b__7(Stream output) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\BeamModuleCompiler.cs:line 945
+   at Erlang.Compiler.BeamModuleCompiler.Payload(Action`1 write) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\BeamModuleCompiler.cs:line 1934
+   at Erlang.Compiler.BeamModuleCompiler.WriteImage(BeamModuleMetadata metadata, Action`1 writeCode) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\BeamModuleCompiler.cs:line 950
+   at Erlang.Compiler.BeamModuleCompiler.Emit(IReadOnlyList`1 functions, IReadOnlyList`1 sourceLines, IReadOnlySet`1 publicFunctions, BeamModuleMetadata metadata) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\BeamModuleCompiler.cs:line 945
+   at Erlang.Compiler.CodeGeneration.CompileBeamModule(String sourcePath, BeamMacroPreprocessor preprocessor, BeamReleaseBuildProfile buildProfile) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\CodeGeneration.cs:line 316
+   at Erlang.Compiler.CodeGeneration.CompileBeamModule(String source, String sourcePath) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\CodeGeneration.cs:line 159
+   at Erlang.Tests.BeamGroupedLiteralTupleClosureChecks.CompileFixture() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamGroupedLiteralTupleClosureChecks.cs:line 42
+   at Erlang.Tests.BeamGroupedLiteralTupleClosureChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamGroupedLiteralTupleClosureChecks.cs:line 46
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/partitions-tagged-state-inside-tuple-arity
+FAIL compiler/beam/compares-the-whole-literal-before-returning-a-closure: System.IndexOutOfRangeException: Index was outside the bounds of the array.
+   at Erlang.Compiler.BeamModuleCompiler.MapEmittedLabel(Int32 label) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\BeamModuleCompiler.SharedReturns.cs:line 19
+   at Erlang.Compiler.BeamModuleCompiler.<RemoveUnusedClosureFrameSlots>b__1993_0(LiftedClosure closure) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\BeamModuleCompiler.UnusedClosureFrameSlots.cs:line 16
+   at System.Linq.Enumerable.ListSelectIterator`2.MoveNext()
+   at System.Linq.Enumerable.ToHashSet[TSource](IEnumerable`1 source)
+   at Erlang.Compiler.BeamModuleCompiler.RemoveUnusedClosureFrameSlots(ReadOnlyMemory`1 code, Int32 labelCount) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\BeamModuleCompiler.UnusedClosureFrameSlots.cs:line 16
+   at Erlang.Compiler.BeamModuleCompiler.WriteCode(Stream output, ReadOnlyMemory`1 code, Int32 labelCount, Dictionary`2 tupleFilterResults) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\BeamModuleCompiler.cs:line 1638
+   at Erlang.Compiler.BeamModuleCompiler.EmitCode(Stream output, IReadOnlyList`1 functions, IReadOnlyDictionary`2 localEntries) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\BeamModuleCompiler.cs:line 1458
+   at Erlang.Compiler.BeamModuleCompiler.<>c__DisplayClass626_0.<Emit>b__7(Stream output) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\BeamModuleCompiler.cs:line 945
+   at Erlang.Compiler.BeamModuleCompiler.Payload(Action`1 write) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\BeamModuleCompiler.cs:line 1934
+   at Erlang.Compiler.BeamModuleCompiler.WriteImage(BeamModuleMetadata metadata, Action`1 writeCode) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\BeamModuleCompiler.cs:line 950
+   at Erlang.Compiler.BeamModuleCompiler.Emit(IReadOnlyList`1 functions, IReadOnlyList`1 sourceLines, IReadOnlySet`1 publicFunctions, BeamModuleMetadata metadata) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\BeamModuleCompiler.cs:line 945
+   at Erlang.Compiler.CodeGeneration.CompileBeamModule(String sourcePath, BeamMacroPreprocessor preprocessor, BeamReleaseBuildProfile buildProfile) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\CodeGeneration.cs:line 316
+   at Erlang.Compiler.CodeGeneration.CompileBeamModule(String source, String sourcePath) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Compiler\Erlang.Compiler\Compilation\CodeGeneration.cs:line 159
+   at Erlang.Tests.BeamClosedSingleTupleClosureChecks.CompileFixture() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamClosedSingleTupleClosureChecks.cs:line 34
+   at Erlang.Tests.BeamClosedSingleTupleClosureChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamClosedSingleTupleClosureChecks.cs:line 38
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/keeps-the-producer-in-x0-through-retained-construction
+PASS compiler/beam/keeps-supervisor-call-results-and-badmatch-frames
+PASS compiler/beam/checks-only-tuple-type-after-closed-list-or-tagged-result
+PASS compiler/beam/canonicalizes-exact-and-loose-empty-list-tests
+PASS compiler/beam/schedules-paired-record-geometry-and-delayed-arguments
+PASS compiler/beam/builds-nested-terminal-closure-tuples-in-dead-input-registers
+PASS compiler/beam/rematerializes-closed-receivers-across-checked-effects
+PASS compiler/beam/uses-exact-comparisons-for-empty-list-and-bitstring-literals
+PASS compiler/beam/keeps-tagged-list-payload-through-recursion
+PASS compiler/beam/retains-case-selector-through-dependent-call-chain
+PASS compiler/beam/keeps-tagged-tuples-live-until-the-selected-field-is-needed
+PASS compiler/beam/keeps-checked-cons-projections-and-owned-call-results
+PASS compiler/beam/orders-local-remote-and-return-atom-branches
+PASS compiler/beam/preserves-exact-catch-inputs-and-boolean-defaults
+PASS compiler/beam/selects-distinct-atom-entries-before-unpacking-a-cons
+PASS compiler/beam/keeps-a-closed-list-callback-in-registers
+PASS compiler/beam/reuses-registers-across-tagged-child-lookup-and-cleanup
+PASS compiler/beam/shares-list-entry-and-trims-timed-monitor-frame
+PASS compiler/beam/stages-default-encoder-pairs-and-projects-by-lifetime
+PASS compiler/beam/propagates-pair-and-list-types-through-private-membership-entries
+PASS compiler/beam/reuses-default-decoder-field-staging-slots
+PASS compiler/beam/selects-nested-tuple-arity-before-branch-frames
+PASS compiler/beam/groups-exclusive-entry-literal-tests
+PASS compiler/beam/uses-exact-tests-for-closed-nonnumeric-literals
+PASS compiler/beam/shares-a-tagged-guard-and-reuses-its-dead-slot
+PASS compiler/beam/builds-and-measures-padded-bitstrings-in-entry-registers
+PASS compiler/beam/trims-keyfind-frames-after-a-pair-match
+PASS compiler/beam/keeps-the-position-of-unpadded-bitstrings-on-a-failed-match
+PASS compiler/beam/allocates-frames-only-on-the-required-part-of-a-tagged-choice
+PASS compiler/beam/groups-record-report-dispatch-and-empty-option-arguments
+PASS compiler/beam/converts-call-results-for-floating-multiplication
+PASS compiler/beam/frames-scalar-and-chardata-option-overloads-independently
+PASS compiler/beam/proves-bound-list-inputs-before-effect-mappers
+PASS compiler/beam/keeps-typed-float-rounding-operands-and-captures
+PASS compiler/beam/stages-required-and-optional-encoder-pairs-by-lifetime
+PASS compiler/beam/keeps-required-and-optional-decoder-values-in-live-frame-slots
+PASS compiler/beam/protects-callback-option-calls-with-branch-local-frames
+PASS compiler/beam/keeps-callback-fold-state-in-two-constructor-slots
+PASS compiler/beam/reuses-case-payloads-across-call-boundaries
+PASS compiler/beam/places-nested-case-failures-after-normal-branches
+PASS compiler/beam/shares-checked-wx-receivers-across-integer-command-branches
+PASS compiler/beam/keeps-a-closed-mappers-input-in-an-outgoing-register
+PASS compiler/beam/keeps-only-live-values-in-a-counted-pair-fold-frame
+PASS compiler/beam/keeps-decoded-fields-and-remainders-in-their-live-registers
+PASS compiler/beam/retains-required-encoding-pairs-and-protected-list-results
+PASS compiler/beam/preserves-class-checks-around-wx-text-and-option-mapping
+PASS compiler/beam/shares-sparse-wx-record-tests-before-default-option-forwarding
+PASS compiler/beam/module-filename-uses-implicit-line-index
+PASS compiler/beam/lifts-list-generators-with-immediate-and-captured-values
+FAIL compiler/beam/threads-two-list-generators-through-owned-recursive-helpers: System.InvalidOperationException: The nested list generator error must retain the generator input line.
+   at Erlang.Tests.BeamNestedListGeneratorChecks.VerifyGeneratorFailureLine(Object code, String name, Int32 line) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamNestedListGeneratorChecks.cs:line 144
+   at Erlang.Tests.BeamNestedListGeneratorChecks.VerifyComputedSources() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamNestedListGeneratorChecks.cs:line 129
+   at Erlang.Tests.BeamNestedListGeneratorChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamNestedListGeneratorChecks.cs:line 79
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/keeps-nested-list-helper-in-lexical-owner
+PASS compiler/beam/reserves-heap-before-projecting-a-stack-rooted-tuple
+PASS compiler/beam/keeps-heap-neutral-tail-arguments-frameless
+FAIL compiler/beam/keeps-short-protected-projections-in-call-registers: System.InvalidOperationException: Only projections read after a call need their own stack slot.
+   at Erlang.Tests.BeamProtectedProjectionChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamProtectedProjectionChecks.cs:line 51
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/keeps-original-arguments-live-when-installing-a-handler
+PASS compiler/beam/copies-short-return-continuations-after-protected-regions
+PASS compiler/beam/coalesces-adjacent-binary-construction-strings
+PASS compiler/beam/uses-dominating-literal-bit-operands
+PASS compiler/beam/separates-singleton-generator-head-and-source-failure
+PASS compiler/beam/groups-terminal-atom-to-literal-mappings
+PASS compiler/beam/keeps-wide-bit-construction-sign-fill-compact
+PASS compiler/beam/keeps-unconditional-leaf-head-bif-frameless
+PASS compiler/beam/keeps-private-singleton-nested-capture-arity
+PASS compiler/beam/groups-exclusive-terminal-entry-tests
+FAIL compiler/beam/removes-repeated-lines-with-rewritten-label-count: System.InvalidOperationException: Final duplicate cleanup must preserve distinct and protected source locations.
+   at Erlang.Tests.BeamRepeatedLineLabelBoundChecks.CheckFinalWrite(Byte[] markers, Int32 secondLocation, Boolean removeDuplicate) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamRepeatedLineLabelBoundChecks.cs:line 91
+   at Erlang.Tests.BeamRepeatedLineLabelBoundChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamRepeatedLineLabelBoundChecks.cs:line 21
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/orders-late-argument-zero-after-independent-frame-kills
+PASS compiler/beam/shares-checked-call-result-spills-across-tag-check-edges
+PASS compiler/beam/schedules-checked-entry-tuple-operands-after-frame-allocation
+PASS compiler/beam/shares-owned-stack-copy-success-tails
+PASS compiler/beam/shares-checked-tuple-projection-on-exclusive-fallback
+PASS compiler/beam/prefers-live-x-in-copied-tuple-check-and-projection
+PASS compiler/beam/shares-terminal-atom-identity-case-returns
+PASS compiler/beam/shares-prefix-tests-in-closed-integer-list-cases
+PASS compiler/beam/shares-entry-record-checks-with-a-field-rejection
+PASS compiler/beam/uses-zero-slot-frame-after-unframed-entry-checks
+PASS compiler/beam/retains-precall-aliases-at-one-collector
+FAIL compiler/beam/retains-the-sole-postcall-result-in-x0: System.InvalidOperationException: Keep the original call result rooted until a checked record update consumes its field.
+   at Erlang.Tests.BeamPostCallResultAliasChecks.CheckRewrite(BeamModuleCompiler compiler, Byte[] input, Byte[] expected, String reason) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Frames\BeamPostCallResultAliasChecks.cs:line 282
+   at Erlang.Tests.BeamPostCallResultAliasChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Frames\BeamPostCallResultAliasChecks.cs:line 96
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+FAIL compiler/beam/uses-zero-slot-frame-for-single-returning-call: System.InvalidOperationException: The call continuation must keep only its initialized result roots and frame.
+   at Erlang.Tests.BeamSingleReturningCallFrameChecks.CheckConstructedReturnFrames() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamSingleReturningCallFrameChecks.cs:line 193
+   at Erlang.Tests.BeamSingleReturningCallFrameChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamSingleReturningCallFrameChecks.cs:line 97
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/filters-proven-tuple-list-before-allocating
+PASS compiler/beam/removes-precall-frame-aliases-without-crossing-gc
+PASS compiler/beam/partitions-saved-terminal-tagged-returns
+PASS compiler/beam/removes-cleared-call-projection-copy-pairs
+PASS compiler/beam/places-owned-case-result-copies-on-success-edges
+PASS compiler/beam/orders-checked-entry-frame-roots-and-delays-call-result-copies
+PASS compiler/beam/partitions-cascaded-tagged-return-failures
+PASS compiler/beam/stages-nested-append-constructors-after-prerequisites
+PASS compiler/beam/orders-nested-list-generator-siblings
+PASS compiler/beam/selects-two-atom-heads-with-shared-cons-fallback
+PASS compiler/beam/promotes-terminal-tuple-result-scratch
+PASS compiler/beam/reuses-terminal-case-tuple-across-effect
+PASS compiler/beam/places-isolated-case-exit-after-passthrough
+PASS compiler/beam/shares-projected-tuple-construction-tails
+PASS compiler/beam/selects-two-atoms-in-one-entry-column
+PASS compiler/beam/matches-tuple-outer-list-generators
+PASS compiler/beam/checks-list-head-record-before-owned-frame
+PASS compiler/beam/partitions-atom-leading-tagged-tuple-case
+PASS compiler/beam/reuses-tagged-case-carrier-in-nested-results
+PASS compiler/beam/reuses-entry-tuple-carriers-in-guards-and-calls
+PASS compiler/beam/reuses-matched-tuple-in-ordered-list-head
+PASS compiler/beam/structured-cons-equality-comprehension
+PASS compiler/beam/ordinary-append-comprehension
+PASS compiler/beam/leading-variable-comprehension
+PASS compiler/beam/removes-trailing-duplicate-call-slot
+PASS compiler/beam/partitions-terminal-tuple-and-atom-cases
+PASS compiler/beam/stages-pure-cons-heads-after-tail-call
+PASS compiler/beam/literal-cons-comprehension
+PASS compiler/beam/stages-pure-cons-heads-in-general-branches
+PASS compiler/beam/stores-proven-entry-tuple-field-in-frame
+PASS compiler/beam/disjoint-tuple-atom-entry-partitions
+PASS compiler/beam/removes-covered-adjacent-case-arms
+PASS compiler/beam/partitions-closed-string-case-by-first-cons
+PASS compiler/beam/sinks-checked-pair-field-into-closed-string-arms
+PASS compiler/beam/partitions-distinct-literal-cons-head-tags-before-owned-frames
+PASS compiler/beam/writes-pure-dynamic-call-constructions-to-outgoing-registers
+PASS compiler/beam/plans-nested-result-in-inherited-frame
+PASS compiler/beam/orders-existing-retired-y-roots-at-ordinary-calls
+PASS compiler/beam/defers-checked-list-body-payload
+PASS compiler/beam/saves-source-values-used-after-register-clobbers
+PASS compiler/beam/emits-source-case-with-independent-frame-owners
+PASS compiler/beam/shares-fixed-list-spine-before-terminal-arm-frames
+PASS compiler/beam/places-bound-function-value-calls-on-their-own-terminal-edges
+PASS compiler/beam/places-terminal-tuple-constructions-on-case-edges
+PASS compiler/beam/checks-nested-record-before-allocating-branch
+PASS compiler/beam/retains-updated-record-for-terminal-tuple
+PASS compiler/beam/types-compacted-list-helper-record-operand
+PASS compiler/beam/retains-one-carrier-across-effects-and-map-result
+PASS compiler/beam/wraps-tagged-state-call-results-without-saving-inputs
+PASS compiler/beam/reuses-checked-retry-frame-for-the-whole-call-result
+PASS compiler/beam/keeps-checked-retry-update-operands-in-registers
+PASS compiler/beam/carries-source-proven-local-atom-results-to-exact-tests
+PASS compiler/beam/rematerializes-checked-retry-state-alias
+PASS compiler/beam/shares-adjacent-frameless-copy-returns-by-final-label
+PASS compiler/beam/types-private-selectors-from-unsigned-octet-matches
+PASS compiler/beam/proves-atom-selectors-from-pair-members-and-record-arguments
+PASS compiler/beam/retains-only-checked-record-across-nil-reply-calls
+PASS compiler/beam/keeps-guarded-record-boolean-effects-in-registers
+FAIL compiler/beam/forwards-a-closure-call-result-to-checked-arguments: System.InvalidOperationException: The closure result must remain rooted in both checked call branches.
+   at Erlang.Tests.BeamClosureResultCheckedArgumentChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Frames\BeamClosureResultCheckedArgumentChecks.cs:line 41
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/shares-checked-nil-state-retry-prefix
+PASS compiler/beam/shares-a-received-message-element-and-captures-the-current-message
+PASS compiler/beam/keeps-repeated-tagged-state-retries-in-source-order
+PASS compiler/beam/forwards-joined-literal-through-exclusive-call-arms
+PASS compiler/beam/selects-guarded-state-atoms-in-one-tagged-arm
+PASS compiler/beam/folds-transient-call-argument-slot
+PASS compiler/beam/places-repeated-arithmetic-before-its-effect-frame
+PASS compiler/beam/validates-record-field-guards-before-dictionary-tail-frame
+PASS compiler/beam/forwards-guarded-call-result-before-an-independent-collector
+PASS compiler/beam/frames-literal-and-general-dictionary-record-tails
+PASS compiler/beam/orders-constant-arguments-after-dictionary-list-producers
+FAIL compiler/beam/shares-a-saved-field-on-an-exclusive-equality-retry: System.IO.InvalidDataException: Invalid generic BEAM opcode or operand boundary
+   at Erlang.BeamInstructionReader.ReadOperands(BeamCodeHeader code, Int32 atomCount, Int32 literalCount, Action`3 recordLabelOperand, Action`3 recordStackOperand, Action`3 recordAtomOperand) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamInstructionReader.cs:line 46
+   at Erlang.BeamInstructionReader.Read(BeamCodeHeader code, Int32 atomCount, Int32 literalCount, Action`3 recordLabelOperand, Action`3 recordStackOperand) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamInstructionReader.cs:line 14
+   at InvokeStub_BeamInstructionReader.Read(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+--- End of stack trace from previous location ---
+   at Erlang.Tests.BeamBinaryHostAccess.Call(Object owner, String method, Object[] values) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Binary\BeamBinaryHostAccess.cs:line 52
+   at Erlang.Tests.BeamSavedEqualityRetryProjectionChecks.Rewrite(Byte[] bytes) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamSavedEqualityRetryProjectionChecks.cs:line 64
+   at Erlang.Tests.BeamSavedEqualityRetryProjectionChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamSavedEqualityRetryProjectionChecks.cs:line 14
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/checks-tag-before-allocating-alternative-tuple-arm
+PASS compiler/beam/trims-the-final-retained-effect-call-slot
+PASS compiler/beam/keeps-outer-identity-for-an-immediate-tail-application
+PASS compiler/beam/allocates-core-lambda-identities-from-cons-tail
+FAIL compiler/beam/removes-a-call-projection-slot-before-owned-trims: System.OverflowException: Arithmetic operation resulted in an overflow.
+   at Erlang.Tests.BeamOpcodeEdgeBytes.U(Int32 value) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamOpcodeEdgeBytes.cs:line 10
+   at Erlang.Tests.BeamOwnedCallProjectionSlotChecks.ConsBuilder(Boolean forwarded, Boolean observesTail, Boolean observesScratch) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamOwnedCallProjectionSlotChecks.cs:line 159
+   at Erlang.Tests.BeamOwnedCallProjectionSlotChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamOwnedCallProjectionSlotChecks.cs:line 52
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/keeps-outer-handler-through-caught-atom-selection
+PASS compiler/beam/advances-trim-over-a-cleared-prefix
+PASS compiler/beam/reuses-one-tag-for-serial-caught-calls
+PASS compiler/beam/groups-tuple-family-aliases-before-local-tail
+PASS compiler/beam/repeated-numeric-operand
+PASS compiler/beam/inferred-local-proper-list-result
+PASS compiler/beam/forwards-caught-value-to-shared-tail-arguments
+PASS compiler/beam/keeps-joined-retry-status-in-its-return-slot
+PASS compiler/beam/forwards-reused-terminal-construction-scratch
+PASS compiler/beam/reuses-a-checked-tuple-for-its-terminal-field-equality
+PASS compiler/beam/clears-a-retired-cons-field-on-its-own-path
+PASS compiler/beam/math-success-numeric-results
+FAIL compiler/beam/keeps-nonempty-status-retry-in-fallthrough: System.InvalidOperationException: A retry may clear consumed roots only after its nil path has branched to the original value.
+   at Erlang.Tests.BeamOwnedNilRetryChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamOwnedNilRetryChecks.cs:line 21
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/retains-original-status-before-a-nested-tag-dispatch
+PASS compiler/beam/defers-safe-recursive-cons-head
+PASS compiler/beam/elides-a-covered-frame-clear-between-ordinary-calls
+PASS compiler/beam/partitions-saved-effectful-status-cases
+PASS compiler/beam/compacts-dead-slots-across-an-owned-trim
+PASS compiler/beam/compacts-fully-transient-outgoing-slots
+PASS compiler/beam/forwards-retired-outgoing-projections
+PASS compiler/beam/keeps-gc-bif-in-final-call-argument
+PASS compiler/beam/shares-a-literal-fallback-across-a-shortcut-case
+PASS compiler/beam/forwards-an-initialized-call-argument
+PASS compiler/beam/retains-a-joined-value-as-the-cons-heap-root
+PASS compiler/beam/lifts-list-helpers-with-ordered-guard-and-expression-filters
+PASS compiler/beam/keeps-one-copy-at-a-repeated-fallthrough-frame-write
+PASS compiler/beam/orders-named-call-captures-in-lifted-callback
+PASS compiler/beam/rematerializes-closed-entry-frame-reads
+PASS compiler/beam/lifts-a-list-helper-after-one-dynamic-remote-producer
+PASS compiler/beam/names-opaque-inline-callback-after-core
+PASS compiler/beam/roots-terminal-list-tail-before-returned-pair-fields
+PASS compiler/beam/schedules-live-checked-pair-list-arguments
+PASS compiler/beam/trimmed-closure-call-arguments
+PASS compiler/beam/branches-on-shortcut-nil-comparisons
+PASS compiler/beam/orders-independent-literal-copies-by-the-join-peer
+FAIL compiler/beam/declared-native-entry-frame-marker: System.InvalidOperationException: The declared native marker must follow only its own entry frame setup.
+   at Erlang.Tests.BeamDeclaredNativeFrameEntryChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamDeclaredNativeFrameEntryChecks.cs:line 35
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/types-saved-cons-fields-through-a-join-and-trim
+PASS compiler/beam/tagged-tail-projection-carrier
+PASS compiler/beam/disjoint-nil-integer-entries
+PASS compiler/beam/orders-checked-projections-before-tail-argument-cycles
+PASS compiler/beam/badmatch-uses-the-first-pattern-annotation
+PASS compiler/beam/reuses-inner-try-slots-with-an-active-outer-handler
+PASS compiler/beam/reuses-cursor-for-ordered-binary-list-prefix-retry
+PASS compiler/beam/clears-saved-roots-before-closed-protected-send
+PASS compiler/beam/outlines-owned-projection-badmatches-in-otp-order
+PASS compiler/beam/records-lifted-function-at-lexical-fun-location
+PASS compiler/beam/forwards-owned-position-through-recursive-segment-construction
+PASS compiler/beam/reuses-disjoint-try-tag-stack-slots
+PASS compiler/beam/folds-call-fallthrough-into-shared-return
+PASS compiler/beam/forwards-protected-call-result-through-checked-projection
+FAIL compiler/beam/builds-protected-message-tuple-in-outgoing-x1: System.InvalidOperationException: Protected message construction must preserve the receiver and all live stack operands.
+   at Erlang.Tests.BeamProtectedSendArgumentChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Calls\BeamProtectedSendArgumentChecks.cs:line 30
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/places-independent-protected-frames-after-literal-entry-guard
+PASS compiler/beam/reuses-a-checked-carrier-for-its-terminal-projection
+PASS compiler/beam/groups-unary-binary-literal-clauses
+PASS compiler/beam/removes-dead-terminal-try-copies-in-sibling-handlers
+PASS compiler/beam/keeps-saved-call-result-in-x0-through-literal-arguments
+PASS compiler/beam/shares-uncaptured-closure-heap-with-retained-list
+PASS compiler/beam/localizes-a-closed-signal-counter-entry-frame
+PASS compiler/beam/registers-lambdas-in-first-use-order
+PASS compiler/beam/shares-the-rejections-of-an-acknowledged-pair
+PASS compiler/beam/lifts-list-mappers-with-closed-bitstring-operands
+PASS compiler/beam/shares-closed-ordered-pair-distance-selection
+PASS compiler/beam/keeps-closure-and-fused-append-helper-ordinals
+PASS compiler/beam/trims-checked-pair-return-after-last-outgoing-load
+PASS compiler/beam/compares-a-closed-list-head-pattern-as-one-literal
+PASS compiler/beam/returns-the-original-tagged-result-after-an-identity-checked-attempt
+PASS compiler/beam/lifts-map-generators-that-project-list-values
+PASS compiler/beam/moves-positional-arithmetic-before-checked-call-frame
+PASS compiler/beam/selects-distinct-atoms-after-a-partial-call-case
+PASS compiler/beam/compacts-single-retained-trim-beside-full-frame-branch
+PASS compiler/beam/fuses-a-literal-tail-into-a-list-mapper
+PASS compiler/beam/coalesces-adjacent-exhaustive-boolean-guards
+PASS compiler/beam/reuses-tail-register-for-bounded-list-predicate
+PASS compiler/beam/lifts-nested-tuple-alias-list-generators
+PASS compiler/beam/folds-dead-comparison-values-into-branches
+PASS compiler/beam/uses-entry-registers-for-fields-dead-after-the-mask-guard
+FAIL compiler/beam/reuses-the-last-projected-root-for-terminal-cleanup: System.IO.InvalidDataException: Invalid generic BEAM opcode or operand boundary
+   at Erlang.BeamInstructionReader.Scalar(BeamCompactValue raw, Int32 atomCount, Int32 labelCount) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamInstructionReader.cs:line 166
+   at Erlang.BeamInstructionReader.ReadOperands(BeamCodeHeader code, Int32 atomCount, Int32 literalCount, Action`3 recordLabelOperand, Action`3 recordStackOperand, Action`3 recordAtomOperand) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamInstructionReader.cs:line 120
+   at Erlang.BeamInstructionReader.Read(BeamCodeHeader code, Int32 atomCount, Int32 literalCount, Action`3 recordLabelOperand, Action`3 recordStackOperand) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamInstructionReader.cs:line 14
+   at InvokeStub_BeamInstructionReader.Read(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+--- End of stack trace from previous location ---
+   at Erlang.Tests.BeamBinaryHostAccess.Call(Object owner, String method, Object[] values) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Binary\BeamBinaryHostAccess.cs:line 52
+   at Erlang.Tests.BeamRetiredProjectionStatusChecks.Rewrite(Byte[] bytes) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Calls\BeamRetiredProjectionStatusChecks.cs:line 64
+   at Erlang.Tests.BeamRetiredProjectionStatusChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Calls\BeamRetiredProjectionStatusChecks.cs:line 15
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+FAIL compiler/beam/removes-a-construction-clear-only-for-initialized-slots: System.IO.InvalidDataException: Invalid generic BEAM opcode or operand boundary
+   at Erlang.BeamInstructionReader.Scalar(BeamCompactValue raw, Int32 atomCount, Int32 labelCount) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamInstructionReader.cs:line 166
+   at Erlang.BeamInstructionReader.ReadOperands(BeamCodeHeader code, Int32 atomCount, Int32 literalCount, Action`3 recordLabelOperand, Action`3 recordStackOperand, Action`3 recordAtomOperand) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamInstructionReader.cs:line 120
+   at Erlang.BeamInstructionReader.Read(BeamCodeHeader code, Int32 atomCount, Int32 literalCount, Action`3 recordLabelOperand, Action`3 recordStackOperand) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamInstructionReader.cs:line 14
+   at InvokeStub_BeamInstructionReader.Read(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+--- End of stack trace from previous location ---
+   at Erlang.Tests.BeamBinaryHostAccess.Call(Object owner, String method, Object[] values) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Binary\BeamBinaryHostAccess.cs:line 52
+   at Erlang.Tests.BeamRepeatedConstructionClearChecks.Rewrite(Byte[] bytes) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Calls\BeamRepeatedConstructionClearChecks.cs:line 57
+   at Erlang.Tests.BeamRepeatedConstructionClearChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Calls\BeamRepeatedConstructionClearChecks.cs:line 15
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/coalesces-tuple-shape-and-dead-tag-checks
+FAIL compiler/beam/clears-only-dead-stack-roots-after-projected-call-arguments: System.IO.InvalidDataException: Invalid generic BEAM opcode or operand boundary
+   at Erlang.BeamInstructionReader.Scalar(BeamCompactValue raw, Int32 atomCount, Int32 labelCount) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamInstructionReader.cs:line 166
+   at Erlang.BeamInstructionReader.ReadOperands(BeamCodeHeader code, Int32 atomCount, Int32 literalCount, Action`3 recordLabelOperand, Action`3 recordStackOperand, Action`3 recordAtomOperand) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamInstructionReader.cs:line 120
+   at Erlang.BeamInstructionReader.Read(BeamCodeHeader code, Int32 atomCount, Int32 literalCount, Action`3 recordLabelOperand, Action`3 recordStackOperand) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamInstructionReader.cs:line 14
+   at InvokeStub_BeamInstructionReader.Read(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+--- End of stack trace from previous location ---
+   at Erlang.Tests.BeamBinaryHostAccess.Call(Object owner, String method, Object[] values) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Binary\BeamBinaryHostAccess.cs:line 52
+   at Erlang.Tests.BeamProjectedArgumentCallRootsChecks.Rewrite(Byte[] bytes) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Calls\BeamProjectedArgumentCallRootsChecks.cs:line 79
+   at Erlang.Tests.BeamProjectedArgumentCallRootsChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Calls\BeamProjectedArgumentCallRootsChecks.cs:line 16
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+FAIL compiler/beam/orders-checked-payload-stack-loads-before-the-clear: System.IO.InvalidDataException: Invalid generic BEAM opcode or operand boundary
+   at Erlang.BeamInstructionReader.Scalar(BeamCompactValue raw, Int32 atomCount, Int32 labelCount) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamInstructionReader.cs:line 166
+   at Erlang.BeamInstructionReader.ReadOperands(BeamCodeHeader code, Int32 atomCount, Int32 literalCount, Action`3 recordLabelOperand, Action`3 recordStackOperand, Action`3 recordAtomOperand) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamInstructionReader.cs:line 120
+   at Erlang.BeamInstructionReader.Read(BeamCodeHeader code, Int32 atomCount, Int32 literalCount, Action`3 recordLabelOperand, Action`3 recordStackOperand) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamInstructionReader.cs:line 14
+   at InvokeStub_BeamInstructionReader.Read(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+--- End of stack trace from previous location ---
+   at Erlang.Tests.BeamBinaryHostAccess.Call(Object owner, String method, Object[] values) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Binary\BeamBinaryHostAccess.cs:line 52
+   at Erlang.Tests.BeamCheckedPayloadStackOrderChecks.Rewrite(Byte[] bytes) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Calls\BeamCheckedPayloadStackOrderChecks.cs:line 62
+   at Erlang.Tests.BeamCheckedPayloadStackOrderChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Calls\BeamCheckedPayloadStackOrderChecks.cs:line 15
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/retains-checked-nested-tuple-in-result-register
+PASS compiler/beam/branches-directly-on-exhaustive-comparisons
+PASS compiler/beam/keeps-terminal-construction-intermediates-in-x
+PASS compiler/beam/retains-entry-roots-through-heap-before-the-first-call
+PASS compiler/beam/revisits-unused-interior-frame-slots

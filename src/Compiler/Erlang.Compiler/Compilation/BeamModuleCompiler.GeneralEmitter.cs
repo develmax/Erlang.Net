@@ -523,7 +523,7 @@ internal sealed partial class BeamModuleCompiler
                 owner.registerSelectorEntries.Add(owner.nextLabel - 1);
             }
 
-            if (function.Clauses is [var construction] && TryEmitStraightLineValues(construction))
+            if (function.Clauses is [var construction] && TryEmitStraightLineValues(construction, function))
             {
                 return;
             }

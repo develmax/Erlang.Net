@@ -56,7 +56,7 @@ internal static class BeamSavedEqualityRetryProjectionChecks
         object header = New(
             "BeamCodeHeader",
             0,
-            (int)GetTupleElement,
+            MinimumHighestOpcode,
             4,
             1,
             code

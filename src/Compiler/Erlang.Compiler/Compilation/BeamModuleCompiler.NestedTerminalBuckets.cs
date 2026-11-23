@@ -88,6 +88,14 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
+            // Preserve the complete selector when a partial flat plan would
+            // split distinct tags that share their checked field reads.
+            if (admitted.Count != clauses.Length && buckets.All(bucket => bucket.Flat is not null)
+                && CanUseCompleteSharedFlatTaggedGroup(clauses, input))
+            {
+                return false;
+            }
+
             var ordered = buckets.OrderBy(bucket => bucket.Key, Comparer<Term>.Create(
                 (left, right) => TermOrder.Compare(left, right, exact: true)
             )).ToArray();

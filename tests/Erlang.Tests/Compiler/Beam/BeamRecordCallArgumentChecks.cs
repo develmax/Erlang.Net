@@ -107,7 +107,8 @@ internal static class BeamRecordCallArgumentChecks
             3,
             recordOnly ? new Dictionary<int, int>() : resultTypes,
             null,
-            recordOnly ? new HashSet<int> { callee } : null
+            recordOnly ? new HashSet<int> { callee } : null,
+            false
         );
     }
 

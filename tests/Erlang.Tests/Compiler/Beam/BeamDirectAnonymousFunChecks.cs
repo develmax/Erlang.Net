@@ -39,6 +39,7 @@ internal static class BeamDirectAnonymousFunChecks
         callable(Input) -> (fun(Inside) -> {retained, Inside} end)(Input).
         reference() -> fun reference/0.
         """;
+
     internal static async Task Run()
     {
         byte[] beam = CodeGeneration.CompileBeamModule(Source, Fixture);
@@ -46,8 +47,8 @@ internal static class BeamDirectAnonymousFunChecks
 
         bool UsesClosure(string name) => body(name).Any(instruction => Opcode(instruction) == MakeFun);
         if (!UsesClosure("value") || !UsesClosure("protected_value")
-            || body("ordinal").Count(instruction => Opcode(instruction) == MakeFun) != 2
-            || body("-ordinal/1-fun-1-").Length == 0 || body("-ordinal/1-fun-0-").Length == 0
+            || body("ordinal").Count(instruction => Opcode(instruction) == MakeFun) != 1
+            || body("-ordinal/1-fun-1-").Length == 0 || body("-ordinal/1-fun-0-").Length != 0
             || !UsesClosure("callable") || !UsesClosure("reference"))
         {
             throw new InvalidOperationException(Failure);

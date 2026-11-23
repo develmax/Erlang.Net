@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 2006 reuses existing checked entry, closure label and physical frame planners with pinned OTP Core and SSA evidence. Existing dependencies and licenses continue. [Evidence](validation/part-2006-pr143-source-admission/README.md).
+
 Part 1989 reuses the managed frame, source-helper, register and CFG planners with pinned OTP source evidence. [Evidence](validation/part-1989/README.md).
 
 Part 1988 reuses the managed helper, frame and constructor planners with pinned OTP Core, SSA and physical-code evidence. Existing dependencies and licenses continue. [Evidence](validation/part-1988/README.md).
