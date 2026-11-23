@@ -930,10 +930,11 @@ internal sealed partial class BeamModuleCompiler
                         int source = savedInputs[firstLoad].Source;
                         int slot = remap[source];
                         bool survivesCleanup = !step.Released.Contains(source)
-                            && step.Released.Any(released => released != step.SlotRelocation?.Destination);
-                        // As in OTP setup_args, keep the X0 move next to its call if it survives the kill.
-                        if (slot >= trimTo - trimmed && source != step.SlotRelocation?.Destination
-                            && (trimTo > trimmed || survivesCleanup))
+                            && source != step.SlotRelocation?.Destination && slot >= trimTo - trimmed;
+                        bool cleansFrame = trimTo > trimmed
+                            || step.Released.Any(released => released != step.SlotRelocation?.Destination);
+                        // A retained slot can still be cleared before the trim shifts it.
+                        if (survivesCleanup && cleansFrame)
                         {
                             deferredSlot = slot - (trimTo - trimmed);
                         }

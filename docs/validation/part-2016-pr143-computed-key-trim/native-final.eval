@@ -1,0 +1,22 @@
+[P, CodePath] = init:get_plain_arguments(),
+{ok,Mod,Original} = compile:file(P,[binary,deterministic]),
+{ok,Generated} = file:read_file(CodePath),
+Cases = [{key,#{key=>found},fallback},{key,#{},fallback},{key,invalid,fallback},{fail_operand,invalid,fallback}],
+Compare = fun(Label,Image) ->
+    {module,Mod}=code:load_binary(Mod,Label,Image),
+    Results=[begin
+        put(trace,[]),
+        erase(saved_value),
+        Outcome=try Mod:computed(Key,Map,Default) of Value->{return,Value} catch C:R->{C,R} end,
+        {Outcome,get(trace),get(saved_value)}
+    end||{Key,Map,Default}<-Cases],
+    true=code:delete(Mod),
+    _=code:purge(Mod),
+    Results
+end,
+Ref=Compare("pinned",Original), Actual=Compare("generated",Generated),
+io:format("~0p~n",[[{whole_image_equal,Original=:=Generated},{reference,Ref},{generated,Actual},{behavior_equal,Ref=:=Actual}]]),
+{beam_file,Mod,_,_,_,Fs}=beam_disasm:file(Generated),
+[io:format("~0p~n",[F])||{function,computed,_,_,_}=F<-Fs],
+case Ref=:=Actual of true->halt(0);false->halt(1) end.
+

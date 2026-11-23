@@ -1,5 +1,7 @@
 # Next steps
 
+Continue the prepared-map layout and frame ownership groups. Reproduce the catalog async observer transport failure on the exact Windows input package. [Validation](validation/part-2016-pr143-computed-key-trim/README.md).
+
 Continue from the 25 remaining Part 2015 cases. Prioritize the computed maps:get/3 key lifetime across the frame trim, then the remaining frame and dispatch groups. [Validation](validation/part-2015-pr143-map-join-registers/README.md).
 
 Continue from the 26 remaining Part 2014 cases. Keep the original map carrier, prepared-map errors and shared frame ownership as the next compiler priorities. [Validation](validation/part-2014-pr143-tagged-tail-and-singletons/README.md).

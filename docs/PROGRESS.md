@@ -1,5 +1,7 @@
 # Project progress
 
+Part 2016 repairs a computed maps:get/3 result lost at frame cleanup. Managed and pinned ERTS behavior checks pass. The local selected cohort retains 19 passes and 25 layout failures. [Validation](validation/part-2016-pr143-computed-key-trim/README.md).
+
 Part 2015 preserves the original map carrier across constructor joins. The local 44-case selection passes 19 with 25 failures remaining. [Validation](validation/part-2015-pr143-map-join-registers/README.md).
 
 Part 2014 recovers two platform cases with byte-equal tagged dynamic tails and constructor fixtures. The local 44-case cohort passes 18 and fails 26. [Validation](validation/part-2014-pr143-tagged-tail-and-singletons/README.md).

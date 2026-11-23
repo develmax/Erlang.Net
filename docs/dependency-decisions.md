@@ -1276,3 +1276,7 @@ Reuse the existing C# term equality, literal map projection writer and scoped ca
 ## Preserve register identity for map join inputs — 2026-11-23
 
 Reuse the existing C# closed map join proof, compact instruction decoder and register rewriting. Pinned Apache-2.0 OTP code generation reads the values associated with the map keys using their assigned operand identities. The two-value carrier proof handles either key order. [Part 2015](validation/part-2015-pr143-map-join-registers/README.md).
+
+## Require deferred call arguments to survive slot clears — 2026-11-23
+
+Reuse existing C# frame lifetime, kill, trim and argument scheduling. Pinned Apache-2.0 OTP beam_trim tracks kills and remaps surviving values. Physical survival of a slot alone is insufficient when its value was cleared. [Part 2016](validation/part-2016-pr143-computed-key-trim/README.md).

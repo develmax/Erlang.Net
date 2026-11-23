@@ -1,0 +1,26 @@
+Error! Failed to eval: [P, CodePath] = init:get_plain_arguments(),
+{ok,Mod,Original} = compile:file(P,[binary,deterministic]),
+{ok,Generated} = file:read_file(CodePath),
+Cases = [{key,#{key=>found},fallback},{key,#{},fallback},{key,invalid,fallback},{fail_operand,invalid,fallback}],
+Compare = fun(Label,Image) ->
+    {module,Mod}=code:load_binary(Mod,Label,Image),
+    Results=[begin
+        put(trace,[]),
+        erase(saved_value),
+        Outcome=try Mod:computed(Key,Map,Default) of Value->{return,Value} catch C:R->{C,R} end,
+        {Outcome,get(trace),get(saved_value)}
+    end||{Key,Map,Default}<-Cases],
+    true=code:delete(Mod),
+    _=code:purge(Mod),
+    Results
+end,
+Ref=Compare("pinned",Original), Actual=Compare("generated",Generated),
+io:format("~0p~n",[{whole_image_equal,Original=:=Generated},{reference,Ref},{generated,Actual},{behavior_equal,Ref=:=Actual}]),
+{beam_file,Mod,_,_,_,Fs}=beam_disasm:file(Generated),
+[io:format("~0p~n",[F])||{function,computed,_,_,_}=F<-Fs],
+case Ref=:=Actual of true->halt(0);false->halt(1) end.
+
+
+Runtime terminating during boot ({badarg,[{io,format,["~0p~n",[{whole_image_equal,false},{reference,[{{return,{ok,found}},[default,map,key],found},{{return,{ok,fallback}},[default,map,key],fallback},{{error,{badmap,invalid}},[default,map,key],undefined},{{error,argument_failed},[key],undefined}]},{generated,[{{return,{ok,found}},[default,map,key],found},{{return,{ok,fallback}},[default,map,key],fallback},{{error,{badmap,invalid}},[default,map,key],undefined},{{error,argument_failed},[key],undefined}]},{behavior_equal,true}]],[{file,"io.erl"},{line,205},{error_info,#{cause=>{device,format},module=>erl_stdlib_errors}}]},{erl_eval,do_apply,7,[{file,"erl_eval.erl"},{line,1044}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{init,start_it,1,[{file,"init.erl"},{line,1561}]},{init,start_em,1,[{file,"init.erl"},{line,1546}]},{init,do_boot,3,[{file,"init.erl"},{line,1217}]}]})
+
+Crash dump is being written to: C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\artifacts\pr143-computed-key-trim/erl-crash.dump...done

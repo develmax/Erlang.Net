@@ -1,0 +1,26 @@
+2026-11-23T10:08:44.7306998Z FAIL compiler/beam/places-checked-tuple-call-arguments-before-the-catch-frame: System.InvalidOperationException: The early checked fields must preserve the argument exchange, call line, and catch path.
+2026-11-23T10:08:50.0588918Z FAIL compiler/beam/discarded-binary-tuple-binds-fields-directly: System.InvalidOperationException: Expected temporary tuple elimination only for distinct fresh bindings with no observable inner aliases.
+2026-11-23T10:08:50.2591288Z FAIL compiler/beam/accumulated-pair-lengths-preserve-minimum: System.InvalidOperationException: Expected positive lower bounds only for all-caller proven pair lengths.
+2026-11-23T10:08:52.0411882Z FAIL compiler/beam/preserves-shared-list-prefixes-and-branch-local-frames: System.InvalidOperationException: The string-key dispatch lost its first-element selection and tuple check.
+2026-11-23T10:08:54.2793943Z FAIL compiler/beam/keeps-short-protected-projections-in-call-registers: System.InvalidOperationException: Only projections read after a call need their own stack slot.
+2026-11-23T10:08:54.9428745Z FAIL compiler/beam/uses-zero-slot-frame-for-single-returning-call: System.InvalidOperationException: The call continuation must keep only its initialized result roots and frame.
+2026-11-23T10:08:58.7784937Z FAIL compiler/beam/forwards-a-closure-call-result-to-checked-arguments: System.InvalidOperationException: The closure result must remain rooted in both checked call branches.
+2026-11-23T10:08:59.6278205Z FAIL compiler/beam/builds-protected-message-tuple-in-outgoing-x1: System.InvalidOperationException: Protected message construction must preserve the receiver and all live stack operands.
+2026-11-23T10:09:00.3125201Z FAIL compiler/beam/lowers-prepared-map-defaults-in-value-positions: System.InvalidOperationException: The map default did not retain a distinct cold error with an empty line.
+2026-11-23T10:09:00.3810803Z FAIL compiler/beam/lowers-prepared-terminal-map-default-lookups: System.InvalidOperationException: The terminal lookup did not keep separate key-miss and generated badmap edges.
+2026-11-23T10:09:02.0784298Z FAIL compiler/beam/keeps-tagged-guard-payload-inside-its-owning-tail: System.InvalidOperationException: The selecting guard did not own its late tuple extraction and closed argument.
+2026-11-23T10:09:02.2770579Z FAIL compiler/beam/keeps-nil-tail-outside-a-checked-cons-frame: System.InvalidOperationException: The nil and cons entries did not preserve their frame ownership.
+2026-11-23T10:09:02.2926937Z FAIL compiler/beam/forwards-tagged-token-result-into-a-local-tail: System.InvalidOperationException: Expected direct token extraction and the joined result in the outgoing register.
+2026-11-23T10:09:02.9359869Z FAIL compiler/beam/keeps-call-only-grouped-tuple-fields-in-x: System.InvalidOperationException: The call-only tuple fields must leave one saved state slot and two entry roots.
+2026-11-23T10:09:03.2906096Z FAIL compiler/beam/selects-disjoint-tuple-tags-before-arm-frames: System.InvalidOperationException: The arity arm should project only the tag before dispatching and allocating.
+2026-11-23T10:09:05.1051036Z FAIL compiler/beam/projects-a-covered-tagged-call-pair-before-selecting: System.InvalidOperationException: Expected the covered guard to join tuple BIF rejection before checking the alternative.
+2026-11-23T10:09:07.8669497Z FAIL compiler/beam/keeps-range-checked-forwarded-choice-in-registers: System.InvalidOperationException: A bounded forwarded choice did not retain its zero-slot frame.
+2026-11-23T10:09:08.6536227Z FAIL compiler/beam/groups-closed-atom-arms-with-owned-source-lines: System.InvalidOperationException: Expected one ordered atom selector with two distinct terminal bodies.
+2026-11-23T10:09:09.9278231Z FAIL compiler/beam/clears-a-retained-argument-at-its-final-call: System.InvalidOperationException: The joined call must order the outgoing arguments before clearing each dead root.
+2026-11-23T10:09:12.3738201Z FAIL compiler/beam/keeps-call-results-in-terminal-argument-registers: System.InvalidOperationException: The terminal argument join retained a temporary stack copy or used it in another argument.
+2026-11-23T10:09:13.1152840Z FAIL compiler/beam/partitions-mixed-entry-domains-before-framing: System.InvalidOperationException: Tuple arities must be selected before allocating a clause frame.
+2026-11-23T10:09:14.8444103Z FAIL compiler/beam/shares-protected-tag-payload-before-calls: System.InvalidOperationException: Protected tuple dispatch did not share its payload and preserve the exception frame.
+2026-11-23T10:09:15.5186203Z FAIL compiler/beam/retains-one-owner-in-generated-recursive-list-helpers: System.InvalidOperationException: A caller-controlled generator lost its shape and improper-tail checks.
+2026-11-23T10:09:17.0009326Z FAIL compiler/beam/orders-saved-call-results-and-list-construction: System.InvalidOperationException: A saved result or an owned list spine was emitted with the wrong destination sequence.
+2026-11-23T10:09:18.3648580Z FAIL compiler/beam/reuses-retired-entry-slot-before-following-call: System.InvalidOperationException: Expected outgoing operands to retire before the result uses their stack slot.
+2026-11-23T10:15:36.5979086Z 7819/7844 passed

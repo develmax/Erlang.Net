@@ -57,9 +57,47 @@ internal static class BeamValueMapDefaultChecks
             end.
         """;
 
+    private static async Task CheckComputedKey(byte[] image)
+    {
+        var module = BeamModule.Prepare(image, new BeamDependencySelection(["maps"]));
+        await using var runtime = new ProcessRuntime();
+        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
+        await actor.InvokeAsync(async context =>
+        {
+            Term key = Term.A("key");
+            Term value = Term.A("value");
+            Term fallback = Term.A("fallback");
+            Term traceKey = Term.A("trace");
+            Term saved = Term.A("saved_value");
+            Term expectedTrace = Term.List(Term.A("default"), Term.A("map"), key);
+            var map = new MapTerm([new(key, value)]);
+            foreach (var (lookup, expected) in new[] { (key, value), (Term.A("missing"), fallback) })
+            {
+                context.Dictionary[traceKey] = Nil.Value;
+                Term result = await module.Invoke(
+                    context,
+                    "computed",
+                    lookup,
+                    map,
+                    fallback
+                );
+                if (!Term.Tuple(Term.A("ok"), expected).Equals(result)
+                    || !expectedTrace.Equals(context.Dictionary[traceKey])
+                    || !expected.Equals(context.Dictionary[saved]))
+                {
+                    throw new InvalidOperationException(WrongValue);
+                }
+            }
+
+            return Nil.Value;
+        });
+    }
+
+
     internal static async Task Run()
     {
         byte[] image = CodeGeneration.CompileBeamModule(Source, "beam_value_map_default.erl");
+        await CheckComputedKey(image);
         CheckLayout(image);
         var module = BeamModule.Prepare(image);
         await using var runtime = new ProcessRuntime();
