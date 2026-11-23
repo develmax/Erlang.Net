@@ -92,7 +92,11 @@ internal static class BeamGenericMapInputTypesChecks
             .Where(instruction => (byte)Property(Property(instruction, "Definition"), "Opcode") == GetMapElements)
             .Select(instruction => ((IEnumerable)Property(instruction, "Operands")).Cast<object>().ToArray())
             .ToArray();
-        if (projections.Length != 7 || projections.Any(operands => operands.Length != 5))
+        if (projections.Any(operands => operands.Length < 5 || operands.Length % 2 == 0)
+            || projections.Sum(operands => (operands.Length - 3) / 2) != 7
+            || projections.Any(operands => operands.Skip(4).Where((_, index) => index % 2 == 0)
+                .Select(operand => (Property(operand, "Kind"), Property(operand, "Value")))
+                .Distinct().Count() != (operands.Length - 3) / 2))
         {
             throw new InvalidOperationException(WrongProjection);
         }

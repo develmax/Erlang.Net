@@ -1268,3 +1268,7 @@ Reuse the existing C# immutable terms, body liveness, frame placement and operan
 ## Preserve heap checks for owned leaf constructors — 2026-11-23
 
 Reuse the C# disjoint frame ownership proof and compact allocation writer. The pinned Apache-2.0 OTP frame allocator selects stack frames based on the instructions that need one, and OTP code generation emits a separate heap check in their absence. Standard .NET collections already support the per-allocation root map. [Part 2011](validation/part-2011-pr143-record-list-tail/README.md).
+
+## Split common literal map keys in ordered clauses — 2026-11-23
+
+Reuse the existing C# term equality, literal map projection writer and scoped case slots. Pinned Apache-2.0 OTP partitions the common keys once and keeps residual checks inside each source clause. The standard .NET collection intersection maintains the order of the sorted C# key sequence. [Part 2012](validation/part-2012-pr143-map-intersection/README.md).

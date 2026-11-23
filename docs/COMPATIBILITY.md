@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 2012 verifies ordered map retries and five installed release load preparations. Its five selected release modules remain Different. The full release ledger is historical. [Validation](validation/part-2012-pr143-map-intersection/README.md).
+
 Part 2011 verifies both byte equality and four paired ERTS calls for the synthetic external leaf-tail module. The release corpus ledger and runtime registry retain their prior evidence. [Validation](validation/part-2011-pr143-record-list-tail/README.md).
 
 Part 2010 verifies the closure-order fixture against pinned OTP. Release parity measurements and runtime registry classifications keep their prior evidence. [Validation](validation/part-2010-pr143-lambda-table-order/README.md).

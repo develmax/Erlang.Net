@@ -36,7 +36,7 @@ internal static class BeamGroupedListGuardChecks
             || !helpers.Contains(("-reject/1-lc$^0/1-0-", 1))
             || !helpers.Contains(("-before/1-lc$^1/1-0-", 1))
             || !helpers.Contains(("-after_/1-lc$^0/1-1-", 1))
-            || helpers.Contains(("-filters/1-lc$^0/1-0-", 1)))
+            || !helpers.Contains(("-filters/1-lc$^0/1-0-", 1)))
         {
             throw new InvalidOperationException(WrongHelper);
         }

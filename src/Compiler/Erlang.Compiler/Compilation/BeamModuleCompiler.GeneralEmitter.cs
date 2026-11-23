@@ -12857,9 +12857,13 @@ internal sealed partial class BeamModuleCompiler
                 {
                     foreach (MapPatternField field in map.Fields)
                     {
+                        Term key = ((Expr.Literal)field.Key).Value;
+                        int slot = sharedFields.Slots.TryGetValue(key, out int sharedSlot)
+                            ? sharedSlot
+                            : EmitLiteralMapCaseLookup(sharedFields.Source, key, next);
                         Pattern(
                             field.Value,
-                            sharedFields.Slots[((Expr.Literal)field.Key).Value],
+                            slot,
                             next
                         );
                     }

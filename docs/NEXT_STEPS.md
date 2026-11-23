@@ -1,5 +1,7 @@
 # Next steps
 
+Continue from the 30 failures in Part 2012. Resolve formal map input register ownership and the remaining shared frame and prepared-map groups. [Validation](validation/part-2012-pr143-map-intersection/README.md).
+
 Use the 33 remaining cases in the Part 2011 focused retake. Start with prepared-map failure edges and shared frame ownership, and keep full CI and uncached corpus acceptance open. [Validation](validation/part-2011-pr143-record-list-tail/README.md).
 
 Work from the 35 remaining failures of the published platform lane. Prioritize shared frame and argument ownership, prepared-map failure paths and general constructor facts. Exclude the verified closure-order fixture. Repeat the full PR gate and current readiness after the affected cohort is green. [Validation](validation/part-2009-pr143-platform-retake/README.md).

@@ -6,7 +6,7 @@ internal sealed partial class BeamModuleCompiler
 {
     private sealed partial class GeneralEmitter
     {
-        private (Dictionary<Term, int> Slots, int Failure)? EmitSharedLiteralMapCase(
+        private (Dictionary<Term, int> Slots, int Failure, int Source)? EmitSharedLiteralMapCase(
             IReadOnlyList<Clause> clauses,
             int source
         )
@@ -20,7 +20,13 @@ internal sealed partial class BeamModuleCompiler
 
             for (int index = 1; index < clauses.Count; index++)
             {
-                if (ReadLiteralMapCaseKeys(clauses[index]) is not { } compared || !keys.SequenceEqual(compared))
+                if (ReadLiteralMapCaseKeys(clauses[index]) is not { } compared)
+                {
+                    return null;
+                }
+
+                keys = keys.Intersect(compared).ToArray();
+                if (keys.Length == 0)
                 {
                     return null;
                 }
@@ -32,18 +38,22 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(YRegisterTag, source);
             foreach (Term key in keys)
             {
-                // Keep existing scalar result placement. The common logical
-                // projections should not assign both physical destinations here.
-                owner.Op(GetMapElements, LabelTag, failure);
-                owner.EmitTypedRegister(source, MapTypeBits, registerTag: YRegisterTag);
-                owner.instructions.WriteByte(ExtendedListOperand);
-                owner.Operand(BeamWire.UnsignedTag, 2);
-                owner.LiteralOperand(key);
-                owner.Operand(XRegisterTag, 0);
-                slots.Add(key, Save());
+                slots.Add(key, EmitLiteralMapCaseLookup(source, key, failure));
             }
 
-            return (slots, failure);
+            return (slots, failure, source);
+        }
+
+        private int EmitLiteralMapCaseLookup(int source, Term key, int failure)
+        {
+            owner.Op(GetMapElements, LabelTag, failure);
+            owner.EmitTypedRegister(source, MapTypeBits, registerTag: YRegisterTag);
+            owner.instructions.WriteByte(ExtendedListOperand);
+            owner.Operand(BeamWire.UnsignedTag, 2);
+            owner.LiteralOperand(key);
+            owner.Operand(XRegisterTag, 0);
+
+            return Save();
         }
 
         private static Term[]? ReadLiteralMapCaseKeys(Clause clause)
