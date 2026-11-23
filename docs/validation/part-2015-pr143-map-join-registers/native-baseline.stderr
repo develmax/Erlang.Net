@@ -1,0 +1,47 @@
+Error! Failed to eval: [D] = init:get_plain_arguments(),
+Fixtures = [
+ {map_join_register_probe,[
+    {adapt,[#{left=>a,right=>none,entry=>{packed,[1]},note=>none}]},
+    {adapt,[#{left=>none,right=>a,entry=>{packed,<<1>>},note=>extra}]},
+    {adapt,[#{left=>a,right=>b,entry=>{packed,<<1>>},note=>none}]},
+    {adapt,[#{left=>a,right=>none,entry=>other}]},
+    {adapt,[#{left=>a,right=>none,entry=>{packed,[]}}]},
+    {adapt,[#{}]},{adapt,[invalid]}]},
+ {beam_terminal_map_default,[
+    {branch,[read,key,#{key=>found}]},{branch,[read,key,#{}]},
+    {branch,[read,key,invalid]},{branch,[other,key,invalid]},
+    {confirmed,[read,key,#{key=>found}]},{confirmed,[read,key,#{}]},
+    {confirmed,[read,key,invalid]},{computed,[key,invalid,fallback]},
+    {dynamic,[maps,key,invalid,fallback]}]},
+ {beam_value_map_default,[
+    {computed,[key,#{key=>found},fallback]},{computed,[key,#{},fallback]},
+    {computed,[key,invalid,fallback]},{computed,[fail_operand,invalid,fallback]},
+    {bound,[key,invalid,fallback]},{saved,[#{first=>found}]}]}
+],
+lists:foreach(fun({Mod,Cases}) ->
+    Path=filename:join(D,atom_to_list(Mod)),
+    {ok,Mod,Original}=compile:file(Path++".erl",[binary,deterministic]),
+    {ok,Generated}=file:read_file(Path++".managed.beam"),
+    Run=fun(Tag,Image) ->
+        {module,Mod}=code:load_binary(Mod,Tag,Image),
+        Outcomes=[begin
+            put(trace,[]),
+            erase(last_default),
+            erase(saved_value),
+            Result=try apply(Mod,F,Args) of V->{return,V} catch C:R->{C,R} end,
+            {Result,get(trace),get(last_default),get(saved_value)}
+        end||{F,Args}<-Cases],
+        true=code:delete(Mod),
+        _=code:purge(Mod),
+        Outcomes
+    end,
+    Ref=Run("pinned",Original), Actual=Run("managed",Generated),
+    io:format("~0p~n",[{Mod,Original=:=Generated,length(Cases),Ref,Actual}]),
+    Ref=Actual
+end,Fixtures),
+halt().
+
+
+Runtime terminating during boot ({{badmatch,[{{return,{ok,fallback}},[default,map,key],undefined,fallback},{{return,{ok,fallback}},[default,map,key],undefined,fallback},{{error,{badmap,invalid}},[default,map,key],undefined,undefined},{{error,argument_failed},[key],undefined,undefined},{{error,{badmap,invalid}},[],undefined,undefined},{{return,{#{first=>found},found,missing,none}},[],undefined,undefined}]},[{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,796}]},{lists,foreach_1,2,[{file,"lists.erl"},{line,2641}]},{erl_eval,do_apply,7,[{file,"erl_eval.erl"},{line,1044}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{init,start_it,1,[{file,"init.erl"},{line,1561}]},{init,start_em,1,[{file,"init.erl"},{line,1546}]},{init,do_boot,3,[{file,"init.erl"},{line,1217}]}]})
+
+Crash dump is being written to: C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\artifacts\pr143-f772-exact/native-baseline.crash...done

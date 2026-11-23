@@ -195,7 +195,8 @@ internal sealed partial class BeamModuleCompiler
             )
             || At(MapJoinStep.ThirdMap) is not [{ Kind: BeamOperandParameters.Failure }, { Kind: BeamOperandParameters.LiteralValue }, var builtPair,
             { Value: var pairRoots }, { Value: var fieldCount }, _, var pairFirst, _, var pairSecond]
-            || builtPair != scratch || pairRoots != 3 || fieldCount != 4 || pairFirst != scratch || pairSecond != shared
+            || builtPair != scratch || pairRoots != 3 || fieldCount != 4
+            || !(pairFirst == scratch && pairSecond == shared || pairFirst == shared && pairSecond == scratch)
             || At(MapJoinStep.ThirdHeap) is not [{ Value: var thirdWords }, { Value: var thirdRoots }]
             || thirdWords != 3 || thirdRoots != 2 || !Tuple(MapJoinStep.ThirdTuple, scratch)
             || At(MapJoinStep.JoinCopy) is not [var tupleResult, var newOwner] || tupleResult != scratch || newOwner != shared

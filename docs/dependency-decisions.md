@@ -1272,3 +1272,7 @@ Reuse the C# disjoint frame ownership proof and compact allocation writer. The p
 ## Split common literal map keys in ordered clauses — 2026-11-23
 
 Reuse the existing C# term equality, literal map projection writer and scoped case slots. Pinned Apache-2.0 OTP partitions the common keys once and keeps residual checks inside each source clause. The standard .NET collection intersection maintains the order of the sorted C# key sequence. [Part 2012](validation/part-2012-pr143-map-intersection/README.md).
+
+## Preserve register identity for map join inputs — 2026-11-23
+
+Reuse the existing C# closed map join proof, compact instruction decoder and register rewriting. Pinned Apache-2.0 OTP code generation reads the values associated with the map keys using their assigned operand identities. The two-value carrier proof handles either key order. [Part 2015](validation/part-2015-pr143-map-join-registers/README.md).
