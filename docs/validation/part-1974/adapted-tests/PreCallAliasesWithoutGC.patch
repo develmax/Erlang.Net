@@ -1,0 +1,147 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamPreCallFrameAliasChecks.cs b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamPreCallFrameAliasChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamPreCallFrameAliasChecks.cs
+@@ -0,0 +1,125 @@
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++using static Erlang.Tests.BeamOpcodeEdgeBytes;
++
++namespace Erlang.Tests;
++
++internal static class BeamPreCallFrameAliasChecks
++{
++    internal const string TestName = "compiler/beam/removes-precall-frame-aliases-without-crossing-gc";
++    private const string Module = "beam_precall_frame_alias_fixture";
++    private const string Pass = "EliminateNonAllocatingPreCallFrameAliases";
++
++    internal static Task Run()
++    {
++        var compiler = new BeamModuleCompiler(Module);
++        CheckCompacts(compiler, typedGuard: false);
++        CheckCompacts(compiler, typedGuard: true);
++
++        CheckUnchanged(
++            compiler,
++            Fixture(afterCall: [Move, Y(0), X(0)]),
++            BeamPreCallFrameAliasDiagnostics.AcrossCall
++        );
++        CheckUnchanged(
++            compiler,
++            Fixture(interval: [TestHeap, U(2), U(0)]),
++            BeamPreCallFrameAliasDiagnostics.Heap
++        );
++        CheckUnchanged(
++            compiler,
++            Fixture(interval: [Move, A(1), X(0)]),
++            BeamPreCallFrameAliasDiagnostics.Clobber
++        );
++        CheckUnchanged(
++            compiler,
++            Fixture(interval: [InitYRegisters, ExtendedListOperand, U(1), Y(0)]),
++            BeamPreCallFrameAliasDiagnostics.Reinitialized
++        );
++        CheckUnchanged(
++            compiler,
++            Fixture(sharedEntry: true),
++            BeamPreCallFrameAliasDiagnostics.InteriorEntry
++        );
++        CheckUnchanged(
++            compiler,
++            Fixture(interval: [DebugLine, A(1), U(1), U(1), U(1)]),
++            BeamPreCallFrameAliasDiagnostics.Debugger
++        );
++
++        return Task.CompletedTask;
++    }
++
++    private static void CheckCompacts(BeamModuleCompiler compiler, bool typedGuard)
++    {
++        var original = Fixture(typedGuard: typedGuard);
++        var expected = Fixture(compact: true, typedGuard: typedGuard);
++        if (Rewrite(compiler, original) is not { } rewritten || !rewritten.SequenceEqual(expected))
++        {
++            throw new InvalidOperationException(BeamPreCallFrameAliasDiagnostics.FrameAndGuard);
++        }
++    }
++
++    private static void CheckUnchanged(BeamModuleCompiler compiler, byte[] original, string diagnostic)
++    {
++        if (Rewrite(compiler, original) is not null)
++        {
++            throw new InvalidOperationException(diagnostic);
++        }
++    }
++
++    private static byte[]? Rewrite(BeamModuleCompiler compiler, ReadOnlyMemory<byte> code) =>
++        (byte[]?)Call(
++            compiler,
++            Pass,
++            code,
++            5
++        );
++
++    private static byte[] Fixture(
++        bool compact = false,
++        bool typedGuard = false,
++        byte[]? interval = null,
++        byte[]? afterCall = null,
++        bool sharedEntry = false
++    )
++    {
++        int width = compact ? 1 : 2;
++        byte retained = Y(compact ? 0 : 1);
++        byte test = compact ? X(0) : Y(0);
++        byte[] guardInput = typedGuard ? [ExtendedTypedRegisterOperand, test, U(1)] : [test];
++        byte[] spill = compact ? [] : [Move, X(0), Y(0)];
++        byte[] reload = compact ? [] : [Move, Y(0), X(0)];
++        byte[] bypass = sharedEntry
++            ? [InitYRegisters, ExtendedListOperand, U(1), Y(0), IsAtom, F(4), X(1)]
++            : [];
++        byte[] sharedLabel = sharedEntry ? [Label, U(4)] : [];
++
++        return
++        [
++            .. Start(
++                1,
++                2,
++                1,
++                2
++            ),
++            Allocate, U(width), U(2),
++            Move, X(1), retained,
++            .. bypass,
++            .. spill,
++            .. sharedLabel,
++            .. (interval ?? []),
++            IsAtom, F(3), .. guardInput,
++            .. reload,
++            Line, U(1),
++            ExternalCall, U(1), U(0),
++            .. (afterCall ?? []),
++            Move, retained, X(0),
++            Deallocate, U(width), Return,
++            Label, U(3), Move, retained, X(0),
++            Deallocate, U(width), Return,
++            EndCode
++        ];
++    }
++}
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamPreCallFrameAliasDiagnostics.cs b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamPreCallFrameAliasDiagnostics.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamPreCallFrameAliasDiagnostics.cs
+@@ -0,0 +1,12 @@
++namespace Erlang.Tests;
++
++internal static class BeamPreCallFrameAliasDiagnostics
++{
++    internal const string FrameAndGuard = "Expected the guard to read the existing X value and keep the other Y root.";
++    internal const string AcrossCall = "A Y value used after the call must keep its owned stack slot.";
++    internal const string Heap = "A heap reservation may discard X before the next alias read.";
++    internal const string Clobber = "An overwritten X value cannot replace its old stack copy.";
++    internal const string Reinitialized = "A cleared Y slot does not still contain the original X value.";
++    internal const string InteriorEntry = "A branch can reach the old Y slot without executing its X spill.";
++    internal const string Debugger = "Keep the original stack slot available to debugger metadata.";
++}

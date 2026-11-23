@@ -1,0 +1,5 @@
+[Source,Image,Output]=init:get_plain_arguments(),
+{ok,Mod,Beam}=compile:file(Source,[binary]),
+{module,Mod}=code:load_binary(Mod,"probe-source",Beam),
+ok=Mod:run(Image,Output),
+halt().

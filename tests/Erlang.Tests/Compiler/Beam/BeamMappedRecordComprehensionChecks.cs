@@ -1,0 +1,81 @@
+using System.Collections;
+using System.Numerics;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamMappedRecordComprehensionChecks
+{
+    internal const string TestName = "compiler/beam/lifts-checked-record-updates-in-list-helpers";
+    private const string Fixture = "beam_mapped_record_comprehension_probe.erl";
+    private const string MissingHelper = "A mapped record update did not produce its recursive list helper.";
+
+    internal const string Source = """
+        -module(beam_mapped_record_comprehension_probe).
+        -export([map/2, map_from_bucket/2]).
+        -record(row, {key, value}).
+        -record(bucket, {rows}).
+
+        map(Rows, Target) ->
+            [R#row{value = mark(R, Target)} || R <- Rows].
+
+        map_from_bucket(Bucket, Target) ->
+            [R#row{value = mark(R, Target)} || R <- Bucket#bucket.rows, R =/= skip].
+
+        mark({row, fail, Value}, Target) ->
+            Target ! {rhs, fail},
+            erlang:error({update_failed, Value});
+        mark({row, Key, Value}, Target) ->
+            Target ! {rhs, Key},
+            {mapped, Value};
+        mark(Other, Target) ->
+            Target ! {rhs, Other},
+            unused.
+        """;
+
+    internal static byte[] CompileFixture() => CodeGeneration.CompileBeamModule(Source, Fixture);
+
+    internal static void Run()
+    {
+        object code = Code(CompileFixture());
+        object[] instructions = Items(code, "Instructions").ToArray();
+        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
+        if (!HasShape("-map/2-lc$^0/1-0-") || !HasShape("-map_from_bucket/2-lc$^0/1-0-"))
+        {
+            throw new InvalidOperationException(MissingHelper);
+        }
+
+        bool HasShape(string name)
+        {
+            int info = Array.FindIndex(
+                instructions,
+                instruction => Opcode(instruction) == FunctionInfo
+                    && Operands(instruction) is [_, var atom, var arity] && atoms[Value(atom)] == name && Value(arity) == 2
+            );
+            if (info < 0 || Opcode(instructions[info + 1]) != Label)
+            {
+                return false;
+            }
+
+            int target = Value(Operands(instructions[info + 1])[0]);
+            object[] body = instructions.Skip(info + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo).ToArray();
+            int update = Array.FindIndex(body, instruction => Opcode(instruction) == UpdateRecord);
+            int recurse = Array.FindIndex(
+                body,
+                instruction => Opcode(instruction) == LocalCall && Value(Operands(instruction)[1]) == target
+            );
+
+            return update >= 0 && update < recurse && body.Skip(recurse + 1).Any(instruction => Opcode(instruction) == PutList);
+        }
+    }
+
+    private static object[] Operands(object instruction) => Items(instruction, "Operands").ToArray();
+
+    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
+
+    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
+
+    private static IEnumerable<object> Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>();
+}

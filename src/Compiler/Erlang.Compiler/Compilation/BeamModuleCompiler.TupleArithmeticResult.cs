@@ -6,6 +6,88 @@ internal sealed partial class BeamModuleCompiler
 {
     private sealed partial class GeneralEmitter
     {
+        private bool TryEmitPairedTupleBitwiseResult(Clause clause)
+        {
+            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled || clause.Guard is not null
+                || clause.Patterns is not [Pattern.Tuple left, Pattern.Tuple right]
+                || clause.Body is not Expr.Tuple result
+                || result.Items.Count < 2 || result.Items.Count >= FirstReservedXRegister - 2
+                || left.Items.Count != result.Items.Count || right.Items.Count != result.Items.Count)
+            {
+                return false;
+            }
+
+            int arity = result.Items.Count;
+            var seen = new HashSet<string>(StringComparer.Ordinal);
+            var operations = new Expr.Binary[arity];
+            for (int index = 0; index < arity; index++)
+            {
+                if (left.Items[index] is not Pattern.Variable { Name: not VariableScopeNames.Wildcard } a
+                    || right.Items[index] is not Pattern.Variable { Name: not VariableScopeNames.Wildcard } b
+                    || !seen.Add(a.Name) || !seen.Add(b.Name)
+                    || result.Items[index] is not Expr.Binary
+                    {
+                        Operator: ErlangOperators.BitwiseAnd or ErlangOperators.BitwiseOr or ErlangOperators.BitwiseXor,
+                        Left: Expr.Variable lhs,
+                        Right: Expr.Variable rhs
+                    } operation
+                    || lhs.Name != a.Name || rhs.Name != b.Name)
+                {
+                    return false;
+                }
+
+                operations[index] = operation;
+            }
+
+            int failure = owner.nextLabel - 2;
+            owner.EmitTupleCheck(0, arity, failure);
+            owner.EmitTupleCheck(1, arity, failure);
+            var previous = location;
+            for (int index = 0; index < arity; index++)
+            {
+                bool last = index == arity - 1;
+                int lhs = index == 0 ? 2 : last ? 0 : index + 3;
+                int rhs = index == 0 ? 3 : last ? 1 : index + 2;
+                int destination = last ? 0 : index + 2;
+                int live = last ? arity + 1 : index + 4;
+                if (index == 0)
+                {
+                    owner.EmitTuplePart(0, index, lhs);
+                    owner.EmitTuplePart(1, index, rhs);
+                }
+                else
+                {
+                    owner.EmitTuplePart(1, index, rhs);
+                    owner.EmitTuplePart(0, index, lhs);
+                }
+
+                Expr.Binary operation = operations[index];
+                owner.EmitArithmeticLine(operation.SourceLine, ref previous);
+
+                owner.GcArithmetic(
+                    GcBifTwo,
+                    operation.Operator,
+                    live,
+                    destination,
+                    (XRegisterTag, lhs, 0),
+                    (XRegisterTag, rhs, 0)
+                );
+            }
+
+            owner.Op(TestHeap, BeamWire.UnsignedTag, arity + 1);
+            owner.Operand(BeamWire.UnsignedTag, arity + 1);
+            owner.EmitTupleHeader(XRegisterTag, arity);
+            for (int index = 0; index < arity - 1; index++)
+            {
+                owner.Operand(XRegisterTag, index + 2);
+            }
+
+            owner.Operand(XRegisterTag, 0);
+            owner.instructions.WriteByte(Return);
+
+            return true;
+        }
+
         private bool TryEmitEntryTupleArithmeticResult(Clause clause)
         {
             if (clause.Guard is not null || !HasUnconditionalParameters(clause) || clause.Body is not Expr.Sequence

@@ -1,0 +1,93 @@
+{
+  "StatusCounts": {
+    "Before": {
+      "Equal": 5,
+      "Different": 7
+    },
+    "Sequence": {
+      "Equal": 5,
+      "Different": 7
+    },
+    "Fanout": {
+      "Equal": 5,
+      "Different": 7
+    },
+    "Combined": {
+      "Equal": 6,
+      "Different": 6
+    }
+  },
+  "RawNewEqual": [
+    "lib/diameter-2.7.2/ebin/diameter_session.beam"
+  ],
+  "RawLostEqual": [],
+  "ChangedImages": [
+    "lib/diameter-2.7.2/ebin/diameter_session.beam"
+  ],
+  "NormalizedFunctionGains": [
+    {
+      "Module": "diameter_session",
+      "Name": "sequence",
+      "Arity": 1
+    },
+    {
+      "Module": "diameter_session",
+      "Name": "session_id",
+      "Arity": 1
+    },
+    {
+      "Module": "diameter_session",
+      "Name": "init",
+      "Arity": 0
+    }
+  ],
+  "ReleaseExact": {
+    "Beam": "2C07F760E6B0707116868590252C7EE62D9B915DB3F845D427AA75DACDA36C60",
+    "Outcomes": "C01E5F2ABD3CDEA6DA0922A9B3DCEDA36FD392D2F7B37822D218C6BE8BD4D857",
+    "NativeReleaseObservations": 10,
+    "Bytes": 4188,
+    "Compiler": "14D840AA2537718FC15F751DF1683EC523A6817EF7432561434FD99AD4F2000A",
+    "Elapsed": 9.5166483
+  },
+  "Behavior": {
+    "ActualRelease": 10,
+    "ArithmeticSequenceSynthetic": 21,
+    "FanoutSynthetic": 18,
+    "ComputedListSynthetic": 16
+  },
+  "FocusedTest": {
+    "sequence": {
+      "Compiler": "BC78A7FEF5FB19DF8DDC777CB0C94358D9BFA45D6389EEEA38AB5A56A7FD1EBA",
+      "Checks": {
+        "fanout": -532462766,
+        "tuple": -532462766
+      }
+    },
+    "fanout": {
+      "Compiler": "9440860607DF26CC82EF073BC91A59F0AE9F078CDC80F379989AC7BDB0D04658",
+      "Checks": {
+        "fanout": 0,
+        "tuple": -532462766
+      }
+    },
+    "combined": {
+      "Compiler": "14D840AA2537718FC15F751DF1683EC523A6817EF7432561434FD99AD4F2000A",
+      "Checks": {
+        "fanout": 0,
+        "tuple": 0
+      }
+    }
+  },
+  "Seconds": {
+    "Baseline": 25.7347944,
+    "Sequence": 20.1653116,
+    "Fanout": 22.3708496,
+    "Combined": 24.5510046
+  },
+  "Patches": {
+    "shared-tuple-arithmetic-fallback-final.patch": "a87495846885be74926b62514a3656912f1d0e30a4b354a833764d616a488733",
+    "diameter-arithmetic-and-construction-final.patch": "5a214b842e5dd2e3ccbcccbf6e4c93b2414b8c2d3c6a4b2060a5d30f4985790c"
+  },
+  "GeneratorPhase": "OTP v3_core prepares scalar arguments before recursive list construction; beam_ssa_pre_codegen reserves X and Y registers by value intervals.",
+  "BaselineSource": "OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5"
+}

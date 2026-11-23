@@ -195,10 +195,11 @@ internal sealed partial class BeamModuleCompiler
         int fallback,
         IReadOnlyList<(int Arity, int Label)> cases,
         int register = 0,
-        int registerTag = XRegisterTag
+        int registerTag = XRegisterTag,
+        int? typeFailure = null
     )
     {
-        Op(IsTuple, LabelTag, fallback);
+        Op(IsTuple, LabelTag, typeFailure ?? fallback);
         Operand(registerTag, register);
         instructions.WriteByte(SelectTupleArity);
         EmitTypedRegister(register, TupleTypeBits, registerTag: registerTag);

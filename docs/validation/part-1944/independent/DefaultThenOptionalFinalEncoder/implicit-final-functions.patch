@@ -1,0 +1,212 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.PaddedBitStringTail.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.PaddedBitStringTail.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.PaddedBitStringTail.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.PaddedBitStringTail.cs
+@@ -6,6 +6,56 @@
+ {
+     private sealed partial class GeneralEmitter
+     {
++        private bool HasBitStringInput(FunctionDefinition function)
++        {
++            if (owner.OnLoadFunction is not null || owner.IsDeclaredNative((function.Name, function.Arity)))
++            {
++                return false;
++            }
++
++            bool hasGenericBitStringCaller = false;
++            bool closed = HasOnlyLocalCalls(
++                function,
++                function.Arity,
++                (caller, call) =>
++            {
++                if (AttributeLiteral.TryNormalizeConstant(call.Arguments[0], out Term literal))
++                {
++                    return literal is BitString;
++                }
++
++                if (call.Arguments[0] is not Expr.Variable input)
++                {
++                    return false;
++                }
++
++                foreach (var clause in caller.Clauses)
++                {
++                    if (!ReferenceEquals(clause.Body, call) || !clause.Patterns.Any(
++                            pattern => pattern is Pattern.Variable parameter && parameter.Name == input.Name)
++                        || clause.Guard is not Expr.Call
++                        {
++                            Function: ErlangModuleNames.IsBitString or ErlangModuleNames.IsBinary,
++                            DynamicRemote: false,
++                            Arguments: [Expr.Variable tested]
++                        } guard
++                        || tested.Name != input.Name || !owner.ResolvesErlangBif(guard))
++                    {
++                        continue;
++                    }
++
++                    hasGenericBitStringCaller |= guard.Function == ErlangModuleNames.IsBitString;
++
++                    return true;
++                }
++
++                return false;
++            }
++            );
++
++            return closed && hasGenericBitStringCaller;
++        }
++
+         private bool TryEmitPaddedBitStringTail(FunctionDefinition function)
+         {
+             const int Width = BitSyntaxDefaults.BinaryUnit;
+@@ -100,7 +150,14 @@
+             owner.EmitCallLine(bitSize, location);
+             var previous = CallLocation(bitSize, location);
+             EmitSizeInstruction(bitSize.Function, 0, 2);
+-            owner.Operand(XRegisterTag, 0);
++            if (HasBitStringInput(function))
++            {
++                owner.EmitTypedRegister(0, MatchableTypeBits);
++            }
++            else
++            {
++                owner.Operand(XRegisterTag, 0);
++            }
+             owner.Operand(XRegisterTag, 2);
+             owner.EmitArithmeticLine(inner.SourceLine, ref previous);
+             EmitBif(ErlangOperators.BitwiseAnd);
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs
+@@ -61,7 +61,7 @@
+                 return false;
+             }
+ 
+-            if (retainRecord && (count < 3 || owner.OnLoadFunction is not null
++            if (retainRecord && (owner.OnLoadFunction is not null
+                 || localFunctions.Keys.Any(owner.IsDeclaredNative)))
+             {
+                 return false;
+@@ -251,6 +251,21 @@
+ 
+             if (retainedPredicates is not null)
+             {
++                if (count == 2)
++                {
++                    return retainedPredicates is [{ Names: null } predicate, null]
++                        && ReadDeferredOptional(((Expr.Match)sequence.Items[2]).Value) is
++                        { Second: null, Call: { Module: null, Arguments.Count: 2 } } optional
++                        && fields[1].Omits is not null
++                        && EmitEagerDefaultOptionalPair(
++                            unpack,
++                            predicate,
++                            optional,
++                            additions[0],
++                            finishEntry
++                        );
++                }
++
+                 bool allConditional = fields.All(field => field.Omits is not null);
+                 bool leadingRequired = fields is
+                 [
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedOptionalPairFields.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedOptionalPairFields.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedOptionalPairFields.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedOptionalPairFields.cs
+@@ -6,6 +6,77 @@
+ {
+     private sealed partial class GeneralEmitter
+     {
++        private bool EmitEagerDefaultOptionalPair(
++            Expr.Match unpack,
++            DefaultEncodeField first,
++            DeferredOptional second,
++            Expr.Binary sum,
++            int finish
++        )
++        {
++            const int frame = 3;
++            int present = Label();
++            int ready = Label();
++            int badInput = owner.nextLabel + 2;
++            owner.EmitTupleCheck(0, 3, badInput);
++            EmitFrameAllocation(arity: 2, size: frame);
++            owner.MoveRegister(
++                XRegisterTag,
++                1,
++                YRegisterTag,
++                2
++            );
++            owner.Op(GetTupleElement, XRegisterTag, 0);
++            owner.Operand(BeamWire.UnsignedTag, 1);
++            owner.Operand(YRegisterTag, 1);
++            owner.Op(GetTupleElement, XRegisterTag, 0);
++            owner.Operand(BeamWire.UnsignedTag, 2);
++            owner.Operand(YRegisterTag, 0);
++            owner.MoveToX0(YRegisterTag, 1);
++            owner.EmitCallLine(first.Predicate, location);
++            owner.EmitFieldCall(1, first.PredicateEntry);
++            owner.Op(ExactEqualTest, LabelTag, present);
++            owner.Operand(XRegisterTag, 0);
++            owner.LiteralOperand(Term.A(ErlangBooleanAtoms.True));
++            owner.EmitConstant(first.Default, 1, YRegisterTag);
++            JumpTo(ready);
++
++            Mark(present);
++            owner.EmitConstant(first.Tags, 1);
++            owner.MoveToX0(YRegisterTag, 1);
++            owner.InitStackSlot(1);
++            owner.EmitCallLine(first.Encode, CallLocation(first.Predicate, location));
++            owner.EmitFieldCall(2, first.EncodeEntry);
++            owner.MoveRegister(
++                XRegisterTag,
++                0,
++                YRegisterTag,
++                1
++            );
++            Mark(ready);
++            EmitDeferredOptional(
++                second,
++                -1,
++                0,
++                inputSlot: 0
++            );
++            EmitTwoDeferredPairResult(
++                sum,
++                finish,
++                frame,
++                2,
++                default,
++                default,
++                firstPairSlot: 1
++            );
++            Mark(Label());
++            var previous = location;
++            owner.EmitArithmeticLine(unpack.SourceLine, ref previous);
++            owner.Op(BadMatch, XRegisterTag, 0);
++
++            return true;
++        }
++
+         private void EmitCheckedOptionalPairFields(
+             Expr.Match unpack,
+             SequenceEncodePart first,
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -4710,13 +4710,14 @@
+             int slots,
+             int tagSlot,
+             PairAdditionType first,
+-            PairAdditionType second
++            PairAdditionType second,
++            int firstPairSlot = 0
+         )
+         {
+             owner.Op(TestHeap, BeamWire.UnsignedTag, 4);
+             owner.Operand(BeamWire.UnsignedTag, 1);
+-            EmitDeferredPairMember((0, 0), 1);
+-            EmitDeferredPairMember((0, 1), 2);
++            EmitDeferredPairMember((firstPairSlot, 0), 1);
++            EmitDeferredPairMember((firstPairSlot, 1), 2);
+             EmitDeferredPairMember((-1, 0), 3);
+             EmitDeferredPairMember((-1, 1), 0);
+             owner.Op(PutList, XRegisterTag, 3);

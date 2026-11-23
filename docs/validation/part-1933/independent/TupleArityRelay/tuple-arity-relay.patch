@@ -1,0 +1,124 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs
+@@ -73,15 +73,25 @@
+             }
+         }
+ 
+-        if (physical == labelCount && edits.Count == 0)
++        if (references.Any(reference => reference.Label != 0 && !IsDefined(reference.Label))
++            || exports.Any(entry => !IsDefined(MapEmittedLabel(entry.Entry)))
++            || locals.Any(entry => !IsDefined(MapEmittedLabel(entry.Entry)))
++            || closures.Any(closure => !IsDefined(MapClosureEntryLabel(closure.Entry))))
+         {
+             return null;
+         }
+ 
+-        if (references.Any(reference => reference.Label != 0 && !IsDefined(reference.Label))
+-            || exports.Any(entry => !IsDefined(MapEmittedLabel(entry.Entry)))
+-            || locals.Any(entry => !IsDefined(MapEmittedLabel(entry.Entry)))
+-            || closures.Any(closure => !IsDefined(MapClosureEntryLabel(closure.Entry))))
++        if (!ModuleOptimizationDisabled)
++        {
++            RedirectIsolatedTupleArityFailures(
++                body,
++                references,
++                labels,
++                edits
++            );
++        }
++
++        if (physical == labelCount && edits.Count == 0)
+         {
+             return null;
+         }
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TupleArityFailures.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TupleArityFailures.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TupleArityFailures.cs
+@@ -0,0 +1,85 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private static void RedirectIsolatedTupleArityFailures(
++        IReadOnlyList<BeamInstruction> body,
++        List<(int Start, int End, int Label)> references,
++        IReadOnlyList<int> labels,
++        List<CodeEdit> edits
++    )
++    {
++        var definitions = new Dictionary<int, int>();
++        for (int index = 0; index < body.Count; index++)
++        {
++            if (body[index] is { Definition.Opcode: Label, Operands: [var entry] })
++            {
++                definitions.Add((int)entry.Value, index);
++            }
++        }
++
++        var incoming = new int[labels.Count];
++        var referencesAtOffset = new Dictionary<int, (int End, int Label)>();
++        foreach (var (start, end, label) in references)
++        {
++            incoming[label]++;
++            referencesAtOffset.Add(start, (end, label));
++        }
++
++        var redirected = new HashSet<int>();
++        for (int index = 0; index + 1 < body.Count; index++)
++        {
++            BeamInstruction arityTest = body[index + 1];
++            if (body[index] is not
++                {
++                    Definition.Opcode: IsTuple,
++                    Operands: [{ Kind: BeamOperandParameters.Label } nonTuple, var source]
++                }
++                || source is not { Kind: BeamOperandParameters.X or BeamOperandParameters.Y, TypeIndex: null }
++                || arityTest is not
++                {
++                    Definition.Opcode: TestArity,
++                    Operands: [var wrongArity, var tested, _]
++                }
++                || wrongArity != nonTuple || source != tested
++                || !referencesAtOffset.TryGetValue(arityTest.Offset + 1, out var branch)
++                || incoming[branch.Label] != 2
++                || !definitions.TryGetValue(branch.Label, out int relay)
++                || relay <= index + 1 || relay + 1 >= body.Count
++                || !EndsBeamBlock(body[relay - 1].Definition.Opcode)
++                || body[relay + 1] is not
++                {
++                    Definition.Opcode: ExactEqualTest,
++                    Operands: [
++                    { Kind: BeamOperandParameters.Label } failure,
++                        var compared,
++                    { Kind: BeamOperandParameters.Atom or BeamOperandParameters.Integer or BeamOperandParameters.Nil }
++                    ]
++                }
++                || compared != source
++                || !definitions.TryGetValue((int)failure.Value, out int continuation)
++                || continuation <= relay)
++            {
++                continue;
++            }
++
++            // Only the adjacent arity test proves that the value is a tuple.
++            // Keep the comparison on the non-tuple edge and preserve shared fallbacks.
++            int start = arityTest.Offset + 1;
++            edits.Add(new CodeEdit(
++                start,
++                branch.End,
++                LabelTag,
++                labels[(int)failure.Value]
++            ));
++            redirected.Add(start);
++        }
++
++        if (redirected.Count != 0)
++        {
++            references.RemoveAll(reference => redirected.Contains(reference.Start));
++        }
++    }
++}

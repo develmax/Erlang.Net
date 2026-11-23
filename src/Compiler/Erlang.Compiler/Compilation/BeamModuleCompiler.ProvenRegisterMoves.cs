@@ -221,7 +221,7 @@ internal sealed partial class BeamModuleCompiler
         output.Write(code.Span[copied..]);
         byte[] rewritten = output.ToArray();
 
-        return removedLine ? RebuildProvenMoveLineTable(rewritten) : rewritten;
+        return removedLine ? RebuildLineTable(rewritten, nextLabel) : rewritten;
 
         static BeamOperand Untyped(BeamOperand operand) =>
             operand.TypeIndex is null ? operand : operand with { TypeIndex = null };
@@ -246,12 +246,12 @@ internal sealed partial class BeamModuleCompiler
             && body[index - 2].Definition.Opcode == FunctionInfo ? index : -1;
     }
 
-    private byte[] RebuildProvenMoveLineTable(byte[] code)
+    private byte[] RebuildLineTable(byte[] code, int labelCount)
     {
         var header = new BeamCodeHeader(
             BeamWire.FormatVersion,
             highestOpcode,
-            nextLabel,
+            labelCount,
             exports.Count + locals.Count,
             code
         );

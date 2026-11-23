@@ -1,0 +1,245 @@
+{
+  "reference": {
+    "release": "OTP-29.1.1",
+    "tagCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "sourceSha256": "fdc90b8d7a593e8aaa2a6cd03af603324e40c83fab33bd129d90baaeabe38b01"
+  },
+  "parentPart": 1948,
+  "parentFullRaw": {
+    "Different": 875,
+    "Equal": 491
+  },
+  "parent": {
+    "Source": "f56db2486823b088038d1a52b4dc6ddb83ba48f32e96e2ccd3e9ab1dd6594786",
+    "Paths": 882,
+    "RemovedPaths": [],
+    "Compiler": "51bcab7d953442a6b668b3db09de45909beceddc5926442af18a802178c58221",
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "Tests": "72292ef43e2259735c4a5f7206d00425dfa26809dc60118bfc942910bade0881",
+    "ParentSource": "993e448e9061ddbb64e4d84d539ea2282992bc38dc33c598a326571c2b277233",
+    "CorpusTool": "5cd4f4e5c90e8c406e08eacb1d5d2b826495413ff369281f8a0a07a279ec3054"
+  },
+  "compilerClosure": {
+    "bytes": 109345,
+    "sha256": "0eeeb1a6481f325b1456eb870de3a0de6e175704d133f1383406e47f65275299"
+  },
+  "candidateCompiler": {
+    "bytes": 5209088,
+    "sha256": "a21dae978b8a6afeaabf909ff1e1cc42178deb99d5daa77c020ffe8643c9d88a"
+  },
+  "rawScopeBefore": {
+    "Different": 2,
+    "Equal": 4
+  },
+  "rawScopeAfter": {
+    "Different": 1,
+    "Equal": 5
+  },
+  "modules": {
+    "lib/kernel-11.0.4/ebin/local_udp.beam": {
+      "statusAfter": "Equal",
+      "reference": {
+        "bytes": 4808,
+        "sha256": "001c0c891b6da95f5333489973c272c4b403ab0747f22b644041fb7359410a74"
+      },
+      "before": {
+        "bytes": 4808,
+        "sha256": "001c0c891b6da95f5333489973c272c4b403ab0747f22b644041fb7359410a74"
+      },
+      "after": {
+        "bytes": 4808,
+        "sha256": "001c0c891b6da95f5333489973c272c4b403ab0747f22b644041fb7359410a74"
+      }
+    },
+    "lib/observer-2.19/ebin/cdv_bin_cb.beam": {
+      "statusAfter": "Equal",
+      "reference": {
+        "bytes": 6120,
+        "sha256": "361fc8d3af7a55d57106d2a3be7e9fadc77d8a4580462897fa6ed5474e778c3d"
+      },
+      "before": {
+        "bytes": 6120,
+        "sha256": "361fc8d3af7a55d57106d2a3be7e9fadc77d8a4580462897fa6ed5474e778c3d"
+      },
+      "after": {
+        "bytes": 6120,
+        "sha256": "361fc8d3af7a55d57106d2a3be7e9fadc77d8a4580462897fa6ed5474e778c3d"
+      }
+    },
+    "lib/sasl-4.4/ebin/sasl_report.beam": {
+      "statusAfter": "Different",
+      "reference": {
+        "bytes": 10164,
+        "sha256": "d14bd2e4fa1ed003bd42faf6815a0bed5bb48c5a5ff18830ede41bcc654e8802"
+      },
+      "before": {
+        "bytes": 10476,
+        "sha256": "8819de120cedf05ee900fd260e65bc9e61a6fa74372946344f2ccf388bf58e10"
+      },
+      "after": {
+        "bytes": 10476,
+        "sha256": "8819de120cedf05ee900fd260e65bc9e61a6fa74372946344f2ccf388bf58e10"
+      }
+    },
+    "lib/sasl-4.4/ebin/sasl_report_file_h.beam": {
+      "statusAfter": "Equal",
+      "reference": {
+        "bytes": 3572,
+        "sha256": "54dc5b19af9463b22a3426a2fa529e3e21913fb0fc36d72dbe2252fd11498ada"
+      },
+      "before": {
+        "bytes": 3656,
+        "sha256": "701e272d64ea7c727959fd9cf237c94ffa32de1d4ff88e5f29810f53e3a93105"
+      },
+      "after": {
+        "bytes": 3572,
+        "sha256": "54dc5b19af9463b22a3426a2fa529e3e21913fb0fc36d72dbe2252fd11498ada"
+      }
+    },
+    "lib/sasl-4.4/ebin/sasl_report_tty_h.beam": {
+      "statusAfter": "Equal",
+      "reference": {
+        "bytes": 2300,
+        "sha256": "38708e8d20deb3ebf4a05b7d97acf6d3a24254deca5fc038f8bba740c6c2657a"
+      },
+      "before": {
+        "bytes": 2300,
+        "sha256": "38708e8d20deb3ebf4a05b7d97acf6d3a24254deca5fc038f8bba740c6c2657a"
+      },
+      "after": {
+        "bytes": 2300,
+        "sha256": "38708e8d20deb3ebf4a05b7d97acf6d3a24254deca5fc038f8bba740c6c2657a"
+      }
+    },
+    "lib/snmp-5.20.5/ebin/snmp_verbosity.beam": {
+      "statusAfter": "Equal",
+      "reference": {
+        "bytes": 8712,
+        "sha256": "71ca903bdce729dd5aa4ab8fca36b38d0fb809c13831fbea9ef5933ab5c8f745"
+      },
+      "before": {
+        "bytes": 8712,
+        "sha256": "71ca903bdce729dd5aa4ab8fca36b38d0fb809c13831fbea9ef5933ab5c8f745"
+      },
+      "after": {
+        "bytes": 8712,
+        "sha256": "71ca903bdce729dd5aa4ab8fca36b38d0fb809c13831fbea9ef5933ab5c8f745"
+      }
+    }
+  },
+  "equalImageIdentity": "The frozen corpus tool compares generated and installed images as bytes. Equal images are not written by the tool, so each Equal identity comes from the compared installed image.",
+  "normalizedScope": {
+    "common": 84,
+    "changed": 3,
+    "gained": 3,
+    "lost": 0,
+    "helpers_restored": 0,
+    "helpers_exact": 0,
+    "source_bound": 0,
+    "other_pinned_restored": 0,
+    "extra_added": 0,
+    "removed": 0,
+    "removed_pinned": 0
+  },
+  "gains": [
+    "sasl_report_file_h:init/1",
+    "sasl_report_file_h:handle_event/2",
+    "sasl_report_file_h:terminate/2"
+  ],
+  "fixture": {
+    "red": {
+      "bytes": 596,
+      "sha256": "d8c9e3fa957f4b4e84a42002f048043b91b33ef11367fd6417cf815464cc25ad"
+    },
+    "green": {
+      "bytes": 68,
+      "sha256": "396c5ea15344e9ab235c48e419a0d9802ce9b2388a8a9a84fbe19310521baa1d"
+    },
+    "native": {
+      "bytes": 201,
+      "sha256": "1d492cbeb2db353a77ed9a5238dec509224a8b2ddfbde5d14282af8d961f15b7"
+    },
+    "images": {
+      "beam_deferred_handler_tuple_fields_probe.erl": "31efc13aac57809a5f541634ab4b8e4391c94af8a2a6559b731aee8ee3aa2b04",
+      "beam_deferred_handler_tuple_fields_probe.beam": "b10823b44258f60df3e195fa01ab655aef870242b333af065769374c556ebf28",
+      "baseline-fixture/beam_deferred_handler_tuple_fields_probe.beam": "c2cb85781912cb1261959df0b6733387be0fdb5c771cb178aff83a32076cdc21",
+      "native-reference.beam": "fdffd31bc99d264c51ea207e9e5ef533d63e873eb76985062a3e346c19f2928f"
+    }
+  },
+  "strictReplay": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": {
+      "Before": "fc46595674b9408c5ccaac7c89e4ff523abdf9cfbe18aac1423b89217bd1fb4f",
+      "After": "6084028b98da73bc81b1c31a1fc71254f4e788fb2a55e438d2e7d605cba035f7"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TupleProjectionContinuations.cs": {
+      "Before": null,
+      "After": "6d11772783c78e1896b3fd2ecf7977e90d13a8effe80a7cb682dbf7e3a3e1ac9"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ListDefaultTupleContinuation.cs": {
+      "Before": null,
+      "After": "33c79ff6bbed2fdb0e1a29bb4738aa56f67197b5e24263a53f529a5a7a9c9c03"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamDeferredHandlerTupleFieldsChecks.cs": {
+      "Before": null,
+      "After": "b07ac9a8ba5862a43572cbe7908074d5bb4f58aebdc8a2bfcf3e46c3d10189f7"
+    },
+    "tests/Erlang.Tests/Harness/Program.cs": {
+      "Before": "55a80b5505376c5dcf394aef21b2809c7134d912326623329a368d15b65b78ff",
+      "After": "d78c223abc0c24570245fc6d42e2987734b122ebd493f5b9f291bae2de661f2e"
+    }
+  },
+  "replayFiles": {
+    "deferred-handler-tuple-fields-test.patch": {
+      "bytes": 5640,
+      "sha256": "01111eb3b93f40b8dc9093ba8f938b8cb2830b2a10a51af804b0b1f8fc942f53"
+    },
+    "deferred-handler-tuple-fields.patch": {
+      "bytes": 23047,
+      "sha256": "976de625b3304cb5d37781072b6d114b5d0d94474ecdf7965a61138c44fdb139"
+    }
+  },
+  "files": {
+    "before-corpus.json": {
+      "bytes": 1854,
+      "sha256": "f36814e43a1d3f5ed236ab28060fd884344737f80da1e48d4e12b79fb4d912bd"
+    },
+    "final-corpus.json": {
+      "bytes": 1662,
+      "sha256": "1ee7835056bbce52dd0b9c9e29f3fdd88c63d44db9df2f1b2d1beb854bd732e5"
+    },
+    "normalized-final.json": {
+      "bytes": 175,
+      "sha256": "53f6d8ed7e16039b1a4592d857006977804ae638a17da79a4fe15fabb767447f"
+    },
+    "normalized-final.terms": {
+      "bytes": 1551,
+      "sha256": "c35fb9f0c3a7dc196b138221cfcd091e86952ec37bcecbe5a98966446ba09860"
+    },
+    "replay-result.txt": {
+      "bytes": 79,
+      "sha256": "dfe98be885a84d947b55af4699b165f368c716432cbf6cfc7c7f473264171f2f"
+    },
+    "layout-check.log": {
+      "bytes": 40,
+      "sha256": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f"
+    },
+    "native-regression.eval": {
+      "bytes": 3093,
+      "sha256": "563598aca8e3c6b8674865bc3f4ca111796a6907da50d430c6e25e81d1b76862"
+    },
+    "init-ast-retake.txt": {
+      "bytes": 3084,
+      "sha256": "15d34b0bc58633cd2b138d2a2c4451b6c416ada917b78186a20efe3195e6d5dd"
+    },
+    "source-closure.log": {
+      "bytes": 151,
+      "sha256": "92181afda05301b3687fde45a525337b8f8d26cd4ea27b87344ea53f8f626476"
+    }
+  },
+  "scope": {
+    "workers": 1,
+    "fullCorpus": false,
+    "nativeRealModules": "loader preparation",
+    "nativeFixtureNormalBodies": 3
+  }
+}

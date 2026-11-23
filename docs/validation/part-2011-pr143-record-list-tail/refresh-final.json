@@ -1,0 +1,61 @@
+{
+  "tools/Native/Erlang.NifResource529Observations/source-plan.json": {
+    "Old": "F074D9467F7DD2D0D5A964A74FAE8D51D734B5863E557A32C0B5A725352ACA1A",
+    "New": "EE8D9CE0F30CE532124A4BDB0631CA70155DF3F4E383DD4CB061DE99323752D0",
+    "Rows": [
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LeafFrameRegisters.cs"
+    ]
+  },
+  "tools/Native/Erlang.NifPrivateData557Observations/source-plan.json": {
+    "Old": "4431E060A257936F213BFBA0FA2DDAEBE7B5046B365ADA30E9AFA7B642A6526A",
+    "New": "7964236D5A51FA70CDD10484458E9848D3551B67318527A1B07C4027A5802C33",
+    "Rows": [
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LeafFrameRegisters.cs"
+    ]
+  },
+  "tools/Native/Erlang.NifIntegratedObservations/inputs.json": {
+    "Old": "BA708CBB3E4DC326251869E5C8930CD21FF148D6983206A615D121C34E18FDFC",
+    "New": "BB9E5CDF1F683560F1B3361CFE709EBE7D9213DEDA4B314C085988240B3E3CF6",
+    "Rows": [
+      "tools/Native/Erlang.NifResource529Observations/source-plan.json"
+    ]
+  },
+  ".github/workflows/nif-upgrade-integrated.yml": {
+    "Old": "0223E5F895A2D99D4F188D5D0A3EECBE129B52626B15EFC97AC9F6C26BCE6325",
+    "New": "2CD061CA383A470F18B770B54B11074DF2196442C8BD637EA0681A8047765261"
+  },
+  "tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json": {
+    "Old": "9DDE1446315FF56AC7D3F9BFCC51414AE13932F88D6D58107142930C855E123C",
+    "New": "27FEDB726AD9982406AAEA2DB175DC835BEC3A253AE7E696E6808E23BF79A615",
+    "Rows": [
+      "tools/Native/Erlang.NifIntegratedObservations/inputs.json"
+    ]
+  },
+  "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json": {
+    "Old": "482A122E7B9CD5B4CFEA9BF3F99D85ED8829D36F724123B1AB0C127ECAD7268F",
+    "New": "199B1DE45BB3BCA7F304AFAFE6C2A58490C1C58AA6F667EC2DA205109C40B023",
+    "Rows": [
+      "tools/Native/Erlang.NifIntegratedObservations/inputs.json",
+      "tools/Native/Erlang.NifResource529Observations/source-plan.json",
+      "tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LeafFrameRegisters.cs"
+    ]
+  },
+  ".github/workflows/nif-pending-native.yml": {
+    "Old": "3C737F5280340D0C9028D1762B6AE927B3A38027335B0252E8419BF8AC7E914D",
+    "New": "B68A4657C7BDA6CD35D779D0BA4742A534DA5590D5CA5B64E7D526E0C22747FD"
+  },
+  "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json": {
+    "Old": "F526D92B0AAD29984F59F647D1C3FD5D289D36D1C0BD9DDCE75C93194EB0CBAD",
+    "New": "56B9AE6A80D6102FF706D278F5C783A854AE12E0C02BFAF845A4F53D80AE9513",
+    "Rows": [
+      ".github/workflows/nif-pending-native.yml",
+      "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LeafFrameRegisters.cs"
+    ]
+  },
+  ".github/workflows/nif-reallocation-native.yml": {
+    "Old": "CB3935849420342F741AF1A13280BF6EF9CE5D457A51120C0FA12AE648426B7C",
+    "New": "A6B97C28938E05A5D62826A6ACC17B20F9B89AE56A55E764EAC8EE8253592A30"
+  }
+}

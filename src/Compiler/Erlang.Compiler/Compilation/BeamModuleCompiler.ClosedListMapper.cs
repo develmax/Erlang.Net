@@ -84,8 +84,21 @@ internal sealed partial class BeamModuleCompiler
         ) : null;
     }
 
-    private static bool AppendListMapperCalls(Expr value, string variable, List<ListMapperCall> stages)
+    private static bool AppendListMapperCalls(
+        Expr value,
+        string variable,
+        List<ListMapperCall> stages,
+        bool allowAppend = false
+    )
     {
+        if (allowAppend && value is Expr.Binary { Operator: ErlangOperators.Append } operation)
+        {
+            value = new Expr.Call(ErlangModuleNames.Module, ErlangOperators.Append, [operation.Left, operation.Right])
+            {
+                SourceLine = operation.SourceLine
+            };
+        }
+
         if (value is not Expr.Call { DynamicRemote: false } call
             || call.Arguments.Count is 0 or >= FirstReservedXRegister)
         {
@@ -111,7 +124,12 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        if (inputs == 0 || nested is not null && (inputs != 1 || !AppendListMapperCalls(nested, variable, stages)))
+        if (inputs == 0 || nested is not null && (inputs != 1 || !AppendListMapperCalls(
+            nested,
+            variable,
+            stages,
+            allowAppend
+        )))
         {
             return false;
         }

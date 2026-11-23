@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp;
 
 namespace Erlang.Compiler;
 
-public static class CodeGeneration
+public static partial class CodeGeneration
 {
     private const string E = "global::Erlang.Compiler.Expr.";
     private const string P = "global::Erlang.Pattern.";
@@ -166,24 +166,44 @@ public static class CodeGeneration
     )
     {
         sourcePath = Path.GetFullPath(sourcePath);
+
+        return CompileBeamModule(
+            sourcePath,
+            OpenBeamSource(
+                sourcePath,
+                otpLibraryDirectory,
+                includeDirectories,
+                buildProfile
+            ),
+            buildProfile
+        );
+    }
+
+    private static BeamMacroPreprocessor OpenBeamSource(
+        string sourcePath,
+        string? otpLibraryDirectory,
+        IReadOnlyList<string>? includeDirectories,
+        BeamReleaseBuildProfile? buildProfile
+    )
+    {
         string source = File.ReadAllText(sourcePath);
         var resolver = new BeamIncludeResolver(
             otpLibraryDirectory is null ? null : Path.GetFullPath(otpLibraryDirectory),
-            includeDirectories?.Select(Path.GetFullPath).ToArray() ?? []
+            includeDirectories?.Select(Path.GetFullPath).ToArray() ?? [],
+            buildProfile?.RecordedIncludeSearchDirectories,
+            buildProfile?.IncludePathMap,
+            sourcePath,
+            buildProfile?.RecordedExecutableIncludePaths
         );
 
         bool deterministic = buildProfile is null || buildProfile.RecordedCompileOptions?.Contains(Term.A("deterministic")) == true;
 
-        return CompileBeamModule(
+        return new(
+            source,
             sourcePath,
-            new BeamMacroPreprocessor(
-                source,
-                sourcePath,
-                resolver,
-                deterministic,
-                buildProfile?.PreprocessorDefinitions
-            ),
-            buildProfile
+            resolver,
+            deterministic,
+            buildProfile?.PreprocessorDefinitions
         );
     }
 
@@ -206,10 +226,54 @@ public static class CodeGeneration
         }
 
         var lines = BeamSourceForms.FunctionLines(tokens, module);
-        if (module.InlineTargets.Count != 0 || module.AutomaticInlining)
+        var profileInlining = BeamReleaseLeafInliningPlan.Read(module, buildProfile);
+        bool automaticInlining = module.AutomaticInlining && !profileInlining.SuppressAutomatic
+            || profileInlining.Size is not null;
+        if (module.InlineTargets.Count != 0 || automaticInlining)
         {
-            (functions, lines) = BeamTargetedInlining.Apply(module, lines, exports);
+            (functions, lines) = BeamTargetedInlining.Apply(
+                module,
+                lines,
+                exports,
+                profileInlining
+            );
         }
+        bool debugInstructions = UsesBeamDebugInstructions(buildProfile);
+        if (!debugInstructions)
+        {
+            functions = BeamComparisonControlFlow.Rewrite(functions);
+        }
+
+        bool coreMapCallsEnabled = !debugInstructions
+            && !HasReleaseCompileOption(buildProfile, CompilerOptionNames.DisableCoreOptimization)
+            && !HasReleaseCompileOption(buildProfile, CompilerOptionNames.DisableCoreFolding);
+        if (coreMapCallsEnabled)
+        {
+            functions = BeamMapCoreCalls.Rewrite(functions, module.CallBindings);
+        }
+
+        if (!module.DisableModuleOptimization && !module.HasOtherCompileOptions)
+        {
+            functions = BeamImmediateEffectClosures.Inline(functions);
+        }
+        if (module.HasResolvedDiameterRecordTransform)
+        {
+            (functions, lines) = BeamSourceReachability.Retain(
+                functions,
+                lines,
+                IsTransformedRoot,
+                module.Name
+            );
+        }
+
+        bool IsTransformedRoot(FunctionDefinition function)
+        {
+            var signature = (function.Name, function.Arity);
+
+            return exports.Contains(signature) || function.Arity == 0 && function.Name == module.OnLoadFunction
+                || module.DeclaredNifs?.Contains(signature) == true;
+        }
+
         var specs = buildProfile is null && module.Documentation.Count == 0 && !module.HasGeneratedEunitTest
             ? new Dictionary<int, Parser.ReleaseSpec>()
             : BeamSourceForms.Starts(tokens)
@@ -246,18 +310,44 @@ public static class CodeGeneration
         string? lineFile = buildProfile?.RecordedSourceFile
             ?? (buildProfile is { RecordSourceFileInLineTable: true } ? buildProfile.SourcePath : null);
 
+        bool inlineListFunctions = buildProfile?.RecordedCompileOptions?.Contains(Term.A(CompilerOptionNames.InlineListFunctions))
+            ?? buildProfile?.WarningOptions.Contains(CompilerOptionNames.InlineListFunctions) ?? false;
+
         return new BeamModuleCompiler(
             module.Name,
             lineFile,
             module,
-            preprocessor.MaybeEnabled
-        ).Emit(
+            preprocessor.MaybeEnabled,
+            automaticCoreInlining: automaticInlining && !module.HasOtherCompileOptions && module.InlineTargets.Count == 0
+                && !inlineListFunctions,
+            entryTupleAliasesEnabled: !DisableEntryTupleAliases(buildProfile),
+            inlineListFunctions: inlineListFunctions
+        )
+        {
+            CoreMapCallsEnabled = coreMapCallsEnabled
+        }.Emit(
             functions,
             lines,
             exports,
             metadata
         );
     }
+
+    private static bool DisableEntryTupleAliases(BeamReleaseBuildProfile? profile)
+    {
+        return HasReleaseCompileOption(profile, CompilerOptionNames.DisableCoreAliases)
+            || HasReleaseCompileOption(profile, CompilerOptionNames.DisableCoreOptimization)
+            || UsesBeamDebugInstructions(profile);
+    }
+
+    private static bool UsesBeamDebugInstructions(BeamReleaseBuildProfile? profile) =>
+        HasReleaseCompileOption(profile, CompilerOptionNames.BeamDebugInfo)
+        || profile?.RecordedDebugOptions?.Contains(Term.A(CompilerOptionNames.BeamDebugInfo)) == true;
+
+    private static bool HasReleaseCompileOption(BeamReleaseBuildProfile? profile, string option) =>
+        profile?.RecordedCompileOptions is { } options
+            ? options.Contains(Term.A(option))
+            : profile?.WarningOptions.Contains(option) == true;
 
     internal static string ModuleCode(ModuleDefinition module, string sourcePath, bool includeAttributes = true)
     {

@@ -1,0 +1,89 @@
+{
+  "OtpVersion": "29.1.1",
+  "Total": 11,
+  "Counts": {
+    "Equal": 0,
+    "Different": 11,
+    "Unsupported": 0,
+    "SourceRejected": 0
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\asn1-5.5.2\\ebin\\asn1ct_gen_ber_bin_v2.beam",
+      "Status": "Different",
+      "Source": "lib\\asn1-5.5.2\\src\\asn1ct_gen_ber_bin_v2.erl",
+      "Detail": "Original length 79520, generated length 81064. AtU8 4483->4485, Code 22644->24217, ImpT 604->604, ExpT 208->208, FunT 220->316, LitT 4816->4780, LocT 1024->1024, Attr 39->39, Line 1104->1118, Type 247->136",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\compiler-10.0.6\\ebin\\beam_ssa_opt.beam",
+      "Status": "Different",
+      "Source": "lib\\compiler-10.0.6\\src\\beam_ssa_opt.erl",
+      "Detail": "Original length 174228, generated length 185256. AtU8 8556->7626, Code 53937->66114, ImpT 1528->1588, ExpT 40->40, FunT 1588->1540, LitT 1046->903, LocT 3856->3616, Attr 39->39, Line 2521->2823, Type 196->46",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\compiler-10.0.6\\ebin\\beam_utils.beam",
+      "Status": "Different",
+      "Source": "lib\\compiler-10.0.6\\src\\beam_utils.erl",
+      "Detail": "Original length 8928, generated length 9380. AtU8 342->342, Code 2717->3173, ImpT 52->52, ExpT 52->52, FunT 28->28, LocT 40->40, Attr 39->39, Type 14->12",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\debugger-7.0\\ebin\\dbg_wx_break.beam",
+      "Status": "Different",
+      "Source": "lib\\debugger-7.0\\src\\dbg_wx_break.erl",
+      "Detail": "Original length 4276, generated length 4280. Code 777->783, FunT 76->76, Attr 39->39",
+      "FirstDifferentByte": 7
+    },
+    {
+      "Beam": "lib\\diameter-2.7.2\\ebin\\diameter_codec.beam",
+      "Status": "Different",
+      "Source": "lib\\diameter-2.7.2\\src\\base\\diameter_codec.erl",
+      "Detail": "Original length 23552, generated length 24184. AtU8 744->765, Code 4766->5621, ImpT 256->268, ExpT 184->184, LitT 149->139, LocT 196->196, Attr 67->67, Line 226->232, Type 333->83",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\inet_dns.beam",
+      "Status": "Different",
+      "Source": "lib\\kernel-11.0.4\\src\\inet_dns.erl",
+      "Detail": "Original length 67224, generated length 70480. AtU8 1941->1913, Code 20870->24601, ImpT 352->484, ExpT 424->424, LitT 889->767, LocT 952->928, Attr 39->39, Line 812->836, Type 559->102",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\megaco-4.9.2\\ebin\\megaco_per_media_gateway_control_v1.beam",
+      "Status": "Different",
+      "Source": "lib\\megaco-4.9.2\\src\\binary\\megaco_per_media_gateway_control_v1.erl",
+      "Detail": "Original length 344968, generated length 394484. AtU8 16036->15886, Code 113473->163284, ImpT 352->364, ExpT 2668->2668, FunT 820->820, LitT 1452->1309, LocT 3256->3208, Attr 444->444, Line 7532->8299, Type 920->181",
+      "FirstDifferentByte": 5
+    },
+    {
+      "Beam": "lib\\megaco-4.9.2\\ebin\\megaco_per_media_gateway_control_v2.beam",
+      "Status": "Different",
+      "Source": "lib\\megaco-4.9.2\\src\\binary\\megaco_per_media_gateway_control_v2.erl",
+      "Detail": "Original length 405588, generated length 464976. AtU8 19051->18901, Code 134363->193917, ImpT 352->364, ExpT 3076->3076, FunT 940->940, LitT 1474->1331, LocT 3700->3652, Attr 444->444, Line 8854->9802, Type 969->181",
+      "FirstDifferentByte": 5
+    },
+    {
+      "Beam": "lib\\megaco-4.9.2\\ebin\\megaco_per_media_gateway_control_v3.beam",
+      "Status": "Different",
+      "Source": "lib\\megaco-4.9.2\\src\\binary\\megaco_per_media_gateway_control_v3.erl",
+      "Detail": "Original length 480352, generated length 553328. AtU8 20399->20249, Code 159414->232549, ImpT 352->364, ExpT 3244->3244, FunT 1012->1012, LitT 1673->1392, LocT 3952->3904, Attr 444->444, Line 10206->11307, Type 975->181",
+      "FirstDifferentByte": 5
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\lists.beam",
+      "Status": "Different",
+      "Source": "lib\\stdlib-8.1\\src\\lists.erl",
+      "Detail": "Original length 124180, generated length 131716. AtU8 2436->2459, Code 30110->37704, ImpT 256->316, ExpT 1120->1120, FunT 28->28, LocT 1852->1852, Attr 148->148, Line 1393->1399, Type 166->24",
+      "FirstDifferentByte": 5
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\peer.beam",
+      "Status": "Different",
+      "Source": "lib\\stdlib-8.1\\src\\peer.erl",
+      "Detail": "Original length 59424, generated length 61240. AtU8 3270->2993, Code 14391->16710, ImpT 1192->1276, ExpT 328->328, FunT 172->172, LitT 1498->1428, LocT 712->592, Attr 125->125, Line 676->716, Type 173->16",
+      "FirstDifferentByte": 6
+    }
+  ]
+}

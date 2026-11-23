@@ -1,0 +1,313 @@
+{
+  "Partial": true,
+  "SelectedCount": 50,
+  "TotalCount": 9846,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/beam/adjacent-arithmetic-number-result",
+    "compiler/beam/case-clause-uses-the-source-case-location",
+    "compiler/beam/checks-an-arity-arm-tag-before-its-frame",
+    "compiler/beam/clears-unread-stack-projections",
+    "compiler/beam/compacts-the-frame-after-a-terminal-list-match-relay",
+    "compiler/beam/composes-redundant-tail-argument-copies",
+    "compiler/beam/constructed-bitstring-starts-dynamic-match-without-type-failure",
+    "compiler/beam/constructs-a-tuple-message-directly-in-x1",
+    "compiler/beam/delays-a-zero-slot-frame-after-a-checked-tag-fallback",
+    "compiler/beam/delays-the-frame-past-a-terminal-list-match-failure",
+    "compiler/beam/emits-immediate-selective-timeout",
+    "compiler/beam/finite-integer-ranges-from-masks-shifts-and-addition",
+    "compiler/beam/flat-tuple-list-generator-constructs-after-recursion",
+    "compiler/beam/fresh-reference-receive-marker",
+    "compiler/beam/generic-map-patterns-annotate-proven-inputs",
+    "compiler/beam/hoists-heap-before-checked-tuple-reads-with-proven-roots",
+    "compiler/beam/inherits-proper-list-entry-facts-through-recursion",
+    "compiler/beam/keeps-projection-before-ordinary-argument-copies",
+    "compiler/beam/keyfind-result-typed-tuple-test",
+    "compiler/beam/lifts-constructed-list-generator-inputs",
+    "compiler/beam/lifts-relaxed-tuple-generator-aliases",
+    "compiler/beam/lifts-single-strict-list-generators",
+    "compiler/beam/lifts-strict-list-generators-with-ordered-siblings",
+    "compiler/beam/local-success-atom-or-tuple-result",
+    "compiler/beam/local-success-integer-result",
+    "compiler/beam/local-try-fallbacks-use-tail-calls",
+    "compiler/beam/ordinary-entry-call-composes-scratch-copy",
+    "compiler/beam/positioned-tail-size-delays-materialization",
+    "compiler/beam/preserve-quoted-feature-keyword-type-annotations",
+    "compiler/beam/promotes-interior-projection-before-first-call",
+    "compiler/beam/record-epp-include-search-provenance",
+    "compiler/beam/record-field-carries-successful-number",
+    "compiler/beam/release-inline-bounded-leaf",
+    "compiler/beam/restore-physical-and-logical-include-parents",
+    "compiler/beam/retains-entry-tuple-across-producer",
+    "compiler/beam/selects-constant-branches-with-an-identity-fallback",
+    "compiler/beam/shares-accepted-receive-tails-across-tuple-arities",
+    "compiler/beam/singleton-record-tail-reuses-list-and-constructor-registers",
+    "compiler/beam/sinks-an-independent-argument-clobber-past-a-reload",
+    "compiler/beam/size-result-propagates-range-through-argument-copies",
+    "compiler/beam/tagged-list-generator-keeps-matched-tuple",
+    "compiler/beam/trims-owned-branch-with-one-retained-result",
+    "compiler/beam/tuple-list-generator-checks-before-recursing",
+    "compiler/beam/tuple-tail-switch-shares-identical-external-calls",
+    "compiler/beam/uses-available-x-in-constructor-with-retained-spill",
+    "compiler/beam/whole-module-matches-otp",
+    "compiler/beam/windows-bootstrap-library-include-paths",
+    "compiler/beam/windows-inets-include-profile",
+    "compiler/beam/windows-kernel-bootstrap-include-profile",
+    "compiler/beam/windows-stdlib-bootstrap-include-profile"
+  ],
+  "Passed": 49,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "compiler/beam/whole-module-matches-otp",
+      "Status": "Passed",
+      "Milliseconds": 27628
+    },
+    {
+      "Name": "compiler/beam/fresh-reference-receive-marker",
+      "Status": "Passed",
+      "Milliseconds": 133
+    },
+    {
+      "Name": "compiler/beam/emits-immediate-selective-timeout",
+      "Status": "Passed",
+      "Milliseconds": 44
+    },
+    {
+      "Name": "compiler/beam/shares-accepted-receive-tails-across-tuple-arities",
+      "Status": "Passed",
+      "Milliseconds": 66
+    },
+    {
+      "Name": "compiler/beam/adjacent-arithmetic-number-result",
+      "Status": "Passed",
+      "Milliseconds": 12
+    },
+    {
+      "Name": "compiler/beam/local-success-atom-or-tuple-result",
+      "Status": "Passed",
+      "Milliseconds": 23
+    },
+    {
+      "Name": "compiler/beam/record-field-carries-successful-number",
+      "Status": "Passed",
+      "Milliseconds": 15
+    },
+    {
+      "Name": "compiler/beam/compacts-the-frame-after-a-terminal-list-match-relay",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "compiler/beam/inherits-proper-list-entry-facts-through-recursion",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "compiler/beam/record-epp-include-search-provenance",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "compiler/beam/composes-redundant-tail-argument-copies",
+      "Status": "Passed",
+      "Milliseconds": 11
+    },
+    {
+      "Name": "compiler/beam/windows-kernel-bootstrap-include-profile",
+      "Status": "Passed",
+      "Milliseconds": 38
+    },
+    {
+      "Name": "compiler/beam/windows-inets-include-profile",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "compiler/beam/sinks-an-independent-argument-clobber-past-a-reload",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "compiler/beam/keeps-projection-before-ordinary-argument-copies",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/beam/ordinary-entry-call-composes-scratch-copy",
+      "Status": "Passed",
+      "Milliseconds": 11
+    },
+    {
+      "Name": "compiler/beam/windows-stdlib-bootstrap-include-profile",
+      "Status": "Passed",
+      "Milliseconds": 17
+    },
+    {
+      "Name": "compiler/beam/restore-physical-and-logical-include-parents",
+      "Status": "Passed",
+      "Milliseconds": 16
+    },
+    {
+      "Name": "compiler/beam/constructs-a-tuple-message-directly-in-x1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/beam/preserve-quoted-feature-keyword-type-annotations",
+      "Status": "Passed",
+      "Milliseconds": 35
+    },
+    {
+      "Name": "compiler/beam/constructed-bitstring-starts-dynamic-match-without-type-failure",
+      "Status": "Passed",
+      "Milliseconds": 53
+    },
+    {
+      "Name": "compiler/beam/generic-map-patterns-annotate-proven-inputs",
+      "Status": "Passed",
+      "Milliseconds": 63
+    },
+    {
+      "Name": "compiler/beam/lifts-constructed-list-generator-inputs",
+      "Status": "Passed",
+      "Milliseconds": 113
+    },
+    {
+      "Name": "compiler/beam/windows-bootstrap-library-include-paths",
+      "Status": "Passed",
+      "Milliseconds": 40
+    },
+    {
+      "Name": "compiler/beam/lifts-strict-list-generators-with-ordered-siblings",
+      "Status": "Passed",
+      "Milliseconds": 89
+    },
+    {
+      "Name": "compiler/beam/lifts-relaxed-tuple-generator-aliases",
+      "Status": "Passed",
+      "Milliseconds": 68
+    },
+    {
+      "Name": "compiler/beam/positioned-tail-size-delays-materialization",
+      "Status": "Passed",
+      "Milliseconds": 52
+    },
+    {
+      "Name": "compiler/beam/case-clause-uses-the-source-case-location",
+      "Status": "Passed",
+      "Milliseconds": 51
+    },
+    {
+      "Name": "compiler/beam/selects-constant-branches-with-an-identity-fallback",
+      "Status": "Passed",
+      "Milliseconds": 39
+    },
+    {
+      "Name": "compiler/beam/release-inline-bounded-leaf",
+      "Status": "Passed",
+      "Milliseconds": 92
+    },
+    {
+      "Name": "compiler/beam/uses-available-x-in-constructor-with-retained-spill",
+      "Status": "Passed",
+      "Milliseconds": 15
+    },
+    {
+      "Name": "compiler/beam/hoists-heap-before-checked-tuple-reads-with-proven-roots",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "compiler/beam/flat-tuple-list-generator-constructs-after-recursion",
+      "Status": "Passed",
+      "Milliseconds": 73
+    },
+    {
+      "Name": "compiler/beam/retains-entry-tuple-across-producer",
+      "Status": "Passed",
+      "Milliseconds": 202
+    },
+    {
+      "Name": "compiler/beam/checks-an-arity-arm-tag-before-its-frame",
+      "Status": "Passed",
+      "Milliseconds": 9
+    },
+    {
+      "Name": "compiler/beam/delays-a-zero-slot-frame-after-a-checked-tag-fallback",
+      "Status": "Passed",
+      "Milliseconds": 6
+    },
+    {
+      "Name": "compiler/beam/delays-the-frame-past-a-terminal-list-match-failure",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "compiler/beam/local-success-integer-result",
+      "Status": "Passed",
+      "Milliseconds": 26
+    },
+    {
+      "Name": "compiler/beam/trims-owned-branch-with-one-retained-result",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/beam/size-result-propagates-range-through-argument-copies",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "compiler/beam/finite-integer-ranges-from-masks-shifts-and-addition",
+      "Status": "Passed",
+      "Milliseconds": 43
+    },
+    {
+      "Name": "compiler/beam/promotes-interior-projection-before-first-call",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "compiler/beam/clears-unread-stack-projections",
+      "Status": "Passed",
+      "Milliseconds": 13
+    },
+    {
+      "Name": "compiler/beam/local-try-fallbacks-use-tail-calls",
+      "Status": "Passed",
+      "Milliseconds": 52
+    },
+    {
+      "Name": "compiler/beam/tagged-list-generator-keeps-matched-tuple",
+      "Status": "Passed",
+      "Milliseconds": 65
+    },
+    {
+      "Name": "compiler/beam/keyfind-result-typed-tuple-test",
+      "Status": "Passed",
+      "Milliseconds": 31
+    },
+    {
+      "Name": "compiler/beam/tuple-list-generator-checks-before-recursing",
+      "Status": "Passed",
+      "Milliseconds": 58
+    },
+    {
+      "Name": "compiler/beam/lifts-single-strict-list-generators",
+      "Status": "Passed",
+      "Milliseconds": 69
+    },
+    {
+      "Name": "compiler/beam/tuple-tail-switch-shares-identical-external-calls",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Sequence contains no matching element\r\n   at System.Linq.ThrowHelper.ThrowNoMatchException()\r\n   at System.Linq.Enumerable.First[TSource](IEnumerable\u00601 source, Func\u00602 predicate)\r\n   at Erlang.Tests.BeamSharedExternalTailSwitchChecks.VerifyInstructions(Object code) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamSharedExternalTailSwitchChecks.cs:line 79\r\n   at Erlang.Tests.BeamSharedExternalTailSwitchChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamSharedExternalTailSwitchChecks.cs:line 41\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16457",
+      "Milliseconds": 44
+    },
+    {
+      "Name": "compiler/beam/singleton-record-tail-reuses-list-and-constructor-registers",
+      "Status": "Passed",
+      "Milliseconds": 25
+    }
+  ]
+}

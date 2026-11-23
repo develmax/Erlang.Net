@@ -1,0 +1,65 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CallArgumentKills.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CallArgumentKills.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CallArgumentKills.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CallArgumentKills.cs
+@@ -6,7 +6,8 @@
+ {
+     private byte[]? OrderCallArgumentAfterKills(ReadOnlyMemory<byte> code, int labelCount)
+     {
+-        if (ModuleOptimizationDisabled || !code.Span.Contains(InitYRegisters)
++        if (ModuleOptimizationDisabled
++            || !code.Span.Contains(InitYRegisters) && !code.Span.Contains(TrimFrame)
+             || DecodeLateAtomicProjectionSlots(code, labelCount) is not { } decoded)
+         {
+             return null;
+@@ -22,16 +23,31 @@
+                     Definition.Opcode: Move,
+                     Operands: [var source, { Kind: BeamOperandParameters.X } destination]
+                 } || destination.Value != 0
+-                || body[move + 1].Definition.Opcode != InitYRegisters)
++                || body[move + 1].Definition.Opcode is not (InitYRegisters or TrimFrame))
+             {
+                 continue;
+             }
+ 
+             int end = move + 1;
+             bool readsClearedSlot = false;
++            int? survivingSlot = null;
++            if (body[end] is { Definition.Opcode: TrimFrame, Operands: [var removed, var kept] })
++            {
++                if (source is not { Kind: BeamOperandParameters.Y, TypeIndex: null }
++                    || destination.TypeIndex is not null
++                    || source.Value < removed.Value || source.Value >= removed.Value + kept.Value)
++                {
++                    continue;
++                }
++
++                survivingSlot = (int)(source.Value - removed.Value);
++                end++;
++            }
++
+             while (body[end].Definition.Opcode == InitYRegisters)
+             {
+-                readsClearedSlot |= body[end].Operands.Any(operand => SameProjectionRegister(operand, source));
++                var read = survivingSlot is int slot ? source with { Value = slot } : source;
++                readsClearedSlot |= body[end].Operands.Any(operand => SameProjectionRegister(operand, read));
+                 end++;
+             }
+ 
+@@ -55,7 +71,16 @@
+             int kills = body[move + 1].Offset;
+             output.Write(code.Span[copied..start]);
+             output.Write(code.Span[kills..body[end].Offset]);
+-            output.Write(code.Span[start..kills]);
++            if (survivingSlot is int saved)
++            {
++                output.WriteByte(Move);
++                BeamCompactWriter.Write(output, YRegisterTag, saved);
++                BeamCompactWriter.Write(output, XRegisterTag, 0);
++            }
++            else
++            {
++                output.Write(code.Span[start..kills]);
++            }
+             copied = body[end].Offset;
+             move = end - 1;
+         }

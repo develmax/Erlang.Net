@@ -1,0 +1,31 @@
+{
+  "OtpVersion": "29.1.1",
+  "Total": 3,
+  "Counts": {
+    "Different": 2,
+    "Equal": 1
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\asn1-5.5.2\\ebin\\asn1ct_gen_jer.beam",
+      "Status": "Different",
+      "Source": "lib\\asn1-5.5.2\\src\\asn1ct_gen_jer.erl",
+      "Detail": "Original length 25008, generated length 25820. AtU8 2071-\u003E1974, Code 5515-\u003E6446, ImpT 364-\u003E388, ExpT 280-\u003E280, FunT 52-\u003E52, LocT 268-\u003E232, Attr 39-\u003E39, Line 296-\u003E292, Type 18-\u003E12",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\asn1-5.5.2\\ebin\\asn1ct_rtt.beam",
+      "Status": "Equal",
+      "Source": "lib\\asn1-5.5.2\\src\\asn1ct_rtt.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\debugger-7.0\\ebin\\dbg_iload.beam",
+      "Status": "Different",
+      "Source": "lib\\debugger-7.0\\src\\dbg_iload.erl",
+      "Detail": "Original length 72032, generated length 75196. AtU8 4008-\u003E3771, Code 24114-\u003E27682, ImpT 616-\u003E664, ExpT 40-\u003E40, FunT 460-\u003E460, LitT 206-\u003E206, LocT 1408-\u003E1312, Attr 39-\u003E39, Line 1110-\u003E1096, Type 144-\u003E40",
+      "FirstDifferentByte": 6
+    }
+  ]
+}

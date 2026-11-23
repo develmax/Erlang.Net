@@ -1,0 +1,118 @@
+{
+  "otpTag": "OTP-29.1.1",
+  "otpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "part1947Archive": {
+    "size": 2069399,
+    "sha256": "993e448e9061ddbb64e4d84d539ea2282992bc38dc33c598a326571c2b277233"
+  },
+  "requiredPriorProductionPatch": {
+    "size": 4303,
+    "sha256": "1476a8816376a46dff1fb864efcabe6b030a4e0cf2d2ae3be39f203ed72b8738"
+  },
+  "baselineCompiler": {
+    "size": 4864000,
+    "sha256": "01df0f0763cefdd5b4addc5c5fdef6295ec246525139edd70a092a7bdb09e0e2"
+  },
+  "baselineReceipt": {
+    "size": 4140,
+    "sha256": "ded0cbe35255b829992c4972d98d96e4de750703e4d9fb4c32fa6431ce9e4419"
+  },
+  "jobs": 1,
+  "scope": {
+    "lib/debugger-7.0/ebin/dbg_wx_settings.beam": "Different",
+    "lib/inets-9.8/ebin/inets_sup.beam": "Equal",
+    "lib/stdlib-8.1/ebin/ordsets.beam": "Equal",
+    "lib/wx-2.7/ebin/wxBoxSizer.beam": "Equal",
+    "lib/wx-2.7/ebin/wxFlexGridSizer.beam": "Equal",
+    "lib/wx-2.7/ebin/wxGBSizerItem.beam": "Equal",
+    "lib/wx-2.7/ebin/wxGrid.beam": "Equal",
+    "lib/wx-2.7/ebin/wxGridBagSizer.beam": "Equal",
+    "lib/wx-2.7/ebin/wxGridSizer.beam": "Equal",
+    "lib/wx-2.7/ebin/wxSizer.beam": "Different",
+    "lib/wx-2.7/ebin/wxSizerItem.beam": "Equal",
+    "lib/wx-2.7/ebin/wxStaticBoxSizer.beam": "Equal"
+  },
+  "targetGeneratedBefore": {
+    "size": 31012,
+    "sha256": "9fbd5b861ec7275e71ea3d20a64ac63745467752b8552f1a20c336dc34f72285"
+  },
+  "targetGeneratedAfter": {
+    "size": 30808,
+    "sha256": "7d5de14ec068b4a69c5cf40e345e8a8ec0de2d7e203821caf899651ef4bbc813"
+  },
+  "targetPinned": {
+    "size": 30808,
+    "sha256": "7d5de14ec068b4a69c5cf40e345e8a8ec0de2d7e203821caf899651ef4bbc813"
+  },
+  "unchangedDifferingControls": {
+    "lib/debugger-7.0/ebin/dbg_wx_settings.beam": {
+      "size": 13104,
+      "sha256": "cef229c7fcee1bb86cc062647367e2d8b51a876aa319bf42c994f6c1277dd21e"
+    },
+    "lib/wx-2.7/ebin/wxSizer.beam": {
+      "size": 51308,
+      "sha256": "6176ba3495495746b313a67dda6346134b1d9ba43fffc2b6cb1095fdd7e55f43"
+    }
+  },
+  "nativeCases": 15,
+  "matchedChunks": 15,
+  "matchedFunctions": 93,
+  "files": {
+    "production.patch": {
+      "size": 12634,
+      "sha256": "0a06abea5787afe36d7ac11d27aac6c59aa38a33a4daf3dd6297b17d5dde11c4"
+    },
+    "test.patch": {
+      "size": 5146,
+      "sha256": "36755011835701985914d6da908d8b3d00ca73397fa9a34a976d3dae75171561"
+    },
+    "replay-files.json": {
+      "size": 1175,
+      "sha256": "505d0aeb685af2572e76bc4428f3cc5b357126480e185bc91732ee5c0a062620"
+    },
+    "compiler-bin/Erlang.Compiler.dll": {
+      "size": 4865536,
+      "sha256": "12448e164d867e2640514eccfbd6550f4a7b984e34e712e50816080445ff8390"
+    },
+    "final-scope.json": {
+      "size": 3008,
+      "sha256": "451a4c4ca7a73016a5030eb35f4f1ce8ad88afa42a08ad21abfbb37d7117372f"
+    },
+    "all-functions-final-exact.terms": {
+      "size": 58,
+      "sha256": "7b6c612c8295f6978eafa06bcd77c16f2e8ce9a2776d6d81d7542d6124720120"
+    },
+    "build-final.log": {
+      "size": 472,
+      "sha256": "8de4c1ccaf86748746fc7888c03c481d1e07f0e1b0d0628fb2b39e0c34c18e45"
+    },
+    "layout-check.log": {
+      "size": 40,
+      "sha256": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f"
+    },
+    "focused-final-exits.json": {
+      "size": 51,
+      "sha256": "1faa2d4586b2e18fbd523bb5df54f7bb4a348aa73665bdf7320961ff840dad1a"
+    },
+    "focused-final-red.log": {
+      "size": 238,
+      "sha256": "ede8181e61367996838197e78299b6492a95ddbeec1df13084ed00e8cc4e2d22"
+    },
+    "focused-final-green.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "native-pinned.terms": {
+      "size": 2101,
+      "sha256": "b6d944f69ee675b32683583914db89d017ab4812b2518a8d03c6075655cc296b"
+    },
+    "native-final.terms": {
+      "size": 2101,
+      "sha256": "b6d944f69ee675b32683583914db89d017ab4812b2518a8d03c6075655cc296b"
+    },
+    "chunk-fingerprints.json": {
+      "size": 1922,
+      "sha256": "59d60dee392573a872e150641ef4a59dfbb5d8f17fe68fb2bad68870573e1baa"
+    }
+  }
+}

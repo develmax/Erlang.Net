@@ -8,6 +8,11 @@ internal sealed partial class BeamModuleCompiler
     {
         private bool TryEmitEntryDynamicApplyTail(Clause clause)
         {
+            if (TryEmitCheckedRecordApplyTail(clause))
+            {
+                return true;
+            }
+
             if (clause.Guard is not null || !HasUnconditionalParameters(clause)
                 || clause.Body is not Expr.Sequence
                 {
@@ -98,6 +103,118 @@ internal sealed partial class BeamModuleCompiler
                     constants
                 ), previous, saved.Length);
             }
+
+            return true;
+        }
+
+        private bool TryEmitCheckedRecordApplyTail(Clause clause)
+        {
+            if (owner.ModuleOptimizationDisabled || clause.Guard is not null || !HasUnconditionalParameters(clause)
+                || clause.Patterns.Count == 0 || clause.Patterns.Count + 2 > FirstReservedXRegister
+                || clause.Body is not Expr.Sequence sequence)
+            {
+                return false;
+            }
+
+            string[] parameters = clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray();
+            IReadOnlyList<Expr> body = sequence.Items;
+            string? emptyTail = null;
+            if (body.Count == 3 && body[0] is Expr.Match
+                {
+                    Pattern: Pattern.Variable { Name: not VariableScopeNames.Wildcard } alias,
+                    Value: Expr.List { Items.Count: 0, Tail: null } or Expr.Literal { Value: Nil }
+                } && !parameters.Contains(alias.Name, StringComparer.Ordinal))
+            {
+                emptyTail = alias.Name;
+                body = body.Skip(1).ToArray();
+            }
+
+            if (body is not [
+                Expr.Match
+                {
+                    Pattern: Pattern.Variable { Name: not VariableScopeNames.Wildcard } receiver,
+                    Value: Expr.RecordAccess { Value: Expr.Variable { Name: not VariableScopeNames.Wildcard } original } outer
+                },
+                Expr.Call
+                {
+                    Arguments: [
+                        Expr.RecordAccess { Value: Expr.Variable fieldReceiver } inner,
+                        Expr.Literal { Value: Atom method },
+                        Expr.List arguments
+                    ]
+                } call
+                ] || original.Name != parameters[0] || receiver.Name != fieldReceiver.Name
+                || receiver.Name == emptyTail || parameters.Contains(receiver.Name, StringComparer.Ordinal)
+                || !IsApplyBif(call))
+            {
+                return false;
+            }
+
+            var forwarded = new List<Expr>();
+            Expr? tail = arguments;
+            while (tail is Expr.List list)
+            {
+                forwarded.AddRange(list.Items);
+                tail = list.Tail;
+            }
+
+            // Keep an evaluated nonempty list binding on the original apply path.
+            if (tail is not null and not Expr.Literal { Value: Nil }
+                && !(tail is Expr.Variable name && name.Name == emptyTail)
+                || forwarded.Count != parameters.Length
+                || forwarded[0] is not Expr.Variable first || first.Name != receiver.Name)
+            {
+                return false;
+            }
+
+            for (int index = 1; index < forwarded.Count; index++)
+            {
+                if (forwarded[index] is not Expr.Variable { Name: not VariableScopeNames.Wildcard } argument || argument.Name != parameters[index])
+                {
+                    return false;
+                }
+            }
+
+            var callLocation = CallLocation(call, location);
+            var outerFailureLocation = new BeamSourceLocation(outer.PreprocessorFile, outer.SourceLine);
+            var innerFailureLocation = new BeamSourceLocation(inner.PreprocessorFile, inner.SourceLine);
+            int innerFailure = Label();
+            int outerFailure = Label();
+            EmitDetailRecordTest(
+                0,
+                outer.Arity,
+                Term.A(outer.Name),
+                outerFailure
+            );
+            owner.EmitTuplePart(0, outer.Index, 0);
+            EmitDetailRecordTest(
+                0,
+                inner.Arity,
+                Term.A(inner.Name),
+                innerFailure
+            );
+
+            EmitFrameAllocation(parameters.Length, 0);
+            owner.EmitTuplePart(0, inner.Index, parameters.Length);
+            owner.EmitConstant(method, parameters.Length + 1);
+            owner.EmitCallLine(call, location);
+            owner.Op(TailDynamicApply, BeamWire.UnsignedTag, parameters.Length);
+            owner.Operand(BeamWire.UnsignedTag, 0);
+
+            Mark(innerFailure);
+            if (innerFailureLocation.Line > 0 && innerFailureLocation != callLocation)
+            {
+                owner.EmitLine(innerFailureLocation);
+            }
+
+            owner.Op(BadRecord, XRegisterTag, 0);
+            Mark(outerFailure);
+            if (outerFailureLocation.Line > 0)
+            {
+                owner.EmitLine(outerFailureLocation);
+            }
+
+            owner.Op(BadRecord, XRegisterTag, 0);
 
             return true;
         }

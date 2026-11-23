@@ -1,0 +1,18 @@
+[P]=init:get_plain_arguments(),
+{ok,D}=file:read_file(P),
+Rows=[[string:trim(binary_to_list(B))||B<-binary:split(L,<<9>>,[global])]
+    ||L<-binary:split(D,<<10>>,[global]),L=/=<<>>],
+Read=fun(Path)->{beam_file,M,_,_,_,Fs}=beam_disasm:file(Path),
+    {M,maps:from_list([{{N,A},Is}||{function,N,A,_,Is}<-Fs])} end,
+Targets=#{inet6_sctp=>[{peeloff_opts,2}],inet_sctp=>[{peeloff_opts,2}],
+          mnesia_lib=>[{dets_sync_open,2}],dbg_wx_win=>[{confirm,2}],reltool_sys_win=>[{select_dir,4}],
+          cover=>[{start,0}],mnesia_frag_hash=>[{key_to_frag_number,2},{add_frag,1}],
+          megaco_tcp_accept=>[{tcp_clear,1}]},
+IsType=fun T({tr,_,_})->true;T(I) when is_tuple(I)->T(tuple_to_list(I));T([H|Tail])->T(H) orelse T(Tail);T(_)->false end,
+Summarize=fun(Ops)->#{trim=>[I||I={trim,_,_}<-Ops],
+     typed=>[I||I<-Ops,IsType(I)],removals=>length([I||I<-Ops,I=:=remove_message])} end,
+lists:foreach(fun([R,B,A])->
+    {M,V0}=Read(R),{M,V1}=Read(B),{M,V2}=Read(A),
+    [io:format("~0p.~n",[{M,K,Summarize(maps:get(K,V0)),Summarize(maps:get(K,V1)),Summarize(maps:get(K,V2))}])
+       ||K<-maps:get(M,Targets,[])]
+end,Rows),halt().

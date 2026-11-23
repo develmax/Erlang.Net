@@ -1,0 +1,32 @@
+[Pin,Old,Linked]=init:get_plain_arguments(),
+M=qlc_pt,
+Wanted=[{mforms,1},{mforms,2}],
+Test=fun(Image)->
+    {ok,B}=file:read_file(Image),
+    {beam_file,M,_,_,_,Fs}=beam_disasm:file(B),
+    {ok,{M,[{atoms,Atoms},{exports,Ex}]}}=beam_lib:chunks(B,[atoms,exports]),
+    {ok,M,Chunks}=beam_lib:all_chunks(B),
+    {"ExpT",<<N:32,Slots/binary>>}=lists:keyfind("ExpT",1,Chunks),
+    Added=[begin
+        [Label]=[L||{function,Name,A0,L,_}<-Fs,Name=:=F,A0=:=A],
+        {I,F}=lists:keyfind(F,2,Atoms),
+        <<I:32,A:32,Label:32>>
+    end||{F,A}<-Wanted,not lists:member({F,A},Ex)],
+    {ok,Open}=beam_lib:build_module(lists:keyreplace("ExpT",1,Chunks,
+        {"ExpT",iolist_to_binary([<<(N+length(Added)):32>>,Slots,Added])})),
+    {ok,{M,[{"Code",Code}]}}=beam_lib:chunks(B,["Code"]),
+    {ok,{M,[{"Code",Code}]}}=beam_lib:chunks(Open,["Code"]),
+    true=code:unstick_mod(M),code:purge(M),code:delete(M),
+    {module,M}=code:load_binary(M,Image,Open),
+    V=[try apply(M,mforms,Args) of X->{ok,X}
+       catch Class:Reason->{Class,Reason} end
+       || Args <- [[[]],[error,[]],[[{b,[3]},skip,{a,[2,1]},{empty,[]}]],
+                   [error,[{b,[3]},skip,{a,[2,1]},{empty,[]}]],
+                   [[{bad,[one|tail]}]],[error,[bad|tail]]]],
+    code:delete(M),code:purge(M),V
+end,
+Values=Test(Pin),
+Values=Test(Old),Values=Test(Linked),
+[{ok,[]},{ok,[]},{ok,[{a,[1]},{a,[2]},{b,[3]}]},
+ {ok,[{error,1},{error,2},{error,3}]},{error,{bad_generator,tail}},{error,{bad_generator,tail}}]=Values,
+io:format("~tp.~n",[Values]),halt(0).

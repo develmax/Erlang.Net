@@ -1,3 +1,5 @@
+using static Erlang.Compiler.BeamEmissionFormat;
+
 namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
@@ -161,6 +163,23 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
+        private bool HasExactAtomOrTaggedTupleResult(EntryCall selector, Atom tag, int arity)
+        {
+            if (selector.Module is not null || selector.Call is not { Module: null, DynamicRemote: false } call
+                || !localFunctions.TryGetValue((call.Function, call.Arguments.Count), out var definition))
+            {
+                return false;
+            }
+
+            return owner.ReadClosedTaggedCallResult(
+                definition,
+                arity,
+                tag.Name,
+                localFunctions,
+                allowAtom: true
+            ) == LocalAtomOrTupleType;
+        }
+
         private int ReadCallResultUnion(Expr.Call call)
         {
             var signature = (call.Function, call.Arguments.Count);
@@ -301,6 +320,76 @@ internal sealed partial class BeamModuleCompiler
             return projection is null && ReturnsLookupResult(module, call.Function, call.Arguments.Count)
                 ? AtomTypeBits | TupleTypeBits
                 : AnyTypeBits;
+        }
+
+        private void EmitArithmeticCallResultOperand(Expr value, bool allowType = true)
+        {
+            if (allowType && ReadArithmeticCallRange(value) is { } range)
+            {
+                owner.EmitTypedRegister(
+                    0,
+                    IntegerTypeBits,
+                    range.Lower,
+                    range.Upper
+                );
+            }
+            else
+            {
+                owner.Operand(XRegisterTag, 0);
+            }
+        }
+
+        private (long? Lower, long? Upper)? ReadArithmeticCallRange(Expr expression)
+        {
+            if (!owner.SsaTypeInferenceEnabled || expression is not Expr.Call
+                {
+                    Module: null or ErlangModuleNames.Module, DynamicRemote: false
+                } call || !owner.ResolvesErlangBif(call))
+            {
+                return null;
+            }
+
+            return (call.Function, call.Arguments) switch
+            {
+                (AutoImportNames.Length or AutoImportNames.ByteSize or AutoImportNames.BitSize, [var argument])
+                    when argument is not (Expr.List or Expr.Bits)
+                        && !AttributeLiteral.TryNormalizeConstant(argument, out _) => (0, OtpSizeUpperBound),
+                (AutoImportNames.IolistSize, [_]) => (0L, null),
+                (AutoImportNames.ListToInteger or AutoImportNames.BinaryToInteger, [_]) => (null, null),
+                (ErlangHashNames.Improved, [_]) => (0, ErlangHashRanges.DefaultMask),
+                // OTP uses the full 32-bit range in the type pass even when the argument is a literal.
+                (ErlangHashNames.Improved, [_, _]) => (0, (long)ErlangHashRanges.Maximum - 1),
+                _ => null
+            };
+        }
+
+        private static bool IsProperListProducer(string? module, string function, int arity) =>
+            (module, function, arity) is ("lists", "flatten" or "sort" or "usort", 1) or ("lists", "filter", 2)
+                or (ErlangModuleNames.Module, ErlangOperators.SubtractList, 2);
+
+        private bool IsProperListSelector(Expr expression)
+        {
+            if (expression is Expr.Binary { Operator: ErlangOperators.SubtractList })
+            {
+                return true;
+            }
+
+            if (expression is not Expr.Call { DynamicRemote: false } call)
+            {
+                return false;
+            }
+
+            int arity = call.Arguments.Count;
+            if (call.Module is null && localFunctions.ContainsKey((call.Function, arity)))
+            {
+                return false;
+            }
+
+            return IsProperListProducer(
+                call.Module ?? owner.ResolveExternalModule(call.Function, arity),
+                call.Function,
+                arity
+            );
         }
 
         private static int ReadReverseResult(Expr.Call reverse) =>

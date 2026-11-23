@@ -1,0 +1,6 @@
+[Image|Keys]=init:get_plain_arguments(),
+{beam_file,_,_,_,_,Fs}=beam_disasm:file(Image),
+Present=[{atom_to_list(N),integer_to_list(A)}||{function,N,A,_,_}<-Fs],
+Selected=[list_to_tuple(string:split(K,"#",trailing))||K<-Keys],
+true=lists:all(fun(K)->lists:member(K,Present) end,Selected),
+io:format("~tp.~n",[Selected]),halt().

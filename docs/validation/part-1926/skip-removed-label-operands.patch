@@ -1,0 +1,23 @@
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.NestedEntryLabelOrder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.NestedEntryLabelOrder.cs
+@@ -88,8 +88,20 @@
+         List<CodeEdit> edits
+     )
+     {
++        var removals = edits.Where(edit => edit.IsRemoval).OrderBy(edit => edit.Start).ToArray();
++        int currentRemoval = 0;
+         foreach (var (start, end, label) in references)
+         {
++            while (currentRemoval < removals.Length && removals[currentRemoval].End <= start)
++            {
++                currentRemoval++;
++            }
++
++            if (currentRemoval < removals.Length && removals[currentRemoval].Start <= start)
++            {
++                continue;
++            }
++
+             if (labels[label] != label)
+             {
+                 edits.Add(new CodeEdit(

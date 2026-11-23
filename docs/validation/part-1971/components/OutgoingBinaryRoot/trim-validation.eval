@@ -1,0 +1,24 @@
+[Pinned,Before,After,Out]=init:get_plain_arguments(),
+Fs=[f_avp,f_avp_arity_1,f_avp_header,f_enumerated_avp,f_msg_header],
+Read=fun(P)->
+    {beam_file,diameter_codegen,_,_,_,F}=beam_disasm:file(P),
+    maps:from_list([{Name,Is}||{function,Name,1,_,Is}<-F])
+end,
+Rs=[Read(P)||P<-[Pinned,Before,After]],
+Append={call_ext,2,{extfunc,erlang,'++',2}},
+Shape=fun(Is)->
+    [W]=[N||{allocate,N,_}<-Is],
+    [D]=[N||{deallocate,N}<-Is],
+    {BeforeCall,[Append|_]}=lists:splitwith(fun(I)->I=/=Append end,Is),
+    case lists:reverse([I||I<-BeforeCall,not (is_tuple(I) andalso element(1,I)=:=line)]) of
+      [{trim,K,Keep},{move,{y,From},{y,To}},{move,{y,Argument},{x,0}}|_]
+           when To=:=K andalso Argument=:=To andalso From<K -> {W,D,Keep,relocated};
+      [{trim,_,Keep},{move,{y,_},{x,0}}|_]->{W,D,Keep,after_load};
+      [{move,{y,_},{x,0}},{trim,_,Keep}|_]->{W,D,Keep,before_load};
+      _->{W,D,other}
+    end
+end,
+Facts=[{F,[Shape(maps:get(F,R))||R<-Rs]}||F<-Fs],
+ok=file:write_file(Out,io_lib:format("~tp.~n",[Facts])),
+true=lists:all(fun({_,[{_,1,1,after_load},{W,2,2,before_load},{W,1,1,relocated}]}) -> true;(_)->false end,Facts),
+halt().

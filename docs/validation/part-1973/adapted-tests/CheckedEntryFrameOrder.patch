@@ -1,0 +1,255 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamCheckedEntryRootOrderChecks.cs b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamCheckedEntryRootOrderChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamCheckedEntryRootOrderChecks.cs
+@@ -0,0 +1,213 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++using static Erlang.Tests.BeamOpcodeEdgeBytes;
++
++namespace Erlang.Tests;
++
++internal static class BeamCheckedEntryRootOrderChecks
++{
++    internal const string TestName = "compiler/beam/orders-checked-entry-frame-roots-and-delays-call-result-copies";
++    private const string Module = "checked_root_order_fixture";
++    private const string Fixture = Module + ".erl";
++    private const string RootPass = "OrderCheckedEntryFrameRoots";
++    private const string DelayPass = "DelayCheckedEntryCallResultCopies";
++    private const int FirstDefinitionSlot = 1;
++    private const int SavedResultSlot = 0;
++    private const int ProjectedField = 2;
++
++    internal static Task Run()
++    {
++        var assembly = typeof(BeamCheckedEntryRootOrderChecks).Assembly;
++        string name = assembly.GetManifestResourceNames()
++            .Single(resource => resource.EndsWith("." + Fixture, StringComparison.Ordinal));
++        using Stream input = assembly.GetManifestResourceStream(name)!;
++        using var source = new StreamReader(input);
++        object code = Code(CodeGeneration.CompileBeamModule(source.ReadToEnd(), Fixture));
++        CheckCompiledCall(code, "unary", 1);
++        CheckCompiledCall(code, "binary", 2);
++
++        var compiler = new BeamModuleCompiler(Module);
++        CheckPass(
++            compiler,
++            RootPass,
++            Image(),
++            Image(renumber: true),
++            BeamCheckedEntryRootOrderDiagnostics.RootPermutation
++        );
++        CheckPass(
++            compiler,
++            DelayPass,
++            Image(),
++            Image(delay: true),
++            BeamCheckedEntryRootOrderDiagnostics.DelayedCopy
++        );
++
++        byte[] literalArgument = [Move, A(1), X(0)];
++        CheckPass(
++            compiler,
++            RootPass,
++            Image(binaryArgument: literalArgument),
++            Image(renumber: true, binaryArgument: literalArgument),
++            BeamCheckedEntryRootOrderDiagnostics.RootPermutation
++        );
++        CheckPass(
++            compiler,
++            DelayPass,
++            Image(binaryArgument: literalArgument),
++            Image(delay: true, binaryArgument: literalArgument),
++            BeamCheckedEntryRootOrderDiagnostics.DelayedCopy
++        );
++
++        // The reject edge allocates its own frame.
++        byte[] otherOwner =
++        [
++            Allocate, U(1), U(1), Move, X(0), Y(0),
++            Move, Y(0), X(0), Deallocate, U(1), Return
++        ];
++        CheckDeclined(compiler, Image(fallback: otherOwner), BeamCheckedEntryRootOrderDiagnostics.SeparateOwner);
++
++        // The tuple is still known, but this checkpoint changes the X live range.
++        byte[] heapCheck = [TestHeap, U(2), U(1)];
++        CheckDeclined(
++            compiler,
++            Image(betweenSpillAndProjection: heapCheck),
++            BeamCheckedEntryRootOrderDiagnostics.HeapBoundary
++        );
++
++        // This call reads the saved return value as its unprojected argument.
++        byte[] savedArgument = [Move, Y(1), X(0)];
++        CheckDeclined(
++            compiler,
++            Image(binaryArgument: savedArgument),
++            BeamCheckedEntryRootOrderDiagnostics.SavedFirstArgument
++        );
++
++        return Task.CompletedTask;
++    }
++
++    private static void CheckCompiledCall(object code, string function, int arity)
++    {
++        object entry = Children(code, "Functions").Single(item => (string)Property(item, "Name") == function);
++        int start = (int)Property(entry, "FirstInstructionIndex");
++        int end = (int)Property(entry, "EndInstructionIndex");
++        object[] body = Children(code, "Instructions")[start..end].Where(item => Opcode(item) != Line).ToArray();
++        int allocation = Array.FindIndex(body, instruction => Opcode(instruction) == Allocate);
++        int producer = Array.FindIndex(body, instruction => Opcode(instruction) == ExternalCall);
++        if (allocation < 1 || producer <= allocation + 2 || producer + 4 >= body.Length
++            || Opcode(body[allocation - 1]) != IsTaggedTuple
++            || Value(Operands(body[allocation])[0]) != 2
++            || !OneInitializedResult(body[allocation + 1])
++            || !IsMove(body[allocation + 2], ("x", 0), ("y", FirstDefinitionSlot)))
++        {
++            throw new InvalidOperationException(BeamCheckedEntryRootOrderDiagnostics.RootPermutation);
++        }
++
++        object projection = body[producer + 1];
++        if (Opcode(projection) != GetTupleElement
++            || Operands(projection) is not [var carrier, var field, var output]
++            || !IsRegister(carrier, "y", FirstDefinitionSlot) || Value(field) != ProjectedField
++            || !IsRegister(output, "x", 1)
++            || !IsMove(body[producer + 2], ("x", 0), ("y", SavedResultSlot))
++            || Opcode(body[producer + 4]) != ExternalCall
++            || Value(Operands(body[producer + 4])[0]) != arity
++            || (arity == 1
++                ? !IsMove(body[producer + 3], ("x", 1), ("x", 0))
++                : !IsMove(body[producer + 3], ("atom", null), ("x", 0))))
++        {
++            throw new InvalidOperationException(BeamCheckedEntryRootOrderDiagnostics.DelayedCopy);
++        }
++    }
++
++    private static bool OneInitializedResult(object instruction) =>
++        Opcode(instruction) == InitYRegisters && Operands(instruction) is [var length, var slot]
++        && Value(length) == 1 && IsRegister(slot, "y", SavedResultSlot);
++
++    private static bool IsMove(
++        object instruction,
++        (string Kind, int? Value) source,
++        (string Kind, int Value) destination
++    ) =>
++        Opcode(instruction) == Move && Operands(instruction) is [var from, var to]
++        && (string)Property(from, "Kind") == source.Kind && (!source.Value.HasValue || Value(from) == source.Value.Value)
++        && IsRegister(to, destination.Kind, destination.Value);
++
++    private static bool IsRegister(object operand, string kind, int value) =>
++        (string)Property(operand, "Kind") == kind && Value(operand) == value;
++
++    private static object[] Children(object owner, string name) =>
++        ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
++
++    private static object[] Operands(object instruction) => Children(instruction, "Operands");
++
++    private static BigInteger Value(object operand) => (BigInteger)Property(operand, "Value");
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static void CheckPass(
++        BeamModuleCompiler compiler,
++        string pass,
++        byte[] original,
++        byte[] expected,
++        string diagnostic
++    )
++    {
++        if (Rewrite(compiler, pass, original) is not { } actual || !actual.SequenceEqual(expected))
++        {
++            throw new InvalidOperationException(diagnostic);
++        }
++    }
++
++    private static void CheckDeclined(BeamModuleCompiler compiler, byte[] original, string diagnostic)
++    {
++        if (Rewrite(compiler, RootPass, original) is not null || Rewrite(compiler, DelayPass, original) is not null)
++        {
++            throw new InvalidOperationException(diagnostic);
++        }
++    }
++
++    private static byte[]? Rewrite(BeamModuleCompiler compiler, string pass, ReadOnlyMemory<byte> raw) =>
++        (byte[]?)Call(
++            compiler,
++            pass,
++            raw,
++            4
++        );
++
++    private static byte[] Image(
++        bool renumber = false,
++        bool delay = false,
++        byte[]? fallback = null,
++        byte[]? betweenSpillAndProjection = null,
++        byte[]? binaryArgument = null
++    )
++    {
++        byte carrier = Y(renumber ? FirstDefinitionSlot : SavedResultSlot);
++        byte retained = Y(renumber ? SavedResultSlot : FirstDefinitionSlot);
++        byte[] alreadySaved = [Move, X(0), retained];
++        byte[] field = [GetTupleElement, carrier, U(ProjectedField), X(delay || binaryArgument is not null ? 1 : 0)];
++        byte[] finishArgument = binaryArgument ?? (delay ? [Move, X(1), X(0)] : []);
++        byte[] callSetup = delay
++            ? [.. field, .. alreadySaved, .. finishArgument]
++            : [.. alreadySaved, .. (betweenSpillAndProjection ?? []), .. field, .. finishArgument];
++
++        return
++        [
++            .. Start(
++                1,
++                2,
++                1,
++                1
++            ),
++            IsTaggedTuple, F(3), X(0), U(4), A(1),
++            Allocate, U(2), U(1),
++            InitYRegisters, ExtendedListOperand, U(1), retained,
++            Move, X(0), carrier, GetTupleElement, X(0), U(1), X(0),
++            ExternalCall, U(1), U(0), .. callSetup, ExternalCall, U(binaryArgument is null ? 1 : 2), U(1),
++            Move, retained, X(0), Deallocate, U(2), Return,
++            Label, U(3), .. (fallback ?? [BadRecord, X(0)]), EndCode
++        ];
++    }
++}
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamCheckedEntryRootOrderDiagnostics.cs b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamCheckedEntryRootOrderDiagnostics.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamCheckedEntryRootOrderDiagnostics.cs
+@@ -0,0 +1,10 @@
++namespace Erlang.Tests;
++
++internal static class BeamCheckedEntryRootOrderDiagnostics
++{
++    internal const string RootPermutation = "Expected the first checked-entry root in the highest physical Y slot.";
++    internal const string DelayedCopy = "Expected a total projection before preserving the previous call result.";
++    internal const string SeparateOwner = "Keep the checked-entry layout when the rejected edge owns a separate frame.";
++    internal const string HeapBoundary = "Keep the saved call result before a heap checkpoint.";
++    internal const string SavedFirstArgument = "Keep a call setup that reads the saved value as another argument.";
++}
+diff --git a/tests/Erlang.Tests/Resources/Beam/checked_root_order_fixture.erl b/tests/Erlang.Tests/Resources/Beam/checked_root_order_fixture.erl
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Resources/Beam/checked_root_order_fixture.erl
+@@ -0,0 +1,17 @@
++-module(checked_root_order_fixture).
++-export([unary/1, binary/1]).
++-record(payload, {entry, next, retained}).
++
++unary(Payload) ->
++    Result = checked_root_order_provider:first(Payload#payload.entry),
++    checked_root_order_provider:unary(Payload#payload.next),
++    case Result of
++        ok -> {ok, Payload#payload.retained};
++        {error, Reason} -> {error, Reason}
++    end.
++
++binary(Payload) ->
++    Result = checked_root_order_provider:first(Payload#payload.entry),
++    Next = checked_root_order_provider:binary(marker, Payload#payload.next),
++    Last = checked_root_order_provider:unary(Next),
++    {Result, Last, Payload#payload.retained}.

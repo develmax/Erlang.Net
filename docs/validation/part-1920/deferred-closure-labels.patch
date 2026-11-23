@@ -1,0 +1,79 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.Closures.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.Closures.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.Closures.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.Closures.cs
+@@ -800,6 +800,9 @@
+         Operand(LabelTag, closure.Entry);
+     }
+ 
++    private int MapClosureEntryLabel(int entry) =>
++        MapEmittedLabel(entry < 0 ? deferredEntries[entry] : entry);
++
+     private void EmitClosureTable(Stream output, int oldUnique)
+     {
+         Word(output, closures.Count);
+@@ -808,8 +811,7 @@
+             var closure = closures[index];
+             Word(output, atoms[closure.Name]);
+             Word(output, closure.Arity);
+-            int entry = closure.Entry < 0 ? deferredEntries[closure.Entry] : closure.Entry;
+-            Word(output, MapEmittedLabel(entry));
++            Word(output, MapClosureEntryLabel(closure.Entry));
+             Word(output, index);
+             Word(output, closure.CaptureCount);
+             Word(output, oldUnique);
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs
+@@ -65,7 +65,7 @@
+         if (references.Any(reference => reference.Label != 0 && !IsDefined(reference.Label))
+             || exports.Any(entry => !IsDefined(MapEmittedLabel(entry.Entry)))
+             || locals.Any(entry => !IsDefined(MapEmittedLabel(entry.Entry)))
+-            || closures.Any(closure => !IsDefined(MapEmittedLabel(closure.Entry))))
++            || closures.Any(closure => !IsDefined(MapClosureEntryLabel(closure.Entry))))
+         {
+             return null;
+         }
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamPhysicalLabelOrderChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamPhysicalLabelOrderChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamPhysicalLabelOrderChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamPhysicalLabelOrderChecks.cs
+@@ -1,5 +1,7 @@
+ using System.Collections;
+ using System.Numerics;
++using System.Reflection;
++using System.Runtime.CompilerServices;
+ using Erlang.Compiler;
+ using static Erlang.Compiler.BeamEmissionFormat;
+ using static Erlang.Tests.BeamBinaryHostAccess;
+@@ -60,6 +62,32 @@
+         {
+             throw new InvalidOperationException(NonphysicalLabels);
+         }
++
++        CheckDeferredClosureEntry();
++    }
++
++    private static void CheckDeferredClosureEntry()
++    {
++        const BindingFlags PrivateInstance = BindingFlags.Instance | BindingFlags.NonPublic;
++        var compiler = new BeamModuleCompiler("beam_deferred_label_probe");
++        System.Type compilerType = compiler.GetType();
++        var deferred = (Dictionary<int, int>)compilerType.GetField("deferredEntries", PrivateInstance)!
++            .GetValue(compiler)!;
++        deferred.Add(-1, 1);
++        compilerType.GetField("emittedLabels", PrivateInstance)!.SetValue(compiler, new[] { 0, 3, 2, 1 });
++        FieldInfo closureField = compilerType.GetField("closures", PrivateInstance)!;
++        var closures = (IList)closureField.GetValue(compiler)!;
++        object closure = RuntimeHelpers.GetUninitializedObject(closureField.FieldType.GetGenericArguments()[0]);
++        closure.GetType().GetProperty("Entry", PrivateInstance)!.SetValue(closure, -1);
++        closures.Add(closure);
++
++        // Compact one-byte unsigned operands carry the label value in the high nibble.
++        ReadOnlyMemory<byte> instructions = new byte[] { Label, 3 << 4, Return, Label, 1 << 4, Return, EndCode };
++        object result = Call(compiler, "OrderFinalPhysicalLabels", instructions, 4);
++        if (result is null || (int)Call(compiler, "MapClosureEntryLabel", -1) != 1)
++        {
++            throw new InvalidOperationException(NonphysicalLabels);
++        }
+     }
+ 
+     private static byte Opcode(object instruction) =>

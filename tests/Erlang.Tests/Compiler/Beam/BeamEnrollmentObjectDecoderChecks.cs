@@ -1,0 +1,230 @@
+using System.Collections;
+using System.Numerics;
+using Erlang;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamEnrollmentObjectDecoderChecks
+{
+    internal const string TestName = "compiler/beam/keeps-checked-record-callback-protection";
+    private const string Fixture = "beam_selected_decode.erl";
+    private const string Module = "beam_selected_decode";
+    private const string WrongLayout = "A checked record decoder did not retain the expected callback protection.";
+    private const string WrongValue = "A checked record decoder changed a result or exception.";
+
+    private const string Source = """
+        -module(beam_selected_decode).
+        -export([decode_direct/2, decode_protected/2, select/1]).
+
+        decode_direct(Input, Tags) ->
+            Fields = prepare(Input,Tags),
+            [X|Tail1] = Fields,
+            A = begin
+                V = read_integer(X,[]),
+                if 0 =< V, V =< 9 -> V; true -> exit(bounds) end
+            end,
+            [Y|Tail2] = Tail1,
+            B = read(Y,[2]),
+            Callback = beam_selected_decode:select(B),
+            [Z|Tail3] = Tail2,
+            C = read(Z,[3],Callback),
+            case Tail3 of [] -> true; _ -> exit({error,{asn1,{unexpected,Tail3}}}) end,
+            Result = {decoded,A,B,C},
+            Result.
+
+        decode_protected(Input, Tags) ->
+            Fields = prepare(Input,Tags),
+            [X|Tail1] = Fields,
+            A = begin
+                V = read_integer(X,[]),
+                if 0 =< V, V =< 9 -> V; true -> exit(bounds) end
+            end,
+            [Y|Tail2] = Tail1,
+            B = read(Y,[2]),
+            [Z|Tail3] = Tail2,
+            Open = read(Z,[]),
+            Callback = beam_selected_decode:select(B),
+            C = try Callback(type,Open,[])
+                catch Class:Reason when Class =:= error; Class =:= exit -> exit({table,Reason})
+                end,
+            case Tail3 of [] -> true; _ -> exit({error,{asn1,{unexpected,Tail3}}}) end,
+            Result = {decoded,A,B,C},
+            Result.
+
+        prepare(Input, []) -> Input.
+        read_integer(Data, []) -> <<Number:8/signed>> = Data, Number.
+        read(Value, _) -> Value.
+        read(Value, _, Callback) -> Callback(type,Value,[]).
+        select(error) -> fun(_,_,[]) -> erlang:error(broken) end;
+        select(exit) -> fun(_,_,[]) -> exit(broken) end;
+        select(throw) -> fun(_,_,[]) -> throw(broken) end;
+        select(Key) -> fun(_,Value,[]) -> {Key,Value} end.
+        """;
+
+    internal static async Task Run()
+    {
+        byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
+        byte[] differentKey = CodeGeneration.CompileBeamModule(
+            Source.Replace("beam_selected_decode:select(B)", "beam_selected_decode:select(A)", StringComparison.Ordinal),
+            Fixture
+        );
+        byte[] differentCatch = CodeGeneration.CompileBeamModule(
+            Source.Replace("Class =:= exit", "Class =:= throw", StringComparison.Ordinal),
+            Fixture
+        );
+        var module = BeamModule.Prepare(image, new BeamDependencySelection([Module]));
+        await using var runtime = new ProcessRuntime();
+        runtime.Modules.Register(
+            Module,
+            "select",
+            1,
+            (context, args) => module.Invoke(context, "select", args[0])
+        );
+        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
+        await actor.InvokeAsync(async context =>
+        {
+            Term first = new BitString([7]);
+            Term key = Term.A("key");
+            Term payload = Term.A("payload");
+            Term expected = Term.Tuple(
+                Term.A("decoded"),
+                Term.I(7),
+                key,
+                Term.Tuple(key, payload)
+            );
+            foreach (string decoder in new[] { "decode_direct", "decode_protected" })
+            {
+                if (!expected.Equals(await module.Invoke(
+                    context,
+                    decoder,
+                    Term.List(first, key, payload),
+                    Nil.Value
+                )))
+                {
+                    throw new InvalidOperationException(WrongValue);
+                }
+
+                await ExpectFailure(
+                    decoder,
+                    Term.List(new BitString([255]), key, payload),
+                    ErlangExceptionClasses.Exit,
+                    Term.A("bounds")
+                );
+                await ExpectFailure(
+                    decoder,
+                    Term.List(first, key),
+                    ErlangExceptionClasses.Error,
+                    Term.Tuple(Term.A("badmatch"), Nil.Value)
+                );
+            }
+
+            Term broken = Term.A("broken");
+            Term wrapped = Term.Tuple(Term.A("table"), broken);
+            await ExpectFailure(
+                "decode_protected",
+                Term.List(first, Term.A("error"), payload),
+                ErlangExceptionClasses.Exit,
+                wrapped
+            );
+            await ExpectFailure(
+                "decode_protected",
+                Term.List(first, Term.A("exit"), payload),
+                ErlangExceptionClasses.Exit,
+                wrapped
+            );
+            await ExpectFailure(
+                "decode_protected",
+                Term.List(first, Term.A("throw"), payload),
+                ErlangExceptionClasses.Throw,
+                broken
+            );
+            await ExpectFailure(
+                "decode_direct",
+                Term.List(first, Term.A("error"), payload),
+                ErlangExceptionClasses.Error,
+                broken
+            );
+
+            return Nil.Value;
+
+            async Task ExpectFailure(
+                string decoder,
+                Term values,
+                string kind,
+                Term reason
+            )
+            {
+                try
+                {
+                    await module.Invoke(
+                        context,
+                        decoder,
+                        values,
+                        Nil.Value
+                    );
+                }
+                catch (ErlangException error) when (error.ExceptionClass == kind && error.Reason.Equals(reason))
+                {
+                    return;
+                }
+
+                throw new InvalidOperationException(WrongValue);
+            }
+        });
+
+        var direct = ReadSchedule(image, "decode_direct");
+        var protectedLayout = ReadSchedule(image, "decode_protected");
+        var otherKey = ReadSchedule(differentKey, "decode_direct");
+        var otherCatch = ReadSchedule(differentCatch, "decode_protected");
+        if (direct != (4, 3, false, false, false, "x", 1)
+            || protectedLayout != (5, 3, true, true, true, "x", 0)
+            || otherKey == direct || otherCatch == protectedLayout)
+        {
+            throw new InvalidOperationException($"{WrongLayout} {direct}, {protectedLayout}, {otherKey}, {otherCatch}");
+        }
+    }
+
+    private static (int Frame, int Splits, bool Callback, bool Try, bool Reraise, string HeadRegister, int HeadSlot) ReadSchedule(
+        byte[] image,
+        string function
+    )
+    {
+        object code = Code(image);
+        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
+        object[] instructions = Items(code, "Instructions");
+        int start = Array.FindIndex(
+            instructions,
+            instruction => Opcode(instruction) == FunctionInfo
+                && Items(instruction, "Operands") is [_, var name, var arity]
+                && atoms[Value(name)] == function && Value(arity) == 2
+        );
+        if (start < 0)
+        {
+            throw new InvalidOperationException(WrongLayout);
+        }
+
+        object[] body = instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo).ToArray();
+        int frame = Value(Items(body.Single(instruction => Opcode(instruction) == Allocate), "Operands")[0]);
+        object lastSplit = body.Last(instruction => Opcode(instruction) == GetList);
+        object head = Items(lastSplit, "Operands")[1];
+
+        return (
+            frame,
+            body.Count(instruction => Opcode(instruction) == IsNonemptyList),
+            body.Any(instruction => Opcode(instruction) == CallFun),
+            body.Any(instruction => Opcode(instruction) == TryCase),
+            body.Any(instruction => Opcode(instruction) == Raise),
+            (string)Property(head, "Kind"),
+            Value(head)
+        );
+    }
+
+    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
+
+    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
+
+    private static object[] Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
+}

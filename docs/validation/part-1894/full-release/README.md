@@ -1,0 +1,9 @@
+# Part 1894 full uncached Windows OTP comparison
+
+The Windows OTP 29.1.1 release at ad05823719d77c8faee87348ea39513d4e2f99c5 was compiled from fresh source in four shards. The same SDK 10.0.400, runtime 10.0.11 and ERTS 17.1 inputs are verified. All 1,366 build descriptions and 937 logical include profile rows agree with Part 1892. The unchanged pinned checkout, archive and generator inventories are recorded.
+
+Elapsed time was 791.9863 seconds. The result is 411 Equal, 955 Different, 0 Unsupported and 0 SourceRejected. All status identities agree with Part 1892. Every changed image, 276 in total, passes preparation in the pinned ERTS. Sixteen Docs payloads become byte-identical. Two Docs remain, in maps and prim_eval. There are 15 Dbgi, 955 Code, 913 Line and 853 Type differences. No complete section agreement is lost. Sixteen normalized function bodies gain equality, including the restored asn1ct:is_werr/1, and none lose it. Frame distances shrink in 310 functions and grow in four.
+
+The pinned strong assembler validator subsequently rejects an update_record source in megaco_tcp_accept that ordinary preparation admitted. The installed reference passes the same strong test. The broader modeled validator finds 43 update_record instructions using uninitialized source registers across 20 modules in the changed-output cohort. The raw disassembly includes unrelated known roundtrip boundaries and is archived together with the exact isolated reproduction. This candidate is rejected for the local source commit pending the typed operand correction and its fresh whole-corpus and repository gate.
+
+The largest positional groups remain 7,511 same-live plain excess allocations in 823 modules, 751 equal-heap and equal-live excess allocations in 325 modules, and 2,527 missing list-helper identities in 378 modules. The pinned rank disassembles and groups for diagnostics. Complete file acceptance uses the original emitted bytes.

@@ -1,0 +1,528 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FiniteIntegerBounds.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FiniteIntegerBounds.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FiniteIntegerBounds.cs
+@@ -0,0 +1,339 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private byte[]? AnnotateFiniteIntegerBounds(
++        ReadOnlyMemory<byte> code,
++        int labelCount,
++        IReadOnlyList<FunctionDefinition> functions,
++        IReadOnlyDictionary<(string Name, int Arity), int> localEntries
++    )
++    {
++        if (!SsaTypeInferenceEnabled || !code.Span.Contains(GcBifTwo))
++        {
++            return null;
++        }
++
++        var atomNames = atoms.OrderBy(entry => entry.Value).Select(entry => entry.Key).ToArray();
++        var operations = imports.OrderBy(entry => entry.Value)
++            .Select(entry => entry.Key)
++            .Select(entry => entry.Arity == 2 && atomNames[entry.Module - 1] == ErlangModuleNames.Module
++                ? atomNames[entry.Function - 1] : null)
++            .ToArray();
++        if (!operations.Any(operation => operation is ErlangOperators.BitwiseAnd or ErlangOperators.ShiftLeft
++            or ErlangOperators.Plus))
++        {
++            return null;
++        }
++
++        var header = new BeamCodeHeader(
++            BeamWire.FormatVersion,
++            highestOpcode,
++            labelCount,
++            exports.Count + locals.Count,
++            code
++        );
++        IReadOnlyList<BeamInstruction> body;
++        try
++        {
++            body = BeamInstructionReader.Read(header, atoms.Count + 1, literalBytes.Count);
++        }
++        catch (Exception error) when (error is InvalidDataException or NotSupportedException)
++        {
++            return null;
++        }
++
++        var localMasks = ReadLocalMaskResults(functions, localEntries);
++        var facts = new Dictionary<BeamOperand, (long Lower, long Upper)>();
++        var x0 = new BeamOperand(BeamOperandParameters.X, 0);
++        using var output = new MemoryStream();
++        int copied = 0;
++        foreach (BeamInstruction instruction in body)
++        {
++            var operands = instruction.Operands;
++            switch (instruction.Definition.Opcode)
++            {
++                case Line:
++                    break;
++                case InitYRegisters:
++                    foreach (var initialized in operands.Skip(1))
++                    {
++                        facts.Remove(Untyped(initialized));
++                    }
++
++                    break;
++                case TestHeap:
++                    ClearX((int)operands[1].Value);
++                    break;
++                case PutTuple:
++                    facts.Remove(Untyped(operands[0]));
++                    break;
++                case Move:
++                    var destination = Untyped(operands[1]);
++                    if (Lookup(operands[0]) is { } moved)
++                    {
++                        facts[destination] = moved;
++                    }
++                    else
++                    {
++                        facts.Remove(destination);
++                    }
++
++                    break;
++                case LocalCall or ExternalCall:
++                    ClearX(0);
++                    if (instruction.Definition.Opcode == LocalCall
++                        && localMasks.TryGetValue((int)operands[1].Value, out long mask))
++                    {
++                        facts[x0] = (0, mask);
++                    }
++
++                    break;
++                case GcBifTwo when operands[0].Kind == BeamOperandParameters.Failure
++                    && operations[(int)operands[2].Value] is { } operation:
++                    if (!IsRangeConsumer(operation))
++                    {
++                        facts.Clear();
++                        break;
++                    }
++
++                    var left = Lookup(operands[3]);
++                    var right = Lookup(operands[4]);
++                    Annotate(
++                        instruction,
++                        3,
++                        left
++                    );
++                    Annotate(
++                        instruction,
++                        4,
++                        right
++                    );
++                    ClearX((int)operands[1].Value);
++                    var result = Untyped(operands[5]);
++                    facts.Remove(result);
++                    if (InferBitwiseResult(operation, left, right, operands[3], operands[4]) is { } range)
++                    {
++                        facts[result] = range;
++                    }
++
++                    break;
++                case IsLess or IsGreaterOrEqual or NumericEqualTest or NumericNotEqualTest or ExactEqualTest or ExactNotEqualTest:
++                    Annotate(
++                        instruction,
++                        1,
++                        Lookup(operands[1])
++                    );
++                    Annotate(
++                        instruction,
++                        2,
++                        Lookup(operands[2])
++                    );
++                    // The comparison does not overwrite its inputs. Labels
++                    // still end the proof before any other incoming route.
++                    break;
++                default:
++                    facts.Clear();
++                    break;
++            }
++        }
++
++        if (copied == 0)
++        {
++            return null;
++        }
++
++        output.Write(code.Span[copied..]);
++
++        return output.ToArray();
++
++        (long Lower, long Upper)? Lookup(BeamOperand operand)
++        {
++            if (operand.TypeIndex is int type && typeBits[type] is
++                (IntegerTypeBits, long minimum, long maximum, null))
++            {
++                return (minimum, maximum);
++            }
++
++            return facts.TryGetValue(Untyped(operand), out var known) ? known : null;
++        }
++
++        void ClearX(int live)
++        {
++            foreach (var register in facts.Keys.Where(register => register.Kind == BeamOperandParameters.X
++                && register.Value >= live).ToArray())
++            {
++                facts.Remove(register);
++            }
++        }
++
++        void Annotate(BeamInstruction instruction, int index, (long Lower, long Upper)? range)
++        {
++            BeamOperand operand = instruction.Operands[index];
++            if (range is not { } known || operand.Kind is not (BeamOperandParameters.X or BeamOperandParameters.Y)
++                || operand.TypeIndex is int oldType && typeBits[oldType] is not (IntegerTypeBits, null, null, null))
++            {
++                return;
++            }
++
++            // Preserve the original operand encoding and replace only its type operand.
++            int start = instruction.Offset + 1;
++            var cursor = new BeamCursor(code[start..]);
++            for (int position = 0; position < index; position++)
++            {
++                if (BeamCompactReader.Read(cursor).WireTag == BeamOperandParameters.ExtendedTag)
++                {
++                    _ = BeamCompactReader.Read(cursor);
++                    if (instruction.Operands[position].TypeIndex.HasValue)
++                    {
++                        _ = BeamCompactReader.Read(cursor);
++                    }
++                }
++            }
++
++            int offset = start + cursor.Position;
++            output.Write(code.Span[copied..offset]);
++            if (operand.TypeIndex.HasValue)
++            {
++                _ = BeamCompactReader.Read(cursor);
++            }
++
++            int register = start + cursor.Position;
++            _ = BeamCompactReader.Read(cursor);
++            output.WriteByte(ExtendedTypedRegisterOperand);
++            output.Write(code.Span[register..(start + cursor.Position)]);
++            if (operand.TypeIndex.HasValue)
++            {
++                _ = BeamCompactReader.Read(cursor);
++            }
++
++            int type = GetOperandTypeIndex((IntegerTypeBits, known.Lower, known.Upper, null));
++            BeamCompactWriter.Write(output, BeamWire.UnsignedTag, type);
++            copied = start + cursor.Position;
++        }
++
++        static BeamOperand Untyped(BeamOperand operand) =>
++            operand.TypeIndex is null ? operand : operand with { TypeIndex = null };
++    }
++
++    private Dictionary<int, long> ReadLocalMaskResults(
++        IReadOnlyList<FunctionDefinition> functions,
++        IReadOnlyDictionary<(string Name, int Arity), int> localEntries
++    )
++    {
++        var masks = new Dictionary<int, long>();
++        if (ModuleOptimizationDisabled || OnLoadFunction is not null)
++        {
++            return masks;
++        }
++
++        foreach (FunctionDefinition function in functions)
++        {
++            var signature = (function.Name, function.Arity);
++            if (function.IsInlineFailure || IsDeclaredNative(signature)
++                || function.Clauses is not [{ Guard: null, Body: var value }]
++                || !localEntries.TryGetValue(signature, out int label)
++                || (label <= 0 && !deferredEntries.TryGetValue(label, out label)))
++            {
++                continue;
++            }
++
++            while (true)
++            {
++                if (value is Expr.Sequence { Items.Count: > 0 } sequence)
++                {
++                    value = sequence.Items[^1];
++                }
++                else if (value is Expr.Block block)
++                {
++                    value = block.Body;
++                }
++                else
++                {
++                    break;
++                }
++            }
++
++            if (value is not Expr.Binary { Operator: ErlangOperators.BitwiseAnd, Left: var left, Right: var right })
++            {
++                continue;
++            }
++
++            Integer? mask = (left, right) switch
++            {
++                (Expr.Literal { Value: Integer }, Expr.Literal { Value: Integer }) => null,
++                (Expr.Literal { Value: Integer constant }, _) => constant,
++                (_, Expr.Literal { Value: Integer constant }) => constant,
++                _ => null
++            };
++            if (mask is not null && mask.Value > 0 && mask.Value <= BeamBinaryExtractRangeLimits.MaximumEncodedInteger)
++            {
++                masks[MapEmittedLabel(label)] = (long)mask.Value;
++            }
++        }
++
++        return masks;
++    }
++
++    private static bool IsRangeConsumer(string operation) =>
++        operation is ErlangOperators.BitwiseAnd or ErlangOperators.BitwiseOr or ErlangOperators.BitwiseXor
++            or ErlangOperators.ShiftLeft or ErlangOperators.ShiftRight or ErlangOperators.IntegerDivide
++            or ErlangOperators.Remainder or ErlangOperators.Plus or ErlangOperators.Minus or ErlangOperators.Multiply;
++
++    private static (long Lower, long Upper)? InferBitwiseResult(
++        string operation,
++        (long Lower, long Upper)? left,
++        (long Lower, long Upper)? right,
++        BeamOperand leftOperand,
++        BeamOperand rightOperand
++    )
++    {
++        // beam_bounds treats a nonnegative mask as [0, mask] on success.
++        // When the other bound is smaller, a low-bit mask is the identity.
++        if (operation == ErlangOperators.BitwiseAnd)
++        {
++            bool literalOnLeft = leftOperand.Kind == BeamOperandParameters.Integer;
++            var constant = literalOnLeft ? leftOperand : rightOperand;
++            var input = literalOnLeft ? right : left;
++            if (constant.Kind != BeamOperandParameters.Integer || constant.Value <= 0
++                || constant.Value > BeamBinaryExtractRangeLimits.MaximumEncodedInteger
++                || input is { Lower: not 0 })
++            {
++                return null;
++            }
++
++            long mask = (long)constant.Value;
++            if (input is null || input.Value.Upper >= mask)
++            {
++                return (0, mask);
++            }
++
++            return (mask & (mask + 1)) == 0 ? (0, input.Value.Upper) : null;
++        }
++
++        if (left is not { } value || rightOperand.Kind != BeamOperandParameters.Integer || rightOperand.Value < 0)
++        {
++            return null;
++        }
++
++        long maximum = BeamBinaryExtractRangeLimits.MaximumEncodedInteger;
++        if (operation == ErlangOperators.ShiftLeft && value.Lower == 0
++            && rightOperand.Value <= BeamTypeWire.NativeSmallMagnitudeBits64)
++        {
++            int count = (int)rightOperand.Value;
++
++            return value.Upper <= maximum >> count ? (0, value.Upper << count) : null;
++        }
++
++        if (operation == ErlangOperators.Plus && value.Lower >= 0 && rightOperand.Value <= maximum - value.Upper)
++        {
++            long constant = (long)rightOperand.Value;
++
++            return (value.Lower + constant, value.Upper + constant);
++        }
++
++        return null;
++    }
++}
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamFiniteIntegerBoundsChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamFiniteIntegerBoundsChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamFiniteIntegerBoundsChecks.cs
+@@ -0,0 +1,152 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamFiniteIntegerBoundsChecks
++{
++    internal const string TestName = "compiler/beam/finite-integer-ranges-from-masks-shifts-and-addition";
++    private const string WrongRange = "Expected finite integer bounds only for a proved arithmetic operand.";
++    private const string WrongResult = "The bounded integer expression changed its result or error.";
++    private const string Source = """
++        -module(bitwise_range_probe).
++        -export([session/2, adjacent/1, compare/2, negative/2, dynamic/2, checked/2]).
++
++        session(Value,N) ->
++            T = mask(Value),
++            S = (T bsl 20) band 16#ffffffff,
++            O = bitwise_range_probe_peer:opaque(N) - 1,
++            {S bor O,T bsl 32}.
++
++        mask(Value) ->
++            V = bitwise_range_probe_peer:opaque(Value),
++            V band 16#ffffffff.
++
++        adjacent(Value) -> ((Value band 63) bsl 4) + 2.
++
++        compare(Key,Limit) ->
++            A = erlang:phash2(Key,512) + 1,
++            if
++                A > Limit -> above;
++                true -> other
++            end.
++
++        negative(Value,Other) -> (Value band -1) bor Other.
++        dynamic(Value,Offset) -> ((Value band 63) bsl Offset) + 2.
++        checked(Value,Limit) when (Value band 63) > Limit -> above;
++        checked(_,_) -> other.
++        """;
++
++    internal static async Task Run()
++    {
++        byte[] beam = CodeGeneration.CompileBeamModule(Source, "bitwise_range_probe.erl");
++        CheckRanges(beam);
++        var image = BeamModule.Prepare(beam);
++        await using var runtime = new ProcessRuntime();
++        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
++        await actor.InvokeAsync(async context =>
++        {
++            if (!(await image.Invoke(context, "adjacent", Term.I(-1))).Equals(Term.I(1010))
++                || !(await image.Invoke(
++                    context,
++                    "dynamic",
++                    Term.I(-1),
++                    Term.I(-2)
++                )).Equals(Term.I(17))
++                || !(await image.Invoke(
++                    context,
++                    "checked",
++                    Term.A("atom"),
++                    Term.I(0)
++                )).Equals(Term.A("other")))
++            {
++                throw new InvalidOperationException(WrongResult);
++            }
++
++            try
++            {
++                await image.Invoke(context, "adjacent", Term.A("atom"));
++                throw new InvalidOperationException(WrongResult);
++            }
++            catch (ErlangException error) when (error.Reason.Equals(Term.A("badarith")))
++            {
++            }
++
++            return Nil.Value;
++        });
++    }
++
++    private static void CheckRanges(byte[] beam)
++    {
++        object code = Code(beam);
++        object structure = Property(code, "Structure");
++        string?[] atoms = ((IEnumerable)Property(structure, "Atoms")).Cast<string?>().ToArray();
++        object table = Call(Type("BeamTypeTableReader"), "Read", structure);
++        object[] types = ((IEnumerable)Property(table, "Entries")).Cast<object>().ToArray();
++        object[] instructions = ((IEnumerable)Property(code, "Instructions")).Cast<object>().ToArray();
++        int[] entries = Enumerable.Range(0, instructions.Length)
++            .Where(index => Opcode(instructions[index]) == FunctionInfo).ToArray();
++
++        object[] session = Find("session", GcBifTwo);
++        Expect(session[0], 3, 0, uint.MaxValue);
++        Expect(session[1], 3, 0, (long)uint.MaxValue << 20);
++        Expect(session[3], 3, 0, uint.MaxValue);
++        Expect(session[4], 3, 0, uint.MaxValue);
++        object[] adjacent = Find("adjacent", GcBifTwo);
++        Expect(adjacent[1], 3, 0, 63);
++        Expect(adjacent[2], 3, 0, 1008);
++        Expect(Find("compare", IsLess).Single(), 2, 1, 4294967296);
++        Expect(Find("negative", GcBifTwo)[1], 3, null, null);
++        object[] dynamic = Find("dynamic", GcBifTwo);
++        Expect(dynamic[1], 3, 0, 63);
++        Expect(dynamic[2], 3, null, null);
++        Expect(Find("checked", IsLess).Single(), 2, null, null);
++
++        object[] Find(string name, byte opcode)
++        {
++            int item = Array.FindIndex(entries, position => atoms[(int)(BigInteger)Property(Operand(instructions[position], 1), "Value")] == name);
++
++            return instructions[entries[item]..entries[item + 1]].Where(operation => Opcode(operation) == opcode).ToArray();
++        }
++
++        void Expect(
++            object operation,
++            int position,
++            long? minimum,
++            long? maximum
++        )
++        {
++            object? index = Property(Operand(operation, position), "TypeIndex");
++            if (index is not int type)
++            {
++                if (minimum is not null || maximum is not null)
++                {
++                    throw new InvalidOperationException(WrongRange);
++                }
++
++                return;
++            }
++
++            object entry = types[type];
++            int flags = (int)Property(entry, "MetadataFlags");
++            long? emittedMinimum = (flags & LowerBoundFlag) == 0 ? null : (long)Property(entry, "Minimum");
++            long? emittedMaximum = (flags & UpperBoundFlag) == 0 ? null : (long)Property(entry, "Maximum");
++            if (minimum != emittedMinimum || maximum != emittedMaximum)
++            {
++                throw new InvalidOperationException(WrongRange);
++            }
++        }
++    }
++
++    private const int LowerBoundFlag = 1 << 13;
++    private const int UpperBoundFlag = 1 << 14;
++
++    private static byte Opcode(object instruction) =>
++        (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static object Operand(object instruction, int position) =>
++        ((IEnumerable)Property(instruction, "Operands")).Cast<object>().ElementAt(position);
++}
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+@@ -1063,6 +1063,12 @@
+             labelCount,
+             ReadLocalResultEntries(functions, localEntries)
+         ) ?? code;
++        code = AnnotateFiniteIntegerBounds(
++            code,
++            labelCount,
++            functions,
++            localEntries
++        ) ?? code;
+         Word(output, CodeHeaderSize);
+         Word(output, BeamWire.FormatVersion);
+         Word(output, highestOpcode);
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12248,6 +12248,7 @@
+ Test(Erlang.Tests.BeamSendArgumentConstructionChecks.TestName, Erlang.Tests.BeamSendArgumentConstructionChecks.Run);
+ Test(Erlang.Tests.BeamQuotedFeatureAtomChecks.TestName, Erlang.Tests.BeamQuotedFeatureAtomChecks.Run);
+ Test(Erlang.Tests.BeamConstructedBitMatchChecks.TestName, Erlang.Tests.BeamConstructedBitMatchChecks.Run);
++Test(Erlang.Tests.BeamFiniteIntegerBoundsChecks.TestName, Erlang.Tests.BeamFiniteIntegerBoundsChecks.Run);
+ Test(
+     Erlang.Tests.BeamConstructedListGeneratorHelperChecks.TestName,
+     Erlang.Tests.BeamConstructedListGeneratorHelperChecks.Run

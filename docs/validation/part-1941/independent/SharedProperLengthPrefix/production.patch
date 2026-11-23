@@ -1,0 +1,138 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -1491,7 +1491,8 @@
+             }
+ 
+             if (recursiveClosure is null && clauses.Count == function.Clauses.Count
+-                && TryEmitStructuralListEntry(function, functionInfo))
++                && (TryEmitSharedClosedListLengths(function, functionInfo)
++                    || TryEmitStructuralListEntry(function, functionInfo)))
+             {
+                 return;
+             }
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedClosedListLengths.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedClosedListLengths.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedClosedListLengths.cs
+@@ -0,0 +1,120 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private sealed partial class GeneralEmitter
++    {
++        private bool TryEmitSharedClosedListLengths(FunctionDefinition function, int functionInfo)
++        {
++            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled || function.Arity != 1
++                || function.Clauses is not [var first, var second]
++                || ReadBranch(first) is not { } left || ReadBranch(second) is not { } right
++                || left.Length == right.Length)
++            {
++                return false;
++            }
++
++            var (longer, shorter) = left.Length > right.Length ? (left, right) : (right, left);
++            const int tail = 2;
++            int shorterEntry = Label();
++            int current = 0;
++            for (int index = 0; index < longer.Length; index++)
++            {
++                // Failure at the shorter length permits an empty tail there.
++                // Earlier and later failures are genuine function-clause failures.
++                owner.EmitNonemptyList(current, index == shorter.Length ? shorterEntry : functionInfo);
++                owner.EmitListParts(
++                    current,
++                    XRegisterTag,
++                    Head(index),
++                    XRegisterTag,
++                    tail
++                );
++                current = tail;
++            }
++
++            var frames = new Dictionary<int, int>();
++            owner.EmitNilTest(XRegisterTag, tail, functionInfo);
++            BeamSourceLocation previous = EmitBranch(longer, 0, location);
++
++            Mark(shorterEntry);
++            owner.EmitNilTest(XRegisterTag, tail, functionInfo);
++            EmitBranch(shorter, 1, previous);
++            if (frames.Count != 0)
++            {
++                TupleFrames = frames;
++            }
++
++            return true;
++
++            (int Length, Clause Clause, (Pattern.Variable Variable, int Register)[] Inputs, EntryCall? Tail)? ReadBranch(
++                Clause clause
++            )
++            {
++                if (clause.Guard is not null || clause.Patterns is not
++                    [Pattern.List { Tail: null, Items: { Count: > 0 } items }]
++                    || items.Count + 2 > FirstReservedXRegister || items.Any(item => item is not Erlang.Pattern.Variable))
++                {
++                    return null;
++                }
++
++                var variables = items.Cast<Pattern.Variable>().ToArray();
++                if (!DistinctBindings(variables))
++                {
++                    return null;
++                }
++
++                var parameters = Enumerable.Repeat<Pattern>(new Pattern.Variable(VariableScopeNames.Wildcard),
++                    items.Count + 2).ToArray();
++                for (int index = 0; index < items.Count; index++)
++                {
++                    parameters[Head(index)] = variables[index];
++                }
++
++                Clause prepared = clause with { Patterns = parameters };
++                var used = ReadUsedEntryParameters(prepared);
++                var inputs = variables.Select((variable, index) => (Variable: variable, Register: Head(index)))
++                    .Where(binding => used is null || used.Contains(binding.Variable.Name)).ToArray();
++                string[] names = parameters.Cast<Pattern.Variable>().Select(variable => variable.Name).ToArray();
++                EntryCall? call = prepared.Body is Expr.Call tailCall
++                    ? ReadEntryCall(tailCall, names, allowControlTransfer: true) : null;
++                if (call is null && ReadEntrySequenceBody(prepared.Body, inputs) is null)
++                {
++                    return null;
++                }
++
++                return (items.Count, prepared, inputs, call);
++            }
++
++            BeamSourceLocation EmitBranch(
++                (int Length, Clause Clause, (Pattern.Variable Variable, int Register)[] Inputs, EntryCall? Tail) branch,
++                int index,
++                BeamSourceLocation previous
++            )
++            {
++                if (branch.Tail is { } call)
++                {
++                    EmitRegisterTailCall(call, previous);
++
++                    return CallLocation(call.Call, location);
++                }
++
++                EmitEntryClauseBody(
++                    branch.Clause,
++                    branch.Inputs,
++                    index,
++                    frames,
++                    null,
++                    null,
++                    literalDispatch: false
++                );
++
++                return location;
++            }
++
++            static int Head(int index) => index == 0 ? 1 : index + 2;
++        }
++    }
++}

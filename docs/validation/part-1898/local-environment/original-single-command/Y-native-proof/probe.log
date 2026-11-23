@@ -1,0 +1,17 @@
+{"lane":"Y","phase":"identity","atMs":510.7461,"data":{"TestSha256":"6745DDA1A8907F9870F2944EBEF2086E3165E62EC21C033EDA3A9EA498AB4C75","RuntimeSha256":"0E4E62440BDF2956D9BD1E641F6AF80D5B45102E2ABB50231A761B3620F94666","framework":".NET 10.0.11","priority":"Normal","processors":16,"hashes":{"jaro-regression.etf":"DD44862345911CE431831A2CECF1F22CCFF552A70BC32164BF80B2B2D6B9FDC0","string_port_cases.beam":"D0D0BDA5F42076E359E4568D3DDB788569740207E39301773EE6146F1A3B81CD","string.beam":"37C66C6A5DF38AE239CA1EEDEDBD2CE2FBC4B8B4F3EB7605E115D0AB73FDA697","unicode.beam":"2495812294976A34AE904E7709B75348F3DDDF3B950413199867A78E093A4379","unicode_util.beam":"5CDC886E30216B5DE33B6F4BDC1DEA006EAA3392EC4A83EC90CD7B946B5759FF"},"diagnosticRowDeadlineSeconds":60}}
+{"lane":"Y","phase":"selection","atMs":679.385,"data":{"wallMs":36.0562000000001,"cpuMs":15.625,"allocatedBytes":6876592,"gen0":0,"gen1":0,"gen2":0}}
+{"lane":"Y","phase":"runtime-created","atMs":4598.0322,"data":{"wallMs":3913.8590999999997,"cpuMs":4546.875,"allocatedBytes":270387640,"gen0":28,"gen1":10,"gen2":4}}
+{"lane":"Y","phase":"prepared","atMs":4682.7512,"data":{"rows":1,"elapsed":{"wallMs":84.17659999999978,"cpuMs":78.125,"allocatedBytes":6977536,"gen0":1,"gen1":0,"gen2":0}}}
+{"lane":"Y","phase":"row-scheduled","atMs":4694.154,"data":{"row":1,"mfa":"jaro_similarity/2"}}
+{"lane":"Y","phase":"inner-error","atMs":15865.5997,"data":{"row":1,"timing":{"wallMs":11162.239599999999,"cpuMs":14984.375,"allocatedBytes":2813339040,"gen0":315,"gen1":96,"gen2":28},"error":"worker_timeout"}}
+Unhandled exception. Erlang.ErlangException: worker_timeout
+   at Erlang.ModuleRegistry.InvokeFirstOrdinaryEntry(ProcessContext context, String module, String function, Term[] arguments, ErlangFunction body, ModuleCodeImage image, IDisposable code, OwnedBindingKind507 kind) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\src\Runtime\Erlang.Runtime.Core\Modules\ModuleRegistry.OrdinaryEntry.cs:line 41
+   at Program.<>c__DisplayClass0_3.<<<Main>$>b__15>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\local-otp-validation-1897\original-jaro-per-row-diagnostic\probe\Program.cs:line 93
+--- End of stack trace from previous location ---
+   at Erlang.Tests.RuntimeNodeFoundationHostActor.<>c__DisplayClass10_0`1.<<InvokeWithDeadline500Async>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\local-otp-validation-1897\original-jaro-per-row-diagnostic\probe\RuntimeNodeFoundationHostActor.cs:line 63
+--- End of stack trace from previous location ---
+   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeWithDeadline500Async[T](Func`2 command, TimeSpan deadline) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\local-otp-validation-1897\original-jaro-per-row-diagnostic\probe\RuntimeNodeFoundationHostActor.cs:line 71
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\local-otp-validation-1897\original-jaro-per-row-diagnostic\probe\Program.cs:line 87
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\local-otp-validation-1897\original-jaro-per-row-diagnostic\probe\Program.cs:line 118
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\local-otp-validation-1897\original-jaro-per-row-diagnostic\probe\Program.cs:line 126
+   at Program.<Main>(String[] args)

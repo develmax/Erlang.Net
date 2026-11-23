@@ -1,0 +1,29 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamStaticListClosureMappingChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamStaticListClosureMappingChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamStaticListClosureMappingChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamStaticListClosureMappingChecks.cs
+@@ -101,7 +101,14 @@
+ 
+     private static async Task VerifyStructuralBranches()
+     {
+-        byte[] image = CodeGeneration.CompileBeamModule(StructuralSource, "beam_structural_closure_generators.erl");
++        const string structuralFixture = "beam_structural_closure_generators.erl";
++        byte[] image = CodeGeneration.CompileBeamModule(StructuralSource, structuralFixture);
++        string captureLaterArm = StructuralSource.Replace(
++            "(Value) -> {other, Value} end",
++            "(Value) -> {other, Rows, Value} end",
++            StringComparison.Ordinal
++        );
++        byte[] captured = CodeGeneration.CompileBeamModule(captureLaterArm, structuralFixture);
+         object code = Code(image);
+         var functions = Items(code, "Functions")
+             .OrderBy(function => (int)Property(function, "FirstInstructionIndex"))
+@@ -114,7 +121,8 @@
+                 ("-tuple_branch/1-fun-0-", 1)
+             ])
+             || !UsesMappingCall(image, "tuple_branch", direct: true)
+-            || !UsesMappingCall(image, "cons_branch", direct: false))
++            || !UsesMappingCall(image, "cons_branch", direct: false)
++            || !UsesMappingCall(captured, "tuple_branch", direct: false))
+         {
+             throw new InvalidOperationException(WrongLayout);
+         }

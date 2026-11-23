@@ -4,29 +4,54 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
-    private static byte[]? KeepTerminalCallResultsInX0(
+    private byte[]? KeepTerminalCallResultsInX0(
         ReadOnlyMemory<byte> code,
         IReadOnlyList<BeamInstruction> body,
-        List<(int Start, int End, int Slot)> stackOperands
+        IReadOnlyList<(int Start, int End, int Slot)> stackOperands
     )
     {
         using var output = new MemoryStream();
         int copied = 0;
         int stackIndex = 0;
         var result = new BeamOperand(BeamOperandParameters.X, 0);
+        bool ownsSelector = false;
         for (int index = 0; index + 6 < body.Count; index++)
         {
-            if (body[index].Definition.Opcode is not (LocalCall or ExternalCall)
-                || body[index + 1] is not { Definition.Opcode: Move, Operands: [var source, var saved] }
-                || source != result || saved.Kind != BeamOperandParameters.Y
-                || body[index + 2] is not { Definition.Opcode: TestHeap, Operands: [_, var live] } heap
-                || !live.Value.IsZero || body[index + 4].Definition.Opcode != Deallocate
-                || body[index + 5].Definition.Opcode != Return)
+            byte opcode = body[index].Definition.Opcode;
+            if (opcode == FunctionInfo)
+            {
+                ownsSelector = body[index + 1].Definition.Opcode == Label
+                    && registerSelectorEntries.Contains((int)body[index + 1].Operands[0].Value);
+            }
+
+            bool producesResult = opcode is LocalCall or ExternalCall;
+            if (!producesResult && !(opcode == Label && ownsSelector))
             {
                 continue;
             }
 
-            BeamInstruction construction = body[index + 3];
+            int spill = index + 1;
+            // The predicate goes before the spill. Its failure edge still sees the old frame slot.
+            if (producesResult && body[spill] is
+                {
+                    Definition.Opcode: IsInteger,
+                    Operands: [{ Kind: BeamOperandParameters.Label }, var tested]
+                } && SameProjectionRegister(tested, result))
+            {
+                spill++;
+            }
+
+            if (spill + 4 >= body.Count
+                || body[spill] is not { Definition.Opcode: Move, Operands: [var source, var saved] }
+                || source != result || saved.Kind != BeamOperandParameters.Y
+                || body[spill + 1] is not { Definition.Opcode: TestHeap, Operands: [_, var live] } heap
+                || !live.Value.IsZero || body[spill + 3].Definition.Opcode != Deallocate
+                || body[spill + 4].Definition.Opcode != Return)
+            {
+                continue;
+            }
+
+            BeamInstruction construction = body[spill + 2];
             bool returnsSavedResult = construction.Definition.Opcode switch
             {
                 PutTuple => construction.Operands[0] == result
@@ -34,6 +59,8 @@ internal sealed partial class BeamModuleCompiler
                 PutList => construction.Operands[2] == result
                     && (SameProjectionRegister(construction.Operands[0], saved)
                         || SameProjectionRegister(construction.Operands[1], saved)),
+                MakeFun => construction.Operands[1] == result
+                    && construction.Operands.Skip(3).Any(operand => SameProjectionRegister(operand, saved)),
                 _ => false
             };
             if (!returnsSavedResult)
@@ -41,7 +68,7 @@ internal sealed partial class BeamModuleCompiler
                 continue;
             }
 
-            output.Write(code.Span[copied..body[index + 1].Offset]);
+            output.Write(code.Span[copied..body[spill].Offset]);
             // The final compact operand of test_heap is the zero live-register count.
             output.Write(code.Span[heap.Offset..(construction.Offset - 1)]);
             BeamCompactWriter.Write(output, BeamWire.UnsignedTag, 1);
@@ -51,7 +78,7 @@ internal sealed partial class BeamModuleCompiler
                 stackIndex++;
             }
 
-            int end = body[index + 4].Offset;
+            int end = body[spill + 3].Offset;
             while (stackIndex < stackOperands.Count && stackOperands[stackIndex].Start < end)
             {
                 var (start, finish, slot) = stackOperands[stackIndex++];

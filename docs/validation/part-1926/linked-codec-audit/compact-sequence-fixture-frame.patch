@@ -1,0 +1,12 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamRequiredOptionalSequenceEncoderChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamRequiredOptionalSequenceEncoderChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamRequiredOptionalSequenceEncoderChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamRequiredOptionalSequenceEncoderChecks.cs
+@@ -55,7 +55,7 @@
+         int[] labels = body.Where(instruction => Opcode(instruction) == Label)
+             .Select(instruction => Value(Items(instruction, "Operands").Single())).ToArray();
+         object[] allocations = body.Where(instruction => Opcode(instruction) == Allocate).ToArray();
+-        if (allocations is not [var allocation] || Items(allocation, "Operands").Select(Value).ToArray() is not [4, 2]
++        if (allocations is not [var allocation] || Items(allocation, "Operands").Select(Value).ToArray() is not [3, 2]
+             || body.Count(instruction => Opcode(instruction) == TestArity) != 1
+             || body.Count(instruction => Opcode(instruction) == GcBifTwo) != 2
+             || !labels.SequenceEqual(labels.Order()))

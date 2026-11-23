@@ -1,0 +1,118 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamSelectorAliasAcrossEffectsChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamSelectorAliasAcrossEffectsChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamSelectorAliasAcrossEffectsChecks.cs
+@@ -0,0 +1,113 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamSelectorAliasAcrossEffectsChecks
++{
++    internal const string TestName = "compiler/beam/reuses-selected-tuple-after-call-effects";
++    private const string Fixture = "beam_selector_alias_probe.erl";
++    private const string UnexpectedReturn = "The selected tuple must remain live across effects and return without reconstruction.";
++    private const string UnexpectedConstruction = "A different returned tuple must still be constructed.";
++
++    internal const string Source = """
++        -module(beam_selector_alias_probe).
++        -export([one/1,two/1,changed/1,bound/2,guarded/1,produce/1,record_effect/2]).
++        one(Input) ->
++            case ?MODULE:produce(Input) of
++                {accepted, Value} ->
++                    ?MODULE:record_effect(first, Value),
++                    {accepted, Value};
++                Other -> Other
++            end.
++        two(Input) ->
++            case ?MODULE:produce(Input) of
++                {second_tag, Value} ->
++                    ?MODULE:record_effect(first, Value),
++                    ?MODULE:record_effect(second, independent),
++                    {second_tag, Value};
++                Other -> Other
++            end.
++        changed(Input) ->
++            case ?MODULE:produce(Input) of
++                {accepted, Value} ->
++                    ?MODULE:record_effect(first, Value),
++                    {changed, Value};
++                Other -> Other
++            end.
++        bound(Input, Value) ->
++            case ?MODULE:produce(Input) of
++                {accepted, Value} ->
++                    ?MODULE:record_effect(first, Value),
++                    {accepted, Value};
++                Other -> Other
++            end.
++        guarded(Input) ->
++            case ?MODULE:produce(Input) of
++                {accepted, Value} when is_integer(Value) ->
++                    ?MODULE:record_effect(first, Value),
++                    {accepted, Value};
++                Other -> Other
++            end.
++        produce(Input) -> self() ! {produced,Input}, Input.
++        record_effect(Tag, fail) -> self() ! {Tag,fail}, erlang:error(effect_failure);
++        record_effect(Tag, Payload) -> self() ! {Tag,Payload}, ignored.
++        """;
++
++    internal static byte[] CompileFixture() => CodeGeneration.CompileBeamModule(Source, Fixture);
++
++    internal static void Run()
++    {
++        object code = Code(CompileFixture());
++        object[] instructions = Items(code, "Instructions").ToArray();
++        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        foreach (string name in new[] { "one", "two" })
++        {
++            object[] body = Function(name);
++            int[] calls = body.Select((op, index) => (op, index)).Where(item => Opcode(item.op) == ExternalCall)
++                .Select(item => item.index).ToArray();
++            int spill = Array.FindIndex(body, instruction => IsMove(instruction, "x", "y"));
++            int test = Array.FindIndex(body, instruction => Opcode(instruction) == IsTaggedTuple);
++            int restore = Array.FindLastIndex(body, instruction => IsMove(instruction, "y", "x"));
++            if (calls.Length < 2 || spill <= calls[0] || test <= spill || calls[1] <= test || restore <= calls[^1]
++                || body.Any(instruction => Opcode(instruction) == PutTuple))
++            {
++                throw new InvalidOperationException(UnexpectedReturn);
++            }
++        }
++
++        if (!Function("changed").Any(instruction => Opcode(instruction) == PutTuple))
++        {
++            throw new InvalidOperationException(UnexpectedConstruction);
++        }
++
++        object[] Function(string name)
++        {
++            int start = Array.FindIndex(
++                instructions,
++                instruction => Opcode(instruction) == FunctionInfo
++                    && atoms[Value(Items(instruction, "Operands").ElementAt(1))] == name
++            );
++            if (start < 0)
++            {
++                throw new InvalidOperationException($"Missing fixture function {name}.");
++            }
++
++            return instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo).ToArray();
++        }
++    }
++
++    private static bool IsMove(object instruction, string source, string destination) =>
++        Opcode(instruction) == Move && Items(instruction, "Operands").ToArray() is [var first, var second]
++        && Equals(Property(first, "Kind"), source) && Value(first) == 0
++        && Equals(Property(second, "Kind"), destination) && Value(second) == 0;
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++
++    private static IEnumerable<object> Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>();
++}

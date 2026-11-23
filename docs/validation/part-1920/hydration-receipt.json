@@ -1,0 +1,40 @@
+{
+  "Parent": {
+    "Source": "d2dd5069dfa7aaf7c0cc75fbbad971e8c081e1834c898ee44568ceacabf1e179",
+    "Paths": 587,
+    "Compiler": "034bd1b0f2fba33d467a0c802f7c87715a694e9bef62442b9c236b77cb350a57",
+    "Tests": "827fb56cc3dc14a361e93b26847a5a58d1ffe43496faf1f9cdac8c1f282515ba",
+    "ParentSource": "69429b1415b4e630722a8f573c267fc4707d79abf3634ecddabdfc2ff8bf54af",
+    "CorpusTool": "c0d43da2883f0fe9c88c8364ab9c9d1ae1b2c73991e210b1bbe1f8011785e3f1"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BoundedSequenceAndForwardedChoices.cs": "ffa92bc656fbe857491e44f3f70266651f379c050e66d3cca841337f9a156c0d",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.Closures.cs": "13e4fa834d44eeaed453eceea4359d053caf106237ec1d85f56d206f335082a2",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs": "44dc2c25b85ceb4c7030a4f3e3c21b8d36be7d7ffdb9359e2c229d18c4348b8f",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": "d58ccfd7fc6262ed4ae65ccb20c37311c45d2d6cb088f388276f2b5a3fdd40d2",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.NestedEntryLabelOrder.cs": "b0fc7829ae71d47b42a355ef6894faee53487f035c03830ee183a89697393a95",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceDecoder.cs": "e3b23953d44c5314668f297a96650cba9cf14be57c094bca33ae522a77628f58",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs": "27357667702e4e4208e4aaaf4f580b47967ab04c55ed8079e9eb4e952fbb3196",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SequentialBitPatterns.cs": "bef17c35a4c7b55549bff67f17f9518a580b6868881efe57e51e3c6d2cddb19a",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.WxClassUnion.cs": "533500982fda3743ece05d7a9a1b3cbd04e41034b41f6648cca14f55a4a19ee6",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.WxConstructorDispatch.cs": "50de7c26d2843cb6c2fbab1b9150f109e06972ba01b7bb1ae63bccef382e2795",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.WxObjectCommands.cs": "5afa6d9b86e4d5e531d584d28bf75baea8044aa75cb38345e3f46cc3a60bc9d8",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.WxOptions.cs": "a1e5d32a637f7d224d7406fb999b5ff6ad0ce57e09b09f567a0063510658cd16",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": "21467b3e9e7783ba63286498ba7653590059cbb31090147284f3bd5041e83030",
+    "tests/Erlang.Tests/Compiler/Beam/BeamBoundedSequenceAndChoicesChecks.cs": "a9ad3e9a99f09a177e340e24275bf0f0115070eac1ec21895846685042e4222c",
+    "tests/Erlang.Tests/Compiler/Beam/BeamMixedDefaultAndBoundedSequencesChecks.cs": "ecfe97c2ac7919c037a0c77eeb418cabe08ab6fba7764a5d207833fdf85494a9",
+    "tests/Erlang.Tests/Compiler/Beam/BeamPhysicalLabelOrderChecks.cs": "e16fddb93b7d1dbf7e9f204e298c7877c159c03c64c4e1c0be425387b2809b98",
+    "tests/Erlang.Tests/Compiler/Beam/BeamVariableWidthMatchChecks.cs": "08e893bc797e51e485e7750c92f9f2eb801297da29c58f5329cf5dcf27c7700c",
+    "tests/Erlang.Tests/Compiler/Beam/BeamWxGuardedBitmapCommandChecks.cs": "2b8d8b1c4af4d7bafdb51af99b1d22f8c083fb6a9bff4efef1145cb740be3485",
+    "tests/Erlang.Tests/Compiler/Beam/BeamWxTupleConstructorDispatchChecks.cs": "cbb76c21a186538815733b1a0ed3d6b5508642f859008eee2f43035739cf8d8a",
+    "tests/Erlang.Tests/Harness/Program.cs": "f4c4be5087d43bb41649b58e2c3cb728fdc56e328bc870c68709656542ed7ca7"
+  },
+  "PatchSources": {
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\variable-width-match-ownership-1919\\retain-known-variable-width-match-context.patch": "2193a97979316f638897ad8740cc238c1f9e273a18af5ceb01a4d9a4b5916883",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\wx-guarded-bitmap-commands-1934\\guarded-bitmap-commands-exact.patch": "f5111edf5dc56ba204cf75a9f5b629922d385bd8ed5988c9277203466de40611",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\safecurves-existing-residual-1912\\mixed-sequences-constant-choice-retake\\replay-frozen-AA\\mixed-defaults-and-forwarded-choices-AA.patch": "f9029b8deaec6a1e6d10dcfcd4cb05f5e40f7c224d2b00436a8d02649f8e4288",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\compact-physical-label-order-1919\\compact-final-code-labels-v.patch": "99652129b3e98267d89770530a4f18b9195891723d160a128bb39280ec8803fd",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\wx-tuple-constructor-dispatch-1935\\tuple-constructor-dispatch-exact.patch": "a467772e61dbcbc8ae1980eab626d6abe640e3977f15de4be436473e8a678c7e",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\label-numbering-and-codec-dispatch-1920\\deferred-closure-labels.patch": "240c30c7876c362c163817c347765e8c71c32e3438ffa8630d40a29225299bbb"
+  }
+}

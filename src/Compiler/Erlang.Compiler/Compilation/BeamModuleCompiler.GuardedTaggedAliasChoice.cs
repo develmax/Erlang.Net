@@ -1,0 +1,269 @@
+using static Erlang.Compiler.BeamEmissionFormat;
+
+namespace Erlang.Compiler;
+
+internal sealed partial class BeamModuleCompiler
+{
+    private sealed partial class GeneralEmitter
+    {
+        private sealed record AliasGuardGroup(
+            Atom Tag,
+            Atom Success,
+            Atom Error,
+            Atom Reason,
+            EntryCall? Selector,
+            (Term Key, Term Suffix)[] Choices
+        );
+
+        private bool TryEmitGuardedTaggedAliasChoice(FunctionDefinition function)
+        {
+            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled || function.Arity != 2
+                || function.Clauses.Count < 4 || function.Clauses.Count % 2 != 0)
+            {
+                return false;
+            }
+
+            var groups = new List<AliasGuardGroup>();
+            for (int index = 0; index < function.Clauses.Count; index += 2)
+            {
+                if (ReadAliasGuardGroup(function.Clauses[index], function.Clauses[index + 1]) is not { } group)
+                {
+                    return false;
+                }
+
+                groups.Add(group);
+            }
+
+            var reference = groups[0];
+            if (groups.Select(group => group.Tag).Distinct().Count() != groups.Count
+                || groups.Any(group => !group.Error.Equals(reference.Error) || !group.Reason.Equals(reference.Reason))
+                || !groups.Any(group => group.Selector is not null))
+            {
+                return false;
+            }
+
+            groups.Sort((left, right) => TermOrder.Compare(left.Tag, right.Tag, exact: true));
+            int entryFailure = owner.nextLabel - 2;
+            int badPayload = Label();
+            int[] destinations = groups.Select(_ => Label()).ToArray();
+            owner.EmitTupleCheck(0, 2, entryFailure);
+            owner.EmitTuplePart(0, 0, 2);
+            owner.EmitTuplePart(0, 1, 3);
+            owner.EmitMembershipSelect(2, entryFailure,
+                groups.Select((group, index) => ((Term)group.Tag, destinations[index])));
+            for (int index = groups.Count - 1; index >= 0; index--)
+            {
+                var group = groups[index];
+                Mark(destinations[index]);
+                owner.EmitTupleCheck(3, 2, badPayload);
+                owner.EmitTuplePart(3, 0, 1);
+                EmitListGuard(1, badPayload);
+                int secondField = group.Selector is null ? 1 : 2;
+                owner.EmitTuplePart(3, 1, secondField);
+                EmitListGuard(secondField, badPayload);
+                if (group.Selector is { } selector)
+                {
+                    EmitFrameAllocation(2, 1);
+                    owner.MoveRegister(
+                        XRegisterTag,
+                        0,
+                        YRegisterTag,
+                        0
+                    );
+                    EmitEntryCall(selector);
+                    int noChoice = Label();
+                    int chosen = Label();
+                    int[] labels = group.Choices.Select(_ => Label()).ToArray();
+                    owner.EmitNonemptyList(0, noChoice);
+                    owner.EmitListParts(
+                        0,
+                        XRegisterTag,
+                        1,
+                        XRegisterTag,
+                        0
+                    );
+                    owner.EmitMembershipSelect(1, noChoice,
+                        group.Choices.Select((choice, position) => (choice.Key, labels[position])));
+                    for (int choice = labels.Length - 1; choice >= 0; choice--)
+                    {
+                        Mark(labels[choice]);
+                        owner.Op(ExactEqualTest, LabelTag, noChoice);
+                        owner.Operand(XRegisterTag, 0);
+                        owner.LiteralOperand(group.Choices[choice].Suffix);
+                        if (choice != 0)
+                        {
+                            JumpTo(chosen);
+                        }
+                    }
+
+                    Mark(chosen);
+                    EmitResult(group.Success, YRegisterTag, 1);
+                    Mark(noChoice);
+                    EmitWrongType(group, YRegisterTag, 1);
+                }
+                else
+                {
+                    EmitResult(group.Success, XRegisterTag, null);
+                }
+            }
+
+            Mark(badPayload);
+            EmitWrongType(reference, XRegisterTag, null);
+
+            return true;
+
+            void EmitListGuard(int register, int failure)
+            {
+                owner.Op(IsList, LabelTag, failure);
+                owner.Operand(XRegisterTag, register);
+            }
+
+            void EmitResult(Atom tag, int aliasTag, int? frame)
+            {
+                owner.Op(TestHeap, BeamWire.UnsignedTag, 3);
+                owner.Operand(BeamWire.UnsignedTag, frame.HasValue ? 0 : 1);
+                owner.EmitTupleHeader(XRegisterTag, 2);
+                owner.LiteralOperand(tag);
+                owner.Operand(aliasTag, 0);
+                EmitReturn(frame);
+            }
+
+            void EmitReturn(int? frame)
+            {
+                if (frame is int size)
+                {
+                    owner.EmitFrameReturn(size);
+                }
+                else
+                {
+                    owner.instructions.WriteByte(Return);
+                }
+            }
+
+            void EmitWrongType(AliasGuardGroup group, int aliasTag, int? frame)
+            {
+                owner.Op(TestHeap, BeamWire.UnsignedTag, 6);
+                owner.Operand(BeamWire.UnsignedTag, frame.HasValue ? 0 : 1);
+                owner.EmitTupleHeader(XRegisterTag, 2);
+                owner.LiteralOperand(group.Reason);
+                owner.Operand(aliasTag, 0);
+                owner.EmitTupleHeader(XRegisterTag, 2);
+                owner.LiteralOperand(group.Error);
+                owner.Operand(XRegisterTag, 0);
+                EmitReturn(frame);
+            }
+        }
+
+        private AliasGuardGroup? ReadAliasGuardGroup(Clause guarded, Clause fallback)
+        {
+            if (guarded is not
+                {
+                    Guard: { } guard,
+                    Patterns: [AliasPattern alias, Pattern.Variable { Name: VariableScopeNames.Wildcard }]
+                }
+                || !TryReadPatternAlias(alias, out var original, out var shape)
+                || shape is not Pattern.Tuple
+                {
+                    Items: [Pattern.Literal { Value: Atom tag }, Pattern.Tuple
+                    {
+                        Items: [Pattern.Variable left, Pattern.Variable right]
+                    }]
+                }
+                || !DistinctBindings(original, left, right)
+                || fallback is not
+                {
+                    Guard: null,
+                    Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom repeated }, Pattern.Variable argument] },
+                        Pattern.Variable { Name: VariableScopeNames.Wildcard }],
+                    Body: Expr.Tuple
+                    {
+                        Items: [Expr.Literal { Value: Atom error }, Expr.Tuple
+                        {
+                            Items: [Expr.Literal { Value: Atom reason }, Expr.Tuple
+                            {
+                                Items: [Expr.Literal { Value: Atom returnedTag }, Expr.Variable value]
+                            }]
+                        }]
+                    }
+                }
+                || !tag.Equals(repeated) || !tag.Equals(returnedTag)
+                || argument.Name == VariableScopeNames.Wildcard || value.Name != argument.Name)
+            {
+                return null;
+            }
+
+            Clause payload = new([left, right], null, guarded.Body);
+            var tests = PredicateConjuncts(guard).Select(test => ReadEntryTypeGuard(payload, test)).ToArray();
+            if (tests is not [{ Opcode: IsList, Register: 0 }, { Opcode: IsList, Register: 1 }])
+            {
+                return null;
+            }
+
+            if (ReadSuccessTag(guarded.Body, original.Name) is { } direct)
+            {
+                return new(
+                    tag,
+                    direct,
+                    error,
+                    reason,
+                    null,
+                    []
+                );
+            }
+
+            if (guarded.Body is not Expr.Case
+                {
+                    Value: Expr.Call { Arguments: [Expr.Variable selectorInput] } source,
+                    Clauses: [_, _, ..,
+                    {
+                        Guard: null, Patterns: [Pattern.Variable { Name: VariableScopeNames.Wildcard }],
+                        Body: Expr.Tuple
+                        {
+                            Items: [Expr.Literal { Value: Atom branchError }, Expr.Tuple
+                            {
+                                Items: [Expr.Literal { Value: Atom branchReason }, Expr.Variable aliasError]
+                            }]
+                        }
+                    }]
+                } decision
+                || selectorInput.Name != left.Name || !branchError.Equals(error) || !branchReason.Equals(reason)
+                || aliasError.Name != original.Name || ReadEntryCall(source, [string.Empty, left.Name]) is not { } selector)
+            {
+                return null;
+            }
+
+            Atom? success = null;
+            var choices = new Dictionary<Term, Term>();
+            foreach (Clause option in decision.Clauses.SkipLast(1))
+            {
+                if (option is not
+                    {
+                        Guard: null,
+                        Patterns: [Pattern.Literal { Value: Cons { Head: Integer key, Tail: var suffix } }]
+                    }
+                    || ReadSuccessTag(option.Body, original.Name) is not { } result
+                    || success is not null && !success.Equals(result) || !choices.TryAdd(key, suffix))
+                {
+                    return null;
+                }
+
+                success ??= result;
+            }
+
+            var order = Comparer<Term>.Create((a, b) => TermOrder.Compare(a, b, exact: true));
+
+            return new(
+                tag,
+                success!,
+                error,
+                reason,
+                selector,
+                choices.OrderBy(choice => choice.Key, order).Select(choice => (choice.Key, choice.Value)).ToArray()
+            );
+
+            static Atom? ReadSuccessTag(Expr expression, string alias) =>
+                expression is Expr.Tuple { Items: [Expr.Literal { Value: Atom result }, Expr.Variable value] }
+                    && value.Name == alias ? result : null;
+        }
+    }
+}

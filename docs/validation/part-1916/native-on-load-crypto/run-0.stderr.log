@@ -1,0 +1,20 @@
+Error! Failed to eval: [Path,Output]=init:get_plain_arguments(),
+false=code:is_loaded(crypto),
+{ok,Bin}=file:read_file(Path),
+Physical=filename:join(code:lib_dir(crypto,ebin),"crypto.beam"),
+{module,crypto}=code:load_binary(crypto,Physical,Bin),
+State={retained,[123,alpha]},
+FloatChecks=[begin {F,Same}=crypto:rand_plugin_uniform(State),
+    true=is_float(F),true=(F>=0.0 andalso F<1.0),true=(Same=:=State),ok
+end || _<-lists:seq(1,128)],
+IntegerChecks=[begin {N,Same}=crypto:rand_plugin_uniform(I,State),
+    true=(is_integer(N) andalso N>=1 andalso N=<I),true=(Same=:=State),ok
+end || I<-[1,2,7,16#7fffffff]],
+Hash=crypto:hash(sha256, <<"beam parity witness">>),
+Check=try crypto:rand_plugin_uniform(invalid,State) of _->unexpected catch C:R->{C,element(1,R)} end,
+true=Check=/=unexpected,
+ok=file:write_file(Output,io_lib:format("~tp.~n",[{loaded,{length(FloatChecks),length(IntegerChecks)},Hash,Check}])),halt().
+
+Runtime terminating during boot ({badarg,[{erlang,element,[1,badarg],[{error_info,#{module=>erl_erts_errors}}]},{erl_eval,do_apply,7,[{file,"erl_eval.erl"},{line,1044}]},{erl_eval,expr_list,7,[{file,"erl_eval.erl"},{line,1664}]},{erl_eval,expr_list,5,[{file,"erl_eval.erl"},{line,1660}]},{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,451}]},{erl_eval,try_clauses,10,[{file,"erl_eval.erl"},{line,1707}]},{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,792}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]}]})
+
+Crash dump is being written to: D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/wx-dispatch-and-nested-configuration-1916-bound-env-retake/native-on-load-crypto/crash-0.dump...done

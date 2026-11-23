@@ -1,0 +1,159 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LocalConstantArguments.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LocalConstantArguments.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LocalConstantArguments.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LocalConstantArguments.cs
+@@ -2,6 +2,8 @@
+ 
+ internal sealed partial class BeamModuleCompiler
+ {
++    private readonly Dictionary<(string Name, int Arity), Term?[]> localSingletonArguments = [];
++
+     private IReadOnlyList<FunctionDefinition> PropagateLocalConstantArguments(IReadOnlyList<FunctionDefinition> functions)
+     {
+         if (ModuleOptimizationDisabled || OnLoadFunction is not null)
+@@ -80,6 +82,12 @@
+             }
+ 
+             Clause clause = function.Clauses[0];
++            if (SsaTypeInferenceEnabled && arguments.Any(argument => argument is Atom)
++                && ReadSingleNestedListMapper(clause.Body) is not null)
++            {
++                localSingletonArguments.Add(signature, arguments);
++            }
++
+             string[] names = parameters[signature];
+             bool reorderedRelay = IsReorderedRemoteRelay(clause.Body, names);
+             // Like beam_ssa_type's singleton substitution, this keeps the local entry and call arity.
+@@ -165,6 +173,21 @@
+             ?? (SsaTypeInferenceEnabled && expression is Expr.Literal { Value: Integer integer } ? integer : null);
+     }
+ 
++    private static Expr.ListComprehension? ReadSingleNestedListMapper(Expr body)
++    {
++        Expr mapper = body is Expr.Call { DynamicRemote: false, Arguments: [var input] } ? input : body;
++
++        return mapper is Expr.ListComprehension
++        {
++            Items: [Expr.Tuple],
++            Qualifiers:
++            [
++                ComprehensionQualifier.Generator { Strict: false, Pattern: Pattern.Tuple, Source: Expr.Variable },
++                ComprehensionQualifier.Generator { Strict: false, Pattern: Pattern.Variable }
++            ]
++        } comprehension ? comprehension : null;
++    }
++
+     private static bool IsSoleForwardedFirstAtom(
+         Expr.Call call,
+         Expr body,
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListGenerators.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListGenerators.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListGenerators.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListGenerators.cs
+@@ -24,6 +24,7 @@
+             || expressions.OfType<Expr.ListComprehension>().ToArray() is not [var comprehension]
+             || !HasRetainedRecursiveListResult(comprehension, expressions)
+             || PlanRecursiveListGenerators(
++                function,
+                 comprehension,
+                 clause,
+                 fallback,
+@@ -61,6 +62,7 @@
+ 
+     private (Expr.Call Call, (FunctionDefinition Function, BeamSourceLocation Location) Outer,
+         (FunctionDefinition Function, BeamSourceLocation Location) Inner)? PlanRecursiveListGenerators(
++            FunctionDefinition function,
+             Expr.ListComprehension comprehension,
+             Clause clause,
+             BeamSourceLocation fallback,
+@@ -172,10 +174,31 @@
+         };
+         outerLoop = outerLoop with { Clauses = outerClauses };
+ 
++        // Core's letrec lifting fixes the helper captures before SSA infers their values.
++        // Preserve those parameters and the forwarding slots in recursive calls.
++        var entryAtoms = ReadNestedCaptureAtoms(
++            function,
++            clause,
++            comprehension,
++            mapped,
++            captures
++        );
++        Expr innerValue = mapped;
++        Expr[] parentArguments = outerArguments;
++        if (entryAtoms.Count != 0 && mapped is Expr.Tuple tupleValue)
++        {
++            innerValue = tupleValue with { Items = tupleValue.Items.Select(ReplaceCapture).ToArray() };
++            parentArguments = outerArguments.Select((argument, index) =>
++                index + 1 < clause.Patterns.Count && clause.Patterns[index + 1] is Pattern.Variable parameter
++                    && parameter.Name == captures[index].Name
++                    ? argument
++                    : ReplaceCapture(argument)).ToArray();
++        }
++
+         var innerLoop = BuildRecursiveMapping(
+             innerName,
+             inner,
+-            mapped,
++            innerValue,
+             innerCaptures,
+             invalidSourceLocation: innerLocation
+         );
+@@ -194,8 +215,8 @@
+         };
+         innerLoop = innerLoop with { Clauses = innerClauses };
+ 
+         // The outer input is evaluated once before entering either recursive helper.
+-        var parentCall = new Expr.Call(null, outerName, [source, .. outerArguments])
++        var parentCall = new Expr.Call(null, outerName, [source, .. parentArguments])
+         {
+             SourceLine = outerLocation.Line,
+             PreprocessorFile = outerLocation.File
+@@ -224,5 +245,39 @@
+ 
+         return (parentCall, (outerLoop, outerLocation), (innerLoop, innerLocation));
++
++        Expr ReplaceCapture(Expr expression) =>
++            expression is Expr.Variable variable && entryAtoms.TryGetValue(variable.Name, out Atom? known)
++                ? new Expr.Literal(known)
++                : expression;
++    }
++
++    private Dictionary<string, Atom> ReadNestedCaptureAtoms(
++        FunctionDefinition function,
++        Clause clause,
++        Expr.ListComprehension comprehension,
++        Expr mapped,
++        Pattern.Variable[] captures
++    )
++    {
++        var result = new Dictionary<string, Atom>(StringComparer.Ordinal);
++        if (!localSingletonArguments.TryGetValue((function.Name, function.Arity), out var arguments)
++            || !ReferenceEquals(ReadSingleNestedListMapper(clause.Body), comprehension)
++            || mapped is not Expr.Tuple tuple
++            || tuple.Items.Any(field => field is not (Expr.Variable or Expr.Literal)))
++        {
++            return result;
++        }
++
++        for (int index = 0; index < arguments.Length; index++)
++        {
++            if (arguments[index] is Atom atom && clause.Patterns[index] is Pattern.Variable parameter
++                && captures.Any(capture => capture.Name == parameter.Name))
++            {
++                result.Add(parameter.Name, atom);
++            }
++        }
++
++        return result;
+     }
+ 
+     private static bool HasRetainedRecursiveListResult(Expr.ListComprehension comprehension, IReadOnlyList<Expr> expressions) =>
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
+@@ -195,6 +195,7 @@
+             {
+                 if (comprehension.Qualifiers[0] is ComprehensionQualifier.Generator { Pattern: Pattern.Tuple }
+                     && PlanRecursiveListGenerators(
++                        function,
+                         comprehension,
+                         clause,
+                         location,

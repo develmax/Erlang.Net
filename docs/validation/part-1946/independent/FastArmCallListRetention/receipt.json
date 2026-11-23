@@ -1,0 +1,91 @@
+{
+  "otpTag": "OTP-29.1.1",
+  "otpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "part1943Archive": "af3484b68ab1d629b6641d8e9c8446b4631273fada3db358712312088ab4e185",
+  "part1958Production": "c9129f85fa5875003ad1d48b48e8006e09d4c8df6923f06a789005437f20e455",
+  "part1959Production": "b45b90b1c5a9438ae9e6a075eb6fa12f02b5720b1702b3f7447a7db62cf21f85",
+  "part1959Test": "a9ab9418ae48e35722c56c23f3ce0b4939cd704e45ec36c3b2bb103b9651e826",
+  "baselineCompiler": "723356115f3569d0669ef49c1b98a272614eb63221ab5c56f94ab1d2166081ff",
+  "workerCount": 1,
+  "rawScope": {
+    "lib/erts-17.1/ebin/counters.beam": "Equal",
+    "lib/inets-9.8/ebin/inets_sup.beam": "Equal",
+    "lib/inets-9.8/ebin/mod_trace.beam": "Different",
+    "lib/kernel-11.0.4/ebin/local_udp.beam": "Equal",
+    "lib/stdlib-8.1/ebin/ordsets.beam": "Equal",
+    "lib/xmerl-2.2/ebin/xmerl_html.beam": "Equal",
+    "lib/xmerl-2.2/ebin/xmerl_lib.beam": "Different",
+    "lib/xmerl-2.2/ebin/xmerl_sgml.beam": "Equal",
+    "lib/xmerl-2.2/ebin/xmerl_xml.beam": "Equal"
+  },
+  "rankedDifferentImages": 884,
+  "nativeMarkupCases": 6,
+  "xmerlLib": {
+    "normalizedResidualsBefore": 34,
+    "normalizedResidualsAfter": 33,
+    "newExactMFA": "markup/3",
+    "before": {
+      "size": 47612,
+      "sha256": "7199ee7d3a432bd82371287ce84de8d320484dc51e606280db77de18d09d90b1"
+    },
+    "after": {
+      "size": 47604,
+      "sha256": "6d51fa967854919e997bb8aefe15fb12b369eb43ac0605293956b9aa64657b5c"
+    }
+  },
+  "unchangedGeneratedControl": {
+    "path": "lib/inets-9.8/ebin/mod_trace.beam",
+    "size": 4592,
+    "sha256": "70fd8a9753b8a37b62f325f6daad8c53dcecbb7b860c63c224601b5dfd29d06d"
+  },
+  "artifacts": {
+    "production.patch": {
+      "size": 3188,
+      "sha256": "af355c2a32c90545f8a84f13475c82247545119bdb9c020f53b2688b6cb7d2ec"
+    },
+    "test.patch": {
+      "size": 4126,
+      "sha256": "fe08df24dbab2cd7c9d07b3f937772974a492b7eb986dd8dfeef1517133938de"
+    },
+    "replay-files.json": {
+      "size": 701,
+      "sha256": "1782731b47bb9468883908449a86675b20988c0f04f029c54fb8eddb1e0fc6dc"
+    },
+    "scope.json": {
+      "size": 2375,
+      "sha256": "a9dfb7357815965ea5716a1bb7a51a7fd080b38169f6c747d37dbb1d3b43cd42"
+    },
+    "scope-rank.terms": {
+      "size": 1458,
+      "sha256": "5039caddc9da9157819d5621be43362c855b49c5b26ba07cc9fe4e51d72bb7ff"
+    },
+    "ranked.terms": {
+      "size": 1846563,
+      "sha256": "a0276330f340f9e52f51d5e1ebad5eaf8375eb1359d924d7c50b30ae3d3e37ea"
+    },
+    "focused-exits.json": {
+      "size": 51,
+      "sha256": "1ef75e784a5dd11b9c2fe71476a71f94295ce972682d28c771dea17e5ae3df61"
+    },
+    "test-green/Erlang.Tests.dll": {
+      "size": 16384,
+      "sha256": "d1e50b79d47c45c1393ffe4947390457048c1b2b0347542afe1ddd5a8c858d36"
+    },
+    "compiler-bin/Erlang.Compiler.dll": {
+      "size": 5082112,
+      "sha256": "e3abfac8ef4257bf75ba211e3974cf63c6e757a99ed42b9fd0890044a1377edb"
+    },
+    "native-markup-pinned.terms": {
+      "size": 411,
+      "sha256": "90584c1dbe73dafbddb66f0d3361a3ff3c97248dc73f14be5d2ff342fc229d8b"
+    },
+    "native-markup-generated.terms": {
+      "size": 411,
+      "sha256": "90584c1dbe73dafbddb66f0d3361a3ff3c97248dc73f14be5d2ff342fc229d8b"
+    },
+    "source-shape-census.txt": {
+      "size": 85,
+      "sha256": "358e621a7ef9e17d67134557cefb6f3ac4c1a8b58e16dba6aa408fc97b818af0"
+    }
+  }
+}

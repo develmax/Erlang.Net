@@ -1,0 +1,244 @@
+{
+  "source_archive": "0c8d6444e3a5d3d38e56e85b1b2ce7b0152351c5f08a097694fcd923c7a1cc70",
+  "base_compiler": "72d85b1253a4d02975b4dfed5899f7b6ab246c779a8e4bc969be5d7535fefbc7",
+  "production": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": {
+      "before": "4657fb86c44b27b437129cb1e3c1f29d73bba49bccd1312b3bab8f393a31b127",
+      "after": "01619c3225c5f613cca2c3368ff1d5e8f47589082c8007b1c1c29ce6d4bcd239"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.OwnedTaggedRecordActions.cs": {
+      "before": null,
+      "after": "78b8576b7ab827e1732a7cbf93fe092bbb6a863c18570992d893eed3b48ccd94"
+    },
+    "patch-sha256": "607e71b076489345c69d9f6c63d30801a2caf0f9e2e6ff348cdc5fbd321dba33"
+  },
+  "test": {
+    "tests/Erlang.Tests/Harness/Program.cs": {
+      "before": "57841da692392f7ac3d1dec29de4fa425b93c9ec7d4c1dcc24475798c1af0d31",
+      "after": "cdd37ce1b8ce29d3f13fe70c777bdd9eaba9bd14277a5bd8643a2d1344a98d1d"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamOwnedTaggedRecordActionChecks.cs": {
+      "before": null,
+      "after": "bdc70b52dcacb812290a42edf25c01113d23d8ee27d35a80a0fc4472d6bff4e5"
+    },
+    "patch-sha256": "dfe053cb46a3bb829dfeec27f7e1015da655b1f18173c6bfab9417c2e049a696"
+  },
+  "receipt_1953": "6da5745af23d6ef0a224ef3733cf7b16530681ff276a4aaade5179338c719ef2",
+  "release": {
+    "lib\\erts-17.1\\ebin\\counters.beam": {
+      "status": "Equal",
+      "before": "36e38c88d100c8bee9e28ec1144b6f532cd681efcef1f9b3fcd0719dd612cb6f",
+      "after": "36e38c88d100c8bee9e28ec1144b6f532cd681efcef1f9b3fcd0719dd612cb6f",
+      "reference": "36e38c88d100c8bee9e28ec1144b6f532cd681efcef1f9b3fcd0719dd612cb6f"
+    },
+    "lib\\inets-9.8\\ebin\\httpd_instance_sup.beam": {
+      "status": "Different",
+      "before": "b3a2a7243ee712606b79fcdf8616dff5493441b4eecf9f150cb253368c1653a5",
+      "after": "b3a2a7243ee712606b79fcdf8616dff5493441b4eecf9f150cb253368c1653a5",
+      "reference": "a93aa215eb0034f79b4f7a564d5704dde57f47e86b688b443a2acc48e3082193"
+    },
+    "lib\\inets-9.8\\ebin\\inets_sup.beam": {
+      "status": "Equal",
+      "before": "7c57bc8cb3a5a7abb165fb67b834f126b80bd0facd78690cc9e37b7d9c28343d",
+      "after": "7c57bc8cb3a5a7abb165fb67b834f126b80bd0facd78690cc9e37b7d9c28343d",
+      "reference": "7c57bc8cb3a5a7abb165fb67b834f126b80bd0facd78690cc9e37b7d9c28343d"
+    },
+    "lib\\inets-9.8\\ebin\\mod_head.beam": {
+      "status": "Equal",
+      "before": "84ae33a082b0b01f02c309ad08bca131e02ee200eb4b584b658fc53bd013d1c9",
+      "after": "84ae33a082b0b01f02c309ad08bca131e02ee200eb4b584b658fc53bd013d1c9",
+      "reference": "84ae33a082b0b01f02c309ad08bca131e02ee200eb4b584b658fc53bd013d1c9"
+    },
+    "lib\\ssh-6.0.6\\ebin\\ssh_tcpip_forward_acceptor.beam": {
+      "status": "Different",
+      "before": "a7d27fa8633097cca575e776239a7b699c5dda5f6de8c16035429c99bc1dcb11",
+      "after": "a7d27fa8633097cca575e776239a7b699c5dda5f6de8c16035429c99bc1dcb11",
+      "reference": "e554352e89473bf2f123eea4456eeea11ad9a191999063a2f2ac4fa23d241c8f"
+    },
+    "lib\\ssh-6.0.6\\ebin\\ssh_tcpip_forward_client.beam": {
+      "status": "Equal",
+      "before": "bc038877497c2166cd897783f8a9a95fff46ef1dc42b781af0dbe5ac0ff12afe",
+      "after": "1f9da8258f5a9ac4b332a3de8a3af3f28d383a9bcff11a06adc8a7dad011e76d",
+      "reference": "1f9da8258f5a9ac4b332a3de8a3af3f28d383a9bcff11a06adc8a7dad011e76d",
+      "code_sizes": [
+        660,
+        603,
+        603
+      ]
+    },
+    "lib\\ssh-6.0.6\\ebin\\ssh_tcpip_forward_srv.beam": {
+      "status": "Equal",
+      "before": "9de55f705cabc2e7638e56bf9793b0cbc8262926977c30f2391f0a3ebdd3a876",
+      "after": "d659537c494c2f0de23d2cbebcc695775a1e2505922a25ae65b8e0fc5440fce4",
+      "reference": "d659537c494c2f0de23d2cbebcc695775a1e2505922a25ae65b8e0fc5440fce4",
+      "code_sizes": [
+        581,
+        524,
+        524
+      ]
+    },
+    "lib\\ssh-6.0.6\\ebin\\ssh_transport.beam": {
+      "status": "Different",
+      "before": "dbe5a2b336fb43ed8a331f21dae150a00b3dbf684e38a46e584249831c333afa",
+      "after": "dbe5a2b336fb43ed8a331f21dae150a00b3dbf684e38a46e584249831c333afa",
+      "reference": "e2be5d421a4254e915d05f0a898e5e0e813a4e7da6ab3073ce1bc51a743b98ae"
+    },
+    "lib\\stdlib-8.1\\ebin\\ordsets.beam": {
+      "status": "Equal",
+      "before": "417595cfd47ff9dc43673cee03083776cbacd3abb61166bf58c61dc6a13cce1d",
+      "after": "417595cfd47ff9dc43673cee03083776cbacd3abb61166bf58c61dc6a13cce1d",
+      "reference": "417595cfd47ff9dc43673cee03083776cbacd3abb61166bf58c61dc6a13cce1d"
+    }
+  },
+  "raw_target_identities": {
+    "lib\\ssh-6.0.6\\ebin\\ssh_tcpip_forward_client.beam": {
+      "path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\owned-record-action-arms-1954\\captured-exact.json.generated\\lib\\ssh-6.0.6\\ebin\\ssh_tcpip_forward_client.beam",
+      "sha256": "1f9da8258f5a9ac4b332a3de8a3af3f28d383a9bcff11a06adc8a7dad011e76d",
+      "bytes": 3884,
+      "chunks": {
+        "AtU8": {
+          "length": 332,
+          "sha256": "abca1d0eefab968048ce110fae6a378bd6b0904e327e085c3c4952973403de57"
+        },
+        "Code": {
+          "length": 603,
+          "sha256": "0529d3fd6329cfb12d38313d82f27cfbb28e62e966eb0ceef4cca5db60bc4341"
+        },
+        "StrT": {
+          "length": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "ImpT": {
+          "length": 88,
+          "sha256": "11b7fb267bdc2a90282297f5208ce7a6fc118d7b3bff07b94a851f8fc19a9c45"
+        },
+        "ExpT": {
+          "length": 112,
+          "sha256": "2f2c0802fb0fd062edb63c231051d4f996610225443dfc7e3580538370751cf5"
+        },
+        "LitT": {
+          "length": 35,
+          "sha256": "11964d015e08af652e8e7752afe6706b215d9414da31cc3ce80a222929cf0967"
+        },
+        "Meta": {
+          "length": 45,
+          "sha256": "846e52e745c7ccf36c2da8720765d905c971ad3a5574f9470ca44cfc21d18b4a"
+        },
+        "LocT": {
+          "length": 4,
+          "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+        },
+        "Attr": {
+          "length": 78,
+          "sha256": "0e52461bb911aa20db9f982cb1d1b6b7c2bff610e2d322b85262dbca198cf5ac"
+        },
+        "CInf": {
+          "length": 351,
+          "sha256": "d96de63e55f065828558b3ffaa1f6eb1c854d477f0c7a8acb3fc31abcca84aba"
+        },
+        "Dbgi": {
+          "length": 1702,
+          "sha256": "82505959752d87f80c04e240cecaae001f4558607960afa69d2a2dae8ac9a1e8"
+        },
+        "Docs": {
+          "length": 338,
+          "sha256": "fd35f6cf8c09b12af76dee63ccfeae9e4b688fded75d5920f0501ee0cd190018"
+        },
+        "Line": {
+          "length": 46,
+          "sha256": "b3fb1da2c682fec475321cf97cddafe8c1ee4218dd01c287a3f9c92a086954df"
+        },
+        "Type": {
+          "length": 12,
+          "sha256": "e0d6b75c0e0b937ace2bad0646f85f3cdf71428415960fbbfbd3c9d7f1a0b78d"
+        }
+      }
+    },
+    "lib\\ssh-6.0.6\\ebin\\ssh_tcpip_forward_srv.beam": {
+      "path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\owned-record-action-arms-1954\\captured-exact.json.generated\\lib\\ssh-6.0.6\\ebin\\ssh_tcpip_forward_srv.beam",
+      "sha256": "d659537c494c2f0de23d2cbebcc695775a1e2505922a25ae65b8e0fc5440fce4",
+      "bytes": 3472,
+      "chunks": {
+        "AtU8": {
+          "length": 271,
+          "sha256": "0c27e66953a2c811c187fdf336cef78d4ae431592d50e6878e90e1cd11dd1d98"
+        },
+        "Code": {
+          "length": 524,
+          "sha256": "143fd6ac45040c3043562dc8904c254fae79d76e98390916e796fa73f30bf308"
+        },
+        "StrT": {
+          "length": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "ImpT": {
+          "length": 88,
+          "sha256": "050bf3a0207ad811306aa33604318aa3302b6d22822511636f37554aef068657"
+        },
+        "ExpT": {
+          "length": 76,
+          "sha256": "c50095fec5e7da228d87e87b73c6684c856c8488e3e81a10a2cf74e9085c1d08"
+        },
+        "LitT": {
+          "length": 35,
+          "sha256": "11964d015e08af652e8e7752afe6706b215d9414da31cc3ce80a222929cf0967"
+        },
+        "Meta": {
+          "length": 45,
+          "sha256": "846e52e745c7ccf36c2da8720765d905c971ad3a5574f9470ca44cfc21d18b4a"
+        },
+        "LocT": {
+          "length": 4,
+          "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+        },
+        "Attr": {
+          "length": 78,
+          "sha256": "c15c9912f3c605aecdfb2fa64f882ddea0a38395907c84b816eb986d6aea68c9"
+        },
+        "CInf": {
+          "length": 348,
+          "sha256": "6d7899a52af56f098af3bcf8789b7777da2b1164449a5a775b462c9677caafb6"
+        },
+        "Dbgi": {
+          "length": 1529,
+          "sha256": "f6dfeb8452ad0229b7e95ca6feb16f7d6d9ec208ad7f4b8551ba2bdd2162d728"
+        },
+        "Docs": {
+          "length": 286,
+          "sha256": "dc267c840bc9e5fb72984691a8ea720bcf5a77539c87f00c9a829b57097323cd"
+        },
+        "Line": {
+          "length": 40,
+          "sha256": "a2e81180342291a7260848fcc8c022ffeca988f2ff6da9c37a6c9ca1c0b4aeb4"
+        },
+        "Type": {
+          "length": 12,
+          "sha256": "e0d6b75c0e0b937ace2bad0646f85f3cdf71428415960fbbfbd3c9d7f1a0b78d"
+        }
+      }
+    }
+  },
+  "evidence": {
+    "compiler-bin/Erlang.Compiler.dll": "1cedd18cd34838e8521ae68644f897f4c0c3eb26c80a3901312f70f98fbd7948",
+    "candidate-bin/Erlang.BeamCorpus.dll": "7d7640386fd900c2a125fa1ce504b6637c03a8cf70d4ef9dff9a66b857c0790e",
+    "final-red-test/Erlang.Compiler.dll": "72d85b1253a4d02975b4dfed5899f7b6ab246c779a8e4bc969be5d7535fefbc7",
+    "final-red-test/Erlang.Tests.dll": "c1f8450569c9aeae548eab8fcd1badb9f2b89b40e5c3b20d4a13484c020fc8e2",
+    "final-green-test/Erlang.Tests.dll": "c1f8450569c9aeae548eab8fcd1badb9f2b89b40e5c3b20d4a13484c020fc8e2",
+    "final-corpus.json": "866d93ce8c2694e1e061a9672c11fcdb6dfd3ed39b0fdd29fba19b6d67bb3224",
+    "final-functions.terms": "323cde894ec1e715baebb95b01b9fcbb2b963c7428384a032eba282068eaa199",
+    "focused-exits.json": "60ff5c4ffa65e3b030bb41ce06f569406112dcbd867e3e660b1f92cf5032f415",
+    "final-focused-red.log": "d3f903ec031562e33d4a899c4937702a65823f6c983ccaffaf2fa9eb9ceb4c91",
+    "final-focused-green.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "../nested-ssh-record-dispatch-1953/reference-native.terms": "cdd45012d152bda7813c82805234bce470be1f0188ddcd4ebb1a7c090f55d2f2",
+    "generated-native.terms": "cdd45012d152bda7813c82805234bce470be1f0188ddcd4ebb1a7c090f55d2f2",
+    "reference-action.terms": "2d486759fbe67c1ec323b0a154f281a511f23bf8ae77aa1519e119c3816e229a",
+    "generated-action.terms": "2d486759fbe67c1ec323b0a154f281a511f23bf8ae77aa1519e119c3816e229a",
+    "stub/ssh_connection.beam": "8072c4f11974ea1c069f1fb15f40423daafab30c3a36b8fb8dac1e268149fd78",
+    "captured-exact.json": "1216423593d229319fe82482775c927c9096ed20dcd34f2eb3d732734f29f3e5",
+    "capture-tool/Program.cs": "84d35196edd152beb785bad263ddb13669c4333dad986a2659f71bb319d5a790",
+    "capture-bin/Erlang.BeamCorpus.dll": "79c83748e09245694d28c149c04c68cc5835b668fb6217bc44c4f6cb6f219ad8",
+    "../nested-ssh-record-dispatch-1953/pinned-listing/ssh_tcpip_forward_srv.precodegen": "c5ae9c92022d218fb567a8c4f69e5adf35f1b0d7fa7a284997de1baee2e0f917",
+    "../nested-ssh-record-dispatch-1953/pinned-listing/ssh_tcpip_forward_srv.trim": "e9b8dade4c8680c0fd24345e4cf1cdaacd620a94021b66a7487134f97b05f4fc",
+    "layout-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f"
+  }
+}

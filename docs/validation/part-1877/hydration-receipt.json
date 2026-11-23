@@ -1,0 +1,55 @@
+{
+  "Parent": {
+    "Source": "923515cb86f31a740ba69198640c9720f3c68421c69c09fbfc77320e28c8b2e0",
+    "Paths": 226,
+    "Compiler": "01f05318e5f4a34e34e10c570dcd3b7f0a4899f5fa2c08afa22ab7da940b8783",
+    "Tests": "707401f1005d635a29135c96f98fde27a07df501c94b2142a0be757fd8417af2",
+    "ParentSource": "2d6f714daa62a1dc310cc3f27a0d092ffd9b9cefe5ca66c162532a8b58941550",
+    "CorpusTool": "521a6a2d2e09ceb1b013df4ac687688eadfde15a8514671c7277bb9b2bf4273a"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamIncludePathMap.cs": "656439bb6caafaf7b0fb60175e3855664baf7e1b5cef83af909fd816f8978e45",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": "4e11d869f9521b181141045814bdc802a995b395f47297e96fdb6304406692ca",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs": "7c923f09d4dfd73c8390deceeebee2057cdfe38259e8d067d80c6b6dc6f328f0",
+    "src/Compiler/Erlang.Compiler/Execution/Comprehensions/ComprehensionQualifier.cs": "0f3aba5a140587c2daca7d7b4c8e7c4169efb9a98460b73c6d4710b3957be5d5",
+    "src/Compiler/Erlang.Compiler/Syntax/BeamIncludeResolver.cs": "db0fff587a90fc315ca8c3532c01b6adf404844ab73bedf5a30b7f7af9bbc8c7",
+    "src/Compiler/Erlang.Compiler/Syntax/Parser.cs": "5577306af4568281f3e21bdc6b8a02b31e962feca85bd46e63b120db9bc7ab4d",
+    "tests/Erlang.Tests/Compiler/Beam/BeamConstructedListGeneratorHelperChecks.cs": "cce63397c915c03bf763db30de716af7166eb43fd6469564f1c015f8e2f81609",
+    "tests/Erlang.Tests/Compiler/Beam/BeamIncludeProvenanceChecks.cs": "60b739128deb9fce7f50ff3d66a1832ebce7a393c7f032c0a685c75c103078f4",
+    "tests/Erlang.Tests/Compiler/Beam/Binary/BeamConstructedBitMatchChecks.cs": "f7e105d6e0784a7e47de32b25e2954d386afaf4559c4d7b7931e3f5c80aef9e8",
+    "tests/Erlang.Tests/Harness/Program.cs": "a79baf23e086cc4109741bda007174123d3e902c7af7b0bc24178834c517dc40",
+    "tools/Validation/Erlang.BeamCorpus/OtpWindowsInTreeLibraryIncludePaths.cs": "3f824471940e1f2ed905bf7794f2d2d4ab4e01b910ccf43b7f4a87a7543aaae5"
+  },
+  "Patches": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\source-layout-constructed-bit-and-list-1877\\edoc-include-source-directory-projection.patch",
+      "Hash": "fbfca01ce51751ef494f046114deb38c4838190ad6c024010a518b97fcdf8cee"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\source-layout-constructed-bit-and-list-1877\\constructed-bitstring-match-no-fail.patch",
+      "Hash": "65835c9a212304fc7407278c42e8c77f8ed4eb74e5567967efcadc9e27a2213d"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\source-layout-constructed-bit-and-list-1877\\constructed-list-generator-helpers.patch",
+      "Hash": "954e0771d83d144334b50dd7171f076c95762775b0774df1976dc3ecda85f597"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\source-layout-constructed-bit-and-list-1877\\register-fixtures.patch",
+      "Hash": "4059fb89f3ca1d56b3d13bbe82c07d1ccfc9a5b95a26d0f5b85409a2d1e753dd"
+    }
+  ],
+  "Proposals": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\metadata-edoc-include-audit-1874\\edoc-include-source-directory-projection.patch",
+      "Hash": "fbfca01ce51751ef494f046114deb38c4838190ad6c024010a518b97fcdf8cee"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\ssh-bits-mpint-audit-1874\\constructed-bitstring-match-no-fail.patch",
+      "Hash": "3f59f6e10d69fe78551c58b0a6284b5713623d812fe18715a010d63cb91909a4"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\comprehension-next-1874\\constructed-list-csharp\\constructed-list-generator-helpers.patch",
+      "Hash": "ac62e6b8269ffba8e88de442f67ce6b17a2ccfb2c15238cd256546e39048d9e2"
+    }
+  ]
+}

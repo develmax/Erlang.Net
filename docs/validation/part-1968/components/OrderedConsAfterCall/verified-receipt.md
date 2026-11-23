@@ -1,0 +1,20 @@
+# Ordered cons construction verification on Part 1965
+
+Candidate compiler `386555343ac504eb393eec765ec525a04a8f16d4d1bec33dd31642dd1ed054b9` was built from the 934 verified compiler inputs for frozen Part 1965 `03d6fadd7b4d790b1f798473500db621cf0ecaaa51edf240da15bfb210ed2b4f`. The Part 1966 source-only proposal applied cleanly at the isolated Part 1965 target. Its entry-frame preimage differs from Part 1965, so these final patches and manifests are regenerated from the Part 1965 preimages. The Windows OTP baseline is `ad05823719d77c8faee87348ea39513d4e2f99c5`. [Hydration](hydration.json), [original design and reference findings](../receipt.md).
+
+Layout checks and the one-processor compiler and harness builds passed with zero warnings and errors. The baseline fixture fails at the intended post-call construction assertion, and the candidate fixture passes. Under pinned ERTS, both generated fixture images return identical results for all seven scenarios, including the improper tail, rebinding and effectful head outranking the tail. [Build and red/green](first/build-result.json), [baseline assertion](first/red.log), [native fixture](first/native-green.log).
+
+| Released owner | Source sites | Schedules fixed | Operation count before → after | Code bytes before → after |
+|---|---:|---:|---:|---:|
+| `beam_a:rename_instrs/1` | 5 | 0 | Unchanged | Unchanged |
+| `beam_asm:build_record_def_fs/1` | 2 | 2 | 41 → 37 | 13,480 → 13,464 |
+| `beam_ssa_destructive_update:aggregate_ret_patches/1` | 1 | 1 | 107 → 104 | 16,588 → 16,578 |
+| `epp_dodger:scan_form/2` | 11 | 0 | Unchanged | Unchanged |
+
+The two `beam_asm` arms match the pinned 10- and 7-word post-call heap reservations and tuple/cons counts. The wrapped `aggregate_ret_patches` arm matches the pinned 8-word reservation and tuple/cons/outer tuple count. Counts of normalized operations include labels and exclude source location instructions. Its full pinned count is 80, and the full pinned `beam_asm` count is 37. Both full normalized functions still differ. The checked input projection in `beam_asm` stays as before. The `beam_a` and `epp_dodger` modules are byte-unchanged because multi-cell or nested source head patterns bypass the grouped-entry planner. A further implementation needs to carry the same construction plan through the ordinary branch emitter's proven live Y bindings. [Before physical schedules](first/physical-before.terms), [candidate physical schedules](first/physical-candidate.terms), [normalized function comparison](first/functions.terms).
+
+The uncached 12-module scope remained 7 Equal, 5 Different, 0 Unsupported and 0 SourceRejected. It produced two changed images, with zero gained or lost file or section equalities. All seven equal controls and the additional different `gen_server` control stayed byte-identical to the baseline. The compiler build took 96.046 seconds, layout 64.626 seconds, and focused build 7.587 seconds. Scope compilation took 19.025 seconds, with scoped comparison and fixture-native checks completed in 21.995 seconds. [Scope status and sections](first/scope-delta.json), [scope timing](first/scope-result.json).
+
+All four candidate release BEAMs loaded in pinned ERTS, and their public entry-point results match both pinned and frozen images. `beam_a:module/2` rewrote all five tail instruction forms. `beam_asm:module/4` produced and loaded a valid BEAM with the same native record chunk. The SSA probe compiled and executed with two counted calls to `aggregate_ret_patches/1`. `epp_dodger` parsed the mixed preprocessor file and produced the same forms. [Native checks and hashes](release-native/outcome.json).
+
+Final patches applied with `--whitespace=error-all`, and every replayed file matched its tested postimage hash. A full uncached corpus and repository gate for this candidate remain pending. [Production](production-verified.patch), [tests](tests-verified.patch), [file manifest](patch-manifest-verified.json), [artifact hashes](verified-receipt-hashes.json).

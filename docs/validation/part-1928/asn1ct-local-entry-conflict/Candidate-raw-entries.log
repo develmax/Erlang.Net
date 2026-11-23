@@ -1,0 +1,178 @@
+Call from print_structured_errors/1 to nonentry label 824
+913 clean_errors/1 line unsigned:76
+914 clean_errors/1 badmatch x:0
+915 clean_errors/1 label unsigned:111
+916 clean_errors/1 line unsigned:79
+917 print_structured_errors/1 func_info atom:1 atom:87 unsigned:1
+918 print_structured_errors/1 label unsigned:112
+919 print_structured_errors/1 is_list label:111 x:0
+920 print_structured_errors/1 allocate unsigned:0 unsigned:1
+921 print_structured_errors/1 line unsigned:80
+922 print_structured_errors/1 call unsigned:1 label:824
+923 print_structured_errors/1 move atom:34 x:0
+924 print_structured_errors/1 deallocate unsigned:0
+925 print_structured_errors/1 return 
+926 print_structured_errors/1 label unsigned:113
+927 print_structured_errors/1 line unsigned:81
+928 print_structured_error/3 func_info atom:1 atom:88 unsigned:3
+929 print_structured_error/3 label unsigned:114
+930 print_structured_error/3 allocate unsigned:4 unsigned:3
+931 print_structured_error/3 init_yregs argument-count:3 y:0 y:1 y:2
+Call from compile_set/3 to nonentry label 820
+1032 compile_set/3 move x:0 y:0
+1033 compile_set/3 move literal:10 x:1
+1034 compile_set/3 move y:1 x:2
+1035 compile_set/3 move y:4 x:0
+1036 compile_set/3 line unsigned:96
+1037 compile_set/3 call unsigned:3 label:411
+1038 compile_set/3 move x:0 y:1
+1039 compile_set/3 move y:3 x:0
+1040 compile_set/3 line unsigned:97
+1041 compile_set/3 call unsigned:1 label:820
+1042 compile_set/3 test_heap unsigned:13 unsigned:1
+1043 compile_set/3 update_record atom:93 unsigned:12 y:2 x:0 argument-count:10 unsigned:2 y:4 unsigned:3 y:3 unsigned:4 x:0 unsigned:7 y:0 unsigned:8 y:1
+1044 compile_set/3 move x:0 y:4
+1045 compile_set/3 trim unsigned:4 unsigned:1
+1046 compile_set/3 line unsigned:98
+1047 compile_set/3 call unsigned:0 label:17
+1048 compile_set/3 move y:0 x:1
+1049 compile_set/3 call_last unsigned:2 label:79 unsigned:1
+1050 compile_set/3 label unsigned:122
+Call from parse_and_save/2 to nonentry label 815
+2426 parse_and_save/2 init_yregs argument-count:3 y:0 y:1 y:2
+2427 parse_and_save/2 move x:1 y:5
+2428 parse_and_save/2 move x:0 y:6
+2429 parse_and_save/2 get_tuple_element y:5 unsigned:9 x:0
+2430 parse_and_save/2 move x:0 y:4
+2431 parse_and_save/2 get_tuple_element y:5 unsigned:10 x:0
+2432 parse_and_save/2 move x:0 y:3
+2433 parse_and_save/2 move y:4 x:0
+2434 parse_and_save/2 line unsigned:258
+2435 parse_and_save/2 call unsigned:1 label:815
+2436 parse_and_save/2 move x:0 y:2
+2437 parse_and_save/2 get_tuple_element y:5 unsigned:4 x:0
+2438 parse_and_save/2 move x:0 y:1
+2439 parse_and_save/2 move y:4 x:1
+2440 parse_and_save/2 move atom:185 x:0
+2441 parse_and_save/2 line unsigned:259
+2442 parse_and_save/2 call_ext unsigned:2 unsigned:15
+2443 parse_and_save/2 move x:0 y:0
+2444 parse_and_save/2 test_heap unsigned:2 unsigned:0
+Call from -print_structured_errors/1-lc$^0/1-0-/1 to nonentry label 824
+5700 -print_structured_errors/1-lc$^0/1-0-/1 get_tuple_element x:1 unsigned:3 x:5
+5701 -print_structured_errors/1-lc$^0/1-0-/1 allocate unsigned:1 unsigned:6
+5702 -print_structured_errors/1-lc$^0/1-0-/1 move x:2 y:0
+5703 -print_structured_errors/1-lc$^0/1-0-/1 move x:4 x:1
+5704 -print_structured_errors/1-lc$^0/1-0-/1 move x:5 x:2
+5705 -print_structured_errors/1-lc$^0/1-0-/1 move x:3 x:0
+5706 -print_structured_errors/1-lc$^0/1-0-/1 line unsigned:583
+5707 -print_structured_errors/1-lc$^0/1-0-/1 call unsigned:3 label:114
+5708 -print_structured_errors/1-lc$^0/1-0-/1 move y:0 x:0
+5709 -print_structured_errors/1-lc$^0/1-0-/1 call_last unsigned:1 label:824 unsigned:1
+5710 -print_structured_errors/1-lc$^0/1-0-/1 label unsigned:824
+5711 -print_structured_errors/1-lc$^0/1-0-/1 move x:2 x:0
+5712 -print_structured_errors/1-lc$^0/1-0-/1 call_only unsigned:1 label:824
+5713 -print_structured_errors/1-lc$^0/1-0-/1 label unsigned:825
+5714 -print_structured_errors/1-lc$^0/1-0-/1 is_nil label:826 x:0
+5715 -print_structured_errors/1-lc$^0/1-0-/1 return 
+5716 -print_structured_errors/1-lc$^0/1-0-/1 label unsigned:826
+5717 -print_structured_errors/1-lc$^0/1-0-/1 test_heap unsigned:3 unsigned:1
+5718 -print_structured_errors/1-lc$^0/1-0-/1 put_tuple2 x:0 argument-count:2 atom:366 x:0
+Call from -print_structured_errors/1-lc$^0/1-0-/1 to nonentry label 824
+5703 -print_structured_errors/1-lc$^0/1-0-/1 move x:4 x:1
+5704 -print_structured_errors/1-lc$^0/1-0-/1 move x:5 x:2
+5705 -print_structured_errors/1-lc$^0/1-0-/1 move x:3 x:0
+5706 -print_structured_errors/1-lc$^0/1-0-/1 line unsigned:583
+5707 -print_structured_errors/1-lc$^0/1-0-/1 call unsigned:3 label:114
+5708 -print_structured_errors/1-lc$^0/1-0-/1 move y:0 x:0
+5709 -print_structured_errors/1-lc$^0/1-0-/1 call_last unsigned:1 label:824 unsigned:1
+5710 -print_structured_errors/1-lc$^0/1-0-/1 label unsigned:824
+5711 -print_structured_errors/1-lc$^0/1-0-/1 move x:2 x:0
+5712 -print_structured_errors/1-lc$^0/1-0-/1 call_only unsigned:1 label:824
+5713 -print_structured_errors/1-lc$^0/1-0-/1 label unsigned:825
+5714 -print_structured_errors/1-lc$^0/1-0-/1 is_nil label:826 x:0
+5715 -print_structured_errors/1-lc$^0/1-0-/1 return 
+5716 -print_structured_errors/1-lc$^0/1-0-/1 label unsigned:826
+5717 -print_structured_errors/1-lc$^0/1-0-/1 test_heap unsigned:3 unsigned:1
+5718 -print_structured_errors/1-lc$^0/1-0-/1 put_tuple2 x:0 argument-count:2 atom:366 x:0
+5719 -print_structured_errors/1-lc$^0/1-0-/1 call_ext_only unsigned:1 unsigned:45
+5720 -print_structured_errors/1-lc$^0/1-0-/1 label unsigned:827
+5721 -print_structured_errors/1-lc$^0/1-0-/1 line unsigned:571
+Target inside -parse_and_save/2-lc$^0/1-0-/1
+5643 -parse_and_save/2-lc$^0/1-0-/1 label unsigned:814
+5644 -parse_and_save/2-lc$^0/1-0-/1 is_nonempty_list label:816 x:0
+5645 -parse_and_save/2-lc$^0/1-0-/1 get_list x:0 x:1 x:0
+5646 -parse_and_save/2-lc$^0/1-0-/1 is_tagged_tuple label:815 x:1 unsigned:2 atom:249
+5647 -parse_and_save/2-lc$^0/1-0-/1 allocate unsigned:1 unsigned:2
+5648 -parse_and_save/2-lc$^0/1-0-/1 move x:1 y:0
+5649 -parse_and_save/2-lc$^0/1-0-/1 call unsigned:1 label:814
+5650 -parse_and_save/2-lc$^0/1-0-/1 test_heap unsigned:2 unsigned:1
+5651 -parse_and_save/2-lc$^0/1-0-/1 get_tuple_element y:0 unsigned:1 x:1
+5652 -parse_and_save/2-lc$^0/1-0-/1 put_list x:1 x:0 x:0
+5653 -parse_and_save/2-lc$^0/1-0-/1 deallocate unsigned:1
+5654 -parse_and_save/2-lc$^0/1-0-/1 return 
+5655 -parse_and_save/2-lc$^0/1-0-/1 label unsigned:815
+5656 -parse_and_save/2-lc$^0/1-0-/1 call_only unsigned:1 label:814
+5657 -parse_and_save/2-lc$^0/1-0-/1 label unsigned:816
+5658 -parse_and_save/2-lc$^0/1-0-/1 is_nil label:817 x:0
+5659 -parse_and_save/2-lc$^0/1-0-/1 return 
+5660 -parse_and_save/2-lc$^0/1-0-/1 label unsigned:817
+5661 -parse_and_save/2-lc$^0/1-0-/1 test_heap unsigned:3 unsigned:1
+5662 -parse_and_save/2-lc$^0/1-0-/1 put_tuple2 x:0 argument-count:2 atom:366 x:0
+5663 -parse_and_save/2-lc$^0/1-0-/1 call_ext_only unsigned:1 unsigned:45
+5664 -parse_and_save/2-lc$^0/1-0-/1 label unsigned:818
+5665 -parse_and_save/2-lc$^0/1-0-/1 line unsigned:97
+5666 -compile_set/3-lc$^0/1-0-/1 func_info atom:1 atom:372 unsigned:1
+5667 -compile_set/3-lc$^0/1-0-/1 label unsigned:819
+Target inside -compile_set/3-lc$^0/1-0-/1
+5672 -compile_set/3-lc$^0/1-0-/1 call_ext unsigned:1 unsigned:22
+5673 -compile_set/3-lc$^0/1-0-/1 line unsigned:581
+5674 -compile_set/3-lc$^0/1-0-/1 call_ext unsigned:1 unsigned:23
+5675 -compile_set/3-lc$^0/1-0-/1 line unsigned:582
+5676 -compile_set/3-lc$^0/1-0-/1 call_ext unsigned:1 unsigned:38
+5677 -compile_set/3-lc$^0/1-0-/1 swap y:0 x:0
+5678 -compile_set/3-lc$^0/1-0-/1 line unsigned:97
+5679 -compile_set/3-lc$^0/1-0-/1 call unsigned:1 label:819
+5680 -compile_set/3-lc$^0/1-0-/1 test_heap unsigned:2 unsigned:1
+5681 -compile_set/3-lc$^0/1-0-/1 put_list y:0 x:0 x:0
+5682 -compile_set/3-lc$^0/1-0-/1 deallocate unsigned:1
+5683 -compile_set/3-lc$^0/1-0-/1 return 
+5684 -compile_set/3-lc$^0/1-0-/1 label unsigned:820
+5685 -compile_set/3-lc$^0/1-0-/1 is_nil label:821 x:0
+5686 -compile_set/3-lc$^0/1-0-/1 return 
+5687 -compile_set/3-lc$^0/1-0-/1 label unsigned:821
+5688 -compile_set/3-lc$^0/1-0-/1 test_heap unsigned:3 unsigned:1
+5689 -compile_set/3-lc$^0/1-0-/1 put_tuple2 x:0 argument-count:2 atom:366 x:0
+5690 -compile_set/3-lc$^0/1-0-/1 call_ext_only unsigned:1 unsigned:45
+5691 -compile_set/3-lc$^0/1-0-/1 label unsigned:822
+5692 -compile_set/3-lc$^0/1-0-/1 line unsigned:80
+5693 -print_structured_errors/1-lc$^0/1-0-/1 func_info atom:1 atom:373 unsigned:1
+5694 -print_structured_errors/1-lc$^0/1-0-/1 label unsigned:823
+5695 -print_structured_errors/1-lc$^0/1-0-/1 is_nonempty_list label:825 x:0
+5696 -print_structured_errors/1-lc$^0/1-0-/1 get_list x:0 x:1 x:2
+Target inside -print_structured_errors/1-lc$^0/1-0-/1
+5698 -print_structured_errors/1-lc$^0/1-0-/1 get_tuple_element x:1 unsigned:1 x:3
+5699 -print_structured_errors/1-lc$^0/1-0-/1 get_tuple_element x:1 unsigned:2 x:4
+5700 -print_structured_errors/1-lc$^0/1-0-/1 get_tuple_element x:1 unsigned:3 x:5
+5701 -print_structured_errors/1-lc$^0/1-0-/1 allocate unsigned:1 unsigned:6
+5702 -print_structured_errors/1-lc$^0/1-0-/1 move x:2 y:0
+5703 -print_structured_errors/1-lc$^0/1-0-/1 move x:4 x:1
+5704 -print_structured_errors/1-lc$^0/1-0-/1 move x:5 x:2
+5705 -print_structured_errors/1-lc$^0/1-0-/1 move x:3 x:0
+5706 -print_structured_errors/1-lc$^0/1-0-/1 line unsigned:583
+5707 -print_structured_errors/1-lc$^0/1-0-/1 call unsigned:3 label:114
+5708 -print_structured_errors/1-lc$^0/1-0-/1 move y:0 x:0
+5709 -print_structured_errors/1-lc$^0/1-0-/1 call_last unsigned:1 label:824 unsigned:1
+5710 -print_structured_errors/1-lc$^0/1-0-/1 label unsigned:824
+5711 -print_structured_errors/1-lc$^0/1-0-/1 move x:2 x:0
+5712 -print_structured_errors/1-lc$^0/1-0-/1 call_only unsigned:1 label:824
+5713 -print_structured_errors/1-lc$^0/1-0-/1 label unsigned:825
+5714 -print_structured_errors/1-lc$^0/1-0-/1 is_nil label:826 x:0
+5715 -print_structured_errors/1-lc$^0/1-0-/1 return 
+5716 -print_structured_errors/1-lc$^0/1-0-/1 label unsigned:826
+5717 -print_structured_errors/1-lc$^0/1-0-/1 test_heap unsigned:3 unsigned:1
+5718 -print_structured_errors/1-lc$^0/1-0-/1 put_tuple2 x:0 argument-count:2 atom:366 x:0
+5719 -print_structured_errors/1-lc$^0/1-0-/1 call_ext_only unsigned:1 unsigned:45
+5720 -print_structured_errors/1-lc$^0/1-0-/1 label unsigned:827
+5721 -print_structured_errors/1-lc$^0/1-0-/1 line unsigned:571
+5722 -in_process/1-fun-0-/2 func_info atom:1 atom:374 unsigned:2

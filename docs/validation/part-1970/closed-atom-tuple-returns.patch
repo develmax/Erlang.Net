@@ -1,0 +1,218 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -11967,32 +11967,28 @@
+                 && owner.receiveScratchRegisters is null;
+             int literalBranch = 0;
+             int mixedFailure = 0;
+-            bool reuseAtomResult = false;
+             if (mixedTypeSelection && clauses.Count == 2)
+             {
+                 var atom = clauses.FirstOrDefault(clause => clause is
+-                { Guard: null, Patterns: [Pattern.Literal { Value: Atom }] });
+-                bool atomFirst = ReferenceEquals(atom, clauses[0]);
+-                var tuple = atomFirst ? clauses[1] : clauses[0];
+-                if (atom is { Patterns: [Pattern.Literal { Value: Atom matched }] } && tuple is
++                { Guard: null, Patterns: [Pattern.Literal { Value: Atom matched }] }
++                    && SkipDiscardedRegisterCaseLiterals(clause.Body) is Expr.Literal { Value: Atom returned }
++                    && matched.Equals(returned));
++                var tuple = ReferenceEquals(atom, clauses[0]) ? clauses[1] : clauses[0];
++                if (atom is not null && tuple is
+                     {
+                         Guard: null,
+                         Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom }, Pattern.Variable payload] }]
+                     }
+-                    && !variables.ContainsKey(payload.Name) && !deferredPairMembers.ContainsKey(payload.Name))
+-                {
+-                    reuseAtomResult = SkipDiscardedRegisterCaseLiterals(atom.Body) is Expr.Literal { Value: Atom returned }
+-                        && matched.Equals(returned);
+-                    if (atomFirst || reuseAtomResult && (payload.Name == VariableScopeNames.Wildcard
++                    && !variables.ContainsKey(payload.Name) && !deferredPairMembers.ContainsKey(payload.Name)
++                    && (payload.Name == VariableScopeNames.Wildcard
+                         || ReadUsedEntryParameters(new Clause([payload], null, tuple.Body)) is { Count: 0 }))
+-                    {
+-                        // Core partitions adjacent constructor types before matching their values.
+-                        clauses = [tuple, atom];
+-                        literalBranch = Label();
+-                        mixedFailure = Label();
+-                        owner.Op(IsTuple, LabelTag, literalBranch);
+-                        owner.Operand(XRegisterTag, 0);
+-                    }
++                {
++                    // Tuple and atom have disjoint domains. A tag or arity failure cannot reach the atom arm.
++                    clauses = [tuple, atom];
++                    literalBranch = Label();
++                    mixedFailure = Label();
++                    owner.Op(IsTuple, LabelTag, literalBranch);
++                    owner.Operand(XRegisterTag, 0);
+                 }
+             }
+ 
+@@ -12418,8 +12414,7 @@
+                 }
+                 else
+                 {
+-                    bool branchReturns = (mixedFailure == 0 || clauseIndex == 0 || !reuseAtomResult)
+-                        && EmitBranchResult(clause.Body);
++                    bool branchReturns = (mixedFailure == 0 || clauseIndex == 0) && EmitBranchResult(clause.Body);
+                     if (!branchReturns)
+                     {
+                         JumpTo(end);
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs
+@@ -63,6 +63,13 @@
+         {
+             return OrderFinalPhysicalLabelsCore(initialized, labelCount, formMultiKeySelections: false)
+                 ?? (initialized, labelCount);
++        }
++
++        if (!ModuleOptimizationDisabled && SsaTypeInferenceEnabled
++            && PartitionClosedAtomTupleReturns(code, body, references) is { } partitioned)
++        {
++            return OrderFinalPhysicalLabelsCore(partitioned, labelCount, formMultiKeySelections: false)
++                ?? (partitioned, labelCount);
+         }
+ 
+         var sharedFrameEntries = new HashSet<int>();
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedAtomTupleReturns.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedAtomTupleReturns.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedAtomTupleReturns.cs
+@@ -0,0 +1,136 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private byte[]? PartitionClosedAtomTupleReturns(
++        ReadOnlyMemory<byte> code,
++        IReadOnlyList<BeamInstruction> body,
++        IReadOnlyList<(int Start, int End, int Label)> references
++    )
++    {
++        if (!code.Span.Contains(IsTaggedTuple) || !code.Span.Contains(CaseEnd))
++        {
++            return null;
++        }
++
++        var inputs = references.GroupBy(reference => reference.Label)
++            .ToDictionary(group => group.Key, group => group.Count());
++        var selector = new BeamOperand(BeamOperandParameters.X, 0);
++        int begin = 0;
++        int end = 0;
++        using var output = new MemoryStream(code.Length);
++        int copied = 0;
++        while (end < body.Count)
++        {
++            byte opcode = body[end].Definition.Opcode;
++            if (opcode is not (FunctionInfo or EndCode))
++            {
++                end++;
++                continue;
++            }
++
++            if (!body.Skip(begin).Take(end - begin).Any(instruction => instruction.Definition.Opcode is
++                TryEnter or CatchEnter or LoopReceive or Wait or WaitTimeout or DebugLine or ExecutableLine))
++            {
++                for (int index = begin + 1; index + 6 < end; index++)
++                {
++                    if (body[index - 1].Definition.Opcode != ExternalCall
++                        || body[index] is not
++                        {
++                            Definition.Opcode: ExactEqualTest,
++                            Operands: [var other, var input, { Kind: BeamOperandParameters.Atom } literal]
++                        } || input != selector || !inputs.TryGetValue((int)other.Value, out int count) || count != 1)
++                    {
++                        continue;
++                    }
++
++                    int atomReturn = ReadClosedReturn(index + 1, end);
++                    if (atomReturn < 0 || atomReturn + 2 >= end
++                        || body[atomReturn + 1] is not { Definition.Opcode: Label, Operands: [var otherEntry] }
++                        || otherEntry.Value != other.Value
++                        || body[atomReturn + 2] is not
++                        {
++                            Definition.Opcode: IsTaggedTuple,
++                            Operands: [var wrongValue, var tested, var arity, { Kind: BeamOperandParameters.Atom } tag]
++                        } || tested != selector || arity.Value != 2)
++                    {
++                        continue;
++                    }
++
++                    int tupleReturn = ReadClosedReturn(atomReturn + 3, end);
++                    if (tupleReturn < 0 || tupleReturn + 2 >= end
++                        || body[tupleReturn + 1] is not { Definition.Opcode: Label, Operands: [var failure] }
++                        || failure.Value != wrongValue.Value)
++                    {
++                        continue;
++                    }
++
++                    int caseEnd = tupleReturn + 2;
++                    if (body[caseEnd].Definition.Opcode == Line)
++                    {
++                        caseEnd++;
++                    }
++
++                    if (caseEnd >= end || body[caseEnd] is not
++                        { Definition.Opcode: CaseEnd, Operands: [var value] } || value != selector)
++                    {
++                        continue;
++                    }
++
++                    // Adjacent constructor types are disjoint in beam_core_to_ssa.
++                    // These arms contain only root-preserving constructors and returns.
++                    output.Write(code.Span[copied..body[index].Offset]);
++                    output.WriteByte(IsTuple);
++                    BeamCompactWriter.Write(output, LabelTag, other.Value);
++                    WriteRegister(output, selector);
++                    output.WriteByte(IsTaggedTuple);
++                    BeamCompactWriter.Write(output, LabelTag, wrongValue.Value);
++                    output.WriteByte(ExtendedTypedRegisterOperand);
++                    WriteRegister(output, selector);
++                    BeamCompactWriter.Write(output, BeamWire.UnsignedTag, GetOperandTypeIndex((TupleTypeBits, null, null, null)));
++                    BeamCompactWriter.Write(output, BeamWire.UnsignedTag, 2);
++                    BeamCompactWriter.Write(output, AtomTag, tag.Value);
++                    output.Write(code.Span[body[atomReturn + 3].Offset..body[tupleReturn + 1].Offset]);
++                    output.Write(code.Span[body[atomReturn + 1].Offset..body[atomReturn + 2].Offset]);
++                    output.WriteByte(ExactEqualTest);
++                    BeamCompactWriter.Write(output, LabelTag, wrongValue.Value);
++                    WriteRegister(output, selector);
++                    BeamCompactWriter.Write(output, AtomTag, literal.Value);
++                    output.Write(code.Span[body[index + 1].Offset..body[atomReturn + 1].Offset]);
++                    copied = body[tupleReturn + 1].Offset;
++                    index = tupleReturn;
++                }
++            }
++
++            begin = ++end;
++        }
++
++        if (copied == 0)
++        {
++            return null;
++        }
++
++        output.Write(code.Span[copied..]);
++
++        return output.ToArray();
++
++        int ReadClosedReturn(int start, int limit)
++        {
++            int index = start;
++            while (index < limit && body[index].Definition.Opcode is
++                TestHeap or GetTupleElement or PutTuple or PutList or Move)
++            {
++                index++;
++            }
++
++            if (index < limit && body[index].Definition.Opcode == Deallocate)
++            {
++                index++;
++            }
++
++            return index < limit && body[index].Definition.Opcode == Return ? index : -1;
++        }
++    }
++}

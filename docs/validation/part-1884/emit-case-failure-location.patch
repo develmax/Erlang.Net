@@ -1,0 +1,174 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -10941,6 +10941,7 @@
+                 registerPatterns: registerPatterns,
+                 terminalCase: terminalCase,
+                 selectorBinding: selectorBinding,
++                caseFailureLocation: CaseSourceLocation(decision),
+                 properListSelector: preparedProperList
+                     || !inputPrepared && guardFailure is null
+                         && (IsProperListSelector(decision.Value) || savedInput.HasValue && HasProperListCaseBinding(decision))
+@@ -11133,7 +11134,8 @@
+                 exports: exports,
+                 tupleInput: (tuple, slots, failureOperands, reuseSelectorSlots || returnResult),
+                 reuseBranchSlots: reuseBranchSlots || returnResult,
+-                branchContinuation: branchContinuation
++                branchContinuation: branchContinuation,
++                caseFailureLocation: CaseSourceLocation(decision)
+             );
+ 
+             return true;
+@@ -11154,6 +11156,7 @@
+             bool registerPatterns = false,
+             bool terminalCase = false,
+             string? selectorBinding = null,
++            BeamSourceLocation? caseFailureLocation = null,
+             bool properListSelector = false
+         )
+         {
+@@ -11562,7 +11565,7 @@
+                     {
+                         Expression(prepared.Value);
+                     }
+-                    owner.Op(CaseEnd, XRegisterTag, 0);
++                    EmitCaseEnd(caseFailureLocation);
+                 }
+                 else if (failureReason is null)
+                 {
+@@ -11571,7 +11574,7 @@
+                         Load(failedInput);
+                     }
+ 
+-                    owner.Op(CaseEnd, XRegisterTag, 0);
++                    EmitCaseEnd(caseFailureLocation);
+                 }
+                 else
+                 {
+@@ -13022,9 +13025,18 @@
+             return true;
+         }
+ 
++        // v3_core uses the case expression's annotation on its synthetic failure clause.
++        private BeamSourceLocation? CaseSourceLocation(Expr.Case decision) =>
++            decision.SourceLine == 0 ? null : new(decision.PreprocessorFile ?? location.File, decision.SourceLine);
++
+         private void EmitBooleanCaseFailure(int label, BeamSourceLocation? failureLocation)
+         {
+             Mark(label);
++            EmitCaseEnd(failureLocation);
++        }
++
++        private void EmitCaseEnd(BeamSourceLocation? failureLocation)
++        {
+             if (failureLocation is { } source)
+             {
+                 owner.EmitLine(source);
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamCaseFailureLocationChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamCaseFailureLocationChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamCaseFailureLocationChecks.cs
+@@ -0,0 +1,103 @@
++using Erlang.Compiler;
++
++namespace Erlang.Tests;
++
++internal static class BeamCaseFailureLocationChecks
++{
++    internal const string TestName = "compiler/beam/case-clause-uses-the-source-case-location";
++    private const string Fixture = "beam_case_failure_position.erl";
++    private const string MappedFile = "mapped_case.yrl";
++    private const string WrongResult = "A case result or its failure location differed from the source case.";
++    private const string CaseClause = "case_clause";
++    private const string Source = """
++        -module(beam_case_failure_position).
++        -export([pick/1, called/1, nested/1, covered/1, mapped/1]).
++        pick(Value) ->
++            case Value of
++                {one, Out} when is_integer(Out) -> Out;
++                #{other := Out} -> Out
++            end.
++
++        called(Value) ->
++            case
++                identity(Value)
++            of
++                {one, Out} when is_integer(Out) -> Out;
++                #{other := Out} -> Out
++            end.
++
++        nested(Value) ->
++            case Value of
++                {inner, Child} ->
++                    case Child of
++                        {one, Result} -> Result;
++                        #{other := Result} -> Result
++                    end;
++                fallback -> ok
++            end.
++
++        covered(Value) ->
++            case Value of
++                {one, Out} -> Out;
++                _ -> none
++            end.
++
++        -file("mapped_case.yrl", 200).
++        mapped(Value) ->
++            case Value of
++                {one, Result} when is_integer(Result) -> Result;
++                #{other := Result} -> Result
++            end.
++
++        identity(Value) -> erlang:put(position_observed, Value), Value.
++        """;
++
++    internal static async Task Run()
++    {
++        var module = BeamModule.Prepare(CodeGeneration.CompileBeamModule(Source, Fixture));
++        await using var runtime = new ProcessRuntime();
++        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
++        await actor.InvokeAsync(async context =>
++        {
++            var wrong = Term.A("wrong");
++            await CheckFailure("pick", wrong, Fixture, 4);
++            await CheckFailure("called", wrong, Fixture, 10);
++            await CheckFailure("nested", Term.Tuple(Term.A("inner"), wrong), Fixture, 20);
++            await CheckFailure("nested", wrong, Fixture, 18);
++            await CheckFailure("mapped", wrong, MappedFile, 202);
++
++            Term matched = Term.Tuple(Term.A("one"), Term.I(5));
++            if (!(await module.Invoke(context, "pick", matched)).Equals(Term.I(5))
++                || !(await module.Invoke(context, "covered", wrong)).Equals(Term.A("none")))
++            {
++                throw new InvalidOperationException(WrongResult);
++            }
++
++            return Nil.Value;
++
++            async Task CheckFailure(string function, Term input, string file, int line)
++            {
++                try
++                {
++                    _ = await module.Invoke(context, function, input);
++                }
++                catch (ErlangException error)
++                {
++                    if (!error.Reason.Equals(Term.Tuple(Term.A(CaseClause), wrong))
++                        || error.StackTraceTerm is not Cons { Head: TupleTerm { Items: [_, Atom name, _, var position] } }
++                        || name.Name != function
++                        || !Cons.Items(position).Contains(Term.Tuple(Term.A("file"), Term.String(file)))
++                        || !Cons.Items(position).Contains(Term.Tuple(Term.A("line"), Term.I(line))))
++                    {
++                        throw new InvalidOperationException(WrongResult, error);
++                    }
++
++                    return;
++                }
++
++                throw new InvalidOperationException(WrongResult);
++            }
++        });
++    }
++}
++

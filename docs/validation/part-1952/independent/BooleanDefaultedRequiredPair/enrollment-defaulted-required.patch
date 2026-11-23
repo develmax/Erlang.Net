@@ -1,0 +1,97 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs
+@@ -94,6 +94,13 @@
+ 
+                 if (retainedPredicates is not null)
+                 {
++                    bool allowsFinalForeign = count == 4 && index == count - 1
++                        && fields[0] is { Omits: null, Call.Module: null, Constants: [Cons] }
++                        && fields[1] is { Omits: null, Call.Module: null, Constants: [Cons] }
++                        && retainedPredicates[2] is
++                        {
++                            Names: null, Tags: Cons, Default: TupleTerm { Items: [Nil, Integer omittedLength] }
++                        } && omittedLength.Value.IsZero;
+                     if (field is Expr.Case conditional
+                         && ReadDefaultEncodeField(conditional, value.Name, allowNamedOptions: true) is { } retainedPredicate)
+                     {
+@@ -112,7 +119,9 @@
+                         allowForeign: true,
+                         allowForeignOptional: count == 3 && index > 0
+                     ) is { } retained
+-                    && (retained.Call.Module is null || count == 3 && index > 0
++                    && (retained.Call.Module is null
++                        || allowsFinalForeign && retained is { Omits: null, Constants: [Cons] }
++                        || count == 3 && index > 0
+                         && retained is { Omits: Atom, Constants.Count: 1 }
+                         && (index == 1 || fields[0].Omits is null
+                             && fields[1] is { Omits: Atom, Call.Module: not null })))
+@@ -349,7 +358,9 @@
+                 { Omits: not null }
+                 ] && (retainedPredicates[1] is not null || fields[1].Call.Module is not null)
+                     && retainedPredicates[2] is null;
+-                if (!allConditional && !leadingRequired)
++                bool checkedFinalAfterDefault = retainedPredicates is [null, null, { Names: null }, null]
++                    && fields[^1] is { Omits: null, Call.Module: not null };
++                if (!allConditional && !leadingRequired && !checkedFinalAfterDefault)
+                 {
+                     return false;
+                 }
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultPrefixedSequenceEncoder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultPrefixedSequenceEncoder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultPrefixedSequenceEncoder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultPrefixedSequenceEncoder.cs
+@@ -17,6 +17,8 @@
+         {
+             int count = fields.Count;
+             bool trimFinal = first is null && fields[^1].Omits is null;
++            bool trimBeforeForeignAfterDefault = trimFinal && fields[^1].Call.Module is not null
++                && retainedPredicates is [null, null, { Names: null }, null];
+             bool reuseRecordSlot = fields[^1].Omits is not null
+                 && fields[^2] is { Omits: null, Call.Module: null };
+             int frame = reuseRecordSlot ? count : count + 1;
+@@ -29,6 +31,11 @@
+ 
+             int PairSlot(int index)
+             {
++                if (trimBeforeForeignAfterDefault && index is 1 or 2)
++                {
++                    return firstSlot - (3 - index);
++                }
++
+                 if (reverseLeadingSlots && index < 2)
+                 {
+                     return firstSlot - (1 - index);
+@@ -198,12 +205,16 @@
+                 pending = true;
+                 if (failedReturns.TryGetValue(index, out int invalid))
+                 {
+-                    owner.MoveRegister(
+-                        XRegisterTag,
+-                        0,
+-                        YRegisterTag,
+-                        slot
+-                    );
++                    if (!last)
++                    {
++                        owner.MoveRegister(
++                            XRegisterTag,
++                            0,
++                            YRegisterTag,
++                            slot
++                        );
++                    }
++
+                     owner.EmitTupleCheck(0, 2, invalid);
+                     pending = false;
+                 }
+@@ -213,8 +224,9 @@
+             int[]? pairSlots = null;
+             if (reuseRecordSlot || trimFinal || reverseLeadingSlots)
+             {
++                int displacedPair = trimBeforeForeignAfterDefault ? count - 3 : count - 2;
+                 pairSlots = Enumerable.Range(0, count).Select(index => trimFinal
+-                    ? (index == count - 2 ? recordSlot : PairSlot(index)) - 1 : PairSlot(index)).ToArray();
++                    ? (index == displacedPair ? recordSlot : PairSlot(index)) - 1 : PairSlot(index)).ToArray();
+             }
+ 
+             int trimmed = trimFinal ? 1 : 0;

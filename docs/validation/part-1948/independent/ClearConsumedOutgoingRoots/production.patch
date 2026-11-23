@@ -1,0 +1,108 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+@@ -1180,6 +1180,7 @@
+         code = CompactClosedCatchArgumentFrame(code, labelCount) ?? code;
+         code = CompactCaughtListTailFrames(code, labelCount) ?? code;
+         code = ClearClosedCatchArgumentRoots(code, labelCount) ?? code;
++        code = ClearConsumedOutgoingRoots(code, labelCount) ?? code;
+         code = TrimClosedCatchPayloadReturns(code, labelCount) ?? code;
+         code = FoldStagedListConstructions(code, labelCount) ?? code;
+         code = FoldTerminalClosureFrames(code, labelCount) ?? code;
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ConsumedOutgoingRoots.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ConsumedOutgoingRoots.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ConsumedOutgoingRoots.cs
+@@ -0,0 +1,92 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private byte[]? ClearConsumedOutgoingRoots(ReadOnlyMemory<byte> code, int labelCount)
++    {
++        if (ModuleOptimizationDisabled || !SsaTypeInferenceEnabled || !code.Span.Contains(Move)
++            || DecodeLateAtomicProjectionSlots(code, labelCount) is not { } decoded)
++        {
++            return null;
++        }
++
++        var body = decoded.Body;
++        var edits = new SortedDictionary<int, int[]>();
++        BeamProjectionFlow? flow = null;
++        bool protectedFunction = true;
++        for (int call = 0; call < body.Count; call++)
++        {
++            if (body[call].Definition.Opcode == FunctionInfo)
++            {
++                protectedFunction = false;
++                for (int end = call + 1; body[end].Definition.Opcode is not (FunctionInfo or EndCode); end++)
++                {
++                    protectedFunction |= body[end].Definition.Opcode is CatchEnter or TryEnter or DebugLine or ExecutableLine;
++                }
++            }
++
++            if (protectedFunction || body[call] is not
++                {
++                    Definition.Opcode: LocalCall or ExternalCall,
++                    Operands: [var arity, _]
++                } || arity.Value.IsZero)
++            {
++                continue;
++            }
++
++            int afterSetup = call;
++            while (afterSetup > 0 && body[afterSetup - 1].Definition.Opcode == Line)
++            {
++                afterSetup--;
++            }
++
++            // Calls already preceded by a kill retain their existing schedule.
++            var sources = new SortedSet<int>();
++            var destinations = new HashSet<int>();
++            for (int setup = afterSetup - 1; setup > 0 && body[setup] is
++            {
++                Definition.Opcode: Move,
++                Operands: [var source, { Kind: BeamOperandParameters.X, TypeIndex: null } destination]
++            } && destination.Value < arity.Value && destinations.Add((int)destination.Value); setup--)
++            {
++                if (source is not { Kind: BeamOperandParameters.Y, TypeIndex: null })
++                {
++                    continue;
++                }
++
++                flow ??= new BeamProjectionFlow(body);
++                if (flow.IsInitialized(setup, source) && flow.IsDead(call, source, allowBadRecordExit: true))
++                {
++                    sources.Add((int)source.Value);
++                }
++            }
++
++            if (sources.Count != 0)
++            {
++                edits.Add(afterSetup, sources.ToArray());
++            }
++        }
++
++        if (edits.Count == 0)
++        {
++            return null;
++        }
++
++        using var output = new MemoryStream(code.Length);
++        int copied = 0;
++        foreach (var (index, slots) in edits)
++        {
++            int insertion = body[index].Offset;
++            output.Write(code.Span[copied..insertion]);
++            WriteFrameInitialization(output, slots);
++            copied = insertion;
++        }
++
++        highestOpcode = Math.Max(highestOpcode, InitYRegisters);
++        output.Write(code.Span[copied..]);
++
++        return output.ToArray();
++    }
++}

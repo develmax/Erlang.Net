@@ -1,0 +1,56 @@
+{
+  "beam_owned_record_slots_probe": {
+    "run": [
+      "case_end",
+      "case_end",
+      "badrecord",
+      "case_end"
+    ],
+    "reordered": [
+      "case_end",
+      "badrecord",
+      "case_end"
+    ],
+    "preserve": [
+      "case_end",
+      "badrecord",
+      "case_end"
+    ]
+  },
+  "before": {
+    "run": [
+      "case_end",
+      "case_end",
+      "case_end",
+      "badrecord"
+    ],
+    "reordered": [
+      "case_end",
+      "badrecord",
+      "case_end"
+    ],
+    "preserve": [
+      "case_end",
+      "badrecord",
+      "case_end"
+    ]
+  },
+  "failed": {
+    "run": [
+      "case_end",
+      "case_end",
+      "case_end",
+      "badrecord"
+    ],
+    "reordered": [
+      "case_end",
+      "case_end",
+      "badrecord"
+    ],
+    "preserve": [
+      "case_end",
+      "case_end",
+      "badrecord"
+    ]
+  }
+}

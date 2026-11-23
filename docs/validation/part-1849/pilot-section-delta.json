@@ -1,0 +1,28 @@
+{
+  "Gains": {
+    "LitT": 2,
+    "AtU8": 1,
+    "ExpT": 1,
+    "ImpT": 1
+  },
+  "Losses": {},
+  "Modules": [
+    {
+      "Module": "diameter_session",
+      "Gains": [
+        "LitT"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "mnesia_kernel_sup",
+      "Gains": [
+        "AtU8",
+        "ExpT",
+        "ImpT",
+        "LitT"
+      ],
+      "Losses": []
+    }
+  ]
+}

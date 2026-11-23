@@ -1,0 +1,10 @@
+[Image,Output]=init:get_plain_arguments(),
+{ok,Bytes}=file:read_file(Image),
+true=code:unstick_mod(make),
+{module,make}=code:load_binary(make,Image,Bytes),
+Options=[[],[load],[netload],[load,netload],[noexec,load],[debug_info],[{emake,[]}]],
+Rows=[{Opts,make:files([],Opts)} || Opts<-Options],
+true=lists:all(fun({_,up_to_date})->true;(_)->false end,Rows),
+ok=file:write_file(Output,term_to_binary(Rows)),
+io:format("~B observations~n",[length(Rows)]),
+halt(0).

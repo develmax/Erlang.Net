@@ -1,0 +1,14 @@
+[Manifest,Output]=init:get_plain_arguments(),
+{ok,Raw}=file:read_file(Manifest),
+Decode=fun(B)->
+    {beam_file,M,_,_,_,Fs}=beam_disasm:file(binary_to_list(string:trim(B))),
+    {M,sets:from_list([{N,A}||{function,N,A,_,_}<-Fs,binary:match(atom_to_binary(N,utf8),<<"lc$^">>)=/=nomatch])}
+end,
+Records=[binary:split(L,<<9>>,[global]) || L<-binary:split(Raw,<<10>>,[global,trim_all])],
+Rows=lists:filtermap(fun([Ref,Old,New])->
+  {M,R}=Decode(Ref), {M,O}=Decode(Old), {M,N}=Decode(New),
+  Added=lists:sort(sets:to_list(sets:intersection(R,sets:subtract(N,O)))),
+  Lost=lists:sort(sets:to_list(sets:intersection(R,sets:subtract(O,N)))),
+  case {Added,Lost} of {[],[]}->false; _->{true,{M,Added,Lost}} end
+end, Records),
+ok=file:write_file(Output,[io_lib:format("~0tp.~n",[R])||R<-Rows]),halt().

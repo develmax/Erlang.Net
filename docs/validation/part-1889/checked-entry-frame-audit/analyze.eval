@@ -1,0 +1,12 @@
+[Inputs,Output]=init:get_plain_arguments(),{ok,Rows}=file:consult(Inputs),
+Grouped=maps:groups_from_list(fun({Image,_,_,_,_,_})->Image end,Rows),
+{ok,F}=file:open(Output,[write]),
+maps:foreach(fun(Image,Group)->
+  {beam_file,_,_,_,_,Fs}=beam_disasm:file(Image),
+  Keys=maps:from_list([{{N,A},Body}||{function,N,A,_,Body}<-Fs]),
+  lists:foreach(fun({_,M,Key,R,P,B})->
+      Val=case maps:find(Key,Keys) of {ok,Ops}->[S||I<-Ops,S<-case I of {allocate,V,_}->[V];{allocate_heap,V,_,_}->[V];_->[] end];error->absent end,
+      Status=case Val of P->restored;B->unchanged;V when is_list(V)->case lists:sum(V)<lists:sum(B) of true->closer;false->farther end;_->missing end,
+      io:format(F,"~0w.~n",[{M,Key,R,P,B,Val,Status}])
+  end,Group)
+end,Grouped),ok=file:close(F),halt().

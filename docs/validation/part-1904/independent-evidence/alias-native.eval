@@ -1,0 +1,10 @@
+[File,Out]=init:get_plain_arguments(),M=megaco_user_default,
+{ok,Bytes}=file:read_file(File),
+{ok,_}=code:prepare_loading([{M,File,Bytes}]),
+{module,M}=code:load_binary(M,File,Bytes),
+Data=[M:handle_trans_request(undefined,1,[],undefined),M:handle_trans_request(undefined,2,[],undefined),
+      M:handle_trans_reply(undefined,1,{ok,[]},undefined,undefined),
+      M:handle_trans_reply(undefined,1,{error,{different,reason}},undefined,undefined)],
+ok=file:write_file(Out,io_lib:format("~0tp.~n",[Data])),
+halt().
+

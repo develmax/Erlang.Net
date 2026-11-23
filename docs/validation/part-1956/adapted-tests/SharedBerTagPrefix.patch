@@ -1,0 +1,116 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamResumedBinaryPrefixChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamResumedBinaryPrefixChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamResumedBinaryPrefixChecks.cs
+@@ -0,0 +1,111 @@
++using System.Collections;
++using System.Numerics;
++using Erlang;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamResumedBinaryPrefixChecks
++{
++    internal const string TestName = "compiler/beam/resumes-private-binary-prefix-context";
++    private const string Fixture = "beam_resumed_binary_prefix.erl";
++    private const string WrongSchedule = "The private binary prefix did not use its expected match context.";
++    private const string WrongResult = "The binary prefix changed its result or failure reason.";
++
++    private const string Source = """
++        -module(beam_resumed_binary_prefix).
++        -export([probe/1]).
++        probe(Bits) -> split(Bits).
++        split(<<_:3,31:5,Rest/binary>>) -> scan(Rest);
++        split(<<_:3,Tag:5,Rest/binary>>) -> {rest,Rest}.
++        scan(<<1:1,_:7,Rest/binary>>) -> scan(Rest);
++        scan(<<0:1,_:7,Rest/binary>>) -> {rest,Rest}.
++        """;
++
++    internal static async Task Run()
++    {
++        byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
++        byte[] ordinaryCaller = CodeGeneration.CompileBeamModule(
++            Source.Replace("probe(Bits) -> split(Bits).", "probe(Bits) -> scan(Bits).", StringComparison.Ordinal),
++            Fixture
++        );
++        var module = BeamModule.Prepare(image);
++        await using var runtime = new ProcessRuntime();
++        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
++        await actor.InvokeAsync(async context =>
++        {
++            foreach (byte[] data in new byte[][]
++            {
++                [0x04, 0x2a],
++                [0x1f, 0x22, 0x2a],
++                [0x1f, 0x80, 0xff, 0x22, 0x2a]
++            })
++            {
++                Term expected = Term.Tuple(Term.A("rest"), new BitString([0x2a]));
++                if (!expected.Equals(await module.Invoke(context, "probe", new BitString(data))))
++                {
++                    throw new InvalidOperationException(WrongResult);
++                }
++            }
++
++            foreach (Term failure in new Term[]
++            {
++                Term.A("wrong_input"),
++                new BitString([]),
++                new BitString([0x1f]),
++                new BitString([0x1f, 0xff])
++            })
++            {
++                try
++                {
++                    await module.Invoke(context, "probe", failure);
++                }
++                catch (ErlangException error) when (error.ExceptionClass == ErlangExceptionClasses.Error
++                    && error.Reason.Equals(Term.A("function_clause")))
++                {
++                    continue;
++                }
++
++                throw new InvalidOperationException(WrongResult);
++            }
++
++            return Nil.Value;
++        });
++
++        byte[] split = Opcodes(image, "split");
++        byte[] scan = Opcodes(image, "scan");
++        byte[] unknown = Opcodes(ordinaryCaller, "scan");
++        if (!split.Contains(StartBinaryMatch) || !split.Contains(GetBinaryPosition) || split.Contains(Allocate)
++            || !scan.Contains(StartBinaryMatchKnown) || !scan.Contains(SetBinaryPosition) || scan.Contains(Allocate)
++            || unknown.Contains(StartBinaryMatchKnown))
++        {
++            throw new InvalidOperationException(WrongSchedule);
++        }
++    }
++
++    private static byte[] Opcodes(byte[] image, string name)
++    {
++        object code = Code(image);
++        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        object[] instructions = Items(code, "Instructions");
++        int start = Array.FindIndex(
++            instructions,
++            instruction => Opcode(instruction) == FunctionInfo
++                && Items(instruction, "Operands") is [_, var function, var arity]
++                && atoms[(int)(BigInteger)Property(function, "Value")] == name
++                && (int)(BigInteger)Property(arity, "Value") == 1
++        );
++        if (start < 0)
++        {
++            throw new InvalidOperationException(WrongSchedule);
++        }
++
++        return instructions.Skip(start + 1).Select(Opcode).TakeWhile(opcode => opcode != FunctionInfo).ToArray();
++    }
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static object[] Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
++}

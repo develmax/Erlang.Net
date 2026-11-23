@@ -1,0 +1,184 @@
+{
+  "state": "Measured local component",
+  "utc": "2026-11-20T17:13:54.400970+00:00",
+  "otp": "29.1.1",
+  "pinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "sdk": "10.0.400",
+  "runtime": "10.0.11",
+  "compiler": "9e77bf73a7d3c3dbac88c6e59449534d4b8f40190e42ac29235588f58d766e15",
+  "sourceInputs": 934,
+  "base": {
+    "Source": "31d2c427affb6f750b93be6ea046843795962015479d04105af10b2d7592b494",
+    "Paths": 1074,
+    "RemovedPaths": [],
+    "Compiler": "03d6fadd7b4d790b1f798473500db621cf0ecaaa51edf240da15bfb210ed2b4f",
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "Tests": "545caad875dae730f9b2b3fdc118194c45562051eb2aacd3f7bcd6a1daba09a9",
+    "ParentSource": "c5268c0159c7b74a2f1d57de440378b734c73b3c57c3f898213d4a3110a50044",
+    "CorpusTool": "01b086b1a4f3d7b7b90b56920d14be7435f7be4c0dedc3b105ca8d46507d0feb"
+  },
+  "style": "Source layout: 0 files need formatting",
+  "fixture": {
+    "red": {
+      "exit": 1,
+      "seconds": 3.739254999998593
+    },
+    "green": {
+      "exit": 0,
+      "seconds": 3.1083378000002995
+    }
+  },
+  "build": {
+    "exit": 0,
+    "buildSeconds": 78.5419286
+  },
+  "newEqual": [],
+  "lostEqual": [],
+  "counts": {
+    "Equal": 6,
+    "Different": 18,
+    "Unsupported": 0,
+    "SourceRejected": 0,
+    "CompilerError": 0
+  },
+  "changed": [
+    {
+      "beam": "lib\\mnesia-4.27\\ebin\\mnesia_backup.beam",
+      "baseline": "Different",
+      "candidate": "Different",
+      "beforeSha256": "e423de33e46f4973e69eeda74ac47a4dcd8242e709700701eb1766a4eff0a267",
+      "afterSha256": "09843a47965e949395029876c7028b81d6fe6712d65cd185bc1f1215317ec109",
+      "pinnedSha256": "f47b2eeeaecaad1195ce659c05dd46c5a5e9c830f74f53c67c292f48c766aac0",
+      "sourceSha256": "a6820b8ec590824b0670df389f1ab8e3f9138a717a484cfadce58d1ababf4b46"
+    }
+  ],
+  "sections": {
+    "sizes": {
+      "AtU8": [
+        284,
+        293,
+        284
+      ],
+      "Code": [
+        1076,
+        1177,
+        1114
+      ],
+      "StrT": [
+        0,
+        0,
+        0
+      ],
+      "ImpT": [
+        160,
+        160,
+        160
+      ],
+      "ExpT": [
+        112,
+        112,
+        112
+      ],
+      "LitT": [
+        101,
+        101,
+        101
+      ],
+      "Meta": [
+        45,
+        45,
+        45
+      ],
+      "LocT": [
+        4,
+        4,
+        4
+      ],
+      "Attr": [
+        28,
+        28,
+        28
+      ],
+      "CInf": [
+        333,
+        333,
+        333
+      ],
+      "Dbgi": [
+        3299,
+        3299,
+        3299
+      ],
+      "Docs": [
+        345,
+        345,
+        345
+      ],
+      "Line": [
+        68,
+        68,
+        68
+      ],
+      "Type": [
+        12,
+        12,
+        12
+      ]
+    },
+    "beforeSections": [
+      "AtU8",
+      "Code",
+      "ExpT",
+      "ImpT"
+    ],
+    "candidateSections": [
+      "AtU8",
+      "Code",
+      "ExpT"
+    ],
+    "changedSections": [
+      "AtU8",
+      "Code",
+      "ExpT",
+      "ImpT"
+    ],
+    "beforeLineEqualsAfter": true,
+    "candidateLineEqualsPinned": true
+  },
+  "nativeObservationCounts": {
+    "actualOrdinary": 4,
+    "actualDamagedOrClosed": 3,
+    "forcedBranchResults": 9,
+    "synthetic": 9
+  },
+  "patches": {
+    "production.patch": "00bdf9bcc83de932421fecdf178cc95c670a4bf7d94d7ea035bcc79d6e97d69f",
+    "test.patch": "e66747ec1dbcbdd04c777a47afbeb5692b5cb88d1cdc2627bd41e0d99f5a8821",
+    "draft-receipt.json": "15a687dfb23baa7528f0266622ff7b45c7b023c4db9ca4207188704fe9a9e06b"
+  },
+  "hashes": {
+    "RESULT.md": "ba073f1b6345bce8968ae6a4622b721bd95ed2af15e14cbc79db79004bca1c57",
+    "scope.json": "6fc911a4cda145c8e70c288ef18a4509dd15217fc51bcc46beea0e6e9e05655c",
+    "scope.json.timings.json": "b34e2784964fe157d9d0d3534dab88250bcdffd45f6383de81107a95135ff5c8",
+    "scope-delta.json": "8bef9f4ad260e6d76f2c3f55704c7d8daeaabcdfcad5e9112fef7275a21a3826",
+    "timings.json": "715bf6c5c4315a0f6c8b1161bc2a4175542cd064d67e11b0cf868c6967af6019",
+    "compact.json": "4f49a640b54131868d375845ff1454b7d2b545063cc35975f0d70ced2d86a2bf",
+    "compact-delta.json": "ffd9f61d6b5430293957605d645017d4765e40435a460e677c9205c9dc82a3fc",
+    "compiler-inputs.json": "00f7d2830723c12f718f1af7a8ca2daf171914830b74c043f49d6f70979afbc7",
+    "style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "build-retake.log": "3193cd772facdaf3ee735da3dcbca8940710320f6b85d45b7a06dd6cdcbf2c72",
+    "build.log": "c97ea488c049760156da92c0d500c30710b3feb29a412930928df38cfde0e276",
+    "build-retake-timing.json": "5910e6bde6a00f7340dea63a6ab847c00b1d3ce2088e55e0ec4e06c5d849bdd7",
+    "fixture-red.log": "c6329f19f4592c1e8915c1da76054f9b243a93859e8f5fa1908b9181f35128b7",
+    "fixture-green.log": "27b0e9d75a37bd7fd8a3429fe2de01346900f659ec0e0ff59f209baaacb37a9b",
+    "native/compared-outcomes.json": "7c8d15d789d7b5fc65460bd84264e63fd64d8009db98989af277f534dfa34e58",
+    "mnesia-backup-chunks.json": "f97ed5436ebd60314e44b1e5f9201c484cf6314056a9fe516273b6ad7bfc4717",
+    "mnesia-backup-functions.terms": "30473f25fb6da9b376d9a4f20a6a8886584b8621cf737fcc0bb8fa2c71604c8a",
+    "scope-opcode-rank.terms": "d4f6a2b122ae6df5ba4e361255174d03a0e71ca56195509a9ddf67d512accc32",
+    "rank-opcode.log": "9ac10395dea344e53860565963c466c71dbe0ec0764509fd067298c08779f8fc"
+  },
+  "headerInputManifests": {
+    "public-key-generated.json": "c8727e7139ac5195da7293f2b9c2ef83d33d82397748b0d747721970fa3c90b5",
+    "pinned-inputs-full.json": "f49bcbfa8af46893ade784e58e5459092634ae5e71a019640d0001b4d79a5fcf"
+  }
+}

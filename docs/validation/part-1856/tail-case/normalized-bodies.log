@@ -1,0 +1,36 @@
+Error! Failed to eval: [Pairs]=init:get_plain_arguments(),{ok,Bin}=file:read_file(Pairs),
+Rows=[string:split(binary_to_list(L),"\t",all)||L<-binary:split(Bin,<<10>>,[global,trim_all])],
+Read=fun(P)->{beam_file,_,_,_,_,Fs}=beam_disasm:file(P),maps:from_list([{{F,N},Is}||{function,F,N,_,Is}<-Fs]) end,
+Normalize=fun(Code)->
+    Labels=[L||{label,L}<-Code],Ids=maps:from_list(lists:zip(Labels,lists:seq(1,length(Labels)))),
+    Norm=fun N({label,L})->{label,maps:get(L,Ids)};N({f,L})->{f,maps:get(L,Ids,L)};
+        N(T) when is_tuple(T)->list_to_tuple([N(E)||E<-tuple_to_list(T)]);
+        N(Vs) when is_list(Vs)->[N(V)||V<-Vs];N(V)->V end,
+    Norm(Code)
+end,
+Terms=lists:map(fun([Rel,O,B,A])->
+    Otp=Read(O),Before=Read(B),After=Read(A),
+    Keys=lists:usort(maps:keys(Otp)++maps:keys(Before)++maps:keys(After)),
+    Test=fun(K)->
+        case {maps:find(K,Otp),maps:find(K,Before),maps:find(K,After)} of
+            {{ok,R},{ok,X},{ok,Y}} when X=/=Y ->
+                {K,#{raw_before=>R=:=X,raw_after=>R=:=Y,normalized_before=>Normalize(R)=:=Normalize(X),normalized_after=>Normalize(R)=:=Normalize(Y)}};
+            {_,X,Y} when X=/=Y -> {K,missing};
+            _ -> []
+        end
+    end,
+    {Rel,[D||K<-Keys,D<-[Test(K)],D=/=[]]}
+end,Rows),
+Flat=lists:flatmap(fun({_,Rows0})->Rows0 end,Terms),
+Delta=fun(Old,New)->
+    {length([K||{K,M}<-Flat,is_map(M),not maps:get(Old,M),maps:get(New,M)]),
+     length([K||{K,M}<-Flat,is_map(M),maps:get(Old,M),not maps:get(New,M)])}
+end,
+io:format("~w.~n",[#{changed_functions=>length(Flat),raw=>Delta(raw_before,raw_after),
+                     normalized=>Delta(normalized_before,normalized_after)}]),
+lists:foreach(fun(R)->io:format("~p.~n",[R]) end,Terms),halt().
+
+
+Runtime terminating during boot ({{badmatch,[]},[{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,796}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{init,start_it,1,[{file,"init.erl"},{line,1561}]},{init,start_em,1,[{file,"init.erl"},{line,1546}]},{init,do_boot,3,[{file,"init.erl"},{line,1217}]}]})
+
+Crash dump is being written to: D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\local-1855-tail-case-construction\runs\worker-first/normalized-bodies.dump...done

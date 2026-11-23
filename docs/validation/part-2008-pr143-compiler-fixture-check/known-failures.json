@@ -1,0 +1,301 @@
+{
+  "Partial": true,
+  "SelectedCount": 44,
+  "TotalCount": 10716,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/beam/accumulated-pair-lengths-preserve-minimum",
+    "compiler/beam/builds-protected-message-tuple-in-outgoing-x1",
+    "compiler/beam/clears-only-dead-stack-roots-after-projected-call-arguments",
+    "compiler/beam/coalesces-checked-map-scratch-projections",
+    "compiler/beam/compares-the-whole-literal-before-returning-a-closure",
+    "compiler/beam/declared-native-entry-frame-marker",
+    "compiler/beam/discarded-binary-tuple-binds-fields-directly",
+    "compiler/beam/dispatches-two-atom-alternatives-with-branch-owned-frames",
+    "compiler/beam/forwards-a-closure-call-result-to-checked-arguments",
+    "compiler/beam/forwards-an-arithmetic-argument-across-a-zero-frame",
+    "compiler/beam/forwards-record-update-into-outgoing-call-argument",
+    "compiler/beam/generic-map-patterns-annotate-proven-inputs",
+    "compiler/beam/keeps-a-dead-guarded-call-payload-in-x",
+    "compiler/beam/keeps-captured-fallback-input-through-tuple-arity-switch",
+    "compiler/beam/keeps-direct-anonymous-application-frames",
+    "compiler/beam/keeps-guarded-float-base-arm-frameless",
+    "compiler/beam/keeps-nonempty-status-retry-in-fallthrough",
+    "compiler/beam/keeps-short-protected-projections-in-call-registers",
+    "compiler/beam/keeps-single-key-map-leaf-projections-frameless",
+    "compiler/beam/keeps-source-order-for-guarded-closure-definitions",
+    "compiler/beam/keeps-the-original-map-register-across-constructor-joins",
+    "compiler/beam/leaf-external-tail-removes-unused-frame",
+    "compiler/beam/lifts-list-generators-with-adjacent-guard-filters",
+    "compiler/beam/local-constructor-keeps-singleton-arguments",
+    "compiler/beam/narrows-private-entry-and-singleton-call-dispatch",
+    "compiler/beam/orders-checked-payload-stack-loads-before-the-clear",
+    "compiler/beam/orders-ordinary-lines-by-final-instruction-use",
+    "compiler/beam/places-checked-tuple-call-arguments-before-the-catch-frame",
+    "compiler/beam/preserves-shared-list-prefixes-and-branch-local-frames",
+    "compiler/beam/recomputes-collector-roots-for-frameless-map-construction",
+    "compiler/beam/removes-a-call-projection-slot-before-owned-trims",
+    "compiler/beam/removes-a-construction-clear-only-for-initialized-slots",
+    "compiler/beam/removes-repeated-lines-with-rewritten-label-count",
+    "compiler/beam/reserves-a-closed-closure-s-failure-ordinal",
+    "compiler/beam/retains-the-sole-postcall-result-in-x0",
+    "compiler/beam/reuses-dead-stack-inputs-in-atomic-projections",
+    "compiler/beam/reuses-the-last-projected-root-for-terminal-cleanup",
+    "compiler/beam/shares-a-saved-field-on-an-exclusive-equality-retry",
+    "compiler/beam/shares-literal-map-case-projections",
+    "compiler/beam/swaps-checked-projection-into-two-call-arguments",
+    "compiler/beam/threads-two-list-generators-through-owned-recursive-helpers",
+    "compiler/beam/types-proven-atom-entry-operands",
+    "compiler/beam/uses-zero-slot-frame-for-single-returning-call",
+    "compiler/beam/whole-module-matches-otp"
+  ],
+  "Passed": 19,
+  "Failed": 25,
+  "Tests": [
+    {
+      "Name": "compiler/beam/whole-module-matches-otp",
+      "Status": "Passed",
+      "Milliseconds": 19323
+    },
+    {
+      "Name": "compiler/beam/generic-map-patterns-annotate-proven-inputs",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected each generic map lookup to preserve its individual destination.\r\n   at Erlang.Tests.BeamGenericMapInputTypesChecks.CheckTypes(Byte[] image, Boolean annotated) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamGenericMapInputTypesChecks.cs:line 97\r\n   at Erlang.Tests.BeamGenericMapInputTypesChecks.Run() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamGenericMapInputTypesChecks.cs:line 38\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 18414",
+      "Milliseconds": 26
+    },
+    {
+      "Name": "compiler/beam/keeps-single-key-map-leaf-projections-frameless",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "compiler/beam/recomputes-collector-roots-for-frameless-map-construction",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "compiler/beam/orders-ordinary-lines-by-final-instruction-use",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: The final line table must preserve source locations in first physical use order.\r\n   at Erlang.Tests.BeamFinalLineOrderChecks.Run() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamFinalLineOrderChecks.cs:line 80\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 18414",
+      "Milliseconds": 12
+    },
+    {
+      "Name": "compiler/beam/keeps-guarded-float-base-arm-frameless",
+      "Status": "Failed",
+      "Error": "System.NotSupportedException: The BEAM external import is outside the supported host subset\r\n   at Erlang.BeamExternalImports.Resolve(BeamLinkedCode code, String module, String function, Int32 arity) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Execution\\Beam\\BeamExternalImports.cs:line 40\r\n   at Erlang.BeamRegisterValidation.ValidateCore(BeamLinkedCode code, BeamLinkedFunction entry, HashSet\u00601 visited)\r\n   at Erlang.BeamRegisterValidation.Validate(BeamLinkedCode code, BeamLinkedFunction entry) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Execution\\Beam\\BeamRegisterValidation.cs:line 9\r\n   at Erlang.BeamModule.InvokePublicOwned(ProcessContext context, String function, IReadOnlyList\u00601 arguments, BeamLinkedFunction entry) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Execution\\Beam\\BeamModule.DirectEntry.cs:line 14\r\n   at Erlang.Tests.BeamGuardedFloatRecursionChecks.\u003C\u003Ec__DisplayClass5_0.\u003C\u003CRun\u003Eb__6\u003Ed.MoveNext() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamGuardedFloatRecursionChecks.cs:line 58\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.\u003C\u003Ec__DisplayClass9_0\u00601.\u003C\u003CInvokeAsync\u003Eb__0\u003Ed.MoveNext() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 43\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func\u00602 command) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 51\r\n   at Erlang.Tests.BeamGuardedFloatRecursionChecks.Run() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamGuardedFloatRecursionChecks.cs:line 54\r\n   at Erlang.Tests.BeamGuardedFloatRecursionChecks.Run() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamGuardedFloatRecursionChecks.cs:line 54\r\n   at Erlang.Tests.BeamGuardedFloatRecursionChecks.Run() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamGuardedFloatRecursionChecks.cs:line 54\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 18414",
+      "Milliseconds": 30
+    },
+    {
+      "Name": "compiler/beam/coalesces-checked-map-scratch-projections",
+      "Status": "Passed",
+      "Milliseconds": 13
+    },
+    {
+      "Name": "compiler/beam/keeps-the-original-map-register-across-constructor-joins",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: The formal map must remain in X0 until it is returned or passed to the iterator.\r\n   at Erlang.Tests.BeamMapJoinRegisterChecks.Run() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamMapJoinRegisterChecks.cs:line 53\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 18414",
+      "Milliseconds": 23
+    },
+    {
+      "Name": "compiler/beam/shares-literal-map-case-projections",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: A literal map case must share the proved keys without sharing unequal key sets.\r\n   at Erlang.Tests.BeamSharedLiteralMapCaseChecks.Run() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamSharedLiteralMapCaseChecks.cs:line 57\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 18414",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "compiler/beam/lifts-list-generators-with-adjacent-guard-filters",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Adjacent guard filters did not share the generator helper.\r\n   at Erlang.Tests.BeamGroupedListGuardChecks.Run() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamGroupedListGuardChecks.cs:line 41\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 18414",
+      "Milliseconds": 32
+    },
+    {
+      "Name": "compiler/beam/types-proven-atom-entry-operands",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: The atom entry operand disagrees with the source proof.\r\n   at Erlang.Tests.BeamProvenAtomEntryChecks.Run() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamProvenAtomEntryChecks.cs:line 86\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 18414",
+      "Milliseconds": 26
+    },
+    {
+      "Name": "compiler/beam/forwards-an-arithmetic-argument-across-a-zero-frame",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "compiler/beam/places-checked-tuple-call-arguments-before-the-catch-frame",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: The early checked fields must preserve the argument exchange, call line, and catch path.\r\n   at Erlang.Tests.BeamCheckedCatchArgumentChecks.Run() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\Frames\\BeamCheckedCatchArgumentChecks.cs:line 54\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 18414",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/beam/narrows-private-entry-and-singleton-call-dispatch",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: A private entry did not use its proven atom domain.\r\n   at Erlang.Tests.BeamFiniteAtomCallDispatchChecks.Run() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamFiniteAtomCallDispatchChecks.cs:line 83\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 18414",
+      "Milliseconds": 15
+    },
+    {
+      "Name": "compiler/beam/dispatches-two-atom-alternatives-with-branch-owned-frames",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: The atom case lost its selector call, constant argument, or unframed rejection value.\r\n   at Erlang.Tests.BeamTwoAtomDispatchChecks.Run() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamTwoAtomDispatchChecks.cs:line 91\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 18414",
+      "Milliseconds": 22
+    },
+    {
+      "Name": "compiler/beam/forwards-record-update-into-outgoing-call-argument",
+      "Status": "Passed",
+      "Milliseconds": 7
+    },
+    {
+      "Name": "compiler/beam/reuses-dead-stack-inputs-in-atomic-projections",
+      "Status": "Passed",
+      "Milliseconds": 47
+    },
+    {
+      "Name": "compiler/beam/swaps-checked-projection-into-two-call-arguments",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: The projected two-argument call changed its roots or swap order.\r\n   at Erlang.Tests.BeamProjectedCallArgumentSwapChecks.CheckGuardedProjection(Byte carrier) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\Calls\\BeamProjectedCallArgumentSwapChecks.cs:line 185\r\n   at Erlang.Tests.BeamProjectedCallArgumentSwapChecks.Run() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\Calls\\BeamProjectedCallArgumentSwapChecks.cs:line 81\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 18414",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "compiler/beam/keeps-a-dead-guarded-call-payload-in-x",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: The guarded carrier moved through a live call or changed its error routes.\r\n   at Erlang.Tests.BeamGuardedCallPayloadCarrierChecks.Run() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\Calls\\BeamGuardedCallPayloadCarrierChecks.cs:line 45\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 18414",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/beam/discarded-binary-tuple-binds-fields-directly",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected temporary tuple elimination only for distinct fresh bindings with no observable inner aliases.\r\n   at Erlang.Tests.BeamBinaryTupleBindingChecks.Compare() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamBinaryTupleBindingChecks.cs:line 40\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 18414",
+      "Milliseconds": 45
+    },
+    {
+      "Name": "compiler/beam/leaf-external-tail-removes-unused-frame",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected pinned OTP instructions for a leaf with a nontrapping external tail.\r\n   at Erlang.Tests.BeamExternalLeafTailChecks.Run() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\Frames\\BeamExternalLeafTailChecks.cs:line 20\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 18414",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "compiler/beam/accumulated-pair-lengths-preserve-minimum",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected positive lower bounds only for all-caller proven pair lengths.\r\n   at Erlang.Tests.BeamModuleEmissionChecks.ComparePairLengthBounds() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamModuleEmissionChecks.cs:line 1752\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 18414",
+      "Milliseconds": 52
+    },
+    {
+      "Name": "compiler/beam/local-constructor-keeps-singleton-arguments",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected known arguments to fold only in the private constructor with a single set of inputs.\r\n   at Erlang.Tests.BeamLocalConstructorSingletonChecks.Compare() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamLocalConstructorSingletonChecks.cs:line 39\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 18414",
+      "Milliseconds": 8
+    },
+    {
+      "Name": "compiler/beam/keeps-direct-anonymous-application-frames",
+      "Status": "Passed",
+      "Milliseconds": 35
+    },
+    {
+      "Name": "compiler/beam/keeps-source-order-for-guarded-closure-definitions",
+      "Status": "Passed",
+      "Milliseconds": 50
+    },
+    {
+      "Name": "compiler/beam/reserves-a-closed-closure-s-failure-ordinal",
+      "Status": "Passed",
+      "Milliseconds": 101
+    },
+    {
+      "Name": "compiler/beam/preserves-shared-list-prefixes-and-branch-local-frames",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: The string-key dispatch lost its first-element selection and tuple check.\r\n   at Erlang.Tests.BeamLiteralConsContinuationsChecks.Run() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamLiteralConsContinuationsChecks.cs:line 88\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 18414",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "compiler/beam/keeps-captured-fallback-input-through-tuple-arity-switch",
+      "Status": "Passed",
+      "Milliseconds": 51
+    },
+    {
+      "Name": "compiler/beam/compares-the-whole-literal-before-returning-a-closure",
+      "Status": "Passed",
+      "Milliseconds": 31
+    },
+    {
+      "Name": "compiler/beam/threads-two-list-generators-through-owned-recursive-helpers",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: The nested list generator error must retain the generator input line.\r\n   at Erlang.Tests.BeamNestedListGeneratorChecks.VerifyGeneratorFailureLine(Object code, String name, Int32 line) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamNestedListGeneratorChecks.cs:line 144\r\n   at Erlang.Tests.BeamNestedListGeneratorChecks.VerifyComputedSources() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamNestedListGeneratorChecks.cs:line 129\r\n   at Erlang.Tests.BeamNestedListGeneratorChecks.Run() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamNestedListGeneratorChecks.cs:line 79\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 18414",
+      "Milliseconds": 39
+    },
+    {
+      "Name": "compiler/beam/keeps-short-protected-projections-in-call-registers",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Only projections read after a call need their own stack slot.\r\n   at Erlang.Tests.BeamProtectedProjectionChecks.Run() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamProtectedProjectionChecks.cs:line 51\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 18414",
+      "Milliseconds": 9
+    },
+    {
+      "Name": "compiler/beam/removes-repeated-lines-with-rewritten-label-count",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Final duplicate cleanup must preserve distinct and protected source locations.\r\n   at Erlang.Tests.BeamRepeatedLineLabelBoundChecks.CheckFinalWrite(Byte[] markers, Int32 secondLocation, Boolean removeDuplicate) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamRepeatedLineLabelBoundChecks.cs:line 91\r\n   at Erlang.Tests.BeamRepeatedLineLabelBoundChecks.Run() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamRepeatedLineLabelBoundChecks.cs:line 21\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 18414",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "compiler/beam/retains-the-sole-postcall-result-in-x0",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Keep the original call result rooted until a checked record update consumes its field.\r\n   at Erlang.Tests.BeamPostCallResultAliasChecks.CheckRewrite(BeamModuleCompiler compiler, Byte[] input, Byte[] expected, String reason) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\Frames\\BeamPostCallResultAliasChecks.cs:line 282\r\n   at Erlang.Tests.BeamPostCallResultAliasChecks.Run() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\Frames\\BeamPostCallResultAliasChecks.cs:line 96\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 18414",
+      "Milliseconds": 10
+    },
+    {
+      "Name": "compiler/beam/uses-zero-slot-frame-for-single-returning-call",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: The call continuation must keep only its initialized result roots and frame.\r\n   at Erlang.Tests.BeamSingleReturningCallFrameChecks.CheckConstructedReturnFrames() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamSingleReturningCallFrameChecks.cs:line 193\r\n   at Erlang.Tests.BeamSingleReturningCallFrameChecks.Run() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamSingleReturningCallFrameChecks.cs:line 97\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 18414",
+      "Milliseconds": 35
+    },
+    {
+      "Name": "compiler/beam/forwards-a-closure-call-result-to-checked-arguments",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: The closure result must remain rooted in both checked call branches.\r\n   at Erlang.Tests.BeamClosureResultCheckedArgumentChecks.Run() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\Frames\\BeamClosureResultCheckedArgumentChecks.cs:line 41\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 18414",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "compiler/beam/shares-a-saved-field-on-an-exclusive-equality-retry",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/beam/removes-a-call-projection-slot-before-owned-trims",
+      "Status": "Passed",
+      "Milliseconds": 35
+    },
+    {
+      "Name": "compiler/beam/keeps-nonempty-status-retry-in-fallthrough",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "compiler/beam/declared-native-entry-frame-marker",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: The declared native marker must follow only its own entry frame setup.\r\n   at Erlang.Tests.BeamDeclaredNativeFrameEntryChecks.Run() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamDeclaredNativeFrameEntryChecks.cs:line 35\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 18414",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "compiler/beam/builds-protected-message-tuple-in-outgoing-x1",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Protected message construction must preserve the receiver and all live stack operands.\r\n   at Erlang.Tests.BeamProtectedSendArgumentChecks.Run() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\Calls\\BeamProtectedSendArgumentChecks.cs:line 30\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 18414",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "compiler/beam/reuses-the-last-projected-root-for-terminal-cleanup",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/beam/removes-a-construction-clear-only-for-initialized-slots",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/beam/clears-only-dead-stack-roots-after-projected-call-arguments",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "compiler/beam/orders-checked-payload-stack-loads-before-the-clear",
+      "Status": "Passed",
+      "Milliseconds": 1
+    }
+  ]
+}

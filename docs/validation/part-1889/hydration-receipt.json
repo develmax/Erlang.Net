@@ -1,0 +1,39 @@
+{
+  "Parent": {
+    "Source": "5f5d6a4f6e65d2c6bed7938474e9317426bbea0b08dc8ca90cd19644d12c0733",
+    "Paths": 271,
+    "Compiler": "bb0ac263fb2b76a6239d83533983e6f91d2e14e95878e1b69c4eba9643dbb4d8",
+    "Tests": "402799662740c56620c3c769b2215ca93adcdacefb00661361bfef397e791094",
+    "ParentSource": "ecb7f3b64abe442c4c4bcc9715bd9441fc0846863f91919ab7ac1ec826cb1a63",
+    "CorpusTool": "bddc3601ebe08842e47f2005ec82e632bff73ae52c19176635674df873e000e3"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DeadStackProjections.cs": "e1ee617ea90990ef1666bf1ced891b59f16aa4d920b2da4e11a085b763ae08e3",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": "a150a74666da2e89462865ac4cb6dc121add381ebb0526350cdb328300ab0897",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.OverwrittenTupleProjections.cs": "a47f6bd998c4685548f3e09a73061c5dbf797d5cf7fb34a875e5fd0159182f39",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedReturns.cs": "e3763fb1277bc72702fd28b7b400fc963bb814aeaac2e09d68c996699aba6f1e",
+    "tests/Erlang.Tests/Compiler/Beam/BeamTerminalMixedCaseChecks.cs": "c95748a0775a417bf66c136031b464127063dd49646ebfd4e7971f75f2cee7a2",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamCheckedEntryListHeadChecks.cs": "6d9af1ec8558a583b796095915330d0a17370918db27ad9d4f7787af85be7100",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamOverwrittenTupleProjectionChecks.cs": "27ec43c5fee0b90459ae6f577f1f82fa5c76917ad63d5af0264841930b36dabe",
+    "tests/Erlang.Tests/Harness/Program.cs": "e278e8c1ae378aa6373f6fe9aa6e7784aac931d917de7fdc77d6d5cfd8708467"
+  },
+  "Patches": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\checked-entry-and-terminal-switch-regressions-1889\\overwritten-tuple-projections.patch",
+      "Hash": "d2a350c6b8b7a59311e167d4c138745e9e2a7ef66d19f2b57857aa1949c44864"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\checked-entry-and-terminal-switch-regressions-1889\\remove-dead-checked-entry-list-heads.patch",
+      "Hash": "167eca22e78c9e919a5f543462385e6b8f99f3eed5eb1ec54e4868e3e7b38dd2"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\checked-entry-and-terminal-switch-regressions-1889\\terminal-atom-tagged-tuple-case.patch",
+      "Hash": "9353f0c5a6e4afafe89c6c47fe00c16cdbf04341b380120d55d17fc9feaadfde"
+    }
+  ],
+  "HarnessRegistrations": [
+    "BeamOverwrittenTupleProjectionChecks",
+    "BeamCheckedEntryListHeadChecks",
+    "BeamTerminalMixedCaseChecks"
+  ]
+}

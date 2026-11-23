@@ -1,0 +1,31 @@
+[Image,Dir]=init:get_plain_arguments(),
+Name=list_to_atom(filename:basename(filename:rootname(Image))),
+case code:is_sticky(Name) of true->true=code:unstick_mod(Name);false->ok end,
+{module,Name}=code:load_abs(filename:rootname(Image)),
+case Name of
+    file_io_server->
+        process_flag(trap_exit,true),
+        TestPath=filename:join(Dir,"native-file-io-fixture.txt"),
+        ok=file:write_file(TestPath,<<"abc">>),
+        try
+            lists:foreach(fun(M)->
+                {ok,Server}=Name:M(self(),TestPath,[read,binary]),
+                {ok,<<"abc">>}=file:read(Server,3),
+                ok=file:close(Server),
+                {ok,BinaryServer}=Name:M(self(),list_to_binary(TestPath),[read,binary]),
+                {ok,<<"abc">>}=file:read(BinaryServer,3),
+                ok=file:close(BinaryServer),
+                function_clause=try Name:M(not_a_pid,TestPath,[]) catch error:X->X end,
+                function_clause=try Name:M(self(),not_a_path,[]) catch error:Y->Y end,
+                function_clause=try Name:M(self(),TestPath,not_a_list) catch error:Z->Z end
+            end,[start,start_link])
+        after
+            ok=file:delete(TestPath)
+        end;
+    filename->
+        "erlang-net-fixture"=filename:basename(Name:basedir(user_data,"erlang-net-fixture")),
+        <<"erlang-net-fixture">>=filename:basename(Name:basedir(user_data,<<"erlang-net-fixture">>)),
+        function_clause=try Name:basedir(user_data,not_a_path) catch error:C->C end
+end,
+io:format("~0p~n",[{Name,passed}]),halt().
+

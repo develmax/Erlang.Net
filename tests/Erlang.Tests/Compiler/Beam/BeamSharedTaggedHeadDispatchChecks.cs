@@ -1,0 +1,72 @@
+using System.Collections;
+using System.Numerics;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamSharedTaggedHeadDispatchChecks
+{
+    internal const string TestName = "compiler/beam/shares-equivalent-tagged-list-head-continuations";
+    private const string Fixture = "beam_shared_tagged_head_dispatch_probe.erl";
+    private const string UnexpectedLayout = "Repeated tuple heads did not share the pinned dispatch.";
+
+    internal const string Source = """
+        -module(beam_shared_tagged_head_dispatch_probe).
+        -export([scan/2, repeated/2, report/2]).
+
+        scan([], Acc) -> lists:reverse(Acc);
+        scan([{warn, _, _} | _], Acc) -> finish(Acc);
+        scan([{stop, _, _} | _], Acc) -> finish(Acc);
+        scan([{error, _, _} | _], Acc) -> finish(Acc);
+        scan([Head | Tail], Acc) -> scan(Tail, [Head | Acc]).
+
+        repeated([], Acc) -> lists:reverse(Acc);
+        repeated([{warn, X, X} | _], Acc) -> finish(Acc);
+        repeated([{stop, _, _} | _], Acc) -> finish(Acc);
+        repeated([{error, _, _} | _], Acc) -> finish(Acc);
+        repeated([Head | Tail], Acc) -> repeated(Tail, [Head | Acc]).
+
+        report(Reason, Data) -> {failure, [{why, Reason}, {data, Data}]}.
+
+        finish(Acc) ->
+            self() ! {finished, Acc},
+            {stopped, Acc}.
+        """;
+
+    internal static byte[] CompileFixture() => CodeGeneration.CompileBeamModule(Source, Fixture);
+
+    internal static void Run()
+    {
+        object code = Code(CompileFixture());
+        object[] instructions = Items(code, "Instructions").ToArray();
+        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
+        int start = Array.FindIndex(
+            instructions,
+            instruction => Opcode(instruction) == FunctionInfo
+                && Operands(instruction) is [_, var name, var arity] && atoms[Value(name)] == "scan" && Value(arity) == 2
+        );
+        if (start < 0)
+        {
+            throw new InvalidOperationException(UnexpectedLayout);
+        }
+
+        var body = instructions.Skip(start + 2).TakeWhile(instruction => Opcode(instruction) != FunctionInfo).ToArray();
+        byte[] expected = [IsNonemptyList, GetList, IsTuple, TestArity, GetTupleElement, SelectValue];
+        if (!body.Take(expected.Length).Select(Opcode).SequenceEqual(expected)
+            || body.Count(instruction => Opcode(instruction) == GetList) != 1
+            || body.Count(instruction => Opcode(instruction) == TailLocalCall) != 2)
+        {
+            throw new InvalidOperationException(UnexpectedLayout);
+        }
+    }
+
+    private static object[] Operands(object instruction) => Items(instruction, "Operands").ToArray();
+
+    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
+
+    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
+
+    private static IEnumerable<object> Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>();
+}

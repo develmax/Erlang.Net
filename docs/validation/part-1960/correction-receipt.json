@@ -1,0 +1,11 @@
+{
+  "File": "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GuardedReceiveFrames.cs",
+  "Before": "56cae17507f7311624ef1f1ae7a17cd566eb22121789ed0124af7b053d0e0953",
+  "After": "791bf717140076e7465626baf48b23315f588332e626b9bff62b772523cda00b",
+  "Patch": "ec67e3707b80f5983c5d98b9b678c830c7880248cd01cb0015ea4553803c0639",
+  "FailedCompiler": "7F5765B8DC8B9E9477425C11C69AEA1B2C2C227487D9739CC5CE25B96EC4F037",
+  "Fixture": "compiler/beam/localizes-guarded-receive-recurrence-frames",
+  "Cause": "Input Y register carries a type from the earlier closed recurrence proof. The late frame pass rederives the positive type and must match its incoming register independently of that metadata.",
+  "PinnedFixtureSha256": "0b8e8e708a367cfa8ff451e24fbfbce4f146e30d26e43324f4455984494fd1a7",
+  "OriginalFailure": "740aef7c0ac8785061fea977c50bd7693df0f1914888ba142cd80190d5b86817"
+}

@@ -1,0 +1,9 @@
+[{route,accept,{first,1},ctx,{small,1,ctx}},
+ {route,accept,{second,k,v},ctx,{large,k,v,ctx}},
+ {route,reject,{first,1},ctx,{fallback,reject,{first,1},ctx}},
+ {route,accept,tuple_missing,ctx,{fallback,accept,tuple_missing,ctx}},
+ {route,accept,{wrong,2,3},ctx,{fallback,accept,{wrong,2,3},ctx}},
+ {mixed,accept,{first,foo},ctx,{small,foo,ctx}},
+ {mixed,reject,{second,k,v},ctx,{large,k,v,ctx}},
+ {mixed,accept,{second,k,v},ctx,{fallback,accept,{second,k,v},ctx}},
+ {mixed,reject,{first,foo},ctx,{fallback,reject,{first,foo},ctx}}].

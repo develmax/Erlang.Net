@@ -1,0 +1,56 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamOuterLiteralRecordEntryChecks.cs b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamOuterLiteralRecordEntryChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamOuterLiteralRecordEntryChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamOuterLiteralRecordEntryChecks.cs
+@@ -11,13 +11,15 @@
+     internal const string TestName = "compiler/beam/outer-record-literal-entry-before-frame";
+     private const string MissingDispatch = "A disjoint known record ID did not dispatch before branch allocation.";
+     private const string IncorrectDispatch = "Repeated record IDs were treated as disjoint entry arms.";
++    private const string NestedUpdateResult = "Use the checked nested update result directly in the outer update.";
+     private const string ColumnOrder = "Test the selected constructor fields before the remaining pattern arguments and reuse the consumed selector.";
+     private const string Source = """
+         -module(beam_outer_literal_record_entry).
+-        -export([run/2, overlap/2, ordered/2]).
++        -export([run/2, overlap/2, ordered/2, update/2]).
+         -record(event,{id,body}).
+         -record(command,{kind,item}).
+-        -record(state,{data}).
++        -record(state,{data,spare}).
++        -record(item,{quantity,payload}).
+         run(#event{id=1,body=#command{kind=accept,item=Item}}, State=#state{}) ->
+             service:emit(Item),
+             {ok,State};
+@@ -44,6 +46,15 @@
+             cleared;
+         ordered(#event{}, #state{}) ->
+             ignored.
++
++        update(#event{id = 1, body = #command{kind = accept}}, State = #state{data = Item, spare = Spare}) ->
++            service:check(Item),
++            service:check(Spare),
++            {ok, State#state{data = Item#item{quantity = 0}}};
++        update(#event{id = 2, body = #command{kind = accept}}, State = #state{}) ->
++            {ok, State};
++        update(#event{}, State = #state{}) ->
++            {unhandled, State}.
+         """;
+ 
+     internal static void Run()
+@@ -80,6 +91,18 @@
+             throw new InvalidOperationException(ColumnOrder);
+         }
+ 
++        object[] update = Body("update");
++        int inner = Array.FindIndex(update, instruction => Opcode(instruction) == UpdateRecord);
++        int lastEffect = Array.FindLastIndex(update, instruction => Opcode(instruction) == ExternalCall);
++        if (lastEffect < 0 || inner <= lastEffect || inner + 1 >= update.Length
++            || !update[(lastEffect + 1)..inner].Any(instruction => Opcode(instruction) == IsTaggedTuple)
++            || Opcode(update[inner + 1]) != UpdateRecord
++            || !IsX(Operands(update[inner + 1])[^1], 0)
++            || Property(Operands(update[inner + 1])[^1], "TypeIndex") is null)
++        {
++            throw new InvalidOperationException(NestedUpdateResult);
++        }
++
+         bool SelectsIntegerBeforeFrame(string name) => Body(name).TakeWhile(instruction => Opcode(instruction) is not (Allocate or AllocateHeap))
+                 .Any(instruction => Opcode(instruction) == SelectValue
+                     && ((IEnumerable)Property(instruction, "Operands")).Cast<object>()

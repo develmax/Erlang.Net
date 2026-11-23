@@ -1,0 +1,23 @@
+[Scope,Ref,Prior,Current]=init:get_plain_arguments(),{ok,Rows}=file:consult(Scope),
+Inputs=lists:usort([Path||{Path,_,_,_,_,_,_,_}<-Rows]),
+Read=fun(Root,Path)->
+  {beam_file,_,_,_,_,Fs}=beam_disasm:file(filename:join(Root,Path)),
+  Norm=fun(Is)->
+    Ls=[L||{label,L}<-Is], Labels=maps:from_list(lists:zip(Ls,lists:seq(1,length(Ls)))),
+    Walk=fun W({f,L})->{f,maps:get(L,Labels,{outside,L})};W({literal,_}=V)->V;
+      W({make_fun3,M,I,_,Dst,Args})->{make_fun3,M,I,uniq,W(Dst),W(Args)};
+      W(V) when is_tuple(V)->list_to_tuple(W(tuple_to_list(V)));
+      W([H|T])->[W(H)|W(T)]; W(V)->V end,
+    [Walk(I)||I<-Is,not(is_tuple(I) andalso lists:member(element(1,I),[label,line,func_info]))]
+  end, maps:from_list([{{F,A},Norm(Is)}||{function,F,A,_,Is}<-Fs])
+end,
+BodyMaps=maps:from_list([{Path,[Read(R,Path)||R<-[Ref,Prior,Current]]}||Path<-Inputs]),
+Observed=[begin
+    [R,P,C]=maps:get(Path,BodyMaps),
+    Expected=maps:get(Key,R),
+    Before=maps:get(Key,P,missing),
+    After=maps:get(Key,C,missing),
+    {Path,Key,Before=/=missing,After=/=missing,After=:=Expected}
+end||{Path,_,Key,_,_,_,_,_}<-Rows],
+lists:foreach(fun(Row)->io:format("~0p.~n",[Row])end,Observed),
+io:format("~0p.~n",[#{planned=>length(Rows),modules=>length(Inputs),new_keys=>length([X||X={_,_,false,true,_}<-Observed]),normalized_exact=>length([X||X={_,_,_,_,true}<-Observed])}]),halt().

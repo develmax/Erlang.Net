@@ -1,0 +1,40 @@
+{
+  "Part": 1999,
+  "Reference": "OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Dependency": "Verified frozen Part1955-retake source SHA 56c71cb11fd4dc7d34760b031a5b75581d1a8f35d3fb46a1d3c1362eb4f36419 plus Part1998 empty record correction. No root source read for patch base and no dependency on Part1996.",
+  "PinnedSource": [
+    "beam_ssa_opt.erl ssa_opt_sink/1 and do_ssa_opt_sink/2",
+    "ex_gauge.erl handle_info/2 tick comparison"
+  ],
+  "Change": "Sink a projection used by the fallthrough call setup across a non-writing predicate when the alternate branch cannot use its slot. Require unique alternate CFG entry and ownership of the original frame at every reachable point. Initialize the otherwise unassigned Y slot in the allocation prefix so GC may visit the alternate arm.",
+  "Scope": "Four actual release images from frozen compiler. One Equal and three Different. Only ex_gauge image changes. Both previously restored ex_canvas_paint and sudoku_game images retain exact previous bytes and ex_cursor stays Equal. Formatted and prototype emitted images are byte-identical.",
+  "Native": "Nine real gauge cases match pinned, including live timer plus large number, badarith with ordered effects, normal timer delivery, and malformed state. Four independent source-fixture cases match pinned, including both branches using the retained receiver.",
+  "Focused": {
+    "Red": -532462766,
+    "Fixture": "Exclusive fallthrough receiver is extracted after the predicate. Receiver required by both branches is extracted before the predicate. Final formatted pass verified.",
+    "Green": 0
+  },
+  "Limitation": "The selected gauge getter and Y-slot initialization are now normalized exact. Whole handle_info/2 still differs in record slot order and call-side lifetime/order. No whole-file ex_gauge gain.",
+  "ExactCursor": "The corpus comparator found Equal on both Part1998 and Part1999; no difference artifact emitted.",
+  "RequiredRawFixture": "8eb5fc010e0fbf28ab40bb0dc39aef3887fe86364f43daca1689cec2d51e5294",
+  "Hashes": {
+    "production.patch": "d6dc894f5430d97aab001eb9f8004f3e79ba6faa2bf4cce5e281151adc0aaebd",
+    "test.patch": "818a526fde981bea75a9c1250add657bc428d126b6f1f0667d459fd4b88c2a2f",
+    "strict-replay.log": "019ddcccab08024525d19eebf1792ce4d38a191477400d61c83cd1de66e878c8",
+    "replay-files.json": "27232c8fe986b3f0bde0c16c08098e5b36c4002e9f44337d8cd45bbe29857d7a",
+    "style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "final-build.log": "c1a5fae58f913ebe5dc35fc11418265859cf54de6c45a323f39cbb36ba757e38",
+    "focused-final-exits.json": "e4a251bcfa06c1ab50a345f823f76f1240193c58f47b5b53ab3486169419d2fd",
+    "formatted-focused.exit": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "scope-final.json": "b799425377a87ededdd139eb8860333cef4647885098458356a0c02a586df95d",
+    "gauge-baseline.terms": "efb653f266a8d97e3be8485049a961b33cb6af88bcb0d2115afec6e314c78291",
+    "gauge-candidate.terms": "86db489dd97526d244100b2eafa534a26860aafb8e8baf8f18be4c6feadbbd64",
+    "gauge-native.terms": "50e4a78cd7fe6399b2ffd5f98f0a06127266efd735fdd5baccaeda7d01e29ef6",
+    "native-fixture/pinned.terms": "afb9c835bf7c259e9a3d7972db445a77cee96380f8b2448c6ddbb48bdefd912b",
+    "native-fixture/candidate.terms": "afb9c835bf7c259e9a3d7972db445a77cee96380f8b2448c6ddbb48bdefd912b",
+    "final-compiler/Erlang.Compiler.dll": "9015d9ff185dbd3e0bc016c86692e72ea1bcad5a0ff98d29bd4c64f13842a391",
+    "scope-final.json.generated/lib/wx-2.7/doc/examples/demo/ex_gauge.beam": "d3c47575a6be66e14187a73057edd502009d092350b770c616188dacb570f02c",
+    "scope-final.json.generated/lib/wx-2.7/doc/examples/demo/ex_canvas_paint.beam": "6a27f578bf1c557c47069c2910640974dc05cdbae7ade0f127922efcfed90ef5",
+    "scope-final.json.generated/lib/wx-2.7/doc/examples/sudoku/sudoku_game.beam": "294e66b0ee3121e346014cc0f3050163eaf7aae471edee0585aef3f8825abcdb"
+  }
+}

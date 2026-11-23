@@ -1,0 +1,66 @@
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12931,6 +12931,7 @@
+ Test(Erlang.Tests.BeamReleaseSearchIncludeChecks.TestName, Erlang.Tests.BeamReleaseSearchIncludeChecks.Run);
+ Test(Erlang.Tests.BeamGuardMaskTypeChecks.TestName, Erlang.Tests.BeamGuardMaskTypeChecks.Run);
+ Test(Erlang.Tests.BeamNestedGuardedTailChecks.TestName, Erlang.Tests.BeamNestedGuardedTailChecks.Run);
++Test(Erlang.Tests.BeamTupleListAppendLoopChecks.TestName, Erlang.Tests.BeamTupleListAppendLoopChecks.Run);
+ 
+ Test("compiler/source/dynamic-remote-call", async () => Equal(await Eval("begin M=erlang,F=length,M:F([a,b]) end"), Term.I(2)));
+ 
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamTupleListAppendLoopChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamTupleListAppendLoopChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamTupleListAppendLoopChecks.cs
+@@ -0,0 +1,50 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamTupleListAppendLoopChecks
++{
++    internal const string TestName = "compiler/beam/reuses-checked-tuple-head-before-list-append";
++    private const string ShapeError = "The append loop extracted its checked pair twice.";
++    private const string Source = """
++        -module(beam_tuple_list_append_loop).
++        -export([render/2]).
++
++        render([], Accumulator) ->
++            lists:flatten(Accumulator);
++        render([{[],[]}|Rest], Accumulator) ->
++            render(Rest, Accumulator);
++        render([{Left,Right}|Rest], Accumulator) ->
++            render(Rest, [Left ++ ":" ++ Right ++ "]"|Accumulator]).
++        """;
++
++    internal static void Run()
++    {
++        string multiple = Source.Replace("\":\"", "\"::\"", StringComparison.Ordinal);
++        if (multiple == Source || !SharesPair(Source) || SharesPair(multiple))
++        {
++            throw new InvalidOperationException(ShapeError);
++        }
++    }
++
++    private static bool SharesPair(string source)
++    {
++        object code = Code(CodeGeneration.CompileBeamModule(source, "beam_tuple_list_append_loop.erl"));
++        var instructions = ((IEnumerable)Property(code, "Instructions")).Cast<object>().ToArray();
++
++        return instructions.Count(instruction => Opcode(instruction) == IsTuple) == 1
++            && instructions.Count(instruction => Opcode(instruction) == TestArity) == 1
++            && instructions.Count(instruction => Opcode(instruction) == GetTupleElement) == 2
++            && instructions.Any(instruction => Opcode(instruction) == Allocate && Operands(instruction).SequenceEqual([3, 4]))
++            && instructions.Any(instruction => Opcode(instruction) == TrimFrame && Operands(instruction).SequenceEqual([1, 2]));
++    }
++
++    private static int[] Operands(object instruction) => ((IEnumerable)Property(instruction, "Operands")).Cast<object>()
++        .Select(operand => (int)(BigInteger)Property(operand, "Value")).ToArray();
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++}

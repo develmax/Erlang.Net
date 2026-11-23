@@ -1,0 +1,42 @@
+{
+  "Compiler": "92afdbba77c388e8bc52867288c3bfc1056d3aaea8e0f7657c8d409817332b64",
+  "ParentSource": "cb7ef2fac1cf46ffb7c9e3ada13c4c90c4efbb954acd1ab41103df9c0ba8d766",
+  "ProductionInputCount": 880,
+  "Scope": {
+    "Different": 12,
+    "Equal": 20
+  },
+  "PatchDigests": {
+    "production.patch": "b1f5a36297f9e3d71d36a31ae3819fe27439fad7a021cd0ba7768597d706facc",
+    "test.patch": "5f1add094bb5ccd93871fb9527c197693f6ff929a7691e03f6f121a6cf9abcf5"
+  },
+  "Evidence": {
+    "native-integer-entry.terms": "fd5673ad68f07a2a2818ca0474f6cf319646ced82cfdced6cfce5f2f6d3afa61",
+    "scope/delta.json": "29d56bf673afde96076f9f2ccd6e5fa355b2200ef6d7808bc055e7638939376f",
+    "scope/normalized-summary.terms": "b0bc663e669eb1843dfacee96e9d9b0097290b4c69214951cc6ac84915f3ba70",
+    "actual-type-disasm.terms": "b213e093559199361c795db91fc39eb87db4bd8e23827a0c06b908b02190142a",
+    "scope/otp-corpus.json": "3cf956f3e6306fa984e2c8064b6b87a9712539feab7e99733bc5263a2b98aa2e",
+    "native-integer-entry.exit": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "fixture-before.exit": "e4e7851eff84375b526b7f4fcb50db23a941ff4d35de163fda833cfde6e5ec3e",
+    "fixture-after.exit": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "seal-style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f"
+  },
+  "Files": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProperListEntryFacts.cs": {
+      "Before": "6cd200c4c293a2a270a7e021178d28c882c56cda3771d30a33a655487a2dcb66",
+      "After": "67efd950d199f3b4b6df7fbe71862208b62f411210d03d7a6c22048a621b3268"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BoundedPrivateEntryTests.cs": {
+      "Before": "c90163db67aa709cd95541cbf7824c9f8adee9d2e9f4e43b05dbc38b941894ba",
+      "After": "2b7f35c0eac7e00e6e978b75ffeba9523a27f12a29acb50c4305acd319e4f59e"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamClosedRecursiveIntegerEntryChecks.cs": {
+      "Before": null,
+      "After": "1ce8ee4c75b3326962499938437719454e64e4ded6db1f8a27e5f88651269e78"
+    },
+    "tests/Erlang.Tests/Harness/Program.cs": {
+      "Before": "515cfef7490ace8dff73e214c39fa77405e80c54cd4cc4754fe7d589faed0448",
+      "After": "947ce5cd1b5ba743779e4f600c148e6a2270398fc4919bbbe6d9a1cb5381c5b4"
+    }
+  }
+}

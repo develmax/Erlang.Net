@@ -1,0 +1,12 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ForwardedChoiceMeasurement.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ForwardedChoiceMeasurement.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ForwardedChoiceMeasurement.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ForwardedChoiceMeasurement.cs
+@@ -206,7 +206,7 @@
+             owner.Operand(BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module, measured.Measure.Function, 1));
+             if (measured.Measure.Function == AutoImportNames.ByteSize)
+             {
+-                owner.EmitTypedRegister(0, MatchableTypeBits, unit: BitSyntaxDefaults.BitStringUnit);
++                owner.EmitTypedRegister(0, MatchableTypeBits, unit: BitSyntaxDefaults.BinaryUnit);
+             }
+             else
+             {

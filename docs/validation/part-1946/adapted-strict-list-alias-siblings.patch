@@ -1,0 +1,50 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
+@@ -120,11 +120,13 @@
+             }
+         }
+ 
+-        // Keep the planned Core and SSA ordinals for unlowered siblings. A second
+-        // generator can create another Core helper, so keep that topology together.
++        // Keep the planned Core and SSA ordinals for unlowered siblings.
++        // A lone strict generator also has one letrec, with mismatch handled in that helper.
+         bool allowPartial = independent && anonymous.Length == 0 && comprehensions.All(comprehension =>
+-            comprehension.Qualifiers is [ComprehensionQualifier.Generator { Strict: false }, ..]
+-            && comprehension.Qualifiers.Skip(1).All(qualifier => qualifier is ComprehensionQualifier.Filter));
++            comprehension.Qualifiers is [ComprehensionQualifier.Generator, ..]
++            && (comprehension.Qualifiers.Count == 1
++                || comprehension.Qualifiers[0] is ComprehensionQualifier.Generator { Strict: false }
++                    && comprehension.Qualifiers.Skip(1).All(qualifier => qualifier is ComprehensionQualifier.Filter)));
+         for (int index = 0; index < ssa.Length; index++)
+         {
+             var comprehension = ssa[index];
+@@ -328,7 +330,10 @@
+                     && ReferenceEquals(left, comprehension));
+ 
+         bool sequentialElement = !discarded && comprehension.Items is [Expr.Block or Expr.Sequence or Expr.Match]
+-            && comprehension.Qualifiers is [ComprehensionQualifier.Generator { Strict: false, Pattern: Pattern.Variable }, ..];
++            && comprehension.Qualifiers is [ComprehensionQualifier.Generator sequential, ..]
++            && (!sequential.Strict && sequential.Pattern is Pattern.Variable
++                || sequential.Strict && sequential.Pattern is AliasPattern sequentialAlias
++                    && IsRecursiveTupleGeneratorAlias(sequentialAlias));
+ 
+         bool caseElement = !discarded && !guardedElement && comprehension.Items is [var element]
+             && comprehension.Qualifiers is [ComprehensionQualifier.Generator { Strict: false, Pattern: Pattern.Variable }, ..]
+@@ -352,6 +357,7 @@
+             || !TryReadRecursiveListFilter(comprehension.Qualifiers, out Expr? filter)
+             || generator.Strict && (!allowStrict || discarded || comprehension.Qualifiers.Count != 1
+                 || item is not (Pattern.Variable or Pattern.Tuple)
++                    && !(item is AliasPattern strictAlias && IsRecursiveTupleGeneratorAlias(strictAlias))
+                 || LocalFunctionEntries.Walk(parentClause.Body).Any(expression =>
+                     expression is Expr.Try or Expr.Receive or Expr.Maybe
+                     or Expr.BinaryComprehension or Expr.MapComprehension))
+@@ -372,7 +378,7 @@
+                 || item is (Pattern.Tuple or Pattern.List) && IsRecursiveListPattern(item)
+                 || item is AliasPattern alias && SsaTypeInferenceEnabled && !discarded
+                     && (comprehension.Qualifiers.Count == 1 && ReadTupleListProjection(alias, mapped) is not null
+-                        || !independent && IsRecursiveTupleGeneratorAlias(alias)
++                        || (!independent || generator.Strict) && IsRecursiveTupleGeneratorAlias(alias)
+                             && source is Expr.Variable or Expr.Call { DynamicRemote: false }
+                             && (comprehension.Qualifiers.Count == 1
+                                 || comprehension.Qualifiers[^1] is ComprehensionQualifier.Filter acceptedGuard

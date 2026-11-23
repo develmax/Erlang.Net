@@ -1,0 +1,28 @@
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12544,6 +12544,25 @@
+ Test(Erlang.Tests.BeamProtectedEntryAliasChecks.TestName, Erlang.Tests.BeamProtectedEntryAliasChecks.Run);
+ Test(Erlang.Tests.BeamProtectedShortReturnChecks.TestName, Erlang.Tests.BeamProtectedShortReturnChecks.Run);
+ Test(Erlang.Tests.BeamBinaryConstructionStringChecks.TestName, Erlang.Tests.BeamBinaryConstructionStringChecks.Run);
++Test(Erlang.Tests.BeamProtectedTryFailureLocationChecks.TestName, Erlang.Tests.BeamProtectedTryFailureLocationChecks.Run);
++Test(Erlang.Tests.BeamLiteralColumnPairsChecks.TestName, () =>
++{
++    Erlang.Tests.BeamLiteralColumnPairsChecks.Run();
++    return Task.CompletedTask;
++});
++Test(Erlang.Tests.BeamFreshRecordOperandChecks.TestName, () =>
++{
++    Erlang.Tests.BeamFreshRecordOperandChecks.Run();
++    return Task.CompletedTask;
++});
++Test(Erlang.Tests.BeamTerminalRecordOperandRootChecks.TestName, () =>
++{
++    Erlang.Tests.BeamTerminalRecordOperandRootChecks.Run();
++    return Task.CompletedTask;
++});
++Test(Erlang.Tests.BeamResumedBinaryPrefixChecks.TestName, Erlang.Tests.BeamResumedBinaryPrefixChecks.Run);
++Test(Erlang.Tests.BeamCommonTupleEntryPrefixChecks.TestName, Erlang.Tests.BeamCommonTupleEntryPrefixChecks.Run);
++Test(Erlang.Tests.BeamBinaryLengthPrefixChecks.TestName, Erlang.Tests.BeamBinaryLengthPrefixChecks.Run);
+ Test(Erlang.Tests.BeamConstructedCasePatternChecks.TestName, Erlang.Tests.BeamConstructedCasePatternChecks.Run);
+ Test(
+     Erlang.Tests.BeamClosedEffectArgumentsChecks.TestName,

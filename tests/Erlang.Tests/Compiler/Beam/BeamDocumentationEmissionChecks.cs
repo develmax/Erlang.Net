@@ -52,10 +52,40 @@ internal static class BeamDocumentationEmissionChecks
             throw new InvalidOperationException(Failure + " " + equiv);
         }
 
+        CompareMappedModuleDocumentation();
         CompareIncludedForms();
         CompareExternalDocumentation();
+        CompareBehaviourMetadata();
 
         return Task.CompletedTask;
+    }
+
+    private static void CompareMappedModuleDocumentation()
+    {
+        const string fixture = "beam_mapped_module_docs.erl";
+        const string mapped = "beam_mapped_module_docs.yrl";
+        Term location = Term.Tuple(Term.I(41), Term.I(2));
+        Term mappedLocation = Term.List(
+            Term.Tuple(Term.A("file"), Term.String(mapped)),
+            Term.Tuple(Term.A("location"), location)
+        );
+        foreach (var (value, expected) in new[] { ("false", location), ("hidden", location), ("\"Visible.\"", mappedLocation) })
+        {
+            string source = $$"""
+                -module(beam_mapped_module_docs).
+                -export([value/0]).
+                -file("{{mapped}}", 40).
+                -moduledoc {{value}}.
+                value() -> ok.
+                """;
+            byte[] image = CodeGeneration.CompileBeamModule(source, fixture);
+            byte[] docs = Chunks(image).Single(chunk => chunk.Id == "Docs").Data;
+            if (ExternalTermFormat.Decode(RawEtf(docs)) is not TupleTerm { Items: [_, var annotation, ..] }
+                || !annotation.Equals(expected))
+            {
+                throw new InvalidOperationException(Failure + " " + fixture);
+            }
+        }
     }
 
     private static void CompareIncludedForms()
@@ -80,6 +110,28 @@ internal static class BeamDocumentationEmissionChecks
         finally
         {
             temporary.Delete(recursive: true);
+        }
+    }
+
+    private static void CompareBehaviourMetadata()
+    {
+        const string fixture = "beam_docs_behaviour_spelling.erl";
+        const string source = """
+            -module(beam_docs_behaviour_spelling).
+            -moduledoc false.
+            -behaviour(gen_server).
+            -behavior(gen_statem).
+            -behaviour(application).
+            -export([value/0]).
+            value() -> ok.
+            """;
+        byte[] image = CodeGeneration.CompileBeamModule(source, fixture);
+        byte[] docs = Chunks(image).Single(chunk => chunk.Id == "Docs").Data;
+        if (ExternalTermFormat.Decode(RawEtf(docs)) is not TupleTerm { Items: [_, _, _, _, _, MapTerm metadata, _] }
+            || !metadata.Entries.Any(pair => pair.Key.Equals(Term.A("behaviours"))
+                && pair.Value.Equals(Term.List(Term.A("application"), Term.A("gen_server")))))
+        {
+            throw new InvalidOperationException(Failure + " " + fixture);
         }
     }
 

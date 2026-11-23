@@ -1,0 +1,85 @@
+{
+  "Partial": true,
+  "SelectedCount": 12,
+  "TotalCount": 9809,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/beam/adjacent-arithmetic-number-result",
+    "compiler/beam/checks-an-arity-arm-tag-before-its-frame",
+    "compiler/beam/emits-immediate-selective-timeout",
+    "compiler/beam/flat-tuple-list-generator-constructs-after-recursion",
+    "compiler/beam/fresh-reference-receive-marker",
+    "compiler/beam/hoists-heap-before-checked-tuple-reads-with-proven-roots",
+    "compiler/beam/keyfind-result-typed-tuple-test",
+    "compiler/beam/promotes-interior-projection-before-first-call",
+    "compiler/beam/retains-entry-tuple-across-producer",
+    "compiler/beam/tagged-list-generator-keeps-matched-tuple",
+    "compiler/beam/tuple-list-generator-checks-before-recursing",
+    "compiler/beam/uses-available-x-in-constructor-with-retained-spill"
+  ],
+  "Passed": 11,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "compiler/beam/fresh-reference-receive-marker",
+      "Status": "Passed",
+      "Milliseconds": 2599
+    },
+    {
+      "Name": "compiler/beam/emits-immediate-selective-timeout",
+      "Status": "Passed",
+      "Milliseconds": 70
+    },
+    {
+      "Name": "compiler/beam/adjacent-arithmetic-number-result",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected a number annotation only for the successful adjacent mixed arithmetic result.\r\n   at Erlang.Tests.BeamAdjacentNumericResultChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamAdjacentNumericResultChecks.cs:line 38\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16414",
+      "Milliseconds": 58
+    },
+    {
+      "Name": "compiler/beam/uses-available-x-in-constructor-with-retained-spill",
+      "Status": "Passed",
+      "Milliseconds": 8
+    },
+    {
+      "Name": "compiler/beam/hoists-heap-before-checked-tuple-reads-with-proven-roots",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "compiler/beam/flat-tuple-list-generator-constructs-after-recursion",
+      "Status": "Passed",
+      "Milliseconds": 212
+    },
+    {
+      "Name": "compiler/beam/retains-entry-tuple-across-producer",
+      "Status": "Passed",
+      "Milliseconds": 443
+    },
+    {
+      "Name": "compiler/beam/checks-an-arity-arm-tag-before-its-frame",
+      "Status": "Passed",
+      "Milliseconds": 10
+    },
+    {
+      "Name": "compiler/beam/promotes-interior-projection-before-first-call",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "compiler/beam/tagged-list-generator-keeps-matched-tuple",
+      "Status": "Passed",
+      "Milliseconds": 158
+    },
+    {
+      "Name": "compiler/beam/keyfind-result-typed-tuple-test",
+      "Status": "Passed",
+      "Milliseconds": 65
+    },
+    {
+      "Name": "compiler/beam/tuple-list-generator-checks-before-recursing",
+      "Status": "Passed",
+      "Milliseconds": 134
+    }
+  ]
+}

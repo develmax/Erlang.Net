@@ -1,0 +1,59 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamClosedEffectArgumentsChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamClosedEffectArgumentsChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamClosedEffectArgumentsChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamClosedEffectArgumentsChecks.cs
+@@ -14,7 +14,7 @@
+ 
+     internal const string Source = """
+         -module(beam_closed_effect_arguments_probe).
+-        -export([list_run/1, count_run/1, escaped_run/1, escaped/0, open_run/2, read/1, tail/1]).
++        -export([list_run/1, count_run/1, escaped_run/1, escaped/0, open_run/2, forwarded/1, matched/2, read/1, tail/1]).
+ 
+         list_run(Input) -> list_body(Input, []).
+         count_run(Input) -> count_body(Input, 47).
+@@ -26,6 +26,10 @@
+         count_body(Input, Limit) -> ?MODULE:read(Input), ?MODULE:tail(Limit).
+         escaped_body(Input, Limit) -> ?MODULE:read(Input), ?MODULE:tail(Limit).
+         open_body(Input, Limit) -> ?MODULE:read(Input), ?MODULE:tail(Limit).
++
++        forwarded(Input) -> forward_body(Input, []).
++        forward_body(Input, Options) -> ?MODULE:tail(matched(Input, Options)).
++        matched(Input, Options) -> ?MODULE:read({Input, Options}).
+ 
+         read(fail) -> self() ! {read,fail}, erlang:error(probe_failure);
+         read(Value) -> self() ! {read,Value}, Value.
+@@ -40,12 +44,21 @@
+         object[] instructions = Items(code, "Instructions").ToArray();
+         string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
+         if (!HasMove("list_body", "nil", 0) || !HasMove("count_body", "integer", 47)
+-            || HasMove("escaped_body", "integer", 71) || HasMove("open_body", "integer", 71))
++            || HasMove("escaped_body", "integer", 71) || HasMove("open_body", "integer", 71)
++            || HasMove("forward_body", "nil", 0) || !HasEntryAllocate("forward_body", 2))
+         {
+             throw new InvalidOperationException(UnexpectedLiveRoots);
+         }
+ 
+-        bool HasMove(string name, string kind, int value)
++        bool HasMove(string name, string kind, int value) => Function(name)
++            .Where(instruction => Opcode(instruction) == Move)
++            .Select(instruction => Items(instruction, "Operands").First())
++            .Any(operand => Equals(Property(operand, "Kind"), kind) && Value(operand) == value);
++
++        bool HasEntryAllocate(string name, int live) => Function(name).Any(instruction =>
++            Opcode(instruction) == Allocate && Value(Items(instruction, "Operands").ElementAt(1)) == live);
++
++        IEnumerable<object> Function(string name)
+         {
+             int start = Array.FindIndex(
+                 instructions,
+@@ -53,10 +66,7 @@
+                 && atoms[Value(Items(instruction, "Operands").ElementAt(1))] == name
+             );
+ 
+-            return instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo)
+-                .Where(instruction => Opcode(instruction) == Move)
+-                .Select(instruction => Items(instruction, "Operands").First())
+-                .Any(operand => Equals(Property(operand, "Kind"), kind) && Value(operand) == value);
++            return instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo);
+         }
+     }
+ 

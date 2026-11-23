@@ -1,0 +1,18 @@
+Module=beam_guarded_receive_recurrence_probe,
+Run=fun(File)->
+    code:purge(Module),code:delete(Module),code:purge(Module),
+    {ok,Beam}=file:read_file(File),
+    {module,Module}=code:load_binary(Module,File,Beam),
+    M=fun(Call,Messages)->
+        {Pid,Ref}=spawn_monitor(Call),
+        [Pid!Msg||Msg<-Messages],
+        receive {'DOWN',Ref,process,Pid,Reason}->Reason
+        after 5000->exit(Pid,kill),error(receive_timeout) end
+    end,
+    Idle=fun()->exit(Module:idle()) end,
+    Busy=fun()->exit(Module:run(1,[acknowledged])) end,
+    [M(Idle,[ready]),M(Idle,[unexpected,ready]),M(Busy,[ready,self()])]
+end,
+[P,B,C]=init:get_plain_arguments(),
+R=Run(P),B1=Run(B),R=Run(C),R=B1,[done,done,done]=R,
+io:format("~0p.~n",[R]),halt().

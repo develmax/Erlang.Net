@@ -1,0 +1,27 @@
+{
+  "ParentSource": "f56db2486823b088038d1a52b4dc6ddb83ba48f32e96e2ccd3e9ab1dd6594786",
+  "Compiler": "917DC9B2EC16E58179ECD6F070C3F6905E87CA3CDADCE9AD4994A1ABC4B69B28",
+  "Scope": 60,
+  "Counts": {
+    "Different": 11,
+    "Equal": 49
+  },
+  "RawGains": [],
+  "RawLosses": [],
+  "ChangedImages": 4,
+  "NormalizedSummary": "#{functions => 4,gains => [{\"test_server_gl.beam\",{start_link,1}}],losses => [],frame_decreases => 0,frame_increases => 0}.",
+  "CausalInstruction": {
+    "Module": "ct_default_gl",
+    "Procedure": "do_start/2",
+    "Outcome": "Identity branches replaced by the tail call; frame order and integer typing still differ"
+  },
+  "NativeFixture": "f82ac3d17dcf84efa3e595fd0439d2cfb87333ac4fd6f27949a2b3efba6bb89c",
+  "Tests": {
+    "Baseline": -532462766,
+    "Candidate": 0
+  },
+  "PatchDigests": {
+    "production.patch": "6ceb964afe94c06137f42a9853467dafd24618a3eae6934d38508649a17f0ab9",
+    "test.patch": "4997a998817eb220fdfa462d9e65a225cd324b4f8168f84ca234d1a753ec0a0e"
+  }
+}

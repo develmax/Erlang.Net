@@ -1,0 +1,477 @@
+{
+  "reference": {
+    "release": "OTP-29.1.1",
+    "tagCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "sourceFiles": {
+      "lib/compiler/src/v3_core.erl": {
+        "bytes": 189470,
+        "sha256": "b406f7f4c6f7b58dc9aa4608703c82eaf302714c874f38dd1c7fec62d4017637"
+      },
+      "lib/compiler/src/cerl.erl": {
+        "bytes": 119739,
+        "sha256": "98c7cc3ca9d7560a9b0fe44c405045aa1eaf13c8b400f9f7c2d9cdff83b7c2d7"
+      },
+      "lib/compiler/src/beam_core_to_ssa.erl": {
+        "bytes": 141865,
+        "sha256": "bb0b219345b962c4f00cdebdae7995df0529a7e2b3e6e273dc4b3457a5a23527"
+      }
+    }
+  },
+  "parentPart": 1951,
+  "parent": {
+    "Source": "cb7ef2fac1cf46ffb7c9e3ada13c4c90c4efbb954acd1ab41103df9c0ba8d766",
+    "Paths": 925,
+    "RemovedPaths": [],
+    "Compiler": "d45a6f4f82bb733121b23851b67c14acdac56e217a2d57daae893eb02c93b550",
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "Tests": "a1a193d9d7071d640598ef5d184963ff05c752110fd2fe62750ace2784b9a3ed",
+    "ParentSource": "4981e099210ec7a8e3eabf07e65c34184c3a980453aed3cf704c717a868e1419",
+    "CorpusTool": "adc468a862b9f6fe21a45f5bba4c504a3ff86440889a12b2e65323624a355a0c"
+  },
+  "isolatedBaselineOverlay": {
+    "bytes": 8602,
+    "sha256": "65e57cf6ec511ea624cc0c4a2913932a8482633d055e8953a5c11668a4c22f17"
+  },
+  "compilerClosure": {
+    "bytes": 111901,
+    "sha256": "2c7e1bbe3099224d4c5c35524c909704d1afecf60146ea74cc716b629fd5e1f0"
+  },
+  "candidateCompiler": {
+    "bytes": 5337600,
+    "sha256": "b1b67177ff29ad09f02fa5f182e93890f06861379e6d8362f214028ea48e14f4"
+  },
+  "rawScopeBefore": {
+    "Different": 7,
+    "Equal": 3
+  },
+  "rawScopeAfter": {
+    "Different": 7,
+    "Equal": 3
+  },
+  "modules": {
+    "lib/common_test-1.31.2/ebin/ct_ftp.beam": {
+      "statusAfter": "Different",
+      "reference": {
+        "bytes": 14420,
+        "sha256": "b7705f456754337d476436680df55fc8f6357a303c5cb31ad273df05c88af586"
+      },
+      "before": {
+        "bytes": 14552,
+        "sha256": "4cd187a676cdf2d25f7ba8fcbd7da3d1ee0ec6bf0f7f1355bb1c12de0bd9141a"
+      },
+      "after": {
+        "bytes": 14568,
+        "sha256": "d3c38f26bdd1154b3863c5938501aaa9ee84596cf38ba2415ce87b7b37fcc679"
+      },
+      "referenceDriftBefore": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "FunT",
+        "ImpT",
+        "Line",
+        "LitT",
+        "LocT",
+        "Type"
+      ],
+      "referenceDriftAfter": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "FunT",
+        "ImpT",
+        "Line",
+        "LitT",
+        "LocT",
+        "Type"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_master_event.beam": {
+      "statusAfter": "Different",
+      "reference": {
+        "bytes": 6304,
+        "sha256": "e10321098be723b7b3e986cc994dce1d63816ae2919dac6d6d233874f51815a5"
+      },
+      "before": {
+        "bytes": 6320,
+        "sha256": "cdd16bb52304318bcdf717b4e1a8dd18f77e305630c639282e7720af819db5dd"
+      },
+      "after": {
+        "bytes": 6336,
+        "sha256": "2efa17543c305168e6aa0b277b86f144a5f8dcdc7a1ec53ba2a0b4479fbc9c2f"
+      },
+      "referenceDriftBefore": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "ImpT",
+        "Line",
+        "LitT",
+        "LocT",
+        "Type"
+      ],
+      "referenceDriftAfter": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "ImpT",
+        "Line",
+        "LitT",
+        "LocT",
+        "Type"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_telnet.beam": {
+      "statusAfter": "Different",
+      "reference": {
+        "bytes": 58632,
+        "sha256": "25b241f7e479137426830d4ac57461e374952d04c745e895a13566ad9f261179"
+      },
+      "before": {
+        "bytes": 61416,
+        "sha256": "74e23b86ec67e183053a0fb322cfc5f6b04f99510b909815300900a661039b3c"
+      },
+      "after": {
+        "bytes": 61416,
+        "sha256": "74e23b86ec67e183053a0fb322cfc5f6b04f99510b909815300900a661039b3c"
+      },
+      "referenceDriftBefore": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "FunT",
+        "ImpT",
+        "Line",
+        "LitT",
+        "LocT",
+        "Type"
+      ],
+      "referenceDriftAfter": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "FunT",
+        "ImpT",
+        "Line",
+        "LitT",
+        "LocT",
+        "Type"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/unix_telnet.beam": {
+      "statusAfter": "Different",
+      "reference": {
+        "bytes": 6764,
+        "sha256": "695a7276b34dbb73eccefca57cae3f848028f1eab5a11bdf7391c2c929d6a129"
+      },
+      "before": {
+        "bytes": 6724,
+        "sha256": "cff4b7569f9def0079f54f7236a8c406c4947a15cdc189f65c7204dccea90976"
+      },
+      "after": {
+        "bytes": 6756,
+        "sha256": "b04a55a4d6b495d01b8ab5d83ce6f211a40796d4e39a61f4941ba27c64a724ca"
+      },
+      "referenceDriftBefore": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "ImpT",
+        "Line",
+        "LitT",
+        "LocT"
+      ],
+      "referenceDriftAfter": [
+        "Attr",
+        "Code",
+        "ExpT",
+        "Line",
+        "LocT"
+      ]
+    },
+    "lib/debugger-7.0/ebin/i.beam": {
+      "statusAfter": "Different",
+      "reference": {
+        "bytes": 16544,
+        "sha256": "8bccb8de502fc6f3c1cfa3c0235441763be1192974de5107ef68df3aeff7f17e"
+      },
+      "before": {
+        "bytes": 16656,
+        "sha256": "691bb439a1117063b789105e9a4253268d60acdf100bb44c202daae47cc316c5"
+      },
+      "after": {
+        "bytes": 16664,
+        "sha256": "210d9ac1fd931926e2159727ab07d4dfa671404542432ff04b62fbed1d7bd74a"
+      },
+      "referenceDriftBefore": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "FunT",
+        "ImpT",
+        "Line",
+        "LitT",
+        "LocT"
+      ],
+      "referenceDriftAfter": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "FunT",
+        "ImpT",
+        "Line",
+        "LitT",
+        "LocT"
+      ]
+    },
+    "lib/eunit-2.11/ebin/eunit_striptests.beam": {
+      "statusAfter": "Different",
+      "reference": {
+        "bytes": 3752,
+        "sha256": "80973ff0c163df88e39a2325db8f888f2812cbddd08c887d4c502ca52d73d0d9"
+      },
+      "before": {
+        "bytes": 3848,
+        "sha256": "1e5fcb8aa6b9b9e9d607c386e0ff30a9d9558e7f844375ef65ff58aad246394f"
+      },
+      "after": {
+        "bytes": 3848,
+        "sha256": "1e5fcb8aa6b9b9e9d607c386e0ff30a9d9558e7f844375ef65ff58aad246394f"
+      },
+      "referenceDriftBefore": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "FunT",
+        "ImpT",
+        "Line",
+        "LocT"
+      ],
+      "referenceDriftAfter": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "FunT",
+        "ImpT",
+        "Line",
+        "LocT"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/local_udp.beam": {
+      "statusAfter": "Equal",
+      "reference": {
+        "bytes": 4808,
+        "sha256": "001c0c891b6da95f5333489973c272c4b403ab0747f22b644041fb7359410a74"
+      },
+      "before": {
+        "bytes": 4808,
+        "sha256": "001c0c891b6da95f5333489973c272c4b403ab0747f22b644041fb7359410a74"
+      },
+      "after": {
+        "bytes": 4808,
+        "sha256": "001c0c891b6da95f5333489973c272c4b403ab0747f22b644041fb7359410a74"
+      },
+      "referenceDriftBefore": [],
+      "referenceDriftAfter": []
+    },
+    "lib/kernel-11.0.4/ebin/net_adm.beam": {
+      "statusAfter": "Different",
+      "reference": {
+        "bytes": 9840,
+        "sha256": "9016893e45cc2ac4151b6727fb836250530ca9f9e2c82d260982b8662b12ca50"
+      },
+      "before": {
+        "bytes": 9928,
+        "sha256": "738c60899350c77155746169d20907bce0b5e57dcaa50dfe9b53573041d7accd"
+      },
+      "after": {
+        "bytes": 9932,
+        "sha256": "5f443441b4b6a8c3673306b6fe066a68f68fe5e047226726c56ac770d6766a31"
+      },
+      "referenceDriftBefore": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "ImpT",
+        "Line",
+        "LitT",
+        "LocT",
+        "Type"
+      ],
+      "referenceDriftAfter": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "ImpT",
+        "Line",
+        "LocT",
+        "Type"
+      ]
+    },
+    "lib/observer-2.19/ebin/cdv_bin_cb.beam": {
+      "statusAfter": "Equal",
+      "reference": {
+        "bytes": 6120,
+        "sha256": "361fc8d3af7a55d57106d2a3be7e9fadc77d8a4580462897fa6ed5474e778c3d"
+      },
+      "before": {
+        "bytes": 6120,
+        "sha256": "361fc8d3af7a55d57106d2a3be7e9fadc77d8a4580462897fa6ed5474e778c3d"
+      },
+      "after": {
+        "bytes": 6120,
+        "sha256": "361fc8d3af7a55d57106d2a3be7e9fadc77d8a4580462897fa6ed5474e778c3d"
+      },
+      "referenceDriftBefore": [],
+      "referenceDriftAfter": []
+    },
+    "lib/snmp-5.20.5/ebin/snmp_verbosity.beam": {
+      "statusAfter": "Equal",
+      "reference": {
+        "bytes": 8712,
+        "sha256": "71ca903bdce729dd5aa4ab8fca36b38d0fb809c13831fbea9ef5933ab5c8f745"
+      },
+      "before": {
+        "bytes": 8712,
+        "sha256": "71ca903bdce729dd5aa4ab8fca36b38d0fb809c13831fbea9ef5933ab5c8f745"
+      },
+      "after": {
+        "bytes": 8712,
+        "sha256": "71ca903bdce729dd5aa4ab8fca36b38d0fb809c13831fbea9ef5933ab5c8f745"
+      },
+      "referenceDriftBefore": [],
+      "referenceDriftAfter": []
+    }
+  },
+  "equalImageIdentity": "The frozen corpus tool compares generated and installed images as bytes; Equal images use the compared reference identity.",
+  "normalizedScope": {
+    "common": 253,
+    "changed": 5,
+    "gained": 1,
+    "lost": 0,
+    "helpers_restored": 0,
+    "helpers_exact": 0,
+    "source_bound": 0,
+    "other_pinned_restored": 0,
+    "extra_added": 0,
+    "removed": 0,
+    "removed_pinned": 0
+  },
+  "fixture": {
+    "red": {
+      "bytes": 589,
+      "sha256": "aad12dcbb2ce98aebe4a34448e45935ebe1bb6a94d37147b12a198bf50a34ac5"
+    },
+    "green": {
+      "bytes": 54,
+      "sha256": "244a06f188376794afeaaaf742e63e1228aec359123750d42e35ee3d80601d26"
+    },
+    "native": {
+      "bytes": 106,
+      "sha256": "307ca33ec78ee459410cba1e404be66325053856d2c00c2152f1267543927a45"
+    },
+    "images": {
+      "beam_closed_compound_pattern_probe.erl": "a942068135fca65a5c51587a5037b65350f88ca2f33aba86f1553f069694b67c",
+      "beam_closed_compound_pattern_probe.beam": "536d7f790d1fe0d1cc230142f303aabe73779502ab3acf09dc61b91f447fbb76",
+      "baseline-fixture/beam_closed_compound_pattern_probe.beam": "f1edb5cdc077ea24446306fa4d57660fcc11128533d4b9e3e1f445ebd8be3436",
+      "native-reference.beam": "ddf3754d943e6d0de303a3db9f0b93e8ce52c0f426a09c954cbe21a15b7bea64"
+    }
+  },
+  "strictReplay": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": {
+      "Before": "21cd25b220686c36ad07f652e913400ff810795a8db9e26e9d415339375cecc5",
+      "After": "319ed9102650de7902ea0ce6b362ff244e65d91cfadcc7a727eb0a12b724e09c"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedCompoundPatterns.cs": {
+      "Before": null,
+      "After": "bafc43ef95e59f1f04497cb65a13c244a1a8fd8c6b9adb5b568ffbf4e4cae953"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamClosedCompoundPatternChecks.cs": {
+      "Before": null,
+      "After": "1d9a913c65b3610ad4c0029447193b32954c1e507da9d56364f1d2bbd30a80fd"
+    },
+    "tests/Erlang.Tests/Harness/Program.cs": {
+      "Before": "70c6a59594f0ca9440ed158d6ffbc397dc4c0b7940cfd00f196a456afcf68467",
+      "After": "17765ad6a3c99d5168d2e5629fce08d4b8721260edc1213362656b116470ee2a"
+    }
+  },
+  "replayFiles": {
+    "closed-compound-patterns-test.patch": {
+      "bytes": 5227,
+      "sha256": "26fa6f44b3f253fe7d5f8c452a1217b2a04b826468200376298df6dad394b026"
+    },
+    "closed-compound-patterns.patch": {
+      "bytes": 6824,
+      "sha256": "08965b3b208f517afca8fcbe05e51142a81dc5c2bb670b951d0f32c4df6bacc7"
+    }
+  },
+  "files": {
+    "before-corpus.json": {
+      "bytes": 3867,
+      "sha256": "8bf9883242d743da9d96c45ca9e87b2ab1c18f5b763729e40a53e6d7e4e9eee0"
+    },
+    "candidate-final-corpus.json": {
+      "bytes": 3789,
+      "sha256": "16b20bc49d04780333bd42f13b579e06b133e2a4382b3b46a0c8caab95aff61d"
+    },
+    "normalized-replay.json": {
+      "bytes": 176,
+      "sha256": "44827c1a75ed2125a39707b5371a151d197c9156f258df48c82f2ab6febba8b4"
+    },
+    "normalized-replay.terms": {
+      "bytes": 2545,
+      "sha256": "d1f72ade3fa0c42c41c7f57f06332f98b2727f95785953b7f0eb6e1a14bc484a"
+    },
+    "replay-result.txt": {
+      "bytes": 79,
+      "sha256": "fc2ee9f07f3e5641d56af714f02945c9da9898886622f9e199fde96948292d1e"
+    },
+    "layout-check.log": {
+      "bytes": 40,
+      "sha256": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f"
+    },
+    "native-regression.eval": {
+      "bytes": 1443,
+      "sha256": "9722c41fc86471a1467ed805abd7ebffd4a4477475c288026ae348cd07763093"
+    },
+    "source-closure.log": {
+      "bytes": 118,
+      "sha256": "344f58334f79e61539e58f662ea9194e2c0dcade4c8c2a151900f63447ff1594"
+    },
+    "README.md": {
+      "bytes": 2784,
+      "sha256": "b87d2e72f2439fa706792c64bbe2565af463c4d7bc38601f3ad1c04b4b97afaf"
+    },
+    "literal-opcode-final.terms": {
+      "bytes": 430,
+      "sha256": "8a41ca281af56af07e65e39b4e15e95458d2e125df7b70f7cc7d385b762221b1"
+    },
+    "unix-residual-final.terms": {
+      "bytes": 11413,
+      "sha256": "cca3906417ac36f7effd99b0285b5cee44e7be221fd07d88691b3df2a55dab49"
+    },
+    "checked-failure-placement.terms": {
+      "bytes": 548,
+      "sha256": "9e922e2974e760f070527e89bc2f75504effc513a0080e981caeeebf7d15ed9a"
+    }
+  },
+  "scope": {
+    "workers": 1,
+    "fullCorpus": false,
+    "nativeRealModules": "loader preparation",
+    "nativeFixtureCases": 16
+  }
+}

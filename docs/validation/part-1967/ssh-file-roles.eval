@@ -1,0 +1,13 @@
+[Pinned,Previous,Linked]=init:get_plain_arguments(),
+Read=fun(Path) ->
+    {ok,Image}=file:read_file(Path),
+    code:purge(ssh_dbg),
+    code:delete(ssh_dbg),
+    {module,ssh_dbg}=code:load_binary(ssh_dbg,Path,Image),
+    [iolist_to_binary(ssh_dbg:wr_record({record,42,hidden},[shown,concealed],[concealed])),
+     iolist_to_binary(ssh_dbg:wr_record([record,first,second],[left,right],[])),
+     ssh_dbg:wr_record({record},[],[])]
+end,
+[Same,Same,Same]=[Read(Path)||Path<-[Pinned,Previous,Linked]],
+io:format("~tp.~n",[{ssh_dbg,Same}]),
+halt(0).

@@ -1,0 +1,14 @@
+Checking patch src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LocalConstantArguments.cs...
+Checking patch src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListGenerators.cs...
+Hunk #1 succeeded at 212 (offset 40 lines).
+error: while searching for:
+        };
+        innerLoop = innerLoop with { Clauses = innerClauses };
+
+        var parentCall = new Expr.Call(null, outerName, [source, .. outerArguments])
+        {
+            SourceLine = outerLocation.Line,
+            PreprocessorFile = outerLocation.File
+
+error: patch failed: src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListGenerators.cs:194
+error: src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListGenerators.cs: patch does not apply

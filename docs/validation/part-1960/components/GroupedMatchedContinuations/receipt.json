@@ -1,0 +1,25 @@
+{
+  "Oracle": "OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "FrozenFixtureParent": "0426e58ff5f506b0bef7c2b01f88b89620f75b2e0b9de1ccbbec0aa6b3bc8736",
+  "Compiler": "abaf1983fceac712b6ed3762dcffb2dfdc3ec23df154992b71e9b6fbd92e2db2",
+  "Scope": {
+    "Different": 16,
+    "Equal": 21
+  },
+  "ScopeSHA": "8a88390de8fae96c113f86e4dd1859b8c789a4aed7f3c6e958bda317f9cd2d33",
+  "NormalizedSummary": "#{functions => 7,gains => [{\"ct_default_gl.beam\",{handle_info,2}}],losses => [],frame_decreases => 1,frame_increases => 0}.",
+  "FixtureRed": -532462766,
+  "FixtureGreen": 0,
+  "Patches": {
+    "production.patch": "0a4883e2a9eefe5bdc68d49de654b5d10dc7afcd4d367d65bf15c5e15770ec0c",
+    "test.patch": "da444aaaeae9169e1a4518d2afcaf86e00ab122bda2c56f49dd29190b5b37263"
+  },
+  "Replayed": {
+    "tests/Erlang.Tests/Harness/Program.cs": "cb80243f5590afd0ff03b53cb4579f37c082dd853a2da5fe256404d463d13739",
+    "tests/Erlang.Tests/Compiler/Beam/BeamTupleMapContinuationChecks.cs": "8baea6861b5687644a41f1ae043852a37a6cca6168ef85fecd918a4e156100cf",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": "c5a27aeb32b50e51a44d63389b2a5cf9bd6b3b7548c4f8bb132bec91b264a12e",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GroupedTupleEntry.cs": "c76860b48c014be7aa6c48151b8dc6f1ab91e0c1643afef8dffadc1cfc95a178",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TupleMapEntry.cs": "38373b0e729a0762dc9e96d43e1e7227835e74e196aeb38a36aca013094d4304",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LiveCallArgumentForwarding.cs": "c3ebe6c87ba9555ffc6aecf91bef3012c28724a362ac7a3b7cc463f939a59cc4"
+  }
+}

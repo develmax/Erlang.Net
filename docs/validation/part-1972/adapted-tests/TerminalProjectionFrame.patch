@@ -1,0 +1,84 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamTerminalTupleFrameSlotChecks.cs b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamTerminalTupleFrameSlotChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamTerminalTupleFrameSlotChecks.cs
+@@ -0,0 +1,79 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamTerminalTupleFrameSlotChecks
++{
++    internal const string TestName = "compiler/beam/promotes-terminal-tuple-result-scratch";
++    private const string Fixture = "beam_terminal_tuple_frame.erl";
++    private const string IncorrectWidth = "Only the post-call tuple projection may leave the frame.";
++    private const string IncorrectRoots = "Each live projected value must survive the heap test; the recursive empty branch needs no extra roots.";
++    private const string Source = """
++        -module(beam_terminal_tuple_frame).
++        -export([read/1, negative/1, get/2, touch/1]).
++        -record(state, {name, handle, cont}).
++
++        read(S) ->
++            Fd = S#state.handle,
++            case ?MODULE:get(Fd, S#state.cont) of
++                {error, Reason} -> {error, {truncated, Reason}};
++                eof -> {ok, S, []};
++                {Next, []} -> read(S#state{cont = Next});
++                {Next, Items, _} -> {ok, S#state{cont = Next}, Items};
++                {Next, Items} -> {ok, S#state{cont = Next}, Items}
++            end.
++
++        negative(S) ->
++            Fd = S#state.handle,
++            case ?MODULE:get(Fd, S#state.cont) of
++                {Next, Items, _} -> ?MODULE:touch(Next), {ok, S#state{cont = Next}, Items};
++                {Next, Items} -> {ok, S#state{cont = Next}, Items};
++                eof -> {ok, S, []}
++            end.
++
++        get(_, {return, Value}) -> Value;
++        get(_, {retry, Value}) -> {{return, Value}, []}.
++
++        touch(Value) -> Value.
++        """;
++
++    internal static Task Run()
++    {
++        object code = Code(CodeGeneration.CompileBeamModule(Source, Fixture));
++        var functions = ((IEnumerable)Property(code, "Functions")).Cast<object>().ToArray();
++        var instructions = ((IEnumerable)Property(code, "Instructions")).Cast<object>().ToArray();
++        int readStart = FindStart("read");
++        int negativeStart = FindStart("negative");
++        var read = instructions[readStart..negativeStart];
++        var negative = instructions[negativeStart..FindStart("get")];
++        if (Allocation(read) != 2 || Allocation(negative) != 3)
++        {
++            throw new InvalidOperationException(IncorrectWidth);
++        }
++
++        if (read.Count(instruction => Opcode(instruction) == TestHeap
++                && Operand(instruction, 0) == 9 && Operand(instruction, 1) == 2) != 2
++            || !read.Any(instruction => Opcode(instruction) == TestHeap
++                && Operand(instruction, 0) == 5 && Operand(instruction, 1) == 0))
++        {
++            throw new InvalidOperationException(IncorrectRoots);
++        }
++
++        return Task.CompletedTask;
++
++        int FindStart(string name) =>
++            (int)Property(functions.Single(function => (string)Property(function, "Name") == name), "FirstInstructionIndex");
++    }
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static BigInteger Allocation(IEnumerable<object> instructions) =>
++        Operand(instructions.Single(instruction => Opcode(instruction) is Allocate or AllocateHeap), 0);
++
++    private static BigInteger Operand(object instruction, int index) =>
++        (BigInteger)Property(((IEnumerable)Property(instruction, "Operands")).Cast<object>().ElementAt(index), "Value");
++}

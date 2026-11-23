@@ -1,0 +1,122 @@
+{
+  "Before": {
+    "Different": 8,
+    "Equal": 1
+  },
+  "After": {
+    "Different": 8,
+    "Equal": 1
+  },
+  "Images": [
+    {
+      "Beam": "lib\\compiler-10.0.6\\ebin\\beam_ssa.beam",
+      "BeforeSha256": "AE177634E1883D8C016588D387FBC8489F8C9A301DCD7CD5E2590E68F47B6447",
+      "AfterSha256": "AE177634E1883D8C016588D387FBC8489F8C9A301DCD7CD5E2590E68F47B6447",
+      "Before": "Different",
+      "After": "Different"
+    },
+    {
+      "Beam": "lib\\debugger-7.0\\ebin\\dbg_ieval.beam",
+      "BeforeSha256": "AC556C9D6E2262B95EC15B70D3F5E637E8517839ECD26A3C962544B921CD0438",
+      "AfterSha256": "AC556C9D6E2262B95EC15B70D3F5E637E8517839ECD26A3C962544B921CD0438",
+      "Before": "Different",
+      "After": "Different"
+    },
+    {
+      "Beam": "lib\\dialyzer-6.0.3\\ebin\\dialyzer_typesig.beam",
+      "BeforeSha256": "7957B903D90815A0F145681F3F10EB5B952418D02884A8E54052146B58F7A863",
+      "AfterSha256": "7E7425DEA3777500F421990299D40FD8F107BC30446F4F5C49C10F99E9879419",
+      "Before": "Different",
+      "After": "Different"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\application_controller.beam",
+      "BeforeSha256": "21D3B31831601E8A6A44AAF05465A2A99789A2C7BAFE6E9338F6CA9F0D4D627A",
+      "AfterSha256": "BACB5792AA790B0A736FCD656CAED0954CB47CE705DD96AA04E9E4E79A78CAD4",
+      "Before": "Different",
+      "After": "Different"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\code.beam",
+      "BeforeSha256": "CE04C415D0CA97D1C3620A17B075748CC1DE269135450CA0476AA46BD790E0CB",
+      "AfterSha256": "2842D3E02BEB56FA2EEDC2C64BF1E10A181F5F3AC6B6F10DE1FFB4E3B2CD675C",
+      "Before": "Different",
+      "After": "Different"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\logger_handler.beam",
+      "BeforeSha256": "87A7D38991AC31868DCC1649AB7C4B60DD7820E69365DC53D3067D7812D1C85E",
+      "AfterSha256": "87A7D38991AC31868DCC1649AB7C4B60DD7820E69365DC53D3067D7812D1C85E",
+      "Before": "Equal",
+      "After": "Equal"
+    },
+    {
+      "Beam": "lib\\runtime_tools-2.5\\ebin\\dbg.beam",
+      "BeforeSha256": "80071C92179436864D85838AEB61F7135903F063616E039DD43BF5BEF917D957",
+      "AfterSha256": "3A25A4E8EADFAFD31C87D53A77214678B84A372DD2456B33B98704EAAE63B2DE",
+      "Before": "Different",
+      "After": "Different"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\erl_eval.beam",
+      "BeforeSha256": "3DBE94E065B2AACFC5336BF4D7927056806C08ECAC1D4039E3F65E973F7F1476",
+      "AfterSha256": "3DBE94E065B2AACFC5336BF4D7927056806C08ECAC1D4039E3F65E973F7F1476",
+      "Before": "Different",
+      "After": "Different"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\io_ansi.beam",
+      "BeforeSha256": "47473BB7F9908D3306A5DE36F02D9260069D2A5C3914C8EE377D4D176B6DE315",
+      "AfterSha256": "AACFEE538307BB90DDF69E3EE7E38C81109F95C3E15604B68714329A7B904CFF",
+      "Before": "Different",
+      "After": "Different"
+    }
+  ],
+  "Changed": [
+    {
+      "Beam": "lib\\dialyzer-6.0.3\\ebin\\dialyzer_typesig.beam",
+      "Sections": [
+        "Attr",
+        "Code",
+        "FunT"
+      ],
+      "FunIdentityShapeUnchanged": true
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\application_controller.beam",
+      "Sections": [
+        "Attr",
+        "Code",
+        "FunT"
+      ],
+      "FunIdentityShapeUnchanged": true
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\code.beam",
+      "Sections": [
+        "Attr",
+        "Code",
+        "FunT"
+      ],
+      "FunIdentityShapeUnchanged": true
+    },
+    {
+      "Beam": "lib\\runtime_tools-2.5\\ebin\\dbg.beam",
+      "Sections": [
+        "Attr",
+        "Code",
+        "FunT"
+      ],
+      "FunIdentityShapeUnchanged": true
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\io_ansi.beam",
+      "Sections": [
+        "Attr",
+        "Code",
+        "FunT"
+      ],
+      "FunIdentityShapeUnchanged": true
+    }
+  ]
+}

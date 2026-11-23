@@ -13,57 +13,86 @@ internal static class DebugLoggerLiveness420Checks
     {
         await using var runtime = new ProcessRuntime();
         await DebugInternal420Access.Initialize(runtime);
-        await using var victim = new RuntimeNodeFoundationHostActor(runtime);
         await using var logger = new RuntimeNodeFoundationHostActor(runtime);
         await using var caller = new RuntimeNodeFoundationHostActor(runtime);
         runtime.Register(DebugLoggerLiveness420Names.Logger, logger.Process.Pid);
+        await CheckExplicitRecipient(
+            runtime,
+            caller,
+            logger,
+            retiring: false
+        );
+        await CheckExplicitRecipient(
+            runtime,
+            caller,
+            logger,
+            retiring: true
+        );
+    }
+
+    private static async Task CheckExplicitRecipient(
+        ProcessRuntime runtime,
+        RuntimeNodeFoundationHostActor caller,
+        RuntimeNodeFoundationHostActor logger,
+        bool retiring
+    )
+    {
+        await using var victim = new RuntimeNodeFoundationHostActor(runtime);
         using var entered = new ManualResetEventSlim();
         using var release = new ManualResetEventSlim();
+        var physicalReturn = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var stopped = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var resume = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         Task<bool>? held = null;
         try
         {
-            held = victim.InvokeAsync(async context =>
-         {
-             await DirtyNative419Access.Schedule(
-                 context,
-                 DirtyNative419Names.Cpu,
-                 [],
-                 (_, _) =>
-    {
-        entered.Set();
-        DebugInternal420Access.Require(release.Wait(DebugInternal420Names.Deadline));
-
-        return Nil.Value;
-    }
-             );
-
-             return true;
-         });
+            held = HoldNative(
+                victim,
+                DirtyNative419Names.Cpu,
+                entered,
+                release,
+                physicalReturn,
+                retiring ? null : (stopped, resume.Task)
+            );
             DebugInternal420Access.Require(entered.Wait(DebugInternal420Names.Deadline));
-            ProcessContext target = await victim.Ready;
-            // This real canceled callback is still physically held and still in the
-            // process registry: the old dictionary-only predicate would deliver to it.
-            DebugLocks419Access.Cancel(target);
-            DebugInternal420Access.Require(runtime.IsAlive(victim.Process.Pid) && !victim.Process.Completion.IsCompleted);
-            await Send(caller, victim.Process.Pid);
-            await Receive(logger, caller.Process.Pid);
-            await caller.Invoke(context =>
-         {
-             runtime.Exit(context, victim.Process.Pid, Term.A(DebugLoggerLiveness420Names.Kill));
 
-             return true;
-         });
-            // This second case is actual owner termination with native work retaining
-            // the pre-DOWN/Done barrier. A dead explicit logger PID is still accepted
-            // as configuration but delivery must reset it to the named logger.
-            DebugInternal420Access.Require(!runtime.IsAlive(victim.Process.Pid) && !victim.Process.Completion.IsCompleted);
+            if (retiring)
+            {
+                // This fresh owner reaches actual logical termination with its
+                // dirty callback still blocked and host completion pending.
+                await caller.Invoke(context =>
+                {
+                    runtime.Exit(context, victim.Process.Pid, Term.A(DebugLoggerLiveness420Names.Kill));
+
+                    return true;
+                });
+                DebugInternal420Access.Require(SpinWait.SpinUntil(
+                    () => !runtime.IsAlive(victim.Process.Pid),
+                    DebugInternal420Names.Deadline
+                ));
+            }
+            else
+            {
+                DebugLocks419Access.Cancel(await victim.Ready);
+                await stopped.Task.WaitAsync(DebugInternal420Names.Deadline);
+            }
+
+            DebugInternal420Access.Require(runtime.IsAlive(victim.Process.Pid) == !retiring
+                && !victim.Process.Completion.IsCompleted && !physicalReturn.Task.IsCompleted);
             await Send(caller, victim.Process.Pid);
             await Receive(logger, caller.Process.Pid);
         }
         finally
         {
             release.Set();
+            resume.TrySetResult();
             await SettleHeld(victim, held);
+        }
+
+        if (retiring)
+        {
+            Term reason = await victim.Process.Completion.WaitAsync(DebugInternal420Names.Deadline);
+            DebugInternal420Access.Require(reason.Equals(Term.A(DebugLoggerLiveness420Names.Killed)));
         }
     }
 
@@ -112,29 +141,25 @@ internal static class DebugLoggerLiveness420Checks
         runtime.Register(DebugLoggerLiveness420Names.Logger, logger.Process.Pid);
         using var entered = new ManualResetEventSlim();
         using var release = new ManualResetEventSlim();
+        var physicalReturn = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var stopped = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var resume = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         Task<bool>? held = null;
         try
         {
-            held = logger.InvokeAsync(async context =>
-         {
-             await DirtyNative419Access.Schedule(
-                 context,
-                 DirtyNative419Names.Io,
-                 [],
-                 (_, _) =>
-    {
-        entered.Set();
-        DebugInternal420Access.Require(release.Wait(DebugInternal420Names.Deadline));
-
-        return Nil.Value;
-    }
-             );
-
-             return true;
-         });
+            held = HoldNative(
+                logger,
+                DirtyNative419Names.Io,
+                entered,
+                release,
+                physicalReturn,
+                (stopped, resume.Task)
+            );
             DebugInternal420Access.Require(entered.Wait(DebugInternal420Names.Deadline));
             DebugLocks419Access.Cancel(await logger.Ready);
-            DebugInternal420Access.Require(runtime.IsAlive(logger.Process.Pid) && !logger.Process.Completion.IsCompleted);
+            await stopped.Task.WaitAsync(DebugInternal420Names.Deadline);
+            DebugInternal420Access.Require(runtime.IsAlive(logger.Process.Pid)
+                && !logger.Process.Completion.IsCompleted && !physicalReturn.Task.IsCompleted);
             await caller.InvokeAsync(async context =>
             {
                 await DebugInternal420Access.Enabled(context, true);
@@ -147,9 +172,55 @@ internal static class DebugLoggerLiveness420Checks
         finally
         {
             release.Set();
+            resume.TrySetResult();
             await SettleHeld(logger, held);
         }
     }
+
+    private static Task<bool> HoldNative(
+        RuntimeNodeFoundationHostActor actor,
+        string kind,
+        ManualResetEventSlim entered,
+        ManualResetEventSlim release,
+        TaskCompletionSource physicalReturn,
+        (TaskCompletionSource Stopped, Task Resume)? keepRegistered
+    ) => actor.InvokeAsync(async context =>
+    {
+        try
+        {
+            await DirtyNative419Access.Schedule(
+                context,
+                kind,
+                [],
+                (_, _) =>
+                {
+                    entered.Set();
+                    try
+                    {
+                        DebugInternal420Access.Require(release.Wait(DebugInternal420Names.Deadline));
+
+                        return Nil.Value;
+                    }
+                    finally
+                    {
+                        physicalReturn.TrySetResult();
+                    }
+                }
+            );
+        }
+        catch (OperationCanceledException) when (keepRegistered is { } barrier && context.Cancellation.IsCancellationRequested)
+        {
+            // The cancellation interrupted the normal owner await, not the
+            // physical callback. Keep this command inside the actor until the
+            // logger observation finishes, before the canceled channel unwinds.
+            barrier.Stopped.TrySetResult();
+            await barrier.Resume.WaitAsync(DebugInternal420Names.Deadline);
+
+            throw;
+        }
+
+        return true;
+    });
 
     private static async Task SettleHeld(RuntimeNodeFoundationHostActor actor, Task<bool>? held)
     {

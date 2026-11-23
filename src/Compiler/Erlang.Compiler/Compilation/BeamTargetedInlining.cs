@@ -2,26 +2,39 @@ namespace Erlang.Compiler;
 
 internal static class BeamTargetedInlining
 {
-    private const int DefaultAutomaticInlineSize = 24;
-    private const int AutomaticInlineEffort = 150;
+    internal const int DefaultAutomaticInlineSize = 24;
+    internal const int AutomaticInlineEffort = 150;
+    private const int CoreApplyWeight = 3;
+    private const int CoreConstructorWeight = 1;
+    private const int CoreElementWeight = 1;
+    private const int CoreLiteralWeight = 1;
+    private const int CoreArgumentWeight = 1;
+    private const int CoreClauseWeight = 1;
+    private const int CoreMapPatternWeight = 4;
+    private const int CoreMapPairWeight = 3;
 
     internal static (IReadOnlyList<FunctionDefinition>, IReadOnlyList<BeamSourceLocation>) Apply(
         ModuleDefinition module,
         IReadOnlyList<BeamSourceLocation> locations,
-        IReadOnlySet<(string Name, int Arity)> exports
+        IReadOnlySet<(string Name, int Arity)> exports,
+        BeamReleaseLeafInliningPlan profileInlining = default
     )
     {
         var targets = new Dictionary<(string, int), (Term? Constant, int Argument, Expr.Match? ListCheck, Clause? Template)>();
         var dispatches = new Dictionary<(string, int), (FunctionDefinition Function, BeamSourceLocation Location)>();
         var failureStubs = new Dictionary<(string, int), (FunctionDefinition Function, BeamSourceLocation Location)>();
         var automaticCosts = new Dictionary<(string, int), int>();
+        var releaseTargets = new HashSet<(string, int)>();
+        var releaseMapCallbacks = new HashSet<(string, int)>();
+        var substitutedReleaseTargets = new HashSet<(string, int)>();
+        bool sourceAutomatic = module.AutomaticInlining && !profileInlining.SuppressAutomatic;
         for (int index = 0; index < module.DeclaredFunctions.Count; index++)
         {
             var function = module.DeclaredFunctions[index];
             var signature = (function.Name, function.Arity);
             if (!module.InlineTargets.Contains(signature))
             {
-                if (!module.AutomaticInlining || module.DeclaredNifs?.Contains(signature) == true
+                if ((!sourceAutomatic && profileInlining.Size is null) || module.DeclaredNifs?.Contains(signature) == true
                     || function.Name == module.OnLoadFunction && function.Arity == 0
                     || function.Clauses is not [{ Guard: null } candidate]
                     || !BeamModuleCompiler.HasUnconditionalParameters(candidate))
@@ -29,22 +42,43 @@ internal static class BeamTargetedInlining
                     continue;
                 }
 
-                int limit = module.AutomaticInlineSize ?? DefaultAutomaticInlineSize;
-                int cost = 0;
-                foreach (Expr expression in LocalFunctionEntries.Walk(candidate.Body))
+                if (sourceAutomatic)
                 {
-                    if (++cost > limit || !IsTemplateExpression(expression))
+                    int limit = module.AutomaticInlineSize ?? DefaultAutomaticInlineSize;
+                    int cost = 0;
+                    foreach (Expr expression in LocalFunctionEntries.Walk(candidate.Body))
                     {
-                        cost = 0;
-                        break;
+                        if (++cost > limit || !IsTemplateExpression(expression))
+                        {
+                            cost = 0;
+                            break;
+                        }
                     }
+
+                    if (cost == 0 || ReadListReduction(candidate) is not null)
+                    {
+                        continue;
+                    }
+
+                    automaticCosts.Add(signature, cost);
                 }
-                if (cost == 0 || ReadListReduction(candidate) is not null)
+                else if (profileInlining.Size is int size)
+                {
+                    if (IsBoundedReleaseMapCallback(candidate, size))
+                    {
+                        releaseMapCallbacks.Add(signature);
+                    }
+                    else if (!IsBoundedReleaseLeaf(candidate, size))
+                    {
+                        continue;
+                    }
+
+                    releaseTargets.Add(signature);
+                }
+                else
                 {
                     continue;
                 }
-
-                automaticCosts.Add(signature, cost);
             }
             if (function.Clauses is not [{ Guard: null } clause] || !BeamModuleCompiler.HasUnconditionalParameters(clause))
             {
@@ -86,7 +120,7 @@ internal static class BeamTargetedInlining
 
             throw Unsupported(signature);
         }
-        if (targets.Count + dispatches.Count - automaticCosts.Count != module.InlineTargets.Count)
+        if (targets.Count + dispatches.Count - automaticCosts.Count - releaseTargets.Count != module.InlineTargets.Count)
         {
             throw Unsupported(module.InlineTargets.First(signature =>
                 !targets.ContainsKey(signature) && !dispatches.ContainsKey(signature)));
@@ -139,7 +173,10 @@ internal static class BeamTargetedInlining
 
                     var targetKey = (local.Function, local.Arguments.Count);
                     bool dispatch = dispatches.TryGetValue(targetKey, out var branchTarget);
+                    bool releaseLeaf = releaseTargets.Contains(targetKey);
                     if ((!dispatch && !targets.ContainsKey(targetKey))
+                        || releaseLeaf && !local.Arguments.All(IsImmutableReleaseOperand)
+                        || releaseMapCallbacks.Contains(targetKey) && !local.Arguments.All(argument => argument is Expr.Variable)
                         || automaticCosts.TryGetValue(targetKey, out int cost) && cost > remainingEffort
                         || !active.Add(targetKey))
                     {
@@ -147,6 +184,11 @@ internal static class BeamTargetedInlining
                     }
 
                     remainingEffort -= cost;
+                    if (releaseLeaf)
+                    {
+                        substitutedReleaseTargets.Add(targetKey);
+                    }
+
                     var evaluation = new List<Expr>();
                     var operands = new Expr[local.Arguments.Count];
                     for (int index = 0; index < operands.Length; index++)
@@ -381,44 +423,101 @@ internal static class BeamTargetedInlining
             lines.Add(location);
         }
 
-        var retained = new bool[functions.Count];
-        var pending = new Queue<int>();
-        var indices = new Dictionary<(string, int), int>();
-        for (int index = 0; index < functions.Count; index++)
+        return BeamSourceReachability.Retain(
+            functions,
+            lines,
+            IsInliningRoot
+        );
+
+        bool IsInliningRoot(FunctionDefinition function)
         {
-            FunctionDefinition function = functions[index];
             var signature = (function.Name, function.Arity);
-            indices.Add(signature, index);
-            if ((!function.IsInlineFailure && !targets.ContainsKey(signature) && !dispatches.ContainsKey(signature))
-                || exports.Contains(signature) || function.Arity == 0 && function.Name == module.OnLoadFunction)
-            {
-                retained[index] = true;
-                pending.Enqueue(index);
-            }
-        }
 
-        while (pending.TryDequeue(out int caller))
-        {
-            foreach (Expr expression in LocalFunctionEntries.ClauseExpressions(functions[caller].Clauses)
-                .SelectMany(LocalFunctionEntries.Walk))
-            {
-                var reference = expression switch
-                {
-                    Expr.Call { Module: null, DynamicRemote: false } local => (local.Function, local.Arguments.Count),
-                    Expr.FunctionReference local => (local.Name, local.Arity),
-                    _ => default
-                };
-                if (reference.Item1 is not null && indices.TryGetValue(reference, out int target) && !retained[target])
-                {
-                    retained[target] = true;
-                    pending.Enqueue(target);
-                }
-            }
+            return (!function.IsInlineFailure && !targets.ContainsKey(signature) && !dispatches.ContainsKey(signature))
+                || releaseTargets.Contains(signature) && !substitutedReleaseTargets.Contains(signature)
+                || exports.Contains(signature) || function.Arity == 0 && function.Name == module.OnLoadFunction;
         }
-
-        return (functions.Where((_, index) => retained[index]).ToArray(),
-            lines.Where((_, index) => retained[index]).ToArray());
     }
+
+    private static bool IsBoundedReleaseLeaf(Clause clause, int baseSize)
+    {
+        if (clause.Body is Expr.Variable or Expr.Literal)
+        {
+            return true;
+        }
+
+        if (clause.Body is not Expr.Tuple tuple
+            || tuple.Items.Any(item => item is not (Expr.Literal or Expr.Variable)))
+        {
+            return false;
+        }
+
+        if (AttributeLiteral.TryNormalizeConstant(tuple, out _))
+        {
+            return true;
+        }
+
+        // Charge each slot as a literal to bound all substitutions, even when
+        // an apparently variable actual is constant in the caller's Core form.
+        // A discarded tuple has no construction cost and stays within this bound.
+        long size = CoreConstructorWeight + (CoreElementWeight + CoreLiteralWeight) * (long)tuple.Items.Count;
+        long limit = (long)baseSize + CoreApplyWeight + clause.Patterns.Count;
+
+        // The counters reject when the remaining budget reaches zero.
+        return size < limit && tuple.Items.Count < AutomaticInlineEffort - 1;
+    }
+
+    private static bool IsBoundedReleaseMapCallback(Clause clause, int baseSize)
+    {
+        if (clause.Patterns.Count != 3 || clause.Body is not Expr.Case
+            {
+                Value: Expr.Variable map,
+                Clauses:
+                [
+                {
+                    Guard: null,
+                    Patterns:
+                        [
+                            MapPattern
+                        {
+                            Fields: [{ Key: Expr.Variable key, Value: Pattern.Variable binding }]
+                        }
+                        ],
+                    Body: Expr.Variable selected
+                },
+                {
+                    Guard: null,
+                    Patterns: [Pattern.Variable { Name: VariableScopeNames.Wildcard }],
+                    Body: Expr.Apply
+                    {
+                        Function: Expr.Variable callback, Arguments: [Expr.Variable fallbackKey]
+                    }
+                }
+                ]
+            }
+            || binding.Name == VariableScopeNames.Wildcard || selected.Name != binding.Name || fallbackKey.Name != key.Name)
+        {
+            return false;
+        }
+
+        var formals = clause.Patterns.OfType<Pattern.Variable>()
+            .Select(parameter => parameter.Name).ToHashSet(StringComparer.Ordinal);
+        if (!formals.SetEquals([map.Name, key.Name, callback.Name]) || formals.Contains(binding.Name))
+        {
+            return false;
+        }
+
+        // Two retained clauses, one dynamic map-pattern pair and one unary
+        // apply. Variable visits and the two literal guards add no size.
+        const int size = 2 * CoreClauseWeight + CoreMapPatternWeight + CoreMapPairWeight
+            + CoreApplyWeight + CoreArgumentWeight;
+        long limit = (long)baseSize + CoreApplyWeight + clause.Patterns.Count;
+
+        return size < limit;
+    }
+
+    private static bool IsImmutableReleaseOperand(Expr operand) =>
+        operand is Expr.Variable || AttributeLiteral.TryNormalizeConstant(operand, out _);
 
     private static bool IsTemplateExpression(Expr expression) =>
         expression is Expr.Literal or Expr.Variable or Expr.Tuple or Expr.List or Expr.Map or Expr.Bits

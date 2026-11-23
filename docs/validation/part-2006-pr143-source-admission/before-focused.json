@@ -1,0 +1,94 @@
+{
+  "Passed": false,
+  "Checks": [
+    {
+      "Plan": "Erlang.NifMapFamily504Observations",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "DDE7775E2E92C6A8A04083A085CC02B19A08161AA3E6BF2D7F8798B246E74CA4",
+        "VerifiedRows": 560,
+        "NativeExecuted": false
+      }
+    },
+    {
+      "Plan": "Erlang.NifMapMaterialized505Observations",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "D16DB1991567225EB0E7A3C22FD9F75F604FD77CC54CF360C34791E927EBC840",
+        "VerifiedRows": 567,
+        "NativeExecuted": false
+      }
+    },
+    {
+      "Plan": "Erlang.NifMapReentry505Observations",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "2263B930CC381C82A1FD3905D87372B1B21BCEE419E14CB1BC7C7FB77034B029",
+        "VerifiedRows": 567,
+        "NativeExecuted": false
+      }
+    },
+    {
+      "Plan": "tools/Runtime/Erlang.OwnedGuest506Observations",
+      "Passed": false,
+      "Error": "RuntimeError('Source seal differs: tests/Erlang.Tests/Erlang.Tests.csproj')"
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifVariadic526Observations",
+      "Passed": false,
+      "Error": "RuntimeError('Source seal differs: src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamInstructionReader.cs')"
+    },
+    {
+      "Plan": "Pending",
+      "Passed": false,
+      "Error": "ValueError('Pending source differs: src/Compiler/Erlang.Compiler/Compilation/Binding/ClosureCaptures.cs')"
+    },
+    {
+      "Plan": "Reallocation",
+      "Passed": false,
+      "Error": "RuntimeError('Reviewed source changed: src/Compiler/Erlang.Compiler/Compilation/Binding/ClosureCaptures.cs')"
+    },
+    {
+      "Plan": "Private557",
+      "Passed": false,
+      "Error": "RuntimeError('Source seal differs: src/Compiler/Erlang.Compiler/Compilation/Binding/ClosureCaptures.cs')"
+    },
+    {
+      "Plan": "Erlang.Dictionary537Observations",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "1B907F03F31FDBE47112A4E27BBA68E9581628911469970A82EDD025A171F5E6",
+        "VerifiedRows": 5,
+        "BuildOrVmExecuted": false
+      }
+    },
+    {
+      "Plan": "Erlang.MatchSaved634Observations",
+      "Passed": false,
+      "Error": "ValueError('Focused input differs: tests/Erlang.Tests/Harness/Program.cs')"
+    },
+    {
+      "Plan": "Erlang.EtsDispatch540Observations",
+      "Passed": false,
+      "Error": "ValueError('Focused input differs: tests/Erlang.Tests/Erlang.Tests.csproj')"
+    },
+    {
+      "Plan": "Erlang.MonitorOriginal645Observations",
+      "Passed": false,
+      "Error": "ValueError('Focused input differs: tests/Erlang.Tests/Erlang.Tests.csproj')"
+    },
+    {
+      "Plan": "Erlang.BeamFunction542Observations",
+      "Passed": false,
+      "Error": "ValueError('Focused input differs: tests/Erlang.Tests/Erlang.Tests.csproj')"
+    }
+  ],
+  "ExpectedPlans": 13,
+  "ExpectedNativePlans": 8,
+  "FocusedInputPlans": 5,
+  "BuildOrVmExecuted": false,
+  "NativeExecuted": false,
+  "SourceHeadAuthenticityClaimed": false,
+  "FullSourceMembershipClaimed": false,
+  "WholeContractsClosed": 0
+}

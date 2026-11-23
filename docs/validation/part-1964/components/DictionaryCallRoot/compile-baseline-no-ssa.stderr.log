@@ -1,0 +1,5 @@
+Unhandled exception. System.NotSupportedException: BEAM source mapping does not support the -compile attribute.
+   at Erlang.Compiler.BeamSourceForms.FunctionLines(IReadOnlyList`1 tokens, ModuleDefinition module)
+   at Erlang.Compiler.CodeGeneration.CompileBeamModule(String sourcePath, BeamMacroPreprocessor preprocessor, BeamReleaseBuildProfile buildProfile)
+   at Erlang.Compiler.CodeGeneration.CompileBeamModule(String source, String sourcePath)
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\generator-error-line-1961\emitter\Program.cs:line 3

@@ -1,0 +1,50 @@
+{
+  "Parent": {
+    "Source": "8d86e673eda8d9b14cb5b41b41be8d157825056da3f2d7b375b8b4d263c494e9",
+    "Paths": 290,
+    "Compiler": "903f68f198c43a32d7ba763961cf38f3bea772a1b98360405620b8a50104bc63",
+    "Tests": "7b945543339c15831c37006816eb474e35fab49f75ad3ce4c46364222be99837",
+    "ParentSource": "814296a21951e8c1d686bd511b40407c27c6c4e5b7090dacb71d3d0e8023cda3",
+    "CorpusTool": "42e34b79b125d434090c240f07e00174495466b14b066bf8b0ecebbd0a55d104"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamDocumentationWriter.cs": "B969B5F2B75D8E2FD9B2772A013B07F10792525BFA7662C72F3F2C0A9E69F5DA",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.InterCallFrameSlots.cs": "21D645168B5316E4A58B62BE227CDF34E18D30AFD601DF5F0AD1706A7AC06135",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ListComprehensionOrder.cs": "13433EC6F0A1AC663E09CD7AAFB060DEC72056E2B275AF9214ADE984B1339B54",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecordCallArguments.cs": "384E0C3BFBBD1B831AD3E9E19F057DF1E90AAA79E8364319C33F0F541B4A3F21",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs": "48ECF4E2BCD8A19672599A283801BE93902383989CEBE80646B6EC2B57F70802",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedReturns.cs": "8FF31580A03693395BBB1476C7BAF96A0CDFB91C120744E585C5442BBD32E882",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": "DC42164C607811589CD1A8ECA1AD958103132588DAD7E440CAC7ED6DF0E2375C",
+    "tests/Erlang.Tests/Compiler/Beam/BeamDiameterAccessorDocsChecks.cs": "40FA872A71AA1856DAD1D14C79254D16BF9479AF8BAFD6F8D1FC0BD8B707C428",
+    "tests/Erlang.Tests/Compiler/Beam/BeamRecordCallArgumentChecks.cs": "E1964B013F36B4F96FD5921BB3F4B866C88356983DEA18F32175A1049E20D32B",
+    "tests/Erlang.Tests/Compiler/Beam/BeamRecordListSiblingHelperChecks.cs": "B5B5D4FE4E8BD01BEE7392AF93CBEA66376F69F5CDDC826C69B4B3605173897C",
+    "tests/Erlang.Tests/Compiler/Beam/BeamTupleChoiceListSiblingHelperChecks.cs": "616B906AE84F0669B8395BFA7BB1E73E243D6FDE7BA512E9949DDD5B68521218",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamInterCallFrameSlotChecks.cs": "55DB09F8D0998650F78438E663B96AC9237F9C19C0E00ADC17153E050C9E807D",
+    "tests/Erlang.Tests/Harness/Program.cs": "153B85E4EEC046B7DD2039C765FCBDCCE6D3E9D4730A2CF039795B6B923B0D12"
+  },
+  "Patches": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\intercall-frames-and-generated-sibling-order-1893\\record-list-sibling-order.patch",
+      "Hash": "e910157ea45054a2ad7e907b9bd3ba9786006f316cd213a35eed8827c2e6f4d8"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\intercall-frames-and-generated-sibling-order-1893\\literal-tuple-sibling-order-after-record.patch",
+      "Hash": "c15609557f4b197a390813fae6ca676814cd5b381ca6c1736bce08c211fb135f"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\intercall-frames-and-generated-sibling-order-1893\\promote-lower-intercall-frame-slots.patch",
+      "Hash": "a621beadf64abb171a3872612b1fcee6c0bc3dfc64ff6554394c5467a706502e"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\intercall-frames-and-generated-sibling-order-1893\\diameter-accessor-docs.patch",
+      "Hash": "8dde1e56147ad9873f4d3920476c6686457989b2826fb1b07f9268d0727a137f"
+    }
+  ],
+  "HarnessRegistrations": [
+    "BeamRecordCallArgumentChecks",
+    "BeamRecordListSiblingHelperChecks",
+    "BeamTupleChoiceListSiblingHelperChecks",
+    "BeamInterCallFrameSlotChecks",
+    "BeamDiameterAccessorDocsChecks"
+  ]
+}

@@ -7,7 +7,7 @@ internal sealed partial class BeamModuleCompiler
 {
     private sealed partial class BeamProjectionFlow
     {
-        internal (bool RemoveSpill, Dictionary<int, BeamOperand> Uses, Dictionary<int, BeamOperand> EarlyLoads)? PlanEntryRegisterUses(
+        internal (bool RemoveSpill, Dictionary<int, BeamOperand> Uses, Dictionary<int, (int Before, BeamOperand Source, bool Extended)> EarlyLoads)? PlanEntryRegisterUses(
             int entry,
             int save,
             int end,
@@ -91,8 +91,8 @@ internal sealed partial class BeamModuleCompiler
             }
 
             var replacements = new Dictionary<int, BeamOperand>();
-            var redundantLoads = new Dictionary<int, BeamOperand>();
-            var earlyLoads = new Dictionary<int, BeamOperand>();
+            var retainedUses = new Dictionary<int, BeamOperand>();
+            var earlyLoads = new Dictionary<int, (int Before, BeamOperand Source, bool Extended)>();
             foreach (int use in uses)
             {
                 BigInteger available = incoming[use - entry].GetValueOrDefault();
@@ -118,19 +118,38 @@ internal sealed partial class BeamModuleCompiler
                         && SameProjectionRegister(overwritten, source)
                         && !(incoming[previous - entry].GetValueOrDefault() & original).IsZero)
                     {
-                        earlyLoads.Add(use, source);
+                        earlyLoads.Add(use, (previous, source, Extended: false));
+                    }
+                    else if (!needsLifetimeAnalysis && uses.Count == 1
+                        && FindEarlyEntryLoad(
+                            entry,
+                            save,
+                            use,
+                            source,
+                            incoming
+                        ) is int before)
+                    {
+                        earlyLoads.Add(use, (before, source, Extended: true));
                     }
 
                     continue;
                 }
 
-                replacements.Add(use, (available & original).IsZero
+                BeamOperand replacement = (available & original).IsZero
                     ? new BeamOperand(BeamOperandParameters.X, BigInteger.TrailingZeroCount(available))
-                    : source);
+                    : source;
+                replacements.Add(use, replacement);
                 if (instruction is { Definition.Opcode: Move, Operands: [_, { TypeIndex: null } destination] }
                     && !(available & EntryRegisterBit(destination)).IsZero)
                 {
-                    redundantLoads.Add(use, destination);
+                    retainedUses.Add(use, destination);
+                }
+                else if (instruction.Definition.Opcode is PutTuple or PutList
+                    && !SameProjectionRegister(instruction.Operands[StackWriteOperand(instruction)], replacement)
+                    && !instruction.Operands.Any(operand => operand.TypeIndex.HasValue && SameProjectionRegister(operand, slot)))
+                {
+                    // Keep the stack copy for later reads after a call clobbers X.
+                    retainedUses.Add(use, replacement);
                 }
             }
 
@@ -139,14 +158,182 @@ internal sealed partial class BeamModuleCompiler
                 return (true, replacements, earlyLoads);
             }
 
-            return redundantLoads.Count == 0 ? null : (false, redundantLoads, []);
+            return retainedUses.Count == 0 ? null : (false, retainedUses, []);
+        }
+
+        internal bool HasSingleStackCopyUse(
+            int entry,
+            int save,
+            int end,
+            BeamOperand slot,
+            int use
+        ) => FindEntryCopyLifetimeUses(
+            entry,
+            save,
+            end,
+            slot,
+            knownRead: use
+        ) is [var index] && index == use;
+
+        private int? FindEarlyEntryLoad(
+            int entry,
+            int save,
+            int use,
+            BeamOperand source,
+            BigInteger?[] incoming
+        )
+        {
+            if (body[use] is not
+                {
+                    Definition.Opcode: Move,
+                    Operands: [_, { Kind: BeamOperandParameters.X, TypeIndex: null } target]
+                }
+                || SameProjectionRegister(target, source))
+            {
+                return null;
+            }
+
+            BigInteger sourceBit = EntryRegisterBit(source);
+            bool crossesConstruction = false;
+            for (int before = use - 1; before > save; before--)
+            {
+                BeamInstruction instruction = body[before];
+                if (predecessors[before + 1] is not [var predecessor] || predecessor != before
+                    || instruction.Definition.Opcode is not (Line or Move or PutList or PutTuple)
+                    || instruction.Operands.Any(operand => SameProjectionRegister(operand, target)))
+                {
+                    return null;
+                }
+
+                crossesConstruction |= instruction.Definition.Opcode is PutList or PutTuple;
+                // Keep move-only tail schedules on the existing parallel-copy path.
+                if (!(incoming[before - entry].GetValueOrDefault() & sourceBit).IsZero)
+                {
+                    return crossesConstruction || FeedsCallAfterClosure(before) || FeedsStraightCall(before) ? before : null;
+                }
+            }
+
+            return null;
+
+            bool FeedsStraightCall(int before)
+            {
+                if (body[before] is not { Definition.Opcode: Move, Operands: [_, var overwritten] }
+                    || !SameProjectionRegister(overwritten, source))
+                {
+                    return false;
+                }
+
+                // A checked tuple projection may precede the planned copy. The backward
+                // motion interval still prevents the copy from crossing the projection.
+                bool followsProjection = false;
+                for (int index = save + 1; index <= before; index++)
+                {
+                    byte opcode = body[index].Definition.Opcode;
+                    if (opcode is not (Move or Line or GetTupleElement)
+                        || predecessors[index] is not [var predecessor] || predecessor != index - 1)
+                    {
+                        return false;
+                    }
+
+                    followsProjection |= opcode == GetTupleElement;
+                }
+
+                return FeedsOrdinaryCall(straightArguments: true, followsProjection: followsProjection);
+            }
+
+            bool FeedsCallAfterClosure(int before)
+            {
+                int producer = before - 1;
+                while (producer > save && body[producer].Definition.Opcode == Line)
+                {
+                    producer--;
+                }
+
+                if (producer <= save || body[producer] is not { Definition.Opcode: MakeFun } closure)
+                {
+                    return false;
+                }
+
+                BeamOperand result = closure.Operands[StackWriteOperand(closure)];
+                if (result.Kind != BeamOperandParameters.Y || SameProjectionRegister(result, body[save].Operands[1]))
+                {
+                    return false;
+                }
+
+                return FeedsOrdinaryCall();
+            }
+
+            bool FeedsOrdinaryCall(bool straightArguments = false, bool followsProjection = false)
+            {
+                int call = use + 1;
+                while (call < entry + incoming.Length)
+                {
+                    BeamInstruction following = body[call];
+                    if ((followsProjection || following.Definition.Opcode == Move)
+                        && (predecessors[call] is not [var preceding] || preceding != call - 1))
+                    {
+                        return false;
+                    }
+
+                    if (following.Definition.Opcode == Line)
+                    {
+                        call++;
+
+                        continue;
+                    }
+
+                    if (!straightArguments || following is not
+                        {
+                            Definition.Opcode: Move,
+                            Operands:
+                            [
+                            {
+                                Kind: BeamOperandParameters.X or BeamOperandParameters.LiteralValue
+                                        or BeamOperandParameters.Integer or BeamOperandParameters.Atom
+                                        or BeamOperandParameters.Nil or BeamOperandParameters.Y,
+                                TypeIndex: null
+                            } read,
+                            { Kind: BeamOperandParameters.X, TypeIndex: null } written
+                            ]
+                        } || SameProjectionRegister(read, target) || SameProjectionRegister(written, target)
+                        || (read.Kind == BeamOperandParameters.Y
+                            && (!followsProjection || SameProjectionRegister(read, body[save].Operands[1]))))
+                    {
+                        break;
+                    }
+
+                    call++;
+                }
+
+                if (call >= entry + incoming.Length)
+                {
+                    return false;
+                }
+
+                const int SendArgumentCount = 2;
+                const int DynamicApplyTargetRegisterCount = 2;
+                BeamInstruction consumer = body[call];
+
+                // Send is a body call with two implicit X arguments and requires an allocated frame.
+                // CallFun's separate fun operand is excluded from this argument proof.
+                return consumer.Definition.Opcode switch
+                {
+                    LocalCall or ExternalCall => target.Value < consumer.Operands[0].Value,
+                    CallFun when straightArguments && !followsProjection => target.Value < consumer.Operands[0].Value,
+                    DynamicApply when straightArguments && !followsProjection
+                        => target.Value < consumer.Operands[0].Value + DynamicApplyTargetRegisterCount,
+                    Send when straightArguments && !followsProjection => target.Value < SendArgumentCount,
+                    _ => false
+                };
+            }
         }
 
         private List<int>? FindEntryCopyLifetimeUses(
             int entry,
             int save,
             int end,
-            BeamOperand slot
+            BeamOperand slot,
+            int knownRead = -1
         )
         {
             const int BeforeOrAfterLifetime = 1;
@@ -196,7 +383,7 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 // An instruction shared with a path that replaced the slot must keep reading Y.
-                if (mark != DuringLifetime || !ReadsEntryCopy(instruction, slot))
+                if (mark != DuringLifetime || index != knownRead && !ReadsEntryCopy(instruction, slot))
                 {
                     return null;
                 }

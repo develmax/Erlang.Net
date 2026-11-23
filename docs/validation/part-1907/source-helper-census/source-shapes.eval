@@ -1,0 +1,42 @@
+[Manifest,Out] = init:get_plain_arguments(),
+{ok,B}=file:read_file(Manifest),
+Rows=json:decode(B),
+IsGenerator=fun Tag(A) ->
+    lists:member(A,[generate,generate_strict,b_generate,b_generate_strict,
+                    m_generate,m_generate_strict,zip])
+end,
+Scan=fun Collect({lc,Anno,Element,Qs},Ctx) ->
+     Gens=[Q || Q<-Qs,is_tuple(Q),IsGenerator(element(1,Q))],
+     Kinds=[element(1,G) || G<-Gens],
+     InKinds=[case G of {_,_,P,Source}->{element(1,P),element(1,Source)}; _->{zip,zip} end || G<-Gens],
+     Sig=#{location=>erl_anno:line(Anno),context=>Ctx,qualifiers=>length(Qs),kinds=>Kinds,
+           generators=>length(Gens),patterns=>[T || {T,_}<-InKinds],sources=>[T||{_,T}<-InKinds],
+           output=>element(1,Element)},
+     [Sig|Collect(Element,nested)++Collect(Qs,nested)];
+   Collect(T,Ctx) when is_tuple(T)->Collect(tuple_to_list(T),Ctx);
+   Collect([H|T],Ctx)->Collect(H,Ctx)++Collect(T,Ctx);
+   Collect(_,_) -> []
+end,
+Roots=fun(Forms,N,A) ->
+    Clauses=lists:append([Cs||{function,_,Name,Ar,Cs}<-Forms,atom_to_binary(Name,utf8)=:=N,Ar=:=A]),
+    lists:append([case Es of
+        [One]->Scan(One,single_body);
+        [_|_]->Scan(lists:droplast(Es),nonterminal)++Scan(lists:last(Es),tail_after_prefix);
+        _->[]
+    end||{clause,_,_,_,Es}<-Clauses])
+end,
+Analyze=fun(Row) ->
+    #{<<"beam">>:=Beam,<<"missing">>:=Keys,<<"source">>:=S,<<"includes">>:=Is}=Row,
+    ParentKeys=lists:usort([{maps:get(<<"parent">>,K),maps:get(<<"arity">>,K)}||K<-Keys]),
+    case epp:parse_file(binary_to_list(S),[binary_to_list(I)||I<-Is],[]) of
+        {ok,Forms}->
+            Breakdown=[#{parent=>N,arity=>A,missing=>length([K||K<-Keys,maps:get(<<"parent">>,K)=:=N,maps:get(<<"arity">>,K)=:=A]),
+                         comprehensions=>Roots(Forms,N,A)}||{N,A}<-ParentKeys],
+            #{beam=>Beam,source=>S,errors=>length([X||X={error,_}<-Forms]),parents=>Breakdown};
+        {error,Error}->#{beam=>Beam,source=>S,failed=>unicode:characters_to_binary(io_lib:format("~0tp",[Error]))}
+    end
+end,
+Details=[Analyze(R)||R<-Rows],
+ok=file:write_file(Out,json:encode(Details)),
+io:format("~p source images observed~n",[length(Details)]),
+halt().

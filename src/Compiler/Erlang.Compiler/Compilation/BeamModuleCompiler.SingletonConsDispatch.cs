@@ -6,8 +6,6 @@ internal sealed partial class BeamModuleCompiler
 {
     private sealed partial class GeneralEmitter
     {
-        private const int ProperListTypeBits = ConsTypeBits | (1 << 7);
-
         private bool TryEmitSingletonConsDispatch(FunctionDefinition function, int functionInfo)
         {
             if (function.Arity >= FirstReservedXRegister || function.Clauses.Count != 3

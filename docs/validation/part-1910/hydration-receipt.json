@@ -1,0 +1,40 @@
+{
+  "Parent": {
+    "Source": "3ec5d890222dd571926e31f66a702aa4ccd9431dad7e10020a574afe1929fd8e",
+    "Paths": 402,
+    "Compiler": "9a158bcba8eb609c842a872b50533c8703018341d6c52eaffba631cf20680b01",
+    "Tests": "f2917c393495d1115b19de712bfc84b52835a29ad6dbb1fdf7eaff9a7f4cee8c",
+    "ParentSource": "c0239b36a96f0f7c079a7dd87582996cea52d7e9e1c95c698a64f6af543b2bdc",
+    "CorpusTool": "48557e9bd009802ec7dd13df34ea20d0aa1ac284be68537a47212542ace1d81c"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AtomListTail.cs": "2edbe9127e9da66d50d278439b6848521abc77b6a6e4fc8f831e71274b8d7f91",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ColdBooleanCaseFailures.cs": "596c529fe7e65eabbcfa6ca8fbf6be73240fe9110fb8f289b981e5710bf7cdb2",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DeadRecordCallSlots.cs": "4dc7b54a9a7f143441a1f1e3d662a3d21dcc5684beeed7cdcf20df33f17ca8b4",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DiscardedClassEffectHelper.cs": "cf298ac62bc6c1e16a8bd03a974a7f5f81b5dbf9538f218bd59f76c73b2305e9",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": "619012554e0bc04a7effea571ef1b24cdc70a298fa5b701577856199ce095ed0",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LengthEncoding.cs": "5bfb053eaeaf76b6e1034f1fc96d79ca5f2838aa606915c2583a46a61a695b30",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ListConvertedMeasuredTail.cs": "7c3be9dba39bb88adad91fda5c62f8e57297a541c7d64996890f88af81574cf2",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.NestedRecordColdCases.cs": "3b825e4d4cb269ecf4750bfd1c6b88ed3e0d4f4686545e554f42b2ab465b42b5",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.OwnedRecordFrameSlots.cs": "1736b1dc3f99784a1dd832e58935ca253c0a9516c5766df51d43ff9e9997e85d",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs": "75784362c3de89f327ade59d71df7080b258b80fc3aebf88b6d956210695da53",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": "547c9bd09281a5131a364e900bc5f822d286e0b0b2ddd23116c17b5df971ea2c",
+    "tests/Erlang.Tests/Compiler/Beam/BeamClosedAtomListTailChecks.cs": "1c6a0aab75658984538de79137f40d7af76267479eda1796ccaa61165eb58be2",
+    "tests/Erlang.Tests/Compiler/Beam/BeamDeadRecordCallSlotsChecks.cs": "ecf7688fa86d73f684915735f9b5d028ddc707778ab495f46a085f0c7bf2435f",
+    "tests/Erlang.Tests/Compiler/Beam/BeamDiscardedRecordListChecks.cs": "db4ce6c45c8d82186ca7a3d4863b91f125a05ab7d6ce86285428574da4f882bc",
+    "tests/Erlang.Tests/Compiler/Beam/BeamLengthNumericEntryChecks.cs": "4742cc9e7b540082d9117c80eef45fa75d0b9b440f2c05afc14442cb2b7ba673",
+    "tests/Erlang.Tests/Compiler/Beam/BeamListConvertedMeasuredTailChecks.cs": "bd03745e49b8b704be5938e72e6f1f2e99c0b3edf3374b5fccf08866b2384f0d",
+    "tests/Erlang.Tests/Compiler/Beam/BeamNestedRecordColdCasesChecks.cs": "9893ce504b50792c06aee9394a55c09597b2564c8c4e0c145f43f48025879181",
+    "tests/Erlang.Tests/Compiler/Beam/BeamOwnedRecordFrameSlotsChecks.cs": "8b381f6994ba2c5ff52946c905487f51cecf552058a0c78a40ef3ab8dff3a54b",
+    "tests/Erlang.Tests/Harness/Program.cs": "386c877924c3d8c9922859adb32c83bc5da0a66c9f6700555f64223b2bf493e8"
+  },
+  "PatchSources": {
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\discarded-list-effect-helpers-1909\\class-effect-queue\\discarded-record-list-before-queue.patch": "180ba70c7fd39caa0922fdd65e541626af7ff0f54d2bcc5ed9527ae7d9944752",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\near-code-residuals-1910\\record-call-slot-liveness\\dead-record-call-slots.patch": "d147377a6d5b1f5d3b3ae564d57ee572aa99992765c5f8c909f4e36738cd0256",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\near-code-residuals-1910\\owned-frame-slot-order\\owned-record-frame-slot-order.patch": "aa319e769b50c57b4da46b82052106feb228be1cf5319d6b55b68d89eeae0d35",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\near-code-residuals-1910\\nested-record-cold-rpo\\nested-record-cold-rpo.patch": "7991ea3a7f7431fa41ed5d372ad9163c87df37d598f264283c564c19e4f5ed28",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\wx-record-liveness-and-ber-entry-1910\\list-converted-measured-tail.patch": "96291965696c6eba10cf02ce57157423d3b86e72dccc52e9bb787bce9d5bcbca",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\wx-record-liveness-and-ber-entry-1910\\length-numeric-entry.patch": "76c9eff554e8c20bb4a8028963bf5f8951991997af62fd0090420c9ea5ae9b43",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\single-atom-call-clause-1908\\single-atom-call-clause.patch": "b4779245b4a884b82b56819556a0fd53c78420d791b83b63c470521e5bc8ad4f"
+  }
+}

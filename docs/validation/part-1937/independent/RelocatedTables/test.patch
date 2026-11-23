@@ -1,0 +1,43 @@
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12552,6 +12552,7 @@
+ Test(Erlang.Tests.BeamTerminalCallProjectionChecks.TestName, Erlang.Tests.BeamTerminalCallProjectionChecks.Run);
+ Test(Erlang.Tests.BeamTerminalCallProjectionChecks.CompactFrameTestName, Erlang.Tests.BeamTerminalCallProjectionChecks.CheckCompactFrame);
+ Test(Erlang.Tests.BeamTerminalCallProjectionChecks.SharedReturnsTestName, Erlang.Tests.BeamTerminalCallProjectionChecks.CheckMixedTupleReturns);
++Test(Erlang.Tests.BeamTerminalCallProjectionChecks.MixedTupleTableTestName, Erlang.Tests.BeamTerminalCallProjectionChecks.CheckMixedTupleTableOrder);
+ Test(Erlang.Tests.BeamCallArgumentKillsChecks.TestName, Erlang.Tests.BeamCallArgumentKillsChecks.Run);
+ Test(Erlang.Tests.BeamMeasuredDecoderPairChecks.TestName, Erlang.Tests.BeamMeasuredDecoderPairChecks.Run);
+ Test(Erlang.Tests.BeamClosedDecoderTagsChecks.TestName, Erlang.Tests.BeamClosedDecoderTagsChecks.Run);
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamTerminalCallProjectionChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamTerminalCallProjectionChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamTerminalCallProjectionChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamTerminalCallProjectionChecks.cs
+@@ -13,6 +13,8 @@
+     internal const string SharedReturnsTestName = "compiler/beam/shares-terminal-returns-in-mixed-tuple-dispatch";
+     private const string FrameShapeError = "The complete trim kept an unused slot or modified the protected frame.";
+     private const string SharedReturnsError = "The mixed decision did not share only identical terminal arms.";
++    internal const string MixedTupleTableTestName = "compiler/beam/dispatch-reorders-relocated-atom-and-import-uses";
++    private const string TableOrderError = "The relocated atom kept its pre-dispatch atom index.";
+     private const string Module = "beam_terminal_call_projection";
+     private const string ShapeError = "The terminal call retained stack projections after constructing its arguments.";
+ 
+@@ -94,6 +96,19 @@
+         }
+     }
+ 
++    internal static void CheckMixedTupleTableOrder()
++    {
++        object code = Code(CodeGeneration.CompileBeamModule(Source, Module + ".erl"));
++        string[] atoms = Children(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        int undefined = Array.IndexOf(atoms, "undefined");
++        int sent = Array.IndexOf(atoms, "sent");
++        int keyreplace = Array.IndexOf(atoms, "keyreplace");
++        if (sent < 0 || keyreplace < 0 || undefined <= sent || undefined <= keyreplace)
++        {
++            throw new InvalidOperationException(TableOrderError);
++        }
++    }
++
+     internal static void CheckMixedTupleReturns()
+     {
+         const string sharedClause = "{sent, _, _} -> {ok, Entry#entry.rows}";

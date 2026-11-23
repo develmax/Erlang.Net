@@ -1,0 +1,479 @@
+module beam_ber_tag_probe.
+exports [{long_tag,2},{module_info,0},{module_info,1},{tag_number,1}].
+attributes [].
+
+%% beam_ber_tag_probe.erl:3
+%% Counter = 50
+%% bs_ensure_opt: true
+%% Parameters
+%%    _0 =>
+%%     
+%%     accepts_match_context
+function `beam_ber_tag_probe`:`tag_number`(_0) {
+0:
+  %% Argument types:
+  %%    
+  %% Aliased:
+  %%    _0
+  %% Anno: #{accepts_match_contexts => true}
+  _8 = bs_start_match `new`, _0
+
+  %% Aliased:
+  %%    _8
+  _36 = succeeded:guard _8
+  br _36, ^36, ^38
+
+36:
+  _45 = bs_ensure _8, `8`, `1`
+  _46 = succeeded:guard _45
+  br _46, ^44, ^22
+
+44:
+  %% beam_ber_tag_probe.erl:3
+  %% Argument types:
+  %%    _45 => bs_context(1)
+  %% Aliased:
+  %%    _8
+  %% Anno: #{ensured => true}
+  _9 = bs_match `integer`, _45, `[unsigned,big]`, `2`, `1`
+
+  %% Aliased:
+  %%    _9
+  _23 = succeeded:guard _9
+  br _23, ^23, ^22
+
+23:
+  %% Aliased:
+  %%    _9
+  _10 = bs_extract _9
+
+  %% beam_ber_tag_probe.erl:3
+  %% Argument types:
+  %%    _9 => bs_context(1)
+  %% Aliased:
+  %%    _9
+  %% Anno: #{ensured => true}
+  _11 = bs_match `skip`, _9, `integer`, `[unsigned,big]`, `1`, `1`
+
+  %% Aliased:
+  %%    _11
+  _24 = succeeded:guard _11
+  br _24, ^24, ^22
+
+24:
+  %% beam_ber_tag_probe.erl:3
+  %% Argument types:
+  %%    _11 => bs_context(1)
+  %% Aliased:
+  %%    _11
+  %% Anno: #{ensured => true}
+  _13 = bs_match `integer`, _11, `[unsigned,big]`, `5`, `1`
+
+  %% Aliased:
+  %%    _13
+  _25 = succeeded:guard _13
+  br _25, ^25, ^22
+
+25:
+  %% Aliased:
+  %%    _13
+  _14 = bs_extract _13
+
+  %% Argument types:
+  %%    _14 => 0..31
+  %% Unique:
+  %%    _14
+  _32 = bif:'=:=' _14, `31`
+  br _32, ^31, ^26
+
+31:
+  _48 = bs_ensure _13, `0`, `8`
+  _49 = succeeded:guard _48
+  br _49, ^47, ^26
+
+47:
+  %% beam_ber_tag_probe.erl:3
+  %% Argument types:
+  %%    _48 => bs_context(1)
+  %% Aliased:
+  %%    _13
+  %% Anno: #{ensured => true}
+  _15 = bs_match `skip`, _48, `binary`, `[unsigned,big]`, `all`, `8`
+
+  %% Aliased:
+  %%    _15
+  _27 = succeeded:guard _15
+  br _27, ^27, ^26
+
+27:
+  %% beam_ber_tag_probe.erl:3
+  %% Argument types:
+  %%    _10 => 0..3
+  %% Unique:
+  %%    _10
+  _2 = bif:'bsl' _10, `16`
+
+  %% beam_ber_tag_probe.erl:3
+  %% Result type:
+  %%    integer()
+  %% Aliased:
+  %%    _13
+  %% Anno: #{bsm_info => context_reused}
+  _1 = call (`long_tag`/2), _13, `0`
+
+  %% Unique:
+  %%    _1
+  _29 = succeeded:body _1
+  br _29, ^29, ^1
+
+29:
+  %% beam_ber_tag_probe.erl:3
+  %% Argument types:
+  %%    _2 => 0..196608
+  %%    _1 => integer()
+  %% Unique:
+  %%    _1, 
+  %%    _2
+  _17 = bif:'bor' _2, _1
+  %% Result type:
+  %%    integer()
+  %% Unique:
+  %%    _17
+  ret _17
+
+26:
+  %% Aliased:
+  %%    _13
+  _35 = bs_test_tail _13, `0`
+  br _35, ^35, ^22
+
+35:
+  %% beam_ber_tag_probe.erl:4
+  %% Argument types:
+  %%    _10 => 0..3
+  %% Unique:
+  %%    _10
+  _3 = bif:'bsl' _10, `16`
+
+  %% beam_ber_tag_probe.erl:4
+  %% Argument types:
+  %%    _3 => 0..196608
+  %%    _14 => 0..31
+  %% Unique:
+  %%    _3, 
+  %%    _14
+  _18 = bif:'bor' _3, _14
+  %% Result type:
+  %%    0..196639
+  %% Unique:
+  %%    _18
+  ret _18
+
+22:
+  %% Aliased:
+  %%    _8
+  _43 = bs_get_tail _8
+
+  %% beam_ber_tag_probe.erl:3
+  %% Aliased:
+  %%    _43
+  %% Anno: #{inlined => {'-inlined-tag_number/1-',1}}
+  _19 = match_fail `function_clause`, _43
+
+  %% Unique:
+  %%    _19
+  _37 = succeeded:body _19
+  br ^1
+
+38:
+  %% beam_ber_tag_probe.erl:3
+  %% Aliased:
+  %%    _0
+  %% Anno: #{inlined => {'-inlined-tag_number/1-',1}}
+  _40 = match_fail `function_clause`, _0
+
+  %% Unique:
+  %%    _40
+  _41 = succeeded:body _40
+  br ^1
+
+1:
+  _42 = call (`erlang`:`error`/1), `badarg`
+  %% Result type:
+  %%    none()
+  ret _42
+}
+
+%% beam_ber_tag_probe.erl:6
+%% Counter = 54
+%% bs_ensure_opt: true
+%% Parameters
+%%    _0 =>
+%%     
+%%     accepts_match_context
+function `beam_ber_tag_probe`:`long_tag`(_0, _1) {
+0:
+  %% Argument types:
+  %%    
+  %% Aliased:
+  %%    _0
+  %% Anno: #{accepts_match_contexts => true}
+  _9 = bs_start_match `new`, _0
+
+  %% Aliased:
+  %%    _9
+  _36 = succeeded:guard _9
+  br _36, ^36, ^38
+
+36:
+  _46 = bs_ensure _9, `1`, `1`
+  _47 = succeeded:guard _46
+  br _47, ^45, ^23
+
+45:
+  %% beam_ber_tag_probe.erl:6
+  %% Argument types:
+  %%    _46 => bs_context(1)
+  %% Aliased:
+  %%    _9
+  %% Anno: #{ensured => true}
+  _10 = bs_match `integer`, _46, `[unsigned,big]`, `1`, `1`
+
+  %% Aliased:
+  %%    _10
+  _24 = succeeded:guard _10
+  br _24, ^24, ^23
+
+24:
+  %% Aliased:
+  %%    _10
+  _11 = bs_extract _10
+
+  %% Aliased:
+  %%    _11
+  _44 = bif:'=:=' _11, `0`
+  br _44, ^35, ^34
+
+35:
+  _49 = bs_ensure _10, `7`, `1`
+  _50 = succeeded:guard _49
+  br _50, ^48, ^23
+
+48:
+  %% beam_ber_tag_probe.erl:7
+  %% Argument types:
+  %%    _49 => bs_context(1)
+  %% Aliased:
+  %%    _10
+  %% Anno: #{ensured => true}
+  _16 = bs_match `integer`, _49, `[unsigned,big]`, `7`, `1`
+
+  %% Aliased:
+  %%    _16
+  _30 = succeeded:guard _16
+  br _30, ^30, ^23
+
+30:
+  %% Aliased:
+  %%    _16
+  _17 = bs_extract _16
+
+  %% Aliased:
+  %%    _16
+  _33 = bs_test_tail _16, `0`
+  br _33, ^33, ^23
+
+33:
+  %% beam_ber_tag_probe.erl:7
+  %% Argument types:
+  %%    
+  %% Aliased:
+  %%    _1
+  _4 = bif:'bsl' _1, `7`
+
+  %% Unique:
+  %%    _4
+  _31 = succeeded:body _4
+  br _31, ^31, ^1
+
+31:
+  %% beam_ber_tag_probe.erl:7
+  %% Argument types:
+  %%    _4 => integer()
+  %%    _17 => 0..127
+  %% Unique:
+  %%    _4, 
+  %%    _17
+  _18 = bif:'bor' _4, _17
+  %% Result type:
+  %%    integer()
+  %% Unique:
+  %%    _18
+  ret _18
+
+34:
+  _52 = bs_ensure _10, `7`, `8`
+  _53 = succeeded:guard _52
+  br _53, ^51, ^23
+
+51:
+  %% beam_ber_tag_probe.erl:6
+  %% Argument types:
+  %%    _52 => bs_context(1)
+  %% Aliased:
+  %%    _10
+  %% Anno: #{ensured => true}
+  _12 = bs_match `integer`, _52, `[unsigned,big]`, `7`, `1`
+
+  %% Aliased:
+  %%    _12
+  _25 = succeeded:guard _12
+  br _25, ^25, ^23
+
+25:
+  %% Aliased:
+  %%    _12
+  _13 = bs_extract _12
+
+  %% beam_ber_tag_probe.erl:6
+  %% Argument types:
+  %%    _12 => bs_context(1)
+  %% Aliased:
+  %%    _12
+  %% Anno: #{ensured => true}
+  _14 = bs_match `skip`, _12, `binary`, `[unsigned,big]`, `all`, `8`
+
+  %% Aliased:
+  %%    _14
+  _26 = succeeded:guard _14
+  br _26, ^26, ^23
+
+26:
+  %% beam_ber_tag_probe.erl:6
+  %% Argument types:
+  %%    
+  %% Aliased:
+  %%    _1
+  _2 = bif:'bsl' _1, `7`
+
+  %% Unique:
+  %%    _2
+  _27 = succeeded:body _2
+  br _27, ^27, ^1
+
+27:
+  %% beam_ber_tag_probe.erl:6
+  %% Argument types:
+  %%    _2 => integer()
+  %%    _13 => 0..127
+  %% Unique:
+  %%    _2, 
+  %%    _13
+  _3 = bif:'bor' _2, _13
+
+  %% beam_ber_tag_probe.erl:6
+  %% Result type:
+  %%    integer()
+  %% Aliased:
+  %%    _12
+  %% Unique:
+  %%    _3
+  %% Anno: #{bsm_info => context_reused}
+  _19 = call (`long_tag`/2), _12, _3
+
+  %% Unique:
+  %%    _19
+  _29 = succeeded:body _19
+  br _29, ^29, ^1
+
+29:
+  %% Result type:
+  %%    integer()
+  %% Unique:
+  %%    _19
+  ret _19
+
+23:
+  %% Aliased:
+  %%    _9
+  _43 = bs_get_tail _9
+
+  %% beam_ber_tag_probe.erl:6
+  %% Aliased:
+  %%    _1, 
+  %%    _43
+  %% Anno: #{inlined => {'-inlined-long_tag/2-',2}}
+  _20 = match_fail `function_clause`, _43, _1
+
+  %% Unique:
+  %%    _20
+  _37 = succeeded:body _20
+  br ^1
+
+38:
+  %% beam_ber_tag_probe.erl:6
+  %% Aliased:
+  %%    _0, 
+  %%    _1
+  %% Anno: #{inlined => {'-inlined-long_tag/2-',2}}
+  _40 = match_fail `function_clause`, _0, _1
+
+  %% Unique:
+  %%    _40
+  _41 = succeeded:body _40
+  br ^1
+
+1:
+  _42 = call (`erlang`:`error`/1), `badarg`
+  %% Result type:
+  %%    none()
+  ret _42
+}
+
+%% Counter = 6
+%% bs_ensure_opt: true
+function `beam_ber_tag_probe`:`module_info`() {
+0:
+  _2 = call (`erlang`:`get_module_info`/1), `beam_ber_tag_probe`
+
+  %% Aliased:
+  %%    _2
+  _5 = succeeded:body _2
+  br _5, ^5, ^1
+
+5:
+  %% Aliased:
+  %%    _2
+  ret _2
+
+1:
+  _3 = call (`erlang`:`error`/1), `badarg`
+  %% Result type:
+  %%    none()
+  ret _3
+}
+
+%% Counter = 6
+%% bs_ensure_opt: true
+function `beam_ber_tag_probe`:`module_info`(_0) {
+0:
+  %% Aliased:
+  %%    _0
+  _2 = call (`erlang`:`get_module_info`/2), `beam_ber_tag_probe`, _0
+
+  %% Aliased:
+  %%    _2
+  _5 = succeeded:body _2
+  br _5, ^5, ^1
+
+5:
+  %% Aliased:
+  %%    _2
+  ret _2
+
+1:
+  _3 = call (`erlang`:`error`/1), `badarg`
+  %% Result type:
+  %%    none()
+  ret _3
+}

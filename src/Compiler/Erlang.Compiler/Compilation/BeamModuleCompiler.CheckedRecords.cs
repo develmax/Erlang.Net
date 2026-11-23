@@ -54,10 +54,37 @@ internal sealed partial class BeamModuleCompiler
         private void RememberCheckedRecord(Pattern pattern)
         {
             if (pattern is AliasPattern alias && TryReadPatternAlias(alias, out var binding, out var shape)
-                && shape is Pattern.Tuple tuple && HasTupleTag(tuple, out Atom tag)
-                && variables.TryGetValue(binding.Name, out int slot))
+                && shape is Erlang.Pattern.Tuple tuple)
             {
-                checkedRecordBindings[binding.Name] = (slot, tag.Name, tuple.Items.Count);
+                if (HasTupleTag(tuple, out Atom tag) && variables.TryGetValue(binding.Name, out int slot))
+                {
+                    checkedRecordBindings[binding.Name] = (slot, tag.Name, tuple.Items.Count);
+                }
+
+                pattern = tuple;
+            }
+
+            // Pattern emission has already checked every member on this edge.
+            // Keep the nested aliases in the same arm-local record scope.
+            if (owner.SsaTypeInferenceEnabled && !owner.ModuleOptimizationDisabled && pattern is Erlang.Pattern.Tuple matched)
+            {
+                foreach (Pattern field in matched.Items)
+                {
+                    if (field is AliasPattern or Erlang.Pattern.Tuple)
+                    {
+                        RememberCheckedRecord(field);
+                    }
+                }
+            }
+        }
+
+        private void RememberRecordGuard(Expr? guard)
+        {
+            if (owner.SsaTypeInferenceEnabled && !owner.ModuleOptimizationDisabled && guard is not null
+                && owner.ReadRecordTest(guard) is { Value: Expr.Variable variable } record
+                && SavedRecordSlot(variable) is not null)
+            {
+                RememberRecordShape(variable.Name, record.Name.Name, record.Arity);
             }
         }
 
@@ -161,6 +188,82 @@ internal sealed partial class BeamModuleCompiler
             {
                 owner.EmitTuplePart(0, access.Index, destination);
             }
+        }
+
+        private bool TryLoadComputedCheckedRecordArguments(
+            IReadOnlyList<Expr> expressions,
+            out BeamSourceLocation previous
+        )
+        {
+            previous = location;
+            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled || owner.receiveScratchRegisters is not null
+                || expressions.Count >= FirstReservedXRegister || expressions.FirstOrDefault() is not Expr.RecordAccess)
+            {
+                return false;
+            }
+
+            Expr.Call? producer = null;
+            Expr.RecordAccess? producerField = null;
+            int computed = -1;
+            var fields = new List<(int Destination, int Slot, Expr.RecordAccess Field)>();
+            var stack = new List<(int Destination, int Source)>();
+            var constants = new List<(int Destination, Term Value)>();
+            for (int destination = 0; destination < expressions.Count; destination++)
+            {
+                Expr expression = expressions[destination];
+                if (expression is Expr.RecordAccess field
+                    && CheckedRecordSlot(field.Value, field.Name, field.Arity) is int fieldSlot)
+                {
+                    fields.Add((destination, fieldSlot, field));
+                }
+                else if (expression is Expr.Call
+                {
+                    Module: null, DynamicRemote: false, Arguments: [Expr.RecordAccess input]
+                } unary && producer is null && entries.ContainsKey((unary.Function, 1))
+                    && CheckedRecordSlot(input.Value, input.Name, input.Arity) is not null)
+                {
+                    producer = unary;
+                    producerField = input;
+                    computed = destination;
+                }
+                else if (SavedRecordSlot(expression) is int saved)
+                {
+                    stack.Add((destination, saved));
+                }
+                else if (AttributeLiteral.TryNormalizeConstant(expression, out Term value))
+                {
+                    constants.Add((destination, value));
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            if (producer is null || producerField is null || computed <= 0 || fields.Count != 2
+                || producerField.Value is not Expr.Variable record || fields.Any(projection =>
+                    projection.Field.Value is not Expr.Variable alias || alias.Name != record.Name
+                    || projection.Field.Name != producerField.Name || projection.Field.Arity != producerField.Arity)
+                || CheckedRecordSlot(record, producerField.Name, producerField.Arity) is not int carrier)
+            {
+                return false;
+            }
+
+            // All other operands are already bound or checked. Project the unary
+            // input at its original call and leave the other two reads until return.
+            EmitSavedRecordField(carrier, producerField.Index, 0);
+            owner.EmitCallLine(producer, location);
+            Call(null, producer.Function, 1);
+            previous = CallLocation(producer, location);
+            int scratch = stack.Count == 0 ? expressions.Count : stack[0].Destination;
+            foreach (var (destination, slot, field) in fields)
+            {
+                EmitSavedRecordField(slot, field.Index, destination == 0 ? scratch : destination);
+            }
+
+            owner.EmitOrderedTailMoves([(0, scratch), (computed, 0)], constants, stack);
+
+            return true;
         }
 
         private bool TryLoadRecordFieldArguments(IReadOnlyList<Expr> expressions)
@@ -299,7 +402,12 @@ internal sealed partial class BeamModuleCompiler
         private void EmitCheckedRecordUpdate(Expr.RecordUpdate update, Term[]? tuplePrefix = null)
         {
             int operandBase = nextSlot;
-            bool registerReplacement = tuplePrefix is not null && update.Fields[^1].Value is Expr.Call;
+            Expr? lastValue = update.Fields.Count == 0 ? null : update.Fields[^1].Value;
+            bool nestedReplacement = tuplePrefix is not null && !owner.ModuleOptimizationDisabled
+                && owner.SsaTypeInferenceEnabled && lastValue is Expr.RecordUpdate nested
+                // Emitting the inner update checks a saved source before it returns the resulting tuple.
+                && SavedRecordSlot(nested.Value) is not null;
+            bool registerReplacement = tuplePrefix is not null && (lastValue is Expr.Call || nestedReplacement);
             int?[] values = new int?[update.Fields.Count];
             for (int index = 0; index < values.Length; index++)
             {
@@ -328,12 +436,18 @@ internal sealed partial class BeamModuleCompiler
 
             if (source is null && checkedSlot is null)
             {
-                EmitCheckedRecord(update.Name, update.Arity, sourceSlot);
+                EmitCheckedRecord(
+                    update.Name,
+                    update.Arity,
+                    sourceSlot,
+                    new(update.FailureSourceFile, update.FailureSourceLine)
+                );
             }
 
             if (fields.Length != 0)
             {
                 string hint = fields.Length == 1 && fields[0].Equal != false && update.Arity < RecordUpdateArityLimit
+                    && !PrefersCopyRecordOperand(fields[0].Field)
                     ? "reuse"
                     : "copy";
                 owner.Op(TestHeap, BeamWire.UnsignedTag, update.Arity + 1 + (tuplePrefix is null ? 0 : tuplePrefix.Length + 2));
@@ -350,7 +464,11 @@ internal sealed partial class BeamModuleCompiler
                 foreach (var entry in fields)
                 {
                     owner.Operand(BeamWire.UnsignedTag, entry.Field.Index + 1);
-                    if (registerReplacement && ReferenceEquals(entry.Field, update.Fields[^1]))
+                    if (nestedReplacement && ReferenceEquals(entry.Field, update.Fields[^1]))
+                    {
+                        owner.EmitTypedRegister(0, TupleTypeBits);
+                    }
+                    else if (registerReplacement && ReferenceEquals(entry.Field, update.Fields[^1]))
                     {
                         owner.Operand(XRegisterTag, 0);
                     }

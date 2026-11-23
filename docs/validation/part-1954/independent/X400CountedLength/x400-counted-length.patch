@@ -1,0 +1,55 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CountedListPairAccumulator.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CountedListPairAccumulator.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CountedListPairAccumulator.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CountedListPairAccumulator.cs
+@@ -138,6 +138,15 @@
+                 return false;
+             }
+ 
++            // The closed loop starts with literal nonnegative counts and adds only proven lengths.
++            bool naturalCounts = !withCallback && encodeModule is null
++                && (InferPairFacts(encode) & PairFacts.Length) != 0
++                && HasOnlyLocalCalls(
++                    function,
++                    function.Arity,
++                    (_, call) => ReferenceEquals(call, recur)
++                        || call.Arguments[^1] is Expr.Literal { Value: Integer seed } && seed.Value.Sign >= 0
++                );
+             int arity = function.Arity;
+             int failure = owner.nextLabel - 2;
+             int empty = Label();
+@@ -196,15 +205,29 @@
+             owner.Op(GcBifTwo, LabelTag, 0);
+             owner.Operand(BeamWire.UnsignedTag, 2);
+             owner.Operand(BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module, sum.Operator, 2));
+-            owner.EmitTypedRegister(1, NumberTypeBits, registerTag: YRegisterTag);
+-            if (encodeModule is null)
+-            {
+-                EmitNumericPairLength(1, encode);
++            if (naturalCounts)
++            {
++                owner.EmitTypedRegister(
++                    1,
++                    IntegerTypeBits,
++                    lower: 0,
++                    registerTag: YRegisterTag
++                );
++                owner.EmitTypedRegister(1, IntegerTypeBits, lower: 0);
+             }
+             else
+             {
+-                owner.Operand(XRegisterTag, 1);
+-            }
++                owner.EmitTypedRegister(1, NumberTypeBits, registerTag: YRegisterTag);
++                if (encodeModule is null)
++                {
++                    EmitNumericPairLength(1, encode);
++                }
++                else
++                {
++                    owner.Operand(XRegisterTag, 1);
++                }
++            }
++
+             owner.Operand(XRegisterTag, 1);
+             owner.Op(TestHeap, BeamWire.UnsignedTag, ConsHeapWords);
+             owner.Operand(BeamWire.UnsignedTag, 2);

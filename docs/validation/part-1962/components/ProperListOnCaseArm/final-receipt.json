@@ -1,0 +1,143 @@
+{
+  "Parent": "0801ace719bd50a07e26d206c89c65b72231a56c7225f8a3d5f01a26eb41d79d",
+  "Reference": {
+    "Tag": "OTP-29.1.1",
+    "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5"
+  },
+  "SDK": "10.0.400",
+  "Compiler": "02f8ae436e0f8ddd3faed7e795a87791cad37d8ee755a31ec19adf43f84e88f3",
+  "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+  "CompilerSourceInputs": "98b9a458ea58239994dea427a66d7aa92fa74e63ee9cb9fd272cf8ea428f71f2",
+  "CompilerSourceCount": 910,
+  "BaselineCompiler": "7aacea4d4213ee864616b3521ee8e2fb643931453d5017cbdb994b49b55fc520",
+  "Scope": {
+    "Different": 21,
+    "Equal": 18,
+    "Unsupported": 0,
+    "SourceRejected": 0
+  },
+  "ScopeModules": 39,
+  "ScopeMilliseconds": 60649.7279,
+  "WholeFileGains": 0,
+  "WholeFileLosses": 0,
+  "ChangedImages": [
+    "lib/common_test-1.31.2/ebin/ct_logs.beam"
+  ],
+  "NormalizedWithLineGains": 2,
+  "NormalizedWithLineLosses": 0,
+  "ChangedHelpers": 3,
+  "NativeFixtureOutcomes": 18,
+  "NativeCtTestsEachRole": 1,
+  "NativeCtAssetBytesEqual": [
+    "ct_default.css",
+    "jquery-latest.js",
+    "jquery-migrate.js",
+    "jquery.tablesorter.min.js"
+  ],
+  "ERTSReleaseImagePreparations": 3,
+  "Focused": [
+    {
+      "Role": "baseline",
+      "Exit": 1,
+      "Compiler": "7AACEA4D4213EE864616B3521EE8E2FB643931453D5017CBDB994B49B55FC520",
+      "Runtime": "7445A7EA8A055C952841AD41A2F4F0138B7FE39EAB6762EB1030E59308A1C8AA",
+      "Tests": "AF92739723AEA58355AD305D751C78E4511F74D1C2F3F1A712853A933345D7D2"
+    },
+    {
+      "Role": "candidate",
+      "Exit": 0,
+      "Compiler": "02F8AE436E0F8DDD3FAED7E795A87791CAD37D8EE755A31EC19ADF43F84E88F3",
+      "Runtime": "7445A7EA8A055C952841AD41A2F4F0138B7FE39EAB6762EB1030E59308A1C8AA",
+      "Tests": "AF92739723AEA58355AD305D751C78E4511F74D1C2F3F1A712853A933345D7D2"
+    }
+  ],
+  "PinnedProof": "Core generated helpers receive arm-local sequence arguments. OTP beam_ssa_type put_list and success-feasible edges preserve proper-list types and eliminate invalid fallback.",
+  "ConservativeScope": "Case selector and each arm see only incoming facts. No joins, fun boundaries, other binder scopes or arm facts outside the arm.",
+  "Remaining": "The first logger helper still differs in call argument copies, Y-slot trims and recursive call location.",
+  "Physical": {
+    "Changed": [
+      "Attr",
+      "Code",
+      "FunT",
+      "Line",
+      "LocT"
+    ],
+    "BeforeVsPinned": [
+      "AtU8",
+      "Attr",
+      "Code",
+      "ExpT",
+      "FunT",
+      "ImpT",
+      "Line",
+      "LitT",
+      "LocT",
+      "Type"
+    ],
+    "AfterVsPinned": [
+      "AtU8",
+      "Attr",
+      "Code",
+      "ExpT",
+      "FunT",
+      "ImpT",
+      "Line",
+      "LitT",
+      "LocT",
+      "Type"
+    ],
+    "CodeBytesBefore": 42771,
+    "CodeBytesAfter": 42702
+  },
+  "Strict": {
+    "Parent": "0801ace719bd50a07e26d206c89c65b72231a56c7225f8a3d5f01a26eb41d79d",
+    "Patches": {
+      "production.patch": "065e20cbd889a0748aeb6fe4f6fa873729c57bd992b1a60ad8c0c37ebc5bec6b",
+      "test.patch": "6df67406a0b2315228d5e290293f5f226b37749d04e774a8861fa0dfb48470fc"
+    },
+    "Files": {
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProperListComprehensionBindings.cs": {
+        "Before": "98782be26816c23d8c956a850c48fd95638d331f4e3e5290bdecbd6f1e7738f3",
+        "After": "9c49f1cd55bbc6b7dc46ee2b22a54f97b252a068e684e0905c39af7089a732b7"
+      },
+      "tests/Erlang.Tests/Compiler/Beam/BeamCaseArmProperListChecks.cs": {
+        "Before": null,
+        "After": "5ac3af1b9a498e2e841578f8fdb6ea578d3c6463534261a0e14335c05c111470"
+      },
+      "tests/Erlang.Tests/Harness/Program.cs": {
+        "Before": "c46549114df2413650911f762e85d67fca41d78e0792b69474e1875f57185b37",
+        "After": "2fdc821168a036fb7c726997625d04763ecc265adc366e629742d5a0adf62f6b"
+      }
+    }
+  },
+  "Evidence": {
+    "strict-replay.json": "a6d773bba9d83c7f9ed9c10e622f13622a027161ec29b85c8ae8a65e0a0e63b7",
+    "scope-candidate.json": "37b794fab89b841317a8f9bfc9bd35f69b067d2e5be6bab5b2a2b4dcc31deeb6",
+    "scope-candidate.json.timings.json": "11ca4fb9f42d65d5104ee70faa6c9685b0a13ec85911a3a1e9be5e3294018a79",
+    "scope-broad.txt": "5d29d6730903fb6753b47d216728c25a2bea1d3c7bdca8291fe4b327b255dd6f",
+    "scope-candidate-delta.json": "6d178e87a624ee6ca2e0a09225f05f065d6eb21ec835a682c41e983a1f08ff9c",
+    "release-audit.terms": "aace80b9656e941f2bb04ac6b01027f917b0700358b6ded012f3958ad55192dd",
+    "rank.terms": "c8b238854b18bb8c6a73f34a54b3a0b164c77061f61580135d59ebb95a251423",
+    "rank-opcode-differences.eval": "45d2567badf01109bb469fcd9985485af71d741fbf91b0a98454da7b1aed82eb",
+    "compiler-build.log": "b63c40609066a389bbe97ad950c0548bc80ca745804ce0f5c3bf0b46e01e2ef0",
+    "test-identities.json": "f1d3eedfafa3d7082e167241a1d08a44aa856f34dfbdd3639ef6b28aed7dff63",
+    "test-baseline.stderr.log": "3bf53d8bc736963b42df9a361d18b925f1e72fee27824213edb165572060fab6",
+    "test-candidate.log": "e3204eb76b32a73eff7a40f5f56c2bd65868a1e734a47ee36274d31a9641a908",
+    "test-style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "probe/beam_case_arm_proper_list.erl": "43f1f223518a77e048cd5ac92f0921c8ca4c95a63f83ce3e0fc340a95a67e47c",
+    "probe/dumps/beam_case_arm_proper_list.core": "d65803e82dc28b309c3d447603952033fce1df13d41d200198d05cf4d75a4e1e",
+    "probe/dumps/beam_case_arm_proper_list.ssaopt": "b975ef6d50b27b9688d07068c7eda241702de60892c5df5f9e2b2a1bb50e0ec6",
+    "probe/dumps/beam_case_arm_proper_list.precodegen": "b01160138d9e39e38292c663c19a039bc2d5e354505430a9a1c5d02ea26be5ce",
+    "probe/native.eval": "67b6a400b9461d97f647c44f5d9cfc4c3d447ef84f1e2e9d7e7eec6c8701fd4f",
+    "probe/native-candidate.terms": "48dd51bce94776bed4c5d2c2ea0eec5baf1ae388d801e52be197c2ad2e211328",
+    "probe/native-pinned.terms": "48dd51bce94776bed4c5d2c2ea0eec5baf1ae388d801e52be197c2ad2e211328",
+    "probe/native-baseline.terms": "48dd51bce94776bed4c5d2c2ea0eec5baf1ae388d801e52be197c2ad2e211328",
+    "ct-native/run.eval": "c064657b9e43a99c7115dbd3486110fb53fe61c5da564a5a4a1d6e9429a62e15",
+    "ct-native/case_arm_ct_SUITE.erl": "24cc5e53a2998d6852eddf856c0962e0ae538618a78a87acd1f78652c0a7cf3b",
+    "ct-native/pinned/ct.log": "be134078bfa3803916164670cbaa93faeffe212d01a291692c69811e76ee36a2",
+    "ct-native/baseline/ct.log": "40d10206109cdb2ae41e7b5a9338679a3f723ec1118675d365252ad0dcbddf9f",
+    "ct-native/candidate/ct.log": "a7cbdbbd2dde11884fb1d683bf2d3f7a24490dae77db5361d62dc06da7f62236",
+    "ct-remaining-pinned.terms": "8ff52b582c510e86bd93a1d0e1c3cb56872cc52bc8295b303473fb1b80bb6428",
+    "ct-remaining-candidate.terms": "1e884145535fdd8748062e8c31f6ea6dab56e63afaa0f6aecd327b1d94136599"
+  }
+}

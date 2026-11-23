@@ -1,0 +1,13 @@
+Checking patch src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AtomOwnedTupleEntries.cs...
+Checking patch tests/Erlang.Tests/Harness/Program.cs...
+error: while searching for:
+Test(Erlang.Tests.BeamRecordResultComprehensionChecks.TestName, Erlang.Tests.BeamRecordResultComprehensionChecks.Run);
+Test(Erlang.Tests.BeamOwnedLeafBranchChecks.TestName, Erlang.Tests.BeamOwnedLeafBranchChecks.Run);
+Test(Erlang.Tests.BeamAtomOwnedNestedRecordChecks.TestName, Erlang.Tests.BeamAtomOwnedNestedRecordChecks.Run);
+Test(Erlang.Tests.BeamInitialEntryProjectionChecks.TestName, Erlang.Tests.BeamInitialEntryProjectionChecks.Run);
+Test(Erlang.Tests.BeamNestedRecordRegisterChecks.TestName, Erlang.Tests.BeamNestedRecordRegisterChecks.Run);
+Test(Erlang.Tests.BeamOuterLiteralRecordEntryChecks.TestName, Erlang.Tests.BeamOuterLiteralRecordEntryChecks.Run);
+
+error: patch failed: tests/Erlang.Tests/Harness/Program.cs:12301
+error: tests/Erlang.Tests/Harness/Program.cs: patch does not apply
+Checking patch tests/Erlang.Tests/Compiler/Beam/Frames/BeamOwnedEntryClosureOrderChecks.cs...

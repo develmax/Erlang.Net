@@ -6,6 +6,67 @@ internal sealed partial class BeamModuleCompiler
 {
     private sealed partial class GeneralEmitter
     {
+        private bool TryEmitSingletonTupleListReturns(FunctionDefinition function)
+        {
+            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled || function.Arity != 1
+                || function.Clauses is not
+                [
+                { Guard: null, Patterns: [var emptyPattern], Body: var emptyBody },
+                { Guard: null, Patterns: [AliasPattern singleton], Body: Expr.Variable returned },
+                {
+                    Guard: null,
+                    Patterns: [Pattern.Variable input],
+                    Body: Expr.Call fallback
+                }
+                ]
+                || ListEntryTest(emptyPattern) != IsNil
+                || !AttributeLiteral.TryNormalizeConstant(emptyBody, out Term empty) || empty is not Nil
+                || !TryReadPatternAlias(singleton, out var alias, out var shape)
+                || alias.Name == VariableScopeNames.Wildcard || returned.Name != alias.Name
+                || shape is not Pattern.List
+                {
+                    Items: [Pattern.Tuple { Items.Count: > 0 } tuple], Tail: null
+                }
+                || tuple.Items.Any(item => item is not global::Erlang.Pattern.Variable)
+                || !DistinctBindings([alias, .. tuple.Items.Cast<Pattern.Variable>()
+                    .Where(field => field.Name != VariableScopeNames.Wildcard)])
+                || input.Name == VariableScopeNames.Wildcard
+                || ReadEntryCallChain(fallback, [input.Name]) is not { } chain)
+            {
+                return false;
+            }
+
+            // Both fast paths return the original X0. The checked head and
+            // suffix only occupy scratch registers, including on every retry.
+            int nonCons = Label();
+            int continueCall = Label();
+            owner.EmitNonemptyList(0, nonCons);
+            owner.EmitListParts(
+                0,
+                XRegisterTag,
+                1,
+                XRegisterTag,
+                2
+            );
+            owner.EmitTupleCheck(1, tuple.Items.Count, continueCall);
+            owner.EmitNilTest(XRegisterTag, 2, continueCall);
+            owner.instructions.WriteByte(Return);
+
+            Mark(nonCons);
+            owner.EmitNilTest(XRegisterTag, 0, continueCall);
+            owner.instructions.WriteByte(Return);
+
+            Mark(continueCall);
+            EmitEntryCallChain(
+                chain.First,
+                [input.Name],
+                chain.Continuation,
+                chain.RelocateBeforeTrim
+            );
+
+            return true;
+        }
+
         private bool TryEmitSingletonListCheckedCalls(FunctionDefinition function, int functionInfo)
         {
             if (function.Clauses is not [

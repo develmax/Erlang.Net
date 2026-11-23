@@ -1,0 +1,5 @@
+{mnesia_backup,
+    [{read_missing,{error,enoent}},
+     {round_trip,[{example,11},{example,{payload,2}}]},
+     {abort_removes_tmp,true},
+     {write_missing_directory,{file_error,"blocked.log.BUPTMP",enoent}}]}.

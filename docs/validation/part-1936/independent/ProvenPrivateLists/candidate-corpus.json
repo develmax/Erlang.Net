@@ -1,0 +1,66 @@
+{
+  "OtpVersion": "29.1.1",
+  "Total": 8,
+  "Counts": {
+    "Different": 5,
+    "Equal": 3
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\observer-2.19\\ebin\\cdv_bin_cb.beam",
+      "Status": "Equal",
+      "Source": "lib\\observer-2.19\\src\\cdv_bin_cb.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\snmp-5.20.5\\ebin\\snmpc_mib_gram.beam",
+      "Status": "Different",
+      "Source": "lib\\snmp-5.20.5\\src\\compiler\\snmpc_mib_gram.erl",
+      "Detail": "Original length 257464, generated length 267624. AtU8 11165-\u003E11171, Code 45243-\u003E55248, ImpT 484-\u003E484, ExpT 64-\u003E64, LitT 1954-\u003E1933, LocT 6736-\u003E6736, Attr 43829-\u003E43829, Line 3471-\u003E3774, Type 182-\u003E50",
+      "FirstDifferentByte": 5
+    },
+    {
+      "Beam": "lib\\ssh-6.0.6\\ebin\\ssh_bits.beam",
+      "Status": "Equal",
+      "Source": "lib\\ssh-6.0.6\\src\\ssh_bits.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\erl_parse.beam",
+      "Status": "Different",
+      "Source": "lib\\stdlib-8.1\\src\\erl_parse.erl",
+      "Detail": "Original length 707288, generated length 758732. AtU8 15794-\u003E15800, Code 125077-\u003E176239, ImpT 580-\u003E676, ExpT 316-\u003E316, FunT 364-\u003E364, LitT 1226-\u003E1182, LocT 10672-\u003E10660, Attr 74886-\u003E74886, Line 7389-\u003E7723, Type 126-\u003E34",
+      "FirstDifferentByte": 5
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\erl_posix_msg.beam",
+      "Status": "Equal",
+      "Source": "lib\\stdlib-8.1\\src\\erl_posix_msg.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\tools-4.2.3\\ebin\\xref_parser.beam",
+      "Status": "Different",
+      "Source": "lib\\tools-4.2.3\\src\\xref_parser.erl",
+      "Detail": "Original length 79336, generated length 85528. AtU8 2465-\u003E2465, Code 13938-\u003E20119, ImpT 316-\u003E316, ExpT 76-\u003E76, LitT 352-\u003E331, LocT 1468-\u003E1468, Attr 11016-\u003E11016, Line 759-\u003E879, Type 118-\u003E32",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_xpath_parse.beam",
+      "Status": "Different",
+      "Source": "lib\\xmerl-2.2\\src\\xmerl_xpath_parse.erl",
+      "Detail": "Original length 89944, generated length 96024. AtU8 2879-\u003E2892, Code 13077-\u003E19081, ImpT 256-\u003E268, ExpT 64-\u003E64, LitT 130-\u003E109, LocT 1612-\u003E1624, Attr 10854-\u003E10854, Line 830-\u003E914, Type 56-\u003E32",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_xsd_re_parse.beam",
+      "Status": "Different",
+      "Source": "lib\\xmerl-2.2\\src\\xmerl_xsd_re_parse.erl",
+      "Detail": "Original length 81840, generated length 84356. AtU8 2505-\u003E2545, Code 15798-\u003E17809, ImpT 292-\u003E316, ExpT 64-\u003E64, LitT 3731-\u003E4261, LocT 1684-\u003E1696, Attr 11135-\u003E11135, Line 832-\u003E860, Type 164-\u003E32",
+      "FirstDifferentByte": 6
+    }
+  ]
+}

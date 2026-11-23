@@ -1,0 +1,9 @@
+[{initiate,{ok,{stop,normal,ok,
+                     {state,buttons,config,panel,webview,texts,timer_ref}}},
+           [{timer,cancel,[timer_ref]},{wxPanel,destroy,[panel]}]},
+ {fallback,{ok,{reply,ok,
+                      {state,buttons,config,panel,webview,texts,timer_ref}}},
+           [{demo,format,[config,"Got Call ~p~n",[other]]}]},
+ {shutdown_malformed,{error,{badrecord,{state,panel}},[{handle_call,299}]},[]},
+ {fallback_malformed,{error,{badrecord,{state,panel}},[{handle_call,299}]},
+                     []}].

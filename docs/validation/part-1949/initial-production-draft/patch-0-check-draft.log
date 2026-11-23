@@ -1,0 +1,13 @@
+Checking patch src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedTaggedHeadDispatch.cs...
+Checking patch src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs...
+error: while searching for:
+                || TryEmitTupleOfListHeads(function) || TryEmitDirectFixedBitPattern(function) || TryEmitFixedBitTuple(function) || TryEmitGuardedBinarySplit(function) || TryEmitBinaryTailRecursion(function) || TryEmitUnpaddedBitStringContext(function) || TryEmitPaddedBitStringTail(function) || TryEmitRegisterBinaryRebuild(function) || TryEmitDirectMapPattern(function) || TryEmitProtectedSavedCallSequence(function) || TryEmitFloatCallContinuation(function) || TryEmitDirectTryAfter(function) || TryEmitDirectBits(function) || TryEmitDirectFunctionValueCall(function) || TryEmitDirectArithmetic(function) || TryEmitDirectBooleanNot(function) || TryEmitDirectValueGuard(function) || TryEmitTaggedListResult(function) || TryEmitNumericComparison(function)
+                || TryEmitLiteralOrProtectedResult(function) || TryEmitClosedIntegerTablePredicate(function)
+                || TryEmitEmptyComprehensionScan(function) || TryEmitSingleSizeCheckedChoice(function)
+                || TryEmitAliasedListHeadGuardTails(function) || TryEmitTaggedLookupConsLoop(function) || TryEmitGuardedKeyfindPairTail(function) || TryEmitGuardedLocalForward(function) || TryEmitRecordPredicateFunction(function) || TryEmitDirectGuardedRecordAccess(function) || TryEmitDirectTypeOrArityGuard(function) || TryEmitDirectListOrFunctionGuard(function) || TryEmitDirectCatch(function)
+                || TryEmitDiscardedBranchCatch(function) || TryEmitEntryCatchResultDispatch(function) || TryEmitNestedListCallCatch(function)
+                || TryEmitLiteralShortcutBoolean(function) || TryEmitIgnoredTryCallExactCatch(function)
+
+error: patch failed: src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs:575
+error: src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs: patch does not apply
+Checking patch src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TaggedPairListResult.cs...

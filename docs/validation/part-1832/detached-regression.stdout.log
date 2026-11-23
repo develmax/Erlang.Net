@@ -1,0 +1,119 @@
+PASS otp/code/managed-contracts
+PASS otp/code/beam-contracts
+PASS otp/code/selection-refusals
+PASS otp/code/managed-native-profile
+PASS runtime/unicode/managed-selection-and-original-contracts
+PASS runtime/unicode/original-selection-and-original-contracts
+PASS runtime/unicode/explicit-dependencies-and-no-fallback
+PASS runtime/unicode/large-integer-list-linear-allocation-and-append-backing
+PASS runtime/unicode-util/unaligned-utf8-prefix-linear-allocation-and-backing
+PASS runtime/unicode-util/fully-managed-closure-and-original-contracts/part-1
+PASS runtime/unicode-util/original-backend-and-original-contracts/part-1
+PASS runtime/unicode-util/fully-managed-closure-and-original-contracts/part-2
+PASS runtime/unicode-util/original-backend-and-original-contracts/part-2
+PASS runtime/unicode-util/fully-managed-closure-and-original-contracts/part-3
+PASS runtime/unicode-util/original-backend-and-original-contracts/part-3
+PASS runtime/unicode-util/fully-managed-closure-and-original-contracts/part-4
+PASS runtime/unicode-util/original-backend-and-original-contracts/part-4
+PASS runtime/string/managed-unicode-and-utility-closure
+PASS runtime/string/managed-selection-and-original-contracts
+PASS runtime/string/original-selection-and-original-contracts
+PASS runtime/string/explicit-dependencies-and-no-fallback
+PASS runtime/string/managed-jaro-indexed-resource-contract
+PASS runtime/string/original-jaro-indexed-resource-contract
+PASS runtime/string/cooperative-ascii-list-length
+PASS runtime/string/cooperative-ascii-binary-length
+PASS runtime/string/cooperative-ascii-list-reverse
+PASS runtime/string/cooperative-ascii-binary-reverse
+PASS runtime/string/cooperative-ascii-binary-slice-drop
+PASS runtime/string/cooperative-ascii-binary-slice-keep
+PASS runtime/string/cooperative-list-trim-single
+PASS runtime/string/cooperative-list-trim-multiple
+PASS runtime/string/cooperative-list-take-leading-complement
+PASS runtime/string/cooperative-list-take-trailing
+PASS runtime/string/cooperative-list-equal-two
+PASS runtime/string/cooperative-list-equal-three-false
+PASS runtime/string/cooperative-empty-binary-fragments-trim
+PASS runtime/string/cooperative-empty-binary-fragments-lexemes
+2026-11-18 14:22:11.556022 supervisor_report   
+    supervisor: {local,kernel_sup}
+    errorContext: start_error
+    reason: {badarg,[{lists,keyfind,[dictionary,1,undefined],[{error_info,#{module=>erl_stdlib_errors}}]},{proc_lib,my_info_1,3,[{file,"proc_lib.erl"},{line,972}]},{proc_lib,my_info,4,[{file,"proc_lib.erl"},{line,966}]},{proc_lib,crash_report,4,[{file,"proc_lib.erl"},{line,955}]},{proc_lib,exit_p,3,[{file,"proc_lib.erl"},{line,354}]}]}
+    offender: [{pid,undefined},{id,user},{mfargs,{user_sup,start,[]}},{restart_type,temporary},{significant,false},{shutdown,2000},{child_type,supervisor}]
+2026-11-18 14:22:12.182307 std_info            
+    application: kernel
+    exited: {{shutdown,{failed_to_start_child,user,{badarg,[{lists,keyfind,[dictionary,1,undefined],[{error_info,#{module=>erl_stdlib_errors}}]},{proc_lib,my_info_1,3,[{file,"proc_lib.erl"},{line,972}]},{proc_lib,my_info,4,[{file,"proc_lib.erl"},{line,966}]},{proc_lib,crash_report,4,[{file,"proc_lib.erl"},{line,955}]},{proc_lib,exit_p,3,[{file,"proc_lib.erl"},{line,354}]}]}}},{kernel,start,[normal,[]]}}
+    type: permanent
+FAIL runtime/dets/managed-public-otp-contracts: System.InvalidOperationException: The original OTP initializer ended before reporting startup: shutdown
+   at Erlang.ProcessRuntime.StartOtpBootAsync(IEnumerable`1 arguments, CancellationToken cancellation) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Processes\Context\ProcessRuntime.OtpBoot.cs:line 68
+   at Erlang.ProcessRuntime.StartOtpBootAsync(IEnumerable`1 arguments, CancellationToken cancellation) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Processes\Context\ProcessRuntime.OtpBoot.cs:line 87
+   at Erlang.Tests.DetsBackendChecks.Run(Boolean managed, Boolean suite) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Otp\Stdlib\Dets\DetsBackendChecks.cs:line 168
+   at Erlang.Tests.DetsBackendChecks.Run(Boolean managed, Boolean suite) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Otp\Stdlib\Dets\DetsBackendChecks.cs:line 275
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 16320
+2026-11-18 14:23:08.654623 supervisor_report   
+    supervisor: {local,kernel_sup}
+    errorContext: start_error
+    reason: {badarg,[{lists,keyfind,[dictionary,1,undefined],[{error_info,#{module=>erl_stdlib_errors}}]},{proc_lib,my_info_1,3,[{file,"proc_lib.erl"},{line,972}]},{proc_lib,my_info,4,[{file,"proc_lib.erl"},{line,966}]},{proc_lib,crash_report,4,[{file,"proc_lib.erl"},{line,955}]},{proc_lib,exit_p,3,[{file,"proc_lib.erl"},{line,354}]}]}
+    offender: [{pid,undefined},{id,user},{mfargs,{user_sup,start,[]}},{restart_type,temporary},{significant,false},{shutdown,2000},{child_type,supervisor}]
+2026-11-18 14:23:09.431153 std_info            
+    application: kernel
+    exited: {{shutdown,{failed_to_start_child,user,{badarg,[{lists,keyfind,[dictionary,1,undefined],[{error_info,#{module=>erl_stdlib_errors}}]},{proc_lib,my_info_1,3,[{file,"proc_lib.erl"},{line,972}]},{proc_lib,my_info,4,[{file,"proc_lib.erl"},{line,966}]},{proc_lib,crash_report,4,[{file,"proc_lib.erl"},{line,955}]},{proc_lib,exit_p,3,[{file,"proc_lib.erl"},{line,354}]}]}}},{kernel,start,[normal,[]]}}
+    type: permanent
+FAIL runtime/dets/original-public-otp-contracts: System.InvalidOperationException: The original OTP initializer ended before reporting startup: shutdown
+   at Erlang.ProcessRuntime.StartOtpBootAsync(IEnumerable`1 arguments, CancellationToken cancellation) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Processes\Context\ProcessRuntime.OtpBoot.cs:line 68
+   at Erlang.ProcessRuntime.StartOtpBootAsync(IEnumerable`1 arguments, CancellationToken cancellation) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Processes\Context\ProcessRuntime.OtpBoot.cs:line 87
+   at Erlang.Tests.DetsBackendChecks.Run(Boolean managed, Boolean suite) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Otp\Stdlib\Dets\DetsBackendChecks.cs:line 168
+   at Erlang.Tests.DetsBackendChecks.Run(Boolean managed, Boolean suite) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Otp\Stdlib\Dets\DetsBackendChecks.cs:line 275
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 16320
+2026-11-18 14:24:01.632528 supervisor_report   
+    supervisor: {local,kernel_sup}
+    errorContext: start_error
+    reason: {badarg,[{lists,keyfind,[dictionary,1,undefined],[{error_info,#{module=>erl_stdlib_errors}}]},{proc_lib,my_info_1,3,[{file,"proc_lib.erl"},{line,972}]},{proc_lib,my_info,4,[{file,"proc_lib.erl"},{line,966}]},{proc_lib,crash_report,4,[{file,"proc_lib.erl"},{line,955}]},{proc_lib,exit_p,3,[{file,"proc_lib.erl"},{line,354}]}]}
+    offender: [{pid,undefined},{id,user},{mfargs,{user_sup,start,[]}},{restart_type,temporary},{significant,false},{shutdown,2000},{child_type,supervisor}]
+2026-11-18 14:24:02.279201 std_info            
+    application: kernel
+    exited: {{shutdown,{failed_to_start_child,user,{badarg,[{lists,keyfind,[dictionary,1,undefined],[{error_info,#{module=>erl_stdlib_errors}}]},{proc_lib,my_info_1,3,[{file,"proc_lib.erl"},{line,972}]},{proc_lib,my_info,4,[{file,"proc_lib.erl"},{line,966}]},{proc_lib,crash_report,4,[{file,"proc_lib.erl"},{line,955}]},{proc_lib,exit_p,3,[{file,"proc_lib.erl"},{line,354}]}]}}},{kernel,start,[normal,[]]}}
+    type: permanent
+FAIL runtime/dets/managed-upstream-cases: System.InvalidOperationException: The original OTP initializer ended before reporting startup: shutdown
+   at Erlang.ProcessRuntime.StartOtpBootAsync(IEnumerable`1 arguments, CancellationToken cancellation) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Processes\Context\ProcessRuntime.OtpBoot.cs:line 68
+   at Erlang.ProcessRuntime.StartOtpBootAsync(IEnumerable`1 arguments, CancellationToken cancellation) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Processes\Context\ProcessRuntime.OtpBoot.cs:line 87
+   at Erlang.Tests.DetsBackendChecks.Run(Boolean managed, Boolean suite) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Otp\Stdlib\Dets\DetsBackendChecks.cs:line 168
+   at Erlang.Tests.DetsBackendChecks.Run(Boolean managed, Boolean suite) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Otp\Stdlib\Dets\DetsBackendChecks.cs:line 275
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 16320
+2026-11-18 14:25:12.677696 supervisor_report   
+    supervisor: {local,kernel_sup}
+    errorContext: start_error
+    reason: {badarg,[{lists,keyfind,[dictionary,1,undefined],[{error_info,#{module=>erl_stdlib_errors}}]},{proc_lib,my_info_1,3,[{file,"proc_lib.erl"},{line,972}]},{proc_lib,my_info,4,[{file,"proc_lib.erl"},{line,966}]},{proc_lib,crash_report,4,[{file,"proc_lib.erl"},{line,955}]},{proc_lib,exit_p,3,[{file,"proc_lib.erl"},{line,354}]}]}
+    offender: [{pid,undefined},{id,user},{mfargs,{user_sup,start,[]}},{restart_type,temporary},{significant,false},{shutdown,2000},{child_type,supervisor}]
+2026-11-18 14:25:16.271104 std_info            
+    application: kernel
+    exited: {{shutdown,{failed_to_start_child,user,{badarg,[{lists,keyfind,[dictionary,1,undefined],[{error_info,#{module=>erl_stdlib_errors}}]},{proc_lib,my_info_1,3,[{file,"proc_lib.erl"},{line,972}]},{proc_lib,my_info,4,[{file,"proc_lib.erl"},{line,966}]},{proc_lib,crash_report,4,[{file,"proc_lib.erl"},{line,955}]},{proc_lib,exit_p,3,[{file,"proc_lib.erl"},{line,354}]}]}}},{kernel,start,[normal,[]]}}
+    type: permanent
+FAIL runtime/dets/original-upstream-cases: System.InvalidOperationException: The original OTP initializer ended before reporting startup: shutdown
+   at Erlang.ProcessRuntime.StartOtpBootAsync(IEnumerable`1 arguments, CancellationToken cancellation) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Processes\Context\ProcessRuntime.OtpBoot.cs:line 68
+   at Erlang.ProcessRuntime.StartOtpBootAsync(IEnumerable`1 arguments, CancellationToken cancellation) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Processes\Context\ProcessRuntime.OtpBoot.cs:line 87
+   at Erlang.Tests.DetsBackendChecks.Run(Boolean managed, Boolean suite) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Otp\Stdlib\Dets\DetsBackendChecks.cs:line 168
+   at Erlang.Tests.DetsBackendChecks.Run(Boolean managed, Boolean suite) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Otp\Stdlib\Dets\DetsBackendChecks.cs:line 275
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 16320
+PASS runtime/dets/magic-reference-gc-contracts
+PASS runtime/dets/review-growth-and-fixed-collection
+PASS runtime/prim-file/delete-platform-contracts
+PASS runtime/prim-file/delete-errno-and-path-contracts
+PASS runtime/math/managed-whole-otp-terms
+PASS runtime/math/managed-startup-selection
+PASS runtime/math/pinned-windows-log2-rounding-both-backends
+[{"Original":false,"NativeBodySnapshotRetained":true,"Entered":1,"Disposed":1,"ReplacementDoesNotEnterScope":true},{"Original":true,"NativeBodySnapshotRetained":true,"Entered":1,"Disposed":1,"ReplacementDoesNotEnterScope":true},{"Case":"success","Entered":1,"Disposed":1},{"Case":"throw","Entered":1,"Disposed":1},{"Case":"yield","Entered":1,"Disposed":1},{"Case":"hibernate-control-transfer","Entered":1,"Disposed":1},{"Case":"factory-cancel","Entered":0,"Disposed":0}]
+PASS runtime/lists/native-binding/atomic-selected-caller-scope
+{"Expectation":"control","Reason":"replacement_reverse","NativeOnlyHelperPresent":false,"Stack":"[]"}
+{"Expectation":"after","Swaps":1,"Reason":"badarg","NativeOnlyHelperPresent":true,"Stack":"[{lists,reverse,[[1|tail],[2,1]],[{error_info,#{module=\u003Eerl_stdlib_errors}}]},{lists,umerge2_2,4,[{file,[108,105,115,116,115,46,101,114,108]},{line,3471}]},{lists,umergel,3,[{file,[108,105,115,116,115,46,101,114,108]},{line,3306}]}]"}
+PASS runtime/lists/native-binding/replacement-after-native-marker
+PASS runtime/string/pattern-search/reuses-immutable-binary-buffer
+PASS runtime/string/separator-search/reuses-immutable-binary-buffer
+PASS runtime/ordsets/managed-whole-otp-corpus/0
+PASS runtime/ordsets/original-whole-otp-corpus/0
+PASS runtime/ordsets/managed-whole-otp-corpus/1
+PASS runtime/ordsets/original-whole-otp-corpus/1
+PASS runtime/ordsets/managed-whole-otp-corpus/2
+PASS runtime/ordsets/original-whole-otp-corpus/2
+PASS runtime/ordsets/managed-whole-otp-corpus/3
+PASS runtime/ordsets/original-whole-otp-corpus/3

@@ -1,0 +1,39 @@
+{
+  "Parent": {
+    "Source": "bea419949a0613f32d6365f028b2ad02d48095bca9c4585273716292e331a4d3",
+    "Paths": 713,
+    "RemovedPaths": [],
+    "Compiler": "165d45503fd11db6a334517e0be46f799fef55da8dc62fa37aac233592c4b5be",
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "Tests": "b69760c3c8cf5836687ca844b5ed8303d0d05f044e7955647b197fbe43a81db8",
+    "ParentSource": "744e5b0bbbcb55c43b5882512de06bec5ee76cbf1517fa7331cc968ce6987180",
+    "CorpusTool": "0b0d3462f7f5b4106cdc2bf6573aa9da4a9a9e8de7320f426b682c717598a616"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AliasedListHeadGuardTails.cs": "0191318c69f19d30085b1414c9941f49c560637794f5d17f872bd0c3dd79c2ef",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BitExpressions.cs": "433530781492ac2c6a161d569e6c3f0a9c3d4519a89b882b90511631bfac1ddf",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": "789e312bf8badae2c842ee387c3abd694c19fe4c04f2112be4346e0094281361",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProtectedSingletonOptions.cs": "60a438d73488438046802744036114815f7bd82e102481eddb161dcc6a60ae8a",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProtectedTaggedCallDispatch.cs": "cf6572d373ac23b90d9cc3825332d33bfb606b72a34a542c8bbfcd419088bc02",
+    "tests/Erlang.Tests/Compiler/Beam/BeamAliasedBitValueDispatchChecks.cs": "3e7681d0ebe92896f514ce57a45f1135d4a5d6b3bdf105fc3e602e9012f7045f",
+    "tests/Erlang.Tests/Compiler/Beam/BeamNamedBitListChecks.cs": "e591ee3ab8fe3cc390b5847db66286f30ab38a3c4f087b5a0ce0f204be2da281",
+    "tests/Erlang.Tests/Compiler/Beam/BeamProtectedSingletonOptionsChecks.cs": "d09d85ad60ca5ffa8ea9973882df1bbe5ad9dffccf2198e493307b1070e1dad9",
+    "tests/Erlang.Tests/Compiler/Beam/BeamProtectedTaggedCallDispatchChecks.cs": "a474519e2b1538b682a2f4915249851bb726e7995ce37e4fd73be0bf021f5cab",
+    "tests/Erlang.Tests/Compiler/Beam/Binary/BeamBinaryAppendUnitChecks.cs": "8ad912f68b502f63888ab8361cb0b646b48fac1a3b6ae5804ca6ef4448fcb2af",
+    "tests/Erlang.Tests/Harness/Program.cs": "9e0248c6f51b96487f7d866019d1534dd88ad968a683a0c36493a5e29b210d8f"
+  },
+  "CandidateRemovedPaths": {},
+  "PatchSources": {
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\binary-match-audit-1931\\remaining-construction\\binary-append-unit.patch": "87c18e8bf00ceb0279fc1cdd58621b961d5d5038bb9ee27a4f97b1986ae2ffdd",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\continuations-and-protected-dispatch-1932\\adapted-tests\\AppendFloor.patch": "31dd19681dbc40c3c6d949cae0473605cbcd74c89175f976d109a5440a209321",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\asn-named-bits-replay-1931\\packed-continuation\\packed-continuation.patch": "ce2427f7646dc4da664a0f90e25404716f8f974b57c4d19598b8a7d20a218e6e",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\continuations-and-protected-dispatch-1932\\adapted-tests\\PackedContinuation.patch": "690af037f1dc028dd057755dd07f425a86bd883a2c7d047d7cd02f632f416e69",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\asn-named-bits-replay-1931\\unnamed-value-dispatch\\unnamed-value-dispatch.patch": "678c803a43b54b4aa3752eb4aae2bbf99f5340dc2d7adae0a33e70a9bdf58d17",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\continuations-and-protected-dispatch-1932\\adapted-tests\\UnnamedBits.patch": "b20db9c27f8da4924b86080bceb5340ed8f8205007c22b506504dad08458e894",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\counters-protected-dispatch-1932\\production.patch": "9780f08d85befc4f39aa1370b4761a22ab1e3a6ba1fadeb9c19ead9a12dc501b",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\continuations-and-protected-dispatch-1932\\adapted-tests\\ProtectedCounters.patch": "4bc7eef38c0ec6d9f73e733213cf6881dad4bb57c2ccb64e71d5aac052aef848",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\counters-protected-dispatch-1932\\protected-singleton-options\\production.patch": "861b46906e26bde2ed2163d1735b610d64f6764993b0d85bb5e17909d44df7e0",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\continuations-and-protected-dispatch-1932\\adapted-tests\\CounterOptions.patch": "3255b2e6b116acf13a05a7f499d594ba5728fa707d467e1698e3f196acd90612",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\continuations-and-protected-dispatch-1932\\adapted-tests\\integrated-harness-registrations.patch": "f4cf4336520e1d308652f0322a18021336b0e5ae3c04b62f06177952bda33b9d"
+  }
+}

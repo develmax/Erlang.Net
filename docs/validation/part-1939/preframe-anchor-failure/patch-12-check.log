@@ -1,0 +1,12 @@
+Checking patch src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs...
+error: while searching for:
+            code = RebuildLineTable(code.ToArray(), labelCount);
+        }
+
+        if (OrderFinalPhysicalLabels(code, labelCount) is { } ordered)
+        {
+            (code, labelCount) = ordered;
+
+error: patch failed: src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs:1166
+error: src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs: patch does not apply
+Checking patch src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CaughtListHeadChecks.cs...

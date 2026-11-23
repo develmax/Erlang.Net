@@ -1,0 +1,43 @@
+{
+  "Parent": {
+    "Source": "57560c516b27ad1613ebfa15bad1d00ab359b317242e5ec04185b051c9408e3b",
+    "Paths": 311,
+    "Compiler": "2e32ac97a68d24bd3c655a26b75364ec875e7aa0eed7355c11578accb0de05aa",
+    "Tests": "8100e67d4949e07da201917e446a2d1b9da6a1ebfec286d663384e481984aea3",
+    "ParentSource": "987ed96055de5ecc168ed48a139e42384b490a2187d17e15521a94e66bda54fd",
+    "CorpusTool": "211470a137236ec9bef4d4ed0b51d35fb5c67694c2f92bf8c598c1b4a10a8cee",
+    "RemovedPaths": [
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AtomColumnComprehensionOrder.cs"
+    ]
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamAssemblyDiagnostics.cs": "d9f891d46cf2fa34dbe55ad7236bb845c5b191cab62bb2feea94c33604a72ce6",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.Assembly.cs": "bee8fbb533f5dc10ad12bdce2461f262ba3f9a4e25b9c68987391df7168e1c78",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs": "e6b0493cf9b6156ef7acf7e6b74158b53483b8b13cc429c7d5ef6a6316d311e5",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": "97da2bb6fa33cb215787985413399c2127dffdb32f4f5efc9ee698e8d029eee3",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamReleaseMetadataWriter.cs": "842657e5aaeaf9f368d418d7e1648df8b0c237dc5767dd3d041309b099c73d03",
+    "src/Compiler/Erlang.Compiler/Compilation/CodeGeneration.Assembly.cs": "caa2d60bc6501892d6e74ae87da715128bf4fbce0069933c9b92f6d05f8d5175",
+    "src/Compiler/Erlang.Compiler/Compilation/CodeGeneration.cs": "c816e7e5b5de8fe0a17d4e6919630c671867e4f3aa35bd76161f4114885a6419",
+    "src/Compiler/Erlang.Compiler/Syntax/Parser.Assembly.cs": "fa38d4ca343fb7d73e36c19cf84a298f96a3dd5bc989932486723ab4f18f5686",
+    "tests/Erlang.Tests/Compiler/Beam/BeamRecordResultComprehensionChecks.cs": "52078a03330ca12e83c17d4addd123188ae49ed6ac64c866f73147e8fff1b153",
+    "tests/Erlang.Tests/Compiler/Beam/BeamTextAssemblyChecks.cs": "6d3ed3db0dc76843ab5c4b8ee6dac0595470009cee2ab22e4b25832c86bb2720",
+    "tests/Erlang.Tests/Harness/Program.cs": "0b2cb82ebca0f79fa238217144680095c3cdfe7d94d940f82b8d7d8b00c3bd54",
+    "tools/Validation/Erlang.BeamCorpus/BeamAssemblySourceIdentity.cs": "945d47386b8024caa7a71fb40c53ce929ea9fa6d64dce651712d9218dfea13c5",
+    "tools/Validation/Erlang.BeamCorpus/BeamCorpusResult.cs": "9d0063c072e989dd7267661eac825761fd3f38b727575480f5f1551feada38d9",
+    "tools/Validation/Erlang.BeamCorpus/Program.cs": "3882db00dae5d3f90afb7c7f36c9c32ec0902c71bd60f3ec6c41c6034e2cd52a"
+  },
+  "Patches": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\final-doc-language-audit-1892\\assembly-stage\\source-beam-assembly-and-companion.patch",
+      "Hash": "20361f16e4639bfa3392388ef1bfa5568577fb7775be7cae1f60c111ad0d7e8d"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\remaining-comprehension-admission-1896\\record-result-proposal\\flat-record-result-comprehension.patch",
+      "Hash": "590c5e162a7b6de14146f74360196c5d80e2f3c11f8d3e3905f87eb55beddad7"
+    }
+  ],
+  "HarnessRegistrations": [
+    "BeamTextAssemblyChecks",
+    "BeamRecordResultComprehensionChecks"
+  ]
+}

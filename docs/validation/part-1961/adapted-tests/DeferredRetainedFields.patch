@@ -1,0 +1,32 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamOuterLiteralRecordEntryChecks.cs b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamOuterLiteralRecordEntryChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamOuterLiteralRecordEntryChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamOuterLiteralRecordEntryChecks.cs
+@@ -12,6 +12,7 @@
+     private const string MissingDispatch = "A disjoint known record ID did not dispatch before branch allocation.";
+     private const string IncorrectDispatch = "Repeated record IDs were treated as disjoint entry arms.";
+     private const string NestedUpdateResult = "Use the checked nested update result directly in the outer update.";
++    private const string EarlyProjection = "Defer the second effect's field read from the already retained record.";
+     private const string ColumnOrder = "Test the selected constructor fields before the remaining pattern arguments and reuse the consumed selector.";
+     private const string Source = """
+         -module(beam_outer_literal_record_entry).
+@@ -103,6 +104,20 @@
+             throw new InvalidOperationException(NestedUpdateResult);
+         }
+ 
++        int firstEffect = Array.FindIndex(update, instruction => Opcode(instruction) == ExternalCall);
++        object allocation = update.Single(instruction => Opcode(instruction) == Allocate);
++        if (firstEffect < 0 || firstEffect >= lastEffect
++            || (BigInteger)Property(Operands(allocation)[0], "Value") != 2
++            || !update[(firstEffect + 1)..lastEffect].Any(instruction =>
++                Opcode(instruction) == GetTupleElement && Operands(instruction) is [var source, var field, var target]
++                && (string)Property(source, "Kind") == "y"
++                && (BigInteger)Property(source, "Value") == 1
++                && (BigInteger)Property(field, "Value") == 2
++                && IsX(target, 0)))
++        {
++            throw new InvalidOperationException(EarlyProjection);
++        }
++
+         bool SelectsIntegerBeforeFrame(string name) => Body(name).TakeWhile(instruction => Opcode(instruction) is not (Allocate or AllocateHeap))
+                 .Any(instruction => Opcode(instruction) == SelectValue
+                     && ((IEnumerable)Property(instruction, "Operands")).Cast<object>()

@@ -1,0 +1,38 @@
+{
+  "Parent": {
+    "Source": "69429b1415b4e630722a8f573c267fc4707d79abf3634ecddabdfc2ff8bf54af",
+    "Paths": 577,
+    "Compiler": "16eb288b735eb11488d35ab67dee61e6dd737293437a39690e02bb4631ac9dd8",
+    "Tests": "30b5810d6ec70c74d5c07741c2816b6eb24ee3b9fabe77003b2766801b4daaf9",
+    "ParentSource": "4d3ee37919682f0973f65152ebaa809906eb4e328860bf8b3cb09af3f05112c0",
+    "CorpusTool": "1f4f801942a8c10700c6a0e94399e32fcfede9b87dca41f247049e4684a2347c"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedAtomConsDispatch.cs": "7de1d8889274f7ec7ee2e455bf5ac46848a1f83996d45f77b9de096eb0110f30",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedLiteralTupleDecision.cs": "3c3a226cf3e73b9caf2193a0fa8c1220b3b8350f817b106ba38a8efb5bec707a",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": "a1340aa3f580c42b73f05b7f80747d871c129c05a3cc15f46497ef71bbda8de6",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.PositionedBinaryTail.cs": "7cecdeb9cc9feec74f8727d73b9b7bbc1ef01ce0a4181af7d7a0b84810c44a23",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProducerBinaryMatchFailure.cs": "710a7ba2b5e3fe6776b2ff70a2a1f40f947966aa0b1e48c54d7184d0ff73b157",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceDecoder.cs": "8c7e3f1b4882ebeb9ce524c1a94b34ec8343b2922cbf0d3f9bfe0694e05bccfd",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedReturns.cs": "e37be086ae9f3f978ecca29eba4c707922092e87b75ff1820c848ffebd469468",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.WxClassUnion.cs": "fd1a245e3df9b9a669f2f1d95cf7a6a4dad583a536e2584a92dacf9dc630a65d",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.WxObjectCommands.cs": "2ec0adef7579ab8fef8f58aa011a45e1f705994a4eabf288ff4dc90764e5970d",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.WxOptions.cs": "35d7cc56c0734e3f3d71996e4b0bf77f7eeef427c39bbbded0cf2b597050d0c2",
+    "tests/Erlang.Tests/Compiler/Beam/BeamClosedFieldSelectorChecks.cs": "2acff1261c40756d8526a7098beac09037c9ef14eac247a49846636a6ea1df91",
+    "tests/Erlang.Tests/Compiler/Beam/BeamClosedLiteralTupleDecisionChecks.cs": "8db97134ecf3b9fe437bf6a47d5761b719d3de7ac29c1c8eed725ed6b680c60a",
+    "tests/Erlang.Tests/Compiler/Beam/BeamProducerBinaryMatchChecks.cs": "64ad7b5ae66a8f39e7a60c5e4523922dc8a2cf3fe6e8290cba9c9942df4131a1",
+    "tests/Erlang.Tests/Compiler/Beam/BeamRepeatedRequiredSequencePrefixChecks.cs": "d96fc743852c8fd90ad3c0a0cf4aff440d6e9f50c6b902b4cf9e843c8ab8f4e5",
+    "tests/Erlang.Tests/Compiler/Beam/BeamWxProtectedClassUnionChecks.cs": "f6b8eb0d23c5c349936cd60b0c17580880adf303990d1868cf8e45195a5020cd",
+    "tests/Erlang.Tests/Compiler/Beam/BeamWxSharedReceiverForwardChecks.cs": "4a5513dcbeb035d20a4beab0c181616b2c08abf91f82c3a0d066ed761619c6ed",
+    "tests/Erlang.Tests/Compiler/Beam/BeamWxStaticImageCommandChecks.cs": "3dd29c57ebe35fd0b1cdc78ec2c9ff7e93a584a74d1addf816c705f2c88fef23",
+    "tests/Erlang.Tests/Harness/Program.cs": "094083579dc98f501b792210b7f975cff0ba424d9db88a65023016fe5dd4b29b"
+  },
+  "PatchSources": {
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\field-selectors-and-matched-producers-1919\\field-selectors-and-required-prefix-V-trim.patch": "ef0c7c2e059a85a360ba10d5ba11669275d1ed2c7dd6bf425acdb8cb66f93e2b",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\wx-shared-object-forwarding-1931\\shared-receiver-forwarding-exact.patch": "bdfa958118364774dc807d37e5d22965bb1089a3e60c438aa82864cdadc6c68b",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\wx-protected-class-union-1932\\protected-class-union-exact.patch": "365c5d861b3dc35757bebd5d92a372e4418f553caa03f3185ccd3571c902e276",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\wx-image-list-construction-1933\\wx-image-list-construction-exact.patch": "04f05705343fd61d434036100120269dfd5383d52f9bc23b0692c1872f606e70",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\producer-binary-after-fixed-point-1917\\reuse-producer-result-for-binary-failure-u.patch": "d5bf734f61f083df0c4972326308620c40f530a4dddc1fbd9eb91f8fbe6b024e",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\positioned-binary-constructor-types-1917\\preserve-positioned-binary-constructor-types.patch": "5ba247dd16c116ddcb002076e24151b1df196df8579f0ebdb88b156c8ed080e4"
+  }
+}

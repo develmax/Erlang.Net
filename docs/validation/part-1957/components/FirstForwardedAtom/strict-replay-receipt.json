@@ -1,0 +1,22 @@
+{
+  "Snapshot1956": "81fe483cddbe51403b1520e49ebef73f9f394e78c534699dc2f9a7c3b4fa5cdc",
+  "Snapshot1957": "92d13adf7cba9bd5421b6d877f66f09b9a8b203bd556c63f74cbd16189e3737d",
+  "Patches": {
+    "forwarded-first-atom.patch": "ecd47c2c1bdc269585d0eb8106b4c55c70fa2af03bd9fa8f2f12fbe85b79dbc8",
+    "forwarded-first-atom-tests.patch": "92549a8b8cbaa027a863568bf2c0cc72628e16c62635a79f9e20c9facd2289a2"
+  },
+  "Files": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LocalConstantArguments.cs": {
+      "Before": "2ea513012723c0ca8573fb61949c2fd83cbfb6c22139c0237c741c8bd60265ba",
+      "After": "35bddffdfe5afd0fd5ede14645d54d50ce2ae46d77846454ba2fb6f72af9d0c4"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamForwardedEntryAtomChecks.cs": {
+      "Before": null,
+      "After": "11b72e8ddb169af80cbf0724f93b19448f067e551c9c18e8efacfeaa8f337bf8"
+    },
+    "tests/Erlang.Tests/Harness/Program.cs": {
+      "Before": "1aa79c791dcdbe67a6b16c08be06eba6b14731991d72d9824407e17d4c32b350",
+      "After": "1e368c3fd90f4fbe022187ad485d1d514807017a486efe931ec33e93eb1bd150"
+    }
+  }
+}

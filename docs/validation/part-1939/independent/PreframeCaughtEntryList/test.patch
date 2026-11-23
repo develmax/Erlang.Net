@@ -1,0 +1,80 @@
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12559,6 +12559,7 @@
+ Test(Erlang.Tests.BeamCheckedResultPayloadChecks.ConstructionTrimTestName, Erlang.Tests.BeamCheckedResultPayloadChecks.CheckConstructionTrim);
+ Test(Erlang.Tests.BeamCheckedResultPayloadChecks.OwnedCallTestName, Erlang.Tests.BeamCheckedResultPayloadChecks.CheckOwnedCallsAndFailures);
+ Test(Erlang.Tests.BeamBoundConstructorConstantChecks.TestName, Erlang.Tests.BeamBoundConstructorConstantChecks.Run);
++Test(Erlang.Tests.BeamCaughtListHeadEntryChecks.TestName, Erlang.Tests.BeamCaughtListHeadEntryChecks.Run);
+ Test(Erlang.Tests.BeamCallArgumentKillsChecks.TestName, Erlang.Tests.BeamCallArgumentKillsChecks.Run);
+ Test(Erlang.Tests.BeamMeasuredDecoderPairChecks.TestName, Erlang.Tests.BeamMeasuredDecoderPairChecks.Run);
+ Test(Erlang.Tests.BeamClosedDecoderTagsChecks.TestName, Erlang.Tests.BeamClosedDecoderTagsChecks.Run);
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamCaughtListHeadEntryChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamCaughtListHeadEntryChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamCaughtListHeadEntryChecks.cs
+@@ -0,0 +1,64 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamCaughtListHeadEntryChecks
++{
++    internal const string TestName = "compiler/beam/checks-caught-list-heads-before-allocating-the-frame";
++    private const string Module = "beam_caught_list_head_entry";
++    private const string ShapeError = "A checked entry head retained its framed failure relay.";
++
++    private const string Source = """
++        -module(beam_caught_list_head_entry).
++        -export([checked/3, plain/3]).
++
++        checked(Options = [{_,_}|_], Timeout, Debug) ->
++            case catch service:validate(Options) of
++                {ok, Checked} ->
++                    Address = proplists:get_value(address, Checked),
++                    Port = proplists:get_value(port, Checked),
++                    Profile = proplists:get_value(profile, Checked, default),
++                    Name = service:name(Address, Port, Profile),
++                    service:start(Name, [Checked,Timeout,Debug,Address,Port]);
++                {error, Reason} ->
++                    service:report(Reason),
++                    {stop,Reason}
++            end.
++
++        plain(Options = [_|_], Timeout, Debug) ->
++            case catch service:validate(Options) of
++                {ok, Checked} -> service:start(Checked, [Timeout,Debug]);
++                {error, Reason} -> {stop,Reason}
++            end.
++        """;
++
++    internal static void Run()
++    {
++        object code = Code(CodeGeneration.CompileBeamModule(Source, Module + ".erl"));
++        object[] instructions = Children(code, "Instructions");
++        string[] atoms = Children(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        if (!HasCheckedPrefix("checked") || HasCheckedPrefix("plain"))
++        {
++            throw new InvalidOperationException(ShapeError);
++        }
++
++        bool HasCheckedPrefix(string name)
++        {
++            int start = Array.FindIndex(instructions, instruction => Opcode(instruction) == FunctionInfo
++                && atoms[Value(Children(instruction, "Operands")[1])] == name);
++
++            return start >= 0 && instructions.Skip(start + 1).Take(6).Select(Opcode)
++                .SequenceEqual([Label, IsNonemptyList, GetHead, IsTuple, TestArity, Allocate]);
++        }
++    }
++
++    private static object[] Children(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++}

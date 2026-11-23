@@ -1,0 +1,1 @@
+[Path]=init:get_plain_arguments(),{ok,B}=file:read_file(Path),M=beam_terminal_reconstruction,{module,M}=code:load_binary(M,Path,B),io:format("~tp.~n",[M:observe()]),halt().

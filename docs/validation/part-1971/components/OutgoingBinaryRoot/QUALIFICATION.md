@@ -1,0 +1,15 @@
+# Qualification procedure for the binary outgoing last-read trim
+
+Use fresh immutable predecessor and candidate application directories with `Erlang.BeamCorpus.exe` and the corresponding `Erlang.Compiler.dll`. Build once per source after replaying this draft in isolated staging. Put the updated permanent fixture in a single test payload for both roles. The runner copies that payload for each role and replaces only its compiler DLL. Keep the harness and runtime identical.
+
+No SDK build ran for this procedure. Before the first dotnet invocation in any PowerShell process set `$env:DOTNET_ADD_GLOBAL_TOOLS_TO_PATH = '0'` and `$env:DOTNET_PROCESSOR_COUNT = '1'` for that process. Use `-m:1 -p:UseSharedCompilation=false -p:ConcurrentBuild=false` for the isolated builds. If both roles are built in the same tree, use `--no-incremental` after source replay and retain both binary snapshots. The runner rejects an unchanged DLL.
+
+Invoke [validate.py](validate.py) with Python 3.12. Pass `--states` with the accepted Part 1968 stage, `--inputs` with the parity inputs root, and `--otp` with the installed pinned OTP root. Add `--run <new-name>`, `--tests <isolated updated test payload>`, `--baseline-app <predecessor corpus app>`, `--baseline-sha <baseline compiler SHA256>`, `--candidate-app <candidate corpus app>`, and `--candidate-sha <candidate compiler SHA256>`. All supplied directories should be absolute. All writable data goes into a new named directory below this artifact.
+
+With only the first three paths, `--plan-only` prints the scope without invoking .NET. The checked plan includes 13 modules, with six formerly equal raw controls, six adjacency and active-gain controls, and `diameter_codegen`. The predecessor must fail the new binary-list-root assertion and pass older roots and ordered constructions. The candidate must pass all four cases.
+
+The fresh scope under each compiler reports full-file matches independently. The five code witnesses keep entry allocation width 7 and move the last Y→X0 load before preserving the one real Y survivor. The following `++/2` and return use width 1. The gate rejects a repeated Part 1968 image. [Frozen negative](trim-validator-frozen-red.terms)
+
+Native execution uses pinned Erlang and the `release-native-retake.eval` arguments in order `<raw image> <pinned base_rfc6733.dia> <outcome ETF>`. The native shim adds private exports and checks Code bytes remain unchanged. It observes the five entries on populated, empty and malformed dictionaries and the actual public 51-form output. The initial private setup failure is retained. The retake uses the same verbose process state initialized by the public generator. The pinned and archived preimage outputs match at SHA256 `791b8f88edd262bcaecee672fd385c3750543aa4c5f11e097ddb32467fe883bf`. Fresh candidate execution and scoped preparation/normalized checks remain pending.
+
+[Patch identities](draft-receipt.json) · [Native preflight](native-preflight/current-retake.log) · [Measured cause](../REPORT.md)

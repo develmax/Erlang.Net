@@ -1,0 +1,402 @@
+{
+  "lib\\dialyzer-6.0.3\\ebin\\dialyzer_utils.beam": {
+    "creator-only": [
+      [
+        "p_foreach",
+        2
+      ]
+    ],
+    "consumer-only": [
+      [
+        "clean_up",
+        3
+      ],
+      [
+        "start",
+        5
+      ]
+    ]
+  },
+  "lib\\erts-17.1\\ebin\\erl_prim_loader.beam": {
+    "consumer-only": [
+      [
+        "efile_gm_recv",
+        4
+      ]
+    ],
+    "creator-only": [
+      [
+        "efile_get_mods_par",
+        3
+      ]
+    ]
+  },
+  "lib\\erts-17.1\\ebin\\erlang.beam": {
+    "direct": [
+      [
+        "group_leader",
+        2
+      ],
+      [
+        "garbage_collect",
+        2
+      ]
+    ],
+    "consumer-only": [
+      [
+        "receive_emd",
+        3
+      ],
+      [
+        "receive_allocator",
+        3
+      ]
+    ],
+    "creator-only": [
+      [
+        "get_alloc_info",
+        2
+      ],
+      [
+        "au_mem_data",
+        1
+      ]
+    ]
+  },
+  "lib\\erts-17.1\\ebin\\erts_internal.beam": {
+    "direct": [
+      [
+        "is_process_alive",
+        1
+      ],
+      [
+        "check_process_code",
+        3
+      ],
+      [
+        "breakpoint",
+        4
+      ],
+      [
+        "set_code_and_literal_cleaner_prio",
+        1
+      ]
+    ],
+    "consumer-only": [
+      [
+        "flush_monitor_messages",
+        3
+      ]
+    ],
+    "creator-only": [
+      [
+        "@flush_monitor_messages_refopt",
+        0
+      ]
+    ]
+  },
+  "lib\\erts-17.1\\ebin\\prim_inet.beam": {
+    "creator-only": [
+      [
+        "send",
+        3
+      ]
+    ],
+    "consumer-only": [
+      [
+        "send",
+        4
+      ]
+    ],
+    "direct": [
+      [
+        "do_sendto",
+        4
+      ]
+    ]
+  },
+  "lib\\kernel-11.0.4\\ebin\\erpc.beam": {
+    "creator-only": [
+      [
+        "multicall",
+        5
+      ]
+    ],
+    "direct": [
+      [
+        "call",
+        5
+      ]
+    ],
+    "consumer-only": [
+      [
+        "mcall_receive_replies",
+        5
+      ]
+    ],
+    "clear-only": [
+      [
+        "mcall_receive_replies",
+        2
+      ],
+      [
+        "result",
+        4
+      ],
+      [
+        "call_abandon",
+        1
+      ]
+    ]
+  },
+  "lib\\kernel-11.0.4\\ebin\\inet_gethost_native.beam": {
+    "creator-only": [
+      [
+        "call",
+        3
+      ]
+    ],
+    "consumer-only": [
+      [
+        "wait_reply",
+        2
+      ]
+    ]
+  },
+  "lib\\kernel-11.0.4\\ebin\\socket.beam": {
+    "consumer-only": [
+      [
+        "flush_select_msg",
+        2
+      ],
+      [
+        "flush_completion_msg",
+        2
+      ],
+      [
+        "flush_abort_msg",
+        2
+      ]
+    ],
+    "direct": [
+      [
+        "sendmmsg_deadline",
+        4
+      ],
+      [
+        "recvfrom_deadline",
+        4
+      ],
+      [
+        "recvmmsg_deadline",
+        6
+      ],
+      [
+        "accept_deadline",
+        2
+      ],
+      [
+        "connect_deadline",
+        3
+      ],
+      [
+        "sendv_deadline",
+        3
+      ],
+      [
+        "sendfile_deadline",
+        4
+      ],
+      [
+        "sendmsg_deadline_cont",
+        5
+      ],
+      [
+        "sendto_deadline_cont",
+        5
+      ],
+      [
+        "sendto_deadline",
+        6
+      ],
+      [
+        "recv_deadline",
+        5
+      ],
+      [
+        "sendv_deadline_cont",
+        5
+      ],
+      [
+        "send_deadline_cont",
+        5
+      ],
+      [
+        "send_deadline",
+        4
+      ],
+      [
+        "recvmsg_deadline",
+        5
+      ],
+      [
+        "sendmsg_deadline",
+        6
+      ]
+    ],
+    "clear-only": [
+      [
+        "accept_result",
+        3
+      ],
+      [
+        "accept_nowait",
+        2
+      ]
+    ],
+    "creator-only": [
+      [
+        "accept",
+        2
+      ]
+    ]
+  },
+  "lib\\mnesia-4.27\\ebin\\mnesia_frag.beam": {
+    "consumer-only": [
+      [
+        "remote_collect_error",
+        4
+      ],
+      [
+        "remote_collect_ok",
+        4
+      ]
+    ],
+    "creator-only": [
+      [
+        "-do_select/5-fun-6-",
+        5
+      ]
+    ]
+  },
+  "lib\\reltool-1.1\\ebin\\reltool_server.beam": {
+    "creator-only": [
+      [
+        "xref_mod",
+        1
+      ]
+    ],
+    "consumer-only": [
+      [
+        "wait_for_processto_die",
+        3
+      ]
+    ]
+  },
+  "lib\\runtime_tools-2.5\\ebin\\instrument.beam": {
+    "clear-only": [
+      [
+        "-dispatch_gather/4-lc$^0/1-0-",
+        7
+      ],
+      [
+        "-dispatch_gather/4-lc$^1/1-1-",
+        9
+      ],
+      [
+        "alloc_hist_receive",
+        4
+      ],
+      [
+        "dispatch_gather",
+        4
+      ],
+      [
+        "carrier_info_receive",
+        3
+      ]
+    ],
+    "creator-only": [
+      [
+        "carriers",
+        1
+      ],
+      [
+        "allocations",
+        1
+      ]
+    ],
+    "consumer-only": [
+      [
+        "alloc_hist_receive_1",
+        4
+      ],
+      [
+        "carrier_info_receive_1",
+        3
+      ]
+    ]
+  },
+  "lib\\stdlib-8.1\\ebin\\gen_server.beam": {
+    "consumer-only": [
+      [
+        "mc_recv",
+        5
+      ],
+      [
+        "mc_recv_tmo",
+        4
+      ],
+      [
+        "mc_cancel_timer",
+        2
+      ]
+    ],
+    "clear-only": [
+      [
+        "mc_send",
+        6
+      ]
+    ],
+    "creator-only": [
+      [
+        "multi_call",
+        4
+      ]
+    ]
+  },
+  "lib\\stdlib-8.1\\ebin\\gen.beam": {
+    "consumer-only": [
+      [
+        "receive_response",
+        2
+      ],
+      [
+        "wait_response",
+        2
+      ]
+    ],
+    "creator-only": [
+      [
+        "do_send_request",
+        3
+      ],
+      [
+        "send_request",
+        3
+      ]
+    ],
+    "direct": [
+      [
+        "do_call",
+        4
+      ]
+    ],
+    "clear-only": [
+      [
+        "@wait_response_recv_opt",
+        3
+      ]
+    ]
+  }
+}

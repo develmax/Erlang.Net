@@ -1,0 +1,11 @@
+[P] = init:get_plain_arguments(),
+{ok,{M,[]}} = beam_lib:chunks(P,[]),
+true = code:unstick_mod(M),
+{module,M} = code:load_abs(filename:rootname(P)),
+Result = case M of
+  crypto -> binary:encode_hex(crypto:hash(sha256, <<"leaf arithmetic controls">>));
+  array -> A=array:from_list([7,0,9],0), {array:to_list(array:resize(5,A)),array:to_list(array:reset(2,A)),array:sparse_to_list(A)};
+  rand -> S=rand:seed_s(exs64,{1,2,3}), {X,T}=rand:uniform_s(S), {Y,_}=rand:uniform_s(99,T), {X,Y};
+  string -> {string:to_lower("ABC"),string:to_upper("abc"),string:sub_string("abcdefgh",3,6)}
+end,
+io:format("~0p~n",[Result]),halt().

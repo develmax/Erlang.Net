@@ -10,7 +10,7 @@ internal sealed partial class BeamModuleCompiler
 
         private bool TryEmitMonitoredReceive(Clause clause, int? guardFailure = null)
         {
-            if (!HasUnconditionalParameters(clause) || clause.Body is not Expr.Sequence
+            if (!owner.ReceiveOptimizationEnabled || !HasUnconditionalParameters(clause) || clause.Body is not Expr.Sequence
                 {
                     Items: [
                 Expr.Match { Pattern: Pattern.Literal { Value: Atom expected }, Value: Expr.Call setup } setupMatch,

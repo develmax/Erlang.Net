@@ -1,0 +1,135 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -11515,6 +11515,13 @@
+             var incomingRecords = checkedRecordBindings;
+             if (reuseCallSlots && body is Expr.Sequence sequence)
+             {
++                if (TryEmitCheckedSelectorProjection(sequence))
++                {
++                    checkedRecordBindings = incomingRecords;
++
++                    return false;
++                }
++
+                 if ((terminalCase || returningResult) && TryEmitRegisterSelectorContinuation(sequence))
+                 {
+                     checkedRecordBindings = incomingRecords;
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedSelectorProjection.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedSelectorProjection.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedSelectorProjection.cs
+@@ -0,0 +1,113 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private sealed partial class GeneralEmitter
++    {
++        private bool TryEmitCheckedSelectorProjection(Expr.Sequence sequence)
++        {
++            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled
++                || owner.receiveScratchRegisters is not null
++                || sequence.Items is not [var match, Expr.Match
++                {
++                    Pattern: Pattern.Variable { Name: not VariableScopeNames.Wildcard } binding,
++                    Value: Expr.List list
++                }, Expr.Case { Value: Expr.Call selector } decision]
++                || ReadSimpleTaggedCallMatch(match) is not { Payload: { } field } tagged
++                || !HasSimpleDecodeArguments(tagged.Check.Call)
++                || variables.ContainsKey(field.Name) || deferredPairMembers.ContainsKey(field.Name)
++                || variables.ContainsKey(binding.Name) || deferredPairMembers.ContainsKey(binding.Name)
++                || field.Name == binding.Name
++                || decision.Clauses is not [
++                { Guard: null, Patterns: [Pattern.Literal { Value: Atom first }] },
++                { Guard: null, Patterns: [Pattern.Literal { Value: Atom second }] }
++                ] || first.Equals(second)
++                || selector.Arguments.Any(argument => !IsPreparedOperand(argument))
++                || selector.Arguments.OfType<Expr.Variable>().Count(argument => argument.Name == binding.Name) != 1
++                || !TryResolveOrdinaryCallTarget(selector, out string? module))
++            {
++                return false;
++            }
++
++            Expr[] operands = selector.Arguments.Select(argument =>
++                argument is Expr.Variable variable && variable.Name == binding.Name ? list : argument).ToArray();
++            if (ReadCallArgumentConstructions(
++                operands,
++                -1,
++                variables,
++                inputs: new Dictionary<string, int>(StringComparer.Ordinal)
++            ) is not { } arguments)
++            {
++                return false;
++            }
++
++            Pattern[] bindings = variables.Keys.Append(field.Name).Append(binding.Name)
++                .Select(name => (Pattern)new Pattern.Variable(name))
++                .ToArray();
++            if (ReadUsedEntryParameters(new Clause(
++                bindings,
++                null,
++                decision with { Value = new Expr.Literal(Nil.Value) }
++            )) is not { } used || !used.Contains(field.Name) || used.Contains(binding.Name))
++            {
++                return false;
++            }
++
++            int? released = selector.Arguments.OfType<Expr.Variable>()
++                .Select(argument => variables.TryGetValue(argument.Name, out int slot) ? (int?)slot : null)
++                .FirstOrDefault(slot => slot.HasValue && variables.All(entry => entry.Value != slot.Value || !used.Contains(entry.Key))
++                    && deferredPairMembers.Values.All(entry => entry.Slot != slot.Value));
++            if (released is not int projection)
++            {
++                return false;
++            }
++
++            // The selector cannot read the payload. Keep the checked tuple until the
++            // selector returns, then reuse the slot of its dead saved argument.
++            Expression(tagged.Check.Call);
++            int tuple = Save();
++            int failure = Label();
++            EmitDetailRecordTest(
++                0,
++                tagged.Check.Arity,
++                tagged.Check.Tag,
++                failure
++            );
++            EmitCallArgumentConstructions(arguments, -1);
++            owner.EmitSlotKills([projection]);
++            BeamSourceLocation checkedAt = CallLocation(tagged.Check.Call, location);
++            owner.EmitCallLine(selector, checkedAt);
++            Call(module, selector.Function, selector.Arguments.Count);
++            owner.Op(GetTupleElement, YRegisterTag, tuple);
++            owner.Operand(BeamWire.UnsignedTag, field.Field);
++            owner.Operand(YRegisterTag, projection);
++            ReleaseOperandSlots(DecoderSlot(tuple));
++            foreach (string alias in variables.Where(entry => entry.Value == projection).Select(entry => entry.Key).ToArray())
++            {
++                variables.Remove(alias);
++            }
++
++            variables.Add(field.Name, projection);
++            EmitCase(
++                decision,
++                null,
++                inputPrepared: true,
++                reuseBranchSlots: true
++            );
++            int done = Label();
++            JumpTo(done);
++            EmitTaggedCallMatchFailure(
++                tagged.Check.Match,
++                failure,
++                checkedAt,
++                owner.lastEmittedLine,
++                forceLine: true
++            );
++            Mark(done);
++
++            return true;
++        }
++    }
++}

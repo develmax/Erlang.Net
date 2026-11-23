@@ -1,0 +1,19 @@
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12577,6 +12577,15 @@
+ Test(Erlang.Tests.BeamBinaryLengthPrefixChecks.TestName, Erlang.Tests.BeamBinaryLengthPrefixChecks.Run);
+ Test(Erlang.Tests.BeamConstructedCasePatternChecks.TestName, Erlang.Tests.BeamConstructedCasePatternChecks.Run);
+ Test(
++    Erlang.Tests.BeamEmptyRecordUpdateChecks.TestName,
++    () =>
++{
++    Erlang.Tests.BeamEmptyRecordUpdateChecks.Run();
++
++    return Task.CompletedTask;
++}
++);
++Test(
+     Erlang.Tests.BeamClosedEffectArgumentsChecks.TestName,
+     () =>
+ {

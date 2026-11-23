@@ -1,0 +1,395 @@
+using static Erlang.Compiler.BeamEmissionFormat;
+
+namespace Erlang.Compiler;
+
+internal sealed partial class BeamModuleCompiler
+{
+    private sealed partial class GeneralEmitter
+    {
+        private bool TryEmitCheckedMapFieldTail(FunctionDefinition function)
+        {
+            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled || function.Clauses is not
+                [
+                { Guard: null, Body: Expr.Call call } clause
+                ]
+                || !TryResolveOrdinaryCallTarget(call, out string? module) || module is not null
+                || call.Arguments.Any(argument => argument is not Expr.Variable))
+            {
+                return TryEmitLiteralMapFieldTail(function);
+            }
+
+            int mapInput = -1;
+            (Atom Key, Pattern.Variable Variable)[]? fields = null;
+            var parameters = new List<string>();
+            for (int index = 0; index < clause.Patterns.Count; index++)
+            {
+                Pattern shape = clause.Patterns[index];
+                if (shape is Pattern.Variable parameter)
+                {
+                    parameters.Add(parameter.Name);
+                    continue;
+                }
+
+                string aliasName = VariableScopeNames.Wildcard;
+                if (shape is AliasPattern alias && TryReadPatternAlias(alias, out var binding, out var aliased))
+                {
+                    aliasName = binding.Name;
+                    shape = aliased;
+                }
+
+                if (mapInput >= 0 || shape is not MapPattern map
+                    || ReadAtomMapFields(map) is not { Length: > 0 } projected
+                    || projected.Any(field => field.Variable.Name == VariableScopeNames.Wildcard))
+                {
+                    return false;
+                }
+
+                mapInput = index;
+                fields = projected;
+                parameters.Add(aliasName);
+            }
+
+            if (fields is null || function.Arity + fields.Length >= FirstReservedXRegister)
+            {
+                return false;
+            }
+
+            parameters.AddRange(fields.Select(field => field.Variable.Name));
+            string[] names = parameters.Where(name => name != VariableScopeNames.Wildcard).ToArray();
+            if (names.Distinct(StringComparer.Ordinal).Count() != names.Length
+                || fields.Any(field => !call.Arguments.OfType<Expr.Variable>().Any(value => value.Name == field.Variable.Name))
+                || ReadEntryCall(call, parameters.ToArray()) is not { } tail)
+            {
+                return false;
+            }
+
+            int failure = owner.nextLabel - 2;
+            EmitMapTest(mapInput, failure);
+            owner.Op(GetMapElements, LabelTag, failure);
+            owner.EmitTypedRegister(mapInput, MapTypeBits);
+            owner.instructions.WriteByte(ExtendedListOperand);
+            owner.Operand(BeamWire.UnsignedTag, fields.Length * 2);
+            for (int index = fields.Length - 1; index >= 0; index--)
+            {
+                owner.LiteralOperand(fields[index].Key);
+                owner.Operand(XRegisterTag, function.Arity + index);
+            }
+
+            EmitEntryCallArguments(tail);
+            owner.Op(TailLocalCall, BeamWire.UnsignedTag, call.Arguments.Count);
+            owner.Operand(LabelTag, entries[(call.Function, call.Arguments.Count)]);
+
+            return true;
+        }
+
+        private bool TryEmitLiteralMapFieldTail(FunctionDefinition function)
+        {
+            if (recursiveClosure is not null || owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled
+                || function.Arity >= FirstReservedXRegister || function.Clauses is not
+                [
+                {
+                    Guard: null, Body: Expr.Call { Module: not (null or ErlangModuleNames.Module) } call
+                } clause
+                ])
+            {
+                return false;
+            }
+
+            var parameters = new string[function.Arity];
+            int mapInput = -1;
+            Atom? key = null;
+            Atom? value = null;
+            for (int index = 0; index < parameters.Length; index++)
+            {
+                if (clause.Patterns[index] is Pattern.Variable parameter)
+                {
+                    parameters[index] = parameter.Name;
+                    continue;
+                }
+
+                if (mapInput >= 0 || clause.Patterns[index] is not AliasPattern alias
+                    || !TryReadPatternAlias(alias, out Pattern.Variable binding, out Pattern shape)
+                    || shape is not MapPattern
+                    {
+                        Fields:
+                        [
+                        { Key: Expr.Literal { Value: Atom field }, Value: Pattern.Literal { Value: Atom expected } }
+                        ]
+                    } || binding.Name == VariableScopeNames.Wildcard)
+                {
+                    return false;
+                }
+
+                mapInput = index;
+                parameters[index] = binding.Name;
+                key = field;
+                value = expected;
+            }
+
+            string[] named = parameters.Where(name => name != VariableScopeNames.Wildcard).ToArray();
+            if (mapInput < 0 || key is null || value is null
+                || named.Distinct(StringComparer.Ordinal).Count() != named.Length
+                || !call.Arguments.OfType<Expr.Variable>().Any(argument => argument.Name == parameters[mapInput])
+                || ReadEntryCall(call, parameters) is not { Module: { } module } tail)
+            {
+                return false;
+            }
+
+            int failure = owner.nextLabel - 2;
+            int destination = function.Arity;
+            EmitMapTest(mapInput, failure);
+            owner.Op(GetMapElements, LabelTag, failure);
+            owner.EmitTypedRegister(mapInput, MapTypeBits);
+            owner.instructions.WriteByte(ExtendedListOperand);
+            owner.Operand(BeamWire.UnsignedTag, 2);
+            owner.LiteralOperand(key);
+            owner.Operand(XRegisterTag, destination);
+            owner.EmitAtomTest(destination, value.Name, failure);
+
+            EmitEntryCallArguments(tail);
+            owner.EmitCallLine(call, location);
+            owner.Op(TailExternalCall, BeamWire.UnsignedTag, call.Arguments.Count);
+            owner.Operand(BeamWire.UnsignedTag, owner.Import(module, call.Function, call.Arguments.Count));
+
+            return true;
+        }
+
+        private bool TryEmitIdentityFailureCallChain(FunctionDefinition function)
+        {
+            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled || function.Arity < 4
+                || function.Clauses is not
+                [
+                {
+                    Guard: null,
+                    Body: Expr.Case
+                    {
+                        Value: Expr.Call { Arguments: [Expr.Variable source, Expr.Variable options] } prepare,
+                        Clauses:
+                            [
+                            {
+                                Guard: null,
+                                Patterns: [Pattern.Literal { Value: Atom preparedTag }],
+                                Body: Expr.Case
+                                {
+                                    Value: Expr.Call { Arguments: [Expr.Variable readSource, Expr.Literal key] } read,
+                                    Clauses:
+                                        [
+                                        {
+                                            Guard: null,
+                                            Patterns: [Pattern.Tuple
+                                            {
+                                                Items: [Pattern.Literal { Value: Atom resultTag }, Pattern.Variable payload]
+                                            }],
+                                            Body: Expr.Sequence
+                                            {
+                                                Items:
+                                                    [
+                                                        Expr.Match
+                                                    {
+                                                        Pattern: Pattern.Variable merged,
+                                                        Value: Expr.If
+                                                        {
+                                                            Clauses:
+                                                                [
+                                                                {
+                                                                    Guard: Expr.Binary
+                                                                    {
+                                                                        Operator: ErlangOperators.ExactEqual,
+                                                                        Left: Expr.Variable compared,
+                                                                        Right: Expr.Literal { Value: Atom discriminator }
+                                                                    },
+                                                                    Body: Expr.Literal selected
+                                                                },
+                                                                {
+                                                                    Guard: Expr.Literal { Value: Atom { Name: "true" } },
+                                                                    Body: Expr.Call { Arguments: [Expr.Variable mode] } alternate
+                                                                }
+                                                                ]
+                                                        }
+                                                    },
+                                                        Expr.Case
+                                                    {
+                                                        Value: Expr.Call invoke,
+                                                        Clauses:
+                                                            [
+                                                            {
+                                                                Patterns: [Pattern.Literal { Value: Atom invokeTag }],
+                                                                Guard: Expr.Binary
+                                                                {
+                                                                    Operator: ErlangOperators.ExactNotEqual,
+                                                                    Left: Expr.Variable checkedMode,
+                                                                    Right: Expr.Literal { Value: Atom rejectedMode }
+                                                                },
+                                                                Body: Expr.Call tailCall
+                                                            },
+                                                                var invokeFailure
+                                                            ]
+                                                    }
+                                                    ]
+                                            }
+                                        },
+                                            var readFailure
+                                        ]
+                                }
+                            },
+                                var prepareFailure
+                            ]
+                    }
+                } clause
+                ]
+                || !HasUnconditionalParameters(clause) || !discriminator.Equals(rejectedMode)
+                || !TryResolveOrdinaryCallTarget(prepare, out string? prepareModule)
+                || !TryResolveOrdinaryCallTarget(read, out string? readModule)
+                || !TryResolveOrdinaryCallTarget(alternate, out string? alternateModule)
+                || !TryResolveOrdinaryCallTarget(invoke, out string? invokeModule)
+                || !TryResolveOrdinaryCallTarget(tailCall, out string? tailModule) || tailModule is not null)
+            {
+                return false;
+            }
+
+            var parameters = clause.Patterns.Cast<Pattern.Variable>().ToArray();
+            int width = parameters.Length;
+            Pattern.Variable[] prefix = parameters[..^2];
+            Pattern.Variable last = parameters[^1];
+            if (!DistinctBindings([.. parameters, payload, merged])
+                || source.Name != prefix[0].Name || readSource.Name != source.Name || options.Name != parameters[^2].Name
+                || compared.Name != last.Name || mode.Name != last.Name || checkedMode.Name != last.Name
+                || !UsesParameters(invoke, [.. prefix, merged]) || !UsesParameters(tailCall, [.. prefix, payload, last])
+                || !ReturnsFreshIdentity(prepareFailure) || !ReturnsFreshIdentity(readFailure) || !ReturnsFreshIdentity(invokeFailure))
+            {
+                return false;
+            }
+
+            int failed = Label();
+            int compute = Label();
+            int ready = Label();
+            int resultRegister = prefix.Length;
+            EmitFrameAllocation(width, width);
+            EmitFrameInitialization(0, 1);
+            owner.MoveRegister(
+                XRegisterTag,
+                width - 1,
+                YRegisterTag,
+                1
+            );
+            for (int index = prefix.Length - 1; index >= 0; index--)
+            {
+                owner.MoveRegister(
+                    XRegisterTag,
+                    index,
+                    YRegisterTag,
+                    width - index - 1
+                );
+            }
+
+            owner.MoveRegister(
+                XRegisterTag,
+                width - 2,
+                XRegisterTag,
+                1
+            );
+            owner.EmitCallLine(prepare, location);
+            Call(prepareModule, prepare.Function, 2);
+            owner.EmitAtomTest(0, preparedTag.Name, failed);
+
+            owner.EmitConstant(key.Value, 1);
+            owner.MoveRegister(
+                YRegisterTag,
+                width - 1,
+                XRegisterTag,
+                0
+            );
+            owner.EmitCallLine(read, CallLocation(prepare, location));
+            Call(readModule, read.Function, 2);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                0
+            );
+            owner.EmitRecordTest(
+                failed,
+                XRegisterTag,
+                0,
+                resultTag,
+                2
+            );
+            EmitModeTest(ExactEqualTest, compute);
+            owner.EmitConstant(selected.Value, resultRegister);
+            JumpTo(ready);
+            Mark(compute);
+            owner.MoveRegister(
+                YRegisterTag,
+                1,
+                XRegisterTag,
+                0
+            );
+            owner.EmitCallLine(alternate, CallLocation(read, location));
+            Call(alternateModule, alternate.Function, 1);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                XRegisterTag,
+                resultRegister
+            );
+            Mark(ready);
+            LoadPrefix();
+            owner.EmitCallLine(invoke, CallLocation(alternate, location));
+            Call(invokeModule, invoke.Function, invoke.Arguments.Count);
+            owner.EmitAtomTest(0, invokeTag.Name, failed);
+            EmitModeTest(ExactNotEqualTest, failed);
+
+            owner.Op(GetTupleElement, YRegisterTag, 0);
+            owner.Operand(BeamWire.UnsignedTag, 1);
+            owner.Operand(XRegisterTag, resultRegister);
+            owner.MoveRegister(
+                YRegisterTag,
+                1,
+                XRegisterTag,
+                width - 1
+            );
+            LoadPrefix();
+            EmitPreparedFrameTail(new EntryCall(
+                tailCall,
+                tailModule,
+                [],
+                []
+            ), CallLocation(invoke, location), width);
+
+            Mark(failed);
+            owner.EmitFrameReturn(width);
+
+            return true;
+
+            static bool UsesParameters(Expr.Call call, Pattern.Variable[] expected) =>
+                call.Arguments.Count == expected.Length && call.Arguments.Zip(expected)
+                    .All(pair => pair.First is Expr.Variable value && value.Name == pair.Second.Name);
+
+            bool ReturnsFreshIdentity(Clause branch) => branch is
+            { Guard: null, Patterns: [Pattern.Variable other], Body: Expr.Variable variable }
+                && other.Name == variable.Name && other.Name != VariableScopeNames.Wildcard
+                && other.Name != payload.Name && other.Name != merged.Name
+                && !parameters.Any(parameter => parameter.Name == other.Name);
+
+            void EmitModeTest(byte opcode, int failure)
+            {
+                owner.Op(opcode, LabelTag, failure);
+                owner.Operand(YRegisterTag, 1);
+                owner.LiteralOperand(discriminator);
+            }
+
+            void LoadPrefix()
+            {
+                for (int index = prefix.Length - 1; index >= 0; index--)
+                {
+                    owner.MoveRegister(
+                        YRegisterTag,
+                        width - index - 1,
+                        XRegisterTag,
+                        index
+                    );
+                }
+            }
+        }
+    }
+}

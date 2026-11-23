@@ -2,6 +2,25 @@ namespace Erlang.Compiler;
 
 internal static class BeamReleaseMetadataWriter
 {
+    private static string? RecordedIncludeFile(BeamReleaseBuildProfile profile, string file, string? request)
+    {
+        string? recorded = request is null ? null : profile.RecordedIncludeFiles?.GetValueOrDefault(request);
+        recorded ??= profile.RecordedIncludeFiles?.GetValueOrDefault(file);
+        if (recorded is not null || request is null || profile.RecordedIncludeLibraryRoots is null)
+        {
+            return recorded;
+        }
+
+        int separator = request.IndexOf('/');
+        if (separator <= 0 || separator == request.Length - 1
+            || !profile.RecordedIncludeLibraryRoots.TryGetValue(request[..separator], out string? root))
+        {
+            return null;
+        }
+
+        return root.TrimEnd('/') + request[separator..];
+    }
+
     internal static BeamModuleMetadata Build(
         ModuleDefinition module,
         IReadOnlyList<Token> tokens,
@@ -44,10 +63,11 @@ internal static class BeamReleaseMetadataWriter
         byte[]? documentation,
         IReadOnlyDictionary<int, Parser.ReleaseSpec> specs,
         IReadOnlyList<BeamFileTransition> fileTransitions,
-        Parser parser
+        Parser parser,
+        bool assemblyCompanion = false
     )
     {
-        if (!profile.EmitAbstractCode)
+        if (!profile.EmitAbstractCode && !assemblyCompanion)
         {
             if (profile.RecordedCompileOptions is null || profile.InsertedVersion is not null)
             {
@@ -70,25 +90,38 @@ internal static class BeamReleaseMetadataWriter
                 var transition = fileTransitions[transitionIndex++];
                 if (transition.Directive is { } directive)
                 {
-                    Term generated = Term.List(
-                        Term.Tuple(Term.A("generated"), Term.A("true")),
-                        Term.Tuple(Term.A("location"), BeamDocumentationWriter.Annotation(directive, source))
-                    );
-                    annotations.Add(Attribute(generated, "file", Term.Tuple(Term.String(transition.File!), Term.I(transition.Line))));
+                    annotations.Add(GeneratedFileForm(
+                        transition.File!,
+                        transition.Line,
+                        BeamDocumentationWriter.Annotation(directive, source)
+                    ));
                     continue;
                 }
                 string file = transition.File is null
                     ? mainFile
-                    : (transition.IncludeRequest is { } request ? profile.RecordedIncludeFiles?.GetValueOrDefault(request) : null)
-                        ?? profile.RecordedIncludeFiles?.GetValueOrDefault(transition.File)
+                    : (profile.IncludePathMap is not null ? transition.RecordedIncludePath : null)
+                        ?? RecordedIncludeFile(profile, transition.File, transition.IncludeRequest)
+                        ?? transition.RecordedIncludePath
                         ?? (mainFile[..directoryEnd] + transition.File);
                 annotations.Add(FileForm(file, transition.Line, transition.Column));
+                if (transition.ParentMapping is { } mapping && mapping.File != (mapping.UnformattedParent ?? file))
+                {
+                    string mappedFile = profile.RecordedCompileOptions?.Contains(Term.A("deterministic")) == true
+                        ? Path.GetFileName(mapping.File)
+                        : mapping.File;
+                    annotations.Add(GeneratedFileForm(
+                        mappedFile,
+                        checked(transition.Line + mapping.LineOffset),
+                        Term.Tuple(Term.I(transition.Line), Term.I(transition.Column))
+                    ));
+                }
             }
         }
         var attributes = new List<ModuleAttribute>();
         var typeDefinitions = new Queue<ModuleAttribute>(module.TypeForms.Where(form => Parser.IsTypeDefinition(form.Name)));
         var optionalCallbacks = new Queue<ModuleAttribute>(module.TypeForms.Where(form => form.Name == "optional_callbacks"));
         int attributeIndex = 0;
+        int documentationIndex = 0;
         int functionIndex = module.DiameterAccessorLines.Count;
         bool writeDiameterAccessors = functionIndex != 0;
         foreach (int index in BeamSourceForms.Starts(tokens))
@@ -145,6 +178,15 @@ internal static class BeamReleaseMetadataWriter
                     break;
                 case ModuleAttributeNames.ModuleDoc:
                 case ModuleAttributeNames.Doc:
+                    if (assemblyCompanion)
+                    {
+                        var form = module.Documentation[documentationIndex++];
+                        if (form.EquivalentCall is not null)
+                        {
+                            throw BeamAssemblyDiagnostics.Operand(form.Value);
+                        }
+                        annotations.Add(Attribute(location, name.Text, form.Value));
+                    }
                     break;
                 case "spec":
                     annotations.Add(Attribute(location, name.Text, specs[index].Form));
@@ -231,20 +273,85 @@ internal static class BeamReleaseMetadataWriter
         debugOptions.AddRange(warnings.Skip(beforeInsertion));
 
         byte[] compileInfo = WriteCompileInfo(profile);
-        byte[] debugInfo = BeamOtpEtfCompression.Encode(
+        Term debug = Term.Tuple(
+            Term.A("debug_info_v1"),
+            Term.A("erl_abstract_code"),
             Term.Tuple(
-                Term.A("debug_info_v1"),
-                Term.A("erl_abstract_code"),
-                Term.Tuple(Cons.From(annotations), Cons.From(profile.RecordedDebugOptions ?? debugOptions))
-            ),
-            debugInfo: true
+                Cons.From(annotations),
+                Cons.From(assemblyCompanion ? ReadCompileOptions(profile) : profile.RecordedDebugOptions ?? debugOptions)
+            )
         );
+        byte[] debugInfo = assemblyCompanion
+            ? ExternalTermFormat.Encode(debug, new EtfEncodingOptions
+            {
+                MaximumNestingDepth = EtfResourceLimits.CompilerDebugNestingDepth
+            })
+            : BeamOtpEtfCompression.Encode(debug, debugInfo: true);
 
         return new(
             attributes,
             documentation,
             compileInfo,
             debugInfo
+        );
+    }
+
+    internal static BeamModuleMetadata BuildAssembly(
+        IReadOnlyList<ModuleAttribute> attributes,
+        BeamReleaseBuildProfile profile,
+        BeamMacroPreprocessor? companion,
+        string? companionName,
+        string moduleName
+    )
+    {
+        var options = ReadCompileOptions(profile);
+        Term fromAssembly = Term.A("from_asm");
+        if (companion is null)
+        {
+            var effectiveOptions = options.Where(option => !option.Equals(fromAssembly)).ToArray();
+            var payload = Term.Tuple(
+                Term.A("debug_info_v1"),
+                Term.A("erl_abstract_code"),
+                Term.Tuple(Nil.Value, Cons.From(effectiveOptions))
+            );
+
+            return new(
+                attributes,
+                null,
+                CompileInfo(profile, [.. effectiveOptions, fromAssembly]),
+                BeamOtpEtfCompression.Encode(payload, debugInfo: true)
+            );
+        }
+
+        var tokens = companion.Run();
+        string source = companion.CombinedSource;
+        var parser = new Parser(source, tokens, allowBeamOnLoad: true);
+        var module = parser.ParseModule();
+        if (module.Name != moduleName)
+        {
+            throw BeamAssemblyDiagnostics.InvalidModule;
+        }
+
+        var specs = BeamSourceForms.Starts(tokens)
+            .Where(index => tokens[index].Text == ErlangSyntaxTokens.AttributeIntroducer && tokens[index + 1].Text == "spec")
+            .ToDictionary(index => index, index => Parser.ReadReleaseSpec(source, tokens, index + 2));
+        byte[]? debug = BuildMetadata(
+            module,
+            tokens,
+            source,
+            profile with { RecordedSourceFile = companionName },
+            null,
+            specs,
+            companion.FileTransitions,
+            parser,
+            assemblyCompanion: true
+        ).DebugInfo;
+
+        return new(
+            attributes,
+            null,
+            CompileInfo(profile, options),
+            debug
         );
     }
 
@@ -259,11 +366,13 @@ internal static class BeamReleaseMetadataWriter
             Term.String(profile.InsertedVersion!)
         );
 
-    private static byte[] WriteCompileInfo(BeamReleaseBuildProfile profile)
+    private static byte[] WriteCompileInfo(BeamReleaseBuildProfile profile) => CompileInfo(profile, ReadCompileOptions(profile));
+
+    private static IReadOnlyList<Term> ReadCompileOptions(BeamReleaseBuildProfile profile)
     {
         if (profile.RecordedCompileOptions is { } recorded)
         {
-            return CompileInfo(profile, recorded);
+            return recorded;
         }
 
         var options = new List<Term> { Term.A("debug_info") };
@@ -283,7 +392,7 @@ internal static class BeamReleaseMetadataWriter
 
         options.AddRange(profile.WarningOptions.Skip(beforeInsertion).Select(option => Term.A(option)));
 
-        return CompileInfo(profile, options);
+        return options;
     }
 
     private static byte[] CompileInfo(BeamReleaseBuildProfile profile, IReadOnlyList<Term> options) =>
@@ -299,6 +408,16 @@ internal static class BeamReleaseMetadataWriter
             annotation,
             Term.A(name),
             value
+        );
+
+    private static Term GeneratedFileForm(string file, int line, Term location) =>
+        Attribute(
+            Term.List(
+                Term.Tuple(Term.A("generated"), Term.A("true")),
+                Term.Tuple(Term.A("location"), location)
+            ),
+            "file",
+            Term.Tuple(Term.String(file), Term.I(line))
         );
 
     private static Term FileForm(string file, int line, int column = 1) =>

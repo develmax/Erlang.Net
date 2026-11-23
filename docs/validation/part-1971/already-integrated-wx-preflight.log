@@ -1,0 +1,14 @@
+Checking patch src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.WxObjectCommands.cs...
+error: while searching for:
+
+            var continuation = function with { Clauses = function.Clauses.Skip(1).ToArray() };
+            int failure = owner.nextLabel - 2;
+            if (TryEmitWxTupleConstructorForward(function, forward, failure)
+                || TryEmitWxClassedConstructorOverload(function, forward, failure)
+                || TryEmitWxSharedReceiverForward(forward, continuation, failure)
+                || TryEmitWxGuardedScalarOptionForward(forward, continuation, failure))
+
+error: patch failed: src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.WxObjectCommands.cs:339
+error: src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.WxObjectCommands.cs: patch does not apply
+Checking patch src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.WxTupleArityForward.cs...
+error: src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.WxTupleArityForward.cs: already exists in working directory

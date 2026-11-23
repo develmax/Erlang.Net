@@ -1,0 +1,199 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamCmpRecordWitnessChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamCmpRecordWitnessChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamCmpRecordWitnessChecks.cs
+@@ -0,0 +1,183 @@
++using System.Collections;
++using System.Numerics;
++using Erlang;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamCmpRecordWitnessChecks
++{
++    internal const string TestName = "compiler/beam/preserves-singleton-and-checked-foreign-field-layouts";
++    private const string Fixture = "beam_cmp_record_witness_probe.erl";
++    private const string Peer = "beam_cmp_record_witness_peer";
++    private const string WrongLayout = "Singleton fields, checked CHOICE, and optional pairs did not use their pinned frames.";
++    private const string WrongValue = "The record or choice lost a field or accepted a malformed foreign pair.";
++
++    private const string Source = """
++        -module(beam_cmp_record_witness_probe).
++        -export([encode/2, decode/2, choice/2, required_head/2, required_tail/2]).
++
++        encode(Input, Tags) ->
++            {_,V} = Input,
++            {B,N} = pair(V,[1]),
++            Bytes = [B],
++            Length = N,
++            finish(Tags,Bytes,Length).
++
++        decode(Input, Tags) ->
++            Fields = prepare(Input,Tags),
++            [Head|Tail] = Fields,
++            Field = decode_field(Head,[1]),
++            case Tail of
++                [] -> true;
++                _ -> exit({error,{asn1,{unexpected,Tail}}})
++            end,
++            Value = {decoded,Field},
++            Value.
++
++        choice(Input, Tags) ->
++            {B,N} = case element(1,Input) of
++                selected -> beam_cmp_record_witness_peer:pair(element(2,Input),[2]);
++                Other -> exit({error,{asn1,{invalid_choice_type,Other}}})
++            end,
++            finish(Tags,B,N).
++
++        required_head(Input, Tags) ->
++            {_,A,B,C} = Input,
++            {AB,AL} = pair(A,[1]),
++            {BB,BL} = case B of
++                absent -> {<<>>,0};
++                _ -> beam_cmp_record_witness_peer:pair(B,[2])
++            end,
++            {CB,CL} = case C of
++                absent -> {<<>>,0};
++                _ -> beam_cmp_record_witness_peer:pair(C,[3])
++            end,
++            Bytes = [AB,BB,CB],
++            Length = AL + BL + CL,
++            finish(Tags,Bytes,Length).
++
++        required_tail(Input, Tags) ->
++            {_,A,B,C} = Input,
++            {AB,AL} = case A of
++                absent -> {<<>>,0};
++                _ -> pair(A,[1])
++            end,
++            {BB,BL} = case B of
++                absent -> {<<>>,0};
++                _ -> beam_cmp_record_witness_peer:pair(B,[2])
++            end,
++            {CB,CL} = pair(C,[3]),
++            Bytes = [AB,BB,CB],
++            Length = AL + BL + CL,
++            finish(Tags,Bytes,Length).
++
++        pair(Value, _) -> {Value,1}.
++        prepare(Value, _) -> Value.
++        decode_field(Value, _) -> Value.
++        finish(Tags, Data, Size) -> {Tags,Data,Size}.
++        """;
++
++    internal static async Task Run()
++    {
++        byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
++        byte[] dynamicTags = CodeGeneration.CompileBeamModule(
++            Source.Replace("pair(element(2,Input),[2])", "pair(element(2,Input),Tags)", StringComparison.Ordinal), Fixture
++        );
++        var module = BeamModule.Prepare(image, new BeamDependencySelection([Peer]));
++        await using var runtime = new ProcessRuntime();
++        Term failed = Term.A("bad_pair");
++        runtime.Modules.Register(
++            Peer,
++            "pair",
++            2,
++            (_, args) => ValueTask.FromResult<Term>(args[0].Equals(failed) ? failed : Term.Tuple(args[0], Term.I(1)))
++        );
++        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
++        await actor.InvokeAsync(async context =>
++        {
++            Term tag = Term.A("record");
++            Term one = Term.I(1);
++            Term a = Term.A("a");
++            Term b = Term.A("b");
++            Term c = Term.A("c");
++            await Expect("encode", Term.Tuple(tag, a), Term.Tuple(tag, Term.List(a), one));
++            await Expect("decode", Term.List(a), Term.Tuple(Term.A("decoded"), a));
++            await Expect("choice", Term.Tuple(Term.A("selected"), a), Term.Tuple(tag, a, one));
++            Term triple = Term.Tuple(
++                tag,
++                a,
++                b,
++                c
++            );
++            Term expected = Term.Tuple(tag, Term.List(a, b, c), Term.I(3));
++            await Expect("required_head", triple, expected);
++            await Expect("required_tail", triple, expected);
++            try
++            {
++                await module.Invoke(
++                    context,
++                    "choice",
++                    Term.Tuple(Term.A("selected"), failed),
++                    tag
++                );
++                throw new InvalidOperationException(WrongValue);
++            }
++            catch (ErlangException error) when (error.Reason.Equals(Term.Tuple(Term.A("badmatch"), failed)))
++            {
++            }
++
++            return Nil.Value;
++
++            async Task Expect(string function, Term input, Term expectedValue)
++            {
++                if (!expectedValue.Equals(await module.Invoke(
++                    context,
++                    function,
++                    input,
++                    tag
++                )))
++                {
++                    throw new InvalidOperationException(WrongValue);
++                }
++            }
++        });
++
++        if (Frame(image, "encode") != 1 || Frame(image, "decode") != 1 || Frame(image, "choice") != 1
++            || Frame(image, "required_head") != 4 || Frame(image, "required_tail") != 4
++            || Frame(dynamicTags, "choice") <= 1)
++        {
++            throw new InvalidOperationException(WrongLayout);
++        }
++    }
++
++    private static int Frame(byte[] image, string function)
++    {
++        object code = Code(image);
++        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        object[] instructions = Items(code, "Instructions");
++        int start = Array.FindIndex(
++            instructions,
++            instruction => Opcode(instruction) == FunctionInfo
++                && Items(instruction, "Operands") is [_, var name, var arity]
++                && atoms[Value(name)] == function && Value(arity) == 2
++        );
++        if (start < 0)
++        {
++            throw new InvalidOperationException(WrongLayout);
++        }
++
++        object frame = instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo)
++            .Single(instruction => Opcode(instruction) == Allocate);
++
++        return Value(Items(frame, "Operands")[0]);
++    }
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++
++    private static object[] Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
++}
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12523,6 +12523,7 @@
+ Test(Erlang.Tests.BeamConstantRemoteDispatchChecks.TestName, Erlang.Tests.BeamConstantRemoteDispatchChecks.Run);
+ Test(Erlang.Tests.BeamAttributeFinalFunctionsChecks.TestName, Erlang.Tests.BeamAttributeFinalFunctionsChecks.Run);
+ Test(Erlang.Tests.BeamForeignRequiredOptionalChecks.TestName, Erlang.Tests.BeamForeignRequiredOptionalChecks.Run);
++Test(Erlang.Tests.BeamCmpRecordWitnessChecks.TestName, Erlang.Tests.BeamCmpRecordWitnessChecks.Run);
+ Test(Erlang.Tests.BeamGuardedKeyfindPairTailChecks.TestName, Erlang.Tests.BeamGuardedKeyfindPairTailChecks.Run);
+ Test(Erlang.Tests.BeamUnpaddedBitStringContextChecks.TestName, Erlang.Tests.BeamUnpaddedBitStringContextChecks.Run);
+ Test(Erlang.Tests.BeamSingleTaggedChoiceFieldChecks.TestName, Erlang.Tests.BeamSingleTaggedChoiceFieldChecks.Run);

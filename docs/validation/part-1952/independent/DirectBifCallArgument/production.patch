@@ -1,0 +1,81 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BifResultStores.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BifResultStores.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BifResultStores.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BifResultStores.cs
+@@ -30,7 +30,7 @@
+             }
+ 
+             if (body[copy] is not { Definition.Opcode: Move, Operands: [var source, var slot] }
+-                || source != result || slot is not { Kind: BeamOperandParameters.Y, TypeIndex: null })
++                || source != result || slot.TypeIndex is not null || slot == result)
+             {
+                 continue;
+             }
+@@ -41,9 +41,17 @@
+                 call++;
+             }
+ 
+-            bool deadOnCall = body[call].Definition.Opcode is LocalCall or ExternalCall
++            bool directArgument = slot.Kind == BeamOperandParameters.X
++                && ReplacesBifResultBeforeCall(
++                    body,
++                    call,
++                    result,
++                    slot
++                );
++            bool stackResult = slot.Kind == BeamOperandParameters.Y;
++            bool deadOnCall = stackResult && body[call].Definition.Opcode is LocalCall or ExternalCall
+                 && result.Value >= body[call].Operands[0].Value;
+-            bool deadOnBranch = !deadOnCall && IsEntryFramePredicate(body[call].Definition.Opcode)
++            bool deadOnBranch = stackResult && !deadOnCall && IsEntryFramePredicate(body[call].Definition.Opcode)
+                 && CrossesTestedResultCall(
+                     body,
+                     call,
+@@ -51,13 +59,13 @@
+                     slot
+                 )
+                 && (flow ??= new BeamProjectionFlow(body)).IsBranchTemporaryDead(call, result);
+-            if (!deadOnCall && !deadOnBranch)
++            if (!directArgument && !deadOnCall && !deadOnBranch)
+             {
+                 continue;
+             }
+ 
+             // A failing BIF skips the destination write as it skipped the move.
+-            // On success, the call or both guard exits prove the former X value dead.
++            // On success, an argument overwrite, call, or both guard exits prove the former X value dead.
+             int registerWidth = result.Value < 1 << BeamWire.CompactSmallPayloadShift ? 1 : 2;
+             int bifEnd = body[next].Offset;
+             output.Write(code.Span[copied..(bifEnd - registerWidth)]);
+@@ -75,6 +83,32 @@
+         output.Write(code.Span[copied..]);
+ 
+         return output.ToArray();
++    }
++
++    private static bool ReplacesBifResultBeforeCall(
++        IReadOnlyList<BeamInstruction> body,
++        int overwrite,
++        BeamOperand result,
++        BeamOperand argument
++    )
++    {
++        if (body[overwrite] is not { Definition.Opcode: Move, Operands: [var replacement, var destination] }
++            || destination != result || SameProjectionRegister(replacement, result))
++        {
++            return false;
++        }
++
++        int call = overwrite + 1;
++        while (body[call].Definition.Opcode == Line)
++        {
++            call++;
++        }
++
++        BeamInstruction consumer = body[call];
++
++        return consumer.Definition.Opcode is LocalCall or ExternalCall or TailLocalCall or TailExternalCall
++            or TailLocalCallWithFrame or TailExternalCallWithFrame
++            && result.Value < consumer.Operands[0].Value && argument.Value < consumer.Operands[0].Value;
+     }
+ 
+     private static bool CrossesTestedResultCall(

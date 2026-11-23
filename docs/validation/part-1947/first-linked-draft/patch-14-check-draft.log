@@ -1,0 +1,12 @@
+Checking patch src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs...
+error: while searching for:
+            }
+
+            if (TryEmitGuardedCallResultTails(function)
+                || function.Clauses is [var literalCase]
+                    && (TryEmitLiteralCaseRetainedCallChain(literalCase) || TryEmitTaggedListBindingPair(literalCase)))
+            {
+
+error: patch failed: src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs:441
+error: src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs: patch does not apply
+Checking patch src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TupleJoinOptionCalls.cs...

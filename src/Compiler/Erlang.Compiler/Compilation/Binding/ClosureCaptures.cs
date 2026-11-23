@@ -63,10 +63,36 @@ internal static class ClosureCaptures
         return collector.Names;
     }
 
-    private sealed class Collector(IEnumerable<string> outer)
+    internal static HashSet<string>? ReadListComprehensionBindings(Clause clause, Expr.ListComprehension comprehension)
+    {
+        var collector = new Collector([], comprehension: comprehension);
+        collector.Clause(clause, [], shadow: true);
+
+        return collector.ComprehensionBindings;
+    }
+
+    internal static bool RequiresSelfValue(Expr.Fun function)
+    {
+        if (function.SelfName is not { } self)
+        {
+            return false;
+        }
+
+        var collector = new Collector([self], function.Clauses[0].Patterns.Count);
+        foreach (Clause clause in function.Clauses)
+        {
+            collector.Clause(clause, [], shadow: true);
+        }
+
+        return collector.Names.Contains(self);
+    }
+
+    private sealed class Collector(IEnumerable<string> outer, int? directSelfArity = null, Expr.ListComprehension? comprehension = null)
     {
         private readonly HashSet<string> outerNames = new(outer, StringComparer.Ordinal);
+        private int valueScopeDepth;
         public HashSet<string> Names { get; } = new(StringComparer.Ordinal);
+        internal HashSet<string>? ComprehensionBindings { get; private set; }
 
         internal void EntryReferences(Clause clause)
         {
@@ -86,6 +112,8 @@ internal static class ClosureCaptures
 
         internal void Fun(Expr.Fun function, HashSet<string> local)
         {
+            // A nested function must capture the value even when it only calls it.
+            valueScopeDepth++;
             var scope = local;
             if (function.SelfName is { } selfName)
             {
@@ -95,6 +123,7 @@ internal static class ClosureCaptures
             {
                 Clause(clause, scope, true);
             }
+            valueScopeDepth--;
         }
 
         private void Read(string name, HashSet<string> local)
@@ -127,7 +156,7 @@ internal static class ClosureCaptures
                     foreach (var segment in bits.Segments)
                     {
                         if (segment.Specification.Size is { } size)
-                            Walk(size, new HashSet<string>(sizes, StringComparer.Ordinal));
+                            WalkValue(size, new HashSet<string>(sizes, StringComparer.Ordinal));
                         Keys(segment.Value, sizes, shadow);
                         Bind(segment.Value, sizes, shadow);
                     }
@@ -135,7 +164,7 @@ internal static class ClosureCaptures
                 case MapPattern map:
                     foreach (var field in map.Fields)
                     {
-                        Walk(field.Key, new HashSet<string>(local, StringComparer.Ordinal));
+                        WalkValue(field.Key, new HashSet<string>(local, StringComparer.Ordinal));
                         Keys(field.Value, local, shadow);
                     }
                     break;
@@ -164,7 +193,7 @@ internal static class ClosureCaptures
             foreach (var pattern in clause.Patterns)
                 Bind(pattern, local, shadow);
             if (clause.Guard is { } guard)
-                Walk(guard, local);
+                WalkValue(guard, local);
             Walk(clause.Body, local);
 
             return local;
@@ -208,6 +237,8 @@ internal static class ClosureCaptures
 
         private void Comprehension(IEnumerable<Expr> items, IReadOnlyList<ComprehensionQualifier> qualifiers, HashSet<string> parent)
         {
+            // Comprehensions may be lowered into a separate helper.
+            valueScopeDepth++;
             var local = new HashSet<string>(parent, StringComparer.Ordinal);
             foreach (var qualifier in qualifiers)
             {
@@ -226,6 +257,14 @@ internal static class ClosureCaptures
                     Bind(generator.Pattern, local, true);
             }
             Parallel(items, local);
+            valueScopeDepth--;
+        }
+
+        private void WalkValue(Expr expression, HashSet<string> local)
+        {
+            valueScopeDepth++;
+            Walk(expression, local);
+            valueScopeDepth--;
         }
 
         private static bool BooleanLiteral(Expr expression, string atom) => expression is Expr.Literal { Value: Atom value } && value.Name == atom;
@@ -268,6 +307,11 @@ internal static class ClosureCaptures
                     Parallel(bits.Segments.SelectMany(segment => segment.Size is null ? new[] { segment.Value } : new[] { segment.Value, segment.Size }), local);
                     break;
                 case Expr.ListComprehension list:
+                    if (ReferenceEquals(list, comprehension))
+                    {
+                        ComprehensionBindings = new(local, StringComparer.Ordinal);
+                    }
+
                     Comprehension(list.Items, list.Qualifiers, local);
                     break;
                 case Expr.BinaryComprehension binary:
@@ -291,7 +335,8 @@ internal static class ClosureCaptures
                     break;
                 case Expr.Binary binary when binary.Operator is ErlangOperators.AndAlso or ErlangOperators.OrElse:
                     Walk(binary.Left, local);
-                    if (binary.Operator == ErlangOperators.AndAlso && BooleanLiteral(binary.Left, ErlangBooleanAtoms.False) || binary.Operator == ErlangOperators.OrElse && BooleanLiteral(binary.Left, ErlangBooleanAtoms.True))
+                    if (!directSelfArity.HasValue && (binary.Operator == ErlangOperators.AndAlso && BooleanLiteral(binary.Left, ErlangBooleanAtoms.False)
+                        || binary.Operator == ErlangOperators.OrElse && BooleanLiteral(binary.Left, ErlangBooleanAtoms.True)))
                         break;
                     Walk(binary.Right, new HashSet<string>(local, StringComparer.Ordinal));
                     break;
@@ -299,6 +344,11 @@ internal static class ClosureCaptures
                     Parallel([binary.Left, binary.Right], local);
                     break;
                 case Expr.Call call:
+                    Parallel(call.Arguments, local);
+                    break;
+                case Expr.Apply { Function: Expr.Variable receiver } call
+                    when call.Arguments.Count == directSelfArity && valueScopeDepth == 0
+                        && outerNames.Contains(receiver.Name) && !local.Contains(receiver.Name):
                     Parallel(call.Arguments, local);
                     break;
                 case Expr.Apply apply:

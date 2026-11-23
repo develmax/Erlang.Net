@@ -1,0 +1,28 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedCompoundPatterns.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedCompoundPatterns.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedCompoundPatterns.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedCompoundPatterns.cs
+@@ -34,7 +34,8 @@
+                     Pattern pattern = patterns[index];
+                     Pattern folded = FoldCaseConstructor(
+                         pattern,
+-                        patterns.Where((_, peer) => peer != index).Select(EntryShape).ToArray()
++                        patterns.Where((_, peer) => peer != index).Select(EntryShape).ToArray(),
++                        foldTuple: decision.Value is not Expr.Tuple
+                     );
+                     if (!ReferenceEquals(pattern, folded))
+                     {
+@@ -53,11 +54,12 @@
+             clause.Patterns is [var pattern]
+                 && EntryShape(pattern) is not (Erlang.Pattern.Variable or Erlang.Pattern.Any or AliasPattern);
+ 
+-        private static Pattern FoldCaseConstructor(Pattern pattern, Pattern[] peers)
++        private static Pattern FoldCaseConstructor(Pattern pattern, Pattern[] peers, bool foldTuple = true)
+         {
+             if (pattern is Pattern.Tuple tuple)
+             {
+-                if (!peers.Any(IsTupleConstructor) && ReadClosedPattern(tuple) is { } literal)
++                // Core case optimization decomposes a known tuple input before SSA selects its patterns.
++                if (foldTuple && !peers.Any(IsTupleConstructor) && ReadClosedPattern(tuple) is { } literal)
+                 {
+                     return new Pattern.Literal(literal);
+                 }

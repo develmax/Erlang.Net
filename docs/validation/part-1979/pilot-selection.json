@@ -1,0 +1,1425 @@
+{
+  "ParentCorpus": "861c9cb8525657d143cb3a763270c6f6820d78da9c8e1f6b079fbc9d40bbcd74",
+  "Evidence": {
+    "nested-checked-entry-projection-1978-intake/source-owner.tsv": "bc3e1891a4042db436e6f552d3c3c4ff53732861b9649fa4c192bb9382a94ec4",
+    "binary-match-audit-1931/binary-context-residual-cohorts-1986/affected.tsv": "55570ded0a25fd29545deda6bc69bbba251d0bf3a278296d1e06b9044e90240b",
+    "nil-cons-predicate-layout-p1977-audit/paired-shape.log": "b0420687761700f2b50da04eea65c7eddde6c27aede8ada6ea377cfd64d2b977",
+    "binary-match-audit-1931/single-checked-call-retired-slot-1987/single-tagged-shapes.terms": "b113708aa5f46102652245dbbc679ff5f8ffe4117ed13658627a516aa79f3d94",
+    "shared-return-call-root-1979-audit/calls.terms": "eb180cc5077e38035524e6fc6afc14754c6e37eaf07eccfb9c6fa7a427337778",
+    "repeated-entry-frame-growth-1977-audit/all-212-farther-widths.json": "70b7d8699010bc6ebc0a5b37773165f30ab63c2aa0028f7b2e05c00c183fba60"
+  },
+  "Selection": {
+    "lib/asn1-5.5.2/ebin/asn1ct.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/asn1-5.5.2/ebin/asn1ct_check.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/asn1-5.5.2/ebin/asn1ct_constructed_ber_bin_v2.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/asn1-5.5.2/ebin/asn1ct_constructed_per.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/asn1-5.5.2/ebin/asn1ct_gen.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_config_plain.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "retained previously byte-exact control"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_doctest.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_master_status.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "retained previously byte-exact control"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_netconfc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_rpc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "pinned execution and physical-line control"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_slave.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_telnet.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/test_server_ctrl.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/unix_telnet.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "pinned execution and physical-line control",
+        "retired cold call result slot",
+        "single frame at a shared saved return"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_asm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_core_to_ssa.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order",
+        "nested checked entry ownership"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_dict.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "nested checked entry ownership"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_disasm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_codegen.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads",
+        "cons and nil branch order"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_destructive_update.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "nested checked entry ownership"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_validator.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "nested checked entry ownership"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/core_parse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 protected frame width cases",
+        "pinned execution and physical-line control"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/erl_bifs.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "retained previously byte-exact control"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/sys_core_inline.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "nested checked entry ownership"
+      ]
+    },
+    "lib/crypto-5.10/ebin/crypto.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/debugger-7.0/ebin/dbg_wx_trace_win.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "nested checked entry ownership"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_contracts.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/erl_types.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "retired cold call result slot"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_codec.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_dict_util.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_dist.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_gen.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_gen_relay.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "retained previously byte-exact control"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_peer_fsm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order",
+        "nested checked entry ownership"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_service.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_session.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "retained previously byte-exact control"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_types.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_layout.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "nested checked entry ownership"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_layout_chunks.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "nested checked entry ownership"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_parser.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 protected frame width cases"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_specs.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_tags.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_types.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "nested checked entry ownership"
+      ]
+    },
+    "lib/eldap-1.3.1/ebin/eldap.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/erts-17.1/ebin/erts_code_purger.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/erts-17.1/ebin/prim_file.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/erts-17.1/ebin/prim_inet.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/erts-17.1/ebin/prim_socket.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/erts-17.1/ebin/prim_zip.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/eunit-2.11/ebin/eunit_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/eunit-2.11/ebin/eunit_surefire.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpc_cookie.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpc_handler.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpc_manager.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpc_request.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpd_log.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "nested checked entry ownership"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpd_logger.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "nested checked entry ownership"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpd_response.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/inets-9.8/ebin/mod_alias.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/inets-9.8/ebin/mod_esi.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/inets-9.8/ebin/mod_security_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/application_controller.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order",
+        "nested checked entry ownership"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/application_starter.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/disk_log_1.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/dist_ac.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/erl_erts_errors.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/file_io_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/gen_tcp_socket.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/gen_udp_socket.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/heart.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads",
+        "cons and nil branch order"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet_db.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet_dns.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads",
+        "nested checked entry ownership",
+        "pinned execution and physical-line control"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet_epmd_socket.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet_gethost_native.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet_parse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/logger.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/logger_formatter.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/net_kernel.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/os.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/pg.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/ram_file.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/megaco-4.9.2/doc/examples/meas/megaco_codec_meas.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order",
+        "pinned execution and physical-line control"
+      ]
+    },
+    "lib/megaco-4.9.2/doc/examples/meas/megaco_codec_mstone2.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/megaco-4.9.2/doc/examples/meas/megaco_codec_mstone_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order",
+        "pinned execution and physical-line control"
+      ]
+    },
+    "lib/megaco-4.9.2/doc/examples/meas/megaco_codec_transform.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_ber_media_gateway_control_v1.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_ber_media_gateway_control_v2.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_ber_media_gateway_control_v3.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_config.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v1.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v2.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_per_media_gateway_control_v3.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_stats.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_text_mini_parser.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 protected frame width cases"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_text_parser_v1.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 protected frame width cases"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_text_parser_v2.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 protected frame width cases"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_text_parser_v3.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 protected frame width cases",
+        "pinned execution and physical-line control"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_trans_sender.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_user_default.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "retained previously byte-exact control"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_index.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_schema.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single frame at a shared saved return"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_tm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/observer-2.19/ebin/crashdump_viewer.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads",
+        "cons and nil branch order"
+      ]
+    },
+    "lib/os_mon-2.12/ebin/cpu_sup.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/os_mon-2.12/ebin/os_sup.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "retired cold call result slot"
+      ]
+    },
+    "lib/parsetools-2.8/ebin/yecc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order",
+        "nested checked entry ownership"
+      ]
+    },
+    "lib/parsetools-2.8/ebin/yeccparser.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "pinned execution and physical-line control"
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/OTP-PKIX-Relaxed.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/OTP-PKIX.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/PKIX1Explicit-2009.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/PKIXCMP-2023.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "retained previously byte-exact control"
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/pubkey_cert.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order",
+        "nested checked entry ownership"
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/pubkey_crl.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/pubkey_pbe.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/public_key.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/runtime_tools-2.5/ebin/dbg.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/sasl-4.4/ebin/alarm_handler.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "retained previously byte-exact control"
+      ]
+    },
+    "lib/sasl-4.4/ebin/format_lib_supp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/sasl-4.4/ebin/misc_supp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/sasl-4.4/ebin/rb.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/sasl-4.4/ebin/release_handler.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/sasl-4.4/ebin/systools_make.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_community_mib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_misc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_notification_mib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_pdus.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_target_mib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_user_based_sm_mib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_view_based_acm_mib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_mib_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_net_if.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_set_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "nested checked entry ownership"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_target_cache.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single frame at a shared saved return"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpc_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order",
+        "nested checked entry ownership"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpc_mib_gram.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 protected frame width cases"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpc_mib_to_hrl.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_config.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_agent.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_auth.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_cli.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_connection.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_connection_sup.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "retained previously byte-exact control"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_file.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_message.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_sftp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_sftpd.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads",
+        "cons and nil branch order"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_transport.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_xfer.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/dtls_gen_connection.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "nested checked entry ownership"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/dtls_handshake.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads",
+        "cons and nil branch order"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/dtls_record.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_certificate.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_cipher.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_dist_connection_sup.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "retained previously byte-exact control"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_gen_statem.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads",
+        "nested checked entry ownership"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_handshake.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads",
+        "cons and nil branch order"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_record.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "nested checked entry ownership"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_trace.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_bloom_filter.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_client_connection_1_3.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_dtls_gen_connection.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "nested checked entry ownership"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_gen_connection.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads",
+        "nested checked entry ownership"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_handshake.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_handshake_1_3.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads",
+        "cons and nil branch order",
+        "nested checked entry ownership"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_record_1_3.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_v1.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/beam_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/binary.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/dets.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "single frame at a shared saved return"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/dets_v9.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads",
+        "cons and nil branch order"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/edlin_expand.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/erl_anno.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/erl_error.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/erl_parse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 protected frame width cases",
+        "pinned execution and physical-line control"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/erl_tar.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/file_sorter.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/filename.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/ms_transform.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/orddict.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order",
+        "pinned execution and physical-line control"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/peer.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/qlc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads",
+        "cons and nil branch order"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/qlc_pt.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/re.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads",
+        "cons and nil branch order"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/string.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/supervisor.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "nested checked entry ownership"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/zip.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/syntax_tools-4.1.1/ebin/erl_syntax.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads",
+        "retired cold call result slot"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/eprof.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/fprof.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/lcnt.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads",
+        "cons and nil branch order"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/xref_base.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/xref_parser.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 protected frame width cases",
+        "pinned execution and physical-line control"
+      ]
+    },
+    "lib/wx-2.7/doc/examples/demo/ex_gl.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "nested checked entry ownership"
+      ]
+    },
+    "lib/wx-2.7/doc/examples/sudoku/sudoku_board.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "nested checked entry ownership"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxBufferedDC.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "retained previously byte-exact control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxColourPickerCtrl.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "retained previously byte-exact control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxDisplay.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "retained previously byte-exact control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxFileDataObject.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "retained previously byte-exact control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxFocusEvent.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "retained previously byte-exact control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxGridEvent.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "retained previously byte-exact control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxHtmlLinkEvent.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "retained previously byte-exact control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxMDIChildFrame.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "retained previously byte-exact control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxSashWindow.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "retained previously byte-exact control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxStaticBitmap.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "retained previously byte-exact control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxStatusBar.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "retained previously byte-exact control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxStyledTextEvent.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "retained previously byte-exact control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxToolbook.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "retained previously byte-exact control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxWebView.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "retained previously byte-exact control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxXmlResource.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "retained previously byte-exact control"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_eventp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "adjacent binary cursor reads"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_sax_parser_latin1.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_sax_parser_list.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16be.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16le.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_sax_parser_utf8.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_sax_simple_dom.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "pinned execution and physical-line control"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_scan.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_uri.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_xpath.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_xpath_parse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 protected frame width cases"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_xpath_pred.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "retired cold call result slot"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_xpath_scan.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_xsd.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "cons and nil branch order"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_xsd_re_parse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "212 protected frame width cases"
+      ]
+    }
+  }
+}

@@ -1,0 +1,47 @@
+Error! Failed to eval: [Name,Image,Out,File]=init:get_plain_arguments(),
+M=list_to_atom(Name),
+{ok,Bytes}=file:read_file(Image),
+{module,M}=code:load_binary(M,Image,Bytes),
+Cases=case M of
+ megaco_binary_term_id ->
+   C=[8,8,8],
+   Root={megaco_term_id,false,["root"]},
+   All={megaco_term_id,true,["*"]},
+   Choose={megaco_term_id,true,["$"]},
+   Id={megaco_term_id,false,["00000000","00000001","00000010"]},
+   AsnRoot={'TerminationID',[],lists:duplicate(8,255)},
+   {ok,Asn}=M:encode(C,Id),
+   {ok,Id}=M:decode(C,Asn),
+   {ok,AsnRoot}=M:encode(C,Root),
+   {ok,Root}=M:decode(C,AsnRoot),
+   {ok,AsnAll}=M:encode(C,All),
+   {ok,AsnChoose}=M:encode(C,Choose),
+   {error,{bad_type,invalid}}=BadEncode=M:encode(C,invalid),
+   {error,{bad_type,invalid}}=BadDecode=M:decode(C,invalid),
+   {error,_}=BadConf=M:encode(invalid,Id),
+   [{encode,Asn},{decode,Id},{root,AsnRoot,Root},{all,AsnAll},{choose,AsnChoose},
+    {invalid_encode,BadEncode},{invalid_decode,BadDecode},{invalid_config,BadConf}];
+ sasl_report_file_h ->
+   false=process_flag(trap_exit,false),
+   {ok,State={Fd,File,progress}}=M:init({File,[],progress}),
+   true=process_flag(trap_exit,false),
+   {ok,State}=M:handle_event({info_report,self(),{self(),progress,[{fixture,linked_compiler}]}},State),
+   {ok,untouched}=M:handle_event(ignored,untouched),
+   remove_handler=M:handle_info({'EXIT',Fd,closed},State),
+   {ok,State}=M:handle_info(unknown,State),
+   {error,bad_query}=M:handle_call(unknown,State),
+   []=M:terminate(normal,State),
+   {ok,Content}=file:read_file(File),
+   {_,_}=binary:match(Content,<<"linked_compiler">>),
+   ok=file:delete(File),
+   [{mode,trap_exit},{report,written},{unrecognized,untouched},{exit,remove_handler},
+    {info,unchanged},{query,bad_query},{terminate,closed}]
+ end,
+ok=file:write_file(Out,io_lib:format("~tp.~n",[Cases])),
+halt().
+
+
+
+Runtime terminating during boot ({{badmatch,true},[{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,796}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,792}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{init,start_it,1,[{file,"init.erl"},{line,1561}]},{init,start_em,1,[{file,"init.erl"},{line,1546}]},{init,do_boot,3,[{file,"init.erl"},{line,1217}]}]})
+
+Crash dump is being written to: D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\arithmetic-constructors-and-xml-wrappers-1950\pinned-native-preflight/erl-crash.dump...done

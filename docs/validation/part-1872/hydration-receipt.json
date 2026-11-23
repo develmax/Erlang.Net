@@ -1,0 +1,44 @@
+{
+  "Parent": {
+    "Source": "2bc120bbc05c57eedcee99b4046687039177f7bc6db5a5343f7297497e1c204d",
+    "Paths": 205,
+    "Compiler": "b80e87447d5073577e92c804353118cb14f2d70cd3c5074186618344674f047c",
+    "Tests": "707adff063b3baeaeea5ba766824803a08d4c7f49f97be5002d0c804ce8be52a",
+    "ParentSource": "e227e00ed3662e1e731229f2d436dc462c810fc7f0427cee98aa728892a1c67d",
+    "CorpusTool": "3a5befd3bb3a5a43d86291dee282a1e5887c70de7782174a65a5741b1d7b057f"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedComprehensions.cs": "2defe52d0b45e8e1469c795aad11c628aa01bd462ac5c23805f3c85872de55f1",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryArgumentFlow.cs": "081aa0f811ae13f087b4bb0127f583c1ee0c53d15baada4ca5b3f63d848f43b6",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": "4bc3c21ee02e51b2cfdc37c2404d811cde3791c0ea4143217e195d8815e0e603",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ListMappings.cs": "4479ca5907dc266f0edfb3df0e98861f43b9afda6ff1b9889e13157b3413faa4",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs": "2779c557b3218846d741fa96c55fc9614912a989f138f454af363be9b1e011ee",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TryCatch.cs": "a172356908efc720cfb183d5d98431b9c6dedb35f9f89ac1279bcc1efde96622",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TupleComprehensionResult.cs": "5d179c8b1240b6290dbb2b3038c40367dba72bcd68a4e2e180caf36b12d81c48",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TupleFieldListComprehension.cs": "41268ff7d29205a86d97b39d9618636ba40e9e723f32f6d36c7cd4f11677d4d3",
+    "src/Compiler/Erlang.Compiler/Syntax/Ast/FunctionDefinition.cs": "f15640e518312e0bc0dbbb96033610cd9c1210ba731be61d978f1a8b01315c7d",
+    "tests/Erlang.Tests/Compiler/Beam/BeamStrictListGeneratorHelperChecks.cs": "c9214cd5e0b2c4d73360303de989d92b172bfaec0fe74c4e3df33e32c47416ff",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamRetainedConstructorAliasChecks.cs": "420d017fb3c025fd28fb172a6683895acd1e169c672af04375287fdc56d4a442",
+    "tests/Erlang.Tests/Harness/Program.cs": "4ff8d4defffea21d88dde76081a539fb5166e44e6fc7a85d720ad5ed157e3386"
+  },
+  "Patches": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\strict-list-helpers-and-ordinary-call-order-1872\\straight-consumer-suffix-copies.patch",
+      "Hash": "d7ca289e7d5cb799d98a10346ca507536c71bdf3bde94d2ef47110e960de49d9"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\strict-list-helpers-and-ordinary-call-order-1872\\strict-list-generator-helpers.patch",
+      "Hash": "5e7b89f3951e9a4e189c75147d9f29645c3c0603bac3c3fd83f3eba8ad25f444"
+    }
+  ],
+  "DrawnFrom": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\diameter-normalized-losses-audit-1870\\straight-call-constant-suffix-and-fun-copy.patch",
+      "Hash": "e0a0754c10e527225c85b62b8bfe69adc311e4bd60d8220cea5b3ff356993510"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\near-exact-audit-1845\\normalized-losses-1870\\ordinary-call-trailing-copies.patch",
+      "Hash": "aae0b750c549a084f60de4be93e811bb64b1646d01da2b850f41d2c108fb443f"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+# Part 1892 scoped frame, documentation and include validation
+
+Windows OTP 29.1.1 is pinned at ad05823719d77c8faee87348ea39513d4e2f99c5. The source overlay admits entry-argument use planning when a single branch owns the complete frame and a separate branch is frameless. Documentation retains the source annotation for hidden module docs and includes record type dependencies referenced by reachable exported types. wx debug forms retain the chosen logical include path.
+
+The uncached scope finished in 624.2007 seconds. It contains 13 Equal, 74 Different, 0 Unsupported and 0 SourceRejected. All statuses match the same paths from Part 1888. All 73 changed images passed ERTS module preparation. New exact raw chunks include 48 Docs, nine Dbgi and two Line sections, with zero losses. Normalized comparison sees five new equal function bodies and zero losses. Frame widths move closer for 568 functions and farther for 21. Raw output and normalized instruction measurements are distinct.
+
+All 71 focused tests pass within a catalog of 9,866. The initial fixture build failed because the corpus project linked other include remaps but did not link the new wx remap adapter. The retake adds the source link and preserves the original build log. The independent early ten-module scope retains the exact systools image and prepares nine changed images. The full corpus was launched separately on the same source and binaries.

@@ -1,0 +1,53 @@
+{
+  "Parent": {
+    "Source": "2d6f714daa62a1dc310cc3f27a0d092ffd9b9cefe5ca66c162532a8b58941550",
+    "Paths": 221,
+    "Compiler": "ed8c4f53c4515647aa11b8cd52fe674d2dd2416c1d12be0710d64d59b0b09a51",
+    "Tests": "eca1945c13e9aecd11110190d3a17dcf706dd9cacb2894690dd1d8594f64cbdb",
+    "ParentSource": "800b3c0e1f32ebacb4890d0c63f8027a053d75eef865f0ed37ad106fd078ab53",
+    "CorpusTool": "0e716996f8ca8a7578f9e37d18d29fec0fff663f954bfa1518253435f98b9485"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryArgumentFlow.cs": "26b69bd6de4b3dfcb7db6ba262cbe0698f927e6b258a9886da20f0c593077eb0",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SendArgumentConstruction.cs": "255d37fc4f7f41d71806801dd78eda5198cea3aff01b6a9029efd9cdbe00a7f1",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedReturns.cs": "18ec230fe4a3a4834f73c6914d26281e61c8725818610c650621a113ad836cbd",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamReleaseFunctionDebug.cs": "103ddf13e8dfcda4d2888cd85a365afb3a8a3ce00de7ea9fa7b54e2df3cdc2b3",
+    "src/Compiler/Erlang.Compiler/Syntax/Records/NativeRecordTypeParser.cs": "cb2fa65529f9c809ea3ccca7c89dc87f2d3336b5d4b6b0d1d46ba0935a656408",
+    "tests/Erlang.Tests/Compiler/Beam/BeamQuotedFeatureAtomChecks.cs": "7155187b0c5ed7efa306fea5c0823828b13b600dcb145ea3eb97c76c18a0d6f3",
+    "tests/Erlang.Tests/Compiler/Beam/BeamSendArgumentConstructionChecks.cs": "6556991e5ad79411c271130b8e2cd66072ebf1681f9b3d7cc3f8788d44c9e0d4",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamRetainedConstructorAliasChecks.cs": "2daa75983cd3eb98a7bc9d87d821a6d6f3afa662f93b48ab6c2e4591021e257c",
+    "tests/Erlang.Tests/Harness/Program.cs": "f7f99b5792505db578bc3120bd3b80c8a84b5d75a7f2a4042b010636f6f84b48"
+  },
+  "Patches": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\direct-send-projection-and-quoted-annotations-1876\\construct-send-tuple-directly.patch",
+      "Hash": "fb229a073a4d3453ba7f9e3744ca715c2311e3e0ce1139152e40da69ac411bf7"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\direct-send-projection-and-quoted-annotations-1876\\checked-static-argument-projection-1875-rebased.patch",
+      "Hash": "c75f510bb8c9167ee59c17e25e532ff5e87dc9b380db4d94a9679511d9940979"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\direct-send-projection-and-quoted-annotations-1876\\quoted-feature-keyword-annotations.patch",
+      "Hash": "bf22ff9026f7b6763a970280717945a2a5b498ea1ef2460e8fb873738ec253c4"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\direct-send-projection-and-quoted-annotations-1876\\register-fixtures.patch",
+      "Hash": "f80366610c8a89e1e3a5610a890058c3c26beeffb090e724eaaca3d12c16fc2f"
+    }
+  ],
+  "Proposals": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\direct-send-tuple-construction-1876\\construct-send-tuple-directly.patch",
+      "Hash": "15f8b1053d394496c3348ca4e0fabd19b1a8c7b76fc2b2aa210ede4dd999ef02"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\direct-send-tuple-construction-1876\\checked-static-argument-projection-1875-rebased.patch",
+      "Hash": "88603adf03cc20bd424e959985e2a6558e347bcd8a94df6bad68a64dabd87fce"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\metadata-feature-quoted-atom-audit-1875\\quoted-feature-keyword-annotations.patch",
+      "Hash": "1d12755cab617a7a382842ea5a92675bb1a666f64269bb46517dc3a86c242314"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{"Partial":true,"SelectedCount":22,"TotalCount":9818}
+PASS compiler/beam/whole-module-matches-otp
+PASS compiler/beam/fresh-reference-receive-marker
+PASS compiler/beam/emits-immediate-selective-timeout
+PASS compiler/beam/shares-accepted-receive-tails-across-tuple-arities
+PASS compiler/beam/adjacent-arithmetic-number-result
+PASS compiler/beam/local-success-atom-or-tuple-result
+FAIL compiler/beam/record-field-carries-successful-number: System.InvalidOperationException: Expected instruction is absent.
+   at Erlang.Tests.BeamAdjacentNumericResultChecks.InstructionInputType(Byte[] beam, Byte opcode, Int32 operandIndex, Boolean first, Boolean required) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Compiler\Beam\BeamAdjacentNumericResultChecks.cs:line 152
+   at Erlang.Tests.BeamNumericRecordOperandChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Compiler\Beam\BeamNumericRecordOperandChecks.cs:line 47
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Harness\Program.cs:line 16426
+PASS compiler/beam/selects-constant-branches-with-an-identity-fallback
+PASS compiler/beam/release-inline-bounded-leaf
+PASS compiler/beam/uses-available-x-in-constructor-with-retained-spill
+PASS compiler/beam/hoists-heap-before-checked-tuple-reads-with-proven-roots
+PASS compiler/beam/flat-tuple-list-generator-constructs-after-recursion
+PASS compiler/beam/retains-entry-tuple-across-producer
+PASS compiler/beam/checks-an-arity-arm-tag-before-its-frame
+PASS compiler/beam/delays-a-zero-slot-frame-after-a-checked-tag-fallback
+PASS compiler/beam/delays-the-frame-past-a-terminal-list-match-failure
+PASS compiler/beam/local-success-integer-result
+PASS compiler/beam/trims-owned-branch-with-one-retained-result
+PASS compiler/beam/promotes-interior-projection-before-first-call
+PASS compiler/beam/tagged-list-generator-keeps-matched-tuple
+PASS compiler/beam/keyfind-result-typed-tuple-test
+PASS compiler/beam/tuple-list-generator-checks-before-recursing
+21/22 passed

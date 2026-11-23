@@ -1,0 +1,80 @@
+{
+  "OtpVersion": "29.1.1",
+  "Total": 10,
+  "Counts": {
+    "Different": 8,
+    "Equal": 2
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\compiler-10.0.6\\ebin\\beam_opcodes.beam",
+      "Status": "Equal",
+      "Source": "lib\\compiler-10.0.6\\src\\beam_opcodes.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\compiler-10.0.6\\ebin\\core_parse.beam",
+      "Status": "Different",
+      "Source": "lib\\compiler-10.0.6\\src\\core_parse.erl",
+      "Detail": "Original length 340904, generated length 369564. AtU8 9260-\u003E9252, Code 50756-\u003E79224, ImpT 376-\u003E376, ExpT 64-\u003E64, LitT 496-\u003E485, LocT 6508-\u003E6508, Attr 40354-\u003E40354, Dbgi 228925-\u003E228924, Docs 355-\u003E364, Line 3102-\u003E3399, Type 123-\u003E30",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\compiler-10.0.6\\ebin\\erl_bifs.beam",
+      "Status": "Equal",
+      "Source": "lib\\compiler-10.0.6\\src\\erl_bifs.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\diameter-2.7.2\\ebin\\diameter_callback.beam",
+      "Status": "Different",
+      "Source": "lib\\diameter-2.7.2\\src\\base\\diameter_callback.erl",
+      "Detail": "Original length 6252, generated length 6276. Code 866-\u003E890, Attr 67-\u003E67",
+      "FirstDifferentByte": 7
+    },
+    {
+      "Beam": "lib\\eldap-1.3.1\\ebin\\ELDAPv3.beam",
+      "Status": "Different",
+      "Source": "C:\\Users\\Maksim\\.codex\\worktrees\\beam-atom-dispatch\\Erlang.Net\\artifacts\\local-guard-arithmetic\\combined-subset.json.sources\\7192ba671cb04b668f81e26f397b0519\\ELDAPv3.erl",
+      "Detail": "Original length 99008, generated length 99020. Code 27815-\u003E27825, Attr 639-\u003E639",
+      "FirstDifferentByte": 7
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\inet_parse.beam",
+      "Status": "Different",
+      "Source": "lib\\kernel-11.0.4\\src\\inet_parse.erl",
+      "Detail": "Original length 35848, generated length 37156. AtU8 1255-\u003E1241, Code 10593-\u003E12375, ImpT 400-\u003E388, ExpT 424-\u003E424, FunT 292-\u003E292, LitT 379-\u003E370, LocT 796-\u003E796, Attr 39-\u003E39, Dbgi 19441-\u003E19391, Line 538-\u003E540, Type 409-\u003E24",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\ssl-11.7.7\\ebin\\ssl_handshake.beam",
+      "Status": "Different",
+      "Source": "lib\\ssl-11.7.7\\src\\ssl_handshake.erl",
+      "Detail": "Original length 206212, generated length 219612. AtU8 11646-\u003E11192, Code 49150-\u003E64696, StrT 347-\u003E43, ImpT 1432-\u003E1468, ExpT 832-\u003E832, FunT 652-\u003E916, LitT 14305-\u003E13200, LocT 2524-\u003E2380, Attr 39-\u003E39, Line 2590-\u003E2677, Type 534-\u003E14",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\array.beam",
+      "Status": "Different",
+      "Source": "lib\\stdlib-8.1\\src\\array.erl",
+      "Detail": "Original length 75544, generated length 78052. AtU8 1586-\u003E1582, Code 19705-\u003E22411, ImpT 292-\u003E304, ExpT 628-\u003E628, FunT 316-\u003E316, LocT 976-\u003E976, Attr 39-\u003E39, Line 1164-\u003E1197, Type 254-\u003E14",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\erl_parse.beam",
+      "Status": "Different",
+      "Source": "lib\\stdlib-8.1\\src\\erl_parse.erl",
+      "Detail": "Original length 707288, generated length 764224. AtU8 15794-\u003E15800, Code 125077-\u003E181717, ImpT 580-\u003E676, ExpT 316-\u003E316, FunT 364-\u003E364, LitT 1226-\u003E1182, LocT 10672-\u003E10660, Attr 74886-\u003E74886, Line 7389-\u003E7739, Type 126-\u003E32",
+      "FirstDifferentByte": 5
+    },
+    {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_b64Bin.beam",
+      "Status": "Different",
+      "Source": "lib\\xmerl-2.2\\src\\xmerl_b64Bin.erl",
+      "Detail": "Original length 18908, generated length 20360. AtU8 955-\u003E968, Code 3571-\u003E5035, ImpT 244-\u003E256, ExpT 64-\u003E64, LitT 130-\u003E109, LocT 412-\u003E424, Attr 2090-\u003E2090, Docs 356-\u003E365, Line 284-\u003E284, Type 72-\u003E30",
+      "FirstDifferentByte": 6
+    }
+  ]
+}

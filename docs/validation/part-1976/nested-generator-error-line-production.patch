@@ -1,0 +1,66 @@
+diff --git a/src/Compiler/Erlang.Compiler/Syntax/Ast/Expr.cs b/src/Compiler/Erlang.Compiler/Syntax/Ast/Expr.cs
+--- a/src/Compiler/Erlang.Compiler/Syntax/Ast/Expr.cs
++++ b/src/Compiler/Erlang.Compiler/Syntax/Ast/Expr.cs
+@@ -54,6 +54,7 @@
+         public int SourceLine { get; init; }
+         internal string? PreprocessorFile { get; init; }
+         internal bool DynamicRemote { get; init; }
++        internal bool IsListGeneratorSourceFailure { get; init; }
+         public bool CanDiscardBifContinuation { get; internal set; }
+ 
+         public Call(
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedComprehensions.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedComprehensions.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedComprehensions.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedComprehensions.cs
+@@ -468,7 +468,8 @@
+                     )
+                     {
+                         SourceLine = invalidSourceLocation?.Line ?? 0,
+-                        PreprocessorFile = invalidSourceLocation?.File
++                        PreprocessorFile = invalidSourceLocation?.File,
++                        IsListGeneratorSourceFailure = invalidSourceLocation is { Line: > 0 }
+                     }
+                 )
+             ];
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
+@@ -1034,7 +1034,7 @@
+         }
+ 
+         private bool IsRecursiveListGeneratorFailure(Expr.Call call) =>
+-            parentFunction is { IsRecursiveListMapper: true } mapper
++            call.IsListGeneratorSourceFailure || parentFunction is { IsRecursiveListMapper: true } mapper
+             && mapper.Clauses[^1].Body is Expr.Call failure
+             && ReferenceEquals(failure.Arguments, call.Arguments);
+ 
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListGenerators.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListGenerators.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListGenerators.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListGenerators.cs
+@@ -188,12 +188,16 @@
+             second.GeneratorFile ?? outerLocation.File,
+             second.GeneratorLine == 0 ? outerLocation.Line : second.GeneratorLine
+         );
++        var outerFailure = first.InputLine == 0
++            ? outerLocation : new BeamSourceLocation(first.InputFile ?? outerLocation.File, first.InputLine);
++        var innerFailure = second.InputLine == 0
++            ? innerLocation : new BeamSourceLocation(second.InputFile ?? innerLocation.File, second.InputLine);
+         var outerLoop = BuildRecursiveMapping(
+             outerName,
+             outer,
+             mapped,
+             captures,
+-            invalidSourceLocation: outerLocation
++            invalidSourceLocation: outerFailure
+         );
+         var outerClauses = outerLoop.Clauses.ToArray();
+         var currentTail = ((Pattern.List)outerClauses[0].Patterns[0]).Tail as Pattern.Variable
+@@ -240,7 +244,7 @@
+             inner,
+             innerValue,
+             innerCaptures,
+-            invalidSourceLocation: innerLocation
++            invalidSourceLocation: innerFailure
+         );
+         var innerClauses = innerLoop.Clauses.ToArray();
+         var empty = innerClauses[^2];

@@ -1,0 +1,7 @@
+[Path]=init:get_plain_arguments(),
+Name=beam_external_leaf_tail,
+{ok,Image}=file:read_file(Path),
+{module,Name}=code:load_binary(Name,Path,Image),
+true=code:add_patha("."),
+io:format("~0p.~n",[[{X,Name:resolve(X)} || X <- [42,-11,mode,ready,{},[],<<"s">>]]]),
+halt().

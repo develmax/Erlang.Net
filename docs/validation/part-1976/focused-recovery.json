@@ -1,0 +1,156 @@
+{
+  "FailedCompilerIdentity": {
+    "Tests": "BE730C9648FEF425DC4674282F23B8F61E1E4492AB94A54A253710CCCC2E5EEE",
+    "Compiler": "EBCA6694E805B905E1458803EF9733E915E0099F70BB2FE15478EE487AF600A0",
+    "Runtime": "7445A7EA8A055C952841AD41A2F4F0138B7FE39EAB6762EB1030E59308A1C8AA",
+    "Started": "2026-11-21T03:16:41.9576727+03:00",
+    "SourceParent": "8214c7399f803e7afe759541d4a0d9ffe8af41194aca53b3806a10cb851ac641"
+  },
+  "PreviousAttempt": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/shared-compiler-corrections-1976-combined-test-retake",
+  "PreviousSelected": 546,
+  "PreviousPassed": 540,
+  "FailureNames": [
+    "compiler/beam/adjacent-arithmetic-number-result",
+    "compiler/beam/calls-proven-closed-list-mapper-directly",
+    "compiler/beam/groups-exclusive-terminal-entry-tests",
+    "compiler/beam/places-heap-before-frameless-list-head-return",
+    "compiler/beam/shares-entry-record-checks-with-a-field-rejection",
+    "compiler/beam/shares-terminal-atom-identity-case-returns"
+  ],
+  "InputPlan": [
+    {
+      "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/head-bif-combined-1976-regression-audit/frameless-head-validation-recovery.patch",
+      "Patch": "eba58841d2b58bf97d34f4f1e524b7a706a8e3c4cb6c6548a9fb03f9611796ad",
+      "Files": {
+        "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.HeadTupleReturnFrames.cs": {
+          "Before": "bca844173da018dc9d0bb0ad908dd8f530287678d9ebcbbcaf838ca59816e53e",
+          "After": "7d2dbf532c6d2aa9cf96c6e1c7249e632c000aafc9dc00d6dd55ce40a35c151a"
+        },
+        "tests/Erlang.Tests/Compiler/Beam/BeamAdjacentNumericResultChecks.cs": {
+          "Before": "fb45a96888ee0d4baf0c482ea5217a9655cefbf9a7d29a8be43ad0e5805375b7",
+          "After": "932c0f2e5cc8db0ef633dcc2bcd758a0ac9c048fa2b2bb16654abfe154a42dac"
+        }
+      },
+      "Focus": [
+        "adjacent-arithmetic-number-result",
+        "places-heap-before-frameless-list-head-return"
+      ]
+    },
+    {
+      "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/exclusive-terminal-entry-and-atom-identity-1976-audit/production.patch",
+      "Patch": "53c51a5985412e195e112a9b756250372cd3248f13dd65761201c5dbe3e59327",
+      "Files": {
+        "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AtomCompanionEntries.cs": {
+          "Before": "8b28ae500ff0f9dbf02971d5c86cb6cd8e4c2263cbd047f642c39feb62f08b64",
+          "After": "3e0c6513b05ac767df67d36421e36a68aa8b5912b17a91b96d967f97a0b6ddf7"
+        },
+        "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryAtomIdentityCase.cs": {
+          "Before": "c76114b996ffcdac387800c8b58a824784820648caa36a23a7948bb9269ef1c2",
+          "After": "72da4c68a2dd6f120a6048df6ff7a33795d8831abba8cfe6d9186f78eda4af2e"
+        }
+      },
+      "Focus": [
+        "groups-exclusive-terminal-entry-tests",
+        "shares-terminal-atom-identity-case-returns"
+      ]
+    },
+    {
+      "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/shared-entry-record-focused-1976-recovery/shared-entry-record-tests-retake.patch",
+      "Patch": "752F6051B2B703D9D89BEC1FCD439B6381B03A325B51BAB68AFFD41A5BC22047",
+      "Files": {
+        "tests/Erlang.Tests/Compiler/Beam/Frames/BeamSharedEntryRecordChecks.cs": {
+          "Before": "9FD207C3B14EA271387AD699BE15B6F924129D2CE5A136579CB42EC941C27129",
+          "After": "7811D56B176E4AFA4DE275B29EA1AE1C187049E0E2615DA2C1C4F3D60466B86B"
+        }
+      },
+      "Focus": [
+        "shares-entry-record-checks-with-a-field-rejection"
+      ]
+    },
+    {
+      "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/structural-mapper-test-retake-1976-audit/production.patch",
+      "Patch": "6b8d9720512f39b4a03145cc25bf4de6cd30fd126f10dfb4d0711775dca1f84d",
+      "Files": {
+        "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.StaticListClosureMapping.cs": {
+          "Before": "9f95692827d64d1d43d10e6ac9c7925c21825eb2f6c6837c6ef1b3c2830a66e2",
+          "After": "922359077f7182f528f7946de0817b097a17cd293ebd66d51c0c2b1efe85790c"
+        }
+      },
+      "Focus": [
+        "calls-proven-closed-list-mapper-directly"
+      ]
+    },
+    {
+      "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/structural-mapper-test-retake-1976-audit/tests.patch",
+      "Patch": "e2ed01d9496ea2d645452ee9f5f5b1de0911e4661d4618c4384fc24416599c9e",
+      "Files": {
+        "tests/Erlang.Tests/Compiler/Beam/BeamStaticListClosureMappingChecks.cs": {
+          "Before": "310d68ec2409ba1f5bc30ba2adb4e3ec10e18c3517b8ed85f0f1724d24346fde",
+          "After": "46eff2cdfd35f1948385e55fc0d7555b19d734a8530e7802b0f3583cd9b0be16"
+        }
+      },
+      "Focus": [
+        "calls-proven-closed-list-mapper-directly"
+      ]
+    }
+  ],
+  "VerifiedPostimages": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.HeadTupleReturnFrames.cs": {
+      "Before": "bca844173da018dc9d0bb0ad908dd8f530287678d9ebcbbcaf838ca59816e53e",
+      "After": "7d2dbf532c6d2aa9cf96c6e1c7249e632c000aafc9dc00d6dd55ce40a35c151a"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamAdjacentNumericResultChecks.cs": {
+      "Before": "fb45a96888ee0d4baf0c482ea5217a9655cefbf9a7d29a8be43ad0e5805375b7",
+      "After": "932c0f2e5cc8db0ef633dcc2bcd758a0ac9c048fa2b2bb16654abfe154a42dac"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AtomCompanionEntries.cs": {
+      "Before": "8b28ae500ff0f9dbf02971d5c86cb6cd8e4c2263cbd047f642c39feb62f08b64",
+      "After": "3e0c6513b05ac767df67d36421e36a68aa8b5912b17a91b96d967f97a0b6ddf7"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryAtomIdentityCase.cs": {
+      "Before": "c76114b996ffcdac387800c8b58a824784820648caa36a23a7948bb9269ef1c2",
+      "After": "72da4c68a2dd6f120a6048df6ff7a33795d8831abba8cfe6d9186f78eda4af2e"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamSharedEntryRecordChecks.cs": {
+      "Before": "9fd207c3b14ea271387ad699be15b6f924129d2ce5a136579cb42ec941c27129",
+      "After": "7811d56b176e4afa4de275b29ea1ae1c187049e0e2615da2c1c4f3d60466b86b"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.StaticListClosureMapping.cs": {
+      "Before": "9f95692827d64d1d43d10e6ac9c7925c21825eb2f6c6837c6ef1b3c2830a66e2",
+      "After": "922359077f7182f528f7946de0817b097a17cd293ebd66d51c0c2b1efe85790c"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamStaticListClosureMappingChecks.cs": {
+      "Before": "310d68ec2409ba1f5bc30ba2adb4e3ec10e18c3517b8ed85f0f1724d24346fde",
+      "After": "46eff2cdfd35f1948385e55fc0d7555b19d734a8530e7802b0f3583cd9b0be16"
+    }
+  },
+  "Patches": {
+    "focused-recovery-patches/01-frameless-head-validation-recovery.patch": "eba58841d2b58bf97d34f4f1e524b7a706a8e3c4cb6c6548a9fb03f9611796ad",
+    "focused-recovery-patches/02-production.patch": "53c51a5985412e195e112a9b756250372cd3248f13dd65761201c5dbe3e59327",
+    "focused-recovery-patches/03-shared-entry-record-tests-retake.patch": "752f6051b2b703d9d89bec1fcd439b6381b03a325b51bab68affd41a5bc22047",
+    "focused-recovery-patches/04-production.patch": "6b8d9720512f39b4a03145cc25bf4de6cd30fd126f10dfb4d0711775dca1f84d",
+    "focused-recovery-patches/05-tests.patch": "e2ed01d9496ea2d645452ee9f5f5b1de0911e4661d4618c4384fc24416599c9e"
+  },
+  "Raw": {
+    "initial-combined-focused-errors/compiler-build.log": "0f6029c1bac77c45768ebc7b5c4828b1debac292f6b761dac0122878c1432a09",
+    "initial-combined-focused-errors/compiler-reuse-receipt.json": "450aa2812ef374d9f3e16af61b527d8e47123f03a8baf00f932736c9befe589a",
+    "initial-combined-focused-errors/durable.exit": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "initial-combined-focused-errors/durable.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "initial-combined-focused-errors/focused-fast.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "initial-combined-focused-errors/focused-fast.stderr.log": "371e81230239152630faf5df7669d18caf939c72e9927553e6d610705ce84a29",
+    "initial-combined-focused-errors/focused-identity.json": "1d510afef4676ea0618d8711da596ff423d2941283f63ce7cc1cf8132beee07f",
+    "initial-combined-focused-errors/linked-resource-wait.jsonl": "75e0fb133443337c09d9fb71a9d3bab9e9dc527770c62d54a87f5cc29bf8e065",
+    "initial-combined-focused-errors/linked-scope.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "initial-combined-focused-errors/source-identities.json": "4a78e44ac0fefae10f40652e9a7857fa7e624c2f49451c44b7070dd378301332",
+    "initial-combined-focused-errors/stopped-focused-failure-waiters.json": "976b3ee42259fce4b0a0bf704cffe22c37df2e7efe543e48bb3733585d0831a4",
+    "initial-combined-focused-errors/strict-preflight.json": "0ea655f70d754820c254f35c2aec3f19d84792978b983a0c0a4a76d23953569b",
+    "initial-combined-focused-errors/tests-build.log": "4a3ccc1d73e626da72a24f93c533c605a277537c73ccba8ebd5c6b54f550fb30",
+    "initial-combined-focused-errors/fast-splits/failure-receipt.json": "4a6ebd33e10009676a27478bb9ec81cbe5cf12132786d13c273c48f1c8381e12",
+    "initial-combined-focused-errors/fast-splits/lane-0.json": "27d5b7ca43a325651f6f7e0e20b9133f627dd11e6b5c913debf71aa175f3641a",
+    "initial-combined-focused-errors/fast-splits/lane-0.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "initial-combined-focused-errors/fast-splits/lane-0.stdout.log": "ae44e1ef8704441ec0671af3c39fa65ae70de1f5423ab8536dde4341c20f65f7",
+    "initial-combined-focused-errors/fast-splits/lane-1.json": "dc39d577533e3a565099f6d7a9d1208668bb0cb2775e64d7cdc4512dcaf5a0a0",
+    "initial-combined-focused-errors/fast-splits/lane-1.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "initial-combined-focused-errors/fast-splits/lane-1.stdout.log": "c093f562154b751bb8b6e7835b21c23c91c8c392c64a3bbbeb6d4dd3377b299b"
+  }
+}

@@ -1,0 +1,24 @@
+[Image,Output]=init:get_plain_arguments(),
+{beam_file,Module,_,_,_,_}=beam_disasm:file(Image),
+App=case Module of asn1rt_nif->asn1; dyntrace->runtime_tools; zstd->stdlib end,
+Physical=filename:join(code:lib_dir(App,ebin),atom_to_list(Module)++".beam"),
+{ok,Bytes}=file:read_file(Image),
+false=code:is_loaded(Module),
+{module,Module}=code:load_binary(Module,Physical,Bytes),
+Run=fun(F)->try F() of Value->{ok,Value} catch Class:Reason->{Class,Reason} end end,
+Cases=case Module of
+ asn1rt_nif->
+    [Run(fun()->asn1rt_nif:decode_ber_tlv(B) end)||
+     B <- [<<2,1,5>>,<<4,3,"abc">>,<<48,3,2,1,5>>,<<2,9,5>>,<<>>]]
+    ++[Run(fun()->asn1rt_nif:encode_per_complete(V) end)||
+       V <- [[<<1:1>>,<<3:7>>],[],[<<1:1>>],invalid]];
+ dyntrace->
+    [Run(fun()->dyntrace:available() end),Run(fun()->dyntrace:get_tag() end),Run(fun()->dyntrace:get_tag_data() end)];
+ zstd->
+    [Run(fun()->
+        Compressed=iolist_to_binary(zstd:compress(Data)),
+        {iolist_to_binary(zstd:decompress(Compressed)),zstd:get_frame_header(Compressed)}
+     end)||Data<-[<<>>,<<"frame">>,binary:copy(<<"aaaabcd">>,128)]]
+    ++[Run(fun()->zstd:decompress(<<16,0,1>>) end)]
+end,
+ok=file:write_file(Output,io_lib:format("~tp.~n",[{Module,compile_loaded,length(Cases),Cases}])),halt().

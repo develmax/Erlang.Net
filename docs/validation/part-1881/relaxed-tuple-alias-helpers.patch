@@ -1,0 +1,173 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
+@@ -235,8 +235,15 @@
+                     || source is Expr.Call or Expr.List
+                     || mapped is Expr.Call { DynamicRemote: false } or Expr.Apply { Function: Expr.Variable })
+                 || item is Pattern.Tuple && IsRecursiveListPattern(item)
+-                || item is AliasPattern && SsaTypeInferenceEnabled && !discarded
+-                    && comprehension.Qualifiers.Count == 1 && ReadTupleListProjection(item, mapped) is not null))
++                || item is AliasPattern alias && SsaTypeInferenceEnabled && !discarded
++                    && (comprehension.Qualifiers.Count == 1 && ReadTupleListProjection(alias, mapped) is not null
++                        || !independent && IsRecursiveTupleGeneratorAlias(alias)
++                            && source is Expr.Variable or Expr.Call { DynamicRemote: false }
++                            && (comprehension.Qualifiers.Count == 1
++                                || comprehension.Qualifiers[^1] is ComprehensionQualifier.Filter acceptedGuard
++                                    && ComprehensionGuard.IsTest(acceptedGuard.Expression, sourceModule))
++                            && !LocalFunctionEntries.Walk(parentClause.Body).Any(expression =>
++                                expression is Expr.Try or Expr.Receive or Expr.Maybe))))
+         {
+             return null;
+         }
+@@ -321,6 +328,15 @@
+         Arguments.Count: 1
+     } call && (call is { Module: "lists", Function: "reverse" or "sort" }
+         || call is { Module: "maps", Function: "keys" or "values" or "to_list" });
++
++    private static bool IsRecursiveTupleGeneratorAlias(AliasPattern alias) => alias switch
++    {
++        { Left: Pattern.Variable { Name: not VariableScopeNames.Wildcard }, Right: Pattern.Tuple tuple } =>
++            IsRecursiveListPattern(tuple),
++        { Left: Pattern.Tuple tuple, Right: Pattern.Variable { Name: not VariableScopeNames.Wildcard } } =>
++            IsRecursiveListPattern(tuple),
++        _ => false
++    };
+ 
+     private static bool IsRecursiveListPattern(Pattern pattern) => pattern switch
+     {
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamRelaxedTupleAliasHelperChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamRelaxedTupleAliasHelperChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamRelaxedTupleAliasHelperChecks.cs
+@@ -0,0 +1,117 @@
++using System.Collections;
++using Erlang.Compiler;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamRelaxedTupleAliasHelperChecks
++{
++    internal const string TestName = "compiler/beam/lifts-relaxed-tuple-generator-aliases";
++    private const string Fixture = "beam_relaxed_tuple_alias_helpers.erl";
++    private const string WrongHelpers = "Relaxed tuple alias helper names or arities differed.";
++    private const string WrongResult = "Relaxed tuple alias binding, guard, or generator failure differed.";
++
++    private const string Source = """
++        -module(beam_relaxed_tuple_alias_helpers).
++        -export([guarded/2, project/1, recorded/1, strict/1]).
++        -record(entry, {id, state}).
++        guarded(Floor, Rows) ->
++            [Whole || Whole = {tag, V} <- Rows, is_integer(V) andalso V > Floor].
++        project(Rows) ->
++            [{Id, Whole} || {_, Id, _} = Whole <- Rows].
++        recorded(Rows) ->
++            [{Id, Whole} || #entry{id=Id} = Whole <- Rows].
++        strict(Rows) ->
++            [Whole || Whole = {tag, _} <:- Rows].
++        """;
++
++    internal static async Task Run()
++    {
++        byte[] beam = CodeGeneration.CompileBeamModule(Source, Fixture);
++        var helpers = ((IEnumerable)Property(Code(beam), "Functions")).Cast<object>()
++            .Select(function => ((string)Property(function, "Name"), (int)Property(function, "Arity")))
++            .ToHashSet();
++        if (!helpers.Contains(("-guarded/2-lc$^0/1-0-", 2))
++            || !helpers.Contains(("-project/1-lc$^0/1-0-", 1))
++            || !helpers.Contains(("-recorded/1-lc$^0/1-0-", 1)))
++        {
++            throw new InvalidOperationException(WrongHelpers);
++        }
++
++        var module = BeamModule.Prepare(beam);
++        await using var runtime = new ProcessRuntime();
++        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
++        await actor.InvokeAsync(async context =>
++        {
++            Term tag = Term.A("tag");
++            Term bad = Term.A("wrong");
++            Term first = Term.I(1);
++            Term second = Term.I(2);
++            Term selected = Term.Tuple(tag, second);
++            Term row = Term.Tuple(tag, second, bad);
++            Term record = Term.Tuple(Term.A("entry"), second, bad);
++            Term invalidTail = Term.A("invalid_tail");
++
++            RequireEqual(
++                Term.List(selected),
++                await module.Invoke(
++                    context,
++                    "guarded",
++                    first,
++                    Term.List(
++                        bad,
++                        Term.Tuple(tag, bad),
++                        Term.Tuple(bad, second),
++                        Term.Tuple(tag, first),
++                        selected
++                    )
++                )
++            );
++            RequireEqual(Term.List(Term.Tuple(second, row)), await module.Invoke(context, "project", Term.List(bad, row)));
++            RequireEqual(Term.List(Term.Tuple(second, record)), await module.Invoke(context, "recorded", Term.List(row, record)));
++            RequireEqual(Nil.Value, await module.Invoke(context, "project", Nil.Value));
++
++            await CheckFailure(
++                "project",
++                new Cons(row, invalidTail),
++                ErlangErrorReasons.BadGenerator,
++                invalidTail
++            );
++            await CheckFailure(
++                "strict",
++                Term.List(bad),
++                ErlangErrorReasons.BadMatch,
++                bad
++            );
++
++            return Nil.Value;
++
++            async ValueTask CheckFailure(
++                string function,
++                Term input,
++                string reason,
++                Term value
++            )
++            {
++                try
++                {
++                    await module.Invoke(context, function, input);
++                }
++                catch (ErlangException error) when (Term.Tuple(Term.A(reason), value).Equals(error.Reason))
++                {
++                    return;
++                }
++
++                throw new InvalidOperationException(WrongResult + " " + function);
++            }
++        });
++    }
++
++    private static void RequireEqual(Term expected, Term actual)
++    {
++        if (!expected.Equals(actual))
++        {
++            throw new InvalidOperationException(WrongResult + " " + actual);
++        }
++    }
++}
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12254,6 +12254,10 @@
+ );
+ Test(Erlang.Tests.BeamBootstrapLibraryIncludeChecks.TestName, Erlang.Tests.BeamBootstrapLibraryIncludeChecks.Run);
+ Test(Erlang.Tests.BeamStrictListSiblingHelperChecks.TestName, Erlang.Tests.BeamStrictListSiblingHelperChecks.Run);
++Test(
++    Erlang.Tests.BeamRelaxedTupleAliasHelperChecks.TestName,
++    Erlang.Tests.BeamRelaxedTupleAliasHelperChecks.Run
++);
+ Test(Erlang.Tests.BeamLiteralIdentityDispatchChecks.TestName, Erlang.Tests.BeamLiteralIdentityDispatchChecks.Run);
+ Test(Erlang.Tests.BeamReleaseLeafInliningChecks.TestName, Erlang.Tests.BeamReleaseLeafInliningChecks.Run);
+ Test(Erlang.Tests.BeamRetainedConstructorAliasChecks.TestName, Erlang.Tests.BeamRetainedConstructorAliasChecks.Run);

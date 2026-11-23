@@ -1,0 +1,38 @@
+{
+  "BaseCommit": "30196f8bacc246be4b888def96a222d917a62eb9",
+  "BaseArchive": "c3c923cd0ce295bd0c97e027ef80f8180b6e47d58788702cf897189179f598e0",
+  "Part1860Overlay": "c5f346c67bec02f9f4f2bd92e630bf3c306ba2bf8e9a7d44fc7a8b6caf61845e",
+  "Part1860UnchangedOverlayPaths": 146,
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ArityTagFrames.cs": "dfcb7472fc09bdcc8db7fde9dd1df2af44e62f91f12bb90fcec0162f5e2f7802",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.KeyFindTupleTests.cs": "60fc7fce50966ec9fff125d346462c8f564e03085b73b8139e21cd10a7f11766",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs": "3e0da94903149f9506e008b14545e677de4671b183f59bdc47bf490f4653d206",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedReturns.cs": "73460042db0145c2950a0010beca7486a11186fae14cc4afd5df34564392e08f",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TransientFrameSlots.cs": "bf879068129a899a23235717539740dc4483e39845a6e0f2d85ede1a4be45b35",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TupleFieldListComprehension.cs": "88c8faac13cf61dd59ed17e4b80645fefac92490b118efc56112b3fa90bcf253",
+    "tests/Erlang.Tests/Compiler/Beam/BeamKeyFindTupleTypeChecks.cs": "1f385563c30568dc13aafa856dfc61810efc9ae6e48e6b90fa0d3ee981daa8de",
+    "tests/Erlang.Tests/Compiler/Beam/BeamTaggedTupleListHelperChecks.cs": "4e9d7205aa2ef72b104d1f0e4f466d0c578add5551bc33747c74705961999da2",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamArityTagFrameChecks.cs": "5c0bb9b4a842ac823dd4e0c204af06e72a2037ef83271976e6d0f5a440f550d0",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamInteriorPreCallSlotChecks.cs": "bda28c7db9f0403c815b1892374619e8e89e43d4e16017f6e234fc9bbae88b7e",
+    "tests/Erlang.Tests/Harness/Program.cs": "cfea4c78122ce05b8b5ee62ccf378b3a7ccd9bc5069df031a699d0268cc23da1",
+    "tests/Erlang.Tests/Resources/Beam/beam_tagged_tuple_list_helper.erl": "139ba79a6118569e9b9f4a661dc9a5a576f5ce7017f1a74340565e3f3297f6cf"
+  },
+  "Patches": [
+    {
+      "Hash": "665671A424D45F72476D15C8A85C35D0E72958112F8EEDB17AD2520644DF51E4",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\local-1858-next-frame-group\\interior-precall-projection-slots.patch"
+    },
+    {
+      "Hash": "9FCCFBCFE3A4F523E8462BE9DAECF7E63ABD4C4161788282AFF2CE60A0943414",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\local-1860-arity-shared-cleanup\\arity-shared-cleanup.patch"
+    },
+    {
+      "Hash": "A2EB1AE2D893AFB177796FCA9ACA4563921A44A0DA12C5B86EB168B29FF8CF6D",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\tagged-tuple-list-helper-1860\\tagged-tuple-list-helper.patch"
+    },
+    {
+      "Hash": "62B40B6FA31E89272EA75AE2AF60FDC0A8E1F4F94CA4F43689170D70658812A9",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\near-exact-audit-1845\\typed-operands-1858\\keyfind-tuple-operand.patch"
+    }
+  ]
+}

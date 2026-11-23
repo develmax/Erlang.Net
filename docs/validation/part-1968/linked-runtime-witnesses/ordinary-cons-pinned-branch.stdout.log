@@ -1,0 +1,7 @@
+[{{ok,[{head,a},{middle,b},{flag,c},tail]},[{tail,ok,[tail]}]},
+ {{ok,[{head,a},{middle,b},{flag,c}|improper]},[{tail,improper,[tail]}]},
+ {{ok,fallback},[]},
+ {{ok,[{head,a},{middle,b},{flag,c},tail]},[{head,a},{tail,ok,[tail]}]},
+ {{error,tail_failed,[{effects,10}]},[{head,a},{tail,fail,[tail]}]},
+ {{error,head_failed,[{effects,9}]},[{head,fail_head}]},
+ {{ok,{caught,a,b,c}},[{tail,fail,[tail]}]}].

@@ -1,0 +1,13 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LiteralResultDispatch.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LiteralResultDispatch.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LiteralResultDispatch.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LiteralResultDispatch.cs
+@@ -135,7 +135,8 @@
+ 
+             void EmitCaseFailure()
+             {
+-                if (caseLocation is { } source)
++                // The closed literal selector emits no other source locations.
++                if (caseLocation is { } source && (hasFallback || !owner.SameSourceLine(source, location)))
+                 {
+                     owner.EmitLine(source);
+                 }

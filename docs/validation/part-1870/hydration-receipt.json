@@ -1,0 +1,64 @@
+{
+  "Parent": {
+    "Source": "962350ca46e645ac29f7f0db3c7a8b977a7272fd70c82944d13aa6f89a77ef7c",
+    "Paths": 198,
+    "Compiler": "42293f6f2d957019fa564a4f3f78bc8c4b9cbeeb211868007befc0a7f8507dff",
+    "Tests": "6e3cbb433423c6929fe56823bb492d26c08cdb62a54f2cd73bef49308b40017b",
+    "ParentSource": "1d034472136d350b703ffecf0c383d6b3641959a0558e0e2a47673d52a42dea0",
+    "CorpusTool": "4ba6aa84bb89167a648bc71c3428a46f90be3dbf92c099c3b46d5b6c9df8b2c2"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryArgumentFlow.cs": "313a761cf8909df40933cebb89863460dcf29a69e52182a9056baa0fc4416dbe",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProperListMatchFailures.cs": "5bae1dd9de2ad638bbdcd6ed1e3fbc1333ab89a12ce47e7c9a8c115be7793765",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedReturns.cs": "6a77e44af4eab0640c2729e302410ca3fa4077a73792cda346ff80a50296393c",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TailArgumentCopies.cs": "b96ed3c212dadc852999b5e03c567f9a7a0bd2bccb371e35934d349b086191f4",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": "d64bbacc325a56ca1e7f6f81ab451c3675dc9392c688c329555569aee56edc5f",
+    "tests/Erlang.Tests/Compiler/Beam/BeamKernelIncludeProfileChecks.cs": "5b50e86a9252bdd1f6fe084fbdab4a20dbe5ba9ab5b85c3db0f06f6489834632",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamRetainedConstructorAliasChecks.cs": "37bfdbdc26e9e8412f34877de22cfc575479eb1b657d0ca22bee9d8715bfe815",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamTailArgumentCopyChecks.cs": "628b942daf9c78a113b3c7d59109011e2b191ea271ab6f5a0c7ef5d230e78317",
+    "tests/Erlang.Tests/Erlang.Tests.csproj": "c111112d9dfc8a38c875069534d9cb8b0f6462c221507d539c8011375fa0a9fc",
+    "tests/Erlang.Tests/Harness/Program.cs": "7f84a00101012a45513486e099a948786d8d3309dced13e50fe799c7a9e1069a",
+    "tools/Validation/Erlang.BeamCorpus/OtpWindowsKernelIncludePaths.cs": "66ec101544230755f583bb53053246123a20e72f3b2da3b273caf53fcedc89df",
+    "tools/Validation/Erlang.BeamCorpus/Program.cs": "7a92227449cfc2f465f63e0106ebb6b82a184ef694d3e05af58ec8f8775e8b2b"
+  },
+  "Patches": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\late-list-and-tail-copy-provenance-1870\\tail-argument-copy-composition.patch",
+      "Hash": "ed661a9aaec7f747f90d54a7a49fed49247b39ffa418f7956e4e3702f5981982"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\late-list-and-tail-copy-provenance-1870\\late-list-specialization.patch",
+      "Hash": "1768d204c367057e2f7beb2b0f12e03bb1a89e2fd4a3c4a272b12f70e329b97b"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\late-list-and-tail-copy-provenance-1870\\post-closure-consuming-call-copy.patch",
+      "Hash": "ab421ffe657c57c803589ede0c981ae9f72d9358bb77671e99b587e013336e66"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\late-list-and-tail-copy-provenance-1870\\kernel-bootstrap-include-profile.patch",
+      "Hash": "9ec8f9b45d33a71e50187430a913e124e2c4a8914c05876ce7d503c11592adf0"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\late-list-and-tail-copy-provenance-1870\\register-fixtures.patch",
+      "Hash": "196f1ff45b3f77189aaac14ef235d9c0c1821be732a74a56d217d203450e8d2c"
+    }
+  ],
+  "UpstreamProposals": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\tail-argument-copy-composition-audit\\tail-argument-copy-composition.patch",
+      "Hash": "c6e0853f14c7ff84d0694e1af440fa52d880df5721c8be300136649ef3da5215"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\snmp-logical-include-provenance-1869\\late-list-specialization.patch",
+      "Hash": "1768d204c367057e2f7beb2b0f12e03bb1a89e2fd4a3c4a272b12f70e329b97b"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\post-make-fun-copy-audit\\post-closure-consuming-call-copy.patch",
+      "Hash": "ab421ffe657c57c803589ede0c981ae9f72d9358bb77671e99b587e013336e66"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\metadata-bootstrap-kernel-audit-1869\\kernel-bootstrap-include-profile.patch",
+      "Hash": "59ee3ee9d4c5377ed12854c69efb8bcd6d54f9ec0462d30049115f70e01452e3"
+    }
+  ]
+}

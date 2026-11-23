@@ -1,0 +1,127 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamStaticListClosureMappingChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamStaticListClosureMappingChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamStaticListClosureMappingChecks.cs
+@@ -0,0 +1,111 @@
++using System.Collections;
++using System.Numerics;
++using Erlang;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamStaticListClosureMappingChecks
++{
++    internal const string TestName = "compiler/beam/calls-proven-closed-list-mapper-directly";
++    private const string Fixture = "beam_static_list_closure_mapping.erl";
++    private const string WrongLayout = "Only the proven closed mapper should call its lifted function directly.";
++    private const string WrongValue = "The list mapper changed its result or improper generator failure.";
++    private const string Source = """
++        -module(beam_static_list_closure_mapping).
++        -export([known/1, captured/2, unknown/2, separate_line/1]).
++        known(Inputs) ->
++            F = fun(X) -> case X of
++                Pair = {19,_} -> {1,Pair};
++                Pair = {20,_} -> {2,Pair};
++                Other -> {3,Other}
++            end end,
++            [F(Value) || Value <- Inputs].
++        captured(Inputs, Prefix) ->
++            F = fun(Value) -> {Prefix,Value} end,
++            [F(Value) || Value <- Inputs].
++        unknown(Inputs, F) ->
++            [F(Value) || Value <- Inputs].
++        separate_line(Inputs) ->
++            F = fun(Value) -> {same,Value} end,
++            [F(Value)
++             || Value <- Inputs].
++        """;
++
++    internal static async Task Run()
++    {
++        byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
++        var module = BeamModule.Prepare(image, new BeamDependencySelection([]));
++        await using var runtime = new ProcessRuntime();
++        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
++        await actor.InvokeAsync(async context =>
++        {
++            Term payload = Term.A("payload");
++            Term input = Term.Tuple(Term.I(19), payload);
++            Term expected = Term.List(Term.Tuple(Term.I(1), input), Term.Tuple(Term.I(3), payload));
++            if (!expected.Equals(await module.Invoke(context, "known", Term.List(input, payload)))
++                || !Nil.Value.Equals(await module.Invoke(context, "known", Nil.Value))
++                || !Term.List(Term.Tuple(payload, input)).Equals(await module.Invoke(
++                    context,
++                    "captured",
++                    Term.List(input),
++                    payload
++                )))
++            {
++                throw new InvalidOperationException(WrongValue);
++            }
++
++            try
++            {
++                await module.Invoke(context, "known", new Cons(input, payload));
++            }
++            catch (ErlangException error) when (error.ExceptionClass == ErlangExceptionClasses.Error
++                && error.Reason.Equals(Term.Tuple(Term.A("bad_generator"), payload)))
++            {
++                return Nil.Value;
++            }
++
++            throw new InvalidOperationException(WrongValue);
++        });
++
++        if (!UsesMappingCall(image, "known", direct: true)
++            || !UsesMappingCall(image, "captured", direct: false) || !UsesMappingCall(image, "unknown", direct: false)
++            || !UsesMappingCall(image, "separate_line", direct: false))
++        {
++            throw new InvalidOperationException(WrongLayout);
++        }
++    }
++
++    private static bool UsesMappingCall(byte[] image, string parent, bool direct)
++    {
++        object code = Code(image);
++        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        object[] instructions = Items(code, "Instructions");
++        int start = Array.FindIndex(
++            instructions,
++            instruction => Opcode(instruction) == FunctionInfo
++                && Items(instruction, "Operands") is [_, var name, var arity]
++                && atoms[Value(name)].StartsWith($"-{parent}/", StringComparison.Ordinal)
++                && atoms[Value(name)].Contains("-lc$", StringComparison.Ordinal) && Value(arity) == 2
++        );
++        if (start < 0)
++        {
++            throw new InvalidOperationException(WrongLayout);
++        }
++
++        byte[] operations = instructions.Skip(start + 1)
++            .TakeWhile(instruction => Opcode(instruction) != FunctionInfo).Select(Opcode).ToArray();
++
++        return direct
++            ? operations.Count(op => op == LocalCall) == 2 && operations.Contains(TrimFrame) && !operations.Contains(CallFun)
++            : operations.Contains(CallFun) || operations.Contains(CallFunTyped);
++    }
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++
++    private static object[] Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
++}
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12608,6 +12608,7 @@
+ Test(Erlang.Tests.BeamEnrollmentRequiredEnumerationChecks.TestName, Erlang.Tests.BeamEnrollmentRequiredEnumerationChecks.Run);
+ Test(Erlang.Tests.BeamEnrollmentFinalDecodersChecks.TestName, Erlang.Tests.BeamEnrollmentFinalDecodersChecks.Run);
+ Test(Erlang.Tests.BeamIntegerTaggedAliasResultChecks.TestName, Erlang.Tests.BeamIntegerTaggedAliasResultChecks.Run);
++Test(Erlang.Tests.BeamStaticListClosureMappingChecks.TestName, Erlang.Tests.BeamStaticListClosureMappingChecks.Run);
+ Test(
+     Erlang.Tests.BeamWxTupleArityForwardChecks.TestName,
+     () =>

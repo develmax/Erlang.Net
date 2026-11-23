@@ -1,0 +1,12 @@
+[{project,[],a,{ok,missing}},
+ {project,[{a,42,d,e}],a,{ok,{ok,42}}},
+ {project,[{b,yes,d,e}],a,{ok,missing}},
+ {project,[{a,short}],a,{error,{case_clause,{value,{a,short}}}}},
+ {project,invalid,a,{error,badarg}},
+ {project,[{1.0,numeric,left,right}],1,{ok,{ok,numeric}}},
+ {keep,[],a,{ok,{missing,a}}},
+ {keep,[{a,42,d,e}],a,{ok,{ok,42}}},
+ {keep,[{b,yes,d,e}],a,{ok,{missing,a}}},
+ {keep,[{a,short}],a,{error,{case_clause,{value,{a,short}}}}},
+ {keep,invalid,a,{error,badarg}},
+ {keep,[{1.0,numeric,left,right}],1,{ok,{ok,numeric}}}].

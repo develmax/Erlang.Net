@@ -1,0 +1,25 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -5241,7 +5241,8 @@
+ 
+                     return (sizeFacts & PairFacts.Natural) == PairFacts.Natural
+                         ? PairFacts.Length : (sizeFacts & PairFacts.Numeric) != 0 ? PairFacts.NumericLength : PairFacts.Unknown;
+-                case Expr.Binary binary when observeListArithmeticCalls && IsRegisterArithmeticOperator(binary.Operator):
++                case Expr.Binary binary when observeListArithmeticCalls
++                    && binary.Operator != ErlangOperators.Plus && IsRegisterArithmeticOperator(binary.Operator):
+                     var leftFacts = ReadPairFacts(binary.Left, bindings, contexts);
+                     var rightFacts = ReadPairFacts(binary.Right, bindings, contexts);
+ 
+@@ -5259,6 +5260,11 @@
+                     }
+ 
+                     PairFacts integerSum = left & right & PairFacts.Natural;
++                    if (observeListArithmeticCalls)
++                    {
++                        integerSum |= left & right & PairFacts.Integer;
++                    }
++
+                     PairFacts sign = left & right & (PairFacts.NonnegativeNumber | PairFacts.NonpositiveNumber);
+ 
+                     return inferNumericPairs ? integerSum | PairFacts.Numeric | sign : integerSum;

@@ -1,0 +1,147 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+@@ -1179,6 +1179,7 @@
+         code = CompactClosedCatchArgumentFrame(code, labelCount) ?? code;
+         code = FoldStagedListConstructions(code, labelCount) ?? code;
+         code = FoldTerminalClosureFrames(code, labelCount) ?? code;
++        code = FoldHeadTupleReturnFrames(code, labelCount) ?? code;
+         if (OrderFinalPhysicalLabels(code, labelCount) is { } ordered)
+         {
+             (code, labelCount) = ordered;
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.HeadTupleReturnFrames.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.HeadTupleReturnFrames.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.HeadTupleReturnFrames.cs
+@@ -0,0 +1,131 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private byte[]? FoldHeadTupleReturnFrames(ReadOnlyMemory<byte> code, int labelCount)
++    {
++        if (ModuleOptimizationDisabled || !SsaTypeInferenceEnabled || !code.Span.Contains(GetHead)
++            || DecodeLateAtomicProjectionSlots(code, labelCount) is not { } decoded)
++        {
++            return null;
++        }
++
++        var body = decoded.Body;
++        using var output = new MemoryStream();
++        int copied = 0;
++        for (int info = 0; info + 10 < body.Count; info++)
++        {
++            if (body[info] is not { Definition.Opcode: FunctionInfo, Operands: [_, _, var arity] }
++                || body[info + 1].Definition.Opcode != Label
++                || body[info + 2] is not { Definition.Opcode: Allocate, Operands: [{ Value.IsZero: true }, var entryLive] }
++                || entryLive.Value > arity.Value
++                || body[info + 3] is not
++                {
++                    Definition.Opcode: ExactEqualTest,
++                    Operands: [var failure, { Kind: BeamOperandParameters.X, TypeIndex: null } tested,
++                    { Kind: BeamOperandParameters.Atom }]
++                }
++                || tested.Value >= entryLive.Value)
++            {
++                continue;
++            }
++
++            int position = SkipLines(info + 4);
++            if (position + 6 >= body.Count
++                || body[position] is not
++                {
++                    Definition.Opcode: GetHead,
++                    Operands: [{ Kind: BeamOperandParameters.X, TypeIndex: null } source,
++                    { Kind: BeamOperandParameters.X, Value.IsZero: true, TypeIndex: null } head]
++                }
++                || source.Value >= entryLive.Value
++                || body[position + 1] is not { Definition.Opcode: TestHeap, Operands: [{ Value: var words }, { Value.IsOne: true }] }
++                || body[position + 2] is not
++                {
++                    Definition.Opcode: PutTuple,
++                    Operands: [var result, { Value: var fields }, { Kind: BeamOperandParameters.Atom }, var value]
++                }
++                || fields != 2 || words != fields + 1 || result != head || value != head
++                || body[position + 3] is not { Definition.Opcode: Deallocate, Operands: [{ Value.IsZero: true }] }
++                || body[position + 4].Definition.Opcode != Return
++                || body[position + 5] is not { Definition.Opcode: Label, Operands: [var fallback] }
++                || fallback.Value != failure.Value)
++            {
++                continue;
++            }
++
++            int tail = SkipLines(position + 6);
++            if (tail < body.Count && body[tail] is
++                {
++                    Definition.Opcode: Move,
++                    Operands: [{ Kind: BeamOperandParameters.X, TypeIndex: null } arg, var argument]
++                }
++                && arg.Value < entryLive.Value && argument == head)
++            {
++                tail = SkipLines(tail + 1);
++            }
++
++            if (tail + 1 >= body.Count || body[tail] is not
++                {
++                    Definition.Opcode: TailLocalCallWithFrame,
++                    Operands: [var outgoing, _, { Value.IsZero: true }]
++                }
++                || outgoing.Value > entryLive.Value || !EndsFunction(tail + 1))
++            {
++                continue;
++            }
++
++            output.Write(code.Span[copied..body[info + 2].Offset]);
++            output.Write(code.Span[body[info + 3].Offset..body[position].Offset]);
++            output.WriteByte(TestHeap);
++            BeamCompactWriter.Write(output, BeamWire.UnsignedTag, words);
++            BeamCompactWriter.Write(output, BeamWire.UnsignedTag, source.Value + 1);
++            output.Write(code.Span[body[position].Offset..body[position + 1].Offset]);
++            output.Write(code.Span[body[position + 2].Offset..body[position + 3].Offset]);
++            output.Write(code.Span[body[position + 4].Offset..body[tail].Offset]);
++            output.WriteByte(TailLocalCall);
++            int next = body[tail + 1].Offset;
++            output.Write(code.Span[(body[tail].Offset + 1)..(next - CompactRegisterCountWidth(0))]);
++            copied = next;
++            info = tail;
++        }
++
++        if (copied == 0)
++        {
++            return null;
++        }
++
++        output.Write(code.Span[copied..]);
++
++        return output.ToArray();
++
++        int SkipLines(int index)
++        {
++            while (index < body.Count && body[index].Definition.Opcode == Line)
++            {
++                index++;
++            }
++
++            return index;
++        }
++
++        bool EndsFunction(int index)
++        {
++            if (body[index].Definition.Opcode == EndCode)
++            {
++                return true;
++            }
++
++            if (body[index].Definition.Opcode != Label)
++            {
++                return false;
++            }
++
++            index = SkipLines(index + 1);
++
++            return index < body.Count && body[index].Definition.Opcode == FunctionInfo;
++        }
++    }
++}

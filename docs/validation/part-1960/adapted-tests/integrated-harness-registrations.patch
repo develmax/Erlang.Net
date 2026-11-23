@@ -1,0 +1,18 @@
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12544,6 +12544,15 @@
+ Test(Erlang.Tests.BeamProtectedEntryAliasChecks.TestName, Erlang.Tests.BeamProtectedEntryAliasChecks.Run);
+ Test(Erlang.Tests.BeamProtectedShortReturnChecks.TestName, Erlang.Tests.BeamProtectedShortReturnChecks.Run);
+ Test(Erlang.Tests.BeamBinaryConstructionStringChecks.TestName, Erlang.Tests.BeamBinaryConstructionStringChecks.Run);
++Test(Erlang.Tests.BeamFramelessElementArgumentChecks.TestName, Erlang.Tests.BeamFramelessElementArgumentChecks.Run);
++Test(Erlang.Tests.BeamRetainedCallTupleChecks.TestName, () =>
++{
++    Erlang.Tests.BeamRetainedCallTupleChecks.Run();
++    return Task.CompletedTask;
++});
++Test(Erlang.Tests.BeamTupleMapContinuationChecks.TestName, Erlang.Tests.BeamTupleMapContinuationChecks.Run);
++Test(Erlang.Tests.BeamClosedRecursiveEntrySlotChecks.TestName, Erlang.Tests.BeamClosedRecursiveEntrySlotChecks.Run);
++Test(Erlang.Tests.BeamClosedIntegerRecurrenceChecks.TestName, Erlang.Tests.BeamClosedIntegerRecurrenceChecks.Run);
+ Test(Erlang.Tests.BeamPrimitiveBinaryProjectionChecks.TestName, Erlang.Tests.BeamPrimitiveBinaryProjectionChecks.Run);
+ Test(Erlang.Tests.BeamClosedTryTupleDispatchChecks.TestName, Erlang.Tests.BeamClosedTryTupleDispatchChecks.Run);
+ Test(

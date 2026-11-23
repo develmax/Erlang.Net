@@ -1,0 +1,10 @@
+{asn1rt_nif,compile_loaded,9,
+            [{ok,{{2,<<5>>},<<>>}},
+             {ok,{{4,<<"abc">>},<<>>}},
+             {ok,{{16,[{2,<<5>>}]},<<>>}},
+             {exit,{error,{asn1,{invalid_value,1}}}},
+             {exit,{error,{asn1,{invalid_value,0}}}},
+             {error,badarg},
+             {ok,<<>>},
+             {error,badarg},
+             {error,badarg}]}.

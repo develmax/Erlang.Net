@@ -1,0 +1,64 @@
+[Official, Baseline, Candidate] = init:get_plain_arguments(),
+E='EnrollmentMessageSyntax-2009',
+I='PKIX1Implicit-2009',
+P='PKIXCMP-2023',
+IntegerCases=[[],[0],[1],[127,128],[255,256,32768],[-1,-128,-129],[16#100000000,16#10000000000000000],
+              lists:seq(1,128),[{bad,term}],[unexpected],[0,unexpected],[a|improper],[1|improper],invalid],
+StringCases=[[],[<<>>],[<<"a">>],[<<"12">>,<<"345">>],[<<"a">>,"bc"],[<<226,130,172>>],
+             [binary:copy(<<65>>,127),binary:copy(<<66>>,128)],[<<"ok">>,[Bad||Bad<-[64,16#110000]]],
+             [17],[{unexpected,shape}],[<<"a">>|improper],[a|improper],<<"not-a-list">>,invalid],
+PollCases=[[],[{'PollRepContent_SEQOF',1,2,asn1_NOVALUE}],
+           [{'PollRepContent_SEQOF',1,2,[<<"a">>,<<"bc">>]}],
+           [{'PollRepContent_SEQOF',-1,-2,[]},{'PollRepContent_SEQOF',0,1,[<<>>]}],
+           [{'PollRepContent_SEQOF',1,2,[bad]}],[{'PollRepContent_SEQOF',1,2,invalid}],
+           [{'PollRepContent_SEQOF',1,2,[<<"x">>|bad]}],[{'PollRepContent_SEQOF',1,2,[<<"ok">>,invalid]}],
+           [{unexpected,shape}],[{unexpected,shape}|improper],improper],
+Specs=[{E,'BodyPartList',IntegerCases},{E,'BodyPartPath',IntegerCases},
+       {I,'NoticeReference',[{'NoticeReference',{visibleString,"Example"},N} || N <- IntegerCases]},
+       {P,'PKIFreeText',StringCases},{P,'POPODecKeyRespContent',IntegerCases},{P,'PollRepContent',PollCases}],
+Load=fun(Root,M) ->
+    code:purge(M), code:delete(M), code:purge(M),
+    Path=filename:join([Root,"lib","public_key-1.21.7","ebin",atom_to_list(M)++".beam"]),
+    {ok,Beam}=file:read_file(Path),
+    {module,M}=code:load_binary(M,"probe:"++atom_to_list(M),Beam)
+end,
+Observe=fun(M,F,T,V) ->
+    case apply(M,F,[T,V]) of
+        {error,{asn1,{Reason,Stack}}} when is_list(Stack) ->
+            {error,{asn1,Reason,[S || S <- Stack,element(1,S)=:=M]}};
+        Other -> Other
+    end
+end,
+Run=fun(Root) ->
+    [begin Load(Root,M),
+      {M,T,[begin
+              Enc=Observe(M,encode,T,V),
+              Dec=case Enc of {ok,Bin} -> Observe(M,decode,T,Bin); _ -> skipped end,
+              term_to_binary({V,Enc,Dec})
+            end || V <- Cases]}
+    end || {M,T,Cases} <- Specs]
+end,
+R=Run(Official), B=Run(Baseline), A=Run(Candidate),
+Counts=lists:map(fun({{M,T,X},{M,T,Y},{M,T,Z}}) ->
+    Rows=[begin
+      {V,ExpectedEncode,ExpectedDecode}=binary_to_term(Exp),
+      {V,BeforeEncode,_}=binary_to_term(Bef),
+      {V,ObservedEncode,ObservedDecode}=binary_to_term(Act),
+      Strict=ExpectedDecode =:= ObservedDecode,
+      Known=M =:= E andalso lists:member(T,['BodyPartList','BodyPartPath'])
+           andalso lists:member(V,[[-1,-128,-129],[16#100000000,16#10000000000000000]])
+           andalso element(1,ExpectedDecode) =:= error andalso element(1,ObservedDecode) =:= error,
+      Match=ExpectedEncode =:= BeforeEncode andalso ExpectedEncode =:= ObservedEncode,
+      true=Match,
+      true=Bef =:= Act,
+      true=Strict orelse Known,
+      {Match,Strict}
+    end || {Exp,Bef,Act} <- lists:zip3(X,Y,Z)],
+    Enc=length([same || {true,_} <- Rows]), Strict=length([same || {_,true} <- Rows]),
+    io:format("~p/~p ~p cases, encoder exact ~p, strict round-trip ~p, stable prior decode stack differences ~p~n",
+              [M,T,length(Rows),Enc,Strict,Enc-Strict]),
+    {Enc,Strict}
+end,lists:zip3(R,B,A)),
+81=lists:sum([Total||{Total,_}<-Counts]),
+77=lists:sum([Strict||{_,Strict}<-Counts]),
+halt().

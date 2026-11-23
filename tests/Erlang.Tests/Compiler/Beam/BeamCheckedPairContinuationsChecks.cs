@@ -1,0 +1,101 @@
+using System.Collections;
+using System.Numerics;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamCheckedPairContinuationsChecks
+{
+    internal const string TestName = "compiler/beam/keeps-checked-pair-tails-and-lookup-roots-in-pinned-registers";
+    private const string Fixture = "beam_checked_pair_continuations_probe.erl";
+    private const string UnexpectedLayout = "Checked pair continuations did not match their pinned layout.";
+
+    internal const string Source = """
+        -module(beam_checked_pair_continuations_probe).
+        -export([launch/4, unproved/2, read/1, other_lookup/1]).
+
+        launch(A, B, C, Input) ->
+            case Input of
+                {Left, Right} -> finish(A, B, C, Left, Right);
+                Key ->
+                    case lookup(Key) of
+                        {ready, {Left, Right}} -> finish(A, B, C, Left, Right);
+                        Error -> Error
+                    end
+            end.
+
+        unproved(Prefix, Input) ->
+            case Input of
+                {Left, Right} -> finish(Prefix, a, b, Left, Right);
+                Key ->
+                    case other_lookup(Key) of
+                        {ready, {Left, Right}} -> finish(Prefix, a, b, Left, Right);
+                        Other -> Other
+                    end
+            end.
+
+        lookup(Key) ->
+            case ?MODULE:read({Key, left_side}) of
+                missing -> {error, {left_absent, Key}};
+                Left ->
+                    case ?MODULE:read({Key, right_side}) of
+                        missing -> {error, {right_absent, Key}};
+                        Right -> {ready, {Left, Right}}
+                    end
+            end.
+
+        read({Key, Side}) ->
+            self() ! {read, Key, Side},
+            case {Key, Side} of
+                {left_bad, left_side} -> missing;
+                {right_bad, right_side} -> missing;
+                {_, left_side} -> left_value;
+                {_, right_side} -> right_value
+            end.
+
+        other_lookup(Key) -> {ready, Key}.
+        finish(A, B, C, Left, Right) -> {finished, A, B, C, Left, Right}.
+        """;
+
+    internal static byte[] CompileFixture() => CodeGeneration.CompileBeamModule(Source, Fixture);
+
+    internal static void Run()
+    {
+        object code = Code(CompileFixture());
+        object[] instructions = Items(code, "Instructions").ToArray();
+        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
+        object[] launch = Body("launch", 4);
+        object[] lookup = Body("lookup", 1);
+        int isPair = Array.FindIndex(launch, instruction => Opcode(instruction) == IsTuple);
+        int allocate = Array.FindIndex(launch, instruction => Opcode(instruction) == Allocate);
+        int firstCall = Array.FindIndex(lookup, instruction => Opcode(instruction) == ExternalCall);
+        if (isPair < 0 || allocate <= isPair || !launch.Any(instruction => Opcode(instruction) == Swap)
+            || !launch.Any(instruction => Opcode(instruction) == TailLocalCall)
+            || firstCall < 0 || Opcode(lookup[firstCall + 1]) != Move
+            || Opcode(lookup[firstCall + 2]) != ExactEqualTest)
+        {
+            throw new InvalidOperationException(UnexpectedLayout);
+        }
+
+        object[] Body(string name, int arity)
+        {
+            int info = Array.FindIndex(
+                instructions,
+                instruction => Opcode(instruction) == FunctionInfo
+                    && Items(instruction, "Operands").ToArray() is [_, var atom, var width]
+                    && atoms[Value(atom)] == name && Value(width) == arity
+            );
+
+            return info < 0 ? [] : instructions.Skip(info + 2)
+                .TakeWhile(instruction => Opcode(instruction) != FunctionInfo).ToArray();
+        }
+    }
+
+    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
+
+    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
+
+    private static IEnumerable<object> Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>();
+}

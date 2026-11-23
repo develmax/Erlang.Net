@@ -21,7 +21,8 @@ internal sealed partial class BeamModuleCompiler
         private sealed record DeferredCallTuple(
             string Binding,
             int Consumer,
-            (int Field, string Name)[] Fields
+            (int Field, string Name)[] Fields,
+            IReadOnlyDictionary<string, int>? FieldConsumers = null
         );
 
         private sealed record TupleFieldCase(
@@ -413,6 +414,55 @@ internal sealed partial class BeamModuleCompiler
             }
 
             return new(FormattableString.Invariant($"\0checked-tuple-{nextCall}"), consumer, fields);
+        }
+
+        private DeferredCallTuple? ReadResultTupleLifetime(
+            CallResultCheck check,
+            int nextCall,
+            (Expr.Call Call, string? Result)[] calls,
+            IReadOnlyDictionary<string, int> firstReads,
+            IReadOnlyDictionary<string, int> lastReads
+        )
+        {
+            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled
+                || check is not { Tag: null, Arity: int arity, Bindings: { } bindings }
+                || !HasFixedTupleCallResult(calls[nextCall - 1].Call, arity))
+            {
+                return null;
+            }
+
+            var fields = bindings.Where(field => lastReads.GetValueOrDefault(field.Name, -1) > nextCall).ToArray();
+            if (fields.Count(field => lastReads[field.Name] == calls.Length) < 2)
+            {
+                return null;
+            }
+
+            var consumers = new Dictionary<string, int>(StringComparer.Ordinal);
+            foreach (var field in fields)
+            {
+                int use = lastReads[field.Name];
+                if (use == calls.Length)
+                {
+                    if (firstReads.ContainsKey(field.Name))
+                    {
+                        return null;
+                    }
+                }
+                else if (firstReads.GetValueOrDefault(field.Name, -1) != use
+                    || !calls[use].Call.Arguments.All(IsPreparedOperand))
+                {
+                    return null;
+                }
+
+                consumers.Add(field.Name, use);
+            }
+
+            return new(
+                FormattableString.Invariant($"\0checked-tuple-{nextCall}"),
+                calls.Length,
+                fields,
+                consumers
+            );
         }
 
         private static void PrepareCallResultChecks(

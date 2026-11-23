@@ -1,0 +1,101 @@
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12554,6 +12554,7 @@
+ Test(Erlang.Tests.BeamTerminalCallProjectionChecks.SharedReturnsTestName, Erlang.Tests.BeamTerminalCallProjectionChecks.CheckMixedTupleReturns);
+ Test(Erlang.Tests.BeamTerminalCallProjectionChecks.MixedTupleTableTestName, Erlang.Tests.BeamTerminalCallProjectionChecks.CheckMixedTupleTableOrder);
+ Test(Erlang.Tests.BeamTerminalCallProjectionChecks.ColdOwnershipTestName, Erlang.Tests.BeamTerminalCallProjectionChecks.CheckColdOwnership);
++Test(Erlang.Tests.BeamCheckedResultPayloadChecks.TestName, Erlang.Tests.BeamCheckedResultPayloadChecks.Run);
+ Test(Erlang.Tests.BeamCallArgumentKillsChecks.TestName, Erlang.Tests.BeamCallArgumentKillsChecks.Run);
+ Test(Erlang.Tests.BeamMeasuredDecoderPairChecks.TestName, Erlang.Tests.BeamMeasuredDecoderPairChecks.Run);
+ Test(Erlang.Tests.BeamClosedDecoderTagsChecks.TestName, Erlang.Tests.BeamClosedDecoderTagsChecks.Run);
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamCheckedResultPayloadChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamCheckedResultPayloadChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamCheckedResultPayloadChecks.cs
+@@ -0,0 +1,85 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamCheckedResultPayloadChecks
++{
++    internal const string TestName = "compiler/beam/shares-the-checked-call-result-payload";
++    private const string Module = "beam_checked_result_payload";
++    private const string ShapeError = "The checked result payload was not shared within its owning branches.";
++
++    private const string Source = """
++        -module(beam_checked_result_payload).
++        -export([read/1]).
++        -record(request, {data, config, uri}).
++        -record(file_info, {size, type, access, atime, mtime, ctime, mode,
++                            links, major_device, minor_device, inode, uid, gid}).
++
++        read(Info = #request{}) -> result(Info).
++
++        result(Info) ->
++            Path = mod_alias:path(Info#request.data, Info#request.config, Info#request.uri),
++            Suffix = httpd_util:strip_extension_dot(Path),
++            case file:read_file_info(Path) of
++                {ok, #file_info{type = directory}} ->
++                    Status = httpd_file:handle_error(eacces, "access", Info, Path),
++                    {answer, [{status,Status}|Info#request.data]};
++                {ok, FileInfo} ->
++                    Mime = httpd_util:lookup_mime_default(Info#request.config, Suffix, "text/plain"),
++                    Length = io_lib:write(FileInfo#file_info.size),
++                    Head = [{content_type,Mime},{content_length,Length},{code,200}],
++                    {answer,[{response,{response,Head,nobody}}|Info#request.data]};
++                {error, Reason} ->
++                    Status = httpd_file:handle_error(Reason, "access", Info, Path),
++                    {answer, [{status,Status}|Info#request.data]}
++            end.
++        """;
++
++    internal static void Run()
++    {
++        const string pairTag = "{ok, ";
++        string alternate = Source.Replace(pairTag, "{ok, acknowledged, ", StringComparison.Ordinal)
++            .Replace("{error, ", "{error, acknowledged, ", StringComparison.Ordinal);
++        if (!HasSharedSelection(Source) || HasSharedSelection(alternate))
++        {
++            throw new InvalidOperationException(ShapeError);
++        }
++    }
++
++    private static bool HasSharedSelection(string source)
++    {
++        object code = Code(CodeGeneration.CompileBeamModule(source, Module + ".erl"));
++        object[] instructions = Children(code, "Instructions");
++        for (int index = 0; index + 6 < instructions.Length; index++)
++        {
++            if (Opcode(instructions[index]) == IsTuple
++                && Opcode(instructions[index + 1]) == TestArity
++                && Operands(instructions[index + 1]).Select(Value).Last() == 2
++                && Opcode(instructions[index + 2]) == GetTupleElement
++                && Opcode(instructions[index + 3]) == GetTupleElement
++                && Operands(instructions[index + 3]) is [var tuple, var field, var saved]
++                && Value(field) == 1 && Value(tuple) == 0
++                && Opcode(instructions[index + 4]) == SelectValue
++                && Opcode(instructions[index + 5]) == Label
++                && Opcode(instructions[index + 6]) == IsTaggedTuple
++                && Operands(instructions[index + 6])[1].Equals(saved))
++            {
++                return true;
++            }
++        }
++
++        return false;
++    }
++
++    private static object[] Operands(object instruction) => Children(instruction, "Operands");
++
++    private static object[] Children(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++}

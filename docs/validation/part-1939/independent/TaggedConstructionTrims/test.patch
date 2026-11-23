@@ -1,0 +1,50 @@
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12556,6 +12556,7 @@
+ Test(Erlang.Tests.BeamTerminalCallProjectionChecks.ColdOwnershipTestName, Erlang.Tests.BeamTerminalCallProjectionChecks.CheckColdOwnership);
+ Test(Erlang.Tests.BeamCheckedResultPayloadChecks.TestName, Erlang.Tests.BeamCheckedResultPayloadChecks.Run);
+ Test(Erlang.Tests.BeamCheckedResultPayloadChecks.HeaderHeapTestName, Erlang.Tests.BeamCheckedResultPayloadChecks.CheckHeaderHeap);
++Test(Erlang.Tests.BeamCheckedResultPayloadChecks.ConstructionTrimTestName, Erlang.Tests.BeamCheckedResultPayloadChecks.CheckConstructionTrim);
+ Test(Erlang.Tests.BeamCallArgumentKillsChecks.TestName, Erlang.Tests.BeamCallArgumentKillsChecks.Run);
+ Test(Erlang.Tests.BeamMeasuredDecoderPairChecks.TestName, Erlang.Tests.BeamMeasuredDecoderPairChecks.Run);
+ Test(Erlang.Tests.BeamClosedDecoderTagsChecks.TestName, Erlang.Tests.BeamClosedDecoderTagsChecks.Run);
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamCheckedResultPayloadChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamCheckedResultPayloadChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamCheckedResultPayloadChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamCheckedResultPayloadChecks.cs
+@@ -11,6 +11,8 @@
+     internal const string TestName = "compiler/beam/shares-the-checked-call-result-payload";
+     internal const string HeaderHeapTestName = "compiler/beam/packs-the-terminal-header-list-heap";
+     private const string HeaderHeapError = "The terminal header list did not use its single live heap reservation.";
++    internal const string ConstructionTrimTestName = "compiler/beam/trims-owned-terminal-construction-frames";
++    private const string ConstructionTrimError = "A terminal construction retained dead slots across a call or dropped a used slot.";
+     private const string Module = "beam_checked_result_payload";
+     private const string ShapeError = "The checked result payload was not shared within its owning branches.";
+ 
+@@ -50,6 +52,26 @@
+         {
+             throw new InvalidOperationException(ShapeError);
+         }
++    }
++
++    internal static void CheckConstructionTrim()
++    {
++        const string original = "{answer,[{response,{response,Head,nobody}}|Info#request.data]}";
++        string alternate = Source.Replace(original,
++            "{answer,[{response,{response,Head,nobody}},{kept,FileInfo}|Info#request.data]}", StringComparison.Ordinal);
++        if (alternate == Source || CountTrims(Source, [3, 1]) != 2 || CountTrims(Source, [2, 2]) != 1
++            || CountTrims(alternate, [2, 2]) != 0)
++        {
++            throw new InvalidOperationException(ConstructionTrimError);
++        }
++    }
++
++    private static int CountTrims(string source, int[] operands)
++    {
++        object code = Code(CodeGeneration.CompileBeamModule(source, Module + ".erl"));
++
++        return Children(code, "Instructions").Count(instruction => Opcode(instruction) == TrimFrame
++            && Operands(instruction).Select(Value).SequenceEqual(operands));
+     }
+ 
+     internal static void CheckHeaderHeap()

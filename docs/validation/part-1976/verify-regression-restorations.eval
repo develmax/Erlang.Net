@@ -1,0 +1,42 @@
+[Input]=init:get_plain_arguments(),
+{ok,Data}=file:read_file(Input),
+Rows=[binary:split(L,<<9>>,[global]) || L <- binary:split(Data,<<10>>,[global,trim_all])],
+Normalize=fun(Is) ->
+    Labels=[L || {label,L} <- Is],
+    Map=maps:from_list(lists:zip(Labels,lists:seq(1,length(Labels)))),
+    Walk=fun
+        T({f,L}) -> {f,maps:get(L,Map,{outside,L})};
+        T({literal,_}=V) -> V;
+        T({make_fun3,M,I,_,Dst,Args}) -> {make_fun3,M,I,uniq,T(Dst),T(Args)};
+        T(V) when is_tuple(V) -> list_to_tuple(T(tuple_to_list(V)));
+        T([H|R]) -> [T(H)|T(R)];
+        T(V) -> V
+    end,
+    [Walk(I) || I <- Is, not(is_tuple(I) andalso lists:member(element(1,I),[label,line,func_info]))]
+end,
+Read=fun(Module,Name,Arity,Path) ->
+    {beam_file,Module,_,_,_,Functions}=beam_disasm:file(binary_to_list(string:trim(Path))),
+    [Result]=[Is || {function,F,A,_,Is} <- Functions,F=:=Name,A=:=Arity],
+    Normalize(Result)
+end,
+Slots=fun(Is) -> [N || I <- Is, N <- case I of {allocate,S,_}->[S];{allocate_heap,S,_,_}->[S];_ -> [] end] end,
+Distance=fun(Ref,Other) when length(Ref)=:=length(Other) ->
+    lists:sum([abs(L-R)||{L,R}<-lists:zip(Ref,Other)]);
+    (_,_) -> unknown end,
+Results=[begin
+    M=binary_to_atom(Module,utf8), F=binary_to_atom(Name,utf8), A=binary_to_integer(Arity),
+    O=Read(M,F,A,Pinned), B=Read(M,F,A,Before), C=Read(M,F,A,Candidate),
+    SD0=Distance(Slots(O),Slots(B)), SD1=Distance(Slots(O),Slots(C)),
+    Pass=case Metric of
+        <<"normalized">> -> O=:=B andalso O=:=C;
+        <<"frame">> -> is_integer(SD0) andalso is_integer(SD1) andalso SD1=<SD0
+    end,
+    Result=#{function=>{M,F,A},metric=>Metric,pinned_sizes=>Slots(O),before_sizes=>Slots(B),
+             candidate_sizes=>Slots(C),equal_before=>O=:=B,equal_candidate=>O=:=C,
+             passed=>Pass},
+    io:format("~0p.~n",[Result]), Result
+end || [Module,Name,Arity,Metric,Pinned,Before,Candidate] <- Rows],
+case length(Results)=:=3 andalso lists:all(fun(#{passed:=Pass})->Pass end,Results) of
+    true -> halt(0);
+    false -> halt(1)
+end.

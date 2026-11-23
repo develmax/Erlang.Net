@@ -1,0 +1,28 @@
+model "lib/diameter-2.7.2/ebin/diameter_gen_acct_rfc6733.beam" {msg2rec,1} root_clauses exact
+model "lib/diameter-2.7.2/ebin/diameter_gen_acct_rfc6733.beam" {rec2msg,1} root_clauses exact
+model "lib/diameter-2.7.2/ebin/diameter_gen_base_accounting.beam" {msg2rec,1} root_clauses exact
+model "lib/diameter-2.7.2/ebin/diameter_gen_base_accounting.beam" {rec2msg,1} root_clauses exact
+model "lib/diameter-2.7.2/ebin/diameter_gen_base_rfc3588.beam" {msg2rec,1} root_clauses exact
+model "lib/diameter-2.7.2/ebin/diameter_gen_base_rfc3588.beam" {rec2msg,1} root_clauses exact
+model "lib/diameter-2.7.2/ebin/diameter_gen_base_rfc6733.beam" {msg2rec,1} root_clauses exact
+model "lib/diameter-2.7.2/ebin/diameter_gen_base_rfc6733.beam" {rec2msg,1} root_clauses exact
+model "lib/erts-17.1/ebin/zlib.beam" {arg_eos_behavior,1} root_clauses exact
+model "lib/erts-17.1/ebin/zlib.beam" {arg_flush,1} root_clauses exact
+model "lib/erts-17.1/ebin/zlib.beam" {arg_strategy,1} root_clauses exact
+model "lib/megaco-4.9.2/ebin/megaco_compact_text_encoder_v1.beam" {enc_auditItem,2} root_clauses exact
+model "lib/megaco-4.9.2/ebin/megaco_compact_text_encoder_v1.beam" {enc_immAckRequired,2} branch_case exact
+model "lib/megaco-4.9.2/ebin/megaco_compact_text_encoder_v1.beam" {enc_notifyCompletionItem,2} branch_case exact
+model "lib/megaco-4.9.2/ebin/megaco_compact_text_encoder_v2.beam" {enc_auditItem,2} root_clauses exact
+model "lib/megaco-4.9.2/ebin/megaco_compact_text_encoder_v2.beam" {enc_immAckRequired,2} branch_case exact
+model "lib/megaco-4.9.2/ebin/megaco_compact_text_encoder_v2.beam" {enc_notifyCompletionItem,2} branch_case exact
+model "lib/megaco-4.9.2/ebin/megaco_compact_text_encoder_v3.beam" {enc_auditItem,2} root_clauses exact
+model "lib/megaco-4.9.2/ebin/megaco_compact_text_encoder_v3.beam" {enc_immAckRequired,2} branch_case exact
+model "lib/megaco-4.9.2/ebin/megaco_compact_text_encoder_v3.beam" {enc_notifyCompletionItem,2} branch_case exact
+model "lib/megaco-4.9.2/ebin/megaco_pretty_text_encoder_v1.beam" {enc_auditItem,2} root_clauses exact
+model "lib/megaco-4.9.2/ebin/megaco_pretty_text_encoder_v1.beam" {enc_notifyCompletionItem,2} branch_case exact
+model "lib/megaco-4.9.2/ebin/megaco_pretty_text_encoder_v2.beam" {enc_auditItem,2} root_clauses exact
+model "lib/megaco-4.9.2/ebin/megaco_pretty_text_encoder_v2.beam" {enc_notifyCompletionItem,2} branch_case exact
+model "lib/megaco-4.9.2/ebin/megaco_pretty_text_encoder_v3.beam" {enc_auditItem,2} root_clauses exact
+model "lib/megaco-4.9.2/ebin/megaco_pretty_text_encoder_v3.beam" {enc_notifyCompletionItem,2} branch_case exact
+group {branch_case,exact} 9 6
+group {root_clauses,exact} 17 11

@@ -1,0 +1,237 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -685,7 +685,7 @@
+                 || TryEmitDefaultOnlySequenceEncoder(function)
+                 || TryEmitRequiredOptionalSequenceEncoder(function)
+                 || TryEmitRequiredTableSequenceEncoder(function)
+-                || TryEmitNamedRequiredSequenceEncoder(function)
++                || TryEmitRequiredSequenceWithForeignPair(function)
+                 || TryEmitSelectedRecordSequenceEncoder(function)
+                 || TryEmitSequenceEncoding(function) || TryEmitSequenceEncodingWrapper(function)
+                 || TryEmitPairForwarding(function) || TryEmitForwardedCallResult(function)
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.NamedRequiredSequenceEncoder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.NamedRequiredSequenceEncoder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.NamedRequiredSequenceEncoder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.NamedRequiredSequenceEncoder.cs
+@@ -6,7 +6,7 @@
+ {
+     private sealed partial class GeneralEmitter
+     {
+-        private bool TryEmitNamedRequiredSequenceEncoder(FunctionDefinition function)
++        private bool TryEmitRequiredSequenceWithForeignPair(FunctionDefinition function)
+         {
+             if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled || recursiveClosure is not null
+                 || function.Clauses is not
+@@ -54,7 +54,7 @@
+             }
+ 
+             int count = record.Items.Count - 1;
+-            if (count is not (3 or 4) || parts.Items.Count != count || sequence.Items.Count != count + 4)
++            if (count is not (3 or 4 or 5) || parts.Items.Count != count || sequence.Items.Count != count + 4)
+             {
+                 return false;
+             }
+@@ -78,6 +78,7 @@
+             Expr.Call? external = null;
+             string? module = null;
+             Term? externalOptions = null;
++            int externalIndex = -1;
+             for (int index = 0; index < fields.Length; index++)
+             {
+                 if (fields[index] is not Expr.Match
+@@ -92,24 +93,29 @@
+                 }
+ 
+                 lengths[index] = length.Name;
+-                if (index == 1)
+-                {
+-                    if (call is not
++                if (call.Module is not null)
++                {
++                    if (index == 0 || external is not null || call is not
+                         {
+                             Module: not null, DynamicRemote: false, Arguments: [Expr.Variable payload, var options]
+                         }
+                         || payload.Name != inputs[index].Name || !AttributeLiteral.TryNormalizeConstant(options, out externalOptions)
+-                        || count == 4 && externalOptions is not Nil
+                         || !TryResolveOrdinaryCallTarget(call, out module) || module is null)
+                     {
+                         return false;
+                     }
+ 
+                     external = call;
++                    externalIndex = index;
+                 }
+                 else
+                 {
+-                    plans[index] = ReadRequiredOptionalSequenceField(call, inputs[index].Name);
++                    // The untagged leading choice can return a proven pair with an opaque forwarded length.
++                    plans[index] = ReadRequiredOptionalSequenceField(
++                        call,
++                        inputs[index].Name,
++                        allowForeign: count == 5 && index == 0
++                    );
+                     if (plans[index] is null)
+                     {
+                         return false;
+@@ -117,7 +123,15 @@
+                 }
+             }
+ 
+-            if (plans[0]!.Constants is not [var namedNumbers, _] || !IsClosedNamedNumberList(namedNumbers))
++            bool namedLeader = plans[0]!.Constants is [var namedNumbers, _] && IsClosedNamedNumberList(namedNumbers);
++            bool plainFields = externalIndex == 2 && count == 3 && externalOptions is Cons
++                && plans.Take(2).All(plan => plan is { Constants: [Cons] })
++                || externalIndex == 1 && plans.Skip(2).All(plan => plan is { Constants: [Cons] })
++                && (count == 4 && externalOptions is Nil && plans[0]!.Constants is [Cons]
++                    || count == 5 && externalOptions is Cons && plans[0]!.Constants is [Nil]);
++            if (external is null || module is null || externalOptions is null || (namedLeader
++                ? externalIndex != 1 || count == 5 || count == 4 && externalOptions is not Nil
++                : !plainFields || module == ErlangModuleNames.Module))
+             {
+                 return false;
+             }
+@@ -139,6 +153,26 @@
+             if (remaining is not Expr.Variable initial || initial.Name != lengths[0])
+             {
+                 return false;
++            }
++
++            if (!namedLeader)
++            {
++                plans[externalIndex] = new SequenceEncodePart(
++                    external,
++                    0,
++                    [externalOptions],
++                    null,
++                    null
++                );
++
++                return EmitRequiredSequenceWithForeignPair(
++                    tuple,
++                    plans,
++                    externalIndex,
++                    module,
++                    finishEntry,
++                    additions
++                );
+             }
+ 
+             int malformedResult = Label();
+@@ -283,5 +317,116 @@
+                 owner.Operand(LabelTag, plan.Entry);
+             }
+         }
++
++        private bool EmitRequiredSequenceWithForeignPair(
++            Expr.Match unpack,
++            IReadOnlyList<SequenceEncodePart?> fields,
++            int foreignIndex,
++            string module,
++            int finish,
++            IReadOnlyList<Expr.Binary> additions
++        )
++        {
++            int frame = fields.Count;
++            int record = frame - 1;
++            int tags = frame - 2;
++            int[] slots = Enumerable.Range(0, frame - 1)
++                .Select(index => index == frame - 2 ? record : frame - 3 - index)
++                .ToArray();
++            int badPair = Label();
++            int badRecord = Label();
++            EmitTupleShapeTest(
++                XRegisterTag,
++                0,
++                frame + 1,
++                badRecord
++            );
++            EmitFrameAllocation(2, frame);
++            EmitFrameInitialization(0, tags);
++            owner.MoveRegister(
++                XRegisterTag,
++                1,
++                YRegisterTag,
++                tags
++            );
++            owner.MoveRegister(
++                XRegisterTag,
++                0,
++                YRegisterTag,
++                record
++            );
++            var previous = location;
++
++            bool pending = false;
++            for (int index = 0; index < fields.Count; index++)
++            {
++                SequenceEncodePart field = fields[index]!;
++                owner.Op(GetTupleElement, index == 0 ? XRegisterTag : YRegisterTag, index == 0 ? 0 : record);
++                owner.Operand(BeamWire.UnsignedTag, index + 1);
++                owner.Operand(XRegisterTag, pending ? 1 : 0);
++                if (pending)
++                {
++                    // Project from the original record before its slot is reused by the penultimate result.
++                    owner.MoveRegister(
++                        XRegisterTag,
++                        0,
++                        YRegisterTag,
++                        slots[index - 1]
++                    );
++                    owner.MoveToX0(XRegisterTag, 1);
++                }
++
++                owner.EmitConstant(field.Constants[0], 1);
++                owner.EmitCallLine(field.Call, previous);
++                previous = CallLocation(field.Call, previous);
++                if (index == foreignIndex)
++                {
++                    Call(module, field.Call.Function, 2);
++                    if (index < slots.Length)
++                    {
++                        owner.MoveRegister(
++                            XRegisterTag,
++                            0,
++                            YRegisterTag,
++                            slots[index]
++                        );
++                    }
++
++                    EmitTupleShapeTest(
++                        XRegisterTag,
++                        0,
++                        2,
++                        badPair
++                    );
++                    pending = false;
++                }
++                else
++                {
++                    owner.EmitFieldCall(2, field.Entry);
++                    pending = true;
++                }
++            }
++
++            EmitSequencePairResult(
++                frame,
++                frame,
++                finish,
++                additions,
++                previous,
++                pairSlots: slots,
++                outerTagSlot: tags,
++                joinedLengthTypes: new int[frame]
++            );
++
++            Mark(badPair);
++            owner.EmitCallLine(fields[foreignIndex]!.Call, location);
++            owner.Op(BadMatch, XRegisterTag, 0);
++            Mark(badRecord);
++            previous = location;
++            owner.EmitArithmeticLine(unpack.SourceLine, ref previous);
++            owner.Op(BadMatch, XRegisterTag, 0);
++
++            return true;
++        }
+     }
+ }

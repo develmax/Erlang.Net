@@ -6,7 +6,8 @@ internal sealed partial class BeamModuleCompiler
 {
     private static byte[]? SimplifyFrameInitialization(
         ReadOnlyMemory<byte> code,
-        IReadOnlyList<BeamInstruction> body
+        IReadOnlyList<BeamInstruction> body,
+        bool includeNonAllocatingDefinitions = false
     )
     {
         using var output = new MemoryStream();
@@ -47,7 +48,7 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
-            bool consolidate = groups >= 2 && body[index - 1].Definition.Opcode == Label
+            bool consolidate = !includeNonAllocatingDefinitions && groups >= 2 && body[index - 1].Definition.Opcode == Label
                 && body[index - 2].Definition.Opcode == FunctionInfo
                 && !initialized.Overlaps(assigned);
             if (end >= body.Count)
@@ -57,7 +58,7 @@ internal sealed partial class BeamModuleCompiler
 
             if (!consolidate)
             {
-                var edits = FindOverwrittenFrameInitializations(body, index + 1);
+                var edits = FindOverwrittenFrameInitializations(body, index + 1, includeNonAllocatingDefinitions);
                 for (int edit = edits.Count - 1; edit >= 0; edit--)
                 {
                     var (instruction, retained) = edits[edit];
@@ -96,14 +97,39 @@ internal sealed partial class BeamModuleCompiler
 
     private static List<(int Index, int[] Retained)> FindOverwrittenFrameInitializations(
         IReadOnlyList<BeamInstruction> body,
-        int start
+        int start,
+        bool includeNonAllocatingDefinitions
     )
     {
         int end = start;
-        while (end + 1 < body.Count && body[end].Definition.Opcode is
-            Move or GetTupleElement or GetList or GetHead or GetTail or MakeFun or InitYRegisters or Line)
+        bool foundDefinition = false;
+        while (end + 1 < body.Count)
         {
+            byte opcode = body[end].Definition.Opcode;
+            if (includeNonAllocatingDefinitions && opcode is (CatchEnter or TryEnter))
+            {
+                // The instruction defines the protected handler slot. Leave the
+                // following region untouched because its failures can branch.
+                foundDefinition = true;
+                end++;
+                break;
+            }
+
+            if (opcode is not (Move or GetTupleElement or GetList or GetHead or GetTail
+                or MakeFun or InitYRegisters or Line)
+                && !(opcode == PutTuple && body[end].Operands[0].Kind == BeamOperandParameters.Y)
+                && !(includeNonAllocatingDefinitions && opcode == BifZero))
+            {
+                break;
+            }
+
+            foundDefinition |= opcode == BifZero;
             end++;
+        }
+
+        if (includeNonAllocatingDefinitions && !foundDefinition)
+        {
+            return [];
         }
 
         var overwritten = new HashSet<int>();
@@ -131,7 +157,7 @@ internal sealed partial class BeamModuleCompiler
                 continue;
             }
 
-            int destination = StackWriteOperand(instruction);
+            int destination = opcode is CatchEnter or TryEnter ? 0 : StackWriteOperand(instruction);
             for (int position = 0; position < instruction.Operands.Count; position++)
             {
                 if (instruction.Operands[position].Kind == BeamOperandParameters.Y
@@ -169,5 +195,52 @@ internal sealed partial class BeamModuleCompiler
         {
             BeamCompactWriter.Write(output, YRegisterTag, slot);
         }
+    }
+
+    private byte[]? MergeAdjacentFrameInitializations(ReadOnlyMemory<byte> code, int labelCount)
+    {
+        if (ModuleOptimizationDisabled || !code.Span.Contains(InitYRegisters)
+            || DecodeLateAtomicProjectionSlots(code, labelCount) is not { Body: var body })
+        {
+            return null;
+        }
+
+        using var output = new MemoryStream();
+        int copied = 0;
+        for (int index = 0; index + 2 < body.Count; index++)
+        {
+            if (body[index].Definition.Opcode != InitYRegisters || body[index + 1].Definition.Opcode != InitYRegisters)
+            {
+                continue;
+            }
+
+            var slots = new SortedSet<int>();
+            output.Write(code.Span[copied..body[index].Offset]);
+            do
+            {
+                foreach (BeamOperand slot in body[index].Operands.Skip(1))
+                {
+                    slots.Add((int)slot.Value);
+                }
+
+                index++;
+            }
+            while (index + 1 < body.Count && body[index].Definition.Opcode == InitYRegisters);
+
+            // Without an intervening instruction, both clears initialize the
+            // same physical frame and no observer reads the intermediate state.
+            WriteFrameInitialization(output, slots);
+            copied = body[index].Offset;
+            index--;
+        }
+
+        if (copied == 0)
+        {
+            return null;
+        }
+
+        output.Write(code.Span[copied..]);
+
+        return output.ToArray();
     }
 }

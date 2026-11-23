@@ -1,0 +1,31 @@
+Error! Failed to eval: [Manifest,ModuleName,Index]=init:get_plain_arguments(),
+Mod=list_to_atom(ModuleName),
+{ok,Data}=file:read_file(Manifest),
+Pattern = list_to_binary(ModuleName++".beam"),
+[Row]=[X||X<-binary:split(Data,<<"\n">>,[global]),binary:match(X,Pattern)=/=nomatch],
+Paths=[string:trim(binary_to_list(X))||X<-binary:split(Row,<<"\t">>,[global])],
+Path=lists:nth(list_to_integer(Index),Paths),
+{ok,Beam}=file:read_file(Path),
+{module,Mod}=code:load_binary(Mod,Path,Beam),
+Message = <<"BEAM parity, verified input">>,
+Result=case Mod of
+   crypto ->
+        Digest=crypto:hash(sha256,Message),
+        Digest=crypto:hash_final(crypto:hash_update(crypto:hash_init(sha256),Message)),
+        binary:encode_hex(Digest);
+   pubkey_os_cacerts ->
+        Certs=pubkey_os_cacerts:get(),
+        io_lib:format("~p ~s",[length(Certs),binary:encode_hex(crypto:hash(sha256,term_to_binary(lists:sort(Certs))))]);
+   zstd ->
+        Compressed=zstd:compress(Message),
+        Message=iolist_to_binary(zstd:decompress(Compressed)),
+        io_lib:format("~w",[iolist_to_binary(Compressed)])
+end,
+io:format("~s~n",[Result]),
+halt().
+
+
+
+Runtime terminating during boot ({{badmatch,["zstd","D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\library376-official-compiler\installed\lib\stdlib-8.1\ebin\zstd.beam"]},[{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,796}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{init,start_it,1,[{file,"init.erl"},{line,1561}]},{init,start_em,1,[{file,"init.erl"},{line,1546}]},{init,do_boot,3,[{file,"init.erl"},{line,1217}]}]})
+
+Crash dump is being written to: D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\terminal-records-and-private-ber-shapes-1909\zstd-on-load/crash-0.dump...done

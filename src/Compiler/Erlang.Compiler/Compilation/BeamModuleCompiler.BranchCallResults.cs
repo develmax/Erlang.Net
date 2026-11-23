@@ -7,7 +7,7 @@ internal sealed partial class BeamModuleCompiler
     private static byte[]? ForwardSavedCallResults(
         ReadOnlyMemory<byte> code,
         IReadOnlyList<BeamInstruction> body,
-        List<(int Start, int End, int Slot)> stackOperands
+        IReadOnlyList<(int Start, int End, int Slot)> stackOperands
     )
     {
         using var output = new MemoryStream();
@@ -35,8 +35,8 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 byte producer = body[save - 1].Definition.Opcode;
-                bool call = source.Value.IsZero
-                    && producer is LocalCall or ExternalCall or DynamicApply or CallFun or CallFunTyped;
+                bool call = source.Value.IsZero && (IsResultCall(producer)
+                    || producer == Label && (flow ??= new BeamProjectionFlow(body)).HasJoinedCallResult(save - 1));
                 bool received = producer == RemoveMessage && source.Value <= 1;
                 if (!call && !received)
                 {
@@ -147,8 +147,40 @@ internal sealed partial class BeamModuleCompiler
         return output.ToArray();
     }
 
+    private static bool IsResultCall(byte opcode) =>
+        opcode is LocalCall or ExternalCall or DynamicApply or CallFun or CallFunTyped;
+
     private sealed partial class BeamProjectionFlow
     {
+        internal bool HasJoinedCallResult(int join)
+        {
+            if (predecessors[join].Count != 2)
+            {
+                return false;
+            }
+
+            foreach (int edge in predecessors[join])
+            {
+                int producer = edge;
+                if (body[producer].Definition.Opcode == Jump)
+                {
+                    if (predecessors[producer] is not [var incoming] || incoming + 1 != producer)
+                    {
+                        return false;
+                    }
+
+                    producer = incoming;
+                }
+
+                if (producer >= join || !IsResultCall(body[producer].Definition.Opcode))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         internal bool HasReceivedMessagePrefix(int save, BeamOperand message)
         {
             int index = save;
@@ -227,7 +259,15 @@ internal sealed partial class BeamModuleCompiler
                         StackWriteOperand(instruction),
                     _ => -1
                 };
-                if (destination < 0 && !(call || terminal || IsEntryFramePredicate(opcode)
+                // Once the allocated X register stopped carrying the call
+                // result, a collecting BIF with no access to the old Y slot
+                // cannot observe the removed store. Failure zero exits the
+                // unprotected frame, so only ordinary successors remain.
+                bool independentCollectingOperation = !inResult
+                    && opcode is (GcBifOne or GcBifTwo or GcBifThree)
+                    && instruction.Operands[0].Value.IsZero
+                    && !instruction.Operands.Any(operand => SameProjectionRegister(operand, slot));
+                if (destination < 0 && !(call || terminal || independentCollectingOperation || IsEntryFramePredicate(opcode)
                     || opcode is Label or Line or Jump or SelectValue or SelectTupleArity or InitYRegisters or TestHeap))
                 {
                     return null;

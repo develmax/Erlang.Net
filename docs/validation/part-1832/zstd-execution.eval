@@ -1,0 +1,7 @@
+[P]=init:get_plain_arguments(),
+true=code:unstick_mod(zstd),
+{module,zstd}=code:load_abs(filename:rootname(P)),
+Data=binary:copy(<<"Windows OTP parity">>,128),
+Compressed=iolist_to_binary(zstd:compress(Data)),
+Data=iolist_to_binary(zstd:decompress(Compressed)),
+io:format("~s~n",[binary:encode_hex(Compressed)]),halt().

@@ -1,0 +1,9 @@
+# Part 2002 local fixed list decisions and literal bitstring runs
+
+Windows OTP 29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5. The [uncached 11-file comparison](status.json) took 52.863 s, followed by 16.774 s of analysis. Its result was 0 Equal, 11 Different, 0 Unsupported and 0 SourceRejected. All seven changed images prepared for loading. Ten normalized bodies changed, with one new observed match in inet_dns:encode_txt/2 and zero reported losses. The observed byte ledger remains 539 Equal and 827 Different.
+
+The shared source list traversal checks and projects the prefix once for fixed-length terminal alternatives. It checks nil before entering the selected branch frame, retains the original selector for case_clause and preserves the operation sequence in each branch. The lifted dbg_wx_break callback changes. Its remaining trim and placement differences are open.
+
+The shared bit construction planner joins adjacent literal bits at bit precision. It uses a byte string plus an integer residue with the pinned unit and segment identity. Effectful or runtime-dependent fields break the run. The existing byte-only path, native-order behavior and earlier wide integer decisions stay available. The three Megaco PER encoders and peer provide source witnesses. The known sources of other StrT differences remain in Part 2001.
+
+The 26 [focused checks](focused.stdout) passed, including the permanent corrected terminal tuple fixture. Six bit constructors and errors plus seven list behavior and side effect cases [matched native OTP](paired-generated.terms). Sixteen exact source and test changes spanning Parts 2001 and 2002 [were transferred](source-transfer-2164.json) into the local compiler worktree. The full uncached corpus and complete repository gate remain pending. No new remote branch, PR or push was used.

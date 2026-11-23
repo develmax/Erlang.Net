@@ -1,0 +1,15 @@
+[Pinned,Before,Linked]=init:get_plain_arguments(),
+M=erl_syntax_lib,
+Run=fun(Path)->
+    {ok,Bin}=file:read_file(Path),code:purge(M),code:delete(M),true=code:unstick_mod(M),
+    {module,M}=code:load_binary(M,Path,Bin),
+    X=erl_syntax:variable('X'),
+    Y=erl_syntax:variable('Y'),
+    Seed=erl_syntax:set_ann(X,[{env,old_env},{bound,old_bound},{free,old_free},{kept,annotation}]),
+    Match=erl_syntax:match_expr(X,erl_syntax:tuple([erl_syntax:atom(item),Y])),
+    [erl_syntax:get_ann(M:annotate_bindings(Tree,Env))||{Tree,Env}<-[{Seed,[]},{Match,['Y']}]]
+end,
+[Same,Same,Same]=[Run(Path)||Path<-[Pinned,Before,Linked]],
+[[{env,[]},{bound,[]},{free,['X']},{kept,annotation}],
+ [{env,['Y']},{bound,['X']},{free,['Y']}]]=Same,
+io:format("~tp.~n",[Same]),halt(0).

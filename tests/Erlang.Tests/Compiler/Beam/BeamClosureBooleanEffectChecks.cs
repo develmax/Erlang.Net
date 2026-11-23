@@ -1,0 +1,88 @@
+using System.Collections;
+using System.Numerics;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamClosureBooleanEffectChecks
+{
+    internal const string TestName = "compiler/beam/closure-boolean-effect-arithmetic-continuation";
+    private const string MissingFrame = "The closure did not assign the capture and arguments to their planned slots.";
+    private const string MissingContinuation = "The boolean selection did not share the arithmetic continuation.";
+    private const string UnknownCase = "The closure lost the non-boolean case error.";
+    private const string TwoEffects = "A two-effect decision was treated as a one-effect branch.";
+    private const string Source = """
+        -module(beam_closure_boolean_effect).
+        -export([callback/1,both_effects/1]).
+        callback(Receiver) ->
+            driver:run(fun(Key,Idx) ->
+               Value = store:get(Key, keys()),
+               Probe = driver:new(Value),
+               case driver:ready(Probe) of
+                   true -> ignore;
+                   false -> driver:disable(Receiver,Idx,[quiet])
+               end,
+               Idx+1
+            end).
+        both_effects(Receiver) ->
+            driver:run(fun(Key,Idx) ->
+               Value = store:get(Key, keys()),
+               Probe = driver:new(Value),
+               case driver:ready(Probe) of
+                   true -> driver:enable(Receiver,Idx,[quiet]);
+                   false -> driver:disable(Receiver,Idx,[quiet])
+               end,
+               Idx+1
+            end).
+        keys() -> [red,green].
+        """;
+
+    internal static void Run()
+    {
+        object code = Code(CodeGeneration.CompileBeamModule(Source, "beam_closure_boolean_effect.erl"));
+        var instructions = ((IEnumerable)Property(code, "Instructions")).Cast<object>().ToArray();
+        var functions = ((IEnumerable)Property(code, "Functions")).Cast<object>().ToArray();
+        var body = ReadClosure("callback");
+        var firstMoves = body.SkipWhile(instruction => Opcode(instruction) != Allocate).Skip(1).Take(3)
+            .Select(instruction => Opcode(instruction) == Move ? Operands(instruction) : []).ToArray();
+        if (firstMoves is not [[2, 0], [0, 1], [1, 2]])
+        {
+            throw new InvalidOperationException(MissingFrame);
+        }
+
+        if (body.Count(instruction => Opcode(instruction) == GcBifTwo) != 1
+            || body.Count(instruction => Opcode(instruction) == InitYRegisters) != 2
+            || body.Any(instruction => Opcode(instruction) == Jump))
+        {
+            throw new InvalidOperationException(MissingContinuation);
+        }
+
+        if (Opcode(body[^1]) != CaseEnd)
+        {
+            throw new InvalidOperationException(UnknownCase);
+        }
+
+        var twoEffects = ReadClosure("both_effects");
+        if (twoEffects.Count(instruction => Opcode(instruction) == ExternalCall) != 5)
+        {
+            throw new InvalidOperationException(TwoEffects);
+        }
+
+        object[] ReadClosure(string name)
+        {
+            var function = functions.Single(candidate =>
+                ((string)Property(candidate, "Name")).StartsWith($"-{name}/", StringComparison.Ordinal));
+            int start = (int)Property(function, "FirstInstructionIndex");
+            int end = (int)Property(function, "EndInstructionIndex");
+
+            return instructions[start..end];
+        }
+    }
+
+    private static int[] Operands(object instruction) => ((IEnumerable)Property(instruction, "Operands")).Cast<object>()
+        .Select(operand => (int)(BigInteger)Property(operand, "Value")).ToArray();
+
+    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
+}

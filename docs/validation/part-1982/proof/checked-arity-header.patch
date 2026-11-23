@@ -1,0 +1,21 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Binary/BeamTupleArityFailureChecks.cs b/tests/Erlang.Tests/Compiler/Beam/Binary/BeamTupleArityFailureChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/Binary/BeamTupleArityFailureChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/Binary/BeamTupleArityFailureChecks.cs
+@@ -170,7 +170,7 @@
+             object header = New(
+                 "BeamCodeHeader",
+                 0,
+-                (int)Line,
++                (int)DebugLine,
+                 4,
+                 1,
+                 new ReadOnlyMemory<byte>(source)
+@@ -253,7 +253,7 @@
+             object header = New(
+                 "BeamCodeHeader",
+                 0,
+-                (int)Line,
++                (int)DebugLine,
+                 5,
+                 1,
+                 instructions

@@ -1,0 +1,608 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GroupedTupleEntry.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GroupedTupleEntry.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GroupedTupleEntry.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GroupedTupleEntry.cs
+@@ -22,9 +22,17 @@
+             var tupleClauses = fallback is null ? function.Clauses : function.Clauses.SkipLast(1).ToArray();
+             int input = Enumerable.Range(0, function.Arity).FirstOrDefault(index =>
+                 tupleClauses.All(clause => EntryShape(clause.Patterns[index]) is Pattern.Tuple), -1);
++            (Atom Key, Clause Clause)[] atomArms = [];
+             if (input < 0)
+             {
+-                return false;
++                if (ReadGroupedMixedEntry(function, fallback, functionInfo) is not { } mixed)
++                {
++                    return false;
++                }
++
++                input = 0;
++                tupleClauses = mixed.Tuples;
++                atomArms = mixed.Atoms;
+             }
+ 
+             // Core partitions the common leading literal before the tuple column.
+@@ -45,7 +53,7 @@
+                 return false;
+             }
+ 
+-            if (input == 0 && (TryEmitGroupedTupleProjections(
++            if (input == 0 && atomArms.Length == 0 && (TryEmitGroupedTupleProjections(
+                 function,
+                 groups,
+                 fallback,
+@@ -64,6 +72,7 @@
+             }
+ 
+             int noMatch = fallback is null ? functionInfo : Label();
++            int? nonTuple = atomArms.Length == 0 ? null : Label();
+             if (prefix is not null)
+             {
+                 owner.Op(ExactEqualTest, LabelTag, noMatch);
+@@ -71,7 +80,7 @@
+                 owner.LiteralOperand(prefix);
+             }
+ 
+-            owner.EmitTupleArityDispatch(noMatch, cases, input);
++            owner.EmitTupleArityDispatch(noMatch, cases, input, typeFailure: nonTuple);
+ 
+             int argumentBase = nextSlot;
+             int[] arguments = Enumerable.Range(0, function.Arity).Select(_ => Slot()).ToArray();
+@@ -132,6 +141,13 @@
+                     frames,
+                     recordFailures,
+                     ref nextNestedFrameKey
++                ) || !owner.IsDeclaredNative((function.Name, function.Arity)) && TryEmitTaggedStateTupleGroup(
++                    clauses,
++                    input,
++                    noMatch,
++                    frames,
++                    recordFailures,
++                    ref nextNestedFrameKey
+                 )))
+                 {
+                     owner.nestedEntryLabelOrder.Add((function.Name, function.Arity));
+@@ -206,10 +222,16 @@
+                     BeamWire.UnsignedTag,
+                     plannedTupleFrames?.GetValueOrDefault(SharedTupleFrame, functionFrame) ?? functionFrame
+                 );
+-                if (fallback is null)
+-                {
+-                    JumpTo(functionInfo);
+-                }
++                if (fallback is null || nonTuple.HasValue)
++                {
++                    JumpTo(noMatch);
++                }
++            }
++
++            var atomFailures = new List<EntryEffectFailure>();
++            if (nonTuple is int atomEntry)
++            {
++                EmitAtoms(atomEntry);
+             }
+ 
+             if (fallback is not null)
+@@ -224,10 +246,140 @@
+                 EmitCheckedResultRecordFailure(label, at);
+             }
+ 
++            foreach (var failure in atomFailures)
++            {
++                Mark(failure.Label);
++                if (failure.Line is { } line)
++                {
++                    owner.EmitLine(line);
++                }
++
++                owner.Op(CaseEnd, XRegisterTag, failure.Register);
++            }
++
+             return true;
++
++            void EmitAtoms(int atomEntry)
++            {
++                Mark(atomEntry);
++                int[] labels = atomArms.Length == 1 ? [] : atomArms.Select(_ => Label()).Reverse().ToArray();
++                if (labels.Length == 0)
++                {
++                    owner.Op(ExactEqualTest, LabelTag, noMatch);
++                    owner.Operand(XRegisterTag, 0);
++                    owner.LiteralOperand(atomArms[0].Key);
++                }
++                else
++                {
++                    owner.EmitMembershipSelect(0, noMatch,
++                        atomArms.Select((arm, index) => ((Term)arm.Key, labels[index])));
++                }
++
++                var context = new SharedNestedEntryContext(
++                    null,
++                    null,
++                    noMatch,
++                    Failures: atomFailures,
++                    CheckedAtomArgument: 0,
++                    AllowConsTupleField: true
++                );
++                var originalVariables = variables;
++                for (int index = atomArms.Length - 1; index >= 0; index--)
++                {
++                    if (labels.Length != 0)
++                    {
++                        Mark(labels[index]);
++                    }
++
++                    int frameKey = nextNestedFrameKey--;
++                    Clause clause = atomArms[index].Clause;
++                    var checkedClause = OmitGroupedEntryAtom(clause);
++                    if (HasUnconditionalParameters(checkedClause))
++                    {
++                        EmitGroupedTupleFallback(checkedClause, frames, frameKey);
++                        continue;
++                    }
++
++                    int previousSlot = nextSlot;
++                    int previousPeak = peakSlot;
++                    nextSlot = argumentBase;
++                    peakSlot = argumentBase;
++                    variables = new(originalVariables, StringComparer.Ordinal);
++                    frameSize = plannedTupleFrames?.GetValueOrDefault(frameKey, functionFrame) ?? functionFrame;
++                    TryEmitPlannedTupleEntry(clause, noMatch, sharedEntry: context);
++                    frames.Add(frameKey, peakSlot);
++                    peakSlot = Math.Max(previousPeak, peakSlot);
++                    nextSlot = previousSlot;
++                    frameSize = functionFrame;
++                    variables = originalVariables;
++                }
++            }
+         }
+ 
+-        private void EmitGroupedTupleFallback(Clause clause, Dictionary<int, int> frames)
++        private (Clause[] Tuples, (Atom Key, Clause Clause)[] Atoms)? ReadGroupedMixedEntry(
++            FunctionDefinition function,
++            Clause? fallback,
++            int failure
++        )
++        {
++            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled || fallback is null
++                || function.Clauses.Any(clause => LocalFunctionEntries.Walk(clause.Body).Any(expression =>
++                    expression is Expr.Try or Expr.Receive or Expr.Catch or Expr.Maybe or Expr.Fun)))
++            {
++                return null;
++            }
++
++            var context = new SharedNestedEntryContext(
++                null,
++                null,
++                failure,
++                CheckedAtomArgument: 0,
++                AllowConsTupleField: true
++            );
++            var arities = new HashSet<int>();
++            var keys = new HashSet<Atom>();
++            var tuples = new List<Clause>();
++            var atoms = new List<(Atom Key, Clause Clause)>();
++            foreach (Clause clause in function.Clauses.SkipLast(1))
++            {
++                if (EntryShape(clause.Patterns[0]) is Pattern.Tuple tuple && HasTupleTag(tuple, out _))
++                {
++                    arities.Add(tuple.Items.Count);
++                    tuples.Add(clause);
++                    continue;
++                }
++
++                if (clause is not { Guard: null, Patterns: [Pattern.Literal { Value: Atom key }, ..] }
++                    || !keys.Add(key)
++                    || !HasUnconditionalParameters(OmitGroupedEntryAtom(clause))
++                        && !TryEmitPlannedTupleEntry(
++                            clause,
++                            failure,
++                            validateOnly: true,
++                            sharedEntry: context
++                        ))
++                {
++                    return null;
++                }
++
++                atoms.Add((key, clause));
++            }
++
++            return arities.Count >= 3 && atoms.Count > 0
++                ? (tuples.ToArray(), atoms.OrderBy(arm => arm.Key, Comparer<Atom>.Create(CompareAtoms)).ToArray())
++                : null;
++        }
++
++        private static Clause OmitGroupedEntryAtom(Clause clause) => clause with
++        {
++            Patterns = [new Pattern.Variable(VariableScopeNames.Wildcard), .. clause.Patterns.Skip(1)]
++        };
++
++        private void EmitGroupedTupleFallback(
++            Clause clause,
++            Dictionary<int, int> frames,
++            int frameKey = TupleFallbackFrame
++        )
+         {
+             string[] parameters = clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray();
+             if (AttributeLiteral.TryNormalizeConstant(clause.Body, out Term constant))
+@@ -282,7 +434,7 @@
+             EmitEntryClauseBody(
+                 clause,
+                 inputs,
+-                TupleFallbackFrame,
++                frameKey,
+                 frames,
+                 reusedTail: null,
+                 deferred: null,
+@@ -732,6 +884,7 @@
+             var secondaryChecks = new List<Action>();
+             var checks = secondaryChecks;
+             var bindings = new Dictionary<string, (int Input, int? Field)>(StringComparer.Ordinal);
++            List<Pattern>? checkedConsHeads = null;
+             for (int index = sharedEntry?.CheckedAtomArgument is null ? 1 : 0; index < arity; index++)
+             {
+                 if (index == sharedEntry?.CheckedAtomArgument)
+@@ -871,6 +1024,14 @@
+                 {
+                     RememberEntryPatternRecords(pattern);
+                 }
++
++                if (checkedConsHeads is { } heads)
++                {
++                    foreach (Pattern head in heads)
++                    {
++                        RememberEntryPatternRecords(head);
++                    }
++                }
+             }
+ 
+             if (forwardedCall is not null)
+@@ -988,6 +1149,53 @@
+                 }
+ 
+                 return nextRegister++;
++            }
++
++            bool PlanConsTupleField(int input, int field, Pattern.List list, Pattern.Variable tail)
++            {
++                Pattern head = list.Items[0];
++                Pattern.Variable? alias = null;
++                Pattern shape = head;
++                if (head is AliasPattern aliased && TryReadPatternAlias(aliased, out var name, out var inner))
++                {
++                    alias = name;
++                    shape = inner;
++                }
++
++                if (shape is not Pattern.Tuple tuple)
++                {
++                    return false;
++                }
++
++                // Keep both incoming arguments intact for every unchecked shape edge.
++                int headRegister = nextRegister++;
++                int tailRegister = nextRegister++;
++                if (alias is not null && !AddBinding(alias, headRegister, null))
++                {
++                    return false;
++                }
++
++                checks.Add(() =>
++                {
++                    owner.EmitTuplePart(input, field, headRegister);
++                    owner.EmitNonemptyList(headRegister, failure);
++                    owner.EmitListParts(
++                        headRegister,
++                        XRegisterTag,
++                        headRegister,
++                        XRegisterTag,
++                        tailRegister
++                    );
++                });
++
++                if (!PlanTuple(tuple, headRegister) || !AddBinding(tail, tailRegister, null))
++                {
++                    return false;
++                }
++
++                (checkedConsHeads ??= []).Add(head);
++
++                return true;
+             }
+ 
+             bool PlanTuple(Pattern.Tuple tuple, int input, int? checkedColumn = null)
+@@ -1053,6 +1261,14 @@
+                                 owner.LiteralOperand(literal.Value);
+                             });
+                             break;
++                        case Pattern.List { Items: [_], Tail: Pattern.Variable tail } list
++                            when sharedEntry?.AllowConsTupleField == true:
++                            if (!PlanConsTupleField(input, field, list, tail))
++                            {
++                                return false;
++                            }
++
++                            break;
+                         case Pattern.Tuple nested when input == 0 && sharedNested?.Field == field:
+                             if (!PlanTuple(nested, sharedNested.Register, sharedNested.Selector))
+                             {
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.NestedTupleEntry.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.NestedTupleEntry.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.NestedTupleEntry.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.NestedTupleEntry.cs
+@@ -265,7 +265,8 @@
+         private void EmitNestedTupleLeaf(
+             NestedTupleLeaf leaf,
+             int slots,
+-            List<(int Label, BeamSourceLocation Location)> recordFailures
++            List<(int Label, BeamSourceLocation Location)> recordFailures,
++            bool checkedPatterns = false
+         )
+         {
+             Expr body = leaf.Clause.Body;
+@@ -347,6 +348,14 @@
+                 );
+             }
+ 
++            if (checkedPatterns)
++            {
++                foreach (Pattern pattern in leaf.Clause.Patterns)
++                {
++                    RememberEntryPatternRecords(pattern);
++                }
++            }
++
+             if (!TailLocal(body))
+             {
+                 Expression(body);
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedNestedRecordEntry.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedNestedRecordEntry.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedNestedRecordEntry.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedNestedRecordEntry.cs
+@@ -19,7 +19,8 @@
+             List<EntryEffectFailure>? Failures = null,
+             int? CheckedAtomArgument = null,
+             IReadOnlyDictionary<int, int>? ProjectedRootFields = null,
+-            int? ConsumedSelectorRegister = null
++            int? ConsumedSelectorRegister = null,
++            bool AllowConsTupleField = false
+         );
+         private sealed record SharedNestedRecordArm(Clause Source, Pattern.Tuple Shape, Atom Tag);
+         private sealed record SharedNestedRecordGroup(
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TaggedStateTupleEntry.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TaggedStateTupleEntry.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TaggedStateTupleEntry.cs
+@@ -0,0 +1,236 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private sealed partial class GeneralEmitter
++    {
++        private sealed record TaggedStateEntryArm(
++            Clause Clause,
++            Atom StateTag,
++            Dictionary<string, (int Input, int? Field)> Bindings,
++            List<(int Input, int Arity, Atom Tag)> Checks
++        );
++
++        private bool TryEmitTaggedStateTupleGroup(
++            IReadOnlyList<Clause> clauses,
++            int input,
++            int failure,
++            Dictionary<int, int> frames,
++            List<(int Label, BeamSourceLocation Location)> recordFailures,
++            ref int nextFrameKey
++        )
++        {
++            int arity = clauses[0].Patterns.Count;
++            int state = input + 1;
++            int scratch = arity;
++            if (clauses.Count != 2 || state >= arity || scratch + 1 >= FirstReservedXRegister
++                || !owner.SsaTypeInferenceEnabled || owner.ModuleOptimizationDisabled
++                || owner.receiveScratchRegisters is not null || owner.OnLoadFunction is not null)
++            {
++                return false;
++            }
++
++            Atom? messageTag = null;
++            Atom? role = null;
++            var arms = new List<TaggedStateEntryArm>();
++            foreach (Clause clause in clauses)
++            {
++                if (clause.Guard is not null
++                    || clause.Patterns[state] is not Pattern.Tuple
++                    {
++                        Items: [Pattern.Literal { Value: Atom stateTag }, Pattern.Literal { Value: Atom side }]
++                    }
++                    || role is not null && !role.Equals(side)
++                    || LocalFunctionEntries.Walk(clause.Body).Any(expression =>
++                        expression is Expr.Try or Expr.Catch or Expr.Receive or Expr.Maybe or Expr.Fun)
++                    || ReadArm(clause, stateTag) is not { } arm)
++                {
++                    return false;
++                }
++
++                role ??= side;
++                arms.Add(arm);
++            }
++
++            if (arms[0].StateTag.Equals(arms[1].StateTag))
++            {
++                return false;
++            }
++
++            int previousFrame = frameSize;
++            int previousPeak = peakSlot;
++            int previousSlot = nextSlot;
++            var previousVariables = variables;
++            var previousRecords = checkedRecordBindings;
++
++            var atomOrder = Comparer<Atom>.Create((left, right) => TermOrder.Compare(left, right, exact: true));
++            var destinations = arms.OrderByDescending(arm => arm.StateTag, atomOrder)
++                .Select(arm => (Arm: arm, Label: Label())).ToArray();
++
++            owner.EmitTuplePart(input, 0, scratch);
++            owner.EmitAtomTest(scratch, messageTag!.Name, failure);
++            EmitTupleShapeTest(
++                XRegisterTag,
++                state,
++                2,
++                failure
++            );
++            owner.EmitTuplePart(state, 0, scratch);
++            owner.EmitTuplePart(state, 1, scratch + 1);
++            owner.EmitMembershipSelect(
++                scratch,
++                failure,
++                destinations.Reverse().Select(item => ((Term)item.Arm.StateTag, item.Label))
++            );
++
++            foreach (var (arm, target) in destinations)
++            {
++                Mark(target);
++                owner.EmitAtomTest(scratch + 1, role!.Name, failure);
++                foreach (var (register, width, tag) in arm.Checks)
++                {
++                    EmitDetailRecordTest(
++                        register,
++                        width,
++                        tag,
++                        failure
++                    );
++                }
++
++                int frameKey = nextFrameKey--;
++                frameSize = plannedTupleFrames?.GetValueOrDefault(frameKey, previousFrame) ?? previousFrame;
++                nextSlot = 0;
++                peakSlot = 0;
++                variables = new(StringComparer.Ordinal);
++                checkedRecordBindings = new(StringComparer.Ordinal);
++
++                if (!TryEmitSingleEntryEffect(arm.Clause, arm.Bindings))
++                {
++                    var inputs = new Dictionary<string, int>(StringComparer.Ordinal);
++                    int projection = scratch;
++                    foreach (var (name, (source, field)) in arm.Bindings)
++                    {
++                        int targetRegister = source;
++                        if (field is int position)
++                        {
++                            targetRegister = projection++;
++                            owner.EmitTuplePart(source, position, targetRegister);
++                        }
++
++                        inputs.Add(name, targetRegister);
++                    }
++
++                    EmitNestedTupleLeaf(
++                        new(arm.Clause, 0, arm.StateTag, inputs, [], null),
++                        frameSize,
++                        recordFailures,
++                        checkedPatterns: true
++                    );
++                }
++
++                frames.Add(frameKey, peakSlot);
++                previousPeak = Math.Max(previousPeak, peakSlot);
++            }
++
++            frameSize = previousFrame;
++            nextSlot = previousSlot;
++            peakSlot = previousPeak;
++            variables = previousVariables;
++            checkedRecordBindings = previousRecords;
++
++            return true;
++
++            TaggedStateEntryArm? ReadArm(Clause clause, Atom stateTag)
++            {
++                var bindings = new Dictionary<string, (int Input, int? Field)>(StringComparer.Ordinal);
++                var checks = new List<(int Input, int Arity, Atom Tag)>();
++                for (int register = 0; register < arity; register++)
++                {
++                    if (register == state)
++                    {
++                        continue;
++                    }
++
++                    if (!ReadPattern(clause.Patterns[register], register))
++                    {
++                        return null;
++                    }
++                }
++
++                var parameters = bindings.Keys.Select(name => new Pattern.Variable(name)).ToArray();
++                if (ReadUsedEntryParameters(clause with { Patterns = parameters }) is not { } used)
++                {
++                    return null;
++                }
++
++                var live = bindings.Where(binding => used.Contains(binding.Key))
++                    .ToDictionary(binding => binding.Key, binding => binding.Value, StringComparer.Ordinal);
++
++                return scratch + live.Count(binding => binding.Value.Field is not null) >= FirstReservedXRegister
++                    ? null
++                    : new(clause, stateTag, live, checks);
++
++                bool ReadPattern(Pattern pattern, int register)
++                {
++                    if (pattern is AliasPattern alias && TryReadPatternAlias(alias, out var binding, out var shape)
++                        && shape is Pattern.Tuple)
++                    {
++                        if (!Bind(binding, register, null))
++                        {
++                            return false;
++                        }
++
++                        pattern = shape;
++                    }
++
++                    if (pattern is not Pattern.Tuple tuple)
++                    {
++                        return register != input && Bind(pattern, register, null);
++                    }
++
++                    if (!HasTupleTag(tuple, out Atom tag))
++                    {
++                        return false;
++                    }
++
++                    if (register == input)
++                    {
++                        if (messageTag is not null && !messageTag.Equals(tag))
++                        {
++                            return false;
++                        }
++
++                        messageTag ??= tag;
++                    }
++                    else if (register > state)
++                    {
++                        checks.Add((register, tuple.Items.Count, tag));
++                    }
++                    else
++                    {
++                        return false;
++                    }
++
++                    for (int field = 1; field < tuple.Items.Count; field++)
++                    {
++                        if (!Bind(tuple.Items[field], register, field))
++                        {
++                            return false;
++                        }
++                    }
++
++                    return true;
++                }
++
++                bool Bind(Pattern pattern, int register, int? field) => pattern switch
++                {
++                    Erlang.Pattern.Any or Pattern.Variable { Name: VariableScopeNames.Wildcard } => true,
++                    Pattern.Variable variable => bindings.TryAdd(variable.Name, (register, field)),
++                    _ => false
++                };
++            }
++        }
++    }
++}

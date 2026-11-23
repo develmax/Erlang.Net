@@ -1,0 +1,171 @@
+{
+  "otpTag": "OTP-29.1.1",
+  "otpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "part1941Archive": "7928abb1539caa8e08f046766d0a0827b8ce20fa0087359debb4e792f6f61734",
+  "part1943Archive": "af3484b68ab1d629b6641d8e9c8446b4631273fada3db358712312088ab4e185",
+  "part1943Compiler": "d1fabf7db2f544d496846c8afea51b3523b25662044b7b62367b139573927dd9",
+  "part1958Patch": "c9129f85fa5875003ad1d48b48e8006e09d4c8df6923f06a789005437f20e455",
+  "baselineCompiler": "5622e11452e4bc3098c098df43841c8c517f20bf4172454bc9b25d8e68a19066",
+  "workerCount": 1,
+  "scope": {
+    "baseline-scope": {
+      "lib/erts-17.1/ebin/counters.beam": "Equal",
+      "lib/inets-9.8/ebin/inets_sup.beam": "Equal",
+      "lib/inets-9.8/ebin/mod_trace.beam": "Different",
+      "lib/kernel-11.0.4/ebin/local_udp.beam": "Equal",
+      "lib/stdlib-8.1/ebin/ordsets.beam": "Equal",
+      "lib/xmerl-2.2/ebin/xmerl_html.beam": "Different",
+      "lib/xmerl-2.2/ebin/xmerl_lib.beam": "Different",
+      "lib/xmerl-2.2/ebin/xmerl_sgml.beam": "Equal",
+      "lib/xmerl-2.2/ebin/xmerl_xml.beam": "Equal"
+    },
+    "html-scope": {
+      "lib/erts-17.1/ebin/counters.beam": "Equal",
+      "lib/inets-9.8/ebin/inets_sup.beam": "Equal",
+      "lib/inets-9.8/ebin/mod_trace.beam": "Different",
+      "lib/kernel-11.0.4/ebin/local_udp.beam": "Equal",
+      "lib/stdlib-8.1/ebin/ordsets.beam": "Equal",
+      "lib/xmerl-2.2/ebin/xmerl_html.beam": "Equal",
+      "lib/xmerl-2.2/ebin/xmerl_lib.beam": "Different",
+      "lib/xmerl-2.2/ebin/xmerl_sgml.beam": "Equal",
+      "lib/xmerl-2.2/ebin/xmerl_xml.beam": "Equal"
+    }
+  },
+  "differentControlByteIdentities": {
+    "lib/inets-9.8/ebin/mod_trace.beam": {
+      "size": 4592,
+      "sha256": "70fd8a9753b8a37b62f325f6daad8c53dcecbb7b860c63c224601b5dfd29d06d"
+    },
+    "lib/xmerl-2.2/ebin/xmerl_lib.beam": {
+      "size": 47612,
+      "sha256": "7199ee7d3a432bd82371287ce84de8d320484dc51e606280db77de18d09d90b1"
+    }
+  },
+  "generatedReleaseBeam": {
+    "size": 5600,
+    "sha256": "6c0190947ef0f90ebfa0687cef95bb1b676bc7160e5d5ac1db264e6d0ab6d0b5"
+  },
+  "installedReleaseBeam": {
+    "size": 5600,
+    "sha256": "6c0190947ef0f90ebfa0687cef95bb1b676bc7160e5d5ac1db264e6d0ab6d0b5"
+  },
+  "chunks": {
+    "AtU8": {
+      "size": 326,
+      "sha256": "eb5e89b51df60e94bf9b5576258c0355b60ffbb054b337b06394cdfcbf6f3891"
+    },
+    "Code": {
+      "size": 616,
+      "sha256": "a5016174e5e9c8c903cd60c2bcf541a062a2d2ef1de8c4a11aa190c70945a28b"
+    },
+    "StrT": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "ImpT": {
+      "size": 100,
+      "sha256": "4ccb7e3f073d6e103c4c894c26b9cfd7121197bb53b288f98e78d9cf4d21c4e7"
+    },
+    "ExpT": {
+      "size": 112,
+      "sha256": "1514afcbb2b645143312be8b3c4e0ec9eba9a4bf3fa344af03185fad6a849b9c"
+    },
+    "LitT": {
+      "size": 138,
+      "sha256": "c17542e7638a84679437033ccda7cf555e0dc74a36657c97dabea1cd23c21499"
+    },
+    "Meta": {
+      "size": 45,
+      "sha256": "846e52e745c7ccf36c2da8720765d905c971ad3a5574f9470ca44cfc21d18b4a"
+    },
+    "LocT": {
+      "size": 40,
+      "sha256": "803855f645e43a3025095fc93b1e7b7fcd716c7fce564f71a09a0e2f202f261e"
+    },
+    "Attr": {
+      "size": 39,
+      "sha256": "19308dea9d5cd892b70ea206b77bb70bdcc065e5e5356c7dc6521ec1ded2197f"
+    },
+    "CInf": {
+      "size": 296,
+      "sha256": "f4b5bf7e08ad184dbb204312f900ac1266472711924a2aacc608385379113e98"
+    },
+    "Dbgi": {
+      "size": 3316,
+      "sha256": "2e2aefabec9ee0a35eca26ddc2d933e3e9a7a42ccab42bdef645004a8a3d259f"
+    },
+    "Docs": {
+      "size": 365,
+      "sha256": "d3d8778002422e8889de1b9165812bf04072b9fb02f2545cf985d42c9776932f"
+    },
+    "Line": {
+      "size": 58,
+      "sha256": "f53573ab83a59adab6e34a0b7790ea951af6da07fd4679857e5ddf0fd0aacded"
+    },
+    "Type": {
+      "size": 12,
+      "sha256": "e0d6b75c0e0b937ace2bad0646f85f3cdf71428415960fbbfbd3c9d7f1a0b78d"
+    }
+  },
+  "matchedNormalizedFunctions": 12,
+  "nativeReleaseCases": 9,
+  "nativeFixtureCases": 9,
+  "artifacts": {
+    "production.patch": {
+      "size": 18391,
+      "sha256": "b45b90b1c5a9438ae9e6a075eb6fa12f02b5720b1702b3f7447a7db62cf21f85"
+    },
+    "test.patch": {
+      "size": 6835,
+      "sha256": "a9ab9418ae48e35722c56c23f3ce0b4939cd704e45ec36c3b2bb103b9651e826"
+    },
+    "replay-files.json": {
+      "size": 1448,
+      "sha256": "0e8274d6f9e2bd6df6b45f6d7ab6429375629f913fd4c532b7e2af2ae8c98b02"
+    },
+    "release-scope.txt": {
+      "size": 319,
+      "sha256": "269608e29ad84cf7758fd9a69ff5824b34cd54dc52eff82600455fa8efac22bd"
+    },
+    "baseline-scope.json": {
+      "size": 2533,
+      "sha256": "af0078f2962571009d5c3099d8e9c48b1a2ae44be700c650376b94ceb4f5e607"
+    },
+    "html-scope.json": {
+      "size": 2375,
+      "sha256": "480707eb1ea5adfe5fee75d7ab763c99f40a18268cdcb0a503a9acedd3498e0a"
+    },
+    "focused-exits.json": {
+      "size": 215,
+      "sha256": "23fd4069fb2d5a10deec69e788f4096f91648e1270b8bcc6e8fb3c0f0087cabe"
+    },
+    "test-green/Erlang.Tests.dll": {
+      "size": 21504,
+      "sha256": "0f029139929dd84c08c82afa531a4d4adeaa8777fb7191abea58bc9dc0a3c1c1"
+    },
+    "compiler-bin/Erlang.Compiler.dll": {
+      "size": 5080576,
+      "sha256": "723356115f3569d0669ef49c1b98a272614eb63221ab5c56f94ab1d2166081ff"
+    },
+    "captured.json": {
+      "size": 313,
+      "sha256": "affab6daabf51bdf4c0ad44d547698abe53486c6450e8dd0628dd918a8dce5aa"
+    },
+    "all-functions-exact.terms": {
+      "size": 57,
+      "sha256": "39a2f482b4e015da1ede69e3ece18ea5b4d123b028b3616d032459e7e7872af9"
+    },
+    "native-html-generated.terms": {
+      "size": 724,
+      "sha256": "a12cf2f216c1ab8895685831e774661ddcdde99a6f184687107798a6313c6799"
+    },
+    "native-fixture-generated.terms": {
+      "size": 864,
+      "sha256": "f4a3eee826ad22bc38963b39a18379d424c467769e98cf7b4a677cad26995828"
+    },
+    "fixture-generated.beam": {
+      "size": 1244,
+      "sha256": "bc285fae49e3497c0defdb136ed273d82b2b52d871b930c81106c34588c6e6d1"
+    }
+  }
+}

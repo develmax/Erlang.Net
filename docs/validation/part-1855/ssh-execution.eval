@@ -1,0 +1,27 @@
+[Path] = init:get_plain_arguments(),
+{ok, Image} = file:read_file(Path),
+{module, ssh_channel_sup} = code:load_binary(ssh_channel_sup, Path, Image),
+Pid = self(),
+Cases = [{ok, {ok, Pid}, {ok, Pid}},
+         {ok_info, {ok, Pid, info}, {ok, Pid}},
+         {error_info, {error, {denied, info}}, {error, denied}},
+         {error, {error, denied}, {error, denied}}],
+Observe = fun(Role, Channel, {Name, Reply, Expected}) ->
+    Sup = spawn(fun() ->
+        receive {'$gen_call', From, {start_child, Spec}} ->
+           Pid ! {observed, self(), Spec},
+           gen_server:reply(From, Reply)
+        end
+    end),
+    Expected = ssh_channel_sup:start_child(Role, Sup, Pid, callback, 8, [arg], execute),
+    receive
+        {observed, Sup, #{id := Ref, start := {Channel, start_link, [Pid, 8, callback, [arg], execute]},
+                         restart := temporary, type := worker, modules := [Channel]}}
+            when is_reference(Ref) -> {Role, Name, Channel}
+    after 1000 -> error({unexpected_spec, Role, Name})
+    end
+end,
+Result = [Observe(Role, Channel, Case) ||
+          {Role, Channel} <- [{client, ssh_client_channel}, {server, ssh_server_channel}],
+          Case <- Cases],
+io:format("~0p.~n", [Result]), halt().

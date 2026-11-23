@@ -1,0 +1,44 @@
+[RankPath, Output] = init:get_plain_arguments(),
+{ok,[#{opcode_groups := Groups}]} = file:consult(RankPath),
+Missing = maps:get(missing_function, Groups),
+Extra = maps:get(extra_function, Groups),
+Contains = fun(Name, Part) -> binary:match(Name, Part) =/= nomatch end,
+Kind = fun(Name) ->
+    Binary = atom_to_binary(Name, utf8),
+    case {Contains(Binary, <<"lc$^">>), Contains(Binary, <<"bc$^">>),
+          Contains(Binary, <<"mc$^">>), Contains(Binary, <<"-inlined-">>),
+          Contains(Binary, <<"-fun-">>)} of
+        {true, _, _, _, _} -> list_comprehension;
+        {_, true, _, _, _} -> bit_comprehension;
+        {_, _, true, _, _} -> map_comprehension;
+        {_, _, _, true, _} -> inlining;
+        {_, _, _, _, true} -> anonymous_function;
+        _ -> other
+    end
+end,
+Partition = fun(Map) ->
+    maps:fold(fun(Path, Keys, Acc) ->
+        lists:foldl(fun({Name, _} = MFA, ByKind) ->
+            K = Kind(Name),
+            ByKind#{K => maps:update_with(Path, fun(Old) -> [MFA | Old] end, [MFA], maps:get(K, ByKind, #{}))}
+        end, Acc, Keys)
+    end, #{}, Map)
+end,
+Count = fun(Partitioned) ->
+    [{KindKey, map_size(Paths), lists:sum([length(Keys) || Keys <- maps:values(Paths)])}
+     || {KindKey, Paths} <- lists:sort(maps:to_list(Partitioned))]
+end,
+WrongArity = maps:filtermap(fun(Path, Keys) ->
+    Extras = maps:from_list([{Name, Arity} || {Name, Arity} <- maps:get(Path, Extra, [])]),
+    case [{Name, Expected, Actual} || {Name, Expected} <- Keys, {ok, Actual} <- [maps:find(Name, Extras)]] of
+        [] -> false;
+        Pairs -> {true, Pairs}
+    end
+end, Missing),
+Summary = #{missing => Count(Partition(Missing)), extra => Count(Partition(Extra)),
+            same_name_extra_arity => #{modules => map_size(WrongArity),
+                                        functions => lists:sum([length(Keys) || Keys <- maps:values(WrongArity)])},
+            wrong_arity_witnesses => WrongArity},
+ok = file:write_file(Output, io_lib:format("~tp.~n", [Summary])),
+halt(0).
+

@@ -1,0 +1,168 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryLiteralTests.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryLiteralTests.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryLiteralTests.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryLiteralTests.cs
+@@ -4,6 +4,13 @@
+ 
+ internal sealed partial class BeamModuleCompiler
+ {
++    private sealed record EntryLiteralArm(
++        BeamOperand Key,
++        int Label,
++        int Start,
++        int End
++    );
++
+     private byte[]? GroupEntryLiteralTests(ReadOnlyMemory<byte> code, int labelCount)
+     {
+         if (ModuleOptimizationDisabled || !SsaTypeInferenceEnabled || !code.Span.Contains(ExactEqualTest))
+@@ -61,7 +68,7 @@
+                 continue;
+             }
+ 
+-            var cases = new List<(BeamOperand Key, int Label, int Start, int End)>();
++            var cases = new List<EntryLiteralArm>();
+             int cursor = index + 2;
+             while (cursor + 1 < body.Count && body[cursor] is
+                 {
+@@ -85,7 +92,12 @@
+                     break;
+                 }
+ 
+-                cases.Add((key, next, body[start].Offset, body[end].Offset));
++                cases.Add(new EntryLiteralArm(
++                    key,
++                    next,
++                    start,
++                    end
++                ));
+                 cursor = end + 1;
+             }
+ 
+@@ -97,16 +109,40 @@
+                 continue;
+             }
+ 
++            EntryLiteralArm[] ordered = cases.OrderBy(
++                item => item.Key.Kind == BeamOperandParameters.Atom ? (Term)atomNames[(int)item.Key.Value - 1] : new Integer(item.Key.Value),
++                Comparer<Term>.Create((a, b) => TermOrder.Compare(a, b, exact: true))
++            ).ToArray();
++            IReadOnlyList<EntryLiteralArm> layout = cases;
++            var function = body[index].Operands;
++            var integerLayout = firstKey.Kind == BeamOperandParameters.Integer && selector.TypeIndex is null
++                ? PlanBoundedIntegerTailSelector(
++                    (atomNames[(int)function[1].Value - 1].Name, (int)function[2].Value),
++                    selector,
++                    ordered,
++                    body
++                )
++                : null;
++
+             output.Write(code.Span[copied..body[index + 2].Offset]);
+             output.WriteByte(SelectValue);
+-            BeamCompactWriter.Write(output, XRegisterTag, selector.Value);
++            if (integerLayout is { } plan)
++            {
++                output.WriteByte(ExtendedTypedRegisterOperand);
++                BeamCompactWriter.Write(output, XRegisterTag, selector.Value);
++                int type = GetOperandTypeIndex((IntegerTypeBits, plan.Lower, plan.Upper, null));
++                BeamCompactWriter.Write(output, BeamWire.UnsignedTag, type);
++                ordered = plan.Table;
++                layout = plan.Layout;
++            }
++            else
++            {
++                BeamCompactWriter.Write(output, XRegisterTag, selector.Value);
++            }
++
+             BeamCompactWriter.Write(output, LabelTag, fallback);
+             output.WriteByte(ExtendedListOperand);
+             BeamCompactWriter.Write(output, BeamWire.UnsignedTag, cases.Count * 2);
+-            var ordered = cases.OrderBy(
+-                item => item.Key.Kind == BeamOperandParameters.Atom ? (Term)atomNames[(int)item.Key.Value - 1] : new Integer(item.Key.Value),
+-                Comparer<Term>.Create((a, b) => TermOrder.Compare(a, b, exact: true))
+-            );
+             foreach (var branch in ordered)
+             {
+                 if (branch.Key.Kind == BeamOperandParameters.Atom)
+@@ -121,11 +157,11 @@
+                 BeamCompactWriter.Write(output, LabelTag, branch.Label);
+             }
+ 
+-            foreach (var branch in cases)
++            foreach (var branch in layout)
+             {
+                 output.WriteByte(Label);
+                 BeamCompactWriter.Write(output, BeamWire.UnsignedTag, branch.Label);
+-                output.Write(code.Span[branch.Start..branch.End]);
++                output.Write(code.Span[body[branch.Start].Offset..body[branch.End].Offset]);
+             }
+ 
+             copied = body[cursor + 1].Offset;
+@@ -141,4 +177,67 @@
+ 
+         return output.ToArray();
+     }
++
++    private (long Lower, long Upper, EntryLiteralArm[] Table, IReadOnlyList<EntryLiteralArm> Layout)? PlanBoundedIntegerTailSelector(
++        (string Name, int Arity) signature,
++        BeamOperand selector,
++        IReadOnlyList<EntryLiteralArm> ordered,
++        IReadOnlyList<BeamInstruction> body
++    )
++    {
++        if (ReadIntegerEntryRange(signature, (int)selector.Value) is not { } bounds
++            || bounds.Lower == bounds.Upper
++            || ordered.Any(branch => branch.Key.Value < bounds.Lower || branch.Key.Value > bounds.Upper))
++        {
++            return null;
++        }
++
++        var seen = new Dictionary<(BeamOperand Target, BeamOperand? Constant), int>();
++        var table = new EntryLiteralArm[ordered.Count];
++        var layout = new List<EntryLiteralArm>();
++        for (int index = 0; index < ordered.Count; index++)
++        {
++            EntryLiteralArm branch = ordered[index];
++            if (body[branch.End - 1] is not { Definition.Opcode: TailLocalCall, Operands: [var arity, var target] }
++                || arity.Value != signature.Arity)
++            {
++                return null;
++            }
++
++            BeamOperand? constant = null;
++            if (branch.End - branch.Start == 2 && body[branch.Start] is
++                { Definition.Opcode: Move, Operands: [{ Kind: BeamOperandParameters.Integer } value, var destination] }
++                && destination == selector)
++            {
++                constant = value;
++            }
++            else if (branch.End - branch.Start != 1)
++            {
++                return null;
++            }
++
++            if (seen.TryGetValue((target, constant), out int label))
++            {
++                // A code entry can also be retained through module metadata.
++                if (exports.Any(entry => MapEmittedLabel(entry.Entry) == branch.Label)
++                    || locals.Any(entry => MapEmittedLabel(entry.Entry) == branch.Label)
++                    || closures.Any(closure => MapEmittedLabel(MapClosureEntryLabel(closure.Entry)) == branch.Label))
++                {
++                    return null;
++                }
++
++                table[index] = branch with { Label = label };
++                continue;
++            }
++
++            seen.Add((target, constant), branch.Label);
++            table[index] = branch;
++            layout.Add(branch);
++        }
++
++        // OTP visits switch destinations in ascending key order and emits reverse postorder.
++        layout.Reverse();
++
++        return (bounds.Lower, bounds.Upper, table, layout);
++    }
+ }

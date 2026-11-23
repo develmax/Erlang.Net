@@ -1,0 +1,65 @@
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12557,6 +12557,7 @@
+ Test(Erlang.Tests.BeamCheckedResultPayloadChecks.TestName, Erlang.Tests.BeamCheckedResultPayloadChecks.Run);
+ Test(Erlang.Tests.BeamCheckedResultPayloadChecks.HeaderHeapTestName, Erlang.Tests.BeamCheckedResultPayloadChecks.CheckHeaderHeap);
+ Test(Erlang.Tests.BeamCheckedResultPayloadChecks.ConstructionTrimTestName, Erlang.Tests.BeamCheckedResultPayloadChecks.CheckConstructionTrim);
++Test(Erlang.Tests.BeamCheckedResultPayloadChecks.OwnedCallTestName, Erlang.Tests.BeamCheckedResultPayloadChecks.CheckOwnedCallsAndFailures);
+ Test(Erlang.Tests.BeamCallArgumentKillsChecks.TestName, Erlang.Tests.BeamCallArgumentKillsChecks.Run);
+ Test(Erlang.Tests.BeamMeasuredDecoderPairChecks.TestName, Erlang.Tests.BeamMeasuredDecoderPairChecks.Run);
+ Test(Erlang.Tests.BeamClosedDecoderTagsChecks.TestName, Erlang.Tests.BeamClosedDecoderTagsChecks.Run);
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamCheckedResultPayloadChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamCheckedResultPayloadChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamCheckedResultPayloadChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamCheckedResultPayloadChecks.cs
+@@ -13,6 +13,8 @@
+     private const string HeaderHeapError = "The terminal header list did not use its single live heap reservation.";
+     internal const string ConstructionTrimTestName = "compiler/beam/trims-owned-terminal-construction-frames";
+     private const string ConstructionTrimError = "A terminal construction retained dead slots across a call or dropped a used slot.";
++    internal const string OwnedCallTestName = "compiler/beam/clears-projected-call-arguments-and-orders-owned-failures";
++    private const string OwnedCallError = "The checked result kept a consumed call slot or misplaced an owned failure.";
+     private const string Module = "beam_checked_result_payload";
+     private const string ShapeError = "The checked result payload was not shared within its owning branches.";
+ 
+@@ -53,6 +55,41 @@
+             throw new InvalidOperationException(ShapeError);
+         }
+     }
++
++    internal static void CheckOwnedCallsAndFailures()
++    {
++        const string original = "{answer,[{response,{response,Head,nobody}}|Info#request.data]}";
++        string alternate = Source.Replace(original,
++            "{answer,[{response,{response,Head,nobody}},{kept,Suffix}|Info#request.data]}", StringComparison.Ordinal);
++        object[] same = ReadInstructions(Source);
++        object[] retained = ReadInstructions(alternate);
++        int caseEnd = Array.FindIndex(same, instruction => Opcode(instruction) == CaseEnd);
++        int badRecord = Array.FindLastIndex(same, instruction => Opcode(instruction) == BadRecord);
++        if (alternate == Source || !HasClearedArguments(same) || HasClearedArguments(retained)
++            || badRecord < 0 || caseEnd <= badRecord)
++        {
++            throw new InvalidOperationException(OwnedCallError);
++        }
++    }
++
++    private static bool HasClearedArguments(object[] instructions)
++    {
++        for (int index = 0; index + 4 < instructions.Length; index++)
++        {
++            if (Opcode(instructions[index]) == GetTupleElement
++                && Opcode(instructions[index + 1]) == Move && Value(Operands(instructions[index + 1])[1]) == 2
++                && Opcode(instructions[index + 2]) == Move && Value(Operands(instructions[index + 2])[1]) == 1
++                && Opcode(instructions[index + 3]) == InitYRegisters && Operands(instructions[index + 3]).Length == 3)
++            {
++                return true;
++            }
++        }
++
++        return false;
++    }
++
++    private static object[] ReadInstructions(string source) =>
++        Children(Code(CodeGeneration.CompileBeamModule(source, Module + ".erl")), "Instructions");
+ 
+     internal static void CheckConstructionTrim()
+     {

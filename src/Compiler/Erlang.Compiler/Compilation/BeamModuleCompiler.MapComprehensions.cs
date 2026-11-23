@@ -4,6 +4,73 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
+    private (Expr.Call Call, FunctionDefinition Helper, BeamSourceLocation Location)? PlanMapComprehensionListHelper(
+        FunctionDefinition function,
+        Clause clause,
+        Expr.MapComprehension map,
+        BeamSourceLocation location,
+        (int Core, int Ssa) ordinaryListOrdinals,
+        IReadOnlyDictionary<(string Name, int Arity), FunctionDefinition> localFunctions
+    )
+    {
+        if (map is not { Fields: [{ Key: var key, Value: var value }], Qualifiers: [ComprehensionQualifier.Generator] }
+            || map.SourceLine == 0)
+        {
+            return null;
+        }
+
+        // Pinned v3_core:mc_pairs keeps a safe generator-independent value
+        // out of the helper. Dependent values use the ordinary key/value list.
+        Expr[] valueNodes = LocalFunctionEntries.Walk(value).ToArray();
+        if (valueNodes.Any(node => node is not (Expr.Literal or Expr.List or Expr.Tuple or Expr.Variable)))
+        {
+            return null;
+        }
+
+        bool fromKeys = !valueNodes.OfType<Expr.Variable>().Any();
+        Expr element = fromKeys ? key : new Expr.Tuple([key, value]);
+        var pairs = new Expr.ListComprehension([element], map.Qualifiers)
+        {
+            PreprocessorLine = map.SourceLine,
+            PreprocessorFile = map.PreprocessorFile
+        };
+        var body = BeamTargetedInlining.Rewrite(
+            clause.Body,
+            expression => expression,
+            rewriteScope: expression => ReferenceEquals(expression, map) ? pairs : null
+        );
+        string helper = MappingName(
+            function.Name,
+            function.Arity,
+            1 - ordinaryListOrdinals.Core,
+            1 - ordinaryListOrdinals.Ssa
+        );
+        if (PlanRecursiveListComprehension(
+            pairs,
+            clause with { Body = body },
+            location,
+            helper,
+            localFunctions,
+            independent: false,
+            discarded: false,
+            allowStrict: true,
+            appendTail: null
+        ) is not { } plan)
+        {
+            return null;
+        }
+
+        var call = fromKeys ? new Expr.Call(MapModuleNames.Module, MapModuleNames.FromKeys, [plan.Call, value])
+            : new Expr.Call(MapModuleNames.Module, MapModuleNames.FromList, [plan.Call]);
+        call = call with
+        {
+            SourceLine = map.SourceLine,
+            PreprocessorFile = map.PreprocessorFile
+        };
+
+        return (call, plan.Helper, plan.Location);
+    }
+
     private sealed partial class GeneralEmitter
     {
         private void EmitMapComprehension(Expr.MapComprehension comprehension)

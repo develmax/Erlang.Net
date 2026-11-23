@@ -1,0 +1,51 @@
+{module, beam_terminal_calls}.  %% version = 0
+
+{exports, [{module_info,0},{module_info,1},{run,2}]}.
+
+{attributes, []}.
+
+{labels, 11}.
+
+
+{function, run, 2, 2}.
+  {label,1}.
+    {line,[{location,"d:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/call-and-frame-lifetime-1855/combined-allocation-regression/beam_terminal_calls.erl",
+                     3}]}.
+    {func_info,{atom,beam_terminal_calls},{atom,run},2}.
+  {label,2}.
+    {allocate_heap,0,4,2}.
+    {put_list,{x,1},nil,{x,1}}.
+    {put_list,{x,0},{x,1},{x,0}}.
+    {line,[{location,"d:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/call-and-frame-lifetime-1855/combined-allocation-regression/beam_terminal_calls.erl",
+                     4}]}.
+    {call_ext,1,{extfunc,lists,concat,1}}.
+    {line,[{location,"d:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/call-and-frame-lifetime-1855/combined-allocation-regression/beam_terminal_calls.erl",
+                     4}]}.
+    {call_ext_last,1,{extfunc,erlang,list_to_atom,1},0}.
+  {label,3}.
+    if_end.
+
+
+{function, module_info, 0, 6}.
+  {label,5}.
+    {line,[]}.
+    {func_info,{atom,beam_terminal_calls},{atom,module_info},0}.
+  {label,6}.
+    {move,{atom,beam_terminal_calls},{x,0}}.
+    {line,[]}.
+    {call_ext_only,1,{extfunc,erlang,get_module_info,1}}.
+  {label,7}.
+    if_end.
+
+
+{function, module_info, 1, 9}.
+  {label,8}.
+    {line,[]}.
+    {func_info,{atom,beam_terminal_calls},{atom,module_info},1}.
+  {label,9}.
+    {move,{x,0},{x,1}}.
+    {move,{atom,beam_terminal_calls},{x,0}}.
+    {line,[]}.
+    {call_ext_only,2,{extfunc,erlang,get_module_info,2}}.
+  {label,10}.
+    if_end.

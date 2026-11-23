@@ -1,0 +1,418 @@
+{
+  "OtpVersion": "29.1.1",
+  "OtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Sdk": "10.0.400",
+  "Runtime": "10.0.11",
+  "Erts": "17.1",
+  "Jobs": 1,
+  "Artifacts": {
+    "SourceSnapshot": {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\late-list-and-tail-copy-provenance-1870\\source.zip",
+      "Sha256": "e227e00ed3662e1e731229f2d436dc462c810fc7f0427cee98aa728892a1c67d"
+    },
+    "BaseCompiler": {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\late-list-and-tail-copy-provenance-1870\\corpus-bin\\Erlang.Compiler.dll",
+      "Sha256": "959eb6b159c88781942d74775081ca57fb9bd664c103c698d754f2367f6ce1b4"
+    },
+    "CandidateCompiler": {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\metadata-inets-include-audit-1870\\isolated\\tool\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Sha256": "959eb6b159c88781942d74775081ca57fb9bd664c103c698d754f2367f6ce1b4"
+    },
+    "BaseCorpusTool": {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\late-list-and-tail-copy-provenance-1870\\corpus-bin\\Erlang.BeamCorpus.dll",
+      "Sha256": "9b052156f7f3996ef7d9a9abe8e5f2f9c21dbaea70e01bd143614f3ed12180e7"
+    },
+    "CandidateCorpusTool": {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\metadata-inets-include-audit-1870\\isolated\\tool\\bin\\Debug\\net10.0\\Erlang.BeamCorpus.dll",
+      "Sha256": "088c2c49ba03119ab9d30284113891ca7dccf613a47af119bdc862de61f448d4"
+    },
+    "ModuleSelection": {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\metadata-inets-include-audit-1870\\inets-modules.txt",
+      "Sha256": "05b9f898505d4b64c8bb13a65a09cc9da3a225e94e21dda8de3ca678492f8ae4"
+    },
+    "Patch": {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\metadata-inets-include-audit-1870\\inets-epp-include-provenance.patch",
+      "Sha256": "8a4707d701dec44999a407b60c4892ad9d2983e8565811c1c5dcecbdc25ea60e"
+    }
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\http_chunk.beam",
+      "BeamSha256": "8421408319a009ceecf8f835807fdec45b3588d08db7cc6150013a1222eab57f",
+      "Source": "lib\\inets-9.8\\src\\http_lib\\http_chunk.erl",
+      "SourceSha256": "f4b3798a389a2e92eb02bcb7a6eaa4c415d58094cfd8d6b9bd96ce3ed851224f"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\http_request.beam",
+      "BeamSha256": "6a9a4b4b6a32c9800106738329195024276f62d1bcae6ad932be386d74f26e41",
+      "Source": "lib\\inets-9.8\\src\\http_lib\\http_request.erl",
+      "SourceSha256": "e6f03aab9b4fb7eff1e132d3d9b9d9f24ba52b1baec23ba46abfeb863a4957d2"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\http_response.beam",
+      "BeamSha256": "44c9439da5af73b83cb6a10677609176c6278cef5f6546917c8525df2021e364",
+      "Source": "lib\\inets-9.8\\src\\http_lib\\http_response.erl",
+      "SourceSha256": "d77165167ef6ae410f59f4e3e1d70eb7c913b39f30782488f1ef30783481bf17"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\http_transport.beam",
+      "BeamSha256": "72e1d3fea758680babae459edaf940ebce10875a534b58b3fb85d59f1e50d48b",
+      "Source": "lib\\inets-9.8\\src\\http_lib\\http_transport.erl",
+      "SourceSha256": "6f4c5409f9809485c9ea6b818291666e0cd08a9609f8824b8ec27bc4207088da"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\http_uri.beam",
+      "BeamSha256": "7d7a512d72e116de1a9cd8e72338d2d4b03d56923783bce834b35c69da0a575e",
+      "Source": "lib\\inets-9.8\\src\\http_lib\\http_uri.erl",
+      "SourceSha256": "1214d8a38d10ca61a47e763735cf688b0e7823a98073ec29888253c9e3ca804b"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\http_util.beam",
+      "BeamSha256": "5dda69f4bb51222e33998580ebcba0519999eccadfa4ff651dfa56e7b5833433",
+      "Source": "lib\\inets-9.8\\src\\http_lib\\http_util.erl",
+      "SourceSha256": "7af37494149d68e1174a4e1b2969b5d14143a2d64e12b18853374537c30d6b25"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpc.beam",
+      "BeamSha256": "8b7ca9137a007ffbdb8832a21c74b1aa829fdc8ae7794b39c7a009459429202e",
+      "Source": "lib\\inets-9.8\\src\\http_client\\httpc.erl",
+      "SourceSha256": "d79c6e1cbb512cee3c9bec4467d81511b2ccb14aecbcc4ae59a0e2ec8810e6e6"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpc_cookie.beam",
+      "BeamSha256": "e720b058fc7af1c4fd554f648760a99c215afad5ae782a5f9c2e3eea82a7ee03",
+      "Source": "lib\\inets-9.8\\src\\http_client\\httpc_cookie.erl",
+      "SourceSha256": "3720288e3e7b0c2eafea982d816560322f4108c43d13c012cb4af57eb69b128d"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpc_handler.beam",
+      "BeamSha256": "75fcaeba4daf30619d84a2ba5b5e3612ceb09af75b4d0937017a6411f72dcd0f",
+      "Source": "lib\\inets-9.8\\src\\http_client\\httpc_handler.erl",
+      "SourceSha256": "ba4af8b1704748ea2c4d6af7e42fb3f825bb7721be0ac7bf97020e20c3992fe2"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpc_handler_sup.beam",
+      "BeamSha256": "1431e3acdd1c878750ec30f4acdf649db78a636c5ba578a2fa349e71b027884b",
+      "Source": "lib\\inets-9.8\\src\\http_client\\httpc_handler_sup.erl",
+      "SourceSha256": "d5ccf5bae858c316ea5917c9f375ec36bf1d7b208dccd361844f8318a5975d09"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpc_manager.beam",
+      "BeamSha256": "6b9dad4e0780c435f1e83afa9db56f47225163f9ae7f08fdc69ea75cfbeb9bf7",
+      "Source": "lib\\inets-9.8\\src\\http_client\\httpc_manager.erl",
+      "SourceSha256": "c2f255de4496aaa207fd1292dc0280d487a8f0202ca7afa15e6983174ceb9542"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpc_profile_sup.beam",
+      "BeamSha256": "9841c7ed17cd2f37798ea0b46f534b5b13de1b424272482ccb574e0e47f7fcc1",
+      "Source": "lib\\inets-9.8\\src\\http_client\\httpc_profile_sup.erl",
+      "SourceSha256": "8ebede99429d4f1a4bb19e8e843ee3d6387c7c6ccd043b7d52ddb3ca15add0c4"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpc_request.beam",
+      "BeamSha256": "60b0596f0df35705113b12359f3a0875243b1252066f2147bfb6fb14ff1adeae",
+      "Source": "lib\\inets-9.8\\src\\http_client\\httpc_request.erl",
+      "SourceSha256": "75f4c8d41a633e33145e87a27f5381222f9b2a22c7b194c0785224468b100724"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpc_response.beam",
+      "BeamSha256": "444aec3f726d42ebbd77d928dfb1e47c2aed865cd3358f37512571c699cb8854",
+      "Source": "lib\\inets-9.8\\src\\http_client\\httpc_response.erl",
+      "SourceSha256": "b508696c3fda6c5f2735817af40c1d927a25013c6e8c91d1d9bcc1aebdef1044"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpc_sup.beam",
+      "BeamSha256": "1eef800953e936962077e77acef62a561887bf2c636629c29d5adab0a5371c7d",
+      "Source": "lib\\inets-9.8\\src\\http_client\\httpc_sup.erl",
+      "SourceSha256": "2d13318e2e96ee15870c213d9bc81a3132070370718b90f39cbe9c1e64d983c8"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpd.beam",
+      "BeamSha256": "9df782db07cb3818016baf55e733b7ee420a0bb4fdb1586b5c2ce2b6e45b8f80",
+      "Source": "lib\\inets-9.8\\src\\http_server\\httpd.erl",
+      "SourceSha256": "cc9ffbd10c965f453cb46f51e1c74aa15303f6398ecb0dd70bfc95d24ac112ca"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpd_acceptor.beam",
+      "BeamSha256": "e674d2efef4678cf836f5686d7f0e48a35ff95239590b2d882a7f27112515ac5",
+      "Source": "lib\\inets-9.8\\src\\http_server\\httpd_acceptor.erl",
+      "SourceSha256": "601b214e76ec13f2a7555ce4580dc92e5d6291a64fb53106cf13443e11998aea"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpd_acceptor_sup.beam",
+      "BeamSha256": "4f20620c0adde5d7d51a380ed75f27c9cd2f84da6cc4c42472861cd5aac2708a",
+      "Source": "lib\\inets-9.8\\src\\http_server\\httpd_acceptor_sup.erl",
+      "SourceSha256": "2f648b04879105340674e5be688d9b04458d1c51aee30e7e3aa9425f2dd4c169"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpd_cgi.beam",
+      "BeamSha256": "c36abf67e2929392adee8b031b97a9da308feff4823ee6ad0c707a5906e2562f",
+      "Source": "lib\\inets-9.8\\src\\http_server\\httpd_cgi.erl",
+      "SourceSha256": "9f46dfe91d6d2c69223a527d661830f86fd955e8fa57bea614c5ce26a5fc65a5"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpd_conf.beam",
+      "BeamSha256": "0dbb93817bc46cda8f39b01ce1d737273c35049424e1d38f881353f92f4c8fa5",
+      "Source": "lib\\inets-9.8\\src\\http_server\\httpd_conf.erl",
+      "SourceSha256": "c0544d6617fb4a5c8cbd6de5f688d90c3643c3df2d2633cd35450ef943c81bbc"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpd_connection_sup.beam",
+      "BeamSha256": "1dc0833b1e026dff14fbe0f8043319b2ac46e7f50f241c558863781109ef46af",
+      "Source": "lib\\inets-9.8\\src\\http_server\\httpd_connection_sup.erl",
+      "SourceSha256": "381ee511fc39ccca2fe97191c1e87612f16fbf09e0fc76432c5d7e2e921af56e"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpd_custom.beam",
+      "BeamSha256": "90eeaf68bae9339e2461cfcedb35d4207e8ed8ba2f415c63981b6ac487741e80",
+      "Source": "lib\\inets-9.8\\src\\http_server\\httpd_custom.erl",
+      "SourceSha256": "387b77b5f83efc322557e079a72009c9ec4bb8a2094b18268ff57f289d162efd"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpd_custom_api.beam",
+      "BeamSha256": "d489d6ad28588a02dc2192820738f5b15bd06cad724a6f20a5d6a55a4d38492e",
+      "Source": "lib\\inets-9.8\\src\\http_server\\httpd_custom_api.erl",
+      "SourceSha256": "367bae5b28b5ba224810b0c56263ef5692b9ccf831bb58cfa9d4680140f6bc01"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpd_esi.beam",
+      "BeamSha256": "daa501e2fe940b94dab8b7ec304b52ca26608dcc20ad22fab53ed8c002db846a",
+      "Source": "lib\\inets-9.8\\src\\http_server\\httpd_esi.erl",
+      "SourceSha256": "48bb7c37c2c3ab953acd94d991156a7a41b7d7e9d45749e8b113df4415ecabb2"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpd_example.beam",
+      "BeamSha256": "49cb547cdb297e7d2198440741225a3ce861ac7c7b95fd7007a84f287879e012",
+      "Source": "lib\\inets-9.8\\src\\http_server\\httpd_example.erl",
+      "SourceSha256": "9f41c60ea4991ef842f2a788e4369a09e00a5c70e0829f84e801d84c53fd84cd"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpd_file.beam",
+      "BeamSha256": "9937c9c225be3a5e537d6f07251a0f50d5a22515a4f13cb6ab6a4634c7ff5b2d",
+      "Source": "lib\\inets-9.8\\src\\http_server\\httpd_file.erl",
+      "SourceSha256": "346433e9efe13087f394549978be68d01de75358cf5384c422a401e25d3ee350"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpd_instance_sup.beam",
+      "BeamSha256": "a93aa215eb0034f79b4f7a564d5704dde57f47e86b688b443a2acc48e3082193",
+      "Source": "lib\\inets-9.8\\src\\http_server\\httpd_instance_sup.erl",
+      "SourceSha256": "f27b1c7f6f73908a7050e963ffe2bf18a1a450f908d1e156575b48f5cc8e4419"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpd_log.beam",
+      "BeamSha256": "0daa8b8ea9137098e734b8509e5ae16e4fc1baf3c39a5defdde5b1b8ee4c14bb",
+      "Source": "lib\\inets-9.8\\src\\http_server\\httpd_log.erl",
+      "SourceSha256": "6dccfc4ac2368a0905b6c880cd0ed2dd1d1655ba051334e9eea940dfca3e653d"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpd_logger.beam",
+      "BeamSha256": "4a491621441a00311df40d2dd89c78e525f91354b449ebf12984f74821541578",
+      "Source": "lib\\inets-9.8\\src\\http_server\\httpd_logger.erl",
+      "SourceSha256": "7c83cd67f9ad22490831ad2825e96b9bdd30ebff19ea3d2c0159116782af8b58"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpd_manager.beam",
+      "BeamSha256": "2f0608ca9686c5f8fcc4f522f6478aff717da3ab6fa291d0760df2ed6dcf9d20",
+      "Source": "lib\\inets-9.8\\src\\http_server\\httpd_manager.erl",
+      "SourceSha256": "8e92e6c845c5eef3651ec75ea0d08df1beb275756e85aee1f77fe77b9cd828a6"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpd_misc_sup.beam",
+      "BeamSha256": "db80b5146f707cf78900e73c946f3c68dc94acea99195bb2f12ee40dce597688",
+      "Source": "lib\\inets-9.8\\src\\http_server\\httpd_misc_sup.erl",
+      "SourceSha256": "de94284a941d8bd4856162dcf57f2f1b042493081b54e1321026f65c7e8385d5"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpd_request.beam",
+      "BeamSha256": "3e6349009465e8d5c15f4830930630016d4d5d5f6bf615f41938e9abf1ee8be0",
+      "Source": "lib\\inets-9.8\\src\\http_server\\httpd_request.erl",
+      "SourceSha256": "2b62e997c0639e35824ceeff5913acfc4c31c3463914127b73099647e024e891"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpd_request_handler.beam",
+      "BeamSha256": "6c3c9a10abaabb926b0fb5496cc5047c45d4c35969c1462d9a0718f86322b5f6",
+      "Source": "lib\\inets-9.8\\src\\http_server\\httpd_request_handler.erl",
+      "SourceSha256": "fa3c955bc719d511fd332cb1d6f2df71df8ac059c8792667f00edea0c1a56061"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpd_response.beam",
+      "BeamSha256": "374ba10c258245287997318c02dcf7cb6bfcbf9cb2787deb6b09476c6d2363fa",
+      "Source": "lib\\inets-9.8\\src\\http_server\\httpd_response.erl",
+      "SourceSha256": "00a803729fb642c7f729b976d4ecb4984a33b5954403580b08d7934acc5aa920"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpd_script_env.beam",
+      "BeamSha256": "6ce610706ef4e1633acce5e2fde583b6bd2a2b17bea257de7e5d4fe907e2e2a6",
+      "Source": "lib\\inets-9.8\\src\\http_server\\httpd_script_env.erl",
+      "SourceSha256": "b63cfbd886b28a15c99e27b13d53ad4e44c42cc95f7d6440cbe1c66a7ae868da"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpd_socket.beam",
+      "BeamSha256": "51a1924d6afbabf4ea6554d8e1515094b7d3e200e2d3cc4e2b8ebd7a9c2312d8",
+      "Source": "lib\\inets-9.8\\src\\http_server\\httpd_socket.erl",
+      "SourceSha256": "9994b0bfaedcbafc935562893ffea3a9338e51af050bd7df8fd7fc03e9854a88"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpd_sup.beam",
+      "BeamSha256": "633211135b40364859d389bab549b08ca5aca3fa13cab8098e4dd80524cc8de8",
+      "Source": "lib\\inets-9.8\\src\\http_server\\httpd_sup.erl",
+      "SourceSha256": "7e55570473becdf77296cd0f11133e2b8515e9ad14d145039d394fa4ff3e6b0e"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpd_util.beam",
+      "BeamSha256": "4afb5efbf6f3f5a983ef5fee93d2472b4f82304c2cdf57981ea8a4f3b4024203",
+      "Source": "lib\\inets-9.8\\src\\http_server\\httpd_util.erl",
+      "SourceSha256": "084ba44cd92fd29ade4474b3c7db15b696a102c4ee1aa8db15365bebd0f39926"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\inets.beam",
+      "BeamSha256": "e75c6a34073586a549c940e763b95c027425e2faf4b1c2ea1f22fb4d39cc4663",
+      "Source": "lib\\inets-9.8\\src\\inets_app\\inets.erl",
+      "SourceSha256": "18d0c8091e7c9ce34fad897734c1b4105fd8c19d0912da28a32856664c760f00"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\inets_app.beam",
+      "BeamSha256": "e197b47ae4de9b3287e45d546a32343e64f44ad307d4b371452a14ecc1912bea",
+      "Source": "lib\\inets-9.8\\src\\inets_app\\inets_app.erl",
+      "SourceSha256": "ef56d9ce10c59d6af423453536b1b8ab7fcb08edcb302128973ee3304cc4a9ea"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\inets_lib.beam",
+      "BeamSha256": "33119f9258f363bd53056f32f949323baadf7b116ca26a72dd4990771df9c0fe",
+      "Source": "lib\\inets-9.8\\src\\inets_app\\inets_lib.erl",
+      "SourceSha256": "7d2f65a29ccaacda5678e4e8413748f2ed0ee15922aa8141e40e5a6e4ca59fd9"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\inets_service.beam",
+      "BeamSha256": "4e73689b4ae21e3ceb20a84f7ca8ba11f0560118722333a7abc78297ab20414b",
+      "Source": "lib\\inets-9.8\\src\\inets_app\\inets_service.erl",
+      "SourceSha256": "f405c03ad690eda07671bebef08796124a95c367d3c04dadc8260a6adc36647f"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\inets_sup.beam",
+      "BeamSha256": "7c57bc8cb3a5a7abb165fb67b834f126b80bd0facd78690cc9e37b7d9c28343d",
+      "Source": "lib\\inets-9.8\\src\\inets_app\\inets_sup.erl",
+      "SourceSha256": "04154fd8ace3ce49e67f28ff384194617c4440bb58ead1f6c320e17554c1602a"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\inets_trace.beam",
+      "BeamSha256": "16b46a19951438112d862e93252030efbed881112f4d15585d7f1c186f3a2677",
+      "Source": "lib\\inets-9.8\\src\\inets_app\\inets_trace.erl",
+      "SourceSha256": "1f67a0bda05227eddd8ffb4909ec8a31465ef2d8582e0ff9ff5d2b72638c7599"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\mod_actions.beam",
+      "BeamSha256": "4fb9230f2588a00ce53a4ac8732e7983cd831813decdb40b7157087e823e3078",
+      "Source": "lib\\inets-9.8\\src\\http_server\\mod_actions.erl",
+      "SourceSha256": "409362e5252bc8588c8a724248e81ef8cbee355823b5c841d93ccdae9c17bf5f"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\mod_alias.beam",
+      "BeamSha256": "f1756d28f11d97b1c4650487109fe9d96039f7f0ab0898a8bd18943d2d3ec43a",
+      "Source": "lib\\inets-9.8\\src\\http_server\\mod_alias.erl",
+      "SourceSha256": "081cb723812c33c33ef5cc335cb07093194d52e343308c6b234b5f7a31ab1a6d"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\mod_auth.beam",
+      "BeamSha256": "42b7a0d6ff0a36c0fbcdcf29ffefb479e1286f62a07adb230089bdeb0593d653",
+      "Source": "lib\\inets-9.8\\src\\http_server\\mod_auth.erl",
+      "SourceSha256": "5f3c743cb160f8a132a60d035d11048f11c629027508c0fd75dd5c09c6873027"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\mod_auth_dets.beam",
+      "BeamSha256": "f10aa12c229fee0755cba6c598a93df30d80f691a0ac0c0485305fa249675587",
+      "Source": "lib\\inets-9.8\\src\\http_server\\mod_auth_dets.erl",
+      "SourceSha256": "185593efe82b1848045ca0df6a0e702b2c28f495c9f356f3f61f9785c65403b8"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\mod_auth_mnesia.beam",
+      "BeamSha256": "a3651c992782123a4851ad73a6fca798388f55fd8fdd845c20e30a12bf511542",
+      "Source": "lib\\inets-9.8\\src\\http_server\\mod_auth_mnesia.erl",
+      "SourceSha256": "4df572bcd729cff7d57ed061026c47d6f3da305c76983760477a86ebfe5ce62e"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\mod_auth_plain.beam",
+      "BeamSha256": "4b1de13e23f151fac247cedc6cfb6d15805b5152810fae93fc7f08965beb296b",
+      "Source": "lib\\inets-9.8\\src\\http_server\\mod_auth_plain.erl",
+      "SourceSha256": "74c060ca4c86c98cf2ad35bc4fcd19ac7ba13bde2247b9cbe8e697207a80a828"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\mod_auth_server.beam",
+      "BeamSha256": "56373f0d49e9b68bbb0b6d05a809b4268ec4c50fd1d40a420d266d8fe95e829d",
+      "Source": "lib\\inets-9.8\\src\\http_server\\mod_auth_server.erl",
+      "SourceSha256": "cc43fcf54b6e2482e9a9443d696a672def4cea6a25db8925e88ba33957b27f81"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\mod_cgi.beam",
+      "BeamSha256": "c6dd61d4389bfce8dcfd80f2b25750846362c9d8c8346181432645cd166b6f18",
+      "Source": "lib\\inets-9.8\\src\\http_server\\mod_cgi.erl",
+      "SourceSha256": "30766998934cb15e3276f0dc51ddac411598ac586b198b13ca967079cc795de6"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\mod_dir.beam",
+      "BeamSha256": "050244d99eee0e47f76436c4bab27e6e94b466e03979e6c2065768e40e5574d1",
+      "Source": "lib\\inets-9.8\\src\\http_server\\mod_dir.erl",
+      "SourceSha256": "2a0fb8c9c4a63d67cdef27386936e1abec1e9fe45563337215ff689d143552c0"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\mod_disk_log.beam",
+      "BeamSha256": "93d2a4bbd5eefbc53b24e2f6e85ce6ef43e6194c387b35496b3e1ec87742ed49",
+      "Source": "lib\\inets-9.8\\src\\http_server\\mod_disk_log.erl",
+      "SourceSha256": "05d6507c759edb1439f92ec1b0690724c96d6d75c46faf6c5f27ddd16d15f760"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\mod_esi.beam",
+      "BeamSha256": "2a04b572ea745aa0d740cbf228899c2221dc489f5694982af10404ae5fc68477",
+      "Source": "lib\\inets-9.8\\src\\http_server\\mod_esi.erl",
+      "SourceSha256": "e463399c82725304b56c3a87104ef79b492195a8de2fb1a80e3764a13d06fcbd"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\mod_get.beam",
+      "BeamSha256": "13dc26d2325cfd7066f7cf0a16a2302d990793efa83534354384cfa72fa140c8",
+      "Source": "lib\\inets-9.8\\src\\http_server\\mod_get.erl",
+      "SourceSha256": "5f50277bc792bf6da9249209f238c81472104bdd63ad943c5de09c7e39c9fa19"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\mod_head.beam",
+      "BeamSha256": "84ae33a082b0b01f02c309ad08bca131e02ee200eb4b584b658fc53bd013d1c9",
+      "Source": "lib\\inets-9.8\\src\\http_server\\mod_head.erl",
+      "SourceSha256": "50e05f82b7e5c498cc46672bf59d837e5e044b2eec2a7770e3ed846531d4fb92"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\mod_log.beam",
+      "BeamSha256": "6ec5c41c01f64d5de1774a06c42316343c445b4ad0b710f6cef7c26ac075e2a1",
+      "Source": "lib\\inets-9.8\\src\\http_server\\mod_log.erl",
+      "SourceSha256": "255ba7ae9a4a07b510d43665ab626298011dabaa219fb16a82f89de9811c5082"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\mod_range.beam",
+      "BeamSha256": "0aa53eb7508c9f2f82d220bd924f326e9699deb29b42a8ad819b045b090166ef",
+      "Source": "lib\\inets-9.8\\src\\http_server\\mod_range.erl",
+      "SourceSha256": "5dc5a9975fd12cf89b4da52a9eabb13ce624bbf091e068b5b5d64661844d6f8c"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\mod_responsecontrol.beam",
+      "BeamSha256": "4886124d0df9300eb2b08f57f08ee4f0b15cbef549b40491a31bdfd83063ed1f",
+      "Source": "lib\\inets-9.8\\src\\http_server\\mod_responsecontrol.erl",
+      "SourceSha256": "a36e5a1427f23d53e8ac10fa1d95db51a6b03c56ea7893f976ec43e93bb66338"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\mod_security.beam",
+      "BeamSha256": "a63fb82dd796fabf66d47d485f8c34c6500817487a8262cfa67c68db0de5383c",
+      "Source": "lib\\inets-9.8\\src\\http_server\\mod_security.erl",
+      "SourceSha256": "d807da2ca5625c568350b46a7c671ca7fc9727fdf6d387f20478c57fc4dfddec"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\mod_security_server.beam",
+      "BeamSha256": "e2f154349c16ec9cbc2bd03e177b05239bf039180cd2a49654c7f0ca28b424ac",
+      "Source": "lib\\inets-9.8\\src\\http_server\\mod_security_server.erl",
+      "SourceSha256": "9b50e2edfb7ff95ca102a05be3b00e9de681a39686b4c0df768dfc65adc9f0a7"
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\mod_trace.beam",
+      "BeamSha256": "daa144007178a9e1c5c5d3dc4e1591d83e6db83ab71b66d311d5c59307f0940c",
+      "Source": "lib\\inets-9.8\\src\\http_server\\mod_trace.erl",
+      "SourceSha256": "88fe9033a9dedb61f97ce27b0394b9425bb7efc5a01a3a80e3f2eb5c8449697e"
+    }
+  ]
+}

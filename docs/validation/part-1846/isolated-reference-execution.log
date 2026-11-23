@@ -1,0 +1,8 @@
+direct [payload] #{tag => literal,payload => payload}
+direct [1393796574908163946345982392040522594123776] #{tag => literal,payload => 1393796574908163946345982392040522594123776}
+direct [#{nested => {tag,[]}}] #{tag => literal,payload => #{nested => {tag,[]}}}
+retained [reused] {#{tag => literal,payload => reused},reused}
+retained [#{nested => [1,2]}] {#{tag => literal,payload => #{nested => [1,2]}},#{nested => [1,2]}}
+dynamic_key [{tag,1}] #{{tag,1} => present}
+dynamic_key [#{compound => key}] #{#{compound => key} => present}
+extend [ordinary] #{tag => added,payload => ordinary}

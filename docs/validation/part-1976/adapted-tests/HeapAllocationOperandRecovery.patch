@@ -1,0 +1,20 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamPreCallFrameAliasChecks.cs b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamPreCallFrameAliasChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamPreCallFrameAliasChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamPreCallFrameAliasChecks.cs
+@@ -64,6 +64,16 @@
+             compiler,
+             Fixture(interval: [GcBifTwo, F(3), U(0), U(0), Y(1), A(1), X(1)]),
+             Fixture(compact: true, interval: [GcBifTwo, F(3), U(1), U(0), Y(0), A(1), X(1)])
++        );
++        byte[] allocation =
++        [
++            TestHeap, (byte)((AllocationList << BeamWire.CompactSmallPayloadShift) | ExtendedTag), U(AllocationKinds),
++            U(AllocationWords), U(2), U(AllocationFloats), U(0), U(AllocationFuns), U(1)
++        ];
++        CheckCollectorCompacts(
++            compiler,
++            Fixture(interval: [.. allocation, U(0)]),
++            Fixture(compact: true, interval: [.. allocation, U(1)])
+         );
+         CheckCollectorCompacts(compiler, DenseCollectorFixture(false), DenseCollectorFixture(true));
+         CheckUnchanged(

@@ -1,0 +1,13 @@
+{"Partial":true,"SelectedCount":11,"TotalCount":9756}
+PASS compiler/beam/whole-module-matches-otp
+PASS compiler/beam/closed-literal-bindings-cross-calls-as-literals
+PASS compiler/beam/private-branch-trims-dead-stack-slots
+PASS compiler/beam/independent-atom-tails-use-otp-body-order
+PASS compiler/beam/size-bif-result-keeps-otp-range
+PASS compiler/beam/proper-list-proof-follows-only-tail
+PASS compiler/beam/list-result-keeps-proper-list-type
+PASS compiler/beam/select-arithmetic-precedes-branch-frame
+PASS compiler/beam/guard-comparison-keeps-proven-integer-type
+PASS compiler/beam/select-fallback-uses-frameless-external-tail
+PASS compiler/beam/module-filename-uses-implicit-line-index
+11/11 passed

@@ -130,4 +130,112 @@ internal sealed partial class BeamModuleCompiler
 
         return output.ToArray();
     }
+
+    private byte[]? ReuseCallResultSlotForSafeBifArgument(ReadOnlyMemory<byte> code, int labelCount)
+    {
+        if (!SsaTypeInferenceEnabled || ModuleOptimizationDisabled || !code.Span.Contains(BifZero)
+            || DecodeLateAtomicProjectionSlots(code, labelCount) is not { Body: var body })
+        {
+            return null;
+        }
+
+        var safeImports = ReadLocationNeutralExternalImports();
+        var x0 = new BeamOperand(BeamOperandParameters.X, 0);
+        var x1 = new BeamOperand(BeamOperandParameters.X, 1);
+        var x2 = new BeamOperand(BeamOperandParameters.X, 2);
+        var y0 = new BeamOperand(BeamOperandParameters.Y, 0);
+        var y1 = new BeamOperand(BeamOperandParameters.Y, 1);
+        using var output = new MemoryStream();
+        BeamProjectionFlow? flow = null;
+        int entry = 0;
+        int copied = 0;
+        for (int index = 0; index + 11 < body.Count; index++)
+        {
+            if (body[index].Definition.Opcode == FunctionInfo)
+            {
+                entry = index + 1;
+                continue;
+            }
+
+            if (entry == 0 || body[index] is not
+                { Definition.Opcode: Allocate, Operands: [{ Value: var width }, { Value.IsOne: true }] }
+                || width != 2 || body[index + 1] is not
+                { Definition.Opcode: InitYRegisters, Operands: [_, var initialized] }
+                || initialized != y1 || !IsMove(index + 2, x0, y0))
+            {
+                continue;
+            }
+
+            int first = SkipLines(index + 3);
+            if (first + 7 >= body.Count || body[first] is not
+                { Definition.Opcode: ExternalCall, Operands: [{ Value.IsZero: true }, _] }
+                || !IsMove(first + 1, x0, y1) || body[first + 2] is not
+                { Definition.Opcode: BifZero, Operands: [var bif, var destination] }
+                || destination != x0 || !safeImports.Contains((int)bif.Value) || !IsMove(first + 3, y0, x1))
+            {
+                continue;
+            }
+
+            int next = SkipLines(first + 4);
+            if (next + 4 >= body.Count || body[next] is not
+                { Definition.Opcode: ExternalCall, Operands: [{ Value: var arguments }, _] }
+                || arguments != 2 || !IsMove(next + 1, y1, x0) || body[next + 2] is not
+                { Definition.Opcode: Deallocate, Operands: [var release] } || release.Value != width
+                || body[next + 3].Definition.Opcode != Return
+                || !(flow ??= new BeamProjectionFlow(body)).ReachesLinearFrameUnframed(entry, index))
+            {
+                continue;
+            }
+
+            // The first result need not occupy a second Y slot before the
+            // nonthrowing argument is produced. X2 carries the consumed input.
+            output.Write(code.Span[copied..body[index].Offset]);
+            output.WriteByte(Allocate);
+            BeamCompactWriter.Write(output, BeamWire.UnsignedTag, 1);
+            BeamCompactWriter.Write(output, BeamWire.UnsignedTag, 1);
+            output.Write(code.Span[body[index + 2].Offset..body[first + 1].Offset]);
+            output.Write(code.Span[body[first + 2].Offset..(body[first + 3].Offset - CompactRegisterCountWidth(0))]);
+            WriteRegister(output, x1);
+            WriteMove(y0, x2);
+            WriteMove(x0, y0);
+            WriteMove(x1, x0);
+            WriteMove(x2, x1);
+            output.Write(code.Span[body[first + 4].Offset..body[next + 1].Offset]);
+            WriteMove(y0, x0);
+            output.WriteByte(Deallocate);
+            BeamCompactWriter.Write(output, BeamWire.UnsignedTag, 1);
+            copied = body[next + 3].Offset;
+            index = next + 2;
+        }
+
+        if (copied == 0)
+        {
+            return null;
+        }
+
+        output.Write(code.Span[copied..]);
+
+        return output.ToArray();
+
+        bool IsMove(int index, BeamOperand input, BeamOperand destination) => body[index] is
+        { Definition.Opcode: Move, Operands: [var source, var target] }
+            && source == input && target == destination;
+
+        int SkipLines(int index)
+        {
+            while (index < body.Count && body[index].Definition.Opcode == Line)
+            {
+                index++;
+            }
+
+            return index;
+        }
+
+        void WriteMove(BeamOperand source, BeamOperand destination)
+        {
+            output.WriteByte(Move);
+            WriteRegister(output, source);
+            WriteRegister(output, destination);
+        }
+    }
 }

@@ -1,0 +1,30 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs
+@@ -4,10 +4,15 @@
+ 
+ internal sealed partial class BeamModuleCompiler
+ {
+-    private (ReadOnlyMemory<byte> Code, int LabelCount)? OrderFinalPhysicalLabels(
++    private (ReadOnlyMemory<byte> Code, int LabelCount)? OrderFinalPhysicalLabels(ReadOnlyMemory<byte> code, int labelCount)
++    {
++        return OrderFinalPhysicalLabelsCore(code, labelCount, formMultiKeySelections: true);
++    }
++
++    private (ReadOnlyMemory<byte> Code, int LabelCount)? OrderFinalPhysicalLabelsCore(
+         ReadOnlyMemory<byte> code,
+         int labelCount,
+-        bool formMultiKeySelections = true
++        bool formMultiKeySelections
+     )
+     {
+         var references = new List<(int Start, int End, int Label)>();
+@@ -42,7 +47,7 @@
+             ) is { } selected)
+         {
+             // Only a changed stream needs its physical label offsets to be read again.
+-            return OrderFinalPhysicalLabels(selected, labelCount, formMultiKeySelections: false)
++            return OrderFinalPhysicalLabelsCore(selected, labelCount, formMultiKeySelections: false)
+                 ?? (selected, labelCount);
+         }
+ 

@@ -1,0 +1,5 @@
+[Image|Keys]=init:get_plain_arguments(),
+{beam_file,M,_,_,_,Fs}=beam_disasm:file(Image),
+Actual=[atom_to_list(F)++"#"++integer_to_list(A)||{function,F,A,_,_}<-Fs],
+true=lists:all(fun(K)->lists:member(K,Actual) end,Keys),
+io:format("~tp.~n",[{M,Keys}]),halt().

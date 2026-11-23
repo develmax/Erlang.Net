@@ -1,0 +1,43 @@
+Error! Failed to eval: [Official,Base,After,Support]=init:get_plain_arguments(),
+true=code:add_patha(Support),
+{module,beam_caught_branch_target}=code:ensure_loaded(beam_caught_branch_target),
+Module=megaco_monitor,
+Run=fun(Path)->
+    code:purge(Module),code:delete(Module),code:purge(Module),
+    {ok,Bytes}=file:read_file(Path),
+    {module,Module}=code:load_binary(Module,Path,Bytes),
+    State={state,self()},
+    First=Module:handle_info({apply_after,spawn_method,beam_caught_branch_target,notify,[self(),first]},State),
+    FirstMessage=receive {beam_caught_branch_target,first}->delivered
+                 after 5000->error(first_timeout) end,
+    Legacy=Module:handle_info({apply_after,beam_caught_branch_target,notify,[self(),legacy]},State),
+    LegacyMessage=receive {beam_caught_branch_target,legacy}->delivered
+                 after 5000->error(legacy_timeout) end,
+    Key={Module,entry_probe_ref},
+    _=erase(Key),
+    Empty=Module:handle_info({'DOWN',entry_probe_ref,process,self(),normal},State),
+    put(Key,invalid_record),
+    WrongKind=Module:handle_info({'DOWN',entry_probe_ref,non_process,self(),normal},State),
+    Preserved=get(Key),
+    BadRecord=try Module:handle_info({'DOWN',entry_probe_ref,process,self(),normal},State) of
+                Value->{unexpected,Value}
+              catch error:Reason:Stack->
+                  {Reason,[{M,F,A,filename:basename(proplists:get_value(file,Location,"")),proplists:get_value(line,Location)}
+                            ||{M,F,A,Location}<-Stack,M=:=Module]}
+              end,
+    Stopped=Module:handle_info({'EXIT',self(),parent_stopped},State),
+    Expected=[{noreply,State},delivered,{noreply,State},delivered,{noreply,State},
+              {noreply,State},invalid_record,
+              {{badrecord,invalid_record},[{Module,handle_info,2,"megaco_monitor.erl",316}]},
+              {stop,parent_stopped,State}],
+    Expected=[First,FirstMessage,Legacy,LegacyMessage,Empty,WrongKind,Preserved,BadRecord,Stopped],
+    Expected
+end,
+R=Run(Official),B=Run(Base),A=Run(After),
+io:format("~tp.~n",[{R,B,A}]),
+halt(case R=:=B andalso R=:=A of true->0;false->1 end).
+
+
+Runtime terminating during boot ({{badmatch,{error,nofile}},[{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,796}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{init,start_it,1,[{file,"init.erl"},{line,1561}]},{init,start_em,1,[{file,"init.erl"},{line,1546}]},{init,do_boot,3,[{file,"init.erl"},{line,1217}]}]})
+
+Crash dump is being written to: D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\ber-selected-result-and-shared-entry-1963-linked\linked-runtime-witnesses\shared-tagged-entries-crash.dump...done

@@ -1,0 +1,5 @@
+# Part 1984 — public tuple failure ownership, guarded binary tails and mixed generators
+
+The frozen parent is Part 1983. The pinned source and release are OTP 29.1.1 at ad05823719d77c8faee87348ea39513d4e2f99c5. Public tuple-check relocation is limited to a known checked input and one exclusive badmatch continuation. The guarded binary tail lowers a proven raw byte-aligned value without materializing the prefix. A flat preceding map generator reserves its Core and SSA ordinal before an independently lifted list helper.
+
+The agreed group contains 595 managed compiler cases, 25 byte-exact controls, affected modules, the previous physical width controls, 70 pinned native comparisons and one complete fresh 1,366-file Windows release compile. A scoped report derives directly from the same images and hashes. A separate wholesale recompilation of scoped modules is eliminated for this package. Three older packages confirmed all 700 scoped rows and 620 candidate hashes agree with the corresponding full outputs. Performance of this new workflow is measured during this run.

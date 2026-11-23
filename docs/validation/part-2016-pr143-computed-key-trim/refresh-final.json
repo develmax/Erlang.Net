@@ -1,0 +1,83 @@
+{
+  "tools/Native/Erlang.NifResource529Observations/source-plan.json": {
+    "Old": "3C3B5109F851F411B85E375BEA1B74A06014E70636CFB09214BC7FB9D35A419F",
+    "New": "76A0872E0F941BFB915157FBA098CA06C4ABCD48ECB908801E916A612E437D61",
+    "Rows": [
+      "tests/Erlang.Tests/Harness/Program.cs"
+    ]
+  },
+  "tools/Native/Erlang.NifIntegratedObservations/inputs.json": {
+    "Old": "763D5ABE18392D48DD819FF4294AB965A8783863FB18F1869CE975E983D49C9C",
+    "New": "D055CEFFBC94821887FBFFB893E522479800E86615A7BD4982673EE7A988BFCC",
+    "Rows": [
+      "tests/Erlang.Tests/Harness/Program.cs",
+      "tools/Native/Erlang.NifResource529Observations/source-plan.json"
+    ]
+  },
+  ".github/workflows/nif-upgrade-integrated.yml": {
+    "Old": "3EEEE326232AB45B85D62BF5610E58D1C954E011487E2EB317AFEED69F548BED",
+    "New": "4F59350CBFAECB2831FC1CA68EC9DA191876868FC8C92BA3E0E5DDD3F07CA7D2"
+  },
+  "tools/Runtime/Erlang.MatchSaved634Observations/inputs.json": {
+    "Old": "1987DA48D3D59A9085798E2BAAD284CBB564A2E6C5B443E160CFD70797B1F4DF",
+    "New": "E3D5DCB1141C3E83CA89AE1A22300A5D45230853E6C89AEE2946B48AB9B7A343",
+    "Rows": [
+      "tests/Erlang.Tests/Harness/Program.cs"
+    ]
+  },
+  "tools/Runtime/Erlang.EtsDispatch540Observations/inputs.json": {
+    "Old": "208D08FE648BC6CDBFFD41E9458F63BD1A07D4E11EBA7756745335767C613FE1",
+    "New": "741E31F2370F9DDE8E41503CDA02A81F889A72A2BB8719177EB53AD36493707D",
+    "Rows": [
+      "tests/Erlang.Tests/Harness/Program.cs"
+    ]
+  },
+  "tools/Runtime/Erlang.BeamFunction542Observations/inputs.json": {
+    "Old": "B3D821B9AFE0256A1DA6668022C51ED9501ECBCC5A4F3422A61ADA135990A67C",
+    "New": "0A8F764E2AE0DBD84D575B90DFBCC02BC61470BA00C7B6B1B1C7382A98715693",
+    "Rows": [
+      "tests/Erlang.Tests/Harness/Program.cs"
+    ]
+  },
+  "tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json": {
+    "Old": "7CE832A76253DE80D3FE3450B71B8421E8C358A5729BCE0E20824B7129EA0ED8",
+    "New": "A7D27F176694494767FC74A0216D9E857436A060585164D4AB453ED078ADBD27",
+    "Rows": [
+      "tests/Erlang.Tests/Harness/Program.cs",
+      "tools/Runtime/Erlang.MatchSaved634Observations/inputs.json",
+      "tools/Runtime/Erlang.EtsDispatch540Observations/inputs.json",
+      "tools/Runtime/Erlang.BeamFunction542Observations/inputs.json",
+      "tools/Native/Erlang.NifIntegratedObservations/inputs.json"
+    ]
+  },
+  "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json": {
+    "Old": "B20FCC739ED129C4F5ADC1005ADE6F8B78CB9FD87362C3CB9473905D42DF9D19",
+    "New": "363AE87B34F41FBAEC93069FEC193E7328C81470DFD3037BE70D37FC72B0D2E1",
+    "Rows": [
+      "tests/Erlang.Tests/Harness/Program.cs",
+      "tools/Native/Erlang.NifIntegratedObservations/inputs.json",
+      "tools/Native/Erlang.NifResource529Observations/source-plan.json",
+      "tools/Runtime/Erlang.BeamFunction542Observations/inputs.json",
+      "tools/Runtime/Erlang.EtsDispatch540Observations/inputs.json",
+      "tools/Runtime/Erlang.MatchSaved634Observations/inputs.json",
+      "tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json"
+    ]
+  },
+  ".github/workflows/nif-pending-native.yml": {
+    "Old": "4E495F6E32698CEC18EF6F05D21E6B200CA74CED3280BA9C4B802F13CBDB0504",
+    "New": "B7925A9A3E62CE7BA4DD0C916F5FEAECA1F569FDE7DE644A0F57CD31BBE36E1F"
+  },
+  "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json": {
+    "Old": "19FD90407023997E60BAB33B2479736A2BA94739E034F87793984F894B41F26B",
+    "New": "FDE1C45A5F352496572B8AAD04E6A1551B798B79247E33BDE07FC21CC28C2827",
+    "Rows": [
+      ".github/workflows/nif-pending-native.yml",
+      "tests/Erlang.Tests/Harness/Program.cs",
+      "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json"
+    ]
+  },
+  ".github/workflows/nif-reallocation-native.yml": {
+    "Old": "1A588824E592D1BB0E6DF86008A9FCD54AF9ACED3096F393A80316BFECCAC51F",
+    "New": "9C1B39827FF103C4C7EB493CCD5C00EE55CE65D35A027E4611106EA8F01C12A2"
+  }
+}

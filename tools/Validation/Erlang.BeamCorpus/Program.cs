@@ -18,6 +18,8 @@ if (BeamCorpusOptions.Parse(args) is not { } options)
     return 2;
 }
 
+bool measure = Environment.GetEnvironmentVariable("ERLANG_BEAM_CORPUS_TIMINGS") == "1";
+long setupStart = measure ? Stopwatch.GetTimestamp() : 0;
 args = options.Paths;
 
 const string otpVersion = "29.1.1";
@@ -93,15 +95,31 @@ if (generatedDirectory is not null)
     Directory.CreateDirectory(generatedDirectory);
 }
 
+using var publicKeyIncludePaths = publicKeyHeaders is not null
+    && beams.Any(beam => Application(beam) == OtpWindowsPublicKeyIncludePaths.Application)
+    ? OtpWindowsPublicKeyIncludePaths.Create(Path.Combine(root, "lib"), publicKeyHeaders)
+    : null;
+
 var sources = Directory.EnumerateFiles(root, "*.erl", SearchOption.AllDirectories)
     .ToLookup(path => (Application(path), Path.GetFileNameWithoutExtension(path)));
 var results = new BeamCorpusResult[beams.Length];
+double[]? elapsedByModule = measure ? new double[beams.Length] : null;
+long comparisonStart = measure ? Stopwatch.GetTimestamp() : 0;
 Parallel.For(
     0,
     beams.Length,
     new ParallelOptions { MaxDegreeOfParallelism = options.Jobs },
-    index => results[index] = Compare(beam: beams[index])
+    index =>
+    {
+        long started = measure ? Stopwatch.GetTimestamp() : 0;
+        results[index] = Compare(beam: beams[index]);
+        if (elapsedByModule is not null)
+        {
+            elapsedByModule[index] = Stopwatch.GetElapsedTime(started).TotalMilliseconds;
+        }
+    }
 );
+long comparisonEnd = measure ? Stopwatch.GetTimestamp() : 0;
 
 var counts = results.GroupBy(result => result.Status).OrderBy(group => group.Key, StringComparer.Ordinal)
     .ToDictionary(group => group.Key, group => group.Count(), StringComparer.Ordinal);
@@ -119,6 +137,22 @@ File.WriteAllText(
         new JsonSerializerOptions { WriteIndented = true }
     )
 );
+if (elapsedByModule is not null)
+{
+    File.WriteAllText(
+        report + ".timings.json",
+        JsonSerializer.Serialize(
+            new
+            {
+                Jobs = options.Jobs,
+                SetupMilliseconds = Stopwatch.GetElapsedTime(setupStart, comparisonStart).TotalMilliseconds,
+                ComparisonMilliseconds = Stopwatch.GetElapsedTime(comparisonStart, comparisonEnd).TotalMilliseconds,
+                Modules = results.Select((result, index) => new { result.Beam, Milliseconds = elapsedByModule[index] })
+            },
+            new JsonSerializerOptions { WriteIndented = true }
+        )
+    );
+}
 Console.WriteLine(JsonSerializer.Serialize(counts));
 
 return results.Length != 0 && results.All(result => result.Status == "Equal") ? 0 : 1;
@@ -183,21 +217,86 @@ BeamCorpusResult Compare(string beam)
     string source = candidates[0];
     string relativeSource = Path.GetRelativePath(root, source);
     byte[] generated;
+    BeamAssemblySourceIdentity? assemblyInput = null;
     try
     {
         string library = Path.Combine(root, "lib");
         string application = Application(beam);
-        generated = CodeGeneration.CompileBeamFile(
-            source,
-            library,
-            IncludeDirectories(
+        var profile = OtpWindowsReleaseProfiles.FindForSource(application, relativeSource);
+        if (profile is not null)
+        {
+            var includePaths = OtpWindowsSnmpIncludePaths.Find(
                 library,
                 application,
-                publicKeyHeaders,
+                source,
+                profile
+            ) ?? publicKeyIncludePaths?.Find(
+                application,
+                source,
+                profile,
                 sourceHeaders
-            ),
-            OtpWindowsReleaseProfiles.FindForSource(application, relativeSource)
+            ) ?? OtpWindowsBootstrapLibraryIncludePaths.Find(
+                library,
+                application,
+                source,
+                profile,
+                sourceHeaders
+            ) ?? OtpWindowsInetsIncludePaths.Find(
+                library,
+                application,
+                source,
+                profile,
+                sourceHeaders
+            ) ?? OtpWindowsCoreIncludePaths.Find(
+                library,
+                application,
+                source,
+                profile,
+                sourceHeaders
+            ) ?? OtpWindowsInTreeLibraryIncludePaths.Find(
+                library,
+                application,
+                source,
+                profile,
+                sourceHeaders
+            );
+            if (includePaths is not null)
+            {
+                profile = profile with { IncludePathMap = includePaths };
+            }
+        }
+        var includeDirectories = IncludeDirectories(
+            library,
+            application,
+            publicKeyHeaders,
+            sourceHeaders
         );
+        if (profile is not null && Path.GetExtension(profile.SourcePath).Equals(".S", StringComparison.OrdinalIgnoreCase))
+        {
+            string assembly = Path.ChangeExtension(source, ".S");
+            assemblyInput = new(
+                Path.GetRelativePath(root, assembly),
+                DigestSource(assembly),
+                relativeSource,
+                DigestSource(source)
+            );
+            generated = CodeGeneration.CompileBeamAssemblyFile(
+                assembly,
+                profile,
+                source,
+                library,
+                includeDirectories
+            );
+        }
+        else
+        {
+            generated = CodeGeneration.CompileBeamFile(
+                source,
+                library,
+                includeDirectories,
+                profile
+            );
+        }
     }
     catch (CompileException error)
     {
@@ -205,7 +304,8 @@ BeamCorpusResult Compare(string beam)
             relative,
             "SourceRejected",
             relativeSource,
-            $"{error.Code} at {error.Offset}: {error.Message}"
+            $"{error.Code} at {error.Offset}: {error.Message}",
+            AssemblyInput: assemblyInput
         );
     }
     catch (NotSupportedException error)
@@ -215,7 +315,8 @@ BeamCorpusResult Compare(string beam)
             "Unsupported",
             relativeSource,
             error.Message,
-            EmissionSite: EmissionSite(error)
+            EmissionSite: EmissionSite(error),
+            AssemblyInput: assemblyInput
         );
     }
     catch (Exception error)
@@ -224,14 +325,20 @@ BeamCorpusResult Compare(string beam)
             relative,
             "CompilerError",
             relativeSource,
-            $"{error.GetType().Name}: {error.Message}"
+            $"{error.GetType().Name}: {error.Message}",
+            AssemblyInput: assemblyInput
         );
     }
 
     byte[] original = File.ReadAllBytes(beam);
     if (original.AsSpan().SequenceEqual(generated))
     {
-        return new(relative, "Equal", relativeSource);
+        return new(
+            relative,
+            "Equal",
+            relativeSource,
+            AssemblyInput: assemblyInput
+        );
     }
 
     if (generatedDirectory is not null)
@@ -254,9 +361,13 @@ BeamCorpusResult Compare(string beam)
         relativeSource,
         $"Original length {original.Length}, generated length {generated.Length}. "
             + BeamCorpusChunkComparison.Describe(original, generated),
-        offset
+        offset,
+        AssemblyInput: assemblyInput
     );
 }
+
+static string DigestSource(string path) =>
+    Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(File.ReadAllBytes(path)));
 
 string Application(string path)
 {

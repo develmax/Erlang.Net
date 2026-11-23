@@ -1,0 +1,48 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -2716,7 +2716,8 @@
+             Expr.Case decision,
+             string current,
+             HashSet<string> bound,
+-            bool allowEnumeration = false
++            bool allowEnumeration = false,
++            bool allowRemote = false
+         )
+         {
+             if (decision is not
+@@ -2744,7 +2745,7 @@
+             }
+ 
+             var enumeration = allowEnumeration ? ReadIntegerCase(body, name => !bound.Contains(name)) : null;
+-            var call = ReadDecodeCall(enumeration?.Decode ?? body, bytes.Name);
++            var call = ReadDecodeCall(enumeration?.Decode ?? body, bytes.Name, allowRemote);
+ 
+             return call is null ? null : new(
+                 tag,
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.OptionalBeforeRequiredField.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.OptionalBeforeRequiredField.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.OptionalBeforeRequiredField.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.OptionalBeforeRequiredField.cs
+@@ -76,7 +76,12 @@
+                     || tuple.Items[member++] is not Expr.Variable returnedOptional || returnedOptional.Name != optional.Name
+                     || !DistinctBindings(optional, afterOptional)
+                     || !bound.Add(optional.Name) || !bound.Add(afterOptional.Name)
+-                    || ReadOptionalDecode(decision, current, bound) is not { Call.Convert: null } optionalDecode)
++                    || ReadOptionalDecode(
++                        decision,
++                        current,
++                        bound,
++                        allowRemote: true
++                    ) is not { Call.Convert: null } optionalDecode)
+                 {
+                     return false;
+                 }
+@@ -286,7 +291,7 @@
+                 }
+ 
+                 var checkedSize = ReadCheckedFieldSize(body, bound, out Expr decoder);
+-                if (ReadDecodeCall(decoder, head.Name) is not { Convert: null } call)
++                if (ReadDecodeCall(decoder, head.Name, allowRemote: checkedSize is null) is not { Convert: null } call)
+                 {
+                     return null;
+                 }

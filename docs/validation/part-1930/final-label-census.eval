@@ -1,0 +1,19 @@
+[Path,Out]=init:get_plain_arguments(),
+{ok,Data}=file:read_file(Path),
+Rows=[begin
+    [Relative,Physical]=binary:split(Line,<<"\t">>),
+    case beam_disasm:file(binary_to_list(Physical)) of
+        {beam_file,Name,_,_,_,Functions}->
+            Labels=[L||{function,_,_,_,Body}<-Functions,{label,L}<-Body],
+            {Relative,Name,length(Labels),Labels=:=lists:seq(1,length(Labels))};
+        Error->{Relative,Error,0,false}
+    end
+end||Line<-binary:split(Data,<<"\n">>,[global]),Line=/=<<>>],
+Wrong=[Row||Row={_,_,_,false}<-Rows],
+ok=file:write_file(Out,[[io_lib:format("~0p.~n",[Row])||Row<-Rows],
+                         io_lib:format("~0p.~n",[#{total=>length(Rows),canonical=>length(Rows)-length(Wrong),noncanonical=>Wrong}])]),
+halt().
+
+
+
+

@@ -1,0 +1,210 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamSortedOptionalDecoderChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamSortedOptionalDecoderChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamSortedOptionalDecoderChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamSortedOptionalDecoderChecks.cs
+@@ -10,13 +10,14 @@
+ internal static class BeamSortedOptionalDecoderChecks
+ {
+     internal const string TestName = "compiler/beam/retains-sorted-optional-decoder-remainders";
++    private const string Module = "beam_sorted_optional_decoder";
+     private const string Fixture = "beam_sorted_optional_decoder.erl";
+     private const string WrongLayout = "The sorted decoder did not use its expected required and optional frame.";
+     private const string WrongValue = "The sorted optional decoder changed an output or malformed input.";
+ 
+     private const string Source = """
+         -module(beam_sorted_optional_decoder).
+-        -export([decode/2, plain/2, required/2, prepared/2]).
++        -export([decode/2, plain/2, required/2, prepared/2, prepared_optional/2, selected/2, select/1]).
+         decode(Input, Tags) ->
+             Fields = prepare(Input, Tags),
+             Rank = fun(Item) -> case Item of
+@@ -147,6 +148,57 @@
+             case Tail of [] -> true; _ -> exit({error,{format,{unexpected,Tail}}}) end,
+             Result = {fields,Initial,Optional},
+             Result.
++        prepared_optional(Input, Tags) ->
++            Fields = prepare(Input, Tags),
++            {First,Tail1} = case Fields of
++                [{19,A}|Following1] -> {unchanged(A, []),Following1};
++                _ -> {absent,Fields}
++            end,
++            {Second,Tail2} = case Tail1 of
++                [{20,B}|Following2] -> {begin
++                    Bytes = read(B, []),
++                    Count = byte_size(Bytes),
++                    if 1 =< Count, Count =< 3 -> binary_to_list(Bytes);
++                       true -> exit({error,{format,optional_value}})
++                    end
++                end,Following2};
++                _ -> {absent,Tail1}
++            end,
++            {Third,Tail3} = case Tail2 of
++                [{21,C}|Following3] -> {unchanged(C, []),Following3};
++                _ -> {absent,Tail2}
++            end,
++            case Tail3 of [] -> true; _ -> exit({error,{format,{unexpected,Tail3}}}) end,
++            Result = {fields,First,Second,Third},
++            Result.
++        selected(Input, Tags) ->
++            Fields = prepare(Input, Tags),
++            [Key|Tail1] = Fields,
++            Identifier = begin
++                Number = read_integer(Key, []),
++                if 0 =< Number, Number =< 8 -> Number;
++                   true -> exit({error,{format,key_range}})
++                end
++            end,
++            [Payload|Tail2] = Tail1,
++            Raw = unchanged(Payload, []),
++            Callback = beam_sorted_optional_decoder:select(Identifier),
++            Value = try Callback(field, Raw, [])
++                catch Class:Reason when Class =:= error; Class =:= exit ->
++                    exit({selected_error,Reason})
++                end,
++            case Tail2 of [] -> true; _ -> exit({error,{format,{unexpected,Tail2}}}) end,
++            Result = {fields,Identifier,Value},
++            Result.
++        select(5) -> fun selected_payload/3;
++        select(_) -> fun(_, Reason, _) -> throw(Reason) end.
++        selected_payload(field, fail, []) -> error(failed);
++        selected_payload(field, Value, []) -> Value.
++        read_integer(Value, Tags) ->
++            Buf = prepare(Value, Tags),
++            Width = byte_size(Buf),
++            <<Number:Width/signed-unit:8>> = Buf,
++            Number.
+         read_required({Tag, Value}, [Tag]) -> iolist_to_binary(Value).
+         prepare(Input, []) -> Input.
+         read(Value, []) -> iolist_to_binary(Value).
+@@ -158,14 +210,21 @@
+         byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
+         byte[] unproven = CodeGeneration.CompileBeamModule(
+             Source.Replace("Other -> {3,Other}", "_ -> different_shape", StringComparison.Ordinal)
+-                .Replace("Other -> {5,Other}", "_ -> different_shape", StringComparison.Ordinal),
++                .Replace("Other -> {5,Other}", "_ -> different_shape", StringComparison.Ordinal)
++                .Replace("    Number.", "    Buf.", StringComparison.Ordinal),
+             Fixture
+         );
+-        var module = BeamModule.Prepare(image, new BeamDependencySelection(["lists"]));
++        var module = BeamModule.Prepare(image, new BeamDependencySelection(["lists", Module]));
+         var selection = new RuntimeLibrarySelection(
+             [RuntimeModuleSelection.Managed("erlang"), RuntimeModuleSelection.Managed("lists")]
+         );
+         await using var runtime = await ProcessRuntime.CreateAsync(selection, RuntimeNativePrimitives.InternalScalars413, CancellationToken.None);
++        runtime.Modules.Register(
++            Module,
++            "select",
++            1,
++            (context, args) => module.Invoke(context, "select", args[0])
++        );
+         await using var actor = new RuntimeNodeFoundationHostActor(runtime);
+         await actor.InvokeAsync(async context =>
+         {
+@@ -250,19 +309,76 @@
+                 absent
+             );
+             await RejectPrepared(
++                "prepared",
+                 nonlist,
+                 ErlangExceptionClasses.Error,
+                 Term.Tuple(Term.A("badmatch"), nonlist)
+             );
+             await RejectPrepared(
++                "prepared",
+                 Term.List(prepared, Field(20, Nil.Value)),
+                 ErlangExceptionClasses.Exit,
+                 Reason(Term.A("optional_value"))
+             );
+             await RejectPrepared(
++                "prepared",
+                 Term.List(prepared, extra),
+                 ErlangExceptionClasses.Exit,
+                 Reason(Term.Tuple(Term.A("unexpected"), Term.List(extra)))
++            );
++            Term tag21 = Field(21, initial);
++            Term layoutValue = Term.Tuple(
++                Term.A("fields"),
++                first,
++                second,
++                initial
++            );
++            if (!layoutValue.Equals(await module.Invoke(
++                context,
++                "prepared_optional",
++                Term.List(left, right, tag21),
++                Nil.Value
++            )))
++            {
++                throw new InvalidOperationException(WrongValue);
++            }
++
++            await RejectPrepared(
++                "prepared_optional",
++                Term.List(left, Field(20, Nil.Value), tag21),
++                ErlangExceptionClasses.Exit,
++                Reason(Term.A("optional_value"))
++            );
++            Term selectedKey = new BitString([5]);
++            await Check(
++                "selected",
++                Term.List(selectedKey, initial),
++                Term.I(5),
++                initial
++            );
++            await RejectPrepared(
++                "selected",
++                Term.List(selectedKey, Term.A("fail")),
++                ErlangExceptionClasses.Exit,
++                Term.Tuple(Term.A("selected_error"), Term.A("failed"))
++            );
++            await RejectPrepared(
++                "selected",
++                Term.List(new BitString([4]), initial),
++                ErlangExceptionClasses.Throw,
++                initial
++            );
++            await RejectPrepared(
++                "selected",
++                Term.List(new BitString([9]), initial),
++                ErlangExceptionClasses.Exit,
++                Reason(Term.A("key_range"))
++            );
++            await RejectPrepared(
++                "selected",
++                Term.List(selectedKey),
++                ErlangExceptionClasses.Error,
++                Term.Tuple(Term.A("badmatch"), Nil.Value)
+             );
+             await Reject(Term.List(right, extra, left), Reason(Term.Tuple(Term.A("unexpected"), Term.List(extra))));
+ 
+@@ -286,13 +402,18 @@
+                 }
+             }
+ 
+-            async Task RejectPrepared(Term input, string exceptionClass, Term expected)
++            async Task RejectPrepared(
++                string entry,
++                Term input,
++                string exceptionClass,
++                Term expected
++            )
+             {
+                 try
+                 {
+                     await module.Invoke(
+                         context,
+-                        "prepared",
++                        entry,
+                         input,
+                         Nil.Value
+                     );
+@@ -327,7 +448,9 @@
+ 
+         if (Frame(image, "decode") != 3 || Frame(image, "plain") != 3 || Frame(unproven, "decode") <= 3
+             || Frame(image, "required", requireNilFailure: true) != 5 || Frame(unproven, "required") <= 5
+-            || Frame(image, "prepared", requireRegisterFailure: true) != 3)
++            || Frame(image, "prepared", requireRegisterFailure: true) != 3
++            || Frame(image, "prepared_optional") != 4 || Frame(image, "selected", requireRegisterFailure: true) != 4
++            || Frame(unproven, "selected") <= 4)
+         {
+             throw new InvalidOperationException(WrongLayout);
+         }

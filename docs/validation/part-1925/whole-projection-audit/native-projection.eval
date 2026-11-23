@@ -1,0 +1,15 @@
+[Image,Output]=init:get_plain_arguments(),
+M=beam_direct_call_projections,
+{ok,B}=file:read_file(Image),
+{ok,P}=code:prepare_loading([{M,Image,B}]),
+ok=code:finish_loading(P),
+Inputs=[{tag,first,second},{tag,12,<<"x">>},{bad,a,b},{tag,1},not_tuple],
+Cases=[{F,I}||F<-[run,keep],I<-Inputs],
+Observe=fun(F,I)->
+  try apply(M,F,[I]) of V->{ok,V}
+  catch Class:Reason:Stack->[{M,F,Args,Where}|_]=Stack,
+    {Class,Reason,Args,proplists:get_value(line,Where)}
+  end
+end,
+ok=file:write_file(Output,io_lib:format("~0p.~n",[[{F,I,Observe(F,I)}||{F,I}<-Cases]])),
+halt().

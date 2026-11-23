@@ -1,0 +1,12 @@
+[{{seen,key},[ready]},
+ {{fault,why},[{fault,why}]},
+ {{error,{case_clause,{fault,why,extra}},[{direct,5}]},[{fault,why,extra}]},
+ {{error,{case_clause,different},[{direct,5}]},[different]},
+ {{error,caller_failure,[{direct,5}]},[{boom,caller_failure}]},
+ {{seen,key},[ready,ready]},
+ {{transformed,why},[ready,{fault,why}]},
+ {{fault,first},[{fault,first}]},
+ {{error,{case_clause,{fault,why,extra}},[{nested,13}]},
+  [ready,{fault,why,extra}]},
+ {{fallback,{fault,why}},[{fault,why}]},
+ {{accepted,42},[{fault,42}]}].

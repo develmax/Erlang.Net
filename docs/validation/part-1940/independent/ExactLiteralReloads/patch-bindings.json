@@ -1,0 +1,23 @@
+{
+  "ParentSource": "d858b109cb6529af7f42d5397a3f1c9a0a663aeabf811508421f9b11a62284f5",
+  "PatchDigests": {
+    "production.patch": "c2126da8931ff4af0d38cf103694f35ab6fbf879cfcc85bcfe50a3fd23fa356c",
+    "test.patch": "94552c62b6d10ce8dbb5bc575d288e51eb84b75b033218f22e5f7870e04f66db"
+  },
+  "Compiler": "42e7bccca965eee5ba78eda755f4e04385eacd5770592a9b731872b09fc7c794",
+  "Scope": 19,
+  "Counts": {
+    "Different": 12,
+    "Equal": 7
+  },
+  "NormalizedSummary": "#{functions => 59,gains => [{\"local_udp.beam\",{connect,3}},{\"logger_disk_log_h.beam\",{error_notify_new,3}},{\"megaco_binary_transformer_v1.beam\",{tr_EmptyDescriptors,2}},{\"megaco_binary_transformer_v2.beam\",{tr_EmptyDescriptors,2}},{\"ssl_handshake.beam\",{encode_client_protocol_negotiation,2}},{\"ssl_handshake.beam\",{select_own_cert,1}},{\"ssl_handshake.beam\",{signature_algs_ext,1}}],losses => [],frame_decreases => 0,frame_increases => 0}.",
+  "NativeFixture": {
+    "Rows": 6,
+    "Outcome": "05965E343D7E25CDCA84268848C763A8E18B03E9DC8BE0E6D6F359E0CF0A5F5F"
+  },
+  "RawLosses": [],
+  "RawGains": [],
+  "ReportSha256": "869d606e8e97ea65b1da7d33ab39246a0730a41c5bb04c94852b414b8fbaf496",
+  "FixtureSourceSha256": "1efc15b90aba55cc141182cd49060d07add7482c32ade7df8f739f774bc4068a",
+  "ProductSourceSha256": "f488dfad8a023fcd72591af1322e7e47a35fc026625a8e7140a9dc06a45d3782"
+}

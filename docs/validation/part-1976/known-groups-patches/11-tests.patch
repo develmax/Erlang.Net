@@ -1,0 +1,129 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamSingleReturningCallFrameChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamSingleReturningCallFrameChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamSingleReturningCallFrameChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamSingleReturningCallFrameChecks.cs
+@@ -3,6 +3,7 @@
+ using Erlang.Compiler;
+ using static Erlang.Compiler.BeamEmissionFormat;
+ using static Erlang.Tests.BeamBinaryHostAccess;
++using static Erlang.Tests.BeamOpcodeEdgeBytes;
+ 
+ namespace Erlang.Tests;
+ 
+@@ -12,6 +13,7 @@
+     private const string Fixture = "single_returning_call_frame_probe.erl";
+     private const string WrongCallFrame = "Pre-call closure preparation must keep its heap roots and only the return frame.";
+     private const string LostSavedValue = "The value read after the call must retain a stack slot.";
++    private const string WrongConstructedResult = "The call continuation must keep only its initialized result roots and frame.";
+ 
+     internal const string Source = """
+         -module(single_returning_call_frame_probe).
+@@ -90,7 +92,109 @@
+             throw new InvalidOperationException(LostSavedValue);
+         }
+ 
++        CheckConstructedReturnFrames();
++
+         return Task.CompletedTask;
++    }
++
++    private static void CheckConstructedReturnFrames()
++    {
++        byte[] tuple = [TestHeap, U(3), U(1), PutTuple, X(0), ExtendedListOperand, U(2), A(1), X(0)];
++        byte[] tupleAndList =
++        [
++            TestHeap, U(5), U(1), PutTuple, X(0), ExtendedListOperand, U(2), A(1), X(0),
++            PutList, X(0), A(0), X(0)
++        ];
++        byte[] returned = ConstructorFrame(tuple);
++        byte[] passed = ConstructorFrame(tupleAndList, tail: true);
++        if (RewriteConstructorFrame(returned) is not { } tupleResult
++            || !tupleResult.SequenceEqual(ConstructorFrame(tuple, compact: true))
++            || RewriteConstructorFrame(passed) is not { } listResult
++            || !listResult.SequenceEqual(ConstructorFrame(tupleAndList, compact: true, tail: true)))
++        {
++            throw new InvalidOperationException(WrongConstructedResult);
++        }
++
++        byte[] withSavedValue =
++            [TestHeap, U(3), U(1), PutTuple, X(0), ExtendedListOperand, U(2), Y(0), X(0)];
++        if (RewriteConstructorFrame(ConstructorFrame(withSavedValue)) is not null)
++        {
++            throw new InvalidOperationException(LostSavedValue);
++        }
++
++        byte[] withColdEdge =
++        [
++            .. ConstructorFrame([IsAtom, F(3), X(0), .. tuple]).SkipLast(1),
++            Label, U(3), Deallocate, U(1), Return, EndCode
++        ];
++        if (RewriteConstructorFrame(withColdEdge) is not null)
++        {
++            throw new InvalidOperationException(WrongConstructedResult);
++        }
++    }
++
++    private static byte[] ConstructorFrame(byte[] result, bool compact = false, bool tail = false)
++    {
++        int width = compact ? 0 : 1;
++        byte temporary = compact ? X(0) : Y(0);
++        byte[] exit = tail
++            ? [TailExternalCallWithFrame, U(1), U(1), U(width)]
++            : [Deallocate, U(width), Return];
++
++        return
++        [
++            .. Start(
++                1,
++                2,
++                1,
++                1
++            ),
++            IsList, F(1), X(0),
++            Allocate, U(width), U(1),
++            Move, X(0), temporary,
++            Move, temporary, X(0),
++            Line, U(1),
++            ExternalCall, U(1), U(0),
++            .. result,
++            .. exit,
++            EndCode
++        ];
++    }
++
++    private static byte[]? RewriteConstructorFrame(ReadOnlyMemory<byte> code)
++    {
++        var stackOperands = new List<(int Start, int End, int Slot)>();
++        Action<int, int, int> recordStack = (start, end, slot) => stackOperands.Add((start, end, slot));
++        object header = New(
++            "BeamCodeHeader",
++            0,
++            (int)InitYRegisters,
++            4,
++            1,
++            code
++        );
++        object body = Call(
++            Type("BeamInstructionReader"),
++            "Read",
++            header,
++            2,
++            0,
++            null,
++            recordStack
++        );
++
++        return (byte[]?)Call(
++            new BeamModuleCompiler(Fixture),
++            "ReallocateLeafFrameRegisters",
++            code,
++            body,
++            stackOperands,
++            true,
++            null,
++            null,
++            false,
++            null
++        );
+     }
+ 
+     private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");

@@ -1,0 +1,170 @@
+{
+  "Compiler": "55960F830082C65B345A5058BFB2ED09517A2EA2E1BAA2973FFA25237D4B15EF",
+  "Runtime": "7445A7EA8A055C952841AD41A2F4F0138B7FE39EAB6762EB1030E59308A1C8AA",
+  "Seconds": 14.625,
+  "Cases": 105,
+  "Evidence": {
+    "checked-entry-dynamic-call": {
+      "Observations": 9,
+      "Reports": {
+        "pinned": "{3,marker,cast_marker,local_cast,{error,{badfun,bad_fun}},{error,function_clause},{returned,nonode@nohost},{exit,{test_case_failed,{application_not_running,kernel}}},{error,function_clause}}.\n",
+        "before": "{3,marker,cast_marker,local_cast,{error,{badfun,bad_fun}},{error,function_clause},{returned,nonode@nohost},{exit,{test_case_failed,{application_not_running,kernel}}},{error,function_clause}}.\n",
+        "candidate": "{3,marker,cast_marker,local_cast,{error,{badfun,bad_fun}},{error,function_clause},{returned,nonode@nohost},{exit,{test_case_failed,{application_not_running,kernel}}},{error,function_clause}}.\n"
+      }
+    },
+    "mixed-tuple-record-dom": {
+      "Observations": 6,
+      "Reports": {
+        "pinned": "{[{ok,[{root,[],[]}]},{ok,[{root,[{a,\"b\"}],[{nested,[],[]},\"text\"]}]},{ok,[{root,[],[{child,[{y,\"z\"}],[]}]}]},{fatal_error,{\".\",[],1},\"EndTag: :bad, does not match StartTag\",[\"root\"],{xmerl_sax_simple_dom_state,[{root,1}],[1],[],[{root,[],[]}]}}],[{returned,{wrong,[],[],[],[]}},{returned,wrong}]}.\n",
+        "before": "{[{ok,[{root,[],[]}]},{ok,[{root,[{a,\"b\"}],[{nested,[],[]},\"text\"]}]},{ok,[{root,[],[{child,[{y,\"z\"}],[]}]}]},{fatal_error,{\".\",[],1},\"EndTag: :bad, does not match StartTag\",[\"root\"],{xmerl_sax_simple_dom_state,[{root,1}],[1],[],[{root,[],[]}]}}],[{returned,{wrong,[],[],[],[]}},{returned,wrong}]}.\n",
+        "candidate": "{[{ok,[{root,[],[]}]},{ok,[{root,[{a,\"b\"}],[{nested,[],[]},\"text\"]}]},{ok,[{root,[],[{child,[{y,\"z\"}],[]}]}]},{fatal_error,{\".\",[],1},\"EndTag: :bad, does not match StartTag\",[\"root\"],{xmerl_sax_simple_dom_state,[{root,1}],[1],[],[{root,[],[]}]}}],[{returned,{wrong,[],[],[],[]}},{returned,wrong}]}.\n"
+      }
+    },
+    "released-parser": {
+      "Observations": 5,
+      "Reports": {
+        "pinned": "{{core_ok,\n     <<26,89,248,174,214,53,134,45,50,234,206,238,128,97,50,113,254,143,224,\n       139,180,92,4,247,89,113,183,210,147,5,39,247>>},\n {core_bad,{32,core_parse,[\"syntax error before: \",[]]}},\n {erl_parse,\n     [{ok,{function,1,ok,1,\n              [{clause,1,\n                   [{tuple,1,[{var,1,'V'},{var,1,'N'}]}],\n                   [[{call,1,{atom,1,is_integer},[{var,1,'N'}]}]],\n                   [{tuple,1,\n                        [{var,1,'V'},\n                         {op,1,'+',{var,1,'N'},{integer,1,1}}]}]}]}},\n      {error,{1,erl_parse,[\"syntax error before: \",\"']'\"]}},\n      {ok,{function,1,run,1,\n              [{clause,1,\n                   [{var,1,'X'}],\n                   [],\n                   [{lc,1,\n                        {var,1,'V'},\n                        [{generate,1,\n                             {cons,1,{var,1,'V'},{nil,1}},\n                             {var,1,'X'}}]}]}]}}]}}.\n{loaded_only,[{megaco_text_parser_v3,<<\"6FC61859E724277E8DD8B59E8C6292C7F8B04CC107C1F62469C143B9ACCCC732\">>},\n              {xref_parser,<<\"331CDC5BFF9FE00E73E752D2E766E36B688B0B29CA5EDEA2D9F11A964CD62F05\">>},\n              {yeccparser,<<\"F4AB0F4F6714AD3129D77ABC1318D5B7DE540433935038DBFE2025B9A48A8152\">>}]}.\n",
+        "before": "{{core_ok,\n     <<26,89,248,174,214,53,134,45,50,234,206,238,128,97,50,113,254,143,224,\n       139,180,92,4,247,89,113,183,210,147,5,39,247>>},\n {core_bad,{32,core_parse,[\"syntax error before: \",[]]}},\n {erl_parse,\n     [{ok,{function,1,ok,1,\n              [{clause,1,\n                   [{tuple,1,[{var,1,'V'},{var,1,'N'}]}],\n                   [[{call,1,{atom,1,is_integer},[{var,1,'N'}]}]],\n                   [{tuple,1,\n                        [{var,1,'V'},\n                         {op,1,'+',{var,1,'N'},{integer,1,1}}]}]}]}},\n      {error,{1,erl_parse,[\"syntax error before: \",\"']'\"]}},\n      {ok,{function,1,run,1,\n              [{clause,1,\n                   [{var,1,'X'}],\n                   [],\n                   [{lc,1,\n                        {var,1,'V'},\n                        [{generate,1,\n                             {cons,1,{var,1,'V'},{nil,1}},\n                             {var,1,'X'}}]}]}]}}]}}.\n{loaded_only,[{megaco_text_parser_v3,<<\"23CDB9D3F2AF70A945C0B4CEC61FD779AF7C2CE7A6309E28211F2B8E1CBCD26F\">>},\n              {xref_parser,<<\"62B1B12636AA9B258918105CE1AFACE9174FF22348256FBF60CF93BFB59F8707\">>},\n              {yeccparser,<<\"B183DAF022E216306A8D149A7AED4C57BA1324B803DE16DD07D9F503BA194B24\">>}]}.\n",
+        "candidate": "{{core_ok,\n     <<26,89,248,174,214,53,134,45,50,234,206,238,128,97,50,113,254,143,224,\n       139,180,92,4,247,89,113,183,210,147,5,39,247>>},\n {core_bad,{32,core_parse,[\"syntax error before: \",[]]}},\n {erl_parse,\n     [{ok,{function,1,ok,1,\n              [{clause,1,\n                   [{tuple,1,[{var,1,'V'},{var,1,'N'}]}],\n                   [[{call,1,{atom,1,is_integer},[{var,1,'N'}]}]],\n                   [{tuple,1,\n                        [{var,1,'V'},\n                         {op,1,'+',{var,1,'N'},{integer,1,1}}]}]}]}},\n      {error,{1,erl_parse,[\"syntax error before: \",\"']'\"]}},\n      {ok,{function,1,run,1,\n              [{clause,1,\n                   [{var,1,'X'}],\n                   [],\n                   [{lc,1,\n                        {var,1,'V'},\n                        [{generate,1,\n                             {cons,1,{var,1,'V'},{nil,1}},\n                             {var,1,'X'}}]}]}]}}]}}.\n{loaded_only,[{megaco_text_parser_v3,<<\"2D8B1AE0929F2633234D03E75F803708675FA276A0C32827839F81F53BB65D3B\">>},\n              {xref_parser,<<\"7FE614BFA12941DB7D083DDDC134A09C997D537BC853CEB5AAF95BB52A1AC177\">>},\n              {yeccparser,<<\"CF9EF96BDFA6806247CEC50B34CC644BB0496623D4D021E3B225DFEFCF85CD38\">>}]}.\n"
+      }
+    },
+    "unix-telnet": {
+      "Observations": 8,
+      "Results": "{two_prompts,{ok,owner},[{start,\"unix_telnet connect\"},{open,local_placeholder,23,100,true,false,probe},{expect,probe,owner,[],[prompt],\"login: |Password: |\\\\$ |> \",[]},stop]}.\n{improper_prompts,{error,{ok,[{prompt,first},{prompt,second}|improper],tail}},[{start,\"unix_telnet connect\"},{open,local_placeholder,23,100,true,false,probe},{expect,probe,owner,[],[prompt],\"login: |Password: |\\\\$ |> \",[]},{log,probe,conn_error,\"Did not get expected prompt from ~p:~p\\n~tp\\n\",[local_placeholder,23,{ok,[{prompt,first},{prompt,second}|improper],tail}]},stop]}.\n{unexpected_shape,{error,{ok,[{other,first},{prompt,second}],tail}},[{start,\"unix_telnet connect\"},{open,local_placeholder,23,100,true,false,probe},{expect,probe,owner,[],[prompt],\"login: |Password: |\\\\$ |> \",[]},{log,probe,conn_error,\"Did not get expected prompt from ~p:~p\\n~tp\\n\",[local_placeholder,23,{ok,[{other,first},{prompt,second}],tail}]},stop]}.\n{login_complete,{ok,owner},[{start,\"unix_telnet connect\"},{open,local_placeholder,23,100,true,false,probe},{expect,probe,owner,[],[prompt],\"login: |Password: |\\\\$ |> \",[]},{log,probe,send,\"Logging in to ~p:~p\",[local_placeholder,23]},{send,owner,\"user\"},{log,probe,send,\"Username: ~ts\",[\"user\"]},{expect,probe,owner,[],prompt,\"login: |Password: |\\\\$ |> \",[]},{send,owner,\"dummy\"},{log,probe,send,\"Password: ~s\",[\"*****\"]},{expect,probe,owner,[],prompt,\"login: |Password: |\\\\$ |> \",[]},stop]}.\n{login_failed,{error,{error,bad_login}},[{start,\"unix_telnet connect\"},{open,local_placeholder,23,100,true,false,probe},{expect,probe,owner,[],[prompt],\"login: |Password: |\\\\$ |> \",[]},{log,probe,send,\"Logging in to ~p:~p\",[local_placeholder,23]},{send,owner,\"user\"},{log,probe,send,\"Username: ~ts\",[\"user\"]},{expect,probe,owner,[],prompt,\"login: |Password: |\\\\$ |> \",[]},{log,probe,recv,\"Login to ~p:~p failed\\n~tp\\n\",[local_placeholder,23,{error,bad_login}]},stop]}.\n{password_failed,{error,{error,bad_password}},[{start,\"unix_telnet connect\"},{open,local_placeholder,23,100,true,false,probe},{expect,probe,owner,[],[prompt],\"login: |Password: |\\\\$ |> \",[]},{log,probe,send,\"Logging in to ~p:~p\",[local_placeholder,23]},{send,owner,\"user\"},{log,probe,send,\"Username: ~ts\",[\"user\"]},{expect,probe,owner,[],prompt,\"login: |Password: |\\\\$ |> \",[]},{send,owner,\"dummy\"},{log,probe,send,\"Password: ~s\",[\"*****\"]},{expect,probe,owner,[],prompt,\"login: |Password: |\\\\$ |> \",[]},{log,probe,recv,\"Password failed\\n~tp\\n\",[{error,bad_password}]},stop]}.\n{connection_failed,{error,open_failed},[{start,\"unix_telnet connect\"},{open,local_placeholder,23,100,true,false,probe},{log,probe,conn_error,\"Could not open telnet connection to ~p:~p\\n~tp\\n\",[local_placeholder,23,{error,open_failed}]},stop]}.\n{send_failed,{error,{badmatch,{error,send_error}},[{connect1,8,134}]},[{start,\"unix_telnet connect\"},{open,local_placeholder,23,100,true,false,probe},{expect,probe,owner,[],[prompt],\"login: |Password: |\\\\$ |> \",[]},{log,probe,send,\"Logging in to ~p:~p\",[local_placeholder,23]},{send,owner,\"user\"}]}.\n"
+    },
+    "orddict": {
+      "Observations": 4,
+      "Reports": {
+        "pinned": "{true,false,false,{error,function_clause,atom}}\n",
+        "before": "{true,false,false,{error,function_clause,atom}}\n",
+        "candidate": "{true,false,false,{error,function_clause,atom}}\n"
+      }
+    },
+    "inet_dns": {
+      "Observations": 3,
+      "Reports": {
+        "pinned": "{{ok,{dns_rec,{dns_header,4660,true,query,false,false,true,true,false,0},[{dns_query,\"one.example\",a,in,false}],[{dns_rr,\"one.example\",a,in,0,60,{192,0,2,1},undefined,[],false}],[],[]}},{error,formerr},{error,formerr}}\n",
+        "before": "{{ok,{dns_rec,{dns_header,4660,true,query,false,false,true,true,false,0},[{dns_query,\"one.example\",a,in,false}],[{dns_rr,\"one.example\",a,in,0,60,{192,0,2,1},undefined,[],false}],[],[]}},{error,formerr},{error,formerr}}\n",
+        "candidate": "{{ok,{dns_rec,{dns_header,4660,true,query,false,false,true,true,false,0},[{dns_query,\"one.example\",a,in,false}],[{dns_rr,\"one.example\",a,in,0,60,{192,0,2,1},undefined,[],false}],[],[]}},{error,formerr},{error,formerr}}\n"
+      }
+    },
+    "xml-config": {
+      "Observations": 2,
+      "Reports": {
+        "pinned": "{{ok,[{key,value}]},{error,{parsing_failed,{fatal_error,{\"d:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/part1989-gate-defect-repair/native-scoped/xml-fixtures\",\"invalid.xml\",1},\"EndTag: :other, does not match StartTag\",[\"key\",\"config\"],[{\"key\",\"value\"},{\"config\",[]}]}}}}\n",
+        "before": "{{ok,[{key,value}]},{error,{parsing_failed,{fatal_error,{\"d:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/part1989-gate-defect-repair/native-scoped/xml-fixtures\",\"invalid.xml\",1},\"EndTag: :other, does not match StartTag\",[\"key\",\"config\"],[{\"key\",\"value\"},{\"config\",[]}]}}}}\n",
+        "candidate": "{{ok,[{key,value}]},{error,{parsing_failed,{fatal_error,{\"d:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/part1989-gate-defect-repair/native-scoped/xml-fixtures\",\"invalid.xml\",1},\"EndTag: :other, does not match StartTag\",[\"key\",\"config\"],[{\"key\",\"value\"},{\"config\",[]}]}}}}\n"
+      }
+    },
+    "diameter": {
+      "Observations": 8,
+      "Reports": {
+        "pinned": "{{configured,active,{connect,[]}},{configured,active,{listen,[opt]}},{error,function_clause,{different,[]}},{error,function_clause,{listen,not_list}},false,true,{error,missing},{ok,observed},[subscribe,stop,cleanup,unsubscribe],[{diameter_event,active,ignore},{diameter_event,other,stop}]}\n",
+        "before": "{{configured,active,{connect,[]}},{configured,active,{listen,[opt]}},{error,function_clause,{different,[]}},{error,function_clause,{listen,not_list}},false,true,{error,missing},{ok,observed},[subscribe,stop,cleanup,unsubscribe],[{diameter_event,active,ignore},{diameter_event,other,stop}]}\n",
+        "candidate": "{{configured,active,{connect,[]}},{configured,active,{listen,[opt]}},{error,function_clause,{different,[]}},{error,function_clause,{listen,not_list}},false,true,{error,missing},{ok,observed},[subscribe,stop,cleanup,unsubscribe],[{diameter_event,active,ignore},{diameter_event,other,stop}]}\n"
+      }
+    },
+    "tagged-socket": {
+      "Observations": 11,
+      "Reports": {
+        "pinned": "[{tcp_close,{ok,{close,{'$inet',parity_socket_callback,active_payload}}}},\n {udp_close,{ok,{close,{'$inet',parity_socket_callback,active_payload}}}},\n {controlling_process,\n     {ok,{controlling_process,\n             {'$inet',parity_socket_callback,active_payload},\n             owner_marker}}},\n {peername,{ok,{peername,{'$inet',parity_socket_callback,active_payload}}}},\n {sockname,{ok,{sockname,{'$inet',parity_socket_callback,active_payload}}}},\n {socknames,{ok,{socknames,{'$inet',parity_socket_callback,active_payload}}}},\n {send,{ok,{send,{'$inet',parity_socket_callback,active_payload},<<6,17>>}}},\n {getstat,\n     {ok,{getstat,\n             {'$inet',parity_socket_callback,active_payload},\n             [send_oct,recv_oct]}}},\n {bad_tcp,{error,error,function_clause}},\n {bad_udp,{error,error,function_clause}},\n {bad_inet,{error,error,function_clause}}].\n",
+        "before": "[{tcp_close,{ok,{close,{'$inet',parity_socket_callback,active_payload}}}},\n {udp_close,{ok,{close,{'$inet',parity_socket_callback,active_payload}}}},\n {controlling_process,\n     {ok,{controlling_process,\n             {'$inet',parity_socket_callback,active_payload},\n             owner_marker}}},\n {peername,{ok,{peername,{'$inet',parity_socket_callback,active_payload}}}},\n {sockname,{ok,{sockname,{'$inet',parity_socket_callback,active_payload}}}},\n {socknames,{ok,{socknames,{'$inet',parity_socket_callback,active_payload}}}},\n {send,{ok,{send,{'$inet',parity_socket_callback,active_payload},<<6,17>>}}},\n {getstat,\n     {ok,{getstat,\n             {'$inet',parity_socket_callback,active_payload},\n             [send_oct,recv_oct]}}},\n {bad_tcp,{error,error,function_clause}},\n {bad_udp,{error,error,function_clause}},\n {bad_inet,{error,error,function_clause}}].\n",
+        "candidate": "[{tcp_close,{ok,{close,{'$inet',parity_socket_callback,active_payload}}}},\n {udp_close,{ok,{close,{'$inet',parity_socket_callback,active_payload}}}},\n {controlling_process,\n     {ok,{controlling_process,\n             {'$inet',parity_socket_callback,active_payload},\n             owner_marker}}},\n {peername,{ok,{peername,{'$inet',parity_socket_callback,active_payload}}}},\n {sockname,{ok,{sockname,{'$inet',parity_socket_callback,active_payload}}}},\n {socknames,{ok,{socknames,{'$inet',parity_socket_callback,active_payload}}}},\n {send,{ok,{send,{'$inet',parity_socket_callback,active_payload},<<6,17>>}}},\n {getstat,\n     {ok,{getstat,\n             {'$inet',parity_socket_callback,active_payload},\n             [send_oct,recv_oct]}}},\n {bad_tcp,{error,error,function_clause}},\n {bad_udp,{error,error,function_clause}},\n {bad_inet,{error,error,function_clause}}].\n"
+      }
+    },
+    "dets-result": {
+      "Observations": 6,
+      "Reports": {
+        "pinned": "{ok,[{key,42}],[\"*\"],\"*\",{error,badarg},{error,badarg}}.\n",
+        "before": "{ok,[{key,42}],[\"*\"],\"*\",{error,badarg},{error,badarg}}.\n",
+        "candidate": "{ok,[{key,42}],[\"*\"],\"*\",{error,badarg},{error,badarg}}.\n"
+      }
+    },
+    "yeccscan": {
+      "Observations": 4,
+      "Reports": {
+        "pinned": "{ok,[{comment,[{text,\"% preserve comments\"},{location,{1,1}}],\n              \"% preserve comments\"},\n     {white_space,[{text,\"\\n\"},{location,{1,20}}],\"\\n\"},\n     {atom,[{text,\"rule\"},{location,{2,1}}],rule},\n     {white_space,[{text,\" \"},{location,{2,5}}],\" \"},\n     {':',[{text,\":\"},{location,{2,6}}]},\n     {white_space,[{text,\" \"},{location,{2,7}}],\" \"},\n     {atom,[{text,\"name\"},{location,{2,8}}],name},\n     {white_space,[{text,\" \"},{location,{2,12}}],\" \"},\n     {'->',[{text,\"->\"},{location,{2,13}}]},\n     {white_space,[{text,\" \"},{location,{2,15}}],\" \"},\n     {var,[{text,\"Result\"},{location,{2,16}}],'Result'},\n     {dot,[{text,\".\\n\"},{location,{2,22}}]}],\n    [{atom,[{text,\"rule\"},{location,{2,1}}],rule},\n     {':',[{text,\":\"},{location,{2,6}}]},\n     {atom,[{text,\"name\"},{location,{2,8}}],name},\n     {'->',[{text,\"->\"},{location,{2,13}}]},\n     {var,[{text,\"Result\"},{location,{2,16}}],'Result'},\n     {dot,[{text,\".\\n\"},{location,{2,22}}]}],\n    {3,1}}\n{eof,{3,1}}\n{ok,[{atom,[{text,\"rule\"},{location,{1,1}}],rule},\n     {white_space,[{text,\" \"},{location,{1,5}}],\" \"},\n     {reserved_word,[{text,\"case\"},{location,{1,6}}],'case'},\n     {white_space,[{text,\" \"},{location,{1,10}}],\" \"},\n     {reserved_word,[{text,\"end\"},{location,{1,11}}],'end'},\n     {white_space,[{text,\" \"},{location,{1,14}}],\" \"},\n     {reserved_symbol,[{text,\"+\"},{location,{1,15}}],'+'},\n     {white_space,[{text,\" \"},{location,{1,16}}],\" \"},\n     {var,[{text,\"X\"},{location,{1,17}}],'X'},\n     {dot,[{text,\".\\n\"},{location,{1,18}}]}],\n    [{atom,[{text,\"rule\"},{location,{1,1}}],rule},\n     {reserved_word,[{text,\"case\"},{location,{1,6}}],'case'},\n     {reserved_word,[{text,\"end\"},{location,{1,11}}],'end'},\n     {reserved_symbol,[{text,\"+\"},{location,{1,15}}],'+'},\n     {var,[{text,\"X\"},{location,{1,17}}],'X'},\n     {dot,[{text,\".\\n\"},{location,{1,18}}]}],\n    {2,1}}\n{eof,{3,1}}\n",
+        "before": "{ok,[{comment,[{text,\"% preserve comments\"},{location,{1,1}}],\n              \"% preserve comments\"},\n     {white_space,[{text,\"\\n\"},{location,{1,20}}],\"\\n\"},\n     {atom,[{text,\"rule\"},{location,{2,1}}],rule},\n     {white_space,[{text,\" \"},{location,{2,5}}],\" \"},\n     {':',[{text,\":\"},{location,{2,6}}]},\n     {white_space,[{text,\" \"},{location,{2,7}}],\" \"},\n     {atom,[{text,\"name\"},{location,{2,8}}],name},\n     {white_space,[{text,\" \"},{location,{2,12}}],\" \"},\n     {'->',[{text,\"->\"},{location,{2,13}}]},\n     {white_space,[{text,\" \"},{location,{2,15}}],\" \"},\n     {var,[{text,\"Result\"},{location,{2,16}}],'Result'},\n     {dot,[{text,\".\\n\"},{location,{2,22}}]}],\n    [{atom,[{text,\"rule\"},{location,{2,1}}],rule},\n     {':',[{text,\":\"},{location,{2,6}}]},\n     {atom,[{text,\"name\"},{location,{2,8}}],name},\n     {'->',[{text,\"->\"},{location,{2,13}}]},\n     {var,[{text,\"Result\"},{location,{2,16}}],'Result'},\n     {dot,[{text,\".\\n\"},{location,{2,22}}]}],\n    {3,1}}\n{eof,{3,1}}\n{ok,[{atom,[{text,\"rule\"},{location,{1,1}}],rule},\n     {white_space,[{text,\" \"},{location,{1,5}}],\" \"},\n     {reserved_word,[{text,\"case\"},{location,{1,6}}],'case'},\n     {white_space,[{text,\" \"},{location,{1,10}}],\" \"},\n     {reserved_word,[{text,\"end\"},{location,{1,11}}],'end'},\n     {white_space,[{text,\" \"},{location,{1,14}}],\" \"},\n     {reserved_symbol,[{text,\"+\"},{location,{1,15}}],'+'},\n     {white_space,[{text,\" \"},{location,{1,16}}],\" \"},\n     {var,[{text,\"X\"},{location,{1,17}}],'X'},\n     {dot,[{text,\".\\n\"},{location,{1,18}}]}],\n    [{atom,[{text,\"rule\"},{location,{1,1}}],rule},\n     {reserved_word,[{text,\"case\"},{location,{1,6}}],'case'},\n     {reserved_word,[{text,\"end\"},{location,{1,11}}],'end'},\n     {reserved_symbol,[{text,\"+\"},{location,{1,15}}],'+'},\n     {var,[{text,\"X\"},{location,{1,17}}],'X'},\n     {dot,[{text,\".\\n\"},{location,{1,18}}]}],\n    {2,1}}\n{eof,{3,1}}\n",
+        "candidate": "{ok,[{comment,[{text,\"% preserve comments\"},{location,{1,1}}],\n              \"% preserve comments\"},\n     {white_space,[{text,\"\\n\"},{location,{1,20}}],\"\\n\"},\n     {atom,[{text,\"rule\"},{location,{2,1}}],rule},\n     {white_space,[{text,\" \"},{location,{2,5}}],\" \"},\n     {':',[{text,\":\"},{location,{2,6}}]},\n     {white_space,[{text,\" \"},{location,{2,7}}],\" \"},\n     {atom,[{text,\"name\"},{location,{2,8}}],name},\n     {white_space,[{text,\" \"},{location,{2,12}}],\" \"},\n     {'->',[{text,\"->\"},{location,{2,13}}]},\n     {white_space,[{text,\" \"},{location,{2,15}}],\" \"},\n     {var,[{text,\"Result\"},{location,{2,16}}],'Result'},\n     {dot,[{text,\".\\n\"},{location,{2,22}}]}],\n    [{atom,[{text,\"rule\"},{location,{2,1}}],rule},\n     {':',[{text,\":\"},{location,{2,6}}]},\n     {atom,[{text,\"name\"},{location,{2,8}}],name},\n     {'->',[{text,\"->\"},{location,{2,13}}]},\n     {var,[{text,\"Result\"},{location,{2,16}}],'Result'},\n     {dot,[{text,\".\\n\"},{location,{2,22}}]}],\n    {3,1}}\n{eof,{3,1}}\n{ok,[{atom,[{text,\"rule\"},{location,{1,1}}],rule},\n     {white_space,[{text,\" \"},{location,{1,5}}],\" \"},\n     {reserved_word,[{text,\"case\"},{location,{1,6}}],'case'},\n     {white_space,[{text,\" \"},{location,{1,10}}],\" \"},\n     {reserved_word,[{text,\"end\"},{location,{1,11}}],'end'},\n     {white_space,[{text,\" \"},{location,{1,14}}],\" \"},\n     {reserved_symbol,[{text,\"+\"},{location,{1,15}}],'+'},\n     {white_space,[{text,\" \"},{location,{1,16}}],\" \"},\n     {var,[{text,\"X\"},{location,{1,17}}],'X'},\n     {dot,[{text,\".\\n\"},{location,{1,18}}]}],\n    [{atom,[{text,\"rule\"},{location,{1,1}}],rule},\n     {reserved_word,[{text,\"case\"},{location,{1,6}}],'case'},\n     {reserved_word,[{text,\"end\"},{location,{1,11}}],'end'},\n     {reserved_symbol,[{text,\"+\"},{location,{1,15}}],'+'},\n     {var,[{text,\"X\"},{location,{1,17}}],'X'},\n     {dot,[{text,\".\\n\"},{location,{1,18}}]}],\n    {2,1}}\n{eof,{3,1}}\n"
+      }
+    },
+    "guarded-prefix-zip": {
+      "Observations": 4,
+      "Reports": {
+        "pinned": "[\"a.txt\",\"nested/b.dat\"]\n[{\"a.txt\",<<\"alpha\\n\">>},{\"nested/b.dat\",<<0,1,127,255>>}]\n[\"a.txt\",\"nested/b.dat\"]\n[{\"a.txt\",<<\"alpha\\n\">>},{\"nested/b.dat\",<<0,1,127,255>>}]\n",
+        "before": "[\"a.txt\",\"nested/b.dat\"]\n[{\"a.txt\",<<\"alpha\\n\">>},{\"nested/b.dat\",<<0,1,127,255>>}]\n[\"a.txt\",\"nested/b.dat\"]\n[{\"a.txt\",<<\"alpha\\n\">>},{\"nested/b.dat\",<<0,1,127,255>>}]\n",
+        "candidate": "[\"a.txt\",\"nested/b.dat\"]\n[{\"a.txt\",<<\"alpha\\n\">>},{\"nested/b.dat\",<<0,1,127,255>>}]\n[\"a.txt\",\"nested/b.dat\"]\n[{\"a.txt\",<<\"alpha\\n\">>},{\"nested/b.dat\",<<0,1,127,255>>}]\n"
+      }
+    },
+    "diameter-fixed-fields": {
+      "Observations": 4,
+      "Reports": {
+        "pinned": "<<0,0,0,0,0,0,0,8>>\n<<1,2,3,0,0,0,0,8>>\n<<1,2,3,4,0,0,0,8>>\n<<1,2,3,4,128,0,0,12,0,0,0,0>>\n",
+        "before": "<<0,0,0,0,0,0,0,8>>\n<<1,2,3,0,0,0,0,8>>\n<<1,2,3,4,0,0,0,8>>\n<<1,2,3,4,128,0,0,12,0,0,0,0>>\n",
+        "candidate": "<<0,0,0,0,0,0,0,8>>\n<<1,2,3,0,0,0,0,8>>\n<<1,2,3,4,0,0,0,8>>\n<<1,2,3,4,128,0,0,12,0,0,0,0>>\n"
+      }
+    },
+    "owned-register": {
+      "Observations": 4,
+      "Reports": {
+        "pinned": "{ok,4}\n{error,enotsup}\n[{[a],[b]},{[b],[c]}]\n[{[a,b],[c]}]\n",
+        "before": "{ok,4}\n{error,enotsup}\n[{[a],[b]},{[b],[c]}]\n[{[a,b],[c]}]\n",
+        "candidate": "{ok,4}\n{error,enotsup}\n[{[a],[b]},{[b],[c]}]\n[{[a,b],[c]}]\n"
+      }
+    },
+    "ssh-positioned-payload": {
+      "Observations": 1,
+      "Reports": {
+        "pinned": "input=<<0,0,0,20,11,2,0,0,0,3,111,116,112,1,2,3,4,5,6,7,8,9,10,11>>\npayload/1 called with exact input\nresult={packet_decrypted,<<2,0,0,0,3,111,116,112>>,<<>>}\nssh_record_arity=62 state=identical\n",
+        "before": "input=<<0,0,0,20,11,2,0,0,0,3,111,116,112,1,2,3,4,5,6,7,8,9,10,11>>\npayload/1 called with exact input\nresult={packet_decrypted,<<2,0,0,0,3,111,116,112>>,<<>>}\nssh_record_arity=62 state=identical\n",
+        "candidate": "input=<<0,0,0,20,11,2,0,0,0,3,111,116,112,1,2,3,4,5,6,7,8,9,10,11>>\npayload/1 called with exact input\nresult={packet_decrypted,<<2,0,0,0,3,111,116,112>>,<<>>}\nssh_record_arity=62 state=identical\n"
+      }
+    },
+    "snmp-ets-storage": {
+      "Observations": 3,
+      "Reports": {
+        "pinned": "{value,{datum,key,3}}\n{value,{datum,key,7}}\n{error,enoent}\n",
+        "before": "{value,{datum,key,3}}\n{value,{datum,key,7}}\n{error,enoent}\n",
+        "candidate": "{value,{datum,key,3}}\n{value,{datum,key,7}}\n{error,enoent}\n"
+      }
+    },
+    "megaco-and-zipped-types": {
+      "Observations": 23,
+      "Reports": {
+        "pinned": "{megaco_binary_name_resolver_v1,event,[0,8,0,48],{error,undef}}.\n{megaco_binary_name_resolver_v1,event,[0,8,0,56],{error,undef}}.\n{megaco_binary_name_resolver_v1,event,[0,8,0,57],{error,undef}}.\n{megaco_binary_name_resolver_v1,event,[0,8,0,48,0],{error,undef}}.\n{megaco_binary_name_resolver_v1,signal,[0,8,0,48],{error,undef}}.\n{megaco_binary_name_resolver_v1,{event,[0,8,0,48]},[0,1],{error,undef}}.\n{megaco_binary_name_resolver_v2,event,[0,8,0,48],{error,undef}}.\n{megaco_binary_name_resolver_v2,event,[0,8,0,56],{error,undef}}.\n{megaco_binary_name_resolver_v2,event,[0,8,0,57],{error,undef}}.\n{megaco_binary_name_resolver_v2,event,[0,8,0,48,0],{error,undef}}.\n{megaco_binary_name_resolver_v2,signal,[0,8,0,48],{error,undef}}.\n{megaco_binary_name_resolver_v2,{event,[0,8,0,48]},[0,1],{error,undef}}.\n{megaco_binary_name_resolver_v3,event,[0,8,0,48],{error,undef}}.\n{megaco_binary_name_resolver_v3,event,[0,8,0,56],{error,undef}}.\n{megaco_binary_name_resolver_v3,event,[0,8,0,57],{error,undef}}.\n{megaco_binary_name_resolver_v3,event,[0,8,0,48,0],{error,undef}}.\n{megaco_binary_name_resolver_v3,signal,[0,8,0,48],{error,undef}}.\n{megaco_binary_name_resolver_v3,{event,[0,8,0,48]},[0,1],{error,undef}}.\n{erl_types,[],[],{ok,[]}}.\n{erl_types,[{c,number,any,integer},{c,atom,any,unknown}],[{c,number,{int_set,[42]},integer},{c,atom,[example],unknown}],{ok,[{c,number,{int_set,[42]},integer},{c,atom,[example],unknown}]}}.\n{erl_types,[{c,number,any,integer},{c,atom,any,unknown}],[{c,atom,[example],unknown},{c,number,{int_set,[42]},integer}],{ok,[none,none]}}.\n{erl_types,[{c,number,any,integer}],[],{error,{bad_generators,{[{c,number,any,integer}],[]}}}}.\n{erl_types,[{c,number,any,integer}|invalid],[{c,number,{int_set,[42]},integer}],{error,{bad_generators,{invalid,[]}}}}.\n",
+        "before": "{megaco_binary_name_resolver_v1,event,[0,8,0,48],{error,undef}}.\n{megaco_binary_name_resolver_v1,event,[0,8,0,56],{error,undef}}.\n{megaco_binary_name_resolver_v1,event,[0,8,0,57],{error,undef}}.\n{megaco_binary_name_resolver_v1,event,[0,8,0,48,0],{error,undef}}.\n{megaco_binary_name_resolver_v1,signal,[0,8,0,48],{error,undef}}.\n{megaco_binary_name_resolver_v1,{event,[0,8,0,48]},[0,1],{error,undef}}.\n{megaco_binary_name_resolver_v2,event,[0,8,0,48],{error,undef}}.\n{megaco_binary_name_resolver_v2,event,[0,8,0,56],{error,undef}}.\n{megaco_binary_name_resolver_v2,event,[0,8,0,57],{error,undef}}.\n{megaco_binary_name_resolver_v2,event,[0,8,0,48,0],{error,undef}}.\n{megaco_binary_name_resolver_v2,signal,[0,8,0,48],{error,undef}}.\n{megaco_binary_name_resolver_v2,{event,[0,8,0,48]},[0,1],{error,undef}}.\n{megaco_binary_name_resolver_v3,event,[0,8,0,48],{error,undef}}.\n{megaco_binary_name_resolver_v3,event,[0,8,0,56],{error,undef}}.\n{megaco_binary_name_resolver_v3,event,[0,8,0,57],{error,undef}}.\n{megaco_binary_name_resolver_v3,event,[0,8,0,48,0],{error,undef}}.\n{megaco_binary_name_resolver_v3,signal,[0,8,0,48],{error,undef}}.\n{megaco_binary_name_resolver_v3,{event,[0,8,0,48]},[0,1],{error,undef}}.\n{erl_types,[],[],{ok,[]}}.\n{erl_types,[{c,number,any,integer},{c,atom,any,unknown}],[{c,number,{int_set,[42]},integer},{c,atom,[example],unknown}],{ok,[{c,number,{int_set,[42]},integer},{c,atom,[example],unknown}]}}.\n{erl_types,[{c,number,any,integer},{c,atom,any,unknown}],[{c,atom,[example],unknown},{c,number,{int_set,[42]},integer}],{ok,[none,none]}}.\n{erl_types,[{c,number,any,integer}],[],{error,{bad_generators,{[{c,number,any,integer}],[]}}}}.\n{erl_types,[{c,number,any,integer}|invalid],[{c,number,{int_set,[42]},integer}],{error,{bad_generators,{invalid,[]}}}}.\n",
+        "candidate": "{megaco_binary_name_resolver_v1,event,[0,8,0,48],{error,undef}}.\n{megaco_binary_name_resolver_v1,event,[0,8,0,56],{error,undef}}.\n{megaco_binary_name_resolver_v1,event,[0,8,0,57],{error,undef}}.\n{megaco_binary_name_resolver_v1,event,[0,8,0,48,0],{error,undef}}.\n{megaco_binary_name_resolver_v1,signal,[0,8,0,48],{error,undef}}.\n{megaco_binary_name_resolver_v1,{event,[0,8,0,48]},[0,1],{error,undef}}.\n{megaco_binary_name_resolver_v2,event,[0,8,0,48],{error,undef}}.\n{megaco_binary_name_resolver_v2,event,[0,8,0,56],{error,undef}}.\n{megaco_binary_name_resolver_v2,event,[0,8,0,57],{error,undef}}.\n{megaco_binary_name_resolver_v2,event,[0,8,0,48,0],{error,undef}}.\n{megaco_binary_name_resolver_v2,signal,[0,8,0,48],{error,undef}}.\n{megaco_binary_name_resolver_v2,{event,[0,8,0,48]},[0,1],{error,undef}}.\n{megaco_binary_name_resolver_v3,event,[0,8,0,48],{error,undef}}.\n{megaco_binary_name_resolver_v3,event,[0,8,0,56],{error,undef}}.\n{megaco_binary_name_resolver_v3,event,[0,8,0,57],{error,undef}}.\n{megaco_binary_name_resolver_v3,event,[0,8,0,48,0],{error,undef}}.\n{megaco_binary_name_resolver_v3,signal,[0,8,0,48],{error,undef}}.\n{megaco_binary_name_resolver_v3,{event,[0,8,0,48]},[0,1],{error,undef}}.\n{erl_types,[],[],{ok,[]}}.\n{erl_types,[{c,number,any,integer},{c,atom,any,unknown}],[{c,number,{int_set,[42]},integer},{c,atom,[example],unknown}],{ok,[{c,number,{int_set,[42]},integer},{c,atom,[example],unknown}]}}.\n{erl_types,[{c,number,any,integer},{c,atom,any,unknown}],[{c,atom,[example],unknown},{c,number,{int_set,[42]},integer}],{ok,[none,none]}}.\n{erl_types,[{c,number,any,integer}],[],{error,{bad_generators,{[{c,number,any,integer}],[]}}}}.\n{erl_types,[{c,number,any,integer}|invalid],[{c,number,{int_set,[42]},integer}],{error,{bad_generators,{invalid,[]}}}}.\n"
+      }
+    }
+  },
+  "Images": {
+    "core_parse": "640b2e7a46e54c6f615d631082f5841f51e14098ccbfba501d93e8fe828f322c",
+    "erl_parse": "006826494e80afb250e3ba5e63fe4be3357d38ff89f2f6af225f42b57e45a87a",
+    "megaco_text_parser_v3": "2d8b1ae0929f2633234d03e75f803708675fa276a0c32827839f81f53bb65d3b",
+    "xref_parser": "7fe614bfa12941db7d083dddc134a09c997d537bc853ceb5aaf95bb52a1ac177",
+    "yeccparser": "cf9ef96bdfa6806247cec50b34cc644bb0496623d4d021e3b225dfefcf85cd38",
+    "unix_telnet": "695a7276b34dbb73eccefca57cae3f848028f1eab5a11bdf7391c2c929d6a129",
+    "ct_rpc": "44e4ac4c6133242ebf4f67f15a7cb6558e44f36f27f4e6d48babf23b4af20700",
+    "xmerl_sax_simple_dom": "52b9bd08b44d8f8810f9177c6ec9d6a69897cc4654288ae8a4e329c1d9c18482",
+    "orddict": "3ea41a3f525ee1fd0358d8ae84ef500becfdd62923cab0a049e467db97fd2668",
+    "inet_dns": "1e1840a26265244a2b9d853c1fdf88a85a7fb0ae0dbcb57dbec5221a5f248311",
+    "ct_config_xml": "dc4ea4a5314d54796966e7d014c74eddbc974e3379555eb9f48bf8176e70187f",
+    "diameter": "d74f72f5c0d43950359858c6d95b78a225ff3b39b5971641352c9f64ce3983c6",
+    "dets": "79b7c476a1865f6a69d9980371cdf65215951b97f2ce73993a43b2daaadf0da3",
+    "yeccscan": "38c0f2d5dd8d5081d5b04bf8781307195f23011e572c19e64e01bc61a209c806",
+    "zip": "7d61f75060d208cb07c4bf39ceb0b57b133f7290de17fdecec21072cd32954eb",
+    "prim_zip": "d6e7653f9cadd8e972b17154b9604a72a81ec9f1e34bc9156ccee349386e67ca",
+    "diameter_codec": "65379c8559c4a432a3454ba6221e756b9b8cdf5e0a5f67eb6661cd59a1f7cfc8",
+    "ram_file": "03c452aac5e347b8a12c7ea87716f9c05faa8dff1d32e6be1c389f61aa692534",
+    "xref_utils": "d3ce0a58ae52459d73d59b684d870714ff8453dcb2e53bd0830fe62f15f779d7",
+    "ssh_transport": "3c07a8bcc204c1ad0069674bbb1fd4a4d786965c05ca9edb9e768e18ab116e65",
+    "snmpa_mib_storage_ets": "d5e75f173ba452982f7ec9ce738c17274cde574cfb11c4e3a412cade974805e7",
+    "gen_tcp": "7a23c774cadb9f6a58cd18c086bd051fadca445ed3a3e7162765a15b2be76cf7",
+    "gen_udp": "676f3c32556e70d659e36a72b77bb388970dd511bed4a8a28a1d7a5d9243fba4",
+    "inet": "fe7efa78534c2bddf8eb5ad0a46565cd165d29bcc648a2f398acff7e529410b3",
+    "megaco_binary_name_resolver_v1": "8b8df8c837c7986c1f8cfb54236b8d0411f2f31004a4b8e567ecb2f9c58cd470",
+    "megaco_binary_name_resolver_v2": "c66290757eb2dddcd751be19746925eb26545ec38a933410cc89be2a8748762b",
+    "megaco_binary_name_resolver_v3": "782450db9c1b4d0b659d65a6009f9b095d2e4069b33dca98b621a9de56fc7874",
+    "erl_types": "ac978f11d4793e4b90ff5668d2bb2397d525f35cb5c7e56c5a03ef9186223fba"
+  }
+}

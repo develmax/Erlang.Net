@@ -1,0 +1,138 @@
+using System.Collections;
+using System.Numerics;
+using Erlang;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamEnrollmentForwardedRangeChecks
+{
+    internal const string TestName = "compiler/beam/keeps-range-checked-forwarded-choice-in-registers";
+    private const string Fixture = "beam_forwarded_choice_bounds.erl";
+    private const string WrongLayout = "A bounded forwarded choice did not retain its zero-slot frame.";
+    private const string WrongValue = "A bounded forwarded choice changed its value or failure.";
+
+    private const string Source = """
+        -module(beam_forwarded_choice_bounds).
+        -export([decode/2]).
+        decode(Input, Tags) ->
+            Parsed = prepare(Input,Tags),
+            case (case Parsed of [One] -> One; _ -> Parsed end) of
+                {2, Raw} -> {number,begin
+                    Value = read_integer(Raw,[]),
+                    if 0 =< Value, Value =< 9 -> Value; true -> exit({reason,range}) end
+                end};
+                {16, Raw} -> {path, read_path(Raw,[])};
+                Other -> exit({error,{format,{invalid,Other}}})
+            end.
+        prepare(Input,[]) -> Input.
+        read_integer(Data,[]) -> <<Number:8/signed>> = Data, Number.
+        read_path(Value,_) -> Value.
+        """;
+
+    internal static async Task Run()
+    {
+        byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
+        byte[] opaque = CodeGeneration.CompileBeamModule(
+            Source.Replace("read_integer(Raw,[])", "read_path(Raw,[])", StringComparison.Ordinal),
+            Fixture
+        );
+        var module = BeamModule.Prepare(image);
+        await using var runtime = new ProcessRuntime();
+        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
+        await actor.InvokeAsync(async context =>
+        {
+            Term intInput = Term.Tuple(Term.I(2), new BitString([9]));
+            Term path = Term.List(Term.I(1), Term.I(3));
+            Term pathInput = Term.Tuple(Term.I(16), path);
+            if (!Term.Tuple(Term.A("number"), Term.I(9)).Equals(await module.Invoke(
+                context,
+                "decode",
+                intInput,
+                Nil.Value
+            ))
+                || !Term.Tuple(Term.A("path"), path).Equals(await module.Invoke(
+                    context,
+                    "decode",
+                    Term.List(pathInput),
+                    Nil.Value
+                )))
+            {
+                throw new InvalidOperationException(WrongValue);
+            }
+
+            Term range = Term.Tuple(Term.A("reason"), Term.A("range"));
+            await Reject(Term.Tuple(Term.I(2), new BitString([10])), range);
+            await Reject(Term.Tuple(Term.I(2), new BitString([255])), range);
+            Term wrong = Term.Tuple(Term.I(5), Nil.Value);
+            await Reject(wrong, Term.Tuple(
+                Term.A("error"),
+                Term.Tuple(Term.A("format"), Term.Tuple(Term.A("invalid"), wrong))
+            ));
+
+            return Nil.Value;
+
+            async Task Reject(Term input, Term reason)
+            {
+                try
+                {
+                    await module.Invoke(
+                        context,
+                        "decode",
+                        input,
+                        Nil.Value
+                    );
+                }
+                catch (ErlangException error) when (error.ExceptionClass == ErlangExceptionClasses.Exit
+                    && error.Reason.Equals(reason))
+                {
+                    return;
+                }
+
+                throw new InvalidOperationException(WrongValue);
+            }
+        });
+
+        if (!HasRangeChecks(image, provenInteger: true) || !HasRangeChecks(opaque, provenInteger: false))
+        {
+            throw new InvalidOperationException(WrongLayout);
+        }
+    }
+
+    private static bool HasRangeChecks(byte[] image, bool provenInteger)
+    {
+        object code = Code(image);
+        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
+        object[] instructions = Items(code, "Instructions");
+        int index = Array.FindIndex(
+            instructions,
+            instruction => Opcode(instruction) == FunctionInfo
+            && Items(instruction, "Operands") is [_, var atom, var arity]
+            && atoms[Value(atom)] == "decode" && Value(arity) == 2
+        );
+        if (index < 0)
+        {
+            throw new InvalidOperationException(WrongLayout);
+        }
+
+        object[] body = instructions.Skip(index + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo)
+            .ToArray();
+        object frame = body.Single(instruction => Opcode(instruction) == Allocate);
+        object[][] comparisons = body.Where(instruction => Opcode(instruction) == IsGreaterOrEqual)
+            .Select(instruction => Items(instruction, "Operands")).ToArray();
+
+        return Value(Items(frame, "Operands")[0]) == 0
+            && comparisons is [[var lowerExit, var lowerValue, var zero], [var upperExit, var nine, var upperValue]]
+            && Value(lowerExit) == Value(upperExit)
+            && Value(zero) == 0 && Value(nine) == 9 && Value(lowerValue) == 0 && Value(upperValue) == 0
+            && (Property(lowerValue, "TypeIndex") is not null) == provenInteger;
+    }
+
+    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
+
+    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
+
+    private static object[] Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
+}

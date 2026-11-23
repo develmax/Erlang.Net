@@ -1,0 +1,20 @@
+lib/mnesia-4.27/ebin/mnesia_frag.beam ['clear_table', 4] [3, 6] [[4, 0]] {}
+['external', 'mnesia', 'clear_table', 4] [4, 0] [3, 0] [3, 2] [] [['move', [[3, 1], [3, 0]]], ['move', [[3, 0], [4, 0]]], ['move', [[4, 0], [3, 2]]], ['move', [[4, 4], [3, 1]]], ['move', [[4, 3], [3, 3]]], ['move', [[4, 5], [3, 0]]], ['call_ext', [[0, 4], [0, 7]]], ['test_heap', [[0, 2], [0, 1]]], ['put_list', [[3, 0], [4, 1], [3, 0]]], ['move', [[3, 0], [4, 1]]], ['jump', [[5, 27]]]]
+lib/mnesia-4.27/ebin/mnesia_frag.beam ['search_last', 5] [5, 6] [[4, 5]] {}
+['external', 'mnesia', 'last', 3] [4, 5] [3, 0] [3, 2] [[12, 14]] [['call', [[0, 2], [5, 463]]], ['move', [[3, 0], [4, 5]]], ['move', [[4, 1], [3, 1]]], ['move', [[4, 5], [3, 2]]], ['move', [[4, 0], [3, 0]]], ['call_ext', [[0, 3], [0, 17]]], ['is_eq_exact', [[5, 86], [3, 0], [2, 56]]], ['gc_bif2', [[5, 0], [0, 0], [0, 18], [4, 3], [1, 1], [3, 0]]], ['move', [[3, 0], [4, 5]]], ['move', [[4, 2], [3, 2]]]]
+['local', 'search_last', 5] [4, 5] [3, 0] [3, 3] [] [['gc_bif2', [[5, 0], [0, 0], [0, 18], [4, 3], [1, 1], [3, 0]]], ['move', [[3, 0], [4, 5]]], ['move', [[4, 2], [3, 2]]], ['move', [[4, 5], [3, 3]]], ['move', [[4, 1], [3, 1]]], ['move', [[4, 4], [3, 4]]], ['move', [[4, 0], [3, 0]]], ['call', [[0, 5], [5, 84]]], ['label', [[0, 86]]], ['deallocate', [[0, 6]]], ['return', []], ['label', [[0, 85]]]]
+lib/compiler-10.0.6/ebin/compile.beam ['write_binary', 3] [2, 3] [[4, 0]] {}
+['external', 'file', 'write_file', 3] [4, 0] [3, 0] [3, 2] [] [['label', [[0, 817]]], ['move', [[3, 0], [4, 0]]], ['move', [[4, 1], [3, 1]]], ['move', [[4, 0], [3, 2]]], ['move', [[4, 2], [3, 0]]], ['call_ext', [[0, 3], [0, 113]]], ['is_ne_exact', [[5, 820], [3, 0], [2, 25]]], ['is_tagged_tuple', [[5, 821], [3, 0], [0, 2], [2, 24]]], ['deallocate', [[0, 3]]], ['return', []]]
+lib/compiler-10.0.6/ebin/beam_ssa_destructive_update.beam ['fiv_add_literal', 5] [6, 7] [[4, 0]] {'live after reload': 1}
+['external', 'ordsets', 'add_element', 2] [4, 0] [3, 0] [3, 1] [] [['call_ext', [[0, 3], [0, 3]]], ['move', [[3, 0], [4, 0]]], ['move', [[4, 0], [3, 1]]], ['move', [[4, 5], [3, 0]]], ['call_ext', [[0, 2], [0, 13]]], ['move', [[3, 0], [4, 5]]], ['move', [[4, 2], [3, 0]]], ['is_map', [[5, 173], [3, 0]]], ['put_map_assoc', [[5, 0], [3, 0], [3, 0], [0, 1], ['list', [[4, 1], [4, 5]]]]]]
+lib/public_key-1.21.7/ebin/CryptographicMessageSyntax-2009.beam ['dec_CertificateChoices', 2] [0, 1] [[4, 0]] {}
+['external', 'AttributeCertificateVersion1-2009', 'dec_AttributeCertificateV1', 2] [4, 0] [3, 2] [3, 0] [[31, 32]] [['label', [[0, 1162]]], ['move', [[3, 2], [4, 0]]], ['move', [[2, 0], [3, 1]]], ['move', [[4, 0], [3, 0]]], ['call_ext', [[0, 2], [0, 48]]], ['test_heap', [[0, 3], [0, 1]]], ['put_tuple2', [[3, 0], ['list', [[2, 302], [3, 0]]]]], ['deallocate', [[0, 1]]], ['return', []]]
+['external', 'PKIX1Explicit-2009', 'dec_Certificate', 2] [4, 0] [3, 2] [3, 0] [[47, 48]] [['label', [[0, 1164]]], ['move', [[3, 2], [4, 0]]], ['move', [[2, 0], [3, 1]]], ['move', [[4, 0], [3, 0]]], ['call_ext', [[0, 2], [0, 49]]], ['test_heap', [[0, 3], [0, 1]]], ['put_tuple2', [[3, 0], ['list', [[2, 300], [3, 0]]]]], ['deallocate', [[0, 1]]], ['return', []]]
+lib/observer-2.19/ebin/cdv_multi_wx.beam ['update_left_menu', 1] [4, 5] [] {'live after reload': 1}
+lib/common_test-1.31.2/ebin/ct_config.beam ['allocate', 2] [3, 6] [] {'live after reload': 1}
+lib/common_test-1.31.2/ebin/ct_config.beam ['check_exports', 1] [2, 3] [] {'live after reload': 1}
+lib/common_test-1.31.2/ebin/ct_config.beam ['do_require', 2] [2, 4] [] {'live after reload': 1}
+lib/common_test-1.31.2/ebin/ct_release_test.beam ['-get_runtime_deps/4-fun-0-', 3] [2, 4] [] {'live after reload': 1}
+lib/common_test-1.31.2/ebin/ct_release_test.beam ['upgrade_system', 5] [6, 7] [] {'live after reload': 1}
+slot top suffix 2
+slots branches redefinitions Counter({1: 32, 2: 7, 3: 5})

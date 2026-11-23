@@ -1,0 +1,11 @@
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamTerminalLocalTryTailChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamTerminalLocalTryTailChecks.cs
+@@ -65,7 +65,7 @@
+         CheckTail(ReadOpcodes(code, "projected"));
+         CheckControl(ReadOpcodes(code, "wrapped"), BeamEmissionFormat.LocalCall);
+         CheckControl(ReadOpcodes(code, "cleanup"), BeamEmissionFormat.LocalCall);
+-        CheckControl(ReadOpcodes(code, "remote"), BeamEmissionFormat.ExternalCall);
++        CheckControl(ReadOpcodes(code, "remote"), BeamEmissionFormat.TailExternalCallWithFrame);
+ 
+         BeamModule image = BeamModule.Prepare(beam);
+         await using var runtime = new ProcessRuntime();

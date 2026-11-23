@@ -1,0 +1,12 @@
+[Path, Missing] = init:get_plain_arguments(),
+ok = logger:set_primary_config(level, emergency),
+{ok, Beam} = file:read_file(Path),
+{module, pubkey_os_cacerts} = code:load_binary(pubkey_os_cacerts, Path, Beam),
+false = pubkey_os_cacerts:clear(),
+{error, enoent} = pubkey_os_cacerts:load([Missing]),
+ok = pubkey_os_cacerts:load(),
+Certs = pubkey_os_cacerts:get(),
+true = is_list(Certs) andalso length(Certs) > 0,
+Result = {length(Certs), crypto:hash(sha256, term_to_binary(lists:sort(Certs))), pubkey_os_cacerts:clear()},
+io:format("~0tp.~n", [Result]),
+halt(0).

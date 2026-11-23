@@ -1,0 +1,15 @@
+Error! Failed to eval: [Beam]=init:get_plain_arguments(),
+true=code:unstick_mod(prim_tty),
+{module,prim_tty}=code:load_abs(filename:rootname(Beam)),
+true=filename:absname(code:which(prim_tty))=:=filename:absname(Beam),
+State=prim_tty:init_ssh(#{}, {8,20}, unicode),
+{Insert,State1}=prim_tty:handle_request(State,{insert,<<"abcdefghijklmnop">>}),
+{Back,State2}=prim_tty:handle_request(State1,{move,-11}),
+{Forward,State3}=prim_tty:handle_request(State2,{move,6}),
+{Erase,State4}=prim_tty:handle_request(State3,delete_line),
+{Move,State5}=prim_tty:handle_request(State4,{insert,<<"1234">>}),
+io:format("~0p~n",[{[iolist_to_binary(S)||S<-[Insert,Back,Forward,Erase,Move]],prim_tty:window_size(State5)}]),halt().
+
+Runtime terminating during boot ({undef,[{erlang,nif_error,[undef],[{error_info,#{module=>erl_erts_errors}}]},{prim_tty,isprint,1,[{file,"prim_tty.erl"},{line,1396}]},{prim_tty,insert_buf,4,[{file,"prim_tty.erl"},{line,1280}]},{prim_tty,handle_request,2,[{file,"prim_tty.erl"},{line,888}]},{erl_eval,do_apply,7,[{file,"erl_eval.erl"},{line,1044}]},{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,792}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{init,start_it,1,[{file,"init.erl"},{line,1561}]}]})
+
+Crash dump is being written to: C:/Users/Maksim/.codex/worktrees/beam-release-parity/Erlang.Net/artifacts/local-beam-parity/native-projected-record-branches-2153/terminal-release/reference-crash.dump...done

@@ -1,0 +1,46 @@
+{
+  "Part": 1998,
+  "Reference": "OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "FrozenSource": "56c71cb11fd4dc7d34760b031a5b75581d1a8f35d3fb46a1d3c1362eb4f36419",
+  "FrozenCompiler": "249641165e3395c703a0dfe8188671e1c068a06e771e180825d93d569bb5427e",
+  "FailureStacks": "789522e020bb09e8530124e59fb944f2fb106d1bce4151da204486935991c23e",
+  "PinnedSource": [
+    "lib/stdlib/src/erl_expand_records.erl record_update/5 and record_match/6",
+    "ex_canvas_paint.erl handle_event/2 preview fallback",
+    "sudoku_game.erl new_game/1"
+  ],
+  "Cause": "Part1993 moved the last update-field read outside the former short-circuit. An empty update then failed at compile time before record validation.",
+  "Change": "Read the optional last value only when the update has a field. Keep existing runtime record validation, source expression order and zero writes on the empty path.",
+  "Scope": "Frozen Part1955 four-image comparison. Baseline: 2 CompilerError, 1 Different and 1 Equal. Candidate: 3 Different and 1 Equal. Both actual ex_canvas_paint and sudoku_game emit usable release images. Exact ex_cursor retained and ex_gauge generated image byte-identical.",
+  "Native": "Seven synthetic unchecked, checked and supplied-value cases match pinned values, error class/reason and exactly-once callback evaluation. Actual ex_canvas_paint preview-fallback state and eight effects match. Actual sudoku_game headless initial puzzle and coordinate round trips match.",
+  "Inherited": "Two unchecked stack lines differ from OTP (pinned 7, candidate 6). The identical discrepancy and entire synthetic native result are observed in Part1991 before Part1993; this patch preserves that result.",
+  "Part1995Overlap": "Part1956 takes the Part1995 hint change in the same production file. Strict replay of this exact patch on the known Part1995 CheckedRecords.cs is recorded separately and passes. No shared source files were edited or built.",
+  "Focused": {
+    "Red": -532462766,
+    "Green": 0,
+    "Fixture": "Unchanged record value, no field write, and record tag tests for unknown direct and supplied operands."
+  },
+  "Hashes": {
+    "production.patch": "b28eac0b0040c7c110d5ea1d8345f4d17c168da147cee422e99a116fe6dcdc60",
+    "test.patch": "e6aa082c973151bb1aa37846091bcc03c90ba6fd4a087142be8611c9ef8cad8f",
+    "strict-replay.log": "6c5a89f618198f25af1db2f1ec7691710df689d96d72782248aec194a9378160",
+    "part1995-strict.log": "313e65ee9131bb0296236aeb935272fa2054dde59bfe9ae55f6a49bce4a2f159",
+    "replay-files.json": "6dfdb31f0e1c2532b3a18cd24719dd5d343a0acbec6a7066a65b186f263d252f",
+    "style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "build.log": "ccb0f8b199420a815955bd9f85d75d3cc3d5675661a7c4766b65733b6de97613",
+    "focused-exits.json": "bc94548b9bb262641f7723f0c47bc5981857f61c35d54feb175dbd26bb309508",
+    "baseline.json": "e96e08330e91842b17b5b4610beb751e96c07c860b78125dd436580999033432",
+    "candidate.json": "88f89eee6980aad9cd2ce17eb925f2b87a1b714bb108f7d3a8cd2a058eaabdf3",
+    "fixture/pinned.terms": "a61130a3ba97baf6f897f57999245670d7eb61ef31190f6d25d6383d76da29eb",
+    "fixture/pre1993.terms": "fde91f0593795690fe46130a94d48527158898b5edd8c622d19a60c2875e4bbe",
+    "fixture/candidate.terms": "fde91f0593795690fe46130a94d48527158898b5edd8c622d19a60c2875e4bbe",
+    "canvas/pinned-native.terms": "3fb4c939fde4ecb9abb5de4f3a55e5dc2f229b16e72c1223832260d79b6b9ca8",
+    "canvas/candidate-native.terms": "3fb4c939fde4ecb9abb5de4f3a55e5dc2f229b16e72c1223832260d79b6b9ca8",
+    "sudoku-pinned.terms": "c9a15b67de4e8375768a93a96134c3a18dbb01abd3f168734c6d9c3d3d2a4017",
+    "sudoku-candidate.terms": "c9a15b67de4e8375768a93a96134c3a18dbb01abd3f168734c6d9c3d3d2a4017",
+    "compiler-bin/Erlang.Compiler.dll": "85befff6877a7b6ade38eb5ebc9ea77061b02be1d463195db10ad062484130ae",
+    "candidate.json.generated/lib/wx-2.7/doc/examples/demo/ex_gauge.beam": "5700ac868e73ba0160cd7e725a64d0ab87beb630c7d09481880e92dda3c57874",
+    "candidate.json.generated/lib/wx-2.7/doc/examples/demo/ex_canvas_paint.beam": "6a27f578bf1c557c47069c2910640974dc05cdbae7ade0f127922efcfed90ef5",
+    "candidate.json.generated/lib/wx-2.7/doc/examples/sudoku/sudoku_game.beam": "294e66b0ee3121e346014cc0f3050163eaf7aae471edee0585aef3f8825abcdb"
+  }
+}

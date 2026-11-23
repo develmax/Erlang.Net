@@ -1,0 +1,60 @@
+{
+  "Parent": {
+    "Source": "e7d42460ec9ed7b1c08429ecb37a20d3e10b7b8bdcd46b84cc7b1ec886573b51",
+    "Paths": 280,
+    "Compiler": "5811084ab5b6a4cdf5476d5df138fc935d10e642ccba0a3ae73f94968c32d2ce",
+    "Tests": "0326edf001537faab3d4a01a260de8b37ba50cc45dd767586951298da33d8b00",
+    "ParentSource": "360f1f7bb6428560f7c0e833a7835a9329a67a158462fd058a924194f162dbde",
+    "CorpusTool": "edf9c8d779d864313d584cfd6d30497d66cff85e5d7cfdd2bf20bd3312c49257"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedRecords.cs": "4d158bfdb7c6119fb1a2fe5a6a0eba2a78037d210441ddfac72644ef31fe1c0b",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ExhaustiveLocalCase.cs": "b41346b2cb2a127c4d9a5232d10970899c14771977bbadfb3bf202c9efb18470",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": "3b74eb8681ad2215f068e191c65b238b33107b74dd68c9870ff7a46ec0689cee",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProperListEntryFacts.cs": "bd8a800da3452fb4e0a99c5eb70e0aca65a9ca0db5118d8346a4f90fae5b2079",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProperListMatchFailures.cs": "5bae1dd9de2ad638bbdcd6ed1e3fbc1333ab89a12ce47e7c9a8c115be7793765",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs": "c863afbb63bad5781ad54cb6ede10bd3c2aae8ad9e48fef1644fd44685d570b9",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TerminalCalls.cs": "166568fab51219aacb649d0b201e469fd7e534e7388b46644c550b17a4812adc",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": "7eebae80978732e8a1a10aead65acc190b8a21995cc4a43946bb3cc276388d1f",
+    "tests/Erlang.Tests/Compiler/Beam/BeamDominatingRecordGuardChecks.cs": "3122fb6fd40980e2a3bc192793b4a57a0dd34a643ace3b6e5de2e79ced260499",
+    "tests/Erlang.Tests/Compiler/Beam/BeamExhaustiveLocalCaseChecks.cs": "6085b539bddbb4313c55ce19d6ae8e7718fc4694269bc08a4ce4842143e195a2",
+    "tests/Erlang.Tests/Compiler/Beam/BeamFlatTupleListHelperChecks.cs": "8aa6ebeef9d64705fc5f309ce53efb63dcf591211ff21787c6f5e02ad6599b1b",
+    "tests/Erlang.Tests/Compiler/Beam/BeamTerminalMixedCaseChecks.cs": "8de486e5b28536047aefebb1908f358d58b4ba96a43fde8370eb0421be4829d5",
+    "tests/Erlang.Tests/Harness/Program.cs": "663fad2d4c74f3f170301bfcddb146b64c326cf20fa8ca0a5ef4a3e5d364fea2",
+    "tests/Erlang.Tests/Resources/Beam/beam_flat_tuple_list_helper.erl": "1dd20bc15a03b183ed78679078e58ec849b07d7c0e0ac74792d1a7dc3dee511c"
+  },
+  "Patches": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\local-case-proofs-and-bounded-list-helpers-1891\\cold-case-short-return.patch",
+      "Hash": "f56b934ca1a3ba3bafb61eb3b691eecc16b084d31392153d3de4cafa75dcf58d"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\local-case-proofs-and-bounded-list-helpers-1891\\exhaustive-local-tagged-case.patch",
+      "Hash": "0079aef6f8fdab037e1d2e55ab8bffbda23b5159349138bc41049c9f12e0161b"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\local-case-proofs-and-bounded-list-helpers-1891\\flat-list-result-admission.patch",
+      "Hash": "2618bf7337827362b4105b3cee8a826f9db80d77f4159b2b0354e53376f56521"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\local-case-proofs-and-bounded-list-helpers-1891\\guarded-record-projection.patch",
+      "Hash": "f6e50042febff10b7136fa19bde2d9b2d6223a88fb6d0efa1e5a111218f73b1e"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\local-case-proofs-and-bounded-list-helpers-1891-plan-consistency-retake\\case-proof-during-planning.patch",
+      "Hash": "c5007df9c67bafb4f2d0b47f60c9f6825392a3a6ecadf548c91a7f99e4e2c27d"
+    }
+  ],
+  "HarnessRegistrations": [
+    "BeamExhaustiveLocalCaseChecks",
+    "BeamDominatingRecordGuardChecks"
+  ],
+  "BindingCorrection": {
+    "Path": "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ExhaustiveLocalCase.cs",
+    "Original": "owner.sourceModule",
+    "Current": "owner.SourceModule",
+    "FailurePreservedAt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\local-case-proofs-and-bounded-list-helpers-1891\\compiler-build.log"
+  },
+  "PreviousFailures": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\local-case-proofs-and-bounded-list-helpers-1891-binding-retake\\focused.log",
+  "EmittedCodeWitness": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\local-case-proofs-and-bounded-list-helpers-1891-binding-retake\\exhaustive-case-failure-audit\\h.terms"
+}

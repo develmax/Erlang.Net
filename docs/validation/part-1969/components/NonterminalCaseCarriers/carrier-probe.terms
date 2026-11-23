@@ -1,0 +1,8 @@
+#{native =>
+      [{first,{ok,42},{recorded,{ok,42}}},
+       {second,{ok,42},{recorded,{ok,42}}},
+       {rejected,{rejected,42},{recorded,{rejected,42}}},
+       {other,{failed,{failed_step,42}},{recorded,{failed,{failed_step,42}}}},
+       {exception,{error,{step_failed,42}},no_record}],
+  construction =>
+      [{1,[{25,failed}]},{1,[{19,ok},{24,ok},{29,failed}]},{1,[{27,failed}]}]}.

@@ -1,0 +1,35 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.WxObjectCommands.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.WxObjectCommands.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.WxObjectCommands.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.WxObjectCommands.cs
+@@ -1081,8 +1081,8 @@
+ 
+             bool interleavesMappedText = interleavesTextConversion && optionMapper is not null
+                 && !owner.ModuleOptimizationDisabled && owner.SsaTypeInferenceEnabled
+-                && arity is 5 or 6 && classChecks[0].Register == 0
+-                && convertedRegister >= 2 && convertedRegister < arity - 2
++                && arity is >= 4 and <= 6 && classChecks[0].Register == 0
++                && convertedRegister >= 1 && convertedRegister < arity - 2
+                 && classChecks.Skip(1).Select(check => check.Register)
+                     .SequenceEqual(Enumerable.Range(convertedRegister + 1, arity - convertedRegister - 2))
+                 && preliminaryConversions.Count == 0 && sharedType is null
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecordGuards.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecordGuards.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecordGuards.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecordGuards.cs
+@@ -199,7 +199,7 @@
+ 
+         private static SparseWxTextForward? ReadSparseWxTextForward(ForwardGuard[] tests, int arity)
+         {
+-            if (arity is not (4 or 5))
++            if (arity is < 3 or > 5)
+             {
+                 return null;
+             }
+@@ -212,7 +212,7 @@
+             }
+ 
+             int text = records[1].Register - 1;
+-            if (text < 2 || !records.Skip(1).Select(test => test.Register)
++            if (text < 1 || !records.Skip(1).Select(test => test.Register)
+                     .SequenceEqual(Enumerable.Range(text + 1, arity - text - 1)))
+             {
+                 return null;

@@ -1,0 +1,48 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+@@ -1154,6 +1154,7 @@
+         if (mixedTupleReturns is { } sharedMixedDecision)
+         {
+             (code, labelCount) = sharedMixedDecision;
++            code = PreferCopiedTupleSourcesInX(code, labelCount) ?? code;
+             code = OrderTypeOperandsByFirstUse(code, labelCount);
+         }
+         if (removedInteriorRecordFailure)
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.MixedTupleCaseReturns.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.MixedTupleCaseReturns.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.MixedTupleCaseReturns.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.MixedTupleCaseReturns.cs
+@@ -155,8 +155,31 @@
+             WriteRegister(output, x0);
+             BeamCompactWriter.Write(output, AtomTag, scalar.Value);
+             Copy(index + 1, index + 3);
+-            copied = body[narrowEntry + 8].Offset;
+-            index = narrowEntry + 7;
++            int failureEntry = narrowEntry + 8;
++            int nextBlock = exit + 1;
++            int nextExit = nextBlock + 1;
++            if (nextExit < functionEnd && body[nextBlock].Definition.Opcode == Label)
++            {
++                while (nextExit < functionEnd && body[nextExit].Definition.Opcode != Label
++                    && !EndsBeamBlock(body[nextExit].Definition.Opcode))
++                {
++                    nextExit++;
++                }
++
++                if (nextExit < functionEnd && body[nextExit].Definition.Opcode == Return)
++                {
++                    // beam_jump delays a short failure after the ordinary return.
++                    // Both blocks have explicit entries and neither can fall through.
++                    Copy(nextBlock, nextExit + 1);
++                    Copy(failureEntry, nextBlock);
++                    copied = body[nextExit + 1].Offset;
++                    index = nextExit;
++                    continue;
++                }
++            }
++
++            copied = body[failureEntry].Offset;
++            index = failureEntry - 1;
+         }
+ 
+         if (copied == 0)

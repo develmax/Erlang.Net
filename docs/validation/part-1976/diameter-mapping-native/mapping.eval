@@ -1,0 +1,19 @@
+[Image,Out]=init:get_plain_arguments(),
+M=diameter_gen_base_rfc6733,
+{ok,Bin}=file:read_file(Image),
+{module,M}=code:load_binary(M,Image,Bin),
+Measure=fun(F,Arg)->
+    try M:F(Arg) of
+        Value->{value,Value}
+    catch Class:Reason:Trace->
+        {Class,Reason,[{N,A,proplists:get_value(line,Info)}||
+                         {Mod,N,A,Info}<-Trace, Mod=:=M]}
+    end
+end,
+Cases=[{msg2rec,'CER'},{msg2rec,'DPA'},{msg2rec,no_such_diameter_message},
+       {rec2msg,diameter_base_CER},{rec2msg,diameter_base_DPA},{rec2msg,no_such_diameter_record}],
+Result=[Measure(F,Arg)||{F,Arg}<-Cases],
+io:format("~tp.~n",[Result]),
+ok=file:write_file(Out,term_to_binary(Result,[deterministic])),
+halt().
+

@@ -1,0 +1,14 @@
+[Root,Out]=init:get_plain_arguments(),
+Targets=[{erl_bits,"lib/stdlib-8.1/ebin/erl_bits.beam"},{dets_utils,"lib/stdlib-8.1/ebin/dets_utils.beam"}],
+lists:foreach(fun({M,R})->P=filename:join(Root,R),{ok,B}=file:read_file(P),{module,M}=code:load_binary(M,P,B) end,Targets),
+Calls=[{erl_bits,as_list,[{bittype,integer,1,unsigned,big}]},
+       {erl_bits,as_list,[{bittype,binary,8,signed,little}]},
+       {erl_bits,as_list,[{not_bittype,integer,1,unsigned,big}]},
+       {erl_bits,as_list,[not_bittype]},
+       {dets_utils,cache_size,[dets_utils:new_cache({100,8192})]},
+       {dets_utils,cache_size,[dets_utils:new_cache({0,1})]},
+       {dets_utils,cache_size,[{not_cache,42}]},
+       {dets_utils,cache_size,[not_cache]}],
+Check=fun({M,F,A})->try apply(M,F,A) of V->{value,V}
+       catch C:E:S->{C,E,[{Mod,N,Pro,proplists:get_value(line,Info)}||{Mod,N,Pro,Info}<-S,Mod=:=M]} end end,
+ok=file:write_file(Out,[io_lib:format("~0p.~n",[{Call,Check(Call)}])||Call<-Calls]),halt().

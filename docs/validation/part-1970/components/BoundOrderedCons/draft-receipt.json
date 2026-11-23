@@ -1,0 +1,27 @@
+{
+  "status": "source-only strict replay; candidate build/style and native execution pending",
+  "basis": "7169ec6ff063b763abc18d318e4011353b3f0886bd70a8a8d87c039f88a8b1c6",
+  "patches": {
+    "production.patch": "77ed4994bb21c14c67a8aa00e7df6e50df62cec1358310a9cc258ac2839bca01",
+    "test.patch": "8b38806521be6d003a8e41d1a08d4bca0c42c544282fc10f40f3951c7b35c910"
+  },
+  "sources": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.OrderedConsConstruction.cs": {
+      "before": "4a63174f69613412a956f65a65031c1424e1e0dc6579ed2d3cc843c5a2b8dc91",
+      "after": "e57f260cb93a3f72a06c1ca5508bd4d7254b0050cb9c5a2f4c88e52330c1ed2c"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": {
+      "before": "0abccc087e7762549997f91ebf1d8b9e50199e6fc0fc73b98b0c2249e498e2b8",
+      "after": "be6cb806c882ed95efec97a0593fbfa42ebbdaff483916146e61c1032196d16c"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/Calls/BeamOrderedConsCallChecks.cs": {
+      "before": "a45932854d2302b2589e8cba3d63595366082512c7c45a6a139a47318d21ee08",
+      "after": "2a90b9c3bd3f974b6e4f1112fa3d1002020877edd32fa24b04a9f09bdd5efe02"
+    }
+  },
+  "pinnedFixture": {
+    "reference-fixture\\ordered_cons_call_fixture.erl": "5f9da0f2430e6a6b4a61973535d716fd9b3b474c47d9d9c2e21739461749e2dc",
+    "reference-fixture\\ordered_cons_call_provider.erl": "ffea5918352fb0697f5f873667b040bf2d1c0f33ebe0036ab9c53611a58e744d"
+  },
+  "pinnedNativeResults": "bcfbf5473ba830e8b6df0ba63f5d9e013ff184e64c522b4bdb74cfbe940bfd35"
+}

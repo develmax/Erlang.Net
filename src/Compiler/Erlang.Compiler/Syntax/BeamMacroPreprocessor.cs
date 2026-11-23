@@ -84,16 +84,24 @@ internal sealed class BeamMacroPreprocessor(
             includeStack.Push(sourcePath);
         }
         var tokens = ScanDocument(source, 0);
-        ProcessDocument(tokens, sourcePath);
+        ProcessDocument(tokens, sourcePath, new(null, includes?.SourceArgument));
         output.Add(tokens[^1]);
 
         return output;
     }
 
-    private void ProcessDocument(List<Token> tokens, string? currentPath, string? includeRequest = null)
+    private readonly record struct IncludeProvenance(
+        string? LibraryRequest,
+        string? RecordedPath,
+        string? MappedFile = null,
+        int LineOffset = 0
+    );
+
+    private void ProcessDocument(List<Token> tokens, string? currentPath, IncludeProvenance provenance = default)
     {
         int conditionDepth = conditions.Count;
         string? mappedFile = null;
+        string? declaredFile = null;
         int lineOffset = 0;
         int columnResetLine = 0;
         int columnStart = 0;
@@ -156,14 +164,15 @@ internal sealed class BeamMacroPreprocessor(
                     terminator,
                     currentPath,
                     tokens[^1].Start,
-                    mapped ? null : includeRequest
+                    tokens[start].PreprocessorFile,
+                    provenance with { MappedFile = declaredFile, LineOffset = lineOffset }
                 );
             }
             else if (TryReadExternalDocumentation(
                 form,
                 terminator,
                 currentPath,
-                mapped ? null : includeRequest
+                mapped ? default : provenance
             ))
             {
                 // The directive expands to a documentation string and two file transitions.
@@ -205,6 +214,7 @@ internal sealed class BeamMacroPreprocessor(
                     string? mainFile = sourcePath is null ? null
                         : deterministicFileNames ? Path.GetFileName(sourcePath) : sourcePath;
                     mappedFile = file == mainFile ? null : file;
+                    declaredFile = file;
                     lineOffset = line - tokens[start + 1].PreprocessorLine;
                     columnResetLine = tokens[end].PreprocessorLine;
                     // The scanner consumes the separator after the dot before resetting the column.
@@ -239,6 +249,7 @@ internal sealed class BeamMacroPreprocessor(
         Token Map(Token token) => token with
         {
             PreprocessorFile = mappedFile,
+            RecordedIncludePath = null,
             PreprocessorLine = checked(token.PreprocessorLine + lineOffset),
             HasExplicitFileLocation = true,
             PreprocessorColumnStart = token.Start >= columnStart
@@ -343,7 +354,7 @@ internal sealed class BeamMacroPreprocessor(
         List<Token> form,
         Token terminator,
         string? currentPath,
-        string? includeRequest
+        IncludeProvenance provenance
     )
     {
         if (AttributeName(form) is not (ModuleAttributeNames.Doc or ModuleAttributeNames.ModuleDoc)
@@ -370,7 +381,13 @@ internal sealed class BeamMacroPreprocessor(
             return false;
         }
 
-        string? resolved = currentPath is null ? null : includes?.Resolve(currentPath, requested, library: false);
+        string? resolved = currentPath is null ? null : includes?.Resolve(
+            currentPath,
+            requested,
+            library: false,
+            recordedParent: null,
+            out _
+        );
         if (resolved is null)
         {
             throw Error(BeamMacroDiagnostics.DocumentationMissing(requested), form[1]);
@@ -387,6 +404,7 @@ internal sealed class BeamMacroPreprocessor(
             PreprocessorLine = 1,
             PreprocessorColumnStart = form[1].Start,
             PreprocessorFile = file,
+            RecordedIncludePath = null,
             HasExplicitFileLocation = true
         };
         fileTransitions.Add(new(output.Count, file, 1));
@@ -401,7 +419,8 @@ internal sealed class BeamMacroPreprocessor(
             terminator.PreprocessorFile,
             terminator.PreprocessorLine,
             Column: column,
-            IncludeRequest: includeRequest
+            IncludeRequest: provenance.LibraryRequest,
+            RecordedIncludePath: RecordedPath(provenance)
         ));
 
         return true;
@@ -412,7 +431,8 @@ internal sealed class BeamMacroPreprocessor(
         Token terminator,
         string? currentPath,
         int documentEnd,
-        string? parentIncludeRequest
+        string? physicalParent,
+        IncludeProvenance parent
     )
     {
         string directive = form[1].Text;
@@ -433,11 +453,19 @@ internal sealed class BeamMacroPreprocessor(
         }
         string requested = path.ToString();
         bool library = directive == "include_lib";
-        string? resolved = currentPath is null ? null : includes?.Resolve(currentPath, requested, library);
-        if (resolved is null)
+        BeamResolvedInclude? resolution = currentPath is null
+            ? null
+            : includes?.ResolveInclude(
+                currentPath,
+                parent.RecordedPath,
+                requested,
+                library
+            );
+        if (resolution is null)
         {
             throw Error(BeamMacroDiagnostics.IncludeMissing(requested), form[0]);
         }
+        string resolved = resolution.PhysicalPath;
         if (includeStack.Count >= IncludeDepthLimit || new FileInfo(resolved).Length > CombinedSourceLimit - combinedSource.Length)
         {
             throw Error(BeamMacroDiagnostics.IncludeLimit, form[0]);
@@ -455,19 +483,31 @@ internal sealed class BeamMacroPreprocessor(
         try
         {
             string file = Path.GetFileName(resolved);
-            string? includeRequest = library ? requested : null;
+            var provenance = new IncludeProvenance(library ? requested : null, resolution.RecordedPath);
             fileTransitions.Add(new(
                 output.Count,
                 file,
                 1,
-                IncludeRequest: includeRequest
+                IncludeRequest: provenance.LibraryRequest,
+                RecordedIncludePath: RecordedPath(provenance)
             ));
-            ProcessDocument(ScanDocument(content, offset, file), resolved, includeRequest);
+            string? recordedIncludePath = includes?.SourceArgument is not null ? RecordedPath(provenance) : null;
+            string executableFile = includes?.ExecutableFile(requested, file, deterministicFileNames) ?? file;
+            ProcessDocument(
+                ScanDocument(
+                    content,
+                    offset,
+                    executableFile,
+                    recordedIncludePath
+                ),
+                resolved,
+                provenance
+            );
             fileTransitions.Add(IncludeReturnTransition(
-                form[0].PreprocessorFile,
+                physicalParent,
                 terminator,
                 documentEnd,
-                parentIncludeRequest
+                parent
             ));
         }
         catch (CompileException error)
@@ -480,57 +520,79 @@ internal sealed class BeamMacroPreprocessor(
         }
     }
 
+    private string? RecordedPath(IncludeProvenance provenance) =>
+        includes?.SourceArgument is not null && deterministicFileNames && provenance.RecordedPath is { } path
+            ? Path.GetFileName(path)
+            : provenance.RecordedPath;
+
     private BeamFileTransition IncludeReturnTransition(
         string? file,
         Token terminator,
         int documentEnd,
-        string? includeRequest
+        IncludeProvenance provenance
     )
     {
         int next = terminator.End;
         char following = next < documentEnd ? combinedSource[next] : '\0';
+        int line = checked(terminator.PreprocessorLine - provenance.LineOffset);
+        int column = 1;
+
         // OTP consumes only the first whitespace character after the directive's full stop.
         if (following == '\n')
         {
-            return new(
-                output.Count,
-                file,
-                terminator.PreprocessorLine + 1,
-                IncludeRequest: includeRequest
-            );
+            line++;
         }
-
-        int start = terminator.PreprocessorColumnStart ?? terminator.Start;
-        if (terminator.PreprocessorColumnStart is null)
+        else
         {
-            while (start > 0 && combinedSource[start - 1] != '\n')
+            int start = terminator.PreprocessorColumnStart ?? terminator.Start;
+            if (terminator.PreprocessorColumnStart is null)
             {
-                start--;
+                while (start > 0 && combinedSource[start - 1] != '\n')
+                {
+                    start--;
+                }
             }
-        }
-        int column = 1;
-        for (int index = start; index < next; index++)
-        {
-            if (!char.IsLowSurrogate(combinedSource[index]))
+
+            for (int index = start; index < next; index++)
+            {
+                if (!char.IsLowSurrogate(combinedSource[index]))
+                {
+                    column++;
+                }
+            }
+            if (char.IsWhiteSpace(following))
             {
                 column++;
             }
         }
-        if (char.IsWhiteSpace(following))
-        {
-            column++;
-        }
+
+        // epp:leave_file/2 restores the physical parent before a differing
+        // source-declared file mapping. Executable tokens keep their mapping.
+        var mapping = provenance.MappedFile is { } mappedFile
+            ? new BeamFileTransition.MappedParent(
+                mappedFile,
+                provenance.LineOffset,
+                includes?.SourceArgument is not null ? provenance.RecordedPath : null
+            )
+            : null;
 
         return new(
             output.Count,
             file,
-            terminator.PreprocessorLine,
+            line,
             Column: column,
-            IncludeRequest: includeRequest
+            IncludeRequest: provenance.LibraryRequest,
+            RecordedIncludePath: RecordedPath(provenance),
+            ParentMapping: mapping
         );
     }
 
-    private static List<Token> ScanDocument(string content, int offset, string? file = null)
+    private static List<Token> ScanDocument(
+        string content,
+        int offset,
+        string? file = null,
+        string? recordedIncludePath = null
+    )
     {
         var tokens = Lexer.Scan(content);
         int cursor = 0;
@@ -545,7 +607,14 @@ internal sealed class BeamMacroPreprocessor(
                     line++;
                 }
             }
-            tokens[index] = token with { Start = token.Start + offset, End = token.End + offset, PreprocessorLine = line, PreprocessorFile = file };
+            tokens[index] = token with
+            {
+                Start = token.Start + offset,
+                End = token.End + offset,
+                PreprocessorLine = line,
+                PreprocessorFile = file,
+                RecordedIncludePath = recordedIncludePath
+            };
         }
 
         return tokens;
@@ -801,6 +870,7 @@ internal sealed class BeamMacroPreprocessor(
         End = location.End,
         PreprocessorLine = location.PreprocessorLine,
         PreprocessorFile = location.PreprocessorFile,
+        RecordedIncludePath = location.RecordedIncludePath,
         HasExplicitFileLocation = location.HasExplicitFileLocation,
         SigilDelimiterOffset = 0,
         PreprocessorColumnStart = location.PreprocessorColumnStart

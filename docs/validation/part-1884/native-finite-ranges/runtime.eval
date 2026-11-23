@@ -1,0 +1,23 @@
+[OtpRoot,Workspace] = init:get_plain_arguments(),
+{ok,bitwise_range_probe_peer,Dependency}=compile:forms([{attribute,1,module,bitwise_range_probe_peer},{attribute,2,export,[{opaque,1}]},{function,3,opaque,1,[{clause,3,[{var,3,'V'}],[],[{var,3,'V'}]}]}],[binary]),
+{module,bitwise_range_probe_peer}=code:load_binary(bitwise_range_probe_peer,"peer",Dependency),
+Run = fun(Mod,Path,Inputs) ->
+    {ok,Image}=file:read_file(Path),{module,Mod}=code:load_binary(Mod,Path,Image),
+    R=[try apply(Mod,F,A) of V->{ok,V} catch C:X->{C,X} end||{F,A}<-Inputs],
+    true=code:delete(Mod),_=code:purge(Mod),R
+end,
+Fixture = [{session,[I,N]} || I<-[0,-1,1 bsl 60],N<-[1,7]] ++
+    [{session,[atom,4]},{session,[1,3.5]},{adjacent,[63]},{adjacent,[-1]},{adjacent,[atom]},
+     {dynamic,[-1,-2]},{dynamic,[-1,0]},{dynamic,[-1,64]},{dynamic,[-1,0.5]},
+     {negative,[-16,3]},{checked,[invalid,0]},{checked,[31,0]},
+     {compare,[a,512]},{compare,[a,0]}],
+F=Run(bitwise_range_probe,filename:join(Workspace,"pinned-range.beam"),Fixture),
+F=Run(bitwise_range_probe,filename:join(Workspace,"managed-range.beam"),Fixture),
+Mnesia=[{key_to_frag_number,[{hash_state,N,1,D,H},K]}||{N,D}<-[{1,0},{2,1},{5,2}],H<-[phash,phash2],K<-[undefined,42,<<"data">>,{x,9}]],
+MR=Run(mnesia_frag_hash,filename:join([OtpRoot,"lib","mnesia-4.27","ebin","mnesia_frag_hash.beam"]),Mnesia),
+MR=Run(mnesia_frag_hash,filename:join(Workspace,"generated-mnesia_frag_hash.beam"),Mnesia),
+_=code:unstick_mod(diameter_session),
+{ok,Diameter}=file:read_file(filename:join(Workspace,"generated-diameter_session.beam")),
+{module,diameter_session}=code:load_binary(diameter_session,"generated-diameter_session",Diameter),
+io:format("~p fixture cases and ~p Mnesia cases agree; actual Diameter loaded~n",[length(F),length(MR)]),halt().
+

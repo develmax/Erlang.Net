@@ -1,0 +1,118 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamNaturalListPairLengthChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamNaturalListPairLengthChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamNaturalListPairLengthChecks.cs
+@@ -0,0 +1,102 @@
++using System.Collections;
++using System.Numerics;
++using Erlang;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamNaturalListPairLengthChecks
++{
++    internal const string TestName = "compiler/beam/retains-nonnegative-count-and-pair-length";
++    private const string Fixture = "beam_natural_list_pair_length.erl";
++    private const string WrongLayout = "Nonnegative seeds and returned lengths did not retain their lower bounds.";
++    private const string WrongValue = "The counted list changed its result.";
++
++    private const string Source = """
++        -module(beam_natural_list_pair_length).
++        -export([run/1, negative/1, callback/1]).
++        run(List) -> loop(List, [], 0).
++        negative(List) -> neg_loop(List, [], -1).
++        callback(List) -> callback_loop(List, fun wrap/3, [], 0).
++        loop([], Items, Count) -> {finish(Items),Count};
++        loop([Head|Rest], Items, Count) ->
++            {Value,Len} = pair(Head, []),
++            loop(Rest, [Value|Items], Count + Len).
++        neg_loop([], Items, Count) -> {finish(Items),Count};
++        neg_loop([Head|Rest], Items, Count) ->
++            {Value,Len} = pair(Head, []),
++            neg_loop(Rest, [Value|Items], Count + Len).
++        callback_loop([], _, Items, Count) -> {finish(Items),Count};
++        callback_loop([Head|Rest], Callback, Items, Count) ->
++            {Payload,_} = Callback(value, Head, []),
++            {Value,Len} = pair(Payload, []),
++            callback_loop(Rest, Callback, [Value|Items], Count + Len).
++        wrap(value, Value, []) -> {Value,ignored}.
++        pair(Value, []) -> {Value,length(Value)}.
++        finish(Items) -> Items.
++        """;
++
++    internal static async Task Run()
++    {
++        byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
++        var module = BeamModule.Prepare(image, new BeamDependencySelection([]));
++        await using var runtime = new ProcessRuntime();
++        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
++        await actor.InvokeAsync(async context =>
++        {
++            Term first = Term.List(Term.A("first"));
++            Term second = Term.List(Term.A("second"), Term.A("third"));
++            Term input = Term.List(first, second);
++            Term output = Term.List(second, first);
++            if (!Term.Tuple(output, Term.I(3)).Equals(await module.Invoke(context, "run", input))
++                || !Term.Tuple(output, Term.I(2)).Equals(await module.Invoke(context, "negative", input))
++                || !Term.Tuple(output, Term.I(3)).Equals(await module.Invoke(context, "callback", input)))
++            {
++                throw new InvalidOperationException(WrongValue);
++            }
++
++            return Nil.Value;
++        });
++
++        if (!HasNonnegativeOperands(image, "loop") || HasNonnegativeOperands(image, "neg_loop")
++            || HasNonnegativeOperands(image, "callback_loop", arity: 4))
++        {
++            throw new InvalidOperationException(WrongLayout);
++        }
++    }
++
++    private static bool HasNonnegativeOperands(byte[] image, string function, int arity = 3)
++    {
++        object code = Code(image);
++        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        object[] instructions = Items(code, "Instructions");
++        object[] types = Items(Property(code, "Types"), "Entries");
++        int start = Array.FindIndex(
++            instructions,
++            instruction => Opcode(instruction) == FunctionInfo
++                && Items(instruction, "Operands") is [_, var name, var count]
++                && atoms[Value(name)] == function && Value(count) == arity
++        );
++        if (start < 0)
++        {
++            throw new InvalidOperationException(WrongLayout);
++        }
++
++        object arithmetic = instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo)
++            .Single(instruction => Opcode(instruction) == GcBifTwo);
++        object[] operands = Items(arithmetic, "Operands");
++
++        return HasBound(operands[3]) && HasBound(operands[4]);
++
++        bool HasBound(object operand) => Property(operand, "TypeIndex") is int index
++            && (long)Property(types[index], "Minimum") == 0;
++    }
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++
++    private static object[] Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
++}
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12612,6 +12612,7 @@
+ Test(Erlang.Tests.BeamSortedTupleListProjectionChecks.TestName, Erlang.Tests.BeamSortedTupleListProjectionChecks.Run);
+ Test(Erlang.Tests.BeamIntegerGuardedReferenceChecks.TestName, Erlang.Tests.BeamIntegerGuardedReferenceChecks.Run);
+ Test(Erlang.Tests.BeamSizedRequiredDecoderPairChecks.TestName, Erlang.Tests.BeamSizedRequiredDecoderPairChecks.Run);
++Test(Erlang.Tests.BeamNaturalListPairLengthChecks.TestName, Erlang.Tests.BeamNaturalListPairLengthChecks.Run);
+ Test(
+     Erlang.Tests.BeamWxTupleArityForwardChecks.TestName,
+     () =>

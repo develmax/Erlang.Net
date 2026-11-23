@@ -1,0 +1,39 @@
+'PKIXAttributeCertificate-2009'/'ClassList' baseline matches true
+  ref {encode,[{bit,0},{bit,9}],{ok,<<3,3,6,128,64>>},{ok,[unmarked,{bit,9}]}}
+  old {encode,[{bit,0},{bit,9}],{ok,<<3,3,8,128,0>>},{ok,[unmarked]}}
+'PKIX1Implicit-2009'/'KeyUsage' baseline matches true
+  ref {encode,[digitalSignature,encipherOnly],
+              {ok,<<3,2,0,129>>},
+              {ok,[digitalSignature,encipherOnly]}}
+  old {encode,[digitalSignature,encipherOnly],
+              {ok,<<3,3,8,129,0>>},
+              {ok,[digitalSignature,encipherOnly]}}
+'PKIX1Implicit-2009'/'KeyUsage' baseline matches true
+  ref {encode,[encipherOnly,digitalSignature],
+              {ok,<<3,2,0,129>>},
+              {ok,[digitalSignature,encipherOnly]}}
+  old {encode,[encipherOnly,digitalSignature],
+              {ok,<<3,3,8,129,0>>},
+              {ok,[digitalSignature,encipherOnly]}}
+'PKIX1Implicit-2009'/'KeyUsage' baseline matches true
+  ref {encode,[{bit,0},{bit,9}],
+              {ok,<<3,3,6,128,64>>},
+              {ok,[digitalSignature,{bit,9}]}}
+  old {encode,[{bit,0},{bit,9}],{ok,<<3,3,8,128,0>>},{ok,[digitalSignature]}}
+'PKIX1Implicit-2009'/'ReasonFlags' baseline matches true
+  ref {encode,[keyCompromise,aACompromise],
+              {ok,<<3,3,7,64,128>>},
+              {ok,[keyCompromise,aACompromise]}}
+  old {encode,[keyCompromise,aACompromise],
+              {ok,<<3,3,8,64,0>>},
+              {ok,[keyCompromise]}}
+'PKIX1Implicit-2009'/'ReasonFlags' baseline matches true
+  ref {encode,[aACompromise,keyCompromise],
+              {ok,<<3,3,7,64,128>>},
+              {ok,[keyCompromise,aACompromise]}}
+  old {encode,[aACompromise,keyCompromise],
+              {ok,<<3,3,8,64,0>>},
+              {ok,[keyCompromise]}}
+'PKIX1Implicit-2009'/'ReasonFlags' baseline matches true
+  ref {encode,[{bit,0},{bit,9}],{ok,<<3,3,6,128,64>>},{ok,[unused,{bit,9}]}}
+  old {encode,[{bit,0},{bit,9}],{ok,<<3,3,8,128,0>>},{ok,[unused]}}

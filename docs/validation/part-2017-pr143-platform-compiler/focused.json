@@ -1,0 +1,276 @@
+{
+  "Partial": true,
+  "SelectedCount": 44,
+  "TotalCount": 10716,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/beam/accumulated-pair-lengths-preserve-minimum",
+    "compiler/beam/adjacent-call-keeps-result-live",
+    "compiler/beam/allocates-only-for-guarded-module-tail-apply",
+    "compiler/beam/builds-protected-message-tuple-in-outgoing-x1",
+    "compiler/beam/checked-entry-list-return-keeps-register",
+    "compiler/beam/clears-a-retained-argument-at-its-final-call",
+    "compiler/beam/closed-literal-bindings-cross-calls-as-literals",
+    "compiler/beam/declared-native-entry-frame-marker",
+    "compiler/beam/discarded-binary-tuple-binds-fields-directly",
+    "compiler/beam/dispatches-exhaustive-list-predicate-cases",
+    "compiler/beam/entry-values-after-frameless-branch-keep-owned-frame",
+    "compiler/beam/forwards-a-closure-call-result-to-checked-arguments",
+    "compiler/beam/forwards-tagged-token-result-into-a-local-tail",
+    "compiler/beam/generic-map-patterns-annotate-proven-inputs",
+    "compiler/beam/groups-closed-atom-arms-with-owned-source-lines",
+    "compiler/beam/keeps-call-only-grouped-tuple-fields-in-x",
+    "compiler/beam/keeps-call-results-in-terminal-argument-registers",
+    "compiler/beam/keeps-nil-tail-outside-a-checked-cons-frame",
+    "compiler/beam/keeps-range-checked-forwarded-choice-in-registers",
+    "compiler/beam/keeps-short-protected-projections-in-call-registers",
+    "compiler/beam/keeps-tagged-guard-payload-inside-its-owning-tail",
+    "compiler/beam/keeps-the-original-map-register-across-constructor-joins",
+    "compiler/beam/leaf-external-tail-removes-unused-frame",
+    "compiler/beam/lifts-list-generators-with-adjacent-guard-filters",
+    "compiler/beam/list-generator-error-line",
+    "compiler/beam/local-constructor-keeps-singleton-arguments",
+    "compiler/beam/lowers-prepared-map-defaults-in-value-positions",
+    "compiler/beam/lowers-prepared-terminal-map-default-lookups",
+    "compiler/beam/module-filename-uses-implicit-line-index",
+    "compiler/beam/orders-saved-call-results-and-list-construction",
+    "compiler/beam/outgoing-call-removes-dead-roundtrip",
+    "compiler/beam/partitions-mixed-entry-domains-before-framing",
+    "compiler/beam/places-checked-tuple-call-arguments-before-the-catch-frame",
+    "compiler/beam/preserves-shared-list-prefixes-and-branch-local-frames",
+    "compiler/beam/private-atom-selector-moves-only-when-needed",
+    "compiler/beam/projects-a-covered-tagged-call-pair-before-selecting",
+    "compiler/beam/rebuild-installed-otp-release-images",
+    "compiler/beam/retains-one-owner-in-generated-recursive-list-helpers",
+    "compiler/beam/reuses-retired-entry-slot-before-following-call",
+    "compiler/beam/selects-disjoint-tuple-tags-before-arm-frames",
+    "compiler/beam/shares-literal-map-case-projections",
+    "compiler/beam/shares-protected-tag-payload-before-calls",
+    "compiler/beam/uses-zero-slot-frame-for-single-returning-call",
+    "compiler/beam/whole-module-matches-otp"
+  ],
+  "Passed": 44,
+  "Failed": 0,
+  "Tests": [
+    {
+      "Name": "compiler/beam/whole-module-matches-otp",
+      "Status": "Passed",
+      "Milliseconds": 23234
+    },
+    {
+      "Name": "compiler/beam/closed-literal-bindings-cross-calls-as-literals",
+      "Status": "Passed",
+      "Milliseconds": 69
+    },
+    {
+      "Name": "compiler/beam/checked-entry-list-return-keeps-register",
+      "Status": "Passed",
+      "Milliseconds": 43
+    },
+    {
+      "Name": "compiler/beam/generic-map-patterns-annotate-proven-inputs",
+      "Status": "Passed",
+      "Milliseconds": 55
+    },
+    {
+      "Name": "compiler/beam/keeps-the-original-map-register-across-constructor-joins",
+      "Status": "Passed",
+      "Milliseconds": 35
+    },
+    {
+      "Name": "compiler/beam/shares-literal-map-case-projections",
+      "Status": "Passed",
+      "Milliseconds": 72
+    },
+    {
+      "Name": "compiler/beam/lifts-list-generators-with-adjacent-guard-filters",
+      "Status": "Passed",
+      "Milliseconds": 86
+    },
+    {
+      "Name": "compiler/beam/places-checked-tuple-call-arguments-before-the-catch-frame",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "compiler/beam/discarded-binary-tuple-binds-fields-directly",
+      "Status": "Passed",
+      "Milliseconds": 115
+    },
+    {
+      "Name": "compiler/beam/leaf-external-tail-removes-unused-frame",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "compiler/beam/outgoing-call-removes-dead-roundtrip",
+      "Status": "Passed",
+      "Milliseconds": 6
+    },
+    {
+      "Name": "compiler/beam/entry-values-after-frameless-branch-keep-owned-frame",
+      "Status": "Passed",
+      "Milliseconds": 17
+    },
+    {
+      "Name": "compiler/beam/private-atom-selector-moves-only-when-needed",
+      "Status": "Passed",
+      "Milliseconds": 46
+    },
+    {
+      "Name": "compiler/beam/accumulated-pair-lengths-preserve-minimum",
+      "Status": "Passed",
+      "Milliseconds": 73
+    },
+    {
+      "Name": "compiler/beam/local-constructor-keeps-singleton-arguments",
+      "Status": "Passed",
+      "Milliseconds": 21
+    },
+    {
+      "Name": "compiler/beam/preserves-shared-list-prefixes-and-branch-local-frames",
+      "Status": "Passed",
+      "Milliseconds": 39
+    },
+    {
+      "Name": "compiler/beam/module-filename-uses-implicit-line-index",
+      "Status": "Passed",
+      "Milliseconds": 6
+    },
+    {
+      "Name": "compiler/beam/keeps-short-protected-projections-in-call-registers",
+      "Status": "Passed",
+      "Milliseconds": 15
+    },
+    {
+      "Name": "compiler/beam/uses-zero-slot-frame-for-single-returning-call",
+      "Status": "Passed",
+      "Milliseconds": 53
+    },
+    {
+      "Name": "compiler/beam/forwards-a-closure-call-result-to-checked-arguments",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "compiler/beam/declared-native-entry-frame-marker",
+      "Status": "Passed",
+      "Milliseconds": 7
+    },
+    {
+      "Name": "compiler/beam/builds-protected-message-tuple-in-outgoing-x1",
+      "Status": "Passed",
+      "Milliseconds": 6
+    },
+    {
+      "Name": "compiler/beam/lowers-prepared-map-defaults-in-value-positions",
+      "Status": "Passed",
+      "Milliseconds": 178
+    },
+    {
+      "Name": "compiler/beam/lowers-prepared-terminal-map-default-lookups",
+      "Status": "Passed",
+      "Milliseconds": 63
+    },
+    {
+      "Name": "compiler/beam/dispatches-exhaustive-list-predicate-cases",
+      "Status": "Passed",
+      "Milliseconds": 109
+    },
+    {
+      "Name": "compiler/beam/keeps-tagged-guard-payload-inside-its-owning-tail",
+      "Status": "Passed",
+      "Milliseconds": 60
+    },
+    {
+      "Name": "compiler/beam/keeps-nil-tail-outside-a-checked-cons-frame",
+      "Status": "Passed",
+      "Milliseconds": 52
+    },
+    {
+      "Name": "compiler/beam/forwards-tagged-token-result-into-a-local-tail",
+      "Status": "Passed",
+      "Milliseconds": 58
+    },
+    {
+      "Name": "compiler/beam/keeps-call-only-grouped-tuple-fields-in-x",
+      "Status": "Passed",
+      "Milliseconds": 60
+    },
+    {
+      "Name": "compiler/beam/selects-disjoint-tuple-tags-before-arm-frames",
+      "Status": "Passed",
+      "Milliseconds": 83
+    },
+    {
+      "Name": "compiler/beam/list-generator-error-line",
+      "Status": "Passed",
+      "Milliseconds": 49
+    },
+    {
+      "Name": "compiler/beam/projects-a-covered-tagged-call-pair-before-selecting",
+      "Status": "Passed",
+      "Milliseconds": 87
+    },
+    {
+      "Name": "compiler/beam/keeps-range-checked-forwarded-choice-in-registers",
+      "Status": "Passed",
+      "Milliseconds": 116
+    },
+    {
+      "Name": "compiler/beam/groups-closed-atom-arms-with-owned-source-lines",
+      "Status": "Passed",
+      "Milliseconds": 64
+    },
+    {
+      "Name": "compiler/beam/clears-a-retained-argument-at-its-final-call",
+      "Status": "Passed",
+      "Milliseconds": 34
+    },
+    {
+      "Name": "compiler/beam/keeps-call-results-in-terminal-argument-registers",
+      "Status": "Passed",
+      "Milliseconds": 35
+    },
+    {
+      "Name": "compiler/beam/partitions-mixed-entry-domains-before-framing",
+      "Status": "Passed",
+      "Milliseconds": 159
+    },
+    {
+      "Name": "compiler/beam/shares-protected-tag-payload-before-calls",
+      "Status": "Passed",
+      "Milliseconds": 34
+    },
+    {
+      "Name": "compiler/beam/retains-one-owner-in-generated-recursive-list-helpers",
+      "Status": "Passed",
+      "Milliseconds": 54
+    },
+    {
+      "Name": "compiler/beam/orders-saved-call-results-and-list-construction",
+      "Status": "Passed",
+      "Milliseconds": 24
+    },
+    {
+      "Name": "compiler/beam/allocates-only-for-guarded-module-tail-apply",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "compiler/beam/adjacent-call-keeps-result-live",
+      "Status": "Passed",
+      "Milliseconds": 71
+    },
+    {
+      "Name": "compiler/beam/reuses-retired-entry-slot-before-following-call",
+      "Status": "Passed",
+      "Milliseconds": 43
+    },
+    {
+      "Name": "compiler/beam/rebuild-installed-otp-release-images",
+      "Status": "Passed",
+      "Milliseconds": 20154
+    }
+  ]
+}

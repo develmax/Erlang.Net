@@ -1,0 +1,28 @@
+Error! Failed to eval: [Before,Pin]=init:get_plain_arguments(),
+Wrap=fun(Mode,F,A)->
+  try apply(beam_projected_case_exit,F,A) of
+      {ok,{opened,Path,{Ref,Token},start}} when is_reference(Ref)->{ok,{opened,Path,{reference,Token},start}};
+      Result->Result
+  catch C:R:[{beam_projected_case_exit,F,_,_}|_]->{Mode,C,R,{beam_projected_case_exit,F,length(A)}}
+  end
+end,
+Cases=[{lookup,[path,{ok,value}]},{lookup,[path,{error,reason}]},{lookup,[path,{unknown,opaque}]},
+       {decorated,[path,{ok,value}]},{decorated,[path,{error,reason}]},{decorated,[path,wrong]},
+       {guarded,[path,{error,reason}]},{guarded,[[],{error,reason}]},{guarded,[path,wrong]},
+       {throwing,[path,{throw,reason}]},{throwing,[path,{error,reason}]},{throwing,[path,wrong]}],
+Run=fun(Path)->
+   {ok,Binary}=file:read_file(Path),
+   {module,beam_projected_case_exit}=code:load_binary(beam_projected_case_exit,"beam_projected_case_exit.erl",Binary),
+   Values=[{F,Wrap(caught,F,A)}||{F,A}<-Cases],
+   true=code:delete(beam_projected_case_exit),
+   false=code:purge(beam_projected_case_exit),
+   Values
+end,
+Values=Run(Pin),
+Values=Run(Before),
+io:format("~tp.~n",[Values]),halt(0).
+
+
+Runtime terminating during boot ({{badmatch,{error,{6,erl_parse,["syntax error before: ","'['"]}}},[{init,start_it,1,[{file,"init.erl"},{line,1560}]},{init,start_em,1,[{file,"init.erl"},{line,1546}]},{init,do_boot,3,[{file,"init.erl"},{line,1217}]}]})
+
+Crash dump is being written to: D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/standalone-case-failure-layout-1971-audit/native-fixture-crash.dump...done

@@ -1,0 +1,1402 @@
+{
+  "ParentCorpus": "704b74a4f1e6e269391b13ab1ad867b5e63572ef4b3757ed4c9a9d438b9190ec",
+  "Evidence": {
+    "checked-tuple-projection-entry-1978-audit/arity-tag-entry-proof.stdout.log": "ee926d81439e8c35e6b6ae6bdf14f99e4a29a0e9da9126c2795289cb624709d0",
+    "constructed-outgoing-root-lifetimes-1978-audit/qualified.terms": "8a6e6788419367096d2da3f46dfd2d6d27756ecec1aa43649db577022cec38ac",
+    "repeated-entry-frame-growth-1977-audit\\all-212-farther-widths.json": "70b7d8699010bc6ebc0a5b37773165f30ab63c2aa0028f7b2e05c00c183fba60"
+  },
+  "Selection": {
+    "lib/asn1-5.5.2/ebin/asn1ct_check.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "fixed-width writable list builder",
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/asn1-5.5.2/ebin/asn1ct_constructed_ber_bin_v2.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/asn1-5.5.2/ebin/asn1ct_gen.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/asn1-5.5.2/ebin/asn1ct_gen_ber_bin_v2.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_config_plain.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "deterministic previously-equal control"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_cover.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "entry frame and liveness control"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_doctest.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_logs.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_make.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_master_status.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "deterministic previously-equal control"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_repeat.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_rpc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "native and release retention witness"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_slave.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_testspec.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/ct_util.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/erl2html2.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/test_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/test_server_ctrl.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/test_server_sup.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/common_test-1.31.2/ebin/unix_telnet.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "native and release retention witness",
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_a.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_block.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_core_to_ssa.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "entry frame and liveness control",
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_disasm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_jump.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_lint.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_opt.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_pre_codegen.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_ss.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_ssa_type.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "entry frame and liveness control"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/beam_z.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/cerl_inline.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/compile.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/core_parse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "native and release retention witness",
+        "post-match frame width retention"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/erl_bifs.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "deterministic previously-equal control"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/sys_core_alias.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/sys_core_fold.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "arity-tag before allocation",
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/compiler-10.0.6/ebin/v3_core.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/debugger-7.0/ebin/dbg_iload.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/debugger-7.0/ebin/dbg_wx_filedialog_win.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/debugger-7.0/ebin/dbg_wx_mon.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/debugger-7.0/ebin/dbg_wx_mon_win.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/debugger-7.0/ebin/dbg_wx_win.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/debugger-7.0/ebin/int.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_dataflow.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_options.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_timing.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/dialyzer_typesig.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/erl_bif_types.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/erl_types.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/dialyzer-6.0.3/ebin/typer_core.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_etcp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "arity-tag before allocation"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_gen_relay.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "deterministic previously-equal control"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_sctp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "arity-tag before allocation"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_service.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_session.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "deterministic previously-equal control"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_tcp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "arity-tag before allocation"
+      ]
+    },
+    "lib/diameter-2.7.2/ebin/diameter_traffic.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_data.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_doclet.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "arity-tag before allocation"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_doclet_chunks.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "arity-tag before allocation",
+        "entry frame and liveness control"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_extract.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_html_to_markdown.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_parser.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-match frame width retention"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_report.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_specs.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/edoc-1.5/ebin/edoc_wiki.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/erts-17.1/ebin/erlang.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/erts-17.1/ebin/prim_inet.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/et-1.8/ebin/et_collector.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/et-1.8/ebin/et_wx_contents_viewer.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/et-1.8/ebin/et_wx_viewer.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/eunit-2.11/ebin/eunit_tty.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/inets-9.8/ebin/http_chunk.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "arity-tag before allocation"
+      ]
+    },
+    "lib/inets-9.8/ebin/http_util.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpc_manager.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpd.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/inets-9.8/ebin/httpd_util.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/inets-9.8/ebin/inets.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/inets-9.8/ebin/mod_auth_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/application_controller.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/code.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/code_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/disk_log_1.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/erpc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/global.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/global_group.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet_dns.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "arity-tag before allocation"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet_dns_tsig.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet_epmd_dist.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet_epmd_socket.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet_gethost_native.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/inet_res.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/logger.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/logger_backend.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/logger_h_common.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/logger_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/prim_tty.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/kernel-11.0.4/ebin/ram_file.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/megaco-4.9.2/doc/examples/meas/megaco_codec_meas.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/megaco-4.9.2/doc/examples/meas/megaco_codec_transform.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_messenger.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_pretty_text_encoder_v1.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_pretty_text_encoder_v2.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_text_mini_parser.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-match frame width retention"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_text_parser_v1.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-match frame width retention"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_text_parser_v2.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-match frame width retention"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_text_parser_v3.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "native and release retention witness",
+        "post-match frame width retention"
+      ]
+    },
+    "lib/megaco-4.9.2/ebin/megaco_user_default.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "deterministic previously-equal control"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_bup.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_controller.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_index.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_loader.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_recover.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_rpc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_schema.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/mnesia-4.27/ebin/mnesia_tm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/observer-2.19/ebin/observer_app_wx.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/observer-2.19/ebin/observer_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/observer-2.19/ebin/observer_tv_table.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/observer-2.19/ebin/observer_tv_wx.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/observer-2.19/ebin/observer_wx.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/observer-2.19/ebin/ttb.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/os_mon-2.12/ebin/os_sup.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/parsetools-2.8/ebin/leex.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/parsetools-2.8/ebin/yecc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/parsetools-2.8/ebin/yeccparser.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "native and release retention witness"
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/PKIXCMP-2023.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "deterministic previously-equal control"
+      ]
+    },
+    "lib/public_key-1.21.7/ebin/pubkey_cert.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/reltool-1.1/ebin/reltool_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/reltool-1.1/ebin/reltool_sys_win.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/reltool-1.1/ebin/reltool_target.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/runtime_tools-2.5/ebin/dbg.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/runtime_tools-2.5/ebin/system_information.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/sasl-4.4/ebin/alarm_handler.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "deterministic previously-equal control"
+      ]
+    },
+    "lib/sasl-4.4/ebin/erlsrv.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/sasl-4.4/ebin/rb.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/sasl-4.4/ebin/release_handler.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/sasl-4.4/ebin/release_handler_1.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/sasl-4.4/ebin/systools_make.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_generic.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmp_target_mib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_agent.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_get.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_get_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_local_db.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_mib_data_tttn.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_mib_storage_ets.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "entry frame and liveness control",
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_net_if.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_target_cache.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpa_trap.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpc.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpc_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpc_mib_gram.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-match frame width retention"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_config.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_net_if.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_net_if_mt.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/snmp-5.20.5/ebin/snmpm_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_auth.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_connection.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_connection_handler.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_connection_sup.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "deterministic previously-equal control"
+      ]
+    },
+    "lib/ssh-6.0.6/ebin/ssh_shell.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_certificate.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/ssl_dist_connection_sup.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "deterministic previously-equal control"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_handshake_1_3.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/ssl-11.7.7/ebin/tls_server_session_ticket.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/argparse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/c.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/calendar.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/edlin_expand.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/epp.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/erl_parse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "native and release retention witness",
+        "post-match frame width retention"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/erl_tar.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "arity-tag before allocation",
+        "entry frame and liveness control",
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/escript.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/ets.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "entry frame and liveness control"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/filelib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/gen_event.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/gen_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/gen_statem.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/io_lib.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/io_lib_format.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/qlc_pt.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/re.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/shell.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/slave.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/stdlib-8.1/ebin/string.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/syntax_tools-4.1.1/ebin/erl_syntax.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/syntax_tools-4.1.1/ebin/merl.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/syntax_tools-4.1.1/ebin/merl_transform.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/cover.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/fprof.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/tags.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/tprof.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/tools-4.2.3/ebin/xref_parser.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "native and release retention witness",
+        "post-match frame width retention"
+      ]
+    },
+    "lib/wx-2.7/doc/examples/demo/ex_gl.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/wx-2.7/doc/examples/sudoku/sudoku_gui.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxBufferedDC.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "deterministic previously-equal control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxColourPickerCtrl.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "deterministic previously-equal control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxDisplay.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "deterministic previously-equal control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxFileDataObject.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "deterministic previously-equal control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxFocusEvent.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "deterministic previously-equal control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxGridEvent.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "deterministic previously-equal control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxHtmlLinkEvent.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "deterministic previously-equal control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxMDIChildFrame.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "deterministic previously-equal control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxSashWindow.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "deterministic previously-equal control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxStaticBitmap.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "deterministic previously-equal control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxStatusBar.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "deterministic previously-equal control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxStyledTextEvent.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "deterministic previously-equal control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxToolbook.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "deterministic previously-equal control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxWebView.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "deterministic previously-equal control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxXmlResource.beam": {
+      "Before": "Equal",
+      "Evidence": [
+        "deterministic previously-equal control"
+      ]
+    },
+    "lib/wx-2.7/ebin/wxe_server.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_sax_parser.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_sax_parser_latin1.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_sax_parser_list.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16be.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16le.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_sax_parser_utf8.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_sax_simple_dom.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "native and release retention witness"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_validate.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_xpath_parse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-match frame width retention"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_xsd.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "outgoing list roots with pinned slot agreement"
+      ]
+    },
+    "lib/xmerl-2.2/ebin/xmerl_xsd_re_parse.beam": {
+      "Before": "Different",
+      "Evidence": [
+        "post-match frame width retention"
+      ]
+    }
+  }
+}

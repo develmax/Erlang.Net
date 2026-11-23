@@ -1,0 +1,16 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RegisterPredicates.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RegisterPredicates.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RegisterPredicates.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RegisterPredicates.cs
+@@ -526,6 +526,12 @@
+             }
+ 
+             if (branches.Count < 2)
++            {
++                return false;
++            }
++
++            if (multipleArguments && ReadFiniteAtomArguments(function, selector) is { Count: > 0 } finite
++                && finite.All(keys.Contains))
+             {
+                 return false;
+             }

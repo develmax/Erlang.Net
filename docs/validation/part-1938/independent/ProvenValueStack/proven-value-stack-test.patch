@@ -1,0 +1,155 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamProvenValueStackChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamProvenValueStackChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamProvenValueStackChecks.cs
+@@ -0,0 +1,139 @@
++using System.Collections;
++using System.Numerics;
++using Erlang;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamProvenValueStackChecks
++{
++    internal const string TestName = "compiler/beam/removes-isolated-check-of-proven-nonempty-value-stack";
++    private const string Fixture = "beam_proven_value_stack_probe.erl";
++    private const string RetainedCheck = "The isolated value-stack check survived its independent entry proof.";
++    private const string LostControl = "A parser entry with unknown inputs lost its failure path.";
++    private const string InvalidValue = "Value-stack proof changed a result or error.";
++
++    internal const string Source = """
++        -module(beam_proven_value_stack_probe).
++        -export([start/2, uncertain_entry/2, escaping/0, escaped_entry/2, open/7]).
++        -compile({inline, {checked, 1}}).
++
++        start(States, Values) -> seed(hd(States), marker, States, Values, a, b, c).
++        seed(Head, Tag, States, Values, T, Ts, Tzr) ->
++            Required = checked(Values),
++            proven(Head, Tag, States, Required, T, Ts, Tzr).
++        proven(_Head, Tag, States, Values, T, Ts, Tzr) ->
++            Stack = checked(Values),
++            finish(hd(States), Tag, States, Stack, T, Ts, Tzr).
++
++        uncertain_entry(States, Values) -> uncertain(hd(States), marker, States, Values, a, b, c).
++        uncertain(_Head, Tag, States, Values, T, Ts, Tzr) ->
++            Stack = checked(Values),
++            finish(hd(States), Tag, States, Stack, T, Ts, Tzr).
++
++        escaping() -> fun escaped/7.
++        escaped_entry(States, Head) -> escaped(hd(States), marker, States, [Head], a, b, c).
++        escaped(_Head, Tag, States, Values, T, Ts, Tzr) ->
++            Stack = checked(Values),
++            finish(hd(States), Tag, States, Stack, T, Ts, Tzr).
++        open(_Head, Tag, States, Values, T, Ts, Tzr) ->
++            Stack = checked(Values),
++            finish(hd(States), Tag, States, Stack, T, Ts, Tzr).
++
++        checked(Stack) ->
++            [Head|Tail] = Stack,
++            [Head|Tail].
++        finish(Head, Tag, _States, Values, _T, _Ts, _Tzr) -> {Head, Tag, Values}.
++        """;
++
++    internal static byte[] CompileFixture() => CodeGeneration.CompileBeamModule(Source, Fixture);
++
++    internal static async Task Run()
++    {
++        byte[] image = CompileFixture();
++        object code = Code(image);
++        object[] instructions = Items(code, "Instructions").ToArray();
++        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        byte[] proved = Body("proven");
++        if (!proved.Contains(GetHead) || proved.Contains(IsNonemptyList) || proved.Contains(BadMatch))
++        {
++            throw new InvalidOperationException(RetainedCheck);
++        }
++
++        if (!RetainsFailure("uncertain") || !RetainsFailure("escaped") || !RetainsFailure("open") || !RetainsFailure("seed"))
++        {
++            throw new InvalidOperationException(LostControl);
++        }
++
++        var module = BeamModule.Prepare(image);
++        await using var runtime = new ProcessRuntime();
++        await using var receiver = new RuntimeNodeFoundationHostActor(runtime);
++        await receiver.InvokeAsync(async context =>
++        {
++            Term state = Term.A("state");
++            Term states = Term.List(state);
++            Term values = new Cons(Term.A("data"), Term.A("tail"));
++            Term expected = Term.Tuple(state, Term.A("marker"), values);
++            if (!expected.Equals(await module.Invoke(
++                context,
++                "start",
++                states,
++                values
++            ))
++                || !expected.Equals(await module.Invoke(
++                    context,
++                    "uncertain_entry",
++                    states,
++                    values
++                )))
++            {
++                throw new InvalidOperationException(InvalidValue);
++            }
++
++            try
++            {
++                _ = await module.Invoke(
++                    context,
++                    "uncertain_entry",
++                    states,
++                    Nil.Value
++                );
++            }
++            catch (ErlangException error) when (error.ExceptionClass == ErlangExceptionClasses.Error
++                && error.Reason.Equals(Term.Tuple(Term.A(ErlangErrorReasons.BadMatch), Nil.Value)))
++            {
++                return Nil.Value;
++            }
++
++            throw new InvalidOperationException(InvalidValue);
++        });
++
++        bool RetainsFailure(string name)
++        {
++            byte[] ops = Body(name);
++
++            return ops.Contains(IsNonemptyList) && ops.Contains(BadMatch);
++        }
++
++        byte[] Body(string name)
++        {
++            int info = Array.FindIndex(
++                instructions,
++                instruction => Opcode(instruction) == FunctionInfo
++                && Operands(instruction) is [_, var atom, _] && atoms[Value(atom)] == name
++            );
++
++            return instructions.Skip(info + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo).Select(Opcode).ToArray();
++        }
++    }
++
++    private static object[] Operands(object instruction) => Items(instruction, "Operands").ToArray();
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++
++    private static IEnumerable<object> Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>();
++}
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12368,6 +12368,7 @@
+ Test(Erlang.Tests.BeamPostCallProjectionSlotChecks.TestName, Erlang.Tests.BeamPostCallProjectionSlotChecks.Run);
+ Test(Erlang.Tests.BeamConditionalListHelperChecks.TestName, Erlang.Tests.BeamConditionalListHelperChecks.Run);
+ Test(Erlang.Tests.BeamProvenConsHeadChecks.TestName, Erlang.Tests.BeamProvenConsHeadChecks.Run);
++Test(Erlang.Tests.BeamProvenValueStackChecks.TestName, Erlang.Tests.BeamProvenValueStackChecks.Run);
+ Test(Erlang.Tests.BeamBinaryExtractRangeChecks.TestName, Erlang.Tests.BeamBinaryExtractRangeChecks.Compare);
+ Test(Erlang.Tests.BeamBinaryTupleBindingChecks.TestName, Erlang.Tests.BeamBinaryTupleBindingChecks.Compare);
+ Test(Erlang.Tests.BeamExternalLeafTailChecks.TestName, Erlang.Tests.BeamExternalLeafTailChecks.Run);

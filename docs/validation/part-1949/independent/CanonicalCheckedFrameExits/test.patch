@@ -1,0 +1,78 @@
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12367,6 +12367,10 @@
+ Test(Erlang.Tests.BeamReturnedSiblingConstructionChecks.TestName, Erlang.Tests.BeamReturnedSiblingConstructionChecks.Compare);
+ Test(Erlang.Tests.BeamPostCallProjectionSlotChecks.TestName, Erlang.Tests.BeamPostCallProjectionSlotChecks.Run);
+ Test(Erlang.Tests.BeamFinalFrameReturnsChecks.TestName, Erlang.Tests.BeamFinalFrameReturnsChecks.Run);
++Test(
++    Erlang.Tests.BeamFinalFrameReturnsChecks.RootTestName,
++    Erlang.Tests.BeamFinalFrameReturnsChecks.RunFrameRootAndColdExits
++);
+ Test(Erlang.Tests.BeamConditionalListHelperChecks.TestName, Erlang.Tests.BeamConditionalListHelperChecks.Run);
+ Test(Erlang.Tests.BeamBinaryExtractRangeChecks.TestName, Erlang.Tests.BeamBinaryExtractRangeChecks.Compare);
+ Test(Erlang.Tests.BeamBinaryTupleBindingChecks.TestName, Erlang.Tests.BeamBinaryTupleBindingChecks.Compare);
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamFinalFrameReturnsChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamFinalFrameReturnsChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamFinalFrameReturnsChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamFinalFrameReturnsChecks.cs
+@@ -9,6 +9,7 @@
+ internal static class BeamFinalFrameReturnsChecks
+ {
+     internal const string TestName = "compiler/beam/shared-frame-returns-after-branch-allocations";
++    internal const string RootTestName = "compiler/beam/shared-frame-roots-and-cold-exit-lines";
+     private const string ShapeError = "The repeated terminal branch returns did not share the frame slots.";
+     private const string Source = """
+         -module(beam_shared_frame_return).
+@@ -61,10 +62,7 @@
+ 
+     private static bool HasTwoSlotReturns(string source)
+     {
+-        object code = Code(CodeGeneration.CompileBeamModule(source, "beam_shared_frame_return.erl"));
+-        object[] operations = ((IEnumerable)Property(code, "Instructions")).Cast<object>()
+-            .SkipWhile(operation => Opcode(operation) != FunctionInfo).Skip(1)
+-            .TakeWhile(operation => Opcode(operation) != FunctionInfo).ToArray();
++        object[] operations = ReadOperations(source);
+         int[] exits = Enumerable.Range(0, operations.Length).Where(index => Opcode(operations[index]) == Return).ToArray();
+         if (exits.Length != 2)
+         {
+@@ -80,6 +78,40 @@
+         return slots.Length == 2 && slots[0] != slots[1];
+     }
+ 
++    internal static void RunFrameRootAndColdExits()
++    {
++        const string error = "The shared terminal frame did not clear branch roots or retain cold exit locations.";
++        string differentReturn = Source.Replace("ok -> Alternate", "ok -> {paired, Alternate}", StringComparison.Ordinal);
++        if (!HasColdFrameLayout(Source) || HasColdFrameLayout(differentReturn))
++        {
++            throw new InvalidOperationException(error);
++        }
++    }
++
++    private static bool HasColdFrameLayout(string source)
++    {
++        object[] operations = ReadOperations(source);
++        int[] cold = Enumerable.Range(0, operations.Length)
++            .Where(index => Opcode(operations[index]) is CaseEnd or BadMatch).ToArray();
++        int lastReturn = Array.FindLastIndex(operations, operation => Opcode(operation) == Return);
++        object saved = operations.First(operation => Opcode(operation) == Move
++            && Operands(operation) is [_, var target] && (string)Property(target, "Kind") == "y");
++
++        return (int)(BigInteger)Property(Operands(saved)[1], "Value") == 2
++            && operations.Count(operation => Opcode(operation) == InitYRegisters) == 6
++            && cold.Length == 6
++            && cold.All(index => index > lastReturn && Opcode(operations[index - 1]) == Line);
++    }
++
++    private static object[] ReadOperations(string source)
++    {
++        object code = Code(CodeGeneration.CompileBeamModule(source, "beam_shared_frame_return.erl"));
++
++        return ((IEnumerable)Property(code, "Instructions")).Cast<object>()
++            .SkipWhile(operation => Opcode(operation) != FunctionInfo).Skip(1)
++            .TakeWhile(operation => Opcode(operation) != FunctionInfo).ToArray();
++    }
++
+     private static object[] Operands(object operation) => ((IEnumerable)Property(operation, "Operands")).Cast<object>().ToArray();
+ 
+     private static byte Opcode(object operation) => (byte)Property(Property(operation, "Definition"), "Opcode");

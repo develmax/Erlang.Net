@@ -1,0 +1,120 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamLiteralConsComprehensionChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamLiteralConsComprehensionChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamLiteralConsComprehensionChecks.cs
+@@ -0,0 +1,115 @@
++using System.Collections;
++using Erlang.Compiler;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamLiteralConsComprehensionChecks
++{
++    internal const string TestName = "compiler/beam/literal-cons-comprehension";
++
++    private const string Module = "beam_literal_cons_comprehension";
++    private const string Source = """
++        -module(beam_literal_cons_comprehension).
++        -export([quoted/2, explicit/2, nested/2, probe/2, failure/1]).
++
++        quoted("ab", Xs) ->
++            [record_value(exact, X) || X <- Xs];
++        quoted([$a|Tail], Xs) when is_list(Tail) ->
++            [record_value({proper,Tail}, X) || X <- Xs];
++        quoted([$a|Tail], Xs) ->
++            [record_value({improper,Tail}, X) || X <- Xs];
++        quoted(_, Xs) ->
++            [record_value(other, X) || X <- Xs].
++
++        explicit([$a,$b], Xs) ->
++            [record_value(exact, X) || X <- Xs];
++        explicit([$a|Tail], Xs) when is_list(Tail) ->
++            [record_value({proper,Tail}, X) || X <- Xs];
++        explicit([$a|Tail], Xs) ->
++            [record_value({improper,Tail}, X) || X <- Xs];
++        explicit(_, Xs) ->
++            [record_value(other, X) || X <- Xs].
++
++        nested([{Name = "ab", Note}|_], Xs) ->
++            Values = [record_value({nested,Note}, X) || X <- Xs],
++            {Name,Values};
++        nested([{"cd", Note}|_], Xs) ->
++            [record_value({cd,Note}, X) || X <- Xs];
++        nested(_, Xs) ->
++            [record_value(fallback, X) || X <- Xs].
++
++        probe(Key, Xs) ->
++            put(events, []),
++            Values = quoted(Key, Xs),
++            {Values, lists:reverse(get(events))}.
++
++        failure(Xs) ->
++            put(events, []),
++            try quoted("ab", Xs)
++            catch error:{bad_generator,Tail} -> {bad_generator,Tail,lists:reverse(get(events))}
++            end.
++
++        record_value(Label, X) ->
++            Value = {Label,X},
++            put(events, [Value|get(events)]),
++            Value.
++        """;
++
++    internal static async Task Run()
++    {
++        byte[] beam = CodeGeneration.CompileBeamModule(Source, Module + ".erl");
++        object code = Code(beam);
++        var functions = ((IEnumerable)Property(code, "Functions")).Cast<object>()
++            .Select(function => ((string)Property(function, "Name"), (int)Property(function, "Arity"))).ToArray();
++        Check("quoted", [("3/1-0-", 1), ("2/1-2-", 2), ("1/1-1-", 2), ("0/1-3-", 1)]);
++        Check("explicit", [("3/1-0-", 1), ("2/1-2-", 2), ("1/1-1-", 2), ("0/1-3-", 1)]);
++        Check("nested", [("2/1-0-", 1), ("0/1-1-", 2), ("1/1-2-", 2)]);
++
++        await using var runtime = new ProcessRuntime();
++        var dependencies = new BeamDependencySelection(["lists", ErlangModuleNames.Module]);
++        BeamModule image = BeamModule.Prepare(beam, dependencies);
++        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
++        await actor.InvokeAsync(async context =>
++        {
++            Term one = Term.A("one");
++            Term two = Term.A("two");
++            Term items = Term.List(one, two);
++            Term tail = Term.A("tail");
++            Term exact = Term.A("exact");
++            await Probe(Term.String("ab"), items, Values(exact));
++            await Probe(Term.String("ac"), items, Values(Term.Tuple(Term.A("proper"), Term.String("c"))));
++            await Probe(new Cons(Term.I('a'), tail), items, Values(Term.Tuple(Term.A("improper"), tail)));
++            await Probe(Term.String("ba"), items, Values(Term.A("other")));
++            await Probe(Term.String("ab"), Nil.Value, Nil.Value);
++            Term failed = await image.Invoke(context, "failure", Cons.From([one, two], tail));
++            Term expected = Term.Tuple(Term.A("bad_generator"), tail, Values(exact));
++            if (!expected.Equals(failed))
++            {
++                throw new InvalidOperationException("The invalid generator must fail after recording the preceding items in order.");
++            }
++
++            return Nil.Value;
++
++            Term Values(Term label) => Term.List(Term.Tuple(label, one), Term.Tuple(label, two));
++
++            async Task Probe(Term key, Term arguments, Term values)
++            {
++                if (!Term.Tuple(values, values).Equals(await image.Invoke(context, "probe", key, arguments)))
++                {
++                    throw new InvalidOperationException("List pattern selection must preserve the result and the order of effects.");
++                }
++            }
++        });
++
++        void Check(string owner, (string Suffix, int Arity)[] expected)
++        {
++            string prefix = $"-{owner}/2-lc$^";
++            var actual = functions.Where(function => function.Item1.StartsWith(prefix, StringComparison.Ordinal));
++            if (!actual.SequenceEqual(expected.Select(function => (prefix + function.Suffix, function.Arity))))
++            {
++                throw new InvalidOperationException($"Unexpected literal cons comprehension helpers in {owner}.");
++            }
++        }
++    }
++}

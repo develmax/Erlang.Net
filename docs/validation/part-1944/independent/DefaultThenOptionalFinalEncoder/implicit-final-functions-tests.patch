@@ -1,0 +1,226 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamImplicitFinalEncodingChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamImplicitFinalEncodingChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamImplicitFinalEncodingChecks.cs
+@@ -0,0 +1,210 @@
++using System.Collections;
++using System.Numerics;
++using Erlang;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamImplicitFinalEncodingChecks
++{
++    internal const string TestName = "compiler/beam/keeps-eager-pairs-and-proves-private-bitstring-inputs";
++    private const string IncorrectValue = "Eager pair handling or padded bitstring calls changed results or errors.";
++    private const string EncoderName = "encode";
++    private const string PaddedName = "padded";
++    private const int Matchable = 0x0002;
++
++    private const string PairSource = """
++        -module(beam_eager_record_probe).
++        -export([encode/2]).
++
++        encode(Input, Tags) ->
++            {_, First, Second} = Input,
++            {Bytes1, Len1} = case skipped(First) of
++                true -> {[], 0};
++                false -> pack(First, [])
++            end,
++            {Bytes2, Len2} = case Second of
++                missing -> {<<>>, 0};
++                _ -> pack(Second, [])
++            end,
++            Pieces = [Bytes1, Bytes2],
++            Length = Len1 + Len2,
++            finish(Tags, Pieces, Length).
++
++        pack(Value, []) -> {Value, 1}.
++        skipped(missing) -> true;
++        skipped(_) -> false.
++        finish(Tags, Parts, Length) -> {Tags, Parts, Length}.
++        """;
++
++    private const string BitsSource = """
++        -module(beam_private_padded_probe).
++        -export([start/2]).
++
++        start([], Tag) -> padded(<<>>, Tag);
++        start(Bits, Tag) when is_bitstring(Bits) -> padded(Bits, Tag).
++
++        padded(Bits, Tags) ->
++            Unused = (8 - bit_size(Bits) band 7) band 7,
++            Bin = <<Unused, Bits/bitstring, 0:Unused>>,
++            finish(Tags, Bin, byte_size(Bin)).
++
++        finish(Tag, Bits, Bytes) -> {Tag, Bits, Bytes}.
++        """;
++
++    internal static async Task Run()
++    {
++        byte[] eager = CodeGeneration.CompileBeamModule(PairSource, "beam_eager_record_probe.erl");
++        byte[] unproved = CodeGeneration.CompileBeamModule(
++            PairSource.Replace("pack(Value, []) -> {Value, 1}.", "pack(Value, []) -> Value.", StringComparison.Ordinal),
++            "beam_eager_record_probe.erl"
++        );
++        byte[] closed = CodeGeneration.CompileBeamModule(BitsSource, "beam_private_padded_probe.erl");
++        byte[] exported = CodeGeneration.CompileBeamModule(
++            BitsSource.Replace("[start/2]", "[start/2,padded/2]", StringComparison.Ordinal),
++            "beam_private_padded_probe.erl"
++        );
++        var eagerModule = BeamModule.Prepare(eager);
++        var unprovedModule = BeamModule.Prepare(unproved);
++        var closedModule = BeamModule.Prepare(closed);
++        var exportedModule = BeamModule.Prepare(exported);
++        Term one = Term.A("one");
++        Term two = Term.A("two");
++        Term omitted = Term.A("missing");
++        Term record = Term.A("entry");
++        Term positivePair = Term.Tuple(record, one, two);
++        Term absentPair = Term.Tuple(record, omitted, omitted);
++        Term expectedPair = Term.Tuple(Nil.Value, Term.List(one, two), Term.I(2));
++        Term expectedAbsent = Term.Tuple(Nil.Value, Term.List(Nil.Value, new BitString([])), Term.I(0));
++        Term oneBit = new BitString([128], 1);
++        Term expectedBits = Term.Tuple(record, new BitString([7, 128]), Term.I(2));
++        Term expectedEmpty = Term.Tuple(record, new BitString([0]), Term.I(1));
++        await using var runtime = new ProcessRuntime();
++        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
++        await actor.InvokeAsync(async context =>
++        {
++            if (!expectedPair.Equals(await eagerModule.Invoke(
++                context,
++                EncoderName,
++                positivePair,
++                Nil.Value
++            ))
++                || !expectedAbsent.Equals(await eagerModule.Invoke(
++                    context,
++                    EncoderName,
++                    absentPair,
++                    Nil.Value
++                ))
++                || !expectedBits.Equals(await closedModule.Invoke(
++                    context,
++                    "start",
++                    oneBit,
++                    record
++                ))
++                || !expectedEmpty.Equals(await closedModule.Invoke(
++                    context,
++                    "start",
++                    Nil.Value,
++                    record
++                )))
++            {
++                throw new InvalidOperationException(IncorrectValue);
++            }
++
++            try
++            {
++                await unprovedModule.Invoke(
++                    context,
++                    EncoderName,
++                    positivePair,
++                    Nil.Value
++                );
++                throw new InvalidOperationException(IncorrectValue);
++            }
++            catch (ErlangException error) when (error.Reason.Equals(Term.Tuple(Term.A("badmatch"), one)))
++            {
++            }
++
++            try
++            {
++                await exportedModule.Invoke(
++                    context,
++                    PaddedName,
++                    record,
++                    Nil.Value
++                );
++                throw new InvalidOperationException(IncorrectValue);
++            }
++            catch (ErlangException error) when (error.Reason.Equals(Term.A("badarg")))
++            {
++            }
++
++            return Nil.Value;
++        });
++
++        int frame = FrameSize(eager);
++        int unprovedFrame = FrameSize(unproved);
++        int? privateType = BitSizeType(closed);
++        int? exportedType = BitSizeType(exported);
++        if (frame != 3 || unprovedFrame <= 3 || privateType != Matchable || exportedType is not null)
++        {
++            throw new InvalidOperationException(
++                $"Unexpected eager frame {frame}/{unprovedFrame} or private/exported type {privateType}/{exportedType}."
++            );
++        }
++    }
++
++    private static int FrameSize(byte[] image)
++    {
++        object allocate = FunctionBody(Code(image), EncoderName)
++            .Single(instruction => Opcode(instruction) is Allocate or AllocateHeap);
++
++        return Value(Items(allocate, "Operands")[0]);
++    }
++
++    private static int? BitSizeType(byte[] image)
++    {
++        object code = Code(image);
++        object size = FunctionBody(code, PaddedName).First(instruction => Opcode(instruction) == GcBifOne);
++        if (Property(Items(size, "Operands")[3], "TypeIndex") is not int index)
++        {
++            return null;
++        }
++
++        object[] types = Items(Property(code, "Types"), "Entries");
++
++        object entry = types[index];
++        if ((int)Property(entry, "MetadataFlags") != 0)
++        {
++            throw new InvalidOperationException("The generic bitstring operand should omit explicit unit metadata.");
++        }
++
++        return (int)Property(entry, "TypeUnion");
++    }
++
++    private static IEnumerable<object> FunctionBody(object code, string function)
++    {
++        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        object[] instructions = Items(code, "Instructions");
++        int start = Array.FindIndex(
++            instructions,
++            instruction => Opcode(instruction) == FunctionInfo
++                && Items(instruction, "Operands") is [_, var name, var arity]
++                && atoms[Value(name)] == function && Value(arity) == 2
++        );
++        if (start < 0)
++        {
++            throw new InvalidOperationException(IncorrectValue);
++        }
++
++        return instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo);
++    }
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++
++    private static object[] Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
++}
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12513,6 +12513,7 @@
+ Test(Erlang.Tests.BeamOptionalLiteralTableChecks.TestName, Erlang.Tests.BeamOptionalLiteralTableChecks.Run);
+ Test(Erlang.Tests.BeamOptionalAliasJoinChecks.TestName, Erlang.Tests.BeamOptionalAliasJoinChecks.Run);
+ Test(Erlang.Tests.BeamRetainedRecordEncoderChecks.TestName, Erlang.Tests.BeamRetainedRecordEncoderChecks.Run);
++Test(Erlang.Tests.BeamImplicitFinalEncodingChecks.TestName, Erlang.Tests.BeamImplicitFinalEncodingChecks.Run);
+ Test(Erlang.Tests.BeamGuardedKeyfindPairTailChecks.TestName, Erlang.Tests.BeamGuardedKeyfindPairTailChecks.Run);
+ Test(Erlang.Tests.BeamUnpaddedBitStringContextChecks.TestName, Erlang.Tests.BeamUnpaddedBitStringContextChecks.Run);
+ Test(Erlang.Tests.BeamSingleTaggedChoiceFieldChecks.TestName, Erlang.Tests.BeamSingleTaggedChoiceFieldChecks.Run);

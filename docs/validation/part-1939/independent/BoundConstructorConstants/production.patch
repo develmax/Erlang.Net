@@ -1,0 +1,50 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LocalConstantArguments.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LocalConstantArguments.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LocalConstantArguments.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LocalConstantArguments.cs
+@@ -85,8 +85,7 @@
+             Expr result = clause.Body is Expr.Sequence { Items.Count: > 0 } sequence
+                 && sequence.Items.SkipLast(1).All(item => item is Expr.Literal)
+                 ? sequence.Items[^1] : clause.Body;
+-            bool constructor = SsaTypeInferenceEnabled && result is (Expr.Tuple or Expr.List)
+-                && IsLocalSingletonConstructor(result);
++            bool constructor = SsaTypeInferenceEnabled && IsLocalSingletonConstructorBody(result, names);
+             var constants = new Dictionary<string, Term>(StringComparer.Ordinal);
+             for (int index = 0; index < arguments.Length; index++)
+             {
+@@ -185,6 +184,36 @@
+         _ => null
+     };
+ 
++    private static bool IsLocalSingletonConstructorBody(Expr expression, IReadOnlyList<string> parameters)
++    {
++        if (expression is not Expr.Sequence { Items.Count: > 0 } sequence)
++        {
++            return expression is (Expr.Tuple or Expr.List) && IsLocalSingletonConstructor(expression);
++        }
++
++        var names = new HashSet<string>(parameters, StringComparer.Ordinal);
++        foreach (var item in sequence.Items.SkipLast(1))
++        {
++            if (item is Expr.Literal)
++            {
++                continue;
++            }
++
++            if (item is not Expr.Match
++                {
++                    Pattern: Pattern.Variable { Name: not VariableScopeNames.Wildcard } variable,
++                    Value: var value
++                } || !IsLocalSingletonConstructor(value) || !names.Add(variable.Name))
++            {
++                return false;
++            }
++        }
++
++        Expr result = sequence.Items[^1];
++
++        return result is (Expr.Tuple or Expr.List) && IsLocalSingletonConstructor(result);
++    }
++
+     private static bool IsLocalSingletonConstructor(Expr expression) => expression switch
+     {
+         Expr.Literal or Expr.Variable => true,

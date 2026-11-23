@@ -1,0 +1,198 @@
+{
+  "Partial": true,
+  "SelectedCount": 31,
+  "TotalCount": 9780,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/beam/accumulated-pair-lengths-preserve-minimum",
+    "compiler/beam/adjacent-call-keeps-result-live",
+    "compiler/beam/atom-case-emits-local-tails",
+    "compiler/beam/checked-entry-list-return-keeps-register",
+    "compiler/beam/closed-atom-dispatch-preserves-alias",
+    "compiler/beam/closed-literal-bindings-cross-calls-as-literals",
+    "compiler/beam/entry-values-after-frameless-branch-keep-owned-frame",
+    "compiler/beam/gc-bif-keeps-call-result-root",
+    "compiler/beam/guard-bif-leaf-removes-unused-frame",
+    "compiler/beam/independent-atom-tails-use-otp-body-order",
+    "compiler/beam/integer-conversion-result-keeps-unbounded-type",
+    "compiler/beam/leaf-external-tail-removes-unused-frame",
+    "compiler/beam/list-result-keeps-proper-list-type",
+    "compiler/beam/local-constructor-keeps-singleton-arguments",
+    "compiler/beam/map-allocation-keeps-call-result-root",
+    "compiler/beam/nonnegative-call-result-keeps-otp-range",
+    "compiler/beam/outgoing-call-removes-dead-roundtrip",
+    "compiler/beam/prepared-boolean-case-orders-clause-and-failure-labels",
+    "compiler/beam/private-atom-selector-moves-only-when-needed",
+    "compiler/beam/private-atom-tail-relay-keeps-register-order",
+    "compiler/beam/private-branch-trims-dead-stack-slots",
+    "compiler/beam/proper-list-proof-follows-only-tail",
+    "compiler/beam/release-debug-records-library-include-root",
+    "compiler/beam/selector-builds-in-outgoing-argument",
+    "compiler/beam/sibling-constructors-preserve-core-order",
+    "compiler/beam/sibling-leaf-reuses-dead-register",
+    "compiler/beam/signed-integer-literal-boundaries-match-otp",
+    "compiler/beam/singleton-return-tuple-keeps-calls",
+    "compiler/beam/tagged-case-reuses-the-matched-tuple",
+    "compiler/beam/tagged-tuple-test-preserves-atom-fallback",
+    "compiler/beam/whole-module-matches-otp"
+  ],
+  "Passed": 31,
+  "Failed": 0,
+  "Tests": [
+    {
+      "Name": "compiler/beam/whole-module-matches-otp",
+      "Status": "Passed",
+      "Milliseconds": 31476
+    },
+    {
+      "Name": "compiler/beam/closed-literal-bindings-cross-calls-as-literals",
+      "Status": "Passed",
+      "Milliseconds": 78
+    },
+    {
+      "Name": "compiler/beam/checked-entry-list-return-keeps-register",
+      "Status": "Passed",
+      "Milliseconds": 62
+    },
+    {
+      "Name": "compiler/beam/tagged-tuple-test-preserves-atom-fallback",
+      "Status": "Passed",
+      "Milliseconds": 14
+    },
+    {
+      "Name": "compiler/beam/singleton-return-tuple-keeps-calls",
+      "Status": "Passed",
+      "Milliseconds": 21
+    },
+    {
+      "Name": "compiler/beam/gc-bif-keeps-call-result-root",
+      "Status": "Passed",
+      "Milliseconds": 12
+    },
+    {
+      "Name": "compiler/beam/map-allocation-keeps-call-result-root",
+      "Status": "Passed",
+      "Milliseconds": 17
+    },
+    {
+      "Name": "compiler/beam/leaf-external-tail-removes-unused-frame",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "compiler/beam/guard-bif-leaf-removes-unused-frame",
+      "Status": "Passed",
+      "Milliseconds": 7
+    },
+    {
+      "Name": "compiler/beam/signed-integer-literal-boundaries-match-otp",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "compiler/beam/private-branch-trims-dead-stack-slots",
+      "Status": "Passed",
+      "Milliseconds": 15
+    },
+    {
+      "Name": "compiler/beam/prepared-boolean-case-orders-clause-and-failure-labels",
+      "Status": "Passed",
+      "Milliseconds": 9
+    },
+    {
+      "Name": "compiler/beam/outgoing-call-removes-dead-roundtrip",
+      "Status": "Passed",
+      "Milliseconds": 6
+    },
+    {
+      "Name": "compiler/beam/entry-values-after-frameless-branch-keep-owned-frame",
+      "Status": "Passed",
+      "Milliseconds": 13
+    },
+    {
+      "Name": "compiler/beam/private-atom-selector-moves-only-when-needed",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "compiler/beam/private-atom-tail-relay-keeps-register-order",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "compiler/beam/integer-conversion-result-keeps-unbounded-type",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "compiler/beam/accumulated-pair-lengths-preserve-minimum",
+      "Status": "Passed",
+      "Milliseconds": 49
+    },
+    {
+      "Name": "compiler/beam/independent-atom-tails-use-otp-body-order",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "compiler/beam/tagged-case-reuses-the-matched-tuple",
+      "Status": "Passed",
+      "Milliseconds": 13
+    },
+    {
+      "Name": "compiler/beam/local-constructor-keeps-singleton-arguments",
+      "Status": "Passed",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "compiler/beam/sibling-constructors-preserve-core-order",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "compiler/beam/nonnegative-call-result-keeps-otp-range",
+      "Status": "Passed",
+      "Milliseconds": 8
+    },
+    {
+      "Name": "compiler/beam/proper-list-proof-follows-only-tail",
+      "Status": "Passed",
+      "Milliseconds": 39
+    },
+    {
+      "Name": "compiler/beam/list-result-keeps-proper-list-type",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "compiler/beam/selector-builds-in-outgoing-argument",
+      "Status": "Passed",
+      "Milliseconds": 51
+    },
+    {
+      "Name": "compiler/beam/adjacent-call-keeps-result-live",
+      "Status": "Passed",
+      "Milliseconds": 79
+    },
+    {
+      "Name": "compiler/beam/atom-case-emits-local-tails",
+      "Status": "Passed",
+      "Milliseconds": 14
+    },
+    {
+      "Name": "compiler/beam/closed-atom-dispatch-preserves-alias",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "compiler/beam/sibling-leaf-reuses-dead-register",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "compiler/beam/release-debug-records-library-include-root",
+      "Status": "Passed",
+      "Milliseconds": 20
+    }
+  ]
+}

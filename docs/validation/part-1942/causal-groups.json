@@ -1,0 +1,40 @@
+[
+  {
+    "Group": "Outgoing stack roots",
+    "Components": [
+      "OverwrittenOutgoingStackRoots"
+    ],
+    "Pass": "beam_ssa_codegen:def_is",
+    "ScopedModules": 49,
+    "ObservedNormalizedGains": 3
+  },
+  {
+    "Group": "Terminal closure frames",
+    "Components": [
+      "DirectTerminalClosureFrames"
+    ],
+    "Pass": "beam_ssa_pre_codegen and beam_trim",
+    "AuditedModules": 80,
+    "AuditedFunctions": 184,
+    "PredictedNormalizedGains": 160
+  },
+  {
+    "Group": "Nested tagged record entry checks",
+    "Components": [
+      "NestedTaggedSshDispatch"
+    ],
+    "Pass": "beam_ssa_opt and beam_jump",
+    "ScopedModules": 9,
+    "ObservedNormalizedGains": 2
+  },
+  {
+    "Group": "Bounded ASN.1 field paths",
+    "Components": [
+      "LeadingRequiredRecords",
+      "OptionalLiteralTables",
+      "OptionalMultiTagAlias"
+    ],
+    "Pass": "asn1ct generated source and beam_ssa_codegen",
+    "ObservedNormalizedGains": 10
+  }
+]

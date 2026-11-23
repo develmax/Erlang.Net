@@ -1,0 +1,185 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -3280,13 +3280,20 @@
+                 return false;
+             }
+ 
+-            if (TryEmitTerminalRequiredFields(
++            if (TryEmitRequiredAndSizedOptional(
+                 sequence.Items,
+                 first,
+                 second,
+                 list,
+                 read
+             )
++                || TryEmitTerminalRequiredFields(
++                    sequence.Items,
++                    first,
++                    second,
++                    list,
++                    read
++                )
+                 || TryEmitCheckedListFields(
+                     sequence.Items,
+                     first,
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SortedOptionalPairDecoder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SortedOptionalPairDecoder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SortedOptionalPairDecoder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SortedOptionalPairDecoder.cs
+@@ -368,17 +368,154 @@
+             return true;
+         }
+ 
++        private bool TryEmitRequiredAndSizedOptional(
++            IReadOnlyList<Expr> items,
++            Pattern.Variable first,
++            Pattern.Variable second,
++            Pattern.Variable list,
++            Expr.Call read
++        )
++        {
++            if (!owner.SsaTypeInferenceEnabled || owner.ModuleOptimizationDisabled || recursiveClosure is not null
++                || items is not
++                [
++                    _,
++                    Expr.Match
++                {
++                    Pattern: Pattern.List { Items: [Pattern.Variable head], Tail: Pattern.Variable tail }
++                } split,
++                    Expr.Match { Pattern: Pattern.Variable required, Value: Expr.Block body },
++                    Expr.Match
++                {
++                    Pattern: Pattern.Tuple { Items: [Pattern.Variable value, Pattern.Variable rest] },
++                    Value: Expr.Case decision
++                },
++                    Expr.Case tailCheck,
++                    Expr.Match
++                {
++                    Pattern: Pattern.Variable result,
++                    Value: Expr.Tuple
++                    {
++                        Items: [Expr.Literal { Value: Atom record }, Expr.Variable left, Expr.Variable right]
++                    }
++                },
++                    Expr.Variable returned
++                ]
++                || left.Name != required.Name || right.Name != value.Name || returned.Name != result.Name
++                || body.Body is not Expr.Sequence
++                {
++                    Items:
++                    [
++                        Expr.Match { Pattern: Pattern.Variable decoded },
++                        Expr.Match { Pattern: Pattern.Variable measured }, _
++                    ]
++                }
++                || !DistinctBindings(
++                    first,
++                    second,
++                    list,
++                    head,
++                    tail,
++                    required,
++                    value,
++                    rest,
++                    result,
++                    decoded,
++                    measured
++                )
++                || ReadForwardedChoiceMeasurement(body, head.Name, tail.Name) is not
++                { Measure.Function: AutoImportNames.ByteSize, Convert: not null } requiredField
++                || ReadOptionalDecode(
++                    decision,
++                    tail.Name,
++                    new(StringComparer.Ordinal)
++                    {
++                        first.Name, second.Name, list.Name, head.Name, tail.Name, required.Name, value.Name,
++                        rest.Name, result.Name, decoded.Name, measured.Name
++                    },
++                    allowMeasurement: true
++                ) is not { Measurement: not null } optional
++                || ReadTableUnexpectedFields(tailCheck, rest.Name) is not { } extra
++                || !entries.TryGetValue((read.Function, 2), out int reader))
++            {
++                return false;
++            }
++
++            const int frame = 3;
++            EmitGeneralFrame(2, slots: frame);
++            owner.EmitCallLine(read, location);
++            owner.EmitFieldCall(2, reader);
++            var previous = CallLocation(read, location);
++            // The optional field and final tail check allocate the first four labels.
++            int requiredRange = owner.nextLabel + 4;
++            int missingRequired = requiredRange + 1;
++            owner.Op(IsNonemptyList, LabelTag, missingRequired);
++            owner.Operand(XRegisterTag, 0);
++            owner.EmitListParts(
++                0,
++                XRegisterTag,
++                0,
++                YRegisterTag,
++                2
++            );
++            EmitDecodeCall(requiredField.Decoder, previous);
++            previous = EmitForwardedChoiceMeasurementCheck(
++                requiredField,
++                requiredRange,
++                CallLocation(requiredField.Decoder.Decode, previous)
++            );
++            previous = CallLocation(requiredField.Convert!, previous);
++            owner.MoveRegister(
++                XRegisterTag,
++                0,
++                YRegisterTag,
++                1
++            );
++            previous = EmitSortedOptionalField(
++                optional,
++                source: 2,
++                sourceInX: false,
++                tail: 0,
++                result: null,
++                frame,
++                previous
++            );
++            EmitSortedOptionalRecord(
++                record,
++                [1],
++                extra,
++                frame,
++                previous,
++                properList: false
++            );
++            Mark(Label());
++            owner.EmitConstant(requiredField.Reason, 0);
++            owner.EmitCallLine(requiredField.Exit, previous);
++            EmitCheckedDecoderExit(requiredField.Exit, frame);
++            EmitDecoderFailures([(Label(), null, split)]);
++
++            return true;
++        }
++
+         private void EmitSortedOptionalRecord(
+             Atom record,
+             IReadOnlyList<int> fields,
+             TableUnexpectedFields extra,
+             int frame,
+-            BeamSourceLocation previous
++            BeamSourceLocation previous,
++            bool properList = true
+         )
+         {
+             int unexpected = Label();
+             owner.Op(IsNil, LabelTag, unexpected);
+-            owner.EmitTypedRegister(1, ProperListTypeBits);
++            if (properList)
++            {
++                owner.EmitTypedRegister(1, ProperListTypeBits);
++            }
++            else
++            {
++                owner.Operand(XRegisterTag, 1);
++            }
+             int arity = fields.Count + 2;
+             owner.Op(TestHeap, BeamWire.UnsignedTag, arity + 1);
+             owner.Operand(BeamWire.UnsignedTag, 1);

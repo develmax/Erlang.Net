@@ -1,0 +1,8 @@
+[{edit,{ok,{noreply,{state,panel,config,grid}}},
+       [{wxGrid,getCellValue,[grid,1,2]},
+        {demo,format,
+              [config,"Cell {~p,~p} changed to ~p.\n",
+               [1,2,{stub,wxGrid,getCellValue,1}]]}]},
+ {wrong_event,{error,function_clause,[{handle_event,72}]},[]},
+ {wrong_state,{error,function_clause,[{handle_event,72}]},[]},
+ {wrong_wrapper,{error,function_clause,[{handle_event,72}]},[]}].

@@ -1,0 +1,170 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamPreCallFrameAliasChecks.cs b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamPreCallFrameAliasChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamPreCallFrameAliasChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamPreCallFrameAliasChecks.cs
+@@ -8,8 +8,9 @@
+ internal static class BeamPreCallFrameAliasChecks
+ {
+     internal const string TestName = "compiler/beam/removes-precall-frame-aliases-without-crossing-gc";
++    internal const string CollectorTestName = "compiler/beam/retains-precall-aliases-at-one-collector";
+     private const string Module = "beam_precall_frame_alias_fixture";
+-    private const string Pass = "EliminateNonAllocatingPreCallFrameAliases";
++    private const string Pass = "EliminatePreCallFrameAliases";
+ 
+     internal static Task Run()
+     {
+@@ -49,6 +50,78 @@
+         );
+ 
+         return Task.CompletedTask;
++    }
++
++    internal static Task RunCollectors()
++    {
++        var compiler = new BeamModuleCompiler(Module);
++        CheckCollectorCompacts(
++            compiler,
++            Fixture(interval: [TestHeap, U(2), U(0)]),
++            Fixture(compact: true, interval: [TestHeap, U(2), U(1)])
++        );
++        CheckCollectorCompacts(
++            compiler,
++            Fixture(interval: [GcBifTwo, F(3), U(0), U(0), Y(1), A(1), X(1)]),
++            Fixture(compact: true, interval: [GcBifTwo, F(3), U(1), U(0), Y(0), A(1), X(1)])
++        );
++        CheckCollectorCompacts(compiler, DenseCollectorFixture(false), DenseCollectorFixture(true));
++        CheckUnchanged(
++            compiler,
++            Fixture(interval: [TestHeap, U(2), U(0)], aliasRegister: 2),
++            BeamPreCallFrameAliasDiagnostics.RootGap,
++            allowCollectors: true
++        );
++        CheckUnchanged(
++            compiler,
++            Fixture(interval: [TestHeap, U(2), U(0), TestHeap, U(2), U(0)]),
++            BeamPreCallFrameAliasDiagnostics.SecondCollector,
++            allowCollectors: true
++        );
++        CheckUnchanged(
++            compiler,
++            Fixture(interval: [GcBifTwo, F(3), U(0), U(0), Y(1), A(1), X(0)]),
++            BeamPreCallFrameAliasDiagnostics.Clobber,
++            allowCollectors: true
++        );
++
++        return Task.CompletedTask;
++    }
++
++    private static void CheckCollectorCompacts(BeamModuleCompiler compiler, byte[] original, byte[] expected)
++    {
++        if (Rewrite(compiler, original, allowCollectors: true) is not { } rewritten
++            || !rewritten.SequenceEqual(expected))
++        {
++            throw new InvalidOperationException(BeamPreCallFrameAliasDiagnostics.CollectorRoots);
++        }
++    }
++
++    private static byte[] DenseCollectorFixture(bool compact)
++    {
++        int width = compact ? 1 : 3;
++        byte retained = Y(compact ? 0 : 2);
++        byte[] spills = compact ? [] : [Move, X(0), Y(0), Move, X(1), Y(1)];
++        byte[] tupleArguments = compact ? [X(0), X(1)] : [Y(0), Y(1)];
++
++        return
++        [
++            .. Start(
++                1,
++                2,
++                1,
++                3
++            ),
++            Allocate, U(width), U(3),
++            Move, X(2), retained,
++            .. spills,
++            TestHeap, U(3), U(compact ? 2 : 0),
++            PutTuple, X(0), ExtendedListOperand, U(2), .. tupleArguments,
++            ExternalCall, U(1), U(0),
++            Move, retained, X(0),
++            Deallocate, U(width), Return,
++            EndCode
++        ];
+     }
+ 
+     private static void CheckCompacts(BeamModuleCompiler compiler, bool typedGuard)
+@@ -61,20 +134,26 @@
+         }
+     }
+ 
+-    private static void CheckUnchanged(BeamModuleCompiler compiler, byte[] original, string diagnostic)
+-    {
+-        if (Rewrite(compiler, original) is not null)
++    private static void CheckUnchanged(
++        BeamModuleCompiler compiler,
++        byte[] original,
++        string diagnostic,
++        bool allowCollectors = false
++    )
++    {
++        if (Rewrite(compiler, original, allowCollectors) is not null)
+         {
+             throw new InvalidOperationException(diagnostic);
+         }
+     }
+ 
+-    private static byte[]? Rewrite(BeamModuleCompiler compiler, ReadOnlyMemory<byte> code) =>
++    private static byte[]? Rewrite(BeamModuleCompiler compiler, ReadOnlyMemory<byte> code, bool allowCollectors = false) =>
+         (byte[]?)Call(
+             compiler,
+             Pass,
+             code,
+-            5
++            5,
++            allowCollectors
+         );
+ 
+     private static byte[] Fixture(
+@@ -82,15 +161,17 @@
+         bool typedGuard = false,
+         byte[]? interval = null,
+         byte[]? afterCall = null,
+-        bool sharedEntry = false
++        bool sharedEntry = false,
++        int aliasRegister = 0
+     )
+     {
+         int width = compact ? 1 : 2;
+         byte retained = Y(compact ? 0 : 1);
+-        byte test = compact ? X(0) : Y(0);
++        byte test = compact ? X(aliasRegister) : Y(0);
+         byte[] guardInput = typedGuard ? [ExtendedTypedRegisterOperand, test, U(1)] : [test];
+-        byte[] spill = compact ? [] : [Move, X(0), Y(0)];
+-        byte[] reload = compact ? [] : [Move, Y(0), X(0)];
++        byte[] spill = compact ? [] : [Move, X(aliasRegister), Y(0)];
++        byte[] reload = compact && aliasRegister == 0 ? [] : [Move, test, X(0)];
++        int arity = Math.Max(2, aliasRegister + 1);
+         byte[] bypass = sharedEntry
+             ? [InitYRegisters, ExtendedListOperand, U(1), Y(0), IsAtom, F(4), X(1)]
+             : [];
+@@ -102,9 +183,9 @@
+                 1,
+                 2,
+                 1,
+-                2
++                arity
+             ),
+-            Allocate, U(width), U(2),
++            Allocate, U(width), U(arity),
+             Move, X(1), retained,
+             .. bypass,
+             .. spill,
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamPreCallFrameAliasDiagnostics.cs b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamPreCallFrameAliasDiagnostics.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamPreCallFrameAliasDiagnostics.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamPreCallFrameAliasDiagnostics.cs
+@@ -9,4 +9,7 @@
+     internal const string Reinitialized = "A cleared Y slot does not still contain the original X value.";
+     internal const string InteriorEntry = "A branch can reach the old Y slot without executing its X spill.";
+     internal const string Debugger = "Keep the original stack slot available to debugger metadata.";
++    internal const string CollectorRoots = "The retained register roots and the shortened frame must describe the same pre-call values.";
++    internal const string RootGap = "An alias cannot root unrelated registers below its source.";
++    internal const string SecondCollector = "An alias with two collectors is outside the single-check proof.";
+ }

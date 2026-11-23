@@ -1,0 +1,36 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
+@@ -343,7 +343,9 @@
+                     && !LocalFunctionEntries.Walk(parentClause.Body).Any(expression =>
+                         expression is Expr.Try or Expr.Receive or Expr.Maybe))
+                 && !(source is Expr.RecordAccess { Value: Expr.Variable } && SsaTypeInferenceEnabled && !discarded
+-                    && comprehension.Qualifiers.Count == 1 && ReadTupleListProjection(item, mapped) is not null)
++                    && (comprehension.Qualifiers.Count == 1 && ReadTupleListProjection(item, mapped) is not null
++                        || !generator.Strict && item is Pattern.Tuple && filter is not null
++                            && ComprehensionGuard.IsTest(filter, sourceModule)))
+             || !(item is Pattern.Variable && (generator.Strict || simpleElement || flatElement || guardedElement || independent || filter is not null
+                     || source is Expr.Call or Expr.List
+                     || mapped is Expr.Call { DynamicRemote: false } or Expr.Apply { Function: Expr.Variable })
+@@ -359,6 +361,21 @@
+                                 expression is Expr.Try or Expr.Receive or Expr.Maybe))))
+         {
+             return null;
++        }
++
++        if (source is Expr.RecordAccess && SsaTypeInferenceEnabled && !ModuleOptimizationDisabled
++            && !generator.Strict && filter is not null && ComprehensionGuard.IsTest(filter, sourceModule)
++            && item is Pattern.Tuple pattern && mapped is Expr.Tuple construction
++            && pattern.Items.Count == construction.Items.Count
++            && pattern.Items.Zip(construction.Items).All(pair => pair.First is Pattern.Variable field
++                && field.Name != VariableScopeNames.Wildcard
++                && pair.Second is Expr.Variable value && field.Name == value.Name))
++        {
++            // v3_core matches the source field once. Preserve the matched tuple
++            // across the recursive call when the result reconstructs its fields.
++            var matchedTuple = new Pattern.Variable("$list_generator_tuple");
++            item = new AliasPattern(matchedTuple, item);
++            mapped = new Expr.Variable(matchedTuple.Name);
+         }
+ 
+         var mappedOperands = LocalFunctionEntries.Walk(mapped).ToArray();

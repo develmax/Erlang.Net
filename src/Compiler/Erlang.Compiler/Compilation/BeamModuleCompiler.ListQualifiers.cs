@@ -58,7 +58,16 @@ internal sealed partial class BeamModuleCompiler
             {
                 MapPatternField field = map.Fields[index];
                 owner.Op(GetMapElements, LabelTag, failure);
-                owner.Operand(YRegisterTag, value);
+                if (owner.SsaTypeInferenceEnabled)
+                {
+                    // The pattern's is_map test dominates every extraction
+                    // and key evaluation leaves the saved map input intact.
+                    owner.EmitTypedRegister(value, MapTypeBits, registerTag: YRegisterTag);
+                }
+                else
+                {
+                    owner.Operand(YRegisterTag, value);
+                }
                 owner.instructions.WriteByte(ExtendedListOperand);
                 owner.Operand(BeamWire.UnsignedTag, 2);
                 GuardOperand(field.Key, keys[index]);

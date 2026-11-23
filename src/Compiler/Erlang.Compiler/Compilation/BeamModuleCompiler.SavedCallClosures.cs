@@ -26,6 +26,10 @@ internal sealed partial class BeamModuleCompiler
         {
             closures = [];
             var statements = new List<Expr>();
+            var namedReturns = new HashSet<string>(StringComparer.Ordinal);
+            bool knownInputs = !owner.ModuleOptimizationDisabled && owner.SsaTypeInferenceEnabled
+                && parentFunction?.Clauses is [{ Guard: null } entry] && HasUnconditionalParameters(entry)
+                && entry.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).SequenceEqual(parameters);
             var bindings = parameters.Where(name => name != VariableScopeNames.Wildcard)
                 .ToDictionary(name => name, _ => (Term)Nil.Value, StringComparer.Ordinal);
             foreach (Expr expression in expressions)
@@ -39,11 +43,26 @@ internal sealed partial class BeamModuleCompiler
                     }
 
                     var captures = ClosureCaptures.Capture(function, bindings);
+                    string[] order = bindings.Keys.Where(captures.ContainsKey).ToArray();
+                    if (knownInputs && !variable.Name.StartsWith('\0') && order.Length > 1
+                        && order.Any(namedReturns.Contains)
+                        && order.All(name => namedReturns.Contains(name) || parameters.Contains(name)))
+                    {
+                        // Core entry arguments have numeric names. Fresh call
+                        // lets keep atom names and follow them in atom order.
+                        order =
+                        [
+                            .. parameters.Where(captures.ContainsKey),
+                            .. order.Where(namedReturns.Contains).OrderBy(name => name, Comparer<string>.Create(
+                                (left, right) => TermOrder.Compare(Term.A(left), Term.A(right))))
+                        ];
+                    }
+
                     if (function.Clauses[0].Patterns.Count + captures.Count > BeamWire.MaximumArity
                         || !closures.TryAdd(statements.Count, new CallClosure(
                             variable.Name,
                             function,
-                            bindings.Keys.Where(captures.ContainsKey).ToArray()
+                            order
                         )))
                     {
                         return null;
@@ -54,10 +73,21 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 statements.Add(expression);
-                if (expression is Expr.Match { Pattern: Pattern.Variable binding }
-                    && binding.Name != VariableScopeNames.Wildcard && !bindings.TryAdd(binding.Name, Nil.Value))
+                if (expression is Expr.Match { Pattern: Pattern.Variable binding, Value: var value }
+                    && binding.Name != VariableScopeNames.Wildcard)
                 {
-                    return null;
+                    if (!bindings.TryAdd(binding.Name, Nil.Value))
+                    {
+                        return null;
+                    }
+
+                    if (knownInputs && !binding.Name.StartsWith('\0') && value is Expr.Call
+                        {
+                            Module: not (null or ErlangModuleNames.Module), DynamicRemote: false
+                        })
+                    {
+                        namedReturns.Add(binding.Name);
+                    }
                 }
             }
 

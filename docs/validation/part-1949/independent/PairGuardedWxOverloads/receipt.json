@@ -1,0 +1,120 @@
+{
+  "otpTag": "OTP-29.1.1",
+  "otpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "part1947Archive": {
+    "size": 2069399,
+    "sha256": "993e448e9061ddbb64e4d84d539ea2282992bc38dc33c598a326571c2b277233"
+  },
+  "baselineCompiler": {
+    "size": 5185024,
+    "sha256": "cf6cb0cc099689debc82c5d7f0b19803a2e821c2e088e45b32bf8ebed4e0732b"
+  },
+  "jobs": 1,
+  "scope": {
+    "lib/debugger-7.0/ebin/dbg_wx_settings.beam": "Different",
+    "lib/inets-9.8/ebin/inets_sup.beam": "Equal",
+    "lib/stdlib-8.1/ebin/ordsets.beam": "Equal",
+    "lib/wx-2.7/ebin/wxBoxSizer.beam": "Equal",
+    "lib/wx-2.7/ebin/wxFlexGridSizer.beam": "Equal",
+    "lib/wx-2.7/ebin/wxGBSizerItem.beam": "Equal",
+    "lib/wx-2.7/ebin/wxGrid.beam": "Equal",
+    "lib/wx-2.7/ebin/wxGridBagSizer.beam": "Different",
+    "lib/wx-2.7/ebin/wxGridSizer.beam": "Equal",
+    "lib/wx-2.7/ebin/wxSizer.beam": "Different",
+    "lib/wx-2.7/ebin/wxSizerItem.beam": "Equal",
+    "lib/wx-2.7/ebin/wxStaticBoxSizer.beam": "Equal"
+  },
+  "targetGeneratedBefore": {
+    "size": 31004,
+    "sha256": "f4827c8a4c06f423148d76f557ff78c88c6a532ba0bd4a7a0a6080ab891921ea"
+  },
+  "targetGeneratedAfter": {
+    "size": 31012,
+    "sha256": "9fbd5b861ec7275e71ea3d20a64ac63745467752b8552f1a20c336dc34f72285"
+  },
+  "unchangedDifferingControls": {
+    "lib/debugger-7.0/ebin/dbg_wx_settings.beam": {
+      "size": 13104,
+      "sha256": "cef229c7fcee1bb86cc062647367e2d8b51a876aa319bf42c994f6c1277dd21e"
+    },
+    "lib/wx-2.7/ebin/wxSizer.beam": {
+      "size": 51308,
+      "sha256": "6176ba3495495746b313a67dda6346134b1d9ba43fffc2b6cb1095fdd7e55f43"
+    }
+  },
+  "nativeCases": 7,
+  "files": {
+    "production.patch": {
+      "size": 4303,
+      "sha256": "1476a8816376a46dff1fb864efcabe6b030a4e0cf2d2ae3be39f203ed72b8738"
+    },
+    "test.patch": {
+      "size": 4636,
+      "sha256": "ca76aa54ea77fbe1b6260ff867f98f9758bfb15e67e26f6732bbc530edeb82be"
+    },
+    "replay-files.json": {
+      "size": 910,
+      "sha256": "ae58e5e940d7b53ba4f3572e82eadf060575a2eded4fcbb69831ae85dd8e0a81"
+    },
+    "compiler-bin/Erlang.Compiler.dll": {
+      "size": 4864000,
+      "sha256": "01df0f0763cefdd5b4addc5c5fdef6295ec246525139edd70a092a7bdb09e0e2"
+    },
+    "final-scope.json": {
+      "size": 3213,
+      "sha256": "5aabe8afdc5a0f094355f472f16482069803982feaac865edf0a5d3548ff8df4"
+    },
+    "rank.terms": {
+      "size": 663,
+      "sha256": "9ed3a119efc49cbdff77ec2d13618067762424633486f23931ae30319ae37f7b"
+    },
+    "post-rank.terms": {
+      "size": 360,
+      "sha256": "9556d09d828e7ab3c1871edd789f9ab96482697ff3d132bdd66fecffa812d769"
+    },
+    "remaining-without-derived-uniq.diff": {
+      "size": 10853,
+      "sha256": "ebd0a6da5f8722ccc4f6b595eb67f6476b36398d56219abfbc1aeff50911598e"
+    },
+    "build-final.log": {
+      "size": 475,
+      "sha256": "3cb7b67c02f321cfec645893c65c6be94a64075336ffff2a5c5f30fa31c2a829"
+    },
+    "layout-check.log": {
+      "size": 40,
+      "sha256": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f"
+    },
+    "focused-exits.json": {
+      "size": 51,
+      "sha256": "1faa2d4586b2e18fbd523bb5df54f7bb4a348aa73665bdf7320961ff840dad1a"
+    },
+    "focused-red.log": {
+      "size": 525,
+      "sha256": "755306a184ff336323274f3a62898a2e5455bde6342b5274bd9c64779296232a"
+    },
+    "focused-final-green.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "wxGridBagSizer.precodegen": {
+      "size": 136290,
+      "sha256": "888b9eb0759a07813ccfb5a7dcafe19db6acd27ac9e5c4827f65badb3bb8ea85"
+    },
+    "native-wrappers.eval": {
+      "size": 1865,
+      "sha256": "396c41abf135ea8544c33f459361f5867979f92683807ac8a1a0a0a293139a6e"
+    },
+    "native-pinned.terms": {
+      "size": 643,
+      "sha256": "f040d77fdcb202e1ebf35986f99663889f9af792580cc5c284cfbcbfadf02a4e"
+    },
+    "native-candidate.terms": {
+      "size": 643,
+      "sha256": "f040d77fdcb202e1ebf35986f99663889f9af792580cc5c284cfbcbfadf02a4e"
+    },
+    "stub/wxe_util.erl": {
+      "size": 357,
+      "sha256": "15570cb13b61a2a7bd81faedc4e551ce4415c2af4d12cec644f9711a8bc5923f"
+    }
+  }
+}

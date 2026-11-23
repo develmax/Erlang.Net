@@ -14,6 +14,68 @@ internal sealed partial class BeamModuleCompiler
         for (int index = 0; index < functions.Count; index++)
         {
             var function = functions[index];
+            if ((ExtractMapIteratorPairs(function, locations[index], declared)
+                ?? ExtractMapIteratorListProjection(function, locations[index], declared)) is { } iterator)
+            {
+                rewritten[index] = iterator.Parent;
+                helpers.Add((iterator.Helper, iterator.Location));
+                continue;
+            }
+
+            if (ExtractZippedMapPairs(function, locations[index], declared) is { } zippedMap)
+            {
+                rewritten[index] = zippedMap.Parent;
+                helpers.Add((zippedMap.Helper, zippedMap.Location));
+                continue;
+            }
+
+            if (ExtractZippedListMapper(
+                function,
+                locations[index],
+                declared,
+                localFunctions
+            ) is { } zipped)
+            {
+                helpers.Add(zipped);
+                continue;
+            }
+
+            if (ExtractWritableBinaryListBuilder(
+                function,
+                locations[index],
+                declared,
+                localFunctions
+            ) is { } writable)
+            {
+                helpers.Add(writable);
+                continue;
+            }
+
+            if ((ExtractNestedListGenerators(function, locations[index], declared)
+                ?? ExtractRecursiveListGenerators(
+                    function,
+                    locations[index],
+                    declared,
+                    localFunctions
+                )) is { } nested)
+            {
+                rewritten[index] = nested.Parent;
+                helpers.AddRange(nested.Helpers);
+                continue;
+            }
+
+            if (ExtractEmptyComprehensionScan(
+                function,
+                locations[index],
+                declared,
+                localFunctions
+            ) is { } emptyScan)
+            {
+                rewritten[index] = emptyScan.Parent;
+                helpers.Add((emptyScan.Helper, emptyScan.Location));
+                continue;
+            }
+
             if (function.Clauses is [var filteredClause]
                 && ExtractCapturedListFilter(
                     function,
@@ -175,6 +237,7 @@ internal sealed partial class BeamModuleCompiler
             helpers.Add((helper, location));
         }
 
+        OrderStandaloneComprehensionsWithClosures(functions, helpers);
         if (hasMixedRecursiveDefinitions)
         {
             foreach (var definitions in recursiveDefinitionOrder.Values)
@@ -359,7 +422,11 @@ internal sealed partial class BeamModuleCompiler
         bool useReservedBindings = true,
         bool properInput = false,
         (Expr Expression, bool IsGuard)? filter = null,
-        bool discardResult = false
+        bool discardResult = false,
+        BeamSourceLocation? strictGeneratorLocation = null,
+        BeamSourceLocation? invalidSourceLocation = null,
+        Expr? appendTail = null,
+        IReadOnlyList<(Expr Expression, bool IsGuard, int Line)>? orderedFilters = null
     )
     {
         string tail = useReservedBindings ? "@BeamComprehensionTail" : "BeamComprehensionTail";
@@ -372,25 +439,26 @@ internal sealed partial class BeamModuleCompiler
         Expr emit = discardResult ? new Expr.Sequence([mapped, recur]) : new Expr.List([mapped], recur);
         if (filter is { IsGuard: false } condition)
         {
-            const string invalidFilter = "\0comprehension-filter-result";
-            emit = new Expr.Case(
-                condition.Expression,
-                [
-                new([new Pattern.Literal(Term.A("true"))], null, emit),
-                new([new Pattern.Literal(Term.A("false"))], null, recur with { }),
-                new(
-                    [new Pattern.Variable(invalidFilter)],
-                    null,
-                    new Expr.Call(
-                        ErlangModuleNames.Module,
-                        "error",
-                        [new Expr.Tuple([
-                        new Expr.Literal(Term.A(ComprehensionErrorReasons.BadFilter)), new Expr.Variable(invalidFilter)
-                    ])]
+            emit = BuildFilter(condition.Expression, emit, 0);
+        }
+
+        if (orderedFilters is not null)
+        {
+            // Each qualifier reaches the next one only upon success. A guard's
+            // failure skips the row, whereas a non-boolean value from an ordinary filter is an error.
+            for (int index = orderedFilters.Count - 1; index >= 0; index--)
+            {
+                var (expression, isGuard, line) = orderedFilters[index];
+                emit = isGuard
+                    ? new Expr.Case(
+                        new Expr.Literal(Term.A("true")),
+                        [
+                            new([new Pattern.Variable(VariableScopeNames.Wildcard)], expression, emit),
+                            new([new Pattern.Variable(VariableScopeNames.Wildcard)], null, recur with { })
+                        ]
                     )
-                )
-            ]
-            );
+                    : BuildFilter(expression, emit, line);
+            }
         }
 
         Clause[] skip = item is Pattern.Variable && guard is null ? [] :
@@ -401,10 +469,48 @@ internal sealed partial class BeamModuleCompiler
                 recur with { }
             )
         ];
+        if (strictGeneratorLocation is { } mismatch && item is not Pattern.Variable)
+        {
+            const string rejected = "@BeamComprehensionRejected";
+            skip =
+            [
+                new(
+                    [new Pattern.List([new Pattern.Variable(rejected)], new Pattern.Variable(VariableScopeNames.Wildcard)),
+                        .. ignoredCaptures],
+                    null,
+                    new Expr.Call(
+                        ErlangModuleNames.Module,
+                        "error",
+                        [new Expr.Tuple([new Expr.Literal(Term.A(ErlangErrorReasons.BadMatch)), new Expr.Variable(rejected)])]
+                    )
+                    {
+                        SourceLine = mismatch.Line,
+                        PreprocessorFile = mismatch.File
+                    }
+                )
+            ];
+            if (guard is not null)
+            {
+                // A matched head whose guard fails skips to the next element.
+                // Only a head that fails the strict pattern reaches badmatch.
+                skip =
+                [
+                    new(
+                        [new Pattern.List([item], new Pattern.Variable(tail)), .. captures],
+                        null,
+                        recur with { }
+                    ),
+                    .. skip
+                ];
+            }
+        }
+
+        var finishCaptures = captures.Select((capture, index) =>
+            appendTail is Expr.Variable returned && returned.Name == capture.Name ? capture : ignoredCaptures[index]).ToArray();
         Clause[] finish = properInput
-            ? [new([new Pattern.Variable(bad), .. ignoredCaptures], null, new Expr.Variable(bad))]
+            ? [new([new Pattern.Variable(bad), .. finishCaptures], null, appendTail ?? new Expr.Variable(bad))]
             : [
-                new([new Pattern.List([], null), .. ignoredCaptures], null, new Expr.Literal(Nil.Value)),
+                new([new Pattern.List([], null), .. finishCaptures], null, appendTail ?? new Expr.Literal(Nil.Value)),
                 new(
                     [new Pattern.Variable(bad), .. ignoredCaptures],
                     null,
@@ -413,6 +519,11 @@ internal sealed partial class BeamModuleCompiler
                         "error",
                         [new Expr.Tuple([new Expr.Literal(Term.A(ErlangErrorReasons.BadGenerator)), new Expr.Variable(bad)])]
                     )
+                    {
+                        SourceLine = invalidSourceLocation?.Line ?? 0,
+                        PreprocessorFile = invalidSourceLocation?.File,
+                        IsListGeneratorSourceFailure = invalidSourceLocation is { Line: > 0 }
+                    }
                 )
             ];
 
@@ -421,7 +532,56 @@ internal sealed partial class BeamModuleCompiler
             new([new Pattern.List([item], new Pattern.Variable(tail)), .. captures], guard, emit),
             .. skip,
             .. finish
-        ]);
+        ])
+        {
+            HasNilTerminatedMapperResult = !discardResult && appendTail is null
+        };
+
+        Expr BuildFilter(Expr expression, Expr next, int line)
+        {
+            const string invalidFilter = "\0comprehension-filter-result";
+            var invalid = new Expr.Call(
+                ErlangModuleNames.Module,
+                "error",
+                [
+                    new Expr.Tuple([
+                        new Expr.Literal(Term.A(ComprehensionErrorReasons.BadFilter)),
+                        new Expr.Variable(invalidFilter)
+                    ])
+                ]
+            )
+            { SourceLine = line };
+
+            return new Expr.Case(
+                expression,
+                [
+                    new([new Pattern.Literal(Term.A("true"))], null, next),
+                    new([new Pattern.Literal(Term.A("false"))], null, recur with { }),
+                    new([new Pattern.Variable(invalidFilter)], null, invalid)
+                ]
+            );
+        }
+    }
+
+    private static int RecursiveListBaseResultRegister(FunctionDefinition function)
+    {
+        var finish = function.Clauses[^1];
+        if (finish.Body is not Expr.Variable && function.Clauses.Count > 1)
+        {
+            finish = function.Clauses[^2];
+        }
+        if (finish.Body is Expr.Variable result)
+        {
+            for (int index = 1; index < finish.Patterns.Count; index++)
+            {
+                if (finish.Patterns[index] is Pattern.Variable capture && result.Name == capture.Name)
+                {
+                    return index;
+                }
+            }
+        }
+
+        return 0;
     }
 
     private static bool ClosedMappingExpression(Expr expression, string item) => expression switch

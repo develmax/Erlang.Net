@@ -1,0 +1,31 @@
+{
+  "Part": 1979,
+  "Reference": "OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourceBaseline": "Part1950 4981e099210ec7a8e3eabf07e65c34184c3a980453aed3cf704c717a868e1419 plus measured Part1978 production 49258698c0d31c159c466247dea008468c1fd01f2e1406c9f3730fc231815562, no overlapping files",
+  "Anchoring": "Production has nonintersecting context with Part1978 and Part1975–1977.",
+  "PinnedSource": [
+    "lib/compiler/src/beam_trim.erl:63-85 and 118-198 frame_layout and trim_recipe, reuse existing liveness planner",
+    "Part1978 ex_cursor.precodegen:408-444 returns nested live fields protected across last ordinary call"
+  ],
+  "Scope": "One worker, thirteen release files. Six Equal and seven Different before and after, only ex_cursor bytes change. From setScrollRate through return, the terminal call and nested tuple return suffix matches pinned instructions. Two earlier do_init scheduling islands and handle_event remain.",
+  "CandidateImageSha256": "2afc5eac2c4d6c7517a7622ce667ab3ffaea65c5d044f1ffab7cb9f97888ad1a",
+  "Native": "Two passed init paths and one failing final call with full ordered effects and first two frames match installed Windows OTP. Headless stubs leave real module code executed for both images.",
+  "Regression": "Focused red on terminal slot relocation with Part1978 and green on this change. Identical decoded pure-call controls retain original trim-cost decision.",
+  "Hashes": {
+    "production.patch": "45398a902c1f8f261fcafe593407e1f22cd4870beff180cfff4019814ed736c4",
+    "test.patch": "b87e66edba8ee253fb2e2073d5662497fc851e5884bcf957e685d189bddea488",
+    "replay-files.json": "c2325fdd1ce5dd38b06402e966ae6debf1b7c0eef87cca8f79234b77be879361",
+    "strict-replay.log": "93b1c23a2d998922a3eea15bb707c58d0d76a1b27424251e37838af77dd008a7",
+    "style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "final-scope.json": "582d187638246c0bada06c1111fdf953fc823397b455b69978825f55be1b9639",
+    "changed-paths.txt": "504626cd7a89b9e6c50cc4e6543bb06848e2511cae243dabd45c669bc49471c8",
+    "init-candidate.terms": "d39e67bb164f9ff03c895355ca08f8bad7a14bc41e2a618f51b17b312fc529b0",
+    "native-trim.eval": "f09a2fdbb0fc841e878c277edad0fe2ea4c25116f131db5c78c334f6b14c5744",
+    "native-pinned.terms": "da2d15725453ae5d4d3741cf40c31a8606fe3e1f780c37d1b2108e3b9e1b9546",
+    "native-candidate.terms": "da2d15725453ae5d4d3741cf40c31a8606fe3e1f780c37d1b2108e3b9e1b9546",
+    "focused-final-exits.json": "1ef75e784a5dd11b9c2fe71476a71f94295ce972682d28c771dea17e5ae3df61",
+    "shape-probe/two-pure-before.terms": "5f18225acdcc2f2b71364d4998e755320c6c2684326dbde3cb171a62a8050d86",
+    "shape-probe/two-pure-after.terms": "5f18225acdcc2f2b71364d4998e755320c6c2684326dbde3cb171a62a8050d86",
+    "compiler-bin/Erlang.Compiler.dll": "38215e0ba9bb18c11d2518a17b454fad36b71b3bbc2b0b254b268e4c0c8807c2"
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "OtpVersion": "29.1.1",
+  "Total": 7,
+  "Counts": {
+    "Different": 6,
+    "Equal": 1
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\compiler-10.0.6\\ebin\\beam_ssa_codegen.beam",
+      "Status": "Different",
+      "Source": "lib\\compiler-10.0.6\\src\\beam_ssa_codegen.erl",
+      "Detail": "Original length 149388, generated length 158636. AtU8 6804-\u003E6149, Code 45521-\u003E55906, ImpT 940-\u003E988, ExpT 64-\u003E64, FunT 292-\u003E292, LitT 1226-\u003E879, LocT 2368-\u003E2260, Attr 39-\u003E39, Line 1890-\u003E2023, Type 250-\u003E44",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\compiler-10.0.6\\ebin\\beam_ssa_opt.beam",
+      "Status": "Different",
+      "Source": "lib\\compiler-10.0.6\\src\\beam_ssa_opt.erl",
+      "Detail": "Original length 174228, generated length 186540. AtU8 8556-\u003E7482, Code 53937-\u003E67607, ImpT 1528-\u003E1612, ExpT 40-\u003E40, FunT 1588-\u003E1540, LitT 1046-\u003E903, LocT 3856-\u003E3568, Attr 39-\u003E39, Line 2521-\u003E2790, Type 196-\u003E38",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\eldap-1.3.1\\ebin\\ELDAPv3.beam",
+      "Status": "Equal",
+      "Source": "..\\..\\parity-inputs-20261118\\list-match-prefix-and-effective-inline-1866\\fixture-corrected\\worker-calibration\\run-2\\report.json.sources\\afdc32419a7a4a67b9124e000323107e\\ELDAPv3.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\group_history.beam",
+      "Status": "Different",
+      "Source": "lib\\kernel-11.0.4\\src\\group_history.erl",
+      "Detail": "Original length 18068, generated length 18432. AtU8 1890-\u003E1890, Code 3579-\u003E3975, ImpT 424-\u003E448, ExpT 52-\u003E52, LitT 2201-\u003E2171, LocT 424-\u003E412, Attr 39-\u003E39, Dbgi 8449-\u003E8432, Line 262-\u003E282, Type 28-\u003E16",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\megaco-4.9.2\\ebin\\megaco_tcp_accept.beam",
+      "Status": "Different",
+      "Source": "lib\\megaco-4.9.2\\src\\tcp\\megaco_tcp_accept.erl",
+      "Detail": "Original length 4120, generated length 4108. Code 515-\u003E504, Attr 65-\u003E65, Line 46-\u003E46",
+      "FirstDifferentByte": 7
+    },
+    {
+      "Beam": "lib\\mnesia-4.27\\ebin\\mnesia_lib.beam",
+      "Status": "Different",
+      "Source": "lib\\mnesia-4.27\\src\\mnesia_lib.erl",
+      "Detail": "Original length 69432, generated length 73028. AtU8 4764-\u003E5120, Code 17856-\u003E20433, ImpT 1756-\u003E1804, ExpT 1732-\u003E1732, FunT 436-\u003E964, LitT 2222-\u003E2180, LocT 748-\u003E976, Dbgi 34964-\u003E34923, Line 1126-\u003E1166, Type 114-\u003E16",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\erl_lint.beam",
+      "Status": "Different",
+      "Source": "lib\\stdlib-8.1\\src\\erl_lint.erl",
+      "Detail": "Original length 289396, generated length 307272. AtU8 18420-\u003E15369, Code 86603-\u003E108710, ImpT 1564-\u003E1576, ExpT 232-\u003E232, FunT 3028-\u003E3052, LitT 13769-\u003E13616, LocT 7120-\u003E6004, Attr 314-\u003E314, Dbgi 151124-\u003E151082, Line 4535-\u003E4770, Type 190-\u003E48",
+      "FirstDifferentByte": 6
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+@@ -1185,6 +1185,14 @@
+         code = FoldTerminalClosureFrames(code, labelCount) ?? code;
+         code = FoldHeadTupleReturnFrames(code, labelCount) ?? code;
+         code = ProjectEntryListDirectlyIntoFrame(code, labelCount) ?? code;
++        // Match the entry definitions after transformations that use the
++        // unassigned handler slot to recognize the original frame shape.
++        if (code.Span.Contains(InitYRegisters)
++            && DecodeLateAtomicProjectionSlots(code, labelCount) is { } initializedEntry)
++        {
++            code = SimplifyFrameInitialization(code, initializedEntry.Body, includeNonAllocatingDefinitions: true) ?? code;
++        }
++
+         if (OrderFinalPhysicalLabels(code, labelCount) is { } ordered)
+         {
+             (code, labelCount) = ordered;
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryInitialization.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryInitialization.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryInitialization.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryInitialization.cs
+@@ -6,7 +6,8 @@
+ {
+     private static byte[]? SimplifyFrameInitialization(
+         ReadOnlyMemory<byte> code,
+-        IReadOnlyList<BeamInstruction> body
++        IReadOnlyList<BeamInstruction> body,
++        bool includeNonAllocatingDefinitions = false
+     )
+     {
+         using var output = new MemoryStream();
+@@ -47,7 +48,7 @@
+                 }
+             }
+ 
+-            bool consolidate = groups >= 2 && body[index - 1].Definition.Opcode == Label
++            bool consolidate = !includeNonAllocatingDefinitions && groups >= 2 && body[index - 1].Definition.Opcode == Label
+                 && body[index - 2].Definition.Opcode == FunctionInfo
+                 && !initialized.Overlaps(assigned);
+             if (end >= body.Count)
+@@ -57,7 +58,7 @@
+ 
+             if (!consolidate)
+             {
+-                var edits = FindOverwrittenFrameInitializations(body, index + 1);
++                var edits = FindOverwrittenFrameInitializations(body, index + 1, includeNonAllocatingDefinitions);
+                 for (int edit = edits.Count - 1; edit >= 0; edit--)
+                 {
+                     var (instruction, retained) = edits[edit];
+@@ -96,14 +97,38 @@
+ 
+     private static List<(int Index, int[] Retained)> FindOverwrittenFrameInitializations(
+         IReadOnlyList<BeamInstruction> body,
+-        int start
++        int start,
++        bool includeNonAllocatingDefinitions
+     )
+     {
+         int end = start;
+-        while (end + 1 < body.Count && body[end].Definition.Opcode is
+-            Move or GetTupleElement or GetList or GetHead or GetTail or MakeFun or InitYRegisters or Line)
++        bool foundDefinition = false;
++        while (end + 1 < body.Count)
+         {
++            byte opcode = body[end].Definition.Opcode;
++            if (includeNonAllocatingDefinitions && opcode is (CatchEnter or TryEnter))
++            {
++                // The instruction defines the protected handler slot. Leave the
++                // following region untouched because its failures can branch.
++                foundDefinition = true;
++                end++;
++                break;
++            }
++
++            if (opcode is not (Move or GetTupleElement or GetList or GetHead or GetTail
++                or MakeFun or InitYRegisters or Line)
++                && !(includeNonAllocatingDefinitions && opcode == BifZero))
++            {
++                break;
++            }
++
++            foundDefinition |= opcode == BifZero;
+             end++;
++        }
++
++        if (includeNonAllocatingDefinitions && !foundDefinition)
++        {
++            return [];
+         }
+ 
+         var overwritten = new HashSet<int>();
+@@ -131,7 +156,7 @@
+                 continue;
+             }
+ 
+-            int destination = StackWriteOperand(instruction);
++            int destination = opcode is CatchEnter or TryEnter ? 0 : StackWriteOperand(instruction);
+             for (int position = 0; position < instruction.Operands.Count; position++)
+             {
+                 if (instruction.Operands[position].Kind == BeamOperandParameters.Y

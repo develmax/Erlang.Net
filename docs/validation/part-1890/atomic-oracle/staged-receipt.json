@@ -1,0 +1,63 @@
+{
+  "Baseline": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PSourceManifestSha256": "7184dd032c65005454743ac76b96ea630d7d592c22b5051e8b38caa4e3790596",
+  "PCorpusManifestSha256": "7462155c052284f490e74b0b85e7721e8ff7a3a61f052d994026a22035efa498",
+  "FSourceArchiveSha256": "360f1f7bb6428560f7c0e833a7835a9329a67a158462fd058a924194f162dbde",
+  "FBranchSourceSha256": "0bb430415bacb508b44f7af68922a0ea7811c207d46b5ed1acd3309d15977da1",
+  "ArtifactsSha256": {
+    "allocator.eval": "088f07cb3011eee893bdf071c02eb3388300e605f321aee2b437e936050a350a",
+    "allocator-split.eval": "1794c41bc0c79c60907158594e77a890cf701e85018cb1fed7ac6b91eb0cce20",
+    "summary.terms": "be69e25e8a8d7f11d099c4424d5536bcdc001f3eea723a16c4564a3491317161",
+    "split-summary.terms": "5b995c48af25281cef499be09cb3dfba48f28d716438fc0cd25991320584fd26",
+    "split-wins.terms": "dc6b5952ab3664a6495f615cba06d3ee83e9de4cc7b2fb638042f866f0ebb86c",
+    "atomic-alias-candidates.json": "4290a867bae829ae30b3368cb35ea3daa5160f1836fe37d0759aa30795d8772a",
+    "affected-modules.txt": "ed2bb527684b606e2d51634c9fb221fafc3c4516e53bb1d8bf3f494c31c8bdfd",
+    "pilot-modules.txt": "c20f4a801fe916c62cca982d9ab2ac5e7efd5b4f43ef562fdc49e2e612791704",
+    "representatives.json": "6d57005cc7d21478d7c26c537614f6771e50c799f745a11342d0037d0b9f2edc",
+    "entry-admission-ranking.json": "2113c0740c4f656fb429e68bbce8f583567d1e7dca4dee6ff29bf150bb0c4708",
+    "native-atomic-projection-validated.eval": "174229a5f0c9754222c5597839a774aff5fe48ce67372f5b3c49a053c09366a7",
+    "native-alias-validated.terms": "a9d1bcd4a4a1659bf8bf9c2ae4e8e5c90f76484743a7ae8ffeeb925311daa332",
+    "atomic-stack-projection-aliases.patch": "d6e69c4e562e6680abe2790ae25d4fc3c02653af840c23b305d4c87aa6872cb7"
+  },
+  "NativeCensus": {
+    "ExitCode": 0,
+    "Seconds": 33.4427965
+  },
+  "NativeSplit": {
+    "ExitCode": 0,
+    "Seconds": 22.1467237
+  },
+  "NativeRuntimeOracle": {
+    "ExitCode": 0,
+    "Seconds": 0.515274
+  },
+  "IsolatedGitApplyCheck": true,
+  "ManagedBuildRun": false,
+  "Candidates": {
+    "counts": {
+      "combined_only": {
+        "functions": 48,
+        "modules": 38
+      },
+      "list": {
+        "functions": 1451,
+        "modules": 296
+      },
+      "tuple": {
+        "functions": 1209,
+        "modules": 404
+      }
+    },
+    "functions": 2708,
+    "modules": 525,
+    "pilot": 15,
+    "modeledWidthEqualsPinned": 141,
+    "modeledWidthHigherThanPinned": 2567,
+    "modeledWidthLowerThanPinned": 0,
+    "rawFrameReductionDistribution": {
+      "1": 2706,
+      "2": 2
+    },
+    "withJoins": 2581
+  }
+}

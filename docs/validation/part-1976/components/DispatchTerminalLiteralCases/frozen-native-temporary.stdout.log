@@ -1,0 +1,27 @@
+body {function,convert,1,2,[{label,1},{line,[{location,[],4}]},{func_info,{atom,beam_terminal_literal_mapping},{atom,convert},1},{label,2},{test,is_eq_exact,{f,3},[{x,0},{atom,south}]},{move,{integer,10},{x,0}},return,{label,3},{test,is_eq_exact,{f,4},[{x,0},{atom,east}]},{move,{integer,4},{x,0}},return,{label,4},{test,is_eq_exact,{f,5},[{x,0},{atom,north}]},{move,{integer,8},{x,0}},return,{label,5},{move,{atom,unknown_cardinal},{x,0}},{line,[{location,[],7}]},{call_ext_only,1,{extfunc,erlang,error,1}}]}
+body {function,render,2,7,[{label,6},{line,[{location,[],9}]},{func_info,{atom,beam_terminal_literal_mapping},{atom,render},2},{label,7},{test,is_eq_exact,{f,8},[{x,0},{atom,zulu}]},{move,{literal,"z"},{x,0}},return,{label,8},{test,is_eq_exact,{f,9},[{x,0},{atom,alpha}]},{move,{literal,"a"},{x,0}},return,{label,9},{test,is_eq_exact,{f,10},[{x,0},{atom,pi}]},{move,{literal,"p"},{x,0}},return,{label,10},{call_only,2,{beam_terminal_literal_mapping,fallback,2}}]}
+body {function,fallback,2,12,[{label,11},{line,[{location,[],14}]},{func_info,{atom,beam_terminal_literal_mapping},{atom,fallback},2},{label,12},{allocate_heap,2,3,2},{move,{x,1},{y,0}},{move,{x,0},{y,1}},{put_tuple2,{x,1},{list,[{x,0},{x,1}]}},{move,{atom,fallback_called},{x,0}},{line,[{location,[],15}]},{call_ext,2,{extfunc,erlang,put,2}},{test_heap,3,0},{put_tuple2,{x,0},{list,[{y,1},{y,0}]}},{deallocate,2},return]}
+body {function,fallback_effect,0,14,[{label,13},{line,[{location,[],18}]},{func_info,{atom,beam_terminal_literal_mapping},{atom,fallback_effect},0},{label,14},{bif,get,{f,0},[{atom,fallback_called}],{x,0}},return]}
+body {function,case_map,2,16,[{label,15},{line,[{location,[],20}]},{func_info,{atom,beam_terminal_literal_mapping},{atom,case_map},2},{label,16},{test,is_eq_exact,{f,17},[{x,0},{atom,cedar}]},{move,{literal,["shared"]},{x,0}},return,{label,17},{test,is_eq_exact,{f,18},[{x,0},{atom,beta}]},{move,nil,{x,0}},return,{label,18},{test,is_eq_exact,{f,19},[{x,0},{atom,delta}]},{move,{literal,["distinct",{entry,4}]},{x,0}},return,{label,19},{test,is_eq_exact,{f,20},[{x,0},{atom,alpha}]},{move,{literal,["shared"]},{x,0}},return,{label,20},{line,[{location,[],21}]},{case_end,{x,0}}]}
+body {function,guarded,2,22,[{label,21},{line,[{location,[],28}]},{func_info,{atom,beam_terminal_literal_mapping},{atom,guarded},2},{label,22},{test,is_eq_exact,{f,23},[{x,0},{atom,alpha}]},{test,is_eq_exact,{f,23},[{x,1},{atom,true}]},{move,{literal,"g"},{x,0}},return,{label,23},{test,is_eq_exact,{f,24},[{x,0},{atom,beta}]},{move,{literal,"b"},{x,0}},return,{label,24},{line,[{location,[],29}]},{case_end,{x,0}}]}
+body {function,two_columns,2,26,[{label,25},{line,[{location,[],34}]},{func_info,{atom,beam_terminal_literal_mapping},{atom,two_columns},2},{label,26},{test,is_eq_exact,{f,27},[{x,0},{atom,alpha}]},{test,is_eq_exact,{f,27},[{x,1},{atom,primary}]},{move,{integer,1},{x,0}},return,{label,27},{test,is_eq_exact,{f,28},[{x,0},{atom,beta}]},{test,is_eq_exact,{f,28},[{x,1},{atom,secondary}]},{move,{integer,2},{x,0}},return,{label,28},{move,{atom,wrong_column},{x,0}},{line,[{location,[],36}]},{call_ext_only,1,{extfunc,erlang,error,1}}]}
+value convert [east] 4
+value convert [south] 10
+stack convert {beam_terminal_literal_mapping,convert,1,[{file,"beam_terminal_literal_mapping.erl"},{line,7}]}
+value convert [west] {error,unknown_cardinal}
+value render [pi,kept] "p"
+value fallback_effect [] undefined
+value render [unchanged,kept] {unchanged,kept}
+value fallback_effect [] {unchanged,kept}
+value case_map [cedar,unused] ["shared"]
+value case_map [alpha,unused] ["shared"]
+value case_map [delta,unused] ["distinct",{entry,4}]
+value case_map [beta,unused] []
+stack case_map {beam_terminal_literal_mapping,case_map,2,[{file,"beam_terminal_literal_mapping.erl"},{line,21}]}
+value case_map [none,unused] {error,{case_clause,none}}
+value guarded [alpha,true] "g"
+stack guarded {beam_terminal_literal_mapping,guarded,2,[{file,"beam_terminal_literal_mapping.erl"},{line,29}]}
+value guarded [alpha,false] {error,{case_clause,alpha}}
+value two_columns [beta,secondary] 2
+stack two_columns {beam_terminal_literal_mapping,two_columns,2,[{file,"beam_terminal_literal_mapping.erl"},{line,36}]}
+value two_columns [beta,primary] {error,wrong_column}

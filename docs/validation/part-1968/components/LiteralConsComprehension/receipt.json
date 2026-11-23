@@ -1,0 +1,124 @@
+{
+  "CohortResidualAudit": "8f64d65eb4fca1c93866dc4fe18f57224e253cb4ef60e2f3fda8a51a828f3039",
+  "PrerequisiteRegressionPatch": "c09f98289be8b4461b138a75b88dd74067dd31daa0d19b5e42f41c3193f237fd",
+  "Reference": "OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Scope": {
+    "Group": "Literal Cons head",
+    "Keys": 8,
+    "Modules": 3,
+    "Owners": 4,
+    "Cases": [
+      {
+        "Module": "lib/edoc-1.5/ebin/edoc_html_to_markdown.beam",
+        "Owner": "transform_list/2",
+        "Helper": [
+          "-transform_list/2-lc$^0/1-1-",
+          1
+        ],
+        "SourceLine": 1177,
+        "InlineReverseCalls": 2,
+        "CandidateOwnerHelpers": "[]",
+        "FirstObservedGate": "Nested charlist in the tuple inside an otherwise structural cons."
+      },
+      {
+        "Module": "lib/edoc-1.5/ebin/edoc_html_to_markdown.beam",
+        "Owner": "transform_list/2",
+        "Helper": [
+          "-transform_list/2-lc$^1/1-0-",
+          1
+        ],
+        "SourceLine": 1179,
+        "InlineReverseCalls": 2,
+        "CandidateOwnerHelpers": "[]",
+        "FirstObservedGate": "Nested charlist in the tuple inside an otherwise structural cons."
+      },
+      {
+        "Module": "lib/observer-2.19/ebin/observer_wx.beam",
+        "Owner": "remove_menu_items/2",
+        "Helper": [
+          "-remove_menu_items/2-lc$^1/1-2-",
+          2
+        ],
+        "SourceLine": 742,
+        "InlineReverseCalls": 3,
+        "CandidateOwnerHelpers": "[]",
+        "FirstObservedGate": "Alias to charlist in a nested tuple and another plain charlist head."
+      },
+      {
+        "Module": "lib/observer-2.19/ebin/observer_wx.beam",
+        "Owner": "remove_menu_items/2",
+        "Helper": [
+          "-remove_menu_items/2-lc$^2/1-0-",
+          2
+        ],
+        "SourceLine": 755,
+        "InlineReverseCalls": 3,
+        "CandidateOwnerHelpers": "[]",
+        "FirstObservedGate": "Alias to charlist in a nested tuple and another plain charlist head."
+      },
+      {
+        "Module": "lib/ssl-11.7.7/ebin/ssl_pkix_db.beam",
+        "Owner": "add_crls/3",
+        "Helper": [
+          "-add_crls/3-lc$^0/1-1-",
+          2
+        ],
+        "SourceLine": 369,
+        "InlineReverseCalls": 2,
+        "CandidateOwnerHelpers": "[]",
+        "FirstObservedGate": "Whole charlist at the second pattern column. A structurally equivalent list is supported."
+      },
+      {
+        "Module": "lib/ssl-11.7.7/ebin/ssl_pkix_db.beam",
+        "Owner": "add_crls/3",
+        "Helper": [
+          "-add_crls/3-lc$^1/1-0-",
+          2
+        ],
+        "SourceLine": 372,
+        "InlineReverseCalls": 2,
+        "CandidateOwnerHelpers": "[]",
+        "FirstObservedGate": "Whole charlist at the second pattern column. A structurally equivalent list is supported."
+      },
+      {
+        "Module": "lib/ssl-11.7.7/ebin/ssl_pkix_db.beam",
+        "Owner": "remove_crls/2",
+        "Helper": [
+          "-remove_crls/2-lc$^0/1-1-",
+          2
+        ],
+        "SourceLine": 383,
+        "InlineReverseCalls": 2,
+        "CandidateOwnerHelpers": "[]",
+        "FirstObservedGate": "Nested charlist in the second tuple column; candidate retains both inline loops."
+      },
+      {
+        "Module": "lib/ssl-11.7.7/ebin/ssl_pkix_db.beam",
+        "Owner": "remove_crls/2",
+        "Helper": [
+          "-remove_crls/2-lc$^1/1-0-",
+          2
+        ],
+        "SourceLine": 391,
+        "InlineReverseCalls": 2,
+        "CandidateOwnerHelpers": "[]",
+        "FirstObservedGate": "Nested charlist in the second tuple column; candidate retains both inline loops."
+      }
+    ]
+  },
+  "PinnedNativeCases": 8,
+  "CandidateValidation": "Pending",
+  "Files": {
+    "production.patch": "066e4de87854477734d6c71f4ea634f74f8857e104bcebd223c0cdfe65d4c3de",
+    "test.patch": "ebd5efadb0392ae257e22fbb56a48dc26e68c84aa4fa2021d4648f9cbb1ec7fe",
+    "strict-replay.json": "8a22739dbc96e0a21da89362d0f23acdfdbc26b860b4cf4e52a7b6c1726f29a6",
+    "release-targets.tsv": "549aea15367a46252def95683e22bf8d7af84c3f7d7055d827f4be0337686408",
+    "release-witness.log": "a52317b47db3dfab47ee76d598b1cefa25402582748c1a1ce7a32015571766f9",
+    "release-witness.terms": "5ef6f2039686bdc5b87bd5cb157a6cca80735f4717a1019b4a7956fbb2a895d2",
+    "focused-scope.txt": "c55f4b91ab3ec99809e62f6c2e638822129c53bed241f40816ffcb16096676b1",
+    "oracle/beam_literal_cons_comprehension.erl": "2945f0ab6859195b0087925d83b711ca84621ade5d79456582290fcc57295d48",
+    "oracle/beam_literal_cons_comprehension.ssa": "2740039641adb45dbd4cad5480a376fa3ff68bcda45e7bb248785068c8ab0a51",
+    "oracle/pinned.terms": "4440b2753cc36f0c78cd9be150c1480d17a7aca78aa053109df400ec9fe341fc",
+    "oracle/pinned.exit": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+  }
+}

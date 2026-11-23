@@ -1,0 +1,6 @@
+Error! Failed to eval: [F]=init:get_plain_arguments(),{ok,Rows}=file:consult(F),
+io:format("~0p.~n",[#{Modules=>length(Rows),Predicted=>lists:sum([N||{_,N,_,_,_}<-Rows]),New=>lists:sum([length(L)||{_,_,L,_,_}<-Rows]),Loss=>lists:sum([length(L)||{_,_,_,L,_}<-Rows]),WitnessGain=>lists:sum([length(L)||{_,_,_,_,L}<-Rows]),Affected=>length([1||{_,_,L,_,_}<-Rows,L=/=[]])}]),halt().
+
+Runtime terminating during boot ({{unbound_var,'Modules'},[{erl_eval,exprs,2,[{file,"erl_eval.erl"},{line,222}]},{init,start_it,1,[{file,"init.erl"},{line,1561}]},{init,start_em,1,[{file,"init.erl"},{line,1546}]},{init,do_boot,3,[{file,"init.erl"},{line,1217}]}]})
+
+Crash dump is being written to: D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/local-case-proofs-and-bounded-list-helpers-1891-plan-consistency-retake/flat-list-helper-audit/summary-crash.dump...done

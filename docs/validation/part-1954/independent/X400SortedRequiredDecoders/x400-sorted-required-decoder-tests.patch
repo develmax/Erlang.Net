@@ -1,0 +1,166 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamSortedOptionalDecoderChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamSortedOptionalDecoderChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamSortedOptionalDecoderChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamSortedOptionalDecoderChecks.cs
+@@ -11,12 +11,12 @@
+ {
+     internal const string TestName = "compiler/beam/retains-sorted-optional-decoder-remainders";
+     private const string Fixture = "beam_sorted_optional_decoder.erl";
+-    private const string WrongLayout = "The sorted optional decoder did not reuse the expected three slots.";
++    private const string WrongLayout = "The sorted decoder did not use its expected required and optional frame.";
+     private const string WrongValue = "The sorted optional decoder changed an output or malformed input.";
+ 
+     private const string Source = """
+         -module(beam_sorted_optional_decoder).
+-        -export([decode/2, plain/2]).
++        -export([decode/2, plain/2, required/2]).
+         decode(Input, Tags) ->
+             Fields = prepare(Input, Tags),
+             Rank = fun(Item) -> case Item of
+@@ -72,6 +72,59 @@
+             case R2 of [] -> true; _ -> exit({error,{format,{unexpected,R2}}}) end,
+             Result = {fields,First,Second},
+             Result.
++        required(Input, Tags) ->
++            Fields = prepare(Input, Tags),
++            Rank = fun(Item) -> case Item of
++                Pair = {18,_} -> {1,Pair};
++                Pair = {19,_} -> {2,Pair};
++                Pair = {20,_} -> {3,Pair};
++                Pair = {21,_} -> {4,Pair};
++                Other -> {5,Other}
++            end end,
++            Ranked = [Rank(V) || V <- Fields],
++            Sorted = [Value || {_,Value} <- lists:sort(Ranked)],
++            [Head|Rest] = Sorted,
++            Initial = begin
++                Bin = read_required(Head, [18]),
++                Len = byte_size(Bin),
++                if 1 =< Len, Len =< 2 -> binary_to_list(Bin);
++                   true -> exit({error,{format,required_value}})
++                end
++            end,
++            {First,R1} = case Rest of
++                [{19,A}|Tail1] -> {begin
++                    Bin1 = read(A, []),
++                    Len1 = byte_size(Bin1),
++                    if 1 =< Len1, Len1 =< 2 -> binary_to_list(Bin1);
++                       true -> exit({error,{format,first}})
++                    end
++                end,Tail1};
++                _ -> {absent,Rest}
++            end,
++            {Second,R2} = case R1 of
++                [{20,B}|Tail2] -> {begin
++                    Bin2 = read(B, []),
++                    Len2 = byte_size(Bin2),
++                    if 1 =< Len2, Len2 =< 3 -> binary_to_list(Bin2);
++                       true -> exit({error,{format,second}})
++                    end
++                end,Tail2};
++                _ -> {absent,R1}
++            end,
++            {Third,R3} = case R2 of
++                [{21,C}|Tail3] -> {begin
++                    Bin3 = read(C, []),
++                    Len3 = byte_size(Bin3),
++                    if 1 =< Len3, Len3 =< 3 -> binary_to_list(Bin3);
++                       true -> exit({error,{format,third}})
++                    end
++                end,Tail3};
++                _ -> {absent,R2}
++            end,
++            case R3 of [] -> true; _ -> exit({error,{format,{unexpected,R3}}}) end,
++            Result = {fields,Initial,First,Second,Third},
++            Result.
++        read_required({Tag, Value}, [Tag]) -> iolist_to_binary(Value).
+         prepare(Input, []) -> Input.
+         read(Value, []) -> iolist_to_binary(Value).
+         unchanged(Value, []) -> Value.
+@@ -81,7 +134,8 @@
+     {
+         byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
+         byte[] unproven = CodeGeneration.CompileBeamModule(
+-            Source.Replace("Other -> {3,Other}", "_ -> different_shape", StringComparison.Ordinal),
++            Source.Replace("Other -> {3,Other}", "_ -> different_shape", StringComparison.Ordinal)
++                .Replace("Other -> {5,Other}", "_ -> different_shape", StringComparison.Ordinal),
+             Fixture
+         );
+         var module = BeamModule.Prepare(image, new BeamDependencySelection(["lists"]));
+@@ -121,6 +175,40 @@
+                 absent,
+                 second
+             );
++            Term initial = Term.List(Term.I(70));
++            Term requiredFields = Term.List(right, Field(18, initial), left);
++            Term expected = Term.Tuple(
++                Term.A("fields"),
++                initial,
++                first,
++                second,
++                absent
++            );
++            if (!expected.Equals(await module.Invoke(
++                context,
++                "required",
++                requiredFields,
++                Nil.Value
++            )))
++            {
++                throw new InvalidOperationException(WrongValue);
++            }
++
++            try
++            {
++                await module.Invoke(
++                    context,
++                    "required",
++                    Nil.Value,
++                    Nil.Value
++                );
++                throw new InvalidOperationException(WrongValue);
++            }
++            catch (ErlangException error) when (error.ExceptionClass == ErlangExceptionClasses.Error
++                && error.Reason.Equals(Term.Tuple(Term.A("badmatch"), Nil.Value)))
++            {
++            }
++
+             await Reject(Term.List(Field(19, Nil.Value), Field(20, Nil.Value)), Reason(Term.A("first")));
+             await Reject(Term.List(left, Field(20, Nil.Value)), Reason(Term.A("second")));
+             Term extra = Field(21, Term.A("extra"));
+@@ -166,7 +254,8 @@
+             }
+         });
+ 
+-        if (Frame(image, "decode") != 3 || Frame(image, "plain") != 3 || Frame(unproven, "decode") <= 3)
++        if (Frame(image, "decode") != 3 || Frame(image, "plain") != 3 || Frame(unproven, "decode") <= 3
++            || Frame(image, "required", requireNilFailure: true) != 5 || Frame(unproven, "required") <= 5)
+         {
+             throw new InvalidOperationException(WrongLayout);
+         }
+@@ -176,7 +265,7 @@
+ 
+     private static Term Reason(Term detail) => Term.Tuple(Term.A("error"), Term.Tuple(Term.A("format"), detail));
+ 
+-    private static int Frame(byte[] image, string name)
++    private static int Frame(byte[] image, string name, bool requireNilFailure = false)
+     {
+         object code = Code(image);
+         string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
+@@ -192,8 +281,15 @@
+             throw new InvalidOperationException(WrongLayout);
+         }
+ 
+-        object frame = instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo)
+-            .Single(instruction => Opcode(instruction) == Allocate);
++        var body = instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo).ToArray();
++        if (requireNilFailure && !body.Any(instruction => Opcode(instruction) == BadMatch
++            && Items(instruction, "Operands") is [var failed]
++            && Equals(Property(failed, "Kind"), "nil") && Value(failed) == NilAtomIndex))
++        {
++            throw new InvalidOperationException(WrongLayout);
++        }
++
++        object frame = body.Single(instruction => Opcode(instruction) == Allocate);
+ 
+         return Value(Items(frame, "Operands")[0]);
+     }

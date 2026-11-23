@@ -1,0 +1,209 @@
+using System.Collections;
+using System.Numerics;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamMixedConstructorCaseChecks
+{
+    internal const string TestName = "compiler/beam/partitions-terminal-tuple-and-atom-cases";
+    private const string Module = "beam_mixed_constructor_case";
+    private const string Provider = "beam_mixed_constructor_input";
+    private const string Read = "read";
+    private const int UnmatchedCaseLine = 5;
+
+    private const string Source = """
+        -module(beam_mixed_constructor_case).
+        -export([read/1, with_default/1, variable_boundary/1, aliased/1, multiple_atoms/1, saved/1]).
+
+        read(S) ->
+            case beam_mixed_constructor_input:read(S) of
+                {error, Why} -> {broken, Why};
+                eof -> {end_of_input, eof};
+                {Cont, []} -> {resume, Cont};
+                {Cont, Items, Bytes} -> {chunk, Cont, Items, Bytes};
+                {Cont, Items} -> {chunk, Cont, Items}
+            end.
+
+        with_default(S) ->
+            case beam_mixed_constructor_input:read(S) of
+                {error, Why} -> {broken, Why};
+                eof -> finished;
+                {Cont, Items, _} -> {more, Cont, Items};
+                {Cont, []} -> {resume, Cont};
+                {Cont, Items} -> {full, Cont, Items};
+                _ -> unknown
+            end.
+
+        variable_boundary(S) ->
+            case beam_mixed_constructor_input:read(S) of
+                {error, Why} -> {broken, Why};
+                Thing when is_tuple(Thing), tuple_size(Thing) =:= 3 -> guarded;
+                eof -> finished;
+                {X, Y, Z} -> {missed_guard, X, Y, Z};
+                {Cont, []} -> {resume, Cont};
+                {Cont, Items} -> {full, Cont, Items};
+                _ -> unknown
+            end.
+
+        aliased(S) ->
+            case beam_mixed_constructor_input:read(S) of
+                Whole = {error, _} -> {whole, Whole};
+                eof -> finished;
+                {Cont, []} -> {resume, Cont};
+                {X,Y,Z} -> {wide, X, Y, Z};
+                {Cont, Items} -> {full, Cont, Items};
+                _ -> unknown
+            end.
+
+        multiple_atoms(S) ->
+            case beam_mixed_constructor_input:read(S) of
+                {error, Why} -> {broken, Why};
+                eof -> finished;
+                {Cont, Items, _} -> {more, Cont, Items};
+                retry -> again;
+                {Cont, Items} -> {full, Cont, Items};
+                _ -> unknown
+            end.
+
+        saved(S) ->
+            case S of
+                {error, Why} -> {broken, Why};
+                eof -> finished;
+                {Cont, Items, _} -> {more, Cont, Items};
+                {Cont, Items} -> {full, Cont, Items};
+                _ -> unknown
+            end.
+        """;
+
+    internal static async Task Run()
+    {
+        byte[] beam = CodeGeneration.CompileBeamModule(Source, Module + ".erl");
+        object code = Code(beam);
+        AssertDispatch(code, Read, endsWithCaseError: true);
+        AssertDispatch(code, "with_default", endsWithCaseError: false);
+
+        var image = BeamModule.Prepare(beam, new BeamDependencySelection([Provider]));
+        await using var runtime = new ProcessRuntime();
+        runtime.Modules.Register(
+            Provider,
+            Read,
+            1,
+            (_, arguments) => ValueTask.FromResult(arguments[0])
+        );
+        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
+        await actor.InvokeAsync(async context =>
+        {
+            Term broken = Term.A("broken");
+            Term eof = Term.A("eof");
+            Term continuation = Term.A("continuation");
+            Term data = Term.A("data");
+            Term bytes = Term.I(42);
+            Term triple = Term.Tuple(continuation, data, bytes);
+            Term wide = Term.Tuple(
+                continuation,
+                data,
+                bytes,
+                eof
+            );
+            Term other = Term.A("other");
+            Term errorTuple = Term.Tuple(Term.A("error"), broken);
+            await Check(Read, Term.Tuple(broken, broken), errorTuple);
+            await Check(Read, Term.Tuple(Term.A("end_of_input"), eof), eof);
+            await Check(Read, Term.Tuple(Term.A("resume"), continuation), Term.Tuple(continuation, Nil.Value));
+            await Check(Read, Term.Tuple(
+                Term.A("chunk"),
+                continuation,
+                data,
+                bytes
+            ), triple);
+            await Check(Read, Term.Tuple(Term.A("chunk"), continuation, data), Term.Tuple(continuation, data));
+            await Reject(wide);
+            await Reject(other);
+            await Check("with_default", Term.A("unknown"), wide);
+            await Check("with_default", Term.A("unknown"), other);
+            await Check("with_default", Term.A("finished"), eof);
+            await Check("variable_boundary", Term.A("guarded"), triple);
+            await Check("aliased", Term.Tuple(Term.A("whole"), errorTuple), errorTuple);
+            await Check("multiple_atoms", Term.A("again"), Term.A("retry"));
+            await Check("saved", Term.Tuple(Term.A("more"), continuation, data), triple);
+
+            return Nil.Value;
+
+            async ValueTask Check(string function, Term expected, Term argument)
+            {
+                if (!expected.Equals(await image.Invoke(context, function, argument)))
+                {
+                    throw new InvalidOperationException(BeamMixedConstructorCaseDiagnostics.ClauseOrder);
+                }
+            }
+
+            async ValueTask Reject(Term argument)
+            {
+                try
+                {
+                    await image.Invoke(context, Read, argument);
+                }
+                catch (ErlangException error) when (HasOriginalCaseFailure(error, argument))
+                {
+                    return;
+                }
+
+                throw new InvalidOperationException(BeamMixedConstructorCaseDiagnostics.FailureValueAndLocation);
+            }
+        });
+    }
+
+    private static bool HasOriginalCaseFailure(ErlangException error, Term argument) =>
+        error.Reason.Equals(Term.Tuple(Term.A("case_clause"), argument))
+        && error.StackTraceTerm is Cons
+        {
+            Head: TupleTerm { Items: [Atom { Name: Module }, Atom { Name: Read }, _, var location] }
+        } && Cons.Items(location).Contains(Term.Tuple(Term.A("line"), Term.I(UnmatchedCaseLine)));
+
+    private static void AssertDispatch(
+        object code,
+        string function,
+        bool endsWithCaseError
+    )
+    {
+        var info = Items(code, "Functions").Single(item => (string)Property(item, "Name") == function);
+        int start = (int)Property(info, "FirstInstructionIndex");
+        int end = (int)Property(info, "EndInstructionIndex");
+        object[] body = Items(code, "Instructions")[start..end];
+        int call = Array.FindIndex(body, item => Opcode(item) == ExternalCall);
+        if (call < 0 || call + 2 >= body.Length || Opcode(body[call + 1]) != IsTuple
+            || Opcode(body[call + 2]) != SelectTupleArity)
+        {
+            throw new InvalidOperationException(BeamMixedConstructorCaseDiagnostics.Partition);
+        }
+
+        object guard = body[call + 1];
+        object select = body[call + 2];
+        int atomEntry = LabelIndex(OperandValue(guard, 0));
+        BigInteger fallbackLabel = OperandValue(select, 1);
+        int failEntry = LabelIndex(fallbackLabel);
+        int arityTwo = LabelIndex(OperandValue(select, 4));
+        int arityThree = LabelIndex(OperandValue(select, 6));
+        if (OperandValue(guard, 1) != 0 || OperandValue(select, 0) != 0
+            || OperandValue(select, 3) != 2 || OperandValue(select, 5) != 3
+            || arityThree < 0 || arityThree >= arityTwo || arityTwo >= atomEntry || atomEntry >= failEntry
+            || Opcode(body[atomEntry + 1]) != ExactEqualTest
+            || OperandValue(body[atomEntry + 1], 0) != fallbackLabel
+            || (Opcode(body[failEntry + 1]) == CaseEnd) != endsWithCaseError)
+        {
+            throw new InvalidOperationException(BeamMixedConstructorCaseDiagnostics.Partition);
+        }
+
+        int LabelIndex(BigInteger label) => Array.FindIndex(body, item => Opcode(item) == Label && OperandValue(item, 0) == label);
+    }
+
+    private static BigInteger OperandValue(object instruction, int index) =>
+        (BigInteger)Property(Items(instruction, "Operands")[index], "Value");
+
+    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
+
+    private static object[] Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
+}

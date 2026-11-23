@@ -1,0 +1,72 @@
+using System.Collections;
+using System.Numerics;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamDeferredLineOrderChecks
+{
+    internal const string TestName = "compiler/beam/orders-relocated-line-entries-by-first-use";
+    private const string Fixture = "beam_line_many_functions.erl";
+    private const string Filename = "helper_line_source.erl";
+    private const string WrongOrder = "Source locations must follow the first physical use in code after moving a terminal error block.";
+    private const string WrongZero = "Physical lines with no location must keep the predefined zero index.";
+    private const string MissingFile = "The moved location or the external source filename is missing.";
+
+    internal const string Source = """
+        -module(beam_line_many_functions).
+        -export([main/2, wrapper/1]).
+        -record(entry, {value}).
+
+        main(Selector, Record) ->
+            case Selector of
+                both ->
+                    Contents = Record#entry.value,
+                    put(line_sink, Contents),
+                    {done, Contents};
+                skip ->
+                    put(line_sink, skip),
+                    {done, skip};
+                _ ->
+                    no_action
+            end.
+
+        -file("helper_line_source.erl",120).
+        wrapper(Value) ->
+            case main(both, Value) of
+                {done, Found} -> {wrapped, Found}
+            end.
+        """;
+
+    internal static Task Run()
+    {
+        object code = Code(CodeGeneration.CompileBeamModule(Source, Fixture));
+        var sourceLocations = ((IEnumerable)Property(code, "SourceLocations")).Cast<Term>().ToArray();
+        int[] physical = ((IEnumerable)Property(code, "Instructions")).Cast<object>()
+            .Where(instruction => (byte)Property(Property(instruction, "Definition"), "Opcode") == Line)
+            .Select(instruction => ((IEnumerable)Property(instruction, "Operands")).Cast<object>().Single())
+            .Select(operand => (int)(BigInteger)Property(operand, "Value")).ToArray();
+
+        if (!physical.Where(value => value != 0).Distinct().SequenceEqual(Enumerable.Range(1, sourceLocations.Length - 1)))
+        {
+            throw new InvalidOperationException(WrongOrder);
+        }
+
+        if (!physical.Contains(0) || sourceLocations[0] is not Nil)
+        {
+            throw new InvalidOperationException(WrongZero);
+        }
+
+        if (!sourceLocations.Any(location => location is Cons { Head: TupleTerm { Items: [Atom { Name: "file" }, var file] } }
+                && file.Equals(Term.String(Filename)))
+            || !sourceLocations.Any(location => location is Cons { Tail: Cons { Head: TupleTerm { Items: [Atom { Name: "line" }, Integer { Value: var line }] } } }
+                && line == 8))
+        {
+            throw new InvalidOperationException(MissingFile);
+        }
+
+        return Task.CompletedTask;
+    }
+}

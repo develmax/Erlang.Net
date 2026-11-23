@@ -1,0 +1,11 @@
+[Pinned,Generated,Out,Name,ArityText]=init:get_plain_arguments(),
+Arity=list_to_integer(ArityText),
+Function=list_to_atom(Name),
+lists:foreach(fun({Role,File}) ->
+    {beam_file,_,_,_,_,Functions}=beam_disasm:file(File),
+    [Ops]=[Instructions || {function,F,A,_,Instructions} <- Functions, F=:=Function andalso A=:=Arity],
+    {ok,Device}=file:open(filename:join(Out,Role++".terms"),[write,{encoding,utf8}]),
+    [io:format(Device,"~0tp.~n",[Op]) || Op<-Ops],
+    file:close(Device)
+end,[{"pinned",Pinned},{"generated",Generated}]),
+halt().

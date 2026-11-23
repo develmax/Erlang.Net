@@ -1,0 +1,30 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.StaticListClosureMapping.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.StaticListClosureMapping.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.StaticListClosureMapping.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.StaticListClosureMapping.cs
+@@ -10,18 +10,18 @@
+         string name
+     )
+     {
+-        if (ReadDominatingComprehensionValue(clause, comprehension, name) is not Expr.Fun
+-            {
+-                SelfName: null,
+-                Clauses: [{ Guard: null, Patterns: [Pattern.Variable] } body]
+-            } closure
+-            || ClosureCaptures.ReadListComprehensionBindings(clause, comprehension) is not { } visible
+-            || ClosureCaptures.ReadEntryReferences(body, visible) is not { Count: 0 })
++        if (ReadDominatingComprehensionValue(clause, comprehension, name) is not Expr.Fun { SelfName: null } closure
++            || closure.Clauses is not [.., { Guard: null, Patterns: [Pattern.Variable] }]
++            || closure.Clauses.Any(candidate => candidate.Patterns.Count != 1)
++            || ClosureCaptures.ReadListComprehensionBindings(clause, comprehension) is not { } visible)
+         {
+             return null;
+         }
+ 
+-        return closure;
++        // Match the lifted fun's lexical capture proof across all its clauses.
++        var bindings = visible.ToDictionary(variable => variable, _ => (Term)Nil.Value, StringComparer.Ordinal);
++
++        return ClosureCaptures.Capture(closure, bindings).Count == 0 ? closure : null;
+     }
+ 
+     private static bool ClauseBindsName(IReadOnlyList<Pattern> patterns, string name) =>

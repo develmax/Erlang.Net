@@ -1,0 +1,316 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -430,7 +430,8 @@
+         internal void Function(FunctionDefinition function)
+         {
+             parentFunction ??= function;
+-            if (TryEmitMeasuredBinaryContextDecode(function) || TryEmitResumedBitListDecode(function))
++            if (TryEmitMeasuredBinaryContextDecode(function) || TryEmitResumedBitListDecode(function)
++                || TryEmitPrivateTuplePayloadResult(function) || TryEmitEffectBeforeReceiveCallCase(function))
+             {
+                 return;
+             }
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.PrivateTuplePayloadResult.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.PrivateTuplePayloadResult.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.PrivateTuplePayloadResult.cs
+@@ -0,0 +1,162 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private sealed partial class GeneralEmitter
++    {
++        private bool TryEmitPrivateTuplePayloadResult(FunctionDefinition function)
++        {
++            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled || recursiveClosure is not null
++                || owner.OnLoadFunction is not null || owner.IsDeclaredNative((function.Name, function.Arity))
++                || function.Clauses is not
++                [
++                    {
++                        Guard: null,
++                        Patterns: [Pattern.Variable input, Pattern.Variable first, Pattern.Variable second],
++                        Body: Expr.Case
++                        {
++                            Value: Expr.Call
++                            {
++                                Arguments:
++                                [
++                                    var moduleArgument,
++                                    var functionArgument,
++                                    Expr.List { Items: [Expr.Variable source, var suffix], Tail: null }
++                                ]
++                            } producer,
++                            Clauses:
++                            [
++                            {
++                                Guard: null,
++                                Patterns: [Pattern.Tuple
++                                {
++                                    Items:
++                                        [
++                                            Pattern.Variable { Name: VariableScopeNames.Wildcard },
++                                            Pattern.Tuple { Items: [Pattern.Literal { Value: Atom errorTag }, Pattern.Variable reason] }
++                                        ]
++                                }],
++                                Body: Expr.Call { Arguments: [Expr.Variable rejected] } failureCall
++                            },
++                            {
++                                Guard: null,
++                                Patterns: [Pattern.Tuple { Items: [Pattern.Variable measured, Pattern.Variable payload] }],
++                                Body: Expr.Sequence
++                                {
++                                    Items:
++                                        [
++                                            Expr.Call
++                                        {
++                                            Arguments:
++                                                [
++                                                    var format,
++                                                    Expr.List { Items: [var firstValue, var secondValue, Expr.Variable amount], Tail: null }
++                                                ]
++                                        } effect,
++                                            Expr.Variable returned
++                                        ]
++                                }
++                            }
++                            ]
++                        } decision
++                    }
++                ]
++                || !DistinctBindings(
++                    input,
++                    first,
++                    second,
++                    measured,
++                    payload,
++                    reason
++                )
++                || source.Name != input.Name || rejected.Name != reason.Name || amount.Name != measured.Name
++                || returned.Name != payload.Name
++                || !TryResolveOrdinaryCallTarget(producer, out string? producerModule)
++                || !TryResolveOrdinaryCallTarget(failureCall, out string? failureModule, allowControlTransfer: true)
++                || !TryResolveOrdinaryCallTarget(effect, out string? effectModule)
++                || !AttributeLiteral.TryNormalizeConstant(moduleArgument, out Term callModule)
++                || !AttributeLiteral.TryNormalizeConstant(functionArgument, out Term callFunction)
++                || !AttributeLiteral.TryNormalizeConstant(suffix, out Term listEnd)
++                || !AttributeLiteral.TryNormalizeConstant(format, out Term formatValue)
++                || ReadFirstValue() is not Atom firstConstant
++                || ReadSecondValue() is not Integer secondConstant)
++            {
++                return false;
++            }
++
++            const int frame = 1;
++            int success = Label();
++            int invalid = Label();
++            EmitFrameAllocation(1, frame, ConsHeapWords);
++            EmitFrameInitialization(0, frame);
++            owner.Op(PutList, XRegisterTag, 0);
++            owner.LiteralOperand(new Cons(listEnd, Nil.Value));
++            owner.Operand(XRegisterTag, 2);
++            owner.EmitConstant(callFunction, 1);
++            owner.EmitConstant(callModule, 0);
++            owner.EmitCallLine(producer, location);
++            Call(producerModule, producer.Function, 3);
++            var producerLine = CallLocation(producer, location);
++
++            owner.EmitTupleCheck(0, 2, invalid);
++            owner.Op(GetTupleElement, XRegisterTag, 0);
++            owner.Operand(BeamWire.UnsignedTag, 1);
++            owner.Operand(YRegisterTag, 0);
++            owner.Op(IsTaggedTuple, LabelTag, success);
++            owner.Operand(YRegisterTag, 0);
++            owner.Operand(BeamWire.UnsignedTag, 2);
++            owner.LiteralOperand(errorTag);
++            owner.Op(GetTupleElement, YRegisterTag, 0);
++            owner.Operand(BeamWire.UnsignedTag, 1);
++            owner.Operand(XRegisterTag, 0);
++            EmitPreparedFrameTail(new EntryCall(
++                failureCall,
++                failureModule,
++                [],
++                []
++            ), producerLine, frame);
++
++            Mark(success);
++            owner.Op(TestHeap, BeamWire.UnsignedTag, ConsHeapWords * 3);
++            owner.Operand(BeamWire.UnsignedTag, 1);
++            owner.EmitTuplePart(0, 0, 0);
++            owner.Op(PutList, XRegisterTag, 0);
++            owner.LiteralOperand(Nil.Value);
++            owner.Operand(XRegisterTag, 0);
++            owner.instructions.WriteByte(PutList);
++            owner.LiteralOperand(secondConstant);
++            owner.Operand(XRegisterTag, 0);
++            owner.Operand(XRegisterTag, 0);
++            owner.instructions.WriteByte(PutList);
++            owner.LiteralOperand(firstConstant);
++            owner.Operand(XRegisterTag, 0);
++            owner.Operand(XRegisterTag, 1);
++            owner.EmitConstant(formatValue, 0);
++            owner.EmitCallLine(effect, producerLine);
++            Call(effectModule, effect.Function, 2);
++            owner.MoveToX0(YRegisterTag, 0);
++            owner.EmitFrameReturn(frame);
++
++            Mark(invalid);
++            EmitCaseEnd(CaseSourceLocation(decision));
++
++            return true;
++
++            Term? ReadFirstValue() => firstValue switch
++            {
++                Expr.Literal literal => literal.Value,
++                Expr.Variable variable when variable.Name == first.Name => ReadClosedSingletonArgument(function, 1),
++                _ => null
++            };
++
++            Term? ReadSecondValue() => secondValue switch
++            {
++                Expr.Literal literal => literal.Value,
++                Expr.Variable variable when variable.Name == second.Name => ReadPrivateIntegerConstant(function, 2, []),
++                _ => null
++            };
++        }
++    }
++}
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EffectBeforeReceiveCallCase.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EffectBeforeReceiveCallCase.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EffectBeforeReceiveCallCase.cs
+@@ -0,0 +1,131 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private sealed partial class GeneralEmitter
++    {
++        private bool TryEmitEffectBeforeReceiveCallCase(FunctionDefinition function)
++        {
++            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled || recursiveClosure is not null
++                || function.Clauses is not
++                [
++                    {
++                        Guard: null,
++                        Patterns: [Pattern.Variable state],
++                        Body: Expr.Sequence
++                        {
++                            Items:
++                            [
++                                Expr.Call { Arguments: [Expr.Fun { SelfName: null } closure, var first, var second] } effect,
++                                Expr.Receive
++                            {
++                                Timeout: null,
++                                After: null,
++                                Clauses:
++                                    [
++                                    {
++                                        Guard: null,
++                                        Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom tag }, Pattern.Variable payload] }],
++                                        Body: Expr.Literal
++                                    }
++                                    ]
++                            },
++                                Expr.Case
++                            {
++                                Value: Expr.Call { Arguments: [Expr.Variable received] } read,
++                                Clauses:
++                                    [
++                                    { Guard: null, Patterns: [Pattern.Variable expected], Body: Expr.Call { Arguments.Count: 0 } match },
++                                    {
++                                        Guard: null,
++                                        Patterns: [Pattern.Variable other],
++                                        Body: Expr.Call { Arguments: [Expr.Variable value] } fallback
++                                    }
++                                    ]
++                            }
++                            ]
++                        }
++                    }
++                ]
++                || !DistinctBindings(state, payload, other) || expected.Name != state.Name
++                || received.Name != payload.Name || value.Name != other.Name
++                || closure.Clauses[0].Patterns.Count != 0
++                || ClosureCaptures.Capture(closure, new Dictionary<string, Term>(StringComparer.Ordinal) { [state.Name] = Nil.Value }).Count != 0
++                || !AttributeLiteral.TryNormalizeConstant(first, out Term firstValue)
++                || !AttributeLiteral.TryNormalizeConstant(second, out Term secondValue)
++                || !TryResolveOrdinaryCallTarget(effect, out string? effectModule)
++                || !TryResolveOrdinaryCallTarget(read, out string? readModule)
++                || !TryResolveOrdinaryCallTarget(match, out string? matchModule, allowControlTransfer: true)
++                || !TryResolveOrdinaryCallTarget(fallback, out string? fallbackModule, allowControlTransfer: true))
++            {
++                return false;
++            }
++
++            bool atomState = ReadFiniteAtomArguments(function, 0, admitGuardFacts: true) is { Count: > 0 };
++            const int frame = 1;
++            int scan = Label();
++            int mismatch = Label();
++            int retry = Label();
++            int wait = Label();
++
++            owner.Op(AllocateHeap, BeamWire.UnsignedTag, frame);
++            owner.EmitClosureHeap(0, 1, 1);
++            owner.MoveRegister(
++                XRegisterTag,
++                0,
++                YRegisterTag,
++                0
++            );
++            EmitGeneralClosure(closure, heapChecked: true);
++            owner.EmitConstant(secondValue, 2);
++            owner.EmitConstant(firstValue, 1);
++            owner.EmitCallLine(effect, location);
++            Call(effectModule, effect.Function, 3);
++
++            Mark(scan);
++            owner.Op(LoopReceive, LabelTag, wait);
++            owner.Operand(XRegisterTag, 0);
++            owner.Op(IsTaggedTuple, LabelTag, retry);
++            owner.Operand(XRegisterTag, 0);
++            owner.Operand(BeamWire.UnsignedTag, 2);
++            owner.LiteralOperand(tag);
++            owner.instructions.WriteByte(RemoveMessage);
++            owner.EmitTuplePart(0, 1, 0);
++            owner.EmitCallLine(read, CallLocation(effect, location));
++            Call(readModule, read.Function, 1);
++            var readLine = CallLocation(read, location);
++            owner.Op(ExactEqualTest, LabelTag, mismatch);
++            owner.Operand(XRegisterTag, 0);
++            if (atomState)
++            {
++                owner.EmitTypedRegister(0, AtomTypeBits, registerTag: YRegisterTag);
++            }
++            else
++            {
++                owner.Operand(YRegisterTag, 0);
++            }
++
++            EmitPreparedFrameTail(new EntryCall(
++                match,
++                matchModule,
++                [],
++                []
++            ), readLine, frame);
++            Mark(mismatch);
++            EmitPreparedFrameTail(new EntryCall(
++                fallback,
++                fallbackModule,
++                [],
++                []
++            ), readLine, frame);
++            Mark(retry);
++            owner.Op(LoopReceiveEnd, LabelTag, scan);
++            Mark(wait);
++            owner.Op(Wait, LabelTag, scan);
++
++            return true;
++        }
++    }
++}

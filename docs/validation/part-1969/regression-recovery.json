@@ -1,0 +1,34 @@
+{
+  "Previous": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/case-carriers-owned-frames-and-comprehensions-1969-linked",
+  "Failures": [
+    "FAIL compiler/beam/reuses-matched-tuple-in-ordered-list-head: System.InvalidOperationException: An exact list-head reconstruction must reuse its matched tuple while a changed token must be constructed."
+  ],
+  "CorrectionPatchSHA": {
+    "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/entry-first-frame-audit-1967/alias-1969-recovery/grouped-entry-alias-fix.patch": "76000fbfe4462b749b15c80981fb79b9c851d3232e7dd3b763abc5b0cf2b8d6f"
+  },
+  "InitialFocused": {
+    "compiler-build.log": "d19d65e0bfebf4a7879587366191d9ac899a269b1b138a6bca1ab224aeb2a00d",
+    "durable.exit": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "failure-receipt.json": "02bdf44d02e7c6919f3525ddf0d0316bf0da0c768ac8dec5e6d155fde887ab38",
+    "focused-fast.stderr.log": "020275fc96d35a31907cb4d95257125c1f1a4c0256481e4588fe0514146f9a33",
+    "focused-identity.json": "070d72f8b9df564746134523520c4edfe35446e8f162e8b70c76f86ed3a8dae2",
+    "lane-0.json": "72da72fb4b1225c7d3f2a52f7278eb06265e50731fcb7a82492c9c3a40ead06d",
+    "lane-0.stdout.log": "2fc46bced7a086e172d68a809a413ece906b57d70c716c4651de8ca2b2bfbbbd",
+    "lane-1.json": "9228722ccc5438c00d7667cc821ee26266c8890dc96302c2cf0b4b65a2cde60a",
+    "lane-1.stdout.log": "33c85c76c1652d168daadff64317d947f91d5fbbe99ffc4da9362d00e2d25444",
+    "tests-build.log": "f5900cacbfba4a203362d7aaa98a6d8d35599e85e2955a8e47b585d83e19badd"
+  },
+  "IndependentPreview": {
+    "epp-token-structures.stdout.log": "59e001251c9ffa5692c0612ec67b3368cd6c5124de89a8963472273588b34d0e",
+    "epp-token-structures.terms": "3d66d3ba3c5dd3f8513b1f7b97e5a2abba79718a47dbe2378cba2151bb670504",
+    "known-groups-preview.terms": "8b7aef0879cd5ee0784f442744130db20250f602f3edc4fc5855c07b420a5dd6",
+    "modules.txt": "2f3563e56dffd760c58d56c362293ff0649ac5d5fea4e6c142d0608dfd401293",
+    "result.json": "b58a63d887deff77bc04e15b6b965b363b7af0f75773a90d6debaab1619aa55a",
+    "result.json.timings.json": "5818b5c217ff167b20b99a725bd789abaf56e7e5d957aa5f20f888339d102bae",
+    "run.exit": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "run.stdout.log": "4ae28e4921d2738c9feb5cbad9ab0a31e0d7ea3d155a52ec71453cdf6eecf4d4",
+    "unix-telnet-carrier-preview.stderr.log": "c8efaf0a611a215b638e0b1b9ec96fa0d7ae93c0333ae6c9b176735761970680",
+    "unix-telnet-carrier-retake.terms": "d8c431ac8220719ed7d1bd01737cc8eb670646f7045bbc4e384141e12518a225"
+  },
+  "Scope": "Reuse grouped entry bindings for captured matched tuple head before allocation."
+}

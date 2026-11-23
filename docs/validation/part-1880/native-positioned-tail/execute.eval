@@ -1,0 +1,14 @@
+[Reference,Candidate] = init:get_plain_arguments(),
+{ok,context_tail_peer,B}=compile:forms([{attribute,1,module,context_tail_peer},{attribute,2,export,[{opaque,1}]},{function,3,opaque,1,[{clause,3,[{var,3,'T'}],[],[{var,3,'T'}]}]}],[binary]),
+{module,context_tail_peer}=code:load_binary(context_tail_peer,"context_tail_peer",B),
+Inputs = [{build,[_V]} || _V <- [<<>>,<<128>>,<<0>>,<<255,0,128>>,<<1,2,3>>,<<8:7>>,<<128,1:1>>,[],<<"abc">>]] ++
+  [{build_bits,[_B]} || _B <- [<<>>,<<3:2>>,<<7:3>>,<<3:3>>,<<7:3,1:1>>,<<3:3,7:3>>,<<3:3,128,1:1>>,[]]] ++
+  [{consume,[<<3,0,255>>]},{reuse,[<<3,0,255>>]},{size_only,[<<3>>]}],
+Run = fun(Path)->
+    {ok,R}=file:read_file(Path), {module,context_tail_probe}=code:load_binary(context_tail_probe,Path,R),
+    Results=[try apply(context_tail_probe,N,Args) of V->{ok,V} catch Class:Reason->{Class,Reason} end||{N,Args}<-Inputs],
+    true=code:delete(context_tail_probe),_=code:purge(context_tail_probe),Results
+end,
+Results=Run(Reference),Results=Run(Candidate),
+io:format("~p native results and error reasons agree~n",[length(Results)]),halt().
+

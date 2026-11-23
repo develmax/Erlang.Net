@@ -1,0 +1,55 @@
+{
+  "Gains": {
+    "AtU8": 3,
+    "ImpT": 3,
+    "Attr": 1,
+    "Code": 1,
+    "ExpT": 1,
+    "Line": 1,
+    "LocT": 2,
+    "Type": 1
+  },
+  "Losses": {
+    "Line": 1
+  },
+  "Modules": [
+    {
+      "Module": "ct_default_gl",
+      "Gains": [
+        "AtU8",
+        "ImpT"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "diameter_gen_relay",
+      "Gains": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "ImpT",
+        "Line",
+        "LocT"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "ssl_crl_hash_dir",
+      "Gains": [],
+      "Losses": [
+        "Line"
+      ]
+    },
+    {
+      "Module": "ex_gauge",
+      "Gains": [
+        "AtU8",
+        "ImpT",
+        "LocT",
+        "Type"
+      ],
+      "Losses": []
+    }
+  ]
+}

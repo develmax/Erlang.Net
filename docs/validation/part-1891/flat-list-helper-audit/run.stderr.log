@@ -1,0 +1,21 @@
+Error! Failed to eval: [Paths,Witness,Out]=init:get_plain_arguments(),
+{ok,Raw}=file:read_file(Paths),{ok,Expected}=file:consult(Witness),
+Checks=maps:groups_from_list(fun(T)->element(1,T) end,Expected),
+Decode=fun(B)->{beam_file,_,_,_,_,Fs}=beam_disasm:file(binary_to_list(B)),
+ sets:from_list([{N,A}||{function,N,A,_,_}<-Fs]) end,
+Records=[binary:split(L,<<9>>,[global])||L<-binary:split(Raw,<<10>>,[global,trim_all])],
+{ok,F}=file:open(Out,[write]),
+lists:foreach(fun([Path,RP,OP,GP])->
+    Ref=Decode(RP),Old=Decode(OP),New=Decode(GP),
+    Er=fun(Set)->lists:sort([K||K={N,_}<-sets:to_list(Set),binary:match(atom_to_binary(N,utf8),<<"lc$^">>)=/=nomatch]) end,
+    Gain=Er(sets:intersection([sets:subtract(New,Old),Ref])),
+    Loss=Er(sets:intersection([sets:subtract(Old,New),Ref])),
+    T=lists:sort([element(2,E)||E<-maps:get(binary_to_list(Path),Checks,[])]),
+    W=[K||K<-Gain,lists:member(K,T)],
+    io:format(F,"~0p.~n",[{Path,length(T),Gain,Loss,W}])
+end,Records),ok=file:close(F),halt().
+
+Runtime terminating during boot ({{badmatch,{error,beam_lib,{file_error,"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/local-case-proofs-and-bounded-list-helpers-1891-plan-consistency-retake/pilot.json.generated/lib/asn1-5.5.2/ebin/asn1ct_check.beam
+.beam",enoent}}},[{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,796}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,792}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{lists,foreach_1,2,[{file,"lists.erl"},{line,2641}]},{erl_eval,do_apply,7,[{file,"erl_eval.erl"},{line,1044}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{init,start_it,1,[{file,"init.erl"},{line,1561}]}]})
+
+Crash dump is being written to: D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/local-case-proofs-and-bounded-list-helpers-1891-plan-consistency-retake/flat-list-helper-audit/crash.dump...done

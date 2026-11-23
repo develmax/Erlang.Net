@@ -1,0 +1,84 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GroupedTupleEntry.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GroupedTupleEntry.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GroupedTupleEntry.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GroupedTupleEntry.cs
+@@ -709,6 +709,12 @@
+                 return true;
+             }
+             var saved = bindings.Where(binding => used is null || used.Contains(binding.Key)).ToArray();
++            var initialProjection = ReadInitialEntryProjection(clause.Body, bindings, parameters);
++            if (initialProjection is { } projection)
++            {
++                saved = saved.Where(binding => binding.Key != projection.Name).ToArray();
++            }
++
+             Expr.Call? forwardedCall = null;
+             (int Input, int Field) forwardedField = default;
+             (int? Slot, Term? Constant)[]? forwardedOperands = null;
+@@ -788,6 +794,14 @@
+                 owner.EmitCallLine(forwardedCall, location);
+                 Call(forwardedCall.Module, forwardedCall.Function, 1);
+                 EmitTupleWithX0(forwardedOperands!);
++                owner.EmitFrameReturn(frameSize);
++            }
++            else if (initialProjection is { } initial)
++            {
++                owner.EmitTuplePart(initial.Input, initial.Field, 0);
++                owner.EmitCallLine(initial.Call, location);
++                Call(initial.Module, initial.Call.Function, 1);
++                Expression(initial.Continuation);
+                 owner.EmitFrameReturn(frameSize);
+             }
+             else if (!TailLocal(clause.Body))
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.InitialEntryProjection.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.InitialEntryProjection.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.InitialEntryProjection.cs
+@@ -0,0 +1,48 @@
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private sealed partial class GeneralEmitter
++    {
++        private sealed record InitialEntryProjection(
++            string Name,
++            int Input,
++            int Field,
++            string? Module,
++            Expr.Call Call,
++            Expr Continuation
++        );
++
++        private InitialEntryProjection? ReadInitialEntryProjection(
++            Expr body,
++            Dictionary<string, (int Input, int? Field)> bindings,
++            Pattern.Variable[] parameters
++        )
++        {
++            if (owner.ModuleOptimizationDisabled || body is not Expr.Sequence
++                {
++                    Items: [Expr.Call { Arguments: [Expr.Variable argument] } call, ..] items
++                } || items.Count < 2 || !TryResolveOrdinaryCallTarget(call, out string? module)
++                || !bindings.TryGetValue(argument.Name, out var source) || source.Field is not int field)
++            {
++                return null;
++            }
++
++            Expr continuation = items.Count == 2 ? items[1] : new Expr.Sequence(items.Skip(1).ToArray());
++            if (ReadUsedEntryParameters(new Clause(parameters, null, continuation)) is not { } needed
++                || needed.Contains(argument.Name))
++            {
++                return null;
++            }
++
++            return new InitialEntryProjection(
++                argument.Name,
++                source.Input,
++                field,
++                module,
++                call,
++                continuation
++            );
++        }
++    }
++}

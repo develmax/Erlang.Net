@@ -605,14 +605,20 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        private bool TryEmitEntryTupleMatchResult(Clause clause)
+        private bool TryEmitEntryTupleMatchResult(Clause clause, int failure)
         {
-            return clause.Guard is null && HasUnconditionalParameters(clause)
-                && TryEmitEntryTupleMatchResult(
-                    clause.Body,
-                    clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray(),
-                    out _
-                );
+            var guard = ReadEntryTypeGuard(clause, clause.Guard);
+            if (!HasUnconditionalParameters(clause) || clause.Guard is not null && (guard is null || recursiveClosure is not null))
+            {
+                return false;
+            }
+
+            return TryEmitEntryTupleMatchResult(
+                clause.Body,
+                clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray(),
+                out _,
+                entryGuard: guard is { } test ? (test.Opcode, test.Register, failure) : null
+            );
         }
 
         private bool TryEmitEntryTupleMatchResult(
@@ -620,7 +626,8 @@ internal sealed partial class BeamModuleCompiler
             string[] parameters,
             out BeamSourceLocation? lastEmittedLine,
             List<(int Label, BeamSourceLocation Location)>? deferredFailures = null,
-            string[]? framedInputs = null
+            string[]? framedInputs = null,
+            (byte Opcode, int Register, int Failure)? entryGuard = null
         )
         {
             lastEmittedLine = null;
@@ -628,7 +635,8 @@ internal sealed partial class BeamModuleCompiler
                 {
                     Items: [
                     Expr.Match { Pattern: Pattern.Tuple tuple, Value: Expr.Call read } match,
-                    Expr.Variable or Expr.Call or Expr.Tuple
+                    _,
+                    ..
                 ]
                 } sequence)
             {
@@ -663,11 +671,25 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
-            Expr body = sequence.Items[1];
+            Expr body = sequence.Items.Count == 2 ? sequence.Items[1]
+                : sequence with { Items = sequence.Items.Skip(1).ToArray() };
+            if (body is not (Expr.Variable or Expr.Call or Expr.Tuple or Expr.List or Expr.Sequence or Expr.RecordConstruction))
+            {
+                return false;
+            }
+
             var tail = body as Expr.Call;
             IReadOnlyList<Expr> output = body is Expr.Tuple result ? result.Items : tail?.Arguments ?? [];
             var outputNames = output.Select(operand => (operand as Expr.Variable)?.Name).ToArray();
-            var reads = output.SelectMany(LocalFunctionEntries.Walk).OfType<Expr.Variable>()
+            bool constructedReturn = body is Expr.List or Expr.Sequence or Expr.RecordConstruction
+                || body is Expr.Tuple && output.Any(operand => !IsSimpleOperand(operand));
+            if (entryGuard is not null && !constructedReturn)
+            {
+                return false;
+            }
+
+            var reads = (constructedReturn ? LocalFunctionEntries.Walk(body) : output.SelectMany(LocalFunctionEntries.Walk))
+                .OfType<Expr.Variable>()
                 .Select(variable => variable.Name).ToHashSet(StringComparer.Ordinal);
             int[] survivors = checks.Where(check => check.Source >= 0).Select(check => check.Source)
                 .Concat(Enumerable.Range(0, parameters.Length).Where(index => reads.Contains(parameters[index])))
@@ -679,7 +701,9 @@ internal sealed partial class BeamModuleCompiler
             {
                 // The success path is terminal. Entry slots are dead once the producer arguments have been loaded.
                 if (bound.Keys.Any(variables.ContainsKey)
-                    || output.Any(operand => operand is Expr.Variable variable && !bound.ContainsKey(variable.Name))
+                    || (constructedReturn
+                        ? reads.Any(name => !bound.ContainsKey(name))
+                        : output.Any(operand => operand is Expr.Variable variable && !bound.ContainsKey(variable.Name)))
                     || ReadEntryCall(read, [], framedInputs) is not { } framedCall)
                 {
                     return false;
@@ -721,10 +745,30 @@ internal sealed partial class BeamModuleCompiler
 
             var fields = new List<(int Field, int Register)>();
             EntryCall[]? continuation = null;
+            TerminalConstructionPlan? projectedReturn = null;
+            VirtualOperand returnValue = default;
             (int Tag, int Register, Term? Literal)[]? tupleOperands = null;
             if (body is Expr.Variable returned && bound.TryGetValue(returned.Name, out int resultField))
             {
                 fields.Add((resultField, 0));
+            }
+            else if (constructedReturn)
+            {
+                if (!owner.SsaTypeInferenceEnabled || owner.ModuleOptimizationDisabled
+                    || PlanProjectedTupleMatchReturn(
+                        body,
+                        bound,
+                        reads,
+                        saved,
+                        parameters,
+                        selector.Trimmed,
+                        fields
+                    ) is not { } planned)
+                {
+                    return false;
+                }
+
+                (projectedReturn, returnValue) = planned;
             }
             else if (body is Expr.Tuple)
             {
@@ -789,6 +833,12 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
+            if (entryGuard is { } typeTest)
+            {
+                owner.Op(typeTest.Opcode, LabelTag, typeTest.Failure);
+                owner.Operand(XRegisterTag, typeTest.Register);
+            }
+
             int trimmed = 0;
             if (framedInputs is null)
             {
@@ -813,8 +863,12 @@ internal sealed partial class BeamModuleCompiler
                 exact: true
             );
             int failure = shapeKnown ? 0 : Label();
-            int selectorType = RegisterCaseSelectorType(call, IsTuple);
-            bool tagged = selectorType == 0 && checks is [(0, -1, Atom)];
+            Atom? knownTag = owner.SsaTypeInferenceEnabled && checks is [(0, -1, Atom expectedTag)]
+                && HasKnownKeyFindTag(call, expectedTag)
+                ? expectedTag
+                : null;
+            int selectorType = knownTag is null ? RegisterCaseSelectorType(call, IsTuple) : 0;
+            bool tagged = knownTag is null && selectorType == 0 && checks is [(0, -1, Atom)];
             if (tagged)
             {
                 EmitDetailRecordTest(
@@ -826,6 +880,11 @@ internal sealed partial class BeamModuleCompiler
             }
             else if (!shapeKnown)
             {
+                if (knownTag is not null)
+                {
+                    owner.RecordConstrainedKeyFindTupleTest(failure, tuple.Items.Count, knownTag);
+                }
+
                 EmitTupleShapeTest(
                     XRegisterTag,
                     0,
@@ -837,7 +896,7 @@ internal sealed partial class BeamModuleCompiler
 
             foreach (var (field, source, literal) in checks)
             {
-                if (tagged && field == 0)
+                if ((tagged || knownTag is not null) && field == 0)
                 {
                     continue;
                 }
@@ -855,7 +914,12 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
-            if (tupleOperands is not null)
+            if (projectedReturn is not null)
+            {
+                owner.Op(TestHeap, BeamWire.UnsignedTag, projectedReturn.HeapWords);
+                owner.Operand(BeamWire.UnsignedTag, 1);
+            }
+            else if (tupleOperands is not null)
             {
                 owner.Op(TestHeap, BeamWire.UnsignedTag, tupleOperands.Length + 1);
                 owner.Operand(BeamWire.UnsignedTag, 1);
@@ -880,7 +944,13 @@ internal sealed partial class BeamModuleCompiler
                 owner.EmitTuplePart(0, field, register);
             }
 
-            if (tupleOperands is not null)
+            if (projectedReturn is not null)
+            {
+                var values = EmitTerminalConstructions(projectedReturn, heapReserved: true);
+                var (tag, register) = values[returnValue.Value!.Value];
+                owner.MoveToX0(tag, register);
+            }
+            else if (tupleOperands is not null)
             {
                 owner.EmitTupleHeader(XRegisterTag, tupleOperands.Length);
                 foreach (var (tag, register, literal) in tupleOperands)
@@ -964,6 +1034,67 @@ internal sealed partial class BeamModuleCompiler
 
             return true;
         }
+
+        private (TerminalConstructionPlan Plan, VirtualOperand Result)? PlanProjectedTupleMatchReturn(
+            Expr body,
+            IReadOnlyDictionary<string, int> bound,
+            IReadOnlySet<string> reads,
+            int[] saved,
+            string[] parameters,
+            int trimmed,
+            List<(int Field, int Register)> fields
+        )
+        {
+            var projected = bound.Where(pair => reads.Contains(pair.Key)).OrderBy(pair => pair.Value).ToArray();
+            if (projected.Length == 0 || projected.Length >= FirstReservedXRegister)
+            {
+                return null;
+            }
+
+            var inputs = new List<string>();
+            var values = new Dictionary<int, (int Tag, int Register)>();
+            for (int index = 0; index < projected.Length; index++)
+            {
+                var (name, field) = projected[index];
+                int register = (index + 1) % projected.Length;
+                values.Add(inputs.Count, (XRegisterTag, register));
+                inputs.Add(name);
+                fields.Add((field, register));
+            }
+
+            for (int slot = trimmed; slot < saved.Length; slot++)
+            {
+                string name = parameters[saved[slot]];
+                if (reads.Contains(name))
+                {
+                    values.Add(inputs.Count, (YRegisterTag, slot - trimmed));
+                    inputs.Add(name);
+                }
+            }
+
+            if (LowerTerminalCaseArm(
+                null,
+                body,
+                inputs.ToArray(),
+                pureConstructionOnly: true
+            ) is not { Constructions.Length: > 0 } arm
+                || PlanTerminalConstructions(arm.Constructions, [arm.Result], values) is not { } plan)
+            {
+                return null;
+            }
+
+            return (plan, arm.Result);
+        }
+
+        private static bool MayPlanProjectedTupleMatchReturn(Expr body) =>
+            body is Expr.Sequence
+            {
+                Items: [
+                    Expr.Match { Pattern: Erlang.Pattern.Tuple, Value: Expr.Call },
+                    ..,
+                    Expr.Tuple or Expr.List or Expr.RecordConstruction
+                ]
+            };
 
         private static bool IsSimpleTupleMatchTail(Expr body) =>
             body is Expr.Sequence

@@ -1,0 +1,27 @@
+Checking patch src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs...
+Checking patch src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs...
+Hunk #1 succeeded at 2589 (offset 37 lines).
+Hunk #2 succeeded at 2755 (offset 37 lines).
+Hunk #3 succeeded at 2785 (offset 37 lines).
+Hunk #4 succeeded at 2860 (offset 37 lines).
+error: while searching for:
+                            {
+                                Segments:
+                                [
+                                {
+                                    Value: Pattern.Variable number, Specification:
+                                    {
+                                        Type: BitSegmentTypes.Integer,
+                                        Unit: BitSyntaxDefaults.BinaryUnit, Signed: true, Endian: BitByteOrders.Big,
+                                        Size: Expr.Variable width
+                                    }
+                                }]
+                            }, Value: Expr.Variable matched
+                        } match,
+                            Expr.Variable result
+
+error: patch failed: src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs:6626
+error: src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs: patch does not apply
+Checking patch src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedListDecoder.cs...
+Checking patch src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultPrefixedSequenceEncoder.cs...
+Checking patch src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultPrefixedSequenceDecoder.cs...

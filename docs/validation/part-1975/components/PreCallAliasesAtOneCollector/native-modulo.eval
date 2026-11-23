@@ -1,0 +1,19 @@
+[Image,Output]=init:get_plain_arguments(),
+Module=xmerl_xsd_type,
+{ok,Bin}=file:read_file(Image),
+{module,Module}=code:load_binary(Module,Image,Bin),
+Observe=fun(Args) ->
+    try apply(Module,modulo,Args) of Value->{value,Value}
+    catch Class:Reason:Trace->
+        {Class,Reason,[{Fun,Arity,proplists:get_value(line,Info)} ||
+            {M,Fun,Arity,Info}<-Trace, M=:=Module]}
+    end
+end,
+Cases=[[13,1,13],[-5,-2,9],[3.5,1,4],[4,1,13],
+       [1 bsl 56,-10,13],[-(1 bsl 56),-10,13],
+       [not_numeric,1,13],[42,1,1]],
+Values=[Observe(Args)||Args<-Cases],
+io:format("~tp.~n",[Values]),
+ok=file:write_file(Output,term_to_binary(Values,[deterministic])),
+halt().
+

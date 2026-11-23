@@ -1,0 +1,193 @@
+module	function	arity	lifetime
+asn1ct_check.beam	insert_once	3	ordinary
+asn1ct_check.beam	is_exported	2	final wire lacks valid straight motion interval
+asn1ct_imm.beam	unit	5	ordinary
+ct_framework.beam	keysmember	2	ordinary
+ct_logs.beam	write_log_cache	1	ordinary
+ct_master.beam	cast	2	send
+ct_run.beam	-count_test_cases/2-fun-0-	2	send
+ct_run.beam	-wait_for_idle/0-fun-0-	2	send
+test_server.beam	permit_io	2	send
+test_server_node.beam	-wait_for_node_started_fun/5-fun-0-	5	ordinary
+beam_core_to_ssa.beam	gen_phis	2	ordinary
+beam_core_to_ssa.beam	map_split_pairs_1	5	ordinary
+beam_disasm.beam	disasm_code	4	ordinary
+beam_ssa_bool.beam	build_digraph_1	4	final wire lacks valid straight motion interval
+beam_ssa_destructive_update.beam	fai	4	ordinary
+beam_ssa_opt.beam	filter_gc_deflocs	5	ordinary
+beam_ssa_opt.beam	unfold_update_succ	3	ordinary
+beam_ssa_recv.beam	insert_markers	3	ordinary
+beam_ssa_recv.beam	scan_bs	4	final wire lacks valid straight motion interval
+beam_ssa_ss.beam	merge_in_args	3	ordinary
+v3_core.beam	expr_record_accessible	5	ordinary
+v3_core.beam	expr_record_id_1	5	ordinary
+v3_core.beam	force_booleans_1	4	ordinary
+dbg_icmd.beam	continue	1	send
+dbg_icmd.beam	finish	1	send
+dbg_icmd.beam	next	1	send
+dbg_icmd.beam	set	3	send
+dbg_icmd.beam	skip	1	send
+dbg_icmd.beam	step	1	send
+dbg_icmd.beam	stop	1	send
+dbg_icmd.beam	timeout	1	send
+dbg_iserver.beam	get_proc	2	final wire lacks valid straight motion interval
+dbg_iserver.beam	send	2	send
+dbg_wx_code.beam	-code_area/1-fun-0-	3	ordinary
+dbg_wx_src_view.beam	-code_area/2-fun-0-	3	ordinary
+dialyzer_coordinator.beam	activate_pid	1	send
+dialyzer_coordinator.beam	kill_regulator	1	send
+dialyzer_dataflow.beam	comp_format_args	5	more than one physical Y reference
+dialyzer_incremental.beam	write_metrics_file	3	lifetime-analysis barrier
+dialyzer_timing.beam	send_size_info	3	send
+dialyzer_utils.beam	-check_record_fields/3-fun-1-	4	dynamic-call
+dialyzer_utils.beam	-check_record_fields/3-fun-4-	4	dynamic-call
+dialyzer_utils.beam	-process_record_remote_types_module/2-fun-0-	6	ordinary
+diameter_dict_util.beam	-import_key/2-fun-0-	2	ordinary
+diameter_etcp.beam	close	1	send
+diameter_etcp.beam	send	2	send
+diameter_gen.beam	enc1	5	final wire lacks valid straight motion interval
+diameter_gen.beam	enc1	6	ordinary
+diameter_gen.beam	grouped_avp	4	ordinary
+diameter_gen.beam	set	4	final wire lacks valid straight motion interval
+diameter_info.beam	-attrs/2-fun-1-	4	dynamic-call
+diameter_info.beam	-recsplit/2-fun-0-	4	dynamic-call
+diameter_info.beam	collect	2	more than one physical Y reference
+diameter_info.beam	procs_acc	4	no entry X-to-Y/reload pair
+diameter_make.beam	-make/3-fun-0-	5	final wire lacks valid straight motion interval
+diameter_peer.beam	ifc_send	2	send
+diameter_reg.beam	send	3	more than one physical Y reference
+diameter_service.beam	-share_peers/2-fun-0-	4	final wire lacks valid straight motion interval
+diameter_service.beam	-start/5-fun-0-	7	ordinary
+diameter_traffic.beam	send	3	send
+edoc_layout.beam	index_col	1	more than one physical Y reference
+edoc_specs.beam	throw_error	3	lifetime-analysis barrier
+init.beam	-notify/1-fun-0-	1	send
+init.beam	reboot	0	send
+init.beam	shutdown_kernel_pid	4	send
+init.beam	stop	0	send
+prim_inet.beam	get_addrs	1	ordinary
+socket_registry.beam	send_down	4	more than one physical Y reference
+et_collector.beam	do_multicast	2	send
+eunit_proc.beam	-insulator_process/3-fun-0-	2	dynamic-call
+eunit_proc.beam	group_leader_sync	1	send
+eunit_proc.beam	io_reply	3	send
+eunit_serial.beam	cast	2	ordinary
+eunit_surefire.beam	ensure_xmldir	2	dynamic-call
+ftp_progress.beam	report	2	send
+ftp_progress.beam	stop	1	send
+httpd_request_handler.beam	socket_ownership_transfered	3	send
+mod_auth_server.beam	controlPassword	3	ordinary
+mod_esi.beam	deliver	2	send
+code_server.beam	reply	2	send
+disk_log_server.beam	open	2	ordinary
+erl_compile_server.beam	-handle_call/3-fun-0-	3	lifetime-analysis barrier
+erl_compile_server.beam	gl_reply	3	send
+file_io_server.beam	file_reply	3	send
+file_io_server.beam	io_reply	3	send
+gen_udp_socket.beam	deliver_recv_msg	8	ordinary
+global.beam	-handle_cast/2-fun-0-	2	send
+global.beam	-handle_info/2-fun-0-	2	send
+global.beam	-handle_info/2-fun-1-	2	send
+global.beam	-resolved/5-fun-0-	2	send
+global.beam	trace_message	3	final wire lacks valid straight motion interval
+group.beam	io_reply	3	send
+group_history.beam	show_custom_provider_crash	4	ordinary
+inet.beam	open_fd	8	final wire lacks valid straight motion interval
+inet_epmd_socket.beam	tick	1	send
+logger_std_h.beam	file_ctrl_stop	1	send
+net_kernel.beam	-setup_check/5-fun-0-	4	ordinary
+rpc.beam	reply	2	send
+standard_error.beam	io_reply	3	send
+megaco_codec_meas.beam	stop_flex_scanner	1	send
+megaco_codec_mstone_lib.beam	stop_flex_scanner	1	send
+megaco_trans_sender.beam	ack_maxcount	2	send
+megaco_trans_sender.beam	req_maxcount	2	send
+megaco_trans_sender.beam	req_maxsize	2	send
+megaco_trans_sender.beam	send_ack	2	send
+megaco_trans_sender.beam	send_ack_now	2	send
+megaco_trans_sender.beam	send_pending	2	send
+megaco_trans_sender.beam	send_reply	2	send
+megaco_trans_sender.beam	send_req	3	send
+megaco_trans_sender.beam	stop	1	send
+megaco_trans_sender.beam	timeout	2	send
+megaco_trans_sender.beam	upgrade	2	send
+mnesia.beam	-snmp_get_row/2-fun-0-	5	ordinary
+mnesia_bup.beam	-disc_only_close_fun/1-fun-1-	4	tail
+mnesia_checkpoint.beam	reply	3	send
+mnesia_controller.beam	-handle_cast/2-fun-1-	2	send
+mnesia_controller.beam	sync_reply	2	send
+mnesia_tm.beam	transaction	6	more than one physical Y reference
+etop_txt.beam	stop	1	send
+observer_html_lib.beam	-expandable_term_body/4-fun-1-	4	ordinary
+observer_procinfo.beam	handle_info	2	send
+observer_traceoptions_wx.beam	-create_styled_txtctrl/1-fun-0-	3	ordinary
+yecc.beam	-generate/1-fun-1-	3	dynamic-call
+reltool_fgraph_win.beam	add_node	3	send
+reltool_fgraph_win.beam	change_node	3	send
+reltool_fgraph_win.beam	del_node	2	send
+reltool_fgraph_win.beam	set_dbl_click	2	send
+reltool_mod_win.beam	-create_editor/1-fun-0-	3	ordinary
+reltool_target.beam	-spec_lib_files/1-fun-0-	3	final wire lacks valid straight motion interval
+reltool_utils.beam	reply	3	send
+dbg.beam	reply	2	send
+observer_backend.beam	ttb_write_trace_info	3	send
+rb.beam	filter_all_reports	6	ordinary
+rb.beam	print_all_reports	5	ordinary
+release_handler.beam	-takewhile/5-fun-0-	5	ordinary
+snmp_ex2_manager.beam	report_callback	3	send
+snmp_generic.beam	handle_table_next	6	ordinary
+snmpa_agent.beam	forward_trap	7	send
+snmpa_agent.beam	net_if_verbosity	2	send
+snmpa_agent.beam	worker_maybe_announce_available	2	send
+snmpa_mib_data_tttn.beam	build_tree	2	more than one physical Y reference
+snmpa_mib_data_tttn.beam	install_mibs2	3	dynamic-call
+snmpa_mib_data_tttn.beam	verify_not_loaded	3	dynamic-call
+snmpa_net_if.beam	filter_reset	1	send
+snmpa_net_if.beam	verbosity	2	send
+snmpa_symbolic_store.beam	which_aliasnames	2	dynamic-call
+snmpa_symbolic_store.beam	which_notifications	2	dynamic-call
+snmpa_symbolic_store.beam	which_tables	2	dynamic-call
+snmpa_symbolic_store.beam	which_variables	2	dynamic-call
+snmpm_config.beam	init_agent_config	1	no entry X-to-Y/reload pair
+snmpm_server.beam	-do_handle_inform/10-fun-1-	5	tail
+snmpm_server.beam	-do_handle_report/9-fun-1-	5	tail
+snmpm_server.beam	-do_handle_trap/9-fun-1-	5	tail
+ssh_connection.beam	stop_old_channel_handler	2	send
+ssh_connection_handler.beam	send_bytes	2	dynamic-call
+dtls_gen_connection.beam	-encode_handshake_flight/5-fun-0-	4	ordinary
+dtls_handshake.beam	cookie	4	final wire lacks valid straight motion interval
+inet_tls_dist.beam	mf_tick	1	send
+ssl_certificate.beam	-verify_cert_extensions/4-fun-0-	3	final wire lacks valid straight motion interval
+ssl_crl_hash_dir.beam	lookup	3	tail
+ssl_trace.beam	reduce_budget	2	dynamic-call
+dets_utils.beam	tree_to_bin	5	ordinary
+erl_lint.beam	-check_fields/8-fun-0-	8	ordinary
+erl_lint.beam	-check_nn_fields/4-fun-0-	5	final wire lacks valid straight motion interval
+erl_lint.beam	-is_guard_test2_info/1-fun-0-	3	ordinary
+erl_lint.beam	-pattern_list/4-fun-0-	4	ordinary
+erl_lint.beam	-pattern_native_record_fields/5-fun-1-	5	final wire lacks valid straight motion interval
+erl_lint.beam	vtmerge_pat	3	construction/post-closure allowed by 1870
+erl_pp.beam	lc_quals	2	construction/post-closure allowed by 1870
+erl_tar.beam	add_header	3	more than one physical Y reference
+file_sorter.beam	file_loop2	8	ordinary
+gen_event.beam	rpc	2	ordinary
+graph.beam	reachable	2	ordinary
+graph.beam	reachable_via_neighbours	2	ordinary
+graph.beam	reaching	2	ordinary
+graph.beam	reaching_via_neighbours	2	ordinary
+io_lib_fread.beam	fread1	8	ordinary
+orddict.beam	fold	3	dynamic-call
+qlc_pt.beam	qlc_mapfold	4	more than one physical Y reference
+shell.beam	-local_func/8-fun-5-	3	ordinary
+shell_docs.beam	-get_callback_doc/3-fun-0-	2	final wire lacks valid straight motion interval
+shell_docs.beam	-get_doc/3-fun-0-	2	final wire lacks valid straight motion interval
+shell_docs.beam	-get_type_doc/3-fun-0-	2	final wire lacks valid straight motion interval
+zip.beam	request	3	send
+tftp_engine.beam	early_read	6	final wire lacks valid straight motion interval
+cover.beam	reply	2	send
+cover.beam	table_row	4	ordinary
+crashdump.beam	-decrypt/2-fun-1-	2	construction/post-closure allowed by 1870
+demo.beam	-code_area/1-fun-0-	3	ordinary
+wxe_master.beam	-handle_info/2-fun-0-	3	send
+xmerl_validate.beam	-test_attribute_value/4-fun-3-	4	dynamic-call
+xmerl_validate.beam	question	4	ordinary

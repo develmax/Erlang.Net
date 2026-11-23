@@ -1,0 +1,5 @@
+# Part 1894 scoped empty tail frame and source documentation validation
+
+The 66-file uncached scope completes in 170.6088 seconds, with 5 Equal, 61 Different, 0 Unsupported and 0 SourceRejected. Relative to the complete Part 1892 corpus, 55 changed images pass ERTS preparation, 15 Docs sections become exact and no raw section loses equality. The Docs changes include six generated Diameter sections, four equivalent-call renderings, three behaviour spellings and two mapped include origins. The exact two re list-comprehension helper names and arities appear, and all earlier helper matches are preserved.
+
+The leaf register planner can drop a proven zero-cell frame through a tail dispatch, preserving trapping tails. The normalized asn1ct:is_werr/1 match is restored and 46 frame distances improve, with no scoped body losses or farther frame distances. Native ERTS loads and executes both independently compiled fixture images, with seven equal outcomes including nested recursion, misses, valid links and badarg. All 79 selected tests pass out of 9,874 cases. The same sealed candidate has a separate full uncached Windows release gate and complete local repository gate.

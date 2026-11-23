@@ -1,0 +1,380 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -13035,7 +13035,12 @@
+             }
+ 
+             if (owner.SsaTypeInferenceEnabled && !owner.ModuleOptimizationDisabled
+-                && CanUnwrapSingleton(unwrap) && TryEmitForwardedTupleChoices(decision, call, entry))
++                && CanUnwrapSingleton(unwrap) && TryEmitForwardedTupleChoices(
++                    decision,
++                    call,
++                    entry,
++                    result.Name
++                ))
+             {
+                 return true;
+             }
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BoundedSequenceAndForwardedChoices.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BoundedSequenceAndForwardedChoices.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BoundedSequenceAndForwardedChoices.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BoundedSequenceAndForwardedChoices.cs
+@@ -6,7 +6,12 @@
+ {
+     private sealed partial class GeneralEmitter
+     {
+-        private bool TryEmitForwardedTupleChoices(Expr.Case decision, Expr.Call prepare, int prepareEntry)
++        private bool TryEmitForwardedTupleChoices(
++            Expr.Case decision,
++            Expr.Call prepare,
++            int prepareEntry,
++            string prepared
++        )
+         {
+             if (decision.Clauses.Count < 3
+                 || decision.Clauses[^1] is not { Guard: null, Patterns: [Pattern.Variable fallback] } rejected
+@@ -16,7 +21,7 @@
+             }
+ 
+             var order = Comparer<Term>.Create((left, right) => TermOrder.Compare(left, right, exact: true));
+-            var branches = new SortedDictionary<Term, (Atom Tag, DecodeCall Decode, SequenceRead? Rename, bool Whole)>(order);
++            var branches = new SortedDictionary<Term, (Atom Tag, DecodeCall Decode, SequenceRead? Rename, bool Whole, ForwardedChoiceMeasurement? Measurement)>(order);
+             foreach (var clause in decision.Clauses.SkipLast(1))
+             {
+                 if (clause is not
+@@ -39,18 +44,34 @@
+                 }
+ 
+                 var named = ReadSequenceNamedValue(body, selected.Binding, new(StringComparer.Ordinal) { selected.Binding });
++                ForwardedChoiceMeasurement? measurement = null;
+                 var decoder = ReadDecodeCall(named?.Decode.Call ?? body, selected.Binding, allowRemote: true);
+-                if (decoder is null || !branches.TryAdd(selected.Key, (tag, decoder, named?.Rename, selected.Whole)))
++                if (decoder is null && !selected.Whole && selected.Binding != prepared && fallback.Name != prepared)
++                {
++                    measurement = ReadForwardedChoiceMeasurement(body, selected.Binding, prepared);
++                    decoder = measurement?.Decoder;
++                }
++
++                if (decoder is null || !branches.TryAdd(selected.Key, (tag, decoder, named?.Rename, selected.Whole, measurement)))
+                 {
+                     return false;
+                 }
++            }
++
++            if (branches.Values.Any(branch => branch.Measurement is not null)
++                && (!IsDecoderIntrinsic(error.Call) || branches.Values.Any(branch => branch.Whole)
++                    || decision.Clauses.SkipLast(1).Any(clause => ReadForwardedChoicePattern(clause.Patterns[0])?.Binding == prepared)))
++            {
++                return false;
+             }
+ 
+             EmitFrameAllocation(2, 0);
+             owner.EmitCallLine(prepare, location);
+             owner.EmitFieldCall(2, prepareEntry);
+             EmitSingletonUnwrap();
+-            var schedule = branches.Reverse().Select(pair => (pair.Key, pair.Value, Label: Label())).ToArray();
++            var schedule = branches.Reverse().Select(pair => (
++                pair.Key, pair.Value, Label: Label(), Failure: pair.Value.Measurement is null ? 0 : Label()
++            )).ToArray();
+             int failure = Label();
+             owner.EmitTupleCheck(0, 2, failure);
+             owner.EmitTuplePart(0, 0, 1);
+@@ -68,7 +89,7 @@
+             }
+ 
+             BeamSourceLocation previous = CallLocation(prepare, location);
+-            foreach (var (_, branch, label) in schedule)
++            foreach (var (_, branch, label, rangeFailure) in schedule)
+             {
+                 Mark(label);
+                 if (keepsWholeTuple && !branch.Whole)
+@@ -83,6 +104,18 @@
+                 }
+ 
+                 EmitDecodeInvocation(branch.Decode, previous);
++                if (branch.Measurement is { } measured)
++                {
++                    EmitForwardedChoiceMeasurement(
++                        branch.Tag,
++                        measured,
++                        rangeFailure,
++                        previous
++                    );
++
++                    continue;
++                }
++
+                 Expr.Call returned = branch.Decode.Convert ?? branch.Decode.Decode;
+                 if (branch.Rename is { } rename)
+                 {
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ForwardedChoiceMeasurement.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ForwardedChoiceMeasurement.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ForwardedChoiceMeasurement.cs
+@@ -0,0 +1,267 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private sealed partial class GeneralEmitter
++    {
++        private sealed record ForwardedChoiceMeasurement(
++            DecodeCall Decoder,
++            Expr.Call Measure,
++            Integer Lower,
++            Integer Upper,
++            bool Exact,
++            Expr.Call? Convert,
++            Expr.Call Exit,
++            Term Reason
++        );
++
++        private ForwardedChoiceMeasurement? ReadForwardedChoiceMeasurement(
++            Expr expression,
++            string field,
++            string prepared
++        )
++        {
++            if (expression is not Expr.Block
++                {
++                    Body: Expr.Sequence
++                    {
++                        Items:
++                        [
++                            Expr.Match { Pattern: Pattern.Variable value, Value: var input },
++                            Expr.Match
++                        {
++                            Pattern: Pattern.Variable count,
++                            Value: Expr.Call
++                            {
++                                Function: AutoImportNames.ByteSize or AutoImportNames.Length,
++                                DynamicRemote: false,
++                                Arguments: [Expr.Variable measured]
++                            } measure
++                        },
++                            Expr.If
++                        {
++                            Clauses:
++                                [
++                                { Guard: { } guard, Body: var accepted },
++                                {
++                                    Guard: Expr.Literal { Value: Atom { Name: "true" } },
++                                    Body: Expr.Call
++                                    {
++                                        Function: AutoImportNames.Exit, DynamicRemote: false, Arguments: [var reason]
++                                    } exit
++                                }
++                                ]
++                        }
++                        ]
++                    }
++                }
++                || !DistinctBindings(value, count) || value.Name != measured.Name
++                || value.Name == field || count.Name == field || value.Name == prepared || count.Name == prepared
++                || !IsDecoderIntrinsic(measure) || !IsDecoderIntrinsic(exit)
++                || ReadDecodeCall(input, field) is not { Convert: null } decoder
++                || !AttributeLiteral.TryNormalizeConstant(reason, out Term error))
++            {
++                return null;
++            }
++
++            Expr.Call? conversion = null;
++            if (accepted is not Expr.Variable result || result.Name != value.Name)
++            {
++                if (accepted is not Expr.Call
++                    {
++                        Function: AutoImportNames.BinaryToList, DynamicRemote: false, Arguments: [Expr.Variable source]
++                    } convert
++                    || source.Name != value.Name || !IsDecoderIntrinsic(convert))
++                {
++                    return null;
++                }
++
++                conversion = convert;
++            }
++
++            Integer lower;
++            Integer upper;
++            bool exact = guard is Expr.Binary { Operator: ErlangOperators.ExactEqual };
++            if (guard is Expr.Binary
++                {
++                    Operator: ErlangOperators.ExactEqual,
++                    Left: Expr.Variable tested,
++                    Right: Expr.Literal { Value: Integer expected }
++                } && tested.Name == count.Name)
++            {
++                lower = expected;
++                upper = expected;
++            }
++            else if (guard is Expr.Binary
++            {
++                Operator: ErlangOperators.AndAlso,
++                Left: Expr.Binary
++                {
++                    Operator: ErlangOperators.LessOrEqual,
++                    Left: Expr.Literal { Value: Integer minimum },
++                    Right: Expr.Variable first
++                },
++                Right: Expr.Binary
++                {
++                    Operator: ErlangOperators.LessOrEqual,
++                    Left: Expr.Variable second,
++                    Right: Expr.Literal { Value: Integer maximum }
++                }
++            } && first.Name == count.Name && second.Name == count.Name)
++            {
++                lower = minimum;
++                upper = maximum;
++            }
++            else
++            {
++                return null;
++            }
++
++            bool binary = measure.Function == AutoImportNames.ByteSize;
++            if (lower.Value < 0 || upper.Value < lower.Value || upper.Value >= MaximumBitSize
++                || !ProvesForwardedMeasurementInput(decoder.Decode, binary))
++            {
++                return null;
++            }
++
++            return new(
++                decoder,
++                measure,
++                lower,
++                upper,
++                exact,
++                conversion,
++                exit,
++                error
++            );
++        }
++
++        private bool ProvesForwardedMeasurementInput(Expr.Call initial, bool binary)
++        {
++            var active = new HashSet<(string Name, int Arity)>();
++
++            return Prove(initial);
++
++            bool ProveClause(Clause clause) => binary
++                && clause.Body is Expr.Variable value
++                && clause.Guard is Expr.Call
++                {
++                    Function: AutoImportNames.IsBinary, DynamicRemote: false, Arguments: [Expr.Variable tested]
++                } guard
++                && value.Name == tested.Name && IsDecoderIntrinsic(guard)
++                || Prove(clause.Body);
++
++            bool Prove(Expr expr)
++            {
++                if (expr is Expr.Call { DynamicRemote: false } call)
++                {
++                    if (call.Arguments.Count == 1)
++                    {
++                        if (call.Function == AutoImportNames.Exit && IsDecoderIntrinsic(call))
++                        {
++                            return true;
++                        }
++
++                        if (binary ? call.Function is AutoImportNames.ListToBinary or AutoImportNames.IolistToBinary
++                                && IsDecoderIntrinsic(call) : call is { Module: "lists", Function: "reverse" })
++                        {
++                            return true;
++                        }
++                    }
++
++                    var key = (call.Function, call.Arguments.Count);
++                    if (call.Module is not null || owner.IsDeclaredNative(key) || !localFunctions.TryGetValue(key, out var target))
++                    {
++                        return false;
++                    }
++
++                    // Only terminal calls reach this proof. A recursive edge returns through a checked clause.
++                    if (!active.Add(key))
++                    {
++                        return true;
++                    }
++
++                    bool result = target.Clauses.All(ProveClause);
++                    active.Remove(key);
++
++                    return result;
++                }
++
++                return expr switch
++                {
++                    Expr.Block block => Prove(block.Body),
++                    Expr.Sequence { Items: [.., var last] } => Prove(last),
++                    Expr.Case choice => choice.Clauses.All(ProveClause),
++                    Expr.If choice => choice.Clauses.All(ProveClause),
++                    Expr.List list => !binary && (list.Tail is null || Prove(list.Tail)),
++                    Expr.Literal { Value: Nil } => !binary,
++                    _ => false
++                };
++            }
++        }
++
++        private void EmitForwardedChoiceMeasurement(
++            Atom tag,
++            ForwardedChoiceMeasurement measured,
++            int failure,
++            BeamSourceLocation previous
++        )
++        {
++            previous = CallLocation(measured.Decoder.Decode, previous);
++            owner.EmitCallLine(measured.Measure, previous);
++            previous = CallLocation(measured.Measure, previous);
++            owner.Op(GcBifOne, LabelTag, 0);
++            owner.Operand(BeamWire.UnsignedTag, 1);
++            owner.Operand(BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module, measured.Measure.Function, 1));
++            if (measured.Measure.Function == AutoImportNames.ByteSize)
++            {
++                owner.EmitTypedRegister(0, MatchableTypeBits, unit: BitSyntaxDefaults.BitStringUnit);
++            }
++            else
++            {
++                owner.EmitTypedRegister(0, ProperListTypeBits);
++            }
++
++            owner.Operand(XRegisterTag, 1);
++            long lower = (long)measured.Lower.Value;
++            if (measured.Exact || lower != 0)
++            {
++                owner.Op(measured.Exact ? ExactEqualTest : IsGreaterOrEqual, LabelTag, failure);
++                owner.EmitTypedRegister(
++                    1,
++                    IntegerTypeBits,
++                    0,
++                    MaximumBitSize
++                );
++                owner.LiteralOperand(measured.Lower);
++            }
++
++            if (!measured.Exact)
++            {
++                owner.Op(IsGreaterOrEqual, LabelTag, failure);
++                owner.LiteralOperand(measured.Upper);
++                owner.EmitTypedRegister(
++                    1,
++                    IntegerTypeBits,
++                    lower,
++                    MaximumBitSize
++                );
++            }
++
++            if (measured.Convert is { } conversion)
++            {
++                owner.EmitCallLine(conversion, previous);
++                Call(ErlangModuleNames.Module, conversion.Function, 1);
++            }
++
++            EmitTaggedRegisterResult(tag);
++            owner.EmitFrameReturn(0);
++            Mark(failure);
++            owner.EmitConstant(measured.Reason, 0);
++            owner.EmitCallLine(measured.Exit, previous);
++            EmitCheckedDecoderExit(measured.Exit, 0);
++        }
++    }
++}

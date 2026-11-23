@@ -1,0 +1,19 @@
+{
+  "Partial": true,
+  "SelectedCount": 1,
+  "TotalCount": 10284,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/beam/reuses-the-checked-tuple-of-a-mixed-terminal-case"
+  ],
+  "Passed": 0,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "compiler/beam/reuses-the-checked-tuple-of-a-mixed-terminal-case",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: The selected tuple should remain in X0 after the disjoint tuple check.\r\n   at Erlang.Tests.BeamMixedCaseSelectedTupleChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\mnesia-backup-1964-intake\\source\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamMixedCaseSelectedTupleChecks.cs:line 66\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\mnesia-backup-1964-intake\\source\\tests\\Erlang.Tests\\Harness\\Program.cs:line 17784",
+      "Milliseconds": 3223
+    }
+  ]
+}

@@ -1,0 +1,703 @@
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FloatCallContinuation.cs
+@@ -0,0 +1,127 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private sealed partial class GeneralEmitter
++    {
++        private bool TryEmitFloatCallContinuation(FunctionDefinition function)
++        {
++            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled
++                || function.Clauses is not
++                [
++                    {
++                        Guard: null,
++                        Patterns: [Pattern.Variable index, Pattern.Variable target, Pattern.Variable saved],
++                        Body: Expr.Sequence
++                        {
++                            Items: [
++                                Expr.Call
++                            {
++                                Module: not null, DynamicRemote: false,
++                                Arguments: [Expr.Variable adjusted, var first, var second]
++                            } prepare,
++                                Expr.Call
++                            {
++                                Module: not null, DynamicRemote: false,
++                                Arguments: [
++                                        Expr.Variable translated,
++                                        var fixedOffset,
++                                        Expr.Binary { Operator: ErlangOperators.Multiply } multiplication
++                                    ]
++                            } applyOffset,
++                                Expr.Call
++                            {
++                                Module: not null, DynamicRemote: false,
++                                Arguments: [Expr.Variable finalized, Expr.Variable payload]
++                            } finish
++                            ]
++                        }
++                    }
++                ] || !DistinctBindings(index, target, saved)
++                || adjusted.Name != target.Name || translated.Name != target.Name || finalized.Name != target.Name
++                || payload.Name != saved.Name || multiplication.Right is not Expr.Variable source || source.Name != index.Name
++                || !AttributeLiteral.TryNormalizeConstant(multiplication.Left, out Term scale) || scale is not FloatTerm
++                || !AttributeLiteral.TryNormalizeConstant(first, out Term initial) || initial is not FloatTerm
++                || !AttributeLiteral.TryNormalizeConstant(second, out Term ending) || ending is not FloatTerm
++                || !AttributeLiteral.TryNormalizeConstant(fixedOffset, out Term offset) || offset is not FloatTerm)
++            {
++                return false;
++            }
++
++            EmitFrameAllocation(3, 3);
++            owner.MoveRegister(
++                XRegisterTag,
++                2,
++                YRegisterTag,
++                0
++            );
++            owner.MoveRegister(
++                XRegisterTag,
++                1,
++                YRegisterTag,
++                1
++            );
++            owner.MoveRegister(
++                XRegisterTag,
++                0,
++                YRegisterTag,
++                2
++            );
++            owner.EmitConstant(ending, 2);
++            owner.MoveRegister(
++                XRegisterTag,
++                1,
++                XRegisterTag,
++                0
++            );
++            owner.EmitConstant(initial, 1);
++            owner.EmitCallLine(prepare, location);
++            owner.EmitStaticRemoteCall(prepare);
++            var previous = CallLocation(prepare, location);
++            owner.EmitArithmeticLine(multiplication.SourceLine, ref previous);
++            owner.Op(FloatConvert, YRegisterTag, 2);
++            EmitFloatRegister(0);
++            owner.instructions.WriteByte(FloatMove);
++            owner.LiteralOperand(scale);
++            EmitFloatRegister(1);
++            EmitFloatArithmeticResult(FloatMultiply, live: 0, destination: 2);
++            owner.EmitConstant(offset, 1);
++            owner.MoveRegister(
++                YRegisterTag,
++                0,
++                YRegisterTag,
++                2
++            );
++            owner.Op(TrimFrame, BeamWire.UnsignedTag, 1);
++            owner.Operand(BeamWire.UnsignedTag, 2);
++            owner.MoveRegister(
++                YRegisterTag,
++                0,
++                XRegisterTag,
++                0
++            );
++            owner.EmitCallLine(applyOffset, previous);
++            owner.EmitStaticRemoteCall(applyOffset);
++            owner.MoveRegister(
++                YRegisterTag,
++                1,
++                XRegisterTag,
++                1
++            );
++            owner.MoveRegister(
++                YRegisterTag,
++                0,
++                XRegisterTag,
++                0
++            );
++            owner.EmitCallLine(finish, CallLocation(applyOffset, previous));
++            owner.Op(TailExternalCallWithFrame, BeamWire.UnsignedTag, 2);
++            owner.Operand(BeamWire.UnsignedTag, owner.Import(finish.Module!, finish.Function, 2));
++            owner.Operand(BeamWire.UnsignedTag, 2);
++
++            return true;
++        }
++    }
++}
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -554,8 +554,8 @@
+                 || TryEmitWxObjectOptionOverload(function) || TryEmitWxClassUnionCommand(function) || TryEmitWxObjectCommand(function)
+                 || TryEmitWxGuardedForwardOverload(function) || TryEmitWxRepackedTupleCommand(function)
+                 || TryEmitWxTupleOverload(function) || TryEmitWxStaticTupleCommand(function)
+-                || TryEmitTupleOfListHeads(function) || TryEmitDirectFixedBitPattern(function) || TryEmitFixedBitTuple(function) || TryEmitGuardedBinarySplit(function) || TryEmitBinaryTailRecursion(function) || TryEmitUnpaddedBitStringContext(function) || TryEmitPaddedBitStringTail(function) || TryEmitRegisterBinaryRebuild(function) || TryEmitDirectMapPattern(function) || TryEmitDirectTryAfter(function) || TryEmitDirectBits(function) || TryEmitDirectFunctionValueCall(function) || TryEmitDirectArithmetic(function) || TryEmitDirectBooleanNot(function) || TryEmitDirectValueGuard(function) || TryEmitTaggedListResult(function) || TryEmitNumericComparison(function)
++                || TryEmitTupleOfListHeads(function) || TryEmitDirectFixedBitPattern(function) || TryEmitFixedBitTuple(function) || TryEmitGuardedBinarySplit(function) || TryEmitBinaryTailRecursion(function) || TryEmitUnpaddedBitStringContext(function) || TryEmitPaddedBitStringTail(function) || TryEmitRegisterBinaryRebuild(function) || TryEmitDirectMapPattern(function) || TryEmitProtectedSavedCallSequence(function) || TryEmitFloatCallContinuation(function) || TryEmitDirectTryAfter(function) || TryEmitDirectBits(function) || TryEmitDirectFunctionValueCall(function) || TryEmitDirectArithmetic(function) || TryEmitDirectBooleanNot(function) || TryEmitDirectValueGuard(function) || TryEmitTaggedListResult(function) || TryEmitNumericComparison(function)
+                 || TryEmitLiteralOrProtectedResult(function) || TryEmitClosedIntegerTablePredicate(function)
+                 || TryEmitGuardedKeyfindPairTail(function) || TryEmitGuardedLocalForward(function) || TryEmitRecordPredicateFunction(function) || TryEmitDirectGuardedRecordAccess(function) || TryEmitDirectTypeOrArityGuard(function) || TryEmitDirectListOrFunctionGuard(function) || TryEmitDirectCatch(function)
+                 || TryEmitDiscardedBranchCatch(function) || TryEmitEntryCatchResultDispatch(function) || TryEmitNestedListCallCatch(function)
+                 || TryEmitLiteralShortcutBoolean(function) || TryEmitIgnoredTryCallExactCatch(function)
+@@ -628,6 +628,7 @@
+                 || TryEmitRecordPayloadReports(function)
+                 || TryEmitPairedRecordGeometry(function)
+                 || TryEmitTaggedInnerEventSelection(function)
++                || TryEmitNestedTaggedAcquisition(function)
+                 || TryEmitNestedRecordEvent(function) || TryEmitNestedRecordCallBranches(function)
+                 || TryEmitRecordCleanup(function) || TryEmitGuardedPageArguments(function)
+                 || TryEmitRetainedCompoundCall(function)
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.NestedTaggedAcquisition.cs
+@@ -0,0 +1,163 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private sealed partial class GeneralEmitter
++    {
++        private bool TryEmitNestedTaggedAcquisition(FunctionDefinition function)
++        {
++            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled
++                || function.Clauses is not
++                [
++                    {
++                        Guard: null,
++                        Patterns: [
++                            Pattern.Tuple { Items: [Pattern.Literal { Value: Atom outerTag }, ..] } outer,
++                            Pattern.Variable unused,
++                            Pattern.Tuple { Items: [Pattern.Literal { Value: Atom stateTag }, ..] } state
++                        ],
++                        Body: Expr.Sequence
++                        {
++                            Items: [
++                                Expr.Match
++                            {
++                                Pattern: Pattern.Variable resource,
++                                Value: Expr.Call
++                                {
++                                    Module: not null, DynamicRemote: false, Arguments: [Expr.Variable request]
++                                } create
++                            },
++                                Expr.Call
++                            {
++                                Module: null, DynamicRemote: false, Arguments: [Expr.Variable acquired, ..]
++                            } consume,
++                                Expr.Call
++                            {
++                                Module: not null, DynamicRemote: false, Arguments: [Expr.Variable released]
++                            } release,
++                                var final
++                            ]
++                        }
++                    }
++                ] || acquired.Name != resource.Name || released.Name != resource.Name
++                || consume.Arguments.Count < 2 || consume.Arguments.Count > FirstReservedXRegister
++                || !entries.TryGetValue((consume.Function, consume.Arguments.Count), out int entry)
++                || !AttributeLiteral.TryNormalizeConstant(final, out Term result))
++            {
++                return false;
++            }
++
++            int eventField = -1;
++            Pattern.Tuple? nested = null;
++            for (int index = 1; index < outer.Items.Count; index++)
++            {
++                if (outer.Items[index] is Pattern.Tuple tuple && nested is null)
++                {
++                    nested = tuple;
++                    eventField = index;
++                }
++                else if (outer.Items[index] is not Pattern.Variable { Name: VariableScopeNames.Wildcard })
++                {
++                    return false;
++                }
++            }
++
++            if (nested is not { Items: [Pattern.Literal { Value: Atom eventTag }, ..] }
++                || nested.Items.Skip(1).Any(field => field is not Pattern.Variable { Name: VariableScopeNames.Wildcard }))
++            {
++                return false;
++            }
++
++            var bindings = new Dictionary<string, int>(StringComparer.Ordinal);
++            for (int index = 1; index < state.Items.Count; index++)
++            {
++                if (state.Items[index] is not Pattern.Variable field
++                    || field.Name != VariableScopeNames.Wildcard && !bindings.TryAdd(field.Name, index))
++                {
++                    return false;
++                }
++            }
++
++            if (resource.Name == VariableScopeNames.Wildcard || resource.Name == unused.Name
++                || bindings.ContainsKey(resource.Name) || bindings.ContainsKey(unused.Name)
++                || !bindings.TryGetValue(request.Name, out int requestField))
++            {
++                return false;
++            }
++
++            var projections = new int[consume.Arguments.Count - 1];
++            for (int index = 0; index < projections.Length; index++)
++            {
++                if (consume.Arguments[index + 1] is not Expr.Variable selected
++                    || !bindings.TryGetValue(selected.Name, out projections[index]))
++                {
++                    return false;
++                }
++            }
++
++            int failure = owner.nextLabel - 2;
++            EmitDetailRecordTest(
++                0,
++                outer.Items.Count,
++                outerTag,
++                failure
++            );
++            owner.EmitTuplePart(0, eventField, 3);
++            EmitDetailRecordTest(
++                3,
++                nested.Items.Count,
++                eventTag,
++                failure
++            );
++            EmitDetailRecordTest(
++                2,
++                state.Items.Count,
++                stateTag,
++                failure
++            );
++            EmitFrameAllocation(3, 1);
++            owner.MoveRegister(
++                XRegisterTag,
++                2,
++                YRegisterTag,
++                0
++            );
++            owner.EmitTuplePart(2, requestField, 0);
++            owner.EmitCallLine(create, location);
++            owner.EmitStaticRemoteCall(create);
++
++            for (int index = 0; index < projections.Length; index++)
++            {
++                owner.Op(GetTupleElement, YRegisterTag, 0);
++                owner.Operand(BeamWire.UnsignedTag, projections[index]);
++                owner.Operand(XRegisterTag, index + 1);
++            }
++
++            owner.MoveRegister(
++                XRegisterTag,
++                0,
++                YRegisterTag,
++                0
++            );
++            owner.EmitCallLine(consume, CallLocation(create, location));
++            owner.Op(LocalCall, BeamWire.UnsignedTag, consume.Arguments.Count);
++            owner.Operand(LabelTag, entry);
++            owner.MoveRegister(
++                YRegisterTag,
++                0,
++                XRegisterTag,
++                0
++            );
++            owner.Op(TrimFrame, BeamWire.UnsignedTag, 1);
++            owner.Operand(BeamWire.UnsignedTag, 0);
++            owner.EmitCallLine(release, CallLocation(consume, location));
++            owner.EmitStaticRemoteCall(release);
++            owner.EmitConstant(result, 0);
++            owner.EmitFrameReturn(0);
++
++            return true;
++        }
++    }
++}
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProtectedSavedCallSequence.cs
+@@ -0,0 +1,143 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private sealed partial class GeneralEmitter
++    {
++        private sealed record ProtectedCallFailure(
++            Atom Tag,
++            int Arity,
++            Expr.Call Handler,
++            Term[] Arguments
++        );
++
++        private bool TryEmitProtectedSavedCallSequence(FunctionDefinition function)
++        {
++            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled
++                || function.Clauses is not
++                [
++                {
++                    Guard: null,
++                    Body: Expr.Try
++                    {
++                        Clauses: [], After: null,
++                        Body: Expr.Sequence { Items: [_, .., var result] } sequence,
++                        Catches: [
++                            {
++                                Guard: null,
++                                Patterns: [Pattern.Tuple
++                                {
++                                    Items: [
++                                            Pattern.Variable { Name: VariableScopeNames.Wildcard },
++                                            Pattern.Tuple reason,
++                                            Pattern.Variable { Name: VariableScopeNames.Wildcard }
++                                        ]
++                                }],
++                                Body: var recovered
++                            }
++                            ]
++                    }
++                } clause
++                ] || !HasUnconditionalParameters(clause) || !AttributeLiteral.TryNormalizeConstant(result, out Term constant)
++                || reason.Items is not [Pattern.Literal { Value: Atom tag }, ..]
++                || reason.Items.Skip(1).Any(field => field is not Pattern.Variable { Name: VariableScopeNames.Wildcard }))
++            {
++                return false;
++            }
++
++            string[] parameters = clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray();
++            if (ReadProtectedCallHandler(recovered, parameters) is not { } handler
++                || ReadCallsWithClosures(
++                    FlattenCallArguments(sequence.Items.SkipLast(1), prepareClosures: true),
++                    parameters,
++                    out var closures
++                ) is not { Length: >= 3 } calls || closures.Count == 0
++                || ReadSavedCallSequence(
++                    calls,
++                    parameters,
++                    extraction: null,
++                    closures: closures,
++                    constant: constant,
++                    protectedFrame: true
++                ) is not { } plan)
++            {
++                return false;
++            }
++
++            var (call, arguments) = handler;
++            EmitSavedCallSequence(plan, protection: new ProtectedCallFailure(
++                tag,
++                reason.Items.Count,
++                call,
++                arguments
++            ));
++
++            return true;
++        }
++
++        private static (Expr.Call Call, Term[] Arguments)? ReadProtectedCallHandler(Expr body, string[] parameters)
++        {
++            Expr.Call? effect = body as Expr.Call;
++            var constants = new Dictionary<string, Term>(StringComparer.Ordinal);
++            if (body is Expr.Sequence { Items: [.., Expr.Call final] } sequence)
++            {
++                effect = final;
++                foreach (Expr setup in sequence.Items.SkipLast(1))
++                {
++                    if (setup is not Expr.Match { Pattern: Pattern.Variable binding, Value: var value }
++                        || binding.Name == VariableScopeNames.Wildcard || parameters.Contains(binding.Name)
++                        || !AttributeLiteral.TryNormalizeConstant(value, out Term folded, constants)
++                        || !constants.TryAdd(binding.Name, folded))
++                    {
++                        return null;
++                    }
++                }
++            }
++
++            if (effect is not { Module: not null, DynamicRemote: false, Arguments.Count: 2 } call)
++            {
++                return null;
++            }
++
++            var arguments = new Term[call.Arguments.Count];
++            for (int index = 0; index < arguments.Length; index++)
++            {
++                if (!AttributeLiteral.TryNormalizeConstant(call.Arguments[index], out arguments[index], constants))
++                {
++                    return null;
++                }
++            }
++
++            return (call, arguments);
++        }
++
++        private void EmitProtectedCallFailure(
++            ProtectedCallFailure failure,
++            int token,
++            int handler,
++            BeamSourceLocation previous
++        )
++        {
++            int reject = Label();
++            Mark(handler);
++            owner.Op(TryCase, YRegisterTag, token);
++            EmitDetailRecordTest(
++                1,
++                failure.Arity,
++                failure.Tag,
++                reject
++            );
++            owner.EmitConstant(failure.Arguments[1], 1);
++            owner.EmitConstant(failure.Arguments[0], 0);
++            owner.EmitCallLine(failure.Handler, previous);
++            owner.Op(TailExternalCallWithFrame, BeamWire.UnsignedTag, failure.Arguments.Length);
++            owner.Operand(BeamWire.UnsignedTag, owner.Import(failure.Handler.Module!, failure.Handler.Function, failure.Arguments.Length));
++            owner.Operand(BeamWire.UnsignedTag, token + 1);
++            Mark(reject);
++            owner.Op(Raise, XRegisterTag, 2);
++            owner.Operand(XRegisterTag, 1);
++        }
++    }
++}
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SavedCallSequence.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SavedCallSequence.cs
+@@ -281,7 +281,8 @@
+             Term? constant = null,
+             Dictionary<int, CallResultCheck>? checks = null,
+             bool allowLinear = false,
+-            bool preserveInputOrder = false
++            bool preserveInputOrder = false,
++            bool protectedFrame = false
+         )
+         {
+             EntryCall? first = extraction is { } list
+@@ -555,7 +556,7 @@
+                 bool reuse = false;
+                 if (!saveProjectedResult && previous is not null && lastReads.GetValueOrDefault(previous) > index)
+                 {
+-                    int slot = reuseSlot ?? 0;
++                    int slot = reuseSlot ?? (protectedFrame && index == 1 ? lastSlotReads.Count : 0);
+                     while (reuseSlot is null && occupied.Contains(slot))
+                     {
+                         slot++;
+@@ -785,14 +786,16 @@
+         private void EmitSavedCallSequence(
+             SavedCallSequence plan,
+             List<Action>? deferredFailures = null,
+-            (Expr.Match Match, Term? Literal, TaggedCallMatch? Tagged)? terminalMatch = null
++            (Expr.Match Match, Term? Literal, TaggedCallMatch? Tagged)? terminalMatch = null,
++            ProtectedCallFailure? protection = null
+         )
+         {
+             var (first, live, inputs, lastSlotReads, steps, extraction, decision, tuple, constant, checks) = plan;
+             bool hasCase = decision is not null || plan.ProjectedCase is not null;
+             bool hasTuple = tuple is not null || plan.ProjectedReturn is not null;
+             int size = lastSlotReads.Count;
+-            EmitFrameAllocation(live, size, first.ConstructedArgument?.HeapWords ?? 0);
++            int handler = protection is null ? 0 : Label();
++            EmitFrameAllocation(live, size + (protection is null ? 0 : 1), first.ConstructedArgument?.HeapWords ?? 0);
+             EmitFrameInitialization(0, size - inputs.Count);
+             for (int slot = inputs.Count - 1; slot >= 0; slot--)
+             {
+@@ -812,6 +815,12 @@
+             if (extraction is { } list)
+             {
+                 EmitCallListExtraction(list, -1, size - 1 - inputs.IndexOf(list.Tail));
++            }
++
++            if (protection is not null)
++            {
++                owner.Op(TryEnter, YRegisterTag, size);
++                owner.Operand(LabelTag, handler);
+             }
+ 
+             EmitEntryCall(first);
+@@ -842,7 +851,7 @@
+                     && step.Released.Any(slot => slot != step.Spill);
+                 bool tupleField = hasTuple && last;
+                 int trimTo = last && hasTuple ? TupleCallTrim(lastSlotReads, index + 1, step.Closure) : trimmed;
+-                while ((!last || finalCheck) && trimTo < size && lastSlotReads[size - 1 - trimTo] <= index + 1)
++                while (protection is null && (!last || finalCheck) && trimTo < size && lastSlotReads[size - 1 - trimTo] <= index + 1)
+                 {
+                     trimTo++;
+                 }
+@@ -859,7 +868,7 @@
+                     )
+                     : null;
+                 int? deferredSlot = null;
+-                if (finalTrim is null && hasTuple && checks is null && step is
++                if (finalTrim is null && (hasTuple || protection is not null) && checks is null && step is
+                     { Spill: null, ReloadRelocatedArgument: false, Closure: null, TupleArguments: null }
+                     && step.Call.RegisterConstructions is null
+                     && step.Call.SavedInputs is { } savedInputs)
+@@ -995,8 +1004,22 @@
+             }
+             else if (constant is not null)
+             {
++                if (protection is not null)
++                {
++                    owner.Op(TryEnd, YRegisterTag, size);
++                }
++
+                 owner.EmitConstant(constant, 0);
+-                owner.EmitFrameReturn(size - trimmed);
++                owner.EmitFrameReturn(size - trimmed + (protection is null ? 0 : 1));
++                if (protection is not null)
++                {
++                    EmitProtectedCallFailure(
++                        protection,
++                        size,
++                        handler,
++                        previousCall
++                    );
++                }
+             }
+             else if (tuple is not null)
+             {
+@@ -1491,7 +1514,7 @@
+             }
+             else if (spill >= 0 && !step.ReuseSlot && !deferStackLoad && !deferConstant
+                 && call.Moves.Count == 0 && loads is [{ Destination: 0 } receiver]
+-                && call.Constants.ToArray() is [{ Destination: 1, Value: Integer integer }, { Destination: 2, Value: Nil or Cons } listOptions, .. var suffix]
++                && call.Constants.ToArray() is [{ Destination: 1, Value: Integer or Atom } selector, { Destination: 2, Value: Nil or Cons } listOptions, .. var suffix]
+                 && (suffix.Length == 0 || suffix is [{ Destination: 3, Value: Nil }]))
+             {
+                 Load(receiver.Source, 1);
+@@ -1507,7 +1530,7 @@
+                     XRegisterTag,
+                     0
+                 );
+-                owner.EmitConstant(integer, 1);
++                owner.EmitConstant(selector.Value, 1);
+             }
+             else
+             {
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamGraphicsProtectedCallSequenceChecks.cs
+@@ -0,0 +1,125 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamGraphicsProtectedCallSequenceChecks
++{
++    internal const string TestName = "compiler/beam/retains-protected-call-sequence-frames-and-schedules-float-results";
++    private const string Fixture = "beam_graphics_protected_calls.erl";
++    private const string WrongEntry = "The callback retained its state before validating the nested event.";
++    private const string WrongTry = "The protected calls did not retain their live exception frame.";
++    private const string WrongFloat = "The floating continuation did not box the product before moving the retained argument.";
++    private const string WrongBinding = "The callback lost a repeated field match.";
++    private const string Missing = "A compiled fixture function is missing.";
++
++    private const string Source = """
++        -module(beam_graphics_protected_calls).
++        -export([paint/3,protected/4,scale/3]).
++        -record(envelope,{target,event}).
++        -record(refresh,{mode}).
++        -record(render,{target,pen,brush,font}).
++
++        paint(#envelope{event=#refresh{}},_,#render{target=Win,pen=Pen,brush=Brush,font=Font}) ->
++            Dc = wxPaintDC:new(Win),
++            protected(Dc,Pen,Brush,Font),
++            wxPaintDC:destroy(Dc),
++            ok.
++
++        protected(Win,Pen,Brush,Font) ->
++            try
++                Canvas = wxGraphicsContext:create(Win),
++                wxGraphicsContext:setPen(Canvas,Pen),
++                wxGraphicsContext:setBrush(Canvas,Brush),
++                wxGraphicsContext:setFont(Canvas,Font,{0,0,7}),
++                Path = wxGraphicsContext:createPath(Canvas),
++                Render = fun(N) -> scale(N,Canvas,Path) end,
++                wx:foreach(Render,lists:seq(0,2)),
++                wxGraphicsObject:destroy(Path),
++                wxGraphicsObject:destroy(Canvas),
++                ok
++            catch _:{not_supported,_} ->
++                Error = "render unavailable",
++                io:format(Error,[])
++            end.
++
++        scale(N,Canvas,Path) ->
++            wxGraphicsContext:scale(Canvas,1.25,1.5),
++            wxGraphicsContext:translate(Canvas,3.5,-2.0*N),
++            wxGraphicsContext:drawPath(Canvas,Path).
++        """;
++
++    internal static Task Run()
++    {
++        var get = ReadFunctions(Source);
++        object[] paint = get("paint", 3).Body;
++        int allocation = Array.FindIndex(paint, instruction => Opcode(instruction) == Allocate);
++        if (allocation < 0 || Value(Operands(paint[allocation])[0]) != 1
++            || paint.Take(allocation).Count(instruction => Opcode(instruction) == IsTaggedTuple) != 3)
++        {
++            throw new InvalidOperationException(WrongEntry);
++        }
++
++        object[] guarded = get("protected", 4).Body;
++        if (guarded.Count(instruction => Opcode(instruction) == TryEnter) != 1
++            || guarded.Count(instruction => Opcode(instruction) == TryCase) != 1
++            || guarded.Any(instruction => Opcode(instruction) == TrimFrame)
++            || !guarded.Any(instruction => Opcode(instruction) == InitYRegisters))
++        {
++            throw new InvalidOperationException(WrongTry);
++        }
++
++        object[] scale = get("scale", 3).Body;
++        if (scale.Count(instruction => Opcode(instruction) == FloatMultiply) != 1
++            || scale.Count(instruction => Opcode(instruction) == FloatConvert) != 1
++            || scale.Count(instruction => Opcode(instruction) == TrimFrame) != 1)
++        {
++            throw new InvalidOperationException(WrongFloat);
++        }
++
++        string repeated = Source.Replace("target=Win,pen=Pen", "target=Win,pen=Win", StringComparison.Ordinal)
++            .Replace("protected(Dc,Pen,Brush,Font)", "protected(Dc,Win,Brush,Font)", StringComparison.Ordinal);
++        if (!ReadFunctions(repeated)("paint", 3).Body.Where(instruction => Opcode(instruction) == ExactEqualTest)
++            .Select(Operands).Any(operands => operands.Skip(1).All(value => (string)Property(value, "Kind") is "x" or "y")))
++        {
++            throw new InvalidOperationException(WrongBinding);
++        }
++
++        return Task.CompletedTask;
++    }
++
++    private static Func<string, int, (object[] Body, int Failure)> ReadFunctions(string source)
++    {
++        object code = Code(CodeGeneration.CompileBeamModule(source, Fixture));
++        var instructions = Items(code, "Instructions").ToArray();
++        var atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++
++        return (name, arity) =>
++        {
++            int entry = Array.FindIndex(
++                instructions,
++                instruction => Opcode(instruction) == FunctionInfo
++                && atoms[Value(Operands(instruction)[1])] == name && Value(Operands(instruction)[2]) == arity
++            );
++            if (entry < 2)
++            {
++                throw new InvalidOperationException(Missing);
++            }
++
++            return (instructions.Skip(entry + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo).ToArray(),
++                Value(Operands(instructions[entry - 2])[0]));
++        };
++    }
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++
++    private static object[] Operands(object instruction) => Items(instruction, "Operands").ToArray();
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static IEnumerable<object> Items(object owner, string name) =>
++        ((IEnumerable)Property(owner, name)).Cast<object>();
++}

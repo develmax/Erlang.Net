@@ -1,0 +1,115 @@
+{
+  "otpTag": "OTP-29.1.1",
+  "otpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "part1944Archive": {
+    "size": 1984538,
+    "sha256": "5d4b181917f4cb2c386e4172dba35bf26954dc623cbced4bc120bfaa8f8cd569"
+  },
+  "workerCount": 1,
+  "nativeScannerCases": 8,
+  "rankedDifferentImages": 882,
+  "scope": {
+    "lib/inets-9.8/ebin/mod_actions.beam": "Equal",
+    "lib/inets-9.8/ebin/mod_trace.beam": "Equal",
+    "lib/kernel-11.0.4/ebin/local_udp.beam": "Equal",
+    "lib/stdlib-8.1/ebin/ordsets.beam": "Equal",
+    "lib/xmerl-2.2/ebin/xmerl_html.beam": "Equal",
+    "lib/xmerl-2.2/ebin/xmerl_lib.beam": "Different",
+    "lib/xmerl-2.2/ebin/xmerl_xml.beam": "Equal",
+    "lib/xmerl-2.2/ebin/xmerl_xsd_re.beam": "Different"
+  },
+  "newExactMFA": "xmerl_xsd_re:chr/2",
+  "remaining": "xmerl_xsd_re:scan/2",
+  "generatedBefore": {
+    "size": 4268,
+    "sha256": "5e52736c8f77c85a8aa5c5371b85fc83bc272c6917f2c7b21b7d8599c0136ec8"
+  },
+  "generatedAfter": {
+    "size": 4276,
+    "sha256": "35074eec4e7c230d1984d854fcb09991223a79bd433ece98938ad423e94cfc4c"
+  },
+  "unchangedControl": {
+    "size": 47604,
+    "sha256": "6d51fa967854919e997bb8aefe15fb12b369eb43ac0605293956b9aa64657b5c"
+  },
+  "overlays": {
+    "../release-near-1941-scout-1958/linked/production.patch": {
+      "size": 15384,
+      "sha256": "c9129f85fa5875003ad1d48b48e8006e09d4c8df6923f06a789005437f20e455"
+    },
+    "../near-pure-dispatch-1959/production.patch": {
+      "size": 18391,
+      "sha256": "b45b90b1c5a9438ae9e6a075eb6fa12f02b5720b1702b3f7447a7db62cf21f85"
+    },
+    "../release-near-selector-1960/production.patch": {
+      "size": 3188,
+      "sha256": "af355c2a32c90545f8a84f13475c82247545119bdb9c020f53b2688b6cb7d2ec"
+    },
+    "../guarded-tagged-alias-switch-1961/production.patch": {
+      "size": 12010,
+      "sha256": "8289974b79e54d434313eb62143b94f8eb5e943017407f651e67b8dcaeb7b0db"
+    },
+    "../retained-record-call-chain-1962/production.patch": {
+      "size": 18251,
+      "sha256": "dfb35124f46e84567583895eb0892efb6d5e1494365191566bad0bd099f60da6"
+    }
+  },
+  "artifacts": {
+    "production.patch": {
+      "size": 9431,
+      "sha256": "87d4f8b5ade75a1109143a4c2ba6eb5e5f6e4bb9b958414be583fe660d346446"
+    },
+    "test.patch": {
+      "size": 3777,
+      "sha256": "31eea6902467c2e41ee8e3808f7b5877ccca99be8da38a49d1805f4664771e44"
+    },
+    "replay-files.json": {
+      "size": 920,
+      "sha256": "8f5c66d4e78fec2ea14ce1a63f51d1a6d8cf40fa63689e8a995c682636ab8169"
+    },
+    "scope.json": {
+      "size": 2271,
+      "sha256": "2956d22e1fa5165438c216ad62762d9b70f403759086a3750d91177f08389fff"
+    },
+    "scope-rank.terms": {
+      "size": 1468,
+      "sha256": "a1e22f2206c2ea6763a4408db6c72e76c53becabd421b5706a29190d7a7aa704"
+    },
+    "ranked.terms": {
+      "size": 1845362,
+      "sha256": "7aa82eadbd9a7eb5647641d3150a467b161a2c5c934f6955a7f6ae9fc8150cc6"
+    },
+    "baseline-scope.json": {
+      "size": 2271,
+      "sha256": "d6a74dd4593ae57d473ec304f4c9caaba6feac78ec450767fcb6e8153d29df00"
+    },
+    "baseline-bin/Erlang.Compiler.dll": {
+      "size": 5124096,
+      "sha256": "83b2314c2be793a25a9121d6a66b5d3b67502b13ba4b498e195d3317ffb99ba8"
+    },
+    "focused-exits.json": {
+      "size": 51,
+      "sha256": "1ef75e784a5dd11b9c2fe71476a71f94295ce972682d28c771dea17e5ae3df61"
+    },
+    "test-green/Erlang.Tests.dll": {
+      "size": 16896,
+      "sha256": "64243d7592cfc4a2e6f2e152a58d59f4fab3605589ff1499326ce45db60f050a"
+    },
+    "compiler-bin/Erlang.Compiler.dll": {
+      "size": 5129216,
+      "sha256": "e1d376c217f84486555bfbddc79bbcf99b8251c20d763d4df5fab89bce1589db"
+    },
+    "native-scan-pinned.terms": {
+      "size": 874,
+      "sha256": "f31593e9a9f7a29941307837dab9d8a356ddf70d9c3b1194ff1a3e2be5fb75aa"
+    },
+    "native-scan-generated.terms": {
+      "size": 874,
+      "sha256": "f31593e9a9f7a29941307837dab9d8a356ddf70d9c3b1194ff1a3e2be5fb75aa"
+    },
+    "xmerl_xsd_re.precodegen": {
+      "size": 16370,
+      "sha256": "d1cd706b0f8a5b81ca16827723c3989946961d0df95f4946818e6800b985453d"
+    }
+  }
+}

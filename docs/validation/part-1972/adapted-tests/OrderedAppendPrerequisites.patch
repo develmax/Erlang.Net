@@ -1,0 +1,208 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Calls/BeamOrderedAppendPrerequisiteChecks.cs b/tests/Erlang.Tests/Compiler/Beam/Calls/BeamOrderedAppendPrerequisiteChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/Calls/BeamOrderedAppendPrerequisiteChecks.cs
+@@ -0,0 +1,191 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamOrderedAppendPrerequisiteChecks
++{
++    internal const string TestName = "compiler/beam/stages-nested-append-constructors-after-prerequisites";
++    private const string Module = "ordered_append_fixture";
++    private const string Provider = "ordered_append_provider";
++    private const int PrerequisiteCalls = 6;
++    private const int OperandHeapWords = 19;
++
++    private const string Source = """
++        -module(ordered_append_fixture).
++        -export([run/1, matched/2]).
++
++        run(Input) ->
++            {out, ordered_append_provider:step(left, Input) ++
++                [{entry, ordered_append_provider:step(first, Input),
++                    {remote, {nested, ordered_append_provider:pass(ordered_append_provider:step(nested, Input))},
++                        {last, ordered_append_provider:step(last, Input)}},
++                    [ordered_append_provider:step(trailing, Input)]}]}.
++
++        matched(Input, Expected) ->
++            {out, ordered_append_provider:step(left, Input) ++
++                [{entry, {nested, ordered_append_provider:step(first, Input)},
++                    Expected = ordered_append_provider:step(last, Input),
++                    ordered_append_provider:step(trailing, Input)}]}.
++        """;
++
++    internal static async Task Run()
++    {
++        byte[] beam = CodeGeneration.CompileBeamModule(Source, Module + ".erl");
++        VerifySchedule(beam);
++
++        var image = BeamModule.Prepare(beam, new BeamDependencySelection([Provider]));
++        var events = new List<Term>();
++        Term success = Term.A("success");
++        Term left = Term.A("left");
++        Term first = Term.A("first");
++        Term nested = Term.A("nested");
++        Term passed = Term.A("passed");
++        Term last = Term.A("last");
++        Term trailing = Term.A("trailing");
++        Term badLeft = Term.A("bad_left");
++
++        await using var runtime = new ProcessRuntime();
++        runtime.Modules.Register(
++            Provider,
++            "step",
++            2,
++            (_, args) =>
++            {
++                events.Add(args[0]);
++                if (args[0].Equals(args[1]))
++                {
++                    throw new ErlangException(args[0]);
++                }
++
++                Term result = args[0].Equals(left) && !args[1].Equals(badLeft) ? Term.List(left) : args[0];
++
++                return ValueTask.FromResult(result);
++            }
++        );
++        runtime.Modules.Register(
++            Provider,
++            "pass",
++            1,
++            (_, args) =>
++            {
++                events.Add(passed);
++
++                return ValueTask.FromResult(args[0]);
++            }
++        );
++        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
++        await actor.InvokeAsync(async context =>
++        {
++            Term entry = Term.Tuple(
++                Term.A("entry"),
++                first,
++                Term.Tuple(Term.A("remote"), Term.Tuple(nested, nested), Term.Tuple(last, last)),
++                Term.List(trailing)
++            );
++            await Check(
++                "run",
++                [success],
++                Term.Tuple(Term.A("out"), Term.List(left, entry)),
++                [left, first, nested, passed, last, trailing]
++            );
++            await Check(
++                "run",
++                [left],
++                left,
++                [left],
++                throws: true
++            );
++            await Check(
++                "run",
++                [nested],
++                nested,
++                [left, first, nested],
++                throws: true
++            );
++            await Check(
++                "run",
++                [trailing],
++                trailing,
++                [left, first, nested, passed, last, trailing],
++                throws: true
++            );
++            await Check(
++                "run",
++                [badLeft],
++                Term.A("badarg"),
++                [left, first, nested, passed, last, trailing],
++                throws: true
++            );
++            await Check(
++                "matched",
++                [success, Term.A("wrong")],
++                Term.Tuple(Term.A("badmatch"), last),
++                [left, first, last],
++                throws: true
++            );
++
++            return Nil.Value;
++
++            async ValueTask Check(
++                string function,
++                Term[] args,
++                Term expected,
++                Term[] expectedEvents,
++                bool throws = false
++            )
++            {
++                events.Clear();
++                Term result;
++                bool caught = false;
++                try
++                {
++                    result = await image.Invoke(context, function, args);
++                }
++                catch (ErlangException error)
++                {
++                    caught = true;
++                    result = error.Reason;
++                }
++
++                if (caught != throws || !result.Equals(expected) || !events.SequenceEqual(expectedEvents))
++                {
++                    throw new InvalidOperationException(BeamOrderedAppendPrerequisiteDiagnostics.EvaluationOrder);
++                }
++            }
++        });
++    }
++
++    private static void VerifySchedule(byte[] beam)
++    {
++        object code = Code(beam);
++        object function = Items(code, "Functions").Single(item => (string)Property(item, "Name") == "run");
++        int start = (int)Property(function, "FirstInstructionIndex");
++        int end = (int)Property(function, "EndInstructionIndex");
++        object[] instructions = Items(code, "Instructions")[start..end];
++        int[] calls = Enumerable.Range(0, instructions.Length).Where(index => Opcode(instructions[index]) == ExternalCall)
++            .ToArray();
++        if (calls.Length != PrerequisiteCalls + 1
++            || instructions[..calls[^2]].Any(instruction => Opcode(instruction) is PutTuple or PutList))
++        {
++            throw new InvalidOperationException(BeamOrderedAppendPrerequisiteDiagnostics.ConstructionSchedule);
++        }
++
++        object[] constructions = instructions[(calls[^2] + 1)..calls[^1]].Where(
++            instruction => Opcode(instruction) is TestHeap or PutTuple or PutList
++        ).ToArray();
++        ReadOnlySpan<byte> expected = [TestHeap, PutTuple, PutTuple, PutTuple, PutList, PutTuple, PutList];
++        if (!constructions.Select(Opcode).ToArray().AsSpan().SequenceEqual(expected)
++            || (BigInteger)Property(Items(constructions[0], "Operands")[0], "Value") != OperandHeapWords)
++        {
++            throw new InvalidOperationException(BeamOrderedAppendPrerequisiteDiagnostics.ConstructionSchedule);
++        }
++    }
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static object[] Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
++}
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Calls/BeamOrderedAppendPrerequisiteDiagnostics.cs b/tests/Erlang.Tests/Compiler/Beam/Calls/BeamOrderedAppendPrerequisiteDiagnostics.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/Calls/BeamOrderedAppendPrerequisiteDiagnostics.cs
+@@ -0,0 +1,7 @@
++namespace Erlang.Tests;
++
++internal static class BeamOrderedAppendPrerequisiteDiagnostics
++{
++    internal const string ConstructionSchedule = "Expected append operand constructors after their ordinary prerequisite calls.";
++    internal const string EvaluationOrder = "Append prerequisite evaluation changed the returned term, failure, or call order.";
++}

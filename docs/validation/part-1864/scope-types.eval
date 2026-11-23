@@ -1,0 +1,28 @@
+[Release,Generated,Scope]=init:get_plain_arguments(),
+{ok,Raw}=file:read_file(Scope),
+Rows=[[string:trim(binary_to_list(B))||B<-binary:split(L,<<9>>,[global])]
+      || L<-binary:split(Raw,<<10>>,[global]), L=/=<<>>],
+Files=maps:groups_from_list(fun([_,P|_])->P end,Rows),
+Read=fun(Path)->{beam_file,_,_,_,_,Fs}=beam_disasm:file(Path),maps:from_list([{{atom_to_list(F),A},Ops}||{function,F,A,_,Ops}<-Fs]) end,
+Skip=fun F([{line,_}|Tail])->F(Tail);F(Ops)->Ops end,
+Operand=fun({x,0})->bare;({tr,{x,0},{t_union,{t_atom,any},none,none,{t_tuple,_,_,_},none,none}})->atom_tuple;({tr,{x,0},T})->{other,T};(_)->other_register end,
+Find=fun Walk([{call,Ar,{_,Target,Ar}}|Tail],Target,Ar)->
+            case Skip(Tail) of
+                [{test,is_tuple,_,[Op]}|_]->[Operand(Op)|Walk(Tail,Target,Ar)];_->Walk(Tail,Target,Ar)
+            end;
+         Walk([_|Tail],F,A)->Walk(Tail,F,A);
+         Walk([],_,_)->[] end,
+Out=lists:flatmap(fun({Path,Entries})->
+    RPath=filename:join(Release,Path), GPath=filename:join(Generated,Path),
+    R=Read(RPath),G=case filelib:is_regular(GPath) of true->Read(GPath);false->R end,
+    [begin
+        Ar=list_to_integer(SAr),CAr=list_to_integer(SCAr),F=list_to_atom(Callee),
+        {Path,{Caller,Ar},{Callee,CAr},Side,Find(maps:get({Caller,Ar},R,[]),F,CAr),Find(maps:get({Caller,Ar},G,[]),F,CAr)}
+     end||[Side,_,Caller,SAr,Callee,SCAr]<-Entries]
+end,lists:sort(maps:to_list(Files))),
+lists:foreach(fun(Row)->io:format("~0p.~n",[Row])end,Out),
+Groups=lists:foldl(fun({_,_,_,Kind,Reference,Current},Acc)->
+     K={Kind,lists:member(atom_tuple,Reference),lists:member(atom_tuple,Current),lists:member(bare,Current)},
+     maps:update_with(K,fun(V)->V+1 end,1,Acc)
+   end,#{},Out),
+io:format("~0p.~n",[Groups]),halt().

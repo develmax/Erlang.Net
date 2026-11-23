@@ -1,0 +1,14 @@
+[Stub | Images] = init:get_plain_arguments(),
+{ok,leaf_tail_probe,StubImage} = compile:file(Stub, [binary]),
+{module,leaf_tail_probe} = code:load_binary(leaf_tail_probe, Stub, StubImage),
+lists:foreach(fun(Path) ->
+    {ok, Image} = file:read_file(Path),
+    Mod = beam_external_leaf_tail,
+    {module, Mod} = code:load_binary(Mod, Path, Image),
+    Results = [Mod:resolve(-1), Mod:resolve(0), Mod:resolve(alpha), Mod:resolve({a,b})],
+    [{ok,-1},{ok,0},{external,alpha,stream},{error,invalid}] = Results,
+    io:format("~s ~p~n", [filename:basename(Path), Results]),
+    true = code:delete(Mod),
+    _ = code:purge(Mod)
+end, Images),
+halt().

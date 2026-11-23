@@ -1,0 +1,9 @@
+[{action,{ok,{action,{"text/html","app"}}}},
+ {action_bad,{error,{wrong_type,{action,{text,"app"}}}}},
+ {action_nonpair,{error,{wrong_type,{action,none}}}},
+ {get,{ok,{script,{"GET","app"}}}},
+ {post,{ok,{script,{"post","app"}}}},
+ {script_bad,{error,{wrong_type,{script,{"DELETE","app"}}}}},
+ {script_bad_guard,{error,{wrong_type,{script,{method,42}}}}},
+ {unknown,error,function_clause,[{mod_actions,store,2,86}]},
+ {nontuple,error,function_clause,[{mod_actions,store,2,86}]}].

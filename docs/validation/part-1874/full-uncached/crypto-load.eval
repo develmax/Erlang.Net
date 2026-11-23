@@ -1,0 +1,14 @@
+begin
+[Manifest,Index] = init:get_plain_arguments(),
+{ok,Data} = file:read_file(Manifest),
+[Row] = [X || X <- binary:split(Data,<<"\n">>,[global]), binary:match(X,<<"crypto.beam">>) =/= nomatch],
+Paths = [string:trim(binary_to_list(X)) || X <- binary:split(Row,<<"\t">>,[global])],
+Path = lists:nth(list_to_integer(Index), Paths),
+{ok,Beam} = file:read_file(Path),
+{module,crypto} = code:load_binary(crypto,Path,Beam),
+Message = <<"BEAM parity, verified input">>,
+Digest = crypto:hash(sha256,Message),
+Digest = crypto:hash_final(crypto:hash_update(crypto:hash_init(sha256),Message)),
+io:format("~s~n",[binary:encode_hex(Digest)]),
+halt()
+end.

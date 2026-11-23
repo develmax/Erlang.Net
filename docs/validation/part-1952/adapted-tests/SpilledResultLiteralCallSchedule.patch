@@ -1,0 +1,76 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Calls/BeamSpilledResultLiteralMovesChecks.cs b/tests/Erlang.Tests/Compiler/Beam/Calls/BeamSpilledResultLiteralMovesChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/Calls/BeamSpilledResultLiteralMovesChecks.cs
+@@ -0,0 +1,71 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamSpilledResultLiteralMovesChecks
++{
++    internal const string TestName = "compiler/beam/schedule-literal-call-with-spilled-result";
++    private const string MissingSchedule = "The spilled call result did not join the independent high-argument moves.";
++    private const string OverwrittenArgument = "The receiver scratch slot would overwrite the outgoing result argument.";
++    private const string Source = """
++        -module(beam_spilled_result_literal_call).
++        -export([saved/1, low/1]).
++        saved(Config) ->
++            Parent = service:parent(Config),
++            Items = service:values(),
++            Box = service:create(Parent,-1,"Options",{0,0},{0,0},Items,[size]),
++            service:view(Box,Items),
++            {Parent,Config,Box}.
++        low(Config) ->
++            Parent = service:parent(Config),
++            Items = service:values(),
++            Box = service:create(Parent,Items,"Options",{0,0},{0,0},-1,[size]),
++            service:view(Box,Items),
++            {Parent,Config,Box}.
++        """;
++
++    internal static void Run()
++    {
++        object code = Code(CodeGeneration.CompileBeamModule(Source, "beam_spilled_result_literal_call.erl"));
++        var instructions = ((IEnumerable)Property(code, "Instructions")).Cast<object>().ToArray();
++        var functions = ((IEnumerable)Property(code, "Functions")).Cast<object>().ToArray();
++        object[] moves = ReadArgumentMoves("saved");
++        if (moves.Length != 8 || Operands(moves[0]) is not [("y", _), ("x", 1)]
++            || Operands(moves[3]) is not [("x", 0), ("x", 5)]
++            || Operands(moves[6]) is not [("x", 1), ("x", 0)]
++            || !moves.Select(move => Operands(move)[1].Value).SequenceEqual([1, 4, 3, 5, 2, 6, 0, 1]))
++        {
++            throw new InvalidOperationException(MissingSchedule);
++        }
++
++        object[] lower = ReadArgumentMoves("low");
++        if (!lower.Any(move => Operands(move) is [("x", 0), ("x", 1)])
++            || lower.Any(move => Operands(move) is [("x", 1), ("x", 0)]))
++        {
++            throw new InvalidOperationException(OverwrittenArgument);
++        }
++
++        object[] ReadArgumentMoves(string name)
++        {
++            var function = functions.Single(candidate => (string)Property(candidate, "Name") == name);
++            int start = (int)Property(function, "FirstInstructionIndex");
++            int end = (int)Property(function, "EndInstructionIndex");
++            object[] body = instructions[start..end].Where(instruction => Opcode(instruction) != Line).ToArray();
++            int call = Array.FindIndex(body, instruction => Opcode(instruction) == ExternalCall && Operands(instruction)[0].Value == 7);
++
++            return body[..call].Reverse()
++                .TakeWhile(instruction => Opcode(instruction) == Move && Operands(instruction)[1].Kind == "x")
++                .Reverse().ToArray();
++        }
++    }
++
++    private static (string Kind, int Value)[] Operands(object instruction) =>
++        ((IEnumerable)Property(instruction, "Operands")).Cast<object>()
++            .Select(operand => ((string)Property(operand, "Kind"), (int)(BigInteger)Property(operand, "Value"))).ToArray();
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++}

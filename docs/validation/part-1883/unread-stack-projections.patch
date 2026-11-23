@@ -1,0 +1,322 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DeadStackProjections.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DeadStackProjections.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DeadStackProjections.cs
+@@ -0,0 +1,154 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private static byte[]? RemoveDeadStackProjections(ReadOnlyMemory<byte> code, IReadOnlyList<BeamInstruction> body)
++    {
++        using var output = new MemoryStream();
++        int copied = 0;
++        int start = 0;
++        for (int end = 0; end < body.Count; end++)
++        {
++            if (body[end].Definition.Opcode is not (FunctionInfo or EndCode))
++            {
++                continue;
++            }
++
++            int entry = start;
++            start = end + 1;
++            if (ReadStackProjectionUses(body, entry, end) is not { } reads)
++            {
++                continue;
++            }
++
++            for (int index = entry; index < end; index++)
++            {
++                BeamInstruction instruction = body[index];
++                int result = StackProjectionOutputStart(instruction);
++                if (result == instruction.Operands.Count)
++                {
++                    continue;
++                }
++
++                BeamOperand first = instruction.Operands[result];
++                BeamOperand? second = instruction.Definition.Opcode == GetList ? instruction.Operands[2] : null;
++                int? deadFirst = DeadStackProjectionSlot(first, reads);
++                int? deadSecond = second is null ? null : DeadStackProjectionSlot(second, reads);
++                if (deadFirst is null && deadSecond is null)
++                {
++                    continue;
++                }
++
++                output.Write(code.Span[copied..instruction.Offset]);
++                if (second is not null && (deadFirst is null || deadSecond is null))
++                {
++                    output.WriteByte(deadFirst is null ? GetHead : GetTail);
++                    WriteRegister(output, instruction.Operands[0]);
++                    WriteRegister(output, deadFirst is null ? first : second);
++                }
++
++                // A following collection or a join can still require the dead cell to be initialized.
++                int[] cleared = deadFirst is int left && deadSecond is int right && left != right
++                    ? [Math.Min(left, right), Math.Max(left, right)] : [deadFirst ?? deadSecond!.Value];
++                WriteFrameInitialization(output, cleared);
++                copied = body[index + 1].Offset;
++            }
++        }
++
++        if (copied == 0)
++        {
++            return null;
++        }
++
++        output.Write(code.Span[copied..]);
++
++        return output.ToArray();
++    }
++
++    private static bool[]? ReadStackProjectionUses(IReadOnlyList<BeamInstruction> body, int start, int end)
++    {
++        int frame = -1;
++        bool projectsToStack = false;
++        for (int index = start; index < end; index++)
++        {
++            BeamInstruction instruction = body[index];
++            byte opcode = instruction.Definition.Opcode;
++            if (opcode is AllocateHeap or TrimFrame or CatchEnter or TryEnter
++                || instruction.Definition.Name is "debug_line" or "executable_line")
++            {
++                return null;
++            }
++
++            if (opcode == Allocate)
++            {
++                if (frame >= 0 || instruction.Operands[0].Value < 1
++                    || instruction.Operands[0].Value > BeamOperandParameters.MaximumRegister)
++                {
++                    return null;
++                }
++
++                frame = (int)instruction.Operands[0].Value;
++            }
++
++            if (!projectsToStack)
++            {
++                for (int operand = StackProjectionOutputStart(instruction); operand < instruction.Operands.Count; operand++)
++                {
++                    projectsToStack |= instruction.Operands[operand].Kind == BeamOperandParameters.Y;
++                }
++            }
++        }
++
++        if (frame < 0 || !projectsToStack)
++        {
++            return null;
++        }
++
++        var reads = new bool[frame];
++        for (int index = start; index < end; index++)
++        {
++            BeamInstruction instruction = body[index];
++            if (instruction.Definition.Opcode == InitYRegisters)
++            {
++                continue;
++            }
++
++            int outputStart = StackProjectionOutputStart(instruction);
++            for (int position = 0; position < instruction.Operands.Count; position++)
++            {
++                BeamOperand operand = instruction.Operands[position];
++                if (operand.Kind != BeamOperandParameters.Y)
++                {
++                    continue;
++                }
++
++                if (operand.Value < 0 || operand.Value >= frame)
++                {
++                    return null;
++                }
++
++                // Without a trim there is one physical identity for every Y operand.
++                // Conservatively count every mention outside the recognized projection destinations.
++                reads[(int)operand.Value] |= position < outputStart;
++            }
++        }
++
++        return reads;
++    }
++
++    private static int StackProjectionOutputStart(BeamInstruction instruction) => instruction switch
++    {
++        { Definition.Opcode: GetTupleElement, Operands: [var source, _, var result] }
++            when IsSwapRegister(source) && IsSwapRegister(result) => 2,
++        { Definition.Opcode: GetHead or GetTail, Operands: [var source, var result] }
++            when IsSwapRegister(source) && IsSwapRegister(result) => 1,
++        { Definition.Opcode: GetList, Operands: [var source, var head, var tail] }
++            when IsSwapRegister(source) && IsSwapRegister(head) && IsSwapRegister(tail) => 1,
++        _ => instruction.Operands.Count
++    };
++
++    private static int? DeadStackProjectionSlot(BeamOperand operand, bool[] reads) =>
++        operand.Kind == BeamOperandParameters.Y && !reads[(int)operand.Value] ? (int)operand.Value : null;
++}
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedReturns.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedReturns.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedReturns.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedReturns.cs
+@@ -222,6 +222,7 @@
+                 ?? RemoveRepeatedFailureProjections(code, body)
+                 ?? ForwardStackProjections(code, body)
+                 ?? ForwardInteriorCallArgumentCopies(code, body)
++                ?? RemoveDeadStackProjections(code, body)
+                 ?? RemoveUnusedTrailingFrameSlots(code, body)
+                 ?? ReallocateLeafFrameRegisters(
+                     code,
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamDeadStackProjectionChecks.cs b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamDeadStackProjectionChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamDeadStackProjectionChecks.cs
+@@ -0,0 +1,136 @@
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamDeadStackProjectionChecks
++{
++    internal const string TestName = "compiler/beam/clears-unread-stack-projections";
++    private const string MissingRewrite = "An unread stack projection still occupied its stack slot.";
++    private const string UnsafeRewrite = "A stack projection read on a reachable path lost its value.";
++    private const byte X0 = 0x03;
++    private const byte X1 = 0x13;
++    private const byte Y0 = 0x04;
++    private const byte Y1 = 0x14;
++    private const byte Zero = 0x00;
++    private const byte One = 0x10;
++    private const byte Two = 0x20;
++    private const byte SecondLabel = 0x25;
++    private const byte ThirdLabel = 0x35;
++    private const byte Three = 0x30;
++
++    internal static Task Run()
++    {
++        byte[] frame = [Label, One, Allocate, Two, One];
++        byte[] tupleHead = [GetTupleElement, X0, Zero, Y0];
++        byte[] tupleTail = [GetTupleElement, X0, One, Y1];
++        byte[] listParts = [GetList, X0, Y0, Y1];
++        byte[] clearHead = [InitYRegisters, ExtendedListOperand, One, Y0];
++        byte[] clearTail = [InitYRegisters, ExtendedListOperand, One, Y1];
++        byte[] collect = [TestHeap, Zero, One, ExternalCall, One, Zero];
++        byte[] useHead = [Move, Y0, X0];
++        byte[] useTail = [Move, Y1, X0];
++        byte[] finish = [Deallocate, Two, Return];
++        byte[] tuple = [.. frame, .. tupleHead, .. tupleTail, .. collect, .. useHead, .. finish, EndCode];
++        byte[] droppedTail = [.. frame, .. tupleHead, .. clearTail, .. collect, .. useHead, .. finish, EndCode];
++        RequireRewrite(tuple, droppedTail);
++        RequireRewrite(
++            [.. frame, .. listParts, .. collect, .. useHead, .. finish, EndCode],
++            [.. frame, GetHead, X0, Y0, .. clearTail, .. collect, .. useHead, .. finish, EndCode]
++        );
++        RequireRewrite(
++            [.. frame, .. listParts, .. collect, .. useTail, .. finish, EndCode],
++            [.. frame, GetTail, X0, Y1, .. clearHead, .. collect, .. useTail, .. finish, EndCode]
++        );
++        RequireRewrite(
++            [.. frame, .. listParts, .. collect, .. finish, EndCode],
++            [.. frame, InitYRegisters, ExtendedListOperand, Two, Y0, Y1, .. collect, .. finish, EndCode]
++        );
++        byte[] joined =
++        [
++            .. frame, .. tupleHead, IsNil, SecondLabel, X0,
++            .. tupleTail, Jump, ThirdLabel, Label, Two, .. tupleTail, Label, Three,
++            .. collect, .. useHead, .. finish, EndCode
++        ];
++        byte[] joinedExpected =
++        [
++            .. frame, .. tupleHead, IsNil, SecondLabel, X0,
++            .. clearTail, Jump, ThirdLabel, Label, Two, .. clearTail, Label, Three,
++            .. collect, .. useHead, .. finish, EndCode
++        ];
++        RequireRewrite(joined, joinedExpected);
++        byte[] trimmed = [.. frame, .. listParts, TrimFrame, One, One, .. useHead, Deallocate, One, Return, EndCode];
++        byte[] branchReadsTail =
++        [
++            .. frame, .. tupleHead, .. tupleTail, IsNil, SecondLabel, X0,
++            .. collect, .. useHead, .. finish,
++            Label, Two, .. useTail, .. finish, EndCode
++        ];
++        byte[] aliasedInput =
++        [
++            .. frame, Move, X0, Y1, GetList, Y1, Y0, Y1,
++            .. collect, .. useHead, .. finish, EndCode
++        ];
++        byte[] bothRead =
++        [
++            .. frame, .. listParts, .. collect, .. useHead, Move, Y1, X1,
++            .. finish, EndCode
++        ];
++        if (Rewrite(branchReadsTail) is not null || Rewrite(trimmed) is not null
++            || Rewrite(aliasedInput) is not null || Rewrite(bothRead) is not null)
++        {
++            throw new InvalidOperationException(UnsafeRewrite);
++        }
++
++        byte[] compacted =
++        [
++            Label, One, Allocate, One, One, .. tupleHead, .. collect, .. useHead,
++            Deallocate, One, Return, EndCode
++        ];
++        if (Rewrite(droppedTail, "RemoveUnusedTrailingFrameSlots") is not { } shortened
++            || !shortened.AsSpan().SequenceEqual(compacted))
++        {
++            throw new InvalidOperationException(MissingRewrite);
++        }
++
++        return Task.CompletedTask;
++    }
++
++    private static void RequireRewrite(byte[] source, byte[] expected)
++    {
++        if (Rewrite(source) is not { } actual || !actual.AsSpan().SequenceEqual(expected))
++        {
++            throw new InvalidOperationException(MissingRewrite);
++        }
++    }
++
++    private static byte[]? Rewrite(byte[] source, string method = "RemoveDeadStackProjections")
++    {
++        ReadOnlyMemory<byte> instructions = source;
++        object header = New(
++            "BeamCodeHeader",
++            0,
++            (int)InitYRegisters,
++            4,
++            1,
++            instructions
++        );
++        object body = Call(
++            Type("BeamInstructionReader"),
++            "Read",
++            header,
++            2,
++            0,
++            null,
++            null
++        );
++
++        return (byte[]?)Call(
++            typeof(BeamModuleCompiler),
++            method,
++            instructions,
++            body
++        );
++    }
++}
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12254,6 +12254,7 @@
+ );
+ Test(Erlang.Tests.BeamBootstrapLibraryIncludeChecks.TestName, Erlang.Tests.BeamBootstrapLibraryIncludeChecks.Run);
+ Test(Erlang.Tests.BeamStrictListSiblingHelperChecks.TestName, Erlang.Tests.BeamStrictListSiblingHelperChecks.Run);
++Test(Erlang.Tests.BeamDeadStackProjectionChecks.TestName, Erlang.Tests.BeamDeadStackProjectionChecks.Run);
+ Test(Erlang.Tests.BeamLiteralIdentityDispatchChecks.TestName, Erlang.Tests.BeamLiteralIdentityDispatchChecks.Run);
+ Test(Erlang.Tests.BeamReleaseLeafInliningChecks.TestName, Erlang.Tests.BeamReleaseLeafInliningChecks.Run);
+ Test(Erlang.Tests.BeamRetainedConstructorAliasChecks.TestName, Erlang.Tests.BeamRetainedConstructorAliasChecks.Run);

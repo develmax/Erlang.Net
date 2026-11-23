@@ -1,0 +1,30 @@
+{
+  "Parent": {
+    "Source": "d0589acba2affe2fb22088f7d97ab268d8fff20a11e4b8f05dbfb7a92b54bf42",
+    "Paths": 185,
+    "Compiler": "edb660b84cec6397632ab1e8fa9f79b4c0c44d938b9822e5b288cc71f52d849c",
+    "Tests": "91e06335ac858347317c495e97761342a54186937a87fbbf773e6221a56ff959",
+    "ParentSource": "7d687ae55230b50e17fe434a97a6fe42779e95eef498b2b74c054e99509f96ad",
+    "CorpusTool": "e82b07cfafa2ed370e4571bd0e1d1ba472acb77a5387a0ab85e0541bc4ab77a0"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AdjacentNumericResults.cs": "78dfe16a37650564f1789b2da798e4c5b881f40aa14765fe1dc936d61039058d",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryArgumentFlow.cs": "ceb4f4833b8e7594beb8ff705b97dcc3b91a25b901ce6a2f3e21248f41987fec",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.NumericRecordOperands.cs": "c8dc4d8c31f1fedc5b6c86caa690bb2b38b2b9b5987d3081c7f2b1c316f5bfb3",
+    "tests/Erlang.Tests/Compiler/Beam/BeamAdjacentNumericResultChecks.cs": "fb45a96888ee0d4baf0c482ea5217a9655cefbf9a7d29a8be43ad0e5805375b7",
+    "tests/Erlang.Tests/Compiler/Beam/BeamNumericRecordOperandChecks.cs": "d427be27b10cfc1e819855cd12edbe8519ebd01c32ca7f10d6bc1abeb7d29a2d",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamRetainedConstructorAliasChecks.cs": "7213118f26629e870044a13f50923559d15a615a1b6e83ecade090f9aff2df5b",
+    "tests/Erlang.Tests/Harness/Program.cs": "60360b2e3590bd9fd3a245b2d2309f98cdfcee4f7d31db19bca30b044078ff3f"
+  },
+  "Patches": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\early-entry-argument-ownership-1865\\validated-resources\\constructor-motion-correction.patch",
+      "Hash": "f9ffc2ffd86f13f1a8dde697ea148a69bd1ebfc6910448321f00c4270e8b68af"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\constructor-copy-guard-and-record-types-1867\\numeric-record-operands-rebased.patch",
+      "Hash": "32a04667aecd4437b77c17e765f6fc2eab13efcb3c35d73cac969df47b797535"
+    }
+  ],
+  "OriginalNumericPatch": "31f7704d7beb01e18fa816d03d4333c6456836c33810b3262f9262d7d53b322d"
+}

@@ -1,0 +1,64 @@
+using System.Collections;
+using System.Numerics;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamTupleJoinOptionCallsChecks
+{
+    internal const string TestName = "compiler/beam/tuple-join-fields-feed-options-without-intermediate-tuple";
+    private const string ShapeError = "The checked pair join did not keep both option operands in registers.";
+    private const string Source = """
+        -module(beam_tuple_join_options).
+        -export([show/5]).
+
+        show(Window, Position, File, Message, Style) ->
+            {Directory, Name} =
+                if
+                    File == initial -> {service:base(Window), default_name};
+                    true -> {service:dirname(File), service:basename(File)}
+                end,
+            Object = service:new(Window, [{message, Message},{position, Position},
+                                          {directory, Directory},{name, Name},
+                                          {mask, "*.state"}, {style, Style}]),
+            case service:show(Object) of
+                accepted ->
+                    Value = service:result(Object),
+                    {ok, Value};
+                _ ->
+                    service:discard(Object),
+                    cancel
+            end.
+        """;
+
+    internal static void Run()
+    {
+        string retainsInput = Source.Replace("{style, Style}", "{style, File}", StringComparison.Ordinal);
+        string malformed = Source.Replace("{service:base(Window), default_name}", "service:base(Window)", StringComparison.Ordinal);
+        if (!HasRegisterJoin(Source) || HasRegisterJoin(retainsInput) || HasRegisterJoin(malformed))
+        {
+            throw new InvalidOperationException(ShapeError);
+        }
+    }
+
+    private static bool HasRegisterJoin(string source)
+    {
+        object code = Code(CodeGeneration.CompileBeamModule(source, "beam_tuple_join_options.erl"));
+        var operations = ((IEnumerable)Property(code, "Instructions")).Cast<object>()
+            .SkipWhile(operation => Opcode(operation) != FunctionInfo)
+            .Skip(1).TakeWhile(operation => Opcode(operation) != FunctionInfo).ToArray();
+
+        return operations.Any(operation => Opcode(operation) == Allocate && Value(Operands(operation)[0]) == 5)
+            && operations.Any(operation => Opcode(operation) == Swap)
+            && !operations.Any(operation => Opcode(operation) == BadMatch)
+            && operations.Count(operation => Opcode(operation) == TrimFrame) == 2;
+    }
+
+    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
+
+    private static object[] Operands(object operation) => ((IEnumerable)Property(operation, "Operands")).Cast<object>().ToArray();
+
+    private static byte Opcode(object operation) => (byte)Property(Property(operation, "Definition"), "Opcode");
+}

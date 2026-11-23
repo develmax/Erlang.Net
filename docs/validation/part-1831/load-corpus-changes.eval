@@ -1,0 +1,24 @@
+[Input] = init:get_plain_arguments(),
+{ok, Text} = file:read_file(Input),
+Rows = [binary:split(Line, <<9>>, [global]) || Line <- binary:split(Text, <<10>>, [global, trim_all])],
+Failures = lists:flatmap(fun(Paths) ->
+    Results = lists:map(fun(Path0) ->
+        Path = binary_to_list(string:trim(Path0)),
+        {ok, Beam} = file:read_file(Path),
+        Name = list_to_atom(filename:basename(Path, ".beam")),
+        case code:prepare_loading([{Name, Path, Beam}]) of
+            {ok, _} -> {Name, accepted};
+            {error, Reason} -> {Name, {error, Reason}}
+        end
+    end, Paths),
+    io:format("~0p.~n", [Results]),
+    case Results of
+        [{Same, accepted}, {Same, accepted}, {Same, accepted}] -> [];
+        [{crypto, {error, [{crypto, on_load_not_allowed}]}},
+         {crypto, {error, [{crypto, on_load_not_allowed}]}},
+         {crypto, {error, [{crypto, on_load_not_allowed}]}}] -> [];
+        _ -> [Results]
+    end
+end, Rows),
+io:format("checked ~p, failures ~0p~n", [length(Rows), Failures]),
+case Failures of [] -> halt(0); _ -> halt(1) end.

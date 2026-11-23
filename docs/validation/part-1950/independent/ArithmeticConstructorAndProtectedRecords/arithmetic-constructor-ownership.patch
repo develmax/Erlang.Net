@@ -1,0 +1,105 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CallResultConstruction.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CallResultConstruction.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CallResultConstruction.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CallResultConstruction.cs
+@@ -159,8 +159,11 @@
+                 return false;
+             }
+ 
++            Expr.Binary? adjustment = null;
++            Integer? increment = null;
+             var containers = new List<(bool IsList, Term?[] Items)>();
+             if (!ReadConstruction(result) || containers.Count == 0 || call is null
++                || result is Expr.RecordConstruction && adjustment is null
+                 || discarded is not null && closureCall is null)
+             {
+                 return false;
+@@ -243,6 +246,28 @@
+                 owner.Op(ExternalCall, BeamWire.UnsignedTag, arity);
+                 owner.Operand(BeamWire.UnsignedTag, owner.Import(call.Module, call.Function, arity));
+             }
++            if (adjustment is not null)
++            {
++                var adjustmentLocation = CallLocation(call, previous);
++                owner.EmitArithmeticLine(adjustment.SourceLine, ref adjustmentLocation);
++                owner.Op(GcBifTwo, LabelTag, 0);
++                owner.Operand(BeamWire.UnsignedTag, 1);
++                owner.Operand(BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module, adjustment.Operator, 2));
++                if (call.Module is null && localFunctions.TryGetValue((call.Function, arity), out var callee)
++                    && !owner.IsDeclaredNative((call.Function, arity))
++                    && callee.Clauses.All(clause => ReturnsNumber(clause.Body)))
++                {
++                    owner.EmitTypedRegister(0, NumberTypeBits);
++                }
++                else
++                {
++                    owner.Operand(XRegisterTag, 0);
++                }
++
++                owner.LiteralOperand(increment!);
++                owner.Operand(XRegisterTag, 0);
++            }
++
+             int heap = containers.Sum(container => container.IsList ? ConsHeapWords * container.Items.Length : container.Items.Length + 1);
+             owner.Op(TestHeap, BeamWire.UnsignedTag, heap);
+             owner.Operand(BeamWire.UnsignedTag, 1);
+@@ -326,6 +351,14 @@
+                 }
+             }
+ 
++            static bool ReturnsNumber(Expr expression) => expression switch
++            {
++                Expr.Binary { Operator: ErlangOperators.Plus or ErlangOperators.Minus or ErlangOperators.Multiply } => true,
++                Expr.Sequence { Items.Count: > 0 } sequence => ReturnsNumber(sequence.Items[^1]),
++                Expr.Block block => ReturnsNumber(block.Body),
++                _ => false
++            };
++
+             bool ReadConstruction(Expr expression)
+             {
+                 if (expression is Expr.Variable variable)
+@@ -340,9 +373,23 @@
+                     return true;
+                 }
+ 
++                if (call is null && owner.SsaTypeInferenceEnabled && !owner.ModuleOptimizationDisabled
++                    && expression is Expr.Binary arithmetic
++                    && ReadCallArithmetic(arithmetic) is { } operands
++                    && TryResolveOrdinaryCallTarget(operands.Call, out _))
++                {
++                    // A single owner passes from the call through arithmetic to the enclosing constructors.
++                    call = operands.Call;
++                    adjustment = arithmetic;
++                    increment = operands.Increment;
++
++                    return true;
++                }
++
+                 IReadOnlyList<Expr>? children = expression switch
+                 {
+                     Expr.Tuple tuple => tuple.Items,
++                    Expr.RecordConstruction record when ReferenceEquals(record, result) => RecordExpressions.Create(record).Items,
+                     Expr.List { Tail: null } list => list.Items,
+                     _ => null
+                 };
+@@ -380,6 +427,21 @@
+ 
+                 return true;
+             }
++
++            static (Expr.Call Call, Integer Increment)? ReadCallArithmetic(Expr.Binary expression) => expression switch
++            {
++                {
++                    Operator: ErlangOperators.Plus or ErlangOperators.Minus,
++                    Left: Expr.Call { Module: null, DynamicRemote: false, Arguments.Count: 0 } call,
++                    Right: Expr.Literal { Value: Integer value }
++                } => (call, value),
++                {
++                    Operator: ErlangOperators.Plus,
++                    Left: Expr.Literal { Value: Integer value },
++                    Right: Expr.Call { Module: null, DynamicRemote: false, Arguments.Count: 0 } call
++                } => (call, value),
++                _ => null
++            };
+         }
+     }
+ }

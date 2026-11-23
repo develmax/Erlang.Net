@@ -1,0 +1,272 @@
+using static Erlang.Compiler.BeamEmissionFormat;
+
+namespace Erlang.Compiler;
+
+internal sealed partial class BeamModuleCompiler
+{
+    private sealed partial class GeneralEmitter
+    {
+        private bool TryEmitCaughtComputedListResult(FunctionDefinition function)
+        {
+            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled
+                || function.Clauses is not
+                [
+                { Guard: null, Patterns: [Pattern.Literal marker, ..] } fast,
+                {
+                    Guard: null, Body: Expr.Sequence
+                    {
+                        Items:
+                            [
+                                Expr.Match { Pattern: Pattern.Variable first, Value: Expr.Call firstCall },
+                                Expr.Match { Pattern: Pattern.Variable second, Value: Expr.Call secondCall },
+                                Expr.Match { Pattern: Pattern.Variable tail, Value: Expr.Call tailCall },
+                                Expr.Catch
+                            {
+                                Operand: Expr.Call
+                                {
+                                    Arguments:
+                                        [
+                                            Expr.Binary
+                                        {
+                                            Operator: ErlangOperators.Append,
+                                            Left: { } prefix,
+                                            Right: Expr.Binary
+                                            {
+                                                Operator: ErlangOperators.Append,
+                                                Left: Expr.Variable format,
+                                                Right: { } suffix
+                                            } append
+                                        },
+                                            Expr.List
+                                        {
+                                            Items: var items,
+                                            Tail: Expr.Variable listTail
+                                        }
+                                        ]
+                                } consume
+                            }
+                            ]
+                    }
+                } clause
+                ]
+                || items is not [Expr.Call listHead, Expr.Variable next, ..]
+                || function.Arity < 3 || !HasUnconditionalParameters(clause)
+                || !IndependentIgnoredParameters(fast.Patterns.Skip(1))
+                || !AttributeLiteral.TryNormalizeConstant(fast.Body, out Term fastValue)
+                || !AttributeLiteral.TryNormalizeConstant(prefix, out Term prefixValue)
+                || !AttributeLiteral.TryNormalizeConstant(suffix, out Term suffixValue)
+                || firstCall.Arguments is not [Expr.Variable firstInput]
+                || secondCall.Arguments is not
+                [
+                    Expr.Call
+                {
+                    Module: null or ErlangModuleNames.Module,
+                    Function: AutoImportNames.Get,
+                    DynamicRemote: false,
+                    Arguments: [var dictionaryKey]
+                } get
+                ]
+                || (get.Module is null && (entries.ContainsKey((AutoImportNames.Get, 1))
+                    || owner.ResolveExternalModule(get.Function, 1) != ErlangModuleNames.Module))
+                || !AttributeLiteral.TryNormalizeConstant(dictionaryKey, out Term key)
+                || tailCall.Arguments is not [Expr.Variable tailInput, var defaultValue]
+                || !AttributeLiteral.TryNormalizeConstant(defaultValue, out Term initialTail)
+                || listHead.Arguments.Count != 0
+                || !TryResolveOrdinaryCallTarget(firstCall, out string? firstModule)
+                || !TryResolveOrdinaryCallTarget(secondCall, out string? secondModule)
+                || !TryResolveOrdinaryCallTarget(tailCall, out string? tailModule)
+                || !TryResolveOrdinaryCallTarget(listHead, out string? headModule)
+                || !TryResolveOrdinaryCallTarget(consume, out string? consumerModule))
+            {
+                return false;
+            }
+
+            string[] parameters = clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray();
+            if (firstInput.Name != parameters[0] || format.Name != parameters[^2] || tailInput.Name != parameters[^1]
+                || next.Name != second.Name || listTail.Name != tail.Name
+                || !DistinctBindings(first, second, tail)
+                || new[] { first, second, tail }.Any(binding => parameters.Contains(binding.Name))
+                || items.Count != function.Arity
+                || items[^1] is not Expr.Variable last || last.Name != first.Name
+                || !items.Skip(2).Take(items.Count - 3).Select(item => (item as Expr.Variable)?.Name)
+                    .SequenceEqual(parameters.Skip(1).Take(function.Arity - 3)))
+            {
+                return false;
+            }
+
+            const int tailSlot = 0;
+            const int secondSlot = 1;
+            const int firstSlot = 2;
+            const int formatSlot = 3;
+            int catchSlot = function.Arity + 1;
+            int frameSize = catchSlot + 1;
+            int active = Label();
+            owner.Op(ExactEqualTest, LabelTag, active);
+            owner.Operand(XRegisterTag, 0);
+            owner.LiteralOperand(marker.Value);
+            owner.EmitConstant(fastValue, 0);
+            owner.instructions.WriteByte(Return);
+            Mark(active);
+
+            EmitFrameAllocation(function.Arity, frameSize);
+            owner.EmitSlotKills([tailSlot, secondSlot, firstSlot]);
+            owner.MoveRegister(
+                XRegisterTag,
+                function.Arity - 2,
+                YRegisterTag,
+                formatSlot
+            );
+            for (int input = 1; input < function.Arity - 2; input++)
+            {
+                owner.MoveRegister(
+                    XRegisterTag,
+                    input,
+                    YRegisterTag,
+                    formatSlot + input
+                );
+            }
+
+            owner.MoveRegister(
+                XRegisterTag,
+                function.Arity - 1,
+                YRegisterTag,
+                catchSlot
+            );
+            owner.EmitCallLine(firstCall, location);
+            Call(firstModule, firstCall.Function, 1);
+            owner.EmitDictionaryLookup(1, key);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                firstSlot
+            );
+            owner.MoveRegister(
+                XRegisterTag,
+                1,
+                XRegisterTag,
+                0
+            );
+            var previous = CallLocation(firstCall, location);
+            owner.EmitCallLine(secondCall, previous);
+            Call(secondModule, secondCall.Function, 1);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                secondSlot
+            );
+            owner.MoveRegister(
+                YRegisterTag,
+                catchSlot,
+                XRegisterTag,
+                0
+            );
+            owner.EmitConstant(initialTail, 1);
+            owner.EmitSlotKills([catchSlot]);
+            previous = CallLocation(secondCall, previous);
+            owner.EmitCallLine(tailCall, previous);
+            Call(tailModule, tailCall.Function, 2);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                tailSlot
+            );
+
+            int handler = Label();
+            EnterCatch(catchSlot, handler);
+            owner.EmitConstant(suffixValue, 1);
+            owner.MoveRegister(
+                YRegisterTag,
+                formatSlot,
+                XRegisterTag,
+                0
+            );
+            owner.EmitSlotKills([formatSlot]);
+            previous = CallLocation(tailCall, previous);
+            owner.EmitArithmeticLine(append.SourceLine, ref previous);
+            Call(ErlangModuleNames.Module, ErlangOperators.Append, 2);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                XRegisterTag,
+                1
+            );
+            owner.EmitConstant(prefixValue, 0);
+            Call(ErlangModuleNames.Module, ErlangOperators.Append, 2);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                formatSlot
+            );
+            owner.EmitCallLine(listHead, previous);
+            Call(headModule, listHead.Function, 0);
+
+            owner.Op(TestHeap, BeamWire.UnsignedTag, ConsHeapWords * function.Arity);
+            owner.Operand(BeamWire.UnsignedTag, 1);
+            EmitListCell(
+                YRegisterTag,
+                firstSlot,
+                YRegisterTag,
+                tailSlot
+            );
+            for (int input = function.Arity - 3; input >= 1; input--)
+            {
+                EmitListCell(
+                    YRegisterTag,
+                    formatSlot + input,
+                    XRegisterTag,
+                    1
+                );
+            }
+
+            EmitListCell(
+                YRegisterTag,
+                secondSlot,
+                XRegisterTag,
+                1
+            );
+            EmitListCell(
+                XRegisterTag,
+                0,
+                XRegisterTag,
+                1
+            );
+            owner.MoveRegister(
+                YRegisterTag,
+                formatSlot,
+                XRegisterTag,
+                0
+            );
+            owner.EmitSlotKills(Enumerable.Range(0, catchSlot).ToArray());
+            owner.EmitCallLine(consume, CallLocation(listHead, previous));
+            Call(consumerModule, consume.Function, 2);
+            EndCatch(catchSlot, handler);
+            owner.EmitFrameReturn(frameSize);
+
+            return true;
+        }
+
+        private static bool IndependentIgnoredParameters(IEnumerable<Pattern> patterns)
+        {
+            var names = new HashSet<string>(StringComparer.Ordinal);
+
+            return patterns.All(pattern => pattern is Pattern.Variable variable
+                && (variable.Name == VariableScopeNames.Wildcard || names.Add(variable.Name)));
+        }
+
+        private void EmitListCell(
+            int headTag,
+            int head,
+            int tailTag,
+            int tail
+        )
+        {
+            owner.Op(PutList, headTag, head);
+            owner.Operand(tailTag, tail);
+            owner.Operand(XRegisterTag, 1);
+        }
+    }
+}

@@ -1,0 +1,116 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamPrivatePayloadContinuationsChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamPrivatePayloadContinuationsChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamPrivatePayloadContinuationsChecks.cs
+@@ -0,0 +1,100 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamPrivatePayloadContinuationsChecks
++{
++    internal const string TestName = "compiler/beam/keeps-owned-entry-and-receive-payloads-in-pinned-registers";
++    private const string Fixture = "beam_private_payload_continuations_probe.erl";
++    private const string UnexpectedLayout = "Private payload continuations did not match their pinned layout.";
++
++    internal const string Source = """
++        -module(beam_private_payload_continuations_probe).
++        -export([run_measure/1, escaped/0, direct_escape/1, mode_one/0, mode_two/0,
++                 produce/3, read/1, accept/0, reject/1, report/2]).
++
++        run_measure(Fun) -> measure(Fun, experiment, 73).
++        direct_escape(Fun) -> measure_escape(Fun, experiment, 73).
++        escaped() -> fun measure_escape/3.
++
++        measure(Fun, Name, Line) ->
++            case ?MODULE:produce(run, apply, [Fun, []]) of
++                {_, {'EXIT', Reason}} -> exit(Reason);
++                {Time, Result} ->
++                    ?MODULE:report(sample, [Name, Line, Time]),
++                    Result
++            end.
++
++        measure_escape(Fun, Name, Line) ->
++            case ?MODULE:produce(run, apply, [Fun, []]) of
++                {_, {'EXIT', Reason}} -> exit(Reason);
++                {Time, Result} ->
++                    ?MODULE:report(sample, [Name, Line, Time]),
++                    Result
++            end.
++
++        mode_one() -> invoke(fun() -> worker(one) end).
++        mode_two() -> invoke(fun() -> worker(two) end).
++        invoke(Fun) -> Fun().
++
++        worker(Expected) ->
++            prepare(fun() -> self() ! started end, experiment, 101),
++            receive {payload, Payload} -> ok end,
++            case ?MODULE:read(Payload) of
++                Expected -> ?MODULE:accept();
++                Other -> ?MODULE:reject(Other)
++            end.
++
++        prepare(Fun, experiment, 101) -> Fun().
++        read(Value) -> self() ! {read, Value}, Value.
++        accept() -> accepted.
++        reject(Other) -> {rejected, Other}.
++        report(Tag, Values) -> self() ! {Tag, Values}, ok.
++        produce(run, apply, [Fun, []]) -> {7, Fun()}.
++        """;
++
++    internal static byte[] CompileFixture() => CodeGeneration.CompileBeamModule(Source, Fixture);
++
++    internal static void Run()
++    {
++        object code = Code(CompileFixture());
++        object[] instructions = Items(code, "Instructions").ToArray();
++        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        object[] measured = Body("measure", 3);
++        object[] escaped = Body("measure_escape", 3);
++        object[] worker = Body("worker", 1);
++        int remove = Array.FindIndex(worker, instruction => Opcode(instruction) == RemoveMessage);
++        if (!HasSingleFrameSlot(measured) || HasSingleFrameSlot(escaped) || !HasSingleFrameSlot(worker)
++            || remove < 0 || Opcode(worker[remove + 1]) != GetTupleElement
++            || Opcode(worker[remove + 2]) == Move)
++        {
++            throw new InvalidOperationException(UnexpectedLayout);
++        }
++
++        object[] Body(string name, int width)
++        {
++            int info = Array.FindIndex(
++                instructions,
++                instruction => Opcode(instruction) == FunctionInfo
++                    && Items(instruction, "Operands").ToArray() is [_, var atom, var arity]
++                    && atoms[Value(atom)] == name && Value(arity) == width
++            );
++
++            return info < 0 ? [] : instructions.Skip(info + 2).TakeWhile(instruction => Opcode(instruction) != FunctionInfo).ToArray();
++        }
++    }
++
++    private static bool HasSingleFrameSlot(object[] body) => body.Length > 0
++        && Opcode(body[0]) == AllocateHeap
++        && Value(Items(body[0], "Operands").First()) == 1;
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
++
++    private static IEnumerable<object> Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>();
++}
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12645,6 +12645,7 @@
+ Test(Erlang.Tests.BeamAttributeFinalFunctionsChecks.TestName, Erlang.Tests.BeamAttributeFinalFunctionsChecks.Run);
+ Test(Erlang.Tests.BeamClosedCatchArgumentRootsChecks.TestName, Erlang.Tests.BeamClosedCatchArgumentRootsChecks.Run);
+ Test(Erlang.Tests.BeamCaseListGeneratorChecks.TestName, Erlang.Tests.BeamCaseListGeneratorChecks.Run);
++Test(Erlang.Tests.BeamPrivatePayloadContinuationsChecks.TestName, Erlang.Tests.BeamPrivatePayloadContinuationsChecks.Run);
+ Test(Erlang.Tests.BeamProtectedConstantCallChecks.TestName, Erlang.Tests.BeamProtectedConstantCallChecks.Run);
+ Test(
+     Erlang.Tests.BeamGuardedCallResultTailsChecks.TestName,

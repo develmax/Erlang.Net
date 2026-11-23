@@ -1,0 +1,164 @@
+using System.Collections;
+using System.Numerics;
+using Erlang;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamPreparedMeasurementTailChecks
+{
+    internal const string TestName = "compiler/beam/tail-converts-a-selected-prepared-binary-result";
+    private const string Fixture = "beam_prepared_measurement_tail_probe.erl";
+    private const string Decode = "decode";
+    private const string Guard = " when is_binary(Value)";
+    private const int MatchableType = 0x0002;
+    private const string IncorrectValue = "A prepared binary measurement changed its conversion or errors.";
+    private const string IncorrectLayout = "Only the proved prepared measurement should tail-convert from a zero-slot frame.";
+
+    private const string Source = """
+        -module(beam_prepared_measurement_tail_probe).
+        -export([decode/3]).
+
+        decode('Type', Input, _) ->
+            Prepared = prepare(Input),
+            begin
+                Value = read(Prepared, [19]),
+                Size = byte_size(Value),
+                if
+                    1 =< Size, Size =< 3 -> binary_to_list(Value);
+                    true -> exit(bad_range)
+                end
+            end.
+
+        prepare(Value) -> Value.
+
+        read(Value, [19]) when is_binary(Value) -> Value.
+        """;
+
+    internal static async Task Run()
+    {
+        byte[] known = CodeGeneration.CompileBeamModule(Source, Fixture);
+        byte[] unknown = CodeGeneration.CompileBeamModule(
+            Source.Replace(Guard, string.Empty, StringComparison.Ordinal), Fixture
+        );
+        var knownModule = BeamModule.Prepare(known);
+        var unknownModule = BeamModule.Prepare(unknown);
+        Term input = new BitString([65, 66]);
+        Term expected = Term.List(Term.I(65), Term.I(66));
+        await using var runtime = new ProcessRuntime();
+        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
+        await actor.InvokeAsync(async context =>
+        {
+            if (!expected.Equals(await knownModule.Invoke(
+                context,
+                Decode,
+                Term.A("Type"),
+                input,
+                Nil.Value
+            ))
+                || !expected.Equals(await unknownModule.Invoke(
+                    context,
+                    Decode,
+                    Term.A("Type"),
+                    input,
+                    Nil.Value
+                )))
+            {
+                throw new InvalidOperationException(IncorrectValue);
+            }
+
+            try
+            {
+                await knownModule.Invoke(
+                    context,
+                    Decode,
+                    Term.A("Type"),
+                    new BitString([]),
+                    Nil.Value
+                );
+                throw new InvalidOperationException(IncorrectValue);
+            }
+            catch (ErlangException error) when (error.Reason.Equals(Term.A("bad_range")))
+            {
+            }
+
+            try
+            {
+                await unknownModule.Invoke(
+                    context,
+                    Decode,
+                    Term.A("Type"),
+                    Term.A("not_bytes"),
+                    Nil.Value
+                );
+                throw new InvalidOperationException(IncorrectValue);
+            }
+            catch (ErlangException error) when (error.Reason.Equals(Term.A("badarg")))
+            {
+            }
+
+            try
+            {
+                await knownModule.Invoke(
+                    context,
+                    Decode,
+                    Term.A("unknown"),
+                    input,
+                    Nil.Value
+                );
+                throw new InvalidOperationException(IncorrectValue);
+            }
+            catch (ErlangException error) when (error.Reason.Equals(Term.A("function_clause")))
+            {
+            }
+
+            return Nil.Value;
+        });
+
+        var proved = MeasureLayout(known);
+        var unproved = MeasureLayout(unknown);
+        if (proved != (0, MatchableType) || unproved.Frame <= 0 || unproved.OperandType is not null)
+        {
+            throw new InvalidOperationException(IncorrectLayout);
+        }
+    }
+
+    private static (int Frame, int? OperandType) MeasureLayout(byte[] image)
+    {
+        object code = Code(image);
+        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
+        object[] instructions = Items(code, "Instructions");
+        int start = Array.FindIndex(
+            instructions,
+            instruction => Opcode(instruction) == FunctionInfo
+                && Items(instruction, "Operands") is [_, var name, var arity]
+                && atoms[Value(name)] == Decode && Value(arity) == 3
+        );
+        if (start < 0)
+        {
+            throw new InvalidOperationException(IncorrectLayout);
+        }
+
+        object[] body = instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo)
+            .ToArray();
+        object allocation = body.Single(instruction => Opcode(instruction) is Allocate or AllocateHeap);
+        int frame = Value(Items(allocation, "Operands")[0]);
+        object measured = body.Single(instruction => Opcode(instruction) == GcBifOne);
+        if (Property(Items(measured, "Operands")[3], "TypeIndex") is not int index)
+        {
+            return (frame, null);
+        }
+
+        object[] types = Items(Property(code, "Types"), "Entries");
+
+        return (frame, (int)Property(types[index], "TypeUnion"));
+    }
+
+    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
+
+    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
+
+    private static object[] Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
+}

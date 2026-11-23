@@ -1,0 +1,126 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamRedundantRecordCheckTests.cs b/tests/Erlang.Tests/Compiler/Beam/BeamRedundantRecordCheckTests.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamRedundantRecordCheckTests.cs
+@@ -0,0 +1,110 @@
++using System.Collections;
++using System.Numerics;
++using Erlang;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamRedundantRecordCheckTests
++{
++    internal const string TestName = "compiler/beam/reuses-straight-line-record-proof";
++    private const string Fixture = "beam_redundant_record_check_probe.erl";
++    private const string Marker = "record_proof_marker";
++    private const string BadRecordTag = "badrecord";
++    private const string IncorrectCheck = "The second tagged test or duplicate badrecord exit survived.";
++    private const string IncorrectValue = "Record proof changed the result, badrecord term, or preceding effect.";
++
++    internal const string Source = """
++        -module(beam_redundant_record_check_probe).
++        -export([fields/2, mixed/2]).
++        -record(data,{type,first,second,third}).
++        -record(other,{type,first,second,third}).
++
++        fields(R, Key) -> keep(Key), {R#data.third,R#data.first}.
++        mixed(R, Key) -> keep(Key), {R#data.third,R#other.first}.
++        keep(Key) -> erase(Key).
++        """;
++
++    internal static byte[] CompileFixture() => CodeGeneration.CompileBeamModule(Source, Fixture);
++
++    internal static async Task Run()
++    {
++        byte[] image = CompileFixture();
++        object code = Code(image);
++        object[] instructions = Items(code, "Instructions").ToArray();
++        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        int function = Array.FindIndex(
++            instructions,
++            instruction => Opcode(instruction) == FunctionInfo
++            && Items(instruction, "Operands").ToArray() is [_, var atom, _]
++            && atoms[(int)(BigInteger)Property(atom, "Value")] == "fields"
++        );
++        byte[] body = instructions.Skip(function + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo)
++            .Select(Opcode).ToArray();
++        if (function < 0 || body.Count(opcode => opcode == IsTaggedTuple) != 1 || body.Count(opcode => opcode == BadRecord) != 1)
++        {
++            throw new InvalidOperationException(IncorrectCheck);
++        }
++
++        var module = BeamModule.Prepare(image);
++        await using var runtime = new ProcessRuntime();
++        await using var receiver = new RuntimeNodeFoundationHostActor(runtime);
++        await receiver.InvokeAsync(async context =>
++        {
++            Term key = Term.A(Marker);
++            Term record = Term.Tuple(
++                Term.A("data"),
++                Term.A("kind"),
++                Term.I(17),
++                Term.I(26),
++                Term.I(33)
++            );
++            context.Dictionary[key] = Term.A("set");
++            Term fields = await module.Invoke(
++                context,
++                "fields",
++                record,
++                key
++            );
++            if (!Term.Tuple(Term.I(33), Term.I(17)).Equals(fields) || context.Dictionary.ContainsKey(key))
++            {
++                throw new InvalidOperationException(IncorrectValue);
++            }
++
++            (string Function, Term Record)[] failures =
++            [
++                ("fields", Term.A("invalid")),
++                ("mixed", record)
++            ];
++            foreach (var (name, input) in failures)
++            {
++                context.Dictionary[key] = Term.A("set");
++                try
++                {
++                    _ = await module.Invoke(
++                        context,
++                        name,
++                        input,
++                        key
++                    );
++                }
++                catch (ErlangException error) when (error.ExceptionClass == ErlangExceptionClasses.Error
++                    && error.Reason.Equals(Term.Tuple(Term.A(BadRecordTag), input))
++                    && !context.Dictionary.ContainsKey(key))
++                {
++                    continue;
++                }
++
++                throw new InvalidOperationException(IncorrectValue);
++            }
++
++            return Nil.Value;
++        });
++    }
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static IEnumerable<object> Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>();
++}
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12214,6 +12214,7 @@
+ Test(Erlang.Tests.BeamModuleEmissionChecks.TestName, Erlang.Tests.BeamModuleEmissionChecks.Run);
+ Test(Erlang.Tests.BeamClosedBindingChecks.TestName, Erlang.Tests.BeamClosedBindingChecks.Run);
+ Test(Erlang.Tests.BeamCheckedListReturnChecks.TestName, Erlang.Tests.BeamCheckedListReturnChecks.Run);
++Test(Erlang.Tests.BeamRedundantRecordCheckTests.TestName, Erlang.Tests.BeamRedundantRecordCheckTests.Run);
+ Test(
+     Erlang.Tests.BeamModuleEmissionChecks.SplitTaggedCaseTest,
+     Erlang.Tests.BeamModuleEmissionChecks.CompareSplitTaggedCase

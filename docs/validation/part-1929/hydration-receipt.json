@@ -1,0 +1,43 @@
+{
+  "Parent": {
+    "Source": "08443e380f1273a534b6927b1dabdf1baeedf4481f53e3d4d13a960062bbed9b",
+    "Paths": 692,
+    "RemovedPaths": [],
+    "Compiler": "40bc898f62418e9880e611b30bd41a66086fd61a5863180f4e6f52a69960ee59",
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "Tests": "9026f33161063fd8867a23aa8671a6e9633d13bf49393727541294c35f910576",
+    "ParentSource": "a614fab4a84c1ec7df2e1913b1efe79eb7ff4d6a31a3a6b732178464d651918f",
+    "CorpusTool": "22abff20cf6d6bda3752b70b94db69738eaaf107bebfae6c1c987803dadba7c7"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedComprehensions.cs": "62dee6d83a472d83e9b492a4bbe93de87a40206459489c2356904fcda06e217d",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": "c3dc1f9e9ba209fffc300cbefb0f2161f4e2d7654fa393a3069c1080bdac06a0",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.HeapTestPlacement.cs": "90f5ab5a8f6ad56f595b46b78fc0682ea98bbde5c56b8eb7e7dcd73fd0d31233",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.NestedListGenerators.cs": "55bca36e6f8ba302f55b3d2337346f1fadfffacdf816984c633c1f9db802cb7b",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.WxClassUnion.cs": "83ee57160411771f1135555915458a7e5099cf81e26018bf75b173bca2e32941",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.WxObjectCommands.cs": "0149f22cfaf9583d85cf90a7108b27bf531de4a637d4d3d6250438562c82110c",
+    "tests/Erlang.Tests/Compiler/Beam/BeamNestedListGeneratorChecks.cs": "fc119d5cae7f7405334eabe2fa4e907ce373a920ab3c67a835527752ebea8d32",
+    "tests/Erlang.Tests/Compiler/Beam/BeamStackTupleHeapChecks.cs": "6bb960cc0bb5b2c645e04668c4d5bc5d00ccfd7cb82f39b313b7b88dcce554ee",
+    "tests/Erlang.Tests/Compiler/Beam/BeamWxClassIndexOverloadChecks.cs": "4db3b247dd0fb702d90c8554d1dd505c23efc32b3b29a2dfad187c44de9fe185",
+    "tests/Erlang.Tests/Harness/Program.cs": "78355a7ced74b950d08ac65a740b0c091246bcc6bca4767e8e4ed2216e123915",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": "7950716d3c63e0da0f8aba56b725dc305c6adbacef1ac958605708ff88a4e5d9",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProjectionMoves.cs": "54e88a29c2c668c4f60ea1caa3724ceee7ef9c91cad8ddf064d1177563964187",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TerminalCalls.cs": "c2a23a963ea2341bfedf2e89702adfa24e00630e8b133fe3254ef95d339c356a",
+    "tests/Erlang.Tests/Compiler/Beam/BeamNeutralTailFrameChecks.cs": "b5366e1028d893a59da9c30e94aaefa6c4ea3642a68ac09c11fe8d2d7a8c7a45",
+    "tests/Erlang.Tests/Compiler/Beam/BeamProtectedProjectionChecks.cs": "2fd8ce082186d2082167ff6e4f3c41fb0da20a436054c82b736e79a3929335a9"
+  },
+  "CandidateRemovedPaths": {},
+  "PatchSources": {
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\missing-helpers-by-source-kind-1927\\two-generator-ownership\\lower-independent-list-generator-pairs.patch": "f0269ed1d7e2e48a3d425b2e373357517eec13fb53e735f0870d4def67062b3a",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\inets-head-record-forwarding-1922\\y-root-tuple-heap\\reserve-heap-before-stack-tuple-projection.patch": "56e7d4238919e8290751191703430f41b54ffe280650eff5a5066e757061b75f",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\mapped-class-index-dispatch-1948\\mapped-class-index-dispatch-1948-G.patch": "41726b5361cb2b3a8aa69b87490868c88f8c4ed713a090ef028647d16f6093c2",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\mapped-class-index-dispatch-1948\\mapped-class-index-dispatch-1948-G-fixture.patch": "5f00b8a57ab9aa7f897dd7528df436aa004e0d5ab1ff2e5004b8b1b8d582c1a4",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\nested-list-generators-and-heap-roots-1928\\generator-and-stack-root-tests.patch": "73884101f62ca62e028f5cc000dd8c12e13071f9808df31726102265b8eb112d",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\nested-list-generators-and-heap-roots-1928\\defer-stack-projection-after-frame-localization.py": "c7b12294b55ddff890d97f703f4fb151c9d5f053915ac8920cb3c486ce4d8790",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\nearest-code-and-frame-1929\\neutral-bif-tail-frame.patch": "5b5440910a67572f0dacd4d86d6a084be165898dbec70e940094c80aff96807e",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\protected-case-projection-liveness-1929\\protect-closed-projection-copies.patch": "e0eadcb7b0274255504e23713d8d44c350d7806a0df3fdcc661a6ffd398e04ca",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\frame-neutral-and-protected-projections-1929\\tail-and-projection-tests.patch": "68c56505d7c9159cf37e50e77e60dfff0070362a18fbc4490ede7de5ac24ce75",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\nested-generator-label-planning-1928-retake\\plan-nested-generator-labels.patch": "10ea40e012e5036bc20c9ae1b12133c8ed5e5e069e0148ebec31f4492eb72d3b",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\frame-and-generator-planning-1929-retake\\mixed-generator-entry-regression.patch": "f4f09099212fe45ec92a709029e5ba2999ba2b1bf4d1aaef94652cf7068be2b4"
+  }
+}

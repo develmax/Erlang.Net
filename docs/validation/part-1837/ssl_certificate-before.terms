@@ -1,0 +1,11 @@
+[{function,available_cert_key_pairs,1,96,
+           [{label,95},
+            {line,[{location,"ssl_certificate.erl",356}]},
+            {func_info,{atom,ssl_certificate},
+                       {atom,available_cert_key_pairs},
+                       1},
+            {label,96},
+            {move,{x,0},{x,1}},
+            {move,nil,{x,2}},
+            {move,{literal,[dsa,rsa,rsa_pss_pss,ecdsa]},{x,0}},
+            {call_only,3,{ssl_certificate,cert_key_group_to_list,3}}]}].

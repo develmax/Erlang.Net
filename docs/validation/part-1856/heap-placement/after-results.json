@@ -1,0 +1,94 @@
+{
+  "OtpVersion": "29.1.1",
+  "Total": 12,
+  "Counts": {
+    "Different": 7,
+    "Equal": 5
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\common_test-1.31.2\\ebin\\ct.beam",
+      "Status": "Different",
+      "Source": "lib\\common_test-1.31.2\\src\\ct.erl",
+      "Detail": "Original length 45124, generated length 46184. AtU8 1498-\u003E1487, Code 5185-\u003E6375, ImpT 964-\u003E988, ExpT 892-\u003E892, FunT 52-\u003E52, LitT 716-\u003E591, LocT 100-\u003E88, Attr 39-\u003E39, Line 432-\u003E434, Type 18-\u003E12",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\diameter-2.7.2\\ebin\\diameter_callback.beam",
+      "Status": "Equal",
+      "Source": "lib\\diameter-2.7.2\\src\\base\\diameter_callback.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\diameter-2.7.2\\ebin\\diameter_sync.beam",
+      "Status": "Different",
+      "Source": "lib\\diameter-2.7.2\\src\\base\\diameter_sync.erl",
+      "Detail": "Original length 15860, generated length 16328. AtU8 791-\u003E791, Code 4111-\u003E4577, ImpT 484-\u003E484, ExpT 268-\u003E268, FunT 100-\u003E100, LocT 472-\u003E472, Attr 98-\u003E98, Line 289-\u003E293, Type 20-\u003E16",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\edoc-1.5\\ebin\\edoc_wiki.beam",
+      "Status": "Different",
+      "Source": "lib\\edoc-1.5\\src\\edoc_wiki.erl",
+      "Detail": "Original length 21924, generated length 23108. AtU8 756-\u003E756, Code 5691-\u003E6913, ExpT 52-\u003E52, FunT 28-\u003E28, LitT 716-\u003E716, LocT 424-\u003E424, Attr 39-\u003E39, Dbgi 13046-\u003E13006, Line 246-\u003E282, Type 66-\u003E30",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\eldap-1.3.1\\ebin\\ELDAPv3.beam",
+      "Status": "Equal",
+      "Source": "..\\..\\local-1853-next-near-analysis\\after-results.json.sources\\740fcb53a3f64b8fbbcd03551349c204\\ELDAPv3.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\erts-17.1\\ebin\\prim_buffer.beam",
+      "Status": "Equal",
+      "Source": "lib\\erts-17.1\\src\\prim_buffer.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\httpd_sup.beam",
+      "Status": "Different",
+      "Source": "lib\\inets-9.8\\src\\http_server\\httpd_sup.erl",
+      "Detail": "Original length 11260, generated length 11608. AtU8 889-\u003E915, Code 2358-\u003E2673, ImpT 340-\u003E376, ExpT 112-\u003E112, LitT 190-\u003E163, LocT 196-\u003E196, Attr 93-\u003E93, Line 162-\u003E170, Type 18-\u003E12",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\disk_log.beam",
+      "Status": "Different",
+      "Source": "lib\\kernel-11.0.4\\src\\disk_log.erl",
+      "Detail": "Original length 101520, generated length 110304. AtU8 3222-\u003E3250, Code 23534-\u003E32241, ImpT 1048-\u003E1108, ExpT 604-\u003E604, FunT 100-\u003E100, LitT 2333-\u003E2299, LocT 988-\u003E988, Attr 266-\u003E266, Dbgi 56262-\u003E56216, Line 1229-\u003E1455, Type 192-\u003E40",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\disk_log_1.beam",
+      "Status": "Different",
+      "Source": "lib\\kernel-11.0.4\\src\\disk_log_1.erl",
+      "Detail": "Original length 77288, generated length 80908. AtU8 2289-\u003E2288, Code 21758-\u003E25631, ImpT 628-\u003E664, ExpT 556-\u003E556, LitT 667-\u003E645, LocT 940-\u003E940, Attr 261-\u003E261, Dbgi 46844-\u003E46798, Line 1174-\u003E1280, Type 400-\u003E76",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\megaco-4.9.2\\ebin\\megaco_tcp_sup.beam",
+      "Status": "Equal",
+      "Source": "lib\\megaco-4.9.2\\src\\tcp\\megaco_tcp_sup.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\ssh-6.0.6\\ebin\\ssh_channel_sup.beam",
+      "Status": "Equal",
+      "Source": "lib\\ssh-6.0.6\\src\\ssh_channel_sup.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\ssh-6.0.6\\ebin\\ssh_connection.beam",
+      "Status": "Different",
+      "Source": "lib\\ssh-6.0.6\\src\\ssh_connection.erl",
+      "Detail": "Original length 74784, generated length 77100. AtU8 3290-\u003E3349, Code 16923-\u003E19340, ImpT 736-\u003E784, ExpT 532-\u003E532, FunT 148-\u003E148, LitT 1413-\u003E1250, LocT 412-\u003E412, Attr 39-\u003E39, Line 712-\u003E732, Type 111-\u003E48",
+      "FirstDifferentByte": 6
+    }
+  ]
+}

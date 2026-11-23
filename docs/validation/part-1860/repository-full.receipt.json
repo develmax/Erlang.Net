@@ -1,0 +1,33 @@
+{
+  "Passed": 9802,
+  "Failed": 1,
+  "Count": 9803,
+  "TestRunner": {
+    "Seconds": 3131.8755153,
+    "Report": true,
+    "ProcessId": 46264,
+    "ExitCode": 1
+  },
+  "ActualRawFiles": {
+    "repository-full.json": {
+      "Sha256": "aae8c3946ce823160d95c875263d48ba4edca2a9211119755588161d1c161eb4",
+      "Bytes": 1369524
+    },
+    "repository-full.json.stdout.log": {
+      "Sha256": "9cf529a40be8cd25350509465f725810af091f5f43472b712de0bacf23f91deb",
+      "Bytes": 622490
+    },
+    "repository-full.json.stderr.log": {
+      "Sha256": "887ab5af78ddc2803228125b6584c247ca142e50272f1ddb28a098d01bea513a",
+      "Bytes": 2321
+    }
+  },
+  "Failures": [
+    {
+      "Name": "runtime/string/original-jaro-indexed-resource-contract",
+      "Status": "Failed",
+      "Error": "System.TimeoutException: The operation has timed out.\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func`2 command) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 51\r\n   at Erlang.Tests.StringBackendChecks.Run(Boolean managed, Boolean jaro, Boolean managedUnicode) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringBackendChecks.cs:line 45\r\n   at Erlang.Tests.StringBackendChecks.Run(Boolean managed, Boolean jaro, Boolean managedUnicode) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringBackendChecks.cs:line 69\r\n   at Erlang.Tests.StringBackendChecks.Run(Boolean managed, Boolean jaro, Boolean managedUnicode) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringBackendChecks.cs:line 69\r\n   at Program.<Main>$(String[] args) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16408",
+      "Milliseconds": 10793
+    }
+  ]
+}

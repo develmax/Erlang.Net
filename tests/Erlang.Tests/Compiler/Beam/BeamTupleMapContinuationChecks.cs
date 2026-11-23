@@ -1,0 +1,50 @@
+using System.Collections;
+using System.Numerics;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamTupleMapContinuationChecks
+{
+    internal const string TestName = "compiler/beam/keeps-only-values-used-after-checked-entry-effects";
+    private const string IncorrectContinuation = "Checked entry continuations did not preserve their expected argument and frame layout.";
+
+    internal static Task Run()
+    {
+        object code = Code(CodeGeneration.CompileBeamModule(
+            BeamEntryTupleLivenessChecks.Source,
+            BeamEntryTupleLivenessChecks.Fixture
+        ));
+        object[] instructions = ((IEnumerable)Property(code, "Instructions")).Cast<object>().ToArray();
+        byte[] opcodes = instructions.Select(instruction => (byte)Property(Property(instruction, "Definition"), "Opcode")).ToArray();
+        int send = Array.IndexOf(opcodes, Send);
+        if (send < 0)
+        {
+            throw new InvalidOperationException(IncorrectContinuation);
+        }
+
+        int sendFrame = Array.LastIndexOf(opcodes, Allocate, send);
+        int fallbackFrame = Array.IndexOf(opcodes, AllocateHeap, send + 1);
+        int call = Array.IndexOf(opcodes, ExternalCall);
+        if (sendFrame < 0 || fallbackFrame < 0 || call < 0 || FrameSize(sendFrame) != 1 || FrameSize(fallbackFrame) != 1
+            || opcodes[call + 1] != Move || opcodes[call + 2] != Move
+            || !IsRegister(Operands(call + 1)[0], "x", 0)
+            || !IsRegister(Operands(call + 1)[1], "y", 0)
+            || !IsRegister(Operands(call + 2)[0], "x", 0)
+            || !IsRegister(Operands(call + 2)[1], "x", 1))
+        {
+            throw new InvalidOperationException(IncorrectContinuation);
+        }
+
+        return Task.CompletedTask;
+
+        BigInteger FrameSize(int index) => (BigInteger)Property(Operands(index)[0], "Value");
+
+        object[] Operands(int index) => ((IEnumerable)Property(instructions[index], "Operands")).Cast<object>().ToArray();
+
+        static bool IsRegister(object operand, string kind, int index) =>
+            (string)Property(operand, "Kind") == kind && (BigInteger)Property(operand, "Value") == index;
+    }
+}

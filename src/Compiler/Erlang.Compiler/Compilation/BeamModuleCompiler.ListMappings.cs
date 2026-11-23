@@ -413,26 +413,95 @@ internal sealed partial class BeamModuleCompiler
         EmitRecursiveCons(entry, 1);
     }
 
-    private void EmitRecursiveCons(int entry, int arity)
+    private void EmitRecursiveCons(
+        int entry,
+        int arity,
+        Term?[]? tupleFields = null,
+        int singletonWrappers = 0
+    )
     {
         EmitFieldCall(arity, entry);
-        Op(TestHeap, BeamWire.UnsignedTag, ConsHeapWords);
+        int heapWords = ConsHeapWords * (1 + singletonWrappers) + (tupleFields is null ? 0 : tupleFields.Length + 1);
+        Op(TestHeap, BeamWire.UnsignedTag, heapWords);
         Operand(BeamWire.UnsignedTag, 1);
-        Op(PutList, YRegisterTag, 0);
+        if (tupleFields is null)
+        {
+            Op(PutList, YRegisterTag, 0);
+        }
+        else
+        {
+            EmitTupleHeader(XRegisterTag, tupleFields.Length, 1);
+            foreach (Term? field in tupleFields)
+            {
+                if (field is null)
+                {
+                    Operand(YRegisterTag, 0);
+                }
+                else
+                {
+                    LiteralOperand(field);
+                }
+            }
+
+            for (int wrapper = 0; wrapper < singletonWrappers; wrapper++)
+            {
+                Op(PutList, XRegisterTag, 1);
+                LiteralOperand(Nil.Value);
+                Operand(XRegisterTag, 1);
+            }
+
+            Op(PutList, XRegisterTag, 1);
+        }
+
         Operand(XRegisterTag, 0);
         Operand(XRegisterTag, 0);
         EmitFrameReturn(1);
     }
 
-    private void EmitMappingEnd(int empty, int invalid)
+    private void EmitMappingEnd(
+        int empty,
+        int invalid,
+        BeamSourceLocation? errorLocation = null,
+        int nilResultRegister = 0
+    )
     {
         Op(Label, BeamWire.UnsignedTag, empty);
         EmitNilTest(XRegisterTag, 0, invalid);
+        if (nilResultRegister != 0)
+        {
+            MoveRegister(
+                XRegisterTag,
+                nilResultRegister,
+                XRegisterTag,
+                0
+            );
+        }
         instructions.WriteByte(Return);
         Op(Label, BeamWire.UnsignedTag, invalid);
-        Op(TestHeap, BeamWire.UnsignedTag, 3);
-        Operand(BeamWire.UnsignedTag, 1);
-        EmitProtectedPair(AtomTag, Intern("bad_generator"));
+        EmitListMappingError(
+            1,
+            0,
+            ComprehensionErrorReasons.BadGenerator,
+            errorLocation
+        );
+    }
+
+    private void EmitListMappingError(
+        int live,
+        int rejectedRegister,
+        string reason,
+        BeamSourceLocation? errorLocation = null
+    )
+    {
+        const int pairHeapWords = 3;
+        Op(TestHeap, BeamWire.UnsignedTag, pairHeapWords);
+        Operand(BeamWire.UnsignedTag, live);
+        EmitProtectedPair(AtomTag, Intern(reason), rejectedRegister);
+        if (errorLocation is { } line)
+        {
+            EmitLine(line);
+        }
+
         EmitTailRemote(ErlangModuleNames.Module, "error", framed: false);
     }
 

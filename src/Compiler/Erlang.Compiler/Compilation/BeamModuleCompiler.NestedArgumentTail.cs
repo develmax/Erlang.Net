@@ -1132,7 +1132,7 @@ internal sealed partial class BeamModuleCompiler
                 && clause.Patterns.OfType<Pattern.Variable>().Any(parameter => parameter.Name == variable.Name);
         }
 
-        private bool TryEmitNestedArgumentTailCall(FunctionDefinition function)
+        private bool TryEmitNestedArgumentTailCall(FunctionDefinition function, bool capturedExitOnly = false)
         {
             if (function.Clauses is not [{ Guard: null } clause] || !HasUnconditionalParameters(clause))
             {
@@ -1153,8 +1153,22 @@ internal sealed partial class BeamModuleCompiler
                 root = constructed;
             }
 
-            if (root is null || call is null || call.DynamicRemote
-                || parameters.Contains(VariableScopeNames.Wildcard))
+            if (root is null || call is null || call.DynamicRemote)
+            {
+                return false;
+            }
+
+            if (capturedExitOnly)
+            {
+                if (recursiveClosure is not { SelfName: null, GuardFailure: null, CaptureCount: > 0 }
+                    || call is not { Module: null or ErlangModuleNames.Module, Function: AutoImportNames.Exit }
+                    || !owner.ResolvesErlangBif(call)
+                    || root.Items.OfType<Expr.Tuple>().Take(2).Count() < 2)
+                {
+                    return false;
+                }
+            }
+            else if (parameters.Contains(VariableScopeNames.Wildcard))
             {
                 return false;
             }

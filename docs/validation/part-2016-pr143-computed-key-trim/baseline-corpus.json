@@ -1,0 +1,38 @@
+{
+  "OtpVersion": "29.1.1",
+  "Total": 4,
+  "Counts": {
+    "Different": 3,
+    "Equal": 1
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\asn1-5.5.2\\ebin\\asn1ct_rtt.beam",
+      "Status": "Equal",
+      "Source": "lib\\asn1-5.5.2\\src\\asn1ct_rtt.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\common_test-1.31.2\\ebin\\cth_log_redirect.beam",
+      "Status": "Different",
+      "Source": "lib\\common_test-1.31.2\\src\\cth_log_redirect.erl",
+      "Detail": "Original length 13528, generated length 14040. AtU8 1050-\u003E1050, Code 2863-\u003E3384, ImpT 280-\u003E280, ExpT 268-\u003E268, LitT 666-\u003E657, LocT 76-\u003E76, Attr 99-\u003E99, Line 184-\u003E184, Type 16-\u003E14",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\erts-17.1\\ebin\\socket_registry.beam",
+      "Status": "Different",
+      "Source": "lib\\erts-17.1\\src\\socket_registry.erl",
+      "Detail": "Original length 20468, generated length 21380. AtU8 1211-\u003E1232, Code 5071-\u003E5890, ImpT 316-\u003E352, ExpT 148-\u003E148, FunT 28-\u003E28, LitT 498-\u003E533, LocT 532-\u003E520, Attr 39-\u003E39, Line 310-\u003E330, Type 22-\u003E16",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\runtime_tools-2.5\\ebin\\instrument.beam",
+      "Status": "Different",
+      "Source": "lib\\runtime_tools-2.5\\src\\instrument.erl",
+      "Detail": "Original length 11804, generated length 11936. AtU8 733-\u003E678, Code 1849-\u003E2092, ImpT 280-\u003E304, ExpT 76-\u003E76, FunT 52-\u003E52, LocT 172-\u003E148, Attr 39-\u003E39, Line 118-\u003E124, Type 70-\u003E14",
+      "FirstDifferentByte": 7
+    }
+  ]
+}

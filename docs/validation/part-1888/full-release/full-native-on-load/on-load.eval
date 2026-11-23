@@ -1,0 +1,12 @@
+[Image,Out]=init:get_plain_arguments(),
+{ok,B}=file:read_file(Image),
+{module,asn1rt_nif}=code:load_binary(asn1rt_nif,Image,B),
+Calls=[{decode_ber_tlv,[<<2,1,5>>]},{decode_ber_tlv,[<<2,1,5,5,0>>]},
+       {decode_ber_tlv,[<<16#30,3,2,1,5>>]},{decode_ber_tlv,[<<2,3,5>>]},
+       {decode_ber_tlv,[<<>>]}, {encode_ber_tlv,[{2,<<5>>}]},
+       {encode_ber_tlv,[{16,[{2,<<5>>},{4,<<42>>}]}]},
+       {encode_per_complete,[[<<16#80:8>>,<<0:2>>]]},{encode_per_complete,[[]]}],
+Outcome=fun({F,A})->try apply(asn1rt_nif,F,A) of V->{value,V}
+  catch C:E:S->{C,E,[{M,N,length(Args)}||{M,N,Args,_}<-S,M=:=asn1rt_nif,is_list(Args)]} end end,
+Results=[{F,A,Outcome({F,A})}||{F,A}<-Calls],
+ok=file:write_file(Out,[io_lib:format("~0p.~n",[Row])||Row<-Results]),halt().

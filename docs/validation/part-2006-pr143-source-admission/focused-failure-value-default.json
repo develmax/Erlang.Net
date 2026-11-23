@@ -1,0 +1,19 @@
+{
+  "Partial": true,
+  "SelectedCount": 1,
+  "TotalCount": 10716,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/beam/lowers-prepared-map-defaults-in-value-positions"
+  ],
+  "Passed": 0,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "compiler/beam/lowers-prepared-map-defaults-in-value-positions",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: The map default did not retain a distinct cold error with an empty line.\r\n   at Erlang.Tests.BeamValueMapDefaultChecks.CheckLayout(Byte[] image) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamValueMapDefaultChecks.cs:line 317\r\n   at Erlang.Tests.BeamValueMapDefaultChecks.Run() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamValueMapDefaultChecks.cs:line 63\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-release-parity\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 18414",
+      "Milliseconds": 1686
+    }
+  ]
+}

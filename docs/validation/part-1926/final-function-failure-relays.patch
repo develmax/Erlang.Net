@@ -1,0 +1,103 @@
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedReturns.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedReturns.cs
+@@ -9,7 +9,8 @@
+         int End,
+         int Tag,
+         int Value,
+-        bool IsJump = false
++        bool IsJump = false,
++        bool IsRemoval = false
+     );
+ 
+     private int[]? emittedLabels;
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.NestedEntryLabelOrder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.NestedEntryLabelOrder.cs
+@@ -106,7 +106,10 @@
+         foreach (CodeEdit edit in edits.OrderBy(edit => edit.Start))
+         {
+             rewritten.Write(code.Span[copied..edit.Start]);
+-            BeamCompactWriter.Write(rewritten, edit.Tag, edit.Value);
++            if (!edit.IsRemoval)
++            {
++                BeamCompactWriter.Write(rewritten, edit.Tag, edit.Value);
++            }
+             copied = edit.End;
+         }
+ 
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs
+@@ -29,6 +29,9 @@
+             return null;
+         }
+ 
++        // Entry literal partitioning may consume a failure relay to build its select.
++        // Resolve the remaining own-function relays after the branch layout is final.
++        var relays = ModuleOptimizationDisabled ? [] : CollectFinalFunctionFailureRelays(body);
+         var labels = new int[labelCount];
+         var edits = new List<CodeEdit>();
+         int physical = 1;
+@@ -43,6 +46,19 @@
+             if (original <= 0 || original >= labelCount || labels[original] != 0)
+             {
+                 return null;
++            }
++
++            if (relays.TryGetValue(index, out var relay))
++            {
++                labels[original] = labels[relay.Target];
++                edits.Add(new CodeEdit(
++                    body[index].Offset,
++                    body[relay.End].Offset,
++                    0,
++                    0,
++                    IsRemoval: true
++                ));
++                continue;
+             }
+ 
+             labels[original] = physical++;
+@@ -94,4 +110,44 @@
+ 
+         bool IsDefined(int label) => label > 0 && label < labels.Length && labels[label] > 0;
+     }
++
++    private static Dictionary<int, (int Target, int End)> CollectFinalFunctionFailureRelays(
++        IReadOnlyList<BeamInstruction> body
++    )
++    {
++        var relays = new Dictionary<int, (int Target, int End)>();
++        int entry = 0;
++        for (int end = 0; end < body.Count; end++)
++        {
++            if (body[end].Definition.Opcode is not (FunctionInfo or EndCode))
++            {
++                continue;
++            }
++
++            int start = entry;
++            entry = end + 1;
++            int failure = EntryFrameFailureLabel(body, start);
++            if (failure <= 0 || body.Skip(start).Take(end - start).Any(
++                instruction => instruction.Definition.Opcode is CatchEnter or TryEnter or LoopReceive or Wait or WaitTimeout
++            ))
++            {
++                continue;
++            }
++
++            for (int index = start + 1; index + 1 < end; index++)
++            {
++                if (body[index].Definition.Opcode != Label
++                    || body[index + 1] is not { Definition.Opcode: Jump, Operands: [var target] }
++                    || target.Value != failure)
++                {
++                    continue;
++                }
++
++                int following = EndsBeamBlock(body[index - 1].Definition.Opcode) ? index + 2 : index + 1;
++                relays.Add(index, (failure, following));
++            }
++        }
++
++        return relays;
++    }
+ }

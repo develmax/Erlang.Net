@@ -4,7 +4,7 @@ internal static class BeamSourceForms
 {
     internal static IReadOnlyList<BeamSourceLocation> FunctionLines(IReadOnlyList<Token> tokens, ModuleDefinition module)
     {
-        var lines = module.DiameterAccessorLines.Select(line => new BeamSourceLocation(null, line)).ToList();
+        var lines = new List<BeamSourceLocation>();
         var attributes = module.Attributes.Select(attribute => attribute.Name).ToHashSet(StringComparer.Ordinal);
         bool seenModule = false;
 
@@ -43,6 +43,14 @@ internal static class BeamSourceForms
             }
 
             lines.Add(new(token.PreprocessorFile, token.PreprocessorLine));
+        }
+
+        if (module.DiameterAccessorLines.Count > 0)
+        {
+            // diameter_exprecs inserts its forms before the first original function.
+            // The executable entry inherits that file and the generated function's first clause line.
+            string? generatedFile = lines.Count > 0 ? lines[0].File : null;
+            lines.InsertRange(0, module.DiameterAccessorLines.Select(line => new BeamSourceLocation(generatedFile, line + 1)));
         }
 
         if (module.HasGeneratedEunitTest)

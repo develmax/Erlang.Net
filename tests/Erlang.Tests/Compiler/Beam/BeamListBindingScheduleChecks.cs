@@ -1,0 +1,118 @@
+using System.Collections;
+using System.Numerics;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamListBindingScheduleChecks
+{
+    internal const string ListTest = "compiler/beam/call-list-retains-entry-values-without-spilling-final-result";
+    internal const string BooleanTest = "compiler/beam/known-local-boolean-dispatch-enters-true-tail-first";
+    internal const string BindingTest = "compiler/beam/sequential-tagged-bindings-preserve-final-list-register";
+    private const string ListError = "The call list spilled a terminal result or retained a spent input.";
+    private const string BooleanError = "The local boolean selector did not retain the direct true tail edge.";
+    private const string BindingError = "The tagged bindings did not preserve the cold failures and final list register.";
+
+    internal const string Source = """
+        -module(beam_list_binding_schedule).
+        -export([single/3, pair/3, choose/3, bind/4]).
+
+        single(Tag, Attrs, Data) -> [probe:start(Tag, Attrs), Data].
+        pair(Tag, Attrs, Data) -> [probe:start(Tag, Attrs), Data, probe:finish(Tag)].
+
+        choose(Tag, Data, Attrs) ->
+            case predicate(Tag) of
+                false -> normal(Tag, Attrs, Data);
+                true -> short(Tag, Attrs, Data)
+            end.
+
+        predicate(short) -> true;
+        predicate(_) -> false.
+        normal(Tag, Attrs, Data) -> {normal,Tag,Attrs,Data}.
+        short(Tag, Attrs, Data) -> {short,Tag,Attrs,Data}.
+
+        bind(Data, Attrs, [], _) ->
+            Version = case probe:lookup(version, Attrs) of
+                {result, V} -> V;
+                empty -> fallback
+            end,
+            Uri = case probe:lookup(uri, Attrs) of
+                {result, U} -> [begin_uri, U, end_uri];
+                empty -> []
+            end,
+            [begin_document, Version, separator, Uri, end_document, Data].
+        """;
+
+    internal static byte[] Compile(string source = Source) => CodeGeneration.CompileBeamModule(source, "beam_list_binding_schedule.erl");
+
+    internal static void RunList()
+    {
+        var single = Operations(Compile(), "single");
+        var pair = Operations(Compile(), "pair");
+        if (!HasFrame(single, 1) || !HasFrame(pair, 2)
+            || single.Count(operation => Opcode(operation) == PutList) != 2
+            || pair.Count(operation => Opcode(operation) == PutList) != 3
+            || !pair.Any(operation => Opcode(operation) == Swap && Operands(operation).Any(operand => Kind(operand) == BeamBinaryHostNames.Y)))
+        {
+            throw new InvalidOperationException(ListError);
+        }
+    }
+
+    internal static void RunBoolean()
+    {
+        byte[] image = Compile();
+        var branch = Operations(image, "choose").First(operation => Opcode(operation) == ExactEqualTest);
+        object[] operands = Operands(branch);
+        string? testAtom = Atoms(image)[Value(operands[^1])];
+        var unknown = Operations(
+            Compile(Source.Replace("predicate(_) -> false.", "predicate(other) -> unexpected; predicate(_) -> false.", StringComparison.Ordinal)),
+            "choose"
+        );
+        if (testAtom != "true" || !unknown.Any(operation => Opcode(operation) == CaseEnd))
+        {
+            throw new InvalidOperationException(BooleanError);
+        }
+    }
+
+    internal static void RunBinding()
+    {
+        var operations = Operations(Compile(), "bind");
+        int constructor = Array.FindIndex(
+            operations,
+            operation => Opcode(operation) == TestHeap && Operands(operation) is [var heap, var live]
+                && Value(heap) == 4 && Value(live) == 1
+        );
+        if (!HasFrame(operations, 3) || constructor < 0 || Opcode(operations[constructor + 1]) != GetTupleElement
+            || operations.Count(operation => Opcode(operation) == CaseEnd) != 2
+            || operations.Count(operation => Opcode(operation) == InitYRegisters) != 2)
+        {
+            throw new InvalidOperationException(BindingError);
+        }
+    }
+
+    private static bool HasFrame(object[] operations, int width) => operations.Any(operation =>
+        Opcode(operation) == Allocate && Value(Operands(operation)[0]) == width);
+
+    private static object[] Operations(byte[] image, string name)
+    {
+        object code = Code(image);
+        var atoms = Atoms(image);
+        var operations = ((IEnumerable)Property(code, "Instructions")).Cast<object>();
+
+        return operations.SkipWhile(operation => Opcode(operation) != FunctionInfo || atoms[Value(Operands(operation)[1])] != name)
+            .Skip(1).TakeWhile(operation => Opcode(operation) != FunctionInfo).ToArray();
+    }
+
+    private static string?[] Atoms(byte[] image) =>
+        ((IEnumerable)Property(Property(Code(image), "Structure"), "Atoms")).Cast<string?>().ToArray();
+
+    private static string Kind(object operand) => (string)Property(operand, "Kind");
+
+    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
+
+    private static object[] Operands(object operation) => ((IEnumerable)Property(operation, "Operands")).Cast<object>().ToArray();
+
+    private static byte Opcode(object operation) => (byte)Property(Property(operation, "Definition"), "Opcode");
+}

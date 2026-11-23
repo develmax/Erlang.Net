@@ -1,0 +1,26 @@
+[Path] = init:get_plain_arguments(),
+M = megaco_tcp_accept, ok=logger:set_primary_config(level,emergency),
+{ok,Beam}=file:read_file(Path),
+{module,M}=code:load_binary(M,Path,Beam),
+Ghost=spawn(fun()->receive stop -> ok end end),
+Down=erlang:monitor(process,Ghost),
+Ghost ! stop,
+receive {'DOWN',Down,process,Ghost,normal}->ok after 2000->erlang:error(ghost_timeout) end,
+Probe=fun(Tcp)->
+  {ok,Listen}=gen_tcp:listen(0,[binary,{active,false},{ip,{127,0,0,1}}]),
+  {ok,{{127,0,0,1},Port}}=inet:sockname(Listen),
+  Parent=self(),
+  {Pid,Mon}=spawn_monitor(fun()->M:net_accept(Tcp,Ghost,Listen,Parent) end),
+  {ok,Client}=gen_tcp:connect({127,0,0,1},Port,[binary,{active,false}],2000),
+  Result=receive
+    {'DOWN',Mon,process,Pid,{noproc,{gen_server,call,[Ghost,which_children,infinity]}}}->updated_record_reached_supervisor;
+    {'DOWN',Mon,process,Pid,{{badrecord,bogus},Stack}}->
+      {original_record_error,[{F,L}||{MF,F,_,Pos}<-Stack,MF=:=M,{line,L}<-Pos]};
+    {'DOWN',Mon,process,Pid,R}-> {unexpected,R}
+  after 3000->erlang:error(accept_timeout) end,
+  ok=gen_tcp:close(Client),ok=gen_tcp:close(Listen),
+  Result
+end,
+Record={megaco_tcp,undefined,undefined,[],undefined,undefined,undefined,megaco,false,default},
+Results=[updated_record_reached_supervisor,{original_record_error,_}]=[Probe(Record),Probe(bogus)],
+io:format("~0tp.~n",[Results]),halt().

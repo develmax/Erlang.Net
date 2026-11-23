@@ -1,0 +1,51 @@
+{
+  "Part": 1984,
+  "Reference": "OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Base1951": "cb7ef2fac1cf46ffb7c9e3ada13c4c90c4efbb954acd1ab41103df9c0ba8d766 plus Parts1978-1981 only",
+  "Base1952": "48569fd3ab77907ff7963d3f513058a910e3671e7f5fb99fb90558788bc25b69",
+  "Compiler1952": "ab248826c7151f3a1fbc75a90f528b61f5149353a1684557963ceb2d3845a35c",
+  "SourceDependencies": "Parts1978-1981 provide compatible do_init/1 output. This patch uses the shared existing tuple, call, trim and register-emission infrastructure. Part1982 source is absent.",
+  "PinnedSources": [
+    "beam_core_to_ssa match_con, select_types, select_cg",
+    "beam_ssa_pre_codegen place_frames and find_yregs",
+    "beam_ssa_codegen cg_switch and setup_args",
+    "beam_trim construct_recipes",
+    "Part1978 ex_cursor.precodegen:467 and event CFG"
+  ],
+  "Base1952Replay": "Only the GeneralEmitter registration hunk needs a contextual re-anchor. The test and other production hunks replay strictly. All four new production source files match their original patch bytes.",
+  "RawImage": {
+    "Path": "lib/wx-2.7/doc/examples/demo/ex_cursor.beam",
+    "Bytes": 16736,
+    "Functions": 15,
+    "Chunks": 15,
+    "Sha256": "714c854a2c33e458fb68763759ce40ae8cfcf3f1f3b122c16466f955fa514c96"
+  },
+  "Scope": "13 release files with one worker, 7 Equal and 6 Different before and 8 Equal and 5 Different after; prior seven exact images remain identical. Only ex_aui, ex_button and ex_cursor generated files change. Adjacent files remain Different and gain shared entry dispatch, but normalized event spans remain 191 vs 184 pinned for ex_aui and 73 vs 65 pinned for ex_button.",
+  "Native": "Ten ex_cursor, nine ex_aui and five ex_button event cases with ordinary success, wrong tagged records, fallback, case failures, ordered effects and first stack frame. Native cases use local wx stubs. Both linked products emit identical byte hashes for all three witnessed modules.",
+  "Regression": "Permanent standalone red/green and linked five-fixture green. Multi-selector, same/different tuple widths, overlapping guard, finite effects and variable-length linear chain all represented.",
+  "Hashes": {
+    "production.patch": "4deeb1d6838f466dc226287b45096f225848b59288e3466671799f078690cb84",
+    "test.patch": "bd765d03dfac398a2bcaeb9bb315f0862fca53d5f42113eb86541b54778a79aa",
+    "strict-replay.log": "9b57ac4b164487feec766f3b600ffba05972729d54e26420a4c10c48c1db6ede",
+    "replay-files.json": "f3dd1a3ce4a1edcc1cbeb6bfee6dec6af210baaf26c83ca815ab2c9ed7f7bc4a",
+    "style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "final-scope.json": "988c96944396c3774719dca1944ee81713d4471bea7fecc7a2c3de71a19631a8",
+    "whole-image.terms": "57d120f936d6aac437ffd2ed03556122b11090affe247cdf6a15e529074de949",
+    "native-events.eval": "962dc68dac25967edbd26d5c6e99d386eaa84bc097e99ff7796af4726bf85e87",
+    "ex_cursor-native-linear.terms": "657a063c9edb43836e5838c32eb57e38c5ae6a2053a3ab485e926e05cdcf27ab",
+    "ex_aui-native-pinned.terms": "47d708fda7f2b5cf340c12c3040ba3321acb76cd8ca4c7574832217321846fd8",
+    "ex_aui-native-linear.terms": "47d708fda7f2b5cf340c12c3040ba3321acb76cd8ca4c7574832217321846fd8",
+    "ex_aui-linear.stdout": "844502e340970b65ebd7aa80b17f9bcbe33ba66dcd0342add3bcf2259310dbb8",
+    "ex_button-native-pinned.terms": "9c445311ebe1fda49dd81aa72dc3a47fdbc61238d97823551fbf031faf7519bd",
+    "ex_button-native-linear.terms": "9c445311ebe1fda49dd81aa72dc3a47fdbc61238d97823551fbf031faf7519bd",
+    "focused-final-exits.json": "1ef75e784a5dd11b9c2fe71476a71f94295ce972682d28c771dea17e5ae3df61",
+    "README.md": "d53026a1833af3fdd1adc37fbd7fd154e4fe614c681d0e28aadde250873ccb04",
+    "part1952-combined/production-part1952.patch": "44ad7c1b15f7f890462f8229870fcd2d233852406217abe5b3abd53ad45b42a2",
+    "part1952-combined/before.json": "693088e4a5285345ec312df60c87a62ff950018cb6e609eae1c4399902d58fe8",
+    "part1952-combined/after.json": "d5ec0dc190a290395b0b80d7aa2e531b46e52dbffde9a24b9edd45286e8a2356",
+    "part1952-combined/focused.log": "e9df00e6a5f7da3f5a3d577dc03fac4a8e49fae68240b821910f2e123a34196b",
+    "part1952-combined/raw-delta.json": "8a299cfd6e1c999656a799d00134f9a57ae4795062009f9c2157309e6676a649",
+    "part1952-combined/compiler-bin/Erlang.Compiler.dll": "f0522d88111cefd47469ee86aca9133bb633776f33f5afb17f346c813a578a7c",
+    "part1952-combined/whole-image.terms": "57d120f936d6aac437ffd2ed03556122b11090affe247cdf6a15e529074de949"
+  }
+}

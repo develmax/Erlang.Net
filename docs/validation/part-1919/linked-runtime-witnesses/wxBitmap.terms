@@ -1,0 +1,12 @@
+[{empty_options,{ok,{driver_reply,1029}},
+                [{queue,[7,8,[]],environment_ref,1029},{reply,1029}]},
+ {mapped_depth,{ok,{driver_reply,1029}},
+               [{queue,[7,8,[{depth,4}]],environment_ref,1029},{reply,1029}]},
+ {bits_default,{ok,{driver_reply,1028}},
+               [{queue,[<<1,2,3>>,7,8,[]],environment_ref,1028},{reply,1028}]},
+ {bits_option,{ok,{driver_reply,1028}},
+              [{queue,[<<1,2>>,7,8,[{depth,8}]],environment_ref,1028},
+               {reply,1028}]},
+ {bits_invalid,{error,{badoption,{wrong,4}},'-new/4-fun-0-',264},[]},
+ {bits_wrong_type,{error,function_clause,new,261},[]},
+ {bits_no_env,{error,{wx,unknown_env},new,266},[]}].

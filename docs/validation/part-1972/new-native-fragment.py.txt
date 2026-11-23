@@ -1,0 +1,55 @@
+cascade=group("CascadePassThrough")
+cascade_image=compile_fixture("case-cascade",cascade/"beam_result_cascade.erl")
+cascade_log=otp("case-cascade-linked",cascade/"native-fixture.eval",
+    cascade/"pinned/beam_result_cascade.beam",cascade_image,cascade/"pinned/beam_result_cascade_provider")
+assert cascade_log.read_text(encoding="utf-8")== (cascade/"native-fixture.stdout.log").read_text(encoding="utf-8")
+synthetic["case-cascade"]={"Cases":10,"Evidence":sha(cascade_log),"Image":sha(cascade_image)}
+
+append=group("OrderedAppendPrerequisites")/"fixture"
+append_image=compile_fixture("ordered-append",append/"ordered_append_fixture.erl")
+append_output=root/"ordered-append-observed.etf"
+order=otp("ordered-append-native",append/"native.eval",append_image,
+    append/"pinned/ordered_append_provider.beam",append_output)
+assert "6 native outcomes" in order.read_text(encoding="utf-8")
+synthetic["ordered-append"]={"Cases":6,"Evidence":sha(append_output),"Image":sha(append_image)}
+
+siblings=group("ListGeneratorSiblings")
+siblings_image=compile_fixture("sibling-list-generators",siblings/"beam_nested_sibling_generators.erl")
+source=(siblings/"oracle.eval").read_text(encoding="utf-8-sig")
+old="{ok,M,B}=compile:file(Path,[binary]),"
+assert source.count(old)==1
+source=source.replace(old,"M=beam_nested_sibling_generators, {ok,B}=file:read_file(Path),")
+recipe=root/"sibling-dispatch-native.eval"
+recipe.write_text(source,encoding="utf-8",newline="\n")
+siblings_log=otp("sibling-list-generator-native",recipe,siblings_image)
+assert "OTP 4 sibling profiles passed" in siblings_log.read_text(encoding="utf-8")
+synthetic["sibling-list-generators"]={"Cases":4,"Evidence":sha(siblings_log),"Image":sha(siblings_image)}
+
+head=group("ConsHeadAtomSelector")/"fixture"
+head_image=compile_fixture("cons-head-atom",head/"cons_head_atom_table_fixture.erl")
+head_log=otp("cons-head-atom-native",head/"native.eval",head_image.with_suffix(""))
+assert head_log.read_text(encoding="utf-8").strip()=="{ok,15}"
+synthetic["cons-head-atom"]={"Cases":15,"Evidence":sha(head_log),"Image":sha(head_image)}
+
+frames=group("TerminalProjectionFrame")
+frame_source=frames/"beam_terminal_tuple_frame.erl"
+frame_image=compile_fixture("terminal-frame-projections",frame_source)
+frame_log=otp("terminal-frame-projection-native",frames/"oracle.eval",frame_source,frame_image)
+assert "parent 8 scope profiles passed" in frame_log.read_text(encoding="utf-8")
+synthetic["terminal-tuple-projection-frame"]={"Cases":8,"Evidence":sha(frame_log),"Image":sha(frame_image)}
+
+alias=group("TerminalEffectfulCarrier")
+alias_fixture=alias/"fixture"
+alias_image=compile_fixture("effectful-case-carrier",alias_fixture/"terminal_effectful_carrier_fixture.erl")
+alias_log=otp("effectful-case-carrier-native",alias_fixture/"native.eval",alias_image.with_suffix(""),
+    alias_fixture/"pinned/terminal_effectful_carrier_provider")
+assert alias_log.read_text(encoding="utf-8").strip()=="{ok,9}"
+synthetic["effectful-terminal-carrier"]={"Cases":9,"Evidence":sha(alias_log),"Image":sha(alias_image)}
+alias_role_checks={}
+for role,origin in roles_for_package:
+    result=otp("mnesia-write-effectful-carrier-"+role,alias/"release-native/verify-mnesia-write.eval",
+        origin/beam_names["mnesia_backup"],alias/"release-native/stub/disk_log",root/("mnesia-write-"+role))
+    alias_role_checks[role]=sha(result)
+assert len(set(alias_role_checks.values()))==1,alias_role_checks
+verified["mnesia-real-write-carrier"]={"Cases":5,"Evidence":alias_role_checks["linked"]}
+

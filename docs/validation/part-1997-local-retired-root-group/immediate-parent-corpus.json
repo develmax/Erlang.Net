@@ -1,0 +1,54 @@
+{
+  "OtpVersion": "29.1.1",
+  "Total": 6,
+  "Counts": {
+    "Equal": 0,
+    "Different": 6,
+    "Unsupported": 0,
+    "SourceRejected": 0
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\diameter-2.7.2\\ebin\\diameter_service.beam",
+      "Status": "Different",
+      "Source": "lib\\diameter-2.7.2\\src\\base\\diameter_service.erl",
+      "Detail": "Original length 86272, generated length 90516. AtU8 4645->4226, Code 24183->29030, ImpT 1240->1324, ExpT 400->400, FunT 748->748, LitT 2037->1966, LocT 2512->2308, Attr 98->98, Line 1303->1353, Type 65->22",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\inets-9.8\\ebin\\mod_auth.beam",
+      "Status": "Different",
+      "Source": "lib\\inets-9.8\\src\\http_server\\mod_auth.erl",
+      "Detail": "Original length 32252, generated length 33000. AtU8 1357->1370, Code 5787->6541, ImpT 472->472, ExpT 412->412, FunT 28->28, LocT 280->280, Attr 62->62, Line 352->366, Type 52->16",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\application_controller.beam",
+      "Status": "Different",
+      "Source": "lib\\kernel-11.0.4\\src\\application_controller.erl",
+      "Detail": "Original length 93728, generated length 97428. AtU8 4978->5016, Code 26344->30216, ImpT 1288->1288, ExpT 580->580, FunT 604->652, LitT 4006->3713, LocT 1408->1396, Attr 39->39, Line 1379->1454, Type 68->40",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\parsetools-2.8\\ebin\\yecc.beam",
+      "Status": "Different",
+      "Source": "lib\\parsetools-2.8\\src\\yecc.erl",
+      "Detail": "Original length 141416, generated length 145456. AtU8 8817->7404, Code 38376->44368, ImpT 1936->1996, ExpT 112->112, FunT 1540->1564, LitT 5364->5256, LocT 3592->3124, Attr 39->39, Line 2466->2557, Type 196->58",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\ssl-11.7.7\\ebin\\ssl_config.beam",
+      "Status": "Different",
+      "Source": "lib\\ssl-11.7.7\\src\\ssl_config.erl",
+      "Detail": "Original length 124104, generated length 132372. AtU8 9036->8837, Code 29192->37665, ImpT 1432->1540, ExpT 184->184, FunT 700->700, LitT 4868->4876, LocT 2524->2416, Attr 39->39, Line 1525->1646, Type 178->40",
+      "FirstDifferentByte": 5
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\erl_tar.beam",
+      "Status": "Different",
+      "Source": "lib\\stdlib-8.1\\src\\erl_tar.erl",
+      "Detail": "Original length 106044, generated length 117632. AtU8 3817->3830, Code 25882->37788, StrT 11->1, ImpT 1156->1240, ExpT 196->196, FunT 268->268, LitT 4120->4046, LocT 1708->1708, Attr 39->39, Line 1563->1701, Type 560->88",
+      "FirstDifferentByte": 6
+    }
+  ]
+}

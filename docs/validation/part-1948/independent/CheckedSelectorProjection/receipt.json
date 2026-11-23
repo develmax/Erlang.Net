@@ -1,0 +1,119 @@
+{
+  "otpTag": "OTP-29.1.1",
+  "otpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "part1945Archive": {
+    "size": 2006170,
+    "sha256": "7fd76cb875b5d0f7000b33a1fa84f560c5834f975c51a8874deb8362011bd8ab"
+  },
+  "requiredPriorProductionPatches": {
+    "release-near-part1945-1965": {
+      "size": 14774,
+      "sha256": "d451eea8c3d6bc653b54e383b43604cde2eb5ce84796677b41300100b3ec91fd"
+    },
+    "checked-directory-choice-chain-1966": {
+      "size": 4998,
+      "sha256": "26ceee3337bb65bc47deb9964c39d6b55a1a9ce4007614f7746748c7fb99a777"
+    }
+  },
+  "baselineCompiler": {
+    "size": 4797440,
+    "sha256": "c101a90971c6e49e9273e3bbfa63c3f11997ac724252f63cf3dd8b97838c74dd"
+  },
+  "baselineReceipt": {
+    "size": 4550,
+    "sha256": "f1794184f6d8f45625b190662aa02d5e7f8260b4c9b9913b57af7fffda6c6a1d"
+  },
+  "jobs": 1,
+  "scope": {
+    "lib/debugger-7.0/ebin/dbg_wx_settings.beam": "Different",
+    "lib/debugger-7.0/ebin/dbg_wx_win.beam": "Different",
+    "lib/inets-9.8/ebin/inets_sup.beam": "Equal",
+    "lib/inets-9.8/ebin/mod_trace.beam": "Equal",
+    "lib/kernel-11.0.4/ebin/local_udp.beam": "Equal",
+    "lib/stdlib-8.1/ebin/ordsets.beam": "Equal",
+    "lib/xmerl-2.2/ebin/xmerl_html.beam": "Equal"
+  },
+  "targetGeneratedBefore": {
+    "size": 13104,
+    "sha256": "cc7af51a9a11867d801960d37a20f22cd703d70e730fe17efbe7dbbe84c09e54"
+  },
+  "targetGeneratedAfter": {
+    "size": 13108,
+    "sha256": "5c23aa41a7fe884cb7549fc928fa2a9314023e6acc137890928880f0a84857ac"
+  },
+  "unchangedDifferingControl": {
+    "size": 22048,
+    "sha256": "dad17b1499fdde18072af2e53271576dbb6a6f50a2a2739668b634ca67b0d156"
+  },
+  "nativeDirectoryCases": 7,
+  "files": {
+    "production.patch": {
+      "size": 6274,
+      "sha256": "6ded10f4d2ceb88379ee705ddd04c606a4bcff687c28080e9ab27628ef000ae9"
+    },
+    "test.patch": {
+      "size": 4937,
+      "sha256": "8c533b27ff65e0a2c0ebab7d2db155d2a0adeecbe2692572579240bc1a671d96"
+    },
+    "replay-files.json": {
+      "size": 920,
+      "sha256": "80d940b7f9773fb9ec8dac597db43ffa2e7372f73a943e6de41fd013e11c194a"
+    },
+    "compiler-bin/Erlang.Compiler.dll": {
+      "size": 4801024,
+      "sha256": "aa0e060dc6e518895df04b63d730c733d8a3a9fece44293dbbeffde3b1ebb42a"
+    },
+    "final-scope.json": {
+      "size": 1957,
+      "sha256": "0874c7ddf2608f2709c2ce4bf2b3e6cba0af786fbcf56d3dc505718a102ffd86"
+    },
+    "repaired-rank.terms": {
+      "size": 165,
+      "sha256": "1494268cc02fee55d6f247ca70cbac1420f4c0dfb90834ead1fd2214e665d132"
+    },
+    "repaired-default.terms": {
+      "size": 5281,
+      "sha256": "1db9b6e9d98817f589d127a5e7aedb0599496d4a53c921d0cd546799f0f8fc5c"
+    },
+    "build-final.log": {
+      "size": 478,
+      "sha256": "7d58d867c79f547ef66d187b580aefe770f29c9b1b8d8df9dc587781967aca9f"
+    },
+    "layout-check.log": {
+      "size": 40,
+      "sha256": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f"
+    },
+    "focused-exits.json": {
+      "size": 51,
+      "sha256": "1ef75e784a5dd11b9c2fe71476a71f94295ce972682d28c771dea17e5ae3df61"
+    },
+    "focused-red.log": {
+      "size": 548,
+      "sha256": "11062b52f254a419ca51e7633473111117c4db43eef66d2c6eff0878d83c3882"
+    },
+    "focused-final-green.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "native-pinned.terms": {
+      "size": 278,
+      "sha256": "bb7d39ebc3ab08215ff00b2b4842081247dba9297f36776c9316de507f5a97a0"
+    },
+    "native-repair.terms": {
+      "size": 278,
+      "sha256": "bb7d39ebc3ab08215ff00b2b4842081247dba9297f36776c9316de507f5a97a0"
+    },
+    "native-directories.eval": {
+      "size": 2451,
+      "sha256": "832371b7bdc014243ae94980198d09aa7b5d0de65231f1e5d47a3a81c14ed5ef"
+    },
+    "stub/dbg_wx_win.erl": {
+      "size": 157,
+      "sha256": "577f42288cd295736f59b21077ca030f3be177b17c159b5863db3dd583c7fca2"
+    },
+    "stub/wxFileDialog.erl": {
+      "size": 355,
+      "sha256": "d282c9fa341e4594a42da81ebf364165418ff4e985d6ba4393fe625f4913d8bb"
+    }
+  }
+}

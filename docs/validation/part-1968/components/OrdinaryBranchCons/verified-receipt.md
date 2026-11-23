@@ -1,0 +1,16 @@
+# Verified ordinary branch cons scheduling
+
+The candidate compiler is `fee707c33a51aa4b3b3d89ed663714a9d6f534b72bc8aca8cc993696613c6771`. Its parent is the isolated verified ordered-cons compiler `386555343ac504eb393eec765ec525a04a8f16d4d1bec33dd31642dd1ed054b9`. The parent replay started from all 934 hashed Part 1965 inputs. The Windows OTP comparison uses `ad05823719d77c8faee87348ea39513d4e2f99c5`. [Hydration](hydration.json), [source analysis](../receipt.md).
+
+The layout tool and one-processor compiler and harness builds passed. The baseline red fails the intended post-call construction assertion. Candidate green passes the structural test and seven behavior cases, including monotonic effects within a clause, source-line preservation on both failures, protected catch recovery and improper tails. Pinned ERTS loads both emitted fixture images and reports identical outcomes. [Build and red/green identities](first/build-result.json), [original red](first/red.log), [candidate native values](first/native-green.log).
+
+| Released owner | Earlier discrepancy sites | Now after call | Full pinned heap and tuple/cons counts | Normalized operations before → after | Module Code bytes before → after |
+|---|---:|---:|---:|---:|---:|
+| `beam_a:rename_instrs/1` | 5 | 5 | 5 | 189 → 186 | 2,002 → 2,002 |
+| `epp_dodger:scan_form/2` | 11 | 11 | 2 | 503 → 415 | 10,773 → 10,504 |
+
+The previous three fixed schedules in `beam_asm` and `beam_ssa_destructive_update` remained the same. All 19 source-census sites now construct their dynamic tuple heads after the call. Nine of the `epp_dodger` branches still emit five tuples and reserve 27 heap words, where OTP emits four tuples and reserves 23. The other two branches match the pinned construction counts. Two additional conditional `beam_a` arms sit outside the source-census profile. The complete normalized owner bodies still differ. Counts include labels and exclude source locations. [Physical before](first/physical-before.terms), [physical candidate](first/physical-candidate.terms), [normalized counts](first/functions.terms).
+
+The uncached 12-module scope remained 7 Equal, 5 Different, 0 Unsupported and 0 SourceRejected. Only `beam_a` and `epp_dodger` changed. All seven exact controls and the different `gen_server` control stayed byte-identical to the parent. No full-file or section equality changed. The public native checks for all four cohort modules match pinned and parent ERTS results, including instruction rewriting, native record chunk assembly and load, preprocessing forms, and the SSA probe's two calls to `aggregate_ret_patches/1`. [Raw comparison](first/scope-delta.json), [native release outcomes](first/release-native/outcome.json).
+
+Layout took 58.138 seconds, compiler build 59.775 seconds, focused build 4.267 seconds, and uncached scope 18.194 seconds. Scoped comparison and native fixture checks completed in 20.483 seconds. Both final patches strictly replayed with whitespace errors enabled and all postimage hashes matched. The full corpus and repository validation remain pending for intake into the integrated package. [Scope timing](first/scope-result.json), [production patch](production-verified.patch), [test patch](tests-verified.patch), [postimage manifest](patch-manifest-verified.json), [artifact hashes](verified-receipt-hashes.json).

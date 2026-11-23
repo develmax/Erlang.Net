@@ -1,0 +1,185 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AtomMembershipTests.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AtomMembershipTests.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AtomMembershipTests.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AtomMembershipTests.cs
+@@ -4,15 +4,16 @@
+ 
+ internal sealed partial class BeamModuleCompiler
+ {
+-    private static byte[]? CombineAtomMembershipTests(
++    private byte[]? CombineAtomMembershipTests(
+         ReadOnlyMemory<byte> code,
+         IReadOnlyList<BeamInstruction> body,
+         IReadOnlyList<(int Start, int End, int Label)> labelOperands,
+-        IReadOnlyList<string> atomNames
++        IReadOnlyList<string>? atomNames = null,
++        bool multiKey = false
+     )
+     {
+-        // Both exact atom tests reach the next block on a match and share their rejection edge.
+-        var selections = new List<(int Start, int End, BeamOperand Selector, int Failure, int Success, BeamOperand First, BeamOperand Second)>();
++        // Consecutive exact atom tests share a selector and a common success edge.
++        var selections = new List<(int Start, int End, BeamOperand Selector, int Failure, int Success, List<BeamOperand> Keys)>();
+         var renumbered = new Dictionary<int, int>();
+         Dictionary<int, int>? labelPositions = null;
+         for (int index = 0; index + 2 < body.Count; index++)
+@@ -23,23 +24,11 @@
+                 out var success,
+                 out var selector,
+                 out var first
+-            )
+-                || !ReadTest(
+-                    body[index + 1],
+-                    ExactEqualTest,
+-                    out var failure,
+-                    out var repeatedSelector,
+-                    out var second
+-                )
+-                || selector != repeatedSelector || first.Value == second.Value || failure == success
+-                || body[index + 2] is not { Definition.Opcode: Label, Operands: [var next] }
+-                || next.Value != success)
+-            {
+-                continue;
+-            }
+-
+-            // The final two tests of a longer membership predicate are only a suffix.
+-            // Keep the whole chain for earlier branch and stack-ownership rewrites.
++            ))
++            {
++                continue;
++            }
++
+             if (index > 0 && ReadTest(
+                 body[index - 1],
+                 ExactNotEqualTest,
+@@ -51,15 +40,46 @@
+                 continue;
+             }
+ 
+-            string firstName = atomNames[(int)first.Value - 1];
+-            string secondName = atomNames[(int)second.Value - 1];
+-            if ((firstName is ErlangBooleanAtoms.False or ErlangBooleanAtoms.True)
+-                && (secondName is ErlangBooleanAtoms.False or ErlangBooleanAtoms.True))
+-            {
+-                continue;
+-            }
+-
+-            int directSuccess = index + 2;
++            var keys = new List<BeamOperand> { first };
++            int end = index + 1;
++            while (end + 1 < body.Count && ReadTest(
++                body[end],
++                ExactNotEqualTest,
++                out int nextSuccess,
++                out var nextSelector,
++                out var atom
++            ) && nextSuccess == success && nextSelector == selector)
++            {
++                keys.Add(atom);
++                end++;
++            }
++
++            if (end + 1 >= body.Count || !ReadTest(
++                body[end],
++                ExactEqualTest,
++                out var failure,
++                out var finalSelector,
++                out var final
++            ) || finalSelector != selector || failure == success
++                || body[end + 1] is not { Definition.Opcode: Label, Operands: [var next] }
++                || next.Value != success)
++            {
++                continue;
++            }
++
++            keys.Add(final);
++            if (multiKey != (keys.Count > 2) || keys.Select(key => key.Value).Distinct().Count() != keys.Count)
++            {
++                continue;
++            }
++
++            var names = atomNames ??= atoms.OrderBy(entry => entry.Value).Select(entry => entry.Key).ToArray();
++            if (keys.All(key => names[(int)key.Value - 1] is ErlangBooleanAtoms.False or ErlangBooleanAtoms.True))
++            {
++                continue;
++            }
++
++            int directSuccess = end + 1;
+             if (success == failure + 1
+                 && (labelPositions ??= ReadLabelPositions()).TryGetValue(failure, out int otherwise)
+                 && otherwise > directSuccess + 1 && EndsBeamBlock(body[otherwise - 1].Definition.Opcode)
+@@ -72,13 +92,13 @@
+                 renumbered.Add(failure, success);
+             }
+ 
+-            if (TermOrder.Compare(new Atom(firstName), new Atom(secondName), exact: true) > 0)
+-            {
+-                (first, second) = (second, first);
+-            }
+-
+-            selections.Add((body[index].Offset, body[index + 2].Offset, selector, failure, success, first, second));
+-            index++;
++            keys.Sort((left, right) => TermOrder.Compare(
++                new Atom(names[(int)left.Value - 1]),
++                new Atom(names[(int)right.Value - 1]),
++                exact: true
++            ));
++            selections.Add((body[index].Offset, body[directSuccess].Offset, selector, failure, success, keys));
++            index = end;
+         }
+ 
+         if (selections.Count == 0 || body.Any(instruction => instruction.Definition.Opcode is DebugLine or ExecutableLine))
+@@ -114,7 +134,7 @@
+         int nextEdit = 0;
+         int copied = 0;
+         using var output = new MemoryStream(code.Length);
+-        foreach (var (start, end, selector, failure, success, first, second) in selections)
++        foreach (var (start, end, selector, failure, success, keys) in selections)
+         {
+             CopyThrough(start);
+             while (nextEdit < orderedEdits.Length && orderedEdits[nextEdit].Start < end)
+@@ -126,8 +146,7 @@
+             BeamCompactWriter.Write(output, XRegisterTag, selector.Value);
+             BeamCompactWriter.Write(output, LabelTag, renumbered.GetValueOrDefault(failure, failure));
+             output.WriteByte(ExtendedListOperand);
+-            BeamOperand[] keys = [first, second];
+-            BeamCompactWriter.Write(output, BeamWire.UnsignedTag, keys.Length * 2);
++            BeamCompactWriter.Write(output, BeamWire.UnsignedTag, keys.Count * 2);
+             foreach (BeamOperand key in keys)
+             {
+                 BeamCompactWriter.Write(output, AtomTag, key.Value);
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs
+@@ -4,7 +4,11 @@
+ 
+ internal sealed partial class BeamModuleCompiler
+ {
+-    private (ReadOnlyMemory<byte> Code, int LabelCount)? OrderFinalPhysicalLabels(ReadOnlyMemory<byte> code, int labelCount)
++    private (ReadOnlyMemory<byte> Code, int LabelCount)? OrderFinalPhysicalLabels(
++        ReadOnlyMemory<byte> code,
++        int labelCount,
++        bool formMultiKeySelections = true
++    )
+     {
+         var references = new List<(int Start, int End, int Label)>();
+         IReadOnlyList<BeamInstruction> body;
+@@ -27,6 +31,19 @@
+         catch (Exception error) when (error is InvalidDataException or NotSupportedException)
+         {
+             return null;
++        }
++
++        if (formMultiKeySelections && !ModuleOptimizationDisabled && SsaTypeInferenceEnabled
++            && CombineAtomMembershipTests(
++                code,
++                body,
++                references,
++                multiKey: true
++            ) is { } selected)
++        {
++            // Only a changed stream needs its physical label offsets to be read again.
++            return OrderFinalPhysicalLabels(selected, labelCount, formMultiKeySelections: false)
++                ?? (selected, labelCount);
+         }
+ 
+         // Entry literal partitioning may consume a failure relay to build its select.

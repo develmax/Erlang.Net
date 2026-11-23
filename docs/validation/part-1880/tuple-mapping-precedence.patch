@@ -1,0 +1,99 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
+@@ -20,6 +20,7 @@
+         if (comprehensions.Length == 0 || anonymous.Any(fun => fun.SelfName is not null)
+             || expressions.Any(expression => expression is Expr.BinaryComprehension or Expr.MapComprehension)
+             || ReadListMappingPlan(function.Clauses) is not null
++            || ReadTupleMappingCase(function) is not null
+             || ReadDiscardedListCalls(function, localFunctions) is not null
+             || ReadPageComprehension(function, localFunctions) is not null
+             || ReadCapturedTableList(function, localFunctions) is not null)
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamConstructedListGeneratorHelperChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamConstructedListGeneratorHelperChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamConstructedListGeneratorHelperChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamConstructedListGeneratorHelperChecks.cs
+@@ -1,4 +1,5 @@
+ using System.Collections;
++using System.Numerics;
+ using Erlang.Compiler;
+ using static Erlang.Tests.BeamBinaryHostAccess;
+ 
+@@ -10,12 +11,14 @@
+     private const string Fixture = "beam_constructed_list_generator_helper.erl";
+     private const string ClosedHelper = "-constructed/2-lc$^0/1-0-";
+     private const string OpenHelper = "-open_tail/1-lc$^0/1-0-";
++    private const string TupleOwner = "dispatch_child";
++    private const string TupleHelper = "-dispatch_child/5-lc$^0/1-0-";
+     private const string WrongHelpers = "Constructed generator helper entries or proper-list exits differed.";
+     private const string WrongResult = "Constructed generator input order, failure, or source line differed.";
+ 
+     private const string Source = """
+         -module(beam_constructed_list_generator_helper).
+-        -export([constructed/2, open_tail/1, reset/0, events/0, nested/1]).
++        -export([constructed/2, open_tail/1, reset/0, events/0, nested/1, dispatch_child/5]).
+         constructed(Left, Right) ->
+             [mapped(Value) || Value <- [produce(Left), produce(Right)]].
+         open_tail(Tail) ->
+@@ -23,6 +26,14 @@
+                   [produce(head)|Tail]].
+         nested(Values) ->
+             [[mapped(Value) || Value <- [Item]] || Item <- Values].
++        dispatch_child(Id, Mod, Fun, Args, Options) ->
++            [First, Second, Third, Fourth] =
++                [option_source:lookup(Key, Options, Default)
++                 || {Key, Default} <- [{first, 0}, {second, 1}, {third, 2}, {fourth, [Mod]}]],
++            case child_sink:register(peer, {Id, {Mod, Fun, Args}, First, Second, Third, Fourth}) of
++                {error, registered} -> child_sink:restart(peer, Id);
++                Result -> Result
++            end.
+         reset() -> put(events, []), ok.
+         events() -> get(events).
+         produce(fail) -> event({produce,fail}), erlang:error(rejected_input);
+@@ -38,7 +49,14 @@
+         object[] functions = Items(code, "Functions");
+         object? closed = functions.SingleOrDefault(function => (string)Property(function, "Name") == ClosedHelper);
+         object? open = functions.SingleOrDefault(function => (string)Property(function, "Name") == OpenHelper);
+-        if (closed is null || open is null || HasNilTest(code, closed) || !HasNilTest(code, open))
++        object? tupleOwner = functions.SingleOrDefault(function => (string)Property(function, "Name") == TupleOwner);
++        object? tupleHelper = functions.SingleOrDefault(function => (string)Property(function, "Name") == TupleHelper);
++        if (closed is null || open is null || HasNilTest(code, closed) || !HasNilTest(code, open)
++            || tupleOwner is null || tupleHelper is null || !HasTupleMappingSchedule(
++                code,
++                tupleOwner,
++                tupleHelper
++            ))
+         {
+             throw new InvalidOperationException(WrongHelpers);
+         }
+@@ -112,13 +130,28 @@
+         });
+     }
+ 
+-    private static bool HasNilTest(object code, object function)
++    private static bool HasTupleMappingSchedule(object code, object parent, object worker)
++    {
++        object[] body = Body(code, parent);
++        object? allocation = body.FirstOrDefault(instruction => Opcode(instruction) == BeamEmissionFormat.AllocateHeap);
++        object[] helper = Body(code, worker);
++
++        return allocation is not null && (BigInteger)Property(Items(allocation, "Operands")[0], "Value") == 4
++            && helper.Count(instruction => Opcode(instruction) == BeamEmissionFormat.GetTupleElement) == 2
++            && !helper.Any(instruction => Opcode(instruction) is BeamEmissionFormat.IsTuple or BeamEmissionFormat.TestArity);
++    }
++
++    private static bool HasNilTest(object code, object function) =>
++        Body(code, function).Any(instruction => Opcode(instruction) == BeamEmissionFormat.IsNil);
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static object[] Body(object code, object function)
+     {
+         int first = (int)Property(function, "FirstInstructionIndex");
+         int end = (int)Property(function, "EndInstructionIndex");
+ 
+-        return Items(code, "Instructions")[first..end].Any(instruction =>
+-            (byte)Property(Property(instruction, "Definition"), "Opcode") == BeamEmissionFormat.IsNil);
++        return Items(code, "Instructions")[first..end];
+     }
+ 
+     private static object[] Items(object owner, string property) =>

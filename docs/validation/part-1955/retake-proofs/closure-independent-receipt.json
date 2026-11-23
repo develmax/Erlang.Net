@@ -1,0 +1,39 @@
+{
+  "Part": 1997,
+  "Reference": "OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Dependency": "Part1995 sealed scope on frozen Part1952 and independent source overlays. The changed production file is directly anchored on Part1988 and does not depend on later edits.",
+  "PinnedSource": [
+    "lib/common_test/src/ct_logs.erl print_to_log/7 async branch",
+    "lib/compiler/src/beam_core_to_ssa.erl closure free-variable argument order"
+  ],
+  "Cause": "Atom-owned frame planning changes physical incoming Y slot order. General lifted lambda emission without an independent capture plan derives its free-variable order from those slots.",
+  "Change": "The atom-owned selector admits branches whose lifted functions are known closed. It defers capturing or unresolved lambda environments to the established closure-aware emitter.",
+  "Scope": "17 real release images, 8 Equal and 9 Different. All 16 preselected Part1995 images retained their byte identity. Runtime ct_logs lifted print callback normalized instruction and line exact on the added scope entry, while the whole ct_logs image remains Different.",
+  "Native": "Four actual synthetic callback cases agree with the pinned native compiler, covering direct sync, two independently captured async environments, mark-before-output, and the invalid selector stack.",
+  "Focused": {
+    "Fixture": "Check the exact pinned outgoing register mapping of the lifted callback after the first effect.",
+    "Red": -532462766,
+    "Green": 0
+  },
+  "ActualPinnedCtLogsDisassembly": "53142ab64bb56cc025ea34906fd671e618aa86dfa0616b0ad2e1027b96d61eba",
+  "FaultyCtLogsDisassembly": "61a518a0ef82a6c8c327e4c3889e984434d75457b9abd80cfdc426cba2138752",
+  "RequiredRawFixture": "8eb5fc010e0fbf28ab40bb0dc39aef3887fe86364f43daca1689cec2d51e5294",
+  "ExactCursor": "714c854a2c33e458fb68763759ce40ae8cfcf3f1f3b122c16466f955fa514c96",
+  "Hashes": {
+    "production.patch": "b7093ff33cafa0bc7d9739a2d47c02bf26ba200044ffedbab5616a7048c6fe15",
+    "test.patch": "cbce2ff665203e1c0f73cc9342928eb7689128d51c702ada92bb528c54905ff8",
+    "strict-replay.log": "8db13095085254f88c042feab8dc4f6275e402481195160fd402b3f16ea776ee",
+    "replay-files.json": "b23fe3cbfe499c74a79be3030e8ada1b8e2ac622c75e7f91fad9bd4e38f43bf7",
+    "style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "build.log": "32e99b4487e7c40fbca25fea0add32041f537990782394c4c02cb0e09cc16850",
+    "focused-exits.json": "bc94548b9bb262641f7723f0c47bc5981857f61c35d54feb175dbd26bb309508",
+    "scope.json": "89834f7f43e39d44bbc79f05b47c5af71421b2d6f3189205f5164d9bd3ebcbdb",
+    "ct-logs-candidate.terms": "e7871447ee8892e2f4251dcb6edb1c5c6f271f368dc2770240fab3b80f411f45",
+    "ct-logs-normalized.terms": "a27819111fe195b21019f66c396ba45510ec7bc18ed3d68778a052c96f9497d4",
+    "fixture/pinned-native.terms": "ac0e44a547af2205b72055f4d8996ef20414cdbbf9ccc5aead5339ad47a9753f",
+    "fixture/candidate-native.terms": "ac0e44a547af2205b72055f4d8996ef20414cdbbf9ccc5aead5339ad47a9753f",
+    "compiler-bin/Erlang.Compiler.dll": "2be081388cb58b420499793b34c098a344a8f8c83d54fec27e73c315c216dd11",
+    "scope.json.generated/lib/wx-2.7/doc/examples/demo/ex_gauge.beam": "b2e081de55e42ce7db058192d9c20efb9f90bb344fac9b10547f9599fde94135",
+    "scope.json.generated/lib/common_test-1.31.2/ebin/ct_logs.beam": "2933ac8c166ce8b877fb33f1433d746bdfc3fe596546531cda7d5fd53ff46755"
+  }
+}

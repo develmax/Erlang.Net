@@ -273,7 +273,13 @@ internal sealed partial class BeamModuleCompiler
                 : null;
         }
 
-        private bool HasProperListEntry(FunctionDefinition function, int parameter, bool followForwarding = false)
+        private bool HasProperListEntry(
+            FunctionDefinition function,
+            int parameter,
+            bool followForwarding = false,
+            bool followReturnedLists = false,
+            bool acceptBinaryListResult = false
+        )
         {
             var visiting = new HashSet<(string Name, int Arity, int Parameter)>();
 
@@ -299,6 +305,11 @@ internal sealed partial class BeamModuleCompiler
                         hasCaller = true;
 
                         return IsListComprehensionResult(argument)
+                            || acceptBinaryListResult && argument is Expr.Call
+                            {
+                                Module: null or ErlangModuleNames.Module, DynamicRemote: false,
+                                Function: AutoImportNames.BinaryToList, Arguments.Count: 1
+                            } converted && owner.ResolvesErlangBif(converted)
                             || (InferPairFacts(argument) & PairFacts.ProperList) != 0
                             || followForwarding && argument is Expr.Variable variable && ProveForwarded(caller, call, variable);
                     }
@@ -349,12 +360,14 @@ internal sealed partial class BeamModuleCompiler
             bool IsListComprehensionResult(Expr expression) => expression is Expr.ListComprehension
                 || expression is Expr.Call { Module: null, DynamicRemote: false } call
                     && localFunctions.TryGetValue((call.Function, call.Arguments.Count), out var mapper)
-                    && mapper.IsRecursiveListMapper;
+                    && mapper.IsRecursiveListMapper && RecursiveListBaseResultRegister(mapper) == 0;
 
-            static bool IsDirectUse(Expr expression, Expr.Call call) =>
+            bool IsDirectUse(Expr expression, Expr.Call call) =>
                 ReferenceEquals(expression, call)
                 || expression is Expr.Match binding && IsDirectUse(binding.Value, call)
-                || expression is Expr.Tuple tuple && tuple.Items.Any(item => IsDirectUse(item, call));
+                || expression is Expr.Tuple tuple && tuple.Items.Any(item => IsDirectUse(item, call))
+                || followReturnedLists && expression is Expr.List { Tail: null } list
+                    && list.Items.Any(item => IsDirectUse(item, call));
 
             static bool PreservesProperTail(Expr argument, Pattern source)
             {
@@ -1279,7 +1292,12 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        private void EmitConsEntryBody(Clause clause, (Pattern.Variable Variable, int Register)[] used, bool reuseCallSlots = false)
+        private void EmitConsEntryBody(
+            Clause clause,
+            (Pattern.Variable Variable, int Register)[] used,
+            bool reuseCallSlots = false,
+            List<(int Label, BeamSourceLocation Location)>? tupleMatchFailures = null
+        )
         {
             if (clause.Body is Expr.Call call && TryEmitRegisterConstructedArgument(call,
                 used.ToDictionary(binding => binding.Variable.Name, binding => binding.Register, StringComparer.Ordinal)))
@@ -1305,6 +1323,20 @@ internal sealed partial class BeamModuleCompiler
                     slot
                 );
                 variables.Add(variable.Name, slot);
+            }
+
+            if (reuseCallSlots && clause.Guard is null && clause.Body is Expr.Sequence sequence)
+            {
+                List<(int Label, BeamSourceLocation Location)> failures = tupleMatchFailures ?? [];
+                if (TryEmitCheckedPairStringCase(sequence, failures))
+                {
+                    if (tupleMatchFailures is null)
+                    {
+                        EmitRegisterTupleMatchFailures(failures);
+                    }
+
+                    return;
+                }
             }
 
             if (!TailLocal(clause.Body, reuseCallSlots))
@@ -1383,8 +1415,8 @@ internal sealed partial class BeamModuleCompiler
                 Patterns = inputs.Select(name => (Pattern)new Pattern.Variable(name)).ToArray()
             };
             if (ReadEntryTypeGuard(guardClause, guard) is not { } test
-                || ReadConsCallResult(matched, inputs) is not { HeadCall: null } first
-                || ReadConsCallResult(fallback, inputs) is not { HeadCall: null } second)
+                || ReadConsCallResult(matched, inputs) is not { HeadCall: null, Ordered: null } first
+                || ReadConsCallResult(fallback, inputs) is not { HeadCall: null, Ordered: null } second)
             {
                 return false;
             }
@@ -1414,8 +1446,90 @@ internal sealed partial class BeamModuleCompiler
             EntryConstructedArgument? Tuple,
             bool ExtractHead,
             int? DeferredField = null,
-            ConsHeadCall? HeadCall = null
+            ConsHeadCall? HeadCall = null,
+            OrderedConsConstruction? Ordered = null
         );
+
+        private bool TryEmitDeferredConsHead(Clause clause)
+        {
+            if (clause.Guard is not null || !HasUnconditionalParameters(clause))
+            {
+                return false;
+            }
+
+            var parameters = clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray();
+            if (ReadOrderedConsCallResult(clause.Body, parameters) is { } ordered)
+            {
+                int roots = Math.Max(ordered.Saved.Max() + 1, EntryCallLiveCount(ordered.Call, parameters));
+                EmitConsCallResult(ordered, roots);
+
+                return true;
+            }
+
+            // Core extracts effectful head prerequisites before the tail. These
+            // fields can only read entry bindings or already folded constants.
+            if (clause.Body is not Expr.List { Items: [Expr.Tuple head], Tail: { } tail }
+                || ReadEntryConstructedArgument(head, 1, parameters) is not { } tuple)
+            {
+                return false;
+            }
+
+            Expr.Call call;
+            string? module;
+            bool listOperator = tail is Expr.Binary { Operator: ErlangOperators.SubtractList or ErlangOperators.Append };
+            if (tail is Expr.Binary binary && (binary.Operator == ErlangOperators.SubtractList
+                || binary.Operator == ErlangOperators.Append && AppendPrefix(binary.Left) is null))
+            {
+                module = ErlangModuleNames.Module;
+                call = new Expr.Call(module, binary.Operator, [binary.Left, binary.Right])
+                {
+                    SourceLine = binary.SourceLine,
+                    PreprocessorFile = location.File
+                };
+            }
+            else if (tail is Expr.Call target && TryResolveOrdinaryCallTarget(target, out module))
+            {
+                call = target;
+            }
+            else
+            {
+                return false;
+            }
+
+            var inputs = parameters.Select((name, register) => (name, register))
+                .Where(input => input.name != VariableScopeNames.Wildcard)
+                .ToDictionary(input => input.name, input => input.register, StringComparer.Ordinal);
+            var arguments = ReadCallArgumentConstructions(
+                call.Arguments,
+                -1,
+                new Dictionary<string, int>(),
+                inputs: inputs
+            );
+            EntryCall? invocation = arguments is not null ? new EntryCall(
+                call,
+                module,
+                [],
+                []
+            ) : listOperator ? null : ReadEntryCall(call, parameters);
+            if (invocation is null)
+            {
+                return false;
+            }
+
+            int[] saved = tuple.Operands.Where(operand => operand.Source.HasValue)
+                .Select(operand => operand.Source!.Value).Distinct().OrderDescending().ToArray();
+            int live = Math.Max(saved[0] + 1, arguments?.Live ?? EntryCallLiveCount(invocation, parameters));
+            var plan = new ConsCallResult(
+                invocation,
+                saved,
+                null,
+                tuple,
+                false
+            );
+            EmitConsCallResult(plan, live, arguments: arguments);
+
+            return true;
+        }
 
         private ConsCallResult? ReadConsCallResult(
             Expr body,
@@ -1426,7 +1540,7 @@ internal sealed partial class BeamModuleCompiler
         {
             if (body is not Expr.List { Items: [var head], Tail: Expr.Call call })
             {
-                return null;
+                return directHead < 0 ? ReadOrderedConsCallResult(body, inputs) : null;
             }
 
             int headRegister = head is Expr.Variable { Name: not VariableScopeNames.Wildcard } variable
@@ -1483,7 +1597,8 @@ internal sealed partial class BeamModuleCompiler
             int live,
             Action? emitBindings = null,
             int listInput = 0,
-            BeamSourceLocation? previous = null
+            BeamSourceLocation? previous = null,
+            CallArgumentConstructions? arguments = null
         )
         {
             if (result.HeadCall is { } headCall)
@@ -1501,7 +1616,8 @@ internal sealed partial class BeamModuleCompiler
             }
 
             int frame = result.Saved.Length;
-            EmitFrameAllocation(live, frame);
+            int argumentHeap = arguments?.Constructions.Sum(construction => construction.HeapWords) ?? 0;
+            EmitFrameAllocation(live, frame, argumentHeap);
             if (result.ExtractHead)
             {
                 owner.EmitListParts(
@@ -1527,9 +1643,25 @@ internal sealed partial class BeamModuleCompiler
             }
 
             var call = result.Call;
-            owner.EmitOrderedTailMoves(call.Moves, call.Constants, call.SavedInputs);
+            if (arguments is null)
+            {
+                owner.EmitOrderedTailMoves(call.Moves, call.Constants, call.SavedInputs);
+            }
+            else
+            {
+                EmitCallArgumentConstructions(arguments, -1, heapChecked: true);
+            }
+
             owner.EmitCallLine(call.Call, previous ?? location);
             Call(call.Module, call.Call.Function, call.Call.Arguments.Count);
+            if (result.Ordered is { } ordered)
+            {
+                EmitOrderedConsConstruction(ordered, result.Saved);
+                owner.EmitFrameReturn(frame);
+
+                return;
+            }
+
             owner.Op(TestHeap, BeamWire.UnsignedTag, ConsHeapWords + (result.Tuple?.HeapWords ?? 0));
             owner.Operand(BeamWire.UnsignedTag, 1);
             if (result.DeferredField is int field)

@@ -1,0 +1,62 @@
+{
+  "Part": 2009,
+  "Reference": "OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ParentCompiler": "caf8586a2584e426204d6d717fea2aa3808155d5c3134d9598846aca4b96a0db",
+  "ParentSource": "Apply after the sealed production and fixture packets of Part 2008.",
+  "Sdk": "10.0.400",
+  "DotNetRuntime": "10.0.11",
+  "PinnedSource": [
+    "lib/compiler/src/beam_ssa_opt.erl:2814\u20132855 sinks tuple projections where their owner is more economical across call boundaries.",
+    "lib/compiler/src/beam_ssa_codegen.erl:765 annotates calls with dead Y slots and 2678\u20132701 schedules clearing with outgoing arguments."
+  ],
+  "Change": "Finite selected effects keep a checked tuple in one Y slot when at least two of its fields are used after a branch's first effect. Nonreturned fields share the owner slot. Call preparation reads the projection from its eligible incoming X register before a call or from the retained owner. Slot kills follow physical storage, keeping the tuple while either field remains live.",
+  "Scope": {
+    "Total": 39,
+    "Equal": 18,
+    "Different": 21,
+    "Unsupported": 0,
+    "SourceRejected": 0,
+    "CompilerError": 0,
+    "Seconds": 79.9621615,
+    "NewExact": [],
+    "LostExact": [],
+    "Changed": [
+      "ex_gauge"
+    ]
+  },
+  "Normalized": "The entire normal-toggle success path matches pinned after renaming labels. Its frame shrinks from five to three slots. handle_event/2 drops 149 to 147 versus pinned 139. The other 14 functions remain exact.",
+  "Native": "Both actual release image variants matched for normal stop, start/tick delivery and invalid selector. Five synthetic cases cover both arms, early failure, invalid selector and a malformed nested tuple.",
+  "PermanentTest": "The established entry regression requires a three-slot branch frame and both late arguments projected from the same retained tuple. Exit 1 under Part 2008 and 0 under Part 2009.",
+  "Validation": "Initial build rejected shadowed C# local names and is retained. The corrected final build has no warnings/errors, zero source layout changes, strict replay and verified postimages. Full delivery gate remains for integration.",
+  "Next": "Plan the selected case result at the predecessor of its join and verify the final mixed cold layout.",
+  "Hashes": {
+    "production.patch": "7c6a54e72e934a212298226c846ef4fb666a57d6bf7961c796fa9be8d7764da9",
+    "test.patch": "95ec5522c34c07f8b0450cfb9776be2275a0cd7fd8868eb63da88f27129f7208",
+    "replay-files.json": "12eb9b43647e980e566bfcb65593fc83274207288bb2c2769516d88caae798ce",
+    "strict-replay.log": "a446fe7d06027702f84960ee9883d6da77bb67f335d8c0a6d9d1984b88c8caea",
+    "style-check-final.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "build.log": "6e79105c7eef01c722d274bde89f13e244bb86983a21262601f145327f8789e4",
+    "build-final.log": "76281649d8c05656fd98563d360793c4ad6364c5078db37c00fdb159fb1fb4cd",
+    "compiler-bin/Erlang.Compiler.dll": "78d18f14a94df4d68cbddefdf23b0704748908da0742086a37b940a8c9c2b62c",
+    "scope-broad.txt": "5d29d6730903fb6753b47d216728c25a2bea1d3c7bdca8291fe4b327b255dd6f",
+    "scope-new.json": "88caeab1dec1794fe0e3f1a84b0bc6a33ce122c4445f4de2f1a09b6e0908b3a5",
+    "scope-seconds.txt": "eea40f9ce57ce4632831dfd56e84ad8371f9d6b2f2b3da8c8e6932a8e16b6301",
+    "scope-hashes.json": "a75a6428e0a086da1deafc959dbf93bbe46164c6c0af686f3302ab8837bc90e5",
+    "scope-changed.json": "a3f268350161afcc19b7ba1ad129e079c3dd2fd96ec76a8543463ebb67937e0a",
+    "gauge-remaining-final.terms": "6ac81b7be608284cd71a4e7187c35cc578b0791f1bbe3c225595cb9d13b2d1a2",
+    "handle_event.final": "e5d580c7ba53cdb2c1f707080343914945fb410d766acf241d88bca423876ac2",
+    "matched-normal-toggle.terms": "aaa52a079a44ecf6265915a3ba8690327c62b332f229a6c2bc721dd10cce677b",
+    "focused-exits-final.json": "1714e07bbd09022d5e16be9fa1dad03664e096702beb54f9e6bf8e4a397c383c",
+    "focused-red.log": "835330497d9b3db77da0071a638426668caada2384b27addf508e61888b15415",
+    "focused-green-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-toggle.eval": "1b90007556581c4080d2d14b6e73f0c7aeca11673eaf2cfc5047ce659c209a16",
+    "native-branch.eval": "23c0f0db7e4f42de3b57e95df97b012f8185ed673955cb579e4d2e46ab441233",
+    "native-gauge-exits.json": "12530f8206644739d698ef549fec4b8aa93bee1284511971c964b5edce47d685",
+    "native-branch-exits.json": "abe0fe2c0a086c29802ee62abb7d1b76c0737fefc96dd529c0c36c0c91e8007a",
+    "native-gauge-pinned.terms": "7466a740056df31a8353d15af0fc06deeb3c88fabe150c57b9aac68e0164f91a",
+    "native-gauge-candidate.terms": "7466a740056df31a8353d15af0fc06deeb3c88fabe150c57b9aac68e0164f91a",
+    "native-branch-pinned.terms": "9898ee5c5fd324e0962f151d1e46aace6c359a0d2f89755be0efe228b0dd504b",
+    "native-branch-candidate.terms": "9898ee5c5fd324e0962f151d1e46aace6c359a0d2f89755be0efe228b0dd504b",
+    "scope-new.json.generated/lib/wx-2.7/doc/examples/demo/ex_gauge.beam": "b3494a676f1883bf8fdc8536f71cc57d17bdc7f3a45f9ece04dc5f20249561f6"
+  }
+}

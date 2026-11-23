@@ -1,0 +1,179 @@
+{
+  "BeforeReportSha256": "42486FB637A49C423315F40D843533687246F3258B740AB4620CD7AFBCEAF8EC",
+  "AfterReportSha256": "6F8344E94BA3375A57EB2047F746E7C08B5C31E61F197A02CCB43497109C22CB",
+  "BeforeSourceArchiveSha256": "3E436816352C333EF8DFFD3C4670B735A1B5FE8F9FE81C32EE9A0FFE4DDD6441",
+  "AfterSourceArchiveSha256": "DB3AA7C5BCCB10E7664155CECBBEC7F97C9B0E0CC0BBCA8AB1036DE9015155E4",
+  "BeforeRunWallSeconds": 602.5162686,
+  "AfterRunWallSeconds": 846.8540416,
+  "SlowerModules": 1211,
+  "UnchangedShardCount": 343,
+  "TotalModules": 1366,
+  "Groups": {
+    "OutputChanged": {
+      "Count": 471,
+      "MedianWallRatio": 1.3499195385937361,
+      "SummedModuleWallDeltaSeconds": 739.4624956
+    },
+    "OutputIdentical": {
+      "Count": 895,
+      "MedianWallRatio": 1.3746374965709134,
+      "SummedModuleWallDeltaSeconds": 301.9245431
+    },
+    "under200ms": {
+      "Count": 660,
+      "MedianWallRatio": 1.3749922118638613,
+      "SummedModuleWallDeltaSeconds": 27.4291466
+    },
+    "200msTo1s": {
+      "Count": 391,
+      "MedianWallRatio": 1.3303107284786886,
+      "SummedModuleWallDeltaSeconds": 72.8246325
+    },
+    "1To10s": {
+      "Count": 265,
+      "MedianWallRatio": 1.3867007056805092,
+      "SummedModuleWallDeltaSeconds": 292.5112131
+    },
+    "above10s": {
+      "Count": 50,
+      "MedianWallRatio": 1.382063993110458,
+      "SummedModuleWallDeltaSeconds": 648.6220465
+    }
+  },
+  "Focus": {
+    "erl_parse": {
+      "Beam": "lib\\stdlib-8.1\\ebin\\erl_parse.beam",
+      "BeforeWallSeconds": 177.5107906,
+      "AfterWallSeconds": 286.0603608,
+      "BeforeShard": "shard-0",
+      "AfterShard": "shard-0",
+      "BeforeCodeBytes": 181512,
+      "AfterCodeBytes": 181512,
+      "AfterLabels": 8541,
+      "AfterFunctions": 914,
+      "SectionsChanged": []
+    },
+    "megaco_text_parser_v3": {
+      "Beam": "lib\\megaco-4.9.2\\ebin\\megaco_text_parser_v3.beam",
+      "BeforeWallSeconds": 113.86954159999999,
+      "AfterWallSeconds": 193.1103707,
+      "BeforeShard": "shard-1",
+      "AfterShard": "shard-1",
+      "BeforeCodeBytes": 170679,
+      "AfterCodeBytes": 170655,
+      "AfterLabels": 7632,
+      "AfterFunctions": 1155,
+      "SectionsChanged": [
+        "Attr",
+        "Code",
+        "Dbgi"
+      ]
+    },
+    "ssl_handshake": {
+      "Beam": "lib\\ssl-11.7.7\\ebin\\ssl_handshake.beam",
+      "BeforeWallSeconds": 15.765990799999999,
+      "AfterWallSeconds": 38.033133199999995,
+      "BeforeShard": "shard-1",
+      "AfterShard": "shard-1",
+      "BeforeCodeBytes": 64524,
+      "AfterCodeBytes": 64489,
+      "AfterLabels": 1603,
+      "AfterFunctions": 267,
+      "SectionsChanged": [
+        "Attr",
+        "Code",
+        "FunT"
+      ]
+    },
+    "xmerl_xsd": {
+      "Beam": "lib\\xmerl-2.2\\ebin\\xmerl_xsd.beam",
+      "BeforeWallSeconds": 22.3053763,
+      "AfterWallSeconds": 36.4925944,
+      "BeforeShard": "shard-1",
+      "AfterShard": "shard-1",
+      "BeforeCodeBytes": 84676,
+      "AfterCodeBytes": 84676,
+      "AfterLabels": 2574,
+      "AfterFunctions": 358,
+      "SectionsChanged": []
+    },
+    "core_parse": {
+      "Beam": "lib\\compiler-10.0.6\\ebin\\core_parse.beam",
+      "BeforeWallSeconds": 25.7250294,
+      "AfterWallSeconds": 41.3052515,
+      "BeforeShard": "shard-2",
+      "AfterShard": "shard-1",
+      "BeforeCodeBytes": 79223,
+      "AfterCodeBytes": 79223,
+      "AfterLabels": 4385,
+      "AfterFunctions": 547,
+      "SectionsChanged": []
+    },
+    "megaco_text_parser_v2": {
+      "Beam": "lib\\megaco-4.9.2\\ebin\\megaco_text_parser_v2.beam",
+      "BeforeWallSeconds": 86.3150165,
+      "AfterWallSeconds": 157.5966293,
+      "BeforeShard": "shard-2",
+      "AfterShard": "shard-2",
+      "BeforeCodeBytes": 150990,
+      "AfterCodeBytes": 150990,
+      "AfterLabels": 6921,
+      "AfterFunctions": 1067,
+      "SectionsChanged": [
+        "Dbgi"
+      ]
+    },
+    "megaco_text_parser_v1": {
+      "Beam": "lib\\megaco-4.9.2\\ebin\\megaco_text_parser_v1.beam",
+      "BeforeWallSeconds": 81.27720690000001,
+      "AfterWallSeconds": 134.6173847,
+      "BeforeShard": "shard-3",
+      "AfterShard": "shard-3",
+      "BeforeCodeBytes": 143168,
+      "AfterCodeBytes": 143168,
+      "AfterLabels": 6719,
+      "AfterFunctions": 960,
+      "SectionsChanged": [
+        "Dbgi"
+      ]
+    },
+    "gl": {
+      "Beam": "lib\\wx-2.7\\ebin\\gl.beam",
+      "BeforeWallSeconds": 57.707171499999994,
+      "AfterWallSeconds": 77.4504244,
+      "BeforeShard": "shard-3",
+      "AfterShard": "shard-3",
+      "BeforeCodeBytes": 56777,
+      "AfterCodeBytes": 56777,
+      "AfterLabels": 2460,
+      "AfterFunctions": 1068,
+      "SectionsChanged": []
+    }
+  },
+  "SummedModuleWallDeltaSeconds": 1041.3870387,
+  "ParserSummedWallDeltaSeconds": 312.4121899,
+  "CompilerOrToolSourceChanges": [
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CallResultConstructionScheduling.cs",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryArgumentFlow.cs",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryConstructionSequence.cs",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GcBifCallResults.cs",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LeafFrameRegisters.cs",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LocalConstantArguments.cs",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.MatchedCallProjection.cs",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.NestedGuardedTailCall.cs",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProperListBindings.cs",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedReturns.cs",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.UnusedTupleBindings.cs",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamReleaseBuildProfile.cs",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamReleaseMetadataWriter.cs",
+    "src/Compiler/Erlang.Compiler/Compilation/CodeGeneration.cs",
+    "src/Compiler/Erlang.Compiler/Syntax/BeamFileTransition.cs",
+    "src/Compiler/Erlang.Compiler/Syntax/BeamIncludeResolver.cs",
+    "src/Compiler/Erlang.Compiler/Syntax/BeamMacroPreprocessor.cs",
+    "tools/Validation/Erlang.BeamCorpus/OtpWindowsReleaseProfiles.cs"
+  ],
+  "SameHostWorkload": false,
+  "CompilerSpeedClaim": false
+}

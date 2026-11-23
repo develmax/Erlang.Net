@@ -1,0 +1,19 @@
+[Reference,Candidate]=init:get_plain_arguments(),
+M=beam_constructed_list_generator_helper,
+Run=fun(Path)->
+    {ok,Bytes}=file:read_file(Path),{module,M}=code:load_binary(M,Path,Bytes),
+    ok=M:reset(),[left,right]=M:constructed(left,right),
+    Order=[{mapped,right},{mapped,left},{produce,right},{produce,left}]=M:events(),
+    ok=M:reset(),rejected_input=try M:constructed(left,fail) catch error:E->E end,
+    FailureOrder=[{produce,fail},{produce,left}]=M:events(),
+    ok=M:reset(),[head,tail]=M:open_tail([tail]),
+    ok=M:reset(),
+    Stack=try M:open_tail(bad) catch error:{bad_generator,bad}:S -> S end,
+    [{M,'-open_tail/1-lc$^0/1-0-',1,Frame}|_]=Stack,
+    7=proplists:get_value(line,Frame),
+    [{mapped,head},{produce,head}]=M:events(),
+    [[one],[two]]=M:nested([one,two]),
+    true=code:delete(M),_=code:purge(M),
+    {Order,FailureOrder,{bad_generator,bad,7}}
+end,
+Result=Run(Reference),Result=Run(Candidate),io:format("~0p~n",[{passed,Result}]),halt().

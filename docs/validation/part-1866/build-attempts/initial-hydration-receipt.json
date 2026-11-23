@@ -1,0 +1,41 @@
+{
+  "Parent": {
+    "Source": "7d687ae55230b50e17fe434a97a6fe42779e95eef498b2b74c054e99509f96ad",
+    "Paths": 179,
+    "Compiler": "08b354b373a7b2a4a176b4143863a09ba3fad55de7741321a0104d2c1dbbde75",
+    "Tests": "db5e6f0d070689c13da4fb21ee7284c2c318adb8491d939e61f1acf92f7cc955",
+    "ParentSource": "ac54560b24ec82b1547aa29ab20cc0b24b16a2832289a236ff52473b3a4a8023",
+    "CorpusTool": "e82b07cfafa2ed370e4571bd0e1d1ba472acb77a5387a0ab85e0541bc4ab77a0"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryFramePlacement.cs": "39a4c3837b89fb157bcefaa326491817e81b855dfe71df0eccbc178ca55972d1",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": "60d9630b89267d99023ac8741280c4232afd436f100a18c46542ba806cd91812",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TupleEntryListCall.cs": "b40706aad83294f4b2d6c27b15e9f934a5419d17babe26c204a539780871aaa1",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamReleaseLeafInliningPlan.cs": "32cac10a1a5eccbd62b053f9e22da8e28f5ee596c9e66110869a7c3e0e100909",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamTargetedInlining.cs": "3678a6f236a274468cd25ffde2a6f7b1ac9b6379b006193c60ff507d7af19cd8",
+    "src/Compiler/Erlang.Compiler/Compilation/CodeGeneration.cs": "29ff68378f7caf71993bda749a1d1e84951bf7a79e78a4716188d2f9f0d5146a",
+    "src/Compiler/Erlang.Compiler/Compilation/CompilerOptionNames.cs": "91d317d92be42f012855d805cdb682be090731d8e1fc6289e41d8aca76f532dc",
+    "src/Compiler/Erlang.Compiler/Execution/Source/SourceCallBindingBuilder.cs": "9e9e4b0ac0cea532cc858aea2b588fd5e20a41176ee1b05de8469d5c9bd129a1",
+    "src/Compiler/Erlang.Compiler/Syntax/Ast/ModuleDefinition.cs": "df423e68317e3120377a0523c95642e295745ba19a98d3bd88b766063c24f79c",
+    "src/Compiler/Erlang.Compiler/Syntax/Parser.cs": "a2279400888bcb5d83e6724153fc9c9b94dc1d38b2fad8a68a4ff5dc8b99735b",
+    "tests/Erlang.Tests/Compiler/Beam/BeamModuleEmissionChecks.cs": "520d50347715231c188fb7c4b5f31efe0ac9555b89dccf8193a503dc17adfe6f",
+    "tests/Erlang.Tests/Compiler/Beam/BeamReleaseLeafInliningChecks.cs": "070251480bcd908db2836013faedfa9014fd69fc5f762664fe8df695c8931d37",
+    "tests/Erlang.Tests/Compiler/Beam/BeamTupleEntryListCallChecks.cs": "65cab254ac396523e56f81c331f71c3d16376c63dba0074e2d34b7b948aacccb",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamTerminalListMatchFrameChecks.cs": "6d4e76a1560d7df8f474bf9bb4633a33d0614947a75d4299c1430e252af6b18e",
+    "tests/Erlang.Tests/Harness/Program.cs": "b055a8f2694e1e2454c58f01133f9825f1242427e2c7ec36493b88f1f7d925f6"
+  },
+  "Patches": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\early-list-tuple-frame-audit\\terminal-list-match-failure.patch",
+      "Hash": "3110d7b3ef0d43b0801bafe18adbf5b33afe12d01dec2d9c8c442b7f3ef4861b"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\early-entry-argument-ownership-1865\\validated-resources\\release-inline-flat-leaf-rebased.patch",
+      "Hash": "6fbf2d93093bf7fb4715cf1293b377f6d785d36ed5ae24e1e30d3b2e0ec2c236"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\megaco-tuple-list-self-audit\\tuple-entry-nullary-list-construction.patch",
+      "Hash": "7be50de6a4ab24f4e2d88a56d0bab56a78081c11046ebc7ad9d5e52d53807f71"
+    }
+  ]
+}

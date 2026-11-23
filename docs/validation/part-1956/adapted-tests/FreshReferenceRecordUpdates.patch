@@ -1,0 +1,66 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamFreshRecordOperandChecks.cs b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamFreshRecordOperandChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamFreshRecordOperandChecks.cs
+@@ -0,0 +1,61 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamFreshRecordOperandChecks
++{
++    internal const string TestName = "compiler/beam/fresh-record-replacement-copy-hint";
++    private const string WrongFreshHint = "An update retained its reuse hint even though the selected replacement is newly produced.";
++    private const string WrongUnknownHint = "An unknown or user-defined replacement lost its reuse hint.";
++    private const string Source = """
++        -module(beam_fresh_record_operand).
++        -export([bound/3, direct/1, external/1, unknown/2]).
++        -record(payload,{item}).
++        -record(state,{data}).
++        bound(timer, State=#state{data=Payload=#payload{item=Existing}}, Pid) ->
++            service:observe(Existing),
++            Ref = erlang:send_after(20, Pid, fired),
++            {ok,State#state{data=Payload#payload{item=Ref}}};
++        bound(keep, State=#state{}, _Pid) ->
++            {ok,State}.
++        direct(Payload=#payload{}) ->
++            {ok,Payload#payload{item=erlang:make_ref()}}.
++        external(Payload=#payload{}) ->
++            {ok,Payload#payload{item=service:make_ref()}}.
++        unknown(Payload=#payload{}, Value) ->
++            {ok,Payload#payload{item=Value}}.
++        """;
++
++    internal static void Run()
++    {
++        object code = Code(CodeGeneration.CompileBeamModule(Source, "beam_fresh_record_operand.erl"));
++        var atoms = ((IEnumerable)Property(Property(code, "Structure"), "Atoms")).Cast<string>().ToArray();
++        var instructions = ((IEnumerable)Property(code, "Instructions")).Cast<object>().ToArray();
++        var functions = ((IEnumerable)Property(code, "Functions")).Cast<object>().ToArray();
++        if (Hints("bound") is not ["copy", "reuse"] || Hints("direct") is not ["copy"])
++        {
++            throw new InvalidOperationException(WrongFreshHint);
++        }
++
++        if (Hints("external") is not ["reuse"] || Hints("unknown") is not ["reuse"])
++        {
++            throw new InvalidOperationException(WrongUnknownHint);
++        }
++
++        string[] Hints(string name)
++        {
++            object selected = functions.Single(function => (string)Property(function, "Name") == name);
++            int start = (int)Property(selected, "FirstInstructionIndex");
++            int end = (int)Property(selected, "EndInstructionIndex");
++
++            return instructions[start..end]
++                .Where(instruction => (byte)Property(Property(instruction, "Definition"), "Opcode") == UpdateRecord)
++                .Select(instruction => ((IEnumerable)Property(instruction, "Operands")).Cast<object>().First())
++                .Select(operand => atoms[(int)(BigInteger)Property(operand, "Value")]).ToArray();
++        }
++    }
++}

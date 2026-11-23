@@ -1,0 +1,30 @@
+head_bif=group("FramelessHeadBif")
+head_src=head_bif/"beam_frameless_head_bif_probe.erl"
+head_image=compile_fixture("frameless-head-bif",head_src)
+head_pin=otp("frameless-head-bif-pinned",head_bif/"fixture.eval",head_src)
+head_run=otp("frameless-head-bif-linked",head_bif/"fixture.eval",head_src,head_image)
+def head_bif_outcomes(path):
+    lines=path.read_text(encoding="utf-8").splitlines()
+    start=next(i for i,line in enumerate(lines) if line.startswith("{run,3,"))
+    assert "native_cases => 10" in lines[-1]
+    return lines[:start]+lines[-1:]
+assert head_bif_outcomes(head_pin)==head_bif_outcomes(head_run)
+synthetic["frameless-head-bif"]={"Cases":10,"Evidence":sha(head_run),"Image":sha(head_image)}
+
+parser_observations={}
+for role,origin in roles_for_package:
+    results=otp("frameless-head-parsers-"+role,head_bif/"yecc-native.eval",*[origin/beam_names[name] for name in
+        ["core_parse","erl_parse","megaco_text_parser_v3","xref_parser","yeccparser"]])
+    observations=results.read_text(encoding="utf-8").split("{loaded_only,",1)
+    assert len(observations)==2
+    parser_observations[role]=hashlib.sha256(observations[0].encode()).hexdigest()
+assert len(set(parser_observations.values()))==1,parser_observations
+verified["frameless-head-parsers"]={"Cases":5,"Evidence":parser_observations["linked"]}
+
+capture=group("PrivateNestedLiteralCapture")
+capture_src=capture/"beam_known_nested_capture.erl"
+capture_image=compile_fixture("nested-singleton-capture",capture_src)
+capture_result=otp("nested-singleton-capture-linked",capture/"oracle.eval",capture_src,capture_image)
+assert "pinned 9 profiles passed" in capture_result.read_text(encoding="utf-8")
+assert "parent 9 profiles passed" in capture_result.read_text(encoding="utf-8")
+synthetic["nested-singleton-capture"]={"Cases":9,"Evidence":sha(capture_result),"Image":sha(capture_image)}

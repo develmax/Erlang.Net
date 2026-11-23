@@ -1,0 +1,158 @@
+using static Erlang.Compiler.BeamEmissionFormat;
+
+namespace Erlang.Compiler;
+
+internal sealed partial class BeamModuleCompiler
+{
+    private byte[]? PackTerminalHeaderListHeap(ReadOnlyMemory<byte> code, int labelCount)
+    {
+        if (ModuleOptimizationDisabled || !SsaTypeInferenceEnabled || !code.Span.Contains(PutList)
+            || DecodeLateAtomicProjectionSlots(code, labelCount) is not { } decoded)
+        {
+            return null;
+        }
+
+        const int pairArity = 2;
+        const int wrapperArity = 3;
+        const int pairWords = pairArity + 1;
+        const int prefixWords = 3 * pairWords + 2 * ConsHeapWords + wrapperArity + 1;
+        const int tailWords = pairWords + ConsHeapWords;
+        var body = decoded.Body;
+        var x0 = new BeamOperand(BeamOperandParameters.X, 0);
+        var x1 = new BeamOperand(BeamOperandParameters.X, 1);
+        using var output = new MemoryStream();
+        BeamProjectionFlow? flow = null;
+        int copied = 0;
+        int functionEnd = 0;
+        bool protectedFunction = false;
+        for (int index = 1; index + 17 < body.Count; index++)
+        {
+            if (body[index].Definition.Opcode == FunctionInfo)
+            {
+                functionEnd = index + 1;
+                protectedFunction = false;
+                while (body[functionEnd].Definition.Opcode is not (FunctionInfo or EndCode))
+                {
+                    protectedFunction |= body[functionEnd].Definition.Opcode is TryEnter or CatchEnter or DebugLine or ExecutableLine;
+                    functionEnd++;
+                }
+            }
+
+            if (protectedFunction || index + 16 >= functionEnd || body[index - 1].Definition.Opcode is not (ExternalCall or LocalCall)
+                || body[index] is not
+                {
+                    Definition.Opcode: Move,
+                    Operands: [var input, { Kind: BeamOperandParameters.Y, TypeIndex: null } savedResult]
+                } || input != x0 || !Heap(index + 1, prefixWords)
+                || body[index + 2] is not
+                {
+                    Definition.Opcode: PutTuple,
+                    Operands: [var target, _, { Kind: BeamOperandParameters.Atom } firstTag,
+                    { Kind: BeamOperandParameters.Y, TypeIndex: null } savedOther]
+                } || target != x0 || savedOther == savedResult
+                || !Moves(index + 3, savedOther)
+                || PairTag(index + 4, savedResult) is not { } secondTag
+                || firstTag == secondTag
+                || body[index + 5] is not
+                {
+                    Definition.Opcode: PutList,
+                    Operands: [var head, { Kind: BeamOperandParameters.LiteralValue }, var list]
+                } || head != x0 || list != x0
+                || !Cons(index + 6, savedOther)
+                || !Moves(index + 7, savedOther)
+                || body[index + 8] is not
+                {
+                    Definition.Opcode: PutTuple,
+                    Operands: [var wrapped, _, { Kind: BeamOperandParameters.Atom } response,
+                        var payload, { Kind: BeamOperandParameters.Atom } marker]
+                } || wrapped != x0 || payload != savedOther
+                || PairTag(index + 9, x0) != response || !Moves(index + 10, savedOther) || !Heap(index + 11, tailWords)
+                || body[index + 12] is not
+                {
+                    Definition.Opcode: GetTupleElement,
+                    Operands: [{ Kind: BeamOperandParameters.Y, TypeIndex: null } record, var field, var projected]
+                } || projected != x0 || record == savedOther || record == savedResult
+                || !Cons(index + 13, savedOther)
+                || PairTag(index + 14, x0) is null
+                || body[index + 15].Definition.Opcode != Deallocate || body[index + 16].Definition.Opcode != Return
+                || !(flow ??= new BeamProjectionFlow(body)).IsInitialized(index, savedResult))
+            {
+                continue;
+            }
+
+            // The pair appended nearest the literal tail is built first. Keep
+            // the call result live in X0 and reuse X1 for the short-lived head
+            // pair and then the record field. No stack value escapes the return.
+            output.Write(code.Span[copied..body[index].Offset]);
+            output.WriteByte(TestHeap);
+            Unsigned(prefixWords + tailWords);
+            Unsigned(1);
+            WritePair(x0, secondTag, x0);
+            Copy(index + 5);
+            WritePair(x1, firstTag, savedOther);
+            WriteList(x1, x0);
+            output.WriteByte(GetTupleElement);
+            WriteRegister(output, record);
+            BeamCompactWriter.Write(output, BeamWire.UnsignedTag, field.Value);
+            WriteRegister(output, x1);
+            output.WriteByte(PutTuple);
+            WriteRegister(output, x0);
+            output.WriteByte(ExtendedListOperand);
+            Unsigned(wrapperArity);
+            BeamCompactWriter.Write(output, AtomTag, response.Value);
+            WriteRegister(output, x0);
+            BeamCompactWriter.Write(output, AtomTag, marker.Value);
+            Copy(index + 9);
+            WriteList(x0, x1);
+            copied = body[index + 14].Offset;
+            index += 13;
+        }
+
+        if (copied == 0)
+        {
+            return null;
+        }
+
+        output.Write(code.Span[copied..]);
+
+        return output.ToArray();
+
+        bool Heap(int index, int words) => body[index] is
+        { Definition.Opcode: TestHeap, Operands: [var size, { Value.IsZero: true }] } && size.Value == words;
+
+        bool Moves(int index, BeamOperand slot) => body[index] is
+        { Definition.Opcode: Move, Operands: [var input, var target] } && input == x0 && target == slot;
+
+        bool Cons(int index, BeamOperand head) => body[index] is
+        { Definition.Opcode: PutList, Operands: [var actualHead, var tail, var destination] }
+            && actualHead == head && tail == x0 && destination == x0;
+
+        BeamOperand? PairTag(int index, BeamOperand payload) => body[index] is
+        {
+            Definition.Opcode: PutTuple,
+            Operands: [var destination, _, { Kind: BeamOperandParameters.Atom } atom, var field]
+        } && destination == x0 && field == payload ? atom : null;
+
+        void Copy(int index) => output.Write(code.Span[body[index].Offset..body[index + 1].Offset]);
+
+        void WritePair(BeamOperand destination, BeamOperand tag, BeamOperand value)
+        {
+            output.WriteByte(PutTuple);
+            WriteRegister(output, destination);
+            output.WriteByte(ExtendedListOperand);
+            Unsigned(pairArity);
+            BeamCompactWriter.Write(output, AtomTag, tag.Value);
+            WriteRegister(output, value);
+        }
+
+        void WriteList(BeamOperand head, BeamOperand tail)
+        {
+            output.WriteByte(PutList);
+            WriteRegister(output, head);
+            WriteRegister(output, tail);
+            WriteRegister(output, x0);
+        }
+
+        void Unsigned(int value) => BeamCompactWriter.Write(output, BeamWire.UnsignedTag, value);
+    }
+}

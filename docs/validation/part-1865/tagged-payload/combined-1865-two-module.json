@@ -1,0 +1,23 @@
+{
+  "OtpVersion": "29.1.1",
+  "Total": 2,
+  "Counts": {
+    "Different": 2
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\inet6_sctp.beam",
+      "Status": "Different",
+      "Source": "lib\\kernel-11.0.4\\src\\inet6_sctp.erl",
+      "Detail": "Original length 7424, generated length 7428. Code 831-\u003E833, Attr 39-\u003E39",
+      "FirstDifferentByte": 7
+    },
+    {
+      "Beam": "lib\\megaco-4.9.2\\ebin\\megaco_tcp_accept.beam",
+      "Status": "Different",
+      "Source": "lib\\megaco-4.9.2\\src\\tcp\\megaco_tcp_accept.erl",
+      "Detail": "Original length 4120, generated length 4116. Code 515-\u003E512, Attr 65-\u003E65, Line 46-\u003E46",
+      "FirstDifferentByte": 7
+    }
+  ]
+}

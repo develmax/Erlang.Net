@@ -1,0 +1,12 @@
+Checking patch src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs...
+error: while searching for:
+                ?? (selected, labelCount);
+        }
+
+        // Entry literal partitioning may consume a failure relay to build its select.
+        // Resolve the remaining own-function relays after the branch layout is final.
+        var relays = ModuleOptimizationDisabled ? [] : CollectFinalFunctionFailureRelays(body);
+
+error: patch failed: src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs:51
+error: src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs: patch does not apply
+Checking patch src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.OutgoingStackRoots.cs...

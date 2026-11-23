@@ -22,10 +22,15 @@ internal sealed partial class BeamModuleCompiler
         NonnegativeIfNumeric = 8192,
         Atom = 16384,
         List = 32768,
+        Tuple = 1 << 16,
+        AtomOrTuple = 1 << 17,
+        AtomInFirstPairField = 1 << 18,
+        AtomInSecondPairField = 1 << 19,
         NoReturn = Positive | PositiveLength | ProperList | NonemptyList
     }
 
     private NumericPairFlow? numericPairFlow;
+    private NumericPairFlow? nonemptyPairLengthFlow;
 
     private sealed class NumericPairFlow(PairFacts top)
     {
@@ -64,7 +69,7 @@ internal sealed partial class BeamModuleCompiler
 
         private NumericPairFlow GetNumericPairFlow()
         {
-            if (owner.numericPairFlow is { } cached)
+            if ((inferNonemptyPairLengths ? owner.nonemptyPairLengthFlow : owner.numericPairFlow) is { } cached)
             {
                 return cached;
             }
@@ -116,7 +121,16 @@ internal sealed partial class BeamModuleCompiler
                 inferNumericPairs = false;
             }
 
-            return owner.numericPairFlow = flow;
+            if (inferNonemptyPairLengths)
+            {
+                owner.nonemptyPairLengthFlow = flow;
+            }
+            else
+            {
+                owner.numericPairFlow = flow;
+            }
+
+            return flow;
         }
 
         private PairFacts ReadJoinedNumericPairFacts(Expr expression)
@@ -142,13 +156,42 @@ internal sealed partial class BeamModuleCompiler
                 ? entry.Arguments[index] : PairFacts.Unknown;
         }
 
+        internal int ReadLocalAtomComparisonResultType((string Name, int Arity) signature)
+        {
+            if (!GetNumericPairFlow().Entries.TryGetValue(signature, out var entry))
+            {
+                return 0;
+            }
+
+            return (entry.Result & (PairFacts.Atom | PairFacts.Tuple | PairFacts.AtomOrTuple)) switch
+            {
+                PairFacts.Atom | PairFacts.AtomOrTuple => AtomTypeBits,
+                PairFacts.AtomOrTuple => LocalAtomOrTupleType,
+                _ => 0
+            };
+        }
+
         internal int ReadAtomEntryType(FunctionDefinition function, int index) =>
             owner.exportedFunctions.Contains((function.Name, function.Arity))
                 || owner.IsDeclaredNative((function.Name, function.Arity))
                 || (ReadJoinedNumericArgument(function, index) & PairFacts.Atom) == 0
                 ? 0 : AtomTypeBits;
 
-        private int ReadSavedComparisonEntryType(FunctionDefinition function, int index)
+        private int ReadAtomOrTupleEntryType(FunctionDefinition function, int index)
+        {
+            var signature = (function.Name, function.Arity);
+            if (owner.exportedFunctions.Contains(signature) || owner.IsDeclaredNative(signature))
+            {
+                return 0;
+            }
+
+            PairFacts facts = ReadJoinedNumericArgument(function, index);
+            const PairFacts kind = PairFacts.Atom | PairFacts.Tuple | PairFacts.AtomOrTuple;
+
+            return (facts & kind) == PairFacts.AtomOrTuple ? AtomTypeBits | TupleTypeBits : 0;
+        }
+
+        internal int ReadSavedComparisonEntryType(FunctionDefinition function, int index)
         {
             var signature = (function.Name, function.Arity);
             if (owner.exportedFunctions.Contains(signature) || owner.IsDeclaredNative(signature))

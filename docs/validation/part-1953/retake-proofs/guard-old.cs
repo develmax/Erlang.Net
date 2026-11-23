@@ -1,0 +1,95 @@
+using System.Collections;
+using System.Numerics;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamNestedRecordEffectDispatchChecks
+{
+    internal const string TestName = "compiler/beam/nested-record-effect-dispatch";
+    private const string MissingWidthDispatch = "Independent record shapes did not dispatch before allocating.";
+    private const string MissingBranchFrame = "The selector did not give its call branches the one-slot state frame.";
+    private const string GuardedGroups = "A guarded source clause was treated as an unconditional record group.";
+    private const string Source = """
+        -module(beam_nested_record_effect_dispatch).
+        -export([dispatch/2,guarded/2]).
+        -record(packet,{key,context,body}).
+        -record(command,{type,ignored}).
+        -record(update,{type,left,right,ignored}).
+        -record(state,{route}).
+        dispatch(#packet{key=Key,body=#command{type=write}}, State=#state{}) ->
+            case Key of
+                5 -> service:apply(State#state.route,"five",[]);
+                8 -> service:apply(State#state.route,"eight",[]);
+                _ -> skip
+            end,
+            {done,State};
+        dispatch(#packet{key=Key,body=#command{type=read}}, State=#state{}) ->
+            case Key of
+                1 -> service:read(State#state.route);
+                2 -> service:read(other);
+                _ -> skip
+            end,
+            {done,State};
+        dispatch(#packet{context=Receiver,body=#update{type=change,left=L,right=R}}, State) ->
+            service:send(Receiver, service:encode("pair",[{L,R}]),[standard]),
+            {done,State}.
+        guarded(#packet{key=Key,body=#command{type=write}}, State=#state{}) when is_integer(Key) ->
+            case Key of
+                5 -> service:apply(State#state.route,"five",[]);
+                8 -> service:apply(State#state.route,"eight",[]);
+                _ -> skip
+            end,
+            {done,State};
+        guarded(#packet{key=Key,body=#command{type=read}}, State=#state{}) ->
+            case Key of
+                1 -> service:read(State#state.route);
+                2 -> service:read(other);
+                _ -> skip
+            end,
+            {done,State};
+        guarded(#packet{context=Receiver,body=#update{type=change,left=L,right=R}}, State) ->
+            service:send(Receiver, service:encode("pair",[{L,R}]),[standard]),
+            {done,State}.
+        """;
+
+    internal static void Run()
+    {
+        object code = Code(CodeGeneration.CompileBeamModule(Source, "beam_nested_record_effect_dispatch.erl"));
+        object[] instructions = ((IEnumerable)Property(code, "Instructions")).Cast<object>().ToArray();
+        object[] functions = ((IEnumerable)Property(code, "Functions")).Cast<object>().ToArray();
+        object[] selected = Body("dispatch");
+        int widthCheck = Array.FindIndex(selected, instruction => Opcode(instruction) == SelectTupleArity);
+        int frame = Array.FindIndex(selected, instruction => Opcode(instruction) is Allocate or AllocateHeap);
+        if (widthCheck < 0 || widthCheck >= frame)
+        {
+            throw new InvalidOperationException(MissingWidthDispatch);
+        }
+
+        var allocations = selected.Where(instruction => Opcode(instruction) == Allocate)
+            .Select(instruction => ((IEnumerable)Property(instruction, "Operands")).Cast<object>()
+                .Select(operand => (int)(BigInteger)Property(operand, "Value")).ToArray()).ToArray();
+        if (allocations is not [[1, 4], [1, 4]])
+        {
+            throw new InvalidOperationException(MissingBranchFrame);
+        }
+
+        if (Body("guarded").Any(instruction => Opcode(instruction) == SelectTupleArity))
+        {
+            throw new InvalidOperationException(GuardedGroups);
+        }
+
+        object[] Body(string name)
+        {
+            object function = functions.Single(candidate => (string)Property(candidate, "Name") == name);
+            int start = (int)Property(function, "FirstInstructionIndex");
+            int end = (int)Property(function, "EndInstructionIndex");
+
+            return instructions[start..end];
+        }
+    }
+
+    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
+}

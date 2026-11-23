@@ -1,0 +1,116 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamDuplicateTrailingSlotChecks.cs b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamDuplicateTrailingSlotChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamDuplicateTrailingSlotChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamDuplicateTrailingSlotChecks.cs
+@@ -8,6 +8,8 @@
+ internal static class BeamDuplicateTrailingSlotChecks
+ {
+     internal const string TestName = "compiler/beam/removes-trailing-duplicate-call-slot";
++    private const string OwnedCandidate = "ForwardDuplicatedOwnedFrameReads";
++    private const string OwnedCompactor = "CompactDisjointFrames";
+     private const string Candidate = "ForwardDuplicatedTrailingFrameReads";
+     private const string FrameCompactor = "RemoveUnusedTrailingFrameSlots";
+     private const string HeaderType = "BeamCodeHeader";
+@@ -64,9 +66,59 @@
+         ]
+         ));
+ 
++        CheckOwnedFrames(call, reload);
++
+         return Task.CompletedTask;
+     }
+ 
++    private static void CheckOwnedFrames(byte[] call, byte[] reload)
++    {
++        byte[] temporary = [Move, X(0), Y(0)];
++        byte[] keep = [Move, X(0), Y(1), .. call, .. temporary];
++        byte[] before = Image(2, [.. keep, BifTwo, F(0), U(1), Y(1), Y(0), X(0)]);
++        byte[] expected = Image(1, [.. temporary, .. call, BifTwo, F(0), U(1), Y(0), X(0), X(0)]);
++        CheckOwned(before, expected);
++
++        byte[] entry = Start(
++            1,
++            2,
++            1,
++            1
++        );
++        byte[] first =
++        [
++            .. entry, ExactEqualTest, F(3), X(0), A(1)
++        ];
++        byte[] frame = [Allocate, U(1), U(1), InitYRegisters, ExtendedListOperand, U(1), Y(0)];
++        byte[] returning = [Deallocate, U(1), Return];
++        byte[] sibling =
++        [
++            Label, U(3), .. frame, .. temporary, .. call, .. reload, .. returning, EndCode
++        ];
++        byte[] callOne = [ExternalCall, U(1), U(0)];
++        before = [.. first, .. frame, .. temporary, .. reload, .. callOne, .. returning, .. sibling];
++        expected = [.. first, Allocate, U(0), U(1), .. callOne, Deallocate, U(0), Return, .. sibling];
++        CheckOwned(before, expected);
++
++        byte[] joined =
++        [
++            .. entry, .. frame, .. temporary, ExactEqualTest, F(3), X(0), A(1),
++            Move, A(1), X(0), Label, U(3), .. reload, .. callOne, .. returning, EndCode
++        ];
++        if (!Rewrite(joined, owned: true).SequenceEqual(joined))
++        {
++            throw new InvalidOperationException(Preserve);
++        }
++    }
++
++    private static void CheckOwned(byte[] before, byte[] expected)
++    {
++        if (!Rewrite(before, owned: true).SequenceEqual(expected))
++        {
++            throw new InvalidOperationException(Width);
++        }
++    }
++
+     private static void Check(byte[] before, byte[] expected)
+     {
+         if (!Rewrite(before).SequenceEqual(expected))
+@@ -83,18 +135,19 @@
+         }
+     }
+ 
+-    private static byte[] Rewrite(byte[] bytes)
++    private static byte[] Rewrite(byte[] bytes, bool owned = false)
+     {
+         ReadOnlyMemory<byte> code = bytes;
+         var offsets = new List<(int Start, int End, int Slot)>();
+         object instructions = Decode(code, (start, end, slot) => offsets.Add((start, end, slot)));
+         var compiler = typeof(BeamModuleCompiler);
++        string forwarding = owned ? OwnedCandidate : Candidate;
+         if (compiler.GetMethod(
+-            Candidate,
++            forwarding,
+             System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic
+         ) is not null && Call(
+             compiler,
+-            Candidate,
++            forwarding,
+             code,
+             instructions,
+             offsets
+@@ -102,6 +155,20 @@
+         {
+             code = forwarded;
+             instructions = Decode(code, null);
++        }
++
++        if (owned)
++        {
++            offsets.Clear();
++            instructions = Decode(code, (start, end, slot) => offsets.Add((start, end, slot)));
++
++            return (byte[]?)Call(
++                compiler,
++                OwnedCompactor,
++                code,
++                instructions,
++                offsets
++            ) ?? code.ToArray();
+         }
+ 
+         return (byte[]?)Call(

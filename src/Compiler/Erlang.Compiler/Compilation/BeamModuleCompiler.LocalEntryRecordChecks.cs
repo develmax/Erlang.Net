@@ -11,10 +11,11 @@ internal sealed partial class BeamModuleCompiler
             return null;
         }
 
-        var indirect = exports.Select(function => MapEmittedLabel(function.Entry))
-            .Concat(closures.Select(closure => MapEmittedLabel(closure.Entry)))
+        var opaque = exports.Select(function => MapEmittedLabel(function.Entry))
             .Concat(locals.Where(function => IsDeclaredNative((atomNames[function.Atom - 1], function.Arity)))
                 .Select(function => MapEmittedLabel(function.Entry))).ToHashSet();
+        var closureEntries = closures.Select(closure => MapClosureEntryLabel(closure.Entry)).ToHashSet();
+        var closureCreations = new Dictionary<int, List<int>>();
         var calls = new Dictionary<int, List<int>>();
         for (int index = 0; index < body.Count; index++)
         {
@@ -30,13 +31,33 @@ internal sealed partial class BeamModuleCompiler
 
                 sites.Add(index);
             }
+            else if (instruction is { Definition.Opcode: MakeFun, Operands: [var function, _, var count, ..] }
+                && function.Value.Sign >= 0 && function.Value < closures.Count)
+            {
+                LiftedClosure closure = closures[(int)function.Value];
+                int target = MapClosureEntryLabel(closure.Entry);
+                if (closure.General is null || closure.SelfName is not null || closure.CaptureCount == 0
+                    || closure.CaptureCount != count.Value || instruction.Operands.Count != 3 + closure.CaptureCount)
+                {
+                    opaque.Add(target);
+                    continue;
+                }
+
+                if (!closureCreations.TryGetValue(target, out var sites))
+                {
+                    sites = [];
+                    closureCreations.Add(target, sites);
+                }
+
+                sites.Add(index);
+            }
             else
             {
                 foreach (BeamOperand operand in instruction.Operands)
                 {
                     if (operand.Kind == BeamOperandParameters.Label)
                     {
-                        indirect.Add((int)operand.Value);
+                        opaque.Add((int)operand.Value);
                     }
                 }
             }
@@ -44,20 +65,22 @@ internal sealed partial class BeamModuleCompiler
 
         using var output = new MemoryStream();
         BeamProjectionFlow? flow = null;
+        var removedChecks = new HashSet<int>();
         int copied = 0;
-        for (int index = 1; index + 2 < body.Count; index++)
+        bool privateFunctionWithCallers = false;
+        for (int check = 1; check + 1 < body.Count; check++)
         {
-            if (body[index - 1].Definition.Opcode != FunctionInfo
-                || body[index] is not { Definition.Opcode: Label, Operands: [var label] }
-                || indirect.Contains((int)label.Value) || !calls.TryGetValue((int)label.Value, out var sites))
+            if (body[check].Definition.Opcode == FunctionInfo)
             {
-                continue;
+                privateFunctionWithCallers = body[check + 1] is { Definition.Opcode: Label, Operands: [var entryLabel] }
+                    && !opaque.Contains((int)entryLabel.Value)
+                    && !closureEntries.Contains((int)entryLabel.Value)
+                    && calls.ContainsKey((int)entryLabel.Value);
             }
 
-            int check = index + 1;
-            while (body[check].Definition.Opcode == Line)
+            if (!privateFunctionWithCallers)
             {
-                check++;
+                continue;
             }
 
             if (body[check] is not
@@ -71,20 +94,104 @@ internal sealed partial class BeamModuleCompiler
             }
 
             flow ??= new BeamProjectionFlow(body);
-            if (sites.Any(site => !flow.IsTaggedTupleAtCall(
-                site,
-                argument,
-                size,
-                tag,
-                value => taggedTupleLiterals.TryGetValue((int)value.Value, out var literal)
-                    && literal.Arity == size.Value && literal.Tag == atomNames[(int)tag.Value - 1]
-            )))
+            if (!ProvesCheckedArgument())
             {
                 continue;
             }
 
+            removedChecks.Add(check);
             output.Write(code.Span[copied..body[check].Offset]);
             copied = body[check + 1].Offset;
+
+            bool ProvesCheckedArgument()
+            {
+                // Follow the argument through private entry points and require an independent proof on every call path.
+                var pending = new Stack<(int Entry, BeamOperand Register, bool Complete)>();
+                var active = new HashSet<(int Entry, BeamOperand Register)>();
+                var proven = new HashSet<(int Entry, BeamOperand Register)>();
+                if (!ProveAt(check, argument))
+                {
+                    return false;
+                }
+
+                while (pending.TryPop(out var fact))
+                {
+                    var (entry, register, complete) = fact;
+                    var key = (entry, register);
+                    if (complete)
+                    {
+                        active.Remove(key);
+                        proven.Add(key);
+                        continue;
+                    }
+
+                    if (proven.Contains(key))
+                    {
+                        continue;
+                    }
+
+                    if (!active.Add(key)
+                        || body[entry - 1] is not { Definition.Opcode: FunctionInfo, Operands: [_, _, var arity] }
+                        || body[entry] is not { Definition.Opcode: Label, Operands: [var entryLabel] }
+                        || register is not { Kind: BeamOperandParameters.X, TypeIndex: null }
+                        || register.Value.Sign < 0 || register.Value >= arity.Value
+                        || opaque.Contains((int)entryLabel.Value))
+                    {
+                        return false;
+                    }
+
+                    pending.Push((entry, register, true));
+                    int label = (int)entryLabel.Value;
+                    if (closureEntries.Contains(label))
+                    {
+                        // A closure caller can choose its explicit arguments but cannot replace its captured environment.
+                        if (calls.ContainsKey(label) || !closureCreations.TryGetValue(label, out var creations)
+                            || creations.Any(site => !ProveCapture(site, (int)register.Value)))
+                        {
+                            return false;
+                        }
+                    }
+                    else if (!calls.TryGetValue(label, out var sites) || sites.Any(site => !ProveAt(site, register)))
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+
+                bool ProveCapture(int site, int register)
+                {
+                    var operands = body[site].Operands;
+                    LiftedClosure closure = closures[(int)operands[0].Value];
+                    int capture = register - (closure.Arity - closure.CaptureCount);
+                    if (capture < 0 || capture >= closure.CaptureCount)
+                    {
+                        return false;
+                    }
+
+                    var value = operands[3 + capture];
+                    if (value.Kind == BeamOperandParameters.LiteralValue)
+                    {
+                        return IsTaggedLiteral(value);
+                    }
+
+                    return value.Kind is BeamOperandParameters.X or BeamOperandParameters.Y
+                        && ProveAt(site, value with { TypeIndex = null });
+                }
+
+                bool IsTaggedLiteral(BeamOperand value) => taggedTupleLiterals.TryGetValue((int)value.Value, out var literal)
+                    && literal.Arity == size.Value && literal.Tag == atomNames[(int)tag.Value - 1];
+
+                bool ProveAt(int instruction, BeamOperand register) => flow.IsTaggedTupleBefore(
+                    instruction,
+                    register,
+                    size,
+                    tag,
+                    IsTaggedLiteral,
+                    (caller, input) => pending.Push((caller, input, false)),
+                    tested => tested != check && !removedChecks.Contains(tested)
+                );
+            }
         }
 
         if (copied == 0)
@@ -99,17 +206,20 @@ internal sealed partial class BeamModuleCompiler
 
     private sealed partial class BeamProjectionFlow
     {
-        internal bool IsTaggedTupleAtCall(
-            int site,
+        internal bool IsTaggedTupleBefore(
+            int instructionIndex,
             BeamOperand argument,
             BeamOperand size,
             BeamOperand tag,
-            Func<BeamOperand, bool> isTaggedLiteral
+            Func<BeamOperand, bool> isTaggedLiteral,
+            Action<int, BeamOperand> requireEntryArgument,
+            Func<int, bool> isAvailableCheck,
+            bool preserveGuardedXResults = false
         )
         {
             var pending = new Stack<(int Next, BeamOperand Register)>();
             var visited = new HashSet<(int Next, BeamOperand Register)>();
-            pending.Push((site, argument));
+            pending.Push((instructionIndex, argument));
             while (pending.TryPop(out var state))
             {
                 if (!visited.Add(state))
@@ -131,7 +241,14 @@ internal sealed partial class BeamModuleCompiler
 
                     BeamInstruction instruction = body[previous];
                     var register = state.Register;
+                    if (instruction.Definition.Opcode == FunctionInfo && state.Next == previous + 1)
+                    {
+                        requireEntryArgument(state.Next, register);
+                        continue;
+                    }
+
                     if (instruction is { Definition.Opcode: IsTaggedTuple, Operands: [_, var tested, var arity, var atom] }
+                        && isAvailableCheck(previous)
                         && successors[previous] is [int failure, int success]
                         && success == state.Next && state.Next == previous + 1 && failure != success
                         && SameProjectionRegister(register, tested)
@@ -202,7 +319,7 @@ internal sealed partial class BeamModuleCompiler
                             register = register with { Value = register.Value + removed.Value };
                         }
                     }
-                    else if (!PreservesRecordArgument(instruction, register))
+                    else if (!PreservesRecordArgument(instruction, register, preserveGuardedXResults))
                     {
                         return false;
                     }
@@ -276,7 +393,11 @@ internal sealed partial class BeamModuleCompiler
             return false;
         }
 
-        private static bool PreservesRecordArgument(BeamInstruction instruction, BeamOperand register)
+        private static bool PreservesRecordArgument(
+            BeamInstruction instruction,
+            BeamOperand register,
+            bool preserveGuardedXResults = false
+        )
         {
             byte opcode = instruction.Definition.Opcode;
             if (opcode is Label or Line or Jump or SelectValue or SelectTupleArity || IsEntryFramePredicate(opcode))
@@ -294,6 +415,13 @@ internal sealed partial class BeamModuleCompiler
             if (opcode is LocalCall or ExternalCall or DynamicApply or CallFun or CallFunTyped)
             {
                 return register.Kind == BeamOperandParameters.Y;
+            }
+
+            // The guarded BIF can change X or take its recorded failure edge.
+            // Neither outcome redefines a saved record in the caller's frame.
+            if (preserveGuardedXResults && register.Kind == BeamOperandParameters.Y && IsGuardedXResultBif(instruction))
+            {
+                return true;
             }
 
             if (opcode == InitYRegisters)

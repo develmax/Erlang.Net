@@ -1,0 +1,33 @@
+{
+  "Part": 1976,
+  "Reference": "OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourceBaseline": "Part1949 0d74bdc34d7938ef7587b8f2bf8dc98a9b43b4459335ca17a6c2c33483b097b2 plus Part1975 production c5f192953c3840f369159a526acd0353bd87af95e99379b6dee1c8a42a9e3cba",
+  "CompilerBaseline": "1d62003b5e12d077c1ef58275e22ec273fa62d4960cba99883a190a8b02ccaa4",
+  "PinnedSource": [
+    "lib/compiler/src/v3_core.erl lc_tq, bad_generator and nil accumulator",
+    "lib/compiler/src/beam_ssa_type.erl simplify is_nonempty_list, closed tuple type provenance",
+    "lib/compiler/src/beam_ssa_codegen.erl need_heap and setup_args"
+  ],
+  "Scope": "13 release modules one worker. 5 Equal and 8 Different before and after. Two generated images change. Both ex_frame_utils do_init/1 helpers now normalized exact. ex_button removes related source list check while its same five normalized functions still differ. The remaining ex_frame_utils causal function is handle_event/2 and its init closure uniq is derived.",
+  "Native": "2 complete ex_frame_utils init/1 cases with ordered checked calls and deterministic headless wx stubs, actual installed native OTP loading pinned and candidate BEAMs.",
+  "Regression": "Baseline expected shape assertion exit -532462766, candidate 0 including unknown tuple and list source negatives.",
+  "Hashes": {
+    "production.patch": "950f2946716fa875923eb3bb4f290101d5a1bf5de4ac28449bb73e109a4c75d5",
+    "test.patch": "76f1bcacd35a83103ac07bc14892dd020f0d62e10a81b27514e3988fd4149bfe",
+    "strict-replay.log": "e1cd4bcbde1320a297b3a1428e4232ac1d696ba4eeeba8a8e9b814f96b528bf1",
+    "replay-files.json": "88d4eae37fb11862a6655f54626191566cab94489430c8ef272c23e814452534",
+    "style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "style-1975-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "style-exits.json": "f1c4f36113e7a3698222e1a664a663d4bef2809eb29918af6293fac6b4097ff4",
+    "scope.json": "bf00d1e9a2533f2a331dfed2e9b12e22c7ec3a0d4fe680c180b7acb6642f7a5d",
+    "rank.terms": "0fcd68b9d013d4e1f7ddd2318e3e49e487edfee276383ec530704a06054eea93",
+    "post.diff": "9c3536428e8668efb39bf0190cbaff67a2150847bd79d23698017fce57c32120",
+    "native-init.eval": "84538bc1297b174299fa96bfb084399a8566d056673acebff7d9bf4f86b228e1",
+    "native-pinned.terms": "1235414308f68601ef4bc12c252df0e484cc9518bd0a798255901ef4defcae62",
+    "native-candidate.terms": "1235414308f68601ef4bc12c252df0e484cc9518bd0a798255901ef4defcae62",
+    "focused-exits.json": "1faa2d4586b2e18fbd523bb5df54f7bb4a348aa73665bdf7320961ff840dad1a",
+    "ex-button-before.terms": "8d53dcce17d6a121a46461d7b51b3b877afa284ec959b48a234d65dec338bafd",
+    "ex-button-after.terms": "14220e6d49cc09af567df39fd82011b33dde83f32f5d36963057f2d4042e4f20",
+    "compiler-bin/Erlang.Compiler.dll": "2ce7fd96af45c47ae9d00f92d9ac1cf6a9e8b1aa5b48522a51f26704c0380647"
+  }
+}

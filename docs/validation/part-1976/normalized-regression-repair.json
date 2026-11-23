@@ -1,0 +1,95 @@
+{
+  "Previous": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/shared-compiler-corrections-1976-fixture-profiles",
+  "Repairs": {
+    "Patches": [
+      {
+        "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\part1976-frame-distance-increases-audit\\entry-guard-preserve-frame-production.patch",
+        "Sha256": "13F2DCE547D71BE8DF330D84334828515FAB1795D60CE178DC148F5DD46228BD"
+      },
+      {
+        "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\part1976-frame-distance-increases-audit\\entry-guard-preserve-frame-test.patch",
+        "Sha256": "25D6A741CCF42D13CF3C9F9B21C7519C11CBBD66E76C5B2362B8E9335E7216CE"
+      },
+      {
+        "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\erl-parse-zc-normalized-loss-1976-audit\\bounded-selector-closure-label-remap.patch",
+        "Sha256": "C41F90AFC9B4C8F647C0421AC8A453473E4AE1D200368412954384AD7EEE3320"
+      }
+    ],
+    "AddedCases": 0,
+    "ExistingCases": [
+      "compiler/beam/groups-bounded-integer-tail-selector-destinations",
+      "compiler/beam/dispatches-atom-only-guard-alternatives"
+    ],
+    "Evidence": [
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\part1976-frame-distance-increases-audit\\REPORT.md",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\erl-parse-zc-normalized-loss-1976-audit\\RELEASE-DIAGNOSTIC.md",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\erl-parse-zc-normalized-loss-1976-audit\\synthetic-red.stdout.json"
+    ],
+    "AdditionalModules": [
+      "lib/observer-2.19/ebin/crashdump_viewer.beam"
+    ]
+  },
+  "SourcePreimages": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryLiteralTests.cs": {
+      "Before": "98ded5984fb7794f5da4b7dd0d713ab1d6e650173c9406d003b3e9e7b148e505",
+      "After": "44ce16620433fad1be05be734eaf6ed315369124b1dea3754c3211b44bf8ed3c"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": {
+      "Before": "beeaaa945a1f14b655923cc13667ba5d0c5eeb5eace6b4cbc450ef49f7e24af6",
+      "After": "91df493e6539d0c3384f558f7d338a7bca3afca3805aab18c4cab89c98cc364c"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GroupedTupleEntry.cs": {
+      "Before": "610a1891799a3dff94121f1045191223d26ddea5f69de7f6ab9638367b3b28ea",
+      "After": "2434b72b810d1312ba0ebb5e6a2e6c01266a8e038d08f7f34589ab0f73e46760"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamAtomGuardAlternativesChecks.cs": {
+      "Before": "4e52eb88a725f8c7da7b2db90daf27354d02776168c38ee5c43650aec9a9033d",
+      "After": "c0b15b13b9b0a81b7961c8e4fc686251f4e3af7a827e20c3a1b27dddfa536882"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamIntegerTailSelectorChecks.cs": {
+      "Before": "63b0d6a089de140811b497b335f311dc61d9f2dce045bcc5c8cbf5a914b10e9f",
+      "After": "7a683025158f4e758061c8d4a30703f75f3b49d2a3f471756284ee69e6da7a87"
+    }
+  },
+  "FailureRetention": {
+    "before-normalized-repair/compiler-source-closure.json": "d53446f01bc27d5c66ea9e987a1c78eb47fff3c82e3203c1111f944a2893ca4c",
+    "before-normalized-repair/durable.exit": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "before-normalized-repair/erl-parse-zc-normalized-loss-1976-audit-RELEASE-DIAGNOSTIC.md": "4327468da04e96247ed34eef96ba5ec75e6f0d48e47cbbbddc252923dc6731c7",
+    "before-normalized-repair/erl-parse-zc-normalized-loss-1976-audit-synthetic-red.stdout.json": "363790e81965a463f675ecdf909c67348c469d64f651dcbf3937b23fbdb54049",
+    "before-normalized-repair/finalize-receipts.exit": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "before-normalized-repair/focused-verified.json": "8b3cbf77520b67273c6347d63231b83091ac8738ba1eb397432e69047f3b73a5",
+    "before-normalized-repair/full-launch.json": "015a9f3dbb58e505cba54dffef98f65cd3c464b0fdc45071db0ae1ef480172ba",
+    "before-normalized-repair/full-uncached-compare-summary.json": "570c869b64a3cb64319fd8eda392a6611f580b5651fd8dd6b31d54fed9067a9d",
+    "before-normalized-repair/full-uncached-loader.terms": "a54171635758c2233105f41c1848c385d22da84544a921d1e0459be50a6c2e3b",
+    "before-normalized-repair/full-uncached-normalized-summary.terms": "c76482e9e449bd95641bea340d87212f62e2033153683970b12eb614643459ae",
+    "before-normalized-repair/full-uncached-otp-corpus.json": "d0ffe53c3815321be8cc83586c352a1531f7d1cb12f4db33b53f3cdf62fa0330",
+    "before-normalized-repair/full-uncached-resource-scheduling.json": "5af4eae83d25d87fdf7fe40ff52ebd9af2cf5c97c9b04d47dfb9411b60dc76de",
+    "before-normalized-repair/full-uncached-section-delta.json": "65391cb0612fb871f2065ba80b4e3f0bb981a6afb32a69612200b67cb0b2e480",
+    "before-normalized-repair/full-uncached-timing.json": "dc10f2d086254381fbd72b24df25604f3e804f5e69cd4335c7993933bc9ee4b2",
+    "before-normalized-repair/linked-runtime-witnesses-receipt.json": "bcb8e1da5abb92a44a5716cae6c740b0e2765d3a02c02ba68b422e42fc9678a8",
+    "before-normalized-repair/loader-rollup.json": "e8871c6ab2adf956b968670253d4c6c41bcda08c6d69610249b8941aa78e13e7",
+    "before-normalized-repair/part1976-frame-distance-increases-audit-REPORT.md": "67f24e791f37c482509e8e8ecef57ed2bb6b207e64bceefffa1026caeaebf6c1",
+    "before-normalized-repair/pilot-partition-plan.json": "e376768fa0bafa2fe9c053a77dbaa011e7480f956d132473d36c0eaa60a54a24",
+    "before-normalized-repair/pilot-receipt.json": "c1c7a7e63e299629ab0c6e7884aaeab591fa2d43c9ee433d10bfc292ff9b55b9",
+    "before-normalized-repair/pilot.json": "2642f021c0c0f49f1711a4da9ef3b68f585716c6c2d53a368d73c570b732da16",
+    "before-normalized-repair/rank-counts.json": "3f40bcac23f5e32d33251d2a923c5d0a8f38af81386c4a8db00f7e7d67d2606a",
+    "before-normalized-repair/ranked-causes.md": "76098abd5717fbcd1c14cf448173572730852442ede64734490b344318a9090d",
+    "before-normalized-repair/scope-bookkeeping-recovery.json": "df7b3b365d5f3041aeb083dd49a7a5a2e94809a64c60bd76388bc6329c0bb695",
+    "before-normalized-repair/scope.json": "5f1c1ff1244a02cf16c706153865d638e72045e4e895415ef239249f61fc186e",
+    "before-normalized-repair/source-freeze.json": "52942efc6fcf1a086cbdb68743b7ece73dc0e50fc0575522cc85c17923fd516a",
+    "before-normalized-repair/source-identities.json": "eb2ca78315a85e597683460a0e9bd4e09efffb35b21f8ab97350696868145caa",
+    "before-normalized-repair/source-transfer.stderr.log": "3616b5fac5b1baccf7fe5f5a96bbf1a9816bfd8cb24f5b2ab06003406e507a5f",
+    "before-normalized-repair/successor-native-receipt.json": "93abbcee8bc444030f214e7d97ed1be382ae236885da17e3898d35711eb722a1"
+  },
+  "Patches": {
+    "normalized-regression-patches/01-entry-guard-preserve-frame-production.patch": "13f2dce547d71be8df330d84334828515fab1795d60ce178dc148f5dd46228bd",
+    "normalized-regression-patches/02-entry-guard-preserve-frame-test.patch": "25d6a741ccf42d13cf3c9f9b21c7519c11cbbd66e76c5b2362b8e9335e7216ce",
+    "normalized-regression-patches/03-bounded-selector-closure-label-remap.patch": "c41f90afc9b4c8f647c0421ac8a453473e4ae1d200368412954384ad7eee3320"
+  },
+  "Scope": {
+    "Cases": 552,
+    "FastCases": 551,
+    "TotalCatalog": 10346,
+    "Modules": 308
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "Parent": {
+    "Source": "71af651b7906bcdadcef51c08fe0662a8c131f343596a1a242d05ec35d856520",
+    "Paths": 335,
+    "Compiler": "72a81c272324cdec1e32119c50b5c8cb3a1643705fe58e81ca9e4d388d448749",
+    "Tests": "0e71d222723cd24e27b82d94990f90d52ace585c252ec6a7d78971e1861dc1b8",
+    "ParentSource": "27f0ed56f137ba0b983c50b433349879dcb64fac138b0ecd285d4d22f94aa0ee",
+    "CorpusTool": "22e6e976f85725ee4facce481582680693bd0a2cb2c3acc67f023541fc1cfb82"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedConversionFrames.cs": "18c80df641379016e1054699f2f42810241780dc95bd514626cf9280cd5dd664",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": "a24b16561593859e0d44f779b6bef2f011ad9fd76dfbde5ca51cd3e671af5ecc",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.HeapAllocation.cs": "7a0aa80f269d5de1fcfc5e5ead9fa9a30baaf5a36f24c24cc2174617f23ca391",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProjectionFlow.cs": "a145f96b092b01b73b40bcc7f789645e11fdbc3b7665bcafab96bb364de0c9c2",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecordUpdateProjection.cs": "ddd4e68dc32454f360692b5b927222e82f2f4ce4d6e1a0993877e57f0c1535d8",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs": "fbb2da85fc21eced0928a90d79a18e653453c5daa2554c4bfaeaa37b3743265e",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SharedReturns.cs": "a0cb5b000e7c0e45f8fde5058c2c64805dd62648a03bb13c0a31edc854e14a85",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TerminalCallResults.cs": "ebb850353bc072fa1af6d025b2e5466b47dd74d363bcd1e4cbfe382a3d986acd",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ValidatedCallValue.cs": "36b16f4f6d79e19b46d4c7b3bceaa0464097e36c532f920e36ab2eeb30aa0e9a",
+    "tests/Erlang.Tests/Compiler/Beam/BeamBootstrapLibraryIncludeChecks.cs": "13956e19df112f89ef8e9a1d491492b86a910922249f852e29af6a9c7b96f9d1",
+    "tests/Erlang.Tests/Compiler/Beam/BeamCheckedConversionFrameChecks.cs": "55c47b18c5e68905f43745241848fc101c9936286389b2db4743b98575c5f90e",
+    "tests/Erlang.Tests/Compiler/Beam/BeamGroupedListGuardChecks.cs": "4fe96cf730d6ded061aa5988fa17f59b32ac07920d1cb23b0f979f16c4c50b94",
+    "tests/Erlang.Tests/Compiler/Beam/BeamIfFailureLocationChecks.cs": "f1d8c4bee62381846348a5828b4479bb45b31109fb16f8527f7a7010cecf1f59",
+    "tests/Erlang.Tests/Compiler/Beam/BeamRecordCallArgumentChecks.cs": "bc8ebe4a6f60d916294b29980baeb335e501ac0047b59ecd712d0c51732280ca",
+    "tests/Erlang.Tests/Compiler/Beam/BeamRecordConstructionHeapChecks.cs": "26db7ebee72f7b89402cda2aaeb7f52f4a09d63591325532bd04fc5c20b119f1",
+    "tests/Erlang.Tests/Compiler/Beam/BeamTerminalClosureCaptureChecks.cs": "0c9c781bd1eef3e3e6755a8ec2a887e635cc3d2db80a7647c5c5191ece3d63c6",
+    "tests/Erlang.Tests/Compiler/Beam/Calls/BeamValidatedCallValueChecks.cs": "c5f36d73a0fc18ac0ac55bb026e14460188d6ca4fe89c3a11ecb9570d6716449",
+    "tests/Erlang.Tests/Harness/Program.cs": "0274d1c0175e0de4ec0b2adb634f097b2728b538cb14ba6305959afbc8d025fd",
+    "tools/Validation/Erlang.BeamCorpus/OtpWindowsBootstrapLibraryIncludePaths.cs": "f7b81030cb8e3d01fd39d11006adf38841cc1858c0825f1060f94188e2d89c3a"
+  },
+  "PatchSources": {
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\same-live-frame-ownership-audit-1899\\validated-call-size-result-registers.patch": "e1b5b3a61f41b626d280879bc193cc65d7dedae328db5700b1ce69603163b2dd",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\debug-final-six-1900\\bootstrap-include-provenance.patch": "351cac0d16850ebc088ab02fcdf0211eaf3a88b5527216ff67c2c79aedaf9bee",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\checked-entry-legacy-frame-split-1900\\checked-conversion-frame-split.patch": "6fedc6a6483abb675943707faadcd8eb16aa88b27a994a4e26560c18a31a4ca9",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\if-exhaustion-source-location-1900\\source-if-exhaustion.patch": "bd480a29c6d3f64c0a7a4769c32629c8039f0e50c6d20a3da3458b64726c641e",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\record-update-construction-heap-1900\\record-update-construction-heap.patch": "4ee7b43a77cb542c34635f62569ed543f43fdf6d8221eaf2cac196f56933ea2d"
+  }
+}

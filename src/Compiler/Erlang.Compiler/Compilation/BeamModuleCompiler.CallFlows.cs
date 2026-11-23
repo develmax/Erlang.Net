@@ -288,16 +288,22 @@ internal sealed partial class BeamModuleCompiler
         int? unit = null
     )
     {
-        var entry = (type, lower, upper, unit);
+        int index = GetOperandTypeIndex((type, lower, upper, unit));
+        instructions.WriteByte(ExtendedTypedRegisterOperand);
+        Operand(registerTag, register);
+        Operand(BeamWire.UnsignedTag, index);
+    }
+
+    private int GetOperandTypeIndex((int Bits, long? Lower, long? Upper, int? Unit) entry)
+    {
         int index = typeBits.IndexOf(entry);
         if (index < 0)
         {
             index = typeBits.Count;
             typeBits.Add(entry);
         }
-        instructions.WriteByte(ExtendedTypedRegisterOperand);
-        Operand(registerTag, register);
-        Operand(BeamWire.UnsignedTag, index);
+
+        return index;
     }
 
     private void EmitTypes(Stream output)

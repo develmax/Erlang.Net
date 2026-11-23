@@ -1,0 +1,114 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs
+@@ -53,7 +53,7 @@
+ 
+         // Entry literal partitioning may consume a failure relay to build its select.
+         // Resolve the remaining own-function relays after the branch layout is final.
+-        var relays = ModuleOptimizationDisabled ? [] : CollectFinalFunctionFailureRelays(body);
++        var relays = ModuleOptimizationDisabled ? [] : CollectFinalFunctionFailureRelays(code, body);
+         var labels = new int[labelCount];
+         var edits = new List<CodeEdit>();
+         if (!ModuleOptimizationDisabled)
+@@ -67,6 +67,7 @@
+             );
+         }
+ 
++        var aliases = new List<(int Original, int Target)>();
+         int physical = 1;
+         for (int index = 0; index + 1 < body.Count; index++)
+         {
+@@ -83,7 +84,8 @@
+ 
+             if (relays.TryGetValue(index, out var relay))
+             {
+-                labels[original] = labels[relay.Target];
++                labels[original] = -1;
++                aliases.Add((original, relay.Target));
+                 edits.Add(new CodeEdit(
+                     body[index].Offset,
+                     body[relay.End].Offset,
+@@ -104,6 +106,13 @@
+                     labels[original]
+                 ));
+             }
++        }
++
++        // Late block sharing can point forward. Assign surviving label ordinals
++        // before resolving aliases, independently of their physical order.
++        foreach (var (original, target) in aliases)
++        {
++            labels[original] = labels[target];
+         }
+ 
+         if (references.Any(reference => reference.Label != 0 && !IsDefined(reference.Label))
+@@ -160,6 +169,7 @@
+     }
+ 
+     private static Dictionary<int, (int Target, int End)> CollectFinalFunctionFailureRelays(
++        ReadOnlyMemory<byte> code,
+         IReadOnlyList<BeamInstruction> body
+     )
+     {
+@@ -194,8 +204,61 @@
+                 int following = EndsBeamBlock(body[index - 1].Definition.Opcode) ? index + 2 : index + 1;
+                 relays.Add(index, (failure, following));
+             }
++
++            CollectSharedConstructionReturns(
++                code,
++                body,
++                start,
++                end,
++                relays
++            );
+         }
+ 
+         return relays;
+     }
++
++    private static void CollectSharedConstructionReturns(
++        ReadOnlyMemory<byte> code,
++        IReadOnlyList<BeamInstruction> body,
++        int start,
++        int end,
++        Dictionary<int, (int Target, int End)> redirects
++    )
++    {
++        var owners = new Dictionary<string, int>(StringComparer.Ordinal);
++        // beam_jump shares identical sequences with their last occurrence.
++        // At this stage stack operands and exact projection destinations are fixed.
++        for (int index = end - 2; index > start; index--)
++        {
++            if (body[index] is not { Definition.Opcode: Label, Operands: [var label] }
++                || !EndsBeamBlock(body[index - 1].Definition.Opcode))
++            {
++                continue;
++            }
++
++            int terminal = index + 1;
++            bool constructs = false;
++            while (terminal < end && body[terminal].Definition.Opcode is
++                TestHeap or GetTupleElement or PutTuple or PutList or Deallocate)
++            {
++                constructs |= body[terminal].Definition.Opcode is PutTuple or PutList;
++                terminal++;
++            }
++
++            if (!constructs || terminal >= end || body[terminal].Definition.Opcode != Return)
++            {
++                continue;
++            }
++
++            string shape = Convert.ToHexString(code.Span[body[index + 1].Offset..body[terminal + 1].Offset]);
++            if (owners.TryGetValue(shape, out int canonical))
++            {
++                redirects.Add(index, (canonical, terminal + 1));
++            }
++            else
++            {
++                owners.Add(shape, (int)label.Value);
++            }
++        }
++    }
+ }

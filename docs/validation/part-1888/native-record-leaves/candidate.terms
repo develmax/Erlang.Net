@@ -1,0 +1,8 @@
+{{erl_bits,as_list,[{bittype,integer,1,unsigned,big}]},{value,[integer,{unit,1},unsigned,big]}}.
+{{erl_bits,as_list,[{bittype,binary,8,signed,little}]},{value,[binary,{unit,8},signed,little]}}.
+{{erl_bits,as_list,[{not_bittype,integer,1,unsigned,big}]},{error,{badrecord,{not_bittype,integer,1,unsigned,big}},[{erl_bits,as_list,1,47}]}}.
+{{erl_bits,as_list,[not_bittype]},{error,{badrecord,not_bittype},[{erl_bits,as_list,1,47}]}}.
+{{dets_utils,cache_size,[{cache,[],0,0,undefined,8192,100}]},{value,{100,8192}}}.
+{{dets_utils,cache_size,[{cache,[],0,0,undefined,1,0}]},{value,{0,1}}}.
+{{dets_utils,cache_size,[{not_cache,42}]},{error,{badrecord,{not_cache,42}},[{dets_utils,cache_size,1,430}]}}.
+{{dets_utils,cache_size,[not_cache]},{error,{badrecord,not_cache},[{dets_utils,cache_size,1,430}]}}.

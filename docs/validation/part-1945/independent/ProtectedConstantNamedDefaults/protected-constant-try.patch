@@ -1,0 +1,49 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.IgnoredTryCallExactCatch.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.IgnoredTryCallExactCatch.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.IgnoredTryCallExactCatch.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.IgnoredTryCallExactCatch.cs
+@@ -20,7 +20,7 @@
+                     {
+                         Body: Expr.Call
+                         {
+-                            DynamicRemote: false, Arguments: [Expr.Variable input]
++                            DynamicRemote: false, Arguments: [Expr.Variable input, ..]
+                         } call,
+                         Clauses:
+                                 [
+@@ -53,12 +53,24 @@
+                 }
+                 ]
+                 || argument.Name == VariableScopeNames.Wildcard || argument.Name != input.Name
++                || call.Arguments.Count >= FirstReservedXRegister
+                 || !TryResolveOrdinaryCallTarget(call, out string? module))
+             {
+                 return false;
+             }
+ 
+-            // The protected call consumes its only input immediately. Its
++            var constants = new List<(int Destination, Term Value)>();
++            for (int index = 1; index < call.Arguments.Count; index++)
++            {
++                if (!AttributeLiteral.TryNormalizeConstant(call.Arguments[index], out Term value))
++                {
++                    return false;
++                }
++
++                constants.Add((index, value));
++            }
++
++            // The protected call consumes its input immediately. Its
+             // value is ignored and the two exact catch operands remain in the
+             // exception registers while choosing a result or reraising.
+             int protectedPath = Label();
+@@ -74,8 +86,9 @@
+             EmitFrameAllocation(arity: 1, size: 1);
+             owner.Op(TryEnter, YRegisterTag, 0);
+             owner.Operand(LabelTag, caught);
++            owner.EmitIndependentCallMoves(constants);
+             owner.EmitCallLine(call, location);
+-            Call(module, call.Function, 1);
++            Call(module, call.Function, call.Arguments.Count);
+             owner.Op(TryEnd, YRegisterTag, 0);
+             owner.EmitConstant(success.Value, 0);
+             owner.EmitFrameReturn(1);

@@ -53,7 +53,7 @@ internal sealed partial class BeamModuleCompiler
             owner.closures.Add(new(
                 $"-{function.Name}/{function.Arity}-fun-0-",
                 closureBody,
-                closure.ClauseLine == 0 ? location : new(closure.ClauseFile, closure.ClauseLine),
+                closure.DeclarationLine == 0 ? location : new(closure.DeclarationFile, closure.DeclarationLine),
                 0,
                 null
             ));

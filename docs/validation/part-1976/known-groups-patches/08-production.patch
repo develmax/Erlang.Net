@@ -1,0 +1,41 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+@@ -1107,7 +1107,7 @@
+             (code, labelCount) = entryPartitions;
+         }
+ 
+-        code = RemoveRepeatedLines(code);
++        code = RemoveRepeatedLines(code, labelCount);
+         code = SpecializeProvenListMatchFailures(code, labelCount) ?? code;
+         code = ReuseLateAtomicProjectionSlots(code, labelCount);
+         code = PromoteLateInterCallFrameSlots(code, labelCount);
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RepeatedLines.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RepeatedLines.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RepeatedLines.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RepeatedLines.cs
+@@ -4,7 +4,7 @@
+ 
+ internal sealed partial class BeamModuleCompiler
+ {
+-    private ReadOnlyMemory<byte> RemoveRepeatedLines(ReadOnlyMemory<byte> code)
++    private ReadOnlyMemory<byte> RemoveRepeatedLines(ReadOnlyMemory<byte> code, int labelCount)
+     {
+         IReadOnlyList<BeamInstruction> body;
+         try
+@@ -12,7 +12,7 @@
+             var header = new BeamCodeHeader(
+                 BeamWire.FormatVersion,
+                 highestOpcode,
+-                nextLabel - sharedReturnLabelCount,
++                labelCount,
+                 exports.Count + locals.Count,
+                 code
+             );
+@@ -98,6 +98,6 @@
+ 
+         byte[] rewritten = output.ToArray();
+ 
+-        return removedCallLine ? RebuildLineTable(rewritten, nextLabel - sharedReturnLabelCount) : rewritten;
++        return removedCallLine ? RebuildLineTable(rewritten, labelCount) : rewritten;
+     }
+ }

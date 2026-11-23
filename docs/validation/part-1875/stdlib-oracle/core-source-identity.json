@@ -1,0 +1,730 @@
+{
+  "OtpVersion": "29.1.1",
+  "OtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Sdk": "10.0.400",
+  "Runtime": "10.0.11",
+  "Erts": "17.1",
+  "Jobs": 1,
+  "Artifacts": {
+    "SourceSnapshot": {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\release-include-provenance-and-call-regressions-1873\\source.zip",
+      "Sha256": "b0aed3dd3220920721b11617b24e8b6c90e6efb739f8ee32865395c80cfeafaf"
+    },
+    "BaseCompiler": {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\release-include-provenance-and-call-regressions-1873\\corpus-bin\\Erlang.Compiler.dll",
+      "Sha256": "c6457db37f835e5f40fcd6b5ce7ca2f60c7742c1b30189e980841e8b367ce284"
+    },
+    "CandidateCompiler": {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\metadata-stdlib-include-audit-1870\\isolated\\tool\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Sha256": "c6457db37f835e5f40fcd6b5ce7ca2f60c7742c1b30189e980841e8b367ce284"
+    },
+    "BaseCorpusTool": {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\release-include-provenance-and-call-regressions-1873\\corpus-bin\\Erlang.BeamCorpus.dll",
+      "Sha256": "4722e82291b32184d52a5d89380213b202c6fcc8b58efa001a532c8f05e65d3a"
+    },
+    "CandidateCorpusTool": {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\metadata-stdlib-include-audit-1870\\isolated\\tool\\bin\\Debug\\net10.0\\Erlang.BeamCorpus.dll",
+      "Sha256": "7443565f4fcbd261a841925ecbc3efe0c21b975458cf7e9f3db53c71a708b1f8"
+    },
+    "ModuleSelection": {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\metadata-stdlib-include-audit-1870\\core-modules.txt",
+      "Sha256": "2d0e0b97f2bff7b0f52884c1ee846b920a32c7d7d13db621b112c043a3f576e1"
+    },
+    "Patch": {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\metadata-stdlib-include-audit-1870\\stdlib-bootstrap-include-provenance.patch",
+      "Sha256": "5d9c59b8ef000faf84e5ee71a897d725f5960fe69aa9171c43695f0abfca857a"
+    }
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\auth.beam",
+      "BeamSha256": "0b1dad10b598baa3b79d68b3802918667d0c83b3cd009ef55cbd232699dad6e1",
+      "Source": "lib\\kernel-11.0.4\\src\\auth.erl",
+      "SourceSha256": "335bc5bb8f6107e62c472b55ab1c8838a34d37179ecc949d50892350317e3e7e"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\code_server.beam",
+      "BeamSha256": "5c82ea136bddbc5cdc57454ab6ed3ed6125442ed6444faf519c2d9cfa566ade7",
+      "Source": "lib\\kernel-11.0.4\\src\\code_server.erl",
+      "SourceSha256": "160bf6a3aa23a9cc60043d4bfb0f1ff1475c11607e8e4e97e6c4c0806d825f9b"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\disk_log_sup.beam",
+      "BeamSha256": "69cd4738bba16b2588090409a8cbbba51df131a177822e47c3320c2aa16e50cc",
+      "Source": "lib\\kernel-11.0.4\\src\\disk_log_sup.erl",
+      "SourceSha256": "5c335b506741e77cc4ff4d26f6a3d98fccfdda2813b7c6e8d7bf10a87a160cc6"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\erl_debugger.beam",
+      "BeamSha256": "8541b367ee1b62de61afaf7775f0dff093a2c6f19efa346eb26105b3e8f71c2e",
+      "Source": "lib\\kernel-11.0.4\\src\\erl_debugger.erl",
+      "SourceSha256": "e5704b7dc373768183496cc767bdcb0029991ee1de265654c285a1845bc09a15"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\erl_reply.beam",
+      "BeamSha256": "c47d6fa92f6333c248bee2b39ba71e5e9d454f24b4ed1b9e2c7c947d305ff075",
+      "Source": "lib\\kernel-11.0.4\\src\\erl_reply.erl",
+      "SourceSha256": "817c12421754f8f5457d95854716b61d4626e581cc50754003aed2ec57c83532"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\erl_signal_handler.beam",
+      "BeamSha256": "1597e0f4ead05d515e5b97c1d74ca721eaaab85f1f9e7d97e77f38a61de6abb4",
+      "Source": "lib\\kernel-11.0.4\\src\\erl_signal_handler.erl",
+      "SourceSha256": "f6cc636fdc1b479532042063a67b3eed9584688614e2c84a69e004dbc60853a7"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\error_handler.beam",
+      "BeamSha256": "ba176440039080acbf0231e5b6db8fdd67551ff1ec532d53d57b491e9f3aae7b",
+      "Source": "lib\\kernel-11.0.4\\src\\error_handler.erl",
+      "SourceSha256": "f15cf5f795d7dd8c7d11a7087756dcef5bc6cac60daf3be206545ae531e12630"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\gen_sctp.beam",
+      "BeamSha256": "21640810976a4c79aec9bfcd4c6e42001efbed340bf45be280b6df00c22588ee",
+      "Source": "lib\\kernel-11.0.4\\src\\gen_sctp.erl",
+      "SourceSha256": "e6472d941dab7274e3a94c700b8d97e4c3f895c04054f420ac9d1479341ec995"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\gen_tcp_socket.beam",
+      "BeamSha256": "26aa6598b47f9331cf7a7f2f561ba3b23d6fd3c97d21cb5e2b77185ecae96541",
+      "Source": "lib\\kernel-11.0.4\\src\\gen_tcp_socket.erl",
+      "SourceSha256": "183b959b85dfa9e5e82ed96ffb30a9ed02e0b9950e5a1ecdd1a5e45ae1c8b1cc"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\gen_udp_socket.beam",
+      "BeamSha256": "b47a9fefc7e224fd980646f45ca4f4e24dada6d331524688fff2d257a49fb847",
+      "Source": "lib\\kernel-11.0.4\\src\\gen_udp_socket.erl",
+      "SourceSha256": "e8c8c4afca9d8e9ba18d1515c52d6a08653719def003e1c5d46bddbdf84cd299"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\inet6_tcp_dist.beam",
+      "BeamSha256": "43358359430f7442f9fba0234fd302d74929d8cedff82ea53b8e18856fd9049e",
+      "Source": "lib\\kernel-11.0.4\\src\\inet6_tcp_dist.erl",
+      "SourceSha256": "408d6f120f9916c1060812993affbf36452bbcbb61d9d16e5698cd1b6fdb1b12"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\logger.beam",
+      "BeamSha256": "0bb485cf25897cb092143f8d783ef0df06dd104bbce63364abbd712942fd2e0f",
+      "Source": "lib\\kernel-11.0.4\\src\\logger.erl",
+      "SourceSha256": "54726ffc96bed8862cf1c11a10f570c7d52467eb53b06c54d69196ecb7b6abdc"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\logger_handler.beam",
+      "BeamSha256": "87a7d38991ac31868dcc1649ab7c4b60dd7820e69365dc53d3067d7812d1c85e",
+      "Source": "lib\\kernel-11.0.4\\src\\logger_handler.erl",
+      "SourceSha256": "6becdaa6fc728215874e39954037de4f5179f8da74c4acc37cb8f4739457360e"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\logger_handler_watcher.beam",
+      "BeamSha256": "60053fb8a24914364cee9cc7893d4f0c9091ff865fabf29cacd924fcbda09551",
+      "Source": "lib\\kernel-11.0.4\\src\\logger_handler_watcher.erl",
+      "SourceSha256": "67e902b3c472c3819c697798dd2f2e11a2bb9882704164151320bcff8f026b66"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\logger_sup.beam",
+      "BeamSha256": "0362ada26d4cbb95e69602f421c3d54533c301eb88c22d595bb504880f002f07",
+      "Source": "lib\\kernel-11.0.4\\src\\logger_sup.erl",
+      "SourceSha256": "8c17a5be0541b5fc1c0d8ba76505853c9524f6eca8b95bbe26b89bcce52bc3f6"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\pg2.beam",
+      "BeamSha256": "4cfbcf4a95c96f1dc23af5d93a0327a84ee5f34a15b96d33b0ebe3214bfbc171",
+      "Source": "lib\\kernel-11.0.4\\src\\pg2.erl",
+      "SourceSha256": "13a422f62baab573539315240f6c553975b186b72560c185a72be2e96a9baed9"
+    },
+    {
+      "Beam": "lib\\kernel-11.0.4\\ebin\\prim_tty_sighandler.beam",
+      "BeamSha256": "59462fb1e4c1fd8586acabb97da9309a50accd64960d1b25b6c1c75652712593",
+      "Source": "lib\\kernel-11.0.4\\src\\prim_tty_sighandler.erl",
+      "SourceSha256": "671eccb31745153297080f4a35ab13ddbfba375fb2c6868c48df20796095a84a"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\argparse.beam",
+      "BeamSha256": "9af785c966f3916070be17f3b42b39c59bf6c49633e06d245731f1bdc94736c5",
+      "Source": "lib\\stdlib-8.1\\src\\argparse.erl",
+      "SourceSha256": "b5c215f93f0ec0b4e1204a38de2d3f1f5d4d81daaaeb8d2448c12f00bf8a1fec"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\array.beam",
+      "BeamSha256": "85a41e7b7e8248f9ceceb28ccda0bb9bfc0d87c9e9b565dbe3368dc7d6ae22a7",
+      "Source": "lib\\stdlib-8.1\\src\\array.erl",
+      "SourceSha256": "ca9e4b1c6e285ebade9dcf0ad767782aaaf20e3449246a1827f5ce7b5594f438"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\base64.beam",
+      "BeamSha256": "e33edce03e4fe9045a47f330b4b1d1cf09b6873af20a5ea0b4968a17c3564fa7",
+      "Source": "lib\\stdlib-8.1\\src\\base64.erl",
+      "SourceSha256": "8c69684647c985d5c15a096d7bd67e83cae50113eabdbaef30d148e74970ff81"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\beam_lib.beam",
+      "BeamSha256": "07cb8742ce7016360914ddaafca4cd5ccccd97badd16c093e483318011531e14",
+      "Source": "lib\\stdlib-8.1\\src\\beam_lib.erl",
+      "SourceSha256": "a817bc772330d250ef6fad4b8fabc1a31f10f6fe45a84122035af8ad6627a868"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\binary.beam",
+      "BeamSha256": "e398ee7cfeeffbe73a47af70bfcb7d7be1b221f101f7bc52abf28ee70db19553",
+      "Source": "lib\\stdlib-8.1\\src\\binary.erl",
+      "SourceSha256": "824eb8574ab19b7df1a80402562a6b05012e9b1b464916e5694e07e601fb24dc"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\c.beam",
+      "BeamSha256": "7613506d1f94c6b13a14b7b3d7efa3d1a10f837189638e9cd34f4f4e1a3ef665",
+      "Source": "lib\\stdlib-8.1\\src\\c.erl",
+      "SourceSha256": "7a03078fa161f6a0c92d4774cb8b8bf0a7a33b9a1b78fdb3206b20cb6a1671fc"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\calendar.beam",
+      "BeamSha256": "7d6e8e44f6b27de25544564e95ae993948994895721da6ec3f3c98659f4ed4f3",
+      "Source": "lib\\stdlib-8.1\\src\\calendar.erl",
+      "SourceSha256": "c77d1d20150ee9214d472caabdf12935ed5f6cb49298b29710a0047184434cb6"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\dets.beam",
+      "BeamSha256": "45c49909e4f76c7aff89d51a1e0afc3478690ed133f1c5c8ae9edf066b15c96a",
+      "Source": "lib\\stdlib-8.1\\src\\dets.erl",
+      "SourceSha256": "96a6de720afbbc0e79bc3c4dd96663a6f54ea150a04a2d100c042fa26fb3ca8c"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\dets_server.beam",
+      "BeamSha256": "c0dce09c3f0ea58ec433365f4c481d4fe666ca7f5fd74b9c9d795a36306bc0bb",
+      "Source": "lib\\stdlib-8.1\\src\\dets_server.erl",
+      "SourceSha256": "2baa63af65a652e034bf4b5324c374eefb159fa5a9e0256ae8341fda224a062d"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\dets_sup.beam",
+      "BeamSha256": "3c7038374f1d535ad21aab990b7b6083e0619f5678fb898639ab41c38440d9d1",
+      "Source": "lib\\stdlib-8.1\\src\\dets_sup.erl",
+      "SourceSha256": "c58f486da4f8a62e0d59b0c9e2a7b560e9f44a61f126cbb3d8f7a4173559b50a"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\dets_utils.beam",
+      "BeamSha256": "674e37e3acdec1c8bcb31fbf2270a0c5358c77ebf8243571c4491234f1f2ddb6",
+      "Source": "lib\\stdlib-8.1\\src\\dets_utils.erl",
+      "SourceSha256": "852c73ba7c2eff67421588cc64cc45c27092912f7160233f58e7cb342031a67e"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\dets_v9.beam",
+      "BeamSha256": "f131a1c4e60dd0b52f8b7e0f10b2b0f02b6006fdcf1955e01b7c4b6fac852840",
+      "Source": "lib\\stdlib-8.1\\src\\dets_v9.erl",
+      "SourceSha256": "9e69152a0a52a399e5390110571b8ad86031182af8a8aae7b631b8c2ac189e1b"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\dict.beam",
+      "BeamSha256": "beb076b842bcac4b2b4f6fa1fbc7a6d8dc3dd7ad79bdd5fb89b8bd78909c2c85",
+      "Source": "lib\\stdlib-8.1\\src\\dict.erl",
+      "SourceSha256": "6df6d403dba645c13d93f3bef2ac1e8793765db4717ccc5e05aa8820d28db7c8"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\digraph.beam",
+      "BeamSha256": "e23c92446d3c663bdd510e90da00991033d73a3dfb495601bb29858e5e215639",
+      "Source": "lib\\stdlib-8.1\\src\\digraph.erl",
+      "SourceSha256": "374df538d41734bad836ab3f1e2f9d1478d79a306ee6fc767d033e46dd722927"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\digraph_utils.beam",
+      "BeamSha256": "cd94ce35d87ebf130bfc3ac929d675370b16790a6e5588ed39871ea5e2d7350f",
+      "Source": "lib\\stdlib-8.1\\src\\digraph_utils.erl",
+      "SourceSha256": "5e6b3f73550deec93759e5ccb5d68e00161880057f880bf15f56611bedcc49b8"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\edlin.beam",
+      "BeamSha256": "07857b54e5e7a5d59d3881441514d75bebe78630424b248a2402747630e1d27f",
+      "Source": "lib\\stdlib-8.1\\src\\edlin.erl",
+      "SourceSha256": "8f25a73b06bdbd80ff4b6eb33558700bcfe25f945ea31096196e6adfe209ef3e"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\edlin_context.beam",
+      "BeamSha256": "12d32980ed06b4f1fed139cc45e98fc94e1c37b518dca95e10ac6e372e8878f0",
+      "Source": "lib\\stdlib-8.1\\src\\edlin_context.erl",
+      "SourceSha256": "6a726aaa2ac60264ea6b009a358d1909285f32d559fa751ac136f5153646e1d4"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\edlin_expand.beam",
+      "BeamSha256": "2b276446114ad6d2493536d232f3efbdc3e36cc3b28cf80afe3ef5689f958533",
+      "Source": "lib\\stdlib-8.1\\src\\edlin_expand.erl",
+      "SourceSha256": "cc9a40f42cc99cae5871438131f854a54af904311f0488d94b19b5c089ed23ee"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\edlin_key.beam",
+      "BeamSha256": "7b8c2a1000a8f702dec97ee7c94993e6ee07b36511bed724332728239fa2af6f",
+      "Source": "lib\\stdlib-8.1\\src\\edlin_key.erl",
+      "SourceSha256": "9acaa19d81532e07b045ef03a41ae100052f502e7735f46c306e49a2c5c9caa4"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\edlin_type_suggestion.beam",
+      "BeamSha256": "587b78bd3e68628be2bc3dc3dc60916a3a1287f4c6d34b3d54ec0fa8505381fc",
+      "Source": "lib\\stdlib-8.1\\src\\edlin_type_suggestion.erl",
+      "SourceSha256": "a74d347eabea112afa32c4c03f6b234983f01ea37f1f3cb2272b0f7969b71cf0"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\epp.beam",
+      "BeamSha256": "5dba7f8affdc9fe14a549383b20f658ab59575426e2abca94d19062f7c505616",
+      "Source": "lib\\stdlib-8.1\\src\\epp.erl",
+      "SourceSha256": "f8754d17e985ebc2e6361d58ccda80370a8a17931ceff99a0c6e0be83ed07fd4"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\erl_abstract_code.beam",
+      "BeamSha256": "7e46583136a2d64db520d7dc9835fa407c3b76a71b38058871d53252883b614c",
+      "Source": "lib\\stdlib-8.1\\src\\erl_abstract_code.erl",
+      "SourceSha256": "737ccef890a3861563d4e2c420424ae52df18571a2598fd5b76014db9c39dc95"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\erl_anno.beam",
+      "BeamSha256": "10a4aba835d064318c70287abded31ec09309f7b30b3b19232e328a7012f2f82",
+      "Source": "lib\\stdlib-8.1\\src\\erl_anno.erl",
+      "SourceSha256": "c1230bd58705ef8f5f070bed0a516a7d919458ef3d76da7758b518524bbae387"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\erl_bits.beam",
+      "BeamSha256": "36e15f5decb381816452c8452becd642c0473e9e5ec7e700d5366f7fcdb2bbf1",
+      "Source": "lib\\stdlib-8.1\\src\\erl_bits.erl",
+      "SourceSha256": "d1deff5899b4da9097605b411c6d29b9a5de58abb578336e514cf67e2a2772ab"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\erl_compile.beam",
+      "BeamSha256": "cedab7fecf3328910da8519261a29786a330eec9409e348d62f22cc58ec360a3",
+      "Source": "lib\\stdlib-8.1\\src\\erl_compile.erl",
+      "SourceSha256": "826fe78c9a5378a4fc1092380b71c36192238fca8a469559761abd76ea13ce68"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\erl_error.beam",
+      "BeamSha256": "64e55b54ff9f2a9134112b5fd6f2d3d058006646c332e6b9b1d056d2ae3bb24f",
+      "Source": "lib\\stdlib-8.1\\src\\erl_error.erl",
+      "SourceSha256": "4da31e2704573e81cf97f0a0695518b1ba1771b7408f1479d6fa6eea2c9882bb"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\erl_eval.beam",
+      "BeamSha256": "c3bf7dfc74026ac8f46a9625a19d2ccb76bd7a41ec76b19823c57f8c4e4a1430",
+      "Source": "lib\\stdlib-8.1\\src\\erl_eval.erl",
+      "SourceSha256": "ad99783a03597f16fc59a64772db662165311eff893dd8dc806421497c5812fd"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\erl_expand_records.beam",
+      "BeamSha256": "a52c77e767f8d44195631c6346fc3f542aad1261ec7646a922a62010af0a7fd7",
+      "Source": "lib\\stdlib-8.1\\src\\erl_expand_records.erl",
+      "SourceSha256": "e15be4ec55253aba245d41b3af4b542ed8744bd45693d4f48f7967a62c82041d"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\erl_features.beam",
+      "BeamSha256": "b1ee6497358fd19fa37a796673e2af148f27e2848396f16fd139fdca1364454e",
+      "Source": "lib\\stdlib-8.1\\src\\erl_features.erl",
+      "SourceSha256": "a70921d90084c411b6afb488379fe58bdbe72338f328b6206e69ac3ebbfac668"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\erl_internal.beam",
+      "BeamSha256": "838bcb3edf6446e101a691b8dbf61fb5670932f86c67df6270d8191aaaf07a49",
+      "Source": "lib\\stdlib-8.1\\src\\erl_internal.erl",
+      "SourceSha256": "d7d62083e74560591851d85821b379274fdcc88a7e10870ae6a7448775abef9d"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\erl_lint.beam",
+      "BeamSha256": "9ef04ca666062d2a9127d407152de5e7088593dff830489299ee9b450effa83c",
+      "Source": "lib\\stdlib-8.1\\src\\erl_lint.erl",
+      "SourceSha256": "d849facd432331bceaf4c244a7d71b3b74cd962297b464b016a449c1e50e9292"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\erl_parse.beam",
+      "BeamSha256": "1f3c698ed7ffcc9d816548385fa5a2c518e1329364bc52f418660235def13da1",
+      "Source": "lib\\stdlib-8.1\\src\\erl_parse.erl",
+      "SourceSha256": "b443a299d074a66fe399e56fc1eb342bae71d8d03f7392d2c284eda411e119ef"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\erl_posix_msg.beam",
+      "BeamSha256": "be162dc7294725b33945a1557c98649b6f48edf43d090e155e7da75ef0b15c7f",
+      "Source": "lib\\stdlib-8.1\\src\\erl_posix_msg.erl",
+      "SourceSha256": "9065db5e4e189f3c634d179ed541aa6f8ac65fccbf50c9689410cba29e4a7fc3"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\erl_pp.beam",
+      "BeamSha256": "0eb9eae78e6b1fc82b3b163f24116e591f32945fdecb9da6e28755176c413546",
+      "Source": "lib\\stdlib-8.1\\src\\erl_pp.erl",
+      "SourceSha256": "4f58c533c40fad1d5657e9b42176138547dbcf2dcc7b6f0e8ee3fedfb497a1b6"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\erl_scan.beam",
+      "BeamSha256": "14a46f078bfb0f77484d9d76d43e36343d161a0acf0c8d675d2cb61e158efde9",
+      "Source": "lib\\stdlib-8.1\\src\\erl_scan.erl",
+      "SourceSha256": "3681f47a6a432eebcb01f9278cd9729b2ccda2978fb2c8a2729792c2142834f4"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\erl_stdlib_errors.beam",
+      "BeamSha256": "714fafd9dbbb12177e928d87c84d9e5e79a0ee148c15bd285747ea8bdd16dc14",
+      "Source": "lib\\stdlib-8.1\\src\\erl_stdlib_errors.erl",
+      "SourceSha256": "1cb77a02ac33a5bba24a9023783d9e4218c8589634041451d9a5c158b811f0b9"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\erl_tar.beam",
+      "BeamSha256": "1f0c31030ab047cb25f8817e75c235952be45006d122c262c59ce67c4b47fbc5",
+      "Source": "lib\\stdlib-8.1\\src\\erl_tar.erl",
+      "SourceSha256": "afa9826958aae8106f6f1270d0ec0399a81b78f6e791fc50c3ce1a60c2125f4f"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\error_logger_file_h.beam",
+      "BeamSha256": "6f4e839a814e7a3ba2a38a5ff37b505726d8fe14e9a8c0824a02c6ef44f06838",
+      "Source": "lib\\stdlib-8.1\\src\\error_logger_file_h.erl",
+      "SourceSha256": "83e10429352becb893b81d2840d8ee95b33c5e364aed226d66b2361719638553"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\error_logger_tty_h.beam",
+      "BeamSha256": "7f54a2b19a0eca000872c02aedd2b3e6963dc987ddbe5855d9b641849c9938a2",
+      "Source": "lib\\stdlib-8.1\\src\\error_logger_tty_h.erl",
+      "SourceSha256": "3d8630bc824a810d4af650884ea82cef2ef78d325d44fe6270a914b1de088530"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\escript.beam",
+      "BeamSha256": "4693f296def649c2a90beab128e38920e4b8008400bd10146238c58eb06695e9",
+      "Source": "lib\\stdlib-8.1\\src\\escript.erl",
+      "SourceSha256": "d48650641adb63175d7bbc66fc087caee2d8d917050064ea47244f7aa55adccc"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\ets.beam",
+      "BeamSha256": "7f717621018abb4ddfadbf7150b9d331676e878a82817d332688eb3320c21a48",
+      "Source": "lib\\stdlib-8.1\\src\\ets.erl",
+      "SourceSha256": "c630cebfa444a279fc69999f5c60538068112114e55d9f6aa6a85262d526c3df"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\eval_bits.beam",
+      "BeamSha256": "b8c6f4039287827bbaac4a9d0d80de1016d21feaa24e880aee77a9ae48060641",
+      "Source": "lib\\stdlib-8.1\\src\\eval_bits.erl",
+      "SourceSha256": "620e1e29f2d2d7b181422dc6efce441ead273ca8adb490430a83860eb89c1899"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\file_sorter.beam",
+      "BeamSha256": "cbea409ee030a85d6042ddccb174c40b3e6d30997a47b75849b32bac69c84c52",
+      "Source": "lib\\stdlib-8.1\\src\\file_sorter.erl",
+      "SourceSha256": "4c4778026398712cff529e542a5b9ad4ad78d4f0c3cc6426ed7c3f04f419578b"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\filelib.beam",
+      "BeamSha256": "a8ca1b03b6fe8c271d3eb5099381a56ca0dca910e8d20467c152b18f5960e011",
+      "Source": "lib\\stdlib-8.1\\src\\filelib.erl",
+      "SourceSha256": "e9952a847dc0ee2f5bd1f95ee6c44a90f740156153babcca8114d9933c90c398"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\filename.beam",
+      "BeamSha256": "edd8e22e5e719b30b797a3bbeb3f675dde0bfaaa690955065ac9f39d1f89f13f",
+      "Source": "lib\\stdlib-8.1\\src\\filename.erl",
+      "SourceSha256": "9a8b531082382bc570bc45b23856e7451fb3f7fb895a0e5c518c143f4ff36ef7"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\gb_sets.beam",
+      "BeamSha256": "4a8ae32bc92e31a592bf67de9dd3a786ca94fad91eea728ceaaf7a2b20b87719",
+      "Source": "lib\\stdlib-8.1\\src\\gb_sets.erl",
+      "SourceSha256": "d06de6e9bc2ff396e40140098c31dffc51c9e3366ca18f538462dcbcb4fa8687"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\gb_trees.beam",
+      "BeamSha256": "00c16c1658ad15d3e4f37514e172a8f7a68d3a53691ff4bb148f4328214b0fa7",
+      "Source": "lib\\stdlib-8.1\\src\\gb_trees.erl",
+      "SourceSha256": "890b641fa4e901c4f11bf65288ea12e8a8c0480d3a4867274f699fb4ef9c60a3"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\gen.beam",
+      "BeamSha256": "da61198004c493a12f7f5cfeec60b696e71407300cb6d83544ff04d9413aacb2",
+      "Source": "lib\\stdlib-8.1\\src\\gen.erl",
+      "SourceSha256": "b828697b055865df24aad48ec4cd7f23821fa54a7aa2baa0408a444a5d0d04be"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\gen_event.beam",
+      "BeamSha256": "732b365da64eb2b6d418652e70c4506516bb9da223e1ede90795864ae69ea11e",
+      "Source": "lib\\stdlib-8.1\\src\\gen_event.erl",
+      "SourceSha256": "95f8cda0cbe976725ee75e319e9573b701741bef911a2a30d31b8a908bd8de9b"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\gen_fsm.beam",
+      "BeamSha256": "86ff4472c79095b531771396feb7a53658d1ce07eb2dbf48ea7c104eb44129ad",
+      "Source": "lib\\stdlib-8.1\\src\\gen_fsm.erl",
+      "SourceSha256": "2eb78ebb2d03947f5508e12517dabebd8226dcebbb88f8504c777ca3b15f05ab"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\gen_server.beam",
+      "BeamSha256": "9880976c8e7aff6609e695b3c44ceda792d709c4e64d6f03730f0ced68b33623",
+      "Source": "lib\\stdlib-8.1\\src\\gen_server.erl",
+      "SourceSha256": "45e1cea8e87a49c8f6cec49ec50e082dde6690c3696f9e67de376947fc8f34a3"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\gen_statem.beam",
+      "BeamSha256": "22b62b11b4ed0dfc5b9bb0344fd43c3b44171de88c8970513298094dd1174608",
+      "Source": "lib\\stdlib-8.1\\src\\gen_statem.erl",
+      "SourceSha256": "bf440edbf927c936137fc767378f23c476c2bc242f2d4767be4f1e55f8ad0025"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\graph.beam",
+      "BeamSha256": "a0159fc29cf9b6ec21981cf72aacfe96e4644e6612a0ea855c317623ba514aeb",
+      "Source": "lib\\stdlib-8.1\\src\\graph.erl",
+      "SourceSha256": "54ab6535b39f6b1ae1943aefaf7b2bb9af905cfce6e31e0c866e7eb9908ad63a"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\io.beam",
+      "BeamSha256": "3d6bb9fe8d202fd283376522a8f66e9d09d60d95f2a64235cb0fb4ab4b13fe23",
+      "Source": "lib\\stdlib-8.1\\src\\io.erl",
+      "SourceSha256": "076b1496bf625657b1eaceb9c598c3169d439c7e42567b35edaf6e96483c2449"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\io_ansi.beam",
+      "BeamSha256": "2d75d598dfb09ba93edde00a8101e3c2342e9501f109f573d23767e2592e3c6d",
+      "Source": "lib\\stdlib-8.1\\src\\io_ansi.erl",
+      "SourceSha256": "f981b8ade6ed8db6b31a75cf5d08b80b023882be5b98b4e184d09c68b47cdb93"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\io_lib.beam",
+      "BeamSha256": "2c7c6039401447eab90c103eddfdfc489f4f8745f56adce86facbc796bc58e04",
+      "Source": "lib\\stdlib-8.1\\src\\io_lib.erl",
+      "SourceSha256": "b6da306a37f9ddb4fad3779e65f154f09815cc1ebeb7fca991983033d92fc7c6"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\io_lib_format.beam",
+      "BeamSha256": "5f6e24d7eddbb7266575d78c4e8b7c7196d8dfea269361939517d68df6d1a225",
+      "Source": "lib\\stdlib-8.1\\src\\io_lib_format.erl",
+      "SourceSha256": "8ecbee07d2a39edf081e2888ddb47e8fdfc4b58ee452dd34306e1d1d3cf32c7f"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\io_lib_fread.beam",
+      "BeamSha256": "fccef9612cf4f6b27725460f40246b3a513de05abdc0427ca715a12f6095ab7b",
+      "Source": "lib\\stdlib-8.1\\src\\io_lib_fread.erl",
+      "SourceSha256": "d66c2e6b4617bcbd7c497d46830947a90903851c0b1d07ad8369ca0d3004eed3"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\io_lib_pretty.beam",
+      "BeamSha256": "9cb44f50f59e62e3d7995fc0696bc4121ac34e0163a98cb2a4af7d039e10c836",
+      "Source": "lib\\stdlib-8.1\\src\\io_lib_pretty.erl",
+      "SourceSha256": "c489356b654c63453ef217bf73235ab7f2df1e99fe5cdd8b0424461d860d910b"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\json.beam",
+      "BeamSha256": "741c356ca86a7025a8c1509c570cab6369237b48eb8370093c544c1ca7b1f223",
+      "Source": "lib\\stdlib-8.1\\src\\json.erl",
+      "SourceSha256": "e7916fdefd40703fa00134f9092b182f7d177a97a14463bc4b2dd390fd16f655"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\lists.beam",
+      "BeamSha256": "8941092dc34f0470cd404979e1890df514d83f2eeb3b0aa8a276553e76471262",
+      "Source": "lib\\stdlib-8.1\\src\\lists.erl",
+      "SourceSha256": "d429e541ca76aca8c56bb9ff31130a3b636f33d3e1923a08683157bf5709ab47"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\log_mf_h.beam",
+      "BeamSha256": "3e03be0b7869f188f8dcfb24f6eb3e254ba0b70dd71c396568fa1b2e2119a349",
+      "Source": "lib\\stdlib-8.1\\src\\log_mf_h.erl",
+      "SourceSha256": "b665b9f207205ecd3d38f6325c01d10de5e1bca66c0c300d02483bc28487a180"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\man_docs.beam",
+      "BeamSha256": "a71210146d8896c8e2a11556abe6db351cfd96cf9757e0491195e0147789e525",
+      "Source": "lib\\stdlib-8.1\\src\\man_docs.erl",
+      "SourceSha256": "fedd4600d02c82e86e9528d55063b54f708342979f95c6393e773967fefa47e6"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\maps.beam",
+      "BeamSha256": "dcdbaf8551ae63258bda7bc1415c7dcd2d3310aaa9036a34bd09f24e90966454",
+      "Source": "lib\\stdlib-8.1\\src\\maps.erl",
+      "SourceSha256": "350c707ff10180e1677cd911a4e981abcce2207db69ce5c986bb1c000d69a816"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\math.beam",
+      "BeamSha256": "6096d864a1cff42f9680a060ad34ae8d5340b7e1efc2945bed52e00b80902d6a",
+      "Source": "lib\\stdlib-8.1\\src\\math.erl",
+      "SourceSha256": "5e90531583c027ce05f24484f628edda064edeac29a925a1c31a12e24346217a"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\ms_transform.beam",
+      "BeamSha256": "4fbcf2422effc974e639eb58bb37e21dbba26d5f3544d60a8686feb32d28578b",
+      "Source": "lib\\stdlib-8.1\\src\\ms_transform.erl",
+      "SourceSha256": "f33295402a1a5f481b86f90f4adced04368305e8e2305575484f09c2a60780e4"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\orddict.beam",
+      "BeamSha256": "596efa8ed50c9344d9d6a169d96b0312b49301dc409f264a5c956472b6bd2825",
+      "Source": "lib\\stdlib-8.1\\src\\orddict.erl",
+      "SourceSha256": "ca497657f8813aeecd732003f85885b9545681918beed4d29cf539790a6723e1"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\ordsets.beam",
+      "BeamSha256": "417595cfd47ff9dc43673cee03083776cbacd3abb61166bf58c61dc6a13cce1d",
+      "Source": "lib\\stdlib-8.1\\src\\ordsets.erl",
+      "SourceSha256": "526d1505d6cc482497f812879cdb41c533ea4bfc103e74850245f84c465cd70d"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\otp_internal.beam",
+      "BeamSha256": "4fc34d95e18bf610267c8e69c30e5cf9cf5588a8ebce6bf041bb60e4f408d461",
+      "Source": "lib\\stdlib-8.1\\src\\otp_internal.erl",
+      "SourceSha256": "12d858d70cefa0f161201a8477cdbda8501616edec8703d4473988b5827da910"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\peer.beam",
+      "BeamSha256": "32bea62b021ea3805e1a25dec6a2aba56945abf84abfba07673ffbe128409074",
+      "Source": "lib\\stdlib-8.1\\src\\peer.erl",
+      "SourceSha256": "29d7756577c44dacf93632d3e01686d39864145290a197cfc7ed976a1c11ae2a"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\pool.beam",
+      "BeamSha256": "161e4c37d26f0e1379736d109e572010f68c250170e547937db79b95241f85de",
+      "Source": "lib\\stdlib-8.1\\src\\pool.erl",
+      "SourceSha256": "a34242f9decc689e4ff9485db5e011a46de0e6b44e10f6dc4a067b9138143e88"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\proc_lib.beam",
+      "BeamSha256": "d16cf269c1a728428b10a6eca58912f59249b6b939d825d724af34c0ae380131",
+      "Source": "lib\\stdlib-8.1\\src\\proc_lib.erl",
+      "SourceSha256": "a8fc8e94f9ad47ace46cd204fc5eb6fd227c09787f3be906d80d2e4547e6a8c5"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\proplists.beam",
+      "BeamSha256": "e77939a89b0ecab0986ca46dfedd04deb4c1fb8ed406bb0568f83523e3a9b5d1",
+      "Source": "lib\\stdlib-8.1\\src\\proplists.erl",
+      "SourceSha256": "a0cabb89dd3fc82ddcefc2c14502d12b6a4e0503a84b45867fcc18ee1f2e96a0"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\qlc.beam",
+      "BeamSha256": "5e8f17859686f6546299a31cc5305a13381a5ed0e0d4e96bc6e7cb40a949d17c",
+      "Source": "lib\\stdlib-8.1\\src\\qlc.erl",
+      "SourceSha256": "f141af96f841b1a4bd45a0507eadaae47ac4e3eb5eac6880416685da0bbe82d4"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\qlc_pt.beam",
+      "BeamSha256": "4cc828c58d9af190549e100ed4a11022dba0bc3c34bbd13e8215f4788c007a31",
+      "Source": "lib\\stdlib-8.1\\src\\qlc_pt.erl",
+      "SourceSha256": "dc0c2594f04a1048c9a5a501cfb94a45b1fd6aae390114420da508f54ab07bfe"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\queue.beam",
+      "BeamSha256": "daae4cac39ea2f70577cef22f450c9ecf61ecfca6c7af0121264e939ce8a4b2b",
+      "Source": "lib\\stdlib-8.1\\src\\queue.erl",
+      "SourceSha256": "61b322302ecf74578d72b442d2317ea200a5dee4e0994b58c5e1e961f252b101"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\rand.beam",
+      "BeamSha256": "7b33d2a10fcf97be515fd553497c978a2c15e0d0afeeecc045794cbe9b6ef760",
+      "Source": "lib\\stdlib-8.1\\src\\rand.erl",
+      "SourceSha256": "82c01129dcb18772ce1d32af8e55745a7899621265ebd768a9fc84ffe337b545"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\random.beam",
+      "BeamSha256": "033ba27792df4c94acdd4a079da3d358fcca45e529e36cfa1eb0d4b041141bc9",
+      "Source": "lib\\stdlib-8.1\\src\\random.erl",
+      "SourceSha256": "5a978d725ef6334798f0240eb2791404f97fb28a7f062b6a816a68bf4465fd73"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\re.beam",
+      "BeamSha256": "209f22d045a795a01ff7d6f4322b7ac2c32c261192a4014370a55bd1a1619015",
+      "Source": "lib\\stdlib-8.1\\src\\re.erl",
+      "SourceSha256": "4f121979023d8e5011d2e026600250dedd284c3a5b909e38688efd34d5b74128"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\records.beam",
+      "BeamSha256": "de09bb91c15b309a6162376a06594f1158d75e5839cc9ad015ca89eb08a3e2b6",
+      "Source": "lib\\stdlib-8.1\\src\\records.erl",
+      "SourceSha256": "564c31a3136213e8a8dd6ea5233182a626444dc4282766709fa7400b7ce7160c"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\sets.beam",
+      "BeamSha256": "9e9c19ca453744d6dd509138b031ca77dc6964ecdf97c7189e1ec58f8c824055",
+      "Source": "lib\\stdlib-8.1\\src\\sets.erl",
+      "SourceSha256": "74cd10e9fcf5e653ab7b999c733ac1b531f3b80a45c63ae5f87c638f3aa83812"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\shell.beam",
+      "BeamSha256": "079a67b933248457e64fa195207efac96ae26e7a250b6dd3504f2089bf0f6a02",
+      "Source": "lib\\stdlib-8.1\\src\\shell.erl",
+      "SourceSha256": "83a33200d64ab0e29d0d7050c112bd62ebc0301d4f365ff2b8387ffb4afad10a"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\shell_default.beam",
+      "BeamSha256": "1dc159f0a5651a1425d5bbe3cea4c721a693569aaf54a74b4faa55a661df1ffa",
+      "Source": "lib\\stdlib-8.1\\src\\shell_default.erl",
+      "SourceSha256": "2f774a69e6ce1c11843a9f2b0142add7a6a06372e1ccaaee0b5170f9e3db5224"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\shell_docs.beam",
+      "BeamSha256": "197162c292c54bf67cc365c602f8bbb1fc241ce837bef1b9121bfc51e6d10839",
+      "Source": "lib\\stdlib-8.1\\src\\shell_docs.erl",
+      "SourceSha256": "4f132d05905b667060af7b73ef8e98b308053041a70905bfa0d021db9b56750d"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\shell_docs_markdown.beam",
+      "BeamSha256": "06a0f6248e47eb2811929041d76ef5b536db19e1aebf0f6fb65b5cc9dfafcdb6",
+      "Source": "lib\\stdlib-8.1\\src\\shell_docs_markdown.erl",
+      "SourceSha256": "cc4b45c9a821c36711200b4a3155ca3d60bd9b37e5efada7b310a7f6adb01c8f"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\slave.beam",
+      "BeamSha256": "1554cb38f2329b9189212021d99f36485abce65d9ed71b6231882deda120abce",
+      "Source": "lib\\stdlib-8.1\\src\\slave.erl",
+      "SourceSha256": "653146f2a1e4dc2c1257be5e457d6c060775cc06fc0d9dddb197c24c885a7922"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\sofs.beam",
+      "BeamSha256": "8af8174f52b7c5fe951bed82495331f9189c261bebbaa970307f49ac7c3b66c8",
+      "Source": "lib\\stdlib-8.1\\src\\sofs.erl",
+      "SourceSha256": "9b87da843d93d687e0a8bf7a0642aa521d10658b561cf2cdd7514e7180801e70"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\string.beam",
+      "BeamSha256": "37c66c6a5df38ae239ca1eededbd2ce2fbc4b8b4f3eb7605e115d0ab73fda697",
+      "Source": "lib\\stdlib-8.1\\src\\string.erl",
+      "SourceSha256": "6229c2a49b5dc201541cb6782c35555dffd8b854e2fdc6eb2f40e31cb63d6fb7"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\supervisor.beam",
+      "BeamSha256": "7ae065d34f2b1dec6e98631cee9ae0d42eb68e38ce61180b06bb1fddf5322482",
+      "Source": "lib\\stdlib-8.1\\src\\supervisor.erl",
+      "SourceSha256": "04fdda99f90614123811c2da0fa38b9cc192937ab583d790e0ccb6ab1bc6d9bb"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\supervisor_bridge.beam",
+      "BeamSha256": "10c7c0c7ab282478759beb6102bcf8ce6245ace8062404019f506db4138fe731",
+      "Source": "lib\\stdlib-8.1\\src\\supervisor_bridge.erl",
+      "SourceSha256": "0712942614d80d1bdf3d0d936993615d34d522340f9a99af0c8883d946019767"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\sys.beam",
+      "BeamSha256": "1e5724a6ad245b8b9aff7568da5126c955fa883f37ee6a9e26b53f5618d84207",
+      "Source": "lib\\stdlib-8.1\\src\\sys.erl",
+      "SourceSha256": "1ddc9165f892ee139e378111cedfd6be199b87cbf5c1bf617a0c457cb05b4804"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\timer.beam",
+      "BeamSha256": "1cb0e1bc10fb7bdb19f5189d440b155c1ae7f3a45a5a24b5893ca9745908796b",
+      "Source": "lib\\stdlib-8.1\\src\\timer.erl",
+      "SourceSha256": "27e5d434f57d31c22bee0380ce3d6976ce94053b064210969f0e6a479567a9f1"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\unicode.beam",
+      "BeamSha256": "2495812294976a34ae904e7709b75348f3dddf3b950413199867a78e093a4379",
+      "Source": "lib\\stdlib-8.1\\src\\unicode.erl",
+      "SourceSha256": "d079229daf06f480f4a6ea3f346713043984ebd06b1e2ed86c89ec95a47bf1ab"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\unicode_util.beam",
+      "BeamSha256": "5cdc886e30216b5de33b6f4bdc1dea006eaa3392ec4a83ec90cd7b946b5759ff",
+      "Source": "lib\\stdlib-8.1\\src\\unicode_util.erl",
+      "SourceSha256": "82cda59a022d642b61a858407043e06b775d9602cedafc3edf58577622f79870"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\uri_string.beam",
+      "BeamSha256": "aba9d32ee190d2e7c1073647b71705daaca6bd0694ff39d3896444517e1c203e",
+      "Source": "lib\\stdlib-8.1\\src\\uri_string.erl",
+      "SourceSha256": "91348598f6bde1baf5d83bbc1675a34d1dd94fd7380b8417d7dae7b48f1ee55a"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\win32reg.beam",
+      "BeamSha256": "1499318929d5150b7856c53bbbad1616ec9c9f9cdd51828f793696d0783f530c",
+      "Source": "lib\\stdlib-8.1\\src\\win32reg.erl",
+      "SourceSha256": "050958cf08d99e5ee9110f7e98745f9aed35c4e2d8c52b324c961c7aaf441a52"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\zip.beam",
+      "BeamSha256": "851d029bb9cd0ed35c86502d2cdac57e1a3d8d617bdbc37f98d2bae328bc27a2",
+      "Source": "lib\\stdlib-8.1\\src\\zip.erl",
+      "SourceSha256": "b2aec2b0156a5b1ca69f0422b8960e04a66e423dd79ffa8bc341854bc21c0da0"
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\zstd.beam",
+      "BeamSha256": "dbcbcb263bbe36226687999f96bcd1f4860cf83ea1db25f0fbaa10c59970aa43",
+      "Source": "lib\\stdlib-8.1\\src\\zstd.erl",
+      "SourceSha256": "24f5475541bbea1ce0977af966379a1724e37a8d7a903b622b16c0af1d565479"
+    }
+  ]
+}

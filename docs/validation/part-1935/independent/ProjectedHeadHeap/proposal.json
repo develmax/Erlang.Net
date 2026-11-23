@@ -1,0 +1,253 @@
+{
+  "source_archive": "eea48b5933bb20925b4c49303a2a443a9c7e60796c9951b1769a1cdcaed7d66b",
+  "integrated_supplier": {
+    "Started": "2026-11-20T01:44:07.6784368+03:00",
+    "Tests": "404248C2A00DDB51319E8EF15D06FC65C5561F89241624CA0BEC514E60372DB7",
+    "Runtime": "7445A7EA8A055C952841AD41A2F4F0138B7FE39EAB6762EB1030E59308A1C8AA",
+    "SourceParent": "eea48b5933bb20925b4c49303a2a443a9c7e60796c9951b1769a1cdcaed7d66b",
+    "Compiler": "04E413FC451FFDA644F6F02BFEEED15272C459EB5F85A47BC456522A6AD38980"
+  },
+  "production": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": {
+      "before": "57ed9896bc3640feaf66553e1ba6c83204f23b80a4d0a7389820dd7bed69fc8d",
+      "after": "34cdb31c89285e5a90ce1acb421ad0f0bd8add1080406e3de3a8b2db9c917151"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TerminalProjectedListHeap.cs": {
+      "before": null,
+      "after": "49679d43c5d30bf4123063c0e63ba23f81cd35becd6b450b4b3fb448b36b1102"
+    },
+    "patch-sha256": "02747e83f65b0c9b074ca66f7a10158ab6ae47372a4de993046238cd664474c9"
+  },
+  "test": {
+    "tests/Erlang.Tests/Harness/Program.cs": {
+      "before": "15dd5f4ec84505e7727993434abe44a350384fb28b850230a66d66bb30b8b74d",
+      "after": "a1f8e0c502d204cf13a3edcfac29834efaeb0d4c9089e5a2fae350586586ab3f"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamTerminalProjectedListHeapChecks.cs": {
+      "before": null,
+      "after": "be9f3592431331fafbba8b298a70881bbe4bcbab2092559f4bb3659694795b23"
+    },
+    "patch-sha256": "9f7a4ad29cbe170fb5b8253bb1f99d2cba54ebdb6e37a58c4822737ba806d2b7"
+  },
+  "release": {
+    "lib\\common_test-1.31.2\\ebin\\ct_config_plain.beam": {
+      "status": "Equal",
+      "before": "7c0f0f294a3e7a805c1167808703143388f320dabebafc82e8a6370076bb7c5b",
+      "after": "7c0f0f294a3e7a805c1167808703143388f320dabebafc82e8a6370076bb7c5b",
+      "reference": "7c0f0f294a3e7a805c1167808703143388f320dabebafc82e8a6370076bb7c5b"
+    },
+    "lib\\common_test-1.31.2\\ebin\\ct_event.beam": {
+      "status": "Equal",
+      "before": "2399c2a849d7e97e993b7e01f81cf59d73a31fb22f9f59ca1529768a9197a29c",
+      "after": "2399c2a849d7e97e993b7e01f81cf59d73a31fb22f9f59ca1529768a9197a29c",
+      "reference": "2399c2a849d7e97e993b7e01f81cf59d73a31fb22f9f59ca1529768a9197a29c"
+    },
+    "lib\\debugger-7.0\\ebin\\dbg_idb.beam": {
+      "status": "Equal",
+      "before": "324e32cd6528f7c5ba0f1f63f2bc969fb3e57c95ff940016632227388e1d944e",
+      "after": "324e32cd6528f7c5ba0f1f63f2bc969fb3e57c95ff940016632227388e1d944e",
+      "reference": "324e32cd6528f7c5ba0f1f63f2bc969fb3e57c95ff940016632227388e1d944e"
+    },
+    "lib\\debugger-7.0\\ebin\\debugger.beam": {
+      "status": "Equal",
+      "before": "53aa0a5ddcd15a776cd623e92a7a2a4d620e7ba35d648846f7a3134c8ab6b06c",
+      "after": "53aa0a5ddcd15a776cd623e92a7a2a4d620e7ba35d648846f7a3134c8ab6b06c",
+      "reference": "53aa0a5ddcd15a776cd623e92a7a2a4d620e7ba35d648846f7a3134c8ab6b06c"
+    },
+    "lib\\diameter-2.7.2\\ebin\\diameter_callback.beam": {
+      "status": "Equal",
+      "before": "573a046e1dac646801bf734063d75e82550c053a2792025598ce741a5d790bd7",
+      "after": "573a046e1dac646801bf734063d75e82550c053a2792025598ce741a5d790bd7",
+      "reference": "573a046e1dac646801bf734063d75e82550c053a2792025598ce741a5d790bd7"
+    },
+    "lib\\diameter-2.7.2\\ebin\\diameter_session.beam": {
+      "status": "Equal",
+      "before": "2c07f760e6b0707116868590252c7ee62d9b915db3f845d427aa75dacda36c60",
+      "after": "2c07f760e6b0707116868590252c7ee62d9b915db3f845d427aa75dacda36c60",
+      "reference": "2c07f760e6b0707116868590252c7ee62d9b915db3f845d427aa75dacda36c60"
+    },
+    "lib\\eldap-1.3.1\\ebin\\ELDAPv3.beam": {
+      "status": "Equal",
+      "before": "f137904a4b15ce2fc382264b168b606ab9728b7a5a7c8d641c6937d87cb2ed9d",
+      "after": "f137904a4b15ce2fc382264b168b606ab9728b7a5a7c8d641c6937d87cb2ed9d",
+      "reference": "f137904a4b15ce2fc382264b168b606ab9728b7a5a7c8d641c6937d87cb2ed9d"
+    },
+    "lib\\erts-17.1\\ebin\\counters.beam": {
+      "status": "Equal",
+      "before": "36e38c88d100c8bee9e28ec1144b6f532cd681efcef1f9b3fcd0719dd612cb6f",
+      "after": "36e38c88d100c8bee9e28ec1144b6f532cd681efcef1f9b3fcd0719dd612cb6f",
+      "reference": "36e38c88d100c8bee9e28ec1144b6f532cd681efcef1f9b3fcd0719dd612cb6f"
+    },
+    "lib\\erts-17.1\\ebin\\erl_init.beam": {
+      "status": "Equal",
+      "before": "f5373f9d1d678d8261e07ffad0033663f762913c339729a4309df2e6fd11abdf",
+      "after": "f5373f9d1d678d8261e07ffad0033663f762913c339729a4309df2e6fd11abdf",
+      "reference": "f5373f9d1d678d8261e07ffad0033663f762913c339729a4309df2e6fd11abdf"
+    },
+    "lib\\erts-17.1\\ebin\\erts_trace_cleaner.beam": {
+      "status": "Equal",
+      "before": "44ce918e91dbf0a0601a1ac9d95a56688e360baf8c91de7f77114a643d7d611c",
+      "after": "44ce918e91dbf0a0601a1ac9d95a56688e360baf8c91de7f77114a643d7d611c",
+      "reference": "44ce918e91dbf0a0601a1ac9d95a56688e360baf8c91de7f77114a643d7d611c"
+    },
+    "lib\\erts-17.1\\ebin\\prim_eval.beam": {
+      "status": "Equal",
+      "before": "98d6e55b825361a4e2316bed02b97fd7506d57c34021ba95f4419fea8acc0936",
+      "after": "98d6e55b825361a4e2316bed02b97fd7506d57c34021ba95f4419fea8acc0936",
+      "reference": "98d6e55b825361a4e2316bed02b97fd7506d57c34021ba95f4419fea8acc0936"
+    },
+    "lib\\et-1.8\\ebin\\et.beam": {
+      "status": "Equal",
+      "before": "85378a2bec824f3db72e83579f6c3f18e88819861268894fca79a2d04f3ea367",
+      "after": "85378a2bec824f3db72e83579f6c3f18e88819861268894fca79a2d04f3ea367",
+      "reference": "85378a2bec824f3db72e83579f6c3f18e88819861268894fca79a2d04f3ea367"
+    },
+    "lib\\et-1.8\\ebin\\et_viewer.beam": {
+      "status": "Equal",
+      "before": "7dc3065baa3771126380e0fcd0c7e73034af9e489591abf9ebaf59b3c241115d",
+      "after": "7dc3065baa3771126380e0fcd0c7e73034af9e489591abf9ebaf59b3c241115d",
+      "reference": "7dc3065baa3771126380e0fcd0c7e73034af9e489591abf9ebaf59b3c241115d"
+    },
+    "lib\\ftp-1.2.6\\ebin\\ftp_progress.beam": {
+      "status": "Equal",
+      "before": "f71b2a3366d24138d5e4588711c22ffebb0150b4bc3f6bfd346159bec09c6da0",
+      "after": "f71b2a3366d24138d5e4588711c22ffebb0150b4bc3f6bfd346159bec09c6da0",
+      "reference": "f71b2a3366d24138d5e4588711c22ffebb0150b4bc3f6bfd346159bec09c6da0"
+    },
+    "lib\\inets-9.8\\ebin\\httpc_profile_sup.beam": {
+      "status": "Equal",
+      "before": "9841c7ed17cd2f37798ea0b46f534b5b13de1b424272482ccb574e0e47f7fcc1",
+      "after": "9841c7ed17cd2f37798ea0b46f534b5b13de1b424272482ccb574e0e47f7fcc1",
+      "reference": "9841c7ed17cd2f37798ea0b46f534b5b13de1b424272482ccb574e0e47f7fcc1"
+    },
+    "lib\\inets-9.8\\ebin\\httpd_custom.beam": {
+      "status": "Different",
+      "before": "044dbece4ef0bf659097a098af9a329b1e90b96f2611082423f38c866c98d19b",
+      "after": "044dbece4ef0bf659097a098af9a329b1e90b96f2611082423f38c866c98d19b",
+      "reference": "90eeaf68bae9339e2461cfcedb35d4207e8ed8ba2f415c63981b6ac487741e80"
+    },
+    "lib\\inets-9.8\\ebin\\httpd_esi.beam": {
+      "status": "Equal",
+      "before": "daa501e2fe940b94dab8b7ec304b52ca26608dcc20ad22fab53ed8c002db846a",
+      "after": "daa501e2fe940b94dab8b7ec304b52ca26608dcc20ad22fab53ed8c002db846a",
+      "reference": "daa501e2fe940b94dab8b7ec304b52ca26608dcc20ad22fab53ed8c002db846a"
+    },
+    "lib\\inets-9.8\\ebin\\httpd_file.beam": {
+      "status": "Equal",
+      "before": "9937c9c225be3a5e537d6f07251a0f50d5a22515a4f13cb6ab6a4634c7ff5b2d",
+      "after": "9937c9c225be3a5e537d6f07251a0f50d5a22515a4f13cb6ab6a4634c7ff5b2d",
+      "reference": "9937c9c225be3a5e537d6f07251a0f50d5a22515a4f13cb6ab6a4634c7ff5b2d"
+    },
+    "lib\\inets-9.8\\ebin\\httpd_instance_sup.beam": {
+      "status": "Different",
+      "before": "2acf1abad4aa4701b9ec3ab8d8b7cb66f1d4b1cc9d72853128a375f5456d7dd6",
+      "after": "2acf1abad4aa4701b9ec3ab8d8b7cb66f1d4b1cc9d72853128a375f5456d7dd6",
+      "reference": "a93aa215eb0034f79b4f7a564d5704dde57f47e86b688b443a2acc48e3082193"
+    },
+    "lib\\inets-9.8\\ebin\\inets_sup.beam": {
+      "status": "Equal",
+      "before": "7c57bc8cb3a5a7abb165fb67b834f126b80bd0facd78690cc9e37b7d9c28343d",
+      "after": "7c57bc8cb3a5a7abb165fb67b834f126b80bd0facd78690cc9e37b7d9c28343d",
+      "reference": "7c57bc8cb3a5a7abb165fb67b834f126b80bd0facd78690cc9e37b7d9c28343d"
+    },
+    "lib\\inets-9.8\\ebin\\mod_actions.beam": {
+      "status": "Different",
+      "before": "7202458274841f4ce632fedeb028da14b422d056f3ab9b488c0b4520f288d00d",
+      "after": "7202458274841f4ce632fedeb028da14b422d056f3ab9b488c0b4520f288d00d",
+      "reference": "4fb9230f2588a00ce53a4ac8732e7983cd831813decdb40b7157087e823e3078"
+    },
+    "lib\\inets-9.8\\ebin\\mod_get.beam": {
+      "status": "Different",
+      "before": "2fb5cb23661f185990424d7f75394f8f9033b9582ac18360b856d45c23695b25",
+      "after": "2fb5cb23661f185990424d7f75394f8f9033b9582ac18360b856d45c23695b25",
+      "reference": "13dc26d2325cfd7066f7cf0a16a2302d990793efa83534354384cfa72fa140c8"
+    },
+    "lib\\inets-9.8\\ebin\\mod_head.beam": {
+      "status": "Different",
+      "before": "7d6e9531684e778a121a3c10a90deb51ad249506313482055f807f0491d7005b",
+      "after": "5cac4e053d51d46b24f974c1bfbef58e1da8958bb001d8beaa17abc948a92e11",
+      "reference": "84ae33a082b0b01f02c309ad08bca131e02ee200eb4b584b658fc53bd013d1c9"
+    },
+    "lib\\inets-9.8\\ebin\\mod_trace.beam": {
+      "status": "Different",
+      "before": "70fd8a9753b8a37b62f325f6daad8c53dcecbb7b860c63c224601b5dfd29d06d",
+      "after": "70fd8a9753b8a37b62f325f6daad8c53dcecbb7b860c63c224601b5dfd29d06d",
+      "reference": "daa144007178a9e1c5c5d3dc4e1591d83e6db83ab71b66d311d5c59307f0940c"
+    },
+    "lib\\megaco-4.9.2\\ebin\\megaco_sup.beam": {
+      "status": "Equal",
+      "before": "f2b147d57974e84fd33c8be564422cfabf54042faad01b3f7e03514a7c26d8af",
+      "after": "f2b147d57974e84fd33c8be564422cfabf54042faad01b3f7e03514a7c26d8af",
+      "reference": "f2b147d57974e84fd33c8be564422cfabf54042faad01b3f7e03514a7c26d8af"
+    },
+    "lib\\megaco-4.9.2\\ebin\\megaco_tcp_accept.beam": {
+      "status": "Equal",
+      "before": "44c5ec869255b654853ae6e21cc190c52c8e8a69e4591bb021ee27bc279a5d46",
+      "after": "44c5ec869255b654853ae6e21cc190c52c8e8a69e4591bb021ee27bc279a5d46",
+      "reference": "44c5ec869255b654853ae6e21cc190c52c8e8a69e4591bb021ee27bc279a5d46"
+    },
+    "lib\\megaco-4.9.2\\ebin\\megaco_trans_sup.beam": {
+      "status": "Equal",
+      "before": "f5c007a7411ffdbf400cc78efef96327da966e6cb57075680712f191da1d3252",
+      "after": "f5c007a7411ffdbf400cc78efef96327da966e6cb57075680712f191da1d3252",
+      "reference": "f5c007a7411ffdbf400cc78efef96327da966e6cb57075680712f191da1d3252"
+    },
+    "lib\\public_key-1.21.7\\ebin\\CryptographicMessageSyntax-2009.beam": {
+      "status": "Equal",
+      "before": "39a45eb4897a159c03de59a3fa99848ed431e8c26e9dd5b2b403f2c8aa2720d5",
+      "after": "39a45eb4897a159c03de59a3fa99848ed431e8c26e9dd5b2b403f2c8aa2720d5",
+      "reference": "39a45eb4897a159c03de59a3fa99848ed431e8c26e9dd5b2b403f2c8aa2720d5"
+    },
+    "lib\\public_key-1.21.7\\ebin\\OCSP-2024-08.beam": {
+      "status": "Equal",
+      "before": "9041c27dfefc1e27786e08bec1437afc68946c2cd4bf01cb9830602f2f164497",
+      "after": "9041c27dfefc1e27786e08bec1437afc68946c2cd4bf01cb9830602f2f164497",
+      "reference": "9041c27dfefc1e27786e08bec1437afc68946c2cd4bf01cb9830602f2f164497"
+    },
+    "lib\\public_key-1.21.7\\ebin\\PKIXCRMF-2009.beam": {
+      "status": "Equal",
+      "before": "5e65c0e0ef17b4428c9e41d36990d6305d1a99ded05904cb438a478ff2de44fc",
+      "after": "5e65c0e0ef17b4428c9e41d36990d6305d1a99ded05904cb438a478ff2de44fc",
+      "reference": "5e65c0e0ef17b4428c9e41d36990d6305d1a99ded05904cb438a478ff2de44fc"
+    },
+    "lib\\stdlib-8.1\\ebin\\ordsets.beam": {
+      "status": "Equal",
+      "before": "417595cfd47ff9dc43673cee03083776cbacd3abb61166bf58c61dc6a13cce1d",
+      "after": "417595cfd47ff9dc43673cee03083776cbacd3abb61166bf58c61dc6a13cce1d",
+      "reference": "417595cfd47ff9dc43673cee03083776cbacd3abb61166bf58c61dc6a13cce1d"
+    },
+    "lib\\wx-2.7\\doc\\examples\\demo\\ex_grid.beam": {
+      "status": "Equal",
+      "before": "7f73564f667fc643a58a81c14fbd44868cf62b48ec5e6eed4dcc723c99ed80f0",
+      "after": "7f73564f667fc643a58a81c14fbd44868cf62b48ec5e6eed4dcc723c99ed80f0",
+      "reference": "7f73564f667fc643a58a81c14fbd44868cf62b48ec5e6eed4dcc723c99ed80f0"
+    },
+    "lib\\wx-2.7\\doc\\examples\\demo\\ex_radioBox.beam": {
+      "status": "Equal",
+      "before": "73950bf828ba92dd9019c8cc09abbd90bab8fb3c28b654bb29790b4571c7480b",
+      "after": "73950bf828ba92dd9019c8cc09abbd90bab8fb3c28b654bb29790b4571c7480b",
+      "reference": "73950bf828ba92dd9019c8cc09abbd90bab8fb3c28b654bb29790b4571c7480b"
+    }
+  },
+  "mod_head_code_sizes": {
+    "before": 631,
+    "after": 619,
+    "reference": 592
+  },
+  "evidence": {
+    "compiler-bin/Erlang.Compiler.dll": "758f9c82372c20f5c8061b1dce6c3fa4b7695b7d29fbfb8565f8cb1422c9ac80",
+    "candidate-bin/Erlang.BeamCorpus.dll": "f500fa814be2aada617316deaed5ef1b5969cb63b0fd89df317ab8649ad78799",
+    "baseline-bin/Erlang.Compiler.dll": "04e413fc451ffda644f6f02bfeeed15272c459eb5f85a47bc456522a6ad38980",
+    "red-test/Erlang.Tests.dll": "be5f55b1a41bef729226adddbfea2633050ac2fc95a5b7897c995f5ec4b9f724",
+    "green-test/Erlang.Tests.dll": "be5f55b1a41bef729226adddbfea2633050ac2fc95a5b7897c995f5ec4b9f724",
+    "baseline-corpus.json": "827749aa994d5c0fb381dffc2fee0f125ef68b566ba620532ec80ae579efd822",
+    "final-corpus.json": "eee192c55ab7cb065dd237759d6e2aa2e6fa68d8e3c50211899d491a92598ee8",
+    "focused-exits.json": "60ff5c4ffa65e3b030bb41ce06f569406112dcbd867e3e660b1f92cf5032f415",
+    "final-focused-red.log": "ab36f98dc7b918a1d53407948ce04ed975cd846be09ae8561e409b80669cdf88",
+    "final-focused-green.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "final-candidate-diff.log": "2047410af3500d4f29f62fc2e28586bbed55c91e7b5ed78cf714865d4c23a0dc",
+    "reference-native.terms": "d5e73af244ad8feb19424314c13264f2d91e94bf118acd291624e233d610147a",
+    "final-native.terms": "d5e73af244ad8feb19424314c13264f2d91e94bf118acd291624e233d610147a",
+    "layout-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f"
+  }
+}

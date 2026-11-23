@@ -1,0 +1,12 @@
+[Root]=init:get_plain_arguments(), code:add_patha(filename:join(Root,"otp")),
+S={state,handle,config}, E={event,{change,page,data},code}, O={event,{change,other,data},code}, N={event,not_a_record,code},
+Observe=fun(Event,State)->
+    erase(last), C=try beam_nested_record_branch:handle(Event,State) of R->{ok,R} catch error:Reason->{error,Reason} end,
+    {C,get(last)}
+end,
+Results=lists:map(fun(Dir)->
+    code:purge(beam_nested_record_branch),code:delete(beam_nested_record_branch),
+    {module,beam_nested_record_branch}=code:load_abs(filename:join([Root,Dir,"beam_nested_record_branch"])),
+    [Observe(Event,State)||{Event,State}<-[{E,S},{O,S},{N,S},{E,bad_state},{wrong_event,S},{E,{state,fail,config}}]]
+end,["otp","generated"]),
+[R,R]=Results,io:format("~p~n",[R]),halt().

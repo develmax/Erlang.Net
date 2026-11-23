@@ -1,0 +1,7 @@
+# Part 1893 scoped intercall, helper-order and Diameter validation
+
+The uncached 52-image selection took 108.6661 seconds, with 5 Equal, 47 Different, 0 Unsupported and 0 SourceRejected. The immediate parent comparison changes 42 payloads and all pass ERTS preparation. Six raw Diameter Docs become exact. Forty function frame distances are closer and none farther. Existing normalized function agreements remain unchanged relative to Part 1892. Earlier Part 1888 comparisons also retain the separately documented asn1ct empty-frame regression introduced before this stage.
+
+The compiler reuses unused X registers between two ordinary calls, places record updates directly into the outgoing argument when its consumption and other destination move are proven, and orders generated helpers through record fields and literal tuple branches. Four exact helper names and arities enter across ct_config and dialyzer_analysis_callgraph. No earlier helper matches are lost in this scope. All six generated Diameter accessor documentation payloads match their installed sections.
+
+The first permanent record test used lists:reverse/1 in a direct managed BEAM call, which the direct import subset rejects. The final fixture compares the same effect sequence in reverse storage order via its original dictionary read. Production binaries are identical across the fixture retake. All 76 selected tests of 9,871 pass. Native witnesses and synthetic positive and negative controls distinguish instruction scheduling from values, error shapes and raw section results.

@@ -1,0 +1,19 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProjectionMoves.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProjectionMoves.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProjectionMoves.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProjectionMoves.cs
+@@ -328,9 +328,14 @@
+                 case Line:
+                     continue;
+                 case Move:
+-                    if (instruction.Operands.Any(operand => SameProjectionRegister(operand, temporary)))
++                    if (SameProjectionRegister(instruction.Operands[0], temporary))
+                     {
+                         return false;
++                    }
++
++                    if (SameProjectionRegister(instruction.Operands[1], temporary))
++                    {
++                        return true;
+                     }
+ 
+                     continue;

@@ -1,0 +1,7 @@
+Test(Erlang.Tests.BeamClosedFieldSelectorChecks.TestName, Erlang.Tests.BeamClosedFieldSelectorChecks.Run);
+Test(Erlang.Tests.BeamClosedLiteralTupleDecisionChecks.TestName, Erlang.Tests.BeamClosedLiteralTupleDecisionChecks.Run);
+Test(Erlang.Tests.BeamRepeatedRequiredSequencePrefixChecks.TestName, Erlang.Tests.BeamRepeatedRequiredSequencePrefixChecks.Run);
+Test(Erlang.Tests.BeamWxSharedReceiverForwardChecks.TestName, Erlang.Tests.BeamWxSharedReceiverForwardChecks.Run);
+Test(Erlang.Tests.BeamWxProtectedClassUnionChecks.TestName, Erlang.Tests.BeamWxProtectedClassUnionChecks.Run);
+Test(Erlang.Tests.BeamWxStaticImageCommandChecks.TestName, Erlang.Tests.BeamWxStaticImageCommandChecks.Run);
+Test(Erlang.Tests.BeamProducerBinaryMatchChecks.TestName, () => { Erlang.Tests.BeamProducerBinaryMatchChecks.Run(); return Task.CompletedTask; });

@@ -1,0 +1,160 @@
+{
+  "Parent": {
+    "Source": "81fe483cddbe51403b1520e49ebef73f9f394e78c534699dc2f9a7c3b4fa5cdc",
+    "Paths": 1003,
+    "RemovedPaths": [],
+    "Compiler": "194e9de374fbebd7d9507b09c11cb2c7a864446315cfd334a63376fae4a9bb23",
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "Tests": "1972a02e64ad8c171a8bd07accae7842b6329be515dee2be997764f60c0bab2c",
+    "ParentSource": "56c71cb11fd4dc7d34760b031a5b75581d1a8f35d3fb46a1d3c1362eb4f36419",
+    "CorpusTool": "ffbcedb0251d736b26908de3ea1b34ed0f2c7826690dbd6c4160a8f4b6e611d2"
+  },
+  "Compiler": "61984C9A9661A02829AE3895606246E70E9B6EE94970CFA3DA9AF74719847D10",
+  "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+  "NormalizedGains": [
+    [
+      "asn1ct_constructed_per",
+      "make_var",
+      1
+    ]
+  ],
+  "NormalizedLosses": 0,
+  "RawImageGains": 0,
+  "ByteStableControls": 11,
+  "ExactControls": 5,
+  "CodeLengths": [
+    32675,
+    32672
+  ],
+  "Images": [
+    {
+      "Relative": "lib/asn1-5.5.2/ebin/asn1ct_constructed_per.beam",
+      "Status": "Different",
+      "Oracle": "06AFB88A41E933D85390CC910E4C5D84BF7BD3D8234079D620B7E69BB61D6943",
+      "Baseline": "C04C303EE73EE42FA8B52833ABFE63583A3D3184FEDD4526FE006445C3C3C9CB",
+      "Candidate": "6913821CF88D42C795A692F7CB176912B967940BDA86149EAAB9B2A91E06496B"
+    },
+    {
+      "Relative": "lib/common_test-1.31.2/ebin/ct_master_logs.beam",
+      "Status": "Different",
+      "Oracle": "CF14241537B8AE666D48717AD6B2C1A4C658F73392D9A868E5A0AA536E4F0B41",
+      "Baseline": "317595B92EEC5FA30B5C4915A5F1BEA987118ED43E3AAD7E8B5E3E65B85E1B08",
+      "Candidate": "317595B92EEC5FA30B5C4915A5F1BEA987118ED43E3AAD7E8B5E3E65B85E1B08"
+    },
+    {
+      "Relative": "lib/edoc-1.5/ebin/edoc_specs.beam",
+      "Status": "Different",
+      "Oracle": "DC22717C0CE785D90C19A7211C3DAD58C1CD0AD63423E5E1C2B02DC5295BC404",
+      "Baseline": "89D5E7EBE396B8688D28947964B058D51F37C1E041A14E39C8D6988AA7AC913B",
+      "Candidate": "89D5E7EBE396B8688D28947964B058D51F37C1E041A14E39C8D6988AA7AC913B"
+    },
+    {
+      "Relative": "lib/kernel-11.0.4/ebin/logger_olp.beam",
+      "Status": "Different",
+      "Oracle": "59FD866547D1C842CBB7528711039F61E0855C0BE6DEDFD4C61F4F214EFAB267",
+      "Baseline": "5FCAFEB209E75ACA63DD87CC470D58D840ED9531C92938CFBF8430712D22F2EF",
+      "Candidate": "5FCAFEB209E75ACA63DD87CC470D58D840ED9531C92938CFBF8430712D22F2EF"
+    },
+    {
+      "Relative": "lib/public_key-1.21.7/ebin/EnrollmentMessageSyntax-2009.beam",
+      "Status": "Equal",
+      "Oracle": "AD1F67280F2EBDDD70BE9151DE4610C85D70BF10A770489599743D2A36954045",
+      "Baseline": "AD1F67280F2EBDDD70BE9151DE4610C85D70BF10A770489599743D2A36954045",
+      "Candidate": "AD1F67280F2EBDDD70BE9151DE4610C85D70BF10A770489599743D2A36954045"
+    },
+    {
+      "Relative": "lib/public_key-1.21.7/ebin/PKIX-X400Address-2009.beam",
+      "Status": "Equal",
+      "Oracle": "AEF91479C878358479430121DF991AAD15D7BFFF973DB720D4C041B4BB740B77",
+      "Baseline": "AEF91479C878358479430121DF991AAD15D7BFFF973DB720D4C041B4BB740B77",
+      "Candidate": "AEF91479C878358479430121DF991AAD15D7BFFF973DB720D4C041B4BB740B77"
+    },
+    {
+      "Relative": "lib/public_key-1.21.7/ebin/PKIX1Implicit-2009.beam",
+      "Status": "Equal",
+      "Oracle": "2E67439BD0A525610DC8B4B8B317A83F75E6B33508614DCCDB81EAE1581EF5CF",
+      "Baseline": "2E67439BD0A525610DC8B4B8B317A83F75E6B33508614DCCDB81EAE1581EF5CF",
+      "Candidate": "2E67439BD0A525610DC8B4B8B317A83F75E6B33508614DCCDB81EAE1581EF5CF"
+    },
+    {
+      "Relative": "lib/public_key-1.21.7/ebin/PKIXAttributeCertificate-2009.beam",
+      "Status": "Equal",
+      "Oracle": "B05D69F57E8295828E22C36D3FB44D01395D4F3483849B28C5F97569E708B92C",
+      "Baseline": "B05D69F57E8295828E22C36D3FB44D01395D4F3483849B28C5F97569E708B92C",
+      "Candidate": "B05D69F57E8295828E22C36D3FB44D01395D4F3483849B28C5F97569E708B92C"
+    },
+    {
+      "Relative": "lib/snmp-5.20.5/ebin/snmpm_server.beam",
+      "Status": "Different",
+      "Oracle": "2217618BCF5EE9E1576CE9287A957B3386083B1F6DE0AC1B0E0BC46B4D54B2D5",
+      "Baseline": "FB5CBA2E320600C64FDEC34E3BD3C6687CE6238DCD50B01280550B2BA47C808F",
+      "Candidate": "FB5CBA2E320600C64FDEC34E3BD3C6687CE6238DCD50B01280550B2BA47C808F"
+    },
+    {
+      "Relative": "lib/stdlib-8.1/ebin/erl_scan.beam",
+      "Status": "Different",
+      "Oracle": "14A46F078BFB0F77484D9D76D43E36343D161A0ACF0C8D675D2CB61E158EFDE9",
+      "Baseline": "27AEA6B49F6D65917DF057D77778082EA7487990452E83C7066AC3A085BF4CFF",
+      "Candidate": "27AEA6B49F6D65917DF057D77778082EA7487990452E83C7066AC3A085BF4CFF"
+    },
+    {
+      "Relative": "lib/stdlib-8.1/ebin/otp_internal.beam",
+      "Status": "Equal",
+      "Oracle": "4FC34D95E18BF610267C8E69C30E5CF9CF5588A8EBCE6BF041BB60E4F408D461",
+      "Baseline": "4FC34D95E18BF610267C8E69C30E5CF9CF5588A8EBCE6BF041BB60E4F408D461",
+      "Candidate": "4FC34D95E18BF610267C8E69C30E5CF9CF5588A8EBCE6BF041BB60E4F408D461"
+    },
+    {
+      "Relative": "lib/syntax_tools-4.1.1/ebin/erl_syntax_lib.beam",
+      "Status": "Different",
+      "Oracle": "1290BFD97895AABC55B5E6A52070CB38EFF3E31135DA796DE41DD6C3D45C109B",
+      "Baseline": "DB997D7E444E41AC98801B0BE0872D5537B0175BCC56F8899B2E3715B91785E7",
+      "Candidate": "DB997D7E444E41AC98801B0BE0872D5537B0175BCC56F8899B2E3715B91785E7"
+    }
+  ],
+  "NativeFixtureCases": 3,
+  "NativeLoadImagesPerPath": 12,
+  "NativeX400Cases": 21,
+  "Tests": "82E285DED8D0F18EEA6F7BEDAFC96CC2320735979DC7BA2383052F4FDE4476B7",
+  "StrictReplay": {
+    "Snapshot1956": "81fe483cddbe51403b1520e49ebef73f9f394e78c534699dc2f9a7c3b4fa5cdc",
+    "Snapshot1957": "92d13adf7cba9bd5421b6d877f66f09b9a8b203bd556c63f74cbd16189e3737d",
+    "Patches": {
+      "forwarded-first-atom.patch": "ecd47c2c1bdc269585d0eb8106b4c55c70fa2af03bd9fa8f2f12fbe85b79dbc8",
+      "forwarded-first-atom-tests.patch": "92549a8b8cbaa027a863568bf2c0cc72628e16c62635a79f9e20c9facd2289a2"
+    },
+    "Files": {
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LocalConstantArguments.cs": {
+        "Before": "2ea513012723c0ca8573fb61949c2fd83cbfb6c22139c0237c741c8bd60265ba",
+        "After": "35bddffdfe5afd0fd5ede14645d54d50ce2ae46d77846454ba2fb6f72af9d0c4"
+      },
+      "tests/Erlang.Tests/Compiler/Beam/BeamForwardedEntryAtomChecks.cs": {
+        "Before": null,
+        "After": "11b72e8ddb169af80cbf0724f93b19448f067e551c9c18e8efacfeaa8f337bf8"
+      },
+      "tests/Erlang.Tests/Harness/Program.cs": {
+        "Before": "1aa79c791dcdbe67a6b16c08be06eba6b14731991d72d9824407e17d4c32b350",
+        "After": "1e368c3fd90f4fbe022187ad485d1d514807017a486efe931ec33e93eb1bd150"
+      }
+    }
+  },
+  "Evidence": {
+    "source-custody.json": "2b70848f1e3e53502ab6ccd143e957cc1df7f95889ab870f83293ee54493f1c5",
+    "strict-replay-receipt.json": "ae1e2316ebc58c2b0f53c2a24dedc4aff92264f0ea38643fdeae7d4721a2d3cc",
+    "images-receipt.json": "67cb56d50225dbf4151dca8a68ce22fde73721db7cb1ea7295aafe8d98f142fe",
+    "candidate.json": "85c000e606f395f0a7487627fddca97b641c4472ba47ae174428bc6fd041c924",
+    "normalized.log": "71ff4cd8789ea8a029da835901dc3d2372a01c68a6675fdb25d0108697b92411",
+    "tests-baseline.log": "515b83e623a34e07df51beba0dbeda19951a13c160ce9b5a61ad58610d0e0f9a",
+    "tests-candidate.log": "60d6c5c34d07e4fed83bc931d1653d5edd28febe49c2c9c07a21eeb27a6e6a80",
+    "test-identities.json": "6cc123273c9858ecf34d6973798a32e70fe7a6869f90151f3de7ebd0993542af",
+    "native.log": "2c133f9c4a2c9a43f331730682d1ee4123086f64575d6eabbdc0c50c3edf9f92",
+    "native-x400.log": "29ee4c72815bfd3585660256ea6362985e9ca666f3fd77a7b2fcdc3be510d634",
+    "native.eval": "40c316b001ac0dbcd3d8ed4d70a7c351d9b8fa086e60e27447415cb87ce9977f",
+    "compiler-build.log": "0f1234d060a87ddb82c63061755ebaeb29284f69c0b23c5e4ba6b14cbb8b7c38",
+    "tests-build.log": "b2598e3852f0155bad02ae8cccf42613f61c2d9d0eb35c8ffe87d254e8ecd4e4",
+    "style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "build.ps1": "69d21cf9ce6b3c3ea472bc4edbde4143cf97f24d4840cc8eeb897c40ac5d866f",
+    "validate.ps1": "416285763d0b195046461ad5843ae67bcd7dec9dfddd1ae9f7a9fa4692f634f5",
+    "README.md": "f0a416a58382d848eaab7663a49cbb2fdc924a9dc9b5f8fc820b801ee11d4289"
+  }
+}

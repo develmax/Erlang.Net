@@ -18,6 +18,11 @@ internal sealed partial class BeamModuleCompiler
     {
         private bool TryEmitNumericComparison(FunctionDefinition function)
         {
+            if (TryEmitCheckedListComparison(function))
+            {
+                return true;
+            }
+
             if (function.Clauses is [{ Guard: null, Body: Expr.Binary comparison } clause]
                 && HasUnconditionalParameters(clause) && IsNumericEquality(comparison)
                 && IsCallOperand(comparison.Left) && IsCallOperand(comparison.Right))
@@ -53,6 +58,48 @@ internal sealed partial class BeamModuleCompiler
             owner.instructions.WriteByte(Return);
 
             return true;
+        }
+
+        private bool TryEmitCheckedListComparison(FunctionDefinition function)
+        {
+            if (function.Clauses is not
+                [
+                {
+                    Guard: { } guard,
+                    Body: Expr.Binary { Left: Expr.Variable left, Right: Expr.Variable right } comparison
+                } clause]
+                || !HasUnconditionalParameters(clause) || !IsNumericEquality(comparison)
+                || PredicateConjuncts(guard).Select(test => ReadEntryTypeGuard(clause, test)).ToArray()
+                    is not [{ Opcode: IsList, Register: var first }, { Opcode: IsList, Register: var second }]
+                || first == second)
+            {
+                return false;
+            }
+
+            int leftRegister = ArgumentRegister(clause, left.Name);
+            int rightRegister = ArgumentRegister(clause, right.Name);
+            if (!(leftRegister == first && rightRegister == second || leftRegister == second && rightRegister == first))
+            {
+                return false;
+            }
+
+            int failure = owner.nextLabel - 2;
+            EmitCheck(first);
+            EmitCheck(second);
+            owner.Op(BifTwo, LabelTag, 0);
+            owner.Operand(BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module, NumericComparisonBif(comparison), 2));
+            owner.EmitTypedRegister(leftRegister, ProperListTypeBits);
+            owner.EmitTypedRegister(rightRegister, ProperListTypeBits);
+            owner.Operand(XRegisterTag, 0);
+            owner.instructions.WriteByte(Return);
+
+            return true;
+
+            void EmitCheck(int register)
+            {
+                owner.Op(IsList, LabelTag, failure);
+                owner.Operand(XRegisterTag, register);
+            }
         }
 
         private void EmitDirectOperand(Clause clause, Expr expression)

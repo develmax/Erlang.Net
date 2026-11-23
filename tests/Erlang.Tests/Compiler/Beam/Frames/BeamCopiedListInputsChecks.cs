@@ -1,0 +1,123 @@
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+using static Erlang.Tests.BeamOpcodeEdgeBytes;
+
+namespace Erlang.Tests;
+
+internal static class BeamCopiedListInputsChecks
+{
+    internal const string TestName = "compiler/beam/prefers-copied-list-inputs-in-x";
+    private const string Pass = "PreferCopiedTupleSourcesInX";
+    private const string Module = "beam_copied_list_inputs";
+    private const string Head = "Use the live X copy as the list head.";
+    private const string Tail = "Use the live X copy as the list tail.";
+    private const string Both = "Use the same live X copy in both input positions before overwriting X0.";
+    private const string TypedNeighbor = "Preserve the typed head while replacing the plain Y tail.";
+    private const string Typed = "Preserve the typed Y input.";
+    private const string Clobbered = "Keep the Y input when X0 has been overwritten.";
+    private const string SeparateHeapCheck = "Keep the argument outside the fused allocation and copy sequence.";
+    private const string Disabled = "Keep the Y input when module optimization is disabled.";
+    private const string Projection = "Preserve the existing tuple projection rewrite.";
+
+    internal static Task Run()
+    {
+        var compiler = new BeamModuleCompiler(Module);
+        byte[] head = [PutList, Y(0), A(NilAtomIndex), X(0)];
+        Check(
+            compiler,
+            Image(head),
+            Image([PutList, X(0), A(NilAtomIndex), X(0)]),
+            Head
+        );
+        Check(
+            compiler,
+            Image([PutList, A(1), Y(0), X(0)]),
+            Image([PutList, A(1), X(0), X(0)]),
+            Tail
+        );
+        Check(
+            compiler,
+            Image([PutList, Y(0), Y(0), X(0)]),
+            Image([PutList, X(0), X(0), X(0)]),
+            Both
+        );
+
+        byte[] typedY = [ExtendedTypedRegisterOperand, Y(0), U(1)];
+        Check(
+            compiler,
+            Image([PutList, .. typedY, Y(0), X(0)]),
+            Image([PutList, .. typedY, X(0), X(0)]),
+            TypedNeighbor
+        );
+        Check(
+            compiler,
+            Image([GetTupleElement, Y(0), U(1), X(0)]),
+            Image([GetTupleElement, X(0), U(1), X(0)]),
+            Projection
+        );
+        CheckUnchanged(compiler, Image([PutList, .. typedY, A(NilAtomIndex), X(0)]), Typed);
+        CheckUnchanged(compiler, Image([Move, A(1), X(0), .. head]), Clobbered);
+        CheckUnchanged(compiler, Image(head, fuseHeap: false), SeparateHeapCheck);
+
+        var unoptimized = new ModuleDefinition(Module, [], []) { DisableModuleOptimization = true };
+        CheckUnchanged(new BeamModuleCompiler(Module, sourceModule: unoptimized), Image(head), Disabled);
+
+        return Task.CompletedTask;
+    }
+
+    private static void Check(
+        BeamModuleCompiler compiler,
+        byte[] before,
+        byte[] expected,
+        string reason
+    )
+    {
+        if (Rewrite(compiler, before) is not { } actual || !actual.SequenceEqual(expected))
+        {
+            throw new InvalidOperationException(reason);
+        }
+    }
+
+    private static void CheckUnchanged(BeamModuleCompiler compiler, byte[] before, string reason)
+    {
+        if (Rewrite(compiler, before) is not null)
+        {
+            throw new InvalidOperationException(reason);
+        }
+    }
+
+    private static byte[]? Rewrite(BeamModuleCompiler compiler, ReadOnlyMemory<byte> code) =>
+        (byte[]?)Call(
+            compiler,
+            Pass,
+            code,
+            3
+        );
+
+    private static byte[] Image(byte[] operation, bool fuseHeap = true)
+    {
+        byte[] start = Start(
+            1,
+            2,
+            1,
+            1
+        );
+
+        byte[] allocation = fuseHeap
+            ? [AllocateHeap, U(1), U(2), U(1), InitYRegisters, ExtendedListOperand, U(1), Y(0)]
+            : [Allocate, U(1), U(1), TestHeap, U(2), U(1)];
+
+        return
+        [
+            .. start,
+            .. allocation,
+            Move, X(0), Y(0),
+            .. operation,
+            Line, U(1),
+            Deallocate, U(1),
+            Return,
+            EndCode
+        ];
+    }
+}

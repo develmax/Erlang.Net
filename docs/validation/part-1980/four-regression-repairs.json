@@ -1,0 +1,44 @@
+{
+  "FailedCases": [
+    "compiler/beam/keeps-original-suffix-for-positioned-strict-match-failure",
+    "compiler/beam/keeps-projection-before-ordinary-argument-copies",
+    "compiler/beam/runs-generated-parse-transform-with-selected-dependencies",
+    "compiler/beam/shares-dominated-short-returns-after-catch"
+  ],
+  "OriginalCompiler": {
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "CorpusTool": "FB4B9CA15295933123B38CA522A89E67A739C5294409D96463CFEE84C3492A30",
+    "Finished": "2026-11-21T09:19:57.9113638+03:00",
+    "Compiler": "DD762E4A560BA435A008BE5ED55F42004A71E749C0010BE791E4181C6E972F22",
+    "Parent": "cd3c7c5973fa9e582e4d14f7b897b130f375ee635d0385a04e49c23879283a5f",
+    "Tests": "A1C5707DC7693EC7FB17FBB255712FA71865C7E78FBEB1017588522934B528C3"
+  },
+  "FailedLaunchReports": {
+    "lane-0.json": "00fa05346e3492c8b118f4f7b63e5c5dea2038e946f33cf1acc1a3343a6a1256",
+    "lane-1.json": "736516d74cd79ca67feec5963bea60c746d1cfe140c83e57a03c38f3f00e4785"
+  },
+  "FixtureReflection": "98865775e28cb8fbf7cb16bbd197026360582160aa8a2b8bd6f2bb86d57a4bae",
+  "StrictPatches": {
+    "parse-transform-p1980-import-fixture-repair/accept-transform-loader-import-rejection.patch": "27cdebc7f4b9ef3d83d13ddd159d94b8244bbe46f08a328b1f630a3ebd087bcb",
+    "catch-return-1980-recovery/production.patch": "56015ee8662c7760675d256d998421cbb405a5f2e270c0bf34db60f9a740368d",
+    "binary-match-audit-1931/owned-positioned-binary-case-1993/production.patch": "7767bf8065b769799aed5bff0c1c3e8b6b8a305f0826b8da12af10b2e9d39a65"
+  },
+  "Changes": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": {
+      "Before": "683ee13dc5e292e10bbf603a6c464ff918c2492657692b45791a9c0b45061c51",
+      "After": "d59e5efa02f08c347a0e7547de4a6c771a61cad4d72e0d25a45ae41b977b0cc5"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ReturnScopes.cs": {
+      "Before": "cbe3f26bbf2bce538a6236802bdb99d1f5bb270d9dc407738e6e8f3ee4a7b9be",
+      "After": "f76bb4d76f41db7ac804cc5695c60a046c3e97b9c65bc9c414eee01a6bb387e3"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamParseTransformRunnerChecks.cs": {
+      "Before": "91f01ce05ec4241fcaa391604936b846352a98249af40365d608a0f386322213",
+      "After": "6765739dd71c5023dddecc24b648d2a24077fbd8cb3cf6ebd1a06fb71c823cec"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamProjectedCallArgumentCopyChecks.cs": {
+      "Before": "6bafbc84b3a421d74d31d52421b009d17bb620140f57bd4f4d524e5091b7a261",
+      "After": "ed25a51501d4bc33717b66844f45e34b3eba0e0781dbee33f8a71ad2dbb49408"
+    }
+  }
+}

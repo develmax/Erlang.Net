@@ -1,0 +1,60 @@
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12590,6 +12590,10 @@
+     Erlang.Tests.BeamTerminalCallResultArgumentChecks.FrameTestName,
+     Erlang.Tests.BeamTerminalCallResultArgumentChecks.RunFrame
+ );
++Test(
++    Erlang.Tests.BeamTerminalCallResultArgumentChecks.TrimTestName,
++    Erlang.Tests.BeamTerminalCallResultArgumentChecks.RunTrim
++);
+ Test(Erlang.Tests.BeamCallArgumentKillsChecks.TestName, Erlang.Tests.BeamCallArgumentKillsChecks.Run);
+ Test(Erlang.Tests.BeamMeasuredDecoderPairChecks.TestName, Erlang.Tests.BeamMeasuredDecoderPairChecks.Run);
+ Test(Erlang.Tests.BeamClosedDecoderTagsChecks.TestName, Erlang.Tests.BeamClosedDecoderTagsChecks.Run);
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamTerminalCallResultArgumentChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamTerminalCallResultArgumentChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamTerminalCallResultArgumentChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamTerminalCallResultArgumentChecks.cs
+@@ -11,6 +11,8 @@
+     internal const string TestName = "compiler/beam/keeps-call-results-in-terminal-argument-registers";
+     internal const string FrameTestName = "compiler/beam/compacts-dead-caught-input-stack-slot";
+     private const string FrameShapeError = "The protected call retained an extra entry argument slot.";
++    internal const string TrimTestName = "compiler/beam/trims-owned-return-arm-after-closed-catch";
++    private const string TrimShapeError = "The closed catch retained dead stack slots in the returning arm.";
+     private const string Module = "beam_terminal_call_result_arguments";
+     private const string ShapeError = "The terminal call kept a stack spill for its local result.";
+ 
+@@ -64,6 +66,33 @@
+             && Value(Children(catches[0], "Operands")[0]) == 4;
+     }
+ 
++    internal static void RunTrim()
++    {
++        string twoPayloads = Source.Replace("{stop,Reason}", "{stop,Reason,Timeout}", StringComparison.Ordinal);
++        if (twoPayloads == Source || !UsesSingleSlotTrim(Source) || UsesSingleSlotTrim(twoPayloads))
++        {
++            throw new InvalidOperationException(TrimShapeError);
++        }
++    }
++
++    private static bool UsesSingleSlotTrim(string source)
++    {
++        object code = Code(CodeGeneration.CompileBeamModule(source, Module + ".erl"));
++        object[] instructions = Children(code, "Instructions");
++        int caught = Array.FindIndex(instructions, instruction => Opcode(instruction) == CatchEnd);
++        for (int index = caught + 1; index + 1 < instructions.Length; index++)
++        {
++            if (Opcode(instructions[index]) == TrimFrame && Opcode(instructions[index + 1]) == Move
++                && Children(instructions[index], "Operands").Select(Value).SequenceEqual([4, 1])
++                && Children(instructions[index + 1], "Operands").Select(Value).SequenceEqual([0, 0]))
++            {
++                return true;
++            }
++        }
++
++        return false;
++    }
++
+     private static bool UsesDirectArguments(string source)
+     {
+         object code = Code(CodeGeneration.CompileBeamModule(source, Module + ".erl"));

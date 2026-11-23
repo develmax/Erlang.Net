@@ -1,0 +1,416 @@
+#{allocation_operand_groups =>
+      #{{allocate,{frame,equal},{live,excess}} =>
+            {1,#{"lib/erts-17.1/ebin/prim_file.beam" => [{sendfile,8}]}},
+        {allocate,{frame,excess},{live,equal}} =>
+            {55,
+             #{"lib/edoc-1.5/ebin/edoc_cli.beam" => [{check_opts,1}],
+               "lib/erts-17.1/ebin/prim_file.beam" =>
+                   [{advise,4},
+                    {allocate,3},
+                    {altname,1},
+                    {close,1},
+                    {datasync,1},
+                    {del_dir,1},
+                    {delete,1},
+                    {file_desc_to_ref,2},
+                    {get_cwd,0},
+                    {get_dcwd,1},
+                    {get_fd_data_for_read,1},
+                    {get_handle,1},
+                    {internal_get_nif_resource,1},
+                    {list_dir_1,2},
+                    {make_dir,1},
+                    {open,2},
+                    {position_1,3},
+                    {pread,2},
+                    {pread,3},
+                    {pwrite,2},
+                    {pwrite,3},
+                    {pwrite_plain,3},
+                    {read_file,1},
+                    {read_line,1},
+                    {read_link_1,2},
+                    {set_cwd,1},
+                    {sync,1}],
+               "lib/kernel-11.0.4/ebin/erl_erts_errors.beam" =>
+                   [{check_md5_context,1},
+                    {is_flat_char_list,1},
+                    {list_to_something,2},
+                    {maybe_option_list_error,2},
+                    {maybe_posix_message,2},
+                    {must_be_iodata,1},
+                    {must_be_list,2},
+                    {must_be_localtime,1},
+                    {must_be_node_fun,2},
+                    {must_be_time_unit,1}],
+               "lib/kernel-11.0.4/ebin/error_logger.beam" =>
+                   [{delete_report_handler,1},
+                    {error_info,1},
+                    {error_msg,2},
+                    {error_report,2},
+                    {get_format_depth,0},
+                    {info_msg,2},
+                    {info_report,2},
+                    {warning_msg,2},
+                    {warning_report,2}],
+               "lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                   [{call,2},
+                    {connect,3},
+                    {controlling_process,3},
+                    {deliver_recv_msg,8},
+                    {getstat,3},
+                    {open_lookup,2},
+                    {socket_info_counters,1},
+                    {which_default_bind_address2,1}]}}},
+  different_images => 5,
+  opcode_groups =>
+      #{extra_function =>
+            #{"lib/kernel-11.0.4/ebin/erl_erts_errors.beam" =>
+                  [{'-format_erlang_error/3-fun-1-',2}],
+              "lib/kernel-11.0.4/ebin/gen_udp_socket.beam" => [{reverse,1}]},
+        missing_function =>
+            #{"lib/kernel-11.0.4/ebin/erl_erts_errors.beam" =>
+                  [{'-format_erlang_error/3-fun-1-',1}],
+              "lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{'-terminate/2-lc$^0/1-0-',1},
+                   {'-which_default_bind_address2/1-lc$^0/1-0-',1},
+                   {server_read_write_opts,0}]},
+        {allocate,allocate_heap} =>
+            #{"lib/erts-17.1/ebin/prim_file.beam" => [{write_file,3}]},
+        {allocate,get_list} =>
+            #{"lib/erts-17.1/ebin/prim_file.beam" => [{list_dir_convert,3}],
+              "lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{getstat_what,3},{which_sockets,2}]},
+        {allocate,get_tuple_element} =>
+            #{"lib/erts-17.1/ebin/prim_file.beam" => [{pwrite_list,3}],
+              "lib/kernel-11.0.4/ebin/gen_udp_socket.beam" => [{init,1}]},
+        {allocate,{test,is_list}} =>
+            #{"lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{do_sendmsg,4}]},
+        {allocate,{test,is_tuple}} =>
+            #{"lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{next_state,4}]},
+        {allocate_heap,allocate} =>
+            #{"lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{socket_setopt,2},{start_server,4}]},
+        {call,init_yregs} =>
+            #{"lib/erts-17.1/ebin/prim_file.beam" =>
+                  [{get_fd_data_for_read,1},{internal_get_nif_resource,1}],
+              "lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{which_default_bind_address2,1}]},
+        {call,move} =>
+            #{"lib/edoc-1.5/ebin/edoc_cli.beam" => [{parse_args,1}],
+              "lib/erts-17.1/ebin/prim_file.beam" => [{sendfile,8}],
+              "lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{deliver_recv_msg,8}]},
+        {call_ext,init_yregs} =>
+            #{"lib/kernel-11.0.4/ebin/erl_erts_errors.beam" =>
+                  [{possibly_truncated,1}],
+              "lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{socket_info_counters,1}]},
+        {call_ext,move} =>
+            #{"lib/kernel-11.0.4/ebin/error_logger.beam" => [{start,0}]},
+        {deallocate,case_end} =>
+            #{"lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{peername,1},{sockname,1}]},
+        {deallocate,instruction_end} =>
+            #{"lib/kernel-11.0.4/ebin/erl_erts_errors.beam" =>
+                  [{must_be_option_list,1},{must_be_time,2}],
+              "lib/kernel-11.0.4/ebin/gen_udp_socket.beam" => [{info,1}]},
+        {deallocate,move} =>
+            #{"lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{stop_server,1}]},
+        {get_hd,{test,is_nonempty_list}} =>
+            #{"lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{socket_getopt_opts,3}]},
+        {get_list,allocate} =>
+            #{"lib/kernel-11.0.4/ebin/erl_erts_errors.beam" =>
+                  [{do_atomics_operation,1},{do_counters_operation,1}]},
+        {get_list,init_yregs} =>
+            #{"lib/kernel-11.0.4/ebin/erl_erts_errors.beam" =>
+                  [{is_flat_char_list,1}]},
+        {get_map_elements,allocate} =>
+            #{"lib/kernel-11.0.4/ebin/error_logger.beam" => [{notify,5}],
+              "lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{handle_reading,3}]},
+        {get_map_elements,move} =>
+            #{"lib/erts-17.1/ebin/prim_file.beam" =>
+                  [{position_1,3},
+                   {pwrite,2},
+                   {read,2},
+                   {read_handle_info_1,2},
+                   {read_line,1},
+                   {truncate,1},
+                   {write,2}],
+              "lib/kernel-11.0.4/ebin/error_logger.beam" =>
+                  [{get_report_cb,1}]},
+        {get_map_elements,{test,is_map}} =>
+            #{"lib/edoc-1.5/ebin/edoc_cli.beam" => [{check_opts,1}]},
+        {get_tuple_element,allocate} =>
+            #{"lib/erts-17.1/ebin/prim_file.beam" =>
+                  [{get_fd_data,1},{reset_write_position,1}]},
+        {get_tuple_element,move} =>
+            #{"lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{do_sendto,3},{val,2}]},
+        {get_tuple_element,{test,is_eq_exact}} =>
+            #{"lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{receive_counter_wrap,3}]},
+        {get_tuple_element,{test,is_list}} =>
+            #{"lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{extra_opts,2}]},
+        {get_tuple_element,{test,is_pid}} =>
+            #{"lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{controlling_process,2}]},
+        {get_tuple_element,{test,is_tagged_tuple}} =>
+            #{"lib/erts-17.1/ebin/prim_file.beam" => [{copy,3}]},
+        {get_tuple_element,{test,is_tuple}} =>
+            #{"lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{getstat,3},{socknames,1},{terminate,2}]},
+        {init_yregs,call} =>
+            #{"lib/erts-17.1/ebin/prim_file.beam" =>
+                  [{make_link,2},{make_symlink,2},{read_info_1,3},{rename,2}]},
+        {init_yregs,move} =>
+            #{"lib/kernel-11.0.4/ebin/error_logger.beam" =>
+                  [{error_msg,2},
+                   {error_report,2},
+                   {info_msg,2},
+                   {info_report,2},
+                   {warning_msg,2},
+                   {warning_report,2}]},
+        {move,call} =>
+            #{"lib/kernel-11.0.4/ebin/gen_udp_socket.beam" => [{do_open,6}]},
+        {move,get_tuple_element} =>
+            #{"lib/kernel-11.0.4/ebin/gen_udp_socket.beam" => [{connect,3}]},
+        {move,trim} =>
+            #{"lib/kernel-11.0.4/ebin/erl_erts_errors.beam" =>
+                  [{must_be_node_mf_args,4}]},
+        {move,{test,is_eq_exact}} =>
+            #{"lib/edoc-1.5/ebin/edoc_cli.beam" => [{quit,2}],
+              "lib/kernel-11.0.4/ebin/error_logger.beam" =>
+                  [{maybe_map_warnings,3}]},
+        {put_map_assoc,{test,is_map}} =>
+            #{"lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{recv_start,1}]},
+        {put_tuple2,get_tuple_element} =>
+            #{"lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{getopts,2},{getstat,2},{recv,3},{setopts,2}]},
+        {return,{test,is_nil}} =>
+            #{"lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{start_opts,1}]},
+        {select_val,allocate} =>
+            #{"lib/edoc-1.5/ebin/edoc_cli.beam" => [{edoc_opts,1}],
+              "lib/kernel-11.0.4/ebin/erl_erts_errors.beam" =>
+                  [{do_binary_to_atom,3},
+                   {format_atomics_error,2},
+                   {format_erlang_error,3}],
+              "lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{state_setopts_active,5}]},
+        {select_val,move} =>
+            #{"lib/kernel-11.0.4/ebin/erl_erts_errors.beam" =>
+                  [{'-format_erlang_error/3-fun-0-',2},
+                   {format_counters_error,2}]},
+        {select_val,{test,is_eq_exact}} =>
+            #{"lib/erts-17.1/ebin/prim_file.beam" => [{from_posix_seconds,2}],
+              "lib/kernel-11.0.4/ebin/erl_erts_errors.beam" =>
+                  [{do_format_bs_fail,4},
+                   {do_format_bs_fail,5},
+                   {must_be_isdst,1}],
+              "lib/kernel-11.0.4/ebin/error_logger.beam" =>
+                  [{fix_warning_tag,2},{maybe_add_domain,3},{tty,1}],
+              "lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{'-member/2-fun-0-',4},
+                   {deliver_data_mode,2},
+                   {opt_categories,1}]},
+        {test,move} =>
+            #{"lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{default_any,3}]},
+        {test_heap,allocate} =>
+            #{"lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{module_socket,1}]},
+        {test_heap,allocate_heap} =>
+            #{"lib/kernel-11.0.4/ebin/error_logger.beam" => [{meta,2}]},
+        {test_heap,move} =>
+            #{"lib/edoc-1.5/ebin/edoc_cli.beam" => [{main,1}],
+              "lib/erts-17.1/ebin/prim_file.beam" => [{translate_raw_name,2}]},
+        {test_heap,{test,is_eq_exact}} =>
+            #{"lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{mk_recv_msg,7}]},
+        {'try',init_yregs} =>
+            #{"lib/erts-17.1/ebin/prim_file.beam" =>
+                  [{altname,1},
+                   {close,1},
+                   {datasync,1},
+                   {del_dir,1},
+                   {delete,1},
+                   {get_cwd,0},
+                   {get_dcwd,1},
+                   {get_handle,1},
+                   {make_dir,1},
+                   {read_file,1},
+                   {sync,1}],
+              "lib/kernel-11.0.4/ebin/erl_erts_errors.beam" =>
+                  [{must_be_iodata,1},{must_be_localtime,1}],
+              "lib/kernel-11.0.4/ebin/gen_udp_socket.beam" => [{call,2}]},
+        {'try',move} =>
+            #{"lib/erts-17.1/ebin/prim_file.beam" => [{pwrite,3}],
+              "lib/kernel-11.0.4/ebin/erl_erts_errors.beam" =>
+                  [{list_to_something,2},
+                   {must_be_list,2},
+                   {must_be_time_unit,1}]},
+        {{bif,is_map_key},allocate} =>
+            #{"lib/kernel-11.0.4/ebin/gen_udp_socket.beam" => [{member,2}]},
+        {{test,is_atom},allocate} =>
+            #{"lib/erts-17.1/ebin/prim_file.beam" => [{ipread_s32bu_p32bu,3}]},
+        {{test,is_boolean},{bif,is_boolean}} =>
+            #{"lib/kernel-11.0.4/ebin/erl_erts_errors.beam" =>
+                  [{must_be_boolean,1}]},
+        {{test,is_eq_exact},allocate} =>
+            #{"lib/kernel-11.0.4/ebin/erl_erts_errors.beam" =>
+                  [{format_atomics_error,4},{format_counters_error,4}],
+              "lib/kernel-11.0.4/ebin/error_logger.beam" => [{meta,3}],
+              "lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{bind_addr,4},{state_setopts_server,5}]},
+        {{test,is_eq_exact},{test,is_ne_exact}} =>
+            #{"lib/erts-17.1/ebin/prim_file.beam" =>
+                  [{file_info_convert_atime,2}]},
+        {{test,is_eq_exact},{test,is_nonempty_list}} =>
+            #{"lib/kernel-11.0.4/ebin/erl_erts_errors.beam" =>
+                  [{format_pt_error,2}]},
+        {{test,is_eq_exact},{test,is_tagged_tuple}} =>
+            #{"lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{socket_setopt_value,3}]},
+        {{test,is_eq_exact},{test,is_tuple}} =>
+            #{"lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{socket_getopt_value,2}]},
+        {{test,is_ge},allocate} =>
+            #{"lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{extra_opts,1}]},
+        {{test,is_ge},{test,is_lt}} =>
+            #{"lib/kernel-11.0.4/ebin/erl_erts_errors.beam" =>
+                  [{must_be_size,1}]},
+        {{test,is_integer},move} =>
+            #{"lib/kernel-11.0.4/ebin/erl_erts_errors.beam" =>
+                  [{must_be_adler32,1}]},
+        {{test,is_map},allocate} =>
+            #{"lib/kernel-11.0.4/ebin/error_logger.beam" =>
+                  [{adding_handler,1},
+                   {removing_handler,1},
+                   {report_to_format,1}],
+              "lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{cleanup_recv_reply,4},
+                   {counter_value,3},
+                   {handle_info,4},
+                   {handle_recv_start,5},
+                   {recv_data_deliver,4},
+                   {socket_open,4},
+                   {wrap_counter,2}]},
+        {{test,is_map},move} =>
+            #{"lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{address,1},{handle_recv_error,4}]},
+        {{test,is_nil},get_tuple_element} =>
+            #{"lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{open_lookup,2}]},
+        {{test,is_nonempty_list},allocate} =>
+            #{"lib/erts-17.1/ebin/prim_file.beam" => [{build_fd_data,5}],
+              "lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{ctrl2ancdata,2},
+                   {deliver_data_mode_bin,1},
+                   {setopts_split,4},
+                   {state_getopts,5},
+                   {state_setopts,4}]},
+        {{test,is_nonempty_list},move} =>
+            #{"lib/erts-17.1/ebin/prim_file.beam" => [{get_cwd,1}]},
+        {{test,is_nonempty_list},{test,is_nil}} =>
+            #{"lib/edoc-1.5/ebin/edoc_cli.beam" => [{parse_args,2}],
+              "lib/erts-17.1/ebin/prim_file.beam" => [{pread_list,3}],
+              "lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{deliver_data_mode_bin,2}]},
+        {{test,is_pid},allocate} =>
+            #{"lib/kernel-11.0.4/ebin/erl_erts_errors.beam" =>
+                  [{must_be_local_pid,2}]},
+        {{test,is_port},allocate} =>
+            #{"lib/kernel-11.0.4/ebin/erl_erts_errors.beam" =>
+                  [{must_be_local_port,2}]},
+        {{test,is_tagged_tuple},allocate} =>
+            #{"lib/erts-17.1/ebin/prim_file.beam" =>
+                  [{adjust_times,2},{write_file_info_1,3}],
+              "lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{cleanup_recv,4},
+                   {handle_closed,4},
+                   {handle_recv,4},
+                   {handle_shutdown,3},
+                   {monitor,1},
+                   {send,2},
+                   {socket_to_list,1}]},
+        {{test,is_tagged_tuple},get_tuple_element} =>
+            #{"lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{handle_unexpected,4}]},
+        {{test,is_tagged_tuple},move} =>
+            #{"lib/erts-17.1/ebin/prim_file.beam" => [{helper_loop,0}],
+              "lib/kernel-11.0.4/ebin/gen_udp_socket.beam" => [{terminate,3}]},
+        {{test,is_tagged_tuple},{test,is_tuple}} =>
+            #{"lib/erts-17.1/ebin/prim_file.beam" => [{proplist_get_value,3}]},
+        {{test,is_tuple},allocate} =>
+            #{"lib/erts-17.1/ebin/prim_file.beam" =>
+                  [{position,2},{to_posix_seconds,2}],
+              "lib/kernel-11.0.4/ebin/erl_erts_errors.beam" =>
+                  [{format_bs_fail,2},{format_error,2}],
+              "lib/kernel-11.0.4/ebin/error_logger.beam" => [{do_log,3}],
+              "lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{deliver_data,2},
+                   {handle_event,4},
+                   {handle_reading,4},
+                   {make_cmsghdr,1},
+                   {send,4},
+                   {send,5},
+                   {socket_getopt,2}]},
+        {{test,is_tuple},allocate_heap} =>
+            #{"lib/kernel-11.0.4/ebin/gen_udp_socket.beam" => [{send,3}]},
+        {{test,is_tuple},move} =>
+            #{"lib/erts-17.1/ebin/prim_file.beam" => [{throw_on_error,1}],
+              "lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{getopt_categories,1},{setopt_categories,1}]},
+        {{test,is_tuple},{test,is_eq_exact}} =>
+            #{"lib/erts-17.1/ebin/prim_file.beam" => [{read_line_1,4}],
+              "lib/kernel-11.0.4/ebin/erl_erts_errors.beam" =>
+                  [{expand_error,1}],
+              "lib/kernel-11.0.4/ebin/gen_udp_socket.beam" => [{ok,2}]},
+        {{test,is_tuple},{test,is_nil}} =>
+            #{"lib/kernel-11.0.4/ebin/erl_erts_errors.beam" =>
+                  [{format_error_map,3}]},
+        {{test,is_tuple},{test,is_tagged_tuple}} =>
+            #{"lib/erts-17.1/ebin/prim_file.beam" => [{write_1,2}],
+              "lib/kernel-11.0.4/ebin/error_logger.beam" => [{logfile,1}],
+              "lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{default_active_true,1}]},
+        {{test,test_arity},{test,is_tuple}} =>
+            #{"lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{socket_setopt_opts,4}]},
+        {move,init_yregs,different_allocation} =>
+            #{"lib/erts-17.1/ebin/prim_file.beam" =>
+                  [{advise,4},
+                   {allocate,3},
+                   {file_desc_to_ref,2},
+                   {list_dir_1,2},
+                   {open,2},
+                   {pread,2},
+                   {pread,3},
+                   {pwrite_plain,3},
+                   {read_1,5},
+                   {read_link_1,2},
+                   {set_cwd,1}],
+              "lib/kernel-11.0.4/ebin/erl_erts_errors.beam" =>
+                  [{check_md5_context,1},
+                   {maybe_option_list_error,2},
+                   {maybe_posix_message,2},
+                   {must_be_node_fun,2}],
+              "lib/kernel-11.0.4/ebin/error_logger.beam" =>
+                  [{delete_report_handler,1},
+                   {error_info,1},
+                   {get_format_depth,0}],
+              "lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{controlling_process,3}]},
+        {move,init_yregs,other_context} =>
+            #{"lib/kernel-11.0.4/ebin/gen_udp_socket.beam" =>
+                  [{getstat_avg,4}]}},
+  same_opcode_sequences => 0,unreadable => []}.

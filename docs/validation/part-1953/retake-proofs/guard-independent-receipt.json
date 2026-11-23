@@ -1,0 +1,35 @@
+{
+  "part": 1989,
+  "diagnosis": "Part 1977 test assumed guarded clauses cannot share an arity dispatch. Pinned OTP and the Part 1984 compiler both share it and test the integer guard in the write arm before allocation. The integer guard failure label is the cold function_clause entry in both inspected disassemblies.",
+  "scope": "One existing test changes only. Production and fixture Erlang source unchanged.",
+  "pinnedOtp": "OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "dependency": "Part 1984 on immutable Part 1952 fallback entry planner, part1952-combined compiler payload.",
+  "dependencyCompilerSha256": "f0522d88111cefd47469ee86aca9133bb633776f33f5afb17f346c813a578a7c",
+  "oldTestSha256": "7fc13eb0ab8af307b879988fabf9ffc4ec30185b2b6aa10a5f6b6d47de1e2e15",
+  "testPatchSha256": "973115ca9046008c8a857cd3c8db64714848c822812e79e107561919fc3945a9",
+  "strictReplay": "git apply --no-index --whitespace=error --check and replay passed",
+  "repairedTestSha256": "cc380cf70995980ea71acb832740d1254ae1c5fde63a2ba959f4434e2e42cfe4",
+  "sourceLayout": "Clean",
+  "redExit": -532462766,
+  "redLog": "red.log",
+  "greenExit": 0,
+  "greenBuildLog": "green-build.log",
+  "oldFixtureCodeSha256": "8ad2270f550bae1a179bd5901f6f5a98de4de95d5bfb1a394178c93ba673e866",
+  "repairedFixtureCodeSha256": "8ad2270f550bae1a179bd5901f6f5a98de4de95d5bfb1a394178c93ba673e866",
+  "pinnedDisassembly": "guarded-pinned.terms",
+  "candidateDisassembly": "guarded-candidate.terms",
+  "nativeComparedCases": 10,
+  "nativePinnedSha256": "6131ac59e02da3843aee9474f478cb5f44c0ddfde95624d6e30b91c5be40dac3",
+  "nativeCandidateSha256": "6131ac59e02da3843aee9474f478cb5f44c0ddfde95624d6e30b91c5be40dac3",
+  "nativeExit": {
+    "pinned": 0,
+    "candidate": 0
+  },
+  "nativeStackNormalization": "Only first error frame file path basename was canonicalized. Return values, first frame MFA, argument list, line, effect order and effect arguments were compared unchanged.",
+  "priorRawExCursorEvidence": {
+    "part": 1984,
+    "receipt": "shared-nested-record-entry-plan-1984/receipt.json",
+    "rawSha256": "714c854a2c33e458fb68763759ce40ae8cfcf3f1f3b122c16466f955fa514c96",
+    "currentStatus": "Inherited; no code or fixture source changed and no redundant full BEAM scope was run."
+  }
+}

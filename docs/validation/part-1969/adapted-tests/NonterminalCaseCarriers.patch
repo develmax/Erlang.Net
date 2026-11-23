@@ -1,0 +1,62 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamNonterminalCaseCarrierChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamNonterminalCaseCarrierChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamNonterminalCaseCarrierChecks.cs
+@@ -0,0 +1,57 @@
++using System.Collections;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamNonterminalCaseCarrierChecks
++{
++    internal const string TestName = "compiler/beam/reuses-tagged-case-carrier-in-nested-results";
++    private const string Fixture = "case_carrier_otp_probe.erl";
++    private const string WrongConstructors = "A nested result rebuilt a selected tuple or lost a distinct error constructor.";
++
++    internal const string Source = """
++        -module(case_carrier_otp_probe).
++        -export([run/2, get_input/2, step/2, record/1]).
++        run(Route, Value) ->
++            Result =
++                case ?MODULE:get_input(Route, Value) of
++                    {ok, Field} ->
++                        case ?MODULE:step(Route, Field) of
++                            first -> {ok, Field};
++                            {second, _} -> {ok, Field};
++                            Third -> {failed, Third}
++                        end;
++                    Other -> Other
++                end,
++            ?MODULE:record(Result),
++            Result.
++        get_input(rejected, Value) -> {rejected, Value};
++        get_input(_, Value) -> {ok, Value}.
++        step(first, _) -> first;
++        step(second, V) -> {second, V};
++        step(exception, V) -> erlang:error({step_failed,V});
++        step(_, V) -> {failed_step, V}.
++        record(Result) -> self() ! {recorded, Result}.
++        """;
++
++    internal static Task Run()
++    {
++        object code = Code(CodeGeneration.CompileBeamModule(Source, Fixture));
++        byte[] opcodes = ((IEnumerable)Property(code, "Instructions")).Cast<object>()
++            .Select(instruction => (byte)Property(Property(instruction, "Definition"), "Opcode"))
++            .ToArray();
++        int first = Array.IndexOf(opcodes, FunctionInfo);
++        int end = Array.IndexOf(opcodes, FunctionInfo, first + 1);
++        byte[] result = opcodes[first..end];
++        if (result.Count(opcode => opcode == PutTuple) != 1
++            || !result.Contains(IsTaggedTuple)
++            || result.Count(opcode => opcode == ExternalCall) < 3)
++        {
++            throw new InvalidOperationException(WrongConstructors);
++        }
++
++        return Task.CompletedTask;
++    }
++}

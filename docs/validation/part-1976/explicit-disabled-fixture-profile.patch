@@ -1,0 +1,30 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamAtomGuardAlternativesChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamAtomGuardAlternativesChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamAtomGuardAlternativesChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamAtomGuardAlternativesChecks.cs
+@@ -33,9 +33,9 @@
+     internal static async Task Run()
+     {
+         byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
+-        byte[] disabled = CodeGeneration.CompileBeamModule(
++        byte[] disabled = BeamAdjacentNumericResultChecks.Compile(
+             Source.Replace("%% options", "-compile(no_ssa_opt).", StringComparison.Ordinal),
+-            Fixture
++            disabled: true
+         );
+         byte[] compound = CodeGeneration.CompileBeamModule(
+             Source.Replace(
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamTaggedStateEntryChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamTaggedStateEntryChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamTaggedStateEntryChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamTaggedStateEntryChecks.cs
+@@ -35,9 +35,9 @@
+     internal static async Task Run()
+     {
+         byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
+-        byte[] disabled = CodeGeneration.CompileBeamModule(
++        byte[] disabled = BeamAdjacentNumericResultChecks.Compile(
+             Source.Replace("%% options", "-compile(no_ssa_opt).", StringComparison.Ordinal),
+-            Fixture
++            disabled: true
+         );
+         byte[] overlapping = CodeGeneration.CompileBeamModule(
+             Source.Replace("{wait, client}", "{read, client}", StringComparison.Ordinal),

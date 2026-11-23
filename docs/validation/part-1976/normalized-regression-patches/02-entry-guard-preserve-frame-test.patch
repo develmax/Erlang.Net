@@ -1,0 +1,121 @@
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamAtomGuardAlternativesChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamAtomGuardAlternativesChecks.cs
+@@ -11,6 +11,51 @@
+     internal const string TestName = "compiler/beam/dispatches-atom-only-guard-alternatives";
+     private const string Fixture = "beam_guard_atom_alternatives.erl";
+     private const string Entry = "dispatch";
++    private const string EntryFixture = "frame_distance_guard_probe.erl";
++    private const string WrongEntryFrame = "A projected entry guard must keep its X selector and existing frame width.";
++    // Adapted from OTP 29.1.1 crashdump_viewer and ets. Copyright Ericsson AB 1996–2026. Apache-2.0.
++    private const string EntrySource = """
++        -module(frame_distance_guard_probe).
++        -export([run_find/1, verify_count/1]).
++
++        run_find(Entry) -> find(Entry).
++
++        find({Tag,_Id}) when Tag==atoms;
++                             Tag==binary;
++                             Tag==instr_data;
++                             Tag==memory_status;
++                             Tag==memory_map ->
++            put(truncated_proc,false);
++        find({Tag,Pid}) ->
++            case is_proc_tag(Tag) of
++                true -> put(truncated_proc,Pid);
++                false -> put(truncated_proc,"<0.0.0>")
++            end.
++
++        is_proc_tag(Tag) when Tag==proc;
++                              Tag==proc_dictionary;
++                              Tag==proc_messages;
++                              Tag==proc_stack;
++                              Tag==proc_heap -> true;
++        is_proc_tag(_) -> false.
++
++        count([]) ->
++            0;
++        count([{Tag,_}|T]) when Tag =:= name;
++                               Tag =:= type;
++                               Tag =:= protection;
++                               Tag =:= named_table;
++                               Tag =:= keypos;
++                               Tag =:= size ->
++            1+count(T);
++        count([_|T]) ->
++            count(T).
++
++        verify_count(L) ->
++            count(L) =:= 6.
++
++        """;
++
+     private const int IfLine = 6;
+     private const string WrongLayout = "Atom guard alternatives did not retain their selector, common destination and failure edge.";
+     private const string WrongResult = "Guard selection changed an alternative, its fallback, or the if failure location.";
+@@ -32,6 +77,12 @@
+ 
+     internal static async Task Run()
+     {
++        byte[] entry = CodeGeneration.CompileBeamModule(EntrySource, EntryFixture);
++        if (!HasEntryProjectionSelection(entry, "find", 1) || !HasEntryProjectionSelection(entry, "count", 2))
++        {
++            throw new InvalidOperationException(WrongEntryFrame);
++        }
++
+         byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
+         byte[] disabled = BeamAdjacentNumericResultChecks.Compile(
+             Source.Replace("%% options", "-compile(no_ssa_opt).", StringComparison.Ordinal),
+@@ -151,6 +202,53 @@
+         });
+     }
+ 
++    private static bool HasEntryProjectionSelection(byte[] image, string function, int width)
++    {
++        object code = Code(image);
++        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        bool inFunction = false;
++        bool foundFrame = false;
++        bool foundSelector = false;
++        foreach (object instruction in Items(code, "Instructions"))
++        {
++            byte opcode = Opcode(instruction);
++            if (opcode == FunctionInfo)
++            {
++                if (inFunction)
++                {
++                    break;
++                }
++
++                var metadata = Items(instruction, "Operands");
++                inFunction = atoms[Value(metadata[1])] == function && Value(metadata[2]) == 1;
++                continue;
++            }
++
++            if (!inFunction)
++            {
++                continue;
++            }
++
++            if (opcode is Allocate or AllocateHeap)
++            {
++                if (foundFrame || Value(Items(instruction, "Operands")[0]) != width)
++                {
++                    return false;
++                }
++
++                foundFrame = true;
++            }
++
++            if (opcode == SelectValue)
++            {
++                var selector = Items(instruction, "Operands")[0];
++                foundSelector = Equals(Property(selector, "Kind"), "x");
++            }
++        }
++
++        return foundFrame && foundSelector;
++    }
++
+     private static bool HasMembershipTable(byte[] image)
+     {
+         object code = Code(image);

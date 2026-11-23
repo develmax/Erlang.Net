@@ -1,5 +1,8 @@
+using System.Collections;
+using System.Numerics;
 using System.Text;
 using Erlang.Compiler;
+using static Erlang.Tests.BeamBinaryHostAccess;
 
 namespace Erlang.Tests;
 
@@ -8,13 +11,29 @@ internal static class BeamModuleEmissionChecks
     internal const string TestName = "compiler/beam/whole-module-matches-otp";
     internal const string CallResultBifTestName = "compiler/beam/call-result-bif-keeps-register";
     internal const string EntryResultCaseTestName = "compiler/beam/call-result-case-keeps-register";
+    internal const string IntegerGuardTypeTest = "compiler/beam/guard-comparison-keeps-proven-integer-type";
+    internal const string SelectArithmeticFrameTest = "compiler/beam/select-arithmetic-precedes-branch-frame";
+    internal const string ProperListSelectorTypeTest = "compiler/beam/list-result-keeps-proper-list-type";
+    internal const string ProperListTailTypeTest = "compiler/beam/proper-list-proof-follows-only-tail";
+    internal const string SizeResultTypeTest = "compiler/beam/size-bif-result-keeps-otp-range";
+    internal const string SplitTaggedCaseTest = "compiler/beam/tagged-tuple-test-preserves-atom-fallback";
+    internal const string IntegerLiteralBoundsTest = "compiler/beam/signed-integer-literal-boundaries-match-otp";
+    internal const string PairLengthBoundsTest = "compiler/beam/accumulated-pair-lengths-preserve-minimum";
+    internal const string IntegerConversionResultTypeTest = "compiler/beam/integer-conversion-result-keeps-unbounded-type";
+    internal const string NonnegativeCallResultTypeTest = "compiler/beam/nonnegative-call-result-keeps-otp-range";
+    internal const string IndependentAtomTailTestName = "compiler/beam/independent-atom-tails-use-otp-body-order";
     internal const string AtomTailDispatchTestName = "compiler/beam/atom-case-emits-local-tails";
+    internal const string ClosedAtomIdentityTestName = "compiler/beam/closed-atom-dispatch-preserves-alias";
+    internal const string SiblingLeafRegistersTestName = "compiler/beam/sibling-leaf-reuses-dead-register";
     private const string ResourcePrefix = "Erlang.Tests.Resources.Beam.";
     private const string Mismatch = "Generated module differs from OTP: ";
     private const string AcceptedUnsupported = "The BEAM compiler accepted a module attribute outside its supported profile.";
     private const string IncludeFixture = "beam_include_probe";
     private const string OuterHeader = "beam_probe_outer.hrl";
     private const string InnerHeader = "beam_probe_inner.hrl";
+    private const string CombinedAllocationMismatch = "Expected the one live-across-call frame slot and four heap words to be allocated together.";
+    private const string TerminalFrameMismatch = "Expected both terminal constructions to release their single live-across-call frame slot.";
+    private const string TerminalCallMismatch = "Expected the final external call to release the zero-slot frame and return.";
 
     internal static async Task Run()
     {
@@ -66,6 +85,7 @@ internal static class BeamModuleEmissionChecks
             "beam_split_continuation",
             "beam_case_tuple_sequence_probe",
             "beam_case_constructor_spill_probe",
+            "beam_shared_tag_payload",
             "beam_tuple_arity_fallback_probe",
             "beam_call_sequence_case_probe",
             "beam_computed_tail_probe",
@@ -358,6 +378,14 @@ internal static class BeamModuleEmissionChecks
         CompareCombinedLeafTail();
         CompareLeafTupleHeapRoots();
         CompareLeafListTupleOrder();
+        CompareLeafArithmeticRoots();
+        CompareHeapBeforeListProjection();
+        BeamTaggedPayloadFrameChecks.Check();
+        BeamNestedCallResultCleanupChecks.Check();
+        BeamTupleEntryListCallChecks.Check();
+        CompareLeadingAtomTailDispatch();
+        CompareConstructedAtomFallback();
+        BeamNestedRecordBranchChecks.Check();
         CompareClosedAtomDispatchWithMixedResults();
         CompareStackSlotsAcrossMapAndBinaryOperations();
         CompareStackSlotsAcrossBitMatches();
@@ -369,8 +397,16 @@ internal static class BeamModuleEmissionChecks
         CompareClosureResultStores();
         CompareGuardedLinearStackSlots();
         CompareProvenLocalRecordChecks();
+        await BeamTransitiveRecordProofChecks.Run();
+        await BeamTaggedAppendApplyChecks.Run();
+        await BeamCallConstructorChecks.Run();
+        await BeamSeparatedTailBranchChecks.Run();
+        BeamDisjointFrameReuseChecks.Run();
         CompareStackReuseAcrossCalls();
         CompareRepeatedCallFrameTrims();
+        BeamClosureFreeSpillChecks.Run();
+        BeamArgumentKillOrderChecks.Run();
+        BeamTransientFrameChecks.Run();
         CompareRecursiveListComprehensionHelpers();
         CompareRecursiveTupleComprehensionHelpers();
         CompareCallListGeneratorHelpers();
@@ -384,14 +420,22 @@ internal static class BeamModuleEmissionChecks
         CompareDeferredProjectionSlotReuse();
         CompareInitialFrameTrim();
         CompareDirectCallProjections();
+        await CompareForwardedRecordList();
         CompareBifResultStores();
         CompareEntryBifPlacement();
+        await BeamAdjacentBifResultChecks.Run();
         CompareBifPredicateFrame();
         CompareGuardedFramePrefix();
         CompareTaggedEntryBeforeBranchFrames();
         CompareListEntryBeforeBranchFrames();
         CompareTupleEntryBeforeBranchFrames();
+        BeamEntryExternalTailChecks.Run();
         CompareTerminalCallFolding();
+        await BeamCallResultConstructionChecks.Run();
+        await BeamMatchedCallProjectionChecks.Run();
+        await BeamSafeCallLocationChecks.Run();
+        await BeamMapCallContinuationChecks.Run();
+        await BeamTerminalTaggedProjectionChecks.Run();
         CompareSharedReturnCallFolding();
         CompareUnreachableReturnRemoval();
         CompareUnusedFallthroughLabelRemoval();
@@ -406,6 +450,7 @@ internal static class BeamModuleEmissionChecks
         await CompareEntryAtomSuffix();
         await CompareLiveListBranch();
         await CompareNestedEntryCalls();
+        BeamNestedCallMoveOrderChecks.Run();
         await CompareNestedInlineListCheck();
         await CompareGuardedBifTail();
         await CompareBuildMacroDefinitions();
@@ -433,6 +478,7 @@ internal static class BeamModuleEmissionChecks
         await CompareForwardedCatch();
         await CompareGuardedEntryCallChain();
         await CompareConstantReturningCallChain();
+        BeamUnusedTupleBindingChecks.Run();
         await CompareSavedCheckedPayload();
         await CompareTrimmedCheckedPayload();
         await CompareGeneralRecordGuard();
@@ -515,7 +561,6 @@ internal static class BeamModuleEmissionChecks
         await CompareTupleClosureInvocation();
         await CompareMultipleTupleClosures();
         await CompareInlineListReduction();
-        await BeamGeneralTryEmissionChecks.Check();
     }
 
     private static void RejectInvalidOnLoadDeclarations()
@@ -567,10 +612,10 @@ internal static class BeamModuleEmissionChecks
             """;
         byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_stack_heap_allocation.erl");
         byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
-        ReadOnlySpan<byte> allocation = [BeamEmissionFormat.AllocateHeap, 0x20, 0x40, 0x20, BeamEmissionFormat.Move];
+        ReadOnlySpan<byte> allocation = [BeamEmissionFormat.AllocateHeap, 0x10, 0x40, 0x20, BeamEmissionFormat.Move];
         if (code.AsSpan().IndexOf(allocation) < 0)
         {
-            throw new InvalidOperationException("Expected the two used frame slots and four heap words to be allocated together.");
+            throw new InvalidOperationException(CombinedAllocationMismatch);
         }
     }
 
@@ -599,10 +644,11 @@ internal static class BeamModuleEmissionChecks
             0x03
         ];
         ReadOnlySpan<byte> list = [BeamEmissionFormat.TestHeap, 0x20, 0x10, BeamEmissionFormat.PutList, 0x03];
-        ReadOnlySpan<byte> returnFrame = [BeamEmissionFormat.Deallocate, 0x20, BeamEmissionFormat.Return];
-        if (code.AsSpan().IndexOf(returnFrame) < 0)
+        ReadOnlySpan<byte> returnFrame = [BeamEmissionFormat.Deallocate, 0x10, BeamEmissionFormat.Return];
+        int firstReturn = code.AsSpan().IndexOf(returnFrame);
+        if (firstReturn < 0 || code.AsSpan(firstReturn + returnFrame.Length).IndexOf(returnFrame) < 0)
         {
-            throw new InvalidOperationException("Expected the terminal construction to release only the two used frame slots.");
+            throw new InvalidOperationException(TerminalFrameMismatch);
         }
         if (code.AsSpan().IndexOf(tuple) < 0 || code.AsSpan().IndexOf(list) < 0)
         {
@@ -728,7 +774,7 @@ internal static class BeamModuleEmissionChecks
         byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
         ReadOnlySpan<byte> tupleFromArguments =
         [
-            BeamEmissionFormat.PutTuple, 0x03, BeamEmissionFormat.ExtendedListOperand, 0x20, 0x03, 0x13
+            BeamEmissionFormat.PutTuple, 0x13, BeamEmissionFormat.ExtendedListOperand, 0x20, 0x03, 0x13
         ];
         ReadOnlySpan<byte> branchWithInitializedSlot =
         [
@@ -763,11 +809,16 @@ internal static class BeamModuleEmissionChecks
             """;
         byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_frameless_stack_failure.erl");
         byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
-        ReadOnlySpan<byte> reducedFrame = [BeamEmissionFormat.Allocate, 0x30, 0x20];
-        ReadOnlySpan<byte> largerFrame = [BeamEmissionFormat.Allocate, 0x40, 0x20];
+        ReadOnlySpan<byte> reducedFrame = [BeamEmissionFormat.Allocate, 0x20, 0x20];
+        ReadOnlySpan<byte> largerFrame = [BeamEmissionFormat.Allocate, 0x30, 0x20];
+        ReadOnlySpan<byte> releasedFrame = [BeamEmissionFormat.Deallocate, 0x20, BeamEmissionFormat.Return];
         ReadOnlySpan<byte> unframedFailure = [BeamEmissionFormat.BadMatch, 0x03];
-        if (code.AsSpan().IndexOf(reducedFrame) < 0 || code.AsSpan().IndexOf(largerFrame) >= 0
-            || code.AsSpan().IndexOf(unframedFailure) < 0)
+        int check = code.AsSpan().IndexOf((byte)BeamEmissionFormat.IsTuple);
+        int frame = code.AsSpan().IndexOf(reducedFrame);
+        int released = code.AsSpan().IndexOf(releasedFrame);
+        int failure = code.AsSpan().IndexOf(unframedFailure);
+        if (check < 0 || check >= frame || frame >= released || released >= failure
+            || code.AsSpan().IndexOf(largerFrame) >= 0)
         {
             throw new InvalidOperationException(
                 "Expected slot reuse after the tuple test and a badmatch exit without a frame."
@@ -986,6 +1037,154 @@ internal static class BeamModuleEmissionChecks
         }
 
         _ = BeamModule.Prepare(bytes);
+    }
+
+    private static void CompareLeafArithmeticRoots()
+    {
+        const string source = """
+            -module(beam_leaf_gc_bif).
+            -export([adjust/2, guarded/2]).
+            -record(state, {count, flag}).
+            adjust(#state{count = N, flag = Flag}, Delta) -> {N + Delta, Flag}.
+            guarded({tag, N}, Default) when N + 1 > 1 -> {enabled, Default};
+            guarded(_, Default) -> {disabled, Default}.
+            """;
+        byte[] bytes = CodeGeneration.CompileBeamModule(source, "beam_leaf_gc_bif.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(bytes).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> arithmeticRoots = [BeamEmissionFormat.GcBifTwo, 0x05, 0x40];
+        ReadOnlySpan<byte> oldFrame = [BeamEmissionFormat.Allocate, 0x30, 0x20];
+        ReadOnlySpan<byte> guardFrame = [BeamEmissionFormat.Allocate, 0x20, 0x20];
+        ReadOnlySpan<byte> guardRoots = [BeamEmissionFormat.GcBifTwo, 0x55, 0x20];
+        if (code.AsSpan().IndexOf(arithmeticRoots) < 0
+            || code.AsSpan().IndexOf(oldFrame) >= 0
+            || code.AsSpan().IndexOf(guardFrame) >= 0
+            || code.AsSpan().IndexOf(guardRoots) < 0)
+        {
+            throw new InvalidOperationException(BeamLeafFrameDiagnostics.ArithmeticRoots);
+        }
+
+        _ = BeamModule.Prepare(bytes);
+    }
+
+    private static void CompareHeapBeforeListProjection()
+    {
+        const string source = """
+            -module(beam_list_projection_heap).
+            -export([pick/1]).
+            pick([First|_]) -> {ok,First};
+            pick([]) -> false.
+            """;
+        byte[] bytes = CodeGeneration.CompileBeamModule(source, "beam_list_projection_heap.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(bytes).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> reservationAndProjection = [
+            BeamEmissionFormat.TestHeap, 0x30, 0x10,
+            BeamEmissionFormat.GetHead, 0x03, 0x03
+        ];
+        if (code.AsSpan().IndexOf(reservationAndProjection) < 0)
+        {
+            throw new InvalidOperationException(BeamLeafFrameDiagnostics.HeapBeforeListProjection);
+        }
+
+        _ = BeamModule.Prepare(bytes);
+    }
+
+    private static void CompareLeadingAtomTailDispatch()
+    {
+        const string source = """
+            -module(beam_leading_atom_tail).
+            -export([run/3, closed/3]).
+            run(A, automatic, R) -> keep(A, R);
+            run(A, reverse, _) -> lists:reverse(A);
+            run(_, _, {record, V}) -> V.
+            closed(A, left, R) -> keep(A, R);
+            closed(A, right, R) -> wrap(A, R);
+            closed(A, both, R) -> wrap(keep(A, R), R).
+            keep(A, R) -> {A, R}.
+            wrap(A, R) -> {wrapped, A, R}.
+            """;
+        string[] lines = source.Split('\n');
+        (lines[2], lines[3]) = (lines[3], lines[2]);
+        foreach (string text in new[] { source, string.Join('\n', lines) })
+        {
+            byte[] bytes = CodeGeneration.CompileBeamModule(text, "beam_leading_atom_tail.erl");
+            byte[] code = BeamDocumentationEmissionChecks.Chunks(bytes).Single(chunk => chunk.Id == "Code").Data;
+            ReadOnlySpan<byte> selector = [BeamEmissionFormat.SelectValue, 0x13];
+            int leading = code.AsSpan().IndexOf(selector);
+            if (leading < 0 || code[leading + 3] != BeamEmissionFormat.ExtendedListOperand || code[leading + 4] != 0x40)
+            {
+                throw new InvalidOperationException(BeamClosedAtomDispatchDiagnostics.LeadingTailBranches);
+            }
+
+            int closed = code.AsSpan(leading + selector.Length).IndexOf(selector);
+            closed = closed < 0 ? -1 : closed + leading + selector.Length;
+            ReadOnlySpan<byte> nestedCallFrame = [BeamEmissionFormat.Allocate, 0x10, 0x30];
+            if (closed < 0 || code[closed + 3] != BeamEmissionFormat.ExtendedListOperand || code[closed + 4] != 0x60
+                || code.AsSpan(closed).IndexOf(nestedCallFrame) < 0)
+            {
+                throw new InvalidOperationException(BeamClosedAtomDispatchDiagnostics.CompleteTailSelector);
+            }
+
+            ReadOnlySpan<byte> arms = code.AsSpan(leading, closed - leading);
+            ReadOnlySpan<byte> localCall = [BeamEmissionFormat.TailLocalCall, 0x20];
+            ReadOnlySpan<byte> externalCall = [BeamEmissionFormat.TailExternalCall, 0x10];
+            int localTail = arms.IndexOf(localCall);
+            int externalTail = arms.IndexOf(externalCall);
+            if (externalTail < 0 || localTail <= externalTail)
+            {
+                throw new InvalidOperationException(BeamClosedAtomDispatchDiagnostics.LeadingTailBodyOrder);
+            }
+
+            _ = BeamModule.Prepare(bytes);
+        }
+    }
+
+    internal static Task CompareAtomTailBodyOrderWithDynamicFallback()
+    {
+        const string source = """
+            -module(beam_atom_dynamic_fallback).
+            -export([run/3]).
+            run(a, X, Y) -> lists:append(X, Y);
+            run(z, X, _) -> lists:reverse(X);
+            run(M, X, Y) -> M:join(X, Y).
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_atom_dynamic_fallback.erl");
+        ReadOnlySpan<byte> code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> unaryCall = [BeamEmissionFormat.TailExternalCall, 0x10];
+        ReadOnlySpan<byte> binaryCall = [BeamEmissionFormat.TailExternalCall, 0x20];
+        ReadOnlySpan<byte> dynamicCall = [BeamEmissionFormat.TailDynamicApply, 0x20];
+        int unary = code.IndexOf(unaryCall);
+        int binary = code.IndexOf(binaryCall);
+        int fallback = code.IndexOf(dynamicCall);
+        if (unary < 0 || binary <= unary || fallback <= binary)
+        {
+            throw new InvalidOperationException(BeamClosedAtomDispatchDiagnostics.LeadingTailBodyOrder);
+        }
+
+        _ = BeamModule.Prepare(beam);
+
+        return Task.CompletedTask;
+    }
+
+    private static void CompareConstructedAtomFallback()
+    {
+        const string source = """
+            -module(beam_atom_constructed_fallback).
+            -export([run/3]).
+            run(Name, Port, b) -> run(Name, Port, second);
+            run(Name, Port, a) -> run(Name, Port, first);
+            run(Name, Port, Family) -> dep:observe(target, {register, Name, Port, Family}, infinity).
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_atom_constructed_fallback.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> tupleInSecondArgument =
+        [
+            BeamEmissionFormat.TestHeap, 0x50, 0x30,
+            BeamEmissionFormat.PutTuple, 0x13
+        ];
+        if (code.AsSpan().IndexOf(tupleInSecondArgument) < 0)
+        {
+            throw new InvalidOperationException(BeamClosedAtomDispatchDiagnostics.ConstructedFallbackRegister);
+        }
     }
 
     private static void CompareClosedAtomDispatchWithMixedResults()
@@ -1362,6 +1561,346 @@ internal static class BeamModuleEmissionChecks
         {
             throw new InvalidOperationException("Expected the entry argument to move before the literal and the tuple slot to be reused.");
         }
+    }
+
+    internal static Task CompareIntegerGuardType()
+    {
+        CompareFixture("beam_integer_guard_type");
+
+        return Task.CompletedTask;
+    }
+
+    internal static Task CompareProperListSelectorType()
+    {
+        CompareFixture("beam_proper_list_selector");
+
+        return Task.CompletedTask;
+    }
+
+    internal static Task CompareProperListTailType()
+    {
+        const string fixture = "beam_proper_list_tail.erl";
+        byte[] image = CodeGeneration.CompileBeamModule(Encoding.UTF8.GetString(Read(fixture)), fixture);
+        var chunks = BeamDocumentationEmissionChecks.Chunks(image);
+        byte[] code = chunks.Single(chunk => chunk.Id == "Code").Data;
+        byte[] types = chunks.Single(chunk => chunk.Id == "Type").Data;
+        var typed = new List<bool>();
+        for (int index = 0; index + 3 < code.Length; index++)
+        {
+            if (code[index] == BeamEmissionFormat.IsNil && (code[index + 1] & 7) == BeamEmissionFormat.LabelTag)
+            {
+                int register = index + ((code[index + 1] & 8) == 0 ? 2 : 3);
+                typed.Add(code[register] == BeamEmissionFormat.ExtendedTypedRegisterOperand);
+            }
+        }
+
+        ReadOnlySpan<byte> expectedTypes = [0, 0, 0, 4, 0, 0, 0, 2, 0x1f, 0xff, 0x00, 0x84];
+        bool[] expected = [true, true, false, false, false, true, true, true, false, false, true, true, true, false, false];
+        if (!typed.SequenceEqual(expected)
+            || !types.AsSpan().SequenceEqual(expectedTypes))
+        {
+            throw new InvalidOperationException("Expected proper list annotations on the proven tails only.");
+        }
+
+        return Task.CompletedTask;
+    }
+
+    internal static Task CompareSizeResultType()
+    {
+        const string fixture = "beam_size_result_probe.erl";
+        string source = Encoding.UTF8.GetString(Read(fixture));
+        var chunks = Compile(source, fixture);
+        byte[] code = chunks.Single(chunk => chunk.Id == "Code").Data;
+        byte[] types = chunks.Single(chunk => chunk.Id == "Type").Data;
+        ReadOnlySpan<byte> marker = [BeamEmissionFormat.ExtendedTypedRegisterOperand, 0x03, 0x10];
+        int uses = 0;
+        for (int index = 0; index <= code.Length - marker.Length; index++)
+        {
+            if (code.AsSpan(index).StartsWith(marker))
+            {
+                uses++;
+            }
+        }
+
+        ReadOnlySpan<byte> expected =
+        [
+            0, 0, 0, 4, 0, 0, 0, 2, 0x1f, 0xff, 0x60, 0x20,
+            0, 0, 0, 0, 0, 0, 0, 0, 0x03, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
+        ];
+        ReadOnlySpan<byte> anyOnly = [0, 0, 0, 4, 0, 0, 0, 1, 0x1f, 0xff];
+        const string shadowed = "beam_size_result_shadow.erl";
+        const string knownCons = "beam_size_result_cons.erl";
+        if (uses != 3 || !types.AsSpan().SequenceEqual(expected)
+            || !CompileWithoutSsa(source).AsSpan().SequenceEqual(anyOnly)
+            || !Compile(Encoding.UTF8.GetString(Read(shadowed)), shadowed).Single(chunk => chunk.Id == "Type").Data.AsSpan().SequenceEqual(anyOnly)
+            || !Compile(Encoding.UTF8.GetString(Read(knownCons)), knownCons).Single(chunk => chunk.Id == "Type").Data.AsSpan().SequenceEqual(anyOnly))
+        {
+            throw new InvalidOperationException(BeamSizeResultTypeDiagnostics.ExpectedProvenRange);
+        }
+
+        return Task.CompletedTask;
+
+        static byte[] CompileWithoutSsa(string source)
+        {
+            var module = new Parser(source.Insert(source.IndexOf('\n') + 1, "-compile(no_ssa_opt).\n")).ParseModule();
+            var lines = Enumerable.Range(3, module.DeclaredFunctions.Count).Select(line => new BeamSourceLocation(null, line)).ToArray();
+            // The public source mapper separately rejects this option. Test the emitter's proof gate directly.
+            byte[] beam = new BeamModuleCompiler(module.Name, sourceModule: module).Emit(
+                module.DeclaredFunctions,
+                lines,
+                module.DeclaredExports.ToHashSet(),
+                new BeamModuleMetadata(module.Attributes, null)
+            );
+
+            return BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Type").Data;
+        }
+
+        static List<(string Id, byte[] Data)> Compile(string source, string name) =>
+            BeamDocumentationEmissionChecks.Chunks(CodeGeneration.CompileBeamModule(source, name));
+    }
+
+    internal static Task CompareNonnegativeCallResultType()
+    {
+        const string fixture = "beam_hash_result_probe.erl";
+        string source = Encoding.UTF8.GetString(Read(fixture));
+        byte[] beam = CodeGeneration.CompileBeamModule(source, fixture);
+        var chunks = BeamDocumentationEmissionChecks.Chunks(beam);
+        byte[] code = chunks.Single(chunk => chunk.Id == "Code").Data;
+        byte[] types = chunks.Single(chunk => chunk.Id == "Type").Data;
+
+        ReadOnlySpan<byte> expectedTypes =
+        [
+            0, 0, 0, 4, 0, 0, 0, 4, 0x1f, 0xff,
+            0x60, 0x20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xff, 0xff, 0xff, 0xff,
+            0x60, 0x20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x07, 0xff, 0xff, 0xff,
+            0x20, 0x20, 0, 0, 0, 0, 0, 0, 0, 0
+        ];
+        ReadOnlySpan<byte> expectedOperands = [0x10, 0x10, 0x20, 0x10, 0x10, 0x30, 0x30];
+        var operands = new List<byte>();
+        ReadOnlySpan<byte> marker = [BeamEmissionFormat.ExtendedTypedRegisterOperand, 0x03];
+        for (int index = 0; index < code.Length - marker.Length; index++)
+        {
+            if (code.AsSpan(index).StartsWith(marker))
+            {
+                operands.Add(code[index + marker.Length]);
+            }
+        }
+
+        if (!types.AsSpan().SequenceEqual(expectedTypes) || !expectedOperands.SequenceEqual(operands.ToArray()))
+        {
+            throw new InvalidOperationException(BeamNonnegativeCallResultTypeDiagnostics.ExpectedOtpRange);
+        }
+
+        _ = BeamModule.Prepare(beam);
+
+        return Task.CompletedTask;
+    }
+
+    internal static Task CompareIntegerConversionResultType()
+    {
+        const string fixture = "beam_integer_conversion_probe.erl";
+        byte[] beam = CodeGeneration.CompileBeamModule(Encoding.UTF8.GetString(Read(fixture)), fixture);
+        var chunks = BeamDocumentationEmissionChecks.Chunks(beam);
+        byte[] code = chunks.Single(chunk => chunk.Id == "Code").Data;
+        byte[] types = chunks.Single(chunk => chunk.Id == "Type").Data;
+        ReadOnlySpan<byte> expectedTypes = [0, 0, 0, 4, 0, 0, 0, 2, 0x1f, 0xff, 0x00, 0x20];
+        ReadOnlySpan<byte> marker = [BeamEmissionFormat.ExtendedTypedRegisterOperand, 0x03, 0x10];
+        int uses = 0;
+        for (int index = 0; index <= code.Length - marker.Length; index++)
+        {
+            if (code.AsSpan(index).StartsWith(marker))
+            {
+                uses++;
+            }
+        }
+
+        if (!types.AsSpan().SequenceEqual(expectedTypes) || uses != 2)
+        {
+            throw new InvalidOperationException(BeamIntegerConversionResultTypeDiagnostics.ExpectedOtpType);
+        }
+
+        _ = BeamModule.Prepare(beam);
+
+        return Task.CompletedTask;
+    }
+
+    internal static Task ComparePairLengthBounds()
+    {
+        const string fixture = "beam_pair_length_bounds.erl";
+        byte[] beam = CodeGeneration.CompileBeamModule(Encoding.UTF8.GetString(Read(fixture)), fixture);
+        object code = Code(beam);
+        object structure = Property(code, "Structure");
+        object[] types = Items(Call(Type("BeamTypeTableReader"), "Read", structure), "Entries").ToArray();
+        object[] instructions = Items(code, "Instructions").ToArray();
+        object[] atoms = Items(structure, "Atoms").ToArray();
+        object[] imports = Items(structure, "Imports").ToArray();
+        var functions = Items(code, "Functions").Where(function => (int)Property(function, "Arity") == 2)
+            .ToDictionary(function => (string)Property(function, "Name"));
+        (long?, long?)[] bounded = [(1, 1), (2, 0)];
+        (long?, long?)[] maybeEmpty = [(0, 1)];
+        (long?, long?)[] unproved = [(null, 1)];
+        (long?, long?)[] joined = [(0, 0)];
+        if (!AddBounds("bounded").SequenceEqual(bounded) || !AddBounds("maybe_empty").SequenceEqual(maybeEmpty)
+            || !AddBounds("unproved").SequenceEqual(unproved) || !AddBounds("joined_control").SequenceEqual(joined))
+        {
+            throw new InvalidOperationException(BeamPairLengthBoundsDiagnostics.ExpectedOtpBounds);
+        }
+
+        return Task.CompletedTask;
+
+        IEnumerable<(long?, long?)> AddBounds(string function)
+        {
+            object entry = functions[function];
+            int first = (int)Property(entry, "FirstInstructionIndex");
+            int end = (int)Property(entry, "EndInstructionIndex");
+            foreach (object instruction in instructions[first..end])
+            {
+                if ((byte)Property(Property(instruction, "Definition"), "Opcode") != BeamEmissionFormat.GcBifTwo)
+                {
+                    continue;
+                }
+
+                object[] operands = Items(instruction, "Operands").ToArray();
+                object import = imports[(int)(BigInteger)Property(operands[2], "Value")];
+                if ((string)atoms[(int)Property(import, "FunctionAtomIndex")] == ErlangOperators.Plus)
+                {
+                    yield return (Minimum(operands[3]), Minimum(operands[4]));
+                }
+            }
+        }
+
+        long? Minimum(object operand)
+        {
+            if (Property(operand, "TypeIndex") is not int index)
+            {
+                return null;
+            }
+
+            const int integerType = 1 << 5;
+            const int lowerBoundOnly = 1 << 13;
+            object type = types[index];
+            if ((int)Property(type, "TypeUnion") != integerType
+                || (int)Property(type, "MetadataFlags") != lowerBoundOnly)
+            {
+                throw new InvalidOperationException(BeamPairLengthBoundsDiagnostics.ExpectedOtpBounds);
+            }
+
+            return (long)Property(type, "Minimum");
+        }
+
+        static IEnumerable<object> Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>();
+    }
+
+    internal static Task CompareIntegerLiteralBounds()
+    {
+        const string source = "beam_integer_literal_bounds.erl";
+        const string oracle = "beam_integer_literal_bounds.beam";
+        byte[] candidate = CodeGeneration.CompileBeamModule(Encoding.UTF8.GetString(Read(source)), source);
+        if (!candidate.AsSpan().SequenceEqual(Read(oracle)))
+        {
+            throw new InvalidOperationException(BeamIntegerLiteralBoundsDiagnostics.ExpectedOtpEncoding);
+        }
+
+        _ = BeamModule.Prepare(candidate);
+
+        return Task.CompletedTask;
+    }
+
+    internal static Task CompareSplitTaggedCase()
+    {
+        const string fixture = "beam_split_tagged_case.erl";
+        byte[] beam = CodeGeneration.CompileBeamModule(Encoding.UTF8.GetString(Read(fixture)), fixture);
+        var chunks = BeamDocumentationEmissionChecks.Chunks(beam);
+        byte[] code = chunks.Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> wildcardBranch =
+        [
+            BeamEmissionFormat.IsTaggedTuple, 0xf5, 0x03, 0x20, 0x62,
+            BeamEmissionFormat.GetTupleElement, 0x03, 0x10, 0x13,
+            BeamEmissionFormat.IsTuple, 0xf5, 0x13,
+            BeamEmissionFormat.TestArity, 0xf5, 0x13, 0x40
+        ];
+        if (!HasSplit(0x35, 0x45) || !HasSplit(0x75, 0x85) || !HasSplit(0xb5, 0xc5)
+            || code.AsSpan().IndexOf(wildcardBranch) < 0)
+        {
+            throw new InvalidOperationException(BeamSplitTaggedCaseDiagnostics.ExpectedTupleProof);
+        }
+
+        _ = BeamModule.Prepare(beam);
+
+        return Task.CompletedTask;
+
+        bool HasSplit(byte atomBranch, byte caseFailure)
+        {
+            ReadOnlySpan<byte> typedBranch =
+            [
+                BeamEmissionFormat.IsTuple, atomBranch, 0x03,
+                BeamEmissionFormat.IsTaggedTuple, caseFailure, BeamEmissionFormat.ExtendedTypedRegisterOperand, 0x03, 0x10, 0x20, 0x62,
+                BeamEmissionFormat.GetTupleElement, 0x03, 0x10, 0x13,
+                BeamEmissionFormat.IsTuple, caseFailure, 0x13,
+                BeamEmissionFormat.TestArity, caseFailure, 0x13, 0x40
+            ];
+
+            return code.AsSpan().IndexOf(typedBranch) >= 0;
+        }
+    }
+
+    internal static Task CompareSelectArithmeticFrame()
+    {
+        const string source = "beam_select_arithmetic_frame.erl";
+        byte[] beam = CodeGeneration.CompileBeamModule(Encoding.UTF8.GetString(Read(source)), source);
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> prefix =
+        [
+            BeamEmissionFormat.GcBifTwo, 0x05, 0x40, 0x00, 0x33, 0x11, 0x03,
+            BeamEmissionFormat.Allocate, 0x30, 0x40
+        ];
+        int first = code.AsSpan().IndexOf(prefix);
+        if (first < 0 || code.AsSpan().LastIndexOf(prefix) == first)
+        {
+            throw new InvalidOperationException("Expected each select arm to perform checked arithmetic before allocating.");
+        }
+
+        return Task.CompletedTask;
+    }
+
+    internal static Task CompareSelectFallbackTailFrame()
+    {
+        const string source = """
+            -module(beam_select_fallback_tail).
+            -export([run/4, guarded/4]).
+            -record(entry, {extra}).
+
+            run(F, Args, Choice, Entry = #entry{}) -> pick(F, Args, Choice, Entry).
+            pick(F, Args, undefined, _) -> pair(F, Args);
+            pick(F, Args, false, _) -> apply(?MODULE, F, Args);
+            pick(_, Args, F, #entry{extra = Extra}) -> lists:flatten([[F | Extra] | Args]).
+
+            guarded(F, Args, Choice, Entry) when is_atom(F) ->
+                checked(F, Args, Choice, Entry).
+            checked(F, Args, undefined, _) -> pair(F, Args);
+            checked(F, Args, false, _) -> apply(?MODULE, F, Args);
+            checked(_, Args, F, #entry{extra = Extra}) ->
+                Result = lists:flatten([[F | Extra] | Args]),
+                {Result, Args}.
+
+            pair(A, B) -> {A, B}.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_select_fallback_tail.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> tailList =
+        [
+            BeamEmissionFormat.TestHeap, 0x40, 0x40,
+            BeamEmissionFormat.GetTupleElement, 0x33, 0x10, 0x03,
+            BeamEmissionFormat.PutList, 0x23, 0x03, 0x03,
+            BeamEmissionFormat.PutList, 0x03, 0x13, 0x03,
+            BeamEmissionFormat.Line
+        ];
+        if (code.AsSpan().IndexOf(tailList) < 0)
+        {
+            throw new InvalidOperationException(BeamLeafFrameDiagnostics.SelectFallbackTail);
+        }
+
+        return Task.CompletedTask;
     }
 
     private static void CompareProvenLocalRecordChecks()
@@ -2484,7 +3023,9 @@ internal static class BeamModuleEmissionChecks
         ReadOnlySpan<byte> guardedAllocation =
         [
             BeamEmissionFormat.BifOne, 0x05, 0x00, 0x12, 0x03,
-            BeamEmissionFormat.ExactEqualTest, 0x35, 0x03, 0x52,
+            BeamEmissionFormat.SelectValue, 0x03, 0x55, BeamEmissionFormat.ExtendedListOperand, 0x40,
+            0x52, 0x45, 0x62, 0x35,
+            BeamEmissionFormat.Label, 0x30,
             BeamEmissionFormat.Allocate, 0x00, 0x00
         ];
         if (code.AsSpan().IndexOf(guardedAllocation) < 0)
@@ -2581,12 +3122,12 @@ internal static class BeamModuleEmissionChecks
         byte[] code = BeamDocumentationEmissionChecks.Chunks(bytes).Single(chunk => chunk.Id == "Code").Data;
         ReadOnlySpan<byte> callArguments =
         [
-            BeamEmissionFormat.GetTupleElement, 0x04, 0x10, 0x03,
+            BeamEmissionFormat.GetTupleElement, 0x03, 0x10, 0x03,
             BeamEmissionFormat.GetTupleElement, 0x04, 0x20, 0x13
         ];
         if (code.AsSpan().IndexOf(callArguments) < 0)
         {
-            throw new InvalidOperationException("Expected consecutive tuple projections into the two X argument registers.");
+            throw new InvalidOperationException("Expected the initial tuple projection from X0 and the next projection from its saved Y0 copy.");
         }
     }
 
@@ -2697,11 +3238,11 @@ internal static class BeamModuleEmissionChecks
             BeamEmissionFormat.TailExternalCallWithFrame,
             0x10,
             0x10,
-            0x10
+            0x00
         ];
         if (code.AsSpan().IndexOf(calls) < 0)
         {
-            throw new InvalidOperationException("Expected the final external call to release the frame and return.");
+            throw new InvalidOperationException(TerminalCallMismatch);
         }
     }
 
@@ -2799,7 +3340,7 @@ internal static class BeamModuleEmissionChecks
             """;
         byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_short_return_jumps.erl");
         byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
-        ReadOnlySpan<byte> exit = [BeamEmissionFormat.Deallocate, 0x20, BeamEmissionFormat.Return];
+        ReadOnlySpan<byte> exit = [BeamEmissionFormat.Deallocate, 0x10, BeamEmissionFormat.Return];
         int first = code.AsSpan().IndexOf(exit);
         if (first < 0 || code.AsSpan(first + exit.Length).IndexOf(exit) < 0)
         {
@@ -3234,6 +3775,92 @@ internal static class BeamModuleEmissionChecks
         if (!expected.Equals(actual))
         {
             throw new InvalidOperationException($"BEAM call result comparisons returned {actual}, exit {exit}.");
+        }
+    }
+
+    private static async Task CompareForwardedRecordList()
+    {
+        const string source = """
+            -module(beam_record_list_tail).
+            -export([forward/4, forward/5, reordered/4]).
+            -record(callback, {mode}).
+            forward(A, B, C, Rec) -> dispatch(tag, [A,B,C], Rec#callback.mode, Rec).
+            forward(A, B, C, D, Rec) -> dispatch(other, [A,B,C,D], Rec#callback.mode, Rec).
+            reordered(A, B, C, Rec) -> dispatch(tag, [B,A,C], Rec#callback.mode, Rec).
+            dispatch(Tag, Items, Mode, Rec) -> {Tag, Items, Mode, Rec}.
+            """;
+        byte[] bytes = CodeGeneration.CompileBeamModule(source, "beam_record_list_tail.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(bytes).Single(chunk => chunk.Id == "Code").Data;
+        byte[] forwarding =
+        [
+            BeamEmissionFormat.TestHeap, 0x60, 0x40,
+            BeamEmissionFormat.PutList, 0x23, 0x02, 0x23,
+            BeamEmissionFormat.PutList, 0x13, 0x23, 0x13,
+            BeamEmissionFormat.PutList, 0x03, 0x13, 0x13,
+            BeamEmissionFormat.GetTupleElement, 0x33, 0x10, 0x23
+        ];
+        if (code.AsSpan().IndexOf(forwarding) < 0)
+        {
+            throw new InvalidOperationException(BeamRecordListTailDiagnostics.InstructionOrder);
+        }
+
+        BeamModule image = BeamModule.Prepare(bytes);
+        await using var runtime = new ProcessRuntime();
+        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
+        Term first = Term.A("first");
+        Term second = Term.A("second");
+        Term third = Term.A("third");
+        Term fourth = Term.A("fourth");
+        Term mode = Term.A("mode");
+        Term record = Term.Tuple(Term.A("callback"), mode);
+        Term forwarded = await actor.InvokeAsync(async context =>
+            await image.Invoke(
+                context,
+                "forward",
+                first,
+                second,
+                third,
+                record
+            ));
+        Term longer = await actor.InvokeAsync(async context =>
+            await image.Invoke(
+                context,
+                "forward",
+                first,
+                second,
+                third,
+                fourth,
+                record
+            ));
+        Term reordered = await actor.InvokeAsync(async context =>
+            await image.Invoke(
+                context,
+                "reordered",
+                first,
+                second,
+                third,
+                record
+            ));
+        if (!forwarded.Equals(Term.Tuple(
+            Term.A("tag"),
+            Cons.From([first, second, third]),
+            mode,
+            record
+        ))
+            || !longer.Equals(Term.Tuple(
+                Term.A("other"),
+                Cons.From([first, second, third, fourth]),
+                mode,
+                record
+            ))
+            || !reordered.Equals(Term.Tuple(
+                Term.A("tag"),
+                Cons.From([second, first, third]),
+                mode,
+                record
+            )))
+        {
+            throw new InvalidOperationException(BeamRecordListTailDiagnostics.InstructionOrder);
         }
     }
 
@@ -8286,6 +8913,21 @@ internal static class BeamModuleEmissionChecks
     internal static Task CompareAtomTailDispatch()
     {
         CompareFixture("beam_atom_tail_dispatch_probe");
+        CompareFixture("beam_guarded_atom_tail");
+
+        return Task.CompletedTask;
+    }
+
+    internal static Task CompareClosedAtomIdentity()
+    {
+        CompareFixture("beam_closed_atom_identity");
+
+        return Task.CompletedTask;
+    }
+
+    internal static Task CompareSiblingLeafRegisters()
+    {
+        CompareFixture("beam_sibling_leaf_registers");
 
         return Task.CompletedTask;
     }

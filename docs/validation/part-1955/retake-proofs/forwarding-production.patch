@@ -1,0 +1,86 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LocalConstantArguments.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LocalConstantArguments.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LocalConstantArguments.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LocalConstantArguments.cs
+@@ -87,12 +87,17 @@
+                 && sequence.Items.SkipLast(1).All(item => item is Expr.Literal)
+                 ? sequence.Items[^1] : clause.Body;
+             bool constructor = SsaTypeInferenceEnabled && IsLocalSingletonConstructorBody(result, names);
+-            bool effectSequence = SsaTypeInferenceEnabled && HasPlainCallBody(clause.Body, localEntries);
++            Expr.Call? firstCall = SsaTypeInferenceEnabled ? ReadFirstPlainCall(clause.Body, localEntries) : null;
++            Expr.Call? entryCall = firstCall is { Module: null }
++                && localEntries.Contains((firstCall.Function, firstCall.Arguments.Count)) ? firstCall : null;
+             var constants = new Dictionary<string, Term>(StringComparer.Ordinal);
+             for (int index = 0; index < arguments.Length; index++)
+             {
++                // A direct entry argument already occupies the matching register at the first local call.
++                bool forwarded = entryCall is not null && index < entryCall.Arguments.Count
++                    && entryCall.Arguments[index] is Expr.Variable read && read.Name == names[index];
+                 if (arguments[index] is { } value && names[index] != VariableScopeNames.Wildcard
+-                    && (effectSequence || constructor && value is not Integer
++                    && (firstCall is not null && !forwarded || constructor && value is not Integer
+                         || value is Atom && (reorderedRelay || IsParameterLiveAcrossEntryCall(clause.Body, names[index]))))
+                 {
+                     constants.Add(names[index], value);
+@@ -153,32 +158,41 @@
+             ?? (SsaTypeInferenceEnabled && expression is Expr.Literal { Value: Integer integer } ? integer : null);
+     }
+ 
+-    private static bool HasPlainCallBody(Expr body, IReadOnlySet<(string Name, int Arity)> localEntries)
++    private static Expr.Call? ReadFirstPlainCall(Expr body, IReadOnlySet<(string Name, int Arity)> localEntries)
+     {
+         if (body is not (Expr.Sequence { Items.Count: > 1 } or Expr.List or Expr.Tuple)
+             && !(body is Expr.Call nested && nested.Arguments.Any(argument => argument is Expr.Call)))
+         {
+-            return false;
+-        }
+-
++            return null;
++        }
++
++        Expr.Call? first = null;
+         bool ordinaryCall = false;
+-        foreach (Expr expression in LocalFunctionEntries.Walk(body))
+-        {
+-            switch (expression)
+-            {
+-                case Expr.Call { DynamicRemote: false } call:
+-                    ordinaryCall |= IsRegisterClobberingCall(call)
+-                        || call.Module is null && localEntries.Contains((call.Function, call.Arguments.Count));
+-                    break;
+-                case Expr.Variable or Expr.Literal or Expr.Tuple or Expr.List or Expr.Sequence:
+-                case Expr.Match { Pattern: Pattern.Variable }:
+-                    break;
+-                default:
+-                    return false;
+-            }
+-        }
+-
+-        return ordinaryCall;
++
++        return Visit(body) && ordinaryCall ? first : null;
++
++        bool Visit(Expr expression)
++        {
++            if (expression is not (Expr.Call { DynamicRemote: false } or Expr.Variable or Expr.Literal
++                or Expr.Tuple or Expr.List or Expr.Sequence or Expr.Match { Pattern: Pattern.Variable }))
++            {
++                return false;
++            }
++
++            if (!LocalFunctionEntries.Children(expression).All(Visit))
++            {
++                return false;
++            }
++
++            if (expression is Expr.Call call)
++            {
++                first ??= call;
++                ordinaryCall |= IsRegisterClobberingCall(call)
++                    || call.Module is null && localEntries.Contains((call.Function, call.Arguments.Count));
++            }
++
++            return true;
++        }
+     }
+ 
+     private sealed partial class GeneralEmitter

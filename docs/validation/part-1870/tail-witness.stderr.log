@@ -1,0 +1,10 @@
+Error! Failed to eval: [Rel,Gen]=init:get_plain_arguments(),Rows=[{snmpa_trap,[{init_v2_inform,9},{init_v3_inform,10}]},{snmp_view_based_acm_mib,[{externalize_get,3}]}],
+Read=fun(Root,M)->[P]=filelib:wildcard(filename:join([Root,"lib","*","ebin",atom_to_list(M)++".beam"])),{beam_file,M,_,_,_,Fs}=beam_disasm:file(P),
+ maps:from_list([{{N,A},[I||I<-Ops,is_tuple(I),lists:member(element(1,I),[move,call_only,call_ext_only,allocate_heap,allocate,return])]}||{function,N,A,_,Ops}<-Fs])end,
+lists:foreach(fun({M,L})->[R,C]=[Read(Path,M)||Path<-[Rel,Gen]],
+  lists:foreach(fun(F)->io:format("~0p.~n",[{M,F,maps:get(F,R),maps:get(F,C),maps:get(F,R)=:=maps:get(F,C)}])end,L)
+end,Rows),halt().
+
+Runtime terminating during boot ({{badmatch,[]},[{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,796}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{erl_eval,expr_list,7,[{file,"erl_eval.erl"},{line,1664}]},{erl_eval,eval_lc1,7,[{file,"erl_eval.erl"},{line,1078}]},{erl_eval,eval_generate,9,[{file,"erl_eval.erl"},{line,1462}]},{erl_eval,eval_lc,7,[{file,"erl_eval.erl"},{line,1061}]},{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,792}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]}]})
+
+Crash dump is being written to: D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/late-list-and-tail-copy-provenance-1870/tail-witness-crash.dump...done

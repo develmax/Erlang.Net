@@ -1,0 +1,12 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamFlatTupleListHelperChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamFlatTupleListHelperChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamFlatTupleListHelperChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamFlatTupleListHelperChecks.cs
+@@ -27,7 +27,7 @@
+             ((string)Property(function, "Name"), (int)Property(function, "Arity"))).ToHashSet();
+         if (!helpers.Contains(("-prefixed/2-lc$^0/1-0-", 2))
+             || !helpers.Contains(("-paired/2-lc$^0/1-0-", 2))
+-            || helpers.Any(helper => helper.Item1.StartsWith("-branch_element/2-lc$", StringComparison.Ordinal)))
++            || !helpers.Contains(("-branch_element/2-lc$^0/1-0-", 2)))
+         {
+             throw new InvalidOperationException(ChangedHelper);
+         }

@@ -33,7 +33,8 @@ internal static class BeamOpcodeEdgeBytes
         int functions = 1,
         int arity = 1,
         string importFunction = BeamOpcodeEdgeNames.Length,
-        int importArity = 1
+        int importArity = 1,
+        bool preserveLineChunk = false
     )
     {
         var assembly = typeof(BeamOpcodeEdgeBytes).Assembly;
@@ -43,7 +44,12 @@ internal static class BeamOpcodeEdgeBytes
         input.CopyTo(template);
         byte[] result = template.ToArray();
         foreach (string chunk in BeamOpcodeEdgeNames.RemovedChunks)
-            result = BeamMetadataModeledBytes.WithChunk(result, chunk, null);
+        {
+            if (!preserveLineChunk || chunk != "Line")
+            {
+                result = BeamMetadataModeledBytes.WithChunk(result, chunk, null);
+            }
+        }
         string[] atoms = [BeamOpcodeEdgeNames.Module, BeamOpcodeEdgeNames.Run, BeamOpcodeEdgeNames.Middle,
             BeamOpcodeEdgeNames.Leaf, BeamOpcodeEdgeNames.Erlang, importFunction,
             BeamOpcodeEdgeNames.Marker, BeamOpcodeEdgeNames.Other];

@@ -1,0 +1,220 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+@@ -1179,6 +1179,7 @@
+         code = CompactClosedCatchArgumentFrame(code, labelCount) ?? code;
+         code = TrimClosedCatchPayloadReturns(code, labelCount) ?? code;
+         code = FoldStagedListConstructions(code, labelCount) ?? code;
++        code = FoldTerminalClosureFrames(code, labelCount) ?? code;
+         if (OrderFinalPhysicalLabels(code, labelCount) is { } ordered)
+         {
+             (code, labelCount) = ordered;
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TerminalClosureFrames.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TerminalClosureFrames.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TerminalClosureFrames.cs
+@@ -0,0 +1,204 @@
++using System.Numerics;
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private byte[]? FoldTerminalClosureFrames(ReadOnlyMemory<byte> code, int labelCount)
++    {
++        if (ModuleOptimizationDisabled || !code.Span.Contains(MakeFun))
++        {
++            return null;
++        }
++
++        IReadOnlyList<BeamInstruction> body;
++        try
++        {
++            var header = new BeamCodeHeader(
++                BeamWire.FormatVersion,
++                highestOpcode,
++                labelCount,
++                exports.Count + locals.Count,
++                code
++            );
++            body = BeamInstructionReader.Read(header, atoms.Count + 1, literalBytes.Count);
++        }
++        catch (Exception error) when (error is InvalidDataException or NotSupportedException)
++        {
++            return null;
++        }
++
++        using var output = new MemoryStream();
++        int copied = 0;
++        for (int index = 2; index + 3 < body.Count; index++)
++        {
++            BeamInstruction allocate = body[index];
++            if (allocate is not { Definition.Opcode: AllocateHeap, Operands: [var frame, _, var live] }
++                || frame.Value > 1 || TerminalClosureEntryArity(body, index) is not { } arity || live.Value > arity)
++            {
++                continue;
++            }
++
++            int closureIndex = index + 1;
++            BeamOperand? preserved = null;
++            if (body[closureIndex] is
++                {
++                    Definition.Opcode: Move,
++                    Operands: [{ Kind: BeamOperandParameters.X, TypeIndex: null } input,
++                    { Kind: BeamOperandParameters.Y, Value.IsZero: true, TypeIndex: null }]
++                }
++                && frame.Value.IsOne && input.Value < live.Value)
++            {
++                preserved = input;
++                closureIndex++;
++            }
++
++            BeamInstruction closure = body[closureIndex];
++            if (closure.Definition.Opcode != MakeFun
++                || closure.Operands.Skip(3).Any(operand => operand.Kind != BeamOperandParameters.X
++                    || operand.TypeIndex is not null || operand.Value >= live.Value))
++            {
++                continue;
++            }
++
++            BeamOperand original = closure.Operands[1];
++            BeamOperand destination = original;
++            int next = closureIndex + 1;
++            if (frame.Value.IsOne)
++            {
++                if ((preserved is null && original is not
++                    { Kind: BeamOperandParameters.Y, Value.IsZero: true, TypeIndex: null })
++                    || (preserved is not null && original != preserved)
++                    || body[next] is not
++                    {
++                        Definition.Opcode: Move,
++                        Operands: [var source, { Kind: BeamOperandParameters.X, TypeIndex: null } argument]
++                    }
++                    || source != original || argument == preserved)
++                {
++                    continue;
++                }
++
++                destination = argument;
++                next++;
++                if (preserved is not null)
++                {
++                    if (next >= body.Count || body[next] is not
++                        {
++                            Definition.Opcode: Move,
++                            Operands: [{ Kind: BeamOperandParameters.Y, Value.IsZero: true, TypeIndex: null }, var restore]
++                        }
++                        || restore != preserved)
++                    {
++                        continue;
++                    }
++
++                    next++;
++                }
++            }
++
++            int callIndex = next;
++            while (callIndex < body.Count && body[callIndex].Definition.Opcode == Line)
++            {
++                callIndex++;
++            }
++
++            if (callIndex + 1 >= body.Count
++                || body[callIndex] is not
++                {
++                    Definition.Opcode: TailLocalCallWithFrame or TailExternalCallWithFrame,
++                    Operands: [var outgoing, var target, var released]
++                }
++                || released.Value != frame.Value
++                || destination is not { Kind: BeamOperandParameters.X, TypeIndex: null }
++                || destination.Value >= outgoing.Value || destination.Value > live.Value
++                || outgoing.Value > BigInteger.Max(live.Value, destination.Value + 1)
++                || !EndOfTerminalClosure(body, callIndex + 1)
++                || (body[callIndex].Definition.Opcode == TailExternalCallWithFrame
++                    && !AllowsUnframedTerminalClosureCall((int)target.Value)))
++            {
++                continue;
++            }
++
++            // A closure reads its capture operands before overwriting its destination.
++            var allocation = new BeamCursor(code[(allocate.Offset + 1)..body[index + 1].Offset]);
++            _ = BeamCompactReader.Read(allocation);
++            var closureOperands = new BeamCursor(code[(closure.Offset + 1)..body[closureIndex + 1].Offset]);
++            _ = BeamCompactReader.Read(closureOperands);
++            int destinationStart = closure.Offset + 1 + closureOperands.Position;
++            _ = BeamCompactReader.Read(closureOperands);
++            BeamInstruction call = body[callIndex];
++            var arguments = new BeamCursor(code[(call.Offset + 1)..body[callIndex + 1].Offset]);
++            _ = BeamCompactReader.Read(arguments);
++            _ = BeamCompactReader.Read(arguments);
++
++            output.Write(code.Span[copied..allocate.Offset]);
++            output.WriteByte(TestHeap);
++            output.Write(code.Span[(allocate.Offset + 1 + allocation.Position)..body[index + 1].Offset]);
++            output.Write(code.Span[closure.Offset..destinationStart]);
++            BeamCompactWriter.Write(output, XRegisterTag, destination.Value);
++            output.Write(code.Span[(closure.Offset + 1 + closureOperands.Position)..body[closureIndex + 1].Offset]);
++            output.Write(code.Span[body[next].Offset..call.Offset]);
++            output.WriteByte(call.Definition.Opcode == TailLocalCallWithFrame ? TailLocalCall : TailExternalCall);
++            output.Write(code.Span[(call.Offset + 1)..(call.Offset + 1 + arguments.Position)]);
++            copied = body[callIndex + 1].Offset;
++            index = callIndex;
++        }
++
++        if (copied == 0)
++        {
++            return null;
++        }
++
++        output.Write(code.Span[copied..]);
++
++        return output.ToArray();
++    }
++
++    private bool AllowsUnframedTerminalClosureCall(int import)
++    {
++        return !atoms.TryGetValue("erlang", out int erlang)
++            || !(IsTrap(AutoImportNames.Link, 1) || IsTrap(AutoImportNames.Unlink, 1) || IsTrap("!", 2)
++                || IsTrap(AutoImportNames.MonitorNode, 2) || IsTrap(AutoImportNames.GroupLeader, 2)
++                || IsTrap(AutoImportNames.Exit, 2));
++
++        bool IsTrap(string function, int arity) => atoms.TryGetValue(function, out int functionAtom)
++            && imports.TryGetValue((erlang, functionAtom, arity), out int target) && target == import;
++    }
++
++    private static int? TerminalClosureEntryArity(IReadOnlyList<BeamInstruction> body, int allocation)
++    {
++        int label = allocation - 1;
++        while (label > 0 && body[label].Definition.Opcode == Line)
++        {
++            label--;
++        }
++
++        return label > 0 && body[label].Definition.Opcode == Label
++            && body[label - 1] is { Definition.Opcode: FunctionInfo, Operands: [_, _, var arity] }
++            ? (int)arity.Value
++            : null;
++    }
++
++    private static bool EndOfTerminalClosure(IReadOnlyList<BeamInstruction> body, int next)
++    {
++        if (body[next].Definition.Opcode == EndCode)
++        {
++            return true;
++        }
++
++        if (body[next].Definition.Opcode != Label)
++        {
++            return false;
++        }
++
++        next++;
++        while (next < body.Count && body[next].Definition.Opcode == Line)
++        {
++            next++;
++        }
++
++        return next < body.Count && body[next].Definition.Opcode == FunctionInfo;
++    }
++}

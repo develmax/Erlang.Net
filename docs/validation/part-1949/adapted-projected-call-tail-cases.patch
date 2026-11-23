@@ -1,0 +1,231 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProjectedCallTailCases.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProjectedCallTailCases.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ProjectedCallTailCases.cs
+@@ -0,0 +1,217 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private sealed partial class GeneralEmitter
++    {
++        private bool TryEmitSharedCaughtTupleTails(FunctionDefinition function)
++        {
++            if (!owner.SsaTypeInferenceEnabled || owner.ModuleOptimizationDisabled || recursiveClosure is not null
++                || function.Clauses is not
++                [
++                    {
++                        Guard: null,
++                        Patterns: [Pattern.Variable parameter],
++                        Body: Expr.Sequence
++                        {
++                            Items:
++                        [
++                            Expr.Match { Pattern: Pattern.Variable saved, Value: Expr.Call { Arguments: [Expr.Variable input, var suffix] } prepare },
++                            Expr.Case
++                        {
++                            Value: Expr.Catch { Operand: Expr.Call { Arguments: [Expr.Variable local] } caught },
++                            Clauses:
++                                [
++                                {
++                                    Guard: null,
++                                    Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom selected }, Pattern.Variable value] }],
++                                    Body: Expr.Tuple { Items: [Expr.Literal { Value: Atom returnedTag }, Expr.Variable returned] }
++                                },
++                                {
++                                    Guard: null,
++                                    Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom first }, Pattern.Variable firstValue] }],
++                                    Body: Expr.Call { Module: null, DynamicRemote: false, Arguments: [Expr.Variable firstArg, Expr.Variable firstSaved] } firstCall
++                                },
++                                {
++                                    Guard: null,
++                                    Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom second }, Pattern.Variable secondValue] }],
++                                    Body: Expr.Call { Module: null, DynamicRemote: false, Arguments: [Expr.Variable secondArg, Expr.Variable secondSaved] } secondCall
++                                }
++                                ]
++                        } decision
++                        ]
++                        }
++                    }
++                ]
++                || !DistinctBindings(parameter, saved)
++                || new[] { value, firstValue, secondValue }.Any(variable => variable.Name == parameter.Name
++                    || variable.Name == saved.Name || variable.Name == VariableScopeNames.Wildcard)
++                || parameter.Name != input.Name || saved.Name != local.Name || value.Name != returned.Name
++                || !selected.Equals(returnedTag) || first.Equals(second) || TermOrder.Compare(selected, first, exact: true) <= 0
++                || TermOrder.Compare(selected, second, exact: true) <= 0
++                || firstValue.Name != firstArg.Name || secondValue.Name != secondArg.Name
++                || firstSaved.Name != saved.Name || secondSaved.Name != saved.Name || firstCall.Function != secondCall.Function
++                || !AttributeLiteral.TryNormalizeConstant(suffix, out Term argument)
++                || !TryResolveOrdinaryCallTarget(prepare, out string? prepareModule)
++                || !TryResolveOrdinaryCallTarget(caught, out string? caughtModule)
++                || !entries.TryGetValue((firstCall.Function, 2), out int shared))
++            {
++                return false;
++            }
++
++            const int size = 2;
++            int handler = Label();
++            int success = Label();
++            int tail = Label();
++            int invalid = Label();
++            EmitFrameAllocation(1, size);
++            EmitFrameInitialization(0, size);
++            owner.EmitConstant(argument, 1);
++            owner.EmitCallLine(prepare, location);
++            Call(prepareModule, prepare.Function, 2);
++            owner.MoveRegister(
++                XRegisterTag,
++                0,
++                YRegisterTag,
++                0
++            );
++            EnterCatch(1, handler);
++            owner.EmitCallLine(caught, CallLocation(prepare, location));
++            Call(caughtModule, caught.Function, 1);
++            EndCatch(1, handler);
++            owner.EmitTupleCheck(0, 2, invalid);
++            owner.EmitTuplePart(0, 0, 1);
++            owner.Op(SelectValue, XRegisterTag, 1);
++            owner.Operand(LabelTag, invalid);
++            owner.instructions.WriteByte(ExtendedListOperand);
++            owner.Operand(BeamWire.UnsignedTag, 6);
++            foreach (Atom tag in new[] { first, second }.Order(Comparer<Atom>.Create((left, right) => TermOrder.Compare(left, right, exact: true))))
++            {
++                owner.LiteralOperand(tag);
++                owner.Operand(LabelTag, tail);
++            }
++
++            owner.LiteralOperand(selected);
++            owner.Operand(LabelTag, success);
++            Mark(success);
++            owner.EmitFrameReturn(size);
++            Mark(tail);
++            owner.EmitTuplePart(0, 1, 0);
++            owner.MoveRegister(
++                YRegisterTag,
++                0,
++                XRegisterTag,
++                1
++            );
++            EmitTailLocal(shared, 2, size);
++            Mark(invalid);
++            EmitCaseEnd(CaseSourceLocation(decision));
++
++            return true;
++        }
++
++        private bool TryEmitBinaryGuardedTupleTails(FunctionDefinition function)
++        {
++            if (!owner.SsaTypeInferenceEnabled || owner.ModuleOptimizationDisabled || recursiveClosure is not null
++                || function.Clauses is not
++                [
++                {
++                    Guard: Expr.Call { Function: AutoImportNames.IsBinary, Arguments: [Expr.Variable tested] } guard,
++                    Patterns: [Pattern.Variable ignored, Pattern.Variable binary],
++                    Body: Expr.Case
++                    {
++                        Value: Expr.Call { Arguments: [Expr.Variable operand] } read,
++                        Clauses:
++                            [
++                            {
++                                Guard: null,
++                                Patterns: [Pattern.Tuple { Items: var wide }],
++                                Body: Expr.Call { Module: null, DynamicRemote: false, Arguments: [Expr.Variable wideArg] } wideCall
++                            },
++                            {
++                                Guard: null,
++                                Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom narrowTag }, Pattern.Variable left, Pattern.Variable right] }],
++                                Body: Expr.Call { Module: null, DynamicRemote: false, Arguments: [Expr.Variable first, Expr.Variable second, var literal] } narrowCall
++                            }
++                            ]
++                    } decision
++                },
++                { Guard: null, Patterns: [Pattern.Variable fallbackLeft, Pattern.Variable fallbackRight], Body: var defaultValue }
++                ]
++                || wide.Count <= 3 || wide[0] is not Pattern.Literal { Value: Atom wideTag }
++                || wide[1] is not Pattern.Variable payload || !wide.Skip(1).All(field => field is Pattern.Variable)
++                || !Fresh(wide.Skip(1).Cast<Pattern.Variable>()) || !Fresh([left, right])
++                || !DistinctBindings(binary)
++                || ignored.Name == binary.Name || tested.Name != binary.Name || operand.Name != binary.Name
++                || payload.Name != wideArg.Name || left.Name != first.Name || right.Name != second.Name
++                || fallbackLeft.Name != VariableScopeNames.Wildcard && fallbackLeft.Name == fallbackRight.Name
++                || !owner.ResolvesErlangBif(guard) || !TryResolveOrdinaryCallTarget(read, out string? module)
++                || !AttributeLiteral.TryNormalizeConstant(literal, out Term argument)
++                || !AttributeLiteral.TryNormalizeConstant(defaultValue, out Term fallback)
++                || !entries.TryGetValue((wideCall.Function, 1), out int wideTarget)
++                || !entries.TryGetValue((narrowCall.Function, 3), out int narrowTarget))
++            {
++                return false;
++            }
++
++            int wideBranch = Label();
++            int narrowBranch = Label();
++            int badInput = Label();
++            int badResult = Label();
++            owner.Op(IsBinary, LabelTag, badInput);
++            owner.Operand(XRegisterTag, 1);
++            EmitFrameAllocation(2, 0);
++            owner.MoveToX0(XRegisterTag, 1);
++            owner.EmitCallLine(read, location);
++            Call(module, read.Function, 1);
++            owner.Op(IsTuple, LabelTag, badResult);
++            owner.Operand(XRegisterTag, 0);
++            owner.instructions.WriteByte(SelectTupleArity);
++            owner.EmitTypedRegister(0, TupleTypeBits);
++            owner.Operand(LabelTag, badResult);
++            owner.instructions.WriteByte(ExtendedListOperand);
++            owner.Operand(BeamWire.UnsignedTag, 4);
++            owner.Operand(BeamWire.UnsignedTag, 3);
++            owner.Operand(LabelTag, narrowBranch);
++            owner.Operand(BeamWire.UnsignedTag, wide.Count);
++            owner.Operand(LabelTag, wideBranch);
++            Mark(wideBranch);
++            EmitTagCheck(wideTag);
++            owner.EmitTuplePart(0, 1, 0);
++            EmitTailLocal(wideTarget, 1, frame: 0);
++            Mark(narrowBranch);
++            EmitTagCheck(narrowTag);
++            owner.EmitTuplePart(0, 1, 1);
++            owner.EmitTuplePart(0, 2, 0);
++            owner.EmitConstant(argument, 2);
++            owner.Op(Swap, XRegisterTag, 0);
++            owner.Operand(XRegisterTag, 1);
++            EmitTailLocal(narrowTarget, 3, frame: 0);
++            Mark(badInput);
++            owner.EmitConstant(fallback, 0);
++            owner.instructions.WriteByte(Return);
++            Mark(badResult);
++            var failureLocation = CaseSourceLocation(decision);
++            EmitCaseEnd(failureLocation == CallLocation(read, location) ? null : failureLocation);
++
++            return true;
++
++            bool Fresh(IEnumerable<Pattern.Variable> variables)
++            {
++                var seen = new HashSet<string>(StringComparer.Ordinal) { binary.Name, ignored.Name };
++
++                return variables.All(variable => variable.Name == VariableScopeNames.Wildcard || seen.Add(variable.Name));
++            }
++
++            void EmitTagCheck(Atom tag)
++            {
++                owner.EmitTuplePart(0, 0, 1);
++                owner.Op(ExactEqualTest, LabelTag, badResult);
++                owner.Operand(XRegisterTag, 1);
++                owner.LiteralOperand(tag);
++            }
++        }
++    }
++}
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -587,4 +587,5 @@
+                 || TryEmitEmptyComprehensionScan(function) || TryEmitSingleSizeCheckedChoice(function)
+                 || TryEmitSharedTaggedHeadDispatch(function) || TryEmitTaggedPairListResult(function)
++                || TryEmitSharedCaughtTupleTails(function) || TryEmitBinaryGuardedTupleTails(function)
+                 || TryEmitAliasedListHeadGuardTails(function) || TryEmitTaggedLookupConsLoop(function) || TryEmitGuardedKeyfindPairTail(function) || TryEmitGuardedLocalForward(function) || TryEmitRecordPredicateFunction(function) || TryEmitDirectGuardedRecordAccess(function) || TryEmitDirectTypeOrArityGuard(function) || TryEmitDirectListOrFunctionGuard(function) || TryEmitDirectCatch(function)
+                 || TryEmitDiscardedBranchCatch(function) || TryEmitEntryCatchResultDispatch(function) || TryEmitNestedListCallCatch(function)

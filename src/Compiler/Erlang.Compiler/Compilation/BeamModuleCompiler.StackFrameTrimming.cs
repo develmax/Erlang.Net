@@ -4,7 +4,11 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
-    private byte[]? TrimLinearStackFrames(ReadOnlyMemory<byte> code, int labelCount)
+    private byte[]? TrimLinearStackFrames(
+        ReadOnlyMemory<byte> code,
+        int labelCount,
+        IReadOnlySet<int>? eligibleInitializations = null
+    )
     {
         var stackOperands = new List<(int Start, int End, int Slot)>();
         IReadOnlyList<BeamInstruction> body;
@@ -122,7 +126,8 @@ internal sealed partial class BeamModuleCompiler
                     break;
                 }
 
-                if (opcode == InitYRegisters && hasCall)
+                if (opcode == InitYRegisters && hasCall
+                    && (eligibleInitializations is null || eligibleInitializations.Contains(instruction.Offset)))
                 {
                     var killed = instruction.Operands.Skip(1).Select(operand => (int)operand.Value).ToHashSet();
                     int last = (int)frame.Value - 1;

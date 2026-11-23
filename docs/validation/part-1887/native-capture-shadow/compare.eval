@@ -1,0 +1,11 @@
+[Role,Source,Image,Out]=init:get_plain_arguments(),
+M=beam_dominating_helper_constants,
+B=case Role of "reference"->{ok,M,R}=compile:file(Source,[binary,report]),R; "candidate"->{ok,R}=file:read_file(Image),R end,
+{module,M}=code:load_binary(M,Source,B),
+Calls=[{lookup,[[item,{row,item,2}]]},{invoke_closure,[outer,item]},{events,[]},
+       {invoke_shadow,[outer,2]},{invoke_shadow,[outer,item]},
+       {invoke_repeated,[outer,2,2]},{invoke_repeated,[outer,2,3]},
+       {shadow_generator,[]},{checked,[fixed,[item]]},{checked,[outer,[item]]}],
+Outcome=fun(F,A)->try apply(M,F,A) of V->{value,V}
+ catch C:E:S->{C,E,[{Id,N,P}||{Id,N,P,_}<-S,Id=:=M]} end end,
+ok=file:write_file(Out,[io_lib:format("~0p.~n",[{F,A,Outcome(F,A)}])||{F,A}<-Calls]),halt().

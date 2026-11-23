@@ -1,0 +1,302 @@
+using static Erlang.Compiler.BeamEmissionFormat;
+
+namespace Erlang.Compiler;
+
+internal sealed partial class BeamModuleCompiler
+{
+    private sealed partial class GeneralEmitter
+    {
+        private sealed record PairLookup(
+            Expr.Call First,
+            string? FirstModule,
+            Atom FirstKey,
+            Atom FirstMiss,
+            Atom FirstError,
+            Atom FirstReason,
+            Expr.Call Second,
+            string? SecondModule,
+            Atom SecondKey,
+            Atom SecondMiss,
+            Atom SecondError,
+            Atom SecondReason,
+            Atom Result
+        );
+
+        private PairLookup? ReadPairLookup(FunctionDefinition function)
+        {
+            if (function.Clauses is not
+                [
+                {
+                    Guard: null,
+                    Patterns: [Pattern.Variable key],
+                    Body: Expr.Case
+                    {
+                        Value: Expr.Call
+                        {
+                            Arguments: [Expr.Tuple { Items: [Expr.Variable firstInput, Expr.Literal { Value: Atom firstKey }] }]
+                        } first,
+                        Clauses:
+                            [
+                            {
+                                Guard: null,
+                                Patterns: [Pattern.Literal { Value: Atom firstMiss }],
+                                Body: Expr.Tuple
+                                {
+                                    Items: [Expr.Literal { Value: Atom firstError },
+                                        Expr.Tuple { Items: [Expr.Literal { Value: Atom firstReason }, Expr.Variable firstMissing] }]
+                                }
+                            },
+                            {
+                                Guard: null,
+                                Patterns: [Pattern.Variable firstFound],
+                                Body: Expr.Case
+                                {
+                                    Value: Expr.Call
+                                    {
+                                        Arguments: [Expr.Tuple { Items: [Expr.Variable secondInput, Expr.Literal { Value: Atom secondKey }] }]
+                                    } second,
+                                    Clauses:
+                                        [
+                                        {
+                                            Guard: null,
+                                            Patterns: [Pattern.Literal { Value: Atom secondMiss }],
+                                            Body: Expr.Tuple
+                                            {
+                                                Items: [Expr.Literal { Value: Atom secondError },
+                                                    Expr.Tuple { Items: [Expr.Literal { Value: Atom secondReason }, Expr.Variable secondMissing] }]
+                                            }
+                                        },
+                                        {
+                                            Guard: null,
+                                            Patterns: [Pattern.Variable secondFound],
+                                            Body: Expr.Tuple
+                                            {
+                                                Items: [Expr.Literal { Value: Atom success },
+                                                    Expr.Tuple { Items: [Expr.Variable firstResult, Expr.Variable secondResult] }]
+                                            }
+                                        }
+                                        ]
+                                }
+                            }
+                            ]
+                    }
+                }
+                ]
+                || !DistinctBindings(key, firstFound, secondFound)
+                || firstInput.Name != key.Name || secondInput.Name != key.Name
+                || firstMissing.Name != key.Name || secondMissing.Name != key.Name
+                || firstResult.Name != firstFound.Name || secondResult.Name != secondFound.Name
+                || firstError.Equals(success) || secondError.Equals(success)
+                || !TryResolveOrdinaryCallTarget(first, out string? firstModule)
+                || !TryResolveOrdinaryCallTarget(second, out string? secondModule))
+            {
+                return null;
+            }
+
+            return new(
+                first,
+                firstModule,
+                firstKey,
+                firstMiss,
+                firstError,
+                firstReason,
+                second,
+                secondModule,
+                secondKey,
+                secondMiss,
+                secondError,
+                secondReason,
+                success
+            );
+        }
+
+        private bool TryEmitPairLookup(FunctionDefinition function)
+        {
+            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled || ReadPairLookup(function) is not { } lookup)
+            {
+                return false;
+            }
+
+            const int frame = 2;
+            const int pairWords = 3;
+            int firstPresent = Label();
+            int secondPresent = Label();
+            EmitFrameAllocation(1, frame, pairWords);
+            EmitFrameInitialization(0, 1);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                1
+            );
+            owner.EmitTagMatchTuple(0, (XRegisterTag, 0), (AtomTag, owner.Intern(lookup.FirstKey.Name)));
+            owner.EmitCallLine(lookup.First, location);
+            Call(lookup.FirstModule, lookup.First.Function, 1);
+            owner.MoveRegister(
+                XRegisterTag,
+                0,
+                YRegisterTag,
+                0
+            );
+            owner.EmitAtomTest(0, lookup.FirstMiss.Name, firstPresent);
+            EmitMissing(lookup.FirstError, lookup.FirstReason);
+
+            Mark(firstPresent);
+            owner.Op(TestHeap, BeamWire.UnsignedTag, pairWords);
+            owner.Operand(BeamWire.UnsignedTag, 0);
+            owner.EmitTagMatchTuple(0, (YRegisterTag, 1), (AtomTag, owner.Intern(lookup.SecondKey.Name)));
+            owner.EmitCallLine(lookup.Second, CallLocation(lookup.First, location));
+            Call(lookup.SecondModule, lookup.Second.Function, 1);
+            owner.EmitAtomTest(0, lookup.SecondMiss.Name, secondPresent);
+            EmitMissing(lookup.SecondError, lookup.SecondReason);
+
+            Mark(secondPresent);
+            owner.Op(TestHeap, BeamWire.UnsignedTag, pairWords * 2);
+            owner.Operand(BeamWire.UnsignedTag, 1);
+            owner.EmitTagMatchTuple(0, (YRegisterTag, 0), (XRegisterTag, 0));
+            owner.EmitTagMatchTuple(0, (AtomTag, owner.Intern(lookup.Result.Name)), (XRegisterTag, 0));
+            owner.EmitFrameReturn(frame);
+
+            return true;
+
+            void EmitMissing(Atom tag, Atom reason)
+            {
+                owner.Op(TestHeap, BeamWire.UnsignedTag, pairWords * 2);
+                owner.Operand(BeamWire.UnsignedTag, 0);
+                owner.EmitTagMatchTuple(0, (AtomTag, owner.Intern(reason.Name)), (YRegisterTag, 1));
+                owner.EmitTagMatchTuple(0, (AtomTag, owner.Intern(tag.Name)), (XRegisterTag, 0));
+                owner.EmitFrameReturn(frame);
+            }
+        }
+
+        private bool TryEmitCheckedPairTail(FunctionDefinition function)
+        {
+            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled || owner.OnLoadFunction is not null
+                || function.Arity < 2 || function.Arity + 1 >= FirstReservedXRegister
+                || function.Clauses is not
+                [
+                {
+                    Guard: null,
+                    Body: Expr.Case
+                    {
+                        Value: Expr.Variable input,
+                        Clauses:
+                            [
+                            {
+                                Guard: null,
+                                Patterns: [Pattern.Tuple { Items: [Pattern.Variable directLeft, Pattern.Variable directRight] }],
+                                Body: Expr.Call direct
+                            },
+                            {
+                                Guard: null,
+                                Patterns: [Pattern.Variable lookupKey],
+                                Body: Expr.Case
+                                {
+                                    Value: Expr.Call { Module: null, DynamicRemote: false, Arguments: [Expr.Variable key] } lookup,
+                                    Clauses:
+                                        [
+                                        {
+                                            Guard: null,
+                                            Patterns: [Pattern.Tuple
+                                            {
+                                                Items: [Pattern.Literal { Value: Atom required },
+                                                    Pattern.Tuple { Items: [Pattern.Variable resolvedLeft, Pattern.Variable resolvedRight] }]
+                                            }],
+                                            Body: Expr.Call tail
+                                        },
+                                        { Guard: null, Patterns: [Pattern.Variable otherwise], Body: Expr.Variable returned }
+                                        ]
+                                }
+                            }
+                            ]
+                    }
+                } clause
+                ] || !HasUnconditionalParameters(clause) || key.Name != lookupKey.Name || returned.Name != otherwise.Name
+                || !TryResolveOrdinaryCallTarget(tail, out string? tailModule) || tailModule is not null
+                || !TryResolveOrdinaryCallTarget(direct, out string? directModule) || directModule is not null
+                || direct.Function != tail.Function || !entries.ContainsKey((lookup.Function, 1))
+                || owner.IsDeclaredNative((lookup.Function, 1))
+                || !localFunctions.TryGetValue((lookup.Function, 1), out var lookupFunction)
+                || ReadPairLookup(lookupFunction) is not { } result || !result.Result.Equals(required))
+            {
+                return false;
+            }
+
+            var parameters = clause.Patterns.Cast<Pattern.Variable>().ToArray();
+            int selector = parameters.Length - 1;
+            var arguments = parameters[..^1];
+            if (parameters[selector].Name != input.Name
+                || !DistinctBindings([.. parameters, directLeft, directRight, lookupKey])
+                || !DistinctBindings([.. parameters, lookupKey, resolvedLeft, resolvedRight, otherwise])
+                || !Forwarded(direct, directLeft, directRight) || !Forwarded(tail, resolvedLeft, resolvedRight))
+            {
+                return false;
+            }
+
+            int resolve = Label();
+            int failure = Label();
+            owner.EmitTupleCheck(selector, 2, resolve);
+            owner.EmitTuplePart(selector, 0, selector + 1);
+            owner.EmitTuplePart(selector, 1, selector);
+            owner.Op(Swap, XRegisterTag, selector);
+            owner.Operand(XRegisterTag, selector + 1);
+            owner.Op(TailLocalCall, BeamWire.UnsignedTag, direct.Arguments.Count);
+            owner.Operand(LabelTag, entries[(direct.Function, direct.Arguments.Count)]);
+
+            Mark(resolve);
+            EmitFrameAllocation(function.Arity, selector);
+            for (int register = selector - 1; register >= 0; register--)
+            {
+                owner.MoveRegister(
+                    XRegisterTag,
+                    register,
+                    YRegisterTag,
+                    selector - register - 1
+                );
+            }
+
+            owner.MoveRegister(
+                XRegisterTag,
+                selector,
+                XRegisterTag,
+                0
+            );
+            owner.EmitCallLine(lookup, location);
+            Call(null, lookup.Function, 1);
+            owner.Op(IsTaggedTuple, LabelTag, failure);
+            owner.EmitTypedRegister(0, TupleTypeBits);
+            owner.Operand(BeamWire.UnsignedTag, 2);
+            owner.LiteralOperand(required);
+            owner.EmitTuplePart(0, 1, 0);
+            owner.EmitTuplePart(0, 0, selector);
+            owner.EmitTuplePart(0, 1, selector + 1);
+            for (int register = selector - 1; register >= 0; register--)
+            {
+                owner.MoveRegister(
+                    YRegisterTag,
+                    selector - register - 1,
+                    XRegisterTag,
+                    register
+                );
+            }
+
+            EmitPreparedFrameTail(new EntryCall(
+                tail,
+                tailModule,
+                [],
+                []
+            ), CallLocation(lookup, location), selector);
+            Mark(failure);
+            owner.EmitFrameReturn(selector);
+
+            return true;
+
+            bool Forwarded(Expr.Call call, Pattern.Variable left, Pattern.Variable right) =>
+                call.Arguments.Count == arguments.Length + 2
+                && call.Arguments.Take(arguments.Length).Zip(arguments).All(pair =>
+                    pair.First is Expr.Variable variable && variable.Name == pair.Second.Name)
+                && call.Arguments[^2] is Expr.Variable first && first.Name == left.Name
+                && call.Arguments[^1] is Expr.Variable second && second.Name == right.Name;
+        }
+    }
+}

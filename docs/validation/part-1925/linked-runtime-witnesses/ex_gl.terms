@@ -1,0 +1,10 @@
+[{initiate,{ok,{stop,normal,ok,
+                     {state,panel,config,gl,canvas,context,image,timer_ref,
+                            time}}},
+           [{timer,cancel,[timer_ref]}]},
+ {fallback,{ok,{reply,ok,
+                      {state,panel,config,gl,canvas,context,image,timer_ref,
+                             time}}},
+           []},
+ {shutdown_malformed,{ok,{reply,ok,{state,panel}}},[]},
+ {fallback_malformed,{ok,{reply,ok,{state,panel}}},[]}].

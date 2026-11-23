@@ -575,14 +575,15 @@ internal sealed partial class BeamModuleCompiler
         int octets,
         BeamSourceLocation location,
         bool properOctets,
-        long? lower
+        long? lower,
+        bool numeric
     )
     {
         int longForm = nextLabel++;
         int failure = nextLabel++;
         Op(IsGreaterOrEqual, LabelTag, longForm);
         Operand(BeamWire.IntegerTag, 127);
-        EmitOctetValue(lower.HasValue ? IntegerTypeBits : 0, lower, null);
+        EmitOctetValue(lower.HasValue ? IntegerTypeBits : numeric ? NumberTypeBits : 0, lower, null);
         Op(TestHeap, BeamWire.UnsignedTag, 5);
         Operand(BeamWire.UnsignedTag, 1);
         Op(PutList, XRegisterTag, 0);

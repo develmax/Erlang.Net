@@ -1,0 +1,15 @@
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12544,6 +12544,12 @@
+ Test(Erlang.Tests.BeamProtectedEntryAliasChecks.TestName, Erlang.Tests.BeamProtectedEntryAliasChecks.Run);
+ Test(Erlang.Tests.BeamProtectedShortReturnChecks.TestName, Erlang.Tests.BeamProtectedShortReturnChecks.Run);
+ Test(Erlang.Tests.BeamBinaryConstructionStringChecks.TestName, Erlang.Tests.BeamBinaryConstructionStringChecks.Run);
++Test(Erlang.Tests.BeamListHeadRecordFrameChecks.TestName, () =>
++{
++    Erlang.Tests.BeamListHeadRecordFrameChecks.Run();
++    return Task.CompletedTask;
++});
++Test(Erlang.Tests.BeamAtomTupleCasePairChecks.TestName, Erlang.Tests.BeamAtomTupleCasePairChecks.Run);
+ Test(Erlang.Tests.BeamNonterminalCaseCarrierChecks.TestName, Erlang.Tests.BeamNonterminalCaseCarrierChecks.Run);
+ Test(Erlang.Tests.BeamOrderedConsHeadAliasChecks.TestName, Erlang.Tests.BeamOrderedConsHeadAliasChecks.Run);
+ Test(

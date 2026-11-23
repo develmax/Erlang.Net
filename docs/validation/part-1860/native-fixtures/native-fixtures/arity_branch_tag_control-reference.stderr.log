@@ -1,0 +1,5 @@
+Error! Failed to eval: [P]=init:get_plain_arguments(),M=arity_branch_tag_control,{module,M}=code:load_binary(M,P,element(2,file:read_file(P))),{a,[2,1]}=M:framed({request,a,[1,2]}),{ready,a}=M:framed({ready,a}),{other,a,[1,2]}=M:same_arity_fallback({other,a,[1,2]}),try M:framed({other,a,[1,2]}) of _->error(unexpected) catch error:function_clause:[{M,framed,[{other,a,[1,2]}],_}|_]->ok end,fallback=M:custom_failure({other,b,[3]}),{other,b,[3]}=get(dispatched),io:format("native_arity_dispatch_controls_green~n"),halt().
+
+Runtime terminating during boot ({{badmatch,{error,{1,erl_parse,["syntax error before: ","'['"]}}},[{init,start_it,1,[{file,"init.erl"},{line,1560}]},{init,start_em,1,[{file,"init.erl"},{line,1546}]},{init,do_boot,3,[{file,"init.erl"},{line,1217}]}]})
+
+Crash dump is being written to: D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\outgoing-projections-and-arity-1860\native-fixtures/arity_branch_tag_control-reference.dump...done

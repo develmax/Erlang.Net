@@ -1,0 +1,46 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs
+@@ -329,6 +329,11 @@
+         bool sequentialElement = !discarded && comprehension.Items is [Expr.Block or Expr.Sequence or Expr.Match]
+             && comprehension.Qualifiers is [ComprehensionQualifier.Generator { Strict: false, Pattern: Pattern.Variable }, ..];
+ 
++        bool caseElement = !discarded && !guardedElement && comprehension.Items is [var element]
++            && comprehension.Qualifiers is [ComprehensionQualifier.Generator { Strict: false, Pattern: Pattern.Variable }, ..]
++            && LocalFunctionEntries.Walk(element).Any(expression => expression is Expr.Case);
++        bool lexicalElement = sequentialElement || caseElement;
++
+         // The checked field read stays in the parent and is evaluated once.
+         bool recordFieldSource = SsaTypeInferenceEnabled && !discarded && comprehension.Qualifiers is
+         [
+@@ -360,7 +365,7 @@
+                         || !generator.Strict && item is Pattern.Tuple && filter is not null
+                             && ComprehensionGuard.IsTest(filter, sourceModule)))
+             || !(item is Pattern.Variable && (generator.Strict || simpleElement || flatElement || guardedElement || independent || filter is not null
+-                    || recordFieldSource || sequentialElement || source is Expr.Call or Expr.List
++                    || recordFieldSource || lexicalElement || source is Expr.Call or Expr.List
+                     || mapped is Expr.Call { DynamicRemote: false } or Expr.Apply { Function: Expr.Variable })
+                 || item is (Pattern.Tuple or Pattern.List) && IsRecursiveListPattern(item)
+                 || item is AliasPattern alias && SsaTypeInferenceEnabled && !discarded
+@@ -428,7 +433,7 @@
+         }
+ 
+         HashSet<string> free;
+-        if (sequentialElement)
++        if (lexicalElement)
+         {
+             if (ClosureCaptures.ReadListComprehensionBindings(parentClause, comprehension) is not { } visible)
+             {
+@@ -518,8 +523,11 @@
+         // Tuple records use the same field expansion in the parent and in a helper.
+         // Keep wildcard initializers and unevaluated defaults in the existing path.
+         bool CanUseMappedExpression(Expr expression) => CanUseExpression(expression)
+-            || sequentialElement && (expression is Expr.Block or Expr.Sequence
++            || lexicalElement && (expression is Expr.Block or Expr.Sequence
+                 || expression is Expr.Match match && IsRecursiveListPattern(match.Pattern))
++            || caseElement && expression is Expr.Case choice
++                && choice.Clauses.All(branch => branch.Patterns.All(IsRecursiveListPattern)
++                    && (branch.Guard is null || ComprehensionGuard.IsTest(branch.Guard, sourceModule)))
+             || discarded && expression is Expr.Call { DynamicRemote: true }
+             || expression is Expr.RecordConstruction { Wildcard: null } record
+                 && record.Definition.Fields.All(field => record.Fields.Any(value => value.Name == field.Name)

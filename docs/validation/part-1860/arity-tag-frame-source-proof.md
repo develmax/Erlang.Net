@@ -1,0 +1,20 @@
+# Arity-selected tuple tag before frame allocation
+
+The saved Part 1855 assertions corpus used compiler SHA-256 `B6C017C1AFEAFC788C0BFA407A366C8CD1E4082D558EE02B0218C0106A499609`, source ZIP `20D40EC3F43387696B7754118D767A1B569364491E80151896DB77EACD630979`. Only saved images and the pinned Windows OTP 29.1.1 distribution were read. The source proposal uses isolated current Part 1856 emitter and flow helpers, up to the already verified interior-Y prototype, and has no dependency on the heap-scheduling, marker or list-helper work.
+
+| Priority | Ranked group | Evidence and dependency |
+|---|---|---|
+| 1 | Tuple field projection before branch-owned allocation | The saved ranking has 490 modules and 2,119 entries for GetTupleElement versus Allocate. The selected subcase already proves tuple arity on an unframed dispatch edge and uses field zero only as a literal tag. It can move that check upstream of branch allocation. |
+| 2 | Root entry type test versus allocation | 442 modules and 1,071 entries for IsTuple versus Allocate. Several samples also require independent pattern or function-clause lowering. |
+| 3 | Keep the allocation and reduce the saved register state | 829 modules and 7,707 entries for excess Y allocation with equal X root count. This aggregate mixes ownership and lifetime issues. The selected early proof can remove one class of artificial Y lifetimes before the existing compactor runs. |
+| 4 | Outgoing move or swap grouping | 242 modules and 486 entries in the Swap versus Move group. This occurs downstream of ownership and type selection. |
+
+A separate arity-tag window detector found 154 functions in 94 saved generated modules, with 21 windows across 12 modules pairing the MFA, arity and asserted tag with native field check preceding allocation. Sixteen pairs also have an exact saved-X0 restore, deallocation and jump to the original function-info block on failure. The counts screen structural opportunities and do not predict passing the complete ownership or liveness proof.
+
+Direct witness positives are `megaco_timer:restart/1`, `beam_call_types:tuple_sizes/1`, `gen:register_name/1` and `test_server_ctrl:start_cover/1`. Fallback `erl_parse:native_record_name_list/1` tail-calls its specific abstract-form error helper and must stay unchanged. Labels and raw opcode evidence are in `entry-witnesses.log` and `failure-context.log`. The corrected cleanup census carries the saved alias operand into its equality check. The first census omitted that operand and is preserved as diagnostic history.
+
+The staged selective pass keeps the original unframed X0 and type/arity dispatch. It proves the arity arm is entered only by that switch, computes stable allocation ownership using the existing branch walk and checks the unique relevant failure body is a restoration of the saved argument followed by removal of the exact owning frame and a jump to function info. Other incoming edges may continue to use the original cleanup block. The first field can be read into an X register above all original function arguments and allocation inputs, with the existing proof checking that the displaced X value is unused after allocation. The Y tag must have no remaining references in the owner. The pass keeps the physical frame initialization valid and existing code can compact the dead Y slot after the change.
+
+The permanent binary fixture checks the tag and function-clause branch before allocation with the original argument preserved. It declines to transform a later tag consumer and a distinct fallback return. The independent native source fixture confirmed the good arity path, fallback within a single arity, exact original function_clause arguments, and a custom failure branch with effect. Candidate execution remains unscheduled.
+
+Patch `arity-dispatch-tag-frame.patch` SHA-256 `F5EC710273505A25F4E3704E231FB6FBBBDD903E75E836BDFB2D14D43FC9A51B` passed forward and reverse application and whitespace checks. The managed compiler build, permanent regression, actual output and release cohort remain pending. No candidate gain is claimed.

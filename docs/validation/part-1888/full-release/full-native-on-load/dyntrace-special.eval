@@ -1,0 +1,10 @@
+[Path,Out]=init:get_plain_arguments(),
+{ok,B}=file:read_file(Path), Result=code:load_binary(dyntrace,Path,B),
+Capture=fun(F)->try F() of V->{value,V}
+ catch C:E:S->{C,E,[{M,N,length(Args)}||{M,N,Args,_}<-S,M=:=dyntrace,is_list(Args)]} end end,
+Observations=case Result of
+  {module,dyntrace}->
+    [Capture(fun dyntrace:available/0), Capture(fun dyntrace:p/0), Capture(fun()->dyntrace:p(42)end),
+     Capture(fun()->dyntrace:p("trace sample")end),Capture(fun()->dyntrace:user_trace_s1("sample")end)];
+  _->[] end,
+ok=file:write_file(Out,io_lib:format("~0p.~n",[{Result,Observations}])),halt().

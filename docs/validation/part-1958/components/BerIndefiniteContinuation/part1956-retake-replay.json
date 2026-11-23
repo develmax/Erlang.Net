@@ -1,0 +1,29 @@
+{
+  "Snapshot": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/protected-failures-and-shared-match-lifetime-1956-retake/source.zip",
+  "SnapshotSHA256": "81fe483cddbe51403b1520e49ebef73f9f394e78c534699dc2f9a7c3b4fa5cdc",
+  "SnapshotCompiler": "194e9de374fbebd7d9507b09c11cb2c7a864446315cfd334a63376fae4a9bb23",
+  "Patches": [
+    {
+      "Patch": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/asn-named-bits-replay-1931/ber-binary-length-consumer-1956/ber-binary-length-consumer.patch",
+      "SHA256": "03eea4b5bfc60e934cf40814b682f6674ab19fc26848820e28099b75ba33705e"
+    },
+    {
+      "Patch": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/asn-named-bits-replay-1931/ber-indefinite-continuation-1956/ber-indefinite-continuation.patch",
+      "SHA256": "da223ab9bd068cc7b306cc03f8893b8313031072d9bbcf2f1085a6773d076806"
+    }
+  ],
+  "Files": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BinaryLengthConsumer.cs": {
+      "Before": null,
+      "After": "5581116555f8a24a9c62934ddd5822036082daff7d480f781761b3b641f2a807"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": {
+      "Before": "a3e8dd2de40b3de4ac4db3fa1c5bcced01fb9844abd2eb08c96ed59939699ead",
+      "After": "21ef637fa1e438f9938acf4da811d3c50284f4ed607b31491e6b5044f05f2798"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.IndefiniteBinaryContinuation.cs": {
+      "Before": null,
+      "After": "06ffe790d3dcf42a8331c268a8c0bcf5e4236bf9d0d465bb1161d3cf1b3fd513"
+    }
+  }
+}

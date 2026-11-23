@@ -342,7 +342,7 @@ internal sealed partial class BeamModuleCompiler
             owner.closures.Add(new(
                 $"-{function.Name}/{function.Arity}-fun-0-",
                 flow.LiftedBody,
-                flow.Closure.ClauseLine == 0 ? location : new(flow.Closure.ClauseFile, flow.Closure.ClauseLine),
+                flow.Closure.DeclarationLine == 0 ? location : new(flow.Closure.DeclarationFile, flow.Closure.DeclarationLine),
                 1,
                 null
             ));

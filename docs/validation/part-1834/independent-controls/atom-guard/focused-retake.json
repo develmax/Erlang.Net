@@ -1,0 +1,25 @@
+{
+  "Partial": true,
+  "SelectedCount": 2,
+  "TotalCount": 9753,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/beam/atom-case-emits-local-tails",
+    "compiler/beam/whole-module-matches-otp"
+  ],
+  "Passed": 1,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "compiler/beam/whole-module-matches-otp",
+      "Status": "Passed",
+      "Milliseconds": 24614
+    },
+    {
+      "Name": "compiler/beam/atom-case-emits-local-tails",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Generated module differs from OTP: beam_guarded_atom_tail\r\n   at Erlang.Tests.BeamModuleEmissionChecks.CompareFixture(String module) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-tuple-projection-cse\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamModuleEmissionChecks.cs:line 8693\r\n   at Erlang.Tests.BeamModuleEmissionChecks.CompareAtomTailDispatch() in C:\\Users\\Maksim\\.codex\\worktrees\\beam-tuple-projection-cse\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamModuleEmissionChecks.cs:line 8700\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\Users\\Maksim\\.codex\\worktrees\\beam-tuple-projection-cse\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16328",
+      "Milliseconds": 31
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+[{run,{ok,{complete,{ok,ok,ok}}},[first,second,note,third]},
+ {run,{ok,{error,early}},[first]},
+ {run,{ok,{error,middle}},[first,second]},
+ {run,{ok,{error,late}},[first,second,note,third]},
+ {run,{error,{case_clause,wrong},5},[first]},
+ {run,{error,{case_clause,wrong},7},[first,second]},
+ {run,{error,{case_clause,wrong},10},[first,second,note,third]},
+ {alternate,{ok,{error,early}},[first]},
+ {alternate,{ok,{missing,middle}},[first,second]},
+ {effectful,{ok,{reported,late}},[first,second,report]}].

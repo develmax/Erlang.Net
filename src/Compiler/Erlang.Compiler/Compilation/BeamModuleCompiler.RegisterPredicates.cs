@@ -104,6 +104,11 @@ internal sealed partial class BeamModuleCompiler
 
         private bool TryEmitRegisterPredicate(FunctionDefinition function)
         {
+            if (TryEmitSharedTaggedArityPredicate(function))
+            {
+                return true;
+            }
+
             if (IsBooleanPatternPredicate(function.Clauses))
             {
                 EmitUnaryPredicate(AutoImportNames.IsBoolean);
@@ -349,6 +354,11 @@ internal sealed partial class BeamModuleCompiler
                 return true;
             }
 
+            if (TryEmitLiteralReturnsWithTailFallback(function, tests))
+            {
+                return true;
+            }
+
             if (TryEmitRegisterTailCall(function, dispatchOnly: true))
             {
                 return true;
@@ -412,37 +422,178 @@ internal sealed partial class BeamModuleCompiler
             return true;
         }
 
-        private bool TryEmitClosedAtomTailDispatch(FunctionDefinition function)
+        private bool TryEmitLiteralReturnsWithTailFallback(
+            FunctionDefinition function,
+            IReadOnlyList<(int Register, Term Key)[]> tests
+        )
         {
-            if (function.Arity != 1 || function.Clauses.Count < 2)
+            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled || recursiveClosure is not null
+                || tests.Count < 3 || ReadAtomEntryType(function, 0) != 0
+                || function.Clauses[^1] is not { Body: Expr.Call fallbackCall } fallback)
             {
                 return false;
+            }
+
+            var keys = new HashSet<Atom>();
+            var results = new HashSet<Term>();
+            for (int index = 0; index < tests.Count - 1; index++)
+            {
+                if (tests[index] is not [(0, Atom key)]
+                    || function.Clauses[index].Body is not Expr.Literal returned
+                    || key.Equals(returned.Value) || !keys.Add(key))
+                {
+                    return false;
+                }
+
+                results.Add(returned.Value);
+            }
+
+            if (results.Count < 2)
+            {
+                return false;
+            }
+
+            owner.EmitLiteralDispatch(
+                function.Clauses,
+                location,
+                emitComputedFallback: () => owner.EmitCall(
+                    fallback,
+                    location,
+                    fallbackCall,
+                    entries
+                )
+            );
+
+            return true;
+        }
+
+        private bool TryEmitClosedAtomTailDispatch(FunctionDefinition function)
+        {
+            bool multipleArguments = function.Arity > 1;
+            if (function.Arity == 0 || function.Clauses.Count < 2
+                || multipleArguments && (function.Clauses.Count != 2 || owner.ModuleOptimizationDisabled
+                    || recursiveClosure is not null || function.Arity >= FirstReservedXRegister))
+            {
+                return false;
+            }
+
+            int selector = multipleArguments
+                ? Array.FindIndex(function.Clauses[0].Patterns.ToArray(), pattern => pattern is Pattern.Literal { Value: Atom })
+                : 0;
+            if (selector < 0)
+            {
+                return TryEmitClosedExactAtomGuardTailDispatch(function);
             }
 
             var keys = new HashSet<Atom>();
             var branches = new List<ClosedAtomBranch>();
             foreach (Clause clause in function.Clauses)
             {
-                if (clause is not { Guard: null, Patterns: [Pattern.Literal { Value: Atom key }] }
+                if (clause is { Guard: null, Patterns: [AliasPattern alias], Body: Expr.Variable result }
+                    && TryReadPatternAlias(alias, out var binding, out var shape)
+                    && result.Name == binding.Name && shape is Pattern.Literal { Value: Atom matched })
+                {
+                    if (!keys.Add(matched))
+                    {
+                        return false;
+                    }
+
+                    branches.Add(new(
+                        matched,
+                        null,
+                        null,
+                        ReturnsInput: true
+                    ));
+                    continue;
+                }
+
+                if (clause is
+                    {
+                        Guard: { } guard,
+                        Patterns: [Pattern.Variable { Name: not VariableScopeNames.Wildcard } input],
+                        Body: Expr.Literal { Value: var guardedResult }
+                    })
+                {
+                    var guardKeys = new List<Atom>();
+                    if (!ReadAtomGuardKeys(guard, input.Name, guardKeys))
+                    {
+                        return false;
+                    }
+
+                    foreach (Atom guardedKey in guardKeys)
+                    {
+                        if (!keys.Add(guardedKey))
+                        {
+                            return false;
+                        }
+
+                        branches.Add(new(guardedKey, guardedResult, null));
+                    }
+
+                    continue;
+                }
+
+                if (clause.Guard is not null || clause.Patterns[selector] is not Pattern.Literal { Value: Atom key }
                     || !keys.Add(key))
                 {
                     return false;
                 }
 
-                if (clause.Body is Expr.Literal { Value: var literal })
+                string[] parameters = [];
+                if (multipleArguments)
+                {
+                    var patterns = clause.Patterns.ToArray();
+                    patterns[selector] = new Pattern.Variable(VariableScopeNames.Wildcard);
+                    if (!HasUnconditionalParameters(clause with { Patterns = patterns }))
+                    {
+                        return false;
+                    }
+
+                    parameters = patterns.Cast<Pattern.Variable>().Select(variable => variable.Name).ToArray();
+                }
+
+                Term? literal = clause.Body is Expr.Literal value ? value.Value : null;
+                if (literal is null && multipleArguments && AttributeLiteral.TryNormalizeConstant(clause.Body, out var constant))
+                {
+                    literal = constant;
+                }
+
+                if (literal is not null)
                 {
                     branches.Add(new(key, literal, null));
                 }
                 else if (clause.Body is Expr.Call { DynamicRemote: false } call
-                    && ReadEntryCall(call, []) is { } tail)
+                    && ReadEntryCall(call, parameters) is { } tail
+                    && (!multipleArguments || tail.Module is null || !IsTrappingTailBif(tail.Module, call.Function, call.Arguments.Count)))
                 {
-                    tail.Constants.RemoveAll(operand => operand.Destination == 0 && operand.Value.Equals(key));
+                    tail.Constants.RemoveAll(operand => operand.Destination == selector && operand.Value.Equals(key));
                     branches.Add(new(key, null, tail));
                 }
                 else
                 {
                     return false;
                 }
+            }
+
+            if (branches.Count < 2)
+            {
+                return false;
+            }
+
+            if (multipleArguments && ReadFiniteAtomArguments(function, selector) is { Count: > 0 } finite
+                && finite.All(keys.Contains))
+            {
+                return false;
+            }
+
+            // When both boolean keys lead to the same block, beam_jump can replace
+            // the switch with is_boolean. Leave that shape on its existing path.
+            if (multipleArguments && branches is [var first, var second]
+                && first.Key.Name is ErlangBooleanAtoms.True or ErlangBooleanAtoms.False
+                && second.Key.Name is ErlangBooleanAtoms.True or ErlangBooleanAtoms.False
+                && first.SharesCode(second))
+            {
+                return false;
             }
 
             branches.Sort((left, right) => TermOrder.Compare(left.Key, right.Key, exact: true));
@@ -464,15 +615,11 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
-            owner.Op(SelectValue, XRegisterTag, 0);
-            owner.Operand(LabelTag, failure);
-            owner.instructions.WriteByte(ExtendedListOperand);
-            owner.Operand(BeamWire.UnsignedTag, branches.Count * 2);
-            for (int index = 0; index < branches.Count; index++)
-            {
-                owner.LiteralOperand(branches[index].Key);
-                owner.Operand(LabelTag, labels[representatives[index]]);
-            }
+            owner.EmitMembershipSelect(
+                selector,
+                failure,
+                branches.Select((branch, index) => ((Term)branch.Key, labels[representatives[index]]))
+            );
 
             for (int index = branches.Count - 1; index >= 0; index--)
             {
@@ -483,9 +630,14 @@ internal sealed partial class BeamModuleCompiler
 
                 Mark(labels[index]);
                 ClosedAtomBranch branch = branches[index];
-                if (branch.Literal is { } literal)
+                if (branch.ReturnsInput)
                 {
-                    if (!branch.Key.Equals(literal) || Array.IndexOf(representatives, index, index + 1) >= 0)
+                    owner.instructions.WriteByte(Return);
+                }
+                else if (branch.Literal is { } literal)
+                {
+                    if (selector != 0 || !branch.Key.Equals(literal)
+                        || Array.IndexOf(representatives, index, index + 1) >= 0)
                     {
                         owner.EmitConstant(literal, 0);
                     }
@@ -503,10 +655,85 @@ internal sealed partial class BeamModuleCompiler
             return true;
         }
 
-        private sealed record ClosedAtomBranch(Atom Key, Term? Literal, EntryCall? Tail)
+
+        private bool TryEmitClosedExactAtomGuardTailDispatch(FunctionDefinition function)
+        {
+            if (!CanUseEntryTypeFacts())
+            {
+                return false;
+            }
+
+            var branches = new Clause[2];
+            int selector = -1;
+            Atom? firstKey = null;
+            Term? firstValue = null;
+            string? target = null;
+            for (int index = 0; index < branches.Length; index++)
+            {
+                Clause clause = function.Clauses[index];
+                if (clause.Guard is not Expr.Binary
+                    {
+                        Operator: ErlangOperators.ExactEqual,
+                        Left: Expr.Variable input,
+                        Right: Expr.Literal { Value: Atom key }
+                    }
+                    || !HasUnconditionalParameters(clause)
+                    || clause.Body is not Expr.Call { Module: null, DynamicRemote: false } call
+                    || call.Arguments.Count != function.Arity
+                    || !entries.ContainsKey((call.Function, call.Arguments.Count)))
+                {
+                    return false;
+                }
+
+                var patterns = clause.Patterns.ToArray();
+                int tested = Array.FindIndex(
+                    patterns,
+                    pattern => pattern is Pattern.Variable variable
+                    && variable.Name != VariableScopeNames.Wildcard && variable.Name == input.Name
+                );
+                if (tested < 0 || !AttributeLiteral.TryNormalizeConstant(call.Arguments[tested], out Term value)
+                    || index != 0 && (tested != selector || target != call.Function
+                        || TermOrder.Compare(firstKey!, key, exact: true) <= 0 || value.Equals(firstValue)))
+                {
+                    return false;
+                }
+
+                for (int argument = 0; argument < patterns.Length; argument++)
+                {
+                    if (argument != tested && (call.Arguments[argument] is not Expr.Variable forwarded
+                        || patterns[argument] is not Pattern.Variable parameter || forwarded.Name != parameter.Name))
+                    {
+                        return false;
+                    }
+                }
+
+                selector = tested;
+                firstKey = key;
+                firstValue = value;
+                target = call.Function;
+                patterns[selector] = new Pattern.Literal(key);
+                branches[index] = clause with { Guard = null, Patterns = patterns };
+            }
+
+            // The existing literal dispatch retains the local failure edge and tail bodies.
+            // Descending source keys keep the original physical order of the independent arms.
+            return TryEmitClosedAtomTailDispatch(function with { Clauses = branches });
+        }
+
+        private sealed record ClosedAtomBranch(
+            Atom Key,
+            Term? Literal,
+            EntryCall? Tail,
+            bool ReturnsInput = false
+        )
         {
             internal bool SharesCode(ClosedAtomBranch other)
             {
+                if (ReturnsInput || other.ReturnsInput)
+                {
+                    return ReturnsInput && other.ReturnsInput;
+                }
+
                 if (Literal is { } literal)
                 {
                     return literal.Equals(other.Literal);
@@ -516,6 +743,7 @@ internal sealed partial class BeamModuleCompiler
                     && other.Tail is { Module: null } previous
                     && call.Call.Function == previous.Call.Function
                     && call.Call.Arguments.Count == previous.Call.Arguments.Count
+                    && call.Moves.SequenceEqual(previous.Moves)
                     && call.Constants.SequenceEqual(previous.Constants);
             }
         }

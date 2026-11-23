@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\part1979-common-entry-and-call-roots-local\run-native.py", line 60, in <module>
+    observed={role:run(stem+"-"+role,recipe,Path(stem),path(stem,role)) for role in roles}
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\part1979-common-entry-and-call-roots-local\run-native.py", line 35, in run
+    raise RuntimeError((label,result.returncode,stderr))
+RuntimeError: ('orddict-pinned', 1, WindowsPath('D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/part1979-common-entry-and-call-roots-local/native-scoped/orddict-pinned.stderr.log'))

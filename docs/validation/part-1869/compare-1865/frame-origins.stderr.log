@@ -1,0 +1,13 @@
+Error! Failed to eval: [Old,New,Current,Source]=init:get_plain_arguments(),{ok,Targets}=file:consult(Source),
+Load=fun(Pattern,Name)->[F]=filelib:wildcard(filename:join(Pattern++["lib","*","ebin",Name])),
+       {beam_file,_,_,_,_,Fs}=beam_disasm:file(F),
+       maps:from_list([{{F1,A},[I||I<-Ops,is_tuple(I),lists:member(element(1,I),[allocate,allocate_heap])]}||{function,F1,A,_,Ops}<-Fs])end,
+Names=lists:usort([M||{M,_,_}<-Targets]),
+Mods=maps:from_list([{M,[Load(P,M)||P<-[[Old,"shard-*","otp-corpus.json.generated"],[New,"shard-*","otp-corpus.json.generated"],[Current,"pilot.json.generated"]]]}||M<-Names]),
+Rows=[begin [P,A,C]=[maps:get(K,B,missing)||B<-maps:get(M,Mods)],{M,K,N,P,A,C,P=:=C} end||{M,K,N}<-Targets],
+lists:foreach(fun(X)->io:format("~0p.~n",[X])end,Rows),
+io:format("~0p.~n",[#{total=>length(Rows),returns_historical_frame=>length([X||X={_,_,_,_,_,_,true}<-Rows])}]),halt().
+
+Runtime terminating during boot ({{badmatch,[]},[{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,796}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{erl_eval,expr_list,7,[{file,"erl_eval.erl"},{line,1664}]},{erl_eval,eval_lc1,7,[{file,"erl_eval.erl"},{line,1078}]},{erl_eval,eval_generate,9,[{file,"erl_eval.erl"},{line,1462}]},{erl_eval,eval_lc,7,[{file,"erl_eval.erl"},{line,1061}]},{erl_eval,expr_list,7,[{file,"erl_eval.erl"},{line,1664}]},{erl_eval,expr_list,5,[{file,"erl_eval.erl"},{line,1660}]}]})
+
+Crash dump is being written to: D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/snmp-logical-include-provenance-1869/compare-1865/frame-origin-crash.dump...done

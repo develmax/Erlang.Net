@@ -1,0 +1,15 @@
+Error! Failed to eval: [P]=init:get_plain_arguments(),
+M=beam_strict_list_generator_helper,{module,M}=code:load_abs(filename:rootname(P)),
+B=[{tag,one},{tag,two}], Mixed=[{tag,one},bad,{tag,two}],
+[one,two]=M:strict(B),[]=M:strict([]),[one,two]=M:relaxed(Mixed),Mixed=M:variable(Mixed),
+[[],[one,two]]=M:nested([[],B]),
+{[one,two],[two,one]}=M:observe(B),{{badmatch,bad},[one]}=M:observe(Mixed),
+Fail=fun(F,In,R,Name,N)->try M:F(In) of Value->error({unexpected,Value}) catch error:R:[{M,Name,_,Location}|_] -> N=proplists:get_value(line,Location),{R,Name,N} end end,
+Reports=[Fail(strict,Mixed,{badmatch,bad},'-strict/1-lc$^0/1-0-',4),Fail(strict,[{tag,one}|invalid_tail],{bad_generator,invalid_tail},'-strict/1-lc$^0/1-0-',4),
+         Fail(split_source,invalid_tail,{bad_generator,invalid_tail},'-split_source/1-lc$^0/1-0-',26)],
+io:format("~0p~n",[{passed,Reports}]),halt().
+
+
+Runtime terminating during boot ({{badmatch,{error,{7,erl_parse,["syntax error before: ","'['"]}}},[{init,start_it,1,[{file,"init.erl"},{line,1560}]},{init,start_em,1,[{file,"init.erl"},{line,1546}]},{init,do_boot,3,[{file,"init.erl"},{line,1217}]}]})
+
+Crash dump is being written to: D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\strict-list-helpers-and-ordinary-call-order-1872\native-strict-generator/reference-crash.dump...done

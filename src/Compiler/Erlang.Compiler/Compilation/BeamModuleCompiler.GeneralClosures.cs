@@ -11,6 +11,11 @@ internal sealed partial class BeamModuleCompiler
 
         private bool TryEmitClosureArgumentTail(FunctionDefinition function)
         {
+            if (TryEmitDeclaredReferenceArgumentTail(function))
+            {
+                return true;
+            }
+
             if (function.Clauses is not [
                 {
                     Guard: null, Body: Expr.Call
@@ -37,6 +42,37 @@ internal sealed partial class BeamModuleCompiler
 
             EmitGeneralClosure(closure, captureRegisters: registers);
             EmitRegisterTailTarget(call with { Module = module }, call.Arguments.Count);
+
+            return true;
+        }
+
+        private bool TryEmitDeclaredReferenceArgumentTail(FunctionDefinition function)
+        {
+            if (!CanUseEntryTypeFacts() || function.Clauses is not [
+                {
+                    Guard: null,
+                    Patterns: [Pattern.Variable { Name: not VariableScopeNames.Wildcard } incoming],
+                    Body: Expr.Call
+                    {
+                        DynamicRemote: false,
+                        Arguments: [Expr.FunctionReference, Expr.Variable forwarded]
+                    } call
+                }]
+                || forwarded.Name != incoming.Name
+                || ReadEntryCall(call, [incoming.Name], allowFunctionArgument: true) is not
+                {
+                    Module: not ErlangModuleNames.Module,
+                    FunctionArgument: { } reference,
+                } tail)
+            {
+                return false;
+            }
+
+            // Keep the incoming value in X0 through the heap check and closure creation.
+            owner.EmitClosureAllocation(0, 1, 1);
+            owner.EmitDeclaredFunctionReference(reference.Reference, reference.Entry, 1);
+            owner.EmitOrderedTailMoves([(0, 1), (1, 0)], []);
+            EmitRegisterTailTarget(call with { Module = tail.Module }, call.Arguments.Count);
 
             return true;
         }
@@ -85,6 +121,11 @@ internal sealed partial class BeamModuleCompiler
                 entryCaptureOrder?.TryGetValue(name, out int order) == true
                     ? (Local: false, Order: order)
                     : (Local: entryCaptureOrder is not null, Order: captureRegisters?.GetValueOrDefault(name) ?? variables[name])).ToArray();
+            if (UsesCoreNamedCallCaptureOrder(function, captures))
+            {
+                Array.Sort(captures, StringComparer.Ordinal);
+            }
+
             int declaredArity = function.Clauses[0].Patterns.Count;
             int arity = declaredArity + captures.Length;
             if (arity > BeamWire.MaximumArity)
@@ -96,12 +137,22 @@ internal sealed partial class BeamModuleCompiler
             int ordinal = function.CoreOrdinal ?? anonymousOrdinal++;
             string name = function.SelfName is { } self
                 ? FormattableString.Invariant($"-{lexicalOwner.Name}/{lexicalOwner.Arity}-{self}/{declaredArity}-{ordinal}-")
-                : AnonymousClosureName(lexicalOwner, ordinal);
-            var clauses = function.Clauses.Select(clause => clause with
+                : owner.ReadSsaClosureName(lexicalOwner, function, ordinal) ?? AnonymousClosureName(lexicalOwner, ordinal);
+            var clauses = function.Clauses.Select(clause =>
             {
-                Patterns = [.. clause.Patterns, .. captures.Select(capture => new Pattern.Variable(capture))]
+                // A fun head binds its own names. Keep the capture slot for other clauses.
+                var shadowed = captures.Length != 0
+                    && !clause.Patterns.SelectMany(LocalFunctionEntries.PatternExpressions).Any()
+                    ? clause.Patterns.SelectMany(Semantics.Variables).ToHashSet(StringComparer.Ordinal)
+                    : null;
+
+                return clause with
+                {
+                    Patterns = [.. clause.Patterns, .. captures.Select(capture =>
+                        new Pattern.Variable(shadowed?.Contains(capture) == true ? VariableScopeNames.Wildcard : capture))]
+                };
             }).ToArray();
-            BeamSourceLocation source = function.ClauseLine == 0 ? location : new(function.ClauseFile, function.ClauseLine);
+            BeamSourceLocation source = function.DeclarationLine == 0 ? location : new(function.DeclarationFile, function.DeclarationLine);
             var lifted = new FunctionDefinition(name, arity, clauses);
 
             if (!heapChecked)
@@ -139,13 +190,34 @@ internal sealed partial class BeamModuleCompiler
             if (entryPatternFailure || captures.Length != 0 && (function.SelfName is null || emitCapturedFailure)
                 && !function.Clauses.Any(clause => clause.Guard is null && HasUnconditionalParameters(clause)))
             {
-                do
+                if (owner.recursiveClosureFailureOrdinals.TryGetValue(
+                    (lexicalOwner.Name, lexicalOwner.Arity, ordinal), out int plannedFailure
+                ))
                 {
                     failure = FormattableString.Invariant(
-                        $"-{lexicalOwner.Name}/{lexicalOwner.Arity}-inlined-{anonymousFailureOrdinal++}-"
+                        $"-{lexicalOwner.Name}/{lexicalOwner.Arity}-inlined-{plannedFailure}-"
                     );
                 }
-                while (owner.closures.Any(closure => closure.GuardFailure == failure));
+                else if (owner.SsaTypeInferenceEnabled && !owner.ModuleOptimizationDisabled
+                    && !owner.UsesSourceInlining
+                    && (HasEarlierClosureFailureReservation(lexicalOwner, function, ordinal)
+                        || HasPriorListCallbackFailureReservation(lexicalOwner, function, ordinal)))
+                {
+                    const int reservedAfterFirstFailure = 1;
+                    failure = FormattableString.Invariant(
+                        $"-{lexicalOwner.Name}/{lexicalOwner.Arity}-inlined-{reservedAfterFirstFailure}-"
+                    );
+                }
+                else
+                {
+                    do
+                    {
+                        failure = FormattableString.Invariant(
+                            $"-{lexicalOwner.Name}/{lexicalOwner.Arity}-inlined-{anonymousFailureOrdinal++}-"
+                        );
+                    }
+                    while (owner.closures.Any(closure => closure.GuardFailure == failure));
+                }
             }
 
             owner.closures.Add(new(
@@ -158,8 +230,71 @@ internal sealed partial class BeamModuleCompiler
                 General: lifted,
                 LexicalOwner: lexicalOwner,
                 SelfName: function.SelfName,
-                EntryPatternFailure: entryPatternFailure
+                EntryPatternFailure: entryPatternFailure,
+                RequiresSelfValue: ClosureCaptures.RequiresSelfValue(function)
             ));
+        }
+
+        private bool UsesCoreNamedCallCaptureOrder(Expr.Fun closure, IReadOnlyList<string> captures)
+        {
+            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled || captures.Count != 2
+                || captures.Any(name => !name.All(char.IsAscii)) || parentFunction is not { } lexicalOwner
+                || owner.SourceModule?.DeclaredFunctions.FirstOrDefault(function =>
+                    function.Name == lexicalOwner.Name && function.Arity == lexicalOwner.Arity)?.Clauses is not
+                    [{ Guard: null, Body: Expr.Sequence sequence } source])
+            {
+                return false;
+            }
+
+            var parameters = source.Patterns.SelectMany(Semantics.Variables).ToHashSet(StringComparer.Ordinal);
+            if (captures.Any(parameters.Contains))
+            {
+                return false;
+            }
+
+            var boundCalls = new HashSet<string>(StringComparer.Ordinal);
+            var constants = new Dictionary<string, Term>(StringComparer.Ordinal);
+            string? callback = null;
+            for (int index = 0; index + 1 < sequence.Items.Count; index++)
+            {
+                if (sequence.Items[index] is Expr.Match
+                    { Pattern: Pattern.Variable { Name: not VariableScopeNames.Wildcard } binding } match)
+                {
+                    if (match.Value is Expr.Fun { SelfName: null } sourceClosure
+                        && sourceClosure.DeclarationLine == closure.DeclarationLine)
+                    {
+                        if (callback is not null || !captures.All(boundCalls.Contains))
+                        {
+                            return false;
+                        }
+
+                        callback = binding.Name;
+                    }
+                    else if (match.Value is Expr.Call { DynamicRemote: false })
+                    {
+                        boundCalls.Add(binding.Name);
+                    }
+                    else if (AttributeLiteral.TryNormalizeConstant(match.Value, out Term value, constants))
+                    {
+                        constants.TryAdd(binding.Name, value);
+                    }
+                }
+                else if (callback is not null && sequence.Items[index] is Expr.ListComprehension
+                {
+                    Items: [Expr.Apply { Function: Expr.Variable callable, Arguments: [Expr.Variable item] }],
+                    Qualifiers: [ComprehensionQualifier.Generator
+                    { Strict: false, Pattern: Pattern.Variable generator, Source: var list }]
+                } && callable.Name == callback && item.Name == generator.Name
+                    && AttributeLiteral.TryNormalizeConstant(list, out Term literal, constants) && literal is Cons)
+                {
+                    // No Core alpha-renaming is needed for the two dominating
+                    // call result names. beam_core_to_ssa uses an ordered set
+                    // of free names when adding those arguments to the lifted fun.
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private bool TryEmitEntryClosureTail(Clause clause)
@@ -462,6 +597,11 @@ internal sealed partial class BeamModuleCompiler
 
             selfEntry = entry;
             selfCaptures = arguments[^recursiveClosure.CaptureCount..];
+            if (!recursiveClosure.RequiresSelfValue)
+            {
+                return;
+            }
+
             owner.EmitClosureAllocation(selfCaptures.Length, 0, 1);
             owner.Op(MakeFun, BeamWire.UnsignedTag, recursiveClosureIndex);
             owner.Operand(XRegisterTag, 0);
@@ -479,7 +619,9 @@ internal sealed partial class BeamModuleCompiler
             recursiveClosure?.SelfName is { } self
             && apply.Function is Expr.Variable variable && variable.Name == self
             && apply.Arguments.Count == recursiveClosure.Arity - recursiveClosure.CaptureCount
-            && variables.TryGetValue(self, out int slot) && slot == selfSlot;
+            && (selfSlot >= 0
+                ? variables.TryGetValue(self, out int slot) && slot == selfSlot
+                : !variables.ContainsKey(self) && !deferredPairMembers.ContainsKey(self));
 
         private void EmitClosureSelfCall(Expr.Apply apply, bool tail)
         {

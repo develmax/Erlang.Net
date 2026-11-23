@@ -1,0 +1,69 @@
+{
+  "tools/Native/Erlang.NifResource529Observations/source-plan.json": {
+    "Old": "57B36A720205BDBBFD28E3E6D1D33F4EF688A1739E695528D396E5BF0D2855E5",
+    "New": "58C52378988E93019823324CC804C5D5A070EC916D599FCC14071FA8917D8324",
+    "Rows": [
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SavedCallSequence.cs",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TaggedTokenResultTail.cs"
+    ]
+  },
+  "tools/Native/Erlang.NifPrivateData557Observations/source-plan.json": {
+    "Old": "3AEA4259214FAE1FE7E996CEDF5BB7EB48A3C0DBDC49434A491BD5FD385A2C66",
+    "New": "33A2E37F7D82F4FA980C3B36F50987F7E14164E2BBADF59A95D8E9627DA7A14F",
+    "Rows": [
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SavedCallSequence.cs",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TaggedTokenResultTail.cs"
+    ]
+  },
+  "tools/Native/Erlang.NifIntegratedObservations/inputs.json": {
+    "Old": "881A3DCB19CAC2104D873D28B085B5182C142C2156621E4F10960DBEB1D68F54",
+    "New": "751BB56403A3A6718624E5217030CC3CD75A73DD797EB3A2C4CF19F84BC32793",
+    "Rows": [
+      "tools/Native/Erlang.NifResource529Observations/source-plan.json"
+    ]
+  },
+  ".github/workflows/nif-upgrade-integrated.yml": {
+    "Old": "EC65663EE7C90018E5E2608C1345EFB33351BAFF708E8D58159BE444E897F636",
+    "New": "3B3F78D6E92ECD8560606229DDAD7BC790B1A1754E67941E2294ECE4079C848B"
+  },
+  "tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json": {
+    "Old": "0FDED04B0508B35FF518A59DB48EE8BEA54484FC50EC25FB04FD70EE30048B21",
+    "New": "39427192E5FC88692E54A6F3A024AC4AAAEA5A7E261BC0F30609F8BEF88DC246",
+    "Rows": [
+      "tools/Native/Erlang.NifIntegratedObservations/inputs.json"
+    ]
+  },
+  "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json": {
+    "Old": "AE403A19B7F2FB276785B01AE98563872AFC9256966A78E74FD94D3D25185A8C",
+    "New": "5D1A664626479AE48009CF7D55C5E235141CC3FE91F9F9D222B776A6069B0AFC",
+    "Rows": [
+      "tools/Native/Erlang.NifIntegratedObservations/inputs.json",
+      "tools/Native/Erlang.NifResource529Observations/source-plan.json",
+      "tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SavedCallSequence.cs",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TaggedTokenResultTail.cs"
+    ]
+  },
+  ".github/workflows/nif-pending-native.yml": {
+    "Old": "F0DBDEBC9CE8967F76C27F6A7C78FD79C534941E407F41715A88CA117EDB1DC2",
+    "New": "DCF6A4AC5AF71557291CDC9F5A69C7C6DBF52312F24DF7CF4C7D9E7B349566C4"
+  },
+  "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json": {
+    "Old": "F03BB931FFEBC412A6E7910706DC1C98FEADB9D8958D6B57F58F46EC8C1B198C",
+    "New": "21EA310C6CD44585AFEBD31273E9FE67D08D5EDFF9924532C68D65F3B15B9D62",
+    "Rows": [
+      ".github/workflows/nif-pending-native.yml",
+      "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SavedCallSequence.cs",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TaggedTokenResultTail.cs"
+    ]
+  },
+  ".github/workflows/nif-reallocation-native.yml": {
+    "Old": "D87EA42D49E1AC64068576C23025E7425418F14956D8143B802ECCAD3B4E8178",
+    "New": "D69E0718EF4482387B4DFA1B6302E45D4297EE49DFCDA8DA03E90B6BA5907676"
+  }
+}

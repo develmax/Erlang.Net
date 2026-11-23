@@ -1,0 +1,75 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamNonterminalCaseCarrierChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamNonterminalCaseCarrierChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamNonterminalCaseCarrierChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamNonterminalCaseCarrierChecks.cs
+@@ -36,6 +36,27 @@
+         record(Result) -> self() ! {recorded, Result}.
+         """;
+ 
++    private const string ScratchFixture = "case_payload_scratch_probe.erl";
++    private const string ScratchMessage = "Saved case selector patterns must test closed payloads in X while preserving escaping bindings.";
++
++    internal const string ScratchSource = """
++        -module(case_payload_scratch_probe).
++        -export([run/2, step/1, audit/1]).
++        run(Selector, Keep) ->
++            Result =
++                case ?MODULE:step(Selector) of
++                    {ok, {prompt, "login: "}, _} -> matched;
++                    {ok, [{prompt, _First}, {prompt, _Second}], _} -> accepted;
++                    {ok, [{capture, First}], _} -> ?MODULE:audit(First), First;
++                    Error -> ?MODULE:audit(Error), {error, Error}
++                end,
++            ?MODULE:audit(Keep),
++            Result.
++        step(throw) -> erlang:error(selector_failed);
++        step(Value) -> Value.
++        audit(Value) -> self() ! {recorded, Value}.
++        """;
++
+     internal static Task Run()
+     {
+         object code = Code(CodeGeneration.CompileBeamModule(Source, Fixture));
+@@ -52,6 +73,43 @@
+             throw new InvalidOperationException(WrongConstructors);
+         }
+ 
++        CheckSavedSelectorPayloadScratch();
++
+         return Task.CompletedTask;
+     }
++
++    private static void CheckSavedSelectorPayloadScratch()
++    {
++        object code = Code(CodeGeneration.CompileBeamModule(ScratchSource, ScratchFixture));
++        object[] instructions = ((IEnumerable)Property(code, "Instructions")).Cast<object>().ToArray();
++        int first = Array.FindIndex(instructions, instruction => Opcode(instruction) == FunctionInfo);
++        int end = Array.FindIndex(instructions, first + 1, instruction => Opcode(instruction) == FunctionInfo);
++        object[] run = instructions[first..end];
++        if (run.Count(instruction => Opcode(instruction) == GetList
++                && IsRegister(instruction, 0, "x", 0)
++                && IsRegister(instruction, 1, "x", 1)
++                && IsRegister(instruction, 2, "x", 0)) != 2
++            || !Enumerable.Range(1, run.Length - 1).Any(index =>
++                Opcode(run[index - 1]) == GetTupleElement && IsRegister(run[index - 1], 2, "x", 0)
++                && Opcode(run[index]) == ExactEqualTest && IsRegister(run[index], 1, "x", 0))
++            || !run.Any(instruction => Opcode(instruction) == GetList && RegisterKind(instruction, 1) == "y"))
++        {
++            throw new InvalidOperationException(ScratchMessage);
++        }
++    }
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static bool IsRegister(object instruction, int index, string kind, int register)
++    {
++        object operand = Operand(instruction, index);
++
++        return (string)Property(operand, "Kind") == kind
++            && (System.Numerics.BigInteger)Property(operand, "Value") == register;
++    }
++
++    private static string RegisterKind(object instruction, int index) => (string)Property(Operand(instruction, index), "Kind");
++
++    private static object Operand(object instruction, int index) =>
++        ((IEnumerable)Property(instruction, "Operands")).Cast<object>().ElementAt(index);
+ }

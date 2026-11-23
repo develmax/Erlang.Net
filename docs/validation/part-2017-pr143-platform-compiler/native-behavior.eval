@@ -1,0 +1,50 @@
+Run = fun (M, Dir, Calls) ->
+    Path = filename:join(Dir, atom_to_list(M)++".beam"),
+    {ok,Bin} = file:read_file(Path),
+    {module,M} = code:load_binary(M,Path,Bin),
+    Results = [begin
+        erlang:put(trace,[]),
+        erlang:erase(retired_restore),
+        Outcome = try apply(M,F,Args) of Value -> {return,Value}
+            catch Class:Reason -> {Class,Reason} end,
+        {F,Outcome,erlang:get(trace),erlang:get(retired_restore)}
+    end || {F,Args} <- Calls],
+    true = code:delete(M),
+    _ = code:purge(M),
+    {erlang:md5(Bin), Results}
+end,
+Tests = [
+    {beam_tagged_token_result,[
+        {route,[a,b,{wrapped,[number,kept]}]},
+        {route,[a,b,{wrapped,[invalid,kept]}]},
+        {route,[a,b,{wrapped,[number,kept,extra]}]},
+        {route,[a,b,{wrapped,[number,kept|improper]}]},
+        {prefix,[a,b,{wrapped,[number,kept,extra]}]}
+    ]},
+    {retained_call_frame_probe,[
+        {saved,[1]}, {list_save,[1]}, {list_save,[fail]}, {changed,[2]},
+        {distinct_receiver,[receiver]}, {same_result,[3]}
+    ]},
+    {beam_protected_tagged_calls,[
+        {lookup,[{map,key},#{key => value}]}, {lookup,[{map,key},#{}]},
+        {lookup,[{map,key},invalid]}, {lookup,[{set,key},sets:from_list([key])]},
+        {lookup,[invalid,invalid]}
+    ]},
+    {retired_entry_call_slot,[
+        {returning,[{key},#{key => value},seed]}, {returning,[key,#{},seed]},
+        {checked,[key,#{key => true},seed]}, {checked,[key,#{key => false},seed]},
+        {probing,[#{node() => value}]}
+    ]},
+    {beam_recursive_list_frames,[
+        {mixed,[]},{improper,[]},{unknown,[[{a,1},rejected,{b,2}]]},
+        {unknown,[[{a,1}|improper_tail]]}
+    ]}
+],
+Rows = [begin
+    {OH,O} = Run(M,"pinned",Cases), {GH,G} = Run(M,"managed",Cases),
+    {M,{equal_image,OH =:= GH},{equal_behavior,O =:= G},{oracle,O},{generated,G}}
+end || {M,Cases} <- Tests],
+io:format("~p~n",[Rows]),
+case lists:all(fun ({_,_,{equal_behavior,R},_,_}) -> R end,Rows) of
+true -> halt(); false -> halt(1)
+end.

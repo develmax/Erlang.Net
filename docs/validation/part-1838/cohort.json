@@ -1,0 +1,87 @@
+{
+  "OtpVersion": "29.1.1",
+  "Total": 11,
+  "Counts": {
+    "Different": 6,
+    "Equal": 5
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\compiler-10.0.6\\ebin\\erl_bifs.beam",
+      "Status": "Equal",
+      "Source": "lib\\compiler-10.0.6\\src\\erl_bifs.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\diameter-2.7.2\\ebin\\diameter_callback.beam",
+      "Status": "Equal",
+      "Source": "lib\\diameter-2.7.2\\src\\base\\diameter_callback.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\eldap-1.3.1\\ebin\\ELDAPv3.beam",
+      "Status": "Equal",
+      "Source": "C:\\Users\\Maksim\\.codex\\worktrees\\beam-closure-free-spill\\Erlang.Net\\artifacts\\parity-part-1838\\cohort.json.sources\\99c27be6d82043a6b3e941f5443ab338\\ELDAPv3.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\AlgorithmInformation-2009.beam",
+      "Status": "Equal",
+      "Source": "lib\\public_key-1.21.7\\src\\AlgorithmInformation-2009.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\DSS.beam",
+      "Status": "Different",
+      "Source": "lib\\public_key-1.21.7\\src\\DSS.erl",
+      "Detail": "Original length 10048, generated length 10048. AtU8 608-\u003E613, Code 2275-\u003E2267, ImpT 172-\u003E172, ExpT 148-\u003E148, LocT 196-\u003E196, Attr 438-\u003E438",
+      "FirstDifferentByte": 19
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKCS-10.beam",
+      "Status": "Different",
+      "Source": "lib\\public_key-1.21.7\\src\\PKCS-10.erl",
+      "Detail": "Original length 31736, generated length 32276. AtU8 3625-\u003E3627, Code 8098-\u003E8828, ImpT 424-\u003E424, ExpT 364-\u003E364, FunT 436-\u003E436, LitT 214-\u003E214, LocT 844-\u003E844, Attr 442-\u003E442, Line 607-\u003E597, Type 320-\u003E138",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKCS-3.beam",
+      "Status": "Different",
+      "Source": "lib\\public_key-1.21.7\\src\\PKCS-3.erl",
+      "Detail": "Original length 9924, generated length 9936. AtU8 638-\u003E643, Code 2119-\u003E2125, ImpT 172-\u003E172, ExpT 172-\u003E172, LocT 196-\u003E196, Attr 441-\u003E441",
+      "FirstDifferentByte": 7
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKIX1Explicit-2009.beam",
+      "Status": "Different",
+      "Source": "lib\\public_key-1.21.7\\src\\PKIX1Explicit-2009.erl",
+      "Detail": "Original length 182124, generated length 187948. AtU8 22466-\u003E22499, Code 46611-\u003E52630, ImpT 1588-\u003E1600, ExpT 1996-\u003E1996, FunT 6772-\u003E6772, LitT 2262-\u003E2281, LocT 5080-\u003E5068, Attr 453-\u003E453, Line 3860-\u003E3977, Type 512-\u003E143",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\ssh-6.0.6\\ebin\\ssh_channel_sup.beam",
+      "Status": "Different",
+      "Source": "lib\\ssh-6.0.6\\src\\ssh_channel_sup.erl",
+      "Detail": "Original length 3108, generated length 3116. Code 369-\u003E380, Attr 70-\u003E70, Line 34-\u003E36",
+      "FirstDifferentByte": 7
+    },
+    {
+      "Beam": "lib\\ssl-11.7.7\\ebin\\ssl_handshake.beam",
+      "Status": "Different",
+      "Source": "lib\\ssl-11.7.7\\src\\ssl_handshake.erl",
+      "Detail": "Original length 206212, generated length 219592. AtU8 11646-\u003E11192, Code 49150-\u003E64654, StrT 347-\u003E43, ImpT 1432-\u003E1468, ExpT 832-\u003E832, FunT 652-\u003E916, LitT 14305-\u003E13200, LocT 2524-\u003E2380, Attr 39-\u003E39, Line 2590-\u003E2677, Type 534-\u003E34",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\wx-2.7\\doc\\examples\\demo\\ex_notebook.beam",
+      "Status": "Equal",
+      "Source": "lib\\wx-2.7\\doc\\examples\\demo\\ex_notebook.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    }
+  ]
+}

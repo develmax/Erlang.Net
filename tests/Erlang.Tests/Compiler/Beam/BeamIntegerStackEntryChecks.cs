@@ -1,0 +1,128 @@
+using System.Collections;
+using System.Numerics;
+using Erlang;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamIntegerStackEntryChecks
+{
+    internal const string TestName = "compiler/beam/types-private-entry-from-integer-stack-elements";
+    private const string Fixture = "beam_integer_stack_entry_probe.erl";
+    private const string MissingRange = "The first private exact test lacked its joined integer interval.";
+    private const string UnprovedRange = "An open or escaped argument acquired an unproven interval.";
+    private const string InvalidValue = "Private entry type changed the result or error.";
+
+    internal const string Source = """
+        -module(beam_integer_stack_entry_probe).
+        -export([run/2, run_unknown/2, public_gate/2, indirect/0, escaped_entry/1, run_dispatch/2]).
+
+        run(low, V) -> relay([0,0], V);
+        run(mid, V) -> relay([0,10], V);
+        run(high, V) -> relay([0,20], V);
+        run(empty, V) -> relay([0], V).
+        relay([_|Tail], V) -> dispatch(hd(Tail), V).
+        dispatch(10, V) -> {ok,V}.
+
+        run_dispatch(low, V) -> mixed(0, V);
+        run_dispatch(mid, V) -> mixed(10, V);
+        run_dispatch(high, V) -> mixed(20, V).
+        mixed(0, {ok,V}) -> {low,V};
+        mixed(10, V) -> {ok,V};
+        mixed(20, V) -> {high,V}.
+
+        run_unknown(Any, V) -> unknown_gate(hd(Any), V).
+        unknown_gate(10, V) -> {ok,V}.
+        public_gate(10, V) -> {ok,V}.
+        indirect() -> fun escaped_gate/2.
+        escaped_entry(V) -> escaped_gate(10, V).
+        escaped_gate(10, V) -> {ok,V}.
+        """;
+
+    internal static byte[] CompileFixture() => CodeGeneration.CompileBeamModule(Source, Fixture);
+
+    internal static async Task Run()
+    {
+        byte[] image = CompileFixture();
+        object code = Code(image);
+        object[] instructions = Items(code, "Instructions").ToArray();
+        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
+        object[] types = Items(Property(code, "Types"), "Entries").ToArray();
+        if (ComparisonType("dispatch") is not int type
+            || Property(types[type], "Minimum") is not 0L
+            || Property(types[type], "Maximum") is not 20L)
+        {
+            throw new InvalidOperationException(MissingRange);
+        }
+
+        if (ComparisonType("unknown_gate") is not null || ComparisonType("public_gate") is not null
+            || ComparisonType("escaped_gate") is not null
+            || Comparisons("mixed").Any(check => Property(Operands(check)[1], "TypeIndex") is not null))
+        {
+            throw new InvalidOperationException(UnprovedRange);
+        }
+
+        var module = BeamModule.Prepare(image);
+        await using var runtime = new ProcessRuntime();
+        await using var receiver = new RuntimeNodeFoundationHostActor(runtime);
+        await receiver.InvokeAsync(async context =>
+        {
+            Term actual = Term.A("payload");
+            Term expected = Term.Tuple(Term.A("ok"), actual);
+            if (!expected.Equals(await module.Invoke(
+                context,
+                "run",
+                Term.A("mid"),
+                actual
+            ))
+                || !expected.Equals(await module.Invoke(
+                    context,
+                    "run_unknown",
+                    Term.List(Term.I(10)),
+                    actual
+                )))
+            {
+                throw new InvalidOperationException(InvalidValue);
+            }
+
+            try
+            {
+                _ = await module.Invoke(
+                    context,
+                    "run",
+                    Term.A("low"),
+                    actual
+                );
+            }
+            catch (ErlangException error) when (error.ExceptionClass == ErlangExceptionClasses.Error
+                && error.Reason.Equals(Term.A(ErlangErrorReasons.FunctionClause)))
+            {
+                return Nil.Value;
+            }
+
+            throw new InvalidOperationException(InvalidValue);
+        });
+
+        object? ComparisonType(string name) => Property(Operands(Comparisons(name).Single())[1], "TypeIndex");
+
+        IEnumerable<object> Comparisons(string name)
+        {
+            int info = Array.FindIndex(
+                instructions,
+                instruction => Opcode(instruction) == FunctionInfo
+                && Operands(instruction) is [_, var atom, _] && atoms[(int)(BigInteger)Property(atom, "Value")] == name
+            );
+
+            return instructions.Skip(info + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo)
+                .Where(instruction => Opcode(instruction) == ExactEqualTest);
+        }
+    }
+
+    private static object[] Operands(object instruction) => Items(instruction, "Operands").ToArray();
+
+    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
+
+    private static IEnumerable<object> Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>();
+}

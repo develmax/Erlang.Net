@@ -1,0 +1,16 @@
+[Path,Output]=init:get_plain_arguments(),
+false=code:is_loaded(crypto),
+{ok,Bin}=file:read_file(Path),
+Physical=filename:join(code:lib_dir(crypto,ebin),"crypto.beam"),
+{module,crypto}=code:load_binary(crypto,Physical,Bin),
+State={retained,[123,alpha]},
+FloatChecks=[begin {F,Same}=crypto:rand_plugin_uniform(State),
+    true=is_float(F),true=(F>=0.0 andalso F<1.0),true=(Same=:=State),ok
+end || _<-lists:seq(1,128)],
+IntegerChecks=[begin {N,Same}=crypto:rand_plugin_uniform(I,State),
+    true=(is_integer(N) andalso N>=1 andalso N=<I),true=(Same=:=State),ok
+end || I<-[1,2,7,16#7fffffff]],
+Hash=crypto:hash(sha256, <<"beam parity witness">>),
+Check=try crypto:rand_plugin_uniform(invalid,State) of _->unexpected catch C:R->{C,R} end,
+true=Check=/=unexpected,
+ok=file:write_file(Output,io_lib:format("~tp.~n",[{loaded,{length(FloatChecks),length(IntegerChecks)},Hash,Check}])),halt().

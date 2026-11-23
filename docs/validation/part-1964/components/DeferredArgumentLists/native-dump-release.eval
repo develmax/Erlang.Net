@@ -1,0 +1,25 @@
+[Image,Stubs,Dir,Output]=init:get_plain_arguments(),
+ok=file:make_dir(Dir),
+[{module,S}=code:load_abs(filename:join(Stubs,atom_to_list(S)))||S<-[mnesia_lib,mnesia_monitor]],
+{ok,Bytes}=file:read_file(Image),
+{module,mnesia_dumper}=code:load_binary(mnesia_dumper,Image,Bytes),
+Run=fun(Key,Mode,Location)->
+  put(use_directory,Mode),
+  put(log_path,Location),
+  put(trace,[]),
+  V=case mnesia_dumper:dump_to_logfile(ram_copies,sample) of
+        {error,{file_error,Path,Reason}}->{error,{file_error,filename:basename(Path),Reason}};
+        Other->Other
+    end,
+  {Key,V,lists:reverse(get(trace)),filelib:is_file(Location)}
+end,
+Node=node(),
+Rows=[Run(disabled,false,filename:join(Dir,"unused.log")),
+      Run(success,true,filename:join(Dir,"produced.log")),
+      Run(failure,true,filename:join([Dir,"missing_dir","blocked.log"]))],
+[{disabled,{error,{has_no_disc,Node}},[],false},
+ {success,ok,[{tmp,sample},{fix,ram_copies,sample,true},{select,ram_copies,sample,100},
+              {fix,ram_copies,sample,false}],true},
+ {failure,{error,{file_error,"blocked.log",enoent}},[{tmp,sample}],false}]=Rows,
+ok=file:write_file(Output,io_lib:format("~tp.~n",[Rows])),
+halt().

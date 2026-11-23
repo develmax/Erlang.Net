@@ -1,0 +1,17 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Calls/BeamRetiredEntryCallSlotChecks.cs b/tests/Erlang.Tests/Compiler/Beam/Calls/BeamRetiredEntryCallSlotChecks.cs
+index e09079e6a..39a646aee 100644
+--- a/tests/Erlang.Tests/Compiler/Beam/Calls/BeamRetiredEntryCallSlotChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/Calls/BeamRetiredEntryCallSlotChecks.cs
+@@ -31,9 +31,9 @@ internal static class BeamRetiredEntryCallSlotChecks
+             _ = restore(Previous),
+             ok.
+ 
+-        probing([]) ->
+-            [];
+-        probing(Map) ->
++        probing({Map}) ->
++            probing(Map);
++        probing(Map) when is_map(Map) ->
+             Previous = retain(probe),
+             _ = maps:get(node(), Map),
+             Previous.

@@ -1,0 +1,21 @@
+[RankPath, Output] = init:get_plain_arguments(),
+{ok,[Rank]} = file:consult(RankPath),
+Count = fun(Modules) ->
+    {map_size(Modules), lists:sum([length(Functions) || Functions <- maps:values(Modules)])}
+end,
+Allocation = maps:get(allocation_operand_groups, Rank),
+Opcodes = maps:get(opcode_groups, Rank),
+Sorted = fun(Entries) ->
+    lists:sort(fun({KeyA, ModsA, FunsA}, {KeyB, ModsB, FunsB}) ->
+        {-ModsA, -FunsA, KeyA} < {-ModsB, -FunsB, KeyB}
+    end, Entries)
+end,
+Table = #{allocation => Sorted([begin {M, F} = Count(Modules), Reported = F, {Key, M, F} end
+                                 || {Key, {Reported, Modules}} <- maps:to_list(Allocation)]),
+          first_opcode_or_missing => Sorted([begin {M, F} = Count(Modules), {Key, M, F} end
+                                             || {Key, Modules} <- maps:to_list(Opcodes)]),
+          different_images => maps:get(different_images, Rank),
+          unreadable => maps:get(unreadable, Rank)},
+ok = file:write_file(Output, io_lib:format("~tp.~n", [Table])),
+halt(0).
+

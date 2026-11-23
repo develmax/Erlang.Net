@@ -204,6 +204,38 @@ internal sealed partial class BeamModuleCompiler
             return groups.ToArray();
         }
 
+        private static bool CanReuseCheckedConsPrefixScratch(Pattern.List prefix)
+        {
+            if (prefix.Items.Count < 3 || prefix.Tail is not Pattern.Variable tail)
+            {
+                return false;
+            }
+
+            var names = new HashSet<string>(StringComparer.Ordinal);
+            foreach (Pattern head in prefix.Items)
+            {
+                if (head is not Pattern.Tuple { Items: [Pattern.Literal { Value: Atom }, ..] } tagged)
+                {
+                    return false;
+                }
+
+                foreach (Pattern field in tagged.Items.Skip(1))
+                {
+                    if (field is global::Erlang.Pattern.Any or Pattern.Variable { Name: VariableScopeNames.Wildcard })
+                    {
+                        continue;
+                    }
+
+                    if (field is not Pattern.Variable captured || !names.Add(captured.Name))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return tail.Name == VariableScopeNames.Wildcard || names.Add(tail.Name);
+        }
+
         private static (int Input, int Count)? ReadMixedConsPrefix(FunctionDefinition function)
         {
             for (int input = 0; input < function.Arity; input++)

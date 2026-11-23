@@ -1,0 +1,19 @@
+{
+  "Partial": true,
+  "SelectedCount": 1,
+  "TotalCount": 9913,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/beam/dispatches-two-atom-alternatives-with-branch-owned-frames"
+  ],
+  "Passed": 0,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "compiler/beam/dispatches-two-atom-alternatives-with-branch-owned-frames",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: The atom case lost its selector call, constant argument, or unframed rejection value.\r\n   at Erlang.Tests.BeamTwoAtomDispatchChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamTwoAtomDispatchChecks.cs:line 91\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16527",
+      "Milliseconds": 2511
+    }
+  ]
+}

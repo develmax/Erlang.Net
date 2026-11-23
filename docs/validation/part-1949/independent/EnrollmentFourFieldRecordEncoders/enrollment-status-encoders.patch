@@ -1,0 +1,68 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs
+@@ -131,12 +131,15 @@
+                 bool namedRequiredPrefix = index > 0 && HasNamedRequiredLeader(fields[0]);
+                 bool admitsOptionalBookends = count == 4 && index > 0 && firstDefault is null
+                     && fields[0] is { Omits: Atom, Call.Module: null };
++                bool followsLeadingForeignRequired = count == 4 && index == 1
++                    && fields[0] is { Omits: null, Call.Module: not null, Constants: [Nil] };
+                 bool allowForeignOptional = firstDefault is not null && count == 4 && index == 1
+-                    || (allOptional || count == 2 && index == 1 || admitsOptionalBookends && index == count - 1)
++                    || (allOptional || count == 2 && index == 1 || admitsOptionalBookends && index == count - 1
++                        || followsLeadingForeignRequired)
+                         && field is Expr.Case;
+                 bool followsLeadingForeignOptional = count == 2 && index == 1
+                     && fields[0] is { Omits: Atom, Call.Module: not null };
+-                bool readsLeadingRequiredPair = count == 2 && index == 0 && field is Expr.Call
++                bool readsLeadingRequiredPair = count is 2 or 4 && index == 0 && field is Expr.Call
+                     && sequence.Items[2] is Expr.Match { Value: Expr.Case };
+                 bool followsForeignSequenceOptional = count == 3 && index == 2 && allOptional
+                     && fields.Take(index).Any(part => part.Call.Module is not null);
+@@ -246,6 +249,27 @@
+                     || required == 1 && fields[^1].Constants is [var namedSuffix, _] && IsClosedNamedNumberList(namedSuffix))
+                 && fields.Skip(required).All(field => field is { Omits: Atom, Call.Module: null })
+                 && fields.Skip(1).Take(required - 1).All(field => field.Constants.Count == 1);
++            bool localNamedThenUntaggedOptional = HasNamedRequiredLeader(fields[0])
++                && fields is
++                [
++                { Constants: [_, Cons] },
++                { Omits: null, Call.Module: null, Constants: [Cons] },
++                { Omits: Atom firstMarker, Call.Module: null, Constants: [Cons] },
++                { Omits: Atom lastMarker, Call.Module: null, Constants: [Nil] }
++                ] && firstMarker.Equals(lastMarker) && firstDefault is null && finalDefault is null && middleDefault is null;
++            bool checkedForeignThenNamedOptional = fields is
++                [
++                { Omits: null, Call.Module: not null, Constants: [Nil] },
++                { Omits: Atom remoteMarker, Call.Module: not null, Constants: [Nil] },
++                { Omits: Atom localMarker, Call.Module: null, Constants: [Cons] },
++                { Omits: Atom finalMarker, Call.Module: null, Constants: [var positions, Cons] }
++                ] && remoteMarker.Equals(localMarker) && remoteMarker.Equals(finalMarker)
++                && IsClosedNamedNumberList(positions) && firstDefault is null && finalDefault is null && middleDefault is null;
++            if (count == 4 && fields[0] is { Omits: null, Call.Module: not null } && !checkedForeignThenNamedOptional)
++            {
++                return false;
++            }
++
+             bool checkedBookends = fields is
+                 [
+                 { Omits: Atom, Call.Module: null, Constants.Count: 1 },
+@@ -270,7 +294,8 @@
+                 { Omits: null }
+                 ];
+             if (!retainRecord && !checkedOptional && !checkedPairWithOptional && !trimFinalRequired && !checkedOptionalThenRequired
+-                && !namedRequiredWithOptionalTail && !checkedBookends && (firstDefault is not null && (required < 3 && !compactMixed || finalDefault is not null || !trailingOptionalStarted)
++                && !namedRequiredWithOptionalTail && !checkedBookends && !localNamedThenUntaggedOptional && !checkedForeignThenNamedOptional
++                && (firstDefault is not null && (required < 3 && !compactMixed || finalDefault is not null || !trailingOptionalStarted)
+                 || firstDefault is null && (required != 2 || required == count || (middleDefault is null && (finalDefault is null
+                     ? fields[0].Constants is not [var named, _] || !IsClosedNamedNumberList(named)
+                     : count != 4 || fields[0].Constants is not [Nil] || fields[2].Omits is not Atom)))))
+@@ -339,7 +364,7 @@
+                 );
+             }
+ 
+-            if (namedRequiredWithOptionalTail || checkedBookends)
++            if (namedRequiredWithOptionalTail || checkedBookends || localNamedThenUntaggedOptional || checkedForeignThenNamedOptional)
+             {
+                 return EmitDefaultPrefixedSequence(
+                     unpack,

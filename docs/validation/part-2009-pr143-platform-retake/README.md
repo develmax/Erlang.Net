@@ -1,0 +1,11 @@
+# Part 2009 PR 143 runtime-platform failures
+
+[Hosted run 45089922353](https://github.com/develmax/Erlang.Net/actions/runs/45089922353) at afd86525 passed all eleven Windows source admission gates. Twelve jobs passed. Runtime-platform recorded 7,784 of 7,844, causing the aggregate failure and skipping the core join. The [exact 60 failing cases](github-platform-failures.json) retain their original messages.
+
+Keep source-proved atom facts after single list projections and propagate a local singleton atom result only into the later tail transfer. Preserve evaluation, effects, source lines and unknown results. Use both verified caller values to choose a two-atom comparison while keeping the open two-key selector. The existing path-options plan takes precedence over the generic ordered atom plan when both recognize the checked source structure.
+
+The first broken client_server release image was produced by Part 2134. The pinned layout uses a typed atom-or-cons selector and trims the frame after the last filename join. This package [restores whole-file equality](client-server.json) using the existing source-owned plan and the official source, headers and build profile. [Previous difference](client-server-before.json), [Part 2133](client-server-historical-2133.json) and [Part 2134](client-server-historical-2134.json) are preserved separately. The full registered release image case also passes.
+
+Fixture corrections retain existing controls while supplying exact operand tags, table limits, explicit reflection arguments, actual dependency selections and supported disabled optimization inputs. The Line fixture retains the relevant section. Generator checks resolve the exact bad_generator call independently of other cold blocks.
+
+The [first focused retake](focused-tests.json) passes 21 previously failing cases plus two passing controls. The [three later fixture checks](frame-fixture-retake.json) pass on the same compiler DLL. The [aggregate scope](retake-summary.json) records 24 of the 60 previous failures addressed and the remaining 36. The [test project build](build.json), [source layout](source-layout.txt) and [13 passive plans](focused-source-plans.json) pass. No runtime registry, license or package change. Full acceptance and readiness remain open. The historical 539/827 ledger remains the last broad measure.

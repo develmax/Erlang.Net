@@ -1,0 +1,14 @@
+{start_agent,{snmpa_supervisor,{snmpa_supervisor,start_link,[normal,[]]},permanent,2000,supervisor,[snmpa_supervisor,supervisor]},{ok,owner_pid}}
+{start_agent,{snmpa_supervisor,{snmpa_supervisor,start_link,[normal,[]]},permanent,2000,supervisor,[snmpa_supervisor,supervisor]},{raised,{case_clause,{ok,bad}}}}
+{start_agent,{snmpa_supervisor,{snmpa_supervisor,start_link,[normal,[]]},permanent,2000,supervisor,[snmpa_supervisor,supervisor]},{error,reason}}
+{start_agent,{snmpa_supervisor,{snmpa_supervisor,start_link,[normal,[]]},permanent,2000,supervisor,[snmpa_supervisor,supervisor]},{raised,{case_clause,{error,wrong}}}}
+{start_agent,{snmpa_supervisor,{snmpa_supervisor,start_link,[normal,[]]},permanent,2000,supervisor,[snmpa_supervisor,supervisor]},{raised,{case_clause,{unexpected,bad}}}}
+{start_agent,{snmpa_supervisor,{snmpa_supervisor,start_link,[normal,[]]},permanent,2000,supervisor,[snmpa_supervisor,supervisor]},{raised,{case_clause,{error,{a,b,c}}}}}
+{start_agent,{snmpa_supervisor,{snmpa_supervisor,start_link,[normal,[]]},permanent,2000,supervisor,[snmpa_supervisor,supervisor]},{raised,{case_clause,orphan}}}
+{start_manager,{snmpm_supervisor,{snmpm_supervisor,start_link,[normal,[]]},transient,2000,supervisor,[snmpm_supervisor,supervisor]},{ok,owner_pid}}
+{start_manager,{snmpm_supervisor,{snmpm_supervisor,start_link,[normal,[]]},transient,2000,supervisor,[snmpm_supervisor,supervisor]},{raised,{case_clause,{ok,bad}}}}
+{start_manager,{snmpm_supervisor,{snmpm_supervisor,start_link,[normal,[]]},transient,2000,supervisor,[snmpm_supervisor,supervisor]},{error,reason}}
+{start_manager,{snmpm_supervisor,{snmpm_supervisor,start_link,[normal,[]]},transient,2000,supervisor,[snmpm_supervisor,supervisor]},{raised,{case_clause,{error,wrong}}}}
+{start_manager,{snmpm_supervisor,{snmpm_supervisor,start_link,[normal,[]]},transient,2000,supervisor,[snmpm_supervisor,supervisor]},{raised,{case_clause,{unexpected,bad}}}}
+{start_manager,{snmpm_supervisor,{snmpm_supervisor,start_link,[normal,[]]},transient,2000,supervisor,[snmpm_supervisor,supervisor]},{raised,{case_clause,{error,{a,b,c}}}}}
+{start_manager,{snmpm_supervisor,{snmpm_supervisor,start_link,[normal,[]]},transient,2000,supervisor,[snmpm_supervisor,supervisor]},{raised,{case_clause,orphan}}}

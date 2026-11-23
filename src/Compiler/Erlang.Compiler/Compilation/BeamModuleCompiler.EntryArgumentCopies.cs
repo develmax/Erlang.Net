@@ -7,7 +7,7 @@ internal sealed partial class BeamModuleCompiler
     private static byte[]? EliminateEntryArgumentCopies(
         ReadOnlyMemory<byte> code,
         IReadOnlyList<BeamInstruction> body,
-        List<(int Start, int End, int Slot)> stackOperands,
+        IReadOnlyList<(int Start, int End, int Slot)> stackOperands,
         bool removeSpills,
         bool allowFramelessBranches = false
     )
@@ -51,7 +51,12 @@ internal sealed partial class BeamModuleCompiler
                     allocation,
                     end,
                     includeUnchanged: true
-                ) is null)
+                ) is null && !OwnsSingleBranchFrame(
+                    body,
+                    entry,
+                    allocation,
+                    end
+                ))
                 {
                     continue;
                 }
@@ -68,9 +73,29 @@ internal sealed partial class BeamModuleCompiler
                 setupEnd++;
             }
 
+            if (!removeSpills && !allowFramelessBranches
+                && ReadDependentEntryCallCopies(
+                    body,
+                    allocation,
+                    setupEnd,
+                    end
+                ) is { } pair)
+            {
+                output.Write(code.Span[copied..body[pair.FirstLoad].Offset]);
+                output.WriteByte(Move);
+                BeamCompactWriter.Write(output, XRegisterTag, 1);
+                BeamCompactWriter.Write(output, XRegisterTag, 0);
+                output.WriteByte(Move);
+                WriteRegister(output, pair.SecondArgument);
+                BeamCompactWriter.Write(output, XRegisterTag, 1);
+                copied = body[pair.FirstLoad + 2].Offset;
+                continue;
+            }
+
             var remove = new Dictionary<int, BeamOperand>();
             var replace = new Dictionary<int, (int End, BeamOperand Source)>();
-            var earlyLoads = new Dictionary<int, BeamOperand>();
+            var earlyLoads = new Dictionary<int, (int Use, BeamOperand Source)>();
+            var oldLoads = new HashSet<int>();
             for (int save = first; save < setupEnd; save++)
             {
                 if (body[save] is not { Definition.Opcode: Move, Operands: [var source, var slot] }
@@ -88,6 +113,27 @@ internal sealed partial class BeamModuleCompiler
                     slot
                 ) is { } plan && plan.RemoveSpill == removeSpills)
                 {
+                    foreach (var (use, (before, register, extended)) in plan.EarlyLoads)
+                    {
+                        if (extended)
+                        {
+                            // Revisit other spills after this move changes X availability.
+                            remove.Clear();
+                            replace.Clear();
+                            earlyLoads.Clear();
+                            oldLoads.Clear();
+                            remove.Add(save, slot);
+                            earlyLoads.Add(before, (use, register));
+                            oldLoads.Add(use);
+                            break;
+                        }
+                    }
+
+                    if (remove.ContainsKey(save))
+                    {
+                        break;
+                    }
+
                     if (plan.RemoveSpill)
                     {
                         remove.Add(save, slot);
@@ -100,9 +146,10 @@ internal sealed partial class BeamModuleCompiler
                         slot,
                         replace
                     );
-                    foreach (var (use, register) in plan.EarlyLoads)
+                    foreach (var (use, (before, register, _)) in plan.EarlyLoads)
                     {
-                        earlyLoads.Add(use, register);
+                        earlyLoads.Add(before, (use, register));
+                        oldLoads.Add(use);
                     }
                 }
             }
@@ -117,16 +164,19 @@ internal sealed partial class BeamModuleCompiler
             for (int index = first; index < end; index++)
             {
                 BeamInstruction instruction = body[index];
-                if (earlyLoads.TryGetValue(index + 1, out BeamOperand? earlySource))
+                if (earlyLoads.TryGetValue(index, out var earlyLoad))
                 {
-                    // Load the outgoing argument before the literal overwrites its source.
                     output.Write(code.Span[copied..instruction.Offset]);
                     output.WriteByte(Move);
-                    WriteRegister(output, earlySource);
-                    WriteRegister(output, body[index + 1].Operands[1]);
-                    output.Write(code.Span[instruction.Offset..body[index + 1].Offset]);
-                    copied = body[index + 2].Offset;
-                    index++;
+                    WriteRegister(output, earlyLoad.Source);
+                    WriteRegister(output, body[earlyLoad.Use].Operands[1]);
+                    copied = instruction.Offset;
+                }
+
+                if (oldLoads.Contains(index))
+                {
+                    output.Write(code.Span[copied..instruction.Offset]);
+                    copied = body[index + 1].Offset;
                     continue;
                 }
 
@@ -154,7 +204,7 @@ internal sealed partial class BeamModuleCompiler
 
         if (copied == 0)
         {
-            return null;
+            return removeSpills && !allowFramelessBranches ? SinkEntryArgumentClobbers(code, body) : null;
         }
 
         output.Write(code.Span[copied..]);
@@ -162,26 +212,125 @@ internal sealed partial class BeamModuleCompiler
         return output.ToArray();
     }
 
+    private static (int FirstLoad, BeamOperand SecondArgument)? ReadDependentEntryCallCopies(
+        IReadOnlyList<BeamInstruction> body,
+        int allocation,
+        int call,
+        int end
+    )
+    {
+        if (call >= end || body[allocation].Definition.Opcode != Allocate
+            || body[call] is not
+            {
+                Definition.Opcode: LocalCall or ExternalCall,
+                Operands: [{ Value: var arity }, _]
+            } || arity != 2)
+        {
+            return null;
+        }
+
+        int last = call - 1;
+        while (last > allocation && body[last].Definition.Opcode == Line)
+        {
+            last--;
+        }
+
+        if (last <= allocation + 1
+            || body[last - 1] is not
+            {
+                Definition.Opcode: Move,
+                Operands: [
+                { Kind: BeamOperandParameters.Y, TypeIndex: null } second,
+                { Kind: BeamOperandParameters.X, TypeIndex: null, Value.IsOne: true }
+                ]
+            }
+            || body[last] is not { Definition.Opcode: Move, Operands: [var first, var target] }
+            || first is not { Kind: BeamOperandParameters.Y, TypeIndex: null } || !IsBareX0(target))
+        {
+            return null;
+        }
+
+        BeamOperand? firstSource = null;
+        BeamOperand? secondSource = null;
+        BeamOperand live = body[allocation].Operands[1];
+        for (int index = allocation + 1; index < last - 1; index++)
+        {
+            var instruction = body[index];
+            if (instruction is
+                {
+                    Definition.Opcode: Move,
+                    Operands: [
+                    { Kind: BeamOperandParameters.X, TypeIndex: null } source,
+                    { Kind: BeamOperandParameters.Y, TypeIndex: null } saved
+                    ]
+                } && source.Value < live.Value)
+            {
+                if (saved == first)
+                {
+                    firstSource = source;
+                }
+
+                if (saved == second)
+                {
+                    secondSource = source;
+                }
+            }
+            else if (instruction.Definition.Opcode == InitYRegisters)
+            {
+                if (instruction.Operands.Contains(first))
+                {
+                    firstSource = null;
+                }
+
+                if (instruction.Operands.Contains(second))
+                {
+                    secondSource = null;
+                }
+            }
+            else if (instruction.Definition.Opcode != Line)
+            {
+                return null;
+            }
+        }
+
+        // The first argument reads the old X1 before the second replaces it.
+        // Both stack definitions remain available to later continuations.
+        return firstSource is { Value.IsOne: true } && secondSource is { Value: var original } && original >= 2
+            ? (last - 1, secondSource)
+            : null;
+    }
+
+    private static bool OwnsSingleBranchFrame(
+        IReadOnlyList<BeamInstruction> body,
+        int entry,
+        int allocation,
+        int end
+    ) =>
+        allocation >= 0
+        && ReadDisjointFrameOwnership(body, entry, end) is { } ownership
+        && ownership.Uses.Count == 1
+        && ownership.Owners[allocation - entry] == UnframedOwner
+        && Enumerable.Range(entry, allocation - entry).Any(index =>
+            body[index].Definition.Opcode == Return && ownership.Owners[index - entry] == UnframedOwner);
+
     private static bool IsUnframedEntryProjection(BeamInstruction instruction) =>
         instruction.Definition.Opcode is GetTupleElement or GetList or GetHead or GetTail
         && instruction.Operands.All(operand => operand.Kind != BeamOperandParameters.Y);
 
     private static void RecordEntryArgumentUses(
         IReadOnlyList<BeamInstruction> body,
-        List<(int Start, int End, int Slot)> stackOperands,
+        IReadOnlyList<(int Start, int End, int Slot)> stackOperands,
         IReadOnlyDictionary<int, BeamOperand> uses,
         BeamOperand slot,
         Dictionary<int, (int End, BeamOperand Source)> edits
     )
     {
-        var byOffset = Comparer<(int Start, int End, int Slot)>.Create(
-            static (left, right) => left.Start.CompareTo(right.Start));
         foreach (var (use, source) in uses)
         {
             int first = body[use].Offset;
             int last = body[use + 1].Offset;
-            int indexOfOperand = stackOperands.BinarySearch((first, 0, 0), byOffset);
-            for (int index = indexOfOperand < 0 ? ~indexOfOperand : indexOfOperand;
+            int indexOfOperand = FirstStackOperandAtOrAfter(stackOperands, first);
+            for (int index = indexOfOperand;
                 index < stackOperands.Count && stackOperands[index].Start < last;
                 index++)
             {

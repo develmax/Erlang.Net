@@ -1,0 +1,11 @@
+[{{ok,backup},[{log_terms,handle,[{row,one}]}],true},
+ {{error,{disk_error,{nested,<<"unchanged">>}}},
+  [{close,handle},{log_terms,handle,[{row,one}]}],
+  false},
+ {{error,rollback_failed,[{abort_write,1,135},{write,2,104}]},
+  [{close,handle},{log_terms,handle,[{row,one}]}],
+  true},
+ {{error,{case_clause,{wrong,shape}},[{write,2,100}]},
+  [{log_terms,handle,[{row,one}]}],
+  true},
+ {{error,{badrecord,unexpected_backup},[{write,2,100}]},undefined,true}].

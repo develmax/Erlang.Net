@@ -1,0 +1,212 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs
+@@ -32,7 +32,7 @@
+                                     Pattern: Pattern.Variable parts,
+                                     Value: Expr.List { Tail: null } bytes
+                                 },
+-                                    Expr.Match { Pattern: Pattern.Variable length, Value: Expr.Binary sum },
++                                    Expr.Match { Pattern: Pattern.Variable length, Value: var sum },
+                                     Expr.Call
+                                 {
+                                     Module: null, DynamicRemote: false,
+@@ -55,7 +55,7 @@
+             }
+ 
+             int count = sequence.Items.Count - 4;
+-            if (count < 2 || count + 2 >= FirstReservedXRegister || count + 1 != tuple.Items.Count
++            if (count < 1 || count + 2 >= FirstReservedXRegister || count + 1 != tuple.Items.Count
+                 || count != bytes.Items.Count || tuple.Items[0] is not Pattern.Variable { Name: VariableScopeNames.Wildcard })
+             {
+                 return false;
+@@ -110,10 +110,12 @@
+                         field,
+                         value.Name,
+                         allowForeign: true,
+-                        allowForeignOptional: count == 3 && index == 1
++                        allowForeignOptional: count == 3 && index > 0
+                     ) is { } retained
+-                    && (retained.Call.Module is null || count == 3 && index == 1
+-                        && retained is { Omits: Atom, Constants.Count: 1 }))
++                    && (retained.Call.Module is null || count == 3 && index > 0
++                        && retained is { Omits: Atom, Constants.Count: 1 }
++                        && (index == 1 || fields[0].Omits is null
++                            && fields[1] is { Omits: Atom, Call.Module: not null })))
+                     {
+                         fields[index] = retained with { MatchLine = binding.SourceLine };
+                     }
+@@ -132,10 +134,13 @@
+                     && fields[0] is { Omits: Atom, Call.Module: not null };
+                 bool readsLeadingRequiredPair = count == 2 && index == 0 && field is Expr.Call
+                     && sequence.Items[2] is Expr.Match { Value: Expr.Case };
++                bool followsForeignSequenceOptional = count == 3 && index == 2 && allOptional
++                    && fields.Take(index).Any(part => part.Call.Module is not null);
+                 SequenceEncodePart? plan = ReadRequiredOptionalSequenceField(
+                     field,
+                     value.Name,
+-                    allowForeign: firstDefault is not null || allowForeignOptional || followsLeadingForeignOptional || readsLeadingRequiredPair,
++                    allowForeign: firstDefault is not null || allowForeignOptional || followsLeadingForeignOptional || readsLeadingRequiredPair
++                        || followsForeignSequenceOptional || count == 1,
+                     allowForeignOptional: allowForeignOptional
+                 );
+                 if (plan is null && count >= 4 && index == 0 && field is Expr.Case firstCondition
+@@ -179,7 +184,8 @@
+ 
+                 if (plan.Omits is null)
+                 {
+-                    bool finalRequired = allOptional && index == count - 1 && count >= 4 && plan.Call.Module is null;
++                    bool finalRequired = allOptional && index == count - 1 && (count >= 4 || followsForeignSequenceOptional)
++                        && plan.Call.Module is null;
+                     allOptional = false;
+                     bool followsForeignOptional = count == 4 && index == 2
+                         && fields[1] is { Omits: not null, Call.Module: not null }
+@@ -200,6 +206,13 @@
+ 
+                 fields[index] = plan with { MatchLine = binding.SourceLine };
+                 lengths[index] = measured.Name;
++            }
++
++            if (count == 1)
++            {
++                return !retainRecord && sum is Expr.Variable onlyLength && onlyLength.Name == lengths[0]
++                    && fields[0] is { Omits: null, Call.Module: null, Constants.Count: 1 } only
++                    && EmitSingletonRecordPair(unpack, only, finishEntry);
+             }
+ 
+             if (fields is
+@@ -223,7 +236,8 @@
+                 ];
+             bool checkedOptional = allOptional && firstDefault is null && finalDefault is null && middleDefault is null
+                 && fields.Any(field => field.Call.Module is not null);
+-            bool trimFinalRequired = count >= 4 && firstDefault is null && finalDefault is null && middleDefault is null
++            bool trimFinalRequired = (count >= 4 || count == 3 && fields.Take(count - 1).Any(field => field.Call.Module is not null))
++                && firstDefault is null && finalDefault is null && middleDefault is null
+                 && required == 1 && fields[^1] is { Omits: null, Call.Module: null }
+                 && fields.Take(count - 1).All(field => field.Omits is not null);
+             bool checkedPairWithOptional = fields is
+@@ -531,6 +545,39 @@
+             return value is Nil;
+         }
+ 
++        private bool EmitSingletonRecordPair(Expr.Match unpack, SequenceEncodePart field, int finish)
++        {
++            int invalid = Label();
++            owner.EmitTupleCheck(0, 2, invalid);
++            EmitFrameAllocation(arity: 2, size: 1);
++            owner.MoveRegister(
++                XRegisterTag,
++                1,
++                YRegisterTag,
++                0
++            );
++            owner.EmitTuplePart(0, 1, 0);
++            owner.EmitConstant(field.Constants[0], 1);
++            owner.EmitCallLine(field.Call, location);
++            owner.EmitFieldCall(2, field.Entry);
++            owner.Op(TestHeap, BeamWire.UnsignedTag, ConsHeapWords);
++            owner.Operand(BeamWire.UnsignedTag, 1);
++            owner.EmitTupleElement(0, 1);
++            owner.Op(PutList, XRegisterTag, 1);
++            owner.Operand(AtomTag, NilAtomIndex);
++            owner.Operand(XRegisterTag, 1);
++            owner.EmitTupleElement(1, 2);
++            owner.MoveToX0(YRegisterTag, 0);
++            EmitTailLocal(finish, 3, 1);
++
++            Mark(invalid);
++            var previous = location;
++            owner.EmitArithmeticLine(unpack.SourceLine, ref previous);
++            owner.Op(BadMatch, XRegisterTag, 0);
++
++            return true;
++        }
++
+         private SequenceEncodePart? ReadRequiredOptionalSequenceField(
+             Expr value,
+             string name,
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -5980,10 +5980,10 @@
+ 
+             if (branches is [var single])
+             {
+-                return single.KnownPair && single.Constants is [var constant] && TryEmitSingleProjectedChoice(
++                return (single.KnownPair || single.Module is not null) && single.Constants is [var constant] && TryEmitSingleProjectedChoice(
+                     function,
+                     decision,
+-                    (single.Key, single.Call, constant, single.Entry),
++                    (single.Key, single.Call with { Module = single.Module }, constant),
+                     tailEntry,
+                     error
+                 );
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedListDecoder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedListDecoder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedListDecoder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedListDecoder.cs
+@@ -37,7 +37,7 @@
+                     { Items: [Expr.Literal { Value: Atom tag }, ..] } tuple
+                 },
+                 Expr.Variable returned]
+-                || tuple.Items.Count < 3
++                || tuple.Items.Count < 2
+                 || !DistinctBindings(
+                     first,
+                     second,
+@@ -161,7 +161,7 @@
+                 return false;
+             }
+ 
+-            int frame = tuple.Items.Count;
++            int frame = tuple.Items.Count == 2 ? 1 : tuple.Items.Count;
+             var casePlan = fields[0].Enumeration;
+             var caseSchedule = casePlan is null ? null : ScheduleIntegerChoices(casePlan);
+             int caseJoined = caseSchedule is null ? 0 : Label();
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SingleTaggedChoiceFields.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SingleTaggedChoiceFields.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SingleTaggedChoiceFields.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SingleTaggedChoiceFields.cs
+@@ -9,7 +9,7 @@
+         private bool TryEmitSingleProjectedChoice(
+             FunctionDefinition function,
+             Expr.Case decision,
+-            (Atom Key, Expr.Call Call, Term Constant, int Entry) branch,
++            (Atom Key, Expr.Call Call, Term Constant) branch,
+             int tail,
+             (Expr.Call Call, List<Atom> Tags) error
+         )
+@@ -24,6 +24,7 @@
+             }
+ 
+             int failure = Label();
++            int badPair = branch.Call.Module is not null ? Label() : 0;
+             int element = owner.Import(ErlangModuleNames.Module, selector.Function, 2);
+             owner.EmitCallLine(selector, location);
+             EmitChoiceElement(element, 1, 2);
+@@ -44,8 +45,12 @@
+             );
+             owner.EmitConstant(branch.Constant, 1);
+             owner.EmitCallLine(branch.Call, previous);
+-            owner.Op(LocalCall, BeamWire.UnsignedTag, 2);
+-            owner.Operand(LabelTag, branch.Entry);
++            Call(branch.Call.Module, branch.Call.Function, 2);
++            if (badPair != 0)
++            {
++                owner.EmitTupleCheck(0, 2, badPair);
++            }
++
+             owner.EmitTupleElement(0, 1);
+             owner.EmitTupleElement(1, 2);
+             owner.MoveToX0(YRegisterTag, 0);
+@@ -60,6 +65,13 @@
+                 live: 3,
+                 source: 2
+             );
++            if (badPair != 0)
++            {
++                Mark(badPair);
++                previous = location;
++                owner.EmitArithmeticLine(decision.SourceLine, ref previous);
++                owner.Op(BadMatch, XRegisterTag, 0);
++            }
+ 
+             return true;
+         }

@@ -1,0 +1,94 @@
+PASS otp/code/managed-contracts
+PASS otp/code/beam-contracts
+PASS otp/code/selection-refusals
+PASS otp/code/managed-native-profile
+PASS runtime/unicode/managed-selection-and-original-contracts
+PASS runtime/unicode/original-selection-and-original-contracts
+PASS runtime/unicode/explicit-dependencies-and-no-fallback
+PASS runtime/unicode/large-integer-list-linear-allocation-and-append-backing
+PASS runtime/unicode-util/unaligned-utf8-prefix-linear-allocation-and-backing
+PASS runtime/unicode-util/fully-managed-closure-and-original-contracts/part-1
+PASS runtime/unicode-util/original-backend-and-original-contracts/part-1
+PASS runtime/unicode-util/fully-managed-closure-and-original-contracts/part-2
+PASS runtime/unicode-util/original-backend-and-original-contracts/part-2
+PASS runtime/unicode-util/fully-managed-closure-and-original-contracts/part-3
+PASS runtime/unicode-util/original-backend-and-original-contracts/part-3
+PASS runtime/unicode-util/fully-managed-closure-and-original-contracts/part-4
+PASS runtime/unicode-util/original-backend-and-original-contracts/part-4
+PASS runtime/string/managed-unicode-and-utility-closure
+PASS runtime/string/managed-selection-and-original-contracts
+PASS runtime/string/original-selection-and-original-contracts
+PASS runtime/string/explicit-dependencies-and-no-fallback
+PASS runtime/string/managed-jaro-indexed-resource-contract
+PASS runtime/string/original-jaro-indexed-resource-contract
+PASS runtime/string/cooperative-ascii-list-length
+PASS runtime/string/cooperative-ascii-binary-length
+PASS runtime/string/cooperative-ascii-list-reverse
+PASS runtime/string/cooperative-ascii-binary-reverse
+PASS runtime/string/cooperative-ascii-binary-slice-drop
+PASS runtime/string/cooperative-ascii-binary-slice-keep
+PASS runtime/string/cooperative-list-trim-single
+PASS runtime/string/cooperative-list-trim-multiple
+PASS runtime/string/cooperative-list-take-leading-complement
+PASS runtime/string/cooperative-list-take-trailing
+PASS runtime/string/cooperative-list-equal-two
+PASS runtime/string/cooperative-list-equal-three-false
+PASS runtime/string/cooperative-empty-binary-fragments-trim
+PASS runtime/string/cooperative-empty-binary-fragments-lexemes
+PASS runtime/dets/managed-public-otp-contracts
+PASS runtime/dets/original-public-otp-contracts
+Expect corrupt table:
+PASS runtime/dets/managed-upstream-cases
+Expect corrupt table:
+PASS runtime/dets/original-upstream-cases
+PASS runtime/dets/magic-reference-gc-contracts
+FAIL runtime/dets/review-growth-and-fixed-collection: System.IO.DirectoryNotFoundException: Could not find a part of the path 'D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Resources\DetsReopened\provenance.json'.
+   at System.IO.File.ReadAllBytes(String path)
+   at Erlang.Tests.DetsReviewRegressionChecks.OriginalReopenedFiles() in C:\Users\Maksim\.codex\worktrees\beam-closure-free-spill\Erlang.Net\tests\Erlang.Tests\Otp\Stdlib\Dets\DetsReviewRegressionChecks.cs:line 176
+   at Erlang.Tests.DetsReviewRegressionChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-closure-free-spill\Erlang.Net\tests\Erlang.Tests\Otp\Stdlib\Dets\DetsReviewRegressionChecks.cs:line 56
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-closure-free-spill\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 16357
+FAIL runtime/prim-file/delete-platform-contracts: System.IO.DirectoryNotFoundException: Could not find a part of the path 'D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Resources\PrimFileDelete\provenance.json'.
+   at System.IO.File.ReadAllBytes(String path)
+   at Erlang.Tests.PrimFileDeletePlatformChecks.Host() in C:\Users\Maksim\.codex\worktrees\beam-closure-free-spill\Erlang.Net\tests\Erlang.Tests\Runtime\Bootstrap\PrimFileDeletePlatformChecks.cs:line 163
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-closure-free-spill\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 16357
+PASS runtime/prim-file/delete-errno-and-path-contracts
+PASS runtime/math/managed-whole-otp-terms
+PASS runtime/math/managed-startup-selection
+PASS runtime/math/pinned-windows-log2-rounding-both-backends
+[{"Original":false,"NativeBodySnapshotRetained":true,"Entered":1,"Disposed":1,"ReplacementDoesNotEnterScope":true},{"Original":true,"NativeBodySnapshotRetained":true,"Entered":1,"Disposed":1,"ReplacementDoesNotEnterScope":true},{"Case":"success","Entered":1,"Disposed":1},{"Case":"throw","Entered":1,"Disposed":1},{"Case":"yield","Entered":1,"Disposed":1},{"Case":"hibernate-control-transfer","Entered":1,"Disposed":1},{"Case":"factory-cancel","Entered":0,"Disposed":0}]
+PASS runtime/lists/native-binding/atomic-selected-caller-scope
+{"Expectation":"control","Reason":"replacement_reverse","NativeOnlyHelperPresent":false,"Stack":"[]"}
+{"Expectation":"after","Swaps":1,"Reason":"badarg","NativeOnlyHelperPresent":true,"Stack":"[{lists,reverse,[[1|tail],[2,1]],[{error_info,#{module=\u003Eerl_stdlib_errors}}]},{lists,umerge2_2,4,[{file,[108,105,115,116,115,46,101,114,108]},{line,3471}]},{lists,umergel,3,[{file,[108,105,115,116,115,46,101,114,108]},{line,3306}]}]"}
+PASS runtime/lists/native-binding/replacement-after-native-marker
+PASS runtime/string/pattern-search/reuses-immutable-binary-buffer
+PASS runtime/string/separator-search/reuses-immutable-binary-buffer
+PASS runtime/ordsets/managed-whole-otp-corpus/0
+PASS runtime/ordsets/original-whole-otp-corpus/0
+PASS runtime/ordsets/managed-whole-otp-corpus/1
+PASS runtime/ordsets/original-whole-otp-corpus/1
+PASS runtime/ordsets/managed-whole-otp-corpus/2
+PASS runtime/ordsets/original-whole-otp-corpus/2
+PASS runtime/ordsets/managed-whole-otp-corpus/3
+PASS runtime/ordsets/original-whole-otp-corpus/3
+PASS runtime/ordsets/managed-whole-otp-corpus/4
+PASS runtime/ordsets/original-whole-otp-corpus/4
+PASS runtime/ordsets/managed-whole-otp-corpus/5
+PASS runtime/ordsets/original-whole-otp-corpus/5
+PASS runtime/ordsets/managed-whole-otp-corpus/6
+PASS runtime/ordsets/original-whole-otp-corpus/6
+PASS runtime/ordsets/managed-whole-otp-corpus/7
+PASS runtime/ordsets/original-whole-otp-corpus/7
+PASS runtime/ordsets/managed-whole-otp-corpus/8
+PASS runtime/ordsets/original-whole-otp-corpus/8
+PASS runtime/ordsets/managed-whole-otp-corpus/9
+PASS runtime/ordsets/original-whole-otp-corpus/9
+PASS runtime/ordsets/managed-whole-otp-corpus/10
+PASS runtime/ordsets/original-whole-otp-corpus/10
+PASS runtime/ordsets/managed-whole-otp-corpus/11
+PASS runtime/ordsets/original-whole-otp-corpus/11
+PASS runtime/maps-from-list-bulk-physical-occurrences
+PASS runtime/maps-source-flat-physical-values-through-copy
+PASS runtime/ordsets/whole-term-order-and-runtime-hamt-equality/0
+PASS runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/0
+PASS runtime/ordsets/whole-term-order-and-runtime-hamt-equality/1
+PASS runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/1

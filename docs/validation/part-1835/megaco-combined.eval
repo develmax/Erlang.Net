@@ -1,0 +1,43 @@
+[Otp,Before,After]=init:get_plain_arguments(),
+Read=fun(Path)->
+    {beam_file,megaco_tcp_sup,_,_,_,Fs}=beam_disasm:file(Path),
+    [{function,start_accept_child,2,_,Is}]=[F||F={function,start_accept_child,2,_,_}<-Fs],
+    Is
+end,
+Prefix=fun(Path)->
+    lists:takewhile(fun(I)->case I of {test,_,_,_}->false;_->true end end,Read(Path))
+end,
+RefPrefix=Prefix(Otp),
+OldPrefix=Prefix(Before),
+NewPrefix=Prefix(After),
+lists:foreach(fun({Kind,Instructions})->io:format("~p ~0p~n",[Kind,Instructions]) end,
+    [{otp,RefPrefix},{before,OldPrefix},{candidate,NewPrefix}]),
+true=(RefPrefix=:=NewPrefix),
+true=(Read(Otp)=:=Read(After)), true=(Read(Before)=/=Read(After)),
+Exercise=fun(Path)->
+    {ok,Bytes}=file:read_file(Path),
+    {ok,_}=code:prepare_loading([{megaco_tcp_sup,Path,Bytes}]),
+    code:purge(megaco_tcp_sup),
+    code:delete(megaco_tcp_sup),
+    code:purge(megaco_tcp_sup),
+    {module,megaco_tcp_sup}=code:load_binary(megaco_tcp_sup,Path,Bytes),
+    [begin
+         Data={payload,Reply},
+         Spec={megaco_tcp_accept,{megaco_tcp_accept,start_link,[Data]},temporary,10000,worker,[megaco_tcp_accept]},
+         Sup=spawn(fun()->
+             receive
+                 {'$gen_call',From,{start_child,Spec}}->gen:reply(From,Reply);
+                 {'$gen_call',From,Unknown}->gen:reply(From,{unexpected_call,Unknown})
+             end
+         end),
+         try megaco_tcp_sup:start_accept_child(Sup,Data)
+         catch error:{case_clause,Reason}->{case_clause,Reason}
+         end
+     end || Reply<-[{ok,child},{error,reason},malformed]]
+end,
+[child,{error,reason},{case_clause,malformed}]=Outcomes=Exercise(Otp),
+Outcomes=Exercise(Before),
+Outcomes=Exercise(After),
+io:format("ERTS accepted every image and all ~p observations agreed ~0p~n",[length(Outcomes),Outcomes]),
+halt().
+

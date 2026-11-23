@@ -1,0 +1,107 @@
+{"Partial":true,"SelectedCount":44,"TotalCount":10716}
+PASS compiler/beam/whole-module-matches-otp
+PASS compiler/beam/closed-literal-bindings-cross-calls-as-literals
+PASS compiler/beam/checked-entry-list-return-keeps-register
+PASS compiler/beam/generic-map-patterns-annotate-proven-inputs
+PASS compiler/beam/keeps-the-original-map-register-across-constructor-joins
+PASS compiler/beam/shares-literal-map-case-projections
+PASS compiler/beam/lifts-list-generators-with-adjacent-guard-filters
+FAIL compiler/beam/places-checked-tuple-call-arguments-before-the-catch-frame: System.InvalidOperationException: The early checked fields must preserve the argument exchange, call line, and catch path.
+   at Erlang.Tests.BeamCheckedCatchArgumentChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Frames\BeamCheckedCatchArgumentChecks.cs:line 54
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+FAIL compiler/beam/discarded-binary-tuple-binds-fields-directly: System.InvalidOperationException: Expected temporary tuple elimination only for distinct fresh bindings with no observable inner aliases.
+   at Erlang.Tests.BeamBinaryTupleBindingChecks.Compare() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamBinaryTupleBindingChecks.cs:line 40
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/leaf-external-tail-removes-unused-frame
+PASS compiler/beam/outgoing-call-removes-dead-roundtrip
+PASS compiler/beam/entry-values-after-frameless-branch-keep-owned-frame
+PASS compiler/beam/private-atom-selector-moves-only-when-needed
+FAIL compiler/beam/accumulated-pair-lengths-preserve-minimum: System.InvalidOperationException: Expected positive lower bounds only for all-caller proven pair lengths.
+   at Erlang.Tests.BeamModuleEmissionChecks.ComparePairLengthBounds() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamModuleEmissionChecks.cs:line 1752
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/local-constructor-keeps-singleton-arguments
+FAIL compiler/beam/preserves-shared-list-prefixes-and-branch-local-frames: System.InvalidOperationException: The string-key dispatch lost its first-element selection and tuple check.
+   at Erlang.Tests.BeamLiteralConsContinuationsChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamLiteralConsContinuationsChecks.cs:line 88
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/module-filename-uses-implicit-line-index
+FAIL compiler/beam/keeps-short-protected-projections-in-call-registers: System.InvalidOperationException: Only projections read after a call need their own stack slot.
+   at Erlang.Tests.BeamProtectedProjectionChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamProtectedProjectionChecks.cs:line 51
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+FAIL compiler/beam/uses-zero-slot-frame-for-single-returning-call: System.InvalidOperationException: The call continuation must keep only its initialized result roots and frame.
+   at Erlang.Tests.BeamSingleReturningCallFrameChecks.CheckConstructedReturnFrames() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamSingleReturningCallFrameChecks.cs:line 193
+   at Erlang.Tests.BeamSingleReturningCallFrameChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamSingleReturningCallFrameChecks.cs:line 97
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+FAIL compiler/beam/forwards-a-closure-call-result-to-checked-arguments: System.InvalidOperationException: The closure result must remain rooted in both checked call branches.
+   at Erlang.Tests.BeamClosureResultCheckedArgumentChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Frames\BeamClosureResultCheckedArgumentChecks.cs:line 41
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/declared-native-entry-frame-marker
+FAIL compiler/beam/builds-protected-message-tuple-in-outgoing-x1: System.InvalidOperationException: Protected message construction must preserve the receiver and all live stack operands.
+   at Erlang.Tests.BeamProtectedSendArgumentChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Calls\BeamProtectedSendArgumentChecks.cs:line 30
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+FAIL compiler/beam/lowers-prepared-map-defaults-in-value-positions: System.InvalidOperationException: The map default did not retain a distinct cold error with an empty line.
+   at Erlang.Tests.BeamValueMapDefaultChecks.CheckLayout(Byte[] image) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamValueMapDefaultChecks.cs:line 317
+   at Erlang.Tests.BeamValueMapDefaultChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamValueMapDefaultChecks.cs:line 63
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+FAIL compiler/beam/lowers-prepared-terminal-map-default-lookups: System.InvalidOperationException: The terminal lookup did not keep separate key-miss and generated badmap edges.
+   at Erlang.Tests.BeamTerminalMapDefaultChecks.CheckLayout(Byte[] image) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamTerminalMapDefaultChecks.cs:line 246
+   at Erlang.Tests.BeamTerminalMapDefaultChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamTerminalMapDefaultChecks.cs:line 39
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/dispatches-exhaustive-list-predicate-cases
+FAIL compiler/beam/keeps-tagged-guard-payload-inside-its-owning-tail: System.InvalidOperationException: The selecting guard did not own its late tuple extraction and closed argument.
+   at Erlang.Tests.BeamFramedTaggedGuardTailChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Calls\BeamFramedTaggedGuardTailChecks.cs:line 64
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+FAIL compiler/beam/keeps-nil-tail-outside-a-checked-cons-frame: System.InvalidOperationException: The nil and cons entries did not preserve their frame ownership.
+   at Erlang.Tests.BeamNilTailAndFramedConsChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Calls\BeamNilTailAndFramedConsChecks.cs:line 66
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+FAIL compiler/beam/forwards-tagged-token-result-into-a-local-tail: System.InvalidOperationException: Expected direct token extraction and the joined result in the outgoing register.
+   at Erlang.Tests.BeamTaggedTokenResultTailChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Calls\BeamTaggedTokenResultTailChecks.cs:line 51
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+FAIL compiler/beam/keeps-call-only-grouped-tuple-fields-in-x: System.InvalidOperationException: The call-only tuple fields must leave one saved state slot and two entry roots.
+   at Erlang.Tests.BeamGroupedCallProjectionChecks.VerifyRegisters(Object code) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Frames\BeamGroupedCallProjectionChecks.cs:line 150
+   at Erlang.Tests.BeamGroupedCallProjectionChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Frames\BeamGroupedCallProjectionChecks.cs:line 53
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+FAIL compiler/beam/selects-disjoint-tuple-tags-before-arm-frames: System.InvalidOperationException: The arity arm should project only the tag before dispatching and allocating.
+   at Erlang.Tests.BeamDisjointTupleTagsChecks.CheckEntry(Byte[] beam) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Frames\BeamDisjointTupleTagsChecks.cs:line 203
+   at Erlang.Tests.BeamDisjointTupleTagsChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Frames\BeamDisjointTupleTagsChecks.cs:line 76
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/list-generator-error-line
+FAIL compiler/beam/projects-a-covered-tagged-call-pair-before-selecting: System.InvalidOperationException: Expected the covered guard to join tuple BIF rejection before checking the alternative.
+   at Erlang.Tests.BeamCoveredTaggedCallPairChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamCoveredTaggedCallPairChecks.cs:line 56
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+FAIL compiler/beam/keeps-range-checked-forwarded-choice-in-registers: System.InvalidOperationException: A bounded forwarded choice did not retain its zero-slot frame.
+   at Erlang.Tests.BeamEnrollmentForwardedRangeChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamEnrollmentForwardedRangeChecks.cs:line 100
+   at Erlang.Tests.BeamEnrollmentForwardedRangeChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamEnrollmentForwardedRangeChecks.cs:line 100
+   at Erlang.Tests.BeamEnrollmentForwardedRangeChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamEnrollmentForwardedRangeChecks.cs:line 100
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+FAIL compiler/beam/groups-closed-atom-arms-with-owned-source-lines: System.InvalidOperationException: Expected one ordered atom selector with two distinct terminal bodies.
+   at Erlang.Tests.BeamClosedAtomPairChecks.CheckFiniteLayout(Byte[] image) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamClosedAtomPairChecks.cs:line 283
+   at Erlang.Tests.BeamClosedAtomPairChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamClosedAtomPairChecks.cs:line 80
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+FAIL compiler/beam/clears-a-retained-argument-at-its-final-call: System.InvalidOperationException: The joined call must order the outgoing arguments before clearing each dead root.
+   at Erlang.Tests.BeamConsumedOutgoingRootsChecks.CheckCompactedArgumentRoots() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamConsumedOutgoingRootsChecks.cs:line 109
+   at Erlang.Tests.BeamConsumedOutgoingRootsChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamConsumedOutgoingRootsChecks.cs:line 68
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+FAIL compiler/beam/keeps-call-results-in-terminal-argument-registers: System.InvalidOperationException: The terminal argument join retained a temporary stack copy or used it in another argument.
+   at Erlang.Tests.BeamTerminalCallResultArgumentChecks.CheckTerminalJoin() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamTerminalCallResultArgumentChecks.cs:line 92
+   at Erlang.Tests.BeamTerminalCallResultArgumentChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamTerminalCallResultArgumentChecks.cs:line 44
+   at Program.<>c.<<Main>$>b__0_484() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 13984
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+FAIL compiler/beam/partitions-mixed-entry-domains-before-framing: System.InvalidOperationException: Tuple arities must be selected before allocating a clause frame.
+   at Erlang.Tests.BeamMixedArityEntryChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamMixedArityEntryChecks.cs:line 183
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+FAIL compiler/beam/shares-protected-tag-payload-before-calls: System.InvalidOperationException: Protected tuple dispatch did not share its payload and preserve the exception frame.
+   at Erlang.Tests.BeamProtectedTaggedCallDispatchChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamProtectedTaggedCallDispatchChecks.cs:line 69
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+FAIL compiler/beam/retains-one-owner-in-generated-recursive-list-helpers: System.InvalidOperationException: A caller-controlled generator lost its shape and improper-tail checks.
+   at Erlang.Tests.BeamRecursiveListFrameChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamRecursiveListFrameChecks.cs:line 50
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+FAIL compiler/beam/orders-saved-call-results-and-list-construction: System.InvalidOperationException: A saved result or an owned list spine was emitted with the wrong destination sequence.
+   at Erlang.Tests.BeamRetainedCallArgumentChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamRetainedCallArgumentChecks.cs:line 67
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/allocates-only-for-guarded-module-tail-apply
+PASS compiler/beam/adjacent-call-keeps-result-live
+FAIL compiler/beam/reuses-retired-entry-slot-before-following-call: System.InvalidOperationException: Expected outgoing operands to retire before the result uses their stack slot.
+   at Erlang.Tests.BeamRetiredEntryCallSlotChecks.Run() in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\Calls\BeamRetiredEntryCallSlotChecks.cs:line 76
+   at Program.<Main>$(String[] args) in C:\Users\Maksim\.codex\worktrees\beam-release-parity\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 18414
+PASS compiler/beam/rebuild-installed-otp-release-images
+19/44 passed

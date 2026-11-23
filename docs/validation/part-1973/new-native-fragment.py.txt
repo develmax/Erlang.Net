@@ -1,0 +1,39 @@
+saved=group("SavedTupleSelector")
+saved_image=compile_fixture("saved-terminal-tuple",saved/"beam_saved_terminal_tuple.erl")
+saved_result=otp("saved-terminal-tuple-native",saved/"native-fixture.eval",
+    saved/"pinned/beam_saved_terminal_tuple.beam",saved_image,saved/"pinned/beam_saved_terminal_provider")
+assert saved_result.read_text(encoding="utf-8")== (saved/"native-fixture.stdout.log").read_text(encoding="utf-8")
+synthetic["saved-terminal-tagged-results"]={"Cases":8,"Evidence":sha(saved_result),"Image":sha(saved_image)}
+
+edges=group("OwnedCaseResultEdges")
+edge_source=edges/"owned_case_result_probe.erl"
+edge_image=compile_fixture("owned-case-result-edges",edge_source)
+edge_linked=otp("owned-case-edges-linked",edges/"owned-case-probe.eval",edge_source,edge_image)
+edge_pin=otp("owned-case-edges-pinned",edges/"owned-case-probe.eval",edge_source)
+def branch_outcomes(path):
+    lines=path.read_text(encoding="utf-8").splitlines()
+    assert len(lines)>4 and "native_cases => 14" in lines[-1]
+    return lines[:3]+lines[-1:]
+assert branch_outcomes(edge_linked)==branch_outcomes(edge_pin)
+synthetic["owned-case-result-edges"]={"Cases":14,"Evidence":sha(edge_linked),"Image":sha(edge_image)}
+
+checked=group("CheckedEntryFrameOrder")
+checked_src=checked/"fixture/checked_root_order_fixture.erl"
+checked_image=compile_fixture("checked-entry-root-order",checked_src)
+checked_output=root/"checked-entry-root-observed.etf"
+otp("checked-entry-root-native",checked/"fixture/native.eval",checked_image,
+    checked/"fixture/pinned/checked_root_order_provider.beam",checked_output)
+synthetic["checked-entry-root-order"]={"Cases":7,"Evidence":sha(checked_output),"Image":sha(checked_image)}
+for name,module,recipe,count in [
+    ("mnesia-abort-checked-order","mnesia_backup","mnesia-native.eval",3),
+    ("beam-doc-checked-order","beam_doc","beam-doc-native.eval",5)]:
+    values={}
+    for role,origin in roles_for_package:
+        item=root/(name+"-"+role+".etf")
+        args=[origin/beam_names[module]]
+        if module=="mnesia_backup":
+            args.append(root/(name+"-"+role+".backup"))
+        otp(name+"-"+role,checked/recipe,*args,item)
+        values[role]=sha(item)
+    assert len(set(values.values()))==1,(name,values)
+    verified[name]={"Cases":count,"Evidence":values["linked"]}

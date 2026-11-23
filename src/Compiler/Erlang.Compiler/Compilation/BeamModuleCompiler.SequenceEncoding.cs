@@ -246,6 +246,9 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
+            PairFacts joinedLength = ReadJoinedNumericPairFacts(encode);
+            bool integerLength = (joinedLength & PairFacts.Length) != 0;
+            bool numericLength = (joinedLength & PairFacts.NumericLength) != 0;
             bool naturalTotal = HasOnlyLocalCalls(function, 3, (_, call) =>
                 ReferenceEquals(call, recur) || call.Arguments[2] is Expr.Literal { Value: Integer seed } && seed.Value >= 0);
             int functionInfo = owner.nextLabel - 2;
@@ -286,8 +289,8 @@ internal sealed partial class BeamModuleCompiler
             {
                 owner.EmitTypedRegister(
                     1,
-                    IntegerTypeBits,
-                    lower: 0,
+                    integerLength ? IntegerTypeBits : NumberTypeBits,
+                    lower: integerLength ? 0 : null,
                     registerTag: YRegisterTag
                 );
             }
@@ -295,7 +298,16 @@ internal sealed partial class BeamModuleCompiler
             {
                 owner.Operand(YRegisterTag, 1);
             }
-            owner.EmitTypedRegister(1, IntegerTypeBits, lower: 0);
+            // A call-site proof justifies the pair projection. Its annotation uses the joined return fact.
+            if (integerLength || numericLength)
+            {
+                owner.EmitTypedRegister(1, integerLength ? IntegerTypeBits : NumberTypeBits, lower: integerLength ? 0 : null);
+            }
+            else
+            {
+                owner.Operand(XRegisterTag, 1);
+            }
+
             owner.Operand(XRegisterTag, 1);
 
             owner.Op(TestHeap, BeamWire.UnsignedTag, 2);

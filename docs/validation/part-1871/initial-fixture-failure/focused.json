@@ -1,0 +1,176 @@
+{
+  "Partial": true,
+  "SelectedCount": 27,
+  "TotalCount": 9823,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/beam/adjacent-arithmetic-number-result",
+    "compiler/beam/checks-an-arity-arm-tag-before-its-frame",
+    "compiler/beam/compacts-the-frame-after-a-terminal-list-match-relay",
+    "compiler/beam/composes-redundant-tail-argument-copies",
+    "compiler/beam/delays-a-zero-slot-frame-after-a-checked-tag-fallback",
+    "compiler/beam/delays-the-frame-past-a-terminal-list-match-failure",
+    "compiler/beam/emits-immediate-selective-timeout",
+    "compiler/beam/flat-tuple-list-generator-constructs-after-recursion",
+    "compiler/beam/fresh-reference-receive-marker",
+    "compiler/beam/hoists-heap-before-checked-tuple-reads-with-proven-roots",
+    "compiler/beam/inherits-proper-list-entry-facts-through-recursion",
+    "compiler/beam/keyfind-result-typed-tuple-test",
+    "compiler/beam/local-success-atom-or-tuple-result",
+    "compiler/beam/local-success-integer-result",
+    "compiler/beam/promotes-interior-projection-before-first-call",
+    "compiler/beam/record-epp-include-search-provenance",
+    "compiler/beam/record-field-carries-successful-number",
+    "compiler/beam/release-inline-bounded-leaf",
+    "compiler/beam/retains-entry-tuple-across-producer",
+    "compiler/beam/selects-constant-branches-with-an-identity-fallback",
+    "compiler/beam/shares-accepted-receive-tails-across-tuple-arities",
+    "compiler/beam/tagged-list-generator-keeps-matched-tuple",
+    "compiler/beam/trims-owned-branch-with-one-retained-result",
+    "compiler/beam/tuple-list-generator-checks-before-recursing",
+    "compiler/beam/uses-available-x-in-constructor-with-retained-spill",
+    "compiler/beam/whole-module-matches-otp",
+    "compiler/beam/windows-kernel-bootstrap-include-profile"
+  ],
+  "Passed": 25,
+  "Failed": 2,
+  "Tests": [
+    {
+      "Name": "compiler/beam/whole-module-matches-otp",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Sequence contains no matching element\r\n   at System.Linq.ThrowHelper.ThrowNoMatchException()\r\n   at System.Linq.Enumerable.Single[TSource](IEnumerable\u00601 source, Func\u00602 predicate)\r\n   at Erlang.Tests.BeamBinaryHostAccess.Call(Object owner, String method, Object[] values) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Compiler\\Beam\\Binary\\BeamBinaryHostAccess.cs:line 41\r\n   at Erlang.Tests.BeamNestedCallResultCleanupChecks.Check() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamNestedCallResultCleanupChecks.cs:line 61\r\n   at Erlang.Tests.BeamModuleEmissionChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamModuleEmissionChecks.cs:line 381\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16431",
+      "Milliseconds": 6750
+    },
+    {
+      "Name": "compiler/beam/fresh-reference-receive-marker",
+      "Status": "Passed",
+      "Milliseconds": 181
+    },
+    {
+      "Name": "compiler/beam/emits-immediate-selective-timeout",
+      "Status": "Passed",
+      "Milliseconds": 50
+    },
+    {
+      "Name": "compiler/beam/shares-accepted-receive-tails-across-tuple-arities",
+      "Status": "Passed",
+      "Milliseconds": 74
+    },
+    {
+      "Name": "compiler/beam/adjacent-arithmetic-number-result",
+      "Status": "Passed",
+      "Milliseconds": 15
+    },
+    {
+      "Name": "compiler/beam/local-success-atom-or-tuple-result",
+      "Status": "Passed",
+      "Milliseconds": 23
+    },
+    {
+      "Name": "compiler/beam/record-field-carries-successful-number",
+      "Status": "Passed",
+      "Milliseconds": 18
+    },
+    {
+      "Name": "compiler/beam/compacts-the-frame-after-a-terminal-list-match-relay",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "compiler/beam/inherits-proper-list-entry-facts-through-recursion",
+      "Status": "Passed",
+      "Milliseconds": 12
+    },
+    {
+      "Name": "compiler/beam/record-epp-include-search-provenance",
+      "Status": "Passed",
+      "Milliseconds": 13
+    },
+    {
+      "Name": "compiler/beam/composes-redundant-tail-argument-copies",
+      "Status": "Failed",
+      "Error": "System.IO.InvalidDataException: Invalid generic BEAM opcode or operand boundary\r\n   at Erlang.BeamInstructionReader.Require(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\src\\Runtime\\Erlang.Runtime.Core\\Execution\\Beam\\BeamInstructionReader.cs:line 202\r\n   at Erlang.BeamInstructionReader.Scalar(BeamCompactValue raw, Int32 atomCount, Int32 labelCount) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\src\\Runtime\\Erlang.Runtime.Core\\Execution\\Beam\\BeamInstructionReader.cs:line 131\r\n   at Erlang.BeamInstructionReader.Read(BeamCodeHeader code, Int32 atomCount, Int32 literalCount, Action\u00603 recordLabelOperand, Action\u00603 recordStackOperand) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\src\\Runtime\\Erlang.Runtime.Core\\Execution\\Beam\\BeamInstructionReader.cs:line 90\r\n   at InvokeStub_BeamInstructionReader.Read(Object, Span\u00601)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.BeamBinaryHostAccess.Call(Object owner, String method, Object[] values) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Compiler\\Beam\\Binary\\BeamBinaryHostAccess.cs:line 52\r\n   at Erlang.Tests.BeamTailArgumentCopyChecks.Rewrite(Byte[] source) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Compiler\\Beam\\Frames\\BeamTailArgumentCopyChecks.cs:line 172\r\n   at Erlang.Tests.BeamTailArgumentCopyChecks.CheckMoveOnlyFrame() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Compiler\\Beam\\Frames\\BeamTailArgumentCopyChecks.cs:line 115\r\n   at Erlang.Tests.BeamTailArgumentCopyChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Compiler\\Beam\\Frames\\BeamTailArgumentCopyChecks.cs:line 80\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-shared-frame-and-typed-lists-1861\\source\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16431",
+      "Milliseconds": 10
+    },
+    {
+      "Name": "compiler/beam/windows-kernel-bootstrap-include-profile",
+      "Status": "Passed",
+      "Milliseconds": 17
+    },
+    {
+      "Name": "compiler/beam/selects-constant-branches-with-an-identity-fallback",
+      "Status": "Passed",
+      "Milliseconds": 50
+    },
+    {
+      "Name": "compiler/beam/release-inline-bounded-leaf",
+      "Status": "Passed",
+      "Milliseconds": 42
+    },
+    {
+      "Name": "compiler/beam/uses-available-x-in-constructor-with-retained-spill",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "compiler/beam/hoists-heap-before-checked-tuple-reads-with-proven-roots",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/beam/flat-tuple-list-generator-constructs-after-recursion",
+      "Status": "Passed",
+      "Milliseconds": 99
+    },
+    {
+      "Name": "compiler/beam/retains-entry-tuple-across-producer",
+      "Status": "Passed",
+      "Milliseconds": 200
+    },
+    {
+      "Name": "compiler/beam/checks-an-arity-arm-tag-before-its-frame",
+      "Status": "Passed",
+      "Milliseconds": 6
+    },
+    {
+      "Name": "compiler/beam/delays-a-zero-slot-frame-after-a-checked-tag-fallback",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "compiler/beam/delays-the-frame-past-a-terminal-list-match-failure",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/beam/local-success-integer-result",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "compiler/beam/trims-owned-branch-with-one-retained-result",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/beam/promotes-interior-projection-before-first-call",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/beam/tagged-list-generator-keeps-matched-tuple",
+      "Status": "Passed",
+      "Milliseconds": 72
+    },
+    {
+      "Name": "compiler/beam/keyfind-result-typed-tuple-test",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "compiler/beam/tuple-list-generator-checks-before-recursing",
+      "Status": "Passed",
+      "Milliseconds": 84
+    }
+  ]
+}

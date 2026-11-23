@@ -1,0 +1,14 @@
+[Path]=init:get_plain_arguments(),
+M=beam_nested_sibling_generators, {ok,B}=file:read_file(Path),
+{module,M}=code:load_binary(M,Path,B),
+{beam_file,M,_,_,_,Fs}=beam_disasm:file(B),
+Keys=[{F,A,E}||{function,F,A,E,_}<-Fs,string:find(atom_to_list(F),"-lc$^")=/=nomatch],
+io:format("physical ~0tp~n",[Keys]),
+{[c,b,a],[{a,1},{a,2},{c,3}]}=M:sequential([{a,[1,2]},skip,{b,[]},{c,[3]}]),
+{[],[]}=M:sequential([wrong_shape]),
+{[{a,2},{a,1}],[{x,4}],[{{x,4},{x,4}}]}=M:partial([{a,[1,2]}],[bad,{wrong,[]},{x,{tag,[4]}}]),
+try M:partial([{a,[1|improper]}],[]) of _->error(expected_inner_error)
+catch error:{bad_generator,improper}:Stack -> [{M,Helper,_,Meta}|_]=Stack,
+     true=lists:prefix("-partial/2-lc$^1/1-1-",atom_to_list(Helper)),
+     io:format("inner error ~0tp~n",[Meta]) end,
+io:format("OTP 4 sibling profiles passed~n"),halt().

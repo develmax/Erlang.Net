@@ -1,0 +1,46 @@
+{
+  "ModuleCount": 17,
+  "Previous": {
+    "Equal": 7,
+    "Different": 10,
+    "Unsupported": 0,
+    "SourceRejected": 0
+  },
+  "Candidate": {
+    "Equal": 7,
+    "Different": 10,
+    "Unsupported": 0,
+    "SourceRejected": 0
+  },
+  "ByteMatchesGained": [],
+  "ByteMatchesLost": [],
+  "Changed": [
+    {
+      "Module": "lib/megaco-4.9.2/ebin/megaco_monitor.beam",
+      "PreviousSHA256": "11a686f9969e567ecb66ed2c28b27ffed7d6a71aa9759345b4de1b8a7c3f8378",
+      "CandidateSHA256": "aa60c60e368e846892bacabf10bf13dfc001f1356d375e1b0804309923cc95ac",
+      "PreviousDifferentSections": [
+        "Code",
+        "Attr"
+      ],
+      "CandidateDifferentSections": [
+        "Code",
+        "Attr"
+      ],
+      "Sections": [
+        {
+          "Name": "Code",
+          "PinnedBytes": 2357,
+          "BeforeBytes": 2390,
+          "AfterBytes": 2384
+        },
+        {
+          "Name": "Attr",
+          "PinnedBytes": 96,
+          "BeforeBytes": 96,
+          "AfterBytes": 96
+        }
+      ]
+    }
+  ]
+}

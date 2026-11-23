@@ -75,7 +75,23 @@ internal sealed partial class BeamModuleCompiler
 
             if (selector < 0)
             {
-                return false;
+                if (branches.Count != 1 || !owner.SsaTypeInferenceEnabled || owner.ModuleOptimizationDisabled)
+                {
+                    return false;
+                }
+
+                // A single fully literal constructor is kept as an exact
+                // tuple value by beam_core_to_ssa:opt_single_valued.
+                int literalFailure = fallback is null ? functionInfo : Label();
+                owner.Op(ExactEqualTest, LabelTag, literalFailure);
+                owner.Operand(XRegisterTag, 0);
+                owner.LiteralOperand(Term.Tuple(prefix));
+                variables = new(StringComparer.Ordinal);
+                EmitGeneralClosure(branches[0].Closure);
+                owner.instructions.WriteByte(Return);
+                EmitFallback(literalFailure);
+
+                return true;
             }
 
             var keys = new SortedDictionary<Term, Expr.Fun>(Comparer<Term>.Create(
@@ -146,9 +162,18 @@ internal sealed partial class BeamModuleCompiler
                 owner.instructions.WriteByte(Return);
             }
 
-            if (fallback is not null)
+            EmitFallback(failure);
+
+            return true;
+
+            void EmitFallback(int target)
             {
-                Mark(failure);
+                if (fallback is null)
+                {
+                    return;
+                }
+
+                Mark(target);
                 if (fallbackClosure is not null)
                 {
                     EmitGeneralClosure(fallbackClosure);
@@ -160,8 +185,6 @@ internal sealed partial class BeamModuleCompiler
 
                 owner.instructions.WriteByte(Return);
             }
-
-            return true;
         }
     }
 }

@@ -1,0 +1,46 @@
+{"Partial":true,"SelectedCount":27,"TotalCount":9823}
+FAIL compiler/beam/whole-module-matches-otp: System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Erlang.Tests.BeamBinaryHostAccess.Call(Object owner, String method, Object[] values) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Compiler\Beam\Binary\BeamBinaryHostAccess.cs:line 41
+   at Erlang.Tests.BeamNestedCallResultCleanupChecks.Check() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Compiler\Beam\BeamNestedCallResultCleanupChecks.cs:line 61
+   at Erlang.Tests.BeamModuleEmissionChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Compiler\Beam\BeamModuleEmissionChecks.cs:line 381
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Harness\Program.cs:line 16431
+PASS compiler/beam/fresh-reference-receive-marker
+PASS compiler/beam/emits-immediate-selective-timeout
+PASS compiler/beam/shares-accepted-receive-tails-across-tuple-arities
+PASS compiler/beam/adjacent-arithmetic-number-result
+PASS compiler/beam/local-success-atom-or-tuple-result
+PASS compiler/beam/record-field-carries-successful-number
+PASS compiler/beam/compacts-the-frame-after-a-terminal-list-match-relay
+PASS compiler/beam/inherits-proper-list-entry-facts-through-recursion
+PASS compiler/beam/record-epp-include-search-provenance
+FAIL compiler/beam/composes-redundant-tail-argument-copies: System.IO.InvalidDataException: Invalid generic BEAM opcode or operand boundary
+   at Erlang.BeamInstructionReader.Require(Boolean condition) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamInstructionReader.cs:line 202
+   at Erlang.BeamInstructionReader.Scalar(BeamCompactValue raw, Int32 atomCount, Int32 labelCount) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamInstructionReader.cs:line 131
+   at Erlang.BeamInstructionReader.Read(BeamCodeHeader code, Int32 atomCount, Int32 literalCount, Action`3 recordLabelOperand, Action`3 recordStackOperand) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamInstructionReader.cs:line 90
+   at InvokeStub_BeamInstructionReader.Read(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+--- End of stack trace from previous location ---
+   at Erlang.Tests.BeamBinaryHostAccess.Call(Object owner, String method, Object[] values) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Compiler\Beam\Binary\BeamBinaryHostAccess.cs:line 52
+   at Erlang.Tests.BeamTailArgumentCopyChecks.Rewrite(Byte[] source) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Compiler\Beam\Frames\BeamTailArgumentCopyChecks.cs:line 172
+   at Erlang.Tests.BeamTailArgumentCopyChecks.CheckMoveOnlyFrame() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Compiler\Beam\Frames\BeamTailArgumentCopyChecks.cs:line 115
+   at Erlang.Tests.BeamTailArgumentCopyChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Compiler\Beam\Frames\BeamTailArgumentCopyChecks.cs:line 80
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Harness\Program.cs:line 16431
+PASS compiler/beam/windows-kernel-bootstrap-include-profile
+PASS compiler/beam/selects-constant-branches-with-an-identity-fallback
+PASS compiler/beam/release-inline-bounded-leaf
+PASS compiler/beam/uses-available-x-in-constructor-with-retained-spill
+PASS compiler/beam/hoists-heap-before-checked-tuple-reads-with-proven-roots
+PASS compiler/beam/flat-tuple-list-generator-constructs-after-recursion
+PASS compiler/beam/retains-entry-tuple-across-producer
+PASS compiler/beam/checks-an-arity-arm-tag-before-its-frame
+PASS compiler/beam/delays-a-zero-slot-frame-after-a-checked-tag-fallback
+PASS compiler/beam/delays-the-frame-past-a-terminal-list-match-failure
+PASS compiler/beam/local-success-integer-result
+PASS compiler/beam/trims-owned-branch-with-one-retained-result
+PASS compiler/beam/promotes-interior-projection-before-first-call
+PASS compiler/beam/tagged-list-generator-keeps-matched-tuple
+PASS compiler/beam/keyfind-result-typed-tuple-test
+PASS compiler/beam/tuple-list-generator-checks-before-recursing
+25/27 passed

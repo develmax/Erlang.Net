@@ -1,0 +1,70 @@
+{
+  "IndependentAffectedScope": 187,
+  "Linked": 44,
+  "LinkedManifest": "b966183ce46e1364381b6488fcfc698c2eecf1e42b4782661a02ef608c79a470",
+  "ExactControls": 8,
+  "OverlappingChanged": [
+    "lib/asn1-5.5.2/ebin/asn1ct_check.beam",
+    "lib/asn1-5.5.2/ebin/asn1ct_constructed_per.beam",
+    "lib/asn1-5.5.2/ebin/asn1ct_imm.beam",
+    "lib/common_test-1.31.2/ebin/test_server_ctrl.beam",
+    "lib/megaco-4.9.2/ebin/megaco_erl_dist_encoder.beam",
+    "lib/megaco-4.9.2/ebin/megaco_filter.beam",
+    "lib/megaco-4.9.2/ebin/megaco_messenger.beam",
+    "lib/mnesia-4.27/ebin/mnesia_backup.beam",
+    "lib/mnesia-4.27/ebin/mnesia_lib.beam",
+    "lib/wx-2.7/doc/examples/demo/demo_html_tagger.beam"
+  ],
+  "RegressionControls": [
+    "lib/common_test-1.31.2/ebin/ct_default_gl.beam",
+    "lib/common_test-1.31.2/ebin/ct_master.beam",
+    "lib/common_test-1.31.2/ebin/ct_telnet_client.beam",
+    "lib/compiler-10.0.6/ebin/beam_asm.beam",
+    "lib/compiler-10.0.6/ebin/beam_ssa_destructive_update.beam",
+    "lib/dialyzer-6.0.3/ebin/dialyzer_timing.beam",
+    "lib/diameter-2.7.2/ebin/diameter_sctp.beam",
+    "lib/edoc-1.5/ebin/edoc_extract.beam",
+    "lib/inets-9.8/ebin/httpd_socket.beam",
+    "lib/kernel-11.0.4/ebin/disk_log_sup.beam",
+    "lib/kernel-11.0.4/ebin/group.beam",
+    "lib/megaco-4.9.2/ebin/megaco_messenger.beam",
+    "lib/megaco-4.9.2/ebin/megaco_monitor.beam",
+    "lib/mnesia-4.27/ebin/mnesia_backup.beam",
+    "lib/ssh-6.0.6/ebin/ssh_channel_sup.beam",
+    "lib/stdlib-8.1/ebin/peer.beam",
+    "lib/tools-4.2.3/ebin/cover.beam",
+    "lib/wx-2.7/doc/examples/demo/ex_gauge.beam"
+  ],
+  "NativeWitnesses": [
+    "OTP-PKIX",
+    "OTP-PKIX-Relaxed",
+    "PKIX1Explicit-2009",
+    "asn1ct_gen_ber_bin_v2",
+    "ct_default_gl",
+    "ct_logs",
+    "ex_gauge",
+    "ex_listCtrl",
+    "megaco_digit_map",
+    "megaco_monitor",
+    "mnesia_backup",
+    "mnesia_dumper",
+    "snmpa_mib_storage_ets",
+    "ssh_dbg",
+    "unix_telnet"
+  ],
+  "Representatives": [
+    "edoc_wiki",
+    "megaco_messenger",
+    "mnesia_lib",
+    "pubkey_os_cacerts",
+    "snmp_log",
+    "snmpa_get"
+  ],
+  "ComponentChangedCounts": {
+    "checked types and fields": 64,
+    "covered case": 1,
+    "live list input": 26,
+    "constructor column traversal": 44
+  },
+  "FinalCompilerResultsReused": false
+}

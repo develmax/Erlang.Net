@@ -1,0 +1,20 @@
+[Image]=init:get_plain_arguments(),{ok,Beam}=file:read_file(Image),
+{module,list_head_arity_probe}=code:load_binary(list_head_arity_probe,"list_head_arity_probe",Beam),
+Good=[{entry,[{name,4,check}|improper_tail],{checked,name,4,improper_tail}},
+      {entry,[{name,a_number_is_not_required,check}|improper_tail],{check_fallback,name,a_number_is_not_required,improper_tail}},
+      {entry,[{name,9,radio}|improper_tail],{radio,name,9,improper_tail}},
+      {entry,[separator|improper_tail],{separator,improper_tail}},
+      {entry,[],empty},
+      {wildcard,[other|improper_tail],{other,improper_tail}},
+      {wildcard,[separator|improper_tail],{separator,improper_tail}}],
+Bad=[[{name}|improper_tail],[{name,1,other}|improper_tail],other],
+[Value=apply(list_head_arity_probe,Fun,[Arg]) || {Fun,Arg,Value} <- Good],
+[try list_head_arity_probe:entry(Arg) of Value->error({unexpected,Value})
+ catch error:function_clause:Trace -> [{list_head_arity_probe,entry,[Arg],_}|_]=Trace end || Arg <- Bad],
+io:format("Native fixture: ~p values, ~p original function-clause arguments~n",[length(Good),length(Bad)]),
+case filelib:is_file("parent-list-head-arity.beam") of true ->
+    {beam_file,_,_,_,_,Functions}=beam_disasm:file("parent-list-head-arity.beam"),
+    [io:format("Parent ~p: ~p tuple arity selectors~n",[Fun,length([I||I={select_tuple_arity,_,_,_}<-Body])]) ||
+        {function,Fun,1,_,Body}<-Functions]; false -> ok end,
+halt().
+

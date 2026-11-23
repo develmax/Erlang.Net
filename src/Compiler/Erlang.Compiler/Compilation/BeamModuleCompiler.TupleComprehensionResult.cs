@@ -151,8 +151,7 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(XRegisterTag, 0);
             owner.EmitFrameReturn(slots);
             Mark(skip);
-            owner.Op(TailLocalCall, BeamWire.UnsignedTag, arity);
-            owner.Operand(LabelTag, entry);
+            EmitRecursiveListMappingRejection(function, entry, arity);
             EmitRecursiveListMappingEnd(function, empty);
 
             return true;

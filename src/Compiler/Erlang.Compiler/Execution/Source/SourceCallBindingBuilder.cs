@@ -11,10 +11,12 @@ internal sealed class SourceCallBindingBuilder
     internal bool HasDiameterRecordTransform { get; private set; }
     internal bool HasOtherCompileOptions { get; private set; }
     internal bool DisableModuleOptimization { get; private set; }
+    internal bool DisableReceiveOptimization { get; private set; }
     internal bool LegacyBeamTables { get; private set; }
     private bool enableAutomaticInlining;
     private bool disableAutomaticInlining;
     internal bool AutomaticInlining => enableAutomaticInlining && !disableAutomaticInlining;
+    internal bool AutomaticInliningDisabled => disableAutomaticInlining;
     internal int? AutomaticInlineSize { get; private set; }
     internal HashSet<(string Name, int Arity)> InlineTargets { get; } = [];
 
@@ -57,6 +59,12 @@ internal sealed class SourceCallBindingBuilder
         if (EunitAutoExport.IsTransform(options))
         {
             EunitAutoExportCount++;
+
+            return;
+        }
+        if (options is Atom { Name: CompilerOptionNames.DisableReceiveOptimization })
+        {
+            DisableReceiveOptimization = true;
 
             return;
         }

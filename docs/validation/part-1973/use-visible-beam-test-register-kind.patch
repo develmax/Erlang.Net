@@ -1,0 +1,10 @@
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamSavedTerminalTupleReturnChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamSavedTerminalTupleReturnChecks.cs
+@@ -68,7 +68,7 @@
+ 
+             return selected >= 0 && Opcode(function[selected + 1]) == IsTaggedTuple
+                 && function.Count(instruction => Opcode(instruction) == PutTuple) == expectedConstructors
+-                && (string)Property(Items(exit, "Operands").Single(), "Kind") == BeamOperandParameters.Y;
++                && (string)Property(Items(exit, "Operands").Single(), "Kind") == BeamBinaryHostNames.Y;
+         }
+     }

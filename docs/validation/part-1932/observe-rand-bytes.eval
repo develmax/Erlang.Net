@@ -1,0 +1,17 @@
+[Image,Output]=init:get_plain_arguments(),
+{ok,Bytes}=file:read_file(Image),
+true=code:unstick_mod(rand),
+{module,rand}=code:load_binary(rand,Image,Bytes),
+Observe=fun(Algorithm,Length)->
+    S=rand:seed_s(Algorithm,{127,329,571}),
+    try rand:bytes_s(Length,S) of
+        {Result,Next} -> {ok,Result,rand:export_seed_s(Next)}
+    catch Class:Reason -> {Class,Reason}
+    end
+end,
+Rows=[{Algorithm,Length,Observe(Algorithm,Length)} ||
+    Algorithm <- [exsplus,exsss,exrop],
+    Length <- [0,1,6,7,8,9,15,32,129,-1,bad]],
+ok=file:write_file(Output,term_to_binary(Rows)),
+io:format("~B observations~n",[length(Rows)]),
+halt(0).

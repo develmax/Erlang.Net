@@ -1,0 +1,41 @@
+{"Partial":true,"SelectedCount":24,"TotalCount":9787}
+PASS runtime/dets/managed-public-otp-contracts
+PASS runtime/dets/original-public-otp-contracts
+Expect corrupt table:
+PASS runtime/dets/managed-upstream-cases
+Expect corrupt table:
+PASS runtime/dets/original-upstream-cases
+PASS runtime/prim-file/delete-platform-contracts
+PASS runtime/native/regex485/binary-captures-whole-176
+PASS runtime/library413/original-re8-inspect-internal-run-import-full-outcomes
+PASS runtime/library453/original-re-unicode-traps-full-outcomes
+PASS runtime/library453/unicode-traps-refuse-missing-and-nonbeam-owners
+PASS runtime/library453/unicode-trap-active-conversion-cancel-and-close
+2026-11-18 21:25:50.350827 
+    args: [crypto,{badarg,[{erlang,load_nif,["d:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/library376-official-compiler/installed/lib/crypto-5.10/priv/lib/crypto",{302,<<"d:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/library376-official-compiler/installed/lib/crypto-5.10/priv/lib/crypto">>,false}],[{error_info,#{module=>erl_erts_errors}}]},{crypto,on_load,0,[{file,"crypto.erl"},{line,4479}]},{code_server,'-schedule_on_load/4-fun-0-',1,[{file,"code_server.erl"},{line,1392}]}]},10]
+    label: {error_logger,warning_msg}
+    format: "The on_load function for module ~s returned:~n~P\n"
+=WARNING REPORT==== 18-Nov-2026::21:25:50.350827 ===
+The on_load function for module crypto returned:
+{badarg,[{erlang,load_nif,
+                 ["d:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/library376-official-compiler/installed/lib/crypto-5.10/priv/lib/crypto",
+                  {302,...}],
+                 [{error_info,...}]},
+         {crypto,on_load,0,[{...}|...]},
+         {code_server,'-schedule_on_load/4-fun-0-',1,[...]}]}
+
+PASS runtime/library453/original-named-kernel-no-listener-full-outcomes
+PASS runtime/library412/real-re-core-original-whole-terms-and-stacks
+PASS runtime/re412/native-results-and-errors
+PASS runtime/re412/ownership-and-installation-rollback
+PASS runtime/re412/large-unicode-native-resumption
+PASS runtime/re412/concurrent-runs-and-held-capability
+PASS runtime/re412/active-actor-cancellation
+PASS runtime/re412/dispose-close
+PASS runtime/re412/halt-close
+PASS runtime/re412/initializer-close
+PASS compiler/beam/adjacent-call-keeps-result-live
+PASS mfa/erlang:halt/0
+PASS mfa/erlang:halt/1
+PASS mfa/erlang:halt/2
+24/24 passed

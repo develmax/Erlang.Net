@@ -1,0 +1,22 @@
+[Image,Output]=init:get_plain_arguments(),
+{ok,Bytes}=file:read_file(Image),
+true=code:unstick_mod(mod_trace),
+{module,mod_trace}=code:load_binary(mod_trace,Image,Bytes),
+Probe=fun({Method,Data})->
+    Info={mod,undefined,Data,ip_comm,undefined,undefined,Method,[],undefined,undefined,[],[],undefined,undefined},
+    try mod_trace:do(Info) of
+        Response -> {ok,Response}
+    catch C:R:Stack ->
+        [{M,F,A,_}|_]=Stack,
+        {C,R,{M,F,A}}
+    end
+end,
+Cases=[{"GET",[]},{"TRACE",[{status,{403,[],blocked}}]},{"TRACE",[{response,prepared}]},
+       {"TRACE",[{status,{}},{"response",prepared}]},{"TRACE",[{status,{42}}]},
+       {"TRACE",[{status,{2,70}}]},{"TRACE",[{status,{one,two,three,four}}]}],
+Rows=[{Case,Probe(Case)}||Case<-Cases],
+[{_,{ok,_}},{_,{ok,_}},{_,{ok,_}}|Failures]=Rows,
+true=lists:all(fun({_,{error,{case_clause,_},{mod_trace,response_generated,1}}})->true; (_)->false end,Failures),
+ok=file:write_file(Output,term_to_binary(Rows)),
+io:format("~B observations~n",[length(Rows)]),
+halt(0).

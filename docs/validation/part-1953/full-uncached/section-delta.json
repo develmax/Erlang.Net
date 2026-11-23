@@ -1,0 +1,213 @@
+{
+  "Gains": {
+    "LitT": 16,
+    "Type": 3,
+    "AtU8": 2,
+    "ImpT": 2,
+    "Line": 5,
+    "ExpT": 3,
+    "Attr": 1,
+    "Code": 1,
+    "FunT": 1,
+    "LocT": 1
+  },
+  "Losses": {
+    "LitT": 3
+  },
+  "Modules": [
+    {
+      "Module": "asn1ct_gen_jer",
+      "Gains": [
+        "LitT"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "ct_default_gl",
+      "Gains": [
+        "Type"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "ct_make",
+      "Gains": [],
+      "Losses": [
+        "LitT"
+      ]
+    },
+    {
+      "Module": "ct_snmp",
+      "Gains": [
+        "LitT"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "unix_telnet",
+      "Gains": [
+        "AtU8",
+        "ImpT",
+        "Line",
+        "LitT"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "cerl_clauses",
+      "Gains": [
+        "LitT"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "dialyzer_typesig",
+      "Gains": [],
+      "Losses": [
+        "LitT"
+      ]
+    },
+    {
+      "Module": "diameter",
+      "Gains": [
+        "Line"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "erts_internal",
+      "Gains": [
+        "LitT"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "erts_literal_area_collector",
+      "Gains": [
+        "ExpT"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "application",
+      "Gains": [
+        "LitT"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "code",
+      "Gains": [
+        "LitT"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "disk_log_1",
+      "Gains": [
+        "LitT"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "dist_ac",
+      "Gains": [
+        "LitT"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "net_adm",
+      "Gains": [
+        "LitT"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "megaco_codec_transform",
+      "Gains": [
+        "LitT"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "os_sup",
+      "Gains": [
+        "LitT"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "versions",
+      "Gains": [
+        "LitT"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "systools_lib",
+      "Gains": [
+        "LitT"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "ssl_session",
+      "Gains": [
+        "LitT"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "pool",
+      "Gains": [
+        "Type"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "tags",
+      "Gains": [
+        "Line"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "xref_reader",
+      "Gains": [],
+      "Losses": [
+        "LitT"
+      ]
+    },
+    {
+      "Module": "ex_aui",
+      "Gains": [
+        "Type"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "ex_button",
+      "Gains": [
+        "ExpT",
+        "Line",
+        "LitT"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "ex_cursor",
+      "Gains": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "FunT",
+        "ImpT",
+        "Line",
+        "LocT"
+      ],
+      "Losses": []
+    }
+  ]
+}

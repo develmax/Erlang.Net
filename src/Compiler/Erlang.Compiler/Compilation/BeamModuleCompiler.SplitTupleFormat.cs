@@ -180,16 +180,24 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(XRegisterTag, 2);
         }
 
-        private void EmitFloatDivisionResult(int live, int destination)
+        private void EmitFloatDivisionResult(int live, int destination) =>
+            EmitFloatArithmeticResult(FloatDivide, live, destination);
+
+        private void EmitFloatArithmeticResult(
+            byte opcode,
+            int live,
+            int destination,
+            int additionalHeapWords = 0
+        )
         {
-            owner.Op(FloatDivide, LabelTag, 0);
+            owner.Op(opcode, LabelTag, 0);
             EmitFloatRegister(0);
             EmitFloatRegister(1);
             EmitFloatRegister(0);
             owner.Op(TestHeap, ExtendedTag, AllocationList);
             owner.Operand(BeamWire.UnsignedTag, AllocationKinds);
             owner.Operand(BeamWire.UnsignedTag, AllocationWords);
-            owner.Operand(BeamWire.UnsignedTag, 0);
+            owner.Operand(BeamWire.UnsignedTag, additionalHeapWords);
             owner.Operand(BeamWire.UnsignedTag, AllocationFloats);
             owner.Operand(BeamWire.UnsignedTag, 1);
             owner.Operand(BeamWire.UnsignedTag, AllocationFuns);

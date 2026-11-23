@@ -1,0 +1,79 @@
+{
+  "Before": {
+    "Different": 6,
+    "Equal": 2
+  },
+  "After": {
+    "Different": 6,
+    "Equal": 2
+  },
+  "Images": [
+    {
+      "Beam": "lib\\compiler-10.0.6\\ebin\\beam_core_to_ssa.beam",
+      "BeforeSha256": "EFFD9BDAD8CCFFC51C2555BB6B3A9C2A729C2854FD512726F0DE8C82345A7C73",
+      "AfterSha256": "EFFD9BDAD8CCFFC51C2555BB6B3A9C2A729C2854FD512726F0DE8C82345A7C73",
+      "Before": "Different",
+      "After": "Different"
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\public_key.beam",
+      "BeforeSha256": "67DA12EB0DC69F670C0E1BABFC5107055E5F7F9C71EF06B008C51519F513E8D8",
+      "AfterSha256": "67DA12EB0DC69F670C0E1BABFC5107055E5F7F9C71EF06B008C51519F513E8D8",
+      "Before": "Different",
+      "After": "Different"
+    },
+    {
+      "Beam": "lib\\runtime_tools-2.5\\ebin\\instrument.beam",
+      "BeforeSha256": "5D5F9CA93612CF4D191005E6A08DC793618D6A196666EE94D961FDA98E4E61EC",
+      "AfterSha256": "5D5F9CA93612CF4D191005E6A08DC793618D6A196666EE94D961FDA98E4E61EC",
+      "Before": "Different",
+      "After": "Different"
+    },
+    {
+      "Beam": "lib\\ssh-6.0.6\\ebin\\ssh_channel_sup.beam",
+      "BeforeSha256": "730924FBF4A6D95E9318756115EC575F032B31D6E041FDAE8735913E07A851C6",
+      "AfterSha256": "730924FBF4A6D95E9318756115EC575F032B31D6E041FDAE8735913E07A851C6",
+      "Before": "Equal",
+      "After": "Equal"
+    },
+    {
+      "Beam": "lib\\ssl-11.7.7\\ebin\\ssl_dh_groups.beam",
+      "BeforeSha256": "BC261760AC03337738C1C1F7369F2535C03B0D0224E9167135C2E36D15987167",
+      "AfterSha256": "BC261760AC03337738C1C1F7369F2535C03B0D0224E9167135C2E36D15987167",
+      "Before": "Equal",
+      "After": "Equal"
+    },
+    {
+      "Beam": "lib\\tools-4.2.3\\ebin\\eprof.beam",
+      "BeforeSha256": "EDDB9F516B091281EC27098CF5581BAD26FBCB3301A03F60E8E814DF80461B97",
+      "AfterSha256": "EDDB9F516B091281EC27098CF5581BAD26FBCB3301A03F60E8E814DF80461B97",
+      "Before": "Different",
+      "After": "Different"
+    },
+    {
+      "Beam": "lib\\tools-4.2.3\\ebin\\fprof.beam",
+      "BeforeSha256": "20481BAFF03046DFADD512E672065A772878387E0E7626146B1C399CF84717F8",
+      "AfterSha256": "20481BAFF03046DFADD512E672065A772878387E0E7626146B1C399CF84717F8",
+      "Before": "Different",
+      "After": "Different"
+    },
+    {
+      "Beam": "lib\\tools-4.2.3\\ebin\\tprof.beam",
+      "BeforeSha256": "E963C429ABF97DD69D4CA1897F7746FB9169EF4206F1EEB49E2ABE3B2EFC0A6E",
+      "AfterSha256": "653F8BF2734E7C0B8C297FE5F206C80183EBB102CB8DB12C5FF8BE2767CC5740",
+      "Before": "Different",
+      "After": "Different"
+    }
+  ],
+  "Changed": [
+    {
+      "Beam": "lib\\tools-4.2.3\\ebin\\tprof.beam",
+      "Sections": [
+        "Attr",
+        "Code",
+        "FunT"
+      ],
+      "FunIdentityShapeUnchanged": true
+    }
+  ]
+}

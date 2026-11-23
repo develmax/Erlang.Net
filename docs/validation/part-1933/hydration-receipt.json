@@ -1,0 +1,44 @@
+{
+  "Parent": {
+    "Source": "e1b9f2dc28d63e72e1ab02769e3ff2bb04f591e783b8eab03cafde282649b2da",
+    "Paths": 720,
+    "RemovedPaths": [],
+    "Compiler": "580a2bc370935364810ee9afd789b3d728593c10d1b2e7715a98b60a70404839",
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "Tests": "088ed2f7b1cdb44f152e0b67a34c523c65443e4fddf12a9fff3a7b2b9f430dc9",
+    "ParentSource": "bea419949a0613f32d6365f028b2ad02d48095bca9c4585273716292e331a4d3",
+    "CorpusTool": "31e99ff2c3f88c01c9f0e45bac71b3a912cff1da94930cddf1f8812b300776df"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AdjacentTupleProjectionOrder.cs": "5fdea6a963fd23c3762f999826e836a2974dfaebd4083c35391050038dd91555",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedListFilter.cs": "6e632780c7c1e4f16b58ca8fb8bc02d8e59a8382ea748f7c1b1ed2c09c82f78e",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs": "ac6025055dd03389f5ccbe69c5056f2083ab9d317a31319273ae8380f7b064f5",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ForkedCallList.cs": "f01f26033e2ed4d1e583c255982422832f94b794c791ff1ef9c9811acfd3dd78",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": "2dcc11b5abb849e3f3908f9348f0aafbe87ec16a2b3bcc97a5509d79ea6369a7",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LocalConstantArguments.cs": "e435b212202e04069eab3049fa6f490a88564933d59145a63f61e9a6d280dbfc",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.MeasuredBinaryContextDecode.cs": "e3ab0f2cc27bffebf0fd6ab1c672ba8f3ae7f2d90ca8ff8c526e0f30ffa323ec",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ResumedBitListDecode.cs": "85b3562e433c148332b757e18b0cc7715e1169a4cb06919053433b14f2c42ec9",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TupleArityFailures.cs": "58b79d7646d6475f4e479dfcf32a06859de4ad9bd08d5837de3f963e1fcdc11b",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": "abb06924ce1d9faf126d180d113b9e3f018e9885883bdd047e569f244076ce2f",
+    "tests/Erlang.Tests/Compiler/Beam/BeamAdjacentTupleProjectionOrderChecks.cs": "e3bebf23ae64c42c52eb3362c854d655a9922ca5fc35971fd1047650e4b0b69c",
+    "tests/Erlang.Tests/Compiler/Beam/BeamClosedDecoderTagsChecks.cs": "c22368b155c530b11d6dda129a3a973c33c0e37fb5d111325d636b212aa5cac7",
+    "tests/Erlang.Tests/Compiler/Beam/BeamForkedCallListChecks.cs": "a93ea2456a9d450de6d1c481745ec086d4a12d1d7392aff5b24189b071d1b919",
+    "tests/Erlang.Tests/Compiler/Beam/BeamMeasuredDecoderPairChecks.cs": "dff7361654ffc473d8ff8ef3507b16d380d8519056460f577c8b9842f7a5e0fa",
+    "tests/Erlang.Tests/Compiler/Beam/Binary/BeamTupleArityFailureChecks.cs": "5fd4ee89a456636d18e83a57f6e199bb952efbd63c7484dfd6f1c40f03cbbf79",
+    "tests/Erlang.Tests/Harness/Program.cs": "ee9491f20340748c124bfe4631e715c30f735d2f8a72e6d4e764c7d4aae86047"
+  },
+  "CandidateRemovedPaths": {},
+  "PatchSources": {
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\asn-named-bits-replay-1931\\measured-decoder-pair\\measured-decoder-pair.patch": "aad8f11a8fb8917f49b462451741b6eeb3f8617a3be1cdec44465503e2fc7489",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\matched-contexts-and-call-liveness-1933\\adapted-tests\\MeasuredDecoder.patch": "ea47edaff738e1d49c6dd0e9d0a5251eb060ae13c676fbdb8f0abfa32af12b70",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\asn-named-bits-replay-1931\\closed-decoder-tags\\closed-decoder-tags.patch": "ec6c4950698600e0f529a4b96686a54e35dc1594080e29a42b15c934e299a98d",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\matched-contexts-and-call-liveness-1933\\adapted-tests\\ClosedTags.patch": "5c3d15f47967ab206bccbfaab6f09c27104c3df365c09ef1874f7b1d3b8687fa",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\binary-match-audit-1931\\tuple-arity-relay\\tuple-arity-relay.patch": "ccf33bbd62794c92055e50c55a36e804555c179173dd9847cf8d66accfe70acf",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\matched-contexts-and-call-liveness-1933\\adapted-tests\\TupleArityRelay.patch": "b6539b939e0438384da477403b350a06c1cd986bc1383578cc88379b9a2d59d5",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\pre-call-liveness-1933\\production.patch": "ae2a646bd0c916a907d04be3896ac96233b86fdc4d0cc7ebd9cb46883eb70423",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\matched-contexts-and-call-liveness-1933\\adapted-tests\\CallListLiveness.patch": "48e07fa94ed1a66c719d7bcefe806be343a628573e81f29c4d1ea08977c8db96",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\binary-match-audit-1931\\tuple-projection-order\\tuple-projection-order.patch": "fb1d6716a86700a50af8043a8b467aac666030545ee5a703d0fe534cbc57ac08",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\matched-contexts-and-call-liveness-1933\\adapted-tests\\ProjectionOrder.patch": "7261c2ce81ba5b2dc205614faaa023c274f4c0c3b6e838c3400c7f40b6be3713",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\matched-contexts-and-call-liveness-1933\\adapted-tests\\integrated-harness-registrations.patch": "0cb2acf7396e6648fda9440ed96e618fbee14dfd42f3a1a13c1ff988d7eaa7b1"
+  }
+}

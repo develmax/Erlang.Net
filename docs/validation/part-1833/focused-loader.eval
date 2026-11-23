@@ -1,0 +1,2 @@
+[Input]=init:get_plain_arguments(), {ok,Data}=file:read_file(Input), Lines=[binary:split(L,<<9>>,[global]) || L <- binary:split(Data,<<10>>,[global,trim_all])], lists:foreach(fun(Row) -> Results=[begin Path=string:trim(RawPath), Name=binary_to_atom(filename:basename(Path,<<".beam">>)), {ok,Image}=file:read_file(string:trim(Path)), Status=case code:prepare_loading([{Name,"",Image}]) of {ok,_}->accepted; {error,Reason}->Reason end, {Name,Status} end || RawPath <- Row], io:format("~tp.~n",[Results]) end, Lines), halt().
+

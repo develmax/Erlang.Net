@@ -1,0 +1,150 @@
+{
+  "otpTag": "OTP-29.1.1",
+  "otpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "part1948Archive": {
+    "size": 2085945,
+    "sha256": "f56db2486823b088038d1a52b4dc6ddb83ba48f32e96e2ccd3e9ab1dd6594786"
+  },
+  "requiredPriorProductionPatch": {
+    "size": 2075,
+    "sha256": "bc1c88c33d3a8b20fd43351bc2de7b658b7bfda07dd3ab90f1570e2e43bc2323"
+  },
+  "baselineCompiler": {
+    "size": 4875264,
+    "sha256": "9922c7a5fc84a784aeb72d30afba9950f9efd790292b0495a32e2fcf970423da"
+  },
+  "baselineReceipt": {
+    "size": 4425,
+    "sha256": "54250ec03639b2439bd9e1987fddf400258a63c68e36e8fdf55bde8824b90d4d"
+  },
+  "jobs": 1,
+  "scope": {
+    "lib/inets-9.8/ebin/inets_sup.beam": "Equal",
+    "lib/stdlib-8.1/ebin/ordsets.beam": "Equal",
+    "lib/wx-2.7/ebin/wxAuiNotebook.beam": "Equal",
+    "lib/wx-2.7/ebin/wxGridBagSizer.beam": "Different",
+    "lib/wx-2.7/ebin/wxGridSizer.beam": "Equal",
+    "lib/wx-2.7/ebin/wxListCtrl.beam": "Different",
+    "lib/wx-2.7/ebin/wxMenu.beam": "Equal",
+    "lib/wx-2.7/ebin/wxSizer.beam": "Different",
+    "lib/wx-2.7/ebin/wxSizerItem.beam": "Equal",
+    "lib/wx-2.7/ebin/wxStyledTextCtrl.beam": "Equal",
+    "lib/wx-2.7/ebin/wxTextCtrl.beam": "Equal",
+    "lib/wx-2.7/ebin/wxToolBar.beam": "Equal",
+    "lib/wx-2.7/ebin/wxTreeCtrl.beam": "Equal",
+    "lib/wx-2.7/ebin/wxWindow.beam": "Different",
+    "lib/wx-2.7/ebin/wxXmlResource.beam": "Equal"
+  },
+  "targetGeneratedBefore": {
+    "size": 21916,
+    "sha256": "8a4a98b5d64976614766a2165a5ca709a6224435ee721a362f4d503820a71bbc"
+  },
+  "targetGeneratedAfter": {
+    "size": 21916,
+    "sha256": "46736575ed6e829566588c93071f8ca992a817a5fa6241bbb0fc093112e2b6d9"
+  },
+  "targetPinned": {
+    "size": 21916,
+    "sha256": "46736575ed6e829566588c93071f8ca992a817a5fa6241bbb0fc093112e2b6d9"
+  },
+  "unchangedDifferingControls": {
+    "lib/wx-2.7/ebin/wxGridBagSizer.beam": {
+      "size": 31004,
+      "sha256": "f4827c8a4c06f423148d76f557ff78c88c6a532ba0bd4a7a0a6080ab891921ea"
+    },
+    "lib/wx-2.7/ebin/wxListCtrl.beam": {
+      "size": 73644,
+      "sha256": "14ab2501959433b9077784d27566f5eedc4147619e2f0980a075d54141f79041"
+    },
+    "lib/wx-2.7/ebin/wxSizer.beam": {
+      "size": 51308,
+      "sha256": "6176ba3495495746b313a67dda6346134b1d9ba43fffc2b6cb1095fdd7e55f43"
+    },
+    "lib/wx-2.7/ebin/wxWindow.beam": {
+      "size": 119664,
+      "sha256": "cf179a1b85193102c4f3ada53ca253557e35d82c36bc761ba8479a2e7e699faf"
+    }
+  },
+  "nativeCases": 14,
+  "comparedTopStackFrames": 2,
+  "matchedChunks": 15,
+  "matchedFunctions": 38,
+  "files": {
+    "production.patch": {
+      "size": 4028,
+      "sha256": "c6520cae43a2711bfb0177d9045142f566f148978023337a230e3dc073c0e4d7"
+    },
+    "test.patch": {
+      "size": 3772,
+      "sha256": "5d523b93bfee15abe6be4e2e22097bdff3647614b47fed076defc6c7ee77658c"
+    },
+    "replay-files.json": {
+      "size": 1231,
+      "sha256": "c53e4bc73704a38a3eadb64378c31a2cf91fd85b9a2fc6391ae115441adf4280"
+    },
+    "compiler-bin/Erlang.Compiler.dll": {
+      "size": 4875776,
+      "sha256": "5e7f476b398d2f6c12fc8adfb8641acd0b8dda23d8cbd4057c2fb0486fd2a806"
+    },
+    "final-scope.json": {
+      "size": 4142,
+      "sha256": "f260c6bc03e1a09fa2cd9c72e22c73e75677da21d7734a93bda60a026613572b"
+    },
+    "all-functions-final-exact.terms": {
+      "size": 57,
+      "sha256": "c98cad50b6eb3bcef396a863563f79cd7118438e55c11c524810d3f5ff672582"
+    },
+    "build-final.log": {
+      "size": 475,
+      "sha256": "a409aa6cd6ba514d5e5c3bd25fc8db8d832bef3bc474931069850adb974eaf16"
+    },
+    "layout-check.log": {
+      "size": 40,
+      "sha256": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f"
+    },
+    "focused-exits.json": {
+      "size": 51,
+      "sha256": "1ef75e784a5dd11b9c2fe71476a71f94295ce972682d28c771dea17e5ae3df61"
+    },
+    "focused-red.log": {
+      "size": 520,
+      "sha256": "fb8a9790ff802d24b0f05409c31b280592c1e551e6682c5e60b9fe27cbc632a9"
+    },
+    "focused-final-green.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "native-pinned.terms": {
+      "size": 2002,
+      "sha256": "e9069f4729e82bc1e52f6087f84089d268ed7c7dc464c890283a634ac96f91c8"
+    },
+    "native-candidate.terms": {
+      "size": 2002,
+      "sha256": "e9069f4729e82bc1e52f6087f84089d268ed7c7dc464c890283a634ac96f91c8"
+    },
+    "native-resource-stack.eval": {
+      "size": 1940,
+      "sha256": "0bc085452442461b5a867b44b0107996967113e66efac731bfb4ae1ed8fd549d"
+    },
+    "native-stack-pinned.terms": {
+      "size": 3915,
+      "sha256": "2332fd5b34b438f7534bd13c95993b05ee97c1888493b67f5cf22691c7a6a34a"
+    },
+    "native-stack-final.terms": {
+      "size": 3915,
+      "sha256": "2332fd5b34b438f7534bd13c95993b05ee97c1888493b67f5cf22691c7a6a34a"
+    },
+    "chunk-fingerprints.json": {
+      "size": 1920,
+      "sha256": "6bd58092de0e6dc4f809af8c485410a41e64e94b8aed3670e36cb6abb3f7bc1a"
+    },
+    "linked-replay.json": {
+      "size": 1640,
+      "sha256": "7fc3f72e8e88ebad23c9dd460515a604992d37e23a48daa0af1b3d5171538a6c"
+    },
+    "pinned-beam-trim.erl": {
+      "size": 21804,
+      "sha256": "a9b01e838eb7bd9c52861214cf7c055ce6fc393e13eb1c8ddc00084e7bad9ce9"
+    }
+  }
+}

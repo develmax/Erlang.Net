@@ -8,7 +8,14 @@ internal sealed partial class BeamModuleCompiler
     {
         private bool TryEmitTerminalCallList(FunctionDefinition function)
         {
-            if (function.Clauses is not [{ Guard: null, Body: Expr.List { Tail: null } list } clause]
+            (Clause? Clause, (int Input, EntryCall Tail)? Empty) entry = function.Clauses switch
+            {
+                [var single] => (single, null),
+                [var fast, var fallback] when ReadTerminalListNilArm(fast) is { } plan => (fallback, plan),
+                _ => (null, null)
+            };
+            var (clause, empty) = entry;
+            if (clause is not { Guard: null, Body: Expr.List { Tail: null } list }
                 || !HasUnconditionalParameters(clause) || list.Items.Count < 2
                 || list.Items[0] is not Expr.Call first)
             {
@@ -22,7 +29,9 @@ internal sealed partial class BeamModuleCompiler
             }
 
             var laterCalls = list.Items.Skip(1).OfType<Expr.Call>().ToArray();
-            if (laterCalls.Length != list.Items.Count - 1)
+            var retainedItems = list.Items.OfType<Expr.Variable>().ToArray();
+            if (laterCalls.Length + retainedItems.Length != list.Items.Count - 1
+                || retainedItems.Any(item => item.Name == VariableScopeNames.Wildcard || !inputs.Contains(item.Name)))
             {
                 return false;
             }
@@ -34,6 +43,12 @@ internal sealed partial class BeamModuleCompiler
                 {
                     lastReads[variable.Name] = index;
                 }
+            }
+
+            // List operands remain live after the last call.
+            foreach (var item in retainedItems)
+            {
+                lastReads[item.Name] = laterCalls.Length;
             }
 
             var savedInputs = inputs.Select((name, register) => (Name: name, Register: register))
@@ -81,6 +96,16 @@ internal sealed partial class BeamModuleCompiler
                 stack[slot] = string.Empty;
             }
 
+            if (empty is { } fastPath)
+            {
+                int nonempty = Label();
+                owner.EmitNilTest(XRegisterTag, fastPath.Input, nonempty);
+                EmitEntryCallArguments(fastPath.Tail);
+                Expr.Call tail = fastPath.Tail.Call;
+                EmitTailLocal(entries[(tail.Function, tail.Arguments.Count)], tail.Arguments.Count, null);
+                Mark(nonempty);
+            }
+
             int live = Math.Max(EntryCallLiveCount(firstCall, inputs),
                 savedInputs.Select(input => input.Register + 1).DefaultIfEmpty(0).Max());
             EmitGeneralFrame(live, initializedByMoves: savedInputs.Length, slots: frame);
@@ -120,25 +145,77 @@ internal sealed partial class BeamModuleCompiler
 
             owner.Op(TestHeap, BeamWire.UnsignedTag, list.Items.Count * ConsHeapWords);
             owner.Operand(BeamWire.UnsignedTag, 1);
-            for (int index = steps.Length; index >= 0; index--)
+            int callIndex = steps.Length;
+            int tailRegister = 1;
+            bool emptyTail = true;
+            for (int index = list.Items.Count - 1; index >= 0; index--)
             {
                 owner.instructions.WriteByte(PutList);
-                if (index == steps.Length)
+                if (list.Items[index] is Expr.Variable variable)
+                {
+                    int inputSlot = Array.IndexOf(stack, variable.Name);
+                    owner.Operand(YRegisterTag, inputSlot);
+                }
+                else if (callIndex == steps.Length)
                 {
                     owner.Operand(XRegisterTag, 0);
+                }
+                else
+                {
+                    owner.Operand(YRegisterTag, steps[callIndex].Slot);
+                }
+
+                if (emptyTail)
+                {
                     owner.LiteralOperand(Nil.Value);
                 }
                 else
                 {
-                    owner.Operand(YRegisterTag, steps[index].Slot);
-                    owner.Operand(XRegisterTag, 0);
+                    owner.Operand(XRegisterTag, tailRegister);
                 }
 
-                owner.Operand(XRegisterTag, 0);
+                if (list.Items[index] is Expr.Call)
+                {
+                    tailRegister = 0;
+                    callIndex--;
+                }
+
+                owner.Operand(XRegisterTag, tailRegister);
+                emptyTail = false;
             }
             owner.EmitFrameReturn(frame);
 
             return true;
+        }
+
+        private (int Input, EntryCall Tail)? ReadTerminalListNilArm(Clause clause)
+        {
+            if (clause is not { Guard: null, Body: Expr.Call tail })
+            {
+                return null;
+            }
+
+            int nil = -1;
+            var inputs = new string[clause.Patterns.Count];
+            for (int register = 0; register < inputs.Length; register++)
+            {
+                switch (clause.Patterns[register])
+                {
+                    case Pattern.List { Items: [], Tail: null } or Pattern.Literal { Value: Nil } when nil < 0:
+                        nil = register;
+                        break;
+                    case Pattern.Variable { Name: not VariableScopeNames.Wildcard } variable when !inputs.Contains(variable.Name):
+                        inputs[register] = variable.Name;
+                        break;
+                    case Pattern.Variable { Name: VariableScopeNames.Wildcard }:
+                    case Erlang.Pattern.Any:
+                        break;
+                    default:
+                        return null;
+                }
+            }
+
+            return nil >= 0 && ReadEntryCall(tail, inputs) is { Module: null } call ? (nil, call) : null;
         }
     }
 }

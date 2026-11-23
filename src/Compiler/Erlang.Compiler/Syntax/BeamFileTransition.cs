@@ -6,5 +6,10 @@ internal sealed record BeamFileTransition(
     int Line,
     Token? Directive = null,
     int Column = 1,
-    string? IncludeRequest = null
-);
+    string? IncludeRequest = null,
+    string? RecordedIncludePath = null,
+    BeamFileTransition.MappedParent? ParentMapping = null
+)
+{
+    internal sealed record MappedParent(string File, int LineOffset, string? UnformattedParent);
+}

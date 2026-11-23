@@ -1,0 +1,83 @@
+using System.Collections;
+using System.Numerics;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamCheckedReplyOrReceiveChecks
+{
+    internal const string TestName = "compiler/beam/keeps-received-record-and-passive-reply-frames-independent";
+    private const string Fixture = "beam_checked_reply_or_receive_probe.erl";
+    private const string UnexpectedLayout = "Checked reply and receive paths did not match their pinned layout.";
+
+    internal const string Source = """
+        -module(beam_checked_reply_or_receive_probe).
+        -export([read_or_wait/5, consume/2, duration/1, set/3]).
+        -record(notice, {state, id, detail}).
+
+        read_or_wait(Socket, Address, Port, false, Timer) ->
+            case ?MODULE:consume(Socket, ?MODULE:duration(Timer)) of
+                {payload, {Address, Port, _, #notice{state=State}=Event}} ->
+                    if State =:= connected -> {accepted, Event};
+                       true -> {rejected, Event}
+                    end;
+                {payload, Other} -> {rejected, Other};
+                {failure, _}=Error -> Error
+            end;
+        read_or_wait(Socket, Address, Port, Active, Timer) ->
+            Wait = ?MODULE:duration(Timer),
+            receive
+                {incoming, Socket, Address, Port, {_, #notice{state=State}=Event}} ->
+                    Operation =
+                        case Active of
+                            once -> ?MODULE:set(Socket, mode, once);
+                            _ -> done
+                        end,
+                    case {State, Operation} of
+                        {connected, done} -> {accepted, Event};
+                        {_, done} -> {rejected, Event};
+                        {_, Error} -> Error
+                    end
+            after Wait ->
+                {rejected, timeout}
+            end.
+
+        duration(Timer) -> self() ! {duration, Timer}, Timer.
+        consume({mock, Reply}, Delay) -> self() ! {consume, Delay}, Reply.
+        set(Socket, Key, Value) ->
+            self() ! {set, Socket, Key, Value},
+            case Socket of blocked -> {failure, blocked}; _ -> done end.
+        """;
+
+    internal static byte[] CompileFixture() => CodeGeneration.CompileBeamModule(Source, Fixture);
+
+    internal static void Run()
+    {
+        object code = Code(CompileFixture());
+        object[] instructions = Items(code, "Instructions").ToArray();
+        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
+        int info = Array.FindIndex(
+            instructions,
+            instruction => Opcode(instruction) == FunctionInfo
+                && Items(instruction, "Operands").ToArray() is [_, var atom, var width]
+                && atoms[Value(atom)] == "read_or_wait" && Value(width) == 5
+        );
+        object[] body = info < 0 ? [] : instructions.Skip(info + 2)
+            .TakeWhile(instruction => Opcode(instruction) != FunctionInfo).ToArray();
+        int[] frames = body.Where(instruction => Opcode(instruction) == Allocate)
+            .Select(instruction => Value(Items(instruction, "Operands").First())).ToArray();
+        if (frames is not [3, 5] || body.Count(instruction => Opcode(instruction) == RemoveMessage) != 1
+            || body.Count(instruction => Opcode(instruction) == WaitTimeout) != 1)
+        {
+            throw new InvalidOperationException(UnexpectedLayout);
+        }
+    }
+
+    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
+
+    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
+
+    private static IEnumerable<object> Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>();
+}

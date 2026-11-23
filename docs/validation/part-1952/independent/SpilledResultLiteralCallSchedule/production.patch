@@ -1,0 +1,34 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.IndependentArgumentMoves.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.IndependentArgumentMoves.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.IndependentArgumentMoves.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.IndependentArgumentMoves.cs
+@@ -435,6 +435,7 @@
+ 
+         var literals = new SortedDictionary<int, int>();
+         BeamOperand? first = null;
++        bool copiedResult = false;
+         for (int index = start; index < end; index++)
+         {
+             var (source, destination) = (body[index].Operands[0], body[index].Operands[1]);
+@@ -447,10 +448,18 @@
+ 
+                 first = source;
+             }
+-            else if (destination.TypeIndex is not null || destination.Value >= end - start || !IsNonRegisterValue(source)
+-                || !literals.TryAdd((int)destination.Value, index))
+-            {
+-                return null;
++            else
++            {
++                // X1 can hold the deferred receiver. The saved call result
++                // can feed a higher argument until the receiver overwrites X0.
++                bool resultArgument = source == result && !copiedResult && first is null && destination.Value > 1;
++                if (destination.TypeIndex is not null || destination.Value >= end - start
++                    || !IsNonRegisterValue(source) && !resultArgument || !literals.TryAdd((int)destination.Value, index))
++                {
++                    return null;
++                }
++
++                copiedResult |= resultArgument;
+             }
+         }
+ 

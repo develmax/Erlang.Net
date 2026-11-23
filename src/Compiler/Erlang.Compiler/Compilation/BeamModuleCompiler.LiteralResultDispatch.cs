@@ -10,7 +10,7 @@ internal sealed partial class BeamModuleCompiler
         {
             if (function.Arity != 1)
             {
-                return false;
+                return TryEmitTerminalAtomLiteralCase(function);
             }
 
             if (function.Clauses is
@@ -77,7 +77,7 @@ internal sealed partial class BeamModuleCompiler
             Expr.Call? error = fallback.Body is Expr.Call call && IsConstantErrorCall(call) ? call : null;
             if (fallback.Guard is not null && guard is null
                 || hasFallback && !identity && !constant && error is null
-                || decision is null && (!hasFallback || guard is null && error is null))
+                || decision is null && (!hasFallback || !identity && guard is null && error is null))
             {
                 return false;
             }
@@ -135,13 +135,64 @@ internal sealed partial class BeamModuleCompiler
 
             void EmitCaseFailure()
             {
-                if (caseLocation is { } source)
+                // The closed literal selector emits no other source locations.
+                if (caseLocation is { } source && (hasFallback || !owner.SameSourceLine(source, location)))
                 {
                     owner.EmitLine(source);
                 }
 
                 owner.Op(CaseEnd, XRegisterTag, 0);
             }
+        }
+
+        private bool TryEmitTerminalAtomLiteralCase(FunctionDefinition function)
+        {
+            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled || recursiveClosure is not null
+                || function.Clauses is not
+                [
+                {
+                    Guard: null,
+                    Patterns: [Pattern.Variable first, ..],
+                    Body: Expr.Case { Value: Expr.Variable selected, Clauses: [_, _, ..] } decision
+                } clause
+                ]
+                || first.Name == VariableScopeNames.Wildcard || first.Name != selected.Name
+                || !HasUnconditionalParameters(clause) || IsBooleanCase(decision) || ReadAtomEntryType(function, 0) != 0)
+            {
+                return false;
+            }
+
+            var keys = new HashSet<Atom>();
+            var results = new HashSet<Term>();
+            foreach (Clause branch in decision.Clauses)
+            {
+                if (branch is not { Guard: null, Patterns: [Pattern.Literal { Value: Atom key }] }
+                    || !AttributeLiteral.TryNormalizeConstant(branch.Body, out Term result)
+                    || key.Equals(result) || !keys.Add(key))
+                {
+                    return false;
+                }
+
+                results.Add(result);
+            }
+
+            if (results.Count < 2)
+            {
+                return false;
+            }
+
+            owner.EmitLiteralDispatch(
+                decision.Clauses,
+                location,
+                emitComputedFallback: () =>
+                {
+                    var source = CaseSourceLocation(decision);
+                    EmitCaseEnd(source == owner.lastEmittedLine ? null : source);
+                },
+                hasFallbackClause: false
+            );
+
+            return true;
         }
 
         private bool TryEmitAtomGuardResultDispatch(IReadOnlyList<Clause> clauses, FunctionDefinition function)

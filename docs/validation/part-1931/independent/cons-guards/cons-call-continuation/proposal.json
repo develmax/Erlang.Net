@@ -1,0 +1,119 @@
+{
+  "production": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": {
+      "before": "d13c6e0375902cd4ec1ed2804a55afd6433e6c0869a3d5a035306ba0dff066d0",
+      "after": "eb948c00e37497efed1187a3635cb08e3efea9137ead61faa9dc2b4c290ddc73"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ConsCallContinuation.cs": {
+      "before": null,
+      "after": "33db1c1d800d601a41a6b1b934f53b3550d2c3724a1241509abcd6cbda683d06"
+    },
+    "patch-sha256": "5865b2da061b042ed9a1e1bd275ec984d38111af5b4832326928266a0ca97bd5",
+    "parent-patch-sha256": "b7e66f10a47accb93f34de84c85a1dc6bd075c319f0345a2da03e22811cfc042"
+  },
+  "test": {
+    "tests/Erlang.Tests/Harness/Program.cs": {
+      "before": "1401ac262ef22bd1d35685dbe5bab7ebf6351c1d49465a83228fe2c25326e0a8",
+      "after": "63e7f72f1f532029d708b7aa981a8668a960eb091341e3dd6f32a208ee9a4c7f"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamConsCallContinuationChecks.cs": {
+      "before": null,
+      "after": "ce81cdccecbe8dbcbe96ee51c950242ac05c4ad7829ba87c2c1ba2d43e8a9b36"
+    },
+    "patch-sha256": "350cfa671e6d8a9dd9cce15ae5cd2a7022873bbbdbab43ab74a661b52e038b42",
+    "parent-patch-sha256": "2058a67fcda0c1312c7fa7f9fbd6a4d6d379c7330037a1f47301bdaaf2f9d01b"
+  },
+  "compiler-bin/Erlang.Compiler.dll": "15ced1ce69ad38ced780739009f06677e0ddffa4250bcb0e15d77eef6b9c147a",
+  "test-payload/Erlang.Tests.dll": "6630b4c00d07e29886a376720086750c18d7044365c28a3f84c9a2d6933d63d8",
+  "candidate-bin/Erlang.BeamCorpus.dll": "22abff20cf6d6bda3752b70b94db69738eaaf107bebfae6c1c987803dadba7c7",
+  "native-reference.etf": "604bfe505376998320d557cf92160b581e16638d9aff81f274e92a1525024bbf",
+  "native-candidate.etf": "604bfe505376998320d557cf92160b581e16638d9aff81f274e92a1525024bbf",
+  "scoped-corpus.json": "e0bb076ecfde2510d2170447c77cb500e34d497a25d180f6c2a6352d2e1467dd",
+  "ordsets-diff.log": "fda54953102ca64d2cf5a6e50c269317bd54abfdfc5cf74324453f4dabdb60e6",
+  "release": [
+    {
+      "module": "lib\\stdlib-8.1\\ebin\\dets_sup.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "before": null,
+      "after": null
+    },
+    {
+      "module": "lib\\stdlib-8.1\\ebin\\dict.beam",
+      "prior": "Different",
+      "result": "Different",
+      "before": "e31fa9ad1bdc68d2f7bab5a34f6b3e33f672588943d557e7c036c6d18c4a2979",
+      "after": "e31fa9ad1bdc68d2f7bab5a34f6b3e33f672588943d557e7c036c6d18c4a2979"
+    },
+    {
+      "module": "lib\\stdlib-8.1\\ebin\\erl_abstract_code.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "before": null,
+      "after": null
+    },
+    {
+      "module": "lib\\stdlib-8.1\\ebin\\gb_sets.beam",
+      "prior": "Different",
+      "result": "Different",
+      "before": "cc7c25856b8ae05fe5eb900eabcffdabed10fe9f7143b6be9bc69c19d6ec422d",
+      "after": "37431ff5e2ebb3f9f8c95ca7e6fda6b26a71b7abd2b073b41fe0ae6bed91a8d5"
+    },
+    {
+      "module": "lib\\stdlib-8.1\\ebin\\gb_trees.beam",
+      "prior": "Different",
+      "result": "Different",
+      "before": "50c3a32374aea7f45cc84a6719594b7593b46486248ce87b0d2757cb69d0b54e",
+      "after": "50c3a32374aea7f45cc84a6719594b7593b46486248ce87b0d2757cb69d0b54e"
+    },
+    {
+      "module": "lib\\stdlib-8.1\\ebin\\orddict.beam",
+      "prior": "Different",
+      "result": "Different",
+      "before": "42ef0c91a07b31958e744d46bf1e1f300303c012d1daaf0912581ea5d3083ac3",
+      "after": "42ef0c91a07b31958e744d46bf1e1f300303c012d1daaf0912581ea5d3083ac3"
+    },
+    {
+      "module": "lib\\stdlib-8.1\\ebin\\ordsets.beam",
+      "prior": "Different",
+      "result": "Different",
+      "before": "4430197dfff17599d69c7de0bf5da34d5c5baf31dda15a77237feb89e2156802",
+      "after": "379a4ab375b45ed96225a9aa1d9340411161abdc8e8a5f2b6b8a6805ffdbefce"
+    },
+    {
+      "module": "lib\\stdlib-8.1\\ebin\\queue.beam",
+      "prior": "Different",
+      "result": "Different",
+      "before": "723bdeb9316e879967feed6091cb451503905762b79e9fe0693c9ed750e5f7cb",
+      "after": "723bdeb9316e879967feed6091cb451503905762b79e9fe0693c9ed750e5f7cb"
+    },
+    {
+      "module": "lib\\stdlib-8.1\\ebin\\records.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "before": null,
+      "after": null
+    },
+    {
+      "module": "lib\\stdlib-8.1\\ebin\\sets.beam",
+      "prior": "Different",
+      "result": "Different",
+      "before": "74a2677d32f472ae2e3e6dd9b7d708cc21b5d19cec6b142774161850cd819783",
+      "after": "1a39ab539589f68b35cad09083bbf1bb2b7ace1e478aafc3ded4439253c0bd22"
+    },
+    {
+      "module": "lib\\stdlib-8.1\\ebin\\shell_default.beam",
+      "prior": "Equal",
+      "result": "Equal",
+      "before": null,
+      "after": null
+    },
+    {
+      "module": "lib\\stdlib-8.1\\ebin\\sofs.beam",
+      "prior": "Different",
+      "result": "Different",
+      "before": "4938a6fe6280bec6f4dc68bf9ff8d0cfc30bf8c0128efdd8f2954cb22a785ac6",
+      "after": "4938a6fe6280bec6f4dc68bf9ff8d0cfc30bf8c0128efdd8f2954cb22a785ac6"
+    }
+  ]
+}

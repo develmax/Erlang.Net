@@ -162,7 +162,12 @@ internal sealed partial class BeamModuleCompiler
                 _ => false
             };
 
-        private void EmitReceive(Expr.Receive receive, IReadOnlyList<string>? exports = null, bool terminal = false)
+        private void EmitReceive(
+            Expr.Receive receive,
+            IReadOnlyList<string>? exports = null,
+            bool terminal = false,
+            int? freshReferenceSlot = null
+        )
         {
             Expr? timeout = receive.Timeout;
             if (timeout is Expr.Variable timeoutVariable && parentFunction is { Clauses: [var entryClause] } function
@@ -186,6 +191,11 @@ internal sealed partial class BeamModuleCompiler
                 ? receive.Clauses.GroupBy(clause => ((Pattern.Tuple)clause.Patterns[0]).Items.Count)
                     .OrderBy(group => group.Key).ToArray()
                 : [];
+            SharedReceiveTail? sharedTail = terminal && exports is null && freshReferenceSlot is null
+                && !owner.ModuleOptimizationDisabled
+                && timeout is Expr.Literal { Value: Integer { Value.IsZero: true } }
+                ? ReadSharedReceiveTail(arityGroups)
+                : null;
             int scan = Label();
             bool orderedReceive = terminal && arityGroups.Length > 1;
             // The arity table points forward to branches, then retry and wait.
@@ -194,6 +204,11 @@ internal sealed partial class BeamModuleCompiler
                 : null;
             int wait = layoutLabels is not null ? layoutLabels[^1] : receive.Clauses.Count == 0 ? scan : Label();
             int done = terminal ? 0 : Label();
+
+            if (freshReferenceSlot is int reference)
+            {
+                owner.Op(ReceiveMarkerUse, YRegisterTag, reference);
+            }
 
             Mark(scan);
             if (receive.Clauses.Count != 0)
@@ -241,7 +256,17 @@ internal sealed partial class BeamModuleCompiler
                 // group, keep source order so guards and overlapping patterns behave as before.
                 int retry = 0;
                 var groups = new List<(int Label, IReadOnlyList<Clause> Clauses, int[]? ClauseLabels)>();
-                if (arityGroups.Length > 1)
+                if (sharedTail is { } shared && layoutLabels is not null)
+                {
+                    retry = layoutLabels[^2];
+                    EmitSharedReceiveTail(
+                        shared,
+                        arityGroups,
+                        layoutLabels,
+                        joined
+                    );
+                }
+                else if (arityGroups.Length > 1)
                 {
                     retry = layoutLabels is null ? Label() : layoutLabels[^2];
                     var cases = new (int Arity, int Label)[arityGroups.Length];
@@ -305,7 +330,13 @@ internal sealed partial class BeamModuleCompiler
                             {
                                 BindSharedReceiveFields((Pattern.Tuple)clause.Patterns[0], clauseScratch, next);
                             }
-                            else
+                            else if (!(terminal && receive.Clauses.Count == 1 && group.Label == 0
+                                && TryEmitLiteralBeforeBoundReceiveCheck(
+                                    clause,
+                                    clauseScratch,
+                                    message,
+                                    next
+                                )))
                             {
                                 Pattern(
                                     clause.Patterns[0],
@@ -338,6 +369,11 @@ internal sealed partial class BeamModuleCompiler
                                 ));
                         if (!emittedBranch)
                         {
+                            if (freshReferenceSlot is int matchedReference)
+                            {
+                                owner.Op(ReceiveMarkerClear, YRegisterTag, matchedReference);
+                            }
+
                             owner.instructions.WriteByte(RemoveMessage);
                         }
                         if (!emittedBranch && resultField.HasValue)
@@ -421,8 +457,13 @@ internal sealed partial class BeamModuleCompiler
             }
             else
             {
-                owner.Op(WaitTimeout, LabelTag, scan);
-                GuardOperand(timeout!, timeoutSlot);
+                // Pinned codegen emits only timeout for an immediate integer zero.
+                if (timeout is not Expr.Literal { Value: Integer { Value.IsZero: true } })
+                {
+                    owner.Op(WaitTimeout, LabelTag, scan);
+                    GuardOperand(timeout!, timeoutSlot);
+                }
+
                 owner.instructions.WriteByte(ReceiveTimeout);
                 EmitReceiveBranch(receive.After!, joined, terminal);
             }
@@ -436,6 +477,54 @@ internal sealed partial class BeamModuleCompiler
             {
                 variables.Add(name, slot);
             }
+        }
+
+        private bool TryEmitLiteralBeforeBoundReceiveCheck(
+            Clause clause,
+            IReadOnlyDictionary<int, int> scratch,
+            int message,
+            int failure
+        )
+        {
+            if (!CanUseEntryTypeFacts() || !scratch.TryGetValue(message, out int selector) || selector != 0
+                || clause is not
+                {
+                    Guard: null,
+                    Patterns: [Pattern.Tuple
+                    {
+                        Items: [
+                        Pattern.Literal { Value: Atom tag },
+                        Pattern.Variable { Name: not VariableScopeNames.Wildcard } binding,
+                        Pattern.Literal { Value: Atom literal }
+                    ]
+                    }],
+                    Body: Expr.Literal
+                }
+                || !variables.TryGetValue(binding.Name, out int bound)
+                || deferredPairMembers.ContainsKey(binding.Name) || scratch.ContainsKey(bound))
+            {
+                return false;
+            }
+
+            // The existing binding is an implicit guard in Core Erlang.
+            // Inspect both fields, test the literal pattern, then test that guard.
+            owner.EmitRecordTest(
+                failure,
+                XRegisterTag,
+                selector,
+                tag,
+                3
+            );
+            owner.EmitTupleElement(1, 1);
+            owner.EmitTupleElement(2, 0);
+            owner.Op(ExactEqualTest, LabelTag, failure);
+            owner.Operand(XRegisterTag, 0);
+            owner.LiteralOperand(literal);
+            owner.Op(ExactEqualTest, LabelTag, failure);
+            owner.Operand(XRegisterTag, 1);
+            owner.Operand(YRegisterTag, bound);
+
+            return true;
         }
 
         private bool TryEmitSharedReceiveFields(

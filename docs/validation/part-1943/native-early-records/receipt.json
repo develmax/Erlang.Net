@@ -1,0 +1,94 @@
+{
+  "ChangedImagesPrepared": 55,
+  "InputProfiles": 1366,
+  "BatchPrepared": 55,
+  "IndividuallyLoaded": 0,
+  "OnLoad": {},
+  "VerifiedNativeImages": [
+    {
+      "Beam": "lib/ssh-6.0.6/ebin/ssh_tcpip_forward_client.beam",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\lib\\ssh-6.0.6\\ebin\\ssh_tcpip_forward_client.beam",
+      "Sha256": "1F9DA8258F5A9AC4B332A3DE8A3AF3F28D383A9BCFF11A06ADC8A7DAD011E76D"
+    },
+    {
+      "Beam": "lib/ssh-6.0.6/ebin/ssh_tcpip_forward_srv.beam",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\lib\\ssh-6.0.6\\ebin\\ssh_tcpip_forward_srv.beam",
+      "Sha256": "D659537C494C2F0DE23D2CBEBCC695775A1E2505922A25AE65B8E0FC5440FCE4"
+    }
+  ],
+  "LinkedExecution": {
+    "Compiler": "d1fabf7db2f544d496846c8afea51b3523b25662044b7b62367b139573927dd9",
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "Witnesses": {
+      "mod_head": {
+        "Beam": "84AE33A082B0B01F02C309AD08BCA131E02EE200EB4B584B658FC53BD013D1C9",
+        "Observations": 12,
+        "Outcome": "8C4F3870D0803A39E65ACDC4403B46686438576891A22BADFEDCC29619FAD1A1"
+      },
+      "httpd_instance_sup": {
+        "Beam": "A93AA215EB0034F79B4F7A564D5704DDE57F47E86B688B443A2ACC48E3082193",
+        "Observations": 10,
+        "Outcome": "1A233108997ABD390E444A9624D998C4E08A91AAC962B9375C006CC8C28271CB"
+      },
+      "inet_udp": {
+        "Beam": "7B2727DAD01A29E4687B555CED3B107D669F850DC6C2F6D7622E2D0D9C8781FF",
+        "Observations": 2,
+        "Outcome": "CDF9A3D1052AE9404FFA6ABF49333A6AFB762E1927B4B461031D7BF3AABD75AC"
+      },
+      "inet6_udp": {
+        "Beam": "FA4C9DBD19D5E8E302C43102092DC4D12516FE2AC4534078D109262DF1216887",
+        "Observations": 2,
+        "Outcome": "CDF9A3D1052AE9404FFA6ABF49333A6AFB762E1927B4B461031D7BF3AABD75AC"
+      },
+      "local_udp": {
+        "Beam": "294357BDF85AFC0574A3ADBA6AFC6A6007258BC51097EDFD47E0415F6C56C135",
+        "Observations": 1,
+        "Outcome": "7191F17F26A116F55F94A5C705BA52010AEB65AC1E02BC79E5BC7A07B8652D7C"
+      },
+      "reltool_server": {
+        "Beam": "63C748C698ECEE2D802F9F949481DD0F1E36EE8F43362874A7E1743C572F4C31",
+        "Observations": 3,
+        "Outcome": "2C941345A0096C8B2E1DA749160D10A335B1A8F2A6C683696E5D70E9C8DBFFBB"
+      },
+      "ssh_tcpip_forward_client": {
+        "Beam": "1F9DA8258F5A9AC4B332A3DE8A3AF3F28D383A9BCFF11A06ADC8A7DAD011E76D",
+        "Observations": 18,
+        "Outcomes": {
+          "inbound": "CDD45012D152BDA7813C82805234BCE470BE1F0188DDCD4EBB1A7C090F55D2F2",
+          "action": "2D486759FBE67C1EC323B0A154F281A511F23BF8AE77AA1519E119C3816E229A"
+        }
+      },
+      "ssh_tcpip_forward_srv": {
+        "Beam": "D659537C494C2F0DE23D2CBEBCC695775A1E2505922A25AE65B8E0FC5440FCE4",
+        "Observations": 18,
+        "Outcomes": {
+          "inbound": "CDD45012D152BDA7813C82805234BCE470BE1F0188DDCD4EBB1A7C090F55D2F2",
+          "action": "2D486759FBE67C1EC323B0A154F281A511F23BF8AE77AA1519E119C3816E229A"
+        }
+      },
+      "xmerl_xsd_re_parse": {
+        "Beam": "473699F01C7D016F4C0AE1875566C1F848BD0FA535790812BEDE20AE2DADD304",
+        "Observations": 5,
+        "Outcome": "7F759C7F5F5DEF093CFBFC6318DC17BF208E66B1224555C9C491DE10C7CD6E12"
+      },
+      "PKIX1Implicit-2009": {
+        "Beam": "37CE76233B7376FAEDAA4F4DCC53491DE567738032F5A3A3922FB0EBC5143776",
+        "Observations": 32,
+        "Outcome": "574C94D3F399D21BADF1C5EAD8DB5890B5678CC967577640A3CDC565FCFAD028"
+      },
+      "PKIXAttributeCertificate-2009": {
+        "Beam": "4C47B2548BCBBA5C6EAF8A7B1A61BB623CC8EEE3B0445B12FD18F70091ED825C",
+        "Observations": 31,
+        "Outcome": "574C94D3F399D21BADF1C5EAD8DB5890B5678CC967577640A3CDC565FCFAD028"
+      }
+    },
+    "Observations": 134,
+    "Groups": [
+      "DirectHeadTupleReturns",
+      "DirectRecordComprehensionSources",
+      "MixedTailArgumentChains",
+      "OwnedTaggedRecordActions",
+      "RetainedAsnRecordEncoderPairs"
+    ]
+  }
+}

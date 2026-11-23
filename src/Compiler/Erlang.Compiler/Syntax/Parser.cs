@@ -332,15 +332,18 @@ public sealed partial class Parser
             OnLoadFunction = onLoad,
             EunitExports = eunitExports,
             DiameterAccessorLines = diameterAccessorLines,
+            HasResolvedDiameterRecordTransform = callBindings.HasDiameterRecordTransform,
             EunitAutoExportCount = callBindings.EunitAutoExportCount,
             HasGeneratedEunitTest = generatedEunitTest,
             Documentation = documentation.AsReadOnly(),
             TypeForms = typeForms.AsReadOnly(),
             HasOtherCompileOptions = callBindings.HasOtherCompileOptions,
             DisableModuleOptimization = callBindings.DisableModuleOptimization,
+            DisableReceiveOptimization = callBindings.DisableReceiveOptimization,
             LegacyBeamTables = callBindings.LegacyBeamTables,
             InlineTargets = callBindings.InlineTargets,
             AutomaticInlining = callBindings.AutomaticInlining,
+            AutomaticInliningDisabled = callBindings.AutomaticInliningDisabled,
             AutomaticInlineSize = callBindings.AutomaticInlineSize,
             ScannedAtomNames = Array.AsReadOnly(tokens
                 .Where(token => token.Kind is LexerTokenKinds.Atom or LexerTokenKinds.QuotedAtom or LexerTokenKinds.Variable or LexerTokenKinds.Keyword)
@@ -440,6 +443,7 @@ public sealed partial class Parser
 
     private Expr Expression(int minimum = 1, bool stopQualifier = false)
     {
+        int leftStart = position;
         Expr left = Primary(stopQualifier: stopQualifier);
         while (true)
         {
@@ -459,11 +463,7 @@ public sealed partial class Parser
                 stopQualifier
             );
             left = op == ErlangOperators.Match
-                ? new Expr.Match(ToPattern(left), right)
-                {
-                    SourceLine = operatorToken.PreprocessorLine == 0 ? operatorLine : operatorToken.PreprocessorLine,
-                    PreprocessorFile = operatorToken.PreprocessorFile
-                }
+                ? ReadAnnotatedMatch(left, right, leftStart)
                 : new Expr.Binary(op, left, right) { SourceLine = operatorLine };
             if (allowBeamOnLoad)
             {
@@ -474,6 +474,26 @@ public sealed partial class Parser
         }
 
         return left;
+    }
+
+    private Expr.Match ReadAnnotatedMatch(Expr left, Expr right, int first)
+    {
+        // erl_parse annotates '=' with first_anno of the pattern. Grouping
+        // parentheses are not part of that annotation.
+        while (tokens[first] is { Kind: LexerTokenKinds.Symbol, Text: ErlangSyntaxTokens.OpenParenthesis })
+        {
+            first++;
+        }
+
+        Token token = tokens[first];
+        int index = Array.BinarySearch(sourceLineStarts, token.Start);
+        int line = index >= 0 ? index + 1 : ~index;
+
+        return new(ToPattern(left), right)
+        {
+            SourceLine = token.PreprocessorLine == 0 ? line : token.PreprocessorLine,
+            PreprocessorFile = token.PreprocessorFile
+        };
     }
 
     private Expr Primary(bool bitSegment = false, bool stopQualifier = false)
@@ -617,12 +637,19 @@ public sealed partial class Parser
                 throw Error(ParserDiagnostics.TryNeedsHandler);
             Expect(ErlangKeywords.End);
 
+            int tryLine = Array.BinarySearch(sourceLineStarts, sourceStart);
+
             return new Expr.Try(
                 body,
                 clauses,
                 catches,
                 after
-            );
+            )
+            {
+                SourceLine = sourceToken.PreprocessorLine != 0 ? sourceToken.PreprocessorLine
+                    : tryLine >= 0 ? tryLine + 1 : ~tryLine,
+                PreprocessorFile = sourceToken.PreprocessorFile
+            };
         }
         if (Take(ErlangKeywords.Catch))
             return new Expr.Catch(Expression());
@@ -730,7 +757,6 @@ public sealed partial class Parser
             }
             var clauses = new List<Clause>();
             string? selfName = Current.Kind == LexerTokenKinds.Variable ? Current.Text : null;
-            Token firstHead = Current;
             do
             {
                 if (selfName is not null)
@@ -746,14 +772,14 @@ public sealed partial class Parser
             } while (Take(ErlangSyntaxTokens.Semicolon));
             Expect(ErlangKeywords.End);
 
-            int headLine = Array.BinarySearch(sourceLineStarts, firstHead.Start);
+            int funLine = Array.BinarySearch(sourceLineStarts, sourceStart);
 
             return new Expr.Fun(clauses)
             {
                 SelfName = selfName == VariableScopeNames.Wildcard ? null : selfName,
-                ClauseLine = firstHead.PreprocessorLine != 0 ? firstHead.PreprocessorLine
-                    : headLine >= 0 ? headLine + 1 : ~headLine,
-                ClauseFile = firstHead.PreprocessorFile
+                DeclarationLine = sourceToken.PreprocessorLine != 0 ? sourceToken.PreprocessorLine
+                    : funLine >= 0 ? funLine + 1 : ~funLine,
+                DeclarationFile = sourceToken.PreprocessorFile
             };
         }
         if (SyntaxToken && Current.Text is ErlangOperators.Plus or ErlangOperators.Minus or ErlangOperators.Not or ErlangOperators.BitwiseNot)
@@ -777,7 +803,7 @@ public sealed partial class Parser
         else if (Take(ErlangSyntaxTokens.BinaryOpen))
             result = ParseBits();
         else if (Take(ErlangSyntaxTokens.MapPrefix))
-            result = Is(ErlangSyntaxTokens.OpenTuple) ? ParseMap(null) : ParseRecord(null);
+            result = Is(ErlangSyntaxTokens.OpenTuple) ? ParseMap(null, sourceToken) : ParseRecord(null);
         else if (Take(ErlangSyntaxTokens.OpenTuple))
         {
             var items = new List<Expr>();
@@ -835,7 +861,7 @@ public sealed partial class Parser
                     IsCharacterLiteral = token.IsCharacterLiteral
                 },
                 LexerTokenKinds.Float => new Expr.Literal(new FloatTerm(double.Parse(token.Text, CultureInfo.InvariantCulture))),
-                LexerTokenKinds.String => new Expr.Literal(Term.String(StringLiteralTokens.Read(tokens, ref position))),
+                LexerTokenKinds.String => ReadStringLiteral(),
                 LexerTokenKinds.BinaryString => new Expr.Literal(new BitString(Encoding.UTF8.GetBytes(token.Text))),
                 LexerTokenKinds.Variable => new Expr.Variable(token.Text),
                 LexerTokenKinds.Atom or LexerTokenKinds.QuotedAtom => new Expr.Literal(Term.A(token.Text)),
@@ -844,6 +870,13 @@ public sealed partial class Parser
         }
 
         return result;
+    }
+
+    private Expr.Literal ReadStringLiteral()
+    {
+        string text = StringLiteralTokens.Read(tokens, ref position);
+
+        return new(Term.String(text)) { IsEmptyStringLiteral = preserveDocumentationStringLiterals && text.Length == 0 };
     }
 
     private Expr ReadFunName() => Current.Kind == LexerTokenKinds.Variable
@@ -925,12 +958,23 @@ public sealed partial class Parser
         {
             int generatorIndex = Array.BinarySearch(sourceLineStarts, generatorToken.Start);
             int generatorLine = generatorIndex >= 0 ? generatorIndex + 1 : ~generatorIndex;
+            int inputPosition = position;
+            while (tokens[inputPosition] is { Kind: LexerTokenKinds.Symbol, Text: ErlangSyntaxTokens.OpenParenthesis })
+            {
+                inputPosition++;
+            }
+
+            var inputToken = tokens[inputPosition];
+            int inputIndex = Array.BinarySearch(sourceLineStarts, inputToken.Start);
+            int inputLine = inputIndex >= 0 ? inputIndex + 1 : ~inputIndex;
 
             return new ComprehensionQualifier.Generator(ToPattern(qualifier), Expression(), strict)
             {
                 SourceLine = qualifierLine,
                 GeneratorLine = generatorToken.PreprocessorLine == 0 ? generatorLine : generatorToken.PreprocessorLine,
-                GeneratorFile = generatorToken.PreprocessorFile
+                GeneratorFile = generatorToken.PreprocessorFile,
+                InputLine = inputToken.PreprocessorLine == 0 ? inputLine : inputToken.PreprocessorLine,
+                InputFile = inputToken.PreprocessorFile
             };
         }
         if (qualifier is Expr.Match)
@@ -1149,6 +1193,8 @@ public sealed partial class Parser
         Expect(ErlangSyntaxTokens.OpenTuple);
         var fields = new List<RecordField>();
         Expr? wildcard = null;
+        Token? firstUpdateField = null;
+        int firstUpdateIndex = int.MaxValue;
         if (!Take(ErlangSyntaxTokens.CloseTuple))
         {
             do
@@ -1161,8 +1207,15 @@ public sealed partial class Parser
                 }
                 else
                 {
+                    Token fieldToken = Current;
                     field = Name();
-                    FieldIndex(field);
+                    int index = FieldIndex(field);
+                    if (recordBase is not null && index < firstUpdateIndex)
+                    {
+                        // Tuple-record expansion sorts setelement updates by field index.
+                        firstUpdateField = fieldToken;
+                        firstUpdateIndex = index;
+                    }
                 }
                 if (fields.Any(value => value.Name == field))
                     throw RecordError(RecordDiagnostics.DuplicateField(field));
@@ -1179,15 +1232,28 @@ public sealed partial class Parser
         if (wildcard is not null)
             throw RecordError(RecordDiagnostics.WildcardUpdate);
 
+        int updateLine = 0;
+        if (firstUpdateField is { } token)
+        {
+            int fieldLine = Array.BinarySearch(sourceLineStarts, token.Start);
+            updateLine = token.PreprocessorLine != 0
+                ? token.PreprocessorLine
+                : fieldLine >= 0 ? fieldLine + 1 : ~fieldLine;
+        }
+
         return new Expr.RecordUpdate(
             recordBase,
             name,
             definition.Fields.Count + 1,
             fields.Select(field => new RecordUpdateField(FieldIndex(field.Name), field.Value)).ToArray()
-        );
+        )
+        {
+            FailureSourceLine = updateLine,
+            FailureSourceFile = firstUpdateField?.PreprocessorFile
+        };
     }
 
-    private Expr ParseMap(Expr? mapBase)
+    private Expr ParseMap(Expr? mapBase, Token? source = null)
     {
         Expect(ErlangSyntaxTokens.OpenTuple);
         var fields = new List<MapField>();
@@ -1204,8 +1270,16 @@ public sealed partial class Parser
                 else
                     throw Error(ParserDiagnostics.ExpectedMapFieldOperator);
                 fields.Add(new(key, Expression(), exact));
-                if (mapBase is null && Take(ErlangSyntaxTokens.ComprehensionSeparator))
-                    return new Expr.MapComprehension(fields, ComprehensionQualifiers(ErlangSyntaxTokens.CloseTuple));
+                if (mapBase is null && source is not null && Take(ErlangSyntaxTokens.ComprehensionSeparator))
+                {
+                    int lineIndex = Array.BinarySearch(sourceLineStarts, source.Start);
+
+                    return new Expr.MapComprehension(fields, ComprehensionQualifiers(ErlangSyntaxTokens.CloseTuple))
+                    {
+                        SourceLine = source.PreprocessorLine != 0 ? source.PreprocessorLine : lineIndex >= 0 ? lineIndex + 1 : ~lineIndex,
+                        PreprocessorFile = source.PreprocessorFile
+                    };
+                }
             } while (Take(ErlangSyntaxTokens.Comma));
             Expect(ErlangSyntaxTokens.CloseTuple);
         }

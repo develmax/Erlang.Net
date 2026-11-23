@@ -1,0 +1,10 @@
+[Reference,Prior,Fast,Output]=init:get_plain_arguments(),{ok,F}=file:open(Output,[write]),
+Paths=[{"lib/compiler-10.0.6/ebin/core_parse.beam",yeccpars2_100,7},{"lib/megaco-4.9.2/ebin/megaco_tcp_accept.beam",do_accept,3},{"lib/sasl-4.4/ebin/release_handler_1.beam",'-eval/2-fun-1-',1}],
+Read=fun(Base,Path,Name,Arity)->
+    {beam_file,_,_,_,_,Fs}=beam_disasm:file(filename:join(Base,Path)),
+    [{function,Name,Arity,_,Body}]=[W||W={function,N,A,_,_}<-Fs,N=:=Name,A=:=Arity],
+    #{frame=>lists:append([case I of {allocate,S,_}->[S];{allocate_heap,S,_,_}->[S];_->[] end||I<-Body]),
+      get_list=>length([x||{get_list,_,_,_}<-Body]), get_tl=>length([x||{get_tl,_,_}<-Body]),ops=>Body}
+end,
+lists:foreach(fun({Path,N,A})->R=[Read(B,Path,N,A)||B<-[Reference,Prior,Fast]],io:format(F,"~0p.~n",[{{Path,N,A},[maps:without([ops],M)||M<-R]}]),io:format(F,"~0p.~n",[R])end,Paths),
+ok=file:close(F),halt().

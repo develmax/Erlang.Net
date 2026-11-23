@@ -17,6 +17,120 @@ internal sealed partial class BeamModuleCompiler
             bool ReloadRelocatedArgument = false
         );
 
+        internal static bool MayRetainCallResultsAsList(FunctionDefinition function) =>
+            function.Clauses is
+            [
+                {
+                    Guard: null,
+                    Body: Expr.Sequence
+                    {
+                        Items: [Expr.Match { Value: Expr.Call }, Expr.Match { Value: Expr.Call }, ..,
+                        Expr.Call, Expr.Call { Arguments.Count: 1 }]
+                    }
+                }
+            ];
+
+        internal bool TryEmitCallResultsRetainedAsList(Clause clause)
+        {
+            if (!owner.SsaTypeInferenceEnabled || owner.ModuleOptimizationDisabled
+                || clause.Guard is not null || !HasUnconditionalParameters(clause)
+                || clause.Body is not Expr.Sequence sequence || sequence.Items.ToArray() is not
+                    [.. var prefix, Expr.Call effect, Expr.Call { Arguments: [var outgoing] } tail]
+                || ReadEntryCall(effect, []) is not { ConstructedArgument: null } effectCall
+                || !TryResolveOrdinaryCallTarget(tail, out string? tailModule))
+            {
+                return false;
+            }
+
+            if (outgoing is Expr.Variable result
+                && prefix is [.., Expr.Match { Pattern: Pattern.Variable assigned, Value: Expr.List list }]
+                && result.Name == assigned.Name)
+            {
+                outgoing = list;
+                prefix = prefix.SkipLast(1).ToArray();
+            }
+
+            if (outgoing is not Expr.List { Tail: null, Items: var elements }
+                || prefix.Length < 2 || prefix.Length != elements.Count)
+            {
+                return false;
+            }
+
+            string[] parameters = clause.Patterns.Cast<Pattern.Variable>().Select(pattern => pattern.Name).ToArray();
+            var names = parameters.ToHashSet(StringComparer.Ordinal);
+            var producers = new EntryCall[prefix.Length];
+            for (int index = 0; index < prefix.Length; index++)
+            {
+                if (prefix[index] is not Expr.Match
+                    { Pattern: Pattern.Variable { Name: not VariableScopeNames.Wildcard } binding, Value: Expr.Call call }
+                    || elements[index] is not Expr.Variable member || member.Name != binding.Name || !names.Add(binding.Name)
+                    || ReadEntryCall(call, index == 0 ? parameters : []) is not { ConstructedArgument: null } producer)
+                {
+                    return false;
+                }
+
+                producers[index] = producer;
+            }
+
+            int width = producers.Length - 1;
+            EmitFrameAllocation(clause.Patterns.Count, width);
+            EmitFrameInitialization(0, width);
+            BeamSourceLocation previous = location;
+            for (int index = 0; index < producers.Length; index++)
+            {
+                EntryCall producer = producers[index];
+                EmitEntryCall(producer, previous);
+                previous = CallLocation(producer.Call, previous);
+                if (index < width)
+                {
+                    owner.MoveRegister(
+                        XRegisterTag,
+                        0,
+                        YRegisterTag,
+                        width - index - 1
+                    );
+                }
+            }
+
+            owner.Op(TestHeap, BeamWire.UnsignedTag, producers.Length * ConsHeapWords);
+            owner.Operand(BeamWire.UnsignedTag, 1);
+            owner.Op(PutList, XRegisterTag, 0);
+            owner.LiteralOperand(Nil.Value);
+            owner.Operand(XRegisterTag, 0);
+            for (int index = 0; index < width; index++)
+            {
+                owner.Op(PutList, YRegisterTag, index);
+                owner.Operand(XRegisterTag, 0);
+                bool last = index == width - 1;
+                owner.Operand(last ? YRegisterTag : XRegisterTag, last ? index : 0);
+            }
+
+            // All list elements are now reachable from the retained spine.
+            if (width > 1)
+            {
+                owner.Op(TrimFrame, BeamWire.UnsignedTag, width - 1);
+                owner.Operand(BeamWire.UnsignedTag, 1);
+            }
+
+            EmitEntryCall(effectCall, previous);
+            Load(0);
+            if (tailModule is null)
+            {
+                owner.Op(TailLocalCallWithFrame, BeamWire.UnsignedTag, 1);
+                owner.Operand(LabelTag, entries[(tail.Function, 1)]);
+            }
+            else
+            {
+                owner.EmitCallLine(tail, CallLocation(effect, previous));
+                owner.Op(TailExternalCallWithFrame, BeamWire.UnsignedTag, 1);
+                owner.Operand(BeamWire.UnsignedTag, owner.Import(tailModule, tail.Function, 1));
+            }
+
+            owner.Operand(BeamWire.UnsignedTag, 1);
+
+            return true;
+        }
+
         private bool TryEmitSavedCallSequence(Expr body, string[] parameters)
         {
             var plan = ReadSavedCallSequence(body, parameters);
@@ -56,6 +170,7 @@ internal sealed partial class BeamModuleCompiler
             IReadOnlyDictionary<int, CallResultCheck>? Checks = null
         )
         {
+            internal bool DelayReturnCopies { get; init; }
             internal TupleFieldCase? ProjectedCase { get; init; }
             internal TupleFieldArm? ProjectedReturn { get; init; }
         }
@@ -281,7 +396,8 @@ internal sealed partial class BeamModuleCompiler
             Term? constant = null,
             Dictionary<int, CallResultCheck>? checks = null,
             bool allowLinear = false,
-            bool preserveInputOrder = false
+            bool preserveInputOrder = false,
+            bool protectedFrame = false
         )
         {
             EntryCall? first = extraction is { } list
@@ -401,6 +517,7 @@ internal sealed partial class BeamModuleCompiler
             var lastSlotReads = inputs.Select(register => lastReads[parameters[register]]).ToList();
             var steps = new List<SavedCallStep>();
             var deferredTuples = new List<DeferredCallTuple>();
+            bool reusesAggregateSlot = false;
             for (int index = 1; index < calls.Length; index++)
             {
                 Expr.Call target = calls[index].Call;
@@ -443,6 +560,19 @@ internal sealed partial class BeamModuleCompiler
                     firstReads,
                     lastReads
                 ) : null;
+                if (deferredTuple is null && multiple?.Bindings is not null
+                    && tuple is { Closure: null, RetainedValue: false } && !projectReturn
+                    && closures is not { Count: > 0 } && preparedClosure is null)
+                {
+                    deferredTuple = ReadResultTupleLifetime(
+                        multiple,
+                        index,
+                        calls,
+                        firstReads,
+                        lastReads
+                    );
+                }
+
                 int? tupleSlot = null;
                 if (deferredTuple is not null)
                 {
@@ -467,15 +597,23 @@ internal sealed partial class BeamModuleCompiler
                     checks!
                 ) : previous is null ? [] : new[] { previous };
                 var tupleArguments = new List<(int Slot, int Field, int Register)>();
-                foreach (var retained in deferredTuples.Where(tuple => tuple.Consumer == index))
+                foreach (var retained in deferredTuples)
                 {
+                    var fields = retained.FieldConsumers is { } uses
+                        ? retained.Fields.Where(field => uses[field.Name] == index).ToArray()
+                        : retained.Consumer == index ? retained.Fields : [];
+                    if (fields.Length == 0)
+                    {
+                        continue;
+                    }
+
                     int slot = saved[retained.Binding];
                     if (prior.Length == 0)
                     {
                         prior = [VariableScopeNames.Wildcard];
                     }
 
-                    foreach (var (field, name) in retained.Fields)
+                    foreach (var (field, name) in fields)
                     {
                         tupleArguments.Add((slot, field, prior.Length));
                         prior = [.. prior, name];
@@ -532,7 +670,7 @@ internal sealed partial class BeamModuleCompiler
                         saved,
                         released,
                         allowSwapWithPreviousArgument: decision is null || index == calls.Length - 1,
-                        allowRegisterReload: checks is null && closures is null
+                        allowRegisterReload: checks is null && closures is not { Count: > 0 }
                     )
                     : null;
                 foreach (int slot in released)
@@ -542,7 +680,22 @@ internal sealed partial class BeamModuleCompiler
 
                 (int Source, int Destination)? slotRelocation = null;
                 bool reloadRelocatedArgument = false;
-                if (deferredTuple is not null && tupleSlot == lastSlotReads.Count - 1 && released.Length != 0)
+                int? aggregateSpill = null;
+                if (deferredTuple is { FieldConsumers: not null } aggregate && tupleSlot == lastSlotReads.Count - 1
+                    && previous is null && tupleArguments.Count == 0
+                    && checks is not null && checks.GetValueOrDefault(index - 1) is { Projections.Length: 0 } check
+                    && ReadDyingAggregateSlot(step, released) is int dying)
+                {
+                    // The new result can replace a slot after its old value has
+                    // been loaded for this call. The move chain must preserve X0.
+                    aggregateSpill = dying;
+                    reusesAggregateSlot = true;
+                    saved[aggregate.Binding] = dying;
+                    lastSlotReads[dying] = aggregate.Consumer;
+                    lastSlotReads.RemoveAt(lastSlotReads.Count - 1);
+                    checks[index - 1] = check with { SavedTupleSlot = null };
+                }
+                else if (deferredTuple is not null && tupleSlot == lastSlotReads.Count - 1 && released.Length != 0)
                 {
                     int destination = released.Min();
                     slotRelocation = (tupleSlot.Value, destination);
@@ -551,11 +704,11 @@ internal sealed partial class BeamModuleCompiler
                     lastSlotReads[tupleSlot.Value] = index;
                 }
 
-                int? spill = null;
-                bool reuse = false;
+                int? spill = aggregateSpill;
+                bool reuse = aggregateSpill.HasValue;
                 if (!saveProjectedResult && previous is not null && lastReads.GetValueOrDefault(previous) > index)
                 {
-                    int slot = reuseSlot ?? 0;
+                    int slot = reuseSlot ?? (protectedFrame && index == 1 ? lastSlotReads.Count : 0);
                     while (reuseSlot is null && occupied.Contains(slot))
                     {
                         slot++;
@@ -637,10 +790,10 @@ internal sealed partial class BeamModuleCompiler
                     && saved.MaxBy(binding => binding.Value) is var leading
                     && leading.Value > freed
                     && lastSlotReads.Skip(leading.Value + 1).All(read => read < index)
-                    && intermediateLoads.Any(load => load.Destination == 0
-                        && load.Source != freed && load.Source != leading.Value))
+                    && intermediateLoads.Any(load => load.Destination == 0 && (tuple.RetainedValue || load.Source != freed)))
                 {
                     slotRelocation = (leading.Value, freed);
+                    reloadRelocatedArgument = intermediateLoads.Contains((0, leading.Value));
                     saved[leading.Key] = freed;
                     lastSlotReads[freed] = lastReads[leading.Key];
                     lastSlotReads[leading.Value] = index;
@@ -722,7 +875,16 @@ internal sealed partial class BeamModuleCompiler
                 }
                 else
                 {
-                    tupleResult = ReadCallSequenceTuple(tuple, calls[^1].Result, resultSlots);
+                    var projections = deferredTuples.Where(retained => retained.FieldConsumers is not null)
+                        .SelectMany(retained => retained.Fields
+                            .Where(field => retained.FieldConsumers![field.Name] == calls.Length)
+                            .Select(field => (resultSlots[retained.Binding], field.Field, field.Name))).ToArray();
+                    tupleResult = ReadCallSequenceTuple(
+                        tuple,
+                        calls[^1].Result,
+                        resultSlots,
+                        projections
+                    );
                 }
 
                 if (tupleResult is null && projectedReturn is null)
@@ -770,7 +932,11 @@ internal sealed partial class BeamModuleCompiler
                 constant,
                 checks
             )
-            { ProjectedCase = projectedCase, ProjectedReturn = projectedReturn };
+            {
+                DelayReturnCopies = reusesAggregateSlot,
+                ProjectedCase = projectedCase,
+                ProjectedReturn = projectedReturn
+            };
         }
 
         private static int TupleCallTrim(List<int> lastSlotReads, int lastCall, PreparedCallClosure? closure)
@@ -785,14 +951,16 @@ internal sealed partial class BeamModuleCompiler
         private void EmitSavedCallSequence(
             SavedCallSequence plan,
             List<Action>? deferredFailures = null,
-            (Expr.Match Match, Term? Literal, TaggedCallMatch? Tagged)? terminalMatch = null
+            (Expr.Match Match, Term? Literal, TaggedCallMatch? Tagged)? terminalMatch = null,
+            ProtectedCallFailure? protection = null
         )
         {
             var (first, live, inputs, lastSlotReads, steps, extraction, decision, tuple, constant, checks) = plan;
             bool hasCase = decision is not null || plan.ProjectedCase is not null;
             bool hasTuple = tuple is not null || plan.ProjectedReturn is not null;
             int size = lastSlotReads.Count;
-            EmitFrameAllocation(live, size, first.ConstructedArgument?.HeapWords ?? 0);
+            int handler = protection is null ? 0 : Label();
+            EmitFrameAllocation(live, size + (protection is null ? 0 : 1), first.ConstructedArgument?.HeapWords ?? 0);
             EmitFrameInitialization(0, size - inputs.Count);
             for (int slot = inputs.Count - 1; slot >= 0; slot--)
             {
@@ -812,6 +980,12 @@ internal sealed partial class BeamModuleCompiler
             if (extraction is { } list)
             {
                 EmitCallListExtraction(list, -1, size - 1 - inputs.IndexOf(list.Tail));
+            }
+
+            if (protection is not null)
+            {
+                owner.Op(TryEnter, YRegisterTag, size);
+                owner.Operand(LabelTag, handler);
             }
 
             EmitEntryCall(first);
@@ -842,7 +1016,7 @@ internal sealed partial class BeamModuleCompiler
                     && step.Released.Any(slot => slot != step.Spill);
                 bool tupleField = hasTuple && last;
                 int trimTo = last && hasTuple ? TupleCallTrim(lastSlotReads, index + 1, step.Closure) : trimmed;
-                while ((!last || finalCheck) && trimTo < size && lastSlotReads[size - 1 - trimTo] <= index + 1)
+                while (protection is null && (!last || finalCheck) && trimTo < size && lastSlotReads[size - 1 - trimTo] <= index + 1)
                 {
                     trimTo++;
                 }
@@ -859,17 +1033,22 @@ internal sealed partial class BeamModuleCompiler
                     )
                     : null;
                 int? deferredSlot = null;
-                if (finalTrim is null && hasTuple && checks is null && step is
+                if (finalTrim is null && (hasTuple || protection is not null) && checks is null && step is
                     { Spill: null, ReloadRelocatedArgument: false, Closure: null, TupleArguments: null }
-                    && step.Call.RegisterConstructions is null && trimTo > trimmed
+                    && step.Call.RegisterConstructions is null
                     && step.Call.SavedInputs is { } savedInputs)
                 {
                     int firstLoad = savedInputs.FindIndex(move => move.Destination == 0);
                     if (firstLoad >= 0)
                     {
-                        int slot = remap[savedInputs[firstLoad].Source];
-                        if (slot >= trimTo - trimmed
-                            && savedInputs[firstLoad].Source != step.SlotRelocation?.Destination)
+                        int source = savedInputs[firstLoad].Source;
+                        int slot = remap[source];
+                        bool survivesCleanup = !step.Released.Contains(source)
+                            && source != step.SlotRelocation?.Destination && slot >= trimTo - trimmed;
+                        bool cleansFrame = trimTo > trimmed
+                            || step.Released.Any(released => released != step.SlotRelocation?.Destination);
+                        // A retained slot can still be cleared before the trim shifts it.
+                        if (survivesCleanup && cleansFrame)
                         {
                             deferredSlot = slot - (trimTo - trimmed);
                         }
@@ -886,15 +1065,28 @@ internal sealed partial class BeamModuleCompiler
                     }
                 }
 
-                EmitSavedCallArguments(
-                    step,
-                    remap,
-                    deferConstant,
-                    swapBeforeConstants: tupleField,
-                    heapChecked: step.Closure is not null || deferredProjection.HasValue,
-                    afterConstruction: deferredProjection is { } projection ? () => owner.EmitTuplePart(0, projection.Field, 0) : null,
-                    deferStackLoad: step.ReloadRelocatedArgument || deferredSlot.HasValue
-                );
+                int delayedReceiver = -1;
+                bool beforeFrameCleanup = trimTo > trimmed || step.SlotRelocation.HasValue
+                    || step.Released.Any(slot => slot != step.Spill);
+                if (!plan.DelayReturnCopies || deferConstant || step.ReloadRelocatedArgument || deferredSlot.HasValue
+                    || !EmitDelayedCallCopies(
+                        step,
+                        remap,
+                        beforeFrameCleanup,
+                        out delayedReceiver,
+                        allowExternal: tuple?.Projections is not null
+                    ))
+                {
+                    EmitSavedCallArguments(
+                        step,
+                        remap,
+                        deferConstant,
+                        swapBeforeConstants: tupleField,
+                        heapChecked: step.Closure is not null || deferredProjection.HasValue,
+                        afterConstruction: deferredProjection is { } projection ? () => owner.EmitTuplePart(0, projection.Field, 0) : null,
+                        deferStackLoad: step.ReloadRelocatedArgument || deferredSlot.HasValue
+                    );
+                }
                 if (step.SlotRelocation is { } relocation)
                 {
                     owner.MoveRegister(
@@ -973,6 +1165,12 @@ internal sealed partial class BeamModuleCompiler
                     Load(finalSlot);
                 }
 
+                if (delayedReceiver >= 0)
+                {
+                    owner.MoveToX0(XRegisterTag, delayedReceiver);
+                }
+
+                MarkPlannedMapDefault(step.Call.Call, step.Call.Module);
                 owner.EmitCallLine(step.Call.Call, previousCall);
                 Call(step.Call.Module, step.Call.Call.Function, step.Call.Call.Arguments.Count);
                 previousCall = CallLocation(step.Call.Call, previousCall);
@@ -991,8 +1189,22 @@ internal sealed partial class BeamModuleCompiler
             }
             else if (constant is not null)
             {
+                if (protection is not null)
+                {
+                    owner.Op(TryEnd, YRegisterTag, size);
+                }
+
                 owner.EmitConstant(constant, 0);
-                owner.EmitFrameReturn(size - trimmed);
+                owner.EmitFrameReturn(size - trimmed + (protection is null ? 0 : 1));
+                if (protection is not null)
+                {
+                    EmitProtectedCallFailure(
+                        protection,
+                        size,
+                        handler,
+                        previousCall
+                    );
+                }
             }
             else if (tuple is not null)
             {
@@ -1172,6 +1384,19 @@ internal sealed partial class BeamModuleCompiler
             return (count, kills, moves, operands);
         }
 
+        private static int? ReadDyingAggregateSlot(EntryCall step, int[] released)
+        {
+            int arity = step.Call.Arguments.Count;
+            if (step.RegisterConstructions is not null || step.Moves.Count != 0 || step.Constants.Count > 1
+                || arity >= FirstReservedXRegister || step.SavedInputs is not { Count: > 0 } loads
+                || loads.Count + step.Constants.Count != arity)
+            {
+                return null;
+            }
+
+            return released.Where(slot => loads.Count(load => load.Source == slot) == 1).Min(slot => (int?)slot);
+        }
+
         private int? FindReusableCallSlot(
             ref EntryCall step,
             string previous,
@@ -1247,7 +1472,7 @@ internal sealed partial class BeamModuleCompiler
             int spill = step.Spill is int slot ? remap[slot] : -1;
             if (spill >= 0 && !step.ReuseSlot && !deferStackLoad && !deferConstant
                 && call.RegisterConstructions is null && call.Moves.Count == 0
-                && call.Constants is [{ Destination: 2, Value: Nil }]
+                && (call.Call.Arguments.Count == 2 && call.Constants.Count == 0 || call.Constants is [{ Destination: 2, Value: Nil }])
                 && loads.OrderBy(move => move.Destination).ToArray() is
                     [{ Destination: 0 } first, { Destination: 1 } second]
                 && first.Source != spill && second.Source != spill)
@@ -1266,7 +1491,10 @@ internal sealed partial class BeamModuleCompiler
                     XRegisterTag,
                     0
                 );
-                owner.EmitConstant(Nil.Value, 2);
+                if (call.Constants.Count != 0)
+                {
+                    owner.EmitConstant(Nil.Value, 2);
+                }
 
                 return;
             }
@@ -1305,6 +1533,45 @@ internal sealed partial class BeamModuleCompiler
                     0
                 );
                 owner.EmitConstant(id.Value, 1);
+
+                return;
+            }
+
+            if (spill >= 0 && !step.ReuseSlot && !heapChecked && afterConstruction is null
+                && call.Call.Arguments.Count == 1
+                && call.RegisterConstructions is
+                {
+                    Live: 0, Moves.Count: 0, Constants.Count: 0, Loads.Count: 0,
+                    Constructions: [_, .., { Register: 0 }]
+                } isolated
+                && isolated.Constructions.Any(cell => cell.IsTuple)
+                && isolated.Constructions.All(cell => cell.MapLive is null
+                    && cell.Operands.All(operand => operand.Literal is not null || operand.Tag is XRegisterTag or YRegisterTag)))
+            {
+                // A retained previous result occupies X0 until the independent argument has been built.
+                var shifted = isolated.Constructions.Select(cell => cell with
+                {
+                    Register = cell.Register + 1,
+                    Operands = cell.Operands.Select(operand => operand.Literal is null && operand.Tag == XRegisterTag
+                        ? operand with { Register = operand.Register + 1 } : operand).ToArray()
+                }).ToList();
+                EmitCallArgumentConstructions(
+                    isolated with { Live = 1, Constructions = shifted },
+                    -1,
+                    remap
+                );
+                owner.MoveRegister(
+                    XRegisterTag,
+                    0,
+                    YRegisterTag,
+                    spill
+                );
+                owner.MoveRegister(
+                    XRegisterTag,
+                    1,
+                    XRegisterTag,
+                    0
+                );
 
                 return;
             }
@@ -1438,25 +1705,42 @@ internal sealed partial class BeamModuleCompiler
                 );
             }
             else if (spill >= 0 && !step.ReuseSlot && !deferStackLoad && !deferConstant
-                && call.Moves.Count == 0 && loads is [{ Destination: 0 } single]
-                && call.Constants is [{ Destination: 1, Value: Nil }])
+                && call.Moves is [(1, 0)] && loads is [{ Destination: 0 } swapIncoming]
+                && call.Constants is [{ Destination: 2, Value: Cons } swapLiteral])
             {
+                Load(swapIncoming.Source, 1);
+                owner.EmitConstant(swapLiteral.Value, 2);
+                owner.Op(Swap, XRegisterTag, 0);
+                owner.Operand(XRegisterTag, 1);
+            }
+            else if (spill >= 0 && !step.ReuseSlot && !deferStackLoad && !deferConstant
+                && call.Moves.Count == 0 && loads is [{ Destination: 0 } single]
+                && call.Constants is [{ Destination: 1, Value: Nil or Cons } literal])
+            {
+                // OTP places the independent stack argument before delayed
+                // return-value copies. The final argument setup merges that load.
                 Load(single.Source);
-                owner.EmitConstant(Nil.Value, 1);
+                owner.EmitConstant(literal.Value, 1);
             }
             else if (spill >= 0 && !step.ReuseSlot && !deferStackLoad && !deferConstant
                 && call.Moves.Count == 0 && loads is [{ Destination: 0 } receiver]
-                && call.Constants is [{ Destination: 1, Value: Integer integer }, { Destination: 2, Value: Cons list }])
+                && call.Constants.ToArray() is [{ Destination: 1, Value: Integer or Atom } selector, { Destination: 2, Value: Nil or Cons } listOptions, .. var suffix]
+                && (suffix.Length == 0 || suffix is [{ Destination: 3, Value: Nil }]))
             {
                 Load(receiver.Source, 1);
-                owner.EmitConstant(list, 2);
+                owner.EmitConstant(listOptions.Value, 2);
+                if (suffix.Length != 0)
+                {
+                    owner.EmitConstant(Nil.Value, 3);
+                }
+
                 owner.MoveRegister(
                     XRegisterTag,
                     1,
                     XRegisterTag,
                     0
                 );
-                owner.EmitConstant(integer, 1);
+                owner.EmitConstant(selector.Value, 1);
             }
             else
             {

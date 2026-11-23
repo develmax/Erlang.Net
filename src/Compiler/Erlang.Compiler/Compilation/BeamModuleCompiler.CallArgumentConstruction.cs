@@ -26,6 +26,40 @@ internal sealed partial class BeamModuleCompiler
             int Live
         );
 
+        private (EntryCall Call, CallArgumentConstructions Arguments)? ReadConstructedSelectorCall(
+            Expr.Call selector,
+            string[] parameters
+        )
+        {
+            if (owner.ResolvesErlangBif(selector) || !TryResolveOrdinaryCallTarget(selector, out string? module)
+                || !selector.Arguments.Where((argument, index) => index < parameters.Length
+                    && argument is Expr.Variable { Name: not VariableScopeNames.Wildcard } input
+                    && input.Name == parameters[index]).Any())
+            {
+                return null;
+            }
+
+            var inputs = parameters.Select((name, register) => (name, register))
+                .Where(input => input.name != VariableScopeNames.Wildcard)
+                .ToDictionary(input => input.name, input => input.register, StringComparer.Ordinal);
+            if (ReadCallArgumentConstructions(
+                selector.Arguments,
+                -1,
+                new Dictionary<string, int>(),
+                inputs: inputs
+            ) is not { Moves.Count: 0, Loads.Count: 0, Constructions.Count: >= 2 } plan)
+            {
+                return null;
+            }
+
+            return (new EntryCall(
+                selector,
+                module,
+                [],
+                []
+            ), plan);
+        }
+
         private static CallArgumentConstructions? ReadCallArgumentConstructions(
             IReadOnlyList<Expr> arguments,
             int result,
@@ -34,7 +68,8 @@ internal sealed partial class BeamModuleCompiler
             IReadOnlyDictionary<string, int>? inputs = null,
             IReadOnlyList<(string Name, Expr Value)>? bindings = null,
             bool allowMap = false,
-            bool preserveX0 = false
+            bool preserveX0 = false,
+            bool stageConsOperands = false
         )
         {
             var namedReads = inputs is null ? null : (bindings?.Select(binding => binding.Value) ?? []).Concat(arguments)
@@ -183,21 +218,15 @@ internal sealed partial class BeamModuleCompiler
 
                 if (expression is Expr.Tuple tuple)
                 {
-                    var fields = new ConstructionOperand[tuple.Items.Count];
-                    for (int field = 0; field < fields.Length; field++)
-                    {
-                        if (Read(tuple.Items[field], -1) is not { } value)
-                        {
-                            return null;
-                        }
-
-                        fields[field] = value;
-                    }
-
-                    return Add(destination, true, fields);
+                    return ReadTupleFields(tuple) is { } fields ? Add(destination, true, fields) : null;
                 }
 
                 var list = (Expr.List)expression;
+                if (stageConsOperands)
+                {
+                    return ReadStagedList(list, 0, destination);
+                }
+
                 if (Read(list.Tail ?? new Expr.Literal(Nil.Value), list.Items.Count == 0 ? destination : -1) is not { } tail)
                 {
                     return null;
@@ -225,6 +254,67 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 return tail;
+            }
+
+            ConstructionOperand[]? ReadTupleFields(Expr.Tuple tuple)
+            {
+                var fields = new ConstructionOperand[tuple.Items.Count];
+                for (int field = 0; field < fields.Length; field++)
+                {
+                    if (Read(tuple.Items[field], -1) is not { } value)
+                    {
+                        return null;
+                    }
+
+                    fields[field] = value;
+                }
+
+                return fields;
+            }
+
+            ConstructionOperand? ReadStagedList(Expr.List list, int index, int destination)
+            {
+                if (index == list.Items.Count)
+                {
+                    return Read(list.Tail ?? new Expr.Literal(Nil.Value), destination);
+                }
+
+                // Core evaluates tuple fields before the suffix, then materializes
+                // the cons operands in reverse. Only tuple heads are admitted here.
+                if (list.Items[index] is not Expr.Tuple head)
+                {
+                    return null;
+                }
+
+                ConstructionOperand[]? fields = null;
+                ConstructionOperand? operand = null;
+                if (AttributeLiteral.TryNormalizeConstant(head, out Term literal))
+                {
+                    operand = new ConstructionOperand(0, 0, literal);
+                }
+                else if (ReadTupleFields(head) is not { } prepared)
+                {
+                    return null;
+                }
+                else
+                {
+                    fields = prepared;
+                }
+
+                if (ReadStagedList(list, index + 1, -1) is not { } tail)
+                {
+                    return null;
+                }
+
+                operand ??= Add(-1, true, fields!);
+                if (operand is not { } item)
+                {
+                    return null;
+                }
+
+                return item.Literal is { } value && tail.Literal is { } suffix
+                    ? new ConstructionOperand(0, 0, new Cons(value, suffix))
+                    : Add(destination, false, [item, tail]);
             }
 
             ConstructionOperand? Add(

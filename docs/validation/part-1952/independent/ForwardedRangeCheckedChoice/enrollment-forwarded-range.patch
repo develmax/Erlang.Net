@@ -1,0 +1,92 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BoundedSequenceAndForwardedChoices.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BoundedSequenceAndForwardedChoices.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BoundedSequenceAndForwardedChoices.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BoundedSequenceAndForwardedChoices.cs
+@@ -21,7 +21,10 @@
+             }
+ 
+             var order = Comparer<Term>.Create((left, right) => TermOrder.Compare(left, right, exact: true));
+-            var branches = new SortedDictionary<Term, (Atom Tag, DecodeCall Decode, SequenceRead? Rename, bool Whole, ForwardedChoiceMeasurement? Measurement)>(order);
++            var branches = new SortedDictionary<Term, (
++                Atom Tag, DecodeCall Decode, SequenceRead? Rename, bool Whole,
++                ForwardedChoiceMeasurement? Measurement, TaggedBranchRange? Range
++            )>(order);
+             foreach (var clause in decision.Clauses.SkipLast(1))
+             {
+                 if (clause is not
+@@ -45,17 +48,40 @@
+ 
+                 var named = ReadSequenceNamedValue(body, selected.Binding, new(StringComparer.Ordinal) { selected.Binding });
+                 ForwardedChoiceMeasurement? measurement = null;
++                TaggedBranchRange? range = null;
+                 var decoder = ReadDecodeCall(named?.Decode.Call ?? body, selected.Binding, allowRemote: true);
+                 if (decoder is null && !selected.Whole && selected.Binding != prepared && fallback.Name != prepared)
+                 {
+                     measurement = ReadForwardedChoiceMeasurement(body, selected.Binding, prepared);
+                     decoder = measurement?.Decoder;
+-                }
+-
+-                if (decoder is null || !branches.TryAdd(selected.Key, (tag, decoder, named?.Rename, selected.Whole, measurement)))
++                    var reserved = new HashSet<string>(StringComparer.Ordinal) { selected.Binding, prepared, fallback.Name };
++                    if (decoder is null && ReadSequenceBounds(
++                        body,
++                        selected.Binding,
++                        reserved
++                    ) is { Bounds.Upper: not null } bounded && IsDecoderIntrinsic(bounded.Bounds.Exit))
++                    {
++                        decoder = new DecodeCall(
++                            bounded.Read.Call,
++                            null,
++                            bounded.Read.Options,
++                            bounded.Read.Entry
++                        );
++                        range = bounded.Bounds;
++                    }
++                }
++
++                if (decoder is null || !branches.TryAdd(selected.Key, (tag, decoder, named?.Rename, selected.Whole, measurement, range)))
+                 {
+                     return false;
+                 }
++            }
++
++            if (branches.Values.Any(branch => branch.Range is not null)
++                && (!IsDecoderIntrinsic(error.Call) || branches.Values.Count(branch => branch.Range is not null) != 1
++                    || branches.Values.Any(branch => branch.Whole || branch.Measurement is not null || branch.Rename is not null)))
++            {
++                return false;
+             }
+ 
+             if (branches.Values.Any(branch => branch.Measurement is not null)
+@@ -70,7 +96,7 @@
+             owner.EmitFieldCall(2, prepareEntry);
+             EmitSingletonUnwrap();
+             var schedule = branches.Reverse().Select(pair => (
+-                pair.Key, pair.Value, Label: Label(), Failure: pair.Value.Measurement is null ? 0 : Label()
++                pair.Key, pair.Value, Label: Label(), Failure: pair.Value.Measurement is null && pair.Value.Range is null ? 0 : Label()
+             )).ToArray();
+             int failure = Label();
+             owner.EmitTupleCheck(0, 2, failure);
+@@ -117,6 +143,23 @@
+                 }
+ 
+                 Expr.Call returned = branch.Decode.Convert ?? branch.Decode.Decode;
++                if (branch.Range is { } bounded)
++                {
++                    EmitRangeTests(
++                        returned,
++                        bounded,
++                        rangeFailure,
++                        provenInteger: true
++                    );
++                    EmitTaggedRegisterResult(branch.Tag);
++                    owner.EmitFrameReturn(0);
++                    Mark(rangeFailure);
++                    var decoderLocation = CallLocation(returned, previous);
++                    var exitLocation = CallLocation(bounded.Exit, decoderLocation);
++                    EmitRangeExit(bounded, exitLocation == decoderLocation ? null : exitLocation, 0);
++                    continue;
++                }
++
+                 if (branch.Rename is { } rename)
+                 {
+                     owner.EmitConstant(rename.Options, 1);

@@ -1,0 +1,77 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DirectTupleDestinations.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DirectTupleDestinations.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DirectTupleDestinations.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DirectTupleDestinations.cs
+@@ -4,7 +4,7 @@
+ 
+ internal sealed partial class BeamModuleCompiler
+ {
+-    private static void CollectDirectTupleDestinationEdits(
++    private static void CollectDirectConstructionDestinationEdits(
+         ReadOnlyMemory<byte> code,
+         IReadOnlyList<BeamInstruction> body,
+         List<CodeEdit> edits
+@@ -12,26 +12,34 @@
+     {
+         for (int index = 0; index + 2 < body.Count; index++)
+         {
+-            BeamInstruction tuple = body[index];
++            BeamInstruction construction = body[index];
+             BeamInstruction copy = body[index + 1];
+-            if (tuple.Definition.Opcode != PutTuple
+-                || tuple.Operands[0] is not { Kind: BeamOperandParameters.X, TypeIndex: null } temporary
++            byte opcode = construction.Definition.Opcode;
++            if (opcode is not (PutTuple or PutList)
++                || construction.Operands[opcode == PutTuple ? 0 : 2] is not
++                { Kind: BeamOperandParameters.X, TypeIndex: null } temporary
+                 || copy is not
+                 {
+                     Definition.Opcode: Move,
+                     Operands: [var source, { Kind: BeamOperandParameters.X, TypeIndex: null } destination]
+                 }
+                 || source != temporary || destination == temporary
+-                || !DiscardsCopiedTupleTemporary(body, index + 2, temporary))
++                || !DiscardsCopiedConstructionTemporary(body, index + 2, temporary))
+             {
+                 continue;
+             }
+ 
+-            // The tuple reads all of its elements before writing its result.
+-            // Keep those operands and replace only the dead intermediate result.
+-            int start = tuple.Offset + 1;
+-            var cursor = new BeamCursor(code[start..]);
+-            _ = BeamCompactReader.Read(cursor);
++            // Both constructors read their inputs before writing the destination.
++            int start = opcode == PutTuple
++                ? construction.Offset + 1
++                : copy.Offset - CompactRegisterCountWidth(checked((int)temporary.Value));
++            var cursor = new BeamCursor(code[start..copy.Offset]);
++            BeamCompactValue operand = BeamCompactReader.Read(cursor);
++            if (operand.WireTag != XRegisterTag || operand.Value != temporary.Value)
++            {
++                continue;
++            }
++
+             edits.Add(new CodeEdit(
+                 start,
+                 start + cursor.Position,
+@@ -48,7 +56,7 @@
+         }
+     }
+ 
+-    private static bool DiscardsCopiedTupleTemporary(
++    private static bool DiscardsCopiedConstructionTemporary(
+         IReadOnlyList<BeamInstruction> body,
+         int start,
+         BeamOperand temporary
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FinalPhysicalLabelOrder.cs
+@@ -94,7 +94,7 @@
+ 
+         if (!ModuleOptimizationDisabled)
+         {
+-            CollectDirectTupleDestinationEdits(
++            CollectDirectConstructionDestinationEdits(
+                 code,
+                 body,
+                 edits

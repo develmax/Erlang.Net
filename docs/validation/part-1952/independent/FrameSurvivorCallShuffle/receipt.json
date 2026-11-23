@@ -1,0 +1,29 @@
+{
+  "Part": 1980,
+  "Reference": "OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourceBaseline": "Part1950 4981e099210ec7a8e3eabf07e65c34184c3a980453aed3cf704c717a868e1419 with measured overlays Part1978 and Part1979. Production source context independent.",
+  "PinnedSource": [
+    "beam_ssa_codegen.erl:2645-2705 opt_move_to_x0 and setup_args",
+    "ex_cursor do_init/1 line 90 and ex_gauge create_option_sizer/1 line 213"
+  ],
+  "Scope": "One worker and 13 actual release files, 6 Equal and 7 Different, only ex_cursor and ex_gauge generated images change. ex_cursor first additive call site and all of ex_gauge:create_option_sizer/1 become normalized instruction and line exact. Both complete files remain Different.",
+  "Native": "Two ex_gauge init paths and three ex_cursor init paths on installed Windows OTP with headless stubs. Exact native terms, ordered effects and first two frames in the cursor terminal failure.",
+  "Regression": "Permanent red/green and the negative with previous result as an outgoing operand stays outside the new staging rule.",
+  "Hashes": {
+    "production.patch": "4eb60cc1d8dfb1b7f3273dcf7797d9c67887fd08156ca98d6fd44a3c0fea6eba",
+    "test.patch": "3f48f987074f2b619f870fc7addf4f945c551324eba7262a26af84911b6b94d5",
+    "strict-replay.log": "433a2a6407570ec7d27974a6ec1aa6a468bc53c0f406acfb277d51bc15529b5d",
+    "replay-files.json": "d07913fbd8b82fdbbcfd413a75227150c54fd878fb9eaea9137e2ae3411d5020",
+    "style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "scope.json": "b69471a828cab81727c1e047ba0653d9d4c49b619c827d077d79d1d8fa878c61",
+    "init-candidate.terms": "c034250a54c9a760a768c59c4a9f69d0c16b5fc9685c53fedf0976ddd91a7225",
+    "option-pinned.terms": "4fa5d09e21ea24100d78becce305907522232a3e3987da21b11149899de6855f",
+    "option-before.terms": "fac8b1d0901eeb0341f6990bb0772b5c8cc0e924874f3cf27f4cdc326eb408e7",
+    "option-after.terms": "4fa5d09e21ea24100d78becce305907522232a3e3987da21b11149899de6855f",
+    "gauge-native-pinned.terms": "132c58f64ac37ab3d1631d883037b205a6a48782ea7a9369f712403c5d93b8cc",
+    "gauge-native-candidate.terms": "132c58f64ac37ab3d1631d883037b205a6a48782ea7a9369f712403c5d93b8cc",
+    "cursor-native-candidate.terms": "da2d15725453ae5d4d3741cf40c31a8606fe3e1f780c37d1b2108e3b9e1b9546",
+    "focused-exits.json": "1ef75e784a5dd11b9c2fe71476a71f94295ce972682d28c771dea17e5ae3df61",
+    "compiler-bin/Erlang.Compiler.dll": "56aa0f51e40e1698f336a9582de2268fc3e943339f73acaaed2f02dac10b0f51"
+  }
+}

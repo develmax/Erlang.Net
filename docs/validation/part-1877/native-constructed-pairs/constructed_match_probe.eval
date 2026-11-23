@@ -1,0 +1,28 @@
+[Reference, Candidate] = init:get_plain_arguments(),
+Calls = [
+    {dynamic,[3,5]}, {dynamic,[0,5]}, {dynamic,[1,5]}, {dynamic,[17,16#1ffff]},
+    {dynamic,[-1,5]}, {dynamic,[3,atom]},
+    {unknown,[3,<<5:3>>]}, {unknown,[0,<<>>]}, {unknown,[3,<<5:4>>]},
+    {unknown,[4,<<5:3>>]}, {unknown,[3,{unknown,input}]},
+    {widen,[0,255]}, {widen,[3,7]},
+    {fail,[3,5,3]}, {fail,[3,5,2]}, {fail,[3,5,4]}, {fail,[3,5,atom]}
+],
+Run = fun(Path) ->
+    {ok,Bytes}=file:read_file(Path),
+    {module,constructed_match_probe}=code:load_binary(constructed_match_probe,Path,Bytes),
+    R=[try apply(constructed_match_probe,N,Args) of V->{ok,V}
+       catch Class:Reason->{Class,Reason} end || {N,Args}<-Calls],
+    true=code:delete(constructed_match_probe), _=code:purge(constructed_match_probe),
+    R
+end,
+Results=Run(Reference), Results=Run(Candidate),
+{ok,5}=lists:nth(1,Results),
+{ok,0}=lists:nth(2,Results),
+{error,{badmatch,{unknown,input}}}=lists:nth(11,Results),
+{ok,255}=lists:nth(12,Results),
+{ok,56}=lists:nth(13,Results),
+{error,{badmatch,<<5:3>>}}=lists:nth(15,Results),
+{error,{badmatch,<<5:3>>}}=lists:nth(16,Results),
+io:format("~p results and error reasons match across pinned OTP and exact generated C# emission.~n",[length(Results)]),
+io:format("~0p~n",[Results]),halt().
+

@@ -1,0 +1,134 @@
+{
+  "otpTag": "OTP-29.1.1",
+  "otpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "part1945Archive": {
+    "size": 2006170,
+    "sha256": "7fd76cb875b5d0f7000b33a1fa84f560c5834f975c51a8874deb8362011bd8ab"
+  },
+  "requiredPriorProductionPatch": {
+    "size": 14774,
+    "sha256": "d451eea8c3d6bc653b54e383b43604cde2eb5ce84796677b41300100b3ec91fd"
+  },
+  "baseCompiler": {
+    "size": 5115392,
+    "sha256": "a4dcfdf11c0fcf74b62ad6849931263245bafef8873f4ec7ceed7eb64f14bc6f"
+  },
+  "priorReceipt": {
+    "size": 3299,
+    "sha256": "444ebc7202f24f14c63c7cd6680d9bcd21f2a5f28a382b8eb92558102af2949e"
+  },
+  "jobs": 1,
+  "scope": {
+    "lib/debugger-7.0/ebin/dbg_wx_settings.beam": "Different",
+    "lib/debugger-7.0/ebin/dbg_wx_win.beam": "Different",
+    "lib/inets-9.8/ebin/inets_sup.beam": "Equal",
+    "lib/inets-9.8/ebin/mod_trace.beam": "Equal",
+    "lib/kernel-11.0.4/ebin/local_udp.beam": "Equal",
+    "lib/stdlib-8.1/ebin/ordsets.beam": "Equal",
+    "lib/xmerl-2.2/ebin/xmerl_html.beam": "Equal"
+  },
+  "targetGeneratedBefore": {
+    "size": 13104,
+    "sha256": "cef229c7fcee1bb86cc062647367e2d8b51a876aa319bf42c994f6c1277dd21e"
+  },
+  "targetGeneratedAfter": {
+    "size": 13104,
+    "sha256": "cc7af51a9a11867d801960d37a20f22cd703d70e730fe17efbe7dbbe84c09e54"
+  },
+  "unchangedDifferingControl": {
+    "size": 22048,
+    "sha256": "dad17b1499fdde18072af2e53271576dbb6a6f50a2a2739668b634ca67b0d156"
+  },
+  "nativeReleaseCases": 6,
+  "nativeBehaviorFixtureCases": 7,
+  "files": {
+    "production.patch": {
+      "size": 4998,
+      "sha256": "26ceee3337bb65bc47deb9964c39d6b55a1a9ce4007614f7746748c7fb99a777"
+    },
+    "test.patch": {
+      "size": 4785,
+      "sha256": "eadb6af3097d88ac213b5c7cc531b65f6cc77b8377e17bb71b44cf9e621ca64a"
+    },
+    "replay-files.json": {
+      "size": 918,
+      "sha256": "f263c7cc35201796d02f79aa8850d5c407281f9a31d2e6cdcc3ca921717644c0"
+    },
+    "compiler-bin/Erlang.Compiler.dll": {
+      "size": 4797440,
+      "sha256": "c101a90971c6e49e9273e3bbfa63c3f11997ac724252f63cf3dd8b97838c74dd"
+    },
+    "scope.json": {
+      "size": 1957,
+      "sha256": "97be1d1d73ee0d8e6de600866c6d81bdd7ffe5a4ac3b0c378eafd3cc242d0a8e"
+    },
+    "final-scope.json": {
+      "size": 1957,
+      "sha256": "97be1d1d73ee0d8e6de600866c6d81bdd7ffe5a4ac3b0c378eafd3cc242d0a8e"
+    },
+    "build-final.log": {
+      "size": 481,
+      "sha256": "013f996bab7175491eeeb1f79e627f7410b1bbf3ff974be1b1cb33c8189b0306"
+    },
+    "focused-red.log": {
+      "size": 541,
+      "sha256": "4b8480c7575d225c775fdfe2b8babfcba60cf29a5b0f8a743e1bf19f7bdd217a"
+    },
+    "focused-final-green.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "rank.terms": {
+      "size": 165,
+      "sha256": "4fd0970b90948ad79625d98ab4ccba0455e5662a2df34415578d703cab1a0fdb"
+    },
+    "pinned-default.terms": {
+      "size": 5070,
+      "sha256": "9ac155219f71a93ee59bff77b2cc486da9c2577c919f91aeccab7c57a392311d"
+    },
+    "baseline-default.terms": {
+      "size": 5236,
+      "sha256": "0e9e6fd903d741b50c485654214000e05d256757646fb8417756fd7cce7a9faf"
+    },
+    "candidate-default.terms": {
+      "size": 5236,
+      "sha256": "223d73062dc74f138dcc0a2a2c9074123519870ae527f78e2a371655e0f3bc97"
+    },
+    "focused-exits.json": {
+      "size": 51,
+      "sha256": "1ef75e784a5dd11b9c2fe71476a71f94295ce972682d28c771dea17e5ae3df61"
+    },
+    "native-pinned.terms": {
+      "size": 2235,
+      "sha256": "f0b0466b703d480da5757230ca99f7abecd6f519f2270ed0b2fd13d631100c41"
+    },
+    "native-candidate.terms": {
+      "size": 2235,
+      "sha256": "f0b0466b703d480da5757230ca99f7abecd6f519f2270ed0b2fd13d631100c41"
+    },
+    "native-fixture-pinned.terms": {
+      "size": 771,
+      "sha256": "7a7b33c5a0d737a40cf3a900d57b89824b2cf81d25328d47dacc7d79b90c97b8"
+    },
+    "native-fixture-compiled.terms": {
+      "size": 771,
+      "sha256": "7a7b33c5a0d737a40cf3a900d57b89824b2cf81d25328d47dacc7d79b90c97b8"
+    },
+    "native-fixture.eval": {
+      "size": 927,
+      "sha256": "c41c3810f4d013f5dedcedcdfea0d7c8d28dac26061af21f23af4e8b5200093b"
+    },
+    "service.erl": {
+      "size": 321,
+      "sha256": "8e1d5067dacbf8513ce93065e8c0ce7d89f37d90d98ef6165b89354cec17cfb1"
+    },
+    "beam_checked_nested_cons.erl": {
+      "size": 276,
+      "sha256": "f1da57d13b4cae1c5f980dd2b8a8b0bb6faf2d54bc791d7801af8d765dbf4499"
+    },
+    "layout-final-check.log": {
+      "size": 40,
+      "sha256": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f"
+    }
+  }
+}

@@ -1,0 +1,84 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -8932,6 +8932,11 @@
+             }
+             if (guard is Expr.GuardAlternatives alternatives)
+             {
++                if (TryEmitAtomGuardAlternatives(alternatives, failure, selector))
++                {
++                    return;
++                }
++
+                 int accepted = Label();
+                 foreach (Expr item in alternatives.Items)
+                 {
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TupleMembership.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TupleMembership.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TupleMembership.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TupleMembership.cs
+@@ -149,9 +149,14 @@
+                 bounds?.Upper
+             );
+         }
++        EmitMembershipSelectTable(failure, table);
++    }
++
++    private void EmitMembershipSelectTable(int failure, IReadOnlyList<(Term Key, int Label)> table)
++    {
+         Operand(LabelTag, failure);
+         instructions.WriteByte(ExtendedListOperand);
+-        Operand(BeamWire.UnsignedTag, table.Length * 2);
++        Operand(BeamWire.UnsignedTag, table.Count * 2);
+         foreach (var (key, label) in table)
+         {
+             LiteralOperand(key);
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AtomGuardAlternatives.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AtomGuardAlternatives.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.AtomGuardAlternatives.cs
+@@ -0,0 +1,45 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private sealed partial class GeneralEmitter
++    {
++        private bool TryEmitAtomGuardAlternatives(Expr.GuardAlternatives alternatives, int failure, string? selector)
++        {
++            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled || owner.receiveScratchRegisters is not null
++                || alternatives.Items.Count < 3 || alternatives.Items[0] is not Expr.Binary first
++                || (first.Left as Expr.Variable ?? first.Right as Expr.Variable) is not { } input
++                || alternatives.Items.Any(item => item is not Expr.Binary
++                    { Operator: ErlangOperators.NumericEqual or ErlangOperators.ExactEqual }))
++            {
++                return false;
++            }
++
++            bool registerSelector = IsGuardSelector(input, selector);
++            int slot = 0;
++            if (!registerSelector && !variables.TryGetValue(input.Name, out slot))
++            {
++                return false;
++            }
++
++            var keys = new List<Atom>();
++            if (!ReadAtomGuardKeys(alternatives, input.Name, keys) || keys.Distinct().Count() != keys.Count)
++            {
++                return false;
++            }
++
++            // Each alternative reads the same bound value and can only match its atom.
++            // Keep the enclosing guard failure and fall through to the same source body.
++            int accepted = Label();
++            var order = Comparer<Atom>.Create((left, right) => TermOrder.Compare(left, right, exact: true));
++            var table = keys.Order(order).Select(key => ((Term)key, accepted)).ToArray();
++            owner.Op(SelectValue, registerSelector ? XRegisterTag : YRegisterTag, slot);
++            owner.EmitMembershipSelectTable(failure, table);
++            Mark(accepted);
++
++            return true;
++        }
++    }
++}

@@ -1,0 +1,12 @@
+[Role,Fixture,Image,Out]=init:get_plain_arguments(),
+M=beam_exhaustive_local_case,
+B=case Role of "reference"->{ok,M,Raw}=compile:file(Fixture,[binary,report]),Raw;
+                "candidate"->{ok,Raw}=file:read_file(Image),Raw end,
+{module,M}=code:load_binary(M,Fixture,B),
+Calls=[{covered,[key,[{yes,42}]]},{covered,[key,[ignored,{yes,value}]]},{covered,[key,[]]},
+       {covered,[key,not_a_list]},{bound,[key,[{yes,key}]]},{bound,[key,[{yes,other}]]},
+       {unknown,[key,external_value]},{unknown,[key,[]]}],
+Read=fun(F,A)->try erlang:apply(M,F,A) of T->{value,T} catch Cl:Re:St ->
+    {Cl,Re,[{Id,N,length(P)}||{Id,N,P,_}<-St,Id=:=M,is_list(P)]} end end,
+ok=file:write_file(Out,[io_lib:format("~0p.~n",[{{F,A},Read(F,A)}])||{F,A}<-Calls]),
+halt().

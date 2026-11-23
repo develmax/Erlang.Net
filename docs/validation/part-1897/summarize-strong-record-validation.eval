@@ -1,0 +1,7 @@
+[Path] = init:get_plain_arguments(),
+{ok,Rows} = file:consult(Path),
+20 = length(Rows),
+Faults = [{M,K,Insn,R} || {M,_,_,Es} <- Rows, {K,{Insn,_,R}} <- Es, is_tuple(R), element(1,R) =:= uninitialized_reg],
+Megaco = lists:keyfind(megaco_tcp_accept,1,Rows),
+io:format("~0tp.~n",[#{count=>length(Rows),uninitialized_update_registers=>Faults,megaco=>Megaco}]),
+case {Faults,Megaco} of {[],{megaco_tcp_accept,ok,ok,[]}} -> halt(0); _ -> halt(1) end.

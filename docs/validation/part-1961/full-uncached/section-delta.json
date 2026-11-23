@@ -1,0 +1,48 @@
+{
+  "Gains": {
+    "Line": 4,
+    "Type": 1,
+    "Attr": 1,
+    "Code": 1,
+    "ExpT": 1,
+    "FunT": 1,
+    "LocT": 1
+  },
+  "Losses": {},
+  "Modules": [
+    {
+      "Module": "megaco_monitor",
+      "Gains": [
+        "Line",
+        "Type"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "snmpa_get_lib",
+      "Gains": [
+        "Line"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "ex_gauge",
+      "Gains": [
+        "Attr",
+        "Code",
+        "ExpT",
+        "FunT",
+        "Line",
+        "LocT"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "ex_listCtrl",
+      "Gains": [
+        "Line"
+      ],
+      "Losses": []
+    }
+  ]
+}

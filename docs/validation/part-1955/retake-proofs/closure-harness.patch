@@ -1,0 +1,19 @@
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12621,6 +12621,15 @@
+ }
+ );
+ Test(
++    Erlang.Tests.BeamOwnedEntryClosureOrderChecks.TestName,
++    () =>
++{
++    Erlang.Tests.BeamOwnedEntryClosureOrderChecks.Run();
++
++    return Task.CompletedTask;
++}
++);
++Test(
+     Erlang.Tests.BeamInitialEntryProjectionChecks.TestName,
+     () =>
+ {

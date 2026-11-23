@@ -1,0 +1,9 @@
+# Part 1999 local call and helper identities
+
+Windows OTP 29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5. The latest [scoped comparison](status.json) recompiled 29 Different files in 54.092 s. It recorded 0 Equal, 29 Different, 0 Unsupported and 0 SourceRejected. Three images changed and all prepared in OTP. There were no new or lost normalized matches in this scope. The observed aggregate is 539 Equal and 827 Different.
+
+The common ordinary source-call, terminal local transfer and direct source entry lowerers resolve an emitted function by its name and arity. Forward references use the existing deferred operand writer. Earlier analysis retains planned geometry; code passes receive the emitted entry map. The prior relocation test now makes two same-arity callees distinguishable.
+
+The three changed images are ct_testspec, test_server_io and qlc_pt. Clause-separated single relaxed generators now use the existing expanded lexical helper and closure walk after its completeness, head and protected-region checks. The observed outputs contain the six expected list helper identities. Remaining body and output layout differences are included in the normalized report. Other selected controls retained their observed bytes. This verifies the migrated source call routes in the measured scope.
+
+Fifteen managed focused tests passed. The prior native fixture suite reran. OTP and generated code matched five comprehension and callback traces, and the released query transformer produced the same compiled test image and query results. See [generated traces](lexical-owners-generated.terms), [reference traces](lexical-owners-reference.terms) and [source transfer](source-transfer-2160.json). The initial C# [missing diagnostic import](initial-diagnostic-import.log) is preserved. Full corpus acceptance, package tests, readiness and local commit remain pending.

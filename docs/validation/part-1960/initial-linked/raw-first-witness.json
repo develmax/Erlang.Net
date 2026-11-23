@@ -1,0 +1,31 @@
+{
+  "OtpVersion": "29.1.1",
+  "Total": 3,
+  "Counts": {
+    "Different": 2,
+    "Equal": 1
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\common_test-1.31.2\\ebin\\ct_default_gl.beam",
+      "Status": "Equal",
+      "Source": "lib\\common_test-1.31.2\\src\\ct_default_gl.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\wx-2.7\\doc\\examples\\demo\\ex_gauge.beam",
+      "Status": "Different",
+      "Source": "lib\\wx-2.7\\doc\\examples\\demo\\ex_gauge.erl",
+      "Detail": "Original length 17008, generated length 17044. Code 1837-\u003E1876, ExpT 124-\u003E124, FunT 28-\u003E28, LocT 64-\u003E64, Attr 69-\u003E69, Line 152-\u003E152",
+      "FirstDifferentByte": 7
+    },
+    {
+      "Beam": "lib\\wx-2.7\\doc\\examples\\demo\\ex_listCtrl.beam",
+      "Status": "Different",
+      "Source": "lib\\wx-2.7\\doc\\examples\\demo\\ex_listCtrl.erl",
+      "Detail": "Original length 18284, generated length 18328. AtU8 920-\u003E920, Code 2057-\u003E2153, ExpT 124-\u003E124, FunT 148-\u003E148, LocT 112-\u003E112, Attr 69-\u003E69, Line 182-\u003E182, Type 64-\u003E10",
+      "FirstDifferentByte": 7
+    }
+  ]
+}

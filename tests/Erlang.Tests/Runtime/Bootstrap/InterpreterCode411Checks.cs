@@ -103,8 +103,10 @@ internal static class InterpreterCode411Checks
             await runtime.DisposeAsync();
         }
         Require(context is not null && LibrarySelectionCancellationPhaseAccess.ActiveLeases(context) == 0);
-        Require(LibrarySelectionPublicCancellationAccess.Disposed(runtime)
-            && LibrarySelectionPublicCancellationAccess.Dispatcher(runtime).IsCompletedSuccessfully);
+        Require(LibrarySelectionPublicCancellationAccess.Disposed(runtime));
+        // An external owner can join the physical dispatcher after the logical dispose.
+        await LibrarySelectionPublicCancellationAccess.Dispatcher(runtime)
+            .WaitAsync(RuntimeActorDispatchHostParameters.Deadline);
     }
 
     private static async Task Error(

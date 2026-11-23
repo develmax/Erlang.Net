@@ -1,0 +1,54 @@
+{
+  "Before": "f0bddfe6c819a2fd34cb10fa82504e96d2c981256988529073849ee465d79f51",
+  "After": "f916e27cdcef571ae85a724645c8685db58215b7a306e265a785494b4aafd6e8",
+  "Diff": "8136f1df9dc3a7e45e0a990c061df552c03817ab7c0f971a368cb1e83431e513",
+  "Base": "1a5d3057eddddffdd8b9e0e8dfd6655d0a9df9d2",
+  "ManagedReport": "73EB43027F05EC891FA44F11ECA68243B414A853BED29F7396F61895E372F918",
+  "FocusedReceipt": "4f0ef0adf33845c31d7bc5e385160c3b369dfa8f3c185ca69432f6266f27f6e4",
+  "CompilerAcceptance": "5a7b0d29aee26b6e1eeff368516ed327a1158ef235bd0d96e91cdf19c4fa966e",
+  "PriorStatusesAndEvidencePreserved": true,
+  "Changed": [
+    {
+      "Path": "src/Compiler/Erlang.Compiler/Compilation/Binding/LocalFunctionEntries.cs",
+      "Expected": "46650c3e6d59abe418157e5b7137051f646a9c46ed1bee6cf44e0ecc27b54429",
+      "Actual": "a441f2f6d94745b6cf294e6dad03c1f2721e356772561c3cee516d76f661e506",
+      "Review": "The same pattern traversal remains in place. Internal visibility admits the source reachability walker."
+    },
+    {
+      "Path": "src/Compiler/Erlang.Compiler/Compilation/CodeGeneration.cs",
+      "Expected": "58f703e6658b0460b91c2a7483a68ac72ac0351ba762f7b2a39f091799fee6c4",
+      "Actual": "8a2e346138f1bc776820abc36cc49f7e4592bef436c1b89543401f7f5631dff2",
+      "Review": "Preprocessing retains existing API arguments for ordinary callers. Added release path configuration, opt-in alias policy and transformed-source reachability are BEAM-only. Registered runtime entry points have no changes."
+    },
+    {
+      "Path": "src/Compiler/Erlang.Compiler/Execution/Comprehensions/ComprehensionQualifier.cs",
+      "Expected": "9f2fffa023f4f912384e5160eeda2d717253d5b06216ea7ede32fef5d59e9af8",
+      "Actual": "0f3aba5a140587c2daca7d7b4c8e7c4169efb9a98460b73c6d4710b3957be5d5",
+      "Review": "Two location properties default to zero and null. Generator data and evaluation retain the original fields."
+    },
+    {
+      "Path": "src/Compiler/Erlang.Compiler/Execution/Comprehensions/ComprehensionSourceBindings.cs",
+      "Expected": "34b63ab34b7216cb760f38ac45011311caf05b7d03c68708b6bdec419639cc8b",
+      "Actual": "cd2545cd73ff5271cec67758dc93b5e28d0271756c6e23bbd02beae553669296",
+      "Review": "The extra Core ordinal applies only to a single variable-only map comprehension. It affects generated helper identities and does not change binding names or source input traversal."
+    },
+    {
+      "Path": "src/Compiler/Erlang.Compiler/Syntax/Ast/Expr.cs",
+      "Expected": "1e73e3c8d4e7ca89916afdbae092891bc2c1f7c403a01b3b99318a7243052dd9",
+      "Actual": "2e270bfa0cdf0baa2c37afb0c063df6eb9ac5b0b37d8ee56429103c1c2d6adfe",
+      "Review": "Internal location and parse-origin properties default to absence. The public expression constructors and runtime expression patterns remain the same."
+    },
+    {
+      "Path": "src/Compiler/Erlang.Compiler/Syntax/Ast/ModuleDefinition.cs",
+      "Expected": "df423e68317e3120377a0523c95642e295745ba19a98d3bd88b766063c24f79c",
+      "Actual": "443fc75ec4c29dc00077548f97c6fc3cf2cb905af8d796b665a3803967d270c9",
+      "Review": "The added internal transform flag defaults false and selects BEAM source reachability only after the existing diameter transform."
+    },
+    {
+      "Path": "src/Compiler/Erlang.Compiler/Syntax/Parser.cs",
+      "Expected": "a2279400888bcb5d83e6724153fc9c9b94dc1d38b2fad8a68a4ff5dc8b99735b",
+      "Actual": "ce530480c6b2e36d3efbfee83d965fad5ac7cc8d2f79499886acc94f83bad0d0",
+      "Review": "Records the existing transform choice and source locations for try, updates, and list-generator input. Empty-string origin is preserved only for the existing documentation mode. Pattern, guard, and value construction retain the original expressions."
+    }
+  ]
+}

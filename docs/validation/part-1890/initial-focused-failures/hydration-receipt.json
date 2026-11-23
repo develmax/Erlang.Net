@@ -1,0 +1,43 @@
+{
+  "Parent": {
+    "Source": "360f1f7bb6428560f7c0e833a7835a9329a67a158462fd058a924194f162dbde",
+    "Paths": 275,
+    "Compiler": "11a21aad9d7badcb2d5479c297092735db156754849b24d6aae9b124324e51d0",
+    "Tests": "f1876fffedd1540962603102ceea7b9e077d046742846120417fad285f4b7658",
+    "ParentSource": "5f5d6a4f6e65d2c6bed7938474e9317426bbea0b08dc8ca90cd19644d12c0733",
+    "CorpusTool": "35b65bd1b3e4a573604b50950dcad63130c2b9ba97c4927a77c43ea0c1ae3925"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BranchStackSlots.cs": "19ca769bca5669662c00b7f433932947b4984187063b47d56cb1f732424a132a",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.OverwrittenTupleProjections.cs": "3902d4b4cd45a6ad525c870f66d57442ff33ba88d86e965aa5a85a2c0988dfab",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamReleaseFunctionDebug.cs": "1d0b192373a8bc38be97501977ed4b0eeb73b4101c16cea373fbb988d50db882",
+    "tests/Erlang.Tests/Compiler/Beam/BeamBootstrapLibraryIncludeChecks.cs": "0166555b1d6e8f30f2fb5812529259549bf1c20adb9766923b0d428966fede8d",
+    "tests/Erlang.Tests/Compiler/Beam/BeamListTailAnnotationChecks.cs": "5be1ade58e3295aba9d8becc16770e012b99133a67268ba19492b1ec9e64efab",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamAtomicProjectionFrameChecks.cs": "0c5d7687ee51984f9d01306e959bc527895d3a43e63a40cf8e960fa03b5c5073",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamOverwrittenTupleProjectionChecks.cs": "cf69093d7fee25d125f52762ef45b7491ff15d044bf69c70e287c33cc3b92518",
+    "tests/Erlang.Tests/Harness/Program.cs": "cf638d2100b4ae660310db86daa02e466a9404837dc72e1fac6caa79153840f4",
+    "tools/Validation/Erlang.BeamCorpus/OtpWindowsBootstrapLibraryIncludePaths.cs": "ea1f84d140b690b8103276a0b42cfe6a5cc4ee9102f3aaa10e78e7c98be904ff"
+  },
+  "Patches": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\atomic-projection-and-list-source-annotations-1890\\atomic-stack-projection-aliases.patch",
+      "Hash": "d6e69c4e562e6680abe2790ae25d4fc3c02653af840c23b305d4c87aa6872cb7"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\atomic-projection-and-list-source-annotations-1890\\list-tail-first-annotation.patch",
+      "Hash": "9579f80695aa181a4b3f7bb0ff5257e0a07073d2f5e9fba80cecb2db04a0efdd"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\atomic-projection-and-list-source-annotations-1890\\runtime-tools-and-ssh-provenance.patch",
+      "Hash": "9e3eeb81922ed046fba8ecf2d399813a14220ae8f36788f463090c2e635987ab"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\atomic-projection-and-list-source-annotations-1890\\terminal-x-projection-use.patch",
+      "Hash": "9e89aae859f597965c7f191eb4ef4aa96575c6f5b80256a3a1a2b960462f71f0"
+    }
+  ],
+  "HarnessRegistrations": [
+    "BeamAtomicProjectionFrameChecks",
+    "BeamListTailAnnotationChecks"
+  ]
+}

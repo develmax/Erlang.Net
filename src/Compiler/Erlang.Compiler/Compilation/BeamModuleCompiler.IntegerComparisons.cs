@@ -29,7 +29,7 @@ internal sealed partial class BeamModuleCompiler
             BeamCompactWriter.Write(output, LabelTag, failure.Value);
             if (!constantFirst)
             {
-                BeamCompactWriter.Write(output, BeamWire.IntegerTag, constant.Value - 1);
+                WriteIntegerOperand(output, constant.Value - 1);
             }
 
             output.WriteByte(ExtendedTypedRegisterOperand);
@@ -37,7 +37,7 @@ internal sealed partial class BeamModuleCompiler
             BeamCompactWriter.Write(output, BeamWire.UnsignedTag, type);
             if (constantFirst)
             {
-                BeamCompactWriter.Write(output, BeamWire.IntegerTag, constant.Value + 1);
+                WriteIntegerOperand(output, constant.Value + 1);
             }
 
             copied = body[index + 1].Offset;

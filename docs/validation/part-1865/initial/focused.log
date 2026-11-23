@@ -1,0 +1,35 @@
+{"Partial":true,"SelectedCount":19,"TotalCount":9815}
+FAIL compiler/beam/whole-module-matches-otp: System.InvalidOperationException: Expected slot reuse after the tuple test and a badmatch exit without a frame.
+   at Erlang.Tests.BeamModuleEmissionChecks.CompareStackSlotsWithFramelessFailure() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Compiler\Beam\BeamModuleEmissionChecks.cs:line 814
+   at Erlang.Tests.BeamModuleEmissionChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Compiler\Beam\BeamModuleEmissionChecks.cs:line 369
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Harness\Program.cs:line 16423
+PASS compiler/beam/fresh-reference-receive-marker
+PASS compiler/beam/emits-immediate-selective-timeout
+PASS compiler/beam/shares-accepted-receive-tails-across-tuple-arities
+PASS compiler/beam/adjacent-arithmetic-number-result
+PASS compiler/beam/local-success-atom-or-tuple-result
+PASS compiler/beam/selects-constant-branches-with-an-identity-fallback
+FAIL compiler/beam/uses-available-x-in-constructor-with-retained-spill: System.IO.InvalidDataException: Invalid generic BEAM opcode or operand boundary
+   at Erlang.BeamInstructionReader.Require(Boolean condition) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamInstructionReader.cs:line 202
+   at Erlang.BeamInstructionReader.Scalar(BeamCompactValue raw, Int32 atomCount, Int32 labelCount) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamInstructionReader.cs:line 131
+   at Erlang.BeamInstructionReader.Read(BeamCodeHeader code, Int32 atomCount, Int32 literalCount, Action`3 recordLabelOperand, Action`3 recordStackOperand) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamInstructionReader.cs:line 90
+   at InvokeStub_BeamInstructionReader.Read(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+--- End of stack trace from previous location ---
+   at Erlang.Tests.BeamBinaryHostAccess.Call(Object owner, String method, Object[] values) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Compiler\Beam\Binary\BeamBinaryHostAccess.cs:line 52
+   at Erlang.Tests.BeamRetainedConstructorAliasChecks.Rewrite(Byte[] source, Boolean removeSpills) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Compiler\Beam\Frames\BeamRetainedConstructorAliasChecks.cs:line 110
+   at Erlang.Tests.BeamRetainedConstructorAliasChecks.CheckEarlyArgumentMotion() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Compiler\Beam\Frames\BeamRetainedConstructorAliasChecks.cs:line 81
+   at Erlang.Tests.BeamRetainedConstructorAliasChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Compiler\Beam\Frames\BeamRetainedConstructorAliasChecks.cs:line 63
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\precall-shared-frame-and-typed-lists-1861\source\tests\Erlang.Tests\Harness\Program.cs:line 16423
+PASS compiler/beam/hoists-heap-before-checked-tuple-reads-with-proven-roots
+PASS compiler/beam/flat-tuple-list-generator-constructs-after-recursion
+PASS compiler/beam/retains-entry-tuple-across-producer
+PASS compiler/beam/checks-an-arity-arm-tag-before-its-frame
+PASS compiler/beam/delays-a-zero-slot-frame-after-a-checked-tag-fallback
+PASS compiler/beam/local-success-integer-result
+PASS compiler/beam/trims-owned-branch-with-one-retained-result
+PASS compiler/beam/promotes-interior-projection-before-first-call
+PASS compiler/beam/tagged-list-generator-keeps-matched-tuple
+PASS compiler/beam/keyfind-result-typed-tuple-test
+PASS compiler/beam/tuple-list-generator-checks-before-recursing
+17/19 passed

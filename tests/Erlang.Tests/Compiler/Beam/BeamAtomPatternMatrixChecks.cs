@@ -1,0 +1,89 @@
+using System.Collections;
+using System.Numerics;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamAtomPatternMatrixChecks
+{
+    internal const string TestName = "compiler/beam/groups-two-pattern-columns-and-shares-atom-results";
+    private const string Fixture = "beam_atom_pattern_matrix_probe.erl";
+    private const string SelectionFailure = "The candidate did not independently select the two pattern columns.";
+    private const string GuardFailure = "The candidate selected a guarded argument as if it were a literal.";
+
+    private const string Source = """
+        -module(beam_atom_pattern_matrix_probe).
+        -export([matrix/2, repeated/2, guarded/2]).
+
+        matrix(smoke, smoke) -> smoke;
+        matrix(warn, smoke) -> smoke;
+        matrix(warn, warn) -> warn;
+        matrix(deep, smoke) -> smoke;
+        matrix(deep, warn) -> warn;
+        matrix(deep, deep) -> deep;
+        matrix(anything, Value) -> Value;
+        matrix(_, _) -> hidden.
+
+        repeated(same, A) when A =:= same -> exact;
+        repeated(Value, Value) -> same;
+        repeated(_, _) -> different.
+
+        guarded(cheap, red) -> first;
+        guarded(cheap, blue) -> second;
+        guarded(costly, Value) when is_atom(Value) -> Value;
+        guarded(_, _) -> reject.
+        """;
+
+    internal static Task Run()
+    {
+        object code = Code(CodeGeneration.CompileBeamModule(Source, Fixture));
+        object[] instructions = Items(code, "Instructions").ToArray();
+        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
+        var selections = Selections("matrix").ToArray();
+        if (selections.Length != 3 || selections[0].Register != 0
+            || !selections[0].Keys.SequenceEqual(["anything", "deep", "smoke", "warn"])
+            || !selections.Any(arm => arm.Register == 1 && arm.Keys.SequenceEqual(["smoke", "warn"]))
+            || !selections.Any(arm => arm.Register == 1 && arm.Keys.SequenceEqual(["deep", "smoke", "warn"])))
+        {
+            throw new InvalidOperationException(SelectionFailure);
+        }
+
+        if (Selections("guarded").Any(arm => arm.Keys.Contains("costly") && arm.Register != 0))
+        {
+            throw new InvalidOperationException(GuardFailure);
+        }
+
+        return Task.CompletedTask;
+
+        IEnumerable<(int Register, string[] Keys)> Selections(string name)
+        {
+            int start = Array.FindIndex(
+                instructions,
+                instruction => Opcode(instruction) == FunctionInfo
+                    && atoms[Value(Items(instruction, "Operands").ElementAt(1))] == name
+            );
+            foreach (object instruction in instructions.Skip(start + 1).TakeWhile(item => Opcode(item) != FunctionInfo))
+            {
+                if (Opcode(instruction) != SelectValue)
+                {
+                    continue;
+                }
+
+                object[] args = Items(instruction, "Operands").ToArray();
+                yield return (
+                    Value(args[0]),
+                    args.Skip(3).Where((_, index) => index % 2 == 0).Select(key => atoms[Value(key)]).ToArray()
+                );
+            }
+        }
+    }
+
+    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
+
+    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
+
+    private static IEnumerable<object> Items(object owner, string name) =>
+        ((IEnumerable)Property(owner, name)).Cast<object>();
+}

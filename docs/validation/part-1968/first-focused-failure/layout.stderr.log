@@ -1,0 +1,11 @@
+Error! Failed to eval: [Pin,Before,After]=init:get_plain_arguments(),
+[begin
+    {beam_file,_,_,_,_,Fs}=beam_disasm:file(P),
+    [{function,reply,1,_,Code}]=[F||F={function,reply,1,_,_}<-Fs],
+    io:format("~s~n",[filename:basename(P)]),
+    [io:format("~w.~n",[I])||I<-Code]
+end||P<-[Pin,Before,After]],halt().D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\part-1968-cold-ownership-diagnosis\beam_terminal_call_projection.beamD:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\part-1968-cold-ownership-diagnosis\before.beamD:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\part-1968-cold-ownership-diagnosis\linked.beam
+
+Runtime terminating during boot ({{not_character,<<91,80,105,110,44,66,101,102,111,114,101,44,65,102,116,101,114,93,61,105,110,105,116,58,103,101,116,95,112,108,97,105,110,95,97,114,103,117,109,101,110,116,115,40,41,44,10,91,98,101,103,105,110,10,32,32,32,32,123,98,101,97,109,95,102,105,108,101,44,95,44,95,44,95,44,95,44,70,115,125,61,98,101,97,109,95,100,105,115,97,115,109,58,102,105,108,101,40,80,41,44,10,32,32,32,32,91,123,102,117,110,99,116,105,111,110,44,114,101,112,108,121,44,49,44,95,44,67,111,100,101,125,93,61,91,70,124,124,70,61,123,102,117,110,99,116,105,111,110,44,114,101,112,108,121,44,49,44,95,44,95,125,60,45,70,115,93,44,10,32,32,32,32,105,111,58,102,111,114,109,97,116,40,34,126,115,126,110,34,44,91,102,105,108,101,110,97,109,101,58,98,97,115,101,110,97,109,101,40,80,41,93,41,44,10,32,32,32,32,91,105,111,58,102,111,114,109,97,116,40,34,126,119,46,126,110,34,44,91,73,93,41,124,124,73,60,45,67,111,100,101,93,10,101,110,100,124,124,80,60,45,91,80,105,110,44,66,101,102,111,114,101,44,65,102,116,101
+
+Crash dump is being written to: D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\parity-inputs-20261118\part-1968-cold-ownership-diagnosis\erl-crash.dump...done

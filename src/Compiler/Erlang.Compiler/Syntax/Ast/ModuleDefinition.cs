@@ -28,11 +28,14 @@ public sealed partial record ModuleDefinition(
     internal IReadOnlyList<(string Name, int Arity)> EunitExports { get; init; } = [];
     internal int EunitAutoExportCount { get; init; }
     internal IReadOnlyList<int> DiameterAccessorLines { get; init; } = [];
+    internal bool HasResolvedDiameterRecordTransform { get; init; }
     internal bool HasGeneratedEunitTest { get; init; }
     internal bool HasOtherCompileOptions { get; init; }
     internal bool DisableModuleOptimization { get; init; }
+    internal bool DisableReceiveOptimization { get; init; }
     internal bool LegacyBeamTables { get; init; }
     internal bool AutomaticInlining { get; init; }
+    internal bool AutomaticInliningDisabled { get; init; }
     internal int? AutomaticInlineSize { get; init; }
     internal string? OnLoadFunction { get; init; }
     internal IReadOnlySet<(string Name, int Arity)> InlineTargets { get; init; } = new HashSet<(string, int)>();

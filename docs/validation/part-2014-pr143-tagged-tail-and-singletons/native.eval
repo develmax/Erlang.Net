@@ -1,0 +1,26 @@
+[D] = init:get_plain_arguments(),
+Scope = [
+    {constructor_singleton_probe,[{init,[id]},{single,[sup]},{mixed,[id]},{other,[id]},
+        {escaped,[id]},{worker,[[arg],[tail]]}]},
+    {tagged_module_tail_apply_fixture,[{one,[{dispatch,erlang,7}]},{one,[#{}]},
+        {two,[{other,8,erlang,9},#{{other,8,erlang,9}=>23}]},{two,[key,#{key=>fallback}]},
+        {two,[missing,#{}]},{two,[key,invalid]},{reordered,[{dispatch,erlang,7},1]},
+        {reordered,[key,#{key=>fallback}]}]}
+],
+lists:foreach(fun({M,Cases}) ->
+    Path=filename:join(D,atom_to_list(M)),
+    {ok,M,Ref}=compile:file(Path++".erl",[binary,deterministic]),
+    {ok,Actual}=file:read_file(Path++".managed.beam"),
+    Run=fun(Tag,Image) ->
+        {module,M}=code:load_binary(M,Tag,Image),
+        Outcomes=[try apply(M,F,Args) of V->{return,V} catch C:R->{C,R} end||{F,Args}<-Cases],
+        true=code:delete(M),
+        _=code:purge(M),
+        Outcomes
+    end,
+    Outcomes=Run("pinned",Ref),
+    Outcomes=Run("managed",Actual),
+    {beam_file,M,_,_,_,Instructions}=beam_disasm:file(Actual),
+    io:format("~0p~n",[{M,Ref=:=Actual,Outcomes}]),
+    [io:format("~0p~n",[F])||{function,N,_,_,_}=F<-Instructions,lists:member(N,[one,two,reordered,local_spec])]
+end,Scope),halt().

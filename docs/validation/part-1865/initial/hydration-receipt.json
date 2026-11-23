@@ -1,0 +1,44 @@
+{
+  "Parent": {
+    "Source": "3ae33d33a3e3c7ca02fd031c7a06c0918f5286389823f9cc97ab4cd0e1356b38",
+    "Paths": 172,
+    "Compiler": "af13b5ef0881526b5bdcbbfc2245d0d0e2279884dffae4340ca5a157cd40daca",
+    "Tests": "15f84342ea61dde6298c941bc2de2cad013df8f19dd30d14638f370ad7de6664",
+    "ParentSource": "b9efc391b8fd4970f78607aa09138a5fc7e35ff953a34c59c3dd2537c6d2e717",
+    "CorpusTool": "e82b07cfafa2ed370e4571bd0e1d1ba472acb77a5387a0ab85e0541bc4ab77a0"
+  },
+  "CandidateChangedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryArgumentCopies.cs": "3d3b8575ac2e95c9bc1d1d46398d317139137b0b797fc0d2f9e61779812ceb0e",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryArgumentFlow.cs": "235b5aef318f2c54e7d66f14aa1e4e95054c6578b43b3c584b258d59b8309101",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralCatch.cs": "940d9ebdab895e71e35d5a533b6fc2ba2e3bc8698768a8127f933455e3a04276",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": "3cc9312e64dfaf611e591f0252adbcbbd08705985a80214386e35862a3bb04ae",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LiteralResultDispatch.cs": "79a5a1765b815a8e46dd0f2d4326e4a0e3cdad089e0a9f82d9ba5883eda277f8",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RegisterPatternCalls.cs": "2b3a6d92d1a5b1626b9546b6f269df1d8f9bbe7339bc548c0f5d60baf6c04876",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.TaggedPayloadEffectTail.cs": "c7f8c4997cb0592df0e985eb405773d213084f7e19ab3314622229492311679b",
+    "tests/Erlang.Tests/Compiler/Beam/BeamKeyFindTupleTypeChecks.cs": "2dce37bee5d06d6849879bd1b32660ecfa8c0c649e6622733c2b52d1bc530c83",
+    "tests/Erlang.Tests/Compiler/Beam/BeamLiteralIdentityDispatchChecks.cs": "40db0997cbc30d28a8e25070490a1f66fc82b5f777f9fed68501bcac83473a53",
+    "tests/Erlang.Tests/Compiler/Beam/BeamModuleEmissionChecks.cs": "ad546af84c27a9f37fabe858110251c15be51cc644c49bf6e2662cf64f687407",
+    "tests/Erlang.Tests/Compiler/Beam/BeamTaggedPayloadFrameChecks.cs": "7e775556944f7c97d5654654b088b68e32758201dfc606e6142fdf910f6df443",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamEntryArgumentMotionDiagnostics.cs": "9323387021d8b49ab62971f08db7496446b53e8b8b32c2f7d34a03f2a42902ad",
+    "tests/Erlang.Tests/Compiler/Beam/Frames/BeamRetainedConstructorAliasChecks.cs": "1e7d81d463be1c1c72cfa4a3449257c08930e71dd63c9119bfc3f77c7e0eb139",
+    "tests/Erlang.Tests/Harness/Program.cs": "acd51b926464648602fcf278b54503ae9b08d8af7c6f26f9ebc9471543b9541e"
+  },
+  "Patches": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\precall-entry-copy-motion-frames\\change.patch",
+      "Hash": "8d3bd5453566072d27a3cb8bbf1c826d6eb420119f07d04984ee190b6c69499d"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\local-1862-keyfind-direct-match\\direct-match-keyfind-tag-proof.patch",
+      "Hash": "4ff9cb73728c894959d7e601601155598f4f2fb3f7f30194bab1848b817541a3"
+    },
+    {
+      "Path": "C:\\Users\\Maksim\\.codex\\worktrees\\beam-tuple-projection-cse\\Erlang.Net\\artifacts\\local-1863-residual-audit\\tagged-payload-effect-tail.patch",
+      "Hash": "77c228f02353f0242487cfb107cf639260594ee2b052ef38189b4947cb552d3a"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\source-proven-tuple-result-types-1864\\literal-result-dispatch\\literal-identity-dispatch.patch",
+      "Hash": "910671dcf9d874ef2029bb1cab6b2f8fd5e631fd51172f58d0b495d2292115b8"
+    }
+  ]
+}

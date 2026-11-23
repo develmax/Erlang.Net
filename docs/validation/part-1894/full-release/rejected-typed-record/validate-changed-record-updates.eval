@@ -1,0 +1,32 @@
+[Manifest,Output]=init:get_plain_arguments(),
+Read=fun(P)->
+  {beam_file,M,E,A,_,Fs}=beam_disasm:file(P),
+  Labels=maps:from_list([{{M,N,Ar},Label}||{function,N,Ar,Label,_}<-Fs]),
+  Fix=fun
+    ({call,Ar,{Local,Fun,Fa}}) when Local=:=M -> {call,Ar,{f,maps:get({Local,Fun,Fa},Labels)}};
+    ({call_only,Ar,{Local,Fun,Fa}}) when Local=:=M -> {call_only,Ar,{f,maps:get({Local,Fun,Fa},Labels)}};
+    ({call_last,Ar,{Local,Fun,Fa},D}) when Local=:=M -> {call_last,Ar,{f,maps:get({Local,Fun,Fa},Labels)},D};
+    ({bif,Op,nofail,Args,Dst}) -> {bif,Op,{f,0},Args,Dst};
+    (I) -> I
+  end,
+  Fns=[{function,N,Ar,Label,lists:map(Fix,Is)} || {function,N,Ar,Label,Is}<-Fs],
+  Lc=1+lists:max([X || {function,_,_,_,Is}<-Fs,{label,X}<-Is]),
+  case lists:any(fun({function,_,_,_,Is})->lists:any(fun(I)->is_tuple(I) andalso element(1,I)=:=update_record end,Is) end, Fns) of
+    false -> {M,no_record_update};
+    true ->
+      V=try beam_validator:validate({M,[{N,Ar}||{N,Ar,_}<-E],A,#{},Fns,Lc},strong) catch C:R->{C,R} end,
+      {M,V}
+  end
+end,
+Pick=fun
+  ({error,[{_,Errors}]}) -> [I||{_,beam_validator,{_,{{update_record,_,_,_,_,_},_,_}}=I}<-Errors];
+  (_) -> []
+end,
+{ok,Raw}=file:read_file(Manifest),
+Paths=[binary:split(L,<<9>>,[global])||L<-binary:split(Raw,<<10>>,[global,trim_all])],
+Path=fun(B)->binary_to_list(string:trim(B)) end,
+Rows=lists:map(fun([R,_,G])->
+  {M,Vs}=Read(Path(G)),
+  case Vs of no_record_update -> {M,skipped}; _ -> {_,Rs}=Read(Path(R)), {M,Rs,Vs,Pick(Vs)} end
+end,Paths),
+ok=file:write_file(Output,[io_lib:format("~0tp.~n",[X])||X<-Rows]),halt().

@@ -1,0 +1,125 @@
+{
+  "OTP": {
+    "Tag": "OTP-29.1.1",
+    "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5"
+  },
+  "Sdk": "10.0.400",
+  "Runtime": "10.0.11",
+  "CompilerSha256": "8565E7131295C2F3BCEB39F69A6F9F8706AF73CDEA5CEBEDB4CFEAC044D324B9",
+  "Patch": {
+    "Base": "isolated PKCS-1 verified compiler",
+    "BaseCompilerSha256": "E16B676879804DF2C55C6232A94161CAFC3634A4C4DD47314F8B19686B98C426",
+    "PatchSha256": "4D0674DDE96132FF6D061677BB6178DB449465A30131C15FAFA59E66FD4C991E",
+    "ExistingInputs": {
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedListDecoder.cs": "D4482CB5C376A7B498A38D3B3986047F93C718EB994B47B6F36A7FCC482395AB",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CountedListPairAccumulator.cs": "75535611FD530CE12C51A6AE3C6ADB7E16CCB6C61FCA4DF2C0BEBD8EB9058AF6",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultOnlySequenceDecoder.cs": "DADEA90FB625F65A4B00573712552A3856211CE3067CE3937FA9877E745E1603",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultPrefixedSequenceDecoder.cs": "C8098269F92AFD8C5D0F369460C973DB0DEB05EF5D270B43F6E62C25320143AB",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultPrefixedSequenceEncoder.cs": "D718AE746D19041209A27FD0DA9D7365D73B3B86FA7A452C7C2192621F7BA421",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": "777ADB7E271BE10BDDD30DB6AEBFA72919B00CB04160C4C14A87390EDE0A1E95",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GuardedClosureDefinitionOrder.cs": "11277F464E75D3C462E4E44DB6A44DFA7A78FBB61CC794F05B0FF6800C7F0D8E",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs": "FFBE4CC8CF3D61E6D90D4200288AC3728CF93702265163FC7F83F50F98501B95"
+    },
+    "ExpectedOutputs": {
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedForeignFieldPairs.cs": "608D926E41C4073572EEE8F0E04046DB52E0BCA809B737D2F1A3FD280F295B82",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedListDecoder.cs": "A41C08808A7329B200ED7300D48924DD2B8B410D1A228F92F0028D4DCFBE4AA8",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CountedListPairAccumulator.cs": "C4F9E528AAD0D5C1C073B2205119250269F79A1FE59D7D420391DB0ABD68E5CD",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultOnlySequenceDecoder.cs": "41DCBD731127B81FCE85F35AFA01E441B080123E2873C564EE34D949713A906A",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultPrefixedSequenceDecoder.cs": "31AE69B3E4BD6AE8F5F6360CA3C54FB039FE96996B56FBB85B7C0A81C933DFD6",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.DefaultPrefixedSequenceEncoder.cs": "E428F5FEF15D9911B9EBE5685016F29BB5B59A21EF279642210CD451E7113BFC",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": "6BD7D657192AFF84F5EEA9A0756259E8346C2C952868798C3438B68D8E67CD30",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GuardedClosureDefinitionOrder.cs": "9E05F1872585DD481F0872D4435E80F58D03EA9D7BD495E7B4DAB31756DBE6D1",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.IntegerCaseDispatch.cs": "4117643614F8C08F63DC731087C5F66140E41783DE977BDDAD1616FE7E5687E5",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.OptionalPairEnumeration.cs": "05CEB1D6552DBA28220B0D08DFEA9B35E6C0B8531079C1C180B9FF71E97751CD",
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs": "9E062BC03AA5F6C5527A43FC1FE0463524BE495011F5ABD7C14CD894AB6D38B9",
+      "tests/Erlang.Tests/Compiler/Beam/BeamCheckedForeignAndEnumeratedRecordsChecks.cs": "2DF847CCEEE418225884520E4446E5059EF64497FB0ECDEEA19EFA84D8887B83",
+      "tests/Erlang.Tests/Compiler/Beam/BeamGuardedClosureDefinitionRunChecks.cs": "E4C7FBDDDA21F0CF07ACE7B2C7D50F14BCDF1BC57DDF7FB1ACD7608C30FB9960"
+    },
+    "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\safecurves-existing-residual-1912\\guarded-closure-definition-runs\\replay-isolated-pkcs-one-semantic\\foreign-record-pairs-and-guarded-closures.patch"
+  },
+  "Corpus": {
+    "Total": 46,
+    "ElapsedSeconds": 171.4964044,
+    "Cache": "Disabled",
+    "Before": {
+      "Equal": 29,
+      "Different": 17,
+      "Unsupported": 0,
+      "SourceRejected": 0
+    },
+    "After": {
+      "Equal": 30,
+      "Different": 16,
+      "Unsupported": 0,
+      "SourceRejected": 0
+    },
+    "RawSectionsGained": 8,
+    "RawSectionsLost": 0,
+    "ChangedModules": 10,
+    "NewExact": [
+      "lib/public_key-1.21.7/ebin/OCSP-2024-08.beam"
+    ],
+    "LostExact": [],
+    "NormalizedFunctionsGained": 46,
+    "NormalizedFunctionsLost": 0
+  },
+  "ExactImage": {
+    "ReferenceSha256": "9041C27DFEFC1E27786E08BEC1437AFC68946C2CD4BF01CB9830602F2F164497",
+    "Sdk": "10.0.400",
+    "Equal": true,
+    "GeneratedSha256": "9041C27DFEFC1E27786E08BEC1437AFC68946C2CD4BF01CB9830602F2F164497",
+    "Seconds": 9.4208121,
+    "Beam": "lib/public_key-1.21.7/ebin/OCSP-2024-08.beam",
+    "Bytes": 98604,
+    "Compiler": "8565E7131295C2F3BCEB39F69A6F9F8706AF73CDEA5CEBEDB4CFEAC044D324B9",
+    "CorpusExit": 0,
+    "SourceGenerated": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/safecurves-existing-residual-1912/guarded-closure-definition-runs/exact.json.generated/lib/public_key-1.21.7/ebin/OCSP-2024-08.beam",
+    "Tool": "074804F59FB7E7A612A632B0D2DC91F5060750F103A7AC0B8B517D5B546BD5DA",
+    "ErlSourceSha256": "464348473DC6C060B041D8920B95F1EB3E3675DDB1DC7B231119F3EC42455FB4"
+  },
+  "Native": {
+    "ElapsedSeconds": 0.3460243,
+    "Outcome": "74 cases, 74 prior matches, 74 candidate matches, 58 round trips, 15 rejected cases.",
+    "Compiler": "8565E7131295C2F3BCEB39F69A6F9F8706AF73CDEA5CEBEDB4CFEAC044D324B9"
+  },
+  "NativeLoad": {
+    "Changed": 10,
+    "Seconds": 0.7258066,
+    "Message": "Loaded 10 reference and 10 generated changed modules."
+  },
+  "Managed": {
+    "ElapsedSeconds": 32.274689,
+    "Compiler": "8565E7131295C2F3BCEB39F69A6F9F8706AF73CDEA5CEBEDB4CFEAC044D324B9",
+    "New": 2
+  },
+  "PreviousAttempts": [
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\safecurves-existing-residual-1912\\tagged-conversion-and-foreign-pair-order\\compiler-build-captured-list.log",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\safecurves-existing-residual-1912\\consecutive-tagged-options-and-enumeration\\compiler-build-captured-list.log",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\safecurves-existing-residual-1912\\two-field-enumerated-pairs\\different-lines.terms",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\parity-inputs-20261118\\safecurves-existing-residual-1912\\foreign-optional-match-locations\\raw-chunks.log"
+  ],
+  "EvidenceSha256": {
+    "expanded.json": "2AD6FAD548B6F6BCC7C0B18D5C3ED18AD574063F99E255BC091344A26F3AE2F1",
+    "expanded.json.timings.json": "0E5FFB21A6DFDD7EF8BCD94DC2026154715B225A7ACC774FF7B8512EDF963D48",
+    "expanded-delta.json": "A7FA1470C3A923AB386AA5A54BBB70E9CBD1256DE86D68CABC13CB1AB3F23EE2",
+    "expanded-normalized": "90E90A2D5E7BDE48D66426924267E8645898253C8A1ABE1EB7E39F48F7B146BD",
+    "expanded-normalized.log": "EC4AA58AA1C13EEFF122EAE57E77950C6F6A67335433ED4ED56E02B8A1F668F9",
+    "focus-retake-delta.json": "5585F46627B73FDACF584129A4C60A28B14E4C646DC54617E46141B6C3B7A98E",
+    "exact-receipt.json": "190C2D6EF5C03D234C85261E9B6820F56E12A812F77F04E42A77FB8C270E9B0B",
+    "native-release-receipt.json": "4883359DF9586DA5789DE9EED3B0777890A8FDA0D02B14E955C8458E8FF29475",
+    "native-scope-loaded-receipt.json": "8A482B52242E04397117A5E3EBE4F8B03D46B8CD4211E795A996054A72D61611",
+    "style-check.log": "BB08B466C0BFDFB9FC2C1B90B9C6457E06E38B3336410FAE7964D8D1C4F32B1F",
+    "replay-isolated-pkcs-one-semantic/capture.json": "9687D826FA0CAAE833E99F5896DE0627DC44013073E53737DCAF57D484DA28A0",
+    "focus-receipt.json": "9C5E54C5B321197EEADA721A0DFD10DED4D72344788891D4A09BBCC3C251BDD1",
+    "fixture-gate.json": "8678E94F6191026693908A31FD3D3E08F3C340CA50D7F23093FF8E517C163D0A",
+    "native-scope-loading.terms": "EB54C0916D6E0FD416E51144D92B130071B6FD8C0B4BF05418691DDEA62DA2EF",
+    "native-release.terms": "1056ABF0E5E7D419EA20A89F948CB05FA4B0615FECA13C900148D29A5B50FD5D",
+    "ocsp-cause-table.md": "C9E8E5CFBBD9C1D0D275EAA35C06997E6D119559C2621C8D97E2D3F6BED21871",
+    "fixtures/guarded/native/order.log": "06859D647F8A0394B97306AAB18E907627F2275F9DC9F24AF0C42C970E27F85E",
+    "replay-isolated-pkcs-one-semantic/foreign-record-pairs-and-guarded-closures.patch": "4D0674DDE96132FF6D061677BB6178DB449465A30131C15FAFA59E66FD4C991E",
+    "fixtures/checked/fixture-Candidate/receipt.json": "3CB7EE38F5670C1E619335A676B8C30600B6A8C0D951565189CA133E9B25F6B2",
+    "fixtures/guarded/fixture-Candidate/receipt.json": "3CB7EE38F5670C1E619335A676B8C30600B6A8C0D951565189CA133E9B25F6B2",
+    "fixtures/checked/fixture-Parent/receipt.json": "364D11E8160DF034FB9FC799F356E65C9609E5A9EBF46F79B5BAEC3D080D1D53",
+    "fixtures/guarded/fixture-Parent/receipt.json": "364D11E8160DF034FB9FC799F356E65C9609E5A9EBF46F79B5BAEC3D080D1D53"
+  }
+}

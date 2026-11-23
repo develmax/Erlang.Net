@@ -1,0 +1,43 @@
+{
+  "Gains": {
+    "ImpT": 2,
+    "Attr": 2,
+    "Code": 2,
+    "Line": 2,
+    "AtU8": 1,
+    "ExpT": 1,
+    "LocT": 1
+  },
+  "Losses": {},
+  "Modules": [
+    {
+      "Module": "ct_hooks_lock",
+      "Gains": [
+        "ImpT"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "megaco_tcp_accept",
+      "Gains": [
+        "Attr",
+        "Code",
+        "Line"
+      ],
+      "Losses": []
+    },
+    {
+      "Module": "wxAcceleratorTable",
+      "Gains": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "ImpT",
+        "Line",
+        "LocT"
+      ],
+      "Losses": []
+    }
+  ]
+}

@@ -1,0 +1,124 @@
+diff --git a/tests/Erlang.Tests/Harness/Program.cs b/tests/Erlang.Tests/Harness/Program.cs
+--- a/tests/Erlang.Tests/Harness/Program.cs
++++ b/tests/Erlang.Tests/Harness/Program.cs
+@@ -12258,6 +12258,7 @@
+ Test(Erlang.Tests.BeamFusedComprehensionTailChecks.TestName, Erlang.Tests.BeamFusedComprehensionTailChecks.Run);
+ Test(Erlang.Tests.BeamGroupedListGuardChecks.TestName, Erlang.Tests.BeamGroupedListGuardChecks.Run);
+ Test(Erlang.Tests.BeamForkedCallListChecks.TestName, Erlang.Tests.BeamForkedCallListChecks.Run);
++Test(Erlang.Tests.BeamNestedTaggedAppendChecks.TestName, Erlang.Tests.BeamNestedTaggedAppendChecks.Run);
+ Test(Erlang.Tests.BeamTupleSizeComparisonChecks.TestName, Erlang.Tests.BeamTupleSizeComparisonChecks.Run);
+ Test(Erlang.Tests.BeamNumberRecordGuardChecks.TestName, Erlang.Tests.BeamNumberRecordGuardChecks.Run);
+ Test(Erlang.Tests.BeamCrossCallNumericComparisonChecks.TestName, Erlang.Tests.BeamCrossCallNumericComparisonChecks.Run);
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamNestedTaggedAppendChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamNestedTaggedAppendChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamNestedTaggedAppendChecks.cs
+@@ -0,0 +1,108 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamNestedTaggedAppendChecks
++{
++    internal const string TestName = "compiler/beam/shares-tagged-list-tests-and-terminal-tuple-values";
++    private const string Module = "beam_nested_tagged_append";
++    private const string ShapeError = "The compiler repeated a tag test or retained a terminal tuple alias.";
++    private const string ContractsError = "The compiler changed the tagged-list or tuple predicate contract.";
++
++    private const string Source = """
++        -module(beam_nested_tagged_append).
++        -export([profiles/1, accept/1, public_profile/2, strict_equal/1]).
++
++        profiles(Input) ->
++            Filtered = [R || R <- Input],
++            [wrap(Filtered)].
++
++        wrap(Filtered) ->
++            Services = reduce(Filtered, []),
++            {chosen, {provider, start, [Services]}, permanent, infinity, supervisor, [provider]}.
++
++        reduce([], Acc) -> [{service,{default,added}}|Acc];
++        reduce([{service,{default,_}}|_]=Profiles, Acc) -> Profiles ++ Acc;
++        reduce([Profile|Profiles], Acc) -> reduce(Profiles, [Profile|Acc]).
++
++        public_profile([], Acc) -> [{service,{default,added}}|Acc];
++        public_profile([{service,{default,_}}|_]=Profiles, Acc) -> Profiles ++ Acc;
++        public_profile([Profile|Profiles], Acc) -> public_profile(Profiles, [Profile|Acc]).
++
++        accept({work,_}) -> true;
++        accept({work,_,_}) -> true;
++        accept(_) -> false.
++
++        strict_equal({work,X,X}) -> true;
++        strict_equal({work,X,X,X}) -> true;
++        strict_equal(_) -> false.
++        """;
++
++    internal static async Task Run()
++    {
++        byte[] compiled = CodeGeneration.CompileBeamModule(Source, Module + ".erl");
++        object code = Code(compiled);
++        object[] instructions = Children(code, "Instructions");
++        string[] atoms = Children(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++        byte[] wrap = Body("wrap").Select(Opcode).ToArray();
++        if (Body("accept").Count(instruction => Opcode(instruction) == GetTupleElement) != 1
++            || Body("strict_equal").Count(instruction => Opcode(instruction) == GetTupleElement) <= 1
++            || Body("reduce").Count(instruction => Opcode(instruction) == IsNonemptyList) != 1
++            || Body("reduce").Any(instruction => Opcode(instruction) == IsNil)
++            || !Body("public_profile").Any(instruction => Opcode(instruction) == IsNil)
++            || !wrap.Zip(wrap.Skip(1)).Any(pair => pair == (PutTuple, PutTuple)))
++        {
++            throw new InvalidOperationException(ShapeError);
++        }
++
++        var module = BeamModule.Prepare(compiled);
++        await using var runtime = new ProcessRuntime();
++        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
++        await actor.InvokeAsync(async context =>
++        {
++            Term work = Term.A("work");
++            Term atom = Term.A("left");
++            Term other = Term.A("right");
++            if (!Term.A("true").Equals(await module.Invoke(context, "accept", Term.Tuple(work, atom)))
++                || !Term.A("true").Equals(await module.Invoke(context, "accept", Term.Tuple(work, atom, other)))
++                || !Term.A("false").Equals(await module.Invoke(context, "strict_equal", Term.Tuple(work, atom, other))))
++            {
++                throw new InvalidOperationException(ContractsError);
++            }
++
++            try
++            {
++                await module.Invoke(
++                    context,
++                    "public_profile",
++                    new Cons(atom, other),
++                    Nil.Value
++                );
++                throw new InvalidOperationException(ContractsError);
++            }
++            catch (ErlangException error) when (error.Reason.Equals(Term.A("function_clause")))
++            {
++                return Nil.Value;
++            }
++        });
++
++        object[] Body(string name)
++        {
++            int start = Array.FindIndex(
++                instructions,
++                instruction => Opcode(instruction) == FunctionInfo
++                && atoms[(int)(BigInteger)Property(Children(instruction, "Operands")[1], "Value")] == name
++            );
++
++            return start < 0 ? [] : instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo).ToArray();
++        }
++    }
++
++    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static object[] Children(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
++}

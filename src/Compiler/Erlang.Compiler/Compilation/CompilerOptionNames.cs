@@ -5,7 +5,14 @@ internal static class CompilerOptionNames
     internal const string NoAutoImportTypes = "no_auto_import_types";
     internal const string SuppressUnsafeFunctionWarning = "nowarn_possibly_unsafe_function";
     public const string DisableSsaOptimization = "no_ssa_opt";
+    internal const string DisableReceiveOptimization = "no_recv_opt";
     internal const string Inline = "inline";
     internal const string NoInline = "no_inline";
+    internal const string InlineListFunctions = "inline_list_funcs";
     internal const string InlineSize = "inline_size";
+    internal const string InlineEffort = "inline_effort";
+    internal const string DisableCoreOptimization = "no_copt";
+    internal const string DisableCoreFolding = "no_fold";
+    internal const string DisableCoreAliases = "no_alias";
+    internal const string BeamDebugInfo = "beam_debug_info";
 }

@@ -1,0 +1,27 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+@@ -1150,9 +1150,10 @@
+         code = CombineTerminalProjectedListHeap(code, labelCount) ?? code;
+         code = ForwardTerminalCallProjections(code, labelCount) ?? code;
+         code = CompactCompletelyTrimmedFrames(code, labelCount) ?? code;
+-        if (ShareMixedTupleCaseReturns(code, labelCount) is { } mixedTupleReturns)
+-        {
+-            (code, labelCount) = mixedTupleReturns;
++        var mixedTupleReturns = ShareMixedTupleCaseReturns(code, labelCount);
++        if (mixedTupleReturns is { } sharedMixedDecision)
++        {
++            (code, labelCount) = sharedMixedDecision;
+             code = OrderTypeOperandsByFirstUse(code, labelCount);
+         }
+         if (removedInteriorRecordFailure)
+@@ -1165,7 +1166,8 @@
+             (code, labelCount) = ordered;
+         }
+ 
+-        if (ownedReceiveFrames is not null && OrderRelocatedEntryTables(code, labelCount) is { } orderedTables)
++        if ((ownedReceiveFrames is not null || mixedTupleReturns is not null)
++            && OrderRelocatedEntryTables(code, labelCount) is { } orderedTables)
+         {
+             code = orderedTables;
+         }

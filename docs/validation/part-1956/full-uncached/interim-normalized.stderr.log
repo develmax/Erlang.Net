@@ -1,0 +1,16 @@
+Error! Failed to eval: [Before,After,Out]=init:get_plain_arguments(),
+{ok,[B]}=file:consult(Before),
+{ok,[A]}=file:consult(After),
+Prior=ordsets:from_list(maps:get(gains,B)),
+Current=ordsets:from_list(maps:get(gains,A)),
+Missing=ordsets:subtract(Prior,Current),
+ok=file:write_file(Out,io_lib:format("~0tp.~n",[#{before_length=>length(Prior),current_length=>length(Current),lost=>Missing}])),
+[]=Missing,
+[]=maps:get(losses,A),
+halt().
+
+
+
+Runtime terminating during boot ({{badmatch,[{"asn1ct_constructed_per.beam",{make_var,1}},{"erl_scan.beam",{lists_foldl_reverse,2}}]},[{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,796}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{init,start_it,1,[{file,"init.erl"},{line,1561}]},{init,start_em,1,[{file,"init.erl"},{line,1546}]},{init,do_boot,3,[{file,"init.erl"},{line,1217}]}]})
+
+Crash dump is being written to: D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/protected-failures-and-shared-match-lifetime-1956-retake/full-diagnostic-crash.dump...done

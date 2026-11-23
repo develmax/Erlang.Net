@@ -1,0 +1,80 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamLocalAtomTupleResultChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamLocalAtomTupleResultChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/BeamLocalAtomTupleResultChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamLocalAtomTupleResultChecks.cs
+@@ -53,8 +53,76 @@
+             throw new InvalidOperationException(WrongType);
+         }
+ 
++        CheckExactTupleResult();
++
+         return Task.CompletedTask;
+     }
++
++    private const string ExactTupleSource = """
++        -module(beam_adjacent_numeric).
++        %% options
++        -export([value/2, choose/2]).
++        value(Tag, Value) ->
++            case choose(Tag, Value) of
++                {ok, Result} -> {selected, Result};
++                _ -> absent
++            end.
++        choose(found, Value) -> {ok, Value};
++        choose(refused, Value) -> erlang:error({refused, Value});
++        choose(_, _) -> absent.
++        """;
++    private const string WrongTupleTest = "An exact local tuple result should retain the fallback through a typed tuple test.";
++
++    private static void CheckExactTupleResult()
++    {
++        byte[] exact = BeamAdjacentNumericResultChecks.Compile(ExactTupleSource);
++        byte[] wrongTag = BeamAdjacentNumericResultChecks.Compile(ExactTupleSource.Replace(
++            "choose(_, _) -> absent.",
++            "choose(other, Value) -> {bad, Value};\nchoose(_, _) -> absent.",
++            StringComparison.Ordinal
++        ));
++        byte[] wrongArity = BeamAdjacentNumericResultChecks.Compile(ExactTupleSource.Replace(
++            "choose(_, _) -> absent.",
++            "choose(other, Value) -> {ok, Value, extra};\nchoose(_, _) -> absent.",
++            StringComparison.Ordinal
++        ));
++        byte[] remote = BeamAdjacentNumericResultChecks.Compile(ExactTupleSource.Replace(
++            "case choose(Tag, Value)",
++            "case beam_adjacent_numeric:choose(Tag, Value)",
++            StringComparison.Ordinal
++        ));
++        byte[] disabled = BeamAdjacentNumericResultChecks.Compile(
++            ExactTupleSource.Replace("%% options", "-compile(no_ssa_opt).", StringComparison.Ordinal),
++            disabled: true
++        );
++
++        if (ReadType(exact) != AtomOrTupleType)
++        {
++            throw new InvalidOperationException(WrongTupleTest);
++        }
++
++        foreach (byte[] control in new byte[][] { wrongTag, wrongArity, remote, disabled })
++        {
++            _ = BeamAdjacentNumericResultChecks.InstructionInputType(
++                control,
++                IsTaggedTuple,
++                1,
++                first: true
++            );
++            if (ReadTypeIfPresent(control) == AtomOrTupleType)
++            {
++                throw new InvalidOperationException(WrongTupleTest);
++            }
++        }
++    }
++
++    private static int? ReadTypeIfPresent(byte[] beam) => BeamAdjacentNumericResultChecks.InstructionInputType(
++        beam,
++        IsTuple,
++        1,
++        first: true,
++        required: false
++    );
+ 
+     private static int? ReadType(byte[] beam) => BeamAdjacentNumericResultChecks.InstructionInputType(
+         beam,

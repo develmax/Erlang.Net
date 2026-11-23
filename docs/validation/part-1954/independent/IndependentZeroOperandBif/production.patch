@@ -1,0 +1,37 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BifResultStores.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BifResultStores.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BifResultStores.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BifResultStores.cs
+@@ -99,7 +99,11 @@
+         }
+ 
+         int call = overwrite + 1;
+-        while (body[call].Definition.Opcode == Line)
++        while (body[call].Definition.Opcode == Line || body[call] is
++            {
++                Definition.Opcode: Move,
++                Operands: [var constant, { Kind: BeamOperandParameters.X, TypeIndex: null } otherArgument]
++            } && IsNonRegisterValue(constant) && otherArgument != result && otherArgument != argument)
+         {
+             call++;
+         }
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.IndependentArgumentMoves.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.IndependentArgumentMoves.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.IndependentArgumentMoves.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.IndependentArgumentMoves.cs
+@@ -227,7 +227,7 @@
+                 constructed = constructor.Definition.Opcode switch
+                 {
+                     PutTuple => constructor.Operands[0],
+-                    PutList => constructor.Operands[^1],
++                    PutList or BifZero => constructor.Operands[^1],
+                     _ => null
+                 };
+                 if (constructed is not { Kind: BeamOperandParameters.X } || constructed.Value >= arity)
+@@ -236,7 +236,7 @@
+                 }
+             }
+ 
+-            // A tuple or list can already occupy an outgoing register. Order only
++            // An instruction can already have defined one outgoing register. Order only
+             // the remaining moves, provided they do not depend on their destinations.
+             // An immediately preceding call can already have supplied X0.
+             var byDestination = new int[arity];

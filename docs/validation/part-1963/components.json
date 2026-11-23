@@ -1,0 +1,38 @@
+{
+  "GuardedBerResult": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/ber-result-liveness-staged",
+    "Patches": [
+      "production.patch",
+      "test.patch"
+    ],
+    "SHA": [
+      "210757062d3ca5675be6a78836697f62993cee64e0d4b820f142aae9a4fd5bab",
+      "5a987f339e402ec5980612c0e3244627c1baec6922371ccef017065cdfc1798d"
+    ],
+    "Report": "scope-candidate.json",
+    "Evidence": [
+      "final-receipt.json"
+    ]
+  },
+  "CommonTaggedEntryProjections": {
+    "Root": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/parity-inputs-20261118/megaco-shared-entry-projections-1963",
+    "Patches": [
+      "production-guard.patch",
+      "test-guard.patch"
+    ],
+    "SHA": [
+      "12c063aa1bfb26e433cc7ecb4484bf4182abd0d0c0e3caef0bdd7d5d51e3ef3f",
+      "aa035ef2a66ab3ce770b54ff3f733594ff524341fe8240ef7afb6abbee29ebf4"
+    ],
+    "Report": "candidate-guard.json",
+    "Evidence": [
+      "receipt.md",
+      "receipt-hashes.json",
+      "candidate-final.json",
+      "guard-cross-scope.json"
+    ],
+    "AdditionalMeasuredScope": [
+      "candidate-final.json"
+    ]
+  }
+}

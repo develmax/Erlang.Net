@@ -1,0 +1,49 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamOuterLiteralRecordEntryChecks.cs b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamOuterLiteralRecordEntryChecks.cs
+--- a/tests/Erlang.Tests/Compiler/Beam/Frames/BeamOuterLiteralRecordEntryChecks.cs
++++ b/tests/Erlang.Tests/Compiler/Beam/Frames/BeamOuterLiteralRecordEntryChecks.cs
+@@ -13,10 +13,11 @@
+     private const string IncorrectDispatch = "Repeated record IDs were treated as disjoint entry arms.";
+     private const string NestedUpdateResult = "Use the checked nested update result directly in the outer update.";
+     private const string EarlyProjection = "Defer the second effect's field read from the already retained record.";
++    private const string DiscardedEffectValue = "Select the finite effect arms without keeping their unused results.";
+     private const string ColumnOrder = "Test the selected constructor fields before the remaining pattern arguments and reuse the consumed selector.";
+     private const string Source = """
+         -module(beam_outer_literal_record_entry).
+-        -export([run/2, overlap/2, ordered/2, update/2]).
++        -export([run/2, overlap/2, ordered/2, update/2, effects/2]).
+         -record(event,{id,body}).
+         -record(command,{kind,item}).
+         -record(state,{data,spare}).
+@@ -55,6 +56,18 @@
+         update(#event{id = 2, body = #command{kind = accept}}, State = #state{}) ->
+             {ok, State};
+         update(#event{}, State = #state{}) ->
++            {unhandled, State}.
++
++        effects(#event{id = 1, body = #command{kind = accept, item = Selector}},
++                State = #state{data = Timer, spare = Target}) ->
++            case Selector of
++                0 -> erlang:cancel_timer(Timer), service:check(Target), ignored;
++                1 -> service:check(Timer), service:check(Target)
++            end,
++            {ok, State};
++        effects(#event{id = 2, body = #command{kind = accept}}, State = #state{}) ->
++            {ok, State};
++        effects(#event{}, State = #state{}) ->
+             {unhandled, State}.
+         """;
+ 
+@@ -118,6 +131,13 @@
+             throw new InvalidOperationException(EarlyProjection);
+         }
+ 
++        object[] effects = Body("effects");
++        if (effects.Count(instruction => Opcode(instruction) == SelectValue) != 2
++            || effects.Count(instruction => Opcode(instruction) == CaseEnd) != 1)
++        {
++            throw new InvalidOperationException(DiscardedEffectValue);
++        }
++
+         bool SelectsIntegerBeforeFrame(string name) => Body(name).TakeWhile(instruction => Opcode(instruction) is not (Allocate or AllocateHeap))
+                 .Any(instruction => Opcode(instruction) == SelectValue
+                     && ((IEnumerable)Property(instruction, "Operands")).Cast<object>()

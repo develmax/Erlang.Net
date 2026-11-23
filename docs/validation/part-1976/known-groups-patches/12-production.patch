@@ -1,0 +1,164 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CallResultTypes.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CallResultTypes.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CallResultTypes.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CallResultTypes.cs
+@@ -160,6 +160,91 @@
+                 constant = projected;
+ 
+                 return true;
++            }
++        }
++
++        private bool HasExactAtomOrTaggedTupleResult(EntryCall selector, Atom tag, int arity)
++        {
++            if (selector.Module is not null || selector.Call is not { Module: null, DynamicRemote: false })
++            {
++                return false;
++            }
++
++            var active = new HashSet<(string Name, int Arity)>();
++            var known = new Dictionary<(string Name, int Arity), int>();
++
++            return Read(selector.Call) == (AtomTypeBits | TupleTypeBits);
++
++            int Read(Expr expression)
++            {
++                switch (expression)
++                {
++                    case Expr.Literal { Value: Atom }:
++                        return AtomTypeBits;
++                    case Expr.Literal { Value: TupleTerm literal }:
++                        return literal.Items.Count == arity && tag.Equals(literal.Items[0]) ? TupleTypeBits : AnyTypeBits;
++                    case Expr.Tuple tuple:
++                        return tuple.Items.Count == arity
++                            && AttributeLiteral.TryNormalizeConstant(tuple.Items[0], out Term first) && tag.Equals(first)
++                            ? TupleTypeBits : AnyTypeBits;
++                    case Expr.RecordConstruction { Wildcard: null } record:
++                        return Read(RecordExpressions.Create(record));
++                    case Expr.Sequence { Items.Count: > 0 } sequence:
++                        return Read(sequence.Items[^1]);
++                    case Expr.Block block:
++                        return Read(block.Body);
++                    case Expr.Match match:
++                        return Read(match.Value);
++                    case Expr.Case decision:
++                        return ReadBranches(decision.Clauses);
++                    case Expr.If decision:
++                        return ReadBranches(decision.Clauses);
++                    case Expr.Call { Module: null, DynamicRemote: false } call
++                        when localFunctions.TryGetValue((call.Function, call.Arguments.Count), out var definition):
++                        var signature = (call.Function, call.Arguments.Count);
++                        if (owner.IsDeclaredNative(signature))
++                        {
++                            return AnyTypeBits;
++                        }
++
++                        if (known.TryGetValue(signature, out int result))
++                        {
++                            return result;
++                        }
++
++                        if (!active.Add(signature))
++                        {
++                            return AnyTypeBits;
++                        }
++
++                        result = ReadBranches(definition.Clauses);
++                        active.Remove(signature);
++                        known.Add(signature, result);
++
++                        return result;
++                    case Expr.Call { Module: null or ErlangModuleNames.Module, DynamicRemote: false } raises
++                        when (raises.Function, raises.Arguments.Count) is
++                            (AutoImportNames.Error, 1 or 2 or 3) or (AutoImportNames.Exit or AutoImportNames.Throw, 1)
++                            && owner.ResolvesErlangBif(raises):
++                        return 0;
++                    default:
++                        return AnyTypeBits;
++                }
++            }
++
++            int ReadBranches(IReadOnlyList<Clause> clauses)
++            {
++                int result = 0;
++                foreach (Clause clause in clauses)
++                {
++                    result |= Read(clause.Body);
++                    if (result == AnyTypeBits)
++                    {
++                        break;
++                    }
++                }
++
++                return result;
+             }
+         }
+ 
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralCatch.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralCatch.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralCatch.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralCatch.cs
+@@ -1229,7 +1229,14 @@
+                 return false;
+             }
+ 
+-            EmitEntryRegisterCase(entry);
++            bool exactTupleTest = owner.SsaTypeInferenceEnabled && !owner.ModuleOptimizationDisabled
++                && owner.OnLoadFunction is null && recursiveClosure is null
++                && parentFunction is { } caller && !owner.IsDeclaredNative((caller.Name, caller.Arity))
++                && clause.Body is Expr.Case { Value: Expr.Call direct } && ReferenceEquals(entry.Read, direct)
++                && entry.Case is { Opcode: IsTaggedTuple, Key: Atom tag, TupleArity: > 0, Tests: null }
++                && HasExactAtomOrTaggedTupleResult(entry.Selector.Call, tag, entry.Case.TupleArity);
++
++            EmitEntryRegisterCase(entry, exactTupleTest: exactTupleTest);
+ 
+             return true;
+         }
+@@ -1773,7 +1780,11 @@
+                 ? sequence with { Items = [match with { Value = SubstituteConstants(match.Value, constants) }, SubstituteConstants(tuple, constants)] }
+                 : SubstituteConstants(body, constants);
+ 
+-        private void EmitEntryRegisterCase(EntryRegisterCase entry, int? preparedCaseFailure = null)
++        private void EmitEntryRegisterCase(
++            EntryRegisterCase entry,
++            int? preparedCaseFailure = null,
++            bool exactTupleTest = false
++        )
+         {
+             int extra = entry.PreserveSelector || entry.ReserveNestedSlot ? 1 : 0;
+             int? matchFailureOperand = null;
+@@ -1806,8 +1817,10 @@
+                 entry.Case,
+                 entry.Selector.FrameSize + extra + entry.CallSequenceSlots - trimmed,
+                 selectorLocation,
+-                RegisterCaseSelectorType(entry.Selector.Call, entry.Case.Opcode == IsTaggedTuple ? IsTuple : entry.Case.Opcode),
+-                preparedCaseFailure
++                exactTupleTest ? AtomTypeBits | TupleTypeBits
++                    : RegisterCaseSelectorType(entry.Selector.Call, entry.Case.Opcode == IsTaggedTuple ? IsTuple : entry.Case.Opcode),
++                preparedCaseFailure,
++                exactTupleTest: exactTupleTest
+             );
+             if (entry.Selector.TaggedPrefix is { } tagged && matchFailureOperand is int operand)
+             {
+@@ -2619,7 +2632,8 @@
+             BeamSourceLocation previous,
+             int selectorType = 0,
+             int? preparedFailure = null,
+-            (RegisterCaseResult Result, int Label)? sharedReturn = null
++            (RegisterCaseResult Result, int Label)? sharedReturn = null,
++            bool exactTupleTest = false
+         )
+         {
+             int selectorLineCount = owner.lineInstructions;
+@@ -2771,7 +2785,12 @@
+ 
+             void EmitTest(RegisterCase test, int next, bool knownTuple = false)
+             {
+-                if (test.KnownTupleTag && test.Opcode == IsTaggedTuple)
++                if (exactTupleTest)
++                {
++                    owner.Op(IsTuple, LabelTag, next);
++                    owner.EmitTypedRegister(0, selectorType);
++                }
++                else if (test.KnownTupleTag && test.Opcode == IsTaggedTuple)
+                 {
+                     if (!knownTuple)
+                     {

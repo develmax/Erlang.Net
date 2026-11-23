@@ -1,0 +1,24 @@
+{
+  "Patches": {
+    "ber-directive-seed-effect.patch": "7bf9bfe77c3ecb730b5cbfa9e65c0f7dd636a28383d4d1d7701d8ecbde063f67",
+    "ber-directive-seed-effect-tests.patch": "31c29ce8a880ec9be1fbf70a912f346f70d4145fb83415181112dff2c33d205c"
+  },
+  "Files": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": {
+      "Before": "9b99b2f37bfd04385d31c947f4d12bf204f4e542c8ddf3bedacf96dc1b251543",
+      "After": "8323db49709367233539b81d9b530f8e071752aed4c3890ce3f10046e3d58805"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.FramelessElementArgument.cs": {
+      "Before": null,
+      "After": "a3c36f08b1512624522eac7bdea1dd66662679cd602b98c7ce2a4c9757fb01a3"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamFramelessElementArgumentChecks.cs": {
+      "Before": null,
+      "After": "a5f6f26d61a5c71dc10f65819a249760aef05ed6945cc18db4ed7ab4413e97ee"
+    },
+    "tests/Erlang.Tests/Harness/Program.cs": {
+      "Before": "702b026bfb931c12ceb93fa08a0dc8bb58aff5fbd6a023edacab6eccd530fd70",
+      "After": "0bedc5173606c0a597bdf1f831651f1ea3ead59853452117b0f7d393f6a8ab5b"
+    }
+  }
+}

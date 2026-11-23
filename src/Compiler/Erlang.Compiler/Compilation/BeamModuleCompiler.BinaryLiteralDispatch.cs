@@ -19,11 +19,11 @@ internal sealed partial class BeamModuleCompiler
         return offset;
     }
 
-    private void EmitBinaryString(ReadOnlySpan<byte> bytes, int failure)
+    private void EmitBinaryString(ReadOnlySpan<byte> bytes, int failure, int context = 0)
     {
         int offset = InternBinaryString(bytes);
         Op(MatchBinaryString, LabelTag, failure);
-        Operand(XRegisterTag, 0);
+        Operand(XRegisterTag, context);
         Operand(BeamWire.UnsignedTag, checked(bytes.Length * BitSyntaxDefaults.BinaryUnit));
         Operand(BeamWire.UnsignedTag, offset);
     }
@@ -257,7 +257,7 @@ internal sealed partial class BeamModuleCompiler
                 register,
                 IntegerTypeBits,
                 0,
-                bytes == 1 ? byte.MaxValue : ushort.MaxValue
+                (1 << (bytes * BitSyntaxDefaults.BinaryUnit)) - 1
             );
             owner.Operand(LabelTag, failure);
             owner.instructions.WriteByte(ExtendedListOperand);

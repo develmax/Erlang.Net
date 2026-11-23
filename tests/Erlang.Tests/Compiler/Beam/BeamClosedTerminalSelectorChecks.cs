@@ -1,0 +1,168 @@
+using System.Collections;
+using System.Numerics;
+using Erlang;
+using Erlang.Compiler;
+using static Erlang.Compiler.BeamEmissionFormat;
+using static Erlang.Tests.BeamBinaryHostAccess;
+
+namespace Erlang.Tests;
+
+internal static class BeamClosedTerminalSelectorChecks
+{
+    internal const string TestName = "compiler/beam/orders-closed-selector-arms-with-a-literal-exit";
+    private const string Fixture = "beam_terminal_selector.erl";
+    private const string WrongLayout = "A closed selector did not order its terminal and local arms as expected.";
+    private const string WrongValue = "A closed selector changed a successful result or its original failure.";
+
+    private const string Source = """
+        -module(beam_terminal_selector).
+        -export([direct/3, prepared/3]).
+
+        direct('Value', Value, _) -> forward(Value,[4]);
+        direct('Params', Value, _) -> forward(Value,[5]);
+        direct(missing, _, _Context) -> exit({absent,missing}).
+
+        prepared('Value', Value, _) ->
+            Prepared = prep(Value),
+            forward(Prepared,[4]);
+        prepared('Params', Value, _) ->
+            Prepared = prep(Value),
+            forward(Prepared,[5]);
+        prepared(missing, _, _) -> exit({absent,missing}).
+
+        prep(Value) -> {prepared,Value}.
+        forward(Value, Tags) -> {Tags,Value}.
+        """;
+
+    internal static async Task Run()
+    {
+        byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
+        byte[] dependentExit = CodeGeneration.CompileBeamModule(
+            Source.Replace(
+                "direct(missing, _, _Context) -> exit({absent,missing})",
+                "direct(missing, _, _Context) -> exit({absent,_Context})",
+                StringComparison.Ordinal
+            ),
+            Fixture
+        );
+        var module = BeamModule.Prepare(image);
+        await using var runtime = new ProcessRuntime();
+        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
+        await actor.InvokeAsync(async context =>
+        {
+            Term sample = Term.A("sample");
+            Term missing = Term.A("missing");
+            Term reason = Term.Tuple(Term.A("absent"), missing);
+            foreach (string entry in new[] { "direct", "prepared" })
+            {
+                Term expected = entry == "direct" ? sample : Term.Tuple(Term.A("prepared"), sample);
+                await Expect(
+                    entry,
+                    "Value",
+                    expected,
+                    4
+                );
+                await Expect(
+                    entry,
+                    "Params",
+                    expected,
+                    5
+                );
+                await Reject(
+                    entry,
+                    missing,
+                    ErlangExceptionClasses.Exit,
+                    reason
+                );
+                await Reject(
+                    entry,
+                    Term.A("unknown"),
+                    ErlangExceptionClasses.Error,
+                    Term.A(ErlangErrorReasons.FunctionClause)
+                );
+            }
+
+            return Nil.Value;
+
+            async Task Expect(
+                string entry,
+                string selector,
+                Term value,
+                int tag
+            )
+            {
+                Term expected = Term.Tuple(Term.List(Term.I(tag)), value);
+                if (!expected.Equals(await module.Invoke(
+                    context,
+                    entry,
+                    Term.A(selector),
+                    sample,
+                    Nil.Value
+                )))
+                {
+                    throw new InvalidOperationException(WrongValue);
+                }
+            }
+
+            async Task Reject(
+                string entry,
+                Term selector,
+                string kind,
+                Term expected
+            )
+            {
+                try
+                {
+                    await module.Invoke(
+                        context,
+                        entry,
+                        selector,
+                        sample,
+                        Nil.Value
+                    );
+                }
+                catch (ErlangException error) when (error.ExceptionClass == kind && error.Reason.Equals(expected))
+                {
+                    return;
+                }
+
+                throw new InvalidOperationException(WrongValue);
+            }
+        });
+
+        if (!StartsWithTerminalArm(image, "direct") || !StartsWithTerminalArm(image, "prepared")
+            || StartsWithTerminalArm(dependentExit, "direct"))
+        {
+            throw new InvalidOperationException(WrongLayout);
+        }
+    }
+
+    private static bool StartsWithTerminalArm(byte[] image, string function)
+    {
+        object code = Code(image);
+        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
+        object[] instructions = Items(code, "Instructions");
+        int start = Array.FindIndex(
+            instructions,
+            instruction => Opcode(instruction) == FunctionInfo
+                && Items(instruction, "Operands") is [_, var name, var arity]
+                && atoms[Value(name)] == function && Value(arity) == 3
+        );
+        if (start < 0)
+        {
+            throw new InvalidOperationException(WrongLayout);
+        }
+
+        object[] body = instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo).ToArray();
+        int selector = Array.FindIndex(body, instruction => Opcode(instruction) == SelectValue);
+
+        return selector >= 0 && body.Skip(selector + 2).TakeWhile(instruction => Opcode(instruction) != BeamEmissionFormat.Label)
+            .Any(instruction => Opcode(instruction) == TailExternalCall);
+    }
+
+    private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");
+
+    private static int Value(object operand) => (int)(BigInteger)Property(operand, "Value");
+
+    private static object[] Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>().ToArray();
+}

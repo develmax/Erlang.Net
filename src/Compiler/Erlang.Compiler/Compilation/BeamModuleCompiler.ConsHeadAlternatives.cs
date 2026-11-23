@@ -8,6 +8,11 @@ internal sealed partial class BeamModuleCompiler
     {
         private bool TryEmitConsHeadAlternatives(FunctionDefinition function, int functionInfo)
         {
+            if (TryEmitConsHeadLiteralDispatch(function, functionInfo))
+            {
+                return true;
+            }
+
             if (function.Arity >= FirstReservedXRegister
                 || function.Clauses is not
                 [

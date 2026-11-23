@@ -1,0 +1,18 @@
+equal=true sha256_reference=62EC041305FB6334FFAD0AD1EDE4A1BC12F79564281D7604F731145BA9F5E6BD sha256_generated=62EC041305FB6334FFAD0AD1EDE4A1BC12F79564281D7604F731145BA9F5E6BD different_chunks=[]
+{function,resolve,1,2,
+          [{label,1},
+           {line,[{location,[],4}]},
+           {func_info,{atom,beam_external_leaf_tail},{atom,resolve},1},
+           {label,2},
+           {test,is_integer,{f,3},[{x,0}]},
+           {test_heap,3,1},
+           {put_tuple2,{x,0},{list,[{atom,ok},{x,0}]}},
+           return,
+           {label,3},
+           {test,is_atom,{f,4},[{x,0}]},
+           {move,{atom,stream},{x,1}},
+           {line,[{location,[],5}]},
+           {call_ext_only,2,{extfunc,leaf_tail_probe,resolve,2}},
+           {label,4},
+           {move,{literal,{error,invalid}},{x,0}},
+           return]}

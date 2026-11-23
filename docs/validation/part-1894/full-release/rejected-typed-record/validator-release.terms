@@ -1,0 +1,17 @@
+{error,[{"megaco_tcp_accept",
+         [{1,beam_validator,
+           {{megaco_tcp_accept,start_link,1},
+            {{bif,self,nofail,[],{x,3}},11,unknown_instruction}}}]}]}.
+{error,[{"megaco_tcp_accept",
+         [{1,beam_validator,
+           {{megaco_tcp_accept,start_link,1},
+            {{bif,self,nofail,[],{x,3}},11,unknown_instruction}}},
+          {1,beam_validator,
+           {{megaco_tcp_accept,do_accept,3},
+            {{update_record,{atom,reuse},
+                            10,
+                            {tr,{x,1},{t_tuple,0,false,#{}}},
+                            {x,0},
+                            {list,[5,{y,2}]}},
+             20,
+             {uninitialized_reg,{x,1}}}}}]}]}.

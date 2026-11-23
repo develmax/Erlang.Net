@@ -1,0 +1,29 @@
+[Image,Report]=init:get_plain_arguments(),
+M=pubkey_translation,
+{ok,Bytes}=file:read_file(Image),
+{module,M}=code:load_binary(M,Image,Bytes),
+Algorithm={1,2,840,113549},
+Key = <<5,1,0>>,
+Public={'SubjectPublicKeyInfo',{'AlgorithmIdentifier',Algorithm,'NULL'},Key},
+Encoded={'SubjectPublicKeyInfo',{'SubjectPublicKeyInfo_algorithm',Algorithm,'NULL'},Key},
+Private={'PrivateKeyInfo',v1,algorithm,<<1>>,[],absent},
+Asymmetric={'OneAsymmetricKey',v1,algorithm,<<1>>,[],absent},
+Encoded=M:encode(Public),
+Public=M:decode(Encoded),
+Asymmetric=M:encode(Private),
+Private=M:decode(Asymmetric),
+{'OneAsymmetricKey',v2,algorithm,<<1>>,[],absent}=Other=setelement(2,Asymmetric,v2),
+Other=M:decode(Other),
+{'DSA-Sig-Value',1,2}=Sig=M:encode({'Dss-Sig-Value',1,2}),
+{'Dss-Sig-Value',1,2}=Decoded=M:decode(Sig),
+{'Extension',sample,boolean,<<1>>}=Extension=M:decode({'OTPExtension',sample,boolean,<<1>>}),
+Malformed={'SubjectPublicKeyInfo',malformed,Key},
+Failure=try M:decode(Malformed) of Value -> error({unexpected,Value})
+        catch error:{badmatch,malformed}:Stack ->
+          [{M,decode,1,Location}|_]=Stack,
+          proplists:get_value(line,Location)
+        end,
+true=is_integer(Failure),
+ok=file:write_file(Report,io_lib:format("~tp.~n",[[Encoded,Public,Asymmetric,Private,Other,Sig,Decoded,Extension,Failure]])),
+halt().
+

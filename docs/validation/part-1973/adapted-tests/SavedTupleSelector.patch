@@ -1,0 +1,85 @@
+diff --git a/tests/Erlang.Tests/Compiler/Beam/BeamSavedTerminalTupleReturnChecks.cs b/tests/Erlang.Tests/Compiler/Beam/BeamSavedTerminalTupleReturnChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Compiler/Beam/BeamSavedTerminalTupleReturnChecks.cs
+@@ -0,0 +1,80 @@
++using System.Collections;
++using System.Numerics;
++using Erlang.Compiler;
++using static Erlang.Compiler.BeamEmissionFormat;
++using static Erlang.Tests.BeamBinaryHostAccess;
++
++namespace Erlang.Tests;
++
++internal static class BeamSavedTerminalTupleReturnChecks
++{
++    internal const string TestName = "compiler/beam/partitions-saved-terminal-tagged-returns";
++    private const string Fixture = "beam_saved_terminal_tuple.erl";
++    private const string WrongPlan = "The saved selector must carry the original tuple and case failure through the earlier effect.";
++
++    private const string Source = """
++        -module(beam_saved_terminal_tuple).
++        -export([choose/2, rewritten/2, varied/2]).
++        -record(backup, {file, temporary, handle}).
++
++        choose(Backup, Answer) ->
++            Saved = beam_saved_terminal_provider:fetch(Backup#backup.handle, Answer),
++            beam_saved_terminal_provider:forget(Backup#backup.temporary),
++            case Saved of
++                ok -> {ok, Backup#backup.file};
++                {error, Reason} -> {error, Reason}
++            end.
++
++        rewritten(Backup, Answer) ->
++            Saved = beam_saved_terminal_provider:fetch(Backup#backup.handle, Answer),
++            beam_saved_terminal_provider:forget(Backup#backup.temporary),
++            case Saved of
++                ok -> {ok, Backup#backup.file};
++                {error, _Reason} -> Saved
++            end.
++
++        varied(Backup, Answer) ->
++            Saved = beam_saved_terminal_provider:fetch(Backup#backup.handle, Answer),
++            beam_saved_terminal_provider:forget(Backup#backup.temporary),
++            case Saved of
++                ok -> {ok, Backup#backup.file};
++                {error, Reason} -> {changed, Reason}
++            end.
++        """;
++
++    internal static void Run()
++    {
++        object code = Code(CodeGeneration.CompileBeamModule(Source, Fixture));
++        object[] instructions = Items(code, "Instructions").ToArray();
++        string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
++
++        if (!Matches("choose", expectedConstructors: 1) || !Matches("rewritten", expectedConstructors: 1)
++            || !Matches("varied", expectedConstructors: 2))
++        {
++            throw new InvalidOperationException(WrongPlan);
++        }
++
++        bool Matches(string name, int expectedConstructors)
++        {
++            int entry = Array.FindIndex(
++                instructions,
++                instruction => Opcode(instruction) == FunctionInfo
++                    && atoms[(int)(BigInteger)Property(Items(instruction, "Operands").ElementAt(1), "Value")] == name
++            );
++            object[] function = instructions.Skip(entry + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo)
++                .ToArray();
++            int selected = Array.FindIndex(function, instruction => Opcode(instruction) == IsTuple);
++            object exit = function.Single(instruction => Opcode(instruction) == CaseEnd);
++
++            return selected >= 0 && Opcode(function[selected + 1]) == IsTaggedTuple
++                && function.Count(instruction => Opcode(instruction) == PutTuple) == expectedConstructors
++                && (string)Property(Items(exit, "Operands").Single(), "Kind") == BeamOperandParameters.Y;
++        }
++    }
++
++    private static byte Opcode(object instruction) =>
++        (byte)Property(Property(instruction, "Definition"), "Opcode");
++
++    private static IEnumerable<object> Items(object owner, string name) =>
++        ((IEnumerable)Property(owner, name)).Cast<object>();
++}

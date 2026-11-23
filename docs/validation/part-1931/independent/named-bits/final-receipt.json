@@ -1,0 +1,102 @@
+{
+  "Scope": "Four generated public_key inputs",
+  "WholeImageGains": 0,
+  "WholeImageLosses": 0,
+  "Normalized": {
+    "EnrollmentMessageSyntax-2009": {
+      "OracleFunctions": 689,
+      "AcceptedEqual": 639,
+      "CandidateEqual": 641,
+      "Gains": [
+        [
+          "encode_bitstring",
+          1
+        ],
+        [
+          "get_all_bitposes",
+          3
+        ]
+      ],
+      "Losses": []
+    },
+    "PKIX1Implicit-2009": {
+      "OracleFunctions": 412,
+      "AcceptedEqual": 380,
+      "CandidateEqual": 382,
+      "Gains": [
+        [
+          "encode_bitstring",
+          1
+        ],
+        [
+          "get_all_bitposes",
+          3
+        ]
+      ],
+      "Losses": []
+    },
+    "PKIXAttributeCertificate-2009": {
+      "OracleFunctions": 341,
+      "AcceptedEqual": 312,
+      "CandidateEqual": 314,
+      "Gains": [
+        [
+          "encode_bitstring",
+          1
+        ],
+        [
+          "get_all_bitposes",
+          3
+        ]
+      ],
+      "Losses": []
+    },
+    "PKIXCMP-2023": {
+      "OracleFunctions": 474,
+      "AcceptedEqual": 440,
+      "CandidateEqual": 442,
+      "Gains": [
+        [
+          "encode_bitstring",
+          1
+        ],
+        [
+          "get_all_bitposes",
+          3
+        ]
+      ],
+      "Losses": []
+    }
+  },
+  "NormalizedGains": 8,
+  "NormalizedLosses": 0,
+  "NativePassed": 87,
+  "NativeCases": {
+    "'PKIXAttributeCertificate-2009'/'ClassList'": 19,
+    "'PKIX1Implicit-2009'/'KeyUsage'": 19,
+    "'PKIX1Implicit-2009'/'ReasonFlags'": 19,
+    "'PKIXCMP-2023'/'PKIFailureInfo'": 19,
+    "'EnrollmentMessageSyntax-2009'/'GetCRL'": 11
+  },
+  "Compiler": "C918199574344400663513D3D56F4D31765BF33092FAFCA0DEDC0A03F09BA28E",
+  "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+  "CandidateImagesReproducedAfterFormatting": true,
+  "EvidenceSha256": {
+    "intake.json": "f14d21b9300a87f3294a7bb3ac73e36fad23fbb665319a410612ff89b335cd73",
+    "named-bits.patch": "20a4e62e4df32cc916beffb3f51a5490cb7c73982b6450af247f5ecdfeac5e78",
+    "patch-source-identities.json": "6fe176856b3c823a566d967552ad82491b411c59a5ff1bff52f2ca30026c0c4e",
+    "strict-patch-replay.json": "61aed02bfaba52da66f4e4fcc60e8aa71dffc24049def4320ffdf50e0205f147",
+    "complete-build-source-identities.json": "ec227268bcaade4d2fbe6b5f8deadca4cf1effbb7dcc3a87b3159c1dbff8fe57",
+    "compiler-build.log": "5ab464af23d40571e9bc8e68e981fc8d812de1443e66779946bbeee178f67394",
+    "style-final-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "historical-normalized.log": "320e3b3cae89a31f0c762f7c5cf6bcce4c688a4d73f04960b933bff197ca9be4",
+    "historical-native.log": "5b3e7013c1b8712275902edc8a5b51bb1e64bcfaa8004beeb6b34827c37542ba",
+    "historical-native-differences.log": "92f26fde7c8fe5c0566b69e10f41e027e5d1cd168da0aba193a0181930c96e79",
+    "historical-trace.log": "71e798e805690eec5584cc7a44f800c00909d0419de9f2e3fc55692d3372616c",
+    "final/candidate-corpus.json": "f16834fc0a0ee03bb22321ca957a42212c623d0594edcecd1e0fdf99a40403b6",
+    "final/candidate-identities.json": "3c8ff6d46d83c90c863d81d003c1dfdcc6f4bd95d545f8e8215a8a8f4de4e184",
+    "final/candidate-normalized.log": "830eea69c77c98d809c21c39488f6ff0094eeaef7ef568329df91a41ced57821",
+    "native-expanded.eval": "d1af539d792c2d8da346e9c3d5ec3b3d9513b09778e6021935a7d2040a9508f5",
+    "final/candidate-native.log": "521e10dc681d8fc38ce2a8db64059c2b4703be8f5dc7f2173259bdd0cdcf9437"
+  }
+}

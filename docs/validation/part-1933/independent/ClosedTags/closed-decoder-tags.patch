@@ -1,0 +1,80 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LocalConstantArguments.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LocalConstantArguments.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LocalConstantArguments.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.LocalConstantArguments.cs
+@@ -148,6 +148,36 @@
+         }).ToArray();
+     }
+ 
++    private sealed partial class GeneralEmitter
++    {
++        private Term? ReadClosedSingletonArgument(FunctionDefinition function, int register)
++        {
++            if (owner.OnLoadFunction is not null || owner.IsDeclaredNative((function.Name, function.Arity)))
++            {
++                return null;
++            }
++
++            Term? value = null;
++
++            return HasOnlyLocalCalls(
++                function,
++                function.Arity,
++                (_, call) =>
++            {
++                if (ReadLocalSingletonArgument(call.Arguments[register]) is not { } argument
++                    || value is not null && !value.Equals(argument))
++                {
++                    return false;
++                }
++
++                value = argument;
++
++                return true;
++            }
++            ) ? value : null;
++        }
++    }
++
+     private static Term? ReadLocalSingletonArgument(Expr argument) => argument switch
+     {
+         Expr.Literal { Value: Atom or Nil } literal => literal.Value,
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.MeasuredBinaryContextDecode.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.MeasuredBinaryContextDecode.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.MeasuredBinaryContextDecode.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.MeasuredBinaryContextDecode.cs
+@@ -129,19 +129,29 @@
+ 
+             int nonempty = Label();
+             int invalid = Label();
+-            EmitFrameAllocation(3, 1);
++            var knownTags = ReadClosedSingletonArgument(function, 2);
++            EmitFrameAllocation(knownTags is null ? 3 : 2, 1);
+             owner.MoveRegister(
+                 XRegisterTag,
+                 1,
+                 YRegisterTag,
+                 0
+             );
+-            owner.MoveRegister(
+-                XRegisterTag,
+-                2,
+-                XRegisterTag,
+-                1
+-            );
++            if (knownTags is null)
++            {
++                owner.MoveRegister(
++                    XRegisterTag,
++                    2,
++                    XRegisterTag,
++                    1
++                );
++            }
++            else
++            {
++                owner.EmitConstant(knownTags, 1);
++            }
++
++
+             owner.EmitCallLine(plan.Collect, location);
+             owner.EmitFieldCall(2, plan.CollectEntry);
+             EmitBitMatchStart(1, invalid, knownBinary: true);

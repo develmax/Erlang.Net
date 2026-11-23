@@ -1,0 +1,15 @@
+[Main,Provider,Output]=init:get_plain_arguments(),
+{module,beam_projected_fallthrough}=code:load_abs(Main),
+{module,beam_return_provider}=code:load_abs(Provider),
+M=beam_projected_fallthrough,
+Inputs=[{lookup_error,{error,denied},unexpected},{ok,yes,{ok,user}},
+        {repaired,yes,{repaired,user,discarded,discarded}},
+        {open_error,yes,{error,denied}},{invalid,yes,invalid}],
+Results=[begin put(lookup,Lookup),put(open,Open),
+    R=try apply(M,F,[input]) of V->{ok,V}
+      catch Class:Reason:Stack -> [{M,F,_,_}|_]=Stack,{Class,Reason} end,
+    Moves=[receive X->X after 0->done end,receive Y->Y after 0->done end],
+    {F,Case,R,Moves}
+ end||F<-[same,different],{Case,Lookup,Open}<-Inputs],
+ok=file:write_file(Output,term_to_binary(Results,[deterministic])),
+io:format("~p cases~n",[length(Results)]),halt(0).

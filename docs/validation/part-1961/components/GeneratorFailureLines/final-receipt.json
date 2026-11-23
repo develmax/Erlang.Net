@@ -1,0 +1,230 @@
+{
+  "Reference": {
+    "Tag": "OTP-29.1.1",
+    "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5"
+  },
+  "PinnedPasses": {
+    "ArgumentSource": "lib/compiler/src/v3_core.erl lc_tq1/5 and bad_generator_common/3",
+    "PhysicalLineDedup": "lib/compiler/src/beam_z.erl remove_redundant_lines_1/2"
+  },
+  "Parent": "Part2004",
+  "BaselineCompiler": "9932a81c42ae67cb24ae6b36d08285513dbd564711cfccad7892c9f014f9018f",
+  "CandidateCompiler": "8743bbfff64a7dc7b1cc3ecabe52d1b011b4506623e6a2af5c8f11511e51e5b9",
+  "CompilerSourceCount": 910,
+  "CompilerSourceInputs": "ae51b1a49e2d218242b3d03ac10aba8d50706a854ae70ee7b16a2096855fad77",
+  "SDK": "10.0.400",
+  "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+  "Test": "135cc88259fff452f31f577534e61927f1ba955bb7b9af13a0aed3cac0f047b1",
+  "TestExit": {
+    "Baseline": 1,
+    "Candidate": 0
+  },
+  "Scope": {
+    "Different": 21,
+    "Equal": 18
+  },
+  "ScopeMilliseconds": 61261.189,
+  "WholeFileGains": 0,
+  "WholeFileLosses": 0,
+  "NormalizedWithLineGains": 1,
+  "NormalizedWithLineLosses": 0,
+  "ChangedInstructions": "One added Line per affected generated helper, five helpers in four images",
+  "ActiveFailureLines": "Four existing OTP failure tails agree. OTP eliminates the fallback of ct_logs logger/4.",
+  "FocusedNativeOutcomes": 8,
+  "NativeWxInsertCalls": 51,
+  "NativeLoadPreparations": 12,
+  "CandidateScope": "Separate uncached scoped run. Full-corpus acceptance and full validation gate pending.",
+  "Physical": {
+    "lib/common_test-1.31.2/ebin/ct_logs.beam": {
+      "Changed": [
+        "Attr",
+        "Code",
+        "FunT",
+        "Line"
+      ],
+      "BeforeVsPinned": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "FunT",
+        "ImpT",
+        "Line",
+        "LitT",
+        "LocT",
+        "Type"
+      ],
+      "AfterVsPinned": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "FunT",
+        "ImpT",
+        "Line",
+        "LitT",
+        "LocT",
+        "Type"
+      ],
+      "CodeBytesBefore": 42765,
+      "CodeBytesAfter": 42771
+    },
+    "lib/stdlib-8.1/ebin/beam_lib.beam": {
+      "Changed": [
+        "Attr",
+        "Code",
+        "FunT",
+        "Line"
+      ],
+      "BeforeVsPinned": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "FunT",
+        "ImpT",
+        "Line",
+        "LitT",
+        "LocT",
+        "Type"
+      ],
+      "AfterVsPinned": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "FunT",
+        "ImpT",
+        "Line",
+        "LitT",
+        "LocT",
+        "Type"
+      ],
+      "CodeBytesBefore": 16744,
+      "CodeBytesAfter": 16747
+    },
+    "lib/stdlib-8.1/ebin/zip.beam": {
+      "Changed": [
+        "Attr",
+        "Code",
+        "FunT",
+        "Line"
+      ],
+      "BeforeVsPinned": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "FunT",
+        "ImpT",
+        "Line",
+        "LitT",
+        "LocT",
+        "StrT",
+        "Type"
+      ],
+      "AfterVsPinned": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "FunT",
+        "ImpT",
+        "Line",
+        "LitT",
+        "LocT",
+        "StrT",
+        "Type"
+      ],
+      "CodeBytesBefore": 32302,
+      "CodeBytesAfter": 32305
+    },
+    "lib/wx-2.7/doc/examples/demo/ex_listCtrl.beam": {
+      "Changed": [
+        "Attr",
+        "Code",
+        "FunT",
+        "Line"
+      ],
+      "BeforeVsPinned": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "FunT",
+        "Line",
+        "LocT",
+        "Type"
+      ],
+      "AfterVsPinned": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "FunT",
+        "LocT",
+        "Type"
+      ],
+      "CodeBytesBefore": 2153,
+      "CodeBytesAfter": 2155
+    }
+  },
+  "Strict": {
+    "Patches": {
+      "production.patch": "e1383544cbb52624eef517b03c114ba19747bbf1c8c38843eb8f90bc98702771",
+      "test.patch": "96081ccda58ba8c748ae672d57dc5eede25856d6a230ea0f56baf1720763b34e"
+    },
+    "Files": {
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RecursiveListComprehensions.cs": {
+        "Before": "8390482c79f10c9e44230d30c2b415c2cf216371c131812a20421160967c9169",
+        "After": "a5e3b9e18adc4de6293e48a933e54e56df5910bf5be2de42bd98ee700f48d47d"
+      },
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ListPrefixTailCall.cs": {
+        "Before": "79c12f50074615a9deec8cfc98d1b717d0383758b13cc447d6c896d75cc71eaf",
+        "After": "c80c75c34266bbeafcf6890e90ae0ce830e129325b59e497659c063d03b9d791"
+      },
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": {
+        "Before": "a3e8dd2de40b3de4ac4db3fa1c5bcced01fb9844abd2eb08c96ed59939699ead",
+        "After": "aaebffdf3b644f435ef2f1c5e713daa6542f5baa8db87c262996542e81135202"
+      },
+      "tests/Erlang.Tests/Harness/Program.cs": {
+        "Before": "429311c782e061bcadd9c189d057a8542e871a9f4f1cecb1302c44bc746a6079",
+        "After": "c46549114df2413650911f762e85d67fca41d78e0792b69474e1875f57185b37"
+      },
+      "tests/Erlang.Tests/Compiler/Beam/BeamListGeneratorErrorLineChecks.cs": {
+        "Before": null,
+        "After": "c40b7827c54438f329f4ee48e8f9463c038a58b82cfdbbd21919feeac33edd30"
+      }
+    }
+  },
+  "Evidence": {
+    "strict-replay.json": "21dbffd1c525bc335278653b5b5628531c3cbc10e9c25548c8d2542dc6ff26ec",
+    "scope-second.log": "7e74cd8a329fb42fb5070fab822a0a2de1fbf736f0ab680c7c08bff11dc96751",
+    "scope-second.json": "b63c7b25b11d25b0dab0abc2286d9c3a6ff4fd27ed55c30d661e1bc519a18f96",
+    "scope-second.json.timings.json": "045024b5f21de6c7e0a9846a5bc22848fbe71df6c86d535ba0d5844afc6bd455",
+    "scope-second-delta.json": "d06faba50a7ef033fbf0123eebf769ccb4c644373f8d57b2e953650f9f88cf80",
+    "changed-audit-final.eval": "8ebfbd5934e3cf921d0812432d70b0b7543c5bd99200ddf502d4f82a660a6282",
+    "changed-audit-final.terms": "22f646cc6327954b401a8d83c78205f0412312b0b1e9476a3fd279bc7fd71ddc",
+    "pinned-line-audit.terms": "0f9802f18977b010da05cb1868c65a02eaa5f8d16800125f65ce8d58146e725a",
+    "pinned-line-audit.eval": "8a0eac874db469e1626955553483a31cb7636d9cc8c0226b323b87d33910dc2a",
+    "rank-opcode-differences.eval": "45d2567badf01109bb469fcd9985485af71d741fbf91b0a98454da7b1aed82eb",
+    "rank-scope-second.terms": "f61082b1a25f5e47e6a7a425e90b6df1c6472d3a48a0aefa20d5df8221b94296",
+    "compiler-second-build.log": "a1473f4d61061e2c613d6176d43f705b087a7ad9097ba4bb4a6e925b9d1079ec",
+    "compiler-second-build.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sdk-test-style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "focused-red.stderr.log": "0bc2939bbb58eaf57360e1e4e890652dc064795bf720a486d139397f8ef21723",
+    "focused-green.log": "59684e56c9ca532eab970420b8a3da957feceda1d388399bdde1fcc56b684ac3",
+    "native/probe-fixed.eval": "a5e88e466a2106ef8f9d9573ec93cf7114a8a6c4f8df676485451ef7efcf03fb",
+    "native/pinned-fixed.terms": "e36bbbb4c1f6182997164b44b46daada70b5be38012c109f421510cd6539ed4b",
+    "native/parent.terms": "184dae2112b0d4c13c9ad66c8d81e284a549b959703b7ef82c196035b967d3c5",
+    "native/second.terms": "e36bbbb4c1f6182997164b44b46daada70b5be38012c109f421510cd6539ed4b",
+    "native/list-wx.terms": "753030c08c8c95ede21cce06ee359d66543184034e1c1bc547d2dc3c73b12d27",
+    "scope-new.json": "18d2f9428ca1badec7b35353e9ec16a3878a8e7f6ad0898cf470b0b8d99b35c2",
+    "probe-candidate-disasm.terms": "0fb200bc3c20d8362a2c778d9d6c6254cac57bd49ec57568e2cf24e3e2bf7369",
+    "probe-parent-disasm.terms": "7b8e05b35edfb7c17d86d0112c1326f191d269e48f86a668ca07af6674a186c6",
+    "probe-second-disasm.terms": "fe824ad4c5062bc1d9d8ddd9a379a25c415b71f2ceb3e51f968e38bbe6991901",
+    "native/pinned.stderr.log": "71e4ab694b463a8f28791f2734863cbe23baaf428aba51c9e69d0cd4b9e19610",
+    "changed-audit.stderr.log": "30e105ba02914176822f75b4ee0eb171fe634568d0118aa3e7644da94343a5b4",
+    "changed-audit-fixed.stderr.log": "164a080c2b40471506159b349099f48eedf8efe34a6ee0f028483474a9fd7683"
+  }
+}

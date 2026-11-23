@@ -1,0 +1,376 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -3239,19 +3239,37 @@
+                 return false;
+             }
+ 
++            if (TryEmitBoundedSelectedPairDecoder(
++                sequence.Items,
++                first,
++                second,
++                list,
++                read
++            ))
++            {
++                return true;
++            }
++
+             var suffix = sequence.Items.Skip(1).SelectMany(LocalFunctionEntries.Walk).ToArray();
+             if (UsesDecoderBinding(suffix, first.Name) || UsesDecoderBinding(suffix, second.Name))
+             {
+                 return false;
+             }
+ 
+-            if (TryEmitDefaultPrefixedSequenceDecoder(
++            if (TryEmitPreparedOptionalFields(
+                 sequence.Items,
+                 first,
+                 second,
+                 list,
+                 read
+             )
++                || TryEmitDefaultPrefixedSequenceDecoder(
++                    sequence.Items,
++                    first,
++                    second,
++                    list,
++                    read
++                )
+                 || TryEmitFilteredNamedSequenceDecoder(
+                     sequence.Items,
+                     first,
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SortedOptionalPairDecoder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SortedOptionalPairDecoder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SortedOptionalPairDecoder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SortedOptionalPairDecoder.cs
+@@ -364,6 +364,112 @@
+             // A failed nonempty-list test on the proven projection can only see nil.
+             owner.Op(BadMatch, AtomTag, NilAtomIndex);
+             ListFailureCount = 1;
++
++            return true;
++        }
++
++        private bool TryEmitPreparedOptionalFields(
++            IReadOnlyList<Expr> items,
++            Pattern.Variable first,
++            Pattern.Variable second,
++            Pattern.Variable list,
++            Expr.Call read
++        )
++        {
++            if (!owner.SsaTypeInferenceEnabled || owner.ModuleOptimizationDisabled || recursiveClosure is not null
++                || items is not
++                [
++                    _, .., Expr.Case tailCheck,
++                    Expr.Match
++                {
++                    Pattern: Pattern.Variable output,
++                    Value: Expr.Tuple { Items: [Expr.Literal { Value: Atom record }, ..] and var values }
++                },
++                    Expr.Variable returned
++                ]
++                || values.Count < 4 || items.Count != values.Count + 3 || returned.Name != output.Name
++                || !DistinctBindings(
++                    first,
++                    second,
++                    list,
++                    output
++                )
++                || !entries.TryGetValue((read.Function, 2), out int reader))
++            {
++                return false;
++            }
++
++            HashSet<string> bound = new(StringComparer.Ordinal) { first.Name, second.Name, list.Name, output.Name };
++            var fields = new List<OptionalDecode>();
++            string remainder = list.Name;
++            for (int index = 0; index < values.Count - 1; index++)
++            {
++                if (items[index + 1] is not Expr.Match
++                    {
++                        Pattern: Pattern.Tuple { Items: [Pattern.Variable value, Pattern.Variable tail] },
++                        Value: Expr.Case decision
++                    }
++                    || values[index + 1] is not Expr.Variable actual || actual.Name != value.Name
++                    || !DistinctBindings(value, tail) || !bound.Add(value.Name) || !bound.Add(tail.Name)
++                    || ReadOptionalDecode(
++                        decision,
++                        remainder,
++                        bound,
++                        allowMeasurement: true
++                    ) is not { Call: { Module: null, Tags: Nil, Convert: null } } field)
++                {
++                    return false;
++                }
++
++                fields.Add(field);
++                remainder = tail.Name;
++            }
++
++            if (!fields.Any(field => field.Measurement is not null)
++                || ReadTableUnexpectedFields(tailCheck, remainder) is not { } extra)
++            {
++                return false;
++            }
++
++            int frame = fields.Count + 1;
++            EmitGeneralFrame(2, slots: frame);
++            owner.EmitCallLine(read, location);
++            owner.EmitFieldCall(2, reader);
++            var previous = CallLocation(read, location);
++            owner.MoveRegister(
++                XRegisterTag,
++                0,
++                YRegisterTag,
++                frame - 1
++            );
++            var slots = new List<int>();
++            for (int index = 0; index < fields.Count; index++)
++            {
++                int source = frame - 1 - index;
++                bool terminal = index == fields.Count - 1;
++                previous = EmitSortedOptionalField(
++                    fields[index],
++                    source,
++                    sourceInX: index == 0,
++                    tail: source - 1,
++                    result: terminal ? null : source,
++                    frame,
++                    previous
++                );
++                if (!terminal)
++                {
++                    slots.Add(source);
++                }
++            }
++
++            EmitSortedOptionalRecord(
++                record,
++                slots,
++                extra,
++                frame,
++                previous,
++                properList: false
++            );
+ 
+             return true;
+         }
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SelectedRecordSequenceDecoder.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SelectedRecordSequenceDecoder.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SelectedRecordSequenceDecoder.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.SelectedRecordSequenceDecoder.cs
+@@ -6,6 +6,214 @@
+ {
+     private sealed partial class GeneralEmitter
+     {
++        private bool TryEmitBoundedSelectedPairDecoder(
++            IReadOnlyList<Expr> items,
++            Pattern.Variable input,
++            Pattern.Variable tags,
++            Pattern.Variable parsed,
++            Expr.Call match
++        )
++        {
++            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled || recursiveClosure is not null
++                || items is not
++                [
++                    _, var firstSplit, var firstRead, var secondSplit,
++                    Expr.Match { Pattern: Pattern.Variable raw },
++                    Expr.Match
++                {
++                    Pattern: Pattern.Variable callback,
++                    Value: Expr.Call { Module: not null, DynamicRemote: false, Arguments: [Expr.Variable key] } select
++                },
++                    Expr.Match { Pattern: Pattern.Variable value, Value: Expr.Try invoke },
++                    Expr.Case tailCheck,
++                    Expr.Match
++                {
++                    Pattern: Pattern.Variable output,
++                    Value: Expr.Tuple
++                    {
++                        Items: [Expr.Literal { Value: Atom tag }, Expr.Variable firstResult, Expr.Variable secondResult]
++                    }
++                },
++                    Expr.Variable returned
++                ]
++                || returned.Name != output.Name || value.Name != secondResult.Name || key.Name != firstResult.Name
++                || !DistinctBindings(
++                    input,
++                    tags,
++                    parsed,
++                    output,
++                    callback,
++                    value
++                )
++                || !owner.IsLocalExportInvocation(select)
++                || !entries.TryGetValue((match.Function, 2), out int matcher))
++            {
++                return false;
++            }
++
++            HashSet<string> bound = new(StringComparer.Ordinal)
++            {
++                input.Name, tags.Name, parsed.Name, output.Name, callback.Name, value.Name
++            };
++            if (ReadRequiredPart(
++                firstSplit,
++                firstRead,
++                parsed.Name,
++                firstResult,
++                bound
++            ) is not { } first
++                || ReadRequiredPart(
++                    secondSplit,
++                    items[4],
++                    first.Rest.Name,
++                    new Expr.Variable(raw.Name),
++                    bound
++                ) is not { } second
++                || ReadSequenceCall(second.Read, second.Payload.Name) is not { } opened
++                || ReadSequenceBounds(first.Read, first.Payload.Name, bound) is not { } bounded
++                || !IsDecoderIntrinsic(bounded.Bounds.Exit)
++                || first.Read is not Expr.Block
++                {
++                    Body: Expr.Sequence { Items: [Expr.Match { Pattern: Pattern.Variable boundedValue }, _] }
++                }
++                || !bound.Add(boundedValue.Name)
++                || ReadTableDecodeTry(
++                    invoke,
++                    raw.Name,
++                    callback.Name,
++                    bound
++                ) is not { } caught
++                || ReadTableUnexpectedFields(tailCheck, second.Rest.Name) is not { } unexpected)
++            {
++                return false;
++            }
++
++            const int frame = 4;
++            const int openValue = 0;
++            const int finalTail = 1;
++            const int decodedKey = 2;
++            const int firstTail = 3;
++            int extra = Label();
++            int handler = Label();
++            int report = Label();
++            int reraise = Label();
++            int rangeFailure = Label();
++            int badSecond = Label();
++            int badFirst = Label();
++            EmitGeneralFrame(2, slots: frame);
++            BeamSourceLocation previous = location;
++            EmitLocal(match, matcher);
++            Split(
++                XRegisterTag,
++                0,
++                firstTail,
++                badFirst
++            );
++            owner.EmitConstant(bounded.Read.Options, 1);
++            EmitLocal(bounded.Read.Call, bounded.Read.Entry);
++            Save(decodedKey);
++            EmitRangeTests(
++                bounded.Read.Call,
++                bounded.Bounds,
++                rangeFailure,
++                provenInteger: true
++            );
++            Split(
++                YRegisterTag,
++                firstTail,
++                finalTail,
++                badSecond
++            );
++            owner.EmitConstant(opened.Options, 1);
++            owner.InitStackSlot(firstTail);
++            EmitLocal(opened.Call, opened.Entry);
++            Save(openValue);
++            owner.MoveToX0(YRegisterTag, decodedKey);
++            owner.EmitCallLine(select, previous);
++            Call(select.Module, select.Function, 1);
++            previous = CallLocation(select, previous);
++
++            owner.Op(TryEnter, YRegisterTag, firstTail);
++            owner.Operand(LabelTag, handler);
++            owner.EmitConstant(caught.Options, 2);
++            owner.MoveRegister(
++                YRegisterTag,
++                openValue,
++                XRegisterTag,
++                1
++            );
++            owner.MoveRegister(
++                XRegisterTag,
++                0,
++                XRegisterTag,
++                3
++            );
++            owner.InitStackSlot(openValue);
++            owner.EmitConstant(caught.Field, 0);
++            owner.EmitArithmeticLine(caught.Apply.SourceLine, ref previous);
++            owner.Op(CallFun, BeamWire.UnsignedTag, 3);
++            owner.Op(TryEnd, YRegisterTag, firstTail);
++            owner.EmitNilTest(YRegisterTag, finalTail, extra);
++            owner.Op(TestHeap, BeamWire.UnsignedTag, 4);
++            owner.Operand(BeamWire.UnsignedTag, 1);
++            owner.EmitTupleHeader(XRegisterTag, 3);
++            owner.LiteralOperand(tag);
++            owner.Operand(YRegisterTag, decodedKey);
++            owner.Operand(XRegisterTag, 0);
++            owner.EmitFrameReturn(frame);
++
++            Mark(extra);
++            EmitCheckedDecoderTailExit(
++                unexpected.Exit,
++                [unexpected.ErrorTag, unexpected.DetailsTag, unexpected.UnexpectedTag],
++                YRegisterTag,
++                finalTail,
++                frame
++            );
++            EmitTableCallbackCatch(
++                caught,
++                firstTail,
++                frame,
++                handler,
++                report,
++                reraise,
++                previous
++            );
++            Mark(rangeFailure);
++            EmitRangeExit(bounded.Bounds, CallLocation(bounded.Bounds.Exit, location), frame);
++            EmitDecoderFailures([(badFirst, null, first.Split), (badSecond, firstTail, second.Split)]);
++
++            return true;
++
++            void EmitLocal(Expr.Call call, int entry)
++            {
++                owner.EmitCallLine(call, previous);
++                owner.EmitFieldCall(2, entry);
++                previous = CallLocation(call, previous);
++            }
++
++            void Save(int slot) => owner.MoveRegister(
++                XRegisterTag,
++                0,
++                YRegisterTag,
++                slot
++            );
++
++            void Split(
++                int register,
++                int list,
++                int rest,
++                int failure
++            )
++            {
++                owner.Op(IsNonemptyList, LabelTag, failure);
++                owner.Operand(register, list);
++                owner.Op(GetList, register, list);
++                owner.Operand(XRegisterTag, 0);
++                owner.Operand(YRegisterTag, rest);
++            }
++        }
++
+         private bool TryEmitSelectedRecordSequenceDecoder(FunctionDefinition function)
+         {
+             if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled || recursiveClosure is not null

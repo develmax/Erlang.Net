@@ -1,0 +1,98 @@
+{
+  "otpTag": "OTP-29.1.1",
+  "otpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "part1945Archive": {
+    "size": 2006170,
+    "sha256": "7fd76cb875b5d0f7000b33a1fa84f560c5834f975c51a8874deb8362011bd8ab"
+  },
+  "baselineCompiler": {
+    "size": 5106688,
+    "sha256": "1f3c4747cf4bf98ddcdef29862ce57a6f6bf6e8624aebbcee5e0a2733980e658"
+  },
+  "workerCount": 1,
+  "scope": {
+    "lib/debugger-7.0/ebin/dbg_wx_settings.beam": "Different",
+    "lib/debugger-7.0/ebin/dbg_wx_win.beam": "Different",
+    "lib/inets-9.8/ebin/inets_sup.beam": "Equal",
+    "lib/inets-9.8/ebin/mod_trace.beam": "Equal",
+    "lib/kernel-11.0.4/ebin/local_udp.beam": "Equal",
+    "lib/stdlib-8.1/ebin/ordsets.beam": "Equal",
+    "lib/xmerl-2.2/ebin/xmerl_html.beam": "Equal"
+  },
+  "rankedDifferentImages": 880,
+  "headlessNativeCases": 6,
+  "target": {
+    "newExactMFA": "open_win/5",
+    "remainingMFA": "default_settings_dir/1",
+    "before": {
+      "size": 13156,
+      "sha256": "58d7b365b8262e74fc68d74ca09619b255a2791f6a425be12d3c8b5a393bf2ec"
+    },
+    "after": {
+      "size": 13104,
+      "sha256": "cef229c7fcee1bb86cc062647367e2d8b51a876aa319bf42c994f6c1277dd21e"
+    }
+  },
+  "unchangedGeneratedControl": {
+    "size": 22048,
+    "sha256": "dad17b1499fdde18072af2e53271576dbb6a6f50a2a2739668b634ca67b0d156"
+  },
+  "artifacts": {
+    "production.patch": {
+      "size": 14774,
+      "sha256": "d451eea8c3d6bc653b54e383b43604cde2eb5ce84796677b41300100b3ec91fd"
+    },
+    "test.patch": {
+      "size": 4028,
+      "sha256": "b287fb9c04e99b8c996dc495ac36eaf8168bfa78f373c59f2950aa27609c8e2b"
+    },
+    "replay-files.json": {
+      "size": 910,
+      "sha256": "abba669fe15907ca6292f6cfa76a509ca55d1ce243c47af8a36e6299590f5070"
+    },
+    "repaired-scope.json": {
+      "size": 1957,
+      "sha256": "97be1d1d73ee0d8e6de600866c6d81bdd7ffe5a4ac3b0c378eafd3cc242d0a8e"
+    },
+    "repaired-rank.terms": {
+      "size": 838,
+      "sha256": "6acb6d9ccdb6a3805ff764fdbecae07be3be7381130518d02b4cf960b1540fcd"
+    },
+    "ranked.terms": {
+      "size": 1843536,
+      "sha256": "cfa5332b52ae49cbddf3069e34eda702ba560fc27ec866ad39dc670df2aba980"
+    },
+    "focused-exits.json": {
+      "size": 51,
+      "sha256": "1ef75e784a5dd11b9c2fe71476a71f94295ce972682d28c771dea17e5ae3df61"
+    },
+    "test-green/Erlang.Tests.dll": {
+      "size": 17920,
+      "sha256": "86ada6089caede215855df727ff0b987ffee23be9b37c53281b075a0286a08b7"
+    },
+    "compiler-bin/Erlang.Compiler.dll": {
+      "size": 5115392,
+      "sha256": "a4dcfdf11c0fcf74b62ad6849931263245bafef8873f4ec7ceed7eb64f14bc6f"
+    },
+    "native-dialog-pinned.terms": {
+      "size": 2217,
+      "sha256": "c250891b882070d10e8ff6cfef329150dd4ccd1cc95528a85443d414d93f9b6d"
+    },
+    "native-dialog-final.terms": {
+      "size": 2217,
+      "sha256": "c250891b882070d10e8ff6cfef329150dd4ccd1cc95528a85443d414d93f9b6d"
+    },
+    "dbg_wx_settings.precodegen": {
+      "size": 16134,
+      "sha256": "42dab719c2304279bd5e24b789aeeba33e0ae0781afa629ea1d7318d07a07b73"
+    },
+    "stub/wxFileDialog.erl": {
+      "size": 355,
+      "sha256": "d282c9fa341e4594a42da81ebf364165418ff4e985d6ba4393fe625f4913d8bb"
+    },
+    "stub/dbg_wx_win.erl": {
+      "size": 68,
+      "sha256": "eb539464e01396cb4dcfd3fad921e1587dc876a2c7b5c5174f5701e0b9ee8a3e"
+    }
+  }
+}

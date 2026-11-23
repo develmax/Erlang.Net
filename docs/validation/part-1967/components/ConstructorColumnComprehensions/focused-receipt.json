@@ -1,0 +1,66 @@
+{
+  "SourcePredecessor": "31d2c427affb6f750b93be6ea046843795962015479d04105af10b2d7592b494",
+  "SourceClosureInputs": 934,
+  "ReferenceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SDK": "10.0.400",
+  "ProcessorCount": 1,
+  "Scope": {
+    "Modules": 9,
+    "Parent": {
+      "Different": 3,
+      "Equal": 6
+    },
+    "Candidate": {
+      "Different": 3,
+      "Equal": 6
+    },
+    "Gains": [],
+    "Losses": []
+  },
+  "TargetHelperKeys": {
+    "ssh_dbg:wr_record/3": 2,
+    "asn1ct_gen_ber_bin_v2:emit_inner_of_fun/2": 3
+  },
+  "MissingFunctionKeys": {
+    "Parent": 62,
+    "Candidate": 55
+  },
+  "FullByteEquality": "No additional whole-file matches in focused scope",
+  "NativeFixtureGroups": 9,
+  "NativeRelease": {
+    "asn1ct_gen_ber_bin_v2": "Loaded",
+    "ssh_dbg": "Load and 3 equal cases"
+  },
+  "ExpandedScope": "Separate evidence",
+  "Evidence": {
+    "styled-patches/production.patch": "8fd22cc49b4060254472a5a81b118a895987ec60460e0e6d5fc9c798dd00490a",
+    "styled-patches/test.patch": "3d19a149026d0e6f63add4c9331191a37910485946949f75385b685a0a4feedb",
+    "styled-patches/strict-replay.json": "bd6de0d803e097a39cf0f3f7a721e17cb58ac6a334af0d658aa8e6ceaef2b381",
+    "compiler-bin/Erlang.Compiler.dll": "7a823d55b816489b7e3726c725497e023436e1cae31774a197c3404377fd9979",
+    "focused-bin/Erlang.Tests.dll": "77064c7e59be51f142ae8992b0c1b899ede9932bccaa8f56464f8fd4b1300625",
+    "hydration.json": "aefc58d62d28efc9c2457a1d93308022d5d9b2b022e0eb1aeec0d60883c17b10",
+    "style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "compiler-build.log": "15206a842576e57cdc779db6f302f3750c97a6521d9ff7e541c52b31ea440fa5",
+    "compiler-build.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "incomplete-source-attempt/compiler-build.log": "25a954c77a63b84bf4ff727e72ce20aa64cebf4a3eaccfda0fa3f7c92b8b859d",
+    "arity-attempt/compiler-build.log": "76cdd629ed66065a44eb5f7ce33441c6c9a26aae73d18098519e2ccceb891028",
+    "static-call-attempt/compiler-build.log": "da34e7397735fc8b1086855c8e79bb55eac6545cc2eb3af731d3973fe0257ad8",
+    "focused-build.log": "bab5b68a81ac47ff11eb05ea1e2edf7a1ba6b818db9b552ca6d417c6733b4f90",
+    "test-identities.json": "da12ee883ac93ed90c39011fd9d1c825a4f2b3e47ee1bb1b0ce6db083a673a4b",
+    "test-baseline.stderr.log": "caf5f44f2afc46f7fcbcad07b1a2c4d55dac6086efc197a78c119e77950d4c5f",
+    "test-candidate.log": "6355c4ec1a02267c433a432edf9c36876c230b7de0fd54635d3649b896aa863b",
+    "native-baseline/native.exit": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "native-baseline/native.stderr.log": "c1f52b1dfe660460b9f054240b707e3c1128b73013aeee84be4bfe0f26245099",
+    "native-candidate/native.exit": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "native-candidate/native.terms": "8fbf9366bbc2952e406ab9f0db33581845f922adb81d2d34190ad342e8751513",
+    "release-native.exit": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "release-native.terms": "676ff6ec04b2bdfaec2ab2a60982d297ebfccaec98be49a93b73641c1c4af609",
+    "scope-focused/candidate.json": "58d31e2f810d59d049c34bf30cc42cece95858245a1c3155ef450ea5778beca3",
+    "scope-focused/candidate.json.timings.json": "7eb07a1ea46b81d9d91d54eb92c4d3d0654e868cee5835656b119f4201297c53",
+    "scope-focused/delta.json": "97365f1908feb95e76f98a5ecd828def6ee8bdef73af552a7fb7397ceb1e80ec",
+    "scope-focused/rank-baseline.terms": "18c67ca22783e5b16394a13f0e99d43743206a4e412d43b5f0bddcfe0d772f93",
+    "scope-focused/rank-candidate.terms": "bfb746cb86793b716ccd3667d0f8f754dfa7a6626a025e2e8782c9890fb3b348",
+    "scope-focused/release-witness.log": "9d1f354615e9e16dca6df99ef4d534b4c648667cfa43cc5f5799348627c358fc",
+    "scope-focused/release-witness.terms": "9e34f29400c011ae66e46d22bae093e6435b08629d97715008a58dbdb3d9b138"
+  }
+}

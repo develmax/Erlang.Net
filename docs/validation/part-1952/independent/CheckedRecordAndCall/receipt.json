@@ -1,0 +1,34 @@
+{
+  "Part": 1978,
+  "Reference": "OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourceBaseline": "Part1950 4981e099210ec7a8e3eabf07e65c34184c3a980453aed3cf704c717a868e1419",
+  "CompilerBaseline": "087a6cc323a377298f798ba91fa73ca0ea81c1195596ff0bf8bc4bbdf2b3f55c",
+  "PinnedSource": [
+    "lib/wx/examples/demo/ex_cursor.erl:69-79",
+    "ex_cursor.precodegen:1406-1533",
+    "beam_ssa_pre_codegen place_frames and find_yregs",
+    "beam_ssa_codegen cg_switch and setup_args"
+  ],
+  "Scope": "One worker, thirteen actual release files. Six Equal and seven Different before and after. ex_cursor is the only changed generated file. Its do_init closure matches decoded instructions and source lines with function-local label renumbering. do_init/1 and handle_event/2 remain different.",
+  "Native": "Four installed Windows OTP headless init cases with actual closure execution. Successful true and false selectors and failures for non-boolean result and bad arithmetic; exact terms, ordered effects and first stack frame.",
+  "Regression": "Baseline red expected frame layout assertion exit -532462766; candidate green. Fixture retains two effectful branches in independent negative.",
+  "Hashes": {
+    "production.patch": "49258698c0d31c159c466247dea008468c1fd01f2e1406c9f3730fc231815562",
+    "test.patch": "ab95d1c7eab85a69846d249c0dbaa380366b7585b0a9e7f70373d9e84aefe6cb",
+    "strict-replay.log": "93b1c23a2d998922a3eea15bb707c58d0d76a1b27424251e37838af77dd008a7",
+    "replay-files.json": "e46ec3fc877e1c03f091f20b368ad2fd011010f82a7b64268e379886afb8048a",
+    "style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "final-scope.json": "f3c4ac04ec591f592c673096e94341961dd8e868f42a258fa3356ba1894b7cb6",
+    "changed-paths.txt": "504626cd7a89b9e6c50cc4e6543bb06848e2511cae243dabd45c669bc49471c8",
+    "before.terms": "2048f0b43f7ed3955b4aa214f8e1346c772c68602e5e5809442831a2c830e56c",
+    "after.terms": "444b42f789a08b3a1c708e6a525cf6993a6b867bd0e1daddc44fe2abbd389a39",
+    "closure-pinned.terms": "a5ff5b99c99dba2747c6a5d68847b038be07684bbc20f3da0e479b65d5eed29a",
+    "closure-candidate.terms": "a5ff5b99c99dba2747c6a5d68847b038be07684bbc20f3da0e479b65d5eed29a",
+    "ex_cursor.precodegen": "9ac8ad0df09c9e3a658a03be3faf557da6658fc445b247516d4357ea11f5e99d",
+    "native-closure.eval": "4093b9e9a7c264e21c23ef0a15aaf82dd92b7e196d6cd03a438ebf560a355f16",
+    "native-pinned.terms": "8f6b4864ccef27c4c3055e5e075d72a5ed7d6a9d07ec6bf93928d51498d7102b",
+    "native-candidate.terms": "8f6b4864ccef27c4c3055e5e075d72a5ed7d6a9d07ec6bf93928d51498d7102b",
+    "focused-exits.json": "1faa2d4586b2e18fbd523bb5df54f7bb4a348aa73665bdf7320961ff840dad1a",
+    "compiler-bin/Erlang.Compiler.dll": "b33168615487bddc6ddd9f5b5744f140bd4c828f401688bf5b8118863d706118"
+  }
+}

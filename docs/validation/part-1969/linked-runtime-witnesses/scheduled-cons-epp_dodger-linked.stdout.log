@@ -1,0 +1,9 @@
+{parsed,[attribute,attribute,attribute,attribute,attribute,attribute,
+         attribute,attribute,function,attribute,function,attribute,function,
+         attribute,attribute,function,attribute],
+        ["-module(ordered_cons_preproc).","-export([f/0]).","-define(V, 17).",
+         "-undef(OLD).","-include(\"support.hrl\").",
+         "-include_lib(\"stdlib/include/assert.hrl\").","-ifdef(V).",
+         "-if(1 < 2).","f() -> ?V.","-elif(1 =:= 2).","f() -> other.",
+         "-'else'.","f() -> last.","-endif.","-'else'.","f() -> skipped.",
+         "-endif."]}.

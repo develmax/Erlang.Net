@@ -46,6 +46,22 @@ internal static class ComprehensionSourceBindings
 
                     return;
                 }
+                if (expression is Expr.MapComprehension
+                    {
+                        Fields: [{ Key: Expr.Variable, Value: Expr.Variable }],
+                        Qualifiers: [var mapQualifier]
+                    } && ComprehensionGenerator.From(mapQualifier) is
+                    {
+                        Binary: false,
+                        Pattern: Pattern.Tuple { Items: [Pattern.Variable, Pattern.Variable] },
+                        Source: Expr.Variable
+                    })
+                {
+                    // v3_core lowers this map generator through lc_tq1 before translating subsequent funs.
+                    coreOrdinal++;
+
+                    return;
+                }
                 if (expression is Expr.Fun anonymous)
                 {
                     foreach (var child in LocalFunctionEntries.Children(expression))
@@ -56,7 +72,43 @@ internal static class ComprehensionSourceBindings
 
                     return;
                 }
-                foreach (var child in LocalFunctionEntries.Children(expression))
+                if (expression is Expr.Apply application)
+                {
+                    Core(application.Function);
+                    foreach (var argument in application.Arguments.Reverse())
+                    {
+                        Core(argument);
+                    }
+
+                    return;
+                }
+
+                if (expression is Expr.Bits bits)
+                {
+                    // expr_bin_1 visits segments in reverse constructor order.
+                    // Within a segment bitstr still visits the value before its size.
+                    foreach (var segment in bits.Segments.Reverse())
+                    {
+                        Core(segment.Value);
+                        if (segment.Size is { } size)
+                        {
+                            Core(size);
+                        }
+                    }
+
+                    return;
+                }
+
+                var children = LocalFunctionEntries.Children(expression);
+                // v3_core's safe_list reserves identities right to left.
+                // Evaluation and lifted function emission have their own order.
+                bool usesSafeList = expression is Expr.List or Expr.Tuple or Expr.Call
+                    or Expr.Binary
+                {
+                    Operator: not (ErlangOperators.AndAlso or ErlangOperators.OrElse
+                            or ErlangOperators.And or ErlangOperators.Or or ErlangOperators.Xor)
+                };
+                foreach (var child in usesSafeList ? children.Reverse() : children)
                 {
                     Core(child);
                 }

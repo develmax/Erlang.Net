@@ -1,0 +1,45 @@
+{
+  "Compiler": "0ed0823a27d3277d26b71aa3eeec5ce1a11a4de330aaea09ddb6e39b372987fa",
+  "ParentSource": "2b3399fb8d9d567ec196f51d1fdc9a02244cd06c02bbf0906ee1e20664675bc1",
+  "ProductionInputCount": 895,
+  "Scope": {
+    "Different": 12,
+    "Equal": 18
+  },
+  "PatchDigests": {
+    "production.patch": "563817bf347880d665b5983c50f33916c7746f52614f1c1e58fb9d5146dddbd9",
+    "test.patch": "e51040f74bae0af940e0caeaab345abf4e8512601ce4770a79da3e524c70afbb"
+  },
+  "Evidence": {
+    "scope/delta.json": "21c335b1ef9a65ad64286cd1a7ff5256134df81e526a764df7441495b3c0818d",
+    "scope/normalized-summary.terms": "48ef354d4b37b652c5f21473d6b2c2d3276dc1064a71e77de208693698d2dc05",
+    "native-pinned.terms": "0b844946f869c3cb98ecfd718713f43599a67857777015ff875c27124ed36d09",
+    "native-green.terms": "0b844946f869c3cb98ecfd718713f43599a67857777015ff875c27124ed36d09",
+    "native.eval": "32ba757b19408917babb9bc82ad130e8f87980c7f81e5f72973096847fe4ce41",
+    "red.log": "f40f861ba062c4bf4bfb1284f92451c8a7d495d1b394833ec61f0340e9f2d55f",
+    "green.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "restored-literals.json": "1fc1fd2ef18852e6dada8240eb0d7ef77ae1432abbe4af636398cf53293dddf5",
+    "first-fixture.cs": "12b3169c70188b8d001ab858c60e95869b618438db900ade83154fdabcf17ff2",
+    "first-red.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "first-green.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "scope/otp-corpus.json": "07b750da62090c3e4ef562a55996d4132c3ba8eeffab4227136a623d470b1c9a",
+    "native.exit": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "red.exit": "e4e7851eff84375b526b7f4fcb50db23a941ff4d35de163fda833cfde6e5ec3e",
+    "green.exit": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+    "seal-style-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f"
+  },
+  "Files": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedCompoundPatterns.cs": {
+      "Before": "bafc43ef95e59f1f04497cb65a13c244a1a8fd8c6b9adb5b568ffbf4e4cae953",
+      "After": "f1bd2b766f573eded672e9759a63ab3bdfb9fa0531b542fb606726a004d35433"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamConstructedCasePatternChecks.cs": {
+      "Before": null,
+      "After": "5915d614e6d79cfa8a5cd16711308b2362c9fd6d3bcc761ffde1a1902d1f4c74"
+    },
+    "tests/Erlang.Tests/Harness/Program.cs": {
+      "Before": "441cc361d09b061e8c451fc9928d3c44ffc5d9835c93c705e3bcf54c8a212ca3",
+      "After": "ebba04170c6f8ace7063eaed96b57cc58aa836627d182622fea71cb703db8cfd"
+    }
+  }
+}

@@ -1,0 +1,213 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs
+@@ -622,7 +622,7 @@
+                 || TryEmitRecursiveListCallMapping(function)
+                 || TryEmitIdentityListComprehension(function) || TryEmitCapturedListMapping(function)
+                 || TryEmitGuardedTupleAliasComprehension(function)
+-                || TryEmitTupleComprehensionResult(function) || TryEmitBooleanFilterTuple(function)
++                || TryEmitTupleComprehensionResult(function) || TryEmitRecursiveListBooleanFilter(function)
+                 || TryEmitTupleProjectionHelper(function) || TryEmitTaggedAccumulator(function)
+                 || TryEmitCertificateNameCheck(function)
+                 || TryEmitTlsServerHandshake(function)
+@@ -638,6 +638,7 @@
+                 || TryEmitMemoryDetailPage(function) || TryEmitIndexedDetailPage(function) || TryEmitBinaryDigitList(function)
+                 || TryEmitBinaryDetailLookup(function) || TryEmitTermDetailLookup(function)
+                 || TryEmitCallbackPageList(function) || TryEmitTermCallbackPage(function) || TryEmitInterleavedCallList(function)
++                || TryEmitForkedCallList(function)
+                 || TryEmitDynamicDetailReply(function) || TryEmitConditionalProgressPulse(function) || TryEmitDetailWindow(function)
+                 || TryEmitCheckedDetailTab(function) || TryEmitScrolledDetailPanel(function) || TryEmitPageComprehension(function)
+                 || TryEmitRecordPayloadReports(function)
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedListFilter.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedListFilter.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedListFilter.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ClosedListFilter.cs
+@@ -8,7 +8,7 @@
+ 
+     private sealed partial class GeneralEmitter
+     {
+-        private bool TryEmitBooleanFilterTuple(FunctionDefinition function)
++        private bool TryEmitRecursiveListBooleanFilter(FunctionDefinition function)
+         {
+             if (!function.IsRecursiveListMapper || function.Clauses[0] is not
+                 {
+@@ -17,28 +17,42 @@
+                     Body: Expr.Case
+                     {
+                         Value: Expr.Call predicate,
+-                        Clauses: [{ Body: Expr.List { Items: [Expr.Tuple tuple] } }, _, _]
++                        Clauses: [{ Body: Expr.List { Items: [var value] } }, _, _]
+                     }
+                 })
+             {
+                 return false;
+             }
+ 
++            var calls = new List<ListMapperCall>();
++            if (value is Expr.Variable returned && returned.Name == item.Name && function.Arity == 1
++                && !function.IsStrictRecursiveListMapper && IsExhaustiveLocalBooleanSelector(predicate)
++                && AppendListMapperCalls(predicate, item.Name, calls))
++            {
++                EmitClosedListFilter([], new(predicate, calls, Negate: false), (function, null));
++
++                return true;
++            }
++
++            if (value is not Expr.Tuple tuple)
++            {
++                return false;
++            }
++
+             var fields = new Term?[tuple.Items.Count];
+             for (int index = 0; index < tuple.Items.Count; index++)
+             {
+-                Expr value = tuple.Items[index];
+-                if (AttributeLiteral.TryNormalizeConstant(value, out Term constant))
++                Expr field = tuple.Items[index];
++                if (AttributeLiteral.TryNormalizeConstant(field, out Term constant))
+                 {
+                     fields[index] = constant;
+                 }
+-                else if (value is not Expr.Variable variable || variable.Name != item.Name)
++                else if (field is not Expr.Variable variable || variable.Name != item.Name)
+                 {
+                     return false;
+                 }
+             }
+ 
+-            var calls = new List<ListMapperCall>();
+             if (fields.All(field => field is not null) || !AppendListMapperCalls(predicate, item.Name, calls))
+             {
+                 return false;
+@@ -52,7 +66,7 @@
+         private void EmitClosedListFilter(
+             IReadOnlyList<ListMapperCall> mapperCalls,
+             ListMapperFilter filter,
+-            (FunctionDefinition Function, Term?[] Fields)? projection = null
++            (FunctionDefinition Function, Term?[]? Fields)? projection = null
+         )
+         {
+             var predicate = filter.Calls[^1].Call;
+@@ -171,14 +185,14 @@
+                 }
+ 
+                 owner.EmitFieldCall(1, entry);
+-                owner.Op(TestHeap, BeamWire.UnsignedTag, ConsHeapWords + (projection is { } tuple ? tuple.Fields.Length + 1 : 0));
++                owner.Op(TestHeap, BeamWire.UnsignedTag, ConsHeapWords + (projection?.Fields is { } fields ? fields.Length + 1 : 0));
+                 owner.Operand(BeamWire.UnsignedTag, 1);
+-                if (projection is { } result)
++                if (projection?.Fields is { } tupleFields)
+                 {
+                     owner.Op(PutTuple, XRegisterTag, 1);
+                     owner.instructions.WriteByte(ExtendedListOperand);
+-                    owner.Operand(BeamWire.UnsignedTag, result.Fields.Length);
+-                    foreach (Term? field in result.Fields)
++                    owner.Operand(BeamWire.UnsignedTag, tupleFields.Length);
++                    foreach (Term? field in tupleFields)
+                     {
+                         if (field is null)
+                         {
+@@ -191,7 +205,7 @@
+                     }
+                 }
+ 
+-                owner.Op(PutList, projection is null ? YRegisterTag : XRegisterTag, projection is null ? 0 : 1);
++                owner.Op(PutList, projection?.Fields is null ? YRegisterTag : XRegisterTag, projection?.Fields is null ? 0 : 1);
+                 owner.Operand(XRegisterTag, 0);
+                 owner.Operand(XRegisterTag, 0);
+                 owner.EmitFrameReturn(1);
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ForkedCallList.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ForkedCallList.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ForkedCallList.cs
+@@ -0,0 +1,91 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private sealed partial class GeneralEmitter
++    {
++        private bool TryEmitForkedCallList(FunctionDefinition function)
++        {
++            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled
++                || function.Clauses is not
++                [
++                {
++                    Guard: null,
++                    Body: Expr.Sequence
++                    {
++                        Items:
++                        [
++                            Expr.Match { Pattern: Pattern.Variable input, Value: Expr.Call producer },
++                            Expr.Match { Pattern: Pattern.Variable first, Value: Expr.Call firstBranch },
++                            Expr.Match { Pattern: Pattern.Variable second, Value: Expr.Call secondBranch },
++                            Expr.List { Items: [Expr.Call finishSecond, Expr.Call finishFirst], Tail: null }
++                        ]
++                    }
++                } clause]
++                || !HasUnconditionalParameters(clause) || !DistinctBindings(input, first, second))
++            {
++                return false;
++            }
++
++            string[] parameters = clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray();
++            if (parameters.Contains(input.Name) || parameters.Contains(first.Name) || parameters.Contains(second.Name)
++                || ReadEntryCall(producer, parameters) is not { } start
++                || ReadUnary(firstBranch, input.Name) is not { } branchOne
++                || ReadUnary(secondBranch, input.Name) is not { } branchTwo
++                || ReadUnary(finishSecond, second.Name) is not { } finishTwo
++                || ReadUnary(finishFirst, first.Name) is not { } finishOne)
++            {
++                return false;
++            }
++
++            const int retainedSlot = 0;
++            const int frame = 1;
++            EmitFrameAllocation(EntryCallLiveCount(start, parameters), frame);
++            EmitFrameInitialization(retainedSlot, frame);
++            EmitEntryCall(start);
++            owner.MoveRegister(
++                XRegisterTag,
++                0,
++                YRegisterTag,
++                retainedSlot
++            );
++            BeamSourceLocation previous = CallLocation(start.Call, location);
++            EmitNextCall(branchOne);
++            // The producer's last read and the first branch's spill share one slot.
++            Exchange();
++            EmitNextCall(branchTwo);
++            EmitNextCall(finishTwo);
++            Exchange();
++            EmitNextCall(finishOne);
++
++            owner.Op(TestHeap, BeamWire.UnsignedTag, 2 * ConsHeapWords);
++            owner.Operand(BeamWire.UnsignedTag, 1);
++            owner.Op(PutList, XRegisterTag, 0);
++            owner.LiteralOperand(Nil.Value);
++            owner.Operand(XRegisterTag, 0);
++            owner.Op(PutList, YRegisterTag, retainedSlot);
++            owner.Operand(XRegisterTag, 0);
++            owner.Operand(XRegisterTag, 0);
++            owner.EmitFrameReturn(frame);
++
++            return true;
++
++            EntryCall? ReadUnary(Expr.Call call, string argument) =>
++                call.Arguments is [Expr.Variable read] && read.Name == argument ? ReadEntryCall(call, [argument]) : null;
++
++            void EmitNextCall(EntryCall call)
++            {
++                EmitEntryCall(call, previous);
++                previous = CallLocation(call.Call, previous);
++            }
++
++            void Exchange()
++            {
++                owner.Op(Swap, YRegisterTag, retainedSlot);
++                owner.Operand(XRegisterTag, 0);
++            }
++        }
++    }
++}

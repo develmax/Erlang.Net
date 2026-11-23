@@ -80,9 +80,38 @@ internal static class OtpWindowsReleaseProfiles
                 _ => null
             };
 
-        return profile is not null && SupplementalIncludeFiles(application, module) is { } includes
-            ? profile with { RecordedIncludeFiles = includes }
-            : profile;
+        if (profile is null)
+        {
+            return null;
+        }
+
+        if (SupplementalIncludeFiles(application, module) is { } includes)
+        {
+            profile = profile with { RecordedIncludeFiles = includes };
+        }
+
+        if (application.StartsWith("snmp-", StringComparison.Ordinal)
+            && profile.IncludeDirectories.FirstOrDefault(path => path.EndsWith("/../misc", StringComparison.Ordinal)) is { } misc)
+        {
+            // The agent, app and manager makefiles pass -I../misc to erlc.
+            const string header = "snmp_debug.hrl";
+            var files = profile.RecordedIncludeFiles?.ToDictionary(StringComparer.Ordinal)
+                ?? new Dictionary<string, string>(StringComparer.Ordinal);
+            files.TryAdd(header, misc + "/" + header);
+            profile = profile with { RecordedIncludeFiles = files };
+        }
+
+        if (profile is not null && application == "kernel-11.0.4" && directory == "src")
+        {
+            // The installed application's include directory is first in the corpus search path.
+            // Kernel's pinned Makefile supplies -I../include from the build source directory.
+            profile = profile with
+            {
+                RecordedIncludeSearchDirectories = new Dictionary<int, string> { [0] = BuildRoot + "kernel/src/../include" }
+            };
+        }
+
+        return profile;
     }
 
     private static IReadOnlyDictionary<string, string>? SupplementalIncludeFiles(string application, string module) =>
@@ -651,13 +680,19 @@ internal static class OtpWindowsReleaseProfiles
             ["diameter.hrl"] = BuildRoot + "diameter/include/diameter.hrl",
             ["diameter_gen.hrl"] = BuildRoot + "diameter/include/diameter_gen.hrl"
         }
-    );
+    )
+    {
+        RecordedExecutableIncludePaths = subdirectory == "gen"
+            ? new Dictionary<string, string> { ["diameter_gen.hrl"] = BuildRoot + "diameter/include/diameter_gen.hrl" }
+            : null
+    };
 
     private static BeamReleaseBuildProfile MegacoProfile(string subdirectory, string module, bool useBuildDefinitions = false)
     {
         const string flexBuildRoot = "c:/ldisk/jenkins/workspace/WindowsWSL_maint-29-opu/otp_src/lib/";
         bool flex = subdirectory == "flex";
-        string directory = (flex ? flexBuildRoot : BuildRoot) + "megaco/src/" + subdirectory;
+        string applicationRoot = (flex ? flexBuildRoot : BuildRoot) + "megaco";
+        string directory = applicationRoot + "/src/" + subdirectory;
         string include = directory + "/../../include";
         const string version = "megaco-4.9.2";
         Term define = Term.Tuple(Term.A("d"), Term.A("megaco_parser_inline"));
@@ -702,7 +737,11 @@ internal static class OtpWindowsReleaseProfiles
                 : null,
             PreprocessorDefinitions: useBuildDefinitions ? definitions : null,
             AllowIncompleteAbstractCode: useBuildDefinitions
-        );
+        )
+        {
+            // megaco.mk adds this application's ebin to the compiler code path.
+            RecordedIncludeLibraryRoots = new Dictionary<string, string> { ["megaco"] = applicationRoot }
+        };
     }
 
     private static BeamReleaseBuildProfile SyntaxTools(string module)

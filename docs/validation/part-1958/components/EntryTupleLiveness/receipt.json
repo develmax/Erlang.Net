@@ -1,0 +1,35 @@
+{
+  "Reference": "OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Proof": "beam_core_to_ssa:pat_mark_unused skips tuple extraction for single bindings absent from remaining pattern equality, guards and body uses. Use matching scope to collect captured or repeated names.",
+  "Parent": "81fe483cddbe51403b1520e49ebef73f9f394e78c534699dc2f9a7c3b4fa5cdc",
+  "Compiler": "71c4b1a8df2188dbfcd055c0ab5ed0deae8541fb7b7eff8df9dab81eb96996de",
+  "ExactControls": 21,
+  "ChangedImages": 1,
+  "NormalizedGains": 0,
+  "NormalizedLosses": 0,
+  "CloserFrames": 1,
+  "NativeReleaseObservations": 5,
+  "NativeFixtureObservations": 7,
+  "PatchDigests": {
+    "production.patch": "8dda17de31b6e942ee70505203f95d31de52e1a01c428383eb0f8b06892aee3e",
+    "test.patch": "1ce95141d7b802799f389bc6d2a4f904ce50a0fef2aa000db1124b6b36e68f01"
+  },
+  "Evidence": {
+    "scope-final/delta.json": "7a2abe7bc15f0fc8e7db7f7b5fe499ef64387e7f458bd43e30d879b6ed0992ff",
+    "scope-final/otp-corpus.json": "b7bad7b59a9f00c147d361eb2f21eab7c5cb4a55f07db13008ba6c1df6d1d1d4",
+    "scope-final/normalized-summary.terms": "c4f4fbadce2b6c28177e891fcfb615b4ee170e43ae2debdafecb6de62ca80bd8",
+    "native-actual-Pinned.terms": "50841b615fea08746ecfc4f9adec49a38f4101d0dbda803239f1b5d8dfa2aca0",
+    "native-actual-Candidate.terms": "50841b615fea08746ecfc4f9adec49a38f4101d0dbda803239f1b5d8dfa2aca0",
+    "native-fixture-pinned.terms": "29bcc66a68e3f76ebaea57c331b437c236670c644b72e1c0bc681ccf8d783a7e",
+    "native-fixture-green.terms": "29bcc66a68e3f76ebaea57c331b437c236670c644b72e1c0bc681ccf8d783a7e",
+    "strict-replay.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "final-layout-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "release-ct-projections.terms": "66cf0339afc7fc7c85e607101197c3361ea30b0756088af2962eac3e1894dc27"
+  },
+  "ReplayedPaths": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs": "25b68121162f9d019a28a8b0c236930095b9df5f61d3a5007a9b4e5657ff9584",
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.EntryTupleLiveness.cs": "b2529c3703eb98b1c793c2da1aab2262aa76c28edb8c799f2505c687ab540a42",
+    "tests/Erlang.Tests/Compiler/Beam/BeamEntryTupleLivenessChecks.cs": "f92e9886dd5d80f5630c8c7e016ed4e605a3353f3e97b4b451c22fc137645061",
+    "tests/Erlang.Tests/Harness/Program.cs": "b5e4c9f137b59911da265f4536685b99421ed2fdc917ed3ab0d86ff15225cdd1"
+  }
+}

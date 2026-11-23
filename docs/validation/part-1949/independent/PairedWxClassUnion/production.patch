@@ -1,0 +1,287 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.WxObjectCommands.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.WxObjectCommands.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.WxObjectCommands.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.WxObjectCommands.cs
+@@ -340,6 +340,7 @@
+             var continuation = function with { Clauses = function.Clauses.Skip(1).ToArray() };
+             int failure = owner.nextLabel - 2;
+             if (TryEmitWxTupleArityForward(forward, continuation, failure)
++                || TryEmitWxMappedTupleUnionForward(forward, continuation, failure)
+                 || TryEmitWxTupleConstructorForward(function, forward, failure)
+                 || TryEmitWxClassedConstructorOverload(function, forward, failure)
+                 || TryEmitWxSharedReceiverForward(forward, continuation, failure)
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.WxClassUnion.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.WxClassUnion.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.WxClassUnion.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.WxClassUnion.cs
+@@ -122,11 +122,27 @@
+                     );
+         }
+ 
+-        private static (bool Tuple, bool Mapped, string[] Guards, string[] Forwarded, string[] Bound)? ReadWxIndexExtras(Clause clause)
++        private static (bool Tuple, bool Mapped, string[] Guards, string[] Forwarded, string[] Bound)? ReadWxIndexExtras(
++            Clause clause,
++            bool includeMappedTuple = false
++        )
+         {
+             if (clause.Patterns.Count == 2)
+             {
+                 return (false, false, [], [], []);
++            }
++
++            if (includeMappedTuple && clause.Patterns is [_, _, AliasPattern pairWithOptions, Pattern.Variable optionsTail]
++                && TryReadPatternAlias(pairWithOptions, out var whole, out var fields)
++                && fields is Pattern.Tuple { Items: [Pattern.Variable row, Pattern.Variable column] }
++                && DistinctBindings(
++                    whole,
++                    row,
++                    column,
++                    optionsTail
++                ))
++            {
++                return (true, true, [row.Name, column.Name, optionsTail.Name], [whole.Name], [whole.Name, row.Name, column.Name]);
+             }
+ 
+             if (clause.Patterns.Count == 4 && clause.Patterns[2] is Pattern.Variable first
+@@ -161,12 +177,13 @@
+             bool unaryFallback = false,
+             (int Receiver, int Value)? preparedClasses = null,
+             bool unaryTagValidated = false,
+-            int? preparedReceiver = null
++            int? preparedReceiver = null,
++            bool checkedMappedTuple = false
+         )
+         {
+             int arity = function.Arity;
+             bool hasReceiver = arity >= 2;
+-            bool indexedOverload = preparedReceiver is not null;
++            bool indexedOverload = preparedReceiver is not null || checkedMappedTuple;
+             if (arity < 1 || arity > (indexedOverload ? 4 : 3) || unaryFallback && hasReceiver
+                 || preparedClasses is not null && arity != 2 || indexedOverload && arity < 2
+                 || function.Clauses is not [{ Body: Expr.Sequence sequence } clause] || sequence.Items.Count < 4)
+@@ -176,13 +193,23 @@
+ 
+             Pattern.Variable? extra = null;
+             bool mapped = false;
+-            var indexed = indexedOverload ? ReadWxIndexExtras(clause) : null;
++            var indexed = indexedOverload ? ReadWxIndexExtras(clause, includeMappedTuple: checkedMappedTuple) : null;
+             if (indexedOverload && indexed is null)
+             {
+                 return false;
+             }
+ 
+-            if ((!indexedOverload || indexed is { Mapped: true }) && arity == 3)
++            if (checkedMappedTuple)
++            {
++                if (indexed is not { Tuple: true, Mapped: true } || clause.Patterns[^1] is not Pattern.Variable options)
++                {
++                    return false;
++                }
++
++                extra = options;
++                mapped = true;
++            }
++            else if ((!indexedOverload || indexed is { Mapped: true }) && arity == 3)
+             {
+                 if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled
+                     || clause.Guard is not Expr.Call
+@@ -291,7 +318,7 @@
+                                 Arguments: [Expr.Variable mapperArgument, Expr.Variable mapInput]
+                             } mapCall
+                         }
+-                        || queue.Arguments[2] is not Expr.Variable mappedArgument
++                        || queue.Arguments[arity - 1] is not Expr.Variable mappedArgument
+                         || mapperArgument.Name != mapperBinding.Name || mapInput.Name != extra.Name
+                         || mappedArgument.Name != resultBinding.Name || !ReadWxOptions(lambda.Clauses, out _, out _))
+                     {
+@@ -364,7 +391,8 @@
+             int frame = token + 1;
+             int receiverSlot = token - 1;
+             int valueSlot = receiverSlot - valueRegister;
+-            for (int register = 0; !unaryTagValidated && preparedClasses is null && preparedReceiver is null && register < arity; register++)
++            for (int register = 0; !checkedMappedTuple && !unaryTagValidated && preparedClasses is null
++                && preparedReceiver is null && register < arity; register++)
+             {
+                 if (register != 0 && register != valueRegister)
+                 {
+@@ -490,7 +518,7 @@
+ 
+             Mark(chosen);
+             bool relocatesDimensions = indexedOverload && arity > 2 && !mapped;
+-            int retained = relocatesDimensions ? arity - 1 : extra is null ? prefix : 2;
++            int retained = relocatesDimensions || checkedMappedTuple ? arity - 1 : extra is null ? prefix : 2;
+             int removed = frame - retained;
+             int[] dimensionSlots = relocatesDimensions ? Enumerable.Range(2, arity - 2)
+                 .Select(register => receiverSlot - register).ToArray() : [];
+@@ -501,34 +529,46 @@
+                 EmitWxOptionMapper(mapper, 0);
+                 owner.MoveRegister(
+                     YRegisterTag,
+-                    receiverSlot - 2,
++                    receiverSlot - (arity - 1),
+                     XRegisterTag,
+                     1
+                 );
+-                Trim(valueSlot, 3);
++                int removedBeforeMap = frame - arity;
++                Trim(removedBeforeMap, arity);
+                 owner.EmitCallLine(map!, previous);
+                 previous = CallLocation(map!, previous);
+                 owner.Op(ExternalCall, BeamWire.UnsignedTag, 2);
+                 owner.Operand(BeamWire.UnsignedTag, owner.Import("lists", "map", 2));
+                 owner.MoveRegister(
+                     YRegisterTag,
++                    valueSlot - removedBeforeMap,
++                    XRegisterTag,
++                    2
++                );
++                owner.MoveRegister(
++                    YRegisterTag,
++                    arity - 1,
++                    XRegisterTag,
++                    1
++                );
++                owner.MoveRegister(
++                    XRegisterTag,
+                     0,
+-                    XRegisterTag,
+-                    2
+-                );
+-                owner.MoveRegister(
+-                    YRegisterTag,
+-                    2,
+-                    XRegisterTag,
+-                    1
+-                );
+-                owner.MoveRegister(
+-                    XRegisterTag,
+-                    0,
+-                    YRegisterTag,
+-                    2
+-                );
+-                Trim(1, 2);
++                    YRegisterTag,
++                    arity - 1
++                );
++                if (checkedMappedTuple)
++                {
++                    owner.MoveRegister(
++                        YRegisterTag,
++                        0,
++                        YRegisterTag,
++                        1
++                    );
++                    preparedReceiverSlot = 1;
++                }
++
++                Trim(1, retained);
+                 owner.MoveRegister(
+                     XRegisterTag,
+                     2,
+@@ -601,11 +641,21 @@
+ 
+             if (mapped)
+             {
+-                owner.MoveRegister(
+-                    YRegisterTag,
+-                    1,
+-                    XRegisterTag,
+-                    2
++                if (checkedMappedTuple)
++                {
++                    owner.MoveRegister(
++                        YRegisterTag,
++                        0,
++                        XRegisterTag,
++                        2
++                    );
++                }
++
++                owner.MoveRegister(
++                    YRegisterTag,
++                    arity - 2,
++                    XRegisterTag,
++                    arity - 1
+                 );
+             }
+ 
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.WxMappedTupleUnion.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.WxMappedTupleUnion.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.WxMappedTupleUnion.cs
+@@ -0,0 +1,77 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private sealed partial class GeneralEmitter
++    {
++        private bool TryEmitWxMappedTupleUnionForward(
++            GuardedLocalForward forward,
++            FunctionDefinition continuation,
++            int failure
++        )
++        {
++            if (owner.ModuleOptimizationDisabled || !owner.SsaTypeInferenceEnabled
++                || !forward.AddsEmptyList || forward.Arity != 4 || forward.Shapes is not [(3, 2)]
++                || FlattenForwardConjunction(forward.Tests).ToArray() is not
++                [
++                    ForwardGuard.Test { Opcode: IsTaggedTuple, Register: 0, Arity: 4, Tag.Name: "wx_ref" } receiver,
++                    ForwardGuard.Test { Opcode: IsInteger, Register: 1 } width,
++                    ForwardGuard.Test { Opcode: IsInteger, Register: 2 } height,
++                    ForwardGuard.FieldTest { Opcode: IsInteger, Register: 3, Index: 0 } row,
++                    ForwardGuard.FieldTest { Opcode: IsInteger, Register: 3, Index: 1 } column
++                ]
++                || continuation.Clauses is not [{ Guard: { } guard } command]
++                || ReadWxIndexExtras(command, includeMappedTuple: true) is not
++                { Tuple: true, Mapped: true, Guards: var names }
++                || ReadForwardGuard(guard, names) is not { } guards
++                || !FlattenForwardConjunction(guards).SequenceEqual(
++                    [new ForwardGuard.Test(IsInteger, 0), new ForwardGuard.Test(IsInteger, 1),
++                        new ForwardGuard.Test(IsList, 2)])
++                || !TryEmitWxClassUnionCommand(continuation, validateOnly: true, checkedMappedTuple: true))
++            {
++                return false;
++            }
++
++            int fallback = Label();
++            EmitForwardGuard(receiver, failure);
++            EmitTupleShapeTest(
++                XRegisterTag,
++                3,
++                2,
++                fallback
++            );
++            EmitForwardGuard(width, fallback);
++            EmitForwardGuard(height, fallback);
++            EmitForwardGuard(row, fallback);
++            EmitForwardGuard(column, fallback);
++            owner.EmitConstant(Nil.Value, forward.Arity);
++            owner.Op(TailLocalCall, BeamWire.UnsignedTag, forward.Arity + 1);
++            owner.Operand(LabelTag, forward.Entry);
++
++            Mark(fallback);
++            EmitDetailRecordTest(
++                1,
++                receiver.Arity,
++                receiver.Tag!,
++                failure
++            );
++            EmitTupleShapeTest(
++                XRegisterTag,
++                2,
++                2,
++                failure
++            );
++            EmitForwardGuard(row with { Register = 2 }, failure);
++            EmitForwardGuard(column with { Register = 2 }, failure);
++            EmitForwardGuard(new ForwardGuard.Test(IsList, 3), failure);
++
++            return TryEmitWxClassUnionCommand(
++                continuation,
++                functionFailure: failure,
++                checkedMappedTuple: true
++            );
++        }
++    }
++}

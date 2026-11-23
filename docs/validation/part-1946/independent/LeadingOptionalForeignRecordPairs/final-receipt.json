@@ -1,0 +1,490 @@
+{
+  "Reference": "OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ParentReceiptSHA256": "cc9fb1adedff84b6d0d4c3a3cd00f705321db20a32c7349f5499eea5c373be87",
+  "BaselineCompiler": "DC11265B1441425BD97156401E217F7A54F20F2F526A5B2D7B06190A94E3D94E",
+  "Compiler": "420DFCAAF0CE181967156AD7565455A8CB609CD20BE4477E6D5A895E0DA76C99",
+  "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+  "NormalizedGains": 2,
+  "NormalizedLosses": 0,
+  "WholeImageGains": 0,
+  "ExactControls": 10,
+  "ByteStableControls": 16,
+  "DirectBER": 23,
+  "PreviousNativeExact": 1298,
+  "Test": "3BB46580BCE8BE564B2B9CAACF252DE6EDD1978ADA961EBC1E6D37B5F17B07FA",
+  "TestBaselineExit": 1,
+  "TestCandidateExit": 0,
+  "Physical": {
+    "PKIXAttributeCertificate-2009": {
+      "CodeExcessBefore": 205,
+      "CodeExcessAfter": 157,
+      "ChunksDifferentBefore": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "FunT",
+        "ImpT",
+        "Line",
+        "LocT",
+        "Type"
+      ],
+      "ChunksDifferentAfter": [
+        "AtU8",
+        "Attr",
+        "Code",
+        "ExpT",
+        "FunT",
+        "ImpT",
+        "Line",
+        "LocT",
+        "Type"
+      ],
+      "CandidateSHA256": "1CBD482552D32F2B328ECDEBBB535DD2DCED28FD41F2653FA71BBC540CCF4906",
+      "OracleSHA256": "B05D69F57E8295828E22C36D3FB44D01395D4F3483849B28C5F97569E708B92C"
+    }
+  },
+  "Functions": {
+    "CryptographicMessageSyntax-2009": {
+      "Reference": 584,
+      "Before": 584,
+      "After": 584,
+      "Gains": []
+    },
+    "ECPrivateKey": {
+      "Reference": 50,
+      "Before": 50,
+      "After": 50,
+      "Gains": []
+    },
+    "EnrollmentMessageSyntax-2009": {
+      "Reference": 689,
+      "Before": 668,
+      "After": 668,
+      "Gains": []
+    },
+    "OTP-PKIX-Relaxed": {
+      "Reference": 405,
+      "Before": 382,
+      "After": 382,
+      "Gains": []
+    },
+    "OTP-PKIX": {
+      "Reference": 479,
+      "Before": 456,
+      "After": 456,
+      "Gains": []
+    },
+    "PKCS-1": {
+      "Reference": 309,
+      "Before": 309,
+      "After": 309,
+      "Gains": []
+    },
+    "PKCS-10": {
+      "Reference": 100,
+      "Before": 100,
+      "After": 100,
+      "Gains": []
+    },
+    "PKIX-X400Address-2009": {
+      "Reference": 246,
+      "Before": 220,
+      "After": 220,
+      "Gains": []
+    },
+    "PKIX1Explicit-2009": {
+      "Reference": 589,
+      "Before": 558,
+      "After": 558,
+      "Gains": []
+    },
+    "PKIX1Implicit-2009": {
+      "Reference": 412,
+      "Before": 412,
+      "After": 412,
+      "Gains": []
+    },
+    "PKIXAttributeCertificate-2009": {
+      "Reference": 341,
+      "Before": 332,
+      "After": 334,
+      "Gains": [
+        "enc_IetfAttrSyntax/2",
+        "enc_RoleSyntax/2"
+      ]
+    },
+    "PKIXCMP-2023": {
+      "Reference": 474,
+      "Before": 459,
+      "After": 459,
+      "Gains": []
+    },
+    "PKIXCRMF-2009": {
+      "Reference": 468,
+      "Before": 468,
+      "After": 468,
+      "Gains": []
+    },
+    "X509-ML-DSA-2025": {
+      "Reference": 87,
+      "Before": 87,
+      "After": 87,
+      "Gains": []
+    },
+    "X509-ML-KEM-2025": {
+      "Reference": 71,
+      "Before": 71,
+      "After": 71,
+      "Gains": []
+    },
+    "AttributeCertificateVersion1-2009": {
+      "Reference": 110,
+      "Before": 110,
+      "After": 110,
+      "Gains": []
+    },
+    "OCSP-2024-08": {
+      "Reference": 313,
+      "Before": 313,
+      "After": 313,
+      "Gains": []
+    }
+  },
+  "Images": {
+    "lib/public_key-1.21.7/ebin/AttributeCertificateVersion1-2009.beam": {
+      "Relative": "lib/public_key-1.21.7/ebin/AttributeCertificateVersion1-2009.beam",
+      "Status": "Equal",
+      "ExactControl": true,
+      "Source": "FCBA2DD1A19B7FE9BA093DC5E18C0D91F6852AA04FBDB939A32BCAC84B870E97",
+      "Oracle": "4A8D73C9B934EFA63C3FCC8C83ADC2019331AC3EDD549F1EABBB3C65D131DD34",
+      "Baseline": "4A8D73C9B934EFA63C3FCC8C83ADC2019331AC3EDD549F1EABBB3C65D131DD34",
+      "Candidate": "4A8D73C9B934EFA63C3FCC8C83ADC2019331AC3EDD549F1EABBB3C65D131DD34"
+    },
+    "lib/public_key-1.21.7/ebin/CryptographicMessageSyntax-2009.beam": {
+      "Relative": "lib/public_key-1.21.7/ebin/CryptographicMessageSyntax-2009.beam",
+      "Status": "Equal",
+      "ExactControl": true,
+      "Source": "880A03C536BAF9A5B67320BC928E6229E5B18D0E83A173C5310F75EB99FA79C0",
+      "Oracle": "39A45EB4897A159C03DE59A3FA99848ED431E8C26E9DD5B2B403F2C8AA2720D5",
+      "Baseline": "39A45EB4897A159C03DE59A3FA99848ED431E8C26E9DD5B2B403F2C8AA2720D5",
+      "Candidate": "39A45EB4897A159C03DE59A3FA99848ED431E8C26E9DD5B2B403F2C8AA2720D5"
+    },
+    "lib/public_key-1.21.7/ebin/ECPrivateKey.beam": {
+      "Relative": "lib/public_key-1.21.7/ebin/ECPrivateKey.beam",
+      "Status": "Equal",
+      "ExactControl": true,
+      "Source": "D84DB38F011FEA7862E63932F53F832CF78C86AC0EB2AFC9360485D4F934EF49",
+      "Oracle": "0BD74AF833D519586F343DD46459F40DF8DB82A7578F0FCDE6429CB2137D805B",
+      "Baseline": "0BD74AF833D519586F343DD46459F40DF8DB82A7578F0FCDE6429CB2137D805B",
+      "Candidate": "0BD74AF833D519586F343DD46459F40DF8DB82A7578F0FCDE6429CB2137D805B"
+    },
+    "lib/public_key-1.21.7/ebin/EnrollmentMessageSyntax-2009.beam": {
+      "Relative": "lib/public_key-1.21.7/ebin/EnrollmentMessageSyntax-2009.beam",
+      "Status": "Different",
+      "ExactControl": false,
+      "Source": "69620A4940E6B88C0BDE9633F11C2013D17A478492FBFC55F83E8C6D4F3189F5",
+      "Oracle": "AD1F67280F2EBDDD70BE9151DE4610C85D70BF10A770489599743D2A36954045",
+      "Baseline": "49DAD96DD97CE1849E78F08F45981B71046D340CABF6FDBC8F1058B5E752F4F9",
+      "Candidate": "49DAD96DD97CE1849E78F08F45981B71046D340CABF6FDBC8F1058B5E752F4F9"
+    },
+    "lib/public_key-1.21.7/ebin/OCSP-2024-08.beam": {
+      "Relative": "lib/public_key-1.21.7/ebin/OCSP-2024-08.beam",
+      "Status": "Equal",
+      "ExactControl": true,
+      "Source": "059B5E7BFC0F2935BA819F4BAB3D33A08D14AFAAB385A6E2449863252C1229F5",
+      "Oracle": "9041C27DFEFC1E27786E08BEC1437AFC68946C2CD4BF01CB9830602F2F164497",
+      "Baseline": "9041C27DFEFC1E27786E08BEC1437AFC68946C2CD4BF01CB9830602F2F164497",
+      "Candidate": "9041C27DFEFC1E27786E08BEC1437AFC68946C2CD4BF01CB9830602F2F164497"
+    },
+    "lib/public_key-1.21.7/ebin/OTP-PKIX-Relaxed.beam": {
+      "Relative": "lib/public_key-1.21.7/ebin/OTP-PKIX-Relaxed.beam",
+      "Status": "Different",
+      "ExactControl": false,
+      "Source": "FA7803CE32F2F42FABAE79796037D6FAE5CCD8ADCBE44F51335AA0A3D575E80F",
+      "Oracle": "736B66AB4ECD9A18C270231760F89B12C9CF8DBE5BB779C0E905A4321CDBB8BA",
+      "Baseline": "9F23CDF064E5DD88B1B1BC39BD9F91F7F43AB1EA81F8BCE7AA5968088E5D0D3A",
+      "Candidate": "9F23CDF064E5DD88B1B1BC39BD9F91F7F43AB1EA81F8BCE7AA5968088E5D0D3A"
+    },
+    "lib/public_key-1.21.7/ebin/OTP-PKIX.beam": {
+      "Relative": "lib/public_key-1.21.7/ebin/OTP-PKIX.beam",
+      "Status": "Different",
+      "ExactControl": false,
+      "Source": "6BE05D2D9DE5B5CE180F88F2226420FC193F75F7C626F77E6DFE3B34AF087E54",
+      "Oracle": "16438B4D748DC410F1ADD3FB043F1769446A2D065C8BD7F61409D31D1168F63C",
+      "Baseline": "E387FEC40B9799FBFBEC5E1B85AEDFB17A7291C3E8C7B27650F6D3933E897CF3",
+      "Candidate": "E387FEC40B9799FBFBEC5E1B85AEDFB17A7291C3E8C7B27650F6D3933E897CF3"
+    },
+    "lib/public_key-1.21.7/ebin/PKCS-1.beam": {
+      "Relative": "lib/public_key-1.21.7/ebin/PKCS-1.beam",
+      "Status": "Equal",
+      "ExactControl": true,
+      "Source": "A8E3EB1D043E11B66F722F74DF8D4CBFB51BDBA739E371074DEE448C05EF1EE5",
+      "Oracle": "5D9AFD05B2C1A02BF5F8D2DD8C886C9EFDE54EA393C23D8F5FDBFF396142E62B",
+      "Baseline": "5D9AFD05B2C1A02BF5F8D2DD8C886C9EFDE54EA393C23D8F5FDBFF396142E62B",
+      "Candidate": "5D9AFD05B2C1A02BF5F8D2DD8C886C9EFDE54EA393C23D8F5FDBFF396142E62B"
+    },
+    "lib/public_key-1.21.7/ebin/PKCS-10.beam": {
+      "Relative": "lib/public_key-1.21.7/ebin/PKCS-10.beam",
+      "Status": "Equal",
+      "ExactControl": true,
+      "Source": "646FA03DB33E340A6E3072011ABD50110D64DF4AB5B1FD31F743B8DE82576B13",
+      "Oracle": "0ACC46CA429937A35EE0ABAF85541F53AB4BB0A470CEA69B2A61B359626F506F",
+      "Baseline": "0ACC46CA429937A35EE0ABAF85541F53AB4BB0A470CEA69B2A61B359626F506F",
+      "Candidate": "0ACC46CA429937A35EE0ABAF85541F53AB4BB0A470CEA69B2A61B359626F506F"
+    },
+    "lib/public_key-1.21.7/ebin/PKIX-X400Address-2009.beam": {
+      "Relative": "lib/public_key-1.21.7/ebin/PKIX-X400Address-2009.beam",
+      "Status": "Different",
+      "ExactControl": false,
+      "Source": "D83849E6028CB33AB5015E82435618430802A2C7FB0803E74CCC74554DB7B758",
+      "Oracle": "AEF91479C878358479430121DF991AAD15D7BFFF973DB720D4C041B4BB740B77",
+      "Baseline": "20457468FB14A9CC1EEF72D1E5C34B63FE4A54659CA5D0A3F1C7920C29D2D4B4",
+      "Candidate": "20457468FB14A9CC1EEF72D1E5C34B63FE4A54659CA5D0A3F1C7920C29D2D4B4"
+    },
+    "lib/public_key-1.21.7/ebin/PKIX1Explicit-2009.beam": {
+      "Relative": "lib/public_key-1.21.7/ebin/PKIX1Explicit-2009.beam",
+      "Status": "Different",
+      "ExactControl": false,
+      "Source": "D30E2FD895639A62084804541BF6541557455CDEF7B0F5BC53DA40F50E066FF3",
+      "Oracle": "F7AC0196EE2DDF79CC3FC0A84597166B1894CB02C755E3972BEFEF0BDE4942DB",
+      "Baseline": "0DD4FBACBF695612EEED29E0153ECFFC26C5AB7D7448E82313CC03B88C23982C",
+      "Candidate": "0DD4FBACBF695612EEED29E0153ECFFC26C5AB7D7448E82313CC03B88C23982C"
+    },
+    "lib/public_key-1.21.7/ebin/PKIX1Implicit-2009.beam": {
+      "Relative": "lib/public_key-1.21.7/ebin/PKIX1Implicit-2009.beam",
+      "Status": "Equal",
+      "ExactControl": true,
+      "Source": "A00961E6C7489A6557AA0AA0FE81E00C9F124E2392F1415B52192C3D8A4E2DC0",
+      "Oracle": "2E67439BD0A525610DC8B4B8B317A83F75E6B33508614DCCDB81EAE1581EF5CF",
+      "Baseline": "2E67439BD0A525610DC8B4B8B317A83F75E6B33508614DCCDB81EAE1581EF5CF",
+      "Candidate": "2E67439BD0A525610DC8B4B8B317A83F75E6B33508614DCCDB81EAE1581EF5CF"
+    },
+    "lib/public_key-1.21.7/ebin/PKIXAttributeCertificate-2009.beam": {
+      "Relative": "lib/public_key-1.21.7/ebin/PKIXAttributeCertificate-2009.beam",
+      "Status": "Different",
+      "ExactControl": false,
+      "Source": "25793C2CAB2C5A133346ADD40DDAABF8959FA582194DC718F6DB75C03F5B4B71",
+      "Oracle": "B05D69F57E8295828E22C36D3FB44D01395D4F3483849B28C5F97569E708B92C",
+      "Baseline": "63E0F5AAF789BE84C4C3166FBA41143FB5EB98E58D35B546B8DBC664FC1A88E7",
+      "Candidate": "1CBD482552D32F2B328ECDEBBB535DD2DCED28FD41F2653FA71BBC540CCF4906"
+    },
+    "lib/public_key-1.21.7/ebin/PKIXCMP-2023.beam": {
+      "Relative": "lib/public_key-1.21.7/ebin/PKIXCMP-2023.beam",
+      "Status": "Different",
+      "ExactControl": false,
+      "Source": "59C59C3C862A0B19B5A6716C075FB8F42B7D5CB044D9A1DDB815BF552F912030",
+      "Oracle": "BE1E59D5E8A9564963B67DE66AD03FB5AD998F61AC5C58FA454A360F4E6C4A9B",
+      "Baseline": "F4FADDFCF57D308792788678D9457168A38CD0C9EAD4984E6648A713F449CB92",
+      "Candidate": "F4FADDFCF57D308792788678D9457168A38CD0C9EAD4984E6648A713F449CB92"
+    },
+    "lib/public_key-1.21.7/ebin/PKIXCRMF-2009.beam": {
+      "Relative": "lib/public_key-1.21.7/ebin/PKIXCRMF-2009.beam",
+      "Status": "Equal",
+      "ExactControl": true,
+      "Source": "B9A91A4DDFDD23C62125B26C07288FBED8AE1F12AC451EE87B41EDCDB79AFC63",
+      "Oracle": "5E65C0E0EF17B4428C9E41D36990D6305D1A99DED05904CB438A478FF2DE44FC",
+      "Baseline": "5E65C0E0EF17B4428C9E41D36990D6305D1A99DED05904CB438A478FF2DE44FC",
+      "Candidate": "5E65C0E0EF17B4428C9E41D36990D6305D1A99DED05904CB438A478FF2DE44FC"
+    },
+    "lib/public_key-1.21.7/ebin/X509-ML-DSA-2025.beam": {
+      "Relative": "lib/public_key-1.21.7/ebin/X509-ML-DSA-2025.beam",
+      "Status": "Equal",
+      "ExactControl": true,
+      "Source": "4A683A08E373ECB87C5C6D99B1FFDFF4AE547A07BB45E1405CC165AE1A39024B",
+      "Oracle": "AB5C717224EA7C59362CFEC158FA5D3668210452191CE9B5AD4ABCA5A2DABB29",
+      "Baseline": "AB5C717224EA7C59362CFEC158FA5D3668210452191CE9B5AD4ABCA5A2DABB29",
+      "Candidate": "AB5C717224EA7C59362CFEC158FA5D3668210452191CE9B5AD4ABCA5A2DABB29"
+    },
+    "lib/public_key-1.21.7/ebin/X509-ML-KEM-2025.beam": {
+      "Relative": "lib/public_key-1.21.7/ebin/X509-ML-KEM-2025.beam",
+      "Status": "Equal",
+      "ExactControl": true,
+      "Source": "EAF23B996D5B32F881502EFC68B894EF3F71B456D360535590118C7C89FCD14E",
+      "Oracle": "DB0CE9B4073ECDAB1F4ECCB42912BD9EE7D205C6D825CE48E6199DE1F788F1FC",
+      "Baseline": "DB0CE9B4073ECDAB1F4ECCB42912BD9EE7D205C6D825CE48E6199DE1F788F1FC",
+      "Candidate": "DB0CE9B4073ECDAB1F4ECCB42912BD9EE7D205C6D825CE48E6199DE1F788F1FC"
+    }
+  },
+  "Native": {
+    "native-accumulators.log": {
+      "Count": 81,
+      "Baseline": 81,
+      "Candidate": 81
+    },
+    "native-binary-choice-wire.log": {
+      "Count": 49,
+      "Baseline": 49,
+      "Candidate": 49
+    },
+    "native-binary-measurement.log": {
+      "Count": 84,
+      "Baseline": 84,
+      "Candidate": 84
+    },
+    "native-bounded-default.log": {
+      "Count": 46,
+      "Baseline": 46,
+      "Candidate": 46
+    },
+    "native-final-implicit.log": {
+      "Count": 32,
+      "Baseline": 32,
+      "Candidate": 32
+    },
+    "native-foreign-first-optional.log": {
+      "Count": 23,
+      "Baseline": 23,
+      "Candidate": 23
+    },
+    "native-guarded-stacks.log": {
+      "Count": 30,
+      "Baseline": 30,
+      "Candidate": 30
+    },
+    "native-leading-required.log": {
+      "Count": 50,
+      "Baseline": 50,
+      "Candidate": 50
+    },
+    "native-optional-alias-join.log": {
+      "Count": 36,
+      "Baseline": 36,
+      "Candidate": 36
+    },
+    "native-optional-literal-table.log": {
+      "Count": 66,
+      "Baseline": 66,
+      "Candidate": 66
+    },
+    "native-prefixed-field.log": {
+      "Count": 39,
+      "Baseline": 39,
+      "Candidate": 39
+    },
+    "native-prepared-measurement.log": {
+      "Count": 48,
+      "Baseline": 48,
+      "Candidate": 48
+    },
+    "native-previous-decode.log": {
+      "Count": 88,
+      "Baseline": 88,
+      "Candidate": 88
+    },
+    "native-previous-measurement.log": {
+      "Count": 140,
+      "Baseline": 140,
+      "Candidate": 140
+    },
+    "native-previous-named-bits.log": {
+      "Count": 207,
+      "Baseline": 207,
+      "Candidate": 207
+    },
+    "native-previous-strings.log": {
+      "Count": 80,
+      "Baseline": 80,
+      "Candidate": 80
+    },
+    "native-previous-x400.log": {
+      "Count": 8,
+      "Baseline": 8,
+      "Candidate": 8
+    },
+    "native-protected-constant.log": {
+      "Count": 28,
+      "Baseline": 28,
+      "Candidate": 28
+    },
+    "native-remote-optional.log": {
+      "Count": 38,
+      "Baseline": 38,
+      "Candidate": 38
+    },
+    "native-retained-record.log": {
+      "Count": 63,
+      "Baseline": 63,
+      "Candidate": 63
+    },
+    "native-rsa-boundary.log": {
+      "Count": 15,
+      "Baseline": 15,
+      "Candidate": 15
+    },
+    "native-signed-ranges.log": {
+      "Count": 70,
+      "Baseline": 70,
+      "Candidate": 70
+    }
+  },
+  "StrictReplay": {
+    "Patches": {
+      "foreign-leading-optional-pair.patch": "c87bf9b5c626a63140b1ecaab514cd22c7de6674b9ce87d4a1f5c06261514a18",
+      "foreign-leading-optional-pair-tests.patch": "64bdcc47c67712a42ee5ea91a3a85118596d92b091c0749030e45dac52b44133"
+    },
+    "Files": {
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.RequiredOptionalSequenceEncoder.cs": {
+        "Before": "3cca840fd00342301ebaa08d12699e2b7d840a864678cef2a05ae2bbfc1414bd",
+        "After": "cca6ea1ba5356e0b49db70c9b435710a300601d8b020116df4d41241e366c3f6"
+      },
+      "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CheckedOptionalPairFields.cs": {
+        "Before": "fbe1cfbf6a1d33da945c3a76ff2ae6723a25d1a9b285d65142c2bc5f0685e6e9",
+        "After": "7790a9746981b822c96ac40a60a7815384f6abdd980c4ed426308e9e4c96e7ec"
+      },
+      "tests/Erlang.Tests/Compiler/Beam/BeamLeadingForeignOptionalEncoderChecks.cs": {
+        "Before": null,
+        "After": "8418492f0a22968d357a15e96e62549100d3c4b29430ef22f2c27a6fabd77968"
+      },
+      "tests/Erlang.Tests/Harness/Program.cs": {
+        "Before": "7efa354723d5ba795c9d4c3be5e1889e1792d041f6fce81110cf05821b97417b",
+        "After": "b05a3a5bcb115f33a8023aa4b43f67e319780a6897609e1ee83e804a3426983c"
+      }
+    }
+  },
+  "Evidence": {
+    "images-receipt.json": "f279abf15b3b744a86692a6a4875ec2868d9b175a72804f1428d0e0cdffadc63",
+    "raw-chunks-receipt.json": "fc3c3efe686ee3ee5214d7d06174098254f13b316c88391a38dbc82eb8abba75",
+    "candidate.json": "71555f85b736572c55c4ba13e0e3fbccdb042311a4a711b2c89fe52bca1ea99c",
+    "modules.txt": "70067869f1c92c3514ec0583909c4e30fc0f653acb78e6317027841c9152fbee",
+    "normalized.log": "f74bfc260a40122164efc9da1a96cc94ffc0a31f69daa6ceaa8f8ed9c78d122a",
+    "scope-receipt.json": "029e91ac3471093b5f76d02626274a503f06cb701cc69df8e06fbd710ed681aa",
+    "inspected.log": "5aced1976f4534b8399cf757286868d4c19165f777464994f6aacea621721b8c",
+    "pinned-source-pass.txt": "ffba6b39d1499ca5e9a1337c3c22f063c96b429ef681ac3fc24f2e36976a23ba",
+    "test-identities.json": "c719ec1cc7fe3d18a51d45f29d4eb7d887b0233c1589820bcd4864eadf2b6836",
+    "tests-baseline.log": "39c322c4e89b1a48b06404c3001239fa1ef2fc548fd9861a46bbd4b27de7826f",
+    "tests-candidate.log": "a54a33b246758bddf7a844a4284839dfe321a0351570ea8ff072143cce1344f5",
+    "style-final-check.log": "bb08b466c0bfdfb9fc2c1b90b9c6457e06e38b3336410fae7964d8d1c4f32b1f",
+    "strict-replay-receipt.json": "d2d00c71a4210b7236c4c883c5f60a024e93c1d64aec0927e872f2e79fad97cd",
+    "complete-source-identities.json": "588905062403a6e78e4a1dc70fc42c2f28c1550c5d99f05e9b93c93612437586",
+    "README.md": "2fc2e749554c432b025530e072ec18b408b2e590d4c40b8a5ace0cbd6de71672",
+    "native-foreign-first-optional.eval": "245d047a46d16ccdf935f7e2fd03f09a30d608bb52a7cacfd0b9434fecf6dc22",
+    "validate.ps1": "c17e860e7a247fc54a542b7a58d807e09e0d5a9df41e4f57d580d90f6e510c88",
+    "validate-native.ps1": "a320a59f2110089c3894d71c4010bacbacd907aaf35b8805a22ca58d493384f3",
+    "validate-fixture.ps1": "515b65904d338eed14d55f645556ae1efa6c2f9bce33876733e0e2cb68ec2810",
+    "strict-replay.py": "def1d3987f189c92d60be156cf237f911eaa9b600128e36baf308a15740a4c36",
+    "compiler-build.log": "b51f06ef498ecb77f5b26f28468ddc357aa06c0f9c13e0f511a307afe250df87",
+    "native-accumulators.log": "46ea9c57ae510714edcb7744ccc53141c77255ee3cde47d536fa58554fa688e5",
+    "native-binary-choice-wire.log": "97ddd64b1a503c12b991bb28a5742620586cf6a3c66bbef2776d8ed422a6b305",
+    "native-binary-measurement.log": "3b7e2dbc55a30ea92ff39692f2092e38a4031a2c6cb0a6c6669af6c6a85ab1eb",
+    "native-bounded-default.log": "970cbf2ab95d0584605be332b541132499cc4018b339998667cc0f626d4b7839",
+    "native-final-implicit.log": "e220aeadcf9d8783c5ca6343ca71b8b1bb7cdd2060c2f24b10fde516397d8dde",
+    "native-foreign-first-optional.log": "29f0d46eb86ffcd0057639a6bb72fff17d5922a8089ba68b681a3f34261db67b",
+    "native-guarded-stacks.log": "f2a2536ce6a210ae859dd2a537091304c2194bb0751a376ad253ed3ef32d1fdb",
+    "native-leading-required.log": "e10054fcba8e938de148f37820f25b87e9fa4ef781b217ffcd182a6b95d8d0c0",
+    "native-optional-alias-join.log": "bbef3264d017a48ffbc1471e51fd5c280751fbdc182dd627a8a294d56d859667",
+    "native-optional-literal-table.log": "e5a7997c4fdb8cfadb8a2d1dba6d97569de521ccfcb5ab157ed3d26857ce9bc1",
+    "native-prefixed-field.log": "5550a1cfda75bd89aab952a9bbcf4dfbda318e5fde6714ceebfa1533902aeb6d",
+    "native-prepared-measurement.log": "4047aede69613bd052dc86a5b4c8602e360d1a6bdfd9533b15742a74e824ea3d",
+    "native-previous-decode.log": "05cfa983c00bbcd7b1d527fe4e2ac12e9141bd734020a60785ea538bcb55890f",
+    "native-previous-measurement.log": "08f28d604482d2f80b0c156cc21013dae351d026afcee1e17fbe7b68fad597ec",
+    "native-previous-named-bits.log": "cc94c705b0119ed36dec92a18a906cf85ca2f1b31f3e5ceff2becf74ff022732",
+    "native-previous-strings.log": "fb0bcc38a8cfe76cfc22212d6c373162737891b46287f15b8c0ec0bdd6b85c81",
+    "native-previous-x400.log": "34e900d8b1c644fddb2280032363b088c0e71d3bc7e8c5b934da52907228d31e",
+    "native-protected-constant.log": "0722946c4da9a5d4a7e99ac4cc32c9abfcf5259a5e4f9064d404b44ec9e68c7f",
+    "native-remote-optional.log": "e9e9cf64ea5b85f1ed6387270ac4e85905cb1b01120a2f1e7d9e7c9ce0e42959",
+    "native-retained-record.log": "574c94d3f399d21badf1c5ead8db5890b5678cc967577640a3cdc565fcfad028",
+    "native-rsa-boundary.log": "904a2037d66a077551d3ba23afb560cb09a70edd5b31dc136630ea84191808b3",
+    "native-signed-ranges.log": "cbfe8c3a8735193bc30c26ee5f6314353f7d5d683ef40e706dec23c9fdb47e74"
+  }
+}

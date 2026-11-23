@@ -1,0 +1,173 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+@@ -1177,6 +1177,7 @@
+         code = ShareClosedCatchPairPayload(code, labelCount) ?? code;
+         code = DirectTerminalCallResultArguments(code, labelCount) ?? code;
+         code = CompactClosedCatchArgumentFrame(code, labelCount) ?? code;
++        code = CompactCaughtListTailFrames(code, labelCount) ?? code;
+         code = TrimClosedCatchPayloadReturns(code, labelCount) ?? code;
+         code = FoldStagedListConstructions(code, labelCount) ?? code;
+         code = FoldTerminalClosureFrames(code, labelCount) ?? code;
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CaughtListTailFrames.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CaughtListTailFrames.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.CaughtListTailFrames.cs
+@@ -0,0 +1,157 @@
++using static Erlang.Compiler.BeamEmissionFormat;
++
++namespace Erlang.Compiler;
++
++internal sealed partial class BeamModuleCompiler
++{
++    private byte[]? CompactCaughtListTailFrames(ReadOnlyMemory<byte> code, int labelCount)
++    {
++        if (ModuleOptimizationDisabled || !SsaTypeInferenceEnabled || !code.Span.Contains(CatchEnter)
++            || DecodeLateAtomicProjectionSlots(code, labelCount) is not { } decoded)
++        {
++            return null;
++        }
++
++        var body = decoded.Body;
++        using var output = new MemoryStream(code.Length);
++        int copied = 0;
++        for (int allocation = 0; allocation + 12 < body.Count; allocation++)
++        {
++            if (body[allocation] is not { Definition.Opcode: Allocate, Operands: [var size, var live] }
++                || size.Value < 4 || size.Value > BeamOperandParameters.MaximumRegister
++                || body[allocation + 1] is not { Definition.Opcode: InitYRegisters, Operands: [var count, var pending] }
++                || !count.Value.IsOne || !BareStack(pending, (int)size.Value))
++            {
++                continue;
++            }
++
++            int enter = allocation + 2;
++            var snapshots = new Dictionary<BeamOperand, BeamOperand>();
++            while (body[enter] is { Definition.Opcode: Move, Operands: [var source, var saved] }
++                && source.Kind == BeamOperandParameters.X && source.TypeIndex is null && source.Value < live.Value
++                && saved != pending && BareStack(saved, (int)size.Value)
++                && !snapshots.ContainsValue(source) && snapshots.TryAdd(saved, source))
++            {
++                enter++;
++            }
++
++            if (snapshots.Count + 1 != size.Value
++                || body[enter] is not { Definition.Opcode: CatchEnter, Operands: [var handler, var landing] }
++                || handler != pending)
++            {
++                continue;
++            }
++
++            int call = enter + 1;
++            var arguments = new Dictionary<int, BeamOperand>();
++            var consumed = new HashSet<BeamOperand>();
++            while (body[call] is { Definition.Opcode: Move, Operands: [var saved, var outgoing] }
++                && snapshots.TryGetValue(saved, out var source)
++                && outgoing.Kind == BeamOperandParameters.X && outgoing.TypeIndex is null
++                && arguments.TryAdd((int)outgoing.Value, source))
++            {
++                consumed.Add(saved);
++                call++;
++            }
++
++            int location = call;
++            while (body[call].Definition.Opcode == Line)
++            {
++                call++;
++            }
++
++            if (call + 7 >= body.Count
++                || body[call] is not { Definition.Opcode: LocalCall or ExternalCall, Operands: [var arity, _] }
++                || arguments.Count == 0 || arguments.Count != arity.Value
++                || arguments.Keys.Any(destination => destination >= arity.Value)
++                || arguments.Values.Any(source => source.Value < arity.Value)
++                || body[call + 1] is not { Definition.Opcode: Label, Operands: [var label] } || label.Value != landing.Value
++                || body[call + 2] is not { Definition.Opcode: CatchEnd, Operands: [var released] } || released != handler)
++            {
++                continue;
++            }
++
++            var x0 = new BeamOperand(BeamOperandParameters.X, 0);
++            var x1 = new BeamOperand(BeamOperandParameters.X, 1);
++            if (body[call + 3] is not { Definition.Opcode: Move, Operands: [var result, var temporary] }
++                || result != x0 || temporary != handler
++                || body[call + 4] is not { Definition.Opcode: TestHeap, Operands: [var words, var roots] }
++                || !roots.Value.IsZero
++                || body[call + 5] is not { Definition.Opcode: PutList, Operands: [var head, var tail, var list] }
++                || head != handler || list != x1
++                || body[call + 6] is not { Definition.Opcode: Move, Operands: [var next, var first] }
++                || first != x0 || next == tail || !snapshots.ContainsKey(next) || !snapshots.ContainsKey(tail)
++                || consumed.Contains(next) || consumed.Contains(tail) || consumed.Count + 2 != snapshots.Count
++                || body[call + 7] is not
++                {
++                    Definition.Opcode: TailLocalCallWithFrame or TailExternalCallWithFrame,
++                    Operands: [var tailArity, var target, var deallocate]
++                }
++                || tailArity.Value != 2 || deallocate.Value != size.Value)
++            {
++                continue;
++            }
++
++            if (body.Where((_, index) => index != enter).Any(instruction =>
++                instruction.Definition.Opcode is not (LocalCall or TailLocalCall or TailLocalCallWithFrame)
++                && instruction.Operands.Any(operand => operand.Kind == BeamOperandParameters.Label
++                    && operand.Value == landing.Value)))
++            {
++                continue;
++            }
++
++            // The protected call takes its values directly in X. The only roots
++            // crossing it are the two values used by the terminal list call.
++            const int nextSlot = 0;
++            const int tailSlot = 1;
++            const int handlerSlot = 2;
++            const int frame = 3;
++            output.Write(code.Span[copied..body[allocation].Offset]);
++            Write(Allocate, (BeamWire.UnsignedTag, frame), (BeamWire.UnsignedTag, (int)live.Value));
++            Write(Move, (XRegisterTag, (int)snapshots[next].Value), (YRegisterTag, nextSlot));
++            Write(Move, (XRegisterTag, (int)snapshots[tail].Value), (YRegisterTag, tailSlot));
++            Write(CatchEnter, (YRegisterTag, handlerSlot), (LabelTag, (int)landing.Value));
++            foreach (int destination in IndependentCallMoveOrder(arguments.Count))
++            {
++                Write(Move, (XRegisterTag, (int)arguments[destination].Value), (XRegisterTag, destination));
++            }
++
++            output.Write(code.Span[body[location].Offset..body[call + 2].Offset]);
++            Write(CatchEnd, (YRegisterTag, handlerSlot));
++            Write(TestHeap, (BeamWire.UnsignedTag, (int)words.Value), (BeamWire.UnsignedTag, 1));
++            Write(
++                PutList,
++                (XRegisterTag, 0),
++                (YRegisterTag, tailSlot),
++                (XRegisterTag, 1)
++            );
++            Write(Move, (YRegisterTag, nextSlot), (XRegisterTag, 0));
++            Write(
++                body[call + 7].Definition.Opcode,
++                (BeamWire.UnsignedTag, 2),
++                (target.Kind == BeamOperandParameters.Label ? LabelTag : BeamWire.UnsignedTag, (int)target.Value),
++                (BeamWire.UnsignedTag, frame)
++            );
++            copied = body[call + 8].Offset;
++            allocation = call + 7;
++        }
++
++        if (copied == 0)
++        {
++            return null;
++        }
++
++        output.Write(code.Span[copied..]);
++
++        return output.ToArray();
++
++        void Write(byte opcode, params (int Tag, int Value)[] operands)
++        {
++            output.WriteByte(opcode);
++            foreach (var operand in operands)
++            {
++                BeamCompactWriter.Write(output, operand.Tag, operand.Value);
++            }
++        }
++    }
++}

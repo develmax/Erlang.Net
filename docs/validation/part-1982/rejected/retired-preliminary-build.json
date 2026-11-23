@@ -1,0 +1,26 @@
+{
+  "Stopped": "2026-11-21T10:39:47.0793575+03:00",
+  "Reason": "Fold the three newly ready source proposals into the same local validation package before any dependent execution.",
+  "PreviousBuild": "32698CEC538F44772DAAAF230D2BD42417733F0286DDFCC29C86B59C4E60143D",
+  "Waiters": [
+    {
+      "Lane": "scoped",
+      "Launcher": 1504,
+      "Waiter": 52428,
+      "Recipe": "run-focused-and-pilot.ps1"
+    },
+    {
+      "Lane": "native-recovery",
+      "Launcher": 57440,
+      "Waiter": 46304,
+      "Recipe": "run-native-recovery.ps1"
+    },
+    {
+      "Lane": "full-recovery",
+      "Launcher": 39028,
+      "Waiter": 55128,
+      "Recipe": "run-full-recovery.ps1"
+    }
+  ],
+  "ScopeStarted": false
+}

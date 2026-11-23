@@ -1,0 +1,31 @@
+{
+  "FrozenParent": {
+    "Source": "a34aaab4724273590c91d36747b3fd117be9c3a3ad00d5e59ee8150da91bea67",
+    "Paths": 760,
+    "RemovedPaths": [],
+    "Compiler": "82253d610adbd454e504508897d9563617167478fda45e6840a546c6a2cb6ca9",
+    "Runtime": "7445a7ea8a055c952841ad41a2f4f0138b7fe39eab6762eb1030e59308a1c8aa",
+    "Tests": "323c0123448c430202c8f915fcbe94e50d4456bfcd57c1df5901dde1002096a8",
+    "ParentSource": "4ecf38a4a88e2942d4c14d3daf9c80d16b1db47d48cd366070b32ed7ec8c2b6d",
+    "CorpusTool": "9fd4240c56d69f2126274384a74d22ece111e1044fbd09574086412a4abd40b9"
+  },
+  "Corpus": {
+    "Count": 35,
+    "Compiler": "A30E188794301F68C028C66CB592839439512184A259CEF3F729707A6925EB7B",
+    "Seconds": 130.8294948,
+    "ExitCode": 1
+  },
+  "Counts": {
+    "Different": 9,
+    "Equal": 26
+  },
+  "NativeObservations": 14,
+  "Regressions": 1,
+  "Normalized": "#{functions => 13,gains => [{\"compile.beam\",{is_doc_attribute,1}},{\"ssl_gen_statem.beam\",{terminate_alert,1}},{\"argparse.beam\",{'-is_valid_command_help/1-fun-0-',1}},{\"uri_string.beam\",{'-normalize_percent_encoding/1-fun-0-',2}}],losses => [],frame_decreases => 0,frame_increases => 0}.",
+  "EarlyFrameRegression": "mnesia_schema:expand_storage_type/1",
+  "OriginalCensus": "8f1fe929cbfa7db18952e4eaf6a77b61ff5d9b703fefa5280c9f255f36c29e6e",
+  "PatchDigests": {
+    "production.patch": "8c0518c00d37ab00bdb7bd38f48e299d12c8d9cd375866883aae3cf0443e5449",
+    "test.patch": "fa5d9b3924147ec48eba67fbcdc8e4c75c7b173f45303c21910f85fef3d6d2e3"
+  }
+}

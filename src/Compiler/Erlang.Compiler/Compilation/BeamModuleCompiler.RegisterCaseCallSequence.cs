@@ -13,7 +13,8 @@ internal sealed partial class BeamModuleCompiler
             Dictionary<int, int> LastReads,
             CaseTuplePlan? ReturnTuple,
             Term? ReturnConstant,
-            bool KeepFrame
+            bool KeepFrame,
+            int? ReturnSlot = null
         );
 
         private RegisterCaseCallSequence? ReadRegisterCaseCallSequence(
@@ -22,7 +23,8 @@ internal sealed partial class BeamModuleCompiler
             IReadOnlyDictionary<string, int> saved,
             bool allowConstant = false,
             int selectorRegister = 0,
-            int extraSlots = 0
+            int extraSlots = 0,
+            int? matchedTupleSlot = null
         )
         {
             IReadOnlyList<Expr> statements;
@@ -32,6 +34,12 @@ internal sealed partial class BeamModuleCompiler
             {
                 tuple = sequence.Items[^1] as Expr.Tuple;
                 statements = tuple is null ? sequence.Items : sequence.Items.SkipLast(1).ToArray();
+                if (matchedTupleSlot is not null)
+                {
+                    // The matched value is already in the frame, so its
+                    // fields need not stay live through the effect calls.
+                    tuple = null;
+                }
             }
             else if (allowConstant && expression is Expr.Sequence { Items.Count: > 1 } effects
                 && AttributeLiteral.TryNormalizeConstant(effects.Items[^1], out Term returnedConstant))
@@ -88,6 +96,11 @@ internal sealed partial class BeamModuleCompiler
                 .ToDictionary(binding => binding.Key, binding => binding.Value, StringComparer.Ordinal);
             var plans = new SavedCallStep[calls.Length];
             var lastReads = new Dictionary<int, int>();
+            if (matchedTupleSlot is int returnSlot)
+            {
+                lastReads.Add(returnSlot, calls.Length);
+            }
+
             string? previous = selector;
             for (int index = 0; index < calls.Length; index++)
             {
@@ -163,7 +176,8 @@ internal sealed partial class BeamModuleCompiler
                 lastReads,
                 returned,
                 constant,
-                KeepFrame: extraSlots != 0
+                KeepFrame: extraSlots != 0,
+                ReturnSlot: matchedTupleSlot
             ) : null;
 
             void RecordReads(Expr value, int index)
@@ -193,7 +207,8 @@ internal sealed partial class BeamModuleCompiler
                 EntryCall call = step.Call;
                 EmitSavedCallArguments(step, slots);
 
-                if (sequence is { ReturnTuple: null, ReturnConstant: null } && index == sequence.Calls.Length - 1)
+                if (sequence is { ReturnTuple: null, ReturnConstant: null, ReturnSlot: null }
+                    && index == sequence.Calls.Length - 1)
                 {
                     EmitPreparedFrameTail(call, previous, frame - trimmed);
                     break;
@@ -258,6 +273,16 @@ internal sealed partial class BeamModuleCompiler
             if (sequence.ReturnTuple is { } tuple)
             {
                 EmitCaseTuple(tuple, trimmed: trimmed);
+                owner.EmitFrameReturn(frame - trimmed);
+            }
+            else if (sequence.ReturnSlot is int returned)
+            {
+                owner.MoveRegister(
+                    YRegisterTag,
+                    slots[returned],
+                    XRegisterTag,
+                    0
+                );
                 owner.EmitFrameReturn(frame - trimmed);
             }
             else if (sequence.ReturnConstant is { } constant)

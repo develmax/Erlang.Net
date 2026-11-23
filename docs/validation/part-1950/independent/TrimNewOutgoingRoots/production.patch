@@ -1,0 +1,77 @@
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.cs
+@@ -1180,7 +1180,12 @@
+         code = CompactClosedCatchArgumentFrame(code, labelCount) ?? code;
+         code = CompactCaughtListTailFrames(code, labelCount) ?? code;
+         code = ClearClosedCatchArgumentRoots(code, labelCount) ?? code;
+-        code = ClearConsumedOutgoingRoots(code, labelCount) ?? code;
++        if (ClearConsumedOutgoingRoots(code, labelCount) is { } outgoing)
++        {
++            // The late argument schedule can expose new trim sites after the
++            // original frame pass has fixed the existing ones.
++            code = TrimLinearStackFrames(outgoing.Code, labelCount, outgoing.Initializations) ?? outgoing.Code;
++        }
+         code = TrimClosedCatchPayloadReturns(code, labelCount) ?? code;
+         code = FoldStagedListConstructions(code, labelCount) ?? code;
+         code = FoldTerminalClosureFrames(code, labelCount) ?? code;
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ConsumedOutgoingRoots.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ConsumedOutgoingRoots.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ConsumedOutgoingRoots.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.ConsumedOutgoingRoots.cs
+@@ -4,7 +4,7 @@
+ 
+ internal sealed partial class BeamModuleCompiler
+ {
+-    private byte[]? ClearConsumedOutgoingRoots(ReadOnlyMemory<byte> code, int labelCount)
++    private (byte[] Code, IReadOnlySet<int> Initializations)? ClearConsumedOutgoingRoots(ReadOnlyMemory<byte> code, int labelCount)
+     {
+         if (ModuleOptimizationDisabled || !SsaTypeInferenceEnabled || !code.Span.Contains(Move)
+             || DecodeLateAtomicProjectionSlots(code, labelCount) is not { } decoded)
+@@ -75,11 +75,13 @@
+         }
+ 
+         using var output = new MemoryStream(code.Length);
++        var initializations = new HashSet<int>();
+         int copied = 0;
+         foreach (var (index, slots) in edits)
+         {
+             int insertion = body[index].Offset;
+             output.Write(code.Span[copied..insertion]);
++            initializations.Add(checked((int)output.Position));
+             WriteFrameInitialization(output, slots);
+             copied = insertion;
+         }
+@@ -87,6 +89,6 @@
+         highestOpcode = Math.Max(highestOpcode, InitYRegisters);
+         output.Write(code.Span[copied..]);
+ 
+-        return output.ToArray();
++        return (output.ToArray(), initializations);
+     }
+ }
+diff --git a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.StackFrameTrimming.cs b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.StackFrameTrimming.cs
+--- a/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.StackFrameTrimming.cs
++++ b/src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.StackFrameTrimming.cs
+@@ -4,7 +4,11 @@
+ 
+ internal sealed partial class BeamModuleCompiler
+ {
+-    private byte[]? TrimLinearStackFrames(ReadOnlyMemory<byte> code, int labelCount)
++    private byte[]? TrimLinearStackFrames(
++        ReadOnlyMemory<byte> code,
++        int labelCount,
++        IReadOnlySet<int>? eligibleInitializations = null
++    )
+     {
+         var stackOperands = new List<(int Start, int End, int Slot)>();
+         IReadOnlyList<BeamInstruction> body;
+@@ -122,7 +126,8 @@
+                     break;
+                 }
+ 
+-                if (opcode == InitYRegisters && hasCall)
++                if (opcode == InitYRegisters && hasCall
++                    && (eligibleInitializations is null || eligibleInitializations.Contains(instruction.Offset)))
+                 {
+                     var killed = instruction.Operands.Skip(1).Select(operand => (int)operand.Value).ToHashSet();
+                     int last = (int)frame.Value - 1;

@@ -1,0 +1,24 @@
+{
+  "Patches": {
+    "ber-binary-length-consumer.patch": "03eea4b5bfc60e934cf40814b682f6674ab19fc26848820e28099b75ba33705e",
+    "ber-binary-length-consumer-tests.patch": "644c7bde941a1fbc4d52d0dbb6892bc5e86025b68d00a3ab13cc377c4b049140"
+  },
+  "Files": {
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.GeneralEmitter.cs": {
+      "Before": "36c48135f8c63e9190cafd4298b71488492f34141800a916530980d79463d93b",
+      "After": "1e8f3d01700786de6bce850ae7722b2bcecca01b026c33a8d401151c200e6d8b"
+    },
+    "src/Compiler/Erlang.Compiler/Compilation/BeamModuleCompiler.BinaryLengthConsumer.cs": {
+      "Before": null,
+      "After": "691943840bc6843aa28f004ce22ed3b43c2d4a9dc6a06db001395223b4da6cd9"
+    },
+    "tests/Erlang.Tests/Compiler/Beam/BeamBinaryLengthConsumerChecks.cs": {
+      "Before": null,
+      "After": "83b765a76b670c3cb1db9765e4b18f80bcbcd743a47823ee124ab5ed10ef3e33"
+    },
+    "tests/Erlang.Tests/Harness/Program.cs": {
+      "Before": "0a6595a780c86f3a1ba90d1a9fb1b8edd5081d6ef28bd8ed9d62f255df5e0d9d",
+      "After": "40b74aa52628e071b5d4ec00ac5e99097fe63887e483fc93e5dd5642277396e9"
+    }
+  }
+}
