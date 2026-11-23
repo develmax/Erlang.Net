@@ -37,9 +37,9 @@ internal static class BeamUnusedTupleBindingChecks
         ];
         ReadOnlySpan<byte> laterRead =
         [
-            BeamEmissionFormat.Move, 0x31, 0x03, BeamEmissionFormat.Move, 0x03, 0x23,
-            BeamEmissionFormat.PutTuple, 0x03, BeamEmissionFormat.ExtendedListOperand, 0x20, 0x03, 0x13,
-            BeamEmissionFormat.PutTuple, 0x03, BeamEmissionFormat.ExtendedListOperand, 0x20, 0x03, 0x23
+            BeamEmissionFormat.TestHeap, 0x60, 0x10,
+            BeamEmissionFormat.PutTuple, 0x03, BeamEmissionFormat.ExtendedListOperand, 0x20, 0x31, 0x03,
+            BeamEmissionFormat.PutTuple, 0x03, BeamEmissionFormat.ExtendedListOperand, 0x20, 0x03, 0x31
         ];
         ReadOnlySpan<byte> effectfulValue =
         [

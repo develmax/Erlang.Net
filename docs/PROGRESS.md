@@ -1,5 +1,7 @@
 # Project progress
 
+Part 2008 passes the complete registered whole-module compiler case, including 308 pinned images. The recheck of 44 previously failing cases passed 19. Eight selected release files remain Different. [Validation](validation/part-2008-pr143-compiler-fixture-check/README.md).
+
 Part 2007 preserves the monitor freeze byte identity across Git checkout settings. The selected compiler harness passes 78 of 80. [Validation](validation/part-2007-pr143-checkout-recovery/README.md).
 
 Part 2006 restores the passive source admissions for PR 143 and corrects several compiler and fixture failures. The 60 previously selected cases pass. The broader compiler block retains open failures. [Validation](validation/part-2006-pr143-source-admission/README.md).

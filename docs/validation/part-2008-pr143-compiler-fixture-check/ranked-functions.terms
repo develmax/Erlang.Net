@@ -1,0 +1,960 @@
+#{allocation_operand_groups =>
+      #{{allocate,{frame,excess},{live,equal}} =>
+            {85,
+             #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                   [{'-check_exports/2-fun-0-',2},
+                    {'-check_type/3-fun-0-',3},
+                    {categorize,1},
+                    {check_ObjectSetFromObjects,3},
+                    {check_bitstring,2},
+                    {check_choice,3},
+                    {check_constraints,3},
+                    {check_object_set_list,2},
+                    {check_objectclass,2},
+                    {check_reference,2},
+                    {check_selectiontype2,3},
+                    {check_sequence,3},
+                    {check_set,3},
+                    {check_type_identifier,2},
+                    {check_unique_sequence_tags,2},
+                    {collect_components,1},
+                    {component_value_index,4},
+                    {componentrelation1,3},
+                    {create_map_value,2},
+                    {do_checkc_1,3},
+                    {do_get_ref_type_2,4},
+                    {duplicate_def,3},
+                    {get_normalized_value,5},
+                    {get_real_host_type,2},
+                    {get_referenced,4},
+                    {get_referenced_type,3},
+                    {get_referenced_value,2},
+                    {get_simple_table_info1,4},
+                    {get_tableconstraint_info,3},
+                    {innertype_comprel1,3},
+                    {iof_associated_type1,2},
+                    {match_syntax_external,3},
+                    {renamed_reference,3},
+                    {resolve_namednumber_1,3},
+                    {sort_components,3},
+                    {traverse_seq_set_1,2}],
+               "lib/common_test-1.31.2/proper_ext/ct_proper_ext.beam" =>
+                   [{safe_any,2}],
+               "lib/common_test-1.31.2/proper_ext/ct_quickcheck_ext.beam" =>
+                   [{safe_tuple,0}],
+               "lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                   [{assemble_function,3},
+                    {build_atom_table,2},
+                    {build_beam_debug_info_1,1},
+                    {build_line_table,2},
+                    {build_literal_chunk,2},
+                    {encode1,2},
+                    {encode_alloc_list,2},
+                    {encode_literal,2},
+                    {encode_op_1,3},
+                    {on_load,2},
+                    {set_vsn_attribute,2},
+                    {to_bytes,1}],
+               "lib/debugger-7.0/ebin/dbg_wx_mon_win.beam" => [{add_module,3}],
+               "lib/kernel-11.0.4/ebin/inet_gethost_native.beam" =>
+                   [{do_open_port,2},
+                    {do_start,2},
+                    {foreach,3},
+                    {main_loop,1},
+                    {parse_address,2},
+                    {restart_port,1},
+                    {run_once,0},
+                    {server_init,2},
+                    {terminate,2}],
+               "lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                   [{allocate_all_objects,2},
+                    {bchunk_init,2},
+                    {bulk_objects,5},
+                    {cache_segps,3},
+                    {compact_init,3},
+                    {compact_input,4},
+                    {do_make_slots,7},
+                    {do_perform_save,1},
+                    {eval_end,6},
+                    {fast_write_all_sizes,3},
+                    {file_header,4},
+                    {free_lists_to_file,1},
+                    {init_file,17},
+                    {initiate_file,11},
+                    {mark_dirty,1},
+                    {prepare_file_init,5},
+                    {re_hash,2},
+                    {re_hash_write,5},
+                    {read_bucket,3},
+                    {read_file_header,2},
+                    {read_more_bytes,6},
+                    {scan_objs,8},
+                    {segment_file,4},
+                    {slot_end,9},
+                    {slot_objects,2}]}},
+        {allocate_heap,{frame,excess},{heap,equal},{live,equal}} =>
+            {5,
+             #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                   [{filter_errors,2},{get_least_tag,1},{textual_order,1}],
+               "lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                   [{insert_on_load_instruction,2}],
+               "lib/kernel-11.0.4/ebin/inet_gethost_native.beam" =>
+                   [{'-handle_message/2-fun-0-',2}]}}},
+  different_images => 8,
+  opcode_groups =>
+      #{extra_function =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{'-check_class_fields/3-fun-0-',1}],
+              "lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{'-build_file/9-lc$^0/1-0-',1},
+                   {'-build_file/9-lc$^1/1-1-',1},
+                   {'-encode_arg/2-fun-1-',2},
+                   {'-flatten_exports/1-fun-0-',1},
+                   {'-flatten_imports/1-fun-0-',1},
+                   {'-on_load/2-fun-0-',2},
+                   {build_attributes,3},
+                   {flatten_imports,1},
+                   {line_bits,2},
+                   {module_md5,1},
+                   {pad,1},
+                   {reject_unsupported_versions,1}]},
+        missing_function =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{'-check_bitstring/2-lc$^0/1-0-',2},
+                   {'-check_choice/3-lc$^0/1-0-',1},
+                   {'-check_exports/2-lc$^1/1-0-',3},
+                   {'-check_imports_1/3-lc$^0/1-0-',2},
+                   {'-check_imports_1/3-lc$^2/1-1-',2},
+                   {'-check_unique_sequence_tags/2-lc$^0/1-0-',2},
+                   {'-check_unique_sequence_tags/2-lc$^1/1-1-',1},
+                   {'-check_unique_tags/3-lc$^1/1-1-',1},
+                   {'-create_map_value/2-zlc$^0/2-0-',2},
+                   {'-extension/1-lc$^1/1-0-',2},
+                   {'-extension/1-lc$^3/1-1-',2},
+                   {'-sort_value/2-lc$^1/1-1-',2},
+                   {'-sort_value/2-lc$^2/1-2-',1}],
+              "lib/common_test-1.31.2/proper_ext/ct_proper_ext.beam" =>
+                  [{'-safe_any/2-lc$^1/1-0-',2},{'-safe_any/2-lc$^4/1-1-',2}],
+              "lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{'-build_atom_table/2-lc$^0/1-0-',1},
+                   {'-build_bdi_instrs/1-lc$^1/1-0-',1},
+                   {'-build_beam_debug_info_1/1-lc$^0/1-0-',1},
+                   {'-build_beam_debug_info_1/1-lc$^1/1-1-',1},
+                   {'-build_beam_debug_info_1/1-lc$^2/1-2-',2},
+                   {'-build_beam_debug_info_1/1-lc$^3/1-3-',1},
+                   {'-build_file/9-anonymous-4-',1},
+                   {'-build_file/9-anonymous-5-',1},
+                   {'-build_file/9-lc$^0/1-2-',1},
+                   {'-build_file/9-lc$^1/1-3-',1},
+                   {'-build_line_table/2-lbc$^1/2-1-',2},
+                   {'-build_line_table/2-lc$^0/1-0-',1},
+                   {'-encode_arg/2-anonymous-1-',2},
+                   {'-encode_arg/2-lc$^0/1-0-',1},
+                   {'-flatten_exports/1-anonymous-1-',1},
+                   {'-on_load/2-anonymous-0-',2}]},
+        {allocate,get_hd} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{'-sort_components1/1-lc$^0/1-0-',1}]},
+        {allocate,get_list} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{'-sort_components1/1-lc$^1/1-1-',1},
+                   {check_fold,3},
+                   {filter_extensions,1},
+                   {match_args,4}],
+              "lib/common_test-1.31.2/proper_ext/ct_proper_ext.beam" =>
+                  [{'-distribute/2-lc$^0/1-0-',1}]},
+        {allocate,get_tl} =>
+            #{"lib/common_test-1.31.2/proper_ext/ct_proper_ext.beam" =>
+                  [{'-distribute_1/2-lc$^0/1-0-',1}]},
+        {allocate,get_tuple_element} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{'-check_named_number_list/2-lc$^0/1-0-',2},
+                   {'-check_object_set/2-lc$^1/1-1-',1},
+                   {'-order_tag_set/2-lc$^0/1-0-',2},
+                   {'-remove_duplicate_objects/2-lc$^0/1-0-',1},
+                   {categorize_arg,3},
+                   {check_enum_ext,5},
+                   {check_unique_tags,3},
+                   {cs_union,3},
+                   {finish_constraint,3},
+                   {get_fieldname_element,3},
+                   {leading_attr_index,5},
+                   {lookup_enum_value,3},
+                   {maybe_open_type,4},
+                   {normalize_bs_item,3},
+                   {simplify_element_sets,3}],
+              "lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{build_record_def,2},{build_record_def_fs,1}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{make_objects,5},{remove_slot_tag,3}]},
+        {allocate,jump} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{simplify_element_set_type,3}],
+              "lib/kernel-11.0.4/ebin/inet_gethost_native.beam" =>
+                  [{do_handle_call,4}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{free_lists_from_file,2}]},
+        {allocate,{bif,get}} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{iof_associated_type,2}]},
+        {allocate,{test,is_list}} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{remove_duplicate_objects,2}]},
+        {allocate,{test,is_tagged_tuple}} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{check_object_set,2},
+                   {check_referenced_object,2},
+                   {get_oid_value,4},
+                   {match_syntax_params,4},
+                   {return_asn1_error,3},
+                   {storeindb_1,4}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" => [{file_header,3}]},
+        {allocate,{test,is_tuple}} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{include_default_class1,3}]},
+        {allocate_heap,allocate} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{check_valuedef,2},{componentrelation_leadingattr,5}],
+              "lib/debugger-7.0/ebin/dbg_wx_mon_win.beam" =>
+                  [{clear_processes,1}],
+              "lib/kernel-11.0.4/ebin/inet_gethost_native.beam" =>
+                  [{open_executable,2}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" => [{temp_file,3}]},
+        {allocate_heap,get_list} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{'-format_fields/1-lc$^0/1-0-',1},{duplicate_def_1,4}]},
+        {allocate_heap,get_tuple_element} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{componentlist_comprel,5}],
+              "lib/compiler-10.0.6/ebin/beam_asm.beam" => [{assemble,4}]},
+        {bs_create_bin,allocate} =>
+            #{"lib/common_test-1.31.2/proper_ext/ct_proper_ext.beam" =>
+                  [{get_existing_atom,1}],
+              "lib/common_test-1.31.2/proper_ext/ct_quickcheck_ext.beam" =>
+                  [{get_existing_atom,1}]},
+        {bs_create_bin,move} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" => [{build_file,9}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{alloc_part,3},{seg_zero,0}]},
+        {bs_start_match4,allocate} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{filter_essentials,1},
+                   {finalize_fun_table_1,2},
+                   {finalize_fun_table_2,3}],
+              "lib/kernel-11.0.4/ebin/inet_gethost_native.beam" =>
+                  [{ndx,4},{pick_names,1}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{bin2keybins2,3},
+                   {bin2objs,3},
+                   {bin2objs2,2},
+                   {bin_to_tree1,4},
+                   {fsck_objs,5},
+                   {per_bag_key,3},
+                   {per_set_key,3}]},
+        {call,init_yregs} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{create_map_value,2}],
+              "lib/common_test-1.31.2/proper_ext/ct_quickcheck_ext.beam" =>
+                  [{safe_tuple,0}]},
+        {call,move} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{'-check_sequence/3-lc$^0/1-0-',1},
+                   {'-collect_components/1-lc$^0/1-0-',1},
+                   {get_imported,4},
+                   {parse_and_save,2},
+                   {textual_order,1}],
+              "lib/common_test-1.31.2/proper_ext/ct_proper_ext.beam" =>
+                  [{'-existing_atom/1-fun-0-',1}],
+              "lib/compiler-10.0.6/ebin/beam_asm.beam" => [{encode_literal,2}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" => [{check_pread2_arg,2}]},
+        {call_ext,init_yregs} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" => [{to_bytes,1}],
+              "lib/debugger-7.0/ebin/dbg_wx_mon_win.beam" =>
+                  [{create_win_batch,2}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" => [{mark_dirty,1}]},
+        {call_ext,move} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{check_defaultfields,3},{preprocess_syntax,3}],
+              "lib/common_test-1.31.2/proper_ext/ct_proper_ext.beam" =>
+                  [{rand_int0,1}],
+              "lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{build_beam_debug_info_1,1},{encode_op,3}],
+              "lib/debugger-7.0/ebin/dbg_wx_mon_win.beam" =>
+                  [{clear_processes,2}],
+              "lib/kernel-11.0.4/ebin/inet_gethost_native.beam" =>
+                  [{get_extra_args,0}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" => [{output_slot,7}]},
+        {call_fun2,call_fun} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" => [{traverse,2}]},
+        {call_fun2,move} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{traverse_seq_set_1,2}]},
+        {call_last,move} =>
+            #{"lib/kernel-11.0.4/ebin/inet_gethost_native.beam" =>
+                  [{ensure_started,0}]},
+        {call_only,move} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" => [{validate_oid,4}],
+              "lib/common_test-1.31.2/proper_ext/ct_quickcheck_ext.beam" =>
+                  [{'-make_list/2-fun-1-',3},{'-make_tuple/2-fun-1-',3}]},
+        {'catch',move} =>
+            #{"lib/kernel-11.0.4/ebin/inet_gethost_native.beam" =>
+                  [{parse_address,2}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" => [{scan_objs,8}]},
+        {deallocate,instruction_end} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{renamed_reference,2}]},
+        {get_list,allocate} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{convert_back,1},
+                   {extract_at_notation,1},
+                   {format_elements,1},
+                   {range_union_1,1}]},
+        {get_list,get_hd} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" => [{get_OCFType,3}]},
+        {get_list,{test,is_nonempty_list}} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{to_EXTERNAL1990,2},{top_level_intersections,1}]},
+        {get_tuple_element,allocate} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{'-context_switch_in_spec/0-fun-0-',2},
+                   {check_class,2},
+                   {check_exports,2},
+                   {check_object_set_mk,4},
+                   {check_pobjectset,2},
+                   {checko_1,5},
+                   {convert_external,3},
+                   {get_class_def,2},
+                   {get_objclass_fields,2},
+                   {get_unique_fieldname,2},
+                   {governor_category,2},
+                   {innertype_comprel,3},
+                   {is_exported,2},
+                   {match_syntax_objset_1,3},
+                   {maybe_unchecked_OCFT,2},
+                   {merged_name,2},
+                   {object_to_check,2},
+                   {parse_objectset,1},
+                   {resolve_value1,3},
+                   {simple_table_get_ocft,3},
+                   {simple_table_info,3},
+                   {simplify_type,1}],
+              "lib/debugger-7.0/ebin/dbg_wx_mon_win.beam" =>
+                  [{'-clear_breaks/2-fun-0-',2},
+                   {add_break,3},
+                   {update_break,2}],
+              "lib/kernel-11.0.4/ebin/inet_gethost_native.beam" =>
+                  [{handle_message,2}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{'-file_header/3-fun-2-',1},
+                   {'-prepare_file_init/5-fun-0-',2},
+                   {'-read_file_header/2-fun-0-',2},
+                   {bin2keybins,2},
+                   {find_object,2},
+                   {find_object,3},
+                   {table_parameters,1}]},
+        {get_tuple_element,init_yregs} =>
+            #{"lib/kernel-11.0.4/ebin/inet_gethost_native.beam" =>
+                  [{'-handle_message/2-fun-0-',2}]},
+        {get_tuple_element,move} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{is_contextswitchtype,1},
+                   {maybe_automatic_tags,2},
+                   {resolve_namednumber,3},
+                   {return_asn1_error,2},
+                   {tag_key,1}],
+              "lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{bdi_encode_var_or_atom,1}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{check_file_header,2},{file_info,1},{read_bucket,3}]},
+        {get_tuple_element,{test,is_eq_exact}} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{bdi_encode_calls,1},{encode_line_items,2}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" => [{allocate_all,3}]},
+        {get_tuple_element,{test,is_integer}} =>
+            #{"lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{'-init_file/17-fun-0-',1}]},
+        {get_tuple_element,{test,is_nil}} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{get_referenced_fieldname,1},{get_simple_table_info2,4}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{eval_key,9},{max_objsize,2}]},
+        {get_tuple_element,{test,is_tagged_tuple}} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{check_each_alternative2,4},
+                   {check_each_component2,4},
+                   {check_objectdefn,3},
+                   {check_pobject,2},
+                   {check_set,3},
+                   {check_unique_tags,2},
+                   {finish_constraints_1,2},
+                   {get_fieldname_set,3},
+                   {get_innertag,2},
+                   {is_open_type,1},
+                   {merged_mod,3},
+                   {ocft_def,1}]},
+        {get_tuple_element,{test,is_tuple}} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{check_contextswitchingtypes,3},
+                   {expand_components2,2},
+                   {extract_field,3},
+                   {get_referenced_value,2},
+                   {is_record_normalized,4},
+                   {normalize_enumerated,3},
+                   {sort_components,3},
+                   {tablecinf_choose,1}],
+              "lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{build_bdi_fill_holes,1}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{eval_bucket_keys,8},{prep_set_slot,7}]},
+        {init_yregs,call} =>
+            #{"lib/kernel-11.0.4/ebin/inet_gethost_native.beam" =>
+                  [{run_once,0}]},
+        {init_yregs,move} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{check_objectclass,2},
+                   {get_tableconstraint_info,3},
+                   {instantiate_pos,4},
+                   {is_automatic_tagged_in_multi_file,1}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{bchunk_init,2},
+                   {file_header,4},
+                   {prepare_file_init,5},
+                   {segment_file,4},
+                   {try_bchunk_header,2}]},
+        {make_fun3,move} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{flatten_exports,1}]},
+        {move,allocate} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{'-check/2-fun-1-',2},
+                   {'-check/2-fun-2-',2},
+                   {'-check/2-fun-3-',2},
+                   {'-check/2-fun-4-',2},
+                   {'-check/2-fun-5-',2},
+                   {default_type_list,0}],
+              "lib/kernel-11.0.4/ebin/inet_gethost_native.beam" => [{ndx,2}]},
+        {move,call} =>
+            #{"lib/common_test-1.31.2/proper_ext/ct_quickcheck_ext.beam" =>
+                  [{safe_any,2}]},
+        {move,call_ext} =>
+            #{"lib/stdlib-8.1/ebin/dets_v9.beam" => [{seg_file,8}]},
+        {move,get_list} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{check_each_alternative2,3}]},
+        {move,get_tuple_element} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{check_object_set_list,2},
+                   {collect_components,1},
+                   {componentrelation1,3},
+                   {innertype_comprel1,3},
+                   {match_syntax_external,3}],
+              "lib/compiler-10.0.6/ebin/beam_asm.beam" => [{module,4}],
+              "lib/debugger-7.0/ebin/dbg_wx_mon_win.beam" => [{add_module,3}],
+              "lib/kernel-11.0.4/ebin/inet_gethost_native.beam" =>
+                  [{getit,2}]},
+        {move,put_tuple2} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" => [{asn1db_member,3}]},
+        {move,swap} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{'-get_simple_table_info/3-lc$^0/1-0-',3},
+                   {'-include_default_class/2-lc$^0/1-0-',3},
+                   {'-normalize_bitstring/3-lc$^0/1-0-',3},
+                   {'-simplify_element_set/3-lc$^0/1-0-',3}]},
+        {move,test_heap} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" => [{format_fields,1}]},
+        {move,{test,is_tuple}} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{preprocess_check_field,4}],
+              "lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{build_atom_table,2},{build_line_table,2}]},
+        {put_list,move} =>
+            #{"lib/stdlib-8.1/ebin/dets_v9.beam" => [{tag_with_slot,3}]},
+        {put_tuple2,move} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{check_formal_parameter,2}]},
+        {recv_marker_use,loop_rec} =>
+            #{"lib/kernel-11.0.4/ebin/inet_gethost_native.beam" =>
+                  [{wait_reply,2}]},
+        {return,instruction_end} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{get_instance_of,0}]},
+        {return,{test,is_nil}} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{'-check_object_set/2-lc$^0/1-0-',1},
+                   {'-get_simple_table_if_used/2-lc$^0/1-0-',1},
+                   {'-get_simple_table_if_used/2-lc$^1/1-1-',1},
+                   {'-remove_extension/1-lc$^0/1-0-',1}],
+              "lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{'-finalize_fun_table/2-lc$^0/1-0-',2}]},
+        {select_tuple_arity,allocate} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" => [{check_value,2}]},
+        {select_tuple_arity,{test,is_tuple}} =>
+            #{"lib/stdlib-8.1/ebin/dets_v9.beam" => [{fsck_read,5}]},
+        {select_tuple_arity,{test,test_arity}} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{textual_order,3},{tuple2complist,1}]},
+        {select_val,allocate} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" => [{categorize,4}],
+              "lib/common_test-1.31.2/proper_ext/ct_quickcheck_ext.beam" =>
+                  [{'-make_list/2-fun-2-',3},{'-make_tuple/2-fun-2-',3}],
+              "lib/debugger-7.0/ebin/dbg_wx_mon_win.beam" =>
+                  [{option_buttons,2},{show_option,3}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{'-bchunk_init/2-fun-0-',7},
+                   {'-bchunk_input/6-fun-0-',7},
+                   {'-bulk_input/4-fun-0-',5},
+                   {'-fast_output_end/2-fun-0-',2}]},
+        {select_val,get_tuple_element} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{get_components,2},{is_mandatory_class_field,1}]},
+        {select_val,move} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{reserved_objectid,2}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{'-compact_input/5-fun-0-',6}]},
+        {select_val,test_heap} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" => [{format_error,1}]},
+        {select_val,{test,is_eq_exact}} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" => [{to_EXTERNAL1990,3}],
+              "lib/common_test-1.31.2/proper_ext/ct_proper_ext.beam" =>
+                  [{distribute_1,2}],
+              "lib/compiler-10.0.6/ebin/beam_asm.beam" => [{bif_type,2}],
+              "lib/kernel-11.0.4/ebin/inet_gethost_native.beam" =>
+                  [{gethostbyname,2}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{'-fsck_input/5-fun-0-',6},{bag_object,6},{dup_object,6}]},
+        {swap,move} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{'-check_type/3-fun-0-',3},
+                   {'-smart_collapse/1-fun-0-',2},
+                   {get_least_tag,1},
+                   {normalize_set,4}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{'-prepare_file_init/5-fun-2-',2}]},
+        {test,allocate} =>
+            #{"lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{bin_to_tree,6},
+                   {binobjs2terms,1},
+                   {cache_arrparts,4},
+                   {cache_segps1,3},
+                   {per_key,2},
+                   {seg_file,5},
+                   {split_bins,7},
+                   {v_segments,4}]},
+        {test,move} =>
+            #{"lib/stdlib-8.1/ebin/dets_v9.beam" => [{read_file_header,2}]},
+        {test_heap,allocate} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{check,2},{sortable_type,2}],
+              "lib/debugger-7.0/ebin/dbg_wx_mon_win.beam" =>
+                  [{'-enable/2-fun-0-',2},{select,2}]},
+        {test_heap,allocate_heap} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{context_switch_in_spec,0}],
+              "lib/debugger-7.0/ebin/dbg_wx_mon_win.beam" =>
+                  [{clear_breaks,1},{clear_breaks,2},{enable,2}]},
+        {test_heap,get_list} =>
+            #{"lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{output_slots,6},{prep_slot,3}]},
+        {test_heap,get_tuple_element} =>
+            #{"lib/stdlib-8.1/ebin/dets_v9.beam" => [{alloc_seg,4}]},
+        {test_heap,move} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{check_selectiontype2,3},
+                   {default_class_list,0},
+                   {get_referenced1,4}],
+              "lib/common_test-1.31.2/proper_ext/ct_quickcheck_ext.beam" =>
+                  [{existing_atom,1}],
+              "lib/kernel-11.0.4/ebin/inet_gethost_native.beam" => [{init,1}]},
+        {test_heap,{test,is_eq_exact}} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{check_fieldname_element,3}]},
+        {test_heap,{test,is_tagged_tuple}} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" => [{store_class,4}]},
+        {trim,call} =>
+            #{"lib/common_test-1.31.2/proper_ext/ct_proper_ext.beam" =>
+                  [{pick_type,1}]},
+        {trim,init_yregs} =>
+            #{"lib/debugger-7.0/ebin/dbg_wx_mon_win.beam" =>
+                  [{'-handle_event/2-fun-2-',2},{'-handle_event/2-fun-3-',2}]},
+        {trim,move} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" => [{order_tag_set,2}],
+              "lib/debugger-7.0/ebin/dbg_wx_mon_win.beam" =>
+                  [{'-add_process/6-fun-0-',7}]},
+        {'try',get_tuple_element} =>
+            #{"lib/kernel-11.0.4/ebin/inet_gethost_native.beam" =>
+                  [{restart_port,1}]},
+        {'try',move} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{'-check_exports/2-fun-0-',2},{resolve_namednumber_1,3}],
+              "lib/kernel-11.0.4/ebin/inet_gethost_native.beam" =>
+                  [{terminate,2}]},
+        {update_record,move} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{'-textual_order/1-fun-0-',2}]},
+        {{bif,element},allocate} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{'-check_defaultfields/3-lc$^1/1-1-',1},
+                   {'-get_referenced_fieldname/1-lc$^0/1-0-',1},
+                   {check_class_fields,3},
+                   {gen_incl1,3},
+                   {preprocess_get_fields,2}]},
+        {{bif,element},move} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{'-get_mandatory_class_fields/1-lc$^0/1-0-',1}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" => [{bulk_objects,5}]},
+        {{bif,get},allocate} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" => [{insert_once,3}],
+              "lib/debugger-7.0/ebin/dbg_wx_mon_win.beam" => [{is_enabled,1}],
+              "lib/kernel-11.0.4/ebin/inet_gethost_native.beam" =>
+                  [{get_rid,0}]},
+        {{bif,hd},move} =>
+            #{"lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{allocate_all_objects,2}]},
+        {{bif,self},'catch'} =>
+            #{"lib/kernel-11.0.4/ebin/inet_gethost_native.beam" =>
+                  [{server_init,2}]},
+        {{bif,tuple_size},allocate} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{any_extension_tuple,2}]},
+        {{gc_bif,'*'},allocate} =>
+            #{"lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{allocate_segment,3},{v_parts,3},{v_segment,4}]},
+        {{gc_bif,'*'},move} =>
+            #{"lib/stdlib-8.1/ebin/dets_v9.beam" => [{init_file,17}]},
+        {{gc_bif,'+'},allocate} =>
+            #{"lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{init_parts,5},{read_bchunks,5},{seg_file_item,8}]},
+        {{gc_bif,'+'},move} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" => [{tag_nums,3}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" => [{re_hash,2}]},
+        {{gc_bif,'+'},test_heap} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{'-sort_value/2-fun-0-',2}]},
+        {{gc_bif,'-'},allocate} =>
+            #{"lib/kernel-11.0.4/ebin/inet_gethost_native.beam" =>
+                  [{listify,1}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" => [{bins_set,12}]},
+        {{gc_bif,'-'},get_tuple_element} =>
+            #{"lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{'-prepare_file_init/5-fun-3-',2}]},
+        {{gc_bif,'bsr'},allocate} =>
+            #{"lib/stdlib-8.1/ebin/dets_v9.beam" => [{slot_position,1}]},
+        {{gc_bif,byte_size},allocate} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{build_form,2},{chunk,2},{chunk,3}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" => [{write_loop,3}]},
+        {{gc_bif,byte_size},allocate_heap} =>
+            #{"lib/stdlib-8.1/ebin/dets_v9.beam" => [{make_bins,3}]},
+        {{gc_bif,'div'},move} =>
+            #{"lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{no_parts,1},{no_segs,1}]},
+        {{gc_bif,length},allocate} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{'-build_record_chunk/2-lc$^0/1-0-',1}]},
+        {{gc_bif,length},move} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{normalized_record,5}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" => [{eval_end,6}]},
+        {{gc_bif,'rem'},allocate} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" => [{byte_align,1}]},
+        {{test,is_atom},allocate} =>
+            #{"lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{'-output_objs/3-fun-0-',4}]},
+        {{test,is_eq_exact},allocate} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{get_asn1db_uptodate,1},
+                   {make_constr_set,3},
+                   {new_reference_name,1}],
+              "lib/kernel-11.0.4/ebin/inet_gethost_native.beam" =>
+                  [{pick_addresses_v4,2},{pick_addresses_v6,2},{pick_names,2}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{'-fast_output/5-fun-0-',6},
+                   {'-fast_output2/6-fun-0-',7},
+                   {'-free_list_to_file/6-fun-0-',6},
+                   {'-output_objs2/7-fun-0-',8},
+                   {bchunks,7},
+                   {bin2bins,9},
+                   {bin2keybins,5},
+                   {bin2objs,4},
+                   {binobjs2terms,6},
+                   {compact_objs,10},
+                   {hash_invars,5},
+                   {may_grow,3},
+                   {may_grow1,3},
+                   {output_objs2,7},
+                   {updated,9},
+                   {write_segment_file,10}]},
+        {{test,is_eq_exact},get_tuple_element} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{get_taglist1,2},
+                   {get_unique_fieldname1,3},
+                   {instance_of_constraints,2},
+                   {load_asn1_module,2}]},
+        {{test,is_eq_exact},move} =>
+            #{"lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{fsck_input,4},{slot_objects,2}]},
+        {{test,is_eq_exact},select_val} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" => [{do_checkc,3}]},
+        {{test,is_eq_exact},{test,is_ne_exact}} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{get_renamed_reference,3},{get_value_from_object,3}]},
+        {{test,is_eq_exact},{test,is_tuple}} =>
+            #{"lib/stdlib-8.1/ebin/dets_v9.beam" => [{write_all_sizes,4}]},
+        {{test,is_ge},allocate} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{negative_to_bytes,1}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" => [{scan_skip,8}]},
+        {{test,is_ge},{test,is_lt}} =>
+            #{"lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{bins_bag,13},{read_more_bytes,6}]},
+        {{test,is_integer},allocate} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{bdi_name_to_term,1},{encode,2}]},
+        {{test,is_list},allocate} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{extension,1},
+                   {instance_of_in_spec,1},
+                   {normalize_s_of,5},
+                   {sort_value,2}]},
+        {{test,is_lt},allocate} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" => [{put_once,2}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{check_pread_arg,2},{free_list_to_file,6},{grow,3}]},
+        {{test,is_map},allocate} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{build_bdi_instrs,1},{build_record_chunk,2}]},
+        {{test,is_ne_exact},get_tuple_element} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{do_get_ref_type_2,4}]},
+        {{test,is_ne_exact},{test,is_eq_exact}} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{'-is_classname/1-fun-0-',1},
+                   {check_unique_sequence_tags0,2},
+                   {update_state,2},
+                   {validate_oid_path,3}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" => [{update_no_keys,4}]},
+        {{test,is_nil},allocate} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" => [{evaluate_atpath,4}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{compact_read,8},{eval_comms,4}]},
+        {{test,is_nil},get_tuple_element} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{get_ObjectClassFieldType_classdef,2},
+                   {iof_associated_type1,2}]},
+        {{test,is_nil},move} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" => [{check_sequence,3}]},
+        {{test,is_nonempty_list},allocate} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{any_component_relation,5},
+                   {call_Func,5},
+                   {check_enumerated,2},
+                   {check_unique2,3},
+                   {checko,5},
+                   {findtypes_and_values,7},
+                   {get_fieldname_set_1,4},
+                   {match_syntax_objset,3},
+                   {maybe_illicit_implicit_tag,3},
+                   {normalize_restrictedstring,3},
+                   {printable_string_1,1},
+                   {size_constraint_collapse,1},
+                   {validate_objectidentifier,3}],
+              "lib/compiler-10.0.6/ebin/beam_asm.beam" => [{encode_list,3}],
+              "lib/kernel-11.0.4/ebin/inet_gethost_native.beam" =>
+                  [{ensure_started,2},{expand_default_name,2}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{bin2term1,3},
+                   {eval_bag,4},
+                   {eval_dupbag,4},
+                   {eval_slot,9},
+                   {fast_write_sizes,6},
+                   {make_slots,4},
+                   {output_slots,8},
+                   {re_hash_split,6},
+                   {read_buckets,11}]},
+        {{test,is_nonempty_list},get_tuple_element} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{normalize_seq_or_set,6}],
+              "lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{'-build_bdi_instrs/1-lc$^0/1-1-',1}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" => [{eval_work_list,2}]},
+        {{test,is_nonempty_list},move} =>
+            #{"lib/stdlib-8.1/ebin/dets_v9.beam" => [{same_terms,2}]},
+        {{test,is_nonempty_list},{test,is_nil}} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{check_defaultfields_1,4},
+                   {check_imports_1,3},
+                   {check_named_number_list,2},
+                   {gen_incl_set1,3},
+                   {include_default_type1,2},
+                   {range_intersection,2}],
+              "lib/kernel-11.0.4/ebin/inet_gethost_native.beam" =>
+                  [{return_hostent,4}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{all_sizes,3},{write_sizes,4}]},
+        {{test,is_tagged_tuple},allocate} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{check_externaltypereference,2},
+                   {check_object,3},
+                   {check_selectiontype,3},
+                   {check_simpletable,3},
+                   {check_type,3},
+                   {do_checkp,3},
+                   {do_checkt,3},
+                   {do_checkv,3},
+                   {error_value,1},
+                   {expand_components,2},
+                   {gen_incl_set,3},
+                   {get_importmoduleoftype,2},
+                   {get_tableconstraint_info,4},
+                   {instantiate_pclass,3},
+                   {instantiate_po,4},
+                   {instantiate_ptype,3},
+                   {notify_if_not_ptype,2},
+                   {object_set_mod_name,2},
+                   {storeindb,2},
+                   {tag_untagged_choice,3},
+                   {untagged_choice,2}],
+              "lib/debugger-7.0/ebin/dbg_wx_mon_win.beam" =>
+                  [{add_process,6},{handle_event,2}],
+              "lib/kernel-11.0.4/ebin/inet_gethost_native.beam" =>
+                  [{'-restart_port/1-fun-0-',2}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{db_hash,2},
+                   {one_bucket_added,2},
+                   {one_bucket_removed,2},
+                   {prep_table_copy,9},
+                   {slot_objs,2}]},
+        {{test,is_tagged_tuple},get_tuple_element} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{coalesce_constraints,1},{imported1,2}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{compact_init,3},{do_perform_save,1}]},
+        {{test,is_tagged_tuple},move} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{if_current_checked_type,2},
+                   {imported,2},
+                   {instance_of_constraints_1,2},
+                   {normalize_objectclassfieldvalue,3}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{hash_invars,1},{init_freelist,1},{prep_slot,2}]},
+        {{test,is_tagged_tuple},{test,is_nil}} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" => [{value_match,5}]},
+        {{test,is_tagged_tuple},{test,is_tuple}} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{leading_attr_index1,5}]},
+        {{test,is_tuple},allocate} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{check_ptype,3},
+                   {match_parameter,3},
+                   {match_syntax_type,3},
+                   {normalize_bitstring,3},
+                   {normalize_choice,4},
+                   {normalize_integer,3},
+                   {normalize_octetstring,2},
+                   {traverse_seq_set,2}],
+              "lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{encode_arg,2},{make_op,2}],
+              "lib/kernel-11.0.4/ebin/inet_gethost_native.beam" =>
+                  [{control,1},{gethostbyaddr,1}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" => [{eval_buckets,7}]},
+        {{test,is_tuple},move} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{build_literal_chunk,2}],
+              "lib/debugger-7.0/ebin/dbg_wx_mon_win.beam" =>
+                  [{delete_module,2}]},
+        {{test,is_tuple},{test,is_eq_exact}} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{check_imported,4},
+                   {cs_intersection,3},
+                   {normalize_boolean,3},
+                   {normalize_value,4},
+                   {simplify_element_set,3},
+                   {verify_valid_component,3}],
+              "lib/compiler-10.0.6/ebin/beam_asm.beam" => [{flag_to_bit,1}]},
+        {{test,is_tuple},{test,is_nonempty_list}} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{generate_automatic_tags1,2}]},
+        {{test,is_tuple},{test,is_tagged_tuple}} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{'-categorize/1-fun-0-',1},
+                   {'-check_choice/3-fun-1-',1},
+                   {'-get_least_tag/1-fun-0-',2},
+                   {check_enum,4},
+                   {check_enum_ids,3},
+                   {check_fieldname_element_1,2},
+                   {do_get_ref_type_1,2},
+                   {expand_valuedef_type,1},
+                   {get_oid_type,3},
+                   {get_taglist,2},
+                   {match_syntax,4},
+                   {preprocess_syntax_1,4},
+                   {remove_duplicate_objects_1,2},
+                   {smart_collapse,1}],
+              "lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{encode_alloc_list_1,3}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" => [{eval_key1,9}]},
+        {{test,test_arity},allocate} =>
+            #{"lib/stdlib-8.1/ebin/dets_v9.beam" => [{re_hash_slots,7}]},
+        {move,init_yregs,different_allocation} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{categorize,1},
+                   {check_ObjectSetFromObjects,3},
+                   {check_bitstring,2},
+                   {check_choice,3},
+                   {check_constraints,3},
+                   {check_reference,2},
+                   {check_type_identifier,2},
+                   {check_unique_sequence_tags,2},
+                   {component_value_index,4},
+                   {do_checkc_1,3},
+                   {duplicate_def,3},
+                   {get_canonic_type,3},
+                   {get_choice_components,2},
+                   {get_normalized_value,5},
+                   {get_real_host_type,2},
+                   {get_referenced,4},
+                   {get_referenced_type,3},
+                   {get_simple_table_info1,4},
+                   {renamed_reference,3},
+                   {single_value_collapse_1,1},
+                   {traverse_1,2}],
+              "lib/common_test-1.31.2/proper_ext/ct_proper_ext.beam" =>
+                  [{safe_any,2}],
+              "lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{assemble_function,3},
+                   {encode1,2},
+                   {encode_alloc_list,2},
+                   {encode_op_1,3},
+                   {on_load,2},
+                   {set_vsn_attribute,2}],
+              "lib/compiler-10.0.6/ebin/beam_utils.beam" =>
+                  [{replace_labels_1,4}],
+              "lib/debugger-7.0/ebin/dbg_wx_mon_win.beam" =>
+                  [{delete_break,2}],
+              "lib/kernel-11.0.4/ebin/inet_gethost_native.beam" =>
+                  [{do_open_port,2},{do_start,2},{foreach,3},{main_loop,1}],
+              "lib/stdlib-8.1/ebin/dets_v9.beam" =>
+                  [{cache_segps,3},
+                   {compact_input,4},
+                   {do_make_slots,7},
+                   {fast_write_all_sizes,3},
+                   {free_lists_to_file,1},
+                   {init_segments,6},
+                   {initiate_file,11},
+                   {re_hash_write,5},
+                   {slot_end,9},
+                   {write_bytes,3},
+                   {write_cache,1}]},
+        {move,init_yregs,equal_allocation} =>
+            #{"lib/kernel-11.0.4/ebin/inet_gethost_native.beam" => [{call,3}]},
+        {move,init_yregs,other_context} =>
+            #{"lib/asn1-5.5.2/ebin/asn1ct_check.beam" =>
+                  [{check_enum_number_root,4},
+                   {filter_errors,2},
+                   {save_object_set_instance,3}],
+              "lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{insert_on_load_instruction,2}],
+              "lib/debugger-7.0/ebin/dbg_wx_mon_win.beam" =>
+                  [{update_process,4}]}},
+  same_opcode_sequences => 0,unreadable => []}.
