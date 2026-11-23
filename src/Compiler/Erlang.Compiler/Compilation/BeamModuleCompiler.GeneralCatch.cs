@@ -2601,6 +2601,8 @@ internal sealed partial class BeamModuleCompiler
         private bool IsBooleanRegisterCaseSelector(EntryCall selector) =>
             (selector.Module, selector.Call.Function, selector.Call.Arguments.Count)
                 is ("lists", "keymember", 3) or ("lists", "member", 2) or ("maps", "is_key", 2)
+            || !owner.ModuleOptimizationDisabled && owner.SsaTypeInferenceEnabled
+                && owner.HasBooleanCallResult(selector.Call, isLocal: selector.Module is null)
             || selector.Module is null && IsExhaustiveLocalBooleanSelector(selector.Call);
 
         private static bool HasKnownKeyFindTag(EntryCall? selector, Atom tag) =>

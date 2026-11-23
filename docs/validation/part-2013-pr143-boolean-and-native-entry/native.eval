@@ -1,0 +1,28 @@
+[D] = init:get_plain_arguments(),
+Execute = fun(M, Side, Image, Cases) ->
+    {module,M} = code:load_binary(M,Side,Image),
+    Results = [try apply(M,F,Args) of Value -> {return,Value} catch C:R -> {C,R} end || {F,Args} <- Cases],
+    true = code:delete(M),
+    _ = code:purge(M),
+    Results
+end,
+lists:foreach(fun({M,Cases}) ->
+    Path = filename:join(D,atom_to_list(M)),
+    {ok,M,Ref} = compile:file(Path ++ ".erl",[binary,deterministic]),
+    {ok,Actual} = file:read_file(Path ++ ".managed.beam"),
+    RefOutcome = Execute(M,"pinned",Ref,Cases),
+    ActualOutcome = Execute(M,"managed",Actual,Cases),
+    RefOutcome = ActualOutcome,
+    {ok,M,RefChunks} = beam_lib:all_chunks(Ref),
+    {ok,M,ActualChunks} = beam_lib:all_chunks(Actual),
+    {beam_file,M,_,_,_,Funs} = beam_disasm:file(Actual),
+    io:format("~0p~n",[{M,Ref=:=Actual,length(Cases),ActualOutcome,
+        [N || {N,B} <- RefChunks, proplists:get_value(N,ActualChunks) =/= B]}]),
+    lists:foreach(fun(F) -> io:format("~0p~n",[F]) end, Funs)
+end, [
+    {beam_declared_nif_frame_probe,[{simple,[not_loaded]}]},
+    {beam_known_list_boolean_case,[{known,[first,[first],42]},
+        {known,[other,[first],[]]},{known,[other,[first],[other]]},{known,[other,[first],42]},
+        {opaque,[true]},{opaque,[bad]}]}
+]),
+halt().

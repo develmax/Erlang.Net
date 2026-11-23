@@ -29,7 +29,7 @@ internal static class BeamDeclaredNativeFrameEntryChecks
         int simpleMarker = simple < 0 ? -1 : marked + setup.Length + 1 + simple;
         int ordinary = simpleMarker < 0 ? -1 : code.AsSpan(simpleMarker + 1).IndexOf(setup);
         if (marked < 0 || code[marked + setup.Length] != BeamEmissionFormat.NifStart
-            || simpleMarker < 0 || code[simpleMarker + 1] != BeamEmissionFormat.Line || ordinary < 0
+            || simpleMarker < 0 || code[simpleMarker + 1] != BeamEmissionFormat.TailExternalCall || ordinary < 0
             || code[simpleMarker + 1 + ordinary + setup.Length] != BeamEmissionFormat.Line)
         {
             throw new InvalidOperationException("The declared native marker must follow only its own entry frame setup.");

@@ -1,5 +1,7 @@
 # Next steps
 
+Continue from the 28 remaining Part 2013 cases. Prioritize the original map input register, prepared-map failure edges and shared frame ownership. [Validation](validation/part-2013-pr143-boolean-and-native-entry/README.md).
+
 Continue from the 30 failures in Part 2012. Resolve formal map input register ownership and the remaining shared frame and prepared-map groups. [Validation](validation/part-2012-pr143-map-intersection/README.md).
 
 Use the 33 remaining cases in the Part 2011 focused retake. Start with prepared-map failure edges and shared frame ownership, and keep full CI and uncached corpus acceptance open. [Validation](validation/part-2011-pr143-record-list-tail/README.md).

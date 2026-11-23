@@ -1,0 +1,52 @@
+{
+  "OtpVersion": "29.1.1",
+  "Total": 6,
+  "Counts": {
+    "Different": 5,
+    "Equal": 1
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\asn1-5.5.2\\ebin\\asn1ct_check.beam",
+      "Status": "Different",
+      "Source": "lib\\asn1-5.5.2\\src\\asn1ct_check.erl",
+      "Detail": "Original length 257528, generated length 271480. AtU8 13186-\u003E12814, Code 73621-\u003E89820, ImpT 1168-\u003E1180, ExpT 64-\u003E64, FunT 964-\u003E1012, LitT 9789-\u003E7787, LocT 5356-\u003E5212, Attr 39-\u003E39, Line 4315-\u003E4777, Type 338-\u003E89",
+      "FirstDifferentByte": 5
+    },
+    {
+      "Beam": "lib\\common_test-1.31.2\\ebin\\test_server_ctrl.beam",
+      "Status": "Different",
+      "Source": "lib\\common_test-1.31.2\\src\\test_server_ctrl.erl",
+      "Detail": "Original length 221940, generated length 228856. AtU8 10014-\u003E9835, Code 64179-\u003E71028, ImpT 2392-\u003E2452, ExpT 1024-\u003E1024, FunT 1324-\u003E1348, LitT 11783-\u003E11999, LocT 3196-\u003E3112, Attr 39-\u003E39, Line 4404-\u003E4607, Type 210-\u003E40",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\eunit-2.11\\ebin\\eunit_autoexport.beam",
+      "Status": "Equal",
+      "Source": "lib\\eunit-2.11\\src\\eunit_autoexport.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\eunit-2.11\\ebin\\eunit_data.beam",
+      "Status": "Different",
+      "Source": "lib\\eunit-2.11\\src\\eunit_data.erl",
+      "Detail": "Original length 45728, generated length 47656. AtU8 2933-\u003E2968, Code 11412-\u003E13263, ImpT 832-\u003E856, ExpT 184-\u003E184, FunT 1204-\u003E1252, LitT 1914-\u003E1914, LocT 964-\u003E976, Attr 92-\u003E92, Line 490-\u003E526, Type 112-\u003E34",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\sasl-4.4\\ebin\\systools_make.beam",
+      "Status": "Different",
+      "Source": "lib\\sasl-4.4\\src\\systools_make.erl",
+      "Detail": "Original length 97820, generated length 101464. AtU8 5581-\u003E5394, Code 28073-\u003E32070, ImpT 1024-\u003E1036, ExpT 196-\u003E196, FunT 868-\u003E868, LitT 4652-\u003E4581, LocT 2416-\u003E2308, Attr 39-\u003E39, Line 1578-\u003E1608, Type 58-\u003E32",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\snmp-5.20.5\\ebin\\snmp_misc.beam",
+      "Status": "Different",
+      "Source": "lib\\snmp-5.20.5\\src\\misc\\snmp_misc.erl",
+      "Detail": "Original length 25744, generated length 26336. AtU8 1965-\u003E1896, Code 5666-\u003E6397, ImpT 676-\u003E688, ExpT 580-\u003E580, FunT 52-\u003E100, LitT 911-\u003E881, LocT 244-\u003E220, Attr 64-\u003E64, Line 320-\u003E320, Type 104-\u003E26",
+      "FirstDifferentByte": 6
+    }
+  ]
+}

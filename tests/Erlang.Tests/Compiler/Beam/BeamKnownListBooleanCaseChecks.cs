@@ -41,9 +41,9 @@ internal static class BeamKnownListBooleanCaseChecks
     internal static async Task Run()
     {
         byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
-        byte[] disabled = CodeGeneration.CompileBeamModule(
+        byte[] disabled = BeamAdjacentNumericResultChecks.Compile(
             Source.Replace("%% options", "-compile(no_ssa_opt).", StringComparison.Ordinal),
-            Fixture
+            disabled: true
         );
         if (HasCaseFailure(image, "known") || !HasCaseFailure(image, "opaque")
             || !HasCaseFailure(disabled, "known"))

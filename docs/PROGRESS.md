@@ -1,5 +1,7 @@
 # Project progress
 
+Part 2013 verifies nested Boolean call dispatch and the frameless native entry marker. The local 44-case selection passes 16 and fails 28. [Validation](validation/part-2013-pr143-boolean-and-native-entry/README.md).
+
 Part 2012 shares common literal map keys across case clauses and recovers three more platform cases. The same local 44-case selection passes 14 and fails 30. [Validation](validation/part-2012-pr143-map-intersection/README.md).
 
 Part 2011 integrates the local record and list tail checkpoint into PR 143. The selected 44 cases pass 11 with two recovered platform failures and all nine controls. Thirty-three platform failures remain in the local retake. [Validation](validation/part-2011-pr143-record-list-tail/README.md).

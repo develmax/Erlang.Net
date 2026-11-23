@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 2013 verifies seven paired ERTS outcomes and one byte-equal synthetic native fixture. The selected release scope remains one Equal and five Different. [Validation](validation/part-2013-pr143-boolean-and-native-entry/README.md).
+
 Part 2012 verifies ordered map retries and five installed release load preparations. Its five selected release modules remain Different. The full release ledger is historical. [Validation](validation/part-2012-pr143-map-intersection/README.md).
 
 Part 2011 verifies both byte equality and four paired ERTS calls for the synthetic external leaf-tail module. The release corpus ledger and runtime registry retain their prior evidence. [Validation](validation/part-2011-pr143-record-list-tail/README.md).
