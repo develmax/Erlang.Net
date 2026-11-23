@@ -1892,6 +1892,21 @@ internal sealed partial class BeamModuleCompiler
 
             RegisterCase? ReadTest(Clause branch)
             {
+                // The Core alias pass can reuse the selector when all tuple elements match.
+                if (branch is { Guard: null, Patterns: [Pattern.Tuple matched], Body: Expr.Tuple rebuilt }
+                    && ReadSingleTupleField(matched) is
+                    { Field: Pattern.Variable { Name: not VariableScopeNames.Wildcard } rebuiltField } whole
+                    && !saved.ContainsKey(rebuiltField.Name) && ReturnsMatchedValue(matched, rebuilt))
+                {
+                    return new RegisterCase(
+                        IsTaggedTuple,
+                        whole.Tag,
+                        new RegisterCaseResult(null, null),
+                        otherwise,
+                        TupleArity: matched.Items.Count
+                    );
+                }
+
                 if (branch is { Guard: null, Patterns: [Pattern.Tuple tuple] }
                     && ReadSingleTupleField(tuple) is { Field: Pattern.Variable projected } access
                     && !saved.ContainsKey(projected.Name)
@@ -2401,6 +2416,8 @@ internal sealed partial class BeamModuleCompiler
         {
             return (opcode, call.Module, call.Call.Function, call.Call.Arguments.Count) switch
             {
+                (IsNil, var module, var function, var arity) when IsProperListProducer(module, function, arity)
+                    => ProperListTypeBits,
                 (IsTuple, _, _, _) when ReturnsLookupResult(call.Module, call.Call.Function, call.Call.Arguments.Count)
                     => AtomTypeBits | TupleTypeBits,
                 (IsTuple, null, _, _) when ReadCallResultUnion(call.Call) == (AtomTypeBits | TupleTypeBits)
@@ -2470,6 +2487,45 @@ internal sealed partial class BeamModuleCompiler
                     Mark(fallback);
                     EmitResult(plan.Fallback);
                 }
+
+                return;
+            }
+
+            if (preparedFailure is null && !inheritedFallback && plan.Fallback.FailureLocation is not null
+                && plan.Tests is { Count: > 1 } tupleTests
+                && tupleTests.All(test => test is
+                {
+                    Opcode: IsTaggedTuple,
+                    Key: Atom,
+                    KnownTupleTag: false,
+                    FieldRegister: 0,
+                    NestedField: null,
+                    FieldSlot: null
+                } && test.Match == new RegisterCaseResult(null, null) && test.TupleArity == plan.TupleArity)
+                && tupleTests.Select(test => test.Key).Distinct().Count() == tupleTests.Count)
+            {
+                RegisterCase[] ordered = tupleTests.ToArray();
+                Array.Sort(ordered, (left, right) => TermOrder.Compare(right.Key!, left.Key!, exact: true));
+                int[] labels = ordered.Select(_ => Label()).ToArray();
+                int failure = Label();
+                owner.EmitTupleCheck(0, plan.TupleArity, failure);
+                EmitRegisterCaseTagSelection(
+                    ordered.Select((test, index) => ((Atom)test.Key!, labels[index])).Reverse().ToArray(),
+                    failure
+                );
+                for (int index = 0; index < ordered.Length; index++)
+                {
+                    Mark(labels[index]);
+                    if (ordered[index].Field >= 0)
+                    {
+                        owner.EmitTuplePart(0, ordered[index].Field, 0);
+                    }
+
+                    EmitResult(ordered[index].Match!);
+                }
+
+                Mark(failure);
+                EmitResult(plan.Fallback);
 
                 return;
             }

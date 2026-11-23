@@ -1,3 +1,4 @@
+using System.Numerics;
 using static Erlang.Compiler.BeamEmissionFormat;
 using static Erlang.Compiler.BeamContainerWriter;
 
@@ -5,6 +6,8 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
+    private static readonly BigInteger InlineIntegerLimit = BigInteger.One << CompactIntegerMagnitudeBits;
+
     private readonly Dictionary<string, int> literalIndices = new(StringComparer.Ordinal);
     private readonly List<byte[]> literalBytes = [];
     private readonly Dictionary<int, (string Tag, int Arity)> taggedTupleLiterals = [];
@@ -85,11 +88,28 @@ internal sealed partial class BeamModuleCompiler
 
                 return;
             case Integer integer:
-                Operand(BeamWire.IntegerTag, integer.Value);
+                WriteIntegerOperand(instructions, integer.Value);
 
                 return;
         }
 
+        WriteLiteralPoolOperand(instructions, literal);
+    }
+
+    private void WriteIntegerOperand(Stream output, BigInteger value)
+    {
+        if (BigInteger.Abs(value) < InlineIntegerLimit)
+        {
+            BeamCompactWriter.Write(output, BeamWire.IntegerTag, value);
+        }
+        else
+        {
+            WriteLiteralPoolOperand(output, new Integer(value));
+        }
+    }
+
+    private void WriteLiteralPoolOperand(Stream output, Term literal)
+    {
         byte[] etf = ExternalTermFormat.Encode(literal, new EtfEncodingOptions { Deterministic = true });
         string key = Convert.ToBase64String(etf);
         if (!literalIndices.TryGetValue(key, out int index))
@@ -102,8 +122,8 @@ internal sealed partial class BeamModuleCompiler
                 taggedTupleLiterals.Add(index, (tag.Name, tuple.Items.Count));
             }
         }
-        instructions.WriteByte(ExtendedLiteralOperand);
-        Operand(BeamWire.UnsignedTag, index);
+        output.WriteByte(ExtendedLiteralOperand);
+        BeamCompactWriter.Write(output, BeamWire.UnsignedTag, index);
     }
 
     private void EmitLiterals(Stream output)

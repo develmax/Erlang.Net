@@ -20,10 +20,14 @@ internal sealed partial class BeamModuleCompiler(
 {
     private string? OnLoadFunction => sourceModule?.OnLoadFunction;
 
+    // The source binding parser records no_ssa_opt under other compile options.
+    private bool SsaTypeInferenceEnabled => sourceModule?.HasOtherCompileOptions != true;
+
     private readonly Dictionary<string, int> atoms = new(StringComparer.Ordinal) { [name] = 1 };
     private readonly List<(int Atom, int Arity, int Entry)> exports = [];
     private readonly List<(int Atom, int Arity, int Entry)> locals = [];
     private readonly Dictionary<(int Module, int Function, int Arity), int> imports = [];
+    private readonly string implicitLineFile = name + ".erl";
     private readonly Dictionary<BeamSourceLocation, int> lines = [];
     private readonly Dictionary<string, int> filenames = new(StringComparer.Ordinal);
     private int lineInstructions;
@@ -50,6 +54,7 @@ internal sealed partial class BeamModuleCompiler(
             : 0;
         exportedFunctions = publicFunctions;
         functions = functions.Select(FoldLiteralAtomConversions).ToArray();
+        functions = PropagateLocalConstantArguments(functions);
         (functions, sourceLines) = ExtractClosedComprehensions(functions, sourceLines);
         using var code = instructions;
         var localEntries = new Dictionary<(string Name, int Arity), int>();
@@ -1110,12 +1115,14 @@ internal sealed partial class BeamModuleCompiler(
             {
                 location = location with { File = defaultLineFile };
             }
-            if (location.File is not null)
+            // OTP reserves filename index zero for the module's unqualified source name.
+            var entry = location.File == implicitLineFile ? location with { File = null } : location;
+            if (entry.File is not null)
             {
-                filenames.TryAdd(location.File, filenames.Count + 1);
+                filenames.TryAdd(entry.File, filenames.Count + 1);
             }
-            lines.TryAdd(location, lines.Count + 1);
-            index = lines[location];
+            lines.TryAdd(entry, lines.Count + 1);
+            index = lines[entry];
         }
         lastEmittedLine = location;
         lineInstructions++;
@@ -1134,6 +1141,13 @@ internal sealed partial class BeamModuleCompiler(
 
     private void Operand(int tag, BigInteger value)
     {
+        if (tag == BeamWire.IntegerTag)
+        {
+            WriteIntegerOperand(instructions, value);
+
+            return;
+        }
+
         if (tag == LabelTag && value < 0)
         {
             deferredLabelOperands.Add((checked((int)instructions.Position), (int)value));

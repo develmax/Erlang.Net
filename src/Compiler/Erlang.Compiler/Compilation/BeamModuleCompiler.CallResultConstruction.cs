@@ -75,6 +75,7 @@ internal sealed partial class BeamModuleCompiler
             IReadOnlyList<Expr> expressions = clause.Body is Expr.Sequence sequence ? sequence.Items : [clause.Body];
             string? resultBinding = null;
             Expr.Call? call = null;
+            EntryCall? closureCall = null;
             var result = expressions[^1];
             if (expressions is [.., Expr.Match
                 {
@@ -99,6 +100,32 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
+            List<EntryCall>? discarded = null;
+            if (head is null && expressions.Take(expressions.Count - 1).Any(expression => expression is Expr.Call))
+            {
+                var bindingsAndResult = new List<Expr>(expressions.Count);
+                discarded = [];
+                foreach (Expr expression in expressions.Take(expressions.Count - 1))
+                {
+                    if (expression is Expr.Call prefix)
+                    {
+                        if (ReadEntryCall(prefix, []) is not { } plan)
+                        {
+                            return false;
+                        }
+
+                        discarded.Add(plan);
+                    }
+                    else
+                    {
+                        bindingsAndResult.Add(expression);
+                    }
+                }
+
+                bindingsAndResult.Add(result);
+                expressions = bindingsAndResult;
+            }
+
             if (ReadConstantBindings(bindingsClause, new Expr.Sequence(expressions)) is not { } constants
                 || resultBinding is not null && constants.ContainsKey(resultBinding))
             {
@@ -106,17 +133,19 @@ internal sealed partial class BeamModuleCompiler
             }
 
             var containers = new List<(bool IsList, Term?[] Items)>();
-            if (!ReadConstruction(result) || containers.Count == 0 || call is null)
+            if (!ReadConstruction(result) || containers.Count == 0 || call is null
+                || discarded is not null && closureCall is null)
             {
                 return false;
             }
 
             int entry = 0;
-            if (call.Module is null && !entries.TryGetValue((call.Function, call.Arguments.Count), out entry))
+            if ((closureCall?.Module ?? call.Module) is null && !entries.TryGetValue((call.Function, call.Arguments.Count), out entry))
             {
                 return false;
             }
 
+            BeamSourceLocation previous = location;
             if (head is not null)
             {
                 int failure = owner.nextLabel - 2;
@@ -144,10 +173,42 @@ internal sealed partial class BeamModuleCompiler
                     owner.Op(IsNil, LabelTag, owner.nextLabel - 2);
                     owner.Operand(XRegisterTag, 0);
                 }
-                EmitFrameAllocation(0, 0);
+
+                if (closureCall?.FunctionArgument is { } functionArgument)
+                {
+                    if (discarded is null)
+                    {
+                        owner.Op(AllocateHeap, BeamWire.UnsignedTag, 0);
+                        owner.EmitClosureHeap(0, 0, 1);
+                    }
+                    else
+                    {
+                        // The calls clobber X registers. Reserve closure heap only after the last one.
+                        EmitFrameAllocation(0, 0);
+                        foreach (EntryCall prefix in discarded)
+                        {
+                            EmitEntryCall(prefix, previous);
+                            previous = CallLocation(prefix.Call, previous);
+                        }
+
+                        owner.EmitClosureAllocation(0, 0, 1);
+                    }
+
+                    owner.EmitDeclaredFunctionReference(
+                        functionArgument.Reference,
+                        functionArgument.Entry,
+                        functionArgument.Destination
+                    );
+                    EmitEntryCallArguments(closureCall);
+                    call = call with { Module = closureCall.Module };
+                }
+                else
+                {
+                    EmitFrameAllocation(0, 0);
+                }
             }
 
-            owner.EmitCallLine(call, location);
+            owner.EmitCallLine(call, previous);
             int arity = call.Arguments.Count;
             if (call.Module is null)
             {
@@ -189,10 +250,28 @@ internal sealed partial class BeamModuleCompiler
 
             return true;
 
-            bool AcceptsCall(Expr.Call candidate) => head is null
-                ? candidate.Arguments.Count == 0
-                : candidate.Arguments is [Expr.Variable argument] && argument.Name == head.Name
-                    && TryResolveOrdinaryCall(candidate, out string? module) && module == candidate.Module;
+            bool AcceptsCall(Expr.Call candidate)
+            {
+                if (head is not null)
+                {
+                    return candidate.Arguments is [Expr.Variable argument] && argument.Name == head.Name
+                        && TryResolveOrdinaryCall(candidate, out string? module) && module == candidate.Module;
+                }
+
+                if (candidate.Arguments.Count == 0)
+                {
+                    return true;
+                }
+
+                if (ReadEntryCall(candidate, [], allowFunctionArgument: true) is { FunctionArgument: not null } planned)
+                {
+                    closureCall = planned;
+
+                    return true;
+                }
+
+                return false;
+            }
 
             void Operand(Term? value)
             {

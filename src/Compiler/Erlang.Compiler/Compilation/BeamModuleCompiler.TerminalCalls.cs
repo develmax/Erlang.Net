@@ -89,12 +89,31 @@ internal sealed partial class BeamModuleCompiler
                     line--;
                 }
 
-                int start = body[line].Offset;
-                output.Write(code.Span[copied..start]);
-                output.WriteByte(Allocate);
-                BeamCompactWriter.Write(output, BeamWire.UnsignedTag, 0);
-                BeamCompactWriter.Write(output, BeamWire.UnsignedTag, allocation.Operands[0].Value);
-                output.Write(code.Span[start..allocation.Offset]);
+                int heap = line - 1;
+                while (heap >= 0 && body[heap].Offset >= copied && body[heap].Definition.Opcode != TestHeap
+                    && IsTailArgumentSetup(body[heap]))
+                {
+                    heap--;
+                }
+
+                if (heap >= 0 && body[heap].Offset >= copied && body[heap].Definition.Opcode == TestHeap)
+                {
+                    int heapOffset = body[heap].Offset;
+                    output.Write(code.Span[copied..heapOffset]);
+                    output.WriteByte(AllocateHeap);
+                    BeamCompactWriter.Write(output, BeamWire.UnsignedTag, 0);
+                    output.Write(code.Span[(heapOffset + 1)..allocation.Offset]);
+                }
+                else
+                {
+                    int start = body[line].Offset;
+                    output.Write(code.Span[copied..start]);
+                    output.WriteByte(Allocate);
+                    BeamCompactWriter.Write(output, BeamWire.UnsignedTag, 0);
+                    BeamCompactWriter.Write(output, BeamWire.UnsignedTag, allocation.Operands[0].Value);
+                    output.Write(code.Span[start..allocation.Offset]);
+                }
+
                 output.WriteByte(TailExternalCallWithFrame);
                 copied = body[frame + 1].Offset;
                 output.Write(code.Span[(allocation.Offset + 1)..copied]);
@@ -168,8 +187,10 @@ internal sealed partial class BeamModuleCompiler
     }
 
     private static bool IsTrappingTailBif((int Module, int Function, int Arity) import, string[] atomNames) =>
-        atomNames[import.Module - 1] == ErlangModuleNames.Module
-        && (atomNames[import.Function - 1], import.Arity) is
+        IsTrappingTailBif(atomNames[import.Module - 1], atomNames[import.Function - 1], import.Arity);
+
+    private static bool IsTrappingTailBif(string module, string function, int arity) =>
+        module == ErlangModuleNames.Module && (function, arity) is
             (ErlangModuleNames.Link or ErlangModuleNames.Unlink, 1)
             or (ErlangOperators.Send or AutoImportNames.MonitorNode or AutoImportNames.GroupLeader or ErlangModuleNames.Exit, 2);
 

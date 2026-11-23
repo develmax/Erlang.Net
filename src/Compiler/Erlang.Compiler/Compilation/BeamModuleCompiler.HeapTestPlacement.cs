@@ -25,6 +25,7 @@ internal sealed partial class BeamModuleCompiler
             int live = original;
             int first = index;
             bool passedReceiveRemoval = false;
+            bool passedListProjection = false;
             while (first > 0)
             {
                 int? source = null;
@@ -48,6 +49,19 @@ internal sealed partial class BeamModuleCompiler
                         source = (int)tuple.Value;
                         destination = (int)field.Value;
                         break;
+                    case
+                    {
+                        Definition.Opcode: GetHead or GetTail,
+                        Operands: [{ Kind: BeamOperandParameters.X, TypeIndex: null } list, var projected]
+                    } when list == projected && list.Value < live && first >= 2
+                        && body[first - 2] is
+                        {
+                            Definition.Opcode: IsNonemptyList,
+                            Operands: [_, var tested]
+                        } && tested == list:
+                        passedListProjection = true;
+                        first--;
+                        continue;
                     case
                     {
                         Definition.Opcode: BifZero,
@@ -78,7 +92,7 @@ internal sealed partial class BeamModuleCompiler
                 first--;
             }
 
-            if (live == original && !passedReceiveRemoval)
+            if (live == original && !passedReceiveRemoval && !passedListProjection)
             {
                 continue;
             }

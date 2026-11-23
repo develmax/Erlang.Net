@@ -152,7 +152,7 @@ internal sealed partial class BeamModuleCompiler
             {
                 if (ReferenceEquals(operand, call))
                 {
-                    owner.Operand(XRegisterTag, 0);
+                    EmitArithmeticCallResultOperand(call, allowType: binary.Operator != ErlangOperators.Divide);
                 }
                 else
                 {

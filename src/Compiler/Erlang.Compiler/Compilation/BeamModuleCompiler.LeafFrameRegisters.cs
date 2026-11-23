@@ -9,7 +9,8 @@ internal sealed partial class BeamModuleCompiler
         ReadOnlyMemory<byte> code,
         IReadOnlyList<BeamInstruction> body,
         List<(int Start, int End, int Slot)> stackOperands,
-        bool tupleConstruction = false
+        bool afterCanonicalization = false,
+        Func<BeamInstruction, bool>? isArithmetic = null
     )
     {
         using var output = new MemoryStream();
@@ -30,7 +31,8 @@ internal sealed partial class BeamModuleCompiler
                 start,
                 end,
                 arity,
-                tupleConstruction,
+                afterCanonicalization,
+                isArithmetic,
                 out Dictionary<int, int>? heapRoots
             );
             if (registers is not null)
@@ -63,19 +65,32 @@ internal sealed partial class BeamModuleCompiler
 
                     if (heapRoots is not null && heapRoots.TryGetValue(index, out int live))
                     {
-                        int original = (int)instruction.Operands[^1].Value;
-                        int width = CompactRegisterCountWidth(original);
-                        if (instruction.Definition.Opcode == AllocateHeap)
+                        if (instruction.Definition.Opcode == GcBifTwo)
                         {
-                            int frame = (int)instruction.Operands[0].Value;
-                            output.Write(code.Span[copied..instruction.Offset]);
-                            output.WriteByte(TestHeap);
-                            copied = instruction.Offset + 1 + CompactRegisterCountWidth(frame);
+                            copied = WriteLeafArithmeticRoots(
+                                code,
+                                output,
+                                instruction.Offset,
+                                copied,
+                                live
+                            );
                         }
+                        else
+                        {
+                            int original = (int)instruction.Operands[^1].Value;
+                            int width = CompactRegisterCountWidth(original);
+                            if (instruction.Definition.Opcode == AllocateHeap)
+                            {
+                                int frame = (int)instruction.Operands[0].Value;
+                                output.Write(code.Span[copied..instruction.Offset]);
+                                output.WriteByte(TestHeap);
+                                copied = instruction.Offset + 1 + CompactRegisterCountWidth(frame);
+                            }
 
-                        output.Write(code.Span[copied..(next - width)]);
-                        BeamCompactWriter.Write(output, BeamWire.UnsignedTag, live);
-                        copied = next;
+                            output.Write(code.Span[copied..(next - width)]);
+                            BeamCompactWriter.Write(output, BeamWire.UnsignedTag, live);
+                            copied = next;
+                        }
                     }
 
                     while (operand < stackOperands.Count && stackOperands[operand].Start < next)
@@ -110,8 +125,10 @@ internal sealed partial class BeamModuleCompiler
         int start,
         int end,
         int arity,
-        bool tupleConstruction,
-        out Dictionary<int, int>? heapRoots
+        bool afterCanonicalization,
+        Func<BeamInstruction, bool>? isArithmetic,
+        out Dictionary<int, int>? heapRoots,
+        bool isolatedTailBranch = false
     )
     {
         heapRoots = null;
@@ -134,19 +151,22 @@ internal sealed partial class BeamModuleCompiler
         var writes = new int[count][];
         var movedFrom = new int[count];
         var slotsUsed = new HashSet<int>();
-        bool hasTuple = false;
+        bool needsCanonicalization = false;
         for (int index = 0; index < count; index++)
         {
             BeamInstruction instruction = body[start + index];
             byte opcode = instruction.Definition.Opcode;
             bool localTail = opcode == TailLocalCallWithFrame;
-            hasTuple |= opcode == PutTuple;
-            if ((!localTail && !IsFramelessInstruction(instruction))
+            bool externalTail = isolatedTailBranch && opcode == TailExternalCallWithFrame;
+            bool arithmetic = opcode == GcBifTwo && isArithmetic?.Invoke(instruction) == true;
+            needsCanonicalization |= opcode == PutTuple || arithmetic;
+            if ((!localTail && !externalTail && !IsFramelessInstruction(instruction))
                 || (opcode is Allocate or AllocateHeap && start + index != allocation)
-                || (!tupleConstruction && opcode == PutTuple)
+                || (!afterCanonicalization && opcode == PutTuple)
                 || opcode is GetMapElements
-                    or BifOne or BifTwo or BifThree or GcBifOne or GcBifTwo or GcBifThree
-                || (opcode is Deallocate or TailLocalCallWithFrame && instruction.Operands[^1].Value != slots))
+                    or BifOne or BifTwo or BifThree or GcBifOne or GcBifThree
+                || (opcode == GcBifTwo && !arithmetic)
+                || ((externalTail || opcode is Deallocate or TailLocalCallWithFrame) && instruction.Operands[^1].Value != slots))
             {
                 return null;
             }
@@ -160,7 +180,7 @@ internal sealed partial class BeamModuleCompiler
             uses[index] = opcode switch
             {
                 Return => BigInteger.One,
-                TailLocalCallWithFrame => (BigInteger.One << (int)instruction.Operands[0].Value) - 1,
+                _ when localTail || externalTail => (BigInteger.One << (int)instruction.Operands[0].Value) - 1,
                 _ => BigInteger.Zero
             };
             movedFrom[index] = -1;
@@ -185,7 +205,7 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 if (opcode == Swap || opcode == GetList && position > 0 || opcode == PutTuple && position == 0
-                    || opcode is (Move or GetHead or GetTail or GetTupleElement or PutList) && position == instruction.Operands.Count - 1)
+                    || opcode is (Move or GetHead or GetTail or GetTupleElement or PutList or GcBifTwo) && position == instruction.Operands.Count - 1)
                 {
                     destinations.Add(register);
                     if (opcode != Swap)
@@ -204,12 +224,13 @@ internal sealed partial class BeamModuleCompiler
             writes[index] = destinations.ToArray();
         }
 
-        if (tupleConstruction && !hasTuple)
+        if (afterCanonicalization && !needsCanonicalization)
         {
             return null;
         }
 
         var successors = new int[count][];
+        var arithmeticFailures = new int?[count];
         for (int index = 0; index < count; index++)
         {
             BeamInstruction instruction = body[start + index];
@@ -223,7 +244,20 @@ internal sealed partial class BeamModuleCompiler
             {
                 if (instruction.Definition.Opcode != TailLocalCallWithFrame && operand.Kind == BeamOperandParameters.Label)
                 {
-                    targets.Add(labels.GetValueOrDefault((int)operand.Value, -1));
+                    int target = labels.GetValueOrDefault((int)operand.Value, -1);
+                    if (instruction.Definition.Opcode == GcBifTwo)
+                    {
+                        if (target < 0)
+                        {
+                            return null;
+                        }
+
+                        arithmeticFailures[index] = target;
+                    }
+                    else
+                    {
+                        targets.Add(target);
+                    }
                 }
             }
 
@@ -252,12 +286,23 @@ internal sealed partial class BeamModuleCompiler
                     after &= ~(BigInteger.One << destination);
                 }
 
+                // A collecting arithmetic BIF only writes its destination on success.
+                if (arithmeticFailures[index] is int failure)
+                {
+                    after |= liveIn[failure];
+                }
+
                 BigInteger before = uses[index] | after;
                 changed |= before != liveIn[index];
                 liveIn[index] = before;
             }
         }
         while (changed);
+
+        if (isolatedTailBranch && (liveIn[0] & ~arguments) != BigInteger.Zero)
+        {
+            return null;
+        }
 
         var conflicts = new BigInteger[xCount + slots];
         var preferred = new List<int>[slots];
@@ -297,8 +342,8 @@ internal sealed partial class BeamModuleCompiler
         }
 
         var registers = new int?[slots];
-        // Tuple fields take registers in definition order, as in the pinned interval scan.
-        var slotsInOrder = tupleConstruction
+        // Allocate retained values in definition order, as in the pinned interval scan.
+        var slotsInOrder = afterCanonicalization
             ? writes.SelectMany(destinations => destinations)
                 .Where(register => register >= xCount)
                 .Select(register => register - xCount)
@@ -326,7 +371,7 @@ internal sealed partial class BeamModuleCompiler
         var xMask = (BigInteger.One << xCount) - 1;
         for (int index = 0; index < count; index++)
         {
-            if (body[start + index].Definition.Opcode is not (TestHeap or AllocateHeap))
+            if (body[start + index].Definition.Opcode is not (TestHeap or AllocateHeap or GcBifTwo))
             {
                 continue;
             }
@@ -355,7 +400,8 @@ internal sealed partial class BeamModuleCompiler
             registers,
             heapRoots,
             writes,
-            successors
+            successors,
+            arithmeticFailures
         ) ? registers : null;
     }
 
@@ -365,7 +411,8 @@ internal sealed partial class BeamModuleCompiler
         int?[] registers,
         Dictionary<int, int> heapRoots,
         int[][] writes,
-        int[][] successors
+        int[][] successors,
+        int?[] arithmeticFailures
     )
     {
         const int xCount = BeamOperandParameters.MaximumRegister;
@@ -387,6 +434,11 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
+            if (arithmeticFailures[index] is int failure)
+            {
+                MergeInitialized(failure, after);
+            }
+
             foreach (int register in writes[index])
             {
                 int translated = register < xCount ? register : registers[register - xCount]!.Value;
@@ -397,17 +449,22 @@ internal sealed partial class BeamModuleCompiler
             {
                 if (next >= 0)
                 {
-                    BigInteger intersection = (initialized[next] ?? after) & after;
-                    if (initialized[next] != intersection)
-                    {
-                        initialized[next] = intersection;
-                        work.Enqueue(next);
-                    }
+                    MergeInitialized(next, after);
                 }
             }
         }
 
         return true;
+
+        void MergeInitialized(int target, BigInteger incoming)
+        {
+            BigInteger intersection = (initialized[target] ?? incoming) & incoming;
+            if (initialized[target] != intersection)
+            {
+                initialized[target] = intersection;
+                work.Enqueue(target);
+            }
+        }
     }
 
     private static int LeafRegisterIndex(BeamOperand operand) => operand.Kind switch

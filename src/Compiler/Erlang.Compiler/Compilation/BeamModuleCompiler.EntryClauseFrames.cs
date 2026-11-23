@@ -853,7 +853,14 @@ internal sealed partial class BeamModuleCompiler
                     else if (branches.Count >= 3)
                     {
                         dispatchedCount = arms.Length;
-                        if (branches.Skip(dispatchedCount).Any(branch => branch.Clause.Guard is not null))
+                        bool independentDynamicFallback = arms[0].Literals[0].Value is Atom
+                            && arms.Length + 1 == branches.Count
+                            && branches[^1].Clause is { Guard: null, Body: Expr.Call { DynamicRemote: true } }
+                            && HasUnconditionalParameters(branches[^1].Clause)
+                            && arms.All(arm => arm.Equalities.Count == 0 && arm.TailCall is
+                            { ConstructedArgument: null, FunctionArgument: null, RegisterConstructions: null })
+                            && HasIndependentLeadingTailCalls(arms.Select(arm => arm.TailCall!));
+                        if (independentDynamicFallback || branches.Skip(dispatchedCount).Any(branch => branch.Clause.Guard is not null))
                         {
                             sorted.Reverse().ToArray().CopyTo(order, 0);
                         }

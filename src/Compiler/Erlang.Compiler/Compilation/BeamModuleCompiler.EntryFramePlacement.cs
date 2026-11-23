@@ -7,7 +7,8 @@ internal sealed partial class BeamModuleCompiler
     private static byte[]? DelayEntryStackFrame(
         ReadOnlyMemory<byte> code,
         IReadOnlyList<BeamInstruction> body,
-        List<(int Start, int End, int Slot)> stackOperands
+        List<(int Start, int End, int Slot)> stackOperands,
+        Func<BeamInstruction, bool> isFramelessExternalTail
     )
     {
         using var output = new MemoryStream();
@@ -42,7 +43,8 @@ internal sealed partial class BeamModuleCompiler
                 end,
                 extendEntry: true,
                 valueDead: IsTemporaryDead,
-                allowFramelessLocalTail: true
+                allowFramelessTail: true,
+                isFramelessExternalTail: isFramelessExternalTail
             ) ?? PlanEntryFramePlacement(
                 body,
                 start,
@@ -113,6 +115,16 @@ internal sealed partial class BeamModuleCompiler
                         output.WriteByte(TailLocalCall);
                         BeamCompactWriter.Write(output, BeamWire.UnsignedTag, instruction.Operands[0].Value);
                         BeamCompactWriter.Write(output, LabelTag, instruction.Operands[1].Value);
+                        copied = next;
+                        continue;
+                    }
+
+                    if (instruction.Definition.Opcode == TailExternalCallWithFrame)
+                    {
+                        output.Write(code.Span[copied..instruction.Offset]);
+                        output.WriteByte(TailExternalCall);
+                        int frameWidth = CompactRegisterCountWidth((int)instruction.Operands[^1].Value);
+                        output.Write(code.Span[(instruction.Offset + 1)..(next - frameWidth)]);
                         copied = next;
                         continue;
                     }
@@ -216,8 +228,9 @@ internal sealed partial class BeamModuleCompiler
         int end,
         bool extendEntry = false,
         Func<int, BeamOperand, bool>? valueDead = null,
-        bool allowFramelessLocalTail = false,
-        bool allowLeadingProjection = false
+        bool allowFramelessTail = false,
+        bool allowLeadingProjection = false,
+        Func<BeamInstruction, bool>? isFramelessExternalTail = null
     )
     {
         BeamInstruction allocation = body[allocationIndex];
@@ -264,7 +277,7 @@ internal sealed partial class BeamModuleCompiler
         bool leadingProjection = allowLeadingProjection && firstOpcode == GetTupleElement;
         if ((allowLeadingProjection && !leadingProjection) || (!leadingProjection && !IsDelayedFramePredicate(firstOpcode))
             || extendEntry && (allocationIndex != start + 1 || allocation.Definition.Opcode != Allocate
-                || !allowFramelessLocalTail && !leadingProjection
+                || !allowFramelessTail && !leadingProjection
                     && firstOpcode is not (IsTaggedTuple or IsTuple or IsNonemptyList)))
         {
             return null;
@@ -319,12 +332,33 @@ internal sealed partial class BeamModuleCompiler
                 || IsEntryFrameReturn(index);
             var (registers, projected, maybeProjected) = extendEntry
                 ? registerLimits[index] : (live, false, false);
-            if (allowFramelessLocalTail)
+            if (allowFramelessTail)
             {
                 // Keep a later list or tuple dispatch together when its paths may join again.
                 supported = supported && opcode is not (IsNonemptyList or IsTuple or IsTaggedTuple)
-                    || opcode == TailLocalCallWithFrame && instruction.Operands[^1].Value == frameSize
+                    || IsFramelessTail(instruction) && instruction.Operands[^1].Value == frameSize
                         && instruction.Operands[0].Value <= registers;
+                if (opcode == TestHeap
+                    && ReadExternalTailAfterConstructor(index + 1) is { } tail
+                    && HeapRegisters(index + 1, projected: false) is int constructorLive)
+                {
+                    int arity = (int)tail.Operands[0].Value;
+                    int heapLive = Math.Max(constructorLive, arity > 1 ? arity : 0);
+                    if (heapLive <= registers)
+                    {
+                        supported = true;
+                        constructors.Add(index + 1);
+                        if (heapLive > instruction.Operands[^1].Value)
+                        {
+                            heapLives.Add(index, heapLive);
+                        }
+                    }
+                }
+                else
+                {
+                    supported |= constructors.Contains(index);
+                }
+
                 if (opcode == Label && index + 1 < end && body[index + 1].Definition.Opcode == LoopReceive
                     && HasOnlyReceiveRetryEdges(index))
                 {
@@ -460,10 +494,10 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        byte framelessExit = allowFramelessLocalTail ? TailLocalCallWithFrame : Return;
         if (!delayed.Contains(first)
             || extendEntry && !(leadingProjection ? delayed.Contains(predicate)
-                : delayed.Any(index => body[index].Definition.Opcode == framelessExit)))
+                : delayed.Any(index => allowFramelessTail
+                    ? IsFramelessTail(body[index]) : body[index].Definition.Opcode == Return)))
         {
             return null;
         }
@@ -626,6 +660,24 @@ internal sealed partial class BeamModuleCompiler
             && body[index].Definition.Opcode is PutTuple or PutList
             && IsEntryFrameReturn(index + 1);
 
+        BeamInstruction? ReadExternalTailAfterConstructor(int constructor)
+        {
+            if (constructor >= end || body[constructor].Definition.Opcode is not (PutTuple or PutList))
+            {
+                return null;
+            }
+
+            int next = constructor + 1;
+            while (next < end && body[next].Definition.Opcode == Line)
+            {
+                next++;
+            }
+
+            return next < end && body[next].Definition.Opcode == TailExternalCallWithFrame
+                && body[next].Operands[^1].Value == frameSize && IsFramelessTail(body[next])
+                ? body[next] : null;
+        }
+
         int? HeapRegisters(int constructor, bool projected)
         {
             BeamInstruction instruction = body[constructor];
@@ -764,6 +816,11 @@ internal sealed partial class BeamModuleCompiler
                 yield return index + 1;
             }
         }
+
+        bool IsFramelessTail(BeamInstruction instruction) =>
+            instruction.Definition.Opcode == TailLocalCallWithFrame
+            || instruction.Definition.Opcode == TailExternalCallWithFrame
+                && isFramelessExternalTail?.Invoke(instruction) == true;
 
         bool IsDelayedFramePredicate(byte opcode) => IsEntryFramePredicate(opcode)
             || (extendEntry || allocationIndex != start + 1) && opcode is SelectValue or SelectTupleArity;

@@ -51,7 +51,12 @@ internal sealed partial class BeamModuleCompiler
                     allocation,
                     end,
                     includeUnchanged: true
-                ) is null)
+                ) is null && !OwnsSingleBranchFrame(
+                    body,
+                    entry,
+                    allocation,
+                    end
+                ))
                 {
                     continue;
                 }
@@ -161,6 +166,19 @@ internal sealed partial class BeamModuleCompiler
 
         return output.ToArray();
     }
+
+    private static bool OwnsSingleBranchFrame(
+        IReadOnlyList<BeamInstruction> body,
+        int entry,
+        int allocation,
+        int end
+    ) =>
+        allocation >= 0
+        && ReadDisjointFrameOwnership(body, entry, end) is { } ownership
+        && ownership.Uses.Count == 1
+        && ownership.Owners[allocation - entry] == UnframedOwner
+        && Enumerable.Range(entry, allocation - entry).Any(index =>
+            body[index].Definition.Opcode == Return && ownership.Owners[index - entry] == UnframedOwner);
 
     private static bool IsUnframedEntryProjection(BeamInstruction instruction) =>
         instruction.Definition.Opcode is GetTupleElement or GetList or GetHead or GetTail

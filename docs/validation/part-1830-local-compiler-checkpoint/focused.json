@@ -1,0 +1,54 @@
+{
+  "Partial": true,
+  "SelectedCount": 7,
+  "TotalCount": 9770,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/beam/adjacent-call-keeps-result-live",
+    "compiler/beam/checked-entry-list-return-keeps-register",
+    "compiler/beam/closed-literal-bindings-cross-calls-as-literals",
+    "compiler/beam/entry-values-after-frameless-branch-keep-owned-frame",
+    "compiler/beam/module-filename-uses-implicit-line-index",
+    "compiler/beam/outgoing-call-removes-dead-roundtrip",
+    "compiler/beam/private-atom-selector-moves-only-when-needed"
+  ],
+  "Passed": 7,
+  "Failed": 0,
+  "Tests": [
+    {
+      "Name": "compiler/beam/closed-literal-bindings-cross-calls-as-literals",
+      "Status": "Passed",
+      "Milliseconds": 1720
+    },
+    {
+      "Name": "compiler/beam/checked-entry-list-return-keeps-register",
+      "Status": "Passed",
+      "Milliseconds": 79
+    },
+    {
+      "Name": "compiler/beam/outgoing-call-removes-dead-roundtrip",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "compiler/beam/entry-values-after-frameless-branch-keep-owned-frame",
+      "Status": "Passed",
+      "Milliseconds": 63
+    },
+    {
+      "Name": "compiler/beam/private-atom-selector-moves-only-when-needed",
+      "Status": "Passed",
+      "Milliseconds": 52
+    },
+    {
+      "Name": "compiler/beam/module-filename-uses-implicit-line-index",
+      "Status": "Passed",
+      "Milliseconds": 14
+    },
+    {
+      "Name": "compiler/beam/adjacent-call-keeps-result-live",
+      "Status": "Passed",
+      "Milliseconds": 91
+    }
+  ]
+}

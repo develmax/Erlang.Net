@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1830 saves the local compiler and corpus work. Both projects build and seven selected compiler cases pass. [Checkpoint](validation/part-1830-local-compiler-checkpoint/README.md).
+
 Part 1829 extends leaf register allocation to tuple construction. The Windows corpus retains 400 byte matches. ERTS admitted all 274 changed images through the two load paths. [Evidence](validation/part-1829/README.md).
 
 Part 1828 removes list argument frames around local tail calls. The Windows corpus retains 400 byte matches. ERTS admitted all 276 changed images. [Evidence](validation/part-1828/README.md).

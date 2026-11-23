@@ -58,6 +58,10 @@ internal sealed partial class BeamModuleCompiler
             labels.TryGetValue(label, out target) && target > from
             && predecessors[target].Count == 1 && predecessors[target][0] == from;
 
+        internal bool IsSingleForwardSelectionTarget(int target) =>
+            predecessors[target] is [var source] && source < target
+            && body[source].Definition.Opcode is (SelectValue or SelectTupleArity);
+
         internal bool CanEliminate(int projection, int continuation, BeamOperand slot) =>
             IsDead(continuation, slot) && IsInitialized(projection, slot);
 

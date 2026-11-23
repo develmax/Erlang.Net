@@ -9,7 +9,8 @@ internal sealed partial class BeamModuleCompiler
         IReadOnlyList<BeamInstruction> body,
         int entry,
         int end,
-        int linearAllocation = -1
+        int linearAllocation = -1,
+        bool allowGcBifExceptionExit = false
     )
     {
         if (entry + 1 >= end || body[entry].Definition.Opcode != Label)
@@ -191,7 +192,9 @@ internal sealed partial class BeamModuleCompiler
             for (int position = 0; position < instruction.Operands.Count; position++)
             {
                 BeamOperand operand = instruction.Operands[position];
-                if (!call && opcode is not (TryEnter or CatchEnter)
+                bool exceptionExit = allowGcBifExceptionExit && handlerEntry < 0 && operand.Value.IsZero
+                    && opcode is GcBifOne or GcBifTwo or GcBifThree;
+                if (!call && !exceptionExit && opcode is not (TryEnter or CatchEnter)
                     && operand.Kind == BeamOperandParameters.Label && operand.Value != clauseFailure)
                 {
                     if (!labels.TryGetValue((int)operand.Value, out int target)

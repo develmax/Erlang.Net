@@ -423,6 +423,50 @@ internal sealed partial class BeamModuleCompiler
             var branches = new List<ClosedAtomBranch>();
             foreach (Clause clause in function.Clauses)
             {
+                if (clause is { Guard: null, Patterns: [AliasPattern alias], Body: Expr.Variable result }
+                    && TryReadPatternAlias(alias, out var binding, out var shape)
+                    && result.Name == binding.Name && shape is Pattern.Literal { Value: Atom matched })
+                {
+                    if (!keys.Add(matched))
+                    {
+                        return false;
+                    }
+
+                    branches.Add(new(
+                        matched,
+                        null,
+                        null,
+                        ReturnsInput: true
+                    ));
+                    continue;
+                }
+
+                if (clause is
+                    {
+                        Guard: { } guard,
+                        Patterns: [Pattern.Variable { Name: not VariableScopeNames.Wildcard } input],
+                        Body: Expr.Literal { Value: var guardedResult }
+                    })
+                {
+                    var guardKeys = new List<Atom>();
+                    if (!ReadAtomGuardKeys(guard, input.Name, guardKeys))
+                    {
+                        return false;
+                    }
+
+                    foreach (Atom guardedKey in guardKeys)
+                    {
+                        if (!keys.Add(guardedKey))
+                        {
+                            return false;
+                        }
+
+                        branches.Add(new(guardedKey, guardedResult, null));
+                    }
+
+                    continue;
+                }
+
                 if (clause is not { Guard: null, Patterns: [Pattern.Literal { Value: Atom key }] }
                     || !keys.Add(key))
                 {
@@ -443,6 +487,11 @@ internal sealed partial class BeamModuleCompiler
                 {
                     return false;
                 }
+            }
+
+            if (branches.Count < 2)
+            {
+                return false;
             }
 
             branches.Sort((left, right) => TermOrder.Compare(left.Key, right.Key, exact: true));
@@ -483,7 +532,11 @@ internal sealed partial class BeamModuleCompiler
 
                 Mark(labels[index]);
                 ClosedAtomBranch branch = branches[index];
-                if (branch.Literal is { } literal)
+                if (branch.ReturnsInput)
+                {
+                    owner.instructions.WriteByte(Return);
+                }
+                else if (branch.Literal is { } literal)
                 {
                     if (!branch.Key.Equals(literal) || Array.IndexOf(representatives, index, index + 1) >= 0)
                     {
@@ -503,10 +556,20 @@ internal sealed partial class BeamModuleCompiler
             return true;
         }
 
-        private sealed record ClosedAtomBranch(Atom Key, Term? Literal, EntryCall? Tail)
+        private sealed record ClosedAtomBranch(
+            Atom Key,
+            Term? Literal,
+            EntryCall? Tail,
+            bool ReturnsInput = false
+        )
         {
             internal bool SharesCode(ClosedAtomBranch other)
             {
+                if (ReturnsInput || other.ReturnsInput)
+                {
+                    return ReturnsInput && other.ReturnsInput;
+                }
+
                 if (Literal is { } literal)
                 {
                     return literal.Equals(other.Literal);

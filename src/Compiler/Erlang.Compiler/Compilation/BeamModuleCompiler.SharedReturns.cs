@@ -190,7 +190,12 @@ internal sealed partial class BeamModuleCompiler
                 )
                 ?? UseSavedBranchOperands(code, body)
                 ?? ForwardSavedCallResults(code, body, stackOperands)
-                ?? PlaceEntryBifBeforeAllocation(code, body, stackOperands)
+                ?? PlaceEntryBifBeforeAllocation(
+                    code,
+                    body,
+                    stackOperands,
+                    instruction => IsLeafArithmeticGcBif(instruction, atomNames, importsByIndex)
+                )
                 ?? StoreBifResultsDirectly(code, body)
                 ?? StoreClosureResultsDirectly(code, body)
                 ?? SinkTupleReadsAcrossCalls(code, body, stackOperands)
@@ -198,7 +203,12 @@ internal sealed partial class BeamModuleCompiler
                 ?? ForwardStackProjections(code, body)
                 ?? RemoveUnusedTrailingFrameSlots(code, body)
                 ?? ReallocateLeafFrameRegisters(code, body, stackOperands)
-                ?? DelayEntryStackFrame(code, body, stackOperands)
+                ?? DelayEntryStackFrame(
+                    code,
+                    body,
+                    stackOperands,
+                    instruction => !IsTrappingTailBif(importsByIndex[(int)instruction.Operands[1].Value], atomNames)
+                )
                 ?? SinkTupleReadsPastGuards(code, body)
                 ?? SimplifyFrameInitialization(code, body)
                 ?? FoldTerminalCalls(code, body)
@@ -248,7 +258,15 @@ internal sealed partial class BeamModuleCompiler
                     code,
                     body,
                     stackOperands,
-                    tupleConstruction: true
+                    afterCanonicalization: true,
+                    isArithmetic: instruction => IsLeafArithmeticGcBif(instruction, atomNames, importsByIndex)
+                ))
+                ?? (shareReturns ? null : PromoteTransientFrameSlots(code, body, stackOperands))
+                ?? (shareReturns ? null : RemoveSelectFallbackFrame(
+                    code,
+                    body,
+                    labelOperands,
+                    stackOperands
                 ));
 
             return simplified is null ? null : (simplified, Enumerable.Range(0, labelCount).ToArray(), 0);
