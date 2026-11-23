@@ -17,7 +17,7 @@ internal sealed partial class BeamModuleCompiler
             int ordinal
         )
         {
-            if (ordinal != 1 || !owner.HasStableListCallbackOrder
+            if (ordinal is not (0 or 1) || !owner.HasStableListCallbackOrder
                 || lexicalOwner.Clauses is not [{ Guard: null } clause]
                 || !HasPartialTupleCallback(selected))
             {
@@ -26,8 +26,8 @@ internal sealed partial class BeamModuleCompiler
 
             var expressions = LocalFunctionEntries.ClauseExpressions([clause]).SelectMany(LocalFunctionEntries.Walk).ToArray();
             if (expressions.OfType<Expr.Fun>().ToArray() is not [var first, var second]
-                || !ReferenceEquals(second, selected) || first.CoreOrdinal != 0
-                || !HasPartialTupleCallback(first) || ClosureCaptures.Names(first) is not { Length: 0 }
+                || !ReferenceEquals(second, selected)
+                || !HasPartialTupleCallback(first)
                 || expressions.Any(expression => expression is Expr.FunctionReference or Expr.ListComprehension
                     or Expr.BinaryComprehension or Expr.MapComprehension or Expr.Try or Expr.Catch or Expr.Receive
                     or Expr.Maybe or Expr.Case or Expr.If or Expr.Apply or Expr.Call { DynamicRemote: true }))
@@ -48,9 +48,34 @@ internal sealed partial class BeamModuleCompiler
                         && owner.ResolveExternalModule(call.Function, call.Arguments.Count) == ListModuleNames.Module)
             ).ToArray();
 
-            return callbacks is [var prior, var later]
-                && ReferenceEquals(prior.Arguments[0], first) && prior.Arguments[1] is Expr.Variable
-                && ReferenceEquals(later.Arguments[0], selected);
+            if (callbacks is not [var prior, var later]
+                || !ReferenceEquals(prior.Arguments[0], first) || prior.Arguments[1] is not Expr.Variable
+                || !ReferenceEquals(later.Arguments[0], selected))
+            {
+                return false;
+            }
+
+            if (first.CoreOrdinal == 0 && ordinal == 1)
+            {
+                return ClosureCaptures.Names(first) is { Length: 0 };
+            }
+
+            if (first.CoreOrdinal != 1 || selected.CoreOrdinal != 0 || ordinal != 0
+                || clause.Body is not Expr.List { Items: [var left, var right], Tail: null }
+                || !ReferenceEquals(left, prior) || !ReferenceEquals(right, later))
+            {
+                return false;
+            }
+
+            // The left callback is the first evaluated argument, so only the
+            // function head's bindings can be in scope when it is constructed.
+            // Rewritten fun nodes may no longer have a cached capture plan.
+            var bindings = clause.Patterns.SelectMany(Semantics.Variables)
+                .Distinct(StringComparer.Ordinal)
+                .ToDictionary(name => name, _ => (Term)Nil.Value, StringComparer.Ordinal);
+
+            // v3_core names these funs right to left. SSA visits their failures left to right.
+            return ClosureCaptures.Capture(first, bindings).Count == 0;
 
             static bool HasPartialTupleCallback(Expr.Fun callback) =>
                 callback is { SelfName: null, Clauses: [{ Guard: null, Patterns: [AstPattern.Tuple] }] };

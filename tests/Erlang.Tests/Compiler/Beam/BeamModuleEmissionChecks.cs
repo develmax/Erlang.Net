@@ -2989,7 +2989,9 @@ internal static class BeamModuleEmissionChecks
         ReadOnlySpan<byte> guardedAllocation =
         [
             BeamEmissionFormat.BifOne, 0x05, 0x00, 0x12, 0x03,
-            BeamEmissionFormat.ExactEqualTest, 0x35, 0x03, 0x52,
+            BeamEmissionFormat.SelectValue, 0x03, 0x55, BeamEmissionFormat.ExtendedListOperand, 0x40,
+            0x52, 0x45, 0x62, 0x35,
+            BeamEmissionFormat.Label, 0x30,
             BeamEmissionFormat.Allocate, 0x00, 0x00
         ];
         if (code.AsSpan().IndexOf(guardedAllocation) < 0)

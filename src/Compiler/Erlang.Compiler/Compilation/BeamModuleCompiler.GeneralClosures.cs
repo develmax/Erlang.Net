@@ -203,8 +203,9 @@ internal sealed partial class BeamModuleCompiler
                     && (HasEarlierClosureFailureReservation(lexicalOwner, function, ordinal)
                         || HasPriorListCallbackFailureReservation(lexicalOwner, function, ordinal)))
                 {
+                    const int reservedAfterFirstFailure = 1;
                     failure = FormattableString.Invariant(
-                        $"-{lexicalOwner.Name}/{lexicalOwner.Arity}-inlined-{ordinal}-"
+                        $"-{lexicalOwner.Name}/{lexicalOwner.Arity}-inlined-{reservedAfterFirstFailure}-"
                     );
                 }
                 else

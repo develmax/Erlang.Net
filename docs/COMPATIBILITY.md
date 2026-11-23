@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 2007 verifies the captured callback failure ordinal through the existing controls. Prepared-map raw stack and compiler layout differences remain. The release byte ledger uses the prior measured 539 of 1,366. [Validation](validation/part-2007-pr143-checkout-recovery/README.md).
+
 Part 2006 restores scoped compiler behavior, labels and source admissions. The release whole-file ledger still uses the last measured 539 of 1,366. Current full regressions and corpus acceptance remain open. [Validation](validation/part-2006-pr143-source-admission/README.md).
 
 Local Part 2005 verifies source closure and project compilation. The 60-case harness records two open BEAM compiler differences. The observed whole-file ledger remains 539 of 1,366. [Evidence](validation/part-2005-publication-source-closure/README.md).

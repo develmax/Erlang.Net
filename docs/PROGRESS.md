@@ -1,5 +1,7 @@
 # Project progress
 
+Part 2007 preserves the monitor freeze byte identity across Git checkout settings. The selected compiler harness passes 78 of 80. [Validation](validation/part-2007-pr143-checkout-recovery/README.md).
+
 Part 2006 restores the passive source admissions for PR 143 and corrects several compiler and fixture failures. The 60 previously selected cases pass. The broader compiler block retains open failures. [Validation](validation/part-2006-pr143-source-admission/README.md).
 
 Local Part 2005 restores the complete compiler and test source in Git. The full test project builds. The selected registered harness passed 58 of 60, with two compiler lowering gaps remaining. [Evidence](validation/part-2005-publication-source-closure/README.md).

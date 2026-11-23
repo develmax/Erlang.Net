@@ -1,6 +1,6 @@
 # Next steps
 
-Recheck source admission on the published PR head, then address the remaining compiler failures in dependency order. Use the prepared-map cold error and checked branch failures as controls. Finish the mandatory package gate and uncached corpus before accepting compiler parity. [Validation](validation/part-2006-pr143-source-admission/README.md).
+Recheck PR 143 on the next published SHA. Continue with tuple literals and prepared-map compiler differences. Complete current-head regression, readiness and uncached release acceptance after closing the remaining groups. [Validation](validation/part-2007-pr143-checkout-recovery/README.md).
 
 Extend the shared returning-call trim recipe across independently owned branches. Reuse predecessor proofs to sink checked projections after heap checks with exact roots. Keep the final uncached corpus and the full regression gate open. [Local Part 2003](validation/part-2003-local-cons-tuple-and-register-values/README.md).
 
