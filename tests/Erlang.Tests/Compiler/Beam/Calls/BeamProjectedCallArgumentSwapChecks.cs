@@ -21,6 +21,7 @@ internal static class BeamProjectedCallArgumentSwapChecks
     private const byte Y1 = 0x14;
     private const byte Y2 = 0x24;
     private const byte Zero = 0;
+    private const byte NoFailure = 0x05;
     private const byte One = 0x10;
     private const byte Two = 0x20;
     private const byte Three = 0x30;
@@ -136,13 +137,13 @@ internal static class BeamProjectedCallArgumentSwapChecks
         byte[] guard =
         [
             BifOne, BifFailure, Zero, X0, X1,
-            BifTwo, Zero, Zero, X1, IntegerZero, X1,
+            BifTwo, NoFailure, Zero, X1, IntegerZero, X1,
             BifTwo, BifFailure, Zero, IntegerZero, X0, X2,
-            BifTwo, Zero, Zero, X2, ApplyMember, X2,
-            BifTwo, Zero, Zero, X1, X2, X1,
+            BifTwo, NoFailure, Zero, X2, ApplyMember, X2,
+            BifTwo, NoFailure, Zero, X1, X2, X1,
             Jump, GuardJoin,
             Label, Three, Move, ApplyMember, X1,
-            Label, Four, BifTwo, Zero, Zero, X0, ApplyMember, X2,
+            Label, Four, BifTwo, NoFailure, Zero, X0, ApplyMember, X2,
             ExactEqualTest, GuardAccept, X1, ApplyMember,
             ExactEqualTest, GuardReject, X2, ApplyMember,
             Label, Five

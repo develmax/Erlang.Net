@@ -122,7 +122,7 @@ internal static class BeamDirectTupleDestinationChecks
             object header = New(
                 "BeamCodeHeader",
                 0,
-                (int)PutTuple,
+                MinimumHighestOpcode,
                 3,
                 1,
                 code

@@ -28,11 +28,19 @@ internal static class BeamPinnedListPredicateChecks
     internal static async Task Run()
     {
         byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
-        byte[] disabled = CodeGeneration.CompileBeamModule(
-            Source.Replace("%% options", "-compile(no_ssa_opt).", StringComparison.Ordinal),
-            Fixture
+        var unoptimized = new Parser(
+            Source.Replace("%% options", "-compile(no_ssa_opt).", StringComparison.Ordinal)
+        ).ParseModule();
+        var locations = Enumerable.Range(5, unoptimized.DeclaredFunctions.Count)
+            .Select(line => new BeamSourceLocation(null, line)).ToArray();
+        byte[] disabled = new BeamModuleCompiler(unoptimized.Name, sourceModule: unoptimized).Emit(
+            unoptimized.DeclaredFunctions,
+            locations,
+            unoptimized.DeclaredExports.ToHashSet(),
+            new BeamModuleMetadata(unoptimized.Attributes, null)
         );
-        if (HasInvalidBooleanTest(image, "known") || HasInvalidBooleanTest(image, "prefix")
+        if (!unoptimized.HasOtherCompileOptions
+            || HasInvalidBooleanTest(image, "known") || HasInvalidBooleanTest(image, "prefix")
             || !HasInvalidBooleanTest(image, "shadowed") || !HasInvalidBooleanTest(disabled, "known"))
         {
             throw new InvalidOperationException(WrongLayout);

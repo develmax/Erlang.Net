@@ -1,5 +1,7 @@
 # Project progress
 
+Part 2009 restores byte equality for the previously matched client_server release. Focused retakes of the actual PR failures recover 24 of 60 cases. [Validation](validation/part-2009-pr143-platform-retake/README.md).
+
 Part 2008 passes the complete registered whole-module compiler case, including 308 pinned images. The recheck of 44 previously failing cases passed 19. Eight selected release files remain Different. [Validation](validation/part-2008-pr143-compiler-fixture-check/README.md).
 
 Part 2007 preserves the monitor freeze byte identity across Git checkout settings. The selected compiler harness passes 78 of 80. [Validation](validation/part-2007-pr143-checkout-recovery/README.md).

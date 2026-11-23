@@ -77,7 +77,7 @@ internal static class BeamStagedListConstructionChecks
             object header = New(
                 "BeamCodeHeader",
                 0,
-                (int)PutList,
+                MinimumHighestOpcode,
                 3,
                 1,
                 code

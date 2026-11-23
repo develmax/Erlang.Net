@@ -44,8 +44,9 @@ internal static class BeamClosedConsTupleEqualityChecks
 
         CheckLocalTargets(closed);
 
-        var closedModule = BeamModule.Prepare(closed);
-        var publicModule = BeamModule.Prepare(publicEntries);
+        var dependencies = new BeamDependencySelection([ListBeamHostNames.Module]);
+        var closedModule = BeamModule.Prepare(closed, dependencies);
+        var publicModule = BeamModule.Prepare(publicEntries, dependencies);
         await using var runtime = new ProcessRuntime();
         await using var actor = new RuntimeNodeFoundationHostActor(runtime);
         await actor.InvokeAsync(async context =>

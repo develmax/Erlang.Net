@@ -68,7 +68,7 @@ internal static class BeamLiteralMapFieldTailChecks
             throw new InvalidOperationException(WrongLayout);
         }
 
-        var module = BeamModule.Prepare(image);
+        var module = BeamModule.Prepare(image, new BeamDependencySelection([LibraryMapProtocolNames.Maps]));
         await using var runtime = new ProcessRuntime();
         await using var actor = new RuntimeNodeFoundationHostActor(runtime);
         await actor.InvokeAsync(async context =>

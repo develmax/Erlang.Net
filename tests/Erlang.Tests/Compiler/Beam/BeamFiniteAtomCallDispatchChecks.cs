@@ -76,9 +76,13 @@ internal static class BeamFiniteAtomCallDispatchChecks
         }
 
         object[] forward = Operations("forward");
+        object? openSelector = Operations("unproven").SingleOrDefault(instruction => Opcode(instruction) == SelectValue);
         if (forward.Count(instruction => Opcode(instruction) == ExactEqualTest) != 1
-            || !HasAtomMove(forward, "ready", 2)
-            || Operations("unproven").Count(instruction => Opcode(instruction) == ExactEqualTest) != 2)
+            || !HasAtomMove(forward, "ready", 2) || openSelector is null
+            || Operands(openSelector) is not [var openInput, var openFailure, _, var pending, var pendingLabel, var ready, var readyLabel]
+            || !Register(openInput, 2) || !IsAtom(pending, "pending") || !IsAtom(ready, "ready")
+            || Value(openFailure) == Value(pendingLabel) || Value(openFailure) == Value(readyLabel)
+            || Value(pendingLabel) == Value(readyLabel))
         {
             throw new InvalidOperationException(WrongEntry);
         }

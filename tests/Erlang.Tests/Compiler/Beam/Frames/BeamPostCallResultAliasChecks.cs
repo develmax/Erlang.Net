@@ -93,6 +93,10 @@ internal static class BeamPostCallResultAliasChecks
         CheckDeclined(compiler, GuardedContinuation(bypass: true), BeamPostCallResultAliasDiagnostics.GuardedContinuation);
 
         CheckConstructorResult(compiler);
+
+        _ = Call(compiler, "Intern", "record_tag");
+        _ = Call(compiler, "Intern", "copy");
+        _ = Call(compiler, "Intern", "field_value");
         CheckRewrite(
             compiler,
             RecordUpdateResult(),

@@ -67,7 +67,7 @@ internal static class BeamFinalLineOrderChecks
         }
 
         byte[] image = BeamMetadataModeledBytes.WithChunk(
-            Image(result[..^1], labels: LabelCount),
+            Image(result[..^1], labels: LabelCount, preserveLineChunk: true),
             "Line",
             payload
         );

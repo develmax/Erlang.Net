@@ -138,13 +138,32 @@ internal static class BeamNestedListGeneratorChecks
         int start = (int)Property(function, "FirstInstructionIndex");
         int end = (int)Property(function, "EndInstructionIndex");
         object[] body = Items(code, "Instructions").ToArray()[start..end];
-        if (body.Length < 3 || Opcode(body[^3]) != PutTuple || Opcode(body[^2]) != Line
-            || Opcode(body[^1]) != TailExternalCall)
+        object structure = Property(code, "Structure");
+        string[] atoms = Items(structure, "Atoms").Cast<string>().ToArray();
+        object[] imports = Items(structure, "Imports").ToArray();
+        int failure = Array.FindIndex(
+            body,
+            instruction => Opcode(instruction) == PutTuple
+            && Items(instruction, "Operands").ToArray() is [var target, _, var tag, var value]
+            && Property(target, "Kind") is "x" && Value(instruction, 0) == 0
+            && Property(tag, "Kind") is "atom" && atoms[Value(instruction, 2)] == "bad_generator"
+            && Property(value, "Kind") is "x" && Value(instruction, 3) == 0
+        );
+        if (failure < 0 || failure + 2 >= body.Length || Opcode(body[failure + 1]) != Line
+            || Opcode(body[failure + 2]) != TailExternalCall || Value(body[failure + 2], 0) != 1)
         {
             throw new InvalidOperationException(WrongFailureLocation);
         }
 
-        var location = Items(code, "SourceLocations").Cast<Term>().ElementAt(Value(body[^2], 0));
+        object import = imports[Value(body[failure + 2], 1)];
+        if (atoms[(int)Property(import, "ModuleAtomIndex")] != "erlang"
+            || atoms[(int)Property(import, "FunctionAtomIndex")] != "error"
+            || (int)Property(import, "Arity") != 1)
+        {
+            throw new InvalidOperationException(WrongFailureLocation);
+        }
+
+        var location = Items(code, "SourceLocations").Cast<Term>().ElementAt(Value(body[failure + 1], 0));
         if (!Cons.Items(location).Contains(Term.Tuple(Term.A("line"), Term.I(line))))
         {
             throw new InvalidOperationException(WrongFailureLocation);

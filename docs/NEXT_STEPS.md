@@ -1,6 +1,6 @@
 # Next steps
 
-Advance the shared frame-ownership and operand analysis against pinned OTP, starting from the known compiler failure list. Keep the prepared-map stack mismatch open and the mandatory CI tied to the published SHA. [Validation](validation/part-2008-pr143-compiler-fixture-check/README.md).
+Work from the 36 remaining failures of the published platform lane. Prioritize shared frame and argument ownership, prepared-map failure paths and general constructor facts. Repeat the full PR gate and current readiness after the affected cohort is green. [Validation](validation/part-2009-pr143-platform-retake/README.md).
 
 Extend the shared returning-call trim recipe across independently owned branches. Reuse predecessor proofs to sink checked projections after heap checks with exact roots. Keep the final uncached corpus and the full regression gate open. [Local Part 2003](validation/part-2003-local-cons-tuple-and-register-values/README.md).
 

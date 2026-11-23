@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 2009 restores known client_server equality and the registered whole-module and release image checks. The remaining platform failures and the full release ledger retain separate acceptance. [Validation](validation/part-2009-pr143-platform-retake/README.md).
+
 Part 2008 verifies the pinned tuple literal fixture and the whole-module component case. The 25 remaining observed compiler failures and eight Different release representatives retain their separate acceptance status. [Validation](validation/part-2008-pr143-compiler-fixture-check/README.md).
 
 Part 2007 verifies the captured callback failure ordinal through the existing controls. Prepared-map raw stack and compiler layout differences remain. The release byte ledger uses the prior measured 539 of 1,366. [Validation](validation/part-2007-pr143-checkout-recovery/README.md).

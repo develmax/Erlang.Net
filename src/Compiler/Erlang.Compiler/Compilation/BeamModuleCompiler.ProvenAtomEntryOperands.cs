@@ -163,7 +163,8 @@ internal sealed partial class BeamModuleCompiler
     {
         if (properListSourceFunctions is not { } definitions || ModuleOptimizationDisabled || !SsaTypeInferenceEnabled
             || !code.Span.Contains(ExactEqualTest)
-            || (!code.Span.Contains(GetList) && !code.Span.Contains(GetTupleElement))
+            || (!code.Span.Contains(GetList) && !code.Span.Contains(GetHead)
+                && !code.Span.Contains(GetTail) && !code.Span.Contains(GetTupleElement))
             || DecodeLateAtomicProjectionSlots(code, labelCount) is not { Body: var body })
         {
             return null;
@@ -208,6 +209,12 @@ internal sealed partial class BeamModuleCompiler
                 {
                     RecordWrite(head);
                     RecordWrite(tail);
+                    continue;
+                }
+
+                if (operation is { Definition.Opcode: GetHead or GetTail, Operands: [_, var projected] })
+                {
+                    RecordWrite(projected);
                     continue;
                 }
 

@@ -146,7 +146,7 @@ internal sealed partial class BeamModuleCompiler
             (VirtualTerminalCaseArm Arm, string[] Parameters)? remaining,
             out int failure,
             bool allocateFailureLabel = false,
-            bool closedBoolean = false,
+            bool closedPair = false,
             bool exhaustive = false
         )
         {
@@ -208,7 +208,7 @@ internal sealed partial class BeamModuleCompiler
                 allocated[index] = branch;
             }
 
-            if (closedBoolean)
+            if (closedPair)
             {
                 int alternative = Label();
                 owner.Op(ExactEqualTest, LabelTag, alternative);
@@ -446,6 +446,39 @@ internal sealed partial class BeamModuleCompiler
             // has no tail opcode. Its return remains in the terminal suffix.
             bool tail = calls.Count != 0 && calls[^1].Source is Expr.Call
                 && result.Value == calls[^1].Result;
+            if (tail && calls.Count > 1 && owner.SsaTypeInferenceEnabled && !owner.ModuleOptimizationDisabled
+                && owner.OnLoadFunction is null)
+            {
+                VirtualTerminalCall terminal = calls[^1];
+                var knownArguments = new Dictionary<int, Atom>();
+                foreach (VirtualTerminalCall producer in calls.Take(calls.Count - 1))
+                {
+                    if (producer is not { Module: null, Source: Expr.Call local }
+                        || !terminal.Arguments.Any(argument => argument.Value == producer.Result))
+                    {
+                        continue;
+                    }
+
+                    var signature = (local.Function, local.Arguments.Count);
+                    if (!owner.IsDeclaredNative(signature) && localFunctions.TryGetValue(signature, out var definition)
+                        && !definition.IsInlineFailure && ReadSingletonResult(definition) is Atom constant)
+                    {
+                        knownArguments.Add(producer.Result, constant);
+                    }
+                }
+
+                if (knownArguments.Count != 0)
+                {
+                    // Keep preceding calls, including effects and failures. Only the
+                    // operands of the reachable tail transfer use the proven result.
+                    calls[^1] = terminal with
+                    {
+                        Arguments = terminal.Arguments.Select(argument => argument.Value is int value
+                            && knownArguments.TryGetValue(value, out Atom? constant) ? new(null, constant) : argument).ToArray()
+                    };
+                }
+            }
+
             if (AssignConstructionRegions(calls, constructions, result) is not { } returns)
             {
                 return null;

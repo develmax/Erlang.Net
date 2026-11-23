@@ -104,7 +104,8 @@ internal static class BeamProjectedEntryListFrameChecks
             compiler,
             "ProjectEntryListDirectlyIntoFrame",
             (ReadOnlyMemory<byte>)bytes,
-            4
+            4,
+            false
         );
     }
 
@@ -160,7 +161,8 @@ internal static class BeamProjectedEntryListFrameChecks
             compiler,
             "ProjectEntryListDirectlyIntoFrame",
             (ReadOnlyMemory<byte>)bytes,
-            4
+            4,
+            false
         );
     }
 
@@ -208,7 +210,8 @@ internal static class BeamProjectedEntryListFrameChecks
             compiler,
             "ProjectEntryListDirectlyIntoFrame",
             (ReadOnlyMemory<byte>)bytes,
-            4
+            4,
+            false
         );
     }
 

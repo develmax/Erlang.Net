@@ -11,6 +11,7 @@ internal static class BeamOperatorShortCircuitChecks
 {
     internal const string TestName = "compiler/beam/short-circuits-proven-operator-results";
     private const string Fixture = "beam_operator_short_circuit.erl";
+    private const string AtomOperandKind = "atom";
     private const string IncorrectCheck = "An operator with a proven boolean result requires only its short-circuit test.";
     private const string IncorrectValue = "Short-circuiting an operator changed its value, error or right-side evaluation.";
 
@@ -28,11 +29,19 @@ internal static class BeamOperatorShortCircuitChecks
     internal static async Task Run()
     {
         byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
-        byte[] disabled = CodeGeneration.CompileBeamModule(
-            Source.Replace("%% options", "-compile(no_ssa_opt).", StringComparison.Ordinal),
-            Fixture
+        var unoptimized = new Parser(
+            Source.Replace("%% options", "-compile(no_ssa_opt).", StringComparison.Ordinal)
+        ).ParseModule();
+        var locations = Enumerable.Range(4, unoptimized.DeclaredFunctions.Count)
+            .Select(line => new BeamSourceLocation(null, line)).ToArray();
+        byte[] disabled = new BeamModuleCompiler(unoptimized.Name, sourceModule: unoptimized).Emit(
+            unoptimized.DeclaredFunctions,
+            locations,
+            unoptimized.DeclaredExports.ToHashSet(),
+            new BeamModuleMetadata(unoptimized.Attributes, null)
         );
-        if (BooleanChecks(image, "compare") != 1 || BooleanChecks(image, "negate") != 1
+        if (!unoptimized.HasOtherCompileOptions
+            || BooleanChecks(image, "compare") != 1 || BooleanChecks(image, "negate") != 1
             || BooleanChecks(image, "strict") != 1 || BooleanChecks(image, "opaque") < 2
             || BooleanChecks(image, "nested") < 2 || BooleanChecks(disabled, "negate") < 2)
         {
@@ -140,7 +149,7 @@ internal static class BeamOperatorShortCircuitChecks
         return instructions.Skip(entry + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo)
             .Count(instruction => Opcode(instruction) is ExactEqualTest or ExactNotEqualTest
                 && Items(instruction, "Operands") is [_, _, var operand]
-                && Property(operand, "Kind").ToString() == "Atom" && atoms[Value(operand)] is "true" or "false");
+                && Equals(Property(operand, "Kind"), AtomOperandKind) && atoms[Value(operand)] is "true" or "false");
     }
 
     private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");

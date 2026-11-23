@@ -48,18 +48,43 @@ internal static class BeamGuardedFloatRecursionChecks
             throw new InvalidOperationException(IncorrectShape);
         }
 
-        var module = BeamModule.Prepare(image);
         await using var runtime = new ProcessRuntime();
+        PreparedBeamImage prepared = runtime.Modules.PrepareBeam(image, new BeamDependencySelection([Module]));
+        if (runtime.Modules.PublishPreparedBeam(prepared).Status != BeamPublicationStatus.Published)
+        {
+            throw new InvalidOperationException(IncorrectValue);
+        }
+
         await using var actor = new RuntimeNodeFoundationHostActor(runtime);
         await actor.InvokeAsync(async context =>
         {
             Term shortTag = Term.A("short");
             Term longTag = Term.A("long");
-            if (!(await module.Invoke(context, "format", Term.I(90))).Equals(Term.Tuple(shortTag, new FloatTerm(9)))
-                || !(await module.Invoke(context, "format", Term.I(-20))).Equals(Term.Tuple(shortTag, new FloatTerm(-2)))
-                || !(await module.Invoke(context, "format", Term.I(100)))
+            if (!(await runtime.Modules.Call(
+                context,
+                Module,
+                "format",
+                Term.I(90)
+            )).Equals(Term.Tuple(shortTag, new FloatTerm(9)))
+                || !(await runtime.Modules.Call(
+                    context,
+                    Module,
+                    "format",
+                    Term.I(-20)
+                )).Equals(Term.Tuple(shortTag, new FloatTerm(-2)))
+                || !(await runtime.Modules.Call(
+                    context,
+                    Module,
+                    "format",
+                    Term.I(100)
+                ))
                     .Equals(Term.Tuple(longTag, Term.I(1), Term.Tuple(shortTag, new FloatTerm(0))))
-                || !(await module.Invoke(context, "format", Term.I(205)))
+                || !(await runtime.Modules.Call(
+                    context,
+                    Module,
+                    "format",
+                    Term.I(205)
+                ))
                     .Equals(Term.Tuple(longTag, Term.I(2), Term.Tuple(shortTag, new FloatTerm(0.5)))))
             {
                 throw new InvalidOperationException(IncorrectValue);
@@ -67,7 +92,12 @@ internal static class BeamGuardedFloatRecursionChecks
 
             try
             {
-                await module.Invoke(context, "format", new FloatTerm(2));
+                await runtime.Modules.Call(
+                    context,
+                    Module,
+                    "format",
+                    new FloatTerm(2)
+                );
             }
             catch (ErlangException ex) when (ex.ExceptionClass == ErlangExceptionClasses.Error
                 && ex.Reason.Equals(Term.A("function_clause")))

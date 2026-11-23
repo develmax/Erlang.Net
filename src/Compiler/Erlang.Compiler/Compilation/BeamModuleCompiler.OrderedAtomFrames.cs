@@ -82,11 +82,20 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
+            if (selection == 0 && remaining is not null && branches.Count == 2 && TryEmitPathOptionList(function))
+            {
+                return true;
+            }
+
             bool closedBoolean = remaining is null && branches.Count == 2
                 && branches.All(branch => branch.Arm.Key is { Name: ErlangBooleanAtoms.True or ErlangBooleanAtoms.False })
                 && (ReadClosedBooleanParameter(function, selection)
                     || owner.ReadStructuralEntryAtoms((function.Name, function.Arity), selection) is { Count: > 0 } values
                     && values.All(value => value.Name is ErlangBooleanAtoms.True or ErlangBooleanAtoms.False));
+
+            bool closedPair = closedBoolean || remaining is null && branches.Count == 2
+                && ReadFiniteAtomArguments(function, selection, admitGuardFacts: true) is { } pair
+                && pair.SetEquals(keys);
 
             bool exhaustive = remaining is null && branches.Count >= 3
                 && ReadFiniteAtomArguments(function, selection, requireInferredAtomType: false) is { } atoms && atoms.SetEquals(keys);
@@ -96,7 +105,7 @@ internal sealed partial class BeamModuleCompiler
                 branches,
                 remaining,
                 out _,
-                closedBoolean: closedBoolean,
+                closedPair: closedPair,
                 exhaustive: exhaustive
             );
         }

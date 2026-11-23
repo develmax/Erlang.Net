@@ -15,6 +15,7 @@ internal static class BeamGuardedCallPayloadCarrierChecks
     private const byte Y0 = 0x04;
     private const byte Y1 = 0x14;
     private const byte Zero = 0;
+    private const byte NoFailure = 0x05;
     private const byte One = 0x10;
     private const byte Two = 0x20;
     private const byte Three = 0x30;
@@ -76,12 +77,12 @@ internal static class BeamGuardedCallPayloadCarrierChecks
         byte[] guard =
         [
             BifOne, Fall, Zero, X0, X1,
-            BifTwo, Zero, Zero, X1, IntegerZero, X1,
+            BifTwo, NoFailure, Zero, X1, IntegerZero, X1,
             BifTwo, Fall, Zero, IntegerZero, X0, scratch,
-            BifTwo, Zero, Zero, scratch, AtomOne, scratch,
-            BifTwo, Zero, Zero, X1, ExtendedTypedRegisterOperand, scratch, Zero, X1,
+            BifTwo, NoFailure, Zero, scratch, AtomOne, scratch,
+            BifTwo, NoFailure, Zero, X1, ExtendedTypedRegisterOperand, scratch, Zero, X1,
             Jump, Join, Label, Four, Move, AtomTwo, X1,
-            Label, Five, BifTwo, Zero, Zero, X0, AtomTwo, scratch,
+            Label, Five, BifTwo, NoFailure, Zero, X0, AtomTwo, scratch,
             ExactEqualTest, Accept, X1, AtomTwo, ExactEqualTest, Reject, scratch, AtomOne, Label, Six
         ];
         byte[] call =

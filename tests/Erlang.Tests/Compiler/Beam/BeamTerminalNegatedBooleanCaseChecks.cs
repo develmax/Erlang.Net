@@ -43,9 +43,16 @@ internal static class BeamTerminalNegatedBooleanCaseChecks
     internal static async Task Run()
     {
         byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
-        byte[] disabled = CodeGeneration.CompileBeamModule(
-            Source.Replace("%% options", "-compile(no_ssa_opt).", StringComparison.Ordinal),
-            Fixture
+        var unoptimized = new Parser(
+            Source.Replace("%% options", "-compile(no_ssa_opt).", StringComparison.Ordinal)
+        ).ParseModule();
+        var locations = Enumerable.Range(5, unoptimized.DeclaredFunctions.Count)
+            .Select(line => new BeamSourceLocation(null, line)).ToArray();
+        byte[] disabled = new BeamModuleCompiler(unoptimized.Name, sourceModule: unoptimized).Emit(
+            unoptimized.DeclaredFunctions,
+            locations,
+            unoptimized.DeclaredExports.ToHashSet(),
+            new BeamModuleMetadata(unoptimized.Attributes, null)
         );
         int negationLine = Source[..Source.IndexOf("case not probe(Input)", StringComparison.Ordinal)]
             .Count(character => character == '\n') + 1;
@@ -53,7 +60,7 @@ internal static class BeamTerminalNegatedBooleanCaseChecks
         object[] selected = Function(code, "choose");
         int errorExit = Array.FindIndex(selected, instruction => Opcode(instruction) == TailExternalCallWithFrame);
         var positions = (IReadOnlyList<Term>)Call(Type("BeamLineTableReader"), "Read", Property(code, "Structure"));
-        if (errorExit < 1 || Opcode(selected[errorExit - 1]) != Line
+        if (!unoptimized.HasOtherCompileOptions || errorExit < 1 || Opcode(selected[errorExit - 1]) != Line
             || !Cons.Items(positions[Value(Items(selected[errorExit - 1], "Operands")[0])])
                 .Contains(Term.Tuple(Term.A("line"), Term.I(negationLine)))
             || selected.Count(instruction => Opcode(instruction) == Deallocate) != 2

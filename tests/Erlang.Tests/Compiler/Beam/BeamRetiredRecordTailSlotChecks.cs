@@ -94,7 +94,12 @@ internal static class BeamRetiredRecordTailSlotChecks
             null,
             false,
             false,
-            true
+            true,
+            false,
+            false,
+            false,
+            null,
+            false
         );
     }
 }

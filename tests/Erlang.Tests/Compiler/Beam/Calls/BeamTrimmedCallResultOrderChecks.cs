@@ -14,6 +14,8 @@ internal static class BeamTrimmedCallResultOrderChecks
     private const string ReaderType = "BeamInstructionReader";
     private const string ReadMethod = "Read";
     private const int FormatVersion = 0;
+    private const int SyntheticAtomCount = 3;
+    private const int UnavailableDictionaryImport = -1;
     private const string PinnedOrder = "Copy the direct result, order the stack loads, and keep them before the trim and call line.";
     private const string DependentMoves = "Keep a move that consumes a freshly written X register in its original dependency order.";
     private const string OverwrittenResult = "Keep the existing moves when an earlier argument overwrites the preceding call result.";
@@ -256,7 +258,7 @@ internal static class BeamTrimmedCallResultOrderChecks
                 Type(ReaderType),
                 ReadMethod,
                 header,
-                2,
+                SyntheticAtomCount,
                 0,
                 null,
                 null
@@ -268,7 +270,8 @@ internal static class BeamTrimmedCallResultOrderChecks
                 code,
                 instructions,
                 false,
-                true
+                true,
+                UnavailableDictionaryImport
             );
         }
     }
@@ -322,7 +325,7 @@ internal static class BeamTrimmedCallResultOrderChecks
             Type(ReaderType),
             ReadMethod,
             header,
-            2,
+            SyntheticAtomCount,
             0,
             null,
             null

@@ -56,7 +56,7 @@ internal static class BeamSavedChoiceFrameChecks
         object header = New(
             "BeamCodeHeader",
             0,
-            (int)Line,
+            MinimumHighestOpcode,
             5,
             1,
             instructions

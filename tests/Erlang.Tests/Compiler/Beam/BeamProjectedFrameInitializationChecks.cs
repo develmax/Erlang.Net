@@ -54,7 +54,8 @@ internal static class BeamProjectedFrameInitializationChecks
             compiler,
             "ProjectEntryListDirectlyIntoFrame",
             (ReadOnlyMemory<byte>)bytes,
-            4
+            4,
+            true
         );
     }
 }

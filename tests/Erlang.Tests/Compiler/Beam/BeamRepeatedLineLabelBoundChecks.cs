@@ -11,6 +11,7 @@ internal static class BeamRepeatedLineLabelBoundChecks
     internal const string TestName = "compiler/beam/removes-repeated-lines-with-rewritten-label-count";
     private const int PreviousLabelCount = 5;
     private const int PhysicalLabelCount = PreviousLabelCount + 1;
+    private const int FinalWriteLabel = 3;
     private const string IncorrectFinalLocation = "Final duplicate cleanup must preserve distinct and protected source locations.";
     private const string IncorrectLine = "Expected line cleanup to use the current physical label range.";
 
@@ -22,7 +23,7 @@ internal static class BeamRepeatedLineLabelBoundChecks
         CheckFinalWrite([], secondLocation: 2, removeDuplicate: false);
         CheckFinalWrite([DebugLine, A(1), U(1), U(1), U(1)], secondLocation: 1, removeDuplicate: false);
         CheckFinalWrite([ExecutableLine, U(1), U(1)], secondLocation: 1, removeDuplicate: false);
-        CheckFinalWrite([Allocate, U(1), U(0), CatchEnter, Y(0), F(PreviousLabelCount)],
+        CheckFinalWrite([Allocate, U(1), U(0), CatchEnter, Y(0), F(FinalWriteLabel)],
             secondLocation: 1,
             removeDuplicate: false
         );
@@ -67,7 +68,7 @@ internal static class BeamRepeatedLineLabelBoundChecks
                 0
             ),
             .. markers,
-            Line, U(1), Jump, F(PreviousLabelCount), Label, U(PreviousLabelCount)
+            Line, U(1), Jump, F(FinalWriteLabel), Label, U(FinalWriteLabel)
         ];
         byte[] original = [.. prefix, Line, U(secondLocation), TailLocalCall, U(0), F(2), EndCode];
         byte[] expected = removeDuplicate ? [.. prefix, TailLocalCall, U(0), F(2), EndCode] : original;
