@@ -37,30 +37,29 @@ internal static class BeamTaggedModuleTailApplyChecks
         object[] instructions = ((IEnumerable)Property(Code(bytes), "Instructions")).Cast<object>().ToArray();
         int[] starts = Enumerable.Range(0, instructions.Length)
             .Where(index => Opcode(instructions[index]) == FunctionInfo).ToArray();
-        if (starts.Length < 3)
+        if (starts.Length < 4)
         {
             throw new InvalidOperationException(UnexpectedSchedule);
         }
 
-        for (int index = 0; index < 2; index++)
+        for (int index = 0; index < 3; index++)
         {
-            int arity = index + 1;
+            int arity = index == 0 ? 1 : 2;
             object[] body = instructions[starts[index]..starts[index + 1]]
                 .Where(instruction => Opcode(instruction) is not (FunctionInfo or Label or Line))
                 .ToArray();
             byte[] opcodes = body.Select(Opcode).ToArray();
-            if (!opcodes.SequenceEqual([
-                IsTaggedTuple,
-                GetTupleElement,
-                IsAtom,
-                Allocate,
-                Move,
-                TailDynamicApply,
-                TailExternalCall
-            ])
+            byte[] expectedTail = index switch
+            {
+                0 => [TailDynamicApply, TailExternalCall],
+                1 => [TailDynamicApply, BifTwo, Return],
+                _ => [Swap, TailDynamicApply, BifTwo, Return]
+            };
+            if (!opcodes.SequenceEqual([IsTaggedTuple, GetTupleElement, IsAtom, Allocate, Move, .. expectedTail])
                 || Operand(body[1], 2) != arity
                 || Operand(body[3], 0) != 0 || Operand(body[3], 1) != arity + 1
-                || Operand(body[5], 0) != arity || Operand(body[5], 1) != 0)
+                || Operand(body[index == 2 ? 6 : 5], 0) != arity
+                || Operand(body[index == 2 ? 6 : 5], 1) != 0)
             {
                 throw new InvalidOperationException(UnexpectedSchedule);
             }

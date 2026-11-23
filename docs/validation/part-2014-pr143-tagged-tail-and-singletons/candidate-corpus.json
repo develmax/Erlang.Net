@@ -1,0 +1,30 @@
+{
+  "OtpVersion": "29.1.1",
+  "Total": 3,
+  "Counts": {
+    "Different": 3
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\common_test-1.31.2\\ebin\\ct_gen_conn.beam",
+      "Status": "Different",
+      "Source": "lib\\common_test-1.31.2\\src\\ct_gen_conn.erl",
+      "Detail": "Original length 16244, generated length 16484. AtU8 872-\u003E876, Code 3591-\u003E3814, ImpT 292-\u003E304, ExpT 256-\u003E256, FunT 76-\u003E76, LocT 208-\u003E208, Attr 70-\u003E70, Line 190-\u003E194, Type 18-\u003E14",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\common_test-1.31.2\\ebin\\ct_groups.beam",
+      "Status": "Different",
+      "Source": "lib\\common_test-1.31.2\\src\\ct_groups.erl",
+      "Detail": "Original length 27216, generated length 28152. AtU8 1259-\u003E1272, Code 7960-\u003E8828, ImpT 412-\u003E472, ExpT 112-\u003E112, FunT 196-\u003E220, LitT 384-\u003E384, LocT 412-\u003E400, Attr 39-\u003E39, Line 366-\u003E376, Type 56-\u003E32",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\common_test-1.31.2\\ebin\\ct_hooks.beam",
+      "Status": "Different",
+      "Source": "lib\\common_test-1.31.2\\src\\ct_hooks.erl",
+      "Detail": "Original length 35804, generated length 36672. AtU8 1689-\u003E1678, Code 6880-\u003E7760, ImpT 424-\u003E484, ExpT 136-\u003E136, FunT 196-\u003E196, LitT 1463-\u003E1414, LocT 496-\u003E484, Attr 39-\u003E39, Line 284-\u003E294, Type 34-\u003E22",
+      "FirstDifferentByte": 6
+    }
+  ]
+}

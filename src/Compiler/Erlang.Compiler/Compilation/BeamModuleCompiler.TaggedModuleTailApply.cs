@@ -23,7 +23,7 @@ internal sealed partial class BeamModuleCompiler
                 } first,
                 {
                     Guard: null,
-                    Body: Expr.Call { Module: not (null or ErlangModuleNames.Module), DynamicRemote: false } fallback
+                    Body: Expr.Call { Module: not null, DynamicRemote: false } fallback
                 } last
                 ]
                 || (alias.Left as Pattern.Variable ?? alias.Right as Pattern.Variable) is not
@@ -63,9 +63,14 @@ internal sealed partial class BeamModuleCompiler
 
             string[] parameters = [original.Name, .. first.Patterns.Skip(1).Cast<Pattern.Variable>().Select(parameter => parameter.Name)];
             string[] fallbackParameters = last.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray();
+            int[] outgoing = forwarded.OfType<Expr.Variable>()
+                .Select(operand => Array.IndexOf(parameters, operand.Name)).ToArray();
+            bool fallbackBif = IsNonAllocatingBinaryGuardCall(fallback);
+            EntryCall? target = fallbackBif ? null : ReadEntryCall(fallback, fallbackParameters);
             if (parameters.Distinct(StringComparer.Ordinal).Count() != arity || parameters.Contains(guarded.Name, StringComparer.Ordinal)
-                || !ForwardsAll(forwarded, parameters) || !ForwardsAll(fallback.Arguments, fallbackParameters)
-                || ReadEntryCall(fallback, fallbackParameters) is not { } target)
+                || forwarded.Count != arity || outgoing.Length != arity || outgoing.Contains(-1)
+                || outgoing.Distinct().Count() != arity || !ForwardsAll(fallback.Arguments, fallbackParameters)
+                || !fallbackBif && (fallback.Module == ErlangModuleNames.Module || target is null))
             {
                 return false;
             }
@@ -83,12 +88,28 @@ internal sealed partial class BeamModuleCompiler
             // continuation needs a frame, and it has no live stack values.
             EmitFrameAllocation(arity + 1, 0);
             owner.EmitConstant(method, arity + 1);
+            var moves = outgoing.Select((source, destination) => (Destination: destination, Source: source))
+                .Where(move => move.Source != move.Destination).ToList();
+            owner.EmitOrderedTailMoves(moves, []);
             owner.EmitCallLine(call, location);
             owner.Op(TailDynamicApply, BeamWire.UnsignedTag, arity);
             owner.Operand(BeamWire.UnsignedTag, 0);
 
             Mark(other);
-            EmitRegisterTailCall(target);
+            if (fallbackBif)
+            {
+                owner.EmitCallLine(fallback, location);
+                owner.Op(BifTwo, LabelTag, 0);
+                owner.Operand(BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module, fallback.Function, 2));
+                owner.Operand(XRegisterTag, 0);
+                owner.Operand(XRegisterTag, 1);
+                owner.Operand(XRegisterTag, 0);
+                owner.instructions.WriteByte(Return);
+            }
+            else
+            {
+                EmitRegisterTailCall(target!);
+            }
 
             return true;
 

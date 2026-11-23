@@ -26,15 +26,9 @@ internal static class BeamLocalConstructorSingletonChecks
             worker_spec(Name, Args, Tail) -> {Name,{Name,start_link,Args},[Name] ++ Tail}.
             """;
         byte[] beam = CodeGeneration.CompileBeamModule(source, "constructor_singleton_probe.erl");
-        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
-        ReadOnlySpan<byte> folded =
-        [
-            BeamEmissionFormat.TestHeap, 0x40, 0x30,
-            BeamEmissionFormat.PutTuple, 0x03, BeamEmissionFormat.ExtendedListOperand, 0x30, 0x32,
-            0x47, 0x10, 0x23, BeamEmissionFormat.Return
-        ];
-        ReadOnlySpan<byte> preserved = [BeamEmissionFormat.TestHeap, 0x80, 0x30, BeamEmissionFormat.Move, 0x03, 0x33];
-        if (Count(code, folded) != 1 || Count(code, preserved) != 2 || Count(CompileWithoutSsa(source), folded) != 0)
+        byte[] reference = BeamModuleEmissionChecks.Read("constructor_singleton_probe.beam");
+        ReadOnlySpan<byte> twoTupleAllocation = [BeamEmissionFormat.TestHeap, 0x80, 0x30];
+        if (!beam.AsSpan().SequenceEqual(reference) || Count(CompileWithoutSsa(source), twoTupleAllocation) != 3)
         {
             throw new InvalidOperationException(ExpectedSingletons);
         }
