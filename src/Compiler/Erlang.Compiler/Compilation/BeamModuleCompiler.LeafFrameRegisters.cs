@@ -148,8 +148,9 @@ internal sealed partial class BeamModuleCompiler
                     );
                     bool emptyFrame = frame.Operands[0].Value.IsZero;
                     if (emptyFrame && (ModuleOptimizationDisabled || !SsaTypeInferenceEnabled
-                        || frame.Definition.Opcode != Allocate || branchEnd < 0
-                        || !IsOwnedZeroFrameProjectionReturn(body, allocation, branchEnd)))
+                        || branchEnd < 0 || (frame.Definition.Opcode == Allocate
+                            ? !IsOwnedZeroFrameProjectionReturn(body, allocation, branchEnd)
+                            : !IsOwnedZeroFrameConstructorReturn(body, allocation, branchEnd))))
                     {
                         continue;
                     }
@@ -218,13 +219,15 @@ internal sealed partial class BeamModuleCompiler
 
                     if (emptyFrame)
                     {
-                        // Ownership is already proved for this branch. All values
-                        // stay in X, so there is no register or heap-root rewrite.
+                        // The frame owns no values. Keep the heap check with its original X roots.
+                        Dictionary<int, int>? roots = frame.Definition.Opcode == AllocateHeap
+                            ? new() { [allocation] = (int)frame.Operands[^1].Value }
+                            : null;
                         WritePlan(
                             allocation,
                             branchEnd,
                             [],
-                            null
+                            roots
                         );
                         allocation = branchEnd - 1;
                         continue;
@@ -580,6 +583,31 @@ internal sealed partial class BeamModuleCompiler
             TailLocalCallWithFrame or TailExternalCallWithFrame => terminal + 1,
             _ => -1
         };
+    }
+
+    private static bool IsOwnedZeroFrameConstructorReturn(
+        IReadOnlyList<BeamInstruction> body,
+        int allocation,
+        int limit
+    )
+    {
+        if (limit - allocation < 4
+            || body[limit - 2] is not { Definition.Opcode: Deallocate, Operands: [{ Value.IsZero: true }] }
+            || body[limit - 1].Definition.Opcode != Return)
+        {
+            return false;
+        }
+
+        for (int index = allocation + 1; index < limit - 2; index++)
+        {
+            if (body[index].Definition.Opcode is not (Line or Move or PutTuple or PutList)
+                || body[index].Operands.Any(operand => operand.Kind == BeamOperandParameters.Y))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private static bool IsOwnedZeroFrameProjectionReturn(

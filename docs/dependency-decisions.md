@@ -1264,3 +1264,7 @@ generator identities remain explicitly validated.
 ## Shared OTP source and register planning — 2026-11-22
 
 Reuse the existing C# immutable terms, body liveness, frame placement and operand encoder. Standard .NET collections supply the bounded atom sets, constructor dependencies and register intervals. The pinned Apache-2.0 OTP compiler remains the development oracle. The existing generated C# path delegates source AST execution to the managed evaluator and remains useful for behavioral checks. [Local evidence](validation/part-1990-local-parity/README.md).
+
+## Preserve heap checks for owned leaf constructors — 2026-11-23
+
+Reuse the C# disjoint frame ownership proof and compact allocation writer. The pinned Apache-2.0 OTP frame allocator selects stack frames based on the instructions that need one, and OTP code generation emits a separate heap check in their absence. Standard .NET collections already support the per-allocation root map. [Part 2011](validation/part-2011-pr143-record-list-tail/README.md).

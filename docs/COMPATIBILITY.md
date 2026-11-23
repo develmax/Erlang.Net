@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 2011 verifies both byte equality and four paired ERTS calls for the synthetic external leaf-tail module. The release corpus ledger and runtime registry retain their prior evidence. [Validation](validation/part-2011-pr143-record-list-tail/README.md).
+
 Part 2010 verifies the closure-order fixture against pinned OTP. Release parity measurements and runtime registry classifications keep their prior evidence. [Validation](validation/part-2010-pr143-lambda-table-order/README.md).
 
 Part 2009 restores known client_server equality and the registered whole-module and release image checks. The remaining platform failures and the full release ledger retain separate acceptance. [Validation](validation/part-2009-pr143-platform-retake/README.md).

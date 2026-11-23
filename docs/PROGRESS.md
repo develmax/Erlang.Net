@@ -1,5 +1,7 @@
 # Project progress
 
+Part 2011 integrates the local record and list tail checkpoint into PR 143. The selected 44 cases pass 11 with two recovered platform failures and all nine controls. Thirty-three platform failures remain in the local retake. [Validation](validation/part-2011-pr143-record-list-tail/README.md).
+
 Part 2010 verifies first-use closure table order and the whole-module and installed-release controls. Focused retakes now recover 25 of the 60 published platform failures. [Validation](validation/part-2010-pr143-lambda-table-order/README.md).
 
 Part 2009 restores byte equality for the previously matched client_server release. Focused retakes of the actual PR failures recover 24 of 60 cases. [Validation](validation/part-2009-pr143-platform-retake/README.md).

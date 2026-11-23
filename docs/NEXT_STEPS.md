@@ -1,5 +1,7 @@
 # Next steps
 
+Use the 33 remaining cases in the Part 2011 focused retake. Start with prepared-map failure edges and shared frame ownership, and keep full CI and uncached corpus acceptance open. [Validation](validation/part-2011-pr143-record-list-tail/README.md).
+
 Work from the 35 remaining failures of the published platform lane. Prioritize shared frame and argument ownership, prepared-map failure paths and general constructor facts. Exclude the verified closure-order fixture. Repeat the full PR gate and current readiness after the affected cohort is green. [Validation](validation/part-2009-pr143-platform-retake/README.md).
 
 Extend the shared returning-call trim recipe across independently owned branches. Reuse predecessor proofs to sink checked projections after heap checks with exact roots. Keep the final uncached corpus and the full regression gate open. [Local Part 2003](validation/part-2003-local-cons-tuple-and-register-values/README.md).

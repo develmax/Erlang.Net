@@ -74,11 +74,11 @@ internal static class BeamListGeneratorErrorLineChecks
         object[] functions = Items(code, "Functions");
         Term[] locations = Items(code, "SourceLocations").Cast<Term>().ToArray();
 
-        RequireErrorLine("computed", 11);
-        RequireErrorLine("direct", 16);
-        RequireErrorLine("split_input", 26);
-        RequireErrorLine("grouped_direct", 32);
-        RequireErrorLine("grouped_call", 38);
+        RequireErrorLine("computed", 12);
+        RequireErrorLine("direct", 17);
+        RequireErrorLine("split_input", 27);
+        RequireErrorLine("grouped_direct", 33);
+        RequireErrorLine("grouped_call", 39);
 
         object[] sameLine = Body("same_line");
         if (sameLine.Length < 2 || Opcode(sameLine[^2]) != PutTuple || Opcode(sameLine[^1]) != TailExternalCall)
