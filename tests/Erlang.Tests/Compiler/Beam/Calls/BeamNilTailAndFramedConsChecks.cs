@@ -59,7 +59,10 @@ internal static class BeamNilTailAndFramedConsChecks
         object code = Code(image);
         object[] instructions = Items(code, "Instructions");
         string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
-        if (!HasColdNilExit(ReadBody("route")) || HasColdNilExit(ReadBody("captured"))
+        object[] route = ReadBody("route");
+        object[] captured = ReadBody("captured");
+        if (!HasColdNilExit(route) || !HasColdNilExit(captured)
+            || FrameWidth(captured) != FrameWidth(route) + 1
             || !ReadBody("swap").Any(instruction => Opcode(instruction) == Swap)
             || ReadBody("keep_old").Any(instruction => Opcode(instruction) == Swap))
         {
@@ -178,6 +181,9 @@ internal static class BeamNilTailAndFramedConsChecks
             return instructions.Skip(start + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo).ToArray();
         }
     }
+
+    private static int FrameWidth(object[] body) =>
+        Value(Items(body.Single(instruction => Opcode(instruction) == Allocate), "Operands")[0]);
 
     private static bool HasColdNilExit(object[] body)
     {

@@ -17,6 +17,46 @@ internal sealed partial class BeamModuleCompiler
 
         private sealed record RepeatedTaggedEntryBucket(int Field, Atom?[] Keys);
 
+        private bool TryEmitCheckedTaggedEntryEffect(Clause clause, int input, int failure)
+        {
+            if (!owner.SsaTypeInferenceEnabled || owner.ModuleOptimizationDisabled
+                || clause.Body is not Expr.Sequence { Items: [Expr.Call, Expr.Tuple] }
+                || ReadFlatTaggedEntryArm(clause, input) is not { } arm
+                || arm.Fields.Any(field => field.Literal is not null))
+            {
+                return false;
+            }
+
+            var bindings = arm.Arguments.ToDictionary(
+                argument => argument.Key,
+                argument => (argument.Value, (int?)null),
+                StringComparer.Ordinal
+            );
+            foreach (TaggedEntryField field in arm.Fields)
+            {
+                if (field.Binding is { } name)
+                {
+                    bindings.Add(name, (input, field.Index));
+                }
+            }
+
+            return TryEmitSingleEntryEffect(
+                clause,
+                bindings,
+                EmitTagCheck,
+                projectCheckedFieldsInOrder: true
+            );
+
+            void EmitTagCheck()
+            {
+                int tag = clause.Patterns.Count;
+                owner.EmitTuplePart(input, 0, tag);
+                owner.Op(ExactEqualTest, LabelTag, failure);
+                owner.Operand(XRegisterTag, tag);
+                owner.LiteralOperand(arm.Tag);
+            }
+        }
+
         private bool TryEmitFlatTaggedTupleGroup(
             IReadOnlyList<Clause> clauses,
             int input,
@@ -88,9 +128,7 @@ internal sealed partial class BeamModuleCompiler
             // Distinct tags choose one leaf even when no data field is used in
             // every arm. Keep closure and record update ownership on the
             // existing entry path until their leaf plans can carry it.
-            if (shared.Length == 0 && repeated.Count == 0 && clauses.Any(clause =>
-                LocalFunctionEntries.Walk(clause.Body).Any(expression =>
-                    expression is Expr.Fun or Expr.FunctionReference or Expr.RecordUpdate)))
+            if (shared.Length == 0 && repeated.Count == 0 && !CanCarryIndependentFlatTaggedFields(clauses))
             {
                 return false;
             }
@@ -265,7 +303,7 @@ internal sealed partial class BeamModuleCompiler
                 arm.Fields.FirstOrDefault(field => field.Index == index)?.Literal).ToArray();
         }
 
-        private static bool CanUseCompleteSharedFlatTaggedGroup(IReadOnlyList<Clause> clauses, int input)
+        private static bool CanUseCompleteFlatTaggedGroup(IReadOnlyList<Clause> clauses, int input)
         {
             var arms = new List<TaggedEntryArm>();
             var tags = new HashSet<Atom>();
@@ -280,8 +318,13 @@ internal sealed partial class BeamModuleCompiler
                 arms.Add(arm);
             }
 
-            return arms.Count >= 2 && ReadSharedFlatTaggedFields(arms).Length != 0;
+            return arms.Count >= 2
+                && (ReadSharedFlatTaggedFields(arms).Length != 0 || CanCarryIndependentFlatTaggedFields(clauses));
         }
+
+        private static bool CanCarryIndependentFlatTaggedFields(IReadOnlyList<Clause> clauses) =>
+            !clauses.Any(clause => LocalFunctionEntries.Walk(clause.Body).Any(expression =>
+                expression is Expr.Fun or Expr.FunctionReference or Expr.RecordUpdate));
 
         private static int[] ReadSharedFlatTaggedFields(IReadOnlyList<TaggedEntryArm> arms) =>
             arms[0].Fields.Select(field => field.Index)

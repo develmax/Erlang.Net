@@ -58,6 +58,7 @@ public abstract record Expr
         public int SourceLine { get; init; }
         internal string? PreprocessorFile { get; init; }
         internal bool DynamicRemote { get; init; }
+        internal bool IsCoreMapDefault { get; init; }
         internal bool IsListGeneratorSourceFailure { get; init; }
         public bool CanDiscardBifContinuation { get; internal set; }
 

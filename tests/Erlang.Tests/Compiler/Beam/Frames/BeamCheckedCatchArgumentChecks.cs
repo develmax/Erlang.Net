@@ -28,7 +28,7 @@ internal static class BeamCheckedCatchArgumentChecks
     {
         byte[] entry =
         [
-            Label, One, FunctionInfo, Module, Function, One, Label, Two,
+            Label, One, Line, One, FunctionInfo, Module, Function, One, Label, Two,
             IsTaggedTuple, Failure, X0, Three, Tag
         ];
         byte[] layout =

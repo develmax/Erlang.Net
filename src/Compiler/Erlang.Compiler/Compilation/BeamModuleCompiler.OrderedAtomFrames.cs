@@ -87,6 +87,20 @@ internal sealed partial class BeamModuleCompiler
                 return true;
             }
 
+            if (ReadFiniteAtomArguments(function, selection, admitGuardFacts: true) is { Count: 1 } singleton)
+            {
+                foreach (var branch in branches)
+                {
+                    if (singleton.Contains(branch.Arm.Key!)
+                        && AllocateTerminalCaseRegisters(branch.Arm, branch.Parameters) is { } selected)
+                    {
+                        EmitTerminalCaseArm(selected, branch.Arm.RequiresFrame);
+
+                        return true;
+                    }
+                }
+            }
+
             bool closedBoolean = remaining is null && branches.Count == 2
                 && branches.All(branch => branch.Arm.Key is { Name: ErlangBooleanAtoms.True or ErlangBooleanAtoms.False })
                 && (ReadClosedBooleanParameter(function, selection)

@@ -843,7 +843,7 @@ internal sealed partial class BeamModuleCompiler
         {
             EmitArgumentMoves(moves, constants);
         }
-        if (!ordinary && CoreMapCallsEnabled && IsOriginalTerminalMapDefault(sourceCall)
+        if (!ordinary && CoreMapCallsEnabled && sourceCall.IsCoreMapDefault
             && call is { Module: MapModuleNames.Module, Function: MapModuleNames.Get, DynamicRemote: false, Arguments.Count: 3 })
         {
             MarkPreparedMapDefault(handler: null);

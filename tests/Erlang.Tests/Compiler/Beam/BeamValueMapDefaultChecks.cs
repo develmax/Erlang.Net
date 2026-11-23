@@ -99,7 +99,7 @@ internal static class BeamValueMapDefaultChecks
         byte[] image = CodeGeneration.CompileBeamModule(Source, "beam_value_map_default.erl");
         await CheckComputedKey(image);
         CheckLayout(image);
-        var module = BeamModule.Prepare(image);
+        var module = BeamModule.Prepare(image, new BeamDependencySelection(["lists"]));
         await using var runtime = new ProcessRuntime();
         await using var actor = new RuntimeNodeFoundationHostActor(runtime);
 

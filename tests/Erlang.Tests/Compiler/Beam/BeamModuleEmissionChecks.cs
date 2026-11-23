@@ -1,5 +1,8 @@
+using System.Collections;
+using System.Numerics;
 using System.Text;
 using Erlang.Compiler;
+using static Erlang.Tests.BeamBinaryHostAccess;
 
 namespace Erlang.Tests;
 
@@ -1725,36 +1728,67 @@ internal static class BeamModuleEmissionChecks
     {
         const string fixture = "beam_pair_length_bounds.erl";
         byte[] beam = CodeGeneration.CompileBeamModule(Encoding.UTF8.GetString(Read(fixture)), fixture);
-        var chunks = BeamDocumentationEmissionChecks.Chunks(beam);
-        byte[] code = chunks.Single(chunk => chunk.Id == "Code").Data;
-        byte[] types = chunks.Single(chunk => chunk.Id == "Type").Data;
-        const byte gcAdd = BeamEmissionFormat.GcBifTwo;
-        const byte typed = BeamEmissionFormat.ExtendedTypedRegisterOperand;
-        ReadOnlySpan<byte> expectedTypes =
-        [
-            0, 0, 0, 4, 0, 0, 0, 5, 0x1f, 0xff,
-            0x20, 0x20, 0, 0, 0, 0, 0, 0, 0, 1,
-            0x20, 0x20, 0, 0, 0, 0, 0, 0, 0, 2,
-            0x20, 0x20, 0, 0, 0, 0, 0, 0, 0, 0,
-            0x60, 0x20, 0, 0, 0, 0, 0, 0, 0, 0, 0x03, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
-        ];
-        byte[][] expectedAdds =
-        [
-            [gcAdd, 0x05, 0x50, 0x00, typed, 0x43, 0x10, typed, 0x23, 0x10, 0x23],
-            [gcAdd, 0x05, 0x30, 0x00, typed, 0x23, 0x20, typed, 0x03, 0x30, 0x23],
-            [gcAdd, 0x05, 0x30, 0x00, typed, 0x23, 0x30, typed, 0x03, 0x10, 0x23],
-            [gcAdd, 0x05, 0x30, 0x00, 0x23, typed, 0x03, 0x10, 0x23],
-            [gcAdd, 0x05, 0x30, 0x00, typed, 0x23, 0x30, typed, 0x03, 0x30, 0x23]
-        ];
-        if (!types.AsSpan().SequenceEqual(expectedTypes)
-            || expectedAdds.Any(addition => code.AsSpan().IndexOf(addition) < 0))
+        object code = Code(beam);
+        object structure = Property(code, "Structure");
+        object[] types = Items(Call(Type("BeamTypeTableReader"), "Read", structure), "Entries").ToArray();
+        object[] instructions = Items(code, "Instructions").ToArray();
+        object[] atoms = Items(structure, "Atoms").ToArray();
+        object[] imports = Items(structure, "Imports").ToArray();
+        var functions = Items(code, "Functions").Where(function => (int)Property(function, "Arity") == 2)
+            .ToDictionary(function => (string)Property(function, "Name"));
+        (long?, long?)[] bounded = [(1, 1), (2, 0)];
+        (long?, long?)[] maybeEmpty = [(0, 1)];
+        (long?, long?)[] unproved = [(null, 1)];
+        (long?, long?)[] joined = [(0, 0)];
+        if (!AddBounds("bounded").SequenceEqual(bounded) || !AddBounds("maybe_empty").SequenceEqual(maybeEmpty)
+            || !AddBounds("unproved").SequenceEqual(unproved) || !AddBounds("joined_control").SequenceEqual(joined))
         {
             throw new InvalidOperationException(BeamPairLengthBoundsDiagnostics.ExpectedOtpBounds);
         }
 
-        _ = BeamModule.Prepare(beam);
-
         return Task.CompletedTask;
+
+        IEnumerable<(long?, long?)> AddBounds(string function)
+        {
+            object entry = functions[function];
+            int first = (int)Property(entry, "FirstInstructionIndex");
+            int end = (int)Property(entry, "EndInstructionIndex");
+            foreach (object instruction in instructions[first..end])
+            {
+                if ((byte)Property(Property(instruction, "Definition"), "Opcode") != BeamEmissionFormat.GcBifTwo)
+                {
+                    continue;
+                }
+
+                object[] operands = Items(instruction, "Operands").ToArray();
+                object import = imports[(int)(BigInteger)Property(operands[2], "Value")];
+                if ((string)atoms[(int)Property(import, "FunctionAtomIndex")] == ErlangOperators.Plus)
+                {
+                    yield return (Minimum(operands[3]), Minimum(operands[4]));
+                }
+            }
+        }
+
+        long? Minimum(object operand)
+        {
+            if (Property(operand, "TypeIndex") is not int index)
+            {
+                return null;
+            }
+
+            const int integerType = 1 << 5;
+            const int lowerBoundOnly = 1 << 13;
+            object type = types[index];
+            if ((int)Property(type, "TypeUnion") != integerType
+                || (int)Property(type, "MetadataFlags") != lowerBoundOnly)
+            {
+                throw new InvalidOperationException(BeamPairLengthBoundsDiagnostics.ExpectedOtpBounds);
+            }
+
+            return (long)Property(type, "Minimum");
+        }
+
+        static IEnumerable<object> Items(object owner, string name) => ((IEnumerable)Property(owner, name)).Cast<object>();
     }
 
     internal static Task CompareIntegerLiteralBounds()

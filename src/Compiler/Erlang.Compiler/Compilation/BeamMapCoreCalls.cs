@@ -57,6 +57,11 @@ internal static class BeamMapCoreCalls
             return new Expr.Literal(new MapTerm([]));
         }
 
+        if (call.Function == MapModuleNames.Get && arity == 3)
+        {
+            return call with { IsCoreMapDefault = true };
+        }
+
         string? builtin = (call.Function, arity) switch
         {
             (MapModuleNames.Get, 2) => ErlangModuleNames.MapGet,

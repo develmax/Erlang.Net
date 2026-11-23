@@ -1,5 +1,7 @@
 # Project progress
 
+Part 2017 recovers all 25 compiler failures from the latest PR 143 platform run. The local selection passes all 44 cases, and five final synthetic modules match pinned ERTS on 25 observations. [Validation](validation/part-2017-pr143-platform-compiler/README.md).
+
 Part 2016 repairs a computed maps:get/3 result lost at frame cleanup. Managed and pinned ERTS behavior checks pass. The local selected cohort retains 19 passes and 25 layout failures. [Validation](validation/part-2016-pr143-computed-key-trim/README.md).
 
 Part 2015 preserves the original map carrier across constructor joins. The local 44-case selection passes 19 with 25 failures remaining. [Validation](validation/part-2015-pr143-map-join-registers/README.md).

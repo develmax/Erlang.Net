@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Numerics;
+using Erlang;
 using Erlang.Compiler;
 using static Erlang.Compiler.BeamEmissionFormat;
 using static Erlang.Tests.BeamBinaryHostAccess;
@@ -32,9 +33,10 @@ internal static class BeamRecursiveListFrameChecks
         improper_rows() -> [{alpha,1}|bad_tail].
         """;
 
-    internal static Task Run()
+    internal static async Task Run()
     {
-        var functions = ReadFunctions();
+        byte[] image = CodeGeneration.CompileBeamModule(Source, Fixture);
+        var functions = ReadFunctions(image);
         var closed = functions("-closed/0-lc$^0/1-0-");
         if (Find(closed, Allocate) < 0 || Find(closed, Allocate) > Find(closed, GetList)
             || Find(closed, IsTuple) >= 0 || Find(closed, IsNil) >= 0)
@@ -42,13 +44,11 @@ internal static class BeamRecursiveListFrameChecks
             throw new InvalidOperationException(ProvenTupleFrame);
         }
 
-        foreach (string basis in new[] { "unknown/1", "mixed/0", "improper/0" })
+        var unknown = functions("-unknown/1-lc$^0/1-0-");
+        var mixed = functions("-mixed/0-lc$^0/1-0-");
+        if (Find(unknown, IsTuple) < 0 || Find(unknown, IsNil) < 0 || Find(mixed, IsTuple) < 0)
         {
-            var unknown = functions($"-{basis}-lc$^0/1-0-");
-            if (Find(unknown, IsTuple) < 0 || Find(unknown, IsNil) < 0)
-            {
-                throw new InvalidOperationException(UnknownTupleFrame);
-            }
+            throw new InvalidOperationException(UnknownTupleFrame);
         }
 
         var rendered = functions("-render/1-lc$^0/1-0-");
@@ -68,12 +68,34 @@ internal static class BeamRecursiveListFrameChecks
             throw new InvalidOperationException(TransformFrame);
         }
 
-        return Task.CompletedTask;
+        var module = BeamModule.Prepare(image, new BeamDependencySelection(["lists"]));
+        await using var runtime = new ProcessRuntime();
+        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
+        await actor.InvokeAsync(async context =>
+        {
+            Term expected = Term.List(Term.A("alpha"), Term.A("beta"));
+            if (!expected.Equals(await module.Invoke(context, "mixed")))
+            {
+                throw new InvalidOperationException(UnknownTupleFrame);
+            }
+
+            Term reason = Term.Tuple(Term.A(ErlangErrorReasons.BadGenerator), Term.A("bad_tail"));
+            try
+            {
+                _ = await module.Invoke(context, "improper");
+            }
+            catch (ErlangException error) when (error.Reason.Equals(reason))
+            {
+                return Nil.Value;
+            }
+
+            throw new InvalidOperationException(UnknownTupleFrame);
+        });
     }
 
-    private static Func<string, object[]> ReadFunctions()
+    private static Func<string, object[]> ReadFunctions(byte[] image)
     {
-        object code = Code(CodeGeneration.CompileBeamModule(Source, Fixture));
+        object code = Code(image);
         var instructions = Items(code, "Instructions").ToArray();
         var atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
 

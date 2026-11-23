@@ -70,7 +70,8 @@ internal static class BeamRetiredEntryCallSlotChecks
             var allocations = body.Where(instruction => Opcode(instruction) == Allocate)
                 .Select(instruction => Operand(instruction, 0)).ToArray();
             if (allocations.Length != 1 || allocations[0] != widths[index]
-                || index == 0 && !body.Any(instruction => Opcode(instruction) == Swap)
+                || index == 0 && !body.Any(instruction => Opcode(instruction) == TrimFrame
+                    && Operand(instruction, 0) == 1 && Operand(instruction, 1) == 1)
                 || index == 1 && !body.Any(instruction => Opcode(instruction) == BadMatch))
             {
                 throw new InvalidOperationException(WrongLayout);

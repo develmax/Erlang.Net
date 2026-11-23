@@ -54,16 +54,18 @@ internal static class BeamTerminalCallResultArgumentChecks
     private static void CheckTerminalJoin()
     {
         var compiler = new BeamModuleCompiler("terminal_join_fixture");
+        int branchTag = (int)Call(compiler, "Intern", "alternate");
+        int incomingTag = (int)Call(compiler, "Intern", "incoming");
         byte[] frame =
         [
             .. Start(
                 1,
                 2,
-                2,
+                1,
                 3
             ), Allocate, U(3), U(3), Move, X(0), Y(0), Move, X(1), Y(1), Move, X(2), Y(2)
         ];
-        byte[] dispatch = [ExactEqualTest, F(3), X(0), A(7), ExternalCall, U(1), U(0)];
+        byte[] dispatch = [ExactEqualTest, F(3), X(0), A(branchTag), ExternalCall, U(1), U(0)];
         byte[] jump = [Jump, F(4), Label, U(3)];
         byte[] joined = [Label, U(4)];
         byte[] tail = [Line, U(1), TailExternalCallWithFrame, U(3), U(0), U(3), EndCode];
@@ -80,7 +82,7 @@ internal static class BeamTerminalCallResultArgumentChecks
         ];
         byte[] extraJoinEdge =
         [
-            .. frame, ExactEqualTest, F(4), X(0), A(8), .. withSpill, .. tail
+            .. frame, ExactEqualTest, F(4), X(0), A(incomingTag), .. withSpill, .. tail
         ];
         byte[] secondScratchRead = (byte[])original.Clone();
         secondScratchRead[frame.Length + withSpill.Length - 8] = Y(0);
@@ -103,14 +105,15 @@ internal static class BeamTerminalCallResultArgumentChecks
     private static void CheckBranchCollectingResult()
     {
         var compiler = new BeamModuleCompiler("branch_collecting_result_fixture");
+        int branchTag = (int)Call(compiler, "Intern", "alternate");
         byte[] entry = Start(
             1,
             2,
-            2,
+            1,
             3
         );
         byte[] selector = [ExternalCall, U(1), U(0)];
-        byte[] branch = [ExactEqualTest, F(3), X(0), A(7), Line, U(1)];
+        byte[] branch = [ExactEqualTest, F(3), X(0), A(branchTag), Line, U(1)];
         byte[] producer = [GcBifOne, F(0), U(0), U(0), Y(1), X(0), Move, X(0), Y(0)];
         byte[] hot = [ExternalCall, U(1), U(0), Move, Y(0), X(2), Jump, F(4)];
         byte[] cold = [Label, U(3), Move, Y(2), X(2), Label, U(4), Move, Y(3), X(0), Move, Y(2), X(1)];

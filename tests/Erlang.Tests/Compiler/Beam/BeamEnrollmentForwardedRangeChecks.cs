@@ -95,13 +95,13 @@ internal static class BeamEnrollmentForwardedRangeChecks
             }
         });
 
-        if (Frame(image) != 0 || Frame(opaque) == 0)
+        if (!HasRangeChecks(image, provenInteger: true) || !HasRangeChecks(opaque, provenInteger: false))
         {
             throw new InvalidOperationException(WrongLayout);
         }
     }
 
-    private static int Frame(byte[] image)
+    private static bool HasRangeChecks(byte[] image, bool provenInteger)
     {
         object code = Code(image);
         string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
@@ -117,10 +117,17 @@ internal static class BeamEnrollmentForwardedRangeChecks
             throw new InvalidOperationException(WrongLayout);
         }
 
-        object frame = instructions.Skip(index + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo)
-            .Single(instruction => Opcode(instruction) == Allocate);
+        object[] body = instructions.Skip(index + 1).TakeWhile(instruction => Opcode(instruction) != FunctionInfo)
+            .ToArray();
+        object frame = body.Single(instruction => Opcode(instruction) == Allocate);
+        object[][] comparisons = body.Where(instruction => Opcode(instruction) == IsGreaterOrEqual)
+            .Select(instruction => Items(instruction, "Operands")).ToArray();
 
-        return Value(Items(frame, "Operands")[0]);
+        return Value(Items(frame, "Operands")[0]) == 0
+            && comparisons is [[var lowerExit, var lowerValue, var zero], [var upperExit, var nine, var upperValue]]
+            && Value(lowerExit) == Value(upperExit)
+            && Value(zero) == 0 && Value(nine) == 9 && Value(lowerValue) == 0 && Value(upperValue) == 0
+            && (Property(lowerValue, "TypeIndex") is not null) == provenInteger;
     }
 
     private static byte Opcode(object instruction) => (byte)Property(Property(instruction, "Definition"), "Opcode");

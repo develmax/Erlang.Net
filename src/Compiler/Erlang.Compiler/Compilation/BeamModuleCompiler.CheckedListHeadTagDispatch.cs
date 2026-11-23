@@ -129,20 +129,14 @@ internal sealed partial class BeamModuleCompiler
                 int selection = classify + 1;
                 if (selection >= tupleFailure || body[classify] is not
                     { Definition.Opcode: LocalCall or ExternalCall, Operands: [{ Value.IsOne: true }, _] }
-                    || body[selection] is not
-                    {
-                        Definition.Opcode: SelectValue,
-                        Operands: [var result, { Kind: BeamOperandParameters.Label } invalidClass, _, _, _, ..]
-                    } || result != x0
-                    || !ownership.TryGetSingleForwardTarget(selection, (int)invalidClass.Value, out int classFailure)
-                    || classFailure != listEnd + 3
-                    || !ReadsCaseFailure(
-                        classFailure,
-                        x0,
+                    || body[tupleFailure - 1].Definition.Opcode != Return
+                    || !ReadClassFailure(
+                        selection,
+                        listEnd,
                         end,
+                        ownership,
                         out int afterClassFailure
-                    )
-                    || afterClassFailure >= end || body[tupleFailure - 1].Definition.Opcode != Return)
+                    ))
                 {
                     continue;
                 }
@@ -193,8 +187,16 @@ internal sealed partial class BeamModuleCompiler
                 WriteMove(x0, savedTail);
                 WriteMove(x2, x0);
                 output.Write(code.Span[body[check + 2].Offset..body[tupleFailure].Offset]);
-                output.Write(code.Span[body[listEnd].Offset..body[afterClassFailure].Offset]);
-                output.Write(code.Span[body[tupleFailure].Offset..body[listEnd].Offset]);
+                if (afterClassFailure == listEnd)
+                {
+                    output.Write(code.Span[body[tupleFailure].Offset..body[listEnd].Offset]);
+                }
+                else
+                {
+                    output.Write(code.Span[body[listEnd].Offset..body[afterClassFailure].Offset]);
+                    output.Write(code.Span[body[tupleFailure].Offset..body[listEnd].Offset]);
+                }
+
                 copied = body[afterClassFailure].Offset;
                 added++;
                 break;
@@ -236,6 +238,40 @@ internal sealed partial class BeamModuleCompiler
                 && head == category && tail == x0 && result == x0
                 && body[call + 3] is { Definition.Opcode: Deallocate, Operands: [{ Value.IsOne: true }] }
                 && body[call + 4].Definition.Opcode == Return;
+        }
+
+        bool ReadClassFailure(
+            int selection,
+            int listEnd,
+            int end,
+            BeamProjectionFlow ownership,
+            out int after
+        )
+        {
+            after = listEnd;
+            if (body[selection] is
+                {
+                    Definition.Opcode: ExactEqualTest,
+                    Operands: [_, var tested, { Kind: BeamOperandParameters.Atom }]
+                } && tested == x0)
+            {
+                return true;
+            }
+
+            return body[selection] is
+            {
+                Definition.Opcode: SelectValue,
+                Operands: [var result, { Kind: BeamOperandParameters.Label } invalidClass, _, _, _, ..]
+            } && result == x0
+                && ownership.TryGetSingleForwardTarget(selection, (int)invalidClass.Value, out int classFailure)
+                && classFailure == listEnd + 3
+                && ReadsCaseFailure(
+                    classFailure,
+                    x0,
+                    end,
+                    out after
+                )
+                && after < end;
         }
 
         bool ReadsCaseFailure(

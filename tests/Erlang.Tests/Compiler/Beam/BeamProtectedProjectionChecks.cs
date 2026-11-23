@@ -18,7 +18,7 @@ internal static class BeamProtectedProjectionChecks
         lookup(Ref, Bag) ->
             try
                 case Ref of
-                    {map, Key} -> maps:get(Key, Bag);
+                    {dict, Key} -> dict:fetch(Key, Bag);
                     {list, Key} -> proplists:get_value(Key, Bag);
                     _ -> error(badarg)
                 end
@@ -29,7 +29,7 @@ internal static class BeamProtectedProjectionChecks
         retain(Ref, Bag) ->
             try
                 case Ref of
-                    {map, Key} -> {maps:get(Key, Bag), Key};
+                    {dict, Key} -> {dict:fetch(Key, Bag), Key};
                     _ -> error(badarg)
                 end
             catch
@@ -45,8 +45,9 @@ internal static class BeamProtectedProjectionChecks
         object[] lookup = Body("lookup");
         object[] retain = Body("retain");
         if (FrameWidth(lookup) != 3 || !lookup.Any(instruction => Opcode(instruction) == TryEnter)
-            || lookup.Count(instruction => IsStackProjection(instruction, "x")) != 2
-            || !retain.Any(instruction => IsStackProjection(instruction, "y")))
+            || !lookup.Any(instruction => IsStackProjection(instruction, "x"))
+            || lookup.Any(instruction => IsStackProjection(instruction, "y"))
+            || FrameWidth(retain) != 4 || !retain.Any(instruction => IsStackProjection(instruction, "y")))
         {
             throw new InvalidOperationException(IncorrectCapture);
         }

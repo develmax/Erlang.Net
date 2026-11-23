@@ -1,0 +1,713 @@
+#{allocation_operand_groups =>
+      #{{allocate,{frame,excess},{live,equal}} =>
+            {57,
+             #{"lib/common_test-1.31.2/ebin/cth_log_redirect.beam" =>
+                   [{start_log_handler,1}],
+               "lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                   [{assemble_function,3},
+                    {build_atom_table,2},
+                    {build_beam_debug_info_1,1},
+                    {build_line_table,2},
+                    {build_literal_chunk,2},
+                    {encode1,2},
+                    {encode_alloc_list,2},
+                    {encode_literal,2},
+                    {encode_op_1,3},
+                    {on_load,2},
+                    {set_vsn_attribute,2},
+                    {to_bytes,1}],
+               "lib/compiler-10.0.6/ebin/beam_ssa_share.beam" => [{block,2}],
+               "lib/erts-17.1/ebin/socket_registry.beam" =>
+                   [{'-loop/1-fun-0-',3},
+                    {do_which_sockets,2},
+                    {log_msg,1},
+                    {loop,1},
+                    {mk_log_msg,4}],
+               "lib/parsetools-2.8/ebin/yeccscan.beam" => [{scan,3}],
+               "lib/runtime_tools-2.5/ebin/instrument.beam" => [{carriers,1}],
+               "lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                   [{'-default/1-fun-60-',1},
+                    {check_dir,1},
+                    {check_pref_public_key_algs,1},
+                    {make_passwd_fun,1},
+                    {nml,2},
+                    {read_moduli_file,3},
+                    {rm_unsup,4}],
+               "lib/ssl-11.7.7/ebin/ssl_cipher.beam" =>
+                   [{crypto_support_filters,0},
+                    {decrypt_data,4},
+                    {decrypt_ticket,3},
+                    {decrypt_ticket_data,3},
+                    {encrypt_data,4},
+                    {encrypt_ticket,3},
+                    {encrypt_ticket_data,3},
+                    {filter,3},
+                    {filter_suites,1},
+                    {security_parameters_1_3,2}],
+               "lib/stdlib-8.1/ebin/proc_lib.beam" =>
+                   [{adjacents,1},
+                    {dict_find_info,3},
+                    {format_own_report,6},
+                    {get_process_info,2},
+                    {get_process_messages,1},
+                    {init_p_do_apply,3},
+                    {make_dummy_args,2},
+                    {make_neighbour_report,1},
+                    {my_info_1,3},
+                    {neighbours,1},
+                    {p,2},
+                    {raw_initial_call,1},
+                    {start,5},
+                    {start_link,5},
+                    {start_monitor,5},
+                    {stop,3},
+                    {sub,3},
+                    {sync_start_monitor,2},
+                    {wake_up,3}]}},
+        {allocate,{frame,excess},{live,excess}} =>
+            {1,#{"lib/stdlib-8.1/ebin/proc_lib.beam" => [{get_dictionary,2}]}},
+        {allocate,{frame,insufficient},{live,equal}} =>
+            {1,
+             #{"lib/stdlib-8.1/ebin/proc_lib.beam" => [{get_initial_call,2}]}},
+        {allocate_heap,{frame,excess},{heap,equal},{live,equal}} =>
+            {6,
+             #{"lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                   [{insert_on_load_instruction,2}],
+               "lib/compiler-10.0.6/ebin/beam_ssa_share.beam" =>
+                   [{share_switch,2}],
+               "lib/ssl-11.7.7/ebin/ssl_cipher.beam" =>
+                   [{signature_schemes_1_2,1}],
+               "lib/stdlib-8.1/ebin/proc_lib.beam" =>
+                   [{init_ack,2},{init_fail,3},{init_p,3}]}}},
+  different_images => 9,
+  opcode_groups =>
+      #{extra_function =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{'-build_file/9-lc$^0/1-0-',1},
+                   {'-build_file/9-lc$^1/1-1-',1},
+                   {'-encode_arg/2-fun-1-',2},
+                   {'-flatten_exports/1-fun-0-',1},
+                   {'-flatten_imports/1-fun-0-',1},
+                   {'-on_load/2-fun-0-',2},
+                   {build_attributes,3},
+                   {flatten_imports,1},
+                   {line_bits,2},
+                   {module_md5,1},
+                   {pad,1},
+                   {reject_unsupported_versions,1}],
+              "lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{'-check_dh_gex_groups/1-inlined-0-',2},
+                   {'-no_sensitive/2-fun-0-',4}],
+              "lib/ssl-11.7.7/ebin/ssl_cipher.beam" =>
+                  [{'-cipher/5-fun-0-',3},
+                   {'-cipher/5-fun-1-',3},
+                   {'-cipher/5-fun-2-',3},
+                   {'-crypto_support_filters/0-fun-0-',2},
+                   {'-crypto_support_filters/0-fun-1-',2},
+                   {'-crypto_support_filters/0-fun-2-',2},
+                   {'-crypto_support_filters/0-fun-3-',2},
+                   {'-decipher/6-fun-1-',3},
+                   {'-decipher/6-fun-2-',3},
+                   {'-decipher/6-fun-3-',3},
+                   {'-ecdsa_signed/1-fun-0-',1},
+                   {'-ecdsa_signed/1-fun-1-',1},
+                   {'-filter_suites/1-fun-0-',1},
+                   {'-filter_suites/1-fun-1-',3},
+                   {'-filter_suites/2-fun-0-',1},
+                   {'-filter_suites/2-fun-1-',3},
+                   {'-filter_suites_pubkey/4-fun-0-',1},
+                   {'-filter_suites_pubkey/4-fun-1-',3},
+                   {'-filter_suites_signature/3-fun-0-',1},
+                   {'-filter_suites_signature/3-fun-1-',3},
+                   {'-rsa_signed/1-fun-0-',1},
+                   {'-rsa_signed/1-fun-1-',1},
+                   {'-signature_schemes_1_2/1-fun-0-',2},
+                   {'-tls_legacy_suites/1-anonymous-0-',2},
+                   {ecdsa_signed,1},
+                   {format_sign,1},
+                   {is_acceptable_prf,2},
+                   {mac_algorithm,1},
+                   {tls_legacy_suites,1},
+                   {versions_included,1}]},
+        missing_function =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{'-build_atom_table/2-lc$^0/1-0-',1},
+                   {'-build_bdi_instrs/1-lc$^1/1-0-',1},
+                   {'-build_beam_debug_info_1/1-lc$^0/1-0-',1},
+                   {'-build_beam_debug_info_1/1-lc$^1/1-1-',1},
+                   {'-build_beam_debug_info_1/1-lc$^2/1-2-',2},
+                   {'-build_beam_debug_info_1/1-lc$^3/1-3-',1},
+                   {'-build_file/9-anonymous-4-',1},
+                   {'-build_file/9-anonymous-5-',1},
+                   {'-build_file/9-lc$^0/1-2-',1},
+                   {'-build_file/9-lc$^1/1-3-',1},
+                   {'-build_line_table/2-lbc$^1/2-1-',2},
+                   {'-build_line_table/2-lc$^0/1-0-',1},
+                   {'-encode_arg/2-anonymous-1-',2},
+                   {'-encode_arg/2-lc$^0/1-0-',1},
+                   {'-flatten_exports/1-anonymous-1-',1},
+                   {'-on_load/2-anonymous-0-',2}],
+              "lib/erts-17.1/ebin/socket_registry.beam" =>
+                  [{'-do_which_sockets/2-lc$^0/1-0-',2}],
+              "lib/runtime_tools-2.5/ebin/instrument.beam" =>
+                  [{'-dispatch_gather/4-lc$^0/1-0-',7},
+                   {'-dispatch_gather/4-lc$^1/1-1-',9}],
+              "lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{'-check_dh_gex_groups/1-inlined-1-',2},
+                   {'-check_modify_algorithms/1-lc$^0/1-0-',1},
+                   {'-default/1-lc$^59/1-0-',2},
+                   {'-handle_options/3-lc$^1/1-1-',2},
+                   {'-nml/2-lc$^0/1-0-',2},
+                   {'-no_sensitive/2-fun-0-',3},
+                   {'-no_sensitive/2-lc$^1/1-0-',2}],
+              "lib/ssl-11.7.7/ebin/ssl_cipher.beam" =>
+                  [{'-all_suites/1-anonymous-0-',2},
+                   {'-all_suites/1-anonymous-1-',2},
+                   {'-all_suites/1-anonymous-2-',2},
+                   {'-all_suites/1-anonymous-3-',1},
+                   {'-cipher/5-anonymous-1-',3},
+                   {'-cipher/5-anonymous-2-',3},
+                   {'-cipher/5-anonymous-3-',3},
+                   {'-crypto_support_filters/0-anonymous-0-',2},
+                   {'-crypto_support_filters/0-anonymous-1-',2},
+                   {'-crypto_support_filters/0-anonymous-2-',2},
+                   {'-crypto_support_filters/0-anonymous-3-',2},
+                   {'-decipher/6-anonymous-1-',3},
+                   {'-decipher/6-anonymous-2-',3},
+                   {'-decipher/6-anonymous-3-',3},
+                   {'-dss_dhe_suites/1-anonymous-0-',1},
+                   {'-dss_dhe_suites/1-anonymous-1-',2},
+                   {'-dss_keyed_suites/1-anonymous-0-',1},
+                   {'-dss_keyed_suites/1-anonymous-1-',2},
+                   {'-ec_ecdh_suites/1-anonymous-0-',1},
+                   {'-ec_ecdh_suites/1-anonymous-1-',2},
+                   {'-ec_ecdhe_suites/1-anonymous-0-',1},
+                   {'-ec_ecdhe_suites/1-anonymous-1-',2},
+                   {'-ec_keyed_suites/1-anonymous-0-',1},
+                   {'-ec_keyed_suites/1-anonymous-1-',2},
+                   {'-ecdsa_signed_suites/2-anonymous-0-',1},
+                   {'-ecdsa_signed_suites/2-anonymous-1-',1},
+                   {'-filter_suites/2-anonymous-0-',2},
+                   {'-filter_suites_signature/3-anonymous-0-',1},
+                   {'-filter_suites_signature/3-anonymous-1-',1},
+                   {'-inlined-versions_included/1-',1},
+                   {'-rsa_ecdhe_dhe_suites/1-anonymous-0-',1},
+                   {'-rsa_ecdhe_dhe_suites/1-anonymous-1-',2},
+                   {'-rsa_keyed_suites/1-anonymous-0-',2},
+                   {'-rsa_signed/1-anonymous-0-',1},
+                   {'-rsa_signed/1-anonymous-1-',1},
+                   {'-rsa_suites_encipher/1-anonymous-0-',1},
+                   {'-rsa_suites_encipher/1-anonymous-1-',2},
+                   {'-signature_schemes_1_2/1-anonymous-0-',2},
+                   {build_cipher_block,3},
+                   {dss_dhe_suites,1},
+                   {dss_keyed_suites,1},
+                   {ec_ecdh_suites,1},
+                   {ec_ecdhe_suites,1},
+                   {ec_keyed_suites,1},
+                   {ecdsa_signed_suites,2},
+                   {filter_kex,2},
+                   {generic_stream_cipher_from_bin,2},
+                   {key_uses,1},
+                   {next_iv,2},
+                   {rsa_ecdhe_dhe_suites,1},
+                   {rsa_keyed_suites,1},
+                   {rsa_signed_suites,2},
+                   {rsa_suites_encipher,1}]},
+        {allocate,get_list} =>
+            #{"lib/compiler-10.0.6/ebin/beam_ssa_share.beam" =>
+                  [{'-share_switch/2-lc$^0/1-0-',1},{share_switch_1,3}],
+              "lib/erts-17.1/ebin/socket_registry.beam" =>
+                  [{handle_monitored_by2,3},
+                   {handle_send_down,2},
+                   {handle_user_down_cleanup,3},
+                   {user_sock_delete_update,3}],
+              "lib/stdlib-8.1/ebin/proc_lib.beam" =>
+                  [{make_neighbour_reports1,1},{no_trap,1}]},
+        {allocate,get_tuple_element} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{build_record_def,2},{build_record_def_fs,1}],
+              "lib/compiler-10.0.6/ebin/beam_ssa_share.beam" =>
+                  [{canonical_terminator_phis,2},{share_prepare_sw,4}],
+              "lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{'-check_modify_algorithms/1-lc$^1/1-1-',1},
+                   {'-rm_non_supported/2-lc$^0/1-0-',2}],
+              "lib/stdlib-8.1/ebin/proc_lib.beam" =>
+                  [{'-format_link_reports/4-lc$^0/1-0-',1}]},
+        {allocate,move} =>
+            #{"lib/ssl-11.7.7/ebin/ssl_cipher.beam" =>
+                  [{is_acceptable_keyexchange,2}]},
+        {allocate,{test,is_map}} =>
+            #{"lib/erts-17.1/ebin/socket_registry.beam" =>
+                  [{user_size,2},{user_which_monitors,2}]},
+        {allocate,{test,is_tagged_tuple}} =>
+            #{"lib/erts-17.1/ebin/socket_registry.beam" =>
+                  [{do_cancel_monitor_socket,3},
+                   {do_monitor_socket,4},
+                   {handle_add_socket,2},
+                   {handle_delete_socket,2},
+                   {handle_user_down,2}]},
+        {allocate_heap,allocate} =>
+            #{"lib/stdlib-8.1/ebin/proc_lib.beam" =>
+                  [{separate_error_info,1}]},
+        {allocate_heap,get_tuple_element} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" => [{assemble,4}]},
+        {allocate_heap,{test,is_tuple}} =>
+            #{"lib/ssh-6.0.6/ebin/ssh_options.beam" => [{nml1,2}]},
+        {bs_create_bin,move} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" => [{build_file,9}],
+              "lib/ssl-11.7.7/ebin/ssl_cipher.beam" =>
+                  [{decrypt_data,4},{encrypt_ticket_data,3}]},
+        {bs_start_match4,allocate} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{filter_essentials,1},
+                   {finalize_fun_table_1,2},
+                   {finalize_fun_table_2,3}]},
+        {build_stacktrace,move} =>
+            #{"lib/stdlib-8.1/ebin/proc_lib.beam" => [{init_p_do_apply,3}]},
+        {call,get_tuple_element} =>
+            #{"lib/compiler-10.0.6/ebin/beam_ssa_share.beam" => [{block,2}]},
+        {call,move} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" => [{encode_literal,2}],
+              "lib/ssl-11.7.7/ebin/ssl_cipher.beam" =>
+                  [{aead_decrypt,6},{aead_encrypt,6}],
+              "lib/stdlib-8.1/ebin/proc_lib.beam" => [{raw_initial_call,1}]},
+        {call,{test,is_tagged_tuple}} =>
+            #{"lib/ssl-11.7.7/ebin/ssl_cipher.beam" =>
+                  [{filter_suites_pubkey,4}]},
+        {call_ext,init_yregs} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" => [{to_bytes,1}]},
+        {call_ext,move} =>
+            #{"lib/common_test-1.31.2/ebin/cth_log_redirect.beam" =>
+                  [{start_log_handler,1}],
+              "lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{build_beam_debug_info_1,1},{encode_op,3}],
+              "lib/ssl-11.7.7/ebin/ssl_cipher.beam" =>
+                  [{decrypt_ticket_data,3},{signature_schemes_1_2,1}],
+              "lib/stdlib-8.1/ebin/proc_lib.beam" =>
+                  [{init_p,3},{start,5},{start_link,5},{start_monitor,5}]},
+        {call_ext_only,return} =>
+            #{"lib/ssl-11.7.7/ebin/ssl_cipher.beam" =>
+                  [{is_acceptable_cipher,2}]},
+        {call_only,{test,is_map}} =>
+            #{"lib/erts-17.1/ebin/socket_registry.beam" =>
+                  [{sock_lookup,2},{user_lookup,2}]},
+        {deallocate,case_end} =>
+            #{"lib/erts-17.1/ebin/socket_registry.beam" => [{monitor,2}]},
+        {deallocate,{test,test_arity}} =>
+            #{"lib/stdlib-8.1/ebin/proc_lib.beam" =>
+                  [{translate_initial_call,1}]},
+        {get_hd,allocate} =>
+            #{"lib/stdlib-8.1/ebin/proc_lib.beam" =>
+                  [{init_ack,1},{init_fail,2}]},
+        {get_list,allocate} =>
+            #{"lib/compiler-10.0.6/ebin/beam_ssa_share.beam" =>
+                  [{share_switch_2,3}],
+              "lib/stdlib-8.1/ebin/proc_lib.beam" => [{do_format,2}]},
+        {get_list,get_tuple_element} =>
+            #{"lib/ssh-6.0.6/ebin/ssh_options.beam" => [{eval_op,4}]},
+        {get_map_elements,allocate} =>
+            #{"lib/erts-17.1/ebin/socket_registry.beam" => [{lookup,2}],
+              "lib/runtime_tools-2.5/ebin/instrument.beam" =>
+                  [{allocations_flags,1},
+                   {carriers_flags,1},
+                   {dispatch_gather,4}],
+              "lib/stdlib-8.1/ebin/proc_lib.beam" =>
+                  [{format_exception,5},
+                   {format_link_report,4},
+                   {format_link_reports,4},
+                   {format_mfa,4},
+                   {format_report,4},
+                   {format_tag,5},
+                   {pp_fun,2}]},
+        {get_map_elements,move} =>
+            #{"lib/runtime_tools-2.5/ebin/instrument.beam" =>
+                  [{alloc_hist_registered_1,2}],
+              "lib/ssh-6.0.6/ebin/ssh_options.beam" => [{check_fun,2}]},
+        {get_tuple_element,allocate} =>
+            #{"lib/common_test-1.31.2/ebin/cth_log_redirect.beam" =>
+                  [{format_header,1},{handle_call,3}],
+              "lib/compiler-10.0.6/ebin/beam_ssa_share.beam" =>
+                  [{canonical_terminator,3},{function,1}],
+              "lib/erts-17.1/ebin/socket_registry.beam" =>
+                  [{handle_request,3}],
+              "lib/runtime_tools-2.5/ebin/instrument.beam" =>
+                  [{alloc_hist_fold_result,2}],
+              "lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{'-default/1-fun-2-',1},
+                   {'-default/1-fun-48-',1},
+                   {'-default/1-fun-62-',1}],
+              "lib/ssl-11.7.7/ebin/ssl_cipher.beam" =>
+                  [{block_cipher,6},
+                   {block_decipher,6},
+                   {is_correct_padding,3},
+                   {signature_algorithm_to_scheme,1}]},
+        {get_tuple_element,move} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{bdi_encode_var_or_atom,1}]},
+        {get_tuple_element,{test,is_eq_exact}} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{bdi_encode_calls,1},{encode_line_items,2}],
+              "lib/stdlib-8.1/ebin/proc_lib.beam" => [{sync_start,2}]},
+        {get_tuple_element,{test,is_nonempty_list}} =>
+            #{"lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{'-collect_per_size/1-fun-0-',2}]},
+        {get_tuple_element,{test,is_tagged_tuple}} =>
+            #{"lib/erts-17.1/ebin/socket_registry.beam" =>
+                  [{handle_monitored_by,3},{sock_which_monitors,2}],
+              "lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{initial_default_algorithms,2}]},
+        {get_tuple_element,{test,is_tuple}} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{build_bdi_fill_holes,1}],
+              "lib/compiler-10.0.6/ebin/beam_ssa_share.beam" =>
+                  [{'-share_switch_2/3-lc$^0/1-0-',3}],
+              "lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{'-rmns/3-lc$^0/1-0-',3},
+                   {check_subsystem,1},
+                   {error_if_empty,1}],
+              "lib/stdlib-8.1/ebin/proc_lib.beam" => [{visit,2}]},
+        {get_tuple_element,{test,test_arity}} =>
+            #{"lib/compiler-10.0.6/ebin/beam_ssa_share.beam" =>
+                  [{canonical_block,2}],
+              "lib/stdlib-8.1/ebin/proc_lib.beam" => [{format_own_report,6}]},
+        {init_yregs,call_ext} =>
+            #{"lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{'-default/1-fun-60-',1}]},
+        {init_yregs,move} =>
+            #{"lib/erts-17.1/ebin/socket_registry.beam" =>
+                  [{'-loop/1-fun-0-',3}],
+              "lib/stdlib-8.1/ebin/proc_lib.beam" =>
+                  [{get_initial_call,2},
+                   {make_neighbour_report,1},
+                   {my_info_1,3},
+                   {wake_up,3}]},
+        {make_fun3,move} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{flatten_exports,1}],
+              "lib/ssh-6.0.6/ebin/ssh_options.beam" => [{check_and_save,3}]},
+        {move,allocate} =>
+            #{"lib/ssh-6.0.6/ebin/ssh_options.beam" => [{get_value,6}]},
+        {move,call} =>
+            #{"lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{normalize_mod_alg_list,3}]},
+        {move,get_tuple_element} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" => [{module,4}],
+              "lib/ssl-11.7.7/ebin/ssl_cipher.beam" => [{encrypt_ticket,3}]},
+        {move,remove_message} =>
+            #{"lib/stdlib-8.1/ebin/proc_lib.beam" => [{receive_messages,1}]},
+        {move,select_val} =>
+            #{"lib/ssl-11.7.7/ebin/ssl_cipher.beam" => [{iv_size,1}]},
+        {move,trim} =>
+            #{"lib/ssh-6.0.6/ebin/ssh_options.beam" => [{make_passwd_fun,1}]},
+        {move,{test,is_eq_exact}} =>
+            #{"lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{final_preferred_algorithms,1}]},
+        {move,{test,is_tuple}} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{build_atom_table,2},{build_line_table,2}],
+              "lib/stdlib-8.1/ebin/proc_lib.beam" => [{initial_call,1}]},
+        {put_list,move} =>
+            #{"lib/compiler-10.0.6/ebin/beam_ssa_share.beam" =>
+                  [{share_switch,2}],
+              "lib/stdlib-8.1/ebin/proc_lib.beam" => [{hibernate,3}]},
+        {put_list,put_tuple2} =>
+            #{"lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{'-check_dh_gex_groups/1-fun-0-',3}]},
+        {put_map_assoc,init_yregs} =>
+            #{"lib/runtime_tools-2.5/ebin/instrument.beam" =>
+                  [{allocations,1},{carriers,1}]},
+        {put_map_assoc,move} =>
+            #{"lib/erts-17.1/ebin/socket_registry.beam" => [{mk_log_msg,4}]},
+        {put_map_assoc,{test,is_map}} =>
+            #{"lib/erts-17.1/ebin/socket_registry.beam" =>
+                  [{mon_update,3},{sock_update,3}]},
+        {put_tuple2,return} =>
+            #{"lib/stdlib-8.1/ebin/proc_lib.beam" => [{exit_reason,3}]},
+        {recv_marker_clear,move} =>
+            #{"lib/runtime_tools-2.5/ebin/instrument.beam" =>
+                  [{alloc_hist_receive,4},{carrier_info_receive,3}]},
+        {recv_marker_reserve,move} =>
+            #{"lib/stdlib-8.1/ebin/proc_lib.beam" => [{stop,3}]},
+        {return,move} =>
+            #{"lib/erts-17.1/ebin/socket_registry.beam" => [{sock_size,1}]},
+        {return,{test,is_nil}} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{'-finalize_fun_table/2-lc$^0/1-0-',2}]},
+        {select_tuple_arity,allocate} =>
+            #{"lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{'-check_dh_gex_groups/1-fun-1-',2}]},
+        {select_val,allocate} =>
+            #{"lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{'-check_pref_public_key_algs/1-fun-1-',3},
+                   {default,1},
+                   {get_value,5},
+                   {no_sensitive,2}],
+              "lib/ssl-11.7.7/ebin/ssl_cipher.beam" =>
+                  [{filter_suites_signature,3},{padding,1}]},
+        {select_val,{test,is_eq_exact}} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" => [{bif_type,2}],
+              "lib/ssh-6.0.6/ebin/ssh_options.beam" => [{put_value,5}]},
+        {swap,move} => #{"lib/ssh-6.0.6/ebin/ssh_options.beam" => [{nml,2}]},
+        {swap,{test,is_map}} =>
+            #{"lib/erts-17.1/ebin/socket_registry.beam" =>
+                  [{sock_take,2},{user_delete,2},{user_take,2}]},
+        {test,{test,is_tagged_tuple}} =>
+            #{"lib/ssh-6.0.6/ebin/ssh_options.beam" => [{read_moduli_file,3}]},
+        {test_heap,allocate} =>
+            #{"lib/erts-17.1/ebin/socket_registry.beam" => [{reply,3}],
+              "lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{'-default/1-fun-37-',1}],
+              "lib/ssl-11.7.7/ebin/ssl_cipher.beam" => [{all_filters,1}]},
+        {test_heap,allocate_heap} =>
+            #{"lib/ssh-6.0.6/ebin/ssh_options.beam" => [{eval_ops,2}],
+              "lib/ssl-11.7.7/ebin/ssl_cipher.beam" => [{filter_suites,2}]},
+        {test_heap,move} =>
+            #{"lib/ssl-11.7.7/ebin/ssl_cipher.beam" =>
+                  [{crypto_support_filters,0}],
+              "lib/stdlib-8.1/ebin/proc_lib.beam" => [{neighbours,1}]},
+        {trim,init_yregs} =>
+            #{"lib/common_test-1.31.2/ebin/cth_log_redirect.beam" =>
+                  [{init,2}],
+              "lib/stdlib-8.1/ebin/proc_lib.beam" => [{'-pp_fun/2-fun-0-',7}]},
+        {trim,move} =>
+            #{"lib/erts-17.1/ebin/socket_registry.beam" => [{send_down,4}]},
+        {'try',init_yregs} =>
+            #{"lib/erts-17.1/ebin/socket_registry.beam" => [{log_msg,1}]},
+        {'try',move} =>
+            #{"lib/stdlib-8.1/ebin/proc_lib.beam" =>
+                  [{adjacents,1},{get_dictionary,2}]},
+        {{bif,element},allocate} =>
+            #{"lib/runtime_tools-2.5/ebin/instrument.beam" =>
+                  [{alloc_hist_merge_hist,3}],
+              "lib/ssl-11.7.7/ebin/ssl_cipher.beam" => [{anonymous_suites,1}]},
+        {{bif,element},move} =>
+            #{"lib/ssl-11.7.7/ebin/ssl_cipher.beam" => [{suites,1}]},
+        {{bif,is_atom},call_ext_only} =>
+            #{"lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{'-default/1-fun-49-',1}]},
+        {{bif,is_boolean},call_ext_only} =>
+            #{"lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{'-default/1-fun-11-',1},
+                   {'-default/1-fun-12-',1},
+                   {'-default/1-fun-21-',1},
+                   {'-default/1-fun-35-',1},
+                   {'-default/1-fun-36-',1},
+                   {'-default/1-fun-41-',1},
+                   {'-default/1-fun-5-',1}]},
+        {{bif,is_function},move} =>
+            #{"lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{check_function1,1},
+                   {check_function2,1},
+                   {check_function3,1},
+                   {check_function4,1}]},
+        {{bif,is_list},call_ext_only} =>
+            #{"lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{'-default/1-fun-64-',1},{check_string,1}]},
+        {{bif,map_get},allocate} =>
+            #{"lib/compiler-10.0.6/ebin/beam_ssa_share.beam" => [{blocks,3}],
+              "lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{'-keep_set_options/2-fun-0-',3},
+                   {'-keep_user_options/2-fun-0-',3}]},
+        {{bif,node},allocate} =>
+            #{"lib/stdlib-8.1/ebin/proc_lib.beam" => [{proc_info,2}]},
+        {{bif,self},allocate} =>
+            #{"lib/stdlib-8.1/ebin/proc_lib.beam" => [{get_label,1}]},
+        {{bif,self},init_yregs} =>
+            #{"lib/stdlib-8.1/ebin/proc_lib.beam" => [{init_ack,2}]},
+        {{gc_bif,'-'},allocate} =>
+            #{"lib/ssl-11.7.7/ebin/ssl_cipher.beam" => [{padding_with_len,2}]},
+        {{gc_bif,byte_size},allocate} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{build_form,2},{chunk,2},{chunk,3}],
+              "lib/ssl-11.7.7/ebin/ssl_cipher.beam" => [{add_zero_padding,2}]},
+        {{gc_bif,length},allocate} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{'-build_record_chunk/2-lc$^0/1-0-',1}]},
+        {{gc_bif,map_size},{test,is_map}} =>
+            #{"lib/erts-17.1/ebin/socket_registry.beam" => [{mon_size,1}]},
+        {{test,is_atom},allocate} =>
+            #{"lib/ssh-6.0.6/ebin/ssh_options.beam" => [{valid_hash,2}]},
+        {{test,is_atom},select_val} =>
+            #{"lib/ssl-11.7.7/ebin/ssl_cipher.beam" =>
+                  [{hash_algorithm,1},{sign_algorithm,1}]},
+        {{test,is_binary},allocate} =>
+            #{"lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{'-make_passwd_fun/1-Chk/1-0-',3}]},
+        {{test,is_boolean},allocate} =>
+            #{"lib/erts-17.1/ebin/socket_registry.beam" =>
+                  [{which_sockets,1}]},
+        {{test,is_boolean},move} =>
+            #{"lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{check_silently_accept_hosts,1}]},
+        {{test,is_eq_exact},allocate} =>
+            #{"lib/runtime_tools-2.5/ebin/instrument.beam" =>
+                  [{alloc_hist_receive_1,4},{carrier_info_receive_1,3}],
+              "lib/ssh-6.0.6/ebin/ssh_options.beam" => [{config_val,3}],
+              "lib/ssl-11.7.7/ebin/ssl_cipher.beam" =>
+                  [{cipher,5},
+                   {cipher_init,3},
+                   {decipher,6},
+                   {generic_block_cipher_from_bin,4},
+                   {security_parameters,2}],
+              "lib/stdlib-8.1/ebin/proc_lib.beam" => [{trans_init,3}]},
+        {{test,is_eq_exact},get_tuple_element} =>
+            #{"lib/compiler-10.0.6/ebin/beam_ssa_share.beam" =>
+                  [{canonical_arg,2}]},
+        {{test,is_eq_exact},move} =>
+            #{"lib/ssl-11.7.7/ebin/ssl_cipher.beam" => [{prf_algorithm,2}],
+              "lib/stdlib-8.1/ebin/proc_lib.beam" => [{p,2}]},
+        {{test,is_eq_exact},select_val} =>
+            #{"lib/erts-17.1/ebin/socket_registry.beam" => [{mk_log_msg,3}]},
+        {{test,is_eq_exact},{bif,'=:='}} =>
+            #{"lib/stdlib-8.1/ebin/proc_lib.beam" =>
+                  [{'-format_exception/5-fun-0-',3}]},
+        {{test,is_eq_exact},{test,is_map}} =>
+            #{"lib/ssh-6.0.6/ebin/ssh_options.beam" => [{delete_key,5}]},
+        {{test,is_eq_exact},{test,is_ne_exact}} =>
+            #{"lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{'-default/1-fun-13-',1},
+                   {'-default/1-fun-15-',1},
+                   {'-default/1-fun-16-',1},
+                   {'-default/1-fun-24-',1},
+                   {'-default/1-fun-30-',1},
+                   {'-default/1-fun-43-',1},
+                   {'-default/1-fun-6-',1},
+                   {'-default/1-fun-63-',1},
+                   {'-default/1-fun-7-',1}],
+              "lib/ssl-11.7.7/ebin/ssl_cipher.beam" => [{decrypt_ticket,3}],
+              "lib/stdlib-8.1/ebin/proc_lib.beam" => [{dict_find_info,3}]},
+        {{test,is_ge},allocate} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{negative_to_bytes,1}],
+              "lib/ssl-11.7.7/ebin/ssl_cipher.beam" => [{mac_hash,7}]},
+        {{test,is_integer},allocate} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{bdi_name_to_term,1},{encode,2}],
+              "lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{check_non_neg_integer,1},{check_pos_integer,1}]},
+        {{test,is_integer},move} =>
+            #{"lib/stdlib-8.1/ebin/proc_lib.beam" => [{chars_limit_opt,1}]},
+        {{test,is_list},allocate} =>
+            #{"lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{'-default/1-fun-1-',1},
+                   {'-default/1-fun-10-',1},
+                   {put_internal_value,2},
+                   {put_user_value,2}]},
+        {{test,is_list},{test,is_map}} =>
+            #{"lib/ssh-6.0.6/ebin/ssh_options.beam" => [{handle_options,3}]},
+        {{test,is_map},allocate} =>
+            #{"lib/common_test-1.31.2/ebin/cth_log_redirect.beam" =>
+                  [{add_log_category,2},{log,2}],
+              "lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{build_bdi_instrs,1},{build_record_chunk,2}],
+              "lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{'-default/1-fun-61-',1},{'-handle_options/3-fun-2-',5}],
+              "lib/ssl-11.7.7/ebin/ssl_cipher.beam" =>
+                  [{calc_mac_hash,4},{filter_suite,2}],
+              "lib/stdlib-8.1/ebin/proc_lib.beam" => [{report_cb,2}]},
+        {{test,is_map},move} =>
+            #{"lib/ssl-11.7.7/ebin/ssl_cipher.beam" =>
+                  [{security_parameters,3},{security_parameters_1_3,2}]},
+        {{test,is_ne_exact},allocate} =>
+            #{"lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{'-default/1-fun-9-',2}]},
+        {{test,is_ne_exact},{test,is_eq_exact}} =>
+            #{"lib/compiler-10.0.6/ebin/beam_ssa_share.beam" =>
+                  [{are_equivalent,5}]},
+        {{test,is_nil},{test,is_nonempty_list}} =>
+            #{"lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{normalize_mod_alg_list,4}]},
+        {{test,is_nonempty_list},allocate} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" => [{encode_list,3}],
+              "lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{'-check_input_ok/1-lc$^0/1-0-',1}]},
+        {{test,is_nonempty_list},get_tuple_element} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{'-build_bdi_instrs/1-lc$^0/1-1-',1}]},
+        {{test,is_pid},{test,is_map}} =>
+            #{"lib/erts-17.1/ebin/socket_registry.beam" => [{user_update,3}]},
+        {{test,is_reference},{test,is_map}} =>
+            #{"lib/erts-17.1/ebin/socket_registry.beam" =>
+                  [{mon_delete,2},{mon_lookup,2},{mon_take,2}]},
+        {{test,is_tagged_tuple},allocate} =>
+            #{"lib/common_test-1.31.2/ebin/cth_log_redirect.beam" =>
+                  [{pre_end_per_group,4}],
+              "lib/compiler-10.0.6/ebin/beam_ssa_share.beam" =>
+                  [{is_forbidden,2},{shortcut_nonempty_block,2}],
+              "lib/ssh-6.0.6/ebin/ssh_options.beam" => [{save,3}]},
+        {{test,is_tagged_tuple},move} =>
+            #{"lib/ssl-11.7.7/ebin/ssl_cipher.beam" => [{filter,3}],
+              "lib/stdlib-8.1/ebin/proc_lib.beam" => [{await_DOWN,2}]},
+        {{test,is_tuple},allocate} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{encode_arg,2},{make_op,2}],
+              "lib/compiler-10.0.6/ebin/beam_ssa_share.beam" =>
+                  [{share_terminator,2}],
+              "lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{'-default/1-fun-4-',1},
+                   {'-default/1-fun-8-',1},
+                   {check_dh_gex_groups,1},
+                   {put_socket_value,2}],
+              "lib/ssl-11.7.7/ebin/ssl_cipher.beam" =>
+                  [{all_suites,1},{is_supported_sign,2}],
+              "lib/stdlib-8.1/ebin/proc_lib.beam" => [{exit_p,3}]},
+        {{test,is_tuple},get_tuple_element} =>
+            #{"lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{'-default/1-fun-0-',1}]},
+        {{test,is_tuple},move} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{build_literal_chunk,2}],
+              "lib/erts-17.1/ebin/socket_registry.beam" => [{loop,1}],
+              "lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{'-handle_options/3-fun-0-',2}],
+              "lib/stdlib-8.1/ebin/proc_lib.beam" => [{sync_start_monitor,2}]},
+        {{test,is_tuple},{test,is_eq_exact}} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" => [{flag_to_bit,1}],
+              "lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{'-default/1-fun-47-',1}],
+              "lib/ssl-11.7.7/ebin/ssl_cipher.beam" =>
+                  [{scheme_to_components,1},{signature_scheme,1}],
+              "lib/stdlib-8.1/ebin/proc_lib.beam" => [{crash_report,4}]},
+        {{test,is_tuple},{test,is_ne_exact}} =>
+            #{"lib/erts-17.1/ebin/socket_registry.beam" =>
+                  [{cancel_monitor,1}]},
+        {{test,is_tuple},{test,is_tagged_tuple}} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{encode_alloc_list_1,3}],
+              "lib/compiler-10.0.6/ebin/beam_ssa_share.beam" =>
+                  [{canonical_is,3}],
+              "lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{'-default/1-fun-3-',1},{'-default/1-fun-58-',1}],
+              "lib/stdlib-8.1/ebin/proc_lib.beam" => [{format_rep,4}]},
+        {move,init_yregs,different_allocation} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{assemble_function,3},
+                   {encode1,2},
+                   {encode_alloc_list,2},
+                   {encode_op_1,3},
+                   {on_load,2},
+                   {set_vsn_attribute,2}],
+              "lib/erts-17.1/ebin/socket_registry.beam" =>
+                  [{do_which_sockets,2}],
+              "lib/parsetools-2.8/ebin/yeccscan.beam" => [{scan,3}],
+              "lib/ssh-6.0.6/ebin/ssh_options.beam" =>
+                  [{check_dir,1},
+                   {check_modify_algorithms,1},
+                   {check_pref_public_key_algs,1},
+                   {normalize_mod_algs,4},
+                   {rm_unsup,4}],
+              "lib/ssl-11.7.7/ebin/ssl_cipher.beam" =>
+                  [{encrypt_data,4},{filter_suites,1}],
+              "lib/stdlib-8.1/ebin/proc_lib.beam" =>
+                  [{get_process_info,2},
+                   {get_process_messages,1},
+                   {make_dummy_args,2},
+                   {sub,3}]},
+        {move,init_yregs,equal_allocation} =>
+            #{"lib/erts-17.1/ebin/socket_registry.beam" => [{request,1}]},
+        {move,init_yregs,other_context} =>
+            #{"lib/compiler-10.0.6/ebin/beam_asm.beam" =>
+                  [{insert_on_load_instruction,2}],
+              "lib/stdlib-8.1/ebin/proc_lib.beam" => [{init_fail,3}]}},
+  same_opcode_sequences => 0,unreadable => []}.

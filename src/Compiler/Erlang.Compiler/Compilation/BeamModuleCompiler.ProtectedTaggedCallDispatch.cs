@@ -90,7 +90,7 @@ internal sealed partial class BeamModuleCompiler
             }
 
             var (reroute, extraInfo) = handlerPlan;
-            var targets = new Dictionary<Atom, (Expr.Call Call, string Module)>();
+            var targets = new Dictionary<Atom, (Expr.Call Call, string Module, bool DirectMapLookup)>();
             foreach (Clause branch in selection.Clauses.SkipLast(1))
             {
                 if (branch is not
@@ -100,12 +100,21 @@ internal sealed partial class BeamModuleCompiler
                         {
                             Items: [Pattern.Literal { Value: Atom tag }, Pattern.Variable payload]
                         }],
-                        Body: Expr.Call { Module: not null and not ErlangModuleNames.Module, DynamicRemote: false } call
+                        Body: Expr.Call { Module: not null, DynamicRemote: false } call
                     }
                     || payload.Name == VariableScopeNames.Wildcard || inputs.Contains(payload.Name) || branchInputs.Contains(payload.Name)
-                    || !ReadsInputs(call.Arguments, [payload.Name, .. branchInputs.Skip(1)])
-                    || !TryResolveOrdinaryCall(call, out string? module) || module is null
-                    || !targets.TryAdd(tag, (call, module)))
+                    || !ReadsInputs(call.Arguments, [payload.Name, .. branchInputs.Skip(1)]))
+                {
+                    return false;
+                }
+
+                bool directMapLookup = prefix is null && function.Arity == 2
+                    && call.Module == ErlangModuleNames.Module && call.Function == ErlangModuleNames.MapGet
+                    && owner.ResolvesErlangBif(call);
+                string? module = call.Module;
+                if ((!directMapLookup && (module == ErlangModuleNames.Module
+                        || !TryResolveOrdinaryCall(call, out module) || module is null))
+                    || !targets.TryAdd(tag, (call, module!, directMapLookup)))
                 {
                     return false;
                 }
@@ -113,7 +122,13 @@ internal sealed partial class BeamModuleCompiler
 
             var branches = targets.OrderBy(entry => entry.Key,
                 Comparer<Atom>.Create((left, right) => TermOrder.Compare(left, right, exact: true)))
-                .Reverse().Select(entry => (Tag: entry.Key, entry.Value.Call, entry.Value.Module, Entry: Label())).ToArray();
+                .Reverse().Select(entry => (
+                    Tag: entry.Key,
+                    entry.Value.Call,
+                    entry.Value.Module,
+                    entry.Value.DirectMapLookup,
+                    Entry: Label()
+                )).ToArray();
             int success = Label();
             int invalid = Label();
             int handler = Label();
@@ -186,6 +201,22 @@ internal sealed partial class BeamModuleCompiler
             {
                 var arm = branches[branch];
                 Mark(arm.Entry);
+                if (arm.DirectMapLookup)
+                {
+                    owner.EmitCallLine(arm.Call, location);
+                    owner.Op(BifTwo, LabelTag, 0);
+                    owner.Operand(BeamWire.UnsignedTag, owner.Import(arm.Module, arm.Call.Function, 2));
+                    owner.Operand(XRegisterTag, payloadRegister);
+                    owner.Operand(YRegisterTag, savedReference - 1);
+                    owner.Operand(XRegisterTag, 0);
+                    if (branch < branches.Length - 1)
+                    {
+                        JumpTo(success);
+                    }
+
+                    continue;
+                }
+
                 if (prefix is null)
                 {
                     owner.MoveRegister(

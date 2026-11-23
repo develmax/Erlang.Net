@@ -84,7 +84,7 @@ internal static class BeamProtectedSendArgumentChecks
             .. Start(
                 1,
                 2,
-                2,
+                1,
                 2
             ),
             Allocate, U(3), U(2), InitYRegisters, ExtendedListOperand, U(1), Y(1),

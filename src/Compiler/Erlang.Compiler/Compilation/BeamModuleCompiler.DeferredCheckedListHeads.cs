@@ -110,20 +110,15 @@ internal sealed partial class BeamModuleCompiler
                 int choose = classify + 1;
                 if (choose >= end || body[classify] is not
                     { Definition.Opcode: LocalCall or ExternalCall, Operands: [{ Value.IsOne: true }, _] }
-                    || body[choose] is not
-                    {
-                        Definition.Opcode: SelectValue,
-                        Operands: [var discriminant, _, _, { Kind: BeamOperandParameters.Atom }, var a,
-                        { Kind: BeamOperandParameters.Atom }, var b]
-                    } || discriminant != x0
-                    || !ownership.TryGetSingleForwardTarget(choose, (int)a.Value, out int aLabel)
-                    || !ownership.TryGetSingleForwardTarget(choose, (int)b.Value, out int bLabel))
+                    || !TryReadClassArms(
+                        choose,
+                        ownership,
+                        out int earlier,
+                        out int later
+                    ))
                 {
                     continue;
                 }
-
-                int earlier = Math.Min(aLabel, bLabel) + 1;
-                int later = Math.Max(aLabel, bLabel) + 1;
                 int join = later + 2;
                 if (join + 9 >= end || earlier + 3 != later
                     || !ReadCategoryMove(earlier, out var firstCategory) || !ReadCategoryMove(later, out var secondCategory)
@@ -215,6 +210,45 @@ internal sealed partial class BeamModuleCompiler
         output.Write(code.Span[copied..]);
 
         return output.ToArray();
+
+        bool TryReadClassArms(
+            int choose,
+            BeamProjectionFlow ownership,
+            out int earlier,
+            out int later
+        )
+        {
+            earlier = 0;
+            later = 0;
+            if (body[choose] is
+                {
+                    Definition.Opcode: SelectValue,
+                    Operands: [var selected, _, _, { Kind: BeamOperandParameters.Atom }, var a,
+                    { Kind: BeamOperandParameters.Atom }, var b]
+                } && selected == x0
+                && ownership.TryGetSingleForwardTarget(choose, (int)a.Value, out int aLabel)
+                && ownership.TryGetSingleForwardTarget(choose, (int)b.Value, out int bLabel))
+            {
+                earlier = Math.Min(aLabel, bLabel) + 1;
+                later = Math.Max(aLabel, bLabel) + 1;
+
+                return true;
+            }
+
+            if (body[choose] is
+                {
+                    Definition.Opcode: ExactEqualTest,
+                    Operands: [{ Kind: BeamOperandParameters.Label } retry, var tested, { Kind: BeamOperandParameters.Atom }]
+                } && tested == x0 && ownership.TryGetSingleForwardTarget(choose, (int)retry.Value, out int alternate))
+            {
+                earlier = choose + 1;
+                later = alternate + 1;
+
+                return true;
+            }
+
+            return false;
+        }
 
         bool ReadsMove(int index, BeamOperand source, BeamOperand destination) =>
             body[index] is { Definition.Opcode: Move, Operands: [var actual, var output] }

@@ -332,7 +332,9 @@ internal sealed partial class BeamModuleCompiler
         IReadOnlyDictionary<(string Name, int Arity), FunctionDefinition> localFunctions
     )
     {
-        if (!GeneralEmitter.MayPlanOrderedAtoms(function) && !GeneralEmitter.MayPlanLiteralJoin(function))
+        bool retainedList = !ModuleOptimizationDisabled && SsaTypeInferenceEnabled
+            && GeneralEmitter.MayRetainCallResultsAsList(function);
+        if (!retainedList && !GeneralEmitter.MayPlanOrderedAtoms(function) && !GeneralEmitter.MayPlanLiteralJoin(function))
         {
             return false;
         }
@@ -348,7 +350,8 @@ internal sealed partial class BeamModuleCompiler
             0
         );
 
-        return emitter.TryEmitPlannedOrderedAtoms(function) || emitter.TryEmitPlannedLiteralJoin(function);
+        return retainedList && emitter.TryEmitCallResultsRetainedAsList(function.Clauses[0])
+            || emitter.TryEmitPlannedOrderedAtoms(function) || emitter.TryEmitPlannedLiteralJoin(function);
     }
 
     private bool NeedsGeneralBody(
@@ -465,6 +468,12 @@ internal sealed partial class BeamModuleCompiler
         internal void Function(FunctionDefinition function)
         {
             parentFunction ??= function;
+            if (recursiveClosure is null && MayRetainCallResultsAsList(function)
+                && TryEmitCallResultsRetainedAsList(function.Clauses[0]))
+            {
+                return;
+            }
+
             if (recursiveClosure is null && (TryEmitMixedPairEntry(function, owner.nextLabel - 2)
                 || TryEmitClosedIntegerPatternMatrix(function, owner.nextLabel - 2)))
             {
@@ -1477,6 +1486,11 @@ internal sealed partial class BeamModuleCompiler
                 return;
             }
 
+            if (recursiveClosure is null && clauses is [var tokenEntry] && TryEmitTaggedTokenResultEntry(tokenEntry))
+            {
+                return;
+            }
+
             if (recursiveClosure?.SelfName is null && recursiveClosure?.GuardFailure is null
                 && clauses.Count == 1
                 && (TryEmitDeferredConsHead(clauses[0])
@@ -1593,6 +1607,7 @@ internal sealed partial class BeamModuleCompiler
                     || TryEmitSingletonConsDispatch(function, functionInfo)
                     || TryEmitArithmeticListEntry(function, functionInfo)
                     || TryEmitLiteralTupleClosures(function, functionInfo)
+                    || TryEmitNilTailAndFramedCons(clauses, functionInfo)
                     || TryEmitSeparateEntryFrames(function, functionInfo)))
             {
                 return;
@@ -1615,12 +1630,6 @@ internal sealed partial class BeamModuleCompiler
 
             if (recursiveClosure is null && clauses.Count == 1
                 && TryEmitEmptyListClosureCallChain(function, clauses[0], functionInfo))
-            {
-                return;
-            }
-
-            if (recursiveClosure is null && clauses.Count == function.Clauses.Count
-                && TryEmitNilTailAndFramedCons(clauses, functionInfo))
             {
                 return;
             }
@@ -11058,10 +11067,10 @@ internal sealed partial class BeamModuleCompiler
                         } convert,
                         After: null,
                         Clauses: [
-                            {
-                                Guard: null, Patterns: [Pattern.Variable result],
-                                Body: Expr.Tuple { Items: [Expr.Literal { Value: Atom tag }, Expr.Variable value] }
-                            }],
+                        {
+                            Guard: null, Patterns: [Pattern.Variable result],
+                            Body: Expr.Tuple { Items: [Expr.Literal { Value: Atom tag }, Expr.Variable value] }
+                        }],
                         Catches: [var handler]
                     }
                 }
@@ -12377,10 +12386,9 @@ internal sealed partial class BeamModuleCompiler
             var joined = ReserveBranchExports(exports);
             int? taggedPayload = coveredTaggedPair ? Slot() : null;
             bool ownsTaggedGuard = taggedPayload.HasValue && sourceDecision?.Value is Expr.Call
-            {
-                Module: not (null or ErlangModuleNames.Module),
-                DynamicRemote: false
-            };
+            { Module: not null, DynamicRemote: false } selectorCall
+                && (selectorCall.Module != ErlangModuleNames.Module
+                    || selectorCall.Function == ErlangModuleNames.MapGet && owner.ResolvesErlangBif(selectorCall));
             var sharedMap = input is int mapSource && selectorBinding is not null
                 && sourceDecision is not null && guardFailure is null
                 && tupleInput is null && positionedInput is null && destinations is null
@@ -12464,7 +12472,9 @@ internal sealed partial class BeamModuleCompiler
                     variables = new(original, StringComparer.Ordinal);
                     checkedRecordBindings = new(originalRecordBindings, StringComparer.Ordinal);
                     nextSlot = caseBase;
-                    Expr arm = stringArms[index].Clause.Body;
+                    Clause branch = stringArms[index].Clause;
+                    Guard(branch.Guard, fallback);
+                    Expr arm = branch.Body;
                     bool emittedTail = closedStringPair.HasValue && returningResult
                         && TryEmitTaggedTokenResultTail(arm, closedStringPair);
                     if (!emittedTail && !EmitBranchResult(arm))

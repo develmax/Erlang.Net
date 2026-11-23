@@ -46,7 +46,10 @@ internal static class BeamTaggedTokenResultTailChecks
         object code = Code(image);
         object[] instructions = Items(code, "Instructions");
         string[] atoms = Items(Property(code, "Structure"), "Atoms").Cast<string>().ToArray();
-        if (!UsesOutgoingTuple(ReadBody("route")) || UsesOutgoingTuple(ReadBody("prefix")))
+        object[] route = ReadBody("route");
+        object[] prefix = ReadBody("prefix");
+        if (!UsesOutgoingTuple(route) || !route.Any(instruction => Opcode(instruction) == IsNil)
+            || prefix.Any(instruction => Opcode(instruction) == IsNil))
         {
             throw new InvalidOperationException(BadLayout);
         }
@@ -122,7 +125,10 @@ internal static class BeamTaggedTokenResultTailChecks
     }
 
     private static bool UsesOutgoingTuple(object[] body) =>
-        body.Any(instruction => Opcode(instruction) == IsTaggedTuple)
+        body.Any(instruction => Opcode(instruction) is IsTaggedTuple or IsTuple)
+        && body.Any(instruction => Opcode(instruction) == GetTupleElement
+            && Items(instruction, "Operands") is [_, var field, var input]
+            && Value(field) == 1 && Value(input) == 0 && Equals(Property(input, "Kind"), "x"))
         && body.Count(instruction => Opcode(instruction) == GetList) == 2
         && body.Any(instruction => Opcode(instruction) == PutTuple
             && Items(instruction, "Operands")[0] is var destination

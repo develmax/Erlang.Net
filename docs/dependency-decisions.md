@@ -1280,3 +1280,7 @@ Reuse the existing C# closed map join proof, compact instruction decoder and reg
 ## Require deferred call arguments to survive slot clears — 2026-11-23
 
 Reuse existing C# frame lifetime, kill, trim and argument scheduling. Pinned Apache-2.0 OTP beam_trim tracks kills and remaps surviving values. Physical survival of a slot alone is insufficient when its value was cleared. [Part 2016](validation/part-2016-pr143-computed-key-trim/README.md).
+
+## Part 2017 — Compiler frame and source call repairs
+
+Reuse the existing C# frame, argument, and static source binding machinery. Consult pinned Apache-2.0 OTP 29.1.1 `sys_core_fold`, `beam_core_to_ssa`, `beam_ssa_type`, `beam_ssa_pre_codegen`, and `beam_ssa_codegen` for the reference decisions. Use the existing ERTS and managed host tools. No dependency, new external code, or license change. [Validation](validation/part-2017-pr143-platform-compiler/README.md).

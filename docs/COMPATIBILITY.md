@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 2017 validates the focused compiler contracts and native behavior. The uncached 11-image sample retains 2 Equal, 9 Different, 0 Unsupported, and 0 SourceRejected. All nine differing images prepare in ERTS. [Validation](validation/part-2017-pr143-platform-compiler/README.md).
+
 Part 2016 verifies computed map lookup behavior and effects across four original ERTS calls. The synthetic fixture remains Different in whole-image comparison. The four release representatives retain their previous statuses. [Validation](validation/part-2016-pr143-computed-key-trim/README.md).
 
 Part 2015 verifies one byte-equal synthetic map join fixture and seven paired OTP executions. Three release representatives retain their measured statuses. The baseline computed lookup behavior gap remains open. [Validation](validation/part-2015-pr143-map-join-registers/README.md).

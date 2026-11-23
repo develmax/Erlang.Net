@@ -1,0 +1,87 @@
+{
+  "OtpVersion": "29.1.1",
+  "Total": 11,
+  "Counts": {
+    "Different": 9,
+    "Equal": 2
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\asn1-5.5.2\\ebin\\asn1ct_rtt.beam",
+      "Status": "Equal",
+      "Source": "lib\\asn1-5.5.2\\src\\asn1ct_rtt.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\common_test-1.31.2\\ebin\\cth_log_redirect.beam",
+      "Status": "Different",
+      "Source": "lib\\common_test-1.31.2\\src\\cth_log_redirect.erl",
+      "Detail": "Original length 13528, generated length 14040. AtU8 1050-\u003E1050, Code 2863-\u003E3384, ImpT 280-\u003E280, ExpT 268-\u003E268, LitT 666-\u003E657, LocT 76-\u003E76, Attr 99-\u003E99, Line 184-\u003E184, Type 16-\u003E14",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\compiler-10.0.6\\ebin\\beam_asm.beam",
+      "Status": "Different",
+      "Source": "lib\\compiler-10.0.6\\src\\beam_asm.erl",
+      "Detail": "Original length 42296, generated length 43100. AtU8 2693-\u003E2432, Code 11856-\u003E13410, ImpT 880-\u003E892, ExpT 52-\u003E52, FunT 172-\u003E148, LitT 571-\u003E529, LocT 736-\u003E688, Attr 39-\u003E39, Line 540-\u003E572, Type 494-\u003E74",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\compiler-10.0.6\\ebin\\beam_ssa_share.beam",
+      "Status": "Different",
+      "Source": "lib\\compiler-10.0.6\\src\\beam_ssa_share.erl",
+      "Detail": "Original length 17464, generated length 18524. AtU8 810-\u003E844, Code 4435-\u003E5498, ImpT 220-\u003E232, ExpT 52-\u003E52, LitT 191-\u003E142, LocT 256-\u003E256, Attr 39-\u003E39, Line 186-\u003E198, Type 32-\u003E18",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\erts-17.1\\ebin\\socket_registry.beam",
+      "Status": "Different",
+      "Source": "lib\\erts-17.1\\src\\socket_registry.erl",
+      "Detail": "Original length 20468, generated length 21380. AtU8 1211-\u003E1232, Code 5071-\u003E5890, ImpT 316-\u003E352, ExpT 148-\u003E148, FunT 28-\u003E28, LitT 498-\u003E533, LocT 532-\u003E520, Attr 39-\u003E39, Line 310-\u003E330, Type 22-\u003E16",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\parsetools-2.8\\ebin\\yeccscan.beam",
+      "Status": "Different",
+      "Source": "lib\\parsetools-2.8\\src\\yeccscan.erl",
+      "Detail": "Original length 3748, generated length 3752. Code 705-\u003E711, Attr 39-\u003E39",
+      "FirstDifferentByte": 7
+    },
+    {
+      "Beam": "lib\\runtime_tools-2.5\\ebin\\instrument.beam",
+      "Status": "Different",
+      "Source": "lib\\runtime_tools-2.5\\src\\instrument.erl",
+      "Detail": "Original length 11804, generated length 11936. AtU8 733-\u003E678, Code 1849-\u003E2092, ImpT 280-\u003E304, ExpT 76-\u003E76, FunT 52-\u003E52, LocT 172-\u003E148, Attr 39-\u003E39, Line 118-\u003E124, Type 70-\u003E14",
+      "FirstDifferentByte": 7
+    },
+    {
+      "Beam": "lib\\ssh-6.0.6\\ebin\\ssh_options.beam",
+      "Status": "Different",
+      "Source": "lib\\ssh-6.0.6\\src\\ssh_options.erl",
+      "Detail": "Original length 75676, generated length 79444. AtU8 5112-\u003E5069, Code 15011-\u003E18845, ImpT 808-\u003E928, ExpT 172-\u003E172, FunT 2068-\u003E2068, LitT 1458-\u003E1361, LocT 1684-\u003E1624, Attr 39-\u003E39, Line 678-\u003E696, Type 42-\u003E36",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\ssl-11.7.7\\ebin\\ssl_cipher.beam",
+      "Status": "Different",
+      "Source": "lib\\ssl-11.7.7\\src\\ssl_cipher.erl",
+      "Detail": "Original length 70476, generated length 75996. AtU8 4773-\u003E3998, Code 15376-\u003E21417, StrT 4-\u003E10, ImpT 604-\u003E616, ExpT 484-\u003E484, FunT 964-\u003E1540, LitT 2191-\u003E2144, LocT 916-\u003E1084, Attr 39-\u003E39, Line 620-\u003E592, Type 511-\u003E74",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\stdlib-8.1\\ebin\\proc_lib.beam",
+      "Status": "Different",
+      "Source": "lib\\stdlib-8.1\\src\\proc_lib.erl",
+      "Detail": "Original length 53080, generated length 54620. AtU8 2123-\u003E2155, Code 12341-\u003E14002, ImpT 784-\u003E784, ExpT 496-\u003E496, FunT 76-\u003E100, LitT 1204-\u003E1165, LocT 736-\u003E736, Attr 39-\u003E39, Line 744-\u003E766, Type 204-\u003E40",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\wx-2.7\\ebin\\wxStyledTextCtrl.beam",
+      "Status": "Equal",
+      "Source": "lib\\wx-2.7\\src\\gen\\wxStyledTextCtrl.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    }
+  ]
+}

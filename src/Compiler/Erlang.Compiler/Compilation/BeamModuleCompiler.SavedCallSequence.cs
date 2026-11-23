@@ -17,6 +17,120 @@ internal sealed partial class BeamModuleCompiler
             bool ReloadRelocatedArgument = false
         );
 
+        internal static bool MayRetainCallResultsAsList(FunctionDefinition function) =>
+            function.Clauses is
+            [
+                {
+                    Guard: null,
+                    Body: Expr.Sequence
+                    {
+                        Items: [Expr.Match { Value: Expr.Call }, Expr.Match { Value: Expr.Call }, ..,
+                        Expr.Call, Expr.Call { Arguments.Count: 1 }]
+                    }
+                }
+            ];
+
+        internal bool TryEmitCallResultsRetainedAsList(Clause clause)
+        {
+            if (!owner.SsaTypeInferenceEnabled || owner.ModuleOptimizationDisabled
+                || clause.Guard is not null || !HasUnconditionalParameters(clause)
+                || clause.Body is not Expr.Sequence sequence || sequence.Items.ToArray() is not
+                    [.. var prefix, Expr.Call effect, Expr.Call { Arguments: [var outgoing] } tail]
+                || ReadEntryCall(effect, []) is not { ConstructedArgument: null } effectCall
+                || !TryResolveOrdinaryCallTarget(tail, out string? tailModule))
+            {
+                return false;
+            }
+
+            if (outgoing is Expr.Variable result
+                && prefix is [.., Expr.Match { Pattern: Pattern.Variable assigned, Value: Expr.List list }]
+                && result.Name == assigned.Name)
+            {
+                outgoing = list;
+                prefix = prefix.SkipLast(1).ToArray();
+            }
+
+            if (outgoing is not Expr.List { Tail: null, Items: var elements }
+                || prefix.Length < 2 || prefix.Length != elements.Count)
+            {
+                return false;
+            }
+
+            string[] parameters = clause.Patterns.Cast<Pattern.Variable>().Select(pattern => pattern.Name).ToArray();
+            var names = parameters.ToHashSet(StringComparer.Ordinal);
+            var producers = new EntryCall[prefix.Length];
+            for (int index = 0; index < prefix.Length; index++)
+            {
+                if (prefix[index] is not Expr.Match
+                    { Pattern: Pattern.Variable { Name: not VariableScopeNames.Wildcard } binding, Value: Expr.Call call }
+                    || elements[index] is not Expr.Variable member || member.Name != binding.Name || !names.Add(binding.Name)
+                    || ReadEntryCall(call, index == 0 ? parameters : []) is not { ConstructedArgument: null } producer)
+                {
+                    return false;
+                }
+
+                producers[index] = producer;
+            }
+
+            int width = producers.Length - 1;
+            EmitFrameAllocation(clause.Patterns.Count, width);
+            EmitFrameInitialization(0, width);
+            BeamSourceLocation previous = location;
+            for (int index = 0; index < producers.Length; index++)
+            {
+                EntryCall producer = producers[index];
+                EmitEntryCall(producer, previous);
+                previous = CallLocation(producer.Call, previous);
+                if (index < width)
+                {
+                    owner.MoveRegister(
+                        XRegisterTag,
+                        0,
+                        YRegisterTag,
+                        width - index - 1
+                    );
+                }
+            }
+
+            owner.Op(TestHeap, BeamWire.UnsignedTag, producers.Length * ConsHeapWords);
+            owner.Operand(BeamWire.UnsignedTag, 1);
+            owner.Op(PutList, XRegisterTag, 0);
+            owner.LiteralOperand(Nil.Value);
+            owner.Operand(XRegisterTag, 0);
+            for (int index = 0; index < width; index++)
+            {
+                owner.Op(PutList, YRegisterTag, index);
+                owner.Operand(XRegisterTag, 0);
+                bool last = index == width - 1;
+                owner.Operand(last ? YRegisterTag : XRegisterTag, last ? index : 0);
+            }
+
+            // All list elements are now reachable from the retained spine.
+            if (width > 1)
+            {
+                owner.Op(TrimFrame, BeamWire.UnsignedTag, width - 1);
+                owner.Operand(BeamWire.UnsignedTag, 1);
+            }
+
+            EmitEntryCall(effectCall, previous);
+            Load(0);
+            if (tailModule is null)
+            {
+                owner.Op(TailLocalCallWithFrame, BeamWire.UnsignedTag, 1);
+                owner.Operand(LabelTag, entries[(tail.Function, 1)]);
+            }
+            else
+            {
+                owner.EmitCallLine(tail, CallLocation(effect, previous));
+                owner.Op(TailExternalCallWithFrame, BeamWire.UnsignedTag, 1);
+                owner.Operand(BeamWire.UnsignedTag, owner.Import(tailModule, tail.Function, 1));
+            }
+
+            owner.Operand(BeamWire.UnsignedTag, 1);
+
+            return true;
+        }
+
         private bool TryEmitSavedCallSequence(Expr body, string[] parameters)
         {
             var plan = ReadSavedCallSequence(body, parameters);

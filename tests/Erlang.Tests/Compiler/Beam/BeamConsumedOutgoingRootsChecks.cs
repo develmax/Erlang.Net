@@ -74,15 +74,16 @@ internal static class BeamConsumedOutgoingRootsChecks
     private static void CheckCompactedArgumentRoots()
     {
         var compiler = new BeamModuleCompiler("compacted_argument_roots_fixture");
+        int branchTag = (int)Call(compiler, "Intern", "alternate");
         byte[] frame =
         [
             .. Start(
                 1,
                 2,
-                2,
+                1,
                 4
             ), Allocate, U(4), U(4), Move, X(3), Y(0), Move, X(2), Y(1), Move, X(1), Y(2), Move, X(0), Y(3),
-            ExternalCall, U(1), U(0), ExactEqualTest, F(3), X(0), A(7)
+            ExternalCall, U(1), U(0), ExactEqualTest, F(3), X(0), A(branchTag)
         ];
         byte[] collecting = [GcBifOne, F(0), U(0), U(0), Y(0), Y(0)];
         byte[] next = [Move, Y(0), X(0), ExternalCall, U(1), U(0), Move, X(0), X(1)];

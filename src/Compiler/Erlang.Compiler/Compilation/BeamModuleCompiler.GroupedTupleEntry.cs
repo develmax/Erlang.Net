@@ -105,6 +105,14 @@ internal sealed partial class BeamModuleCompiler
                 var clauses = group.ToArray();
                 peakSlot = argumentBase;
                 frameSize = plannedTupleFrames?.GetValueOrDefault(group.Key, functionFrame) ?? functionFrame;
+                if (argumentBase == 0 && clauses is [var checkedArm]
+                    && TryEmitCheckedTaggedEntryEffect(checkedArm, input, noMatch))
+                {
+                    frames.Add(group.Key, peakSlot);
+                    functionPeak = Math.Max(functionPeak, peakSlot);
+                    continue;
+                }
+
                 if (argumentBase == 0 && TryEmitTerminalTupleBuckets(
                     clauses,
                     input,

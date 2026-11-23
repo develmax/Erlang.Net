@@ -86,7 +86,7 @@ internal sealed partial class BeamModuleCompiler
             for (int index = 0; index < arms.Length; index++)
             {
                 Clause clause = clauses[index];
-                if (clause is not { Guard: null, Patterns: [Pattern.Literal { Value: Cons key }] }
+                if (clause is not { Patterns: [Pattern.Literal { Value: Cons key }] }
                     || ReadStringKey(key) is not { } split
                     || split.Head.Value < 0 || split.Head.Value > int.MaxValue || !keys.Add(split.Head))
                 {

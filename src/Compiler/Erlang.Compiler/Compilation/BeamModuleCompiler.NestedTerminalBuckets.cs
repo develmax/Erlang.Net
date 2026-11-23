@@ -91,7 +91,7 @@ internal sealed partial class BeamModuleCompiler
             // Preserve the complete selector when a partial flat plan would
             // split distinct tags that share their checked field reads.
             if (admitted.Count != clauses.Length && buckets.All(bucket => bucket.Flat is not null)
-                && CanUseCompleteSharedFlatTaggedGroup(clauses, input))
+                && CanUseCompleteFlatTaggedGroup(clauses, input))
             {
                 return false;
             }

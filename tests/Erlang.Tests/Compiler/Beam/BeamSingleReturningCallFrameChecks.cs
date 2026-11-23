@@ -148,7 +148,7 @@ internal static class BeamSingleReturningCallFrameChecks
             .. Start(
                 1,
                 2,
-                2,
+                1,
                 1
             ),
             Allocate, U(1), U(1), Move, X(0), Y(0), Move, Y(0), X(0), ExternalCall, U(1), U(0),
@@ -186,7 +186,7 @@ internal static class BeamSingleReturningCallFrameChecks
         byte[] withColdEdge =
         [
             .. ConstructorFrame([IsAtom, F(3), X(0), .. tuple]).SkipLast(1),
-            Label, U(3), Deallocate, U(1), Return, EndCode
+            Label, U(3), Move, Y(0), X(0), Deallocate, U(1), Return, EndCode
         ];
         if (RewriteConstructorFrame(withColdEdge) is not null)
         {

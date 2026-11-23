@@ -6,24 +6,6 @@ internal sealed partial class BeamModuleCompiler
 {
     private readonly Dictionary<int, (int Import, int? Handler)> preparedMapDefaultCalls = [];
 
-    private HashSet<Expr.Call>? originalTerminalMapDefaults;
-
-    private bool IsOriginalTerminalMapDefault(Expr.Call call)
-    {
-        if (call.DynamicRemote || sourceModule is null)
-        {
-            return false;
-        }
-
-        originalTerminalMapDefaults ??= sourceModule.DeclaredFunctions
-            .SelectMany(function => LocalFunctionEntries.ClauseExpressions(function.Clauses))
-            .SelectMany(LocalFunctionEntries.Walk).OfType<Expr.Call>()
-            .Where(source => !source.DynamicRemote && source.Function == MapModuleNames.Get && source.Arguments.Count == 3)
-            .ToHashSet<Expr.Call>(ReferenceEqualityComparer.Instance);
-
-        return originalTerminalMapDefaults.Contains(call);
-    }
-
     private void MarkPreparedMapDefault(int? handler)
     {
         int label = nextLabel++;
@@ -33,7 +15,6 @@ internal sealed partial class BeamModuleCompiler
 
     private sealed partial class GeneralEmitter
     {
-        private HashSet<Expr.Call>? originalMapDefaultCalls;
         private int? preparedMapDefaultHandler;
 
         private void MarkPlannedMapDefault(Expr.Call source, string? module)
@@ -46,22 +27,13 @@ internal sealed partial class BeamModuleCompiler
 
         private void MarkValueMapDefault(Expr.Call source, Expr.Call resolved)
         {
-            if (!owner.CoreMapCallsEnabled || parentFunction is null || resolved is not
+            if (!owner.CoreMapCallsEnabled || !source.IsCoreMapDefault || resolved is not
                 { Module: MapModuleNames.Module, Function: MapModuleNames.Get, DynamicRemote: false, Arguments.Count: 3 })
             {
                 return;
             }
 
-            // Specializing dynamic remote syntax can later synthesize a static
-            // import. Only the originally static source call can be folded.
-            originalMapDefaultCalls ??= LocalFunctionEntries.ClauseExpressions(parentFunction.Clauses)
-                .SelectMany(LocalFunctionEntries.Walk).OfType<Expr.Call>()
-                .Where(call => !call.DynamicRemote && call.Function == MapModuleNames.Get && call.Arguments.Count == 3)
-                .ToHashSet<Expr.Call>(ReferenceEqualityComparer.Instance);
-            if (originalMapDefaultCalls.Contains(source))
-            {
-                owner.MarkPreparedMapDefault(preparedMapDefaultHandler);
-            }
+            owner.MarkPreparedMapDefault(preparedMapDefaultHandler);
         }
     }
 

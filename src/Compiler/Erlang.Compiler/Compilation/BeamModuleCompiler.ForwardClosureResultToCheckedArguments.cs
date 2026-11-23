@@ -32,7 +32,7 @@ internal sealed partial class BeamModuleCompiler
                 continue;
             }
 
-            for (int save = entry + 3; save + 11 < end; save++)
+            for (int save = entry + 3; save + 10 < end; save++)
             {
                 if (body[save] is not
                     {
